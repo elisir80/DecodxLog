@@ -1,0 +1,20 @@
+# Prodotti della compilazione: si rifanno da sorgente.
+build/
+build-*/
+dist/
+*.exe
+*.dll
+*.o
+*.obj
+*.a
+
+# Log di prova creati avviando con --db.
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+
+# Strumenti di sviluppo.
+.vscode/
+.idea/
+CMakeUserPresets.json
+compile_commands.json
