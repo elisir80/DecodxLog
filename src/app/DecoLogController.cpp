@@ -552,6 +552,20 @@ QStringList DecoLogController::bands() const
     return bands::all();
 }
 
+QString DecoLogController::uiLanguage() const
+{
+    return QSettings().value(QStringLiteral("ui/language"), QStringLiteral("auto")).toString();
+}
+
+void DecoLogController::setUiLanguage(const QString& language)
+{
+    if (language == uiLanguage())
+        return;
+    QSettings().setValue(QStringLiteral("ui/language"), language);
+    addActivity(QStringLiteral("LOG"), tr("Interface language: %1 — it changes at the next start").arg(language));
+    emit uiLanguageChanged();
+}
+
 QString DecoLogController::bandForFrequency(const QString& mhz) const
 {
     bool ok = false;

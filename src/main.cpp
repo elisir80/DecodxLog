@@ -9,11 +9,14 @@
 #include <QFileInfo>
 #include <QGuiApplication>
 #include <QIcon>
+#include <QLibraryInfo>
+#include <QLocale>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickStyle>
 #include <QQuickWindow>
 #include <QTimer>
+#include <QTranslator>
 #include <QSettings>
 #include <QStandardPaths>
 #include <QUrl>
@@ -25,6 +28,21 @@ int main(int argc, char* argv[])
     app.setOrganizationName(QStringLiteral("Decodium"));
     app.setApplicationVersion(QStringLiteral(DECOLOG_VERSION));
     app.setWindowIcon(QIcon(QStringLiteral(":/decolog/decolog.png")));
+
+    // Lingua dell'interfaccia: quella scelta, o quella del sistema. L'inglese e'
+    // la lingua dei sorgenti, quindi non ha un file da caricare.
+    const QString configured = QSettings().value(QStringLiteral("ui/language"), QStringLiteral("auto")).toString();
+    const QString language = configured == QLatin1String("auto") ? QLocale::system().name().left(2) : configured;
+    QTranslator appTranslator;
+    QTranslator qtTranslator;
+    if (language != QLatin1String("en")) {
+        if (appTranslator.load(QStringLiteral(":/i18n/decolog_") + language))
+            app.installTranslator(&appTranslator);
+        // Le finestre di dialogo di Qt (se presenti accanto all'eseguibile).
+        if (qtTranslator.load(QStringLiteral("qtbase_") + language,
+                              QLibraryInfo::path(QLibraryInfo::TranslationsPath)))
+            app.installTranslator(&qtTranslator);
+    }
     // Come Decodium: impostazioni in un .ini leggibile, non nel registro.
     QSettings::setDefaultFormat(QSettings::IniFormat);
 

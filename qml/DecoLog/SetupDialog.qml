@@ -16,7 +16,9 @@ DialogFrame {
 
     title: qsTr("Setup")
     dotColor: Theme.secondaryColor
-    width: 820
+    // Larga quanto serve alla pagina piu' fitta: in italiano le etichette sono
+    // piu' lunghe, e una pagina stretta finiva sopra la colonna di sinistra.
+    width: Math.min(960, parent ? parent.width - 40 : 960)
 
     readonly property var pages: [qsTr("General"), qsTr("Theme & density"), qsTr("Decodium link"),
                                   qsTr("Sync & Cloud"), qsTr("QSL services"), qsTr("Callbook"), qsTr("Backup")]
@@ -77,6 +79,7 @@ DialogFrame {
             // ── Navigazione ─────────────────────────────────────────────────
             ColumnLayout {
                 Layout.preferredWidth: 190
+                Layout.minimumWidth: 190
                 Layout.fillHeight: true
                 Layout.margins: 8
                 spacing: 2
@@ -116,6 +119,8 @@ DialogFrame {
                 Layout.fillHeight: true
                 Layout.margins: 14
                 Layout.minimumHeight: 470
+                Layout.minimumWidth: 0
+                clip: true
                 currentIndex: root.page
 
                 // ── General ─────────────────────────────────────────────────
@@ -155,6 +160,22 @@ DialogFrame {
                         id: ctyNote
                         text: qsTr("Source: %1. Updated files: country-files.com (AD1C). New QSOs from Decodium and manual entries get DXCC, country, zones and continent automatically; imported ADIF is kept as it is.").arg(decolog.countriesSource)
                     }
+                    SectionTitle { text: qsTr("Language") }
+                    RowLayout {
+                        spacing: 12
+                        LabeledField {
+                            label: qsTr("Interface")
+                            StyledComboBox {
+                                Layout.preferredWidth: 220
+                                readonly property var codes: ["auto", "it", "en"]
+                                model: [qsTr("Like the system"), "Italiano", "English"]
+                                currentIndex: Math.max(0, codes.indexOf(decolog.uiLanguage))
+                                onActivated: decolog.uiLanguage = codes[currentIndex]
+                            }
+                        }
+                    }
+                    Note { text: qsTr("The new language shows up the next time DecoLog starts.") }
+
                     SectionTitle { text: qsTr("Call info") }
                     ToggleSwitch {
                         text: qsTr("Follow the DX call Decodium is working")
@@ -290,6 +311,9 @@ DialogFrame {
                         }
                         LabeledField {
                             Layout.fillWidth: true
+                            // Il nome del messaggio non si abbrevia bene: e' quello che
+                            // l'operatore cerca nelle impostazioni di Decodium.
+                            Layout.horizontalStretchFactor: 3
                             label: qsTr("Primary source")
                             StyledComboBox {
                                 Layout.fillWidth: true
@@ -300,6 +324,7 @@ DialogFrame {
                         }
                         LabeledField {
                             Layout.fillWidth: true
+                            Layout.horizontalStretchFactor: 2
                             label: qsTr("Multicast group")
                             StyledTextField { id: groupField; Layout.fillWidth: true; placeholderText: qsTr("empty = unicast") }
                         }

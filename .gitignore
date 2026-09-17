@@ -3,6 +3,7 @@ build/
 build-*/
 dist/
 DecoLog-*-win64.zip
+DecoLog-*-win64/
 *.exe
 *.dll
 *.o

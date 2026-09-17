@@ -17,7 +17,7 @@ endif()
 option(DECOLOG_BUILD_TESTS "Build the unit tests" ON)
 option(DECOLOG_BUILD_TOOLS "Build the command-line tools (UDP simulator)" ON)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Network Sql Gui Qml Quick QuickControls2)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Network Sql Gui Qml Quick QuickControls2 LinguistTools)
 qt_standard_project_setup(REQUIRES 6.5)
 if(QT_KNOWN_POLICY_QTP0004)
     qt_policy(SET QTP0004 NEW)
@@ -152,6 +152,12 @@ qt_add_qml_module(decolog
     VERSION 1.0
     QML_FILES ${DECOLOG_QML_FILES}
 )
+
+# Traduzioni: lrelease le compila e le mette fra le risorse (:/i18n). lupdate si
+# lancia a mano quando cambiano le stringhe:
+#   lupdate -locations none -no-obsolete -recursive src qml libs/decodium-ui \
+#           -ts translations/decolog_it.ts
+qt_add_translations(decolog TS_FILES translations/decolog_it.ts)
 
 # L'icona della finestra (la barra delle applicazioni su Windows usa quella del
 # .rc, ma la finestra e i dialoghi prendono questa).

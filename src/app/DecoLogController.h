@@ -75,6 +75,8 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QVariantMap myPosition READ myPosition NOTIFY stationChanged)
 
     Q_PROPERTY(QStringList bands READ bands CONSTANT)
+    // "auto", "it", "en": si applica al riavvio.
+    Q_PROPERTY(QString uiLanguage READ uiLanguage WRITE setUiLanguage NOTIFY uiLanguageChanged)
 
     // ── Entita' DXCC (cty.csv di AD1C) ─────────────────────────────────────
     Q_PROPERTY(QString countriesVersion READ countriesVersion NOTIFY countriesChanged)
@@ -188,6 +190,8 @@ public:
     QVariantMap myPosition() const;
 
     QStringList bands() const;
+    QString uiLanguage() const;
+    void setUiLanguage(const QString& language);
 
     QString countriesVersion() const { return m_countries.version(); }
     int countriesEntities() const { return m_countries.entityCount(); }
@@ -312,6 +316,7 @@ signals:
     void callbookChanged();
     void awardsChanged();
     void decoLinkChanged();
+    void uiLanguageChanged();
     void lotwChanged();
 
 private:
