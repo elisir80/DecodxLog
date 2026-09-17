@@ -82,6 +82,18 @@ GlassPanel {
                         pillHeight: 20
                         fontPixelSize: 10
                     }
+                    // L'entita' conta piu' del nominativo: e' quella che fa l'award.
+                    Pill {
+                        readonly property bool hasEntity: root.info.entityDxcc !== undefined
+                        readonly property bool newDxcc: hasEntity && root.info.entityWorked === 0
+                        readonly property bool newOnBand: hasEntity && !newDxcc && decolog.dialBand.length > 0
+                                                          && (root.info.entityBands || []).indexOf(decolog.dialBand) < 0
+                        visible: newDxcc || newOnBand
+                        text: newDxcc ? qsTr("NEW DXCC") : qsTr("NEW DXCC on %1").arg(decolog.dialBand)
+                        tone: Theme.warningColor
+                        pillHeight: 20
+                        fontPixelSize: 10
+                    }
                 }
                 Text {
                     Layout.fillWidth: true
@@ -99,6 +111,7 @@ GlassPanel {
                         const parts = []
                         if (root.info.gridsquare) parts.push(root.info.gridsquare)
                         if (root.info.country) parts.push(root.info.country)
+                        if (root.info.entityDxcc) parts.push("DXCC " + root.info.entityDxcc)
                         if (root.info.cqz) parts.push("CQ " + root.info.cqz)
                         if (root.info.ituz) parts.push("ITU " + root.info.ituz)
                         return parts.join(" · ")
@@ -116,8 +129,10 @@ GlassPanel {
                 StatTile {
                     Layout.fillWidth: true
                     label: qsTr("Distance")
+                    // Senza locatore la distanza e' dal centro dell'entita': si dice.
                     value: root.info.distanceKm !== undefined
-                           ? root.info.distanceKm.toLocaleString(Qt.locale("en_US"), "f", 0) + " km" : "—"
+                           ? (root.info.positionApprox ? "≈ " : "")
+                             + root.info.distanceKm.toLocaleString(Qt.locale("en_US"), "f", 0) + " km" : "—"
                 }
                 StatTile {
                     Layout.fillWidth: true
@@ -149,8 +164,10 @@ GlassPanel {
                     }
                     Item { Layout.fillWidth: true }
                     Text {
-                        visible: root.worked && !root.info.workedFt2
-                        text: qsTr("new on FT2")
+                        readonly property bool entityNewOnFt2: (root.info.entityWorked || 0) > 0
+                                                               && (root.info.entityModes || []).indexOf("FT2") < 0
+                        visible: entityNewOnFt2 || (root.worked && !root.info.workedFt2)
+                        text: entityNewOnFt2 ? qsTr("new DXCC on FT2") : qsTr("new on FT2")
                         color: Theme.warningColor
                         font.family: Theme.monoFamily
                         font.pixelSize: 11

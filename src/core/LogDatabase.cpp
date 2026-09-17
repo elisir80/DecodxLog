@@ -610,11 +610,10 @@ InsertResult LogDatabase::updateQso(qint64 id, const AdifRecord& input, qint64 s
     if (!p)
         return result;
 
+    // Dentro una transazione gia' aperta (un import, una correzione in blocco)
+    // si lavora in quella; altrimenti se ne apre una propria.
     QSqlDatabase db = connection();
-    if (!db.transaction()) {
-        result.message = db.lastError().text();
-        return result;
-    }
+    const bool ownTransaction = db.transaction();
 
     QSqlQuery h(db);
     h.prepare(QStringLiteral(
@@ -625,7 +624,8 @@ InsertResult LogDatabase::updateQso(qint64 id, const AdifRecord& input, qint64 s
     h.addBindValue(reason);
     h.addBindValue(nowIso());
     if (!h.exec()) {
-        db.rollback();
+        if (ownTransaction)
+            db.rollback();
         result.message = h.lastError().text();
         return result;
     }
@@ -660,10 +660,11 @@ InsertResult LogDatabase::updateQso(qint64 id, const AdifRecord& input, qint64 s
     u.addBindValue(id);
     if (!u.exec() || !writeQsl(id, p->qsl, true)) {
         result.message = u.lastError().text();
-        db.rollback();
+        if (ownTransaction)
+            db.rollback();
         return result;
     }
-    if (!db.commit()) {
+    if (ownTransaction && !db.commit()) {
         result.message = db.lastError().text();
         return result;
     }
@@ -938,6 +939,37 @@ WorkedBefore LogDatabase::workedBefore(const QString& call) const
         return order.indexOf(a) < order.indexOf(b);
     });
     return wb;
+}
+
+LogDatabase::DxccWorked LogDatabase::dxccWorked(int dxcc) const
+{
+    DxccWorked w;
+    if (dxcc <= 0)
+        return w;
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("SELECT band, mode, submode FROM qso WHERE deleted = 0 AND dxcc = ?"));
+    q.addBindValue(dxcc);
+    if (!q.exec())
+        return w;
+    while (q.next()) {
+        const QString band = q.value(0).toString();
+        const QString mode = displayMode(q.value(1).toString(), q.value(2).toString());
+        if (!w.bands.contains(band)) w.bands << band;
+        if (!w.modes.contains(mode)) w.modes << mode;
+        ++w.count;
+    }
+    return w;
+}
+
+QList<qint64> LogDatabase::idsWithoutDxcc() const
+{
+    QList<qint64> ids;
+    QSqlQuery q(connection());
+    if (q.exec(QStringLiteral("SELECT id FROM qso WHERE deleted = 0 AND (dxcc IS NULL OR dxcc = 0)"))) {
+        while (q.next())
+            ids << q.value(0).toLongLong();
+    }
+    return ids;
 }
 
 bool LogDatabase::isFirstFt2Dxcc(qint64 id) const

@@ -170,18 +170,26 @@ DialogFrame {
                             return qsTr("Type a callsign to see what the log knows")
                         const parts = [root.lookup.name, root.lookup.qth, root.lookup.gridsquare, root.lookup.country]
                                       .filter(s => s)
+                        if (root.lookup.entityDxcc) parts.push("DXCC " + root.lookup.entityDxcc)
                         if (root.lookup.cqz) parts.push("CQ " + root.lookup.cqz)
-                        return parts.length ? parts.join(" · ") : qsTr("no details in the log")
+                        return parts.length ? parts.join(" · ") : qsTr("unknown prefix")
                     }
                     color: root.matchesCall ? Theme.textPrimary : Theme.textSecondary
                     font.family: Theme.monoFamily
                     font.pixelSize: 12
                 }
+                // Come nel mockup: prima l'entita' (nuovo DXCC, nuovo DXCC sulla
+                // banda), poi il nominativo.
                 Pill {
                     readonly property string band: bandBox.currentIndex > 0 ? bandBox.currentText : ""
-                    visible: root.matchesCall && band.length > 0 && (root.lookup.count || 0) > 0
-                             && (root.lookup.bands || []).indexOf(band) < 0
-                    text: qsTr("NEW on %1").arg(band)
+                    readonly property bool hasEntity: root.lookup.entityDxcc !== undefined
+                    readonly property bool newDxcc: hasEntity && root.lookup.entityWorked === 0
+                    readonly property bool newDxccOnBand: hasEntity && !newDxcc && band.length > 0
+                                                          && (root.lookup.entityBands || []).indexOf(band) < 0
+                    readonly property bool newCallOnBand: !hasEntity && band.length > 0 && (root.lookup.count || 0) > 0
+                                                          && (root.lookup.bands || []).indexOf(band) < 0
+                    visible: root.matchesCall && (newDxcc || newDxccOnBand || newCallOnBand)
+                    text: newDxcc ? qsTr("NEW DXCC") : newDxccOnBand ? qsTr("NEW DXCC on %1").arg(band) : qsTr("NEW on %1").arg(band)
                     tone: Theme.warningColor
                     pillHeight: 20
                     fontPixelSize: 10

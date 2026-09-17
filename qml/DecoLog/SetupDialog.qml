@@ -43,6 +43,16 @@ DialogFrame {
             decolog.backupKeep = keep
     }
 
+    FileDialog {
+        id: ctyDialog
+        title: qsTr("cty.csv from country-files.com")
+        nameFilters: [qsTr("cty.csv (*.csv)")]
+        onAccepted: {
+            const error = decolog.installCountries(selectedFile)
+            ctyNote.text = error.length ? error : qsTr("cty.csv %1 in use.").arg(decolog.countriesVersion)
+        }
+    }
+
     FolderDialog {
         id: folderDialog
         title: qsTr("Backup folder")
@@ -131,6 +141,33 @@ DialogFrame {
                         GlassButton { text: qsTr("Open folder"); onClicked: decolog.openDatabaseFolder() }
                     }
                     Note { text: qsTr("SQLite in WAL mode. To use another file start DecoLog with --db <path>.") }
+                    SectionTitle { text: qsTr("DXCC entities") }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 8
+                        Tile { label: qsTr("cty.csv"); value: decolog.countriesVersion || "—" }
+                        Tile { label: qsTr("Entities"); value: decolog.countriesEntities }
+                        Tile {
+                            label: qsTr("QSO without DXCC")
+                            value: decolog.missingDxccCount
+                            valueColor: decolog.missingDxccCount > 0 ? Theme.warningColor : Theme.textPrimary
+                        }
+                    }
+                    RowLayout {
+                        spacing: 8
+                        GlassButton {
+                            text: qsTr("Fill missing DXCC")
+                            tone: Theme.primaryColor
+                            filled: true
+                            enabled: decolog.missingDxccCount > 0
+                            onClicked: ctyNote.text = qsTr("%1 QSO completed, each kept as a new revision.").arg(decolog.fillMissingDxcc())
+                        }
+                        GlassButton { text: qsTr("Load newer cty.csv…"); onClicked: ctyDialog.open() }
+                    }
+                    Note {
+                        id: ctyNote
+                        text: qsTr("Source: %1. Updated files: country-files.com (AD1C). New QSOs from Decodium and manual entries get DXCC, country, zones and continent automatically; imported ADIF is kept as it is.").arg(decolog.countriesSource)
+                    }
                     SectionTitle { text: qsTr("Call info") }
                     ToggleSwitch {
                         text: qsTr("Follow the DX call Decodium is working")

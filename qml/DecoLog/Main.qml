@@ -52,6 +52,7 @@ ApplicationWindow {
         else if (what[0] === "menu") logbook.showMenu(what[1])
         else if (what[0] === "tab") bottomTabs.currentTab = parseInt(what[1])
         else if (what[0] === "pop") popWindow.active = true
+        else if (what[0] === "call") decolog.lookupCall = what[1]
     }
 
     NewQsoDialog { id: newQsoDialog }

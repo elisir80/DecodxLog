@@ -179,6 +179,12 @@ public:
     int conflictCount() const;
     WorkedBefore workedBefore(const QString& call) const;
 
+    // Bande e modi (FT2, non MFSK) in cui un'entita' DXCC e' gia' stata lavorata.
+    struct DxccWorked { int count{0}; QStringList bands; QStringList modes; };
+    DxccWorked dxccWorked(int dxcc) const;
+    // QSO senza numero DXCC, per completarli dal cty.csv.
+    QList<qint64> idsWithoutDxcc() const;
+
     // E' il primo QSO FT2 con il suo DXCC, in ordine di tempo?
     bool isFirstFt2Dxcc(qint64 id) const;
     Ft2Award ft2Award() const;

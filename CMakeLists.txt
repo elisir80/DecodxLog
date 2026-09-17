@@ -37,6 +37,8 @@ add_library(decolog_core STATIC
     src/core/Adif.h
     src/core/Bands.cpp
     src/core/Bands.h
+    src/core/Countries.cpp
+    src/core/Countries.h
     src/core/Maidenhead.cpp
     src/core/Maidenhead.h
     src/core/LogDatabase.cpp
@@ -50,6 +52,12 @@ qt_add_resources(decolog_core "schema"
     PREFIX "/decolog"
     BASE db
     FILES db/schema.sql
+)
+# Elenco delle entita' DXCC di AD1C (country-files.com), con i numeri ADIF.
+qt_add_resources(decolog_core "cty"
+    PREFIX "/decolog"
+    BASE resources/cty
+    FILES resources/cty/cty.csv
 )
 target_include_directories(decolog_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(decolog_core PUBLIC Qt6::Core Qt6::Network Qt6::Sql)
@@ -118,7 +126,7 @@ set_target_properties(decolog PROPERTIES
 if(DECOLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database)
+    foreach(name adif protocol database countries)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

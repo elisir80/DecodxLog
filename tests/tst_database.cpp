@@ -198,10 +198,20 @@ private slots:
         QCOMPARE(db.meta(ins.id)->revision, 3);
         QCOMPARE(db.history(ins.id).size(), 2);
 
+        // Dentro una transazione aperta da chi chiama (import, correzioni in blocco).
+        QVERIFY(db.connection().transaction());
+        AdifRecord again = *db.record(ins.id);
+        again.set("DXCC", "497");
+        QCOMPARE(db.updateQso(ins.id, again).status, InsertResult::Status::Inserted);
+        QVERIFY(db.connection().commit());
+        QCOMPARE(db.record(ins.id)->value("DXCC"), QString("497"));
+        QCOMPARE(db.meta(ins.id)->revision, 4);
+
         QVERIFY(db.softDeleteQso(ins.id));
         QCOMPARE(db.qsoCount(), 0);
         QVERIFY(db.meta(ins.id)->deleted);
         QCOMPARE(db.history(ins.id).first().reason, QString("delete"));
+        QCOMPARE(db.idsWithoutDxcc().size(), 0);
     }
 
     void stationProfiles()

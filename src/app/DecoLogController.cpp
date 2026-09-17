@@ -136,6 +136,8 @@ DecoLogController::DecoLogController(QObject* parent)
     });
     m_clientWatch.start();
 
+    loadCountries();
+
     m_backupTimer.setInterval(60'000);
     connect(&m_backupTimer, &QTimer::timeout, this, &DecoLogController::checkBackupSchedule);
 }
@@ -273,6 +275,112 @@ QString DecoLogController::bandForFrequency(const QString& mhz) const
     return ok ? bands::fromMhz(f) : QString();
 }
 
+// ── Entita' DXCC ──────────────────────────────────────────────────────────────
+
+namespace {
+
+QString countriesOverridePath()
+{
+    return QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).filePath(QStringLiteral("cty.csv"));
+}
+
+} // namespace
+
+// Il cty.csv delle risorse, o quello nella cartella dei dati se e' piu' recente:
+// AD1C lo aggiorna a ogni DXpedition, una versione di DecoLog no.
+void DecoLogController::loadCountries()
+{
+    Countries fromResources;
+    QFile bundled(QStringLiteral(":/decolog/cty.csv"));
+    if (bundled.open(QIODevice::ReadOnly))
+        fromResources.load(bundled.readAll());
+
+    Countries fromFile;
+    QFile local(countriesOverridePath());
+    if (local.open(QIODevice::ReadOnly) && fromFile.load(local.readAll())
+        && fromFile.version() >= fromResources.version()) {
+        m_countries = fromFile;
+        m_countriesSource = QDir::toNativeSeparators(local.fileName());
+    } else {
+        m_countries = fromResources;
+        m_countriesSource = tr("built-in");
+    }
+    emit countriesChanged();
+}
+
+QString DecoLogController::installCountries(const QUrl& url)
+{
+    QFile file(url.isLocalFile() ? url.toLocalFile() : url.toString());
+    if (!file.open(QIODevice::ReadOnly))
+        return file.errorString();
+    const QByteArray data = file.readAll();
+    Countries candidate;
+    if (!candidate.load(data))
+        return tr("Not a cty.csv file");
+    if (candidate.version() < m_countries.version())
+        return tr("%1 is older than the one in use (%2)").arg(candidate.version(), m_countries.version());
+    QDir().mkpath(QFileInfo(countriesOverridePath()).absolutePath());
+    QFile out(countriesOverridePath());
+    if (!out.open(QIODevice::WriteOnly | QIODevice::Truncate))
+        return out.errorString();
+    out.write(data);
+    out.close();
+    loadCountries();
+    addActivity(QStringLiteral("LOG"), tr("cty.csv %1 installed: %2 DXCC entities")
+                                           .arg(m_countries.version()).arg(m_countries.entityCount()),
+                QStringLiteral("success"));
+    refreshCallInfo();
+    return {};
+}
+
+bool DecoLogController::applyEntity(AdifRecord& record) const
+{
+    const auto e = m_countries.lookup(record.value(QStringLiteral("CALL")));
+    if (!e)
+        return false;
+    // Il DXCC decide il resto: se il QSO ne ha gia' uno diverso (una correzione
+    // dell'operatore, un'isola che cty.csv non distingue) non si tocca niente.
+    const QString existing = record.value(QStringLiteral("DXCC"));
+    if (!existing.isEmpty() && existing.toInt() != e->dxcc)
+        return false;
+
+    bool changed = false;
+    auto fill = [&record, &changed](const char* field, const QString& value) {
+        if (record.value(QLatin1String(field)).isEmpty() && !value.isEmpty()) {
+            record.set(QLatin1String(field), value);
+            changed = true;
+        }
+    };
+    fill("DXCC", QString::number(e->dxcc));
+    fill("COUNTRY", e->name);
+    fill("CQZ", e->cqZone > 0 ? QString::number(e->cqZone) : QString());
+    fill("ITUZ", e->ituZone > 0 ? QString::number(e->ituZone) : QString());
+    fill("CONT", e->continent);
+    return changed;
+}
+
+int DecoLogController::fillMissingDxcc()
+{
+    int filled = 0;
+    const QList<qint64> ids = m_db.idsWithoutDxcc();
+    // Una revisione per QSO, ognuna nella sua transazione: se un record non si
+    // puo' salvare, gli altri non ne risentono.
+    for (qint64 id : ids) {
+        auto r = m_db.record(id);
+        if (!r || !applyEntity(*r))
+            continue;
+        if (m_db.updateQso(id, *r).status == InsertResult::Status::Inserted)
+            ++filled;
+    }
+    addActivity(QStringLiteral("LOG"), tr("DXCC filled on %1 of %2 QSO (cty.csv %3)")
+                                           .arg(filled).arg(ids.size()).arg(m_countries.version()),
+                filled > 0 ? QStringLiteral("success") : QStringLiteral("info"));
+    m_model->reload();
+    emit logChanged();
+    refreshCallInfo();
+    return filled;
+}
+
 // ── Stazione ──────────────────────────────────────────────────────────────────
 
 QString DecoLogController::myGrid() const
@@ -336,7 +444,11 @@ void DecoLogController::onQsoReceived(const AdifRecord& input, const QString& so
     if (profileId == 0 && m_profiles)
         profileId = m_profiles->activeProfileId();
 
-    const InsertResult r = m_db.insertQso(input, source, sourceApp, false, profileId);
+    // Decodium manda zone e locatore ma non il numero DXCC: senza, il QSO non
+    // conta per l'FT2 Award.
+    AdifRecord enriched = input;
+    applyEntity(enriched);
+    const InsertResult r = m_db.insertQso(enriched, source, sourceApp, false, profileId);
 
     const QString call = input.value(QStringLiteral("CALL")).toUpper();
     AdifRecord normalized = input;
@@ -370,9 +482,9 @@ void DecoLogController::onQsoReceived(const AdifRecord& input, const QString& so
                                 meta ? meta->uuid.left(4) + QStringLiteral("…") + meta->uuid.right(2) : QString());
         const bool newDxcc = mode == QLatin1String("FT2") && m_db.isFirstFt2Dxcc(r.id);
         if (newDxcc)
-            text += tr(" · new DXCC on FT2: %1").arg(input.value(QStringLiteral("COUNTRY")).isEmpty()
-                                                         ? input.value(QStringLiteral("DXCC"))
-                                                         : input.value(QStringLiteral("COUNTRY")));
+            text += tr(" · new DXCC on FT2: %1").arg(enriched.value(QStringLiteral("COUNTRY")).isEmpty()
+                                                         ? enriched.value(QStringLiteral("DXCC"))
+                                                         : enriched.value(QStringLiteral("COUNTRY")));
         item[QStringLiteral("newDxcc")] = newDxcc;
         addActivity(QStringLiteral("UDP"), text, newDxcc ? QStringLiteral("highlight") : QStringLiteral("success"));
         emit logChanged();
@@ -444,6 +556,7 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
 
     const qint64 profileId = m_profiles ? m_profiles->activeProfileId() : 0;
     applyProfile(r, profileId);
+    applyEntity(r);
 
     const InsertResult res = m_db.insertQso(r, QStringLiteral("manual"), QStringLiteral("DecoLog ") + version(),
                                             true, profileId);
@@ -867,7 +980,29 @@ void DecoLogController::refreshCallInfo()
         {QStringLiteral("workedFt2"), wb.modes.contains(QStringLiteral("FT2"))},
     };
 
-    const auto dx = maidenhead::toLatLon(wb.gridsquare);
+    // L'entita' dal nominativo: vale anche per chi non e' ancora nel log.
+    std::optional<maidenhead::LatLon> dx = maidenhead::toLatLon(wb.gridsquare);
+    if (const auto e = m_countries.lookup(m_lookupCall)) {
+        const auto worked = m_db.dxccWorked(e->dxcc);
+        info[QStringLiteral("entity")] = e->name;
+        info[QStringLiteral("entityDxcc")] = e->dxcc;
+        info[QStringLiteral("entityCont")] = e->continent;
+        info[QStringLiteral("entityWorked")] = worked.count;
+        info[QStringLiteral("entityBands")] = worked.bands;
+        info[QStringLiteral("entityModes")] = worked.modes;
+        if (wb.country.isEmpty())
+            info[QStringLiteral("country")] = e->name;
+        if (wb.cqz == 0)
+            info[QStringLiteral("cqz")] = e->cqZone;
+        if (wb.ituz == 0)
+            info[QStringLiteral("ituz")] = e->ituZone;
+        if (!dx) {
+            // Senza locatore la posizione e' il centro dell'entita': basta per
+            // l'azimut, la distanza e' indicativa.
+            dx = maidenhead::LatLon{e->lat, e->lon};
+            info[QStringLiteral("positionApprox")] = true;
+        }
+    }
     const auto me = maidenhead::toLatLon(myGrid());
     if (dx) {
         info[QStringLiteral("position")] = positionMap(dx);

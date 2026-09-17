@@ -7,6 +7,7 @@
 
 #include "app/QsoTableModel.h"
 #include "app/StationProfileModel.h"
+#include "core/Countries.h"
 #include "core/LogDatabase.h"
 #include "core/UdpReceiver.h"
 
@@ -66,6 +67,12 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QVariantMap myPosition READ myPosition NOTIFY stationChanged)
 
     Q_PROPERTY(QStringList bands READ bands CONSTANT)
+
+    // ── Entita' DXCC (cty.csv di AD1C) ─────────────────────────────────────
+    Q_PROPERTY(QString countriesVersion READ countriesVersion NOTIFY countriesChanged)
+    Q_PROPERTY(int countriesEntities READ countriesEntities NOTIFY countriesChanged)
+    Q_PROPERTY(QString countriesSource READ countriesSource NOTIFY countriesChanged)
+    Q_PROPERTY(int missingDxccCount READ missingDxccCount NOTIFY logChanged)
 
     // ── Backup ─────────────────────────────────────────────────────────────
     Q_PROPERTY(bool backupEnabled READ backupEnabled WRITE setBackupEnabled NOTIFY backupChanged)
@@ -139,6 +146,11 @@ public:
 
     QStringList bands() const;
 
+    QString countriesVersion() const { return m_countries.version(); }
+    int countriesEntities() const { return m_countries.entityCount(); }
+    QString countriesSource() const { return m_countriesSource; }
+    int missingDxccCount() const { return static_cast<int>(m_db.idsWithoutDxcc().size()); }
+
     bool backupEnabled() const { return m_backupEnabled; }
     void setBackupEnabled(bool enabled);
     QString backupDir() const { return m_backupDir; }
@@ -176,6 +188,11 @@ public:
     Q_INVOKABLE void exportQsos(const QVariantList& ids, const QUrl& file);
     Q_INVOKABLE QString bandForFrequency(const QString& mhz) const;
     Q_INVOKABLE void backupNow();
+    // Completa DXCC, paese, zone e continente dei QSO che non li hanno. Ogni QSO
+    // modificato diventa una nuova revisione. Restituisce quanti ne ha completati.
+    Q_INVOKABLE int fillMissingDxcc();
+    // Carica un cty.csv scelto dall'operatore e lo copia nella cartella dei dati.
+    Q_INVOKABLE QString installCountries(const QUrl& file);
     Q_INVOKABLE void clearActivity();
     Q_INVOKABLE void openDatabaseFolder() const;
     Q_INVOKABLE QString localPath(const QUrl& url) const { return url.toLocalFile(); }
@@ -190,6 +207,7 @@ signals:
     void stationChanged();
     void backupChanged();
     void cloudChanged();
+    void countriesChanged();
 
 private:
     void onQsoReceived(const core::AdifRecord& record, const QString& source, const QString& sourceApp);
@@ -199,8 +217,13 @@ private:
     void checkBackupSchedule();
     // Aggiunge al record i dati del profilo che il record non ha gia'.
     void applyProfile(core::AdifRecord& record, qint64 profileId) const;
+    // Aggiunge DXCC, COUNTRY, CQZ, ITUZ e CONT se mancano. true se ha aggiunto qualcosa.
+    bool applyEntity(core::AdifRecord& record) const;
+    void loadCountries();
 
     core::LogDatabase m_db;
+    core::Countries   m_countries;
+    QString           m_countriesSource;
     core::UdpReceiver m_udp;
     QsoTableModel*    m_model{nullptr};
     StationProfileModel* m_profiles{nullptr};

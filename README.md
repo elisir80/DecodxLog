@@ -30,6 +30,9 @@ Funziona:
 - **Call info** dal log: worked-before, distanza e azimut dal locatore, ora locale
   approssimata, stato QSL dell'ultimo QSO. **FT2 Award** (DXCC e locatori in FT2,
   conferme LoTW), statistiche per banda e modo, riepilogo QSL, mappa dei locatori.
+- **Entità DXCC** dal nominativo con il `cty.csv` di AD1C (incluso, aggiornabile da
+  Setup): DXCC, paese, zone e continente sui QSO da Decodium e manuali, "NEW DXCC" e
+  "NEW DXCC on <banda>" mentre si lavora, completamento dei QSO già nel log.
 - **Backup** notturno con `VACUUM INTO`, copie a rotazione.
 - **Tema**: Ocean Blue / Stellar Light / Darkcodium, variant d'accento, densità,
   colori personalizzati.
@@ -45,6 +48,7 @@ src/core/           ADIF, bande, database, protocollo UDP — senza GUI
 src/app/            controller, modello della tabella e dei profili
 qml/DecoLog/        finestra principale
 db/schema.sql       schema SQLite v1
+resources/cty/      cty.csv di AD1C (country-files.com) e la sua licenza
 tests/              Qt Test: adif, protocol, database
 tools/udpsend.cpp   finge di essere Decodium, per provare senza radio
 ```
