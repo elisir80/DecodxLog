@@ -305,6 +305,52 @@ DialogFrame {
                         }
                     }
                     Note { text: qsTr("In Decodium set the UDP server to this address and port. A multicast group (e.g. 239.255.0.1) shares the stream with GridTracker or JTAlert. Duplicate windows are in General.") }
+
+                    SectionTitle { text: qsTr("DecoLink · log towards Decodium") }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 12
+                        ToggleSwitch {
+                            text: qsTr("Share the log with Decodium")
+                            checked: decolog.decoLinkEnabled
+                            onToggled: decolog.decoLinkEnabled = checked
+                        }
+                        LabeledField {
+                            label: qsTr("Port (127.0.0.1)")
+                            StyledTextField {
+                                Layout.preferredWidth: 100
+                                text: decolog.decoLinkPort
+                                validator: IntValidator { bottom: 1; top: 65535 }
+                                onEditingFinished: decolog.decoLinkPort = parseInt(text)
+                            }
+                        }
+                        Item { Layout.fillWidth: true }
+                        Pill {
+                            text: !decolog.decoLinkEnabled ? qsTr("off")
+                                : !decolog.decoLinkListening ? qsTr("error")
+                                : decolog.decoLinkClients.length ? qsTr("%n client(s)", "", decolog.decoLinkClients.length)
+                                : qsTr("waiting")
+                            tone: !decolog.decoLinkEnabled ? Theme.textSecondary
+                                : !decolog.decoLinkListening ? Theme.errorColor
+                                : decolog.decoLinkClients.length ? Theme.accentColor : Theme.textSecondary
+                        }
+                    }
+                    Repeater {
+                        model: decolog.decoLinkClients
+                        Text {
+                            required property var modelData
+                            text: "● " + [modelData.app, modelData.version, modelData.station].filter(s => s).join(" · ")
+                            color: Theme.accentColor
+                            font.family: Theme.monoFamily
+                            font.pixelSize: 12
+                        }
+                    }
+                    Note {
+                        text: decolog.decoLinkError.length && decolog.decoLinkEnabled
+                              ? decolog.decoLinkError
+                              : qsTr("Decodium receives the worked calls, confirmations and FT2 Award status from this log, and a confirmation for every QSO written. Only local connections are accepted. Protocol: docs/DECOLINK.md.")
+                        color: decolog.decoLinkError.length && decolog.decoLinkEnabled ? Theme.errorColor : Theme.textSecondary
+                    }
                     Item { Layout.fillHeight: true }
                 }
 

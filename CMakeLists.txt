@@ -43,6 +43,8 @@ add_library(decolog_core STATIC
     src/core/Callbook.h
     src/core/Countries.cpp
     src/core/Countries.h
+    src/core/DecoLinkServer.cpp
+    src/core/DecoLinkServer.h
     src/core/CredentialStore.cpp
     src/core/CredentialStore.h
     src/core/Maidenhead.cpp
@@ -147,7 +149,7 @@ set_target_properties(decolog PROPERTIES
 if(DECOLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards)
+    foreach(name adif protocol database countries credentials callbook awards decolink)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

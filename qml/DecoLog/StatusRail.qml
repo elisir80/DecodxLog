@@ -46,6 +46,13 @@ Rectangle {
             tone: decolog.listening ? Theme.accentColor : Theme.errorColor
         }
         Pill {
+            text: "LINK"
+            tone: decolog.decoLinkClients.length ? Theme.accentColor
+                : decolog.decoLinkEnabled && decolog.decoLinkListening ? Theme.textSecondary
+                : decolog.decoLinkEnabled ? Theme.errorColor : Theme.textSecondary
+            opacity: decolog.decoLinkEnabled ? 1.0 : 0.5
+        }
+        Pill {
             text: "SYNC"
             tone: decolog.cloudServer.length ? Theme.secondaryColor : Theme.textSecondary
         }

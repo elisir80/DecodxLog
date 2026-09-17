@@ -10,6 +10,7 @@
 #include "core/Awards.h"
 #include "core/Callbook.h"
 #include "core/Countries.h"
+#include "core/DecoLinkServer.h"
 #include "core/CredentialStore.h"
 #include "core/LogDatabase.h"
 #include "core/UdpReceiver.h"
@@ -77,6 +78,13 @@ class DecoLogController : public QObject {
     Q_PROPERTY(int countriesEntities READ countriesEntities NOTIFY countriesChanged)
     Q_PROPERTY(QString countriesSource READ countriesSource NOTIFY countriesChanged)
     Q_PROPERTY(int missingDxccCount READ missingDxccCount NOTIFY logChanged)
+
+    // ── DecoLink (canale locale con Decodium) ──────────────────────────────
+    Q_PROPERTY(bool decoLinkEnabled READ decoLinkEnabled WRITE setDecoLinkEnabled NOTIFY decoLinkChanged)
+    Q_PROPERTY(int decoLinkPort READ decoLinkPort WRITE setDecoLinkPort NOTIFY decoLinkChanged)
+    Q_PROPERTY(bool decoLinkListening READ decoLinkListening NOTIFY decoLinkChanged)
+    Q_PROPERTY(QString decoLinkError READ decoLinkError NOTIFY decoLinkChanged)
+    Q_PROPERTY(QVariantList decoLinkClients READ decoLinkClients NOTIFY decoLinkChanged)
 
     // ── Award ──────────────────────────────────────────────────────────────
     Q_PROPERTY(QVariantList awardSummary READ awardSummary NOTIFY awardsChanged)
@@ -171,6 +179,15 @@ public:
     QString countriesSource() const { return m_countriesSource; }
     int missingDxccCount() const { return static_cast<int>(m_db.idsWithoutDxcc().size()); }
 
+    bool decoLinkEnabled() const { return m_decoLinkEnabled; }
+    void setDecoLinkEnabled(bool enabled);
+    int decoLinkPort() const { return m_decoLinkPort; }
+    void setDecoLinkPort(int port);
+    bool decoLinkListening() const { return m_decoLink.isListening(); }
+    QString decoLinkError() const { return m_decoLink.lastError(); }
+    QVariantList decoLinkClients() const;
+    void startDecoLink();
+
     QVariantList awardSummary() const;
     QStringList awardBands() const;
     QString awardBand() const { return m_awardFilter.band; }
@@ -252,6 +269,7 @@ signals:
     void countriesChanged();
     void callbookChanged();
     void awardsChanged();
+    void decoLinkChanged();
 
 private:
     void onQsoReceived(const core::AdifRecord& record, const QString& source, const QString& sourceApp);
@@ -267,12 +285,20 @@ private:
     void requestCallbook();
     const QList<core::AwardResult>& awardResults() const;
     void awardFilterChanged();
+    QJsonObject decoLinkAward() const;
+    QJsonArray decoLinkQuery(const QJsonObject& query) const;
+    void decoLinkQso(const core::AdifRecord& record, const QString& status, qint64 id,
+                     const QString& source, const QString& app, const QString& message = {});
 
     core::LogDatabase m_db;
     core::Countries   m_countries;
     core::CredentialStore* m_credentials{nullptr};
     core::CallbookClient m_callbook;
     core::AwardFilter m_awardFilter;
+    core::DecoLinkServer m_decoLink;
+    bool      m_decoLinkEnabled{true};
+    int       m_decoLinkPort{core::DecoLinkServer::kDefaultPort};
+    QTimer    m_decoLinkAwardDebounce;
     mutable QList<core::AwardResult> m_awardCache;
     mutable bool m_awardsDirty{true};
     bool      m_callbookAutofill{true};

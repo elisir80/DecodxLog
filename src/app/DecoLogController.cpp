@@ -9,6 +9,9 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QHostAddress>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QSet>
 #include <QRegularExpression>
 #include <QSettings>
 #include <QStandardPaths>
@@ -149,6 +152,33 @@ DecoLogController::DecoLogController(QObject* parent)
         m_awardsDirty = true;
         emit awardsChanged();
     });
+    // DecoLink: il log verso Decodium. I dati li fornisce il controller.
+    m_decoLinkEnabled = s.value(QStringLiteral("decolink/enabled"), true).toBool();
+    m_decoLinkPort = s.value(QStringLiteral("decolink/port"), DecoLinkServer::kDefaultPort).toInt();
+    m_decoLink.workedRows = [this] {
+        return m_db.workedRows(m_awardFilter.confirmLotw, m_awardFilter.confirmCard, m_awardFilter.confirmEqsl);
+    };
+    m_decoLink.awardState = [this] { return decoLinkAward(); };
+    m_decoLink.resolveQuery = [this](const QJsonObject& q) { return decoLinkQuery(q); };
+    connect(&m_decoLink, &DecoLinkServer::listeningChanged, this, &DecoLogController::decoLinkChanged);
+    connect(&m_decoLink, &DecoLinkServer::clientsChanged, this, [this] {
+        const int n = m_decoLink.clientCount();
+        static int previous = 0;
+        if (n != previous)
+            addActivity(QStringLiteral("LINK"), n > previous ? tr("DecoLink: client connected (%1)").arg(n)
+                                                             : tr("DecoLink: client disconnected (%1 left)").arg(n));
+        previous = n;
+        emit decoLinkChanged();
+    });
+    // Lo stato dell'award non a ogni QSO di un import: al piu' uno al secondo.
+    m_decoLinkAwardDebounce.setSingleShot(true);
+    m_decoLinkAwardDebounce.setInterval(1000);
+    connect(&m_decoLinkAwardDebounce, &QTimer::timeout, this, [this] { m_decoLink.broadcastAward(); });
+    connect(this, &DecoLogController::logChanged, this, [this] {
+        if (m_decoLink.clientCount() > 0)
+            m_decoLinkAwardDebounce.start();
+    });
+
     // Un cty.csv nuovo cambia i nomi delle entita'.
     connect(this, &DecoLogController::countriesChanged, this, [this] {
         m_awardsDirty = true;
@@ -233,6 +263,144 @@ bool DecoLogController::openDatabase(const QString& path)
     connect(m_profiles, &StationProfileModel::profilesChanged, this, &DecoLogController::stationChanged);
     m_backupTimer.start();
     return ok;
+}
+
+void DecoLogController::startDecoLink()
+{
+    m_decoLink.setIdentity(version(), m_profiles ? m_profiles->activeProfile().value(QStringLiteral("stationCallsign")).toString()
+                                                 : QString());
+    if (!m_decoLinkEnabled) {
+        m_decoLink.stop();
+        emit decoLinkChanged();
+        return;
+    }
+    if (m_decoLink.start(static_cast<quint16>(m_decoLinkPort)))
+        addActivity(QStringLiteral("LINK"), tr("DecoLink listening on 127.0.0.1:%1").arg(m_decoLinkPort));
+    else
+        addActivity(QStringLiteral("LINK"), tr("DecoLink cannot listen on %1: %2").arg(m_decoLinkPort).arg(m_decoLink.lastError()),
+                    QStringLiteral("error"));
+    emit decoLinkChanged();
+}
+
+void DecoLogController::setDecoLinkEnabled(bool enabled)
+{
+    if (enabled == m_decoLinkEnabled)
+        return;
+    m_decoLinkEnabled = enabled;
+    QSettings().setValue(QStringLiteral("decolink/enabled"), enabled);
+    startDecoLink();
+}
+
+void DecoLogController::setDecoLinkPort(int port)
+{
+    if (port == m_decoLinkPort || port <= 0 || port > 65535)
+        return;
+    m_decoLinkPort = port;
+    QSettings().setValue(QStringLiteral("decolink/port"), port);
+    startDecoLink();
+}
+
+QVariantList DecoLogController::decoLinkClients() const
+{
+    QVariantList out;
+    for (const auto& c : m_decoLink.clients()) {
+        out << QVariantMap{{QStringLiteral("app"), c.app.isEmpty() ? tr("(not introduced yet)") : c.app},
+                           {QStringLiteral("version"), c.version},
+                           {QStringLiteral("station"), c.station}};
+    }
+    return out;
+}
+
+QJsonObject DecoLogController::decoLinkAward() const
+{
+    const Ft2Award ft2 = m_db.ft2Award();
+    int ft2Worked = 0, ft2Confirmed = 0, dxccWorked = 0, dxccConfirmed = 0;
+    for (const AwardResult& r : awardResults()) {
+        if (r.id == QLatin1String("ft2")) {
+            ft2Worked = r.worked();
+            ft2Confirmed = r.confirmed();
+        } else if (r.id == QLatin1String("dxcc")) {
+            dxccWorked = r.worked();
+            dxccConfirmed = r.confirmed();
+        }
+    }
+    return QJsonObject{
+        {QStringLiteral("ft2"), QJsonObject{{QStringLiteral("qsos"), ft2.qsos},
+                                            {QStringLiteral("dxccWorked"), ft2Worked},
+                                            {QStringLiteral("dxccConfirmed"), ft2Confirmed},
+                                            {QStringLiteral("gridsWorked"), ft2.gridsWorked},
+                                            {QStringLiteral("gridsConfirmed"), ft2.gridsConfirmed}}},
+        {QStringLiteral("dxcc"), QJsonObject{{QStringLiteral("worked"), dxccWorked},
+                                             {QStringLiteral("confirmed"), dxccConfirmed}}},
+    };
+}
+
+QJsonArray DecoLogController::decoLinkQuery(const QJsonObject& query) const
+{
+    const QString band = query.value(QStringLiteral("band")).toString().trimmed().toLower();
+    // Le entita' confermate, secondo le conferme scelte negli award.
+    QSet<int> confirmedDxcc;
+    for (const AwardResult& r : awardResults()) {
+        if (r.id != QLatin1String("dxcc"))
+            continue;
+        for (const AwardItem& i : r.items) {
+            if (i.confirmed())
+                confirmedDxcc.insert(i.key.toInt());
+        }
+    }
+    QJsonArray out;
+    for (const QJsonValue& v : query.value(QStringLiteral("calls")).toArray()) {
+        const QString call = v.toString().trimmed().toUpper();
+        if (call.isEmpty())
+            continue;
+        const WorkedBefore wb = m_db.workedBefore(call);
+        QJsonObject result{
+            {QStringLiteral("call"), call},
+            {QStringLiteral("workedCall"), wb.count > 0},
+            {QStringLiteral("workedCallBand"), !band.isEmpty() && wb.bands.contains(band)},
+        };
+        if (const auto e = m_countries.lookup(call)) {
+            const auto worked = m_db.dxccWorked(e->dxcc);
+            result.insert(QStringLiteral("dxcc"), e->dxcc);
+            result.insert(QStringLiteral("entity"), e->name);
+            result.insert(QStringLiteral("workedDxcc"), worked.count > 0);
+            result.insert(QStringLiteral("workedDxccBand"), !band.isEmpty() && worked.bands.contains(band));
+            result.insert(QStringLiteral("workedDxccFt2"), worked.modes.contains(QStringLiteral("FT2")));
+            result.insert(QStringLiteral("confirmedDxcc"), confirmedDxcc.contains(e->dxcc));
+        }
+        out.append(result);
+    }
+    return out;
+}
+
+void DecoLogController::decoLinkQso(const AdifRecord& record, const QString& status, qint64 id,
+                                    const QString& source, const QString& app, const QString& message)
+{
+    if (m_decoLink.clientCount() == 0)
+        return;
+    const QString iso = LogDatabase::isoFromAdif(record.value(QStringLiteral("QSO_DATE")),
+                                                 record.value(QStringLiteral("TIME_ON")));
+    QString band = record.value(QStringLiteral("BAND")).toLower();
+    if (band.isEmpty())
+        band = bandForFrequency(record.value(QStringLiteral("FREQ")));
+    AdifRecord normalized = record;
+    adif::normalizeMode(normalized);
+    const auto meta = id > 0 ? m_db.meta(id) : std::nullopt;
+    QJsonObject msg{
+        {QStringLiteral("type"), QStringLiteral("qso")},
+        {QStringLiteral("row"), LogDatabase::workedRow(record.value(QStringLiteral("CALL")).toUpper(), band,
+                                                       normalized.value(QStringLiteral("MODE")),
+                                                       normalized.value(QStringLiteral("SUBMODE")), iso,
+                                                       record.value(QStringLiteral("GRIDSQUARE")), false)},
+        {QStringLiteral("status"), status},
+        {QStringLiteral("source"), source},
+        {QStringLiteral("app"), app},
+    };
+    if (meta)
+        msg.insert(QStringLiteral("uuid"), meta->uuid);
+    if (!message.isEmpty())
+        msg.insert(QStringLiteral("message"), message);
+    m_decoLink.broadcast(msg);
 }
 
 void DecoLogController::startListening()
@@ -445,6 +613,7 @@ int DecoLogController::fillMissingDxcc()
                 filled > 0 ? QStringLiteral("success") : QStringLiteral("info"));
     m_model->reload();
     emit logChanged();
+    m_decoLink.resendSnapshot();
     refreshCallInfo();
     return filled;
 }
@@ -656,6 +825,7 @@ void DecoLogController::onQsoReceived(const AdifRecord& input, const QString& so
     switch (r.status) {
     case InsertResult::Status::Inserted: {
         item[QStringLiteral("status")] = QStringLiteral("logged");
+        decoLinkQso(enriched, QStringLiteral("logged"), r.id, source, sourceApp);
         m_model->insertQso(r.id);
         const auto meta = m_db.meta(r.id);
         QString text = tr("%1 from %2 → %3 %4 %5 saved (uuid %6)")
@@ -674,11 +844,13 @@ void DecoLogController::onQsoReceived(const AdifRecord& input, const QString& so
     }
     case InsertResult::Status::Duplicate:
         item[QStringLiteral("status")] = QStringLiteral("duplicate");
+        decoLinkQso(enriched, QStringLiteral("duplicate"), r.id, source, sourceApp);
         addActivity(QStringLiteral("UDP"), tr("Duplicate ignored: %1").arg(r.message), QStringLiteral("warning"));
         break;
     case InsertResult::Status::Invalid:
     case InsertResult::Status::Error:
         item[QStringLiteral("status")] = QStringLiteral("error");
+        decoLinkQso(enriched, QStringLiteral("error"), 0, source, sourceApp, r.message);
         addActivity(QStringLiteral("UDP"), tr("QSO not logged: %1").arg(r.message), QStringLiteral("error"));
         break;
     }
@@ -745,6 +917,7 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
     switch (res.status) {
     case InsertResult::Status::Inserted:
         m_model->insertQso(res.id);
+        decoLinkQso(r, QStringLiteral("logged"), res.id, QStringLiteral("manual"), QStringLiteral("DecoLog"));
         addActivity(QStringLiteral("LOG"), tr("Logged %1 %2 %3 (manual)")
                                                .arg(r.value(QStringLiteral("CALL")), r.value(QStringLiteral("BAND")),
                                                     r.value(QStringLiteral("MODE"))),
@@ -860,6 +1033,7 @@ QString DecoLogController::saveQso(qint64 id, const QVariantMap& fields, qint64 
                 QStringLiteral("success"));
     m_model->reload();
     emit logChanged();
+    m_decoLink.resendSnapshot();
     refreshCallInfo();
     return {};
 }
@@ -873,6 +1047,7 @@ bool DecoLogController::deleteQso(qint64 id)
                 QStringLiteral("warning"));
     m_model->reload();
     emit logChanged();
+    m_decoLink.resendSnapshot();
     refreshCallInfo();
     return true;
 }
@@ -885,6 +1060,7 @@ QString DecoLogController::restoreRevision(qint64 id, qint64 historyId)
     addActivity(QStringLiteral("LOG"), tr("Restored an earlier revision of QSO #%1").arg(id), QStringLiteral("success"));
     m_model->reload();
     emit logChanged();
+    m_decoLink.resendSnapshot();
     refreshCallInfo();
     return {};
 }
@@ -909,6 +1085,7 @@ void DecoLogController::importAdif(const QUrl& url)
     m_model->reload();
     m_profiles->reload();
     emit logChanged();
+    m_decoLink.resendSnapshot();
     refreshCallInfo();
 }
 

@@ -961,6 +961,35 @@ LogDatabase::DxccWorked LogDatabase::dxccWorked(int dxcc) const
     return w;
 }
 
+QJsonArray LogDatabase::workedRow(const QString& call, const QString& band, const QString& mode,
+                                  const QString& submode, const QString& isoOn, const QString& grid, bool confirmed)
+{
+    return QJsonArray{call, band, displayMode(mode, submode),
+                      isoOn.left(10).remove(QLatin1Char('-')), grid.left(4).toUpper(), confirmed ? 1 : 0};
+}
+
+QList<QJsonArray> LogDatabase::workedRows(bool confirmLotw, bool confirmCard, bool confirmEqsl) const
+{
+    QList<QJsonArray> rows;
+    QSqlQuery q(connection());
+    q.setForwardOnly(true);
+    q.prepare(QStringLiteral(
+        "SELECT call, band, mode, IFNULL(submode, ''), qso_datetime_on, IFNULL(gridsquare, ''), "
+        "EXISTS (SELECT 1 FROM qsl_status s WHERE s.qso_id = qso.id AND s.rcvd = 'Y' AND ("
+        "  (s.service = 'lotw' AND ?) OR (s.service = 'card' AND ?) OR (s.service = 'eqsl' AND ?))) "
+        "FROM qso WHERE deleted = 0 ORDER BY qso_datetime_on"));
+    q.addBindValue(confirmLotw ? 1 : 0);
+    q.addBindValue(confirmCard ? 1 : 0);
+    q.addBindValue(confirmEqsl ? 1 : 0);
+    if (!q.exec())
+        return rows;
+    while (q.next()) {
+        rows << workedRow(q.value(0).toString(), q.value(1).toString(), q.value(2).toString(),
+                          q.value(3).toString(), q.value(4).toString(), q.value(5).toString(), q.value(6).toBool());
+    }
+    return rows;
+}
+
 QList<qint64> LogDatabase::idsWithoutDxcc() const
 {
     QList<qint64> ids;

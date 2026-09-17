@@ -10,6 +10,7 @@
 #include "core/Adif.h"
 
 #include <QDateTime>
+#include <QJsonArray>
 #include <QList>
 #include <QSqlDatabase>
 #include <QString>
@@ -182,6 +183,11 @@ public:
     // Bande e modi (FT2, non MFSK) in cui un'entita' DXCC e' gia' stata lavorata.
     struct DxccWorked { int count{0}; QStringList bands; QStringList modes; };
     DxccWorked dxccWorked(int dxcc) const;
+    // Tutti i QSO in forma compatta per DecoLink: [call, banda, modo, data yyyyMMdd,
+    // locatore a 4, confermato 0/1], con le conferme accettate indicate.
+    QList<QJsonArray> workedRows(bool confirmLotw, bool confirmCard, bool confirmEqsl) const;
+    static QJsonArray workedRow(const QString& call, const QString& band, const QString& mode,
+                                const QString& submode, const QString& isoOn, const QString& grid, bool confirmed);
     // QSO senza numero DXCC, per completarli dal cty.csv.
     QList<qint64> idsWithoutDxcc() const;
 

@@ -66,6 +66,7 @@ int main(int argc, char* argv[])
     if (parser.isSet(portOption))
         controller.overrideUdpPort(parser.value(portOption).toInt());
     controller.startListening();
+    controller.startDecoLink();
     if (parser.isSet(importOption))
         controller.importAdif(QUrl::fromLocalFile(parser.value(importOption)));
 
