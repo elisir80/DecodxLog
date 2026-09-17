@@ -7,6 +7,7 @@
 
 #include "app/QsoTableModel.h"
 #include "app/StationProfileModel.h"
+#include "core/Callbook.h"
 #include "core/Countries.h"
 #include "core/CredentialStore.h"
 #include "core/LogDatabase.h"
@@ -75,6 +76,12 @@ class DecoLogController : public QObject {
     Q_PROPERTY(int countriesEntities READ countriesEntities NOTIFY countriesChanged)
     Q_PROPERTY(QString countriesSource READ countriesSource NOTIFY countriesChanged)
     Q_PROPERTY(int missingDxccCount READ missingDxccCount NOTIFY logChanged)
+
+    // ── Callbook (QRZ.com / HamQTH) ────────────────────────────────────────
+    Q_PROPERTY(QString callbookProvider READ callbookProvider WRITE setCallbookProvider NOTIFY callbookChanged)
+    Q_PROPERTY(bool callbookAutofill READ callbookAutofill WRITE setCallbookAutofill NOTIFY callbookChanged)
+    Q_PROPERTY(QString callbookStatus READ callbookStatus NOTIFY callbookChanged)
+    Q_PROPERTY(bool callbookBusy READ callbookBusy NOTIFY callbookChanged)
 
     // ── Backup ─────────────────────────────────────────────────────────────
     Q_PROPERTY(bool backupEnabled READ backupEnabled WRITE setBackupEnabled NOTIFY backupChanged)
@@ -154,6 +161,13 @@ public:
     QString countriesSource() const { return m_countriesSource; }
     int missingDxccCount() const { return static_cast<int>(m_db.idsWithoutDxcc().size()); }
 
+    QString callbookProvider() const { return core::CallbookClient::providerId(m_callbook.provider()); }
+    void setCallbookProvider(const QString& id);
+    bool callbookAutofill() const { return m_callbookAutofill; }
+    void setCallbookAutofill(bool autofill);
+    QString callbookStatus() const { return m_callbookStatus; }
+    bool callbookBusy() const { return !m_callbookPending.isEmpty(); }
+
     bool backupEnabled() const { return m_backupEnabled; }
     void setBackupEnabled(bool enabled);
     QString backupDir() const { return m_backupDir; }
@@ -211,6 +225,7 @@ signals:
     void backupChanged();
     void cloudChanged();
     void countriesChanged();
+    void callbookChanged();
 
 private:
     void onQsoReceived(const core::AdifRecord& record, const QString& source, const QString& sourceApp);
@@ -223,10 +238,18 @@ private:
     // Aggiunge DXCC, COUNTRY, CQZ, ITUZ e CONT se mancano. true se ha aggiunto qualcosa.
     bool applyEntity(core::AdifRecord& record) const;
     void loadCountries();
+    void requestCallbook();
 
     core::LogDatabase m_db;
     core::Countries   m_countries;
     core::CredentialStore* m_credentials{nullptr};
+    core::CallbookClient m_callbook;
+    bool      m_callbookAutofill{true};
+    QString   m_callbookStatus;
+    QString   m_callbookPending;
+    QTimer    m_callbookDebounce;
+    QHash<QString, QVariantMap> m_callbookResults;   // per nominativo, sessione corrente
+    QHash<QString, QString> m_callbookErrors;
     QString           m_countriesSource;
     core::UdpReceiver m_udp;
     QsoTableModel*    m_model{nullptr};

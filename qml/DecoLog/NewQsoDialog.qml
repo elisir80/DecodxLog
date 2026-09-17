@@ -76,6 +76,21 @@ DialogFrame {
         pwrField.text = pwr > 0 ? String(pwr) : ""
     }
 
+    // Nome, QTH e locatore dal callbook, solo nei campi ancora vuoti: quello che
+    // l'operatore ha scritto non si tocca.
+    Connections {
+        target: decolog
+        function onLookupChanged() {
+            const cb = decolog.callInfo.callbook
+            if (!root.visible || !decolog.callbookAutofill || !cb || !root.matchesCall)
+                return
+            if (nameField.text.length === 0) nameField.text = cb.name
+            if (qthField.text.length === 0) qthField.text = cb.qth
+            if (gridField.text.length === 0) gridField.text = cb.grid
+            if (iotaField.text.length === 0 && cb.iota) iotaField.text = cb.iota
+        }
+    }
+
     Shortcut {
         sequences: ["Ctrl+Return", "Ctrl+Enter"]
         enabled: root.visible
@@ -156,7 +171,8 @@ DialogFrame {
                 anchors.rightMargin: 10
                 spacing: 10
                 Text {
-                    text: qsTr("LOG")
+                    text: root.lookup.callbook && root.matchesCall
+                          ? (root.lookup.callbook.source === "QRZ.com" ? "QRZ" : "HamQTH") : qsTr("LOG")
                     color: Theme.secondaryColor
                     font.family: Theme.monoFamily
                     font.pixelSize: 12

@@ -36,11 +36,14 @@ Funziona:
 - **Credenziali** di Cloud, QRZ.com, QRZ Logbook, LoTW, Club Log, eQSL e HamQTH nel
   portachiavi di sistema (qtkeychain): nel file delle impostazioni resta solo il nome
   utente. Senza qtkeychain i segreti non si salvano affatto.
+- **Callbook** QRZ.com (XML) o HamQTH: nome, QTH, locatore, zone, foto, utente LoTW/eQSL
+  in Call info; riempie i campi vuoti del Nuovo QSO. Sessione rinnovata da sola,
+  risultati tenuti in memoria per un giorno.
 - **Backup** notturno con `VACUUM INTO`, copie a rotazione.
 - **Tema**: Ocean Blue / Stellar Light / Darkcodium, variant d'accento, densità,
   colori personalizzati.
 
-Non ancora (mostrati come tali nell'interfaccia): callbook QRZ/HamQTH, upload e
+Non ancora (mostrati come tali nell'interfaccia): upload e
 download QSL, DecoLog Cloud e sync, award oltre FT2.
 
 ## Struttura

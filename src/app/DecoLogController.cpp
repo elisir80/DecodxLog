@@ -9,6 +9,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QHostAddress>
+#include <QRegularExpression>
 #include <QSettings>
 #include <QStandardPaths>
 #include <cmath>
@@ -144,7 +145,50 @@ DecoLogController::DecoLogController(QObject* parent)
                 // Mai il segreto: solo il servizio e l'esito.
                 addActivity(QStringLiteral("KEYS"), QStringLiteral("%1: %2").arg(service, message),
                             ok ? QStringLiteral("info") : QStringLiteral("error"));
+                // Credenziali cambiate: la sessione del callbook va rifatta.
+                if (service == QLatin1String("qrz") || service == QLatin1String("hamqth")) {
+                    m_callbook.reset();
+                    m_callbookErrors.clear();
+                    m_callbookStatus.clear();
+                    emit callbookChanged();
+                    requestCallbook();
+                }
             });
+
+    m_callbook.setCredentialReaders(
+        [this](const QString& service) { return m_credentials->account(service); },
+        [this](const QString& service, std::function<void(const QString&, const QString&)> done) {
+            m_credentials->readSecret(service, std::move(done));
+        });
+    m_callbook.setProvider(CallbookClient::providerFromId(
+        s.value(QStringLiteral("callbook/provider"), QStringLiteral("off")).toString()));
+    m_callbookAutofill = s.value(QStringLiteral("callbook/autofill"), true).toBool();
+    connect(&m_callbook, &CallbookClient::found, this, [this](const QString& call, const CallbookRecord& record) {
+        m_callbookResults.insert(call, record.toMap());
+        m_callbookErrors.remove(call);
+        if (call == m_callbookPending)
+            m_callbookPending.clear();
+        m_callbookStatus = tr("%1: %2 found").arg(record.source, call);
+        emit callbookChanged();
+        if (call == m_lookupCall)
+            refreshCallInfo();
+    });
+    connect(&m_callbook, &CallbookClient::failed, this, [this](const QString& call, const QString& message) {
+        m_callbookErrors.insert(call, message);
+        if (call == m_callbookPending)
+            m_callbookPending.clear();
+        // Credenziali sbagliate o rete assente: una riga nel registro, non una per nominativo.
+        if (message != m_callbookStatus && !message.contains(QLatin1String("not found"), Qt::CaseInsensitive))
+            addActivity(QStringLiteral("CALLBOOK"), message, QStringLiteral("warning"));
+        m_callbookStatus = message;
+        emit callbookChanged();
+        if (call == m_lookupCall)
+            refreshCallInfo();
+    });
+    // Si cerca quando si smette di scrivere, non a ogni lettera.
+    m_callbookDebounce.setSingleShot(true);
+    m_callbookDebounce.setInterval(600);
+    connect(&m_callbookDebounce, &QTimer::timeout, this, &DecoLogController::requestCallbook);
 
     m_backupTimer.setInterval(60'000);
     connect(&m_backupTimer, &QTimer::timeout, this, &DecoLogController::checkBackupSchedule);
@@ -953,6 +997,46 @@ void DecoLogController::setLookupCall(const QString& call)
         return;
     m_lookupCall = c;
     refreshCallInfo();
+    if (m_callbook.provider() != CallbookClient::Provider::None)
+        m_callbookDebounce.start();
+}
+
+void DecoLogController::requestCallbook()
+{
+    // Almeno una lettera e una cifra: "EA" o "123" a meta' digitazione non si cercano.
+    static const QRegularExpression letter(QStringLiteral("[A-Z]"));
+    static const QRegularExpression digit(QStringLiteral("[0-9]"));
+    const QString call = m_lookupCall;
+    if (m_callbook.provider() == CallbookClient::Provider::None || call.size() < 3
+        || !call.contains(letter) || !call.contains(digit) || m_callbookResults.contains(call))
+        return;
+    m_callbookPending = call;
+    emit callbookChanged();
+    m_callbook.lookup(call);
+}
+
+void DecoLogController::setCallbookProvider(const QString& id)
+{
+    const auto provider = CallbookClient::providerFromId(id);
+    if (provider == m_callbook.provider())
+        return;
+    m_callbook.setProvider(provider);
+    m_callbookResults.clear();
+    m_callbookErrors.clear();
+    m_callbookStatus.clear();
+    QSettings().setValue(QStringLiteral("callbook/provider"), CallbookClient::providerId(provider));
+    emit callbookChanged();
+    refreshCallInfo();
+    requestCallbook();
+}
+
+void DecoLogController::setCallbookAutofill(bool autofill)
+{
+    if (autofill == m_callbookAutofill)
+        return;
+    m_callbookAutofill = autofill;
+    QSettings().setValue(QStringLiteral("callbook/autofill"), autofill);
+    emit callbookChanged();
 }
 
 void DecoLogController::refreshCallInfo()
@@ -988,8 +1072,32 @@ void DecoLogController::refreshCallInfo()
         {QStringLiteral("workedFt2"), wb.modes.contains(QStringLiteral("FT2"))},
     };
 
+    // Il callbook completa quello che il log non sa: nome, QTH, locatore. Quello
+    // che c'e' nel log resta, perche' e' quello che l'operatore ha confermato.
+    if (const auto it = m_callbookResults.constFind(m_lookupCall); it != m_callbookResults.constEnd()) {
+        const QVariantMap& cb = *it;
+        info[QStringLiteral("callbook")] = cb;
+        auto prefer = [&info](const char* key, const QVariant& value) {
+            if (info.value(QLatin1String(key)).toString().isEmpty() && !value.toString().isEmpty())
+                info[QLatin1String(key)] = value;
+        };
+        prefer("name", cb.value(QStringLiteral("name")));
+        prefer("qth", cb.value(QStringLiteral("qth")));
+        prefer("gridsquare", cb.value(QStringLiteral("grid")));
+        prefer("country", cb.value(QStringLiteral("country")));
+        if (wb.cqz == 0 && cb.value(QStringLiteral("cqZone")).toInt() > 0)
+            info[QStringLiteral("cqz")] = cb.value(QStringLiteral("cqZone"));
+        if (wb.ituz == 0 && cb.value(QStringLiteral("ituZone")).toInt() > 0)
+            info[QStringLiteral("ituz")] = cb.value(QStringLiteral("ituZone"));
+    } else if (m_callbookErrors.contains(m_lookupCall)) {
+        info[QStringLiteral("callbookError")] = m_callbookErrors.value(m_lookupCall);
+    }
+    if (m_callbook.provider() != CallbookClient::Provider::None)
+        info[QStringLiteral("callbookSource")] = m_callbook.provider() == CallbookClient::Provider::Qrz
+                                                     ? QStringLiteral("QRZ.com") : QStringLiteral("HamQTH");
+
     // L'entita' dal nominativo: vale anche per chi non e' ancora nel log.
-    std::optional<maidenhead::LatLon> dx = maidenhead::toLatLon(wb.gridsquare);
+    std::optional<maidenhead::LatLon> dx = maidenhead::toLatLon(info.value(QStringLiteral("gridsquare")).toString());
     if (const auto e = m_countries.lookup(m_lookupCall)) {
         const auto worked = m_db.dxccWorked(e->dxcc);
         info[QStringLiteral("entity")] = e->name;
@@ -998,11 +1106,11 @@ void DecoLogController::refreshCallInfo()
         info[QStringLiteral("entityWorked")] = worked.count;
         info[QStringLiteral("entityBands")] = worked.bands;
         info[QStringLiteral("entityModes")] = worked.modes;
-        if (wb.country.isEmpty())
+        if (info.value(QStringLiteral("country")).toString().isEmpty())
             info[QStringLiteral("country")] = e->name;
-        if (wb.cqz == 0)
+        if (info.value(QStringLiteral("cqz")).toInt() == 0)
             info[QStringLiteral("cqz")] = e->cqZone;
-        if (wb.ituz == 0)
+        if (info.value(QStringLiteral("ituz")).toInt() == 0)
             info[QStringLiteral("ituz")] = e->ituZone;
         if (!dx) {
             // Senza locatore la posizione e' il centro dell'entita': basta per

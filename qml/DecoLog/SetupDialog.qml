@@ -432,11 +432,64 @@ DialogFrame {
                 ColumnLayout {
                     spacing: 12
                     SectionTitle { text: qsTr("Callbook") }
-                    Note { text: qsTr("QRZ.com and HamQTH lookups arrive with the 1.x releases. Until then Call info and the New QSO form use the log and cty.csv. Credentials can already be stored.") }
+                    RowLayout {
+                        spacing: 12
+                        LabeledField {
+                            label: qsTr("Lookup service")
+                            StyledComboBox {
+                                Layout.preferredWidth: 260
+                                readonly property var ids: ["off", "qrz", "hamqth"]
+                                model: [qsTr("Off (log and cty.csv only)"), "QRZ.com (XML)", "HamQTH"]
+                                currentIndex: Math.max(0, ids.indexOf(decolog.callbookProvider))
+                                onActivated: decolog.callbookProvider = ids[currentIndex]
+                            }
+                        }
+                        ToggleSwitch {
+                            Layout.alignment: Qt.AlignBottom
+                            Layout.bottomMargin: 4
+                            text: qsTr("Fill empty name, QTH and grid in New QSO")
+                            checked: decolog.callbookAutofill
+                            onToggled: decolog.callbookAutofill = checked
+                        }
+                    }
                     CredentialsList {
                         Layout.fillWidth: true
                         serviceIds: ["qrz", "hamqth"]
                     }
+                    SectionTitle { text: qsTr("Try a lookup") }
+                    RowLayout {
+                        spacing: 8
+                        StyledTextField {
+                            id: callbookTest
+                            Layout.preferredWidth: 160
+                            uppercase: true
+                            placeholderText: "IU8LMC"
+                            Keys.onReturnPressed: testButton.clicked()
+                        }
+                        GlassButton {
+                            id: testButton
+                            text: qsTr("Look up")
+                            tone: Theme.primaryColor
+                            filled: true
+                            enabled: decolog.callbookProvider !== "off" && callbookTest.text.trim().length >= 3
+                            onClicked: decolog.lookupCall = callbookTest.text
+                        }
+                    }
+                    Text {
+                        Layout.fillWidth: true
+                        wrapMode: Text.Wrap
+                        readonly property var info: decolog.callInfo
+                        readonly property bool mine: callbookTest.text.trim().toUpperCase() === (info.call || "")
+                        text: decolog.callbookBusy ? qsTr("Looking up…")
+                            : mine && info.callbook ? [info.callbook.call, info.callbook.name, info.callbook.qth,
+                                                        info.callbook.grid, info.callbook.country].filter(s => s).join(" · ")
+                            : mine && info.callbookError ? info.callbookError
+                            : decolog.callbookStatus
+                        color: mine && info.callbookError ? Theme.warningColor : Theme.textPrimary
+                        font.family: Theme.monoFamily
+                        font.pixelSize: 12
+                    }
+                    Note { text: qsTr("QRZ.com needs an XML data subscription; HamQTH is free. Results are kept in memory for a day, so moving through the log does not use up lookups.") }
                     Item { Layout.fillHeight: true }
                 }
 

@@ -73,6 +73,19 @@ GlassPanel {
 
     Component.onCompleted: resetTime()
 
+    // Come nella scheda completa: il callbook riempie solo i campi vuoti.
+    Connections {
+        target: decolog
+        function onLookupChanged() {
+            const cb = decolog.callInfo.callbook
+            if (!decolog.callbookAutofill || !cb || callField.text.trim().toUpperCase() !== decolog.callInfo.call)
+                return
+            if (nameField.text.length === 0) nameField.text = cb.name
+            if (qthField.text.length === 0) qthField.text = cb.qth
+            if (gridField.text.length === 0) gridField.text = cb.grid
+        }
+    }
+
     ScrollView {
         anchors.fill: parent
         contentWidth: availableWidth

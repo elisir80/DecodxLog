@@ -22,7 +22,10 @@ GlassPanel {
     headerTools: [
         Text {
             anchors.verticalCenter: parent.verticalCenter
-            text: qsTr("from log")
+            // Da dove vengono nome e QTH: il callbook scelto, o solo il log.
+            text: decolog.callbookBusy ? (root.info.callbookSource || "") + " …"
+                : root.info.callbook ? root.info.callbook.source
+                : root.info.callbookSource ? root.info.callbookSource + " · " + qsTr("log") : qsTr("from log")
             color: Theme.textSecondary
             font.family: Theme.monoFamily
             font.pixelSize: 11
@@ -62,8 +65,43 @@ GlassPanel {
                 font.pixelSize: 12
             }
 
-            ColumnLayout {
+            RowLayout {
                 visible: root.hasCall
+                Layout.fillWidth: true
+                spacing: 10
+
+            // La foto del callbook, quando c'e'.
+            Rectangle {
+                visible: root.info.callbook !== undefined && (root.info.callbook.imageUrl || "").length > 0
+                Layout.preferredWidth: 56
+                Layout.preferredHeight: 56
+                Layout.alignment: Qt.AlignTop
+                radius: 4
+                color: Theme.bgMedium
+                border.width: 1
+                border.color: Theme.glassBorder
+                clip: true
+                Image {
+                    id: photo
+                    anchors.fill: parent
+                    anchors.margins: 1
+                    source: parent.visible ? root.info.callbook.imageUrl : ""
+                    fillMode: Image.PreserveAspectCrop
+                    asynchronous: true
+                    sourceSize.width: 112
+                    sourceSize.height: 112
+                }
+                Text {
+                    anchors.centerIn: parent
+                    visible: photo.status !== Image.Ready
+                    text: photo.status === Image.Loading ? "…" : qsTr("photo")
+                    color: Theme.textSecondary
+                    font.family: Theme.monoFamily
+                    font.pixelSize: 10
+                }
+            }
+
+            ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 2
                 RowLayout {
@@ -120,6 +158,30 @@ GlassPanel {
                     font.family: Theme.monoFamily
                     font.pixelSize: 11
                 }
+                Row {
+                    visible: root.info.callbook !== undefined
+                    spacing: 6
+                    Pill { visible: root.info.callbook && root.info.callbook.lotw; text: "LoTW user"; tone: Theme.accentColor; pillHeight: 18; fontPixelSize: 9 }
+                    Pill { visible: root.info.callbook && root.info.callbook.eqsl; text: "eQSL"; tone: Theme.secondaryColor; pillHeight: 18; fontPixelSize: 9 }
+                    Pill {
+                        visible: root.info.callbook && (root.info.callbook.qslVia || "").length > 0
+                        text: "QSL " + (root.info.callbook ? root.info.callbook.qslVia : "")
+                        tone: Theme.textSecondary
+                        pillHeight: 18
+                        fontPixelSize: 9
+                    }
+                }
+                Text {
+                    Layout.fillWidth: true
+                    visible: (root.info.callbookError || "").length > 0
+                    wrapMode: Text.Wrap
+                    text: root.info.callbookError || ""
+                    color: (root.info.callbookError || "").toLowerCase().indexOf("not found") >= 0
+                           ? Theme.textSecondary : Theme.warningColor
+                    font.family: Theme.monoFamily
+                    font.pixelSize: 10
+                }
+            }
             }
 
             RowLayout {
