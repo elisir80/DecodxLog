@@ -192,6 +192,10 @@ if(DECOLOG_BUILD_TOOLS)
     qt_add_executable(decolog_udpsend tools/udpsend.cpp)
     target_link_libraries(decolog_udpsend PRIVATE decolog_core)
     set_target_properties(decolog_udpsend PROPERTIES WIN32_EXECUTABLE OFF)
+    # Si collega a un nodo, RBN o POTA e stampa gli spot: per provare una fonte.
+    qt_add_executable(decolog_clusterprobe tools/clusterprobe.cpp)
+    target_link_libraries(decolog_clusterprobe PRIVATE decolog_core)
+    set_target_properties(decolog_clusterprobe PROPERTIES WIN32_EXECUTABLE OFF)
 endif()
 
 install(TARGETS decolog

@@ -79,6 +79,8 @@ namespace spots {
 // "DX de IK1XXX:   14074.0  JA1YYY   FT8 -12 dB 1234 Hz   1234Z JN12". `now` serve
 // per la data: il cluster da' solo l'ora.
 std::optional<Spot> parseDxLine(const QString& line, const QDateTime& now = QDateTime::currentDateTimeUtc());
+// Una riga della risposta a SH/DX: "  14074.0 KH8WW  17-Sep-2026 1231Z FT8  <W4EU>".
+std::optional<Spot> parseShowDxLine(const QString& line, const QDateTime& now = QDateTime::currentDateTimeUtc());
 // Una riga JSON di HamAlert (telnet dopo "set/json").
 std::optional<Spot> parseHamAlertJson(const QByteArray& line, const QDateTime& now = QDateTime::currentDateTimeUtc());
 // La risposta di api.pota.app/spot/activator.

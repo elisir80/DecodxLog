@@ -62,15 +62,17 @@ private slots:
         QSignalSpy lines(&c, &ClusterConnection::lineReceived);
         c.start();
 
-        QVERIFY(node.waitFor("IU8LMC\r\n"));
-        node.say("Hello IU8LMC, this is FAKE-1\r\nIU8LMC de FAKE-1 17-Sep-2026 1240Z >\r\n");
+        // Nominativo del profilo con SSID: non butta fuori Decodium dallo stesso nodo.
+        QVERIFY(node.waitFor("IU8LMC-2\r\n"));
+        node.say("Hello IU8LMC, this is FAKE-1\r\nIU8LMC-2 de FAKE-1 17-Sep-2026 1240Z >\r\n");
         QVERIFY(node.waitFor("sh/dx 5\r\n"));
         QVERIFY(node.received.contains("set/ft8\r\n"));
         QTRY_COMPARE(c.state(), ClusterConnection::State::Online);
 
-        node.say("DX de IK8XXX:     14074.0  JA1YYY       FT8 -12 dB              1238Z\r\n"
+        node.say(" DX de IK8XXX:     14074.0  JA1YYY       FT8 -12 dB              1238Z\r\n"
+                 "   21074.0 II7IAME     17-Sep-2026 1231Z FT8 Italian Navy Ship        <IU7EDX>\r\n"
                  "WWV de W0MU <18>:   SFI=150, A=5, K=1, No Storms\r\n");
-        QTRY_COMPARE(spots.size(), 1);
+        QTRY_COMPARE(spots.size(), 2);
         const Spot s = spots.at(0).at(0).value<Spot>();
         QCOMPARE(s.dxCall, QString("JA1YYY"));
         QCOMPARE(s.source, QString("cluster"));

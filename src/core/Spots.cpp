@@ -6,6 +6,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QLocale>
 #include <QRegularExpression>
 #include <QSqlQuery>
 #include <QTimeZone>
@@ -244,6 +245,28 @@ std::optional<Spot> parseDxLine(const QString& line, const QDateTime& now)
     }
     if (const auto wm = wpm.match(s.comment); wm.hasMatch())
         s.wpm = wm.captured(1).toInt();
+    fillBandAndMode(s);
+    return s;
+}
+
+std::optional<Spot> parseShowDxLine(const QString& line, const QDateTime& now)
+{
+    static const QRegularExpression re(
+        QStringLiteral("^\\s*(\\d+(?:\\.\\d+)?)\\s+(\\S+)\\s+(\\d{1,2}-[A-Za-z]{3}-\\d{4})\\s+(\\d{4})Z\\s*(.*?)\\s*<([^>]+)>\\s*$"));
+    const auto m = re.match(line);
+    if (!m.hasMatch())
+        return std::nullopt;
+    Spot s;
+    s.freqKhz = m.captured(1).toDouble();
+    s.dxCall = m.captured(2).toUpper();
+    const QDate date = QLocale(QLocale::English).toDate(m.captured(3), QStringLiteral("d-MMM-yyyy"));
+    const QTime time = QTime::fromString(m.captured(4), QStringLiteral("HHmm"));
+    s.time = date.isValid() && time.isValid() ? QDateTime(date, time, QTimeZone::UTC) : now;
+    s.comment = m.captured(5).simplified();
+    s.spotter = m.captured(6).toUpper();
+    s.source = QStringLiteral("cluster");
+    if (s.freqKhz <= 0 || !plausibleCall(s.dxCall))
+        return std::nullopt;
     fillBandAndMode(s);
     return s;
 }

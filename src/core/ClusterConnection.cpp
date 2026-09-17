@@ -153,7 +153,12 @@ QString ClusterConnection::loginName() const
         return m_source.login;
     if (!m_source.login.isEmpty())
         return m_source.login.toUpper();
-    return m_loginProvider ? m_loginProvider().trimmed().toUpper() : m_defaultLogin;
+    QString call = m_loginProvider ? m_loginProvider().trimmed().toUpper() : m_defaultLogin;
+    // Sullo stesso nodo con lo stesso nominativo DX Spider chiude la sessione vecchia:
+    // quella di Decodium. DecoLog entra come CALL-2.
+    if (!call.isEmpty() && m_source.type == QLatin1String("cluster") && !call.contains(QLatin1Char('-')))
+        call += QStringLiteral("-2");
+    return call;
 }
 
 QString ClusterConnection::stateText() const
@@ -337,14 +342,18 @@ void ClusterConnection::checkPrompt(const QString& pending)
 
 void ClusterConnection::handleLine(const QString& line)
 {
-    if (line.trimmed().isEmpty())
+    const QString trimmed = line.trimmed();
+    if (trimmed.isEmpty())
         return;
 
+    // Alcuni nodi mettono uno spazio (o un BEL) prima di "DX de".
     std::optional<Spot> spot;
-    if (line.startsWith(QLatin1Char('{')))
-        spot = spots::parseHamAlertJson(line.toUtf8());
-    else if (line.startsWith(QLatin1String("DX de"), Qt::CaseInsensitive))
-        spot = spots::parseDxLine(line);
+    if (trimmed.startsWith(QLatin1Char('{')))
+        spot = spots::parseHamAlertJson(trimmed.toUtf8());
+    else if (trimmed.startsWith(QLatin1String("DX de"), Qt::CaseInsensitive))
+        spot = spots::parseDxLine(trimmed);
+    else if (!trimmed.isEmpty() && trimmed.at(0).isDigit() && trimmed.endsWith(QLatin1Char('>')))
+        spot = spots::parseShowDxLine(trimmed);
 
     if (spot) {
         if (m_state != State::Online)

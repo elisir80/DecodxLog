@@ -67,6 +67,18 @@ private slots:
         QVERIFY(!spots::parseDxLine("DX de IK8XXX:  14074.0  HELLO  test  1238Z", kNow));
     }
 
+    void showDxLine()
+    {
+        const auto s = spots::parseShowDxLine("   21074.0 II7IAME     17-Sep-2026 1231Z FT8 Italian Navy Ship        <IU7EDX>", kNow);
+        QVERIFY(s);
+        QCOMPARE(s->dxCall, QString("II7IAME"));
+        QCOMPARE(s->spotter, QString("IU7EDX"));
+        QCOMPARE(s->mode, QString("FT8"));
+        QCOMPARE(s->band, QString("15m"));
+        QCOMPARE(s->time, QDateTime(QDate(2026, 9, 17), QTime(12, 31), QTimeZone::UTC));
+        QVERIFY(!spots::parseShowDxLine(" 17-Sep-2026   12   100   9   2 No Storms -> Minor w/G1               <VE7CC>", kNow));
+    }
+
     void modeFromFrequency()
     {
         QCOMPARE(spots::modeFor(14075.3, ""), QString("FT8"));
