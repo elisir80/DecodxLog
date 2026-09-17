@@ -4,19 +4,56 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 jobs:
-  build:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: ubuntu-24.04
-            qt_arch: linux_gcc_64
-          - os: windows-2022
-            qt_arch: win64_msvc2022_64
-    runs-on: ${{ matrix.os }}
+  # Windows con la stessa catena usata per sviluppare e distribuire: MSYS2 MinGW64.
+  # Alla fine prepara la cartella distribuibile e la allega come artefatto.
+  windows:
+    runs-on: windows-2022
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v4
 
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-ninja
+            mingw-w64-x86_64-qt6-base
+            mingw-w64-x86_64-qt6-declarative
+            mingw-w64-x86_64-qt6-tools
+            mingw-w64-x86_64-qt6-translations
+            mingw-w64-x86_64-qtkeychain
+            mingw-w64-x86_64-openssl
+
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Test
+        working-directory: build
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: ctest --output-on-failure
+
+      - name: Package
+        run: MINGW=/mingw64 bash scripts/deploy.sh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: decolog-windows-x64
+          path: dist/
+
+  linux:
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
@@ -24,22 +61,15 @@ jobs:
         uses: jurplel/install-qt-action@v4
         with:
           version: '6.8.3'
-          arch: ${{ matrix.qt_arch }}
+          arch: linux_gcc_64
           cache: true
 
-      - name: MSVC environment
-        if: runner.os == 'Windows'
-        uses: ilammy/msvc-dev-cmd@v1
-
-      - name: Linux packages
-        if: runner.os == 'Linux'
+      - name: Packages
         run: sudo apt-get update && sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev libsecret-1-dev
 
-      # qtkeychain non e' in install-qt-action: su Linux si compila dai sorgenti
-      # contro lo stesso Qt; su Windows (MSVC) DecoLog si compila senza
-      # portachiavi e il test delle credenziali si salta.
-      - name: qtkeychain (Linux)
-        if: runner.os == 'Linux'
+      # qtkeychain non c'e' in install-qt-action: si compila contro lo stesso Qt.
+      # Senza Secret Service in esecuzione il test delle credenziali si salta.
+      - name: qtkeychain
         run: |
           git clone --depth 1 --branch 0.17.0 https://github.com/frankosterfeld/qtkeychain.git /tmp/qtkeychain
           cmake -S /tmp/qtkeychain -B /tmp/qtkeychain/build -G Ninja -DBUILD_WITH_QT6=ON -DBUILD_TRANSLATIONS=OFF -DCMAKE_INSTALL_PREFIX=$QT_ROOT_DIR

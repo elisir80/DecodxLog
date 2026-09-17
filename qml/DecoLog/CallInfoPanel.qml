@@ -161,10 +161,10 @@ GlassPanel {
                 Row {
                     visible: root.info.callbook !== undefined
                     spacing: 6
-                    Pill { visible: root.info.callbook && root.info.callbook.lotw; text: "LoTW user"; tone: Theme.accentColor; pillHeight: 18; fontPixelSize: 9 }
-                    Pill { visible: root.info.callbook && root.info.callbook.eqsl; text: "eQSL"; tone: Theme.secondaryColor; pillHeight: 18; fontPixelSize: 9 }
+                    Pill { visible: !!(root.info.callbook && root.info.callbook.lotw); text: "LoTW user"; tone: Theme.accentColor; pillHeight: 18; fontPixelSize: 9 }
+                    Pill { visible: !!(root.info.callbook && root.info.callbook.eqsl); text: "eQSL"; tone: Theme.secondaryColor; pillHeight: 18; fontPixelSize: 9 }
                     Pill {
-                        visible: root.info.callbook && (root.info.callbook.qslVia || "").length > 0
+                        visible: !!root.info.callbook && (root.info.callbook.qslVia || "").length > 0
                         text: "QSL " + (root.info.callbook ? root.info.callbook.qslVia : "")
                         tone: Theme.textSecondary
                         pillHeight: 18

@@ -57,6 +57,7 @@ db/schema.sql       schema SQLite v1
 resources/cty/      cty.csv di AD1C (country-files.com) e la sua licenza
 tests/              Qt Test: adif, protocol, database
 tools/udpsend.cpp   finge di essere Decodium, per provare senza radio
+scripts/deploy.sh   prepara la cartella distribuibile
 ```
 
 ## Compilare (Windows, MSYS2 MinGW64)
@@ -71,6 +72,15 @@ cd build && ctest --output-on-failure
 Richiede Qt ≥ 6.5 con Quick, QuickControls2, Sql (driver QSQLITE), Network, Test.
 Per le credenziali: `pacman -S mingw-w64-x86_64-qtkeychain` (facoltativo: senza, DecoLog
 si compila ma non salva password). Nella distribuzione va incluso `libqt6keychain.dll`.
+
+## Cartella distribuibile (Windows)
+
+```sh
+scripts/deploy.sh      # compila e prepara dist/: decolog.exe, Qt, QML, TLS, SQLite, qtkeychain
+```
+
+La cartella si avvia con doppio clic anche senza MSYS2. La CI la produce a ogni push
+come artefatto `decolog-windows-x64`.
 
 ## Provare senza radio
 
