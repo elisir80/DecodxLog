@@ -52,6 +52,17 @@ Funziona:
   a mano o ogni 6/12/24 ore) e abbinate ai QSO per nominativo, banda, gruppo di modi e
   ora entro 30 minuti; i dettagli LoTW riempiono i campi vuoti, i nuovi DXCC confermati
   finiscono nel registro attività.
+- **DX Cluster** in una finestra propria (Ctrl+K) e nella scheda in basso: nodi DX Spider/
+  CC Cluster via telnet (DecoLog entra come CALL-2), Reverse Beacon Network (CW/RTTY e
+  FT8/FT4), HamAlert (password nel portachiavi) e attivazioni POTA, tutto in una lista.
+  Ogni spot e' confrontato col log: NEW DXCC, NEW BAND, NEW MODE, NEW SLOT, gia' lavorato,
+  entita' non confermata, utente LoTW; distanza e azimut; referenze POTA/SOTA/WWFF/IOTA dal
+  commento. Filtri per banda, modo, stato, continente del DX e dello spotter, fonte,
+  nominativi con jolly, SNR degli skimmer, eta'; filtri salvati. Regole d'avviso con
+  annuncio vocale (voci di sistema, italiano o inglese, alfabeto fonetico). Gli spot e gli
+  avvisi vanno a Decodium con DecoLink; doppio clic su uno spot sintonizza Decodium.
+  Console per i comandi al nodo e per mandare spot. `decolog_clusterprobe` prova una fonte
+  da riga di comando.
 - **Backup** notturno con `VACUUM INTO`, copie a rotazione.
 - **Tema**: Ocean Blue / Stellar Light / Darkcodium, variant d'accento, densità,
   colori personalizzati.
