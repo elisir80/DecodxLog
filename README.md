@@ -13,7 +13,8 @@ Dalla 0.1.0: interfaccia in italiano, conferme LoTW in entrata e invio QSL in us
 (LoTW via TQSL, QRZ Logbook, eQSL), DX cluster con annunci vocali e collegamento a
 Decodium, etichette e filtri avanzati del log, award per banda con mappa dei locatori,
 sessioni di attivazione e contest, icona e pacchetto da distribuire.
-Storia completa: [`docs/CHANGELOG.md`](docs/CHANGELOG.md).
+Elenco completo delle funzioni (italiano e inglese): [`docs/FEATURES.md`](docs/FEATURES.md).
+Storia: [`docs/CHANGELOG.md`](docs/CHANGELOG.md).
 
 L'interfaccia segue i mockup "DecoLog Mockups" (finestra principale 1a, Nuovo QSO 1b,
 scheda QSO 1c, profili stazione 1d, Setup 1e) nei tre temi di Decodium.
