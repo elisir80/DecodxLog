@@ -1,0 +1,2 @@
+# Gli script di shell girano anche in MSYS2 sulla CI Windows: con CRLF bash si ferma.
+*.sh text eol=lf
