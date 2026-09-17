@@ -33,12 +33,15 @@ Funziona:
 - **Entità DXCC** dal nominativo con il `cty.csv` di AD1C (incluso, aggiornabile da
   Setup): DXCC, paese, zone e continente sui QSO da Decodium e manuali, "NEW DXCC" e
   "NEW DXCC on <banda>" mentre si lavora, completamento dei QSO già nel log.
+- **Credenziali** di Cloud, QRZ.com, QRZ Logbook, LoTW, Club Log, eQSL e HamQTH nel
+  portachiavi di sistema (qtkeychain): nel file delle impostazioni resta solo il nome
+  utente. Senza qtkeychain i segreti non si salvano affatto.
 - **Backup** notturno con `VACUUM INTO`, copie a rotazione.
 - **Tema**: Ocean Blue / Stellar Light / Darkcodium, variant d'accento, densità,
   colori personalizzati.
 
 Non ancora (mostrati come tali nell'interfaccia): callbook QRZ/HamQTH, upload e
-download QSL, DecoLog Cloud e sync, credenziali in keystore, award oltre FT2.
+download QSL, DecoLog Cloud e sync, award oltre FT2.
 
 ## Struttura
 
@@ -63,6 +66,8 @@ cd build && ctest --output-on-failure
 ```
 
 Richiede Qt ≥ 6.5 con Quick, QuickControls2, Sql (driver QSQLITE), Network, Test.
+Per le credenziali: `pacman -S mingw-w64-x86_64-qtkeychain` (facoltativo: senza, DecoLog
+si compila ma non salva password). Nella distribuzione va incluso `libqt6keychain.dll`.
 
 ## Provare senza radio
 

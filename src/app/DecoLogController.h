@@ -8,6 +8,7 @@
 #include "app/QsoTableModel.h"
 #include "app/StationProfileModel.h"
 #include "core/Countries.h"
+#include "core/CredentialStore.h"
 #include "core/LogDatabase.h"
 #include "core/UdpReceiver.h"
 
@@ -28,6 +29,7 @@ class DecoLogController : public QObject {
     Q_PROPERTY(bool databaseOpen READ databaseOpen CONSTANT)
     Q_PROPERTY(QObject* qsoModel READ qsoModel CONSTANT)
     Q_PROPERTY(QObject* stationProfiles READ stationProfiles CONSTANT)
+    Q_PROPERTY(QObject* credentials READ credentials CONSTANT)
 
     // ── Collegamento con Decodium ──────────────────────────────────────────
     Q_PROPERTY(int udpPort READ udpPort WRITE setUdpPort NOTIFY udpChanged)
@@ -101,6 +103,7 @@ public:
     bool databaseOpen() const { return m_db.isOpen(); }
     QObject* qsoModel() const { return m_model; }
     QObject* stationProfiles() const { return m_profiles; }
+    QObject* credentials() const { return m_credentials; }
 
     int udpPort() const { return m_udpPort; }
     void setUdpPort(int port);
@@ -223,6 +226,7 @@ private:
 
     core::LogDatabase m_db;
     core::Countries   m_countries;
+    core::CredentialStore* m_credentials{nullptr};
     QString           m_countriesSource;
     core::UdpReceiver m_udp;
     QsoTableModel*    m_model{nullptr};

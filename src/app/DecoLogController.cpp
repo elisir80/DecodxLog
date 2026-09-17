@@ -138,6 +138,14 @@ DecoLogController::DecoLogController(QObject* parent)
 
     loadCountries();
 
+    m_credentials = new CredentialStore(QStringLiteral("DecoLog"), this);
+    connect(m_credentials, &CredentialStore::finished, this,
+            [this](const QString& service, bool ok, const QString& message) {
+                // Mai il segreto: solo il servizio e l'esito.
+                addActivity(QStringLiteral("KEYS"), QStringLiteral("%1: %2").arg(service, message),
+                            ok ? QStringLiteral("info") : QStringLiteral("error"));
+            });
+
     m_backupTimer.setInterval(60'000);
     connect(&m_backupTimer, &QTimer::timeout, this, &DecoLogController::checkBackupSchedule);
 }

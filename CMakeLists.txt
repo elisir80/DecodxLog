@@ -39,6 +39,8 @@ add_library(decolog_core STATIC
     src/core/Bands.h
     src/core/Countries.cpp
     src/core/Countries.h
+    src/core/CredentialStore.cpp
+    src/core/CredentialStore.h
     src/core/Maidenhead.cpp
     src/core/Maidenhead.h
     src/core/LogDatabase.cpp
@@ -61,6 +63,19 @@ qt_add_resources(decolog_core "cty"
 )
 target_include_directories(decolog_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(decolog_core PUBLIC Qt6::Core Qt6::Network Qt6::Sql)
+
+# Portachiavi di sistema per password e chiavi API. Senza qtkeychain DecoLog si
+# compila lo stesso, ma non salva segreti: niente ripiego in chiaro.
+#   MSYS2:  pacman -S mingw-w64-x86_64-qtkeychain
+#   Debian: apt install qtkeychain-qt6-dev
+find_package(Qt6Keychain QUIET)
+if(TARGET qt6keychain)
+    target_link_libraries(decolog_core PUBLIC qt6keychain)
+    target_compile_definitions(decolog_core PUBLIC DECOLOG_HAVE_KEYCHAIN=1)
+    message(STATUS "DecoLog: qtkeychain found — credentials in the system keystore")
+else()
+    message(WARNING "DecoLog: qtkeychain not found — credentials cannot be stored")
+endif()
 if(MSVC)
     target_compile_options(decolog_core PRIVATE /W4)
 else()
@@ -93,6 +108,7 @@ set(DECOLOG_QML_FILES
     qml/DecoLog/StationProfilesDialog.qml
     qml/DecoLog/SetupDialog.qml
     qml/DecoLog/LogbookWindow.qml
+    qml/DecoLog/CredentialsList.qml
 )
 
 qt_add_qml_module(decolog
@@ -126,7 +142,7 @@ set_target_properties(decolog PROPERTIES
 if(DECOLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries)
+    foreach(name adif protocol database countries credentials)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

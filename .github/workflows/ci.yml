@@ -33,7 +33,18 @@ jobs:
 
       - name: Linux packages
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev
+        run: sudo apt-get update && sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev libsecret-1-dev
+
+      # qtkeychain non e' in install-qt-action: su Linux si compila dai sorgenti
+      # contro lo stesso Qt; su Windows (MSVC) DecoLog si compila senza
+      # portachiavi e il test delle credenziali si salta.
+      - name: qtkeychain (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          git clone --depth 1 --branch 0.17.0 https://github.com/frankosterfeld/qtkeychain.git /tmp/qtkeychain
+          cmake -S /tmp/qtkeychain -B /tmp/qtkeychain/build -G Ninja -DBUILD_WITH_QT6=ON -DBUILD_TRANSLATIONS=OFF -DCMAKE_INSTALL_PREFIX=$QT_ROOT_DIR
+          cmake --build /tmp/qtkeychain/build
+          cmake --install /tmp/qtkeychain/build
 
       - name: Configure
         run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release

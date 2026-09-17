@@ -66,19 +66,6 @@ DialogFrame {
         color: Theme.textSecondary
         font.pixelSize: 12
     }
-    component CredentialRow: RowLayout {
-        property string service: ""
-        property string account: "—"
-        property string state: qsTr("not set")
-        Layout.fillWidth: true
-        Layout.preferredHeight: 30
-        spacing: 10
-        Text { Layout.preferredWidth: 120; text: parent.service; color: Theme.textPrimary; font.family: Theme.monoFamily; font.pixelSize: 12; font.bold: true }
-        Text { Layout.fillWidth: true; text: parent.account; color: Theme.textSecondary; font.family: Theme.monoFamily; font.pixelSize: 12 }
-        Text { Layout.preferredWidth: 90; text: parent.state; color: Theme.textSecondary; font.family: Theme.monoFamily; font.pixelSize: 12 }
-        Text { Layout.preferredWidth: 50; horizontalAlignment: Text.AlignRight; text: qsTr("Add"); color: Theme.textSecondary; font.family: Theme.monoFamily; font.pixelSize: 12 }
-    }
-
     contentItem: ColumnLayout {
         spacing: 0
 
@@ -407,12 +394,10 @@ DialogFrame {
                         Layout.fillWidth: true
                         spacing: 0
                         SectionTitle { text: qsTr("Credentials · system keystore") }
-                        CredentialRow { service: "DecoLog Cloud" }
-                        CredentialRow { service: "QRZ.com" }
-                        CredentialRow { service: "LoTW"; account: qsTr("TQSL local") }
-                        CredentialRow { service: "Club Log" }
-                        CredentialRow { service: "eQSL" }
-                        Note { text: qsTr("Credentials will live in the system keystore (qtkeychain), never in the settings file. The keystore is not linked in this build yet.") }
+                        CredentialsList {
+                            Layout.fillWidth: true
+                            serviceIds: ["cloud", "qrz", "qrzlogbook", "lotw", "clublog", "eqsl", "hamqth"]
+                        }
                     }
                     Item { Layout.fillHeight: true }
                 }
@@ -421,7 +406,11 @@ DialogFrame {
                 ColumnLayout {
                     spacing: 12
                     SectionTitle { text: qsTr("QSL services") }
-                    Note { text: qsTr("LoTW (through the local TQSL), QRZ Logbook, Club Log and eQSL: upload and download of confirmations arrive with the 1.x releases. The QSL state of every QSO is already stored per service and shown in the log, the QSO detail and the QSL Upload tab.") }
+                    Note { text: qsTr("LoTW (through the local TQSL), QRZ Logbook, Club Log and eQSL: upload and download of confirmations arrive with the 1.x releases. Credentials can already be stored; the QSL state of every QSO is kept per service.") }
+                    CredentialsList {
+                        Layout.fillWidth: true
+                        serviceIds: ["lotw", "qrzlogbook", "clublog", "eqsl"]
+                    }
                     Repeater {
                         model: decolog.qslSummary
                         RowLayout {
@@ -443,7 +432,11 @@ DialogFrame {
                 ColumnLayout {
                     spacing: 12
                     SectionTitle { text: qsTr("Callbook") }
-                    Note { text: qsTr("QRZ.com and HamQTH lookups arrive with the 1.x releases. Until then Call info and the New QSO form use what the log already knows about a callsign.") }
+                    Note { text: qsTr("QRZ.com and HamQTH lookups arrive with the 1.x releases. Until then Call info and the New QSO form use the log and cty.csv. Credentials can already be stored.") }
+                    CredentialsList {
+                        Layout.fillWidth: true
+                        serviceIds: ["qrz", "hamqth"]
+                    }
                     Item { Layout.fillHeight: true }
                 }
 
