@@ -182,6 +182,12 @@ if(DECOLOG_BUILD_TESTS)
     target_link_libraries(tst_qsomodel PRIVATE decolog_core Qt6::Test)
     set_target_properties(tst_qsomodel PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME qsomodel COMMAND tst_qsomodel)
+    qt_add_executable(tst_clustercontroller tests/tst_clustercontroller.cpp
+        src/app/ClusterController.cpp src/app/ClusterController.h src/app/SpotModel.cpp src/app/SpotModel.h)
+    target_include_directories(tst_clustercontroller PRIVATE src)
+    target_link_libraries(tst_clustercontroller PRIVATE decolog_core Qt6::Test)
+    set_target_properties(tst_clustercontroller PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME clustercontroller COMMAND tst_clustercontroller)
 endif()
 
 # ── Tools ─────────────────────────────────────────────────────────────────────
