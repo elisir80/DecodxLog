@@ -48,6 +48,10 @@ Funziona:
   elenco di quello che manca (DXCC, FT2, WAZ, WAS), mappa dei locatori; filtri per
   banda, gruppo di modi, profilo stazione ed etichetta; conferme accettate a scelta
   (LoTW, cartolina, eQSL).
+- **Invio QSL**: LoTW facendo firmare un ADIF temporaneo al TQSL installato (il certificato
+  resta dov'è), QRZ Logbook con la chiave API ed eQSL con utente e password. A mano o
+  automatico dopo ogni QSO; i duplicati contano come inviati, i rifiuti restano scritti sul
+  QSO con il motivo. Conteggi e pulsanti nella scheda "Invio QSL".
 - **Conferme LoTW** scaricate da `lotwreport.adi` (solo quelle nuove dall'ultimo sync,
   a mano o ogni 6/12/24 ore) e abbinate ai QSO per nominativo, banda, gruppo di modi e
   ora entro 30 minuti; i dettagli LoTW riempiono i campi vuoti, i nuovi DXCC confermati
@@ -67,8 +71,10 @@ Funziona:
 - **Tema**: Ocean Blue / Stellar Light / Darkcodium, variant d'accento, densità,
   colori personalizzati.
 
-Non ancora (mostrati come tali nell'interfaccia): upload QSL (LoTW passa da TQSL),
-QRZ Logbook, Club Log ed eQSL, DecoLog Cloud e sync.
+- **Interfaccia in italiano** (`translations/decolog_it.ts`): segue la lingua del sistema,
+  o si sceglie in Impostazioni → Generale.
+
+Non ancora (mostrati come tali nell'interfaccia): Club Log, DecoLog Cloud e sync.
 
 ## Struttura
 
