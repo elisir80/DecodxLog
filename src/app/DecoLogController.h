@@ -7,6 +7,7 @@
 
 #include "app/QsoTableModel.h"
 #include "app/StationProfileModel.h"
+#include "core/Awards.h"
 #include "core/Callbook.h"
 #include "core/Countries.h"
 #include "core/CredentialStore.h"
@@ -76,6 +77,15 @@ class DecoLogController : public QObject {
     Q_PROPERTY(int countriesEntities READ countriesEntities NOTIFY countriesChanged)
     Q_PROPERTY(QString countriesSource READ countriesSource NOTIFY countriesChanged)
     Q_PROPERTY(int missingDxccCount READ missingDxccCount NOTIFY logChanged)
+
+    // ── Award ──────────────────────────────────────────────────────────────
+    Q_PROPERTY(QVariantList awardSummary READ awardSummary NOTIFY awardsChanged)
+    Q_PROPERTY(QStringList awardBands READ awardBands NOTIFY awardsChanged)
+    Q_PROPERTY(QString awardBand READ awardBand WRITE setAwardBand NOTIFY awardsChanged)
+    Q_PROPERTY(QString awardModeGroup READ awardModeGroup WRITE setAwardModeGroup NOTIFY awardsChanged)
+    Q_PROPERTY(bool awardConfirmLotw READ awardConfirmLotw WRITE setAwardConfirmLotw NOTIFY awardsChanged)
+    Q_PROPERTY(bool awardConfirmCard READ awardConfirmCard WRITE setAwardConfirmCard NOTIFY awardsChanged)
+    Q_PROPERTY(bool awardConfirmEqsl READ awardConfirmEqsl WRITE setAwardConfirmEqsl NOTIFY awardsChanged)
 
     // ── Callbook (QRZ.com / HamQTH) ────────────────────────────────────────
     Q_PROPERTY(QString callbookProvider READ callbookProvider WRITE setCallbookProvider NOTIFY callbookChanged)
@@ -161,6 +171,21 @@ public:
     QString countriesSource() const { return m_countriesSource; }
     int missingDxccCount() const { return static_cast<int>(m_db.idsWithoutDxcc().size()); }
 
+    QVariantList awardSummary() const;
+    QStringList awardBands() const;
+    QString awardBand() const { return m_awardFilter.band; }
+    void setAwardBand(const QString& band);
+    QString awardModeGroup() const { return m_awardFilter.modeGroup; }
+    void setAwardModeGroup(const QString& group);
+    bool awardConfirmLotw() const { return m_awardFilter.confirmLotw; }
+    void setAwardConfirmLotw(bool on);
+    bool awardConfirmCard() const { return m_awardFilter.confirmCard; }
+    void setAwardConfirmCard(bool on);
+    bool awardConfirmEqsl() const { return m_awardFilter.confirmEqsl; }
+    void setAwardConfirmEqsl(bool on);
+    // Gli elementi di un award per la tabella: filtro testo e "solo non confermati".
+    Q_INVOKABLE QVariantList awardItems(const QString& awardId, const QString& search, bool onlyUnconfirmed) const;
+
     QString callbookProvider() const { return core::CallbookClient::providerId(m_callbook.provider()); }
     void setCallbookProvider(const QString& id);
     bool callbookAutofill() const { return m_callbookAutofill; }
@@ -226,6 +251,7 @@ signals:
     void cloudChanged();
     void countriesChanged();
     void callbookChanged();
+    void awardsChanged();
 
 private:
     void onQsoReceived(const core::AdifRecord& record, const QString& source, const QString& sourceApp);
@@ -239,11 +265,16 @@ private:
     bool applyEntity(core::AdifRecord& record) const;
     void loadCountries();
     void requestCallbook();
+    const QList<core::AwardResult>& awardResults() const;
+    void awardFilterChanged();
 
     core::LogDatabase m_db;
     core::Countries   m_countries;
     core::CredentialStore* m_credentials{nullptr};
     core::CallbookClient m_callbook;
+    core::AwardFilter m_awardFilter;
+    mutable QList<core::AwardResult> m_awardCache;
+    mutable bool m_awardsDirty{true};
     bool      m_callbookAutofill{true};
     QString   m_callbookStatus;
     QString   m_callbookPending;

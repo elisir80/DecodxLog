@@ -53,12 +53,17 @@ ApplicationWindow {
         else if (what[0] === "tab") bottomTabs.currentTab = parseInt(what[1])
         else if (what[0] === "pop") popWindow.active = true
         else if (what[0] === "call") decolog.lookupCall = what[1]
+        else if (what[0] === "awards") awardsDialog.openAt(what[1] || "dxcc")
     }
 
     NewQsoDialog { id: newQsoDialog }
     QsoDetailDialog { id: qsoDialog }
     StationProfilesDialog { id: profilesDialog }
     SetupDialog { id: setupDialog }
+    AwardsDialog {
+        id: awardsDialog
+        onOpenQso: (id) => window.openQso(id)
+    }
 
     FileDialog {
         id: importDialog
@@ -99,7 +104,7 @@ ApplicationWindow {
             onSetupRequested: setupDialog.open()
             onImportRequested: importDialog.open()
             onExportRequested: exportDialog.open()
-            onAwardsRequested: bottomTabs.currentTab = 0
+            onAwardsRequested: awardsDialog.openAt("")
             onProfilesRequested: profilesDialog.open()
         }
 
@@ -150,7 +155,7 @@ ApplicationWindow {
                     Ft2AwardPanel {
                         Layout.fillWidth: true
                         Layout.preferredHeight: implicitHeight
-                        onDetailsRequested: bottomTabs.currentTab = 0
+                        onDetailsRequested: awardsDialog.openAt("ft2")
                     }
                 }
             }
@@ -163,6 +168,7 @@ ApplicationWindow {
 
                 BottomTabs {
                     id: bottomTabs
+                    onAwardRequested: (id) => awardsDialog.openAt(id)
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                 }

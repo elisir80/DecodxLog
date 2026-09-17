@@ -9,6 +9,7 @@ GlassPanel {
 
     // 0 Awards · 1 Statistics · 2 QSL Upload · 3 Activity log
     property int currentTab: 3
+    signal awardRequested(string id)
 
     padding: 0
     headerLeading: [
@@ -100,40 +101,52 @@ GlassPanel {
         currentIndex: root.currentTab
 
         // ── Awards ──────────────────────────────────────────────────────────
-        RowLayout {
-            spacing: 24
-            ColumnLayout {
-                Layout.preferredWidth: 320
-                Layout.alignment: Qt.AlignTop
-                spacing: 8
-                SectionTitle { text: qsTr("FT2 Award") }
-                GridLayout {
-                    columns: 3
-                    columnSpacing: 18
-                    rowSpacing: 4
-                    Cell { text: ""; heading: true }
-                    Cell { text: qsTr("worked"); heading: true }
-                    Cell { text: qsTr("LoTW"); heading: true }
-                    Cell { text: qsTr("DXCC"); heading: true }
-                    Cell { text: decolog.ft2Award.dxccWorked }
-                    Cell { text: decolog.ft2Award.dxccConfirmed; color: Theme.accentColor }
-                    Cell { text: qsTr("Grids"); heading: true }
-                    Cell { text: decolog.ft2Award.gridsWorked }
-                    Cell { text: decolog.ft2Award.gridsConfirmed; color: Theme.accentColor }
-                    Cell { text: qsTr("QSO"); heading: true }
-                    Cell { text: decolog.ft2Award.qsos }
-                    Cell { text: "" }
+        Flow {
+            spacing: 8
+            Repeater {
+                model: decolog.awardSummary
+                Rectangle {
+                    id: tile
+                    required property var modelData
+                    width: 150
+                    height: 58
+                    radius: 5
+                    color: tileArea.containsMouse ? Theme.glassOverlay : Theme.bgMedium
+                    border.width: 1
+                    border.color: modelData.id === "ft2" ? Theme.accentColor : Theme.borderSoft
+                    Column {
+                        anchors.fill: parent
+                        anchors.margins: 8
+                        spacing: 2
+                        Text {
+                            text: tile.modelData.title
+                            color: tile.modelData.id === "ft2" ? Theme.accentColor : Theme.secondaryColor
+                            font.family: Theme.monoFamily
+                            font.pixelSize: 11
+                            font.bold: true
+                        }
+                        Text {
+                            text: tile.modelData.worked + (tile.modelData.total > 0 ? " / " + tile.modelData.total : "")
+                            color: Theme.textPrimary
+                            font.family: Theme.monoFamily
+                            font.pixelSize: 15
+                            font.bold: true
+                        }
+                        Text {
+                            text: qsTr("%1 confirmed").arg(tile.modelData.confirmed)
+                            color: Theme.textSecondary
+                            font.family: Theme.monoFamily
+                            font.pixelSize: 10
+                        }
+                    }
+                    MouseArea {
+                        id: tileArea
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: root.awardRequested(tile.modelData.id)
+                    }
                 }
-            }
-            Text {
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignTop
-                wrapMode: Text.Wrap
-                text: qsTr("DXCC, WAS, WAZ, WPX, grids and POTA/SOTA/WWFF arrive with the 1.x releases. "
-                           + "The FT2 Award counts QSOs logged as MODE=MFSK SUBMODE=FT2 with a DXCC entity; "
-                           + "a DXCC is confirmed when LoTW has it.")
-                color: Theme.textSecondary
-                font.pixelSize: 12
             }
         }
 

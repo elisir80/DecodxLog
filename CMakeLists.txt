@@ -35,6 +35,8 @@ add_subdirectory(libs/decodium-ui)
 add_library(decolog_core STATIC
     src/core/Adif.cpp
     src/core/Adif.h
+    src/core/Awards.cpp
+    src/core/Awards.h
     src/core/Bands.cpp
     src/core/Bands.h
     src/core/Callbook.cpp
@@ -111,6 +113,7 @@ set(DECOLOG_QML_FILES
     qml/DecoLog/SetupDialog.qml
     qml/DecoLog/LogbookWindow.qml
     qml/DecoLog/CredentialsList.qml
+    qml/DecoLog/AwardsDialog.qml
 )
 
 qt_add_qml_module(decolog
@@ -144,7 +147,7 @@ set_target_properties(decolog PROPERTIES
 if(DECOLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook)
+    foreach(name adif protocol database countries credentials callbook awards)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

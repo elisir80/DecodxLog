@@ -139,6 +139,22 @@ DecoLogController::DecoLogController(QObject* parent)
 
     loadCountries();
 
+    m_awardFilter.band = s.value(QStringLiteral("awards/band")).toString();
+    m_awardFilter.modeGroup = s.value(QStringLiteral("awards/modeGroup")).toString();
+    m_awardFilter.confirmLotw = s.value(QStringLiteral("awards/confirmLotw"), true).toBool();
+    m_awardFilter.confirmCard = s.value(QStringLiteral("awards/confirmCard"), true).toBool();
+    m_awardFilter.confirmEqsl = s.value(QStringLiteral("awards/confirmEqsl"), false).toBool();
+    // Gli award si ricalcolano quando il log cambia, e solo quando qualcuno li guarda.
+    connect(this, &DecoLogController::logChanged, this, [this] {
+        m_awardsDirty = true;
+        emit awardsChanged();
+    });
+    // Un cty.csv nuovo cambia i nomi delle entita'.
+    connect(this, &DecoLogController::countriesChanged, this, [this] {
+        m_awardsDirty = true;
+        emit awardsChanged();
+    });
+
     m_credentials = new CredentialStore(QStringLiteral("DecoLog"), this);
     connect(m_credentials, &CredentialStore::finished, this,
             [this](const QString& service, bool ok, const QString& message) {
@@ -431,6 +447,120 @@ int DecoLogController::fillMissingDxcc()
     emit logChanged();
     refreshCallInfo();
     return filled;
+}
+
+// ── Award ─────────────────────────────────────────────────────────────────────
+
+const QList<AwardResult>& DecoLogController::awardResults() const
+{
+    if (m_awardsDirty && m_db.isOpen()) {
+        const AwardCalculator calc([this](int dxcc) { return m_countries.nameFor(dxcc); });
+        m_awardCache = calc.compute(m_db, m_awardFilter);
+        m_awardsDirty = false;
+    }
+    return m_awardCache;
+}
+
+QVariantList DecoLogController::awardSummary() const
+{
+    QVariantList out;
+    for (const AwardResult& r : awardResults()) {
+        out << QVariantMap{
+            {QStringLiteral("id"), r.id},
+            {QStringLiteral("title"), r.title},
+            {QStringLiteral("worked"), r.worked()},
+            {QStringLiteral("confirmed"), r.confirmed()},
+            {QStringLiteral("target"), r.target},
+            {QStringLiteral("total"), r.total},
+        };
+    }
+    return out;
+}
+
+QStringList DecoLogController::awardBands() const
+{
+    // Le colonne della tabella: le bande presenti nel log, in ordine.
+    QStringList out;
+    for (const auto& row : m_db.countByBand())
+        out << row.key;
+    return out;
+}
+
+QVariantList DecoLogController::awardItems(const QString& awardId, const QString& search, bool onlyUnconfirmed) const
+{
+    QVariantList out;
+    const QString needle = search.trimmed().toUpper();
+    for (const AwardResult& r : awardResults()) {
+        if (r.id != awardId)
+            continue;
+        for (const AwardItem& i : r.items) {
+            if (onlyUnconfirmed && i.confirmed())
+                continue;
+            if (!needle.isEmpty() && !i.key.toUpper().contains(needle) && !i.name.toUpper().contains(needle)
+                && !i.firstCall.contains(needle))
+                continue;
+            out << QVariantMap{
+                {QStringLiteral("key"), i.key},
+                {QStringLiteral("name"), i.name},
+                {QStringLiteral("bandsWorked"), QStringList(i.bandsWorked.cbegin(), i.bandsWorked.cend())},
+                {QStringLiteral("bandsConfirmed"), QStringList(i.bandsConfirmed.cbegin(), i.bandsConfirmed.cend())},
+                {QStringLiteral("qsoCount"), i.qsoCount},
+                {QStringLiteral("first"), i.first.toString(QStringLiteral("yyyy-MM-dd"))},
+                {QStringLiteral("last"), i.last.toString(QStringLiteral("yyyy-MM-dd"))},
+                {QStringLiteral("firstQsoId"), i.firstQsoId},
+                {QStringLiteral("firstCall"), i.firstCall},
+                {QStringLiteral("confirmed"), i.confirmed()},
+            };
+        }
+    }
+    return out;
+}
+
+void DecoLogController::awardFilterChanged()
+{
+    QSettings s;
+    s.setValue(QStringLiteral("awards/band"), m_awardFilter.band);
+    s.setValue(QStringLiteral("awards/modeGroup"), m_awardFilter.modeGroup);
+    s.setValue(QStringLiteral("awards/confirmLotw"), m_awardFilter.confirmLotw);
+    s.setValue(QStringLiteral("awards/confirmCard"), m_awardFilter.confirmCard);
+    s.setValue(QStringLiteral("awards/confirmEqsl"), m_awardFilter.confirmEqsl);
+    m_awardsDirty = true;
+    emit awardsChanged();
+}
+
+void DecoLogController::setAwardBand(const QString& band)
+{
+    if (band == m_awardFilter.band) return;
+    m_awardFilter.band = band;
+    awardFilterChanged();
+}
+
+void DecoLogController::setAwardModeGroup(const QString& group)
+{
+    if (group == m_awardFilter.modeGroup) return;
+    m_awardFilter.modeGroup = group;
+    awardFilterChanged();
+}
+
+void DecoLogController::setAwardConfirmLotw(bool on)
+{
+    if (on == m_awardFilter.confirmLotw) return;
+    m_awardFilter.confirmLotw = on;
+    awardFilterChanged();
+}
+
+void DecoLogController::setAwardConfirmCard(bool on)
+{
+    if (on == m_awardFilter.confirmCard) return;
+    m_awardFilter.confirmCard = on;
+    awardFilterChanged();
+}
+
+void DecoLogController::setAwardConfirmEqsl(bool on)
+{
+    if (on == m_awardFilter.confirmEqsl) return;
+    m_awardFilter.confirmEqsl = on;
+    awardFilterChanged();
 }
 
 // ── Stazione ──────────────────────────────────────────────────────────────────

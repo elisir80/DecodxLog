@@ -39,12 +39,15 @@ Funziona:
 - **Callbook** QRZ.com (XML) o HamQTH: nome, QTH, locatore, zone, foto, utente LoTW/eQSL
   in Call info; riempie i campi vuoti del Nuovo QSO. Sessione rinnovata da sola,
   risultati tenuti in memoria per un giorno.
+- **Award** calcolati dal log: DXCC, FT2 Award, WAZ, WAS, WPX, locatori, IOTA, POTA,
+  SOTA, WWFF. Lavorati e confermati per banda, filtri per banda e gruppo di modi,
+  conferme accettate a scelta (LoTW, cartolina, eQSL).
 - **Backup** notturno con `VACUUM INTO`, copie a rotazione.
 - **Tema**: Ocean Blue / Stellar Light / Darkcodium, variant d'accento, densità,
   colori personalizzati.
 
 Non ancora (mostrati come tali nell'interfaccia): upload e
-download QSL, DecoLog Cloud e sync, award oltre FT2.
+download QSL, DecoLog Cloud e sync.
 
 ## Struttura
 
