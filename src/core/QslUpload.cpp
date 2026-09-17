@@ -1,0 +1,347 @@
+#include "core/QslUpload.h"
+
+#include "core/NetworkError.h"
+
+#include <QCoreApplication>
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QNetworkRequest>
+#include <QProcess>
+#include <QRegularExpression>
+#include <QStandardPaths>
+#include <QUrlQuery>
+#include <QXmlStreamReader>
+
+#ifdef Q_OS_WIN
+#include <QSettings>
+#endif
+
+namespace decolog::core {
+
+namespace qsl {
+
+QString tqslDataDirectory()
+{
+    const QString dir = QDir(QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation))
+                            .filePath(QStringLiteral("TrustedQSL"));
+    if (QFileInfo::exists(dir))
+        return dir;
+    // Su Linux e macOS TQSL usa la cartella nascosta nella home.
+    const QString home = QDir(QDir::homePath()).filePath(QStringLiteral(".tqsl"));
+    return QFileInfo::exists(home) ? home : QString();
+}
+
+QString findTqsl()
+{
+#ifdef Q_OS_WIN
+    // TQSL registra dove si e' installato; e' la via piu' affidabile.
+    for (const auto scope : {QSettings::NativeFormat}) {
+        for (const char* key : {"HKEY_LOCAL_MACHINE\\SOFTWARE\\TrustedQSL",
+                                "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\TrustedQSL",
+                                "HKEY_CURRENT_USER\\SOFTWARE\\TrustedQSL"}) {
+            QSettings reg(QLatin1String(key), scope);
+            const QString path = reg.value(QStringLiteral("Path")).toString();
+            if (!path.isEmpty()) {
+                const QString exe = QDir(path).filePath(QStringLiteral("tqsl.exe"));
+                if (QFileInfo::exists(exe))
+                    return QDir::toNativeSeparators(exe);
+            }
+        }
+    }
+    for (const char* candidate : {"C:/Program Files (x86)/TrustedQSL/tqsl.exe",
+                                  "C:/Program Files/TrustedQSL/tqsl.exe"}) {
+        if (QFileInfo::exists(QLatin1String(candidate)))
+            return QDir::toNativeSeparators(QLatin1String(candidate));
+    }
+#else
+    for (const char* candidate : {"/usr/bin/tqsl", "/usr/local/bin/tqsl",
+                                  "/Applications/TrustedQSL/tqsl.app/Contents/MacOS/tqsl"}) {
+        if (QFileInfo::exists(QLatin1String(candidate)))
+            return QLatin1String(candidate);
+    }
+#endif
+    return QStandardPaths::findExecutable(QStringLiteral("tqsl"));
+}
+
+QStringList tqslStationLocations()
+{
+    QStringList out;
+    const QString dir = tqslDataDirectory();
+    if (dir.isEmpty())
+        return out;
+    QFile file(QDir(dir).filePath(QStringLiteral("station_data")));
+    if (!file.open(QIODevice::ReadOnly))
+        return out;
+    QXmlStreamReader xml(&file);
+    while (!xml.atEnd()) {
+        if (xml.readNext() == QXmlStreamReader::StartElement
+            && xml.name().compare(QLatin1String("StationData"), Qt::CaseInsensitive) == 0) {
+            const QString name = xml.attributes().value(QLatin1String("name")).toString();
+            if (!name.isEmpty())
+                out << name;
+        }
+    }
+    return out;
+}
+
+bool tqslHasCertificate()
+{
+    const QString dir = tqslDataDirectory();
+    if (dir.isEmpty())
+        return false;
+    // I certificati stanno in certs/, uno per chiamante; la cartella esiste anche
+    // vuota appena installato TQSL.
+    const QDir certs(QDir(dir).filePath(QStringLiteral("certs")));
+    return !certs.entryList(QDir::Files | QDir::NoDotAndDotDot).isEmpty();
+}
+
+QslUploadResult resultFromTqslExit(int exitCode, const QString& output, int qsoCount)
+{
+    QslUploadResult r;
+    r.message = output.trimmed();
+    // I codici di TQSL (tqsl --help): 0 tutto caricato, 7 tutti duplicati,
+    // 8 caricati con qualche duplicato, 9 nessun QSO nell'intervallo.
+    switch (exitCode) {
+    case 0:
+        r.ok = true;
+        r.accepted = qsoCount;
+        if (r.message.isEmpty())
+            r.message = QCoreApplication::translate("Qsl", "%n QSO sent to LoTW", nullptr, qsoCount);
+        break;
+    case 7:
+        r.ok = true;
+        r.duplicates = qsoCount;
+        r.message = QCoreApplication::translate("Qsl", "LoTW already had these QSOs");
+        break;
+    case 8:
+        r.ok = true;
+        r.accepted = qsoCount;
+        r.message = QCoreApplication::translate("Qsl", "Sent to LoTW, some were already there");
+        break;
+    case 9:
+        r.ok = true;
+        r.message = QCoreApplication::translate("Qsl", "No QSO to send");
+        break;
+    case 1:
+        r.message = QCoreApplication::translate("Qsl", "TQSL: cancelled");
+        break;
+    case 2:
+        r.rejected = qsoCount;
+        r.message = QCoreApplication::translate("Qsl", "LoTW rejected the file: %1").arg(r.message);
+        break;
+    case 5:
+    case 6:
+        r.message = QCoreApplication::translate("Qsl", "TQSL: certificate or station location problem (%1)").arg(r.message);
+        break;
+    case 10:
+    case 11:
+        r.retryLater = true;
+        r.message = QCoreApplication::translate("Qsl", "TQSL: cannot reach LoTW (%1)").arg(r.message);
+        break;
+    default:
+        r.message = QCoreApplication::translate("Qsl", "TQSL: error %1 %2").arg(exitCode).arg(r.message);
+        break;
+    }
+    return r;
+}
+
+QslUploadResult parseQrzResponse(const QByteArray& body)
+{
+    QslUploadResult r;
+    const QUrlQuery q(QString::fromUtf8(body).trimmed());
+    const QString result = q.queryItemValue(QStringLiteral("RESULT"));
+    const QString reason = q.queryItemValue(QStringLiteral("REASON"), QUrl::FullyDecoded);
+    if (result == QLatin1String("OK")) {
+        r.ok = true;
+        r.accepted = 1;
+        r.remoteId = q.queryItemValue(QStringLiteral("LOGID"));
+        r.message = QCoreApplication::translate("Qsl", "QRZ Logbook: QSO %1").arg(r.remoteId);
+        return r;
+    }
+    if (reason.contains(QLatin1String("duplicate"), Qt::CaseInsensitive)) {
+        r.ok = true;
+        r.duplicates = 1;
+        r.message = QCoreApplication::translate("Qsl", "QRZ Logbook: already there");
+        return r;
+    }
+    if (result.isEmpty()) {
+        r.retryLater = true;
+        r.message = QCoreApplication::translate("Qsl", "QRZ Logbook: unexpected answer");
+        return r;
+    }
+    r.rejected = 1;
+    r.message = QCoreApplication::translate("Qsl", "QRZ Logbook: %1").arg(reason.isEmpty() ? result : reason);
+    return r;
+}
+
+QslUploadResult parseEqslResponse(const QByteArray& body)
+{
+    QslUploadResult r;
+    const QString text = QString::fromUtf8(body).remove(QRegularExpression(QStringLiteral("<[^>]*>"))).simplified();
+    static const QRegularExpression added(QStringLiteral("Result:\\s*(\\d+)\\s*out of\\s*(\\d+)\\s*record"),
+                                          QRegularExpression::CaseInsensitiveOption);
+    if (const auto m = added.match(text); m.hasMatch()) {
+        r.accepted = m.captured(1).toInt();
+        r.ok = r.accepted > 0;
+        if (!r.ok && text.contains(QLatin1String("Duplicate"), Qt::CaseInsensitive)) {
+            r.ok = true;
+            r.duplicates = 1;
+            r.message = QCoreApplication::translate("Qsl", "eQSL: already there");
+            return r;
+        }
+        r.message = QCoreApplication::translate("Qsl", "eQSL: %1").arg(text.left(120));
+        return r;
+    }
+    if (text.contains(QLatin1String("Duplicate"), Qt::CaseInsensitive)) {
+        r.ok = true;
+        r.duplicates = 1;
+        r.message = QCoreApplication::translate("Qsl", "eQSL: already there");
+        return r;
+    }
+    if (text.contains(QLatin1String("Bad record"), Qt::CaseInsensitive)
+        || text.contains(QLatin1String("Error"), Qt::CaseInsensitive)) {
+        r.rejected = 1;
+        r.message = QCoreApplication::translate("Qsl", "eQSL: %1").arg(text.left(120));
+        return r;
+    }
+    r.retryLater = true;
+    r.message = QCoreApplication::translate("Qsl", "eQSL: unexpected answer");
+    return r;
+}
+
+} // namespace qsl
+
+// ── TQSL ──────────────────────────────────────────────────────────────────────
+
+TqslUploader::TqslUploader(QObject* parent)
+    : QObject(parent)
+    , m_program(qsl::findTqsl())
+{
+}
+
+void TqslUploader::upload(const QString& adifPath, const QString& location, int qsoCount)
+{
+    if (m_busy)
+        return;
+    QslUploadResult error;
+    if (m_program.isEmpty() || !QFileInfo::exists(m_program)) {
+        error.message = tr("TQSL not found: install Trusted QSL, or set its path in Setup → QSL services");
+        emit finished(error);
+        return;
+    }
+    if (!qsl::tqslHasCertificate()) {
+        error.message = tr("TQSL has no certificate: import your LoTW certificate in TQSL first");
+        emit finished(error);
+        return;
+    }
+
+    // -u carica su LoTW, -d non chiede l'intervallo di date, -a all accetta i
+    // duplicati senza fermarsi, -q esce da solo, -x niente finestra alla fine.
+    QStringList args{QStringLiteral("-u"), QStringLiteral("-d"),
+                     QStringLiteral("-a"), QStringLiteral("all"),
+                     QStringLiteral("-q"), QStringLiteral("-x")};
+    if (!location.trimmed().isEmpty())
+        args << QStringLiteral("-l") << location.trimmed();
+    args << QDir::toNativeSeparators(adifPath);
+
+    m_busy = true;
+    m_process = new QProcess(this);
+    m_process->setProcessChannelMode(QProcess::MergedChannels);
+    connect(m_process, &QProcess::finished, this, [this, qsoCount](int code, QProcess::ExitStatus status) {
+        const QString output = QString::fromLocal8Bit(m_process->readAll());
+        m_process->deleteLater();
+        m_process = nullptr;
+        m_busy = false;
+        if (status == QProcess::CrashExit) {
+            QslUploadResult crashed;
+            crashed.message = tr("TQSL stopped unexpectedly");
+            emit finished(crashed);
+            return;
+        }
+        emit finished(qsl::resultFromTqslExit(code, output, qsoCount));
+    });
+    connect(m_process, &QProcess::errorOccurred, this, [this](QProcess::ProcessError) {
+        if (!m_busy)
+            return;
+        QslUploadResult failed;
+        failed.message = tr("Cannot run TQSL: %1").arg(m_process ? m_process->errorString() : QString());
+        m_busy = false;
+        emit finished(failed);
+    });
+    m_process->start(m_program, args);
+}
+
+void TqslUploader::cancel()
+{
+    if (m_process)
+        m_process->kill();
+}
+
+// ── QRZ Logbook ed eQSL ───────────────────────────────────────────────────────
+
+WebQslUploader::WebQslUploader(QObject* parent)
+    : QObject(parent)
+    , m_net(new QNetworkAccessManager(this))
+{
+}
+
+void WebQslUploader::setEndpoints(const QUrl& qrz, const QUrl& eqsl)
+{
+    m_qrzUrl = qrz;
+    m_eqslUrl = eqsl;
+}
+
+void WebQslUploader::uploadQrz(const QString& apiKey, const QString& adifRecord)
+{
+    QUrlQuery form;
+    form.addQueryItem(QStringLiteral("KEY"), apiKey);
+    form.addQueryItem(QStringLiteral("ACTION"), QStringLiteral("INSERT"));
+    form.addQueryItem(QStringLiteral("ADIF"), adifRecord);
+    send(Service::QrzLogbook, m_qrzUrl, form.toString(QUrl::FullyEncoded).toUtf8());
+}
+
+void WebQslUploader::uploadEqsl(const QString& user, const QString& password, const QString& adifRecord)
+{
+    // eQSL vuole utente e password nell'intestazione dell'ADIF.
+    const QString document = QStringLiteral("<EQSL_USER:%1>%2<EQSL_PSWD:%3>%4<EOH>\n%5")
+                                 .arg(user.size())
+                                 .arg(user)
+                                 .arg(password.size())
+                                 .arg(password)
+                                 .arg(adifRecord);
+    QUrlQuery form;
+    form.addQueryItem(QStringLiteral("ADIFData"), document);
+    send(Service::Eqsl, m_eqslUrl, form.toString(QUrl::FullyEncoded).toUtf8());
+}
+
+void WebQslUploader::send(Service service, const QUrl& url, const QByteArray& body)
+{
+    if (m_busy)
+        return;
+    m_busy = true;
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
+    request.setHeader(QNetworkRequest::UserAgentHeader,
+                      QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
+    request.setTransferTimeout(30'000);
+    QNetworkReply* reply = m_net->post(request, body);
+    connect(reply, &QNetworkReply::finished, this, [this, reply, service] {
+        reply->deleteLater();
+        m_busy = false;
+        if (reply->error() != QNetworkReply::NoError) {
+            QslUploadResult failed;
+            failed.retryLater = true;
+            failed.message = network::safeErrorString(reply);
+            emit finished(failed);
+            return;
+        }
+        const QByteArray answer = reply->readAll();
+        emit finished(service == Service::QrzLogbook ? qsl::parseQrzResponse(answer)
+                                                     : qsl::parseEqslResponse(answer));
+    });
+}
+
+} // namespace decolog::core

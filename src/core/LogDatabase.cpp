@@ -1260,6 +1260,73 @@ QStringList LogDatabase::workedGrids(int limit) const
     return out;
 }
 
+// ── Invio QSL ─────────────────────────────────────────────────────────────────
+
+bool LogDatabase::setQslState(qint64 id, const QslState& st)
+{
+    QSqlDatabase db = connection();
+    const bool ownTransaction = db.transaction();
+    QSqlQuery q(db);
+    q.prepare(QStringLiteral(
+        "INSERT INTO qsl_status (qso_id, service, sent, sent_date, rcvd, rcvd_date, remote_id, last_error) "
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?) "
+        "ON CONFLICT(qso_id, service) DO UPDATE SET sent = excluded.sent, sent_date = excluded.sent_date, "
+        "remote_id = COALESCE(excluded.remote_id, qsl_status.remote_id), last_error = excluded.last_error"));
+    auto nullable = [](const QString& v) { return v.isEmpty() ? QVariant() : QVariant(v); };
+    q.addBindValue(id);
+    q.addBindValue(st.service);
+    q.addBindValue(st.sent.isEmpty() ? QStringLiteral("N") : st.sent);
+    q.addBindValue(nullable(st.sentDate));
+    q.addBindValue(st.rcvd.isEmpty() ? QStringLiteral("N") : st.rcvd);
+    q.addBindValue(nullable(st.rcvdDate));
+    q.addBindValue(nullable(st.remoteId));
+    q.addBindValue(nullable(st.lastError));
+    if (!q.exec()) {
+        m_lastError = q.lastError().text();
+        if (ownTransaction)
+            db.rollback();
+        return false;
+    }
+    // Il QSO e' cambiato per il cloud, ma non e' una revisione nuova.
+    QSqlQuery u(db);
+    u.prepare(QStringLiteral("UPDATE qso SET dirty = 1, updated_at = ? WHERE id = ?"));
+    u.addBindValue(nowIso());
+    u.addBindValue(id);
+    u.exec();
+    if (ownTransaction)
+        return db.commit();
+    return true;
+}
+
+QList<qint64> LogDatabase::qsosToUpload(const QString& service, int limit) const
+{
+    QList<qint64> ids;
+    QSqlQuery q(connection());
+    q.setForwardOnly(true);
+    q.prepare(QStringLiteral(
+        "SELECT qso.id FROM qso LEFT JOIN qsl_status s ON s.qso_id = qso.id AND s.service = ? "
+        "WHERE qso.deleted = 0 AND (s.sent IS NULL OR s.sent IN ('N', 'R', 'Q')) "
+        "ORDER BY qso.qso_datetime_on, qso.id") + (limit > 0 ? QStringLiteral(" LIMIT ?") : QString()));
+    q.addBindValue(service);
+    if (limit > 0)
+        q.addBindValue(limit);
+    if (!q.exec())
+        return ids;
+    while (q.next())
+        ids << q.value(0).toLongLong();
+    return ids;
+}
+
+int LogDatabase::uploadPendingCount(const QString& service) const
+{
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral(
+        "SELECT COUNT(*) FROM qso LEFT JOIN qsl_status s ON s.qso_id = qso.id AND s.service = ? "
+        "WHERE qso.deleted = 0 AND (s.sent IS NULL OR s.sent IN ('N', 'R', 'Q'))"));
+    q.addBindValue(service);
+    return q.exec() && q.next() ? q.value(0).toInt() : 0;
+}
+
 // ── Etichette ─────────────────────────────────────────────────────────────────
 
 QStringList LogDatabase::splitTags(const QString& tags)

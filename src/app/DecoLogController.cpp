@@ -297,6 +297,21 @@ bool DecoLogController::openDatabase(const QString& path)
     };
     ctx.lookup = [this](const QString& call) { setLookupCall(call); };
     m_cluster = new ClusterController(std::move(ctx), this);
+
+    QslController::Context qslCtx;
+    qslCtx.db = &m_db;
+    qslCtx.credentials = m_credentials;
+    qslCtx.stationLocation = [this] {
+        return m_profiles->activeProfile().value(QStringLiteral("lotwStationLocation")).toString();
+    };
+    qslCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
+        addActivity(category, text, level);
+    };
+    qslCtx.logChanged = [this] {
+        m_model->reload();
+        emit logChanged();
+    };
+    m_qsl = new QslController(std::move(qslCtx), this);
     connect(this, &DecoLogController::logChanged, m_cluster, &ClusterController::logChanged);
     connect(this, &DecoLogController::countriesChanged, m_cluster, &ClusterController::logChanged);
     connect(this, &DecoLogController::clientChanged, m_cluster, &ClusterController::decodiumBandChanged);
@@ -999,6 +1014,7 @@ void DecoLogController::onQsoReceived(const AdifRecord& input, const QString& so
     case InsertResult::Status::Inserted: {
         item[QStringLiteral("status")] = QStringLiteral("logged");
         decoLinkQso(enriched, QStringLiteral("logged"), r.id, source, sourceApp);
+        m_qsl->qsoLogged(r.id);
         m_model->insertQso(r.id);
         const auto meta = m_db.meta(r.id);
         QString text = tr("%1 from %2 → %3 %4 %5 saved (uuid %6)")
@@ -1092,6 +1108,7 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
     case InsertResult::Status::Inserted:
         m_model->insertQso(res.id);
         decoLinkQso(r, QStringLiteral("logged"), res.id, QStringLiteral("manual"), QStringLiteral("DecoLog"));
+        m_qsl->qsoLogged(res.id);
         addActivity(QStringLiteral("LOG"), tr("Logged %1 %2 %3 (manual)")
                                                .arg(r.value(QStringLiteral("CALL")), r.value(QStringLiteral("BAND")),
                                                     r.value(QStringLiteral("MODE"))),

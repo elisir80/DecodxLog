@@ -200,17 +200,19 @@ GlassPanel {
             }
         }
 
-        // ── QSL Upload ──────────────────────────────────────────────────────
+        // ── Invio QSL ───────────────────────────────────────────────────────
         ColumnLayout {
-            spacing: 4
+            spacing: 6
+
             RowLayout {
+                Layout.fillWidth: true
                 spacing: 0
                 Repeater {
-                    model: [qsTr("Service"), qsTr("Queued"), qsTr("Sent"), qsTr("Confirmed"), qsTr("Errors")]
+                    model: [qsTr("Service"), qsTr("To send"), qsTr("Sent"), qsTr("Confirmed"), qsTr("Errors")]
                     Text {
                         required property string modelData
                         required property int index
-                        Layout.preferredWidth: index === 0 ? 110 : 100
+                        Layout.preferredWidth: index === 0 ? 120 : 80
                         text: modelData
                         color: Theme.secondaryColor
                         font.family: Theme.monoFamily
@@ -218,36 +220,72 @@ GlassPanel {
                         font.bold: true
                     }
                 }
+                Item { Layout.fillWidth: true }
             }
+
             Repeater {
-                model: decolog.qslSummary
+                model: decolog.qsl.services
                 RowLayout {
                     required property var modelData
+                    Layout.fillWidth: true
                     spacing: 0
-                    Text { Layout.preferredWidth: 110; text: modelData.label; color: Theme.textPrimary; font.family: Theme.monoFamily; font.pixelSize: 12; font.bold: true }
-                    Text { Layout.preferredWidth: 100; text: modelData.queued || 0; color: modelData.queued ? Theme.warningColor : Theme.textSecondary; font.family: Theme.monoFamily; font.pixelSize: 12 }
-                    Text { Layout.preferredWidth: 100; text: modelData.sent || 0; color: Theme.textPrimary; font.family: Theme.monoFamily; font.pixelSize: 12 }
-                    Text { Layout.preferredWidth: 100; text: modelData.confirmed || 0; color: modelData.confirmed ? Theme.accentColor : Theme.textSecondary; font.family: Theme.monoFamily; font.pixelSize: 12 }
-                    Text { Layout.preferredWidth: 100; text: modelData.errors || 0; color: modelData.errors ? Theme.errorColor : Theme.textSecondary; font.family: Theme.monoFamily; font.pixelSize: 12 }
+                    Text { Layout.preferredWidth: 120; text: modelData.label; color: Theme.textPrimary; font.family: Theme.monoFamily; font.pixelSize: 12; font.bold: true }
+                    Text { Layout.preferredWidth: 80; text: modelData.pending || 0; color: modelData.pending ? Theme.warningColor : Theme.textSecondary; font.family: Theme.monoFamily; font.pixelSize: 12 }
+                    Text { Layout.preferredWidth: 80; text: modelData.sent || 0; color: Theme.textPrimary; font.family: Theme.monoFamily; font.pixelSize: 12 }
+                    Text { Layout.preferredWidth: 80; text: modelData.confirmed || 0; color: modelData.confirmed ? Theme.accentColor : Theme.textSecondary; font.family: Theme.monoFamily; font.pixelSize: 12 }
+                    Text { Layout.preferredWidth: 80; text: modelData.errors || 0; color: modelData.errors ? Theme.errorColor : Theme.textSecondary; font.family: Theme.monoFamily; font.pixelSize: 12 }
+                    GlassButton {
+                        text: modelData.busy ? qsTr("sending…") : qsTr("Send %1").arg(modelData.pending || 0)
+                        tone: Theme.accentColor
+                        buttonHeight: 22
+                        fontPixelSize: 11
+                        enabled: !decolog.qsl.busy && modelData.ready && (modelData.pending || 0) > 0
+                        onClicked: decolog.qsl.uploadPending(modelData.id, 0)
+                    }
+                    ToggleSwitch {
+                        Layout.leftMargin: 10
+                        text: qsTr("automatic")
+                        checked: modelData.auto
+                        enabled: modelData.ready
+                        onToggled: decolog.qsl.setAutoUpload(modelData.id, checked)
+                    }
+                    Text {
+                        Layout.fillWidth: true
+                        Layout.leftMargin: 10
+                        elide: Text.ElideRight
+                        text: modelData.ready ? modelData.lastResult
+                                              : modelData.id === "lotw" ? decolog.qsl.tqslStatus
+                                                                        : qsTr("no credentials: Setup → QSL services")
+                        color: modelData.ready ? Theme.textSecondary : Theme.warningColor
+                        font.pixelSize: 11
+                    }
                 }
             }
+
             RowLayout {
-                Layout.topMargin: 6
+                Layout.topMargin: 4
                 spacing: 8
                 GlassButton {
-                    text: decolog.lotwBusy ? qsTr("LoTW…") : qsTr("Sync LoTW")
-                    tone: Theme.accentColor
+                    text: decolog.lotwBusy ? qsTr("LoTW…") : qsTr("Download LoTW confirmations")
+                    tone: Theme.primaryColor
                     buttonHeight: 24
                     fontPixelSize: 11
                     enabled: !decolog.lotwBusy
                     onClicked: decolog.syncLotw(false)
+                }
+                GlassButton {
+                    visible: decolog.qsl.busy
+                    text: qsTr("Stop")
+                    buttonHeight: 24
+                    fontPixelSize: 11
+                    onClicked: decolog.qsl.cancel()
                 }
                 Text {
                     Layout.fillWidth: true
                     elide: Text.ElideRight
                     text: decolog.lotwStatus.length ? decolog.lotwStatus
                           : decolog.lotwLastSync.length ? qsTr("LoTW last sync %1").arg(decolog.lotwLastSync)
-                          : qsTr("LoTW confirmations are downloaded from Setup → QSL services. Uploads still go through TQSL.")
+                          : qsTr("LoTW: TQSL signs and sends, and the confirmations come back here.")
                     color: Theme.textSecondary
                     font.pixelSize: 11
                 }

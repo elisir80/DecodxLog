@@ -219,6 +219,15 @@ public:
     // Locatori a quattro caratteri gia' lavorati, per la mappa.
     QStringList workedGrids(int limit = 4000) const;
 
+    // ── Invio QSL ────────────────────────────────────────────────────────────
+    // Lo stato di un servizio su un QSO, senza creare una revisione: l'invio di una
+    // QSL non cambia il QSO, cambia quello che se ne e' fatto.
+    bool setQslState(qint64 id, const QslState& state);
+    // I QSO ancora da mandare a un servizio (nessuna riga, o "N"/"R"/"Q"), dal piu'
+    // vecchio. `limit` 0 = tutti.
+    QList<qint64> qsosToUpload(const QString& service, int limit = 0) const;
+    int uploadPendingCount(const QString& service) const;
+
     // ── Etichette ────────────────────────────────────────────────────────────
     // Le etichette di un QSO (attivazione, contest, evento, portatile) stanno in
     // APP_DECOLOG_TAGS, separate da virgola: tornano uguali in un export ADIF.

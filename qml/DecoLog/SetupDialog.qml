@@ -55,6 +55,13 @@ DialogFrame {
         }
     }
 
+    FileDialog {
+        id: tqslDialog
+        title: qsTr("TQSL program")
+        nameFilters: [qsTr("Programs (*.exe)"), qsTr("All files (*)")]
+        onAccepted: decolog.qsl.tqslPath = decolog.localPath(selectedFile)
+    }
+
     FolderDialog {
         id: folderDialog
         title: qsTr("Backup folder")
@@ -528,6 +535,40 @@ DialogFrame {
                         text: qsTr("Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. "
                                    + "A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. "
                                    + "Uploading to LoTW still goes through TQSL. QRZ Logbook, Club Log and eQSL arrive later.")
+                    }
+                    SectionTitle { text: qsTr("Sending to LoTW (TQSL)") }
+                    Note { text: decolog.qsl.tqslStatus }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 10
+                        LabeledField {
+                            Layout.fillWidth: true
+                            label: qsTr("TQSL program")
+                            StyledTextField {
+                                id: tqslField
+                                Layout.fillWidth: true
+                                mono: false
+                                text: decolog.qsl.tqslPath
+                                placeholderText: "C:/Program Files (x86)/TrustedQSL/tqsl.exe"
+                                onEditingFinished: decolog.qsl.tqslPath = text
+                            }
+                        }
+                        GlassButton { text: qsTr("Browse…"); Layout.alignment: Qt.AlignBottom; onClicked: tqslDialog.open() }
+                        LabeledField {
+                            label: qsTr("Station location")
+                            StyledComboBox {
+                                Layout.preferredWidth: 200
+                                readonly property var names: [""].concat(decolog.qsl.tqslLocations)
+                                model: [qsTr("From the station profile")].concat(decolog.qsl.tqslLocations)
+                                currentIndex: Math.max(0, names.indexOf(decolog.qsl.tqslLocation))
+                                onActivated: decolog.qsl.tqslLocation = names[currentIndex]
+                            }
+                        }
+                    }
+                    Note {
+                        text: qsTr("The certificate stays in TQSL: DecoLog writes a temporary ADIF, TQSL signs it and sends it. "
+                                   + "Duplicates are not an error, LoTW simply keeps the one it already has. Sending, automatic sending "
+                                   + "and the counters are in the QSL tab at the bottom.")
                     }
                     CredentialsList {
                         Layout.fillWidth: true

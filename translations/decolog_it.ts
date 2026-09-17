@@ -202,8 +202,16 @@
         <translation>Servizio</translation>
     </message>
     <message>
-        <source>Queued</source>
-        <translation>In coda</translation>
+        <source>Download LoTW confirmations</source>
+        <translation>Scarica le conferme LoTW</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Ferma</translation>
+    </message>
+    <message>
+        <source>LoTW: TQSL signs and sends, and the confirmations come back here.</source>
+        <translation>LoTW: TQSL firma e invia, e le conferme tornano qui.</translation>
     </message>
     <message>
         <source>Sent</source>
@@ -218,20 +226,32 @@
         <translation>Errori</translation>
     </message>
     <message>
+        <source>To send</source>
+        <translation>Da inviare</translation>
+    </message>
+    <message>
+        <source>sending…</source>
+        <translation>invio…</translation>
+    </message>
+    <message>
+        <source>Send %1</source>
+        <translation>Invia %1</translation>
+    </message>
+    <message>
+        <source>automatic</source>
+        <translation>automatico</translation>
+    </message>
+    <message>
+        <source>no credentials: Setup → QSL services</source>
+        <translation>nessuna credenziale: Impostazioni → Servizi QSL</translation>
+    </message>
+    <message>
         <source>LoTW…</source>
         <translation>LoTW…</translation>
     </message>
     <message>
-        <source>Sync LoTW</source>
-        <translation>Sincronizza LoTW</translation>
-    </message>
-    <message>
         <source>LoTW last sync %1</source>
         <translation>LoTW, ultima sincronizzazione %1</translation>
-    </message>
-    <message>
-        <source>LoTW confirmations are downloaded from Setup → QSL services. Uploads still go through TQSL.</source>
-        <translation>Le conferme LoTW si scaricano da Impostazioni → Servizi QSL. L'invio passa ancora dal TQSL.</translation>
     </message>
 </context>
 <context>
@@ -1399,6 +1419,73 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>Qsl</name>
+    <message numerus="yes">
+        <source>%n QSO sent to LoTW</source>
+        <translation><numerusform>%n QSO inviato a LoTW</numerusform><numerusform>%n QSO inviati a LoTW</numerusform></translation>
+    </message>
+    <message>
+        <source>LoTW already had these QSOs</source>
+        <translation>LoTW aveva già questi QSO</translation>
+    </message>
+    <message>
+        <source>Sent to LoTW, some were already there</source>
+        <translation>Inviati a LoTW, qualcuno c'era già</translation>
+    </message>
+    <message>
+        <source>No QSO to send</source>
+        <translation>Nessun QSO da inviare</translation>
+    </message>
+    <message>
+        <source>TQSL: cancelled</source>
+        <translation>TQSL: annullato</translation>
+    </message>
+    <message>
+        <source>LoTW rejected the file: %1</source>
+        <translation>LoTW ha rifiutato il file: %1</translation>
+    </message>
+    <message>
+        <source>TQSL: certificate or station location problem (%1)</source>
+        <translation>TQSL: problema di certificato o di station location (%1)</translation>
+    </message>
+    <message>
+        <source>TQSL: cannot reach LoTW (%1)</source>
+        <translation>TQSL: non raggiunge LoTW (%1)</translation>
+    </message>
+    <message>
+        <source>TQSL: error %1 %2</source>
+        <translation>TQSL: errore %1 %2</translation>
+    </message>
+    <message>
+        <source>QRZ Logbook: QSO %1</source>
+        <translation>QRZ Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>QRZ Logbook: already there</source>
+        <translation>QRZ Logbook: c'era già</translation>
+    </message>
+    <message>
+        <source>QRZ Logbook: unexpected answer</source>
+        <translation>QRZ Logbook: risposta inattesa</translation>
+    </message>
+    <message>
+        <source>QRZ Logbook: %1</source>
+        <translation>QRZ Logbook: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: already there</source>
+        <translation>eQSL: c'era già</translation>
+    </message>
+    <message>
+        <source>eQSL: %1</source>
+        <translation>eQSL: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: unexpected answer</source>
+        <translation>eQSL: risposta inattesa</translation>
+    </message>
+</context>
+<context>
     <name>QsoDetailDialog</name>
     <message>
         <source>QSO detail</source>
@@ -1714,6 +1801,18 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>cty.csv %1 in use.</source>
         <translation>in uso il cty.csv %1.</translation>
+    </message>
+    <message>
+        <source>TQSL program</source>
+        <translation>Programma TQSL</translation>
+    </message>
+    <message>
+        <source>Programs (*.exe)</source>
+        <translation>Programmi (*.exe)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Tutti i file (*)</translation>
     </message>
     <message>
         <source>Backup folder</source>
@@ -2046,6 +2145,22 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL. QRZ Logbook, Club Log and eQSL arrive later.</source>
         <translation>Le conferme si abbinano per nominativo, banda, gruppo di modi (dati, CW, fonia) e ora entro mezz'ora, come fa LoTW. Un QSO confermato diventa una nuova revisione; locatore, zone, stato e contea di LoTW riempiono solo i campi vuoti. L'invio a LoTW passa ancora dal TQSL. QRZ Logbook, Club Log ed eQSL arrivano dopo.</translation>
+    </message>
+    <message>
+        <source>Sending to LoTW (TQSL)</source>
+        <translation>Invio a LoTW (TQSL)</translation>
+    </message>
+    <message>
+        <source>Station location</source>
+        <translation>Station location</translation>
+    </message>
+    <message>
+        <source>From the station profile</source>
+        <translation>Dal profilo stazione</translation>
+    </message>
+    <message>
+        <source>The certificate stays in TQSL: DecoLog writes a temporary ADIF, TQSL signs it and sends it. Duplicates are not an error, LoTW simply keeps the one it already has. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>Il certificato resta in TQSL: DecoLog scrive un ADIF temporaneo, TQSL lo firma e lo manda. I duplicati non sono un errore, LoTW tiene quello che ha già. L'invio, l'invio automatico e i conteggi stanno nella scheda QSL in basso.</translation>
     </message>
     <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
@@ -2675,6 +2790,57 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::QslController</name>
+    <message>
+        <source>%1: stopped, %2</source>
+        <translation>%1: fermato, %2</translation>
+    </message>
+    <message>
+        <source>TQSL not found: install Trusted QSL or set its path here</source>
+        <translation>TQSL non trovato: installa Trusted QSL o indica qui dov'è</translation>
+    </message>
+    <message>
+        <source>TQSL is installed but has no certificate: import your LoTW certificate in TQSL</source>
+        <translation>TQSL c'è ma non ha un certificato: importa in TQSL il tuo certificato LoTW</translation>
+    </message>
+    <message>
+        <source>TQSL has no station location: create one in TQSL (Station → Add location)</source>
+        <translation>TQSL non ha una station location: creala in TQSL (Station → Add location)</translation>
+    </message>
+    <message numerus="yes">
+        <source>TQSL ready · %n station location(s)</source>
+        <translation><numerusform>TQSL pronto · %n station location</numerusform><numerusform>TQSL pronto · %n station location</numerusform></translation>
+    </message>
+    <message>
+        <source>no keystore</source>
+        <translation>nessun portachiavi</translation>
+    </message>
+    <message>
+        <source>nothing to send</source>
+        <translation>niente da inviare</translation>
+    </message>
+    <message>
+        <source>Cannot write %1</source>
+        <translation>Non riesco a scrivere %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>LoTW: sending %n QSO with TQSL…</source>
+        <translation><numerusform>LoTW: invio %n QSO con TQSL…</numerusform><numerusform>LoTW: invio %n QSO con TQSL…</numerusform></translation>
+    </message>
+    <message>
+        <source>%1: no credentials (%2)</source>
+        <translation>%1: nessuna credenziale (%2)</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1: sending %n QSO…</source>
+        <translation><numerusform>%1: invio %n QSO…</numerusform><numerusform>%1: invio %n QSO…</numerusform></translation>
+    </message>
+    <message>
+        <source>%1: %2 sent, %3 already there, %4 rejected</source>
+        <translation>%1: %2 inviati, %3 c'erano già, %4 rifiutati</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::QsoTableModel</name>
     <message>
         <source>UTC</source>
@@ -2911,6 +3077,25 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>LoTW: %1</source>
         <translation>LoTW: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::TqslUploader</name>
+    <message>
+        <source>TQSL not found: install Trusted QSL, or set its path in Setup → QSL services</source>
+        <translation>TQSL non trovato: installa Trusted QSL, o indica dov'è in Impostazioni → Servizi QSL</translation>
+    </message>
+    <message>
+        <source>TQSL has no certificate: import your LoTW certificate in TQSL first</source>
+        <translation>TQSL non ha un certificato: prima importa in TQSL il tuo certificato LoTW</translation>
+    </message>
+    <message>
+        <source>TQSL stopped unexpectedly</source>
+        <translation>TQSL si è fermato all'improvviso</translation>
+    </message>
+    <message>
+        <source>Cannot run TQSL: %1</source>
+        <translation>Non riesco ad avviare TQSL: %1</translation>
     </message>
 </context>
 </TS>
