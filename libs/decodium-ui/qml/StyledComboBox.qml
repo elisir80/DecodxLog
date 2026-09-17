@@ -31,12 +31,25 @@ ComboBox {
         onAccepted: if (root.editable) root.accepted()
     }
 
-    indicator: Text {
-        x: root.width - width - 8
-        anchors.verticalCenter: parent.verticalCenter
-        text: "▾"
-        color: Theme.textSecondary
-        font.pixelSize: Theme.fontSize
+    // La freccia: in un elenco modificabile il campo di testo si prende i clic, e
+    // senza un appiglio qui la tendina non si aprirebbe piu' — si potrebbe solo
+    // scrivere. Il tocco apre e chiude; con la tastiera resta il Giu' di ComboBox.
+    indicator: Item {
+        x: root.width - width - 6
+        y: (root.height - height) / 2
+        implicitWidth: arrow.implicitWidth + 12
+        implicitHeight: root.height
+        Text {
+            id: arrow
+            anchors.centerIn: parent
+            text: "▾"
+            color: root.popup.visible ? Theme.primaryColor : Theme.textSecondary
+            font.pixelSize: Theme.fontSize
+        }
+        TapHandler {
+            enabled: root.editable && root.enabled
+            onSingleTapped: root.popup.visible ? root.popup.close() : root.popup.open()
+        }
     }
 
     background: Rectangle {

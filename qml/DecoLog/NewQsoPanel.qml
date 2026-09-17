@@ -41,6 +41,9 @@ GlassPanel {
         }
     ]
 
+    // Per le schermate di prova: apre la tendina dei modi.
+    function showModes() { modeBox.popup.open() }
+
     function resetTime() {
         const now = decolog.utcNow()
         dateField.text = now.date

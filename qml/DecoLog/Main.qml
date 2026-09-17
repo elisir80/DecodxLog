@@ -63,6 +63,7 @@ ApplicationWindow {
         else if (what[0] === "pop") popWindow.active = true
         else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))
         else if (what[0] === "activation") activationDialog.openDialog()
+        else if (what[0] === "modes") newQsoPanel.showModes()
         else if (what[0] === "call") decolog.lookupCall = what[1]
         else if (what[0] === "awards") {
             // awards:<id>[:map|:missing|:unconfirmed]
@@ -153,6 +154,7 @@ ApplicationWindow {
                 handle: splitHandle
 
                 NewQsoPanel {
+                    id: newQsoPanel
                     SplitView.preferredWidth: layout.leftWidth
                     SplitView.minimumWidth: 260
                     onWidthChanged: if (width > 0) layout.leftWidth = width
