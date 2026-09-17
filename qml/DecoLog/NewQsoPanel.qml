@@ -53,6 +53,7 @@ GlassPanel {
         qthField.text = ""
         gridField.text = ""
         commentField.text = ""
+        srxField.text = ""
         rcvdField.text = "59"
         formError.text = ""
         resetTime()
@@ -64,7 +65,8 @@ GlassPanel {
             call: callField.text, date: dateField.text, time: timeField.text,
             freq: freqField.text, band: bandBox.currentIndex > 0 ? bandBox.currentText : "",
             mode: modeBox.editText, rst_sent: sentField.text, rst_rcvd: rcvdField.text,
-            gridsquare: gridField.text, name: nameField.text, qth: qthField.text, comment: commentField.text
+            gridsquare: gridField.text, name: nameField.text, qth: qthField.text, comment: commentField.text,
+            srx: srxField.text
         })
         formError.text = error
         if (error.length === 0)
@@ -316,6 +318,28 @@ GlassPanel {
                 RowLayout {
                     Layout.fillWidth: true
                     spacing: 8
+                    LabeledField {
+                        // Durante un contest il numero che arriva e' il campo piu'
+                        // battuto: sta prima del commento.
+                        visible: decolog.activation.state.serialEnabled === true
+                        label: qsTr("Nr rcvd")
+                        StyledTextField {
+                            id: srxField
+                            Layout.preferredWidth: 70
+                            validator: IntValidator { bottom: 0; top: 99999 }
+                            Keys.onReturnPressed: root.submit()
+                            Keys.onEnterPressed: root.submit()
+                        }
+                    }
+                    LabeledField {
+                        visible: decolog.activation.state.serialEnabled === true
+                        label: qsTr("Nr sent")
+                        StyledTextField {
+                            Layout.preferredWidth: 70
+                            readOnly: true
+                            text: decolog.activation.nextSerial
+                        }
+                    }
                     LabeledField {
                         Layout.preferredWidth: 1
                         Layout.horizontalStretchFactor: 6

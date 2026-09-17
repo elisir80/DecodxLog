@@ -2,6 +2,137 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="it_IT" sourcelanguage="en">
 <context>
+    <name>ActivationDialog</name>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>Free session</source>
+        <translation>Sessione libera</translation>
+    </message>
+    <message>
+        <source>Session · %1</source>
+        <translation>Sessione · %1</translation>
+    </message>
+    <message>
+        <source>Activation / contest</source>
+        <translation>Attivazione / contest</translation>
+    </message>
+    <message>
+        <source>open since %1 UTC · %2</source>
+        <translation>aperta dalle %1 UTC · %2</translation>
+    </message>
+    <message>
+        <source>Export the session</source>
+        <translation>Esporta la sessione</translation>
+    </message>
+    <message>
+        <source>ADIF files (*.adi)</source>
+        <translation>File ADIF (*.adi)</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Different calls</source>
+        <translation>Nominativi diversi</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Durata</translation>
+    </message>
+    <message>
+        <source>Last QSO</source>
+        <translation>Ultimo QSO</translation>
+    </message>
+    <message>
+        <source>Next number</source>
+        <translation>Prossimo numero</translation>
+    </message>
+    <message>
+        <source>activation valid: %1 QSO</source>
+        <translation>attivazione valida: %1 QSO</translation>
+    </message>
+    <message>
+        <source>%1 QSO to go</source>
+        <translation>mancano %1 QSO</translation>
+    </message>
+    <message>
+        <source>%1 / %2</source>
+        <translation>%1 / %2</translation>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation>Tipo</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>Referenza</translation>
+    </message>
+    <message>
+        <source>Contest (CONTEST_ID)</source>
+        <translation>Contest (CONTEST_ID)</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Nome</translation>
+    </message>
+    <message>
+        <source>Grid of the place</source>
+        <translation>Locatore del posto</translation>
+    </message>
+    <message>
+        <source>Tag on every QSO</source>
+        <translation>Etichetta su ogni QSO</translation>
+    </message>
+    <message>
+        <source>Station profile</source>
+        <translation>Profilo stazione</translation>
+    </message>
+    <message>
+        <source>The active one</source>
+        <translation>Quello attivo</translation>
+    </message>
+    <message>
+        <source>Serial number</source>
+        <translation>Numero progressivo</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Prossimo</translation>
+    </message>
+    <message>
+        <source>The QSOs get CONTEST_ID and the serial number sent (STX). The number received goes in the New QSO panel.</source>
+        <translation>I QSO prendono il CONTEST_ID e il numero inviato (STX). Il numero ricevuto si scrive nel pannello Nuovo QSO.</translation>
+    </message>
+    <message>
+        <source>The QSOs get the activator fields (MY_SIG, MY_SIG_INFO, MY_SOTA_REF…), the grid of the place and the tag. A call already worked in this session on the same band and mode counts as a duplicate, whenever it was.</source>
+        <translation>I QSO prendono i campi dell'attivatore (MY_SIG, MY_SIG_INFO, MY_SOTA_REF…), il locatore del posto e l'etichetta. Un nominativo già lavorato in questa sessione sulla stessa banda e nello stesso modo è un duplicato, a qualunque ora sia stato.</translation>
+    </message>
+    <message>
+        <source>Export ADIF (%1)</source>
+        <translation>Esporta ADIF (%1)</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Chiudi</translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation>Applica le modifiche</translation>
+    </message>
+    <message>
+        <source>End session</source>
+        <translation>Chiudi la sessione</translation>
+    </message>
+    <message>
+        <source>Start session</source>
+        <translation>Apri la sessione</translation>
+    </message>
+</context>
+<context>
     <name>Awards</name>
     <message>
         <source>Grids</source>
@@ -1406,6 +1537,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>QTH</translation>
     </message>
     <message>
+        <source>Nr rcvd</source>
+        <translation>Nr ric</translation>
+    </message>
+    <message>
+        <source>Nr sent</source>
+        <translation>Nr inv</translation>
+    </message>
+    <message>
         <source>Comment</source>
         <translation>Commento</translation>
     </message>
@@ -2487,6 +2626,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Diplomi</translation>
     </message>
     <message>
+        <source>%1 · %2/%3</source>
+        <translation>%1 · %2/%3</translation>
+    </message>
+    <message>
+        <source>Activation</source>
+        <translation>Attivazione</translation>
+    </message>
+    <message>
         <source>Cluster ●</source>
         <translation>Cluster ●</translation>
     </message>
@@ -2529,6 +2676,37 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Search…</source>
         <translation>Cerca…</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::ActivationController</name>
+    <message>
+        <source>Choose what kind of session it is</source>
+        <translation>Scegli che tipo di sessione è</translation>
+    </message>
+    <message>
+        <source>A %1 activation needs its reference</source>
+        <translation>Un'attivazione %1 vuole la sua referenza</translation>
+    </message>
+    <message>
+        <source>A contest needs its name (CONTEST_ID)</source>
+        <translation>Un contest vuole il suo nome (CONTEST_ID)</translation>
+    </message>
+    <message>
+        <source>Session open: %1 · grid %2</source>
+        <translation>Sessione aperta: %1 · locatore %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>Session closed: %1 · %n QSO</source>
+        <translation><numerusform>Sessione chiusa: %1 · %n QSO</numerusform><numerusform>Sessione chiusa: %1 · %n QSO</numerusform></translation>
+    </message>
+    <message>
+        <source>No QSO in this session yet</source>
+        <translation>In questa sessione non c'è ancora nessun QSO</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO of the session → %1</source>
+        <translation><numerusform>%n QSO della sessione → %1</numerusform><numerusform>%n QSO della sessione → %1</numerusform></translation>
     </message>
 </context>
 <context>
@@ -2677,6 +2855,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Profilo stazione creato da Decodium: %1</translation>
     </message>
     <message>
+        <source>%1 %2 %3: already worked in this activation</source>
+        <translation>%1 %2 %3: già lavorato in questa attivazione</translation>
+    </message>
+    <message>
         <source>%1 from %2 → %3 %4 %5 saved (uuid %6)</source>
         <translation>%1 da %2 → %3 %4 %5 salvato (uuid %6)</translation>
     </message>
@@ -2691,6 +2873,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>QSO not logged: %1</source>
         <translation>QSO non registrato: %1</translation>
+    </message>
+    <message>
+        <source>Already worked in this activation</source>
+        <translation>Già lavorato in questa attivazione</translation>
     </message>
     <message>
         <source>Logged %1 %2 %3 (manual)</source>

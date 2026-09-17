@@ -62,6 +62,7 @@ ApplicationWindow {
         else if (what[0] === "tab") bottomTabs.currentTab = parseInt(what[1])
         else if (what[0] === "pop") popWindow.active = true
         else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))
+        else if (what[0] === "activation") activationDialog.openDialog()
         else if (what[0] === "call") decolog.lookupCall = what[1]
         else if (what[0] === "awards") {
             // awards:<id>[:map|:missing|:unconfirmed]
@@ -75,6 +76,7 @@ ApplicationWindow {
     QsoDetailDialog { id: qsoDialog }
     StationProfilesDialog { id: profilesDialog }
     SetupDialog { id: setupDialog }
+    ActivationDialog { id: activationDialog }
     AwardsDialog {
         id: awardsDialog
         onOpenQso: (id) => window.openQso(id)
@@ -119,6 +121,7 @@ ApplicationWindow {
     Shortcut { sequence: "Ctrl+I"; onActivated: importDialog.open() }
     Shortcut { sequence: "Ctrl+E"; onActivated: exportDialog.open() }
     Shortcut { sequence: "Ctrl+K"; onActivated: window.openCluster(0) }
+    Shortcut { sequence: "Ctrl+T"; onActivated: activationDialog.openDialog() }
 
     ColumnLayout {
         anchors.fill: parent
@@ -132,6 +135,7 @@ ApplicationWindow {
             onExportRequested: exportDialog.open()
             onAwardsRequested: awardsDialog.openAt("")
             onClusterRequested: window.openCluster(0)
+            onActivationRequested: activationDialog.openDialog()
             onProfilesRequested: profilesDialog.open()
         }
 

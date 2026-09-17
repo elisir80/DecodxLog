@@ -33,6 +33,8 @@ add_subdirectory(libs/decodium-ui)
 # Niente GUI: ADIF, database e protocollo UDP si provano da soli e serviranno
 # anche a strumenti senza finestra (import da riga di comando, sync).
 add_library(decolog_core STATIC
+    src/core/Activation.cpp
+    src/core/Activation.h
     src/core/Adif.cpp
     src/core/Adif.h
     src/core/Awards.cpp
@@ -124,6 +126,8 @@ qt_add_executable(decolog
     src/app/ClusterController.h
     src/app/SpotModel.cpp
     src/app/SpotModel.h
+    src/app/ActivationController.cpp
+    src/app/ActivationController.h
     src/app/QslController.cpp
     src/app/QslController.h
 )
@@ -146,6 +150,7 @@ set(DECOLOG_QML_FILES
     qml/DecoLog/CredentialsList.qml
     qml/DecoLog/AwardsDialog.qml
     qml/DecoLog/GridSquareMap.qml
+    qml/DecoLog/ActivationDialog.qml
     qml/DecoLog/ClusterPanel.qml
     qml/DecoLog/ClusterWindow.qml
     qml/DecoLog/SpotFilterEditor.qml
@@ -214,6 +219,12 @@ if(DECOLOG_BUILD_TESTS)
     target_link_libraries(tst_clustercontroller PRIVATE decolog_core Qt6::Test)
     set_target_properties(tst_clustercontroller PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME clustercontroller COMMAND tst_clustercontroller)
+    qt_add_executable(tst_activation tests/tst_activation.cpp
+        src/app/ActivationController.cpp src/app/ActivationController.h)
+    target_include_directories(tst_activation PRIVATE src)
+    target_link_libraries(tst_activation PRIVATE decolog_core Qt6::Test)
+    set_target_properties(tst_activation PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME activation COMMAND tst_activation)
 endif()
 
 # ── Tools ─────────────────────────────────────────────────────────────────────

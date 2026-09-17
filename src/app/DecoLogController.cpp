@@ -312,6 +312,20 @@ bool DecoLogController::openDatabase(const QString& path)
         emit logChanged();
     };
     m_qsl = new QslController(std::move(qslCtx), this);
+
+    ActivationController::Context actCtx;
+    actCtx.db = &m_db;
+    actCtx.stationCall = [this] {
+        return m_profiles->activeProfile().value(QStringLiteral("stationCallsign")).toString();
+    };
+    actCtx.stationGrid = [this] { return myGrid(); };
+    actCtx.activeProfileId = [this] { return m_profiles->activeProfileId(); };
+    actCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
+        addActivity(category, text, level);
+    };
+    actCtx.logChanged = [this] { emit logChanged(); };
+    m_activation = new ActivationController(std::move(actCtx), this);
+    m_activation->load();
     connect(this, &DecoLogController::logChanged, m_cluster, &ClusterController::logChanged);
     connect(this, &DecoLogController::countriesChanged, m_cluster, &ClusterController::logChanged);
     connect(this, &DecoLogController::clientChanged, m_cluster, &ClusterController::decodiumBandChanged);
@@ -987,7 +1001,25 @@ void DecoLogController::onQsoReceived(const AdifRecord& input, const QString& so
     // conta per l'FT2 Award.
     AdifRecord enriched = input;
     applyEntity(enriched);
-    const InsertResult r = m_db.insertQso(enriched, source, sourceApp, false, profileId);
+    // Dentro un'attivazione il QSO prende la referenza e il numero progressivo, e
+    // "duplicato" vuol dire "gia' fatto in questa attivazione".
+    m_activation->applyTo(enriched);
+    if (m_activation->active() && m_activation->session().stationProfileId > 0)
+        profileId = m_activation->session().stationProfileId;
+    AdifRecord normalizedForDupe = enriched;
+    adif::normalizeMode(normalizedForDupe);
+    const QString dupeMode = normalizedForDupe.value(QStringLiteral("SUBMODE")).isEmpty()
+                                 ? normalizedForDupe.value(QStringLiteral("MODE"))
+                                 : normalizedForDupe.value(QStringLiteral("SUBMODE"));
+    InsertResult r;
+    if (m_activation->isDuplicate(enriched.value(QStringLiteral("CALL")), enriched.value(QStringLiteral("BAND")), dupeMode)) {
+        r.status = InsertResult::Status::Duplicate;
+        r.message = tr("%1 %2 %3: already worked in this activation")
+                        .arg(enriched.value(QStringLiteral("CALL")).toUpper(),
+                             enriched.value(QStringLiteral("BAND")), dupeMode);
+    } else {
+        r = m_db.insertQso(enriched, source, sourceApp, false, profileId);
+    }
 
     const QString call = input.value(QStringLiteral("CALL")).toUpper();
     AdifRecord normalized = input;
@@ -1015,6 +1047,7 @@ void DecoLogController::onQsoReceived(const AdifRecord& input, const QString& so
         item[QStringLiteral("status")] = QStringLiteral("logged");
         decoLinkQso(enriched, QStringLiteral("logged"), r.id, source, sourceApp);
         m_qsl->qsoLogged(r.id);
+        m_activation->qsoLogged();
         m_model->insertQso(r.id);
         const auto meta = m_db.meta(r.id);
         QString text = tr("%1 from %2 → %3 %4 %5 saved (uuid %6)")
@@ -1097,10 +1130,27 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
     r.set(QStringLiteral("WWFF_REF"), text("wwff_ref").toUpper());
     r.set(QStringLiteral("COMMENT"), text("comment"));
     r.set(QStringLiteral("APP_DECOLOG_TAGS"), text("tags"));
+    // Contest: il numero ricevuto, come lo vuole ADIF.
+    if (!text("srx").isEmpty()) {
+        r.set(QStringLiteral("SRX"), text("srx"));
+        r.set(QStringLiteral("SRX_STRING"), text("srx"));
+    }
 
-    const qint64 profileId = m_profiles ? m_profiles->activeProfileId() : 0;
+    qint64 profileId = m_profiles ? m_profiles->activeProfileId() : 0;
+    if (m_activation->active() && m_activation->session().stationProfileId > 0)
+        profileId = m_activation->session().stationProfileId;
     applyProfile(r, profileId);
     applyEntity(r);
+    m_activation->applyTo(r);
+    {
+        AdifRecord normalized = r;
+        adif::normalizeMode(normalized);
+        const QString mode = normalized.value(QStringLiteral("SUBMODE")).isEmpty()
+                                 ? normalized.value(QStringLiteral("MODE"))
+                                 : normalized.value(QStringLiteral("SUBMODE"));
+        if (m_activation->isDuplicate(r.value(QStringLiteral("CALL")), r.value(QStringLiteral("BAND")), mode))
+            return tr("Already worked in this activation");
+    }
 
     const InsertResult res = m_db.insertQso(r, QStringLiteral("manual"), QStringLiteral("DecoLog ") + version(),
                                             true, profileId);
@@ -1109,6 +1159,7 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
         m_model->insertQso(res.id);
         decoLinkQso(r, QStringLiteral("logged"), res.id, QStringLiteral("manual"), QStringLiteral("DecoLog"));
         m_qsl->qsoLogged(res.id);
+        m_activation->qsoLogged();
         addActivity(QStringLiteral("LOG"), tr("Logged %1 %2 %3 (manual)")
                                                .arg(r.value(QStringLiteral("CALL")), r.value(QStringLiteral("BAND")),
                                                     r.value(QStringLiteral("MODE"))),

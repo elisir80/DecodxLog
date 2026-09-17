@@ -13,6 +13,7 @@ Rectangle {
     signal exportRequested()
     signal awardsRequested()
     signal clusterRequested()
+    signal activationRequested()
     signal profilesRequested()
 
     function focusSearch() {
@@ -124,6 +125,16 @@ Rectangle {
             GlassButton { text: qsTr("Import"); onClicked: root.importRequested() }
             GlassButton { text: qsTr("Export"); onClicked: root.exportRequested() }
             GlassButton { text: qsTr("Awards"); onClicked: root.awardsRequested() }
+            GlassButton {
+                readonly property var act: decolog.activation
+                text: act.active
+                      ? qsTr("%1 · %2/%3").arg(act.state.title).arg(act.qsoCount).arg(act.requiredQsos > 0 ? act.requiredQsos : act.qsoCount)
+                      : qsTr("Activation")
+                tone: !act.active ? "transparent"
+                      : act.requiredQsos > 0 && act.qsoCount < act.requiredQsos ? Theme.warningColor : Theme.accentColor
+                filled: act.active
+                onClicked: root.activationRequested()
+            }
             GlassButton {
                 text: decolog.cluster.onlineCount > 0 ? qsTr("Cluster ●") : qsTr("Cluster")
                 tone: decolog.cluster.onlineCount > 0 ? Theme.accentColor : "transparent"
