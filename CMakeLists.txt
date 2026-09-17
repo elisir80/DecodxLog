@@ -119,6 +119,7 @@ set(DECOLOG_QML_FILES
     qml/DecoLog/LogbookWindow.qml
     qml/DecoLog/CredentialsList.qml
     qml/DecoLog/AwardsDialog.qml
+    qml/DecoLog/GridSquareMap.qml
 )
 
 qt_add_qml_module(decolog

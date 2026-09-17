@@ -25,8 +25,12 @@ Funziona:
   si crea da solo dal nominativo e locatore che Decodium manda nello Status.
 - **Duplicati** configurabili (predefiniti ±2 min digitali, ±10 min a mano).
 - **Import/Export ADIF** senza perdite, anche degli stati QSL (verificato dai test).
-- **Logbook** con filtri a pillole (banda, modo, mese, ricerca), filtri salvati,
-  colonne nascondibili, finestra separata ("Pop"), colonne QSL L Q C E.
+- **Logbook** con filtri a pillole (banda, modo, mese o intervallo di date, entità DXCC,
+  stato QSL, profilo stazione, etichetta, ricerca), filtri salvati, colonne
+  nascondibili, finestra separata ("Pop"), colonne QSL L Q C E. Azioni sulle righe
+  mostrate: aggiungere o togliere un'etichetta, esportare in ADIF.
+- **Etichette** sui QSO (attivazione, contest, evento, portatile) in
+  `APP_DECOLOG_TAGS`: si scrivono nel Nuovo QSO e nella scheda, tornano nell'export.
 - **Call info** dal log: worked-before, distanza e azimut dal locatore, ora locale
   approssimata, stato QSL dell'ultimo QSO. **FT2 Award** (DXCC e locatori in FT2,
   conferme LoTW), statistiche per banda e modo, riepilogo QSL, mappa dei locatori.
@@ -40,14 +44,20 @@ Funziona:
   in Call info; riempie i campi vuoti del Nuovo QSO. Sessione rinnovata da sola,
   risultati tenuti in memoria per un giorno.
 - **Award** calcolati dal log: DXCC, FT2 Award, WAZ, WAS, WPX, locatori, IOTA, POTA,
-  SOTA, WWFF. Lavorati e confermati per banda, filtri per banda e gruppo di modi,
-  conferme accettate a scelta (LoTW, cartolina, eQSL).
+  SOTA, WWFF. Lavorati e confermati per banda con i totali per banda e i band slot,
+  elenco di quello che manca (DXCC, FT2, WAZ, WAS), mappa dei locatori; filtri per
+  banda, gruppo di modi, profilo stazione ed etichetta; conferme accettate a scelta
+  (LoTW, cartolina, eQSL).
+- **Conferme LoTW** scaricate da `lotwreport.adi` (solo quelle nuove dall'ultimo sync,
+  a mano o ogni 6/12/24 ore) e abbinate ai QSO per nominativo, banda, gruppo di modi e
+  ora entro 30 minuti; i dettagli LoTW riempiono i campi vuoti, i nuovi DXCC confermati
+  finiscono nel registro attività.
 - **Backup** notturno con `VACUUM INTO`, copie a rotazione.
 - **Tema**: Ocean Blue / Stellar Light / Darkcodium, variant d'accento, densità,
   colori personalizzati.
 
-Non ancora (mostrati come tali nell'interfaccia): upload e
-download QSL, DecoLog Cloud e sync.
+Non ancora (mostrati come tali nell'interfaccia): upload QSL (LoTW passa da TQSL),
+QRZ Logbook, Club Log ed eQSL, DecoLog Cloud e sync.
 
 ## Struttura
 

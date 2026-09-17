@@ -53,7 +53,12 @@ ApplicationWindow {
         else if (what[0] === "tab") bottomTabs.currentTab = parseInt(what[1])
         else if (what[0] === "pop") popWindow.active = true
         else if (what[0] === "call") decolog.lookupCall = what[1]
-        else if (what[0] === "awards") awardsDialog.openAt(what[1] || "dxcc")
+        else if (what[0] === "awards") {
+            // awards:<id>[:map|:missing|:unconfirmed]
+            if (what[2] === "map") awardsDialog.showMap = true
+            else if (what[2]) awardsDialog.view = what[2]
+            awardsDialog.openAt(what[1] || "dxcc")
+        }
     }
 
     NewQsoDialog { id: newQsoDialog }

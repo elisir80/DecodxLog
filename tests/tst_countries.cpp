@@ -3,6 +3,7 @@
 
 #include <QFile>
 #include <QTest>
+#include <algorithm>
 
 using namespace decolog::core;
 
@@ -18,6 +19,9 @@ private slots:
         QVERIFY(f.open(QIODevice::ReadOnly));
         QVERIFY(m_countries.load(f.readAll()));
         QVERIFY(m_countries.entityCount() > 330);
+        const auto list = m_countries.entities();
+        QCOMPARE(list.size(), m_countries.entityCount());
+        QVERIFY(std::is_sorted(list.cbegin(), list.cend(), [](const DxccEntity& a, const DxccEntity& b) { return a.dxcc < b.dxcc; }));
         QVERIFY(m_countries.version().startsWith("VER"));
     }
 

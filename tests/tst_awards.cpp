@@ -104,6 +104,43 @@ private slots:
         AwardFilter digital;
         digital.modeGroup = "DIGITAL";
         QCOMPARE(find(calc.compute(db, digital), "dxcc").worked(), 2);
+
+        // Band slot: su 20m tre entita' lavorate (291, 110, 1), due confermate.
+        const auto totals = dxcc.bandTotals({"20m", "40m", "15m", "10m"});
+        QCOMPARE(totals.size(), 4);
+        QCOMPARE(totals.at(0).worked, 3);
+        QCOMPARE(totals.at(0).confirmed, 2);
+        QCOMPARE(totals.at(1).worked, 1);
+        QCOMPARE(totals.at(1).confirmed, 0);
+        QCOMPARE(totals.at(3).worked, 0);
+    }
+
+    void filterByProfileAndTag()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        const qint64 home = db.saveStationProfile(StationProfile{.name = "Casa", .stationCallsign = "IU8LMC"});
+        const qint64 park = db.saveStationProfile(StationProfile{.name = "Parco", .stationCallsign = "IU8LMC/P"});
+        auto qso = [&db](const char* call, int dxcc, qint64 profile, const char* tags) {
+            AdifRecord r{{"CALL", call}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1200"}, {"BAND", "20m"},
+                         {"MODE", "FT8"}, {"DXCC", QString::number(dxcc)}, {"APP_DECOLOG_TAGS", tags}};
+            QCOMPARE(db.insertQso(r, "import", {}, false, profile).status, InsertResult::Status::Inserted);
+        };
+        qso("W1AW", 291, home, "");
+        qso("JA1XX", 339, park, "pota,Field Day");
+        qso("EA8ABC", 29, park, "sota");
+
+        const AwardCalculator calc;
+        AwardFilter byProfile;
+        byProfile.stationProfileId = park;
+        QCOMPARE(find(calc.compute(db, byProfile), "dxcc").worked(), 2);
+        AwardFilter byTag;
+        byTag.tag = "POTA";
+        const auto pota = find(calc.compute(db, byTag), "dxcc");
+        QCOMPARE(pota.worked(), 1);
+        QCOMPARE(pota.items.first().key, QString("339"));
+        byTag.tag = "field day";
+        QCOMPARE(find(calc.compute(db, byTag), "dxcc").worked(), 1);
     }
 };
 

@@ -95,6 +95,8 @@ class DecoLogController : public QObject {
     Q_PROPERTY(bool awardConfirmLotw READ awardConfirmLotw WRITE setAwardConfirmLotw NOTIFY awardsChanged)
     Q_PROPERTY(bool awardConfirmCard READ awardConfirmCard WRITE setAwardConfirmCard NOTIFY awardsChanged)
     Q_PROPERTY(bool awardConfirmEqsl READ awardConfirmEqsl WRITE setAwardConfirmEqsl NOTIFY awardsChanged)
+    Q_PROPERTY(int awardProfile READ awardProfile WRITE setAwardProfile NOTIFY awardsChanged)
+    Q_PROPERTY(QString awardTag READ awardTag WRITE setAwardTag NOTIFY awardsChanged)
 
     // ── Callbook (QRZ.com / HamQTH) ────────────────────────────────────────
     Q_PROPERTY(QString callbookProvider READ callbookProvider WRITE setCallbookProvider NOTIFY callbookChanged)
@@ -208,8 +210,19 @@ public:
     void setAwardConfirmCard(bool on);
     bool awardConfirmEqsl() const { return m_awardFilter.confirmEqsl; }
     void setAwardConfirmEqsl(bool on);
-    // Gli elementi di un award per la tabella: filtro testo e "solo non confermati".
-    Q_INVOKABLE QVariantList awardItems(const QString& awardId, const QString& search, bool onlyUnconfirmed) const;
+    int awardProfile() const { return static_cast<int>(m_awardFilter.stationProfileId); }
+    void setAwardProfile(int profileId);
+    QString awardTag() const { return m_awardFilter.tag; }
+    void setAwardTag(const QString& tag);
+    // Gli elementi di un award per la tabella. `view`: "all", "unconfirmed" o
+    // "missing" (quelli mai lavorati, per gli award con un elenco chiuso).
+    Q_INVOKABLE QVariantList awardItems(const QString& awardId, const QString& search, const QString& view) const;
+    // Per banda (le colonne della tabella): [{band, worked, confirmed}].
+    Q_INVOKABLE QVariantList awardBandTotals(const QString& awardId) const;
+    // DXCC, FT2, WAZ e WAS hanno un elenco completo: si puo' dire cosa manca.
+    Q_INVOKABLE bool awardHasMissing(const QString& awardId) const;
+    // I locatori dell'award "grids" per la mappa: [{grid, confirmed}].
+    Q_INVOKABLE QVariantList awardGrids() const;
 
     QString callbookProvider() const { return core::CallbookClient::providerId(m_callbook.provider()); }
     void setCallbookProvider(const QString& id);
@@ -312,6 +325,9 @@ private:
     QSet<QString> confirmedAwardKeys(const QString& awardId) const;
     void requestCallbook();
     const QList<core::AwardResult>& awardResults() const;
+    // Gli stessi award senza i filtri di banda, modo, profilo ed etichetta (solo le
+    // conferme scelte): quello che vede Decodium e che decide "nuovo confermato".
+    const QList<core::AwardResult>& globalAwardResults() const;
     void awardFilterChanged();
     QJsonObject decoLinkAward() const;
     QJsonArray decoLinkQuery(const QJsonObject& query) const;
@@ -335,6 +351,8 @@ private:
     QTimer    m_decoLinkAwardDebounce;
     mutable QList<core::AwardResult> m_awardCache;
     mutable bool m_awardsDirty{true};
+    mutable QList<core::AwardResult> m_globalAwardCache;
+    mutable bool m_globalAwardsDirty{true};
     bool      m_callbookAutofill{true};
     QString   m_callbookStatus;
     QString   m_callbookPending;

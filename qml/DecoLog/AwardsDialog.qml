@@ -1,5 +1,6 @@
 // DecoLog — award: elenco a sinistra con lavorati/confermati, tabella a destra
-// con un elemento per riga e una colonna per banda (● confermato, ○ lavorato).
+// con un elemento per riga e una colonna per banda (● confermato, ○ lavorato),
+// i totali per banda in fondo e, per i locatori, una mappa.
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -12,12 +13,19 @@ DialogFrame {
 
     property string awardId: "dxcc"
     property string search: ""
-    property bool onlyUnconfirmed: false
+    // "all", "unconfirmed", "missing"
+    property string view: "all"
+    property bool showMap: false
     // Si ricalcola quando cambiano log, filtri o selezione.
     property int revision: 0
     readonly property var summary: decolog.awardSummary
     readonly property var current: summary.find(a => a.id === awardId) || ({})
-    readonly property var items: { revision; return decolog.awardItems(awardId, search, onlyUnconfirmed) }
+    readonly property bool hasMissing: decolog.awardHasMissing(awardId)
+    readonly property string effectiveView: view === "missing" && !hasMissing ? "all" : view
+    readonly property bool mapView: showMap && awardId === "grids"
+    readonly property var items: { revision; return decolog.awardItems(awardId, search, effectiveView) }
+    readonly property var totals: { revision; return decolog.awardBandTotals(awardId) }
+    readonly property var grids: { revision; return awardId === "grids" ? decolog.awardGrids() : [] }
     readonly property var bands: decolog.awardBands
 
     function openAt(id) {
@@ -134,7 +142,27 @@ DialogFrame {
                 }
                 Pill { text: qsTr("worked %1").arg(root.current.worked || 0); tone: Theme.secondaryColor }
                 Pill { text: qsTr("confirmed %1").arg(root.current.confirmed || 0); tone: Theme.accentColor }
+                Pill {
+                    visible: root.bands.length > 1
+                    text: qsTr("band slots %1 / %2").arg(root.current.slotsWorked || 0).arg(root.current.slotsConfirmed || 0)
+                    tone: Theme.primaryColor
+                }
                 Item { Layout.fillWidth: true }
+                StyledComboBox {
+                    visible: !root.mapView
+                    Layout.preferredWidth: 150
+                    readonly property var views: ["all", "unconfirmed", "missing"]
+                    model: root.hasMissing ? [qsTr("All worked"), qsTr("Not confirmed"), qsTr("Never worked")]
+                                           : [qsTr("All worked"), qsTr("Not confirmed")]
+                    currentIndex: Math.max(0, views.indexOf(root.effectiveView))
+                    onActivated: root.view = views[currentIndex]
+                }
+                GlassButton {
+                    visible: root.awardId === "grids"
+                    text: root.showMap ? qsTr("Table") : qsTr("Map")
+                    tone: Theme.primaryColor
+                    onClicked: root.showMap = !root.showMap
+                }
                 StyledTextField {
                     Layout.preferredWidth: 180
                     placeholderText: qsTr("Search…")
@@ -164,11 +192,40 @@ DialogFrame {
                 ToggleSwitch { text: qsTr("Card"); checked: decolog.awardConfirmCard; onToggled: decolog.awardConfirmCard = checked }
                 ToggleSwitch { text: "eQSL"; checked: decolog.awardConfirmEqsl; onToggled: decolog.awardConfirmEqsl = checked }
                 Item { Layout.fillWidth: true }
-                ToggleSwitch { text: qsTr("Only unconfirmed"); checked: root.onlyUnconfirmed; onToggled: root.onlyUnconfirmed = checked }
+                StyledComboBox {
+                    id: profileBox
+                    Layout.preferredWidth: 150
+                    readonly property var ids: {
+                        const list = [0]
+                        for (let i = 0; i < decolog.stationProfiles.count; ++i) {
+                            const p = decolog.stationProfiles.get(i)
+                            if (!p.deleted) list.push(p.id)
+                        }
+                        return list
+                    }
+                    model: ids.map(id => id === 0 ? qsTr("All stations") : decolog.stationProfiles.byId(id).name)
+                    currentIndex: Math.max(0, ids.indexOf(decolog.awardProfile))
+                    onActivated: decolog.awardProfile = ids[currentIndex]
+                }
+                StyledComboBox {
+                    Layout.preferredWidth: 130
+                    readonly property var tags: { root.revision; return [""].concat(decolog.qsoModel.tagsInLog().map(t => t.key)) }
+                    model: tags.map(t => t.length ? "#" + t : qsTr("All tags"))
+                    currentIndex: Math.max(0, tags.findIndex(t => t.toLowerCase() === decolog.awardTag.toLowerCase()))
+                    onActivated: decolog.awardTag = tags[currentIndex]
+                }
+            }
+
+            GridSquareMap {
+                visible: root.mapView
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                grids: root.grids
             }
 
             // Intestazione della tabella.
             Rectangle {
+                visible: !root.mapView
                 Layout.fillWidth: true
                 implicitHeight: Theme.rowHeight
                 color: Theme.panelHeader
@@ -202,6 +259,7 @@ DialogFrame {
 
             ListView {
                 id: table
+                visible: !root.mapView
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 clip: true
@@ -236,8 +294,10 @@ DialogFrame {
                             elide: Text.ElideRight
                             textFormat: Text.StyledText
                             text: (line.modelData.name.length ? line.modelData.name + "  " : "")
-                                  + "<font color=\"" + Theme.textSecondary + "\">" + line.modelData.firstCall + " · " + line.modelData.first + "</font>"
-                            color: Theme.textPrimary
+                                  + "<font color=\"" + Theme.textSecondary + "\">"
+                                  + (line.modelData.missing ? "· " + qsTr("never worked") : line.modelData.firstCall + " · " + line.modelData.first)
+                                  + "</font>"
+                            color: line.modelData.missing ? Theme.textSecondary : Theme.textPrimary
                             font.pixelSize: Theme.fontSize
                         }
                         Repeater {
@@ -256,7 +316,7 @@ DialogFrame {
                         Text {
                             Layout.preferredWidth: 40
                             horizontalAlignment: Text.AlignRight
-                            text: line.modelData.qsoCount
+                            text: line.modelData.missing ? "" : line.modelData.qsoCount
                             color: Theme.textSecondary
                             font.family: Theme.monoFamily
                             font.pixelSize: Theme.fontSize
@@ -283,10 +343,65 @@ DialogFrame {
                     width: parent.width - 40
                     horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.Wrap
-                    text: root.search.length || root.onlyUnconfirmed ? qsTr("Nothing matches.")
+                    text: root.effectiveView === "missing" && root.search.length === 0 ? qsTr("Everything worked. Well done.")
+                        : root.search.length || root.effectiveView !== "all" ? qsTr("Nothing matches.")
                         : root.awardId === "was" ? qsTr("No QSO with a US state (STATE field) in the log.")
                         : qsTr("No QSO counts for this award with the current filters.")
                     color: Theme.textSecondary
+                }
+            }
+
+            Rectangle {
+                visible: !root.mapView && root.bands.length > 0
+                Layout.fillWidth: true
+                implicitHeight: Theme.rowHeight + 4
+                color: Theme.panelHeader
+                radius: 4
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 10
+                    anchors.rightMargin: 10
+                    spacing: 8
+                    Text {
+                        Layout.preferredWidth: 80
+                        text: qsTr("Per band")
+                        color: Theme.secondaryColor
+                        font.family: Theme.monoFamily
+                        font.pixelSize: Theme.fontSize
+                        font.bold: true
+                    }
+                    Text {
+                        Layout.fillWidth: true
+                        text: qsTr("worked / confirmed")
+                        color: Theme.textSecondary
+                        font.pixelSize: 11
+                    }
+                    Repeater {
+                        model: root.totals
+                        Column {
+                            required property var modelData
+                            Layout.preferredWidth: 44
+                            Text {
+                                width: 44
+                                horizontalAlignment: Text.AlignHCenter
+                                text: modelData.worked
+                                color: modelData.worked ? Theme.warningColor : Theme.textSecondary
+                                font.family: Theme.monoFamily
+                                font.pixelSize: 10
+                            }
+                            Text {
+                                width: 44
+                                horizontalAlignment: Text.AlignHCenter
+                                text: modelData.confirmed
+                                color: modelData.confirmed ? Theme.accentColor : Theme.textSecondary
+                                font.family: Theme.monoFamily
+                                font.pixelSize: 10
+                                font.bold: true
+                            }
+                        }
+                    }
+                    Item { Layout.preferredWidth: 40 }
+                    Item { Layout.preferredWidth: 90 }
                 }
             }
 

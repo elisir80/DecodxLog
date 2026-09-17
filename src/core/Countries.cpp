@@ -3,6 +3,7 @@
 #include <QRegularExpression>
 #include <QSet>
 #include <QStringList>
+#include <algorithm>
 
 namespace decolog::core {
 
@@ -24,6 +25,7 @@ bool Countries::load(const QByteArray& csv)
     m_exact.clear();
     m_prefixes.clear();
     m_names.clear();
+    m_primary.clear();
     m_longestPrefix = 0;
     m_version.clear();
 
@@ -56,10 +58,12 @@ bool Countries::load(const QByteArray& csv)
         e.utcOffset = -f.at(8).toDouble();
         if (e.dxcc <= 0)
             continue;
-        if (!waeOnly && !m_names.contains(e.dxcc))
-            m_names.insert(e.dxcc, e.name);
-
         const int index = static_cast<int>(m_entities.size());
+        if (!waeOnly && !m_names.contains(e.dxcc)) {
+            m_names.insert(e.dxcc, e.name);
+            m_primary.append(index);
+        }
+
         m_entities.append(e);
 
         QString prefixes = f.mid(9).join(QLatin1Char(','));
@@ -168,6 +172,16 @@ std::optional<DxccEntity> Countries::lookup(const QString& callsign) const
     if (const auto m = matchPrefix(base))
         return resolve(*m);
     return std::nullopt;
+}
+
+QList<DxccEntity> Countries::entities() const
+{
+    QList<DxccEntity> out;
+    out.reserve(m_primary.size());
+    for (int i : m_primary)
+        out << m_entities.at(i);
+    std::sort(out.begin(), out.end(), [](const DxccEntity& a, const DxccEntity& b) { return a.dxcc < b.dxcc; });
+    return out;
 }
 
 } // namespace decolog::core

@@ -39,6 +39,8 @@ public:
     std::optional<DxccEntity> lookup(const QString& callsign) const;
     // Il nome dell'entità dal numero ADIF.
     QString nameFor(int dxcc) const { return m_names.value(dxcc); }
+    // Una voce per entita' DXCC (senza le voci solo WAE), in ordine di numero.
+    QList<DxccEntity> entities() const;
 
 private:
     struct Match {
@@ -54,6 +56,7 @@ private:
     QHash<QString, Match> m_exact;      // =CALL
     QHash<QString, Match> m_prefixes;   // prefisso
     QHash<int, QString> m_names;
+    QVector<int> m_primary;             // indice in m_entities della prima voce di ogni entita'
     int m_longestPrefix{0};
     QString m_version;
 };

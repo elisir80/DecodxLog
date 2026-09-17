@@ -37,6 +37,14 @@ struct AwardFilter {
     bool confirmLotw{true};
     bool confirmCard{true};
     bool confirmEqsl{false};
+    qint64 stationProfileId{0}; // 0 = tutti i profili
+    QString tag;                // etichetta dei QSO che contano, vuota = tutti
+};
+
+struct BandTotal {
+    QString band;
+    int worked{0};              // elementi lavorati su questa banda
+    int confirmed{0};
 };
 
 struct AwardItem {
@@ -60,6 +68,9 @@ struct AwardResult {
     QList<AwardItem> items;     // ordinati per chiave
     int worked() const { return static_cast<int>(items.size()); }
     int confirmed() const;
+    // Per banda, nell'ordine dato: quanti elementi lavorati e confermati. La somma
+    // dei confermati e' il conteggio dei "band slot" (DXCC Challenge).
+    QList<BandTotal> bandTotals(const QStringList& bands) const;
 };
 
 class AwardCalculator {

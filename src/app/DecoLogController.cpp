@@ -148,9 +148,11 @@ DecoLogController::DecoLogController(QObject* parent)
     m_awardFilter.confirmLotw = s.value(QStringLiteral("awards/confirmLotw"), true).toBool();
     m_awardFilter.confirmCard = s.value(QStringLiteral("awards/confirmCard"), true).toBool();
     m_awardFilter.confirmEqsl = s.value(QStringLiteral("awards/confirmEqsl"), false).toBool();
+    m_awardFilter.stationProfileId = s.value(QStringLiteral("awards/profile"), 0).toLongLong();
+    m_awardFilter.tag = s.value(QStringLiteral("awards/tag")).toString();
     // Gli award si ricalcolano quando il log cambia, e solo quando qualcuno li guarda.
     connect(this, &DecoLogController::logChanged, this, [this] {
-        m_awardsDirty = true;
+        m_awardsDirty = m_globalAwardsDirty = true;
         emit awardsChanged();
     });
     // DecoLink: il log verso Decodium. I dati li fornisce il controller.
@@ -182,7 +184,7 @@ DecoLogController::DecoLogController(QObject* parent)
 
     // Un cty.csv nuovo cambia i nomi delle entita'.
     connect(this, &DecoLogController::countriesChanged, this, [this] {
-        m_awardsDirty = true;
+        m_awardsDirty = m_globalAwardsDirty = true;
         emit awardsChanged();
     });
 
@@ -329,7 +331,7 @@ QJsonObject DecoLogController::decoLinkAward() const
 {
     const Ft2Award ft2 = m_db.ft2Award();
     int ft2Worked = 0, ft2Confirmed = 0, dxccWorked = 0, dxccConfirmed = 0;
-    for (const AwardResult& r : awardResults()) {
+    for (const AwardResult& r : globalAwardResults()) {
         if (r.id == QLatin1String("ft2")) {
             ft2Worked = r.worked();
             ft2Confirmed = r.confirmed();
@@ -354,7 +356,7 @@ QJsonArray DecoLogController::decoLinkQuery(const QJsonObject& query) const
     const QString band = query.value(QStringLiteral("band")).toString().trimmed().toLower();
     // Le entita' confermate, secondo le conferme scelte negli award.
     QSet<int> confirmedDxcc;
-    for (const AwardResult& r : awardResults()) {
+    for (const AwardResult& r : globalAwardResults()) {
         if (r.id != QLatin1String("dxcc"))
             continue;
         for (const AwardItem& i : r.items) {
@@ -644,17 +646,40 @@ const QList<AwardResult>& DecoLogController::awardResults() const
     return m_awardCache;
 }
 
+const QList<AwardResult>& DecoLogController::globalAwardResults() const
+{
+    if (m_globalAwardsDirty && m_db.isOpen()) {
+        AwardFilter filter;
+        filter.confirmLotw = m_awardFilter.confirmLotw;
+        filter.confirmCard = m_awardFilter.confirmCard;
+        filter.confirmEqsl = m_awardFilter.confirmEqsl;
+        const AwardCalculator calc([this](int dxcc) { return m_countries.nameFor(dxcc); });
+        m_globalAwardCache = calc.compute(m_db, filter);
+        m_globalAwardsDirty = false;
+    }
+    return m_globalAwardCache;
+}
+
 QVariantList DecoLogController::awardSummary() const
 {
     QVariantList out;
+    const QStringList bands = awardBands();
     for (const AwardResult& r : awardResults()) {
+        int slotsWorked = 0, slotsConfirmed = 0;
+        for (const BandTotal& t : r.bandTotals(bands)) {
+            slotsWorked += t.worked;
+            slotsConfirmed += t.confirmed;
+        }
         out << QVariantMap{
             {QStringLiteral("id"), r.id},
             {QStringLiteral("title"), r.title},
             {QStringLiteral("worked"), r.worked()},
             {QStringLiteral("confirmed"), r.confirmed()},
             {QStringLiteral("target"), r.target},
-            {QStringLiteral("total"), r.total},
+            {QStringLiteral("total"), r.id == QLatin1String("dxcc") && m_countries.entityCount() > 0
+                                          ? m_countries.entityCount() : r.total},
+            {QStringLiteral("slotsWorked"), slotsWorked},
+            {QStringLiteral("slotsConfirmed"), slotsConfirmed},
         };
     }
     return out;
@@ -669,10 +694,82 @@ QStringList DecoLogController::awardBands() const
     return out;
 }
 
-QVariantList DecoLogController::awardItems(const QString& awardId, const QString& search, bool onlyUnconfirmed) const
+bool DecoLogController::awardHasMissing(const QString& awardId) const
+{
+    return awardId == QLatin1String("dxcc") || awardId == QLatin1String("ft2") || awardId == QLatin1String("waz")
+        || awardId == QLatin1String("was");
+}
+
+QVariantList DecoLogController::awardBandTotals(const QString& awardId) const
+{
+    QVariantList out;
+    for (const AwardResult& r : awardResults()) {
+        if (r.id != awardId)
+            continue;
+        for (const BandTotal& t : r.bandTotals(awardBands())) {
+            out << QVariantMap{{QStringLiteral("band"), t.band},
+                               {QStringLiteral("worked"), t.worked},
+                               {QStringLiteral("confirmed"), t.confirmed}};
+        }
+    }
+    return out;
+}
+
+QVariantList DecoLogController::awardGrids() const
+{
+    QVariantList out;
+    for (const AwardResult& r : awardResults()) {
+        if (r.id != QLatin1String("grids"))
+            continue;
+        for (const AwardItem& i : r.items)
+            out << QVariantMap{{QStringLiteral("grid"), i.key}, {QStringLiteral("confirmed"), i.confirmed()}};
+    }
+    return out;
+}
+
+QVariantList DecoLogController::awardItems(const QString& awardId, const QString& search, const QString& view) const
 {
     QVariantList out;
     const QString needle = search.trimmed().toUpper();
+    auto matches = [&needle](const QString& key, const QString& name) {
+        return needle.isEmpty() || key.toUpper().contains(needle) || name.toUpper().contains(needle);
+    };
+
+    if (view == QLatin1String("missing")) {
+        // L'elenco completo meno quello che c'e' nei risultati.
+        QSet<QString> worked;
+        for (const AwardResult& r : awardResults()) {
+            if (r.id == awardId) {
+                for (const AwardItem& i : r.items)
+                    worked.insert(i.key);
+            }
+        }
+        auto missing = [&](const QString& key, const QString& name) {
+            if (worked.contains(key) || !matches(key, name))
+                return;
+            out << QVariantMap{
+                {QStringLiteral("key"), key}, {QStringLiteral("name"), name},
+                {QStringLiteral("bandsWorked"), QStringList()}, {QStringLiteral("bandsConfirmed"), QStringList()},
+                {QStringLiteral("qsoCount"), 0}, {QStringLiteral("first"), QString()}, {QStringLiteral("last"), QString()},
+                {QStringLiteral("firstQsoId"), 0}, {QStringLiteral("firstCall"), QString()},
+                {QStringLiteral("confirmed"), false}, {QStringLiteral("missing"), true},
+            };
+        };
+        if (awardId == QLatin1String("dxcc") || awardId == QLatin1String("ft2")) {
+            for (const DxccEntity& e : m_countries.entities())
+                missing(QString::number(e.dxcc), QStringLiteral("%1 · %2 · %3").arg(e.name, e.prefix, e.continent));
+        } else if (awardId == QLatin1String("waz")) {
+            for (int zone = 1; zone <= 40; ++zone)
+                missing(QString::number(zone), QString());
+        } else if (awardId == QLatin1String("was")) {
+            const auto& states = awards::usStates();
+            for (auto it = states.cbegin(); it != states.cend(); ++it)
+                missing(it.key(), it.value());
+        }
+        return out;
+    }
+
+    const bool onlyUnconfirmed = view == QLatin1String("unconfirmed");
     for (const AwardResult& r : awardResults()) {
         if (r.id != awardId)
             continue;
@@ -707,7 +804,9 @@ void DecoLogController::awardFilterChanged()
     s.setValue(QStringLiteral("awards/confirmLotw"), m_awardFilter.confirmLotw);
     s.setValue(QStringLiteral("awards/confirmCard"), m_awardFilter.confirmCard);
     s.setValue(QStringLiteral("awards/confirmEqsl"), m_awardFilter.confirmEqsl);
-    m_awardsDirty = true;
+    s.setValue(QStringLiteral("awards/profile"), m_awardFilter.stationProfileId);
+    s.setValue(QStringLiteral("awards/tag"), m_awardFilter.tag);
+    m_awardsDirty = m_globalAwardsDirty = true;
     emit awardsChanged();
 }
 
@@ -736,6 +835,20 @@ void DecoLogController::setAwardConfirmCard(bool on)
 {
     if (on == m_awardFilter.confirmCard) return;
     m_awardFilter.confirmCard = on;
+    awardFilterChanged();
+}
+
+void DecoLogController::setAwardProfile(int profileId)
+{
+    if (profileId == m_awardFilter.stationProfileId) return;
+    m_awardFilter.stationProfileId = qMax(0, profileId);
+    awardFilterChanged();
+}
+
+void DecoLogController::setAwardTag(const QString& tag)
+{
+    if (tag.simplified() == m_awardFilter.tag) return;
+    m_awardFilter.tag = tag.simplified();
     awardFilterChanged();
 }
 
@@ -1329,7 +1442,7 @@ void DecoLogController::syncLotw(bool full)
 QSet<QString> DecoLogController::confirmedAwardKeys(const QString& awardId) const
 {
     QSet<QString> keys;
-    for (const AwardResult& r : awardResults()) {
+    for (const AwardResult& r : globalAwardResults()) {
         if (r.id != awardId)
             continue;
         for (const AwardItem& i : r.items) {
@@ -1397,7 +1510,7 @@ void DecoLogController::onLotwReport(const lotw::Report& report)
 
     if (confirmed > 0) {
         m_model->reload();
-        m_awardsDirty = true;
+        m_awardsDirty = m_globalAwardsDirty = true;
         emit logChanged();
         m_decoLink.resendSnapshot();
         refreshCallInfo();

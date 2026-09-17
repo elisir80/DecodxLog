@@ -110,6 +110,23 @@ int AwardResult::confirmed() const
     return static_cast<int>(std::count_if(items.cbegin(), items.cend(), [](const AwardItem& i) { return i.confirmed(); }));
 }
 
+QList<BandTotal> AwardResult::bandTotals(const QStringList& bands) const
+{
+    QList<BandTotal> out;
+    for (const QString& band : bands) {
+        BandTotal t;
+        t.band = band;
+        for (const AwardItem& i : items) {
+            if (i.bandsWorked.contains(band))
+                ++t.worked;
+            if (i.bandsConfirmed.contains(band))
+                ++t.confirmed;
+        }
+        out << t;
+    }
+    return out;
+}
+
 AwardCalculator::AwardCalculator(DxccName dxccName)
     : m_dxccName(std::move(dxccName))
 {
@@ -186,7 +203,7 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
     q.setForwardOnly(true);
     q.exec(QStringLiteral(
         "SELECT id, call, band, mode, IFNULL(submode, ''), dxcc, cqz, state, gridsquare, iota, pota_ref, sota_ref, "
-        "wwff_ref, qso_datetime_on, "
+        "wwff_ref, qso_datetime_on, IFNULL(station_profile_id, 0), IFNULL(tags, ''), "
         "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'lotw'), "
         "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'card'), "
         "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'eqsl') "
@@ -203,14 +220,23 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
             continue;
         if (!modeMatches(filter.modeGroup, mode, submode))
             continue;
+        if (filter.stationProfileId > 0 && q.value(14).toLongLong() != filter.stationProfileId)
+            continue;
+        if (!filter.tag.isEmpty()) {
+            const QStringList tags = LogDatabase::splitTags(q.value(15).toString());
+            if (!std::any_of(tags.cbegin(), tags.cend(), [&filter](const QString& t) {
+                    return t.compare(filter.tag, Qt::CaseInsensitive) == 0;
+                }))
+                continue;
+        }
 
         const qint64 id = q.value(0).toLongLong();
         const QString call = q.value(1).toString();
         const int dxcc = q.value(5).toInt();
         const QDateTime on = QDateTime::fromString(q.value(13).toString(), Qt::ISODate).toUTC();
-        const bool confirmed = (filter.confirmLotw && q.value(14).toString() == QLatin1String("Y"))
-                            || (filter.confirmCard && q.value(15).toString() == QLatin1String("Y"))
-                            || (filter.confirmEqsl && q.value(16).toString() == QLatin1String("Y"));
+        const bool confirmed = (filter.confirmLotw && q.value(16).toString() == QLatin1String("Y"))
+                            || (filter.confirmCard && q.value(17).toString() == QLatin1String("Y"))
+                            || (filter.confirmEqsl && q.value(18).toString() == QLatin1String("Y"));
 
         auto add = [&](const char* award, const QString& key, const QString& name) {
             if (key.isEmpty())
