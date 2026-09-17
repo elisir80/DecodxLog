@@ -79,7 +79,7 @@ DialogFrame {
 
             // ── Navigazione ─────────────────────────────────────────────────
             ColumnLayout {
-                Layout.preferredWidth: 170
+                Layout.preferredWidth: 190
                 Layout.fillHeight: true
                 Layout.margins: 8
                 spacing: 2

@@ -9,6 +9,8 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickStyle>
+#include <QQuickWindow>
+#include <QTimer>
 #include <QSettings>
 #include <QStandardPaths>
 #include <QUrl>
@@ -41,6 +43,10 @@ int main(int argc, char* argv[])
     QCommandLineOption showOption(QStringLiteral("show"),
                                   QStringLiteral("Open at startup: new, qso:<id>, profiles, setup:<page>."),
                                   QStringLiteral("what"));
+    QCommandLineOption grabOption(QStringLiteral("grab"),
+                                  QStringLiteral("Save a screenshot of the window to this PNG after startup, then quit."),
+                                  QStringLiteral("file"));
+    parser.addOption(grabOption);
     parser.addOption(themeOption);
     parser.addOption(showOption);
     parser.addOption(dbOption);
@@ -73,6 +79,19 @@ int main(int argc, char* argv[])
         if (auto* theme = engine.singletonInstance<decodium::ui::ThemeManager*>(QStringLiteral("Decodium.UI"),
                                                                                   QStringLiteral("Theme")))
             theme->setCurrentTheme(parser.value(themeOption));
+    }
+
+    // Schermata senza toccare il desktop: con QT_QPA_PLATFORM=offscreen la finestra
+    // non compare nemmeno, e nessun clic finisce su un altro programma.
+    if (parser.isSet(grabOption)) {
+        const QString file = parser.value(grabOption);
+        QTimer::singleShot(3000, &app, [&engine, file] {
+            if (!engine.rootObjects().isEmpty()) {
+                if (auto* window = qobject_cast<QQuickWindow*>(engine.rootObjects().constFirst()))
+                    window->grabWindow().save(file);
+            }
+            QCoreApplication::quit();
+        });
     }
 
     return app.exec();

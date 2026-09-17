@@ -179,7 +179,7 @@ public:
     int conflictCount() const;
     WorkedBefore workedBefore(const QString& call) const;
 
-    // Primo QSO FT2 con questo DXCC? Il QSO indicato non conta.
+    // E' il primo QSO FT2 con il suo DXCC, in ordine di tempo?
     bool isFirstFt2Dxcc(qint64 id) const;
     Ft2Award ft2Award() const;
     QList<CountRow> countByBand() const;

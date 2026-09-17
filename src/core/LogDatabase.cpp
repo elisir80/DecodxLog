@@ -162,9 +162,10 @@ bool isStatusFlag(const QString& v)
     return v.size() == 1 && v.at(0).isLetter();
 }
 
+// Il modo come lo legge un operatore: FT2 e non MFSK, ma SSB e non USB.
 QString displayMode(const QString& mode, const QString& submode)
 {
-    return submode.isEmpty() ? mode : submode;
+    return submode.isEmpty() || mode == QLatin1String("SSB") ? mode : submode;
 }
 
 AdifRecord recordFromSnapshot(const QString& json)
@@ -944,7 +945,9 @@ bool LogDatabase::isFirstFt2Dxcc(qint64 id) const
     QSqlQuery q(connection());
     q.prepare(QStringLiteral(
         "SELECT q.dxcc, (SELECT COUNT(*) FROM qso o WHERE o.deleted = 0 AND o.submode = 'FT2' "
-        "AND o.dxcc = q.dxcc AND o.id <> q.id) FROM qso q WHERE q.id = ? AND q.submode = 'FT2'"));
+        "AND o.dxcc = q.dxcc AND o.id <> q.id AND (o.qso_datetime_on < q.qso_datetime_on "
+        "OR (o.qso_datetime_on = q.qso_datetime_on AND o.id < q.id))) "
+        "FROM qso q WHERE q.id = ? AND q.submode = 'FT2'"));
     q.addBindValue(id);
     if (!q.exec() || !q.next() || q.value(0).isNull())
         return false;
@@ -991,7 +994,7 @@ QList<CountRow> LogDatabase::countByMode() const
     QList<CountRow> out;
     QSqlQuery q(connection());
     if (q.exec(QStringLiteral(
-            "SELECT CASE WHEN IFNULL(submode, '') = '' THEN mode ELSE submode END AS m, COUNT(*) AS n "
+            "SELECT CASE WHEN IFNULL(submode, '') = '' OR mode = 'SSB' THEN mode ELSE submode END AS m, COUNT(*) AS n "
             "FROM qso WHERE deleted = 0 GROUP BY m ORDER BY n DESC"))) {
         while (q.next())
             out << CountRow{q.value(0).toString(), q.value(1).toInt()};

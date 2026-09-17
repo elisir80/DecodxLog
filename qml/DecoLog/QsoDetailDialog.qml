@@ -291,7 +291,7 @@ DialogFrame {
                         Layout.fillWidth: true
                         spacing: 10
                         AdifInput {
-                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 8; key: "COMMENT"; label: qsTr("Comment"); mono: false }
+                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 7; key: "COMMENT"; label: qsTr("Comment"); mono: false }
                         LabeledField {
                             Layout.preferredWidth: 1
                             Layout.horizontalStretchFactor: 4

@@ -70,6 +70,8 @@ Richiede Qt ≥ 6.5 con Quick, QuickControls2, Sql (driver QSQLITE), Network, Te
 
 Per le schermate e le prove dell'interfaccia: `--import file.adi` importa all'avvio,
 `--theme "Stellar Light"` sceglie il tema, `--show new|qso:<id>|profiles|setup:<pagina>`
-apre una finestra di dialogo.
+apre una finestra di dialogo (anche `menu:columns|filters|saved|row`, `tab:<n>`, `pop`),
+`--grab file.png` salva la schermata e chiude. Con `QT_QPA_PLATFORM=offscreen` la finestra non
+compare sul desktop.
 
 In Decodium: impostare il server UDP sull'indirizzo e la porta di DecoLog.

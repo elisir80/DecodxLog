@@ -251,6 +251,8 @@ private slots:
                                      {"MODE", "FT2"}, {"DXCC", "497"}, {"GRIDSQUARE", "JN85"}}, "udp_decodium");
         db.insertQso({{"CALL", "W1AW"}, {"QSO_DATE", "20260916"}, {"TIME_ON", "1510"}, {"BAND", "20m"},
                       {"MODE", "FT8"}, {"DXCC", "291"}, {"GRIDSQUARE", "FN31"}}, "udp_decodium");
+        db.insertQso({{"CALL", "EA8XX"}, {"QSO_DATE", "20260916"}, {"TIME_ON", "1520"}, {"BAND", "20m"},
+                      {"MODE", "SSB"}, {"SUBMODE", "USB"}}, "manual");
 
         const Ft2Award award = db.ft2Award();
         QCOMPARE(award.qsos, 2);
@@ -258,19 +260,24 @@ private slots:
         QCOMPARE(award.dxccConfirmed, 1);
         QCOMPARE(award.gridsWorked, 2);
         QCOMPARE(award.gridsConfirmed, 1);
-        QVERIFY(!db.isFirstFt2Dxcc(a.id));   // c'e' anche b
-        QVERIFY(!db.isFirstFt2Dxcc(b.id));
+        QVERIFY(db.isFirstFt2Dxcc(a.id));    // 14:52, prima di b
+        QVERIFY(!db.isFirstFt2Dxcc(b.id));   // 15:00, stesso DXCC gia' lavorato
 
         const auto byBand = db.countByBand();
         QCOMPARE(byBand.size(), 2);
         QCOMPARE(byBand.first().key, QString("40m"));
         QCOMPARE(db.countByMode().first().key, QString("FT2"));
+        QStringList modes;
+        for (const auto& row : db.countByMode())
+            modes << row.key;
+        QVERIFY(modes.contains("SSB"));    // SSB/USB si legge SSB
+        QVERIFY(!modes.contains("USB"));
 
         const QString copy = dir + "/backup.sqlite";
         QVERIFY2(db.backupTo(copy), qPrintable(db.lastError()));
         LogDatabase restored;
         QVERIFY(restored.open(copy));
-        QCOMPARE(restored.qsoCount(), 3);
+        QCOMPARE(restored.qsoCount(), 4);
         restored.close();
         db.close();
         QDir(dir).removeRecursively();

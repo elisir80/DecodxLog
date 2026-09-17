@@ -23,6 +23,8 @@ set(DECODIUM_UI_QML_FILES
     qml/TabChip.qml
     qml/DialogFrame.qml
     qml/Led.qml
+    qml/StyledMenu.qml
+    qml/StyledMenuItem.qml
 )
 
 qt_add_qml_module(decodium_ui

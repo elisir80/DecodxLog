@@ -162,7 +162,7 @@ QsoTableModel::Row QsoTableModel::rowFromQuery(const QSqlQuery& q) const
     const QString submode = q.value(5).toString();
     // FT2 si legge FT2, non MFSK: il modo ADIF resta nel database, qui si mostra
     // quello che l'operatore riconosce.
-    r.values[Mode] = submode.isEmpty() ? q.value(4).toString() : submode;
+    r.values[Mode] = submode.isEmpty() || q.value(4).toString() == QLatin1String("SSB") ? q.value(4).toString() : submode;
     r.values[Freq] = q.value(6).isNull() ? QString() : QString::number(q.value(6).toDouble(), 'f', 6);
     r.values[RstSent] = q.value(7).toString();
     r.values[RstRcvd] = q.value(8).toString();
@@ -217,7 +217,7 @@ void QsoTableModel::reload()
                 marks << QStringLiteral("?");
                 binds << m.toUpper();
             }
-            where << QStringLiteral("(CASE WHEN IFNULL(submode, '') = '' THEN mode ELSE submode END) IN (%1)")
+            where << QStringLiteral("(CASE WHEN IFNULL(submode, '') = '' OR mode = 'SSB' THEN mode ELSE submode END) IN (%1)")
                          .arg(marks.join(QLatin1Char(',')));
         }
         if (!m_month.isEmpty()) {

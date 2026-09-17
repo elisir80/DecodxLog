@@ -49,6 +49,9 @@ ApplicationWindow {
         else if (what[0] === "qso") openQso(parseInt(what[1]))
         else if (what[0] === "profiles") profilesDialog.open()
         else if (what[0] === "setup") { setupDialog.page = parseInt(what[1] || "3"); setupDialog.open() }
+        else if (what[0] === "menu") logbook.showMenu(what[1])
+        else if (what[0] === "tab") bottomTabs.currentTab = parseInt(what[1])
+        else if (what[0] === "pop") popWindow.active = true
     }
 
     NewQsoDialog { id: newQsoDialog }
@@ -120,6 +123,7 @@ ApplicationWindow {
                 }
 
                 LogbookPanel {
+                    id: logbook
                     SplitView.fillWidth: true
                     SplitView.minimumWidth: 480
                     hiddenColumns: layout.hiddenColumns

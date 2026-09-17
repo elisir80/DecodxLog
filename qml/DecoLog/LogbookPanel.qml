@@ -40,6 +40,13 @@ GlassPanel {
     function sourceColor(src) {
         return src === "udp" ? Theme.secondaryColor : src === "cld" ? Theme.warningColor : Theme.textSecondary
     }
+    // Per le schermate di prova (--show menu:<nome>).
+    function showMenu(name) {
+        if (name === "columns") columnsMenu.popup(root.width - 260, Theme.panelHeight)
+        else if (name === "filters") { addFilterMenu.popup(60, Theme.panelHeight + 30); bandMenu.open() }
+        else if (name === "saved") savedMenu.popup(root.width - 200, Theme.panelHeight + 30)
+        else if (name === "row") rowMenu.popupFor(root.model.idAt(0))
+    }
     function thisMonth() {
         const now = decolog.utcNow()
         return now.date.substring(0, 7)
@@ -87,11 +94,11 @@ GlassPanel {
         }
     ]
 
-    Menu {
+    StyledMenu {
         id: columnsMenu
         Repeater {
             model: 12
-            MenuItem {
+            StyledMenuItem {
                 required property int index
                 // Nominativo e ora non si nascondono: senza, la riga non dice niente.
                 enabled: index > 1
@@ -103,14 +110,14 @@ GlassPanel {
         }
     }
 
-    Menu {
+    StyledMenu {
         id: addFilterMenu
-        Menu {
+        StyledMenu {
             id: bandMenu
             title: qsTr("Band")
             Repeater {
                 model: bandMenu.opened || addFilterMenu.opened ? root.model.bandsInLog() : []
-                MenuItem {
+                StyledMenuItem {
                     required property string modelData
                     text: modelData
                     checkable: true
@@ -124,12 +131,12 @@ GlassPanel {
                 }
             }
         }
-        Menu {
+        StyledMenu {
             id: modeMenu
             title: qsTr("Mode")
             Repeater {
                 model: modeMenu.opened || addFilterMenu.opened ? root.model.modesInLog() : []
-                MenuItem {
+                StyledMenuItem {
                     required property string modelData
                     text: modelData
                     checkable: true
@@ -143,34 +150,37 @@ GlassPanel {
                 }
             }
         }
-        MenuItem {
+        StyledMenuItem {
             text: qsTr("This month")
             onTriggered: root.model.monthFilter = root.thisMonth()
         }
     }
 
-    Menu {
+    StyledMenu {
         id: savedMenu
         Repeater {
             model: Object.keys(root.savedFilters)
-            MenuItem {
+            StyledMenuItem {
                 required property string modelData
                 text: modelData
                 onTriggered: root.model.applyFilterState(root.savedFilters[modelData])
             }
         }
-        MenuSeparator { visible: Object.keys(root.savedFilters).length > 0 }
-        MenuItem {
+        MenuSeparator {
+            visible: Object.keys(root.savedFilters).length > 0
+            contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft }
+        }
+        StyledMenuItem {
             text: qsTr("Save current filters…")
             enabled: root.model.filtered
             onTriggered: saveFilterPopup.open()
         }
-        Menu {
+        StyledMenu {
             title: qsTr("Delete")
             enabled: Object.keys(root.savedFilters).length > 0
             Repeater {
                 model: Object.keys(root.savedFilters)
-                MenuItem {
+                StyledMenuItem {
                     required property string modelData
                     text: modelData
                     onTriggered: {
@@ -471,12 +481,12 @@ GlassPanel {
         }
     }
 
-    Menu {
+    StyledMenu {
         id: rowMenu
         property var qsoId: 0
         function popupFor(id) { qsoId = id; popup() }
-        MenuItem { text: qsTr("Open / edit…"); onTriggered: root.openQso(rowMenu.qsoId) }
-        MenuItem { text: qsTr("Filter by this call"); onTriggered: root.model.filterText = decolog.lookupCall }
+        StyledMenuItem { text: qsTr("Open / edit…"); onTriggered: root.openQso(rowMenu.qsoId) }
+        StyledMenuItem { text: qsTr("Filter by this call"); onTriggered: root.model.filterText = decolog.lookupCall }
     }
 
     Keys.onPressed: (event) => {
