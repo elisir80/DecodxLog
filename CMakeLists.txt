@@ -151,6 +151,7 @@ set(DECOLOG_QML_FILES
     qml/DecoLog/AwardsDialog.qml
     qml/DecoLog/GridSquareMap.qml
     qml/DecoLog/ActivationDialog.qml
+    qml/DecoLog/StatsWindow.qml
     qml/DecoLog/ClusterPanel.qml
     qml/DecoLog/ClusterWindow.qml
     qml/DecoLog/SpotFilterEditor.qml
@@ -170,6 +171,13 @@ qt_add_translations(decolog TS_FILES translations/decolog_it.ts)
 
 # L'icona della finestra (la barra delle applicazioni su Windows usa quella del
 # .rc, ma la finestra e i dialoghi prendono questa).
+# Le coste della mappa: Natural Earth, pubblico dominio (resources/map/COPYRIGHT.txt).
+qt_add_resources(decolog "map"
+    PREFIX "/decolog"
+    BASE resources
+    FILES resources/map/coastline.json
+)
+
 qt_add_resources(decolog "icon"
     PREFIX "/decolog"
     BASE resources

@@ -309,6 +309,10 @@
         <translation>DX Cluster</translation>
     </message>
     <message>
+        <source>Open statistics</source>
+        <translation>Apri le statistiche</translation>
+    </message>
+    <message>
         <source>Open cluster window</source>
         <translation>Apri la finestra del cluster</translation>
     </message>
@@ -1327,8 +1331,36 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Mappa</translation>
     </message>
     <message>
+        <source>Layers ▾</source>
+        <translation>Livelli ▾</translation>
+    </message>
+    <message>
+        <source>Coastlines</source>
+        <translation>Coste</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>Notte</translation>
+    </message>
+    <message>
+        <source>Worked grids</source>
+        <translation>Locatori lavorati</translation>
+    </message>
+    <message>
+        <source>Cluster spots</source>
+        <translation>Spot del cluster</translation>
+    </message>
+    <message>
         <source>QSOs with a grid square appear here</source>
         <translation>I QSO con un locatore compaiono qui</translation>
+    </message>
+    <message>
+        <source>%1 grids</source>
+        <translation>%1 locatori</translation>
+    </message>
+    <message>
+        <source>%1 spots</source>
+        <translation>%1 spot</translation>
     </message>
 </context>
 <context>
@@ -2582,6 +2614,105 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Save profile</source>
         <translation>Salva il profilo</translation>
+    </message>
+</context>
+<context>
+    <name>StatsWindow</name>
+    <message>
+        <source>DecoLog — Statistics</source>
+        <translation>DecoLog — Statistiche</translation>
+    </message>
+    <message>
+        <source>no QSO</source>
+        <translation>nessun QSO</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Modo</translation>
+    </message>
+    <message>
+        <source>All modes</source>
+        <translation>Tutti i modi</translation>
+    </message>
+    <message>
+        <source>Year</source>
+        <translation>Anno</translation>
+    </message>
+    <message>
+        <source>All years</source>
+        <translation>Tutti gli anni</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Aggiorna</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Different calls</source>
+        <translation>Nominativi diversi</translation>
+    </message>
+    <message>
+        <source>DXCC entities</source>
+        <translation>Entità DXCC</translation>
+    </message>
+    <message>
+        <source>Grids</source>
+        <translation>Locatori</translation>
+    </message>
+    <message>
+        <source>First QSO</source>
+        <translation>Primo QSO</translation>
+    </message>
+    <message>
+        <source>Last QSO</source>
+        <translation>Ultimo QSO</translation>
+    </message>
+    <message>
+        <source>Best day</source>
+        <translation>Giorno migliore</translation>
+    </message>
+    <message>
+        <source>Best hour</source>
+        <translation>Ora migliore</translation>
+    </message>
+    <message>
+        <source>QSO per year</source>
+        <translation>QSO per anno</translation>
+    </message>
+    <message>
+        <source>QSO per month (last 24)</source>
+        <translation>QSO per mese (ultimi 24)</translation>
+    </message>
+    <message>
+        <source>QSO per UTC hour</source>
+        <translation>QSO per ora UTC</translation>
+    </message>
+    <message>
+        <source>QSO per band</source>
+        <translation>QSO per banda</translation>
+    </message>
+    <message>
+        <source>When a band is open · QSO per band and UTC hour</source>
+        <translation>Quando una banda è aperta · QSO per banda e ora UTC</translation>
+    </message>
+    <message>
+        <source>%1 · %2Z · %3 QSO</source>
+        <translation>%1 · %2Z · %3 QSO</translation>
+    </message>
+    <message>
+        <source>Modes</source>
+        <translation>Modi</translation>
+    </message>
+    <message>
+        <source>Continents</source>
+        <translation>Continenti</translation>
+    </message>
+    <message>
+        <source>no continent on these QSOs (fill in the DXCC)</source>
+        <translation>questi QSO non hanno il continente (completa i DXCC)</translation>
     </message>
 </context>
 <context>

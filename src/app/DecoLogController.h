@@ -239,6 +239,23 @@ public:
     Q_INVOKABLE QVariantList awardItems(const QString& awardId, const QString& search, const QString& view) const;
     // Per banda (le colonne della tabella): [{band, worked, confirmed}].
     Q_INVOKABLE QVariantList awardBandTotals(const QString& awardId) const;
+
+    // ── Statistiche ─────────────────────────────────────────────────────────
+    // `mode` vuoto = tutti i modi, `year` 0 = tutti gli anni. Ogni elenco e'
+    // [{key, count}], pronto per le barre del QML.
+    // Le coste del mondo per la mappa: [[ [lon, lat], ... ], ...]. Sta qui perche'
+    // XMLHttpRequest non legge le risorse dell'eseguibile.
+    Q_INVOKABLE QVariantList coastline() const;
+
+    Q_INVOKABLE QStringList statsYears() const;
+    Q_INVOKABLE QVariantMap statsSummary(const QString& mode = {}, int year = 0) const;
+    Q_INVOKABLE QVariantList statsByYear(const QString& mode = {}) const;
+    Q_INVOKABLE QVariantList statsByMonth(int months = 24, const QString& mode = {}) const;
+    Q_INVOKABLE QVariantList statsByHour(const QString& mode = {}, int year = 0) const;
+    Q_INVOKABLE QVariantList statsByBand(const QString& mode = {}, int year = 0) const;
+    Q_INVOKABLE QVariantList statsByMode(int year = 0) const;
+    Q_INVOKABLE QVariantList statsByContinent(const QString& mode = {}, int year = 0) const;
+    Q_INVOKABLE QVariantList statsBandHour(const QString& mode = {}, int year = 0) const;
     // DXCC, FT2, WAZ e WAS hanno un elenco completo: si puo' dire cosa manca.
     Q_INVOKABLE bool awardHasMissing(const QString& awardId) const;
     // I locatori dell'award "grids" per la mappa: [{grid, confirmed}].
@@ -381,6 +398,7 @@ private:
     QHash<QString, QVariantMap> m_callbookResults;   // per nominativo, sessione corrente
     QHash<QString, QString> m_callbookErrors;
     QString           m_countriesSource;
+    mutable QVariantList m_coastline;
     core::UdpReceiver m_udp;
     QsoTableModel*    m_model{nullptr};
     StationProfileModel* m_profiles{nullptr};

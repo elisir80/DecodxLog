@@ -1725,6 +1725,104 @@ QVariantList DecoLogController::qslSummary() const
     return out;
 }
 
+namespace {
+
+QVariantList rowsToList(const QList<CountRow>& rows)
+{
+    QVariantList out;
+    for (const CountRow& r : rows)
+        out << QVariantMap{{QStringLiteral("key"), r.key}, {QStringLiteral("count"), r.count}};
+    return out;
+}
+
+StatsFilter statsFilterFor(const QString& mode, int year)
+{
+    StatsFilter f;
+    f.mode = mode;
+    f.year = year;
+    return f;
+}
+
+} // namespace
+
+QVariantList DecoLogController::coastline() const
+{
+    if (!m_coastline.isEmpty())
+        return m_coastline;
+    QFile file(QStringLiteral(":/decolog/map/coastline.json"));
+    if (!file.open(QIODevice::ReadOnly))
+        return m_coastline;
+    const QJsonArray lines = QJsonDocument::fromJson(file.readAll()).object()
+                                 .value(QStringLiteral("lines")).toArray();
+    for (const QJsonValue& line : lines) {
+        // append, non <<: con una lista l'operatore concatena, e le coste
+        // diventerebbero duemila punti sciolti invece di centotrentaquattro linee.
+        m_coastline.append(QVariant(line.toArray().toVariantList()));
+    }
+    return m_coastline;
+}
+
+QStringList DecoLogController::statsYears() const
+{
+    return m_db.yearsInLog();
+}
+
+QVariantMap DecoLogController::statsSummary(const QString& mode, int year) const
+{
+    return m_db.statsSummary(statsFilterFor(mode, year));
+}
+
+QVariantList DecoLogController::statsByYear(const QString& mode) const
+{
+    return rowsToList(m_db.countByYear(statsFilterFor(mode, 0)));
+}
+
+QVariantList DecoLogController::statsByMonth(int months, const QString& mode) const
+{
+    return rowsToList(m_db.countByMonth(months, statsFilterFor(mode, 0)));
+}
+
+QVariantList DecoLogController::statsByHour(const QString& mode, int year) const
+{
+    // Tutte le ventiquattro ore, anche quelle vuote: un buco nel grafico e' un
+    // dato, non un'assenza.
+    QList<CountRow> hours = m_db.countByHour(statsFilterFor(mode, year));
+    QVariantList out;
+    for (int h = 0; h < 24; ++h) {
+        const QString key = QStringLiteral("%1").arg(h, 2, 10, QLatin1Char('0'));
+        int count = 0;
+        for (const CountRow& r : hours) {
+            if (r.key == key)
+                count = r.count;
+        }
+        out << QVariantMap{{QStringLiteral("key"), key}, {QStringLiteral("count"), count}};
+    }
+    return out;
+}
+
+QVariantList DecoLogController::statsByBand(const QString& mode, int year) const
+{
+    return rowsToList(m_db.countByBand(statsFilterFor(mode, year)));
+}
+
+QVariantList DecoLogController::statsByMode(int year) const
+{
+    return rowsToList(m_db.countByMode(statsFilterFor({}, year)));
+}
+
+QVariantList DecoLogController::statsByContinent(const QString& mode, int year) const
+{
+    return rowsToList(m_db.countByContinent(statsFilterFor(mode, year)));
+}
+
+QVariantList DecoLogController::statsBandHour(const QString& mode, int year) const
+{
+    QVariantList out;
+    for (const QVariantMap& row : m_db.bandByHour(statsFilterFor(mode, year)))
+        out << row;
+    return out;
+}
+
 QVariantList DecoLogController::gridPoints() const
 {
     QVariantList out;

@@ -11,6 +11,7 @@ GlassPanel {
     property int currentTab: 3
     signal awardRequested(string id)
     signal clusterRequested(int tab)
+    signal statsRequested()
 
     padding: 0
     headerLeading: [
@@ -30,6 +31,14 @@ GlassPanel {
         }
     ]
     headerTools: [
+        GlassButton {
+            visible: root.currentTab === 1
+            text: qsTr("Open statistics")
+            tone: Theme.primaryColor
+            buttonHeight: 24
+            fontPixelSize: 11
+            onClicked: root.statsRequested()
+        },
         GlassButton {
             visible: root.currentTab === 4
             text: qsTr("Open cluster window")

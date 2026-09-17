@@ -397,6 +397,11 @@ EnrichedSpot ClusterController::enrich(const Spot& spot) const
     }
     if (const auto grid = maidenhead::toLatLon(spot.dxGrid))
         position = grid;
+    if (position) {
+        e.lat = position->lat;
+        e.lon = position->lon;
+        e.hasPosition = true;
+    }
     const auto me = maidenhead::toLatLon(m_ctx.stationGrid ? m_ctx.stationGrid() : QString());
     if (position && me) {
         e.distanceKm = maidenhead::distanceKm(*me, *position);
@@ -552,6 +557,28 @@ void ClusterController::lookupSpot(const QString& spotKey)
 {
     if (const EnrichedSpot* e = m_model.find(spotKey); e && m_ctx.lookup)
         m_ctx.lookup(e->spot.dxCall);
+}
+
+QVariantList ClusterController::mapSpots() const
+{
+    QVariantList out;
+    for (const EnrichedSpot& e : m_model.visible()) {
+        if (!e.hasPosition)
+            continue;
+        out << QVariantMap{
+            {QStringLiteral("key"), e.key()},
+            {QStringLiteral("call"), e.spot.dxCall},
+            {QStringLiteral("lat"), e.lat},
+            {QStringLiteral("lon"), e.lon},
+            {QStringLiteral("band"), e.spot.band},
+            {QStringLiteral("mode"), e.spot.mode},
+            {QStringLiteral("freq"), e.spot.freqKhz},
+            {QStringLiteral("status"), e.status},
+            {QStringLiteral("statusLabel"), SpotModel::statusLabel(e.status)},
+            {QStringLiteral("entity"), e.entity},
+        };
+    }
+    return out;
 }
 
 void ClusterController::clearSpots()

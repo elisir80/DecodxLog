@@ -42,6 +42,13 @@ ApplicationWindow {
             qsoDialog.openFor(id)
     }
     function focusSearch() { topBar.focusSearch() }
+    function openStats() {
+        statsWindow.active = true
+        if (statsWindow.item) {
+            statsWindow.item.raise()
+            statsWindow.item.requestActivate()
+        }
+    }
     function openCluster(tab) {
         clusterWindow.tab = tab
         clusterWindow.active = true
@@ -64,6 +71,7 @@ ApplicationWindow {
         else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))
         else if (what[0] === "activation") activationDialog.openDialog()
         else if (what[0] === "modes") newQsoPanel.showModes()
+        else if (what[0] === "stats") openStats()
         else if (what[0] === "call") decolog.lookupCall = what[1]
         else if (what[0] === "awards") {
             // awards:<id>[:map|:missing|:unconfirmed]
@@ -96,6 +104,14 @@ ApplicationWindow {
         defaultSuffix: "adi"
         nameFilters: [qsTr("ADIF files (*.adi)")]
         onAccepted: decolog.exportAdif(selectedFile)
+    }
+
+    Loader {
+        id: statsWindow
+        active: false
+        sourceComponent: StatsWindow {
+            onClosing: statsWindow.active = false
+        }
     }
 
     Loader {
@@ -203,6 +219,7 @@ ApplicationWindow {
                     id: bottomTabs
                     onAwardRequested: (id) => awardsDialog.openAt(id)
                     onClusterRequested: (tab) => window.openCluster(tab)
+                    onStatsRequested: window.openStats()
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                 }

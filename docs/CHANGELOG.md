@@ -3,6 +3,18 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.3.0 — in lavorazione
+
+**Statistiche** in una finestra propria: totali (QSO, nominativi, entita', locatori, primo e
+ultimo QSO, giorno e ora migliori), QSO per anno, per mese, per ora UTC e per banda, modi e
+continenti, e la mappa di calore banda per ora UTC — quella che dice a colpo d'occhio quando
+una banda e' aperta. Filtri per modo e per anno.
+
+**Mappa** rifatta: coste del mondo (Natural Earth, pubblico dominio, 29 kB dentro
+l'eseguibile), linea grigia calcolata dalla posizione del Sole, locatori lavorati, spot del
+cluster colorati per stato, la stazione e il cerchio massimo verso il nominativo scelto.
+Livelli accendibili e spegnibili.
+
 ## 0.2.0 — 18 settembre 2026
 
 **Interfaccia in italiano.** Tutte le stringhe tradotte (`translations/decolog_it.ts`), la

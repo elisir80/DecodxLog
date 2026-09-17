@@ -1,0 +1,13 @@
+coastline.json — le coste del mondo per la mappa di DecoLog.
+
+Dati: Natural Earth, "ne_110m_coastline" (https://www.naturalearthdata.com/).
+Natural Earth e' di pubblico dominio: "All versions of Natural Earth raster and
+vector map data found on this website are in the public domain. You may use the
+maps in any manner, including modifying the content and design, electronic
+dissemination, and offset printing."
+
+Il file qui dentro non e' l'originale: resources/make_coastline.py scarica il
+GeoJSON, spezza le linee che attraversano l'antimeridiano, le semplifica
+(Douglas-Peucker, 0.35 gradi) e arrotonda le coordinate a un decimo di grado.
+Da 140 kB di GeoJSON restano 29 kB, che bastano per una mappa larga qualche
+centinaio di pixel.

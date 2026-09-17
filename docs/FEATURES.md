@@ -256,9 +256,20 @@ Quello che manca è in fondo.
 
 ## 17. Mappa e statistiche / Map and statistics
 
-- **Mappa dei locatori** lavorati, stazione e direzione verso il nominativo scelto. / **Map
-  of worked grids**, your station and the bearing to the selected call.
-- **QSO per banda e per modo**, riepilogo QSL. / **QSOs per band and per mode**, QSL summary.
+- **Mappa** con le coste del mondo (Natural Earth, pubblico dominio, dentro l'eseguibile),
+  senza scaricare niente. / **Map** with the world coastlines (Natural Earth, public domain,
+  inside the executable), nothing downloaded.
+- **Linea grigia** calcolata dalla posizione del Sole, aggiornata da sola. / **Grey line**
+  computed from the Sun's position, refreshed by itself.
+- **Locatori lavorati**, **spot del cluster** colorati per stato, la stazione e il **cerchio
+  massimo** verso il nominativo scelto; livelli accendibili e spegnibili. / **Worked grids**,
+  **cluster spots** coloured by status, your station and the **great circle** to the selected
+  call; layers you can switch on and off.
+- **Statistiche** in una finestra propria: totali, QSO per anno, per mese, per ora UTC e per
+  banda, modi e continenti, e la **mappa di calore banda per ora**, che dice quando una banda
+  e' aperta. Filtri per modo e per anno. / **Statistics** in their own window: totals, QSOs
+  per year, month, UTC hour and band, modes and continents, and the **band-by-hour heat
+  map**, which shows when a band is open. Filters by mode and by year.
 - **Registro attività**: tutto quello che il programma fa, con i colori della gravità. /
   **Activity log**: everything the program does, coloured by severity.
 
@@ -278,9 +289,5 @@ Quello che manca è in fondo.
 
 ## Non ancora / Not yet
 
-- Grafici delle statistiche (anno, mese, ora, propagazione). / Statistics charts (year,
-  month, hour, propagation).
-- Mappa con coste, spot del cluster e linea grigia. / Map with coastlines, cluster spots and
-  the grey line.
 - Club Log. / Club Log.
 - DecoLog Cloud e sync fra dispositivi. / DecoLog Cloud and sync between devices.

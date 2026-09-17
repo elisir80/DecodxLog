@@ -1224,6 +1224,161 @@ QList<CountRow> LogDatabase::countByDxcc() const
     return out;
 }
 
+namespace {
+
+// Le condizioni comuni alle statistiche: modo (FT2 e' un sottomodo), banda, anno.
+QString statsWhere(const StatsFilter& f, QVariantList& binds)
+{
+    QString where = QStringLiteral("deleted = 0");
+    if (!f.mode.isEmpty()) {
+        where += QStringLiteral(" AND (CASE WHEN IFNULL(submode, '') = '' OR mode = 'SSB' THEN mode ELSE submode END) = ?");
+        binds << f.mode.toUpper();
+    }
+    if (!f.band.isEmpty()) {
+        where += QStringLiteral(" AND band = ?");
+        binds << f.band.toLower();
+    }
+    if (f.year > 0) {
+        where += QStringLiteral(" AND SUBSTR(qso_datetime_on, 1, 4) = ?");
+        binds << QString::number(f.year);
+    }
+    return where;
+}
+
+QList<CountRow> groupedCount(const QSqlDatabase& db, const QString& expression, const StatsFilter& filter,
+                             const QString& order, int limit = 0)
+{
+    QList<CountRow> out;
+    QVariantList binds;
+    const QString where = statsWhere(filter, binds);
+    QString sql = QStringLiteral("SELECT %1 AS k, COUNT(*) AS n FROM qso WHERE %2 AND k IS NOT NULL AND k <> '' "
+                                 "GROUP BY k ORDER BY %3").arg(expression, where, order);
+    if (limit > 0)
+        sql += QStringLiteral(" LIMIT %1").arg(limit);
+    QSqlQuery q(db);
+    q.setForwardOnly(true);
+    q.prepare(sql);
+    for (const QVariant& b : binds)
+        q.addBindValue(b);
+    if (!q.exec())
+        return out;
+    while (q.next())
+        out << CountRow{q.value(0).toString(), q.value(1).toInt()};
+    return out;
+}
+
+} // namespace
+
+QList<CountRow> LogDatabase::countByYear(const StatsFilter& filter) const
+{
+    return groupedCount(connection(), QStringLiteral("SUBSTR(qso_datetime_on, 1, 4)"), filter, QStringLiteral("k"));
+}
+
+QList<CountRow> LogDatabase::countByMonth(int months, const StatsFilter& filter) const
+{
+    QList<CountRow> all = groupedCount(connection(), QStringLiteral("SUBSTR(qso_datetime_on, 1, 7)"), filter,
+                                       QStringLiteral("k DESC"), months);
+    std::reverse(all.begin(), all.end());
+    return all;
+}
+
+QList<CountRow> LogDatabase::countByHour(const StatsFilter& filter) const
+{
+    return groupedCount(connection(), QStringLiteral("SUBSTR(qso_datetime_on, 12, 2)"), filter, QStringLiteral("k"));
+}
+
+QList<CountRow> LogDatabase::countByContinent(const StatsFilter& filter) const
+{
+    return groupedCount(connection(), QStringLiteral("cont"), filter, QStringLiteral("n DESC"));
+}
+
+QList<CountRow> LogDatabase::countByBand(const StatsFilter& filter) const
+{
+    QList<CountRow> out = groupedCount(connection(), QStringLiteral("band"), filter, QStringLiteral("n DESC"));
+    const QStringList order = bands::all();
+    std::sort(out.begin(), out.end(), [&order](const CountRow& a, const CountRow& b) {
+        return order.indexOf(a.key) < order.indexOf(b.key);
+    });
+    return out;
+}
+
+QList<CountRow> LogDatabase::countByMode(const StatsFilter& filter) const
+{
+    return groupedCount(connection(),
+                        QStringLiteral("CASE WHEN IFNULL(submode, '') = '' OR mode = 'SSB' THEN mode ELSE submode END"),
+                        filter, QStringLiteral("n DESC"));
+}
+
+QList<QVariantMap> LogDatabase::bandByHour(const StatsFilter& filter) const
+{
+    QList<QVariantMap> out;
+    QVariantList binds;
+    const QString where = statsWhere(filter, binds);
+    QSqlQuery q(connection());
+    q.setForwardOnly(true);
+    q.prepare(QStringLiteral("SELECT band, CAST(SUBSTR(qso_datetime_on, 12, 2) AS INTEGER) AS h, COUNT(*) "
+                             "FROM qso WHERE %1 AND band <> '' GROUP BY band, h").arg(where));
+    for (const QVariant& b : binds)
+        q.addBindValue(b);
+    if (!q.exec())
+        return out;
+    while (q.next()) {
+        out << QVariantMap{{QStringLiteral("band"), q.value(0).toString()},
+                           {QStringLiteral("hour"), q.value(1).toInt()},
+                           {QStringLiteral("count"), q.value(2).toInt()}};
+    }
+    return out;
+}
+
+QVariantMap LogDatabase::statsSummary(const StatsFilter& filter) const
+{
+    QVariantMap out;
+    QVariantList binds;
+    const QString where = statsWhere(filter, binds);
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral(
+        "SELECT COUNT(*), COUNT(DISTINCT call), COUNT(DISTINCT CASE WHEN dxcc > 0 THEN dxcc END), "
+        "MIN(qso_datetime_on), MAX(qso_datetime_on), "
+        "COUNT(DISTINCT UPPER(SUBSTR(gridsquare, 1, 4))) FROM qso WHERE %1").arg(where));
+    for (const QVariant& b : binds)
+        q.addBindValue(b);
+    if (q.exec() && q.next()) {
+        out.insert(QStringLiteral("qsos"), q.value(0).toInt());
+        out.insert(QStringLiteral("calls"), q.value(1).toInt());
+        out.insert(QStringLiteral("dxcc"), q.value(2).toInt());
+        out.insert(QStringLiteral("first"), q.value(3).toString().left(10));
+        out.insert(QStringLiteral("last"), q.value(4).toString().left(10));
+        out.insert(QStringLiteral("grids"), q.value(5).toInt());
+    }
+
+    // Il giorno con piu' QSO e l'ora piu' produttiva: sono quelli che si raccontano.
+    const QList<CountRow> days = groupedCount(connection(), QStringLiteral("SUBSTR(qso_datetime_on, 1, 10)"),
+                                              filter, QStringLiteral("n DESC"), 1);
+    if (!days.isEmpty()) {
+        out.insert(QStringLiteral("bestDay"), days.first().key);
+        out.insert(QStringLiteral("bestDayCount"), days.first().count);
+    }
+    const QList<CountRow> hours = groupedCount(connection(), QStringLiteral("SUBSTR(qso_datetime_on, 12, 2)"),
+                                               filter, QStringLiteral("n DESC"), 1);
+    if (!hours.isEmpty()) {
+        out.insert(QStringLiteral("bestHour"), hours.first().key);
+        out.insert(QStringLiteral("bestHourCount"), hours.first().count);
+    }
+    return out;
+}
+
+QStringList LogDatabase::yearsInLog() const
+{
+    QStringList out;
+    QSqlQuery q(connection());
+    if (q.exec(QStringLiteral("SELECT DISTINCT SUBSTR(qso_datetime_on, 1, 4) AS y FROM qso WHERE deleted = 0 "
+                              "ORDER BY y DESC"))) {
+        while (q.next())
+            out << q.value(0).toString();
+    }
+    return out;
+}
+
 QList<QVariantMap> LogDatabase::qslSummary() const
 {
     QList<QVariantMap> out;

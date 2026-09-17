@@ -139,6 +139,8 @@ public:
     Q_INVOKABLE void tune(const QString& spotKey);
     Q_INVOKABLE void lookupSpot(const QString& spotKey);
     Q_INVOKABLE void clearSpots();
+    // Gli spot mostrati, con la posizione, per la mappa.
+    Q_INVOKABLE QVariantList mapSpots() const;
     Q_INVOKABLE void clearConsole();
 
     // Filtri salvati.

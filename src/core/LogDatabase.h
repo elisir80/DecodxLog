@@ -122,6 +122,14 @@ struct CountRow {
     int     count{0};
 };
 
+// Su cosa contare le statistiche: un modo (FT2, FT8, CW, SSB...), un anno, una
+// banda. Vuoto o zero vuol dire "tutto".
+struct StatsFilter {
+    QString mode;
+    QString band;
+    int     year{0};
+};
+
 struct Ft2Award {
     int qsos{0};
     int dxccWorked{0};
@@ -214,6 +222,19 @@ public:
     QList<CountRow> countByMode() const;
     // QSO per numero DXCC (chiave = numero), dal piu' lavorato.
     QList<CountRow> countByDxcc() const;
+    // Statistiche nel tempo: chiave "2026", "2026-09", "00".."23", continente.
+    QList<CountRow> countByYear(const StatsFilter& filter = {}) const;
+    QList<CountRow> countByMonth(int months, const StatsFilter& filter = {}) const;
+    QList<CountRow> countByHour(const StatsFilter& filter = {}) const;
+    QList<CountRow> countByContinent(const StatsFilter& filter = {}) const;
+    QList<CountRow> countByBand(const StatsFilter& filter) const;
+    QList<CountRow> countByMode(const StatsFilter& filter) const;
+    // Banda per ora UTC, per la mappa di calore: [{band, hour, count}].
+    QList<QVariantMap> bandByHour(const StatsFilter& filter = {}) const;
+    // Totali: QSO, nominativi, entita', primo e ultimo QSO, giorno e ora migliori.
+    QVariantMap statsSummary(const StatsFilter& filter = {}) const;
+    // Gli anni presenti nel log, dal piu' recente.
+    QStringList yearsInLog() const;
     // Per servizio: in coda (R/Q), inviati (Y), confermati (rcvd Y).
     QList<QVariantMap> qslSummary() const;
     // Locatori a quattro caratteri gia' lavorati, per la mappa.

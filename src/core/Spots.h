@@ -66,6 +66,10 @@ struct EnrichedSpot {
     int     status{0};
     double  distanceKm{-1.0};
     int     azimuth{-1};
+    // Dove sta il DX: dal locatore se c'e', altrimenti il centro dell'entita'.
+    double  lat{0.0};
+    double  lon{0.0};
+    bool    hasPosition{false};
     // Lo stesso nominativo sulla stessa banda e modo da piu' spotter diventa una riga.
     int     count{1};
     QStringList spotters;
