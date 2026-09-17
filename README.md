@@ -48,6 +48,14 @@ Funziona:
   elenco di quello che manca (DXCC, FT2, WAZ, WAS), mappa dei locatori; filtri per
   banda, gruppo di modi, profilo stazione ed etichetta; conferme accettate a scelta
   (LoTW, cartolina, eQSL).
+- **Attivazioni e contest** (Ctrl+T): una sessione POTA/SOTA/WWFF/IOTA o un contest mette su
+  ogni QSO i campi dell'attivatore (`MY_SIG`, `MY_SIG_INFO`, `MY_SOTA_REF`, `MY_IOTA`), il
+  locatore del posto, un'etichetta e il numero progressivo (`STX`); il numero ricevuto si
+  scrive nel pannello Nuovo QSO. Dentro la sessione un nominativo rilavorato sulla stessa
+  banda e modo è un duplicato, a qualunque ora. Conteggi in tempo reale, quanto manca per
+  validare l'attivazione (10 QSO POTA, 4 SOTA), QSO per banda e modo, ed export ADIF con il
+  nome che POTA si aspetta (`IU8LMC@IT-1234-20260917.adi`). La sessione sta nel log e
+  sopravvive alla chiusura del programma.
 - **Invio QSL**: LoTW facendo firmare un ADIF temporaneo al TQSL installato (il certificato
   resta dov'è), QRZ Logbook con la chiave API ed eQSL con utente e password. A mano o
   automatico dopo ogni QSO; i duplicati contano come inviati, i rifiuti restano scritti sul
