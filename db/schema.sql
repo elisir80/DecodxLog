@@ -1,4 +1,4 @@
--- DecoLog Desktop — schema SQLite v1 (bozza Fase 0)
+-- DecoLog Desktop — schema SQLite v2
 -- Principi: nomi ADIF, lossless (adif_extra), campi di sync su ogni QSO, UTC.
 
 PRAGMA journal_mode = WAL;
@@ -8,7 +8,7 @@ CREATE TABLE schema_version (
     version     INTEGER NOT NULL,
     applied_at  TEXT    NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ','now'))
 );
-INSERT INTO schema_version (version) VALUES (1);
+INSERT INTO schema_version (version) VALUES (2);
 
 -- Profili stazione (portatile, casa, evento speciale...)
 CREATE TABLE station_profile (
@@ -69,6 +69,7 @@ CREATE TABLE qso (
     tx_pwr              REAL,
     comment             TEXT,
     notes               TEXT,
+    tags                TEXT,                      -- APP_DECOLOG_TAGS, etichette separate da virgola (v2)
 
     -- origine
     source              TEXT    NOT NULL DEFAULT 'manual', -- manual | udp_decodium | udp_wsjtx | import | cloud

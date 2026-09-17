@@ -3,6 +3,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Dialogs
 import Decodium.UI
 
 GlassPanel {
@@ -46,6 +47,13 @@ GlassPanel {
         else if (name === "filters") { addFilterMenu.popup(60, Theme.panelHeight + 30); bandMenu.open() }
         else if (name === "saved") savedMenu.popup(root.width - 200, Theme.panelHeight + 30)
         else if (name === "row") rowMenu.popupFor(root.model.idAt(0))
+        else if (name === "actions") actionsMenu.popup(root.width - 320, Theme.panelHeight)
+        else if (name === "tag") tagPopup.openFor(root.model.shownIds(), true)
+        else if (name === "dates") datePopup.open()
+    }
+    function qslFilterLabel(key) {
+        return { confirmed: qsTr("confirmed"), lotw: qsTr("LoTW confirmed"), card: qsTr("card confirmed"),
+                 eqsl: qsTr("eQSL confirmed"), unconfirmed: qsTr("not confirmed") }[key] || key
     }
     function thisMonth() {
         const now = decolog.utcNow()
@@ -78,6 +86,13 @@ GlassPanel {
         },
         GlassButton {
             anchors.verticalCenter: parent.verticalCenter
+            text: qsTr("Actions ▾")
+            buttonHeight: 24
+            fontPixelSize: 11
+            onClicked: actionsMenu.popup()
+        },
+        GlassButton {
+            anchors.verticalCenter: parent.verticalCenter
             text: qsTr("Columns")
             buttonHeight: 24
             fontPixelSize: 11
@@ -97,7 +112,7 @@ GlassPanel {
     StyledMenu {
         id: columnsMenu
         Repeater {
-            model: 12
+            model: root.model.columns
             StyledMenuItem {
                 required property int index
                 // Nominativo e ora non si nascondono: senza, la riga non dice niente.
@@ -150,9 +165,223 @@ GlassPanel {
                 }
             }
         }
+        StyledMenu {
+            id: dxccMenu
+            title: qsTr("DXCC entity")
+            Repeater {
+                model: dxccMenu.opened ? decolog.dxccInLog() : []
+                StyledMenuItem {
+                    required property var modelData
+                    text: "%1  %2 (%3)".arg(modelData.dxcc).arg(modelData.name || "?").arg(modelData.count)
+                    checkable: true
+                    checked: root.model.dxccFilter === modelData.dxcc
+                    onTriggered: root.model.dxccFilter = checked ? modelData.dxcc : 0
+                }
+            }
+        }
+        StyledMenu {
+            title: qsTr("QSL")
+            Repeater {
+                model: ["confirmed", "lotw", "card", "eqsl", "unconfirmed"]
+                StyledMenuItem {
+                    required property string modelData
+                    text: root.qslFilterLabel(modelData)
+                    checkable: true
+                    checked: root.model.qslFilter === modelData
+                    onTriggered: root.model.qslFilter = checked ? modelData : ""
+                }
+            }
+        }
+        StyledMenu {
+            id: profileMenu
+            title: qsTr("Station profile")
+            Repeater {
+                model: decolog.stationProfiles
+                StyledMenuItem {
+                    required property var profileId
+                    required property string name
+                    required property bool deleted
+                    visible: !deleted
+                    height: visible ? implicitHeight : 0
+                    text: name
+                    checkable: true
+                    checked: root.model.profileFilter === profileId
+                    onTriggered: root.model.profileFilter = checked ? profileId : 0
+                }
+            }
+        }
+        StyledMenu {
+            id: tagMenu
+            title: qsTr("Tag")
+            Repeater {
+                model: tagMenu.opened ? root.model.tagsInLog() : []
+                StyledMenuItem {
+                    required property var modelData
+                    text: "%1 (%2)".arg(modelData.key).arg(modelData.count)
+                    checkable: true
+                    checked: root.model.tagFilter.toLowerCase() === modelData.key.toLowerCase()
+                    onTriggered: root.model.tagFilter = checked ? modelData.key : ""
+                }
+            }
+            StyledMenuItem {
+                visible: tagMenu.opened && root.model.tagsInLog().length === 0
+                height: visible ? implicitHeight : 0
+                enabled: false
+                text: qsTr("No tags in the log yet")
+            }
+        }
         StyledMenuItem {
             text: qsTr("This month")
             onTriggered: root.model.monthFilter = root.thisMonth()
+        }
+        StyledMenuItem {
+            text: qsTr("Date range…")
+            onTriggered: datePopup.open()
+        }
+    }
+
+    // ── Azioni sulle righe mostrate ─────────────────────────────────────────
+    StyledMenu {
+        id: actionsMenu
+        StyledMenuItem {
+            text: qsTr("Tag the %1 QSO shown…").arg(root.model.count)
+            enabled: root.model.count > 0
+            onTriggered: tagPopup.openFor(root.model.shownIds(), true)
+        }
+        StyledMenuItem {
+            text: qsTr("Remove a tag from the QSO shown…")
+            enabled: root.model.count > 0
+            onTriggered: tagPopup.openFor(root.model.shownIds(), false)
+        }
+        StyledMenuItem {
+            text: qsTr("Export the %1 QSO shown to ADIF…").arg(root.model.count)
+            enabled: root.model.count > 0
+            onTriggered: exportShown.open()
+        }
+        MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
+        StyledMenuItem {
+            text: qsTr("Clear all filters")
+            enabled: root.model.filtered
+            onTriggered: root.model.clearFilters()
+        }
+    }
+
+    FileDialog {
+        id: exportShown
+        title: qsTr("Export the QSO shown")
+        fileMode: FileDialog.SaveFile
+        defaultSuffix: "adi"
+        nameFilters: [qsTr("ADIF files (*.adi)")]
+        onAccepted: decolog.exportQsos(root.model.shownIds(), selectedFile)
+    }
+
+    // Etichetta da aggiungere o togliere a un gruppo di QSO.
+    Popup {
+        id: tagPopup
+        property var ids: []
+        property bool adding: true
+        function openFor(list, add) { ids = list; adding = add; open() }
+        anchors.centerIn: parent
+        modal: true
+        padding: 14
+        background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 6 }
+        onOpened: { tagField.text = ""; tagField.forceActiveFocus() }
+        ColumnLayout {
+            spacing: 8
+            Text {
+                text: tagPopup.adding ? qsTr("Add a tag to %1 QSO").arg(tagPopup.ids.length)
+                                      : qsTr("Remove a tag from %1 QSO").arg(tagPopup.ids.length)
+                color: Theme.textPrimary
+                font.pixelSize: 13
+                font.bold: true
+            }
+            StyledTextField {
+                id: tagField
+                Layout.preferredWidth: 300
+                mono: false
+                placeholderText: qsTr("e.g. pota, field day, portable")
+                Keys.onReturnPressed: tagApply.clicked()
+            }
+            Flow {
+                Layout.preferredWidth: 300
+                spacing: 4
+                Repeater {
+                    model: tagPopup.opened ? root.model.tagsInLog().slice(0, 16) : []
+                    Pill {
+                        required property var modelData
+                        text: modelData.key
+                        tone: Theme.secondaryColor
+                        interactive: true
+                        onClicked: tagField.text = modelData.key
+                    }
+                }
+            }
+            Text {
+                id: tagResult
+                Layout.preferredWidth: 300
+                wrapMode: Text.Wrap
+                visible: text.length > 0
+                color: Theme.textSecondary
+                font.pixelSize: 11
+            }
+            RowLayout {
+                Layout.alignment: Qt.AlignRight
+                spacing: 8
+                GlassButton { text: qsTr("Close"); onClicked: tagPopup.close() }
+                GlassButton {
+                    id: tagApply
+                    text: tagPopup.adding ? qsTr("Add tag") : qsTr("Remove tag")
+                    tone: tagPopup.adding ? Theme.accentColor : Theme.warningColor
+                    filled: true
+                    enabled: tagField.text.trim().length > 0 && tagField.text.indexOf(",") < 0
+                    onClicked: {
+                        const n = decolog.tagQsos(tagPopup.ids, tagField.text.trim(), tagPopup.adding)
+                        tagResult.text = ""
+                        tagPopup.close()
+                    }
+                }
+            }
+        }
+    }
+
+    // Intervallo di date, estremi compresi.
+    Popup {
+        id: datePopup
+        anchors.centerIn: parent
+        modal: true
+        padding: 14
+        background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 6 }
+        onOpened: { fromField.text = root.model.dateFrom; toField.text = root.model.dateTo; fromField.forceActiveFocus() }
+        ColumnLayout {
+            spacing: 8
+            RowLayout {
+                spacing: 10
+                LabeledField {
+                    label: qsTr("From (UTC)")
+                    StyledTextField { id: fromField; Layout.preferredWidth: 130; placeholderText: "2026-01-01" }
+                }
+                LabeledField {
+                    label: qsTr("To (included)")
+                    StyledTextField { id: toField; Layout.preferredWidth: 130; placeholderText: "2026-12-31"; Keys.onReturnPressed: dateApply.clicked() }
+                }
+            }
+            RowLayout {
+                Layout.alignment: Qt.AlignRight
+                spacing: 8
+                GlassButton { text: qsTr("Cancel"); onClicked: datePopup.close() }
+                GlassButton {
+                    id: dateApply
+                    text: qsTr("Apply")
+                    tone: Theme.accentColor
+                    filled: true
+                    onClicked: {
+                        root.model.monthFilter = ""
+                        root.model.dateFrom = fromField.text
+                        root.model.dateTo = toField.text
+                        datePopup.close()
+                    }
+                }
+            }
         }
     }
 
@@ -294,6 +523,46 @@ GlassPanel {
                         interactive: true
                         onClicked: root.model.monthFilter = ""
                     }
+                    Pill {
+                        visible: root.model.dxccFilter > 0
+                        text: qsTr("DXCC: %1 ✕").arg(root.model.dxccFilter + " " + decolog.dxccName(root.model.dxccFilter))
+                        tone: Theme.secondaryColor
+                        rounded: false
+                        interactive: true
+                        onClicked: root.model.dxccFilter = 0
+                    }
+                    Pill {
+                        visible: root.model.qslFilter.length > 0
+                        text: qsTr("QSL: %1 ✕").arg(root.qslFilterLabel(root.model.qslFilter))
+                        tone: Theme.secondaryColor
+                        rounded: false
+                        interactive: true
+                        onClicked: root.model.qslFilter = ""
+                    }
+                    Pill {
+                        visible: root.model.profileFilter > 0
+                        text: qsTr("Station: %1 ✕").arg(decolog.stationProfiles.byId(root.model.profileFilter).name || root.model.profileFilter)
+                        tone: Theme.secondaryColor
+                        rounded: false
+                        interactive: true
+                        onClicked: root.model.profileFilter = 0
+                    }
+                    Pill {
+                        visible: root.model.tagFilter.length > 0
+                        text: qsTr("Tag: %1 ✕").arg(root.model.tagFilter)
+                        tone: Theme.accentColor
+                        rounded: false
+                        interactive: true
+                        onClicked: root.model.tagFilter = ""
+                    }
+                    Pill {
+                        visible: root.model.dateFrom.length > 0 || root.model.dateTo.length > 0
+                        text: "%1 → %2 ✕".arg(root.model.dateFrom || "…").arg(root.model.dateTo || "…")
+                        tone: Theme.secondaryColor
+                        rounded: false
+                        interactive: true
+                        onClicked: { root.model.dateFrom = ""; root.model.dateTo = "" }
+                    }
                     Rectangle {
                         implicitHeight: 22
                         implicitWidth: addText.implicitWidth + 16
@@ -373,7 +642,7 @@ GlassPanel {
                 // Il nome prende lo spazio che avanza.
                 if (column === 8) {
                     let used = 0
-                    for (let c = 0; c < 12; ++c)
+                    for (let c = 0; c < root.model.columns; ++c)
                         if (c !== 8 && !root.isHidden(root.model.columnKey(c)))
                             used += root.model.columnWidthHint(c)
                     return Math.max(root.model.columnWidthHint(8), table.width - used)
@@ -426,11 +695,12 @@ GlassPanel {
                     text: cell.display
                     elide: Text.ElideRight
                     font.pixelSize: cell.columnKey === "source" ? 10 : Theme.fontSize
-                    font.family: cell.columnKey === "name" ? Qt.application.font.family : Theme.monoFamily
+                    font.family: cell.columnKey === "name" || cell.columnKey === "tags" ? Qt.application.font.family : Theme.monoFamily
                     font.bold: cell.columnKey === "call"
                     color: cell.columnKey === "utc" || cell.columnKey === "dxcc" ? Theme.textSecondary
                          : cell.columnKey === "mode" ? root.modeColor(cell.display)
                          : cell.columnKey === "source" ? root.sourceColor(cell.display)
+                         : cell.columnKey === "tags" ? Theme.accentColor
                          : Theme.textPrimary
                 }
 
@@ -487,6 +757,31 @@ GlassPanel {
         function popupFor(id) { qsoId = id; popup() }
         StyledMenuItem { text: qsTr("Open / edit…"); onTriggered: root.openQso(rowMenu.qsoId) }
         StyledMenuItem { text: qsTr("Filter by this call"); onTriggered: root.model.filterText = decolog.lookupCall }
+        StyledMenuItem {
+            readonly property int dxcc: parseInt(root.model.valueAt(root.model.rowForId(rowMenu.qsoId), 9)) || 0
+            enabled: dxcc > 0
+            text: dxcc > 0 ? qsTr("Filter by entity: %1").arg(decolog.dxccName(dxcc) || dxcc) : qsTr("Filter by entity")
+            onTriggered: root.model.dxccFilter = dxcc
+        }
+        MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
+        StyledMenuItem { text: qsTr("Add tag…"); onTriggered: tagPopup.openFor([rowMenu.qsoId], true) }
+        StyledMenu {
+            id: removeTagMenu
+            readonly property var tags: {
+                const v = root.model.valueAt(root.model.rowForId(rowMenu.qsoId), 12)
+                return v.length ? v.split(", ") : []
+            }
+            title: qsTr("Remove tag")
+            enabled: tags.length > 0
+            Repeater {
+                model: removeTagMenu.tags
+                StyledMenuItem {
+                    required property string modelData
+                    text: modelData
+                    onTriggered: decolog.tagQsos([rowMenu.qsoId], modelData, false)
+                }
+            }
+        }
     }
 
     Keys.onPressed: (event) => {

@@ -402,7 +402,9 @@ DialogFrame {
                         Layout.fillWidth: true
                         spacing: 10
                         AdifInput {
-                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 12; key: "NOTES"; label: qsTr("Notes"); mono: false }
+                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 8; key: "NOTES"; label: qsTr("Notes"); mono: false }
+                        AdifInput {
+                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 4; key: "APP_DECOLOG_TAGS"; label: qsTr("Tags (comma separated)"); mono: false }
                     }
                 }
 

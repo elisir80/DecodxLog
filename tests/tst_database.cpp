@@ -4,6 +4,8 @@
 
 #include <QCoreApplication>
 #include <QDir>
+#include <QFile>
+#include <QSqlDatabase>
 
 #include <QSqlQuery>
 #include <QTest>
@@ -50,7 +52,7 @@ private slots:
     {
         LogDatabase db;
         QVERIFY2(db.open(":memory:"), qPrintable(db.lastError()));
-        QCOMPARE(db.schemaVersion(), 1);
+        QCOMPARE(db.schemaVersion(), 2);
         QCOMPARE(db.qsoCount(), 0);
     }
 
@@ -306,6 +308,65 @@ private slots:
         QVERIFY2(az > 0 && az < 30, qPrintable(QString::number(az)));
         QVERIFY(!maidenhead::toLatLon("ZZ00"));
         QVERIFY(!maidenhead::toLatLon("JN7"));
+    }
+
+    void migrationFromV1()
+    {
+        const QString path = QDir::temp().filePath("decolog-v1-test.sqlite");
+        QFile::remove(path);
+        {
+            QSqlDatabase raw = QSqlDatabase::addDatabase("QSQLITE", "v1");
+            raw.setDatabaseName(path);
+            QVERIFY(raw.open());
+            QSqlQuery q(raw);
+            QVERIFY(q.exec("CREATE TABLE schema_version (version INTEGER NOT NULL, applied_at TEXT)"));
+            QVERIFY(q.exec("INSERT INTO schema_version (version) VALUES (1)"));
+            QVERIFY(q.exec("CREATE TABLE qso (id INTEGER PRIMARY KEY, call TEXT NOT NULL, notes TEXT)"));
+            raw.close();
+        }
+        QSqlDatabase::removeDatabase("v1");
+        {
+            LogDatabase db;
+            QVERIFY2(db.open(path), qPrintable(db.lastError()));
+            QCOMPARE(db.schemaVersion(), 2);
+            QSqlQuery q(db.connection());
+            QVERIFY(q.exec("SELECT COUNT(*) FROM pragma_table_info('qso') WHERE name = 'tags'") && q.next());
+            QCOMPARE(q.value(0).toInt(), 1);
+            db.close();
+            // Una seconda apertura non rifa la migrazione.
+            QVERIFY(db.open(path));
+            QCOMPARE(db.schemaVersion(), 2);
+        }
+        QFile::remove(path);
+    }
+
+    void tags()
+    {
+        QCOMPARE(LogDatabase::splitTags(" pota , Field  Day,POTA,,portable"), QStringList({"pota", "Field Day", "portable"}));
+
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        const qint64 a = db.insertQso({{"CALL", "K1AB"}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1000"}, {"BAND", "20m"},
+                                       {"MODE", "FT8"}, {"APP_DECOLOG_TAGS", "pota, pota ,portable"}}, "import").id;
+        const qint64 b = db.insertQso({{"CALL", "K2AB"}, {"QSO_DATE", "20260102"}, {"TIME_ON", "1000"}, {"BAND", "20m"},
+                                       {"MODE", "FT8"}}, "import").id;
+        QCOMPARE(db.record(a)->value("APP_DECOLOG_TAGS"), QString("pota,portable"));
+
+        QCOMPARE(db.setTag({a, b}, "Field Day", true), 2);
+        QCOMPARE(db.setTag({a, b}, "field day", true), 0);   // gia' presente, maiuscole a parte
+        QCOMPARE(db.record(b)->value("APP_DECOLOG_TAGS"), QString("Field Day"));
+        QCOMPARE(db.history(b).first().reason, QString("tag"));
+
+        QCOMPARE(db.setTag({a}, "POTA", false), 1);
+        QCOMPARE(db.record(a)->value("APP_DECOLOG_TAGS"), QString("portable,Field Day"));
+
+        const auto counts = db.tagCounts();
+        QCOMPARE(counts.size(), 2);
+        QCOMPARE(counts.at(0).key, QString("Field Day"));
+        QCOMPARE(counts.at(0).count, 2);
+
+        // Le etichette tornano nell'export ADIF.
+        QVERIFY(db.exportAdif({a}).contains("<app_decolog_tags:18>portable,Field Day"));
     }
 
     void workedBefore()

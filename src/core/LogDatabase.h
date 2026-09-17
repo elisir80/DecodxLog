@@ -212,10 +212,23 @@ public:
     Ft2Award ft2Award() const;
     QList<CountRow> countByBand() const;
     QList<CountRow> countByMode() const;
+    // QSO per numero DXCC (chiave = numero), dal piu' lavorato.
+    QList<CountRow> countByDxcc() const;
     // Per servizio: in coda (R/Q), inviati (Y), confermati (rcvd Y).
     QList<QVariantMap> qslSummary() const;
     // Locatori a quattro caratteri gia' lavorati, per la mappa.
     QStringList workedGrids(int limit = 4000) const;
+
+    // ── Etichette ────────────────────────────────────────────────────────────
+    // Le etichette di un QSO (attivazione, contest, evento, portatile) stanno in
+    // APP_DECOLOG_TAGS, separate da virgola: tornano uguali in un export ADIF.
+    static QStringList splitTags(const QString& tags);
+    static QString joinTags(const QStringList& tags);
+    // Tutte le etichette del log con quanti QSO le hanno, dalla piu' usata.
+    QList<CountRow> tagCounts() const;
+    // Aggiunge o toglie un'etichetta a piu' QSO; ognuno cambiato diventa una
+    // nuova revisione. Restituisce quanti QSO sono cambiati.
+    int setTag(const QList<qint64>& ids, const QString& tag, bool add);
 
     // ── Profili stazione ─────────────────────────────────────────────────────
     QList<StationProfile> stationProfiles(bool includeDeleted = true) const;
@@ -241,6 +254,7 @@ private:
     bool writeQsl(qint64 qsoId, const QList<QslState>& states, bool keepRemote);
     QString snapshotJson(qint64 id) const;
     bool applySchema();
+    bool migrate();
     std::optional<qint64> findDuplicate(const QString& call, const QString& band,
                                         const QString& mode, const QString& submode,
                                         const QDateTime& on, int windowSeconds) const;

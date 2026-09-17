@@ -260,6 +260,12 @@ public:
     Q_INVOKABLE bool deleteQso(qint64 id);
     Q_INVOKABLE QString restoreRevision(qint64 id, qint64 historyId);
 
+    // Etichette: aggiunge o toglie `tag` ai QSO indicati. Restituisce quanti sono cambiati.
+    Q_INVOKABLE int tagQsos(const QVariantList& ids, const QString& tag, bool add);
+    // Le entita' presenti nel log per il filtro: [{dxcc, name, count}].
+    Q_INVOKABLE QVariantList dxccInLog() const;
+    Q_INVOKABLE QString dxccName(int dxcc) const { return m_countries.nameFor(dxcc); }
+
     Q_INVOKABLE void importAdif(const QUrl& file);
     Q_INVOKABLE void exportAdif(const QUrl& file);
     Q_INVOKABLE void exportQsos(const QVariantList& ids, const QUrl& file);

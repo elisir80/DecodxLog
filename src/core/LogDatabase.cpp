@@ -59,6 +59,7 @@ constexpr std::array kColumns{
     Column{"TX_PWR", "tx_pwr", Kind::Real},
     Column{"COMMENT", "comment", Kind::Text},
     Column{"NOTES", "notes", Kind::Text},
+    Column{"APP_DECOLOG_TAGS", "tags", Kind::Text},
 };
 
 // Campi ADIF degli stati QSL, un servizio per riga di qsl_status. Club Log non
@@ -272,7 +273,7 @@ bool LogDatabase::applySchema()
     QSqlQuery q(db);
     if (q.exec(QStringLiteral("SELECT 1 FROM sqlite_master WHERE type='table' AND name='schema_version'"))
         && q.next()) {
-        return true;
+        return migrate();
     }
 
     QFile file(QStringLiteral(":/decolog/schema.sql"));
@@ -314,6 +315,44 @@ bool LogDatabase::applySchema()
         }
     }
     return db.commit();
+}
+
+// Un log creato da una versione precedente si porta avanti un passo alla volta,
+// ogni passo nella sua transazione. Mai all'indietro: una versione vecchia di
+// DecoLog che apre un log nuovo trova solo colonne in piu'.
+bool LogDatabase::migrate()
+{
+    QSqlDatabase db = connection();
+    const int version = schemaVersion();
+    struct Step {
+        int to;
+        QStringList statements;
+    };
+    const QList<Step> steps{
+        {2, {QStringLiteral("ALTER TABLE qso ADD COLUMN tags TEXT")}},
+    };
+    for (const Step& step : steps) {
+        if (version >= step.to)
+            continue;
+        if (!db.transaction()) {
+            m_lastError = db.lastError().text();
+            return false;
+        }
+        QSqlQuery q(db);
+        for (const QString& stmt : step.statements + QStringList{
+                 QStringLiteral("INSERT INTO schema_version (version) VALUES (%1)").arg(step.to)}) {
+            if (!q.exec(stmt)) {
+                m_lastError = q.lastError().text() + QStringLiteral(" in migration to v%1").arg(step.to);
+                db.rollback();
+                return false;
+            }
+        }
+        if (!db.commit()) {
+            m_lastError = db.lastError().text();
+            return false;
+        }
+    }
+    return true;
 }
 
 QString LogDatabase::isoFromAdif(const QString& date, const QString& time)
@@ -365,6 +404,9 @@ std::optional<LogDatabase::Prepared> LogDatabase::prepare(const AdifRecord& inpu
         if (ok)
             record.set(QStringLiteral("BAND"), bands::fromMhz(mhz));
     }
+
+    if (record.contains(QStringLiteral("APP_DECOLOG_TAGS")))
+        record.set(QStringLiteral("APP_DECOLOG_TAGS"), joinTags(splitTags(record.value(QStringLiteral("APP_DECOLOG_TAGS")))));
 
     Prepared p;
     p.call = record.value(QStringLiteral("CALL")).trimmed().toUpper();
@@ -1170,6 +1212,18 @@ QList<CountRow> LogDatabase::countByMode() const
     return out;
 }
 
+QList<CountRow> LogDatabase::countByDxcc() const
+{
+    QList<CountRow> out;
+    QSqlQuery q(connection());
+    if (q.exec(QStringLiteral(
+            "SELECT dxcc, COUNT(*) AS n FROM qso WHERE deleted = 0 AND dxcc > 0 GROUP BY dxcc ORDER BY n DESC, dxcc"))) {
+        while (q.next())
+            out << CountRow{q.value(0).toString(), q.value(1).toInt()};
+    }
+    return out;
+}
+
 QList<QVariantMap> LogDatabase::qslSummary() const
 {
     QList<QVariantMap> out;
@@ -1204,6 +1258,83 @@ QStringList LogDatabase::workedGrids(int limit) const
             out << q.value(0).toString();
     }
     return out;
+}
+
+// ── Etichette ─────────────────────────────────────────────────────────────────
+
+QStringList LogDatabase::splitTags(const QString& tags)
+{
+    QStringList out;
+    for (const QString& raw : tags.split(QLatin1Char(','), Qt::SkipEmptyParts)) {
+        const QString tag = raw.simplified();
+        if (tag.isEmpty())
+            continue;
+        const bool seen = std::any_of(out.cbegin(), out.cend(), [&tag](const QString& t) {
+            return t.compare(tag, Qt::CaseInsensitive) == 0;
+        });
+        if (!seen)
+            out << tag;
+    }
+    return out;
+}
+
+QString LogDatabase::joinTags(const QStringList& tags)
+{
+    return tags.join(QLatin1Char(','));
+}
+
+QList<CountRow> LogDatabase::tagCounts() const
+{
+    QHash<QString, CountRow> counts;
+    QSqlQuery q(connection());
+    q.setForwardOnly(true);
+    if (q.exec(QStringLiteral("SELECT tags FROM qso WHERE deleted = 0 AND IFNULL(tags, '') <> ''"))) {
+        while (q.next()) {
+            for (const QString& tag : splitTags(q.value(0).toString())) {
+                CountRow& row = counts[tag.toLower()];
+                if (row.key.isEmpty())
+                    row.key = tag;
+                ++row.count;
+            }
+        }
+    }
+    QList<CountRow> out = counts.values();
+    std::sort(out.begin(), out.end(), [](const CountRow& a, const CountRow& b) {
+        return a.count != b.count ? a.count > b.count : a.key.compare(b.key, Qt::CaseInsensitive) < 0;
+    });
+    return out;
+}
+
+int LogDatabase::setTag(const QList<qint64>& ids, const QString& tag, bool add)
+{
+    const QString clean = tag.simplified().remove(QLatin1Char(','));
+    if (clean.isEmpty())
+        return 0;
+    int changed = 0;
+    QSqlDatabase db = connection();
+    const bool ownTransaction = db.transaction();
+    for (qint64 id : ids) {
+        auto r = record(id);
+        if (!r)
+            continue;
+        QStringList tags = splitTags(r->value(QStringLiteral("APP_DECOLOG_TAGS")));
+        const qsizetype at = std::find_if(tags.cbegin(), tags.cend(), [&clean](const QString& t) {
+                                 return t.compare(clean, Qt::CaseInsensitive) == 0;
+                             }) - tags.cbegin();
+        const bool present = at < tags.size();
+        if (add == present)
+            continue;
+        if (add)
+            tags << clean;
+        else
+            tags.removeAt(at);
+        r->set(QStringLiteral("APP_DECOLOG_TAGS"), joinTags(tags));
+        if (updateQso(id, *r, -1, QStringLiteral("tag")).status == InsertResult::Status::Inserted)
+            ++changed;
+    }
+    if (ownTransaction)
+        db.commit();
+    return changed;
 }
 
 // ── Profili stazione ───────────────────────────────────────────────────────────

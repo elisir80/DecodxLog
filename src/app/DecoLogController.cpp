@@ -64,7 +64,7 @@ const QStringList kKnownFields{
     QStringLiteral("CLUBLOG_QSO_UPLOAD_STATUS"), QStringLiteral("CLUBLOG_QSO_UPLOAD_DATE"),
     QStringLiteral("EQSL_QSL_SENT"), QStringLiteral("EQSL_QSLSDATE"), QStringLiteral("EQSL_QSL_RCVD"),
     QStringLiteral("EQSL_QSLRDATE"), QStringLiteral("QSL_SENT"), QStringLiteral("QSLSDATE"), QStringLiteral("QSL_RCVD"),
-    QStringLiteral("QSLRDATE")};
+    QStringLiteral("QSLRDATE"), QStringLiteral("APP_DECOLOG_TAGS")};
 
 QVariantMap positionMap(const std::optional<maidenhead::LatLon>& p)
 {
@@ -921,6 +921,7 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
     r.set(QStringLiteral("IOTA"), text("iota").toUpper());
     r.set(QStringLiteral("WWFF_REF"), text("wwff_ref").toUpper());
     r.set(QStringLiteral("COMMENT"), text("comment"));
+    r.set(QStringLiteral("APP_DECOLOG_TAGS"), text("tags"));
 
     const qint64 profileId = m_profiles ? m_profiles->activeProfileId() : 0;
     applyProfile(r, profileId);
@@ -1077,6 +1078,40 @@ QString DecoLogController::restoreRevision(qint64 id, qint64 historyId)
     m_decoLink.resendSnapshot();
     refreshCallInfo();
     return {};
+}
+
+// ── Etichette ─────────────────────────────────────────────────────────────────
+
+int DecoLogController::tagQsos(const QVariantList& ids, const QString& tag, bool add)
+{
+    QList<qint64> list;
+    for (const auto& v : ids)
+        list << v.toLongLong();
+    const QString clean = tag.simplified().remove(QLatin1Char(','));
+    if (list.isEmpty() || clean.isEmpty())
+        return 0;
+    const int changed = m_db.setTag(list, clean, add);
+    addActivity(QStringLiteral("LOG"),
+                add ? tr("Tag \"%1\" added to %2 QSO (%3 already had it)").arg(clean).arg(changed).arg(list.size() - changed)
+                    : tr("Tag \"%1\" removed from %2 QSO").arg(clean).arg(changed),
+                changed > 0 ? QStringLiteral("success") : QStringLiteral("info"));
+    if (changed > 0) {
+        m_model->reload();
+        emit logChanged();
+    }
+    return changed;
+}
+
+QVariantList DecoLogController::dxccInLog() const
+{
+    QVariantList out;
+    for (const auto& row : m_db.countByDxcc()) {
+        const int dxcc = row.key.toInt();
+        out << QVariantMap{{QStringLiteral("dxcc"), dxcc},
+                           {QStringLiteral("name"), m_countries.nameFor(dxcc)},
+                           {QStringLiteral("count"), row.count}};
+    }
+    return out;
 }
 
 // ── Import, export, backup ────────────────────────────────────────────────────

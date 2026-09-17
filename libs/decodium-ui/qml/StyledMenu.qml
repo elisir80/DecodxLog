@@ -9,7 +9,17 @@ Menu {
     id: root
 
     padding: 4
-    implicitWidth: Math.max(180, contentItem ? contentItem.implicitWidth + 8 : 180)
+    // La voce piu' larga decide: il ListView del contenuto non lo sa.
+    readonly property real widestItem: {
+        let w = 0
+        for (let i = 0; i < count; ++i) {
+            const item = itemAt(i)
+            if (item && item.visible)
+                w = Math.max(w, item.implicitWidth)
+        }
+        return w
+    }
+    implicitWidth: Math.max(180, widestItem + leftPadding + rightPadding)
 
     delegate: StyledMenuItem {}
 

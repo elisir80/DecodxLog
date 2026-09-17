@@ -5,6 +5,7 @@
 
 #include <QDateTime>
 #include <QSqlQuery>
+#include <QVariantMap>
 
 namespace decolog::app {
 
@@ -98,7 +99,7 @@ QString QsoTableModel::columnKey(int column) const
         QStringLiteral("utc"), QStringLiteral("call"), QStringLiteral("band"), QStringLiteral("freq"),
         QStringLiteral("mode"), QStringLiteral("rst_sent"), QStringLiteral("rst_rcvd"),
         QStringLiteral("grid"), QStringLiteral("name"), QStringLiteral("dxcc"), QStringLiteral("qsl"),
-        QStringLiteral("source")};
+        QStringLiteral("source"), QStringLiteral("tags")};
     return keys.value(column);
 }
 
@@ -117,6 +118,7 @@ QString QsoTableModel::columnTitle(int column) const
     case Dxcc:    return tr("DXCC");
     case Qsl:     return tr("QSL");
     case Source:  return tr("Src");
+    case Tags:    return tr("Tags");
     default:      return {};
     }
 }
@@ -136,6 +138,7 @@ int QsoTableModel::columnWidthHint(int column) const
     case Dxcc:    return 56;
     case Qsl:     return 84;
     case Source:  return 52;
+    case Tags:    return 130;
     default:      return 80;
     }
 }
@@ -145,7 +148,8 @@ QString QsoTableModel::selectSql(const QString& where) const
     return QStringLiteral(
                "SELECT id, qso_datetime_on, call, band, mode, submode, freq, rst_sent, rst_rcvd, "
                "gridsquare, name, dxcc, source, "
-               "(SELECT group_concat(service || ':' || sent || ':' || rcvd) FROM qsl_status s WHERE s.qso_id = qso.id) "
+               "(SELECT group_concat(service || ':' || sent || ':' || rcvd) FROM qsl_status s WHERE s.qso_id = qso.id), "
+               "IFNULL(tags, '') "
                "FROM qso WHERE deleted = 0 %1 ORDER BY qso_datetime_on DESC, id DESC")
         .arg(where);
 }
@@ -176,12 +180,15 @@ QsoTableModel::Row QsoTableModel::rowFromQuery(const QSqlQuery& q) const
     else if (source == QLatin1String("cloud"))    r.values[Source] = QStringLiteral("cld");
     else r.values[Source] = source.left(3);
     r.values[Qsl] = qslCodes(q.value(13).toString());
+    r.values[Tags] = q.value(14).toString().replace(QLatin1Char(','), QStringLiteral(", "));
     return r;
 }
 
 bool QsoTableModel::filtered() const
 {
-    return !m_filter.trimmed().isEmpty() || !m_bands.isEmpty() || !m_modes.isEmpty() || !m_month.isEmpty();
+    return !m_filter.trimmed().isEmpty() || !m_bands.isEmpty() || !m_modes.isEmpty() || !m_month.isEmpty()
+        || m_dxcc > 0 || !m_qsl.isEmpty() || m_profile > 0 || !m_tag.isEmpty() || !m_dateFrom.isEmpty()
+        || !m_dateTo.isEmpty();
 }
 
 void QsoTableModel::refreshTotal()
@@ -223,6 +230,42 @@ void QsoTableModel::reload()
         if (!m_month.isEmpty()) {
             where << QStringLiteral("SUBSTR(qso_datetime_on, 1, 7) = ?");
             binds << m_month;
+        }
+        if (m_dxcc > 0) {
+            where << QStringLiteral("dxcc = ?");
+            binds << m_dxcc;
+        }
+        if (!m_qsl.isEmpty()) {
+            const QString confirmedBy = QStringLiteral(
+                "EXISTS (SELECT 1 FROM qsl_status s WHERE s.qso_id = qso.id AND s.rcvd = 'Y' AND s.service %1)");
+            if (m_qsl == QLatin1String("confirmed")) {
+                where << confirmedBy.arg(QStringLiteral("IN ('lotw', 'card', 'eqsl', 'qrz')"));
+            } else if (m_qsl == QLatin1String("unconfirmed")) {
+                where << QStringLiteral("NOT ") + confirmedBy.arg(QStringLiteral("IN ('lotw', 'card', 'eqsl', 'qrz')"));
+            } else {
+                where << confirmedBy.arg(QStringLiteral("= ?"));
+                binds << m_qsl;
+            }
+        }
+        if (m_profile > 0) {
+            where << QStringLiteral("station_profile_id = ?");
+            binds << m_profile;
+        }
+        if (!m_tag.isEmpty()) {
+            // Un'etichetta intera, non un pezzo: "pota" non trova "potato".
+            where << QStringLiteral("instr(',' || LOWER(IFNULL(tags, '')) || ',', ?) > 0");
+            binds << QLatin1Char(',') + m_tag.toLower() + QLatin1Char(',');
+        }
+        // Le date nel database sono ISO-8601 a lunghezza fissa: il confronto fra
+        // stringhe basta, e "fino al" comprende tutto quel giorno.
+        if (!m_dateFrom.isEmpty()) {
+            where << QStringLiteral("qso_datetime_on >= ?");
+            binds << m_dateFrom;
+        }
+        if (!m_dateTo.isEmpty()) {
+            const QDate to = QDate::fromString(m_dateTo, QStringLiteral("yyyy-MM-dd"));
+            where << QStringLiteral("qso_datetime_on < ?");
+            binds << (to.isValid() ? to.addDays(1).toString(QStringLiteral("yyyy-MM-dd")) : m_dateTo);
         }
 
         QSqlQuery q(m_db->connection());
@@ -285,6 +328,12 @@ void QsoTableModel::clearFilters()
     m_bands.clear();
     m_modes.clear();
     m_month.clear();
+    m_dxcc = 0;
+    m_qsl.clear();
+    m_profile = 0;
+    m_tag.clear();
+    m_dateFrom.clear();
+    m_dateTo.clear();
     emit filtersChanged();
     reload();
 }
@@ -296,6 +345,12 @@ QVariantMap QsoTableModel::filterState() const
         {QStringLiteral("bands"), m_bands},
         {QStringLiteral("modes"), m_modes},
         {QStringLiteral("month"), m_month},
+        {QStringLiteral("dxcc"), m_dxcc},
+        {QStringLiteral("qsl"), m_qsl},
+        {QStringLiteral("profile"), m_profile},
+        {QStringLiteral("tag"), m_tag},
+        {QStringLiteral("dateFrom"), m_dateFrom},
+        {QStringLiteral("dateTo"), m_dateTo},
     };
 }
 
@@ -305,6 +360,12 @@ void QsoTableModel::applyFilterState(const QVariantMap& state)
     m_bands = state.value(QStringLiteral("bands")).toStringList();
     m_modes = state.value(QStringLiteral("modes")).toStringList();
     m_month = state.value(QStringLiteral("month")).toString();
+    m_dxcc = state.value(QStringLiteral("dxcc")).toInt();
+    m_qsl = state.value(QStringLiteral("qsl")).toString();
+    m_profile = state.value(QStringLiteral("profile")).toInt();
+    m_tag = state.value(QStringLiteral("tag")).toString();
+    m_dateFrom = state.value(QStringLiteral("dateFrom")).toString();
+    m_dateTo = state.value(QStringLiteral("dateTo")).toString();
     emit filtersChanged();
     reload();
 }
@@ -317,6 +378,13 @@ qint64 QsoTableModel::idAt(int row) const
 QString QsoTableModel::callAt(int row) const
 {
     return row >= 0 && row < m_rows.size() ? m_rows.at(row).values[Call] : QString();
+}
+
+QString QsoTableModel::valueAt(int row, int column) const
+{
+    if (row < 0 || row >= m_rows.size() || column < 0 || column >= ColumnCount)
+        return {};
+    return m_rows.at(row).values[column];
 }
 
 int QsoTableModel::rowForId(qint64 id) const
@@ -346,6 +414,82 @@ QStringList QsoTableModel::modesInLog() const
     for (const auto& row : m_db->countByMode())
         out << row.key;
     return out;
+}
+
+QVariantList QsoTableModel::tagsInLog() const
+{
+    QVariantList out;
+    if (!m_db || !m_db->isOpen())
+        return out;
+    for (const auto& row : m_db->tagCounts())
+        out << QVariantMap{{QStringLiteral("key"), row.key}, {QStringLiteral("count"), row.count}};
+    return out;
+}
+
+QVariantList QsoTableModel::shownIds() const
+{
+    QVariantList out;
+    out.reserve(m_rows.size());
+    for (const Row& r : m_rows)
+        out << r.id;
+    return out;
+}
+
+void QsoTableModel::setDxccFilter(int dxcc)
+{
+    if (dxcc == m_dxcc)
+        return;
+    m_dxcc = qMax(0, dxcc);
+    emit filtersChanged();
+    reload();
+}
+
+void QsoTableModel::setQslFilter(const QString& qsl)
+{
+    if (qsl == m_qsl)
+        return;
+    m_qsl = qsl;
+    emit filtersChanged();
+    reload();
+}
+
+void QsoTableModel::setProfileFilter(int profileId)
+{
+    if (profileId == m_profile)
+        return;
+    m_profile = qMax(0, profileId);
+    emit filtersChanged();
+    reload();
+}
+
+void QsoTableModel::setTagFilter(const QString& tag)
+{
+    const QString t = tag.simplified();
+    if (t == m_tag)
+        return;
+    m_tag = t;
+    emit filtersChanged();
+    reload();
+}
+
+void QsoTableModel::setDateFrom(const QString& date)
+{
+    const QString d = QDate::fromString(date.trimmed(), QStringLiteral("yyyy-MM-dd")).isValid() ? date.trimmed() : QString();
+    if (d == m_dateFrom)
+        return;
+    m_dateFrom = d;
+    emit filtersChanged();
+    reload();
+}
+
+void QsoTableModel::setDateTo(const QString& date)
+{
+    const QString d = QDate::fromString(date.trimmed(), QStringLiteral("yyyy-MM-dd")).isValid() ? date.trimmed() : QString();
+    if (d == m_dateTo)
+        return;
+    m_dateTo = d;
+    emit filtersChanged();
+    reload();
 }
 
 void QsoTableModel::setFilterText(const QString& text)

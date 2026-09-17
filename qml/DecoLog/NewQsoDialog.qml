@@ -35,7 +35,7 @@ DialogFrame {
     }
 
     function clearAll() {
-        for (const f of [callField, gridField, nameField, qthField, commentField, potaField, sotaField, iotaField, wwffField])
+        for (const f of [callField, gridField, nameField, qthField, commentField, potaField, sotaField, iotaField, wwffField, tagsField])
             f.text = ""
         sentField.text = "59"
         rcvdField.text = "59"
@@ -53,7 +53,7 @@ DialogFrame {
             rst_sent: sentField.text, rst_rcvd: rcvdField.text,
             gridsquare: gridField.text, name: nameField.text, qth: qthField.text, tx_pwr: pwrField.text,
             pota_ref: potaField.text, sota_ref: sotaField.text, iota: iotaField.text, wwff_ref: wwffField.text,
-            comment: commentField.text
+            comment: commentField.text, tags: tagsField.text
         })
         errorText.text = error
         if (error.length > 0)
@@ -343,9 +343,16 @@ DialogFrame {
                 spacing: 10
                 LabeledField {
                     Layout.preferredWidth: 1
-                    Layout.horizontalStretchFactor: 12; Layout.fillWidth: true
+                    Layout.horizontalStretchFactor: 8; Layout.fillWidth: true
                     label: qsTr("Comment")
                     StyledTextField { id: commentField; Layout.fillWidth: true; mono: false }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 4; Layout.fillWidth: true
+                    label: qsTr("Tags")
+                    // Restano per il QSO dopo, come le referenze: un'attivazione e' fatta di tanti QSO.
+                    StyledTextField { id: tagsField; Layout.fillWidth: true; mono: false; placeholderText: qsTr("pota, portable") }
                 }
             }
         }

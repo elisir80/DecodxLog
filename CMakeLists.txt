@@ -158,6 +158,12 @@ if(DECOLOG_BUILD_TESTS)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)
         add_test(NAME ${name} COMMAND tst_${name})
     endforeach()
+    # La tabella del log sta nell'applicazione, ma i suoi filtri sono SQL da provare.
+    qt_add_executable(tst_qsomodel tests/tst_qsomodel.cpp src/app/QsoTableModel.cpp src/app/QsoTableModel.h)
+    target_include_directories(tst_qsomodel PRIVATE src)
+    target_link_libraries(tst_qsomodel PRIVATE decolog_core Qt6::Test)
+    set_target_properties(tst_qsomodel PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME qsomodel COMMAND tst_qsomodel)
 endif()
 
 # ── Tools ─────────────────────────────────────────────────────────────────────
