@@ -1,0 +1,371 @@
+// DecoLog — Nuovo QSO, scheda completa (mockup 1b). Per SSB e CW: i digitali
+// arrivano da Decodium. Sotto il nominativo, quello che il log sa gia' di lui.
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import Decodium.UI
+
+DialogFrame {
+    id: root
+
+    readonly property var lookup: decolog.callInfo
+    readonly property bool matchesCall: (lookup.call || "") === callField.text.trim().toUpperCase()
+                                        && callField.text.trim().length > 0
+
+    title: qsTr("New QSO")
+    dotColor: Theme.accentColor
+    info: decolog.stationProfiles.activeProfile.name
+          ? qsTr("Station: %1").arg(decolog.stationProfiles.activeProfile.name) : qsTr("No station profile")
+    width: 760
+
+    function submodesFor(mode) {
+        switch (mode) {
+        case "SSB": return ["", "USB", "LSB"]
+        case "MFSK": return ["", "FT2", "FT4", "FST4", "Q65", "JS8"]
+        case "PSK": return ["", "PSK31", "PSK63", "PSK125"]
+        case "RTTY": return ["", "ASCI"]
+        default: return [""]
+        }
+    }
+
+    function resetTime() {
+        const now = decolog.utcNow()
+        dateField.text = now.date
+        timeField.text = now.time
+    }
+
+    function clearAll() {
+        for (const f of [callField, gridField, nameField, qthField, commentField, potaField, sotaField, iotaField, wwffField])
+            f.text = ""
+        sentField.text = "59"
+        rcvdField.text = "59"
+        errorText.text = ""
+        resetTime()
+        callField.forceActiveFocus()
+    }
+
+    // `keep`: resta aperta con banda, modo, potenza e referenze, per il QSO dopo.
+    function submit(keep) {
+        const error = decolog.logManualQso({
+            call: callField.text, date: dateField.text, time: timeField.text,
+            band: bandBox.currentIndex > 0 ? bandBox.currentText : "", freq: freqField.text,
+            mode: modeBox.editText, submode: submodeBox.editText,
+            rst_sent: sentField.text, rst_rcvd: rcvdField.text,
+            gridsquare: gridField.text, name: nameField.text, qth: qthField.text, tx_pwr: pwrField.text,
+            pota_ref: potaField.text, sota_ref: sotaField.text, iota: iotaField.text, wwff_ref: wwffField.text,
+            comment: commentField.text
+        })
+        errorText.text = error
+        if (error.length > 0)
+            return
+        if (keep) {
+            for (const f of [callField, gridField, nameField, qthField, commentField])
+                f.text = ""
+            resetTime()
+            callField.forceActiveFocus()
+        } else {
+            root.accept()
+        }
+    }
+
+    onOpened: {
+        clearAll()
+        if (decolog.dialFrequency.length)
+            freqField.text = decolog.dialFrequency
+        const pwr = decolog.stationProfiles.activeProfile.defaultTxPwr
+        pwrField.text = pwr > 0 ? String(pwr) : ""
+    }
+
+    Shortcut {
+        sequences: ["Ctrl+Return", "Ctrl+Enter"]
+        enabled: root.visible
+        onActivated: root.submit(false)
+    }
+
+    contentItem: ColumnLayout {
+        spacing: 12
+
+        GridLayout {
+            Layout.fillWidth: true
+            Layout.margins: 14
+            Layout.bottomMargin: 0
+            columns: 3
+            columnSpacing: 10
+            LabeledField {
+                Layout.fillWidth: true
+                label: qsTr("Callsign")
+                StyledTextField {
+                    id: callField
+                    Layout.fillWidth: true
+                    fieldHeight: 44
+                    uppercase: true
+                    font.pixelSize: 24
+                    font.bold: true
+                    font.letterSpacing: 2
+                    onTextChanged: decolog.lookupCall = text
+                    Keys.onReturnPressed: root.submit(false)
+                    Keys.onEnterPressed: root.submit(false)
+                }
+            }
+            LabeledField {
+                Layout.preferredWidth: 150
+                Layout.fillWidth: false
+                label: qsTr("Date UTC")
+                StyledTextField { id: dateField; Layout.fillWidth: true; fieldHeight: 44; font.pixelSize: 15 }
+            }
+            LabeledField {
+                Layout.preferredWidth: 120
+                Layout.fillWidth: false
+                label: qsTr("Time on")
+                StyledTextField {
+                    id: timeField
+                    Layout.fillWidth: true
+                    fieldHeight: 44
+                    font.pixelSize: 15
+                    rightPadding: nowPill.width + 14
+                    Pill {
+                        id: nowPill
+                        anchors.right: parent.right
+                        anchors.rightMargin: 8
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: qsTr("NOW")
+                        tone: Theme.secondaryColor
+                        rounded: false
+                        pillHeight: 20
+                        fontPixelSize: 10
+                        interactive: true
+                        onClicked: root.resetTime()
+                    }
+                }
+            }
+        }
+
+        // Quello che il log sa del nominativo.
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.leftMargin: 14
+            Layout.rightMargin: 14
+            implicitHeight: 34
+            radius: 4
+            color: Theme.bgMedium
+            border.width: 1
+            border.color: Theme.borderSoft
+            RowLayout {
+                anchors.fill: parent
+                anchors.leftMargin: 10
+                anchors.rightMargin: 10
+                spacing: 10
+                Text {
+                    text: qsTr("LOG")
+                    color: Theme.secondaryColor
+                    font.family: Theme.monoFamily
+                    font.pixelSize: 12
+                    font.bold: true
+                }
+                Text {
+                    Layout.fillWidth: true
+                    elide: Text.ElideRight
+                    text: {
+                        if (!root.matchesCall)
+                            return qsTr("Type a callsign to see what the log knows")
+                        const parts = [root.lookup.name, root.lookup.qth, root.lookup.gridsquare, root.lookup.country]
+                                      .filter(s => s)
+                        if (root.lookup.cqz) parts.push("CQ " + root.lookup.cqz)
+                        return parts.length ? parts.join(" · ") : qsTr("no details in the log")
+                    }
+                    color: root.matchesCall ? Theme.textPrimary : Theme.textSecondary
+                    font.family: Theme.monoFamily
+                    font.pixelSize: 12
+                }
+                Pill {
+                    readonly property string band: bandBox.currentIndex > 0 ? bandBox.currentText : ""
+                    visible: root.matchesCall && band.length > 0 && (root.lookup.count || 0) > 0
+                             && (root.lookup.bands || []).indexOf(band) < 0
+                    text: qsTr("NEW on %1").arg(band)
+                    tone: Theme.warningColor
+                    pillHeight: 20
+                    fontPixelSize: 10
+                }
+                Pill {
+                    visible: root.matchesCall
+                    text: (root.lookup.count || 0) > 0 ? qsTr("worked %1×").arg(root.lookup.count) : qsTr("new station")
+                    tone: (root.lookup.count || 0) > 0 ? Theme.textSecondary : Theme.accentColor
+                    pillHeight: 20
+                    fontPixelSize: 10
+                }
+            }
+        }
+
+        ColumnLayout {
+            Layout.fillWidth: true
+            Layout.leftMargin: 14
+            Layout.rightMargin: 14
+            spacing: 12
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 10
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 2; Layout.fillWidth: true
+                    label: qsTr("Band")
+                    StyledComboBox { id: bandBox; Layout.fillWidth: true; model: ["—"].concat(decolog.bands) }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 2; Layout.fillWidth: true
+                    label: qsTr("Freq MHz")
+                    StyledTextField {
+                        id: freqField
+                        Layout.fillWidth: true
+                        onTextChanged: {
+                            const i = bandBox.find(decolog.bandForFrequency(text))
+                            if (i >= 0) bandBox.currentIndex = i
+                        }
+                    }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 2; Layout.fillWidth: true
+                    label: qsTr("Mode")
+                    StyledComboBox {
+                        id: modeBox
+                        Layout.fillWidth: true
+                        editable: true
+                        model: ["SSB", "CW", "FM", "AM", "RTTY", "MFSK", "FT8", "PSK"]
+                    }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 2; Layout.fillWidth: true
+                    label: qsTr("Submode")
+                    StyledComboBox {
+                        id: submodeBox
+                        Layout.fillWidth: true
+                        editable: true
+                        model: root.submodesFor(modeBox.editText.toUpperCase())
+                    }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 2; Layout.fillWidth: true
+                    label: qsTr("RST sent")
+                    StyledTextField { id: sentField; Layout.fillWidth: true; text: "59" }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 2; Layout.fillWidth: true
+                    label: qsTr("RST rcvd")
+                    StyledTextField { id: rcvdField; Layout.fillWidth: true; text: "59" }
+                }
+            }
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 10
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 2; Layout.fillWidth: true
+                    label: qsTr("Grid")
+                    StyledTextField { id: gridField; Layout.fillWidth: true; uppercase: true }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 4; Layout.fillWidth: true
+                    label: qsTr("Name")
+                    StyledTextField { id: nameField; Layout.fillWidth: true; mono: false }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 4; Layout.fillWidth: true
+                    label: qsTr("QTH")
+                    StyledTextField { id: qthField; Layout.fillWidth: true; mono: false }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 2; Layout.fillWidth: true
+                    label: qsTr("TX pwr W")
+                    StyledTextField { id: pwrField; Layout.fillWidth: true }
+                }
+            }
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 10
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 3; Layout.fillWidth: true
+                    label: "POTA"
+                    StyledTextField { id: potaField; Layout.fillWidth: true; uppercase: true; placeholderText: "—" }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 3; Layout.fillWidth: true
+                    label: "SOTA"
+                    StyledTextField { id: sotaField; Layout.fillWidth: true; uppercase: true; placeholderText: "—" }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 3; Layout.fillWidth: true
+                    label: "IOTA"
+                    StyledTextField { id: iotaField; Layout.fillWidth: true; uppercase: true; placeholderText: "—" }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 3; Layout.fillWidth: true
+                    label: "WWFF"
+                    StyledTextField { id: wwffField; Layout.fillWidth: true; uppercase: true; placeholderText: "—" }
+                }
+            }
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 10
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 12; Layout.fillWidth: true
+                    label: qsTr("Comment")
+                    StyledTextField { id: commentField; Layout.fillWidth: true; mono: false }
+                }
+            }
+        }
+
+        Text {
+            id: errorText
+            Layout.fillWidth: true
+            Layout.leftMargin: 14
+            visible: text.length > 0
+            color: Theme.errorColor
+            font.pixelSize: 12
+        }
+
+        Rectangle { Layout.fillWidth: true; Layout.leftMargin: 14; Layout.rightMargin: 14; implicitHeight: 1; color: Theme.borderSoft }
+
+        RowLayout {
+            Layout.fillWidth: true
+            Layout.margins: 14
+            Layout.topMargin: 0
+            spacing: 10
+            Text {
+                text: "source=manual · dirty=1 · uuid client-side"
+                color: Theme.textSecondary
+                font.family: Theme.monoFamily
+                font.pixelSize: 11
+            }
+            Item { Layout.fillWidth: true }
+            GlassButton { text: qsTr("CLEAR"); tone: Theme.warningColor; buttonHeight: 34; onClicked: root.clearAll() }
+            GlassButton {
+                text: qsTr("Log & keep")
+                buttonHeight: 34
+                enabled: callField.text.trim().length > 2
+                onClicked: root.submit(true)
+            }
+            GlassButton {
+                text: "✎ " + qsTr("LOG QSO")
+                hint: "Ctrl+Enter"
+                tone: Theme.accentColor
+                filled: true
+                buttonHeight: 34
+                fontPixelSize: 13
+                enabled: callField.text.trim().length > 2
+                onClicked: root.submit(false)
+            }
+        }
+    }
+}

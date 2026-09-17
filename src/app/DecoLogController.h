@@ -6,6 +6,7 @@
 #pragma once
 
 #include "app/QsoTableModel.h"
+#include "app/StationProfileModel.h"
 #include "core/LogDatabase.h"
 #include "core/UdpReceiver.h"
 
@@ -25,30 +26,59 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QString databasePath READ databasePath CONSTANT)
     Q_PROPERTY(bool databaseOpen READ databaseOpen CONSTANT)
     Q_PROPERTY(QObject* qsoModel READ qsoModel CONSTANT)
+    Q_PROPERTY(QObject* stationProfiles READ stationProfiles CONSTANT)
 
+    // ── Collegamento con Decodium ──────────────────────────────────────────
     Q_PROPERTY(int udpPort READ udpPort WRITE setUdpPort NOTIFY udpChanged)
     Q_PROPERTY(QString multicastGroup READ multicastGroup WRITE setMulticastGroup NOTIFY udpChanged)
+    Q_PROPERTY(bool preferLoggedAdif READ preferLoggedAdif WRITE setPreferLoggedAdif NOTIFY udpChanged)
     Q_PROPERTY(bool listening READ listening NOTIFY udpChanged)
     Q_PROPERTY(QString udpError READ udpError NOTIFY udpChanged)
+    Q_PROPERTY(int dedupDigitalMinutes READ dedupDigitalMinutes WRITE setDedupDigitalMinutes NOTIFY udpChanged)
+    Q_PROPERTY(int dedupManualMinutes READ dedupManualMinutes WRITE setDedupManualMinutes NOTIFY udpChanged)
+    Q_PROPERTY(bool followDxCall READ followDxCall WRITE setFollowDxCall NOTIFY udpChanged)
 
     Q_PROPERTY(bool clientConnected READ clientConnected NOTIFY clientChanged)
     Q_PROPERTY(QString clientName READ clientName NOTIFY clientChanged)
     Q_PROPERTY(QString clientVersion READ clientVersion NOTIFY clientChanged)
     Q_PROPERTY(QString dialFrequency READ dialFrequency NOTIFY clientChanged)
+    Q_PROPERTY(QString dialBand READ dialBand NOTIFY clientChanged)
     Q_PROPERTY(QString currentMode READ currentMode NOTIFY clientChanged)
     Q_PROPERTY(QString dxCall READ dxCall NOTIFY clientChanged)
     Q_PROPERTY(QString deCall READ deCall NOTIFY clientChanged)
     Q_PROPERTY(bool transmitting READ transmitting NOTIFY clientChanged)
 
+    // ── Log ────────────────────────────────────────────────────────────────
     Q_PROPERTY(int qsoCount READ qsoCount NOTIFY logChanged)
     Q_PROPERTY(int dirtyCount READ dirtyCount NOTIFY logChanged)
+    Q_PROPERTY(int conflictCount READ conflictCount NOTIFY logChanged)
+    Q_PROPERTY(QVariantMap ft2Award READ ft2Award NOTIFY logChanged)
+    Q_PROPERTY(QVariantList bandStats READ bandStats NOTIFY logChanged)
+    Q_PROPERTY(QVariantList modeStats READ modeStats NOTIFY logChanged)
+    Q_PROPERTY(QVariantList qslSummary READ qslSummary NOTIFY logChanged)
+    Q_PROPERTY(QVariantList gridPoints READ gridPoints NOTIFY logChanged)
     Q_PROPERTY(QVariantList incoming READ incoming NOTIFY incomingChanged)
     Q_PROPERTY(QVariantList activity READ activity NOTIFY activityChanged)
 
     Q_PROPERTY(QString lookupCall READ lookupCall WRITE setLookupCall NOTIFY lookupChanged)
-    Q_PROPERTY(QVariantMap workedBefore READ workedBefore NOTIFY lookupChanged)
+    Q_PROPERTY(QVariantMap callInfo READ callInfo NOTIFY lookupChanged)
+    Q_PROPERTY(QString myGrid READ myGrid NOTIFY stationChanged)
+    Q_PROPERTY(QVariantMap myPosition READ myPosition NOTIFY stationChanged)
 
     Q_PROPERTY(QStringList bands READ bands CONSTANT)
+
+    // ── Backup ─────────────────────────────────────────────────────────────
+    Q_PROPERTY(bool backupEnabled READ backupEnabled WRITE setBackupEnabled NOTIFY backupChanged)
+    Q_PROPERTY(QString backupDir READ backupDir WRITE setBackupDir NOTIFY backupChanged)
+    Q_PROPERTY(QString backupTime READ backupTime WRITE setBackupTime NOTIFY backupChanged)
+    Q_PROPERTY(int backupKeep READ backupKeep WRITE setBackupKeep NOTIFY backupChanged)
+    Q_PROPERTY(QString lastBackup READ lastBackup NOTIFY backupChanged)
+    Q_PROPERTY(QString lastBackupInfo READ lastBackupInfo NOTIFY backupChanged)
+
+    // ── Cloud (Fase 3: per ora solo le preferenze) ─────────────────────────
+    Q_PROPERTY(QString cloudServer READ cloudServer WRITE setCloudServer NOTIFY cloudChanged)
+    Q_PROPERTY(QString autoSync READ autoSync WRITE setAutoSync NOTIFY cloudChanged)
+    Q_PROPERTY(QString conflictPolicy READ conflictPolicy WRITE setConflictPolicy NOTIFY cloudChanged)
 
 public:
     explicit DecoLogController(QObject* parent = nullptr);
@@ -63,18 +93,28 @@ public:
     QString databasePath() const { return m_db.path(); }
     bool databaseOpen() const { return m_db.isOpen(); }
     QObject* qsoModel() const { return m_model; }
+    QObject* stationProfiles() const { return m_profiles; }
 
     int udpPort() const { return m_udpPort; }
     void setUdpPort(int port);
     QString multicastGroup() const { return m_multicast; }
     void setMulticastGroup(const QString& group);
+    bool preferLoggedAdif() const { return m_udp.prefersLoggedAdif(); }
+    void setPreferLoggedAdif(bool prefer);
     bool listening() const { return m_udp.isListening(); }
     QString udpError() const { return m_udp.lastError(); }
+    int dedupDigitalMinutes() const { return m_db.dedupWindowSeconds(false) / 60; }
+    void setDedupDigitalMinutes(int minutes);
+    int dedupManualMinutes() const { return m_db.dedupWindowSeconds(true) / 60; }
+    void setDedupManualMinutes(int minutes);
+    bool followDxCall() const { return m_followDx; }
+    void setFollowDxCall(bool follow);
 
     bool clientConnected() const;
     QString clientName() const { return m_clientName; }
     QString clientVersion() const { return m_clientVersion; }
     QString dialFrequency() const;
+    QString dialBand() const;
     QString currentMode() const { return m_status.submode.isEmpty() ? m_status.mode : m_status.submode; }
     QString dxCall() const { return m_status.dxCall; }
     QString deCall() const { return m_status.deCall; }
@@ -82,22 +122,63 @@ public:
 
     int qsoCount() const { return m_db.qsoCount(); }
     int dirtyCount() const { return m_db.dirtyCount(); }
+    int conflictCount() const { return m_db.conflictCount(); }
+    QVariantMap ft2Award() const;
+    QVariantList bandStats() const;
+    QVariantList modeStats() const;
+    QVariantList qslSummary() const;
+    QVariantList gridPoints() const;
     QVariantList incoming() const { return m_incoming; }
     QVariantList activity() const { return m_activity; }
 
     QString lookupCall() const { return m_lookupCall; }
     void setLookupCall(const QString& call);
-    QVariantMap workedBefore() const { return m_workedBefore; }
+    QVariantMap callInfo() const { return m_callInfo; }
+    QString myGrid() const;
+    QVariantMap myPosition() const;
 
     QStringList bands() const;
 
+    bool backupEnabled() const { return m_backupEnabled; }
+    void setBackupEnabled(bool enabled);
+    QString backupDir() const { return m_backupDir; }
+    void setBackupDir(const QString& dir);
+    QString backupTime() const { return m_backupTime; }
+    void setBackupTime(const QString& hhmm);
+    int backupKeep() const { return m_backupKeep; }
+    void setBackupKeep(int keep);
+    QString lastBackup() const;
+    QString lastBackupInfo() const;
+
+    QString cloudServer() const { return m_cloudServer; }
+    void setCloudServer(const QString& url);
+    QString autoSync() const { return m_autoSync; }
+    void setAutoSync(const QString& mode);
+    QString conflictPolicy() const { return m_conflictPolicy; }
+    void setConflictPolicy(const QString& policy);
+
     // Campi: call, date (yyyy-MM-dd), time (HH:mm), band, freq, mode, submode,
-    // rst_sent, rst_rcvd, name, qth, gridsquare, comment. Restituisce un
-    // messaggio d'errore, o stringa vuota se il QSO e' stato scritto.
+    // rst_sent, rst_rcvd, name, qth, gridsquare, tx_pwr, pota_ref, sota_ref,
+    // iota, wwff_ref, comment. Restituisce un messaggio d'errore, o stringa vuota
+    // se il QSO e' stato scritto.
     Q_INVOKABLE QString logManualQso(const QVariantMap& fields);
+    Q_INVOKABLE QVariantMap utcNow() const;
+
+    // Scheda di un QSO: campi ADIF, dati di sync, QSL, storico, effetto sugli award.
+    Q_INVOKABLE QVariantMap qsoDetail(qint64 id) const;
+    // `fields` e' la mappa ADIF completa (come in qsoDetail().fields).
+    Q_INVOKABLE QString saveQso(qint64 id, const QVariantMap& fields, qint64 stationProfileId);
+    Q_INVOKABLE bool deleteQso(qint64 id);
+    Q_INVOKABLE QString restoreRevision(qint64 id, qint64 historyId);
+
     Q_INVOKABLE void importAdif(const QUrl& file);
     Q_INVOKABLE void exportAdif(const QUrl& file);
+    Q_INVOKABLE void exportQsos(const QVariantList& ids, const QUrl& file);
     Q_INVOKABLE QString bandForFrequency(const QString& mhz) const;
+    Q_INVOKABLE void backupNow();
+    Q_INVOKABLE void clearActivity();
+    Q_INVOKABLE void openDatabaseFolder() const;
+    Q_INVOKABLE QString localPath(const QUrl& url) const { return url.toLocalFile(); }
 
 signals:
     void udpChanged();
@@ -106,18 +187,27 @@ signals:
     void incomingChanged();
     void activityChanged();
     void lookupChanged();
+    void stationChanged();
+    void backupChanged();
+    void cloudChanged();
 
 private:
     void onQsoReceived(const core::AdifRecord& record, const QString& source, const QString& sourceApp);
-    void addActivity(const QString& text, const QString& level = QStringLiteral("info"));
-    void refreshWorkedBefore();
+    void addActivity(const QString& category, const QString& text, const QString& level = QStringLiteral("info"));
+    void refreshCallInfo();
+    void maybeCreateProfileFromDecodium();
+    void checkBackupSchedule();
+    // Aggiunge al record i dati del profilo che il record non ha gia'.
+    void applyProfile(core::AdifRecord& record, qint64 profileId) const;
 
     core::LogDatabase m_db;
     core::UdpReceiver m_udp;
     QsoTableModel*    m_model{nullptr};
+    StationProfileModel* m_profiles{nullptr};
 
     int       m_udpPort{2237};
     QString   m_multicast;
+    bool      m_followDx{true};
     QString   m_clientName;
     QString   m_clientVersion;
     QDateTime m_clientLastSeen;
@@ -127,7 +217,17 @@ private:
     QVariantList m_incoming;
     QVariantList m_activity;
     QString      m_lookupCall;
-    QVariantMap  m_workedBefore;
+    QVariantMap  m_callInfo;
+
+    bool    m_backupEnabled{true};
+    QString m_backupDir;
+    QString m_backupTime{QStringLiteral("02:00")};
+    int     m_backupKeep{14};
+    QTimer  m_backupTimer;
+
+    QString m_cloudServer;
+    QString m_autoSync;
+    QString m_conflictPolicy;
 };
 
 } // namespace decolog::app

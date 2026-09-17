@@ -1,53 +1,85 @@
-// DecoLog — la barra di stato: totali, coda di sync, ricezione, tema.
+// DecoLog — la barra di stato: collegamento, pillole dei servizi, totali, tema.
 import QtQuick
 import QtQuick.Layouts
 import Decodium.UI
 
 Rectangle {
-    implicitHeight: 26
+    implicitHeight: 34
     color: Theme.bgMedium
 
     Rectangle {
         anchors { left: parent.left; right: parent.right; top: parent.top }
         height: 1
-        color: Theme.glassBorder
+        color: Theme.borderSoft
+    }
+
+    component Separator: Text {
+        text: "|"
+        color: Theme.textSecondary
+        font.family: Theme.monoFamily
+        font.pixelSize: 12
     }
 
     RowLayout {
         anchors.fill: parent
         anchors.leftMargin: 12
         anchors.rightMargin: 12
-        spacing: 20
+        spacing: 14
 
-        StatusItem { label: "QSO"; value: decolog.qsoCount }
-        StatusItem {
-            label: "SYNC"
-            value: qsTr("%1 queued").arg(decolog.dirtyCount)
-            valueColor: Theme.textSecondary
+        Row {
+            spacing: 6
+            Led {
+                anchors.verticalCenter: parent.verticalCenter
+                color: decolog.clientConnected ? Theme.accentColor : decolog.listening ? Theme.textSecondary : Theme.errorColor
+            }
+            Text {
+                text: decolog.clientConnected ? qsTr("%1: connected").arg(decolog.clientName)
+                     : decolog.listening ? qsTr("Decodium: waiting") : qsTr("UDP closed")
+                color: Theme.textPrimary
+                font.family: Theme.monoFamily
+                font.pixelSize: 12
+            }
         }
-        StatusItem { label: "BACKUP"; value: "—"; valueColor: Theme.textSecondary }
+        Separator {}
+        Pill {
+            text: "UDP " + decolog.udpPort
+            tone: decolog.listening ? Theme.accentColor : Theme.errorColor
+        }
+        Pill {
+            text: "SYNC"
+            tone: decolog.cloudServer.length ? Theme.secondaryColor : Theme.textSecondary
+        }
+        Pill {
+            readonly property int queued: decolog.qslSummary.length ? decolog.qslSummary[0].queued || 0 : 0
+            text: queued > 0 ? "LOTW " + queued : "LOTW"
+            tone: queued > 0 ? Theme.warningColor : Theme.textSecondary
+        }
+        Separator {}
+        StatusItem { label: qsTr("QSO:"); value: decolog.qsoCount.toLocaleString(Qt.locale("en_US"), "f", 0) }
         StatusItem {
-            label: "UDP"
-            value: decolog.listening ? decolog.udpPort : qsTr("closed")
-            valueColor: decolog.listening ? Theme.textPrimary : Theme.errorColor
+            label: qsTr("Queue:")
+            value: decolog.dirtyCount.toLocaleString(Qt.locale("en_US"), "f", 0)
+            valueColor: decolog.dirtyCount > 0 ? Theme.warningColor : Theme.textPrimary
+        }
+        StatusItem {
+            label: qsTr("Last backup:")
+            value: decolog.lastBackup.length ? decolog.lastBackup : qsTr("never")
+            valueColor: decolog.lastBackup.length ? Theme.textPrimary : Theme.warningColor
+            boldValue: false
         }
         Item { Layout.fillWidth: true }
         Text {
-            Layout.maximumWidth: 420
-            text: decolog.databasePath
+            text: Theme.currentTheme + (Theme.currentTheme === "Darkcodium" ? " · " + Theme.accentVariant : "")
+                  + " · " + Theme.density + " · " + Theme.monoFamily
             color: Theme.textSecondary
-            font.pixelSize: Theme.fontSize - 2
-            elide: Text.ElideMiddle
-        }
-        StatusItem {
-            label: "THEME"
-            value: Theme.currentTheme + " · " + Theme.density
-            valueColor: Theme.textSecondary
+            font.family: Theme.monoFamily
+            font.pixelSize: 12
         }
         Text {
-            text: "v" + decolog.version
+            text: "DecoLog " + decolog.version
             color: Theme.textSecondary
-            font.pixelSize: Theme.fontSize - 2
+            font.family: Theme.monoFamily
+            font.pixelSize: 12
         }
     }
 }

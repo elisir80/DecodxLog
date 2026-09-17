@@ -6,22 +6,23 @@ Row {
     property string label: ""
     property string value: ""
     property color  valueColor: Theme.textPrimary
+    property bool   boldValue: true
 
     spacing: 5
 
     Text {
         anchors.verticalCenter: parent.verticalCenter
         text: label
-        color: Theme.textSecondary
-        font.pixelSize: Theme.fontSize - 3
-        font.bold: true
-        font.letterSpacing: 0.8
+        color: Theme.textPrimary
+        font.pixelSize: 12
+        font.family: Theme.monoFamily
     }
     Text {
         anchors.verticalCenter: parent.verticalCenter
         text: value
         color: valueColor
-        font.pixelSize: Theme.fontSize - 1
+        font.pixelSize: 12
         font.family: Theme.monoFamily
+        font.bold: boldValue
     }
 }

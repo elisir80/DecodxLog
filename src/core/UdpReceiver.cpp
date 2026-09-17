@@ -125,12 +125,14 @@ void UdpReceiver::handleDatagram(const QByteArray& data, const QHostAddress& fro
         p.timer = new QTimer(this);
         p.timer->setSingleShot(true);
         connect(p.timer, &QTimer::timeout, this, [this, key] { flushPending(key); });
-        p.timer->start(m_pairingMs);
+        p.timer->start(m_preferAdif ? m_pairingMs : 0);
         m_pending.insert(key, p);
         return;
     }
 
     if (const auto* la = std::get_if<wsjtx::LoggedAdif>(&msg->payload)) {
+        if (!m_preferAdif)
+            return;
         AdifDocument doc = adif::parse(la->adif);
         const QString programId = doc.header.value(QStringLiteral("PROGRAMID"));
         QString programVersion = doc.header.value(QStringLiteral("PROGRAMVERSION"));

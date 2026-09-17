@@ -12,6 +12,17 @@ set(DECODIUM_UI_QML_FILES
     qml/StyledComboBox.qml
     qml/StyledTextField.qml
     qml/StatusItem.qml
+    qml/Pill.qml
+    qml/FieldLabel.qml
+    qml/LabeledField.qml
+    qml/StatTile.qml
+    qml/MeterBar.qml
+    qml/ToggleSwitch.qml
+    qml/RadioChoice.qml
+    qml/SectionTitle.qml
+    qml/TabChip.qml
+    qml/DialogFrame.qml
+    qml/Led.qml
 )
 
 qt_add_qml_module(decodium_ui

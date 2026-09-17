@@ -3,6 +3,7 @@
 #include "core/Bands.h"
 
 #include <QFile>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QSqlError>
@@ -57,6 +58,25 @@ constexpr std::array kColumns{
     Column{"TX_PWR", "tx_pwr", Kind::Real},
     Column{"COMMENT", "comment", Kind::Text},
     Column{"NOTES", "notes", Kind::Text},
+};
+
+// Campi ADIF degli stati QSL, un servizio per riga di qsl_status. Club Log non
+// ha un "ricevuto" in ADIF.
+struct QslFields {
+    const char* service;
+    const char* sent;
+    const char* sentDate;
+    const char* rcvd;
+    const char* rcvdDate;
+};
+
+constexpr std::array kQslFields{
+    QslFields{"lotw", "LOTW_QSL_SENT", "LOTW_QSLSDATE", "LOTW_QSL_RCVD", "LOTW_QSLRDATE"},
+    QslFields{"qrz", "QRZCOM_QSO_UPLOAD_STATUS", "QRZCOM_QSO_UPLOAD_DATE",
+              "QRZCOM_QSO_DOWNLOAD_STATUS", "QRZCOM_QSO_DOWNLOAD_DATE"},
+    QslFields{"clublog", "CLUBLOG_QSO_UPLOAD_STATUS", "CLUBLOG_QSO_UPLOAD_DATE", "", ""},
+    QslFields{"eqsl", "EQSL_QSL_SENT", "EQSL_QSLSDATE", "EQSL_QSL_RCVD", "EQSL_QSLRDATE"},
+    QslFields{"card", "QSL_SENT", "QSLSDATE", "QSL_RCVD", "QSLRDATE"},
 };
 
 const Column* columnFor(const QString& adifName)
@@ -137,7 +157,43 @@ void addDateTime(AdifRecord& r, const QString& iso, const char* dateField, const
     r.set(QLatin1String(timeField), dt.toString(QStringLiteral("HHmmss")));
 }
 
+bool isStatusFlag(const QString& v)
+{
+    return v.size() == 1 && v.at(0).isLetter();
+}
+
+QString displayMode(const QString& mode, const QString& submode)
+{
+    return submode.isEmpty() ? mode : submode;
+}
+
+AdifRecord recordFromSnapshot(const QString& json)
+{
+    AdifRecord r;
+    const QJsonObject obj = QJsonDocument::fromJson(json.toUtf8()).object();
+    const QJsonArray fields = obj.value(QStringLiteral("fields")).toArray();
+    for (const auto& f : fields) {
+        const QJsonArray pair = f.toArray();
+        if (pair.size() == 2)
+            r.set(pair.at(0).toString(), pair.at(1).toString());
+    }
+    return r;
+}
+
 } // namespace
+
+// Un record ADIF gia' tradotto in colonne, stati QSL e campi extra.
+struct LogDatabase::Prepared {
+    QString call;
+    QString band;
+    QString mode;
+    QString submode;
+    QString on;
+    QString off;
+    QList<QPair<QString, QVariant>> columns;   // solo le colonne ADIF di kColumns
+    QString extraJson;
+    QList<QslState> qsl;
+};
 
 LogDatabase::LogDatabase()
     : m_connectionName(QStringLiteral("decolog-") + QUuid::createUuid().toString(QUuid::WithoutBraces))
@@ -200,6 +256,12 @@ int LogDatabase::schemaVersion() const
     if (q.exec(QStringLiteral("SELECT MAX(version) FROM schema_version")) && q.next())
         return q.value(0).toInt();
     return 0;
+}
+
+void LogDatabase::setDedupWindows(int digitalSeconds, int manualSeconds)
+{
+    m_dedupDigital = qMax(0, digitalSeconds);
+    m_dedupManual = qMax(0, manualSeconds);
 }
 
 bool LogDatabase::applySchema()
@@ -289,15 +351,8 @@ std::optional<qint64> LogDatabase::findDuplicate(const QString& call, const QStr
     return std::nullopt;
 }
 
-InsertResult LogDatabase::insertQso(const AdifRecord& input, const QString& source,
-                                    const QString& sourceApp, bool manual)
+std::optional<LogDatabase::Prepared> LogDatabase::prepare(const AdifRecord& input, InsertResult& error) const
 {
-    InsertResult result;
-    if (!isOpen()) {
-        result.message = QStringLiteral("database not open");
-        return result;
-    }
-
     AdifRecord record = input;
     adif::normalizeMode(record);
 
@@ -309,69 +364,188 @@ InsertResult LogDatabase::insertQso(const AdifRecord& input, const QString& sour
             record.set(QStringLiteral("BAND"), bands::fromMhz(mhz));
     }
 
-    const QString call = record.value(QStringLiteral("CALL")).trimmed().toUpper();
-    const QString band = record.value(QStringLiteral("BAND")).trimmed().toLower();
-    const QString mode = record.value(QStringLiteral("MODE")).trimmed().toUpper();
-    const QString submode = record.value(QStringLiteral("SUBMODE")).trimmed().toUpper();
-    const QString on = isoFromAdif(record.value(QStringLiteral("QSO_DATE")),
-                                   record.value(QStringLiteral("TIME_ON")));
-    const QString off = isoFromAdif(record.value(QStringLiteral("QSO_DATE_OFF")),
-                                    record.value(QStringLiteral("TIME_OFF")));
+    Prepared p;
+    p.call = record.value(QStringLiteral("CALL")).trimmed().toUpper();
+    p.band = record.value(QStringLiteral("BAND")).trimmed().toLower();
+    p.mode = record.value(QStringLiteral("MODE")).trimmed().toUpper();
+    p.submode = record.value(QStringLiteral("SUBMODE")).trimmed().toUpper();
+    p.on = isoFromAdif(record.value(QStringLiteral("QSO_DATE")), record.value(QStringLiteral("TIME_ON")));
+    p.off = isoFromAdif(record.value(QStringLiteral("QSO_DATE_OFF")), record.value(QStringLiteral("TIME_OFF")));
 
     QStringList missing;
-    if (call.isEmpty()) missing << QStringLiteral("CALL");
-    if (on.isEmpty())   missing << QStringLiteral("QSO_DATE/TIME_ON");
-    if (band.isEmpty()) missing << QStringLiteral("BAND/FREQ");
-    if (mode.isEmpty()) missing << QStringLiteral("MODE");
+    if (p.call.isEmpty()) missing << QStringLiteral("CALL");
+    if (p.on.isEmpty())   missing << QStringLiteral("QSO_DATE/TIME_ON");
+    if (p.band.isEmpty()) missing << QStringLiteral("BAND/FREQ");
+    if (p.mode.isEmpty()) missing << QStringLiteral("MODE");
     if (!missing.isEmpty()) {
-        result.status = InsertResult::Status::Invalid;
-        result.message = QStringLiteral("%1: missing %2")
-                             .arg(call.isEmpty() ? QStringLiteral("?") : call,
-                                  missing.join(QStringLiteral(", ")));
-        return result;
+        error.status = InsertResult::Status::Invalid;
+        error.message = QStringLiteral("%1: missing %2")
+                            .arg(p.call.isEmpty() ? QStringLiteral("?") : p.call,
+                                 missing.join(QStringLiteral(", ")));
+        return std::nullopt;
     }
 
-    if (const auto dup = findDuplicate(call, band, mode, submode, parseIso(on), manual ? 600 : 120)) {
-        result.status = InsertResult::Status::Duplicate;
-        result.id = *dup;
-        result.message = QStringLiteral("%1 %2 %3: already in log").arg(call, band, submode.isEmpty() ? mode : submode);
-        return result;
+    // Stati QSL: in tabella solo quelli diversi da "N", che e' il valore
+    // predefinito. Un "N" esplicito resta in adif_extra, cosi' l'export
+    // restituisce esattamente quello che e' entrato.
+    QSet<QString> consumed;
+    for (const auto& f : kQslFields) {
+        QslState st;
+        st.service = QLatin1String(f.service);
+        bool any = false;
+        const QString sent = record.value(QLatin1String(f.sent)).trimmed().toUpper();
+        if (isStatusFlag(sent) && sent != QLatin1String("N")) {
+            st.sent = sent;
+            consumed << QLatin1String(f.sent);
+            const QString date = record.value(QLatin1String(f.sentDate));
+            if (!date.isEmpty()) {
+                st.sentDate = date;
+                consumed << QLatin1String(f.sentDate);
+            }
+            any = true;
+        }
+        if (*f.rcvd) {
+            const QString rcvd = record.value(QLatin1String(f.rcvd)).trimmed().toUpper();
+            if (isStatusFlag(rcvd) && rcvd != QLatin1String("N")) {
+                st.rcvd = rcvd;
+                consumed << QLatin1String(f.rcvd);
+                const QString date = record.value(QLatin1String(f.rcvdDate));
+                if (!date.isEmpty()) {
+                    st.rcvdDate = date;
+                    consumed << QLatin1String(f.rcvdDate);
+                }
+                any = true;
+            }
+        }
+        if (any)
+            p.qsl << st;
     }
-
-    QStringList columns{QStringLiteral("uuid"), QStringLiteral("qso_datetime_on"),
-                        QStringLiteral("qso_datetime_off"), QStringLiteral("source"),
-                        QStringLiteral("source_app"), QStringLiteral("created_at"),
-                        QStringLiteral("updated_at")};
-    const QString now = nowIso();
-    QVariantList values{QUuid::createUuid().toString(QUuid::WithoutBraces), on,
-                        off.isEmpty() ? QVariant() : QVariant(off), source,
-                        sourceApp.isEmpty() ? QVariant() : QVariant(sourceApp), now, now};
 
     QJsonObject extra;
+    QSet<QString> used;
     for (const auto& f : record.fields()) {
         // Date e ore valide stanno nelle colonne; se non si leggono restano come
         // sono, cosi' l'export non le perde.
-        if (f.name == QLatin1String("QSO_DATE") || f.name == QLatin1String("TIME_ON")) {
+        if (f.name == QLatin1String("QSO_DATE") || f.name == QLatin1String("TIME_ON"))
             continue;
-        }
-        if ((f.name == QLatin1String("QSO_DATE_OFF") || f.name == QLatin1String("TIME_OFF")) && !off.isEmpty()) {
+        if ((f.name == QLatin1String("QSO_DATE_OFF") || f.name == QLatin1String("TIME_OFF")) && !p.off.isEmpty())
             continue;
-        }
+        if (consumed.contains(f.name))
+            continue;
         const Column* c = columnFor(f.name);
         const auto value = c ? toColumnValue(*c, f.value) : std::nullopt;
-        if (c && value && !columns.contains(QLatin1String(c->column))) {
-            columns << QLatin1String(c->column);
-            values << *value;
+        if (c && value && !used.contains(f.name)) {
+            used << f.name;
+            p.columns.append({QLatin1String(c->column), *value});
         } else {
             extra.insert(f.name, f.value);
         }
     }
-    if (!extra.isEmpty()) {
-        columns << QStringLiteral("adif_extra");
-        values << QString::fromUtf8(QJsonDocument(extra).toJson(QJsonDocument::Compact));
+    if (!extra.isEmpty())
+        p.extraJson = QString::fromUtf8(QJsonDocument(extra).toJson(QJsonDocument::Compact));
+    return p;
+}
+
+bool LogDatabase::writeQsl(qint64 qsoId, const QList<QslState>& states, bool keepRemote)
+{
+    QSqlDatabase db = connection();
+    QHash<QString, QPair<QString, QString>> remote;
+    if (keepRemote) {
+        QSqlQuery r(db);
+        r.prepare(QStringLiteral("SELECT service, remote_id, last_error FROM qsl_status WHERE qso_id = ?"));
+        r.addBindValue(qsoId);
+        if (r.exec()) {
+            while (r.next())
+                remote.insert(r.value(0).toString(), {r.value(1).toString(), r.value(2).toString()});
+        }
     }
 
-    QSqlQuery q(connection());
+    QSqlQuery del(db);
+    del.prepare(QStringLiteral("DELETE FROM qsl_status WHERE qso_id = ?"));
+    del.addBindValue(qsoId);
+    if (!del.exec())
+        return false;
+
+    QSet<QString> written;
+    QSqlQuery ins(db);
+    ins.prepare(QStringLiteral(
+        "INSERT INTO qsl_status (qso_id, service, sent, sent_date, rcvd, rcvd_date, remote_id, last_error) "
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"));
+    auto nullable = [](const QString& s) { return s.isEmpty() ? QVariant() : QVariant(s); };
+    for (const QslState& st : states) {
+        const auto kept = remote.value(st.service);
+        ins.addBindValue(qsoId);
+        ins.addBindValue(st.service);
+        ins.addBindValue(st.sent);
+        ins.addBindValue(nullable(st.sentDate));
+        ins.addBindValue(st.rcvd);
+        ins.addBindValue(nullable(st.rcvdDate));
+        ins.addBindValue(nullable(st.remoteId.isEmpty() ? kept.first : st.remoteId));
+        ins.addBindValue(nullable(st.lastError.isEmpty() ? kept.second : st.lastError));
+        if (!ins.exec())
+            return false;
+        written << st.service;
+    }
+    // Un errore di upload o un id remoto non si perdono solo perche' lo stato e'
+    // tornato "N".
+    for (auto it = remote.cbegin(); it != remote.cend(); ++it) {
+        if (written.contains(it.key()) || (it.value().first.isEmpty() && it.value().second.isEmpty()))
+            continue;
+        ins.addBindValue(qsoId);
+        ins.addBindValue(it.key());
+        ins.addBindValue(QStringLiteral("N"));
+        ins.addBindValue(QVariant());
+        ins.addBindValue(QStringLiteral("N"));
+        ins.addBindValue(QVariant());
+        ins.addBindValue(nullable(it.value().first));
+        ins.addBindValue(nullable(it.value().second));
+        if (!ins.exec())
+            return false;
+    }
+    return true;
+}
+
+InsertResult LogDatabase::insertQso(const AdifRecord& input, const QString& source,
+                                    const QString& sourceApp, bool manual, qint64 stationProfileId)
+{
+    InsertResult result;
+    if (!isOpen()) {
+        result.message = QStringLiteral("database not open");
+        return result;
+    }
+
+    const auto p = prepare(input, result);
+    if (!p)
+        return result;
+
+    if (const auto dup = findDuplicate(p->call, p->band, p->mode, p->submode, parseIso(p->on),
+                                       dedupWindowSeconds(manual))) {
+        result.status = InsertResult::Status::Duplicate;
+        result.id = *dup;
+        result.message = QStringLiteral("%1 %2 %3: already in log")
+                             .arg(p->call, p->band, displayMode(p->mode, p->submode));
+        return result;
+    }
+
+    const QString now = nowIso();
+    QStringList columns{QStringLiteral("uuid"), QStringLiteral("qso_datetime_on"),
+                        QStringLiteral("qso_datetime_off"), QStringLiteral("source"),
+                        QStringLiteral("source_app"), QStringLiteral("created_at"),
+                        QStringLiteral("updated_at"), QStringLiteral("station_profile_id"),
+                        QStringLiteral("adif_extra")};
+    QVariantList values{QUuid::createUuid().toString(QUuid::WithoutBraces), p->on,
+                        p->off.isEmpty() ? QVariant() : QVariant(p->off), source,
+                        sourceApp.isEmpty() ? QVariant() : QVariant(sourceApp), now, now,
+                        stationProfileId > 0 ? QVariant(stationProfileId) : QVariant(),
+                        p->extraJson.isEmpty() ? QVariant() : QVariant(p->extraJson)};
+    for (const auto& [column, value] : p->columns) {
+        columns << column;
+        values << value;
+    }
+
+    QSqlDatabase db = connection();
+    const bool ownTransaction = db.transaction();
+    QSqlQuery q(db);
     QStringList marks;
     marks.fill(QStringLiteral("?"), columns.size());
     q.prepare(QStringLiteral("INSERT INTO qso (%1) VALUES (%2)")
@@ -379,14 +553,147 @@ InsertResult LogDatabase::insertQso(const AdifRecord& input, const QString& sour
     for (const auto& v : values)
         q.addBindValue(v);
     if (!q.exec()) {
+        if (ownTransaction)
+            db.rollback();
         result.status = InsertResult::Status::Error;
         result.message = q.lastError().text();
         m_lastError = result.message;
         return result;
     }
-    result.status = InsertResult::Status::Inserted;
     result.id = q.lastInsertId().toLongLong();
+    if (!p->qsl.isEmpty() && !writeQsl(result.id, p->qsl, false)) {
+        if (ownTransaction)
+            db.rollback();
+        result.status = InsertResult::Status::Error;
+        result.message = QStringLiteral("cannot write QSL status");
+        return result;
+    }
+    if (ownTransaction)
+        db.commit();
+    result.status = InsertResult::Status::Inserted;
     return result;
+}
+
+QString LogDatabase::snapshotJson(qint64 id) const
+{
+    const auto r = record(id);
+    const auto m = meta(id);
+    if (!r || !m)
+        return {};
+    QJsonArray fields;
+    for (const auto& f : r->fields())
+        fields.append(QJsonArray{f.name, f.value});
+    QJsonObject obj{
+        {QStringLiteral("fields"), fields},
+        {QStringLiteral("uuid"), m->uuid},
+        {QStringLiteral("revision"), m->revision},
+        {QStringLiteral("source"), m->source},
+        {QStringLiteral("source_app"), m->sourceApp},
+        {QStringLiteral("station_profile_id"), m->stationProfileId},
+        {QStringLiteral("updated_at"), m->updatedAt},
+    };
+    return QString::fromUtf8(QJsonDocument(obj).toJson(QJsonDocument::Compact));
+}
+
+InsertResult LogDatabase::updateQso(qint64 id, const AdifRecord& input, qint64 stationProfileId,
+                                    const QString& reason)
+{
+    InsertResult result;
+    result.id = id;
+    const auto m = meta(id);
+    if (!m) {
+        result.message = QStringLiteral("QSO %1 not found").arg(id);
+        return result;
+    }
+    const auto p = prepare(input, result);
+    if (!p)
+        return result;
+
+    QSqlDatabase db = connection();
+    if (!db.transaction()) {
+        result.message = db.lastError().text();
+        return result;
+    }
+
+    QSqlQuery h(db);
+    h.prepare(QStringLiteral(
+        "INSERT INTO qso_history (qso_uuid, revision, snapshot, reason, recorded_at) VALUES (?, ?, ?, ?, ?)"));
+    h.addBindValue(m->uuid);
+    h.addBindValue(m->revision);
+    h.addBindValue(snapshotJson(id));
+    h.addBindValue(reason);
+    h.addBindValue(nowIso());
+    if (!h.exec()) {
+        db.rollback();
+        result.message = h.lastError().text();
+        return result;
+    }
+
+    // Tutte le colonne ADIF: quelle che il record non ha piu' tornano NULL.
+    QStringList sets{QStringLiteral("qso_datetime_on = ?"), QStringLiteral("qso_datetime_off = ?"),
+                     QStringLiteral("adif_extra = ?"), QStringLiteral("revision = revision + 1"),
+                     QStringLiteral("updated_at = ?"), QStringLiteral("dirty = 1")};
+    QVariantList values{p->on, p->off.isEmpty() ? QVariant() : QVariant(p->off),
+                        p->extraJson.isEmpty() ? QVariant() : QVariant(p->extraJson), nowIso()};
+    for (const auto& c : kColumns) {
+        const QLatin1String name(c.column);
+        sets << name + QStringLiteral(" = ?");
+        QVariant v;
+        for (const auto& [column, value] : p->columns) {
+            if (column == name) {
+                v = value;
+                break;
+            }
+        }
+        values << v;
+    }
+    if (stationProfileId >= 0) {
+        sets << QStringLiteral("station_profile_id = ?");
+        values << (stationProfileId > 0 ? QVariant(stationProfileId) : QVariant());
+    }
+
+    QSqlQuery u(db);
+    u.prepare(QStringLiteral("UPDATE qso SET %1 WHERE id = ?").arg(sets.join(QStringLiteral(", "))));
+    for (const auto& v : values)
+        u.addBindValue(v);
+    u.addBindValue(id);
+    if (!u.exec() || !writeQsl(id, p->qsl, true)) {
+        result.message = u.lastError().text();
+        db.rollback();
+        return result;
+    }
+    if (!db.commit()) {
+        result.message = db.lastError().text();
+        return result;
+    }
+    result.status = InsertResult::Status::Inserted;
+    return result;
+}
+
+bool LogDatabase::softDeleteQso(qint64 id)
+{
+    const auto m = meta(id);
+    if (!m || m->deleted)
+        return false;
+    QSqlDatabase db = connection();
+    db.transaction();
+    QSqlQuery h(db);
+    h.prepare(QStringLiteral(
+        "INSERT INTO qso_history (qso_uuid, revision, snapshot, reason, recorded_at) VALUES (?, ?, ?, 'delete', ?)"));
+    h.addBindValue(m->uuid);
+    h.addBindValue(m->revision);
+    h.addBindValue(snapshotJson(id));
+    h.addBindValue(nowIso());
+    QSqlQuery u(db);
+    u.prepare(QStringLiteral(
+        "UPDATE qso SET deleted = 1, dirty = 1, revision = revision + 1, updated_at = ? WHERE id = ?"));
+    u.addBindValue(nowIso());
+    u.addBindValue(id);
+    if (!h.exec() || !u.exec()) {
+        db.rollback();
+        return false;
+    }
+    return db.commit();
 }
 
 std::optional<AdifRecord> LogDatabase::record(qint64 id) const
@@ -405,6 +712,21 @@ std::optional<AdifRecord> LogDatabase::record(qint64 id) const
     for (const auto& c : kColumns)
         r.set(QLatin1String(c.adif), fromColumnValue(c, row.value(QLatin1String(c.column))));
 
+    for (const QslState& st : qslStatus(id)) {
+        for (const auto& f : kQslFields) {
+            if (st.service != QLatin1String(f.service))
+                continue;
+            if (st.sent != QLatin1String("N"))
+                r.set(QLatin1String(f.sent), st.sent);
+            r.set(QLatin1String(f.sentDate), st.sentDate);
+            if (*f.rcvd) {
+                if (st.rcvd != QLatin1String("N"))
+                    r.set(QLatin1String(f.rcvd), st.rcvd);
+                r.set(QLatin1String(f.rcvdDate), st.rcvdDate);
+            }
+        }
+    }
+
     const QString extra = row.value(QStringLiteral("adif_extra")).toString();
     if (!extra.isEmpty()) {
         const QJsonObject obj = QJsonDocument::fromJson(extra.toUtf8()).object();
@@ -414,7 +736,88 @@ std::optional<AdifRecord> LogDatabase::record(qint64 id) const
     return r;
 }
 
-ImportResult LogDatabase::importAdif(const QByteArray& data, const QString& source)
+std::optional<QsoMeta> LogDatabase::meta(qint64 id) const
+{
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral(
+        "SELECT uuid, revision, source, source_app, created_at, updated_at, dirty, deleted, station_profile_id "
+        "FROM qso WHERE id = ?"));
+    q.addBindValue(id);
+    if (!q.exec() || !q.next())
+        return std::nullopt;
+    QsoMeta m;
+    m.uuid = q.value(0).toString();
+    m.revision = q.value(1).toInt();
+    m.source = q.value(2).toString();
+    m.sourceApp = q.value(3).toString();
+    m.createdAt = q.value(4).toString();
+    m.updatedAt = q.value(5).toString();
+    m.dirty = q.value(6).toBool();
+    m.deleted = q.value(7).toBool();
+    m.stationProfileId = q.value(8).toLongLong();
+    return m;
+}
+
+QList<QslState> LogDatabase::qslStatus(qint64 id) const
+{
+    QList<QslState> out;
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral(
+        "SELECT service, sent, sent_date, rcvd, rcvd_date, remote_id, last_error FROM qsl_status WHERE qso_id = ?"));
+    q.addBindValue(id);
+    if (!q.exec())
+        return out;
+    while (q.next()) {
+        QslState st;
+        st.service = q.value(0).toString();
+        st.sent = q.value(1).toString();
+        st.sentDate = q.value(2).toString();
+        st.rcvd = q.value(3).toString();
+        st.rcvdDate = q.value(4).toString();
+        st.remoteId = q.value(5).toString();
+        st.lastError = q.value(6).toString();
+        out << st;
+    }
+    return out;
+}
+
+QList<HistoryEntry> LogDatabase::history(qint64 id) const
+{
+    QList<HistoryEntry> out;
+    const auto m = meta(id);
+    if (!m)
+        return out;
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral(
+        "SELECT id, revision, reason, recorded_at, snapshot FROM qso_history WHERE qso_uuid = ? "
+        "ORDER BY revision DESC, id DESC"));
+    q.addBindValue(m->uuid);
+    if (!q.exec())
+        return out;
+    while (q.next()) {
+        HistoryEntry e;
+        e.id = q.value(0).toLongLong();
+        e.revision = q.value(1).toInt();
+        e.reason = q.value(2).toString();
+        e.recordedAt = parseIso(q.value(3).toString());
+        e.record = recordFromSnapshot(q.value(4).toString());
+        out << e;
+    }
+    return out;
+}
+
+InsertResult LogDatabase::restoreRevision(qint64 id, qint64 historyId)
+{
+    for (const HistoryEntry& e : history(id)) {
+        if (e.id == historyId)
+            return updateQso(id, e.record, -1, QStringLiteral("edit"));
+    }
+    InsertResult r;
+    r.message = QStringLiteral("revision not found");
+    return r;
+}
+
+ImportResult LogDatabase::importAdif(const QByteArray& data, const QString& source, qint64 stationProfileId)
 {
     ImportResult result;
     const AdifDocument doc = adif::parse(data);
@@ -422,9 +825,9 @@ ImportResult LogDatabase::importAdif(const QByteArray& data, const QString& sour
 
     QSqlDatabase db = connection();
     // Una transazione sola: diecimila QSO in secondi invece che in minuti.
-    db.transaction();
+    const bool ownTransaction = db.transaction();
     for (const auto& rec : doc.records) {
-        const InsertResult r = insertQso(rec, source, programId);
+        const InsertResult r = insertQso(rec, source, programId, false, stationProfileId);
         switch (r.status) {
         case InsertResult::Status::Inserted:  ++result.inserted; break;
         case InsertResult::Status::Duplicate: ++result.duplicates; break;
@@ -436,11 +839,22 @@ ImportResult LogDatabase::importAdif(const QByteArray& data, const QString& sour
             break;
         }
     }
-    db.commit();
+    if (ownTransaction)
+        db.commit();
     return result;
 }
 
 QByteArray LogDatabase::exportAdif(const QString& programVersion) const
+{
+    QList<qint64> ids;
+    QSqlQuery q(connection());
+    q.exec(QStringLiteral("SELECT id FROM qso WHERE deleted = 0 ORDER BY qso_datetime_on, id"));
+    while (q.next())
+        ids << q.value(0).toLongLong();
+    return exportAdif(ids, programVersion);
+}
+
+QByteArray LogDatabase::exportAdif(const QList<qint64>& ids, const QString& programVersion) const
 {
     AdifDocument doc;
     doc.header.set(QStringLiteral("ADIF_VER"), QStringLiteral("3.1.5"));
@@ -448,11 +862,8 @@ QByteArray LogDatabase::exportAdif(const QString& programVersion) const
     doc.header.set(QStringLiteral("PROGRAMVERSION"), programVersion);
     doc.header.set(QStringLiteral("CREATED_TIMESTAMP"),
                    QDateTime::currentDateTimeUtc().toString(QStringLiteral("yyyyMMdd HHmmss")));
-
-    QSqlQuery q(connection());
-    q.exec(QStringLiteral("SELECT id FROM qso WHERE deleted = 0 ORDER BY qso_datetime_on, id"));
-    while (q.next()) {
-        if (auto r = record(q.value(0).toLongLong()))
+    for (qint64 id : ids) {
+        if (auto r = record(id))
             doc.records.append(*r);
     }
     return adif::writeDocument(doc);
@@ -474,6 +885,14 @@ int LogDatabase::dirtyCount() const
     return 0;
 }
 
+int LogDatabase::conflictCount() const
+{
+    QSqlQuery q(connection());
+    if (q.exec(QStringLiteral("SELECT COUNT(*) FROM qso_history WHERE reason = 'conflict_lost'")) && q.next())
+        return q.value(0).toInt();
+    return 0;
+}
+
 WorkedBefore LogDatabase::workedBefore(const QString& call) const
 {
     WorkedBefore wb;
@@ -483,7 +902,8 @@ WorkedBefore LogDatabase::workedBefore(const QString& call) const
 
     QSqlQuery q(connection());
     q.prepare(QStringLiteral(
-        "SELECT band, mode, submode, qso_datetime_on, name, gridsquare, country "
+        "SELECT band, mode, submode, qso_datetime_on, name, gridsquare, country, qth, dxcc, cqz, ituz, id, "
+        "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'lotw') "
         "FROM qso WHERE deleted = 0 AND call = ? ORDER BY qso_datetime_on DESC"));
     q.addBindValue(c);
     if (!q.exec())
@@ -492,24 +912,303 @@ WorkedBefore LogDatabase::workedBefore(const QString& call) const
     const QStringList order = bands::all();
     while (q.next()) {
         const QString band = q.value(0).toString();
-        const QString sub = q.value(2).toString();
-        const QString mode = sub.isEmpty() ? q.value(1).toString() : sub;
+        const QString mode = displayMode(q.value(1).toString(), q.value(2).toString());
+        const QDateTime on = parseIso(q.value(3).toString());
         if (wb.count == 0) {
-            wb.last = parseIso(q.value(3).toString());
+            wb.last = on;
             wb.lastBand = band;
             wb.lastMode = mode;
+            wb.lastId = q.value(11).toLongLong();
         }
         if (wb.name.isEmpty()) wb.name = q.value(4).toString();
         if (wb.gridsquare.isEmpty()) wb.gridsquare = q.value(5).toString();
         if (wb.country.isEmpty()) wb.country = q.value(6).toString();
+        if (wb.qth.isEmpty()) wb.qth = q.value(7).toString();
+        if (wb.dxcc == 0) wb.dxcc = q.value(8).toInt();
+        if (wb.cqz == 0) wb.cqz = q.value(9).toInt();
+        if (wb.ituz == 0) wb.ituz = q.value(10).toInt();
         if (!wb.bands.contains(band)) wb.bands << band;
         if (!wb.modes.contains(mode)) wb.modes << mode;
+        if (wb.recent.size() < 5)
+            wb.recent << WorkedEntry{on, band, mode, q.value(12).toString()};
         ++wb.count;
     }
     std::sort(wb.bands.begin(), wb.bands.end(), [&order](const QString& a, const QString& b) {
         return order.indexOf(a) < order.indexOf(b);
     });
     return wb;
+}
+
+bool LogDatabase::isFirstFt2Dxcc(qint64 id) const
+{
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral(
+        "SELECT q.dxcc, (SELECT COUNT(*) FROM qso o WHERE o.deleted = 0 AND o.submode = 'FT2' "
+        "AND o.dxcc = q.dxcc AND o.id <> q.id) FROM qso q WHERE q.id = ? AND q.submode = 'FT2'"));
+    q.addBindValue(id);
+    if (!q.exec() || !q.next() || q.value(0).isNull())
+        return false;
+    return q.value(1).toInt() == 0;
+}
+
+Ft2Award LogDatabase::ft2Award() const
+{
+    Ft2Award a;
+    QSqlQuery q(connection());
+    const QString ft2 = QStringLiteral("FROM qso WHERE deleted = 0 AND submode = 'FT2'");
+    const QString lotw = QStringLiteral(
+        " AND EXISTS (SELECT 1 FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'lotw' AND s.rcvd = 'Y')");
+    auto scalar = [&q](const QString& sql) {
+        return q.exec(sql) && q.next() ? q.value(0).toInt() : 0;
+    };
+    a.qsos = scalar(QStringLiteral("SELECT COUNT(*) ") + ft2);
+    a.dxccWorked = scalar(QStringLiteral("SELECT COUNT(DISTINCT dxcc) ") + ft2 + QStringLiteral(" AND dxcc > 0"));
+    a.dxccConfirmed = scalar(QStringLiteral("SELECT COUNT(DISTINCT dxcc) ") + ft2 + QStringLiteral(" AND dxcc > 0") + lotw);
+    const QString grid = QStringLiteral("SELECT COUNT(DISTINCT UPPER(SUBSTR(gridsquare, 1, 4))) ");
+    const QString hasGrid = QStringLiteral(" AND LENGTH(gridsquare) >= 4");
+    a.gridsWorked = scalar(grid + ft2 + hasGrid);
+    a.gridsConfirmed = scalar(grid + ft2 + hasGrid + lotw);
+    return a;
+}
+
+QList<CountRow> LogDatabase::countByBand() const
+{
+    QList<CountRow> out;
+    QSqlQuery q(connection());
+    if (q.exec(QStringLiteral("SELECT band, COUNT(*) FROM qso WHERE deleted = 0 GROUP BY band"))) {
+        while (q.next())
+            out << CountRow{q.value(0).toString(), q.value(1).toInt()};
+    }
+    const QStringList order = bands::all();
+    std::sort(out.begin(), out.end(), [&order](const CountRow& a, const CountRow& b) {
+        return order.indexOf(a.key) < order.indexOf(b.key);
+    });
+    return out;
+}
+
+QList<CountRow> LogDatabase::countByMode() const
+{
+    QList<CountRow> out;
+    QSqlQuery q(connection());
+    if (q.exec(QStringLiteral(
+            "SELECT CASE WHEN IFNULL(submode, '') = '' THEN mode ELSE submode END AS m, COUNT(*) AS n "
+            "FROM qso WHERE deleted = 0 GROUP BY m ORDER BY n DESC"))) {
+        while (q.next())
+            out << CountRow{q.value(0).toString(), q.value(1).toInt()};
+    }
+    return out;
+}
+
+QList<QVariantMap> LogDatabase::qslSummary() const
+{
+    QList<QVariantMap> out;
+    for (const auto& f : kQslFields) {
+        QSqlQuery q(connection());
+        q.prepare(QStringLiteral(
+            "SELECT SUM(sent IN ('R','Q')), SUM(sent = 'Y'), SUM(rcvd = 'Y'), SUM(IFNULL(last_error, '') <> '') "
+            "FROM qsl_status s JOIN qso ON qso.id = s.qso_id WHERE qso.deleted = 0 AND s.service = ?"));
+        q.addBindValue(QLatin1String(f.service));
+        QVariantMap row{{QStringLiteral("service"), QLatin1String(f.service)}};
+        if (q.exec() && q.next()) {
+            row[QStringLiteral("queued")] = q.value(0).toInt();
+            row[QStringLiteral("sent")] = q.value(1).toInt();
+            row[QStringLiteral("confirmed")] = q.value(2).toInt();
+            row[QStringLiteral("errors")] = q.value(3).toInt();
+        }
+        out << row;
+    }
+    return out;
+}
+
+QStringList LogDatabase::workedGrids(int limit) const
+{
+    QStringList out;
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral(
+        "SELECT DISTINCT UPPER(SUBSTR(gridsquare, 1, 4)) FROM qso WHERE deleted = 0 "
+        "AND LENGTH(gridsquare) >= 4 LIMIT ?"));
+    q.addBindValue(limit);
+    if (q.exec()) {
+        while (q.next())
+            out << q.value(0).toString();
+    }
+    return out;
+}
+
+// ── Profili stazione ───────────────────────────────────────────────────────────
+
+namespace {
+
+StationProfile profileFromQuery(const QSqlQuery& q)
+{
+    StationProfile p;
+    p.id = q.value(0).toLongLong();
+    p.uuid = q.value(1).toString();
+    p.name = q.value(2).toString();
+    p.stationCallsign = q.value(3).toString();
+    p.operatorCall = q.value(4).toString();
+    p.myGridsquare = q.value(5).toString();
+    p.myCqZone = q.value(6).toInt();
+    p.myItuZone = q.value(7).toInt();
+    p.myDxcc = q.value(8).toInt();
+    p.myRig = q.value(9).toString();
+    p.myAntenna = q.value(10).toString();
+    p.defaultTxPwr = q.value(11).toDouble();
+    p.lotwStationLocation = q.value(12).toString();
+    p.isDefault = q.value(13).toBool();
+    p.revision = q.value(14).toInt();
+    p.deleted = q.value(15).toBool();
+    p.dirty = q.value(16).toBool();
+    p.qsoCount = q.value(17).toInt();
+    return p;
+}
+
+const QString kProfileSelect = QStringLiteral(
+    "SELECT id, uuid, name, station_callsign, operator, my_gridsquare, my_cq_zone, my_itu_zone, my_dxcc, "
+    "my_rig, my_antenna, default_tx_pwr, lotw_station_loc, is_default, revision, deleted, dirty, "
+    "(SELECT COUNT(*) FROM qso WHERE qso.station_profile_id = station_profile.id AND qso.deleted = 0) "
+    "FROM station_profile");
+
+} // namespace
+
+QList<StationProfile> LogDatabase::stationProfiles(bool includeDeleted) const
+{
+    QList<StationProfile> out;
+    QSqlQuery q(connection());
+    const QString where = includeDeleted ? QString() : QStringLiteral(" WHERE deleted = 0");
+    if (q.exec(kProfileSelect + where + QStringLiteral(" ORDER BY deleted, is_default DESC, name COLLATE NOCASE"))) {
+        while (q.next())
+            out << profileFromQuery(q);
+    }
+    return out;
+}
+
+std::optional<StationProfile> LogDatabase::stationProfile(qint64 id) const
+{
+    QSqlQuery q(connection());
+    q.prepare(kProfileSelect + QStringLiteral(" WHERE id = ?"));
+    q.addBindValue(id);
+    if (q.exec() && q.next())
+        return profileFromQuery(q);
+    return std::nullopt;
+}
+
+qint64 LogDatabase::saveStationProfile(const StationProfile& p)
+{
+    QSqlDatabase db = connection();
+    db.transaction();
+    auto nullableInt = [](int v) { return v > 0 ? QVariant(v) : QVariant(); };
+    auto nullableText = [](const QString& s) { return s.trimmed().isEmpty() ? QVariant() : QVariant(s.trimmed()); };
+
+    // Un solo profilo predefinito alla volta.
+    if (p.isDefault) {
+        QSqlQuery clear(db);
+        clear.prepare(QStringLiteral(
+            "UPDATE station_profile SET is_default = 0, dirty = 1, revision = revision + 1, updated_at = ? "
+            "WHERE is_default = 1 AND id <> ?"));
+        clear.addBindValue(nowIso());
+        clear.addBindValue(p.id);
+        clear.exec();
+    }
+
+    QSqlQuery q(db);
+    if (p.id <= 0) {
+        q.prepare(QStringLiteral(
+            "INSERT INTO station_profile (uuid, name, station_callsign, operator, my_gridsquare, my_cq_zone, "
+            "my_itu_zone, my_dxcc, my_rig, my_antenna, default_tx_pwr, lotw_station_loc, is_default, updated_at) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"));
+        q.addBindValue(QUuid::createUuid().toString(QUuid::WithoutBraces));
+    } else {
+        q.prepare(QStringLiteral(
+            "UPDATE station_profile SET name = ?, station_callsign = ?, operator = ?, my_gridsquare = ?, "
+            "my_cq_zone = ?, my_itu_zone = ?, my_dxcc = ?, my_rig = ?, my_antenna = ?, default_tx_pwr = ?, "
+            "lotw_station_loc = ?, is_default = ?, updated_at = ?, revision = revision + 1, dirty = 1 WHERE id = ?"));
+    }
+    q.addBindValue(p.name.trimmed());
+    q.addBindValue(p.stationCallsign.trimmed().toUpper());
+    q.addBindValue(nullableText(p.operatorCall.toUpper()));
+    q.addBindValue(nullableText(p.myGridsquare));
+    q.addBindValue(nullableInt(p.myCqZone));
+    q.addBindValue(nullableInt(p.myItuZone));
+    q.addBindValue(nullableInt(p.myDxcc));
+    q.addBindValue(nullableText(p.myRig));
+    q.addBindValue(nullableText(p.myAntenna));
+    q.addBindValue(p.defaultTxPwr > 0 ? QVariant(p.defaultTxPwr) : QVariant());
+    q.addBindValue(nullableText(p.lotwStationLocation));
+    q.addBindValue(p.isDefault ? 1 : 0);
+    q.addBindValue(nowIso());
+    if (p.id > 0)
+        q.addBindValue(p.id);
+    if (!q.exec()) {
+        m_lastError = q.lastError().text();
+        db.rollback();
+        return 0;
+    }
+    db.commit();
+    return p.id > 0 ? p.id : q.lastInsertId().toLongLong();
+}
+
+bool LogDatabase::deleteStationProfile(qint64 id)
+{
+    // I QSO restano legati al profilo: cancellarlo non deve cambiare il log.
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral(
+        "UPDATE station_profile SET deleted = 1, is_default = 0, dirty = 1, revision = revision + 1, "
+        "updated_at = ? WHERE id = ?"));
+    q.addBindValue(nowIso());
+    q.addBindValue(id);
+    return q.exec() && q.numRowsAffected() > 0;
+}
+
+qint64 LogDatabase::profileForCallsign(const QString& stationCallsign) const
+{
+    const QString c = stationCallsign.trimmed().toUpper();
+    if (c.isEmpty())
+        return 0;
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral(
+        "SELECT id FROM station_profile WHERE deleted = 0 AND station_callsign = ? ORDER BY is_default DESC"));
+    q.addBindValue(c);
+    // Con piu' profili sullo stesso nominativo vince quello predefinito.
+    if (q.exec() && q.next())
+        return q.value(0).toLongLong();
+    return 0;
+}
+
+// ── Impostazioni e manutenzione ────────────────────────────────────────────────
+
+QString LogDatabase::setting(const QString& key, const QString& fallback) const
+{
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("SELECT value FROM app_setting WHERE key = ?"));
+    q.addBindValue(key);
+    if (q.exec() && q.next())
+        return q.value(0).toString();
+    return fallback;
+}
+
+void LogDatabase::setSetting(const QString& key, const QString& value)
+{
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("INSERT INTO app_setting (key, value) VALUES (?, ?) "
+                             "ON CONFLICT(key) DO UPDATE SET value = excluded.value"));
+    q.addBindValue(key);
+    q.addBindValue(value);
+    q.exec();
+}
+
+bool LogDatabase::backupTo(const QString& filePath)
+{
+    if (QFile::exists(filePath))
+        QFile::remove(filePath);
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("VACUUM INTO ?"));
+    q.addBindValue(filePath);
+    if (!q.exec()) {
+        m_lastError = q.lastError().text();
+        return false;
+    }
+    return true;
 }
 
 } // namespace decolog::core

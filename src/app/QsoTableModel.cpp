@@ -1,5 +1,6 @@
 #include "app/QsoTableModel.h"
 
+#include "core/Bands.h"
 #include "core/LogDatabase.h"
 
 #include <QDateTime>
@@ -8,6 +9,32 @@
 namespace decolog::app {
 
 using core::LogDatabase;
+
+namespace {
+
+// Una lettera per servizio, nell'ordine delle colonne L Q C E: 'c' confermato,
+// 's' inviato o in coda, '-' niente.
+QString qslCodes(const QString& summary)
+{
+    QString codes = QStringLiteral("----");
+    static const QStringList order{QStringLiteral("lotw"), QStringLiteral("qrz"),
+                                   QStringLiteral("clublog"), QStringLiteral("eqsl")};
+    for (const QString& item : summary.split(QLatin1Char(','), Qt::SkipEmptyParts)) {
+        const QStringList parts = item.split(QLatin1Char(':'));
+        if (parts.size() != 3)
+            continue;
+        const qsizetype i = order.indexOf(parts.at(0));
+        if (i < 0)
+            continue;
+        if (parts.at(2) == QLatin1String("Y"))
+            codes[i] = QLatin1Char('c');
+        else if (parts.at(1) != QLatin1String("N"))
+            codes[i] = QLatin1Char('s');
+    }
+    return codes;
+}
+
+} // namespace
 
 QsoTableModel::QsoTableModel(LogDatabase* db, QObject* parent)
     : QAbstractTableModel(parent)
@@ -40,6 +67,8 @@ QVariant QsoTableModel::data(const QModelIndex& index, int role) const
         return columnKey(index.column());
     case IsNewRole:
         return row.fresh;
+    case ModeRole:
+        return row.values[Mode];
     default:
         return {};
     }
@@ -49,20 +78,7 @@ QVariant QsoTableModel::headerData(int section, Qt::Orientation orientation, int
 {
     if (role != Qt::DisplayRole || orientation != Qt::Horizontal)
         return {};
-    switch (section) {
-    case Utc:     return tr("UTC");
-    case Call:    return tr("Call");
-    case Band:    return tr("Band");
-    case Mode:    return tr("Mode");
-    case Freq:    return tr("MHz");
-    case RstSent: return tr("Sent");
-    case RstRcvd: return tr("Rcvd");
-    case Grid:    return tr("Grid");
-    case Name:    return tr("Name");
-    case Country: return tr("Country");
-    case Source:  return tr("Source");
-    default:      return {};
-    }
+    return columnTitle(section);
 }
 
 QHash<int, QByteArray> QsoTableModel::roleNames() const
@@ -72,33 +88,54 @@ QHash<int, QByteArray> QsoTableModel::roleNames() const
         {IdRole, "qsoId"},
         {ColumnKeyRole, "columnKey"},
         {IsNewRole, "isNew"},
+        {ModeRole, "modeName"},
     };
 }
 
 QString QsoTableModel::columnKey(int column) const
 {
     static const QStringList keys{
-        QStringLiteral("utc"), QStringLiteral("call"), QStringLiteral("band"),
-        QStringLiteral("mode"), QStringLiteral("freq"), QStringLiteral("rst_sent"),
-        QStringLiteral("rst_rcvd"), QStringLiteral("grid"), QStringLiteral("name"),
-        QStringLiteral("country"), QStringLiteral("source")};
+        QStringLiteral("utc"), QStringLiteral("call"), QStringLiteral("band"), QStringLiteral("freq"),
+        QStringLiteral("mode"), QStringLiteral("rst_sent"), QStringLiteral("rst_rcvd"),
+        QStringLiteral("grid"), QStringLiteral("name"), QStringLiteral("dxcc"), QStringLiteral("qsl"),
+        QStringLiteral("source")};
     return keys.value(column);
+}
+
+QString QsoTableModel::columnTitle(int column) const
+{
+    switch (column) {
+    case Utc:     return tr("UTC");
+    case Call:    return tr("Call");
+    case Band:    return tr("Band");
+    case Freq:    return tr("Freq");
+    case Mode:    return tr("Mode");
+    case RstSent: return tr("S");
+    case RstRcvd: return tr("R");
+    case Grid:    return tr("Grid");
+    case Name:    return tr("Name");
+    case Dxcc:    return tr("DXCC");
+    case Qsl:     return tr("QSL");
+    case Source:  return tr("Src");
+    default:      return {};
+    }
 }
 
 int QsoTableModel::columnWidthHint(int column) const
 {
     switch (column) {
-    case Utc:     return 164;
-    case Call:    return 96;
+    case Utc:     return 132;
+    case Call:    return 118;
     case Band:    return 56;
+    case Freq:    return 96;
     case Mode:    return 60;
-    case Freq:    return 92;
     case RstSent:
-    case RstRcvd: return 50;
-    case Grid:    return 62;
-    case Name:    return 120;
-    case Country: return 130;
-    case Source:  return 96;
+    case RstRcvd: return 46;
+    case Grid:    return 74;
+    case Name:    return 140;
+    case Dxcc:    return 56;
+    case Qsl:     return 84;
+    case Source:  return 52;
     default:      return 80;
     }
 }
@@ -107,8 +144,9 @@ QString QsoTableModel::selectSql(const QString& where) const
 {
     return QStringLiteral(
                "SELECT id, qso_datetime_on, call, band, mode, submode, freq, rst_sent, rst_rcvd, "
-               "gridsquare, name, country, source FROM qso WHERE deleted = 0 %1 "
-               "ORDER BY qso_datetime_on DESC, id DESC")
+               "gridsquare, name, dxcc, source, "
+               "(SELECT group_concat(service || ':' || sent || ':' || rcvd) FROM qsl_status s WHERE s.qso_id = qso.id) "
+               "FROM qso WHERE deleted = 0 %1 ORDER BY qso_datetime_on DESC, id DESC")
         .arg(where);
 }
 
@@ -116,8 +154,9 @@ QsoTableModel::Row QsoTableModel::rowFromQuery(const QSqlQuery& q) const
 {
     Row r;
     r.id = q.value(0).toLongLong();
-    const QDateTime on = QDateTime::fromString(q.value(1).toString(), Qt::ISODate);
-    r.values[Utc] = on.toUTC().toString(QStringLiteral("yyyy-MM-dd HH:mm:ss"));
+    r.sortKey = q.value(1).toString();
+    const QDateTime on = QDateTime::fromString(r.sortKey, Qt::ISODate);
+    r.values[Utc] = on.toUTC().toString(QStringLiteral("yy-MM-dd HH:mm"));
     r.values[Call] = q.value(2).toString();
     r.values[Band] = q.value(3).toString();
     const QString submode = q.value(5).toString();
@@ -129,14 +168,25 @@ QsoTableModel::Row QsoTableModel::rowFromQuery(const QSqlQuery& q) const
     r.values[RstRcvd] = q.value(8).toString();
     r.values[Grid] = q.value(9).toString();
     r.values[Name] = q.value(10).toString();
-    r.values[Country] = q.value(11).toString();
+    r.values[Dxcc] = q.value(11).isNull() ? QString() : q.value(11).toString();
     const QString source = q.value(12).toString();
-    if (source == QLatin1String("udp_decodium"))   r.values[Source] = QStringLiteral("Decodium");
-    else if (source == QLatin1String("udp_wsjtx")) r.values[Source] = QStringLiteral("WSJT-X");
-    else if (source == QLatin1String("import"))    r.values[Source] = tr("Import");
-    else if (source == QLatin1String("manual"))    r.values[Source] = tr("Manual");
-    else r.values[Source] = source;
+    if (source.startsWith(QLatin1String("udp")))  r.values[Source] = QStringLiteral("udp");
+    else if (source == QLatin1String("manual"))   r.values[Source] = QStringLiteral("man");
+    else if (source == QLatin1String("import"))   r.values[Source] = QStringLiteral("imp");
+    else if (source == QLatin1String("cloud"))    r.values[Source] = QStringLiteral("cld");
+    else r.values[Source] = source.left(3);
+    r.values[Qsl] = qslCodes(q.value(13).toString());
     return r;
+}
+
+bool QsoTableModel::filtered() const
+{
+    return !m_filter.trimmed().isEmpty() || !m_bands.isEmpty() || !m_modes.isEmpty() || !m_month.isEmpty();
+}
+
+void QsoTableModel::refreshTotal()
+{
+    m_total = m_db && m_db->isOpen() ? m_db->qsoCount() : 0;
 }
 
 void QsoTableModel::reload()
@@ -144,36 +194,58 @@ void QsoTableModel::reload()
     beginResetModel();
     m_rows.clear();
     if (m_db && m_db->isOpen()) {
-        QSqlQuery q(m_db->connection());
+        QStringList where;
+        QVariantList binds;
         const QString f = m_filter.trimmed().toUpper();
-        if (f.isEmpty()) {
-            q.prepare(selectSql({}));
-        } else {
-            // Un filtro semplice per ora: nominativo, locatore, banda o modo.
-            q.prepare(selectSql(QStringLiteral(
-                "AND (call LIKE ? OR gridsquare LIKE ? OR band = ? OR mode = ? OR submode = ?)")));
+        if (!f.isEmpty()) {
+            // Ricerca libera: nominativo, locatore o nome.
+            where << QStringLiteral("(call LIKE ? OR UPPER(gridsquare) LIKE ? OR UPPER(name) LIKE ?)");
             const QString like = QLatin1Char('%') + f + QLatin1Char('%');
-            q.addBindValue(like);
-            q.addBindValue(like);
-            q.addBindValue(f.toLower());
-            q.addBindValue(f);
-            q.addBindValue(f);
+            binds << like << like << like;
         }
+        if (!m_bands.isEmpty()) {
+            QStringList marks;
+            for (const QString& b : m_bands) {
+                marks << QStringLiteral("?");
+                binds << b.toLower();
+            }
+            where << QStringLiteral("band IN (%1)").arg(marks.join(QLatin1Char(',')));
+        }
+        if (!m_modes.isEmpty()) {
+            QStringList marks;
+            for (const QString& m : m_modes) {
+                marks << QStringLiteral("?");
+                binds << m.toUpper();
+            }
+            where << QStringLiteral("(CASE WHEN IFNULL(submode, '') = '' THEN mode ELSE submode END) IN (%1)")
+                         .arg(marks.join(QLatin1Char(',')));
+        }
+        if (!m_month.isEmpty()) {
+            where << QStringLiteral("SUBSTR(qso_datetime_on, 1, 7) = ?");
+            binds << m_month;
+        }
+
+        QSqlQuery q(m_db->connection());
+        q.prepare(selectSql(where.isEmpty() ? QString()
+                                            : QStringLiteral("AND ") + where.join(QStringLiteral(" AND "))));
+        for (const auto& b : binds)
+            q.addBindValue(b);
         q.setForwardOnly(true);
         if (q.exec()) {
             while (q.next())
                 m_rows.append(rowFromQuery(q));
         }
     }
+    refreshTotal();
     endResetModel();
     emit countChanged();
 }
 
-void QsoTableModel::prependQso(qint64 id)
+void QsoTableModel::insertQso(qint64 id)
 {
     if (!m_db || !m_db->isOpen())
         return;
-    if (!m_filter.trimmed().isEmpty()) {
+    if (filtered()) {
         reload();
         return;
     }
@@ -185,10 +257,10 @@ void QsoTableModel::prependQso(qint64 id)
     Row r = rowFromQuery(q);
     r.fresh = true;
 
-    // Di solito il QSO appena fatto e' il piu' recente; un import vecchio no.
+    // Di solito il QSO appena fatto e' il piu' recente; uno scritto a mano con
+    // l'ora di prima no.
     qsizetype pos = 0;
-    const QString key = r.values[Utc];
-    while (pos < m_rows.size() && m_rows.at(pos).values[Utc] > key)
+    while (pos < m_rows.size() && m_rows.at(pos).sortKey > r.sortKey)
         ++pos;
 
     // Evidenziata solo l'ultima arrivata: e' quella che l'operatore cerca con
@@ -196,15 +268,45 @@ void QsoTableModel::prependQso(qint64 id)
     for (qsizetype i = 0; i < m_rows.size(); ++i) {
         if (m_rows[i].fresh) {
             m_rows[i].fresh = false;
-            const QModelIndex a = index(static_cast<int>(i), 0);
-            emit dataChanged(a, index(static_cast<int>(i), ColumnCount - 1), {IsNewRole});
+            emit dataChanged(index(static_cast<int>(i), 0), index(static_cast<int>(i), ColumnCount - 1), {IsNewRole});
         }
     }
 
     beginInsertRows({}, static_cast<int>(pos), static_cast<int>(pos));
     m_rows.insert(pos, r);
     endInsertRows();
+    refreshTotal();
     emit countChanged();
+}
+
+void QsoTableModel::clearFilters()
+{
+    m_filter.clear();
+    m_bands.clear();
+    m_modes.clear();
+    m_month.clear();
+    emit filtersChanged();
+    reload();
+}
+
+QVariantMap QsoTableModel::filterState() const
+{
+    return {
+        {QStringLiteral("text"), m_filter},
+        {QStringLiteral("bands"), m_bands},
+        {QStringLiteral("modes"), m_modes},
+        {QStringLiteral("month"), m_month},
+    };
+}
+
+void QsoTableModel::applyFilterState(const QVariantMap& state)
+{
+    m_filter = state.value(QStringLiteral("text")).toString();
+    m_bands = state.value(QStringLiteral("bands")).toStringList();
+    m_modes = state.value(QStringLiteral("modes")).toStringList();
+    m_month = state.value(QStringLiteral("month")).toString();
+    emit filtersChanged();
+    reload();
 }
 
 qint64 QsoTableModel::idAt(int row) const
@@ -217,12 +319,68 @@ QString QsoTableModel::callAt(int row) const
     return row >= 0 && row < m_rows.size() ? m_rows.at(row).values[Call] : QString();
 }
 
+int QsoTableModel::rowForId(qint64 id) const
+{
+    for (qsizetype i = 0; i < m_rows.size(); ++i) {
+        if (m_rows.at(i).id == id)
+            return static_cast<int>(i);
+    }
+    return -1;
+}
+
+QStringList QsoTableModel::bandsInLog() const
+{
+    QStringList out;
+    if (!m_db || !m_db->isOpen())
+        return out;
+    for (const auto& row : m_db->countByBand())
+        out << row.key;
+    return out;
+}
+
+QStringList QsoTableModel::modesInLog() const
+{
+    QStringList out;
+    if (!m_db || !m_db->isOpen())
+        return out;
+    for (const auto& row : m_db->countByMode())
+        out << row.key;
+    return out;
+}
+
 void QsoTableModel::setFilterText(const QString& text)
 {
     if (text == m_filter)
         return;
     m_filter = text;
-    emit filterTextChanged();
+    emit filtersChanged();
+    reload();
+}
+
+void QsoTableModel::setBandFilter(const QStringList& bands)
+{
+    if (bands == m_bands)
+        return;
+    m_bands = bands;
+    emit filtersChanged();
+    reload();
+}
+
+void QsoTableModel::setModeFilter(const QStringList& modes)
+{
+    if (modes == m_modes)
+        return;
+    m_modes = modes;
+    emit filtersChanged();
+    reload();
+}
+
+void QsoTableModel::setMonthFilter(const QString& month)
+{
+    if (month == m_month)
+        return;
+    m_month = month;
+    emit filtersChanged();
     reload();
 }
 

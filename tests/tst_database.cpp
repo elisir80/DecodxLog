@@ -1,5 +1,9 @@
 // Database: schema, inserimento, duplicati e import/export senza perdite.
 #include "core/LogDatabase.h"
+#include "core/Maidenhead.h"
+
+#include <QCoreApplication>
+#include <QDir>
 
 #include <QSqlQuery>
 #include <QTest>
@@ -141,6 +145,150 @@ private slots:
                 actual.remove("BAND");
             QCOMPARE(actual, expected);
         }
+    }
+
+    void qslStatusRoundTrip()
+    {
+        const QByteArray original =
+            "<CALL:4>K1AB<QSO_DATE:8>20260101<TIME_ON:4>1000<BAND:3>20m<MODE:3>FT8"
+            "<LOTW_QSL_SENT:1>Y<LOTW_QSLSDATE:8>20260102<LOTW_QSL_RCVD:1>N"
+            "<EQSL_QSL_RCVD:1>Y<CLUBLOG_QSO_UPLOAD_STATUS:1>M<QSL_SENT:1>Q<EOR>";
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        QCOMPARE(db.importAdif(original).inserted, 1);
+
+        QSqlQuery q(db.connection());
+        QVERIFY(q.exec("SELECT service, sent, sent_date, rcvd FROM qsl_status ORDER BY service"));
+        QStringList rows;
+        while (q.next())
+            rows << q.value(0).toString() + ":" + q.value(1).toString() + q.value(2).toString() + q.value(3).toString();
+        QCOMPARE(rows, QStringList({"card:QN", "clublog:MN", "eqsl:NY", "lotw:Y20260102N"}));
+
+        const AdifDocument after = adif::parse(db.exportAdif());
+        QCOMPARE(fieldMap(after.records.first()), fieldMap(adif::parse(original).records.first()));
+    }
+
+    void editKeepsHistoryAndRestores()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        const auto ins = db.insertQso({{"CALL", "9A3XY"}, {"QSO_DATE", "20260916"}, {"TIME_ON", "145215"},
+                                       {"BAND", "20m"}, {"MODE", "FT2"}, {"NAME", "Ivan"}}, "udp_decodium");
+        QCOMPARE(ins.status, InsertResult::Status::Inserted);
+
+        AdifRecord edited = *db.record(ins.id);
+        edited.set("NAME", "Ivan Horvat");
+        edited.set("LOTW_QSL_SENT", "Y");
+        QCOMPARE(db.updateQso(ins.id, edited).status, InsertResult::Status::Inserted);
+
+        const auto m = db.meta(ins.id);
+        QCOMPARE(m->revision, 2);
+        QVERIFY(m->dirty);
+        QCOMPARE(db.record(ins.id)->value("NAME"), QString("Ivan Horvat"));
+        QCOMPARE(db.qslStatus(ins.id).size(), 1);
+
+        const auto hist = db.history(ins.id);
+        QCOMPARE(hist.size(), 1);
+        QCOMPARE(hist.first().revision, 1);
+        QCOMPARE(hist.first().record.value("NAME"), QString("Ivan"));
+
+        QCOMPARE(db.restoreRevision(ins.id, hist.first().id).status, InsertResult::Status::Inserted);
+        QCOMPARE(db.record(ins.id)->value("NAME"), QString("Ivan"));
+        QCOMPARE(db.qslStatus(ins.id).size(), 0);
+        QCOMPARE(db.meta(ins.id)->revision, 3);
+        QCOMPARE(db.history(ins.id).size(), 2);
+
+        QVERIFY(db.softDeleteQso(ins.id));
+        QCOMPARE(db.qsoCount(), 0);
+        QVERIFY(db.meta(ins.id)->deleted);
+        QCOMPARE(db.history(ins.id).first().reason, QString("delete"));
+    }
+
+    void stationProfiles()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        StationProfile home;
+        home.name = "Home JN71DC";
+        home.stationCallsign = "iu8lmc";
+        home.myGridsquare = "JN71DC";
+        home.isDefault = true;
+        const qint64 homeId = db.saveStationProfile(home);
+        QVERIFY(homeId > 0);
+
+        StationProfile portable = home;
+        portable.name = "Portable /P";
+        portable.stationCallsign = "IU8LMC/P";
+        const qint64 portableId = db.saveStationProfile(portable);
+        QVERIFY(portableId > 0);
+
+        // Il secondo predefinito toglie il titolo al primo.
+        auto profiles = db.stationProfiles();
+        QCOMPARE(profiles.size(), 2);
+        QCOMPARE(db.stationProfile(homeId)->isDefault, false);
+        QCOMPARE(db.stationProfile(portableId)->isDefault, true);
+        QCOMPARE(db.stationProfile(homeId)->stationCallsign, QString("IU8LMC"));
+        QCOMPARE(db.profileForCallsign("iu8lmc/p"), portableId);
+
+        db.insertQso({{"CALL", "K1AB"}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1000"}, {"BAND", "20m"}, {"MODE", "SSB"}},
+                     "manual", {}, true, homeId);
+        QCOMPARE(db.stationProfile(homeId)->qsoCount, 1);
+
+        QVERIFY(db.deleteStationProfile(homeId));
+        QCOMPARE(db.stationProfiles(false).size(), 1);
+        QCOMPARE(db.stationProfile(homeId)->qsoCount, 1);
+    }
+
+    void awardStatsAndBackup()
+    {
+        LogDatabase db;
+        const QString dir = QDir::temp().filePath("decolog-test-" + QString::number(QCoreApplication::applicationPid()));
+        QDir().mkpath(dir);
+        QVERIFY(db.open(dir + "/log.sqlite"));
+        const auto a = db.insertQso({{"CALL", "9A3XY"}, {"QSO_DATE", "20260916"}, {"TIME_ON", "1452"}, {"BAND", "20m"},
+                                     {"MODE", "FT2"}, {"DXCC", "497"}, {"GRIDSQUARE", "JN75WS"}, {"LOTW_QSL_RCVD", "Y"}}, "udp_decodium");
+        const auto b = db.insertQso({{"CALL", "9A1AA"}, {"QSO_DATE", "20260916"}, {"TIME_ON", "1500"}, {"BAND", "40m"},
+                                     {"MODE", "FT2"}, {"DXCC", "497"}, {"GRIDSQUARE", "JN85"}}, "udp_decodium");
+        db.insertQso({{"CALL", "W1AW"}, {"QSO_DATE", "20260916"}, {"TIME_ON", "1510"}, {"BAND", "20m"},
+                      {"MODE", "FT8"}, {"DXCC", "291"}, {"GRIDSQUARE", "FN31"}}, "udp_decodium");
+
+        const Ft2Award award = db.ft2Award();
+        QCOMPARE(award.qsos, 2);
+        QCOMPARE(award.dxccWorked, 1);
+        QCOMPARE(award.dxccConfirmed, 1);
+        QCOMPARE(award.gridsWorked, 2);
+        QCOMPARE(award.gridsConfirmed, 1);
+        QVERIFY(!db.isFirstFt2Dxcc(a.id));   // c'e' anche b
+        QVERIFY(!db.isFirstFt2Dxcc(b.id));
+
+        const auto byBand = db.countByBand();
+        QCOMPARE(byBand.size(), 2);
+        QCOMPARE(byBand.first().key, QString("40m"));
+        QCOMPARE(db.countByMode().first().key, QString("FT2"));
+
+        const QString copy = dir + "/backup.sqlite";
+        QVERIFY2(db.backupTo(copy), qPrintable(db.lastError()));
+        LogDatabase restored;
+        QVERIFY(restored.open(copy));
+        QCOMPARE(restored.qsoCount(), 3);
+        restored.close();
+        db.close();
+        QDir(dir).removeRecursively();
+    }
+
+    void maidenheadMath()
+    {
+        const auto jn71 = maidenhead::toLatLon("JN71DC");
+        const auto jn75 = maidenhead::toLatLon("jn75ws");
+        QVERIFY(jn71 && jn75);
+        QVERIFY(qAbs(jn71->lat - 41.1042) < 0.01);
+        QVERIFY(qAbs(jn71->lon - 14.2917) < 0.01);
+        const double km = maidenhead::distanceKm(*jn71, *jn75);
+        QVERIFY2(km > 520 && km < 550, qPrintable(QString::number(km)));
+        const double az = maidenhead::azimuthDeg(*jn71, *jn75);
+        QVERIFY2(az > 0 && az < 30, qPrintable(QString::number(az)));
+        QVERIFY(!maidenhead::toLatLon("ZZ00"));
+        QVERIFY(!maidenhead::toLatLon("JN7"));
     }
 
     void workedBefore()

@@ -48,6 +48,12 @@ public:
     // strutturati. Configurabile per i test.
     void setPairingWindowMs(int ms) { m_pairingMs = ms; }
 
+    // true (predefinito): LoggedADIF e' la fonte, QSOLogged solo come riserva.
+    // false: si usano i campi strutturati di QSOLogged e l'ADIF si ignora, per i
+    // client che mandano un ADIF incompleto.
+    void setPreferLoggedAdif(bool prefer) { m_preferAdif = prefer; }
+    bool prefersLoggedAdif() const { return m_preferAdif; }
+
     // Per i test: tratta un datagramma come se fosse arrivato dalla rete.
     void handleDatagram(const QByteArray& data, const QHostAddress& from = QHostAddress::LocalHost);
 
@@ -80,6 +86,7 @@ private:
     quint16     m_port{0};
     QString     m_lastError;
     int         m_pairingMs{1500};
+    bool        m_preferAdif{true};
     quint64     m_nextPendingKey{1};
     QHash<quint64, Pending> m_pending;
     QHash<QString, UdpClientInfo> m_clients;

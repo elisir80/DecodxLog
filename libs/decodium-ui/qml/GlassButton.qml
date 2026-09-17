@@ -1,4 +1,8 @@
-// decodium-ui — pulsante piatto su vetro, con uno stato "armato" ben distinto.
+// decodium-ui — pulsante a contorno, testo a spaziatura fissa.
+//
+// `tone` colora bordo e testo; `filled` aggiunge il vetro dietro, per l'azione
+// principale di un gruppo o per il comando selezionato. Un pulsante neutro ha
+// il bordo del tema e il testo normale.
 import QtQuick
 import QtQuick.Controls
 import Decodium.UI
@@ -6,42 +10,56 @@ import Decodium.UI
 Button {
     id: root
 
-    // Un comando che sta facendo qualcosa (in ascolto, collegato, in invio) si
-    // deve riconoscere dall'altra parte della stanza.
-    property bool  armed: false
-    property color tone: Theme.primaryColor
-    property int   minimumWidth: 64
+    property color tone: "transparent"
+    readonly property bool toned: tone.a > 0
+    property bool filled: false
+    property int minimumWidth: 0
+    property int buttonHeight: 28
+    property int fontPixelSize: 12
+    // Testo piccolo a destra, per la scorciatoia da tastiera.
+    property string hint: ""
 
-    implicitHeight: Math.max(26, Theme.rowHeight + 4)
-    implicitWidth: Math.max(minimumWidth, contentText.implicitWidth + 20)
-    font.pixelSize: Theme.fontSize
+    implicitHeight: buttonHeight
+    implicitWidth: Math.max(minimumWidth, contentRow.implicitWidth + 24)
+    focusPolicy: Qt.TabFocus
+    opacity: enabled ? 1.0 : 0.45
 
-    contentItem: Text {
-        id: contentText
-        text: root.text
-        font: root.font
-        color: root.enabled ? (root.armed ? Theme.bgDeep : Theme.textPrimary)
-                            : Theme.textSecondary
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        elide: Text.ElideRight
+    contentItem: Item {
+        Row {
+            id: contentRow
+            anchors.centerIn: parent
+            spacing: 8
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                text: root.text
+                font.family: Theme.monoFamily
+                font.pixelSize: root.fontPixelSize
+                font.bold: true
+                color: !root.enabled ? Theme.textSecondary : (root.toned ? root.tone : Theme.textPrimary)
+            }
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                visible: root.hint.length > 0
+                text: root.hint
+                font.family: Theme.monoFamily
+                font.pixelSize: 10
+                color: Theme.textSecondary
+            }
+        }
     }
 
     background: Rectangle {
-        radius: 7
+        radius: 5
         color: {
-            if (!root.enabled)
-                return Qt.rgba(Theme.bgLight.r, Theme.bgLight.g, Theme.bgLight.b, 0.35)
-            if (root.armed)
-                return root.tone
+            const base = root.toned ? root.tone : Theme.primaryColor
             if (root.pressed)
-                return Qt.rgba(root.tone.r, root.tone.g, root.tone.b, 0.45)
+                return Qt.rgba(base.r, base.g, base.b, 0.30)
             if (root.hovered)
-                return Qt.rgba(root.tone.r, root.tone.g, root.tone.b, 0.22)
-            return Theme.glassOverlay
+                return Qt.rgba(base.r, base.g, base.b, 0.14)
+            return root.filled ? Theme.glassOverlay : "transparent"
         }
-        border.color: root.armed ? root.tone : Theme.glassBorder
         border.width: 1
-        Behavior on color { ColorAnimation { duration: 140 } }
+        border.color: root.activeFocus ? Theme.primaryColor : (root.toned ? root.tone : Theme.glassBorder)
+        Behavior on color { ColorAnimation { duration: 120 } }
     }
 }

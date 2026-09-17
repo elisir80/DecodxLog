@@ -6,24 +6,31 @@ import Decodium.UI
 TextField {
     id: root
 
-    property bool mono: false
+    property bool mono: true
     property bool uppercase: false
+    property int fieldHeight: 30
+    property color accentBorder: Theme.primaryColor
 
-    implicitHeight: Math.max(26, Theme.rowHeight + 4)
+    implicitHeight: fieldHeight
+    // Larghezza naturale piccola: nei layout decide lo spazio disponibile, non il
+    // testo segnaposto, cosi' le colonne di una scheda restano uguali.
+    implicitWidth: 60
     font.pixelSize: Theme.fontSize
     font.family: mono ? Theme.monoFamily : Qt.application.font.family
     font.capitalization: uppercase ? Font.AllUppercase : Font.MixedCase
-    color: Theme.textPrimary
+    color: enabled ? Theme.textPrimary : Theme.textSecondary
     placeholderTextColor: Theme.textSecondary
     selectionColor: Theme.primaryColor
     selectedTextColor: Theme.bgDeep
     leftPadding: 8
     rightPadding: 8
+    verticalAlignment: TextInput.AlignVCenter
+    selectByMouse: true
 
     background: Rectangle {
-        radius: 6
+        radius: 4
         color: Theme.bgMedium
         border.width: 1
-        border.color: root.activeFocus ? Theme.primaryColor : Theme.glassBorder
+        border.color: root.activeFocus ? root.accentBorder : Theme.glassBorder
     }
 }

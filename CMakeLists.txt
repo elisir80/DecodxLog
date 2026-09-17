@@ -37,6 +37,8 @@ add_library(decolog_core STATIC
     src/core/Adif.h
     src/core/Bands.cpp
     src/core/Bands.h
+    src/core/Maidenhead.cpp
+    src/core/Maidenhead.h
     src/core/LogDatabase.cpp
     src/core/LogDatabase.h
     src/core/WsjtxProtocol.cpp
@@ -64,17 +66,25 @@ qt_add_executable(decolog
     src/app/QsoTableModel.h
     src/app/DecoLogController.cpp
     src/app/DecoLogController.h
+    src/app/StationProfileModel.cpp
+    src/app/StationProfileModel.h
 )
 
 set(DECOLOG_QML_FILES
     qml/DecoLog/Main.qml
     qml/DecoLog/TopBar.qml
-    qml/DecoLog/IncomingPanel.qml
-    qml/DecoLog/LogTablePanel.qml
+    qml/DecoLog/NewQsoPanel.qml
+    qml/DecoLog/LogbookPanel.qml
     qml/DecoLog/CallInfoPanel.qml
-    qml/DecoLog/BottomPanel.qml
+    qml/DecoLog/Ft2AwardPanel.qml
+    qml/DecoLog/BottomTabs.qml
+    qml/DecoLog/MapPanel.qml
     qml/DecoLog/StatusRail.qml
-    qml/DecoLog/SettingsDialog.qml
+    qml/DecoLog/NewQsoDialog.qml
+    qml/DecoLog/QsoDetailDialog.qml
+    qml/DecoLog/StationProfilesDialog.qml
+    qml/DecoLog/SetupDialog.qml
+    qml/DecoLog/LogbookWindow.qml
 )
 
 qt_add_qml_module(decolog
@@ -96,6 +106,7 @@ target_include_directories(decolog PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(decolog PRIVATE
     Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick Qt6::QuickControls2
     decolog_core
+    decodium_ui
     decodium_uiplugin
 )
 set_target_properties(decolog PROPERTIES
