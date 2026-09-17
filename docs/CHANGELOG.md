@@ -1,0 +1,51 @@
+# Storia di DecoLog
+
+Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
+in stazione.
+
+## 0.2.0 — 18 settembre 2026
+
+**Interfaccia in italiano.** Tutte le stringhe tradotte (`translations/decolog_it.ts`), la
+lingua segue il sistema oppure si sceglie in Impostazioni → Generale.
+
+**QSL.**
+
+- Conferme LoTW scaricate da `lotwreport.adi`, solo quelle nuove dall'ultimo sync, a mano o
+  ogni 6/12/24 ore; abbinamento per nominativo, banda, gruppo di modi e ora entro mezz'ora.
+  I dettagli di LoTW riempiono solo i campi vuoti, i nuovi DXCC confermati finiscono nel
+  registro attività.
+- Invio: LoTW facendo firmare un ADIF temporaneo al TQSL installato, QRZ Logbook con la
+  chiave API, eQSL con utente e password. A mano o automatico dopo ogni QSO; un duplicato
+  conta come inviato, un rifiuto resta scritto sul QSO con il motivo.
+
+**DX cluster.** Nodi telnet (DX Spider, CC Cluster), Reverse Beacon Network, HamAlert e
+attivazioni POTA in un elenco solo, con gli spot confrontati col log (nuovo DXCC, nuova
+banda, nuovo modo, nuovo slot, già lavorato, entità non confermata, utente LoTW). Filtri
+completi e salvabili, regole d'avviso con annuncio vocale, invio degli spot a Decodium e
+doppio clic per sintonizzarlo. Console per i comandi al nodo e per mandare spot.
+
+**Log.** Etichette sui QSO (`APP_DECOLOG_TAGS`), filtri per entità DXCC, stato QSL, profilo
+stazione, etichetta e intervallo di date, azioni sulle righe mostrate (etichetta di gruppo,
+export ADIF). Schema del database alla versione 2, con migrazione.
+
+**Award.** Totali per banda e band slot, elenco di quello che manca (DXCC, FT2, WAZ, WAS),
+mappa dei locatori lavorati e confermati, filtri per profilo stazione ed etichetta.
+
+**Attivazioni e contest.** Sessione POTA/SOTA/WWFF/IOTA o contest: campi dell'attivatore su
+ogni QSO, locatore del posto, etichetta, numero progressivo, duplicati contati dentro la
+sessione, conteggi e export ADIF con il nome che POTA si aspetta.
+
+**Confezione.** Icona propria (`resources/make_icon.py`) nell'eseguibile e nelle finestre,
+versione nelle proprietà del file, `scripts/deploy.sh` che prepara anche
+`DecoLog-<versione>-win64.zip` con LEGGIMI e strumenti di prova.
+
+**Correzioni.** Gli errori di rete non riportano più l'URL con la password; la freccia degli
+elenchi a discesa apre la tendina anche nelle caselle in cui si può scrivere.
+
+## 0.1.0 — 17 settembre 2026
+
+Prima versione: ricezione dei QSO da Decodium e WSJT-X via UDP, log SQLite con nomi ADIF e
+storico delle revisioni, profili stazione, import/export ADIF senza perdite, logbook con
+filtri, scheda del nominativo, entità DXCC dal `cty.csv` di AD1C, credenziali nel
+portachiavi di sistema, callbook QRZ.com e HamQTH, award calcolati dal log, copie di
+sicurezza notturne, DecoLink verso Decodium.

@@ -7,7 +7,13 @@ classe (`MODE=MFSK`, `SUBMODE=FT2`).
 Specifica di partenza: [`docs/FASE0_SPEC.md`](docs/FASE0_SPEC.md).
 Licenza: GPL-3.0.
 
-## Stato: 0.1.0 — Fase 0 + mockup DecoLog
+## Stato: 0.2.0
+
+Dalla 0.1.0: interfaccia in italiano, conferme LoTW in entrata e invio QSL in uscita
+(LoTW via TQSL, QRZ Logbook, eQSL), DX cluster con annunci vocali e collegamento a
+Decodium, etichette e filtri avanzati del log, award per banda con mappa dei locatori,
+sessioni di attivazione e contest, icona e pacchetto da distribuire.
+Storia completa: [`docs/CHANGELOG.md`](docs/CHANGELOG.md).
 
 L'interfaccia segue i mockup "DecoLog Mockups" (finestra principale 1a, Nuovo QSO 1b,
 scheda QSO 1c, profili stazione 1d, Setup 1e) nei tre temi di Decodium.

@@ -32,6 +32,8 @@ class DecoLogController : public QObject {
     Q_OBJECT
 
     Q_PROPERTY(QString version READ version CONSTANT)
+    Q_PROPERTY(QString qtVersion READ qtVersion CONSTANT)
+    Q_PROPERTY(QString buildInfo READ buildInfo CONSTANT)
     Q_PROPERTY(QString databasePath READ databasePath CONSTANT)
     Q_PROPERTY(bool databaseOpen READ databaseOpen CONSTANT)
     Q_PROPERTY(QObject* qsoModel READ qsoModel CONSTANT)
@@ -142,6 +144,9 @@ public:
     void overrideUdpPort(int port) { m_udpPort = port; }
 
     QString version() const;
+    QString qtVersion() const;
+    // Data della compilazione e piattaforma: serve a chi segnala un problema.
+    QString buildInfo() const;
     QString databasePath() const { return m_db.path(); }
     bool databaseOpen() const { return m_db.isOpen(); }
     QObject* qsoModel() const { return m_model; }

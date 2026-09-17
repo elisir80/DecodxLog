@@ -133,6 +133,11 @@ DialogFrame {
                 // ── General ─────────────────────────────────────────────────
                 ColumnLayout {
                     spacing: 12
+                    SectionTitle { text: qsTr("This copy of DecoLog") }
+                    Note {
+                        text: qsTr("DecoLog %1 · Qt %2 · %3").arg(decolog.version).arg(decolog.qtVersion).arg(decolog.buildInfo)
+                    }
+
                     SectionTitle { text: qsTr("Log file") }
                     RowLayout {
                         Layout.fillWidth: true

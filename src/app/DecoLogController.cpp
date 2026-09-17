@@ -9,6 +9,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QHostAddress>
+#include <QLocale>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QSet>
@@ -499,6 +500,17 @@ void DecoLogController::startListening()
 QString DecoLogController::version() const
 {
     return QCoreApplication::applicationVersion();
+}
+
+QString DecoLogController::qtVersion() const
+{
+    return QString::fromLatin1(qVersion());
+}
+
+QString DecoLogController::buildInfo() const
+{
+    return tr("built on %1").arg(QLocale::c().toDate(QString::fromLatin1(__DATE__).simplified(),
+                                                     QStringLiteral("MMM d yyyy")).toString(Qt::ISODate));
 }
 
 // ── Impostazioni del collegamento ─────────────────────────────────────────────

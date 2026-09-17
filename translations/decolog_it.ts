@@ -1958,6 +1958,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Cartella delle copie</translation>
     </message>
     <message>
+        <source>This copy of DecoLog</source>
+        <translation>Questa copia di DecoLog</translation>
+    </message>
+    <message>
+        <source>DecoLog %1 · Qt %2 · %3</source>
+        <translation>DecoLog %1 · Qt %2 · %3</translation>
+    </message>
+    <message>
         <source>Log file</source>
         <translation>File del log</translation>
     </message>
@@ -2825,6 +2833,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Cannot listen on UDP %1: %2</source>
         <translation>Non riesco ad ascoltare su UDP %1: %2</translation>
+    </message>
+    <message>
+        <source>built on %1</source>
+        <translation>compilato il %1</translation>
     </message>
     <message>
         <source>Interface language: %1 — it changes at the next start</source>
