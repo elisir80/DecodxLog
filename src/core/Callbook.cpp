@@ -1,5 +1,7 @@
 #include "core/Callbook.h"
 
+#include "core/NetworkError.h"
+
 #include <QCoreApplication>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
@@ -300,7 +302,7 @@ void CallbookClient::login(std::function<void(const QString& error)> done)
         connect(reply, &QNetworkReply::finished, this, [this, reply, done] {
             reply->deleteLater();
             if (reply->error() != QNetworkReply::NoError) {
-                done(tr("%1: %2").arg(sourceName(), reply->errorString()));
+                done(tr("%1: %2").arg(sourceName(), network::safeErrorString(reply)));
                 return;
             }
             const QByteArray body = reply->readAll();
@@ -335,7 +337,7 @@ void CallbookClient::query(const QString& call, bool retried)
     connect(reply, &QNetworkReply::finished, this, [this, reply, call, retried] {
         reply->deleteLater();
         if (reply->error() != QNetworkReply::NoError) {
-            emit failed(call, tr("%1: %2").arg(sourceName(), reply->errorString()));
+            emit failed(call, tr("%1: %2").arg(sourceName(), network::safeErrorString(reply)));
             return;
         }
         const QByteArray body = reply->readAll();

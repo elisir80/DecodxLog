@@ -451,8 +451,59 @@ DialogFrame {
                 // ── QSL services ────────────────────────────────────────────
                 ColumnLayout {
                     spacing: 12
-                    SectionTitle { text: qsTr("QSL services") }
-                    Note { text: qsTr("LoTW (through the local TQSL), QRZ Logbook, Club Log and eQSL: upload and download of confirmations arrive with the 1.x releases. Credentials can already be stored; the QSL state of every QSO is kept per service.") }
+                    SectionTitle { text: qsTr("LoTW confirmations") }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 8
+                        Tile { label: qsTr("Last sync"); value: decolog.lotwLastSync || qsTr("never") }
+                        Tile { label: qsTr("Confirmations since"); value: decolog.lotwCursor || qsTr("all") }
+                        Tile {
+                            label: qsTr("Confirmed in log")
+                            value: (decolog.qslSummary.find(r => r.service === "lotw") || {}).confirmed || 0
+                        }
+                    }
+                    RowLayout {
+                        spacing: 8
+                        GlassButton {
+                            text: decolog.lotwBusy ? qsTr("Downloading…") : qsTr("Sync now")
+                            tone: Theme.accentColor
+                            filled: true
+                            enabled: !decolog.lotwBusy
+                            onClicked: decolog.syncLotw(false)
+                        }
+                        GlassButton {
+                            text: qsTr("Download everything again")
+                            enabled: !decolog.lotwBusy
+                            onClicked: decolog.syncLotw(true)
+                        }
+                        GlassButton {
+                            visible: decolog.lotwBusy
+                            text: qsTr("Cancel")
+                            onClicked: decolog.cancelLotw()
+                        }
+                    }
+                    RowLayout {
+                        spacing: 8
+                        Text { text: qsTr("Automatic sync"); color: Theme.textSecondary; font.pixelSize: 12 }
+                        StyledComboBox {
+                            Layout.preferredWidth: 150
+                            readonly property var hours: [0, 6, 12, 24]
+                            model: [qsTr("Off"), qsTr("Every 6 hours"), qsTr("Every 12 hours"), qsTr("Once a day")]
+                            currentIndex: Math.max(0, hours.indexOf(decolog.lotwAutoHours))
+                            onActivated: decolog.lotwAutoHours = hours[currentIndex]
+                        }
+                    }
+                    Note {
+                        visible: decolog.lotwStatus.length > 0
+                        text: decolog.lotwStatus
+                        color: decolog.lotwStatus.indexOf("LoTW: ") === 0 && /incorrect|error|not available|cancel|HTTP|unexpected|web page/i.test(decolog.lotwStatus)
+                               ? Theme.errorColor : Theme.textPrimary
+                    }
+                    Note {
+                        text: qsTr("Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. "
+                                   + "A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. "
+                                   + "Uploading to LoTW still goes through TQSL. QRZ Logbook, Club Log and eQSL arrive later.")
+                    }
                     CredentialsList {
                         Layout.fillWidth: true
                         serviceIds: ["lotw", "qrzlogbook", "clublog", "eqsl"]

@@ -34,6 +34,13 @@ struct ImportResult {
     QStringList errors;     // i primi problemi, per mostrarli all'operatore
 };
 
+struct ConfirmationResult {
+    enum class Status { Confirmed, AlreadyConfirmed, NotFound, Invalid, Error };
+    Status  status{Status::NotFound};
+    qint64  id{0};
+    QString message;
+};
+
 struct WorkedEntry {
     QDateTime on;
     QString   band;
@@ -169,6 +176,15 @@ public:
     QList<HistoryEntry> history(qint64 id) const;
     // Rimette in vigore una versione dello storico (diventa una nuova revisione).
     InsertResult restoreRevision(qint64 id, qint64 historyId);
+
+    // Una conferma arrivata da un servizio ("lotw", "qrz", "eqsl"): il record ha
+    // CALL, BAND (o FREQ), MODE/SUBMODE, QSO_DATE, TIME_ON e QSLRDATE, piu' i
+    // dettagli che il servizio conosce (GRIDSQUARE, CQZ, ITUZ, DXCC, STATE, CNTY,
+    // IOTA). Il QSO si cerca per nominativo, banda, gruppo di modi e ora entro
+    // `windowSeconds` (LoTW tollera mezz'ora); diventa confermato con una nuova
+    // revisione, e i dettagli riempiono solo i campi vuoti.
+    ConfirmationResult applyConfirmation(const QString& service, const AdifRecord& confirmation,
+                                         int windowSeconds = 1800);
 
     ImportResult importAdif(const QByteArray& data, const QString& source = QStringLiteral("import"),
                             qint64 stationProfileId = 0);

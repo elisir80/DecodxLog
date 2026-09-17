@@ -220,11 +220,26 @@ GlassPanel {
                     Text { Layout.preferredWidth: 100; text: modelData.errors || 0; color: modelData.errors ? Theme.errorColor : Theme.textSecondary; font.family: Theme.monoFamily; font.pixelSize: 12 }
                 }
             }
-            Text {
-                Layout.topMargin: 4
-                text: qsTr("Counts come from the log. Upload and download to LoTW, QRZ, Club Log and eQSL arrive with the 1.x releases.")
-                color: Theme.textSecondary
-                font.pixelSize: 11
+            RowLayout {
+                Layout.topMargin: 6
+                spacing: 8
+                GlassButton {
+                    text: decolog.lotwBusy ? qsTr("LoTW…") : qsTr("Sync LoTW")
+                    tone: Theme.accentColor
+                    buttonHeight: 24
+                    fontPixelSize: 11
+                    enabled: !decolog.lotwBusy
+                    onClicked: decolog.syncLotw(false)
+                }
+                Text {
+                    Layout.fillWidth: true
+                    elide: Text.ElideRight
+                    text: decolog.lotwStatus.length ? decolog.lotwStatus
+                          : decolog.lotwLastSync.length ? qsTr("LoTW last sync %1").arg(decolog.lotwLastSync)
+                          : qsTr("LoTW confirmations are downloaded from Setup → QSL services. Uploads still go through TQSL.")
+                    color: Theme.textSecondary
+                    font.pixelSize: 11
+                }
             }
             Item { Layout.fillHeight: true }
         }
@@ -245,6 +260,7 @@ GlassPanel {
                 verticalAlignment: Text.AlignVCenter
                 color: modelData.level === "error" ? Theme.errorColor
                      : modelData.level === "warning" ? Theme.warningColor
+                     : modelData.level === "highlight" && modelData.category === "LOTW" ? Theme.accentColor
                      : Theme.textPrimary
                 text: "<font color=\"" + Theme.textSecondary + "\">" + modelData.time + "</font> "
                       + "<font color=\"" + root.categoryColor(modelData.category) + "\">" + modelData.category + "</font> "

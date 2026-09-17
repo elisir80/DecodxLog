@@ -1,5 +1,6 @@
 #include "core/Adif.h"
 
+#include <QSet>
 #include <QStringDecoder>
 
 namespace decolog::core {
@@ -219,6 +220,25 @@ void normalizeMode(AdifRecord& record)
         if (record.value(QStringLiteral("SUBMODE")).isEmpty())
             record.set(QStringLiteral("SUBMODE"), mode);
     }
+}
+
+QString modeGroup(const QString& mode, const QString& submode)
+{
+    const QString m = mode.trimmed().toUpper();
+    const QString s = submode.trimmed().toUpper();
+    if (m == QLatin1String("CW"))
+        return QStringLiteral("CW");
+    static const QSet<QString> phone{QStringLiteral("SSB"), QStringLiteral("USB"), QStringLiteral("LSB"),
+                                     QStringLiteral("AM"), QStringLiteral("FM"), QStringLiteral("DIGITALVOICE"),
+                                     QStringLiteral("DSTAR"), QStringLiteral("C4FM"), QStringLiteral("DMR"),
+                                     QStringLiteral("PHONE")};
+    if (phone.contains(m) || phone.contains(s))
+        return QStringLiteral("PHONE");
+    static const QSet<QString> image{QStringLiteral("SSTV"), QStringLiteral("ATV"), QStringLiteral("FAX"),
+                                     QStringLiteral("IMAGE")};
+    if (image.contains(m))
+        return QStringLiteral("IMAGE");
+    return m.isEmpty() ? QString() : QStringLiteral("DATA");
 }
 
 } // namespace adif

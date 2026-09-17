@@ -58,5 +58,10 @@ QByteArray writeDocument(const AdifDocument& document);
 // di MFSK. Un record con MODE=FT2 (log vecchi) diventa MODE=MFSK SUBMODE=FT2.
 void normalizeMode(AdifRecord& record);
 
+// Il gruppo di modi come lo usano LoTW e il DXCC: "CW", "PHONE", "IMAGE" o
+// "DATA". LoTW conferma un QSO se il gruppo coincide, anche con modi diversi
+// (FT8 da una parte, MFSK/FT4 dall'altra).
+QString modeGroup(const QString& mode, const QString& submode = {});
+
 } // namespace adif
 } // namespace decolog::core

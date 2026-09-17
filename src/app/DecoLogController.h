@@ -13,6 +13,7 @@
 #include "core/DecoLinkServer.h"
 #include "core/CredentialStore.h"
 #include "core/LogDatabase.h"
+#include "core/Lotw.h"
 #include "core/UdpReceiver.h"
 
 #include <QDateTime>
@@ -100,6 +101,13 @@ class DecoLogController : public QObject {
     Q_PROPERTY(bool callbookAutofill READ callbookAutofill WRITE setCallbookAutofill NOTIFY callbookChanged)
     Q_PROPERTY(QString callbookStatus READ callbookStatus NOTIFY callbookChanged)
     Q_PROPERTY(bool callbookBusy READ callbookBusy NOTIFY callbookChanged)
+
+    // ── LoTW (conferme) ────────────────────────────────────────────────────
+    Q_PROPERTY(bool lotwBusy READ lotwBusy NOTIFY lotwChanged)
+    Q_PROPERTY(QString lotwStatus READ lotwStatus NOTIFY lotwChanged)
+    Q_PROPERTY(QString lotwLastSync READ lotwLastSync NOTIFY lotwChanged)
+    Q_PROPERTY(QString lotwCursor READ lotwCursor NOTIFY lotwChanged)
+    Q_PROPERTY(int lotwAutoHours READ lotwAutoHours WRITE setLotwAutoHours NOTIFY lotwChanged)
 
     // ── Backup ─────────────────────────────────────────────────────────────
     Q_PROPERTY(bool backupEnabled READ backupEnabled WRITE setBackupEnabled NOTIFY backupChanged)
@@ -210,6 +218,16 @@ public:
     QString callbookStatus() const { return m_callbookStatus; }
     bool callbookBusy() const { return !m_callbookPending.isEmpty(); }
 
+    bool lotwBusy() const { return m_lotw.busy() || m_lotwStarting; }
+    QString lotwStatus() const { return m_lotwStatus; }
+    QString lotwLastSync() const;
+    QString lotwCursor() const { return m_db.setting(QStringLiteral("lotw.last_qsl")); }
+    int lotwAutoHours() const { return m_lotwAutoHours; }
+    void setLotwAutoHours(int hours);
+    // Scarica le conferme nuove (o tutte, `full`) e le segna sui QSO.
+    Q_INVOKABLE void syncLotw(bool full = false);
+    Q_INVOKABLE void cancelLotw() { m_lotw.cancel(); }
+
     bool backupEnabled() const { return m_backupEnabled; }
     void setBackupEnabled(bool enabled);
     QString backupDir() const { return m_backupDir; }
@@ -270,6 +288,7 @@ signals:
     void callbookChanged();
     void awardsChanged();
     void decoLinkChanged();
+    void lotwChanged();
 
 private:
     void onQsoReceived(const core::AdifRecord& record, const QString& source, const QString& sourceApp);
@@ -282,6 +301,9 @@ private:
     // Aggiunge DXCC, COUNTRY, CQZ, ITUZ e CONT se mancano. true se ha aggiunto qualcosa.
     bool applyEntity(core::AdifRecord& record) const;
     void loadCountries();
+    void onLotwReport(const core::lotw::Report& report);
+    void checkLotwSchedule();
+    QSet<QString> confirmedAwardKeys(const QString& awardId) const;
     void requestCallbook();
     const QList<core::AwardResult>& awardResults() const;
     void awardFilterChanged();
@@ -296,6 +318,12 @@ private:
     core::CallbookClient m_callbook;
     core::AwardFilter m_awardFilter;
     core::DecoLinkServer m_decoLink;
+    core::LotwClient  m_lotw;
+    bool      m_lotwStarting{false};
+    bool      m_lotwAuto{false};
+    QString   m_lotwStatus;
+    int       m_lotwAutoHours{12};
+    QTimer    m_lotwTimer;
     bool      m_decoLinkEnabled{true};
     int       m_decoLinkPort{core::DecoLinkServer::kDefaultPort};
     QTimer    m_decoLinkAwardDebounce;

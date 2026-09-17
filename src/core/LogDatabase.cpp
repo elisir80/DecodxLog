@@ -14,6 +14,7 @@
 #include <QVariant>
 #include <algorithm>
 #include <array>
+#include <limits>
 
 namespace decolog::core {
 
@@ -817,6 +818,112 @@ InsertResult LogDatabase::restoreRevision(qint64 id, qint64 historyId)
     InsertResult r;
     r.message = QStringLiteral("revision not found");
     return r;
+}
+
+ConfirmationResult LogDatabase::applyConfirmation(const QString& service, const AdifRecord& c, int windowSeconds)
+{
+    ConfirmationResult res;
+    const QslFields* fields = nullptr;
+    for (const auto& f : kQslFields) {
+        if (service == QLatin1String(f.service) && *f.rcvd)
+            fields = &f;
+    }
+    if (!fields) {
+        res.status = ConfirmationResult::Status::Error;
+        res.message = QStringLiteral("%1 has no confirmations").arg(service);
+        return res;
+    }
+
+    const QString call = c.value(QStringLiteral("CALL")).trimmed().toUpper();
+    QString band = c.value(QStringLiteral("BAND")).trimmed().toLower();
+    if (band.isEmpty()) {
+        bool ok = false;
+        const double mhz = c.value(QStringLiteral("FREQ")).toDouble(&ok);
+        if (ok)
+            band = bands::fromMhz(mhz);
+    }
+    const QString iso = isoFromAdif(c.value(QStringLiteral("QSO_DATE")), c.value(QStringLiteral("TIME_ON")));
+    const QString group = adif::modeGroup(c.value(QStringLiteral("MODE")), c.value(QStringLiteral("SUBMODE")));
+    res.message = QStringLiteral("%1 %2 %3 %4").arg(call, band, c.value(QStringLiteral("MODE")), iso.left(16));
+    if (call.isEmpty() || band.isEmpty() || iso.isEmpty()) {
+        res.status = ConfirmationResult::Status::Invalid;
+        return res;
+    }
+
+    const QDateTime on = parseIso(iso);
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral(
+        "SELECT id, mode, IFNULL(submode, ''), qso_datetime_on, "
+        "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = ?) "
+        "FROM qso WHERE deleted = 0 AND call = ? AND band = ? AND qso_datetime_on BETWEEN ? AND ?"));
+    q.addBindValue(service);
+    q.addBindValue(call);
+    q.addBindValue(band);
+    q.addBindValue(on.addSecs(-windowSeconds).toString(Qt::ISODate));
+    q.addBindValue(on.addSecs(windowSeconds).toString(Qt::ISODate));
+    if (!q.exec()) {
+        res.status = ConfirmationResult::Status::Error;
+        res.message = q.lastError().text();
+        return res;
+    }
+    // Il QSO piu' vicino nel tempo fra quelli dello stesso gruppo di modi.
+    qint64 best = 0;
+    qint64 bestDistance = std::numeric_limits<qint64>::max();
+    bool bestConfirmed = false;
+    while (q.next()) {
+        if (!group.isEmpty() && adif::modeGroup(q.value(1).toString(), q.value(2).toString()) != group)
+            continue;
+        const qint64 distance = qAbs(parseIso(q.value(3).toString()).secsTo(on));
+        if (distance < bestDistance) {
+            best = q.value(0).toLongLong();
+            bestDistance = distance;
+            bestConfirmed = q.value(4).toString() == QLatin1String("Y");
+        }
+    }
+    if (best == 0)
+        return res;
+    res.id = best;
+    if (bestConfirmed) {
+        res.status = ConfirmationResult::Status::AlreadyConfirmed;
+        return res;
+    }
+
+    auto r = record(best);
+    if (!r) {
+        res.status = ConfirmationResult::Status::Error;
+        return res;
+    }
+    r->set(QLatin1String(fields->rcvd), QStringLiteral("Y"));
+    QString date = c.value(QStringLiteral("QSLRDATE")).trimmed().remove(QLatin1Char('-')).left(8);
+    if (!QDate::fromString(date, QStringLiteral("yyyyMMdd")).isValid())
+        date = QDateTime::currentDateTimeUtc().toString(QStringLiteral("yyyyMMdd"));
+    r->set(QLatin1String(fields->rcvdDate), date);
+    // Confermato vuol dire che il QSO e' arrivato al servizio.
+    const QString sent = r->value(QLatin1String(fields->sent)).toUpper();
+    if (sent.isEmpty() || sent == QLatin1String("N") || sent == QLatin1String("R") || sent == QLatin1String("Q"))
+        r->set(QLatin1String(fields->sent), QStringLiteral("Y"));
+
+    // I dettagli del corrispondente: solo dove il log non ha niente. Un locatore
+    // a quattro caratteri si allunga se la conferma dice lo stesso quadrato.
+    const QString grid = r->value(QStringLiteral("GRIDSQUARE")).trimmed().toUpper();
+    const QString confirmedGrid = c.value(QStringLiteral("GRIDSQUARE")).trimmed().toUpper();
+    if (confirmedGrid.size() >= 4 && (grid.isEmpty() || (confirmedGrid.size() > grid.size() && confirmedGrid.startsWith(grid))))
+        r->set(QStringLiteral("GRIDSQUARE"), confirmedGrid);
+    for (const char* name : {"DXCC", "COUNTRY", "CQZ", "ITUZ", "STATE", "CNTY", "IOTA"}) {
+        const QString field = QLatin1String(name);
+        const QString value = c.value(field).trimmed();
+        if (r->value(field).trimmed().isEmpty() && !value.isEmpty())
+            r->set(field, value);
+    }
+
+    const InsertResult u = updateQso(best, *r, -1, service);
+    if (u.status != InsertResult::Status::Inserted) {
+        res.status = ConfirmationResult::Status::Error;
+        res.message = u.message;
+        return res;
+    }
+    res.status = ConfirmationResult::Status::Confirmed;
+    return res;
 }
 
 ImportResult LogDatabase::importAdif(const QByteArray& data, const QString& source, qint64 stationProfileId)

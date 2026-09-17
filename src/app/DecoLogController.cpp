@@ -14,6 +14,7 @@
 #include <QSet>
 #include <QRegularExpression>
 #include <QSettings>
+#include <QSqlDatabase>
 #include <QStandardPaths>
 #include <cmath>
 
@@ -238,6 +239,17 @@ DecoLogController::DecoLogController(QObject* parent)
 
     m_backupTimer.setInterval(60'000);
     connect(&m_backupTimer, &QTimer::timeout, this, &DecoLogController::checkBackupSchedule);
+
+    m_lotwAutoHours = s.value(QStringLiteral("lotw/autoSyncHours"), 12).toInt();
+    connect(&m_lotw, &LotwClient::finished, this, &DecoLogController::onLotwReport);
+    connect(&m_lotw, &LotwClient::progress, this, [this](qint64 bytes) {
+        m_lotwStatus = tr("LoTW: downloading… %1 kB").arg(bytes / 1024);
+        emit lotwChanged();
+    });
+    // Il sync automatico si controlla ogni dieci minuti; il primo poco dopo
+    // l'avvio, quando la finestra e' gia' su.
+    m_lotwTimer.setInterval(10 * 60'000);
+    connect(&m_lotwTimer, &QTimer::timeout, this, &DecoLogController::checkLotwSchedule);
 }
 
 DecoLogController::~DecoLogController() = default;
@@ -262,6 +274,8 @@ bool DecoLogController::openDatabase(const QString& path)
     });
     connect(m_profiles, &StationProfileModel::profilesChanged, this, &DecoLogController::stationChanged);
     m_backupTimer.start();
+    m_lotwTimer.start();
+    QTimer::singleShot(30'000, this, &DecoLogController::checkLotwSchedule);
     return ok;
 }
 
@@ -1211,6 +1225,156 @@ void DecoLogController::checkBackupSchedule()
     if (last.isValid() && QDateTime(now.date(), when) <= last)
         return;
     backupNow();
+}
+
+// ── LoTW ──────────────────────────────────────────────────────────────────────
+
+QString DecoLogController::lotwLastSync() const
+{
+    const QDateTime at = QDateTime::fromString(m_db.setting(QStringLiteral("lotw.last_sync_at")), Qt::ISODate);
+    if (!at.isValid())
+        return {};
+    return at.toUTC().toString(QStringLiteral("yyyy-MM-dd HH:mm")) + QStringLiteral("Z");
+}
+
+void DecoLogController::setLotwAutoHours(int hours)
+{
+    if (hours == m_lotwAutoHours || hours < 0)
+        return;
+    m_lotwAutoHours = hours;
+    QSettings().setValue(QStringLiteral("lotw/autoSyncHours"), hours);
+    emit lotwChanged();
+}
+
+void DecoLogController::checkLotwSchedule()
+{
+    if (m_lotwAutoHours <= 0 || lotwBusy() || !m_db.isOpen() || m_db.qsoCount() == 0)
+        return;
+    // Senza credenziali il sync automatico tace: l'operatore non ha chiesto LoTW.
+    if (m_credentials->account(QStringLiteral("lotw")).isEmpty() || !m_credentials->hasSecret(QStringLiteral("lotw")))
+        return;
+    const QDateTime last = QDateTime::fromString(m_db.setting(QStringLiteral("lotw.last_sync_at")), Qt::ISODate);
+    if (last.isValid() && last.secsTo(QDateTime::currentDateTimeUtc()) < m_lotwAutoHours * 3600)
+        return;
+    m_lotwAuto = true;
+    syncLotw(false);
+}
+
+void DecoLogController::syncLotw(bool full)
+{
+    if (lotwBusy() || !m_db.isOpen())
+        return;
+    const QString user = m_credentials->account(QStringLiteral("lotw"));
+    if (user.isEmpty() || !m_credentials->hasSecret(QStringLiteral("lotw"))) {
+        m_lotwStatus = tr("LoTW: add username and password in Setup → QSL services");
+        addActivity(QStringLiteral("LOTW"), m_lotwStatus, QStringLiteral("warning"));
+        emit lotwChanged();
+        return;
+    }
+    const QString since = full ? QString() : m_db.setting(QStringLiteral("lotw.last_qsl"));
+    m_lotwStarting = true;
+    m_lotwStatus = since.isEmpty() ? tr("LoTW: downloading all confirmations…")
+                                   : tr("LoTW: downloading confirmations since %1…").arg(since);
+    addActivity(QStringLiteral("LOTW"), m_lotwStatus);
+    emit lotwChanged();
+
+    m_credentials->readSecret(QStringLiteral("lotw"), [this, user, since](const QString& secret, const QString& error) {
+        m_lotwStarting = false;
+        if (!error.isEmpty() || secret.isEmpty()) {
+            lotw::Report failed;
+            failed.error = tr("LoTW: password not available (%1)").arg(error);
+            onLotwReport(failed);
+            return;
+        }
+        m_lotw.download(user, secret, since);
+        emit lotwChanged();
+    });
+}
+
+QSet<QString> DecoLogController::confirmedAwardKeys(const QString& awardId) const
+{
+    QSet<QString> keys;
+    for (const AwardResult& r : awardResults()) {
+        if (r.id != awardId)
+            continue;
+        for (const AwardItem& i : r.items) {
+            if (i.confirmed())
+                keys.insert(i.key);
+        }
+    }
+    return keys;
+}
+
+void DecoLogController::onLotwReport(const lotw::Report& report)
+{
+    const bool automatic = m_lotwAuto;
+    m_lotwAuto = false;
+    if (!report.ok) {
+        m_lotwStatus = report.error;
+        m_db.setSetting(QStringLiteral("lotw.last_result"), report.error);
+        // Un sync automatico fallito si riprova al giro dopo, non a ogni controllo.
+        if (automatic)
+            m_db.setSetting(QStringLiteral("lotw.last_sync_at"), QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
+        addActivity(QStringLiteral("LOTW"), report.error, QStringLiteral("error"));
+        emit lotwChanged();
+        return;
+    }
+
+    // Quello che era confermato prima, per dire all'operatore cosa c'e' di nuovo.
+    const QSet<QString> dxccBefore = confirmedAwardKeys(QStringLiteral("dxcc"));
+    const QSet<QString> ft2Before = confirmedAwardKeys(QStringLiteral("ft2"));
+
+    int confirmed = 0, already = 0, notFound = 0, invalid = 0;
+    QStringList missing;
+    QSqlDatabase db = m_db.connection();
+    const bool transaction = db.transaction();
+    for (const AdifRecord& c : report.confirmations) {
+        const ConfirmationResult r = m_db.applyConfirmation(QStringLiteral("lotw"), c);
+        switch (r.status) {
+        case ConfirmationResult::Status::Confirmed:        ++confirmed; break;
+        case ConfirmationResult::Status::AlreadyConfirmed: ++already; break;
+        case ConfirmationResult::Status::NotFound:
+            ++notFound;
+            if (missing.size() < 10)
+                missing << r.message;
+            break;
+        case ConfirmationResult::Status::Invalid:
+        case ConfirmationResult::Status::Error:
+            ++invalid;
+            break;
+        }
+    }
+    if (transaction)
+        db.commit();
+
+    if (!report.lastQsl.isEmpty())
+        m_db.setSetting(QStringLiteral("lotw.last_qsl"), report.lastQsl);
+    m_db.setSetting(QStringLiteral("lotw.last_sync_at"), QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
+
+    m_lotwStatus = tr("LoTW: %1 new confirmations, %2 already marked, %3 not in the log")
+                       .arg(confirmed).arg(already).arg(notFound);
+    m_db.setSetting(QStringLiteral("lotw.last_result"), m_lotwStatus);
+    addActivity(QStringLiteral("LOTW"), m_lotwStatus, confirmed > 0 ? QStringLiteral("success") : QStringLiteral("info"));
+    for (const QString& m : missing)
+        addActivity(QStringLiteral("LOTW"), tr("  not in the log: %1").arg(m), QStringLiteral("warning"));
+    if (invalid > 0)
+        addActivity(QStringLiteral("LOTW"), tr("  %1 records without call, band or date").arg(invalid), QStringLiteral("warning"));
+
+    if (confirmed > 0) {
+        m_model->reload();
+        m_awardsDirty = true;
+        emit logChanged();
+        m_decoLink.resendSnapshot();
+        refreshCallInfo();
+        // I nuovi DXCC confermati meritano una riga a parte.
+        for (const QString& key : confirmedAwardKeys(QStringLiteral("dxcc")) - dxccBefore)
+            addActivity(QStringLiteral("LOTW"), tr("New DXCC confirmed: %1").arg(m_countries.nameFor(key.toInt())),
+                        QStringLiteral("highlight"));
+        for (const QString& key : confirmedAwardKeys(QStringLiteral("ft2")) - ft2Before)
+            addActivity(QStringLiteral("LOTW"), tr("New FT2 Award entity confirmed: %1").arg(m_countries.nameFor(key.toInt())),
+                        QStringLiteral("highlight"));
+    }
+    emit lotwChanged();
 }
 
 void DecoLogController::openDatabaseFolder() const
