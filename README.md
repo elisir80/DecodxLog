@@ -12,7 +12,8 @@ Licenza: GPL-3.0.
 Dalla 0.1.0: interfaccia in italiano, conferme LoTW in entrata e invio QSL in uscita
 (LoTW via TQSL, QRZ Logbook, eQSL), DX cluster con annunci vocali e collegamento a
 Decodium, etichette e filtri avanzati del log, award per banda con mappa dei locatori,
-sessioni di attivazione e contest, icona e pacchetto da distribuire.
+sessioni di attivazione e contest, icona e pacchetto da distribuire. In lavorazione per
+la 0.3.0: finestra delle statistiche e mappa del mondo con coste, linea grigia e spot.
 Elenco completo delle funzioni (italiano e inglese): [`docs/FEATURES.md`](docs/FEATURES.md).
 Storia: [`docs/CHANGELOG.md`](docs/CHANGELOG.md).
 
@@ -40,7 +41,13 @@ Funziona:
   `APP_DECOLOG_TAGS`: si scrivono nel Nuovo QSO e nella scheda, tornano nell'export.
 - **Call info** dal log: worked-before, distanza e azimut dal locatore, ora locale
   approssimata, stato QSL dell'ultimo QSO. **FT2 Award** (DXCC e locatori in FT2,
-  conferme LoTW), statistiche per banda e modo, riepilogo QSL, mappa dei locatori.
+  conferme LoTW), riepilogo QSL, mappa dei locatori.
+- **Statistiche** in una finestra propria: totali, QSO per anno, mese, ora UTC e banda,
+  modi e continenti, e la mappa di calore banda per ora che dice quando una banda è
+  aperta; filtri per modo e per anno.
+- **Mappa** con le coste del mondo (Natural Earth, dentro l'eseguibile), linea grigia
+  dalla posizione del Sole, locatori lavorati, spot del cluster colorati per stato e
+  cerchio massimo verso il nominativo scelto; livelli accendibili e spegnibili.
 - **Entità DXCC** dal nominativo con il `cty.csv` di AD1C (incluso, aggiornabile da
   Setup): DXCC, paese, zone e continente sui QSO da Decodium e manuali, "NEW DXCC" e
   "NEW DXCC on <banda>" mentre si lavora, completamento dei QSO già nel log.
