@@ -12,8 +12,12 @@
 #     sottomodulo (QtQuick.Controls.impl, QtQuick.Dialogs.quickimpl);
 #   * un qt.conf, senza il quale Qt cerca plugin e moduli dov'era installato.
 #
+# Alla fine crea anche l'archivio da passare a qualcuno: dist/DecoLog-<versione>-win64.zip.
+#
 #   scripts/deploy.sh            compila in build/ e prepara dist/
 #   DIST=/c/tmp/decolog scripts/deploy.sh
+#   BUILD=/c/decolog/build-dev scripts/deploy.sh    (se build/ e' in uso)
+#   NO_ZIP=1 scripts/deploy.sh   solo la cartella
 set -e
 
 MINGW=${MINGW:-/c/msys64/mingw64}
@@ -31,7 +35,10 @@ echo "== cartella $DIST =="
 # perche' la rimozione fallisca in silenzio.
 mkdir -p "$DIST"
 find "$DIST" -mindepth 1 -maxdepth 1 -exec rm -rf {} + 2>/dev/null || true
-cp "$BUILD"/decolog.exe "$BUILD"/decolog_udpsend.exe "$DIST"/
+cp "$BUILD"/decolog.exe "$DIST"/
+for extra in decolog_udpsend.exe decolog_clusterprobe.exe; do
+    [ -f "$BUILD/$extra" ] && cp "$BUILD/$extra" "$DIST"/
+done
 
 echo "== librerie Qt =="
 ( cd "$DIST" && windeployqt --qmldir "$ROOT/qml" --qmldir "$ROOT/libs/decodium-ui/qml" --release \
@@ -39,7 +46,10 @@ echo "== librerie Qt =="
     decolog.exe >/dev/null )
 
 echo "== plugin TLS e SQLite =="
-mkdir -p "$DIST/tls" "$DIST/sqldrivers"
+mkdir -p "$DIST/tls" "$DIST/sqldrivers" "$DIST/platforms"
+# La piattaforma offscreen: serve alle schermate di prova (--show ... --grab) e a
+# far partire il programma su una macchina senza sessione grafica.
+cp -n "$MINGW/share/qt6/plugins/platforms/qoffscreen.dll" "$DIST/platforms/" 2>/dev/null || true
 cp "$MINGW"/share/qt6/plugins/tls/*.dll "$DIST/tls/"
 cp "$MINGW/share/qt6/plugins/sqldrivers/qsqlite.dll" "$DIST/sqldrivers/"
 # Gli altri driver SQL trascinerebbero client MySQL, PostgreSQL e ODBC.
@@ -86,12 +96,67 @@ for ssl in "$MINGW"/bin/libssl-3-x64.dll "$MINGW"/bin/libcrypto-3-x64.dll; do
     [ -f "$ssl" ] && cp -n "$ssl" "$DIST/"
 done
 
-echo "== licenze =="
+echo "== licenze e istruzioni =="
 cp "$ROOT/LICENSE" "$DIST/LICENSE.txt"
 cp "$ROOT/resources/cty/COPYRIGHT.txt" "$DIST/cty.csv-COPYRIGHT.txt"
+# L'icona accanto all'eseguibile serve a chi si crea un collegamento a mano.
+cp "$ROOT/resources/decolog.ico" "$DIST/decolog.ico"
+
+VERSION=$(sed -n 's/^[[:space:]]*VERSION[[:space:]]\{1,\}\([0-9][0-9.]*\).*/\1/p' "$ROOT/CMakeLists.txt" | head -1)
+VERSION=${VERSION:-0.0.0}
+
+cat > "$DIST/LEGGIMI.txt" <<EOF
+DecoLog $VERSION — il log della stazione (famiglia Decodium)
+
+Avvio
+  Doppio clic su decolog.exe. Non serve installare niente: le librerie sono qui
+  dentro. Il log e le impostazioni stanno in
+  %APPDATA%\\Decodium (decolog.sqlite e DecoLog.ini); questa cartella si puo'
+  spostare o cancellare senza perdere i QSO.
+
+Primo avvio
+  1. Setup -> Decodium link: la porta UDP su cui DecoLog ascolta i QSO
+     (2237 di default; se un altro programma la usa gia', cambiala qui e
+     aggiungila fra le destinazioni UDP di Decodium).
+  2. Station profiles: nominativo e locatore della stazione.
+  3. Setup -> QSL services: utente e password LoTW per scaricare le conferme.
+  4. Ctrl+K: il DX cluster. In Fonti si accendono i nodi, RBN, HamAlert e POTA.
+
+Cosa c'e' dentro
+  decolog.exe               l'applicazione
+  decolog_udpsend.exe       finge di essere Decodium e manda un QSO di prova
+  decolog_clusterprobe.exe  prova una fonte di spot da riga di comando
+  decolog.ico               l'icona, per crearsi un collegamento
+
+Licenza
+  GPL-3.0 (LICENSE.txt). L'elenco delle entita' DXCC e' il cty.csv di AD1C
+  (cty.csv-COPYRIGHT.txt).
+EOF
+
+if [ -z "${NO_ZIP:-}" ]; then
+    echo "== archivio =="
+    ARCHIVE="$DIST/../DecoLog-$VERSION-win64.zip"
+    rm -f "$ARCHIVE"
+    # La cartella entra nell'archivio con il suo nome, cosi' chi lo apre non si
+    # ritrova cinquanta DLL sparse nel desktop.
+    STAGE=$(mktemp -d)
+    cp -r "$DIST" "$STAGE/DecoLog-$VERSION"
+    if command -v 7z >/dev/null; then
+        ( cd "$STAGE" && 7z a -tzip -mx=7 "$ARCHIVE" "DecoLog-$VERSION" >/dev/null )
+    elif command -v zip >/dev/null; then
+        ( cd "$STAGE" && zip -qr9 "$ARCHIVE" "DecoLog-$VERSION" )
+    else
+        powershell -NoProfile -Command \
+            "Compress-Archive -Path '$(cygpath -w "$STAGE")\\DecoLog-$VERSION' -DestinationPath '$(cygpath -w "$ARCHIVE")' -Force"
+    fi
+    rm -rf "$STAGE"
+fi
 
 echo
 echo "pronto: $DIST"
-echo "  decolog.exe          l'applicazione"
-echo "  decolog_udpsend.exe  finge di essere Decodium, per le prove"
+echo "  decolog.exe               l'applicazione"
+echo "  decolog_udpsend.exe       finge di essere Decodium, per le prove"
+echo "  decolog_clusterprobe.exe  prova una fonte di spot"
 du -sh "$DIST"
+[ -f "${ARCHIVE:-}" ] && ls -lh "$ARCHIVE" | awk '{print "archivio: " $9 " (" $5 ")"}'
+exit 0

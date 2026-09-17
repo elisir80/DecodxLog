@@ -8,6 +8,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QGuiApplication>
+#include <QIcon>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickStyle>
@@ -23,6 +24,7 @@ int main(int argc, char* argv[])
     app.setApplicationName(QStringLiteral("DecoLog"));
     app.setOrganizationName(QStringLiteral("Decodium"));
     app.setApplicationVersion(QStringLiteral(DECOLOG_VERSION));
+    app.setWindowIcon(QIcon(QStringLiteral(":/decolog/decolog.png")));
     // Come Decodium: impostazioni in un .ini leggibile, non nel registro.
     QSettings::setDefaultFormat(QSettings::IniFormat);
 

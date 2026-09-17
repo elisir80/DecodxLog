@@ -101,10 +101,26 @@ si compila ma non salva password). Nella distribuzione va incluso `libqt6keychai
 
 ```sh
 scripts/deploy.sh      # compila e prepara dist/: decolog.exe, Qt, QML, TLS, SQLite, qtkeychain
+                       # e l'archivio DecoLog-<versione>-win64.zip
+BUILD=$PWD/build-dev scripts/deploy.sh    # se build/ e' in uso da un DecoLog aperto
+NO_ZIP=1 scripts/deploy.sh                # solo la cartella
 ```
 
-La cartella si avvia con doppio clic anche senza MSYS2. La CI la produce a ogni push
+La cartella si avvia con doppio clic anche senza MSYS2: dentro ci sono anche
+`decolog_udpsend.exe` (finge di essere Decodium), `decolog_clusterprobe.exe` (prova una
+fonte di spot), l'icona e un `LEGGIMI.txt` con i primi passi. La CI la produce a ogni push
 come artefatto `decolog-windows-x64`.
+
+## Icona
+
+`resources/make_icon.py` disegna l'icona con i colori del tema Ocean Blue (le righe del
+log con la barretta di stato e l'arco del segnale) e scrive `resources/decolog.ico`,
+`resources/decolog.png` e un'anteprima delle taglie. L'eseguibile la prende dal `.rc`
+(insieme al numero di versione), la finestra dalla risorsa PNG:
+
+```sh
+python resources/make_icon.py
+```
 
 ## Provare senza radio
 

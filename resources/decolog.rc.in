@@ -1,0 +1,43 @@
+// Icona e informazioni di versione dell'eseguibile su Windows.
+//
+// Il primo ICON del file e' quello che Esplora risorse e la barra delle
+// applicazioni mostrano.
+IDI_ICON1 ICON "@CMAKE_CURRENT_SOURCE_DIR@/resources/decolog.ico"
+
+// Il blocco di versione e' quello che compare nelle proprieta' del file. Senza,
+// il programma si presenta senza nome ne' numero, e chi segnala un problema non
+// ha modo di dire quale versione sta usando. I numeri li scrive CMake, cosi' non
+// possono divergere da quelli del progetto.
+#include <windows.h>
+
+#define DECOLOG_VERSION_RC  @PROJECT_VERSION_MAJOR@,@PROJECT_VERSION_MINOR@,@PROJECT_VERSION_PATCH@,0
+#define DECOLOG_VERSION_STR "@PROJECT_VERSION@"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION    DECOLOG_VERSION_RC
+PRODUCTVERSION DECOLOG_VERSION_RC
+FILEFLAGSMASK  VS_FFI_FILEFLAGSMASK
+FILEFLAGS      0
+FILEOS         VOS_NT_WINDOWS32
+FILETYPE       VFT_APP
+FILESUBTYPE    VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"   // inglese (Stati Uniti), Unicode
+        BEGIN
+            VALUE "CompanyName",      "IU8LMC - Martino Merola"
+            VALUE "FileDescription",  "DecoLog - il log della stazione"
+            VALUE "FileVersion",      DECOLOG_VERSION_STR
+            VALUE "InternalName",     "decolog"
+            VALUE "LegalCopyright",   "IU8LMC - GPL-3.0"
+            VALUE "OriginalFilename", "decolog.exe"
+            VALUE "ProductName",      "DecoLog"
+            VALUE "ProductVersion",   DECOLOG_VERSION_STR
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

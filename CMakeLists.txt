@@ -102,7 +102,15 @@ else()
 endif()
 
 # ── Application ───────────────────────────────────────────────────────────────
+# Icona e versione dell'eseguibile su Windows (resources/make_icon.py disegna
+# l'icona; il .rc prende i numeri dal progetto).
+if(WIN32)
+    configure_file(resources/decolog.rc.in ${CMAKE_CURRENT_BINARY_DIR}/decolog.rc @ONLY)
+    set(DECOLOG_WIN_RESOURCES ${CMAKE_CURRENT_BINARY_DIR}/decolog.rc)
+endif()
+
 qt_add_executable(decolog
+    ${DECOLOG_WIN_RESOURCES}
     src/main.cpp
     src/app/QsoTableModel.cpp
     src/app/QsoTableModel.h
@@ -143,6 +151,14 @@ qt_add_qml_module(decolog
     URI DecoLog
     VERSION 1.0
     QML_FILES ${DECOLOG_QML_FILES}
+)
+
+# L'icona della finestra (la barra delle applicazioni su Windows usa quella del
+# .rc, ma la finestra e i dialoghi prendono questa).
+qt_add_resources(decolog "icon"
+    PREFIX "/decolog"
+    BASE resources
+    FILES resources/decolog.png
 )
 
 # Come in DecoRTTY: il bytecode QML precompilato perde il contesto delle
