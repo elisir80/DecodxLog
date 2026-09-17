@@ -42,6 +42,15 @@ ApplicationWindow {
             qsoDialog.openFor(id)
     }
     function focusSearch() { topBar.focusSearch() }
+    function openCluster(tab) {
+        clusterWindow.tab = tab
+        clusterWindow.active = true
+        if (clusterWindow.item) {
+            clusterWindow.item.tab = tab
+            clusterWindow.item.raise()
+            clusterWindow.item.requestActivate()
+        }
+    }
 
     Component.onCompleted: {
         const what = startupShow.split(":")
@@ -52,6 +61,7 @@ ApplicationWindow {
         else if (what[0] === "menu") logbook.showMenu(what[1])
         else if (what[0] === "tab") bottomTabs.currentTab = parseInt(what[1])
         else if (what[0] === "pop") popWindow.active = true
+        else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))
         else if (what[0] === "call") decolog.lookupCall = what[1]
         else if (what[0] === "awards") {
             // awards:<id>[:map|:missing|:unconfirmed]
@@ -86,6 +96,16 @@ ApplicationWindow {
     }
 
     Loader {
+        id: clusterWindow
+        property int tab: 0
+        active: false
+        sourceComponent: ClusterWindow {
+            tab: clusterWindow.tab
+            onClosing: clusterWindow.active = false
+        }
+    }
+
+    Loader {
         id: popWindow
         active: false
         sourceComponent: LogbookWindow {
@@ -98,6 +118,7 @@ ApplicationWindow {
     Shortcut { sequence: "Ctrl+,"; onActivated: setupDialog.open() }
     Shortcut { sequence: "Ctrl+I"; onActivated: importDialog.open() }
     Shortcut { sequence: "Ctrl+E"; onActivated: exportDialog.open() }
+    Shortcut { sequence: "Ctrl+K"; onActivated: window.openCluster(0) }
 
     ColumnLayout {
         anchors.fill: parent
@@ -110,6 +131,7 @@ ApplicationWindow {
             onImportRequested: importDialog.open()
             onExportRequested: exportDialog.open()
             onAwardsRequested: awardsDialog.openAt("")
+            onClusterRequested: window.openCluster(0)
             onProfilesRequested: profilesDialog.open()
         }
 
@@ -174,6 +196,7 @@ ApplicationWindow {
                 BottomTabs {
                     id: bottomTabs
                     onAwardRequested: (id) => awardsDialog.openAt(id)
+                    onClusterRequested: (tab) => window.openCluster(tab)
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                 }

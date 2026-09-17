@@ -45,6 +45,8 @@ add_library(decolog_core STATIC
     src/core/Countries.h
     src/core/DecoLinkServer.cpp
     src/core/DecoLinkServer.h
+    src/core/ClusterConnection.cpp
+    src/core/ClusterConnection.h
     src/core/CredentialStore.cpp
     src/core/CredentialStore.h
     src/core/Maidenhead.cpp
@@ -54,10 +56,14 @@ add_library(decolog_core STATIC
     src/core/Lotw.cpp
     src/core/Lotw.h
     src/core/NetworkError.h
+    src/core/Spots.cpp
+    src/core/Spots.h
     src/core/WsjtxProtocol.cpp
     src/core/WsjtxProtocol.h
     src/core/UdpReceiver.cpp
     src/core/UdpReceiver.h
+    src/core/VoiceAnnouncer.cpp
+    src/core/VoiceAnnouncer.h
 )
 qt_add_resources(decolog_core "schema"
     PREFIX "/decolog"
@@ -72,6 +78,10 @@ qt_add_resources(decolog_core "cty"
 )
 target_include_directories(decolog_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(decolog_core PUBLIC Qt6::Core Qt6::Network Qt6::Sql)
+# Annunci vocali: su Windows la sintesi del sistema (SAPI).
+if(WIN32)
+    target_link_libraries(decolog_core PRIVATE sapi ole32)
+endif()
 
 # Portachiavi di sistema per password e chiavi API. Senza qtkeychain DecoLog si
 # compila lo stesso, ma non salva segreti: niente ripiego in chiaro.
@@ -100,6 +110,10 @@ qt_add_executable(decolog
     src/app/DecoLogController.h
     src/app/StationProfileModel.cpp
     src/app/StationProfileModel.h
+    src/app/ClusterController.cpp
+    src/app/ClusterController.h
+    src/app/SpotModel.cpp
+    src/app/SpotModel.h
 )
 
 set(DECOLOG_QML_FILES
@@ -120,6 +134,9 @@ set(DECOLOG_QML_FILES
     qml/DecoLog/CredentialsList.qml
     qml/DecoLog/AwardsDialog.qml
     qml/DecoLog/GridSquareMap.qml
+    qml/DecoLog/ClusterPanel.qml
+    qml/DecoLog/ClusterWindow.qml
+    qml/DecoLog/SpotFilterEditor.qml
 )
 
 qt_add_qml_module(decolog
@@ -153,7 +170,7 @@ set_target_properties(decolog PROPERTIES
 if(DECOLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

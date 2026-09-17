@@ -5,6 +5,8 @@
 
 #include <QCommandLineParser>
 #include <QDir>
+#include <QFile>
+#include <QFileInfo>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -47,6 +49,11 @@ int main(int argc, char* argv[])
                                   QStringLiteral("Save a screenshot of the window to this PNG after startup, then quit."),
                                   QStringLiteral("file"));
     parser.addOption(grabOption);
+    // Per le prove: spot presi da un file (una riga "DX de" o JSON HamAlert ciascuna)
+    // invece che dalla rete.
+    QCommandLineOption spotsOption(QStringLiteral("spots"), QStringLiteral("Feed cluster spots from a file."),
+                                   QStringLiteral("file"));
+    parser.addOption(spotsOption);
     parser.addOption(themeOption);
     parser.addOption(showOption);
     parser.addOption(dbOption);
@@ -67,6 +74,19 @@ int main(int argc, char* argv[])
         controller.overrideUdpPort(parser.value(portOption).toInt());
     controller.startListening();
     controller.startDecoLink();
+    // Una schermata di prova non si collega ai nodi veri.
+    if (!parser.isSet(grabOption) && !parser.isSet(spotsOption))
+        controller.startCluster();
+    if (parser.isSet(spotsOption)) {
+        QFile spotFile(parser.value(spotsOption));
+        if (spotFile.open(QIODevice::ReadOnly)) {
+            auto* cluster = qobject_cast<decolog::app::ClusterController*>(controller.cluster());
+            // Una prova non parla dagli altoparlanti.
+            cluster->setMuted(parser.isSet(grabOption));
+            for (const QByteArray& line : spotFile.readAll().split('\n'))
+                cluster->injectLine(QString::fromUtf8(line).trimmed());
+        }
+    }
     if (parser.isSet(importOption))
         controller.importAdif(QUrl::fromLocalFile(parser.value(importOption)));
 
@@ -90,6 +110,15 @@ int main(int argc, char* argv[])
             if (!engine.rootObjects().isEmpty()) {
                 if (auto* window = qobject_cast<QQuickWindow*>(engine.rootObjects().constFirst()))
                     window->grabWindow().save(file);
+            }
+            // Le altre finestre aperte (cluster, logbook separato) accanto: file-2.png...
+            int n = 2;
+            for (QWindow* w : QGuiApplication::topLevelWindows()) {
+                auto* quick = qobject_cast<QQuickWindow*>(w);
+                if (!quick || !quick->isVisible() || (!engine.rootObjects().isEmpty() && quick == engine.rootObjects().constFirst()))
+                    continue;
+                const QFileInfo info(file);
+                quick->grabWindow().save(info.dir().filePath(QStringLiteral("%1-%2.%3").arg(info.completeBaseName()).arg(n++).arg(info.suffix())));
             }
             QCoreApplication::quit();
         });

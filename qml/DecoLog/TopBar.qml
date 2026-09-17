@@ -12,6 +12,7 @@ Rectangle {
     signal importRequested()
     signal exportRequested()
     signal awardsRequested()
+    signal clusterRequested()
     signal profilesRequested()
 
     function focusSearch() {
@@ -123,6 +124,11 @@ Rectangle {
             GlassButton { text: qsTr("Import"); onClicked: root.importRequested() }
             GlassButton { text: qsTr("Export"); onClicked: root.exportRequested() }
             GlassButton { text: qsTr("Awards"); onClicked: root.awardsRequested() }
+            GlassButton {
+                text: decolog.cluster.onlineCount > 0 ? qsTr("Cluster ●") : qsTr("Cluster")
+                tone: decolog.cluster.onlineCount > 0 ? Theme.accentColor : "transparent"
+                onClicked: root.clusterRequested()
+            }
         }
 
         // Il profilo con cui si scrivono i QSO nuovi.

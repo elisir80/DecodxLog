@@ -275,10 +275,42 @@ bool DecoLogController::openDatabase(const QString& path)
         refreshCallInfo();
     });
     connect(m_profiles, &StationProfileModel::profilesChanged, this, &DecoLogController::stationChanged);
+
+    ClusterController::Context ctx;
+    ctx.db = &m_db;
+    ctx.countries = &m_countries;
+    ctx.credentials = m_credentials;
+    ctx.decoLink = &m_decoLink;
+    ctx.stationCall = [this] {
+        const QString call = m_profiles->activeProfile().value(QStringLiteral("stationCallsign")).toString();
+        return call.isEmpty() ? m_status.deCall : call;
+    };
+    ctx.stationGrid = [this] { return myGrid(); };
+    ctx.decodiumBand = [this] { return clientConnected() ? dialBand() : QString(); };
+    ctx.confirmations = [this](bool& lotw, bool& card, bool& eqsl) {
+        lotw = m_awardFilter.confirmLotw;
+        card = m_awardFilter.confirmCard;
+        eqsl = m_awardFilter.confirmEqsl;
+    };
+    ctx.activity = [this](const QString& category, const QString& text, const QString& level) {
+        addActivity(category, text, level);
+    };
+    ctx.lookup = [this](const QString& call) { setLookupCall(call); };
+    m_cluster = new ClusterController(std::move(ctx), this);
+    connect(this, &DecoLogController::logChanged, m_cluster, &ClusterController::logChanged);
+    connect(this, &DecoLogController::countriesChanged, m_cluster, &ClusterController::logChanged);
+    connect(this, &DecoLogController::clientChanged, m_cluster, &ClusterController::decodiumBandChanged);
+
     m_backupTimer.start();
     m_lotwTimer.start();
     QTimer::singleShot(30'000, this, &DecoLogController::checkLotwSchedule);
     return ok;
+}
+
+void DecoLogController::startCluster()
+{
+    if (m_cluster)
+        m_cluster->start();
 }
 
 void DecoLogController::startDecoLink()

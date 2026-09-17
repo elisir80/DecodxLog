@@ -7,20 +7,22 @@ import Decodium.UI
 GlassPanel {
     id: root
 
-    // 0 Awards · 1 Statistics · 2 QSL Upload · 3 Activity log
+    // 0 Awards · 1 Statistics · 2 QSL Upload · 3 Activity log · 4 DX Cluster
     property int currentTab: 3
     signal awardRequested(string id)
+    signal clusterRequested(int tab)
 
     padding: 0
     headerLeading: [
         Row {
             spacing: 2
             Repeater {
-                model: [qsTr("Awards"), qsTr("Statistics"), qsTr("QSL Upload"), qsTr("Activity log")]
+                model: [qsTr("Awards"), qsTr("Statistics"), qsTr("QSL Upload"), qsTr("Activity log"), qsTr("DX Cluster")]
                 TabChip {
                     required property string modelData
                     required property int index
                     text: modelData
+                    badge: index === 4 && decolog.cluster.spots.count > 0 ? String(decolog.cluster.spots.count) : ""
                     active: root.currentTab === index
                     onClicked: root.currentTab = index
                 }
@@ -28,6 +30,14 @@ GlassPanel {
         }
     ]
     headerTools: [
+        GlassButton {
+            visible: root.currentTab === 4
+            text: qsTr("Open cluster window")
+            tone: Theme.primaryColor
+            buttonHeight: 24
+            fontPixelSize: 11
+            onClicked: root.clusterRequested(0)
+        },
         GlassButton {
             visible: root.currentTab === 3
             text: qsTr("Clear")
@@ -43,6 +53,7 @@ GlassPanel {
         case "UDP": return Theme.accentColor
         case "SYNC": return Theme.secondaryColor
         case "LOTW": return Theme.primaryColor
+        case "CLUSTER": return Theme.warningColor
         case "LOG": return Theme.primaryColor
         case "IMPORT":
         case "EXPORT": return Theme.secondaryColor
@@ -261,12 +272,19 @@ GlassPanel {
                 color: modelData.level === "error" ? Theme.errorColor
                      : modelData.level === "warning" ? Theme.warningColor
                      : modelData.level === "highlight" && modelData.category === "LOTW" ? Theme.accentColor
+                     : modelData.level === "highlight" && modelData.category === "CLUSTER" ? Theme.warningColor
                      : Theme.textPrimary
                 text: "<font color=\"" + Theme.textSecondary + "\">" + modelData.time + "</font> "
                       + "<font color=\"" + root.categoryColor(modelData.category) + "\">" + modelData.category + "</font> "
                       + modelData.text.replace(/&/g, "&amp;").replace(/</g, "&lt;")
                           .replace(/( · new DXCC on FT2: .*)$/, "<font color=\"" + Theme.warningColor + "\">$1</font>")
             }
+        }
+
+        // ── DX Cluster ──────────────────────────────────────────────────────
+        ClusterPanel {
+            compact: true
+            onWindowRequested: (tab) => root.clusterRequested(tab)
         }
     }
 }

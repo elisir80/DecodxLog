@@ -5,6 +5,7 @@
 // detto, non taciuto.
 #pragma once
 
+#include "app/ClusterController.h"
 #include "app/QsoTableModel.h"
 #include "app/StationProfileModel.h"
 #include "core/Awards.h"
@@ -34,6 +35,7 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QObject* qsoModel READ qsoModel CONSTANT)
     Q_PROPERTY(QObject* stationProfiles READ stationProfiles CONSTANT)
     Q_PROPERTY(QObject* credentials READ credentials CONSTANT)
+    Q_PROPERTY(QObject* cluster READ cluster CONSTANT)
 
     // ── Collegamento con Decodium ──────────────────────────────────────────
     Q_PROPERTY(int udpPort READ udpPort WRITE setUdpPort NOTIFY udpChanged)
@@ -139,6 +141,9 @@ public:
     QObject* qsoModel() const { return m_model; }
     QObject* stationProfiles() const { return m_profiles; }
     QObject* credentials() const { return m_credentials; }
+    QObject* cluster() const { return m_cluster; }
+    // Dopo openDatabase e startDecoLink: le fonti del cluster si collegano.
+    void startCluster();
 
     int udpPort() const { return m_udpPort; }
     void setUdpPort(int port);
@@ -363,6 +368,7 @@ private:
     core::UdpReceiver m_udp;
     QsoTableModel*    m_model{nullptr};
     StationProfileModel* m_profiles{nullptr};
+    ClusterController*   m_cluster{nullptr};
 
     int       m_udpPort{2237};
     QString   m_multicast;

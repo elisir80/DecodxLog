@@ -69,6 +69,31 @@ Mandato dopo `hello` e ogni volta che il log cambia.
 {"type":"status","id":7,"results":[{"call":"9A1AA","dxcc":497,"entity":"Croatia","workedCall":false,"workedCallBand":false,"workedDxcc":true,"workedDxccBand":true,"workedDxccFt2":false,"confirmedDxcc":false}]}
 ```
 
+### `spot` — uno spot del cluster di DecoLog
+
+```json
+{"type":"spot","call":"3Y0J","freqKhz":14025.1,"dialKhz":14025.1,"audioHz":0,"band":"20m","mode":"CW","spotter":"DL1ABC-#","comment":"CW 22 dB 25 WPM CQ","time":"2026-09-17T12:39:00Z","source":"rbn","entity":"Bouvet","dxcc":24,"status":"NEW DXCC","statusBits":3,"count":2,"alert":true}
+```
+
+Gli spot che passano i filtri del cluster di DecoLog, piu' quelli che fanno scattare
+una regola d'avviso (`alert`). Gia' confrontati col log: `status` e' l'etichetta
+principale (`NEW DXCC`, `NEW BAND`, `NEW MODE`, `NEW SLOT`, `WORKED`, `NEW CALL` o
+vuota), `statusBits` i bit completi (1 nuovo DXCC, 2 nuova banda, 4 nuovo modo, 8
+nuovo slot, 16 nuovo nominativo, 32 gia' lavorato sulla banda, 64 entita' non
+confermata, 128 utente LoTW). Per FT8/FT4/FT2 `dialKhz` e' la frequenza di chiamata e
+`audioHz` lo spostamento audio dello spot. `source`: `cluster`, `rbn`, `hamalert`,
+`pota`.
+
+### `tune` — sintonizzare su uno spot
+
+```json
+{"type":"tune","call":"FT4TA","freqKhz":10137.5,"dialKhz":10136,"audioHz":1500,"mode":"FT8","grid":""}
+```
+
+L'operatore ha fatto doppio clic su uno spot in DecoLog. Decodium porta la radio su
+`dialKhz`, passa al modo se lo conosce, prepara `call` come DX e mette la frequenza
+audio su `audioHz` se diversa da 0. Non trasmette mai da solo.
+
 ## Decodium → DecoLog
 
 ### `query` — che cosa sa il log di questi nominativi

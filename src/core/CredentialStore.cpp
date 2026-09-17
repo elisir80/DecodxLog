@@ -53,6 +53,8 @@ QList<CredentialService> CredentialStore::knownServices()
          tr("Upload and eQSL confirmations")},
         {QStringLiteral("hamqth"), QStringLiteral("HamQTH"), tr("Username"), tr("Password"),
          tr("Free callbook lookups")},
+        {QStringLiteral("hamalert"), QStringLiteral("HamAlert"), tr("Username"), tr("Password"),
+         tr("Spots from your HamAlert triggers (telnet)")},
     };
 }
 
