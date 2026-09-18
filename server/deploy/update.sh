@@ -25,11 +25,24 @@ chown -R decolog:decolog "$APP_DIR"
 
 systemctl restart "$SERVICE_NAME"
 sleep 2
-if systemctl is-active --quiet "$SERVICE_NAME" && curl -fsS http://127.0.0.1:8788/v1/health >/dev/null; then
+
+# "Vivo" non basta: anche la versione vecchia risponde "ok". /v1/health dice
+# anche cosa sa fare, e qui si controlla che il codice in funzione sia davvero
+# quello appena copiato — un aggiornamento a meta' e' peggio di nessuno.
+health=$(curl -fsS http://127.0.0.1:8788/v1/health 2>/dev/null || true)
+wanted='"docs"'
+
+if systemctl is-active --quiet "$SERVICE_NAME" && [[ $health == *'"status":"ok"'* ]] \
+   && [[ $health == *"$wanted"* ]]; then
     rm -rf "$backup"
     echo "Aggiornato: $(systemctl show -p ActiveEnterTimestamp --value "$SERVICE_NAME")"
+    echo "In funzione: $health"
 else
-    echo "Il servizio non e' tornato su: rimetto la versione di prima."
+    if [[ -n $health ]]; then
+        echo "Il servizio risponde ma non e' la versione nuova: $health"
+    else
+        echo "Il servizio non e' tornato su: rimetto la versione di prima."
+    fi
     rsync -a --delete "$backup/decolog_cloud" "$APP_DIR/"
     chown -R decolog:decolog "$APP_DIR"
     systemctl restart "$SERVICE_NAME"

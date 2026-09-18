@@ -53,7 +53,11 @@ def qso(uuid, call="DL9ZZT", revision=1, when="2026-09-18T07:00:00Z", **fields):
 
 
 def test_health(client):
-    assert client.get("/v1/health").json()["status"] == "ok"
+    body = client.get("/v1/health").json()
+    assert body["status"] == "ok"
+    # Dice anche cosa sa fare: update.sh se ne serve per accorgersi di un
+    # aggiornamento rimasto a meta'.
+    assert {"qso", "docs", "web"} <= set(body["features"])
 
 
 def test_signup_then_token(client):

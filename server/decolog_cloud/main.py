@@ -199,7 +199,14 @@ def sync_status(
 
 @app.get("/v1/health")
 def health() -> dict:
-    return {"status": "ok", "service": "decolog-cloud", "version": app.version}
+    # `features` dice cosa sa fare *questo* servizio, non cosa dovrebbe saper
+    # fare: un aggiornamento a meta' si vede da qui, e update.sh se ne accorge
+    # invece di lasciare in piedi una versione vecchia che risponde "ok".
+    #   qso   — push e pull dei collegamenti
+    #   docs  — profili stazione, impostazioni, credenziali sigillate
+    #   web   — il log dal browser
+    return {"status": "ok", "service": "decolog-cloud", "version": app.version,
+            "features": ["qso", "docs", "web"]}
 
 
 # ── Il log dal browser ────────────────────────────────────────────────────────

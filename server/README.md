@@ -91,7 +91,7 @@ sta nei file del servizio.
 | POST | `/v1/sync/push` | manda i QSO in coda e i documenti (profili, impostazioni) |
 | GET | `/v1/sync/pull` | prende quello che e' cambiato: QSO e documenti |
 | GET | `/v1/sync/status` | quanti QSO ci sono, a che punto e' il cursore |
-| GET | `/v1/health` | per il monitoraggio |
+| GET | `/v1/health` | per il monitoraggio, e dice cosa sa fare (`features`) |
 
 Il token va nell'intestazione `Authorization: Bearer <token>`. La password si
 tiene con Argon2; del token il server conserva solo l'impronta SHA-256.
@@ -127,6 +127,21 @@ Sono due container: il servizio e PostgreSQL. Le variabili che contano:
 
 Dietro un proxy con HTTPS: il token viaggia in chiaro, quindi **niente HTTP su
 Internet**. In casa, sulla propria rete, va benissimo com'e'.
+
+### Aggiornare
+
+```bash
+cd /srv/decolog && git pull && sudo bash server/deploy/update.sh
+```
+
+Ricopia il codice, aggiorna le dipendenze e riavvia. Poi controlla che quello
+che risponde sia davvero la versione nuova: `/v1/health` dice cosa sa fare
+(`"features": ["qso", "docs", "web"]`), e se manca qualcosa — o il servizio non
+torna su — rimette da solo la versione di prima e lo dice. Un aggiornamento a
+meta' e' peggio di nessuno.
+
+Le tabelle nuove le crea il servizio all'avvio (`create_all`): nessuna
+migrazione a mano, nemmeno su PostgreSQL.
 
 ## Prove
 
