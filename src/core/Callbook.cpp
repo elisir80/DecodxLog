@@ -178,6 +178,42 @@ std::optional<CallbookRecord> parseHamQthSearch(const QByteArray& xml)
     return rec;
 }
 
+QStringList fillMissing(AdifRecord& record, const CallbookRecord& found)
+{
+    QStringList filled;
+
+    const QList<QPair<const char*, QString>> text{
+        {"NAME", found.name},
+        {"QTH", found.qth},
+        {"GRIDSQUARE", found.grid},
+        {"ADDRESS", found.address},
+        {"STATE", found.state},
+        {"CNTY", found.county},
+        {"COUNTRY", found.country},
+        {"IOTA", found.iota},
+        {"EMAIL", found.email},
+        {"QSL_VIA", found.qslVia},
+    };
+    for (const auto& [name, value] : text) {
+        if (value.trimmed().isEmpty() || !record.value(QLatin1String(name)).isEmpty())
+            continue;
+        record.set(QLatin1String(name), value.trimmed());
+        filled << QString::fromLatin1(name);
+    }
+
+    // Numeri: valgono solo se il QSO non ne ha gia' uno buono. Il cty.csv ha
+    // gia' detto la sua sui QSO che passano da qui, e ha ragione lui.
+    const QList<QPair<const char*, int>> numbers{
+        {"CQZ", found.cqZone}, {"ITUZ", found.ituZone}, {"DXCC", found.dxcc}};
+    for (const auto& [name, value] : numbers) {
+        if (value <= 0 || record.value(QLatin1String(name)).toInt() > 0)
+            continue;
+        record.set(QLatin1String(name), QString::number(value));
+        filled << QString::fromLatin1(name);
+    }
+    return filled;
+}
+
 } // namespace callbook
 
 CallbookClient::CallbookClient(QObject* parent)

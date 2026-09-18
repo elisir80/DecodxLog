@@ -1369,8 +1369,16 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Esporta i %1 QSO mostrati in ADIF…</translation>
     </message>
     <message>
+        <source>Complete the QSO shown from the callbook…</source>
+        <translation>Completa dal callbook i QSO mostrati…</translation>
+    </message>
+    <message>
         <source>Clear all filters</source>
         <translation>Togli tutti i filtri</translation>
+    </message>
+    <message>
+        <source>Delete %1? The QSO stays in the history and can be recovered.</source>
+        <translation>Elimino %1? Il QSO resta nello storico e si può recuperare.</translation>
     </message>
     <message>
         <source>Export the QSO shown</source>
@@ -1495,6 +1503,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Open / edit…</source>
         <translation>Apri / modifica…</translation>
+    </message>
+    <message>
+        <source>Delete QSO…</source>
+        <translation>Elimina QSO…</translation>
+    </message>
+    <message>
+        <source>Complete from the callbook</source>
+        <translation>Completa dal callbook</translation>
     </message>
     <message>
         <source>Filter by this call</source>
@@ -3467,6 +3483,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Riempi nome, QTH e locatore vuoti nel Nuovo QSO</translation>
     </message>
     <message>
+        <source>Complete the QSO just logged (name, QTH, grid, address)</source>
+        <translation>Completa il QSO appena scritto (nome, QTH, locatore, indirizzo)</translation>
+    </message>
+    <message>
+        <source>Decodium sends callsign, report, band and mode: the rest the callbook knows. Right after the QSO is written DecoLog asks, and what comes back fills only the empty fields — what you wrote stays. One lookup per callsign, and the answer is kept for a day. From the log, &quot;Complete from the callbook&quot; does the same on QSOs already written.</source>
+        <translation>Decodium manda nominativo, rapporto, banda e modo: il resto lo sa il callbook. Appena il QSO è scritto DecoLog chiede, e quello che torna riempie solo i campi vuoti — quello che hai scritto tu resta. Una ricerca per nominativo, e la risposta si tiene un giorno. Dal log, «Completa dal callbook» fa lo stesso sui QSO già scritti.</translation>
+    </message>
+    <message>
         <source>Try a lookup</source>
         <translation>Prova una ricerca</translation>
     </message>
@@ -4245,6 +4269,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>%1: %2 trovato</translation>
     </message>
     <message>
+        <source>%1: %2 completed from %3 (%4)</source>
+        <translation>%1: %2 completato da %3 (%4)</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
         <source>LoTW: downloading… %1 kB</source>
         <translation>LoTW: scarico… %1 kB</translation>
     </message>
@@ -4440,6 +4472,13 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
         <translation>Nuova entità dell&apos;FT2 Award confermata: %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Completing %n QSO from the callbook…</source>
+        <translation>
+            <numerusform>Completo %n QSO dal callbook…</numerusform>
+            <numerusform>Completo %n QSO dal callbook…</numerusform>
+        </translation>
     </message>
 </context>
 <context>

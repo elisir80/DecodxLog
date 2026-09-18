@@ -284,6 +284,26 @@ void QsoTableModel::reload()
     emit countChanged();
 }
 
+void QsoTableModel::refreshQso(qint64 id)
+{
+    if (!m_db || !m_db->isOpen())
+        return;
+    for (qsizetype i = 0; i < m_rows.size(); ++i) {
+        if (m_rows.at(i).id != id)
+            continue;
+        QSqlQuery q(m_db->connection());
+        q.prepare(selectSql(QStringLiteral("AND id = ?")));
+        q.addBindValue(id);
+        if (!q.exec() || !q.next())
+            return;
+        const bool wasFresh = m_rows.at(i).fresh;
+        m_rows[i] = rowFromQuery(q);
+        m_rows[i].fresh = wasFresh;
+        emit dataChanged(index(static_cast<int>(i), 0), index(static_cast<int>(i), ColumnCount - 1));
+        return;
+    }
+}
+
 void QsoTableModel::insertQso(qint64 id)
 {
     if (!m_db || !m_db->isOpen())

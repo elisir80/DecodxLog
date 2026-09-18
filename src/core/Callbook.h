@@ -7,9 +7,12 @@
 // le righe del log non consuma ricerche dell'abbonamento.
 #pragma once
 
+#include "core/Adif.h"
+
 #include <QDateTime>
 #include <QHash>
 #include <QObject>
+#include <QStringList>
 #include <QString>
 #include <QUrl>
 #include <QVariantMap>
@@ -60,6 +63,15 @@ SessionResult parseQrzSession(const QByteArray& xml);
 std::optional<CallbookRecord> parseQrzCallsign(const QByteArray& xml);
 SessionResult parseHamQthSession(const QByteArray& xml);
 std::optional<CallbookRecord> parseHamQthSearch(const QByteArray& xml);
+
+// Completa un QSO con quello che il callbook sa di quel nominativo — nome,
+// citta', indirizzo, locatore, zone — e torna i campi che ha riempito.
+//
+// **Solo i campi vuoti.** Quello che c'e' nel QSO l'ha messo l'operatore o l'ha
+// detto la radio: ha visto il collegamento, il callbook no. Un locatore scritto
+// a mano vale piu' di uno trovato su Internet, e il DXCC del cty.csv vale piu'
+// di quello che dichiara una scheda personale.
+QStringList fillMissing(AdifRecord& record, const CallbookRecord& found);
 
 } // namespace callbook
 

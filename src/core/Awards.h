@@ -29,6 +29,21 @@ QString wpxPrefix(const QString& callsign);
 // I 50 stati USA con il nome, per WAS.
 const QMap<QString, QString>& usStates();
 
+// I continenti dell'IARU con il nome, per il WAC. L'Antartide c'e' — chi l'ha
+// lavorata vuole vederla — ma il traguardo del diploma resta sei.
+const QMap<QString, QString>& continents();
+
+// Le 47 prefetture giapponesi con il nome, per il WAJA. La chiave e' il numero
+// a due cifre come lo scrive ADIF ("01" Hokkaido … "47" Okinawa).
+const QMap<QString, QString>& japanPrefectures();
+
+// La prefettura da come la scrivono i log: "12", "JA12", "12 Chiba".
+QString japanPrefecture(const QString& state);
+
+// Il distretto giapponese (AJD) dalla cifra del nominativo: JA1 → 1, JA0 → 0.
+// Vuoto se il nominativo non e' giapponese o non si capisce.
+QString japanDistrict(const QString& callsign);
+
 } // namespace awards
 
 struct AwardFilter {

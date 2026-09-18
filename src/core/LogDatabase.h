@@ -59,6 +59,7 @@ struct WorkedBefore {
     QString     qth;
     QString     gridsquare;
     QString     country;
+    QString     state;          // stato USA, prefettura giapponese, provincia
     int         dxcc{0};
     int         cqz{0};
     int         ituz{0};

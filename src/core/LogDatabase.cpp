@@ -1070,7 +1070,7 @@ WorkedBefore LogDatabase::workedBefore(const QString& call) const
     QSqlQuery q(connection());
     q.prepare(QStringLiteral(
         "SELECT band, mode, submode, qso_datetime_on, name, gridsquare, country, qth, dxcc, cqz, ituz, id, "
-        "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'lotw') "
+        "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'lotw'), IFNULL(state, '') "
         "FROM qso WHERE deleted = 0 AND call = ? ORDER BY qso_datetime_on DESC"));
     q.addBindValue(c);
     if (!q.exec())
@@ -1094,6 +1094,7 @@ WorkedBefore LogDatabase::workedBefore(const QString& call) const
         if (wb.dxcc == 0) wb.dxcc = q.value(8).toInt();
         if (wb.cqz == 0) wb.cqz = q.value(9).toInt();
         if (wb.ituz == 0) wb.ituz = q.value(10).toInt();
+        if (wb.state.isEmpty()) wb.state = q.value(13).toString();
         if (!wb.bands.contains(band)) wb.bands << band;
         if (!wb.modes.contains(mode)) wb.modes << mode;
         if (wb.recent.size() < 5)

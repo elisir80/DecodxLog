@@ -103,6 +103,85 @@ const QMap<QString, QString>& usStates()
     return states;
 }
 
+const QMap<QString, QString>& continents()
+{
+    static const QMap<QString, QString> list{
+        {"EU", QStringLiteral("Europa")},        {"NA", QStringLiteral("Nord America")},
+        {"SA", QStringLiteral("Sud America")},   {"AS", QStringLiteral("Asia")},
+        {"AF", QStringLiteral("Africa")},        {"OC", QStringLiteral("Oceania")},
+        {"AN", QStringLiteral("Antartide")}};
+    return list;
+}
+
+const QMap<QString, QString>& japanPrefectures()
+{
+    // I numeri sono quelli di ADIF (Primary Administrative Subdivision, Japan).
+    static const QMap<QString, QString> list{
+        {"01", "Hokkaido"},  {"02", "Aomori"},    {"03", "Iwate"},     {"04", "Akita"},
+        {"05", "Yamagata"},  {"06", "Miyagi"},    {"07", "Fukushima"}, {"08", "Niigata"},
+        {"09", "Nagano"},    {"10", "Tokyo"},     {"11", "Kanagawa"},  {"12", "Chiba"},
+        {"13", "Saitama"},   {"14", "Ibaraki"},   {"15", "Tochigi"},   {"16", "Gunma"},
+        {"17", "Yamanashi"}, {"18", "Shizuoka"},  {"19", "Gifu"},      {"20", "Aichi"},
+        {"21", "Mie"},       {"22", "Kyoto"},     {"23", "Shiga"},     {"24", "Nara"},
+        {"25", "Osaka"},     {"26", "Wakayama"},  {"27", "Hyogo"},     {"28", "Toyama"},
+        {"29", "Fukui"},     {"30", "Ishikawa"},  {"31", "Okayama"},   {"32", "Shimane"},
+        {"33", "Yamaguchi"}, {"34", "Tottori"},   {"35", "Hiroshima"}, {"36", "Kagawa"},
+        {"37", "Tokushima"}, {"38", "Ehime"},     {"39", "Kochi"},     {"40", "Fukuoka"},
+        {"41", "Saga"},      {"42", "Nagasaki"},  {"43", "Kumamoto"},  {"44", "Oita"},
+        {"45", "Miyazaki"},  {"46", "Kagoshima"}, {"47", "Okinawa"}};
+    return list;
+}
+
+QString japanPrefecture(const QString& state)
+{
+    // Nei log si trova "12", "JA12", "12 Chiba": conta il numero.
+    const QString text = state.trimmed().toUpper();
+    QString digits;
+    for (const QChar c : text) {
+        if (c.isDigit())
+            digits += c;
+        else if (!digits.isEmpty())
+            break;
+    }
+    if (digits.isEmpty())
+        return {};
+    const int number = digits.toInt();
+    if (number < 1 || number > 47)
+        return {};
+    const QString key = QStringLiteral("%1").arg(number, 2, 10, QLatin1Char('0'));
+    return japanPrefectures().contains(key) ? key : QString();
+}
+
+QString japanDistrict(const QString& callsign)
+{
+    // Il distretto e' la cifra del nominativo giapponese: JA1AA → 1, 7K4XYZ → 4.
+    // Si guarda la parte principale, saltando i suffissi con la barra.
+    const QString call = callsign.trimmed().toUpper();
+    QString base = call;
+    for (const QString& part : call.split(QLatin1Char('/'), Qt::SkipEmptyParts)) {
+        if (part.size() >= 3) {
+            base = part;
+            break;
+        }
+    }
+    for (qsizetype i = 0; i < base.size(); ++i) {
+        if (!base.at(i).isDigit())
+            continue;
+        // La cifra del distretto e' quella che separa prefisso e suffisso:
+        // dopo di lei ci sono solo lettere.
+        bool lettersAfter = i + 1 < base.size();
+        for (qsizetype j = i + 1; j < base.size(); ++j) {
+            if (!base.at(j).isLetter()) {
+                lettersAfter = false;
+                break;
+            }
+        }
+        if (lettersAfter)
+            return base.mid(i, 1);
+    }
+    return {};
+}
+
 } // namespace awards
 
 int AwardResult::confirmed() const
@@ -134,9 +213,10 @@ AwardCalculator::AwardCalculator(DxccName dxccName)
 
 QStringList AwardCalculator::awardIds()
 {
-    return {QStringLiteral("dxcc"), QStringLiteral("ft2"), QStringLiteral("waz"), QStringLiteral("was"),
-            QStringLiteral("wpx"), QStringLiteral("grids"), QStringLiteral("iota"), QStringLiteral("pota"),
-            QStringLiteral("sota"), QStringLiteral("wwff")};
+    return {QStringLiteral("dxcc"), QStringLiteral("ft2"), QStringLiteral("wac"), QStringLiteral("waz"),
+            QStringLiteral("was"), QStringLiteral("waja"), QStringLiteral("ajd"), QStringLiteral("wpx"),
+            QStringLiteral("grids"), QStringLiteral("iota"), QStringLiteral("pota"), QStringLiteral("sota"),
+            QStringLiteral("wwff")};
 }
 
 namespace {
@@ -190,8 +270,15 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
     };
     define("dxcc", QStringLiteral("DXCC"), 100, 340);
     define("ft2", QStringLiteral("FT2 Award"), 100, 0);
+    // I sei continenti dell'IARU. L'Antartide non fa numero per il WAC, ma chi
+    // ce l'ha vuole vederla: entra nell'elenco e non nel traguardo.
+    define("wac", QStringLiteral("WAC"), 6, 6);
     define("waz", QStringLiteral("WAZ"), 40, 40);
     define("was", QStringLiteral("WAS"), 50, 50);
+    // Le 47 prefetture giapponesi (WAJA) e i 10 distretti (AJD): il Giappone
+    // mette la prefettura in STATE e il distretto nella cifra del nominativo.
+    define("waja", QStringLiteral("WAJA"), 47, 47);
+    define("ajd", QStringLiteral("AJD"), 10, 10);
     define("wpx", QStringLiteral("WPX"), 300, 0);
     define("grids", QCoreApplication::translate("Awards", "Grids"), 100, 0);
     define("iota", QStringLiteral("IOTA"), 100, 0);
@@ -204,6 +291,7 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
     q.exec(QStringLiteral(
         "SELECT id, call, band, mode, IFNULL(submode, ''), dxcc, cqz, state, gridsquare, iota, pota_ref, sota_ref, "
         "wwff_ref, qso_datetime_on, IFNULL(station_profile_id, 0), IFNULL(tags, ''), "
+        "IFNULL(cont, ''), "
         "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'lotw'), "
         "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'card'), "
         "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'eqsl') "
@@ -234,9 +322,9 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         const QString call = q.value(1).toString();
         const int dxcc = q.value(5).toInt();
         const QDateTime on = QDateTime::fromString(q.value(13).toString(), Qt::ISODate).toUTC();
-        const bool confirmed = (filter.confirmLotw && q.value(16).toString() == QLatin1String("Y"))
-                            || (filter.confirmCard && q.value(17).toString() == QLatin1String("Y"))
-                            || (filter.confirmEqsl && q.value(18).toString() == QLatin1String("Y"));
+        const bool confirmed = (filter.confirmLotw && q.value(17).toString() == QLatin1String("Y"))
+                            || (filter.confirmCard && q.value(18).toString() == QLatin1String("Y"))
+                            || (filter.confirmEqsl && q.value(19).toString() == QLatin1String("Y"));
 
         auto add = [&](const char* award, const QString& key, const QString& name) {
             if (key.isEmpty())
@@ -263,12 +351,25 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
             if (submode == QLatin1String("FT2"))
                 add("ft2", QString::number(dxcc), name);
         }
+        const QString continent = q.value(16).toString().trimmed().toUpper();
+        if (awards::continents().contains(continent))
+            add("wac", continent, awards::continents().value(continent));
         const int cqz = q.value(6).toInt();
         if (cqz >= 1 && cqz <= 40)
             add("waz", QString::number(cqz), QString());
         const QString state = q.value(7).toString().trimmed().toUpper();
         if (usaEntities.contains(dxcc) && awards::usStates().contains(state))
             add("was", state, awards::usStates().value(state));
+        // Giappone: la prefettura sta in STATE (ADIF la scrive col numero,
+        // "12" o "JA12"), il distretto e' la cifra del nominativo.
+        if (dxcc == 339) {
+            const QString prefecture = awards::japanPrefecture(state);
+            if (!prefecture.isEmpty())
+                add("waja", prefecture, awards::japanPrefectures().value(prefecture));
+            const QString district = awards::japanDistrict(call);
+            if (!district.isEmpty())
+                add("ajd", district, QString());
+        }
         add("wpx", awards::wpxPrefix(call), QString());
         const QString grid = q.value(8).toString().trimmed().toUpper();
         if (grid.size() >= 4)

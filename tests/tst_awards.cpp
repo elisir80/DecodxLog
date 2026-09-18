@@ -4,6 +4,8 @@
 
 #include <QTest>
 
+#include <algorithm>
+
 using namespace decolog::core;
 
 class TestAwards : public QObject {
@@ -141,6 +143,105 @@ private slots:
         QCOMPARE(pota.items.first().key, QString("339"));
         byTag.tag = "field day";
         QCOMPARE(find(calc.compute(db, byTag), "dxcc").worked(), 1);
+    }
+
+    // ── WAC, WAJA, AJD ───────────────────────────────────────────────────────
+
+    void theSixContinentsAreCountedForWac()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        auto worked = [&db](const QString& call, const QString& cont, const QString& band) {
+            AdifRecord r;
+            r.set(QStringLiteral("CALL"), call);
+            r.set(QStringLiteral("QSO_DATE"), QStringLiteral("20260918"));
+            r.set(QStringLiteral("TIME_ON"), QStringLiteral("120000"));
+            r.set(QStringLiteral("BAND"), band);
+            r.set(QStringLiteral("MODE"), QStringLiteral("CW"));
+            r.set(QStringLiteral("CONT"), cont);
+            r.set(QStringLiteral("DXCC"), QStringLiteral("100"));
+            db.insertQso(r, QStringLiteral("test"));
+        };
+        worked(QStringLiteral("DL9ZZT"), QStringLiteral("EU"), QStringLiteral("20m"));
+        worked(QStringLiteral("W1AW"), QStringLiteral("NA"), QStringLiteral("20m"));
+        worked(QStringLiteral("PY2ABC"), QStringLiteral("SA"), QStringLiteral("40m"));
+        worked(QStringLiteral("JA1ABC"), QStringLiteral("AS"), QStringLiteral("20m"));
+        worked(QStringLiteral("ZS6ABC"), QStringLiteral("AF"), QStringLiteral("15m"));
+        worked(QStringLiteral("VK3ABC"), QStringLiteral("OC"), QStringLiteral("20m"));
+        // L'Antartide non fa numero per il diploma, ma si vede.
+        worked(QStringLiteral("DP1POL"), QStringLiteral("AN"), QStringLiteral("20m"));
+
+        AwardCalculator calc;
+        const auto results = calc.compute(db, AwardFilter{});
+        const auto wac = std::find_if(results.cbegin(), results.cend(),
+                                      [](const AwardResult& r) { return r.id == QLatin1String("wac"); });
+        QVERIFY(wac != results.cend());
+        QCOMPARE(wac->worked(), 7);      // sei continenti piu' l'Antartide
+        QCOMPARE(wac->target, 6);
+        // Il WAC si fa banda per banda: il 20 metri ne ha cinque.
+        const auto totals = wac->bandTotals({QStringLiteral("20m"), QStringLiteral("40m")});
+        QCOMPARE(totals.at(0).worked, 5);
+        QCOMPARE(totals.at(1).worked, 1);
+    }
+
+    void japanesePrefecturesAndDistricts()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        auto worked = [&db](const QString& call, const QString& state) {
+            AdifRecord r;
+            r.set(QStringLiteral("CALL"), call);
+            r.set(QStringLiteral("QSO_DATE"), QStringLiteral("20260918"));
+            r.set(QStringLiteral("TIME_ON"), QStringLiteral("120000"));
+            r.set(QStringLiteral("BAND"), QStringLiteral("20m"));
+            r.set(QStringLiteral("MODE"), QStringLiteral("CW"));
+            r.set(QStringLiteral("DXCC"), QStringLiteral("339"));
+            r.set(QStringLiteral("STATE"), state);
+            db.insertQso(r, QStringLiteral("test"));
+        };
+        worked(QStringLiteral("JA1ABC"), QStringLiteral("12"));       // Chiba, distretto 1
+        worked(QStringLiteral("JA3XYZ"), QStringLiteral("25"));       // Osaka, distretto 3
+        worked(QStringLiteral("JH1QRS"), QStringLiteral("JA12"));     // la stessa Chiba, scritta cosi'
+        worked(QStringLiteral("JA0TUV"), QStringLiteral("09"));       // Nagano, distretto 0
+
+        AwardCalculator calc;
+        const auto results = calc.compute(db, AwardFilter{});
+        const auto waja = std::find_if(results.cbegin(), results.cend(),
+                                       [](const AwardResult& r) { return r.id == QLatin1String("waja"); });
+        const auto ajd = std::find_if(results.cbegin(), results.cend(),
+                                      [](const AwardResult& r) { return r.id == QLatin1String("ajd"); });
+        QVERIFY(waja != results.cend() && ajd != results.cend());
+        QCOMPARE(waja->worked(), 3);     // Chiba contata una volta sola
+        QCOMPARE(waja->target, 47);
+        QCOMPARE(ajd->worked(), 3);      // distretti 1, 3, 0
+        QCOMPARE(ajd->target, 10);
+        // Il nome della prefettura si vede, non solo il numero.
+        const auto chiba = std::find_if(waja->items.cbegin(), waja->items.cend(),
+                                        [](const AwardItem& i) { return i.key == QLatin1String("12"); });
+        QVERIFY(chiba != waja->items.cend());
+        QCOMPARE(chiba->name, QStringLiteral("Chiba"));
+    }
+
+    void thePrefectureIsReadHoweverItIsWritten()
+    {
+        QCOMPARE(awards::japanPrefecture(QStringLiteral("12")), QStringLiteral("12"));
+        QCOMPARE(awards::japanPrefecture(QStringLiteral("JA12")), QStringLiteral("12"));
+        QCOMPARE(awards::japanPrefecture(QStringLiteral("12 Chiba")), QStringLiteral("12"));
+        QCOMPARE(awards::japanPrefecture(QStringLiteral("01")), QStringLiteral("01"));
+        QCOMPARE(awards::japanPrefecture(QStringLiteral("7")), QStringLiteral("07"));
+        // Fuori dai 47 non e' una prefettura.
+        QVERIFY(awards::japanPrefecture(QStringLiteral("48")).isEmpty());
+        QVERIFY(awards::japanPrefecture(QStringLiteral("SN")).isEmpty());
+        QVERIFY(awards::japanPrefecture(QString()).isEmpty());
+    }
+
+    void theDistrictIsTheDigitOfTheCallsign()
+    {
+        QCOMPARE(awards::japanDistrict(QStringLiteral("JA1ABC")), QStringLiteral("1"));
+        QCOMPARE(awards::japanDistrict(QStringLiteral("JA0TUV")), QStringLiteral("0"));
+        QCOMPARE(awards::japanDistrict(QStringLiteral("7K4XYZ")), QStringLiteral("4"));
+        QCOMPARE(awards::japanDistrict(QStringLiteral("JH1QRS/3")), QStringLiteral("1"));
+        QVERIFY(awards::japanDistrict(QString()).isEmpty());
     }
 };
 

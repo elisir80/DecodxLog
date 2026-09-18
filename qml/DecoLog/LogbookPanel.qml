@@ -258,11 +258,55 @@ GlassPanel {
             enabled: root.model.count > 0
             onTriggered: exportShown.open()
         }
+        StyledMenuItem {
+            text: qsTr("Complete the QSO shown from the callbook…")
+            enabled: root.model.count > 0 && decolog.callbookProvider !== "off"
+            onTriggered: decolog.completeShownFromCallbook()
+        }
         MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
         StyledMenuItem {
             text: qsTr("Clear all filters")
             enabled: root.model.filtered
             onTriggered: root.model.clearFilters()
+        }
+    }
+
+    // Cancellare e' morbido, ma si chiede lo stesso: un clic sbagliato capita.
+    Popup {
+        id: confirmRowDelete
+        property var qsoId: 0
+        property string call: ""
+        function openFor(id) {
+            qsoId = id
+            call = root.model.valueAt(root.model.rowForId(id), 1)
+            open()
+        }
+        anchors.centerIn: Overlay.overlay
+        modal: true
+        padding: 16
+        background: Rectangle { color: Theme.panelColor; border.color: Theme.borderColor; radius: 6 }
+        contentItem: ColumnLayout {
+            spacing: 12
+            Text {
+                text: qsTr("Delete %1? The QSO stays in the history and can be recovered.").arg(confirmRowDelete.call)
+                color: Theme.textPrimary
+                wrapMode: Text.Wrap
+                Layout.maximumWidth: 360
+            }
+            RowLayout {
+                spacing: 8
+                Item { Layout.fillWidth: true }
+                GlassButton { text: qsTr("Cancel"); onClicked: confirmRowDelete.close() }
+                GlassButton {
+                    text: qsTr("Delete")
+                    tone: Theme.errorColor
+                    filled: true
+                    onClicked: {
+                        confirmRowDelete.close()
+                        decolog.deleteQso(confirmRowDelete.qsoId)
+                    }
+                }
+            }
         }
     }
 
@@ -756,6 +800,19 @@ GlassPanel {
         property var qsoId: 0
         function popupFor(id) { qsoId = id; popup() }
         StyledMenuItem { text: qsTr("Open / edit…"); onTriggered: root.openQso(rowMenu.qsoId) }
+        // Cancellare un QSO si fa da dove lo si guarda, non solo dalla scheda:
+        // e' morbida, la riga resta nello storico e si recupera.
+        StyledMenuItem {
+            text: qsTr("Delete QSO…")
+            onTriggered: confirmRowDelete.openFor(rowMenu.qsoId)
+        }
+        // Il callbook sa nome, locatore e indirizzo: se al QSO mancano, glieli
+        // mette adesso.
+        StyledMenuItem {
+            text: qsTr("Complete from the callbook")
+            enabled: decolog.callbookProvider !== "off"
+            onTriggered: decolog.completeQsoFromCallbook(rowMenu.qsoId)
+        }
         StyledMenuItem { text: qsTr("Filter by this call"); onTriggered: root.model.filterText = decolog.lookupCall }
         StyledMenuItem {
             readonly property int dxcc: parseInt(root.model.valueAt(root.model.rowForId(rowMenu.qsoId), 9)) || 0

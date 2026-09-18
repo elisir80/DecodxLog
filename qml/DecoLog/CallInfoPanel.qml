@@ -148,6 +148,8 @@ GlassPanel {
                     text: {
                         const parts = []
                         if (root.info.gridsquare) parts.push(root.info.gridsquare)
+                        // Lo stato: la provincia, lo stato USA, la prefettura.
+                        if (root.info.state) parts.push(decolog.subdivisionName(root.info.state, root.info.entityDxcc || root.info.dxcc || 0))
                         if (root.info.country) parts.push(root.info.country)
                         if (root.info.entityDxcc) parts.push("DXCC " + root.info.entityDxcc)
                         if (root.info.cqz) parts.push("CQ " + root.info.cqz)

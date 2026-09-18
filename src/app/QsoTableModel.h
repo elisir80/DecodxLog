@@ -98,6 +98,9 @@ public:
 
     // Aggiunge una riga appena scritta, senza ricaricare tutto.
     void insertQso(qint64 id);
+    // Rilegge una riga che e' cambiata (una conferma, il callbook che completa
+    // un QSO): la tabella non si ricostruisce per una riga sola.
+    void refreshQso(qint64 id);
 
 signals:
     void countChanged();

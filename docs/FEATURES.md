@@ -1,4 +1,4 @@
-# DecoLog 0.3.1 — funzioni / features
+# DecoLog 0.3.2 — funzioni / features
 
 Ogni voce è in italiano e in inglese: *italiano* / *English*.
 Quello che manca è in fondo.
@@ -73,6 +73,12 @@ Quello che manca è in fondo.
   click**, band from frequency, default RST.
 - **Il callbook riempie solo i campi vuoti** (nome, QTH, locatore). / **The callbook fills
   only empty fields** (name, QTH, grid).
+- **Il QSO appena scritto si completa da solo**: nome, QTH, locatore, indirizzo, stato,
+  contea e zone arrivano dal callbook subito dopo il log, senza toccare quello che c'e'
+  gia'. Una ricerca per nominativo, e si puo' rifare a mano sui QSO vecchi (dal menu di una
+  riga o su tutte quelle mostrate). / **The QSO just logged completes itself**: name, QTH,
+  grid, address, state, county and zones come from the callbook right after logging, never
+  overwriting what is already there.
 - **Quello che il log sa del nominativo** mentre lo scrivi: già lavorato, nuovo DXCC, nuovo
   su questa banda. / **What the log knows about the call** as you type: worked before, new
   DXCC, new on this band.
@@ -126,8 +132,19 @@ Quello che manca è in fondo.
 
 ## 9. Diplomi / Awards
 
-- **Calcolati dal log**: DXCC, FT2 Award, WAZ, WAS, WPX, locatori, IOTA, POTA, SOTA, WWFF. /
-  **Computed from the log**: DXCC, FT2 Award, WAZ, WAS, WPX, grids, IOTA, POTA, SOTA, WWFF.
+- **Calcolati dal log**: DXCC, **DXCC Challenge**, FT2 Award, **WAC**, WAZ, WAS, **WAJA**,
+  **AJD**, WPX, locatori, IOTA, POTA, SOTA, WWFF. / **Computed from the log**: DXCC, **DXCC
+  Challenge**, FT2 Award, **WAC**, WAZ, WAS, **WAJA**, **AJD**, WPX, grids, IOTA, POTA,
+  SOTA, WWFF.
+- **WAC**: i sei continenti dell'IARU, con l'Antartide che si vede ma non fa numero; si
+  legge anche banda per banda, perche' il diploma si fa su piu' bande. / **WAC**: the six
+  IARU continents, Antarctica shown but not counted; per band as well.
+- **WAJA e AJD**: le 47 prefetture giapponesi (da `STATE`, comunque sia scritta) e i dieci
+  distretti (dalla cifra del nominativo). / **WAJA and AJD**: the 47 Japanese prefectures
+  and the ten districts.
+- **DXCC Challenge**: gli stessi DXCC contati banda per banda dai 160 ai 6 metri (undici
+  bande), traguardo mille slot. / **DXCC Challenge**: band slots from 160 to 6 m, eleven
+  bands, a thousand to reach.
 - **Tabella per banda** (● confermato, ○ lavorato) con totali per banda e **band slot**. /
   **Per-band table** (● confirmed, ○ worked) with per-band totals and **band slots**.
 - **Quello che manca**: entità, zone e stati mai lavorati. / **What is missing**: entities,

@@ -3,7 +3,42 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
-## Non ancora pubblicato
+## 0.3.2 — 19 settembre 2026
+
+**Il QSO non resta nudo.** Decodium manda l'essenziale — nominativo, rapporto, banda,
+modo — e il resto restava fuori dal log anche quando la scheda a destra lo mostrava:
+nome, locatore, citta'. Adesso, appena il QSO e' scritto, DecoLog chiede al callbook
+(QRZ.com o HamQTH) e quello che torna riempie **solo i campi vuoti**: nome, QTH,
+locatore, indirizzo, stato, contea, entita', zone. Quello che ha scritto l'operatore non
+si tocca — ha visto il collegamento, il callbook no.
+
+Una ricerca per nominativo, e la risposta si tiene un giorno: cento QSO con lo stesso
+corrispondente non diventano cento ricerche. Si spegne da Impostazioni → Callbook. Sui
+QSO gia' nel log si fa a mano: dal menu di una riga, "Completa dal callbook", oppure
+"Completa dal callbook i QSO mostrati" per tutte quelle che si stanno guardando.
+
+**Diplomi nuovi.** **WAC** — i sei continenti, con l'Antartide che si vede ma non fa
+numero — **WAJA** (le 47 prefetture giapponesi, lette da STATE comunque siano scritte:
+"12", "JA12", "12 Chiba") e **AJD** (i dieci distretti giapponesi, dalla cifra del
+nominativo). E il **DXCC Challenge**: gli stessi DXCC contati banda per banda, dai 160 ai
+6 metri (undici bande, 60 compresi), con il traguardo dei mille slot.
+
+Tutti si leggono anche **per banda e per modo**, come gli altri: il WAC su cinque bande e
+il WAS banda per banda erano gia' possibili, adesso ci sono anche i diplomi che mancavano.
+
+**Le statistiche non si fermano piu' ai 15 metri.** La scheda in basso mostrava le prime
+otto bande e i primi otto modi, e chi lavora in 12, 10, 6, 2 metri o piu' in su non li
+vedeva. Adesso ci sono tutte.
+
+**Eliminare un QSO dal log.** Nel menu di una riga, accanto a "Apri / modifica", c'e'
+"Elimina QSO": con la stessa domanda di conferma della scheda, e la stessa cancellazione
+morbida — la riga resta nello storico e si recupera.
+
+**Nella scheda del nominativo** si legge anche lo **stato**: la provincia, lo stato USA
+col suo nome, la prefettura giapponese col suo. Il locatore c'era gia' e adesso arriva
+piu' spesso, perche' il callbook lo riempie.
+
+
 
 **DecoLog fuori da Windows.** Salvatore Raccampo 9H1SR ha portato il programma dove
 Windows non c'e', e le sue correzioni sono qui: i caratteri si scelgono guardando quelli

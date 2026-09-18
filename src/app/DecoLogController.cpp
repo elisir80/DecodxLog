@@ -216,6 +216,9 @@ DecoLogController::DecoLogController(QObject* parent)
     m_callbook.setProvider(CallbookClient::providerFromId(
         s.value(QStringLiteral("callbook/provider"), QStringLiteral("off")).toString()));
     m_callbookAutofill = s.value(QStringLiteral("callbook/autofill"), true).toBool();
+    // Completare i QSO appena scritti: chi ha un callbook lo vuole, e chi non
+    // ce l'ha non se ne accorge.
+    m_callbookComplete = s.value(QStringLiteral("callbook/completeLogged"), true).toBool();
     connect(&m_callbook, &CallbookClient::found, this, [this](const QString& call, const CallbookRecord& record) {
         m_callbookResults.insert(call, record.toMap());
         m_callbookErrors.remove(call);
@@ -225,11 +228,25 @@ DecoLogController::DecoLogController(QObject* parent)
         emit callbookChanged();
         if (call == m_lookupCall)
             refreshCallInfo();
+        // I QSO che aspettavano questo nominativo si completano adesso.
+        const QList<qint64> waiting = m_awaitingCallbook.take(call);
+        for (qint64 id : waiting) {
+            const QStringList filled = applyCallbookToQso(id, record.toMap());
+            if (!filled.isEmpty()) {
+                addActivity(QStringLiteral("CALLBOOK"),
+                            tr("%1: %2 completed from %3 (%4)")
+                                .arg(call, tr("QSO"), record.source, filled.join(QStringLiteral(", "))),
+                            QStringLiteral("success"));
+            }
+        }
     });
     connect(&m_callbook, &CallbookClient::failed, this, [this](const QString& call, const QString& message) {
         m_callbookErrors.insert(call, message);
         if (call == m_callbookPending)
             m_callbookPending.clear();
+        // Chi aspettava resta com'e': un QSO senza nome e' meglio di un QSO con
+        // un nome inventato.
+        m_awaitingCallbook.remove(call);
         // Credenziali sbagliate o rete assente: una riga nel registro, non una per nominativo.
         if (message != m_callbookStatus && !message.contains(QLatin1String("not found"), Qt::CaseInsensitive))
             addActivity(QStringLiteral("CALLBOOK"), message, QStringLiteral("warning"));
@@ -653,6 +670,69 @@ QString DecoLogController::dialBand() const
     return bands::fromMhz(static_cast<double>(m_status.dialFrequencyHz) / 1e6);
 }
 
+// ── Il QSO che si completa da solo ────────────────────────────────────────────
+//
+// Da Decodium arriva l'essenziale: nominativo, rapporto, banda, modo. Il nome di
+// chi c'era dall'altra parte, il suo locatore, la citta' e l'indirizzo li sa il
+// callbook — ed e' un peccato che restino li' mentre nel log c'e' una riga nuda.
+// Appena il QSO e' scritto si chiede, e quello che torna riempie **solo i campi
+// vuoti**: quello che ha scritto l'operatore non si tocca mai.
+
+void DecoLogController::completeFromCallbook(qint64 id, const QString& call)
+{
+    if (id <= 0 || call.isEmpty() || !m_callbookComplete)
+        return;
+    if (m_callbook.provider() == CallbookClient::Provider::None)
+        return;
+
+    // Se l'abbiamo gia' cercato in questa sessione, la risposta e' qui.
+    if (const auto it = m_callbookResults.constFind(call); it != m_callbookResults.constEnd()) {
+        applyCallbookToQso(id, *it);
+        return;
+    }
+    // Altrimenti si mette in coda: la ricerca e' una sola anche per piu' QSO.
+    m_awaitingCallbook[call].append(id);
+    m_callbook.lookup(call);
+}
+
+QStringList DecoLogController::applyCallbookToQso(qint64 id, const QVariantMap& cb)
+{
+    const auto current = m_db.record(id);
+    if (!current)
+        return {};
+
+    AdifRecord updated = *current;
+    CallbookRecord found;
+    found.name = cb.value(QStringLiteral("name")).toString();
+    found.qth = cb.value(QStringLiteral("qth")).toString();
+    found.grid = cb.value(QStringLiteral("grid")).toString();
+    found.address = cb.value(QStringLiteral("address")).toString();
+    found.state = cb.value(QStringLiteral("state")).toString();
+    found.county = cb.value(QStringLiteral("county")).toString();
+    found.country = cb.value(QStringLiteral("country")).toString();
+    found.iota = cb.value(QStringLiteral("iota")).toString();
+    found.email = cb.value(QStringLiteral("email")).toString();
+    found.qslVia = cb.value(QStringLiteral("qslVia")).toString();
+    found.cqZone = cb.value(QStringLiteral("cqZone")).toInt();
+    found.ituZone = cb.value(QStringLiteral("ituZone")).toInt();
+    found.dxcc = cb.value(QStringLiteral("dxcc")).toInt();
+
+    const QStringList filled = callbook::fillMissing(updated, found);
+    if (filled.isEmpty())
+        return {};
+
+    const InsertResult r = m_db.updateQso(id, updated, -1, QStringLiteral("callbook"));
+    if (r.status != InsertResult::Status::Inserted)
+        return {};
+
+    m_model->refreshQso(id);
+    m_cloud->qsoLogged();
+    emit logChanged();
+    if (m_lookupCall == updated.value(QStringLiteral("CALL")).toUpper())
+        refreshCallInfo();
+    return filled;
+}
+
 void DecoLogController::reportPresenceToCloud()
 {
     if (!m_cloud)
@@ -667,6 +747,24 @@ void DecoLogController::reportPresenceToCloud()
         {QStringLiteral("transmitting"), m_status.transmitting},
         {QStringLiteral("client"), m_clientName},
     });
+}
+
+QString DecoLogController::subdivisionName(const QString& code, int dxcc) const
+{
+    // Uno stato USA, una prefettura giapponese: nel log c'e' la sigla o il
+    // numero, ma chi guarda vuole leggere il nome.
+    const QString text = code.trimmed().toUpper();
+    if (text.isEmpty())
+        return {};
+    static const QSet<int> usa{291, 6, 110};
+    if (usa.contains(dxcc) && awards::usStates().contains(text))
+        return awards::usStates().value(text);
+    if (dxcc == 339) {
+        const QString prefecture = awards::japanPrefecture(text);
+        if (!prefecture.isEmpty())
+            return awards::japanPrefectures().value(prefecture);
+    }
+    return text;
 }
 
 QStringList DecoLogController::bands() const
@@ -849,6 +947,35 @@ QVariantList DecoLogController::awardSummary() const
             {QStringLiteral("slotsWorked"), slotsWorked},
             {QStringLiteral("slotsConfirmed"), slotsConfirmed},
         };
+
+        // Il DXCC Challenge non e' un altro elenco di entita': sono gli stessi
+        // DXCC contati banda per banda, dai 160 ai 6 metri (undici bande, 60
+        // compresi). Mille slot e' il traguardo del primo riconoscimento.
+        if (r.id == QLatin1String("dxcc")) {
+            static const QStringList challengeBands{
+                QStringLiteral("160m"), QStringLiteral("80m"), QStringLiteral("60m"),
+                QStringLiteral("40m"), QStringLiteral("30m"), QStringLiteral("20m"),
+                QStringLiteral("17m"), QStringLiteral("15m"), QStringLiteral("12m"),
+                QStringLiteral("10m"), QStringLiteral("6m")};
+            int worked = 0, confirmed = 0;
+            for (const BandTotal& t : r.bandTotals(challengeBands)) {
+                worked += t.worked;
+                confirmed += t.confirmed;
+            }
+            out << QVariantMap{
+                {QStringLiteral("id"), QStringLiteral("challenge")},
+                {QStringLiteral("title"), QStringLiteral("DXCC Challenge")},
+                {QStringLiteral("worked"), worked},
+                {QStringLiteral("confirmed"), confirmed},
+                {QStringLiteral("target"), 1000},
+                {QStringLiteral("total"), 0},
+                {QStringLiteral("slotsWorked"), worked},
+                {QStringLiteral("slotsConfirmed"), confirmed},
+                // Non e' un award con i suoi elementi: la tabella per banda non
+                // lo riguarda, il numero si legge nel riquadro.
+                {QStringLiteral("derived"), true},
+            };
+        }
     }
     return out;
 }
@@ -1156,6 +1283,9 @@ void DecoLogController::onQsoReceived(const AdifRecord& input, const QString& so
         item[QStringLiteral("newDxcc")] = newDxcc;
         addActivity(QStringLiteral("UDP"), text, newDxcc ? QStringLiteral("highlight") : QStringLiteral("success"));
         emit logChanged();
+        // Decodium manda l'essenziale: nome, locatore e indirizzo li sa il
+        // callbook, e il QSO se li prende da solo.
+        completeFromCallbook(r.id, call);
         break;
     }
     case InsertResult::Status::Duplicate:
@@ -1262,6 +1392,9 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
         emit logChanged();
         setLookupCall(r.value(QStringLiteral("CALL")));
         refreshCallInfo();
+        // Anche quello scritto a mano si completa: chi lo scrive di fretta,
+        // fra un QSO e l'altro, non ha tempo di cercare il locatore.
+        completeFromCallbook(res.id, r.value(QStringLiteral("CALL")).toUpper());
         return {};
     case InsertResult::Status::Duplicate:
         return tr("Already in log (within %n minute(s))", nullptr, dedupManualMinutes());
@@ -1970,6 +2103,66 @@ void DecoLogController::setCallbookProvider(const QString& id)
     requestCallbook();
 }
 
+void DecoLogController::setCallbookComplete(bool complete)
+{
+    if (complete == m_callbookComplete)
+        return;
+    m_callbookComplete = complete;
+    QSettings().setValue(QStringLiteral("callbook/completeLogged"), complete);
+    emit callbookChanged();
+}
+
+int DecoLogController::completeQsoFromCallbook(qint64 id)
+{
+    const auto record = m_db.record(id);
+    if (!record)
+        return 0;
+    const QString call = record->value(QStringLiteral("CALL")).toUpper();
+    if (call.isEmpty() || m_callbook.provider() == CallbookClient::Provider::None)
+        return 0;
+
+    // A comando si fa comunque, anche se il completamento automatico e' spento.
+    if (const auto it = m_callbookResults.constFind(call); it != m_callbookResults.constEnd())
+        return applyCallbookToQso(id, *it).isEmpty() ? 0 : 1;
+
+    m_awaitingCallbook[call].append(id);
+    m_callbook.lookup(call);
+    return 1;
+}
+
+int DecoLogController::completeShownFromCallbook()
+{
+    // Le righe che si stanno guardando, non tutto il log: una ricerca per
+    // nominativo costa, e l'abbonamento ha un limite.
+    int asked = 0;
+    QSet<QString> seen;
+    for (const QVariant& value : m_model->shownIds()) {
+        const qint64 id = value.toLongLong();
+        const auto record = m_db.record(id);
+        if (!record)
+            continue;
+        // Solo quelli a cui manca qualcosa: gli altri sono gia' a posto.
+        if (!record->value(QStringLiteral("NAME")).isEmpty()
+            && !record->value(QStringLiteral("GRIDSQUARE")).isEmpty()) {
+            continue;
+        }
+        const QString call = record->value(QStringLiteral("CALL")).toUpper();
+        if (call.isEmpty() || seen.contains(call))
+            continue;
+        seen.insert(call);
+        if (completeQsoFromCallbook(id) > 0)
+            ++asked;
+        if (asked >= 50)
+            break;   // un blocco per volta: si ripete, non si esagera
+    }
+    if (asked > 0) {
+        addActivity(QStringLiteral("CALLBOOK"),
+                    tr("Completing %n QSO from the callbook…", nullptr, asked),
+                    QStringLiteral("info"));
+    }
+    return asked;
+}
+
 void DecoLogController::setCallbookAutofill(bool autofill)
 {
     if (autofill == m_callbookAutofill)
@@ -2005,6 +2198,7 @@ void DecoLogController::refreshCallInfo()
         {QStringLiteral("qth"), wb.qth},
         {QStringLiteral("gridsquare"), wb.gridsquare},
         {QStringLiteral("country"), wb.country},
+        {QStringLiteral("state"), wb.state},
         {QStringLiteral("dxcc"), wb.dxcc},
         {QStringLiteral("cqz"), wb.cqz},
         {QStringLiteral("ituz"), wb.ituz},
@@ -2025,6 +2219,7 @@ void DecoLogController::refreshCallInfo()
         prefer("qth", cb.value(QStringLiteral("qth")));
         prefer("gridsquare", cb.value(QStringLiteral("grid")));
         prefer("country", cb.value(QStringLiteral("country")));
+        prefer("state", cb.value(QStringLiteral("state")));
         if (wb.cqz == 0 && cb.value(QStringLiteral("cqZone")).toInt() > 0)
             info[QStringLiteral("cqz")] = cb.value(QStringLiteral("cqZone"));
         if (wb.ituz == 0 && cb.value(QStringLiteral("ituZone")).toInt() > 0)

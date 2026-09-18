@@ -1,5 +1,6 @@
 // Callbook: lettura delle risposte XML di QRZ.com e HamQTH e il giro completo
 // login → ricerca → sessione scaduta → nuovo login, contro un server HTTP finto.
+#include "core/Adif.h"
 #include "core/Callbook.h"
 
 #include <QSignalSpy>
@@ -212,6 +213,84 @@ private slots:
         QVERIFY(found.wait(5000));
         QCOMPARE(server.requests.at(1).queryItemValue("id"), QString("09b0ae90050be03c452ad235a1f2915ad684393c"));
         QCOMPARE(server.requests.at(1).queryItemValue("prg"), QString("DecoLog"));
+    }
+
+    // ── Il QSO che si completa ───────────────────────────────────────────────
+
+    void theCallbookFillsWhatTheQsoDoesNotKnow()
+    {
+        // Da Decodium arriva l'essenziale: nominativo, rapporto, banda, modo.
+        AdifRecord qso;
+        qso.set(QStringLiteral("CALL"), QStringLiteral("DL9ZZT"));
+        qso.set(QStringLiteral("BAND"), QStringLiteral("20m"));
+        qso.set(QStringLiteral("MODE"), QStringLiteral("MFSK"));
+        qso.set(QStringLiteral("RST_SENT"), QStringLiteral("599"));
+
+        CallbookRecord found;
+        found.name = QStringLiteral("Klaus Müller");
+        found.qth = QStringLiteral("Dresden");
+        found.grid = QStringLiteral("JO61VB");
+        found.address = QStringLiteral("Hauptstrasse 1");
+        found.state = QStringLiteral("SN");
+        found.country = QStringLiteral("Germany");
+        found.cqZone = 14;
+        found.ituZone = 28;
+        found.dxcc = 230;
+
+        const QStringList filled = callbook::fillMissing(qso, found);
+        QVERIFY(filled.contains(QStringLiteral("NAME")));
+        QVERIFY(filled.contains(QStringLiteral("GRIDSQUARE")));
+        QVERIFY(filled.contains(QStringLiteral("ADDRESS")));
+        QCOMPARE(qso.value(QStringLiteral("NAME")), QStringLiteral("Klaus Müller"));
+        QCOMPARE(qso.value(QStringLiteral("QTH")), QStringLiteral("Dresden"));
+        QCOMPARE(qso.value(QStringLiteral("GRIDSQUARE")), QStringLiteral("JO61VB"));
+        QCOMPARE(qso.value(QStringLiteral("STATE")), QStringLiteral("SN"));
+        QCOMPARE(qso.value(QStringLiteral("CQZ")), QStringLiteral("14"));
+        QCOMPARE(qso.value(QStringLiteral("DXCC")), QStringLiteral("230"));
+        // Quello che c'era resta com'era.
+        QCOMPARE(qso.value(QStringLiteral("RST_SENT")), QStringLiteral("599"));
+    }
+
+    void whatTheOperatorWroteIsNeverTouched()
+    {
+        // Il locatore l'ha sentito in aria, il nome glielo ha detto lui: valgono
+        // piu' di quello che dice una scheda su Internet.
+        AdifRecord qso;
+        qso.set(QStringLiteral("CALL"), QStringLiteral("DL9ZZT"));
+        qso.set(QStringLiteral("NAME"), QStringLiteral("Klaus"));
+        qso.set(QStringLiteral("GRIDSQUARE"), QStringLiteral("JO62"));
+        qso.set(QStringLiteral("DXCC"), QStringLiteral("230"));
+        qso.set(QStringLiteral("CQZ"), QStringLiteral("14"));
+
+        CallbookRecord found;
+        found.name = QStringLiteral("Klaus-Dieter");
+        found.grid = QStringLiteral("JO61VB");
+        found.dxcc = 1;                 // una scheda personale puo' sbagliare
+        found.cqZone = 40;
+        found.qth = QStringLiteral("Dresden");
+
+        const QStringList filled = callbook::fillMissing(qso, found);
+        QCOMPARE(qso.value(QStringLiteral("NAME")), QStringLiteral("Klaus"));
+        QCOMPARE(qso.value(QStringLiteral("GRIDSQUARE")), QStringLiteral("JO62"));
+        QCOMPARE(qso.value(QStringLiteral("DXCC")), QStringLiteral("230"));
+        QCOMPARE(qso.value(QStringLiteral("CQZ")), QStringLiteral("14"));
+        // Solo il QTH mancava.
+        QCOMPARE(filled, QStringList{QStringLiteral("QTH")});
+    }
+
+    void nothingToSayNothingWritten()
+    {
+        AdifRecord qso;
+        qso.set(QStringLiteral("CALL"), QStringLiteral("DL9ZZT"));
+
+        CallbookRecord empty;
+        QVERIFY(callbook::fillMissing(qso, empty).isEmpty());
+
+        // Spazi e basta non sono un nome.
+        CallbookRecord blank;
+        blank.name = QStringLiteral("   ");
+        QVERIFY(callbook::fillMissing(qso, blank).isEmpty());
+        QVERIFY(qso.value(QStringLiteral("NAME")).isEmpty());
     }
 };
 

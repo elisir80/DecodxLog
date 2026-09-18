@@ -119,6 +119,8 @@ class DecoLogController : public QObject {
     // ── Callbook (QRZ.com / HamQTH) ────────────────────────────────────────
     Q_PROPERTY(QString callbookProvider READ callbookProvider WRITE setCallbookProvider NOTIFY callbookChanged)
     Q_PROPERTY(bool callbookAutofill READ callbookAutofill WRITE setCallbookAutofill NOTIFY callbookChanged)
+    // Completare i QSO appena scritti con quello che sa il callbook.
+    Q_PROPERTY(bool callbookComplete READ callbookComplete WRITE setCallbookComplete NOTIFY callbookChanged)
     Q_PROPERTY(QString callbookStatus READ callbookStatus NOTIFY callbookChanged)
     Q_PROPERTY(bool callbookBusy READ callbookBusy NOTIFY callbookChanged)
 
@@ -283,6 +285,13 @@ public:
     QString callbookProvider() const { return core::CallbookClient::providerId(m_callbook.provider()); }
     void setCallbookProvider(const QString& id);
     bool callbookAutofill() const { return m_callbookAutofill; }
+    bool callbookComplete() const { return m_callbookComplete; }
+    void setCallbookComplete(bool complete);
+    // Completa un QSO gia' scritto: dalla scheda del QSO, e dal log per
+    // tutte le righe mostrate. Torna quanti ne ha completati (o messi in
+    // coda alla ricerca).
+    Q_INVOKABLE int completeQsoFromCallbook(qint64 id);
+    Q_INVOKABLE int completeShownFromCallbook();
     void setCallbookAutofill(bool autofill);
     QString callbookStatus() const { return m_callbookStatus; }
     bool callbookBusy() const { return !m_callbookPending.isEmpty(); }
@@ -334,6 +343,9 @@ public:
     // Le entita' presenti nel log per il filtro: [{dxcc, name, count}].
     Q_INVOKABLE QVariantList dxccInLog() const;
     Q_INVOKABLE QString dxccName(int dxcc) const { return m_countries.nameFor(dxcc); }
+    // Il nome di uno stato USA o di una prefettura giapponese dalla sigla che
+    // sta nel log; per il resto del mondo torna la sigla com'e'.
+    Q_INVOKABLE QString subdivisionName(const QString& code, int dxcc) const;
 
     Q_INVOKABLE void importAdif(const QUrl& file);
     Q_INVOKABLE void exportAdif(const QUrl& file);
@@ -372,6 +384,13 @@ private:
     // Dove si e' adesso: frequenza, banda, modo, TX. Va al Cloud perche' lo si
     // veda anche da lontano; il Cloud decide ogni quanto mandarlo davvero.
     void reportPresenceToCloud();
+    // Il QSO e' scritto, ma nudo: Decodium manda nominativo, rapporto, banda e
+    // modo, non il nome di chi c'era dall'altra parte. Il callbook lo sa, e
+    // quello che sa finisce nel QSO — solo nei campi vuoti, perche' quello che
+    // ha scritto l'operatore non si tocca.
+    void completeFromCallbook(qint64 id, const QString& call);
+    // Applica al QSO quello che il callbook ha detto. Torna i campi riempiti.
+    QStringList applyCallbookToQso(qint64 id, const QVariantMap& record);
     void refreshCallInfo();
     void maybeCreateProfileFromDecodium();
     void checkBackupSchedule();
@@ -414,11 +433,16 @@ private:
     mutable QList<core::AwardResult> m_globalAwardCache;
     mutable bool m_globalAwardsDirty{true};
     bool      m_callbookAutofill{true};
+    bool      m_callbookComplete{true};
     QString   m_callbookStatus;
     QString   m_callbookPending;
     QTimer    m_callbookDebounce;
     QHash<QString, QVariantMap> m_callbookResults;   // per nominativo, sessione corrente
     QHash<QString, QString> m_callbookErrors;
+    // I QSO che aspettano una risposta del callbook per completarsi: per
+    // nominativo, perche' due QSO con lo stesso corrispondente si accontentano
+    // di una ricerca sola.
+    QHash<QString, QList<qint64>> m_awaitingCallbook;
     QString           m_countriesSource;
     mutable QVariantList m_coastline;
     mutable QVariantList m_land;

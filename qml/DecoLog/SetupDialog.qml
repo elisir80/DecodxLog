@@ -793,6 +793,18 @@ DialogFrame {
                             onToggled: decolog.callbookAutofill = checked
                         }
                     }
+                    ToggleSwitch {
+                        text: qsTr("Complete the QSO just logged (name, QTH, grid, address)")
+                        checked: decolog.callbookComplete
+                        onToggled: decolog.callbookComplete = checked
+                    }
+                    Note {
+                        text: qsTr("Decodium sends callsign, report, band and mode: the rest the callbook knows. "
+                                   + "Right after the QSO is written DecoLog asks, and what comes back fills only "
+                                   + "the empty fields — what you wrote stays. One lookup per callsign, and the "
+                                   + "answer is kept for a day. From the log, \"Complete from the callbook\" does "
+                                   + "the same on QSOs already written.")
+                    }
                     CredentialsList {
                         Layout.fillWidth: true
                         serviceIds: ["qrz", "hamqth"]

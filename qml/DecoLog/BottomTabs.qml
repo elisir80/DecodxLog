@@ -179,8 +179,10 @@ GlassPanel {
                 Layout.alignment: Qt.AlignTop
                 spacing: 4
                 SectionTitle { text: qsTr("By band") }
+                // Tutte le bande lavorate, non le prime otto: chi scende in 12,
+                // 10, 6, 2 metri o piu' in su le vuole vedere.
                 Repeater {
-                    model: decolog.bandStats.slice(0, 8)
+                    model: decolog.bandStats
                     BarRow {
                         required property var modelData
                         Layout.fillWidth: true
@@ -197,7 +199,7 @@ GlassPanel {
                 spacing: 4
                 SectionTitle { text: qsTr("By mode") }
                 Repeater {
-                    model: decolog.modeStats.slice(0, 8)
+                    model: decolog.modeStats
                     BarRow {
                         required property var modelData
                         Layout.fillWidth: true
