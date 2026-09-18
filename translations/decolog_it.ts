@@ -1301,6 +1301,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Log</translation>
     </message>
     <message>
+        <source>%1 selected</source>
+        <translation>%1 scelti</translation>
+    </message>
+    <message>
         <source>%1 QSO · %2 shown</source>
         <translation>%1 QSO · %2 mostrati</translation>
     </message>
@@ -1379,6 +1383,22 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
         <translation>Elimino %1? Il QSO resta nello storico e si può recuperare.</translation>
+    </message>
+    <message>
+        <source>Delete the %1 QSO selected? They stay in the history and can be recovered.</source>
+        <translation>Cancellare i %1 QSO scelti? Restano nello storico e si recuperano.</translation>
+    </message>
+    <message>
+        <source>Once more, to be sure: delete %1?</source>
+        <translation>Ancora una volta, per sicurezza: cancello %1?</translation>
+    </message>
+    <message>
+        <source>Once more, to be sure: delete %1 QSO?</source>
+        <translation>Ancora una volta, per sicurezza: cancello %1 QSO?</translation>
+    </message>
+    <message>
+        <source>Delete for good</source>
+        <translation>Cancella davvero</translation>
     </message>
     <message>
         <source>Export the QSO shown</source>
@@ -1507,6 +1527,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Delete QSO…</source>
         <translation>Elimina QSO…</translation>
+    </message>
+    <message>
+        <source>Delete the %1 QSO selected…</source>
+        <translation>Cancella i %1 QSO scelti…</translation>
     </message>
     <message>
         <source>Complete from the callbook</source>
@@ -4393,6 +4417,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Deleted %1 (kept in history)</source>
         <translation>Eliminato %1 (resta nello storico)</translation>
+    </message>
+    <message>
+        <source>Deleted %1 QSO (kept in history)</source>
+        <translation>Cancellati %1 QSO (restano nello storico)</translation>
     </message>
     <message>
         <source>Restored an earlier revision of QSO #%1</source>

@@ -941,9 +941,13 @@ QVariantList DecoLogController::awardSummary() const
             {QStringLiteral("title"), r.title},
             {QStringLiteral("worked"), r.worked()},
             {QStringLiteral("confirmed"), r.confirmed()},
-            {QStringLiteral("target"), r.target},
+            // Il traguardo del WAAC non e' un numero inventato: sono tutte le
+            // entita' africane che il cty.csv conosce.
+            {QStringLiteral("target"), r.id == QLatin1String("waac") && africanEntities() > 0
+                                           ? africanEntities() : r.target},
             {QStringLiteral("total"), r.id == QLatin1String("dxcc") && m_countries.entityCount() > 0
-                                          ? m_countries.entityCount() : r.total},
+                                          ? m_countries.entityCount()
+                                          : r.id == QLatin1String("waac") ? africanEntities() : r.total},
             {QStringLiteral("slotsWorked"), slotsWorked},
             {QStringLiteral("slotsConfirmed"), slotsConfirmed},
         };
@@ -978,6 +982,23 @@ QVariantList DecoLogController::awardSummary() const
         }
     }
     return out;
+}
+
+int DecoLogController::africanEntities() const
+{
+    // Quante entita' DXCC stanno in Africa: lo dice il cty.csv, e cambia quando
+    // si aggiorna. Si conta una volta sola per file caricato.
+    static QString countedFor;
+    static int count = 0;
+    if (countedFor != m_countries.version() || count == 0) {
+        count = 0;
+        for (const DxccEntity& e : m_countries.entities()) {
+            if (e.continent.trimmed().toUpper() == QLatin1String("AF"))
+                ++count;
+        }
+        countedFor = m_countries.version();
+    }
+    return count;
 }
 
 QStringList DecoLogController::awardBands() const
@@ -1510,16 +1531,34 @@ QString DecoLogController::saveQso(qint64 id, const QVariantMap& fields, qint64 
 
 bool DecoLogController::deleteQso(qint64 id)
 {
-    const auto record = m_db.record(id);
-    if (!m_db.softDeleteQso(id))
-        return false;
-    addActivity(QStringLiteral("LOG"), tr("Deleted %1 (kept in history)").arg(record ? record->value(QStringLiteral("CALL")) : QString()),
+    return deleteQsos({QVariant::fromValue(id)}) == 1;
+}
+
+// Cancellare piu' QSO in un colpo solo: una riga di diario, un ricarico.
+int DecoLogController::deleteQsos(const QVariantList& ids)
+{
+    int done = 0;
+    QString lastCall;
+    for (const auto& value : ids) {
+        const qint64 id = value.toLongLong();
+        const auto record = m_db.record(id);
+        if (!m_db.softDeleteQso(id))
+            continue;
+        ++done;
+        if (record)
+            lastCall = record->value(QStringLiteral("CALL"));
+    }
+    if (done == 0)
+        return 0;
+    addActivity(QStringLiteral("LOG"),
+                done == 1 ? tr("Deleted %1 (kept in history)").arg(lastCall)
+                          : tr("Deleted %1 QSO (kept in history)").arg(done),
                 QStringLiteral("warning"));
     m_model->reload();
     emit logChanged();
     m_decoLink.resendSnapshot();
     refreshCallInfo();
-    return true;
+    return done;
 }
 
 QString DecoLogController::restoreRevision(qint64 id, qint64 historyId)

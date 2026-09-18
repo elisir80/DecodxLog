@@ -95,6 +95,7 @@ ApplicationWindow {
         else if (what[0] === "profiles") profilesDialog.open()
         else if (what[0] === "setup") { setupDialog.page = parseInt(what[1] || "3"); setupDialog.open() }
         else if (what[0] === "menu") logbook.showMenu(what[1])
+        else if (what[0] === "select") logbook.showSelection(what[1], what[2])
         else if (what[0] === "tab") bottomTabs.currentTab = parseInt(what[1])
         else if (what[0] === "pop") popWindow.active = true
         else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))

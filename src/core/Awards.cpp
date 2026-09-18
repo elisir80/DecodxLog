@@ -213,8 +213,9 @@ AwardCalculator::AwardCalculator(DxccName dxccName)
 
 QStringList AwardCalculator::awardIds()
 {
-    return {QStringLiteral("dxcc"), QStringLiteral("ft2"), QStringLiteral("wac"), QStringLiteral("waz"),
-            QStringLiteral("was"), QStringLiteral("waja"), QStringLiteral("ajd"), QStringLiteral("wpx"),
+    return {QStringLiteral("dxcc"), QStringLiteral("ft2"), QStringLiteral("wac"), QStringLiteral("waac"),
+            QStringLiteral("waz"), QStringLiteral("was"), QStringLiteral("waja"), QStringLiteral("ajd"),
+            QStringLiteral("wpx"),
             QStringLiteral("grids"), QStringLiteral("iota"), QStringLiteral("pota"), QStringLiteral("sota"),
             QStringLiteral("wwff")};
 }
@@ -273,6 +274,9 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
     // I sei continenti dell'IARU. L'Antartide non fa numero per il WAC, ma chi
     // ce l'ha vuole vederla: entra nell'elenco e non nel traguardo.
     define("wac", QStringLiteral("WAC"), 6, 6);
+    // Worked All Africa: le entita' DXCC del continente africano. Quante siano
+    // lo dice il cty.csv, quindi traguardo e totale si mettono a posto dopo.
+    define("waac", QStringLiteral("WAAC"), 0, 0);
     define("waz", QStringLiteral("WAZ"), 40, 40);
     define("was", QStringLiteral("WAS"), 50, 50);
     // Le 47 prefetture giapponesi (WAJA) e i 10 distretti (AJD): il Giappone
@@ -354,6 +358,11 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         const QString continent = q.value(16).toString().trimmed().toUpper();
         if (awards::continents().contains(continent))
             add("wac", continent, awards::continents().value(continent));
+        // Worked All Africa: un'entita' africana per volta, col suo nome.
+        if (continent == QLatin1String("AF") && dxcc > 0) {
+            add("waac", QString::number(dxcc),
+                m_dxccName ? m_dxccName(dxcc) : QString());
+        }
         const int cqz = q.value(6).toInt();
         if (cqz >= 1 && cqz <= 40)
             add("waz", QString::number(cqz), QString());

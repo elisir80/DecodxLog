@@ -19,8 +19,39 @@ GlassPanel {
     signal popRequested()
 
     property int selectedRow: -1
+    // Selezione multipla: il clic sinistro aggiunge o toglie una riga, lo shift
+    // prende tutto quello che sta in mezzo, Esc lascia andare tutto.
+    property var selectedIds: []
     readonly property var model: decolog.qsoModel
     readonly property var hidden: hiddenColumns.length ? hiddenColumns.split(",") : []
+
+    function isSelected(id) { return root.selectedIds.indexOf(id) >= 0 }
+    function clearSelection() { root.selectedIds = [] }
+    function selectOnly(row) {
+        const id = root.model.idAt(row)
+        root.selectedIds = id > 0 ? [id] : []
+    }
+    function toggleRow(row) {
+        const id = root.model.idAt(row)
+        if (id <= 0)
+            return
+        const list = root.selectedIds.slice()
+        const i = list.indexOf(id)
+        if (i >= 0) list.splice(i, 1)
+        else list.push(id)
+        root.selectedIds = list
+    }
+    function selectRange(row) {
+        // Dall'ultima riga toccata fino a questa, estremi compresi.
+        const anchor = root.selectedRow < 0 ? row : root.selectedRow
+        const list = root.selectedIds.slice()
+        for (let r = Math.min(anchor, row); r <= Math.max(anchor, row); ++r) {
+            const id = root.model.idAt(r)
+            if (id > 0 && list.indexOf(id) < 0)
+                list.push(id)
+        }
+        root.selectedIds = list
+    }
 
     function isHidden(key) { return hidden.indexOf(key) >= 0 }
     function toggleColumn(key) {
@@ -51,6 +82,22 @@ GlassPanel {
         else if (name === "tag") tagPopup.openFor(root.model.shownIds(), true)
         else if (name === "dates") datePopup.open()
     }
+    // Per le schermate di prova (--show select:<righe separate da virgola>:<cosa>).
+    function showSelection(rows, what) {
+        const list = []
+        const wanted = String(rows).split(",")
+        for (let i = 0; i < wanted.length; ++i) {
+            const id = root.model.idAt(parseInt(wanted[i]))
+            if (id > 0)
+                list.push(id)
+        }
+        root.selectedIds = list
+        root.selectedRow = parseInt(wanted[0])
+        if (what === "menu") rowMenu.popupFor(list[0])
+        else if (what === "confirm") confirmRowDelete.openFor(list)
+        else if (what === "confirm2") { confirmRowDelete.openFor(list); confirmRowDelete.step = 2 }
+        else if (what === "delete") { decolog.deleteQsos(list); root.clearSelection() }
+    }
     function qslFilterLabel(key) {
         return { confirmed: qsTr("confirmed"), lotw: qsTr("LoTW confirmed"), card: qsTr("card confirmed"),
                  eqsl: qsTr("eQSL confirmed"), unconfirmed: qsTr("not confirmed") }[key] || key
@@ -65,6 +112,13 @@ GlassPanel {
     padding: 0
 
     headerLeading: [
+        Pill {
+            visible: root.selectedIds.length > 0
+            text: qsTr("%1 selected").arg(root.selectedIds.length)
+            tone: Theme.primaryColor
+            pillHeight: 20
+            fontPixelSize: 10
+        },
         Pill {
             visible: decolog.clientConnected
             text: "LIVE"
@@ -271,25 +325,35 @@ GlassPanel {
         }
     }
 
-    // Cancellare e' morbido, ma si chiede lo stesso: un clic sbagliato capita.
+    // Cancellare e' morbido, ma si chiede lo stesso, e due volte: un clic
+    // sbagliato capita, e qui le righe possono essere tante.
     Popup {
         id: confirmRowDelete
-        property var qsoId: 0
+        property var ids: []
         property string call: ""
-        function openFor(id) {
-            qsoId = id
-            call = root.model.valueAt(root.model.rowForId(id), 1)
+        property int step: 1
+        function openFor(list) {
+            ids = list
+            call = list.length === 1 ? root.model.valueAt(root.model.rowForId(list[0]), 1) : ""
+            step = 1
             open()
         }
         anchors.centerIn: Overlay.overlay
         modal: true
         padding: 16
+        onClosed: step = 1
         background: Rectangle { color: Theme.panelColor; border.color: Theme.borderColor; radius: 6 }
         contentItem: ColumnLayout {
             spacing: 12
             Text {
-                text: qsTr("Delete %1? The QSO stays in the history and can be recovered.").arg(confirmRowDelete.call)
-                color: Theme.textPrimary
+                text: confirmRowDelete.step === 1
+                      ? (confirmRowDelete.ids.length === 1
+                         ? qsTr("Delete %1? The QSO stays in the history and can be recovered.").arg(confirmRowDelete.call)
+                         : qsTr("Delete the %1 QSO selected? They stay in the history and can be recovered.").arg(confirmRowDelete.ids.length))
+                      : (confirmRowDelete.ids.length === 1
+                         ? qsTr("Once more, to be sure: delete %1?").arg(confirmRowDelete.call)
+                         : qsTr("Once more, to be sure: delete %1 QSO?").arg(confirmRowDelete.ids.length))
+                color: confirmRowDelete.step === 1 ? Theme.textPrimary : Theme.errorColor
                 wrapMode: Text.Wrap
                 Layout.maximumWidth: 360
             }
@@ -298,12 +362,20 @@ GlassPanel {
                 Item { Layout.fillWidth: true }
                 GlassButton { text: qsTr("Cancel"); onClicked: confirmRowDelete.close() }
                 GlassButton {
-                    text: qsTr("Delete")
+                    id: confirmDeleteButton
+                    text: confirmRowDelete.step === 1 ? qsTr("Delete") : qsTr("Delete for good")
                     tone: Theme.errorColor
                     filled: true
                     onClicked: {
+                        // Il primo clic chiede di nuovo, il secondo cancella.
+                        if (confirmRowDelete.step === 1) {
+                            confirmRowDelete.step = 2
+                            return
+                        }
+                        const list = confirmRowDelete.ids
                         confirmRowDelete.close()
-                        decolog.deleteQso(confirmRowDelete.qsoId)
+                        decolog.deleteQsos(list)
+                        root.clearSelection()
                     }
                 }
             }
@@ -716,11 +788,13 @@ GlassPanel {
                 required property int row
                 required property var qsoId
 
-                readonly property bool selected: row === root.selectedRow
+                readonly property bool selected: root.isSelected(qsoId)
+                readonly property bool current: row === root.selectedRow
 
                 implicitHeight: Theme.rowHeight
                 clip: true
                 color: selected ? Qt.rgba(Theme.primaryColor.r, Theme.primaryColor.g, Theme.primaryColor.b, 0.24)
+                     : current ? Qt.rgba(Theme.primaryColor.r, Theme.primaryColor.g, Theme.primaryColor.b, 0.10)
                      : isNew ? Theme.rowMatchBg
                      : "transparent"
 
@@ -772,8 +846,18 @@ GlassPanel {
                     anchors.fill: parent
                     acceptedButtons: Qt.LeftButton | Qt.RightButton
                     onClicked: (mouse) => {
-                        root.selectedRow = cell.row
                         root.forceActiveFocus()
+                        if (mouse.button === Qt.RightButton) {
+                            // Il menu vale per quello che e' scelto: se si clicca
+                            // fuori dalla selezione, la selezione diventa questa riga.
+                            if (!root.isSelected(cell.qsoId))
+                                root.selectOnly(cell.row)
+                        } else if (mouse.modifiers & Qt.ShiftModifier) {
+                            root.selectRange(cell.row)
+                        } else {
+                            root.toggleRow(cell.row)
+                        }
+                        root.selectedRow = cell.row
                         decolog.lookupCall = root.model.callAt(cell.row)
                         if (mouse.button === Qt.RightButton)
                             rowMenu.popupFor(cell.qsoId)
@@ -803,8 +887,9 @@ GlassPanel {
         // Cancellare un QSO si fa da dove lo si guarda, non solo dalla scheda:
         // e' morbida, la riga resta nello storico e si recupera.
         StyledMenuItem {
-            text: qsTr("Delete QSO…")
-            onTriggered: confirmRowDelete.openFor(rowMenu.qsoId)
+            readonly property int chosen: root.selectedIds.length
+            text: chosen > 1 ? qsTr("Delete the %1 QSO selected…").arg(chosen) : qsTr("Delete QSO…")
+            onTriggered: confirmRowDelete.openFor(chosen > 1 ? root.selectedIds : [rowMenu.qsoId])
         }
         // Il callbook sa nome, locatore e indirizzo: se al QSO mancano, glieli
         // mette adesso.
@@ -853,9 +938,17 @@ GlassPanel {
     Keys.onPressed: (event) => {
         if (event.key === Qt.Key_Down || event.key === Qt.Key_Up) {
             const next = Math.max(0, Math.min(root.model.count - 1, root.selectedRow + (event.key === Qt.Key_Down ? 1 : -1)))
+            if (event.modifiers & Qt.ShiftModifier)
+                root.selectRange(next)
+            else
+                root.selectOnly(next)
             root.selectedRow = next
             decolog.lookupCall = root.model.callAt(next)
             table.positionViewAtRow(next, TableView.Contain)
+            event.accepted = true
+        } else if (event.key === Qt.Key_Escape) {
+            // Esc: la selezione se ne va, la riga corrente resta dov'e'.
+            root.clearSelection()
             event.accepted = true
         } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
             root.openQso(root.model.idAt(root.selectedRow))

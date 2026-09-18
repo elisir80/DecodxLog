@@ -239,6 +239,9 @@ public:
 
     QVariantList awardSummary() const;
     QStringList awardBands() const;
+    // Quante entita' DXCC stanno in Africa, secondo il cty.csv in uso: e' il
+    // traguardo del WAAC, e non lo decidiamo noi.
+    int africanEntities() const;
     QString awardBand() const { return m_awardFilter.band; }
     void setAwardBand(const QString& band);
     QString awardModeGroup() const { return m_awardFilter.modeGroup; }
@@ -336,6 +339,7 @@ public:
     // `fields` e' la mappa ADIF completa (come in qsoDetail().fields).
     Q_INVOKABLE QString saveQso(qint64 id, const QVariantMap& fields, qint64 stationProfileId);
     Q_INVOKABLE bool deleteQso(qint64 id);
+    Q_INVOKABLE int deleteQsos(const QVariantList& ids);
     Q_INVOKABLE QString restoreRevision(qint64 id, qint64 historyId);
 
     // Etichette: aggiunge o toglie `tag` ai QSO indicati. Restituisce quanti sono cambiati.

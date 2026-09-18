@@ -3,6 +3,19 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.3.3 — 19 settembre 2026
+
+**Selezione multipla nel log.** Il clic sinistro sceglie le righe una dopo l'altra, lo
+shift prende tutto quello che sta in mezzo, Esc lascia andare. Il tasto destro sulla
+selezione la cancella: chiede due volte, perché cancellarne trenta per sbaglio non e' come
+cancellarne una — poi restano comunque nello storico, come sempre. In testata c'e' scritto
+quante righe sono scelte.
+
+**WAAC — Worked All Africa.** Le entita' DXCC africane, una per paese, con il nome che
+gli da' il cty.csv. Il traguardo non e' un numero inventato: sono tutte le entita'
+africane che il file delle entita' conosce — oggi 76 — e cambia da solo quando si
+aggiorna il cty.csv. Si legge anche banda per banda, come gli altri.
+
 ## 0.3.2 — 19 settembre 2026
 
 **Il QSO non resta nudo.** Decodium manda l'essenziale — nominativo, rapporto, banda,

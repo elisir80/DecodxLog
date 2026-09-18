@@ -243,6 +243,39 @@ private slots:
         QCOMPARE(awards::japanDistrict(QStringLiteral("JH1QRS/3")), QStringLiteral("1"));
         QVERIFY(awards::japanDistrict(QString()).isEmpty());
     }
+
+    void workedAllAfricaCountsTheAfricanEntities()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        auto worked = [&db](const QString& call, const QString& cont, int dxcc, const QString& band) {
+            AdifRecord r;
+            r.set(QStringLiteral("CALL"), call);
+            r.set(QStringLiteral("QSO_DATE"), QStringLiteral("20260918"));
+            r.set(QStringLiteral("TIME_ON"), QStringLiteral("120000"));
+            r.set(QStringLiteral("BAND"), band);
+            r.set(QStringLiteral("MODE"), QStringLiteral("CW"));
+            r.set(QStringLiteral("CONT"), cont);
+            r.set(QStringLiteral("DXCC"), QString::number(dxcc));
+            db.insertQso(r, QStringLiteral("test"));
+        };
+        worked(QStringLiteral("ZS6ABC"), QStringLiteral("AF"), 462, QStringLiteral("20m"));   // Sudafrica
+        worked(QStringLiteral("7X2ABC"), QStringLiteral("AF"), 400, QStringLiteral("20m"));   // Algeria
+        worked(QStringLiteral("ZS6XYZ"), QStringLiteral("AF"), 462, QStringLiteral("40m"));   // ancora Sudafrica
+        worked(QStringLiteral("DL9ZZT"), QStringLiteral("EU"), 230, QStringLiteral("20m"));   // non conta
+        worked(QStringLiteral("ZD8ABC"), QStringLiteral("AF"), 0, QStringLiteral("20m"));     // senza DXCC, non conta
+
+        AwardCalculator calc;
+        const auto results = calc.compute(db, AwardFilter{});
+        const auto waac = std::find_if(results.cbegin(), results.cend(),
+                                       [](const AwardResult& r) { return r.id == QLatin1String("waac"); });
+        QVERIFY(waac != results.cend());
+        QCOMPARE(waac->worked(), 2);     // due paesi africani, non tre QSO
+        // E si legge banda per banda, come gli altri diplomi.
+        const auto totals = waac->bandTotals({QStringLiteral("20m"), QStringLiteral("40m")});
+        QCOMPARE(totals.at(0).worked, 2);
+        QCOMPARE(totals.at(1).worked, 1);
+    }
 };
 
 QTEST_GUILESS_MAIN(TestAwards)

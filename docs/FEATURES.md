@@ -1,4 +1,4 @@
-# DecoLog 0.3.2 — funzioni / features
+# DecoLog 0.3.3 — funzioni / features
 
 Ogni voce è in italiano e in inglese: *italiano* / *English*.
 Quello che manca è in fondo.
@@ -58,8 +58,14 @@ Quello che manca è in fondo.
   again.
 - **Azioni sulle righe mostrate**: etichetta di gruppo, togli etichetta, export ADIF. /
   **Actions on the rows shown**: tag them all, remove a tag, export to ADIF.
-- **Menu della riga**: apri, filtra per nominativo, filtra per entità, etichetta. / **Row
-  menu**: open, filter by call, filter by entity, tag.
+- **Menu della riga**: apri, cancella, completa dal callbook, filtra per nominativo,
+  filtra per entità, etichetta. / **Row menu**: open, delete, complete from the callbook,
+  filter by call, filter by entity, tag.
+- **Selezione multipla**: il clic sinistro aggiunge o toglie una riga, lo shift prende
+  tutto quello che sta in mezzo, **Esc** lascia andare la selezione; il tasto destro le
+  cancella tutte, chiedendo **due volte**. / **Multiple selection**: left click adds or
+  removes a row, shift takes everything in between, **Esc** drops the selection; the right
+  button deletes them all, asking **twice**.
 - **Tastiera**: frecce, Invio per aprire, Ctrl+N nuovo QSO, Ctrl+F cerca, Ctrl+I import,
   Ctrl+E export, Ctrl+K cluster, Ctrl+T attivazione. / **Keyboard**: arrows, Enter to open,
   Ctrl+N new QSO, Ctrl+F search, Ctrl+I import, Ctrl+E export, Ctrl+K cluster, Ctrl+T
@@ -132,10 +138,13 @@ Quello che manca è in fondo.
 
 ## 9. Diplomi / Awards
 
-- **Calcolati dal log**: DXCC, **DXCC Challenge**, FT2 Award, **WAC**, WAZ, WAS, **WAJA**,
-  **AJD**, WPX, locatori, IOTA, POTA, SOTA, WWFF. / **Computed from the log**: DXCC, **DXCC
-  Challenge**, FT2 Award, **WAC**, WAZ, WAS, **WAJA**, **AJD**, WPX, grids, IOTA, POTA,
-  SOTA, WWFF.
+- **Calcolati dal log**: DXCC, **DXCC Challenge**, FT2 Award, **WAC**, **WAAC**, WAZ, WAS,
+  **WAJA**, **AJD**, WPX, locatori, IOTA, POTA, SOTA, WWFF. / **Computed from the log**:
+  DXCC, **DXCC Challenge**, FT2 Award, **WAC**, **WAAC**, WAZ, WAS, **WAJA**, **AJD**, WPX,
+  grids, IOTA, POTA, SOTA, WWFF.
+- **WAAC** (Worked All Africa): le entita' africane, col traguardo che il cty.csv stesso
+  dichiara. / **WAAC** (Worked All Africa): the African entities, with the target the
+  country file itself declares.
 - **WAC**: i sei continenti dell'IARU, con l'Antartide che si vede ma non fa numero; si
   legge anche banda per banda, perche' il diploma si fa su piu' bande. / **WAC**: the six
   IARU continents, Antarctica shown but not counted; per band as well.
