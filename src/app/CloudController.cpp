@@ -314,13 +314,17 @@ void CloudController::setAutoMode(const QString& mode)
     emit changed();
 }
 
-// Il server chiede almeno tre caratteri di nominativo e otto di password. Se si
-// manda lo stesso, torna un errore di validazione: meglio dirlo qui, con parole,
-// che far viaggiare una richiesta gia' persa.
+// Il server chiede otto caratteri di password. Se si manda lo stesso, torna un
+// errore di validazione: meglio dirlo qui, con parole, che far viaggiare una
+// richiesta gia' persa.
+//
+// Sul nominativo non c'e' regola: 9H1SR, VY2XT, 9H1SR/M, un indicativo speciale
+// corto — nel mondo ce n'e' di ogni forma, e un logbook non e' chi decide quali
+// esistono. Basta che non sia vuoto.
 bool CloudController::credentialsLookSane(const QString& callsign, const QString& password)
 {
-    if (callsign.trimmed().size() < 3) {
-        finish(tr("Cloud: the callsign is too short"), QStringLiteral("warning"));
+    if (callsign.trimmed().isEmpty()) {
+        finish(tr("Cloud: write your callsign"), QStringLiteral("warning"));
         return false;
     }
     if (password.size() < 8) {

@@ -60,7 +60,7 @@ ApplicationWindow {
         callField.forceActiveFocus()
     }
 
-    readonly property bool duplicate: callField.text.trim().length >= 3
+    readonly property bool duplicate: callField.text.trim().length > 0
                                       && decolog.activation.wouldDuplicate(callField.text, root.band, root.mode)
 
     function openCabrillo() { cabrilloDialog.openDialog() }
@@ -268,7 +268,9 @@ ApplicationWindow {
                     tone: Theme.accentColor
                     filled: true
                     buttonHeight: 38
-                    enabled: root.running && callField.text.trim().length >= 3
+                    // Un nominativo scritto e' un nominativo buono: la lunghezza
+                    // non la decide il log.
+                    enabled: root.running && callField.text.trim().length > 0
                     onClicked: root.logQso()
                 }
                 Item { Layout.fillWidth: true }

@@ -43,8 +43,32 @@ def test_a_short_password_says_so(client):
     assert "password" in detail and "8" in detail
 
 
-def test_a_short_callsign_says_so(client):
-    reply = client.post("/v1/auth/signup", json={"callsign": "IU", "password": "una password lunga"})
+def test_every_callsign_of_this_world_is_accepted(client):
+    """Nessuna lunghezza minima: i nominativi non stanno in una regola sola.
+
+    E' successo per davvero: chi registrava la stazione si sentiva dire che il
+    nominativo doveva avere tre caratteri. 9H1SR e VY2XT ce li hanno, ma la
+    regola non serviva a niente e ne tagliava fuori altri — indicativi speciali
+    corti, e quelli con la barra.
+    """
+    for call in ("9H1SR", "VY2XT", "9H1SR/M", "VY2XT/P", "K7A", "OE", "II9IAGM"):
+        reply = client.post("/v1/auth/signup",
+                            json={"callsign": call, "password": "una password lunga"})
+        assert reply.status_code == 200, (call, reply.text)
+        assert reply.json()["callsign"] == call.upper()
+
+
+def test_a_callsign_with_a_slash_can_come_back_in(client):
+    client.post("/v1/auth/signup", json={"callsign": "9H1SR/M", "password": "una password lunga"})
+    # Si rientra con lo stesso nominativo, barra compresa, e anche scritto in
+    # minuscolo come capita di digitarlo.
+    reply = client.post("/v1/auth/token", json={"callsign": "9h1sr/m", "password": "una password lunga"})
+    assert reply.status_code == 200
+    assert reply.json()["callsign"] == "9H1SR/M"
+
+
+def test_a_callsign_is_still_required(client):
+    reply = client.post("/v1/auth/signup", json={"callsign": "", "password": "una password lunga"})
     assert reply.status_code == 422
     assert "nominativo" in reply.json()["detail"]
 
@@ -57,7 +81,7 @@ def test_a_missing_field_says_which_one(client):
 
 
 def test_more_than_one_thing_wrong_is_said_in_one_sentence(client):
-    reply = client.post("/v1/auth/signup", json={"callsign": "IU", "password": "corta"})
+    reply = client.post("/v1/auth/signup", json={"callsign": "", "password": "corta"})
     assert reply.status_code == 422
     detail = reply.json()["detail"]
     assert "nominativo" in detail and "password" in detail

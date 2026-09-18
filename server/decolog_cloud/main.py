@@ -89,7 +89,11 @@ async def say_it_in_words(_: Request, exc: RequestValidationError) -> JSONRespon
 
 
 class Credentials(BaseModel):
-    callsign: str = Field(min_length=3, max_length=32)
+    # Il nominativo e' quello che e': 9H1SR, VY2XT, 9H1SR/M, un indicativo
+    # speciale di due lettere. Non c'e' una lunghezza minima che valga per tutti
+    # i paesi del mondo, quindi non se ne mette una: basta che ci sia.
+    callsign: str = Field(min_length=1, max_length=32)
+    # La password invece e' una scelta, e otto caratteri sono il minimo serio.
     password: str = Field(min_length=8, max_length=200)
     device: str = Field(default="", max_length=120)
 

@@ -31,8 +31,10 @@
       <form method="post" action="/login" class="stack">
         <label>
           <span>Nominativo</span>
+          {# Nessuna lunghezza minima: i nominativi del mondo non stanno in una
+             regola sola — 9H1SR, VY2XT, 9H1SR/M, un indicativo speciale corto. #}
           <input name="callsign" autocomplete="username" autocapitalize="characters"
-                 autofocus required minlength="3" spellcheck="false">
+                 autofocus required spellcheck="false">
         </label>
         <label>
           <span>Password</span>

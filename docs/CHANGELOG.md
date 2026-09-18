@@ -84,6 +84,13 @@ secondo, partito vuoto, si e' ritrovato il profilo "Casa di prova" gia' predefin
 impostazioni alla revisione 1, senza toccare niente a mano. E tre giri di sync di fila
 non ne rimandano nemmeno una.
 
+**I nominativi sono quelli che sono.** Registrando la stazione, il Cloud chiedeva almeno
+tre caratteri di nominativo. Una regola inventata: nel mondo ci sono indicativi speciali
+corti, e ci sono 9H1SR/M e VY2XT che quella soglia la passavano ma non avevano motivo di
+essere misurati. Via la regola — dal server, dal programma, dalla pagina web e dalla
+finestra del contest: basta che il nominativo ci sia. La password resta di almeno otto
+caratteri, perche' quella e' una scelta, non un dato di fatto.
+
 ## 0.3.0 — 18 settembre 2026
 
 **DecoLog Cloud: il sync fra dispositivi (Fase 3).** Il log resta il file SQLite, che

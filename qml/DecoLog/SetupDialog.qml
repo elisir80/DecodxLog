@@ -528,7 +528,9 @@ DialogFrame {
                                 text: qsTr("Sign in")
                                 tone: Theme.primaryColor
                                 filled: true
-                                enabled: !decolog.cloud.busy && cloudCall.text.trim().length >= 3
+                                // Il nominativo e' quello che e': non c'e' una
+                                // lunghezza che valga per tutto il mondo.
+                                enabled: !decolog.cloud.busy && cloudCall.text.trim().length > 0
                                          && cloudPassword.text.length >= 8
                                 onClicked: {
                                     decolog.cloud.server = serverField.text
@@ -540,7 +542,9 @@ DialogFrame {
                                 Layout.alignment: Qt.AlignBottom
                                 Layout.bottomMargin: 2
                                 text: qsTr("Create account")
-                                enabled: !decolog.cloud.busy && cloudCall.text.trim().length >= 3
+                                // Il nominativo e' quello che e': non c'e' una
+                                // lunghezza che valga per tutto il mondo.
+                                enabled: !decolog.cloud.busy && cloudCall.text.trim().length > 0
                                          && cloudPassword.text.length >= 8
                                 onClicked: {
                                     decolog.cloud.server = serverField.text
