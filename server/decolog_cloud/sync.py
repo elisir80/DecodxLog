@@ -20,7 +20,7 @@ import datetime as dt
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from .models import Account, Counter, Qso, QsoHistory
+from .models import Account, Counter, Doc, DocHistory, Qso, QsoHistory
 
 # Quanto possono distare due QSO per essere lo stesso: due minuti, dieci se
 # almeno uno dei due e' stato scritto a mano.
@@ -162,6 +162,67 @@ def apply_push(db: Session, account: Account, record: dict, device: str) -> dict
     row.seq = _next_seq(db, account)
     db.flush()
     return {"uuid": uuid, "status": status, "revision": row.revision, "seq": row.seq}
+
+
+def apply_doc(db: Session, account: Account, record: dict, device: str) -> dict:
+    """Scrive un documento (profilo, impostazione...) con le stesse regole dei QSO."""
+    kind = (record.get("kind") or "").strip()
+    key = (record.get("key") or "").strip()
+    if not kind or not key:
+        return {"kind": kind, "key": key, "status": "rejected", "reason": "kind o key mancante"}
+
+    revision = int(record.get("revision") or 1)
+    data = record.get("data") or {}
+    deleted = bool(record.get("deleted"))
+
+    row = db.scalar(
+        select(Doc).where(Doc.account_id == account.id, Doc.kind == kind, Doc.key == key)
+    )
+    status = "applied"
+
+    if row is None:
+        row = Doc(account_id=account.id, kind=kind, key=key)
+        db.add(row)
+    else:
+        if revision < row.revision:
+            return {"kind": kind, "key": key, "status": "stale", "revision": row.revision, "seq": row.seq}
+        if revision == row.revision and row.data != data:
+            db.add(
+                DocHistory(account_id=account.id, kind=kind, key=key, revision=row.revision, data=row.data)
+            )
+            status = "conflict"
+            revision = row.revision + 1
+
+    row.revision = revision
+    row.deleted = deleted
+    row.data = data
+    row.device = device[:120]
+    row.updated_at = dt.datetime.now(dt.UTC)
+    row.seq = _next_seq(db, account)
+    db.flush()
+    return {"kind": kind, "key": key, "status": status, "revision": row.revision, "seq": row.seq}
+
+
+def pull_docs(db: Session, account: Account, since: int, limit: int) -> list[dict]:
+    """I documenti cambiati dopo `since`, nello stesso ordine dei QSO."""
+    rows = db.scalars(
+        select(Doc)
+        .where(Doc.account_id == account.id, Doc.seq > since)
+        .order_by(Doc.seq)
+        .limit(limit)
+    ).all()
+    return [
+        {
+            "kind": row.kind,
+            "key": row.key,
+            "revision": row.revision,
+            "seq": row.seq,
+            "deleted": row.deleted,
+            "updatedAt": row.updated_at.isoformat() if row.updated_at else None,
+            "data": row.data,
+        }
+        for row in rows
+    ]
 
 
 def pull(db: Session, account: Account, since: int, limit: int) -> tuple[list[dict], int, bool]:

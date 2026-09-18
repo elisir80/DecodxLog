@@ -118,6 +118,49 @@ class QsoHistory(Base):
     fields: Mapped[dict] = mapped_column(JSON, default=dict)
 
 
+class Doc(Base):
+    """Tutto quello che non e' un QSO ma fa parte del log di una stazione.
+
+    Profili stazione, impostazioni, filtri salvati, regole d'avviso: cose
+    diverse fra loro, che al server interessano allo stesso modo — un documento
+    con un nome (`kind`/`key`), una revisione e il suo contenuto. Cosi' quando
+    DecoLog impara a tenersi un'altra cosa, qui non si tocca niente.
+
+    Condividono con i QSO lo stesso contatore: un pull solo porta tutto.
+    """
+
+    __tablename__ = "doc"
+    __table_args__ = (
+        UniqueConstraint("account_id", "kind", "key", name="uq_doc_account_kind_key"),
+        Index("ix_doc_account_seq", "account_id", "seq"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    account_id: Mapped[int] = mapped_column(ForeignKey("account.id", ondelete="CASCADE"), index=True)
+    kind: Mapped[str] = mapped_column(String(32), index=True)   # profile | setting | filter | alert
+    key: Mapped[str] = mapped_column(String(120))               # uuid del profilo, nome dell'impostazione
+    revision: Mapped[int] = mapped_column(Integer, default=1)
+    seq: Mapped[int] = mapped_column(BigInteger, index=True)
+    deleted: Mapped[bool] = mapped_column(Boolean, default=False)
+    updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    data: Mapped[dict] = mapped_column(JSON, default=dict)
+    device: Mapped[str] = mapped_column(String(120), default="")
+
+
+class DocHistory(Base):
+    """La versione di un documento che ha perso un conflitto."""
+
+    __tablename__ = "doc_history"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    account_id: Mapped[int] = mapped_column(ForeignKey("account.id", ondelete="CASCADE"), index=True)
+    kind: Mapped[str] = mapped_column(String(32))
+    key: Mapped[str] = mapped_column(String(120))
+    revision: Mapped[int] = mapped_column(Integer)
+    recorded_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    data: Mapped[dict] = mapped_column(JSON, default=dict)
+
+
 class Counter(Base):
     """Il contatore delle modifiche, uno per account: e' il cursore del pull."""
 

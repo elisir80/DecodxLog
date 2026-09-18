@@ -3,7 +3,10 @@
 #include "core/CredentialStore.h"
 #include "core/LogDatabase.h"
 
+#include <QCryptographicHash>
 #include <QDateTime>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QSettings>
 #include <QSysInfo>
 
@@ -15,6 +18,52 @@ namespace {
 
 // Quanti QSO per volta: un blocco che sta in un secondo di rete.
 constexpr int kBatch = 200;
+
+// Le impostazioni che viaggiano nel Cloud: come si lavora, non dov'e' la
+// macchina. Restano fuori le porte, i percorsi e tutto quello che sta nel
+// portachiavi: una chiave API o una password non devono girare, e la porta UDP
+// di questo computer non c'entra niente con quella del portatile.
+const QStringList kSyncedSettings{
+    QStringLiteral("ui/language"),
+    QStringLiteral("theme/name"),
+    QStringLiteral("theme/variant"),
+    QStringLiteral("theme/density"),
+    QStringLiteral("theme/accent"),
+    QStringLiteral("awards/band"),
+    QStringLiteral("awards/modeGroup"),
+    QStringLiteral("awards/confirmLotw"),
+    QStringLiteral("awards/confirmCard"),
+    QStringLiteral("awards/confirmEqsl"),
+    QStringLiteral("awards/profile"),
+    QStringLiteral("awards/tag"),
+    QStringLiteral("cluster/filter"),
+    QStringLiteral("cluster/savedFilters"),
+    QStringLiteral("cluster/alertRules"),
+    QStringLiteral("cluster/sources"),
+    QStringLiteral("cluster/followDecodiumBand"),
+    QStringLiteral("cluster/sendToDecodium"),
+    QStringLiteral("cluster/voiceEnabled"),
+    QStringLiteral("cluster/voicePhonetic"),
+    QStringLiteral("layout/savedFilters"),
+    QStringLiteral("layout/hiddenColumns"),
+    QStringLiteral("lotw/autoHours"),
+    QStringLiteral("qsl/auto/lotw"),
+    QStringLiteral("qsl/auto/qrz"),
+    QStringLiteral("qsl/auto/clublog"),
+    QStringLiteral("qsl/auto/eqsl"),
+    QStringLiteral("solar/automatic"),
+    QStringLiteral("solar/intervalMinutes"),
+    QStringLiteral("rotor/beamwidth"),
+    QStringLiteral("rotor/followDx"),
+    QStringLiteral("udp/dedupDigital"),
+    QStringLiteral("udp/dedupManual"),
+    QStringLiteral("udp/preferLoggedAdif"),
+    QStringLiteral("udp/followDx"),
+    QStringLiteral("backup/enabled"),
+    QStringLiteral("backup/time"),
+    QStringLiteral("backup/keep"),
+    QStringLiteral("cloud/auto"),
+};
 
 QString nowLabel()
 {
@@ -41,7 +90,8 @@ CloudController::CloudController(Context context, QObject* parent)
         finish(tr("Cloud: %1 connected").arg(callsign), QStringLiteral("success"));
         syncNow();
     });
-    connect(&m_sync, &CloudSync::pulled, this, [this](const QVariantList& qsos, qint64 cursor, bool more) {
+    connect(&m_sync, &CloudSync::pulled, this,
+            [this](const QVariantList& qsos, const QVariantList& docs, qint64 cursor, bool more) {
         int written = 0;
         for (const QVariant& value : qsos) {
             const auto result = m_ctx.db->applyRemote(value.toMap());
@@ -51,6 +101,31 @@ CloudController::CloudController(Context context, QObject* parent)
                 ++written;
             }
         }
+        // I documenti: profili stazione e impostazioni. Il log di una stazione
+        // non e' solo l'elenco dei QSO.
+        int profiles = 0;
+        int settingsChanged = 0;
+        for (const QVariant& value : docs) {
+            const QVariantMap document = value.toMap();
+            const QString kind = document.value(QStringLiteral("kind")).toString();
+            if (kind == QLatin1String("profile")) {
+                const auto result = m_ctx.db->applyRemoteProfile(document);
+                if (result == LogDatabase::RemoteResult::Inserted
+                    || result == LogDatabase::RemoteResult::Updated
+                    || result == LogDatabase::RemoteResult::Deleted) {
+                    ++profiles;
+                }
+            } else if (kind == QLatin1String("setting")) {
+                if (applyRemoteSettings(document))
+                    ++settingsChanged;
+            }
+        }
+        if (profiles > 0) {
+            note(tr("Cloud: %n station profile(s) updated", nullptr, profiles), QStringLiteral("success"));
+            emit profilesChanged();
+        }
+        if (settingsChanged > 0)
+            note(tr("Cloud: settings updated from another device"), QStringLiteral("success"));
         m_cursor = cursor;
         m_ctx.db->setSyncState(accountKey(), {{QStringLiteral("cursor"), QString::number(cursor)},
                                               {QStringLiteral("device"), m_sync.device()},
@@ -68,8 +143,10 @@ CloudController::CloudController(Context context, QObject* parent)
         m_pulling = false;
         startPush();
     });
-    connect(&m_sync, &CloudSync::pushed, this, [this](const QVariantList& results, qint64 cursor) {
+    connect(&m_sync, &CloudSync::pushed, this,
+            [this](const QVariantList& results, const QVariantList& docResults, qint64 cursor) {
         applyPushResults(results);
+        applyDocResults(docResults);
         m_cursor = qMax(m_cursor, cursor);
         m_ctx.db->setSyncState(accountKey(), {{QStringLiteral("lastPush"), nowLabel()},
                                               {QStringLiteral("lastError"), QString()}});
@@ -89,7 +166,8 @@ CloudController::CloudController(Context context, QObject* parent)
             return;
         }
         m_lastSync = nowLabel();
-        QSettings().setValue(QStringLiteral("cloud/lastSync"), m_lastSync);
+        if (!m_ephemeral)
+            QSettings().setValue(QStringLiteral("cloud/lastSync"), m_lastSync);
         finish(tr("Cloud: up to date"), QStringLiteral("success"));
         m_sync.status();
     });
@@ -171,6 +249,8 @@ void CloudController::finish(const QString& text, const QString& level)
 
 void CloudController::loadToken()
 {
+    if (m_ephemeral)
+        return;   // collegamento di passaggio: il token lo da' chi prova
     if (!m_ctx.credentials || !m_ctx.credentials->hasSecret(QStringLiteral("cloud")))
         return;
     m_ctx.credentials->readSecret(QStringLiteral("cloud"), [this](const QString& token, const QString& error) {
@@ -196,6 +276,10 @@ void CloudController::saveToken(const QString& token, const QString& callsign)
     m_token = token;
     m_callsign = callsign;
     m_sync.setToken(token);
+    if (m_ephemeral) {
+        emit changed();
+        return;
+    }
     QSettings().setValue(QStringLiteral("cloud/callsign"), callsign);
     if (m_ctx.credentials)
         m_ctx.credentials->save(QStringLiteral("cloud"), callsign, token);
@@ -215,6 +299,11 @@ void CloudController::setServer(const QString& url)
 
 void CloudController::overrideServer(const QString& url)
 {
+    // Una prova non deve poter scollegare la stazione vera: da qui in poi il
+    // token vive solo in memoria.
+    m_ephemeral = true;
+    m_token.clear();
+    m_sync.setToken(QString());
     m_server = url.trimmed();
     m_sync.setServer(QUrl(m_server));
     emit changed();
@@ -305,7 +394,8 @@ void CloudController::startPush()
     m_batch = m_ctx.db->dirtyQsos(kBatch);
     if (m_batch.isEmpty()) {
         m_lastSync = nowLabel();
-        QSettings().setValue(QStringLiteral("cloud/lastSync"), m_lastSync);
+        if (!m_ephemeral)
+            QSettings().setValue(QStringLiteral("cloud/lastSync"), m_lastSync);
         finish(tr("Cloud: up to date"), QStringLiteral("success"));
         m_sync.status();
         return;
@@ -320,13 +410,16 @@ void CloudController::startPush()
         sent << id;
     }
     m_batch = sent;
-    if (payload.isEmpty()) {
+    const QVariantList docs = pendingDocs();
+    if (payload.isEmpty() && docs.isEmpty()) {
         finish(tr("Cloud: nothing to send"), QStringLiteral("info"));
         return;
     }
-    m_status = tr("Cloud: sending %n QSO…", nullptr, static_cast<int>(payload.size()));
+    m_status = payload.isEmpty()
+        ? tr("Cloud: sending the station settings…")
+        : tr("Cloud: sending %n QSO…", nullptr, static_cast<int>(payload.size()));
     emit changed();
-    m_sync.push(payload);
+    m_sync.push(payload, docs);
 }
 
 void CloudController::applyPushResults(const QVariantList& results)
@@ -364,6 +457,103 @@ void CloudController::applyPushResults(const QVariantList& results)
     }
     if (duplicates > 0)
         note(tr("Cloud: %n duplicate(s) recognised", nullptr, duplicates), QStringLiteral("info"));
+}
+
+QVariantList CloudController::pendingDocs()
+{
+    QVariantList docs;
+    if (!m_ctx.db || !m_ctx.db->isOpen())
+        return docs;
+
+    // I profili stazione con una modifica ancora da mandare.
+    for (const QVariantMap& profile : m_ctx.db->dirtyProfiles())
+        docs << profile;
+
+    // Le impostazioni: un documento solo, con la sua revisione. Si manda quando
+    // e' cambiato davvero qualcosa, non a ogni giro.
+    const QVariantMap current = localSettings();
+    const QString fingerprint = settingsFingerprint(current);
+    const QString known = m_ctx.db->setting(QStringLiteral("cloud.settingsFingerprint"));
+    int revision = m_ctx.db->setting(QStringLiteral("cloud.settingsRevision")).toInt();
+    if (fingerprint != known) {
+        revision = qMax(1, revision + 1);
+        m_ctx.db->setSetting(QStringLiteral("cloud.settingsRevision"), QString::number(revision));
+        m_ctx.db->setSetting(QStringLiteral("cloud.settingsFingerprint"), fingerprint);
+        m_settingsSent = fingerprint;
+        docs << QVariantMap{{QStringLiteral("kind"), QStringLiteral("setting")},
+                            {QStringLiteral("key"), QStringLiteral("station")},
+                            {QStringLiteral("revision"), revision},
+                            {QStringLiteral("data"), current}};
+    }
+    return docs;
+}
+
+void CloudController::applyDocResults(const QVariantList& results)
+{
+    if (!m_ctx.db)
+        return;
+    for (const QVariant& value : results) {
+        const QVariantMap result = value.toMap();
+        const QString kind = result.value(QStringLiteral("kind")).toString();
+        const QString key = result.value(QStringLiteral("key")).toString();
+        const QString status = result.value(QStringLiteral("status")).toString();
+        const int revision = result.value(QStringLiteral("revision")).toInt();
+        if (kind == QLatin1String("profile")) {
+            m_ctx.db->markProfileSynced(key, status == QLatin1String("stale") ? 0 : revision);
+        } else if (kind == QLatin1String("setting") && revision > 0) {
+            m_ctx.db->setSetting(QStringLiteral("cloud.settingsRevision"), QString::number(revision));
+        }
+    }
+}
+
+QVariantMap CloudController::localSettings() const
+{
+    QSettings s;
+    QVariantMap values;
+    for (const QString& key : kSyncedSettings) {
+        if (s.contains(key))
+            values.insert(key, s.value(key));
+    }
+    return values;
+}
+
+QString CloudController::settingsFingerprint(const QVariantMap& values)
+{
+    // Una firma stabile: le chiavi in ordine, il JSON compatto, e l'impronta.
+    const QByteArray json = QJsonDocument(QJsonObject::fromVariantMap(values)).toJson(QJsonDocument::Compact);
+    return QString::fromLatin1(QCryptographicHash::hash(json, QCryptographicHash::Sha256).toHex());
+}
+
+bool CloudController::applyRemoteSettings(const QVariantMap& document)
+{
+    if (!m_ctx.db)
+        return false;
+    const int revision = document.value(QStringLiteral("revision")).toInt();
+    const int known = m_ctx.db->setting(QStringLiteral("cloud.settingsRevision")).toInt();
+    if (revision <= known)
+        return false;   // le nostre sono uguali o piu' nuove
+
+    const QVariantMap values = document.value(QStringLiteral("data")).toMap();
+    QSettings s;
+    int written = 0;
+    for (auto it = values.cbegin(); it != values.cend(); ++it) {
+        // Si scrive solo quello che e' nell'elenco: un server non deve poter
+        // mettere chiavi qualsiasi nelle impostazioni di chi lo usa.
+        if (!kSyncedSettings.contains(it.key()))
+            continue;
+        if (s.value(it.key()) == it.value())
+            continue;
+        // Un collegamento di passaggio (le prove da riga di comando) non deve
+        // riscrivere le impostazioni della stazione vera: si conta e basta.
+        if (!m_ephemeral)
+            s.setValue(it.key(), it.value());
+        ++written;
+    }
+    if (!m_ephemeral)
+        s.sync();
+    m_ctx.db->setSetting(QStringLiteral("cloud.settingsRevision"), QString::number(revision));
+    m_ctx.db->setSetting(QStringLiteral("cloud.settingsFingerprint"), settingsFingerprint(localSettings()));
+    return written > 0;
 }
 
 void CloudController::qsoLogged()

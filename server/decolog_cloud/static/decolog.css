@@ -157,6 +157,20 @@ input:focus, select:focus { outline: none; border-color: var(--primary); }
 }
 .fields td { padding: 4px 0; border-bottom: 1px solid var(--border-soft); }
 
+.tiles.wrap { align-items: flex-start; }
+.card {
+    background: var(--bg-medium);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    min-width: 260px;
+}
+.card > b { font-size: 15px; }
+.card .call { color: var(--secondary); font-weight: 700; margin-bottom: 6px; }
+.fields.tight th { width: 110px; padding: 2px 10px 2px 0; }
+.fields.tight td { padding: 2px 0; }
+.small { font-size: 11px; margin-top: 8px; }
+
 .foot { padding: 18px 20px 30px; text-align: center; color: var(--text-dim); font-size: 12px; }
 
 @media (max-width: 640px) {

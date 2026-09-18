@@ -50,8 +50,9 @@ public:
     // `automatic` a false carica il token senza far partire niente: serve alle
     // schermate di prova, che non devono toccare il server di nessuno.
     void start(bool automatic = true);
-    // Per le prove da riga di comando: il server solo per questa volta, senza
-    // scrivere niente nelle impostazioni dell'operatore.
+    // Per le prove da riga di comando: il server solo per questa volta. Da qui
+    // in poi il collegamento e' "di passaggio" — il token resta in memoria e
+    // non tocca ne' il portachiavi ne' le impostazioni di chi usa il programma.
     void overrideServer(const QString& url);
 
     QString server() const { return m_server; }
@@ -80,6 +81,8 @@ public:
 
 signals:
     void changed();
+    // I profili stazione sono arrivati dal Cloud: la lista si rilegge.
+    void profilesChanged();
 
 private:
     void note(const QString& text, const QString& level);
@@ -90,6 +93,14 @@ private:
     void applyPushResults(const QVariantList& results);
     void finish(const QString& text, const QString& level);
     QString accountKey() const;
+    // Profili e impostazioni da mandare in questo giro.
+    QVariantList pendingDocs();
+    void applyDocResults(const QVariantList& results);
+    // Le impostazioni che fanno parte del log: quelle della stazione e del modo
+    // di lavorare, non quelle di questa macchina (porte, percorsi, segreti).
+    QVariantMap localSettings() const;
+    static QString settingsFingerprint(const QVariantMap& values);
+    bool applyRemoteSettings(const QVariantMap& document);
 
     Context m_ctx;
     core::CloudSync m_sync;
@@ -100,8 +111,12 @@ private:
     QString m_lastSync;
     QString m_autoMode{QStringLiteral("qso")};
     QVariantMap m_remote;
+    // L'impronta delle impostazioni gia' mandate in questo giro.
+    QString m_settingsSent;
     bool m_busy{false};
     bool m_automatic{true};
+    // Collegamento di passaggio (prove da riga di comando): niente portachiavi.
+    bool m_ephemeral{false};
     // Sync chiesto mentre il token stava ancora uscendo dal portachiavi.
     bool m_syncWhenReady{false};
     // Il cursore e' gia' stato riportato in pari dopo la spinta di questo giro?

@@ -254,6 +254,25 @@ Quello che manca è in fondo.
   changes.
 - **Coda sempre in vista** nella barra in alto e nella riga di stato. / **The queue in
   sight** in the top bar and in the status rail.
+- **Non solo i QSO**: viaggiano anche i **profili stazione** e le **impostazioni di come
+  lavora la stazione** (tema e lingua, filtri salvati e colonne del log, cluster, premi,
+  invii automatici, propagazione, lobo del rotore, dedup UDP, backup), così un secondo
+  computer si ritrova il log già com'era. / **Not only the QSOs**: **station profiles** and
+  the **settings that shape the station** travel too (theme and language, saved filters and
+  log columns, cluster, awards, automatic uploads, propagation, rotor beamwidth, UDP dedup,
+  backup), so a second computer finds the log already as it was.
+- **Quello che resta a casa**: porte, percorsi, indirizzi dei programmi accanto e tutto
+  quello che sta nel portachiavi — password e chiavi dei servizi non passano dal Cloud. /
+  **What stays home**: ports, paths, addresses of the programs next door and everything in
+  the keystore — passwords and service keys never go through the Cloud.
+- **Il log dal browser**: si entra con gli stessi nominativo e password e si vede il
+  proprio log — ricerca mentre si scrive, filtri per banda e modo, la scheda del QSO con
+  tutti i campi ADIF, la pagina **Stazione** con profili e impostazioni, e il tasto per
+  riscaricare tutto in ADIF. Da qui si guarda e si scarica: si scrive dal programma. /
+  **The log from the browser**: sign in with the same callsign and password and see your
+  own log — search as you type, filters by band and mode, the QSO sheet with every ADIF
+  field, the **Station** page with profiles and settings, and the button to take it all
+  back as ADIF. From here you look and download: you write from the program.
 
 ## 11. DX cluster
 
@@ -384,9 +403,12 @@ Quello che manca è in fondo.
   **`scripts/deploy.sh`**: a stand-alone folder and `DecoLog-<version>-win64.zip`.
 - **CI su GitHub** (Windows MSYS2 e Linux) con l'artefatto pronto. / **GitHub CI** (Windows
   MSYS2 and Linux) with the artifact ready.
-- **15 gruppi di test** automatici. / **15 automated test suites**.
+- **20 gruppi di test** automatici nel programma e **31 prove** del servizio Cloud
+  (`server/tests`). / **20 automated test suites** in the program and **31 checks** for the
+  Cloud service (`server/tests`).
 
 ## Non ancora / Not yet
 
-- Accesso web al proprio log dal Cloud (per ora il Cloud fa solo il sync). / Web access to
-  your log from the Cloud (for now the Cloud only does the sync).
+- Il Cloud non porta ancora le QSL cartacee in coda, le etichette e i file dei contest:
+  restano sul computer dove si lavora. / The Cloud does not yet carry the paper QSL queue,
+  the labels and the contest files: they stay on the computer where you work.

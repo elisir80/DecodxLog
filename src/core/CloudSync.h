@@ -42,8 +42,9 @@ public:
     // Nominativo e password -> token. `signup` crea l'account, `login` no.
     void signup(const QString& callsign, const QString& password);
     void login(const QString& callsign, const QString& password);
-    // I QSO in coda, gia' pronti come li vuole il server.
-    void push(const QVariantList& qsos);
+    // I QSO in coda e i documenti (profili, impostazioni), gia' pronti come li
+    // vuole il server.
+    void push(const QVariantList& qsos, const QVariantList& docs = {});
     // Quello che e' cambiato dopo `since`.
     void pull(qint64 since, int limit = 0);
     void status();
@@ -51,9 +52,10 @@ public:
 
 signals:
     void loggedIn(const QString& token, const QString& callsign);
-    // Un esito per QSO: {uuid, status, revision, seq, serverUuid}.
-    void pushed(const QVariantList& results, qint64 cursor);
-    void pulled(const QVariantList& qsos, qint64 cursor, bool more);
+    // Un esito per QSO: {uuid, status, revision, seq, serverUuid}; e uno per
+    // documento: {kind, key, status, revision}.
+    void pushed(const QVariantList& results, const QVariantList& docResults, qint64 cursor);
+    void pulled(const QVariantList& qsos, const QVariantList& docs, qint64 cursor, bool more);
     void statusReady(const QVariantMap& status);
     void failed(const decolog::core::CloudError& error);
 

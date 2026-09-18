@@ -98,7 +98,10 @@ Funziona:
 - **Interfaccia in italiano** (`translations/decolog_it.ts`): segue la lingua del sistema,
   o si sceglie in Impostazioni → Generale.
 
-Non ancora (mostrati come tali nell'interfaccia): Club Log, DecoLog Cloud e sync.
+- **DecoLog Cloud** (`server/`): il sync fra dispositivi. Non solo i QSO: anche i profili
+  stazione e le impostazioni di come lavora la stazione, così il secondo computer si
+  ritrova il log com'era. Restano sulla macchina porte, percorsi e tutto quello che sta nel
+  portachiavi. Il proprio log si guarda e si scarica anche dal browser.
 
 ## Struttura
 

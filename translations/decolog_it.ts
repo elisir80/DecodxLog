@@ -3364,11 +3364,11 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Create account</source>
-        <translation>Crea l'account</translation>
+        <translation>Crea l&apos;account</translation>
     </message>
     <message>
         <source>The password travels once and is not kept: DecoLog stores only the token the server gives back, in the system keystore. On the network use HTTPS; at home, on your own LAN, plain HTTP is fine.</source>
-        <translation>La password passa una volta sola e non resta da nessuna parte: DecoLog tiene solo il token che il server restituisce, nel portachiavi di sistema. Su Internet usa HTTPS; in casa, sulla tua rete, l'HTTP semplice va benissimo.</translation>
+        <translation>La password passa una volta sola e non resta da nessuna parte: DecoLog tiene solo il token che il server restituisce, nel portachiavi di sistema. Su Internet usa HTTPS; in casa, sulla tua rete, l&apos;HTTP semplice va benissimo.</translation>
     </message>
     <message>
         <source>Download everything again</source>
@@ -4017,8 +4017,22 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Cloud: %1 collegato</translation>
     </message>
     <message numerus="yes">
+        <source>Cloud: %n station profile(s) updated</source>
+        <translation>
+            <numerusform>Cloud: %n profilo stazione aggiornato</numerusform>
+            <numerusform>Cloud: %n profili stazione aggiornati</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Cloud: settings updated from another device</source>
+        <translation>Cloud: impostazioni aggiornate da un altro dispositivo</translation>
+    </message>
+    <message numerus="yes">
         <source>Cloud: %n QSO arrived from another device</source>
-        <translation><numerusform>Cloud: %n QSO arrivato da un altro dispositivo</numerusform><numerusform>Cloud: %n QSO arrivati da un altro dispositivo</numerusform></translation>
+        <translation>
+            <numerusform>Cloud: %n QSO arrivato da un altro dispositivo</numerusform>
+            <numerusform>Cloud: %n QSO arrivati da un altro dispositivo</numerusform>
+        </translation>
     </message>
     <message>
         <source>Cloud: up to date</source>
@@ -4042,11 +4056,11 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Cloud: set the server address first</source>
-        <translation>Cloud: prima metti l'indirizzo del server</translation>
+        <translation>Cloud: prima metti l&apos;indirizzo del server</translation>
     </message>
     <message>
         <source>Cloud: creating the account…</source>
-        <translation>Cloud: sto creando l'account…</translation>
+        <translation>Cloud: sto creando l&apos;account…</translation>
     </message>
     <message>
         <source>Cloud: signing in…</source>
@@ -4070,19 +4084,32 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Cloud: nothing to send</source>
-        <translation>Cloud: non c'è niente da mandare</translation>
+        <translation>Cloud: non c&apos;è niente da mandare</translation>
+    </message>
+    <message>
+        <source>Cloud: sending the station settings…</source>
+        <translation>Cloud: sto mandando le impostazioni della stazione…</translation>
     </message>
     <message numerus="yes">
         <source>Cloud: sending %n QSO…</source>
-        <translation><numerusform>Cloud: mando %n QSO…</numerusform><numerusform>Cloud: mando %n QSO…</numerusform></translation>
+        <translation>
+            <numerusform>Cloud: mando %n QSO…</numerusform>
+            <numerusform>Cloud: mando %n QSO…</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n conflict(s) resolved, the other version is in the history</source>
-        <translation><numerusform>Cloud: %n conflitto risolto, l'altra versione è nello storico</numerusform><numerusform>Cloud: %n conflitti risolti, le altre versioni sono nello storico</numerusform></translation>
+        <translation>
+            <numerusform>Cloud: %n conflitto risolto, l&apos;altra versione è nello storico</numerusform>
+            <numerusform>Cloud: %n conflitti risolti, le altre versioni sono nello storico</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n duplicate(s) recognised</source>
-        <translation><numerusform>Cloud: %n doppione riconosciuto</numerusform><numerusform>Cloud: %n doppioni riconosciuti</numerusform></translation>
+        <translation>
+            <numerusform>Cloud: %n doppione riconosciuto</numerusform>
+            <numerusform>Cloud: %n doppioni riconosciuti</numerusform>
+        </translation>
     </message>
 </context>
 <context>

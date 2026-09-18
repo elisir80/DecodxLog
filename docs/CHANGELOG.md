@@ -3,6 +3,31 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## Non ancora pubblicato
+
+**Tutto il log sul Cloud, non solo i QSO.** Chi si collega da un secondo computer non
+deve rifare la stazione a mano: adesso viaggiano anche i **profili stazione**
+(nominativo di stazione, operatore, locatore, radio, antenna, potenza, quello
+predefinito) e le **impostazioni di come lavora la stazione** — tema e lingua, i filtri
+salvati e le colonne nascoste del log, gli avvisi e le fonti del cluster, i premi seguiti,
+gli invii automatici (LoTW, QSL), propagazione, lobo del rotore, dedup della UDP, il
+backup. Restano invece sul computer dove stanno le cose di *quella* macchina — porte,
+percorsi, indirizzi dei programmi accanto — e tutto quello che sta nel portachiavi: le
+password e le chiavi dei servizi non passano dal Cloud.
+
+Il meccanismo è lo stesso dei QSO, così le regole non si sdoppiano: ogni profilo è un
+documento con la sua revisione, le impostazioni sono un documento solo (`station`) con
+un'impronta che dice se è cambiato qualcosa; server e programma si scambiano `docs` e
+`docResults` dentro la stessa spinta e lo stesso cursore dei QSO. Vince l'ultima
+modifica, la versione che perde resta nello storico.
+
+Sul browser c'è la pagina **Stazione**: i profili come li vede DecoLog e la tabella delle
+impostazioni con la revisione e quando è arrivata.
+
+Provato fra due log: il primo ha spinto 40 QSO, un profilo e le impostazioni; il secondo,
+partito vuoto, si è ritrovato il profilo "Casa di prova" già predefinito e le impostazioni
+alla revisione 1, senza toccare niente a mano.
+
 ## 0.3.0 — 18 settembre 2026
 
 **DecoLog Cloud: il sync fra dispositivi (Fase 3).** Il log resta il file SQLite, che

@@ -158,3 +158,36 @@ def test_logout_closes_the_door(client):
 
     client.post("/logout", follow_redirects=False)
     assert client.get("/log", follow_redirects=False).headers["location"] == "/"
+
+
+def test_the_station_page_shows_profiles_and_settings(client):
+    headers = account(client)
+    client.post(
+        "/v1/sync/push",
+        json={
+            "docs": [
+                {"kind": "profile", "key": "p1", "revision": 1,
+                 "data": {"name": "Casa", "stationCallsign": "IU8LMC", "myGridsquare": "JN70",
+                          "myRig": "FT-991A", "isDefault": True}},
+                {"kind": "setting", "key": "station", "revision": 3,
+                 "data": {"ui/language": "it", "theme/name": "ocean"}},
+            ]
+        },
+        headers=headers,
+    )
+    sign_in(client)
+
+    page = client.get("/station")
+    assert page.status_code == 200
+    assert "Casa" in page.text
+    assert "JN70" in page.text
+    assert "FT-991A" in page.text
+    assert "predefinito" in page.text
+    assert "theme/name" in page.text and "ocean" in page.text
+    assert "Revisione 3" in page.text
+
+
+def test_the_station_page_needs_a_session(client):
+    account(client)
+    reply = client.get("/station", follow_redirects=False)
+    assert reply.status_code == 303 and reply.headers["location"] == "/"

@@ -31,12 +31,34 @@ e un `dirty` che dice se deve ancora partire. Da qui:
 Il server non conosce i campi ADIF: tiene il QSO come arriva, in un documento
 JSON. Il giorno che DecoLog impara un campo nuovo, qui non si tocca niente.
 
+## Non solo i QSO
+
+Un log non e' solo l'elenco dei collegamenti: chi apre DecoLog sul secondo
+computer si deve ritrovare la stessa stazione. Oltre ai QSO viaggiano quindi i
+**documenti**, con le stesse regole (revisione, ultima modifica che vince,
+storico, stesso cursore):
+
+* `profile` — un documento per profilo stazione: nominativo di stazione,
+  operatore, locatore, radio, antenna, potenza, e quale e' il predefinito.
+* `setting` / `station` — un documento solo con le impostazioni che fanno parte
+  del modo di lavorare: tema e lingua, filtri salvati e colonne del log, avvisi
+  e fonti del cluster, premi seguiti, invii automatici (LoTW, QSL),
+  propagazione, lobo del rotore, dedup della UDP, backup, sync automatico.
+
+Quello che **non** passa di qui, per scelta: porte, percorsi e indirizzi dei
+programmi accanto — sono di *quella* macchina — e tutto cio' che sta nel
+portachiavi. Password e chiavi dei servizi non arrivano mai al server.
+
+I documenti stanno nella stessa spinta dei QSO (`docs` in `/v1/sync/push`,
+`docResults` nella risposta) e nello stesso pull: un giro solo, un cursore solo.
+
 ## Il log dal browser
 
 Oltre all'API c'e' la pagina: si entra con gli stessi nominativo e password del
 programma e si vede il proprio log — tabella con ricerca mentre si scrive,
 filtri per banda e modo, la pagina si allunga da sola scorrendo, scheda del
-singolo QSO con tutti i campi ADIF, e il tasto per **scaricare tutto in ADIF**:
+singolo QSO con tutti i campi ADIF, la pagina **Stazione** con i profili e le
+impostazioni arrivate dal programma, e il tasto per **scaricare tutto in ADIF**:
 il Cloud non e' una gabbia.
 
 Da qui si guarda e si scarica; si scrive dal programma. La sessione del browser
@@ -53,8 +75,8 @@ sta nei file del servizio.
 |---|---|---|
 | POST | `/v1/auth/signup` | nominativo + password → token |
 | POST | `/v1/auth/token` | nominativo + password → token |
-| POST | `/v1/sync/push` | manda i QSO in coda |
-| GET | `/v1/sync/pull` | prende quello che e' cambiato |
+| POST | `/v1/sync/push` | manda i QSO in coda e i documenti (profili, impostazioni) |
+| GET | `/v1/sync/pull` | prende quello che e' cambiato: QSO e documenti |
 | GET | `/v1/sync/status` | quanti QSO ci sono, a che punto e' il cursore |
 | GET | `/v1/health` | per il monitoraggio |
 
@@ -99,6 +121,7 @@ Internet**. In casa, sulla propria rete, va benissimo com'e'.
 PYTHONPATH=. .venv/Scripts/python -m pytest tests -q
 ```
 
-Tredici prove: registrazione, token scaduto, push e pull, cursore, conflitti con
-lo storico, revisione vecchia, duplicati, cancellazioni, pagine, e due account
-che non si vedono fra loro.
+Trentuno prove: registrazione, token scaduto, push e pull, cursore, conflitti con
+lo storico, revisione vecchia, duplicati, cancellazioni, pagine, documenti
+(profili e impostazioni, con il loro storico e il cursore condiviso), le pagine
+del browser, e due account che non si vedono fra loro.

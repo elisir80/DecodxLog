@@ -267,6 +267,12 @@ public:
     // Un QSO che arriva dal Cloud: si scrive senza rimetterlo in coda.
     enum class RemoteResult { Inserted, Updated, Deleted, Skipped, Failed };
     RemoteResult applyRemote(const QVariantMap& record);
+    // Il log non e' solo i QSO: i profili stazione viaggiano come documenti,
+    // con la stessa regola di revisione.
+    QList<QVariantMap> dirtyProfiles() const;
+    bool markProfileSynced(const QString& uuid, int revision);
+    RemoteResult applyRemoteProfile(const QVariantMap& document);
+
     // Dove siamo arrivati col sync di questo account.
     QVariantMap syncState(const QString& account) const;
     void setSyncState(const QString& account, const QVariantMap& values);

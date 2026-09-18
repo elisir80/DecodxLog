@@ -71,18 +71,31 @@ class QsoIn(BaseModel):
     fields: dict = Field(default_factory=dict)
 
 
+class DocIn(BaseModel):
+    # Un documento del log che non e' un QSO: profilo stazione, impostazione,
+    # filtro salvato, regola d'avviso.
+    kind: str
+    key: str
+    revision: int = 1
+    deleted: bool = False
+    data: dict = Field(default_factory=dict)
+
+
 class PushIn(BaseModel):
     device: str = ""
-    qsos: list[QsoIn]
+    qsos: list[QsoIn] = Field(default_factory=list)
+    docs: list[DocIn] = Field(default_factory=list)
 
 
 class PushOut(BaseModel):
     results: list[dict]
+    docResults: list[dict] = Field(default_factory=list)
     cursor: int
 
 
 class PullOut(BaseModel):
     qsos: list[dict]
+    docs: list[dict] = Field(default_factory=list)
     cursor: int
     more: bool
 
@@ -130,12 +143,13 @@ def push(
     account: Account = Depends(auth.current_account),
     db: Session = Depends(auth.session),
 ) -> PushOut:
-    if len(body.qsos) > settings.max_batch:
-        raise HTTPException(status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, "troppi QSO in una volta")
+    if len(body.qsos) + len(body.docs) > settings.max_batch:
+        raise HTTPException(status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, "troppa roba in una volta")
     results = [sync.apply_push(db, account, record.model_dump(), body.device) for record in body.qsos]
+    docs = [sync.apply_doc(db, account, record.model_dump(), body.device) for record in body.docs]
     db.commit()
     counter = db.get(Counter, account.id)
-    return PushOut(results=results, cursor=counter.value if counter else 0)
+    return PushOut(results=results, docResults=docs, cursor=counter.value if counter else 0)
 
 
 @app.get("/v1/sync/pull", response_model=PullOut)
@@ -147,7 +161,20 @@ def pull(
 ) -> PullOut:
     size = min(limit or settings.page_size, settings.page_size)
     records, cursor, more = sync.pull(db, account, since, size)
-    return PullOut(qsos=records, cursor=cursor, more=more)
+    # I documenti sono pochi e cambiano di rado: stanno nella stessa pagina,
+    # fino al punto dove sono arrivati i QSO.
+    docs = sync.pull_docs(db, account, since, size + 1)
+    docs_truncated = len(docs) > size
+    docs = docs[:size]
+    if more:
+        # La pagina dei QSO si e' fermata prima: i documenti oltre quel punto
+        # arrivano col giro dopo, altrimenti il cursore li salterebbe.
+        docs = [d for d in docs if d["seq"] <= cursor]
+    elif docs:
+        # Niente altro da leggere: il cursore va dove sono arrivati tutti e due.
+        cursor = max(cursor, max(d["seq"] for d in docs))
+        more = docs_truncated
+    return PullOut(qsos=records, docs=docs, cursor=cursor, more=more)
 
 
 @app.get("/v1/sync/status", response_model=StatusOut)

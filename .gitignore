@@ -20,3 +20,6 @@ DecoLog-*-win64/
 .idea/
 CMakeUserPresets.json
 compile_commands.json
+
+# Traduzioni compilate: le rifa la build da .ts.
+*.qm

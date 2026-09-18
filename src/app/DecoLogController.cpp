@@ -357,6 +357,8 @@ bool DecoLogController::openDatabase(const QString& path)
         emit logChanged();
     };
     m_cloud = new CloudController(std::move(cloudCtx), this);
+    // I profili arrivati dal Cloud vanno riletti come quelli scritti qui.
+    connect(m_cloud, &CloudController::profilesChanged, this, [this] { m_profiles->reload(); });
 
     ActivationController::Context actCtx;
     actCtx.db = &m_db;

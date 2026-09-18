@@ -1690,6 +1690,123 @@ LogDatabase::RemoteResult LogDatabase::applyRemote(const QVariantMap& remote)
                    : (id > 0 ? RemoteResult::Updated : RemoteResult::Inserted);
 }
 
+QList<QVariantMap> LogDatabase::dirtyProfiles() const
+{
+    QList<QVariantMap> out;
+    for (const StationProfile& p : stationProfiles(true)) {
+        if (!p.dirty)
+            continue;
+        out << QVariantMap{
+            {QStringLiteral("kind"), QStringLiteral("profile")},
+            {QStringLiteral("key"), p.uuid},
+            {QStringLiteral("revision"), p.revision},
+            {QStringLiteral("deleted"), p.deleted},
+            {QStringLiteral("data"), QVariantMap{
+                {QStringLiteral("name"), p.name},
+                {QStringLiteral("stationCallsign"), p.stationCallsign},
+                {QStringLiteral("operatorCall"), p.operatorCall},
+                {QStringLiteral("myGridsquare"), p.myGridsquare},
+                {QStringLiteral("myCqZone"), p.myCqZone},
+                {QStringLiteral("myItuZone"), p.myItuZone},
+                {QStringLiteral("myDxcc"), p.myDxcc},
+                {QStringLiteral("myRig"), p.myRig},
+                {QStringLiteral("myAntenna"), p.myAntenna},
+                {QStringLiteral("defaultTxPwr"), p.defaultTxPwr},
+                {QStringLiteral("lotwStationLocation"), p.lotwStationLocation},
+                {QStringLiteral("isDefault"), p.isDefault},
+            }},
+        };
+    }
+    return out;
+}
+
+bool LogDatabase::markProfileSynced(const QString& uuid, int revision)
+{
+    QSqlQuery q(connection());
+    if (revision > 0) {
+        q.prepare(QStringLiteral("UPDATE station_profile SET dirty = 0, revision = ? WHERE uuid = ?"));
+        q.addBindValue(revision);
+    } else {
+        q.prepare(QStringLiteral("UPDATE station_profile SET dirty = 0 WHERE uuid = ?"));
+    }
+    q.addBindValue(uuid);
+    return q.exec();
+}
+
+LogDatabase::RemoteResult LogDatabase::applyRemoteProfile(const QVariantMap& document)
+{
+    const QString uuid = document.value(QStringLiteral("key")).toString();
+    if (uuid.isEmpty())
+        return RemoteResult::Failed;
+    const int revision = document.value(QStringLiteral("revision")).toInt();
+    const bool deleted = document.value(QStringLiteral("deleted")).toBool();
+    const QVariantMap data = document.value(QStringLiteral("data")).toMap();
+
+    QSqlQuery find(connection());
+    find.prepare(QStringLiteral("SELECT id, revision, dirty FROM station_profile WHERE uuid = ?"));
+    find.addBindValue(uuid);
+    const bool exists = find.exec() && find.next();
+    const qint64 id = exists ? find.value(0).toLongLong() : 0;
+    const int localRevision = exists ? find.value(1).toInt() : 0;
+    const bool localDirty = exists && find.value(2).toInt() != 0;
+
+    if (exists) {
+        if (localRevision > revision)
+            return RemoteResult::Skipped;
+        if (localRevision == revision && !localDirty)
+            return RemoteResult::Skipped;   // e' lo stesso profilo
+        if (localDirty && localRevision >= revision)
+            return RemoteResult::Skipped;   // c'e' una modifica locale da mandare
+    }
+
+    QSqlQuery q(connection());
+    if (exists) {
+        q.prepare(QStringLiteral(
+            "UPDATE station_profile SET name = ?, station_callsign = ?, operator = ?, my_gridsquare = ?, "
+            "my_cq_zone = ?, my_itu_zone = ?, my_dxcc = ?, my_rig = ?, my_antenna = ?, default_tx_pwr = ?, "
+            "lotw_station_loc = ?, is_default = ?, updated_at = ?, revision = ?, deleted = ?, dirty = 0 "
+            "WHERE uuid = ?"));
+    } else {
+        q.prepare(QStringLiteral(
+            "INSERT INTO station_profile (name, station_callsign, operator, my_gridsquare, my_cq_zone, "
+            "my_itu_zone, my_dxcc, my_rig, my_antenna, default_tx_pwr, lotw_station_loc, is_default, "
+            "updated_at, revision, deleted, dirty, uuid) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)"));
+    }
+    auto text = [&data](const char* key) {
+        const QString value = data.value(QLatin1String(key)).toString().trimmed();
+        return value.isEmpty() ? QVariant() : QVariant(value);
+    };
+    auto number = [&data](const char* key) {
+        const int value = data.value(QLatin1String(key)).toInt();
+        return value > 0 ? QVariant(value) : QVariant();
+    };
+    q.addBindValue(data.value(QStringLiteral("name")).toString());
+    q.addBindValue(data.value(QStringLiteral("stationCallsign")).toString().toUpper());
+    q.addBindValue(text("operatorCall"));
+    q.addBindValue(text("myGridsquare"));
+    q.addBindValue(number("myCqZone"));
+    q.addBindValue(number("myItuZone"));
+    q.addBindValue(number("myDxcc"));
+    q.addBindValue(text("myRig"));
+    q.addBindValue(text("myAntenna"));
+    const double power = data.value(QStringLiteral("defaultTxPwr")).toDouble();
+    q.addBindValue(power > 0 ? QVariant(power) : QVariant());
+    q.addBindValue(text("lotwStationLocation"));
+    q.addBindValue(data.value(QStringLiteral("isDefault")).toBool() ? 1 : 0);
+    q.addBindValue(nowIso());
+    q.addBindValue(revision > 0 ? revision : 1);
+    q.addBindValue(deleted ? 1 : 0);
+    q.addBindValue(uuid);
+    if (!q.exec()) {
+        m_lastError = q.lastError().text();
+        return RemoteResult::Failed;
+    }
+    if (deleted)
+        return RemoteResult::Deleted;
+    return exists && id > 0 ? RemoteResult::Updated : RemoteResult::Inserted;
+}
+
 QVariantMap LogDatabase::syncState(const QString& account) const
 {
     QSqlQuery q(connection());

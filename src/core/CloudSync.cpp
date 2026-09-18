@@ -90,18 +90,20 @@ void CloudSync::watch(QNetworkReply* reply, const QString& what)
                           answer.value(QStringLiteral("callsign")).toString());
             return;
         }
+        auto list = [&answer](const char* name) {
+            QVariantList out;
+            for (const QJsonValue& value : answer.value(QLatin1String(name)).toArray())
+                out << value.toObject().toVariantMap();
+            return out;
+        };
         if (what == QLatin1String("push")) {
-            QVariantList results;
-            for (const QJsonValue& value : answer.value(QStringLiteral("results")).toArray())
-                results << value.toObject().toVariantMap();
-            emit pushed(results, static_cast<qint64>(answer.value(QStringLiteral("cursor")).toDouble()));
+            emit pushed(list("results"), list("docResults"),
+                        static_cast<qint64>(answer.value(QStringLiteral("cursor")).toDouble()));
             return;
         }
         if (what == QLatin1String("pull")) {
-            QVariantList qsos;
-            for (const QJsonValue& value : answer.value(QStringLiteral("qsos")).toArray())
-                qsos << value.toObject().toVariantMap();
-            emit pulled(qsos, static_cast<qint64>(answer.value(QStringLiteral("cursor")).toDouble()),
+            emit pulled(list("qsos"), list("docs"),
+                        static_cast<qint64>(answer.value(QStringLiteral("cursor")).toDouble()),
                         answer.value(QStringLiteral("more")).toBool());
             return;
         }
@@ -129,10 +131,12 @@ void CloudSync::login(const QString& callsign, const QString& password)
           QStringLiteral("auth"));
 }
 
-void CloudSync::push(const QVariantList& qsos)
+void CloudSync::push(const QVariantList& qsos, const QVariantList& docs)
 {
     watch(send(QStringLiteral("/v1/sync/push"),
-               {{QStringLiteral("device"), m_device}, {QStringLiteral("qsos"), qsos}}, true),
+               {{QStringLiteral("device"), m_device},
+                {QStringLiteral("qsos"), qsos},
+                {QStringLiteral("docs"), docs}}, true),
           QStringLiteral("push"));
 }
 

@@ -21,7 +21,7 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from . import auth
-from .models import Account, Qso
+from .models import Account, Doc, Qso
 
 HERE = Path(__file__).parent
 templates = Jinja2Templates(directory=str(HERE / "templates"))
@@ -262,6 +262,47 @@ def qso(request: Request, uuid: str, db: Session = Depends(auth.session)):
             "updated": row.updated_at.strftime("%Y-%m-%d %H:%M") if row.updated_at else "",
             "device": row.device,
             "deleted": row.deleted,
+        },
+    )
+
+
+@router.get("/station", response_class=HTMLResponse)
+def station(request: Request, db: Session = Depends(auth.session)):
+    """Profili stazione e impostazioni: il resto del log, quello che non e' un QSO."""
+    account = _account_from_cookie(request, db)
+    if account is None:
+        return RedirectResponse("/", status_code=303)
+
+    profiles = db.scalars(
+        select(Doc)
+        .where(Doc.account_id == account.id, Doc.kind == "profile", Doc.deleted.is_(False))
+        .order_by(Doc.key)
+    ).all()
+    settings_doc = db.scalar(
+        select(Doc).where(Doc.account_id == account.id, Doc.kind == "setting", Doc.key == "station")
+    )
+    values = sorted((settings_doc.data or {}).items()) if settings_doc else []
+
+    return templates.TemplateResponse(
+        request,
+        "station.html",
+        {
+            "callsign": account.callsign,
+            "profiles": [
+                {
+                    "key": row.key,
+                    "revision": row.revision,
+                    "updated": row.updated_at.strftime("%Y-%m-%d %H:%M") if row.updated_at else "",
+                    "device": row.device,
+                    "data": row.data or {},
+                }
+                for row in profiles
+            ],
+            "settings": values,
+            "settings_revision": settings_doc.revision if settings_doc else 0,
+            "settings_updated": settings_doc.updated_at.strftime("%Y-%m-%d %H:%M")
+            if settings_doc and settings_doc.updated_at
+            else "",
         },
     )
 
