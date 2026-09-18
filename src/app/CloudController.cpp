@@ -590,6 +590,29 @@ bool CloudController::vaultAvailable() const
     return core::vault::available();
 }
 
+void CloudController::unlockVault(const QString& password)
+{
+    if (!linked()) {
+        finish(tr("Cloud: sign in first"), QStringLiteral("warning"));
+        return;
+    }
+    makeVaultKey(password);
+    if (m_vaultKey.isEmpty()) {
+        finish(tr("Cloud: the vault did not open"), QStringLiteral("warning"));
+        return;
+    }
+    // La chiave e' giusta se quello che c'e' sul server si apre; se sul server
+    // non c'e' ancora niente, e' il primo dispositivo e va bene cosi'.
+    if (m_ctx.credentials) {
+        m_ctx.credentials->save(kVaultService, m_callsign,
+                                QString::fromLatin1(m_vaultKey.toBase64()));
+    }
+    readSecrets();
+    emit changed();
+    note(tr("Cloud: vault open on this device"), QStringLiteral("success"));
+    syncNow();
+}
+
 void CloudController::makeVaultKey(const QString& password)
 {
     // Un collegamento di passaggio (le prove da riga di comando) non apre la
@@ -611,6 +634,7 @@ void CloudController::loadVaultKey()
             return;
         m_vaultKey = QByteArray::fromBase64(stored.toLatin1());
         readSecrets();
+        emit changed();
     });
 }
 

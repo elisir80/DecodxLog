@@ -3375,6 +3375,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Porta anche le password dei servizi sugli altri dispositivi</translation>
     </message>
     <message>
+        <source>Cloud password, to open the vault on this device</source>
+        <translation>Password del Cloud, per aprire la cassaforte su questo dispositivo</translation>
+    </message>
+    <message>
+        <source>Open the vault</source>
+        <translation>Apri la cassaforte</translation>
+    </message>
+    <message>
         <source>They travel sealed: DecoLog closes them on this computer with AES-256-GCM and a key made from your Cloud password, which the server only knows as an Argon2 fingerprint. What reaches the server is a block of bytes that does not open without that password. Sign in on the other device with the same password and the services are ready there too.</source>
         <translation>Viaggiano chiuse: DecoLog le sigilla su questo computer con AES-256-GCM e una chiave che nasce dalla tua password del Cloud, che il server conosce solo come impronta Argon2. Al server arriva un blocco di byte che senza quella password non si apre. Entra sull&apos;altro dispositivo con la stessa password e i servizi sono pronti anche lì.</translation>
     </message>
@@ -4100,6 +4108,18 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Cloud: syncing…</source>
         <translation>Cloud: sincronizzo…</translation>
+    </message>
+    <message>
+        <source>Cloud: sign in first</source>
+        <translation>Cloud: prima entra nell&apos;account</translation>
+    </message>
+    <message>
+        <source>Cloud: the vault did not open</source>
+        <translation>Cloud: la cassaforte non si è aperta</translation>
+    </message>
+    <message>
+        <source>Cloud: vault open on this device</source>
+        <translation>Cloud: cassaforte aperta su questo dispositivo</translation>
     </message>
     <message>
         <source>Cloud: the service passwords are waiting for you to sign in on this device</source>

@@ -578,6 +578,38 @@ DialogFrame {
                             checked: decolog.cloud.syncSecrets && decolog.cloud.vaultAvailable
                             onToggled: decolog.cloud.syncSecrets = checked
                         }
+                        // Chi si e' collegato prima che la cassaforte esistesse
+                        // ha la chiave mancante: si fa qui, senza scollegarsi.
+                        RowLayout {
+                            Layout.fillWidth: true
+                            spacing: 8
+                            visible: decolog.cloud.linked && decolog.cloud.vaultAvailable
+                                     && decolog.cloud.syncSecrets && !decolog.cloud.vaultReady
+                            LabeledField {
+                                label: qsTr("Cloud password, to open the vault on this device")
+                                StyledTextField {
+                                    id: vaultPassword
+                                    Layout.preferredWidth: 220
+                                    mono: false
+                                    echoMode: TextInput.Password
+                                    Keys.onReturnPressed: {
+                                        decolog.cloud.unlockVault(vaultPassword.text)
+                                        vaultPassword.text = ""
+                                    }
+                                }
+                            }
+                            GlassButton {
+                                Layout.alignment: Qt.AlignBottom
+                                Layout.bottomMargin: 2
+                                text: qsTr("Open the vault")
+                                tone: Theme.primaryColor
+                                enabled: vaultPassword.text.length >= 8
+                                onClicked: {
+                                    decolog.cloud.unlockVault(vaultPassword.text)
+                                    vaultPassword.text = ""
+                                }
+                            }
+                        }
                         Note {
                             text: decolog.cloud.vaultAvailable
                                   ? qsTr("They travel sealed: DecoLog closes them on this computer with AES-256-GCM "

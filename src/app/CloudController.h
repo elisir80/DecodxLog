@@ -41,6 +41,10 @@ class CloudController : public QObject {
     // Falso se DecoLog e' stato compilato senza OpenSSL: allora non c'e'
     // cassaforte, e le credenziali non si muovono.
     Q_PROPERTY(bool vaultAvailable READ vaultAvailable CONSTANT)
+    // La cassaforte e' aperta su questo dispositivo? La chiave nasce dalla
+    // password del Cloud: chi si e' collegato prima che la cassaforte esistesse
+    // ce l'ha chiusa, e basta dire la password una volta.
+    Q_PROPERTY(bool vaultReady READ vaultReady NOTIFY changed)
 
 public:
     struct Context {
@@ -75,6 +79,10 @@ public:
     bool syncSecrets() const;
     void setSyncSecrets(bool on);
     bool vaultAvailable() const;
+    bool vaultReady() const { return !m_vaultKey.isEmpty(); }
+    // Apre la cassaforte su questo dispositivo senza doversi scollegare: la
+    // password serve a fare la chiave e non viene tenuta.
+    Q_INVOKABLE void unlockVault(const QString& password);
 
     // Crea l'account sul server e si collega.
     Q_INVOKABLE void signup(const QString& callsign, const QString& password);

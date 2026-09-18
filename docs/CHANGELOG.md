@@ -22,7 +22,9 @@ database in mano. Nessuna crittografia scritta a mano: e' OpenSSL, quello che st
 HTTPS. Sull'altro dispositivo si entra con la stessa password e i servizi sono pronti.
 La chiave non passa mai dal server: si rifa' dalla password e poi vive nel portachiavi
 accanto al token; "Scollega" la butta. Si spegne dall'interruttore in Impostazioni →
-Sync e Cloud, e senza OpenSSL DecoLog lo dice e non manda niente.
+Sync e Cloud, e senza OpenSSL DecoLog lo dice e non manda niente. Chi si era collegato
+**prima** che la cassaforte esistesse ha la chiave mancante: nella stessa pagina compare
+"Apri la cassaforte", si dice la password una volta e basta — non serve scollegarsi.
 
 Restano fuori solo due cose, e nessuna e' una scelta di chi opera: il **promemoria di
 cosa e' salvato nel portachiavi di quella macchina**, che altrove farebbe credere a
