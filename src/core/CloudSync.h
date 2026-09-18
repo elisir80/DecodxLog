@@ -7,6 +7,7 @@
 #pragma once
 
 #include <QDateTime>
+#include <QJsonValue>
 #include <QObject>
 #include <QString>
 #include <QUrl>
@@ -24,6 +25,19 @@ struct CloudError {
     bool    unauthorized{false}; // token scaduto o password cambiata
     QString message;
 };
+
+namespace cloudsync {
+
+// Il motivo di un errore, comunque il server lo scriva.
+//
+// I server di DecoLog mettono una frase in `detail`. Ma FastAPI, quando la
+// richiesta non passa la validazione, mette li' un *elenco* di oggetti
+// ({"loc": [...], "msg": "..."}): chi si aspettava una stringa restava con un
+// "HTTP 422" in mano e nessuna idea di cosa avesse sbagliato. Qui si legge
+// anche quella forma.
+QString detailOf(const QJsonValue& value);
+
+} // namespace cloudsync
 
 class CloudSync : public QObject {
     Q_OBJECT

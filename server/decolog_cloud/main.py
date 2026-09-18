@@ -15,7 +15,9 @@ from __future__ import annotations
 
 from contextlib import asynccontextmanager
 
-from fastapi import Depends, FastAPI, HTTPException, Query, status
+from fastapi import Depends, FastAPI, HTTPException, Query, Request, status
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
@@ -42,6 +44,44 @@ app = FastAPI(
     summary="Sync del log fra i dispositivi di una stazione radioamatoriale",
     lifespan=lifespan,
 )
+
+
+# Come si chiamano i campi, per chi li legge invece di scriverli.
+_FIELD_NAMES = {
+    "callsign": "il nominativo",
+    "password": "la password",
+    "device": "il nome del dispositivo",
+}
+
+
+def _readable(error: dict) -> str:
+    """Un errore di validazione detto a chi sta davanti allo schermo.
+
+    FastAPI risponde con un elenco di oggetti: giusto per un programma, illeggibile
+    per una persona — e un client che si aspetta una frase si ritrova con
+    "status code 422" e nessuna idea di cosa fare.
+    """
+    field = next((str(p) for p in reversed(error.get("loc", [])) if p != "body"), "")
+    name = _FIELD_NAMES.get(field, field or "il dato")
+    context = error.get("ctx") or {}
+    kind = error.get("type", "")
+
+    if kind == "missing":
+        return f"manca {name}"
+    if kind == "string_too_short":
+        return f"{name} deve avere almeno {context.get('min_length', '?')} caratteri"
+    if kind == "string_too_long":
+        return f"{name} non puo' superare i {context.get('max_length', '?')} caratteri"
+    return f"{name}: {error.get('msg', 'valore non valido')}"
+
+
+@app.exception_handler(RequestValidationError)
+async def say_it_in_words(_: Request, exc: RequestValidationError) -> JSONResponse:
+    """Il 422 con una frase dentro `detail`, dove i client la cercano."""
+    reasons = [_readable(error) for error in exc.errors()]
+    # 422: il numero resta quello di sempre, cambia solo che dentro c'e' una frase.
+    return JSONResponse(status_code=422,
+                        content={"detail": "; ".join(reasons) or "richiesta non valida"})
 
 
 # ── Modelli ───────────────────────────────────────────────────────────────────

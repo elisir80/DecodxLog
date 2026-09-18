@@ -301,12 +301,30 @@ void CloudController::setAutoMode(const QString& mode)
     emit changed();
 }
 
+// Il server chiede almeno tre caratteri di nominativo e otto di password. Se si
+// manda lo stesso, torna un errore di validazione: meglio dirlo qui, con parole,
+// che far viaggiare una richiesta gia' persa.
+bool CloudController::credentialsLookSane(const QString& callsign, const QString& password)
+{
+    if (callsign.trimmed().size() < 3) {
+        finish(tr("Cloud: the callsign is too short"), QStringLiteral("warning"));
+        return false;
+    }
+    if (password.size() < 8) {
+        finish(tr("Cloud: the password must be at least 8 characters"), QStringLiteral("warning"));
+        return false;
+    }
+    return true;
+}
+
 void CloudController::signup(const QString& callsign, const QString& password)
 {
     if (m_server.isEmpty()) {
         finish(tr("Cloud: set the server address first"), QStringLiteral("warning"));
         return;
     }
+    if (!credentialsLookSane(callsign, password))
+        return;
     m_busy = true;
     m_status = tr("Cloud: creating the account…");
     emit changed();
@@ -322,6 +340,8 @@ void CloudController::login(const QString& callsign, const QString& password)
         finish(tr("Cloud: set the server address first"), QStringLiteral("warning"));
         return;
     }
+    if (!credentialsLookSane(callsign, password))
+        return;
     m_busy = true;
     m_status = tr("Cloud: signing in…");
     emit changed();

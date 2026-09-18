@@ -9,6 +9,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
+#include <QStringList>
 #include <QUrlQuery>
 
 namespace decolog::core {
@@ -26,6 +27,39 @@ QUrl endpoint(const QUrl& base, const QString& path)
 }
 
 } // namespace
+
+namespace cloudsync {
+
+QString detailOf(const QJsonValue& value)
+{
+    if (value.isString())
+        return value.toString();
+
+    if (value.isArray()) {
+        QStringList reasons;
+        for (const QJsonValue& item : value.toArray()) {
+            const QJsonObject entry = item.toObject();
+            const QString message = entry.value(QStringLiteral("msg")).toString();
+            if (message.isEmpty())
+                continue;
+            // L'ultimo pezzo di "loc" e' il campo: ["body", "password"] -> password.
+            QString field;
+            for (const QJsonValue& part : entry.value(QStringLiteral("loc")).toArray()) {
+                const QString name = part.toString();
+                if (!name.isEmpty() && name != QLatin1String("body"))
+                    field = name;
+            }
+            reasons << (field.isEmpty() ? message : field + QStringLiteral(": ") + message);
+        }
+        return reasons.join(QStringLiteral("; "));
+    }
+
+    if (value.isObject())
+        return value.toObject().value(QStringLiteral("msg")).toString();
+    return {};
+}
+
+} // namespace cloudsync
 
 CloudSync::CloudSync(QObject* parent)
     : QObject(parent)
@@ -79,7 +113,7 @@ void CloudSync::watch(QNetworkReply* reply, const QString& what)
             error.unauthorized = code == 401 || code == 403;
             // Rete giu', servizio in manutenzione, troppe richieste: si riprova.
             error.retryLater = code == 0 || code == 429 || code >= 500;
-            const QString detail = answer.value(QStringLiteral("detail")).toString();
+            const QString detail = cloudsync::detailOf(answer.value(QStringLiteral("detail")));
             error.message = detail.isEmpty() ? network::safeErrorString(reply) : detail;
             emit failed(error);
             return;

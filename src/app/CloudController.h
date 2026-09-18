@@ -106,6 +106,9 @@ signals:
 
 private:
     void note(const QString& text, const QString& level);
+    // Nominativo e password abbastanza lunghi per il server: altrimenti lo si
+    // dice qui, invece di mandare una richiesta che tornera' indietro.
+    bool credentialsLookSane(const QString& callsign, const QString& password);
     void loadToken();
     void saveToken(const QString& token, const QString& callsign);
     void startPull();

@@ -1,7 +1,11 @@
 // DecoLog — il lato log del sync: cosa parte, cosa si scrive quando arriva, e
 // chi vince quando due dispositivi hanno scritto sullo stesso QSO.
+#include "core/CloudSync.h"
 #include "core/LogDatabase.h"
 
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QSignalSpy>
 #include <QTest>
 
@@ -219,6 +223,51 @@ private slots:
         state = db.syncState(QStringLiteral("IU8LMC"));
         QCOMPARE(state.value(QStringLiteral("cursor")).toString(), QStringLiteral("42"));
         QCOMPARE(state.value(QStringLiteral("lastPush")).toString(), QStringLiteral("2026-09-18 17:05"));
+    }
+
+    // ── Il motivo di un errore ───────────────────────────────────────────────
+
+    void aSentenceFromTheServerIsShownAsItIs()
+    {
+        QCOMPARE(cloudsync::detailOf(QJsonValue(QStringLiteral("nominativo o password non validi"))),
+                 QStringLiteral("nominativo o password non validi"));
+    }
+
+    void aListOfValidationErrorsBecomesWords()
+    {
+        // E' la forma che FastAPI manda quando la richiesta non passa la
+        // validazione: un utente con la password corta si vedeva solo
+        // "status code 422".
+        const auto body = QJsonDocument::fromJson(R"([
+            {"type": "string_too_short", "loc": ["body", "password"],
+             "msg": "String should have at least 8 characters"}
+        ])").array();
+
+        const QString message = cloudsync::detailOf(QJsonValue(body));
+        QVERIFY(message.contains(QStringLiteral("password")));
+        QVERIFY(message.contains(QStringLiteral("8 characters")));
+    }
+
+    void twoThingsWrongAreSaidBoth()
+    {
+        const auto body = QJsonDocument::fromJson(R"([
+            {"loc": ["body", "callsign"], "msg": "troppo corto"},
+            {"loc": ["body", "password"], "msg": "troppo corta"}
+        ])").array();
+
+        const QString message = cloudsync::detailOf(QJsonValue(body));
+        QVERIFY(message.contains(QStringLiteral("callsign")));
+        QVERIFY(message.contains(QStringLiteral("password")));
+        QVERIFY(message.contains(QStringLiteral(";")));
+    }
+
+    void nothingUsefulIsNotAMessage()
+    {
+        // Senza motivo si lascia parlare l'errore di rete: meglio quello che
+        // una riga vuota.
+        QVERIFY(cloudsync::detailOf(QJsonValue()).isEmpty());
+        QVERIFY(cloudsync::detailOf(QJsonValue(QJsonArray())).isEmpty());
+        QVERIFY(cloudsync::detailOf(QJsonValue(QJsonObject())).isEmpty());
     }
 };
 

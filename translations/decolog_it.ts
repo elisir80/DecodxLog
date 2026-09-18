@@ -4082,6 +4082,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Cloud: il token non si legge (%1)</translation>
     </message>
     <message>
+        <source>Cloud: the callsign is too short</source>
+        <translation>Cloud: il nominativo è troppo corto</translation>
+    </message>
+    <message>
+        <source>Cloud: the password must be at least 8 characters</source>
+        <translation>Cloud: la password deve avere almeno 8 caratteri</translation>
+    </message>
+    <message>
         <source>Cloud: set the server address first</source>
         <translation>Cloud: prima metti l&apos;indirizzo del server</translation>
     </message>

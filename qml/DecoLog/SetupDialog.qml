@@ -513,7 +513,13 @@ DialogFrame {
                                     Layout.preferredWidth: 220
                                     mono: false
                                     echoMode: TextInput.Password
-                                    Keys.onReturnPressed: decolog.cloud.login(cloudCall.text, cloudPassword.text)
+                                    // Invio fa quello che fa il tasto: stesso
+                                    // indirizzo, stessa pulizia dopo.
+                                    Keys.onReturnPressed: {
+                                        decolog.cloud.server = serverField.text
+                                        decolog.cloud.login(cloudCall.text, cloudPassword.text)
+                                        cloudPassword.text = ""
+                                    }
                                 }
                             }
                             GlassButton {
