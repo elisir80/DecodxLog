@@ -1,0 +1,72 @@
+// DecoLog — il cliente del DecoLog Cloud.
+//
+// Parla con il servizio di `server/`: token, spinta dei QSO in coda, ripresa di
+// quello che e' cambiato altrove. Qui dentro non c'e' logica di log: si manda
+// quello che il database dice di mandare e si riporta quello che il server
+// risponde, uno a uno, perche' ogni QSO ha il suo esito.
+#pragma once
+
+#include <QDateTime>
+#include <QObject>
+#include <QString>
+#include <QUrl>
+#include <QVariantList>
+#include <QVariantMap>
+
+class QNetworkAccessManager;
+class QNetworkReply;
+
+namespace decolog::core {
+
+struct CloudError {
+    bool    ok{true};
+    bool    retryLater{false};   // rete giu' o servizio occupato: si riprova
+    bool    unauthorized{false}; // token scaduto o password cambiata
+    QString message;
+};
+
+class CloudSync : public QObject {
+    Q_OBJECT
+
+public:
+    explicit CloudSync(QObject* parent = nullptr);
+
+    void setServer(const QUrl& base) { m_base = base; }
+    QUrl server() const { return m_base; }
+    void setToken(const QString& token) { m_token = token; }
+    QString token() const { return m_token; }
+    void setDevice(const QString& device) { m_device = device; }
+    QString device() const { return m_device; }
+    bool busy() const { return m_busy; }
+
+    // Nominativo e password -> token. `signup` crea l'account, `login` no.
+    void signup(const QString& callsign, const QString& password);
+    void login(const QString& callsign, const QString& password);
+    // I QSO in coda, gia' pronti come li vuole il server.
+    void push(const QVariantList& qsos);
+    // Quello che e' cambiato dopo `since`.
+    void pull(qint64 since, int limit = 0);
+    void status();
+    void cancel();
+
+signals:
+    void loggedIn(const QString& token, const QString& callsign);
+    // Un esito per QSO: {uuid, status, revision, seq, serverUuid}.
+    void pushed(const QVariantList& results, qint64 cursor);
+    void pulled(const QVariantList& qsos, qint64 cursor, bool more);
+    void statusReady(const QVariantMap& status);
+    void failed(const decolog::core::CloudError& error);
+
+private:
+    QNetworkReply* send(const QString& path, const QVariantMap& body, bool authenticated);
+    QNetworkReply* get(const QString& path, const QVariantMap& query);
+    void watch(QNetworkReply* reply, const QString& what);
+
+    QNetworkAccessManager* m_net;
+    QUrl    m_base;
+    QString m_token;
+    QString m_device;
+    bool    m_busy{false};
+};
+
+} // namespace decolog::core

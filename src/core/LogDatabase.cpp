@@ -1514,6 +1514,221 @@ int LogDatabase::uploadPendingCount(const QString& service) const
     return q.exec() && q.next() ? q.value(0).toInt() : 0;
 }
 
+// ── Sync con DecoLog Cloud ────────────────────────────────────────────────────
+
+QList<qint64> LogDatabase::dirtyQsos(int limit) const
+{
+    QList<qint64> ids;
+    QSqlQuery q(connection());
+    q.setForwardOnly(true);
+    q.prepare(QStringLiteral("SELECT id FROM qso WHERE dirty = 1 ORDER BY updated_at, id")
+              + (limit > 0 ? QStringLiteral(" LIMIT ?") : QString()));
+    if (limit > 0)
+        q.addBindValue(limit);
+    if (!q.exec())
+        return ids;
+    while (q.next())
+        ids << q.value(0).toLongLong();
+    return ids;
+}
+
+qint64 LogDatabase::idForUuid(const QString& uuid) const
+{
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("SELECT id FROM qso WHERE uuid = ?"));
+    q.addBindValue(uuid);
+    return q.exec() && q.next() ? q.value(0).toLongLong() : 0;
+}
+
+QVariantMap LogDatabase::syncRecord(qint64 id) const
+{
+    const auto m = meta(id);
+    const auto r = record(id);
+    if (!m || !r)
+        return {};
+
+    QVariantMap fields;
+    for (const auto& f : r->fields())
+        fields.insert(f.name, f.value);
+
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral(
+        "SELECT call, band, mode, submode, qso_datetime_on FROM qso WHERE id = ?"));
+    q.addBindValue(id);
+    QString call;
+    QString band;
+    QString mode;
+    QString submode;
+    QString on;
+    if (q.exec() && q.next()) {
+        call = q.value(0).toString();
+        band = q.value(1).toString();
+        mode = q.value(2).toString();
+        submode = q.value(3).toString();
+        on = q.value(4).toString();
+    }
+
+    return QVariantMap{
+        {QStringLiteral("uuid"), m->uuid},
+        {QStringLiteral("revision"), m->revision},
+        {QStringLiteral("deleted"), m->deleted},
+        // L'ora scritta a mano e' approssimativa: il server allarga la finestra.
+        {QStringLiteral("manual"), m->source == QLatin1String("manual")},
+        {QStringLiteral("call"), call},
+        {QStringLiteral("band"), band},
+        {QStringLiteral("mode"), mode},
+        {QStringLiteral("submode"), submode},
+        {QStringLiteral("startedAt"), on},
+        {QStringLiteral("fields"), fields},
+    };
+}
+
+bool LogDatabase::markSynced(qint64 id, int revision)
+{
+    QSqlQuery q(connection());
+    if (revision > 0) {
+        q.prepare(QStringLiteral("UPDATE qso SET dirty = 0, revision = ? WHERE id = ?"));
+        q.addBindValue(revision);
+    } else {
+        q.prepare(QStringLiteral("UPDATE qso SET dirty = 0 WHERE id = ?"));
+    }
+    q.addBindValue(id);
+    return q.exec();
+}
+
+bool LogDatabase::adoptUuid(qint64 id, const QString& serverUuid)
+{
+    if (serverUuid.isEmpty())
+        return false;
+    const qint64 existing = idForUuid(serverUuid);
+    if (existing == id)
+        return markSynced(id, 0);
+    if (existing > 0) {
+        // Quel collegamento e' gia' qui sotto l'uuid del server: questo e' un
+        // doppione locale, e si toglie di mezzo com'e' d'uso, in morbido.
+        softDeleteQso(id);
+        QSqlQuery q(connection());
+        q.prepare(QStringLiteral("UPDATE qso SET dirty = 0 WHERE id = ?"));
+        q.addBindValue(id);
+        return q.exec();
+    }
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("UPDATE qso SET uuid = ?, dirty = 0 WHERE id = ?"));
+    q.addBindValue(serverUuid);
+    q.addBindValue(id);
+    return q.exec();
+}
+
+LogDatabase::RemoteResult LogDatabase::applyRemote(const QVariantMap& remote)
+{
+    const QString uuid = remote.value(QStringLiteral("uuid")).toString();
+    if (uuid.isEmpty())
+        return RemoteResult::Failed;
+    const int revision = remote.value(QStringLiteral("revision")).toInt();
+    const bool deleted = remote.value(QStringLiteral("deleted")).toBool();
+
+    AdifRecord record;
+    const QVariantMap fields = remote.value(QStringLiteral("fields")).toMap();
+    for (auto it = fields.cbegin(); it != fields.cend(); ++it)
+        record.set(it.key(), it.value().toString());
+
+    qint64 id = idForUuid(uuid);
+
+    if (id > 0) {
+        const auto m = meta(id);
+        if (m && m->revision > revision) {
+            // Qui c'e' gia' qualcosa di piu' nuovo: resta, e ripartira' in coda.
+            return RemoteResult::Skipped;
+        }
+        if (m && m->dirty && m->revision >= revision) {
+            // C'e' una modifica locale ancora da mandare, e il server non ne sa
+            // di piu': non si sovrascrive. Parte lei, e il conflitto lo decide
+            // il server, che conserva la versione che perde.
+            return RemoteResult::Skipped;
+        }
+        if (deleted) {
+            if (m && m->deleted)
+                return RemoteResult::Skipped;
+            softDeleteQso(id);
+        } else {
+            InsertResult updated = updateQso(id, record, -1, QStringLiteral("cloud"));
+            if (updated.status != InsertResult::Status::Inserted)
+                return RemoteResult::Failed;
+        }
+    } else {
+        if (deleted)
+            return RemoteResult::Skipped;   // non l'abbiamo mai avuto: niente da fare
+        InsertResult inserted = insertQso(record, QStringLiteral("cloud"));
+        if (inserted.status == InsertResult::Status::Duplicate && inserted.id > 0) {
+            // Lo stesso collegamento c'era gia' con un altro uuid: ci si allinea
+            // a quello del server, che e' il nome comune.
+            id = inserted.id;
+        } else if (inserted.status != InsertResult::Status::Inserted) {
+            return RemoteResult::Failed;
+        } else {
+            id = inserted.id;
+        }
+    }
+
+    // Quello che arriva dal Cloud non torna in coda, e porta con se' la sua
+    // revisione: e' gia' quella del server.
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("UPDATE qso SET uuid = ?, revision = ?, dirty = 0 WHERE id = ?"));
+    q.addBindValue(uuid);
+    q.addBindValue(revision > 0 ? revision : 1);
+    q.addBindValue(id);
+    if (!q.exec()) {
+        m_lastError = q.lastError().text();
+        return RemoteResult::Failed;
+    }
+    return deleted ? RemoteResult::Deleted
+                   : (id > 0 ? RemoteResult::Updated : RemoteResult::Inserted);
+}
+
+QVariantMap LogDatabase::syncState(const QString& account) const
+{
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral(
+        "SELECT device_id, pull_cursor, last_push_at, last_pull_at, last_error FROM sync_state WHERE account = ?"));
+    q.addBindValue(account);
+    if (!q.exec() || !q.next())
+        return {};
+    return QVariantMap{
+        {QStringLiteral("device"), q.value(0).toString()},
+        {QStringLiteral("cursor"), q.value(1).toString()},
+        {QStringLiteral("lastPush"), q.value(2).toString()},
+        {QStringLiteral("lastPull"), q.value(3).toString()},
+        {QStringLiteral("lastError"), q.value(4).toString()},
+    };
+}
+
+void LogDatabase::setSyncState(const QString& account, const QVariantMap& values)
+{
+    const QVariantMap before = syncState(account);
+    auto pick = [&](const char* key) {
+        const QString name = QLatin1String(key);
+        return values.contains(name) ? values.value(name).toString() : before.value(name).toString();
+    };
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral(
+        "INSERT INTO sync_state (account, device_id, pull_cursor, last_push_at, last_pull_at, last_error) "
+        "VALUES (?, ?, ?, ?, ?, ?) "
+        "ON CONFLICT(account) DO UPDATE SET device_id = excluded.device_id, "
+        "pull_cursor = excluded.pull_cursor, last_push_at = excluded.last_push_at, "
+        "last_pull_at = excluded.last_pull_at, last_error = excluded.last_error"));
+    q.addBindValue(account);
+    // device_id e' NOT NULL, e una QString vuota si lega come NULL: meglio un
+    // nome qualsiasi che una riga che non entra.
+    const QString device = pick("device");
+    q.addBindValue(device.isEmpty() ? QStringLiteral("decolog") : device);
+    q.addBindValue(pick("cursor"));
+    q.addBindValue(pick("lastPush"));
+    q.addBindValue(pick("lastPull"));
+    q.addBindValue(pick("lastError"));
+    if (!q.exec())
+        m_lastError = q.lastError().text();
+}
+
 // ── QSL di carta ──────────────────────────────────────────────────────────────
 
 QList<QVariantMap> LogDatabase::cardRows(const QString& state, int limit) const

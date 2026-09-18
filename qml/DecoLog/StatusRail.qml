@@ -53,8 +53,12 @@ Rectangle {
             opacity: decolog.decoLinkEnabled ? 1.0 : 0.5
         }
         Pill {
-            text: "SYNC"
-            tone: decolog.cloudServer.length ? Theme.secondaryColor : Theme.textSecondary
+            readonly property int queued: decolog.cloud.queued
+            text: decolog.cloud.linked && queued > 0 ? "SYNC " + queued : "SYNC"
+            tone: decolog.cloud.busy ? Theme.primaryColor
+                : queued > 0 ? Theme.warningColor
+                : decolog.cloud.linked ? Theme.accentColor
+                : decolog.cloud.server.length ? Theme.secondaryColor : Theme.textSecondary
         }
         Pill {
             readonly property int queued: decolog.qslSummary.length ? decolog.qslSummary[0].queued || 0 : 0

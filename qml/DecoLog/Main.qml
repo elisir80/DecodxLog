@@ -95,6 +95,13 @@ ApplicationWindow {
         else if (what[0] === "modes") newQsoPanel.showModes()
         else if (what[0] === "stats") openStats()
         else if (what[0] === "cards") openCards()
+        else if (what[0] === "cloud") {
+            // cloud:signup:CALL:PASSWORD · cloud:login:CALL:PASSWORD · cloud:sync
+            if (what[1] === "signup") decolog.cloud.signup(what[2], what[3])
+            else if (what[1] === "login") decolog.cloud.login(what[2], what[3])
+            else decolog.cloud.syncNow()
+            bottomTabs.currentTab = 3
+        }
         else if (what[0] === "rotor") {
             if (what[1] === "window") {
                 openRotor()

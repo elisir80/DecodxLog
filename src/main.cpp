@@ -82,6 +82,10 @@ int main(int argc, char* argv[])
     QCommandLineOption rotorOption(QStringLiteral("rotor"), QStringLiteral("Use this rotor gateway."),
                                    QStringLiteral("[backend@]host:port"));
     parser.addOption(rotorOption);
+    // Server del Cloud per una prova, senza toccare le impostazioni.
+    QCommandLineOption cloudOption(QStringLiteral("cloud"), QStringLiteral("Use this DecoLog Cloud server."),
+                                   QStringLiteral("url"));
+    parser.addOption(cloudOption);
     parser.addOption(themeOption);
     parser.addOption(showOption);
     parser.addOption(dbOption);
@@ -118,6 +122,7 @@ int main(int argc, char* argv[])
         }
     } else {
         controller.startRotor();
+    controller.startCloud(!parser.isSet(grabOption));
     }
     if (parser.isSet(spotsOption)) {
         QFile spotFile(parser.value(spotsOption));
@@ -135,6 +140,10 @@ int main(int argc, char* argv[])
             if (auto* solar = qobject_cast<decolog::app::SolarController*>(controller.solar()))
                 solar->injectXml(solarFile.readAll());
         }
+    }
+    if (parser.isSet(cloudOption)) {
+        if (auto* cloud = qobject_cast<decolog::app::CloudController*>(controller.cloud()))
+            cloud->overrideServer(parser.value(cloudOption));
     }
     if (parser.isSet(importOption))
         controller.importAdif(QUrl::fromLocalFile(parser.value(importOption)));

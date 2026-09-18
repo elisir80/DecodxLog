@@ -251,6 +251,26 @@ public:
     QList<qint64> qsosToUpload(const QString& service, int limit = 0) const;
     int uploadPendingCount(const QString& service) const;
 
+    // ── Sync con DecoLog Cloud ───────────────────────────────────────────────
+    // I QSO ancora da mandare, dal piu' vecchio. `limit` 0 = tutti.
+    QList<qint64> dirtyQsos(int limit = 0) const;
+    // Il QSO come lo vuole il Cloud: uuid, revisione, le chiavi del confronto e
+    // tutti i campi ADIF dentro "fields".
+    QVariantMap syncRecord(qint64 id) const;
+    qint64 idForUuid(const QString& uuid) const;
+    // Il server l'ha preso: esce dalla coda, con la revisione che dice lui
+    // (che puo' essere piu' alta, se ha risolto un conflitto).
+    bool markSynced(qint64 id, int revision);
+    // Il server dice che quel collegamento da lui sta sotto un altro uuid: ci si
+    // allinea, o si toglie di mezzo il doppione se quell'uuid c'e' gia'.
+    bool adoptUuid(qint64 id, const QString& serverUuid);
+    // Un QSO che arriva dal Cloud: si scrive senza rimetterlo in coda.
+    enum class RemoteResult { Inserted, Updated, Deleted, Skipped, Failed };
+    RemoteResult applyRemote(const QVariantMap& record);
+    // Dove siamo arrivati col sync di questo account.
+    QVariantMap syncState(const QString& account) const;
+    void setSyncState(const QString& account, const QVariantMap& values);
+
     // ── QSL di carta ─────────────────────────────────────────────────────────
     // La coda delle cartacee: `state` e' "queue" (da mandare), "sent", "received"
     // o "all". Ogni riga ha quello che serve a un'etichetta e alla tabella.

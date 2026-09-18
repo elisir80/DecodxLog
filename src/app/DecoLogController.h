@@ -9,6 +9,7 @@
 #include "app/ActivationController.h"
 #include "app/QslCardController.h"
 #include "app/QslController.h"
+#include "app/CloudController.h"
 #include "app/RotorController.h"
 #include "app/SolarController.h"
 #include "app/QsoTableModel.h"
@@ -47,6 +48,7 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QObject* cards READ cards CONSTANT)
     Q_PROPERTY(QObject* solar READ solar CONSTANT)
     Q_PROPERTY(QObject* rotor READ rotor CONSTANT)
+    Q_PROPERTY(QObject* cloud READ cloud CONSTANT)
     Q_PROPERTY(QObject* activation READ activation CONSTANT)
 
     // ── Collegamento con Decodium ──────────────────────────────────────────
@@ -163,12 +165,15 @@ public:
     QObject* cards() const { return m_cards; }
     QObject* solar() const { return m_solar; }
     QObject* rotor() const { return m_rotor; }
+    QObject* cloud() const { return m_cloud; }
     QObject* activation() const { return m_activation; }
     // Dopo openDatabase e startDecoLink: le fonti del cluster si collegano.
     void startCluster();
     // Il rotore si collega anche in una prova: leggere dove guarda l'antenna
     // non muove niente.
     void startRotor();
+    // Il sync: `automatic` a false carica il token senza spingere niente.
+    void startCloud(bool automatic);
 
     int udpPort() const { return m_udpPort; }
     void setUdpPort(int port);
@@ -422,6 +427,7 @@ private:
     QslCardController*   m_cards{nullptr};
     SolarController*     m_solar{nullptr};
     RotorController*     m_rotor{nullptr};
+    CloudController*     m_cloud{nullptr};
     ActivationController* m_activation{nullptr};
 
     int       m_udpPort{2237};

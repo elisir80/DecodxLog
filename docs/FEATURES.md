@@ -237,6 +237,24 @@ Quello che manca è in fondo.
 - **Sulla mappa** si vede dove guarda l'antenna. / **On the map** you see where the antenna
   is pointing.
 
+## 10f. Sync fra dispositivi / Sync between devices
+
+- **DecoLog Cloud** (`server/`): FastAPI, SQLite per provarlo e PostgreSQL in servizio,
+  Docker pronto. / **DecoLog Cloud** (`server/`): FastAPI, SQLite to try it and PostgreSQL
+  in production, Docker ready.
+- **Accesso** con nominativo e password; DecoLog tiene solo il token, nel portachiavi. /
+  **Sign in** with callsign and password; DecoLog keeps only the token, in the keystore.
+- **Un giro di sync**: prima quello che è cambiato altrove, poi quello che è in coda. / **A
+  sync round**: first what changed elsewhere, then what is queued.
+- **Conflitti**: vince l'ultima modifica, quella che perde resta nello storico; una modifica
+  locale non ancora mandata non viene sovrascritta. / **Conflicts**: last edit wins, the
+  loser stays in the history; a local change not yet sent is never overwritten.
+- **Duplicati** con un altro uuid riconosciuti, **cancellazioni** che viaggiano come
+  modifiche. / **Duplicates** under another uuid recognised, **deletions** travelling as
+  changes.
+- **Coda sempre in vista** nella barra in alto e nella riga di stato. / **The queue in
+  sight** in the top bar and in the status rail.
+
 ## 11. DX cluster
 
 - **Fonti in un elenco solo**: nodi telnet (DX Spider, CC Cluster), Reverse Beacon Network
@@ -370,5 +388,5 @@ Quello che manca è in fondo.
 
 ## Non ancora / Not yet
 
-- Club Log. / Club Log.
-- DecoLog Cloud e sync fra dispositivi. / DecoLog Cloud and sync between devices.
+- Accesso web al proprio log dal Cloud (per ora il Cloud fa solo il sync). / Web access to
+  your log from the Cloud (for now the Cloud only does the sync).

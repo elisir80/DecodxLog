@@ -181,33 +181,41 @@ Rectangle {
 
         Item { Layout.fillWidth: true }
 
-        // DecoLog Cloud arriva in Fase 3: qui si vede cosa aspetta di partire.
+        // DecoLog Cloud: come sta il collegamento e cosa aspetta di partire.
         Block {
             Led {
-                color: decolog.cloudServer.length ? Theme.warningColor : Theme.textSecondary
+                color: decolog.cloud.busy ? Theme.primaryColor
+                     : decolog.cloud.linked ? Theme.accentColor
+                     : decolog.cloud.server.length ? Theme.warningColor : Theme.textSecondary
             }
             Column {
                 Text {
-                    text: decolog.cloudServer.length ? qsTr("Cloud offline") : qsTr("Cloud not configured")
+                    text: decolog.cloud.linked ? qsTr("Cloud %1").arg(decolog.cloud.callsign)
+                        : decolog.cloud.server.length ? qsTr("Cloud not linked")
+                        : qsTr("Cloud not configured")
                     color: Theme.textPrimary
                     font.family: Theme.monoFamily
                     font.pixelSize: 12
                     font.bold: true
                 }
                 Text {
-                    text: qsTr("%1 queued").arg(decolog.dirtyCount)
-                    color: Theme.textSecondary
+                    text: decolog.cloud.busy ? qsTr("syncing…")
+                        : decolog.cloud.queued > 0 ? qsTr("%1 queued").arg(decolog.cloud.queued)
+                        : decolog.cloud.lastSync.length ? qsTr("synced %1").arg(decolog.cloud.lastSync)
+                        : qsTr("%1 queued").arg(decolog.dirtyCount)
+                    color: decolog.cloud.queued > 0 ? Theme.warningColor : Theme.textSecondary
                     font.family: Theme.monoFamily
                     font.pixelSize: 11
                 }
             }
             GlassButton {
-                text: qsTr("Sync now")
+                text: decolog.cloud.busy ? qsTr("syncing…") : qsTr("Sync now")
                 tone: Theme.primaryColor
                 filled: true
-                enabled: false
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("DecoLog Cloud sync arrives in Phase 3")
+                enabled: decolog.cloud.linked && !decolog.cloud.busy
+                onClicked: decolog.cloud.syncNow()
+                ToolTip.visible: hovered && !decolog.cloud.linked
+                ToolTip.text: qsTr("Sign in from Setup → Sync & Cloud")
             }
         }
 

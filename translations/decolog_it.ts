@@ -2657,7 +2657,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Accesso libero sulla rete locale. Per l&apos;uso da fuori casa passa da una VPN, non aprire porte sul router.</source>
-        <translation>Accesso libero sulla rete locale. Per l'uso da fuori casa passa da una VPN, non aprire porte sul router.</translation>
+        <translation>Accesso libero sulla rete locale. Per l&apos;uso da fuori casa passa da una VPN, non aprire porte sul router.</translation>
     </message>
 </context>
 <context>
@@ -2757,7 +2757,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Velocita&apos;</source>
-        <translation>Velocita'</translation>
+        <translation>Velocita&apos;</translation>
     </message>
     <message>
         <source>%1 baud, 8N1</source>
@@ -2781,7 +2781,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Porta e modello si cambiano all&apos;avvio, con --port e --model.</source>
-        <translation>Porta e modello si cambiano all'avvio, con --port e --model.</translation>
+        <translation>Porta e modello si cambiano all&apos;avvio, con --port e --model.</translation>
     </message>
 </context>
 <context>
@@ -2828,7 +2828,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Porta seriale, modello e porta dei decode si cambiano all&apos;avvio del gateway.</source>
-        <translation>Porta seriale, modello e porta dei decode si cambiano all'avvio del gateway.</translation>
+        <translation>Porta seriale, modello e porta dei decode si cambiano all&apos;avvio del gateway.</translation>
     </message>
     <message>
         <source>Le modifiche vengono salvate subito in config.json.</source>
@@ -3243,24 +3243,8 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Decodium riceve da questo log i nominativi lavorati, le conferme e lo stato dell&apos;FT2 Award, e la conferma di ogni QSO scritto. Si accettano solo collegamenti locali. Protocollo: docs/DECOLINK.md.</translation>
     </message>
     <message>
-        <source>DecoLog Cloud · not connected</source>
-        <translation>DecoLog Cloud · non collegato</translation>
-    </message>
-    <message>
-        <source>The sync service arrives in Phase 3. Every QSO is already tracked for it (uuid, revision, dirty).</source>
-        <translation>Il servizio di sync arriva in Fase 3. Ogni QSO è già pronto per lui (uuid, revisione, dirty).</translation>
-    </message>
-    <message>
         <source>Sign in</source>
         <translation>Accedi</translation>
-    </message>
-    <message>
-        <source>Last push</source>
-        <translation>Ultimo invio</translation>
-    </message>
-    <message>
-        <source>Last pull</source>
-        <translation>Ultima lettura</translation>
     </message>
     <message>
         <source>Queue (dirty)</source>
@@ -3341,6 +3325,50 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Sync now</source>
         <translation>Sincronizza adesso</translation>
+    </message>
+    <message>
+        <source>DecoLog Cloud · %1</source>
+        <translation>DecoLog Cloud · %1</translation>
+    </message>
+    <message>
+        <source>DecoLog Cloud · not linked</source>
+        <translation>DecoLog Cloud · non collegato</translation>
+    </message>
+    <message>
+        <source>%1 QSO on the server · queue %2</source>
+        <translation>%1 QSO sul server · in coda %2</translation>
+    </message>
+    <message>
+        <source>The log stays yours and works offline: the Cloud is where your devices pass each other the changes.</source>
+        <translation>Il log resta tuo e funziona anche senza rete: il Cloud è il posto dove i tuoi dispositivi si passano le modifiche.</translation>
+    </message>
+    <message>
+        <source>syncing…</source>
+        <translation>sto sincronizzando…</translation>
+    </message>
+    <message>
+        <source>Unlink</source>
+        <translation>Scollega</translation>
+    </message>
+    <message>
+        <source>On the server</source>
+        <translation>Sul server</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Nominativo</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>Password</translation>
+    </message>
+    <message>
+        <source>Create account</source>
+        <translation>Crea l'account</translation>
+    </message>
+    <message>
+        <source>The password travels once and is not kept: DecoLog stores only the token the server gives back, in the system keystore. On the network use HTTPS; at home, on your own LAN, plain HTTP is fine.</source>
+        <translation>La password passa una volta sola e non resta da nessuna parte: DecoLog tiene solo il token che il server restituisce, nel portachiavi di sistema. Su Internet usa HTTPS; in casa, sulla tua rete, l'HTTP semplice va benissimo.</translation>
     </message>
     <message>
         <source>Download everything again</source>
@@ -3894,24 +3922,36 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Profili stazione</translation>
     </message>
     <message>
-        <source>Cloud offline</source>
-        <translation>Cloud non in linea</translation>
+        <source>Cloud %1</source>
+        <translation>Cloud %1</translation>
+    </message>
+    <message>
+        <source>Cloud not linked</source>
+        <translation>Cloud non collegato</translation>
+    </message>
+    <message>
+        <source>Sign in from Setup → Sync &amp; Cloud</source>
+        <translation>Accedi da Impostazioni → Sync e Cloud</translation>
     </message>
     <message>
         <source>Cloud not configured</source>
         <translation>Cloud non configurato</translation>
     </message>
     <message>
+        <source>syncing…</source>
+        <translation>sto sincronizzando…</translation>
+    </message>
+    <message>
         <source>%1 queued</source>
         <translation>%1 in coda</translation>
     </message>
     <message>
-        <source>Sync now</source>
-        <translation>Sincronizza adesso</translation>
+        <source>synced %1</source>
+        <translation>sincronizzato %1</translation>
     </message>
     <message>
-        <source>DecoLog Cloud sync arrives in Phase 3</source>
-        <translation>Il sync di DecoLog Cloud arriva in Fase 3</translation>
+        <source>Sync now</source>
+        <translation>Sincronizza adesso</translation>
     </message>
     <message>
         <source>Search…</source>
@@ -3968,6 +4008,81 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
             <numerusform>%n QSO della sessione → %1</numerusform>
             <numerusform>%n QSO della sessione → %1</numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::CloudController</name>
+    <message>
+        <source>Cloud: %1 connected</source>
+        <translation>Cloud: %1 collegato</translation>
+    </message>
+    <message numerus="yes">
+        <source>Cloud: %n QSO arrived from another device</source>
+        <translation><numerusform>Cloud: %n QSO arrivato da un altro dispositivo</numerusform><numerusform>Cloud: %n QSO arrivati da un altro dispositivo</numerusform></translation>
+    </message>
+    <message>
+        <source>Cloud: up to date</source>
+        <translation>Cloud: tutto allineato</translation>
+    </message>
+    <message>
+        <source>Cloud: sign in again (%1)</source>
+        <translation>Cloud: devi rientrare (%1)</translation>
+    </message>
+    <message>
+        <source>Cloud: not reachable, will retry (%1)</source>
+        <translation>Cloud: non risponde, riprovo (%1)</translation>
+    </message>
+    <message>
+        <source>Cloud: %1</source>
+        <translation>Cloud: %1</translation>
+    </message>
+    <message>
+        <source>Cloud: token not readable (%1)</source>
+        <translation>Cloud: il token non si legge (%1)</translation>
+    </message>
+    <message>
+        <source>Cloud: set the server address first</source>
+        <translation>Cloud: prima metti l'indirizzo del server</translation>
+    </message>
+    <message>
+        <source>Cloud: creating the account…</source>
+        <translation>Cloud: sto creando l'account…</translation>
+    </message>
+    <message>
+        <source>Cloud: signing in…</source>
+        <translation>Cloud: sto entrando…</translation>
+    </message>
+    <message>
+        <source>Cloud: this device is no longer linked</source>
+        <translation>Cloud: questo dispositivo non è più collegato</translation>
+    </message>
+    <message>
+        <source>Cloud: opening the keystore…</source>
+        <translation>Cloud: sto aprendo il portachiavi…</translation>
+    </message>
+    <message>
+        <source>Cloud: not linked yet</source>
+        <translation>Cloud: non ancora collegato</translation>
+    </message>
+    <message>
+        <source>Cloud: syncing…</source>
+        <translation>Cloud: sincronizzo…</translation>
+    </message>
+    <message>
+        <source>Cloud: nothing to send</source>
+        <translation>Cloud: non c'è niente da mandare</translation>
+    </message>
+    <message numerus="yes">
+        <source>Cloud: sending %n QSO…</source>
+        <translation><numerusform>Cloud: mando %n QSO…</numerusform><numerusform>Cloud: mando %n QSO…</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Cloud: %n conflict(s) resolved, the other version is in the history</source>
+        <translation><numerusform>Cloud: %n conflitto risolto, l'altra versione è nello storico</numerusform><numerusform>Cloud: %n conflitti risolti, le altre versioni sono nello storico</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Cloud: %n duplicate(s) recognised</source>
+        <translation><numerusform>Cloud: %n doppione riconosciuto</numerusform><numerusform>Cloud: %n doppioni riconosciuti</numerusform></translation>
     </message>
 </context>
 <context>

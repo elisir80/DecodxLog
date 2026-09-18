@@ -5,6 +5,27 @@ in stazione.
 
 ## 0.3.0 — in lavorazione
 
+**DecoLog Cloud: il sync fra dispositivi (Fase 3).** Il log resta il file SQLite, che
+funziona anche senza rete; il Cloud è il posto dove i dispositivi si passano le modifiche.
+
+Il servizio sta in `server/`: FastAPI e SQLAlchemy, SQLite per provarlo sul proprio
+computer e PostgreSQL in servizio, Dockerfile e compose già pronti. Registrazione con
+nominativo e password (tenuta con Argon2), e un token per dispositivo di cui il server
+conserva solo l'impronta.
+
+Dentro DecoLog: Impostazioni → Sync e Cloud per l'indirizzo, l'accesso e il sync
+automatico; "Sincronizza adesso" anche nella barra in alto, con la coda sempre in vista.
+Un giro fa prima il pull e poi il push, così le revisioni partono allineate. Le regole
+sono quelle scritte in Fase 0: chi spinge dice la revisione che conosceva, **vince
+l'ultima modifica** e la versione che perde resta nello storico; il pull non sovrascrive
+mai una modifica locale ancora da mandare; i duplicati con un altro uuid si riconoscono
+per nominativo, banda, gruppo di modi e orario vicino; le cancellazioni viaggiano come
+modifiche. La password passa una volta sola: DecoLog tiene solo il token, nel portachiavi.
+
+Provato per davvero fra due log: 40 QSO spinti dal primo e ripresi dal secondo, una
+modifica che fa il giro, un conflitto risolto con la versione perdente nello storico del
+server, e una cancellazione che arriva dall'altra parte.
+
 **Rotore.** DecoLog parla con **DecoRotor** sul WebSocket (8765) e, per chi ha altro, con un
 **rotctld** qualsiasi (DecoRotor stesso risponde sulla 4532). Il quadrante è quello di
 DecoRotor, portato dentro DecoLog: corona graduata con le tacche ogni 2° e i numeri ogni
@@ -50,7 +71,7 @@ Le frequenze in kHz, dai 6 metri in su il numero di banda; i modi come li vuole 
 
 **QSL di carta.** Una finestra propria con la coda: da mandare, mandate, ricevute, e
 quante aspettano risposta. Un QSO ci finisce dal menu della riga nel log o tutto insieme
-con “metti in coda tutte quelle da ricambiare”. Da liì escono le **etichette in PDF**:
+con “metti in coda tutte quelle da ricambiare”. Da lì escono le **etichette in PDF**:
 una per corrispondente, con dentro fino a sei QSO, perché una cartolina sola risponde a
 tutti i collegamenti fatti con quella stazione. Quattro fogli in commercio (Avery L7160,
 L7163, L7165 e 70 × 36 mm), segni di taglio a scelta, nessuna stampante di mezzo: il PDF

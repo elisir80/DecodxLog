@@ -346,6 +346,18 @@ bool DecoLogController::openDatabase(const QString& path)
     };
     m_rotor = new RotorController(std::move(rotorCtx), this);
 
+    CloudController::Context cloudCtx;
+    cloudCtx.db = &m_db;
+    cloudCtx.credentials = m_credentials;
+    cloudCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
+        addActivity(category, text, level);
+    };
+    cloudCtx.logChanged = [this] {
+        m_model->reload();
+        emit logChanged();
+    };
+    m_cloud = new CloudController(std::move(cloudCtx), this);
+
     ActivationController::Context actCtx;
     actCtx.db = &m_db;
     actCtx.stationCall = [this] {
@@ -377,6 +389,12 @@ void DecoLogController::startCluster()
     // mentre si opera, e nessuna delle due serve prima che il log sia aperto.
     if (m_solar)
         m_solar->start();
+}
+
+void DecoLogController::startCloud(bool automatic)
+{
+    if (m_cloud)
+        m_cloud->start(automatic);
 }
 
 void DecoLogController::startRotor()
@@ -1102,6 +1120,7 @@ void DecoLogController::onQsoReceived(const AdifRecord& input, const QString& so
         decoLinkQso(enriched, QStringLiteral("logged"), r.id, source, sourceApp);
         m_qsl->qsoLogged(r.id);
         m_activation->qsoLogged();
+        m_cloud->qsoLogged();
         m_model->insertQso(r.id);
         const auto meta = m_db.meta(r.id);
         QString text = tr("%1 from %2 → %3 %4 %5 saved (uuid %6)")
@@ -1213,6 +1232,7 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
         m_model->insertQso(res.id);
         decoLinkQso(r, QStringLiteral("logged"), res.id, QStringLiteral("manual"), QStringLiteral("DecoLog"));
         m_qsl->qsoLogged(res.id);
+        m_cloud->qsoLogged();
         m_activation->qsoLogged();
         addActivity(QStringLiteral("LOG"), tr("Logged %1 %2 %3 (manual)")
                                                .arg(r.value(QStringLiteral("CALL")), r.value(QStringLiteral("BAND")),

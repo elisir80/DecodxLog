@@ -45,6 +45,8 @@ add_library(decolog_core STATIC
     src/core/Cabrillo.h
     src/core/Callbook.cpp
     src/core/Callbook.h
+    src/core/CloudSync.cpp
+    src/core/CloudSync.h
     src/core/Countries.cpp
     src/core/Countries.h
     src/core/DecoLinkServer.cpp
@@ -135,6 +137,8 @@ qt_add_executable(decolog
     src/app/StationProfileModel.h
     src/app/ClusterController.cpp
     src/app/ClusterController.h
+    src/app/CloudController.cpp
+    src/app/CloudController.h
     src/app/RotorController.cpp
     src/app/RotorController.h
     src/app/SolarController.cpp
@@ -256,7 +260,7 @@ set_target_properties(decolog PROPERTIES
 if(DECOLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor cloud)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

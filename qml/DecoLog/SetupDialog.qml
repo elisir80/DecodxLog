@@ -27,7 +27,7 @@ DialogFrame {
     onOpened: {
         portField.text = decolog.udpPort
         groupField.text = decolog.multicastGroup
-        serverField.text = decolog.cloudServer
+        serverField.text = decolog.cloud.server
         backupDirField.text = decolog.backupDir
         backupTimeField.text = decolog.backupTime
         keepField.text = decolog.backupKeep
@@ -38,7 +38,7 @@ DialogFrame {
         if (!isNaN(port))
             decolog.udpPort = port
         decolog.multicastGroup = groupField.text.trim()
-        decolog.cloudServer = serverField.text.trim()
+        decolog.cloud.server = serverField.text.trim()
         decolog.backupDir = backupDirField.text.trim()
         decolog.backupTime = backupTimeField.text.trim()
         const keep = parseInt(keepField.text)
@@ -406,11 +406,17 @@ DialogFrame {
                             anchors.fill: parent
                             anchors.margins: 12
                             spacing: 12
-                            Led { size: 10; color: Theme.textSecondary }
+                            Led {
+                                size: 10
+                                color: decolog.cloud.linked ? Theme.accentColor
+                                     : decolog.cloud.server.length ? Theme.warningColor : Theme.textSecondary
+                            }
                             Column {
                                 Layout.fillWidth: true
                                 Text {
-                                    text: qsTr("DecoLog Cloud · not connected")
+                                    text: decolog.cloud.linked
+                                          ? qsTr("DecoLog Cloud · %1").arg(decolog.cloud.callsign)
+                                          : qsTr("DecoLog Cloud · not linked")
                                     color: Theme.textPrimary
                                     font.family: Theme.monoFamily
                                     font.pixelSize: 13
@@ -419,20 +425,39 @@ DialogFrame {
                                 Text {
                                     width: parent.width
                                     wrapMode: Text.Wrap
-                                    text: qsTr("The sync service arrives in Phase 3. Every QSO is already tracked for it (uuid, revision, dirty).")
+                                    text: decolog.cloud.status.length ? decolog.cloud.status
+                                        : decolog.cloud.linked
+                                          ? qsTr("%1 QSO on the server · queue %2")
+                                                .arg(decolog.cloud.remote.qsos !== undefined ? decolog.cloud.remote.qsos : "—")
+                                                .arg(decolog.cloud.queued)
+                                          : qsTr("The log stays yours and works offline: the Cloud is where your devices pass each other the changes.")
                                     color: Theme.textSecondary
                                     font.family: Theme.monoFamily
                                     font.pixelSize: 11
                                 }
                             }
-                            GlassButton { text: qsTr("Sign in"); enabled: false }
+                            GlassButton {
+                                text: decolog.cloud.busy ? qsTr("syncing…") : qsTr("Sync now")
+                                tone: Theme.primaryColor
+                                filled: true
+                                enabled: decolog.cloud.linked && !decolog.cloud.busy
+                                onClicked: decolog.cloud.syncNow()
+                            }
+                            GlassButton {
+                                text: qsTr("Unlink")
+                                visible: decolog.cloud.linked
+                                onClicked: decolog.cloud.logout()
+                            }
                         }
                     }
                     RowLayout {
                         Layout.fillWidth: true
                         spacing: 8
-                        Tile { label: qsTr("Last push"); value: "—" }
-                        Tile { label: qsTr("Last pull"); value: "—" }
+                        Tile { label: qsTr("Last sync"); value: decolog.cloud.lastSync || qsTr("never") }
+                        Tile {
+                            label: qsTr("On the server")
+                            value: decolog.cloud.remote.qsos !== undefined ? decolog.cloud.remote.qsos : "—"
+                        }
                         Tile { label: qsTr("Queue (dirty)"); value: decolog.dirtyCount; valueColor: decolog.dirtyCount > 0 ? Theme.warningColor : Theme.textPrimary }
                         Tile { label: qsTr("Conflicts kept"); value: qsTr("%1 in history").arg(decolog.conflictCount) }
                     }
@@ -443,18 +468,85 @@ DialogFrame {
                         LabeledField {
                             Layout.fillWidth: true
                             label: qsTr("Server")
-                            StyledTextField { id: serverField; Layout.fillWidth: true; placeholderText: "https://…/v1" }
+                            StyledTextField {
+                                id: serverField
+                                Layout.fillWidth: true
+                                mono: false
+                                placeholderText: "http://127.0.0.1:8787"
+                            }
                         }
                         LabeledField {
                             Layout.fillWidth: true
                             label: qsTr("Auto sync")
                             StyledComboBox {
                                 Layout.fillWidth: true
-                                readonly property var values: ["qso+5min", "5min", "manual"]
+                                readonly property var values: ["qso", "timer", "manual"]
                                 model: [qsTr("After every QSO + every 5 min"), qsTr("Every 5 min"), qsTr("Manual only")]
-                                currentIndex: Math.max(0, values.indexOf(decolog.autoSync))
-                                onActivated: decolog.autoSync = values[currentIndex]
+                                currentIndex: Math.max(0, values.indexOf(decolog.cloud.autoMode))
+                                onActivated: decolog.cloud.autoMode = values[currentIndex]
                             }
+                        }
+                    }
+
+                    // ── Accesso ─────────────────────────────────────────────
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        spacing: 6
+                        visible: !decolog.cloud.linked
+                        SectionTitle { text: qsTr("Sign in") }
+                        RowLayout {
+                            Layout.fillWidth: true
+                            spacing: 8
+                            LabeledField {
+                                label: qsTr("Callsign")
+                                StyledTextField {
+                                    id: cloudCall
+                                    Layout.preferredWidth: 150
+                                    uppercase: true
+                                    text: decolog.cloud.callsign
+                                }
+                            }
+                            LabeledField {
+                                label: qsTr("Password")
+                                StyledTextField {
+                                    id: cloudPassword
+                                    Layout.preferredWidth: 220
+                                    mono: false
+                                    echoMode: TextInput.Password
+                                    Keys.onReturnPressed: decolog.cloud.login(cloudCall.text, cloudPassword.text)
+                                }
+                            }
+                            GlassButton {
+                                Layout.alignment: Qt.AlignBottom
+                                Layout.bottomMargin: 2
+                                text: qsTr("Sign in")
+                                tone: Theme.primaryColor
+                                filled: true
+                                enabled: !decolog.cloud.busy && cloudCall.text.trim().length >= 3
+                                         && cloudPassword.text.length >= 8
+                                onClicked: {
+                                    decolog.cloud.server = serverField.text
+                                    decolog.cloud.login(cloudCall.text, cloudPassword.text)
+                                    cloudPassword.text = ""
+                                }
+                            }
+                            GlassButton {
+                                Layout.alignment: Qt.AlignBottom
+                                Layout.bottomMargin: 2
+                                text: qsTr("Create account")
+                                enabled: !decolog.cloud.busy && cloudCall.text.trim().length >= 3
+                                         && cloudPassword.text.length >= 8
+                                onClicked: {
+                                    decolog.cloud.server = serverField.text
+                                    decolog.cloud.signup(cloudCall.text, cloudPassword.text)
+                                    cloudPassword.text = ""
+                                }
+                            }
+                        }
+                        Note {
+                            text: qsTr("The password travels once and is not kept: DecoLog stores only the token the "
+                                       + "server gives back, in the system keystore. On the network use HTTPS; at home, "
+                                       + "on your own LAN, plain HTTP is fine.")
                         }
                     }
                     ColumnLayout {
