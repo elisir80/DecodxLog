@@ -1,0 +1,39 @@
+[Unit]
+Description=DecoLog Cloud — sync del log fra i dispositivi di una stazione
+Documentation=https://github.com/iu8lmc/decolog
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=exec
+User=decolog
+Group=decolog
+WorkingDirectory=/opt/decolog-cloud
+EnvironmentFile=/etc/decolog-cloud.env
+ExecStart=/opt/decolog-cloud/.venv/bin/uvicorn decolog_cloud.main:app \
+          --host 127.0.0.1 --port 8788 --proxy-headers --forwarded-allow-ips 127.0.0.1
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=20
+
+# Il servizio parla solo con la rete e con il suo database: tutto il resto
+# del sistema non gli serve, e quello che non serve si toglie.
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+SystemCallArchitectures=native
+# Solo qui puo' scrivere: il database SQLite, se si usa quello.
+ReadWritePaths=/var/lib/decolog-cloud
+
+[Install]
+WantedBy=multi-user.target
