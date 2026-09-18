@@ -23,7 +23,7 @@ lunga. Ci sono anche le altre due schede dell'originale: **DIAGNOSTICA** (i fram
 passano sulla seriale con il loro esadecimale, l'andamento della posizione, i contatori
 dell'esercizio e i tre indirizzi di rete) e **IMPOSTAZIONI** (nominativo, locatore, apertura
 del lobo, finecorsa, riposo, tolleranza e lo stop se cade il collegamento), che scrivono nel
-config.json del gateway con . Memorie, finecorsa, riposo e lobo li dice il
+config.json del gateway con `config_set`. Memorie, finecorsa, riposo e lobo li dice il
 gateway: DecoLog li legge e li rimanda, non se li inventa. Dove la rotta si sa già la si usa: **dal menu di
 uno spot del cluster** (“punta il rotore su DL9ZZT, 287°”), dal nominativo che si sta
 lavorando, e, se lo si accende, seguendo da solo quello che Decodium lavora. La direzione
