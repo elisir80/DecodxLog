@@ -88,6 +88,7 @@ ApplicationWindow {
         else if (what[0] === "modes") newQsoPanel.showModes()
         else if (what[0] === "stats") openStats()
         else if (what[0] === "cards") openCards()
+        else if (what[0] === "rotor") decolog.rotor.pointTo(parseFloat(what[1] || "0"), what[2] || "")
         else if (what[0] === "contest") {
             openContest()
             if (what[1] === "cabrillo" && contestWindow.item)
@@ -238,6 +239,11 @@ ApplicationWindow {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         onOpenQso: (id) => window.openQso(id)
+                    }
+                    RotorPanel {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: implicitHeight
+                        visible: decolog.rotor.enabled
                     }
                     Ft2AwardPanel {
                         Layout.fillWidth: true

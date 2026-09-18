@@ -78,6 +78,10 @@ int main(int argc, char* argv[])
     QCommandLineOption solarOption(QStringLiteral("solar"), QStringLiteral("Read the solar XML from a file."),
                                    QStringLiteral("file"));
     parser.addOption(solarOption);
+    // Rotore per una prova: "host:porta", o "rotctld@host:porta".
+    QCommandLineOption rotorOption(QStringLiteral("rotor"), QStringLiteral("Use this rotor gateway."),
+                                   QStringLiteral("[backend@]host:port"));
+    parser.addOption(rotorOption);
     parser.addOption(themeOption);
     parser.addOption(showOption);
     parser.addOption(dbOption);
@@ -101,6 +105,20 @@ int main(int argc, char* argv[])
     // Una schermata di prova non si collega ai nodi veri.
     if (!parser.isSet(grabOption) && !parser.isSet(spotsOption))
         controller.startCluster();
+    if (parser.isSet(rotorOption)) {
+        QString value = parser.value(rotorOption);
+        QString backend = QStringLiteral("decorotor");
+        if (value.contains(QLatin1Char('@'))) {
+            backend = value.section(QLatin1Char('@'), 0, 0);
+            value = value.section(QLatin1Char('@'), 1);
+        }
+        if (auto* rotor = qobject_cast<decolog::app::RotorController*>(controller.rotor())) {
+            rotor->overrideConnection(backend, value.section(QLatin1Char(':'), 0, 0),
+                                      value.section(QLatin1Char(':'), 1).toInt());
+        }
+    } else {
+        controller.startRotor();
+    }
     if (parser.isSet(spotsOption)) {
         QFile spotFile(parser.value(spotsOption));
         if (spotFile.open(QIODevice::ReadOnly)) {

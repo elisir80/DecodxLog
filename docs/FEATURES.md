@@ -208,6 +208,21 @@ Quello che manca è in fondo.
 - **SFI e K in testa alla mappa**, dove si guarda la propagazione. / **SFI and K on the map
   header**, where propagation is looked at.
 
+## 10e. Rotore / Rotor
+
+- **DecoRotor sul WebSocket** (8765) o un **rotctld** qualsiasi (4532): DecoLog non tocca la
+  seriale. / **DecoRotor over WebSocket** (8765) or any **rotctld** (4532): DecoLog never
+  touches the serial port.
+- **Rosa** con lobo d'antenna, gradi, bersaglio, passi da 1° e 10°, STOP e park; si punta
+  cliccando. / **Compass** with the antenna lobe, degrees, target, 1° and 10° steps, STOP and
+  park; click to point.
+- **Dal cluster**: il menu di uno spot punta il rotore sui gradi già calcolati. / **From the
+  cluster**: a spot's menu points the rotor at the bearing already computed.
+- **Sul DX** che si sta lavorando, a mano o seguendolo da solo. / **On the DX** being worked,
+  by hand or following it by itself.
+- **Sulla mappa** si vede dove guarda l'antenna. / **On the map** you see where the antenna
+  is pointing.
+
 ## 11. DX cluster
 
 - **Fonti in un elenco solo**: nodi telnet (DX Spider, CC Cluster), Reverse Beacon Network

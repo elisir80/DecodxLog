@@ -340,6 +340,12 @@ bool DecoLogController::openDatabase(const QString& path)
     };
     m_solar = new SolarController(std::move(solarCtx), this);
 
+    RotorController::Context rotorCtx;
+    rotorCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
+        addActivity(category, text, level);
+    };
+    m_rotor = new RotorController(std::move(rotorCtx), this);
+
     ActivationController::Context actCtx;
     actCtx.db = &m_db;
     actCtx.stationCall = [this] {
@@ -371,6 +377,12 @@ void DecoLogController::startCluster()
     // mentre si opera, e nessuna delle due serve prima che il log sia aperto.
     if (m_solar)
         m_solar->start();
+}
+
+void DecoLogController::startRotor()
+{
+    if (m_rotor)
+        m_rotor->start();
 }
 
 void DecoLogController::startDecoLink()
@@ -2022,6 +2034,11 @@ void DecoLogController::refreshCallInfo()
         info[QStringLiteral("qsl")] = qsl;
     }
     m_callInfo = info;
+    // Se il rotore deve seguire quello che si lavora, questa e' la rotta buona.
+    if (m_rotor && info.contains(QStringLiteral("azimuth"))) {
+        m_rotor->dxBearing(info.value(QStringLiteral("call")).toString(),
+                           info.value(QStringLiteral("azimuth")).toDouble());
+    }
     emit lookupChanged();
 }
 

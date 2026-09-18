@@ -17,7 +17,7 @@ endif()
 option(DECOLOG_BUILD_TESTS "Build the unit tests" ON)
 option(DECOLOG_BUILD_TOOLS "Build the command-line tools (UDP simulator)" ON)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Network Sql Gui Qml Quick QuickControls2 LinguistTools)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Network Sql Gui Qml Quick QuickControls2 WebSockets LinguistTools)
 qt_standard_project_setup(REQUIRES 6.5)
 if(QT_KNOWN_POLICY_QTP0004)
     qt_policy(SET QTP0004 NEW)
@@ -64,6 +64,8 @@ add_library(decolog_core STATIC
     src/core/QslCards.h
     src/core/QslUpload.cpp
     src/core/QslUpload.h
+    src/core/RotorLink.cpp
+    src/core/RotorLink.h
     src/core/Solar.cpp
     src/core/Solar.h
     src/core/Spots.cpp
@@ -89,7 +91,8 @@ qt_add_resources(decolog_core "cty"
 target_include_directories(decolog_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 # Qt6::Gui serve alle etichette QSL: QPdfWriter e QPainter stanno li' dentro, e
 # cosi' il PDF si scrive senza moduli di stampa e senza una stampante.
-target_link_libraries(decolog_core PUBLIC Qt6::Core Qt6::Network Qt6::Sql Qt6::Gui)
+# Qt6::WebSockets: DecoRotor pubblica lo stato del rotore su WebSocket.
+target_link_libraries(decolog_core PUBLIC Qt6::Core Qt6::Network Qt6::Sql Qt6::Gui Qt6::WebSockets)
 # Annunci vocali: su Windows la sintesi del sistema (SAPI).
 if(WIN32)
     target_link_libraries(decolog_core PRIVATE sapi ole32)
@@ -132,6 +135,8 @@ qt_add_executable(decolog
     src/app/StationProfileModel.h
     src/app/ClusterController.cpp
     src/app/ClusterController.h
+    src/app/RotorController.cpp
+    src/app/RotorController.h
     src/app/SolarController.cpp
     src/app/SolarController.h
     src/app/SpotModel.cpp
@@ -166,6 +171,7 @@ set(DECOLOG_QML_FILES
     qml/DecoLog/ActivationDialog.qml
     qml/DecoLog/StatsWindow.qml
     qml/DecoLog/ContestWindow.qml
+    qml/DecoLog/RotorPanel.qml
     qml/DecoLog/PropagationPanel.qml
     qml/DecoLog/ClusterPanel.qml
     qml/DecoLog/ClusterWindow.qml
@@ -224,7 +230,7 @@ set_target_properties(decolog PROPERTIES
 if(DECOLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

@@ -5,6 +5,15 @@ in stazione.
 
 ## 0.3.0 — in lavorazione
 
+**Rotore.** DecoLog parla con **DecoRotor** sul WebSocket (8765) e, per chi ha altro, con un
+**rotctld** qualsiasi (DecoRotor stesso risponde sulla 4532). Nella colonna di destra
+compare la rosa con il lobo d'antenna, i gradi, il bersaglio, i passi da 1° e 10°, STOP e
+park; si punta anche cliccando sulla rosa. Dove la rotta si sa già la si usa: **dal menu di
+uno spot del cluster** (“punta il rotore su DL9ZZT, 287°”), dal nominativo che si sta
+lavorando, e, se lo si accende, seguendo da solo quello che Decodium lavora. La direzione
+dell'antenna si vede anche sulla mappa. La seriale resta a DecoRotor: i finecorsa sono del
+control box.
+
 **Propagazione.** Scheda nuova in basso: SFI, macchie, indice A e K, aurora, raggi X, campo
 geomagnetico, rumore e vento solare, e le condizioni banda per banda di giorno e di notte
 (più aurora ed E-skip in VHF), colorate. I dati arrivano dal XML di N0NBH (hamqsl.com), da

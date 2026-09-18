@@ -21,7 +21,8 @@ DialogFrame {
     width: Math.min(960, parent ? parent.width - 40 : 960)
 
     readonly property var pages: [qsTr("General"), qsTr("Theme & density"), qsTr("Decodium link"),
-                                  qsTr("Sync & Cloud"), qsTr("QSL services"), qsTr("Callbook"), qsTr("Backup")]
+                                  qsTr("Sync & Cloud"), qsTr("QSL services"), qsTr("Callbook"),
+                                  qsTr("Rotor"), qsTr("Backup")]
 
     onOpened: {
         portField.text = decolog.udpPort
@@ -678,6 +679,90 @@ DialogFrame {
                         font.pixelSize: 12
                     }
                     Note { text: qsTr("QRZ.com needs an XML data subscription; HamQTH is free. Results are kept in memory for a day, so moving through the log does not use up lookups.") }
+                    Item { Layout.fillHeight: true }
+                }
+
+                // ── Rotore ──────────────────────────────────────────────────
+                ColumnLayout {
+                    spacing: 12
+                    ToggleSwitch {
+                        text: qsTr("Antenna rotor")
+                        checked: decolog.rotor.enabled
+                        onToggled: decolog.rotor.enabled = checked
+                    }
+                    RowLayout {
+                        spacing: 12
+                        LabeledField {
+                            label: qsTr("Talks to")
+                            StyledComboBox {
+                                Layout.preferredWidth: 300
+                                readonly property var ids: ["decorotor", "rotctld"]
+                                model: [qsTr("DecoRotor (WebSocket)"), qsTr("rotctld (Hamlib) — any program")]
+                                currentIndex: Math.max(0, ids.indexOf(decolog.rotor.backend))
+                                onActivated: decolog.rotor.backend = ids[currentIndex]
+                            }
+                        }
+                        LabeledField {
+                            label: qsTr("Host")
+                            StyledTextField {
+                                Layout.preferredWidth: 180
+                                text: decolog.rotor.host
+                                placeholderText: "127.0.0.1"
+                                onEditingFinished: decolog.rotor.host = text
+                            }
+                        }
+                        LabeledField {
+                            label: qsTr("Port")
+                            StyledTextField {
+                                Layout.preferredWidth: 100
+                                text: decolog.rotor.port
+                                onEditingFinished: decolog.rotor.port = parseInt(text) || 0
+                            }
+                        }
+                        LabeledField {
+                            label: qsTr("Beamwidth")
+                            StyledComboBox {
+                                Layout.preferredWidth: 120
+                                readonly property var values: [20, 30, 45, 60, 90, 120]
+                                model: values.map(v => v + "°")
+                                currentIndex: Math.max(0, values.indexOf(decolog.rotor.beamwidth))
+                                onActivated: decolog.rotor.beamwidth = values[currentIndex]
+                            }
+                        }
+                    }
+                    ToggleSwitch {
+                        text: qsTr("Follow the call Decodium is working")
+                        checked: decolog.rotor.followDx
+                        onToggled: decolog.rotor.followDx = checked
+                    }
+                    RowLayout {
+                        spacing: 8
+                        GlassButton {
+                            text: qsTr("Connect again")
+                            enabled: decolog.rotor.enabled
+                            onClicked: decolog.rotor.reconnect()
+                        }
+                        Text {
+                            Layout.fillWidth: true
+                            wrapMode: Text.Wrap
+                            text: decolog.rotor.status
+                            color: decolog.rotor.connected ? Theme.accentColor : Theme.warningColor
+                            font.family: Theme.monoFamily
+                            font.pixelSize: 12
+                        }
+                    }
+                    Note {
+                        text: qsTr("DecoRotor is the gateway of the family: it reads the Prosistel control box on the "
+                                   + "serial port and publishes it on the network (WebSocket 8765). With rotctld any "
+                                   + "other rotor program works too — DecoRotor itself answers on 4532. DecoLog never "
+                                   + "touches the serial port: it only says where to point, and the control box keeps "
+                                   + "its own limits.")
+                    }
+                    Note {
+                        text: qsTr("Where a bearing is known — a cluster spot, the call being worked, a QSO with a "
+                                   + "grid — the rotor menu points there. The panel is in the right column, with the "
+                                   + "compass and the STOP.")
+                    }
                     Item { Layout.fillHeight: true }
                 }
 

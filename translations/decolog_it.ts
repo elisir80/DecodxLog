@@ -563,6 +563,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Mostra nella scheda nominativo</translation>
     </message>
     <message>
+        <source>Point the rotor at %1 (%2°)</source>
+        <translation>Punta il rotore su %1 (%2°)</translation>
+    </message>
+    <message>
+        <source>Point the rotor</source>
+        <translation>Punta il rotore</translation>
+    </message>
+    <message>
         <source>Only %1</source>
         <translation>Solo %1</translation>
     </message>
@@ -1589,6 +1597,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Spot del cluster</translation>
     </message>
     <message>
+        <source>Antenna heading</source>
+        <translation>Dove guarda l'antenna</translation>
+    </message>
+    <message>
         <source>QSOs with a grid square appear here</source>
         <translation>I QSO con un locatore compaiono qui</translation>
     </message>
@@ -2474,6 +2486,41 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>RotorPanel</name>
+    <message>
+        <source>Rotor</source>
+        <translation>Rotore</translation>
+    </message>
+    <message>
+        <source>N</source>
+        <translation>N</translation>
+    </message>
+    <message>
+        <source>E</source>
+        <translation>E</translation>
+    </message>
+    <message>
+        <source>S</source>
+        <translation>S</translation>
+    </message>
+    <message>
+        <source>W</source>
+        <translation>O</translation>
+    </message>
+    <message>
+        <source>STOP</source>
+        <translation>STOP</translation>
+    </message>
+    <message>
+        <source>Park</source>
+        <translation>Park</translation>
+    </message>
+    <message>
+        <source>On the DX</source>
+        <translation>Sul DX</translation>
+    </message>
+</context>
+<context>
     <name>SetupDialog</name>
     <message>
         <source>Setup</source>
@@ -2506,6 +2553,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Backup</source>
         <translation>Copie di sicurezza</translation>
+    </message>
+    <message>
+        <source>Rotor</source>
+        <translation>Rotore</translation>
     </message>
     <message>
         <source>cty.csv from country-files.com</source>
@@ -2933,6 +2984,46 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>QRZ.com needs an XML data subscription; HamQTH is free. Results are kept in memory for a day, so moving through the log does not use up lookups.</source>
         <translation>QRZ.com richiede l&apos;abbonamento ai dati XML; HamQTH è gratuito. I risultati restano in memoria per un giorno, così scorrere il log non consuma ricerche.</translation>
+    </message>
+    <message>
+        <source>Antenna rotor</source>
+        <translation>Rotore d'antenna</translation>
+    </message>
+    <message>
+        <source>Talks to</source>
+        <translation>Parla con</translation>
+    </message>
+    <message>
+        <source>DecoRotor (WebSocket)</source>
+        <translation>DecoRotor (WebSocket)</translation>
+    </message>
+    <message>
+        <source>rotctld (Hamlib) — any program</source>
+        <translation>rotctld (Hamlib) — qualsiasi programma</translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation>Host</translation>
+    </message>
+    <message>
+        <source>Beamwidth</source>
+        <translation>Lobo</translation>
+    </message>
+    <message>
+        <source>Follow the call Decodium is working</source>
+        <translation>Segui il nominativo che Decodium sta lavorando</translation>
+    </message>
+    <message>
+        <source>Connect again</source>
+        <translation>Collegati di nuovo</translation>
+    </message>
+    <message>
+        <source>DecoRotor is the gateway of the family: it reads the Prosistel control box on the serial port and publishes it on the network (WebSocket 8765). With rotctld any other rotor program works too — DecoRotor itself answers on 4532. DecoLog never touches the serial port: it only says where to point, and the control box keeps its own limits.</source>
+        <translation>DecoRotor è il gateway di famiglia: legge il control box Prosistel sulla seriale e lo pubblica in rete (WebSocket 8765). Con rotctld va bene anche qualsiasi altro programma da rotore — DecoRotor stesso risponde sulla 4532. DecoLog non tocca mai la seriale: dice solo dove puntare, e i finecorsa restano del control box.</translation>
+    </message>
+    <message>
+        <source>Where a bearing is known — a cluster spot, the call being worked, a QSO with a grid — the rotor menu points there. The panel is in the right column, with the compass and the STOP.</source>
+        <translation>Dove si sa la rotta — uno spot del cluster, il nominativo che si sta lavorando, un QSO con il locatore — il menu punta il rotore lì. Il pannello sta nella colonna di destra, con la rosa e lo STOP.</translation>
     </message>
     <message>
         <source>Nightly backup</source>
@@ -3890,6 +3981,61 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::RotorController</name>
+    <message>
+        <source>Rotor off</source>
+        <translation>Rotore spento</translation>
+    </message>
+    <message>
+        <source>Looking for rotctld on %1:%2…</source>
+        <translation>Cerco rotctld su %1:%2…</translation>
+    </message>
+    <message>
+        <source>Looking for DecoRotor on %1:%2…</source>
+        <translation>Cerco DecoRotor su %1:%2…</translation>
+    </message>
+    <message>
+        <source>Turning to %1°</source>
+        <translation>Sto girando verso %1°</translation>
+    </message>
+    <message>
+        <source>Rotor connected</source>
+        <translation>Rotore collegato</translation>
+    </message>
+    <message>
+        <source>The rotor is off: Setup → Rotor</source>
+        <translation>Il rotore è spento: Impostazioni → Rotore</translation>
+    </message>
+    <message>
+        <source>%1°</source>
+        <translation>%1°</translation>
+    </message>
+    <message>
+        <source>%1 · %2°</source>
+        <translation>%1 · %2°</translation>
+    </message>
+    <message>
+        <source>Rotor to %1</source>
+        <translation>Rotore su %1</translation>
+    </message>
+    <message>
+        <source>rotctld does not do locators: point in degrees</source>
+        <translation>rotctld non conosce i locatori: punta in gradi</translation>
+    </message>
+    <message>
+        <source>Rotor: quick stop</source>
+        <translation>Rotore: stop rapido</translation>
+    </message>
+    <message>
+        <source>Rotor: stop</source>
+        <translation>Rotore: stop</translation>
+    </message>
+    <message>
+        <source>Rotor: park</source>
+        <translation>Rotore: park</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::SolarController</name>
     <message>
         <source>Solar data of %1</source>
@@ -4086,6 +4232,25 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>LoTW: %1</source>
         <translation>LoTW: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::RotorLink</name>
+    <message>
+        <source>Rotor: connected to DecoRotor on %1:%2</source>
+        <translation>Rotore: collegato a DecoRotor su %1:%2</translation>
+    </message>
+    <message>
+        <source>Rotor: %1</source>
+        <translation>Rotore: %1</translation>
+    </message>
+    <message>
+        <source>rotctld (Hamlib)</source>
+        <translation>rotctld (Hamlib)</translation>
+    </message>
+    <message>
+        <source>Rotor: connected to rotctld on %1:%2</source>
+        <translation>Rotore: collegato a rotctld su %1:%2</translation>
     </message>
 </context>
 <context>

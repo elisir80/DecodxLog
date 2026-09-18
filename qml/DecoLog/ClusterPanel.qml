@@ -206,6 +206,13 @@ GlassPanel {
             onTriggered: root.cluster.tune(rowMenu.spot.spotKey)
         }
         StyledMenuItem { text: qsTr("Show in Call info"); onTriggered: root.cluster.lookupSpot(rowMenu.spot.spotKey) }
+        StyledMenuItem {
+            enabled: decolog.rotor.enabled && rowMenu.spot.azimuth !== undefined && rowMenu.spot.azimuth !== null
+            text: rowMenu.spot.azimuth !== undefined && rowMenu.spot.azimuth !== null
+                  ? qsTr("Point the rotor at %1 (%2°)").arg(rowMenu.spot.call || "").arg(rowMenu.spot.azimuth)
+                  : qsTr("Point the rotor")
+            onTriggered: decolog.rotor.pointTo(rowMenu.spot.azimuth, rowMenu.spot.call || "")
+        }
         MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
         StyledMenuItem {
             enabled: (rowMenu.spot.dxcc || 0) > 0

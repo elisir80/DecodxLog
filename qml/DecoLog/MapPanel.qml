@@ -17,6 +17,7 @@ GlassPanel {
     property bool showNight: true
     property bool showGrids: true
     property bool showSpots: true
+    property bool showRotor: true
 
     readonly property var target: decolog.callInfo.position
     readonly property var home: decolog.myPosition
@@ -79,6 +80,17 @@ GlassPanel {
             text: qsTr("Cluster spots"); checkable: true; checked: root.showSpots
             onTriggered: { root.showSpots = checked; root.reloadSpots() }
         }
+        StyledMenuItem {
+            text: qsTr("Antenna heading"); checkable: true; checked: root.showRotor
+            enabled: decolog.rotor.enabled
+            onTriggered: { root.showRotor = checked; canvas.requestPaint() }
+        }
+    }
+
+    // Il rotore si muove: la mappa lo segue.
+    Connections {
+        target: decolog.rotor
+        function onStateChanged() { if (root.showRotor) canvas.requestPaint() }
     }
 
     // Le coste: una volta sola, dal C++ (le risorse dell'eseguibile non si leggono
@@ -257,6 +269,22 @@ GlassPanel {
                         ctx.globalAlpha = 1
 
                     }
+                    // Dove guarda l'antenna: un tratto corto dalla stazione, che
+                    // sulla carta vale come verso, non come rotta.
+                    const rotor = decolog.rotor.state
+                    if (rotor.connected === true && root.showRotor) {
+                        const heading = (rotor.az || 0) * Math.PI / 180
+                        const arm = Math.min(width, height) * 0.22
+                        ctx.strokeStyle = Theme.warningColor
+                        ctx.lineWidth = 2
+                        ctx.globalAlpha = 0.85
+                        ctx.beginPath()
+                        ctx.moveTo(hx, hy)
+                        ctx.lineTo(hx + arm * Math.sin(heading), hy - arm * Math.cos(heading))
+                        ctx.stroke()
+                        ctx.globalAlpha = 1
+                    }
+
                     ctx.fillStyle = Theme.primaryColor
                     ctx.beginPath(); ctx.arc(hx, hy, 4, 0, 2 * Math.PI); ctx.fill()
                     ctx.strokeStyle = Theme.primaryColor
