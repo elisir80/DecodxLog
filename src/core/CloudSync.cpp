@@ -165,6 +165,19 @@ void CloudSync::login(const QString& callsign, const QString& password)
           QStringLiteral("auth"));
 }
 
+void CloudSync::reportPresence(const QVariantMap& state)
+{
+    if (m_token.isEmpty())
+        return;
+    QVariantMap body = state;
+    body.insert(QStringLiteral("device"), m_device);
+    // Si manda e si lascia andare: la frequenza di adesso, fra dieci secondi,
+    // e' gia' un'altra. Niente watch(), cosi' un errore non finisce nel
+    // registro e non tocca lo stato del sync.
+    QNetworkReply* reply = send(QStringLiteral("/v1/presence"), body, true);
+    connect(reply, &QNetworkReply::finished, reply, &QNetworkReply::deleteLater);
+}
+
 void CloudSync::push(const QVariantList& qsos, const QVariantList& docs)
 {
     watch(send(QStringLiteral("/v1/sync/push"),

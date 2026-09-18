@@ -56,6 +56,10 @@ public:
     // Nominativo e password -> token. `signup` crea l'account, `login` no.
     void signup(const QString& callsign, const QString& password);
     void login(const QString& callsign, const QString& password);
+    // Dov'e' la stazione adesso: frequenza, banda, modo, se sta trasmettendo.
+    // Non e' log — non ha revisione, non ha storia, non muove il cursore — e un
+    // errore qui non si racconta: al giro dopo si riprova.
+    void reportPresence(const QVariantMap& state);
     // I QSO in coda e i documenti (profili, impostazioni), gia' pronti come li
     // vuole il server.
     void push(const QVariantList& qsos, const QVariantList& docs = {});

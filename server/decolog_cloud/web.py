@@ -290,12 +290,52 @@ def _window(request: Request, db: Session, account: Account, tab: str,
         "entities": stats["entities"],
         "grids": stats["grids"],
         "last_sync": _last_change(db, account),
+        "air": _on_air(db, account),
         "selected": _detail_view(chosen) if chosen is not None else None,
         "worked": _worked_before(rows, chosen.call if chosen is not None else ""),
         "ft2": {"dxcc": ft2_dxcc.worked, "grids": ft2_grids.worked, "confirmed": ft2_lotw},
         "points": points,
         "map_points": points[:400],
         **extra,
+    }
+
+
+# Dopo quanto una stazione che non parla si considera spenta.
+PRESENCE_FRESH = dt.timedelta(minutes=3)
+
+
+def _on_air(db: Session, account: Account) -> dict:
+    """Dov'e' la stazione adesso, se l'ha detto di recente.
+
+    La pillola in alto a sinistra e' quella del programma: li' c'e' la frequenza
+    che si sta ascoltando. Qui la si mostra se e' fresca; se il computer di casa
+    tace da qualche minuto, torna a essere trattini.
+    """
+    from .models import Presence
+
+    row = db.scalar(
+        select(Presence)
+        .where(Presence.account_id == account.id)
+        .order_by(Presence.updated_at.desc())
+        .limit(1)
+    )
+    if row is None or not row.updated_at:
+        return {}
+
+    when = row.updated_at if row.updated_at.tzinfo else row.updated_at.replace(tzinfo=dt.UTC)
+    age = dt.datetime.now(dt.UTC) - when
+    mhz = row.frequency_hz / 1_000_000 if row.frequency_hz else 0.0
+    return {
+        "live": age < PRESENCE_FRESH,
+        "frequency": f"{mhz:10.6f}".strip() if mhz else "",
+        "band": row.band,
+        "mode": row.mode,
+        "dxCall": row.dx_call,
+        "transmitting": row.transmitting,
+        "client": row.client,
+        "device": row.device,
+        "when": when.strftime("%Y-%m-%d %H:%M"),
+        "minutes": int(age.total_seconds() // 60),
     }
 
 

@@ -13,6 +13,7 @@ client Qt di DecoLog implementa.
 
 from __future__ import annotations
 
+import datetime as dt
 from contextlib import asynccontextmanager
 
 from fastapi import Depends, FastAPI, HTTPException, Query, Request, status
@@ -235,6 +236,50 @@ def sync_status(
         deleted=int(gone or 0),
         cursor=counter.value if counter else 0,
     )
+
+
+class PresenceIn(BaseModel):
+    """Dov'e' la stazione adesso. Tutto facoltativo: quello che si sa, si dice."""
+
+    device: str = Field(default="", max_length=120)
+    frequencyHz: int = Field(default=0, ge=0, le=300_000_000_000)
+    band: str = Field(default="", max_length=16)
+    mode: str = Field(default="", max_length=32)
+    dxCall: str = Field(default="", max_length=32)
+    transmitting: bool = False
+    client: str = Field(default="", max_length=64)
+
+
+@app.post("/v1/presence")
+def presence(
+    body: PresenceIn,
+    account: Account = Depends(auth.current_account),
+    db: Session = Depends(auth.session),
+) -> dict:
+    """La frequenza di adesso, non un pezzo di log.
+
+    Si riscrive sopra alla riga di quel dispositivo: niente storia, niente
+    revisioni, e soprattutto **niente cursore** — un giro di VFO non deve
+    svegliare gli altri dispositivi come fa un QSO.
+    """
+    from .models import Presence
+
+    row = db.scalar(
+        select(Presence).where(Presence.account_id == account.id, Presence.device == body.device)
+    )
+    if row is None:
+        row = Presence(account_id=account.id, device=body.device)
+        db.add(row)
+
+    row.frequency_hz = body.frequencyHz
+    row.band = body.band.strip().lower()
+    row.mode = body.mode.strip().upper()
+    row.dx_call = body.dxCall.strip().upper()
+    row.transmitting = body.transmitting
+    row.client = body.client.strip()
+    row.updated_at = dt.datetime.now(dt.UTC)
+    db.commit()
+    return {"ok": True}
 
 
 @app.get("/v1/health")

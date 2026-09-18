@@ -95,6 +95,9 @@ public:
 
     // Un QSO e' stato scritto: se il sync e' automatico parte fra poco.
     void qsoLogged();
+    // Lo stato del client radio e' cambiato: la frequenza di adesso va al
+    // Cloud, ma con misura (vedi `m_presenceTimer`).
+    void clientStateChanged(const QVariantMap& state);
 
 signals:
     void changed();
@@ -165,6 +168,11 @@ private:
     qint64 m_cursor{0};
     QTimer m_autoTimer;
     QTimer m_afterQso;
+    // La frequenza di adesso: si manda al massimo ogni venti secondi, e subito
+    // se cambia qualcosa che si vede (banda, modo, TX, nominativo lavorato).
+    QTimer m_presenceTimer;
+    QVariantMap m_presence;
+    QVariantMap m_presenceSent;
 };
 
 } // namespace decolog::app

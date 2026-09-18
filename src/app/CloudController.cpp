@@ -168,6 +168,19 @@ CloudController::CloudController(Context context, QObject* parent)
         if (linked() && !m_busy)
             syncNow();
     });
+    // La frequenza di adesso: una volta ogni venti secondi basta e avanza per
+    // chi guarda da lontano, e non fa rumore in rete.
+    m_presenceTimer.setSingleShot(true);
+    m_presenceTimer.setInterval(20'000);
+    connect(&m_presenceTimer, &QTimer::timeout, this, [this] {
+        if (!linked() || m_presence.isEmpty())
+            return;
+        if (m_presence == m_presenceSent)
+            return;   // niente di nuovo da dire
+        m_sync.reportPresence(m_presence);
+        m_presenceSent = m_presence;
+    });
+
     // I QSO che arrivano a raffica si mandano insieme poco dopo, non uno a uno.
     m_afterQso.setSingleShot(true);
     m_afterQso.setInterval(20'000);
@@ -766,6 +779,40 @@ void CloudController::qsoLogged()
 {
     if (linked() && m_autoMode == QLatin1String("qso"))
         m_afterQso.start();
+}
+
+// ── Dov'e' la stazione adesso ─────────────────────────────────────────────────
+//
+// La frequenza cambia a ogni giro di VFO: mandarla come si manda un QSO
+// significherebbe svegliare gli altri dispositivi cento volte al minuto. Va per
+// la sua strada — un POST che non aspetta risposta, niente cursore, niente
+// storia — e con misura: al massimo ogni venti secondi, ma subito se cambia
+// qualcosa che si vede.
+
+void CloudController::clientStateChanged(const QVariantMap& state)
+{
+    // Vale anche per un collegamento di passaggio: la frequenza non si scrive da
+    // nessuna parte qui, va al server che si sta provando e basta.
+    if (!linked())
+        return;
+    m_presence = state;
+
+    auto same = [this](const char* key) {
+        return m_presence.value(QLatin1String(key)) == m_presenceSent.value(QLatin1String(key));
+    };
+    const bool worthSaying = m_presenceSent.isEmpty()
+        || !same("band") || !same("mode") || !same("transmitting") || !same("dxCall");
+
+    if (worthSaying) {
+        m_presenceTimer.stop();
+        m_sync.reportPresence(m_presence);
+        m_presenceSent = m_presence;
+        // Da qui in poi, per venti secondi, il resto aspetta.
+        m_presenceTimer.start();
+        return;
+    }
+    if (!m_presenceTimer.isActive())
+        m_presenceTimer.start();
 }
 
 } // namespace decolog::app

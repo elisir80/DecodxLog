@@ -161,6 +161,33 @@ class DocHistory(Base):
     data: Mapped[dict] = mapped_column(JSON, default=dict)
 
 
+class Presence(Base):
+    """Dov'e' la stazione adesso: frequenza, banda, modo, se sta trasmettendo.
+
+    Non e' log e non e' un documento: e' *ora*. Cambia ogni pochi secondi, non ha
+    storia e non fa numero nel cursore del sync — altrimenti ogni giro di VFO
+    sveglierebbe tutti i dispositivi. Una riga per dispositivo, riscritta sopra;
+    se smette di arrivare, quella riga invecchia e la stazione risulta spenta.
+    """
+
+    __tablename__ = "presence"
+    __table_args__ = (
+        UniqueConstraint("account_id", "device", name="uq_presence_account_device"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    account_id: Mapped[int] = mapped_column(ForeignKey("account.id", ondelete="CASCADE"), index=True)
+    device: Mapped[str] = mapped_column(String(120), default="")
+    updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    frequency_hz: Mapped[int] = mapped_column(BigInteger, default=0)
+    band: Mapped[str] = mapped_column(String(16), default="")
+    mode: Mapped[str] = mapped_column(String(32), default="")
+    dx_call: Mapped[str] = mapped_column(String(32), default="")
+    transmitting: Mapped[bool] = mapped_column(Boolean, default=False)
+    # Il programma che sta in aria: Decodium, WSJT-X, JTDX...
+    client: Mapped[str] = mapped_column(String(64), default="")
+
+
 class Counter(Base):
     """Il contatore delle modifiche, uno per account: e' il cursore del pull."""
 

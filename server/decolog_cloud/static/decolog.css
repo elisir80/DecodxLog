@@ -83,6 +83,10 @@ a { color: inherit; }
 .led { width: 9px; height: 9px; border-radius: 50%; background: var(--text-dim); display: inline-block; }
 .led.on { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
 .led.off { background: var(--error); opacity: 0.7; }
+/* In trasmissione la spia e' rossa e viva, come sulla radio. */
+.led.tx { background: var(--error); box-shadow: 0 0 10px var(--error); animation: pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: 0.35; } }
+.dial .freq.live { color: var(--accent); }
 
 .btn, button.btn {
     font: inherit;

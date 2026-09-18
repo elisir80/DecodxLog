@@ -122,6 +122,9 @@ DecoLogController::DecoLogController(QObject* parent)
                 const bool gridChanged = st.deGrid != m_status.deGrid;
                 m_status = st;
                 emit clientChanged();
+                // Dove si e' adesso lo sa solo questo computer: il Cloud lo
+                // riceve perche' lo si veda da lontano, con misura.
+                reportPresenceToCloud();
                 if (gridChanged)
                     emit stationChanged();
                 maybeCreateProfileFromDecodium();
@@ -648,6 +651,22 @@ QString DecoLogController::dialBand() const
     if (m_status.dialFrequencyHz == 0)
         return {};
     return bands::fromMhz(static_cast<double>(m_status.dialFrequencyHz) / 1e6);
+}
+
+void DecoLogController::reportPresenceToCloud()
+{
+    if (!m_cloud)
+        return;
+    // Quello che si vede guardando la radio: dove si ascolta, in che modo, chi
+    // si sta lavorando, e se in questo momento si trasmette.
+    m_cloud->clientStateChanged(QVariantMap{
+        {QStringLiteral("frequencyHz"), static_cast<qint64>(m_status.dialFrequencyHz)},
+        {QStringLiteral("band"), dialBand()},
+        {QStringLiteral("mode"), currentMode()},
+        {QStringLiteral("dxCall"), m_status.dxCall},
+        {QStringLiteral("transmitting"), m_status.transmitting},
+        {QStringLiteral("client"), m_clientName},
+    });
 }
 
 QStringList DecoLogController::bands() const

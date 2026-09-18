@@ -369,6 +369,9 @@ signals:
 private:
     void onQsoReceived(const core::AdifRecord& record, const QString& source, const QString& sourceApp);
     void addActivity(const QString& category, const QString& text, const QString& level = QStringLiteral("info"));
+    // Dove si e' adesso: frequenza, banda, modo, TX. Va al Cloud perche' lo si
+    // veda anche da lontano; il Cloud decide ogni quanto mandarlo davvero.
+    void reportPresenceToCloud();
     void refreshCallInfo();
     void maybeCreateProfileFromDecodium();
     void checkBackupSchedule();
