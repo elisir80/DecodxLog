@@ -420,17 +420,65 @@ def missing_zones(award: Award) -> list[int]:
 
 
 def qsl_summary(rows: list[Row]) -> list[dict]:
-    """Quante ne sono partite e quante ne sono tornate, servizio per servizio."""
+    """Servizio per servizio: da mandare, inviate, confermate.
+
+    Le stesse colonne della scheda "Invio QSL" del programma. "Da mandare" sono
+    i QSO che quel servizio non ha ancora visto.
+    """
     out = []
     for service_id, label, sent_field, rcvd_field in QSL_SERVICES:
-        sent = rcvd = 0
+        sent = rcvd = pending = 0
         for r in rows:
-            if sent_field and str(r.fields.get(sent_field, "")).upper().startswith("Y"):
+            gone = bool(sent_field) and str(r.fields.get(sent_field, "")).upper().startswith("Y")
+            if gone:
                 sent += 1
+            else:
+                pending += 1
             if rcvd_field and str(r.fields.get(rcvd_field, "")).upper().startswith("Y"):
                 rcvd += 1
-        out.append({"id": service_id, "label": label, "sent": sent, "rcvd": rcvd})
+        out.append({"id": service_id, "label": label, "sent": sent, "rcvd": rcvd,
+                    "pending": pending})
     return out
+
+
+# Come il programma scrive la via di una QSL di carta (`QSL_SENT_VIA`).
+QSL_VIA = {"B": "bureau", "D": "diretta", "E": "elettronica", "M": "manager"}
+
+
+def paper_queue(rows: list[Row]) -> dict:
+    """La coda delle QSL di carta: da mandare, mandate, ricevute, e per che via.
+
+    E' la finestra "QSL di carta" del programma, vista dal Cloud: i campi sono
+    quelli ADIF che il log porta con se' (`QSL_SENT`, `QSL_RCVD`,
+    `QSL_SENT_VIA`, `QSL_QUEUE` per chi la mette in coda a mano).
+    """
+    to_send: list[dict] = []
+    sent = rcvd = 0
+    vias: Counter = Counter()
+
+    for r in rows:
+        state = str(r.fields.get("QSL_SENT", "")).upper()
+        received = str(r.fields.get("QSL_RCVD", "")).upper().startswith("Y")
+        via = str(r.fields.get("QSL_SENT_VIA", "")).upper()[:1]
+        if received:
+            rcvd += 1
+        if state.startswith("Y"):
+            sent += 1
+            if via:
+                vias[QSL_VIA.get(via, via)] += 1
+            continue
+        # "Q" e' la coda di ADIF: il QSO aspetta la cartolina.
+        if state.startswith("Q") or str(r.fields.get("QSL_QUEUE", "")).upper().startswith("Y"):
+            to_send.append({
+                "call": r.call, "band": r.band, "mode": r.label_mode,
+                "when": r.when.strftime("%Y-%m-%d") if r.when else "",
+                "via": QSL_VIA.get(via, via) if via else "",
+                "country": r.country,
+            })
+
+    to_send.sort(key=lambda q: q["when"], reverse=True)
+    return {"queue": to_send, "sent": sent, "rcvd": rcvd,
+            "vias": sorted(vias.items(), key=lambda kv: -kv[1])}
 
 
 def grid_points(rows: list[Row]) -> list[dict]:

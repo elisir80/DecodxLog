@@ -363,3 +363,70 @@ def test_the_activity_tab_shows_what_arrived(client):
     assert page.status_code == 200
     assert "DL9ZZT" in page.text
     assert "Ultime modifiche" in page.text
+
+
+def test_the_propagation_tab_shows_the_numbers_of_the_source(client, monkeypatch):
+    from decolog_cloud import solar
+
+    solar.reset_cache()
+    monkeypatch.setattr(solar, "_download", lambda: SOLAR_XML)
+
+    account(client)
+    sign_in(client)
+    page = client.get("/propagation")
+    assert page.status_code == 200
+    assert "Propagazione" in page.text
+    assert "168" in page.text          # SFI
+    assert "Band Closed" in page.text  # una condizione com'e' scritta dalla fonte
+    assert "N0NBH" in page.text
+
+
+def test_the_propagation_tab_does_not_fall_over_when_the_source_is_down(client, monkeypatch):
+    from decolog_cloud import solar
+
+    solar.reset_cache()
+
+    def broken():
+        raise OSError("giu'")
+
+    monkeypatch.setattr(solar, "_download", broken)
+
+    account(client)
+    sign_in(client)
+    page = client.get("/propagation")
+    assert page.status_code == 200
+    assert "non risponde" in page.text
+
+
+def test_the_paper_qsl_queue_is_on_the_qsl_tab(client):
+    headers = account(client)
+    client.post(
+        "/v1/sync/push",
+        json={"qsos": [
+            qso("u1", "DL9ZZT", QSL_SENT="Q"),                      # in coda
+            qso("u2", "EA5XYZ", QSL_SENT="Y", QSL_SENT_VIA="B"),    # mandata, bureau
+            qso("u3", "W1AW", QSL_SENT="Y", QSL_RCVD="Y", QSL_SENT_VIA="D"),
+        ]},
+        headers=headers,
+    )
+    sign_in(client)
+
+    page = client.get("/qsl")
+    assert page.status_code == 200
+    assert "QSL di carta" in page.text
+    assert "DL9ZZT" in page.text        # quella in coda
+    assert "bureau" in page.text and "diretta" in page.text
+    # Le colonne sono quelle del programma.
+    assert "Da mandare" in page.text and "Confermate" in page.text
+
+
+SOLAR_XML = b"""<solar><solardata>
+  <source>N0NBH</source><updated>18 Sep 2026 0730 GMT</updated>
+  <solarflux>168</solarflux><aindex>7</aindex><kindex>3</kindex>
+  <sunspots>142</sunspots><aurora>3</aurora>
+  <calculatedconditions>
+    <band name="80m-40m" time="day">Fair</band>
+    <band name="80m-40m" time="night">Good</band>
+    <band name="12m-10m" time="night">Band Closed</band>
+  </calculatedconditions>
+</solardata></solar>"""

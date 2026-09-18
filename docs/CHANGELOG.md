@@ -44,8 +44,8 @@ perdere niente. In arrivo, il tema si ridipinge subito: non si aspetta il riavvi
 **Il log dal browser e' la stessa finestra del programma.** Non una pagina web che
 parla dello stesso log: barra superiore a blocchi, tre colonne di pannelli — scheda del
 QSO a sinistra, log in mezzo, scheda del nominativo con FT2 Award e mappa a destra — le
-cinque schede in basso (Diplomi, Statistiche, Invio QSL, Registro attivita', DX Cluster)
-e la barra di stato. Si sceglie un QSO nel log e le colonne seguono, come nel programma.
+sei schede in basso — le stesse del programma: Diplomi, Statistiche, Invio QSL,
+Registro attivita', DX Cluster, Propagazione — e la barra di stato. Si sceglie un QSO nel log e le colonne seguono, come nel programma.
 
 E **i colori sono quelli della stazione**: il tema arriva con le impostazioni
 sincronizzate, valore per valore dal ThemeManager — Ocean Blue, Stellar Light o
@@ -63,6 +63,15 @@ WWFF: lavorati e confermati, il conto per banda, i band slot, e l'elenco di quel
 manca), **QSL** (inviate e ricevute servizio per servizio, e le ultime conferme),
 **Mappa** (i locatori lavorati sul mondo, coste comprese) e **Stazione** (profili e
 impostazioni).
+
+**Propagazione** legge la stessa fonte del programma (il XML di N0NBH) una volta
+all'ora: SFI, macchie, indice A e K, aurora, MUF, le condizioni banda per banda di giorno
+e di notte con i loro colori, il VHF e il resto. Se la fonte non risponde si mostra
+l'ultimo dato buono con la sua ora, invece di una pagina vuota.
+
+Nella scheda **Invio QSL** ci sono le colonne del programma — da mandare, inviate,
+confermate — e la **coda delle QSL di carta**: quelle che aspettano la cartolina, quelle
+gia' partite e per che via (bureau, diretta, manager), quelle tornate.
 
 I numeri non stanno in tabelle di riepilogo: si rifanno dai QSO a ogni richiesta, con le
 stesse regole del programma — `server/decolog_cloud/analytics.py` e' `src/core/Awards.cpp`

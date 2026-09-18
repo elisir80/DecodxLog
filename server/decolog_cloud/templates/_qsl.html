@@ -1,31 +1,64 @@
 <div class="tiles">
   <div class="tile"><span>QSO</span><b>{{ total }}</b></div>
-  <div class="tile"><span>Confermati</span><b>{{ confirmed }}</b></div>
+  <div class="tile"><span>Confermati</span><b class="ok">{{ confirmed }}</b></div>
   <div class="tile"><span>Da confermare</span><b>{{ total - confirmed }}</b></div>
+  <div class="tile"><span>Cartacee in coda</span><b>{{ paper.queue | length }}</b></div>
+  <div class="tile"><span>Cartacee mandate</span><b>{{ paper.sent }}</b></div>
+  <div class="tile"><span>Cartacee ricevute</span><b>{{ paper.rcvd }}</b></div>
 </div>
 
 <div class="statcols" style="margin-top:10px">
   <div>
     <h3 class="muted">Servizio per servizio</h3>
     <table class="log">
-      <thead><tr><th>Servizio</th><th>Inviate</th><th>Ricevute</th></tr></thead>
+      <thead><tr><th>Servizio</th><th>Da mandare</th><th>Inviate</th><th>Confermate</th></tr></thead>
       <tbody>
         {% for s in summary %}
         <tr>
           <td>{{ s.label }}</td>
+          <td class="{% if s.pending %}warn{% else %}dim{% endif %}">{{ s.pending or "—" }}</td>
           <td>{{ s.sent or "—" }}</td>
-          <td>{% if s.id == "clublog" %}<span class="dim">n/d</span>{% else %}{{ s.rcvd or "—" }}{% endif %}</td>
+          <td>{% if s.id == "clublog" %}<span class="dim">n/d</span>{% else %}<span class="{% if s.rcvd %}ok{% endif %}">{{ s.rcvd or "—" }}</span>{% endif %}</td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
-    <p class="muted">Club Log non ha un "ricevuto" in ADIF. L'invio si comanda dal programma: qui si vede com'è andata.</p>
+    <p class="muted">
+      L'invio si comanda dal programma: qui si vede com'è andata. Club Log non ha un
+      "ricevuto" in ADIF, quindi non c'è niente da contare.
+    </p>
   </div>
 
-  <div style="grid-column: span 3">
+  <div>
+    <h3 class="muted">QSL di carta · coda</h3>
+    {% if paper.queue %}
+    <div class="scroll" style="max-height:24vh">
+      <table class="log">
+        <thead><tr><th>Data</th><th>Nominativo</th><th>Banda</th><th>Via</th></tr></thead>
+        <tbody>
+          {% for q in paper.queue %}
+          <tr>
+            <td>{{ q.when }}</td>
+            <td class="call">{{ q.call }}</td>
+            <td>{{ q.band }}</td>
+            <td class="dim">{{ q.via or "—" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="dim">Nessuna cartolina in coda.</p>
+    {% endif %}
+    {% if paper.vias %}
+    <p class="muted">Mandate per via: {% for via, n in paper.vias %}{{ via }} <span class="mono">{{ n }}</span>{% if not loop.last %} · {% endif %}{% endfor %}.</p>
+    {% endif %}
+  </div>
+
+  <div style="grid-column: span 2">
     <h3 class="muted">Ultime conferme</h3>
     {% if latest %}
-    <div class="scroll">
+    <div class="scroll" style="max-height:24vh">
       <table class="log">
         <thead><tr><th>Data</th><th>Nominativo</th><th>Banda</th><th>Modo</th><th>L</th><th>C</th><th>E</th></tr></thead>
         <tbody>

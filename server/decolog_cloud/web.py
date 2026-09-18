@@ -29,7 +29,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from . import analytics, auth, theme as theming
+from . import analytics, auth, solar as solar_source, theme as theming
 from .models import Account, Doc, Qso
 
 HERE = Path(__file__).parent
@@ -223,6 +223,7 @@ TABS = [
     ("qsl", "Invio QSL", "/qsl"),
     ("attivita", "Registro attività", "/activity"),
     ("cluster", "DX Cluster", "/cluster"),
+    ("propagazione", "Propagazione", "/propagation"),
 ]
 
 
@@ -441,6 +442,7 @@ def qsl_page(request: Request, db: Session = Depends(auth.session)):
                     reverse=True)[:40]
     return _page(request, db, account, "qsl",
                  summary=analytics.qsl_summary(rows),
+                 paper=analytics.paper_queue(rows),
                  confirmed=len(confirmed),
                  latest=[{"call": r.call, "band": r.band, "mode": r.label_mode,
                           "when": r.when.strftime("%Y-%m-%d") if r.when else "",
@@ -501,6 +503,30 @@ def _json_setting(raw) -> list:
     except (TypeError, ValueError):
         return []
     return parsed if isinstance(parsed, list) else []
+
+
+@router.get("/propagation", response_class=HTMLResponse)
+def propagation_page(request: Request, db: Session = Depends(auth.session)):
+    """Propagazione: gli stessi numeri del pannello del programma, stessa fonte."""
+    account = _account_from_cookie(request, db)
+    if account is None:
+        return RedirectResponse("/", status_code=303)
+
+    data = solar_source.current()
+    # Le condizioni HF, una riga per banda con giorno e notte affiancati.
+    table = []
+    for band in dict.fromkeys(c["band"] for c in data.get("hf", [])):
+        day = next((c for c in data["hf"] if c["band"] == band and c["when"] == "day"), None)
+        night = next((c for c in data["hf"] if c["band"] == band and c["when"] == "night"), None)
+        table.append({
+            "band": band,
+            "day": day["condition"] if day else "",
+            "day_class": day["class"] if day else "unknown",
+            "night": night["condition"] if night else "",
+            "night_class": night["class"] if night else "unknown",
+        })
+
+    return _page(request, db, account, "propagazione", solar=data, hf_table=table)
 
 
 @router.get("/map", response_class=HTMLResponse)

@@ -87,6 +87,7 @@ variabili CSS della pagina — `decolog_cloud/theme.py` ha gli stessi valori di
 | scheda Invio QSL | `/qsl` — inviate e ricevute per servizio, ultime conferme |
 | scheda Registro attivita' | `/activity` — cosa e' arrivato sul Cloud, da quale dispositivo |
 | scheda DX Cluster | `/cluster` — le fonti e le regole d'avviso della stazione (il collegamento vive nel programma) |
+| scheda Propagazione | `/propagation` — SFI, macchie, A, K, aurora, MUF e le condizioni banda, dalla stessa fonte del programma (hamqsl.com), chiesta una volta all'ora |
 | Stazione | `/station` — profili, impostazioni, e se la cassaforte delle credenziali e' salita |
 
 I conti non stanno in tabelle di riepilogo: si rifanno dai QSO a ogni richiesta,
@@ -170,7 +171,7 @@ migrazione a mano, nemmeno su PostgreSQL.
 PYTHONPATH=. .venv/Scripts/python -m pytest tests -q
 ```
 
-Sessantadue prove: registrazione, token scaduto, push e pull, cursore, conflitti
+Settantatre prove: registrazione, token scaduto, push e pull, cursore, conflitti
 con lo storico, revisione vecchia, duplicati, cancellazioni, pagine, documenti
 (profili e impostazioni, con il loro storico e il cursore condiviso), i conti
 del log (prefisso WPX con gli esempi di CQ, gruppi di modi, diplomi lavorati e

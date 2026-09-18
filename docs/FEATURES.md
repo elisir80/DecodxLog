@@ -280,9 +280,9 @@ Quello che manca è in fondo.
 - **Il tema arriva e si vede**: le impostazioni ricevute valgono subito, senza riavviare. /
   **The theme arrives and shows**: settings received apply at once, with no restart.
 - **Il log dal browser e' la stessa finestra**: barra superiore a blocchi, tre colonne
-  (scheda del QSO, log, scheda del nominativo con FT2 Award e mappa), le cinque schede in
-  basso — Diplomi, Statistiche, Invio QSL, Registro attivita', DX Cluster — e la barra di
-  stato. Si sceglie un QSO e le colonne seguono. / **The log from the browser is the same
+  (scheda del QSO, log, scheda del nominativo con FT2 Award e mappa), le sei schede in
+  basso — Diplomi, Statistiche, Invio QSL, Registro attivita', DX Cluster, Propagazione —
+  e la barra di stato. Si sceglie un QSO e le colonne seguono. / **The log from the browser is the same
   window**: the block top bar, three columns (QSO sheet, log, call sheet with FT2 Award and
   map), the five bottom tabs and the status rail. Pick a QSO and the side panels follow.
 - **Con i colori della stazione**: il tema arriva dalle impostazioni sincronizzate — Ocean
@@ -291,10 +291,12 @@ Quello che manca è in fondo.
   variant and row density included.
 - **Dentro le schede**: statistiche (anni, mesi, ore UTC, bande, modi, continenti, mappa di
   calore banda per ora), diplomi (DXCC, FT2, WAZ, WAS, WPX, locatori, IOTA, POTA, SOTA,
-  WWFF, per banda, con quello che manca), QSL per servizio, il registro di cosa e' arrivato
-  sul Cloud e da quale dispositivo, le fonti del cluster, e il tasto per riscaricare tutto
-  in ADIF. / **In the tabs**: statistics, awards, QSL, the arrival log and the cluster
-  sources, plus the button to take it all back as ADIF.
+  WWFF, per banda, con quello che manca), QSL per servizio con la **coda delle cartacee** e
+  la via, il registro di cosa e' arrivato sul Cloud e da quale dispositivo, le fonti del
+  cluster, la **propagazione** dalla stessa fonte del programma, e il tasto per riscaricare
+  tutto in ADIF. / **In the tabs**: statistics, awards, QSL with the **paper queue**, the
+  arrival log, the cluster sources, **propagation** from the program's own source, plus the
+  button to take it all back as ADIF.
 - **Gli stessi numeri da tutte e due le parti**: i conti si rifanno dai QSO con le regole
   del programma (`analytics.py` e' `Awards.cpp` portato in Python), non da tabelle di
   riepilogo: una correzione a un QSO si vede subito da tutte e due le facce del log. /
@@ -430,12 +432,12 @@ Quello che manca è in fondo.
   **`scripts/deploy.sh`**: a stand-alone folder and `DecoLog-<version>-win64.zip`.
 - **CI su GitHub** (Windows MSYS2 e Linux) con l'artefatto pronto. / **GitHub CI** (Windows
   MSYS2 and Linux) with the artifact ready.
-- **22 gruppi di test** automatici nel programma e **62 prove** del servizio Cloud
-  (`server/tests`). / **22 automated test suites** in the program and **62 checks** for the
+- **22 gruppi di test** automatici nel programma e **73 prove** del servizio Cloud
+  (`server/tests`). / **22 automated test suites** in the program and **73 checks** for the
   Cloud service (`server/tests`).
 
 ## Non ancora / Not yet
 
-- Il Cloud non porta ancora le QSL cartacee in coda, le etichette e i file dei contest:
-  restano sul computer dove si lavora. / The Cloud does not yet carry the paper QSL queue,
-  the labels and the contest files: they stay on the computer where you work.
+- Le etichette QSL in PDF e i file dei contest si fanno dal programma: sul Cloud si vede
+  la coda, non si stampa. / QSL labels and contest files are made in the program: the Cloud
+  shows the queue, it does not print.

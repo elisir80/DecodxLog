@@ -1,0 +1,66 @@
+{% if solar.valid %}
+<div class="tiles">
+  <div class="tile"><span>SFI</span><b class="ok">{{ solar.solarFlux }}</b></div>
+  <div class="tile"><span>Macchie</span><b>{{ solar.sunspots }}</b></div>
+  <div class="tile"><span>Indice A</span><b>{{ solar.aIndex }}</b></div>
+  <div class="tile"><span>Indice K</span><b class="{% if solar.kIndex >= 5 %}err{% elif solar.kIndex >= 3 %}warn{% else %}ok{% endif %}">{{ solar.kIndex }}</b></div>
+  <div class="tile"><span>Aurora</span><b>{{ solar.aurora }}</b></div>
+  {% if solar.muf %}<div class="tile"><span>MUF</span><b>{{ solar.muf }}</b></div>{% endif %}
+</div>
+
+<div class="statcols" style="margin-top:8px">
+  <div style="grid-column: span 2">
+    <h3 class="muted">Condizioni HF</h3>
+    <table class="log">
+      <thead><tr><th>Banda</th><th>Giorno</th><th>Notte</th></tr></thead>
+      <tbody>
+        {% for row in hf_table %}
+        <tr>
+          <td>{{ row.band }}</td>
+          <td class="cond {{ row.day_class }}">{{ row.day or "—" }}</td>
+          <td class="cond {{ row.night_class }}">{{ row.night or "—" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <h3 class="muted">VHF</h3>
+    {% if solar.vhf %}
+    <table class="rows">
+      {% for c in solar.vhf %}
+      <tr>
+        <th>{{ c.band }}{% if c.when %} · {{ c.when }}{% endif %}</th>
+        <td class="cond {{ c["class"] }}">{{ c.condition }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    <p class="dim">Niente dalla fonte.</p>
+    {% endif %}
+  </div>
+
+  <div>
+    <h3 class="muted">Il resto</h3>
+    <table class="rows">
+      {% if solar.xray %}<tr><th>Raggi X</th><td class="mono">{{ solar.xray }}</td></tr>{% endif %}
+      {% if solar.geomagField %}<tr><th>Campo geomagnetico</th><td class="mono">{{ solar.geomagField }}</td></tr>{% endif %}
+      {% if solar.signalNoise %}<tr><th>Rumore</th><td class="mono">{{ solar.signalNoise }}</td></tr>{% endif %}
+      {% if solar.solarWind %}<tr><th>Vento solare</th><td class="mono">{{ solar.solarWind }}</td></tr>{% endif %}
+      {% if solar.magneticField %}<tr><th>Campo magnetico</th><td class="mono">{{ solar.magneticField }}</td></tr>{% endif %}
+      {% if solar.protonFlux %}<tr><th>Protoni</th><td class="mono">{{ solar.protonFlux }}</td></tr>{% endif %}
+      {% if solar.electronFlux %}<tr><th>Elettroni</th><td class="mono">{{ solar.electronFlux }}</td></tr>{% endif %}
+    </table>
+  </div>
+</div>
+
+<p class="muted">
+  {{ solar.source or "hamqsl.com" }}{% if solar.updated %} · aggiornato {{ solar.updated }}{% endif %}{% if solar.fetchedAt %} · letto {{ solar.fetchedAt }}{% endif %}{% if solar.stale %} · la fonte non risponde, questo è l'ultimo dato buono{% endif %}.
+</p>
+{% else %}
+<p class="dim">
+  La propagazione non è arrivata: la fonte (hamqsl.com) non risponde. Si riprova al
+  prossimo giro — il programma intanto continua ad averla per conto suo.
+</p>
+{% endif %}
