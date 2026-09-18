@@ -392,14 +392,6 @@ void CloudController::startPush()
     if (!m_ctx.db)
         return;
     m_batch = m_ctx.db->dirtyQsos(kBatch);
-    if (m_batch.isEmpty()) {
-        m_lastSync = nowLabel();
-        if (!m_ephemeral)
-            QSettings().setValue(QStringLiteral("cloud/lastSync"), m_lastSync);
-        finish(tr("Cloud: up to date"), QStringLiteral("success"));
-        m_sync.status();
-        return;
-    }
     QVariantList payload;
     QList<qint64> sent;
     for (qint64 id : m_batch) {
@@ -410,9 +402,15 @@ void CloudController::startPush()
         sent << id;
     }
     m_batch = sent;
+    // Anche senza QSO in coda ci puo' essere da mandare: un profilo cambiato,
+    // il tema, un filtro salvato. Il log non e' solo l'elenco dei collegamenti.
     const QVariantList docs = pendingDocs();
     if (payload.isEmpty() && docs.isEmpty()) {
-        finish(tr("Cloud: nothing to send"), QStringLiteral("info"));
+        m_lastSync = nowLabel();
+        if (!m_ephemeral)
+            QSettings().setValue(QStringLiteral("cloud/lastSync"), m_lastSync);
+        finish(tr("Cloud: up to date"), QStringLiteral("success"));
+        m_sync.status();
         return;
     }
     m_status = payload.isEmpty()
@@ -470,15 +468,15 @@ QVariantList CloudController::pendingDocs()
         docs << profile;
 
     // Le impostazioni: un documento solo, con la sua revisione. Si manda quando
-    // e' cambiato davvero qualcosa, non a ogni giro.
+    // e' cambiato davvero qualcosa, non a ogni giro. L'impronta si segna solo
+    // quando il server conferma: un server piu' vecchio, che i documenti non li
+    // conosce, non deve farcele dare per mandate.
+    m_settingsSent.clear();
     const QVariantMap current = localSettings();
     const QString fingerprint = settingsFingerprint(current);
     const QString known = m_ctx.db->setting(QStringLiteral("cloud.settingsFingerprint"));
-    int revision = m_ctx.db->setting(QStringLiteral("cloud.settingsRevision")).toInt();
     if (fingerprint != known) {
-        revision = qMax(1, revision + 1);
-        m_ctx.db->setSetting(QStringLiteral("cloud.settingsRevision"), QString::number(revision));
-        m_ctx.db->setSetting(QStringLiteral("cloud.settingsFingerprint"), fingerprint);
+        const int revision = qMax(1, m_ctx.db->setting(QStringLiteral("cloud.settingsRevision")).toInt() + 1);
         m_settingsSent = fingerprint;
         docs << QVariantMap{{QStringLiteral("kind"), QStringLiteral("setting")},
                             {QStringLiteral("key"), QStringLiteral("station")},
@@ -502,6 +500,12 @@ void CloudController::applyDocResults(const QVariantList& results)
             m_ctx.db->markProfileSynced(key, status == QLatin1String("stale") ? 0 : revision);
         } else if (kind == QLatin1String("setting") && revision > 0) {
             m_ctx.db->setSetting(QStringLiteral("cloud.settingsRevision"), QString::number(revision));
+            // "stale" vuol dire che il server ne aveva una piu' avanti: l'impronta
+            // resta quella vecchia, cosi' al giro dopo si riprova piu' in alto.
+            if (status != QLatin1String("stale") && !m_settingsSent.isEmpty()) {
+                m_ctx.db->setSetting(QStringLiteral("cloud.settingsFingerprint"), m_settingsSent);
+                m_settingsSent.clear();
+            }
         }
     }
 }
