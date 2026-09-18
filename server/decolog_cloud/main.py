@@ -20,7 +20,11 @@ from pydantic import BaseModel, Field
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from . import auth, sync
+from pathlib import Path
+
+from fastapi.staticfiles import StaticFiles
+
+from . import auth, sync, web
 from .models import Account, Counter, Qso, create_all
 from .settings import settings
 
@@ -31,6 +35,7 @@ async def lifespan(_: FastAPI):
     yield
 
 
+# La pagina dell'API resta, ma nginx la lascia vedere solo da dentro la macchina.
 app = FastAPI(
     title="DecoLog Cloud",
     version="1.0",
@@ -168,3 +173,10 @@ def sync_status(
 @app.get("/v1/health")
 def health() -> dict:
     return {"status": "ok", "service": "decolog-cloud", "version": app.version}
+
+
+# ── Il log dal browser ────────────────────────────────────────────────────────
+# Le pagine stanno in coda alle rotte /v1, cosi' l'API resta il contratto e la
+# web UI e' quello che ci si appoggia sopra.
+app.mount("/static", StaticFiles(directory=str(Path(__file__).parent / "static")), name="static")
+app.include_router(web.router)

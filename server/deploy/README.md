@@ -43,6 +43,12 @@ Poi il certificato:
 sudo certbot --nginx -d cloud.ft2.it
 ```
 
+## Il log dal browser
+
+Finito il certificato, `https://cloud.ft2.it` apre la pagina di accesso: stessi
+nominativo e password del programma. Non serve altro — le pagine le serve lo
+stesso servizio, e nginx le passa gia'.
+
 ## Il primo account
 
 In DecoLog: **Impostazioni → Sync e Cloud**, server `https://cloud.ft2.it`,

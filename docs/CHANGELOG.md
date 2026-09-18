@@ -22,6 +22,14 @@ mai una modifica locale ancora da mandare; i duplicati con un altro uuid si rico
 per nominativo, banda, gruppo di modi e orario vicino; le cancellazioni viaggiano come
 modifiche. La password passa una volta sola: DecoLog tiene solo il token, nel portachiavi.
 
+**Il log dal browser.** Sullo stesso servizio c'e' la pagina: si entra con gli stessi
+nominativo e password, e si vede il proprio log — tabella con la ricerca mentre si scrive,
+filtri per banda e modo, la pagina che si allunga scorrendo, la scheda del QSO con tutti i
+campi ADIF, e il tasto per riscaricare tutto in ADIF. Da qui si guarda e si scarica: si
+scrive dal programma. Pagine servite dal server (Jinja) con un po' di HTMX tenuto in casa,
+i colori sono quelli di DecoLog, e la sessione e' un cookie HttpOnly che dura trenta
+giorni.
+
 Provato per davvero fra due log: 40 QSO spinti dal primo e ripresi dal secondo, una
 modifica che fa il giro, un conflitto risolto con la versione perdente nello storico del
 server, e una cancellazione che arriva dall'altra parte.

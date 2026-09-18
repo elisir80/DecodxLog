@@ -1,0 +1,25 @@
+{% for row in rows %}
+<tr onclick="location.href='/qso/{{ row.uuid }}'">
+  <td class="mono">{{ row.date }}</td>
+  <td class="mono">{{ row.time }}</td>
+  <td class="mono call">{{ row.call }}</td>
+  <td class="mono">{{ row.band }}</td>
+  <td class="mono">{{ row.mode }}</td>
+  <td class="mono dim">{{ row.rst_sent }}</td>
+  <td class="mono dim">{{ row.rst_rcvd }}</td>
+  <td class="mono dim">{{ row.grid }}</td>
+  <td class="dim">{{ row.name or row.country }}</td>
+</tr>
+{% endfor %}
+
+{% if more %}
+{# L'ultima riga chiede la pagina dopo appena si vede: si scorre e basta. #}
+<tr id="more"
+    hx-get="/log/rows?q={{ q|urlencode }}&band={{ band|urlencode }}&mode={{ mode|urlencode }}&offset={{ offset }}"
+    hx-trigger="revealed"
+    hx-swap="outerHTML">
+  <td colspan="9" class="dim center">…</td>
+</tr>
+{% elif not rows and offset == 0 %}
+<tr><td colspan="9" class="dim center">Nessun QSO con questi filtri.</td></tr>
+{% endif %}

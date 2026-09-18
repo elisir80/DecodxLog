@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ callsign }} — log{% endblock %}
+
+{% block content %}
+<div class="panel">
+  <div class="panel-head">
+    <h1>Log · <span class="count">{{ total }}</span> QSO</h1>
+
+    <form class="filters" autocomplete="off"
+          hx-get="/log/rows" hx-target="#rows" hx-swap="innerHTML"
+          hx-trigger="input changed delay:250ms from:#q, change from:#band, change from:#mode">
+      <input id="q" name="q" value="{{ q }}" placeholder="Nominativo…"
+             autocapitalize="characters" spellcheck="false">
+      <select id="band" name="band">
+        <option value="">tutte le bande</option>
+        {% for b in bands %}
+        <option value="{{ b }}" {% if b == band %}selected{% endif %}>{{ b }}</option>
+        {% endfor %}
+      </select>
+      <select id="mode" name="mode">
+        <option value="">tutti i modi</option>
+        {% for m in modes %}
+        <option value="{{ m }}" {% if m == mode %}selected{% endif %}>{{ m }}</option>
+        {% endfor %}
+      </select>
+    </form>
+  </div>
+
+  <table class="log">
+    <thead>
+      <tr>
+        <th>Data</th><th>UTC</th><th>Nominativo</th><th>Banda</th><th>Modo</th>
+        <th>S</th><th>R</th><th>Locatore</th><th>Nome</th>
+      </tr>
+    </thead>
+    <tbody id="rows">
+      {% include "_rows.html" %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}DecoLog Cloud — accesso{% endblock %}
+
+{% block content %}
+<div class="panel narrow">
+  <h1>Il tuo log</h1>
+  <p class="muted">
+    Gli stessi nominativo e password che usi in DecoLog. Da qui il log si guarda
+    e si scarica: si scrive dal programma.
+  </p>
+
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+
+  <form method="post" action="/login" class="stack">
+    <label>
+      <span>Nominativo</span>
+      <input name="callsign" autocomplete="username" autocapitalize="characters"
+             autofocus required minlength="3" spellcheck="false">
+    </label>
+    <label>
+      <span>Password</span>
+      <input name="password" type="password" autocomplete="current-password" required minlength="8">
+    </label>
+    <button class="button primary" type="submit">Entra</button>
+  </form>
+</div>
+{% endblock %}

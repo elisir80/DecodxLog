@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}{{ qso.call }} — {{ qso.date }}{% endblock %}
+
+{% block content %}
+<div class="panel">
+  <div class="panel-head">
+    <h1>{{ qso.call }}</h1>
+    <a class="button" href="/log">← al log</a>
+  </div>
+
+  <div class="tiles">
+    <div class="tile"><span>Data</span><b class="mono">{{ qso.date }}</b></div>
+    <div class="tile"><span>UTC</span><b class="mono">{{ qso.time }}</b></div>
+    <div class="tile"><span>Banda</span><b class="mono">{{ qso.band }}</b></div>
+    <div class="tile"><span>Modo</span><b class="mono">{{ qso.mode }}</b></div>
+    <div class="tile"><span>RST</span><b class="mono">{{ qso.rst_sent }} / {{ qso.rst_rcvd }}</b></div>
+    <div class="tile"><span>Revisione</span><b class="mono">{{ qso.revision }}</b></div>
+  </div>
+
+  {% if deleted %}
+  <p class="error">Questo QSO è stato cancellato: resta qui perché gli altri dispositivi lo tolgano.</p>
+  {% endif %}
+
+  <h2>Campi ADIF</h2>
+  <table class="fields">
+    {% for name, value in fields %}
+    <tr><th class="mono">{{ name }}</th><td class="mono">{{ value }}</td></tr>
+    {% endfor %}
+  </table>
+
+  <p class="muted">
+    Ultima modifica {{ updated }}{% if device %} da {{ device }}{% endif %}.
+  </p>
+</div>
+{% endblock %}

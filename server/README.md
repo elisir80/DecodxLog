@@ -31,6 +31,22 @@ e un `dirty` che dice se deve ancora partire. Da qui:
 Il server non conosce i campi ADIF: tiene il QSO come arriva, in un documento
 JSON. Il giorno che DecoLog impara un campo nuovo, qui non si tocca niente.
 
+## Il log dal browser
+
+Oltre all'API c'e' la pagina: si entra con gli stessi nominativo e password del
+programma e si vede il proprio log — tabella con ricerca mentre si scrive,
+filtri per banda e modo, la pagina si allunga da sola scorrendo, scheda del
+singolo QSO con tutti i campi ADIF, e il tasto per **scaricare tutto in ADIF**:
+il Cloud non e' una gabbia.
+
+Da qui si guarda e si scarica; si scrive dal programma. La sessione del browser
+e' un token come quello dei dispositivi, in un cookie HttpOnly, e dura trenta
+giorni.
+
+Le pagine sono servite dal server (Jinja) con un po' di HTMX per le cose vive:
+nessun secondo progetto da compilare, nessuna libreria presa da Internet — htmx
+sta nei file del servizio.
+
 ## API
 
 | Metodo | Rotta | A cosa serve |

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}DecoLog Cloud{% endblock %}</title>
+  <link rel="stylesheet" href="/static/decolog.css">
+  <script src="/static/htmx.min.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="dot"></span>
+      <span class="name">DecoLog <b>Cloud</b></span>
+    </div>
+    {% if callsign is defined and callsign %}
+    <div class="who">
+      <span class="call">{{ callsign }}</span>
+      <a class="button" href="/export.adi">Scarica ADIF</a>
+      <form method="post" action="/logout" class="inline">
+        <button class="button" type="submit">Esci</button>
+      </form>
+    </div>
+    {% endif %}
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="foot">
+    Il log vero resta sul tuo computer: qui c'è la copia che i tuoi dispositivi
+    si passano.
+  </footer>
+</body>
+</html>
