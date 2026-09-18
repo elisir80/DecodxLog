@@ -109,7 +109,7 @@
     </message>
     <message>
         <source>The QSOs get the activator fields (MY_SIG, MY_SIG_INFO, MY_SOTA_REF…), the grid of the place and the tag. A call already worked in this session on the same band and mode counts as a duplicate, whenever it was.</source>
-        <translation>I QSO prendono i campi dell'attivatore (MY_SIG, MY_SIG_INFO, MY_SOTA_REF…), il locatore del posto e l'etichetta. Un nominativo già lavorato in questa sessione sulla stessa banda e nello stesso modo è un duplicato, a qualunque ora sia stato.</translation>
+        <translation>I QSO prendono i campi dell&apos;attivatore (MY_SIG, MY_SIG_INFO, MY_SOTA_REF…), il locatore del posto e l&apos;etichetta. Un nominativo già lavorato in questa sessione sulla stessa banda e nello stesso modo è un duplicato, a qualunque ora sia stato.</translation>
     </message>
     <message>
         <source>Export ADIF (%1)</source>
@@ -377,10 +377,6 @@
         <translation>automatico</translation>
     </message>
     <message>
-        <source>no credentials: Setup → QSL services</source>
-        <translation>nessuna credenziale: Impostazioni → Servizi QSL</translation>
-    </message>
-    <message>
         <source>LoTW…</source>
         <translation>LoTW…</translation>
     </message>
@@ -471,7 +467,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Open last QSO</source>
-        <translation>Apri l'ultimo QSO</translation>
+        <translation>Apri l&apos;ultimo QSO</translation>
     </message>
 </context>
 <context>
@@ -497,7 +493,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 mostrati · %2 nell'ultima ora</translation>
+        <translation>%1 mostrati · %2 nell&apos;ultima ora</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -688,7 +684,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>All sources flow into one list. Telnet nodes log in with the callsign of the active station profile unless a login is set. RBN gives skimmer spots (CW/RTTY on 7000, FT8/FT4 on 7001). HamAlert sends the spots of your triggers (set them up on hamalert.org; the password goes in the system keystore below). POTA reads the public activation list every minute.</source>
-        <translation>Tutte le fonti finiscono in un elenco solo. I nodi telnet entrano con il nominativo del profilo stazione attivo, se non ne indichi un altro. L'RBN dà gli spot degli skimmer (CW/RTTY sulla 7000, FT8/FT4 sulla 7001). HamAlert manda gli spot dei tuoi trigger (si impostano su hamalert.org; la password va nel portachiavi di sistema qui sotto). POTA legge l'elenco pubblico delle attivazioni ogni minuto.</translation>
+        <translation>Tutte le fonti finiscono in un elenco solo. I nodi telnet entrano con il nominativo del profilo stazione attivo, se non ne indichi un altro. L&apos;RBN dà gli spot degli skimmer (CW/RTTY sulla 7000, FT8/FT4 sulla 7001). HamAlert manda gli spot dei tuoi trigger (si impostano su hamalert.org; la password va nel portachiavi di sistema qui sotto). POTA legge l&apos;elenco pubblico delle attivazioni ogni minuto.</translation>
     </message>
     <message>
         <source>%1 spots</source>
@@ -716,7 +712,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Alert rules</source>
-        <translation>Regole d'avviso</translation>
+        <translation>Regole d&apos;avviso</translation>
     </message>
     <message>
         <source>New rule</source>
@@ -768,7 +764,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Spell calls with the phonetic alphabet</source>
-        <translation>Scandisci i nominativi con l'alfabeto fonetico</translation>
+        <translation>Scandisci i nominativi con l&apos;alfabeto fonetico</translation>
     </message>
     <message>
         <source>Voice</source>
@@ -820,7 +816,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>The ARRL list of LoTW users marks spots of stations that upload to LoTW (filter “LoTW users”). It is refreshed once a week.</source>
-        <translation>L'elenco ARRL degli utenti LoTW segna gli spot delle stazioni che caricano su LoTW (filtro “Utenti LoTW”). Si aggiorna una volta alla settimana.</translation>
+        <translation>L&apos;elenco ARRL degli utenti LoTW segna gli spot delle stazioni che caricano su LoTW (filtro “Utenti LoTW”). Si aggiorna una volta alla settimana.</translation>
     </message>
     <message>
         <source>Decodium</source>
@@ -916,7 +912,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>New alert rule</source>
-        <translation>Nuova regola d'avviso</translation>
+        <translation>Nuova regola d&apos;avviso</translation>
     </message>
     <message>
         <source>e.g. 3Y0J on any band</source>
@@ -1128,7 +1124,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Remove a tag from the QSO shown…</source>
-        <translation>Togli un'etichetta ai QSO mostrati…</translation>
+        <translation>Togli un&apos;etichetta ai QSO mostrati…</translation>
     </message>
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
@@ -1148,11 +1144,11 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Add a tag to %1 QSO</source>
-        <translation>Aggiungi un'etichetta a %1 QSO</translation>
+        <translation>Aggiungi un&apos;etichetta a %1 QSO</translation>
     </message>
     <message>
         <source>Remove a tag from %1 QSO</source>
-        <translation>Togli un'etichetta a %1 QSO</translation>
+        <translation>Togli un&apos;etichetta a %1 QSO</translation>
     </message>
     <message>
         <source>e.g. pota, field day, portable</source>
@@ -1164,11 +1160,11 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Add tag</source>
-        <translation>Aggiungi l'etichetta</translation>
+        <translation>Aggiungi l&apos;etichetta</translation>
     </message>
     <message>
         <source>Remove tag</source>
-        <translation>Togli l'etichetta</translation>
+        <translation>Togli l&apos;etichetta</translation>
     </message>
     <message>
         <source>From (UTC)</source>
@@ -1276,7 +1272,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Add tag…</source>
-        <translation>Aggiungi un'etichetta…</translation>
+        <translation>Aggiungi un&apos;etichetta…</translation>
     </message>
 </context>
 <context>
@@ -1593,7 +1589,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <name>Qsl</name>
     <message numerus="yes">
         <source>%n QSO sent to LoTW</source>
-        <translation><numerusform>%n QSO inviato a LoTW</numerusform><numerusform>%n QSO inviati a LoTW</numerusform></translation>
+        <translation>
+            <numerusform>%n QSO inviato a LoTW</numerusform>
+            <numerusform>%n QSO inviati a LoTW</numerusform>
+        </translation>
     </message>
     <message>
         <source>LoTW already had these QSOs</source>
@@ -1601,7 +1600,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Sent to LoTW, some were already there</source>
-        <translation>Inviati a LoTW, qualcuno c'era già</translation>
+        <translation>Inviati a LoTW, qualcuno c&apos;era già</translation>
     </message>
     <message>
         <source>No QSO to send</source>
@@ -1633,7 +1632,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>QRZ Logbook: already there</source>
-        <translation>QRZ Logbook: c'era già</translation>
+        <translation>QRZ Logbook: c&apos;era già</translation>
     </message>
     <message>
         <source>QRZ Logbook: unexpected answer</source>
@@ -1645,7 +1644,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>eQSL: already there</source>
-        <translation>eQSL: c'era già</translation>
+        <translation>eQSL: c&apos;era già</translation>
     </message>
     <message>
         <source>eQSL: %1</source>
@@ -1654,6 +1653,30 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>eQSL: unexpected answer</source>
         <translation>eQSL: risposta inattesa</translation>
+    </message>
+    <message>
+        <source>Club Log: already there</source>
+        <translation>Club Log: ce l'aveva già</translation>
+    </message>
+    <message>
+        <source>Club Log: %1</source>
+        <translation>Club Log: %1</translation>
+    </message>
+    <message>
+        <source>Club Log: accepted</source>
+        <translation>Club Log: accettato</translation>
+    </message>
+    <message>
+        <source>Club Log: refused (%1)</source>
+        <translation>Club Log: rifiutato (%1)</translation>
+    </message>
+    <message>
+        <source>Club Log: server answered %1</source>
+        <translation>Club Log: il server ha risposto %1</translation>
+    </message>
+    <message>
+        <source>Club Log: no answer</source>
+        <translation>Club Log: nessuna risposta</translation>
     </message>
 </context>
 <context>
@@ -1852,7 +1875,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Fields without a column of their own, kept exactly as they arrived (adif_extra). They go back out on export.</source>
-        <translation>Campi senza una colonna propria, tenuti come sono arrivati (adif_extra). Tornano fuori nell'export.</translation>
+        <translation>Campi senza una colonna propria, tenuti come sono arrivati (adif_extra). Tornano fuori nell&apos;export.</translation>
     </message>
     <message>
         <source>FIELD_NAME</source>
@@ -1896,7 +1919,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>No DXCC entity on this QSO: it does not count yet</source>
-        <translation>Questo QSO non ha un'entità DXCC: per ora non conta</translation>
+        <translation>Questo QSO non ha un&apos;entità DXCC: per ora non conta</translation>
     </message>
     <message>
         <source>%1 DXCC worked on FT2 · %2</source>
@@ -2039,7 +2062,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Source: %1. Updated files: country-files.com (AD1C). New QSOs from Decodium and manual entries get DXCC, country, zones and continent automatically; imported ADIF is kept as it is.</source>
-        <translation>Fonte: %1. File aggiornati: country-files.com (AD1C). I QSO nuovi da Decodium e quelli a mano prendono da soli DXCC, paese, zone e continente; l'ADIF importato resta com'è.</translation>
+        <translation>Fonte: %1. File aggiornati: country-files.com (AD1C). I QSO nuovi da Decodium e quelli a mano prendono da soli DXCC, paese, zone e continente; l&apos;ADIF importato resta com&apos;è.</translation>
     </message>
     <message>
         <source>Language</source>
@@ -2183,7 +2206,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message numerus="yes">
         <source>%n client(s)</source>
-        <translation><numerusform>%n client</numerusform><numerusform>%n client</numerusform></translation>
+        <translation>
+            <numerusform>%n client</numerusform>
+            <numerusform>%n client</numerusform>
+        </translation>
     </message>
     <message>
         <source>waiting</source>
@@ -2191,7 +2217,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Decodium receives the worked calls, confirmations and FT2 Award status from this log, and a confirmation for every QSO written. Only local connections are accepted. Protocol: docs/DECOLINK.md.</source>
-        <translation>Decodium riceve da questo log i nominativi lavorati, le conferme e lo stato dell'FT2 Award, e la conferma di ogni QSO scritto. Si accettano solo collegamenti locali. Protocollo: docs/DECOLINK.md.</translation>
+        <translation>Decodium riceve da questo log i nominativi lavorati, le conferme e lo stato dell&apos;FT2 Award, e la conferma di ogni QSO scritto. Si accettano solo collegamenti locali. Protocollo: docs/DECOLINK.md.</translation>
     </message>
     <message>
         <source>DecoLog Cloud · not connected</source>
@@ -2251,7 +2277,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Last edit wins, loser kept in history</source>
-        <translation>Vince l'ultima modifica, l'altra resta nello storico</translation>
+        <translation>Vince l&apos;ultima modifica, l&apos;altra resta nello storico</translation>
     </message>
     <message>
         <source>Always ask</source>
@@ -2323,7 +2349,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL. QRZ Logbook, Club Log and eQSL arrive later.</source>
-        <translation>Le conferme si abbinano per nominativo, banda, gruppo di modi (dati, CW, fonia) e ora entro mezz'ora, come fa LoTW. Un QSO confermato diventa una nuova revisione; locatore, zone, stato e contea di LoTW riempiono solo i campi vuoti. L'invio a LoTW passa ancora dal TQSL. QRZ Logbook, Club Log ed eQSL arrivano dopo.</translation>
+        <translation>Le conferme si abbinano per nominativo, banda, gruppo di modi (dati, CW, fonia) e ora entro mezz&apos;ora, come fa LoTW. Un QSO confermato diventa una nuova revisione; locatore, zone, stato e contea di LoTW riempiono solo i campi vuoti. L&apos;invio a LoTW passa ancora dal TQSL. QRZ Logbook, Club Log ed eQSL arrivano dopo.</translation>
     </message>
     <message>
         <source>Sending to LoTW (TQSL)</source>
@@ -2339,7 +2365,19 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>The certificate stays in TQSL: DecoLog writes a temporary ADIF, TQSL signs it and sends it. Duplicates are not an error, LoTW simply keeps the one it already has. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
-        <translation>Il certificato resta in TQSL: DecoLog scrive un ADIF temporaneo, TQSL lo firma e lo manda. I duplicati non sono un errore, LoTW tiene quello che ha già. L'invio, l'invio automatico e i conteggi stanno nella scheda QSL in basso.</translation>
+        <translation>Il certificato resta in TQSL: DecoLog scrive un ADIF temporaneo, TQSL lo firma e lo manda. I duplicati non sono un errore, LoTW tiene quello che ha già. L&apos;invio, l&apos;invio automatico e i conteggi stanno nella scheda QSL in basso.</translation>
+    </message>
+    <message>
+        <source>API key</source>
+        <translation>Chiave API</translation>
+    </message>
+    <message>
+        <source>the key Club Log gave you</source>
+        <translation>la chiave che ti ha dato Club Log</translation>
+    </message>
+    <message>
+        <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
+        <translation>Club Log vuole tre cose: l'email e la password dell'account (qui sotto), il nominativo del profilo stazione e una chiave API. La chiave è gratuita e personale, si chiede su clublog.org/need_api.php — dice quale programma sta scrivendo, non chi sei. Un QSO appena registrato parte da solo, un arretrato parte come un unico file ADIF.</translation>
     </message>
     <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
@@ -2371,7 +2409,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>QRZ.com needs an XML data subscription; HamQTH is free. Results are kept in memory for a day, so moving through the log does not use up lookups.</source>
-        <translation>QRZ.com richiede l'abbonamento ai dati XML; HamQTH è gratuito. I risultati restano in memoria per un giorno, così scorrere il log non consuma ricerche.</translation>
+        <translation>QRZ.com richiede l&apos;abbonamento ai dati XML; HamQTH è gratuito. I risultati restano in memoria per un giorno, così scorrere il log non consuma ricerche.</translation>
     </message>
     <message>
         <source>Nightly backup</source>
@@ -2407,7 +2445,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>A consistent copy made with SQLite VACUUM INTO, even while DecoLog is logging. If the PC is off at the chosen time, the copy is made as soon as DecoLog is open.</source>
-        <translation>Una copia coerente fatta con VACUUM INTO di SQLite, anche mentre DecoLog scrive. Se il PC è spento all'ora scelta, la copia si fa appena DecoLog è aperto.</translation>
+        <translation>Una copia coerente fatta con VACUUM INTO di SQLite, anche mentre DecoLog scrive. Se il PC è spento all&apos;ora scelta, la copia si fa appena DecoLog è aperto.</translation>
     </message>
     <message>
         <source>Backup nightly %1 → %2 · last %3</source>
@@ -2584,8 +2622,8 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Station location LoTW (TQSL)</translation>
     </message>
     <message>
-        <source>Used by &lt;b&gt;&lt;font color="%1"&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</source>
-        <translation>Usato da &lt;b&gt;&lt;font color="%1"&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</translation>
+        <source>Used by &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</source>
+        <translation>Usato da &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</translation>
     </message>
     <message>
         <source>not synced</source>
@@ -2825,7 +2863,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>A %1 activation needs its reference</source>
-        <translation>Un'attivazione %1 vuole la sua referenza</translation>
+        <translation>Un&apos;attivazione %1 vuole la sua referenza</translation>
     </message>
     <message>
         <source>A contest needs its name (CONTEST_ID)</source>
@@ -2837,15 +2875,21 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message numerus="yes">
         <source>Session closed: %1 · %n QSO</source>
-        <translation><numerusform>Sessione chiusa: %1 · %n QSO</numerusform><numerusform>Sessione chiusa: %1 · %n QSO</numerusform></translation>
+        <translation>
+            <numerusform>Sessione chiusa: %1 · %n QSO</numerusform>
+            <numerusform>Sessione chiusa: %1 · %n QSO</numerusform>
+        </translation>
     </message>
     <message>
         <source>No QSO in this session yet</source>
-        <translation>In questa sessione non c'è ancora nessun QSO</translation>
+        <translation>In questa sessione non c&apos;è ancora nessun QSO</translation>
     </message>
     <message numerus="yes">
         <source>%n QSO of the session → %1</source>
-        <translation><numerusform>%n QSO della sessione → %1</numerusform><numerusform>%n QSO della sessione → %1</numerusform></translation>
+        <translation>
+            <numerusform>%n QSO della sessione → %1</numerusform>
+            <numerusform>%n QSO della sessione → %1</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -2888,7 +2932,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>downloading the LoTW user list…</source>
-        <translation>scarico l'elenco degli utenti LoTW…</translation>
+        <translation>scarico l&apos;elenco degli utenti LoTW…</translation>
     </message>
     <message>
         <source>LoTW user list: %1</source>
@@ -2935,7 +2979,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message numerus="yes">
         <source>Log opened: %1 (%n QSO)</source>
-        <translation><numerusform>Log aperto: %1 (%n QSO)</numerusform><numerusform>Log aperto: %1 (%n QSO)</numerusform></translation>
+        <translation>
+            <numerusform>Log aperto: %1 (%n QSO)</numerusform>
+            <numerusform>Log aperto: %1 (%n QSO)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Cannot open log %1: %2</source>
@@ -2971,7 +3018,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Interface language: %1 — it changes at the next start</source>
-        <translation>Lingua dell'interfaccia: %1 — cambia al prossimo avvio</translation>
+        <translation>Lingua dell&apos;interfaccia: %1 — cambia al prossimo avvio</translation>
     </message>
     <message>
         <source>built-in</source>
@@ -3027,7 +3074,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message numerus="yes">
         <source>Already in log (within %n minute(s))</source>
-        <translation><numerusform>Già nel log (entro %n minuto)</numerusform><numerusform>Già nel log (entro %n minuti)</numerusform></translation>
+        <translation>
+            <numerusform>Già nel log (entro %n minuto)</numerusform>
+            <numerusform>Già nel log (entro %n minuti)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Cannot save the QSO</source>
@@ -3046,12 +3096,12 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Ripristinata una revisione precedente del QSO #%1</translation>
     </message>
     <message>
-        <source>Tag "%1" added to %2 QSO (%3 already had it)</source>
-        <translation>Etichetta "%1" aggiunta a %2 QSO (%3 ce l'avevano già)</translation>
+        <source>Tag &quot;%1&quot; added to %2 QSO (%3 already had it)</source>
+        <translation>Etichetta &quot;%1&quot; aggiunta a %2 QSO (%3 ce l&apos;avevano già)</translation>
     </message>
     <message>
-        <source>Tag "%1" removed from %2 QSO</source>
-        <translation>Etichetta "%1" tolta a %2 QSO</translation>
+        <source>Tag &quot;%1&quot; removed from %2 QSO</source>
+        <translation>Etichetta &quot;%1&quot; tolta a %2 QSO</translation>
     </message>
     <message>
         <source>Cannot read %1: %2</source>
@@ -3067,7 +3117,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message numerus="yes">
         <source>%n QSO → %1</source>
-        <translation><numerusform>%n QSO → %1</numerusform><numerusform>%n QSO → %1</numerusform></translation>
+        <translation>
+            <numerusform>%n QSO → %1</numerusform>
+            <numerusform>%n QSO → %1</numerusform>
+        </translation>
     </message>
     <message>
         <source>%1 · %2 MB</source>
@@ -3115,7 +3168,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
-        <translation>Nuova entità dell'FT2 Award confermata: %1</translation>
+        <translation>Nuova entità dell&apos;FT2 Award confermata: %1</translation>
     </message>
 </context>
 <context>
@@ -3126,11 +3179,11 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>TQSL not found: install Trusted QSL or set its path here</source>
-        <translation>TQSL non trovato: installa Trusted QSL o indica qui dov'è</translation>
+        <translation>TQSL non trovato: installa Trusted QSL o indica qui dov&apos;è</translation>
     </message>
     <message>
         <source>TQSL is installed but has no certificate: import your LoTW certificate in TQSL</source>
-        <translation>TQSL c'è ma non ha un certificato: importa in TQSL il tuo certificato LoTW</translation>
+        <translation>TQSL c&apos;è ma non ha un certificato: importa in TQSL il tuo certificato LoTW</translation>
     </message>
     <message>
         <source>TQSL has no station location: create one in TQSL (Station → Add location)</source>
@@ -3138,7 +3191,18 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message numerus="yes">
         <source>TQSL ready · %n station location(s)</source>
-        <translation><numerusform>TQSL pronto · %n station location</numerusform><numerusform>TQSL pronto · %n station location</numerusform></translation>
+        <translation>
+            <numerusform>TQSL pronto · %n station location</numerusform>
+            <numerusform>TQSL pronto · %n station location</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>no credentials: Setup → QSL services</source>
+        <translation>nessuna credenziale: Impostazioni → Servizi QSL</translation>
+    </message>
+    <message>
+        <source>no API key: Setup → QSL services</source>
+        <translation>nessuna chiave API: Impostazioni → Servizi QSL</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -3154,19 +3218,33 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message numerus="yes">
         <source>LoTW: sending %n QSO with TQSL…</source>
-        <translation><numerusform>LoTW: invio %n QSO con TQSL…</numerusform><numerusform>LoTW: invio %n QSO con TQSL…</numerusform></translation>
+        <translation>
+            <numerusform>LoTW: invio %n QSO con TQSL…</numerusform>
+            <numerusform>LoTW: invio %n QSO con TQSL…</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Club Log: the station profile has no callsign</source>
+        <translation>Club Log: il profilo stazione non ha un nominativo</translation>
     </message>
     <message>
         <source>%1: no credentials (%2)</source>
         <translation>%1: nessuna credenziale (%2)</translation>
     </message>
     <message numerus="yes">
+        <source>Club Log: sending %n QSO…</source>
+        <translation><numerusform>Club Log: invio %n QSO…</numerusform><numerusform>Club Log: invio %n QSO…</numerusform></translation>
+    </message>
+    <message numerus="yes">
         <source>%1: sending %n QSO…</source>
-        <translation><numerusform>%1: invio %n QSO…</numerusform><numerusform>%1: invio %n QSO…</numerusform></translation>
+        <translation>
+            <numerusform>%1: invio %n QSO…</numerusform>
+            <numerusform>%1: invio %n QSO…</numerusform>
+        </translation>
     </message>
     <message>
         <source>%1: %2 sent, %3 already there, %4 rejected</source>
-        <translation>%1: %2 inviati, %3 c'erano già, %4 rifiutati</translation>
+        <translation>%1: %2 inviati, %3 c&apos;erano già, %4 rifiutati</translation>
     </message>
 </context>
 <context>
@@ -3346,7 +3424,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Downloading confirmations; upload goes through the local TQSL</source>
-        <translation>Scarico delle conferme; l'invio passa dal TQSL locale</translation>
+        <translation>Scarico delle conferme; l&apos;invio passa dal TQSL locale</translation>
     </message>
     <message>
         <source>Email</source>
@@ -3354,7 +3432,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>App password</source>
-        <translation>Password dell'app</translation>
+        <translation>Password dell&apos;app</translation>
     </message>
     <message>
         <source>Real-time upload and OQRS</source>
@@ -3394,7 +3472,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Secret present in the keystore</source>
-        <translation>Il segreto c'è nel portachiavi</translation>
+        <translation>Il segreto c&apos;è nel portachiavi</translation>
     </message>
 </context>
 <context>
@@ -3412,7 +3490,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <name>decolog::core::TqslUploader</name>
     <message>
         <source>TQSL not found: install Trusted QSL, or set its path in Setup → QSL services</source>
-        <translation>TQSL non trovato: installa Trusted QSL, o indica dov'è in Impostazioni → Servizi QSL</translation>
+        <translation>TQSL non trovato: installa Trusted QSL, o indica dov&apos;è in Impostazioni → Servizi QSL</translation>
     </message>
     <message>
         <source>TQSL has no certificate: import your LoTW certificate in TQSL first</source>
@@ -3420,11 +3498,18 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>TQSL stopped unexpectedly</source>
-        <translation>TQSL si è fermato all'improvviso</translation>
+        <translation>TQSL si è fermato all&apos;improvviso</translation>
     </message>
     <message>
         <source>Cannot run TQSL: %1</source>
         <translation>Non riesco ad avviare TQSL: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::WebQslUploader</name>
+    <message>
+        <source>Club Log: email, password, callsign and API key are all needed</source>
+        <translation>Club Log: servono email, password, nominativo e chiave API</translation>
     </message>
 </context>
 </TS>

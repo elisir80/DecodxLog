@@ -575,6 +575,26 @@ DialogFrame {
                                    + "Duplicates are not an error, LoTW simply keeps the one it already has. Sending, automatic sending "
                                    + "and the counters are in the QSL tab at the bottom.")
                     }
+                    SectionTitle { text: "Club Log" }
+                    RowLayout {
+                        spacing: 12
+                        LabeledField {
+                            label: qsTr("API key")
+                            StyledTextField {
+                                Layout.preferredWidth: 280
+                                mono: false
+                                text: decolog.qsl.clubLogApiKey
+                                placeholderText: qsTr("the key Club Log gave you")
+                                onEditingFinished: decolog.qsl.clubLogApiKey = text
+                            }
+                        }
+                    }
+                    Note {
+                        text: qsTr("Club Log wants three things: the email and password of the account (below), the callsign of the "
+                                   + "station profile, and an API key. The key is free and personal, and is asked for at "
+                                   + "clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as "
+                                   + "it is logged, a backlog leaves as one ADIF file.")
+                    }
                     CredentialsList {
                         Layout.fillWidth: true
                         serviceIds: ["lotw", "qrzlogbook", "clublog", "eqsl"]

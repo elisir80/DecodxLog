@@ -262,9 +262,7 @@ GlassPanel {
                         Layout.fillWidth: true
                         Layout.leftMargin: 10
                         elide: Text.ElideRight
-                        text: modelData.ready ? modelData.lastResult
-                                              : modelData.id === "lotw" ? decolog.qsl.tqslStatus
-                                                                        : qsTr("no credentials: Setup → QSL services")
+                        text: modelData.ready ? modelData.lastResult : modelData.hint
                         color: modelData.ready ? Theme.textSecondary : Theme.warningColor
                         font.pixelSize: 11
                     }

@@ -80,6 +80,54 @@ private slots:
         QVERIFY(r.retryLater);
     }
 
+    void clubLogAnswers()
+    {
+        auto r = qsl::parseClubLogResponse(200, "OK", 3);
+        QVERIFY(r.ok);
+        QCOMPARE(r.accepted, 3);
+
+        r = qsl::parseClubLogResponse(200, "Duplicate QSO ignored", 1);
+        QVERIFY(r.ok);
+        QCOMPARE(r.duplicates, 1);
+        QCOMPARE(r.accepted, 0);
+
+        // Chiave o password sbagliate: e' inutile ritentare, e il motivo si legge.
+        r = qsl::parseClubLogResponse(403, "Invalid API Key", 5);
+        QVERIFY(!r.ok);
+        QVERIFY(!r.retryLater);
+        QCOMPARE(r.rejected, 5);
+        QVERIFY(r.message.contains(QLatin1String("Invalid API Key")));
+
+        r = qsl::parseClubLogResponse(500, "<html><body>Server error</body></html>", 2);
+        QVERIFY(!r.ok);
+        QVERIFY(r.retryLater);
+
+        r = qsl::parseClubLogResponse(0, "", 1);
+        QVERIFY(!r.ok);
+        QVERIFY(r.retryLater);
+    }
+
+    void clubLogNeedsEverything()
+    {
+        ClubLogAuth auth;
+        QVERIFY(!auth.complete());
+        auth.email = QStringLiteral("call@example.org");
+        auth.password = QStringLiteral("secret");
+        auth.callsign = QStringLiteral("IU8LMC");
+        QVERIFY(!auth.complete());       // manca la chiave API
+        auth.apiKey = QStringLiteral("abc");
+        QVERIFY(auth.complete());
+
+        // Senza credenziali complete non parte nessuna richiesta di rete.
+        WebQslUploader uploader;
+        QslUploadResult got;
+        QObject::connect(&uploader, &WebQslUploader::finished, [&got](const QslUploadResult& r) { got = r; });
+        uploader.uploadClubLog(ClubLogAuth{}, "<EOR>", 1);
+        QVERIFY(!got.ok);
+        QVERIFY(!got.retryLater);
+        QVERIFY(!uploader.busy());
+    }
+
     void queueAndState()
     {
         LogDatabase db;

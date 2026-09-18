@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QHttpMultiPart>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
@@ -212,6 +213,50 @@ QslUploadResult parseEqslResponse(const QByteArray& body)
     return r;
 }
 
+QslUploadResult parseClubLogResponse(int status, const QByteArray& body, int qsoCount)
+{
+    // Club Log risponde in chiaro, una riga: quello che conta e' il codice HTTP,
+    // il testo serve a dire all'operatore che cosa ha sbagliato.
+    QString text = QString::fromUtf8(body).simplified();
+    text.remove(QRegularExpression(QStringLiteral("<[^>]*>")));
+    text = text.simplified().left(160);
+
+    QslUploadResult r;
+    const int count = qMax(1, qsoCount);
+    if (status == 200) {
+        if (text.contains(QLatin1String("dupl"), Qt::CaseInsensitive)) {
+            r.ok = true;
+            r.duplicates = count;
+            r.message = QCoreApplication::translate("Qsl", "Club Log: already there");
+            return r;
+        }
+        if (text.contains(QLatin1String("error"), Qt::CaseInsensitive)
+            || text.contains(QLatin1String("invalid"), Qt::CaseInsensitive)) {
+            r.rejected = count;
+            r.message = QCoreApplication::translate("Qsl", "Club Log: %1").arg(text);
+            return r;
+        }
+        r.ok = true;
+        r.accepted = count;
+        r.message = text.isEmpty() ? QCoreApplication::translate("Qsl", "Club Log: accepted") : text;
+        return r;
+    }
+    if (status == 400 || status == 401 || status == 403) {
+        // Chiave sbagliata, password sbagliata, nominativo non autorizzato: sono
+        // cose da sistemare a mano, ritentare non serve.
+        r.rejected = count;
+        r.message = text.isEmpty()
+            ? QCoreApplication::translate("Qsl", "Club Log: refused (%1)").arg(status)
+            : QCoreApplication::translate("Qsl", "Club Log: %1").arg(text);
+        return r;
+    }
+    r.retryLater = true;
+    r.message = status > 0
+        ? QCoreApplication::translate("Qsl", "Club Log: server answered %1").arg(status)
+        : QCoreApplication::translate("Qsl", "Club Log: no answer");
+    return r;
+}
+
 } // namespace qsl
 
 // ── TQSL ──────────────────────────────────────────────────────────────────────
@@ -280,7 +325,7 @@ void TqslUploader::cancel()
         m_process->kill();
 }
 
-// ── QRZ Logbook ed eQSL ───────────────────────────────────────────────────────
+// ── QRZ Logbook, eQSL e Club Log ──────────────────────────────────────────────
 
 WebQslUploader::WebQslUploader(QObject* parent)
     : QObject(parent)
@@ -317,6 +362,73 @@ void WebQslUploader::uploadEqsl(const QString& user, const QString& password, co
     send(Service::Eqsl, m_eqslUrl, form.toString(QUrl::FullyEncoded).toUtf8());
 }
 
+void WebQslUploader::setClubLogEndpoints(const QUrl& realtime, const QUrl& batch)
+{
+    m_clubLogRealtimeUrl = realtime;
+    m_clubLogBatchUrl = batch;
+}
+
+void WebQslUploader::uploadClubLog(const ClubLogAuth& auth, const QByteArray& adifDocument, int qsoCount)
+{
+    if (m_busy)
+        return;
+    if (!auth.complete()) {
+        QslUploadResult missing;
+        missing.message = tr("Club Log: email, password, callsign and API key are all needed");
+        emit finished(missing);
+        return;
+    }
+
+    if (qsoCount <= 1) {
+        // Un QSO appena fatto: realtime.php lo aggiunge senza rileggere il log.
+        QUrlQuery form;
+        form.addQueryItem(QStringLiteral("email"), auth.email);
+        form.addQueryItem(QStringLiteral("password"), auth.password);
+        form.addQueryItem(QStringLiteral("callsign"), auth.callsign);
+        form.addQueryItem(QStringLiteral("api"), auth.apiKey);
+        form.addQueryItem(QStringLiteral("adif"), QString::fromUtf8(adifDocument));
+        m_busy = true;
+        QNetworkRequest request(m_clubLogRealtimeUrl);
+        request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
+        request.setHeader(QNetworkRequest::UserAgentHeader,
+                          QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
+        request.setTransferTimeout(30'000);
+        watch(m_net->post(request, form.toString(QUrl::FullyEncoded).toUtf8()), Service::ClubLog, 1);
+        return;
+    }
+
+    // Piu' QSO insieme: un file ADIF, come se lo si caricasse dal sito.
+    auto* multi = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+    const auto field = [multi](const QString& name, const QString& value) {
+        QHttpPart part;
+        part.setHeader(QNetworkRequest::ContentDispositionHeader,
+                       QStringLiteral("form-data; name=\"%1\"").arg(name));
+        part.setBody(value.toUtf8());
+        multi->append(part);
+    };
+    field(QStringLiteral("email"), auth.email);
+    field(QStringLiteral("password"), auth.password);
+    field(QStringLiteral("callsign"), auth.callsign);
+    field(QStringLiteral("api"), auth.apiKey);
+    field(QStringLiteral("clear"), QStringLiteral("0"));   // aggiunge, non cancella il log
+
+    QHttpPart file;
+    file.setHeader(QNetworkRequest::ContentDispositionHeader,
+                   QStringLiteral("form-data; name=\"file\"; filename=\"decolog.adi\""));
+    file.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/octet-stream"));
+    file.setBody(adifDocument);
+    multi->append(file);
+
+    m_busy = true;
+    QNetworkRequest request(m_clubLogBatchUrl);
+    request.setHeader(QNetworkRequest::UserAgentHeader,
+                      QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
+    request.setTransferTimeout(120'000);   // un blocco grosso ci mette di piu'
+    QNetworkReply* reply = m_net->post(request, multi);
+    multi->setParent(reply);
+    watch(reply, Service::ClubLog, qsoCount);
+}
+
 void WebQslUploader::send(Service service, const QUrl& url, const QByteArray& body)
 {
     if (m_busy)
@@ -327,10 +439,29 @@ void WebQslUploader::send(Service service, const QUrl& url, const QByteArray& bo
     request.setHeader(QNetworkRequest::UserAgentHeader,
                       QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
     request.setTransferTimeout(30'000);
-    QNetworkReply* reply = m_net->post(request, body);
-    connect(reply, &QNetworkReply::finished, this, [this, reply, service] {
+    watch(m_net->post(request, body), service, 1);
+}
+
+void WebQslUploader::watch(QNetworkReply* reply, Service service, int qsoCount)
+{
+    connect(reply, &QNetworkReply::finished, this, [this, reply, service, qsoCount] {
         reply->deleteLater();
         m_busy = false;
+        const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        const QByteArray answer = reply->readAll();
+        if (service == Service::ClubLog) {
+            // Club Log dice il motivo nel corpo anche quando risponde 403, e
+            // quel motivo serve all'operatore piu' del codice.
+            if (reply->error() != QNetworkReply::NoError && status == 0) {
+                QslUploadResult failed;
+                failed.retryLater = true;
+                failed.message = network::safeErrorString(reply);
+                emit finished(failed);
+                return;
+            }
+            emit finished(qsl::parseClubLogResponse(status, answer, qsoCount));
+            return;
+        }
         if (reply->error() != QNetworkReply::NoError) {
             QslUploadResult failed;
             failed.retryLater = true;
@@ -338,7 +469,6 @@ void WebQslUploader::send(Service service, const QUrl& url, const QByteArray& bo
             emit finished(failed);
             return;
         }
-        const QByteArray answer = reply->readAll();
         emit finished(service == Service::QrzLogbook ? qsl::parseQrzResponse(answer)
                                                      : qsl::parseEqslResponse(answer));
     });

@@ -151,6 +151,10 @@ Quello che manca è in fondo.
   LoTW** by having the installed TQSL sign a temporary ADIF.
 - **Invio a QRZ Logbook** (chiave API) e **eQSL** (utente e password). / **Upload to QRZ
   Logbook** (API key) and **eQSL** (user and password).
+- **Invio a Club Log**: il QSO appena registrato parte da solo, l'arretrato parte come un
+  unico ADIF; servono email, password, nominativo e chiave API. / **Upload to Club Log**: a
+  QSO just logged leaves on its own, a backlog leaves as one ADIF; it needs email, password,
+  callsign and an API key.
 - **A mano o automatico** dopo ogni QSO, con coda e conteggi per servizio. / **Manual or
   automatic** after each QSO, with a queue and per-service counters.
 - **Duplicato = inviato**, rifiuto scritto sul QSO con il motivo. / **A duplicate counts as

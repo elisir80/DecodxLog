@@ -31,6 +31,7 @@ class QslController : public QObject {
     Q_PROPERTY(QStringList tqslLocations READ tqslLocations NOTIFY changed)
     Q_PROPERTY(QString tqslLocation READ tqslLocation WRITE setTqslLocation NOTIFY changed)
     Q_PROPERTY(bool tqslReady READ tqslReady NOTIFY changed)
+    Q_PROPERTY(QString clubLogApiKey READ clubLogApiKey WRITE setClubLogApiKey NOTIFY changed)
     Q_PROPERTY(QString tqslStatus READ tqslStatus NOTIFY changed)
     Q_PROPERTY(bool busy READ busy NOTIFY changed)
     Q_PROPERTY(QString busyService READ busyService NOTIFY changed)
@@ -40,6 +41,7 @@ public:
         core::LogDatabase* db{nullptr};
         core::CredentialStore* credentials{nullptr};
         std::function<QString()> stationLocation;   // la station location del profilo attivo
+        std::function<QString()> stationCallsign;   // il nominativo del profilo attivo
         std::function<void(const QString& category, const QString& text, const QString& level)> activity;
         std::function<void()> logChanged;
     };
@@ -55,6 +57,8 @@ public:
     QString tqslLocation() const { return m_tqslLocation; }
     void setTqslLocation(const QString& location);
     bool tqslReady() const;
+    QString clubLogApiKey() const { return m_clubLogApiKey; }
+    void setClubLogApiKey(const QString& key);
     QString tqslStatus() const;
     bool busy() const { return !m_busyService.isEmpty(); }
     QString busyService() const { return m_busyService; }
@@ -86,9 +90,11 @@ private:
     core::TqslUploader m_tqsl;
     core::WebQslUploader m_web;
     QString m_tqslPath;
+    QString m_clubLogApiKey;
     QString m_tqslLocation;
     QString m_busyService;
     QList<qint64> m_batch;          // i QSO dell'invio in corso
+    bool m_batchMode{false};        // LoTW e Club Log: tutto il blocco in una volta
     QQueue<qint64> m_pending;       // per QRZ ed eQSL, uno alla volta
     QString m_secret;               // credenziale del servizio in corso, solo durante l'invio
     QString m_account;

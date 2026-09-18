@@ -305,6 +305,9 @@ bool DecoLogController::openDatabase(const QString& path)
     qslCtx.stationLocation = [this] {
         return m_profiles->activeProfile().value(QStringLiteral("lotwStationLocation")).toString();
     };
+    qslCtx.stationCallsign = [this] {
+        return m_profiles->activeProfile().value(QStringLiteral("stationCallsign")).toString();
+    };
     qslCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
         addActivity(category, text, level);
     };

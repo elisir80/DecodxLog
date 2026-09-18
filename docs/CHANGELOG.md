@@ -5,6 +5,13 @@ in stazione.
 
 ## 0.3.0 — in lavorazione
 
+**Club Log.** Invio dei QSO a Club Log: quello appena registrato parte da solo via
+realtime.php, l'arretrato parte come un unico file ADIF. Servono l'email e la password
+dell'account, il nominativo del profilo stazione e una chiave API (gratuita, si chiede su
+clublog.org/need_api.php) che si mette in Impostazioni → Servizi QSL. Una chiave o una
+password sbagliata si legge così com'è scritta da Club Log e non viene ritentata
+all'infinito; un duplicato conta come inviato.
+
 **Statistiche** in una finestra propria: totali (QSO, nominativi, entita', locatori, primo e
 ultimo QSO, giorno e ora migliori), QSO per anno, per mese, per ora UTC e per banda, modi e
 continenti, e la mappa di calore banda per ora UTC — quella che dice a colpo d'occhio quando

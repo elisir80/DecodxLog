@@ -19,6 +19,7 @@
 #include <functional>
 
 class QNetworkAccessManager;
+class QNetworkReply;
 class QProcess;
 
 namespace decolog::core {
@@ -50,8 +51,24 @@ QslUploadResult resultFromTqslExit(int exitCode, const QString& output, int qsoC
 QslUploadResult parseQrzResponse(const QByteArray& body);
 // La pagina di eQSL dopo importADIF.cfm.
 QslUploadResult parseEqslResponse(const QByteArray& body);
+// La risposta di Club Log: `status` e' il codice HTTP, 0 se non e' arrivato.
+QslUploadResult parseClubLogResponse(int status, const QByteArray& body, int qsoCount);
 
 } // namespace qsl
+
+// Quello che Club Log vuole sapere a ogni invio. La chiave API e' della
+// applicazione, la password e' dell'operatore: due cose diverse.
+struct ClubLogAuth {
+    QString email;
+    QString password;
+    QString callsign;
+    QString apiKey;
+
+    bool complete() const
+    {
+        return !email.isEmpty() && !password.isEmpty() && !callsign.isEmpty() && !apiKey.isEmpty();
+    }
+};
 
 // Manda un file ADIF a LoTW facendolo firmare a TQSL.
 class TqslUploader : public QObject {
@@ -83,27 +100,34 @@ class WebQslUploader : public QObject {
     Q_OBJECT
 
 public:
-    enum class Service { QrzLogbook, Eqsl };
+    enum class Service { QrzLogbook, Eqsl, ClubLog };
 
     explicit WebQslUploader(QObject* parent = nullptr);
 
     // Per i test: server finti al posto di logbook.qrz.com e www.eqsl.cc.
     void setEndpoints(const QUrl& qrz, const QUrl& eqsl);
+    void setClubLogEndpoints(const QUrl& realtime, const QUrl& batch);
     bool busy() const { return m_busy; }
 
     // `credentials`: per QRZ la chiave API; per eQSL utente e password.
     void uploadQrz(const QString& apiKey, const QString& adifRecord);
     void uploadEqsl(const QString& user, const QString& password, const QString& adifRecord);
+    // Club Log prende tutto il blocco in una volta: un QSO solo passa da
+    // realtime.php, il resto dal caricamento normale di un file ADIF.
+    void uploadClubLog(const ClubLogAuth& auth, const QByteArray& adifDocument, int qsoCount);
 
 signals:
     void finished(const decolog::core::QslUploadResult& result);
 
 private:
     void send(Service service, const QUrl& url, const QByteArray& body);
+    void watch(QNetworkReply* reply, Service service, int qsoCount);
 
     QNetworkAccessManager* m_net;
     QUrl m_qrzUrl{QStringLiteral("https://logbook.qrz.com/api")};
     QUrl m_eqslUrl{QStringLiteral("https://www.eqsl.cc/qslcard/importADIF.cfm")};
+    QUrl m_clubLogRealtimeUrl{QStringLiteral("https://clublog.org/realtime.php")};
+    QUrl m_clubLogBatchUrl{QStringLiteral("https://clublog.org/putlogs.php")};
     bool m_busy{false};
 };
 

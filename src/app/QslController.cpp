@@ -23,14 +23,22 @@ struct ServiceInfo {
     const char* credential;     // il servizio nel portachiavi
 };
 
-constexpr std::array<ServiceInfo, 3> kServices{{
+constexpr std::array<ServiceInfo, 4> kServices{{
     {"lotw", "LoTW", "lotw"},
     {"qrz", "QRZ Logbook", "qrzlogbook"},
+    {"clublog", "Club Log", "clublog"},
     {"eqsl", "eQSL", "eqsl"},
 }};
 
 // LoTW accetta file grandi, ma un invio troppo lungo blocca tutto il resto.
 constexpr int kLotwBatch = 500;
+// Club Log preferisce blocchi ragionevoli a un log intero per volta.
+constexpr int kClubLogBatch = 1000;
+
+bool isBatchService(const QString& service)
+{
+    return service == QLatin1String("lotw") || service == QLatin1String("clublog");
+}
 
 QString tempAdifPath()
 {
@@ -49,6 +57,7 @@ QslController::QslController(Context context, QObject* parent)
     if (m_tqslPath.isEmpty())
         m_tqslPath = qsl::findTqsl();
     m_tqslLocation = s.value(QStringLiteral("qsl/tqslLocation")).toString();
+    m_clubLogApiKey = s.value(QStringLiteral("qsl/clubLogApiKey")).toString();
     for (const auto& info : kServices)
         m_auto.insert(QLatin1String(info.id), s.value(QStringLiteral("qsl/auto/") + QLatin1String(info.id), false).toBool());
     m_tqsl.setProgram(m_tqslPath);
@@ -57,6 +66,11 @@ QslController::QslController(Context context, QObject* parent)
     connect(&m_web, &WebQslUploader::finished, this, [this](const QslUploadResult& result) {
         if (m_batch.isEmpty())
             return;
+        if (m_batchMode) {
+            // Club Log ha risposto per tutto il blocco in una volta.
+            finishBatch(result);
+            return;
+        }
         const qint64 id = m_batch.takeFirst();
         markSent(id, m_busyService, result);
         if (result.retryLater) {
@@ -122,9 +136,22 @@ QVariantList QslController::services() const
             }
         }
         const QString credential = QLatin1String(info.credential);
-        row.insert(QStringLiteral("ready"), id == QLatin1String("lotw")
-                                                ? tqslReady()
-                                                : m_ctx.credentials && m_ctx.credentials->hasSecret(credential));
+        const bool hasSecret = m_ctx.credentials && m_ctx.credentials->hasSecret(credential);
+        bool ready = hasSecret;
+        QString hint;
+        if (id == QLatin1String("lotw")) {
+            ready = tqslReady();
+            hint = tqslStatus();
+        } else if (id == QLatin1String("clublog")) {
+            ready = hasSecret && !m_clubLogApiKey.isEmpty();
+            hint = !hasSecret      ? tr("no credentials: Setup \u2192 QSL services")
+                 : m_clubLogApiKey.isEmpty() ? tr("no API key: Setup \u2192 QSL services")
+                                             : QString();
+        } else if (!hasSecret) {
+            hint = tr("no credentials: Setup \u2192 QSL services");
+        }
+        row.insert(QStringLiteral("ready"), ready);
+        row.insert(QStringLiteral("hint"), hint);
         row.insert(QStringLiteral("credential"), credential);
         out << row;
     }
@@ -138,6 +165,15 @@ void QslController::setTqslPath(const QString& path)
     m_tqslPath = path.trimmed();
     m_tqsl.setProgram(m_tqslPath);
     QSettings().setValue(QStringLiteral("qsl/tqslPath"), m_tqslPath);
+    emit changed();
+}
+
+void QslController::setClubLogApiKey(const QString& key)
+{
+    if (key.trimmed() == m_clubLogApiKey)
+        return;
+    m_clubLogApiKey = key.trimmed();
+    QSettings().setValue(QStringLiteral("qsl/clubLogApiKey"), m_clubLogApiKey);
     emit changed();
 }
 
@@ -204,7 +240,11 @@ void QslController::uploadPending(const QString& service, int limit)
 {
     if (busy() || !m_ctx.db || !m_ctx.db->isOpen())
         return;
-    const int cap = service == QLatin1String("lotw") ? (limit > 0 ? qMin(limit, kLotwBatch) : kLotwBatch) : limit;
+    int cap = limit;
+    if (service == QLatin1String("lotw"))
+        cap = limit > 0 ? qMin(limit, kLotwBatch) : kLotwBatch;
+    else if (service == QLatin1String("clublog"))
+        cap = limit > 0 ? qMin(limit, kClubLogBatch) : kClubLogBatch;
     m_batch = m_ctx.db->qsosToUpload(service, cap);
     if (m_batch.isEmpty()) {
         m_lastResult.insert(service, tr("nothing to send"));
@@ -218,6 +258,7 @@ void QslController::uploadPending(const QString& service, int limit)
 void QslController::startNext()
 {
     m_accepted = m_duplicates = m_rejected = 0;
+    m_batchMode = isBatchService(m_busyService);
     emit changed();
 
     if (m_busyService == QLatin1String("lotw")) {
@@ -236,6 +277,34 @@ void QslController::startNext()
                                                                                    : m_tqslLocation;
         note(tr("LoTW: sending %n QSO with TQSL…", nullptr, static_cast<int>(m_batch.size())), QStringLiteral("info"));
         m_tqsl.upload(path, location, static_cast<int>(m_batch.size()));
+        return;
+    }
+
+    if (m_busyService == QLatin1String("clublog")) {
+        const QString call = m_ctx.stationCallsign ? m_ctx.stationCallsign() : QString();
+        if (call.isEmpty()) {
+            QslUploadResult failed;
+            failed.message = tr("Club Log: the station profile has no callsign");
+            finishBatch(failed);
+            return;
+        }
+        m_account = m_ctx.credentials ? m_ctx.credentials->account(QStringLiteral("clublog")) : QString();
+        readSecret(QStringLiteral("clublog"), [this, call](const QString& secret, const QString& error) {
+            if (secret.isEmpty()) {
+                QslUploadResult failed;
+                failed.message = tr("%1: no credentials (%2)").arg(m_busyService, error);
+                finishBatch(failed);
+                return;
+            }
+            ClubLogAuth auth;
+            auth.email = m_account;
+            auth.password = secret;
+            auth.callsign = call;
+            auth.apiKey = m_clubLogApiKey;
+            const QByteArray document = m_ctx.db->exportAdif(m_batch, QCoreApplication::applicationVersion());
+            note(tr("Club Log: sending %n QSO\u2026", nullptr, static_cast<int>(m_batch.size())), QStringLiteral("info"));
+            m_web.uploadClubLog(auth, document, static_cast<int>(m_batch.size()));
+        });
         return;
     }
 
@@ -302,7 +371,7 @@ void QslController::markSent(qint64 id, const QString& service, const QslUploadR
 void QslController::finishBatch(const QslUploadResult& result)
 {
     const QString service = m_busyService;
-    if (service == QLatin1String("lotw")) {
+    if (m_batchMode) {
         if (result.ok) {
             for (qint64 id : m_batch)
                 markSent(id, service, result.duplicates > 0 && result.accepted == 0
@@ -324,6 +393,7 @@ void QslController::finishBatch(const QslUploadResult& result)
     m_secret.clear();
     m_batch.clear();
     m_busyService.clear();
+    m_batchMode = false;
 
     const QString summary = result.ok
         ? tr("%1: %2 sent, %3 already there, %4 rejected").arg(service).arg(m_accepted).arg(m_duplicates).arg(m_rejected)
@@ -342,6 +412,7 @@ void QslController::cancel()
     m_tqsl.cancel();
     m_batch.clear();
     m_busyService.clear();
+    m_batchMode = false;
     m_secret.clear();
     emit changed();
 }
