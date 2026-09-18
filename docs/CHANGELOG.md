@@ -3,7 +3,7 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
-## Non ancora pubblicato
+## 0.3.1 — 19 settembre 2026
 
 **Tutto il log sul Cloud, non solo i QSO.** Chi si collega da un secondo computer non
 deve rifare la stazione a mano: adesso viaggiano anche i **profili stazione**

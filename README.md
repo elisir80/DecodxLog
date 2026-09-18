@@ -7,7 +7,13 @@ classe (`MODE=MFSK`, `SUBMODE=FT2`).
 Specifica di partenza: [`docs/FASE0_SPEC.md`](docs/FASE0_SPEC.md).
 Licenza: GPL-3.0.
 
-## Stato: 0.3.0
+## Stato: 0.3.1
+
+Dalla 0.3.0: il Cloud porta **tutto il log**, non solo i QSO — profili stazione e tutte le
+impostazioni, e le **password dei servizi** cifrate sul proprio computer (AES-256-GCM, chiave
+dalla password del Cloud: il server vede solo byte); il log dal browser e' **la stessa finestra**
+del programma, con i colori della propria stazione, sei schede e la **frequenza in aria** che
+arriva da casa; e i nominativi non hanno piu' una lunghezza minima.
 
 Dalla 0.2.0: **statistiche** in una finestra propria (anni, mesi, ore UTC, bande, modi,
 continenti e la mappa di calore banda per ora) e **mappa** del mondo con coste, linea

@@ -1,4 +1,4 @@
-# DecoLog 0.3.0 — funzioni / features
+# DecoLog 0.3.1 — funzioni / features
 
 Ogni voce è in italiano e in inglese: *italiano* / *English*.
 Quello che manca è in fondo.
