@@ -11,6 +11,7 @@
 
 #include "core/CloudSync.h"
 
+#include <QByteArray>
 #include <QObject>
 #include <QTimer>
 #include <QVariantMap>
@@ -35,6 +36,11 @@ class CloudController : public QObject {
     Q_PROPERTY(QVariantMap remote READ remote NOTIFY changed)
     // "qso" dopo ogni QSO e ogni cinque minuti, "timer" solo a tempo, "manual".
     Q_PROPERTY(QString autoMode READ autoMode WRITE setAutoMode NOTIFY changed)
+    // Le credenziali dei servizi viaggiano (chiuse) oppure restano qui.
+    Q_PROPERTY(bool syncSecrets READ syncSecrets WRITE setSyncSecrets NOTIFY changed)
+    // Falso se DecoLog e' stato compilato senza OpenSSL: allora non c'e'
+    // cassaforte, e le credenziali non si muovono.
+    Q_PROPERTY(bool vaultAvailable READ vaultAvailable CONSTANT)
 
 public:
     struct Context {
@@ -66,6 +72,9 @@ public:
     QVariantMap remote() const { return m_remote; }
     QString autoMode() const { return m_autoMode; }
     void setAutoMode(const QString& mode);
+    bool syncSecrets() const;
+    void setSyncSecrets(bool on);
+    bool vaultAvailable() const;
 
     // Crea l'account sul server e si collega.
     Q_INVOKABLE void signup(const QString& callsign, const QString& password);
@@ -103,6 +112,13 @@ private:
     QVariantMap localSettings() const;
     // Il profilo con questo uuid, sul computer dove siamo adesso.
     qint64 profileIdForUuid(const QString& uuid) const;
+    // La cassaforte dei servizi: viaggia chiusa, e si chiude con una chiave che
+    // nasce dalla password del Cloud. Il server ne vede solo i byte.
+    void makeVaultKey(const QString& password);
+    void loadVaultKey();
+    void readSecrets();
+    QVariantMap sealedSecrets();
+    bool applyRemoteSecrets(const QVariantMap& document);
     static QString settingsFingerprint(const QVariantMap& values);
     bool applyRemoteSettings(const QVariantMap& document);
 
@@ -117,6 +133,13 @@ private:
     QVariantMap m_remote;
     // L'impronta delle impostazioni gia' mandate in questo giro.
     QString m_settingsSent;
+    // La chiave della cassaforte: si fa dalla password quando si entra, e poi
+    // vive nel portachiavi come il token. Dal server non arriva mai.
+    QByteArray m_vaultKey;
+    // Le credenziali lette dal portachiavi, pronte per essere chiuse, e
+    // l'impronta di quelle gia' mandate.
+    QVariantMap m_secrets;
+    QString m_secretsSent;
     bool m_busy{false};
     bool m_automatic{true};
     // Collegamento di passaggio (prove da riga di comando): niente portachiavi.

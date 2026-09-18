@@ -3,8 +3,12 @@
 #include "core/CloudSettings.h"
 #include "core/CredentialStore.h"
 #include "core/LogDatabase.h"
+#include "core/SecretVault.h"
 
+#include <QCryptographicHash>
 #include <QDateTime>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QSettings>
 #include <QSysInfo>
 
@@ -16,6 +20,10 @@ namespace {
 
 // Quanti QSO per volta: un blocco che sta in un secondo di rete.
 constexpr int kBatch = 200;
+
+// Nel portachiavi, accanto al token: la chiave della cassaforte. Non e' un
+// servizio con cui parlare, e' un attrezzo di DecoLog.
+const QLatin1String kVaultService{"cloudvault"};
 
 
 QString nowLabel()
@@ -58,6 +66,7 @@ CloudController::CloudController(Context context, QObject* parent)
         // non e' solo l'elenco dei QSO.
         int profiles = 0;
         int settingsChanged = 0;
+        int secretsChanged = 0;
         for (const QVariant& value : docs) {
             const QVariantMap document = value.toMap();
             const QString kind = document.value(QStringLiteral("kind")).toString();
@@ -71,6 +80,9 @@ CloudController::CloudController(Context context, QObject* parent)
             } else if (kind == QLatin1String("setting")) {
                 if (applyRemoteSettings(document))
                     ++settingsChanged;
+            } else if (kind == QLatin1String("secret")) {
+                if (applyRemoteSecrets(document))
+                    ++secretsChanged;
             }
         }
         if (profiles > 0) {
@@ -81,6 +93,9 @@ CloudController::CloudController(Context context, QObject* parent)
             note(tr("Cloud: settings updated from another device"), QStringLiteral("success"));
             emit settingsApplied();
         }
+        if (secretsChanged > 0)
+            note(tr("Cloud: %n service password(s) arrived", nullptr, secretsChanged),
+                 QStringLiteral("success"));
         m_cursor = cursor;
         m_ctx.db->setSyncState(accountKey(), {{QStringLiteral("cursor"), QString::number(cursor)},
                                               {QStringLiteral("device"), m_sync.device()},
@@ -216,6 +231,7 @@ void CloudController::loadToken()
         }
         m_token = token;
         m_sync.setToken(token);
+        loadVaultKey();
         emit changed();
         // Un giro subito: quello che e' cambiato altrove arriva senza chiederlo,
         // oppure quello gia' chiesto mentre il token era per strada.
@@ -236,8 +252,16 @@ void CloudController::saveToken(const QString& token, const QString& callsign)
         return;
     }
     QSettings().setValue(QStringLiteral("cloud/callsign"), callsign);
-    if (m_ctx.credentials)
+    if (m_ctx.credentials) {
         m_ctx.credentials->save(QStringLiteral("cloud"), callsign, token);
+        // La chiave della cassaforte resta nel portachiavi come il token: cosi'
+        // domani si riapre senza richiedere la password.
+        if (!m_vaultKey.isEmpty()) {
+            m_ctx.credentials->save(kVaultService, callsign,
+                                    QString::fromLatin1(m_vaultKey.toBase64()));
+        }
+        readSecrets();
+    }
     emit changed();
 }
 
@@ -286,7 +310,10 @@ void CloudController::signup(const QString& callsign, const QString& password)
     m_busy = true;
     m_status = tr("Cloud: creating the account…");
     emit changed();
-    m_sync.signup(callsign.trimmed().toUpper(), password);
+    m_callsign = callsign.trimmed().toUpper();
+    // La password non si tiene: serve solo a fare la chiave della cassaforte.
+    makeVaultKey(password);
+    m_sync.signup(m_callsign, password);
 }
 
 void CloudController::login(const QString& callsign, const QString& password)
@@ -298,15 +325,24 @@ void CloudController::login(const QString& callsign, const QString& password)
     m_busy = true;
     m_status = tr("Cloud: signing in…");
     emit changed();
-    m_sync.login(callsign.trimmed().toUpper(), password);
+    m_callsign = callsign.trimmed().toUpper();
+    makeVaultKey(password);
+    m_sync.login(m_callsign, password);
 }
 
 void CloudController::logout()
 {
     m_token.clear();
     m_sync.setToken(QString());
-    if (m_ctx.credentials)
+    // Staccare il dispositivo vuol dire anche buttare la chiave: le credenziali
+    // dei servizi restano nel portachiavi, ma il blocco sul server non si apre
+    // piu' da qui finche' non si rientra.
+    m_vaultKey.clear();
+    m_secrets.clear();
+    if (m_ctx.credentials) {
         m_ctx.credentials->remove(QStringLiteral("cloud"));
+        m_ctx.credentials->remove(kVaultService);
+    }
     m_remote.clear();
     finish(tr("Cloud: this device is no longer linked"), QStringLiteral("info"));
 }
@@ -422,6 +458,11 @@ QVariantList CloudController::pendingDocs()
     for (const QVariantMap& profile : m_ctx.db->dirtyProfiles())
         docs << profile;
 
+    // Le credenziali dei servizi, chiuse: il server ne vede solo i byte.
+    const QVariantMap secrets = sealedSecrets();
+    if (!secrets.isEmpty())
+        docs << secrets;
+
     // Le impostazioni: un documento solo, con la sua revisione. Si manda quando
     // e' cambiato davvero qualcosa, non a ogni giro. L'impronta si segna solo
     // quando il server conferma: un server piu' vecchio, che i documenti non li
@@ -460,6 +501,12 @@ void CloudController::applyDocResults(const QVariantList& results)
             if (status != QLatin1String("stale") && !m_settingsSent.isEmpty()) {
                 m_ctx.db->setSetting(QStringLiteral("cloud.settingsFingerprint"), m_settingsSent);
                 m_settingsSent.clear();
+            }
+        } else if (kind == QLatin1String("secret") && revision > 0) {
+            m_ctx.db->setSetting(QStringLiteral("cloud.secretsRevision"), QString::number(revision));
+            if (status != QLatin1String("stale") && !m_secretsSent.isEmpty()) {
+                m_ctx.db->setSetting(QStringLiteral("cloud.secretsFingerprint"), m_secretsSent);
+                m_secretsSent.clear();
             }
         }
     }
@@ -510,6 +557,164 @@ bool CloudController::applyRemoteSettings(const QVariantMap& document)
 
     m_ctx.db->setSetting(QStringLiteral("cloud.settingsRevision"), QString::number(revision));
     m_ctx.db->setSetting(QStringLiteral("cloud.settingsFingerprint"), settingsFingerprint(localSettings()));
+    return written > 0;
+}
+
+// ── La cassaforte dei servizi ─────────────────────────────────────────────────
+//
+// Le password di QRZ, LoTW, eQSL, Club Log, HamQTH, HamAlert stanno nel
+// portachiavi del sistema. Perche' anche il secondo computer le abbia senza
+// riscriverle a mano, viaggiano — ma chiuse qui dentro, con una chiave che
+// nasce dalla password del Cloud. Al server arriva un blocco di byte che senza
+// quella password non si apre: e' l'unico modo onesto di mandarle.
+
+bool CloudController::syncSecrets() const
+{
+    return QSettings().value(QStringLiteral("cloud/syncSecrets"), true).toBool();
+}
+
+void CloudController::setSyncSecrets(bool on)
+{
+    if (on == syncSecrets())
+        return;
+    QSettings().setValue(QStringLiteral("cloud/syncSecrets"), on);
+    if (on)
+        readSecrets();
+    else
+        m_secrets.clear();
+    emit changed();
+}
+
+bool CloudController::vaultAvailable() const
+{
+    return core::vault::available();
+}
+
+void CloudController::makeVaultKey(const QString& password)
+{
+    // Un collegamento di passaggio (le prove da riga di comando) non apre la
+    // cassaforte della stazione vera: senza chiave, dal portachiavi non si
+    // legge niente e non parte niente.
+    if (m_ephemeral || password.isEmpty() || !core::vault::available())
+        return;
+    m_vaultKey = core::vault::deriveKey(password, m_callsign);
+}
+
+void CloudController::loadVaultKey()
+{
+    if (m_ephemeral || !core::vault::available())
+        return;
+    if (!m_ctx.credentials || !m_ctx.credentials->hasSecret(kVaultService))
+        return;
+    m_ctx.credentials->readSecret(kVaultService, [this](const QString& stored, const QString&) {
+        if (stored.isEmpty())
+            return;
+        m_vaultKey = QByteArray::fromBase64(stored.toLatin1());
+        readSecrets();
+    });
+}
+
+void CloudController::readSecrets()
+{
+    if (!m_ctx.credentials || m_vaultKey.isEmpty() || !syncSecrets())
+        return;
+    for (const core::CredentialService& service : core::CredentialStore::knownServices()) {
+        // Il token di questo dispositivo e la chiave della cassaforte non
+        // viaggiano: il primo e' di questa macchina, la seconda si rifa' dalla
+        // password.
+        if (service.id == QLatin1String("cloud") || service.id == kVaultService)
+            continue;
+        if (!m_ctx.credentials->hasSecret(service.id))
+            continue;
+        const QString account = m_ctx.credentials->account(service.id);
+        m_ctx.credentials->readSecret(service.id, [this, id = service.id, account](const QString& secret,
+                                                                                   const QString&) {
+            if (secret.isEmpty())
+                return;
+            m_secrets.insert(id, QVariantMap{{QStringLiteral("account"), account},
+                                             {QStringLiteral("secret"), secret}});
+        });
+    }
+}
+
+QVariantMap CloudController::sealedSecrets()
+{
+    m_secretsSent.clear();
+    if (m_secrets.isEmpty() || m_vaultKey.isEmpty() || !m_ctx.db || !syncSecrets())
+        return {};
+
+    const QByteArray plain = QJsonDocument(QJsonObject::fromVariantMap(m_secrets))
+                                 .toJson(QJsonDocument::Compact);
+    // L'impronta e' del contenuto, non del blocco chiuso: ogni chiusura ha il
+    // suo nonce e sarebbe diversa ogni volta.
+    const QString fingerprint = QString::fromLatin1(
+        QCryptographicHash::hash(plain, QCryptographicHash::Sha256).toHex());
+    if (fingerprint == m_ctx.db->setting(QStringLiteral("cloud.secretsFingerprint")))
+        return {};
+
+    const QString sealed = core::vault::seal(m_vaultKey, plain);
+    if (sealed.isEmpty())
+        return {};
+
+    m_secretsSent = fingerprint;
+    const int revision = qMax(1, m_ctx.db->setting(QStringLiteral("cloud.secretsRevision")).toInt() + 1);
+    return QVariantMap{{QStringLiteral("kind"), QStringLiteral("secret")},
+                       {QStringLiteral("key"), QStringLiteral("vault")},
+                       {QStringLiteral("revision"), revision},
+                       {QStringLiteral("data"), QVariantMap{{QStringLiteral("alg"),
+                                                             QStringLiteral("aes-256-gcm")},
+                                                            {QStringLiteral("sealed"), sealed}}}};
+}
+
+bool CloudController::applyRemoteSecrets(const QVariantMap& document)
+{
+    if (!m_ctx.db || !m_ctx.credentials)
+        return false;
+    const int revision = document.value(QStringLiteral("revision")).toInt();
+    const int known = m_ctx.db->setting(QStringLiteral("cloud.secretsRevision")).toInt();
+    if (revision <= known)
+        return false;
+
+    if (m_vaultKey.isEmpty()) {
+        note(tr("Cloud: the service passwords are waiting for you to sign in on this device"),
+             QStringLiteral("info"));
+        return false;
+    }
+    const auto plain = core::vault::unseal(
+        m_vaultKey, document.value(QStringLiteral("data")).toMap()
+                        .value(QStringLiteral("sealed")).toString());
+    if (!plain) {
+        // Chiave sbagliata (la password del Cloud e' cambiata) o blocco toccato:
+        // non si indovina, si dice.
+        note(tr("Cloud: the service passwords did not open with this password"),
+             QStringLiteral("warning"));
+        return false;
+    }
+
+    const QVariantMap arrived = QJsonDocument::fromJson(*plain).object().toVariantMap();
+    int written = 0;
+    for (auto it = arrived.cbegin(); it != arrived.cend(); ++it) {
+        const QVariantMap entry = it.value().toMap();
+        const QString account = entry.value(QStringLiteral("account")).toString();
+        const QString secret = entry.value(QStringLiteral("secret")).toString();
+        if (secret.isEmpty())
+            continue;
+        const QVariantMap mine = m_secrets.value(it.key()).toMap();
+        if (mine.value(QStringLiteral("account")) == account
+            && mine.value(QStringLiteral("secret")) == secret) {
+            continue;
+        }
+        // Le prove da riga di comando non toccano il portachiavi vero.
+        if (!m_ephemeral)
+            m_ctx.credentials->save(it.key(), account, secret);
+        m_secrets.insert(it.key(), entry);
+        ++written;
+    }
+
+    m_ctx.db->setSetting(QStringLiteral("cloud.secretsRevision"), QString::number(revision));
+    m_ctx.db->setSetting(QStringLiteral("cloud.secretsFingerprint"),
+                         QString::fromLatin1(QCryptographicHash::hash(*plain,
+                                                                      QCryptographicHash::Sha256).toHex()));
     return written > 0;
 }
 

@@ -100,9 +100,10 @@ Funziona:
 
 - **DecoLog Cloud** (`server/`): il sync fra dispositivi. Non solo i QSO: anche i profili
   stazione e tutte le impostazioni — tema, filtri, cluster, porte, percorsi — così il
-  secondo computer si ritrova la stessa stazione. Le password e le chiavi dei servizi
-  restano nel portachiavi: il server non le vede. Il proprio log si guarda e si scarica
-  anche dal browser.
+  secondo computer si ritrova la stessa stazione. Anche le password dei servizi, ma
+  sigillate sul proprio computer (AES-256-GCM, chiave dalla password del Cloud): il server
+  vede solo byte che senza quella password non si aprono. Il proprio log si guarda e si
+  scarica anche dal browser.
 
 ## Struttura
 

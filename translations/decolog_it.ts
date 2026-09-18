@@ -3371,6 +3371,18 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>La password passa una volta sola e non resta da nessuna parte: DecoLog tiene solo il token che il server restituisce, nel portachiavi di sistema. Su Internet usa HTTPS; in casa, sulla tua rete, l&apos;HTTP semplice va benissimo.</translation>
     </message>
     <message>
+        <source>Carry the service passwords to the other devices too</source>
+        <translation>Porta anche le password dei servizi sugli altri dispositivi</translation>
+    </message>
+    <message>
+        <source>They travel sealed: DecoLog closes them on this computer with AES-256-GCM and a key made from your Cloud password, which the server only knows as an Argon2 fingerprint. What reaches the server is a block of bytes that does not open without that password. Sign in on the other device with the same password and the services are ready there too.</source>
+        <translation>Viaggiano chiuse: DecoLog le sigilla su questo computer con AES-256-GCM e una chiave che nasce dalla tua password del Cloud, che il server conosce solo come impronta Argon2. Al server arriva un blocco di byte che senza quella password non si apre. Entra sull&apos;altro dispositivo con la stessa password e i servizi sono pronti anche lì.</translation>
+    </message>
+    <message>
+        <source>This build has no OpenSSL: the service passwords cannot be sealed, so they stay on this computer.</source>
+        <translation>Questa versione è senza OpenSSL: le password dei servizi non si possono sigillare, quindi restano su questo computer.</translation>
+    </message>
+    <message>
         <source>Download everything again</source>
         <translation>Riscarica tutto</translation>
     </message>
@@ -4028,6 +4040,13 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Cloud: impostazioni aggiornate da un altro dispositivo</translation>
     </message>
     <message numerus="yes">
+        <source>Cloud: %n service password(s) arrived</source>
+        <translation>
+            <numerusform>Cloud: è arrivata %n password di servizio</numerusform>
+            <numerusform>Cloud: sono arrivate %n password di servizio</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source>Cloud: %n QSO arrived from another device</source>
         <translation>
             <numerusform>Cloud: %n QSO arrivato da un altro dispositivo</numerusform>
@@ -4083,8 +4102,12 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Cloud: sincronizzo…</translation>
     </message>
     <message>
-        <source>Cloud: nothing to send</source>
-        <translation>Cloud: non c&apos;è niente da mandare</translation>
+        <source>Cloud: the service passwords are waiting for you to sign in on this device</source>
+        <translation>Cloud: le password dei servizi aspettano che tu entri su questo dispositivo</translation>
+    </message>
+    <message>
+        <source>Cloud: the service passwords did not open with this password</source>
+        <translation>Cloud: le password dei servizi non si aprono con questa password</translation>
     </message>
     <message>
         <source>Cloud: sending the station settings…</source>

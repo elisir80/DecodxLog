@@ -70,6 +70,8 @@ add_library(decolog_core STATIC
     src/core/QslUpload.h
     src/core/RotorLink.cpp
     src/core/RotorLink.h
+    src/core/SecretVault.cpp
+    src/core/SecretVault.h
     src/core/Solar.cpp
     src/core/Solar.h
     src/core/Spots.cpp
@@ -113,6 +115,18 @@ if(TARGET qt6keychain)
     message(STATUS "DecoLog: qtkeychain found — credentials in the system keystore")
 else()
     message(WARNING "DecoLog: qtkeychain not found — credentials cannot be stored")
+endif()
+
+# Le credenziali che passano dal Cloud viaggiano chiuse, e si chiudono con
+# OpenSSL (AES-256-GCM, chiave da PBKDF2): il server non le deve poter leggere.
+# Senza OpenSSL DecoLog si compila lo stesso e le credenziali restano dove sono.
+find_package(OpenSSL QUIET COMPONENTS Crypto)
+if(TARGET OpenSSL::Crypto)
+    target_link_libraries(decolog_core PUBLIC OpenSSL::Crypto)
+    target_compile_definitions(decolog_core PUBLIC DECOLOG_HAS_OPENSSL=1)
+    message(STATUS "DecoLog: OpenSSL found — credentials travel sealed")
+else()
+    message(WARNING "DecoLog: OpenSSL not found — credentials stay on this machine")
 endif()
 if(MSVC)
     target_compile_options(decolog_core PRIVATE /W4)
@@ -262,7 +276,7 @@ set_target_properties(decolog PROPERTIES
 if(DECOLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor cloud cloudsettings)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor cloud cloudsettings vault)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

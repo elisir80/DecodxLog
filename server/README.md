@@ -46,11 +46,17 @@ storico, stesso cursore):
   indirizzi dei programmi accanto. Il profilo attivo e' detto per uuid, cosi'
   vale anche dove ha un altro numero di riga.
 
-Quello che **non** passa di qui — e non e' una scelta di stile: le password e le
-chiavi dei servizi stanno nel portachiavi del sistema operativo, il server non
-le vede e non le deve vedere; con loro resta a casa il promemoria di cosa e'
-salvato nel portachiavi di *quella* macchina, e il quaderno del sync stesso
-(nominativo collegato, ora dell'ultimo giro).
+* `secret` / `vault` — le credenziali dei servizi (QRZ, LoTW, Club Log, eQSL,
+  HamQTH, HamAlert), **chiuse dal client**. Il server tiene `{"alg":
+  "aes-256-gcm", "sealed": "<base64>"}` e non ha modo di aprirlo: la chiave
+  nasce dalla password del Cloud (PBKDF2-HMAC-SHA256, 200.000 giri) e la
+  password il server la conosce solo come impronta Argon2. Anche con il
+  database in mano, senza la password dell'utente qui non c'e' niente da
+  leggere. Il client puo' spegnerlo.
+
+Quello che **non** passa di qui — e non e' una scelta di stile: il promemoria di
+cosa e' salvato nel portachiavi di *quella* macchina, e il quaderno del sync
+stesso (nominativo collegato, ora dell'ultimo giro).
 
 Le impostazioni che JSON non sa dire (un filtro salvato e' un QVariant di Qt)
 arrivano impacchettate: `{"__qvariant__": "<base64>"}`. La pagina Stazione le

@@ -265,12 +265,18 @@ Quello che manca è in fondo.
 - **Il profilo attivo per uuid**, non per numero di riga: si accende lo stesso profilo
   anche dove ha un altro numero. / **The active profile by uuid**, not by row number: the
   same profile lights up even where its number differs.
-- **Quello che resta a casa**, e non e' una scelta di stile: le **password e le chiavi dei
-  servizi** (stanno nel portachiavi del sistema: il server non le vede), il promemoria di
-  cosa e' salvato nel portachiavi di *quella* macchina, e il quaderno del sync. / **What
-  stays home**, and it is not a matter of taste: **passwords and service keys** (they live
-  in the system keystore: the server never sees them), the note of what is stored in
-  *that* machine's keystore, and the sync's own logbook.
+- **Anche le password dei servizi** (QRZ, LoTW, Club Log, eQSL, HamQTH, HamAlert), ma
+  **chiuse**: AES-256-GCM con una chiave da PBKDF2 sulla password del Cloud, che il server
+  conosce solo come impronta Argon2 — al server arriva un blocco che senza quella password
+  non si apre. Interruttore in Impostazioni → Sync e Cloud. / **The service passwords too**
+  (QRZ, LoTW, Club Log, eQSL, HamQTH, HamAlert), but **sealed**: AES-256-GCM with a key
+  from PBKDF2 over your Cloud password, which the server only knows as an Argon2
+  fingerprint — what reaches the server does not open without that password. A switch in
+  Settings → Sync & Cloud.
+- **Quello che resta a casa**, e non e' una scelta di stile: il promemoria di cosa e'
+  salvato nel portachiavi di *quella* macchina, e il quaderno del sync. / **What stays
+  home**, and it is not a matter of taste: the note of what is stored in *that* machine's
+  keystore, and the sync's own logbook.
 - **Il tema arriva e si vede**: le impostazioni ricevute valgono subito, senza riavviare. /
   **The theme arrives and shows**: settings received apply at once, with no restart.
 - **Il log dal browser**: si entra con gli stessi nominativo e password e si vede il
@@ -411,8 +417,8 @@ Quello che manca è in fondo.
   **`scripts/deploy.sh`**: a stand-alone folder and `DecoLog-<version>-win64.zip`.
 - **CI su GitHub** (Windows MSYS2 e Linux) con l'artefatto pronto. / **GitHub CI** (Windows
   MSYS2 and Linux) with the artifact ready.
-- **21 gruppi di test** automatici nel programma e **31 prove** del servizio Cloud
-  (`server/tests`). / **20 automated test suites** in the program and **31 checks** for the
+- **22 gruppi di test** automatici nel programma e **31 prove** del servizio Cloud
+  (`server/tests`). / **22 automated test suites** in the program and **31 checks** for the
   Cloud service (`server/tests`).
 
 ## Non ancora / Not yet

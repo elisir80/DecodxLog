@@ -570,6 +570,24 @@ DialogFrame {
                         Layout.fillWidth: true
                         spacing: 0
                         SectionTitle { text: qsTr("Credentials · system keystore") }
+                        ToggleSwitch {
+                            Layout.topMargin: 4
+                            Layout.bottomMargin: 2
+                            enabled: decolog.cloud.vaultAvailable
+                            text: qsTr("Carry the service passwords to the other devices too")
+                            checked: decolog.cloud.syncSecrets && decolog.cloud.vaultAvailable
+                            onToggled: decolog.cloud.syncSecrets = checked
+                        }
+                        Note {
+                            text: decolog.cloud.vaultAvailable
+                                  ? qsTr("They travel sealed: DecoLog closes them on this computer with AES-256-GCM "
+                                         + "and a key made from your Cloud password, which the server only knows as "
+                                         + "an Argon2 fingerprint. What reaches the server is a block of bytes that "
+                                         + "does not open without that password. Sign in on the other device with "
+                                         + "the same password and the services are ready there too.")
+                                  : qsTr("This build has no OpenSSL: the service passwords cannot be sealed, so they "
+                                         + "stay on this computer.")
+                        }
                         CredentialsList {
                             Layout.fillWidth: true
                             serviceIds: ["cloud", "qrz", "qrzlogbook", "lotw", "clublog", "eqsl", "hamqth"]

@@ -13,13 +13,23 @@ log, fonti e avvisi del cluster, premi seguiti, invii automatici (LoTW, QSL),
 propagazione, rotore, dedup della UDP, backup, e anche porte, percorsi e indirizzi dei
 programmi accanto. Una stazione che si ritrova uguale, non una che le somiglia.
 
-Restano fuori solo tre cose, e nessuna e' una scelta di chi opera: le **password e le
-chiavi dei servizi**, che stanno nel portachiavi del sistema e da li' non escono — il
-server non le vede e non le deve vedere; il **promemoria di cosa e' salvato nel
-portachiavi di quella macchina**, che altrove farebbe credere a DecoLog di avere una
-password che non ha; e il **quaderno del sync** (nominativo collegato, ora dell'ultimo
-giro). Il profilo attivo viaggia per **uuid** e non per numero di riga, cosi' sul
-secondo computer si accende lo stesso profilo anche se li' ha un altro numero.
+**Anche le password dei servizi, ma chiuse.** QRZ, LoTW, Club Log, eQSL, HamQTH,
+HamAlert: sul secondo computer non si riscrivono a mano. Viaggiano — sigillate qui,
+con **AES-256-GCM** e una chiave che nasce dalla password del Cloud (PBKDF2-HMAC-SHA256,
+200.000 giri), quella che il server conosce solo come impronta Argon2. Al server arriva
+un blocco di byte che **senza quella password non si apre**: nemmeno per chi avesse il
+database in mano. Nessuna crittografia scritta a mano: e' OpenSSL, quello che sta sotto a
+HTTPS. Sull'altro dispositivo si entra con la stessa password e i servizi sono pronti.
+La chiave non passa mai dal server: si rifa' dalla password e poi vive nel portachiavi
+accanto al token; "Scollega" la butta. Si spegne dall'interruttore in Impostazioni →
+Sync e Cloud, e senza OpenSSL DecoLog lo dice e non manda niente.
+
+Restano fuori solo due cose, e nessuna e' una scelta di chi opera: il **promemoria di
+cosa e' salvato nel portachiavi di quella macchina**, che altrove farebbe credere a
+DecoLog di avere una password che non ha, e il **quaderno del sync** (nominativo
+collegato, ora dell'ultimo giro). Il profilo attivo viaggia per **uuid** e non per numero
+di riga, cosi' sul secondo computer si accende lo stesso profilo anche se li' ha un altro
+numero.
 
 Il meccanismo e' quello dei QSO, cosi' le regole non si sdoppiano: ogni profilo e' un
 documento con la sua revisione, le impostazioni sono un documento solo (`station`) con
