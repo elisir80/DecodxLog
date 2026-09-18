@@ -3,6 +3,21 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## Non ancora pubblicato
+
+**DecoLog fuori da Windows.** Salvatore Raccampo 9H1SR ha portato il programma dove
+Windows non c'e', e le sue correzioni sono qui: i caratteri si scelgono guardando quelli
+davvero installati — Cascadia Mono o Consolas su Windows, SF Mono, Menlo o Monaco su
+macOS, DejaVu Sans Mono o Liberation Mono su Linux, e in mancanza di tutto quello che il
+sistema dichiara come carattere a spaziatura fissa. Lo stesso per il carattere
+dell'interfaccia, che adesso ha un nome suo (`Theme.uiFamily`) invece di affidarsi a
+quello dell'applicazione: Segoe UI, SF Pro Text, Noto Sans, secondo dove si e'.
+
+Il quadrante del rotore non chiede piu' "Consolas" per nome — prende quello del tema — e
+la finestra delle attivazioni non lascia piu' cadere un avviso quando il tipo di sessione
+non c'e' ancora. `StationProfileModel.h` include il database invece di dichiararlo a
+mezz'aria: i compilatori piu' severi lo volevano.
+
 ## 0.3.1 — 19 settembre 2026
 
 **Tutto il log sul Cloud, non solo i QSO.** Chi si collega da un secondo computer non
