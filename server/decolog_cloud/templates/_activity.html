@@ -1,0 +1,42 @@
+<div class="statcols">
+  <div style="grid-column: span 3">
+    <h3 class="muted">Ultime modifiche arrivate sul Cloud</h3>
+    {% if changes %}
+    <div class="scroll">
+      <table class="log">
+        <thead><tr><th>Quando</th><th>Nominativo</th><th>Banda</th><th>Rev.</th><th>Dispositivo</th></tr></thead>
+        <tbody>
+          {% for c in changes %}
+          <tr>
+            <td>{{ c.when }}</td>
+            <td class="call"><a href="/qso/{{ c.uuid }}?sel={{ c.uuid }}">{{ c.call }}</a>{% if c.deleted %} <span class="err">cancellato</span>{% endif %}</td>
+            <td>{{ c.band }}</td>
+            <td>{{ c.revision }}</td>
+            <td class="dim">{{ c.device or "—" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="dim">Niente ancora: il registro si riempie al primo sync.</p>
+    {% endif %}
+  </div>
+
+  <div>
+    <h3 class="muted">Documenti</h3>
+    {% if docs %}
+    <table class="rows">
+      {% for d in docs %}
+      <tr>
+        <th>{{ d.kind }}{% if d.kind != "setting" %} · {{ d.key[:8] }}{% endif %}</th>
+        <td class="mono">rev {{ d.revision }}</td>
+      </tr>
+      <tr><td colspan="2" class="dim small">{{ d.when }}{% if d.device %} · {{ d.device }}{% endif %}</td></tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    <p class="dim">Nessun profilo o impostazione ancora arrivati.</p>
+    {% endif %}
+  </div>
+</div>

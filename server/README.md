@@ -67,24 +67,27 @@ I documenti stanno nella stessa spinta dei QSO (`docs` in `/v1/sync/push`,
 
 ## Il log dal browser
 
-Oltre all'API c'e' la pagina: si entra con gli stessi nominativo e password del
-programma e si vede il proprio log — tabella con ricerca mentre si scrive,
-filtri per banda e modo, la pagina si allunga da sola scorrendo, scheda del
-singolo QSO con tutti i campi ADIF, la pagina **Stazione** con i profili e le
-impostazioni arrivate dal programma, e il tasto per **scaricare tutto in ADIF**:
-il Cloud non e' una gabbia.
+Non una pagina web che parla dello stesso log: **la stessa finestra**. Barra
+superiore a blocchi, tre colonne di pannelli — scheda del QSO a sinistra, log in
+mezzo, scheda del nominativo con FT2 Award e mappa a destra — le cinque schede
+in basso e la barra di stato. Si sceglie un QSO nel log e le colonne seguono.
 
-Non solo la tabella: ci sono le stesse schermate del programma, rifatte dal log
-che sta qui.
+Anche i colori sono quelli della stazione: il tema arriva con le impostazioni
+sincronizzate (`theme/current`, la variante d'accento, la densita') e diventa le
+variabili CSS della pagina — `decolog_cloud/theme.py` ha gli stessi valori di
+`libs/decodium-ui/src/ThemeManager.cpp`.
 
-| Pagina | Cosa c'e' |
+| Dove | Cosa c'e' |
 |---|---|
-| `/log` | la tabella, con ricerca e filtri |
-| `/stats` | QSO per anno, mese, ora UTC, banda, modo, continente, e la mappa di calore banda per ora |
-| `/awards` | DXCC, FT2, WAZ, WAS, WPX, locatori, IOTA, POTA, SOTA, WWFF: lavorati e confermati, per banda, con quello che manca |
-| `/qsl` | inviate e ricevute servizio per servizio, e le ultime conferme |
-| `/map` | i locatori lavorati sulla mappa del mondo |
-| `/station` | profili stazione e impostazioni |
+| colonna sinistra | il QSO scelto, campo per campo (`/qso/<uuid>` apre anche tutti gli ADIF) |
+| colonna centrale | il log, con ricerca e filtri; `/map` mette qui la mappa grande |
+| colonna destra | scheda del nominativo (gia' lavorato, bande, modi, QSL), FT2 Award, mappa |
+| scheda Diplomi | `/awards` — DXCC, FT2, WAZ, WAS, WPX, locatori, IOTA, POTA, SOTA, WWFF, per banda, con quello che manca |
+| scheda Statistiche | `/stats` — anni, mesi, ore UTC, bande, modi, continenti, mappa di calore banda per ora |
+| scheda Invio QSL | `/qsl` — inviate e ricevute per servizio, ultime conferme |
+| scheda Registro attivita' | `/activity` — cosa e' arrivato sul Cloud, da quale dispositivo |
+| scheda DX Cluster | `/cluster` — le fonti e le regole d'avviso della stazione (il collegamento vive nel programma) |
+| Stazione | `/station` — profili, impostazioni, e se la cassaforte delle credenziali e' salita |
 
 I conti non stanno in tabelle di riepilogo: si rifanno dai QSO a ogni richiesta,
 con le stesse regole del programma (`decolog_cloud/analytics.py` e'
@@ -98,7 +101,7 @@ giorni.
 
 Le pagine sono servite dal server (Jinja) con un po' di HTMX per le cose vive:
 nessun secondo progetto da compilare, nessuna libreria presa da Internet — htmx
-sta nei file del servizio.
+e le coste della mappa stanno nei file del servizio.
 
 ## API
 
@@ -167,9 +170,10 @@ migrazione a mano, nemmeno su PostgreSQL.
 PYTHONPATH=. .venv/Scripts/python -m pytest tests -q
 ```
 
-Cinquantuno prove: registrazione, token scaduto, push e pull, cursore, conflitti
+Sessantadue prove: registrazione, token scaduto, push e pull, cursore, conflitti
 con lo storico, revisione vecchia, duplicati, cancellazioni, pagine, documenti
 (profili e impostazioni, con il loro storico e il cursore condiviso), i conti
 del log (prefisso WPX con gli esempi di CQ, gruppi di modi, diplomi lavorati e
-confermati per banda, QSL, locatori sulla mappa), le pagine del browser, e due
-account che non si vedono fra loro.
+confermati per banda, QSL, locatori sulla mappa), la finestra del browser (le tre colonne, le
+cinque schede, il tema che arriva dalle impostazioni), e due account che non si
+vedono fra loro.

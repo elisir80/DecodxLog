@@ -1,0 +1,169 @@
+{% extends "shell.html" %}
+{% block title %}{{ callsign }} — DecoLog Cloud{% endblock %}
+
+{# ── Colonna di sinistra: il QSO scelto, dove il programma ha Nuovo QSO ──── #}
+{% block left %}
+<div class="panel">
+  <header>
+    <span class="grip">⠿</span><span class="dot"></span>
+    <h2>Scheda QSO</h2>
+    <span class="tools">{% if selected %}<a href="/qso/{{ selected.uuid }}">tutti i campi</a>{% endif %}</span>
+  </header>
+  <div class="body">
+    {% if selected %}
+    <div class="fieldgrid">
+      <div class="field wide">
+        <label>Nominativo</label>
+        <div class="value big">{{ selected.call }}</div>
+      </div>
+      <div class="field"><label>Data UTC</label><div class="value">{{ selected.date or "—" }}</div></div>
+      <div class="field"><label>Ora</label><div class="value">{{ selected.time or "—" }}</div></div>
+      <div class="field"><label>Banda</label><div class="value">{{ selected.band or "—" }}</div></div>
+      <div class="field"><label>Modo</label><div class="value">{{ selected.mode or "—" }}</div></div>
+      <div class="field"><label>RST S</label><div class="value">{{ selected.rst_sent or "—" }}</div></div>
+      <div class="field"><label>RST R</label><div class="value">{{ selected.rst_rcvd or "—" }}</div></div>
+      <div class="field"><label>Locatore</label><div class="value">{{ selected.grid or "—" }}</div></div>
+      <div class="field"><label>Freq</label><div class="value">{{ selected.freq or "—" }}</div></div>
+      <div class="field"><label>Nome</label><div class="value">{{ selected.name or "—" }}</div></div>
+      <div class="field"><label>QTH</label><div class="value">{{ selected.qth or "—" }}</div></div>
+      <div class="field wide"><label>Entità</label><div class="value">{{ selected.country or "—" }}</div></div>
+      <div class="field wide"><label>Commento</label><div class="value">{{ selected.comment or "—" }}</div></div>
+    </div>
+    {% if all_fields %}
+    <h3 class="muted">Tutti i campi ADIF</h3>
+    <table class="rows mono">
+      {% for name, value in selected.fields %}
+      <tr><th>{{ name }}</th><td>{{ value }}</td></tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+    {% else %}
+    <p class="dim">Nessun QSO ancora arrivato dal programma.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{# ── Colonna di mezzo: il log ────────────────────────────────────────────── #}
+{% block center %}
+<div class="panel">
+  <header>
+    <span class="grip">⠿</span><span class="dot"></span>
+    <h2>Log</h2>
+    <span class="tools">
+      <span class="mono">{{ total }} QSO</span>
+      <a href="/export.adi">Esporta</a>
+      <a href="/map">Mappa</a>
+    </span>
+  </header>
+  <div class="body tight">
+    <form class="filters" autocomplete="off"
+          hx-get="/log/rows" hx-target="#rows" hx-swap="innerHTML"
+          hx-trigger="input changed delay:250ms from:#q, change from:#band, change from:#mode">
+      <input id="q" name="q" value="{{ q }}" placeholder="Nominativo…"
+             autocapitalize="characters" spellcheck="false">
+      <select id="band" name="band">
+        <option value="">tutte le bande</option>
+        {% for b in bands %}
+        <option value="{{ b }}" {% if b == band %}selected{% endif %}>{{ b }}</option>
+        {% endfor %}
+      </select>
+      <select id="mode" name="mode">
+        <option value="">tutti i modi</option>
+        {% for m in modes %}
+        <option value="{{ m }}" {% if m == mode_filter %}selected{% endif %}>{{ m }}</option>
+        {% endfor %}
+      </select>
+    </form>
+  </div>
+  <div class="tablewrap">
+    <table class="log">
+      <thead>
+        <tr>
+          <th>Data</th><th>UTC</th><th>Nominativo</th><th>Banda</th><th>Modo</th>
+          <th>S</th><th>R</th><th>Locatore</th><th>Nome</th>
+        </tr>
+      </thead>
+      <tbody id="rows">
+        {% include "_rows.html" %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% if big_map %}
+<div class="panel">
+  <header>
+    <span class="grip">⠿</span><span class="dot"></span>
+    <h2>Mappa · {{ points | length }} locatori</h2>
+    <span class="tools legend"><span><i class="ok"></i> confermato</span><span><i></i> lavorato</span></span>
+  </header>
+  <div class="body">{% include "_map.html" %}</div>
+</div>
+{% endif %}
+{% endblock %}
+
+{# ── Colonna di destra: nominativo, FT2 Award, mappa ─────────────────────── #}
+{% block right %}
+<div class="panel">
+  <header>
+    <span class="grip">⠿</span><span class="dot"></span>
+    <h2>Scheda nominativo</h2>
+    <span class="tools">dal log</span>
+  </header>
+  <div class="body">
+    {% if worked %}
+    <div class="field"><label>Nominativo</label><div class="value big">{{ worked.call }}</div></div>
+    <table class="rows" style="margin-top:8px">
+      <tr><th>Già lavorato</th><td class="num">{{ worked.qsos }}</td></tr>
+      {% if worked.country %}<tr><th>Entità</th><td class="mono">{{ worked.country }}{% if worked.continent %} · {{ worked.continent }}{% endif %}</td></tr>{% endif %}
+      {% if worked.grid %}<tr><th>Locatore</th><td class="mono">{{ worked.grid }}</td></tr>{% endif %}
+      <tr><th>Bande</th><td class="mono">{{ worked.bands | join(" ") or "—" }}</td></tr>
+      <tr><th>Modi</th><td class="mono">{{ worked.modes | join(" ") or "—" }}</td></tr>
+      <tr><th>Primo</th><td class="mono">{{ worked.first or "—" }}</td></tr>
+      <tr><th>Ultimo</th><td class="mono">{{ worked.last or "—" }}</td></tr>
+      <tr><th>QSL</th><td class="mono">{% if worked.confirmed %}<span class="ok">confermato</span>{% else %}<span class="dim">da confermare</span>{% endif %}</td></tr>
+    </table>
+    {% else %}
+    <p class="dim">Scegli un QSO nel log: qui compare quello che il log sa di quel nominativo.</p>
+    {% endif %}
+  </div>
+</div>
+
+<div class="panel">
+  <header>
+    <span class="grip">⠿</span><span class="dot"></span>
+    <h2>FT2 Award</h2>
+    <span class="tools"><a href="/awards?mode=FT2">Dettagli ›</a></span>
+  </header>
+  <div class="body">
+    <table class="rows">
+      <tr><th>DXCC in FT2</th><td class="num mono">{{ ft2.dxcc }} / 100</td></tr>
+      <tr><th>Locatori in FT2</th><td class="num mono">{{ ft2.grids }} / 500</td></tr>
+      <tr><th>Confermati (LoTW)</th><td class="num mono">{{ ft2.confirmed }}</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="panel">
+  <header>
+    <span class="grip">⠿</span><span class="dot"></span>
+    <h2>Mappa</h2>
+    <span class="tools"><a href="/map">Apri ›</a></span>
+  </header>
+  <div class="body tight">{% include "_map.html" %}</div>
+</div>
+{% endblock %}
+
+{# ── Schede in basso ─────────────────────────────────────────────────────── #}
+{% block bottom %}
+{% if tab == "diplomi" %}{% include "_awards.html" %}
+{% elif tab == "statistiche" %}{% include "_stats.html" %}
+{% elif tab == "qsl" %}{% include "_qsl.html" %}
+{% elif tab == "attivita" %}{% include "_activity.html" %}
+{% elif tab == "cluster" %}{% include "_cluster.html" %}
+{% elif tab == "stazione" %}{% include "_station.html" %}
+{% elif tab == "mappa" %}
+<p class="dim">La mappa è qui sopra, grande quanto la finestra. Le schede tornano scegliendone una.</p>
+{% endif %}
+{% endblock %}

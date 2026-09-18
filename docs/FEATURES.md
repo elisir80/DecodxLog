@@ -279,17 +279,22 @@ Quello che manca è in fondo.
   keystore, and the sync's own logbook.
 - **Il tema arriva e si vede**: le impostazioni ricevute valgono subito, senza riavviare. /
   **The theme arrives and shows**: settings received apply at once, with no restart.
-- **Il log dal browser**: si entra con gli stessi nominativo e password e si ritrovano le
-  schermate del programma — **Log** (ricerca mentre si scrive, filtri, scheda del QSO con
-  tutti i campi ADIF), **Statistiche** (anni, mesi, ore UTC, bande, modi, continenti e la
-  mappa di calore banda per ora), **Diplomi** (DXCC, FT2, WAZ, WAS, WPX, locatori, IOTA,
-  POTA, SOTA, WWFF, per banda, con quello che manca), **QSL** (inviate e ricevute per
-  servizio), **Mappa** (i locatori lavorati sul mondo), **Stazione** (profili e
-  impostazioni), e il tasto per riscaricare tutto in ADIF. Da qui si guarda e si scarica:
-  si scrive dal programma. / **The log from the browser**: sign in with the same callsign
-  and password and find the program's own screens — **Log**, **Statistics**, **Awards**,
-  **QSL**, **Map**, **Station** — plus the button to take it all back as ADIF. From here
-  you look and download: you write from the program.
+- **Il log dal browser e' la stessa finestra**: barra superiore a blocchi, tre colonne
+  (scheda del QSO, log, scheda del nominativo con FT2 Award e mappa), le cinque schede in
+  basso — Diplomi, Statistiche, Invio QSL, Registro attivita', DX Cluster — e la barra di
+  stato. Si sceglie un QSO e le colonne seguono. / **The log from the browser is the same
+  window**: the block top bar, three columns (QSO sheet, log, call sheet with FT2 Award and
+  map), the five bottom tabs and the status rail. Pick a QSO and the side panels follow.
+- **Con i colori della stazione**: il tema arriva dalle impostazioni sincronizzate — Ocean
+  Blue, Stellar Light, Darkcodium con la sua variante d'accento e la densita' delle righe. /
+  **Wearing the station's colours**: the theme comes from the synced settings — accent
+  variant and row density included.
+- **Dentro le schede**: statistiche (anni, mesi, ore UTC, bande, modi, continenti, mappa di
+  calore banda per ora), diplomi (DXCC, FT2, WAZ, WAS, WPX, locatori, IOTA, POTA, SOTA,
+  WWFF, per banda, con quello che manca), QSL per servizio, il registro di cosa e' arrivato
+  sul Cloud e da quale dispositivo, le fonti del cluster, e il tasto per riscaricare tutto
+  in ADIF. / **In the tabs**: statistics, awards, QSL, the arrival log and the cluster
+  sources, plus the button to take it all back as ADIF.
 - **Gli stessi numeri da tutte e due le parti**: i conti si rifanno dai QSO con le regole
   del programma (`analytics.py` e' `Awards.cpp` portato in Python), non da tabelle di
   riepilogo: una correzione a un QSO si vede subito da tutte e due le facce del log. /
@@ -425,8 +430,8 @@ Quello che manca è in fondo.
   **`scripts/deploy.sh`**: a stand-alone folder and `DecoLog-<version>-win64.zip`.
 - **CI su GitHub** (Windows MSYS2 e Linux) con l'artefatto pronto. / **GitHub CI** (Windows
   MSYS2 and Linux) with the artifact ready.
-- **22 gruppi di test** automatici nel programma e **51 prove** del servizio Cloud
-  (`server/tests`). / **22 automated test suites** in the program and **51 checks** for the
+- **22 gruppi di test** automatici nel programma e **62 prove** del servizio Cloud
+  (`server/tests`). / **22 automated test suites** in the program and **62 checks** for the
   Cloud service (`server/tests`).
 
 ## Non ancora / Not yet

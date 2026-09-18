@@ -1,9 +1,18 @@
 """DecoLog Cloud — il log dal browser.
 
+Non una pagina web che parla dello stesso log: **la stessa finestra**. Barra
+superiore a blocchi, tre colonne di pannelli (scheda del QSO, log, scheda del
+nominativo con FT2 Award e mappa), le schede in basso — Diplomi, Statistiche,
+Invio QSL, Registro attivita', DX Cluster — e la barra di stato. Anche i colori
+sono quelli della stazione: il tema arriva con le impostazioni sincronizzate
+(vedi theme.py).
+
+Cambia una cosa sola, ed e' voluta: da qui si guarda e si scarica, si scrive dal
+programma.
+
 Pagine servite dal server, senza un secondo progetto davanti: Jinja per il
 contenuto e HTMX per le poche cose vive (la ricerca mentre si scrive, le pagine
-che si allungano). Chi entra qui vede il proprio log e basta: e' la stessa
-sostanza del programma, in sola lettura.
+che si allungano).
 
 La sessione del browser e' un token come quello dei dispositivi — il server ne
 tiene solo l'impronta — dentro un cookie HttpOnly.
@@ -20,7 +29,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from . import analytics, auth
+from . import analytics, auth, theme as theming
 from .models import Account, Doc, Qso
 
 HERE = Path(__file__).parent
@@ -166,51 +175,16 @@ def logout(request: Request, db: Session = Depends(auth.session)):
 
 
 @router.get("/log", response_class=HTMLResponse)
-def log(
-    request: Request,
-    q: str = "",
-    band: str = "",
-    mode: str = "",
-    db: Session = Depends(auth.session),
-):
+def log(request: Request, db: Session = Depends(auth.session)):
+    """Il log: la finestra con la scheda in basso predefinita, come all'avvio."""
     account = _account_from_cookie(request, db)
     if account is None:
         return RedirectResponse("/", status_code=303)
 
-    rows = db.scalars(_filtered(db, account, q, band, mode).limit(PAGE)).all()
-    total = db.scalar(
-        select(func.count()).select_from(Qso).where(Qso.account_id == account.id, Qso.deleted.is_(False))
-    )
-    bands = db.scalars(
-        select(Qso.band)
-        .where(Qso.account_id == account.id, Qso.deleted.is_(False), Qso.band != "")
-        .group_by(Qso.band)
-        .order_by(func.count().desc())
-    ).all()
-    modes = db.scalars(
-        select(Qso.mode_group)
-        .where(Qso.account_id == account.id, Qso.deleted.is_(False), Qso.mode_group != "")
-        .group_by(Qso.mode_group)
-        .order_by(func.count().desc())
-    ).all()
-
-    return templates.TemplateResponse(
-        request,
-        "log.html",
-        {
-            "callsign": account.callsign,
-            "rows": [_row_view(r) for r in rows],
-            "total": total or 0,
-            "shown": len(rows),
-            "bands": bands,
-            "modes": modes,
-            "q": q,
-            "band": band,
-            "mode": mode,
-            "offset": len(rows),
-            "more": len(rows) == PAGE,
-        },
-    )
+    rows = _all_rows(db, account)
+    data = analytics.statistics(rows)
+    return _page(request, db, account, "statistiche",
+                 s=data, mode="", year=0, years=data["all_years"], groups=_MODE_GROUPS)
 
 
 @router.get("/log/rows", response_class=HTMLResponse)
@@ -242,6 +216,117 @@ def log_rows(
     )
 
 
+# Le schede in basso sono quelle del programma, nello stesso ordine.
+TABS = [
+    ("diplomi", "Diplomi", "/awards"),
+    ("statistiche", "Statistiche", "/stats"),
+    ("qsl", "Invio QSL", "/qsl"),
+    ("attivita", "Registro attività", "/activity"),
+    ("cluster", "DX Cluster", "/cluster"),
+]
+
+
+def _settings_doc(db: Session, account: Account) -> dict:
+    row = db.scalar(
+        select(Doc).where(Doc.account_id == account.id, Doc.kind == "setting", Doc.key == "station")
+    )
+    return (row.data or {}) if row else {}
+
+
+def _window(request: Request, db: Session, account: Account, tab: str,
+            data_rows: list[analytics.Row] | None = None, **extra) -> dict:
+    """Quello che c'e' in ogni schermata: testata, colonne laterali, barra di stato.
+
+    Le colonne di destra e di sinistra non cambiano da una scheda all'altra,
+    esattamente come nella finestra del programma.
+    """
+    rows = _all_rows(db, account) if data_rows is None else data_rows
+
+    settings = _settings_doc(db, account)
+    # Il QSO scelto: quello indicato nell'indirizzo, altrimenti l'ultimo fatto.
+    wanted = request.query_params.get("sel", "")
+    chosen = None
+    if wanted:
+        chosen = db.scalar(select(Qso).where(Qso.account_id == account.id, Qso.uuid == wanted))
+    if chosen is None:
+        chosen = db.scalar(
+            select(Qso)
+            .where(Qso.account_id == account.id, Qso.deleted.is_(False))
+            .order_by(Qso.started_at.desc().nullslast(), Qso.id.desc())
+            .limit(1)
+        )
+
+    # FT2 Award, come il riquadro nella colonna di destra del programma.
+    ft2 = analytics.awards(rows, mode_group="FT2")
+    ft2_dxcc = next(a for a in ft2 if a.id == "dxcc")
+    ft2_grids = next(a for a in ft2 if a.id == "grids")
+    ft2_lotw = sum(1 for r in rows if r.submode == "FT2" and r.confirmed_lotw)
+
+    stats = analytics.statistics(rows)
+    points = analytics.grid_points(rows)
+
+    return {
+        "request": request,
+        "callsign": account.callsign,
+        "theme": theming.theme_of(settings),
+        "tabs": TABS,
+        "tab": tab,
+        "total": len(rows),
+        "entities": stats["entities"],
+        "grids": stats["grids"],
+        "last_sync": _last_change(db, account),
+        "selected": _detail_view(chosen) if chosen is not None else None,
+        "worked": _worked_before(rows, chosen.call if chosen is not None else ""),
+        "ft2": {"dxcc": ft2_dxcc.worked, "grids": ft2_grids.worked, "confirmed": ft2_lotw},
+        "points": points,
+        "map_points": points[:400],
+        **extra,
+    }
+
+
+def _last_change(db: Session, account: Account) -> str:
+    when = db.scalar(
+        select(func.max(Qso.updated_at)).where(Qso.account_id == account.id)
+    )
+    return when.strftime("%Y-%m-%d %H:%M") if when else ""
+
+
+def _detail_view(row: Qso) -> dict:
+    """Il QSO come lo mostra la colonna di sinistra: i campi che si guardano."""
+    view = _row_view(row)
+    view["fields"] = sorted((row.fields or {}).items())
+    view["country"] = _field(row, "COUNTRY")
+    view["comment"] = _field(row, "COMMENT", "NOTES")
+    view["qth"] = _field(row, "QTH")
+    view["freq"] = _field(row, "FREQ")
+    view["tx_pwr"] = _field(row, "TX_PWR")
+    view["operator"] = _field(row, "STATION_CALLSIGN", "OPERATOR")
+    return view
+
+
+def _worked_before(rows: list[analytics.Row], call: str) -> dict:
+    """La scheda del nominativo: quante volte, su cosa, e quando."""
+    call = (call or "").upper()
+    mine = [r for r in rows if r.call == call]
+    if not mine:
+        return {}
+    bands = sorted({r.band for r in mine if r.band},
+                   key=lambda b: analytics.BAND_ORDER.index(b) if b in analytics.BAND_ORDER else 99)
+    times = [r.when for r in mine if r.when]
+    return {
+        "call": call,
+        "qsos": len(mine),
+        "bands": bands,
+        "modes": sorted({r.label_mode for r in mine if r.label_mode}),
+        "country": next((r.country for r in mine if r.country), ""),
+        "continent": next((r.continent for r in mine if r.continent), ""),
+        "grid": next((r.grid for r in mine if r.grid), ""),
+        "first": min(times).strftime("%Y-%m-%d") if times else "",
+        "last": max(times).strftime("%Y-%m-%d") if times else "",
+        "confirmed": any(r.confirmed_lotw or r.confirmed_card or r.confirmed_eqsl for r in mine),
+    }
+
+
 def _all_rows(db: Session, account: Account) -> list[analytics.Row]:
     """Tutto il log, ridotto a quello che serve ai conti.
 
@@ -257,30 +342,59 @@ def _all_rows(db: Session, account: Account) -> list[analytics.Row]:
     return [analytics.row_of(r) for r in rows]
 
 
+# I gruppi di modi come li offre DecoLog nei filtri dei diplomi.
+_MODE_GROUPS = [("", "tutti i modi"), ("FT2", "FT2"), ("FT8", "FT8"),
+                ("DIGITAL", "digitali"), ("CW", "CW"), ("PHONE", "fonia")]
+
+
+def _log_center(db: Session, account: Account, q: str, band: str, mode: str) -> dict:
+    """Il pannello di mezzo: la tabella del log con i suoi filtri."""
+    rows = db.scalars(_filtered(db, account, q, band, mode).limit(PAGE)).all()
+    bands = db.scalars(
+        select(Qso.band)
+        .where(Qso.account_id == account.id, Qso.deleted.is_(False), Qso.band != "")
+        .group_by(Qso.band)
+        .order_by(func.count().desc())
+    ).all()
+    modes = db.scalars(
+        select(Qso.mode_group)
+        .where(Qso.account_id == account.id, Qso.deleted.is_(False), Qso.mode_group != "")
+        .group_by(Qso.mode_group)
+        .order_by(func.count().desc())
+    ).all()
+    return {
+        "rows": [_row_view(r) for r in rows],
+        "bands": bands,
+        "modes": modes,
+        "q": q, "band": band, "mode_filter": mode,
+        "offset": len(rows),
+        "more": len(rows) == PAGE,
+    }
+
+
+def _page(request: Request, db: Session, account: Account, tab: str, **extra):
+    """Una schermata: la finestra di sempre, con la scheda in basso che cambia."""
+    rows = _all_rows(db, account)
+    q = request.query_params.get("q", "")
+    band = request.query_params.get("band", "")
+    mode_filter = request.query_params.get("fmode", "")
+    context = _window(request, db, account, tab, data_rows=rows,
+                      **_log_center(db, account, q, band, mode_filter), **extra)
+    return templates.TemplateResponse(request, "window.html", context)
+
+
 @router.get("/stats", response_class=HTMLResponse)
 def stats(request: Request, mode: str = "", year: int = 0, db: Session = Depends(auth.session)):
-    """Le statistiche della finestra di DecoLog, rifatte dal log sul server."""
+    """Statistiche: la stessa scheda in basso della finestra del programma."""
     account = _account_from_cookie(request, db)
     if account is None:
         return RedirectResponse("/", status_code=303)
 
     rows = _all_rows(db, account)
     data = analytics.statistics(rows, mode_group=mode, year=year)
-    # Gli anni da mettere nel menu sono quelli di tutto il log, non quelli
-    # rimasti dopo il filtro.
     all_years = analytics.statistics(rows, mode_group=mode)["all_years"]
-
-    return templates.TemplateResponse(
-        request,
-        "stats.html",
-        {"callsign": account.callsign, "s": data, "mode": mode, "year": year,
-         "years": all_years, "groups": _MODE_GROUPS},
-    )
-
-
-# I gruppi di modi come li offre DecoLog nei filtri dei diplomi.
-_MODE_GROUPS = [("", "tutti i modi"), ("FT2", "FT2"), ("FT8", "FT8"),
-                ("DIGITAL", "digitali"), ("CW", "CW"), ("PHONE", "fonia")]
+    return _page(request, db, account, "statistiche",
+                 s=data, mode=mode, year=year, years=all_years, groups=_MODE_GROUPS)
 
 
 @router.get("/awards", response_class=HTMLResponse)
@@ -293,7 +407,7 @@ def awards_page(
     eqsl: int = 0,
     db: Session = Depends(auth.session),
 ):
-    """I diplomi calcolati dal log, con le conferme che si scelgono."""
+    """Diplomi, con le conferme che si scelgono."""
     account = _account_from_cookie(request, db)
     if account is None:
         return RedirectResponse("/", status_code=303)
@@ -306,73 +420,101 @@ def awards_page(
     was = next((a for a in results if a.id == "was"), None)
     waz = next((a for a in results if a.id == "waz"), None)
 
-    return templates.TemplateResponse(
-        request,
-        "awards.html",
-        {
-            "callsign": account.callsign,
-            "awards": [a for a in results if a.worked or a.target],
-            "bands": used,
-            "band": band,
-            "mode": mode,
-            "groups": _MODE_GROUPS,
-            "lotw": bool(lotw), "card": bool(card), "eqsl": bool(eqsl),
-            "missing_states": analytics.missing_states(was) if was else [],
-            "missing_zones": analytics.missing_zones(waz) if waz else [],
-        },
-    )
+    return _page(request, db, account, "diplomi",
+                 awards=[a for a in results if a.worked or a.target],
+                 award_bands=used, award_band=band, mode=mode, groups=_MODE_GROUPS,
+                 lotw=bool(lotw), card=bool(card), eqsl=bool(eqsl),
+                 missing_states=analytics.missing_states(was) if was else [],
+                 missing_zones=analytics.missing_zones(waz) if waz else [])
 
 
 @router.get("/qsl", response_class=HTMLResponse)
 def qsl_page(request: Request, db: Session = Depends(auth.session)):
-    """Lo stato QSL servizio per servizio, come nella scheda Invio QSL."""
+    """Invio QSL: quante ne sono partite e quante ne sono tornate."""
     account = _account_from_cookie(request, db)
     if account is None:
         return RedirectResponse("/", status_code=303)
 
     rows = _all_rows(db, account)
-    summary = analytics.qsl_summary(rows)
     confirmed = [r for r in rows if r.confirmed_lotw or r.confirmed_card or r.confirmed_eqsl]
-    return templates.TemplateResponse(
-        request,
-        "qsl.html",
-        {
-            "callsign": account.callsign,
-            "summary": summary,
-            "total": len(rows),
-            "confirmed": len(confirmed),
-            "latest": [
-                {"call": r.call, "band": r.band, "mode": r.label_mode,
-                 "when": r.when.strftime("%Y-%m-%d") if r.when else "",
-                 "lotw": r.confirmed_lotw, "card": r.confirmed_card, "eqsl": r.confirmed_eqsl}
-                for r in sorted(confirmed, key=lambda r: r.when or dt.datetime.min.replace(tzinfo=dt.UTC),
-                                reverse=True)[:40]
-            ],
-        },
-    )
+    latest = sorted(confirmed, key=lambda r: r.when or dt.datetime.min.replace(tzinfo=dt.UTC),
+                    reverse=True)[:40]
+    return _page(request, db, account, "qsl",
+                 summary=analytics.qsl_summary(rows),
+                 confirmed=len(confirmed),
+                 latest=[{"call": r.call, "band": r.band, "mode": r.label_mode,
+                          "when": r.when.strftime("%Y-%m-%d") if r.when else "",
+                          "lotw": r.confirmed_lotw, "card": r.confirmed_card,
+                          "eqsl": r.confirmed_eqsl}
+                         for r in latest])
 
 
-@router.get("/map", response_class=HTMLResponse)
-def map_page(request: Request, db: Session = Depends(auth.session)):
-    """I locatori lavorati sulla mappa del mondo, come nel pannello Mappa."""
+@router.get("/activity", response_class=HTMLResponse)
+def activity_page(request: Request, db: Session = Depends(auth.session)):
+    """Registro attivita': cosa e' cambiato sul Cloud, e da quale dispositivo."""
     account = _account_from_cookie(request, db)
     if account is None:
         return RedirectResponse("/", status_code=303)
 
-    points = analytics.grid_points(_all_rows(db, account))
-    return templates.TemplateResponse(
-        request,
-        "map.html",
-        {
-            "callsign": account.callsign,
-            "points": points,
-            "confirmed": sum(1 for p in points if p["confirmed"]),
-        },
-    )
+    recent = db.scalars(
+        select(Qso)
+        .where(Qso.account_id == account.id)
+        .order_by(Qso.updated_at.desc().nullslast(), Qso.id.desc())
+        .limit(40)
+    ).all()
+    docs = db.scalars(
+        select(Doc).where(Doc.account_id == account.id).order_by(Doc.updated_at.desc().nullslast())
+    ).all()
+    return _page(request, db, account, "attivita",
+                 changes=[{"uuid": r.uuid, "call": r.call, "band": r.band,
+                           "revision": r.revision, "deleted": r.deleted, "device": r.device,
+                           "when": r.updated_at.strftime("%Y-%m-%d %H:%M") if r.updated_at else ""}
+                          for r in recent],
+                 docs=[{"kind": d.kind, "key": d.key, "revision": d.revision, "device": d.device,
+                        "when": d.updated_at.strftime("%Y-%m-%d %H:%M") if d.updated_at else ""}
+                       for d in docs])
+
+
+@router.get("/cluster", response_class=HTMLResponse)
+def cluster_page(request: Request, db: Session = Depends(auth.session)):
+    """DX Cluster: il collegamento vive nel programma, qui ci sono le sue fonti."""
+    account = _account_from_cookie(request, db)
+    if account is None:
+        return RedirectResponse("/", status_code=303)
+
+    settings = _settings_doc(db, account)
+    sources = _json_setting(settings.get("cluster/sources"))
+    rules = _json_setting(settings.get("cluster/alertRules") or settings.get("cluster/rules"))
+    return _page(request, db, account, "cluster", sources=sources, rules=rules)
+
+
+def _json_setting(raw) -> list:
+    """Una impostazione che il programma salva come testo JSON."""
+    import json
+
+    if isinstance(raw, list):
+        return raw
+    if not raw:
+        return []
+    try:
+        parsed = json.loads(raw)
+    except (TypeError, ValueError):
+        return []
+    return parsed if isinstance(parsed, list) else []
+
+
+@router.get("/map", response_class=HTMLResponse)
+def map_page(request: Request, db: Session = Depends(auth.session)):
+    """La mappa grande: gli stessi locatori del riquadro nella colonna."""
+    account = _account_from_cookie(request, db)
+    if account is None:
+        return RedirectResponse("/", status_code=303)
+    return _page(request, db, account, "mappa", big_map=True)
 
 
 @router.get("/qso/{uuid}", response_class=HTMLResponse)
 def qso(request: Request, uuid: str, db: Session = Depends(auth.session)):
+    """Un QSO: la finestra con quel collegamento scelto nella colonna."""
     account = _account_from_cookie(request, db)
     if account is None:
         return RedirectResponse("/", status_code=303)
@@ -380,24 +522,15 @@ def qso(request: Request, uuid: str, db: Session = Depends(auth.session)):
     if row is None:
         return HTMLResponse("QSO non trovato", status_code=404)
 
-    fields = sorted((row.fields or {}).items())
-    return templates.TemplateResponse(
-        request,
-        "qso.html",
-        {
-            "callsign": account.callsign,
-            "qso": _row_view(row),
-            "fields": fields,
-            "updated": row.updated_at.strftime("%Y-%m-%d %H:%M") if row.updated_at else "",
-            "device": row.device,
-            "deleted": row.deleted,
-        },
-    )
+    rows = _all_rows(db, account)
+    data = analytics.statistics(rows)
+    return _page(request, db, account, "statistiche", all_fields=True,
+                 s=data, mode="", year=0, years=data["all_years"], groups=_MODE_GROUPS)
 
 
 @router.get("/station", response_class=HTMLResponse)
 def station(request: Request, db: Session = Depends(auth.session)):
-    """Profili stazione e impostazioni: il resto del log, quello che non e' un QSO."""
+    """Stazione: profili e impostazioni, il resto del log che non e' un QSO."""
     account = _account_from_cookie(request, db)
     if account is None:
         return RedirectResponse("/", status_code=303)
@@ -411,28 +544,23 @@ def station(request: Request, db: Session = Depends(auth.session)):
         select(Doc).where(Doc.account_id == account.id, Doc.kind == "setting", Doc.key == "station")
     )
     values = sorted((settings_doc.data or {}).items()) if settings_doc else []
+    secrets = db.scalar(
+        select(Doc).where(Doc.account_id == account.id, Doc.kind == "secret", Doc.key == "vault")
+    )
 
-    return templates.TemplateResponse(
-        request,
-        "station.html",
-        {
-            "callsign": account.callsign,
-            "profiles": [
-                {
-                    "key": row.key,
-                    "revision": row.revision,
-                    "updated": row.updated_at.strftime("%Y-%m-%d %H:%M") if row.updated_at else "",
-                    "device": row.device,
-                    "data": row.data or {},
-                }
-                for row in profiles
-            ],
-            "settings": values,
-            "settings_revision": settings_doc.revision if settings_doc else 0,
-            "settings_updated": settings_doc.updated_at.strftime("%Y-%m-%d %H:%M")
-            if settings_doc and settings_doc.updated_at
-            else "",
-        },
+    return _page(
+        request, db, account, "stazione",
+        profiles=[{"key": row.key, "revision": row.revision,
+                   "updated": row.updated_at.strftime("%Y-%m-%d %H:%M") if row.updated_at else "",
+                   "device": row.device, "data": row.data or {}}
+                  for row in profiles],
+        settings=values,
+        settings_revision=settings_doc.revision if settings_doc else 0,
+        settings_updated=settings_doc.updated_at.strftime("%Y-%m-%d %H:%M")
+        if settings_doc and settings_doc.updated_at else "",
+        vault={"revision": secrets.revision,
+               "updated": secrets.updated_at.strftime("%Y-%m-%d %H:%M") if secrets.updated_at else "",
+               "device": secrets.device} if secrets else None,
     )
 
 

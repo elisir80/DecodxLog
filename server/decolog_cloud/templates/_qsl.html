@@ -1,0 +1,50 @@
+<div class="tiles">
+  <div class="tile"><span>QSO</span><b>{{ total }}</b></div>
+  <div class="tile"><span>Confermati</span><b>{{ confirmed }}</b></div>
+  <div class="tile"><span>Da confermare</span><b>{{ total - confirmed }}</b></div>
+</div>
+
+<div class="statcols" style="margin-top:10px">
+  <div>
+    <h3 class="muted">Servizio per servizio</h3>
+    <table class="log">
+      <thead><tr><th>Servizio</th><th>Inviate</th><th>Ricevute</th></tr></thead>
+      <tbody>
+        {% for s in summary %}
+        <tr>
+          <td>{{ s.label }}</td>
+          <td>{{ s.sent or "—" }}</td>
+          <td>{% if s.id == "clublog" %}<span class="dim">n/d</span>{% else %}{{ s.rcvd or "—" }}{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="muted">Club Log non ha un "ricevuto" in ADIF. L'invio si comanda dal programma: qui si vede com'è andata.</p>
+  </div>
+
+  <div style="grid-column: span 3">
+    <h3 class="muted">Ultime conferme</h3>
+    {% if latest %}
+    <div class="scroll">
+      <table class="log">
+        <thead><tr><th>Data</th><th>Nominativo</th><th>Banda</th><th>Modo</th><th>L</th><th>C</th><th>E</th></tr></thead>
+        <tbody>
+          {% for r in latest %}
+          <tr>
+            <td>{{ r.when }}</td>
+            <td class="call">{{ r.call }}</td>
+            <td>{{ r.band }}</td>
+            <td>{{ r.mode }}</td>
+            <td>{% if r.lotw %}<span class="ok">●</span>{% else %}<span class="dim">○</span>{% endif %}</td>
+            <td>{% if r.card %}<span class="ok">●</span>{% else %}<span class="dim">○</span>{% endif %}</td>
+            <td>{% if r.eqsl %}<span class="ok">●</span>{% else %}<span class="dim">○</span>{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="dim">Nessuna conferma ancora arrivata.</p>
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,84 @@
+{% macro bars(rows, width) %}
+{% set top = rows | map(attribute=1) | max | default(1) %}
+<table class="rows">
+  {% for name, n in rows %}
+  <tr>
+    <th class="mono" style="width:{{ width }}">{{ name }}</th>
+    <td><div class="bar" style="width: {{ (n / top * 100) | round(1) }}%"></div></td>
+    <td class="num">{{ n }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endmacro %}
+
+<form class="filters" method="get" action="/stats" style="margin-bottom:10px">
+  <select name="mode" onchange="this.form.submit()">
+    {% for value, label in groups %}
+    <option value="{{ value }}" {% if value == mode %}selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+  </select>
+  <select name="year" onchange="this.form.submit()">
+    <option value="0">tutti gli anni</option>
+    {% for y in years %}
+    <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
+    {% endfor %}
+  </select>
+</form>
+
+<div class="tiles">
+  <div class="tile"><span>QSO</span><b>{{ s.qsos }}</b></div>
+  <div class="tile"><span>Nominativi</span><b>{{ s.calls }}</b></div>
+  <div class="tile"><span>Entità</span><b>{{ s.entities }}</b></div>
+  <div class="tile"><span>Locatori</span><b>{{ s.grids }}</b></div>
+  <div class="tile"><span>Primo</span><b>{{ s.first.strftime("%Y-%m-%d") if s.first else "—" }}</b></div>
+  <div class="tile"><span>Ultimo</span><b>{{ s.last.strftime("%Y-%m-%d") if s.last else "—" }}</b></div>
+</div>
+
+{% if s.qsos %}
+<div class="statcols">
+  <div>
+    <h3 class="muted">Per anno</h3>
+    {{ bars(s.years, "52px") }}
+    <h3 class="muted">Bande</h3>
+    {{ bars(s.bands, "52px") }}
+  </div>
+  <div>
+    <h3 class="muted">Ultimi mesi</h3>
+    {{ bars(s.months, "68px") }}
+  </div>
+  <div>
+    <h3 class="muted">Modi</h3>
+    {{ bars(s.modes, "68px") }}
+    {% if s.continents %}
+    <h3 class="muted">Continenti</h3>
+    {{ bars(s.continents, "36px") }}
+    {% endif %}
+  </div>
+  <div>
+    <h3 class="muted">Ora UTC</h3>
+    {{ bars(s.hours, "30px") }}
+  </div>
+</div>
+
+<h3 class="muted">Banda per ora — quando la banda è aperta</h3>
+<div class="scroll">
+  <table class="heat">
+    <thead>
+      <tr><th></th>{% for h in range(24) %}<th>{{ "%02d" | format(h) }}</th>{% endfor %}</tr>
+    </thead>
+    <tbody>
+      {% for row in s.heat %}
+      <tr>
+        <th>{{ row.band }}</th>
+        {% for n in row.hours %}
+        <td class="cell" title="{{ row.band }} · {{ "%02d" | format(loop.index0) }}Z · {{ n }} QSO"
+            style="--v: {{ (n / s.heat_max) if s.heat_max else 0 }}">{{ n or "" }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<p class="dim">Nessun QSO con questi filtri.</p>
+{% endif %}

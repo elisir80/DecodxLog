@@ -1,13 +1,16 @@
 {% for row in rows %}
-<tr onclick="location.href='/qso/{{ row.uuid }}'">
-  <td class="mono">{{ row.date }}</td>
-  <td class="mono">{{ row.time }}</td>
-  <td class="mono call">{{ row.call }}</td>
-  <td class="mono">{{ row.band }}</td>
-  <td class="mono">{{ row.mode }}</td>
-  <td class="mono dim">{{ row.rst_sent }}</td>
-  <td class="mono dim">{{ row.rst_rcvd }}</td>
-  <td class="mono dim">{{ row.grid }}</td>
+{# Un clic sceglie il QSO: la scheda a sinistra e quella del nominativo a
+   destra seguono, come nella finestra del programma. #}
+<tr class="{% if selected and selected.uuid == row.uuid %}on{% endif %}"
+    onclick="location.href='?sel={{ row.uuid }}'">
+  <td>{{ row.date }}</td>
+  <td>{{ row.time }}</td>
+  <td class="call">{{ row.call }}</td>
+  <td>{{ row.band }}</td>
+  <td>{{ row.mode }}</td>
+  <td class="dim">{{ row.rst_sent }}</td>
+  <td class="dim">{{ row.rst_rcvd }}</td>
+  <td class="dim">{{ row.grid }}</td>
   <td class="dim">{{ row.name or row.country }}</td>
 </tr>
 {% endfor %}
@@ -15,7 +18,7 @@
 {% if more %}
 {# L'ultima riga chiede la pagina dopo appena si vede: si scorre e basta. #}
 <tr id="more"
-    hx-get="/log/rows?q={{ q|urlencode }}&band={{ band|urlencode }}&mode={{ mode|urlencode }}&offset={{ offset }}"
+    hx-get="/log/rows?q={{ q|urlencode }}&band={{ band|urlencode }}&mode={{ mode_filter|default(mode, true)|urlencode }}&offset={{ offset }}"
     hx-trigger="revealed"
     hx-swap="outerHTML">
   <td colspan="9" class="dim center">…</td>

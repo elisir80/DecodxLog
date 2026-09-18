@@ -96,8 +96,8 @@ def test_the_log_shows_the_qsos(client):
     assert "DL9ZZT" in page.text
     assert "EA5XYZ" in page.text
     assert "Klaus" in page.text
-    # Il totale sta nel suo riquadro: <span class="count">2</span> QSO.
-    assert ">2</span> QSO" in page.text
+    # Il totale sta nella testata del pannello, come nella finestra.
+    assert "2 QSO" in page.text
 
 
 def test_search_filters_the_rows(client):
@@ -148,7 +148,7 @@ def test_one_account_does_not_see_another(client):
     sign_in(client, "DL9ZZT")
     page = client.get("/log")
     assert "W1AW" not in page.text
-    assert "0</span> QSO" in page.text or "0 QSO" in page.text.replace("\n", " ")
+    assert "0 QSO" in page.text
 
 
 def test_logout_closes_the_door(client):
@@ -190,7 +190,7 @@ def test_the_station_page_shows_profiles_and_settings(client):
     # Un filtro salvato non e' testo: si dice cos'e', non si vomita il blob.
     assert "valore interno di Qt" in page.text
     assert "AAAACAAAAAAA" not in page.text
-    assert "Revisione 3" in page.text
+    assert "revisione 3" in page.text
 
 
 def test_the_station_page_needs_a_session(client):
@@ -250,8 +250,8 @@ def test_the_awards_page_counts_worked_and_confirmed(client):
     assert "DXCC" in page.text and "WAZ" in page.text and "WAS" in page.text
     assert "Germany" in page.text          # l'entita' col suo nome
     assert "Connecticut" in page.text or "CT" in page.text
-    # Due conferme su tre entita' lavorate.
-    assert "/ 3 lavorati" in page.text
+    # Due conferme su tre entita' lavorate: il riquadro dice confermati / lavorati.
+    assert "/ 3" in page.text
     assert "Cosa manca" in page.text
 
 
@@ -291,4 +291,75 @@ def test_the_map_page_carries_the_worked_grids(client):
     page = client.get("/map")
     assert page.status_code == 200
     assert "JO62" in page.text and "FN31" in page.text and "IM98" in page.text
-    assert "3</span> locatori" in page.text
+    assert "3 locatori" in page.text
+
+
+def test_the_window_is_the_one_of_the_program(client):
+    headers = account(client)
+    logged_qsos(client, headers)
+    sign_in(client)
+
+    page = client.get("/log")
+    assert page.status_code == 200
+    # Le tre colonne: scheda del QSO, log, scheda del nominativo con FT2 e mappa.
+    for piece in ("Scheda QSO", "Log", "Scheda nominativo", "FT2 Award", "Mappa"):
+        assert piece in page.text, piece
+    # Le schede in basso, nell'ordine del programma.
+    for tab in ("Diplomi", "Statistiche", "Invio QSL", "Registro attività", "DX Cluster"):
+        assert tab in page.text, tab
+    # La barra di stato.
+    assert "QSO: 3" in page.text
+
+
+def test_choosing_a_qso_moves_the_side_panels(client):
+    headers = account(client)
+    logged_qsos(client, headers)
+    sign_in(client)
+
+    page = client.get("/log", params={"sel": "u2"})
+    assert "W1AW" in page.text
+    # La scheda del nominativo segue il QSO scelto: dice il suo paese.
+    assert "United States" in page.text
+
+
+def test_the_page_wears_the_theme_of_the_station(client):
+    headers = account(client)
+    client.post("/v1/sync/push",
+                json={"docs": [{"kind": "setting", "key": "station", "revision": 1,
+                                "data": {"theme/current": "Darkcodium",
+                                         "theme/accentVariant": "amber"}}]},
+                headers=headers)
+    sign_in(client)
+
+    page = client.get("/log")
+    # Il tema e' quello sincronizzato dal programma, non uno deciso qui.
+    assert "--bg-deep: #050706;" in page.text
+    assert "--accent: #ffb820;" in page.text
+    assert "Darkcodium · amber" in page.text
+
+
+def test_the_cluster_tab_shows_the_sources_of_the_station(client):
+    headers = account(client)
+    client.post(
+        "/v1/sync/push",
+        json={"docs": [{"kind": "setting", "key": "station", "revision": 1, "data": {
+            "cluster/sources": '[{"name": "iq8do (DX Spider)", "host": "iq8do.aricaserta.it",'
+                               ' "port": 7300, "type": "cluster", "enabled": true, "login": "IU8LMC"}]'}}]},
+        headers=headers,
+    )
+    sign_in(client)
+
+    page = client.get("/cluster")
+    assert page.status_code == 200
+    assert "iq8do" in page.text and "7300" in page.text
+
+
+def test_the_activity_tab_shows_what_arrived(client):
+    headers = account(client)
+    logged_qsos(client, headers)
+    sign_in(client)
+
+    page = client.get("/activity")
+    assert page.status_code == 200
+    assert "DL9ZZT" in page.text
+    assert "Ultime modifiche" in page.text

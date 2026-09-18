@@ -1,0 +1,62 @@
+<h3 class="muted">Profili stazione</h3>
+{% if profiles %}
+<div class="tiles">
+  {% for p in profiles %}
+  <div class="tile" style="min-width:210px">
+    <span>{{ p.data.get("name") or p.key[:8] }}{% if p.data.get("isDefault") %} · predefinito{% endif %}</span>
+    <b class="ok">{{ p.data.get("stationCallsign", "") }}</b>
+    <table class="rows" style="margin-top:6px">
+      {% if p.data.get("operatorCall") %}<tr><th>Operatore</th><td class="mono">{{ p.data["operatorCall"] }}</td></tr>{% endif %}
+      {% if p.data.get("myGridsquare") %}<tr><th>Locatore</th><td class="mono">{{ p.data["myGridsquare"] }}</td></tr>{% endif %}
+      {% if p.data.get("myRig") %}<tr><th>Radio</th><td class="mono">{{ p.data["myRig"] }}</td></tr>{% endif %}
+      {% if p.data.get("myAntenna") %}<tr><th>Antenna</th><td class="mono">{{ p.data["myAntenna"] }}</td></tr>{% endif %}
+      {% if p.data.get("defaultTxPwr") %}<tr><th>Potenza</th><td class="mono">{{ p.data["defaultTxPwr"] }} W</td></tr>{% endif %}
+    </table>
+    <span class="dim small">revisione {{ p.revision }}{% if p.updated %} · {{ p.updated }}{% endif %}</span>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p class="dim">Nessun profilo ancora arrivato dal programma.</p>
+{% endif %}
+
+<h3 class="muted">Cassaforte delle credenziali</h3>
+{% if vault %}
+<p class="muted">
+  Le password dei servizi sono sul Cloud, <span class="ok">chiuse</span>: revisione
+  {{ vault.revision }}{% if vault.updated %}, arrivate il {{ vault.updated }}{% endif %}{% if vault.device %} da {{ vault.device }}{% endif %}.
+  Il server ne vede solo i byte: si aprono con la password del Cloud, che il server non ha.
+</p>
+{% else %}
+<p class="muted">
+  Le password dei servizi non sono ancora salite. In DecoLog: Impostazioni → Sync e Cloud
+  → <b>Apri la cassaforte</b>. Viaggiano cifrate, e il server non le può leggere.
+</p>
+{% endif %}
+
+<h3 class="muted">Impostazioni · {{ settings | length }} voci{% if settings_revision %} · revisione {{ settings_revision }}{% endif %}{% if settings_updated %} · {{ settings_updated }}{% endif %}</h3>
+{% if settings %}
+<p class="muted">
+  Tutta la stazione: tema, lingua, colonne e filtri del log, cluster, avvisi, invii
+  automatici, porte e percorsi. Non passano di qui le password e le chiavi dei servizi
+  in chiaro — quelle stanno nel portachiavi, e sul Cloud solo dentro la cassaforte.
+</p>
+<div class="scroll" style="max-height:34vh">
+  <table class="rows mono">
+    {% for name, value in settings %}
+    <tr>
+      <th style="width:220px">{{ name }}</th>
+      <td>
+        {%- if value is mapping and "__qvariant__" in value -%}
+        <span class="dim">valore interno di Qt · {{ value["__qvariant__"]|length }} caratteri</span>
+        {%- else -%}
+        {{ value }}
+        {%- endif -%}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% else %}
+<p class="dim">Le impostazioni non sono ancora arrivate: salgono al primo giro dopo una modifica.</p>
+{% endif %}

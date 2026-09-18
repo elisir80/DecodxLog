@@ -41,7 +41,21 @@ Vince l'ultima modifica, la versione che perde resta nello storico. Le impostazi
 JSON non sa dire (un filtro salvato e' un QVariant di Qt) viaggiano impacchettate, senza
 perdere niente. In arrivo, il tema si ridipinge subito: non si aspetta il riavvio.
 
-**Il log dal browser non e' piu' solo una tabella.** Ci sono le stesse schermate del
+**Il log dal browser e' la stessa finestra del programma.** Non una pagina web che
+parla dello stesso log: barra superiore a blocchi, tre colonne di pannelli — scheda del
+QSO a sinistra, log in mezzo, scheda del nominativo con FT2 Award e mappa a destra — le
+cinque schede in basso (Diplomi, Statistiche, Invio QSL, Registro attivita', DX Cluster)
+e la barra di stato. Si sceglie un QSO nel log e le colonne seguono, come nel programma.
+
+E **i colori sono quelli della stazione**: il tema arriva con le impostazioni
+sincronizzate, valore per valore dal ThemeManager — Ocean Blue, Stellar Light o
+Darkcodium con la sua variante d'accento e la densita' delle righe. Chi ha il log in
+Darkcodium ambra lo ritrova in Darkcodium ambra anche sul telefono.
+
+Cambia una cosa sola, ed e' voluta: da qui si guarda e si scarica, si scrive dal
+programma.
+
+**Dentro le schede c'e' il resto del log.** Ci sono le stesse schermate del
 programma, rifatte dal log che sta sul server: **Statistiche** (QSO per anno, mese, ora
 UTC, banda, modo, continente, e la mappa di calore banda per ora che dice quando una
 banda e' aperta), **Diplomi** (DXCC, FT2, WAZ, WAS, WPX, locatori, IOTA, POTA, SOTA,

@@ -1,0 +1,50 @@
+<p class="muted">
+  Gli spot arrivano da nodi telnet e li ascolta il programma, che li confronta con il
+  log e li manda a Decodium: è roba di rete e di radio, non di browser. Qui ci sono le
+  fonti e le regole d'avviso della stazione, come le ha sincronizzate DecoLog.
+</p>
+
+<div class="statcols">
+  <div style="grid-column: span 2">
+    <h3 class="muted">Fonti · {{ sources | length }}</h3>
+    {% if sources %}
+    <table class="log">
+      <thead><tr><th>Nome</th><th>Tipo</th><th>Indirizzo</th><th>Accesso</th><th></th></tr></thead>
+      <tbody>
+        {% for s in sources %}
+        <tr>
+          <td>{{ s.get("name", "—") }}</td>
+          <td>{{ s.get("type", "—") }}</td>
+          <td>{{ s.get("host", "—") }}{% if s.get("port") %}:{{ s["port"] }}{% endif %}</td>
+          <td>{{ s.get("login", "") or "—" }}</td>
+          <td>{% if s.get("enabled") %}<span class="ok">accesa</span>{% else %}<span class="dim">spenta</span>{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="dim">Nessuna fonte sincronizzata.</p>
+    {% endif %}
+  </div>
+
+  <div style="grid-column: span 2">
+    <h3 class="muted">Regole d'avviso · {{ rules | length }}</h3>
+    {% if rules %}
+    <table class="log">
+      <thead><tr><th>Nome</th><th>Voce</th><th>A Decodium</th><th></th></tr></thead>
+      <tbody>
+        {% for r in rules %}
+        <tr>
+          <td>{{ r.get("name", "—") }}</td>
+          <td>{% if r.get("voice") %}<span class="ok">●</span>{% else %}<span class="dim">○</span>{% endif %}</td>
+          <td>{% if r.get("decodium") %}<span class="ok">●</span>{% else %}<span class="dim">○</span>{% endif %}</td>
+          <td>{% if r.get("enabled") %}<span class="ok">accesa</span>{% else %}<span class="dim">spenta</span>{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="dim">Nessuna regola sincronizzata.</p>
+    {% endif %}
+  </div>
+</div>
