@@ -1,10 +1,9 @@
 // DecoLog — il posto di comando DecoRotor, dentro DecoLog.
 //
-// E' la pagina "Controllo" del programma originale, rifatta com'e': testata con
-// le spie, quadrante sopra e mondo vero sotto separati da una maniglia, e a
-// destra display, memorie a tasto diretto, comandi e puntamento. Sotto, la
-// striscia di stato. Il gateway e' lo stesso: qui cambia solo la finestra che lo
-// mostra.
+// E' la finestra del programma originale rifatta com'e': testata con le spie,
+// le tre schede CONTROLLO / DIAGNOSTICA / IMPOSTAZIONI, e in fondo la striscia
+// di stato. Il gateway e' lo stesso: qui cambia solo la finestra che lo mostra.
+// Copia di `desktop/qml/Main.qml`.
 import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Layouts
@@ -13,20 +12,9 @@ import QtCore
 ApplicationWindow {
     id: root
 
-    property date currentTime: new Date()
-    // La stazione scelta sulla mappa: il quadrante ne mostra il puntino, cosi'
-    // si legge subito la sua direzione sulla corona dei gradi.
-    property var chosenSpot: null
     property bool nightMode: true
 
     RotorPalette { id: rt; dark: root.nightMode }
-
-    readonly property var rotor: decolog.rotor
-    readonly property var st: rotor.state
-    readonly property var home: decolog.myPosition
-    readonly property real homeLat: home && home.lat !== undefined ? home.lat : 41.5
-    readonly property real homeLon: home && home.lon !== undefined ? home.lon : 12.5
-    readonly property var bearing: rotor.bearing
 
     // Lo shack puo' avere un ultrawide scalato o un portatile: la finestra si
     // adatta allo spazio realmente disponibile invece di eccederlo.
@@ -45,13 +33,8 @@ ApplicationWindow {
         property alias nightMode: root.nightMode
     }
 
-    Timer {
-        interval: 1000
-        repeat: true
-        running: true
-        onTriggered: root.currentTime = new Date()
-    }
-
+    // Il quadrante chiaro o notturno e' una scelta che resta: alla riapertura
+    // lo shack ritrova la luce che aveva.
     header: RotorTopBar {
         nightMode: root.nightMode
         onLightToggled: root.nightMode = !root.nightMode
@@ -61,175 +44,64 @@ ApplicationWindow {
         nightMode: root.nightMode
     }
 
-    RowLayout {
+    ColumnLayout {
         anchors.fill: parent
         anchors.margins: rt.spacing
         spacing: rt.spacing
 
-        // Quadrante sopra, mondo vero sotto: la maniglia decide quanto spazio
-        // dare all'uno o all'altro secondo quello che si sta facendo.
-        SplitView {
+        TabBar {
+            id: tabs
+
             Layout.fillWidth: true
-            Layout.fillHeight: true
-            Layout.preferredWidth: 660
-            Layout.minimumWidth: 380
-            orientation: Qt.Vertical
+            background: Item {}
 
-            handle: Rectangle {
-                implicitHeight: 10
-                color: "transparent"
+            Repeater {
+                model: [qsTr("CONTROLLO"), qsTr("DIAGNOSTICA"), qsTr("IMPOSTAZIONI")]
 
-                Rectangle {
-                    anchors.centerIn: parent
-                    width: 54
-                    height: 3
-                    radius: 1.5
-                    color: SplitHandle.pressed || SplitHandle.hovered ? rt.primary : rt.borderSoft
-                }
-            }
+                TabButton {
+                    id: tab
 
-            RotorGlass {
-                SplitView.fillHeight: true
-                SplitView.minimumHeight: 260
+                    required property string modelData
 
-                RotorDial {
-                    anchors.fill: parent
-                    nightMode: root.nightMode
-                    azimuth: root.st.az || 0
-                    target: root.st.azTarget !== undefined && root.st.azTarget >= 0 ? root.st.azTarget : -1
-                    beamwidth: root.st.beamwidth || 45
-                    hasPosition: root.st.connected === true
-                    moving: root.st.moving === true
-                    limitMin: root.st.azMin !== undefined ? root.st.azMin : 0
-                    limitMax: root.st.azMax !== undefined ? root.st.azMax : 360
-                    latitude: root.homeLat
-                    longitude: root.homeLon
-                    pinLatitude: root.chosenSpot ? root.chosenSpot.lat
-                               : (root.bearing.lat !== undefined ? root.bearing.lat : 0)
-                    pinLongitude: root.chosenSpot ? root.chosenSpot.lon
-                                : (root.bearing.lon !== undefined ? root.bearing.lon : 0)
-                    pinValid: root.chosenSpot !== null || root.bearing.lat !== undefined
-                    onBearingRequested: (degrees) => root.rotor.pointTo(degrees, "")
-                }
+                    text: modelData
+                    implicitHeight: 34
+                    width: implicitWidth
 
-                // Ora locale e QTH negli angoli liberi del riquadro, dove il
-                // quadrante rotondo non arriva.
-                Column {
-                    anchors.top: parent.top
-                    anchors.left: parent.left
-                    spacing: 0
-
-                    Text {
-                        text: Qt.formatTime(root.currentTime, "HH:mm")
-                        color: rt.textSecondary
-                        font.pixelSize: 22
-                        font.family: rt.monoFamily
-                        font.bold: true
+                    background: Rectangle {
+                        radius: 8
+                        color: tab.checked ? Qt.rgba(0.22, 0.74, 0.97, 0.16) : "transparent"
+                        border.color: tab.checked ? rt.primary : "transparent"
+                        border.width: 1
                     }
 
-                    Text {
-                        text: Qt.formatDate(root.currentTime, "ddd d MMM")
-                        color: rt.textDim
+                    contentItem: Text {
+                        text: tab.text
+                        color: tab.checked ? rt.primary : rt.textSecondary
                         font.pixelSize: rt.fontSmall
-                    }
-                }
-
-                Column {
-                    anchors.bottom: parent.bottom
-                    anchors.right: parent.right
-                    spacing: 0
-
-                    Text {
-                        anchors.right: parent.right
-                        text: root.st.locator || decolog.myGrid
-                        color: rt.textSecondary
-                        font.pixelSize: rt.fontBody
-                        font.family: rt.monoFamily
                         font.bold: true
+                        font.letterSpacing: 1.2
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
                     }
-
-                    Text {
-                        anchors.right: parent.right
-                        text: qsTr("mappa azimutale dal QTH")
-                        color: rt.textDim
-                        font.pixelSize: rt.fontSmall
-                    }
-                }
-            }
-
-            Rectangle {
-                SplitView.preferredHeight: 320
-                SplitView.minimumHeight: 180
-
-                color: rt.bgPanel
-                border.color: rt.border
-                border.width: 1
-                radius: rt.radius
-                clip: true
-
-                RotorMap {
-                    anchors.fill: parent
-                    anchors.margins: 1
-                    nightMode: root.nightMode
-                    homeLatitude: root.homeLat
-                    homeLongitude: root.homeLon
-                    onSpotChosen: (spot) => root.chosenSpot = spot
                 }
             }
         }
 
-        // Su schermi bassi la colonna scorre invece di troncare i pannelli.
-        ScrollView {
+        StackLayout {
+            Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.preferredWidth: 560
-            Layout.minimumWidth: 450
-            Layout.maximumWidth: 620
-            contentWidth: availableWidth
-            clip: true
+            currentIndex: tabs.currentIndex
 
-            ColumnLayout {
-                width: parent.width
-                spacing: rt.spacing
+            RotorControlPage { nightMode: root.nightMode }
 
-                RotorDisplay {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: root.st.hasEl === true ? 220 : 176
-                }
+            RotorDiagnostics {}
 
-                RotorMemoryGrid {
-                    Layout.fillWidth: true
-                    onManageRequested: memories.open()
-                }
-
-                RotorCommandBar {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 122
-                    onPresetsRequested: memories.open()
-                }
-
-                RotorPointing {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 104
-                }
-            }
+            RotorSettings {}
         }
     }
 
-    Popup {
-        id: memories
-
-        x: (root.width - width) / 2
-        y: Math.max(20, (root.height - height) / 2)
-        width: Math.min(560, root.width - 80)
-        height: Math.min(480, root.height - 60)
-        modal: true
-        padding: 0
-        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-
-        background: Item {}
-
-        RotorMemories {
-            anchors.fill: parent
-        }
+    // Per le schermate di prova: --show rotor:window:1 apre la diagnostica.
+    function showTab(index) {
+        tabs.currentIndex = Math.max(0, Math.min(2, index))
     }
 }

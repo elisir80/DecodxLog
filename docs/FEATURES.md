@@ -224,6 +224,12 @@ Quello che manca è in fondo.
   "Controllo" page as it is — status lamps, dial, satellite map with the gateway's tiles,
   display with CCW/CW, six direct memories, steps with STOP in the middle, PARK, the memory
   list, pointing by degrees and by locator (short or long path).
+- **Diagnostica e impostazioni del gateway**: frame della seriale con l'esadecimale,
+  andamento della posizione, contatori, indirizzi di rete; nominativo, locatore, lobo,
+  finecorsa, riposo e tolleranza scritti nel config.json del gateway. / **Gateway
+  diagnostics and settings**: serial frames with their hex, position trace, counters,
+  network addresses; callsign, locator, beamwidth, limits, park and tolerance written into
+  the gateway's config.json.
 - **Dal cluster**: il menu di uno spot punta il rotore sui gradi già calcolati. / **From the
   cluster**: a spot's menu points the rotor at the bearing already computed.
 - **Sul DX** che si sta lavorando, a mano o seguendolo da solo. / **On the DX** being worked,

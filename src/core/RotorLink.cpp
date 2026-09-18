@@ -27,11 +27,21 @@ QVariantMap RotorState::toMap() const
         {QStringLiteral("locator"), locator},
         {QStringLiteral("callsign"), callsign},
         {QStringLiteral("beamwidth"), beamwidth},
+        {QStringLiteral("linkUp"), linkUp},
         {QStringLiteral("clients"), clients},
         {QStringLiteral("azMin"), azMin},
         {QStringLiteral("azMax"), azMax},
         {QStringLiteral("parkAz"), parkAz},
         {QStringLiteral("parkEl"), parkEl},
+        {QStringLiteral("tolerance"), tolerance},
+        {QStringLiteral("stallTimeout"), stallTimeout},
+        {QStringLiteral("stopOnClientLoss"), stopOnClientLoss},
+        {QStringLiteral("tokenRequired"), tokenRequired},
+        {QStringLiteral("txFrames"), txFrames},
+        {QStringLiteral("rxFrames"), rxFrames},
+        {QStringLiteral("errorCount"), errorCount},
+        {QStringLiteral("reconnects"), reconnects},
+        {QStringLiteral("uptime"), uptime},
         {QStringLiteral("hasConfig"), hasConfig},
         {QStringLiteral("updated"), updated.isValid() ? updated.toString(Qt::ISODate) : QString()},
     };
@@ -67,9 +77,16 @@ RotorState parseState(const QJsonObject& o)
     s.error = o.value(QStringLiteral("error")).toString();
     s.locator = o.value(QStringLiteral("locator")).toString();
     s.callsign = o.value(QStringLiteral("callsign")).toString();
-    if (o.value(QStringLiteral("beamwidth")).isDouble())
+    if (o.value(QStringLiteral("beamwidth")).isDouble()) {
         s.beamwidth = o.value(QStringLiteral("beamwidth")).toDouble();
+        s.beamwidthKnown = true;
+    }
     s.clients = o.value(QStringLiteral("clients")).toInt();
+    s.txFrames = o.value(QStringLiteral("tx_frames")).toInt();
+    s.rxFrames = o.value(QStringLiteral("rx_frames")).toInt();
+    s.errorCount = o.value(QStringLiteral("errors")).toInt();
+    s.reconnects = o.value(QStringLiteral("reconnects")).toInt();
+    s.uptime = o.value(QStringLiteral("uptime")).toDouble();
     s.updated = QDateTime::currentDateTimeUtc();
     return s;
 }
@@ -188,6 +205,7 @@ void RotorLink::openDecoRotor()
 
     connect(m_ws, &QWebSocket::connected, this, [this] {
         m_attempts = 0;
+        m_state.linkUp = true;
         emit note(tr("Rotor: connected to DecoRotor on %1:%2").arg(m_host).arg(m_port), QStringLiteral("success"));
         // Lo stato arriva da solo a ogni giro di polling, ma il primo si chiede.
         sendJson({{QStringLiteral("cmd"), QStringLiteral("state")}});
@@ -235,6 +253,7 @@ void RotorLink::openRotctld()
 
     connect(m_tcp, &QTcpSocket::connected, this, [this] {
         m_attempts = 0;
+        m_state.linkUp = true;
         m_state.connected = true;
         m_state.model = QStringLiteral("rotctld");
         m_state.modelLabel = tr("rotctld (Hamlib)");
@@ -286,7 +305,29 @@ void RotorLink::handleJson(const QString& message)
     const QJsonObject o = QJsonDocument::fromJson(message.toUtf8()).object();
     const QString type = o.value(QStringLiteral("type")).toString();
     if (type == QLatin1String("state")) {
-        m_state = rotor::parseState(o);
+        const RotorState fresh = rotor::parseState(o);
+        // Finecorsa, riposo e tolleranza arrivano solo con la config: lo stato
+        // nuovo non deve cancellarli.
+        const RotorState previous = m_state;
+        m_state = fresh;
+        m_state.hasConfig = previous.hasConfig;
+        m_state.azMin = previous.azMin;
+        m_state.azMax = previous.azMax;
+        m_state.parkAz = previous.parkAz;
+        m_state.parkEl = previous.parkEl;
+        m_state.tolerance = previous.tolerance;
+        m_state.stallTimeout = previous.stallTimeout;
+        m_state.stopOnClientLoss = previous.stopOnClientLoss;
+        m_state.tokenRequired = previous.tokenRequired;
+        m_state.linkUp = true;
+        if (!fresh.beamwidthKnown && previous.beamwidthKnown) {
+            m_state.beamwidth = previous.beamwidth;
+            m_state.beamwidthKnown = true;
+        }
+        if (m_state.locator.isEmpty())
+            m_state.locator = previous.locator;
+        if (m_state.callsign.isEmpty())
+            m_state.callsign = previous.callsign;
         emit stateChanged();
         return;
     }
@@ -297,7 +338,8 @@ void RotorLink::handleJson(const QString& message)
         return;
     }
     if (type == QLatin1String("hello")) {
-        // Niente da fare: lo stato arriva subito dopo.
+        // Dice solo se il gateway vuole un token: lo stato arriva subito dopo.
+        m_state.tokenRequired = o.value(QStringLiteral("auth")).toBool();
         return;
     }
     if (type != QLatin1String("ack"))
@@ -312,10 +354,18 @@ void RotorLink::handleJson(const QString& message)
             m_state.locator = config.value(QStringLiteral("my_locator")).toString();
         if (config.contains(QStringLiteral("callsign")))
             m_state.callsign = config.value(QStringLiteral("callsign")).toString();
-        if (config.value(QStringLiteral("beamwidth")).isDouble())
+        if (config.value(QStringLiteral("beamwidth")).isDouble()) {
             m_state.beamwidth = config.value(QStringLiteral("beamwidth")).toDouble();
+            m_state.beamwidthKnown = true;
+        }
         if (config.value(QStringLiteral("park_az")).isDouble())
             m_state.parkAz = config.value(QStringLiteral("park_az")).toDouble();
+        if (config.value(QStringLiteral("tolerance")).isDouble())
+            m_state.tolerance = config.value(QStringLiteral("tolerance")).toDouble();
+        if (config.value(QStringLiteral("stall_timeout")).isDouble())
+            m_state.stallTimeout = config.value(QStringLiteral("stall_timeout")).toDouble();
+        if (config.contains(QStringLiteral("stop_on_client_loss")))
+            m_state.stopOnClientLoss = config.value(QStringLiteral("stop_on_client_loss")).toBool();
         m_state.parkEl = config.value(QStringLiteral("park_el")).isDouble()
                              ? config.value(QStringLiteral("park_el")).toDouble() : -1.0;
         const QJsonObject limits = config.value(QStringLiteral("limits")).toObject();
@@ -337,6 +387,25 @@ void RotorLink::handleJson(const QString& message)
             // Dopo un salvataggio o una cancellazione l'elenco si richiede.
             requestPresets();
         }
+        return;
+    }
+    if (cmd == QLatin1String("traffic")) {
+        m_traffic.clear();
+        for (const QJsonValue& value : o.value(QStringLiteral("traffic")).toArray())
+            m_traffic << value.toObject().toVariantMap();
+        emit trafficChanged();
+        return;
+    }
+    if (cmd == QLatin1String("history")) {
+        m_history.clear();
+        for (const QJsonValue& value : o.value(QStringLiteral("history")).toArray())
+            m_history << value.toObject().toVariantMap();
+        emit historyChanged();
+        return;
+    }
+    if (cmd == QLatin1String("config_set")) {
+        // Il gateway ha salvato: si rilegge quello che ha davvero applicato.
+        sendJson({{QStringLiteral("cmd"), QStringLiteral("config")}});
         return;
     }
     if (cmd == QLatin1String("bearing") || cmd == QLatin1String("goto_locator")) {
@@ -449,6 +518,30 @@ void RotorLink::deletePreset(const QString& name)
     sendJson({{QStringLiteral("cmd"), QStringLiteral("preset_delete")},
               {QStringLiteral("name"), name}});
     requestPresets();
+}
+
+void RotorLink::requestTraffic(int limit)
+{
+    if (m_backend == Backend::DecoRotor) {
+        sendJson({{QStringLiteral("cmd"), QStringLiteral("traffic")},
+                  {QStringLiteral("limit"), qBound(1, limit, 500)}});
+    }
+}
+
+void RotorLink::requestHistory(int limit)
+{
+    if (m_backend == Backend::DecoRotor) {
+        sendJson({{QStringLiteral("cmd"), QStringLiteral("history")},
+                  {QStringLiteral("limit"), qBound(1, limit, 2000)}});
+    }
+}
+
+void RotorLink::setConfig(const QVariantMap& values)
+{
+    if (m_backend != Backend::DecoRotor || values.isEmpty())
+        return;
+    sendJson({{QStringLiteral("cmd"), QStringLiteral("config_set")},
+              {QStringLiteral("values"), values}});
 }
 
 void RotorLink::requestBearing(const QString& locator)

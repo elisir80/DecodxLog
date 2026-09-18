@@ -188,6 +188,14 @@ set(DECOLOG_QML_FILES
     qml/DecoLog/RotorLocatorBar.qml
     qml/DecoLog/RotorMap.qml
     qml/DecoLog/RotorDial.qml
+    qml/DecoLog/RotorControlPage.qml
+    qml/DecoLog/RotorDiagnostics.qml
+    qml/DecoLog/RotorSettings.qml
+    qml/DecoLog/RotorSettingsPanel.qml
+    qml/DecoLog/RotorTraffic.qml
+    qml/DecoLog/RotorHistory.qml
+    qml/DecoLog/RotorStats.qml
+    qml/DecoLog/RotorNetwork.qml
     qml/DecoLog/RotorWindow.qml
     qml/DecoLog/RotorPanel.qml
     qml/DecoLog/PropagationPanel.qml

@@ -49,6 +49,8 @@ RotorController::RotorController(Context context, QObject* parent)
         emit stateChanged();
     });
     connect(&m_link, &RotorLink::presetsChanged, this, &RotorController::presetsChanged);
+    connect(&m_link, &RotorLink::trafficChanged, this, &RotorController::trafficChanged);
+    connect(&m_link, &RotorLink::historyChanged, this, &RotorController::historyChanged);
     connect(&m_link, &RotorLink::bearingReady, this, [this](const QVariantMap& bearing) {
         m_bearing = bearing;
         emit bearingChanged();
@@ -164,6 +166,61 @@ QString RotorController::tileEndpoint() const
     return QStringLiteral("http://%1:%2/tiles/").arg(m_host).arg(m_httpPort);
 }
 
+QString RotorController::uptimeText() const
+{
+    const qint64 seconds = static_cast<qint64>(m_link.state().uptime);
+    if (seconds < 60)
+        return tr("%1 s").arg(seconds);
+    if (seconds < 3600)
+        return tr("%1 m").arg(seconds / 60);
+    return tr("%1 h %2 m").arg(seconds / 3600).arg((seconds % 3600) / 60);
+}
+
+QVariantList RotorController::endpoints() const
+{
+    // Le tre porte le serve il gateway: se risponde lui, ci sono tutte.
+    const bool up = m_link.state().linkUp;
+    const bool deco = m_backend == QLatin1String("decorotor");
+    return QVariantList{
+        QVariantMap{{QStringLiteral("role"), tr("APP (WebSocket)")},
+                    {QStringLiteral("address"), QStringLiteral("%1:%2").arg(m_host).arg(deco ? m_port : 8765)},
+                    {QStringLiteral("active"), up && deco}},
+        QVariantMap{{QStringLiteral("role"), tr("WEB UI")},
+                    {QStringLiteral("address"), QStringLiteral("%1:%2").arg(m_host).arg(m_httpPort)},
+                    {QStringLiteral("active"), up && deco}},
+        QVariantMap{{QStringLiteral("role"), tr("ROTCTLD (Hamlib)")},
+                    {QStringLiteral("address"), QStringLiteral("%1:%2").arg(m_host).arg(deco ? 4532 : m_port)},
+                    {QStringLiteral("active"), up}},
+    };
+}
+
+void RotorController::refreshDiagnostics()
+{
+    if (!m_enabled)
+        return;
+    m_link.requestTraffic(60);
+    m_link.requestHistory(300);
+}
+
+void RotorController::setSetting(const QString& key, const QVariant& value)
+{
+    if (!m_enabled || key.isEmpty())
+        return;
+    m_link.setConfig(QVariantMap{{key, value}});
+    note(tr("Rotor: %1 set on the gateway").arg(key), QStringLiteral("info"));
+}
+
+void RotorController::setLimit(const QString& key, double value)
+{
+    if (!m_enabled || key.isEmpty())
+        return;
+    // I finecorsa vanno mandati insieme: il gateway vuole l'oggetto intero.
+    const core::RotorState& s = m_link.state();
+    QVariantMap limits{{QStringLiteral("az_min"), s.azMin}, {QStringLiteral("az_max"), s.azMax}};
+    limits.insert(key, value);
+    m_link.setConfig(QVariantMap{{QStringLiteral("limits"), limits}});
+}
+
 void RotorController::recallPreset(const QString& name)
 {
     if (!m_enabled)
@@ -231,7 +288,10 @@ QVariantMap RotorController::state() const
 {
     QVariantMap map = m_link.state().toMap();
     map.insert(QStringLiteral("enabled"), m_enabled);
-    map.insert(QStringLiteral("beamwidth"), m_beamwidth);
+    // Il lobo lo dice il gateway; quello delle impostazioni di DecoLog serve
+    // solo quando dall'altra parte c'e' un rotctld, che non lo sa.
+    if (!m_link.state().beamwidthKnown)
+        map.insert(QStringLiteral("beamwidth"), m_beamwidth);
     map.insert(QStringLiteral("backend"), m_backend);
     return map;
 }

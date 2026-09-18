@@ -96,8 +96,11 @@ ApplicationWindow {
         else if (what[0] === "stats") openStats()
         else if (what[0] === "cards") openCards()
         else if (what[0] === "rotor") {
-            if (what[1] === "window")
+            if (what[1] === "window") {
                 openRotor()
+                if (what[2] !== undefined && rotorWindow.item)
+                    rotorWindow.item.showTab(parseInt(what[2]))
+            }
             else
                 decolog.rotor.pointTo(parseFloat(what[1] || "0"), what[2] || "")
         }

@@ -19,7 +19,12 @@ le sei memorie a tasto diretto, i passi con lo STOP al centro, PARK, l'elenco de
 e il puntamento a gradi con le otto direzioni. Sotto, la striscia di stato con le tre porte
 del gateway. I riquadri della mappa arrivano dal gateway stesso (che fa da cache), gli spot
 sono quelli del cluster di DecoLog e la barra in fondo punta per locatore, rotta breve o
-lunga. Memorie, finecorsa, riposo e lobo li dice il gateway: DecoLog li legge e basta. Dove la rotta si sa già la si usa: **dal menu di
+lunga. Ci sono anche le altre due schede dell'originale: **DIAGNOSTICA** (i frame Prosistel che
+passano sulla seriale con il loro esadecimale, l'andamento della posizione, i contatori
+dell'esercizio e i tre indirizzi di rete) e **IMPOSTAZIONI** (nominativo, locatore, apertura
+del lobo, finecorsa, riposo, tolleranza e lo stop se cade il collegamento), che scrivono nel
+config.json del gateway con . Memorie, finecorsa, riposo e lobo li dice il
+gateway: DecoLog li legge e li rimanda, non se li inventa. Dove la rotta si sa già la si usa: **dal menu di
 uno spot del cluster** (“punta il rotore su DL9ZZT, 287°”), dal nominativo che si sta
 lavorando, e, se lo si accende, seguendo da solo quello che Decodium lavora. La direzione
 dell'antenna si vede anche sulla mappa. La seriale resta a DecoRotor: i finecorsa sono del

@@ -36,6 +36,10 @@ class RotorController : public QObject {
     Q_PROPERTY(QString tileEndpoint READ tileEndpoint NOTIFY changed)
     Q_PROPERTY(QString wsEndpoint READ wsEndpoint NOTIFY changed)
     Q_PROPERTY(QString httpEndpoint READ httpEndpoint NOTIFY changed)
+    Q_PROPERTY(QVariantList traffic READ traffic NOTIFY trafficChanged)
+    Q_PROPERTY(QVariantList history READ history NOTIFY historyChanged)
+    Q_PROPERTY(QString uptimeText READ uptimeText NOTIFY stateChanged)
+    Q_PROPERTY(QVariantList endpoints READ endpoints NOTIFY stateChanged)
 
 public:
     struct Context {
@@ -77,6 +81,12 @@ public:
     QString tileEndpoint() const;
     QString wsEndpoint() const { return QStringLiteral("%1:%2").arg(m_host).arg(m_port); }
     QString httpEndpoint() const { return QStringLiteral("%1:%2").arg(m_host).arg(m_httpPort); }
+    QVariantList traffic() const { return m_link.traffic(); }
+    QVariantList history() const { return m_link.history(); }
+    // "2 h 14 m", come sul posto di comando.
+    QString uptimeText() const;
+    // Gli indirizzi da usare su telefono e software di stazione.
+    QVariantList endpoints() const;
 
     // Punta a gradi. `what` e' quello che si sta puntando, per il registro.
     Q_INVOKABLE void pointTo(double azimuth, const QString& what = {});
@@ -95,6 +105,11 @@ public:
     Q_INVOKABLE void askBearing(const QString& locator);
     // Azimut ed elevazione insieme (il pannello di puntamento).
     Q_INVOKABLE void gotoPosition(double az, double el);
+    // Diagnostica: il gateway manda i frame e lo storico solo se glieli chiedi.
+    Q_INVOKABLE void refreshDiagnostics();
+    // Configurazione a caldo del gateway (finisce nel suo config.json).
+    Q_INVOKABLE void setSetting(const QString& key, const QVariant& value);
+    Q_INVOKABLE void setLimit(const QString& key, double value);
 
     // Il nominativo che Decodium sta lavorando: se "segui" e' acceso e si sa da
     // che parte sta, l'antenna ci va da sola.
@@ -105,6 +120,8 @@ signals:
     void stateChanged();
     void presetsChanged();
     void bearingChanged();
+    void trafficChanged();
+    void historyChanged();
 
 private:
     void apply();

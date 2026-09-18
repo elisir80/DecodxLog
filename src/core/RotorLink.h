@@ -41,12 +41,24 @@ struct RotorState {
     QString locator;            // il QTH del gateway
     QString callsign;
     double  beamwidth{45.0};
+    bool    beamwidthKnown{false};   // lo stato non lo dice sempre: la config si'
+    bool    linkUp{false};           // il gateway risponde (non il control box)
     int     clients{0};
     // Dalla configurazione del gateway: finecorsa e posizione di riposo.
     double  azMin{0.0};
     double  azMax{360.0};
     double  parkAz{0.0};
     double  parkEl{-1.0};
+    double  tolerance{1.0};
+    double  stallTimeout{8.0};
+    bool    stopOnClientLoss{true};
+    bool    tokenRequired{false};
+    // Contatori dell'esercizio, come li manda il gateway.
+    int     txFrames{0};
+    int     rxFrames{0};
+    int     errorCount{0};
+    int     reconnects{0};
+    double  uptime{0.0};
     bool    hasConfig{false};
     QDateTime updated;
 
@@ -94,9 +106,19 @@ public:
     // Rotta verso un locatore, senza muovere niente.
     void requestBearing(const QString& locator);
 
+    // Diagnostica: frame della seriale e andamento della posizione.
+    QVariantList traffic() const { return m_traffic; }
+    QVariantList history() const { return m_history; }
+    void requestTraffic(int limit = 60);
+    void requestHistory(int limit = 300);
+    // Configurazione a caldo: solo i campi che il gateway accetta.
+    void setConfig(const QVariantMap& values);
+
 signals:
     void stateChanged();
     void presetsChanged();
+    void trafficChanged();
+    void historyChanged();
     // {short_path, long_path, distance_km, lat, lon, locator}
     void bearingReady(const QVariantMap& bearing);
     void note(const QString& text, const QString& level);
@@ -119,6 +141,8 @@ private:
 
     RotorState m_state;
     QVariantList m_presets;
+    QVariantList m_traffic;
+    QVariantList m_history;
     QWebSocket* m_ws{nullptr};
     QTcpSocket* m_tcp{nullptr};
     QByteArray  m_buffer;
