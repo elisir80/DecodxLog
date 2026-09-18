@@ -6,9 +6,14 @@ in stazione.
 ## 0.3.0 — in lavorazione
 
 **Rotore.** DecoLog parla con **DecoRotor** sul WebSocket (8765) e, per chi ha altro, con un
-**rotctld** qualsiasi (DecoRotor stesso risponde sulla 4532). Nella colonna di destra
-compare la rosa con il lobo d'antenna, i gradi, il bersaglio, i passi da 1° e 10°, STOP e
-park; si punta anche cliccando sulla rosa. Dove la rotta si sa già la si usa: **dal menu di
+**rotctld** qualsiasi (DecoRotor stesso risponde sulla 4532). Il quadrante è quello di
+DecoRotor, portato dentro DecoLog: corona graduata con le tacche ogni 2° e i numeri ogni
+10°, mappa azimutale equidistante centrata sul proprio QTH (la direzione letta sulla corona
+è la rotta vera, e la distanza dal centro cresce con i chilometri), cerchi di distanza, lobo
+d'antenna, bersaglio tratteggiato e ago che gira dalla parte giusta. Sta in piccolo nella
+colonna di destra e in grande nella sua finestra (Ctrl+R), dove ci sono anche le otto
+direzioni, i passi, il puntamento per locatore e gli ultimi spot da puntare con un clic. Si
+punta anche cliccando dentro il quadrante. Dove la rotta si sa già la si usa: **dal menu di
 uno spot del cluster** (“punta il rotore su DL9ZZT, 287°”), dal nominativo che si sta
 lavorando, e, se lo si accende, seguendo da solo quello che Decodium lavora. La direzione
 dell'antenna si vede anche sulla mappa. La seriale resta a DecoRotor: i finecorsa sono del

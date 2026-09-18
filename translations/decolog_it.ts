@@ -1598,7 +1598,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Antenna heading</source>
-        <translation>Dove guarda l'antenna</translation>
+        <translation>Dove guarda l&apos;antenna</translation>
     </message>
     <message>
         <source>QSOs with a grid square appear here</source>
@@ -2492,20 +2492,8 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Rotore</translation>
     </message>
     <message>
-        <source>N</source>
-        <translation>N</translation>
-    </message>
-    <message>
-        <source>E</source>
-        <translation>E</translation>
-    </message>
-    <message>
-        <source>S</source>
-        <translation>S</translation>
-    </message>
-    <message>
-        <source>W</source>
-        <translation>O</translation>
+        <source>Open ▾</source>
+        <translation>Apri ▾</translation>
     </message>
     <message>
         <source>STOP</source>
@@ -2518,6 +2506,97 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>On the DX</source>
         <translation>Sul DX</translation>
+    </message>
+</context>
+<context>
+    <name>RotorWindow</name>
+    <message>
+        <source>DecoLog — Rotor</source>
+        <translation>DecoLog — Rotore</translation>
+    </message>
+    <message>
+        <source>Rotor</source>
+        <translation>Rotore</translation>
+    </message>
+    <message>
+        <source>control box on %1</source>
+        <translation>control box su %1</translation>
+    </message>
+    <message>
+        <source>Where it is pointing</source>
+        <translation>Dove sta puntando</translation>
+    </message>
+    <message>
+        <source>Point</source>
+        <translation>Punta</translation>
+    </message>
+    <message>
+        <source>N</source>
+        <translation>N</translation>
+    </message>
+    <message>
+        <source>NE</source>
+        <translation>NE</translation>
+    </message>
+    <message>
+        <source>E</source>
+        <translation>E</translation>
+    </message>
+    <message>
+        <source>SE</source>
+        <translation>SE</translation>
+    </message>
+    <message>
+        <source>S</source>
+        <translation>S</translation>
+    </message>
+    <message>
+        <source>SW</source>
+        <translation>SO</translation>
+    </message>
+    <message>
+        <source>W</source>
+        <translation>O</translation>
+    </message>
+    <message>
+        <source>NW</source>
+        <translation>NO</translation>
+    </message>
+    <message>
+        <source>locator, e.g. FN31PR</source>
+        <translation>locatore, per esempio FN31PR</translation>
+    </message>
+    <message>
+        <source>Go</source>
+        <translation>Vai</translation>
+    </message>
+    <message>
+        <source>From the log and the cluster</source>
+        <translation>Dal log e dal cluster</translation>
+    </message>
+    <message>
+        <source>On the DX: %1 · %2°</source>
+        <translation>Sul DX: %1 · %2°</translation>
+    </message>
+    <message>
+        <source>No call being worked</source>
+        <translation>Nessun nominativo in lavorazione</translation>
+    </message>
+    <message>
+        <source>Last spots</source>
+        <translation>Ultimi spot</translation>
+    </message>
+    <message>
+        <source>No spot with a known bearing.</source>
+        <translation>Nessuno spot con la rotta nota.</translation>
+    </message>
+    <message>
+        <source>STOP</source>
+        <translation>STOP</translation>
+    </message>
+    <message>
+        <source>Park</source>
+        <translation>Park</translation>
     </message>
 </context>
 <context>
@@ -2987,7 +3066,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Antenna rotor</source>
-        <translation>Rotore d'antenna</translation>
+        <translation>Rotore d&apos;antenna</translation>
     </message>
     <message>
         <source>Talks to</source>

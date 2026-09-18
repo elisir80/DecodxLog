@@ -171,6 +171,8 @@ set(DECOLOG_QML_FILES
     qml/DecoLog/ActivationDialog.qml
     qml/DecoLog/StatsWindow.qml
     qml/DecoLog/ContestWindow.qml
+    qml/DecoLog/RotorDial.qml
+    qml/DecoLog/RotorWindow.qml
     qml/DecoLog/RotorPanel.qml
     qml/DecoLog/PropagationPanel.qml
     qml/DecoLog/ClusterPanel.qml
@@ -196,7 +198,7 @@ qt_add_translations(decolog TS_FILES translations/decolog_it.ts)
 qt_add_resources(decolog "map"
     PREFIX "/decolog"
     BASE resources
-    FILES resources/map/coastline.json
+    FILES resources/map/coastline.json resources/map/land.json
 )
 
 qt_add_resources(decolog "icon"

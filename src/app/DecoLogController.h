@@ -258,6 +258,8 @@ public:
     // Le coste del mondo per la mappa: [[ [lon, lat], ... ], ...]. Sta qui perche'
     // XMLHttpRequest non legge le risorse dell'eseguibile.
     Q_INVOKABLE QVariantList coastline() const;
+    // Gli anelli di terraferma, per la mappa azimutale del rotore.
+    Q_INVOKABLE QVariantList landmasses() const;
 
     Q_INVOKABLE QStringList statsYears() const;
     Q_INVOKABLE QVariantMap statsSummary(const QString& mode = {}, int year = 0) const;
@@ -411,6 +413,7 @@ private:
     QHash<QString, QString> m_callbookErrors;
     QString           m_countriesSource;
     mutable QVariantList m_coastline;
+    mutable QVariantList m_land;
     core::UdpReceiver m_udp;
     QsoTableModel*    m_model{nullptr};
     StationProfileModel* m_profiles{nullptr};

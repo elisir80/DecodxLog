@@ -213,9 +213,14 @@ Quello che manca è in fondo.
 - **DecoRotor sul WebSocket** (8765) o un **rotctld** qualsiasi (4532): DecoLog non tocca la
   seriale. / **DecoRotor over WebSocket** (8765) or any **rotctld** (4532): DecoLog never
   touches the serial port.
-- **Rosa** con lobo d'antenna, gradi, bersaglio, passi da 1° e 10°, STOP e park; si punta
-  cliccando. / **Compass** with the antenna lobe, degrees, target, 1° and 10° steps, STOP and
-  park; click to point.
+- **Il quadrante di DecoRotor**: corona graduata, mappa azimutale del proprio QTH con cerchi
+  di distanza, lobo d'antenna, bersaglio e ago; si punta cliccandoci dentro. / **DecoRotor's
+  dial**: graduated ring, azimuthal map of your QTH with range rings, antenna lobe, target and
+  needle; click inside it to point.
+- **Finestra del rotore** (Ctrl+R): quadrante grande, otto direzioni, passi da 1° e 10°,
+  puntamento per locatore, STOP e park, e gli ultimi spot da puntare con un clic. / **Rotor
+  window** (Ctrl+R): big dial, eight directions, 1° and 10° steps, pointing by locator, STOP
+  and park, and the last spots to point at with one click.
 - **Dal cluster**: il menu di uno spot punta il rotore sui gradi già calcolati. / **From the
   cluster**: a spot's menu points the rotor at the bearing already computed.
 - **Sul DX** che si sta lavorando, a mano o seguendolo da solo. / **On the DX** being worked,

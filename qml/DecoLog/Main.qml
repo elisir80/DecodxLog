@@ -57,6 +57,13 @@ ApplicationWindow {
             contestWindow.item.requestActivate()
         }
     }
+    function openRotor() {
+        rotorWindow.active = true
+        if (rotorWindow.item) {
+            rotorWindow.item.raise()
+            rotorWindow.item.requestActivate()
+        }
+    }
     function openCards() {
         cardsWindow.active = true
         if (cardsWindow.item) {
@@ -88,7 +95,12 @@ ApplicationWindow {
         else if (what[0] === "modes") newQsoPanel.showModes()
         else if (what[0] === "stats") openStats()
         else if (what[0] === "cards") openCards()
-        else if (what[0] === "rotor") decolog.rotor.pointTo(parseFloat(what[1] || "0"), what[2] || "")
+        else if (what[0] === "rotor") {
+            if (what[1] === "window")
+                openRotor()
+            else
+                decolog.rotor.pointTo(parseFloat(what[1] || "0"), what[2] || "")
+        }
         else if (what[0] === "contest") {
             openContest()
             if (what[1] === "cabrillo" && contestWindow.item)
@@ -137,6 +149,14 @@ ApplicationWindow {
     }
 
     Loader {
+        id: rotorWindow
+        active: false
+        sourceComponent: RotorWindow {
+            onClosing: rotorWindow.active = false
+        }
+    }
+
+    Loader {
         id: contestWindow
         active: false
         sourceComponent: ContestWindow {
@@ -178,6 +198,7 @@ ApplicationWindow {
     Shortcut { sequence: "Ctrl+K"; onActivated: window.openCluster(0) }
     Shortcut { sequence: "Ctrl+T"; onActivated: activationDialog.openDialog() }
     Shortcut { sequence: "Ctrl+Shift+T"; onActivated: window.openContest() }
+    Shortcut { sequence: "Ctrl+R"; onActivated: window.openRotor() }
 
     ColumnLayout {
         anchors.fill: parent
@@ -244,6 +265,7 @@ ApplicationWindow {
                         Layout.fillWidth: true
                         Layout.preferredHeight: implicitHeight
                         visible: decolog.rotor.enabled
+                        onWindowRequested: window.openRotor()
                     }
                     Ft2AwardPanel {
                         Layout.fillWidth: true

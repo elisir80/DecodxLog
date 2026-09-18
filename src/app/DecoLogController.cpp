@@ -1787,6 +1787,20 @@ StatsFilter statsFilterFor(const QString& mode, int year)
 
 } // namespace
 
+QVariantList DecoLogController::landmasses() const
+{
+    if (!m_land.isEmpty())
+        return m_land;
+    QFile file(QStringLiteral(":/decolog/map/land.json"));
+    if (!file.open(QIODevice::ReadOnly))
+        return m_land;
+    const QJsonArray rings = QJsonDocument::fromJson(file.readAll()).object()
+                                 .value(QStringLiteral("rings")).toArray();
+    for (const QJsonValue& ring : rings)
+        m_land.append(QVariant(ring.toArray().toVariantList()));
+    return m_land;
+}
+
 QVariantList DecoLogController::coastline() const
 {
     if (!m_coastline.isEmpty())
