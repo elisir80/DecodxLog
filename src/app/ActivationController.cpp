@@ -1,5 +1,6 @@
 #include "app/ActivationController.h"
 
+#include "core/Cabrillo.h"
 #include "core/LogDatabase.h"
 #include "core/Spots.h"
 
@@ -228,6 +229,157 @@ QString ActivationController::suggestedFileName() const
     const QString call = m_ctx.stationCall ? m_ctx.stationCall() : QString();
     const QDate day = m_session.startedAt.isValid() ? m_session.startedAt.date() : QDate::currentDate();
     return m_session.exportFileName(call.isEmpty() ? QStringLiteral("DECOLOG") : call, day);
+}
+
+QVariantMap ActivationController::cabrilloDefaults() const
+{
+    const QString call = m_ctx.stationCall ? m_ctx.stationCall() : QString();
+    return QVariantMap{
+        {QStringLiteral("contest"), m_session.contestId.isEmpty() ? m_session.name : m_session.contestId},
+        {QStringLiteral("callsign"), call},
+        {QStringLiteral("gridLocator"), m_session.myGrid.isEmpty() && m_ctx.stationGrid ? m_ctx.stationGrid()
+                                                                                        : m_session.myGrid},
+        {QStringLiteral("operators"), call},
+        {QStringLiteral("categoryOperator"), QStringLiteral("SINGLE-OP")},
+        {QStringLiteral("categoryAssisted"), QStringLiteral("NON-ASSISTED")},
+        {QStringLiteral("categoryBand"), m_session.band.isEmpty() ? QStringLiteral("ALL")
+                                                                  : m_session.band.toUpper()},
+        {QStringLiteral("categoryMode"), QStringLiteral("MIXED")},
+        {QStringLiteral("categoryPower"), QStringLiteral("LOW")},
+        {QStringLiteral("categoryTransmitter"), QStringLiteral("ONE")},
+    };
+}
+
+QString ActivationController::exportCabrillo(const QUrl& url, const QVariantMap& info)
+{
+    const QVariantList ids = qsoIds();
+    if (ids.isEmpty())
+        return tr("No QSO in this session yet");
+
+    auto text = [&info](const char* key) { return info.value(QLatin1String(key)).toString().trimmed(); };
+    cabrillo::Info header;
+    header.contest = text("contest");
+    header.callsign = text("callsign");
+    if (header.callsign.isEmpty() && m_ctx.stationCall)
+        header.callsign = m_ctx.stationCall();
+    if (!text("categoryOperator").isEmpty())
+        header.categoryOperator = text("categoryOperator");
+    if (!text("categoryAssisted").isEmpty())
+        header.categoryAssisted = text("categoryAssisted");
+    if (!text("categoryBand").isEmpty())
+        header.categoryBand = text("categoryBand");
+    if (!text("categoryMode").isEmpty())
+        header.categoryMode = text("categoryMode");
+    if (!text("categoryPower").isEmpty())
+        header.categoryPower = text("categoryPower");
+    if (!text("categoryTransmitter").isEmpty())
+        header.categoryTransmitter = text("categoryTransmitter");
+    header.categoryOverlay = text("categoryOverlay");
+    header.gridLocator = text("gridLocator");
+    header.location = text("location");
+    header.club = text("club");
+    header.name = text("name");
+    header.email = text("email");
+    header.operators = text("operators");
+    header.claimedScore = info.value(QStringLiteral("claimedScore")).toLongLong();
+    const QString address = info.value(QStringLiteral("address")).toString();
+    if (!address.trimmed().isEmpty())
+        header.address = address.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
+    const QString soapbox = info.value(QStringLiteral("soapbox")).toString();
+    if (!soapbox.trimmed().isEmpty())
+        header.soapbox = soapbox.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
+
+    QList<AdifRecord> records;
+    for (const QVariant& v : ids) {
+        if (const auto record = m_ctx.db->record(v.toLongLong()))
+            records << *record;
+    }
+
+    QString error;
+    const QByteArray text_out = cabrillo::write(header, records, &error);
+    if (text_out.isEmpty())
+        return error.isEmpty() ? tr("Nothing to write") : error;
+
+    const QString path = url.isLocalFile() ? url.toLocalFile() : url.toString();
+    QFile file(path);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+        return tr("Cannot write %1").arg(path);
+    file.write(text_out);
+    file.close();
+    if (m_ctx.activity) {
+        m_ctx.activity(QStringLiteral("ACT"),
+                       tr("Cabrillo written: %1 (%n QSO)", nullptr, static_cast<int>(records.size())).arg(path),
+                       QStringLiteral("success"));
+    }
+    return {};
+}
+
+QVariantList ActivationController::recentQsos(int limit) const
+{
+    QVariantList out;
+    if (!m_session.active || !m_ctx.db || !m_ctx.db->isOpen() || !m_session.startedAt.isValid())
+        return out;
+    QSqlQuery q(m_ctx.db->connection());
+    q.setForwardOnly(true);
+    q.prepare(QStringLiteral(
+        "SELECT id, call, qso_datetime_on, band, "
+        "CASE WHEN IFNULL(submode, '') = '' OR mode = 'SSB' THEN mode ELSE submode END, "
+        "rst_sent, rst_rcvd, country FROM qso "
+        "WHERE deleted = 0 AND qso_datetime_on >= ? ORDER BY qso_datetime_on DESC, id DESC LIMIT ?"));
+    q.addBindValue(m_session.startedAt.toString(Qt::ISODate));
+    q.addBindValue(qMax(1, limit));
+    if (!q.exec())
+        return out;
+    while (q.next()) {
+        const QDateTime when = QDateTime::fromString(q.value(2).toString(), Qt::ISODate);
+        out << QVariantMap{{QStringLiteral("id"), q.value(0).toLongLong()},
+                           {QStringLiteral("call"), q.value(1).toString()},
+                           {QStringLiteral("time"), when.toString(QStringLiteral("hh:mm"))},
+                           {QStringLiteral("band"), q.value(3).toString()},
+                           {QStringLiteral("mode"), q.value(4).toString()},
+                           {QStringLiteral("rstSent"), q.value(5).toString()},
+                           {QStringLiteral("rstRcvd"), q.value(6).toString()},
+                           {QStringLiteral("country"), q.value(7).toString()}};
+    }
+    return out;
+}
+
+QVariantMap ActivationController::rate() const
+{
+    QVariantMap out{{QStringLiteral("last10"), 0}, {QStringLiteral("last60"), 0},
+                    {QStringLiteral("perHour10"), 0}, {QStringLiteral("perHour60"), 0},
+                    {QStringLiteral("dxcc"), 0}, {QStringLiteral("grids"), 0}};
+    if (!m_session.active || !m_ctx.db || !m_ctx.db->isOpen() || !m_session.startedAt.isValid())
+        return out;
+    const QDateTime now = QDateTime::currentDateTimeUtc();
+    const QString start = m_session.startedAt.toString(Qt::ISODate);
+
+    auto since = [this, &start](const QDateTime& from) {
+        QSqlQuery q(m_ctx.db->connection());
+        q.prepare(QStringLiteral(
+            "SELECT COUNT(*) FROM qso WHERE deleted = 0 AND qso_datetime_on >= ? AND qso_datetime_on >= ?"));
+        q.addBindValue(start);
+        q.addBindValue(from.toString(Qt::ISODate));
+        return q.exec() && q.next() ? q.value(0).toInt() : 0;
+    };
+    const int last10 = since(now.addSecs(-600));
+    const int last60 = since(now.addSecs(-3600));
+    out[QStringLiteral("last10")] = last10;
+    out[QStringLiteral("last60")] = last60;
+    // Il ritmo: quello che verrebbe fuori se si andasse avanti cosi' per un'ora.
+    out[QStringLiteral("perHour10")] = last10 * 6;
+    out[QStringLiteral("perHour60")] = last60;
+
+    QSqlQuery mult(m_ctx.db->connection());
+    mult.prepare(QStringLiteral(
+        "SELECT COUNT(DISTINCT dxcc), COUNT(DISTINCT substr(gridsquare, 1, 4)) FROM qso "
+        "WHERE deleted = 0 AND qso_datetime_on >= ?"));
+    mult.addBindValue(start);
+    if (mult.exec() && mult.next()) {
+        out[QStringLiteral("dxcc")] = mult.value(0).toInt();
+        out[QStringLiteral("grids")] = mult.value(1).toInt();
+    }
+    return out;
 }
 
 QString ActivationController::exportAdif(const QUrl& url)

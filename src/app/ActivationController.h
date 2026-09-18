@@ -72,6 +72,25 @@ public:
     Q_INVOKABLE QString suggestedFileName() const;
     // Scrive l'ADIF della sessione. Restituisce un messaggio d'errore, o "".
     Q_INVOKABLE QString exportAdif(const QUrl& file);
+    // Scrive il Cabrillo del contest. `info` sono le righe della testata:
+    // {contest, callsign, categoryOperator, categoryPower, categoryMode,
+    //  categoryBand, categoryAssisted, gridLocator, location, club, name,
+    //  address, email, operators, claimedScore, soapbox}. Torna "" se e' andata.
+    Q_INVOKABLE QString exportCabrillo(const QUrl& file, const QVariantMap& info);
+    // La testata gia' riempita con quello che il programma sa.
+    Q_INVOKABLE QVariantMap cabrilloDefaults() const;
+
+    // ── Finestra contest ────────────────────────────────────────────────────
+    // Gli ultimi QSO della sessione, dal piu' recente.
+    Q_INVOKABLE QVariantList recentQsos(int limit = 12) const;
+    // QSO all'ora sugli ultimi 10 e 60 minuti, moltiplicatori, ultimo scambio.
+    Q_INVOKABLE QVariantMap rate() const;
+    // Questo nominativo e' gia' stato lavorato in questa sessione, su questa
+    // banda e in questo modo?
+    Q_INVOKABLE bool wouldDuplicate(const QString& call, const QString& band, const QString& mode) const
+    {
+        return isDuplicate(call, band, mode);
+    }
 
     // ── Usate dal controller principale ─────────────────────────────────────
     const core::Activation& session() const { return m_session; }

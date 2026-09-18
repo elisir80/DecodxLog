@@ -5,6 +5,17 @@ in stazione.
 
 ## 0.3.0 — in lavorazione
 
+**Contest.** Una finestra fatta per la tastiera (Ctrl+Shift+T): si scrive il nominativo,
+Invio registra, Esc pulisce, la barra passa al rapporto. Mentre si scrive si vede se è un
+doppio (in questa sessione, su questa banda, in questo modo), che ritmo si tiene (QSO
+degli ultimi dieci minuti e dell'ultima ora, e i QSO/h che ne verrebbero), quanti DXCC e
+locatori sono entrati, e gli ultimi QSO fatti. Il numero progressivo lo mette la sessione.
+
+**Cabrillo.** Il log del contest esce come lo vuole chi lo riceve: testata 3.0 con
+categorie, locatore, punteggio dichiarato e soapbox, e una riga per QSO a colonne fisse.
+Le frequenze in kHz, dai 6 metri in su il numero di banda; i modi come li vuole Cabrillo
+(CW, PH, RY, DG, FM) e FT2 come digitale.
+
 **QSL di carta.** Una finestra propria con la coda: da mandare, mandate, ricevute, e
 quante aspettano risposta. Un QSO ci finisce dal menu della riga nel log o tutto insieme
 con “metti in coda tutte quelle da ricambiare”. Da liì escono le **etichette in PDF**:

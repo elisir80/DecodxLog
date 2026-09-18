@@ -49,6 +49,14 @@ ApplicationWindow {
             statsWindow.item.requestActivate()
         }
     }
+    function openActivation() { activationDialog.openDialog() }
+    function openContest() {
+        contestWindow.active = true
+        if (contestWindow.item) {
+            contestWindow.item.raise()
+            contestWindow.item.requestActivate()
+        }
+    }
     function openCards() {
         cardsWindow.active = true
         if (cardsWindow.item) {
@@ -80,6 +88,11 @@ ApplicationWindow {
         else if (what[0] === "modes") newQsoPanel.showModes()
         else if (what[0] === "stats") openStats()
         else if (what[0] === "cards") openCards()
+        else if (what[0] === "contest") {
+            openContest()
+            if (what[1] === "cabrillo" && contestWindow.item)
+                contestWindow.item.openCabrillo()
+        }
         else if (what[0] === "call") decolog.lookupCall = what[1]
         else if (what[0] === "awards") {
             // awards:<id>[:map|:missing|:unconfirmed]
@@ -123,6 +136,14 @@ ApplicationWindow {
     }
 
     Loader {
+        id: contestWindow
+        active: false
+        sourceComponent: ContestWindow {
+            onClosing: contestWindow.active = false
+        }
+    }
+
+    Loader {
         id: cardsWindow
         active: false
         sourceComponent: QslCardsWindow {
@@ -155,6 +176,7 @@ ApplicationWindow {
     Shortcut { sequence: "Ctrl+E"; onActivated: exportDialog.open() }
     Shortcut { sequence: "Ctrl+K"; onActivated: window.openCluster(0) }
     Shortcut { sequence: "Ctrl+T"; onActivated: activationDialog.openDialog() }
+    Shortcut { sequence: "Ctrl+Shift+T"; onActivated: window.openContest() }
 
     ColumnLayout {
         anchors.fill: parent

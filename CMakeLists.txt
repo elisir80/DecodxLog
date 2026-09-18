@@ -41,6 +41,8 @@ add_library(decolog_core STATIC
     src/core/Awards.h
     src/core/Bands.cpp
     src/core/Bands.h
+    src/core/Cabrillo.cpp
+    src/core/Cabrillo.h
     src/core/Callbook.cpp
     src/core/Callbook.h
     src/core/Countries.cpp
@@ -159,6 +161,7 @@ set(DECOLOG_QML_FILES
     qml/DecoLog/GridSquareMap.qml
     qml/DecoLog/ActivationDialog.qml
     qml/DecoLog/StatsWindow.qml
+    qml/DecoLog/ContestWindow.qml
     qml/DecoLog/ClusterPanel.qml
     qml/DecoLog/ClusterWindow.qml
     qml/DecoLog/SpotFilterEditor.qml
@@ -216,7 +219,7 @@ set_target_properties(decolog PROPERTIES
 if(DECOLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

@@ -230,6 +230,11 @@ DialogFrame {
                 text: qsTr("Export ADIF (%1)").arg(root.state.fileName || "")
                 onClicked: exportDialog.open()
             }
+            GlassButton {
+                text: qsTr("Contest window (Ctrl+Shift+T)")
+                tone: Theme.primaryColor
+                onClicked: { window.openContest(); root.close() }
+            }
             Item { Layout.fillWidth: true }
             GlassButton { text: qsTr("Close"); onClicked: root.close() }
             GlassButton {

@@ -116,6 +116,10 @@
         <translation>Esporta ADIF (%1)</translation>
     </message>
     <message>
+        <source>Contest window (Ctrl+Shift+T)</source>
+        <translation>Finestra contest (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Close</source>
         <translation>Chiudi</translation>
     </message>
@@ -387,6 +391,21 @@
     <message>
         <source>LoTW last sync %1</source>
         <translation>LoTW, ultima sincronizzazione %1</translation>
+    </message>
+</context>
+<context>
+    <name>Cabrillo</name>
+    <message>
+        <source>The station callsign is missing</source>
+        <translation>Manca il nominativo della stazione</translation>
+    </message>
+    <message>
+        <source>The contest name is missing</source>
+        <translation>Manca il nome del contest</translation>
+    </message>
+    <message>
+        <source>No usable QSO</source>
+        <translation>Nessun QSO utilizzabile</translation>
     </message>
 </context>
 <context>
@@ -933,6 +952,209 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Save rule</source>
         <translation>Salva la regola</translation>
+    </message>
+</context>
+<context>
+    <name>ContestWindow</name>
+    <message>
+        <source>DecoLog — Contest</source>
+        <translation>DecoLog — Contest</translation>
+    </message>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>Il nominativo è troppo corto</translation>
+    </message>
+    <message>
+        <source>Session</source>
+        <translation>Sessione</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Nessuna sessione aperta</translation>
+    </message>
+    <message>
+        <source>next number %1</source>
+        <translation>prossimo numero %1</translation>
+    </message>
+    <message>
+        <source>Open a session…</source>
+        <translation>Apri una sessione…</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Nominativi</translation>
+    </message>
+    <message>
+        <source>DXCC</source>
+        <translation>DXCC</translation>
+    </message>
+    <message>
+        <source>Grids</source>
+        <translation>Locatori</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Ultimi 10 min</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/h</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Ultima ora</translation>
+    </message>
+    <message>
+        <source>New QSO · Enter logs · Esc clears · Tab moves</source>
+        <translation>Nuovo QSO · Invio registra · Esc pulisce · Tab sposta</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Banda</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Modo</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Nominativo</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST i</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Nr i</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST r</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Nr r</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Registra</translation>
+    </message>
+    <message>
+        <source>DUPE</source>
+        <translation>DOPPIO</translation>
+    </message>
+    <message>
+        <source>worked %1×</source>
+        <translation>lavorato %1×</translation>
+    </message>
+    <message>
+        <source>new station</source>
+        <translation>stazione nuova</translation>
+    </message>
+    <message>
+        <source>%1 km · %2°</source>
+        <translation>%1 km · %2°</translation>
+    </message>
+    <message>
+        <source>Last QSOs of the session</source>
+        <translation>Ultimi QSO della sessione</translation>
+    </message>
+    <message>
+        <source>No QSO in this session yet.</source>
+        <translation>In questa sessione non c'è ancora nessun QSO.</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>ADIF of the session…</source>
+        <translation>ADIF della sessione…</translation>
+    </message>
+    <message>
+        <source>Enter logs · Esc clears · space moves to the report</source>
+        <translation>Invio registra · Esc pulisce · la barra passa al rapporto</translation>
+    </message>
+    <message>
+        <source>ADIF of the session</source>
+        <translation>ADIF della sessione</translation>
+    </message>
+    <message>
+        <source>ADIF files (*.adi)</source>
+        <translation>File ADIF (*.adi)</translation>
+    </message>
+    <message>
+        <source>Cabrillo log</source>
+        <translation>Log Cabrillo</translation>
+    </message>
+    <message>
+        <source>Cabrillo files (*.log *.cbr)</source>
+        <translation>File Cabrillo (*.log *.cbr)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Tutti i file (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo header</source>
+        <translation>Testata Cabrillo</translation>
+    </message>
+    <message>
+        <source>Contest (CONTEST)</source>
+        <translation>Contest (CONTEST)</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>Locatore</translation>
+    </message>
+    <message>
+        <source>Location (section, zone)</source>
+        <translation>Location (sezione, zona)</translation>
+    </message>
+    <message>
+        <source>Operators</source>
+        <translation>Operatori</translation>
+    </message>
+    <message>
+        <source>Club</source>
+        <translation>Club</translation>
+    </message>
+    <message>
+        <source>Category</source>
+        <translation>Categoria</translation>
+    </message>
+    <message>
+        <source>Power</source>
+        <translation>Potenza</translation>
+    </message>
+    <message>
+        <source>Assisted</source>
+        <translation>Assistito</translation>
+    </message>
+    <message>
+        <source>Claimed score</source>
+        <translation>Punteggio dichiarato</translation>
+    </message>
+    <message>
+        <source>Soapbox</source>
+        <translation>Commento (soapbox)</translation>
+    </message>
+    <message>
+        <source>The exchange sent is the serial number of the session; the received one is what was typed in “Nr r”. Frequencies go out in kHz, VHF and up as the band number.</source>
+        <translation>Lo scambio mandato è il numero progressivo della sessione, quello ricevuto è quello scritto in “Nr r”. Le frequenze escono in kHz, dai 6 metri in su come numero di banda.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Chiudi</translation>
+    </message>
+    <message>
+        <source>Write the file…</source>
+        <translation>Scrivi il file…</translation>
     </message>
 </context>
 <context>
@@ -1822,7 +2044,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Nothing here yet.</source>
-        <translation>Qui non c'è ancora niente.</translation>
+        <translation>Qui non c&apos;è ancora niente.</translation>
     </message>
     <message>
         <source>Queue (bureau)</source>
@@ -3082,6 +3304,18 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <source>No QSO in this session yet</source>
         <translation>In questa sessione non c&apos;è ancora nessun QSO</translation>
     </message>
+    <message>
+        <source>Nothing to write</source>
+        <translation>Non c'è niente da scrivere</translation>
+    </message>
+    <message>
+        <source>Cannot write %1</source>
+        <translation>Non riesco a scrivere %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Cabrillo written: %1 (%n QSO)</source>
+        <translation><numerusform>Cabrillo scritto: %1 (%n QSO)</numerusform><numerusform>Cabrillo scritto: %1 (%n QSO)</numerusform></translation>
+    </message>
     <message numerus="yes">
         <source>%n QSO of the session → %1</source>
         <translation>
@@ -3373,11 +3607,17 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <name>decolog::app::QslCardController</name>
     <message numerus="yes">
         <source>%n QSO in the paper queue</source>
-        <translation><numerusform>%n QSO nella coda delle cartacee</numerusform><numerusform>%n QSO nella coda delle cartacee</numerusform></translation>
+        <translation>
+            <numerusform>%n QSO nella coda delle cartacee</numerusform>
+            <numerusform>%n QSO nella coda delle cartacee</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n QSL to answer put in the queue</source>
-        <translation><numerusform>%n QSL da ricambiare messa in coda</numerusform><numerusform>%n QSL da ricambiare messe in coda</numerusform></translation>
+        <translation>
+            <numerusform>%n QSL da ricambiare messa in coda</numerusform>
+            <numerusform>%n QSL da ricambiare messe in coda</numerusform>
+        </translation>
     </message>
     <message>
         <source>no QSL waiting for an answer</source>
@@ -3385,15 +3625,24 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message numerus="yes">
         <source>%n QSL marked as sent</source>
-        <translation><numerusform>%n QSL segnata come mandata</numerusform><numerusform>%n QSL segnate come mandate</numerusform></translation>
+        <translation>
+            <numerusform>%n QSL segnata come mandata</numerusform>
+            <numerusform>%n QSL segnate come mandate</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n QSO taken out of the queue</source>
-        <translation><numerusform>%n QSO tolto dalla coda</numerusform><numerusform>%n QSO tolti dalla coda</numerusform></translation>
+        <translation>
+            <numerusform>%n QSO tolto dalla coda</numerusform>
+            <numerusform>%n QSO tolti dalla coda</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n label(s) written</source>
-        <translation><numerusform>%n etichetta scritta</numerusform><numerusform>%n etichette scritte</numerusform></translation>
+        <translation>
+            <numerusform>%n etichetta scritta</numerusform>
+            <numerusform>%n etichette scritte</numerusform>
+        </translation>
     </message>
     <message>
         <source>QSL labels: %1 (%2)</source>

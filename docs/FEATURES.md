@@ -175,6 +175,24 @@ Quello che manca è in fondo.
   `QSL_SENT_VIA`. / **The route** (bureau, direct, electronic) stays on the QSO and comes
   back in the export as `QSL_SENT_VIA`.
 
+## 10c. Contest / Contest
+
+- **Finestra da tastiera** (Ctrl+Shift+T): nominativo, Invio registra, Esc pulisce, la barra
+  passa al rapporto. / **Keyboard window** (Ctrl+Shift+T): callsign, Enter logs, Esc clears,
+  space moves to the report.
+- **Doppio in evidenza** mentre si scrive: stesso nominativo, stessa banda, stesso modo
+  dentro la sessione. / **Dupe shown while typing**: same call, same band, same mode inside
+  the session.
+- **Ritmo**: QSO degli ultimi dieci minuti e dell'ultima ora, QSO/h, DXCC e locatori
+  entrati. / **Rate**: QSOs in the last ten minutes and the last hour, QSOs/h, DXCC and
+  grids worked.
+- **Numero progressivo** dalla sessione, scambio ricevuto in un campo solo. / **Serial
+  number** from the session, received exchange in one field.
+- **Export Cabrillo 3.0**: testata con categorie, locatore, punteggio e soapbox, righe QSO a
+  colonne fisse, frequenze in kHz (numero di banda dai 6 metri in su), modi CW/PH/RY/DG/FM. /
+  **Cabrillo 3.0 export**: header with categories, grid, score and soapbox, fixed-column QSO
+  lines, frequencies in kHz (band number from 6 m up), modes CW/PH/RY/DG/FM.
+
 ## 11. DX cluster
 
 - **Fonti in un elenco solo**: nodi telnet (DX Spider, CC Cluster), Reverse Beacon Network
