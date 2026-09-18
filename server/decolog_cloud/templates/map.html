@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}{{ callsign }} — mappa{% endblock %}
+
+{% block content %}
+<div class="panel">
+  <div class="panel-head">
+    <h1>Mappa · <span class="count">{{ points | length }}</span> locatori</h1>
+    <div class="legend">
+      <span><i class="dot ok"></i> confermato</span>
+      <span><i class="dot worked"></i> lavorato</span>
+    </div>
+  </div>
+
+  <div class="mapbox">
+    <svg id="map" viewBox="0 0 720 360" preserveAspectRatio="xMidYMid meet" role="img"
+         aria-label="Locatori lavorati sulla mappa del mondo">
+      <rect x="0" y="0" width="720" height="360" class="sea"></rect>
+      <g id="graticule"></g>
+      <g id="coast"></g>
+      <g id="grids"></g>
+    </svg>
+  </div>
+
+  <p class="muted">
+    I locatori che hai lavorato, uno per quadrato: la proiezione è la stessa
+    della mappa del programma (coste Natural Earth, dominio pubblico).
+    {% if confirmed %}Confermati: <span class="mono">{{ confirmed }}</span>.{% endif %}
+  </p>
+</div>
+
+<script id="points" type="application/json">{{ points | tojson }}</script>
+<script>
+(function () {
+    const svg = document.getElementById("map");
+    const NS = "http://www.w3.org/2000/svg";
+    // Equirettangolare: il mondo in 720 x 360, mezzo grado per unita'.
+    const x = lon => (lon + 180) * 2;
+    const y = lat => (90 - lat) * 2;
+
+    const graticule = document.getElementById("graticule");
+    for (let lon = -180; lon <= 180; lon += 30) add(graticule, "line", {
+        x1: x(lon), y1: 0, x2: x(lon), y2: 360, class: "grat" });
+    for (let lat = -60; lat <= 60; lat += 30) add(graticule, "line", {
+        x1: 0, y1: y(lat), x2: 720, y2: y(lat), class: "grat" });
+    add(graticule, "line", { x1: 0, y1: y(0), x2: 720, y2: y(0), class: "grat equator" });
+
+    fetch("/static/coastline.json")
+        .then(r => r.json())
+        .then(data => {
+            const coast = document.getElementById("coast");
+            for (const line of data.lines) {
+                const d = line.map((p, i) => (i ? "L" : "M") + x(p[0]).toFixed(1) + " " + y(p[1]).toFixed(1)).join(" ");
+                add(coast, "path", { d: d, class: "coast" });
+            }
+        })
+        .catch(() => { /* senza coste la mappa resta leggibile lo stesso */ });
+
+    const points = JSON.parse(document.getElementById("points").textContent);
+    const grids = document.getElementById("grids");
+    for (const p of points) {
+        const dot = add(grids, "circle", {
+            cx: x(p.lon).toFixed(1), cy: y(p.lat).toFixed(1),
+            r: p.confirmed ? 2.6 : 2,
+            class: p.confirmed ? "grid ok" : "grid",
+        });
+        const title = document.createElementNS(NS, "title");
+        title.textContent = p.grid + " · " + p.qsos + " QSO" + (p.confirmed ? " · confermato" : "");
+        dot.appendChild(title);
+    }
+
+    function add(parent, tag, attrs) {
+        const el = document.createElementNS(NS, tag);
+        for (const k in attrs) el.setAttribute(k, attrs[k]);
+        parent.appendChild(el);
+        return el;
+    }
+})();
+</script>
+{% endblock %}

@@ -74,6 +74,24 @@ singolo QSO con tutti i campi ADIF, la pagina **Stazione** con i profili e le
 impostazioni arrivate dal programma, e il tasto per **scaricare tutto in ADIF**:
 il Cloud non e' una gabbia.
 
+Non solo la tabella: ci sono le stesse schermate del programma, rifatte dal log
+che sta qui.
+
+| Pagina | Cosa c'e' |
+|---|---|
+| `/log` | la tabella, con ricerca e filtri |
+| `/stats` | QSO per anno, mese, ora UTC, banda, modo, continente, e la mappa di calore banda per ora |
+| `/awards` | DXCC, FT2, WAZ, WAS, WPX, locatori, IOTA, POTA, SOTA, WWFF: lavorati e confermati, per banda, con quello che manca |
+| `/qsl` | inviate e ricevute servizio per servizio, e le ultime conferme |
+| `/map` | i locatori lavorati sulla mappa del mondo |
+| `/station` | profili stazione e impostazioni |
+
+I conti non stanno in tabelle di riepilogo: si rifanno dai QSO a ogni richiesta,
+con le stesse regole del programma (`decolog_cloud/analytics.py` e'
+`src/core/Awards.cpp` portato in Python — gruppi di modi, prefisso WPX, i
+cinquanta stati). Cosi' una correzione a un QSO si vede subito ovunque, e le due
+facce del log dicono la stessa cosa.
+
 Da qui si guarda e si scarica; si scrive dal programma. La sessione del browser
 e' un token come quello dei dispositivi, in un cookie HttpOnly, e dura trenta
 giorni.
@@ -149,7 +167,9 @@ migrazione a mano, nemmeno su PostgreSQL.
 PYTHONPATH=. .venv/Scripts/python -m pytest tests -q
 ```
 
-Trentuno prove: registrazione, token scaduto, push e pull, cursore, conflitti con
-lo storico, revisione vecchia, duplicati, cancellazioni, pagine, documenti
-(profili e impostazioni, con il loro storico e il cursore condiviso), le pagine
-del browser, e due account che non si vedono fra loro.
+Cinquantuno prove: registrazione, token scaduto, push e pull, cursore, conflitti
+con lo storico, revisione vecchia, duplicati, cancellazioni, pagine, documenti
+(profili e impostazioni, con il loro storico e il cursore condiviso), i conti
+del log (prefisso WPX con gli esempi di CQ, gruppi di modi, diplomi lavorati e
+confermati per banda, QSL, locatori sulla mappa), le pagine del browser, e due
+account che non si vedono fra loro.

@@ -1,0 +1,452 @@
+"""DecoLog Cloud — statistiche, diplomi e QSL, calcolati dal log.
+
+Il Cloud non tiene tabelle di riepilogo: i numeri si rifanno dai QSO, esattamente
+come fa DecoLog sul computer (`src/core/Awards.cpp`, `LogDatabase::countBy*`).
+Cosi' una correzione a un QSO si vede subito ovunque, e le due facce del log —
+il programma e la pagina — dicono la stessa cosa.
+
+Le regole sono quelle del programma, portate qui riga per riga: i gruppi di
+modi, il prefisso WPX di CQ, i cinquanta stati, le conferme che contano.
+"""
+
+from __future__ import annotations
+
+import datetime as dt
+from collections import Counter, defaultdict
+from dataclasses import dataclass, field
+
+# L'ordine delle bande e' quello di `bands::all()`: dalle lunghe alle corte.
+BAND_ORDER = [
+    "2190m", "630m", "560m", "160m", "80m", "60m", "40m", "30m", "20m", "17m",
+    "15m", "12m", "10m", "8m", "6m", "5m", "4m", "2m", "1.25m", "70cm", "33cm",
+    "23cm", "13cm", "9cm", "6cm", "3cm", "1.25cm", "6mm", "4mm", "2.5mm", "2mm",
+    "1mm", "submm",
+]
+
+PHONE_MODES = {"SSB", "AM", "FM", "DIGITALVOICE", "DSTAR"}
+
+# Gli stati USA per il WAS, con il nome esteso.
+US_STATES = {
+    "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California",
+    "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware", "FL": "Florida", "GA": "Georgia",
+    "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana", "IA": "Iowa",
+    "KS": "Kansas", "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine", "MD": "Maryland",
+    "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi",
+    "MO": "Missouri", "MT": "Montana", "NE": "Nebraska", "NV": "Nevada", "NH": "New Hampshire",
+    "NJ": "New Jersey", "NM": "New Mexico", "NY": "New York", "NC": "North Carolina",
+    "ND": "North Dakota", "OH": "Ohio", "OK": "Oklahoma", "OR": "Oregon", "PA": "Pennsylvania",
+    "RI": "Rhode Island", "SC": "South Carolina", "SD": "South Dakota", "TN": "Tennessee",
+    "TX": "Texas", "UT": "Utah", "VT": "Vermont", "VA": "Virginia", "WA": "Washington",
+    "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming",
+}
+
+USA_ENTITIES = {291, 6, 110}   # USA, Alaska, Hawaii
+
+# I servizi QSL come li conosce DecoLog, con i campi ADIF che li dicono.
+QSL_SERVICES = [
+    ("lotw", "LoTW", "LOTW_QSL_SENT", "LOTW_QSL_RCVD"),
+    ("card", "Cartolina", "QSL_SENT", "QSL_RCVD"),
+    ("eqsl", "eQSL", "EQSL_QSL_SENT", "EQSL_QSL_RCVD"),
+    ("qrz", "QRZ Logbook", "QRZCOM_QSO_UPLOAD_STATUS", "QRZCOM_QSO_DOWNLOAD_STATUS"),
+    ("clublog", "Club Log", "CLUBLOG_QSO_UPLOAD_STATUS", ""),
+]
+
+# I continenti, nell'ordine in cui si e' abituati a vederli.
+CONTINENTS = ["EU", "NA", "SA", "AS", "AF", "OC", "AN"]
+
+_IGNORED_SUFFIXES = {"P", "M", "MM", "AM", "QRP", "QRPP", "A", "B", "LH", "J", "R", "T"}
+
+
+# ── Il QSO come lo guardano i conti ───────────────────────────────────────────
+
+
+@dataclass
+class Row:
+    """Un QSO ridotto a quello che serve ai conti, letto una volta sola."""
+
+    call: str = ""
+    band: str = ""
+    mode: str = ""
+    submode: str = ""
+    when: dt.datetime | None = None
+    dxcc: int = 0
+    country: str = ""
+    continent: str = ""
+    cqz: int = 0
+    state: str = ""
+    grid: str = ""
+    iota: str = ""
+    pota: str = ""
+    sota: str = ""
+    wwff: str = ""
+    confirmed_lotw: bool = False
+    confirmed_card: bool = False
+    confirmed_eqsl: bool = False
+    fields: dict = field(default_factory=dict)
+
+    @property
+    def label_mode(self) -> str:
+        # Il sottomodo dice FT2 dove il modo direbbe solo MFSK; in SSB il
+        # sottomodo (LSB/USB) non aggiunge niente.
+        if self.submode and self.mode != "SSB":
+            return self.submode
+        return self.mode
+
+
+def _int(value) -> int:
+    try:
+        return int(str(value).strip())
+    except (TypeError, ValueError):
+        return 0
+
+
+def _when(qso) -> dt.datetime | None:
+    """L'ora del QSO: prima quella normalizzata, poi i campi ADIF."""
+    raw = getattr(qso, "started_at", None)
+    if isinstance(raw, dt.datetime):
+        return raw if raw.tzinfo else raw.replace(tzinfo=dt.UTC)
+    fields = getattr(qso, "fields", None) or {}
+    date = str(fields.get("QSO_DATE") or "")
+    time = str(fields.get("TIME_ON") or "000000")
+    if len(date) < 8:
+        return None
+    time = (time + "000000")[:6]
+    try:
+        return dt.datetime(int(date[:4]), int(date[4:6]), int(date[6:8]),
+                           int(time[:2]), int(time[2:4]), int(time[4:6]), tzinfo=dt.UTC)
+    except ValueError:
+        return None
+
+
+def row_of(qso) -> Row:
+    f = {k.upper(): v for k, v in (getattr(qso, "fields", None) or {}).items()}
+
+    def text(*names: str) -> str:
+        for name in names:
+            value = f.get(name)
+            if value not in (None, ""):
+                return str(value).strip()
+        return ""
+
+    def is_yes(name: str) -> bool:
+        return text(name).upper().startswith("Y")
+
+    return Row(
+        call=(getattr(qso, "call", "") or text("CALL")).upper(),
+        band=(getattr(qso, "band", "") or text("BAND")).lower(),
+        mode=(getattr(qso, "mode", "") or text("MODE")).upper(),
+        submode=(getattr(qso, "submode", "") or text("SUBMODE")).upper(),
+        when=_when(qso),
+        dxcc=_int(text("DXCC")),
+        country=text("COUNTRY"),
+        continent=text("CONT").upper(),
+        cqz=_int(text("CQZ")),
+        state=text("STATE").upper(),
+        grid=text("GRIDSQUARE").upper(),
+        iota=text("IOTA").upper(),
+        pota=text("POTA_REF", "MY_POTA_REF").upper(),
+        sota=text("SOTA_REF").upper(),
+        wwff=text("WWFF_REF").upper(),
+        confirmed_lotw=is_yes("LOTW_QSL_RCVD"),
+        confirmed_card=is_yes("QSL_RCVD"),
+        confirmed_eqsl=is_yes("EQSL_QSL_RCVD"),
+        fields=f,
+    )
+
+
+def mode_matches(group: str, row: Row) -> bool:
+    """Gli stessi gruppi di `modeMatches` in Awards.cpp."""
+    if not group:
+        return True
+    if group == "FT2":
+        return row.submode == "FT2"
+    if group == "FT8":
+        return row.mode == "FT8"
+    if group == "CW":
+        return row.mode == "CW"
+    if group == "PHONE":
+        return row.mode in PHONE_MODES
+    if group == "DIGITAL":
+        return row.mode != "CW" and row.mode not in PHONE_MODES
+    return True
+
+
+def wpx_prefix(callsign: str) -> str:
+    """Il prefisso WPX secondo CQ: N8BJQ -> N8, EA8/OH2XX -> EA8, W1AW/4 -> W4."""
+    call = (callsign or "").strip().upper()
+    if not call:
+        return ""
+    parts = [p for p in call.split("/") if p and p not in _IGNORED_SUFFIXES]
+    if not parts:
+        return ""
+
+    area = ""
+    if len(parts) >= 2 and len(parts[-1]) == 1 and parts[-1].isdigit():
+        area = parts.pop()
+
+    if len(parts) >= 2:
+        # La parte piu' corta e' il prefisso; senza cifre si aggiunge lo zero.
+        prefix = parts[0] if len(parts[0]) <= len(parts[1]) else parts[1]
+        if not any(c.isdigit() for c in prefix):
+            prefix += "0"
+    else:
+        prefix = _base_prefix(parts[0])
+
+    if area:
+        for i in range(len(prefix) - 1, -1, -1):
+            if prefix[i].isdigit():
+                prefix = prefix[:i] + area
+                break
+    return prefix
+
+
+def _base_prefix(call: str) -> str:
+    for i in range(len(call) - 1, -1, -1):
+        if call[i].isdigit() and i + 1 < len(call) and call[i + 1:].isalpha():
+            return call[: i + 1]
+    return call[:2] + "0"
+
+
+# ── Statistiche ───────────────────────────────────────────────────────────────
+
+
+def _sorted_bands(counter: Counter) -> list[tuple[str, int]]:
+    def where(band: str) -> int:
+        return BAND_ORDER.index(band) if band in BAND_ORDER else len(BAND_ORDER)
+
+    return sorted(counter.items(), key=lambda kv: where(kv[0]))
+
+
+def statistics(rows: list[Row], mode_group: str = "", year: int = 0, band: str = "") -> dict:
+    """Gli stessi riquadri della finestra Statistiche di DecoLog."""
+    kept = [r for r in rows
+            if mode_matches(mode_group, r)
+            and (not band or r.band == band)
+            and (not year or (r.when and r.when.year == year))]
+
+    by_year: Counter = Counter()
+    by_hour: Counter = Counter()
+    by_band: Counter = Counter()
+    by_mode: Counter = Counter()
+    by_continent: Counter = Counter()
+    by_month: Counter = Counter()
+    heat: dict[str, Counter] = defaultdict(Counter)
+    calls: set[str] = set()
+    entities: set[int] = set()
+    grids: set[str] = set()
+    first = last = None
+
+    for r in kept:
+        if r.call:
+            calls.add(r.call)
+        if r.dxcc:
+            entities.add(r.dxcc)
+        if len(r.grid) >= 4:
+            grids.add(r.grid[:4])
+        if r.band:
+            by_band[r.band] += 1
+        if r.label_mode:
+            by_mode[r.label_mode] += 1
+        if r.continent:
+            by_continent[r.continent] += 1
+        if r.when:
+            by_year[r.when.year] += 1
+            by_hour[r.when.hour] += 1
+            by_month[f"{r.when.year}-{r.when.month:02d}"] += 1
+            if r.band:
+                heat[r.band][r.when.hour] += 1
+            first = r.when if first is None or r.when < first else first
+            last = r.when if last is None or r.when > last else last
+
+    bands_used = [b for b, _ in _sorted_bands(by_band)]
+    busiest = max((n for c in heat.values() for n in c.values()), default=0)
+
+    return {
+        "qsos": len(kept),
+        "calls": len(calls),
+        "entities": len(entities),
+        "grids": len(grids),
+        "first": first,
+        "last": last,
+        "years": sorted(by_year.items()),
+        "months": sorted(by_month.items())[-24:],
+        "hours": [(h, by_hour.get(h, 0)) for h in range(24)],
+        "bands": _sorted_bands(by_band),
+        "modes": by_mode.most_common(),
+        "continents": [(c, by_continent.get(c, 0)) for c in CONTINENTS if by_continent.get(c)],
+        # La mappa di calore: per ogni banda usata, i 24 valori dell'ora UTC.
+        "heat": [{"band": b, "hours": [heat[b].get(h, 0) for h in range(24)]} for b in bands_used],
+        "heat_max": busiest,
+        "all_years": sorted({y for y, _ in by_year.items()}, reverse=True),
+    }
+
+
+# ── Diplomi ───────────────────────────────────────────────────────────────────
+
+
+@dataclass
+class AwardItem:
+    key: str
+    name: str = ""
+    worked: set = field(default_factory=set)
+    confirmed: set = field(default_factory=set)
+    qsos: int = 0
+    first_call: str = ""
+    first: dt.datetime | None = None
+
+    @property
+    def is_confirmed(self) -> bool:
+        return bool(self.confirmed)
+
+
+@dataclass
+class Award:
+    id: str
+    title: str
+    target: int = 0
+    total: int = 0
+    items: list = field(default_factory=list)
+
+    @property
+    def worked(self) -> int:
+        return len(self.items)
+
+    @property
+    def confirmed(self) -> int:
+        return sum(1 for i in self.items if i.is_confirmed)
+
+    def band_totals(self, bands: list[str]) -> list[dict]:
+        out = []
+        for band in bands:
+            out.append({
+                "band": band,
+                "worked": sum(1 for i in self.items if band in i.worked),
+                "confirmed": sum(1 for i in self.items if band in i.confirmed),
+            })
+        return out
+
+    @property
+    def slots(self) -> int:
+        """I band slot: la somma dei confermati banda per banda (DXCC Challenge)."""
+        return sum(len(i.confirmed) for i in self.items)
+
+
+AWARD_DEFS = [
+    ("dxcc", "DXCC", 100, 340),
+    ("ft2", "FT2 Award", 100, 0),
+    ("waz", "WAZ", 40, 40),
+    ("was", "WAS", 50, 50),
+    ("wpx", "WPX", 300, 0),
+    ("grids", "Locatori", 100, 0),
+    ("iota", "IOTA", 100, 0),
+    ("pota", "POTA", 0, 0),
+    ("sota", "SOTA", 0, 0),
+    ("wwff", "WWFF", 44, 0),
+]
+
+
+def _is_iota(ref: str) -> bool:
+    return (len(ref) == 6 and ref[:2] in {"AF", "AN", "AS", "EU", "NA", "OC", "SA"}
+            and ref[2] == "-" and ref[3:].isdigit())
+
+
+def awards(rows: list[Row], band: str = "", mode_group: str = "",
+           confirm_lotw: bool = True, confirm_card: bool = True,
+           confirm_eqsl: bool = False) -> list[Award]:
+    """Tutti i diplomi in una passata sola, con le regole di Awards.cpp."""
+    built: dict[str, dict[str, AwardItem]] = {a[0]: {} for a in AWARD_DEFS}
+
+    for r in rows:
+        if band and r.band != band:
+            continue
+        if not mode_matches(mode_group, r):
+            continue
+        confirmed = ((confirm_lotw and r.confirmed_lotw)
+                     or (confirm_card and r.confirmed_card)
+                     or (confirm_eqsl and r.confirmed_eqsl))
+
+        def add(award_id: str, key: str, name: str = "") -> None:
+            if not key:
+                return
+            item = built[award_id].get(key)
+            if item is None:
+                item = AwardItem(key=key, name=name, first_call=r.call, first=r.when)
+                built[award_id][key] = item
+            item.qsos += 1
+            if r.band:
+                item.worked.add(r.band)
+                if confirmed:
+                    item.confirmed.add(r.band)
+
+        if r.dxcc:
+            add("dxcc", str(r.dxcc), r.country)
+            if r.submode == "FT2":
+                add("ft2", str(r.dxcc), r.country)
+        if 1 <= r.cqz <= 40:
+            add("waz", str(r.cqz))
+        if r.dxcc in USA_ENTITIES and r.state in US_STATES:
+            add("was", r.state, US_STATES[r.state])
+        add("wpx", wpx_prefix(r.call))
+        if len(r.grid) >= 4:
+            add("grids", r.grid[:4])
+        if _is_iota(r.iota):
+            add("iota", r.iota)
+        add("pota", r.pota)
+        add("sota", r.sota)
+        add("wwff", r.wwff)
+
+    def order(item: AwardItem):
+        return (0, int(item.key), "") if item.key.isdigit() else (1, 0, item.key)
+
+    out = []
+    for award_id, title, target, total in AWARD_DEFS:
+        items = sorted(built[award_id].values(), key=order)
+        out.append(Award(id=award_id, title=title, target=target, total=total, items=items))
+    return out
+
+
+def missing_states(award: Award) -> list[tuple[str, str]]:
+    """Gli stati che mancano al WAS: il diploma si chiude sapendo cosa cercare."""
+    done = {i.key for i in award.items}
+    return [(code, name) for code, name in sorted(US_STATES.items()) if code not in done]
+
+
+def missing_zones(award: Award) -> list[int]:
+    done = {int(i.key) for i in award.items if i.key.isdigit()}
+    return [z for z in range(1, 41) if z not in done]
+
+
+# ── QSL ───────────────────────────────────────────────────────────────────────
+
+
+def qsl_summary(rows: list[Row]) -> list[dict]:
+    """Quante ne sono partite e quante ne sono tornate, servizio per servizio."""
+    out = []
+    for service_id, label, sent_field, rcvd_field in QSL_SERVICES:
+        sent = rcvd = 0
+        for r in rows:
+            if sent_field and str(r.fields.get(sent_field, "")).upper().startswith("Y"):
+                sent += 1
+            if rcvd_field and str(r.fields.get(rcvd_field, "")).upper().startswith("Y"):
+                rcvd += 1
+        out.append({"id": service_id, "label": label, "sent": sent, "rcvd": rcvd})
+    return out
+
+
+def grid_points(rows: list[Row]) -> list[dict]:
+    """I locatori lavorati, con il centro in gradi: la mappa li disegna li'."""
+    seen: dict[str, dict] = {}
+    for r in rows:
+        grid = r.grid[:4]
+        if len(grid) < 4 or not grid[:2].isalpha() or not grid[2:4].isdigit():
+            continue
+        entry = seen.get(grid)
+        if entry is None:
+            lon = (ord(grid[0]) - 65) * 20 + int(grid[2]) * 2 - 180 + 1
+            lat = (ord(grid[1]) - 65) * 10 + int(grid[3]) - 90 + 0.5
+            entry = {"grid": grid, "lon": lon, "lat": lat, "qsos": 0, "confirmed": False}
+            seen[grid] = entry
+        entry["qsos"] += 1
+        if r.confirmed_lotw or r.confirmed_card or r.confirmed_eqsl:
+            entry["confirmed"] = True
+    return sorted(seen.values(), key=lambda e: e["grid"])

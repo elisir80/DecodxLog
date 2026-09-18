@@ -14,15 +14,20 @@
       <span class="name">DecoLog <b>Cloud</b></span>
     </div>
     {% if callsign is defined and callsign %}
-    <div class="who">
-      <a class="button" href="/log">Log</a>
-      <a class="button" href="/station">Stazione</a>
+    <nav class="who">
+      {% set here = request.url.path %}
+      <a class="button {% if here == '/log' %}on{% endif %}" href="/log">Log</a>
+      <a class="button {% if here == '/stats' %}on{% endif %}" href="/stats">Statistiche</a>
+      <a class="button {% if here == '/awards' %}on{% endif %}" href="/awards">Diplomi</a>
+      <a class="button {% if here == '/qsl' %}on{% endif %}" href="/qsl">QSL</a>
+      <a class="button {% if here == '/map' %}on{% endif %}" href="/map">Mappa</a>
+      <a class="button {% if here == '/station' %}on{% endif %}" href="/station">Stazione</a>
       <span class="call">{{ callsign }}</span>
       <a class="button" href="/export.adi">Scarica ADIF</a>
       <form method="post" action="/logout" class="inline">
         <button class="button" type="submit">Esci</button>
       </form>
-    </div>
+    </nav>
     {% endif %}
   </header>
 

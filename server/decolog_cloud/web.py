@@ -20,7 +20,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from . import auth
+from . import analytics, auth
 from .models import Account, Doc, Qso
 
 HERE = Path(__file__).parent
@@ -238,6 +238,135 @@ def log_rows(
             "mode": mode,
             "offset": offset + len(rows),
             "more": len(rows) == PAGE,
+        },
+    )
+
+
+def _all_rows(db: Session, account: Account) -> list[analytics.Row]:
+    """Tutto il log, ridotto a quello che serve ai conti.
+
+    Si legge per intero perche' i diplomi e le statistiche guardano ogni QSO:
+    e' la stessa cosa che fa DecoLog sul computer, e un log di stazione sta in
+    memoria senza fatica.
+    """
+    rows = db.scalars(
+        select(Qso)
+        .where(Qso.account_id == account.id, Qso.deleted.is_(False))
+        .order_by(Qso.started_at, Qso.id)
+    ).all()
+    return [analytics.row_of(r) for r in rows]
+
+
+@router.get("/stats", response_class=HTMLResponse)
+def stats(request: Request, mode: str = "", year: int = 0, db: Session = Depends(auth.session)):
+    """Le statistiche della finestra di DecoLog, rifatte dal log sul server."""
+    account = _account_from_cookie(request, db)
+    if account is None:
+        return RedirectResponse("/", status_code=303)
+
+    rows = _all_rows(db, account)
+    data = analytics.statistics(rows, mode_group=mode, year=year)
+    # Gli anni da mettere nel menu sono quelli di tutto il log, non quelli
+    # rimasti dopo il filtro.
+    all_years = analytics.statistics(rows, mode_group=mode)["all_years"]
+
+    return templates.TemplateResponse(
+        request,
+        "stats.html",
+        {"callsign": account.callsign, "s": data, "mode": mode, "year": year,
+         "years": all_years, "groups": _MODE_GROUPS},
+    )
+
+
+# I gruppi di modi come li offre DecoLog nei filtri dei diplomi.
+_MODE_GROUPS = [("", "tutti i modi"), ("FT2", "FT2"), ("FT8", "FT8"),
+                ("DIGITAL", "digitali"), ("CW", "CW"), ("PHONE", "fonia")]
+
+
+@router.get("/awards", response_class=HTMLResponse)
+def awards_page(
+    request: Request,
+    band: str = "",
+    mode: str = "",
+    lotw: int = 1,
+    card: int = 1,
+    eqsl: int = 0,
+    db: Session = Depends(auth.session),
+):
+    """I diplomi calcolati dal log, con le conferme che si scelgono."""
+    account = _account_from_cookie(request, db)
+    if account is None:
+        return RedirectResponse("/", status_code=303)
+
+    rows = _all_rows(db, account)
+    results = analytics.awards(rows, band=band, mode_group=mode,
+                               confirm_lotw=bool(lotw), confirm_card=bool(card),
+                               confirm_eqsl=bool(eqsl))
+    used = [b for b in analytics.BAND_ORDER if any(b in i.worked for a in results for i in a.items)]
+    was = next((a for a in results if a.id == "was"), None)
+    waz = next((a for a in results if a.id == "waz"), None)
+
+    return templates.TemplateResponse(
+        request,
+        "awards.html",
+        {
+            "callsign": account.callsign,
+            "awards": [a for a in results if a.worked or a.target],
+            "bands": used,
+            "band": band,
+            "mode": mode,
+            "groups": _MODE_GROUPS,
+            "lotw": bool(lotw), "card": bool(card), "eqsl": bool(eqsl),
+            "missing_states": analytics.missing_states(was) if was else [],
+            "missing_zones": analytics.missing_zones(waz) if waz else [],
+        },
+    )
+
+
+@router.get("/qsl", response_class=HTMLResponse)
+def qsl_page(request: Request, db: Session = Depends(auth.session)):
+    """Lo stato QSL servizio per servizio, come nella scheda Invio QSL."""
+    account = _account_from_cookie(request, db)
+    if account is None:
+        return RedirectResponse("/", status_code=303)
+
+    rows = _all_rows(db, account)
+    summary = analytics.qsl_summary(rows)
+    confirmed = [r for r in rows if r.confirmed_lotw or r.confirmed_card or r.confirmed_eqsl]
+    return templates.TemplateResponse(
+        request,
+        "qsl.html",
+        {
+            "callsign": account.callsign,
+            "summary": summary,
+            "total": len(rows),
+            "confirmed": len(confirmed),
+            "latest": [
+                {"call": r.call, "band": r.band, "mode": r.label_mode,
+                 "when": r.when.strftime("%Y-%m-%d") if r.when else "",
+                 "lotw": r.confirmed_lotw, "card": r.confirmed_card, "eqsl": r.confirmed_eqsl}
+                for r in sorted(confirmed, key=lambda r: r.when or dt.datetime.min.replace(tzinfo=dt.UTC),
+                                reverse=True)[:40]
+            ],
+        },
+    )
+
+
+@router.get("/map", response_class=HTMLResponse)
+def map_page(request: Request, db: Session = Depends(auth.session)):
+    """I locatori lavorati sulla mappa del mondo, come nel pannello Mappa."""
+    account = _account_from_cookie(request, db)
+    if account is None:
+        return RedirectResponse("/", status_code=303)
+
+    points = analytics.grid_points(_all_rows(db, account))
+    return templates.TemplateResponse(
+        request,
+        "map.html",
+        {
+            "callsign": account.callsign,
+            "points": points,
+            "confirmed": sum(1 for p in points if p["confirmed"]),
         },
     )
 

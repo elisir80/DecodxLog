@@ -279,14 +279,22 @@ Quello che manca è in fondo.
   keystore, and the sync's own logbook.
 - **Il tema arriva e si vede**: le impostazioni ricevute valgono subito, senza riavviare. /
   **The theme arrives and shows**: settings received apply at once, with no restart.
-- **Il log dal browser**: si entra con gli stessi nominativo e password e si vede il
-  proprio log — ricerca mentre si scrive, filtri per banda e modo, la scheda del QSO con
-  tutti i campi ADIF, la pagina **Stazione** con profili e impostazioni, e il tasto per
-  riscaricare tutto in ADIF. Da qui si guarda e si scarica: si scrive dal programma. /
-  **The log from the browser**: sign in with the same callsign and password and see your
-  own log — search as you type, filters by band and mode, the QSO sheet with every ADIF
-  field, the **Station** page with profiles and settings, and the button to take it all
-  back as ADIF. From here you look and download: you write from the program.
+- **Il log dal browser**: si entra con gli stessi nominativo e password e si ritrovano le
+  schermate del programma — **Log** (ricerca mentre si scrive, filtri, scheda del QSO con
+  tutti i campi ADIF), **Statistiche** (anni, mesi, ore UTC, bande, modi, continenti e la
+  mappa di calore banda per ora), **Diplomi** (DXCC, FT2, WAZ, WAS, WPX, locatori, IOTA,
+  POTA, SOTA, WWFF, per banda, con quello che manca), **QSL** (inviate e ricevute per
+  servizio), **Mappa** (i locatori lavorati sul mondo), **Stazione** (profili e
+  impostazioni), e il tasto per riscaricare tutto in ADIF. Da qui si guarda e si scarica:
+  si scrive dal programma. / **The log from the browser**: sign in with the same callsign
+  and password and find the program's own screens — **Log**, **Statistics**, **Awards**,
+  **QSL**, **Map**, **Station** — plus the button to take it all back as ADIF. From here
+  you look and download: you write from the program.
+- **Gli stessi numeri da tutte e due le parti**: i conti si rifanno dai QSO con le regole
+  del programma (`analytics.py` e' `Awards.cpp` portato in Python), non da tabelle di
+  riepilogo: una correzione a un QSO si vede subito da tutte e due le facce del log. /
+  **The same figures on both sides**: they are recomputed from the QSOs with the program's
+  own rules, never from summary tables.
 
 ## 11. DX cluster
 
@@ -417,8 +425,8 @@ Quello che manca è in fondo.
   **`scripts/deploy.sh`**: a stand-alone folder and `DecoLog-<version>-win64.zip`.
 - **CI su GitHub** (Windows MSYS2 e Linux) con l'artefatto pronto. / **GitHub CI** (Windows
   MSYS2 and Linux) with the artifact ready.
-- **22 gruppi di test** automatici nel programma e **31 prove** del servizio Cloud
-  (`server/tests`). / **22 automated test suites** in the program and **31 checks** for the
+- **22 gruppi di test** automatici nel programma e **51 prove** del servizio Cloud
+  (`server/tests`). / **22 automated test suites** in the program and **51 checks** for the
   Cloud service (`server/tests`).
 
 ## Non ancora / Not yet

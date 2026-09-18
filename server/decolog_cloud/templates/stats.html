@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}{{ callsign }} — statistiche{% endblock %}
+
+{% macro bars(rows, label_width) %}
+{% set top = rows | map(attribute=1) | max | default(1) %}
+<table class="bars">
+  {% for name, n in rows %}
+  <tr>
+    <th class="mono" style="width:{{ label_width }}">{{ name }}</th>
+    <td><div class="bar" style="width: {{ (n / top * 100) | round(1) }}%"></div></td>
+    <td class="mono num">{{ n }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endmacro %}
+
+{% block content %}
+<div class="panel">
+  <div class="panel-head">
+    <h1>Statistiche</h1>
+    <form class="filters" method="get">
+      <select name="mode" onchange="this.form.submit()">
+        {% for value, label in groups %}
+        <option value="{{ value }}" {% if value == mode %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+      <select name="year" onchange="this.form.submit()">
+        <option value="0">tutti gli anni</option>
+        {% for y in years %}
+        <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
+        {% endfor %}
+      </select>
+    </form>
+  </div>
+
+  <div class="tiles">
+    <div class="tile"><span>QSO</span><b class="mono">{{ s.qsos }}</b></div>
+    <div class="tile"><span>Nominativi</span><b class="mono">{{ s.calls }}</b></div>
+    <div class="tile"><span>Entità DXCC</span><b class="mono">{{ s.entities }}</b></div>
+    <div class="tile"><span>Locatori</span><b class="mono">{{ s.grids }}</b></div>
+    <div class="tile"><span>Primo QSO</span><b class="mono">{{ s.first.strftime("%Y-%m-%d") if s.first else "—" }}</b></div>
+    <div class="tile"><span>Ultimo</span><b class="mono">{{ s.last.strftime("%Y-%m-%d") if s.last else "—" }}</b></div>
+  </div>
+
+  {% if s.qsos %}
+  <h2>Quando</h2>
+  <div class="two">
+    <div>
+      <h3>Per anno</h3>
+      {{ bars(s.years, "60px") }}
+    </div>
+    <div>
+      <h3>Ultimi mesi</h3>
+      {{ bars(s.months, "80px") }}
+    </div>
+  </div>
+
+  <h3>Ora UTC</h3>
+  {{ bars(s.hours, "36px") }}
+
+  <h2>Dove e come</h2>
+  <div class="two">
+    <div>
+      <h3>Bande</h3>
+      {{ bars(s.bands, "60px") }}
+    </div>
+    <div>
+      <h3>Modi</h3>
+      {{ bars(s.modes, "80px") }}
+    </div>
+  </div>
+
+  {% if s.continents %}
+  <h3>Continenti</h3>
+  {{ bars(s.continents, "40px") }}
+  {% endif %}
+
+  <h2>Banda per ora</h2>
+  <p class="muted">Quando una banda è aperta, per come l'hai vissuta tu: più il quadretto è acceso, più QSO ci sono in quell'ora UTC.</p>
+  <div class="scroll">
+    <table class="heat">
+      <thead>
+        <tr><th></th>{% for h in range(24) %}<th class="mono">{{ "%02d" | format(h) }}</th>{% endfor %}</tr>
+      </thead>
+      <tbody>
+        {% for row in s.heat %}
+        <tr>
+          <th class="mono">{{ row.band }}</th>
+          {% for n in row.hours %}
+          <td class="mono cell" title="{{ row.band }} · {{ "%02d" | format(loop.index0) }}Z · {{ n }} QSO"
+              style="--v: {{ (n / s.heat_max) if s.heat_max else 0 }}">{{ n or "" }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="dim">Nessun QSO con questi filtri.</p>
+  {% endif %}
+</div>
+{% endblock %}

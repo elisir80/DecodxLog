@@ -205,8 +205,9 @@ def health() -> dict:
     #   qso   — push e pull dei collegamenti
     #   docs  — profili stazione, impostazioni, credenziali sigillate
     #   web   — il log dal browser
+    #   stats — statistiche, diplomi, QSL e mappa calcolati dal log
     return {"status": "ok", "service": "decolog-cloud", "version": app.version,
-            "features": ["qso", "docs", "web"]}
+            "features": ["qso", "docs", "web", "stats"]}
 
 
 # ── Il log dal browser ────────────────────────────────────────────────────────

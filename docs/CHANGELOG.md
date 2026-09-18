@@ -41,8 +41,20 @@ Vince l'ultima modifica, la versione che perde resta nello storico. Le impostazi
 JSON non sa dire (un filtro salvato e' un QVariant di Qt) viaggiano impacchettate, senza
 perdere niente. In arrivo, il tema si ridipinge subito: non si aspetta il riavvio.
 
-Sul browser c'e' la pagina **Stazione**: i profili come li vede DecoLog e la tabella
-delle impostazioni con la revisione e quando sono arrivate.
+**Il log dal browser non e' piu' solo una tabella.** Ci sono le stesse schermate del
+programma, rifatte dal log che sta sul server: **Statistiche** (QSO per anno, mese, ora
+UTC, banda, modo, continente, e la mappa di calore banda per ora che dice quando una
+banda e' aperta), **Diplomi** (DXCC, FT2, WAZ, WAS, WPX, locatori, IOTA, POTA, SOTA,
+WWFF: lavorati e confermati, il conto per banda, i band slot, e l'elenco di quello che
+manca), **QSL** (inviate e ricevute servizio per servizio, e le ultime conferme),
+**Mappa** (i locatori lavorati sul mondo, coste comprese) e **Stazione** (profili e
+impostazioni).
+
+I numeri non stanno in tabelle di riepilogo: si rifanno dai QSO a ogni richiesta, con le
+stesse regole del programma — `server/decolog_cloud/analytics.py` e' `src/core/Awards.cpp`
+portato in Python, gruppi di modi compresi, il prefisso WPX di CQ e i cinquanta stati.
+Cosi' una correzione a un QSO si vede subito da tutte e due le parti, e la pagina non puo'
+dire una cosa diversa dal programma.
 
 Provato fra due log: il primo ha spinto 40 QSO, un profilo e 39 impostazioni; il
 secondo, partito vuoto, si e' ritrovato il profilo "Casa di prova" gia' predefinito e le

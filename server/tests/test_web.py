@@ -197,3 +197,98 @@ def test_the_station_page_needs_a_session(client):
     account(client)
     reply = client.get("/station", follow_redirects=False)
     assert reply.status_code == 303 and reply.headers["location"] == "/"
+
+
+# ── Le pagine che rifanno le finestre del programma ───────────────────────────
+
+
+def logged_qsos(client, headers):
+    """Un pugno di QSO con dentro quello che serve a statistiche e diplomi."""
+    client.post(
+        "/v1/sync/push",
+        json={"qsos": [
+            qso("u1", "DL9ZZT", when="2026-09-18T07:00:00Z", DXCC="230", COUNTRY="Germany",
+                CONT="EU", CQZ="14", GRIDSQUARE="JO62", LOTW_QSL_RCVD="Y", LOTW_QSL_SENT="Y"),
+            qso("u2", "W1AW", when="2026-09-18T14:00:00Z", DXCC="291", COUNTRY="United States",
+                CONT="NA", CQZ="5", STATE="CT", GRIDSQUARE="FN31"),
+            qso("u3", "EA5XYZ", when="2025-01-02T23:00:00Z", DXCC="281", COUNTRY="Spain",
+                CONT="EU", CQZ="14", GRIDSQUARE="IM98", QSL_RCVD="Y", QSL_SENT="Y"),
+        ]},
+        headers=headers,
+    )
+
+
+def test_every_page_needs_a_session(client):
+    account(client)
+    for path in ("/stats", "/awards", "/qsl", "/map"):
+        reply = client.get(path, follow_redirects=False)
+        assert reply.status_code == 303 and reply.headers["location"] == "/", path
+
+
+def test_the_stats_page_shows_the_same_numbers_as_the_window(client):
+    headers = account(client)
+    logged_qsos(client, headers)
+    sign_in(client)
+
+    page = client.get("/stats")
+    assert page.status_code == 200
+    assert "Statistiche" in page.text
+    assert ">3</b>" in page.text.replace(" ", "")     # tre QSO
+    assert "2026" in page.text and "2025" in page.text
+    assert "Banda per ora" in page.text
+    # Il filtro per modo passa dall'indirizzo, cosi' il link si puo' salvare.
+    assert client.get("/stats", params={"mode": "CW"}).status_code == 200
+
+
+def test_the_awards_page_counts_worked_and_confirmed(client):
+    headers = account(client)
+    logged_qsos(client, headers)
+    sign_in(client)
+
+    page = client.get("/awards")
+    assert page.status_code == 200
+    assert "DXCC" in page.text and "WAZ" in page.text and "WAS" in page.text
+    assert "Germany" in page.text          # l'entita' col suo nome
+    assert "Connecticut" in page.text or "CT" in page.text
+    # Due conferme su tre entita' lavorate.
+    assert "/ 3 lavorati" in page.text
+    assert "Cosa manca" in page.text
+
+
+def test_the_awards_page_lets_you_choose_the_confirmations(client):
+    headers = account(client)
+    client.post("/v1/sync/push",
+                json={"qsos": [qso("u1", "DL9ZZT", DXCC="230", EQSL_QSL_RCVD="Y")]},
+                headers=headers)
+    sign_in(client)
+
+    without = client.get("/awards", params={"lotw": 1, "card": 1, "eqsl": 0})
+    with_eqsl = client.get("/awards", params={"lotw": 1, "card": 1, "eqsl": 1})
+    assert "eQSL" in without.text
+    # Senza eQSL non c'e' niente di confermato; con eQSL sì.
+    assert with_eqsl.text != without.text
+
+
+def test_the_qsl_page_says_what_went_out_and_came_back(client):
+    headers = account(client)
+    logged_qsos(client, headers)
+    sign_in(client)
+
+    page = client.get("/qsl")
+    assert page.status_code == 200
+    assert "LoTW" in page.text and "Cartolina" in page.text
+    assert "Ultime conferme" in page.text
+    assert "DL9ZZT" in page.text
+    # Club Log non ha un "ricevuto": si dice, invece di contare zero.
+    assert "n/d" in page.text
+
+
+def test_the_map_page_carries_the_worked_grids(client):
+    headers = account(client)
+    logged_qsos(client, headers)
+    sign_in(client)
+
+    page = client.get("/map")
+    assert page.status_code == 200
+    assert "JO62" in page.text and "FN31" in page.text and "IM98" in page.text
+    assert "3</span> locatori" in page.text

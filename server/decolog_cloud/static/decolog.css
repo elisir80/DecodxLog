@@ -171,6 +171,64 @@ input:focus, select:focus { outline: none; border-color: var(--primary); }
 .fields.tight td { padding: 2px 0; }
 .small { font-size: 11px; margin-top: 8px; }
 
+/* ── Statistiche, diplomi, QSL, mappa ────────────────────────────────────── */
+
+.who .button.on { border-color: var(--primary); color: var(--primary); background: rgba(74, 144, 226, 0.18); }
+
+h3 { font-size: 12px; margin: 14px 0 6px; color: var(--text-dim); font-weight: 600; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+.num { text-align: right; width: 56px; }
+.left { text-align: left; }
+.ok { color: var(--accent); }
+.wrapped { line-height: 1.9; word-break: break-word; }
+.keys span { padding: 1px 4px; border-radius: 4px; background: rgba(74, 144, 226, 0.10); }
+.scroll { overflow-x: auto; }
+.check { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; color: var(--text-dim); }
+/* Le caselle non sono campi di testo: la larghezza minima dei filtri non le tocca. */
+.filters input[type="checkbox"] { min-width: 0; width: auto; accent-color: var(--primary); }
+
+/* Barre: la lunghezza dice il numero, il numero lo conferma. */
+.bars { width: 100%; border-collapse: collapse; }
+.bars th { text-align: left; font-weight: 400; color: var(--text-dim); padding: 2px 8px 2px 0; white-space: nowrap; }
+.bars td { padding: 2px 0; }
+.bar { height: 11px; border-radius: 3px; min-width: 2px;
+       background: linear-gradient(90deg, var(--primary), var(--secondary)); }
+
+/* Mappa di calore banda per ora. */
+.heat { border-collapse: collapse; font-size: 11px; }
+.heat th { color: var(--text-dim); font-weight: 400; padding: 2px 4px; text-align: center; }
+.heat th:first-child { text-align: right; }
+.heat .cell {
+    width: 26px; height: 20px; text-align: center; color: var(--text);
+    background: color-mix(in srgb, var(--accent) calc(var(--v) * 70%), var(--bg-medium));
+    border: 1px solid var(--bg-deep);
+}
+
+/* Diplomi. */
+.card.award { min-width: 200px; }
+.score { margin: 4px 0 6px; }
+.big { font-size: 22px; color: var(--accent); }
+.progress { height: 6px; background: var(--bg-deep); border-radius: 3px; overflow: hidden; }
+.progress .fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); }
+
+/* Mappa. */
+.mapbox { border: 1px solid var(--border-soft); border-radius: var(--radius); overflow: hidden; }
+.mapbox svg { display: block; width: 100%; height: auto; }
+.sea { fill: var(--bg-deep); }
+.grat { stroke: var(--border-soft); stroke-width: 0.5; }
+.grat.equator { stroke: var(--border); }
+.coast { fill: none; stroke: var(--text-dim); stroke-width: 0.6; opacity: 0.65; }
+.grid { fill: var(--primary); opacity: 0.85; }
+.grid.ok { fill: var(--accent); }
+.legend { display: flex; gap: 14px; font-size: 12px; color: var(--text-dim); }
+.legend .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+               background: var(--primary); margin-right: 4px; }
+.legend .dot.ok { background: var(--accent); }
+
+@media (max-width: 760px) {
+    .two { grid-template-columns: 1fr; }
+}
+
 .foot { padding: 18px 20px 30px; text-align: center; color: var(--text-dim); font-size: 12px; }
 
 @media (max-width: 640px) {

@@ -30,7 +30,7 @@ sleep 2
 # anche cosa sa fare, e qui si controlla che il codice in funzione sia davvero
 # quello appena copiato — un aggiornamento a meta' e' peggio di nessuno.
 health=$(curl -fsS http://127.0.0.1:8788/v1/health 2>/dev/null || true)
-wanted='"docs"'
+wanted='"stats"'
 
 if systemctl is-active --quiet "$SERVICE_NAME" && [[ $health == *'"status":"ok"'* ]] \
    && [[ $health == *"$wanted"* ]]; then
