@@ -341,6 +341,10 @@
         <translation>Scarica le conferme LoTW</translation>
     </message>
     <message>
+        <source>Paper QSL (%1)</source>
+        <translation>QSL cartacee (%1)</translation>
+    </message>
+    <message>
         <source>Stop</source>
         <translation>Ferma</translation>
     </message>
@@ -1271,6 +1275,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Filtra per entità</translation>
     </message>
     <message>
+        <source>Paper QSL: queue for the bureau</source>
+        <translation>QSL cartacea: in coda per il bureau</translation>
+    </message>
+    <message>
+        <source>Paper QSL: queue as direct</source>
+        <translation>QSL cartacea: in coda per la diretta</translation>
+    </message>
+    <message>
         <source>Add tag…</source>
         <translation>Aggiungi un&apos;etichetta…</translation>
     </message>
@@ -1656,7 +1668,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Club Log: already there</source>
-        <translation>Club Log: ce l'aveva già</translation>
+        <translation>Club Log: ce l&apos;aveva già</translation>
     </message>
     <message>
         <source>Club Log: %1</source>
@@ -1677,6 +1689,192 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: nessuna risposta</translation>
+    </message>
+</context>
+<context>
+    <name>QslCards</name>
+    <message>
+        <source>No QSL to print</source>
+        <translation>Nessuna QSL da stampare</translation>
+    </message>
+    <message>
+        <source>QSL labels</source>
+        <translation>Etichette QSL</translation>
+    </message>
+    <message>
+        <source>Cannot write %1</source>
+        <translation>Non riesco a scrivere %1</translation>
+    </message>
+    <message>
+        <source>To radio %1</source>
+        <translation>To radio %1</translation>
+    </message>
+    <message>
+        <source>via %1</source>
+        <translation>via %1</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Data</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Banda</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Modo</translation>
+    </message>
+    <message>
+        <source>RST</source>
+        <translation>RST</translation>
+    </message>
+    <message>
+        <source>TNX QSO · 73</source>
+        <translation>TNX QSO · 73</translation>
+    </message>
+</context>
+<context>
+    <name>QslCardsWindow</name>
+    <message>
+        <source>DecoLog — Paper QSL</source>
+        <translation>DecoLog — QSL cartacee</translation>
+    </message>
+    <message>
+        <source>bureau</source>
+        <translation>bureau</translation>
+    </message>
+    <message>
+        <source>direct</source>
+        <translation>diretta</translation>
+    </message>
+    <message>
+        <source>electronic</source>
+        <translation>elettronica</translation>
+    </message>
+    <message>
+        <source>manager</source>
+        <translation>manager</translation>
+    </message>
+    <message>
+        <source>To send</source>
+        <translation>Da mandare</translation>
+    </message>
+    <message>
+        <source>Sent</source>
+        <translation>Mandate</translation>
+    </message>
+    <message>
+        <source>Received</source>
+        <translation>Ricevute</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Tutte</translation>
+    </message>
+    <message>
+        <source>%1 waiting for an answer</source>
+        <translation>%1 in attesa di risposta</translation>
+    </message>
+    <message>
+        <source>Queue every QSL to answer</source>
+        <translation>Metti in coda tutte quelle da ricambiare</translation>
+    </message>
+    <message>
+        <source>Paper QSL · %1 rows · %2 chosen</source>
+        <translation>QSL cartacee · %1 righe · %2 scelte</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Nominativo</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Data</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Banda</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Modo</translation>
+    </message>
+    <message>
+        <source>RST</source>
+        <translation>RST</translation>
+    </message>
+    <message>
+        <source>Via</source>
+        <translation>Via</translation>
+    </message>
+    <message>
+        <source>Nothing in the queue. Put a QSO here from its card, from the log row menu, or with “Queue every QSL to answer”.</source>
+        <translation>La coda è vuota. Un QSO ci arriva dalla sua scheda, dal menu della riga nel log, oppure con “Metti in coda tutte quelle da ricambiare”.</translation>
+    </message>
+    <message>
+        <source>Nothing here yet.</source>
+        <translation>Qui non c'è ancora niente.</translation>
+    </message>
+    <message>
+        <source>Queue (bureau)</source>
+        <translation>In coda (bureau)</translation>
+    </message>
+    <message>
+        <source>Queue (direct)</source>
+        <translation>In coda (diretta)</translation>
+    </message>
+    <message>
+        <source>Mark as sent</source>
+        <translation>Segna come mandate</translation>
+    </message>
+    <message>
+        <source>Out of the queue</source>
+        <translation>Togli dalla coda</translation>
+    </message>
+    <message>
+        <source>Labels · PDF, one label per correspondent</source>
+        <translation>Etichette · PDF, una per corrispondente</translation>
+    </message>
+    <message>
+        <source>Sheet</source>
+        <translation>Foglio</translation>
+    </message>
+    <message>
+        <source>QSO per label</source>
+        <translation>QSO per etichetta</translation>
+    </message>
+    <message>
+        <source>Cutting guides</source>
+        <translation>Segni di taglio</translation>
+    </message>
+    <message>
+        <source>Write the PDF…</source>
+        <translation>Scrivi il PDF…</translation>
+    </message>
+    <message>
+        <source>Last file: %1</source>
+        <translation>Ultimo file: %1</translation>
+    </message>
+    <message>
+        <source>The queue becomes labels: the QSOs of one station end up on the same label.</source>
+        <translation>La coda diventa etichette: i QSO di una stessa stazione finiscono sulla stessa.</translation>
+    </message>
+    <message>
+        <source>QSL labels</source>
+        <translation>Etichette QSL</translation>
+    </message>
+    <message>
+        <source>PDF files (*.pdf)</source>
+        <translation>File PDF (*.pdf)</translation>
     </message>
 </context>
 <context>
@@ -2377,7 +2575,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
-        <translation>Club Log vuole tre cose: l'email e la password dell'account (qui sotto), il nominativo del profilo stazione e una chiave API. La chiave è gratuita e personale, si chiede su clublog.org/need_api.php — dice quale programma sta scrivendo, non chi sei. Un QSO appena registrato parte da solo, un arretrato parte come un unico file ADIF.</translation>
+        <translation>Club Log vuole tre cose: l&apos;email e la password dell&apos;account (qui sotto), il nominativo del profilo stazione e una chiave API. La chiave è gratuita e personale, si chiede su clublog.org/need_api.php — dice quale programma sta scrivendo, non chi sei. Un QSO appena registrato parte da solo, un arretrato parte come un unico file ADIF.</translation>
     </message>
     <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
@@ -3172,6 +3370,37 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::QslCardController</name>
+    <message numerus="yes">
+        <source>%n QSO in the paper queue</source>
+        <translation><numerusform>%n QSO nella coda delle cartacee</numerusform><numerusform>%n QSO nella coda delle cartacee</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSL to answer put in the queue</source>
+        <translation><numerusform>%n QSL da ricambiare messa in coda</numerusform><numerusform>%n QSL da ricambiare messe in coda</numerusform></translation>
+    </message>
+    <message>
+        <source>no QSL waiting for an answer</source>
+        <translation>nessuna QSL da ricambiare</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSL marked as sent</source>
+        <translation><numerusform>%n QSL segnata come mandata</numerusform><numerusform>%n QSL segnate come mandate</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO taken out of the queue</source>
+        <translation><numerusform>%n QSO tolto dalla coda</numerusform><numerusform>%n QSO tolti dalla coda</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n label(s) written</source>
+        <translation><numerusform>%n etichetta scritta</numerusform><numerusform>%n etichette scritte</numerusform></translation>
+    </message>
+    <message>
+        <source>QSL labels: %1 (%2)</source>
+        <translation>Etichette QSL: %1 (%2)</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::QslController</name>
     <message>
         <source>%1: stopped, %2</source>
@@ -3233,7 +3462,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message numerus="yes">
         <source>Club Log: sending %n QSO…</source>
-        <translation><numerusform>Club Log: invio %n QSO…</numerusform><numerusform>Club Log: invio %n QSO…</numerusform></translation>
+        <translation>
+            <numerusform>Club Log: invio %n QSO…</numerusform>
+            <numerusform>Club Log: invio %n QSO…</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>

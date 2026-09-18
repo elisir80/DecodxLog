@@ -58,6 +58,8 @@ add_library(decolog_core STATIC
     src/core/Lotw.cpp
     src/core/Lotw.h
     src/core/NetworkError.h
+    src/core/QslCards.cpp
+    src/core/QslCards.h
     src/core/QslUpload.cpp
     src/core/QslUpload.h
     src/core/Spots.cpp
@@ -81,7 +83,9 @@ qt_add_resources(decolog_core "cty"
     FILES resources/cty/cty.csv
 )
 target_include_directories(decolog_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
-target_link_libraries(decolog_core PUBLIC Qt6::Core Qt6::Network Qt6::Sql)
+# Qt6::Gui serve alle etichette QSL: QPdfWriter e QPainter stanno li' dentro, e
+# cosi' il PDF si scrive senza moduli di stampa e senza una stampante.
+target_link_libraries(decolog_core PUBLIC Qt6::Core Qt6::Network Qt6::Sql Qt6::Gui)
 # Annunci vocali: su Windows la sintesi del sistema (SAPI).
 if(WIN32)
     target_link_libraries(decolog_core PRIVATE sapi ole32)
@@ -128,6 +132,8 @@ qt_add_executable(decolog
     src/app/SpotModel.h
     src/app/ActivationController.cpp
     src/app/ActivationController.h
+    src/app/QslCardController.cpp
+    src/app/QslCardController.h
     src/app/QslController.cpp
     src/app/QslController.h
 )
@@ -143,6 +149,7 @@ set(DECOLOG_QML_FILES
     qml/DecoLog/MapPanel.qml
     qml/DecoLog/StatusRail.qml
     qml/DecoLog/NewQsoDialog.qml
+    qml/DecoLog/QslCardsWindow.qml
     qml/DecoLog/QsoDetailDialog.qml
     qml/DecoLog/StationProfilesDialog.qml
     qml/DecoLog/SetupDialog.qml
@@ -215,6 +222,13 @@ if(DECOLOG_BUILD_TESTS)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)
         add_test(NAME ${name} COMMAND tst_${name})
     endforeach()
+    # Le etichette QSL disegnano davvero un PDF: serve una QGuiApplication, e
+    # senza schermo va bene la piattaforma offscreen.
+    qt_add_executable(tst_qslcards tests/tst_qslcards.cpp)
+    target_link_libraries(tst_qslcards PRIVATE decolog_core Qt6::Test Qt6::Gui)
+    set_target_properties(tst_qslcards PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME qslcards COMMAND tst_qslcards)
+    set_tests_properties(qslcards PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
     # La tabella del log sta nell'applicazione, ma i suoi filtri sono SQL da provare.
     qt_add_executable(tst_qsomodel tests/tst_qsomodel.cpp src/app/QsoTableModel.cpp src/app/QsoTableModel.h)
     target_include_directories(tst_qsomodel PRIVATE src)

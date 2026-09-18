@@ -764,6 +764,15 @@ GlassPanel {
             onTriggered: root.model.dxccFilter = dxcc
         }
         MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
+        StyledMenuItem {
+            text: qsTr("Paper QSL: queue for the bureau")
+            onTriggered: decolog.cards.enqueue([rowMenu.qsoId], "B")
+        }
+        StyledMenuItem {
+            text: qsTr("Paper QSL: queue as direct")
+            onTriggered: decolog.cards.enqueue([rowMenu.qsoId], "D")
+        }
+        MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
         StyledMenuItem { text: qsTr("Add tag…"); onTriggered: tagPopup.openFor([rowMenu.qsoId], true) }
         StyledMenu {
             id: removeTagMenu

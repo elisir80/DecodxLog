@@ -281,6 +281,12 @@ GlassPanel {
                     onClicked: decolog.syncLotw(false)
                 }
                 GlassButton {
+                    text: qsTr("Paper QSL (%1)").arg(decolog.cards.counts.queue || 0)
+                    buttonHeight: 24
+                    fontPixelSize: 11
+                    onClicked: window.openCards()
+                }
+                GlassButton {
                     visible: decolog.qsl.busy
                     text: qsTr("Stop")
                     buttonHeight: 24

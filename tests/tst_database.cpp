@@ -52,7 +52,7 @@ private slots:
     {
         LogDatabase db;
         QVERIFY2(db.open(":memory:"), qPrintable(db.lastError()));
-        QCOMPARE(db.schemaVersion(), 2);
+        QCOMPARE(db.schemaVersion(), 3);
         QCOMPARE(db.qsoCount(), 0);
     }
 
@@ -322,20 +322,26 @@ private slots:
             QVERIFY(q.exec("CREATE TABLE schema_version (version INTEGER NOT NULL, applied_at TEXT)"));
             QVERIFY(q.exec("INSERT INTO schema_version (version) VALUES (1)"));
             QVERIFY(q.exec("CREATE TABLE qso (id INTEGER PRIMARY KEY, call TEXT NOT NULL, notes TEXT)"));
+            // La v1 aveva gia' gli stati QSL, senza la colonna della via.
+            QVERIFY(q.exec("CREATE TABLE qsl_status (qso_id INTEGER NOT NULL, service TEXT NOT NULL, "
+                           "sent TEXT NOT NULL DEFAULT 'N', sent_date TEXT, rcvd TEXT NOT NULL DEFAULT 'N', "
+                           "rcvd_date TEXT, remote_id TEXT, last_error TEXT, PRIMARY KEY (qso_id, service))"));
             raw.close();
         }
         QSqlDatabase::removeDatabase("v1");
         {
             LogDatabase db;
             QVERIFY2(db.open(path), qPrintable(db.lastError()));
-            QCOMPARE(db.schemaVersion(), 2);
+            QCOMPARE(db.schemaVersion(), 3);
             QSqlQuery q(db.connection());
             QVERIFY(q.exec("SELECT COUNT(*) FROM pragma_table_info('qso') WHERE name = 'tags'") && q.next());
+            QCOMPARE(q.value(0).toInt(), 1);
+            QVERIFY(q.exec("SELECT COUNT(*) FROM pragma_table_info('qsl_status') WHERE name = 'via'") && q.next());
             QCOMPARE(q.value(0).toInt(), 1);
             db.close();
             // Una seconda apertura non rifa la migrazione.
             QVERIFY(db.open(path));
-            QCOMPARE(db.schemaVersion(), 2);
+            QCOMPARE(db.schemaVersion(), 3);
         }
         QFile::remove(path);
     }

@@ -317,6 +317,22 @@ bool DecoLogController::openDatabase(const QString& path)
     };
     m_qsl = new QslController(std::move(qslCtx), this);
 
+    QslCardController::Context cardCtx;
+    cardCtx.db = &m_db;
+    cardCtx.station = [this] {
+        const QVariantMap profile = m_profiles->activeProfile();
+        return QVariantMap{{QStringLiteral("call"), profile.value(QStringLiteral("stationCallsign"))},
+                           {QStringLiteral("grid"), myGrid()}};
+    };
+    cardCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
+        addActivity(category, text, level);
+    };
+    cardCtx.logChanged = [this] {
+        m_model->reload();
+        emit logChanged();
+    };
+    m_cards = new QslCardController(std::move(cardCtx), this);
+
     ActivationController::Context actCtx;
     actCtx.db = &m_db;
     actCtx.stationCall = [this] {

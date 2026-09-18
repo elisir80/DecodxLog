@@ -5,6 +5,15 @@ in stazione.
 
 ## 0.3.0 — in lavorazione
 
+**QSL di carta.** Una finestra propria con la coda: da mandare, mandate, ricevute, e
+quante aspettano risposta. Un QSO ci finisce dal menu della riga nel log o tutto insieme
+con “metti in coda tutte quelle da ricambiare”. Da liì escono le **etichette in PDF**:
+una per corrispondente, con dentro fino a sei QSO, perché una cartolina sola risponde a
+tutti i collegamenti fatti con quella stazione. Quattro fogli in commercio (Avery L7160,
+L7163, L7165 e 70 × 36 mm), segni di taglio a scelta, nessuna stampante di mezzo: il PDF
+si stampa quando si vuole. La via (bureau, diretta, elettronica) resta sul QSO e torna
+nell'export come `QSL_SENT_VIA`. Schema del database alla versione 3, con migrazione.
+
 **Club Log.** Invio dei QSO a Club Log: quello appena registrato parte da solo via
 realtime.php, l'arretrato parte come un unico file ADIF. Servono l'email e la password
 dell'account, il nominativo del profilo stazione e una chiave API (gratuita, si chiede su

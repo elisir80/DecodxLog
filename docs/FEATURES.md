@@ -160,6 +160,21 @@ Quello che manca è in fondo.
 - **Duplicato = inviato**, rifiuto scritto sul QSO con il motivo. / **A duplicate counts as
   sent**, a rejection is written on the QSO with its reason.
 
+## 10b. QSL di carta / Paper QSL
+
+- **Coda** delle cartacee: da mandare, mandate, ricevute, e quante aspettano risposta. /
+  **Queue** of paper cards: to send, sent, received, and how many await an answer.
+- **In coda** dal menu della riga del log (bureau o diretta) o tutte insieme quelle da
+  ricambiare. / **Into the queue** from the log row menu (bureau or direct), or every card
+  waiting for an answer at once.
+- **Etichette in PDF**: una per corrispondente con fino a sei QSO, quattro fogli in
+  commercio, segni di taglio a scelta, senza stampante di mezzo. / **PDF labels**: one per
+  correspondent with up to six QSOs, four off-the-shelf sheets, optional cutting guides, no
+  printer in the way.
+- **La via** (bureau, diretta, elettronica) resta sul QSO e torna nell'export come
+  `QSL_SENT_VIA`. / **The route** (bureau, direct, electronic) stays on the QSO and comes
+  back in the export as `QSL_SENT_VIA`.
+
 ## 11. DX cluster
 
 - **Fonti in un elenco solo**: nodi telnet (DX Spider, CC Cluster), Reverse Beacon Network

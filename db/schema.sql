@@ -8,7 +8,7 @@ CREATE TABLE schema_version (
     version     INTEGER NOT NULL,
     applied_at  TEXT    NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ','now'))
 );
-INSERT INTO schema_version (version) VALUES (2);
+INSERT INTO schema_version (version) VALUES (3);
 
 -- Profili stazione (portatile, casa, evento speciale...)
 CREATE TABLE station_profile (
@@ -102,6 +102,7 @@ CREATE TABLE qsl_status (
     rcvd        TEXT    NOT NULL DEFAULT 'N',
     rcvd_date   TEXT,
     remote_id   TEXT,               -- id lato servizio, se esiste
+    via         TEXT,               -- QSL cartacee: B bureau, D diretta, E elettronica
     last_error  TEXT,
     PRIMARY KEY (qso_id, service)
 );

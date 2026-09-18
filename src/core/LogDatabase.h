@@ -74,6 +74,7 @@ struct QslState {
     QString rcvdDate;
     QString remoteId;
     QString lastError;
+    QString via;            // solo le cartacee: B bureau, D diretta, E elettronica
 };
 
 struct StationProfile {
@@ -244,10 +245,19 @@ public:
     // Lo stato di un servizio su un QSO, senza creare una revisione: l'invio di una
     // QSL non cambia il QSO, cambia quello che se ne e' fatto.
     bool setQslState(qint64 id, const QslState& state);
+    bool writeQslState(qint64 id, const QslState& state, bool includeReceived);
     // I QSO ancora da mandare a un servizio (nessuna riga, o "N"/"R"/"Q"), dal piu'
     // vecchio. `limit` 0 = tutti.
     QList<qint64> qsosToUpload(const QString& service, int limit = 0) const;
     int uploadPendingCount(const QString& service) const;
+
+    // ── QSL di carta ─────────────────────────────────────────────────────────
+    // La coda delle cartacee: `state` e' "queue" (da mandare), "sent", "received"
+    // o "all". Ogni riga ha quello che serve a un'etichetta e alla tabella.
+    QList<QVariantMap> cardRows(const QString& state, int limit = 0) const;
+    // Lo stato di una cartacea, conferma compresa (setQslState non tocca il
+    // ricevuto, perche' per gli altri servizi lo scrive il download).
+    bool setCardState(qint64 id, const QslState& state);
 
     // ── Etichette ────────────────────────────────────────────────────────────
     // Le etichette di un QSO (attivazione, contest, evento, portatile) stanno in

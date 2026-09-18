@@ -330,6 +330,7 @@ bool LogDatabase::migrate()
     };
     const QList<Step> steps{
         {2, {QStringLiteral("ALTER TABLE qso ADD COLUMN tags TEXT")}},
+        {3, {QStringLiteral("ALTER TABLE qsl_status ADD COLUMN via TEXT")}},
     };
     for (const Step& step : steps) {
         if (version >= step.to)
@@ -461,6 +462,14 @@ std::optional<LogDatabase::Prepared> LogDatabase::prepare(const AdifRecord& inpu
                 any = true;
             }
         }
+        if (st.service == QLatin1String("card")) {
+            const QString via = record.value(QStringLiteral("QSL_SENT_VIA")).trimmed().toUpper();
+            if (!via.isEmpty()) {
+                st.via = via;
+                consumed << QStringLiteral("QSL_SENT_VIA");
+                any = true;
+            }
+        }
         if (any)
             p.qsl << st;
     }
@@ -513,8 +522,8 @@ bool LogDatabase::writeQsl(qint64 qsoId, const QList<QslState>& states, bool kee
     QSet<QString> written;
     QSqlQuery ins(db);
     ins.prepare(QStringLiteral(
-        "INSERT INTO qsl_status (qso_id, service, sent, sent_date, rcvd, rcvd_date, remote_id, last_error) "
-        "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"));
+        "INSERT INTO qsl_status (qso_id, service, sent, sent_date, rcvd, rcvd_date, remote_id, last_error, via) "
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"));
     auto nullable = [](const QString& s) { return s.isEmpty() ? QVariant() : QVariant(s); };
     for (const QslState& st : states) {
         const auto kept = remote.value(st.service);
@@ -526,6 +535,7 @@ bool LogDatabase::writeQsl(qint64 qsoId, const QList<QslState>& states, bool kee
         ins.addBindValue(nullable(st.rcvdDate));
         ins.addBindValue(nullable(st.remoteId.isEmpty() ? kept.first : st.remoteId));
         ins.addBindValue(nullable(st.lastError.isEmpty() ? kept.second : st.lastError));
+        ins.addBindValue(nullable(st.via));
         if (!ins.exec())
             return false;
         written << st.service;
@@ -543,6 +553,7 @@ bool LogDatabase::writeQsl(qint64 qsoId, const QList<QslState>& states, bool kee
         ins.addBindValue(QVariant());
         ins.addBindValue(nullable(it.value().first));
         ins.addBindValue(nullable(it.value().second));
+        ins.addBindValue(QVariant());
         if (!ins.exec())
             return false;
     }
@@ -758,6 +769,9 @@ std::optional<AdifRecord> LogDatabase::record(qint64 id) const
         r.set(QLatin1String(c.adif), fromColumnValue(c, row.value(QLatin1String(c.column))));
 
     for (const QslState& st : qslStatus(id)) {
+        // Le cartacee portano anche la via: bureau, diretta o elettronica.
+        if (st.service == QLatin1String("card") && !st.via.isEmpty())
+            r.set(QStringLiteral("QSL_SENT_VIA"), st.via);
         for (const auto& f : kQslFields) {
             if (st.service != QLatin1String(f.service))
                 continue;
@@ -808,7 +822,8 @@ QList<QslState> LogDatabase::qslStatus(qint64 id) const
     QList<QslState> out;
     QSqlQuery q(connection());
     q.prepare(QStringLiteral(
-        "SELECT service, sent, sent_date, rcvd, rcvd_date, remote_id, last_error FROM qsl_status WHERE qso_id = ?"));
+        "SELECT service, sent, sent_date, rcvd, rcvd_date, remote_id, last_error, via "
+        "FROM qsl_status WHERE qso_id = ?"));
     q.addBindValue(id);
     if (!q.exec())
         return out;
@@ -821,6 +836,7 @@ QList<QslState> LogDatabase::qslStatus(qint64 id) const
         st.rcvdDate = q.value(4).toString();
         st.remoteId = q.value(5).toString();
         st.lastError = q.value(6).toString();
+        st.via = q.value(7).toString();
         out << st;
     }
     return out;
@@ -1417,16 +1433,31 @@ QStringList LogDatabase::workedGrids(int limit) const
 
 // ── Invio QSL ─────────────────────────────────────────────────────────────────
 
+bool LogDatabase::setCardState(qint64 id, const QslState& state)
+{
+    QslState card = state;
+    card.service = QStringLiteral("card");
+    return writeQslState(id, card, true);
+}
+
 bool LogDatabase::setQslState(qint64 id, const QslState& st)
+{
+    return writeQslState(id, st, false);
+}
+
+bool LogDatabase::writeQslState(qint64 id, const QslState& st, bool includeReceived)
 {
     QSqlDatabase db = connection();
     const bool ownTransaction = db.transaction();
     QSqlQuery q(db);
     q.prepare(QStringLiteral(
-        "INSERT INTO qsl_status (qso_id, service, sent, sent_date, rcvd, rcvd_date, remote_id, last_error) "
-        "VALUES (?, ?, ?, ?, ?, ?, ?, ?) "
+        "INSERT INTO qsl_status (qso_id, service, sent, sent_date, rcvd, rcvd_date, remote_id, last_error, via) "
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) "
         "ON CONFLICT(qso_id, service) DO UPDATE SET sent = excluded.sent, sent_date = excluded.sent_date, "
-        "remote_id = COALESCE(excluded.remote_id, qsl_status.remote_id), last_error = excluded.last_error"));
+        "remote_id = COALESCE(excluded.remote_id, qsl_status.remote_id), last_error = excluded.last_error, "
+        "via = COALESCE(excluded.via, qsl_status.via)")
+        + (includeReceived ? QStringLiteral(", rcvd = excluded.rcvd, rcvd_date = excluded.rcvd_date")
+                           : QString()));
     auto nullable = [](const QString& v) { return v.isEmpty() ? QVariant() : QVariant(v); };
     q.addBindValue(id);
     q.addBindValue(st.service);
@@ -1436,6 +1467,7 @@ bool LogDatabase::setQslState(qint64 id, const QslState& st)
     q.addBindValue(nullable(st.rcvdDate));
     q.addBindValue(nullable(st.remoteId));
     q.addBindValue(nullable(st.lastError));
+    q.addBindValue(nullable(st.via));
     if (!q.exec()) {
         m_lastError = q.lastError().text();
         if (ownTransaction)
@@ -1480,6 +1512,59 @@ int LogDatabase::uploadPendingCount(const QString& service) const
         "WHERE qso.deleted = 0 AND (s.sent IS NULL OR s.sent IN ('N', 'R', 'Q'))"));
     q.addBindValue(service);
     return q.exec() && q.next() ? q.value(0).toInt() : 0;
+}
+
+// ── QSL di carta ──────────────────────────────────────────────────────────────
+
+QList<QVariantMap> LogDatabase::cardRows(const QString& state, int limit) const
+{
+    QString where = QStringLiteral("qso.deleted = 0");
+    if (state == QLatin1String("queue"))
+        where += QStringLiteral(" AND s.sent IN ('R', 'Q')");
+    else if (state == QLatin1String("sent"))
+        where += QStringLiteral(" AND s.sent = 'Y'");
+    else if (state == QLatin1String("received"))
+        where += QStringLiteral(" AND s.rcvd = 'Y'");
+    else
+        where += QStringLiteral(" AND (s.sent IN ('R', 'Q', 'Y') OR s.rcvd = 'Y')");
+
+    QList<QVariantMap> out;
+    QSqlQuery q(connection());
+    q.setForwardOnly(true);
+    q.prepare(QStringLiteral(
+        "SELECT qso.id, qso.call, qso.qso_datetime_on, qso.band, qso.mode, qso.submode, qso.freq, "
+        "qso.rst_sent, qso.name, qso.country, s.sent, s.sent_date, s.rcvd, s.rcvd_date, s.via "
+        "FROM qsl_status s JOIN qso ON qso.id = s.qso_id "
+        "WHERE s.service = 'card' AND ") + where
+        + QStringLiteral(" ORDER BY qso.call, qso.qso_datetime_on")
+        + (limit > 0 ? QStringLiteral(" LIMIT ?") : QString()));
+    if (limit > 0)
+        q.addBindValue(limit);
+    if (!q.exec())
+        return out;
+    while (q.next()) {
+        const QDateTime when = QDateTime::fromString(q.value(2).toString(), Qt::ISODate);
+        const QString submode = q.value(5).toString();
+        QVariantMap row{
+            {QStringLiteral("id"), q.value(0).toLongLong()},
+            {QStringLiteral("call"), q.value(1).toString()},
+            {QStringLiteral("date"), when.toString(QStringLiteral("yyyy-MM-dd"))},
+            {QStringLiteral("time"), when.toString(QStringLiteral("hhmm"))},
+            {QStringLiteral("band"), q.value(3).toString()},
+            {QStringLiteral("mode"), submode.isEmpty() ? q.value(4).toString() : submode},
+            {QStringLiteral("freq"), q.value(6).toString()},
+            {QStringLiteral("rst"), q.value(7).toString()},
+            {QStringLiteral("name"), q.value(8).toString()},
+            {QStringLiteral("country"), q.value(9).toString()},
+            {QStringLiteral("sent"), q.value(10).toString()},
+            {QStringLiteral("sentDate"), q.value(11).toString()},
+            {QStringLiteral("rcvd"), q.value(12).toString()},
+            {QStringLiteral("rcvdDate"), q.value(13).toString()},
+            {QStringLiteral("via"), q.value(14).toString()},
+        };
+        out << row;
+    }
+    return out;
 }
 
 // ── Etichette ─────────────────────────────────────────────────────────────────

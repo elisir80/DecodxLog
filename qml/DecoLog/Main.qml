@@ -49,6 +49,13 @@ ApplicationWindow {
             statsWindow.item.requestActivate()
         }
     }
+    function openCards() {
+        cardsWindow.active = true
+        if (cardsWindow.item) {
+            cardsWindow.item.raise()
+            cardsWindow.item.requestActivate()
+        }
+    }
     function openCluster(tab) {
         clusterWindow.tab = tab
         clusterWindow.active = true
@@ -72,6 +79,7 @@ ApplicationWindow {
         else if (what[0] === "activation") activationDialog.openDialog()
         else if (what[0] === "modes") newQsoPanel.showModes()
         else if (what[0] === "stats") openStats()
+        else if (what[0] === "cards") openCards()
         else if (what[0] === "call") decolog.lookupCall = what[1]
         else if (what[0] === "awards") {
             // awards:<id>[:map|:missing|:unconfirmed]
@@ -111,6 +119,14 @@ ApplicationWindow {
         active: false
         sourceComponent: StatsWindow {
             onClosing: statsWindow.active = false
+        }
+    }
+
+    Loader {
+        id: cardsWindow
+        active: false
+        sourceComponent: QslCardsWindow {
+            onClosing: cardsWindow.active = false
         }
     }
 
