@@ -695,7 +695,7 @@ GlassPanel {
                     text: cell.display
                     elide: Text.ElideRight
                     font.pixelSize: cell.columnKey === "source" ? 10 : Theme.fontSize
-                    font.family: cell.columnKey === "name" || cell.columnKey === "tags" ? Qt.application.font.family : Theme.monoFamily
+                    font.family: cell.columnKey === "name" || cell.columnKey === "tags" ? Theme.uiFamily : Theme.monoFamily
                     font.bold: cell.columnKey === "call"
                     color: cell.columnKey === "utc" || cell.columnKey === "dxcc" ? Theme.textSecondary
                          : cell.columnKey === "mode" ? root.modeColor(cell.display)

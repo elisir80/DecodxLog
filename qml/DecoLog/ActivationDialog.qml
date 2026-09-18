@@ -167,7 +167,7 @@ DialogFrame {
                     Layout.preferredWidth: 140
                     mono: false
                     text: root.draft.tag || ""
-                    placeholderText: root.draft.kind === "contest" ? (root.draft.contestId || "contest").toLowerCase() : root.draft.kind
+                    placeholderText: root.draft.kind === "contest" ? (root.draft.contestId || "contest").toLowerCase() : (root.draft.kind || "")
                     onTextEdited: root.set("tag", text)
                 }
             }

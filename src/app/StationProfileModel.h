@@ -9,7 +9,7 @@
 #include <QAbstractListModel>
 #include <QVariantMap>
 
-namespace decolog::core { class LogDatabase; struct StationProfile; }
+#include "core/LogDatabase.h"
 
 namespace decolog::app {
 

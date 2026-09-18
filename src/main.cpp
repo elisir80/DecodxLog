@@ -8,6 +8,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QGuiApplication>
+#include <QFontDatabase>
 #include <QIcon>
 #include <QLibraryInfo>
 #include <QLocale>
@@ -24,6 +25,20 @@
 int main(int argc, char* argv[])
 {
     QGuiApplication app(argc, argv);
+#if defined(Q_OS_MACOS)
+    const QStringList uiFontCandidates = {QStringLiteral("SF Pro Text"), QStringLiteral("Helvetica Neue"), QStringLiteral("Arial")};
+#elif defined(Q_OS_WIN)
+    const QStringList uiFontCandidates = {QStringLiteral("Segoe UI"), QStringLiteral("Arial")};
+#else
+    const QStringList uiFontCandidates = {QStringLiteral("Noto Sans"), QStringLiteral("DejaVu Sans"), QStringLiteral("Liberation Sans")};
+#endif
+    const QStringList installedFonts = QFontDatabase::families();
+    for (const QString& family : uiFontCandidates) {
+        if (installedFonts.contains(family)) {
+            app.setFont(QFont(family));
+            break;
+        }
+    }
     app.setApplicationName(QStringLiteral("DecoLog"));
     app.setOrganizationName(QStringLiteral("Decodium"));
     app.setApplicationVersion(QStringLiteral(DECOLOG_VERSION));

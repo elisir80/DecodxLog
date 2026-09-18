@@ -1,6 +1,7 @@
 #include "ThemeManager.h"
 
 #include <QFontDatabase>
+#include <QFontInfo>
 #include <QSettings>
 
 namespace decodium::ui {
@@ -295,14 +296,51 @@ QString ThemeManager::monoFamily() const
     // virgola non e' una lista di ripiego per QML, e senza Cascadia Mono si
     // finirebbe su un carattere proporzionale.
     static const QString family = [] {
-#ifdef Q_OS_WIN
         const QStringList installed = QFontDatabase::families();
+#ifdef Q_OS_WIN
         for (const auto* candidate : {"Cascadia Mono", "Consolas"}) {
             if (installed.contains(QLatin1String(candidate)))
                 return QString::fromLatin1(candidate);
         }
+#elif defined(Q_OS_MACOS)
+        for (const auto* candidate : {"SF Mono", "Menlo", "Monaco", "Andale Mono"}) {
+            if (installed.contains(QLatin1String(candidate)))
+                return QString::fromLatin1(candidate);
+        }
+#else
+        for (const auto* candidate : {"DejaVu Sans Mono", "Liberation Mono"}) {
+            if (installed.contains(QLatin1String(candidate)))
+                return QString::fromLatin1(candidate);
+        }
 #endif
-        return QFontDatabase::systemFont(QFontDatabase::FixedFont).family();
+        const QString resolved = QFontInfo(QFontDatabase::systemFont(QFontDatabase::FixedFont)).family();
+        return installed.contains(resolved) ? resolved : installed.value(0);
+    }();
+    return family;
+}
+
+QString ThemeManager::uiFamily() const
+{
+    static const QString family = [] {
+        const QStringList installed = QFontDatabase::families();
+#ifdef Q_OS_MACOS
+        for (const auto* candidate : {"SF Pro Text", "Helvetica Neue", "Arial"}) {
+            if (installed.contains(QLatin1String(candidate)))
+                return QString::fromLatin1(candidate);
+        }
+#elif defined(Q_OS_WIN)
+        for (const auto* candidate : {"Segoe UI", "Arial"}) {
+            if (installed.contains(QLatin1String(candidate)))
+                return QString::fromLatin1(candidate);
+        }
+#else
+        for (const auto* candidate : {"Noto Sans", "DejaVu Sans", "Liberation Sans"}) {
+            if (installed.contains(QLatin1String(candidate)))
+                return QString::fromLatin1(candidate);
+        }
+#endif
+        const QString resolved = QFontInfo(QFontDatabase::systemFont(QFontDatabase::GeneralFont)).family();
+        return installed.contains(resolved) ? resolved : installed.value(0);
     }();
     return family;
 }
