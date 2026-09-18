@@ -1640,6 +1640,11 @@ LogDatabase::RemoteResult LogDatabase::applyRemote(const QVariantMap& remote)
             // Qui c'e' gia' qualcosa di piu' nuovo: resta, e ripartira' in coda.
             return RemoteResult::Skipped;
         }
+        if (m && m->revision == revision && !m->dirty && !deleted) {
+            // Stessa revisione: per il protocollo e' lo stesso contenuto. Succede
+            // al giro dopo una spinta, quando il server ci rimanda i nostri.
+            return RemoteResult::Skipped;
+        }
         if (m && m->dirty && m->revision >= revision) {
             // C'e' una modifica locale ancora da mandare, e il server non ne sa
             // di piu': non si sovrascrive. Parte lei, e il conflitto lo decide

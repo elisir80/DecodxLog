@@ -104,6 +104,8 @@ private:
     bool m_automatic{true};
     // Sync chiesto mentre il token stava ancora uscendo dal portachiavi.
     bool m_syncWhenReady{false};
+    // Il cursore e' gia' stato riportato in pari dopo la spinta di questo giro?
+    bool m_cursorCaughtUp{false};
     bool m_pulling{false};
     // I QSO mandati nell'ultima spinta, nell'ordine: gli esiti tornano cosi'.
     QList<qint64> m_batch;

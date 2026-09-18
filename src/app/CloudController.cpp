@@ -75,9 +75,17 @@ CloudController::CloudController(Context context, QObject* parent)
                                               {QStringLiteral("lastError"), QString()}});
         if (m_ctx.logChanged)
             m_ctx.logChanged();
-        // Se ne restano altri in coda si continua, altrimenti si chiude il giro.
+        // Se ne restano altri in coda si continua.
         if (queued() > 0) {
             startPush();
+            return;
+        }
+        // Il cursore si e' fermato prima della nostra spinta: un ultimo pull lo
+        // porta in pari (i nostri tornano indietro una volta sola e si saltano
+        // da soli, avendo la stessa revisione).
+        if (!m_cursorCaughtUp) {
+            m_cursorCaughtUp = true;
+            m_sync.pull(m_cursor);
             return;
         }
         m_lastSync = nowLabel();
@@ -278,6 +286,7 @@ void CloudController::syncNow()
     if (m_busy)
         return;
     m_busy = true;
+    m_cursorCaughtUp = false;
     m_status = tr("Cloud: syncing…");
     emit changed();
     startPull();

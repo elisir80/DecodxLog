@@ -166,6 +166,33 @@ private slots:
                  LogDatabase::RemoteResult::Skipped);
     }
 
+    void theSameRevisionComingBackChangesNothing()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        const auto inserted = db.insertQso(qso(QStringLiteral("F5DEF"), QStringLiteral("090000")),
+                                           QStringLiteral("udp"));
+        const QString uuid = db.meta(inserted.id)->uuid;
+        db.markSynced(inserted.id, 1);
+        const int historyBefore = static_cast<int>(db.history(inserted.id).size());
+
+        // Il giro dopo una spinta il server ci rimanda i nostri: stessa
+        // revisione, quindi non e' una modifica e non deve diventarlo.
+        const QVariantMap mine{
+            {QStringLiteral("uuid"), uuid},
+            {QStringLiteral("revision"), 1},
+            {QStringLiteral("fields"), QVariantMap{{QStringLiteral("CALL"), QStringLiteral("F5DEF")},
+                                                   {QStringLiteral("QSO_DATE"), QStringLiteral("20260918")},
+                                                   {QStringLiteral("TIME_ON"), QStringLiteral("090000")},
+                                                   {QStringLiteral("BAND"), QStringLiteral("20m")},
+                                                   {QStringLiteral("MODE"), QStringLiteral("MFSK")}}},
+        };
+        QCOMPARE(db.applyRemote(mine), LogDatabase::RemoteResult::Skipped);
+        QCOMPARE(db.meta(inserted.id)->revision, 1);
+        QCOMPARE(static_cast<int>(db.history(inserted.id).size()), historyBefore);
+        QVERIFY(db.dirtyQsos().isEmpty());
+    }
+
     void theServerUuidWins()
     {
         LogDatabase db;
