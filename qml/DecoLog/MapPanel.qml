@@ -34,6 +34,17 @@ GlassPanel {
     showDot: false
     padding: 8
     headerTools: [
+        // Le condizioni del momento, dove si guarda la propagazione: SFI e K.
+        Text {
+            anchors.verticalCenter: parent.verticalCenter
+            readonly property var solar: decolog.solar.data
+            visible: solar.valid === true
+            text: qsTr("SFI %1 · K %2").arg(solar.solarFlux || 0).arg(solar.kIndex || 0)
+            color: (solar.kIndex || 0) >= 4 ? Theme.errorColor
+                 : (solar.kIndex || 0) >= 3 ? Theme.warningColor : Theme.accentColor
+            font.family: Theme.monoFamily
+            font.pixelSize: 11
+        },
         Text {
             anchors.verticalCenter: parent.verticalCenter
             text: [decolog.callInfo.call, decolog.callInfo.gridsquare].filter(s => s).join(" · ")

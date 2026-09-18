@@ -64,6 +64,8 @@ add_library(decolog_core STATIC
     src/core/QslCards.h
     src/core/QslUpload.cpp
     src/core/QslUpload.h
+    src/core/Solar.cpp
+    src/core/Solar.h
     src/core/Spots.cpp
     src/core/Spots.h
     src/core/WsjtxProtocol.cpp
@@ -130,6 +132,8 @@ qt_add_executable(decolog
     src/app/StationProfileModel.h
     src/app/ClusterController.cpp
     src/app/ClusterController.h
+    src/app/SolarController.cpp
+    src/app/SolarController.h
     src/app/SpotModel.cpp
     src/app/SpotModel.h
     src/app/ActivationController.cpp
@@ -162,6 +166,7 @@ set(DECOLOG_QML_FILES
     qml/DecoLog/ActivationDialog.qml
     qml/DecoLog/StatsWindow.qml
     qml/DecoLog/ContestWindow.qml
+    qml/DecoLog/PropagationPanel.qml
     qml/DecoLog/ClusterPanel.qml
     qml/DecoLog/ClusterWindow.qml
     qml/DecoLog/SpotFilterEditor.qml
@@ -219,7 +224,7 @@ set_target_properties(decolog PROPERTIES
 if(DECOLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

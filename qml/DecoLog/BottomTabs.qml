@@ -7,7 +7,7 @@ import Decodium.UI
 GlassPanel {
     id: root
 
-    // 0 Awards · 1 Statistics · 2 QSL Upload · 3 Activity log · 4 DX Cluster
+    // 0 Awards · 1 Statistics · 2 QSL Upload · 3 Activity log · 4 DX Cluster · 5 Propagation
     property int currentTab: 3
     signal awardRequested(string id)
     signal clusterRequested(int tab)
@@ -18,7 +18,8 @@ GlassPanel {
         Row {
             spacing: 2
             Repeater {
-                model: [qsTr("Awards"), qsTr("Statistics"), qsTr("QSL Upload"), qsTr("Activity log"), qsTr("DX Cluster")]
+                model: [qsTr("Awards"), qsTr("Statistics"), qsTr("QSL Upload"), qsTr("Activity log"),
+                        qsTr("DX Cluster"), qsTr("Propagation")]
                 TabChip {
                     required property string modelData
                     required property int index
@@ -337,5 +338,8 @@ GlassPanel {
             compact: true
             onWindowRequested: (tab) => root.clusterRequested(tab)
         }
+
+        // ── Propagazione ────────────────────────────────────────────────────
+        PropagationPanel {}
     }
 }

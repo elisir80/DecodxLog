@@ -74,6 +74,10 @@ int main(int argc, char* argv[])
     QCommandLineOption spotsOption(QStringLiteral("spots"), QStringLiteral("Feed cluster spots from a file."),
                                    QStringLiteral("file"));
     parser.addOption(spotsOption);
+    // Idem per la propagazione: il XML del Sole letto da un file.
+    QCommandLineOption solarOption(QStringLiteral("solar"), QStringLiteral("Read the solar XML from a file."),
+                                   QStringLiteral("file"));
+    parser.addOption(solarOption);
     parser.addOption(themeOption);
     parser.addOption(showOption);
     parser.addOption(dbOption);
@@ -105,6 +109,13 @@ int main(int argc, char* argv[])
             cluster->setMuted(parser.isSet(grabOption));
             for (const QByteArray& line : spotFile.readAll().split('\n'))
                 cluster->injectLine(QString::fromUtf8(line).trimmed());
+        }
+    }
+    if (parser.isSet(solarOption)) {
+        QFile solarFile(parser.value(solarOption));
+        if (solarFile.open(QIODevice::ReadOnly)) {
+            if (auto* solar = qobject_cast<decolog::app::SolarController*>(controller.solar()))
+                solar->injectXml(solarFile.readAll());
         }
     }
     if (parser.isSet(importOption))

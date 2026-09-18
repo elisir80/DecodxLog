@@ -193,6 +193,21 @@ Quello che manca è in fondo.
   **Cabrillo 3.0 export**: header with categories, grid, score and soapbox, fixed-column QSO
   lines, frequencies in kHz (band number from 6 m up), modes CW/PH/RY/DG/FM.
 
+## 10d. Propagazione / Propagation
+
+- **Numeri del Sole**: SFI, macchie, indice A e K, aurora, raggi X, campo geomagnetico,
+  rumore, vento solare. / **Solar numbers**: SFI, sunspots, A and K index, aurora, X-ray,
+  geomagnetic field, noise, solar wind.
+- **Condizioni banda** di giorno e di notte, più aurora ed E-skip in VHF, colorate. / **Band
+  conditions** for day and night, plus aurora and E-skip on VHF, colour-coded.
+- **Da sole ogni ora** o a comando, dal XML di N0NBH (hamqsl.com). / **By themselves every
+  hour** or on demand, from N0NBH's XML (hamqsl.com).
+- **Storico accanto ai tuoi QSO**: ultimi quattordici giorni, barra dei QSO e flusso medio
+  del giorno. / **History next to your QSOs**: last fourteen days, bar of QSOs and the day's
+  average flux.
+- **SFI e K in testa alla mappa**, dove si guarda la propagazione. / **SFI and K on the map
+  header**, where propagation is looked at.
+
 ## 11. DX cluster
 
 - **Fonti in un elenco solo**: nodi telnet (DX Spider, CC Cluster), Reverse Beacon Network

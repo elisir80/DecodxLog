@@ -9,6 +9,7 @@
 #include "app/ActivationController.h"
 #include "app/QslCardController.h"
 #include "app/QslController.h"
+#include "app/SolarController.h"
 #include "app/QsoTableModel.h"
 #include "app/StationProfileModel.h"
 #include "core/Awards.h"
@@ -43,6 +44,7 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QObject* cluster READ cluster CONSTANT)
     Q_PROPERTY(QObject* qsl READ qsl CONSTANT)
     Q_PROPERTY(QObject* cards READ cards CONSTANT)
+    Q_PROPERTY(QObject* solar READ solar CONSTANT)
     Q_PROPERTY(QObject* activation READ activation CONSTANT)
 
     // ── Collegamento con Decodium ──────────────────────────────────────────
@@ -157,6 +159,7 @@ public:
     QObject* cluster() const { return m_cluster; }
     QObject* qsl() const { return m_qsl; }
     QObject* cards() const { return m_cards; }
+    QObject* solar() const { return m_solar; }
     QObject* activation() const { return m_activation; }
     // Dopo openDatabase e startDecoLink: le fonti del cluster si collegano.
     void startCluster();
@@ -408,6 +411,7 @@ private:
     ClusterController*   m_cluster{nullptr};
     QslController*       m_qsl{nullptr};
     QslCardController*   m_cards{nullptr};
+    SolarController*     m_solar{nullptr};
     ActivationController* m_activation{nullptr};
 
     int       m_udpPort{2237};

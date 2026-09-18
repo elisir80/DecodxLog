@@ -313,6 +313,10 @@
         <translation>DX Cluster</translation>
     </message>
     <message>
+        <source>Propagation</source>
+        <translation>Propagazione</translation>
+    </message>
+    <message>
         <source>Open statistics</source>
         <translation>Apri le statistiche</translation>
     </message>
@@ -1066,7 +1070,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>No QSO in this session yet.</source>
-        <translation>In questa sessione non c'è ancora nessun QSO.</translation>
+        <translation>In questa sessione non c&apos;è ancora nessun QSO.</translation>
     </message>
     <message>
         <source>Cabrillo…</source>
@@ -1561,6 +1565,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Mappa</translation>
     </message>
     <message>
+        <source>SFI %1 · K %2</source>
+        <translation>SFI %1 · K %2</translation>
+    </message>
+    <message>
         <source>Layers ▾</source>
         <translation>Livelli ▾</translation>
     </message>
@@ -1817,6 +1825,101 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>CLEAR</source>
         <translation>PULISCI</translation>
+    </message>
+</context>
+<context>
+    <name>PropagationPanel</name>
+    <message>
+        <source>good</source>
+        <translation>buona</translation>
+    </message>
+    <message>
+        <source>fair</source>
+        <translation>discreta</translation>
+    </message>
+    <message>
+        <source>poor</source>
+        <translation>scarsa</translation>
+    </message>
+    <message>
+        <source>closed</source>
+        <translation>chiusa</translation>
+    </message>
+    <message>
+        <source>SFI</source>
+        <translation>SFI</translation>
+    </message>
+    <message>
+        <source>Sunspots</source>
+        <translation>Macchie</translation>
+    </message>
+    <message>
+        <source>A index</source>
+        <translation>Indice A</translation>
+    </message>
+    <message>
+        <source>K index</source>
+        <translation>Indice K</translation>
+    </message>
+    <message>
+        <source>Aurora</source>
+        <translation>Aurora</translation>
+    </message>
+    <message>
+        <source>X-ray</source>
+        <translation>Raggi X</translation>
+    </message>
+    <message>
+        <source>Geomag</source>
+        <translation>Geomagn.</translation>
+    </message>
+    <message>
+        <source>Noise</source>
+        <translation>Rumore</translation>
+    </message>
+    <message>
+        <source>Sol. wind</source>
+        <translation>Vento sol.</translation>
+    </message>
+    <message>
+        <source>HF · day</source>
+        <translation>HF · giorno</translation>
+    </message>
+    <message>
+        <source>HF · night</source>
+        <translation>HF · notte</translation>
+    </message>
+    <message>
+        <source>VHF</source>
+        <translation>VHF</translation>
+    </message>
+    <message>
+        <source>Your QSOs and the solar flux · last 14 days</source>
+        <translation>I tuoi QSO e il flusso solare · ultimi 14 giorni</translation>
+    </message>
+    <message>
+        <source>The bar is the QSOs of the day, the number under it the average solar flux. The flux is kept from when DecoLog started looking: the first days are empty.</source>
+        <translation>La barra sono i QSO del giorno, il numero sotto il flusso solare medio. Il flusso si tiene da quando DecoLog ha cominciato a guardarlo: i primi giorni sono vuoti.</translation>
+    </message>
+    <message>
+        <source>asking…</source>
+        <translation>sto chiedendo…</translation>
+    </message>
+    <message>
+        <source>Update now</source>
+        <translation>Aggiorna adesso</translation>
+    </message>
+    <message>
+        <source>by itself every %1 min</source>
+        <translation>da solo ogni %1 min</translation>
+    </message>
+    <message>
+        <source>%1 · source %2</source>
+        <translation>%1 · fonte %2</translation>
+    </message>
+    <message>
+        <source>No solar data yet.</source>
+        <translation>Non ci sono ancora dati solari.</translation>
     </message>
 </context>
 <context>
@@ -3306,7 +3409,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Nothing to write</source>
-        <translation>Non c'è niente da scrivere</translation>
+        <translation>Non c&apos;è niente da scrivere</translation>
     </message>
     <message>
         <source>Cannot write %1</source>
@@ -3314,7 +3417,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message numerus="yes">
         <source>Cabrillo written: %1 (%n QSO)</source>
-        <translation><numerusform>Cabrillo scritto: %1 (%n QSO)</numerusform><numerusform>Cabrillo scritto: %1 (%n QSO)</numerusform></translation>
+        <translation>
+            <numerusform>Cabrillo scritto: %1 (%n QSO)</numerusform>
+            <numerusform>Cabrillo scritto: %1 (%n QSO)</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n QSO of the session → %1</source>
@@ -3784,6 +3890,21 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::SolarController</name>
+    <message>
+        <source>Solar data of %1</source>
+        <translation>Dati solari del %1</translation>
+    </message>
+    <message>
+        <source>Asking for the solar data…</source>
+        <translation>Sto chiedendo i dati solari…</translation>
+    </message>
+    <message>
+        <source>The solar data cannot be read</source>
+        <translation>I dati solari non si riescono a leggere</translation>
+    </message>
+</context>
+<context>
     <name>decolog::core::CallbookClient</name>
     <message>
         <source>%1 not found on %2</source>
@@ -3965,6 +4086,13 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>LoTW: %1</source>
         <translation>LoTW: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::SolarFetcher</name>
+    <message>
+        <source>The solar data cannot be read</source>
+        <translation>I dati solari non si riescono a leggere</translation>
     </message>
 </context>
 <context>

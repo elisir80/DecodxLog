@@ -333,6 +333,13 @@ bool DecoLogController::openDatabase(const QString& path)
     };
     m_cards = new QslCardController(std::move(cardCtx), this);
 
+    SolarController::Context solarCtx;
+    solarCtx.db = &m_db;
+    solarCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
+        addActivity(category, text, level);
+    };
+    m_solar = new SolarController(std::move(solarCtx), this);
+
     ActivationController::Context actCtx;
     actCtx.db = &m_db;
     actCtx.stationCall = [this] {
@@ -360,6 +367,10 @@ void DecoLogController::startCluster()
 {
     if (m_cluster)
         m_cluster->start();
+    // La propagazione parte insieme al cluster: sono due cose che si guardano
+    // mentre si opera, e nessuna delle due serve prima che il log sia aperto.
+    if (m_solar)
+        m_solar->start();
 }
 
 void DecoLogController::startDecoLink()

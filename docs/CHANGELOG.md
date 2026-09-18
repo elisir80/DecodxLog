@@ -5,6 +5,13 @@ in stazione.
 
 ## 0.3.0 — in lavorazione
 
+**Propagazione.** Scheda nuova in basso: SFI, macchie, indice A e K, aurora, raggi X, campo
+geomagnetico, rumore e vento solare, e le condizioni banda per banda di giorno e di notte
+(più aurora ed E-skip in VHF), colorate. I dati arrivano dal XML di N0NBH (hamqsl.com), da
+soli ogni ora o a comando. DecoLog tiene un campione all'ora e lo mette accanto ai QSO di
+quel giorno: negli ultimi quattordici giorni si vede se il proprio ritmo segue davvero il
+flusso solare. In testa alla mappa restano SFI e K, dove si guarda la propagazione.
+
 **Contest.** Una finestra fatta per la tastiera (Ctrl+Shift+T): si scrive il nominativo,
 Invio registra, Esc pulisce, la barra passa al rapporto. Mentre si scrive si vede se è un
 doppio (in questa sessione, su questa banda, in questo modo), che ritmo si tiene (QSO
