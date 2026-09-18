@@ -1,0 +1,33 @@
+# DecoLog Cloud in servizio: il servizio e il suo PostgreSQL.
+# La password del database si mette in un file .env accanto a questo.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: decolog
+      POSTGRES_USER: decolog
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?serve una password in .env}
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U decolog"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  api:
+    build: .
+    environment:
+      DECOLOG_DATABASE_URL: postgresql+psycopg://decolog:${POSTGRES_PASSWORD}@db/decolog
+      DECOLOG_ALLOW_SIGNUP: ${DECOLOG_ALLOW_SIGNUP:-0}
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      # Solo in locale: davanti ci va un proxy con HTTPS.
+      - "127.0.0.1:8787:8000"
+    restart: unless-stopped
+
+volumes:
+  db:

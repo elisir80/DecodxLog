@@ -1,0 +1,139 @@
+"""DecoLog Cloud — le tabelle.
+
+Il server non ricostruisce il log: tiene il QSO come l'ha mandato il client (i
+campi ADIF in un documento JSON) piu' i pochi dati che servono al sync e alla
+ricerca — uuid, revisione, quando e' cambiato, se e' cancellato.
+
+Cosi' il giorno che DecoLog impara un campo nuovo il server non va toccato.
+"""
+
+from __future__ import annotations
+
+import datetime as dt
+import uuid as uuidlib
+
+from sqlalchemy import (
+    BigInteger,
+    Boolean,
+    DateTime,
+    ForeignKey,
+    Index,
+    Integer,
+    String,
+    Text,
+    UniqueConstraint,
+    create_engine,
+)
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship, sessionmaker
+from sqlalchemy.types import JSON
+
+from .settings import settings
+
+
+class Base(DeclarativeBase):
+    pass
+
+
+def _now() -> dt.datetime:
+    return dt.datetime.now(dt.UTC)
+
+
+def new_uuid() -> str:
+    return str(uuidlib.uuid4())
+
+
+class Account(Base):
+    """Un operatore. Il nominativo e' il nome utente: qui non c'e' altro da sapere."""
+
+    __tablename__ = "account"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    callsign: Mapped[str] = mapped_column(String(32), unique=True, index=True)
+    password_hash: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+    tokens: Mapped[list["Token"]] = relationship(back_populates="account", cascade="all, delete-orphan")
+
+
+class Token(Base):
+    """Un dispositivo collegato. Del token si tiene solo l'impronta."""
+
+    __tablename__ = "token"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    account_id: Mapped[int] = mapped_column(ForeignKey("account.id", ondelete="CASCADE"), index=True)
+    token_hash: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    device: Mapped[str] = mapped_column(String(120), default="")
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    last_seen: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    expires_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+    account: Mapped[Account] = relationship(back_populates="tokens")
+
+
+class Qso(Base):
+    """Un QSO come sta sul server.
+
+    `seq` e' il numero che ordina le modifiche: il cursore del pull e' quello,
+    non l'orario, cosi' due dispositivi che scrivono nello stesso secondo non si
+    perdono per strada.
+    """
+
+    __tablename__ = "qso"
+    __table_args__ = (
+        UniqueConstraint("account_id", "uuid", name="uq_qso_account_uuid"),
+        Index("ix_qso_account_seq", "account_id", "seq"),
+        Index("ix_qso_dedup", "account_id", "call", "band", "mode_group"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    account_id: Mapped[int] = mapped_column(ForeignKey("account.id", ondelete="CASCADE"), index=True)
+    uuid: Mapped[str] = mapped_column(String(36), index=True)
+    revision: Mapped[int] = mapped_column(Integer, default=1)
+    seq: Mapped[int] = mapped_column(BigInteger, index=True)
+    deleted: Mapped[bool] = mapped_column(Boolean, default=False)
+    updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    # Quello che serve per il confronto dei duplicati, estratto dai campi.
+    call: Mapped[str] = mapped_column(String(32), default="")
+    band: Mapped[str] = mapped_column(String(16), default="")
+    mode_group: Mapped[str] = mapped_column(String(16), default="")
+    started_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # Il QSO intero, campi ADIF compresi.
+    fields: Mapped[dict] = mapped_column(JSON, default=dict)
+    # Chi l'ha mandato per ultimo: utile in diagnostica.
+    device: Mapped[str] = mapped_column(String(120), default="")
+
+
+class QsoHistory(Base):
+    """La versione che ha perso un conflitto: non si butta via niente."""
+
+    __tablename__ = "qso_history"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    account_id: Mapped[int] = mapped_column(ForeignKey("account.id", ondelete="CASCADE"), index=True)
+    uuid: Mapped[str] = mapped_column(String(36), index=True)
+    revision: Mapped[int] = mapped_column(Integer)
+    recorded_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    reason: Mapped[str] = mapped_column(String(32), default="conflict_lost")
+    fields: Mapped[dict] = mapped_column(JSON, default=dict)
+
+
+class Counter(Base):
+    """Il contatore delle modifiche, uno per account: e' il cursore del pull."""
+
+    __tablename__ = "counter"
+
+    account_id: Mapped[int] = mapped_column(ForeignKey("account.id", ondelete="CASCADE"), primary_key=True)
+    value: Mapped[int] = mapped_column(BigInteger, default=0)
+
+
+engine = create_engine(
+    settings.database_url,
+    future=True,
+    connect_args={"check_same_thread": False} if settings.database_url.startswith("sqlite") else {},
+)
+SessionLocal = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False, future=True)
+
+
+def create_all() -> None:
+    Base.metadata.create_all(engine)
