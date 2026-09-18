@@ -7,11 +7,20 @@
   <td>{{ row.time }}</td>
   <td class="call">{{ row.call }}</td>
   <td>{{ row.band }}</td>
+  <td class="dim">{{ row.freq }}</td>
   <td>{{ row.mode }}</td>
   <td class="dim">{{ row.rst_sent }}</td>
   <td class="dim">{{ row.rst_rcvd }}</td>
   <td class="dim">{{ row.grid }}</td>
-  <td class="dim">{{ row.name or row.country }}</td>
+  <td class="dim">{{ row.name }}</td>
+  <td class="dim">{{ row.country }}</td>
+  <td class="qsl">
+    <span class="{% if row.qsl.lotw %}ok{% else %}off{% endif %}">L</span><span
+          class="{% if row.qsl.qrz %}ok{% else %}off{% endif %}">Q</span><span
+          class="{% if row.qsl.card %}ok{% else %}off{% endif %}">C</span><span
+          class="{% if row.qsl.eqsl %}ok{% else %}off{% endif %}">E</span>
+  </td>
+  <td class="dim">{{ row.tags }}</td>
 </tr>
 {% endfor %}
 
@@ -21,8 +30,8 @@
     hx-get="/log/rows?q={{ q|urlencode }}&band={{ band|urlencode }}&mode={{ mode_filter|default(mode, true)|urlencode }}&offset={{ offset }}"
     hx-trigger="revealed"
     hx-swap="outerHTML">
-  <td colspan="9" class="dim center">…</td>
+  <td colspan="13" class="dim center">…</td>
 </tr>
 {% elif not rows and offset == 0 %}
-<tr><td colspan="9" class="dim center">Nessun QSO con questi filtri.</td></tr>
+<tr><td colspan="13" class="dim center">Nessun QSO con questi filtri.</td></tr>
 {% endif %}

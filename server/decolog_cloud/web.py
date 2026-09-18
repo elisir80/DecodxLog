@@ -29,7 +29,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from . import analytics, auth, solar as solar_source, theme as theming
+from . import analytics, auth, solar as solar_source, sync, theme as theming
 from .models import Account, Doc, Qso
 
 HERE = Path(__file__).parent
@@ -71,16 +71,27 @@ def _field(row: Qso, *names: str, default: str = "") -> str:
 
 
 def _row_view(row: Qso) -> dict:
-    """Un QSO come lo vuole la tabella: gia' leggibile, niente logica nel template."""
+    """Un QSO come lo vuole la tabella: gia' leggibile, niente logica nel template.
+
+    Le colonne sono quelle del log di DecoLog, nello stesso ordine — fino alle
+    QSL per servizio (L Q C E) e alle etichette.
+    """
     date = _field(row, "QSO_DATE")
     time = _field(row, "TIME_ON")
     when = f"{date[:4]}-{date[4:6]}-{date[6:8]}" if len(date) >= 8 else ""
+
+    def yes(name: str) -> bool:
+        return _field(row, name).upper().startswith("Y")
+
+    freq = _field(row, "FREQ")
     return {
         "uuid": row.uuid,
         "call": row.call or _field(row, "CALL"),
         "date": when,
         "time": f"{time[:2]}:{time[2:4]}" if len(time) >= 4 else "",
         "band": row.band or _field(row, "BAND"),
+        # In MHz con tre decimali, come nella colonna del programma.
+        "freq": f"{float(freq):.3f}" if freq.replace(".", "", 1).isdigit() else freq,
         # Il sottomodo dice FT2 dove il modo direbbe solo MFSK.
         "mode": _field(row, "SUBMODE", "MODE"),
         "rst_sent": _field(row, "RST_SENT"),
@@ -88,6 +99,9 @@ def _row_view(row: Qso) -> dict:
         "grid": _field(row, "GRIDSQUARE"),
         "name": _field(row, "NAME"),
         "country": _field(row, "COUNTRY"),
+        "qsl": {"lotw": yes("LOTW_QSL_RCVD"), "qrz": yes("QRZCOM_QSO_DOWNLOAD_STATUS"),
+                "card": yes("QSL_RCVD"), "eqsl": yes("EQSL_QSL_RCVD")},
+        "tags": _field(row, "APP_DECOLOG_TAGS"),
         "revision": row.revision,
     }
 
@@ -587,7 +601,86 @@ def station(request: Request, db: Session = Depends(auth.session)):
         vault={"revision": secrets.revision,
                "updated": secrets.updated_at.strftime("%Y-%m-%d %H:%M") if secrets.updated_at else "",
                "device": secrets.device} if secrets else None,
+        editable=[{"key": key, "field": key.replace("/", "."), "options": options,
+                   "value": _as_text(dict(settings_doc.data or {}).get(key) if settings_doc else None)}
+                  for key, options in EDITABLE.items()],
     )
+
+
+def _as_text(value) -> str:
+    """Il valore di un'impostazione come lo mostra un menu a tendina."""
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    if value is None or isinstance(value, dict):
+        return ""
+    return str(value)
+
+
+# Quello che si puo' cambiare dal browser, e i valori ammessi.
+#
+# Non tutte le impostazioni: porte, percorsi e filtri salvati si toccano dal
+# programma, dove c'e' il contesto per capirli. Da qui si cambia quello che ha
+# senso cambiare stando altrove — come si vede e come si sincronizza — e non si
+# puo' scrivere niente che il programma non sappia rileggere.
+EDITABLE = {
+    "theme/current": ["Ocean Blue", "Stellar Light", "Darkcodium"],
+    "theme/accentVariant": ["phosphor", "cyan", "amber", "red"],
+    "theme/density": ["compact", "regular", "comfortable"],
+    "ui/language": ["auto", "it", "en"],
+    "cloud/auto": ["qso", "timer", "manual"],
+    "cluster/followDecodiumBand": ["true", "false"],
+    "cluster/voice/enabled": ["true", "false"],
+    "rotor/followDx": ["true", "false"],
+    "udp/followDxCall": ["true", "false"],
+    "backup/enabled": ["true", "false"],
+}
+
+
+@router.post("/station/settings")
+async def save_settings(request: Request, db: Session = Depends(auth.session)):
+    """Cambia le impostazioni della stazione da qui, e le manda al programma.
+
+    Si scrive lo stesso documento che sincronizza DecoLog, con una revisione in
+    piu': al giro dopo il programma se lo riprende e si adegua — il tema, per
+    esempio, si ridipinge da solo senza riavviare.
+    """
+    account = _account_from_cookie(request, db)
+    if account is None:
+        return RedirectResponse("/", status_code=303)
+
+    form = await request.form()
+    row = db.scalar(
+        select(Doc).where(Doc.account_id == account.id, Doc.kind == "setting", Doc.key == "station")
+    )
+    values = dict(row.data or {}) if row else {}
+
+    changed = 0
+    for key, allowed in EDITABLE.items():
+        # I campi arrivano con i punti al posto delle barre: una barra in un
+        # nome di campo HTML fa solo confusione.
+        sent = form.get(key.replace("/", "."))
+        if sent is None:
+            continue
+        sent = str(sent)
+        if sent not in allowed:
+            continue
+        # Vero e falso restano booleani, come li scrive il programma.
+        value: object = sent
+        if sent in ("true", "false"):
+            value = sent == "true"
+        if values.get(key) != value:
+            values[key] = value
+            changed += 1
+
+    if changed:
+        sync.apply_doc(db, account, {
+            "kind": "setting", "key": "station",
+            "revision": (row.revision if row else 0) + 1,
+            "data": values,
+        }, device="browser")
+        db.commit()
+
+    return RedirectResponse("/station", status_code=303)
 
 
 @router.get("/export.adi", response_class=PlainTextResponse)

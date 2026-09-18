@@ -52,6 +52,11 @@ a { color: inherit; }
     grid-template-rows: auto 1fr auto auto;
     gap: var(--gap);
     padding: var(--gap);
+    /* La finestra sta nello schermo: il log si allunga fino a riempirlo, le
+       schede restano in fondo. Senza questo, su un monitor grande il log
+       restava un francobollo con mezzo schermo vuoto sotto. */
+    height: 100vh;
+    overflow: hidden;
 }
 
 /* ── Barra superiore a blocchi ───────────────────────────────────────────── */
@@ -115,9 +120,14 @@ a.block.btn:hover, .block button.btn:hover { color: var(--accent); }
     display: grid;
     grid-template-columns: 260px minmax(0, 1fr) 260px;
     gap: var(--gap);
-    align-items: start;
+    align-items: stretch;
+    min-height: 0;
 }
-.col { display: flex; flex-direction: column; gap: var(--gap); min-width: 0; }
+.col { display: flex; flex-direction: column; gap: var(--gap); min-width: 0; min-height: 0; }
+/* Le colonne laterali scorrono per conto loro, come i pannelli del programma. */
+.col.left, .col.right { overflow-y: auto; }
+/* Il pannello del log prende tutto quello che resta. */
+.col.center > .panel:first-child { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
 
 .panel {
     background: var(--panel);
@@ -196,10 +206,17 @@ table.log td {
 table.log tbody tr:hover { background: var(--row-match); }
 table.log tbody tr.on { background: var(--row-match); box-shadow: inset 2px 0 0 var(--accent); }
 table.log .call { font-weight: 700; color: var(--accent); }
+/* Le QSL in colonna, come nel log del programma: L Q C E. */
+table.log .qsl span { letter-spacing: 1px; }
+table.log .qsl .off { color: var(--border); }
+table.log .qsl .ok { color: var(--accent); }
 table.log a { text-decoration: none; color: inherit; display: block; }
-/* Le altezze sono quelle della finestra: il log sopra, le schede sotto, tutto
-   in una schermata senza scorrere la pagina. */
-.tablewrap { max-height: 40vh; overflow: auto; }
+/* La tabella riempie il pannello e scorre dentro di se': la pagina non si
+   allunga, come nella finestra del programma. */
+.tablewrap { flex: 1 1 auto; min-height: 120px; overflow: auto; }
+/* L'ultima colonna si prende lo spazio che avanza, invece di lasciare le altre
+   larghe il doppio del necessario. */
+table.log th:last-child, table.log td:last-child { width: 100%; }
 
 /* ── Riquadri, barre, mappa di calore ────────────────────────────────────── */
 
@@ -286,7 +303,7 @@ h3 { font-size: 11px; font-weight: 600; letter-spacing: 0.6px; text-transform: u
 }
 .tab:hover { color: var(--text); }
 .tab.on { color: var(--accent); background: var(--panel); box-shadow: inset 0 -2px 0 var(--accent); }
-.tabbody { padding: 10px; max-height: 34vh; overflow: auto; }
+.tabbody { padding: 10px; max-height: 32vh; overflow: auto; }
 
 /* ── Barra di stato ──────────────────────────────────────────────────────── */
 
@@ -324,7 +341,11 @@ h3 { font-size: 11px; font-weight: 600; letter-spacing: 0.6px; text-transform: u
     .statcols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 1100px) {
+    /* Stretti: le colonne si mettono in fila e la pagina torna a scorrere. */
+    .app { height: auto; overflow: visible; }
     .columns { grid-template-columns: 1fr; }
+    .col.left, .col.right { overflow: visible; }
+    .tablewrap { max-height: 60vh; }
     .statcols { grid-template-columns: 1fr; }
     .col.left, .col.right { order: 2; }
     .col.center { order: 1; }

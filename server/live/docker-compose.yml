@@ -1,0 +1,42 @@
+# DecoLog Live — una scrivania per radioamatore.
+#
+# Ogni servizio e' un container con il suo volume e la sua porta: due persone,
+# due scrivanie. Da fuori ci si arriva solo via nginx (vedi README.md).
+#
+#   docker compose -f server/live/docker-compose.yml up -d --build
+
+services:
+  iu8lmc:
+    build:
+      context: ../..
+      dockerfile: server/live/Dockerfile
+    image: decolog-live
+    restart: unless-stopped
+    environment:
+      # Una password per scrivania, e non e' quella del Cloud.
+      DECOLOG_VNC_PASSWORD: ${IU8LMC_VNC_PASSWORD:?serve una password}
+      DECOLOG_SCREEN: 1600x900x24
+    volumes:
+      - iu8lmc-home:/home/decolog
+    ports:
+      - "127.0.0.1:6080:6080"
+    # Una scrivania Qt non ha bisogno di piu' di questo, e un VPS piccolo
+    # ringrazia.
+    mem_limit: 900m
+    cpus: 1.5
+
+  # Una seconda stazione si aggiunge cosi': altro volume, altra porta.
+  #
+  # dl9zzt:
+  #   image: decolog-live
+  #   restart: unless-stopped
+  #   environment:
+  #     DECOLOG_VNC_PASSWORD: ${DL9ZZT_VNC_PASSWORD:?serve una password}
+  #   volumes:
+  #     - dl9zzt-home:/home/decolog
+  #   ports:
+  #     - "127.0.0.1:6081:6080"
+
+volumes:
+  iu8lmc-home:
+  # dl9zzt-home:

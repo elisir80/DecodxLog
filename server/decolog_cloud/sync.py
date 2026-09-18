@@ -218,6 +218,8 @@ def pull_docs(db: Session, account: Account, since: int, limit: int) -> list[dic
             "revision": row.revision,
             "seq": row.seq,
             "deleted": row.deleted,
+            # Da dove arriva: un altro computer della stazione, o il browser.
+            "device": row.device,
             "updatedAt": row.updated_at.isoformat() if row.updated_at else None,
             "data": row.data,
         }

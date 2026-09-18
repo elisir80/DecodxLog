@@ -20,6 +20,28 @@
 <p class="dim">Nessun profilo ancora arrivato dal programma.</p>
 {% endif %}
 
+<h3 class="muted">Impostazioni che si cambiano da qui</h3>
+<p class="muted">
+  Quello che ha senso cambiare stando altrove: come si vede e come si sincronizza.
+  Si salva nel documento che DecoLog sincronizza, con una revisione in più — al giro
+  dopo il programma se lo riprende e si adegua da solo (il tema si ridipinge senza
+  riavviare). Porte, percorsi e filtri salvati si toccano dal programma, dove c'è il
+  contesto per capirli.
+</p>
+<form method="post" action="/station/settings" class="filters" style="margin-bottom:10px">
+  {% for item in editable %}
+  <label class="check" title="{{ item.key }}">
+    <span class="dim">{{ item.key }}</span>
+    <select name="{{ item.field }}">
+      {% for option in item.options %}
+      <option value="{{ option }}" {% if option == item.value %}selected{% endif %}>{{ option }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  {% endfor %}
+  <button class="btn" type="submit" style="border:1px solid var(--accent); color:var(--accent); border-radius:4px; padding:4px 12px">Salva</button>
+</form>
+
 <h3 class="muted">Cassaforte delle credenziali</h3>
 {% if vault %}
 <p class="muted">

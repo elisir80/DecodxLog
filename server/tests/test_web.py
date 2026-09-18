@@ -430,3 +430,71 @@ SOLAR_XML = b"""<solar><solardata>
     <band name="12m-10m" time="night">Band Closed</band>
   </calculatedconditions>
 </solardata></solar>"""
+
+
+def test_settings_can_be_changed_from_the_browser(client):
+    headers = account(client)
+    client.post("/v1/sync/push",
+                json={"docs": [{"kind": "setting", "key": "station", "revision": 1,
+                                "data": {"theme/current": "Ocean Blue", "udp/port": 2238}}]},
+                headers=headers)
+    sign_in(client)
+
+    reply = client.post("/station/settings",
+                        data={"theme.current": "Darkcodium", "theme.accentVariant": "amber"},
+                        follow_redirects=False)
+    assert reply.status_code == 303 and reply.headers["location"] == "/station"
+
+    # Il programma se lo riprende con il pull: revisione piu' alta, e quello che
+    # non si tocca resta com'era.
+    pulled = client.get("/v1/sync/pull", params={"since": 0}, headers=headers).json()
+    doc = next(d for d in pulled["docs"] if d["kind"] == "setting")
+    assert doc["revision"] == 2
+    assert doc["data"]["theme/current"] == "Darkcodium"
+    assert doc["data"]["theme/accentVariant"] == "amber"
+    assert doc["data"]["udp/port"] == 2238
+    assert doc["device"] == "browser"
+
+
+def test_the_browser_cannot_write_what_it_should_not(client):
+    headers = account(client)
+    client.post("/v1/sync/push",
+                json={"docs": [{"kind": "setting", "key": "station", "revision": 1,
+                                "data": {"udp/port": 2238}}]},
+                headers=headers)
+    sign_in(client)
+
+    # Una porta, un percorso, un valore fuori elenco: non passano.
+    client.post("/station/settings",
+                data={"udp.port": "9999", "backup.folder": "/tmp",
+                      "theme.current": "Tema Inventato"},
+                follow_redirects=False)
+
+    pulled = client.get("/v1/sync/pull", params={"since": 0}, headers=headers).json()
+    doc = next(d for d in pulled["docs"] if d["kind"] == "setting")
+    assert doc["data"]["udp/port"] == 2238        # invariata
+    assert "backup/folder" not in doc["data"]
+    assert doc["data"].get("theme/current") != "Tema Inventato"
+    assert doc["revision"] == 1                    # niente da cambiare, niente revisione
+
+
+def test_changing_the_settings_needs_a_session(client):
+    account(client)
+    reply = client.post("/station/settings", data={"theme.current": "Darkcodium"},
+                        follow_redirects=False)
+    assert reply.status_code == 303 and reply.headers["location"] == "/"
+
+
+def test_the_station_page_offers_the_choices(client):
+    headers = account(client)
+    client.post("/v1/sync/push",
+                json={"docs": [{"kind": "setting", "key": "station", "revision": 1,
+                                "data": {"theme/current": "Darkcodium"}}]},
+                headers=headers)
+    sign_in(client)
+
+    page = client.get("/station")
+    assert "Impostazioni che si cambiano da qui" in page.text
+    assert 'name="theme.current"' in page.text
+    assert "Stellar Light" in page.text        # le altre scelte ci sono
+    assert "Salva" in page.text
