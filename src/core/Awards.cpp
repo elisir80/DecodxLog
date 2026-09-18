@@ -182,6 +182,26 @@ QString japanDistrict(const QString& callsign)
     return {};
 }
 
+QString japanJarlCode(const QString& county)
+{
+    QString digits;
+    for (const QChar c : county) {
+        if (c.isDigit())
+            digits += c;
+    }
+    if (digits.size() < 4 || digits.size() > 6)
+        return {};
+    const int prefecture = digits.left(2).toInt();
+    if (prefecture < 1 || prefecture > 47)
+        return {};
+    return digits;
+}
+
+bool isJapanGun(const QString& jarlCode)
+{
+    return jarlCode.size() == 5;
+}
+
 } // namespace awards
 
 int AwardResult::confirmed() const
@@ -215,7 +235,7 @@ QStringList AwardCalculator::awardIds()
 {
     return {QStringLiteral("dxcc"), QStringLiteral("ft2"), QStringLiteral("wac"), QStringLiteral("waac"),
             QStringLiteral("waz"), QStringLiteral("was"), QStringLiteral("waja"), QStringLiteral("ajd"),
-            QStringLiteral("wpx"),
+            QStringLiteral("jcc"), QStringLiteral("jcg"), QStringLiteral("wpx"),
             QStringLiteral("grids"), QStringLiteral("iota"), QStringLiteral("pota"), QStringLiteral("sota"),
             QStringLiteral("wwff")};
 }
@@ -283,6 +303,11 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
     // mette la prefettura in STATE e il distretto nella cifra del nominativo.
     define("waja", QStringLiteral("WAJA"), 47, 47);
     define("ajd", QStringLiteral("AJD"), 10, 10);
+    // JCC e JCG: le citta' e i distretti del JARL, col numero che sta in CNTY.
+    // Il primo traguardo e' cento dell'uno e cento dell'altro; quante siano in
+    // tutto lo decide il JARL e cambia, quindi il totale resta senza numero.
+    define("jcc", QStringLiteral("JCC"), 100, 0);
+    define("jcg", QStringLiteral("JCG"), 100, 0);
     define("wpx", QStringLiteral("WPX"), 300, 0);
     define("grids", QCoreApplication::translate("Awards", "Grids"), 100, 0);
     define("iota", QStringLiteral("IOTA"), 100, 0);
@@ -295,7 +320,7 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
     q.exec(QStringLiteral(
         "SELECT id, call, band, mode, IFNULL(submode, ''), dxcc, cqz, state, gridsquare, iota, pota_ref, sota_ref, "
         "wwff_ref, qso_datetime_on, IFNULL(station_profile_id, 0), IFNULL(tags, ''), "
-        "IFNULL(cont, ''), "
+        "IFNULL(cont, ''), IFNULL(cnty, ''), "
         "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'lotw'), "
         "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'card'), "
         "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'eqsl') "
@@ -326,9 +351,9 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         const QString call = q.value(1).toString();
         const int dxcc = q.value(5).toInt();
         const QDateTime on = QDateTime::fromString(q.value(13).toString(), Qt::ISODate).toUTC();
-        const bool confirmed = (filter.confirmLotw && q.value(17).toString() == QLatin1String("Y"))
-                            || (filter.confirmCard && q.value(18).toString() == QLatin1String("Y"))
-                            || (filter.confirmEqsl && q.value(19).toString() == QLatin1String("Y"));
+        const bool confirmed = (filter.confirmLotw && q.value(18).toString() == QLatin1String("Y"))
+                            || (filter.confirmCard && q.value(19).toString() == QLatin1String("Y"))
+                            || (filter.confirmEqsl && q.value(20).toString() == QLatin1String("Y"));
 
         auto add = [&](const char* award, const QString& key, const QString& name) {
             if (key.isEmpty())
@@ -378,6 +403,13 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
             const QString district = awards::japanDistrict(call);
             if (!district.isEmpty())
                 add("ajd", district, QString());
+            // La citta' o il distretto: il numero JARL sta nel campo CNTY, e le
+            // prime due cifre dicono la prefettura, che qui fa da nome.
+            const QString jarl = awards::japanJarlCode(q.value(17).toString());
+            if (!jarl.isEmpty()) {
+                const QString prefecture = awards::japanPrefectures().value(jarl.left(2));
+                add(awards::isJapanGun(jarl) ? "jcg" : "jcc", jarl, prefecture);
+            }
         }
         add("wpx", awards::wpxPrefix(call), QString());
         const QString grid = q.value(8).toString().trimmed().toUpper();

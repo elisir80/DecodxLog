@@ -276,6 +276,67 @@ private slots:
         QCOMPARE(totals.at(0).worked, 2);
         QCOMPARE(totals.at(1).worked, 1);
     }
+
+    void japaneseCitiesAndGuns()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        auto worked = [&db](const QString& call, const QString& county, const QString& band) {
+            AdifRecord r;
+            r.set(QStringLiteral("CALL"), call);
+            r.set(QStringLiteral("QSO_DATE"), QStringLiteral("20260918"));
+            r.set(QStringLiteral("TIME_ON"), QStringLiteral("120000"));
+            r.set(QStringLiteral("BAND"), band);
+            r.set(QStringLiteral("MODE"), QStringLiteral("CW"));
+            r.set(QStringLiteral("DXCC"), QStringLiteral("339"));
+            r.set(QStringLiteral("CNTY"), county);
+            db.insertQso(r, QStringLiteral("test"));
+        };
+        worked(QStringLiteral("JA1ABC"), QStringLiteral("1001"), QStringLiteral("20m"));    // citta', Tokyo
+        worked(QStringLiteral("JA1DEF"), QStringLiteral("100105"), QStringLiteral("20m"));  // quartiere, Tokyo
+        worked(QStringLiteral("JA1GHI"), QStringLiteral("JCC 1001"), QStringLiteral("40m")); // la stessa citta'
+        worked(QStringLiteral("JA3JKL"), QStringLiteral("25007"), QStringLiteral("20m"));   // gun, Osaka
+        worked(QStringLiteral("JA3MNO"), QStringLiteral("99001"), QStringLiteral("20m"));   // prefettura che non esiste
+
+        AwardCalculator calc;
+        const auto results = calc.compute(db, AwardFilter{});
+        const auto jcc = std::find_if(results.cbegin(), results.cend(),
+                                      [](const AwardResult& r) { return r.id == QLatin1String("jcc"); });
+        const auto jcg = std::find_if(results.cbegin(), results.cend(),
+                                      [](const AwardResult& r) { return r.id == QLatin1String("jcg"); });
+        QVERIFY(jcc != results.cend() && jcg != results.cend());
+        QCOMPARE(jcc->worked(), 2);      // 1001 una volta sola, piu' il quartiere 100105
+        QCOMPARE(jcc->target, 100);
+        QCOMPARE(jcg->worked(), 1);      // solo il gun di Osaka: 99001 non e' una prefettura
+        QCOMPARE(jcg->target, 100);
+        // Il numero porta con se' il nome della prefettura.
+        const auto tokyo = std::find_if(jcc->items.cbegin(), jcc->items.cend(),
+                                        [](const AwardItem& i) { return i.key == QLatin1String("1001"); });
+        QVERIFY(tokyo != jcc->items.cend());
+        QCOMPARE(tokyo->name, QStringLiteral("Tokyo"));
+        // E si legge banda per banda: la citta' 1001 e' stata fatta su due bande.
+        const auto totals = jcc->bandTotals({QStringLiteral("20m"), QStringLiteral("40m")});
+        QCOMPARE(totals.at(0).worked, 2);
+        QCOMPARE(totals.at(1).worked, 1);
+    }
+
+    void theJarlNumberIsReadHoweverItIsWritten()
+    {
+        QCOMPARE(awards::japanJarlCode(QStringLiteral("1001")), QStringLiteral("1001"));
+        QCOMPARE(awards::japanJarlCode(QStringLiteral("10-01")), QStringLiteral("1001"));
+        QCOMPARE(awards::japanJarlCode(QStringLiteral("JCC 1001")), QStringLiteral("1001"));
+        QCOMPARE(awards::japanJarlCode(QStringLiteral("100105")), QStringLiteral("100105"));
+        QCOMPARE(awards::japanJarlCode(QStringLiteral("01001")), QStringLiteral("01001"));
+        // Troppo corto, troppo lungo, o una prefettura che non c'e'.
+        QVERIFY(awards::japanJarlCode(QStringLiteral("100")).isEmpty());
+        QVERIFY(awards::japanJarlCode(QStringLiteral("1234567")).isEmpty());
+        QVERIFY(awards::japanJarlCode(QStringLiteral("99001")).isEmpty());
+        QVERIFY(awards::japanJarlCode(QStringLiteral("Marion")).isEmpty());
+        // Cinque cifre vuol dire distretto, quattro o sei vuol dire citta'.
+        QVERIFY(awards::isJapanGun(QStringLiteral("25007")));
+        QVERIFY(!awards::isJapanGun(QStringLiteral("1001")));
+        QVERIFY(!awards::isJapanGun(QStringLiteral("100105")));
+    }
 };
 
 QTEST_GUILESS_MAIN(TestAwards)

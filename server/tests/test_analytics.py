@@ -155,6 +155,33 @@ def test_was_only_counts_american_states():
     assert len(analytics.missing_states(was)) == 49
 
 
+def test_the_cloud_counts_the_same_awards_as_the_program():
+    rows = [
+        qso(call="ZS6ABC", band="20m", DXCC="462", CONT="AF"),
+        qso(call="7X2ABC", band="20m", DXCC="400", CONT="AF"),
+        qso(call="DL9ZZT", band="20m", DXCC="230", CONT="EU"),
+    ]
+    by_id = {a.id: a for a in analytics.awards(rows)}
+    assert by_id["wac"].worked == 2          # Africa ed Europa
+    assert by_id["waac"].worked == 2         # due entita' africane
+    assert by_id["waac"].target == 0         # il traguardo lo mette il programma
+
+
+def test_japan_prefectures_districts_cities_and_guns():
+    rows = [
+        qso(call="JA1ABC", DXCC="339", STATE="12", CNTY="1001"),     # Chiba, citta' di Tokyo
+        qso(call="JH1QRS", DXCC="339", STATE="JA12", CNTY="10-01"),  # stessa prefettura, stessa citta'
+        qso(call="JA3XYZ", DXCC="339", STATE="25", CNTY="25007"),    # Osaka, un gun
+        qso(call="JA0TUV", DXCC="339", STATE="09", CNTY="Marion"),   # niente numero JARL
+    ]
+    by_id = {a.id: a for a in analytics.awards(rows)}
+    assert by_id["waja"].worked == 3
+    assert [i.key for i in by_id["ajd"].items] == ["0", "1", "3"]
+    assert [i.key for i in by_id["jcc"].items] == ["1001"]
+    assert by_id["jcc"].items[0].name == "1001 Tokyo"
+    assert [i.key for i in by_id["jcg"].items] == ["25007"]
+
+
 def test_missing_zones_are_the_ones_not_worked():
     rows = [qso(CQZ="14"), qso(CQZ="15")]
     waz = next(a for a in analytics.awards(rows) if a.id == "waz")

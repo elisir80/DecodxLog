@@ -1,4 +1,4 @@
-# DecoLog 0.3.3 — funzioni / features
+# DecoLog 0.3.4 — funzioni / features
 
 Ogni voce è in italiano e in inglese: *italiano* / *English*.
 Quello che manca è in fondo.
@@ -139,9 +139,15 @@ Quello che manca è in fondo.
 ## 9. Diplomi / Awards
 
 - **Calcolati dal log**: DXCC, **DXCC Challenge**, FT2 Award, **WAC**, **WAAC**, WAZ, WAS,
-  **WAJA**, **AJD**, WPX, locatori, IOTA, POTA, SOTA, WWFF. / **Computed from the log**:
-  DXCC, **DXCC Challenge**, FT2 Award, **WAC**, **WAAC**, WAZ, WAS, **WAJA**, **AJD**, WPX,
-  grids, IOTA, POTA, SOTA, WWFF.
+  **WAJA**, **AJD**, **JCC**, **JCG**, WPX, locatori, IOTA, POTA, SOTA, WWFF. / **Computed
+  from the log**: DXCC, **DXCC Challenge**, FT2 Award, **WAC**, **WAAC**, WAZ, WAS, **WAJA**,
+  **AJD**, **JCC**, **JCG**, WPX, grids, IOTA, POTA, SOTA, WWFF.
+- **JCC** e **JCG**: le citta' e i distretti (gun) del JARL, presi dal numero che sta nel
+  campo **CNTY** — quattro cifre (sei per i quartieri) sono una citta', cinque un gun; le
+  prime due dicono la prefettura, che fa da nome. Traguardo cento e cento, banda per banda
+  come gli altri. / **JCC** and **JCG**: JARL cities and guns, read from the **CNTY** field —
+  four digits (six for wards) is a city, five is a gun; the first two give the prefecture,
+  used as the name. Target 100 each, per band like the others.
 - **WAAC** (Worked All Africa): le entita' africane, col traguardo che il cty.csv stesso
   dichiara. / **WAAC** (Worked All Africa): the African entities, with the target the
   country file itself declares.

@@ -241,7 +241,13 @@ DialogFrame {
                         font.pixelSize: Theme.fontSize
                         font.bold: true
                     }
-                    Head { Layout.preferredWidth: 80; text: root.awardId === "was" ? qsTr("State") : root.awardId === "waz" ? qsTr("Zone") : qsTr("Key") }
+                    Head {
+                        Layout.preferredWidth: 80
+                        text: root.awardId === "was" ? qsTr("State")
+                            : root.awardId === "waz" ? qsTr("Zone")
+                            : root.awardId === "jcc" || root.awardId === "jcg" ? qsTr("JARL number")
+                            : qsTr("Key")
+                    }
                     Head { Layout.fillWidth: true; text: qsTr("Name / first QSO") }
                     Repeater {
                         model: root.bands
@@ -346,6 +352,8 @@ DialogFrame {
                     text: root.effectiveView === "missing" && root.search.length === 0 ? qsTr("Everything worked. Well done.")
                         : root.search.length || root.effectiveView !== "all" ? qsTr("Nothing matches.")
                         : root.awardId === "was" ? qsTr("No QSO with a US state (STATE field) in the log.")
+                        : root.awardId === "jcc" || root.awardId === "jcg"
+                          ? qsTr("No QSO with a JARL number (CNTY field) in the log. The callbook fills it in when it knows it, otherwise it goes in by hand in the QSO card.")
                         : qsTr("No QSO counts for this award with the current filters.")
                     color: Theme.textSecondary
                 }

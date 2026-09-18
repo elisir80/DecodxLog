@@ -255,6 +255,23 @@ def test_the_awards_page_counts_worked_and_confirmed(client):
     assert "Cosa manca" in page.text
 
 
+def test_the_awards_page_shows_the_japanese_awards(client):
+    headers = account(client)
+    client.post("/v1/sync/push", headers=headers, json={"qsos": [
+        qso("ja-1", call="JA1ABC", DXCC="339", CONT="AS", STATE="12", CNTY="1001"),
+        qso("ja-2", call="JA3XYZ", DXCC="339", CONT="AS", STATE="25", CNTY="25007"),
+    ]})
+    sign_in(client)
+
+    page = client.get("/awards")
+    assert page.status_code == 200
+    # Gli stessi diplomi del programma, col numero JARL e la prefettura.
+    for name in ("WAC", "WAJA", "AJD", "JCC", "JCG"):
+        assert name in page.text
+    assert "1001" in page.text and "Tokyo" in page.text
+    assert "25007" in page.text and "Osaka" in page.text
+
+
 def test_the_awards_page_lets_you_choose_the_confirmations(client):
     headers = account(client)
     client.post("/v1/sync/push",

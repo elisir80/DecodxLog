@@ -246,6 +246,10 @@
         <translation>Zona</translation>
     </message>
     <message>
+        <source>JARL number</source>
+        <translation>Numero JARL</translation>
+    </message>
+    <message>
         <source>Key</source>
         <translation>Chiave</translation>
     </message>
@@ -272,6 +276,10 @@
     <message>
         <source>No QSO with a US state (STATE field) in the log.</source>
         <translation>Nessun QSO con uno stato USA (campo STATE) nel log.</translation>
+    </message>
+    <message>
+        <source>No QSO with a JARL number (CNTY field) in the log. The callbook fills it in when it knows it, otherwise it goes in by hand in the QSO card.</source>
+        <translation>Nessun QSO con un numero JARL (campo CNTY) nel log. Il callbook lo mette quando lo sa, altrimenti si scrive a mano nella scheda del QSO.</translation>
     </message>
     <message>
         <source>No QSO counts for this award with the current filters.</source>

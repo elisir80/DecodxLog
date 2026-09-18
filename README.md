@@ -7,11 +7,12 @@ classe (`MODE=MFSK`, `SUBMODE=FT2`).
 Specifica di partenza: [`docs/FASE0_SPEC.md`](docs/FASE0_SPEC.md).
 Licenza: GPL-3.0.
 
-## Stato: 0.3.3
+## Stato: 0.3.4
 
 Dalla 0.3.1: il QSO appena scritto **si completa da solo** con quello che sa il callbook
-(nome, QTH, locatore, indirizzo), diplomi nuovi — **WAC**, **WAAC**, **WAJA**, **AJD** e il **DXCC
-Challenge** —, le statistiche mostrano tutte le bande e dal log si elimina un QSO.
+(nome, QTH, locatore, indirizzo), diplomi nuovi — **WAC**, **WAAC**, **WAJA**, **AJD**,
+**JCC**, **JCG** e il **DXCC Challenge** —, le statistiche mostrano tutte le bande, nel log
+si scelgono piu' righe insieme e si cancellano, e il Cloud conta gli stessi diplomi.
 
 Dalla 0.3.0: il Cloud porta **tutto il log**, non solo i QSO — profili stazione e tutte le
 impostazioni, e le **password dei servizi** cifrate sul proprio computer (AES-256-GCM, chiave

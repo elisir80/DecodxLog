@@ -3,6 +3,18 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.3.4 — 19 settembre 2026
+
+**JCC e JCG — le citta' e i distretti giapponesi.** Il numero del JARL sta nel campo CNTY:
+quattro cifre (sei per i quartieri delle citta' designate) sono una citta', cinque sono un
+gun. Le prime due cifre sono la prefettura, e diventano il nome che si legge accanto al
+numero. Si contano come gli altri diplomi, banda per banda, col traguardo dei cento. Il
+numero lo mette il callbook quando lo sa, oppure si scrive a mano nella scheda del QSO.
+
+**Il Cloud conta gli stessi diplomi.** Fino a ieri la pagina web si fermava a DXCC, WAZ,
+WAS e compagnia: adesso ha anche WAC, WAAC, WAJA, AJD, JCC e JCG, con le stesse regole del
+programma.
+
 ## 0.3.3 — 19 settembre 2026
 
 **Selezione multipla nel log.** Il clic sinistro sceglie le righe una dopo l'altra, lo

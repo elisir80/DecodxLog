@@ -44,6 +44,16 @@ QString japanPrefecture(const QString& state);
 // Vuoto se il nominativo non e' giapponese o non si capisce.
 QString japanDistrict(const QString& callsign);
 
+// Il numero JARL che sta nel campo CNTY: le citta' (JCC) hanno quattro cifre,
+// sei se sono quartieri di una citta' designata; i distretti (JCG) ne hanno
+// cinque. Le prime due cifre sono sempre la prefettura, da 01 a 47. Si accetta
+// come lo scrivono i log — "1001", "10-01", "JCC 1001" — e torna vuoto se il
+// numero non sta in piedi.
+QString japanJarlCode(const QString& county);
+
+// Vero se quel numero e' di un distretto (JCG), cioe' di cinque cifre.
+bool isJapanGun(const QString& jarlCode);
+
 } // namespace awards
 
 struct AwardFilter {

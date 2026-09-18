@@ -54,6 +54,29 @@ QSL_SERVICES = [
 # I continenti, nell'ordine in cui si e' abituati a vederli.
 CONTINENTS = ["EU", "NA", "SA", "AS", "AF", "OC", "AN"]
 
+# I sei continenti del WAC col loro nome: l'Antartide entra nell'elenco ma non
+# nel traguardo, come in Awards.cpp.
+CONTINENT_NAMES = {
+    "EU": "Europa", "NA": "Nord America", "SA": "Sud America", "AS": "Asia",
+    "AF": "Africa", "OC": "Oceania", "AN": "Antartide",
+}
+
+JAPAN = 339
+
+# Le 47 prefetture, coi numeri di ADIF: gli stessi di Awards.cpp.
+JAPAN_PREFECTURES = {
+    "01": "Hokkaido", "02": "Aomori", "03": "Iwate", "04": "Akita", "05": "Yamagata",
+    "06": "Miyagi", "07": "Fukushima", "08": "Niigata", "09": "Nagano", "10": "Tokyo",
+    "11": "Kanagawa", "12": "Chiba", "13": "Saitama", "14": "Ibaraki", "15": "Tochigi",
+    "16": "Gunma", "17": "Yamanashi", "18": "Shizuoka", "19": "Gifu", "20": "Aichi",
+    "21": "Mie", "22": "Kyoto", "23": "Shiga", "24": "Nara", "25": "Osaka",
+    "26": "Wakayama", "27": "Hyogo", "28": "Toyama", "29": "Fukui", "30": "Ishikawa",
+    "31": "Okayama", "32": "Shimane", "33": "Yamaguchi", "34": "Tottori", "35": "Hiroshima",
+    "36": "Kagawa", "37": "Tokushima", "38": "Ehime", "39": "Kochi", "40": "Fukuoka",
+    "41": "Saga", "42": "Nagasaki", "43": "Kumamoto", "44": "Oita", "45": "Miyazaki",
+    "46": "Kagoshima", "47": "Okinawa",
+}
+
 _IGNORED_SUFFIXES = {"P", "M", "MM", "AM", "QRP", "QRPP", "A", "B", "LH", "J", "R", "T"}
 
 
@@ -74,6 +97,7 @@ class Row:
     continent: str = ""
     cqz: int = 0
     state: str = ""
+    county: str = ""
     grid: str = ""
     iota: str = ""
     pota: str = ""
@@ -142,6 +166,7 @@ def row_of(qso) -> Row:
         continent=text("CONT").upper(),
         cqz=_int(text("CQZ")),
         state=text("STATE").upper(),
+        county=text("CNTY").upper(),
         grid=text("GRIDSQUARE").upper(),
         iota=text("IOTA").upper(),
         pota=text("POTA_REF", "MY_POTA_REF").upper(),
@@ -169,6 +194,42 @@ def mode_matches(group: str, row: Row) -> bool:
     if group == "DIGITAL":
         return row.mode != "CW" and row.mode not in PHONE_MODES
     return True
+
+
+def japan_prefecture(state: str) -> str:
+    """La prefettura da come la scrivono i log: "12", "JA12", "12 Chiba"."""
+    digits = ""
+    for c in state.strip().upper():
+        if c.isdigit():
+            digits += c
+        elif digits:
+            break
+    if not digits:
+        return ""
+    number = int(digits)
+    return "%02d" % number if 1 <= number <= 47 else ""
+
+
+def japan_district(callsign: str) -> str:
+    """Il distretto (AJD): la cifra fra prefisso e suffisso, JA1AA -> 1."""
+    call = callsign.strip().upper()
+    base = call
+    for part in call.split("/"):
+        if len(part) >= 3:
+            base = part
+            break
+    for i, c in enumerate(base):
+        if c.isdigit() and i + 1 < len(base) and base[i + 1:].isalpha():
+            return c
+    return ""
+
+
+def japan_jarl_code(county: str) -> str:
+    """Il numero JARL del campo CNTY: quattro o sei cifre la citta', cinque il gun."""
+    digits = "".join(c for c in county if c.isdigit())
+    if not 4 <= len(digits) <= 6:
+        return ""
+    return digits if 1 <= int(digits[:2]) <= 47 else ""
 
 
 def wpx_prefix(callsign: str) -> str:
@@ -334,8 +395,16 @@ class Award:
 AWARD_DEFS = [
     ("dxcc", "DXCC", 100, 340),
     ("ft2", "FT2 Award", 100, 0),
+    ("wac", "WAC", 6, 6),
+    # Quante siano le entita' africane lo dice il cty.csv, che qui non c'e':
+    # il Cloud conta quelle lavorate e lascia il traguardo al programma.
+    ("waac", "WAAC", 0, 0),
     ("waz", "WAZ", 40, 40),
     ("was", "WAS", 50, 50),
+    ("waja", "WAJA", 47, 47),
+    ("ajd", "AJD", 10, 10),
+    ("jcc", "JCC", 100, 0),
+    ("jcg", "JCG", 100, 0),
     ("wpx", "WPX", 300, 0),
     ("grids", "Locatori", 100, 0),
     ("iota", "IOTA", 100, 0),
@@ -382,10 +451,28 @@ def awards(rows: list[Row], band: str = "", mode_group: str = "",
             add("dxcc", str(r.dxcc), r.country)
             if r.submode == "FT2":
                 add("ft2", str(r.dxcc), r.country)
+        if r.continent in CONTINENT_NAMES:
+            add("wac", r.continent, CONTINENT_NAMES[r.continent])
+        if r.continent == "AF" and r.dxcc:
+            add("waac", str(r.dxcc), r.country)
         if 1 <= r.cqz <= 40:
             add("waz", str(r.cqz))
         if r.dxcc in USA_ENTITIES and r.state in US_STATES:
             add("was", r.state, US_STATES[r.state])
+        if r.dxcc == JAPAN:
+            prefecture = japan_prefecture(r.state)
+            if prefecture:
+                add("waja", prefecture, JAPAN_PREFECTURES[prefecture])
+            district = japan_district(r.call)
+            if district:
+                add("ajd", district)
+            jarl = japan_jarl_code(r.county)
+            if jarl:
+                # Nel web si legge il nome: per una citta' il nome e' il numero,
+                # con la prefettura accanto perche' dica qualcosa.
+                prefecture = JAPAN_PREFECTURES.get(jarl[:2], "")
+                add("jcg" if len(jarl) == 5 else "jcc", jarl,
+                    (jarl + " " + prefecture).strip())
         add("wpx", wpx_prefix(r.call))
         if len(r.grid) >= 4:
             add("grids", r.grid[:4])
