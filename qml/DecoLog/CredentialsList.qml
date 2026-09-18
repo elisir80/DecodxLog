@@ -55,7 +55,7 @@ ColumnLayout {
                       ? row.modelData.account + (row.modelData.stored ? " · " + row.modelData.secretLabel.toLowerCase() + " ••••" : "")
                       : row.modelData.hint
                 color: Theme.textSecondary
-                font.family: row.modelData.account.length ? Theme.monoFamily : Qt.application.font.family
+                font.family: row.modelData.account.length ? Theme.monoFamily : Theme.uiFamily
                 font.pixelSize: row.modelData.account.length ? 12 : 11
             }
             Text {

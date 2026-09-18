@@ -62,6 +62,7 @@ class ThemeManager : public QObject {
     // Nominativi, frequenze, RST e orari: a spaziatura fissa si leggono in
     // colonna a colpo d'occhio.
     Q_PROPERTY(QString monoFamily READ monoFamily CONSTANT)
+    Q_PROPERTY(QString uiFamily READ uiFamily CONSTANT)
 
 public:
     explicit ThemeManager(QObject* parent = nullptr);
@@ -116,6 +117,7 @@ public:
     int panelHeight() const;
 
     QString monoFamily() const;
+    QString uiFamily() const;
 
 signals:
     void paletteChanged();

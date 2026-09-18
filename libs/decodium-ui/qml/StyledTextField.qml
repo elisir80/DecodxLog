@@ -16,7 +16,7 @@ TextField {
     // testo segnaposto, cosi' le colonne di una scheda restano uguali.
     implicitWidth: 60
     font.pixelSize: Theme.fontSize
-    font.family: mono ? Theme.monoFamily : Qt.application.font.family
+    font.family: mono ? Theme.monoFamily : Theme.uiFamily
     font.capitalization: uppercase ? Font.AllUppercase : Font.MixedCase
     color: enabled ? Theme.textPrimary : Theme.textSecondary
     placeholderTextColor: Theme.textSecondary

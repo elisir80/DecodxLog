@@ -6,6 +6,7 @@
 // non litigare con il tema di DecoLog: ogni componente se ne tiene una copia,
 // che e' solo un pugno di colori.
 import QtQuick
+import Decodium.UI
 
 QtObject {
     id: palette
@@ -52,7 +53,9 @@ QtObject {
     readonly property int spacing: 12
     readonly property int padding: 16
 
-    readonly property string monoFamily: "Consolas"
+    // Theme.monoFamily selects an installed fixed-width font on each platform
+    // (Consolas/Cascadia Mono on Windows, the system fixed font elsewhere).
+    readonly property string monoFamily: Theme.monoFamily
     readonly property int fontSmall: 11
     readonly property int fontBody: 13
     readonly property int fontTitle: 15
