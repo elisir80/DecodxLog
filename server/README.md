@@ -40,14 +40,21 @@ storico, stesso cursore):
 
 * `profile` — un documento per profilo stazione: nominativo di stazione,
   operatore, locatore, radio, antenna, potenza, e quale e' il predefinito.
-* `setting` / `station` — un documento solo con le impostazioni che fanno parte
-  del modo di lavorare: tema e lingua, filtri salvati e colonne del log, avvisi
-  e fonti del cluster, premi seguiti, invii automatici (LoTW, QSL),
-  propagazione, lobo del rotore, dedup della UDP, backup, sync automatico.
+* `setting` / `station` — un documento solo con **tutte** le impostazioni: tema,
+  lingua, colonne e filtri salvati del log, cluster, premi, invii automatici,
+  propagazione, rotore, dedup della UDP, backup, e anche porte, percorsi e
+  indirizzi dei programmi accanto. Il profilo attivo e' detto per uuid, cosi'
+  vale anche dove ha un altro numero di riga.
 
-Quello che **non** passa di qui, per scelta: porte, percorsi e indirizzi dei
-programmi accanto — sono di *quella* macchina — e tutto cio' che sta nel
-portachiavi. Password e chiavi dei servizi non arrivano mai al server.
+Quello che **non** passa di qui — e non e' una scelta di stile: le password e le
+chiavi dei servizi stanno nel portachiavi del sistema operativo, il server non
+le vede e non le deve vedere; con loro resta a casa il promemoria di cosa e'
+salvato nel portachiavi di *quella* macchina, e il quaderno del sync stesso
+(nominativo collegato, ora dell'ultimo giro).
+
+Le impostazioni che JSON non sa dire (un filtro salvato e' un QVariant di Qt)
+arrivano impacchettate: `{"__qvariant__": "<base64>"}`. La pagina Stazione le
+mostra per quello che sono, senza vomitare il blob.
 
 I documenti stanno nella stessa spinta dei QSO (`docs` in `/v1/sync/push`,
 `docResults` nella risposta) e nello stesso pull: un giro solo, un cursore solo.

@@ -1,12 +1,10 @@
 #include "app/CloudController.h"
 
+#include "core/CloudSettings.h"
 #include "core/CredentialStore.h"
 #include "core/LogDatabase.h"
 
-#include <QCryptographicHash>
 #include <QDateTime>
-#include <QJsonDocument>
-#include <QJsonObject>
 #include <QSettings>
 #include <QSysInfo>
 
@@ -19,51 +17,6 @@ namespace {
 // Quanti QSO per volta: un blocco che sta in un secondo di rete.
 constexpr int kBatch = 200;
 
-// Le impostazioni che viaggiano nel Cloud: come si lavora, non dov'e' la
-// macchina. Restano fuori le porte, i percorsi e tutto quello che sta nel
-// portachiavi: una chiave API o una password non devono girare, e la porta UDP
-// di questo computer non c'entra niente con quella del portatile.
-const QStringList kSyncedSettings{
-    QStringLiteral("ui/language"),
-    QStringLiteral("theme/name"),
-    QStringLiteral("theme/variant"),
-    QStringLiteral("theme/density"),
-    QStringLiteral("theme/accent"),
-    QStringLiteral("awards/band"),
-    QStringLiteral("awards/modeGroup"),
-    QStringLiteral("awards/confirmLotw"),
-    QStringLiteral("awards/confirmCard"),
-    QStringLiteral("awards/confirmEqsl"),
-    QStringLiteral("awards/profile"),
-    QStringLiteral("awards/tag"),
-    QStringLiteral("cluster/filter"),
-    QStringLiteral("cluster/savedFilters"),
-    QStringLiteral("cluster/alertRules"),
-    QStringLiteral("cluster/sources"),
-    QStringLiteral("cluster/followDecodiumBand"),
-    QStringLiteral("cluster/sendToDecodium"),
-    QStringLiteral("cluster/voiceEnabled"),
-    QStringLiteral("cluster/voicePhonetic"),
-    QStringLiteral("layout/savedFilters"),
-    QStringLiteral("layout/hiddenColumns"),
-    QStringLiteral("lotw/autoHours"),
-    QStringLiteral("qsl/auto/lotw"),
-    QStringLiteral("qsl/auto/qrz"),
-    QStringLiteral("qsl/auto/clublog"),
-    QStringLiteral("qsl/auto/eqsl"),
-    QStringLiteral("solar/automatic"),
-    QStringLiteral("solar/intervalMinutes"),
-    QStringLiteral("rotor/beamwidth"),
-    QStringLiteral("rotor/followDx"),
-    QStringLiteral("udp/dedupDigital"),
-    QStringLiteral("udp/dedupManual"),
-    QStringLiteral("udp/preferLoggedAdif"),
-    QStringLiteral("udp/followDx"),
-    QStringLiteral("backup/enabled"),
-    QStringLiteral("backup/time"),
-    QStringLiteral("backup/keep"),
-    QStringLiteral("cloud/auto"),
-};
 
 QString nowLabel()
 {
@@ -124,8 +77,10 @@ CloudController::CloudController(Context context, QObject* parent)
             note(tr("Cloud: %n station profile(s) updated", nullptr, profiles), QStringLiteral("success"));
             emit profilesChanged();
         }
-        if (settingsChanged > 0)
+        if (settingsChanged > 0) {
             note(tr("Cloud: settings updated from another device"), QStringLiteral("success"));
+            emit settingsApplied();
+        }
         m_cursor = cursor;
         m_ctx.db->setSyncState(accountKey(), {{QStringLiteral("cursor"), QString::number(cursor)},
                                               {QStringLiteral("device"), m_sync.device()},
@@ -513,19 +468,28 @@ void CloudController::applyDocResults(const QVariantList& results)
 QVariantMap CloudController::localSettings() const
 {
     QSettings s;
-    QVariantMap values;
-    for (const QString& key : kSyncedSettings) {
-        if (s.contains(key))
-            values.insert(key, s.value(key));
+    return cloudsettings::collect(s, [this](qint64 id) -> QString {
+        if (!m_ctx.db || !m_ctx.db->isOpen())
+            return {};
+        const auto profile = m_ctx.db->stationProfile(id);
+        return profile ? profile->uuid : QString();
+    });
+}
+
+qint64 CloudController::profileIdForUuid(const QString& uuid) const
+{
+    if (uuid.isEmpty() || !m_ctx.db || !m_ctx.db->isOpen())
+        return 0;
+    for (const core::StationProfile& p : m_ctx.db->stationProfiles(false)) {
+        if (p.uuid == uuid)
+            return p.id;
     }
-    return values;
+    return 0;
 }
 
 QString CloudController::settingsFingerprint(const QVariantMap& values)
 {
-    // Una firma stabile: le chiavi in ordine, il JSON compatto, e l'impronta.
-    const QByteArray json = QJsonDocument(QJsonObject::fromVariantMap(values)).toJson(QJsonDocument::Compact);
-    return QString::fromLatin1(QCryptographicHash::hash(json, QCryptographicHash::Sha256).toHex());
+    return cloudsettings::fingerprint(values);
 }
 
 bool CloudController::applyRemoteSettings(const QVariantMap& document)
@@ -537,24 +501,13 @@ bool CloudController::applyRemoteSettings(const QVariantMap& document)
     if (revision <= known)
         return false;   // le nostre sono uguali o piu' nuove
 
-    const QVariantMap values = document.value(QStringLiteral("data")).toMap();
     QSettings s;
-    int written = 0;
-    for (auto it = values.cbegin(); it != values.cend(); ++it) {
-        // Si scrive solo quello che e' nell'elenco: un server non deve poter
-        // mettere chiavi qualsiasi nelle impostazioni di chi lo usa.
-        if (!kSyncedSettings.contains(it.key()))
-            continue;
-        if (s.value(it.key()) == it.value())
-            continue;
-        // Un collegamento di passaggio (le prove da riga di comando) non deve
-        // riscrivere le impostazioni della stazione vera: si conta e basta.
-        if (!m_ephemeral)
-            s.setValue(it.key(), it.value());
-        ++written;
-    }
-    if (!m_ephemeral)
-        s.sync();
+    // Un collegamento di passaggio (le prove da riga di comando) non deve
+    // riscrivere le impostazioni della stazione vera: si conta e basta.
+    const int written = cloudsettings::apply(
+        s, document.value(QStringLiteral("data")).toMap(), m_ephemeral,
+        [this](const QString& uuid) { return profileIdForUuid(uuid); });
+
     m_ctx.db->setSetting(QStringLiteral("cloud.settingsRevision"), QString::number(revision));
     m_ctx.db->setSetting(QStringLiteral("cloud.settingsFingerprint"), settingsFingerprint(localSettings()));
     return written > 0;

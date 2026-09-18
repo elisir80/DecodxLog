@@ -24,6 +24,13 @@ ApplicationWindow {
     color: Theme.bgDeep
     font.pixelSize: Theme.fontSize
 
+    // Le impostazioni arrivate da un altro computer valgono subito: il tema si
+    // ridipinge senza aspettare il riavvio.
+    Connections {
+        target: decolog.cloud
+        function onSettingsApplied() { Theme.reload() }
+    }
+
     Settings {
         id: layout
         category: "layout"

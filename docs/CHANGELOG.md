@@ -8,25 +8,34 @@ in stazione.
 **Tutto il log sul Cloud, non solo i QSO.** Chi si collega da un secondo computer non
 deve rifare la stazione a mano: adesso viaggiano anche i **profili stazione**
 (nominativo di stazione, operatore, locatore, radio, antenna, potenza, quello
-predefinito) e le **impostazioni di come lavora la stazione** — tema e lingua, i filtri
-salvati e le colonne nascoste del log, gli avvisi e le fonti del cluster, i premi seguiti,
-gli invii automatici (LoTW, QSL), propagazione, lobo del rotore, dedup della UDP, il
-backup. Restano invece sul computer dove stanno le cose di *quella* macchina — porte,
-percorsi, indirizzi dei programmi accanto — e tutto quello che sta nel portachiavi: le
-password e le chiavi dei servizi non passano dal Cloud.
+predefinito) e **tutte le impostazioni** — tema, lingua, colonne e filtri salvati del
+log, fonti e avvisi del cluster, premi seguiti, invii automatici (LoTW, QSL),
+propagazione, rotore, dedup della UDP, backup, e anche porte, percorsi e indirizzi dei
+programmi accanto. Una stazione che si ritrova uguale, non una che le somiglia.
 
-Il meccanismo è lo stesso dei QSO, così le regole non si sdoppiano: ogni profilo è un
+Restano fuori solo tre cose, e nessuna e' una scelta di chi opera: le **password e le
+chiavi dei servizi**, che stanno nel portachiavi del sistema e da li' non escono — il
+server non le vede e non le deve vedere; il **promemoria di cosa e' salvato nel
+portachiavi di quella macchina**, che altrove farebbe credere a DecoLog di avere una
+password che non ha; e il **quaderno del sync** (nominativo collegato, ora dell'ultimo
+giro). Il profilo attivo viaggia per **uuid** e non per numero di riga, cosi' sul
+secondo computer si accende lo stesso profilo anche se li' ha un altro numero.
+
+Il meccanismo e' quello dei QSO, cosi' le regole non si sdoppiano: ogni profilo e' un
 documento con la sua revisione, le impostazioni sono un documento solo (`station`) con
-un'impronta che dice se è cambiato qualcosa; server e programma si scambiano `docs` e
-`docResults` dentro la stessa spinta e lo stesso cursore dei QSO. Vince l'ultima
-modifica, la versione che perde resta nello storico.
+un'impronta SHA-256 che dice se e' cambiato davvero qualcosa; server e programma si
+scambiano `docs` e `docResults` dentro la stessa spinta e lo stesso cursore dei QSO.
+Vince l'ultima modifica, la versione che perde resta nello storico. Le impostazioni che
+JSON non sa dire (un filtro salvato e' un QVariant di Qt) viaggiano impacchettate, senza
+perdere niente. In arrivo, il tema si ridipinge subito: non si aspetta il riavvio.
 
-Sul browser c'è la pagina **Stazione**: i profili come li vede DecoLog e la tabella delle
-impostazioni con la revisione e quando è arrivata.
+Sul browser c'e' la pagina **Stazione**: i profili come li vede DecoLog e la tabella
+delle impostazioni con la revisione e quando sono arrivate.
 
-Provato fra due log: il primo ha spinto 40 QSO, un profilo e le impostazioni; il secondo,
-partito vuoto, si è ritrovato il profilo "Casa di prova" già predefinito e le impostazioni
-alla revisione 1, senza toccare niente a mano.
+Provato fra due log: il primo ha spinto 40 QSO, un profilo e 39 impostazioni; il
+secondo, partito vuoto, si e' ritrovato il profilo "Casa di prova" gia' predefinito e le
+impostazioni alla revisione 1, senza toccare niente a mano. E tre giri di sync di fila
+non ne rimandano nemmeno una.
 
 ## 0.3.0 — 18 settembre 2026
 

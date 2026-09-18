@@ -83,6 +83,9 @@ signals:
     void changed();
     // I profili stazione sono arrivati dal Cloud: la lista si rilegge.
     void profilesChanged();
+    // Le impostazioni sono arrivate da un altro dispositivo: chi le mostra
+    // (tema, colonne, filtri) si rilegge senza aspettare il riavvio.
+    void settingsApplied();
 
 private:
     void note(const QString& text, const QString& level);
@@ -96,9 +99,10 @@ private:
     // Profili e impostazioni da mandare in questo giro.
     QVariantList pendingDocs();
     void applyDocResults(const QVariantList& results);
-    // Le impostazioni che fanno parte del log: quelle della stazione e del modo
-    // di lavorare, non quelle di questa macchina (porte, percorsi, segreti).
+    // Tutte le impostazioni, meno quelle che parlano solo di questa macchina.
     QVariantMap localSettings() const;
+    // Il profilo con questo uuid, sul computer dove siamo adesso.
+    qint64 profileIdForUuid(const QString& uuid) const;
     static QString settingsFingerprint(const QVariantMap& values);
     bool applyRemoteSettings(const QVariantMap& document);
 

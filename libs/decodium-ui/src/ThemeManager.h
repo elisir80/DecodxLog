@@ -66,6 +66,10 @@ class ThemeManager : public QObject {
 public:
     explicit ThemeManager(QObject* parent = nullptr);
 
+    // Le impostazioni sono cambiate sotto i piedi — il tema e' arrivato da un
+    // altro computer: si rilegge tutto e le schermate si ridipingono.
+    Q_INVOKABLE void reload();
+
     QColor bgDeep() const;
     QColor bgMedium() const;
     QColor bgLight() const;

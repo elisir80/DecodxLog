@@ -37,13 +37,23 @@
   <h2>Impostazioni</h2>
   {% if settings %}
   <p class="muted">
-    Come lavora la stazione: tema, lingua, filtri salvati, avvisi del cluster,
-    invii automatici. Restano sul tuo computer le cose di quella macchina —
-    porte, percorsi — e tutto quello che sta nel portachiavi.
+    Tutta la stazione: tema, lingua, colonne e filtri del log, cluster, avvisi,
+    invii automatici, porte e percorsi. Non passano di qui le password e le
+    chiavi dei servizi — quelle restano nel portachiavi del tuo computer — e il
+    promemoria di cosa è salvato su quella macchina.
   </p>
   <table class="fields">
     {% for name, value in settings %}
-    <tr><th class="mono">{{ name }}</th><td class="mono">{{ value }}</td></tr>
+    <tr>
+      <th class="mono">{{ name }}</th>
+      <td class="mono">
+        {%- if value is mapping and "__qvariant__" in value -%}
+        <span class="dim">valore interno di Qt · {{ value["__qvariant__"]|length }} caratteri</span>
+        {%- else -%}
+        {{ value }}
+        {%- endif -%}
+      </td>
+    </tr>
     {% endfor %}
   </table>
   <p class="muted">Revisione {{ settings_revision }}{% if settings_updated %} · {{ settings_updated }}{% endif %}.</p>

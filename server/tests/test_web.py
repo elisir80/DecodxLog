@@ -170,7 +170,8 @@ def test_the_station_page_shows_profiles_and_settings(client):
                  "data": {"name": "Casa", "stationCallsign": "IU8LMC", "myGridsquare": "JN70",
                           "myRig": "FT-991A", "isDefault": True}},
                 {"kind": "setting", "key": "station", "revision": 3,
-                 "data": {"ui/language": "it", "theme/name": "ocean"}},
+                 "data": {"ui/language": "it", "theme/current": "Darkcodium", "udp/port": 2238,
+                          "layout/savedFilters": {"__qvariant__": "AAAACAAAAAAA"}}},
             ]
         },
         headers=headers,
@@ -183,7 +184,12 @@ def test_the_station_page_shows_profiles_and_settings(client):
     assert "JN70" in page.text
     assert "FT-991A" in page.text
     assert "predefinito" in page.text
-    assert "theme/name" in page.text and "ocean" in page.text
+    assert "theme/current" in page.text and "Darkcodium" in page.text
+    # Anche le porte: la stazione dev'essere la stessa, non una che le somiglia.
+    assert "udp/port" in page.text and "2238" in page.text
+    # Un filtro salvato non e' testo: si dice cos'e', non si vomita il blob.
+    assert "valore interno di Qt" in page.text
+    assert "AAAACAAAAAAA" not in page.text
     assert "Revisione 3" in page.text
 
 

@@ -16,6 +16,11 @@ const QString kDark     = QStringLiteral("Darkcodium");
 ThemeManager::ThemeManager(QObject* parent)
     : QObject(parent)
 {
+    reload();
+}
+
+void ThemeManager::reload()
+{
     QSettings s;
     s.beginGroup(QStringLiteral("theme"));
     const QString theme = s.value(QStringLiteral("current"), kOcean).toString();
@@ -30,6 +35,8 @@ ThemeManager::ThemeManager(QObject* parent)
     m_customEnabled = s.value(QStringLiteral("customEnabled"), false).toBool();
     m_customBg      = s.value(QStringLiteral("customBg")).toString();
     m_customText    = s.value(QStringLiteral("customText")).toString();
+    emit paletteChanged();
+    emit densityChanged();
 }
 
 void ThemeManager::store(const QString& key, const QVariant& value) const

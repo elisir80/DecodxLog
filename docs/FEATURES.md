@@ -254,17 +254,25 @@ Quello che manca è in fondo.
   changes.
 - **Coda sempre in vista** nella barra in alto e nella riga di stato. / **The queue in
   sight** in the top bar and in the status rail.
-- **Non solo i QSO**: viaggiano anche i **profili stazione** e le **impostazioni di come
-  lavora la stazione** (tema e lingua, filtri salvati e colonne del log, cluster, premi,
-  invii automatici, propagazione, lobo del rotore, dedup UDP, backup), così un secondo
-  computer si ritrova il log già com'era. / **Not only the QSOs**: **station profiles** and
-  the **settings that shape the station** travel too (theme and language, saved filters and
-  log columns, cluster, awards, automatic uploads, propagation, rotor beamwidth, UDP dedup,
-  backup), so a second computer finds the log already as it was.
-- **Quello che resta a casa**: porte, percorsi, indirizzi dei programmi accanto e tutto
-  quello che sta nel portachiavi — password e chiavi dei servizi non passano dal Cloud. /
-  **What stays home**: ports, paths, addresses of the programs next door and everything in
-  the keystore — passwords and service keys never go through the Cloud.
+- **Non solo i QSO**: viaggiano anche i **profili stazione** e **tutte le impostazioni** —
+  tema, lingua, colonne e filtri salvati del log, cluster, premi, invii automatici,
+  propagazione, rotore, dedup UDP, backup, e anche porte, percorsi e indirizzi dei
+  programmi accanto: il secondo computer si ritrova la stessa stazione, non una che le
+  somiglia. / **Not only the QSOs**: **station profiles** and **every setting** travel too
+  — theme, language, log columns and saved filters, cluster, awards, automatic uploads,
+  propagation, rotor, UDP dedup, backup, and ports, paths and the addresses of the programs
+  next door: the second computer finds the same station, not one that resembles it.
+- **Il profilo attivo per uuid**, non per numero di riga: si accende lo stesso profilo
+  anche dove ha un altro numero. / **The active profile by uuid**, not by row number: the
+  same profile lights up even where its number differs.
+- **Quello che resta a casa**, e non e' una scelta di stile: le **password e le chiavi dei
+  servizi** (stanno nel portachiavi del sistema: il server non le vede), il promemoria di
+  cosa e' salvato nel portachiavi di *quella* macchina, e il quaderno del sync. / **What
+  stays home**, and it is not a matter of taste: **passwords and service keys** (they live
+  in the system keystore: the server never sees them), the note of what is stored in
+  *that* machine's keystore, and the sync's own logbook.
+- **Il tema arriva e si vede**: le impostazioni ricevute valgono subito, senza riavviare. /
+  **The theme arrives and shows**: settings received apply at once, with no restart.
 - **Il log dal browser**: si entra con gli stessi nominativo e password e si vede il
   proprio log — ricerca mentre si scrive, filtri per banda e modo, la scheda del QSO con
   tutti i campi ADIF, la pagina **Stazione** con profili e impostazioni, e il tasto per
@@ -403,7 +411,7 @@ Quello che manca è in fondo.
   **`scripts/deploy.sh`**: a stand-alone folder and `DecoLog-<version>-win64.zip`.
 - **CI su GitHub** (Windows MSYS2 e Linux) con l'artefatto pronto. / **GitHub CI** (Windows
   MSYS2 and Linux) with the artifact ready.
-- **20 gruppi di test** automatici nel programma e **31 prove** del servizio Cloud
+- **21 gruppi di test** automatici nel programma e **31 prove** del servizio Cloud
   (`server/tests`). / **20 automated test suites** in the program and **31 checks** for the
   Cloud service (`server/tests`).
 
