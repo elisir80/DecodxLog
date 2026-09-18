@@ -1,309 +1,235 @@
-// DecoLog — il rotore in grande: il quadrante di DecoRotor, i comandi e le
-// rotte che il log conosce gia'.
+// DecoLog — il posto di comando DecoRotor, dentro DecoLog.
 //
-// Qui il quadrante ha lo spazio che merita: corona graduata leggibile, mappa
-// azimutale del proprio QTH, lobo, bersaglio. A destra le otto direzioni, i
-// passi, lo STOP, il puntamento per locatore e i nominativi da puntare con un
-// clic: quello che si sta lavorando e gli ultimi spot del cluster.
+// E' la pagina "Controllo" del programma originale, rifatta com'e': testata con
+// le spie, quadrante sopra e mondo vero sotto separati da una maniglia, e a
+// destra display, memorie a tasto diretto, comandi e puntamento. Sotto, la
+// striscia di stato. Il gateway e' lo stesso: qui cambia solo la finestra che lo
+// mostra.
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls.Basic
 import QtQuick.Layouts
 import QtCore
-import Decodium.UI
 
 ApplicationWindow {
     id: root
 
-    readonly property var rotor: decolog.rotor
-    readonly property var state: rotor.state
-    readonly property var home: decolog.myPosition
-    readonly property var dx: decolog.callInfo.position
-    property int revision: 0
-    readonly property var spots: { revision; return decolog.cluster.mapSpots().slice(0, 8) }
+    property date currentTime: new Date()
+    // La stazione scelta sulla mappa: il quadrante ne mostra il puntino, cosi'
+    // si legge subito la sua direzione sulla corona dei gradi.
+    property var chosenSpot: null
+    property bool nightMode: true
 
-    width: 900
-    height: 620
+    RotorPalette { id: rt; dark: root.nightMode }
+
+    readonly property var rotor: decolog.rotor
+    readonly property var st: rotor.state
+    readonly property var home: decolog.myPosition
+    readonly property real homeLat: home && home.lat !== undefined ? home.lat : 41.5
+    readonly property real homeLon: home && home.lon !== undefined ? home.lon : 12.5
+    readonly property var bearing: rotor.bearing
+
+    // Lo shack puo' avere un ultrawide scalato o un portatile: la finestra si
+    // adatta allo spazio realmente disponibile invece di eccederlo.
+    width: Math.min(1400, Screen.desktopAvailableWidth - 60)
+    height: Math.min(900, Screen.desktopAvailableHeight - 40)
+    minimumWidth: 940
+    minimumHeight: 600
     visible: true
-    title: qsTr("DecoLog — Rotor")
-    color: Theme.bgDeep
+    title: qsTr("DecoRotor — controllo rotore PRO.SIS.TEL")
+    color: rt.bgDeep
 
     Settings {
         category: "rotorWindow"
         property alias width: root.width
         property alias height: root.height
+        property alias nightMode: root.nightMode
     }
 
-    Connections {
-        target: decolog.cluster.spots
-        function onCountChanged() { root.revision++ }
+    Timer {
+        interval: 1000
+        repeat: true
+        running: true
+        onTriggered: root.currentTime = new Date()
+    }
+
+    header: RotorTopBar {
+        nightMode: root.nightMode
+        onLightToggled: root.nightMode = !root.nightMode
+    }
+
+    footer: RotorStatus {
+        nightMode: root.nightMode
     }
 
     RowLayout {
         anchors.fill: parent
-        anchors.margins: 12
-        spacing: 12
+        anchors.margins: rt.spacing
+        spacing: rt.spacing
 
-        // ── Quadrante ───────────────────────────────────────────────────────
-        GlassPanel {
+        // Quadrante sopra, mondo vero sotto: la maniglia decide quanto spazio
+        // dare all'uno o all'altro secondo quello che si sta facendo.
+        SplitView {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.minimumWidth: 320
-            Layout.preferredWidth: 560
-            title: root.state.modelLabel || qsTr("Rotor")
-            dotColor: root.state.connected ? (root.state.moving ? Theme.warningColor : Theme.accentColor)
-                                           : Theme.errorColor
-            headerTools: [
-                Text {
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: root.state.port ? qsTr("control box on %1").arg(root.state.port) : ""
-                    color: Theme.textSecondary
-                    font.family: Theme.monoFamily
-                    font.pixelSize: 11
-                }
-            ]
+            Layout.preferredWidth: 660
+            Layout.minimumWidth: 380
+            orientation: Qt.Vertical
 
-            RotorDial {
-                anchors.centerIn: parent
-                width: Math.min(parent.width - 20, parent.height - 20)
-                height: width
+            handle: Rectangle {
+                implicitHeight: 10
+                color: "transparent"
 
-                azimuth: root.state.az || 0
-                target: root.state.azTarget !== undefined && root.state.azTarget >= 0 ? root.state.azTarget : -1
-                beamwidth: root.state.beamwidth || 45
-                hasPosition: root.state.connected === true
-                moving: root.state.moving === true
-                latitude: root.home && root.home.lat !== undefined ? root.home.lat : 41.5
-                longitude: root.home && root.home.lon !== undefined ? root.home.lon : 12.5
-                pinValid: root.dx !== undefined && root.dx !== null && root.dx.lat !== undefined
-                pinLatitude: pinValid ? root.dx.lat : 0
-                pinLongitude: pinValid ? root.dx.lon : 0
-
-                onBearingRequested: (degrees) => root.rotor.pointTo(degrees, "")
-            }
-        }
-
-        // ── Comandi ─────────────────────────────────────────────────────────
-        ColumnLayout {
-            Layout.preferredWidth: 300
-            Layout.minimumWidth: 260
-            Layout.maximumWidth: 320
-            Layout.fillHeight: true
-            spacing: 8
-
-            GlassPanel {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 128
-                title: qsTr("Where it is pointing")
-
-                ColumnLayout {
-                    anchors.fill: parent
-                    spacing: 4
-
-                    RowLayout {
-                        spacing: 8
-                        Text {
-                            text: root.state.connected ? Math.round(root.state.az || 0) + "°" : "—"
-                            color: Theme.textPrimary
-                            font.family: Theme.monoFamily
-                            font.pixelSize: 34
-                            font.bold: true
-                        }
-                        Text {
-                            visible: (root.state.azTarget || -1) >= 0
-                            text: "→ " + Math.round(root.state.azTarget || 0) + "°"
-                            color: Theme.warningColor
-                            font.family: Theme.monoFamily
-                            font.pixelSize: 18
-                        }
-                        Item { Layout.fillWidth: true }
-                    }
-                    Text {
-                        Layout.fillWidth: true
-                        text: root.rotor.status
-                        color: root.state.connected ? Theme.textSecondary : Theme.warningColor
-                        font.pixelSize: 12
-                        wrapMode: Text.Wrap
-                    }
-                    Item { Layout.fillHeight: true }
+                Rectangle {
+                    anchors.centerIn: parent
+                    width: 54
+                    height: 3
+                    radius: 1.5
+                    color: SplitHandle.pressed || SplitHandle.hovered ? rt.primary : rt.borderSoft
                 }
             }
 
-            GlassPanel {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 176
-                title: qsTr("Point")
+            RotorGlass {
+                SplitView.fillHeight: true
+                SplitView.minimumHeight: 260
 
-                ColumnLayout {
+                RotorDial {
                     anchors.fill: parent
-                    spacing: 6
-
-                    // Le otto direzioni, come sul frontalino.
-                    GridLayout {
-                        Layout.fillWidth: true
-                        columns: 4
-                        columnSpacing: 4
-                        rowSpacing: 4
-                        Repeater {
-                            model: [{ t: qsTr("N"), a: 0 }, { t: qsTr("NE"), a: 45 },
-                                    { t: qsTr("E"), a: 90 }, { t: qsTr("SE"), a: 135 },
-                                    { t: qsTr("S"), a: 180 }, { t: qsTr("SW"), a: 225 },
-                                    { t: qsTr("W"), a: 270 }, { t: qsTr("NW"), a: 315 }]
-                            GlassButton {
-                                required property var modelData
-                                Layout.fillWidth: true
-                                text: modelData.t
-                                buttonHeight: 26
-                                fontPixelSize: 12
-                                enabled: root.state.connected
-                                onClicked: root.rotor.pointTo(modelData.a, modelData.t)
-                            }
-                        }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        spacing: 4
-                        Repeater {
-                            model: [-10, -1, 1, 10]
-                            GlassButton {
-                                required property int modelData
-                                Layout.fillWidth: true
-                                text: (modelData > 0 ? "+" : "−") + Math.abs(modelData)
-                                buttonHeight: 26
-                                fontPixelSize: 12
-                                enabled: root.state.connected
-                                onClicked: root.rotor.nudge(modelData)
-                            }
-                        }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        spacing: 4
-                        StyledTextField {
-                            id: locatorField
-                            Layout.fillWidth: true
-                            uppercase: true
-                            placeholderText: qsTr("locator, e.g. FN31PR")
-                            Keys.onReturnPressed: root.rotor.pointLocator(text, false)
-                        }
-                        GlassButton {
-                            text: qsTr("Go")
-                            tone: Theme.primaryColor
-                            filled: true
-                            buttonHeight: 28
-                            enabled: root.state.connected && locatorField.text.trim().length >= 4
-                                     && root.state.backend !== "rotctld"
-                            onClicked: root.rotor.pointLocator(locatorField.text, false)
-                        }
-                    }
-                    Item { Layout.fillHeight: true }
+                    nightMode: root.nightMode
+                    azimuth: root.st.az || 0
+                    target: root.st.azTarget !== undefined && root.st.azTarget >= 0 ? root.st.azTarget : -1
+                    beamwidth: root.st.beamwidth || 45
+                    hasPosition: root.st.connected === true
+                    moving: root.st.moving === true
+                    limitMin: root.st.azMin !== undefined ? root.st.azMin : 0
+                    limitMax: root.st.azMax !== undefined ? root.st.azMax : 360
+                    latitude: root.homeLat
+                    longitude: root.homeLon
+                    pinLatitude: root.chosenSpot ? root.chosenSpot.lat
+                               : (root.bearing.lat !== undefined ? root.bearing.lat : 0)
+                    pinLongitude: root.chosenSpot ? root.chosenSpot.lon
+                                : (root.bearing.lon !== undefined ? root.bearing.lon : 0)
+                    pinValid: root.chosenSpot !== null || root.bearing.lat !== undefined
+                    onBearingRequested: (degrees) => root.rotor.pointTo(degrees, "")
                 }
-            }
 
-            GlassPanel {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                title: qsTr("From the log and the cluster")
-
-                ColumnLayout {
-                    anchors.fill: parent
-                    spacing: 4
-
-                    GlassButton {
-                        readonly property var info: decolog.callInfo
-                        Layout.fillWidth: true
-                        text: info.azimuth !== undefined
-                              ? qsTr("On the DX: %1 · %2°").arg(info.call || "").arg(info.azimuth)
-                              : qsTr("No call being worked")
-                        tone: Theme.primaryColor
-                        buttonHeight: 26
-                        fontPixelSize: 12
-                        enabled: root.state.connected && info.azimuth !== undefined
-                        onClicked: root.rotor.pointTo(info.azimuth, info.call || "")
-                    }
+                // Ora locale e QTH negli angoli liberi del riquadro, dove il
+                // quadrante rotondo non arriva.
+                Column {
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    spacing: 0
 
                     Text {
-                        text: qsTr("Last spots")
-                        color: Theme.secondaryColor
-                        font.family: Theme.monoFamily
-                        font.pixelSize: 11
+                        text: Qt.formatTime(root.currentTime, "HH:mm")
+                        color: rt.textSecondary
+                        font.pixelSize: 22
+                        font.family: rt.monoFamily
                         font.bold: true
                     }
 
-                    ListView {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        clip: true
-                        model: root.spots
-                        ScrollBar.vertical: ScrollBar {}
-                        delegate: ItemDelegate {
-                            required property var modelData
-                            width: ListView.view.width
-                            height: 24
-                            enabled: root.state.connected && modelData.azimuth !== undefined
-                            contentItem: RowLayout {
-                                spacing: 6
-                                Text {
-                                    Layout.preferredWidth: 110
-                                    text: modelData.call
-                                    color: Theme.textPrimary
-                                    font.family: Theme.monoFamily
-                                    font.pixelSize: 12
-                                    font.bold: true
-                                }
-                                Text {
-                                    text: modelData.azimuth !== undefined ? modelData.azimuth + "°" : "—"
-                                    color: Theme.accentColor
-                                    font.family: Theme.monoFamily
-                                    font.pixelSize: 12
-                                }
-                                Text {
-                                    Layout.fillWidth: true
-                                    text: modelData.band || ""
-                                    color: Theme.textSecondary
-                                    font.family: Theme.monoFamily
-                                    font.pixelSize: 11
-                                    elide: Text.ElideRight
-                                }
-                            }
-                            background: Rectangle {
-                                color: parent.hovered ? Theme.glassOverlay : "transparent"
-                                radius: 3
-                            }
-                            onClicked: root.rotor.pointTo(modelData.azimuth, modelData.call)
-                        }
+                    Text {
+                        text: Qt.formatDate(root.currentTime, "ddd d MMM")
+                        color: rt.textDim
+                        font.pixelSize: rt.fontSmall
+                    }
+                }
 
-                        Text {
-                            anchors.centerIn: parent
-                            visible: root.spots.length === 0
-                            text: qsTr("No spot with a known bearing.")
-                            color: Theme.textSecondary
-                            font.pixelSize: 11
-                        }
+                Column {
+                    anchors.bottom: parent.bottom
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    Text {
+                        anchors.right: parent.right
+                        text: root.st.locator || decolog.myGrid
+                        color: rt.textSecondary
+                        font.pixelSize: rt.fontBody
+                        font.family: rt.monoFamily
+                        font.bold: true
+                    }
+
+                    Text {
+                        anchors.right: parent.right
+                        text: qsTr("mappa azimutale dal QTH")
+                        color: rt.textDim
+                        font.pixelSize: rt.fontSmall
                     }
                 }
             }
 
-            RowLayout {
-                Layout.fillWidth: true
-                spacing: 4
-                GlassButton {
-                    Layout.fillWidth: true
-                    text: qsTr("STOP")
-                    tone: Theme.errorColor
-                    filled: true
-                    buttonHeight: 32
-                    enabled: root.state.connected
-                    onClicked: root.rotor.stopNow(false)
-                }
-                GlassButton {
-                    text: qsTr("Park")
-                    buttonHeight: 32
-                    enabled: root.state.connected
-                    onClicked: root.rotor.park()
+            Rectangle {
+                SplitView.preferredHeight: 320
+                SplitView.minimumHeight: 180
+
+                color: rt.bgPanel
+                border.color: rt.border
+                border.width: 1
+                radius: rt.radius
+                clip: true
+
+                RotorMap {
+                    anchors.fill: parent
+                    anchors.margins: 1
+                    nightMode: root.nightMode
+                    homeLatitude: root.homeLat
+                    homeLongitude: root.homeLon
+                    onSpotChosen: (spot) => root.chosenSpot = spot
                 }
             }
+        }
+
+        // Su schermi bassi la colonna scorre invece di troncare i pannelli.
+        ScrollView {
+            Layout.fillHeight: true
+            Layout.preferredWidth: 560
+            Layout.minimumWidth: 450
+            Layout.maximumWidth: 620
+            contentWidth: availableWidth
+            clip: true
+
+            ColumnLayout {
+                width: parent.width
+                spacing: rt.spacing
+
+                RotorDisplay {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: root.st.hasEl === true ? 220 : 176
+                }
+
+                RotorMemoryGrid {
+                    Layout.fillWidth: true
+                    onManageRequested: memories.open()
+                }
+
+                RotorCommandBar {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 122
+                    onPresetsRequested: memories.open()
+                }
+
+                RotorPointing {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 104
+                }
+            }
+        }
+    }
+
+    Popup {
+        id: memories
+
+        x: (root.width - width) / 2
+        y: Math.max(20, (root.height - height) / 2)
+        width: Math.min(560, root.width - 80)
+        height: Math.min(480, root.height - 60)
+        modal: true
+        padding: 0
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+
+        background: Item {}
+
+        RotorMemories {
+            anchors.fill: parent
         }
     }
 }

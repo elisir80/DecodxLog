@@ -1,5 +1,6 @@
 #include "core/RotorLink.h"
 
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QTcpSocket>
@@ -23,6 +24,15 @@ QVariantMap RotorState::toMap() const
         {QStringLiteral("modelLabel"), modelLabel},
         {QStringLiteral("port"), port},
         {QStringLiteral("error"), error},
+        {QStringLiteral("locator"), locator},
+        {QStringLiteral("callsign"), callsign},
+        {QStringLiteral("beamwidth"), beamwidth},
+        {QStringLiteral("clients"), clients},
+        {QStringLiteral("azMin"), azMin},
+        {QStringLiteral("azMax"), azMax},
+        {QStringLiteral("parkAz"), parkAz},
+        {QStringLiteral("parkEl"), parkEl},
+        {QStringLiteral("hasConfig"), hasConfig},
         {QStringLiteral("updated"), updated.isValid() ? updated.toString(Qt::ISODate) : QString()},
     };
 }
@@ -55,6 +65,11 @@ RotorState parseState(const QJsonObject& o)
     s.modelLabel = o.value(QStringLiteral("model_label")).toString();
     s.port = o.value(QStringLiteral("port")).toString();
     s.error = o.value(QStringLiteral("error")).toString();
+    s.locator = o.value(QStringLiteral("locator")).toString();
+    s.callsign = o.value(QStringLiteral("callsign")).toString();
+    if (o.value(QStringLiteral("beamwidth")).isDouble())
+        s.beamwidth = o.value(QStringLiteral("beamwidth")).toDouble();
+    s.clients = o.value(QStringLiteral("clients")).toInt();
     s.updated = QDateTime::currentDateTimeUtc();
     return s;
 }
@@ -176,6 +191,9 @@ void RotorLink::openDecoRotor()
         emit note(tr("Rotor: connected to DecoRotor on %1:%2").arg(m_host).arg(m_port), QStringLiteral("success"));
         // Lo stato arriva da solo a ogni giro di polling, ma il primo si chiede.
         sendJson({{QStringLiteral("cmd"), QStringLiteral("state")}});
+        // Finecorsa, riposo, lobo e memorie: quello che il quadrante disegna.
+        sendJson({{QStringLiteral("cmd"), QStringLiteral("config")}});
+        sendJson({{QStringLiteral("cmd"), QStringLiteral("presets")}});
         if (m_pendingAz >= 0.0) {
             const double target = m_pendingAz;
             m_pendingAz = -1.0;
@@ -282,6 +300,52 @@ void RotorLink::handleJson(const QString& message)
         // Niente da fare: lo stato arriva subito dopo.
         return;
     }
+    if (type != QLatin1String("ack"))
+        return;
+
+    const QString cmd = o.value(QStringLiteral("cmd")).toString();
+    if (cmd == QLatin1String("config")) {
+        const QJsonObject config = o.value(QStringLiteral("config")).toObject();
+        // La configurazione non porta la posizione: si tiene quella che c'e'.
+        m_state.hasConfig = true;
+        if (config.contains(QStringLiteral("my_locator")))
+            m_state.locator = config.value(QStringLiteral("my_locator")).toString();
+        if (config.contains(QStringLiteral("callsign")))
+            m_state.callsign = config.value(QStringLiteral("callsign")).toString();
+        if (config.value(QStringLiteral("beamwidth")).isDouble())
+            m_state.beamwidth = config.value(QStringLiteral("beamwidth")).toDouble();
+        if (config.value(QStringLiteral("park_az")).isDouble())
+            m_state.parkAz = config.value(QStringLiteral("park_az")).toDouble();
+        m_state.parkEl = config.value(QStringLiteral("park_el")).isDouble()
+                             ? config.value(QStringLiteral("park_el")).toDouble() : -1.0;
+        const QJsonObject limits = config.value(QStringLiteral("limits")).toObject();
+        if (limits.value(QStringLiteral("az_min")).isDouble())
+            m_state.azMin = limits.value(QStringLiteral("az_min")).toDouble();
+        if (limits.value(QStringLiteral("az_max")).isDouble())
+            m_state.azMax = limits.value(QStringLiteral("az_max")).toDouble();
+        emit stateChanged();
+        return;
+    }
+    if (cmd == QLatin1String("presets") || cmd == QLatin1String("preset_save")
+        || cmd == QLatin1String("preset_delete")) {
+        if (o.contains(QStringLiteral("presets"))) {
+            m_presets.clear();
+            for (const QJsonValue& value : o.value(QStringLiteral("presets")).toArray())
+                m_presets << value.toObject().toVariantMap();
+            emit presetsChanged();
+        } else {
+            // Dopo un salvataggio o una cancellazione l'elenco si richiede.
+            requestPresets();
+        }
+        return;
+    }
+    if (cmd == QLatin1String("bearing") || cmd == QLatin1String("goto_locator")) {
+        const QJsonObject applied = o.value(QStringLiteral("applied")).toObject();
+        QVariantMap result = applied.value(QStringLiteral("bearing")).toObject().toVariantMap();
+        result.insert(QStringLiteral("locator"), applied.value(QStringLiteral("locator")).toString());
+        emit bearingReady(result);
+        return;
+    }
 }
 
 void RotorLink::handleRotctld()
@@ -349,6 +413,50 @@ void RotorLink::goToLocator(const QString& locator, bool longPath)
     sendJson({{QStringLiteral("cmd"), QStringLiteral("goto_locator")},
               {QStringLiteral("locator"), locator.trimmed().toUpper()},
               {QStringLiteral("long_path"), longPath}});
+}
+
+void RotorLink::requestPresets()
+{
+    if (m_backend == Backend::DecoRotor)
+        sendJson({{QStringLiteral("cmd"), QStringLiteral("presets")}});
+}
+
+void RotorLink::recallPreset(const QString& name)
+{
+    if (m_backend != Backend::DecoRotor || name.isEmpty())
+        return;
+    sendJson({{QStringLiteral("cmd"), QStringLiteral("preset_recall")},
+              {QStringLiteral("name"), name}});
+}
+
+void RotorLink::savePreset(const QString& name, double az, double el)
+{
+    if (m_backend != Backend::DecoRotor || name.trimmed().isEmpty())
+        return;
+    QVariantMap command{{QStringLiteral("cmd"), QStringLiteral("preset_save")},
+                        {QStringLiteral("name"), name.trimmed()},
+                        {QStringLiteral("az"), rotor::normalize(az)}};
+    if (el >= 0.0)
+        command.insert(QStringLiteral("el"), el);
+    sendJson(command);
+    requestPresets();
+}
+
+void RotorLink::deletePreset(const QString& name)
+{
+    if (m_backend != Backend::DecoRotor || name.isEmpty())
+        return;
+    sendJson({{QStringLiteral("cmd"), QStringLiteral("preset_delete")},
+              {QStringLiteral("name"), name}});
+    requestPresets();
+}
+
+void RotorLink::requestBearing(const QString& locator)
+{
+    if (m_backend != Backend::DecoRotor || locator.trimmed().size() < 4)
+        return;
+    sendJson({{QStringLiteral("cmd"), QStringLiteral("bearing")},
+              {QStringLiteral("locator"), locator.trimmed().toUpper()}});
 }
 
 void RotorLink::halt(bool fast)

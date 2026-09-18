@@ -10,6 +10,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QVariantList>
 #include <QVariantMap>
 #include <functional>
 
@@ -27,6 +28,14 @@ class RotorController : public QObject {
     Q_PROPERTY(bool connected READ connected NOTIFY stateChanged)
     Q_PROPERTY(QString status READ status NOTIFY stateChanged)
     Q_PROPERTY(QString lastTarget READ lastTarget NOTIFY stateChanged)
+    // Quello che serve al quadrante completo, come nel posto di comando.
+    Q_PROPERTY(QVariantList presets READ presets NOTIFY presetsChanged)
+    Q_PROPERTY(int rotationSense READ rotationSense NOTIFY stateChanged)
+    Q_PROPERTY(QVariantMap bearing READ bearing NOTIFY bearingChanged)
+    Q_PROPERTY(int httpPort READ httpPort WRITE setHttpPort NOTIFY changed)
+    Q_PROPERTY(QString tileEndpoint READ tileEndpoint NOTIFY changed)
+    Q_PROPERTY(QString wsEndpoint READ wsEndpoint NOTIFY changed)
+    Q_PROPERTY(QString httpEndpoint READ httpEndpoint NOTIFY changed)
 
 public:
     struct Context {
@@ -59,6 +68,15 @@ public:
     bool connected() const { return m_link.state().connected; }
     QString status() const;
     QString lastTarget() const { return m_lastTarget; }
+    QVariantList presets() const { return m_link.presets(); }
+    int rotationSense() const { return m_sense; }
+    QVariantMap bearing() const { return m_bearing; }
+    int httpPort() const { return m_httpPort; }
+    void setHttpPort(int port);
+    // Da dove la mappa prende i riquadri: il gateway stesso.
+    QString tileEndpoint() const;
+    QString wsEndpoint() const { return QStringLiteral("%1:%2").arg(m_host).arg(m_port); }
+    QString httpEndpoint() const { return QStringLiteral("%1:%2").arg(m_host).arg(m_httpPort); }
 
     // Punta a gradi. `what` e' quello che si sta puntando, per il registro.
     Q_INVOKABLE void pointTo(double azimuth, const QString& what = {});
@@ -69,6 +87,14 @@ public:
     // Sposta il bersaglio di qualche grado (i tasti a freccia del pannello).
     Q_INVOKABLE void nudge(double degrees);
     Q_INVOKABLE void reconnect();
+    // Memorie del gateway.
+    Q_INVOKABLE void recallPreset(const QString& name);
+    Q_INVOKABLE void savePresetHere(const QString& name);
+    Q_INVOKABLE void deletePreset(const QString& name);
+    // Rotta verso un locatore senza muovere l'antenna.
+    Q_INVOKABLE void askBearing(const QString& locator);
+    // Azimut ed elevazione insieme (il pannello di puntamento).
+    Q_INVOKABLE void gotoPosition(double az, double el);
 
     // Il nominativo che Decodium sta lavorando: se "segui" e' acceso e si sa da
     // che parte sta, l'antenna ci va da sola.
@@ -77,6 +103,8 @@ public:
 signals:
     void changed();
     void stateChanged();
+    void presetsChanged();
+    void bearingChanged();
 
 private:
     void apply();
@@ -92,6 +120,10 @@ private:
     int     m_beamwidth{45};
     QString m_lastTarget;
     QString m_followedCall;
+    QVariantMap m_bearing;
+    int     m_httpPort{8080};
+    int     m_sense{0};         // -1 antiorario, +1 orario, 0 fermo
+    double  m_lastAz{-1.0};
 };
 
 } // namespace decolog::app

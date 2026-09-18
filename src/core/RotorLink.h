@@ -16,6 +16,7 @@
 #include <QString>
 #include <QTimer>
 #include <QUrl>
+#include <QVariantList>
 #include <QVariantMap>
 
 class QJsonObject;
@@ -37,6 +38,16 @@ struct RotorState {
     QString modelLabel;
     QString port;               // la seriale del control box, se la dice
     QString error;
+    QString locator;            // il QTH del gateway
+    QString callsign;
+    double  beamwidth{45.0};
+    int     clients{0};
+    // Dalla configurazione del gateway: finecorsa e posizione di riposo.
+    double  azMin{0.0};
+    double  azMax{360.0};
+    double  parkAz{0.0};
+    double  parkEl{-1.0};
+    bool    hasConfig{false};
     QDateTime updated;
 
     QVariantMap toMap() const;
@@ -74,8 +85,20 @@ public:
     void halt(bool fast = false);
     void park();
 
+    // Memorie del gateway: nome, azimut ed eventuale elevazione.
+    QVariantList presets() const { return m_presets; }
+    void requestPresets();
+    void recallPreset(const QString& name);
+    void savePreset(const QString& name, double az, double el = -1.0);
+    void deletePreset(const QString& name);
+    // Rotta verso un locatore, senza muovere niente.
+    void requestBearing(const QString& locator);
+
 signals:
     void stateChanged();
+    void presetsChanged();
+    // {short_path, long_path, distance_km, lat, lon, locator}
+    void bearingReady(const QVariantMap& bearing);
     void note(const QString& text, const QString& level);
 
 private:
@@ -95,6 +118,7 @@ private:
     int     m_attempts{0};
 
     RotorState m_state;
+    QVariantList m_presets;
     QWebSocket* m_ws{nullptr};
     QTcpSocket* m_tcp{nullptr};
     QByteArray  m_buffer;

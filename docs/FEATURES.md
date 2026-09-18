@@ -217,10 +217,13 @@ Quello che manca è in fondo.
   di distanza, lobo d'antenna, bersaglio e ago; si punta cliccandoci dentro. / **DecoRotor's
   dial**: graduated ring, azimuthal map of your QTH with range rings, antenna lobe, target and
   needle; click inside it to point.
-- **Finestra del rotore** (Ctrl+R): quadrante grande, otto direzioni, passi da 1° e 10°,
-  puntamento per locatore, STOP e park, e gli ultimi spot da puntare con un clic. / **Rotor
-  window** (Ctrl+R): big dial, eight directions, 1° and 10° steps, pointing by locator, STOP
-  and park, and the last spots to point at with one click.
+- **Il posto di comando** (Ctrl+R): la pagina "Controllo" di DecoRotor rifatta com'e' —
+  spie, quadrante, mappa satellitare con i riquadri del gateway, display con CCW/CW, sei
+  memorie a tasto diretto, passi con STOP al centro, PARK, elenco memorie, puntamento a
+  gradi e per locatore (rotta breve o lunga). / **The control desk** (Ctrl+R): DecoRotor's
+  "Controllo" page as it is — status lamps, dial, satellite map with the gateway's tiles,
+  display with CCW/CW, six direct memories, steps with STOP in the middle, PARK, the memory
+  list, pointing by degrees and by locator (short or long path).
 - **Dal cluster**: il menu di uno spot punta il rotore sui gradi già calcolati. / **From the
   cluster**: a spot's menu points the rotor at the bearing already computed.
 - **Sul DX** che si sta lavorando, a mano o seguendolo da solo. / **On the DX** being worked,

@@ -30,7 +30,29 @@ RotorController::RotorController(Context context, QObject* parent)
     m_followDx = s.value(QStringLiteral("rotor/followDx"), false).toBool();
     m_beamwidth = qBound(5, s.value(QStringLiteral("rotor/beamwidth"), 45).toInt(), 180);
 
-    connect(&m_link, &RotorLink::stateChanged, this, &RotorController::stateChanged);
+    m_httpPort = qBound(1, s.value(QStringLiteral("rotor/httpPort"), 8080).toInt(), 65535);
+
+    connect(&m_link, &RotorLink::stateChanged, this, [this] {
+        // Il verso di rotazione non lo dice il gateway: si legge da come
+        // cambia l'azimut, come fa il posto di comando.
+        const core::RotorState& s = m_link.state();
+        if (!s.moving) {
+            m_sense = 0;
+        } else if (m_lastAz >= 0.0) {
+            double delta = s.az - m_lastAz;
+            while (delta > 180.0) delta -= 360.0;
+            while (delta < -180.0) delta += 360.0;
+            if (qAbs(delta) > 0.05)
+                m_sense = delta > 0 ? 1 : -1;
+        }
+        m_lastAz = s.az;
+        emit stateChanged();
+    });
+    connect(&m_link, &RotorLink::presetsChanged, this, &RotorController::presetsChanged);
+    connect(&m_link, &RotorLink::bearingReady, this, [this](const QVariantMap& bearing) {
+        m_bearing = bearing;
+        emit bearingChanged();
+    });
     connect(&m_link, &RotorLink::note, this, [this](const QString& text, const QString& level) {
         note(text, level);
     });
@@ -121,6 +143,66 @@ void RotorController::setPort(int port)
     m_port = port;
     QSettings().setValue(QStringLiteral("rotor/port"), port);
     apply();
+}
+
+void RotorController::setHttpPort(int port)
+{
+    const int value = qBound(1, port, 65535);
+    if (value == m_httpPort)
+        return;
+    m_httpPort = value;
+    QSettings().setValue(QStringLiteral("rotor/httpPort"), value);
+    emit changed();
+}
+
+QString RotorController::tileEndpoint() const
+{
+    // Con DecoRotor in piedi i riquadri arrivano da lui; con rotctld non c'e'
+    // nessun gateway, e la mappa si arrangia con quella stradale.
+    if (!m_enabled || m_backend != QLatin1String("decorotor"))
+        return {};
+    return QStringLiteral("http://%1:%2/tiles/").arg(m_host).arg(m_httpPort);
+}
+
+void RotorController::recallPreset(const QString& name)
+{
+    if (!m_enabled)
+        return;
+    m_link.recallPreset(name);
+    m_lastTarget = name;
+    note(tr("Rotor to %1").arg(name), QStringLiteral("info"));
+    emit stateChanged();
+}
+
+void RotorController::savePresetHere(const QString& name)
+{
+    if (!m_enabled || name.trimmed().isEmpty())
+        return;
+    m_link.savePreset(name, m_link.state().az, -1.0);
+    note(tr("Rotor: memory \"%1\" at %2°").arg(name.trimmed()).arg(qRound(m_link.state().az)),
+         QStringLiteral("info"));
+}
+
+void RotorController::deletePreset(const QString& name)
+{
+    if (m_enabled)
+        m_link.deletePreset(name);
+}
+
+void RotorController::askBearing(const QString& locator)
+{
+    if (m_enabled)
+        m_link.requestBearing(locator);
+}
+
+void RotorController::gotoPosition(double az, double el)
+{
+    if (!m_enabled)
+        return;
+    if (az >= 0.0)
+        pointTo(az, QString());
+    else if (el >= 0.0)
+        m_link.goTo(m_link.state().az, el);
 }
 
 void RotorController::setFollowDx(bool follow)

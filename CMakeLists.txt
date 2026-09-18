@@ -17,7 +17,7 @@ endif()
 option(DECOLOG_BUILD_TESTS "Build the unit tests" ON)
 option(DECOLOG_BUILD_TOOLS "Build the command-line tools (UDP simulator)" ON)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Network Sql Gui Qml Quick QuickControls2 WebSockets LinguistTools)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Network Sql Gui Qml Quick QuickControls2 WebSockets Positioning Location LinguistTools)
 qt_standard_project_setup(REQUIRES 6.5)
 if(QT_KNOWN_POLICY_QTP0004)
     qt_policy(SET QTP0004 NEW)
@@ -171,6 +171,22 @@ set(DECOLOG_QML_FILES
     qml/DecoLog/ActivationDialog.qml
     qml/DecoLog/StatsWindow.qml
     qml/DecoLog/ContestWindow.qml
+    qml/DecoLog/RotorPalette.qml
+    qml/DecoLog/RotorGlass.qml
+    qml/DecoLog/RotorButton.qml
+    qml/DecoLog/RotorField.qml
+    qml/DecoLog/RotorLed.qml
+    qml/DecoLog/RotorReadout.qml
+    qml/DecoLog/RotorSense.qml
+    qml/DecoLog/RotorDisplay.qml
+    qml/DecoLog/RotorMemoryGrid.qml
+    qml/DecoLog/RotorCommandBar.qml
+    qml/DecoLog/RotorPointing.qml
+    qml/DecoLog/RotorMemories.qml
+    qml/DecoLog/RotorTopBar.qml
+    qml/DecoLog/RotorStatus.qml
+    qml/DecoLog/RotorLocatorBar.qml
+    qml/DecoLog/RotorMap.qml
     qml/DecoLog/RotorDial.qml
     qml/DecoLog/RotorWindow.qml
     qml/DecoLog/RotorPanel.qml
@@ -218,7 +234,7 @@ endforeach()
 target_compile_definitions(decolog PRIVATE DECOLOG_VERSION="${PROJECT_VERSION}")
 target_include_directories(decolog PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(decolog PRIVATE
-    Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick Qt6::QuickControls2
+    Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick Qt6::QuickControls2 Qt6::Positioning Qt6::Location
     decolog_core
     decodium_ui
     decodium_uiplugin

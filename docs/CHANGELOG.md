@@ -11,9 +11,15 @@ DecoRotor, portato dentro DecoLog: corona graduata con le tacche ogni 2° e i nu
 10°, mappa azimutale equidistante centrata sul proprio QTH (la direzione letta sulla corona
 è la rotta vera, e la distanza dal centro cresce con i chilometri), cerchi di distanza, lobo
 d'antenna, bersaglio tratteggiato e ago che gira dalla parte giusta. Sta in piccolo nella
-colonna di destra e in grande nella sua finestra (Ctrl+R), dove ci sono anche le otto
-direzioni, i passi, il puntamento per locatore e gli ultimi spot da puntare con un clic. Si
-punta anche cliccando dentro il quadrante. Dove la rotta si sa già la si usa: **dal menu di
+colonna di destra, e con Ctrl+R si apre **il posto di comando**: la pagina "Controllo" di
+DecoRotor rifatta com'e', con i suoi colori e le sue misure — testata con le spie (control
+box, rotazione, client, modello, luce), quadrante sopra e mappa satellitare sotto divisi da
+una maniglia, e a destra il display con l'azimut a caratteri grandi e l'indicatore CCW/CW,
+le sei memorie a tasto diretto, i passi con lo STOP al centro, PARK, l'elenco delle memorie
+e il puntamento a gradi con le otto direzioni. Sotto, la striscia di stato con le tre porte
+del gateway. I riquadri della mappa arrivano dal gateway stesso (che fa da cache), gli spot
+sono quelli del cluster di DecoLog e la barra in fondo punta per locatore, rotta breve o
+lunga. Memorie, finecorsa, riposo e lobo li dice il gateway: DecoLog li legge e basta. Dove la rotta si sa già la si usa: **dal menu di
 uno spot del cluster** (“punta il rotore su DL9ZZT, 287°”), dal nominativo che si sta
 lavorando, e, se lo si accende, seguendo da solo quello che Decodium lavora. La direzione
 dell'antenna si vede anche sulla mappa. La seriale resta a DecoRotor: i finecorsa sono del

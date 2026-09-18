@@ -2486,6 +2486,141 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>RotorCommandBar</name>
+    <message>
+        <source>STOP</source>
+        <translation>STOP</translation>
+    </message>
+    <message>
+        <source>PARK %1°</source>
+        <translation>PARK %1°</translation>
+    </message>
+    <message>
+        <source>MEMORIE…</source>
+        <translation>MEMORIE…</translation>
+    </message>
+</context>
+<context>
+    <name>RotorDisplay</name>
+    <message>
+        <source>control box assente</source>
+        <translation>control box assente</translation>
+    </message>
+    <message>
+        <source>in rotazione verso %1°</source>
+        <translation>in rotazione verso %1°</translation>
+    </message>
+    <message>
+        <source>in rotazione</source>
+        <translation>in rotazione</translation>
+    </message>
+    <message>
+        <source>fermo</source>
+        <translation>fermo</translation>
+    </message>
+    <message>
+        <source>DIREZIONE LIBERA</source>
+        <translation>DIREZIONE LIBERA</translation>
+    </message>
+    <message>
+        <source>AZIMUT</source>
+        <translation>AZIMUT</translation>
+    </message>
+    <message>
+        <source>ELEVAZIONE</source>
+        <translation>ELEVAZIONE</translation>
+    </message>
+</context>
+<context>
+    <name>RotorLocatorBar</name>
+    <message>
+        <source>Locatore, es. FN31pr</source>
+        <translation>Locatore, es. FN31pr</translation>
+    </message>
+    <message>
+        <source>BREVE</source>
+        <translation>BREVE</translation>
+    </message>
+    <message>
+        <source>LUNGA</source>
+        <translation>LUNGA</translation>
+    </message>
+    <message>
+        <source>breve %1° · lunga %2° · %3 km</source>
+        <translation>breve %1° · lunga %2° · %3 km</translation>
+    </message>
+    <message>
+        <source>QTH di riferimento: %1</source>
+        <translation>QTH di riferimento: %1</translation>
+    </message>
+</context>
+<context>
+    <name>RotorMap</name>
+    <message>
+        <source>Riquadri dal gateway DecoRotor</source>
+        <translation>Riquadri dal gateway DecoRotor</translation>
+    </message>
+    <message>
+        <source>CLUSTER %1</source>
+        <translation>CLUSTER %1</translation>
+    </message>
+    <message>
+        <source>CLUSTER SPENTO</source>
+        <translation>CLUSTER SPENTO</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n stazione/i</source>
+        <translation><numerusform>%n stazione/i</numerusform><numerusform>%n stazione/i</numerusform></translation>
+    </message>
+    <message>
+        <source>%1 · %2° · %3 km</source>
+        <translation>%1 · %2° · %3 km</translation>
+    </message>
+    <message>
+        <source>PUNTA</source>
+        <translation>PUNTA</translation>
+    </message>
+    <message>
+        <source>MEMORIA</source>
+        <translation>MEMORIA</translation>
+    </message>
+    <message>
+        <source>riquadri dal gateway DecoRotor</source>
+        <translation>riquadri dal gateway DecoRotor</translation>
+    </message>
+    <message>
+        <source>© OpenStreetMap contributors</source>
+        <translation>© OpenStreetMap contributors</translation>
+    </message>
+</context>
+<context>
+    <name>RotorMemories</name>
+    <message>
+        <source>MEMORIE</source>
+        <translation>MEMORIE</translation>
+    </message>
+    <message>
+        <source>%1° / %2°</source>
+        <translation>%1° / %2°</translation>
+    </message>
+    <message>
+        <source>VAI</source>
+        <translation>VAI</translation>
+    </message>
+    <message>
+        <source>Nessuna memoria: dai un nome alla direzione attuale e salvala.</source>
+        <translation>Nessuna memoria: dai un nome alla direzione attuale e salvala.</translation>
+    </message>
+    <message>
+        <source>Nome della memoria</source>
+        <translation>Nome della memoria</translation>
+    </message>
+    <message>
+        <source>SALVA QUI</source>
+        <translation>SALVA QUI</translation>
+    </message>
+</context>
+<context>
     <name>RotorPanel</name>
     <message>
         <source>Rotor</source>
@@ -2509,26 +2644,18 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
-    <name>RotorWindow</name>
+    <name>RotorPointing</name>
     <message>
-        <source>DecoLog — Rotor</source>
-        <translation>DecoLog — Rotore</translation>
+        <source>Azimut °</source>
+        <translation>Azimut °</translation>
     </message>
     <message>
-        <source>Rotor</source>
-        <translation>Rotore</translation>
+        <source>Elevazione °</source>
+        <translation>Elevazione °</translation>
     </message>
     <message>
-        <source>control box on %1</source>
-        <translation>control box su %1</translation>
-    </message>
-    <message>
-        <source>Where it is pointing</source>
-        <translation>Dove sta puntando</translation>
-    </message>
-    <message>
-        <source>Point</source>
-        <translation>Punta</translation>
+        <source>PUNTA</source>
+        <translation>PUNTA</translation>
     </message>
     <message>
         <source>N</source>
@@ -2551,52 +2678,100 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>S</translation>
     </message>
     <message>
-        <source>SW</source>
+        <source>SO</source>
         <translation>SO</translation>
     </message>
     <message>
-        <source>W</source>
+        <source>O</source>
         <translation>O</translation>
     </message>
     <message>
-        <source>NW</source>
+        <source>NO</source>
         <translation>NO</translation>
     </message>
+</context>
+<context>
+    <name>RotorReadout</name>
     <message>
-        <source>locator, e.g. FN31PR</source>
-        <translation>locatore, per esempio FN31PR</translation>
+        <source>verso %1°</source>
+        <translation>verso %1°</translation>
     </message>
     <message>
-        <source>Go</source>
-        <translation>Vai</translation>
+        <source>posizione stabile</source>
+        <translation>posizione stabile</translation>
     </message>
     <message>
-        <source>From the log and the cluster</source>
-        <translation>Dal log e dal cluster</translation>
+        <source>nessuna lettura</source>
+        <translation>nessuna lettura</translation>
+    </message>
+</context>
+<context>
+    <name>RotorStatus</name>
+    <message>
+        <source>pronto</source>
+        <translation>pronto</translation>
     </message>
     <message>
-        <source>On the DX: %1 · %2°</source>
-        <translation>Sul DX: %1 · %2°</translation>
+        <source>app</source>
+        <translation>app</translation>
     </message>
     <message>
-        <source>No call being worked</source>
-        <translation>Nessun nominativo in lavorazione</translation>
+        <source>web</source>
+        <translation>web</translation>
     </message>
     <message>
-        <source>Last spots</source>
-        <translation>Ultimi spot</translation>
+        <source>rotctld</source>
+        <translation>rotctld</translation>
     </message>
     <message>
-        <source>No spot with a known bearing.</source>
-        <translation>Nessuno spot con la rotta nota.</translation>
+        <source>%1 %2</source>
+        <translation>%1 %2</translation>
+    </message>
+</context>
+<context>
+    <name>RotorTopBar</name>
+    <message>
+        <source>%1 · %2</source>
+        <translation>%1 · %2</translation>
     </message>
     <message>
-        <source>STOP</source>
-        <translation>STOP</translation>
+        <source>CONTROL BOX %1</source>
+        <translation>CONTROL BOX %1</translation>
     </message>
     <message>
-        <source>Park</source>
-        <translation>Park</translation>
+        <source>CONTROL BOX ASSENTE</source>
+        <translation>CONTROL BOX ASSENTE</translation>
+    </message>
+    <message>
+        <source>IN ROTAZIONE</source>
+        <translation>IN ROTAZIONE</translation>
+    </message>
+    <message>
+        <source>FERMO</source>
+        <translation>FERMO</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n client</source>
+        <translation><numerusform>%n client</numerusform><numerusform>%n client</numerusform></translation>
+    </message>
+    <message>
+        <source>Passa al quadrante chiaro</source>
+        <translation>Passa al quadrante chiaro</translation>
+    </message>
+    <message>
+        <source>Passa al quadrante notturno</source>
+        <translation>Passa al quadrante notturno</translation>
+    </message>
+</context>
+<context>
+    <name>RotorWindow</name>
+    <message>
+        <source>DecoRotor — controllo rotore PRO.SIS.TEL</source>
+        <translation>DecoRotor — controllo rotore PRO.SIS.TEL</translation>
+    </message>
+    <message>
+        <source>mappa azimutale dal QTH</source>
+        <translation>mappa azimutale dal QTH</translation>
     </message>
 </context>
 <context>
@@ -4096,6 +4271,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Rotor to %1</source>
         <translation>Rotore su %1</translation>
+    </message>
+    <message>
+        <source>Rotor: memory &quot;%1&quot; at %2°</source>
+        <translation>Rotore: memoria "%1" a %2°</translation>
     </message>
     <message>
         <source>rotctld does not do locators: point in degrees</source>

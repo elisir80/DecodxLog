@@ -576,6 +576,14 @@ QVariantList ClusterController::mapSpots() const
             {QStringLiteral("status"), e.status},
             {QStringLiteral("statusLabel"), SpotModel::statusLabel(e.status)},
             {QStringLiteral("entity"), e.entity},
+            // Quello che serve alla mappa del rotore: rotta, distanza, eta'.
+            {QStringLiteral("grid"), e.spot.dxGrid},
+            {QStringLiteral("az"), e.azimuth},
+            {QStringLiteral("km"), e.distanceKm < 0 ? 0 : qRound(e.distanceKm)},
+            {QStringLiteral("snr"), e.spot.hasSnr ? QVariant(e.spot.snr) : QVariant()},
+            {QStringLiteral("age"), e.spot.time.isValid()
+                                        ? e.spot.time.secsTo(QDateTime::currentDateTimeUtc()) : 0},
+            {QStringLiteral("spotter"), e.spot.spotter},
         };
     }
     return out;

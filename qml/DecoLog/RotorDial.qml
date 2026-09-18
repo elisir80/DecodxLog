@@ -10,11 +10,13 @@
 // usa DecoRotor, compilati dentro l'eseguibile: niente da scaricare.
 import QtQuick
 import QtQuick.Shapes
-import Decodium.UI
 
 Item {
     id: dial
 
+    RotorPalette { id: rt; dark: dial.nightMode }
+
+    property bool nightMode: true
     property real azimuth: 0
     property real target: -1            // negativo: nessun bersaglio
     property real beamwidth: 45
@@ -46,8 +48,8 @@ Item {
         width: dial.outerRadius * 2
         height: width
         radius: width / 2
-        color: Theme.bgMedium
-        border.color: Theme.glassBorder
+        color: rt.dialRing
+        border.color: rt.border
         border.width: 1
     }
 
@@ -68,7 +70,7 @@ Item {
 
             const outer = dial.outerRadius - 3
             const digits = Math.max(7, dial.ringThickness * 0.42)
-            ctx.font = "bold " + digits + "px " + Theme.monoFamily
+            ctx.font = "bold " + digits + "px " + rt.monoFamily
             ctx.textAlign = "center"
             ctx.textBaseline = "middle"
 
@@ -84,15 +86,15 @@ Item {
                 ctx.rotate(deg * Math.PI / 180)
                 ctx.beginPath()
                 ctx.lineWidth = decade ? 2 : 1
-                ctx.strokeStyle = cardinal ? Theme.primaryColor
-                                : decade ? Theme.textSecondary
-                                : Theme.borderSoft
+                ctx.strokeStyle = cardinal ? rt.primary
+                                : decade ? rt.textSecondary
+                                : rt.textDim
                 ctx.moveTo(0, -outer)
                 ctx.lineTo(0, -outer + length)
                 ctx.stroke()
 
                 if (decade && dial.showNumbers) {
-                    ctx.fillStyle = cardinal ? Theme.primaryColor : Theme.textSecondary
+                    ctx.fillStyle = cardinal ? rt.primary : rt.textSecondary
                     ctx.fillText(String(deg), 0, -outer + dial.ringThickness * 0.68)
                 }
                 ctx.restore()
@@ -168,7 +170,7 @@ Item {
 
         function graticule(ctx) {
             const step = 3
-            ctx.strokeStyle = Qt.alpha(Theme.textSecondary, 0.22)
+            ctx.strokeStyle = rt.mapGrid
             ctx.lineWidth = 1
             for (let lat = -60; lat <= 60; lat += 30) {
                 ctx.beginPath()
@@ -198,19 +200,22 @@ Item {
             ctx.beginPath()
             ctx.arc(width / 2, height / 2, reach, 0, 2 * Math.PI)
             ctx.clip()
-            ctx.fillStyle = Theme.bgDeep
+            ctx.fillStyle = rt.dialFace
             ctx.fill()
 
             graticule(ctx)
 
-            ctx.strokeStyle = Qt.alpha(Theme.textSecondary, 0.55)
-            ctx.fillStyle = Qt.alpha(Theme.secondaryColor, 0.22)
+            ctx.strokeStyle = rt.mapCoast
             ctx.lineWidth = 1
-            for (const ring of rings)
-                traceRing(ctx, ring)
+            for (let i = 0; i < rings.length; ++i) {
+                // Tinte alternate solo per staccare una massa continentale
+                // dall'altra: non hanno alcun significato geografico.
+                ctx.fillStyle = rt.landColour(i)
+                traceRing(ctx, rings[i])
+            }
 
             // Cerchi di distanza: in questa proiezione sono cerchi veri.
-            ctx.strokeStyle = Qt.alpha(Theme.textSecondary, 0.22)
+            ctx.strokeStyle = rt.mapGrid
             for (const km of ranges) {
                 if (km >= halfWorldKm)
                     continue
@@ -263,8 +268,8 @@ Item {
 
         ShapePath {
             id: beam
-            fillColor: Qt.alpha(Theme.accentColor, 0.22)
-            strokeColor: Qt.alpha(Theme.accentColor, 0.55)
+            fillColor: Qt.rgba(0.13, 0.65, 0.45, 0.22)
+            strokeColor: Qt.rgba(0.13, 0.65, 0.45, 0.55)
             strokeWidth: 1
 
             readonly property real from: dial.azimuth - dial.beamwidth / 2 - 90
@@ -305,7 +310,7 @@ Item {
                 y: 6 + index * (dial.mapRadius / 10)
                 width: 2
                 height: Math.max(1, dial.mapRadius / 22)
-                color: Theme.warningColor
+                color: rt.primary
             }
         }
     }
@@ -319,8 +324,8 @@ Item {
         width: 9
         height: 9
         radius: 4.5
-        color: Theme.secondaryColor
-        border.color: Theme.bgDeep
+        color: rt.accent
+        border.color: rt.dialFace
         border.width: 2
     }
 
@@ -348,7 +353,7 @@ Item {
             width: 4
             height: parent.height / 2 - 2
             radius: 2
-            color: dial.moving ? Theme.warningColor : Theme.accentColor
+            color: dial.moving ? rt.needleMoving : rt.needle
         }
         Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
@@ -356,7 +361,7 @@ Item {
             width: 3
             height: parent.height * 0.10
             radius: 1.5
-            color: Theme.textSecondary
+            color: rt.textDim
         }
     }
 
@@ -366,8 +371,8 @@ Item {
         width: 14
         height: 14
         radius: 7
-        color: Theme.bgMedium
-        border.color: Theme.textSecondary
+        color: rt.bgElevated
+        border.color: rt.textSecondary
         border.width: 2
     }
 
