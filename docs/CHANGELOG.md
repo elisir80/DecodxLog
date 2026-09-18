@@ -3,7 +3,7 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
-## 0.3.0 — in lavorazione
+## 0.3.0 — 18 settembre 2026
 
 **DecoLog Cloud: il sync fra dispositivi (Fase 3).** Il log resta il file SQLite, che
 funziona anche senza rete; il Cloud è il posto dove i dispositivi si passano le modifiche.

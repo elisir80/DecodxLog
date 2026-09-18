@@ -55,6 +55,13 @@ cp "$MINGW/share/qt6/plugins/sqldrivers/qsqlite.dll" "$DIST/sqldrivers/"
 # Gli altri driver SQL trascinerebbero client MySQL, PostgreSQL e ODBC.
 find "$DIST/sqldrivers" -name "*.dll" ! -name "qsqlite.dll" -delete
 
+# La mappa del rotore usa QtLocation: il plugin delle mappe lo carica a runtime,
+# quindi ldd non lo vede, esattamente come il TLS.
+if [ -d "$MINGW/share/qt6/plugins/geoservices" ]; then
+    mkdir -p "$DIST/geoservices"
+    cp "$MINGW"/share/qt6/plugins/geoservices/*.dll "$DIST/geoservices/" 2>/dev/null || true
+fi
+
 echo "== moduli QML completi =="
 rm -rf "$DIST/qml"
 cp -r "$MINGW/share/qt6/qml" "$DIST/qml"

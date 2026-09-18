@@ -7,13 +7,15 @@ classe (`MODE=MFSK`, `SUBMODE=FT2`).
 Specifica di partenza: [`docs/FASE0_SPEC.md`](docs/FASE0_SPEC.md).
 Licenza: GPL-3.0.
 
-## Stato: 0.2.0
+## Stato: 0.3.0
 
-Dalla 0.1.0: interfaccia in italiano, conferme LoTW in entrata e invio QSL in uscita
-(LoTW via TQSL, QRZ Logbook, eQSL), DX cluster con annunci vocali e collegamento a
-Decodium, etichette e filtri avanzati del log, award per banda con mappa dei locatori,
-sessioni di attivazione e contest, icona e pacchetto da distribuire. In lavorazione per
-la 0.3.0: finestra delle statistiche e mappa del mondo con coste, linea grigia e spot.
+Dalla 0.2.0: **statistiche** in una finestra propria (anni, mesi, ore UTC, bande, modi,
+continenti e la mappa di calore banda per ora) e **mappa** del mondo con coste, linea
+grigia, locatori e spot; **Club Log**; **QSL di carta** con la coda e le etichette in PDF;
+**contest** da tastiera con export **Cabrillo**; **propagazione** (numeri del Sole e
+condizioni banda) con lo storico accanto ai propri QSO; **rotore**, con il posto di
+comando di DecoRotor dentro DecoLog e i gradi presi dagli spot del cluster; e
+**DecoLog Cloud**, il sync fra dispositivi, con il proprio log anche dal browser.
 Elenco completo delle funzioni (italiano e inglese): [`docs/FEATURES.md`](docs/FEATURES.md).
 Storia: [`docs/CHANGELOG.md`](docs/CHANGELOG.md).
 
