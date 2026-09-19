@@ -433,6 +433,7 @@ void WebQslUploader::uploadClubLog(const ClubLogAuth& auth, const QByteArray& ad
         form.addQueryItem(QStringLiteral("adif"), QString::fromUtf8(adifDocument));
         m_busy = true;
         QNetworkRequest request(m_clubLogRealtimeUrl);
+        network::useHttp11(request);
         request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
         request.setHeader(QNetworkRequest::UserAgentHeader,
                           QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
@@ -479,6 +480,7 @@ void WebQslUploader::send(Service service, const QUrl& url, const QByteArray& bo
         return;
     m_busy = true;
     QNetworkRequest request(url);
+    network::useHttp11(request);
     request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
     request.setHeader(QNetworkRequest::UserAgentHeader,
                       QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));

@@ -70,6 +70,7 @@ CloudSync::CloudSync(QObject* parent)
 QNetworkReply* CloudSync::send(const QString& path, const QVariantMap& body, bool authenticated)
 {
     QNetworkRequest request(endpoint(m_base, path));
+    network::useHttp11(request);
     request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/json"));
     request.setHeader(QNetworkRequest::UserAgentHeader,
                       QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
@@ -89,6 +90,7 @@ QNetworkReply* CloudSync::get(const QString& path, const QVariantMap& query)
     url.setQuery(q);
 
     QNetworkRequest request(url);
+    network::useHttp11(request);
     request.setHeader(QNetworkRequest::UserAgentHeader,
                       QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
     request.setTransferTimeout(60'000);

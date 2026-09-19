@@ -403,6 +403,7 @@ void ClusterConnection::pollPota()
     if (!m_wanted || !m_net)
         return;
     QNetworkRequest request{QUrl(m_potaUrl)};
+    network::useHttp11(request);
     request.setHeader(QNetworkRequest::UserAgentHeader,
                       QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
     request.setTransferTimeout(20'000);

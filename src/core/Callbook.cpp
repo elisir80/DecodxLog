@@ -457,6 +457,7 @@ void CallbookClient::login(Provider provider, std::function<void(const QString& 
         // e solo verso HTTPS. Non finisce in nessun log.
         url.setQuery(q);
         QNetworkRequest request(url);
+        network::useHttp11(request);
         request.setTransferTimeout(15000);
         QNetworkReply* reply = m_net->get(request);
         connect(reply, &QNetworkReply::finished, this, [this, provider, reply, done] {
@@ -493,6 +494,7 @@ void CallbookClient::query(Provider provider, const QString& call, bool retried,
     }
     url.setQuery(q);
     QNetworkRequest request(url);
+    network::useHttp11(request);
     request.setTransferTimeout(15000);
     QNetworkReply* reply = m_net->get(request);
     connect(reply, &QNetworkReply::finished, this, [this, provider, reply, call, retried, allowFallback] {

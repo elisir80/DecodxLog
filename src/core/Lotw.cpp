@@ -65,6 +65,7 @@ void LotwClient::download(const QString& user, const QString& password, const QS
     QUrl url = m_url;
     url.setQuery(q);
     QNetworkRequest request(url);
+    network::useHttp11(request);
     request.setHeader(QNetworkRequest::UserAgentHeader,
                       QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
     // Il primo sync di un log grande puo' durare minuti: LoTW prepara il file

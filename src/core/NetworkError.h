@@ -12,6 +12,14 @@
 
 namespace decolog::core::network {
 
+// Alcuni endpoint pubblici chiudono gli stream HTTP/2 senza completare il
+// protocollo. Per le API usate da DecoLog HTTP/1.1 e' piu' interoperabile e
+// conserva lo stesso TLS, timeout e gestione degli errori.
+inline void useHttp11(QNetworkRequest& request)
+{
+    request.setAttribute(QNetworkRequest::Http2AllowedAttribute, false);
+}
+
 inline QString safeErrorString(const QNetworkReply* reply)
 {
     QString message = reply->errorString();
