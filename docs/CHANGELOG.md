@@ -3,6 +3,27 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.3.7 — 19 settembre 2026
+
+**I pannelli fanno quello che gli si dice.** Ogni pannello ha adesso due comandi nella sua
+testata: la freccia lo stacca in una finestra sua — che si sposta su un altro monitor, si
+ridimensiona e si ricorda dove stava — e la crocetta lo chiude. Chiuso vuol dire chiuso:
+il posto che occupava se lo prendono gli altri, non resta un buco. Dalla barra in alto il
+pulsante **Pannelli** apre l'elenco di tutti e sette, dice di ognuno se e' agganciato, in
+finestra o chiuso, e li fa tornare con un clic; e se ci si e' persi, «Rimetti la
+disposizione di partenza» rimette tutto com'era. Il pulsante conta i pannelli chiusi,
+perche' un pannello sparito senza dirlo e' un pannello perso.
+
+**Niente piu' roba tagliata.** Le statistiche — che con tutte le bande e tutti i modi non
+ci stavano piu' — adesso scorrono, e cosi' anche i diplomi, l'invio QSL e il pannello FT2
+Award. Quello che non ci sta si scorre, non sparisce.
+
+**Tutto si tira.** La colonna di destra (scheda nominativo, rotore, FT2 Award) e la fascia
+in basso (schede e mappa) sono diventate anche loro divisori trascinabili: ogni pannello
+si allarga e si stringe come si vuole. Le misure si ricordano quando la disposizione e'
+intera — se un pannello e' chiuso, gli altri si allargano per riempire, e quella non e'
+una misura scelta da nessuno.
+
 ## 0.3.6 — 19 settembre 2026
 
 **Se un callbook non sa, si chiede all'altro.** I due non conoscono le stesse stazioni:

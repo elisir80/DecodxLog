@@ -3,6 +3,7 @@
 // I traguardi (100 DXCC, 500 locatori) sono quelli del mockup: vanno allineati
 // al regolamento dell'award quando sara' pubblicato.
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import Decodium.UI
 
@@ -35,10 +36,17 @@ GlassPanel {
         }
     ]
 
-    ColumnLayout {
+    // Se il pannello viene stretto, le barre si scorrono invece di sparire.
+    ScrollView {
+        id: scroller
+        anchors.fill: parent
+        clip: true
+        contentWidth: availableWidth
+        ScrollBar.vertical.policy: ScrollBar.AsNeeded
+
+        ColumnLayout {
         id: meters
-        anchors.left: parent.left
-        anchors.right: parent.right
+        width: scroller.availableWidth
         spacing: 8
 
         MeterBar {
@@ -63,4 +71,5 @@ GlassPanel {
             barColor: Theme.primaryColor
         }
     }
+}
 }

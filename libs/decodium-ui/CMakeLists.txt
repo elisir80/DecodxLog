@@ -8,6 +8,7 @@
 set(DECODIUM_UI_QML_FILES
     qml/GlassPanel.qml
     qml/PanelHeader.qml
+    qml/PanelControl.qml
     qml/GlassButton.qml
     qml/StyledComboBox.qml
     qml/StyledTextField.qml

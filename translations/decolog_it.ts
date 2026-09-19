@@ -1260,6 +1260,21 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>GlassPanel</name>
+    <message>
+        <source>Put it back in the main window</source>
+        <translation>Rimettilo nella finestra principale</translation>
+    </message>
+    <message>
+        <source>Detach it into its own window</source>
+        <translation>Staccalo in una finestra sua</translation>
+    </message>
+    <message>
+        <source>Close this panel — it comes back from Panels in the top bar</source>
+        <translation>Chiudi questo pannello — torna da Pannelli, nella barra in alto</translation>
+    </message>
+</context>
+<context>
     <name>GridSquareMap</name>
     <message>
         <source>confirmed %1</source>
@@ -1630,6 +1645,46 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
 <context>
     <name>Main</name>
     <message>
+        <source>New QSO</source>
+        <translation>Nuovo QSO</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Log</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Scheda nominativo</translation>
+    </message>
+    <message>
+        <source>Rotator</source>
+        <translation>Rotore</translation>
+    </message>
+    <message>
+        <source>FT2 Award</source>
+        <translation>FT2 Award</translation>
+    </message>
+    <message>
+        <source>Awards, statistics, QSL, activity</source>
+        <translation>Diplomi, statistiche, QSL, attività</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Mappa</translation>
+    </message>
+    <message>
+        <source>closed</source>
+        <translation>chiuso</translation>
+    </message>
+    <message>
+        <source>window</source>
+        <translation>in finestra</translation>
+    </message>
+    <message>
+        <source>docked</source>
+        <translation>agganciato</translation>
+    </message>
+    <message>
         <source>Import ADIF</source>
         <translation>Importa ADIF</translation>
     </message>
@@ -1648,6 +1703,26 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>ADIF files (*.adi)</source>
         <translation>File ADIF (*.adi)</translation>
+    </message>
+    <message>
+        <source>PANELS</source>
+        <translation>PANNELLI</translation>
+    </message>
+    <message>
+        <source>Click a panel to close it or bring it back. The arrow detaches it into a window of its own; a closed panel frees its space instead of leaving a hole.</source>
+        <translation>Clicca un pannello per chiuderlo o per farlo tornare. La freccia lo stacca in una finestra sua; un pannello chiuso lascia il suo posto agli altri invece di lasciare un buco.</translation>
+    </message>
+    <message>
+        <source>Put it back in the main window</source>
+        <translation>Rimettilo nella finestra principale</translation>
+    </message>
+    <message>
+        <source>Detach it into its own window</source>
+        <translation>Staccalo in una finestra sua</translation>
+    </message>
+    <message>
+        <source>Restore the default layout</source>
+        <translation>Rimetti la disposizione di partenza</translation>
     </message>
 </context>
 <context>
@@ -1921,6 +1996,13 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>CLEAR</source>
         <translation>PULISCI</translation>
+    </message>
+</context>
+<context>
+    <name>PanelWindow</name>
+    <message>
+        <source>DecoLog — %1</source>
+        <translation>DecoLog — %1</translation>
     </message>
 </context>
 <context>
@@ -3556,11 +3638,11 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>If this callbook doesn&apos;t know the callsign, ask the other one</source>
-        <translation>Se questo callbook non conosce il nominativo, chiedi all'altro</translation>
+        <translation>Se questo callbook non conosce il nominativo, chiedi all&apos;altro</translation>
     </message>
     <message>
         <source>The two callbooks don&apos;t know the same stations: HamQTH has the ones who signed up there, QRZ has almost everybody. With the fallback on, a callsign the first one doesn&apos;t know is asked to the other — as long as that one has its user and password here below.</source>
-        <translation>I due callbook non conoscono le stesse stazioni: HamQTH ha chi si è iscritto lì, QRZ ha quasi tutti. Col ripiego acceso, un nominativo che il primo non conosce viene chiesto all'altro — basta che anche quello abbia utente e password qui sotto.</translation>
+        <translation>I due callbook non conoscono le stesse stazioni: HamQTH ha chi si è iscritto lì, QRZ ha quasi tutti. Col ripiego acceso, un nominativo che il primo non conosce viene chiesto all&apos;altro — basta che anche quello abbia utente e password qui sotto.</translation>
     </message>
     <message>
         <source>Decodium sends callsign, report, band and mode: the rest the callbook knows. Right after the QSO is written DecoLog asks, and what comes back fills only the empty fields — what you wrote stays. One lookup per callsign, and the answer is kept for a day. From the log, &quot;Complete from the callbook&quot; does the same on QSOs already written.</source>
@@ -4028,6 +4110,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Cluster</source>
         <translation>Cluster</translation>
+    </message>
+    <message>
+        <source>Panels (%1 closed)</source>
+        <translation>Pannelli (%1 chiusi)</translation>
+    </message>
+    <message>
+        <source>Panels</source>
+        <translation>Pannelli</translation>
     </message>
     <message>
         <source>Station</source>
@@ -4567,8 +4657,8 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message numerus="yes">
         <source>%n QSO to complete from the callbook: one search at a time, it takes a while.</source>
         <translation>
-            <numerusform>%n QSO da completare dal callbook: una ricerca per volta, ci vuole un po'.</numerusform>
-            <numerusform>%n QSO da completare dal callbook: una ricerca per volta, ci vuole un po'.</numerusform>
+            <numerusform>%n QSO da completare dal callbook: una ricerca per volta, ci vuole un po&apos;.</numerusform>
+            <numerusform>%n QSO da completare dal callbook: una ricerca per volta, ci vuole un po&apos;.</numerusform>
         </translation>
     </message>
     <message>

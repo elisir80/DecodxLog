@@ -15,6 +15,10 @@ Rectangle {
     signal clusterRequested()
     signal activationRequested()
     signal profilesRequested()
+    signal panelsRequested()
+    // Quanti pannelli sono chiusi adesso: lo dice il pulsante, cosi' un pannello
+    // sparito non e' un pannello perso.
+    property int closedPanels: 0
 
     function focusSearch() {
         searchField.forceActiveFocus()
@@ -139,6 +143,11 @@ Rectangle {
                 text: decolog.cluster.onlineCount > 0 ? qsTr("Cluster ●") : qsTr("Cluster")
                 tone: decolog.cluster.onlineCount > 0 ? Theme.accentColor : "transparent"
                 onClicked: root.clusterRequested()
+            }
+            GlassButton {
+                text: root.closedPanels > 0 ? qsTr("Panels (%1 closed)").arg(root.closedPanels) : qsTr("Panels")
+                tone: root.closedPanels > 0 ? Theme.warningColor : "transparent"
+                onClicked: root.panelsRequested()
             }
         }
 

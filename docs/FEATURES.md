@@ -1,4 +1,4 @@
-# DecoLog 0.3.6 — funzioni / features
+# DecoLog 0.3.7 — funzioni / features
 
 Ogni voce è in italiano e in inglese: *italiano* / *English*.
 Quello che manca è in fondo.
@@ -447,8 +447,18 @@ Quello che manca è in fondo.
   Darkcodium), accent variant, density, custom colours: the same as Decodium.
 - **Interfaccia in italiano o in inglese**, o come il sistema. / **Interface in Italian or
   English**, or like the system.
-- **Pannelli ridimensionabili**, logbook e cluster in finestre proprie. / **Resizable
-  panels**, logbook and cluster in their own windows.
+- **Pannelli ridimensionabili** ovunque: ogni divisorio si trascina, e le misure restano.
+  / **Resizable panels** everywhere: every splitter drags, and the sizes stay.
+- **Ogni pannello si stacca** in una finestra sua (posizione e misura ricordate) e **si
+  chiude**, dalla testata o dal menu **Pannelli** nella barra in alto, che dice per ognuno
+  se e' agganciato, in finestra o chiuso e rimette la disposizione di partenza. / **Every
+  panel detaches** into its own window (position and size remembered) and **closes**, from
+  its header or from the **Panels** menu in the top bar, which says for each one whether it
+  is docked, in a window or closed, and restores the default layout.
+- **Contenuti scorrevoli**: statistiche, diplomi, invio QSL, scheda nominativo, nuovo QSO e
+  propagazione scorrono invece di tagliare quello che non ci sta. / **Scrollable contents**:
+  statistics, awards, QSL upload, callsign card, new QSO and propagation scroll instead of
+  cutting off what doesn't fit.
 - **Icona propria** in tutte le misure, con i colori del tema. / **Its own icon** in every
   size, in the theme colours.
 

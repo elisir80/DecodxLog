@@ -15,6 +15,9 @@ Rectangle {
     // Elementi subito dopo il titolo (es. una pillola LIVE) e in fondo a destra.
     property alias leading: leadingRow.data
     property alias tools: toolsRow.data
+    // I comandi del pannello (stacca, chiudi): stanno in fondo, dopo tutto il
+    // resto, sempre nello stesso posto in ogni pannello.
+    property alias controls: controlsRow.data
 
     implicitHeight: Theme.panelHeight
     height: implicitHeight
@@ -36,7 +39,10 @@ Rectangle {
     RowLayout {
         anchors.fill: parent
         anchors.leftMargin: 10
-        anchors.rightMargin: 10
+        anchors.rightMargin: 14 + controlsRow.width
+        // Se la testata e' piu' stretta di quello che ci sta dentro, quello che
+        // avanza si taglia: meglio un pulsante mozzato che due cose sovrapposte.
+        clip: true
         spacing: 8
 
         Text {
@@ -71,4 +77,15 @@ Rectangle {
             Layout.alignment: Qt.AlignVCenter
         }
     }
+    // I comandi del pannello stanno fuori dalla fila: se la testata e' piena di
+    // schede e pulsanti, il resto si stringe ma stacca e chiudi restano dove
+    // sono. Un comando che scappa fuori dal bordo e' un comando che non c'e'.
+    Row {
+        id: controlsRow
+        spacing: 2
+        anchors.right: parent.right
+        anchors.rightMargin: 8
+        anchors.verticalCenter: parent.verticalCenter
+    }
+
 }

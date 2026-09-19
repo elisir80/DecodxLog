@@ -122,7 +122,15 @@ GlassPanel {
         currentIndex: root.currentTab
 
         // ── Awards ──────────────────────────────────────────────────────────
-        Flow {
+        // Le mattonelle sono tante e il pannello e' basso: si scorre, non si taglia.
+        ScrollView {
+            id: awardsScroll
+            clip: true
+            contentWidth: availableWidth
+            ScrollBar.vertical.policy: ScrollBar.AsNeeded
+
+            Flow {
+            width: awardsScroll.availableWidth
             spacing: 8
             Repeater {
                 model: decolog.awardSummary
@@ -170,9 +178,18 @@ GlassPanel {
                 }
             }
         }
+        }
 
         // ── Statistiche ─────────────────────────────────────────────────────
-        RowLayout {
+        // Bande e modi possono essere parecchi: la scheda scorre.
+        ScrollView {
+            id: statsScroll
+            clip: true
+            contentWidth: availableWidth
+            ScrollBar.vertical.policy: ScrollBar.AsNeeded
+
+            RowLayout {
+            width: statsScroll.availableWidth
             spacing: 24
             ColumnLayout {
                 Layout.fillWidth: true
@@ -211,9 +228,17 @@ GlassPanel {
                 }
             }
         }
+        }
 
         // ── Invio QSL ───────────────────────────────────────────────────────
-        ColumnLayout {
+        ScrollView {
+            id: qslScroll
+            clip: true
+            contentWidth: availableWidth
+            ScrollBar.vertical.policy: ScrollBar.AsNeeded
+
+            ColumnLayout {
+            width: qslScroll.availableWidth
             spacing: 6
 
             RowLayout {
@@ -307,6 +332,7 @@ GlassPanel {
                 }
             }
             Item { Layout.fillHeight: true }
+        }
         }
 
         // ── Registro attività ───────────────────────────────────────────────

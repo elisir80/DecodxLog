@@ -15,6 +15,17 @@ Rectangle {
     default property alias content: body.data
     property int padding: 10
 
+    // La chiave del pannello: quando c'e', in testata compaiono i due comandi —
+    // stacca in una finestra e chiudi — e chi ospita il pannello sa di chi si
+    // tratta senza doverlo indovinare.
+    property string panelKey: ""
+    property bool detached: false
+    property bool detachable: true
+    property bool closable: true
+    signal detachRequested()
+    signal attachRequested()
+    signal closeRequested()
+
     color: Theme.panelColor
     border.color: Theme.glassBorder
     border.width: 1
@@ -28,6 +39,22 @@ Rectangle {
         text: root.title
         dotColor: root.dotColor
         showDot: root.showDot
+
+        controls: [
+            PanelControl {
+                visible: root.panelKey.length > 0 && root.detachable
+                glyph: root.detached ? "↩" : "⤢"
+                hint: root.detached ? qsTr("Put it back in the main window")
+                                    : qsTr("Detach it into its own window")
+                onClicked: root.detached ? root.attachRequested() : root.detachRequested()
+            },
+            PanelControl {
+                visible: root.panelKey.length > 0 && root.closable
+                glyph: "✕"
+                hint: qsTr("Close this panel — it comes back from Panels in the top bar")
+                onClicked: root.closeRequested()
+            }
+        ]
     }
 
     Item {

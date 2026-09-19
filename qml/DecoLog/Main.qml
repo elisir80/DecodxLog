@@ -39,8 +39,98 @@ ApplicationWindow {
         property real leftWidth: 300
         property real rightWidth: 300
         property real bottomHeight: 200
+        property real mapWidth: 308
         property string hiddenColumns: ""
         property var savedFilters: ({})
+        // I pannelli chiusi e quelli in finestra propria, come liste di chiavi
+        // separate da virgola. Restano da una sessione all'altra.
+        property string hiddenPanels: ""
+        property string detachedPanels: ""
+    }
+
+    // ── I pannelli: chi sono, dove stanno ───────────────────────────────────
+    //
+    // Ogni pannello ha una chiave. Con quella si sa come si chiama, da quale
+    // file nasce quando lo si stacca, e se adesso e' agganciato, in finestra o
+    // chiuso. Chiuso vuol dire chiuso davvero: lo spazio non resta vuoto.
+    readonly property var panelKeys: ["newqso", "logbook", "callinfo", "rotor", "ft2", "tabs", "map"]
+
+    function panelTitle(key) {
+        switch (key) {
+        case "newqso":   return qsTr("New QSO")
+        case "logbook":  return qsTr("Logbook")
+        case "callinfo": return qsTr("Callsign card")
+        case "rotor":    return qsTr("Rotator")
+        case "ft2":      return qsTr("FT2 Award")
+        case "tabs":     return qsTr("Awards, statistics, QSL, activity")
+        case "map":      return qsTr("Map")
+        }
+        return key
+    }
+    function panelSource(key) {
+        switch (key) {
+        case "newqso":   return "NewQsoPanel.qml"
+        case "logbook":  return "LogbookPanel.qml"
+        case "callinfo": return "CallInfoPanel.qml"
+        case "rotor":    return "RotorPanel.qml"
+        case "ft2":      return "Ft2AwardPanel.qml"
+        case "tabs":     return "BottomTabs.qml"
+        case "map":      return "MapPanel.qml"
+        }
+        return ""
+    }
+
+    function panelListOf(text) {
+        const out = []
+        const parts = String(text || "").split(",")
+        for (let i = 0; i < parts.length; ++i) {
+            const k = parts[i].trim()
+            if (k.length > 0 && window.panelKeys.indexOf(k) >= 0 && out.indexOf(k) < 0)
+                out.push(k)
+        }
+        return out
+    }
+    readonly property var hiddenPanels: window.panelListOf(layout.hiddenPanels)
+    readonly property var detachedPanels: window.panelListOf(layout.detachedPanels)
+
+    // Le misure si ricordano solo quando la disposizione e' intera: se un
+    // pannello e' chiuso o in finestra, gli altri si allargano per riempire il
+    // vuoto, e quella non e' una misura scelta da nessuno.
+    readonly property bool layoutIsWhole: window.hiddenPanels.length === 0 && window.detachedPanels.length === 0
+
+    function isPanelHidden(key) { return window.hiddenPanels.indexOf(key) >= 0 }
+    function isPanelDetached(key) { return window.detachedPanels.indexOf(key) >= 0 }
+    function isPanelDocked(key) { return !window.isPanelHidden(key) && !window.isPanelDetached(key) }
+    function panelState(key) {
+        return window.isPanelHidden(key) ? qsTr("closed")
+             : window.isPanelDetached(key) ? qsTr("window") : qsTr("docked")
+    }
+
+    function showPanel(key) {
+        layout.hiddenPanels = window.hiddenPanels.filter(function (k) { return k !== key }).join(",")
+    }
+    function closePanel(key) {
+        // Chiuso e' chiuso: se era in finestra, la finestra sparisce.
+        layout.detachedPanels = window.detachedPanels.filter(function (k) { return k !== key }).join(",")
+        if (!window.isPanelHidden(key))
+            layout.hiddenPanels = window.hiddenPanels.concat([key]).join(",")
+    }
+    function detachPanel(key) {
+        window.showPanel(key)
+        if (!window.isPanelDetached(key))
+            layout.detachedPanels = window.detachedPanels.concat([key]).join(",")
+    }
+    function attachPanel(key) {
+        layout.detachedPanels = window.detachedPanels.filter(function (k) { return k !== key }).join(",")
+        window.showPanel(key)
+    }
+    function togglePanel(key) {
+        if (window.isPanelHidden(key)) window.showPanel(key)
+        else window.closePanel(key)
+    }
+    function resetPanels() {
+        layout.hiddenPanels = ""
+        layout.detachedPanels = ""
     }
 
     // ── Azioni comuni a barra, scorciatoie e pannelli ───────────────────────
@@ -102,6 +192,7 @@ ApplicationWindow {
         else if (what[0] === "maintenance") { decolog.repairImportedFields(); decolog.completeMissingFromCallbook() }
         else if (what[0] === "tab") bottomTabs.currentTab = parseInt(what[1])
         else if (what[0] === "pop") popWindow.active = true
+        else if (what[0] === "panels") { if (what[1]) { const how = what.slice(2); for (let i = 0; i < how.length; ++i) { if (what[1] === "close") window.closePanel(how[i]); else if (what[1] === "detach") window.detachPanel(how[i]) } } else panelsPopup.open() }
         else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))
         else if (what[0] === "activation") activationDialog.openDialog()
         else if (what[0] === "modes") newQsoPanel.showModes()
@@ -212,6 +303,127 @@ ApplicationWindow {
         }
     }
 
+    // Una finestra per ogni pannello staccato: nasce quando si stacca, muore
+    // quando si riaggancia o si chiude.
+    Instantiator {
+        model: window.detachedPanels
+        delegate: PanelWindow {
+            panelKey: modelData
+            panelTitle: window.panelTitle(modelData)
+            panelSource: window.panelSource(modelData)
+            onClosing: window.attachPanel(panelKey)
+            onAttachRequested: window.attachPanel(panelKey)
+            onCloseRequested: window.closePanel(panelKey)
+            onOpenQsoRequested: (id) => window.openQso(id)
+            onAwardRequested: (id) => awardsDialog.openAt(id)
+            onClusterRequested: (tab) => window.openCluster(tab)
+            onStatsRequested: window.openStats()
+            onRotorRequested: window.openRotor()
+        }
+    }
+
+    // ── Il menu dei pannelli ────────────────────────────────────────────────
+    Popup {
+        id: panelsPopup
+        parent: Overlay.overlay
+        x: window.width - width - 16
+        y: 72
+        width: 320
+        padding: 12
+        modal: false
+        focus: true
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+        background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 6 }
+
+        ColumnLayout {
+            anchors.fill: parent
+            spacing: 6
+
+            Text {
+                text: qsTr("PANELS")
+                color: Theme.secondaryColor
+                font.family: Theme.monoFamily
+                font.pixelSize: 11
+                font.bold: true
+            }
+            Text {
+                Layout.fillWidth: true
+                text: qsTr("Click a panel to close it or bring it back. The arrow detaches it into "
+                           + "a window of its own; a closed panel frees its space instead of leaving a hole.")
+                color: Theme.textSecondary
+                font.pixelSize: 11
+                wrapMode: Text.Wrap
+            }
+
+            Repeater {
+                model: window.panelKeys
+                delegate: Rectangle {
+                    id: panelRow
+                    required property string modelData
+                    readonly property bool closed: window.isPanelHidden(panelRow.modelData)
+                    Layout.fillWidth: true
+                    implicitHeight: 26
+                    radius: 4
+                    color: rowArea.containsMouse ? Theme.glassOverlay : "transparent"
+
+                    RowLayout {
+                        anchors.fill: parent
+                        anchors.leftMargin: 6
+                        anchors.rightMargin: 4
+                        spacing: 8
+
+                        Rectangle {
+                            implicitWidth: 8
+                            implicitHeight: 8
+                            radius: 4
+                            color: panelRow.closed ? Theme.borderColor : Theme.accentColor
+                        }
+                        Text {
+                            Layout.fillWidth: true
+                            text: window.panelTitle(panelRow.modelData)
+                            color: panelRow.closed ? Theme.textSecondary : Theme.textPrimary
+                            font.pixelSize: 12
+                            elide: Text.ElideRight
+                        }
+                        Text {
+                            text: window.panelState(panelRow.modelData)
+                            color: Theme.textSecondary
+                            font.family: Theme.monoFamily
+                            font.pixelSize: 10
+                        }
+                        PanelControl {
+                            glyph: window.isPanelDetached(panelRow.modelData) ? "↩" : "⤢"
+                            hint: window.isPanelDetached(panelRow.modelData)
+                                  ? qsTr("Put it back in the main window")
+                                  : qsTr("Detach it into its own window")
+                            onClicked: window.isPanelDetached(panelRow.modelData)
+                                       ? window.attachPanel(panelRow.modelData)
+                                       : window.detachPanel(panelRow.modelData)
+                        }
+                    }
+
+                    MouseArea {
+                        id: rowArea
+                        anchors.fill: parent
+                        anchors.rightMargin: 24
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: window.togglePanel(panelRow.modelData)
+                    }
+                }
+            }
+
+            Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Theme.borderSoft }
+            GlassButton {
+                Layout.alignment: Qt.AlignRight
+                text: qsTr("Restore the default layout")
+                buttonHeight: 24
+                fontPixelSize: 11
+                onClicked: { window.resetPanels(); panelsPopup.close() }
+            }
+        }
+    }
+
     Shortcut { sequence: "Ctrl+N"; onActivated: newQsoDialog.open() }
     Shortcut { sequence: "Ctrl+F"; onActivated: window.focusSearch() }
     Shortcut { sequence: "Ctrl+,"; onActivated: setupDialog.open() }
@@ -236,6 +448,8 @@ ApplicationWindow {
             onClusterRequested: window.openCluster(0)
             onActivationRequested: activationDialog.openDialog()
             onProfilesRequested: profilesDialog.open()
+            closedPanels: window.hiddenPanels.length
+            onPanelsRequested: panelsPopup.opened ? panelsPopup.close() : panelsPopup.open()
         }
 
         SplitView {
@@ -255,66 +469,100 @@ ApplicationWindow {
                     id: newQsoPanel
                     SplitView.preferredWidth: layout.leftWidth
                     SplitView.minimumWidth: 260
-                    onWidthChanged: if (width > 0) layout.leftWidth = width
+                    visible: window.isPanelDocked("newqso")
+                    panelKey: "newqso"
+                    onWidthChanged: if (width > 0 && window.layoutIsWhole) layout.leftWidth = width
                     onExpandRequested: newQsoDialog.open()
+                    onDetachRequested: window.detachPanel("newqso")
+                    onCloseRequested: window.closePanel("newqso")
                 }
 
                 LogbookPanel {
                     id: logbook
                     SplitView.fillWidth: true
                     SplitView.minimumWidth: 480
+                    visible: window.isPanelDocked("logbook")
+                    panelKey: "logbook"
                     hiddenColumns: layout.hiddenColumns
                     savedFilters: layout.savedFilters
                     onHiddenColumnsEdited: (value) => layout.hiddenColumns = value
                     onSavedFiltersEdited: (value) => layout.savedFilters = value
                     onOpenQso: (id) => window.openQso(id)
-                    onPopRequested: popWindow.active = true
+                    onPopRequested: window.detachPanel("logbook")
+                    onDetachRequested: window.detachPanel("logbook")
+                    onCloseRequested: window.closePanel("logbook")
                 }
 
-                ColumnLayout {
+                SplitView {
                     id: rightColumn
                     SplitView.preferredWidth: layout.rightWidth
                     SplitView.minimumWidth: 260
-                    onWidthChanged: if (width > 0) layout.rightWidth = width
-                    spacing: 8
+                    visible: window.isPanelDocked("callinfo") || window.isPanelDocked("rotor")
+                             || window.isPanelDocked("ft2")
+                    onWidthChanged: if (width > 0 && window.layoutIsWhole) layout.rightWidth = width
+                    orientation: Qt.Vertical
+                    handle: splitHandle
 
                     CallInfoPanel {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
+                        SplitView.fillHeight: true
+                        SplitView.minimumHeight: 80
+                        visible: window.isPanelDocked("callinfo")
+                        panelKey: "callinfo"
                         onOpenQso: (id) => window.openQso(id)
+                        onDetachRequested: window.detachPanel("callinfo")
+                        onCloseRequested: window.closePanel("callinfo")
                     }
                     RotorPanel {
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: implicitHeight
-                        visible: decolog.rotor.enabled
+                        SplitView.preferredHeight: implicitHeight
+                        SplitView.minimumHeight: 60
+                        visible: decolog.rotor.enabled && window.isPanelDocked("rotor")
+                        panelKey: "rotor"
                         onWindowRequested: window.openRotor()
+                        onDetachRequested: window.detachPanel("rotor")
+                        onCloseRequested: window.closePanel("rotor")
                     }
                     Ft2AwardPanel {
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: implicitHeight
+                        SplitView.preferredHeight: implicitHeight
+                        SplitView.minimumHeight: 60
+                        visible: window.isPanelDocked("ft2")
+                        panelKey: "ft2"
                         onDetailsRequested: awardsDialog.openAt("ft2")
+                        onDetachRequested: window.detachPanel("ft2")
+                        onCloseRequested: window.closePanel("ft2")
                     }
                 }
             }
 
-            RowLayout {
+            SplitView {
                 SplitView.preferredHeight: layout.bottomHeight
                 SplitView.minimumHeight: 130
-                onHeightChanged: if (height > 0) layout.bottomHeight = height
-                spacing: 8
+                visible: window.isPanelDocked("tabs") || window.isPanelDocked("map")
+                onHeightChanged: if (height > 0 && window.layoutIsWhole) layout.bottomHeight = height
+                orientation: Qt.Horizontal
+                handle: splitHandle
 
                 BottomTabs {
                     id: bottomTabs
+                    SplitView.fillWidth: true
+                    SplitView.minimumWidth: 320
+                    visible: window.isPanelDocked("tabs")
+                    panelKey: "tabs"
                     onAwardRequested: (id) => awardsDialog.openAt(id)
                     onClusterRequested: (tab) => window.openCluster(tab)
                     onStatsRequested: window.openStats()
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
+                    onDetachRequested: window.detachPanel("tabs")
+                    onCloseRequested: window.closePanel("tabs")
                 }
-                // Allineata alla colonna di destra, come nel mockup.
+                // Allineata alla colonna di destra, come nel mockup, finche' non
+                // la si tira da un'altra parte.
                 MapPanel {
-                    Layout.preferredWidth: rightColumn.width + 8
-                    Layout.fillHeight: true
+                    SplitView.preferredWidth: layout.mapWidth
+                    SplitView.minimumWidth: 180
+                    visible: window.isPanelDocked("map")
+                    panelKey: "map"
+                    onWidthChanged: if (width > 0 && window.layoutIsWhole) layout.mapWidth = width
+                    onDetachRequested: window.detachPanel("map")
+                    onCloseRequested: window.closePanel("map")
                 }
             }
         }
