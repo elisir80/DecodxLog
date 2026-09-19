@@ -993,12 +993,25 @@ DialogFrame {
                         LabeledField {
                             label: qsTr("Serial port")
                             StyledComboBox {
+                                id: serialPortBox
                                 Layout.preferredWidth: 140
                                 editable: true
                                 model: decolog.rig.serialPorts()
-                                editText: decolog.rig.serialPort
-                                onEditTextChanged: decolog.rig.serialPort = editText
+                                // La porta scelta si scrive solo quando la
+                                // sceglie l'operatore: legandola al testo si
+                                // riscriveva da sola sulla prima della lista
+                                // appena si apriva la pagina, e la radio
+                                // finiva sulla porta sbagliata.
+                                Component.onCompleted: editText = decolog.rig.serialPort
                                 onActivated: decolog.rig.serialPort = currentText
+                                onEditTextChanged: if (activeFocus) decolog.rig.serialPort = editText
+                                Connections {
+                                    target: decolog.rig
+                                    function onChanged() {
+                                        if (!serialPortBox.activeFocus)
+                                            serialPortBox.editText = decolog.rig.serialPort
+                                    }
+                                }
                             }
                         }
                         LabeledField {
@@ -1032,13 +1045,21 @@ DialogFrame {
                         LabeledField {
                             label: qsTr("PTT port")
                             StyledComboBox {
+                                id: pttPortBox
                                 Layout.preferredWidth: 140
                                 editable: true
                                 enabled: decolog.rig.pttType === "RTS" || decolog.rig.pttType === "DTR"
                                 model: decolog.rig.serialPorts()
-                                editText: decolog.rig.pttPort
-                                onEditTextChanged: decolog.rig.pttPort = editText
+                                Component.onCompleted: editText = decolog.rig.pttPort
                                 onActivated: decolog.rig.pttPort = currentText
+                                onEditTextChanged: if (activeFocus) decolog.rig.pttPort = editText
+                                Connections {
+                                    target: decolog.rig
+                                    function onChanged() {
+                                        if (!pttPortBox.activeFocus)
+                                            pttPortBox.editText = decolog.rig.pttPort
+                                    }
+                                }
                             }
                         }
                         GlassButton {
@@ -1083,6 +1104,15 @@ DialogFrame {
                             text: qsTr("Connect now")
                             tone: Theme.primaryColor
                             onClicked: decolog.rig.connectNow()
+                        }
+                        // Se non si sa quale porta e' quella giusta, la cerca lui.
+                        GlassButton {
+                            Layout.alignment: Qt.AlignBottom
+                            Layout.bottomMargin: 2
+                            text: decolog.rig.probing ? qsTr("Looking…") : qsTr("Find the radio")
+                            tone: Theme.accentColor
+                            enabled: !decolog.rig.probing
+                            onClicked: decolog.rig.probeRadio()
                         }
                     }
                     RowLayout {

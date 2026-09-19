@@ -87,6 +87,43 @@ private slots:
         QCOMPARE(m.valueAt(m.rowForId(1), QsoTableModel::Tags), QString("pota, Field Day"));
         QCOMPARE(m.tagsInLog().size(), 3);
     }
+
+    // Le colonne che riempie il callbook: citta', nazione, stato, contea,
+    // zone e IOTA. Si chiedono per nome, non per numero.
+    void callbookColumns()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        db.insertQso({{"CALL", "W1AW"}, {"QSO_DATE", "20260914"}, {"TIME_ON", "1200"}, {"BAND", "20m"},
+                      {"MODE", "CW"}, {"QTH", "Newington"}, {"COUNTRY", "United States"}, {"STATE", "CT"},
+                      {"CNTY", "CT,Hartford"}, {"CQZ", "5"}, {"ITUZ", "8"}, {"IOTA", "NA-001"}},
+                     "import");
+        QsoTableModel m(&db);
+        QCOMPARE(m.count(), 1);
+
+        auto column = [&m](const QString& key) {
+            for (int c = 0; c < m.columns(); ++c) {
+                if (m.columnKey(c) == key)
+                    return c;
+            }
+            return -1;
+        };
+        QCOMPARE(m.valueAt(0, column("qth")), QString("Newington"));
+        QCOMPARE(m.valueAt(0, column("country")), QString("United States"));
+        QCOMPARE(m.valueAt(0, column("state")), QString("CT"));
+        QCOMPARE(m.valueAt(0, column("county")), QString("CT,Hartford"));
+        QCOMPARE(m.valueAt(0, column("cqz")), QString("5"));
+        QCOMPARE(m.valueAt(0, column("ituz")), QString("8"));
+        QCOMPARE(m.valueAt(0, column("iota")), QString("NA-001"));
+
+        // Le zone a zero sono zone che non ci sono: casella vuota.
+        db.insertQso({{"CALL", "IK0ABC"}, {"QSO_DATE", "20260915"}, {"TIME_ON", "1200"}, {"BAND", "40m"},
+                      {"MODE", "SSB"}},
+                     "import");
+        QsoTableModel bare(&db);
+        QCOMPARE(bare.valueAt(bare.rowForId(2), column("cqz")), QString());
+        QCOMPARE(bare.valueAt(bare.rowForId(2), column("qth")), QString());
+    }
 };
 
 QTEST_GUILESS_MAIN(TestQsoModel)

@@ -98,7 +98,9 @@ QString QsoTableModel::columnKey(int column) const
     static const QStringList keys{
         QStringLiteral("utc"), QStringLiteral("call"), QStringLiteral("band"), QStringLiteral("freq"),
         QStringLiteral("mode"), QStringLiteral("rst_sent"), QStringLiteral("rst_rcvd"),
-        QStringLiteral("grid"), QStringLiteral("name"), QStringLiteral("dxcc"), QStringLiteral("qsl"),
+        QStringLiteral("grid"), QStringLiteral("name"), QStringLiteral("qth"), QStringLiteral("country"),
+        QStringLiteral("state"), QStringLiteral("county"), QStringLiteral("cqz"), QStringLiteral("ituz"),
+        QStringLiteral("iota"), QStringLiteral("dxcc"), QStringLiteral("qsl"),
         QStringLiteral("source"), QStringLiteral("tags")};
     return keys.value(column);
 }
@@ -115,6 +117,13 @@ QString QsoTableModel::columnTitle(int column) const
     case RstRcvd: return tr("R");
     case Grid:    return tr("Grid");
     case Name:    return tr("Name");
+    case Qth:     return tr("City / QTH");
+    case Country: return tr("Country");
+    case State:   return tr("State");
+    case County:  return tr("County");
+    case Cqz:     return tr("CQ");
+    case Ituz:    return tr("ITU");
+    case Iota:    return tr("IOTA");
     case Dxcc:    return tr("DXCC");
     case Qsl:     return tr("QSL");
     case Source:  return tr("Src");
@@ -135,6 +144,13 @@ int QsoTableModel::columnWidthHint(int column) const
     case RstRcvd: return 46;
     case Grid:    return 74;
     case Name:    return 140;
+    case Qth:     return 140;
+    case Country: return 130;
+    case State:   return 52;
+    case County:  return 110;
+    case Cqz:
+    case Ituz:    return 44;
+    case Iota:    return 64;
     case Dxcc:    return 56;
     case Qsl:     return 84;
     case Source:  return 52;
@@ -149,7 +165,9 @@ QString QsoTableModel::selectSql(const QString& where) const
                "SELECT id, qso_datetime_on, call, band, mode, submode, freq, rst_sent, rst_rcvd, "
                "gridsquare, name, dxcc, source, "
                "(SELECT group_concat(service || ':' || sent || ':' || rcvd) FROM qsl_status s WHERE s.qso_id = qso.id), "
-               "IFNULL(tags, '') "
+               "IFNULL(tags, ''), "
+               "IFNULL(qth, ''), IFNULL(country, ''), IFNULL(state, ''), IFNULL(cnty, ''), "
+               "cqz, ituz, IFNULL(iota, '') "
                "FROM qso WHERE deleted = 0 %1 ORDER BY qso_datetime_on DESC, id DESC")
         .arg(where);
 }
@@ -181,6 +199,13 @@ QsoTableModel::Row QsoTableModel::rowFromQuery(const QSqlQuery& q) const
     else r.values[Source] = source.left(3);
     r.values[Qsl] = qslCodes(q.value(13).toString());
     r.values[Tags] = q.value(14).toString().replace(QLatin1Char(','), QStringLiteral(", "));
+    r.values[Qth] = q.value(15).toString();
+    r.values[Country] = q.value(16).toString();
+    r.values[State] = q.value(17).toString();
+    r.values[County] = q.value(18).toString();
+    r.values[Cqz] = q.value(19).isNull() || q.value(19).toInt() <= 0 ? QString() : q.value(19).toString();
+    r.values[Ituz] = q.value(20).isNull() || q.value(20).toInt() <= 0 ? QString() : q.value(20).toString();
+    r.values[Iota] = q.value(21).toString();
     return r;
 }
 

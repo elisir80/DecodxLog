@@ -3889,11 +3889,11 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>RTS on another port</source>
-        <translation>RTS su un'altra porta</translation>
+        <translation>RTS su un&apos;altra porta</translation>
     </message>
     <message>
         <source>DTR on another port</source>
-        <translation>DTR su un'altra porta</translation>
+        <translation>DTR su un&apos;altra porta</translation>
     </message>
     <message>
         <source>None</source>
@@ -3909,11 +3909,19 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Two ports is the usual setup: the CAT reads the frequency on one, the PTT raises RTS or DTR on the other — so the radio transmits while DecoLog keeps reading. With a single cable leave &quot;the CAT itself&quot;: the radio goes into transmit on the CAT command, if it can.</source>
-        <translation>Due porte è la maniera di sempre: il CAT legge la frequenza su una, il PTT alza RTS o DTR sull'altra — così la radio trasmette mentre DecoLog continua a leggere. Con un cavo solo lascia «il CAT stesso»: la radio va in trasmissione col comando CAT, se ci riesce.</translation>
+        <translation>Due porte è la maniera di sempre: il CAT legge la frequenza su una, il PTT alza RTS o DTR sull&apos;altra — così la radio trasmette mentre DecoLog continua a leggere. Con un cavo solo lascia «il CAT stesso»: la radio va in trasmissione col comando CAT, se ci riesce.</translation>
     </message>
     <message>
         <source>Connect now</source>
         <translation>Collegati adesso</translation>
+    </message>
+    <message>
+        <source>Looking…</source>
+        <translation>Cerco…</translation>
+    </message>
+    <message>
+        <source>Find the radio</source>
+        <translation>Cerca la radio</translation>
     </message>
     <message>
         <source>radio connected</source>
@@ -5144,6 +5152,34 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Nome</translation>
     </message>
     <message>
+        <source>City / QTH</source>
+        <translation>Città / QTH</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>Nazione</translation>
+    </message>
+    <message>
+        <source>State</source>
+        <translation>Stato</translation>
+    </message>
+    <message>
+        <source>County</source>
+        <translation>Contea</translation>
+    </message>
+    <message>
+        <source>CQ</source>
+        <translation>CQ</translation>
+    </message>
+    <message>
+        <source>ITU</source>
+        <translation>ITU</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
         <source>DXCC</source>
         <translation>DXCC</translation>
     </message>
@@ -5167,6 +5203,33 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Mandato: %1</translation>
     </message>
     <message>
+        <source>Hamlib not found: install it first</source>
+        <translation>Hamlib non c&apos;è: prima va installato</translation>
+    </message>
+    <message>
+        <source>Pick the radio model first</source>
+        <translation>Prima scegli il modello della radio</translation>
+    </message>
+    <message>
+        <source>No serial port on this computer</source>
+        <translation>Su questo computer non c&apos;è nessuna porta seriale</translation>
+    </message>
+    <message numerus="yes">
+        <source>Looking for the radio on %n port(s)…</source>
+        <translation>
+            <numerusform>Cerco la radio su una porta…</numerusform>
+            <numerusform>Cerco la radio su %n porte…</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The radio did not answer on any port. Check that it is on, that the CAT is enabled, and that no other program is holding the cable.</source>
+        <translation>La radio non ha risposto su nessuna porta. Controlla che sia accesa, che il CAT sia attivo e che nessun altro programma tenga il cavo.</translation>
+    </message>
+    <message>
+        <source>Radio found on %1 at %2 baud</source>
+        <translation>Radio trovata su %1 a %2 baud</translation>
+    </message>
+    <message>
         <source>The radio is not connected: no PTT</source>
         <translation>La radio non è collegata: niente PTT</translation>
     </message>
@@ -5181,6 +5244,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Pick the radio model and the serial port first</source>
         <translation>Scegli prima il modello della radio e la porta seriale</translation>
+    </message>
+    <message>
+        <source>Hamlib: %1</source>
+        <translation>Hamlib: %1</translation>
     </message>
     <message>
         <source>rigctld did not start</source>

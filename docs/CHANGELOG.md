@@ -3,6 +3,24 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.5.3 — 19 settembre 2026
+
+**La radio si cerca da sola.** In Impostazioni → Radio (CAT) c'e' **Cerca la radio**: prova
+le porte una per una — prima quella impostata, poi quella che usa Decodium, poi tutte le
+altre — a 38400, 19200, 9600, 115200, 4800 baud, finche' una risponde alla domanda della
+frequenza. Quella che risponde se la tiene e si collega. Se non risponde nessuna, lo dice
+chiaro: radio spenta, CAT non attivo, o un altro programma che tiene il cavo.
+
+**"Radio non raggiungibile" quando invece era raggiungibile.** La casella della porta nella
+pagina Radio era legata in tutti e due i versi: appena si apriva la pagina, si riscriveva
+da sola sulla prima porta dell'elenco (COM4) e la porta buona (COM5) andava persa. Adesso
+la casella scrive solo quando ci si scrive dentro davvero, e la porta scelta resta.
+
+**Nel log ci sono anche citta', nazione, stato, contea, zone e IOTA.** Le colonne che
+riempie il callbook adesso si vedono nella tabella del log: **Citta' / QTH**, **Nazione**,
+**Stato**, **Contea**, **CQ**, **ITU**, **IOTA**. Si nascondono e si riordinano dal menu
+**Colonne** come tutte le altre, e la larghezza resta quella che si lascia.
+
 ## 0.5.2 — 19 settembre 2026
 
 **Le porte COM si leggono col loro nome.** L'elenco delle porte seriali usciva con le righe

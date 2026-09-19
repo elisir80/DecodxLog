@@ -95,6 +95,14 @@ public:
     Q_INVOKABLE void setMacro(int index, const QString& label, const QString& text);
     Q_INVOKABLE void resetMacros();
     Q_INVOKABLE void connectNow();
+    // Cerca la radio da sola: prova le porte e le velocita' una per una,
+    // finche' una risponde. Quella che risponde si tiene.
+    Q_INVOKABLE void probeRadio();
+    Q_PROPERTY(bool probing READ probing NOTIFY stateChanged)
+    bool probing() const { return m_probeIndex >= 0; }
+    // Le impostazioni del CAT che usa Decodium su questo computer, per chi
+    // vuole le stesse: {port, baud, driver}.
+    Q_INVOKABLE QVariantMap decodiumCat() const;
     Q_INVOKABLE void disconnectNow();
     // Porta la radio dove dice lo spot: frequenza in Hz e, se c'e', il modo.
     Q_INVOKABLE void tuneTo(qint64 hz, const QString& mode = QString());
@@ -162,6 +170,13 @@ private:
     QString m_pttType{QStringLiteral("RIG")};
     QString m_pttPort;
     QVariantList m_models;
+    // La ricerca della radio: elenco di tentativi (porta, velocita').
+    QVariantList m_probe;
+    int m_probeIndex{-1};
+    std::unique_ptr<QProcess> m_probeProcess;
+    std::unique_ptr<QTcpSocket> m_probeSocket;
+    void probeNext();
+    void probeFinish(bool found, const QString& port, int baud);
     QVariantList m_macros;
     QString m_host{QStringLiteral("127.0.0.1")};
     int m_port{4532};

@@ -94,6 +94,16 @@ GlassPanel {
         table.forceLayout()
     }
 
+    // La colonna che si chiama cosi', qualunque posto abbia: gli indici
+    // cambiano quando se ne aggiungono, i nomi no.
+    function columnOf(key) {
+        for (let c = 0; c < root.model.columns; ++c) {
+            if (root.model.columnKey(c) === key)
+                return c
+        }
+        return -1
+    }
+
     function isHidden(key) { return hidden.indexOf(key) >= 0 }
     function toggleColumn(key) {
         const list = hidden.slice()
@@ -423,7 +433,7 @@ GlassPanel {
         property int step: 1
         function openFor(list) {
             ids = list
-            call = list.length === 1 ? root.model.valueAt(root.model.rowForId(list[0]), 1) : ""
+            call = list.length === 1 ? root.model.valueAt(root.model.rowForId(list[0]), root.columnOf("call")) : ""
             step = 1
             open()
         }
@@ -893,12 +903,13 @@ GlassPanel {
                 if (chosen >= 0)
                     return chosen
                 // Il nome prende lo spazio che avanza.
-                if (column === 8) {
+                // Il nome prende lo spazio che avanza, se avanza.
+                if (column === root.columnOf("name")) {
                     let used = 0
                     for (let c = 0; c < root.model.columns; ++c)
-                        if (c !== 8 && !root.isHidden(root.model.columnKey(c)))
+                        if (c !== column && !root.isHidden(root.model.columnKey(c)))
                             used += root.model.columnWidthHint(c)
-                    return Math.max(root.model.columnWidthHint(8), table.width - used)
+                    return Math.max(root.model.columnWidthHint(column), table.width - used)
                 }
                 return root.model.columnWidthHint(column)
             }
@@ -1056,7 +1067,8 @@ GlassPanel {
         }
         StyledMenuItem { text: qsTr("Filter by this call"); onTriggered: root.model.filterText = decolog.lookupCall }
         StyledMenuItem {
-            readonly property int dxcc: parseInt(root.model.valueAt(root.model.rowForId(rowMenu.qsoId), 9)) || 0
+            readonly property int dxcc: parseInt(root.model.valueAt(root.model.rowForId(rowMenu.qsoId),
+                                                                    root.columnOf("dxcc"))) || 0
             enabled: dxcc > 0
             text: dxcc > 0 ? qsTr("Filter by entity: %1").arg(decolog.dxccName(dxcc) || dxcc) : qsTr("Filter by entity")
             onTriggered: root.model.dxccFilter = dxcc
@@ -1100,7 +1112,7 @@ GlassPanel {
         StyledMenu {
             id: removeTagMenu
             readonly property var tags: {
-                const v = root.model.valueAt(root.model.rowForId(rowMenu.qsoId), 12)
+                const v = root.model.valueAt(root.model.rowForId(rowMenu.qsoId), root.columnOf("tags"))
                 return v.length ? v.split(", ") : []
             }
             title: qsTr("Remove tag")

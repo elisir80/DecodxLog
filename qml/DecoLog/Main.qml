@@ -193,6 +193,7 @@ ApplicationWindow {
         else if (what[0] === "combo") { window.showPanel("cw"); comboTimer.start() }
         else if (what[0] === "combo2") { newQsoDialog.open(); combo2Timer.start() }
         else if (what[0] === "cwsend") { window.showPanel("cw"); cwSendTimer.start() }
+        else if (what[0] === "radioprobe") { bottomTabs.currentTab = 3; decolog.rig.probeRadio() }
         else if (what[0] === "repair") decolog.repairImportedFields()
         else if (what[0] === "fillall") decolog.completeMissingFromCallbook()
         else if (what[0] === "maintenance") { decolog.repairImportedFields(); decolog.completeMissingFromCallbook() }

@@ -47,8 +47,12 @@ Quello che manca è in fondo.
 
 ## 3. Logbook
 
-- **Tabella del log** con colonne a scelta, nascondibili, e QSL in colonna (L Q C E). /
-  **Log table** with the columns you want, hideable, and QSL shown as L Q C E.
+- **Tabella del log** con colonne a scelta, nascondibili, e QSL in colonna (L Q C E):
+  UTC, nominativo, banda, frequenza, modo, RST, locatore, nome, **citta' / QTH, nazione,
+  stato, contea, zona CQ, zona ITU, IOTA**, DXCC, QSL, origine, etichette. /
+  **Log table** with the columns you want, hideable, and QSL shown as L Q C E: UTC, call,
+  band, frequency, mode, RST, grid, name, **city / QTH, country, state, county, CQ zone,
+  ITU zone, IOTA**, DXCC, QSL, source, tags.
 - **Finestra separata ("Stacca")** per un secondo monitor. / **Separate window ("Pop")** for
   a second screen.
 - **Filtri**: testo, banda, modo, mese, intervallo di date, entità DXCC, stato QSL, profilo
@@ -178,6 +182,9 @@ Quello che manca è in fondo.
 - **La radio anche col cavo**: modello Hamlib + porta seriale, e rigctld lo avvia DecoLog; il
   **PTT** puo' stare su un'altra porta (RTS o DTR), come vuole chi ha due COM. /
   **The radio over the cable too**: Hamlib model + serial port, and DecoLog starts rigctld.
+- **Cerca la radio**: prova porte e velocita' una per una finche' una risponde, e tiene
+  quella. / **Find the radio**: it tries ports and speeds one by one until one answers, and
+  keeps that one.
 - **Otto macro CW** sui tasti F1-F8 nella finestra contest, col testo che si scrive a mano e
   i buchi riempiti sul momento ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}); la velocita' in
   parole al minuto si cambia mentre si opera, **Esc** ferma. Il manipolatore e' quello della

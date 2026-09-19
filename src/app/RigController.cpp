@@ -10,6 +10,7 @@
 #include <QMediaDevices>
 #include <QSettings>
 #include <QTcpServer>
+#include <QTcpSocket>
 #include <QTimer>
 #include <QVarLengthArray>
 #include <QThread>
@@ -111,6 +112,179 @@ void RigController::setPort(int port)
     if (m_enabled)
         connectNow();
     emit changed();
+}
+
+QVariantMap RigController::decodiumCat() const
+{
+    // Decodium tiene le sue nel registro, sotto "radio/manual-cat".
+    QSettings decodium(QStringLiteral("HKEY_CURRENT_USER\\Software\\Decodium\\DECODIUM SDR\\radio\\manual-cat"),
+                       QSettings::NativeFormat);
+    QVariantMap out;
+    out.insert(QStringLiteral("port"), decodium.value(QStringLiteral("port")).toString());
+    out.insert(QStringLiteral("baud"), decodium.value(QStringLiteral("baud")).toInt());
+    out.insert(QStringLiteral("driver"), decodium.value(QStringLiteral("driverId")).toString());
+    return out;
+}
+
+void RigController::probeRadio()
+{
+    if (m_probeIndex >= 0)
+        return;
+    const QString exe = core::qsl::findRigctld();
+    if (exe.isEmpty()) {
+        if (m_ctx.activity)
+            m_ctx.activity(QStringLiteral("CAT"), tr("Hamlib not found: install it first"),
+                           QStringLiteral("warning"));
+        return;
+    }
+    if (m_rigModel <= 0) {
+        if (m_ctx.activity)
+            m_ctx.activity(QStringLiteral("CAT"), tr("Pick the radio model first"), QStringLiteral("warning"));
+        return;
+    }
+
+    // Prima la porta e la velocita' di adesso, poi quella di Decodium, poi
+    // tutte le altre: di solito la prima o la seconda basta.
+    const QStringList ports = serialPorts();
+    QList<int> speeds{m_baud, 38400, 19200, 9600, 115200, 4800};
+    m_probe.clear();
+    QStringList order;
+    if (!m_serialPort.isEmpty())
+        order << m_serialPort;
+    const QString fromDecodium = decodiumCat().value(QStringLiteral("port")).toString();
+    if (!fromDecodium.isEmpty() && !order.contains(fromDecodium))
+        order << fromDecodium;
+    for (const QString& port : ports) {
+        if (!order.contains(port))
+            order << port;
+    }
+    for (const QString& port : std::as_const(order)) {
+        QList<int> seen;
+        for (const int baud : std::as_const(speeds)) {
+            if (baud <= 0 || seen.contains(baud))
+                continue;
+            seen << baud;
+            m_probe << QVariantMap{{QStringLiteral("port"), port}, {QStringLiteral("baud"), baud}};
+        }
+    }
+    if (m_probe.isEmpty()) {
+        if (m_ctx.activity)
+            m_ctx.activity(QStringLiteral("CAT"), tr("No serial port on this computer"), QStringLiteral("warning"));
+        return;
+    }
+
+    m_rig.disconnectFromRig();
+    m_probeIndex = 0;
+    if (m_ctx.activity) {
+        m_ctx.activity(QStringLiteral("CAT"),
+                       tr("Looking for the radio on %n port(s)…", nullptr, static_cast<int>(order.size())),
+                       QStringLiteral("info"));
+    }
+    emit stateChanged();
+    probeNext();
+}
+
+void RigController::probeNext()
+{
+    m_probeSocket.reset();
+    if (m_probeProcess) {
+        m_probeProcess->kill();
+        m_probeProcess->waitForFinished(1500);
+        m_probeProcess.reset();
+    }
+    if (m_probeIndex < 0 || m_probeIndex >= m_probe.size()) {
+        probeFinish(false, QString(), 0);
+        return;
+    }
+
+    const QVariantMap attempt = m_probe.at(m_probeIndex).toMap();
+    const QString port = attempt.value(QStringLiteral("port")).toString();
+    const int baud = attempt.value(QStringLiteral("baud")).toInt();
+
+    QTcpServer probe;
+    probe.listen(QHostAddress::LocalHost, 0);
+    const quint16 chosen = probe.serverPort();
+    probe.close();
+
+    m_probeProcess = std::make_unique<QProcess>();
+    m_probeProcess->start(core::qsl::findRigctld(),
+                          {QStringLiteral("-m"), QString::number(m_rigModel),
+                           QStringLiteral("-r"), port,
+                           QStringLiteral("-s"), QString::number(baud),
+                           QStringLiteral("-T"), QStringLiteral("127.0.0.1"),
+                           QStringLiteral("-t"), QString::number(chosen)});
+    if (!m_probeProcess->waitForStarted(3000)) {
+        ++m_probeIndex;
+        QTimer::singleShot(0, this, &RigController::probeNext);
+        return;
+    }
+
+    // Un secondo per aprire la seriale, poi si chiede la frequenza.
+    QTimer::singleShot(1200, this, [this, port, baud, chosen] {
+        if (m_probeIndex < 0)
+            return;
+        m_probeSocket = std::make_unique<QTcpSocket>();
+        m_probeSocket->connectToHost(QStringLiteral("127.0.0.1"), chosen);
+        if (!m_probeSocket->waitForConnected(1200)) {
+            ++m_probeIndex;
+            probeNext();
+            return;
+        }
+        m_probeSocket->write("+f\n");
+        m_probeSocket->waitForBytesWritten(500);
+        const bool answered = m_probeSocket->waitForReadyRead(1500);
+        const QString reply = answered ? QString::fromUtf8(m_probeSocket->readAll()) : QString();
+        qint64 hz = 0;
+        for (const QString& line : reply.split(QLatin1Char('\n'))) {
+            const QString clean = line.section(QLatin1Char(':'), -1).trimmed();
+            bool ok = false;
+            const qint64 value = clean.toLongLong(&ok);
+            if (ok && value > 100000)
+                hz = value;
+        }
+        if (hz > 0) {
+            probeFinish(true, port, baud);
+            return;
+        }
+        ++m_probeIndex;
+        probeNext();
+    });
+}
+
+void RigController::probeFinish(bool found, const QString& port, int baud)
+{
+    m_probeSocket.reset();
+    if (m_probeProcess) {
+        m_probeProcess->kill();
+        m_probeProcess->waitForFinished(1500);
+        m_probeProcess.reset();
+    }
+    m_probeIndex = -1;
+    m_probe.clear();
+
+    if (!found) {
+        if (m_ctx.activity) {
+            m_ctx.activity(QStringLiteral("CAT"),
+                           tr("The radio did not answer on any port. Check that it is on, that the "
+                              "CAT is enabled, and that no other program is holding the cable."),
+                           QStringLiteral("warning"));
+        }
+        emit stateChanged();
+        return;
+    }
+
+    setSerialPort(port);
+    setBaud(baud);
+    setLink(QStringLiteral("serial"));
+    if (m_ctx.activity) {
+        m_ctx.activity(QStringLiteral("CAT"), tr("Radio found on %1 at %2 baud").arg(port).arg(baud),
+                       QStringLiteral("success"));
+    }
+    m_enabled = true;
+    QSettings().setValue(QStringLiteral("rig/enabled"), true);
+    connectNow();
+    emit changed();
+    emit stateChanged();
 }
 
 void RigController::setPttType(const QString& type)
@@ -224,6 +398,18 @@ void RigController::startLocalRigctld()
         if (!m_pttPort.isEmpty())
             arguments << QStringLiteral("-p") << m_pttPort;
     }
+    m_rigctld->setProcessChannelMode(QProcess::MergedChannels);
+    connect(m_rigctld.get(), &QProcess::readyReadStandardOutput, this, [this] {
+        const QString text = QString::fromUtf8(m_rigctld->readAll());
+        for (const QString& line : text.split(QLatin1Char('\n'))) {
+            // Le righe che contano sono quelle dove Hamlib dice che non ce la fa.
+            if (line.contains(QLatin1String("error"), Qt::CaseInsensitive)
+                && m_ctx.activity && !line.trimmed().isEmpty()) {
+                m_ctx.activity(QStringLiteral("CAT"), tr("Hamlib: %1").arg(line.trimmed()),
+                               QStringLiteral("warning"));
+            }
+        }
+    });
     m_rigctld->start(exe, arguments);
     if (!m_rigctld->waitForStarted(4000)) {
         if (m_ctx.activity)
