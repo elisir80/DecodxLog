@@ -1156,6 +1156,44 @@ QList<QJsonArray> LogDatabase::workedRows(bool confirmLotw, bool confirmCard, bo
     return rows;
 }
 
+QList<qint64> LogDatabase::idsMissingCallbookData(int limit) const
+{
+    QList<qint64> ids;
+    QSqlQuery q(connection());
+    QString sql = QStringLiteral(
+        "SELECT id FROM qso WHERE deleted = 0 AND IFNULL(gridsquare, '') = '' "
+        "ORDER BY qso_datetime_on DESC");
+    if (limit > 0)
+        sql += QStringLiteral(" LIMIT %1").arg(limit);
+    if (q.exec(sql)) {
+        while (q.next())
+            ids << q.value(0).toLongLong();
+    }
+    return ids;
+}
+
+QList<qint64> LogDatabase::idsWithDamagedText() const
+{
+    QList<qint64> ids;
+    QSqlQuery q(connection());
+    // Un '<' o il carattere di sostituzione dentro nome, QTH, indirizzo o note:
+    // in un QSO scritto bene non ci stanno.
+    if (q.exec(QStringLiteral(
+            "SELECT id FROM qso WHERE deleted = 0 AND ("
+            "  IFNULL(name, '') LIKE '%<%' OR IFNULL(qth, '') LIKE '%<%'"
+            "  OR IFNULL(comment, '') LIKE '%<%' OR IFNULL(notes, '') LIKE '%<%'"
+            "  OR IFNULL(country, '') LIKE '%<%'"
+            "  OR IFNULL(name, '') LIKE '%' || CHAR(65533) || '%'"
+            "  OR IFNULL(qth, '') LIKE '%' || CHAR(65533) || '%'"
+            "  OR IFNULL(comment, '') LIKE '%' || CHAR(65533) || '%'"
+            "  OR IFNULL(notes, '') LIKE '%' || CHAR(65533) || '%')"
+            " ORDER BY id"))) {
+        while (q.next())
+            ids << q.value(0).toLongLong();
+    }
+    return ids;
+}
+
 QList<qint64> LogDatabase::idsWithoutDxcc() const
 {
     QList<qint64> ids;

@@ -3,6 +3,23 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.3.6 — 19 settembre 2026
+
+**Se un callbook non sa, si chiede all'altro.** I due non conoscono le stesse stazioni:
+HamQTH ha chi si e' iscritto li', QRZ ha quasi tutti. Adesso un nominativo che il primo
+non conosce viene chiesto al secondo — e, cosa che conta di piu', se il primo risponde ma
+non dice ne' il quadrato ne' dove sta la stazione, si chiede lo stesso all'altro e le due
+risposte si mettono insieme: comanda la prima, la seconda riempie i buchi. Su venti QSO
+veri che prima restavano senza locatore, undici adesso ce l'hanno. Si spegne dalle
+impostazioni, e serve che il secondo servizio abbia utente e password.
+
+**I lavori sul log intero.** Dal menu «Azioni» del log: «Completa tutti i QSO senza
+locatore», che mette in coda e chiede una cosa per volta (mezzo secondo l'una, si ferma
+quando si vuole); e «Ripulisci i QSO rovinati da un vecchio import», per i valori tagliati
+a meta' dalla vecchia lettura ADIF che contava i byte come caratteri — quelli che nel log
+si leggono come `Vilnius<GRIDSQ`. Quello che non si puo' piu' leggere si svuota, cosi' il
+callbook lo riscrive per bene, e il testo di prima resta nello storico.
+
 ## 0.3.5 — 19 settembre 2026
 
 **Il locatore dal callbook, anche quando il callbook non lo scrive.** QRZ e HamQTH non

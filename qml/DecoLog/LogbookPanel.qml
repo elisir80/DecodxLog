@@ -329,6 +329,26 @@ GlassPanel {
             enabled: root.model.count > 0 && decolog.callbookProvider !== "off"
             onTriggered: decolog.completeShownFromCallbook()
         }
+        // Tutto il log, non solo quello che si vede: una ricerca per volta,
+        // e si puo' fermare quando si vuole.
+        StyledMenuItem {
+            text: qsTr("Complete every QSO without a grid…")
+            enabled: decolog.callbookProvider !== "off" && decolog.callbookQueued === 0
+            onTriggered: decolog.completeMissingFromCallbook()
+        }
+        StyledMenuItem {
+            visible: decolog.callbookQueued > 0
+            height: visible ? implicitHeight : 0
+            text: qsTr("Stop: %1 QSO still to go").arg(decolog.callbookQueued)
+            onTriggered: decolog.stopCallbookQueue()
+        }
+        StyledMenuItem {
+            readonly property int damaged: actionsMenu.opened ? decolog.damagedFieldCount() : 0
+            visible: damaged > 0
+            height: visible ? implicitHeight : 0
+            text: qsTr("Clean up %1 QSO damaged by an old import…").arg(damaged)
+            onTriggered: confirmRepair.open()
+        }
         MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
         StyledMenuItem {
             text: qsTr("Clear all filters")
@@ -388,6 +408,40 @@ GlassPanel {
                         confirmRowDelete.close()
                         decolog.deleteQsos(list)
                         root.clearSelection()
+                    }
+                }
+            }
+        }
+    }
+
+    // Ripulire tocca dei QSO gia' scritti: si dice prima cosa succede.
+    Popup {
+        id: confirmRepair
+        anchors.centerIn: Overlay.overlay
+        modal: true
+        padding: 16
+        background: Rectangle { color: Theme.panelColor; border.color: Theme.borderColor; radius: 6 }
+        contentItem: ColumnLayout {
+            spacing: 12
+            Text {
+                text: qsTr("Some QSO imported long ago have a name or a QTH cut in half, with a piece of the "
+                           + "next ADIF field stuck to it. Clean them up? What cannot be read is emptied, so "
+                           + "the callbook can write it properly; the old text stays in the history.")
+                color: Theme.textPrimary
+                wrapMode: Text.Wrap
+                Layout.maximumWidth: 420
+            }
+            RowLayout {
+                spacing: 8
+                Item { Layout.fillWidth: true }
+                GlassButton { text: qsTr("Cancel"); onClicked: confirmRepair.close() }
+                GlassButton {
+                    text: qsTr("Clean up")
+                    tone: Theme.accentColor
+                    filled: true
+                    onClicked: {
+                        confirmRepair.close()
+                        decolog.repairImportedFields()
                     }
                 }
             }

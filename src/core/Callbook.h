@@ -90,6 +90,10 @@ public:
 
     void setProvider(Provider provider);
     Provider provider() const { return m_provider; }
+    // L'altro callbook, da provare quando il primo non sa niente di quel
+    // nominativo. Serve che abbia le sue credenziali, altrimenti non si prova.
+    void setFallbackEnabled(bool enabled);
+    bool fallbackEnabled() const { return m_fallback; }
     static QString providerId(Provider p);
     static Provider providerFromId(const QString& id);
 
@@ -108,10 +112,21 @@ signals:
     void failed(const QString& callsign, const QString& message);
 
 private:
-    void login(std::function<void(const QString& error)> done);
-    void query(const QString& callsign, bool retried);
-    QString serviceId() const;
-    QString sourceName() const;
+    void ask(Provider provider, const QString& callsign, bool allowFallback);
+    void login(Provider provider, std::function<void(const QString& error)> done);
+    void query(Provider provider, const QString& callsign, bool retried, bool allowFallback);
+    // Il ripiego vero e proprio: torna true se la domanda e' stata rifatta
+    // all'altro callbook, false se non c'e' altro da provare.
+    bool tryFallback(Provider from, const QString& callsign);
+    // La risposta c'e' ma non dice dove sta la stazione: si chiede anche
+    // all'altro servizio e si tiene da parte questa, per unirle.
+    bool askTheOtherForTheGrid(Provider from, const QString& callsign, const CallbookRecord& sofar);
+    bool resolvePending(const QString& callsign);
+    static CallbookRecord merge(const CallbookRecord& base, const CallbookRecord& extra);
+    Provider otherProvider(Provider p) const;
+    bool hasCredentials(Provider p) const;
+    static QString serviceId(Provider p);
+    static QString sourceName(Provider p);
 
     QNetworkAccessManager* m_net;
     Provider m_provider{Provider::None};
@@ -119,9 +134,11 @@ private:
     SecretReader m_secrets;
     QUrl m_qrzUrl{QStringLiteral("https://xmldata.qrz.com/xml/current/")};
     QUrl m_hamqthUrl{QStringLiteral("https://www.hamqth.com/xml.php")};
-    QString m_sessionKey;
+    bool m_fallback{true};
+    QHash<int, QString> m_sessionKeys;      // una sessione per servizio
     QHash<QString, QPair<QDateTime, CallbookRecord>> m_cache;
-    QHash<QString, QDateTime> m_notFound;
+    QHash<QString, QDateTime> m_notFound;   // chiave "servizio|nominativo"
+    QHash<QString, CallbookRecord> m_pending;   // risposte in attesa dell'altro servizio
 };
 
 } // namespace decolog::core

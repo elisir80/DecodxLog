@@ -88,6 +88,25 @@ private slots:
         QCOMPARE(ft8.value("MODE"), QString("FT8"));
         QVERIFY(!ft8.contains("SUBMODE"));
     }
+
+    void valuesDamagedByAnOldImportAreCleanedUp()
+    {
+        // Cosi' sono rimasti nei log: il valore tagliato e il principio del tag
+        // successivo appiccicato in fondo.
+        QCOMPARE(adif::repairTruncated(QString::fromUtf8("Вильнюс<GRIDSQ")),
+                 QString::fromUtf8("Вильнюс"));
+        QCOMPARE(adif::repairTruncated(QStringLiteral("Lagan Kalmykia, 359220<G")),
+                 QStringLiteral("Lagan Kalmykia, 359220"));
+        QCOMPARE(adif::repairTruncated(QStringLiteral("JORGEN SVENSSON<")), QStringLiteral("JORGEN SVENSSON"));
+        // La virgola rimasta a penzoloni se ne va con il resto.
+        QCOMPARE(adif::repairTruncated(QStringLiteral("Allerod, <QSO_DA")), QStringLiteral("Allerod"));
+        // Un valore sano non si tocca, e nemmeno un '<' che ci sta per davvero.
+        QCOMPARE(adif::repairTruncated(QStringLiteral("Ted")), QStringLiteral("Ted"));
+        QCOMPARE(adif::repairTruncated(QStringLiteral("SNR < -20 dB")), QStringLiteral("SNR < -20 dB"));
+        // Un carattere tagliato a meta' non si indovina: meglio vuoto, cosi' il
+        // callbook puo' riscriverlo giusto.
+        QVERIFY(adif::repairTruncated(QStringLiteral("1291 ") + QChar(0xFFFD) + QStringLiteral("kofljica")).isEmpty());
+    }
 };
 
 QTEST_GUILESS_MAIN(TestAdif)

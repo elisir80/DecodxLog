@@ -265,6 +265,101 @@ void CallbookClient::setProvider(Provider provider)
     reset();
 }
 
+void CallbookClient::setFallbackEnabled(bool enabled)
+{
+    m_fallback = enabled;
+}
+
+CallbookClient::Provider CallbookClient::otherProvider(Provider p) const
+{
+    if (p == Provider::Qrz)    return Provider::HamQth;
+    if (p == Provider::HamQth) return Provider::Qrz;
+    return Provider::None;
+}
+
+bool CallbookClient::hasCredentials(Provider p) const
+{
+    return p != Provider::None && m_accounts && !m_accounts(serviceId(p)).isEmpty() && m_secrets;
+}
+
+CallbookRecord CallbookClient::merge(const CallbookRecord& base, const CallbookRecord& extra)
+{
+    // Comanda il primo che ha risposto; il secondo riempie i buchi.
+    CallbookRecord out = base;
+    auto text = [](QString& field, const QString& other) {
+        if (field.trimmed().isEmpty() && !other.trimmed().isEmpty())
+            field = other;
+    };
+    text(out.name, extra.name);
+    text(out.qth, extra.qth);
+    text(out.address, extra.address);
+    text(out.state, extra.state);
+    text(out.county, extra.county);
+    text(out.country, extra.country);
+    text(out.grid, extra.grid);
+    text(out.iota, extra.iota);
+    text(out.email, extra.email);
+    text(out.qslVia, extra.qslVia);
+    text(out.imageUrl, extra.imageUrl);
+    if (out.dxcc <= 0)    out.dxcc = extra.dxcc;
+    if (out.cqZone <= 0)  out.cqZone = extra.cqZone;
+    if (out.ituZone <= 0) out.ituZone = extra.ituZone;
+    if (!out.hasPosition && extra.hasPosition) {
+        out.lat = extra.lat;
+        out.lon = extra.lon;
+        out.hasPosition = true;
+    }
+    out.lotw = out.lotw || extra.lotw;
+    out.eqsl = out.eqsl || extra.eqsl;
+    if (out.source != extra.source && !extra.source.isEmpty())
+        out.source = QStringLiteral("%1 + %2").arg(out.source, extra.source);
+    return out;
+}
+
+bool CallbookClient::askTheOtherForTheGrid(Provider from, const QString& call, const CallbookRecord& sofar)
+{
+    const Provider other = otherProvider(from);
+    if (!m_fallback || other == Provider::None || !hasCredentials(other) || m_pending.contains(call))
+        return false;
+    const QString key = serviceId(other) + QLatin1Char('|') + call;
+    if (const auto it = m_notFound.constFind(key);
+        it != m_notFound.constEnd() && it->secsTo(QDateTime::currentDateTimeUtc()) < 3600) {
+        return false;
+    }
+    m_pending.insert(call, sofar);
+    ask(other, call, false);
+    return true;
+}
+
+bool CallbookClient::resolvePending(const QString& call)
+{
+    const auto it = m_pending.constFind(call);
+    if (it == m_pending.constEnd())
+        return false;
+    // L'altro non ha aggiunto niente: vale quello che si era gia' trovato.
+    const CallbookRecord record = *it;
+    m_pending.remove(call);
+    m_cache.insert(call, {QDateTime::currentDateTimeUtc(), record});
+    emit found(call, record);
+    return true;
+}
+
+bool CallbookClient::tryFallback(Provider from, const QString& call)
+{
+    const Provider other = otherProvider(from);
+    if (!m_fallback || other == Provider::None || !hasCredentials(other))
+        return false;
+    if (resolvePending(call))
+        return true;
+    // Se anche l'altro ha gia' detto di no, non si insiste.
+    const QDateTime now = QDateTime::currentDateTimeUtc();
+    const QString key = serviceId(other) + QLatin1Char('|') + call;
+    if (const auto it = m_notFound.constFind(key); it != m_notFound.constEnd() && it->secsTo(now) < 3600)
+        return false;
+    ask(other, call, false);
+    return true;
+}
+
 void CallbookClient::setCredentialReaders(AccountReader accounts, SecretReader secrets)
 {
     m_accounts = std::move(accounts);
@@ -280,19 +375,20 @@ void CallbookClient::setEndpoints(const QUrl& qrz, const QUrl& hamqth)
 
 void CallbookClient::reset()
 {
-    m_sessionKey.clear();
+    m_sessionKeys.clear();
     m_cache.clear();
     m_notFound.clear();
+    m_pending.clear();
 }
 
-QString CallbookClient::serviceId() const
+QString CallbookClient::serviceId(Provider p)
 {
-    return providerId(m_provider);
+    return providerId(p);
 }
 
-QString CallbookClient::sourceName() const
+QString CallbookClient::sourceName(Provider p)
 {
-    return m_provider == Provider::Qrz ? QStringLiteral("QRZ.com") : QStringLiteral("HamQTH");
+    return p == Provider::Qrz ? QStringLiteral("QRZ.com") : QStringLiteral("HamQTH");
 }
 
 void CallbookClient::lookup(const QString& callsign)
@@ -306,41 +402,50 @@ void CallbookClient::lookup(const QString& callsign)
         emit found(call, it->second);
         return;
     }
-    // Un nominativo che non c'era non si richiede di nuovo per un'ora.
-    if (const auto it = m_notFound.constFind(call); it != m_notFound.constEnd() && it->secsTo(now) < 3600) {
-        emit failed(call, tr("%1 not found on %2").arg(call, sourceName()));
+    // Un nominativo che non c'era non si richiede di nuovo per un'ora — a quel
+    // servizio. L'altro, se c'e', si prova lo stesso.
+    const QString mark = serviceId(m_provider) + QLatin1Char('|') + call;
+    if (const auto it = m_notFound.constFind(mark); it != m_notFound.constEnd() && it->secsTo(now) < 3600) {
+        if (!tryFallback(m_provider, call))
+            emit failed(call, tr("%1 not found on %2").arg(call, sourceName(m_provider)));
         return;
     }
 
-    if (m_sessionKey.isEmpty()) {
-        login([this, call](const QString& error) {
-            if (error.isEmpty())
-                query(call, false);
-            else
+    ask(m_provider, call, true);
+}
+
+void CallbookClient::ask(Provider provider, const QString& call, bool allowFallback)
+{
+    if (m_sessionKeys.value(static_cast<int>(provider)).isEmpty()) {
+        login(provider, [this, provider, call, allowFallback](const QString& error) {
+            if (error.isEmpty()) {
+                query(provider, call, false, allowFallback);
+            } else if (!resolvePending(call) && (!allowFallback || !tryFallback(provider, call))) {
                 emit failed(call, error);
+            }
         });
     } else {
-        query(call, false);
+        query(provider, call, false, allowFallback);
     }
 }
 
-void CallbookClient::login(std::function<void(const QString& error)> done)
+void CallbookClient::login(Provider provider, std::function<void(const QString& error)> done)
 {
-    const QString service = serviceId();
+    const QString service = serviceId(provider);
     const QString user = m_accounts ? m_accounts(service) : QString();
     if (user.isEmpty() || !m_secrets) {
-        done(tr("%1: no credentials. Add them in Setup → Callbook.").arg(sourceName()));
+        done(tr("%1: no credentials. Add them in Setup → Callbook.").arg(sourceName(provider)));
         return;
     }
 
-    m_secrets(service, [this, user, done](const QString& secret, const QString& error) {
+    m_secrets(service, [this, provider, user, done](const QString& secret, const QString& error) {
         if (!error.isEmpty() || secret.isEmpty()) {
-            done(tr("%1: password not available (%2)").arg(sourceName(), error));
+            done(tr("%1: password not available (%2)").arg(sourceName(provider), error));
             return;
         }
-        QUrl url = m_provider == Provider::Qrz ? m_qrzUrl : m_hamqthUrl;
+        QUrl url = provider == Provider::Qrz ? m_qrzUrl : m_hamqthUrl;
         QUrlQuery q;
-        if (m_provider == Provider::Qrz) {
+        if (provider == Provider::Qrz) {
             q.addQueryItem(QStringLiteral("username"), user);
             q.addQueryItem(QStringLiteral("password"), secret);
             q.addQueryItem(QStringLiteral("agent"), QStringLiteral("DecoLog-") + QCoreApplication::applicationVersion());
@@ -354,34 +459,35 @@ void CallbookClient::login(std::function<void(const QString& error)> done)
         QNetworkRequest request(url);
         request.setTransferTimeout(15000);
         QNetworkReply* reply = m_net->get(request);
-        connect(reply, &QNetworkReply::finished, this, [this, reply, done] {
+        connect(reply, &QNetworkReply::finished, this, [this, provider, reply, done] {
             reply->deleteLater();
             if (reply->error() != QNetworkReply::NoError) {
-                done(tr("%1: %2").arg(sourceName(), network::safeErrorString(reply)));
+                done(tr("%1: %2").arg(sourceName(provider), network::safeErrorString(reply)));
                 return;
             }
             const QByteArray body = reply->readAll();
-            const auto session = m_provider == Provider::Qrz ? callbook::parseQrzSession(body)
-                                                             : callbook::parseHamQthSession(body);
+            const auto session = provider == Provider::Qrz ? callbook::parseQrzSession(body)
+                                                           : callbook::parseHamQthSession(body);
             if (session.key.isEmpty()) {
-                done(tr("%1: %2").arg(sourceName(), session.error));
+                done(tr("%1: %2").arg(sourceName(provider), session.error));
                 return;
             }
-            m_sessionKey = session.key;
+            m_sessionKeys.insert(static_cast<int>(provider), session.key);
             done({});
         });
     });
 }
 
-void CallbookClient::query(const QString& call, bool retried)
+void CallbookClient::query(Provider provider, const QString& call, bool retried, bool allowFallback)
 {
-    QUrl url = m_provider == Provider::Qrz ? m_qrzUrl : m_hamqthUrl;
+    QUrl url = provider == Provider::Qrz ? m_qrzUrl : m_hamqthUrl;
+    const QString sessionKey = m_sessionKeys.value(static_cast<int>(provider));
     QUrlQuery q;
-    if (m_provider == Provider::Qrz) {
-        q.addQueryItem(QStringLiteral("s"), m_sessionKey);
+    if (provider == Provider::Qrz) {
+        q.addQueryItem(QStringLiteral("s"), sessionKey);
         q.addQueryItem(QStringLiteral("callsign"), call);
     } else {
-        q.addQueryItem(QStringLiteral("id"), m_sessionKey);
+        q.addQueryItem(QStringLiteral("id"), sessionKey);
         q.addQueryItem(QStringLiteral("callsign"), call);
         q.addQueryItem(QStringLiteral("prg"), QStringLiteral("DecoLog"));
     }
@@ -389,37 +495,55 @@ void CallbookClient::query(const QString& call, bool retried)
     QNetworkRequest request(url);
     request.setTransferTimeout(15000);
     QNetworkReply* reply = m_net->get(request);
-    connect(reply, &QNetworkReply::finished, this, [this, reply, call, retried] {
+    connect(reply, &QNetworkReply::finished, this, [this, provider, reply, call, retried, allowFallback] {
         reply->deleteLater();
         if (reply->error() != QNetworkReply::NoError) {
-            emit failed(call, tr("%1: %2").arg(sourceName(), network::safeErrorString(reply)));
+            if (resolvePending(call))
+                return;
+            if (!allowFallback || !tryFallback(provider, call))
+                emit failed(call, tr("%1: %2").arg(sourceName(provider), network::safeErrorString(reply)));
             return;
         }
         const QByteArray body = reply->readAll();
-        const auto record = m_provider == Provider::Qrz ? callbook::parseQrzCallsign(body)
-                                                        : callbook::parseHamQthSearch(body);
+        const auto record = provider == Provider::Qrz ? callbook::parseQrzCallsign(body)
+                                                      : callbook::parseHamQthSearch(body);
         if (record) {
-            m_cache.insert(call, {QDateTime::currentDateTimeUtc(), *record});
-            emit found(call, *record);
+            CallbookRecord answer = *record;
+            if (const auto waiting = m_pending.constFind(call); waiting != m_pending.constEnd()) {
+                answer = merge(*waiting, *record);
+                m_pending.remove(call);
+            } else if (allowFallback && answer.grid.trimmed().isEmpty() && !answer.hasPosition
+                       && askTheOtherForTheGrid(provider, call, answer)) {
+                // La risposta buona arrivera' quando parla anche l'altro.
+                return;
+            }
+            m_cache.insert(call, {QDateTime::currentDateTimeUtc(), answer});
+            emit found(call, answer);
             return;
         }
-        const auto session = m_provider == Provider::Qrz ? callbook::parseQrzSession(body)
-                                                         : callbook::parseHamQthSession(body);
+        const auto session = provider == Provider::Qrz ? callbook::parseQrzSession(body)
+                                                       : callbook::parseHamQthSession(body);
         // Sessione scaduta: un nuovo login e un solo nuovo tentativo.
-        if ((session.expired || (m_provider == Provider::Qrz && session.key.isEmpty() && !session.error.contains(QLatin1String("Not found"))))
+        if ((session.expired || (provider == Provider::Qrz && session.key.isEmpty() && !session.error.contains(QLatin1String("Not found"))))
             && !retried) {
-            m_sessionKey.clear();
-            login([this, call](const QString& error) {
+            m_sessionKeys.remove(static_cast<int>(provider));
+            login(provider, [this, provider, call, allowFallback](const QString& error) {
                 if (error.isEmpty())
-                    query(call, true);
-                else
+                    query(provider, call, true, allowFallback);
+                else if (!resolvePending(call) && (!allowFallback || !tryFallback(provider, call)))
                     emit failed(call, error);
             });
             return;
         }
         if (session.error.contains(QLatin1String("not found"), Qt::CaseInsensitive))
-            m_notFound.insert(call, QDateTime::currentDateTimeUtc());
-        emit failed(call, tr("%1: %2").arg(sourceName(),
+            m_notFound.insert(serviceId(provider) + QLatin1Char('|') + call, QDateTime::currentDateTimeUtc());
+        // Questo non lo sa: lo sapra' l'altro? E se si stava gia' aspettando
+        // l'altro, vale quello che aveva detto il primo.
+        if (resolvePending(call))
+            return;
+        if (allowFallback && tryFallback(provider, call))
+            return;
+        emit failed(call, tr("%1: %2").arg(sourceName(provider),
                                            session.error.isEmpty() ? tr("%1 not found").arg(call) : session.error));
     });
 }

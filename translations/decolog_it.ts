@@ -1385,6 +1385,18 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Completa dal callbook i QSO mostrati…</translation>
     </message>
     <message>
+        <source>Complete every QSO without a grid…</source>
+        <translation>Completa tutti i QSO senza locatore…</translation>
+    </message>
+    <message>
+        <source>Stop: %1 QSO still to go</source>
+        <translation>Ferma: mancano %1 QSO</translation>
+    </message>
+    <message>
+        <source>Clean up %1 QSO damaged by an old import…</source>
+        <translation>Ripulisci %1 QSO rovinati da un vecchio import…</translation>
+    </message>
+    <message>
         <source>Clear all filters</source>
         <translation>Togli tutti i filtri</translation>
     </message>
@@ -1407,6 +1419,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Delete for good</source>
         <translation>Cancella davvero</translation>
+    </message>
+    <message>
+        <source>Some QSO imported long ago have a name or a QTH cut in half, with a piece of the next ADIF field stuck to it. Clean them up? What cannot be read is emptied, so the callbook can write it properly; the old text stays in the history.</source>
+        <translation>Certi QSO importati tempo fa hanno il nome o il QTH tagliato a metà, con attaccato un pezzo del campo ADIF successivo. Li ripulisco? Quello che non si può leggere si svuota, così il callbook può riscriverlo per bene; il testo di prima resta nello storico.</translation>
+    </message>
+    <message>
+        <source>Clean up</source>
+        <translation>Ripulisci</translation>
     </message>
     <message>
         <source>Export the QSO shown</source>
@@ -3535,6 +3555,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Completa il QSO appena scritto (nome, QTH, locatore, indirizzo)</translation>
     </message>
     <message>
+        <source>If this callbook doesn&apos;t know the callsign, ask the other one</source>
+        <translation>Se questo callbook non conosce il nominativo, chiedi all'altro</translation>
+    </message>
+    <message>
+        <source>The two callbooks don&apos;t know the same stations: HamQTH has the ones who signed up there, QRZ has almost everybody. With the fallback on, a callsign the first one doesn&apos;t know is asked to the other — as long as that one has its user and password here below.</source>
+        <translation>I due callbook non conoscono le stesse stazioni: HamQTH ha chi si è iscritto lì, QRZ ha quasi tutti. Col ripiego acceso, un nominativo che il primo non conosce viene chiesto all'altro — basta che anche quello abbia utente e password qui sotto.</translation>
+    </message>
+    <message>
         <source>Decodium sends callsign, report, band and mode: the rest the callbook knows. Right after the QSO is written DecoLog asks, and what comes back fills only the empty fields — what you wrote stays. One lookup per callsign, and the answer is kept for a day. From the log, &quot;Complete from the callbook&quot; does the same on QSOs already written.</source>
         <translation>Decodium manda nominativo, rapporto, banda e modo: il resto lo sa il callbook. Appena il QSO è scritto DecoLog chiede, e quello che torna riempie solo i campi vuoti — quello che hai scritto tu resta. Una ricerca per nominativo, e la risposta si tiene un giorno. Dal log, «Completa dal callbook» fa lo stesso sui QSO già scritti.</translation>
     </message>
@@ -4530,6 +4558,36 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>
             <numerusform>Completo %n QSO dal callbook…</numerusform>
             <numerusform>Completo %n QSO dal callbook…</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Every QSO already has its grid.</source>
+        <translation>Tutti i QSO hanno già il loro locatore.</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO to complete from the callbook: one search at a time, it takes a while.</source>
+        <translation>
+            <numerusform>%n QSO da completare dal callbook: una ricerca per volta, ci vuole un po'.</numerusform>
+            <numerusform>%n QSO da completare dal callbook: una ricerca per volta, ci vuole un po'.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Stopped: %1 of %2 QSO done.</source>
+        <translation>Fermato: fatti %1 QSO su %2.</translation>
+    </message>
+    <message>
+        <source>Callbook: %1 QSO looked at.</source>
+        <translation>Callbook: guardati %1 QSO.</translation>
+    </message>
+    <message>
+        <source>Callbook: %1 of %2…</source>
+        <translation>Callbook: %1 su %2…</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO cleaned up from a bad old import (the previous text stays in the history).</source>
+        <translation>
+            <numerusform>%n QSO ripulito da un vecchio import sbagliato (il testo di prima resta nello storico).</numerusform>
+            <numerusform>%n QSO ripuliti da un vecchio import sbagliato (il testo di prima resta nello storico).</numerusform>
         </translation>
     </message>
 </context>

@@ -217,6 +217,17 @@ public:
     // QSO senza numero DXCC, per completarli dal cty.csv.
     QList<qint64> idsWithoutDxcc() const;
 
+    // QSO senza locatore: quelli che vale la pena chiedere al callbook. Il nome
+    // manca a quasi tutti i QSO digitali e non e' un buon motivo per bussare al
+    // servizio ventimila volte; il locatore invece serve, e arriva col nome.
+    // In ordine dal piu' recente, che e' quello che interessa prima.
+    QList<qint64> idsMissingCallbookData(int limit = 0) const;
+
+    // QSO con un campo di testo rovinato da un vecchio import ADIF: la lunghezza
+    // contata in byte anziche' in caratteri tagliava il valore a meta' e ci
+    // lasciava dentro il pezzo del tag successivo ("Vilnius<GRIDSQ").
+    QList<qint64> idsWithDamagedText() const;
+
     // E' il primo QSO FT2 con il suo DXCC, in ordine di tempo?
     bool isFirstFt2Dxcc(qint64 id) const;
     Ft2Award ft2Award() const;

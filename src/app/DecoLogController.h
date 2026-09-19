@@ -121,8 +121,12 @@ class DecoLogController : public QObject {
     Q_PROPERTY(bool callbookAutofill READ callbookAutofill WRITE setCallbookAutofill NOTIFY callbookChanged)
     // Completare i QSO appena scritti con quello che sa il callbook.
     Q_PROPERTY(bool callbookComplete READ callbookComplete WRITE setCallbookComplete NOTIFY callbookChanged)
+    // Se il callbook scelto non sa niente, prova l'altro (se ha le credenziali).
+    Q_PROPERTY(bool callbookFallback READ callbookFallback WRITE setCallbookFallback NOTIFY callbookChanged)
     Q_PROPERTY(QString callbookStatus READ callbookStatus NOTIFY callbookChanged)
     Q_PROPERTY(bool callbookBusy READ callbookBusy NOTIFY callbookChanged)
+    // Quanti QSO aspettano ancora il loro giro di ricerca.
+    Q_PROPERTY(int callbookQueued READ callbookQueued NOTIFY callbookChanged)
 
     // ── LoTW (conferme) ────────────────────────────────────────────────────
     Q_PROPERTY(bool lotwBusy READ lotwBusy NOTIFY lotwChanged)
@@ -290,11 +294,20 @@ public:
     bool callbookAutofill() const { return m_callbookAutofill; }
     bool callbookComplete() const { return m_callbookComplete; }
     void setCallbookComplete(bool complete);
+    bool callbookFallback() const { return m_callbookFallback; }
+    void setCallbookFallback(bool enabled);
+    int callbookQueued() const { return static_cast<int>(m_callbookQueue.size()); }
     // Completa un QSO gia' scritto: dalla scheda del QSO, e dal log per
     // tutte le righe mostrate. Torna quanti ne ha completati (o messi in
     // coda alla ricerca).
     Q_INVOKABLE int completeQsoFromCallbook(qint64 id);
     Q_INVOKABLE int completeShownFromCallbook();
+    // Tutto il log, non solo quello che si vede: si mettono in coda e si
+    // chiedono uno per volta, per non prendere a badilate il callbook.
+    Q_INVOKABLE int completeMissingFromCallbook();
+    Q_INVOKABLE void stopCallbookQueue();
+    Q_INVOKABLE int damagedFieldCount() const;
+    Q_INVOKABLE int repairImportedFields();
     void setCallbookAutofill(bool autofill);
     QString callbookStatus() const { return m_callbookStatus; }
     bool callbookBusy() const { return !m_callbookPending.isEmpty(); }
@@ -438,6 +451,14 @@ private:
     mutable bool m_globalAwardsDirty{true};
     bool      m_callbookAutofill{true};
     bool      m_callbookComplete{true};
+    bool      m_callbookFallback{true};
+    // La coda dei QSO da completare, servita a un tot per volta.
+    QList<qint64> m_callbookQueue;
+    QTimer    m_callbookQueueTimer;
+    int       m_callbookQueueDone{0};
+    int       m_callbookQueueTotal{0};
+    void      serveCallbookQueue();
+    int       enqueueCallbook(const QList<qint64>& ids);
     QString   m_callbookStatus;
     QString   m_callbookPending;
     QTimer    m_callbookDebounce;

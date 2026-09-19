@@ -798,6 +798,18 @@ DialogFrame {
                         checked: decolog.callbookComplete
                         onToggled: decolog.callbookComplete = checked
                     }
+                    ToggleSwitch {
+                        text: qsTr("If this callbook doesn't know the callsign, ask the other one")
+                        enabled: decolog.callbookProvider !== "off"
+                        checked: decolog.callbookFallback
+                        onToggled: decolog.callbookFallback = checked
+                    }
+                    Note {
+                        text: qsTr("The two callbooks don't know the same stations: HamQTH has the ones who "
+                                   + "signed up there, QRZ has almost everybody. With the fallback on, a "
+                                   + "callsign the first one doesn't know is asked to the other — as long as "
+                                   + "that one has its user and password here below.")
+                    }
                     Note {
                         text: qsTr("Decodium sends callsign, report, band and mode: the rest the callbook knows. "
                                    + "Right after the QSO is written DecoLog asks, and what comes back fills only "

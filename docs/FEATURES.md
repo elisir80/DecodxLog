@@ -1,4 +1,4 @@
-# DecoLog 0.3.5 — funzioni / features
+# DecoLog 0.3.6 — funzioni / features
 
 Ogni voce è in italiano e in inglese: *italiano* / *English*.
 Quello che manca è in fondo.
@@ -82,6 +82,16 @@ Quello che manca è in fondo.
   click**, band from frequency, default RST.
 - **Il callbook riempie solo i campi vuoti** (nome, QTH, locatore). / **The callbook fills
   only empty fields** (name, QTH, grid).
+- **Due callbook invece di uno**: se quello scelto non conosce il nominativo, o risponde
+  senza dire dove sta la stazione, si chiede anche all'altro e le due risposte si mettono
+  insieme. / **Two callbooks instead of one**: if the chosen one doesn't know the call, or
+  answers without saying where the station is, the other one is asked too and the two
+  answers are merged.
+- **Lavori sul log intero** dal menu Azioni: completare dal callbook tutti i QSO senza
+  locatore (in coda, una ricerca per volta, fermabile) e ripulire i QSO rovinati da un
+  vecchio import ADIF. / **Whole-log jobs** from the Actions menu: complete every QSO
+  without a grid from the callbook (queued, one at a time, stoppable) and clean up the QSO
+  damaged by an old ADIF import.
 - **Il locatore anche quando il callbook non lo scrive**: si ricava dalla posizione della
   stazione; e un locatore a quattro caratteri diventa quello a sei se il callbook conferma
   lo stesso quadrato. Un quadrato diverso resta com'e'. / **The grid even when the callbook

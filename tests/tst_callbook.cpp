@@ -44,6 +44,15 @@ const QByteArray kHamQthLogin =
     R"(<?xml version="1.0"?><HamQTH version="2.8" xmlns="https://www.hamqth.com"><session>
 <session_id>09b0ae90050be03c452ad235a1f2915ad684393c</session_id></session></HamQTH>)";
 
+const QByteArray kHamQthNoGrid =
+    R"(<?xml version="1.0"?><HamQTH version="2.8" xmlns="https://www.hamqth.com"><search>
+<callsign>ea8oh</callsign><nick>Pekka</nick><qth>Las Palmas</qth><country>Canary Islands</country>
+<adif>29</adif><lotw>Y</lotw></search></HamQTH>)";
+
+const QByteArray kHamQthNotFound =
+    R"(<?xml version="1.0"?><HamQTH version="2.8" xmlns="https://www.hamqth.com"><session>
+<error>Callsign not found</error></session></HamQTH>)";
+
 const QByteArray kHamQthSearch =
     R"(<?xml version="1.0"?><HamQTH version="2.8" xmlns="https://www.hamqth.com"><search>
 <callsign>ok7an</callsign><nick>Petr</nick><qth>Neratovice</qth><country>Czech Republic</country>
@@ -147,6 +156,7 @@ private slots:
         CallbookClient client;
         client.setEndpoints(server.url(), server.url());
         client.setProvider(CallbookClient::Provider::Qrz);
+        client.setFallbackEnabled(false);   // qui si guarda un callbook solo
         giveCredentials(client, "right");
         QSignalSpy found(&client, &CallbookClient::found);
         QSignalSpy failed(&client, &CallbookClient::failed);
@@ -186,6 +196,7 @@ private slots:
         CallbookClient client;
         client.setEndpoints(server.url(), server.url());
         client.setProvider(CallbookClient::Provider::Qrz);
+        client.setFallbackEnabled(false);
         giveCredentials(client, "wrong");
         QSignalSpy failed(&client, &CallbookClient::failed);
         client.lookup("EA8OH");
@@ -339,6 +350,114 @@ private slots:
         heard.set(QStringLiteral("GRIDSQUARE"), QStringLiteral("JO62"));
         QVERIFY(!callbook::fillMissing(heard, found).contains(QStringLiteral("GRIDSQUARE")));
         QCOMPARE(heard.value(QStringLiteral("GRIDSQUARE")), QStringLiteral("JO62"));
+    }
+
+    void whenTheFirstCallbookDoesNotKnowTheOtherIsAsked()
+    {
+        // HamQTH e' quello scelto e non conosce la stazione; QRZ si'. La risposta
+        // arriva lo stesso, e dice da dove viene.
+        FakeHttp server;
+        server.respond = [](const QUrlQuery& q) -> QByteArray {
+            if (q.hasQueryItem("u"))        return kHamQthLogin;
+            if (q.hasQueryItem("username")) return kQrzLogin;
+            if (q.hasQueryItem("prg"))      return kHamQthNotFound;
+            return kQrzCallsign;
+        };
+
+        CallbookClient client;
+        client.setEndpoints(server.url(), server.url());
+        client.setProvider(CallbookClient::Provider::HamQth);
+        giveCredentials(client, "right");
+        QSignalSpy found(&client, &CallbookClient::found);
+        QSignalSpy failed(&client, &CallbookClient::failed);
+
+        client.lookup("EA8OH");
+        QVERIFY(found.wait(5000));
+        QCOMPARE(failed.size(), 0);
+        const auto record = found.first().at(1).value<CallbookRecord>();
+        QCOMPARE(record.call, QStringLiteral("EA8OH"));
+        QCOMPARE(record.source, QStringLiteral("QRZ.com"));
+        QCOMPARE(record.grid, QStringLiteral("IL18QI"));
+
+        // Spento il ripiego, resta il "non lo so" del primo.
+        CallbookClient alone;
+        alone.setEndpoints(server.url(), server.url());
+        alone.setProvider(CallbookClient::Provider::HamQth);
+        alone.setFallbackEnabled(false);
+        giveCredentials(alone, "right");
+        QSignalSpy failedAlone(&alone, &CallbookClient::failed);
+        alone.lookup("EA8OH");
+        QVERIFY(failedAlone.wait(5000));
+        QVERIFY(failedAlone.first().at(1).toString().contains(QStringLiteral("HamQTH")));
+    }
+
+    void withoutTheOtherCredentialsThereIsNoFallback()
+    {
+        FakeHttp server;
+        server.respond = [](const QUrlQuery& q) -> QByteArray {
+            if (q.hasQueryItem("u")) return kHamQthLogin;
+            if (q.hasQueryItem("prg")) return kHamQthNotFound;
+            return kQrzLogin;
+        };
+        CallbookClient client;
+        client.setEndpoints(server.url(), server.url());
+        client.setProvider(CallbookClient::Provider::HamQth);
+        // Solo HamQTH ha un utente: a QRZ non si bussa nemmeno.
+        client.setCredentialReaders(
+            [](const QString& service) { return service == QLatin1String("hamqth") ? QStringLiteral("IU8LMC") : QString(); },
+            [](const QString&, std::function<void(const QString&, const QString&)> done) { done(QStringLiteral("right"), {}); });
+        QSignalSpy failed(&client, &CallbookClient::failed);
+        client.lookup("EA8OH");
+        QVERIFY(failed.wait(5000));
+        for (const QUrlQuery& q : server.requests)
+            QVERIFY(!q.hasQueryItem("username"));
+    }
+
+    void aCallbookWithoutTheGridAsksTheOtherOne()
+    {
+        // HamQTH sa nome e citta' ma non il quadrato e nemmeno dove sta: QRZ
+        // sa il quadrato. Le due risposte si mettono insieme.
+        FakeHttp server;
+        server.respond = [](const QUrlQuery& q) -> QByteArray {
+            if (q.hasQueryItem("u"))        return kHamQthLogin;
+            if (q.hasQueryItem("username")) return kQrzLogin;
+            if (q.hasQueryItem("prg"))      return kHamQthNoGrid;
+            return kQrzCallsign;
+        };
+
+        CallbookClient client;
+        client.setEndpoints(server.url(), server.url());
+        client.setProvider(CallbookClient::Provider::HamQth);
+        giveCredentials(client, "right");
+        QSignalSpy found(&client, &CallbookClient::found);
+
+        client.lookup("EA8OH");
+        QVERIFY(found.wait(5000));
+        const auto record = found.first().at(1).value<CallbookRecord>();
+        // Il nome resta quello del primo, il quadrato arriva dal secondo.
+        QCOMPARE(record.name, QStringLiteral("Pekka"));
+        QCOMPARE(record.qth, QStringLiteral("Las Palmas"));
+        QCOMPARE(record.grid, QStringLiteral("IL18QI"));
+        QVERIFY(record.source.contains(QStringLiteral("HamQTH")));
+        QVERIFY(record.source.contains(QStringLiteral("QRZ")));
+
+        // E se il secondo non risponde, vale lo stesso quello che sa il primo.
+        FakeHttp mute;
+        mute.respond = [](const QUrlQuery& q) -> QByteArray {
+            if (q.hasQueryItem("u"))   return kHamQthLogin;
+            if (q.hasQueryItem("prg")) return kHamQthNoGrid;
+            return kQrzBadPassword;         // QRZ non ci fa entrare
+        };
+        CallbookClient half;
+        half.setEndpoints(mute.url(), mute.url());
+        half.setProvider(CallbookClient::Provider::HamQth);
+        giveCredentials(half, "right");
+        QSignalSpy foundHalf(&half, &CallbookClient::found);
+        QSignalSpy failedHalf(&half, &CallbookClient::failed);
+        half.lookup("EA8OH");
+        QVERIFY(foundHalf.wait(5000));
+        QCOMPARE(failedHalf.size(), 0);
+        QCOMPARE(foundHalf.first().at(1).value<CallbookRecord>().name, QStringLiteral("Pekka"));
     }
 };
 

@@ -219,6 +219,8 @@ DecoLogController::DecoLogController(QObject* parent)
     // Completare i QSO appena scritti: chi ha un callbook lo vuole, e chi non
     // ce l'ha non se ne accorge.
     m_callbookComplete = s.value(QStringLiteral("callbook/completeLogged"), true).toBool();
+    m_callbookFallback = s.value(QStringLiteral("callbook/fallback"), true).toBool();
+    m_callbook.setFallbackEnabled(m_callbookFallback);
     connect(&m_callbook, &CallbookClient::found, this, [this](const QString& call, const CallbookRecord& record) {
         m_callbookResults.insert(call, record.toMap());
         m_callbookErrors.remove(call);
@@ -255,6 +257,11 @@ DecoLogController::DecoLogController(QObject* parent)
         if (call == m_lookupCall)
             refreshCallInfo();
     });
+    // La coda dei lavori di gruppo: una ricerca ogni mezzo secondo, cosi' il
+    // servizio non si arrabbia e il programma resta vivo.
+    m_callbookQueueTimer.setInterval(500);
+    connect(&m_callbookQueueTimer, &QTimer::timeout, this, &DecoLogController::serveCallbookQueue);
+
     // Si cerca quando si smette di scrivere, non a ogni lettera.
     m_callbookDebounce.setSingleShot(true);
     m_callbookDebounce.setInterval(600);
@@ -2146,6 +2153,16 @@ void DecoLogController::setCallbookProvider(const QString& id)
     requestCallbook();
 }
 
+void DecoLogController::setCallbookFallback(bool enabled)
+{
+    if (enabled == m_callbookFallback)
+        return;
+    m_callbookFallback = enabled;
+    m_callbook.setFallbackEnabled(enabled);
+    QSettings().setValue(QStringLiteral("callbook/fallback"), enabled);
+    emit callbookChanged();
+}
+
 void DecoLogController::setCallbookComplete(bool complete)
 {
     if (complete == m_callbookComplete)
@@ -2204,6 +2221,130 @@ int DecoLogController::completeShownFromCallbook()
                     QStringLiteral("info"));
     }
     return asked;
+}
+
+int DecoLogController::completeMissingFromCallbook()
+{
+    const QList<qint64> ids = m_db.idsMissingCallbookData();
+    if (ids.isEmpty() && m_callbookQueue.isEmpty()) {
+        addActivity(QStringLiteral("CALLBOOK"), tr("Every QSO already has its grid."),
+                    QStringLiteral("info"));
+        return 0;
+    }
+    return enqueueCallbook(ids);
+}
+
+int DecoLogController::enqueueCallbook(const QList<qint64>& ids)
+{
+    if (m_callbook.provider() == core::CallbookClient::Provider::None || ids.isEmpty())
+        return 0;
+    if (m_callbookQueue.isEmpty()) {
+        m_callbookQueueDone = 0;
+        m_callbookQueueTotal = 0;
+    }
+    m_callbookQueue += ids;
+    m_callbookQueueTotal += static_cast<int>(ids.size());
+    addActivity(QStringLiteral("CALLBOOK"),
+                tr("%n QSO to complete from the callbook: one search at a time, it takes a while.",
+                   nullptr, static_cast<int>(ids.size())),
+                QStringLiteral("info"));
+    m_callbookQueueTimer.start();
+    emit callbookChanged();
+    return static_cast<int>(ids.size());
+}
+
+void DecoLogController::stopCallbookQueue()
+{
+    if (m_callbookQueue.isEmpty() && !m_callbookQueueTimer.isActive())
+        return;
+    m_callbookQueue.clear();
+    m_callbookQueueTimer.stop();
+    addActivity(QStringLiteral("CALLBOOK"),
+                tr("Stopped: %1 of %2 QSO done.").arg(m_callbookQueueDone).arg(m_callbookQueueTotal),
+                QStringLiteral("warning"));
+    emit callbookChanged();
+}
+
+void DecoLogController::serveCallbookQueue()
+{
+    // Un giro serve un QSO che ha bisogno della rete; quelli che il callbook ha
+    // gia' in tasca si fanno tutti insieme, perche' non costano niente.
+    int localOnes = 0;
+    while (!m_callbookQueue.isEmpty()) {
+        const qint64 id = m_callbookQueue.takeFirst();
+        ++m_callbookQueueDone;
+        const auto record = m_db.record(id);
+        if (!record)
+            continue;
+        const QString call = record->value(QStringLiteral("CALL")).toUpper();
+        const bool cached = m_callbookResults.contains(call);
+        completeQsoFromCallbook(id);
+        if (!cached)
+            break;
+        if (++localOnes >= 50)
+            break;
+    }
+    if (m_callbookQueue.isEmpty()) {
+        m_callbookQueueTimer.stop();
+        addActivity(QStringLiteral("CALLBOOK"),
+                    tr("Callbook: %1 QSO looked at.").arg(m_callbookQueueDone),
+                    QStringLiteral("success"));
+    } else if (m_callbookQueueDone % 50 == 0) {
+        addActivity(QStringLiteral("CALLBOOK"),
+                    tr("Callbook: %1 of %2…").arg(m_callbookQueueDone).arg(m_callbookQueueTotal),
+                    QStringLiteral("info"));
+    }
+    emit callbookChanged();
+}
+
+int DecoLogController::damagedFieldCount() const
+{
+    return static_cast<int>(m_db.idsWithDamagedText().size());
+}
+
+int DecoLogController::repairImportedFields()
+{
+    const QList<qint64> ids = m_db.idsWithDamagedText();
+    QList<qint64> emptied;
+    int repaired = 0;
+    for (const qint64 id : ids) {
+        const auto record = m_db.record(id);
+        if (!record)
+            continue;
+        AdifRecord fixed = *record;
+        bool changed = false;
+        bool emptiedHere = false;
+        for (const char* name : {"NAME", "QTH", "ADDRESS", "COMMENT", "NOTES", "COUNTRY", "QSL_VIA"}) {
+            const QString value = fixed.value(QLatin1String(name));
+            if (value.isEmpty())
+                continue;
+            const QString clean = core::adif::repairTruncated(value);
+            if (clean == value)
+                continue;
+            fixed.set(QLatin1String(name), clean);
+            changed = true;
+            if (clean.isEmpty())
+                emptiedHere = true;
+        }
+        if (!changed)
+            continue;
+        if (m_db.updateQso(id, fixed, -1, QStringLiteral("repair")).status == InsertResult::Status::Inserted) {
+            ++repaired;
+            if (emptiedHere)
+                emptied << id;
+        }
+    }
+    if (repaired > 0) {
+        addActivity(QStringLiteral("LOG"),
+                    tr("%n QSO cleaned up from a bad old import (the previous text stays in the history).",
+                       nullptr, repaired),
+                    QStringLiteral("success"));
+        m_model->reload();
+        emit logChanged();
+        // Quello che si e' dovuto svuotare lo riscrive il callbook, se lo sa.
+        enqueueCallbook(emptied);
+    }
+    return repaired;
 }
 
 void DecoLogController::setCallbookAutofill(bool autofill)

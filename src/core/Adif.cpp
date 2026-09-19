@@ -109,6 +109,25 @@ bool isNonAscii(const QString& s, qsizetype from, qsizetype len)
 
 } // namespace
 
+QString repairTruncated(const QString& value)
+{
+    if (value.contains(QChar(0xFFFD)))
+        return {};
+    const qsizetype open = value.lastIndexOf(QLatin1Char('<'));
+    if (open < 0)
+        return value;
+    // Dopo il '<' ci dev'essere solo il principio di un nome di campo ADIF.
+    for (qsizetype i = open + 1; i < value.size(); ++i) {
+        const QChar c = value.at(i);
+        if (!c.isLetterOrNumber() && c != QLatin1Char('_'))
+            return value;
+    }
+    QString clean = value.left(open).trimmed();
+    while (!clean.isEmpty() && (clean.endsWith(QLatin1Char(',')) || clean.endsWith(QLatin1Char('-'))))
+        clean.chop(1);
+    return clean.trimmed();
+}
+
 AdifDocument parse(const QByteArray& data)
 {
     const QString text = decode(data);

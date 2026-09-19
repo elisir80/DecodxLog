@@ -49,6 +49,14 @@ namespace adif {
 // se non e' UTF-8 valido.
 AdifDocument parse(const QByteArray& data);
 
+// Rimette in piedi un valore rovinato da una vecchia lettura ADIF, quando la
+// lunghezza contata in byte veniva presa per caratteri: il valore restava
+// tagliato e si portava dietro il pezzo del tag seguente ("Vilnius<GRIDSQ").
+// Se dentro c'e' il carattere di sostituzione — un carattere tagliato a meta',
+// che non si puo' indovinare — il valore non vale piu' niente e torna vuoto,
+// cosi' il callbook puo' riscriverlo giusto.
+QString repairTruncated(const QString& value);
+
 // Un record o un file intero. Le lunghezze sono in caratteri, come le scrive
 // Decodium.
 QString writeRecord(const AdifRecord& record);
