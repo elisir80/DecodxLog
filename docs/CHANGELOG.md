@@ -3,6 +3,14 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.5.4 — 20 settembre 2026
+
+**Le chiamate in rete passano per HTTP/1.1.** Qualche servizio pubblico chiude gli stream
+HTTP/2 senza finire il discorso, e la richiesta moriva a meta' senza un errore sensato.
+Adesso tutte le chiamate di DecoLog — callbook, LoTW, eQSL, QRZ, Club Log (anche il carico
+a blocco), Cloud, cluster, POTA, dati solari — chiedono HTTP/1.1: stesso TLS, stessi tempi
+di attesa, stessa gestione degli errori, ma la risposta arriva.
+
 ## 0.5.3 — 19 settembre 2026
 
 **La radio si cerca da sola.** In Impostazioni → Radio (CAT) c'e' **Cerca la radio**: prova

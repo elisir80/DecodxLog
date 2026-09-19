@@ -466,6 +466,7 @@ void WebQslUploader::uploadClubLog(const ClubLogAuth& auth, const QByteArray& ad
 
     m_busy = true;
     QNetworkRequest request(m_clubLogBatchUrl);
+    network::useHttp11(request);
     request.setHeader(QNetworkRequest::UserAgentHeader,
                       QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
     request.setTransferTimeout(120'000);   // un blocco grosso ci mette di piu'
