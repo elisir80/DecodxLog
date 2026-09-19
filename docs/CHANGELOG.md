@@ -3,6 +3,19 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.5.2 — 19 settembre 2026
+
+**Le porte COM si leggono col loro nome.** L'elenco delle porte seriali usciva con le righe
+giuste di numero ma **vuote**: i nomi stavano nel registro sotto voci con le barre rovesce
+(\Device\Silabser0) e non si riuscivano a leggere. Adesso le porte si chiedono a Windows
+come si deve, e nella tendina ci sono COM4, COM5 e compagnia.
+
+**Il PTT sulla seconda porta.** Chi ha due porte — il CAT su una, il PTT sull'altra, come
+le CP2105 a doppia porta — adesso lo puo' dire a DecoLog: Impostazioni → Radio (CAT),
+**PTT** su RTS o DTR e la porta dove sta. DecoLog lo passa a rigctld, cosi' **la radio
+trasmette mentre il CAT continua a leggere la frequenza**. C'e' anche **Prova il PTT**, che
+lo preme per un attimo: se la radio va in trasmissione, e' a posto.
+
 ## 0.5.1 — 19 settembre 2026
 
 **Le tendine si leggono di nuovo.** Tutti gli elenchi a discesa si aprivano **vuoti**: le

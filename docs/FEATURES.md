@@ -1,4 +1,4 @@
-# DecoLog 0.5.1 — funzioni / features
+# DecoLog 0.5.2 — funzioni / features
 
 Ogni voce è in italiano e in inglese: *italiano* / *English*.
 Quello che manca è in fondo.
@@ -175,7 +175,8 @@ Quello che manca è in fondo.
 - **Decoder CW dentro DecoLog**: legge l'audio che esce dalla radio, trova il tono da solo e
   impara la velocita' mentre ascolta. / **CW decoder inside DecoLog**: it reads the audio
   coming out of the radio, finds the tone by itself and learns the speed while listening.
-- **La radio anche col cavo**: modello Hamlib + porta seriale, e rigctld lo avvia DecoLog. /
+- **La radio anche col cavo**: modello Hamlib + porta seriale, e rigctld lo avvia DecoLog; il
+  **PTT** puo' stare su un'altra porta (RTS o DTR), come vuole chi ha due COM. /
   **The radio over the cable too**: Hamlib model + serial port, and DecoLog starts rigctld.
 - **Otto macro CW** sui tasti F1-F8 nella finestra contest, col testo che si scrive a mano e
   i buchi riempiti sul momento ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}); la velocita' in

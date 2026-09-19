@@ -1013,6 +1013,51 @@ DialogFrame {
                         }
                     }
 
+                    //  Il PTT: chi ha due porte tiene il CAT su una e il PTT
+                    //  sull'altra, ed e' la maniera che funziona sempre.
+                    RowLayout {
+                        spacing: 12
+                        visible: decolog.rig.link === "serial"
+                        LabeledField {
+                            label: qsTr("PTT")
+                            StyledComboBox {
+                                Layout.preferredWidth: 220
+                                readonly property var kinds: ["RIG", "RTS", "DTR", "NONE"]
+                                model: [qsTr("The CAT itself (RIG)"), qsTr("RTS on another port"),
+                                        qsTr("DTR on another port"), qsTr("None")]
+                                currentIndex: Math.max(0, kinds.indexOf(decolog.rig.pttType))
+                                onActivated: decolog.rig.pttType = kinds[currentIndex]
+                            }
+                        }
+                        LabeledField {
+                            label: qsTr("PTT port")
+                            StyledComboBox {
+                                Layout.preferredWidth: 140
+                                editable: true
+                                enabled: decolog.rig.pttType === "RTS" || decolog.rig.pttType === "DTR"
+                                model: decolog.rig.serialPorts()
+                                editText: decolog.rig.pttPort
+                                onEditTextChanged: decolog.rig.pttPort = editText
+                                onActivated: decolog.rig.pttPort = currentText
+                            }
+                        }
+                        GlassButton {
+                            Layout.alignment: Qt.AlignBottom
+                            Layout.bottomMargin: 2
+                            text: qsTr("Test the PTT")
+                            tone: Theme.warningColor
+                            enabled: decolog.rig.connected
+                            onClicked: decolog.rig.testPtt(900)
+                        }
+                    }
+                    Note {
+                        visible: decolog.rig.link === "serial"
+                        text: qsTr("Two ports is the usual setup: the CAT reads the frequency on one, the "
+                                   + "PTT raises RTS or DTR on the other — so the radio transmits while "
+                                   + "DecoLog keeps reading. With a single cable leave \"the CAT itself\": "
+                                   + "the radio goes into transmit on the CAT command, if it can.")
+                    }
+
                     RowLayout {
                         spacing: 12
                         visible: decolog.rig.link === "network"

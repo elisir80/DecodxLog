@@ -51,6 +51,10 @@ class RigController : public QObject {
     Q_PROPERTY(QString serialPort READ serialPort WRITE setSerialPort NOTIFY changed)
     Q_PROPERTY(int rigModel READ rigModel WRITE setRigModel NOTIFY changed)
     Q_PROPERTY(int baud READ baud WRITE setBaud NOTIFY changed)
+    // Il PTT: tante stazioni hanno due porte, una per il CAT e una per il PTT.
+    // "RIG" = lo fa il CAT stesso, "RTS"/"DTR" = il piedino della seconda porta.
+    Q_PROPERTY(QString pttType READ pttType WRITE setPttType NOTIFY changed)
+    Q_PROPERTY(QString pttPort READ pttPort WRITE setPttPort NOTIFY changed)
 
 public:
     struct Context {
@@ -113,6 +117,13 @@ public:
     void setRigModel(int model);
     int baud() const { return m_baud; }
     void setBaud(int baud);
+    QString pttType() const { return m_pttType; }
+    void setPttType(const QString& type);
+    QString pttPort() const { return m_pttPort; }
+    void setPttPort(const QString& port);
+    // Preme e rilascia il PTT per un attimo, per sentire se la radio va in
+    // trasmissione davvero.
+    Q_INVOKABLE void testPtt(int milliseconds = 900);
     // I modelli che conosce Hamlib, letti da "rigctl -l": {id, name}.
     Q_INVOKABLE QVariantList rigModels();
     // Le porte seriali di questo computer.
@@ -148,6 +159,8 @@ private:
     QString m_serialPort;
     int m_rigModel{0};
     int m_baud{38400};
+    QString m_pttType{QStringLiteral("RIG")};
+    QString m_pttPort;
     QVariantList m_models;
     QVariantList m_macros;
     QString m_host{QStringLiteral("127.0.0.1")};

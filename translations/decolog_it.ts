@@ -3880,6 +3880,38 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Baud</translation>
     </message>
     <message>
+        <source>PTT</source>
+        <translation>PTT</translation>
+    </message>
+    <message>
+        <source>The CAT itself (RIG)</source>
+        <translation>Il CAT stesso (RIG)</translation>
+    </message>
+    <message>
+        <source>RTS on another port</source>
+        <translation>RTS su un'altra porta</translation>
+    </message>
+    <message>
+        <source>DTR on another port</source>
+        <translation>DTR su un'altra porta</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Nessuno</translation>
+    </message>
+    <message>
+        <source>PTT port</source>
+        <translation>Porta del PTT</translation>
+    </message>
+    <message>
+        <source>Test the PTT</source>
+        <translation>Prova il PTT</translation>
+    </message>
+    <message>
+        <source>Two ports is the usual setup: the CAT reads the frequency on one, the PTT raises RTS or DTR on the other — so the radio transmits while DecoLog keeps reading. With a single cable leave &quot;the CAT itself&quot;: the radio goes into transmit on the CAT command, if it can.</source>
+        <translation>Due porte è la maniera di sempre: il CAT legge la frequenza su una, il PTT alza RTS o DTR sull'altra — così la radio trasmette mentre DecoLog continua a leggere. Con un cavo solo lascia «il CAT stesso»: la radio va in trasmissione col comando CAT, se ci riesce.</translation>
+    </message>
+    <message>
         <source>Connect now</source>
         <translation>Collegati adesso</translation>
     </message>
@@ -5133,6 +5165,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Sent: %1</source>
         <translation>Mandato: %1</translation>
+    </message>
+    <message>
+        <source>The radio is not connected: no PTT</source>
+        <translation>La radio non è collegata: niente PTT</translation>
+    </message>
+    <message>
+        <source>PTT on for a moment: the radio should transmit</source>
+        <translation>PTT premuto per un attimo: la radio dovrebbe trasmettere</translation>
     </message>
     <message>
         <source>Hamlib not found: install it, or start rigctld yourself and use the network link</source>

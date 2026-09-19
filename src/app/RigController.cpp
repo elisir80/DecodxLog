@@ -10,12 +10,18 @@
 #include <QMediaDevices>
 #include <QSettings>
 #include <QTcpServer>
+#include <QTimer>
+#include <QVarLengthArray>
 #include <QThread>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QLocale>
 #include <QRegularExpression>
 #include <QSettings>
+
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
 
 namespace decolog::app {
 
@@ -34,6 +40,8 @@ RigController::RigController(Context context, QObject* parent)
     m_serialPort = s.value(QStringLiteral("rig/serialPort")).toString();
     m_rigModel = s.value(QStringLiteral("rig/model"), 0).toInt();
     m_baud = s.value(QStringLiteral("rig/baud"), 38400).toInt();
+    m_pttType = s.value(QStringLiteral("rig/pttType"), QStringLiteral("RIG")).toString();
+    m_pttPort = s.value(QStringLiteral("rig/pttPort")).toString();
     m_audioInput = s.value(QStringLiteral("cw/audioInput")).toString();
     loadMacros();
 
@@ -105,6 +113,44 @@ void RigController::setPort(int port)
     emit changed();
 }
 
+void RigController::setPttType(const QString& type)
+{
+    const QString clean = type.trimmed().toUpper();
+    if (clean == m_pttType)
+        return;
+    m_pttType = clean;
+    QSettings().setValue(QStringLiteral("rig/pttType"), clean);
+    if (m_enabled && m_link == QLatin1String("serial"))
+        connectNow();
+    emit changed();
+}
+
+void RigController::setPttPort(const QString& port)
+{
+    if (port == m_pttPort)
+        return;
+    m_pttPort = port.trimmed();
+    QSettings().setValue(QStringLiteral("rig/pttPort"), m_pttPort);
+    if (m_enabled && m_link == QLatin1String("serial"))
+        connectNow();
+    emit changed();
+}
+
+void RigController::testPtt(int milliseconds)
+{
+    if (!m_rig.connected()) {
+        if (m_ctx.activity)
+            m_ctx.activity(QStringLiteral("CAT"), tr("The radio is not connected: no PTT"),
+                           QStringLiteral("warning"));
+        return;
+    }
+    m_rig.setPtt(true);
+    if (m_ctx.activity)
+        m_ctx.activity(QStringLiteral("CAT"), tr("PTT on for a moment: the radio should transmit"),
+                       QStringLiteral("info"));
+    QTimer::singleShot(qBound(100, milliseconds, 5000), this, [this] { m_rig.setPtt(false); });
+}
+
 void RigController::setWpm(int wpm)
 {
     const int clamped = qBound(5, wpm, 60);
@@ -166,11 +212,18 @@ void RigController::startLocalRigctld()
     m_host = QStringLiteral("127.0.0.1");
     m_port = chosen;
     m_rigctld = std::make_unique<QProcess>();
-    const QStringList arguments{QStringLiteral("-m"), QString::number(m_rigModel),
-                                QStringLiteral("-r"), m_serialPort,
-                                QStringLiteral("-s"), QString::number(m_baud),
-                                QStringLiteral("-T"), QStringLiteral("127.0.0.1"),
-                                QStringLiteral("-t"), QString::number(chosen)};
+    QStringList arguments{QStringLiteral("-m"), QString::number(m_rigModel),
+                          QStringLiteral("-r"), m_serialPort,
+                          QStringLiteral("-s"), QString::number(m_baud),
+                          QStringLiteral("-T"), QStringLiteral("127.0.0.1"),
+                          QStringLiteral("-t"), QString::number(chosen)};
+    // Il PTT su un'altra porta: e' il caso di tante stazioni, dove il CAT sta
+    // su una COM e il PTT alza RTS o DTR sull'altra.
+    if (m_pttType != QLatin1String("RIG") && !m_pttType.isEmpty()) {
+        arguments << QStringLiteral("-P") << m_pttType;
+        if (!m_pttPort.isEmpty())
+            arguments << QStringLiteral("-p") << m_pttPort;
+    }
     m_rigctld->start(exe, arguments);
     if (!m_rigctld->waitForStarted(4000)) {
         if (m_ctx.activity)
@@ -258,11 +311,20 @@ QStringList RigController::serialPorts() const
 {
     QStringList out;
 #ifdef Q_OS_WIN
-    // Le porte che Windows dichiara, senza dipendere da altro.
-    QSettings ports(QStringLiteral("HKEY_LOCAL_MACHINE\\HARDWARE\\DEVICEMAP\\SERIALCOMM"),
-                    QSettings::NativeFormat);
-    for (const QString& key : ports.allKeys())
-        out << ports.value(key).toString();
+    // Si chiede a Windows l'elenco dei nomi di dispositivo e si tengono le COM.
+    // Dal registro non si poteva: i nomi delle voci hanno le barre rovesce
+    // (\Device\Silabser0) e QSettings non le sa leggere — infatti l'elenco
+    // usciva con le righe giuste di numero ma vuote.
+    QVarLengthArray<wchar_t, 65536> buffer(65536);
+    const DWORD length = QueryDosDeviceW(nullptr, buffer.data(), static_cast<DWORD>(buffer.size()));
+    for (DWORD i = 0; i < length;) {
+        const QString name = QString::fromWCharArray(buffer.data() + i);
+        if (name.isEmpty())
+            break;
+        if (name.startsWith(QLatin1String("COM")) && name.size() > 3 && name.at(3).isDigit())
+            out << name;
+        i += static_cast<DWORD>(name.size()) + 1;
+    }
 #else
     const QDir dev(QStringLiteral("/dev"));
     for (const QString& name : dev.entryList({QStringLiteral("ttyUSB*"), QStringLiteral("ttyACM*"),
