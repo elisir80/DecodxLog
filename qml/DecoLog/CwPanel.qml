@@ -22,6 +22,9 @@ GlassPanel {
 
     readonly property var rig: decolog.rig
 
+    // Per le schermate di prova: apre la tendina dell'ingresso audio.
+    function showCombo() { audioBox.popup.open() }
+
     function cwContext() {
         return {
             call: root.callsign.trim(),
@@ -59,6 +62,19 @@ GlassPanel {
         anchors.fill: parent
         spacing: 6
 
+        // Il collegamento c'e' ma il CW non passa: lo si dice, invece di
+        // lasciare i tasti che non fanno niente.
+        Text {
+            Layout.fillWidth: true
+            visible: root.rig.connected && !root.rig.canKeyCw
+            wrapMode: Text.Wrap
+            color: Theme.errorColor
+            font.pixelSize: 12
+            text: qsTr("This CAT link does not key CW: it reads the radio but it cannot send. "
+                       + "For the macros connect rigctld to the radio itself (Setup → Radio (CAT) "
+                       + "→ serial cable).")
+        }
+
         // La radio spenta non si nasconde: si dice dov'e' l'interruttore.
         Text {
             Layout.fillWidth: true
@@ -84,7 +100,7 @@ GlassPanel {
                     Layout.fillWidth: true
                     buttonHeight: 28
                     fontPixelSize: 12
-                    enabled: root.rig.connected
+                    enabled: root.rig.connected && root.rig.canKeyCw
                     text: "F%1 %2".arg(index + 1).arg(modelData.label)
                     tone: index === 0 ? Theme.accentColor : "transparent"
                     onClicked: root.rig.sendMacro(index, root.cwContext())
@@ -156,6 +172,7 @@ GlassPanel {
                 onToggled: root.rig.decoderOn = checked
             }
             StyledComboBox {
+                id: audioBox
                 Layout.fillWidth: true
                 mono: false
                 fieldHeight: 26

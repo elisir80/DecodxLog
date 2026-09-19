@@ -43,7 +43,12 @@ RigController::RigController(Context context, QObject* parent)
             m_ctx.activity(QStringLiteral("CAT"), message, QStringLiteral("warning"));
         emit stateChanged();
     });
+    connect(&m_rig, &RigControl::morseUnsupported, this, [this] {
+        m_canKeyCw = false;
+        emit stateChanged();
+    });
     connect(&m_rig, &RigControl::morseSent, this, [this](const QString& text) {
+        m_canKeyCw = true;
         if (m_ctx.activity)
             m_ctx.activity(QStringLiteral("CW"), tr("Sent: %1").arg(text), QStringLiteral("info"));
     });
@@ -120,6 +125,8 @@ void RigController::overrideConnection(const QString& host, int port)
 
 void RigController::connectNow()
 {
+    // Radio nuova, speranza nuova: finche' non dice di no, si prova.
+    m_canKeyCw = true;
     if (m_link == QLatin1String("serial"))
         startLocalRigctld();
     m_rig.connectTo(m_host, static_cast<quint16>(m_port));

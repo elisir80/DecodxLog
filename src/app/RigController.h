@@ -32,6 +32,9 @@ class RigController : public QObject {
     Q_PROPERTY(QString frequencyLabel READ frequencyLabel NOTIFY stateChanged)
     Q_PROPERTY(QString mode READ mode NOTIFY stateChanged)
     Q_PROPERTY(int wpm READ wpm WRITE setWpm NOTIFY stateChanged)
+    // Questo collegamento il CW non lo sa mandare (per esempio il ponte CAT
+    // di Decodium): le macro restano spente e si dice perche'.
+    Q_PROPERTY(bool canKeyCw READ canKeyCw NOTIFY stateChanged)
     // Le otto macro, come {label, text}.
     Q_PROPERTY(QVariantList macros READ macros NOTIFY macrosChanged)
     // Il decoder CW: ascolta l'audio che esce dalla radio e scrive quello che
@@ -75,6 +78,7 @@ public:
     QString frequencyLabel() const;
     QString mode() const { return m_rig.mode(); }
     int wpm() const { return m_rig.speedWpm() > 0 ? m_rig.speedWpm() : m_wpm; }
+    bool canKeyCw() const { return m_canKeyCw; }
     void setWpm(int wpm);
     QVariantList macros() const { return m_macros; }
 
@@ -149,6 +153,7 @@ private:
     QString m_host{QStringLiteral("127.0.0.1")};
     int m_port{4532};
     int m_wpm{24};
+    bool m_canKeyCw{true};
     bool m_enabled{false};
 };
 

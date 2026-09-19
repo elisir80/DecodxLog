@@ -19,6 +19,9 @@ public:
     QString mode{"CW"};
     int keyspd{22};
     bool morseWorks{true};
+    // Il ponte CAT di Decodium risponde col valore e basta: niente eco del
+    // comando, niente RPRT. DecoLog deve capire anche quello.
+    bool plainAnswers{false};
 
     FakeRigctld()
     {
@@ -40,6 +43,17 @@ public:
     QString answer(const QString& line)
     {
         const QString cmd = line.startsWith(QLatin1Char('+')) ? line.mid(1) : line;
+        if (plainAnswers) {
+            if (cmd == QLatin1String("f"))
+                return QStringLiteral("%1\n").arg(frequency);
+            if (cmd == QLatin1String("m"))
+                return QStringLiteral("%1\n3000\n").arg(mode);
+            if (cmd == QLatin1String("l KEYSPD"))
+                return QStringLiteral("%1\n").arg(keyspd);
+            if (cmd.startsWith(QLatin1String("b ")))
+                return QStringLiteral("RPRT -11\n");
+            return QStringLiteral("RPRT 0\n");
+        }
         if (cmd == QLatin1String("f"))
             return QStringLiteral("get_freq:\nFrequency: %1\nRPRT 0\n").arg(frequency);
         if (cmd == QLatin1String("m"))
@@ -111,7 +125,7 @@ private slots:
         QVERIFY(rig.received.contains(QStringLiteral("+b CQ TEST IU8LMC")));
 
         control.stopMorse();
-        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+\stop_morse")), 5000);
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+\\stop_morse")), 5000);
     }
 
     void aRadioThatDoesNotKeyCwSaysSo()
@@ -135,6 +149,38 @@ private slots:
         control.sendMorse(QStringLiteral("CQ"));
         QCOMPARE(failed.size(), 1);
         QVERIFY(!control.connected());
+    }
+
+    void understandsARigctldThatAnswersPlainly()
+    {
+        // Come il ponte CAT di Decodium: "+f" -> "14084000", senza RPRT.
+        FakeRigctld rig;
+        rig.plainAnswers = true;
+        rig.frequency = 14084000;
+        rig.mode = QStringLiteral("PKTUSB");
+        RigControl control;
+        control.connectTo(QStringLiteral("127.0.0.1"), rig.serverPort());
+        QTRY_VERIFY_WITH_TIMEOUT(control.connected(), 5000);
+
+        QTRY_COMPARE_WITH_TIMEOUT(control.frequencyHz(), 14084000LL, 5000);
+        QCOMPARE(control.mode(), QStringLiteral("PKTUSB"));
+        // E la coda non si inceppa: al giro dopo chiede ancora.
+        const qsizetype before = rig.received.size();
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.size() > before + 2, 6000);
+    }
+
+    void aCatBridgeThatCannotKeyCwSaysItClearly()
+    {
+        FakeRigctld rig;
+        rig.plainAnswers = true;
+        RigControl control;
+        control.connectTo(QStringLiteral("127.0.0.1"), rig.serverPort());
+        QTRY_VERIFY_WITH_TIMEOUT(control.connected(), 5000);
+
+        QSignalSpy unsupported(&control, &RigControl::morseUnsupported);
+        control.sendMorse(QStringLiteral("CQ"));
+        QVERIFY(unsupported.wait(5000));
+        QVERIFY(control.status().contains(QStringLiteral("CW")));
     }
 };
 

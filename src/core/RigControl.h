@@ -52,14 +52,17 @@ signals:
     void failed(const QString& message);
     // Il testo e' stato preso dalla radio: e' partito in aria.
     void morseSent(const QString& text);
+    // Questa radio (o questo ponte CAT) il CW non lo sa mandare.
+    void morseUnsupported();
 
 private:
     struct Pending {
-        QString kind;   // "freq", "mode", "speed", "morse", "set"
-        QString text;   // per il CW: quello che si e' mandato
+        QString kind;    // "freq", "mode", "speed", "morse", "set"
+        QString text;    // per il CW: quello che si e' mandato
+        int values{0};   // quante righe di valore ci si aspetta, se non arriva RPRT
     };
 
-    void send(const QString& kind, const QString& command, const QString& text = {});
+    void send(const QString& kind, const QString& command, int values, const QString& text = {});
     void readFromRig();
     void handleReply(const QStringList& lines);
     void setStatus(const QString& text);

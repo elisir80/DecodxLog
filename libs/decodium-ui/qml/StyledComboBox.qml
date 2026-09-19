@@ -59,24 +59,55 @@ ComboBox {
         border.color: root.activeFocus || root.popup.visible ? Theme.primaryColor : Theme.glassBorder
     }
 
-    delegate: ItemDelegate {
+    // La riga della tendina la disegniamo noi, con un rettangolo e un testo.
+    // Con ItemDelegate e le proprieta' "required" le righe non venivano create
+    // per gli elenchi di stringhe semplici, e la tendina si apriva vuota: righe
+    // che ci sono e non si leggono. Cosi' invece funzionano tutti gli elenchi.
+    delegate: Rectangle {
         id: option
-        required property var model
-        required property int index
-        width: root.width
+        readonly property int rowIndex: index
+        readonly property var rowValue: typeof modelData !== "undefined" ? modelData : model
+        readonly property bool chosen: root.highlightedIndex === rowIndex || root.currentIndex === rowIndex
+
+        width: ListView.view ? ListView.view.width : root.width
         height: Theme.rowHeight + 2
-        highlighted: root.highlightedIndex === index
-        contentItem: Text {
-            text: option.model[root.textRole] !== undefined ? option.model[root.textRole] : option.model.modelData
-            font: root.font
-            color: Theme.textPrimary
+        color: area.containsMouse || chosen
+               ? Qt.rgba(Theme.primaryColor.r, Theme.primaryColor.g, Theme.primaryColor.b, 0.22)
+               : "transparent"
+
+        Text {
+            anchors.fill: parent
+            anchors.leftMargin: 8
+            anchors.rightMargin: 8
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight
+            font: root.font
+            color: Theme.textPrimary
+            text: {
+                const value = option.rowValue
+                if (value === undefined || value === null)
+                    return ""
+                if (typeof value === "string")
+                    return value
+                if (root.textRole.length > 0 && value[root.textRole] !== undefined)
+                    return value[root.textRole]
+                if (value.display !== undefined)
+                    return value.display
+                return String(value)
+            }
         }
-        background: Rectangle {
-            color: option.highlighted ? Qt.rgba(Theme.primaryColor.r, Theme.primaryColor.g,
-                                                Theme.primaryColor.b, 0.22)
-                                      : "transparent"
+
+        MouseArea {
+            id: area
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            onEntered: root.highlightedIndex = option.rowIndex
+            onClicked: {
+                root.currentIndex = option.rowIndex
+                root.activated(option.rowIndex)
+                root.popup.close()
+            }
         }
     }
 

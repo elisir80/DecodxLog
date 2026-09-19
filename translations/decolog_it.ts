@@ -1275,8 +1275,12 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Ferma</translation>
     </message>
     <message>
+        <source>This CAT link does not key CW: it reads the radio but it cannot send. For the macros connect rigctld to the radio itself (Setup → Radio (CAT) → serial cable).</source>
+        <translation>Questo collegamento CAT il CW non lo manda: legge la radio ma non trasmette. Per le macro collega rigctld alla radio stessa (Impostazioni → Radio (CAT) → cavo seriale).</translation>
+    </message>
+    <message>
         <source>The radio is off: Setup → Radio (CAT) to turn it on. The decoder works anyway, it only needs the audio coming out of the radio.</source>
-        <translation>La radio è spenta: si accende da Impostazioni → Radio (CAT). Il decoder funziona lo stesso, gli basta l'audio che esce dalla radio.</translation>
+        <translation>La radio è spenta: si accende da Impostazioni → Radio (CAT). Il decoder funziona lo stesso, gli basta l&apos;audio che esce dalla radio.</translation>
     </message>
     <message>
         <source>Speed</source>
@@ -3957,7 +3961,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Every radio is spoken to by Hamlib, not by DecoLog. With the serial cable pick the model and the port and DecoLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
-        <translation>A parlare con le radio è Hamlib, non DecoLog. Col cavo seriale scegli il modello e la porta e rigctld lo avvia DecoLog da solo; se rigctld ce l'hai già acceso (per un altro programma, o su un altro computer) basta host e porta. Da lì DecoLog legge frequenza e modo, può spostare la radio, e passa le macro CW al manipolatore della radio.</translation>
+        <translation>A parlare con le radio è Hamlib, non DecoLog. Col cavo seriale scegli il modello e la porta e rigctld lo avvia DecoLog da solo; se rigctld ce l&apos;hai già acceso (per un altro programma, o su un altro computer) basta host e porta. Da lì DecoLog legge frequenza e modo, può spostare la radio, e passa le macro CW al manipolatore della radio.</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -5148,11 +5152,11 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>No audio input to listen to</source>
-        <translation>Non c'è nessun ingresso audio da ascoltare</translation>
+        <translation>Non c&apos;è nessun ingresso audio da ascoltare</translation>
     </message>
     <message>
         <source>The audio input did not open</source>
-        <translation>L'ingresso audio non si è aperto</translation>
+        <translation>L&apos;ingresso audio non si è aperto</translation>
     </message>
     <message>
         <source>CW decoder listening to %1</source>
@@ -5468,8 +5472,12 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>La radio non è collegata: in CW non è partito niente</translation>
     </message>
     <message>
-        <source>The radio did not take the CW text (rigctld: %1). Not every radio keys CW over CAT.</source>
-        <translation>La radio non ha preso il testo in CW (rigctld: %1). Non tutte le radio manipolano il CW dal CAT.</translation>
+        <source>This CAT link does not key CW (rigctld: %1)</source>
+        <translation>Questo collegamento CAT non manda il CW (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio did not take the CW text (rigctld: %1). Not every radio — and not every CAT bridge — can key CW: for the macros you need rigctld talking to the radio itself.</source>
+        <translation>La radio non ha preso il testo in CW (rigctld: %1). Non tutte le radio — e non tutti i ponti CAT — sanno manipolare: per le macro serve rigctld collegato alla radio stessa.</translation>
     </message>
     <message>
         <source>The radio answered with an error (rigctld: %1)</source>

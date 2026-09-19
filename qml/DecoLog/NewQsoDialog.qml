@@ -49,6 +49,9 @@ DialogFrame {
     }
 
     // `keep`: resta aperta con banda, modo, potenza e referenze, per il QSO dopo.
+    // Per le prove: apre la tendina delle bande.
+    function showBandCombo() { bandBox.popup.open() }
+
     function submit(keep) {
         const error = decolog.logManualQso({
             call: callField.text, date: dateField.text, time: timeField.text,

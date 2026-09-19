@@ -3,6 +3,28 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.5.1 — 19 settembre 2026
+
+**Le tendine si leggono di nuovo.** Tutti gli elenchi a discesa si aprivano **vuoti**: le
+righe c'erano, ci si poteva anche cliccare sopra, ma il testo non compariva. Colpa di come
+erano scritte le righe della tendina — con le proprieta' "required" di QML, che con un
+elenco di stringhe semplici fanno saltare la creazione della riga. Adesso la riga la
+disegniamo noi, e funziona con qualsiasi tipo di elenco: bande, modi, temi, ingressi audio,
+modelli di radio, servizi QSL.
+
+**La radio si legge anche quando il CAT risponde "alla vecchia".** Rigctld chiude ogni
+risposta con RPRT; altri ponti CAT — quello di Decodium, per esempio — rispondono col
+valore e basta. DecoLog si aspettava sempre il RPRT e restava li' ad aspettare: frequenza e
+modo non arrivavano mai. Adesso capisce tutte e due le maniere, e la frequenza della radio
+compare anche collegandosi a Decodium.
+
+**E quando il CW non puo' partire, lo dice.** Non tutti i ponti CAT sanno manipolare: il
+ponte di Decodium, per dire, risponde "non lo so fare". Prima i tasti F1-F8 restavano li'
+senza fare niente; adesso il pannello scrive in chiaro che quel collegamento il CW non lo
+manda e che per le macro serve rigctld attaccato alla radio, e i tasti si spengono. Corretto
+anche il comando di stop del manipolatore, che partiva senza la barra rovescia e quindi
+rigctld non lo capiva.
+
 ## 0.5.0 — 19 settembre 2026
 
 **Il CW sta in piedi da solo.** Il pannello **CW** non e' piu' dentro al contest: si apre

@@ -1,6 +1,9 @@
 #include "core/RigControl.h"
 
 #include <QCoreApplication>
+#include <QDebug>
+
+#include <utility>
 
 namespace decolog::core {
 
@@ -87,11 +90,11 @@ void RigControl::setStatus(const QString& text)
     m_status = text;
 }
 
-void RigControl::send(const QString& kind, const QString& command, const QString& text)
+void RigControl::send(const QString& kind, const QString& command, int values, const QString& text)
 {
     if (!connected())
         return;
-    m_pending.enqueue({kind, text});
+    m_pending.enqueue({kind, text, values});
     m_socket->write(QStringLiteral("+%1\n").arg(command).toUtf8());
 }
 
@@ -100,34 +103,34 @@ void RigControl::refresh()
     // Se la radio non risponde piu', la coda cresce a vuoto: meglio fermarsi.
     if (m_pending.size() > 8)
         return;
-    send(QStringLiteral("freq"), QStringLiteral("f"));
-    send(QStringLiteral("mode"), QStringLiteral("m"));
-    send(QStringLiteral("speed"), QStringLiteral("l KEYSPD"));
+    send(QStringLiteral("freq"), QStringLiteral("f"), 1);
+    send(QStringLiteral("mode"), QStringLiteral("m"), 2);
+    send(QStringLiteral("speed"), QStringLiteral("l KEYSPD"), 1);
 }
 
 void RigControl::setFrequency(qint64 hz)
 {
     if (hz > 0)
-        send(QStringLiteral("set"), QStringLiteral("F %1").arg(hz));
+        send(QStringLiteral("set"), QStringLiteral("F %1").arg(hz), 0);
 }
 
 void RigControl::setMode(const QString& mode)
 {
     const QString clean = mode.trimmed().toUpper();
     if (!clean.isEmpty())
-        send(QStringLiteral("set"), QStringLiteral("M %1 0").arg(clean));
+        send(QStringLiteral("set"), QStringLiteral("M %1 0").arg(clean), 0);
 }
 
 void RigControl::setPtt(bool on)
 {
-    send(QStringLiteral("set"), QStringLiteral("T %1").arg(on ? 1 : 0));
+    send(QStringLiteral("set"), QStringLiteral("T %1").arg(on ? 1 : 0), 0);
 }
 
 void RigControl::setSpeedWpm(int wpm)
 {
     const int clamped = qBound(5, wpm, 60);
     m_wpm = clamped;
-    send(QStringLiteral("set"), QStringLiteral("L KEYSPD %1").arg(clamped));
+    send(QStringLiteral("set"), QStringLiteral("L KEYSPD %1").arg(clamped), 0);
     emit changed();
 }
 
@@ -140,12 +143,13 @@ void RigControl::sendMorse(const QString& text)
         emit failed(tr("The radio is not connected: nothing sent in CW"));
         return;
     }
-    send(QStringLiteral("morse"), QStringLiteral("b %1").arg(clean), clean);
+    send(QStringLiteral("morse"), QStringLiteral("b %1").arg(clean), 0, clean);
 }
 
 void RigControl::stopMorse()
 {
-    send(QStringLiteral("set"), QStringLiteral("\stop_morse"));
+    // Il nome lungo dei comandi di rigctld vuole la barra rovescia davanti.
+    send(QStringLiteral("set"), QStringLiteral("\\stop_morse"), 0);
 }
 
 void RigControl::readFromRig()
@@ -158,8 +162,34 @@ void RigControl::readFromRig()
         const QString line = QString::fromUtf8(m_buffer.left(end)).trimmed();
         m_buffer.remove(0, end + 1);
         m_lines << line;
+
         if (line.startsWith(QLatin1String("RPRT"))) {
             const QStringList block = m_lines;
+            m_lines.clear();
+            handleReply(block);
+            continue;
+        }
+
+        // Rigctld "vero" chiude ogni risposta con RPRT; altri ponti CAT — come
+        // quello di Decodium — rispondono col valore nudo e basta. Allora si
+        // conta: quando sono arrivate tutte le righe che quella domanda si
+        // aspettava, la risposta e' finita lo stesso.
+        if (m_pending.isEmpty())
+            continue;
+        const int wanted = m_pending.head().values;
+        // Le righe del modo esteso hanno i due punti ("get_freq:", "Mode: CW"):
+        // quelle si lasciano stare, perche' li' il RPRT arriva comunque. Si
+        // contano solo i valori nudi, che sono quelli che il RPRT non ce l'hanno.
+        if (wanted <= 0 || line.contains(QLatin1Char(':')))
+            continue;
+        int values = 0;
+        for (const QString& seen : std::as_const(m_lines)) {
+            if (!seen.contains(QLatin1Char(':')))
+                ++values;
+        }
+        if (values >= wanted) {
+            QStringList block = m_lines;
+            block << QStringLiteral("RPRT 0");
             m_lines.clear();
             handleReply(block);
         }
@@ -168,6 +198,8 @@ void RigControl::readFromRig()
 
 void RigControl::handleReply(const QStringList& lines)
 {
+    if (qEnvironmentVariableIsSet("DECOLOG_RIG_DEBUG"))
+        qDebug() << "reply" << lines << "pending" << m_pending.size();
     if (m_pending.isEmpty())
         return;
     const Pending what = m_pending.dequeue();
@@ -177,8 +209,12 @@ void RigControl::handleReply(const QStringList& lines)
         // -1 e' "questa radio non lo sa fare": per il CW vuol dire che il
         // manipolatore della radio non si comanda da qui.
         if (what.kind == QLatin1String("morse")) {
-            emit failed(tr("The radio did not take the CW text (rigctld: %1). "
-                           "Not every radio keys CW over CAT.").arg(result));
+            // -11 e' "non lo so fare": il ponte CAT o la radio non manipolano.
+            setStatus(tr("This CAT link does not key CW (rigctld: %1)").arg(result));
+            emit morseUnsupported();
+            emit failed(tr("The radio did not take the CW text (rigctld: %1). Not every radio — and "
+                           "not every CAT bridge — can key CW: for the macros you need rigctld "
+                           "talking to the radio itself.").arg(result));
         } else if (what.kind != QLatin1String("speed")) {
             emit failed(tr("The radio answered with an error (rigctld: %1)").arg(result));
         }
@@ -193,15 +229,26 @@ void RigControl::handleReply(const QStringList& lines)
         return QString();
     };
 
+    // Senza etichette (risposta nuda) si prendono le righe in ordine.
+    QStringList plain;
+    for (const QString& line : lines) {
+        if (line.startsWith(QLatin1String("RPRT")) || line.endsWith(QLatin1Char(':'))
+            || line.contains(QLatin1String(": ")))
+            continue;
+        plain << line;
+    }
+
     bool moved = false;
     if (what.kind == QLatin1String("freq")) {
-        const qint64 hz = valueOf(QStringLiteral("Frequency")).toLongLong();
+        const QString label = valueOf(QStringLiteral("Frequency"));
+        const qint64 hz = (label.isEmpty() && !plain.isEmpty() ? plain.first() : label).toLongLong();
         if (hz > 0 && hz != m_frequencyHz) {
             m_frequencyHz = hz;
             moved = true;
         }
     } else if (what.kind == QLatin1String("mode")) {
-        const QString mode = valueOf(QStringLiteral("Mode"));
+        const QString label = valueOf(QStringLiteral("Mode"));
+        const QString mode = label.isEmpty() && !plain.isEmpty() ? plain.first() : label;
         if (!mode.isEmpty() && mode != m_mode) {
             m_mode = mode;
             moved = true;

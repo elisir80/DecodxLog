@@ -190,6 +190,9 @@ ApplicationWindow {
         else if (what[0] === "menu") logbook.showMenu(what[1])
         else if (what[0] === "select") logbook.showSelection(what[1], what[2])
         // Lavori di manutenzione, utili anche da riga di comando.
+        else if (what[0] === "combo") { window.showPanel("cw"); comboTimer.start() }
+        else if (what[0] === "combo2") { newQsoDialog.open(); combo2Timer.start() }
+        else if (what[0] === "cwsend") { window.showPanel("cw"); cwSendTimer.start() }
         else if (what[0] === "repair") decolog.repairImportedFields()
         else if (what[0] === "fillall") decolog.completeMissingFromCallbook()
         else if (what[0] === "maintenance") { decolog.repairImportedFields(); decolog.completeMissingFromCallbook() }
@@ -235,6 +238,10 @@ ApplicationWindow {
 
     // Per le prove: svuota il Cloud appena entrato.
     Timer { id: purgeAfterLogin; interval: 4000; onTriggered: decolog.cloud.purgeCloud("DELETE") }
+
+    Timer { id: comboTimer; interval: 800; onTriggered: cwPanel.showCombo() }
+    Timer { id: combo2Timer; interval: 900; onTriggered: newQsoDialog.showBandCombo() }
+    Timer { id: cwSendTimer; interval: 1200; onTriggered: decolog.rig.sendMacro(0, {}) }
 
     NewQsoDialog { id: newQsoDialog }
     QsoDetailDialog { id: qsoDialog }
@@ -523,6 +530,7 @@ ApplicationWindow {
                         onCloseRequested: window.closePanel("callinfo")
                     }
                     CwPanel {
+                        id: cwPanel
                         SplitView.preferredHeight: 260
                         SplitView.minimumHeight: 120
                         visible: window.isPanelDocked("cw")
