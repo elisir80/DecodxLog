@@ -32,7 +32,9 @@ DialogFrame {
 
     title: act.active ? qsTr("Session · %1").arg(root.state.title) : qsTr("Activation / contest")
     dotColor: act.active ? Theme.accentColor : Theme.secondaryColor
-    width: Math.min(760, parent ? parent.width - 60 : 760)
+    dialogKey: "activation"
+    width: 760
+    height: 600
     info: act.active ? qsTr("open since %1 UTC · %2").arg(String(root.state.startedAt).substring(11, 16)).arg(root.state.elapsed)
                      : ""
 
@@ -53,7 +55,7 @@ DialogFrame {
         font.pixelSize: 12
     }
 
-    contentItem: ColumnLayout {
+    body: ColumnLayout {
         anchors.margins: 14
         spacing: 12
 

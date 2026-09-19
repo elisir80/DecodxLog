@@ -36,6 +36,10 @@ ApplicationWindow {
         category: "statsWindow"
         property alias width: root.width
         property alias height: root.height
+        // Anche la posizione: se la finestra sta sul secondo schermo, e' li'
+        // che deve riaprirsi.
+        property alias windowX: root.x
+        property alias windowY: root.y
     }
 
     Connections {

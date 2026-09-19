@@ -18,7 +18,9 @@ DialogFrame {
     dotColor: Theme.secondaryColor
     // Larga quanto serve alla pagina piu' fitta: in italiano le etichette sono
     // piu' lunghe, e una pagina stretta finiva sopra la colonna di sinistra.
-    width: Math.min(960, parent ? parent.width - 40 : 960)
+    dialogKey: "setup"
+    width: 960
+    height: 720
 
     readonly property var pages: [qsTr("General"), qsTr("Theme & density"), qsTr("Decodium link"),
                                   qsTr("Sync & Cloud"), qsTr("QSL services"), qsTr("Callbook"),
@@ -76,7 +78,7 @@ DialogFrame {
         color: Theme.textSecondary
         font.pixelSize: 12
     }
-    contentItem: ColumnLayout {
+    body: ColumnLayout {
         spacing: 0
 
         RowLayout {

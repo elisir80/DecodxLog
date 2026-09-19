@@ -21,6 +21,10 @@ ApplicationWindow {
         property var savedFilters: ({})
         property alias popWidth: root.width
         property alias popHeight: root.height
+        // Anche la posizione: se la finestra sta sul secondo schermo, e' li'
+        // che deve riaprirsi.
+        property alias popX: root.x
+        property alias popY: root.y
     }
 
     QsoDetailDialog { id: qsoDialog }

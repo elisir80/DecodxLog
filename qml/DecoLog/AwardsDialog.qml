@@ -40,15 +40,16 @@ DialogFrame {
     info: qsTr("computed from the log · confirmations: %1")
           .arg([decolog.awardConfirmLotw ? "LoTW" : "", decolog.awardConfirmCard ? qsTr("card") : "",
                 decolog.awardConfirmEqsl ? "eQSL" : ""].filter(s => s).join(" + ") || qsTr("none"))
-    width: Math.min(1180, parent ? parent.width - 60 : 1180)
-    height: Math.min(720, parent ? parent.height - 60 : 720)
+    dialogKey: "awards"
+    width: 1240
+    height: 720
 
     Connections {
         target: decolog
         function onAwardsChanged() { root.revision++ }
     }
 
-    contentItem: RowLayout {
+    body: RowLayout {
         spacing: 0
 
         // ── Elenco degli award ──────────────────────────────────────────────

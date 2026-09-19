@@ -16,7 +16,9 @@ DialogFrame {
     dotColor: Theme.accentColor
     info: decolog.stationProfiles.activeProfile.name
           ? qsTr("Station: %1").arg(decolog.stationProfiles.activeProfile.name) : qsTr("No station profile")
+    dialogKey: "newqso"
     width: 760
+    height: 660
 
     function submodesFor(mode) {
         switch (mode) {
@@ -97,7 +99,7 @@ DialogFrame {
         onActivated: root.submit(false)
     }
 
-    contentItem: ColumnLayout {
+    body: ColumnLayout {
         spacing: 12
 
         GridLayout {

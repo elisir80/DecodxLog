@@ -33,6 +33,10 @@ ApplicationWindow {
         category: "contestWindow"
         property alias width: root.width
         property alias height: root.height
+        // Anche la posizione: se la finestra sta sul secondo schermo, e' li'
+        // che deve riaprirsi.
+        property alias windowX: root.x
+        property alias windowY: root.y
         property alias band: root.band
         property alias mode: root.mode
     }
@@ -427,12 +431,11 @@ ApplicationWindow {
     DialogFrame {
         id: cabrilloDialog
         property string error: ""
-        width: Math.min(680, root.width - 60)
+        dialogKey: "cabrillo"
+        width: 680
+        height: 640
         title: qsTr("Cabrillo header")
         dotColor: Theme.primaryColor
-        leftPadding: 14
-        rightPadding: 14
-        bottomPadding: 14
 
         function openDialog() {
             const d = decolog.activation.cabrilloDefaults()
@@ -455,7 +458,7 @@ ApplicationWindow {
             }
         }
 
-        contentItem: ColumnLayout {
+        body: ColumnLayout {
             anchors.margins: 14
             spacing: 10
 

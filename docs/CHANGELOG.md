@@ -3,6 +3,20 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.3.8 — 19 settembre 2026
+
+**Tutte le finestre sono finestre vere.** Diplomi, Impostazioni, scheda del QSO, nuovo
+QSO, profili stazione, attivazione e testata Cabrillo erano riquadri incollati in mezzo al
+programma: non si spostavano di un millimetro. Adesso sono finestre del sistema, con la
+loro barra del titolo: si trascinano dove si vuole — **su un secondo schermo compreso** —
+si ingrandiscono, si riducono a icona, e si riaprono dove le avevi lasciate, perche'
+misura e posizione di ognuna si ricordano. E non bloccano piu' il resto: mentre guardi i
+diplomi puoi lavorare nel log.
+
+**Anche le altre finestre si ricordano dove stavano.** Statistiche, cluster, rotore,
+contest, QSL cartacee e il log staccato salvavano la misura ma non la posizione: con due
+schermi tornavano sempre su quello principale. Adesso no.
+
 ## 0.3.7 — 19 settembre 2026
 
 **I pannelli fanno quello che gli si dice.** Ogni pannello ha adesso due comandi nella sua

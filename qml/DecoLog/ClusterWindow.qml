@@ -22,6 +22,10 @@ ApplicationWindow {
         category: "clusterWindow"
         property alias width: root.width
         property alias height: root.height
+        // Anche la posizione: se la finestra sta sul secondo schermo, e' li'
+        // che deve riaprirsi.
+        property alias windowX: root.x
+        property alias windowY: root.y
     }
 
     component Section: SectionTitle { Layout.fillWidth: true }

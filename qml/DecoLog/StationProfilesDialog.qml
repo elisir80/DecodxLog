@@ -17,7 +17,9 @@ DialogFrame {
     title: qsTr("Station profiles")
     dotColor: Theme.primaryColor
     info: qsTr("active: %1").arg(profiles.activeProfile.name || "—")
+    dialogKey: "profiles"
     width: 800
+    height: 600
 
     function select(row) {
         selectedRow = row
@@ -57,7 +59,7 @@ DialogFrame {
         }
     }
 
-    contentItem: RowLayout {
+    body: RowLayout {
         spacing: 0
 
         // ── Elenco ──────────────────────────────────────────────────────────

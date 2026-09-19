@@ -23,7 +23,9 @@ DialogFrame {
     dotColor: Theme.primaryColor
     info: detail.uuid ? "#" + qsoId + " · rev " + detail.revision + " · " + detail.uuid.substring(0, 6) + "…"
                         + detail.uuid.slice(-2) : ""
+    dialogKey: "qso"
     width: 820
+    height: 700
 
     // Campi ADIF degli stati QSL per servizio: [inviato, data, ricevuto, data].
     readonly property var qslFields: ({
@@ -150,7 +152,7 @@ DialogFrame {
         }
     }
 
-    contentItem: ColumnLayout {
+    body: ColumnLayout {
         spacing: 0
 
         // ── Intestazione: nominativo, dove, come ────────────────────────────

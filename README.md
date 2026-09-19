@@ -7,7 +7,7 @@ classe (`MODE=MFSK`, `SUBMODE=FT2`).
 Specifica di partenza: [`docs/FASE0_SPEC.md`](docs/FASE0_SPEC.md).
 Licenza: GPL-3.0.
 
-## Stato: 0.3.7
+## Stato: 0.3.8
 
 Dalla 0.3.1: il QSO appena scritto **si completa da solo** con quello che sa il callbook
 (nome, QTH, locatore, indirizzo), diplomi nuovi — **WAC**, **WAAC**, **WAJA**, **AJD**,

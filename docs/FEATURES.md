@@ -1,4 +1,4 @@
-# DecoLog 0.3.7 — funzioni / features
+# DecoLog 0.3.8 — funzioni / features
 
 Ogni voce è in italiano e in inglese: *italiano* / *English*.
 Quello che manca è in fondo.
@@ -449,6 +449,11 @@ Quello che manca è in fondo.
   English**, or like the system.
 - **Pannelli ridimensionabili** ovunque: ogni divisorio si trascina, e le misure restano.
   / **Resizable panels** everywhere: every splitter drags, and the sizes stay.
+- **Ogni finestra e' una finestra del sistema**: diplomi, impostazioni, scheda del QSO,
+  nuovo QSO, profili, attivazione e Cabrillo si spostano su qualsiasi schermo, si
+  ingrandiscono, e si riaprono dove erano. / **Every window is a real window**: awards,
+  setup, QSO card, new QSO, profiles, activation and Cabrillo move to any screen, maximize,
+  and reopen where they were.
 - **Ogni pannello si stacca** in una finestra sua (posizione e misura ricordate) e **si
   chiude**, dalla testata o dal menu **Pannelli** nella barra in alto, che dice per ognuno
   se e' agganciato, in finestra o chiuso e rimette la disposizione di partenza. / **Every
