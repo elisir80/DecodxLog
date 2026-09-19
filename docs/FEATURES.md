@@ -1,4 +1,4 @@
-# DecoLog 0.3.4 — funzioni / features
+# DecoLog 0.3.5 — funzioni / features
 
 Ogni voce è in italiano e in inglese: *italiano* / *English*.
 Quello che manca è in fondo.
@@ -61,6 +61,9 @@ Quello che manca è in fondo.
 - **Menu della riga**: apri, cancella, completa dal callbook, filtra per nominativo,
   filtra per entità, etichetta. / **Row menu**: open, delete, complete from the callbook,
   filter by call, filter by entity, tag.
+- **QSL a parole**: il mouse sopra le lettere L Q C E dice com'e' andata con quel servizio
+  — confermata, inviata in attesa, non inviata. / **QSL in words**: hovering the L Q C E
+  letters says how it went with that service — confirmed, sent and waiting, not sent.
 - **Selezione multipla**: il clic sinistro aggiunge o toglie una riga, lo shift prende
   tutto quello che sta in mezzo, **Esc** lascia andare la selezione; il tasto destro le
   cancella tutte, chiedendo **due volte**. / **Multiple selection**: left click adds or
@@ -79,6 +82,12 @@ Quello che manca è in fondo.
   click**, band from frequency, default RST.
 - **Il callbook riempie solo i campi vuoti** (nome, QTH, locatore). / **The callbook fills
   only empty fields** (name, QTH, grid).
+- **Il locatore anche quando il callbook non lo scrive**: si ricava dalla posizione della
+  stazione; e un locatore a quattro caratteri diventa quello a sei se il callbook conferma
+  lo stesso quadrato. Un quadrato diverso resta com'e'. / **The grid even when the callbook
+  doesn't write it**: it is derived from the station's position; a four-character grid
+  becomes the six-character one when the callbook confirms the same square. A different
+  square is left alone.
 - **Il QSO appena scritto si completa da solo**: nome, QTH, locatore, indirizzo, stato,
   contea e zone arrivano dal callbook subito dopo il log, senza toccare quello che c'e'
   gia'. Una ricerca per nominativo, e si puo' rifare a mano sui QSO vecchi (dal menu di una

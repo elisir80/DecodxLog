@@ -3,6 +3,19 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.3.5 — 19 settembre 2026
+
+**Il locatore dal callbook, anche quando il callbook non lo scrive.** QRZ e HamQTH non
+sempre mettono il quadrato, ma quasi sempre dicono dove sta la stazione: adesso il
+locatore si ricava dalla posizione. E se il QSO ne ha uno piu' grossolano — JN61 come lo
+manda la FT8 — e il callbook ne sa uno piu' preciso dentro lo stesso quadrato (JN61VB),
+si tiene quello preciso. Un locatore diverso non si tocca: quello l'ha sentito la radio.
+
+**Le QSL dette a parole.** Passando il mouse sopra le lettere L Q C E della riga si legge
+com'e' andata con quel servizio: «LoTW: confermata — ricevuta», «QRZ Logbook: inviata, si
+aspetta la conferma», «Club Log: non inviata». Anche l'intestazione della colonna dice
+quali sono i quattro servizi.
+
 ## 0.3.4 — 19 settembre 2026
 
 **JCC e JCG — le citta' e i distretti giapponesi.** Il numero del JARL sta nel campo CNTY:

@@ -69,6 +69,17 @@ GlassPanel {
     function qslColor(code) {
         return code === "c" ? Theme.accentColor : code === "s" ? Theme.warningColor : Theme.textSecondary
     }
+    // Le quattro lettere della colonna QSL, dette a parole: passando il mouse
+    // sopra la L si legge com'e' andata con LoTW, e cosi' per le altre.
+    function qslService(index) {
+        return ["LoTW", "QRZ Logbook", "Club Log", "eQSL"][index] || ""
+    }
+    function qslTip(index, code) {
+        const name = root.qslService(index)
+        return code === "c" ? qsTr("%1: confirmed — received").arg(name)
+             : code === "s" ? qsTr("%1: sent, waiting for the confirmation").arg(name)
+             : qsTr("%1: not sent").arg(name)
+    }
     function sourceColor(src) {
         return src === "udp" ? Theme.secondaryColor : src === "cld" ? Theme.warningColor : Theme.textSecondary
     }
@@ -97,6 +108,7 @@ GlassPanel {
         else if (what === "confirm") confirmRowDelete.openFor(list)
         else if (what === "confirm2") { confirmRowDelete.openFor(list); confirmRowDelete.step = 2 }
         else if (what === "delete") { decolog.deleteQsos(list); root.clearSelection() }
+        else if (what === "callbook") { for (let k = 0; k < list.length; ++k) decolog.completeQsoFromCallbook(list[k]) }
     }
     function qslFilterLabel(key) {
         return { confirmed: qsTr("confirmed"), lotw: qsTr("LoTW confirmed"), card: qsTr("card confirmed"),
@@ -728,8 +740,17 @@ GlassPanel {
             boundsBehavior: Flickable.StopAtBounds
             delegate: Rectangle {
                 required property var display
+                required property int index
+                readonly property bool isQsl: root.model.columnKey(index) === "qsl"
                 implicitHeight: Theme.rowHeight
                 color: "transparent"
+
+                // Cosa vogliono dire le quattro lettere, per chi non le sa a memoria.
+                HoverHandler { id: headHover; enabled: parent.isQsl }
+                ToolTip.visible: headHover.hovered
+                ToolTip.delay: 400
+                ToolTip.text: qsTr("L LoTW · Q QRZ Logbook · C Club Log · E eQSL")
+
                 Text {
                     anchors.fill: parent
                     anchors.leftMargin: 10
@@ -838,6 +859,11 @@ GlassPanel {
                             font.family: Theme.monoFamily
                             font.pixelSize: Theme.fontSize
                             font.bold: true
+
+                            HoverHandler { id: qslHover; cursorShape: Qt.WhatsThisCursor }
+                            ToolTip.visible: qslHover.hovered
+                            ToolTip.delay: 400
+                            ToolTip.text: root.qslTip(index, String(cell.display).charAt(index))
                         }
                     }
                 }

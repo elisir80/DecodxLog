@@ -716,6 +716,10 @@ QStringList DecoLogController::applyCallbookToQso(qint64 id, const QVariantMap& 
     found.cqZone = cb.value(QStringLiteral("cqZone")).toInt();
     found.ituZone = cb.value(QStringLiteral("ituZone")).toInt();
     found.dxcc = cb.value(QStringLiteral("dxcc")).toInt();
+    // La posizione serve per ricavare il locatore quando il callbook non lo scrive.
+    found.lat = cb.value(QStringLiteral("lat")).toDouble();
+    found.lon = cb.value(QStringLiteral("lon")).toDouble();
+    found.hasPosition = cb.value(QStringLiteral("hasPosition")).toBool();
 
     const QStringList filled = callbook::fillMissing(updated, found);
     if (filled.isEmpty())

@@ -308,6 +308,18 @@ private slots:
         QVERIFY2(az > 0 && az < 30, qPrintable(QString::number(az)));
         QVERIFY(!maidenhead::toLatLon("ZZ00"));
         QVERIFY(!maidenhead::toLatLon("JN7"));
+
+        // E la strada all'indietro: dalla posizione al locatore, e ritorno.
+        QCOMPARE(maidenhead::fromLatLon(41.1042, 14.2917), QStringLiteral("JN71DC"));
+        QCOMPARE(maidenhead::fromLatLon(41.1042, 14.2917, 4), QStringLiteral("JN71"));
+        QCOMPARE(maidenhead::fromLatLon(51.05, 13.74), QStringLiteral("JO61UB"));
+        QCOMPARE(maidenhead::fromLatLon(0.0, 0.0, 4), QStringLiteral("JJ00"));
+        const auto back = maidenhead::toLatLon(maidenhead::fromLatLon(-33.87, 151.21));
+        QVERIFY(back);
+        QVERIFY(qAbs(back->lat + 33.87) < 0.03 && qAbs(back->lon - 151.21) < 0.06);
+        // Una posizione che non sta nel mondo non fa un locatore.
+        QVERIFY(maidenhead::fromLatLon(95.0, 0.0).isEmpty());
+        QVERIFY(maidenhead::fromLatLon(0.0, -200.0).isEmpty());
     }
 
     void migrationFromV1()

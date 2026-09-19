@@ -1465,6 +1465,18 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Elimina</translation>
     </message>
     <message>
+        <source>%1: confirmed — received</source>
+        <translation>%1: confermata — ricevuta</translation>
+    </message>
+    <message>
+        <source>%1: sent, waiting for the confirmation</source>
+        <translation>%1: inviata, si aspetta la conferma</translation>
+    </message>
+    <message>
+        <source>%1: not sent</source>
+        <translation>%1: non inviata</translation>
+    </message>
+    <message>
         <source>Filter name</source>
         <translation>Nome del filtro</translation>
     </message>
@@ -1519,6 +1531,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>none ▾</source>
         <translation>nessuno ▾</translation>
+    </message>
+    <message>
+        <source>L LoTW · Q QRZ Logbook · C Club Log · E eQSL</source>
+        <translation>L LoTW · Q QRZ Logbook · C Club Log · E eQSL</translation>
     </message>
     <message>
         <source>No QSO matches the filters.</source>

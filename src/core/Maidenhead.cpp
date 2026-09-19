@@ -57,6 +57,40 @@ std::optional<LatLon> toLatLon(const QString& locator)
     return LatLon{lat + latSize / 2.0, lon + lonSize / 2.0};
 }
 
+QString fromLatLon(double lat, double lon, int characters)
+{
+    if (!(lat >= -90.0 && lat <= 90.0) || !(lon >= -180.0 && lon <= 180.0))
+        return {};
+    if (characters != 4 && characters != 6 && characters != 8)
+        characters = 6;
+
+    // Si conta dal punto opposto al meridiano di Greenwich e dal polo sud, come
+    // vuole il Maidenhead: campo, quadrato, sotto-quadrato, quadratino.
+    double x = std::min(lon + 180.0, 359.999999);
+    double y = std::min(lat + 90.0, 179.999999);
+
+    QString out;
+    out += QChar(QLatin1Char('A').unicode() + static_cast<int>(x / 20.0));
+    out += QChar(QLatin1Char('A').unicode() + static_cast<int>(y / 10.0));
+    x = std::fmod(x, 20.0);
+    y = std::fmod(y, 10.0);
+    out += QChar(QLatin1Char('0').unicode() + static_cast<int>(x / 2.0));
+    out += QChar(QLatin1Char('0').unicode() + static_cast<int>(y));
+    if (characters >= 6) {
+        x = std::fmod(x, 2.0);
+        y = std::fmod(y, 1.0);
+        out += QChar(QLatin1Char('A').unicode() + static_cast<int>(x / (2.0 / 24.0)));
+        out += QChar(QLatin1Char('A').unicode() + static_cast<int>(y / (1.0 / 24.0)));
+    }
+    if (characters == 8) {
+        x = std::fmod(x, 2.0 / 24.0);
+        y = std::fmod(y, 1.0 / 24.0);
+        out += QChar(QLatin1Char('0').unicode() + static_cast<int>(x / (2.0 / 240.0)));
+        out += QChar(QLatin1Char('0').unicode() + static_cast<int>(y / (1.0 / 240.0)));
+    }
+    return out;
+}
+
 double distanceKm(const LatLon& a, const LatLon& b)
 {
     const double dLat = rad(b.lat - a.lat);

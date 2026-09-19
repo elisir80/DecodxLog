@@ -1,5 +1,7 @@
 #include "core/Callbook.h"
 
+#include "core/Maidenhead.h"
+
 #include "core/NetworkError.h"
 
 #include <QCoreApplication>
@@ -26,6 +28,9 @@ QVariantMap CallbookRecord::toMap() const
         {QStringLiteral("email"), email},
         {QStringLiteral("qslVia"), qslVia},
         {QStringLiteral("imageUrl"), imageUrl},
+        {QStringLiteral("lat"), lat},
+        {QStringLiteral("lon"), lon},
+        {QStringLiteral("hasPosition"), hasPosition},
         {QStringLiteral("dxcc"), dxcc},
         {QStringLiteral("cqZone"), cqZone},
         {QStringLiteral("ituZone"), ituZone},
@@ -185,7 +190,6 @@ QStringList fillMissing(AdifRecord& record, const CallbookRecord& found)
     const QList<QPair<const char*, QString>> text{
         {"NAME", found.name},
         {"QTH", found.qth},
-        {"GRIDSQUARE", found.grid},
         {"ADDRESS", found.address},
         {"STATE", found.state},
         {"CNTY", found.county},
@@ -199,6 +203,21 @@ QStringList fillMissing(AdifRecord& record, const CallbookRecord& found)
             continue;
         record.set(QLatin1String(name), value.trimmed());
         filled << QString::fromLatin1(name);
+    }
+
+    // Il locatore ha due regole in piu'. Se il callbook non lo scrive ma dice
+    // dove sta la stazione, si ricava dalla posizione: meglio un quadrato giusto
+    // che niente. E se il QSO ne ha uno piu' grossolano — JN61 contro JN61FS,
+    // com'e' quando arriva dalla FT8 — si tiene quello preciso, perche' e' lo
+    // stesso quadrato detto meglio. Un locatore diverso non si tocca: quello
+    // l'ha sentito la radio.
+    QString grid = found.grid.trimmed().toUpper();
+    if (grid.isEmpty() && found.hasPosition)
+        grid = maidenhead::fromLatLon(found.lat, found.lon);
+    const QString hasGrid = record.value(QStringLiteral("GRIDSQUARE")).trimmed().toUpper();
+    if (!grid.isEmpty() && (hasGrid.isEmpty() || (grid.size() > hasGrid.size() && grid.startsWith(hasGrid)))) {
+        record.set(QStringLiteral("GRIDSQUARE"), grid);
+        filled << QStringLiteral("GRIDSQUARE");
     }
 
     // Numeri: valgono solo se il QSO non ne ha gia' uno buono. Il cty.csv ha

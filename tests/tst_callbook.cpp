@@ -292,6 +292,54 @@ private slots:
         QVERIFY(callbook::fillMissing(qso, blank).isEmpty());
         QVERIFY(qso.value(QStringLiteral("NAME")).isEmpty());
     }
+
+    void theLocatorComesFromThePositionWhenTheCallbookDoesNotWriteIt()
+    {
+        // HamQTH e QRZ non sempre scrivono il locatore, ma quasi sempre dicono
+        // dove sta la stazione: il quadrato si ricava da li'.
+        AdifRecord qso;
+        qso.set(QStringLiteral("CALL"), QStringLiteral("DL9ZZT"));
+
+        CallbookRecord found;
+        found.name = QStringLiteral("Klaus");
+        found.lat = 51.05;
+        found.lon = 13.74;              // Dresda
+        found.hasPosition = true;
+
+        const QStringList filled = callbook::fillMissing(qso, found);
+        QVERIFY(filled.contains(QStringLiteral("GRIDSQUARE")));
+        QCOMPARE(qso.value(QStringLiteral("GRIDSQUARE")), QStringLiteral("JO61UB"));
+
+        // Senza posizione non ci si inventa niente.
+        AdifRecord other;
+        other.set(QStringLiteral("CALL"), QStringLiteral("DL9ZZT"));
+        CallbookRecord blind;
+        blind.name = QStringLiteral("Klaus");
+        QVERIFY(!callbook::fillMissing(other, blind).contains(QStringLiteral("GRIDSQUARE")));
+    }
+
+    void aCoarseLocatorBecomesThePreciseOne()
+    {
+        // Dalla FT8 arrivano quattro caratteri; il callbook ne sa sei. E' lo
+        // stesso quadrato detto meglio, quindi si tiene il piu' preciso.
+        AdifRecord qso;
+        qso.set(QStringLiteral("CALL"), QStringLiteral("DL9ZZT"));
+        qso.set(QStringLiteral("GRIDSQUARE"), QStringLiteral("JO61"));
+
+        CallbookRecord found;
+        found.grid = QStringLiteral("JO61VB");
+
+        const QStringList filled = callbook::fillMissing(qso, found);
+        QVERIFY(filled.contains(QStringLiteral("GRIDSQUARE")));
+        QCOMPARE(qso.value(QStringLiteral("GRIDSQUARE")), QStringLiteral("JO61VB"));
+
+        // Un quadrato diverso pero' non si tocca: quello l'ha sentito la radio.
+        AdifRecord heard;
+        heard.set(QStringLiteral("CALL"), QStringLiteral("DL9ZZT"));
+        heard.set(QStringLiteral("GRIDSQUARE"), QStringLiteral("JO62"));
+        QVERIFY(!callbook::fillMissing(heard, found).contains(QStringLiteral("GRIDSQUARE")));
+        QCOMPARE(heard.value(QStringLiteral("GRIDSQUARE")), QStringLiteral("JO62"));
+    }
 };
 
 QTEST_GUILESS_MAIN(TestCallbook)
