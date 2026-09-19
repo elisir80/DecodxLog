@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoLog
-    VERSION 0.4.0
+    VERSION 0.5.0
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -17,7 +17,7 @@ endif()
 option(DECOLOG_BUILD_TESTS "Build the unit tests" ON)
 option(DECOLOG_BUILD_TOOLS "Build the command-line tools (UDP simulator)" ON)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Network Sql Gui Qml Quick QuickControls2 WebSockets Positioning Location LinguistTools)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Network Sql Gui Qml Quick QuickControls2 Multimedia WebSockets Positioning Location LinguistTools)
 qt_standard_project_setup(REQUIRES 6.5)
 if(QT_KNOWN_POLICY_QTP0004)
     qt_policy(SET QTP0004 NEW)
@@ -58,6 +58,7 @@ add_library(decolog_core STATIC
     src/core/CredentialStore.cpp
     src/core/CredentialStore.h
     src/core/Maidenhead.cpp
+    src/core/CwDecoder.cpp
     src/core/RigControl.cpp
     src/core/Maidenhead.h
     src/core/LogDatabase.cpp
@@ -187,6 +188,7 @@ set(DECOLOG_QML_FILES
     qml/DecoLog/StationProfilesDialog.qml
     qml/DecoLog/SetupDialog.qml
     qml/DecoLog/LogbookWindow.qml
+    qml/DecoLog/CwPanel.qml
     qml/DecoLog/PanelWindow.qml
     qml/DecoLog/CredentialsList.qml
     qml/DecoLog/AwardsDialog.qml
@@ -265,7 +267,7 @@ endforeach()
 target_compile_definitions(decolog PRIVATE DECOLOG_VERSION="${PROJECT_VERSION}")
 target_include_directories(decolog PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(decolog PRIVATE
-    Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick Qt6::QuickControls2 Qt6::Positioning Qt6::Location
+    Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick Qt6::QuickControls2 Qt6::Multimedia Qt6::Positioning Qt6::Location
     decolog_core
     decodium_ui
     decodium_uiplugin
@@ -279,7 +281,7 @@ set_target_properties(decolog PROPERTIES
 if(DECOLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig cloud cloudsettings vault)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig cw cloud cloudsettings vault)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

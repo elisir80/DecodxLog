@@ -49,6 +49,28 @@ QString tqslDataDirectory()
     return {};
 }
 
+QString findRigctld()
+{
+#ifdef Q_OS_WIN
+    // Hamlib si installa in "Program Files\hamlib-w64-<versione>": si prende la
+    // piu' recente che si trova.
+    QStringList roots{QStringLiteral("C:/Program Files"), QStringLiteral("C:/Program Files (x86)")};
+    QStringList found;
+    for (const QString& root : roots) {
+        QDir dir(root);
+        for (const QString& name : dir.entryList({QStringLiteral("hamlib*")}, QDir::Dirs)) {
+            const QString exe = dir.filePath(name + QStringLiteral("/bin/rigctld.exe"));
+            if (QFileInfo::exists(exe))
+                found << QDir::toNativeSeparators(exe);
+        }
+    }
+    found.sort();
+    if (!found.isEmpty())
+        return found.last();
+#endif
+    return QStandardPaths::findExecutable(QStringLiteral("rigctld"));
+}
+
 QString findTqsl()
 {
 #ifdef Q_OS_WIN

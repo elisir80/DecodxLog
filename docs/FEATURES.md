@@ -1,4 +1,4 @@
-# DecoLog 0.4.0 — funzioni / features
+# DecoLog 0.5.0 — funzioni / features
 
 Ogni voce è in italiano e in inglese: *italiano* / *English*.
 Quello che manca è in fondo.
@@ -169,6 +169,14 @@ Quello che manca è in fondo.
   VFO e comanda il PTT. Niente porte seriali: quelle le sa gia' Hamlib. / **The radio through
   Hamlib**: DecoLog talks to **rigctld**, reads frequency and mode, moves the VFO and keys
   the PTT. No serial ports: Hamlib already knows them.
+- **Il pannello CW**, da solo o staccato in finestra: macro, velocita', riga per mandare
+  quello che si scrive e decoder. / **The CW panel**, docked or in its own window: macros,
+  speed, a line to send what you type, and the decoder.
+- **Decoder CW dentro DecoLog**: legge l'audio che esce dalla radio, trova il tono da solo e
+  impara la velocita' mentre ascolta. / **CW decoder inside DecoLog**: it reads the audio
+  coming out of the radio, finds the tone by itself and learns the speed while listening.
+- **La radio anche col cavo**: modello Hamlib + porta seriale, e rigctld lo avvia DecoLog. /
+  **The radio over the cable too**: Hamlib model + serial port, and DecoLog starts rigctld.
 - **Otto macro CW** sui tasti F1-F8 nella finestra contest, col testo che si scrive a mano e
   i buchi riempiti sul momento ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}); la velocita' in
   parole al minuto si cambia mentre si opera, **Esc** ferma. Il manipolatore e' quello della

@@ -236,6 +236,7 @@ TABS = [
     ("statistiche", "Statistiche", "/stats"),
     ("qsl", "Invio QSL", "/qsl"),
     ("attivita", "Registro attività", "/activity"),
+    ("contest", "Contest", "/contest"),
     ("cluster", "DX Cluster", "/cluster"),
     ("propagazione", "Propagazione", "/propagation"),
 ]
@@ -450,6 +451,30 @@ def stats(request: Request, mode: str = "", year: int = 0, db: Session = Depends
     all_years = analytics.statistics(rows, mode_group=mode)["all_years"]
     return _page(request, db, account, "statistiche",
                  s=data, mode=mode, year=year, years=all_years, groups=_MODE_GROUPS)
+
+
+@router.get("/contest", response_class=HTMLResponse)
+def contest(request: Request, hours: int = 24, mult: str = "dxcc", mode: str = "",
+            points: int = 1, db: Session = Depends(auth.session)):
+    """Il punteggio della gara, contato sul Cloud.
+
+    Qui non si registra niente: i QSO sono quelli che il programma ha gia'
+    mandato su, e il conto si rifa' a ogni giro di pagina. Serve a guardare
+    come sta andando da un altro computer, o dal telefono in macchina mentre
+    l'operatore in shack macina.
+    """
+    account = _account_from_cookie(request, db)
+    if account is None:
+        return RedirectResponse("/", status_code=303)
+
+    rows = _all_rows(db, account)
+    hours = max(1, min(hours, 24 * 14))
+    since = dt.datetime.now(dt.UTC) - dt.timedelta(hours=hours)
+    score = analytics.contest_score(rows, since=since, mode_group=mode,
+                                    points_per_qso=max(1, min(points, 100)), multiplier=mult)
+    return _page(request, db, account, "contest",
+                 score=score, hours=hours, mult=mult, mode=mode, points=points,
+                 mults=analytics.CONTEST_MULTIPLIERS, groups=_MODE_GROUPS)
 
 
 @router.get("/awards", response_class=HTMLResponse)

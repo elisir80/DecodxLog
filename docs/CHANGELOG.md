@@ -3,6 +3,39 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.5.0 — 19 settembre 2026
+
+**Il CW sta in piedi da solo.** Il pannello **CW** non e' piu' dentro al contest: si apre
+come tutti gli altri (Pannelli → CW), si stacca in finestra, e ci sta dentro tutto — le
+otto macro sui tasti F1-F8, la velocita' in parole al minuto, una riga per mandare in CW
+quello che si scrive sul momento, e il **decoder**. Di partenza e' chiuso: chi non fa CW
+non se lo ritrova fra i piedi.
+
+**Il decoder CW e' dentro DecoLog.** Non serve una radio che decodifichi: basta l'audio che
+esce dalla radio. DecoLog guarda quanta energia c'e' sul tono del CW rispetto a quello che
+gli sta intorno — il rumore e' largo, il CW e' stretto — e da quei tempi tira fuori punti,
+linee e lettere. La velocita' non si imposta: la impara dai punti che arrivano, e la scrive
+insieme al tono che ha trovato. Provato su segnali veri generati a 15, 25 e 35 parole al
+minuto, col tono cercato da solo fra 400 e 1000 Hz e col rumore in banda.
+
+**La radio anche col cavo.** Prima serviva un rigctld gia' acceso; adesso in Impostazioni
+→ Radio (CAT) si sceglie **Cavo seriale alla radio**, si prende il modello dall'elenco di
+Hamlib (che DecoLog legge da `rigctld -l`), la porta COM e la velocita', e **rigctld lo
+avvia DecoLog**. Per chi opera e' solo "COM5, questa radio".
+
+**I campi che mancavano nel QSO.** Nella finestra del QSO nuovo ci sono adesso **nazione,
+indirizzo/citta', stato, contea (JCC), DXCC, zona CQ, zona ITU, continente e QSL via**, e
+il callbook li riempie da solo come faceva con nome, QTH e locatore. Nella scheda del QSO
+si vedono anche indirizzo, e-mail e QSL via, che prima stavano solo fra i campi ADIF.
+
+**Il punteggio del contest sul Cloud.** Nuova scheda **Contest** nel log online: QSO validi,
+duplicati, punti, moltiplicatori e punteggio, banda per banda, sulle ultime ore che si
+scelgono. Si conta come si conta in gara — stesso nominativo, stessa banda e stesso gruppo
+di modi e' un duplicato; i moltiplicatori valgono una volta per banda — e il
+moltiplicatore si sceglie fra entita' DXCC, prefissi WPX e zone CQ, coi punti per QSO che
+si cambiano li'. Serve a guardare come sta andando la gara da un altro computer o dal
+telefono, mentre in shack si macina.
+
 ## 0.4.0 — 19 settembre 2026
 
 **Le macro CW, col manipolatore della radio.** DecoLog parla con **rigctld**, il demone di

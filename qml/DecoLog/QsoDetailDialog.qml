@@ -372,6 +372,16 @@ DialogFrame {
                         Layout.fillWidth: true
                         spacing: 10
                         AdifInput {
+                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 8; key: "ADDRESS"; label: qsTr("Address"); mono: false }
+                        AdifInput {
+                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 5; key: "EMAIL"; label: qsTr("E-mail"); mono: false }
+                        AdifInput {
+                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 4; key: "QSL_VIA"; label: qsTr("QSL via"); upper: true }
+                    }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 10
+                        AdifInput {
                             Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 3; key: "POTA_REF"; label: "POTA"; upper: true }
                         AdifInput {
                             Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 3; key: "SOTA_REF"; label: "SOTA"; upper: true }

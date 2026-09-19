@@ -1,0 +1,63 @@
+{# Il punteggio della gara: QSO validi, punti, moltiplicatori, totale. #}
+<form class="filters" method="get" action="/contest" style="margin-bottom:10px">
+  <label>Ultime
+    <select name="hours" onchange="this.form.submit()">
+      {% for h in [6, 12, 24, 48, 72, 168] %}
+      <option value="{{ h }}" {% if h == hours %}selected{% endif %}>{{ h }} ore</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Moltiplicatore
+    <select name="mult" onchange="this.form.submit()">
+      {% for key, label in mults %}
+      <option value="{{ key }}" {% if key == mult %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Modi
+    <select name="mode" onchange="this.form.submit()">
+      <option value="">tutti</option>
+      {% for key, label in groups %}
+      <option value="{{ key }}" {% if key == mode %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Punti per QSO
+    <input type="number" name="points" min="1" max="100" value="{{ points }}"
+           style="width:70px" onchange="this.form.submit()">
+  </label>
+</form>
+
+<div class="tiles">
+  <div class="tile"><span class="dim small">QSO validi</span><strong>{{ score.qsos }}</strong></div>
+  <div class="tile"><span class="dim small">Duplicati</span><strong>{{ score.dupes }}</strong></div>
+  <div class="tile"><span class="dim small">Punti</span><strong>{{ score.points }}</strong></div>
+  <div class="tile"><span class="dim small">Moltiplicatori</span><strong>{{ score.multipliers }}</strong></div>
+  <div class="tile ok"><span class="dim small">Punteggio</span><strong>{{ score.score }}</strong></div>
+</div>
+
+<table class="log" style="margin-top:12px">
+  <thead>
+    <tr><th>Banda</th><th>QSO</th><th>Duplicati</th><th>Punti</th><th>Moltiplicatori</th></tr>
+  </thead>
+  <tbody>
+    {% for b in score.bands %}
+    <tr>
+      <td>{{ b.band }}</td>
+      <td>{{ b.qsos }}</td>
+      <td class="dim">{{ b.dupes }}</td>
+      <td>{{ b.points }}</td>
+      <td>{{ b.mults }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5" class="dim">In queste ore non c'e' ancora nessun QSO.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<p class="dim small" style="margin-top:10px">
+  Si conta come in gara: stesso nominativo, stessa banda e stesso gruppo di modi e' un
+  duplicato e non vale; i moltiplicatori si contano una volta per banda; il punteggio e'
+  punti per moltiplicatori. Le regole vere cambiano da contest a contest — qui ci sono
+  quelle che valgono quasi sempre, e i punti per QSO si cambiano qui sopra.
+</p>

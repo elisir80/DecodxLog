@@ -45,7 +45,7 @@ ApplicationWindow {
         property var savedFilters: ({})
         // I pannelli chiusi e quelli in finestra propria, come liste di chiavi
         // separate da virgola. Restano da una sessione all'altra.
-        property string hiddenPanels: ""
+        property string hiddenPanels: "cw"
         property string detachedPanels: ""
     }
 
@@ -54,13 +54,14 @@ ApplicationWindow {
     // Ogni pannello ha una chiave. Con quella si sa come si chiama, da quale
     // file nasce quando lo si stacca, e se adesso e' agganciato, in finestra o
     // chiuso. Chiuso vuol dire chiuso davvero: lo spazio non resta vuoto.
-    readonly property var panelKeys: ["newqso", "logbook", "callinfo", "rotor", "ft2", "tabs", "map"]
+    readonly property var panelKeys: ["newqso", "logbook", "callinfo", "cw", "rotor", "ft2", "tabs", "map"]
 
     function panelTitle(key) {
         switch (key) {
         case "newqso":   return qsTr("New QSO")
         case "logbook":  return qsTr("Logbook")
         case "callinfo": return qsTr("Callsign card")
+        case "cw":       return qsTr("CW")
         case "rotor":    return qsTr("Rotator")
         case "ft2":      return qsTr("FT2 Award")
         case "tabs":     return qsTr("Awards, statistics, QSL, activity")
@@ -73,6 +74,7 @@ ApplicationWindow {
         case "newqso":   return "NewQsoPanel.qml"
         case "logbook":  return "LogbookPanel.qml"
         case "callinfo": return "CallInfoPanel.qml"
+        case "cw":       return "CwPanel.qml"
         case "rotor":    return "RotorPanel.qml"
         case "ft2":      return "Ft2AwardPanel.qml"
         case "tabs":     return "BottomTabs.qml"
@@ -193,7 +195,7 @@ ApplicationWindow {
         else if (what[0] === "maintenance") { decolog.repairImportedFields(); decolog.completeMissingFromCallbook() }
         else if (what[0] === "tab") bottomTabs.currentTab = parseInt(what[1])
         else if (what[0] === "pop") popWindow.active = true
-        else if (what[0] === "panels") { if (what[1]) { const how = what.slice(2); for (let i = 0; i < how.length; ++i) { if (what[1] === "close") window.closePanel(how[i]); else if (what[1] === "detach") window.detachPanel(how[i]) } } else panelsPopup.open() }
+        else if (what[0] === "panels") { if (what[1]) { const how = what.slice(2); for (let i = 0; i < how.length; ++i) { if (what[1] === "close") window.closePanel(how[i]); else if (what[1] === "detach") window.detachPanel(how[i]); else if (what[1] === "show") window.showPanel(how[i]) } } else panelsPopup.open() }
         else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))
         else if (what[0] === "activation") activationDialog.openDialog()
         else if (what[0] === "modes") newQsoPanel.showModes()
@@ -505,8 +507,8 @@ ApplicationWindow {
                     id: rightColumn
                     SplitView.preferredWidth: layout.rightWidth
                     SplitView.minimumWidth: 260
-                    visible: window.isPanelDocked("callinfo") || window.isPanelDocked("rotor")
-                             || window.isPanelDocked("ft2")
+                    visible: window.isPanelDocked("callinfo") || window.isPanelDocked("cw")
+                             || window.isPanelDocked("rotor") || window.isPanelDocked("ft2")
                     onWidthChanged: if (width > 0 && window.layoutIsWhole) layout.rightWidth = width
                     orientation: Qt.Vertical
                     handle: splitHandle
@@ -519,6 +521,14 @@ ApplicationWindow {
                         onOpenQso: (id) => window.openQso(id)
                         onDetachRequested: window.detachPanel("callinfo")
                         onCloseRequested: window.closePanel("callinfo")
+                    }
+                    CwPanel {
+                        SplitView.preferredHeight: 260
+                        SplitView.minimumHeight: 120
+                        visible: window.isPanelDocked("cw")
+                        panelKey: "cw"
+                        onDetachRequested: window.detachPanel("cw")
+                        onCloseRequested: window.closePanel("cw")
                     }
                     RotorPanel {
                         SplitView.preferredHeight: implicitHeight

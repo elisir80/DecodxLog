@@ -38,6 +38,8 @@ namespace qsl {
 
 // Il TQSL installato: dal registro di Windows, dalle cartelle solite o dal PATH.
 QString findTqsl();
+// Il rigctld di Hamlib, cercato allo stesso modo: e' lui che parla alle radio.
+QString findRigctld();
 // I nomi delle "station location" configurate in TQSL (station_data).
 QStringList tqslStationLocations();
 // Dove TQSL tiene i suoi dati; vuota se non c'e'.

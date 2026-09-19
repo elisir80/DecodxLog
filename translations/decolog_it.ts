@@ -1142,7 +1142,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>The text goes on air as it is written, with the gaps filled in at the moment: {CALL} the callsign you are working, {MYCALL} yours, {RST} the report sent, {NR} the serial, {EXCH} what you received. The keyer is the radio&apos;s own: Hamlib hands it the text.</source>
-        <translation>Il testo va in aria com'è scritto, coi buchi riempiti sul momento: {CALL} il nominativo che stai lavorando, {MYCALL} il tuo, {RST} il rapporto mandato, {NR} il progressivo, {EXCH} quello che hai ricevuto. Il manipolatore è quello della radio: Hamlib gli passa il testo.</translation>
+        <translation>Il testo va in aria com&apos;è scritto, coi buchi riempiti sul momento: {CALL} il nominativo che stai lavorando, {MYCALL} il tuo, {RST} il rapporto mandato, {NR} il progressivo, {EXCH} quello che hai ricevuto. Il manipolatore è quello della radio: Hamlib gli passa il testo.</translation>
     </message>
     <message>
         <source>Default macros</source>
@@ -1262,6 +1262,53 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Save</source>
         <translation>Salva</translation>
+    </message>
+</context>
+<context>
+    <name>CwPanel</name>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Ferma</translation>
+    </message>
+    <message>
+        <source>The radio is off: Setup → Radio (CAT) to turn it on. The decoder works anyway, it only needs the audio coming out of the radio.</source>
+        <translation>La radio è spenta: si accende da Impostazioni → Radio (CAT). Il decoder funziona lo stesso, gli basta l'audio che esce dalla radio.</translation>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>Velocità</translation>
+    </message>
+    <message>
+        <source>%1 wpm</source>
+        <translation>%1 wpm</translation>
+    </message>
+    <message>
+        <source>write here and press Enter: it goes out in CW</source>
+        <translation>scrivi qui e premi Invio: va in aria in CW</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Manda</translation>
+    </message>
+    <message>
+        <source>Decoder</source>
+        <translation>Decoder</translation>
+    </message>
+    <message>
+        <source>%1 wpm · %2 Hz</source>
+        <translation>%1 wpm · %2 Hz</translation>
+    </message>
+    <message>
+        <source>listening…</source>
+        <translation>in ascolto…</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Pulisci</translation>
     </message>
 </context>
 <context>
@@ -1705,6 +1752,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Scheda nominativo</translation>
     </message>
     <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
         <source>Rotator</source>
         <translation>Rotore</translation>
     </message>
@@ -1921,6 +1972,42 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>TX pwr W</source>
         <translation>Potenza W</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>Paese</translation>
+    </message>
+    <message>
+        <source>Address / city</source>
+        <translation>Indirizzo / città</translation>
+    </message>
+    <message>
+        <source>State</source>
+        <translation>Stato</translation>
+    </message>
+    <message>
+        <source>County / JCC</source>
+        <translation>Contea / JCC</translation>
+    </message>
+    <message>
+        <source>DXCC</source>
+        <translation>DXCC</translation>
+    </message>
+    <message>
+        <source>CQ zone</source>
+        <translation>Zona CQ</translation>
+    </message>
+    <message>
+        <source>ITU zone</source>
+        <translation>Zona ITU</translation>
+    </message>
+    <message>
+        <source>Cont</source>
+        <translation>Cont</translation>
+    </message>
+    <message>
+        <source>QSL via</source>
+        <translation>QSL via</translation>
     </message>
     <message>
         <source>Comment</source>
@@ -2565,6 +2652,18 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>County</source>
         <translation>Contea</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Indirizzo</translation>
+    </message>
+    <message>
+        <source>E-mail</source>
+        <translation>E-mail</translation>
+    </message>
+    <message>
+        <source>QSL via</source>
+        <translation>QSL via</translation>
     </message>
     <message>
         <source>Prop mode</source>
@@ -3231,7 +3330,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Everything this callsign has on the server goes away: QSO, history, station profiles, settings, sealed credentials. It cannot be undone from here. The log on this computer stays where it is.</source>
-        <translation>Tutto quello che questo nominativo ha sul server se ne va: QSO, storico, profili stazione, impostazioni, credenziali sigillate. Da qui non si torna indietro. Il log su questo computer resta dov'è.</translation>
+        <translation>Tutto quello che questo nominativo ha sul server se ne va: QSO, storico, profili stazione, impostazioni, credenziali sigillate. Da qui non si torna indietro. Il log su questo computer resta dov&apos;è.</translation>
     </message>
     <message>
         <source>Write DELETE to confirm</source>
@@ -3638,7 +3737,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Empty the Cloud of this callsign: QSO, history, station profiles, settings and sealed credentials go away from the server for good. The account stays, and the log on this computer is not touched — at the next sync it all goes back up from scratch. The other devices, though, will find nothing up there.</source>
-        <translation>Svuota il Cloud di questo nominativo: QSO, storico, profili stazione, impostazioni e credenziali sigillate se ne vanno dal server per sempre. L'account resta, e il log su questo computer non si tocca — alla prossima sincronizzazione risale tutto da capo. Gli altri dispositivi, però, lassu' non troveranno più niente.</translation>
+        <translation>Svuota il Cloud di questo nominativo: QSO, storico, profili stazione, impostazioni e credenziali sigillate se ne vanno dal server per sempre. L&apos;account resta, e il log su questo computer non si tocca — alla prossima sincronizzazione risale tutto da capo. Gli altri dispositivi, però, lassu&apos; non troveranno più niente.</translation>
     </message>
     <message>
         <source>Empty the Cloud…</source>
@@ -3749,12 +3848,32 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Radio via Hamlib (rigctld)</translation>
     </message>
     <message>
-        <source>DecoLog does not touch the serial port: it talks to rigctld, the Hamlib daemon that already knows every radio. Start it with your rig, for example: rigctld -m 1035 -r COM5 -s 38400. Then DecoLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
-        <translation>DecoLog non tocca la porta seriale: parla con rigctld, il demone di Hamlib che conosce già tutte le radio. Avvialo con la tua, per esempio: rigctld -m 1035 -r COM5 -s 38400. Da lì DecoLog legge frequenza e modo, può spostare la radio, e passa le macro CW al manipolatore della radio stessa.</translation>
-    </message>
-    <message>
         <source>Talk to the radio</source>
         <translation>Parla con la radio</translation>
+    </message>
+    <message>
+        <source>How</source>
+        <translation>Come</translation>
+    </message>
+    <message>
+        <source>rigctld already running</source>
+        <translation>rigctld già acceso</translation>
+    </message>
+    <message>
+        <source>Serial cable to the radio</source>
+        <translation>Cavo seriale alla radio</translation>
+    </message>
+    <message>
+        <source>Radio (Hamlib)</source>
+        <translation>Radio (Hamlib)</translation>
+    </message>
+    <message>
+        <source>Serial port</source>
+        <translation>Porta seriale</translation>
+    </message>
+    <message>
+        <source>Baud</source>
+        <translation>Baud</translation>
     </message>
     <message>
         <source>Connect now</source>
@@ -3835,6 +3954,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Browse…</source>
         <translation>Sfoglia…</translation>
+    </message>
+    <message>
+        <source>Every radio is spoken to by Hamlib, not by DecoLog. With the serial cable pick the model and the port and DecoLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
+        <translation>A parlare con le radio è Hamlib, non DecoLog. Col cavo seriale scegli il modello e la porta e rigctld lo avvia DecoLog da solo; se rigctld ce l'hai già acceso (per un altro programma, o su un altro computer) basta host e porta. Da lì DecoLog legge frequenza e modo, può spostare la radio, e passa le macro CW al manipolatore della radio.</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -4377,7 +4500,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Cloud emptied: %1 QSO and %2 settings deleted. What is here stays, and goes back up at the next sync.</source>
-        <translation>Cloud svuotato: cancellati %1 QSO e %2 impostazioni. Quello che c'è qui resta, e risale alla prossima sincronizzazione.</translation>
+        <translation>Cloud svuotato: cancellati %1 QSO e %2 impostazioni. Quello che c&apos;è qui resta, e risale alla prossima sincronizzazione.</translation>
     </message>
     <message>
         <source>Cloud: sign in again (%1)</source>
@@ -4871,7 +4994,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>TQSL is installed but has not been set up yet: open it once, so it creates its own folder with certificates and station locations</source>
-        <translation>TQSL c'è ma non è ancora stato avviato: aprilo una volta, così si crea la sua cartella con certificati e station location</translation>
+        <translation>TQSL c&apos;è ma non è ancora stato avviato: aprilo una volta, così si crea la sua cartella con certificati e station location</translation>
     </message>
     <message>
         <source>TQSL has no callsign certificate yet: load the .tq6 file ARRL sends you (the .tq5 request alone does not sign anything) — TQSL&apos;s folder is %1</source>
@@ -5006,6 +5129,34 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Sent: %1</source>
         <translation>Mandato: %1</translation>
+    </message>
+    <message>
+        <source>Hamlib not found: install it, or start rigctld yourself and use the network link</source>
+        <translation>Hamlib non si trova: installalo, oppure avvia rigctld a mano e collegati per rete</translation>
+    </message>
+    <message>
+        <source>Pick the radio model and the serial port first</source>
+        <translation>Scegli prima il modello della radio e la porta seriale</translation>
+    </message>
+    <message>
+        <source>rigctld did not start</source>
+        <translation>rigctld non è partito</translation>
+    </message>
+    <message>
+        <source>Hamlib started on %1 (model %2, %3 baud)</source>
+        <translation>Hamlib avviato su %1 (modello %2, %3 baud)</translation>
+    </message>
+    <message>
+        <source>No audio input to listen to</source>
+        <translation>Non c'è nessun ingresso audio da ascoltare</translation>
+    </message>
+    <message>
+        <source>The audio input did not open</source>
+        <translation>L'ingresso audio non si è aperto</translation>
+    </message>
+    <message>
+        <source>CW decoder listening to %1</source>
+        <translation>Decoder CW in ascolto su %1</translation>
     </message>
 </context>
 <context>

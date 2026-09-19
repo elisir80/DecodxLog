@@ -515,3 +515,19 @@ def test_the_station_page_offers_the_choices(client):
     assert 'name="theme.current"' in page.text
     assert "Stellar Light" in page.text        # le altre scelte ci sono
     assert "Salva" in page.text
+
+
+def test_the_contest_page_counts_the_score(client):
+    headers = account(client)
+    client.post("/v1/sync/push", headers=headers, json={"qsos": [
+        qso("c-1", call="DL9ZZT", DXCC="230", CQZ="14", MODE="CW"),
+        qso("c-2", call="EA5XYZ", when="2026-09-18T07:10:00Z", DXCC="281", CQZ="14", MODE="CW"),
+    ]})
+    sign_in(client)
+
+    page = client.get("/contest", params={"hours": 168})
+    assert page.status_code == 200
+    assert "Punteggio" in page.text
+    assert "Moltiplicatori" in page.text
+    # Due QSO, due entita': quattro punti di punteggio.
+    assert ">2<" in page.text

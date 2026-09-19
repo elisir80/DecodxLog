@@ -942,11 +942,11 @@ DialogFrame {
 
                     SectionTitle { text: qsTr("Radio via Hamlib (rigctld)") }
                     Note {
-                        text: qsTr("DecoLog does not touch the serial port: it talks to rigctld, the Hamlib "
-                                   + "daemon that already knows every radio. Start it with your rig, for "
-                                   + "example: rigctld -m 1035 -r COM5 -s 38400. Then DecoLog reads frequency "
-                                   + "and mode, can tune the radio, and hands the CW macros to the rig's own "
-                                   + "keyer.")
+                        text: qsTr("Every radio is spoken to by Hamlib, not by DecoLog. With the serial cable "
+                                   + "pick the model and the port and DecoLog starts rigctld by itself; if you "
+                                   + "already run rigctld (for a contest program, or on another computer) just "
+                                   + "give host and port. From there DecoLog reads frequency and mode, can tune "
+                                   + "the radio, and hands the CW macros to the rig's own keyer.")
                     }
                     RowLayout {
                         spacing: 12
@@ -955,6 +955,67 @@ DialogFrame {
                             checked: decolog.rig.enabled
                             onToggled: decolog.rig.enabled = checked
                         }
+                        LabeledField {
+                            label: qsTr("How")
+                            StyledComboBox {
+                                Layout.preferredWidth: 220
+                                readonly property var ids: ["network", "serial"]
+                                model: [qsTr("rigctld already running"), qsTr("Serial cable to the radio")]
+                                currentIndex: Math.max(0, ids.indexOf(decolog.rig.link))
+                                onActivated: decolog.rig.link = ids[currentIndex]
+                            }
+                        }
+                    }
+
+                    //  La radio sul cavo: si scelgono modello, porta e velocita',
+                    //  e rigctld lo avvia DecoLog.
+                    RowLayout {
+                        spacing: 12
+                        visible: decolog.rig.link === "serial"
+                        LabeledField {
+                            label: qsTr("Radio (Hamlib)")
+                            StyledComboBox {
+                                id: modelBox
+                                Layout.preferredWidth: 320
+                                mono: false
+                                editable: true
+                                readonly property var models: decolog.rig.rigModels()
+                                model: models.map(m => m.name)
+                                onActivated: decolog.rig.rigModel = models[currentIndex].id
+                                Component.onCompleted: {
+                                    for (let i = 0; i < models.length; ++i) {
+                                        if (models[i].id === decolog.rig.rigModel)
+                                            currentIndex = i
+                                    }
+                                }
+                            }
+                        }
+                        LabeledField {
+                            label: qsTr("Serial port")
+                            StyledComboBox {
+                                Layout.preferredWidth: 140
+                                editable: true
+                                model: decolog.rig.serialPorts()
+                                editText: decolog.rig.serialPort
+                                onEditTextChanged: decolog.rig.serialPort = editText
+                                onActivated: decolog.rig.serialPort = currentText
+                            }
+                        }
+                        LabeledField {
+                            label: qsTr("Baud")
+                            StyledComboBox {
+                                Layout.preferredWidth: 110
+                                readonly property var speeds: [4800, 9600, 19200, 38400, 57600, 115200]
+                                model: speeds.map(String)
+                                currentIndex: Math.max(0, speeds.indexOf(decolog.rig.baud))
+                                onActivated: decolog.rig.baud = speeds[currentIndex]
+                            }
+                        }
+                    }
+
+                    RowLayout {
+                        spacing: 12
+                        visible: decolog.rig.link === "network"
                         LabeledField {
                             label: qsTr("Host")
                             StyledTextField {

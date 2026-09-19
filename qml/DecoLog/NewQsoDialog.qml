@@ -37,7 +37,9 @@ DialogFrame {
     }
 
     function clearAll() {
-        for (const f of [callField, gridField, nameField, qthField, commentField, potaField, sotaField, iotaField, wwffField, tagsField])
+        for (const f of [callField, gridField, nameField, qthField, commentField, potaField, sotaField,
+                         iotaField, wwffField, tagsField, countryField, addressField, stateField,
+                         cntyField, contField, cqzField, ituzField, dxccField, qslViaField])
             f.text = ""
         sentField.text = "59"
         rcvdField.text = "59"
@@ -55,13 +57,18 @@ DialogFrame {
             rst_sent: sentField.text, rst_rcvd: rcvdField.text,
             gridsquare: gridField.text, name: nameField.text, qth: qthField.text, tx_pwr: pwrField.text,
             pota_ref: potaField.text, sota_ref: sotaField.text, iota: iotaField.text, wwff_ref: wwffField.text,
-            comment: commentField.text, tags: tagsField.text
+            comment: commentField.text, tags: tagsField.text,
+            country: countryField.text, address: addressField.text, state: stateField.text,
+            cnty: cntyField.text, cont: contField.text, cqz: cqzField.text, ituz: ituzField.text,
+            dxcc: dxccField.text, qsl_via: qslViaField.text
         })
         errorText.text = error
         if (error.length > 0)
             return
         if (keep) {
-            for (const f of [callField, gridField, nameField, qthField, commentField])
+            for (const f of [callField, gridField, nameField, qthField, commentField, countryField,
+                             addressField, stateField, cntyField, contField, cqzField, ituzField,
+                             dxccField, qslViaField])
                 f.text = ""
             resetTime()
             callField.forceActiveFocus()
@@ -90,6 +97,14 @@ DialogFrame {
             if (qthField.text.length === 0) qthField.text = cb.qth
             if (gridField.text.length === 0) gridField.text = cb.grid
             if (iotaField.text.length === 0 && cb.iota) iotaField.text = cb.iota
+            if (countryField.text.length === 0 && cb.country) countryField.text = cb.country
+            if (addressField.text.length === 0 && cb.address) addressField.text = cb.address
+            if (stateField.text.length === 0 && cb.state) stateField.text = cb.state
+            if (cntyField.text.length === 0 && cb.county) cntyField.text = cb.county
+            if (cqzField.text.length === 0 && cb.cqZone > 0) cqzField.text = String(cb.cqZone)
+            if (ituzField.text.length === 0 && cb.ituZone > 0) ituzField.text = String(cb.ituZone)
+            if (dxccField.text.length === 0 && cb.dxcc > 0) dxccField.text = String(cb.dxcc)
+            if (qslViaField.text.length === 0 && cb.qslVia) qslViaField.text = cb.qslVia
         }
     }
 
@@ -310,6 +325,70 @@ DialogFrame {
                     Layout.horizontalStretchFactor: 2; Layout.fillWidth: true
                     label: qsTr("TX pwr W")
                     StyledTextField { id: pwrField; Layout.fillWidth: true }
+                }
+            }
+            //  Dove sta la stazione: quello che il callbook sa e che prima
+            //  si poteva scrivere solo dopo, riaprendo il QSO.
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 10
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 5; Layout.fillWidth: true
+                    label: qsTr("Country")
+                    StyledTextField { id: countryField; Layout.fillWidth: true; mono: false }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 6; Layout.fillWidth: true
+                    label: qsTr("Address / city")
+                    StyledTextField { id: addressField; Layout.fillWidth: true; mono: false }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 2; Layout.fillWidth: true
+                    label: qsTr("State")
+                    StyledTextField { id: stateField; Layout.fillWidth: true; uppercase: true; placeholderText: "—" }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 3; Layout.fillWidth: true
+                    label: qsTr("County / JCC")
+                    StyledTextField { id: cntyField; Layout.fillWidth: true; mono: false; placeholderText: "—" }
+                }
+            }
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 10
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 2; Layout.fillWidth: true
+                    label: qsTr("DXCC")
+                    StyledTextField { id: dxccField; Layout.fillWidth: true; placeholderText: "—" }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 2; Layout.fillWidth: true
+                    label: qsTr("CQ zone")
+                    StyledTextField { id: cqzField; Layout.fillWidth: true; placeholderText: "—" }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 2; Layout.fillWidth: true
+                    label: qsTr("ITU zone")
+                    StyledTextField { id: ituzField; Layout.fillWidth: true; placeholderText: "—" }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 2; Layout.fillWidth: true
+                    label: qsTr("Cont")
+                    StyledTextField { id: contField; Layout.fillWidth: true; uppercase: true; placeholderText: "—" }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 5; Layout.fillWidth: true
+                    label: qsTr("QSL via")
+                    StyledTextField { id: qslViaField; Layout.fillWidth: true; uppercase: true; placeholderText: "—" }
                 }
             }
             RowLayout {

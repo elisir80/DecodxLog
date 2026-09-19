@@ -220,3 +220,50 @@ def test_grid_points_land_where_the_grid_is():
 
     # Un locatore malscritto non finisce sulla mappa.
     assert analytics.grid_points([qso(GRIDSQUARE="XX")]) == []
+
+
+# ── Punteggio del contest ─────────────────────────────────────────────────────
+
+
+def test_contest_score_counts_like_a_contest():
+    rows = [
+        qso(call="DL9ZZT", band="20m", mode="CW", DXCC="230", CQZ="14", date="20260918", time="100000"),
+        qso(call="DL9ZZT", band="20m", mode="CW", DXCC="230", CQZ="14", date="20260918", time="101000"),
+        qso(call="DL9ZZT", band="40m", mode="CW", DXCC="230", CQZ="14", date="20260918", time="102000"),
+        qso(call="EA5XYZ", band="20m", mode="CW", DXCC="281", CQZ="14", date="20260918", time="103000"),
+        qso(call="W1AW", band="20m", mode="SSB", DXCC="291", CQZ="5", date="20260918", time="104000"),
+    ]
+    score = analytics.contest_score(rows)
+    # Il secondo DL9ZZT in 20m CW e' un duplicato: non vale.
+    assert score["qsos"] == 4
+    assert score["dupes"] == 1
+    assert score["points"] == 4
+    # Moltiplicatori per banda: 20m ha 230, 281 e 291; 40m ha 230.
+    assert score["multipliers"] == 4
+    assert score["score"] == 16
+    bands = {b["band"]: b for b in score["bands"]}
+    assert bands["20m"]["qsos"] == 3 and bands["20m"]["mults"] == 3
+    assert bands["40m"]["qsos"] == 1 and bands["40m"]["dupes"] == 0
+
+
+def test_contest_score_can_count_prefixes_or_zones():
+    rows = [
+        qso(call="DL9ZZT", band="20m", mode="CW", DXCC="230", CQZ="14", date="20260918", time="100000"),
+        qso(call="DL1ABC", band="20m", mode="CW", DXCC="230", CQZ="14", date="20260918", time="101000"),
+    ]
+    # Stessa entita', prefissi diversi: col WPX sono due moltiplicatori.
+    assert analytics.contest_score(rows, multiplier="dxcc")["multipliers"] == 1
+    assert analytics.contest_score(rows, multiplier="wpx")["multipliers"] == 2
+    assert analytics.contest_score(rows, multiplier="cqz")["multipliers"] == 1
+
+
+def test_contest_score_only_looks_at_the_session():
+    import datetime as dt
+    rows = [
+        qso(call="DL9ZZT", band="20m", mode="CW", DXCC="230", date="20260918", time="080000"),
+        qso(call="EA5XYZ", band="20m", mode="CW", DXCC="281", date="20260918", time="200000"),
+    ]
+    since = dt.datetime(2026, 9, 18, 12, 0, tzinfo=dt.UTC)
+    score = analytics.contest_score(rows, since=since)
+    assert score["qsos"] == 1
+    assert score["score"] == 1

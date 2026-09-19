@@ -1397,6 +1397,21 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
     r.set(QStringLiteral("IOTA"), text("iota").toUpper());
     r.set(QStringLiteral("WWFF_REF"), text("wwff_ref").toUpper());
     r.set(QStringLiteral("COMMENT"), text("comment"));
+    // Quello che dice il callbook e che prima si poteva scrivere solo dopo:
+    // nazione, citta', zone, stato e contea entrano subito nel QSO.
+    r.set(QStringLiteral("COUNTRY"), text("country"));
+    r.set(QStringLiteral("ADDRESS"), text("address"));
+    r.set(QStringLiteral("STATE"), text("state").toUpper());
+    r.set(QStringLiteral("CNTY"), text("cnty"));
+    r.set(QStringLiteral("CONT"), text("cont").toUpper());
+    if (!text("cqz").isEmpty())
+        r.set(QStringLiteral("CQZ"), text("cqz"));
+    if (!text("ituz").isEmpty())
+        r.set(QStringLiteral("ITUZ"), text("ituz"));
+    if (!text("dxcc").isEmpty())
+        r.set(QStringLiteral("DXCC"), text("dxcc"));
+    r.set(QStringLiteral("EMAIL"), text("email"));
+    r.set(QStringLiteral("QSL_VIA"), text("qsl_via").toUpper());
     r.set(QStringLiteral("APP_DECOLOG_TAGS"), text("tags"));
     // Contest: il numero ricevuto, come lo vuole ADIF.
     if (!text("srx").isEmpty()) {

@@ -492,6 +492,83 @@ def awards(rows: list[Row], band: str = "", mode_group: str = "",
     return out
 
 
+# I moltiplicatori che i contest usano davvero: le entita' DXCC, i prefissi
+# alla WPX e le zone CQ. Quale conta dipende dal contest, quindi si contano
+# tutti e tre e si lascia scegliere.
+CONTEST_MULTIPLIERS = [
+    ("dxcc", "Entita' DXCC"),
+    ("wpx", "Prefissi (WPX)"),
+    ("cqz", "Zone CQ"),
+]
+
+
+def contest_score(rows: list[Row], since: dt.datetime | None = None,
+                  until: dt.datetime | None = None, mode_group: str = "",
+                  points_per_qso: int = 1, multiplier: str = "dxcc") -> dict:
+    """Il punteggio di una sessione: QSO validi, punti, moltiplicatori, totale.
+
+    Si conta come si conta in gara: i duplicati (stesso nominativo, stessa
+    banda, stesso gruppo di modi) non valgono, i moltiplicatori si contano una
+    volta per banda, e il totale e' punti per moltiplicatori. Le regole vere
+    cambiano da contest a contest: qui si tengono quelle che valgono quasi
+    sempre, e il resto lo dice l'occhio di chi opera.
+    """
+    seen: set[tuple[str, str, str]] = set()
+    per_band: dict[str, dict] = {}
+    mults: set[tuple[str, str]] = set()
+    valid = 0
+    dupes = 0
+    points = 0
+
+    for r in rows:
+        if r.when is None:
+            continue
+        if since is not None and r.when < since:
+            continue
+        if until is not None and r.when > until:
+            continue
+        if not mode_matches(mode_group, r):
+            continue
+
+        group = "CW" if r.mode == "CW" else ("PHONE" if r.mode in PHONE_MODES else "DIGI")
+        key = (r.call, r.band, group)
+        band = per_band.setdefault(r.band or "?", {"band": r.band or "?", "qsos": 0, "dupes": 0,
+                                                   "points": 0, "mults": 0})
+        if key in seen:
+            dupes += 1
+            band["dupes"] += 1
+            continue
+        seen.add(key)
+        valid += 1
+        points += points_per_qso
+        band["qsos"] += 1
+        band["points"] += points_per_qso
+
+        if multiplier == "wpx":
+            token = wpx_prefix(r.call)
+        elif multiplier == "cqz":
+            token = str(r.cqz) if 1 <= r.cqz <= 40 else ""
+        else:
+            token = str(r.dxcc) if r.dxcc else ""
+        if token:
+            before = len(mults)
+            mults.add((r.band, token))
+            if len(mults) > before:
+                band["mults"] += 1
+
+    bands = sorted(per_band.values(), key=lambda b: BAND_ORDER.index(b["band"]) if b["band"] in BAND_ORDER else 99)
+    return {
+        "qsos": valid,
+        "dupes": dupes,
+        "points": points,
+        "multipliers": len(mults),
+        "score": points * max(1, len(mults)) if mults else points,
+        "bands": bands,
+        "multiplier": multiplier,
+        "points_per_qso": points_per_qso,
+    }
+
+
 def missing_states(award: Award) -> list[tuple[str, str]]:
     """Gli stati che mancano al WAS: il diploma si chiude sapendo cosa cercare."""
     done = {i.key for i in award.items}
