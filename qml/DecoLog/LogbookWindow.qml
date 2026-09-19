@@ -18,6 +18,7 @@ ApplicationWindow {
         id: shared
         category: "layout"
         property string hiddenColumns: ""
+        property string columnWidths: ""
         property var savedFilters: ({})
         property alias popWidth: root.width
         property alias popHeight: root.height
@@ -34,8 +35,10 @@ ApplicationWindow {
         anchors.margins: 8
         showPopButton: false
         hiddenColumns: shared.hiddenColumns
+        columnWidths: shared.columnWidths
         savedFilters: shared.savedFilters
         onHiddenColumnsEdited: (value) => shared.hiddenColumns = value
+        onColumnWidthsEdited: (value) => shared.columnWidths = value
         onSavedFiltersEdited: (value) => shared.savedFilters = value
         onOpenQso: (id) => { if (id > 0) qsoDialog.openFor(id) }
     }

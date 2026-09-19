@@ -11,9 +11,12 @@ GlassPanel {
 
     // Colonne nascoste, come chiavi separate da virgola ("dxcc,source").
     property string hiddenColumns: ""
+    // Le larghezze scelte a mano, come {"call": 120, "name": 260}.
+    property string columnWidths: ""
     property var savedFilters: ({})
     property bool showPopButton: true
     signal hiddenColumnsEdited(string value)
+    signal columnWidthsEdited(string value)
     signal savedFiltersEdited(var value)
     signal openQso(var id)
     signal popRequested()
@@ -51,6 +54,44 @@ GlassPanel {
                 list.push(id)
         }
         root.selectedIds = list
+    }
+
+    // ── Larghezza delle colonne ─────────────────────────────────────────
+    //
+    // Il bordo fra due intestazioni si trascina: Qt se lo ricorda in
+    // explicitColumnWidth, e noi lo scriviamo nelle impostazioni con la chiave
+    // della colonna — cosi' resta anche se un domani le colonne cambiano posto.
+    function widthMap() {
+        try {
+            return JSON.parse(root.columnWidths || "{}") || {}
+        } catch (e) {
+            return {}
+        }
+    }
+    function applyStoredWidths() {
+        const map = root.widthMap()
+        for (let c = 0; c < root.model.columns; ++c) {
+            const w = map[root.model.columnKey(c)]
+            if (w > 0)
+                table.setColumnWidth(c, w)
+        }
+        table.forceLayout()
+    }
+    function storeWidths() {
+        const map = {}
+        for (let c = 0; c < root.model.columns; ++c) {
+            const w = table.explicitColumnWidth(c)
+            if (w >= 0)
+                map[root.model.columnKey(c)] = Math.round(w)
+        }
+        const text = JSON.stringify(map)
+        if (text !== root.columnWidths)
+            root.columnWidthsEdited(text)
+    }
+    function resetWidths() {
+        table.clearColumnWidths()
+        root.columnWidthsEdited("")
+        table.forceLayout()
     }
 
     function isHidden(key) { return hidden.indexOf(key) >= 0 }
@@ -92,6 +133,7 @@ GlassPanel {
         else if (name === "actions") actionsMenu.popup(root.width - 320, Theme.panelHeight)
         else if (name === "tag") tagPopup.openFor(root.model.shownIds(), true)
         else if (name === "dates") datePopup.open()
+        else if (name === "wide") { table.setColumnWidth(1, 260); table.forceLayout(); root.storeWidths() }
     }
     // Per le schermate di prova (--show select:<righe separate da virgola>:<cosa>).
     function showSelection(rows, what) {
@@ -109,6 +151,8 @@ GlassPanel {
         else if (what === "confirm2") { confirmRowDelete.openFor(list); confirmRowDelete.step = 2 }
         else if (what === "delete") { decolog.deleteQsos(list); root.clearSelection() }
         else if (what === "callbook") { for (let k = 0; k < list.length; ++k) decolog.completeQsoFromCallbook(list[k]) }
+        else if (String(what).indexOf("upload") === 0)
+            decolog.qsl.uploadQsos(list, String(what).split("-")[1] || "lotw")
     }
     function qslFilterLabel(key) {
         return { confirmed: qsTr("confirmed"), lotw: qsTr("LoTW confirmed"), card: qsTr("card confirmed"),
@@ -177,6 +221,11 @@ GlassPanel {
 
     StyledMenu {
         id: columnsMenu
+        StyledMenuItem {
+            text: qsTr("Default widths")
+            onTriggered: root.resetWidths()
+        }
+        MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
         Repeater {
             model: root.model.columns
             StyledMenuItem {
@@ -827,9 +876,14 @@ GlassPanel {
             clip: true
             model: root.model
             boundsBehavior: Flickable.StopAtBounds
+            resizableColumns: true
             columnWidthProvider: function (column) {
                 if (root.isHidden(root.model.columnKey(column)))
                     return 0
+                // Se il bordo l'ha tirato l'operatore, comanda lui.
+                const chosen = table.explicitColumnWidth(column)
+                if (chosen >= 0)
+                    return chosen
                 // Il nome prende lo spazio che avanza.
                 if (column === 8) {
                     let used = 0
@@ -844,6 +898,20 @@ GlassPanel {
             ScrollBar.vertical: ScrollBar {}
             ScrollBar.horizontal: ScrollBar {}
             onWidthChanged: forceLayout()
+
+            // Dopo una tirata, la misura si scrive nelle impostazioni — ma non a
+            // ogni pixel: si aspetta che l'operatore abbia finito.
+            onLayoutChanged: storeWidthsTimer.restart()
+            Timer {
+                id: storeWidthsTimer
+                interval: 600
+                onTriggered: root.storeWidths()
+            }
+            Component.onCompleted: root.applyStoredWidths()
+            Connections {
+                target: root
+                function onColumnWidthsChanged() { root.applyStoredWidths() }
+            }
 
             Connections {
                 target: Theme
@@ -986,13 +1054,38 @@ GlassPanel {
             onTriggered: root.model.dxccFilter = dxcc
         }
         MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
-        StyledMenuItem {
-            text: qsTr("Paper QSL: queue for the bureau")
-            onTriggered: decolog.cards.enqueue([rowMenu.qsoId], "B")
+        // Le conferme elettroniche: LoTW, eQSL e gli altri, sui QSO scelti.
+        StyledMenu {
+            id: uploadMenu
+            readonly property var ids: root.selectedIds.length > 1 ? root.selectedIds : [rowMenu.qsoId]
+            title: root.selectedIds.length > 1
+                   ? qsTr("Send the %1 QSO chosen to…").arg(root.selectedIds.length)
+                   : qsTr("Send this QSO to…")
+            enabled: !decolog.qsl.busy
+            Repeater {
+                model: decolog.qsl.services
+                StyledMenuItem {
+                    required property var modelData
+                    text: modelData.ready ? modelData.label
+                                          : "%1 — %2".arg(modelData.label).arg(modelData.hint)
+                    enabled: modelData.ready && !decolog.qsl.busy
+                    onTriggered: decolog.qsl.uploadQsos(uploadMenu.ids, modelData.id)
+                }
+            }
         }
         StyledMenuItem {
-            text: qsTr("Paper QSL: queue as direct")
-            onTriggered: decolog.cards.enqueue([rowMenu.qsoId], "D")
+            text: root.selectedIds.length > 1
+                  ? qsTr("Paper QSL: queue the %1 chosen for the bureau").arg(root.selectedIds.length)
+                  : qsTr("Paper QSL: queue for the bureau")
+            onTriggered: decolog.cards.enqueue(root.selectedIds.length > 1 ? root.selectedIds
+                                                                           : [rowMenu.qsoId], "B")
+        }
+        StyledMenuItem {
+            text: root.selectedIds.length > 1
+                  ? qsTr("Paper QSL: queue the %1 chosen as direct").arg(root.selectedIds.length)
+                  : qsTr("Paper QSL: queue as direct")
+            onTriggered: decolog.cards.enqueue(root.selectedIds.length > 1 ? root.selectedIds
+                                                                           : [rowMenu.qsoId], "D")
         }
         MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
         StyledMenuItem { text: qsTr("Add tag…"); onTriggered: tagPopup.openFor([rowMenu.qsoId], true) }

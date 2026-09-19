@@ -236,6 +236,31 @@ void QslController::uploadQso(qint64 id, const QString& service)
     startNext();
 }
 
+int QslController::uploadQsos(const QVariantList& ids, const QString& service)
+{
+    if (busy() || !m_ctx.db || !m_ctx.db->isOpen() || ids.isEmpty())
+        return 0;
+    // Solo quelli che a quel servizio devono ancora andare: rimandare un QSO
+    // gia' confermato non serve a nessuno e fa arrabbiare il servizio.
+    const QList<qint64> pending = m_ctx.db->qsosToUpload(service, 0);
+    const QSet<qint64> waiting(pending.cbegin(), pending.cend());
+    QList<qint64> batch;
+    for (const QVariant& value : ids) {
+        const qint64 id = value.toLongLong();
+        if (waiting.contains(id) && !batch.contains(id))
+            batch << id;
+    }
+    if (batch.isEmpty()) {
+        m_lastResult.insert(service, tr("nothing to send: they have already gone"));
+        emit changed();
+        return 0;
+    }
+    m_busyService = service;
+    m_batch = batch;
+    startNext();
+    return static_cast<int>(batch.size());
+}
+
 void QslController::uploadPending(const QString& service, int limit)
 {
     if (busy() || !m_ctx.db || !m_ctx.db->isOpen())

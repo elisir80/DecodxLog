@@ -67,6 +67,9 @@ public:
     Q_INVOKABLE void uploadPending(const QString& service, int limit = 0);
     // Un QSO solo (dalla sua scheda).
     Q_INVOKABLE void uploadQso(qint64 id, const QString& service);
+    // Un gruppo di QSO scelti nel log. Torna quanti ne parte davvero: quelli
+    // gia' inviati a quel servizio non si rimandano.
+    Q_INVOKABLE int uploadQsos(const QVariantList& ids, const QString& service);
     Q_INVOKABLE void setAutoUpload(const QString& service, bool automatic);
     Q_INVOKABLE bool autoUpload(const QString& service) const;
     Q_INVOKABLE void cancel();

@@ -38,9 +38,10 @@ ApplicationWindow {
         property alias windowHeight: window.height
         property real leftWidth: 300
         property real rightWidth: 300
-        property real bottomHeight: 200
+        property real bottomHeight: 280
         property real mapWidth: 308
         property string hiddenColumns: ""
+        property string columnWidths: ""
         property var savedFilters: ({})
         // I pannelli chiusi e quelli in finestra propria, come liste di chiavi
         // separate da virgola. Restano da una sessione all'altra.
@@ -484,8 +485,10 @@ ApplicationWindow {
                     visible: window.isPanelDocked("logbook")
                     panelKey: "logbook"
                     hiddenColumns: layout.hiddenColumns
+                    columnWidths: layout.columnWidths
                     savedFilters: layout.savedFilters
                     onHiddenColumnsEdited: (value) => layout.hiddenColumns = value
+                    onColumnWidthsEdited: (value) => layout.columnWidths = value
                     onSavedFiltersEdited: (value) => layout.savedFilters = value
                     onOpenQso: (id) => window.openQso(id)
                     onPopRequested: window.detachPanel("logbook")
@@ -535,7 +538,9 @@ ApplicationWindow {
 
             SplitView {
                 SplitView.preferredHeight: layout.bottomHeight
-                SplitView.minimumHeight: 130
+                // Sul DX Cluster la fascia si alza da sola: cinque righe di spot
+                // non sono un cluster, sono un assaggio.
+                SplitView.minimumHeight: bottomTabs.currentTab === 4 ? 340 : 130
                 visible: window.isPanelDocked("tabs") || window.isPanelDocked("map")
                 onHeightChanged: if (height > 0 && window.layoutIsWhole) layout.bottomHeight = height
                 orientation: Qt.Horizontal

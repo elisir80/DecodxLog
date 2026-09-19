@@ -3,6 +3,23 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.3.9 — 19 settembre 2026
+
+**Le colonne del log si tirano.** Il bordo fra due intestazioni si trascina col mouse e la
+colonna si allarga o si stringe; la misura resta, anche nel log staccato in finestra, e si
+ricorda con il nome della colonna, non con la sua posizione. Dal menu «Colonne», «Larghezze
+di partenza» rimette tutto com'era.
+
+**Le conferme QSL su piu' QSO in una volta.** Scelte le righe nel log (clic sinistro per
+aggiungerle, Esc per lasciarle andare), il tasto destro ha adesso «Manda i N QSO scelti
+a…»: LoTW, eQSL, QRZ Logbook, Club Log — quelli pronti; gli altri si vedono con scritto
+cosa gli manca. Un QSO gia' andato a quel servizio non riparte. Anche le QSL cartacee
+vanno in coda per tutte le righe scelte, bureau o diretta.
+
+**Il DX Cluster ha lo spazio che serve.** Quando si sceglie la scheda DX Cluster la fascia
+in basso si alza da sola: una decina di spot, non cinque. Chi la vuole piu' alta la tira,
+come sempre.
+
 ## 0.3.8 — 19 settembre 2026
 
 **Tutte le finestre sono finestre vere.** Diplomi, Impostazioni, scheda del QSO, nuovo

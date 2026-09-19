@@ -1,4 +1,4 @@
-# DecoLog 0.3.8 — funzioni / features
+# DecoLog 0.3.9 — funzioni / features
 
 Ogni voce è in italiano e in inglese: *italiano* / *English*.
 Quello che manca è in fondo.
@@ -64,6 +64,14 @@ Quello che manca è in fondo.
 - **QSL a parole**: il mouse sopra le lettere L Q C E dice com'e' andata con quel servizio
   — confermata, inviata in attesa, non inviata. / **QSL in words**: hovering the L Q C E
   letters says how it went with that service — confirmed, sent and waiting, not sent.
+- **Colonne che si tirano**: il bordo fra due intestazioni si trascina, e la larghezza
+  resta (per nome di colonna, anche nel log staccato). / **Draggable columns**: the border
+  between two headers drags, and the width stays (by column name, in the detached log too).
+- **Conferme QSL a gruppo**: scelte piu' righe, il tasto destro le manda a LoTW, eQSL, QRZ
+  Logbook o Club Log, o le mette in coda per il bureau o la diretta; quelle gia' inviate a
+  quel servizio non ripartono. / **QSL confirmations in bulk**: with several rows chosen,
+  the right button sends them to LoTW, eQSL, QRZ Logbook or Club Log, or queues them for
+  the bureau or direct; the ones already sent to that service don't go again.
 - **Selezione multipla**: il clic sinistro aggiunge o toglie una riga, lo shift prende
   tutto quello che sta in mezzo, **Esc** lascia andare la selezione; il tasto destro le
   cancella tutte, chiedendo **due volte**. / **Multiple selection**: left click adds or

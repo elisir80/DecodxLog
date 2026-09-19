@@ -1348,6 +1348,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Stacca</translation>
     </message>
     <message>
+        <source>Default widths</source>
+        <translation>Larghezze di partenza</translation>
+    </message>
+    <message>
         <source>Band</source>
         <translation>Banda</translation>
     </message>
@@ -1608,8 +1612,24 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Filtra per entità</translation>
     </message>
     <message>
+        <source>Send the %1 QSO chosen to…</source>
+        <translation>Manda i %1 QSO scelti a…</translation>
+    </message>
+    <message>
+        <source>Send this QSO to…</source>
+        <translation>Manda questo QSO a…</translation>
+    </message>
+    <message>
+        <source>Paper QSL: queue the %1 chosen for the bureau</source>
+        <translation>QSL cartacea: i %1 scelti in coda per il bureau</translation>
+    </message>
+    <message>
         <source>Paper QSL: queue for the bureau</source>
         <translation>QSL cartacea: in coda per il bureau</translation>
+    </message>
+    <message>
+        <source>Paper QSL: queue the %1 chosen as direct</source>
+        <translation>QSL cartacea: i %1 scelti in coda per la diretta</translation>
     </message>
     <message>
         <source>Paper QSL: queue as direct</source>
@@ -4763,6 +4783,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>no keystore</source>
         <translation>nessun portachiavi</translation>
+    </message>
+    <message>
+        <source>nothing to send: they have already gone</source>
+        <translation>niente da mandare: sono già partiti</translation>
     </message>
     <message>
         <source>nothing to send</source>
