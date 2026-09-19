@@ -24,6 +24,11 @@
 
 int main(int argc, char* argv[])
 {
+    // I menu li disegna DecoLog, non Windows. Da Qt 6.8 i menu di QML possono
+    // diventare menu nativi del sistema: quelli non sanno niente del tema e su
+    // uno sfondo scuro scrivono nero su nero — sottomenu, tendine e il menu del
+    // tasto destro dentro i campi di testo diventavano illeggibili.
+    QCoreApplication::setAttribute(Qt::AA_DontUseNativeMenuWindows);
     QGuiApplication app(argc, argv);
 #if defined(Q_OS_MACOS)
     const QStringList uiFontCandidates = {QStringLiteral("SF Pro Text"), QStringLiteral("Helvetica Neue"), QStringLiteral("Arial")};
@@ -97,6 +102,10 @@ int main(int argc, char* argv[])
     QCommandLineOption rotorOption(QStringLiteral("rotor"), QStringLiteral("Use this rotor gateway."),
                                    QStringLiteral("[backend@]host:port"));
     parser.addOption(rotorOption);
+    // Radio per una prova: "host:porta" di un rigctld gia' in piedi.
+    QCommandLineOption rigOption(QStringLiteral("rig"), QStringLiteral("Use this rigctld (Hamlib)."),
+                                 QStringLiteral("host:port"));
+    parser.addOption(rigOption);
     // Server del Cloud per una prova, senza toccare le impostazioni.
     QCommandLineOption cloudOption(QStringLiteral("cloud"), QStringLiteral("Use this DecoLog Cloud server."),
                                    QStringLiteral("url"));
@@ -138,6 +147,13 @@ int main(int argc, char* argv[])
     } else {
         controller.startRotor();
     controller.startCloud(!parser.isSet(grabOption));
+    }
+    if (parser.isSet(rigOption)) {
+        const QString value = parser.value(rigOption);
+        if (auto* rig = qobject_cast<decolog::app::RigController*>(controller.rig())) {
+            rig->overrideConnection(value.section(QLatin1Char(':'), 0, 0),
+                                    value.section(QLatin1Char(':'), 1).toInt());
+        }
     }
     if (parser.isSet(spotsOption)) {
         QFile spotFile(parser.value(spotsOption));

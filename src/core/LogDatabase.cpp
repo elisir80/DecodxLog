@@ -1156,6 +1156,14 @@ QList<QJsonArray> LogDatabase::workedRows(bool confirmLotw, bool confirmCard, bo
     return rows;
 }
 
+int LogDatabase::markAllDirty()
+{
+    QSqlQuery q(connection());
+    if (!q.exec(QStringLiteral("UPDATE qso SET dirty = 1")))
+        return 0;
+    return q.numRowsAffected();
+}
+
 QList<qint64> LogDatabase::idsMissingCallbookData(int limit) const
 {
     QList<qint64> ids;

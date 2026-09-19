@@ -193,3 +193,39 @@ def test_token_expiry_is_checked(client):
         token.expires_at = dt.datetime.now(dt.UTC) - dt.timedelta(days=1)
         db.commit()
     assert client.get("/v1/sync/status", headers=headers).status_code == 401
+
+
+def test_purge_empties_the_cloud_only_when_you_write_delete(client):
+    headers = signup(client)
+    client.post("/v1/sync/push", headers=headers, json={"qsos": [qso("p-1", when="2026-09-18T07:00:00Z"),
+                                                        qso("p-2", when="2026-09-18T08:30:00Z")]})
+    assert client.get("/v1/sync/status", headers=headers).json()["qsos"] == 2
+
+    # Senza la parola giusta non si cancella niente.
+    refused = client.post("/v1/account/purge", headers=headers, json={"confirm": "si"})
+    assert refused.status_code == 400
+    assert "DELETE" in refused.json()["detail"]
+    assert client.get("/v1/sync/status", headers=headers).json()["qsos"] == 2
+
+    done = client.post("/v1/account/purge", headers=headers, json={"confirm": "DELETE"})
+    assert done.status_code == 200
+    assert done.json()["deleted"]["qsos"] == 2
+
+    # Il log e' vuoto e il cursore riparte da zero, ma si entra ancora.
+    after = client.get("/v1/sync/status", headers=headers).json()
+    assert after["qsos"] == 0 and after["deleted"] == 0 and after["cursor"] == 0
+    assert client.get("/v1/sync/pull", headers=headers).json()["qsos"] == []
+    # E quello che si manda dopo torna a contare da uno.
+    client.post("/v1/sync/push", headers=headers, json={"qsos": [qso("p-3", when="2026-09-18T09:45:00Z")]})
+    assert client.get("/v1/sync/status", headers=headers).json()["qsos"] == 1
+
+
+def test_purge_does_not_touch_the_other_callsigns(client):
+    mine = signup(client, "IU8LMC")
+    theirs = signup(client, "DL9ZZT")
+    client.post("/v1/sync/push", headers=mine, json={"qsos": [qso("m-1")]})
+    client.post("/v1/sync/push", headers=theirs, json={"qsos": [qso("t-1")]})
+
+    client.post("/v1/account/purge", headers=mine, json={"confirm": "DELETE"})
+    assert client.get("/v1/sync/status", headers=mine).json()["qsos"] == 0
+    assert client.get("/v1/sync/status", headers=theirs).json()["qsos"] == 1

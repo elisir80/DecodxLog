@@ -13,6 +13,8 @@
 #include <QProcess>
 #include <QRegularExpression>
 #include <QStandardPaths>
+
+#include <utility>
 #include <QUrlQuery>
 #include <QXmlStreamReader>
 
@@ -26,13 +28,25 @@ namespace qsl {
 
 QString tqslDataDirectory()
 {
-    const QString dir = QDir(QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation))
-                            .filePath(QStringLiteral("TrustedQSL"));
-    if (QFileInfo::exists(dir))
-        return dir;
+    QStringList candidates;
+#ifdef Q_OS_WIN
+    // Su Windows TQSL tiene i suoi dati in %APPDATA%\TrustedQSL — la cartella
+    // "Roaming" —: li' stanno il certificato del nominativo, le chiavi e le
+    // station location. Prima si guardava solo in "Local", dove non c'e'
+    // niente, e cosi' un TQSL a posto sembrava non installato.
+    const QString roaming = qEnvironmentVariable("APPDATA");
+    if (!roaming.isEmpty())
+        candidates << QDir(roaming).filePath(QStringLiteral("TrustedQSL"));
+#endif
+    candidates << QDir(QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation))
+                      .filePath(QStringLiteral("TrustedQSL"));
     // Su Linux e macOS TQSL usa la cartella nascosta nella home.
-    const QString home = QDir(QDir::homePath()).filePath(QStringLiteral(".tqsl"));
-    return QFileInfo::exists(home) ? home : QString();
+    candidates << QDir(QDir::homePath()).filePath(QStringLiteral(".tqsl"));
+    for (const QString& dir : std::as_const(candidates)) {
+        if (QFileInfo::exists(dir))
+            return dir;
+    }
+    return {};
 }
 
 QString findTqsl()
@@ -93,10 +107,18 @@ bool tqslHasCertificate()
     const QString dir = tqslDataDirectory();
     if (dir.isEmpty())
         return false;
-    // I certificati stanno in certs/, uno per chiamante; la cartella esiste anche
-    // vuota appena installato TQSL.
+    // In certs/ ci sono sempre "root" e "authorities": quelli li mette TQSL da
+    // solo appena installato, e non firmano niente. Il certificato che conta e'
+    // quello del nominativo, che sta in "user" e arriva col file .tq6 di ARRL.
+    const QFileInfo user(QDir(dir).filePath(QStringLiteral("certs/user")));
+    if (user.exists() && user.size() > 0)
+        return true;
     const QDir certs(QDir(dir).filePath(QStringLiteral("certs")));
-    return !certs.entryList(QDir::Files | QDir::NoDotAndDotDot).isEmpty();
+    for (const QString& name : certs.entryList(QDir::Files | QDir::NoDotAndDotDot)) {
+        if (name != QLatin1String("root") && name != QLatin1String("authorities"))
+            return true;
+    }
+    return false;
 }
 
 QslUploadResult resultFromTqslExit(int exitCode, const QString& output, int qsoCount)

@@ -91,6 +91,10 @@ public:
     // Stacca questo dispositivo: il token sparisce, il log resta.
     Q_INVOKABLE void logout();
     Q_INVOKABLE void syncNow();
+    // Svuota il Cloud: QSO, storico, documenti e presenze di questo nominativo.
+    // Vuole la parola DELETE scritta a mano; il log qui sul computer non si
+    // tocca, e alla prossima sincronizzazione risale tutto da capo.
+    Q_INVOKABLE void purgeCloud(const QString& confirm);
     Q_INVOKABLE void refresh() { emit changed(); }
 
     // Un QSO e' stato scritto: se il sync e' automatico parte fra poco.

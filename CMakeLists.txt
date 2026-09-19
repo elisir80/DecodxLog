@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoLog
-    VERSION 0.3.9
+    VERSION 0.4.0
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -58,6 +58,7 @@ add_library(decolog_core STATIC
     src/core/CredentialStore.cpp
     src/core/CredentialStore.h
     src/core/Maidenhead.cpp
+    src/core/RigControl.cpp
     src/core/Maidenhead.h
     src/core/LogDatabase.cpp
     src/core/LogDatabase.h
@@ -155,6 +156,7 @@ qt_add_executable(decolog
     src/app/ClusterController.h
     src/app/CloudController.cpp
     src/app/CloudController.h
+    src/app/RigController.cpp
     src/app/RotorController.cpp
     src/app/RotorController.h
     src/app/SolarController.cpp
@@ -277,7 +279,7 @@ set_target_properties(decolog PROPERTIES
 if(DECOLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor cloud cloudsettings vault)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig cloud cloudsettings vault)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

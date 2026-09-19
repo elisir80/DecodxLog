@@ -141,6 +141,10 @@ void CloudSync::watch(QNetworkReply* reply, const QString& what)
                         answer.value(QStringLiteral("more")).toBool());
             return;
         }
+        if (what == QLatin1String("purge")) {
+            emit purged(answer.value(QStringLiteral("deleted")).toObject().toVariantMap());
+            return;
+        }
         emit statusReady(answer.toVariantMap());
     });
 }
@@ -163,6 +167,12 @@ void CloudSync::login(const QString& callsign, const QString& password)
                 {QStringLiteral("device"), m_device}},
                false),
           QStringLiteral("auth"));
+}
+
+void CloudSync::purge(const QString& confirm)
+{
+    watch(send(QStringLiteral("/v1/account/purge"), {{QStringLiteral("confirm"), confirm}}, true),
+          QStringLiteral("purge"));
 }
 
 void CloudSync::reportPresence(const QVariantMap& state)

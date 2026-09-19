@@ -8,6 +8,7 @@
 
 #include "core/QslUpload.h"
 
+#include <QDir>
 #include <QHash>
 #include <QObject>
 #include <QQueue>
@@ -60,6 +61,9 @@ public:
     QString clubLogApiKey() const { return m_clubLogApiKey; }
     void setClubLogApiKey(const QString& key);
     QString tqslStatus() const;
+    // Dove TQSL tiene certificati e station location: serve per capirci qualcosa
+    // quando qualcosa non torna.
+    Q_INVOKABLE QString tqslDataDirectory() const { return QDir::toNativeSeparators(core::qsl::tqslDataDirectory()); }
     bool busy() const { return !m_busyService.isEmpty(); }
     QString busyService() const { return m_busyService; }
 

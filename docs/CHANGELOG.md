@@ -3,6 +3,35 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.4.0 — 19 settembre 2026
+
+**Le macro CW, col manipolatore della radio.** DecoLog parla con **rigctld**, il demone di
+Hamlib: da li' legge frequenza e modo, sposta la radio, e soprattutto le passa il testo da
+mandare in CW. Nella finestra contest c'e' la fila delle otto macro sui tasti **F1-F8**,
+con i buchi che si riempiono da soli — {CALL} chi stai lavorando, {MYCALL} il tuo
+nominativo, {RST} il rapporto, {NR} il progressivo, {EXCH} quello che hai ricevuto —, la
+manopola della velocita' in parole al minuto e **Esc** per fermare tutto. Le macro si
+scrivono come si vuole e restano. Impostazioni → **Radio (CAT)** per dire dove sta
+rigctld; il manipolatore e' quello della radio, quindi quello che senti nel monitor e'
+quello che va in aria.
+
+**Il certificato LoTW si trova, finalmente.** Su Windows TQSL tiene i suoi dati in
+%APPDATA%\TrustedQSL — la cartella "Roaming" — e DecoLog cercava nell'altra: un TQSL a
+posto sembrava non installato. Adesso guarda dove deve, e distingue il certificato **del
+nominativo** (quello che arriva col file .tq6 di ARRL) dalle radici che TQSL si mette da
+solo: se manca, lo dice chiaro e scrive anche in che cartella sta guardando.
+
+**Svuotare il Cloud, scrivendo DELETE.** Impostazioni → Sync e Cloud, in fondo, c'e' la
+zona pericolosa: si cancella tutto quello che il nominativo ha sul server — QSO, storico,
+profili, impostazioni, credenziali sigillate — e per farlo bisogna **scrivere DELETE**,
+come su GitHub. L'account resta e il log su questo computer non si tocca: alla prossima
+sincronizzazione risale da capo.
+
+**Niente piu' nero su nero.** Da Qt 6.8 i menu di QML possono diventare menu **nativi** di
+Windows: quelli non sanno niente del tema e su sfondo scuro scrivevano nero su nero —
+sottomenu, tendine e il menu del tasto destro dentro i campi di testo. Adesso i menu li
+disegna DecoLog, sempre, coi suoi colori.
+
 ## 0.3.9 — 19 settembre 2026
 
 **Le colonne del log si tirano.** Il bordo fra due intestazioni si trascina col mouse e la

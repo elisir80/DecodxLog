@@ -106,8 +106,15 @@ QString QslController::tqslStatus() const
 {
     if (m_tqslPath.isEmpty() || !QFile::exists(m_tqslPath))
         return tr("TQSL not found: install Trusted QSL or set its path here");
-    if (!qsl::tqslHasCertificate())
-        return tr("TQSL is installed but has no certificate: import your LoTW certificate in TQSL");
+    if (qsl::tqslDataDirectory().isEmpty()) {
+        return tr("TQSL is installed but has not been set up yet: open it once, "
+                  "so it creates its own folder with certificates and station locations");
+    }
+    if (!qsl::tqslHasCertificate()) {
+        return tr("TQSL has no callsign certificate yet: load the .tq6 file ARRL sends you "
+                  "(the .tq5 request alone does not sign anything) — TQSL's folder is %1")
+            .arg(QDir::toNativeSeparators(qsl::tqslDataDirectory()));
+    }
     const QStringList locations = tqslLocations();
     if (locations.isEmpty())
         return tr("TQSL has no station location: create one in TQSL (Station → Add location)");

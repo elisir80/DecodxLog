@@ -1,4 +1,4 @@
-# DecoLog 0.3.9 — funzioni / features
+# DecoLog 0.4.0 — funzioni / features
 
 Ogni voce è in italiano e in inglese: *italiano* / *English*.
 Quello che manca è in fondo.
@@ -162,6 +162,19 @@ Quello che manca è in fondo.
   risultati tenuti un giorno. / **QRZ.com (XML) or HamQTH callbook**: name, QTH, grid, zones,
   photo, LoTW/eQSL user, results cached for a day.
 - **Stato QSL dell'ultimo QSO**. / **QSL state of the last QSO**.
+
+## 8bis. Radio e CW / Radio and CW
+
+- **La radio via Hamlib**: DecoLog parla con **rigctld**, legge frequenza e modo, sposta il
+  VFO e comanda il PTT. Niente porte seriali: quelle le sa gia' Hamlib. / **The radio through
+  Hamlib**: DecoLog talks to **rigctld**, reads frequency and mode, moves the VFO and keys
+  the PTT. No serial ports: Hamlib already knows them.
+- **Otto macro CW** sui tasti F1-F8 nella finestra contest, col testo che si scrive a mano e
+  i buchi riempiti sul momento ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}); la velocita' in
+  parole al minuto si cambia mentre si opera, **Esc** ferma. Il manipolatore e' quello della
+  radio. / **Eight CW macros** on F1-F8 in the contest window, with the text you write and
+  the gaps filled in at the moment; the speed in words per minute changes while you operate,
+  **Esc** stops. The keyer is the radio's own.
 
 ## 9. Diplomi / Awards
 

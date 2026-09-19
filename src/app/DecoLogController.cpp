@@ -373,6 +373,16 @@ bool DecoLogController::openDatabase(const QString& path)
     };
     m_rotor = new RotorController(std::move(rotorCtx), this);
 
+    RigController::Context rigCtx;
+    rigCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
+        addActivity(category, text, level);
+    };
+    rigCtx.stationCallsign = [this] {
+        return m_profiles ? m_profiles->activeProfile().value(QStringLiteral("stationCallsign")).toString()
+                          : QString();
+    };
+    m_rig = new RigController(std::move(rigCtx), this);
+
     CloudController::Context cloudCtx;
     cloudCtx.db = &m_db;
     cloudCtx.credentials = m_credentials;
@@ -430,6 +440,8 @@ void DecoLogController::startRotor()
 {
     if (m_rotor)
         m_rotor->start();
+    if (m_rig)
+        m_rig->start();
 }
 
 void DecoLogController::startDecoLink()

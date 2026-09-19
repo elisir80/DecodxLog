@@ -134,6 +134,7 @@ GlassPanel {
         else if (name === "tag") tagPopup.openFor(root.model.shownIds(), true)
         else if (name === "dates") datePopup.open()
         else if (name === "wide") { table.setColumnWidth(1, 260); table.forceLayout(); root.storeWidths() }
+        else if (name === "sub") { addFilterMenu.popup(60, Theme.panelHeight + 30); subTimer.start() }
     }
     // Per le schermate di prova (--show select:<righe separate da virgola>:<cosa>).
     function showSelection(rows, what) {
@@ -238,6 +239,13 @@ GlassPanel {
                 onTriggered: root.toggleColumn(root.model.columnKey(index))
             }
         }
+    }
+
+    // Per le prove: apre il sottomenu quando il menu padre e' gia' in piedi.
+    Timer {
+        id: subTimer
+        interval: 400
+        onTriggered: bandMenu.open()
     }
 
     StyledMenu {

@@ -281,6 +281,117 @@ ApplicationWindow {
             }
         }
 
+        //  Macro CW: il manipolatore lo fa la radio, via Hamlib.
+        GlassPanel {
+            id: cwPanel
+            Layout.fillWidth: true
+            Layout.preferredHeight: 112
+            visible: decolog.rig.enabled
+            title: qsTr("CW macros")
+            dotColor: decolog.rig.connected ? Theme.accentColor : Theme.textSecondary
+
+            // Quello che serve alle macro per riempire i buchi.
+            function cwContext() {
+                return {
+                    call: callField.text.trim(),
+                    rst: sentRst.text.trim(),
+                    nr: root.session.serialEnabled ? String(root.session.nextSerial || 1) : "",
+                    exch: rcvdNr.text.trim()
+                }
+            }
+
+            headerTools: [
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: decolog.rig.connected
+                          ? "%1 %2".arg(decolog.rig.frequencyLabel).arg(decolog.rig.mode)
+                          : decolog.rig.status
+                    color: decolog.rig.connected ? Theme.textSecondary : Theme.warningColor
+                    font.family: Theme.monoFamily
+                    font.pixelSize: 11
+                },
+                GlassButton {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTr("Stop")
+                    tone: Theme.errorColor
+                    buttonHeight: 22
+                    fontPixelSize: 11
+                    onClicked: decolog.rig.stop()
+                },
+                GlassButton {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTr("Edit macros")
+                    buttonHeight: 22
+                    fontPixelSize: 11
+                    onClicked: macroEditor.open()
+                }
+            ]
+
+            ColumnLayout {
+                anchors.fill: parent
+                spacing: 6
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 6
+                    Repeater {
+                        model: decolog.rig.macros
+                        GlassButton {
+                            required property var modelData
+                            required property int index
+                            Layout.fillWidth: true
+                            buttonHeight: 30
+                            fontPixelSize: 12
+                            enabled: decolog.rig.connected
+                            text: "F%1 %2".arg(index + 1).arg(modelData.label)
+                            tone: index === 0 ? Theme.accentColor : "transparent"
+                            onClicked: decolog.rig.sendMacro(index, cwPanel.cwContext())
+                        }
+                    }
+                }
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+                    Text {
+                        text: qsTr("Speed")
+                        color: Theme.textSecondary
+                        font.pixelSize: 11
+                    }
+                    // La manopola della velocita': il manipolatore e' quello della
+                    // radio, qui si dice solo quanto deve andare svelto.
+                    Slider {
+                        Layout.fillWidth: true
+                        from: 10
+                        to: 45
+                        stepSize: 1
+                        value: decolog.rig.wpm
+                        enabled: decolog.rig.connected
+                        onMoved: decolog.rig.wpm = Math.round(value)
+                    }
+                    Text {
+                        text: qsTr("%1 wpm").arg(decolog.rig.wpm)
+                        color: Theme.textPrimary
+                        font.family: Theme.monoFamily
+                        font.pixelSize: 12
+                        font.bold: true
+                    }
+                }
+            }
+        }
+
+        // I tasti funzione mandano le macro, come in ogni log da contest.
+        Repeater {
+            model: 8
+            Item {
+                required property int index
+                Shortcut {
+                    sequence: "F" + (index + 1)
+                    enabled: decolog.rig.enabled && decolog.rig.connected
+                    onActivated: decolog.rig.sendMacro(index, cwPanel.cwContext())
+                }
+            }
+        }
+
         RowLayout {
             Layout.fillWidth: true
             spacing: 10
@@ -424,6 +535,79 @@ ApplicationWindow {
             cabrilloDialog.error = error
             if (error.length === 0)
                 cabrilloDialog.close()
+        }
+    }
+
+    // ── Le macro, scritte a mano ────────────────────────
+    DialogFrame {
+        id: macroEditor
+        dialogKey: "cwmacros"
+        width: 760
+        height: 540
+        title: qsTr("CW macros")
+        dotColor: Theme.accentColor
+        info: "{CALL} {MYCALL} {RST} {NR} {EXCH}"
+
+        body: ColumnLayout {
+            spacing: 8
+
+            Text {
+                Layout.fillWidth: true
+                Layout.margins: 14
+                Layout.bottomMargin: 0
+                wrapMode: Text.Wrap
+                color: Theme.textSecondary
+                font.pixelSize: 11
+                text: qsTr("The text goes on air as it is written, with the gaps filled in at the "
+                           + "moment: {CALL} the callsign you are working, {MYCALL} yours, {RST} the "
+                           + "report sent, {NR} the serial, {EXCH} what you received. The keyer is the "
+                           + "radio's own: Hamlib hands it the text.")
+            }
+            Repeater {
+                model: decolog.rig.macros
+                RowLayout {
+                    id: macroRow
+                    required property var modelData
+                    required property int index
+                    Layout.fillWidth: true
+                    Layout.leftMargin: 14
+                    Layout.rightMargin: 14
+                    spacing: 8
+                    Text {
+                        Layout.preferredWidth: 30
+                        text: "F" + (macroRow.index + 1)
+                        color: Theme.secondaryColor
+                        font.family: Theme.monoFamily
+                        font.pixelSize: 12
+                        font.bold: true
+                    }
+                    StyledTextField {
+                        id: macroLabel
+                        Layout.preferredWidth: 110
+                        text: macroRow.modelData.label
+                        onEditingFinished: decolog.rig.setMacro(macroRow.index, text, macroText.text)
+                    }
+                    StyledTextField {
+                        id: macroText
+                        Layout.fillWidth: true
+                        text: macroRow.modelData.text
+                        uppercase: true
+                        onEditingFinished: decolog.rig.setMacro(macroRow.index, macroLabel.text, text)
+                    }
+                }
+            }
+            Item { Layout.fillHeight: true }
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.margins: 14
+                spacing: 8
+                GlassButton {
+                    text: qsTr("Default macros")
+                    onClicked: decolog.rig.resetMacros()
+                }
+                Item { Layout.fillWidth: true }
+                GlassButton { text: qsTr("Close"); tone: Theme.primaryColor; onClicked: macroEditor.close() }
+            }
         }
     }
 

@@ -10,6 +10,7 @@
 #include "app/QslCardController.h"
 #include "app/QslController.h"
 #include "app/CloudController.h"
+#include "app/RigController.h"
 #include "app/RotorController.h"
 #include "app/SolarController.h"
 #include "app/QsoTableModel.h"
@@ -48,6 +49,8 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QObject* cards READ cards CONSTANT)
     Q_PROPERTY(QObject* solar READ solar CONSTANT)
     Q_PROPERTY(QObject* rotor READ rotor CONSTANT)
+    // La radio via Hamlib, con le macro in CW per i contest.
+    Q_PROPERTY(QObject* rig READ rig CONSTANT)
     Q_PROPERTY(QObject* cloud READ cloud CONSTANT)
     Q_PROPERTY(QObject* activation READ activation CONSTANT)
 
@@ -171,6 +174,7 @@ public:
     QObject* cards() const { return m_cards; }
     QObject* solar() const { return m_solar; }
     QObject* rotor() const { return m_rotor; }
+    QObject* rig() const { return m_rig; }
     QObject* cloud() const { return m_cloud; }
     QObject* activation() const { return m_activation; }
     // Dopo openDatabase e startDecoLink: le fonti del cluster si collegano.
@@ -479,6 +483,7 @@ private:
     QslCardController*   m_cards{nullptr};
     SolarController*     m_solar{nullptr};
     RotorController*     m_rotor{nullptr};
+    RigController*       m_rig{nullptr};
     CloudController*     m_cloud{nullptr};
     ActivationController* m_activation{nullptr};
 

@@ -295,6 +295,22 @@ private slots:
         QDir(dir).removeRecursively();
     }
 
+    void everythingGoesBackInTheCloudQueue()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        const qint64 a = db.insertQso({{"CALL", "K1ABC"}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1200"},
+                                       {"BAND", "20m"}, {"MODE", "FT8"}}, "import").id;
+        QVERIFY(a > 0);
+        // Appena scritto e' da mandare; quando il Cloud l'ha preso, non piu'.
+        QVERIFY(db.markSynced(a, 1));
+        QCOMPARE(db.dirtyQsos().size(), 0);
+
+        // Svuotato il Cloud, lassu' non c'e' piu' niente: tutto torna in coda.
+        QCOMPARE(db.markAllDirty(), 1);
+        QCOMPARE(db.dirtyQsos().size(), 1);
+    }
+
     void maidenheadMath()
     {
         const auto jn71 = maidenhead::toLatLon("JN71DC");

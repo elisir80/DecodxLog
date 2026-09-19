@@ -3,6 +3,9 @@
 #include "core/LogDatabase.h"
 #include "core/QslUpload.h"
 
+#include <QDir>
+#include <QFile>
+#include <QTemporaryDir>
 #include <QTest>
 
 using namespace decolog::core;
@@ -186,6 +189,53 @@ private slots:
         again.rcvdDate = "20260918";
         QVERIFY(db.setQslState(a, again));
         QCOMPARE(db.record(a)->value("LOTW_QSL_RCVD"), QString("Y"));
+    }
+
+    void theCertificateIsTheOneOfTheCallsign()
+    {
+        // TQSL su Windows tiene tutto in %APPDATA%\TrustedQSL: si finge quella
+        // cartella e si guarda cosa ci trova DecoLog dentro.
+        QTemporaryDir home;
+        QVERIFY(home.isValid());
+        const QByteArray appData = qgetenv("APPDATA");
+        qputenv("APPDATA", QFile::encodeName(home.path()));
+
+        const QString data = QDir(home.path()).filePath("TrustedQSL");
+        QDir().mkpath(data + "/certs");
+
+        // Appena installato TQSL ha solo le sue radici: non firma niente.
+        QFile root(data + "/certs/root");
+        QVERIFY(root.open(QIODevice::WriteOnly));
+        root.write("radici");
+        root.close();
+        QFile authorities(data + "/certs/authorities");
+        QVERIFY(authorities.open(QIODevice::WriteOnly));
+        authorities.write("autorita");
+        authorities.close();
+
+#ifdef Q_OS_WIN
+        QCOMPARE(qsl::tqslDataDirectory(), data);
+        QVERIFY(!qsl::tqslHasCertificate());
+
+        // Col certificato del nominativo (il .tq6 caricato in TQSL) si firma.
+        QFile user(data + "/certs/user");
+        QVERIFY(user.open(QIODevice::WriteOnly));
+        user.write("-----BEGIN CERTIFICATE-----");
+        user.close();
+        QVERIFY(qsl::tqslHasCertificate());
+
+        // E le station location si leggono da li'.
+        QFile stations(data + "/station_data");
+        QVERIFY(stations.open(QIODevice::WriteOnly));
+        stations.write("<StationDataFile><StationData name=\"Casa\"><CALL>IU8LMC</CALL></StationData></StationDataFile>");
+        stations.close();
+        QCOMPARE(qsl::tqslStationLocations(), QStringList{QStringLiteral("Casa")});
+#endif
+
+        if (appData.isEmpty())
+            qunsetenv("APPDATA");
+        else
+            qputenv("APPDATA", appData);
     }
 
     void tqslDiscovery()

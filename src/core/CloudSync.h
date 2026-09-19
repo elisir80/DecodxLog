@@ -66,6 +66,9 @@ public:
     // Quello che e' cambiato dopo `since`.
     void pull(qint64 since, int limit = 0);
     void status();
+    // Svuota il Cloud di questo nominativo. `confirm` deve essere la parola
+    // DELETE: il server non si fida di un clic, e nemmeno noi.
+    void purge(const QString& confirm);
     void cancel();
 
 signals:
@@ -75,6 +78,8 @@ signals:
     void pushed(const QVariantList& results, const QVariantList& docResults, qint64 cursor);
     void pulled(const QVariantList& qsos, const QVariantList& docs, qint64 cursor, bool more);
     void statusReady(const QVariantMap& status);
+    // Il Cloud e' stato svuotato: quanti QSO, documenti e storie se ne sono andati.
+    void purged(const QVariantMap& deleted);
     void failed(const decolog::core::CloudError& error);
 
 private:

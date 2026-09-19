@@ -24,7 +24,7 @@ DialogFrame {
 
     readonly property var pages: [qsTr("General"), qsTr("Theme & density"), qsTr("Decodium link"),
                                   qsTr("Sync & Cloud"), qsTr("QSL services"), qsTr("Callbook"),
-                                  qsTr("Rotor"), qsTr("Backup")]
+                                  qsTr("Radio (CAT)"), qsTr("Rotor"), qsTr("Backup")]
 
     onOpened: {
         portField.text = decolog.udpPort
@@ -46,6 +46,59 @@ DialogFrame {
         const keep = parseInt(keepField.text)
         if (!isNaN(keep))
             decolog.backupKeep = keep
+    }
+
+    // Cancellare tutto non si fa con un clic: si scrive DELETE, come su GitHub.
+    Popup {
+        id: purgeCloudDialog
+        function openDialog() { purgeWord.text = ""; open(); purgeWord.forceActiveFocus() }
+        anchors.centerIn: Overlay.overlay
+        modal: true
+        padding: 16
+        closePolicy: Popup.CloseOnEscape
+        background: Rectangle { color: Theme.panelColor; border.color: Theme.errorColor; radius: 6 }
+        contentItem: ColumnLayout {
+            spacing: 10
+            Text {
+                text: qsTr("Empty the Cloud of %1").arg(decolog.cloud.callsign || "—")
+                color: Theme.errorColor
+                font.pixelSize: 14
+                font.bold: true
+            }
+            Text {
+                Layout.maximumWidth: 420
+                wrapMode: Text.Wrap
+                color: Theme.textPrimary
+                text: qsTr("Everything this callsign has on the server goes away: QSO, history, station "
+                           + "profiles, settings, sealed credentials. It cannot be undone from here. The "
+                           + "log on this computer stays where it is.")
+            }
+            LabeledField {
+                label: qsTr("Write DELETE to confirm")
+                StyledTextField {
+                    id: purgeWord
+                    Layout.preferredWidth: 220
+                    uppercase: true
+                    Keys.onReturnPressed: if (purgeGo.enabled) purgeGo.clicked()
+                }
+            }
+            RowLayout {
+                spacing: 8
+                Item { Layout.fillWidth: true }
+                GlassButton { text: qsTr("Cancel"); onClicked: purgeCloudDialog.close() }
+                GlassButton {
+                    id: purgeGo
+                    text: qsTr("Empty the Cloud")
+                    tone: Theme.errorColor
+                    filled: true
+                    enabled: purgeWord.text.trim() === "DELETE" && !decolog.cloud.busy
+                    onClicked: {
+                        purgeCloudDialog.close()
+                        decolog.cloud.purgeCloud(purgeWord.text.trim())
+                    }
+                }
+            }
+        }
     }
 
     FileDialog {
@@ -637,6 +690,29 @@ DialogFrame {
                             serviceIds: ["cloud", "qrz", "qrzlogbook", "lotw", "clublog", "eqsl", "hamqth"]
                         }
                     }
+
+                    // ── Zona pericolosa ──────────────────────────────────
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 10
+                        spacing: 6
+                        visible: decolog.cloud.linked
+                        SectionTitle { text: qsTr("Danger zone") }
+                        Note {
+                            text: qsTr("Empty the Cloud of this callsign: QSO, history, station profiles, "
+                                       + "settings and sealed credentials go away from the server for good. "
+                                       + "The account stays, and the log on this computer is not touched — at "
+                                       + "the next sync it all goes back up from scratch. The other devices, "
+                                       + "though, will find nothing up there.")
+                        }
+                        GlassButton {
+                            Layout.alignment: Qt.AlignLeft
+                            text: qsTr("Empty the Cloud…")
+                            tone: Theme.errorColor
+                            enabled: !decolog.cloud.busy
+                            onClicked: purgeCloudDialog.openDialog()
+                        }
+                    }
                     Item { Layout.fillHeight: true }
                 }
 
@@ -857,6 +933,99 @@ DialogFrame {
                         font.pixelSize: 12
                     }
                     Note { text: qsTr("QRZ.com needs an XML data subscription; HamQTH is free. Results are kept in memory for a day, so moving through the log does not use up lookups.") }
+                    Item { Layout.fillHeight: true }
+                }
+
+                //  Radio (CAT)
+                ColumnLayout {
+                    spacing: 10
+
+                    SectionTitle { text: qsTr("Radio via Hamlib (rigctld)") }
+                    Note {
+                        text: qsTr("DecoLog does not touch the serial port: it talks to rigctld, the Hamlib "
+                                   + "daemon that already knows every radio. Start it with your rig, for "
+                                   + "example: rigctld -m 1035 -r COM5 -s 38400. Then DecoLog reads frequency "
+                                   + "and mode, can tune the radio, and hands the CW macros to the rig's own "
+                                   + "keyer.")
+                    }
+                    RowLayout {
+                        spacing: 12
+                        ToggleSwitch {
+                            text: qsTr("Talk to the radio")
+                            checked: decolog.rig.enabled
+                            onToggled: decolog.rig.enabled = checked
+                        }
+                        LabeledField {
+                            label: qsTr("Host")
+                            StyledTextField {
+                                Layout.preferredWidth: 180
+                                text: decolog.rig.host
+                                onEditingFinished: decolog.rig.host = text
+                            }
+                        }
+                        LabeledField {
+                            label: qsTr("Port")
+                            StyledTextField {
+                                Layout.preferredWidth: 90
+                                text: String(decolog.rig.port)
+                                onEditingFinished: decolog.rig.port = parseInt(text) || 4532
+                            }
+                        }
+                        GlassButton {
+                            Layout.alignment: Qt.AlignBottom
+                            Layout.bottomMargin: 2
+                            text: qsTr("Connect now")
+                            tone: Theme.primaryColor
+                            onClicked: decolog.rig.connectNow()
+                        }
+                    }
+                    RowLayout {
+                        spacing: 10
+                        Pill {
+                            text: decolog.rig.connected ? qsTr("radio connected") : qsTr("radio not connected")
+                            tone: decolog.rig.connected ? Theme.accentColor : Theme.warningColor
+                        }
+                        Text {
+                            Layout.fillWidth: true
+                            text: decolog.rig.connected
+                                  ? "%1 %2".arg(decolog.rig.frequencyLabel).arg(decolog.rig.mode)
+                                  : decolog.rig.status
+                            color: Theme.textSecondary
+                            font.family: Theme.monoFamily
+                            font.pixelSize: 12
+                            elide: Text.ElideRight
+                        }
+                    }
+
+                    SectionTitle { text: qsTr("CW keyer") }
+                    RowLayout {
+                        spacing: 10
+                        Text {
+                            text: qsTr("Speed")
+                            color: Theme.textSecondary
+                            font.pixelSize: 12
+                        }
+                        Slider {
+                            Layout.preferredWidth: 260
+                            from: 10
+                            to: 45
+                            stepSize: 1
+                            value: decolog.rig.wpm
+                            onMoved: decolog.rig.wpm = Math.round(value)
+                        }
+                        Text {
+                            text: qsTr("%1 wpm").arg(decolog.rig.wpm)
+                            color: Theme.textPrimary
+                            font.family: Theme.monoFamily
+                            font.pixelSize: 13
+                            font.bold: true
+                        }
+                    }
+                    Note {
+                        text: qsTr("The eight macros are in the contest window (Ctrl+Shift+T), on the F1-F8 "
+                                   + "keys, with Esc to stop. The text goes out through the radio's keyer, "
+                                   + "so what you hear in the monitor is what goes on air.")
+                    }
                     Item { Layout.fillHeight: true }
                 }
 

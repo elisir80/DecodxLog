@@ -203,6 +203,8 @@ ApplicationWindow {
             // cloud:signup:CALL:PASSWORD · cloud:login:CALL:PASSWORD · cloud:sync
             if (what[1] === "signup") decolog.cloud.signup(what[2], what[3])
             else if (what[1] === "login") decolog.cloud.login(what[2], what[3])
+            else if (what[1] === "purge") decolog.cloud.purgeCloud("DELETE")
+            else if (what[1] === "loginpurge") { decolog.cloud.login(what[2], what[3]); purgeAfterLogin.start() }
             else decolog.cloud.syncNow()
             bottomTabs.currentTab = 3
         }
@@ -228,6 +230,9 @@ ApplicationWindow {
             awardsDialog.openAt(what[1] || "dxcc")
         }
     }
+
+    // Per le prove: svuota il Cloud appena entrato.
+    Timer { id: purgeAfterLogin; interval: 4000; onTriggered: decolog.cloud.purgeCloud("DELETE") }
 
     NewQsoDialog { id: newQsoDialog }
     QsoDetailDialog { id: qsoDialog }

@@ -266,6 +266,9 @@ public:
     // ── Sync con DecoLog Cloud ───────────────────────────────────────────────
     // I QSO ancora da mandare, dal piu' vecchio. `limit` 0 = tutti.
     QList<qint64> dirtyQsos(int limit = 0) const;
+    // Rimette in coda per il Cloud tutto il log: serve dopo aver svuotato il
+    // server, quando lassu' non c'e' piu' niente da confrontare.
+    int markAllDirty();
     // Il QSO come lo vuole il Cloud: uuid, revisione, le chiavi del confronto e
     // tutti i campi ADIF dentro "fields".
     QVariantMap syncRecord(qint64 id) const;

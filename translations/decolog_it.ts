@@ -1065,6 +1065,26 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Registra</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation>Macro CW</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Ferma</translation>
+    </message>
+    <message>
+        <source>Edit macros</source>
+        <translation>Scrivi le macro</translation>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>Velocità</translation>
+    </message>
+    <message>
+        <source>%1 wpm</source>
+        <translation>%1 wpm</translation>
+    </message>
+    <message>
         <source>DUPE</source>
         <translation>DOPPIO</translation>
     </message>
@@ -1119,6 +1139,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>All files (*)</source>
         <translation>Tutti i file (*)</translation>
+    </message>
+    <message>
+        <source>The text goes on air as it is written, with the gaps filled in at the moment: {CALL} the callsign you are working, {MYCALL} yours, {RST} the report sent, {NR} the serial, {EXCH} what you received. The keyer is the radio&apos;s own: Hamlib hands it the text.</source>
+        <translation>Il testo va in aria com'è scritto, coi buchi riempiti sul momento: {CALL} il nominativo che stai lavorando, {MYCALL} il tuo, {RST} il rapporto mandato, {NR} il progressivo, {EXCH} quello che hai ricevuto. Il manipolatore è quello della radio: Hamlib gli passa il testo.</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>Macro di partenza</translation>
     </message>
     <message>
         <source>Cabrillo header</source>
@@ -3194,6 +3222,26 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Rotore</translation>
     </message>
     <message>
+        <source>Radio (CAT)</source>
+        <translation>Radio (CAT)</translation>
+    </message>
+    <message>
+        <source>Empty the Cloud of %1</source>
+        <translation>Svuota il Cloud di %1</translation>
+    </message>
+    <message>
+        <source>Everything this callsign has on the server goes away: QSO, history, station profiles, settings, sealed credentials. It cannot be undone from here. The log on this computer stays where it is.</source>
+        <translation>Tutto quello che questo nominativo ha sul server se ne va: QSO, storico, profili stazione, impostazioni, credenziali sigillate. Da qui non si torna indietro. Il log su questo computer resta dov'è.</translation>
+    </message>
+    <message>
+        <source>Write DELETE to confirm</source>
+        <translation>Scrivi DELETE per confermare</translation>
+    </message>
+    <message>
+        <source>Empty the Cloud</source>
+        <translation>Svuota il Cloud</translation>
+    </message>
+    <message>
         <source>cty.csv from country-files.com</source>
         <translation>cty.csv da country-files.com</translation>
     </message>
@@ -3585,6 +3633,18 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Annulla</translation>
     </message>
     <message>
+        <source>Danger zone</source>
+        <translation>Zona pericolosa</translation>
+    </message>
+    <message>
+        <source>Empty the Cloud of this callsign: QSO, history, station profiles, settings and sealed credentials go away from the server for good. The account stays, and the log on this computer is not touched — at the next sync it all goes back up from scratch. The other devices, though, will find nothing up there.</source>
+        <translation>Svuota il Cloud di questo nominativo: QSO, storico, profili stazione, impostazioni e credenziali sigillate se ne vanno dal server per sempre. L'account resta, e il log su questo computer non si tocca — alla prossima sincronizzazione risale tutto da capo. Gli altri dispositivi, però, lassu' non troveranno più niente.</translation>
+    </message>
+    <message>
+        <source>Empty the Cloud…</source>
+        <translation>Svuota il Cloud…</translation>
+    </message>
+    <message>
         <source>Automatic sync</source>
         <translation>Sync automatico</translation>
     </message>
@@ -3683,6 +3743,46 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>QRZ.com needs an XML data subscription; HamQTH is free. Results are kept in memory for a day, so moving through the log does not use up lookups.</source>
         <translation>QRZ.com richiede l&apos;abbonamento ai dati XML; HamQTH è gratuito. I risultati restano in memoria per un giorno, così scorrere il log non consuma ricerche.</translation>
+    </message>
+    <message>
+        <source>Radio via Hamlib (rigctld)</source>
+        <translation>Radio via Hamlib (rigctld)</translation>
+    </message>
+    <message>
+        <source>DecoLog does not touch the serial port: it talks to rigctld, the Hamlib daemon that already knows every radio. Start it with your rig, for example: rigctld -m 1035 -r COM5 -s 38400. Then DecoLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
+        <translation>DecoLog non tocca la porta seriale: parla con rigctld, il demone di Hamlib che conosce già tutte le radio. Avvialo con la tua, per esempio: rigctld -m 1035 -r COM5 -s 38400. Da lì DecoLog legge frequenza e modo, può spostare la radio, e passa le macro CW al manipolatore della radio stessa.</translation>
+    </message>
+    <message>
+        <source>Talk to the radio</source>
+        <translation>Parla con la radio</translation>
+    </message>
+    <message>
+        <source>Connect now</source>
+        <translation>Collegati adesso</translation>
+    </message>
+    <message>
+        <source>radio connected</source>
+        <translation>radio collegata</translation>
+    </message>
+    <message>
+        <source>radio not connected</source>
+        <translation>radio non collegata</translation>
+    </message>
+    <message>
+        <source>CW keyer</source>
+        <translation>Manipolatore CW</translation>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>Velocità</translation>
+    </message>
+    <message>
+        <source>%1 wpm</source>
+        <translation>%1 wpm</translation>
+    </message>
+    <message>
+        <source>The eight macros are in the contest window (Ctrl+Shift+T), on the F1-F8 keys, with Esc to stop. The text goes out through the radio&apos;s keyer, so what you hear in the monitor is what goes on air.</source>
+        <translation>Le otto macro stanno nella finestra contest (Ctrl+Shift+T), sui tasti F1-F8, con Esc per fermare. Il testo esce dal manipolatore della radio, quindi quello che senti nel monitor è quello che va in aria.</translation>
     </message>
     <message>
         <source>Antenna rotor</source>
@@ -4276,6 +4376,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Cloud: tutto allineato</translation>
     </message>
     <message>
+        <source>Cloud emptied: %1 QSO and %2 settings deleted. What is here stays, and goes back up at the next sync.</source>
+        <translation>Cloud svuotato: cancellati %1 QSO e %2 impostazioni. Quello che c'è qui resta, e risale alla prossima sincronizzazione.</translation>
+    </message>
+    <message>
         <source>Cloud: sign in again (%1)</source>
         <translation>Cloud: devi rientrare (%1)</translation>
     </message>
@@ -4306,6 +4410,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Cloud: signing in…</source>
         <translation>Cloud: sto entrando…</translation>
+    </message>
+    <message>
+        <source>Cloud: nothing deleted — you have to write DELETE</source>
+        <translation>Cloud: non ho cancellato niente — bisogna scrivere DELETE</translation>
+    </message>
+    <message>
+        <source>Cloud: emptying…</source>
+        <translation>Cloud: sto svuotando…</translation>
     </message>
     <message>
         <source>Cloud: this device is no longer linked</source>
@@ -4758,8 +4870,12 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>TQSL non trovato: installa Trusted QSL o indica qui dov&apos;è</translation>
     </message>
     <message>
-        <source>TQSL is installed but has no certificate: import your LoTW certificate in TQSL</source>
-        <translation>TQSL c&apos;è ma non ha un certificato: importa in TQSL il tuo certificato LoTW</translation>
+        <source>TQSL is installed but has not been set up yet: open it once, so it creates its own folder with certificates and station locations</source>
+        <translation>TQSL c'è ma non è ancora stato avviato: aprilo una volta, così si crea la sua cartella con certificati e station location</translation>
+    </message>
+    <message>
+        <source>TQSL has no callsign certificate yet: load the .tq6 file ARRL sends you (the .tq5 request alone does not sign anything) — TQSL&apos;s folder is %1</source>
+        <translation>TQSL non ha ancora il certificato del nominativo: carica il file .tq6 che ti manda ARRL (la richiesta .tq5 da sola non firma niente) — la cartella di TQSL è %1</translation>
     </message>
     <message>
         <source>TQSL has no station location: create one in TQSL (Station → Add location)</source>
@@ -4883,6 +4999,13 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Tags</source>
         <translation>Etichette</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::RigController</name>
+    <message>
+        <source>Sent: %1</source>
+        <translation>Mandato: %1</translation>
     </message>
 </context>
 <context>
@@ -5169,6 +5292,37 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>LoTW: %1</source>
         <translation>LoTW: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::RigControl</name>
+    <message>
+        <source>Radio connected (rigctld %1:%2)</source>
+        <translation>Radio collegata (rigctld %1:%2)</translation>
+    </message>
+    <message>
+        <source>Radio not reachable: %1</source>
+        <translation>Radio non raggiungibile: %1</translation>
+    </message>
+    <message>
+        <source>Looking for the radio on %1:%2…</source>
+        <translation>Cerco la radio su %1:%2…</translation>
+    </message>
+    <message>
+        <source>Radio off</source>
+        <translation>Radio spenta</translation>
+    </message>
+    <message>
+        <source>The radio is not connected: nothing sent in CW</source>
+        <translation>La radio non è collegata: in CW non è partito niente</translation>
+    </message>
+    <message>
+        <source>The radio did not take the CW text (rigctld: %1). Not every radio keys CW over CAT.</source>
+        <translation>La radio non ha preso il testo in CW (rigctld: %1). Non tutte le radio manipolano il CW dal CAT.</translation>
+    </message>
+    <message>
+        <source>The radio answered with an error (rigctld: %1)</source>
+        <translation>La radio ha risposto con un errore (rigctld: %1)</translation>
     </message>
 </context>
 <context>

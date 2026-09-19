@@ -20,7 +20,7 @@ from fastapi import Depends, FastAPI, HTTPException, Query, Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
-from sqlalchemy import func, select
+from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 
 from pathlib import Path
@@ -28,7 +28,7 @@ from pathlib import Path
 from fastapi.staticfiles import StaticFiles
 
 from . import auth, sync, web
-from .models import Account, Counter, Qso, create_all
+from .models import Account, Counter, Doc, Qso, QsoHistory, create_all
 from .settings import settings
 
 @asynccontextmanager
@@ -240,6 +240,46 @@ def sync_status(
         deleted=int(gone or 0),
         cursor=counter.value if counter else 0,
     )
+
+
+class PurgeIn(BaseModel):
+    """Per cancellare tutto bisogna scriverlo: la parola e' DELETE."""
+
+    confirm: str = Field(default="", max_length=32)
+
+
+@app.post("/v1/account/purge")
+def purge(
+    body: PurgeIn,
+    account: Account = Depends(auth.current_account),
+    db: Session = Depends(auth.session),
+) -> dict:
+    """Svuota il Cloud di questo nominativo: QSO, storico, documenti, presenze.
+
+    L'account resta — nominativo, password e dispositivi collegati non si
+    toccano —: quello che sparisce e' il log. Non e' una cancellazione morbida:
+    qui le righe se ne vanno davvero, ed e' per questo che si deve scrivere
+    DELETE. Il cursore torna a zero, cosi' chi sincronizza dopo riparte da capo.
+    """
+    from .models import DocHistory, Presence
+
+    if body.confirm.strip() != "DELETE":
+        raise HTTPException(status_code=400, detail="Per cancellare tutto scrivi DELETE.")
+
+    counts = {}
+    for name, model, column in (("qsos", Qso, Qso.account_id),
+                                ("history", QsoHistory, QsoHistory.account_id),
+                                ("docs", Doc, Doc.account_id),
+                                ("docHistory", DocHistory, DocHistory.account_id),
+                                ("presence", Presence, Presence.account_id)):
+        counts[name] = int(db.scalar(select(func.count()).select_from(model).where(column == account.id)) or 0)
+        db.execute(delete(model).where(column == account.id))
+
+    counter = db.get(Counter, account.id)
+    if counter is not None:
+        counter.value = 0
+    db.commit()
+    return {"ok": True, "deleted": counts}
 
 
 class PresenceIn(BaseModel):

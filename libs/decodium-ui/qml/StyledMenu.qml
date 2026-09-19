@@ -8,6 +8,9 @@ import Decodium.UI
 Menu {
     id: root
 
+    // Una finestra vera, disegnata da noi: cosi' il menu puo' uscire dal bordo
+    // del programma e resta coi colori del tema, non con quelli del sistema.
+    popupType: Popup.Window
     padding: 4
     // La voce piu' larga decide: il ListView del contenuto non lo sa.
     readonly property real widestItem: {

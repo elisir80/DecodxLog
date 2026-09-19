@@ -141,6 +141,30 @@ CloudController::CloudController(Context context, QObject* parent)
         finish(tr("Cloud: up to date"), QStringLiteral("success"));
         m_sync.status();
     });
+    connect(&m_sync, &CloudSync::purged, this, [this](const QVariantMap& deleted) {
+        // Il server e' vuoto: il cursore locale deve tornare a zero, altrimenti
+        // si aspetterebbe di ritrovare roba che non c'e' piu'.
+        m_cursor = 0;
+        m_cursorCaughtUp = false;
+        if (m_ctx.db) {
+            m_ctx.db->setSyncState(accountKey(), {{QStringLiteral("cursor"), QStringLiteral("0")}});
+            m_ctx.db->markAllDirty();
+            // Le impronte dicevano "lassu' c'e' gia' questa roba": adesso non
+            // c'e' piu' niente, quindi si dimenticano e riparte tutto.
+            for (const char* key : {"cloud.settingsRevision", "cloud.secretsRevision",
+                                    "cloud.secretsFingerprint"}) {
+                m_ctx.db->setSetting(QLatin1String(key), QString());
+            }
+        }
+        m_settingsSent.clear();
+        m_secretsSent.clear();
+        m_remote.clear();
+        finish(tr("Cloud emptied: %1 QSO and %2 settings deleted. What is here stays, "
+                  "and goes back up at the next sync.")
+                   .arg(deleted.value(QStringLiteral("qsos")).toInt())
+                   .arg(deleted.value(QStringLiteral("docs")).toInt()),
+               QStringLiteral("warning"));
+    });
     connect(&m_sync, &CloudSync::statusReady, this, [this](const QVariantMap& status) {
         m_remote = status;
         m_busy = false;
@@ -365,6 +389,22 @@ void CloudController::login(const QString& callsign, const QString& password)
     m_callsign = callsign.trimmed().toUpper();
     makeVaultKey(password);
     m_sync.login(m_callsign, password);
+}
+
+void CloudController::purgeCloud(const QString& confirm)
+{
+    if (m_token.isEmpty()) {
+        finish(tr("Cloud: sign in first"), QStringLiteral("warning"));
+        return;
+    }
+    if (confirm.trimmed() != QLatin1String("DELETE")) {
+        finish(tr("Cloud: nothing deleted — you have to write DELETE"), QStringLiteral("warning"));
+        return;
+    }
+    m_busy = true;
+    m_status = tr("Cloud: emptying…");
+    emit changed();
+    m_sync.purge(QStringLiteral("DELETE"));
 }
 
 void CloudController::logout()
