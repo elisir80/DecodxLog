@@ -3,6 +3,15 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.5.5 — 20 settembre 2026
+
+**L'icona nuova.** DecoLog ha la sua faccia: la nuvola del Cloud con dentro le righe del
+log, l'onda del segnale sotto e il nome. Si vede nella barra delle applicazioni, in
+Esplora risorse, nelle proprieta' del file e sulle finestre. Il disegno e le taglie
+stanno in `resources/icon/`; `make_icon.py` adesso le mette solo insieme, invece di
+disegnare l'icona da solo — le taglie piccole sono ritoccate a mano e una riduzione
+automatica le rovinerebbe.
+
 ## 0.5.4 — 20 settembre 2026
 
 **Le chiamate in rete passano per HTTP/1.1.** Qualche servizio pubblico chiude gli stream

@@ -159,10 +159,12 @@ come artefatto `decolog-windows-x64`.
 
 ## Icona
 
-`resources/make_icon.py` disegna l'icona con i colori del tema Ocean Blue (le righe del
-log con la barretta di stato e l'arco del segnale) e scrive `resources/decolog.ico`,
-`resources/decolog.png` e un'anteprima delle taglie. L'eseguibile la prende dal `.rc`
-(insieme al numero di versione), la finestra dalla risorsa PNG:
+L'icona sta in `resources/icon/`: il disegno (`decolog-icon.svg`, e `decolog-icon-small.svg`
+senza il nome per le taglie minute) e le taglie gia' esportate da 16 a 1024 pixel.
+`resources/make_icon.py` non disegna niente — mette insieme le taglie in
+`resources/decolog.ico` (che l'eseguibile prende dal `.rc`, insieme al numero di versione)
+e copia la 256 in `resources/decolog.png` (la finestra e i dialoghi, risorsa Qt). Si
+rilancia solo quando l'icona cambia:
 
 ```sh
 python resources/make_icon.py

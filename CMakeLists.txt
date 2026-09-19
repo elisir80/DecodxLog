@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoLog
-    VERSION 0.5.4
+    VERSION 0.5.5
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -137,8 +137,8 @@ else()
 endif()
 
 # ── Application ───────────────────────────────────────────────────────────────
-# Icona e versione dell'eseguibile su Windows (resources/make_icon.py disegna
-# l'icona; il .rc prende i numeri dal progetto).
+# Icona e versione dell'eseguibile su Windows (resources/make_icon.py mette
+# insieme le taglie di resources/icon; il .rc prende i numeri dal progetto).
 if(WIN32)
     configure_file(resources/decolog.rc.in ${CMAKE_CURRENT_BINARY_DIR}/decolog.rc @ONLY)
     set(DECOLOG_WIN_RESOURCES ${CMAKE_CURRENT_BINARY_DIR}/decolog.rc)
