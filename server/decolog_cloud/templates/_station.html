@@ -1,84 +1,140 @@
-<h3 class="muted">Profili stazione</h3>
-{% if profiles %}
-<div class="tiles">
-  {% for p in profiles %}
-  <div class="tile" style="min-width:210px">
-    <span>{{ p.data.get("name") or p.key[:8] }}{% if p.data.get("isDefault") %} · predefinito{% endif %}</span>
-    <b class="ok">{{ p.data.get("stationCallsign", "") }}</b>
-    <table class="rows" style="margin-top:6px">
-      {% if p.data.get("operatorCall") %}<tr><th>Operatore</th><td class="mono">{{ p.data["operatorCall"] }}</td></tr>{% endif %}
-      {% if p.data.get("myGridsquare") %}<tr><th>Locatore</th><td class="mono">{{ p.data["myGridsquare"] }}</td></tr>{% endif %}
-      {% if p.data.get("myRig") %}<tr><th>Radio</th><td class="mono">{{ p.data["myRig"] }}</td></tr>{% endif %}
-      {% if p.data.get("myAntenna") %}<tr><th>Antenna</th><td class="mono">{{ p.data["myAntenna"] }}</td></tr>{% endif %}
-      {% if p.data.get("defaultTxPwr") %}<tr><th>Potenza</th><td class="mono">{{ p.data["defaultTxPwr"] }} W</td></tr>{% endif %}
-    </table>
-    <span class="dim small">revisione {{ p.revision }}{% if p.updated %} · {{ p.updated }}{% endif %}</span>
-  </div>
-  {% endfor %}
-</div>
-{% else %}
-<p class="dim">Nessun profilo ancora arrivato dal programma.</p>
-{% endif %}
+{# La pagina Stazione: la stessa finestra Impostazioni del programma, vista dal
+   browser. A sinistra le pagine nello stesso ordine, a destra le sezioni con
+   gli stessi nomi. Quello che ha senso cambiare da lontano si cambia; il resto
+   si legge, perche' una porta seriale scritta da un telefono non vuol dire
+   niente su un altro computer. #}
 
-<h3 class="muted">Impostazioni che si cambiano da qui</h3>
-<p class="muted">
-  Quello che ha senso cambiare stando altrove: come si vede e come si sincronizza.
-  Si salva nel documento che DecoDXLog sincronizza, con una revisione in più — al giro
-  dopo il programma se lo riprende e si adegua da solo (il tema si ridipinge senza
-  riavviare). Porte, percorsi e filtri salvati si toccano dal programma, dove c'è il
-  contesto per capirli.
-</p>
-<form method="post" action="/station/settings" class="filters" style="margin-bottom:10px">
-  {% for item in editable %}
-  <label class="check" title="{{ item.key }}">
-    <span class="dim">{{ item.key }}</span>
-    <select name="{{ item.field }}">
-      {% for option in item.options %}
-      <option value="{{ option }}" {% if option == item.value %}selected{% endif %}>{{ option }}</option>
+<form method="post" action="/station/settings" class="setup">
+  <nav class="setup-pages">
+    {% for page in pages %}
+    <a class="setup-page{% if loop.first %} on{% endif %}" href="#setup-{{ page.id }}"
+       onclick="showSetupPage('{{ page.id }}', this); return false;">{{ page.title }}</a>
+    {% endfor %}
+    <a class="setup-page" href="#setup-profili"
+       onclick="showSetupPage('profili', this); return false;">Profili stazione</a>
+    <a class="setup-page" href="#setup-tutte"
+       onclick="showSetupPage('tutte', this); return false;">Tutte le voci</a>
+  </nav>
+
+  <div class="setup-body">
+    {% for page in pages %}
+    <section class="setup-sheet{% if not loop.first %} hidden{% endif %}" id="setup-{{ page.id }}">
+      {% for section in page.sections %}
+      <h3 class="setup-title">{{ section.title }}</h3>
+      <div class="setup-grid">
+        {% for field in section.fields %}
+        <label class="setup-field{% if not field.editable %} readonly{% endif %}" title="{{ field.key }}">
+          <span class="setup-label">{{ field.label }}</span>
+          {% if field.editable %}
+            <select name="{{ field.field }}">
+              {% for option in field.options %}
+              <option value="{{ option }}" {% if option == field.value %}selected{% endif %}>{{ option }}</option>
+              {% endfor %}
+            </select>
+          {% elif field.missing %}
+            <span class="setup-value dim">— non ancora sincronizzato —</span>
+          {% else %}
+            <span class="setup-value mono">{{ field.value }}</span>
+          {% endif %}
+        </label>
+        {% endfor %}
+      </div>
       {% endfor %}
-    </select>
-  </label>
-  {% endfor %}
-  <button class="btn" type="submit" style="border:1px solid var(--accent); color:var(--accent); border-radius:4px; padding:4px 12px">Salva</button>
+    </section>
+    {% endfor %}
+
+    {# I profili: nel programma stanno in una finestra loro, qui sono l'ultima pagina. #}
+    <section class="setup-sheet hidden" id="setup-profili">
+      <h3 class="setup-title">Profili stazione</h3>
+      {% if profiles %}
+      <div class="tiles">
+        {% for p in profiles %}
+        <div class="tile" style="min-width:210px">
+          <span>{{ p.data.get("name") or p.key[:8] }}{% if p.data.get("isDefault") %} · predefinito{% endif %}</span>
+          <b class="ok">{{ p.data.get("stationCallsign", "") }}</b>
+          <table class="rows" style="margin-top:6px">
+            {% if p.data.get("operatorCall") %}<tr><th>Operatore</th><td class="mono">{{ p.data["operatorCall"] }}</td></tr>{% endif %}
+            {% if p.data.get("myGridsquare") %}<tr><th>Locatore</th><td class="mono">{{ p.data["myGridsquare"] }}</td></tr>{% endif %}
+            {% if p.data.get("myRig") %}<tr><th>Radio</th><td class="mono">{{ p.data["myRig"] }}</td></tr>{% endif %}
+            {% if p.data.get("myAntenna") %}<tr><th>Antenna</th><td class="mono">{{ p.data["myAntenna"] }}</td></tr>{% endif %}
+            {% if p.data.get("defaultTxPwr") %}<tr><th>Potenza</th><td class="mono">{{ p.data["defaultTxPwr"] }} W</td></tr>{% endif %}
+          </table>
+          <span class="dim small">revisione {{ p.revision }}{% if p.updated %} · {{ p.updated }}{% endif %}</span>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="dim">Nessun profilo ancora arrivato dal programma.</p>
+      {% endif %}
+
+      <h3 class="setup-title">Credenziali sigillate</h3>
+      {% if vault %}
+      <p class="muted">
+        Il blocco delle password dei servizi e' sul server, chiuso con la tua password del
+        Cloud: da qui non si apre e non si legge. Revisione {{ vault.revision }}{% if vault.updated %},
+        aggiornato il {{ vault.updated }}{% endif %}{% if vault.device %} da {{ vault.device }}{% endif %}.
+      </p>
+      {% else %}
+      <p class="dim">Nessuna credenziale sigillata sul server.</p>
+      {% endif %}
+    </section>
+    {# Tutto quello che il programma sincronizza, anche quello che non sta in
+       nessuna pagina: qui non si nasconde niente. #}
+    <section class="setup-sheet hidden" id="setup-tutte">
+      <h3 class="setup-title">
+        Impostazioni · {{ settings | length }} voci{% if settings_revision %} · revisione {{ settings_revision }}{% endif %}{% if settings_updated %} · {{ settings_updated }}{% endif %}
+      </h3>
+      {% if settings %}
+      <p class="muted">
+        Tutta la stazione: tema, lingua, colonne e filtri del log, cluster, avvisi, invii
+        automatici, porte e percorsi. Non passano di qui le password e le chiavi dei servizi
+        in chiaro — quelle stanno nel portachiavi, e sul Cloud solo dentro la cassaforte.
+      </p>
+      <div class="scroll" style="max-height:46vh">
+        <table class="rows mono">
+          {% for name, value in settings %}
+          <tr>
+            <th style="width:240px">{{ name }}</th>
+            <td>
+              {%- if value is mapping and "__qvariant__" in value -%}
+              <span class="dim">valore interno di Qt · {{ value["__qvariant__"]|length }} caratteri</span>
+              {%- else -%}
+              {{ value }}
+              {%- endif -%}
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      {% else %}
+      <p class="dim">Le impostazioni non sono ancora arrivate: salgono al primo giro dopo una modifica.</p>
+      {% endif %}
+    </section>
+  </div>
+
+  <div class="setup-footer">
+    <span class="dim small">
+      {% if settings_revision %}Impostazioni alla revisione {{ settings_revision }}{% if settings_updated %} · {{ settings_updated }}{% endif %}
+      {% else %}Nessuna impostazione ancora arrivata dal programma{% endif %}
+    </span>
+    <span class="grow"></span>
+    <button type="submit">Applica</button>
+  </div>
 </form>
 
-<h3 class="muted">Cassaforte delle credenziali</h3>
-{% if vault %}
-<p class="muted">
-  Le password dei servizi sono sul Cloud, <span class="ok">chiuse</span>: revisione
-  {{ vault.revision }}{% if vault.updated %}, arrivate il {{ vault.updated }}{% endif %}{% if vault.device %} da {{ vault.device }}{% endif %}.
-  Il server ne vede solo i byte: si aprono con la password del Cloud, che il server non ha.
+<p class="muted small" style="margin-top:10px">
+  Quello che si cambia qui finisce nel documento che DecoDXLog sincronizza, con una
+  revisione in piu': al giro dopo il programma se lo riprende e si adegua da solo — il
+  tema si ridipinge senza riavviare. I campi in sola lettura sono quelli che hanno senso
+  solo sul computer dove gira il programma: porte seriali, percorsi, modelli di radio.
 </p>
-{% else %}
-<p class="muted">
-  Le password dei servizi non sono ancora salite. In DecoDXLog: Impostazioni → Sync e Cloud
-  → <b>Apri la cassaforte</b>. Viaggiano cifrate, e il server non le può leggere.
-</p>
-{% endif %}
 
-<h3 class="muted">Impostazioni · {{ settings | length }} voci{% if settings_revision %} · revisione {{ settings_revision }}{% endif %}{% if settings_updated %} · {{ settings_updated }}{% endif %}</h3>
-{% if settings %}
-<p class="muted">
-  Tutta la stazione: tema, lingua, colonne e filtri del log, cluster, avvisi, invii
-  automatici, porte e percorsi. Non passano di qui le password e le chiavi dei servizi
-  in chiaro — quelle stanno nel portachiavi, e sul Cloud solo dentro la cassaforte.
-</p>
-<div class="scroll" style="max-height:34vh">
-  <table class="rows mono">
-    {% for name, value in settings %}
-    <tr>
-      <th style="width:220px">{{ name }}</th>
-      <td>
-        {%- if value is mapping and "__qvariant__" in value -%}
-        <span class="dim">valore interno di Qt · {{ value["__qvariant__"]|length }} caratteri</span>
-        {%- else -%}
-        {{ value }}
-        {%- endif -%}
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
-</div>
-{% else %}
-<p class="dim">Le impostazioni non sono ancora arrivate: salgono al primo giro dopo una modifica.</p>
-{% endif %}
+<script>
+  function showSetupPage(id, link) {
+    document.querySelectorAll('.setup-sheet').forEach(function (s) {
+      s.classList.toggle('hidden', s.id !== 'setup-' + id);
+    });
+    document.querySelectorAll('.setup-page').forEach(function (a) { a.classList.remove('on'); });
+    if (link) { link.classList.add('on'); }
+  }
+</script>

@@ -419,7 +419,7 @@ private:
 
     // Dove si e' adesso: frequenza, banda, modo, TX. Va al Cloud perche' lo si
     // veda anche da lontano; il Cloud decide ogni quanto mandarlo davvero.
-    void reportPresenceToCloud();
+    Q_SLOT void reportPresenceToCloud();
     // Il QSO e' scritto, ma nudo: Decodium manda nominativo, rapporto, banda e
     // modo, non il nome di chi c'era dall'altra parte. Il callbook lo sa, e
     // quello che sa finisce nel QSO — solo nei campi vuoti, perche' quello che

@@ -633,6 +633,142 @@ def qso(request: Request, uuid: str, db: Session = Depends(auth.session)):
                  s=data, mode="", year=0, years=data["all_years"], groups=_MODE_GROUPS)
 
 
+# Le pagine delle impostazioni, nell'ordine in cui stanno nella finestra del
+# programma: chi apre il log dal browser deve ritrovare le stesse voci, nello
+# stesso posto, con gli stessi nomi. Ogni campo dice la chiave che ha nel
+# documento sincronizzato, come si chiama e che tipo e'.
+#
+#   ("chiave", "Etichetta", "tipo", predefinito)
+#   tipo: "text" | "bool" | "number" | "choice:a|b|c"
+SETTINGS_PAGES = [
+    ("generale", "Generale", [
+        ("Questa copia di DecoDXLog", [
+            ("ui/language", "Lingua", "choice:auto|it|en", "auto"),
+        ]),
+        ("Entita DXCC", [
+            ("countries/updated", "Elenco aggiornato il", "text", ""),
+            ("countries/source", "Da dove", "text", ""),
+        ]),
+        ("Scheda del nominativo", [
+            ("callinfo/autoLookup", "Cerca da solo mentre si scrive", "bool", True),
+        ]),
+        ("Doppioni", [
+            ("dup/window", "Finestra dei doppioni (minuti)", "number", 0),
+            ("dup/sameBandMode", "Solo se stessa banda e modo", "bool", True),
+        ]),
+    ]),
+    ("tema", "Tema e densita", [
+        ("Tema", [
+            ("theme/current", "Tema", "choice:Ocean Blue|Stellar Light|Darkcodium", "Ocean Blue"),
+            ("theme/accentVariant", "Accento", "choice:phosphor|cyan|amber|red", "phosphor"),
+        ]),
+        ("Densita", [
+            ("theme/density", "Densita", "choice:compact|regular|comfortable", "compact"),
+            ("theme/fontFamily", "Carattere", "text", ""),
+        ]),
+    ]),
+    ("decodium", "Collegamento a Decodium", [
+        ("Decodium / WSJT-X UDP", [
+            ("udp/port", "Porta UDP", "number", 2237),
+            ("udp/multicast", "Gruppo multicast", "text", ""),
+            ("udp/followDxCall", "Segui il nominativo che Decodium lavora", "bool", True),
+        ]),
+        ("DecoLink - il log verso Decodium", [
+            ("decolink/enabled", "DecoLink acceso", "bool", True),
+            ("decolink/port", "Porta DecoLink", "number", 52237),
+        ]),
+    ]),
+    ("cloud", "Sync e Cloud", [
+        ("Accesso", [
+            ("cloud/server", "Server", "text", ""),
+            ("cloud/auto", "Sync automatico", "choice:qso|timer|manual", "qso"),
+        ]),
+        ("Conflitti", [
+            ("cloud/conflict", "Quando due copie cambiano lo stesso QSO", "text", ""),
+        ]),
+        ("Credenziali", [
+            ("cloud/syncSecrets", "Porta anche le password sugli altri dispositivi", "bool", True),
+        ]),
+    ]),
+    ("qsl", "Servizi QSL", [
+        ("Conferme LoTW", [
+            ("lotw/user", "Utente LoTW", "text", ""),
+            ("lotw/cursor", "Conferme da", "text", ""),
+            ("lotw/lastSync", "Ultimo scarico", "text", ""),
+        ]),
+        ("Invio a LoTW (TQSL)", [
+            ("tqsl/path", "Dove sta TQSL", "text", ""),
+            ("tqsl/station", "Postazione TQSL", "text", ""),
+        ]),
+        ("Club Log", [
+            ("clublog/email", "Email", "text", ""),
+            ("clublog/realtime", "Manda i QSO appena fatti", "bool", False),
+        ]),
+    ]),
+    ("callbook", "Callbook", [
+        ("Callbook", [
+            ("callbook/provider", "Chi si interroga", "text", ""),
+            ("callbook/fallback", "Ripiego su QRZ", "bool", False),
+        ]),
+    ]),
+    ("radio", "Radio (CAT)", [
+        ("Radio via Hamlib (rigctld)", [
+            ("rig/enabled", "Parla con la radio", "bool", False),
+            ("rig/link", "Come", "choice:network|serial", "network"),
+            ("rig/host", "Host", "text", "127.0.0.1"),
+            ("rig/port", "Porta", "number", 4532),
+            ("rig/model", "Modello Hamlib", "number", 0),
+            ("rig/serialPort", "Porta seriale", "text", ""),
+            ("rig/baud", "Baud", "number", 38400),
+            ("rig/pttType", "PTT", "text", "RIG"),
+            ("rig/pttPort", "Porta del PTT", "text", ""),
+        ]),
+        ("Manipolatore CW", [
+            ("cw/wpm", "Velocita (wpm)", "number", 24),
+            ("rig/keyerPort", "Porta del manipolatore", "text", ""),
+            ("rig/keyerLine", "Piedino", "text", "DTR"),
+        ]),
+    ]),
+    ("rotore", "Rotore", [
+        ("Rotore", [
+            ("rotor/enabled", "Rotore acceso", "bool", False),
+            ("rotor/followDx", "Segui il DX", "bool", True),
+            ("rotor/host", "Host", "text", ""),
+            ("rotor/port", "Porta", "number", 0),
+        ]),
+    ]),
+    ("backup", "Copie di sicurezza", [
+        ("Copia ogni notte", [
+            ("backup/enabled", "Copia automatica", "bool", True),
+            ("backup/hour", "A che ora", "number", 2),
+            ("backup/keep", "Quante se ne tengono", "number", 14),
+            ("backup/dir", "Dove", "text", ""),
+        ]),
+    ]),
+]
+
+
+def _setting_view(key: str, label: str, kind: str, default, values: dict) -> dict:
+    """Un campo come lo vede la pagina: valore di adesso e se si puo' cambiare."""
+    raw_value = values.get(key, default)
+    editable = key in EDITABLE
+    options: list[str] = []
+    if kind.startswith("choice:"):
+        options = kind.split(":", 1)[1].split("|")
+    if kind == "bool":
+        options = ["true", "false"]
+    return {
+        "key": key,
+        "field": key.replace("/", "."),
+        "label": label,
+        "kind": "choice" if options else kind,
+        "options": options,
+        "value": _as_text(raw_value),
+        "editable": editable,
+        "missing": key not in values,
+    }
+
+
 @router.get("/station", response_class=HTMLResponse)
 def station(request: Request, db: Session = Depends(auth.session)):
     """Stazione: profili e impostazioni, il resto del log che non e' un QSO."""
@@ -669,6 +805,17 @@ def station(request: Request, db: Session = Depends(auth.session)):
         editable=[{"key": key, "field": key.replace("/", "."), "options": options,
                    "value": _as_text(dict(settings_doc.data or {}).get(key) if settings_doc else None)}
                   for key, options in EDITABLE.items()],
+        # Le stesse pagine della finestra del programma, con dentro i valori
+        # che questo account ha sincronizzato.
+        pages=[{
+            "id": page_id,
+            "title": title,
+            "sections": [{
+                "title": section_title,
+                "fields": [_setting_view(key, label, kind, default, dict(settings_doc.data or {}) if settings_doc else {})
+                           for key, label, kind, default in fields],
+            } for section_title, fields in sections],
+        } for page_id, title, sections in SETTINGS_PAGES],
     )
 
 

@@ -387,6 +387,10 @@ bool DecoLogController::openDatabase(const QString& path)
                           : QString();
     };
     m_rig = new RigController(std::move(rigCtx), this);
+    // Il VFO che si muove e' una notizia quanto un QSO: il Cloud lo sappia.
+    // Il CloudController manda al massimo una volta ogni venti secondi, quindi
+    // girare la manopola non intasa niente.
+    connect(m_rig, SIGNAL(stateChanged()), this, SLOT(reportPresenceToCloud()));
 
     CloudController::Context cloudCtx;
     cloudCtx.db = &m_db;
@@ -823,13 +827,32 @@ void DecoLogController::reportPresenceToCloud()
         return;
     // Quello che si vede guardando la radio: dove si ascolta, in che modo, chi
     // si sta lavorando, e se in questo momento si trasmette.
+    //
+    // La frequenza puo' arrivare da due parti: da Decodium (o WSJT-X) via UDP
+    // mentre lavora, oppure dal CAT. Prima si guardava solo l'UDP: chi opera in
+    // SSB o in CW, senza un programma che manda lo stato, dal browser risultava
+    // senza frequenza — la radio era li' accesa e il Cloud non lo sapeva.
+    qint64 frequency = static_cast<qint64>(m_status.dialFrequencyHz);
+    QString band = dialBand();
+    QString mode = currentMode();
+    QString client = m_clientName;
+    if (frequency <= 0) {
+        if (auto* rig = qobject_cast<RigController*>(m_rig); rig && rig->connected()) {
+            frequency = rig->frequencyHz();
+            band = frequency > 0 ? bands::fromMhz(static_cast<double>(frequency) / 1e6) : QString();
+            if (!rig->mode().isEmpty())
+                mode = rig->mode();
+            if (client.isEmpty())
+                client = tr("radio (CAT)");
+        }
+    }
     m_cloud->clientStateChanged(QVariantMap{
-        {QStringLiteral("frequencyHz"), static_cast<qint64>(m_status.dialFrequencyHz)},
-        {QStringLiteral("band"), dialBand()},
-        {QStringLiteral("mode"), currentMode()},
+        {QStringLiteral("frequencyHz"), frequency},
+        {QStringLiteral("band"), band},
+        {QStringLiteral("mode"), mode},
         {QStringLiteral("dxCall"), m_status.dxCall},
         {QStringLiteral("transmitting"), m_status.transmitting},
-        {QStringLiteral("client"), m_clientName},
+        {QStringLiteral("client"), client},
     });
 }
 

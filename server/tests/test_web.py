@@ -511,10 +511,17 @@ def test_the_station_page_offers_the_choices(client):
     sign_in(client)
 
     page = client.get("/station")
-    assert "Impostazioni che si cambiano da qui" in page.text
+    # La pagina e' la stessa finestra del programma: le pagine a sinistra hanno
+    # gli stessi nomi, nello stesso ordine.
+    for voice in ("Generale", "Tema e densita", "Collegamento a Decodium",
+                  "Sync e Cloud", "Servizi QSL", "Callbook", "Radio (CAT)",
+                  "Rotore", "Copie di sicurezza"):
+        assert voice in page.text
     assert 'name="theme.current"' in page.text
     assert "Stellar Light" in page.text        # le altre scelte ci sono
-    assert "Salva" in page.text
+    assert "Applica" in page.text
+    # E quello che non sta in nessuna pagina resta comunque visibile.
+    assert "Tutte le voci" in page.text
 
 
 def test_the_contest_page_counts_the_score(client):

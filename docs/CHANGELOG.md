@@ -3,6 +3,27 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 0.9.4 — 20 settembre 2026
+
+**La frequenza della radio si vede anche dal browser.** Al Cloud la frequenza partiva solo
+quando arrivava lo stato di Decodium o WSJT-X via UDP. Chi opera in SSB o in CW, senza un
+programma che manda quello stato, dal log online risultava senza frequenza: la radio era li'
+accesa e il Cloud non lo sapeva. Adesso, se l'UDP non dice niente, si guarda **il CAT** —
+frequenza, banda e modo della radio — e il VFO che si muove e' una notizia quanto un QSO.
+Provato con una radio finta: nel Cloud arrivano 14.074.000 Hz, banda 20m, «radio (CAT)».
+
+**La pagina Stazione e' la finestra Impostazioni.** Dal browser era un elenco di chiavi e
+tendine; adesso e' la stessa finestra del programma: le pagine a sinistra nello stesso
+ordine e con gli stessi nomi — Generale, Tema e densita', Collegamento a Decodium, Sync e
+Cloud, Servizi QSL, Callbook, Radio (CAT), Rotore, Copie di sicurezza — e dentro le stesse
+sezioni con le stesse etichette.
+
+Quello che ha senso cambiare da lontano (tema, densita', lingua, sync automatico, e le
+altre) si cambia e torna al programma alla sincronizzazione dopo; il resto si legge, perche'
+una porta seriale scritta da un telefono non vuol dire niente su un altro computer. In
+fondo alla colonna resta **Tutte le voci**, con l'elenco completo di quello che il
+programma sincronizza: nessuna impostazione sparisce dalla vista.
+
 ## 0.9.3 — 20 settembre 2026
 
 **La finestra principale si ricorda anche dove sta.** Ricordava quanto era grande ma non
