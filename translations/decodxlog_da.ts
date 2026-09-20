@@ -369,7 +369,7 @@
     <name>BottomTabs</name>
     <message>
         <source>Awards</source>
-        <translation type="unfinished"></translation>
+        <translation>Diplomer</translation>
     </message>
     <message>
         <source>Statistics</source>
@@ -1827,7 +1827,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Logbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Logbog</translation>
     </message>
     <message>
         <source>Callsign card</source>
@@ -1843,7 +1843,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>FT2 Award</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2-diplom</translation>
     </message>
     <message>
         <source>Awards, statistics, QSL, activity</source>
@@ -1851,7 +1851,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Map</source>
-        <translation type="unfinished"></translation>
+        <translation>Kort</translation>
     </message>
     <message>
         <source>closed</source>
@@ -1930,7 +1930,7 @@ The call Decodium is working shows up here by itself.</source>
     <name>MapPanel</name>
     <message>
         <source>Map</source>
-        <translation type="unfinished"></translation>
+        <translation>Kort</translation>
     </message>
     <message>
         <source>SFI %1 · K %2</source>
@@ -1977,7 +1977,7 @@ The call Decodium is working shows up here by itself.</source>
     <name>NewQsoDialog</name>
     <message>
         <source>New QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Ny QSO</translation>
     </message>
     <message>
         <source>Station: %1</source>
@@ -2037,7 +2037,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Band</source>
-        <translation type="unfinished"></translation>
+        <translation>Bånd</translation>
     </message>
     <message>
         <source>Freq MHz</source>
@@ -2045,7 +2045,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modulation</translation>
     </message>
     <message>
         <source>Submode</source>
@@ -2085,7 +2085,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Stat</translation>
     </message>
     <message>
         <source>County / JCC</source>
@@ -2140,7 +2140,7 @@ The call Decodium is working shows up here by itself.</source>
     <name>NewQsoPanel</name>
     <message>
         <source>New QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Ny QSO</translation>
     </message>
     <message>
         <source>manual</source>
@@ -2184,11 +2184,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Band</source>
-        <translation type="unfinished"></translation>
+        <translation>Bånd</translation>
     </message>
     <message>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modulation</translation>
     </message>
     <message>
         <source>Freq</source>
@@ -2208,7 +2208,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Navn</translation>
     </message>
     <message>
         <source>QTH</source>
@@ -2467,11 +2467,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Band</source>
-        <translation type="unfinished"></translation>
+        <translation>Bånd</translation>
     </message>
     <message>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modulation</translation>
     </message>
     <message>
         <source>RST</source>
@@ -2546,11 +2546,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Band</source>
-        <translation type="unfinished"></translation>
+        <translation>Bånd</translation>
     </message>
     <message>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modulation</translation>
     </message>
     <message>
         <source>RST</source>
@@ -2685,7 +2685,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Band</source>
-        <translation type="unfinished"></translation>
+        <translation>Bånd</translation>
     </message>
     <message>
         <source>Freq MHz</source>
@@ -2693,7 +2693,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modulation</translation>
     </message>
     <message>
         <source>Submode</source>
@@ -2709,7 +2709,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Locator</translation>
     </message>
     <message>
         <source>TX pwr W</source>
@@ -2717,7 +2717,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Navn</translation>
     </message>
     <message>
         <source>QTH</source>
@@ -2753,7 +2753,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Stat</translation>
     </message>
     <message>
         <source>County</source>
@@ -3538,7 +3538,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Call info</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaldesignalinfo</translation>
     </message>
     <message>
         <source>Follow the DX call Decodium is working</source>
@@ -4375,7 +4375,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modulation</translation>
     </message>
     <message>
         <source>All modes</source>
@@ -4509,7 +4509,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Awards</source>
-        <translation type="unfinished"></translation>
+        <translation>Diplomer</translation>
     </message>
     <message>
         <source>%1 · %2/%3</source>
@@ -5238,7 +5238,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Band</source>
-        <translation type="unfinished"></translation>
+        <translation>Bånd</translation>
     </message>
     <message>
         <source>Freq</source>
@@ -5246,7 +5246,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modulation</translation>
     </message>
     <message>
         <source>S</source>
@@ -5258,11 +5258,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Locator</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Navn</translation>
     </message>
     <message>
         <source>City / QTH</source>
@@ -5274,11 +5274,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Stat</translation>
     </message>
     <message>
         <source>County</source>
-        <translation type="unfinished"></translation>
+        <translation>County</translation>
     </message>
     <message>
         <source>CQ</source>
@@ -5306,7 +5306,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Tags</source>
-        <translation type="unfinished"></translation>
+        <translation>Mærker</translation>
     </message>
 </context>
 <context>

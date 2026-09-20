@@ -119,16 +119,42 @@ def apply_map(path, mapping):
     for src, translation in mapping.items():
         if not translation:
             continue
+        # I plurali hanno una forma per il singolare e una per il resto: nel
+        # file sono due <numerusform> dentro la stessa traduzione.
+        if isinstance(translation, list):
+            escaped = (src.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+                          .replace('"', "&quot;").replace("'", "&apos;"))
+            forms = "".join(
+                "\n            <numerusform>%s</numerusform>"
+                % f.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+                   .replace('"', "&quot;").replace("'", "&apos;")
+                for f in translation)
+            for form in (escaped, src):
+                # Nei nostri file la traduzione vuota di un plurale e' una riga
+                # sola: le forme le scriviamo noi adesso.
+                needle = "<source>%s</source>\n        <translation type=\"unfinished\"></translation>" % form
+                count = text.count(needle)
+                if count:
+                    text = text.replace(needle,
+                                        "<source>%s</source>\n        <translation>%s\n        </translation>"
+                                        % (form, forms))
+                    written += count
+                    break
+            continue
         escaped = (src.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
                       .replace('"', "&quot;").replace("'", "&apos;"))
         value = (translation.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
                             .replace('"', "&quot;").replace("'", "&apos;"))
+        # La stessa frase puo' stare in piu' contesti — la stessa parola nel
+        # menu e nel pannello: si traducono tutte, non solo la prima, se no
+        # l'interfaccia resta mezza inglese senza che si capisca perche'.
         for form in (escaped, src):
             needle = "<source>%s</source>\n        <translation type=\"unfinished\"></translation>" % form
-            if needle in text:
+            count = text.count(needle)
+            if count:
                 text = text.replace(needle,
-                                    "<source>%s</source>\n        <translation>%s</translation>" % (form, value), 1)
-                written += 1
+                                    "<source>%s</source>\n        <translation>%s</translation>" % (form, value))
+                written += count
                 break
     io.open(path, "w", encoding="utf-8", newline="\r\n" if crlf else "\n").write(text)
     return written

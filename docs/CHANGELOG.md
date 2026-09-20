@@ -3,6 +3,26 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 0.9.6 — 21 settembre 2026
+
+**Tedesco, francese e spagnolo complete.** Tre lingue al 100%: 1210 frasi ciascuna, non
+solo i pulsanti — i messaggi del registro, le spiegazioni nelle impostazioni, i nomi delle
+colonne, gli avvisi del cluster, i testi del contest e del rotore. Chi sceglie Deutsch,
+Français o Español trova il programma nella sua lingua dappertutto.
+
+Restano da fare, nell'ordine: olandese, danese, catalano, ungherese, rumeno, lettone,
+russo, giapponese e le due forme del cinese — per adesso hanno l'ossatura. Si va avanti
+tre lingue per volta, e lo stato si guarda sempre con:
+
+```sh
+python scripts/translations.py stato
+```
+
+**Una cosa trovata traducendo:** il pannello del rotore ha le frasi scritte **in
+italiano** nei sorgenti, non in inglese (arriva da DecoRotor). Tradotte lo stesso in tutte
+e tre le lingue, ma andrebbero portate in inglese come il resto del programma: in inglese,
+oggi, quel pannello parla italiano.
+
 ## 0.9.5 — 20 settembre 2026
 
 **Quindici lingue, come Decodium 4.** DecoDXLog parlava italiano e inglese; adesso nella
