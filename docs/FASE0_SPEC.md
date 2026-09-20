@@ -6,7 +6,7 @@ Stato: bozza 0.1 · IU8LMC · settembre 2026
 
 ## 1. Decisioni di base
 
-**DecoDXLog si scrive da zero.** QLog (OK1MLG) e Wavelog servono solo come riferimento funzionale: si guarda *cosa* fanno, non *come*. Nessun file, classe o schema viene copiato. Questo tiene DecoDXLog libero da vincoli di fork e coerente al 100% con l'architettura Decodium.
+**DecoDXLog si scrive da zero.**  Nessun file, classe o schema viene copiato. Questo tiene DecoDXLog libero da vincoli di fork e coerente al 100% con l'architettura Decodium 4.0.
 
 - **Licenza:** GPL-3.0, come Decodium 4.0 Core Shannon.
 - **Due prodotti:**
