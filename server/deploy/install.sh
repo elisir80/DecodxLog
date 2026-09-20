@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# DecoLog Cloud — messa in servizio su un VPS Ubuntu con nginx gia' installato.
+# DecoDXLog Cloud — messa in servizio su un VPS Ubuntu con nginx gia' installato.
 #
 # Da lanciare con sudo, sul VPS, dalla cartella del repo:
 #
@@ -57,7 +57,7 @@ elif command -v psql >/dev/null 2>&1 && systemctl is-active --quiet postgresql; 
     sudo -u postgres psql -tAc "SELECT 1 FROM pg_database WHERE datname='decolog'" | grep -q 1 \
         || sudo -u postgres createdb -O decolog decolog
     cat > "$ENV_FILE" <<EOF
-# DecoLog Cloud — configurazione del servizio. La legge solo root.
+# DecoDXLog Cloud — configurazione del servizio. La legge solo root.
 DECOLOG_DATABASE_URL=postgresql+psycopg://decolog:$PGPASS@127.0.0.1/decolog
 # A 1 chiunque puo' farsi un account su questo server. Dopo esserti registrato
 # la prima volta, mettilo a 0 e riavvia: nessun altro entra.
@@ -66,7 +66,7 @@ EOF
     echo "PostgreSQL: database e utente 'decolog' pronti."
 else
     cat > "$ENV_FILE" <<EOF
-# DecoLog Cloud — configurazione del servizio. La legge solo root.
+# DecoDXLog Cloud — configurazione del servizio. La legge solo root.
 DECOLOG_DATABASE_URL=sqlite:///$DATA_DIR/decolog-cloud.sqlite
 DECOLOG_ALLOW_SIGNUP=1
 EOF
@@ -106,7 +106,7 @@ Ora, una volta sola:
 
   1. il DNS di $DOMAIN deve puntare a questo VPS (record A);
   2. certbot --nginx -d $DOMAIN        # mette il certificato e passa a HTTPS
-  3. in DecoLog: Impostazioni -> Sync e Cloud, server https://$DOMAIN,
+  3. in DecoDXLog: Impostazioni -> Sync e Cloud, server https://$DOMAIN,
      nominativo e password, "Crea l'account";
   4. poi in $ENV_FILE metti DECOLOG_ALLOW_SIGNUP=0 e
      systemctl restart $SERVICE_NAME, cosi' il server resta tuo.

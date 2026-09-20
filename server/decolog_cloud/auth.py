@@ -1,4 +1,4 @@
-"""DecoLog Cloud — chi sei.
+"""DecoDXLog Cloud — chi sei.
 
 La password si tiene con Argon2, il token e' una stringa casuale di cui il
 server conserva solo l'impronta SHA-256: se il database finisce in mano a

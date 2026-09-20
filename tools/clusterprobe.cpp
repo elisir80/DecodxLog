@@ -1,9 +1,9 @@
-// decolog_clusterprobe — si collega a una fonte di spot e stampa quello che arriva:
-// per provare un nodo, RBN o POTA senza aprire DecoLog.
+// decodxlog_clusterprobe — si collega a una fonte di spot e stampa quello che arriva:
+// per provare un nodo, RBN o POTA senza aprire DecoDXLog.
 //
-//   decolog_clusterprobe --host dx.iz7auh.net --port 8000 --call IU8LMC --seconds 60
-//   decolog_clusterprobe --type rbn --host telnet.reversebeacon.net --port 7001 --call IU8LMC
-//   decolog_clusterprobe --type pota --seconds 70
+//   decodxlog_clusterprobe --host dx.iz7auh.net --port 8000 --call IU8LMC --seconds 60
+//   decodxlog_clusterprobe --type rbn --host telnet.reversebeacon.net --port 7001 --call IU8LMC
+//   decodxlog_clusterprobe --type pota --seconds 70
 #include "core/ClusterConnection.h"
 
 #include <QCommandLineParser>
@@ -16,7 +16,7 @@ using namespace decolog::core;
 int main(int argc, char* argv[])
 {
     QCoreApplication app(argc, argv);
-    QCoreApplication::setApplicationName(QStringLiteral("decolog_clusterprobe"));
+    QCoreApplication::setApplicationName(QStringLiteral("decodxlog_clusterprobe"));
     QCoreApplication::setApplicationVersion(QStringLiteral("0.1"));
 
     QCommandLineParser p;

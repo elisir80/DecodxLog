@@ -1,10 +1,10 @@
-"""DecoLog Cloud — le tabelle.
+"""DecoDXLog Cloud — le tabelle.
 
 Il server non ricostruisce il log: tiene il QSO come l'ha mandato il client (i
 campi ADIF in un documento JSON) piu' i pochi dati che servono al sync e alla
 ricerca — uuid, revisione, quando e' cambiato, se e' cancellato.
 
-Cosi' il giorno che DecoLog impara un campo nuovo il server non va toccato.
+Cosi' il giorno che DecoDXLog impara un campo nuovo il server non va toccato.
 """
 
 from __future__ import annotations
@@ -124,7 +124,7 @@ class Doc(Base):
     Profili stazione, impostazioni, filtri salvati, regole d'avviso: cose
     diverse fra loro, che al server interessano allo stesso modo — un documento
     con un nome (`kind`/`key`), una revisione e il suo contenuto. Cosi' quando
-    DecoLog impara a tenersi un'altra cosa, qui non si tocca niente.
+    DecoDXLog impara a tenersi un'altra cosa, qui non si tocca niente.
 
     Condividono con i QSO lo stesso contatore: un pull solo porta tutto.
     """

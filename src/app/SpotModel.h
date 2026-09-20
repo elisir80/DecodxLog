@@ -1,4 +1,4 @@
-// DecoLog — la lista degli spot per il QML.
+// DecoDXLog — la lista degli spot per il QML.
 //
 // Tiene tutti gli spot degli ultimi sessanta minuti, raggruppati per nominativo,
 // banda e modo (dieci skimmer che sentono lo stesso DX sono una riga con "10"), e

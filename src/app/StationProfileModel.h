@@ -1,4 +1,4 @@
-// DecoLog — i profili stazione per il QML: elenco, profilo attivo, salvataggio.
+// DecoDXLog — i profili stazione per il QML: elenco, profilo attivo, salvataggio.
 //
 // Il profilo attivo e' quello con cui si scrivono i QSO nuovi (a mano o da
 // Decodium, quando il nominativo di stazione non indica un altro profilo). Si

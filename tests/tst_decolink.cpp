@@ -101,7 +101,7 @@ private slots:
 
         const auto hello = client.waitFor("hello");
         QVERIFY(hello);
-        QCOMPARE(hello->value("app").toString(), QString("DecoLog"));
+        QCOMPARE(hello->value("app").toString(), QString("DecoDXLog"));
         QCOMPARE(hello->value("protocol").toInt(), 1);
         QCOMPARE(hello->value("station").toString(), QString("IU8LMC"));
 

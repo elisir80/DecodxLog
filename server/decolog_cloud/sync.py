@@ -1,4 +1,4 @@
-"""DecoLog Cloud — il sync vero e proprio.
+"""DecoDXLog Cloud — il sync vero e proprio.
 
 Le regole sono quelle scritte in Fase 0:
 

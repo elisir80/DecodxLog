@@ -319,7 +319,7 @@ bool LogDatabase::applySchema()
 
 // Un log creato da una versione precedente si porta avanti un passo alla volta,
 // ogni passo nella sua transazione. Mai all'indietro: una versione vecchia di
-// DecoLog che apre un log nuovo trova solo colonne in piu'.
+// DecoDXLog che apre un log nuovo trova solo colonne in piu'.
 bool LogDatabase::migrate()
 {
     QSqlDatabase db = connection();
@@ -1025,7 +1025,7 @@ QByteArray LogDatabase::exportAdif(const QList<qint64>& ids, const QString& prog
 {
     AdifDocument doc;
     doc.header.set(QStringLiteral("ADIF_VER"), QStringLiteral("3.1.5"));
-    doc.header.set(QStringLiteral("PROGRAMID"), QStringLiteral("DecoLog"));
+    doc.header.set(QStringLiteral("PROGRAMID"), QStringLiteral("DecoDXLog"));
     doc.header.set(QStringLiteral("PROGRAMVERSION"), programVersion);
     doc.header.set(QStringLiteral("CREATED_TIMESTAMP"),
                    QDateTime::currentDateTimeUtc().toString(QStringLiteral("yyyyMMdd HHmmss")));
@@ -1561,7 +1561,7 @@ int LogDatabase::uploadPendingCount(const QString& service) const
     return q.exec() && q.next() ? q.value(0).toInt() : 0;
 }
 
-// ── Sync con DecoLog Cloud ────────────────────────────────────────────────────
+// ── Sync con DecoDXLog Cloud ────────────────────────────────────────────────────
 
 QList<qint64> LogDatabase::dirtyQsos(int limit) const
 {

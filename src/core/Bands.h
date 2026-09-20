@@ -1,4 +1,4 @@
-// DecoLog — bande ADIF ricavate dalla frequenza.
+// DecoDXLog — bande ADIF ricavate dalla frequenza.
 #pragma once
 
 #include <QString>

@@ -1,4 +1,4 @@
-// DecoLog — da nominativo a entità DXCC, con il file cty.csv di AD1C.
+// DecoDXLog — da nominativo a entità DXCC, con il file cty.csv di AD1C.
 //
 // cty.csv (country-files.com) è la versione di cty.dat che porta anche il
 // numero di entità ADIF: è quello che serve per l'FT2 Award e per dire "nuovo

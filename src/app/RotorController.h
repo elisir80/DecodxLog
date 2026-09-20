@@ -1,6 +1,6 @@
-// DecoLog — il rotore: dove guarda l'antenna e dove mandarla.
+// DecoDXLog — il rotore: dove guarda l'antenna e dove mandarla.
 //
-// DecoLog non tocca la seriale: parla con DecoRotor (WebSocket) o con un
+// DecoDXLog non tocca la seriale: parla con DecoRotor (WebSocket) o con un
 // rotctld qualsiasi. Quello che aggiunge e' il contesto che ha solo lui — la
 // rotta di uno spot del cluster, del nominativo che si sta lavorando, del QSO
 // aperto — e la possibilita' di seguirlo da solo.

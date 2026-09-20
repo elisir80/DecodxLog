@@ -1,7 +1,7 @@
-// DecoLog — il protocollo UDP di WSJT-X, lato ricevente.
+// DecoDXLog — il protocollo UDP di WSJT-X, lato ricevente.
 //
 // Decodium lo eredita da WSJT-X (Network/NetworkMessage.hpp): magic 0xadbccbda,
-// numero di schema, tipo, id del client, poi i campi in QDataStream. DecoLog
+// numero di schema, tipo, id del client, poi i campi in QDataStream. DecoDXLog
 // legge solo quello che gli serve per tenere il log; tutti gli altri tipi
 // (Decode, Clear, WSPRDecode...) vengono riconosciuti e scartati.
 //
@@ -42,7 +42,7 @@ struct Heartbeat {
     QString revision;
 };
 
-// Solo i campi che DecoLog mostra. I campi aggiunti nelle versioni successive
+// Solo i campi che DecoDXLog mostra. I campi aggiunti nelle versioni successive
 // del protocollo possono mancare: restano al valore predefinito.
 struct Status {
     quint64 dialFrequencyHz{0};

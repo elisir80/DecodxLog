@@ -1,4 +1,4 @@
-"""DecoLog Cloud — i documenti: profili stazione e impostazioni.
+"""DecoDXLog Cloud — i documenti: profili stazione e impostazioni.
 
 Il log di una stazione non e' solo l'elenco dei QSO. Qui si controlla che
 profili e impostazioni viaggino con le stesse regole, sullo stesso cursore.

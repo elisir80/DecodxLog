@@ -164,7 +164,7 @@ QString ClusterConnection::loginName() const
         return m_source.login.toUpper();
     QString call = m_loginProvider ? m_loginProvider().trimmed().toUpper() : m_defaultLogin;
     // Sullo stesso nodo con lo stesso nominativo DX Spider chiude la sessione vecchia:
-    // quella di Decodium. DecoLog entra come CALL-2.
+    // quella di Decodium. DecoDXLog entra come CALL-2.
     if (!call.isEmpty() && m_source.type == QLatin1String("cluster") && !call.contains(QLatin1Char('-')))
         call += QStringLiteral("-2");
     return call;
@@ -427,7 +427,7 @@ void ClusterConnection::pollPota()
     QNetworkRequest request{QUrl(m_potaUrl)};
     network::useHttp11(request);
     request.setHeader(QNetworkRequest::UserAgentHeader,
-                      QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
+                      QStringLiteral("DecoDXLog/%1").arg(QCoreApplication::applicationVersion()));
     request.setTransferTimeout(20'000);
     QNetworkReply* reply = m_net->get(request);
     connect(reply, &QNetworkReply::finished, this, [this, reply] {

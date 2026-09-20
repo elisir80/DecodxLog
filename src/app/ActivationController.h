@@ -1,4 +1,4 @@
-// DecoLog — la sessione di attivazione o di contest.
+// DecoDXLog — la sessione di attivazione o di contest.
 //
 // Finche' e' aperta: ogni QSO prende la referenza dell'attivatore, il locatore del
 // posto, l'etichetta e il numero progressivo; un nominativo gia' lavorato sulla

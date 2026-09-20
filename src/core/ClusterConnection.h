@@ -1,4 +1,4 @@
-// DecoLog — una fonte di spot: un nodo DX cluster via telnet, la Reverse Beacon
+// DecoDXLog — una fonte di spot: un nodo DX cluster via telnet, la Reverse Beacon
 // Network, HamAlert o le attivazioni POTA.
 //
 // Telnet: al prompt del login si manda il nominativo (e per HamAlert la password,

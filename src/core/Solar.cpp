@@ -162,7 +162,7 @@ void SolarFetcher::fetch()
     QNetworkRequest request(m_url);
     network::useHttp11(request);
     request.setHeader(QNetworkRequest::UserAgentHeader,
-                      QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
+                      QStringLiteral("DecoDXLog/%1").arg(QCoreApplication::applicationVersion()));
     request.setTransferTimeout(20'000);
     QNetworkReply* reply = m_net->get(request);
     connect(reply, &QNetworkReply::finished, this, [this, reply] {

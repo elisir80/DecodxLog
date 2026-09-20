@@ -1,4 +1,4 @@
-// DecoLog — lettura e scrittura ADIF (.adi).
+// DecoDXLog — lettura e scrittura ADIF (.adi).
 //
 // Un record e' una lista ordinata di campi, non una mappa: l'ordine e il
 // maiuscolo/minuscolo del nome non contano per ADIF, ma chi esporta quello che

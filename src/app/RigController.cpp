@@ -353,7 +353,7 @@ void RigController::connectNow()
     emit stateChanged();
 }
 
-// La radio attaccata col cavo: DecoLog non parla la lingua di ogni radio, ma
+// La radio attaccata col cavo: DecoDXLog non parla la lingua di ogni radio, ma
 // Hamlib si'. Quindi si avvia rigctld su quella porta e gli si parla come
 // sempre — per chi opera, e' solo "COM5, questa radio".
 void RigController::startLocalRigctld()

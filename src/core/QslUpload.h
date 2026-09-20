@@ -1,7 +1,7 @@
-// DecoLog — invio dei QSO ai servizi QSL.
+// DecoDXLog — invio dei QSO ai servizi QSL.
 //
 // LoTW non si carica con una password: i QSO vanno firmati con il certificato
-// dell'operatore, e l'unico programma che lo sa fare e' TQSL. DecoLog gli passa un
+// dell'operatore, e l'unico programma che lo sa fare e' TQSL. DecoDXLog gli passa un
 // file ADIF e legge il codice d'uscita, cosi' il certificato resta dove l'ARRL lo
 // vuole e non passa mai da qui. QRZ Logbook ed eQSL invece hanno una API e si
 // caricano un QSO alla volta.

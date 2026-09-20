@@ -833,7 +833,7 @@ void ClusterController::refreshLotwUsers()
     QNetworkRequest request(QUrl(QStringLiteral("https://lotw.arrl.org/lotw-user-activity.csv")));
     network::useHttp11(request);
     request.setHeader(QNetworkRequest::UserAgentHeader,
-                      QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
+                      QStringLiteral("DecoDXLog/%1").arg(QCoreApplication::applicationVersion()));
     request.setTransferTimeout(120'000);
     m_lotwUsersInfo = tr("downloading the LoTW user list…");
     emit lotwUsersChanged();

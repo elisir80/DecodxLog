@@ -1,4 +1,4 @@
-"""DecoLog Cloud — configurazione del servizio.
+"""DecoDXLog Cloud — configurazione del servizio.
 
 Tutto da variabili d'ambiente, perche' il servizio gira in un container e le
 scelte cambiano fra il portatile di chi sviluppa e il VPS che lo ospita.

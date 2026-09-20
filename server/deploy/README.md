@@ -1,4 +1,4 @@
-# DecoLog Cloud sul VPS
+# DecoDXLog Cloud sul VPS
 
 Il servizio sta accanto agli altri siti del VPS, dietro il nginx che c'e' gia':
 niente Docker da installare, un servizio systemd che parte da solo e si aggiorna
@@ -51,7 +51,7 @@ stesso servizio, e nginx le passa gia'.
 
 ## Il primo account
 
-In DecoLog: **Impostazioni → Sync e Cloud**, server `https://cloud.ft2.it`,
+In DecoDXLog: **Impostazioni → Sync e Cloud**, server `https://cloud.ft2.it`,
 nominativo e password, **Crea l'account**.
 
 Fatto questo, chiudi la porta:

@@ -39,7 +39,7 @@ QString CredentialStore::backend() const
 QList<CredentialService> CredentialStore::knownServices()
 {
     return {
-        {QStringLiteral("cloud"), QStringLiteral("DecoLog Cloud"), tr("Account"), tr("Token"),
+        {QStringLiteral("cloud"), QStringLiteral("DecoDXLog Cloud"), tr("Account"), tr("Token"),
          tr("Sync between devices (Phase 3)")},
         {QStringLiteral("qrz"), QStringLiteral("QRZ.com"), tr("Username"), tr("Password"),
          tr("Callbook lookups (XML subscription)")},

@@ -1,4 +1,4 @@
-// DecoLog — le etichette delle QSL di carta: raggruppamento e PDF.
+// DecoDXLog — le etichette delle QSL di carta: raggruppamento e PDF.
 #include "core/QslCards.h"
 
 #include <QDir>

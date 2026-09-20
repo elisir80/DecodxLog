@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# DecoLog Live — accende lo schermo finto e ci mette sopra DecoLog.
+# DecoDXLog Live — accende lo schermo finto e ci mette sopra DecoDXLog.
 #
 # Tre pezzi, in fila: Xvfb fa lo schermo, x11vnc lo pubblica, websockify/noVNC lo
-# porta nel browser. Se DecoLog si chiude, si chiude tutto: cosi' il container
+# porta nel browser. Se DecoDXLog si chiude, si chiude tutto: cosi' il container
 # muore e chi lo sorveglia (docker, systemd) lo rialza, invece di lasciare in
 # piedi uno schermo vuoto.
 set -euo pipefail
@@ -10,7 +10,7 @@ set -euo pipefail
 screen="${DECOLOG_SCREEN:-1600x900x24}"
 display="${DISPLAY:-:99}"
 home="${DECOLOG_HOME:-/home/decolog}"
-db="${DECOLOG_DB:-$home/decolog.sqlite}"
+db="${DECOLOG_DB:-$home/decodxlog.sqlite}"
 
 mkdir -p "$home"
 
@@ -32,7 +32,7 @@ for _ in $(seq 1 50); do
     sleep 0.1
 done
 
-# Un gestore di finestre minimo: senza, i dialoghi di DecoLog non si spostano.
+# Un gestore di finestre minimo: senza, i dialoghi di DecoDXLog non si spostano.
 openbox --sm-disable &
 
 # Solo da dentro il container: fuori ci arriva noVNC, e davanti c'e' nginx.

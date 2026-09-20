@@ -1,4 +1,4 @@
-// DecoLog — la tabella del log, per il TableView QML.
+// DecoDXLog — la tabella del log, per il TableView QML.
 //
 // Tiene in memoria solo le colonne mostrate, dalla piu' recente. Un log di
 // centomila QSO occupa qualche decina di megabyte e si scorre senza query a

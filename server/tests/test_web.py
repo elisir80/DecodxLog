@@ -1,4 +1,4 @@
-"""DecoLog Cloud — il log dal browser.
+"""DecoDXLog Cloud — il log dal browser.
 
 Le pagine sono in sola lettura e sono di chi entra: queste prove guardano che
 non si veda niente senza accesso, che la ricerca cerchi davvero e che l'ADIF

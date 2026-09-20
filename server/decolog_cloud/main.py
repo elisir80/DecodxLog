@@ -1,7 +1,7 @@
-"""DecoLog Cloud — l'API.
+"""DecoDXLog Cloud — l'API.
 
 Poche rotte, tutte sotto /v1, con OpenAPI generata: e' il contratto che il
-client Qt di DecoLog implementa.
+client Qt di DecoDXLog implementa.
 
     POST /v1/auth/signup   nominativo + password -> token
     POST /v1/auth/token    nominativo + password -> token
@@ -40,7 +40,7 @@ async def lifespan(_: FastAPI):
 
 # La pagina dell'API resta, ma nginx la lascia vedere solo da dentro la macchina.
 app = FastAPI(
-    title="DecoLog Cloud",
+    title="DecoDXLog Cloud",
     version="1.0",
     summary="Sync del log fra i dispositivi di una stazione radioamatoriale",
     lifespan=lifespan,

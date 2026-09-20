@@ -1,4 +1,4 @@
-// DecoLog — award calcolati dal log: DXCC, WAZ, WAS, WPX, locatori, IOTA, POTA,
+// DecoDXLog — award calcolati dal log: DXCC, WAZ, WAS, WPX, locatori, IOTA, POTA,
 // SOTA, WWFF e FT2.
 //
 // Nessuna tabella in piu' nel database: gli award si ricalcolano dai QSO, cosi'

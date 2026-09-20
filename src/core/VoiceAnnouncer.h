@@ -1,4 +1,4 @@
-// DecoLog — annunci vocali degli spot.
+// DecoDXLog — annunci vocali degli spot.
 //
 // Su Windows la sintesi del sistema (SAPI, le voci di Impostazioni → Voce), senza
 // librerie in piu'; su macOS "say", su Linux spd-say o espeak-ng. Le frasi vanno in

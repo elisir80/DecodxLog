@@ -1,4 +1,4 @@
-// DecoLog — callbook QRZ.com (XML) e HamQTH.
+// DecoDXLog — callbook QRZ.com (XML) e HamQTH.
 //
 // Una ricerca per nominativo: nome, QTH, locatore, zone, foto. Le credenziali
 // arrivano dal portachiavi solo al momento del login; la chiave di sessione resta

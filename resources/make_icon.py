@@ -1,17 +1,17 @@
-# DecoLog — l'icona.
+# DecoDXLog — l'icona.
 #
-# L'icona e' disegnata a mano (resources/icon/decolog-icon.svg): la nuvola del
+# L'icona e' disegnata a mano (resources/icon/decodxlog-icon.svg): la nuvola del
 # Cloud con le righe del log dentro, l'onda del segnale sotto e il nome. Le
-# taglie sono gia' esportate dall'SVG in resources/icon/decolog-<n>.png, e la
-# piccola (decolog-icon-small.svg) e' un disegno a parte, senza il nome, per
+# taglie sono gia' esportate dall'SVG in resources/icon/decodxlog-<n>.png, e la
+# piccola (decodxlog-icon-small.svg) e' un disegno a parte, senza il nome, per
 # quando lo spazio non basta a leggerlo.
 #
 # Questo script non disegna niente: mette insieme le taglie esportate nei due
 # file che servono alla compilazione —
 #
-#   resources/decolog.ico   l'eseguibile su Windows (dal .rc): Esplora risorse,
+#   resources/decodxlog.ico   l'eseguibile su Windows (dal .rc): Esplora risorse,
 #                           la barra delle applicazioni, le proprieta' del file
-#   resources/decolog.png   la finestra e i dialoghi (risorsa Qt, 256 pixel)
+#   resources/decodxlog.png   la finestra e i dialoghi (risorsa Qt, 256 pixel)
 #
 # Si rilancia solo quando l'icona cambia:
 #
@@ -35,7 +35,7 @@ SIZES = [16, 24, 32, 48, 64, 128, 256]
 
 
 def png_at(size):
-    path = os.path.join(SOURCE, "decolog-%d.png" % size)
+    path = os.path.join(SOURCE, "decodxlog-%d.png" % size)
     with open(path, "rb") as f:
         data = f.read()
     width, height = struct.unpack(">II", data[16:24])
@@ -60,11 +60,11 @@ def write_ico(path, images):
 
 def main():
     images = [(size, png_at(size)) for size in SIZES]
-    write_ico(os.path.join(HERE, "decolog.ico"), images)
-    shutil.copyfile(os.path.join(SOURCE, "decolog-256.png"),
-                    os.path.join(HERE, "decolog.png"))
-    print("decolog.ico  %s" % " ".join(str(s) for s in SIZES))
-    print("decolog.png  256")
+    write_ico(os.path.join(HERE, "decodxlog.ico"), images)
+    shutil.copyfile(os.path.join(SOURCE, "decodxlog-256.png"),
+                    os.path.join(HERE, "decodxlog.png"))
+    print("decodxlog.ico  %s" % " ".join(str(s) for s in SIZES))
+    print("decodxlog.png  256")
 
 
 if __name__ == "__main__":

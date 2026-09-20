@@ -436,7 +436,7 @@ void WebQslUploader::uploadClubLog(const ClubLogAuth& auth, const QByteArray& ad
         network::useHttp11(request);
         request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
         request.setHeader(QNetworkRequest::UserAgentHeader,
-                          QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
+                          QStringLiteral("DecoDXLog/%1").arg(QCoreApplication::applicationVersion()));
         request.setTransferTimeout(30'000);
         watch(m_net->post(request, form.toString(QUrl::FullyEncoded).toUtf8()), Service::ClubLog, 1);
         return;
@@ -468,7 +468,7 @@ void WebQslUploader::uploadClubLog(const ClubLogAuth& auth, const QByteArray& ad
     QNetworkRequest request(m_clubLogBatchUrl);
     network::useHttp11(request);
     request.setHeader(QNetworkRequest::UserAgentHeader,
-                      QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
+                      QStringLiteral("DecoDXLog/%1").arg(QCoreApplication::applicationVersion()));
     request.setTransferTimeout(120'000);   // un blocco grosso ci mette di piu'
     QNetworkReply* reply = m_net->post(request, multi);
     multi->setParent(reply);
@@ -484,7 +484,7 @@ void WebQslUploader::send(Service service, const QUrl& url, const QByteArray& bo
     network::useHttp11(request);
     request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
     request.setHeader(QNetworkRequest::UserAgentHeader,
-                      QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
+                      QStringLiteral("DecoDXLog/%1").arg(QCoreApplication::applicationVersion()));
     request.setTransferTimeout(30'000);
     watch(m_net->post(request, body), service, 1);
 }

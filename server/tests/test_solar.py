@@ -1,4 +1,4 @@
-"""DecoLog Cloud — la propagazione, letta come la legge il programma.
+"""DecoDXLog Cloud — la propagazione, letta come la legge il programma.
 
 Il XML e' quello di N0NBH (hamqsl.com) e il modo di leggerlo e' quello di
 `src/core/Solar.cpp`. Queste prove usano un pezzo di XML vero: nessuna rete.

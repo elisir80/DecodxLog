@@ -1,4 +1,4 @@
-"""DecoLog Cloud — il tema della stazione, anche nel browser.
+"""DecoDXLog Cloud — il tema della stazione, anche nel browser.
 
 I colori non sono una scelta della pagina: arrivano con le impostazioni
 sincronizzate. Queste prove guardano che siano quelli del ThemeManager, valore

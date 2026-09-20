@@ -219,7 +219,7 @@ QString writeRecord(const AdifRecord& record)
 
 QByteArray writeDocument(const AdifDocument& document)
 {
-    QString out = QStringLiteral("DecoLog ADIF export\n");
+    QString out = QStringLiteral("DecoDXLog ADIF export\n");
     for (const auto& f : document.header.fields())
         out += QStringLiteral("<%1:%2>%3\n").arg(f.name.toLower()).arg(f.value.size()).arg(f.value);
     out += QStringLiteral("<eoh>\n\n");

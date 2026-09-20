@@ -448,7 +448,7 @@ void CallbookClient::login(Provider provider, std::function<void(const QString& 
         if (provider == Provider::Qrz) {
             q.addQueryItem(QStringLiteral("username"), user);
             q.addQueryItem(QStringLiteral("password"), secret);
-            q.addQueryItem(QStringLiteral("agent"), QStringLiteral("DecoLog-") + QCoreApplication::applicationVersion());
+            q.addQueryItem(QStringLiteral("agent"), QStringLiteral("DecoDXLog-") + QCoreApplication::applicationVersion());
         } else {
             q.addQueryItem(QStringLiteral("u"), user);
             q.addQueryItem(QStringLiteral("p"), secret);
@@ -490,7 +490,7 @@ void CallbookClient::query(Provider provider, const QString& call, bool retried,
     } else {
         q.addQueryItem(QStringLiteral("id"), sessionKey);
         q.addQueryItem(QStringLiteral("callsign"), call);
-        q.addQueryItem(QStringLiteral("prg"), QStringLiteral("DecoLog"));
+        q.addQueryItem(QStringLiteral("prg"), QStringLiteral("DecoDXLog"));
     }
     url.setQuery(q);
     QNetworkRequest request(url);

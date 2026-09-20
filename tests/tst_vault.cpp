@@ -1,4 +1,4 @@
-// DecoLog — la cassaforte delle credenziali.
+// DecoDXLog — la cassaforte delle credenziali.
 //
 // Quello che deve valere: con la password giusta si riapre identico, con
 // un'altra password non si apre, e se qualcuno tocca il blocco non si apre

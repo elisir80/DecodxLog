@@ -1,9 +1,9 @@
-# DecoLog Cloud
+# DecoDXLog Cloud
 
 Il servizio che tiene allineato il log fra i dispositivi di una stazione: il PC
 dello shack, il portatile che va in portatile, domani il telefono.
 
-Non e' un secondo logbook. Il log vero resta il file SQLite di DecoLog, che
+Non e' un secondo logbook. Il log vero resta il file SQLite di DecoDXLog, che
 funziona anche senza rete; il Cloud e' il posto dove i dispositivi si passano le
 modifiche, e la copia che resta se il computer si rompe.
 
@@ -29,11 +29,11 @@ e un `dirty` che dice se deve ancora partire. Da qui:
   la riga resta, cosi' anche gli altri dispositivi la tolgono.
 
 Il server non conosce i campi ADIF: tiene il QSO come arriva, in un documento
-JSON. Il giorno che DecoLog impara un campo nuovo, qui non si tocca niente.
+JSON. Il giorno che DecoDXLog impara un campo nuovo, qui non si tocca niente.
 
 ## Non solo i QSO
 
-Un log non e' solo l'elenco dei collegamenti: chi apre DecoLog sul secondo
+Un log non e' solo l'elenco dei collegamenti: chi apre DecoDXLog sul secondo
 computer si deve ritrovare la stessa stazione. Oltre ai QSO viaggiano quindi i
 **documenti**, con le stesse regole (revisione, ultima modifica che vince,
 storico, stesso cursore):
@@ -129,7 +129,7 @@ python -m venv .venv
 .venv/Scripts/python -m uvicorn decolog_cloud.main:app --port 8787
 ```
 
-Senza altre variabili usa un SQLite nella cartella corrente. Poi in DecoLog:
+Senza altre variabili usa un SQLite nella cartella corrente. Poi in DecoDXLog:
 Impostazioni → Sync e Cloud, server `http://127.0.0.1:8787`.
 
 ## In servizio

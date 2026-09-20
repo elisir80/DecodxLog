@@ -145,7 +145,7 @@ QByteArray write(const Info& info, const QList<AdifRecord>& qsos, QString* error
     addLine(out, QStringLiteral("EMAIL"), info.email);
     addLine(out, QStringLiteral("OPERATORS"), info.operators.toUpper());
     addLine(out, QStringLiteral("CREATED-BY"),
-            QStringLiteral("DecoLog %1").arg(QCoreApplication::applicationVersion()));
+            QStringLiteral("DecoDXLog %1").arg(QCoreApplication::applicationVersion()));
     for (const QString& line : info.soapbox)
         addLine(out, QStringLiteral("SOAPBOX"), line);
 

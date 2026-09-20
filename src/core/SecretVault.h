@@ -1,7 +1,7 @@
-// DecoLog — la cassaforte delle credenziali che passa dal Cloud.
+// DecoDXLog — la cassaforte delle credenziali che passa dal Cloud.
 //
 // Le password dei servizi (QRZ, LoTW, eQSL, Club Log, HamAlert...) stanno nel
-// portachiavi del sistema, e li' restano. Ma chi apre DecoLog sul secondo
+// portachiavi del sistema, e li' restano. Ma chi apre DecoDXLog sul secondo
 // computer non deve rimetterle a mano: viaggiano anche loro — chiuse.
 //
 // Il patto e' questo: **il server non le puo' leggere**. Si chiudono qui, con
@@ -25,7 +25,7 @@
 
 namespace decolog::core::vault {
 
-// Falso se DecoLog e' stato compilato senza OpenSSL: in quel caso le
+// Falso se DecoDXLog e' stato compilato senza OpenSSL: in quel caso le
 // credenziali restano dove sono, e si dice.
 bool available();
 

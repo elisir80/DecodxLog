@@ -1,4 +1,4 @@
-// DecoLog — il rotore: lo stato di DecoRotor e le risposte di rotctld.
+// DecoDXLog — il rotore: lo stato di DecoRotor e le risposte di rotctld.
 #include "core/RotorLink.h"
 
 #include <QJsonDocument>

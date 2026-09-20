@@ -66,9 +66,9 @@ class TestClusterController : public QObject {
 private slots:
     void initTestCase()
     {
-        // Impostazioni e cache in una cartella di prova, non in quelle di DecoLog.
+        // Impostazioni e cache in una cartella di prova, non in quelle di DecoDXLog.
         QStandardPaths::setTestModeEnabled(true);
-        QCoreApplication::setOrganizationName("DecoLogTest");
+        QCoreApplication::setOrganizationName("DecoDXLogTest");
         QCoreApplication::setApplicationName("tst_clustercontroller");
         QSettings::setDefaultFormat(QSettings::IniFormat);
         QSettings().clear();

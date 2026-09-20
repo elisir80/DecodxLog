@@ -1,4 +1,4 @@
-# DecoLog — Fase 0: specifica di partenza
+# DecoDXLog — Fase 0: specifica di partenza
 
 Stato: bozza 0.1 · IU8LMC · settembre 2026
 
@@ -6,13 +6,13 @@ Stato: bozza 0.1 · IU8LMC · settembre 2026
 
 ## 1. Decisioni di base
 
-**DecoLog si scrive da zero.** QLog (OK1MLG) e Wavelog servono solo come riferimento funzionale: si guarda *cosa* fanno, non *come*. Nessun file, classe o schema viene copiato. Questo tiene DecoLog libero da vincoli di fork e coerente al 100% con l'architettura Decodium.
+**DecoDXLog si scrive da zero.** QLog (OK1MLG) e Wavelog servono solo come riferimento funzionale: si guarda *cosa* fanno, non *come*. Nessun file, classe o schema viene copiato. Questo tiene DecoDXLog libero da vincoli di fork e coerente al 100% con l'architettura Decodium.
 
 - **Licenza:** GPL-3.0, come Decodium 4.0 Core Shannon.
 - **Due prodotti:**
-  - **DecoLog Desktop**: il log principale, offline-first, sul PC della stazione.
-  - **DecoLog Cloud**: sync tra dispositivi, backup, accesso web, punto d'arrivo per Decodium Mobile.
-- **Famiglia Decodium:** stesso tema, stessi componenti, stessa sensazione d'uso. Chi apre DecoLog accanto a Decodium deve vedere *un solo strumento*, come già succede con DecoRTTY.
+  - **DecoDXLog Desktop**: il log principale, offline-first, sul PC della stazione.
+  - **DecoDXLog Cloud**: sync tra dispositivi, backup, accesso web, punto d'arrivo per Decodium Mobile.
+- **Famiglia Decodium:** stesso tema, stessi componenti, stessa sensazione d'uso. Chi apre DecoDXLog accanto a Decodium deve vedere *un solo strumento*, come già succede con DecoRTTY.
 - **FT2 è un modo di prima classe**, non un'aggiunta: `MODE=MFSK`, `SUBMODE=FT2`, come già scritto in `logbook/logbook.cpp` di Decodium (ratificato in ADIF 3.1.7).
 
 > ⚠️ Correzione rispetto ai documenti inviati a Paul: lì la codifica FT2 in ADIF risultava "da definire". È già ufficiale. Il punto va tolto da Fase 0 e dal planning.
@@ -21,9 +21,9 @@ Stato: bozza 0.1 · IU8LMC · settembre 2026
 
 ## 2. Cosa prendere come spunto da QLog
 
-Catalogo delle funzioni viste in QLog, filtrate per DecoLog. **MVP** = entro la 1.0.
+Catalogo delle funzioni viste in QLog, filtrate per DecoDXLog. **MVP** = entro la 1.0.
 
-| Area | Funzione | Priorità | Note per DecoLog |
+| Area | Funzione | Priorità | Note per DecoDXLog |
 |---|---|---|---|
 | Log | Tabella QSO con colonne configurabili, filtri salvati | MVP | Stile righe e densità di Decodium |
 | Log | Scheda nuovo QSO manuale | MVP | Per SSB/CW, i digitali arrivano da Decodium |
@@ -43,7 +43,7 @@ Catalogo delle funzioni viste in QLog, filtrate per DecoLog. **MVP** = entro la 
 | Contest | Cabrillo, dupe check | 2.x | |
 | QSL cartacee | Etichette, galleria QSL | 2.x | |
 
-Principio generale: **DecoLog non duplica ciò che Decodium o gli altri Deco* già fanno** (CAT, rotore, decodifica). Si parla con loro.
+Principio generale: **DecoDXLog non duplica ciò che Decodium o gli altri Deco* già fanno** (CAT, rotore, decodifica). Si parla con loro.
 
 ---
 
@@ -55,13 +55,13 @@ Decodium eredita il protocollo UDP di WSJT-X (`Network/NetworkMessage.hpp`):
 
 - magic `0xadbccbda`, schema 3, serializzazione `QDataStream`;
 - messaggi utili: **`QSOLogged`** (campi strutturati) e **`LoggedADIF`** (record ADIF completo);
-- `Status` per frequenza, modo e call DX correnti, da mostrare in DecoLog senza toccare il CAT.
+- `Status` per frequenza, modo e call DX correnti, da mostrare in DecoDXLog senza toccare il CAT.
 
-DecoLog ascolta su una porta configurabile (default 2237) e usa **`LoggedADIF` come fonte primaria**, perché è lossless. Vantaggio: DecoLog funziona subito anche con WSJT-X e JTDX, il che ne allarga la base utenti.
+DecoDXLog ascolta su una porta configurabile (default 2237) e usa **`LoggedADIF` come fonte primaria**, perché è lossless. Vantaggio: DecoDXLog funziona subito anche con WSJT-X e JTDX, il che ne allarga la base utenti.
 
 ### 3.2 Canale futuro: DecoLink locale
 
-Un canale bidirezionale dedicato Decodium ⇄ DecoLog (TCP locale o WebSocket) per:
+Un canale bidirezionale dedicato Decodium ⇄ DecoDXLog (TCP locale o WebSocket) per:
 - worked-before e stato conferme mostrati *dentro* Decodium mentre si decodifica;
 - stato award FT2 in tempo reale;
 - conferma di scrittura (ACK), così Decodium sa che il QSO è salvato.
@@ -70,8 +70,8 @@ Da progettare in Fase 1, non blocca l'MVP.
 
 ### 3.3 Da verificare nel codice Decodium
 
-- `Network/DecodiumCloudlogLite.*` e `DecodiumQrzLogbookLite.*`: Decodium sa già caricare su Cloudlog e QRZ. Un `DecodiumDecoLogLite` sul modello di questi è la via più breve per l'upload diretto da Decodium Mobile verso il Cloud.
-- `logbook/WorkedBefore.*`: capire se DecoLog può diventare la fonte del worked-before.
+- `Network/DecodiumCloudlogLite.*` e `DecodiumQrzLogbookLite.*`: Decodium sa già caricare su Cloudlog e QRZ. Un `DecodiumDecoDXLogLite` sul modello di questi è la via più breve per l'upload diretto da Decodium Mobile verso il Cloud.
+- `logbook/WorkedBefore.*`: capire se DecoDXLog può diventare la fonte del worked-before.
 
 ---
 
@@ -79,7 +79,7 @@ Da progettare in Fase 1, non blocca l'MVP.
 
 ### 4.1 Fonte di verità: `DecodiumThemeManager`
 
-DecoLog **non definisce colori propri**. Usa gli stessi token di `src/ui/DecodiumThemeManager.h`.
+DecoDXLog **non definisce colori propri**. Usa gli stessi token di `src/ui/DecodiumThemeManager.h`.
 
 | Token | Ocean Blue (default) | Stellar Light | Darkcodium |
 |---|---|---|---|
@@ -103,16 +103,16 @@ Anche questi vanno ereditati:
 
 ### 4.2 Proposta: modulo condiviso `decodium-ui`
 
-Oggi il tema esiste in due copie: `DecodiumThemeManager` e `decortty::app::Theme`, quest'ultima con valori costanti duplicati. Con DecoLog diventerebbero tre.
+Oggi il tema esiste in due copie: `DecodiumThemeManager` e `decortty::app::Theme`, quest'ultima con valori costanti duplicati. Con DecoDXLog diventerebbero tre.
 
-**Proposta:** estrarre un modulo QML/C++ condiviso `decodium-ui`, usato da Decodium, DecoRTTY e DecoLog, contenente:
+**Proposta:** estrarre un modulo QML/C++ condiviso `decodium-ui`, usato da Decodium, DecoRTTY e DecoDXLog, contenente:
 - `DecodiumThemeManager` (temi, variant, densità, colori custom);
 - componenti base: `GlassButton`, `StyledComboBox`, pannello con header, tabella con righe a densità, status bar;
 - font e icone comuni.
 
 Si include come sottomodulo git o come libreria CMake. Un cambio di tema in Decodium si riflette ovunque senza copia-incolla.
 
-Regola per DecoLog: **zero colori letterali in QML**. `DecoSyncPanel.qml` in Decodium ha colori scritti a mano: è il caso da non ripetere.
+Regola per DecoDXLog: **zero colori letterali in QML**. `DecoSyncPanel.qml` in Decodium ha colori scritti a mano: è il caso da non ripetere.
 
 ### 4.3 Layout della finestra principale
 
@@ -134,13 +134,13 @@ Stessa grammatica di Decodium: `SplitView` con pannelli ridimensionabili e ripos
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-Le impostazioni vanno in `QSettings` con organizzazione `Decodium` e applicazione `DecoLog`, riusando il meccanismo dei profili attivi di Decodium.
+Le impostazioni vanno in `QSettings` con organizzazione `Decodium` e applicazione `DecoDXLog`, riusando il meccanismo dei profili attivi di Decodium.
 
 ---
 
 ## 5. Stack tecnico
 
-### DecoLog Desktop
+### DecoDXLog Desktop
 
 | Scelta | Motivo |
 |---|---|
@@ -150,7 +150,7 @@ Le impostazioni vanno in `QSettings` con organizzazione `Decodium` e applicazion
 | Nessun Hamlib nell'MVP | CAT gestito da Decodium |
 | Distribuzione: Windows installer, Flatpak, DecodiumOS | Come Decodium |
 
-### DecoLog Cloud (anch'esso da zero)
+### DecoDXLog Cloud (anch'esso da zero)
 
 | Scelta | Motivo |
 |---|---|
@@ -196,7 +196,7 @@ Schema completo in `db/schema.sql` (incorporato come risorsa e applicato alla pr
 - [x] `decodium-ui` avviato subito, dentro il repo in `libs/decodium-ui` (tema a tre temi + variant + densità + colori custom, componenti base): pronto a diventare sottomodulo condiviso
 - [ ] Mockup della finestra principale nei tre temi (la finestra reale esiste già: vedi §4.3, manca il confronto dei tre temi)
 - [~] Repo `decolog`: struttura CMake, test e workflow CI Windows/Linux pronti in locale — **manca la creazione su GitHub e il primo push**
-- [x] Prototipo minimo: ricezione `LoggedADIF` → scrittura SQLite → riga in tabella (verificato con `decolog_udpsend`)
+- [x] Prototipo minimo: ricezione `LoggedADIF` → scrittura SQLite → riga in tabella (verificato con `decodxlog_udpsend`)
 - [ ] Aggiornare il planning per Paul (niente fork QLog, FT2 ADIF già risolto)
 
 ## 9. Decisioni aperte

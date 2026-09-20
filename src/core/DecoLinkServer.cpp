@@ -94,7 +94,7 @@ void DecoLinkServer::onNewConnection()
         });
         send(s, QJsonObject{
             {QStringLiteral("type"), QStringLiteral("hello")},
-            {QStringLiteral("app"), QStringLiteral("DecoLog")},
+            {QStringLiteral("app"), QStringLiteral("DecoDXLog")},
             {QStringLiteral("version"), m_version},
             {QStringLiteral("protocol"), kProtocol},
             {QStringLiteral("station"), m_station},

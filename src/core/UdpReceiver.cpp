@@ -24,7 +24,7 @@ bool UdpReceiver::start(quint16 port, const QHostAddress& multicastGroup)
     const bool multicast = !multicastGroup.isNull() && multicastGroup.isMulticast();
     // ShareAddress: se un altro programma ascolta in multicast sulla stessa
     // porta, entrambi ricevono. In unicast il sistema consegna comunque a uno
-    // solo dei due, ed e' un limite del protocollo, non di DecoLog.
+    // solo dei due, ed e' un limite del protocollo, non di DecoDXLog.
     const auto mode = QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint;
     const QHostAddress bindAddress = multicast ? QHostAddress(QHostAddress::AnyIPv4)
                                                : QHostAddress(QHostAddress::Any);

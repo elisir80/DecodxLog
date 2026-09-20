@@ -1,4 +1,4 @@
-// DecoLog — il log su SQLite.
+// DecoDXLog — il log su SQLite.
 //
 // Le colonne hanno i nomi ADIF (db/schema.sql). Tutto quello che arriva in ADIF e
 // non ha una colonna finisce in qso.adif_extra come JSON: un import seguito da
@@ -263,7 +263,7 @@ public:
     QList<qint64> qsosToUpload(const QString& service, int limit = 0) const;
     int uploadPendingCount(const QString& service) const;
 
-    // ── Sync con DecoLog Cloud ───────────────────────────────────────────────
+    // ── Sync con DecoDXLog Cloud ───────────────────────────────────────────────
     // I QSO ancora da mandare, dal piu' vecchio. `limit` 0 = tutti.
     QList<qint64> dirtyQsos(int limit = 0) const;
     // Rimette in coda per il Cloud tutto il log: serve dopo aver svuotato il

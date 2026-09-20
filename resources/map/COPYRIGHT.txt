@@ -1,4 +1,4 @@
-coastline.json — le coste del mondo per la mappa di DecoLog.
+coastline.json — le coste del mondo per la mappa di DecoDXLog.
 
 Dati: Natural Earth, "ne_110m_coastline" (https://www.naturalearthdata.com/).
 Natural Earth e' di pubblico dominio: "All versions of Natural Earth raster and

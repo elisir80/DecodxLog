@@ -1,4 +1,4 @@
-"""DecoLog Cloud — i conti del log: statistiche, diplomi, QSL.
+"""DecoDXLog Cloud — i conti del log: statistiche, diplomi, QSL.
 
 Le regole sono quelle del programma (`src/core/Awards.cpp`, le countBy* di
 LogDatabase). Queste prove guardano che qui diano gli stessi risultati: un
@@ -90,7 +90,7 @@ def test_statistics_count_what_the_window_shows():
     assert dict(s["years"])[2026] == 2
     assert dict(s["hours"])[7] == 2 and dict(s["hours"])[23] == 1
     assert dict(s["continents"])["EU"] == 3
-    # Le bande escono nell'ordine di DecoLog: prima le lunghe.
+    # Le bande escono nell'ordine di DecoDXLog: prima le lunghe.
     assert [b for b, _ in s["bands"]] == ["40m", "20m"]
 
 

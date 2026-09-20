@@ -26,10 +26,10 @@ private slots:
     void initTestCase()
     {
         QCoreApplication::setOrganizationName(QStringLiteral("Decodium"));
-        QCoreApplication::setApplicationName(QStringLiteral("DecoLog-test"));
+        QCoreApplication::setApplicationName(QStringLiteral("DecoDXLog-test"));
         QSettings::setDefaultFormat(QSettings::IniFormat);
         QSettings().clear();
-        m_store = new CredentialStore(QStringLiteral("DecoLog-test-%1").arg(QCoreApplication::applicationPid()), this);
+        m_store = new CredentialStore(QStringLiteral("DecoDXLog-test-%1").arg(QCoreApplication::applicationPid()), this);
     }
 
     void cleanupTestCase()

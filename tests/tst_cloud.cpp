@@ -1,4 +1,4 @@
-// DecoLog — il lato log del sync: cosa parte, cosa si scrive quando arriva, e
+// DecoDXLog — il lato log del sync: cosa parte, cosa si scrive quando arriva, e
 // chi vince quando due dispositivi hanno scritto sullo stesso QSO.
 #include "core/CloudSync.h"
 #include "core/LogDatabase.h"
@@ -31,7 +31,7 @@ AdifRecord qso(const QString& call, const QString& time = QStringLiteral("183000
 }
 
 // Un server che risponde sempre come gli si dice: serve per provare cosa fa
-// DecoLog davanti a un Cloud piu' vecchio di lui.
+// DecoDXLog davanti a un Cloud piu' vecchio di lui.
 class FakeServer : public QObject {
     Q_OBJECT
 

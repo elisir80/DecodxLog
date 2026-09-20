@@ -22,7 +22,7 @@ namespace {
 constexpr int kBatch = 200;
 
 // Nel portachiavi, accanto al token: la chiave della cassaforte. Non e' un
-// servizio con cui parlare, e' un attrezzo di DecoLog.
+// servizio con cui parlare, e' un attrezzo di DecoDXLog.
 const QLatin1String kVaultService{"cloudvault"};
 
 

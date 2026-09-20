@@ -1,4 +1,4 @@
-// DecoLog — credenziali dei servizi nel portachiavi del sistema.
+// DecoDXLog — credenziali dei servizi nel portachiavi del sistema.
 //
 // Password, chiavi API e token stanno solo nel portachiavi (Gestione credenziali
 // su Windows, Portachiavi su macOS, Secret Service su Linux) tramite qtkeychain.
@@ -32,9 +32,9 @@ class CredentialStore : public QObject {
     Q_PROPERTY(QVariantList services READ services NOTIFY changed)
 
 public:
-    // `keychainService` separa i segreti di DecoLog da quelli di altri programmi
+    // `keychainService` separa i segreti di DecoDXLog da quelli di altri programmi
     // (e quelli dei test da quelli veri).
-    explicit CredentialStore(const QString& keychainService = QStringLiteral("DecoLog"),
+    explicit CredentialStore(const QString& keychainService = QStringLiteral("DecoDXLog"),
                              QObject* parent = nullptr);
 
     static bool compiledWithKeychain();

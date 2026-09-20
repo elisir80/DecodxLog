@@ -67,13 +67,13 @@ private slots:
     {
         AdifRecord r{{"CALL", "IU8LMC"}, {"NAME", "Zoë <test>"}, {"APP_DECODIUM_SNR", "-12"}};
         AdifDocument doc;
-        doc.header.set("PROGRAMID", "DecoLog");
+        doc.header.set("PROGRAMID", "DecoDXLog");
         doc.records << r;
         const AdifDocument back = adif::parse(adif::writeDocument(doc));
         QCOMPARE(back.records.size(), 1);
         QCOMPARE(back.records.first().value("NAME"), QString("Zoë <test>"));
         QCOMPARE(back.records.first().value("APP_DECODIUM_SNR"), QString("-12"));
-        QCOMPARE(back.header.value("PROGRAMID"), QString("DecoLog"));
+        QCOMPARE(back.header.value("PROGRAMID"), QString("DecoDXLog"));
     }
 
     void normalizeFt2()

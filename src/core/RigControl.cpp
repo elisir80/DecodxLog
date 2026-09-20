@@ -198,7 +198,7 @@ void RigControl::readFromRig()
 
 void RigControl::handleReply(const QStringList& lines)
 {
-    if (qEnvironmentVariableIsSet("DECOLOG_RIG_DEBUG"))
+    if (qEnvironmentVariableIsSet("DECODXLOG_RIG_DEBUG"))
         qDebug() << "reply" << lines << "pending" << m_pending.size();
     if (m_pending.isEmpty())
         return;

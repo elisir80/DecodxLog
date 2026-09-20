@@ -1,7 +1,32 @@
-# Storia di DecoLog
+# Storia di DecoDXLog
 
-Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
+Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
+
+## 0.8.0 — 20 settembre 2026
+
+**Il programma si chiama DecoDXLog.** Nome nuovo e icona nuova — la nuvola del Cloud con
+le righe del log, l'onda del segnale e il nome DecoDXLog — dappertutto: titolo della
+finestra, eseguibile (**DecoDXLog.exe**), proprieta' del file, pacchetto, documenti,
+traduzioni e deposito su GitHub.
+
+**Il log e le impostazioni traslocano da soli.** Al primo avvio col nome nuovo, quello che
+stava nelle cartelle di DecoLog viene portato nelle cartelle di DecoDXLog:
+
+- `%APPDATA%\Decodium\DecoLog\` → `%APPDATA%\Decodium\DecoDXLog\` (il log, i backup,
+  le carte QSL)
+- `decolog.sqlite` → `decodxlog.sqlite`
+- `DecoLog.ini` → `DecoDXLog.ini` (tutte le impostazioni: Cloud, radio, cluster, colonne,
+  disposizione dei pannelli)
+- la cache del cluster in `%LOCALAPPDATA%`
+
+**Si copia, non si sposta**: la roba di prima resta dov'era. Se qualcosa non torna, il log
+di sempre e' ancora al suo posto e si riapre col programma vecchio. L'unica accortezza e'
+non lavorare un po' di qua e un po' di la': da qui in avanti vale quello nuovo.
+
+Restano col nome vecchio le cose che nessuno vede e che non si possono cambiare senza
+rompere qualcosa: i campi ADIF nostri (`APP_DECOLOG_*`, che stanno gia' dentro i log di
+chi ha esportato), il servizio sul server (`decolog-cloud`) e il namespace del codice.
 
 ## 0.7.0 — 20 settembre 2026
 
@@ -9,7 +34,7 @@ Tre cose che mancavano, chieste da chi il log lo usa.
 
 **Un file ADIF con dentro solo i QSO marcati.** Si marcano le righe che servono — una o
 dieci — e col tasto destro **«Salva i 10 QSO scelti in un file ADIF…»**. Il nome di
-partenza lo propone DecoLog (il nominativo se e' uno solo, altrimenti quanti sono, piu' la
+partenza lo propone DecoDXLog (il nominativo se e' uno solo, altrimenti quanti sono, piu' la
 data). Prima l'unica strada era esportare tutto il log e poi togliere a mano le
 ventiduemila righe di troppo.
 
@@ -43,10 +68,10 @@ tutti dentro. Tre cose messe a posto:
 - **Le finestre non rinascono tutte a ogni cambiamento.** L'elenco era una lista semplice,
   e cambiandola Qt rifaceva da capo *tutte* le finestre: quelle aperte sparivano e
   tornavano altrove, svuotate. Adesso si aggiunge e si toglie una riga sola.
-- **Uscire da DecoLog non riaggancia niente.** Chiudendosi, ogni finestra staccata diceva
+- **Uscire da DecoDXLog non riaggancia niente.** Chiudendosi, ogni finestra staccata diceva
   "riagganciami", e la volta dopo i pannelli erano tutti nella finestra principale.
 
-**La X della finestra principale chiude DecoLog.** Con un pannello in finestra propria il
+**La X della finestra principale chiude DecoDXLog.** Con un pannello in finestra propria il
 programma restava in piedi: Qt aspetta che si chiuda l'ultima finestra, e quella era
 ancora li'.
 
@@ -93,7 +118,7 @@ spot tornano in tabella.
 ## 0.5.7 — 20 settembre 2026
 
 **Un nodo che tace non e' un nodo collegato.** Certi nodi accettano il collegamento e poi
-non dicono piu' niente: la porta e' aperta, il servizio spento. DecoLog aspettava quattro
+non dicono piu' niente: la porta e' aperta, il servizio spento. DecoDXLog aspettava quattro
 secondi, mandava il nominativo al buio, ne aspettava altri quattro e si dichiarava
 **online** — fonte verde, e nemmeno uno spot in tabella, senza una parola che spiegasse
 perche'. Adesso, se dal nodo non e' mai arrivato niente, la fonte resta in attesa e dice
@@ -113,14 +138,14 @@ spento e una riga che dice di entrare prima — una funzione che sparisce e' una
 non c'e'.
 
 **Quando il server e' piu' vecchio del programma, lo dice.** Una richiesta che il Cloud non
-conosce tornava indietro come «Not Found», e chi leggeva pensava di avere DecoLog rotto.
+conosce tornava indietro come «Not Found», e chi leggeva pensava di avere DecoDXLog rotto.
 Adesso il messaggio dice che e' il *server* a dover essere aggiornato, e quale richiesta non
 ha capito. Lato server, `/v1/health` dichiara anche **contest** e **purge** fra le funzioni,
 cosi' un aggiornamento a meta' si vede con un solo `curl`.
 
 ## 0.5.5 — 20 settembre 2026
 
-**L'icona nuova.** DecoLog ha la sua faccia: la nuvola del Cloud con dentro le righe del
+**L'icona nuova.** DecoDXLog ha la sua faccia: la nuvola del Cloud con dentro le righe del
 log, l'onda del segnale sotto e il nome. Si vede nella barra delle applicazioni, in
 Esplora risorse, nelle proprieta' del file e sulle finestre. Il disegno e le taglie
 stanno in `resources/icon/`; `make_icon.py` adesso le mette solo insieme, invece di
@@ -131,7 +156,7 @@ automatica le rovinerebbe.
 
 **Le chiamate in rete passano per HTTP/1.1.** Qualche servizio pubblico chiude gli stream
 HTTP/2 senza finire il discorso, e la richiesta moriva a meta' senza un errore sensato.
-Adesso tutte le chiamate di DecoLog — callbook, LoTW, eQSL, QRZ, Club Log (anche il carico
+Adesso tutte le chiamate di DecoDXLog — callbook, LoTW, eQSL, QRZ, Club Log (anche il carico
 a blocco), Cloud, cluster, POTA, dati solari — chiedono HTTP/1.1: stesso TLS, stessi tempi
 di attesa, stessa gestione degli errori, ma la risposta arriva.
 
@@ -161,8 +186,8 @@ giuste di numero ma **vuote**: i nomi stavano nel registro sotto voci con le bar
 come si deve, e nella tendina ci sono COM4, COM5 e compagnia.
 
 **Il PTT sulla seconda porta.** Chi ha due porte — il CAT su una, il PTT sull'altra, come
-le CP2105 a doppia porta — adesso lo puo' dire a DecoLog: Impostazioni → Radio (CAT),
-**PTT** su RTS o DTR e la porta dove sta. DecoLog lo passa a rigctld, cosi' **la radio
+le CP2105 a doppia porta — adesso lo puo' dire a DecoDXLog: Impostazioni → Radio (CAT),
+**PTT** su RTS o DTR e la porta dove sta. DecoDXLog lo passa a rigctld, cosi' **la radio
 trasmette mentre il CAT continua a leggere la frequenza**. C'e' anche **Prova il PTT**, che
 lo preme per un attimo: se la radio va in trasmissione, e' a posto.
 
@@ -177,7 +202,7 @@ modelli di radio, servizi QSL.
 
 **La radio si legge anche quando il CAT risponde "alla vecchia".** Rigctld chiude ogni
 risposta con RPRT; altri ponti CAT — quello di Decodium, per esempio — rispondono col
-valore e basta. DecoLog si aspettava sempre il RPRT e restava li' ad aspettare: frequenza e
+valore e basta. DecoDXLog si aspettava sempre il RPRT e restava li' ad aspettare: frequenza e
 modo non arrivavano mai. Adesso capisce tutte e due le maniere, e la frequenza della radio
 compare anche collegandosi a Decodium.
 
@@ -196,8 +221,8 @@ otto macro sui tasti F1-F8, la velocita' in parole al minuto, una riga per manda
 quello che si scrive sul momento, e il **decoder**. Di partenza e' chiuso: chi non fa CW
 non se lo ritrova fra i piedi.
 
-**Il decoder CW e' dentro DecoLog.** Non serve una radio che decodifichi: basta l'audio che
-esce dalla radio. DecoLog guarda quanta energia c'e' sul tono del CW rispetto a quello che
+**Il decoder CW e' dentro DecoDXLog.** Non serve una radio che decodifichi: basta l'audio che
+esce dalla radio. DecoDXLog guarda quanta energia c'e' sul tono del CW rispetto a quello che
 gli sta intorno — il rumore e' largo, il CW e' stretto — e da quei tempi tira fuori punti,
 linee e lettere. La velocita' non si imposta: la impara dai punti che arrivano, e la scrive
 insieme al tono che ha trovato. Provato su segnali veri generati a 15, 25 e 35 parole al
@@ -205,8 +230,8 @@ minuto, col tono cercato da solo fra 400 e 1000 Hz e col rumore in banda.
 
 **La radio anche col cavo.** Prima serviva un rigctld gia' acceso; adesso in Impostazioni
 → Radio (CAT) si sceglie **Cavo seriale alla radio**, si prende il modello dall'elenco di
-Hamlib (che DecoLog legge da `rigctld -l`), la porta COM e la velocita', e **rigctld lo
-avvia DecoLog**. Per chi opera e' solo "COM5, questa radio".
+Hamlib (che DecoDXLog legge da `rigctld -l`), la porta COM e la velocita', e **rigctld lo
+avvia DecoDXLog**. Per chi opera e' solo "COM5, questa radio".
 
 **I campi che mancavano nel QSO.** Nella finestra del QSO nuovo ci sono adesso **nazione,
 indirizzo/citta', stato, contea (JCC), DXCC, zona CQ, zona ITU, continente e QSL via**, e
@@ -223,7 +248,7 @@ telefono, mentre in shack si macina.
 
 ## 0.4.0 — 19 settembre 2026
 
-**Le macro CW, col manipolatore della radio.** DecoLog parla con **rigctld**, il demone di
+**Le macro CW, col manipolatore della radio.** DecoDXLog parla con **rigctld**, il demone di
 Hamlib: da li' legge frequenza e modo, sposta la radio, e soprattutto le passa il testo da
 mandare in CW. Nella finestra contest c'e' la fila delle otto macro sui tasti **F1-F8**,
 con i buchi che si riempiono da soli — {CALL} chi stai lavorando, {MYCALL} il tuo
@@ -234,7 +259,7 @@ rigctld; il manipolatore e' quello della radio, quindi quello che senti nel moni
 quello che va in aria.
 
 **Il certificato LoTW si trova, finalmente.** Su Windows TQSL tiene i suoi dati in
-%APPDATA%\TrustedQSL — la cartella "Roaming" — e DecoLog cercava nell'altra: un TQSL a
+%APPDATA%\TrustedQSL — la cartella "Roaming" — e DecoDXLog cercava nell'altra: un TQSL a
 posto sembrava non installato. Adesso guarda dove deve, e distingue il certificato **del
 nominativo** (quello che arriva col file .tq6 di ARRL) dalle radici che TQSL si mette da
 solo: se manca, lo dice chiaro e scrive anche in che cartella sta guardando.
@@ -248,7 +273,7 @@ sincronizzazione risale da capo.
 **Niente piu' nero su nero.** Da Qt 6.8 i menu di QML possono diventare menu **nativi** di
 Windows: quelli non sanno niente del tema e su sfondo scuro scrivevano nero su nero —
 sottomenu, tendine e il menu del tasto destro dentro i campi di testo. Adesso i menu li
-disegna DecoLog, sempre, coi suoi colori.
+disegna DecoDXLog, sempre, coi suoi colori.
 
 ## 0.3.9 — 19 settembre 2026
 
@@ -361,7 +386,7 @@ aggiorna il cty.csv. Si legge anche banda per banda, come gli altri.
 
 **Il QSO non resta nudo.** Decodium manda l'essenziale — nominativo, rapporto, banda,
 modo — e il resto restava fuori dal log anche quando la scheda a destra lo mostrava:
-nome, locatore, citta'. Adesso, appena il QSO e' scritto, DecoLog chiede al callbook
+nome, locatore, citta'. Adesso, appena il QSO e' scritto, DecoDXLog chiede al callbook
 (QRZ.com o HamQTH) e quello che torna riempie **solo i campi vuoti**: nome, QTH,
 locatore, indirizzo, stato, contea, entita', zone. Quello che ha scritto l'operatore non
 si tocca — ha visto il collegamento, il callbook no.
@@ -394,7 +419,7 @@ piu' spesso, perche' il callbook lo riempie.
 
 
 
-**DecoLog fuori da Windows.** Salvatore Raccampo 9H1SR ha portato il programma dove
+**DecoDXLog fuori da Windows.** Salvatore Raccampo 9H1SR ha portato il programma dove
 Windows non c'e', e le sue correzioni sono qui: i caratteri si scelgono guardando quelli
 davvero installati — Cascadia Mono o Consolas su Windows, SF Mono, Menlo o Monaco su
 macOS, DejaVu Sans Mono o Liberation Mono su Linux, e in mancanza di tutto quello che il
@@ -426,13 +451,13 @@ database in mano. Nessuna crittografia scritta a mano: e' OpenSSL, quello che st
 HTTPS. Sull'altro dispositivo si entra con la stessa password e i servizi sono pronti.
 La chiave non passa mai dal server: si rifa' dalla password e poi vive nel portachiavi
 accanto al token; "Scollega" la butta. Si spegne dall'interruttore in Impostazioni →
-Sync e Cloud, e senza OpenSSL DecoLog lo dice e non manda niente. Chi si era collegato
+Sync e Cloud, e senza OpenSSL DecoDXLog lo dice e non manda niente. Chi si era collegato
 **prima** che la cassaforte esistesse ha la chiave mancante: nella stessa pagina compare
 "Apri la cassaforte", si dice la password una volta e basta — non serve scollegarsi.
 
 Restano fuori solo due cose, e nessuna e' una scelta di chi opera: il **promemoria di
 cosa e' salvato nel portachiavi di quella macchina**, che altrove farebbe credere a
-DecoLog di avere una password che non ha, e il **quaderno del sync** (nominativo
+DecoDXLog di avere una password che non ha, e il **quaderno del sync** (nominativo
 collegato, ora dell'ultimo giro). Il profilo attivo viaggia per **uuid** e non per numero
 di riga, cosi' sul secondo computer si accende lo stesso profilo anche se li' ha un altro
 numero.
@@ -497,7 +522,7 @@ caratteri, perche' quella e' una scelta, non un dato di fatto.
 
 ## 0.3.0 — 18 settembre 2026
 
-**DecoLog Cloud: il sync fra dispositivi (Fase 3).** Il log resta il file SQLite, che
+**DecoDXLog Cloud: il sync fra dispositivi (Fase 3).** Il log resta il file SQLite, che
 funziona anche senza rete; il Cloud è il posto dove i dispositivi si passano le modifiche.
 
 Il servizio sta in `server/`: FastAPI e SQLAlchemy, SQLite per provarlo sul proprio
@@ -505,30 +530,30 @@ computer e PostgreSQL in servizio, Dockerfile e compose già pronti. Registrazio
 nominativo e password (tenuta con Argon2), e un token per dispositivo di cui il server
 conserva solo l'impronta.
 
-Dentro DecoLog: Impostazioni → Sync e Cloud per l'indirizzo, l'accesso e il sync
+Dentro DecoDXLog: Impostazioni → Sync e Cloud per l'indirizzo, l'accesso e il sync
 automatico; "Sincronizza adesso" anche nella barra in alto, con la coda sempre in vista.
 Un giro fa prima il pull e poi il push, così le revisioni partono allineate. Le regole
 sono quelle scritte in Fase 0: chi spinge dice la revisione che conosceva, **vince
 l'ultima modifica** e la versione che perde resta nello storico; il pull non sovrascrive
 mai una modifica locale ancora da mandare; i duplicati con un altro uuid si riconoscono
 per nominativo, banda, gruppo di modi e orario vicino; le cancellazioni viaggiano come
-modifiche. La password passa una volta sola: DecoLog tiene solo il token, nel portachiavi.
+modifiche. La password passa una volta sola: DecoDXLog tiene solo il token, nel portachiavi.
 
 **Il log dal browser.** Sullo stesso servizio c'e' la pagina: si entra con gli stessi
 nominativo e password, e si vede il proprio log — tabella con la ricerca mentre si scrive,
 filtri per banda e modo, la pagina che si allunga scorrendo, la scheda del QSO con tutti i
 campi ADIF, e il tasto per riscaricare tutto in ADIF. Da qui si guarda e si scarica: si
 scrive dal programma. Pagine servite dal server (Jinja) con un po' di HTMX tenuto in casa,
-i colori sono quelli di DecoLog, e la sessione e' un cookie HttpOnly che dura trenta
+i colori sono quelli di DecoDXLog, e la sessione e' un cookie HttpOnly che dura trenta
 giorni.
 
 Provato per davvero fra due log: 40 QSO spinti dal primo e ripresi dal secondo, una
 modifica che fa il giro, un conflitto risolto con la versione perdente nello storico del
 server, e una cancellazione che arriva dall'altra parte.
 
-**Rotore.** DecoLog parla con **DecoRotor** sul WebSocket (8765) e, per chi ha altro, con un
+**Rotore.** DecoDXLog parla con **DecoRotor** sul WebSocket (8765) e, per chi ha altro, con un
 **rotctld** qualsiasi (DecoRotor stesso risponde sulla 4532). Il quadrante è quello di
-DecoRotor, portato dentro DecoLog: corona graduata con le tacche ogni 2° e i numeri ogni
+DecoRotor, portato dentro DecoDXLog: corona graduata con le tacche ogni 2° e i numeri ogni
 10°, mappa azimutale equidistante centrata sul proprio QTH (la direzione letta sulla corona
 è la rotta vera, e la distanza dal centro cresce con i chilometri), cerchi di distanza, lobo
 d'antenna, bersaglio tratteggiato e ago che gira dalla parte giusta. Sta in piccolo nella
@@ -539,13 +564,13 @@ una maniglia, e a destra il display con l'azimut a caratteri grandi e l'indicato
 le sei memorie a tasto diretto, i passi con lo STOP al centro, PARK, l'elenco delle memorie
 e il puntamento a gradi con le otto direzioni. Sotto, la striscia di stato con le tre porte
 del gateway. I riquadri della mappa arrivano dal gateway stesso (che fa da cache), gli spot
-sono quelli del cluster di DecoLog e la barra in fondo punta per locatore, rotta breve o
+sono quelli del cluster di DecoDXLog e la barra in fondo punta per locatore, rotta breve o
 lunga. Ci sono anche le altre due schede dell'originale: **DIAGNOSTICA** (i frame Prosistel che
 passano sulla seriale con il loro esadecimale, l'andamento della posizione, i contatori
 dell'esercizio e i tre indirizzi di rete) e **IMPOSTAZIONI** (nominativo, locatore, apertura
 del lobo, finecorsa, riposo, tolleranza e lo stop se cade il collegamento), che scrivono nel
 config.json del gateway con `config_set`. Memorie, finecorsa, riposo e lobo li dice il
-gateway: DecoLog li legge e li rimanda, non se li inventa. Dove la rotta si sa già la si usa: **dal menu di
+gateway: DecoDXLog li legge e li rimanda, non se li inventa. Dove la rotta si sa già la si usa: **dal menu di
 uno spot del cluster** (“punta il rotore su DL9ZZT, 287°”), dal nominativo che si sta
 lavorando, e, se lo si accende, seguendo da solo quello che Decodium lavora. La direzione
 dell'antenna si vede anche sulla mappa. La seriale resta a DecoRotor: i finecorsa sono del
@@ -554,7 +579,7 @@ control box.
 **Propagazione.** Scheda nuova in basso: SFI, macchie, indice A e K, aurora, raggi X, campo
 geomagnetico, rumore e vento solare, e le condizioni banda per banda di giorno e di notte
 (più aurora ed E-skip in VHF), colorate. I dati arrivano dal XML di N0NBH (hamqsl.com), da
-soli ogni ora o a comando. DecoLog tiene un campione all'ora e lo mette accanto ai QSO di
+soli ogni ora o a comando. DecoDXLog tiene un campione all'ora e lo mette accanto ai QSO di
 quel giorno: negli ultimi quattordici giorni si vede se il proprio ritmo segue davvero il
 flusso solare. In testa alla mappa restano SFI e K, dove si guarda la propagazione.
 
@@ -597,7 +622,7 @@ Livelli accendibili e spegnibili.
 
 ## 0.2.0 — 18 settembre 2026
 
-**Interfaccia in italiano.** Tutte le stringhe tradotte (`translations/decolog_it.ts`), la
+**Interfaccia in italiano.** Tutte le stringhe tradotte (`translations/decodxlog_it.ts`), la
 lingua segue il sistema oppure si sceglie in Impostazioni → Generale.
 
 **QSL.**
@@ -629,7 +654,7 @@ sessione, conteggi e export ADIF con il nome che POTA si aspetta.
 
 **Confezione.** Icona propria (`resources/make_icon.py`) nell'eseguibile e nelle finestre,
 versione nelle proprietà del file, `scripts/deploy.sh` che prepara anche
-`DecoLog-<versione>-win64.zip` con LEGGIMI e strumenti di prova.
+`DecoDXLog-<versione>-win64.zip` con LEGGIMI e strumenti di prova.
 
 **Correzioni.** Gli errori di rete non riportano più l'URL con la password; la freccia degli
 elenchi a discesa apre la tendina anche nelle caselle in cui si può scrivere.

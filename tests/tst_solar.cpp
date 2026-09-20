@@ -1,4 +1,4 @@
-// DecoLog — il XML del Sole: si legge quello vero, non uno finto.
+// DecoDXLog — il XML del Sole: si legge quello vero, non uno finto.
 #include "core/Solar.h"
 
 #include <QTest>

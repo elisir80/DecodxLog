@@ -1,6 +1,6 @@
-"""DecoLog Cloud — la propagazione, come la scheda del programma.
+"""DecoDXLog Cloud — la propagazione, come la scheda del programma.
 
-Gli stessi numeri del pannello Propagazione di DecoLog: SFI, macchie, indice A e
+Gli stessi numeri del pannello Propagazione di DecoDXLog: SFI, macchie, indice A e
 K, aurora, raggi X, campo geomagnetico, rumore, vento solare, e le condizioni
 banda per banda di giorno e di notte. La fonte e' la stessa — il XML di N0NBH
 (hamqsl.com) — e il modo di leggerlo e' quello di `src/core/Solar.cpp`,
@@ -122,7 +122,7 @@ def current(fetcher=None) -> dict:
 
 
 def _download() -> bytes:
-    request = urllib.request.Request(URL, headers={"User-Agent": "DecoLog Cloud"})
+    request = urllib.request.Request(URL, headers={"User-Agent": "DecoDXLog Cloud"})
     with urllib.request.urlopen(request, timeout=8) as reply:
         return reply.read()
 

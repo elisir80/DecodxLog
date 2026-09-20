@@ -1,4 +1,4 @@
-// DecoLog — ascolto UDP dei programmi digitali (Decodium, WSJT-X, JTDX).
+// DecoDXLog — ascolto UDP dei programmi digitali (Decodium, WSJT-X, JTDX).
 //
 // Quando l'operatore conferma "Log QSO", il client manda due messaggi: prima
 // QSOLogged (campi strutturati), poi LoggedADIF (il record ADIF completo). La
@@ -35,7 +35,7 @@ public:
     explicit UdpReceiver(QObject* parent = nullptr);
     ~UdpReceiver() override;
 
-    // Porta 0 = spento. Un indirizzo multicast (224.0.0.0/4) permette a DecoLog
+    // Porta 0 = spento. Un indirizzo multicast (224.0.0.0/4) permette a DecoDXLog
     // di condividere il flusso con GridTracker, JTAlert e simili.
     bool start(quint16 port, const QHostAddress& multicastGroup = {});
     void stop();

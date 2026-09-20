@@ -1,4 +1,4 @@
-"""DecoLog Cloud — gli stessi colori del programma, anche nel browser.
+"""DecoDXLog Cloud — gli stessi colori del programma, anche nel browser.
 
 I temi non sono una scelta della pagina: sono quelli della stazione, e stanno
 gia' sul Cloud fra le impostazioni sincronizzate (`theme/current`,

@@ -1,4 +1,4 @@
-"""DecoLog Cloud — le regole del sync, provate sul serio.
+"""DecoDXLog Cloud — le regole del sync, provate sul serio.
 
 Ogni prova parte da un database vuoto: il servizio si comporta allo stesso modo
 al primo QSO e al centomillesimo.

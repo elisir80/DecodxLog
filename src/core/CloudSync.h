@@ -1,4 +1,4 @@
-// DecoLog — il cliente del DecoLog Cloud.
+// DecoDXLog — il cliente del DecoDXLog Cloud.
 //
 // Parla con il servizio di `server/`: token, spinta dei QSO in coda, ripresa di
 // quello che e' cambiato altrove. Qui dentro non c'e' logica di log: si manda
@@ -30,7 +30,7 @@ namespace cloudsync {
 
 // Il motivo di un errore, comunque il server lo scriva.
 //
-// I server di DecoLog mettono una frase in `detail`. Ma FastAPI, quando la
+// I server di DecoDXLog mettono una frase in `detail`. Ma FastAPI, quando la
 // richiesta non passa la validazione, mette li' un *elenco* di oggetti
 // ({"loc": [...], "msg": "..."}): chi si aspettava una stringa restava con un
 // "HTTP 422" in mano e nessuna idea di cosa avesse sbagliato. Qui si legge

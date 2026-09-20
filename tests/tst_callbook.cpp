@@ -166,7 +166,7 @@ private slots:
         QCOMPARE(found.first().at(0).toString(), QString("EA8OH"));
         QCOMPARE(server.requests.size(), 2);                         // login + ricerca
         QCOMPARE(server.requests.at(0).queryItemValue("username"), QString("IU8LMC"));
-        QVERIFY(server.requests.at(0).queryItemValue("agent").startsWith("DecoLog"));
+        QVERIFY(server.requests.at(0).queryItemValue("agent").startsWith("DecoDXLog"));
 
         // Dalla cache: nessuna richiesta in piu', risposta immediata.
         client.lookup("EA8OH");
@@ -223,7 +223,7 @@ private slots:
         client.lookup("OK7AN");
         QVERIFY(found.wait(5000));
         QCOMPARE(server.requests.at(1).queryItemValue("id"), QString("09b0ae90050be03c452ad235a1f2915ad684393c"));
-        QCOMPARE(server.requests.at(1).queryItemValue("prg"), QString("DecoLog"));
+        QCOMPARE(server.requests.at(1).queryItemValue("prg"), QString("DecoDXLog"));
     }
 
     // ── Il QSO che si completa ───────────────────────────────────────────────

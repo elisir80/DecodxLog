@@ -1,4 +1,4 @@
-"""DecoLog Cloud — il log dal browser.
+"""DecoDXLog Cloud — il log dal browser.
 
 Non una pagina web che parla dello stesso log: **la stessa finestra**. Barra
 superiore a blocchi, tre colonne di pannelli (scheda del QSO, log, scheda del
@@ -73,7 +73,7 @@ def _field(row: Qso, *names: str, default: str = "") -> str:
 def _row_view(row: Qso) -> dict:
     """Un QSO come lo vuole la tabella: gia' leggibile, niente logica nel template.
 
-    Le colonne sono quelle del log di DecoLog, nello stesso ordine — fino alle
+    Le colonne sono quelle del log di DecoDXLog, nello stesso ordine — fino alle
     QSL per servizio (L Q C E) e alle etichette.
     """
     date = _field(row, "QSO_DATE")
@@ -387,7 +387,7 @@ def _all_rows(db: Session, account: Account) -> list[analytics.Row]:
     """Tutto il log, ridotto a quello che serve ai conti.
 
     Si legge per intero perche' i diplomi e le statistiche guardano ogni QSO:
-    e' la stessa cosa che fa DecoLog sul computer, e un log di stazione sta in
+    e' la stessa cosa che fa DecoDXLog sul computer, e un log di stazione sta in
     memoria senza fatica.
     """
     rows = db.scalars(
@@ -398,7 +398,7 @@ def _all_rows(db: Session, account: Account) -> list[analytics.Row]:
     return [analytics.row_of(r) for r in rows]
 
 
-# I gruppi di modi come li offre DecoLog nei filtri dei diplomi.
+# I gruppi di modi come li offre DecoDXLog nei filtri dei diplomi.
 _MODE_GROUPS = [("", "tutti i modi"), ("FT2", "FT2"), ("FT8", "FT8"),
                 ("DIGITAL", "digitali"), ("CW", "CW"), ("PHONE", "fonia")]
 
@@ -705,7 +705,7 @@ EDITABLE = {
 async def save_settings(request: Request, db: Session = Depends(auth.session)):
     """Cambia le impostazioni della stazione da qui, e le manda al programma.
 
-    Si scrive lo stesso documento che sincronizza DecoLog, con una revisione in
+    Si scrive lo stesso documento che sincronizza DecoDXLog, con una revisione in
     piu': al giro dopo il programma se lo riprende e si adegua — il tema, per
     esempio, si ridipinge da solo senza riavviare.
     """
@@ -762,9 +762,9 @@ def export_adif(request: Request, db: Session = Depends(auth.session)) -> Respon
     ).all()
 
     out = [
-        f"DecoLog Cloud — {account.callsign}",
+        f"DecoDXLog Cloud — {account.callsign}",
         "<ADIF_VER:5>3.1.4",
-        "<PROGRAMID:12>DecoLog Cloud",
+        "<PROGRAMID:12>DecoDXLog Cloud",
         f"<CREATED_TIMESTAMP:15>{dt.datetime.now(dt.UTC).strftime('%Y%m%d %H%M%S')}",
         "<EOH>",
     ]

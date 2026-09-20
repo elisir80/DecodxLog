@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
-project(DecoLog
-    VERSION 0.7.0
+project(DecoDXLog
+    VERSION 0.8.0
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -14,7 +14,7 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "" FORCE)
 endif()
 
-option(DECOLOG_BUILD_TESTS "Build the unit tests" ON)
+option(DECODXLOG_BUILD_TESTS "Build the unit tests" ON)
 option(DECOLOG_BUILD_TOOLS "Build the command-line tools (UDP simulator)" ON)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Network Sql Gui Qml Quick QuickControls2 Multimedia WebSockets Positioning Location LinguistTools)
@@ -26,7 +26,7 @@ endif()
 # ── decodium-ui ───────────────────────────────────────────────────────────────
 # Tema e componenti della famiglia Decodium. Sta in libs/ perche' e' pensato per
 # uscire da qui e diventare un modulo condiviso con Decodium e DecoRTTY (Fase 0,
-# §4.2): nulla la' dentro sa di DecoLog.
+# §4.2): nulla la' dentro sa di DecoDXLog.
 add_subdirectory(libs/decodium-ui)
 
 # ── Core ──────────────────────────────────────────────────────────────────────
@@ -106,7 +106,7 @@ if(WIN32)
     target_link_libraries(decolog_core PRIVATE sapi ole32)
 endif()
 
-# Portachiavi di sistema per password e chiavi API. Senza qtkeychain DecoLog si
+# Portachiavi di sistema per password e chiavi API. Senza qtkeychain DecoDXLog si
 # compila lo stesso, ma non salva segreti: niente ripiego in chiaro.
 #   MSYS2:  pacman -S mingw-w64-x86_64-qtkeychain
 #   Debian: apt install qtkeychain-qt6-dev
@@ -114,21 +114,21 @@ find_package(Qt6Keychain QUIET)
 if(TARGET qt6keychain)
     target_link_libraries(decolog_core PUBLIC qt6keychain)
     target_compile_definitions(decolog_core PUBLIC DECOLOG_HAVE_KEYCHAIN=1)
-    message(STATUS "DecoLog: qtkeychain found — credentials in the system keystore")
+    message(STATUS "DecoDXLog: qtkeychain found — credentials in the system keystore")
 else()
-    message(WARNING "DecoLog: qtkeychain not found — credentials cannot be stored")
+    message(WARNING "DecoDXLog: qtkeychain not found — credentials cannot be stored")
 endif()
 
 # Le credenziali che passano dal Cloud viaggiano chiuse, e si chiudono con
 # OpenSSL (AES-256-GCM, chiave da PBKDF2): il server non le deve poter leggere.
-# Senza OpenSSL DecoLog si compila lo stesso e le credenziali restano dove sono.
+# Senza OpenSSL DecoDXLog si compila lo stesso e le credenziali restano dove sono.
 find_package(OpenSSL QUIET COMPONENTS Crypto)
 if(TARGET OpenSSL::Crypto)
     target_link_libraries(decolog_core PUBLIC OpenSSL::Crypto)
     target_compile_definitions(decolog_core PUBLIC DECOLOG_HAS_OPENSSL=1)
-    message(STATUS "DecoLog: OpenSSL found — credentials travel sealed")
+    message(STATUS "DecoDXLog: OpenSSL found — credentials travel sealed")
 else()
-    message(WARNING "DecoLog: OpenSSL not found — credentials stay on this machine")
+    message(WARNING "DecoDXLog: OpenSSL not found — credentials stay on this machine")
 endif()
 if(MSVC)
     target_compile_options(decolog_core PRIVATE /W4)
@@ -140,12 +140,12 @@ endif()
 # Icona e versione dell'eseguibile su Windows (resources/make_icon.py mette
 # insieme le taglie di resources/icon; il .rc prende i numeri dal progetto).
 if(WIN32)
-    configure_file(resources/decolog.rc.in ${CMAKE_CURRENT_BINARY_DIR}/decolog.rc @ONLY)
-    set(DECOLOG_WIN_RESOURCES ${CMAKE_CURRENT_BINARY_DIR}/decolog.rc)
+    configure_file(resources/decodxlog.rc.in ${CMAKE_CURRENT_BINARY_DIR}/decodxlog.rc @ONLY)
+    set(DECODXLOG_WIN_RESOURCES ${CMAKE_CURRENT_BINARY_DIR}/decodxlog.rc)
 endif()
 
 qt_add_executable(decolog
-    ${DECOLOG_WIN_RESOURCES}
+    ${DECODXLOG_WIN_RESOURCES}
     src/main.cpp
     src/app/QsoTableModel.cpp
     src/app/QsoTableModel.h
@@ -172,76 +172,76 @@ qt_add_executable(decolog
     src/app/QslController.h
 )
 
-set(DECOLOG_QML_FILES
-    qml/DecoLog/Main.qml
-    qml/DecoLog/TopBar.qml
-    qml/DecoLog/NewQsoPanel.qml
-    qml/DecoLog/LogbookPanel.qml
-    qml/DecoLog/CallInfoPanel.qml
-    qml/DecoLog/Ft2AwardPanel.qml
-    qml/DecoLog/BottomTabs.qml
-    qml/DecoLog/MapPanel.qml
-    qml/DecoLog/StatusRail.qml
-    qml/DecoLog/NewQsoDialog.qml
-    qml/DecoLog/QslCardsWindow.qml
-    qml/DecoLog/QsoDetailDialog.qml
-    qml/DecoLog/StationProfilesDialog.qml
-    qml/DecoLog/SetupDialog.qml
-    qml/DecoLog/LogbookWindow.qml
-    qml/DecoLog/CwPanel.qml
-    qml/DecoLog/OnScreen.qml
-    qml/DecoLog/PanelSlot.qml
-    qml/DecoLog/PanelWindow.qml
-    qml/DecoLog/CredentialsList.qml
-    qml/DecoLog/AwardsDialog.qml
-    qml/DecoLog/GridSquareMap.qml
-    qml/DecoLog/ActivationDialog.qml
-    qml/DecoLog/StatsWindow.qml
-    qml/DecoLog/ContestWindow.qml
-    qml/DecoLog/RotorPalette.qml
-    qml/DecoLog/RotorGlass.qml
-    qml/DecoLog/RotorButton.qml
-    qml/DecoLog/RotorField.qml
-    qml/DecoLog/RotorLed.qml
-    qml/DecoLog/RotorReadout.qml
-    qml/DecoLog/RotorSense.qml
-    qml/DecoLog/RotorDisplay.qml
-    qml/DecoLog/RotorMemoryGrid.qml
-    qml/DecoLog/RotorCommandBar.qml
-    qml/DecoLog/RotorPointing.qml
-    qml/DecoLog/RotorMemories.qml
-    qml/DecoLog/RotorTopBar.qml
-    qml/DecoLog/RotorStatus.qml
-    qml/DecoLog/RotorLocatorBar.qml
-    qml/DecoLog/RotorMap.qml
-    qml/DecoLog/RotorDial.qml
-    qml/DecoLog/RotorControlPage.qml
-    qml/DecoLog/RotorDiagnostics.qml
-    qml/DecoLog/RotorSettings.qml
-    qml/DecoLog/RotorSettingsPanel.qml
-    qml/DecoLog/RotorTraffic.qml
-    qml/DecoLog/RotorHistory.qml
-    qml/DecoLog/RotorStats.qml
-    qml/DecoLog/RotorNetwork.qml
-    qml/DecoLog/RotorWindow.qml
-    qml/DecoLog/RotorPanel.qml
-    qml/DecoLog/PropagationPanel.qml
-    qml/DecoLog/ClusterPanel.qml
-    qml/DecoLog/ClusterWindow.qml
-    qml/DecoLog/SpotFilterEditor.qml
+set(DECODXLOG_QML_FILES
+    qml/DecoDXLog/Main.qml
+    qml/DecoDXLog/TopBar.qml
+    qml/DecoDXLog/NewQsoPanel.qml
+    qml/DecoDXLog/LogbookPanel.qml
+    qml/DecoDXLog/CallInfoPanel.qml
+    qml/DecoDXLog/Ft2AwardPanel.qml
+    qml/DecoDXLog/BottomTabs.qml
+    qml/DecoDXLog/MapPanel.qml
+    qml/DecoDXLog/StatusRail.qml
+    qml/DecoDXLog/NewQsoDialog.qml
+    qml/DecoDXLog/QslCardsWindow.qml
+    qml/DecoDXLog/QsoDetailDialog.qml
+    qml/DecoDXLog/StationProfilesDialog.qml
+    qml/DecoDXLog/SetupDialog.qml
+    qml/DecoDXLog/LogbookWindow.qml
+    qml/DecoDXLog/CwPanel.qml
+    qml/DecoDXLog/OnScreen.qml
+    qml/DecoDXLog/PanelSlot.qml
+    qml/DecoDXLog/PanelWindow.qml
+    qml/DecoDXLog/CredentialsList.qml
+    qml/DecoDXLog/AwardsDialog.qml
+    qml/DecoDXLog/GridSquareMap.qml
+    qml/DecoDXLog/ActivationDialog.qml
+    qml/DecoDXLog/StatsWindow.qml
+    qml/DecoDXLog/ContestWindow.qml
+    qml/DecoDXLog/RotorPalette.qml
+    qml/DecoDXLog/RotorGlass.qml
+    qml/DecoDXLog/RotorButton.qml
+    qml/DecoDXLog/RotorField.qml
+    qml/DecoDXLog/RotorLed.qml
+    qml/DecoDXLog/RotorReadout.qml
+    qml/DecoDXLog/RotorSense.qml
+    qml/DecoDXLog/RotorDisplay.qml
+    qml/DecoDXLog/RotorMemoryGrid.qml
+    qml/DecoDXLog/RotorCommandBar.qml
+    qml/DecoDXLog/RotorPointing.qml
+    qml/DecoDXLog/RotorMemories.qml
+    qml/DecoDXLog/RotorTopBar.qml
+    qml/DecoDXLog/RotorStatus.qml
+    qml/DecoDXLog/RotorLocatorBar.qml
+    qml/DecoDXLog/RotorMap.qml
+    qml/DecoDXLog/RotorDial.qml
+    qml/DecoDXLog/RotorControlPage.qml
+    qml/DecoDXLog/RotorDiagnostics.qml
+    qml/DecoDXLog/RotorSettings.qml
+    qml/DecoDXLog/RotorSettingsPanel.qml
+    qml/DecoDXLog/RotorTraffic.qml
+    qml/DecoDXLog/RotorHistory.qml
+    qml/DecoDXLog/RotorStats.qml
+    qml/DecoDXLog/RotorNetwork.qml
+    qml/DecoDXLog/RotorWindow.qml
+    qml/DecoDXLog/RotorPanel.qml
+    qml/DecoDXLog/PropagationPanel.qml
+    qml/DecoDXLog/ClusterPanel.qml
+    qml/DecoDXLog/ClusterWindow.qml
+    qml/DecoDXLog/SpotFilterEditor.qml
 )
 
 qt_add_qml_module(decolog
-    URI DecoLog
+    URI DecoDXLog
     VERSION 1.0
-    QML_FILES ${DECOLOG_QML_FILES}
+    QML_FILES ${DECODXLOG_QML_FILES}
 )
 
 # Traduzioni: lrelease le compila e le mette fra le risorse (:/i18n). lupdate si
 # lancia a mano quando cambiano le stringhe:
 #   lupdate -locations none -no-obsolete -recursive src qml libs/decodium-ui \
-#           -ts translations/decolog_it.ts
-qt_add_translations(decolog TS_FILES translations/decolog_it.ts)
+#           -ts translations/decodxlog_it.ts
+qt_add_translations(decolog TS_FILES translations/decodxlog_it.ts)
 
 # L'icona della finestra (la barra delle applicazioni su Windows usa quella del
 # .rc, ma la finestra e i dialoghi prendono questa).
@@ -255,18 +255,18 @@ qt_add_resources(decolog "map"
 qt_add_resources(decolog "icon"
     PREFIX "/decolog"
     BASE resources
-    FILES resources/decolog.png
+    FILES resources/decodxlog.png
 )
 
 # Come in DecoRTTY: il bytecode QML precompilato perde il contesto delle
 # traduzioni, e un'interfaccia mezza tradotta vale meno di qualche millisecondo
 # all'avvio.
-foreach(file IN LISTS DECOLOG_QML_FILES)
+foreach(file IN LISTS DECODXLOG_QML_FILES)
     get_filename_component(alias ${file} NAME)
     set_source_files_properties(${file} PROPERTIES QT_RESOURCE_ALIAS ${alias} QT_QML_SKIP_CACHEGEN TRUE)
 endforeach()
 
-target_compile_definitions(decolog PRIVATE DECOLOG_VERSION="${PROJECT_VERSION}")
+target_compile_definitions(decolog PRIVATE DECODXLOG_VERSION="${PROJECT_VERSION}")
 target_include_directories(decolog PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(decolog PRIVATE
     Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick Qt6::QuickControls2 Qt6::Multimedia Qt6::Positioning Qt6::Location
@@ -275,12 +275,15 @@ target_link_libraries(decolog PRIVATE
     decodium_uiplugin
 )
 set_target_properties(decolog PROPERTIES
+    # Il nome del file e' quello del programma; il bersaglio CMake resta
+    # "decolog" perche' e' scritto in mezzo mondo qui dentro e non si vede.
+    OUTPUT_NAME DecoDXLog
     WIN32_EXECUTABLE ON
     MACOSX_BUNDLE ON
 )
 
 # ── Tests ─────────────────────────────────────────────────────────────────────
-if(DECOLOG_BUILD_TESTS)
+if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
     foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig cw cloud cloudsettings vault)
@@ -321,13 +324,13 @@ if(DECOLOG_BUILD_TOOLS)
     # Finge di essere Decodium: manda un QSO in LoggedADIF (e/o QSOLogged) sulla
     # porta UDP. Serve a provare la catena ricezione → SQLite → tabella senza
     # radio e senza aprire Decodium.
-    qt_add_executable(decolog_udpsend tools/udpsend.cpp)
-    target_link_libraries(decolog_udpsend PRIVATE decolog_core)
-    set_target_properties(decolog_udpsend PROPERTIES WIN32_EXECUTABLE OFF)
+    qt_add_executable(decodxlog_udpsend tools/udpsend.cpp)
+    target_link_libraries(decodxlog_udpsend PRIVATE decolog_core)
+    set_target_properties(decodxlog_udpsend PROPERTIES WIN32_EXECUTABLE OFF)
     # Si collega a un nodo, RBN o POTA e stampa gli spot: per provare una fonte.
-    qt_add_executable(decolog_clusterprobe tools/clusterprobe.cpp)
-    target_link_libraries(decolog_clusterprobe PRIVATE decolog_core)
-    set_target_properties(decolog_clusterprobe PROPERTIES WIN32_EXECUTABLE OFF)
+    qt_add_executable(decodxlog_clusterprobe tools/clusterprobe.cpp)
+    target_link_libraries(decodxlog_clusterprobe PRIVATE decolog_core)
+    set_target_properties(decodxlog_clusterprobe PROPERTIES WIN32_EXECUTABLE OFF)
 endif()
 
 install(TARGETS decolog

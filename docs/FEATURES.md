@@ -1,4 +1,4 @@
-# DecoLog 0.5.2 — funzioni / features
+# DecoDXLog 0.5.2 — funzioni / features
 
 Ogni voce è in italiano e in inglese: *italiano* / *English*.
 Quello che manca è in fondo.
@@ -169,19 +169,19 @@ Quello che manca è in fondo.
 
 ## 8bis. Radio e CW / Radio and CW
 
-- **La radio via Hamlib**: DecoLog parla con **rigctld**, legge frequenza e modo, sposta il
+- **La radio via Hamlib**: DecoDXLog parla con **rigctld**, legge frequenza e modo, sposta il
   VFO e comanda il PTT. Niente porte seriali: quelle le sa gia' Hamlib. / **The radio through
-  Hamlib**: DecoLog talks to **rigctld**, reads frequency and mode, moves the VFO and keys
+  Hamlib**: DecoDXLog talks to **rigctld**, reads frequency and mode, moves the VFO and keys
   the PTT. No serial ports: Hamlib already knows them.
 - **Il pannello CW**, da solo o staccato in finestra: macro, velocita', riga per mandare
   quello che si scrive e decoder. / **The CW panel**, docked or in its own window: macros,
   speed, a line to send what you type, and the decoder.
-- **Decoder CW dentro DecoLog**: legge l'audio che esce dalla radio, trova il tono da solo e
-  impara la velocita' mentre ascolta. / **CW decoder inside DecoLog**: it reads the audio
+- **Decoder CW dentro DecoDXLog**: legge l'audio che esce dalla radio, trova il tono da solo e
+  impara la velocita' mentre ascolta. / **CW decoder inside DecoDXLog**: it reads the audio
   coming out of the radio, finds the tone by itself and learns the speed while listening.
-- **La radio anche col cavo**: modello Hamlib + porta seriale, e rigctld lo avvia DecoLog; il
+- **La radio anche col cavo**: modello Hamlib + porta seriale, e rigctld lo avvia DecoDXLog; il
   **PTT** puo' stare su un'altra porta (RTS o DTR), come vuole chi ha due COM. /
-  **The radio over the cable too**: Hamlib model + serial port, and DecoLog starts rigctld.
+  **The radio over the cable too**: Hamlib model + serial port, and DecoDXLog starts rigctld.
 - **Cerca la radio**: prova porte e velocita' una per una finche' una risponde, e tiene
   quella. / **Find the radio**: it tries ports and speeds one by one until one answers, and
   keeps that one.
@@ -298,8 +298,8 @@ Quello che manca è in fondo.
 
 ## 10e. Rotore / Rotor
 
-- **DecoRotor sul WebSocket** (8765) o un **rotctld** qualsiasi (4532): DecoLog non tocca la
-  seriale. / **DecoRotor over WebSocket** (8765) or any **rotctld** (4532): DecoLog never
+- **DecoRotor sul WebSocket** (8765) o un **rotctld** qualsiasi (4532): DecoDXLog non tocca la
+  seriale. / **DecoRotor over WebSocket** (8765) or any **rotctld** (4532): DecoDXLog never
   touches the serial port.
 - **Il quadrante di DecoRotor**: corona graduata, mappa azimutale del proprio QTH con cerchi
   di distanza, lobo d'antenna, bersaglio e ago; si punta cliccandoci dentro. / **DecoRotor's
@@ -327,11 +327,11 @@ Quello che manca è in fondo.
 
 ## 10f. Sync fra dispositivi / Sync between devices
 
-- **DecoLog Cloud** (`server/`): FastAPI, SQLite per provarlo e PostgreSQL in servizio,
-  Docker pronto. / **DecoLog Cloud** (`server/`): FastAPI, SQLite to try it and PostgreSQL
+- **DecoDXLog Cloud** (`server/`): FastAPI, SQLite per provarlo e PostgreSQL in servizio,
+  Docker pronto. / **DecoDXLog Cloud** (`server/`): FastAPI, SQLite to try it and PostgreSQL
   in production, Docker ready.
-- **Accesso** con nominativo e password; DecoLog tiene solo il token, nel portachiavi. /
-  **Sign in** with callsign and password; DecoLog keeps only the token, in the keystore.
+- **Accesso** con nominativo e password; DecoDXLog tiene solo il token, nel portachiavi. /
+  **Sign in** with callsign and password; DecoDXLog keeps only the token, in the keystore.
 - **Un giro di sync**: prima quello che è cambiato altrove, poi quello che è in coda. / **A
   sync round**: first what changed elsewhere, then what is queued.
 - **Conflitti**: vince l'ultima modifica, quella che perde resta nello storico; una modifica
@@ -441,7 +441,7 @@ Quello che manca è in fondo.
 - **La sessione sta nel log**: sopravvive alla chiusura del programma. / **The session lives
   in the log**: it survives a restart.
 
-## 13. DecoLink (Decodium ⇄ DecoLog)
+## 13. DecoLink (Decodium ⇄ DecoDXLog)
 
 - **Il log dentro Decodium**: nominativi lavorati e confermati, anche quelli che non sono nel
   suo ADIF. / **The log inside Decodium**: worked and confirmed calls, including those not in
@@ -452,19 +452,19 @@ Quello che manca è in fondo.
   ("LOG FT2 x/y").
 - **Spot del cluster** dentro la lista e la cascata di Decodium, marcati. / **Cluster spots**
   inside Decodium's list and waterfall, marked.
-- **Sintonia su uno spot** chiesta da DecoLog; non trasmette mai. / **Tuning on a spot**
-  asked by DecoLog; it never transmits.
+- **Sintonia su uno spot** chiesta da DecoDXLog; non trasmette mai. / **Tuning on a spot**
+  asked by DecoDXLog; it never transmits.
 - **Solo 127.0.0.1**, JSON su TCP, protocollo in `docs/DECOLINK.md`. / **Localhost only**,
   JSON over TCP, protocol in `docs/DECOLINK.md`.
 
 ## 14. Copie di sicurezza / Backup
 
-- **Copia notturna** con `VACUUM INTO`, anche mentre DecoLog scrive. / **Nightly backup**
-  with `VACUUM INTO`, even while DecoLog is logging.
+- **Copia notturna** con `VACUUM INTO`, anche mentre DecoDXLog scrive. / **Nightly backup**
+  with `VACUUM INTO`, even while DecoDXLog is logging.
 - **Copie a rotazione**, cartella e ora a scelta, e copia a richiesta. / **Rotating copies**,
   folder and time of your choice, and a backup on demand.
-- **Se il PC era spento**, la copia si fa appena DecoLog è aperto. / **If the PC was off**,
-  the copy is made as soon as DecoLog opens.
+- **Se il PC era spento**, la copia si fa appena DecoDXLog è aperto. / **If the PC was off**,
+  the copy is made as soon as DecoDXLog opens.
 
 ## 15. Credenziali / Credentials
 
@@ -525,14 +525,14 @@ Quello che manca è in fondo.
 
 ## 18. Strumenti e confezione / Tools and packaging
 
-- **`decolog_udpsend`**: finge di essere Decodium e manda un QSO di prova. / **`decolog_udpsend`**:
+- **`decodxlog_udpsend`**: finge di essere Decodium e manda un QSO di prova. / **`decodxlog_udpsend`**:
   pretends to be Decodium and sends a test QSO.
-- **`decolog_clusterprobe`**: prova una fonte di spot da riga di comando. /
-  **`decolog_clusterprobe`**: tries a spot source from the command line.
+- **`decodxlog_clusterprobe`**: prova una fonte di spot da riga di comando. /
+  **`decodxlog_clusterprobe`**: tries a spot source from the command line.
 - **Opzioni**: `--db`, `--port`, `--import`, `--theme`, `--show`, `--grab`, `--spots`. /
   **Options**: the same.
-- **`scripts/deploy.sh`**: cartella autonoma e `DecoLog-<versione>-win64.zip`. /
-  **`scripts/deploy.sh`**: a stand-alone folder and `DecoLog-<version>-win64.zip`.
+- **`scripts/deploy.sh`**: cartella autonoma e `DecoDXLog-<versione>-win64.zip`. /
+  **`scripts/deploy.sh`**: a stand-alone folder and `DecoDXLog-<version>-win64.zip`.
 - **CI su GitHub** (Windows MSYS2 e Linux) con l'artefatto pronto. / **GitHub CI** (Windows
   MSYS2 and Linux) with the artifact ready.
 - **22 gruppi di test** automatici nel programma e **73 prove** del servizio Cloud

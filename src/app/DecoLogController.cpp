@@ -192,7 +192,7 @@ DecoLogController::DecoLogController(QObject* parent)
         emit awardsChanged();
     });
 
-    m_credentials = new CredentialStore(QStringLiteral("DecoLog"), this);
+    m_credentials = new CredentialStore(QStringLiteral("DecoDXLog"), this);
     connect(m_credentials, &CredentialStore::finished, this,
             [this](const QString& service, bool ok, const QString& message) {
                 // Mai il segreto: solo il servizio e l'esito.
@@ -828,7 +828,7 @@ QString countriesOverridePath()
 } // namespace
 
 // Il cty.csv delle risorse, o quello nella cartella dei dati se e' piu' recente:
-// AD1C lo aggiorna a ogni DXpedition, una versione di DecoLog no.
+// AD1C lo aggiorna a ogni DXpedition, una versione di DecoDXLog no.
 void DecoLogController::loadCountries()
 {
     Countries fromResources;
@@ -1435,12 +1435,12 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
             return tr("Already worked in this activation");
     }
 
-    const InsertResult res = m_db.insertQso(r, QStringLiteral("manual"), QStringLiteral("DecoLog ") + version(),
+    const InsertResult res = m_db.insertQso(r, QStringLiteral("manual"), QStringLiteral("DecoDXLog ") + version(),
                                             true, profileId);
     switch (res.status) {
     case InsertResult::Status::Inserted:
         m_model->insertQso(res.id);
-        decoLinkQso(r, QStringLiteral("logged"), res.id, QStringLiteral("manual"), QStringLiteral("DecoLog"));
+        decoLinkQso(r, QStringLiteral("logged"), res.id, QStringLiteral("manual"), QStringLiteral("DecoDXLog"));
         m_qsl->qsoLogged(res.id);
         m_cloud->qsoLogged();
         m_activation->qsoLogged();
@@ -1767,7 +1767,7 @@ void DecoLogController::backupNow()
     m_db.setSetting(QStringLiteral("backup.last_at"), QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
     m_db.setSetting(QStringLiteral("backup.last_file"), path);
 
-    // Solo le copie fatte da DecoLog, dalla piu' recente: le altre non si toccano.
+    // Solo le copie fatte da DecoDXLog, dalla piu' recente: le altre non si toccano.
     QFileInfoList copies = QDir(m_backupDir).entryInfoList({QStringLiteral("decolog-*.sqlite")}, QDir::Files, QDir::Name | QDir::Reversed);
     for (qsizetype i = m_backupKeep; i < copies.size(); ++i)
         QFile::remove(copies.at(i).absoluteFilePath());
@@ -1788,7 +1788,7 @@ void DecoLogController::checkBackupSchedule()
         return;
     const QDateTime last = QDateTime::fromString(m_db.setting(QStringLiteral("backup.last_at")), Qt::ISODate).toLocalTime();
     // Una copia al giorno, alla prima occasione dopo l'ora scelta: se il PC era
-    // spento alle 02:00, la copia si fa appena DecoLog e' aperto.
+    // spento alle 02:00, la copia si fa appena DecoDXLog e' aperto.
     if (last.isValid() && QDateTime(now.date(), when) <= last)
         return;
     backupNow();

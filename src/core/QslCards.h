@@ -1,4 +1,4 @@
-// DecoLog — le QSL di carta: coda, etichette, PDF.
+// DecoDXLog — le QSL di carta: coda, etichette, PDF.
 //
 // Una QSL cartacea non e' un file da caricare: e' un pezzo di carta che va
 // scritto, imbustato e spedito. Quello che il programma puo' fare e' tenere la

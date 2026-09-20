@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# DecoLog Cloud — aggiornamento del servizio gia' in piedi.
+# DecoDXLog Cloud — aggiornamento del servizio gia' in piedi.
 #
 #   cd /srv/decolog && git pull && sudo bash server/deploy/update.sh
 #

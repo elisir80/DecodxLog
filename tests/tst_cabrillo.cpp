@@ -1,4 +1,4 @@
-// DecoLog — il log Cabrillo: colonne al posto giusto, modi e frequenze come li
+// DecoDXLog — il log Cabrillo: colonne al posto giusto, modi e frequenze come li
 // vuole chi riceve il log.
 #include "core/Cabrillo.h"
 
@@ -107,7 +107,7 @@ private slots:
         QVERIFY(text.contains(QStringLiteral("CONTEST: CQ-WW-CW\n")));
         QVERIFY(text.contains(QStringLiteral("CALLSIGN: IU8LMC\n")));
         QVERIFY(text.contains(QStringLiteral("CATEGORY-OPERATOR: SINGLE-OP\n")));
-        QVERIFY(text.contains(QStringLiteral("CREATED-BY: DecoLog")));
+        QVERIFY(text.contains(QStringLiteral("CREATED-BY: DecoDXLog")));
         QVERIFY(text.endsWith(QStringLiteral("END-OF-LOG:\n")));
         QCOMPARE(text.count(QStringLiteral("QSO: ")), 2);
     }

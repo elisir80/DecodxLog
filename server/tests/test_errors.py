@@ -1,4 +1,4 @@
-"""DecoLog Cloud — gli errori detti con parole.
+"""DecoDXLog Cloud — gli errori detti con parole.
 
 Un errore di validazione, da FastAPI, e' un elenco di oggetti: giusto per un
 programma, illeggibile per chi sta davanti allo schermo — e un client che cerca

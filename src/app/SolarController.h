@@ -1,4 +1,4 @@
-// DecoLog — propagazione: i numeri del Sole, le condizioni banda, lo storico.
+// DecoDXLog — propagazione: i numeri del Sole, le condizioni banda, lo storico.
 //
 // Si aggiorna da solo ogni tanto (predefinito: ogni ora), tiene un campione
 // all'ora nel database e lo mette accanto ai QSO di quel giorno: e' li' che si

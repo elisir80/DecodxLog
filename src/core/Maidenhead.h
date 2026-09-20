@@ -1,4 +1,4 @@
-// DecoLog — locatori Maidenhead: posizione, distanza e direzione.
+// DecoDXLog — locatori Maidenhead: posizione, distanza e direzione.
 #pragma once
 
 #include <QString>

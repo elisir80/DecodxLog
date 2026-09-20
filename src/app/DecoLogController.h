@@ -1,4 +1,4 @@
-// DecoLog — il punto d'incontro fra log, rete e interfaccia.
+// DecoDXLog — il punto d'incontro fra log, rete e interfaccia.
 //
 // Riceve i QSO dal protocollo UDP, li scrive nel database, aggiorna la tabella e
 // racconta all'operatore cosa e' successo: un QSO scartato come duplicato va

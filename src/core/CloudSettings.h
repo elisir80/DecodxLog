@@ -1,7 +1,7 @@
-// DecoLog — le impostazioni che vanno e vengono dal Cloud.
+// DecoDXLog — le impostazioni che vanno e vengono dal Cloud.
 //
 // Il log di una stazione non e' solo l'elenco dei collegamenti: chi apre
-// DecoLog sul secondo computer si deve ritrovare la stessa stazione — lo stesso
+// DecoDXLog sul secondo computer si deve ritrovare la stessa stazione — lo stesso
 // tema, le stesse colonne, gli stessi filtri, le stesse fonti del cluster, le
 // stesse porte. Qui dentro c'e' quel lavoro, fuori dall'interfaccia, cosi' si
 // puo' provare per davvero.

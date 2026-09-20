@@ -2,6 +2,8 @@
 build/
 build-*/
 dist/
+DecoDXLog-*-win64.zip
+DecoDXLog-*-win64/
 DecoLog-*-win64.zip
 DecoLog-*-win64/
 *.exe
@@ -14,6 +16,10 @@ DecoLog-*-win64/
 *.sqlite
 *.sqlite-wal
 *.sqlite-shm
+
+# Spazzatura che certi programmi lasciano quando una variabile
+# d'ambiente non viene espansa.
+%SystemDrive%/
 
 # Strumenti di sviluppo.
 .vscode/

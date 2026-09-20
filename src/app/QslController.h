@@ -1,4 +1,4 @@
-// DecoLog — l'invio delle QSL: coda, stato per servizio, risultati.
+// DecoDXLog — l'invio delle QSL: coda, stato per servizio, risultati.
 //
 // LoTW parte in blocco (un file ADIF firmato da TQSL), QRZ Logbook ed eQSL un QSO
 // alla volta. Quello che il servizio accetta diventa "inviato" nella tabella

@@ -1,4 +1,4 @@
-"""DecoLog Cloud — dov'e' la stazione adesso.
+"""DecoDXLog Cloud — dov'e' la stazione adesso.
 
 La frequenza non e' log: cambia a ogni giro di VFO, non ha storia e non deve
 svegliare gli altri dispositivi. Queste prove guardano proprio quello — che si

@@ -102,7 +102,7 @@ bool writePdf(const QString& path, const QList<Label>& labels, const Sheet& shee
     pdf.setPageSize(QPageSize(QPageSize::A4));
     pdf.setResolution(300);
     pdf.setTitle(QCoreApplication::translate("QslCards", "QSL labels"));
-    pdf.setCreator(QStringLiteral("DecoLog %1").arg(QCoreApplication::applicationVersion()));
+    pdf.setCreator(QStringLiteral("DecoDXLog %1").arg(QCoreApplication::applicationVersion()));
     // I margini li mette il foglio di etichette, non la pagina.
     pdf.setPageMargins(QMarginsF(0, 0, 0, 0));
 

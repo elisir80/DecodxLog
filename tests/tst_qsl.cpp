@@ -194,7 +194,7 @@ private slots:
     void theCertificateIsTheOneOfTheCallsign()
     {
         // TQSL su Windows tiene tutto in %APPDATA%\TrustedQSL: si finge quella
-        // cartella e si guarda cosa ci trova DecoLog dentro.
+        // cartella e si guarda cosa ci trova DecoDXLog dentro.
         QTemporaryDir home;
         QVERIFY(home.isValid());
         const QByteArray appData = qgetenv("APPDATA");

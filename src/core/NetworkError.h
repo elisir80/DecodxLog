@@ -1,4 +1,4 @@
-// DecoLog — messaggi d'errore di rete senza segreti.
+// DecoDXLog — messaggi d'errore di rete senza segreti.
 //
 // QNetworkReply::errorString() riporta l'URL intero ("Error transferring
 // https://…?password=… - server replied: …"). QRZ, HamQTH e LoTW vogliono la
@@ -13,7 +13,7 @@
 namespace decolog::core::network {
 
 // Alcuni endpoint pubblici chiudono gli stream HTTP/2 senza completare il
-// protocollo. Per le API usate da DecoLog HTTP/1.1 e' piu' interoperabile e
+// protocollo. Per le API usate da DecoDXLog HTTP/1.1 e' piu' interoperabile e
 // conserva lo stesso TLS, timeout e gestione degli errori.
 inline void useHttp11(QNetworkRequest& request)
 {

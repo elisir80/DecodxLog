@@ -1,4 +1,4 @@
-// DecoLog — le condizioni del Sole e delle bande.
+// DecoDXLog — le condizioni del Sole e delle bande.
 //
 // I numeri (SFI, A, K, macchie, aurora) e le condizioni banda per banda arrivano
 // dal XML di N0NBH (hamqsl.com), che e' quello che sta nei banner di mezzo mondo.

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# DecoLog — crea una cartella autonoma, avviabile con doppio clic (Windows, MSYS2).
+# DecoDXLog — crea una cartella autonoma, avviabile con doppio clic (Windows, MSYS2).
 #
 # Come in DecoRTTY, windeployqt da solo non basta. Qui si aggiunge:
 #   * le librerie del compilatore MinGW e di terze parti (qtkeychain, OpenSSL,
@@ -12,7 +12,7 @@
 #     sottomodulo (QtQuick.Controls.impl, QtQuick.Dialogs.quickimpl);
 #   * un qt.conf, senza il quale Qt cerca plugin e moduli dov'era installato.
 #
-# Alla fine crea anche l'archivio da passare a qualcuno: dist/DecoLog-<versione>-win64.zip.
+# Alla fine crea anche l'archivio da passare a qualcuno: dist/DecoDXLog-<versione>-win64.zip.
 #
 #   scripts/deploy.sh            compila in build/ e prepara dist/
 #   DIST=/c/tmp/decolog scripts/deploy.sh
@@ -35,15 +35,15 @@ echo "== cartella $DIST =="
 # perche' la rimozione fallisca in silenzio.
 mkdir -p "$DIST"
 find "$DIST" -mindepth 1 -maxdepth 1 -exec rm -rf {} + 2>/dev/null || true
-cp "$BUILD"/decolog.exe "$DIST"/
-for extra in decolog_udpsend.exe decolog_clusterprobe.exe; do
+cp "$BUILD"/DecoDXLog.exe "$DIST"/
+for extra in decodxlog_udpsend.exe decodxlog_clusterprobe.exe; do
     [ -f "$BUILD/$extra" ] && cp "$BUILD/$extra" "$DIST"/
 done
 
 echo "== librerie Qt =="
 ( cd "$DIST" && windeployqt --qmldir "$ROOT/qml" --qmldir "$ROOT/libs/decodium-ui/qml" --release \
     --no-translations --no-system-d3d-compiler --no-opengl-sw \
-    decolog.exe >/dev/null )
+    DecoDXLog.exe >/dev/null )
 
 echo "== plugin TLS e SQLite =="
 mkdir -p "$DIST/tls" "$DIST/sqldrivers" "$DIST/platforms"
@@ -67,7 +67,7 @@ rm -rf "$DIST/qml"
 cp -r "$MINGW/share/qt6/qml" "$DIST/qml"
 # I moduli dell'applicazione sono dentro l'eseguibile; gli strumenti per Qt
 # Designer e i moduli 3D e multimediali non servono a un log.
-rm -rf "$DIST/qml/DecoLog" "$DIST/qml/Decodium" "$DIST/qml/QtQuick/Controls/designer" \
+rm -rf "$DIST/qml/DecoDXLog" "$DIST/qml/Decodium" "$DIST/qml/QtQuick/Controls/designer" \
        "$DIST/qml/QtQuick3D" "$DIST/qml/QtMultimedia" "$DIST/qml/QtWebEngine" "$DIST/qml/QtWebView"
 
 cat > "$DIST/qt.conf" <<'EOF'
@@ -107,22 +107,22 @@ echo "== licenze e istruzioni =="
 cp "$ROOT/LICENSE" "$DIST/LICENSE.txt"
 cp "$ROOT/resources/cty/COPYRIGHT.txt" "$DIST/cty.csv-COPYRIGHT.txt"
 # L'icona accanto all'eseguibile serve a chi si crea un collegamento a mano.
-cp "$ROOT/resources/decolog.ico" "$DIST/decolog.ico"
+cp "$ROOT/resources/decodxlog.ico" "$DIST/decodxlog.ico"
 
 VERSION=$(sed -n 's/^[[:space:]]*VERSION[[:space:]]\{1,\}\([0-9][0-9.]*\).*/\1/p' "$ROOT/CMakeLists.txt" | head -1)
 VERSION=${VERSION:-0.0.0}
 
 cat > "$DIST/LEGGIMI.txt" <<EOF
-DecoLog $VERSION — il log della stazione (famiglia Decodium)
+DecoDXLog $VERSION — il log della stazione (famiglia Decodium)
 
 Avvio
-  Doppio clic su decolog.exe. Non serve installare niente: le librerie sono qui
+  Doppio clic su DecoDXLog.exe. Non serve installare niente: le librerie sono qui
   dentro. Il log e le impostazioni stanno in
-  %APPDATA%\\Decodium (decolog.sqlite e DecoLog.ini); questa cartella si puo'
+  %APPDATA%\\Decodium (decodxlog.sqlite e DecoDXLog.ini); questa cartella si puo'
   spostare o cancellare senza perdere i QSO.
 
 Primo avvio
-  1. Setup -> Decodium link: la porta UDP su cui DecoLog ascolta i QSO
+  1. Setup -> Decodium link: la porta UDP su cui DecoDXLog ascolta i QSO
      (2237 di default; se un altro programma la usa gia', cambiala qui e
      aggiungila fra le destinazioni UDP di Decodium).
   2. Station profiles: nominativo e locatore della stazione.
@@ -130,10 +130,10 @@ Primo avvio
   4. Ctrl+K: il DX cluster. In Fonti si accendono i nodi, RBN, HamAlert e POTA.
 
 Cosa c'e' dentro
-  decolog.exe               l'applicazione
-  decolog_udpsend.exe       finge di essere Decodium e manda un QSO di prova
-  decolog_clusterprobe.exe  prova una fonte di spot da riga di comando
-  decolog.ico               l'icona, per crearsi un collegamento
+  DecoDXLog.exe               l'applicazione
+  decodxlog_udpsend.exe       finge di essere Decodium e manda un QSO di prova
+  decodxlog_clusterprobe.exe  prova una fonte di spot da riga di comando
+  decodxlog.ico               l'icona, per crearsi un collegamento
 
 Licenza
   GPL-3.0 (LICENSE.txt). L'elenco delle entita' DXCC e' il cty.csv di AD1C
@@ -142,28 +142,28 @@ EOF
 
 if [ -z "${NO_ZIP:-}" ]; then
     echo "== archivio =="
-    ARCHIVE="$DIST/../DecoLog-$VERSION-win64.zip"
+    ARCHIVE="$DIST/../DecoDXLog-$VERSION-win64.zip"
     rm -f "$ARCHIVE"
     # La cartella entra nell'archivio con il suo nome, cosi' chi lo apre non si
     # ritrova cinquanta DLL sparse nel desktop.
     STAGE=$(mktemp -d)
-    cp -r "$DIST" "$STAGE/DecoLog-$VERSION"
+    cp -r "$DIST" "$STAGE/DecoDXLog-$VERSION"
     if command -v 7z >/dev/null; then
-        ( cd "$STAGE" && 7z a -tzip -mx=7 "$ARCHIVE" "DecoLog-$VERSION" >/dev/null )
+        ( cd "$STAGE" && 7z a -tzip -mx=7 "$ARCHIVE" "DecoDXLog-$VERSION" >/dev/null )
     elif command -v zip >/dev/null; then
-        ( cd "$STAGE" && zip -qr9 "$ARCHIVE" "DecoLog-$VERSION" )
+        ( cd "$STAGE" && zip -qr9 "$ARCHIVE" "DecoDXLog-$VERSION" )
     else
         powershell -NoProfile -Command \
-            "Compress-Archive -Path '$(cygpath -w "$STAGE")\\DecoLog-$VERSION' -DestinationPath '$(cygpath -w "$ARCHIVE")' -Force"
+            "Compress-Archive -Path '$(cygpath -w "$STAGE")\\DecoDXLog-$VERSION' -DestinationPath '$(cygpath -w "$ARCHIVE")' -Force"
     fi
     rm -rf "$STAGE"
 fi
 
 echo
 echo "pronto: $DIST"
-echo "  decolog.exe               l'applicazione"
-echo "  decolog_udpsend.exe       finge di essere Decodium, per le prove"
-echo "  decolog_clusterprobe.exe  prova una fonte di spot"
+echo "  DecoDXLog.exe               l'applicazione"
+echo "  decodxlog_udpsend.exe       finge di essere Decodium, per le prove"
+echo "  decodxlog_clusterprobe.exe  prova una fonte di spot"
 du -sh "$DIST"
 [ -f "${ARCHIVE:-}" ] && ls -lh "$ARCHIVE" | awk '{print "archivio: " $9 " (" $5 ")"}'
 exit 0

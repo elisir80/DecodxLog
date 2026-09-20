@@ -20,7 +20,7 @@ public:
     int keyspd{22};
     bool morseWorks{true};
     // Il ponte CAT di Decodium risponde col valore e basta: niente eco del
-    // comando, niente RPRT. DecoLog deve capire anche quello.
+    // comando, niente RPRT. DecoDXLog deve capire anche quello.
     bool plainAnswers{false};
 
     FakeRigctld()

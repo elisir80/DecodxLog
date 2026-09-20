@@ -1,8 +1,8 @@
-// DecoLog — la radio, vista da Hamlib.
+// DecoDXLog — la radio, vista da Hamlib.
 //
 // Non si parla al cavo: si parla a **rigctld**, il demone di Hamlib, che sta
 // gia' sul computer di chi opera e conosce tutte le radio del mondo. Cosi'
-// DecoLog non deve sapere niente di porte seriali, e chi aggiorna Hamlib si
+// DecoDXLog non deve sapere niente di porte seriali, e chi aggiorna Hamlib si
 // ritrova le radio nuove senza aspettare noi.
 //
 // Il dialogo e' quello del protocollo esteso di rigctld: si manda "+f" e

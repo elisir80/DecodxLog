@@ -1,4 +1,4 @@
-# DecoLog — le coste della mappa.
+# DecoDXLog — le coste della mappa.
 #
 # Scarica il "ne_110m_coastline" di Natural Earth (pubblico dominio) e lo riduce a
 # quello che serve a una mappa piccola: linee spezzate all'antimeridiano,

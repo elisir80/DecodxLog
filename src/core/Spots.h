@@ -1,4 +1,4 @@
-// DecoLog — spot del DX cluster: lettura, stato rispetto al log, filtri.
+// DecoDXLog — spot del DX cluster: lettura, stato rispetto al log, filtri.
 //
 // Uno spot arriva da fonti diverse (nodi DX Spider/AR-Cluster/CC Cluster, Reverse
 // Beacon Network, HamAlert, POTA) in formati diversi; qui diventa sempre la stessa

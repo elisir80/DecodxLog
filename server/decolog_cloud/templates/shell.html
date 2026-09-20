@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}DecoLog Cloud{% endblock %}</title>
+  <title>{% block title %}DecoDXLog Cloud{% endblock %}</title>
   <link rel="stylesheet" href="/static/decolog.css">
   <script src="/static/htmx.min.js" defer></script>
   <!-- I colori sono quelli della stazione, arrivati con le impostazioni. -->
@@ -23,7 +23,7 @@
     {# La pillola della frequenza: quella vera, se il computer di casa la sta
        dicendo. Quando tace da qualche minuto torna a essere trattini. #}
     <div class="block dial"
-         title="{% if air and air.live %}{{ air.client or 'in aria' }}{% if air.device %} · {{ air.device }}{% endif %}{% elif air and air.when %}ultima volta {{ air.when }}{% else %}La frequenza la dice DecoLog dal computer di stazione{% endif %}">
+         title="{% if air and air.live %}{{ air.client or 'in aria' }}{% if air.device %} · {{ air.device }}{% endif %}{% elif air and air.when %}ultima volta {{ air.when }}{% else %}La frequenza la dice DecoDXLog dal computer di stazione{% endif %}">
       <span class="led {% if air and air.live %}{% if air.transmitting %}tx{% else %}on{% endif %}{% else %}off{% endif %}"></span>
       <span class="mono freq {% if air and air.live %}live{% endif %}">
         {%- if air and air.live and air.frequency %}{{ air.frequency }} MHz{% else %}--.------ MHz{% endif -%}
@@ -79,7 +79,7 @@
     <span class="pill mono">Entità: {{ entities }}</span>
     <span class="pill mono">Locatori: {{ grids }}</span>
     <span class="grow"></span>
-    <span class="dim mono">{{ theme.name }}{% if theme.variant %} · {{ theme.variant }}{% endif %} · {{ theme.density }} · DecoLog Cloud</span>
+    <span class="dim mono">{{ theme.name }}{% if theme.variant %} · {{ theme.variant }}{% endif %} · {{ theme.density }} · DecoDXLog Cloud</span>
   </footer>
 
 </div>

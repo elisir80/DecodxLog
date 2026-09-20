@@ -1,4 +1,4 @@
-// DecoLog — le impostazioni che viaggiano nel Cloud.
+// DecoDXLog — le impostazioni che viaggiano nel Cloud.
 //
 // Il patto e' semplice: va tutto, meno le poche cose che parlano solo di questa
 // macchina. Qui si prova che ci vada davvero tutto — anche un filtro salvato,

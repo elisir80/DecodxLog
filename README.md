@@ -1,4 +1,4 @@
-# DecoLog
+# DecoDXLog
 
 Il log di stazione della famiglia Decodium. Offline-first, SQLite, stesso tema e
 stessa grammatica di finestre di Decodium e DecoRTTY. FT2 è un modo di prima
@@ -25,12 +25,12 @@ continenti e la mappa di calore banda per ora) e **mappa** del mondo con coste, 
 grigia, locatori e spot; **Club Log**; **QSL di carta** con la coda e le etichette in PDF;
 **contest** da tastiera con export **Cabrillo**; **propagazione** (numeri del Sole e
 condizioni banda) con lo storico accanto ai propri QSO; **rotore**, con il posto di
-comando di DecoRotor dentro DecoLog e i gradi presi dagli spot del cluster; e
-**DecoLog Cloud**, il sync fra dispositivi, con il proprio log anche dal browser.
+comando di DecoRotor dentro DecoDXLog e i gradi presi dagli spot del cluster; e
+**DecoDXLog Cloud**, il sync fra dispositivi, con il proprio log anche dal browser.
 Elenco completo delle funzioni (italiano e inglese): [`docs/FEATURES.md`](docs/FEATURES.md).
 Storia: [`docs/CHANGELOG.md`](docs/CHANGELOG.md).
 
-L'interfaccia segue i mockup "DecoLog Mockups" (finestra principale 1a, Nuovo QSO 1b,
+L'interfaccia segue i mockup "DecoDXLog Mockups" (finestra principale 1a, Nuovo QSO 1b,
 scheda QSO 1c, profili stazione 1d, Setup 1e) nei tre temi di Decodium.
 
 Funziona:
@@ -92,7 +92,7 @@ Funziona:
   ora entro 30 minuti; i dettagli LoTW riempiono i campi vuoti, i nuovi DXCC confermati
   finiscono nel registro attività.
 - **DX Cluster** in una finestra propria (Ctrl+K) e nella scheda in basso: nodi DX Spider/
-  CC Cluster via telnet (DecoLog entra come CALL-2), Reverse Beacon Network (CW/RTTY e
+  CC Cluster via telnet (DecoDXLog entra come CALL-2), Reverse Beacon Network (CW/RTTY e
   FT8/FT4), HamAlert (password nel portachiavi) e attivazioni POTA, tutto in una lista.
   Ogni spot e' confrontato col log: NEW DXCC, NEW BAND, NEW MODE, NEW SLOT, gia' lavorato,
   entita' non confermata, utente LoTW; distanza e azimut; referenze POTA/SOTA/WWFF/IOTA dal
@@ -100,16 +100,16 @@ Funziona:
   nominativi con jolly, SNR degli skimmer, eta'; filtri salvati. Regole d'avviso con
   annuncio vocale (voci di sistema, italiano o inglese, alfabeto fonetico). Gli spot e gli
   avvisi vanno a Decodium con DecoLink; doppio clic su uno spot sintonizza Decodium.
-  Console per i comandi al nodo e per mandare spot. `decolog_clusterprobe` prova una fonte
+  Console per i comandi al nodo e per mandare spot. `decodxlog_clusterprobe` prova una fonte
   da riga di comando.
 - **Backup** notturno con `VACUUM INTO`, copie a rotazione.
 - **Tema**: Ocean Blue / Stellar Light / Darkcodium, variant d'accento, densità,
   colori personalizzati.
 
-- **Interfaccia in italiano** (`translations/decolog_it.ts`): segue la lingua del sistema,
+- **Interfaccia in italiano** (`translations/decodxlog_it.ts`): segue la lingua del sistema,
   o si sceglie in Impostazioni → Generale.
 
-- **DecoLog Cloud** (`server/`): il sync fra dispositivi. Non solo i QSO: anche i profili
+- **DecoDXLog Cloud** (`server/`): il sync fra dispositivi. Non solo i QSO: anche i profili
   stazione e tutte le impostazioni — tema, filtri, cluster, porte, percorsi — così il
   secondo computer si ritrova la stessa stazione. Anche le password dei servizi, ma
   sigillate sul proprio computer (AES-256-GCM, chiave dalla password del Cloud): il server
@@ -122,7 +122,7 @@ Funziona:
 libs/decodium-ui/   tema e componenti comuni (candidato a modulo condiviso)
 src/core/           ADIF, bande, database, protocollo UDP — senza GUI
 src/app/            controller, modello della tabella e dei profili
-qml/DecoLog/        finestra principale
+qml/DecoDXLog/        finestra principale
 db/schema.sql       schema SQLite v1
 resources/cty/      cty.csv di AD1C (country-files.com) e la sua licenza
 tests/              Qt Test: adif, protocol, database
@@ -140,30 +140,30 @@ cd build && ctest --output-on-failure
 ```
 
 Richiede Qt ≥ 6.5 con Quick, QuickControls2, Sql (driver QSQLITE), Network, Test.
-Per le credenziali: `pacman -S mingw-w64-x86_64-qtkeychain` (facoltativo: senza, DecoLog
+Per le credenziali: `pacman -S mingw-w64-x86_64-qtkeychain` (facoltativo: senza, DecoDXLog
 si compila ma non salva password). Nella distribuzione va incluso `libqt6keychain.dll`.
 
 ## Cartella distribuibile (Windows)
 
 ```sh
-scripts/deploy.sh      # compila e prepara dist/: decolog.exe, Qt, QML, TLS, SQLite, qtkeychain
-                       # e l'archivio DecoLog-<versione>-win64.zip
-BUILD=$PWD/build-dev scripts/deploy.sh    # se build/ e' in uso da un DecoLog aperto
+scripts/deploy.sh      # compila e prepara dist/: DecoDXLog.exe, Qt, QML, TLS, SQLite, qtkeychain
+                       # e l'archivio DecoDXLog-<versione>-win64.zip
+BUILD=$PWD/build-dev scripts/deploy.sh    # se build/ e' in uso da un DecoDXLog aperto
 NO_ZIP=1 scripts/deploy.sh                # solo la cartella
 ```
 
 La cartella si avvia con doppio clic anche senza MSYS2: dentro ci sono anche
-`decolog_udpsend.exe` (finge di essere Decodium), `decolog_clusterprobe.exe` (prova una
+`decodxlog_udpsend.exe` (finge di essere Decodium), `decodxlog_clusterprobe.exe` (prova una
 fonte di spot), l'icona e un `LEGGIMI.txt` con i primi passi. La CI la produce a ogni push
-come artefatto `decolog-windows-x64`.
+come artefatto `decodxlog-windows-x64`.
 
 ## Icona
 
 L'icona sta in `resources/icon/`: il disegno (`decolog-icon.svg`, e `decolog-icon-small.svg`
 senza il nome per le taglie minute) e le taglie gia' esportate da 16 a 1024 pixel.
 `resources/make_icon.py` non disegna niente — mette insieme le taglie in
-`resources/decolog.ico` (che l'eseguibile prende dal `.rc`, insieme al numero di versione)
-e copia la 256 in `resources/decolog.png` (la finestra e i dialoghi, risorsa Qt). Si
+`resources/decodxlog.ico` (che l'eseguibile prende dal `.rc`, insieme al numero di versione)
+e copia la 256 in `resources/decodxlog.png` (la finestra e i dialoghi, risorsa Qt). Si
 rilancia solo quando l'icona cambia:
 
 ```sh
@@ -173,12 +173,12 @@ python resources/make_icon.py
 ## Provare senza radio
 
 ```sh
-./build/decolog.exe --db prova.sqlite --port 22370
-./build/decolog_udpsend.exe --port 22370                       # QSO FT2 come Decodium
-./build/decolog_udpsend.exe --port 22370 --call K1AB --mode FT8 --freq 7074000 --only-qsologged
+./build/DecoDXLog.exe --db prova.sqlite --port 22370
+./build/decodxlog_udpsend.exe --port 22370                       # QSO FT2 come Decodium
+./build/decodxlog_udpsend.exe --port 22370 --call K1AB --mode FT8 --freq 7074000 --only-qsologged
 
 # Le impostazioni di prova per conto loro, senza toccare quelle vere:
-./build/decolog.exe --settings /tmp/prova --db prova.sqlite --port 0
+./build/DecoDXLog.exe --settings /tmp/prova --db prova.sqlite --port 0
 ```
 
 Per le schermate e le prove dell'interfaccia: `--import file.adi` importa all'avvio,
@@ -187,4 +187,4 @@ apre una finestra di dialogo (anche `menu:columns|filters|saved|row`, `tab:<n>`,
 `--grab file.png` salva la schermata e chiude. Con `QT_QPA_PLATFORM=offscreen` la finestra non
 compare sul desktop.
 
-In Decodium: impostare il server UDP sull'indirizzo e la porta di DecoLog.
+In Decodium: impostare il server UDP sull'indirizzo e la porta di DecoDXLog.

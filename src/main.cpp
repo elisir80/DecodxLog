@@ -1,4 +1,4 @@
-// DecoLog — il log di stazione della famiglia Decodium.
+// DecoDXLog — il log di stazione della famiglia Decodium.
 
 #include "app/DecoLogController.h"
 #include "ThemeManager.h"
@@ -22,9 +22,80 @@
 #include <QStandardPaths>
 #include <QUrl>
 
+namespace {
+
+// Copia una cartella intera, senza toccare quello che c'e' gia' di la'.
+void copyTree(const QString& from, const QString& to)
+{
+    QDir source(from);
+    if (!source.exists())
+        return;
+    QDir().mkpath(to);
+    for (const QFileInfo& entry : source.entryInfoList(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot)) {
+        const QString target = QDir(to).filePath(entry.fileName());
+        if (entry.isDir())
+            copyTree(entry.absoluteFilePath(), target);
+        else if (!QFile::exists(target))
+            QFile::copy(entry.absoluteFilePath(), target);
+    }
+}
+
+// Fino alla 0.7.0 il programma si chiamava DecoLog, e il log, le impostazioni e
+// le sue cartelle portavano quel nome. Al primo avvio col nome nuovo ci si
+// porta dietro tutto — *copiando*: quello di prima resta dov'e', cosi' se
+// qualcosa va storto il log di vent'anni e' ancora al suo posto.
+void bringForwardTheOldName()
+{
+    // Per le prove: DECODXLOG_DATA_ROOT sposta tutto in una cartella qualsiasi,
+    // cosi' il trasloco si puo' provare senza mettere le mani nel log vero.
+    const QString testRoot = qEnvironmentVariable("DECODXLOG_DATA_ROOT");
+    const QString roaming = testRoot.isEmpty()
+        ? QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)
+        : QDir(testRoot).filePath(QStringLiteral("Decodium/DecoDXLog"));
+    const QString localData = testRoot.isEmpty()
+        ? QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation)
+        : QDir(testRoot).filePath(QStringLiteral("Decodium-local/DecoDXLog"));
+    for (const QString& now : {roaming, localData}) {
+        if (now.isEmpty() || QDir(now).exists())
+            continue;
+        const QString before = QDir(now).absolutePath().left(
+                                   QDir(now).absolutePath().lastIndexOf(QLatin1Char('/')) + 1)
+                               + QStringLiteral("DecoLog");
+        if (QDir(before).exists())
+            copyTree(before, now);
+    }
+    // Il log: si chiamava decolog.sqlite. Arriva qui con la cartella, e da
+    // quella copia si fa quella col nome nuovo; poi la copia col nome vecchio
+    // se ne va — l'originale, quello vero, resta dov'era.
+    const QString db = QDir(roaming).filePath(QStringLiteral("decodxlog.sqlite"));
+    const QString oldDb = QDir(roaming).filePath(QStringLiteral("decolog.sqlite"));
+    if (QFile::exists(oldDb)) {
+        if (!QFile::exists(db))
+            QFile::copy(oldDb, db);
+        if (QFile::exists(db))
+            QFile::remove(oldDb);
+    }
+
+    // Le impostazioni: un .ini accanto alla cartella, col nome del programma.
+    QSettings settings;
+    const QString ini = testRoot.isEmpty()
+        ? settings.fileName()
+        : QDir(testRoot).filePath(QStringLiteral("Decodium/DecoDXLog.ini"));
+    if (!ini.isEmpty() && !QFile::exists(ini)) {
+        QString oldIni = ini;
+        oldIni.replace(QStringLiteral("DecoDXLog.ini"), QStringLiteral("DecoLog.ini"));
+        if (oldIni != ini && QFile::exists(oldIni)) {
+            QDir().mkpath(QFileInfo(ini).absolutePath());
+            QFile::copy(oldIni, ini);
+        }
+    }
+}
+
+} // namespace
+
 int main(int argc, char* argv[])
 {
-    // I menu li disegna DecoLog, non Windows. Da Qt 6.8 i menu di QML possono
+    // I menu li disegna DecoDXLog, non Windows. Da Qt 6.8 i menu di QML possono
     // diventare menu nativi del sistema: quelli non sanno niente del tema e su
     // uno sfondo scuro scrivono nero su nero — sottomenu, tendine e il menu del
     // tasto destro dentro i campi di testo diventavano illeggibili.
@@ -44,10 +115,10 @@ int main(int argc, char* argv[])
             break;
         }
     }
-    app.setApplicationName(QStringLiteral("DecoLog"));
+    app.setApplicationName(QStringLiteral("DecoDXLog"));
     app.setOrganizationName(QStringLiteral("Decodium"));
-    app.setApplicationVersion(QStringLiteral(DECOLOG_VERSION));
-    app.setWindowIcon(QIcon(QStringLiteral(":/decolog/decolog.png")));
+    app.setApplicationVersion(QStringLiteral(DECODXLOG_VERSION));
+    app.setWindowIcon(QIcon(QStringLiteral(":/decolog/decodxlog.png")));
 
     // Come Decodium: impostazioni in un .ini leggibile, non nel registro. Va
     // detto subito: la lingua si legge due righe piu' sotto, e prima di questa
@@ -67,6 +138,10 @@ int main(int argc, char* argv[])
         QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, where);
     }
 
+    // Prima di leggere qualsiasi cosa: se qui c'e' ancora la roba di quando il
+    // programma si chiamava DecoLog, ce la si porta dietro.
+    bringForwardTheOldName();
+
     // Lingua dell'interfaccia: quella scelta, o quella del sistema. L'inglese e'
     // la lingua dei sorgenti, quindi non ha un file da caricare.
     const QString configured = QSettings().value(QStringLiteral("ui/language"), QStringLiteral("auto")).toString();
@@ -74,7 +149,7 @@ int main(int argc, char* argv[])
     QTranslator appTranslator;
     QTranslator qtTranslator;
     if (language != QLatin1String("en")) {
-        if (appTranslator.load(QStringLiteral(":/i18n/decolog_") + language))
+        if (appTranslator.load(QStringLiteral(":/i18n/decodxlog_") + language))
             app.installTranslator(&appTranslator);
         // Le finestre di dialogo di Qt (se presenti accanto all'eseguibile).
         if (qtTranslator.load(QStringLiteral("qtbase_") + language,
@@ -86,7 +161,7 @@ int main(int argc, char* argv[])
     QQuickStyle::setStyle(QStringLiteral("Basic"));
 
     QCommandLineParser parser;
-    parser.setApplicationDescription(QStringLiteral("DecoLog station logbook"));
+    parser.setApplicationDescription(QStringLiteral("DecoDXLog station logbook"));
     parser.addHelpOption();
     parser.addVersionOption();
     QCommandLineOption dbOption(QStringLiteral("db"), QStringLiteral("Log database file."), QStringLiteral("path"));
@@ -128,7 +203,7 @@ int main(int argc, char* argv[])
                                  QStringLiteral("host:port"));
     parser.addOption(rigOption);
     // Server del Cloud per una prova, senza toccare le impostazioni.
-    QCommandLineOption cloudOption(QStringLiteral("cloud"), QStringLiteral("Use this DecoLog Cloud server."),
+    QCommandLineOption cloudOption(QStringLiteral("cloud"), QStringLiteral("Use this DecoDXLog Cloud server."),
                                    QStringLiteral("url"));
     parser.addOption(cloudOption);
     parser.addOption(themeOption);
@@ -142,7 +217,7 @@ int main(int argc, char* argv[])
     if (dbPath.isEmpty()) {
         const QString dir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
         QDir().mkpath(dir);
-        dbPath = QDir(dir).filePath(QStringLiteral("decolog.sqlite"));
+        dbPath = QDir(dir).filePath(QStringLiteral("decodxlog.sqlite"));
     }
 
     decolog::app::DecoLogController controller;
@@ -205,7 +280,7 @@ int main(int argc, char* argv[])
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed, &app,
                      [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
     engine.rootContext()->setContextProperty(QStringLiteral("startupShow"), parser.value(showOption));
-    engine.loadFromModule(QStringLiteral("DecoLog"), QStringLiteral("Main"));
+    engine.loadFromModule(QStringLiteral("DecoDXLog"), QStringLiteral("Main"));
     if (parser.isSet(themeOption)) {
         if (auto* theme = engine.singletonInstance<decodium::ui::ThemeManager*>(QStringLiteral("Decodium.UI"),
                                                                                   QStringLiteral("Theme")))

@@ -1,4 +1,4 @@
-// DecoLog — conferme da LoTW (Logbook of the World, ARRL).
+// DecoDXLog — conferme da LoTW (Logbook of the World, ARRL).
 //
 // L'invio dei QSO a LoTW passa dal TQSL locale, che firma con il certificato
 // dell'operatore; qui si fa l'altra meta': scaricare le conferme con

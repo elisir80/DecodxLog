@@ -73,7 +73,7 @@ QNetworkReply* CloudSync::send(const QString& path, const QVariantMap& body, boo
     network::useHttp11(request);
     request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/json"));
     request.setHeader(QNetworkRequest::UserAgentHeader,
-                      QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
+                      QStringLiteral("DecoDXLog/%1").arg(QCoreApplication::applicationVersion()));
     request.setTransferTimeout(60'000);
     if (authenticated && !m_token.isEmpty())
         request.setRawHeader("Authorization", "Bearer " + m_token.toUtf8());
@@ -92,7 +92,7 @@ QNetworkReply* CloudSync::get(const QString& path, const QVariantMap& query)
     QNetworkRequest request(url);
     network::useHttp11(request);
     request.setHeader(QNetworkRequest::UserAgentHeader,
-                      QStringLiteral("DecoLog/%1").arg(QCoreApplication::applicationVersion()));
+                      QStringLiteral("DecoDXLog/%1").arg(QCoreApplication::applicationVersion()));
     request.setTransferTimeout(60'000);
     if (!m_token.isEmpty())
         request.setRawHeader("Authorization", "Bearer " + m_token.toUtf8());
@@ -119,10 +119,10 @@ void CloudSync::watch(QNetworkReply* reply, const QString& what)
             error.message = detail.isEmpty() ? network::safeErrorString(reply) : detail;
             // Un 404 su una richiesta che il programma sa fare vuol dire che il
             // server e' piu' vecchio del programma: "Not Found" non lo direbbe a
-            // nessuno, e chi legge pensa che sia rotto il suo DecoLog.
+            // nessuno, e chi legge pensa che sia rotto il suo DecoDXLog.
             if (code == 404) {
                 error.message = tr("This Cloud server does not know this request (%1): it is older than "
-                                   "your DecoLog and has to be updated.").arg(what);
+                                   "your DecoDXLog and has to be updated.").arg(what);
             }
             emit failed(error);
             return;

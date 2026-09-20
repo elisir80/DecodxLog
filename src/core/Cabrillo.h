@@ -1,4 +1,4 @@
-// DecoLog — il log di un contest come lo vuole chi lo riceve.
+// DecoDXLog — il log di un contest come lo vuole chi lo riceve.
 //
 // Cabrillo 3.0: un file di testo con una testata di righe "PAROLA: valore" e una
 // riga per QSO, a colonne fisse. Le fanno tutti uguali perche' i robot che

@@ -1,6 +1,6 @@
-// DecoLog — DecoLink, il canale locale verso Decodium (docs/DECOLINK.md).
+// DecoDXLog — DecoLink, il canale locale verso Decodium (docs/DECOLINK.md).
 //
-// Il protocollo UDP porta i QSO da Decodium a DecoLog; DecoLink porta il log
+// Il protocollo UDP porta i QSO da Decodium a DecoDXLog; DecoLink porta il log
 // nell'altra direzione, cosi' Decodium sa gia' mentre decodifica chi e' stato
 // lavorato e confermato anche fuori dal proprio file ADIF, e riceve la conferma
 // che il QSO appena fatto e' davvero nel log.

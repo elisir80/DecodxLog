@@ -1,6 +1,6 @@
-// DecoLog — il rotore d'antenna.
+// DecoDXLog — il rotore d'antenna.
 //
-// Due modi di parlarci, tutti e due di rete, nessun driver dentro DecoLog:
+// Due modi di parlarci, tutti e due di rete, nessun driver dentro DecoDXLog:
 //
 //   · DecoRotor, il gateway di famiglia: WebSocket sulla 8765, che spinge lo
 //     stato cinque volte al secondo e accetta puntamenti anche per locatore;

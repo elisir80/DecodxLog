@@ -1,7 +1,7 @@
-"""DecoLog Cloud — statistiche, diplomi e QSL, calcolati dal log.
+"""DecoDXLog Cloud — statistiche, diplomi e QSL, calcolati dal log.
 
 Il Cloud non tiene tabelle di riepilogo: i numeri si rifanno dai QSO, esattamente
-come fa DecoLog sul computer (`src/core/Awards.cpp`, `LogDatabase::countBy*`).
+come fa DecoDXLog sul computer (`src/core/Awards.cpp`, `LogDatabase::countBy*`).
 Cosi' una correzione a un QSO si vede subito ovunque, e le due facce del log —
 il programma e la pagina — dicono la stessa cosa.
 
@@ -42,7 +42,7 @@ US_STATES = {
 
 USA_ENTITIES = {291, 6, 110}   # USA, Alaska, Hawaii
 
-# I servizi QSL come li conosce DecoLog, con i campi ADIF che li dicono.
+# I servizi QSL come li conosce DecoDXLog, con i campi ADIF che li dicono.
 QSL_SERVICES = [
     ("lotw", "LoTW", "LOTW_QSL_SENT", "LOTW_QSL_RCVD"),
     ("card", "Cartolina", "QSL_SENT", "QSL_RCVD"),
@@ -279,7 +279,7 @@ def _sorted_bands(counter: Counter) -> list[tuple[str, int]]:
 
 
 def statistics(rows: list[Row], mode_group: str = "", year: int = 0, band: str = "") -> dict:
-    """Gli stessi riquadri della finestra Statistiche di DecoLog."""
+    """Gli stessi riquadri della finestra Statistiche di DecoDXLog."""
     kept = [r for r in rows
             if mode_matches(mode_group, r)
             and (not band or r.band == band)

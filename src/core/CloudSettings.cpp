@@ -16,7 +16,7 @@ namespace {
 //
 //  * `credentials/...` — non sono i segreti (quelli stanno nel portachiavi, e
 //    nel portachiavi restano): sono il promemoria di cosa e' stato salvato
-//    *qui*. Portarlo altrove farebbe credere a DecoLog di avere una password
+//    *qui*. Portarlo altrove farebbe credere a DecoDXLog di avere una password
 //    che non ha.
 //  * `cloud/callsign` e `cloud/lastSync` — il quaderno del sync stesso.
 //  * `station/activeProfile` — il numero di riga del profilo su questo

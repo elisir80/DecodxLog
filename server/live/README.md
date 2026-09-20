@@ -1,10 +1,10 @@
-# DecoLog Live — il programma vero dentro il browser
+# DecoDXLog Live — il programma vero dentro il browser
 
 Due strade portano il log online, e non sono la stessa cosa:
 
-| | **DecoLog Cloud** (`server/`) | **DecoLog Live** (questa cartella) |
+| | **DecoDXLog Cloud** (`server/`) | **DecoDXLog Live** (questa cartella) |
 |---|---|---|
-| Cos'e' | una pagina che rifa' la finestra di DecoLog | **DecoLog**, compilato e in esecuzione sul server |
+| Cos'e' | una pagina che rifa' la finestra di DecoDXLog | **DecoDXLog**, compilato e in esecuzione sul server |
 | Si scrive? | no: si guarda, si scarica, si cambiano le impostazioni | **si', tutto**: e' il programma |
 | Quanti insieme | tutti i radioamatori che vuoi | una scrivania per container |
 | Costa | niente, e' una pagina | ~700 MB di immagine, 300-500 MB di RAM, CPU per disegnare |
@@ -16,9 +16,9 @@ filtri, il Nuovo QSO, l'import ADIF.
 
 ## Come funziona
 
-Xvfb fa uno schermo finto, DecoLog ci disegna sopra (OpenGL via software,
+Xvfb fa uno schermo finto, DecoDXLog ci disegna sopra (OpenGL via software,
 llvmpipe), x11vnc lo pubblica e noVNC lo porta nel browser. Sullo schermo c'e'
-DecoLog perche' *e'* DecoLog: lo stesso sorgente che sta su GitHub, compilato
+DecoDXLog perche' *e'* DecoDXLog: lo stesso sorgente che sta su GitHub, compilato
 dentro l'immagine.
 
 ## Quello che non c'e', e non e' un difetto
@@ -45,7 +45,7 @@ docker run -d --name decolog-live \
 Senza `DECOLOG_VNC_PASSWORD` il container si ferma da solo: una scrivania aperta
 non si lascia in giro.
 
-Il volume tiene il log (`/home/decolog/decolog.sqlite`) e le impostazioni: si
+Il volume tiene il log (`/home/decolog/decodxlog.sqlite`) e le impostazioni: si
 spegne e si riaccende senza perdere niente.
 
 ## Davanti ci va nginx
@@ -55,7 +55,7 @@ seconda password**, perche' una scrivania e' piu' di un log in sola lettura.
 
 ```nginx
 location /live/ {
-    auth_basic           "DecoLog";
+    auth_basic           "DecoDXLog";
     auth_basic_user_file /etc/nginx/decolog-live.htpasswd;
 
     proxy_pass http://127.0.0.1:6080/;
@@ -72,12 +72,12 @@ Poi si apre `https://cloud.ft2.it/live/vnc.html?path=live/websockify&autoconnect
 
 * `DECOLOG_SCREEN` — quanto e' grande lo schermo finto (`1600x900x24`).
 * `DECOLOG_DB` — dove sta il log dentro il container.
-* Tutto quello che DecoLog accetta da riga di comando si passa in coda al
+* Tutto quello che DecoDXLog accetta da riga di comando si passa in coda al
   comando: `docker run ... decolog-live --theme Darkcodium`.
 
 ## Il primo giro
 
-1. Si apre `/live/`, e c'e' DecoLog.
+1. Si apre `/live/`, e c'e' DecoDXLog.
 2. Impostazioni → Sync e Cloud: si mette `https://cloud.ft2.it`, nominativo e
    password, e si entra.
 3. Il log arriva dal Cloud — QSO, profili, impostazioni — e da quel momento

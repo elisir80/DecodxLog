@@ -1,4 +1,4 @@
-// DecoLog — attivazioni e contest.
+// DecoDXLog — attivazioni e contest.
 //
 // Un'attivazione (POTA, SOTA, WWFF, un'isola IOTA) o un contest cambia il modo di
 // stare al log: la referenza e' sempre la stessa, il locatore e' quello del posto,

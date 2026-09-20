@@ -1,6 +1,6 @@
-// DecoLog — la radio e le macro in CW.
+// DecoDXLog — la radio e le macro in CW.
 //
-// Il collegamento lo fa Hamlib: DecoLog parla a rigctld, che sta gia' sul
+// Il collegamento lo fa Hamlib: DecoDXLog parla a rigctld, che sta gia' sul
 // computer di chi opera. Qui sopra ci sono le macro del contest — otto tasti
 // con dentro il testo che si manda, con i buchi da riempire ({CALL}, {NR},
 // {MYCALL}) — e la velocita' del manipolatore.
@@ -46,7 +46,7 @@ class RigController : public QObject {
     Q_PROPERTY(QStringList audioInputs READ audioInputs NOTIFY decoderChanged)
     Q_PROPERTY(QString audioInput READ audioInput WRITE setAudioInput NOTIFY decoderChanged)
     // Come si arriva alla radio: "network" (un rigctld gia' acceso) oppure
-    // "serial" (la porta della radio, e rigctld lo avvia DecoLog).
+    // "serial" (la porta della radio, e rigctld lo avvia DecoDXLog).
     Q_PROPERTY(QString link READ link WRITE setLink NOTIFY changed)
     Q_PROPERTY(QString serialPort READ serialPort WRITE setSerialPort NOTIFY changed)
     Q_PROPERTY(int rigModel READ rigModel WRITE setRigModel NOTIFY changed)

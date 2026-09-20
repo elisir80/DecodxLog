@@ -1,4 +1,4 @@
-// DecoLog — il DX cluster: fonti, spot arricchiti dal log, filtri, avvisi e voce.
+// DecoDXLog — il DX cluster: fonti, spot arricchiti dal log, filtri, avvisi e voce.
 //
 // Tutte le fonti (nodi telnet, RBN, HamAlert, POTA) finiscono in una lista sola.
 // Ogni spot si confronta col log (nuovo DXCC, nuova banda, gia' lavorato...), si

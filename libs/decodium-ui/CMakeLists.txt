@@ -1,7 +1,7 @@
 # decodium-ui — tema e componenti comuni della famiglia Decodium.
 #
 # Candidato a modulo condiviso (sottomodulo git o libreria CMake) fra Decodium,
-# DecoRTTY e DecoLog. Per questo non dipende da nulla del programma che lo
+# DecoRTTY e DecoDXLog. Per questo non dipende da nulla del programma che lo
 # ospita: i valori dei temi sono quelli di DecodiumThemeManager, le impostazioni
 # vanno nel QSettings dell'applicazione che lo usa.
 

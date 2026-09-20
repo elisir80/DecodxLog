@@ -1,11 +1,11 @@
-// DecoLog — il sync con DecoLog Cloud.
+// DecoDXLog — il sync con DecoDXLog Cloud.
 //
 // Il log vero resta il file SQLite: il Cloud e' il posto dove i dispositivi si
 // passano le modifiche. Un giro di sync fa due cose, in quest'ordine: prima
 // prende quello che e' cambiato altrove (cosi' le revisioni locali partono gia'
 // allineate), poi manda quello che e' in coda.
 //
-// Del Cloud, DecoLog tiene solo il token nel portachiavi: la password si scrive
+// Del Cloud, DecoDXLog tiene solo il token nel portachiavi: la password si scrive
 // una volta e non resta da nessuna parte.
 #pragma once
 
@@ -38,7 +38,7 @@ class CloudController : public QObject {
     Q_PROPERTY(QString autoMode READ autoMode WRITE setAutoMode NOTIFY changed)
     // Le credenziali dei servizi viaggiano (chiuse) oppure restano qui.
     Q_PROPERTY(bool syncSecrets READ syncSecrets WRITE setSyncSecrets NOTIFY changed)
-    // Falso se DecoLog e' stato compilato senza OpenSSL: allora non c'e'
+    // Falso se DecoDXLog e' stato compilato senza OpenSSL: allora non c'e'
     // cassaforte, e le credenziali non si muovono.
     Q_PROPERTY(bool vaultAvailable READ vaultAvailable CONSTANT)
     // La cassaforte e' aperta su questo dispositivo? La chiave nasce dalla

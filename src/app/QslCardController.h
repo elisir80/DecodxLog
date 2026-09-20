@@ -1,4 +1,4 @@
-// DecoLog — le QSL di carta.
+// DecoDXLog — le QSL di carta.
 //
 // Tre stati e basta: da mandare, mandata, ricevuta. Il programma tiene la coda e
 // stampa le etichette; la busta la fa l'operatore. Una etichetta raccoglie fino

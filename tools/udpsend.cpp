@@ -1,9 +1,9 @@
-// decolog_udpsend — finge di essere Decodium sulla porta UDP.
+// decodxlog_udpsend — finge di essere Decodium sulla porta UDP.
 //
-//   decolog_udpsend                          un QSO FT2 di prova, come Decodium
-//   decolog_udpsend --call K1AB --mode FT8   nominativo e modo a scelta
-//   decolog_udpsend --only-qsologged         solo QSOLogged, come certi client
-//   decolog_udpsend --status                 solo un Status (frequenza, DX call)
+//   decodxlog_udpsend                          un QSO FT2 di prova, come Decodium
+//   decodxlog_udpsend --call K1AB --mode FT8   nominativo e modo a scelta
+//   decodxlog_udpsend --only-qsologged         solo QSOLogged, come certi client
+//   decodxlog_udpsend --status                 solo un Status (frequenza, DX call)
 #include "core/Adif.h"
 #include "core/Bands.h"
 #include "core/WsjtxProtocol.h"

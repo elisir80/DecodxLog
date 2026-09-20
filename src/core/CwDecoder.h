@@ -1,4 +1,4 @@
-// DecoLog — il decoder CW: dall'audio alle lettere.
+// DecoDXLog — il decoder CW: dall'audio alle lettere.
 //
 // Non serve una radio che decodifichi: basta l'audio che esce dalla radio.
 // Si guarda quanta energia c'e' sul tono del CW (Goertzel, che e' un filtro

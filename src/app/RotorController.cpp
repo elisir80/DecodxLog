@@ -288,7 +288,7 @@ QVariantMap RotorController::state() const
 {
     QVariantMap map = m_link.state().toMap();
     map.insert(QStringLiteral("enabled"), m_enabled);
-    // Il lobo lo dice il gateway; quello delle impostazioni di DecoLog serve
+    // Il lobo lo dice il gateway; quello delle impostazioni di DecoDXLog serve
     // solo quando dall'altra parte c'e' un rotctld, che non lo sa.
     if (!m_link.state().beamwidthKnown)
         map.insert(QStringLiteral("beamwidth"), m_beamwidth);
