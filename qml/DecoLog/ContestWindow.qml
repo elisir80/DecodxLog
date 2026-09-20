@@ -25,9 +25,13 @@ ApplicationWindow {
 
     width: 1080
     height: 660
+    minimumWidth: 820
+    minimumHeight: 520
     visible: true
     title: qsTr("DecoLog — Contest")
     color: Theme.bgDeep
+
+    OnScreen { target: root }
 
     Settings {
         category: "contestWindow"

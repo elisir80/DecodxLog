@@ -14,9 +14,13 @@ ApplicationWindow {
 
     width: 1280
     height: 760
+    minimumWidth: 820
+    minimumHeight: 480
     visible: true
     title: qsTr("DecoLog — DX Cluster")
     color: Theme.bgDeep
+
+    OnScreen { target: root }
 
     Settings {
         category: "clusterWindow"

@@ -10,9 +10,13 @@ ApplicationWindow {
 
     width: 1100
     height: 700
+    minimumWidth: 760
+    minimumHeight: 420
     visible: true
     title: qsTr("DecoLog — Logbook")
     color: Theme.bgDeep
+
+    OnScreen { target: root }
 
     Settings {
         id: shared

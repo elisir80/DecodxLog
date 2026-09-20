@@ -28,9 +28,13 @@ ApplicationWindow {
 
     width: 1180
     height: 780
+    minimumWidth: 760
+    minimumHeight: 480
     visible: true
     title: qsTr("DecoLog — Statistics")
     color: Theme.bgDeep
+
+    OnScreen { target: root }
 
     Settings {
         category: "statsWindow"

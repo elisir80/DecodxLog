@@ -24,6 +24,14 @@ ApplicationWindow {
     color: Theme.bgDeep
     font.pixelSize: Theme.fontSize
 
+    // La X della finestra principale chiude DecoLog per davvero. Senza questo,
+    // con un pannello in finestra propria il programma restava in piedi: Qt
+    // aspetta che si chiuda l'ultima finestra, e quella staccata era ancora li'.
+    onClosing: {
+        window.quitting = true
+        Qt.quit()
+    }
+
     // Le impostazioni arrivate da un altro computer valgono subito: il tema si
     // ridipinge senza aspettare il riavvio.
     Connections {
@@ -113,22 +121,33 @@ ApplicationWindow {
              : window.isPanelDetached(key) ? qsTr("window") : qsTr("docked")
     }
 
+    // Queste quattro leggono sempre layout.hiddenPanels / layout.detachedPanels,
+    // mai le liste calcolate qui sopra: una property che dipende da un'altra si
+    // rifa' quando le pare, e due chiamate di fila — stacca questo, stacca
+    // quello — leggevano ancora la lista di prima e si cancellavano a vicenda.
+    // Il pannello staccato per primo spariva dall'elenco con la finestra
+    // ancora aperta, e da li' venivano le finestre orfane.
     function showPanel(key) {
-        layout.hiddenPanels = window.hiddenPanels.filter(function (k) { return k !== key }).join(",")
+        layout.hiddenPanels = window.panelListOf(layout.hiddenPanels)
+                                    .filter(function (k) { return k !== key }).join(",")
     }
     function closePanel(key) {
         // Chiuso e' chiuso: se era in finestra, la finestra sparisce.
-        layout.detachedPanels = window.detachedPanels.filter(function (k) { return k !== key }).join(",")
-        if (!window.isPanelHidden(key))
-            layout.hiddenPanels = window.hiddenPanels.concat([key]).join(",")
+        layout.detachedPanels = window.panelListOf(layout.detachedPanels)
+                                      .filter(function (k) { return k !== key }).join(",")
+        const hidden = window.panelListOf(layout.hiddenPanels)
+        if (hidden.indexOf(key) < 0)
+            layout.hiddenPanels = hidden.concat([key]).join(",")
     }
     function detachPanel(key) {
         window.showPanel(key)
-        if (!window.isPanelDetached(key))
-            layout.detachedPanels = window.detachedPanels.concat([key]).join(",")
+        const detached = window.panelListOf(layout.detachedPanels)
+        if (detached.indexOf(key) < 0)
+            layout.detachedPanels = detached.concat([key]).join(",")
     }
     function attachPanel(key) {
-        layout.detachedPanels = window.detachedPanels.filter(function (k) { return k !== key }).join(",")
+        layout.detachedPanels = window.panelListOf(layout.detachedPanels)
+                                      .filter(function (k) { return k !== key }).join(",")
         window.showPanel(key)
     }
     function togglePanel(key) {
@@ -203,10 +222,26 @@ ApplicationWindow {
         else if (what[0] === "maintenance") { decolog.repairImportedFields(); decolog.completeMissingFromCallbook() }
         else if (what[0] === "tab") bottomTabs.currentTab = parseInt(what[1])
         else if (what[0] === "pop") popWindow.active = true
-        else if (what[0] === "panels") { if (what[1]) { const how = what.slice(2); for (let i = 0; i < how.length; ++i) { if (what[1] === "close") window.closePanel(how[i]); else if (what[1] === "detach") window.detachPanel(how[i]); else if (what[1] === "show") window.showPanel(how[i]) } } else panelsPopup.open() }
+        else if (what[0] === "panels") { if (what[1]) { const how = what.slice(2); for (let i = 0; i < how.length; ++i) { if (what[1] === "close") window.closePanel(how[i]); else if (what[1] === "detach") window.detachPanel(how[i]); else if (what[1] === "show") window.showPanel(how[i]); else if (what[1] === "attach") window.attachPanel(how[i]) } } else panelsPopup.open() }
         else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))
         else if (what[0] === "activation") activationDialog.openDialog()
         else if (what[0] === "modes") newQsoPanel.showModes()
+        // Per le prove: apre tutte le finestre due volte di fila. Due volte
+        // perche' il guaio da cercare e' proprio quello — la finestra che si
+        // sdoppia invece di venire in primo piano.
+        else if (what[0] === "windows") {
+            for (let round = 0; round < 2; ++round) {
+                openStats()
+                openCluster(0)
+                openCards()
+                openContest()
+                openRotor()
+                popWindow.active = true
+                window.detachPanel("callinfo")
+                window.detachPanel("ft2")
+                window.detachPanel("map")
+            }
+        }
         else if (what[0] === "stats") openStats()
         else if (what[0] === "cards") openCards()
         else if (what[0] === "cloud") {
@@ -273,11 +308,15 @@ ApplicationWindow {
         onAccepted: decolog.exportAdif(selectedFile)
     }
 
+    // Queste finestre nascono quando servono e muoiono quando si chiudono. Il
+    // Loader si spegne con Qt.callLater e non dentro l'onClosing: spegnerlo li'
+    // vuol dire distruggere la finestra mentre sta ancora chiudendosi, ed e' il
+    // genere di cosa che fa cadere il programma invece di chiudere una finestra.
     Loader {
         id: statsWindow
         active: false
         sourceComponent: StatsWindow {
-            onClosing: statsWindow.active = false
+            onClosing: Qt.callLater(function () { statsWindow.active = false })
         }
     }
 
@@ -285,7 +324,7 @@ ApplicationWindow {
         id: rotorWindow
         active: false
         sourceComponent: RotorWindow {
-            onClosing: rotorWindow.active = false
+            onClosing: Qt.callLater(function () { rotorWindow.active = false })
         }
     }
 
@@ -293,7 +332,7 @@ ApplicationWindow {
         id: contestWindow
         active: false
         sourceComponent: ContestWindow {
-            onClosing: contestWindow.active = false
+            onClosing: Qt.callLater(function () { contestWindow.active = false })
         }
     }
 
@@ -301,7 +340,7 @@ ApplicationWindow {
         id: cardsWindow
         active: false
         sourceComponent: QslCardsWindow {
-            onClosing: cardsWindow.active = false
+            onClosing: Qt.callLater(function () { cardsWindow.active = false })
         }
     }
 
@@ -311,7 +350,7 @@ ApplicationWindow {
         active: false
         sourceComponent: ClusterWindow {
             tab: clusterWindow.tab
-            onClosing: clusterWindow.active = false
+            onClosing: Qt.callLater(function () { clusterWindow.active = false })
         }
     }
 
@@ -319,19 +358,68 @@ ApplicationWindow {
         id: popWindow
         active: false
         sourceComponent: LogbookWindow {
-            onClosing: popWindow.active = false
+            onClosing: Qt.callLater(function () { popWindow.active = false })
         }
     }
 
     // Una finestra per ogni pannello staccato: nasce quando si stacca, muore
-    // quando si riaggancia o si chiude.
+    // quando si riaggancia o si chiude. Il modello e' un ListModel tenuto in
+    // pari riga per riga, non la lista calcolata: con una lista JS ogni
+    // cambiamento faceva rinascere *tutte* le finestre — quelle gia' aperte
+    // sparivano e tornavano altrove, svuotate di quello che avevano dentro.
+    // Quando si chiude il programma le finestre staccate si chiudono anche
+    // loro, ma quella non e' una richiesta di riagganciare: senza questo, uscire
+    // da DecoLog riportava dentro tutti i pannelli e la volta dopo li si
+    // ritrovava nella finestra principale.
+    property bool quitting: false
+    Connections {
+        target: Qt.application
+        function onAboutToQuit() { window.quitting = true }
+    }
+
+    ListModel {
+        id: detachedModel
+        // All'avvio le finestre staccate sono quelle dell'ultima volta.
+        Component.onCompleted: window.syncDetachedWindows()
+    }
+
+    function syncDetachedWindows() {
+        const wanted = window.panelListOf(layout.detachedPanels)
+        // Prima via quelle che non servono piu', poi dentro quelle nuove: cosi'
+        // le finestre che restano non vengono nemmeno sfiorate.
+        for (let i = detachedModel.count - 1; i >= 0; --i) {
+            if (wanted.indexOf(detachedModel.get(i).key) < 0)
+                detachedModel.remove(i)
+        }
+        for (let j = 0; j < wanted.length; ++j) {
+            let there = false
+            for (let k = 0; k < detachedModel.count; ++k) {
+                if (detachedModel.get(k).key === wanted[j]) {
+                    there = true
+                    break
+                }
+            }
+            if (!there)
+                detachedModel.append({key: wanted[j]})
+        }
+    }
+
+    Connections {
+        target: layout
+        function onDetachedPanelsChanged() { window.syncDetachedWindows() }
+    }
+
     Instantiator {
-        model: window.detachedPanels
+        model: detachedModel
         delegate: PanelWindow {
-            panelKey: modelData
-            panelTitle: window.panelTitle(modelData)
-            panelSource: window.panelSource(modelData)
-            onClosing: window.attachPanel(panelKey)
+            required property string key
+            panelKey: key
+            panelTitle: window.panelTitle(key)
+            panelSource: window.panelSource(key)
+            // La X di una finestra staccata riaggancia il pannello. Ma quando a
+            // chiudersi e' tutto il programma, la finestra si chiude lo stesso e
+            // quello non e' un riaggancio: prima tornavano dentro tutti.
+            onClosing: if (!window.quitting) window.attachPanel(panelKey)
             onAttachRequested: window.attachPanel(panelKey)
             onCloseRequested: window.closePanel(panelKey)
             onOpenQsoRequested: (id) => window.openQso(id)

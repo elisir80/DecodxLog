@@ -3,6 +3,45 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.6.0 — 20 settembre 2026
+
+**Le finestre staccate stanno ferme.** Staccando un pannello mentre altri erano gia' in
+finestra, le cose si scombinavano: il primo staccato spariva dall'elenco con la finestra
+ancora aperta, restavano finestre orfane, e uscendo dal programma i pannelli tornavano
+tutti dentro. Tre cose messe a posto:
+
+- **Chi stacca due pannelli di fila non ne perde uno.** Le funzioni leggevano una lista
+  calcolata a partire dalle impostazioni, che si aggiorna quando le pare: due chiamate
+  ravvicinate leggevano la lista di prima e si cancellavano a vicenda. Adesso leggono
+  sempre le impostazioni.
+- **Le finestre non rinascono tutte a ogni cambiamento.** L'elenco era una lista semplice,
+  e cambiandola Qt rifaceva da capo *tutte* le finestre: quelle aperte sparivano e
+  tornavano altrove, svuotate. Adesso si aggiunge e si toglie una riga sola.
+- **Uscire da DecoLog non riaggancia niente.** Chiudendosi, ogni finestra staccata diceva
+  "riagganciami", e la volta dopo i pannelli erano tutti nella finestra principale.
+
+**La X della finestra principale chiude DecoLog.** Con un pannello in finestra propria il
+programma restava in piedi: Qt aspetta che si chiuda l'ultima finestra, e quella era
+ancora li'.
+
+**Le finestre non si chiudono piu' di sotto.** Statistiche, cluster, contest, QSL, log e
+pannelli staccati si spegnevano da dentro il proprio evento di chiusura — distruggere una
+finestra mentre si sta chiudendo e' il genere di cosa che fa cadere il programma invece di
+chiudere una finestra.
+
+**La finestra tornata dal secondo monitor.** Misura e posizione restano, ma il secondo
+monitor a volte non c'e' piu': la finestra si riapriva a quelle coordinate, cioe' nel
+nulla. Adesso, se non c'e' nessuno schermo dove stava, torna al centro di questo.
+Aggiunte anche le misure minime che mancavano: nessuna finestra si puo' piu' schiacciare
+fino a rompersi.
+
+**La lingua scelta vale davvero.** All'avvio la lingua si leggeva dal registro invece che
+dal file delle impostazioni, dove sta: su un Windows inglese, chi sceglieva l'italiano si
+ritrovava l'inglese lo stesso.
+
+**Per chi prova:** `--settings <cartella>` tiene le impostazioni li' dentro invece che fra
+quelle vere.
+
 ## 0.5.9 — 20 settembre 2026
 
 **La fascia del DX Cluster si tira come tutte le altre.** Sugli spot l'altezza minima

@@ -176,6 +176,9 @@ python resources/make_icon.py
 ./build/decolog.exe --db prova.sqlite --port 22370
 ./build/decolog_udpsend.exe --port 22370                       # QSO FT2 come Decodium
 ./build/decolog_udpsend.exe --port 22370 --call K1AB --mode FT8 --freq 7074000 --only-qsologged
+
+# Le impostazioni di prova per conto loro, senza toccare quelle vere:
+./build/decolog.exe --settings /tmp/prova --db prova.sqlite --port 0
 ```
 
 Per le schermate e le prove dell'interfaccia: `--import file.adi` importa all'avvio,

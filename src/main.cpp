@@ -49,6 +49,24 @@ int main(int argc, char* argv[])
     app.setApplicationVersion(QStringLiteral(DECOLOG_VERSION));
     app.setWindowIcon(QIcon(QStringLiteral(":/decolog/decolog.png")));
 
+    // Come Decodium: impostazioni in un .ini leggibile, non nel registro. Va
+    // detto subito: la lingua si legge due righe piu' sotto, e prima di questa
+    // riga QSettings guardava nel registro — dove la lingua scelta non c'e'
+    // mai, cosi' chi sceglieva l'italiano su un Windows inglese si ritrovava
+    // l'inglese lo stesso.
+    QSettings::setDefaultFormat(QSettings::IniFormat);
+
+    // Per le prove: --settings <cartella> tiene le impostazioni li' dentro
+    // invece che fra quelle vere. Si legge a mano dagli argomenti perche' la
+    // lingua si sceglie prima che il parser esista.
+    const QStringList rawArguments = app.arguments();
+    const qsizetype settingsAt = rawArguments.indexOf(QStringLiteral("--settings"));
+    if (settingsAt >= 0 && settingsAt + 1 < rawArguments.size()) {
+        const QString where = rawArguments.at(settingsAt + 1);
+        QDir().mkpath(where);
+        QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, where);
+    }
+
     // Lingua dell'interfaccia: quella scelta, o quella del sistema. L'inglese e'
     // la lingua dei sorgenti, quindi non ha un file da caricare.
     const QString configured = QSettings().value(QStringLiteral("ui/language"), QStringLiteral("auto")).toString();
@@ -63,9 +81,6 @@ int main(int argc, char* argv[])
                               QLibraryInfo::path(QLibraryInfo::TranslationsPath)))
             app.installTranslator(&qtTranslator);
     }
-    // Come Decodium: impostazioni in un .ini leggibile, non nel registro.
-    QSettings::setDefaultFormat(QSettings::IniFormat);
-
     // L'interfaccia disegna le proprie superfici; uno stile di piattaforma
     // combatterebbe i pannelli invece di aiutarli.
     QQuickStyle::setStyle(QStringLiteral("Basic"));
@@ -94,6 +109,12 @@ int main(int argc, char* argv[])
     QCommandLineOption spotsOption(QStringLiteral("spots"), QStringLiteral("Feed cluster spots from a file."),
                                    QStringLiteral("file"));
     parser.addOption(spotsOption);
+    // Gia' letta prima del parser: qui sta solo perche' il parser non la
+    // prenda per un errore.
+    QCommandLineOption settingsOption(QStringLiteral("settings"),
+                                      QStringLiteral("Keep settings in this folder (for tests)."),
+                                      QStringLiteral("folder"));
+    parser.addOption(settingsOption);
     // Idem per la propagazione: il XML del Sole letto da un file.
     QCommandLineOption solarOption(QStringLiteral("solar"), QStringLiteral("Read the solar XML from a file."),
                                    QStringLiteral("file"));

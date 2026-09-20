@@ -26,6 +26,8 @@ ApplicationWindow {
     title: qsTr("DecoRotor — controllo rotore PRO.SIS.TEL")
     color: rt.bgDeep
 
+    OnScreen { target: root }
+
     Settings {
         category: "rotorWindow"
         property alias width: root.width

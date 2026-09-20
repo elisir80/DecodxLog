@@ -33,6 +33,8 @@ ApplicationWindow {
     color: Theme.bgDeep
     title: qsTr("DecoLog — %1").arg(root.panelTitle)
 
+    OnScreen { target: root }
+
     Settings {
         category: "layout/panel/" + root.panelKey
         property alias windowWidth: root.width

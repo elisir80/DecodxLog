@@ -22,9 +22,13 @@ ApplicationWindow {
 
     width: 1020
     height: 680
+    minimumWidth: 720
+    minimumHeight: 480
     visible: true
     title: qsTr("DecoLog — Paper QSL")
     color: Theme.bgDeep
+
+    OnScreen { target: root }
 
     Settings {
         category: "cardsWindow"
