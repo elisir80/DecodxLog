@@ -3,6 +3,19 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 0.8.1 — 20 settembre 2026
+
+**Il marchio rimasto in maiuscolo.** Cambiando nome al programma si cercava "DecoLog"
+scritto misto, e ai marchi scritti tutto in maiuscolo la rinomina e' passata accanto senza
+vederli. Entrando nel log dal browser il logo in alto diceva ancora **DECOLOG**; adesso
+dice DECODXLOG, nella pagina di accesso e in quella del log. Corretti anche il nome del
+file quando si esporta un'attivazione senza nominativo, e le macro di compilazione rimaste
+indietro.
+
+Restano col nome vecchio, apposta, le variabili d'ambiente del server — sono scritte nei
+file di servizio gia' installati — e il campo ADIF `APP_DECOLOG_TAGS`, che sta dentro i log
+gia' esportati.
+
 ## 0.8.0 — 20 settembre 2026
 
 **Il programma si chiama DecoDXLog.** Nome nuovo e icona nuova — la nuvola del Cloud con
