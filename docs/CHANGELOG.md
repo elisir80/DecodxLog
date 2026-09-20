@@ -3,6 +3,36 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 0.9.5 — 20 settembre 2026
+
+**Quindici lingue, come Decodium 4.** DecoDXLog parlava italiano e inglese; adesso nella
+tendina della lingua ci sono tutte e quindici le lingue di casa Decodium, ognuna scritta
+come la scrive chi la parla:
+
+> Italiano · English · Deutsch · Français · Español · Català · Nederlands · Dansk ·
+> Magyar · Română · Latviešu · Русский · 日本語 · 简体中文 · 繁體中文
+
+Il cinese si distingue come si deve: **tradizionale** a Taiwan, Hong Kong e Macao,
+**semplificato** altrove — e la differenza non si vede dalle prime due lettere, quindi si
+guarda il Paese. Se la lingua chiesta non c'e', si prova quella senza variante (zh_TW → zh)
+e poi si resta in inglese: mai un'interfaccia a meta' per colpa di un file che manca.
+
+**Le parole si portano dietro quelle di Decodium.** Dove il testo inglese e' identico, la
+traduzione e' quella che Decodium 4 usa gia': chi passa da un programma all'altro trova le
+stesse parole, non due modi di dire la stessa cosa.
+
+**Lo stato delle traduzioni si guarda con un comando**, perche' un lavoro cosi' lungo si
+governa solo se si vede:
+
+```sh
+python scripts/translations.py stato
+```
+
+Per adesso italiano e inglese sono complete; le altre tredici hanno **l'ossatura** —
+barra, pannelli, schede, colonne del log, menu — e crescono a ogni versione. Dove una
+frase non e' ancora tradotta compare quella inglese: il programma resta leggibile, non
+resta un buco.
+
 ## 0.9.4 — 20 settembre 2026
 
 **La frequenza della radio si vede anche dal browser.** Al Cloud la frequenza partiva solo

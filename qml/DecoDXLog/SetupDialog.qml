@@ -234,9 +234,17 @@ DialogFrame {
                         LabeledField {
                             label: qsTr("Interface")
                             StyledComboBox {
-                                Layout.preferredWidth: 220
-                                readonly property var codes: ["auto", "it", "en"]
-                                model: [qsTr("Like the system"), "Italiano", "English"]
+                                Layout.preferredWidth: 240
+                                // Le quindici lingue di casa Decodium, ognuna
+                                // scritta come la scrive chi la parla: chi cerca
+                                // la propria la riconosce senza tradurre niente.
+                                readonly property var codes: ["auto", "it", "en", "de", "fr", "es", "ca",
+                                                              "nl", "da", "hu", "ro", "lv", "ru", "ja",
+                                                              "zh", "zh_TW"]
+                                model: [qsTr("Like the system"), "Italiano", "English", "Deutsch",
+                                        "Français", "Español", "Català", "Nederlands", "Dansk",
+                                        "Magyar", "Română", "Latviešu", "Русский", "日本語",
+                                        "简体中文", "繁體中文"]
                                 currentIndex: Math.max(0, codes.indexOf(decolog.uiLanguage))
                                 onActivated: decolog.uiLanguage = codes[currentIndex]
                             }

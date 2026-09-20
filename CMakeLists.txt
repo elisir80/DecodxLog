@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 0.9.4
+    VERSION 0.9.5
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -245,8 +245,28 @@ qt_add_qml_module(decolog
 # Traduzioni: lrelease le compila e le mette fra le risorse (:/i18n). lupdate si
 # lancia a mano quando cambiano le stringhe:
 #   lupdate -locations none -no-obsolete -recursive src qml libs/decodium-ui \
-#           -ts translations/decodxlog_it.ts
-qt_add_translations(decolog TS_FILES translations/decodxlog_it.ts)
+#           -ts translations/decodxlog_*.ts
+# Le quindici lingue sono le stesse di Decodium 4: chi passa da un programma
+# all'altro trova la sua. L'inglese e' la lingua in cui sono scritte le
+# stringhe; il suo file serve solo a chi vuole correggere l'inglese stesso.
+# Per sapere quanto manca:  python scripts/translations.py stato
+qt_add_translations(decolog TS_FILES
+    translations/decodxlog_it.ts
+    translations/decodxlog_en.ts
+    translations/decodxlog_de.ts
+    translations/decodxlog_fr.ts
+    translations/decodxlog_es.ts
+    translations/decodxlog_ca.ts
+    translations/decodxlog_nl.ts
+    translations/decodxlog_da.ts
+    translations/decodxlog_hu.ts
+    translations/decodxlog_ro.ts
+    translations/decodxlog_lv.ts
+    translations/decodxlog_ru.ts
+    translations/decodxlog_ja.ts
+    translations/decodxlog_zh.ts
+    translations/decodxlog_zh_TW.ts
+)
 
 # L'icona della finestra (la barra delle applicazioni su Windows usa quella del
 # .rc, ma la finestra e i dialoghi prendono questa).

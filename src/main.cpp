@@ -145,14 +145,31 @@ int main(int argc, char* argv[])
     // Lingua dell'interfaccia: quella scelta, o quella del sistema. L'inglese e'
     // la lingua dei sorgenti, quindi non ha un file da caricare.
     const QString configured = QSettings().value(QStringLiteral("ui/language"), QStringLiteral("auto")).toString();
-    const QString language = configured == QLatin1String("auto") ? QLocale::system().name().left(2) : configured;
+    // "auto" vuol dire come il sistema. Il cinese va distinto: tradizionale a
+    // Taiwan, Hong Kong e Macao, semplificato altrove — e la differenza non si
+    // vede dalle prime due lettere.
+    QString language = configured;
+    if (configured == QLatin1String("auto")) {
+        const QString whole = QLocale::system().name();          // it_IT, zh_TW…
+        language = whole.left(2);
+        if (language == QLatin1String("zh")) {
+            language = whole.endsWith(QLatin1String("TW")) || whole.endsWith(QLatin1String("HK"))
+                       || whole.endsWith(QLatin1String("MO"))
+                       ? QStringLiteral("zh_TW") : QStringLiteral("zh");
+        }
+    }
     QTranslator appTranslator;
     QTranslator qtTranslator;
     if (language != QLatin1String("en")) {
-        if (appTranslator.load(QStringLiteral(":/i18n/decodxlog_") + language))
+        // Se la lingua chiesta non c'e', si prova quella senza variante
+        // (zh_TW → zh); altrimenti si resta in inglese, mai a meta'.
+        if (appTranslator.load(QStringLiteral(":/i18n/decodxlog_") + language)
+            || (language.contains(QLatin1Char('_'))
+                && appTranslator.load(QStringLiteral(":/i18n/decodxlog_")
+                                      + language.section(QLatin1Char('_'), 0, 0))))
             app.installTranslator(&appTranslator);
         // Le finestre di dialogo di Qt (se presenti accanto all'eseguibile).
-        if (qtTranslator.load(QStringLiteral("qtbase_") + language,
+        if (qtTranslator.load(QStringLiteral("qtbase_") + language.section(QLatin1Char('_'), 0, 0),
                               QLibraryInfo::path(QLibraryInfo::TranslationsPath)))
             app.installTranslator(&qtTranslator);
     }
