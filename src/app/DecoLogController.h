@@ -26,6 +26,7 @@
 
 #include <QDateTime>
 #include <QObject>
+#include <QElapsedTimer>
 #include <QTimer>
 #include <QUrl>
 #include <QVariantList>
@@ -244,6 +245,15 @@ public:
     QString decoLinkError() const { return m_decoLink.lastError(); }
     QVariantList decoLinkClients() const;
     void startDecoLink();
+    // La spia dei blocchi: un battito ogni quarto di secondo. Se fra due
+    // battiti passa molto piu' tempo, vuol dire che il filo che disegna
+    // l'interfaccia e' rimasto fermo — ed e' quello che si vede come finestre
+    // che non rispondono. Lo si scrive nel registro, con quanto e' durato,
+    // perche' un blocco raccontato a voce non si trova mai.
+    void startFreezeWatch();
+    // Cronometra un lavoro e, se ha tenuto ferma la finestra piu' del dovuto,
+    // lo scrive nel registro col suo nome. Un blocco senza nome non si corregge.
+    void timed(const QString& what, const std::function<void()>& work);
 
     QVariantList awardSummary() const;
     QStringList awardBands() const;
@@ -402,6 +412,7 @@ signals:
 private:
     void onQsoReceived(const core::AdifRecord& record, const QString& source, const QString& sourceApp);
     void addActivity(const QString& category, const QString& text, const QString& level = QStringLiteral("info"));
+
     // Dove si e' adesso: frequenza, banda, modo, TX. Va al Cloud perche' lo si
     // veda anche da lontano; il Cloud decide ogni quanto mandarlo davvero.
     void reportPresenceToCloud();
@@ -449,6 +460,11 @@ private:
     bool      m_decoLinkEnabled{true};
     int       m_decoLinkPort{core::DecoLinkServer::kDefaultPort};
     QTimer    m_decoLinkAwardDebounce;
+    // La spia dei blocchi.
+    QTimer        m_freezeBeat;
+    QElapsedTimer m_freezeClock;
+    qint64        m_lastBeat{0};
+    int           m_freezeCount{0};
     mutable QList<core::AwardResult> m_awardCache;
     mutable bool m_awardsDirty{true};
     mutable QList<core::AwardResult> m_globalAwardCache;

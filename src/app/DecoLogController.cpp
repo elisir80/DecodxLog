@@ -301,7 +301,7 @@ bool DecoLogController::openDatabase(const QString& path)
     if (m_backupDir.isEmpty())
         m_backupDir = QDir(QFileInfo(path).absolutePath()).filePath(QStringLiteral("backup"));
 
-    m_model = new QsoTableModel(&m_db, this);
+    timed(tr("loading the log table"), [this] { m_model = new QsoTableModel(&m_db, this); });
     m_profiles = new StationProfileModel(&m_db, this);
     connect(m_profiles, &StationProfileModel::activeChanged, this, [this] {
         emit stationChanged();
@@ -344,7 +344,7 @@ bool DecoLogController::openDatabase(const QString& path)
         addActivity(category, text, level);
     };
     qslCtx.logChanged = [this] {
-        m_model->reload();
+        timed(tr("reloading the log table"), [this] { m_model->reload(); });
         emit logChanged();
     };
     m_qsl = new QslController(std::move(qslCtx), this);
@@ -360,7 +360,7 @@ bool DecoLogController::openDatabase(const QString& path)
         addActivity(category, text, level);
     };
     cardCtx.logChanged = [this] {
-        m_model->reload();
+        timed(tr("reloading the log table"), [this] { m_model->reload(); });
         emit logChanged();
     };
     m_cards = new QslCardController(std::move(cardCtx), this);
@@ -395,7 +395,7 @@ bool DecoLogController::openDatabase(const QString& path)
         addActivity(category, text, level);
     };
     cloudCtx.logChanged = [this] {
-        m_model->reload();
+        timed(tr("reloading the log table"), [this] { m_model->reload(); });
         emit logChanged();
     };
     m_cloud = new CloudController(std::move(cloudCtx), this);
@@ -588,6 +588,43 @@ void DecoLogController::decoLinkQso(const AdifRecord& record, const QString& sta
     if (!message.isEmpty())
         msg.insert(QStringLiteral("message"), message);
     m_decoLink.broadcast(msg);
+}
+
+void DecoLogController::timed(const QString& what, const std::function<void()>& work)
+{
+    QElapsedTimer clock;
+    clock.start();
+    work();
+    const qint64 spent = clock.elapsed();
+    if (spent >= 400) {
+        addActivity(QStringLiteral("APP"), tr("%1: %2 s").arg(what, QString::number(spent / 1000.0, 'f', 1)),
+                    QStringLiteral("warning"));
+    }
+}
+
+void DecoLogController::startFreezeWatch()
+{
+    // Un quarto di secondo fra un battito e l'altro; si dice qualcosa solo
+    // oltre il secondo e mezzo, che e' il punto in cui un blocco si sente.
+    constexpr int kBeatMs = 250;
+    constexpr qint64 kSayItMs = 1500;
+    m_freezeClock.start();
+    m_lastBeat = m_freezeClock.elapsed();
+    m_freezeBeat.setInterval(kBeatMs);
+    connect(&m_freezeBeat, &QTimer::timeout, this, [this] {
+        const qint64 now = m_freezeClock.elapsed();
+        const qint64 late = now - m_lastBeat - m_freezeBeat.interval();
+        m_lastBeat = now;
+        if (late < kSayItMs)
+            return;
+        ++m_freezeCount;
+        addActivity(QStringLiteral("APP"),
+                    tr("The window stopped answering for %1 s (%n time(s) since the start)",
+                       nullptr, m_freezeCount)
+                        .arg(QString::number(late / 1000.0, 'f', 1)),
+                    QStringLiteral("warning"));
+    });
+    m_freezeBeat.start();
 }
 
 void DecoLogController::startListening()
@@ -924,7 +961,7 @@ int DecoLogController::fillMissingDxcc()
     addActivity(QStringLiteral("LOG"), tr("DXCC filled on %1 of %2 QSO (cty.csv %3)")
                                            .arg(filled).arg(ids.size()).arg(m_countries.version()),
                 filled > 0 ? QStringLiteral("success") : QStringLiteral("info"));
-    m_model->reload();
+    timed(tr("reloading the log table"), [this] { m_model->reload(); });
     emit logChanged();
     m_decoLink.resendSnapshot();
     refreshCallInfo();
@@ -1568,7 +1605,7 @@ QString DecoLogController::saveQso(qint64 id, const QVariantMap& fields, qint64 
     const auto meta = m_db.meta(id);
     addActivity(QStringLiteral("LOG"), tr("Edited %1 · revision %2").arg(r.value(QStringLiteral("CALL"))).arg(meta ? meta->revision : 0),
                 QStringLiteral("success"));
-    m_model->reload();
+    timed(tr("reloading the log table"), [this] { m_model->reload(); });
     emit logChanged();
     m_decoLink.resendSnapshot();
     refreshCallInfo();
@@ -1600,7 +1637,7 @@ int DecoLogController::deleteQsos(const QVariantList& ids)
                 done == 1 ? tr("Deleted %1 (kept in history)").arg(lastCall)
                           : tr("Deleted %1 QSO (kept in history)").arg(done),
                 QStringLiteral("warning"));
-    m_model->reload();
+    timed(tr("reloading the log table"), [this] { m_model->reload(); });
     emit logChanged();
     m_decoLink.resendSnapshot();
     refreshCallInfo();
@@ -1613,7 +1650,7 @@ QString DecoLogController::restoreRevision(qint64 id, qint64 historyId)
     if (res.status != InsertResult::Status::Inserted)
         return res.message;
     addActivity(QStringLiteral("LOG"), tr("Restored an earlier revision of QSO #%1").arg(id), QStringLiteral("success"));
-    m_model->reload();
+    timed(tr("reloading the log table"), [this] { m_model->reload(); });
     emit logChanged();
     m_decoLink.resendSnapshot();
     refreshCallInfo();
@@ -1636,7 +1673,7 @@ int DecoLogController::tagQsos(const QVariantList& ids, const QString& tag, bool
                     : tr("Tag \"%1\" removed from %2 QSO").arg(clean).arg(changed),
                 changed > 0 ? QStringLiteral("success") : QStringLiteral("info"));
     if (changed > 0) {
-        m_model->reload();
+        timed(tr("reloading the log table"), [this] { m_model->reload(); });
         emit logChanged();
     }
     return changed;
@@ -1671,7 +1708,7 @@ void DecoLogController::importAdif(const QUrl& url)
                 r.invalid ? QStringLiteral("warning") : QStringLiteral("success"));
     for (const QString& e : r.errors)
         addActivity(QStringLiteral("IMPORT"), QStringLiteral("  ") + e, QStringLiteral("warning"));
-    m_model->reload();
+    timed(tr("reloading the log table"), [this] { m_model->reload(); });
     m_profiles->reload();
     emit logChanged();
     m_decoLink.resendSnapshot();
@@ -1936,7 +1973,7 @@ void DecoLogController::onLotwReport(const lotw::Report& report)
         addActivity(QStringLiteral("LOTW"), tr("  %1 records without call, band or date").arg(invalid), QStringLiteral("warning"));
 
     if (confirmed > 0) {
-        m_model->reload();
+        timed(tr("reloading the log table"), [this] { m_model->reload(); });
         m_awardsDirty = m_globalAwardsDirty = true;
         emit logChanged();
         m_decoLink.resendSnapshot();
@@ -2374,7 +2411,7 @@ int DecoLogController::repairImportedFields()
                     tr("%n QSO cleaned up from a bad old import (the previous text stays in the history).",
                        nullptr, repaired),
                     QStringLiteral("success"));
-        m_model->reload();
+        timed(tr("reloading the log table"), [this] { m_model->reload(); });
         emit logChanged();
         // Quello che si e' dovuto svuotare lo riscrive il callbook, se lo sa.
         enqueueCallbook(emptied);

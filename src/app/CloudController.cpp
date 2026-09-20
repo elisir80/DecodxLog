@@ -459,16 +459,43 @@ void CloudController::startPush()
 {
     if (!m_ctx.db)
         return;
+    // Preparare i QSO da mandare costa: ognuno e' una lettura dal log piu' la
+    // costruzione del record. Facendolo tutto in un colpo, con la coda piena,
+    // la finestra restava ferma per secondi — e a chi opera sembra il
+    // programma piantato. Si prepara a fette, tornando in mezzo a servire
+    // l'interfaccia: ci si mette lo stesso tempo, ma il programma resta vivo.
     m_batch = m_ctx.db->dirtyQsos(kBatch);
-    QVariantList payload;
-    QList<qint64> sent;
-    for (qint64 id : m_batch) {
+    m_toPrepare = m_batch;
+    m_prepared.clear();
+    m_preparedIds.clear();
+    prepareSomeAndPush();
+}
+
+void CloudController::prepareSomeAndPush()
+{
+    if (!m_ctx.db)
+        return;
+    // Quanti per fetta: abbastanza da non perdere tempo in giri a vuoto, pochi
+    // abbastanza da non far ballare l'interfaccia.
+    constexpr int kSlice = 20;
+    for (int n = 0; n < kSlice && !m_toPrepare.isEmpty(); ++n) {
+        const qint64 id = m_toPrepare.takeFirst();
         const QVariantMap record = m_ctx.db->syncRecord(id);
         if (record.isEmpty())
             continue;
-        payload << record;
-        sent << id;
+        m_prepared << record;
+        m_preparedIds << id;
     }
+    if (!m_toPrepare.isEmpty()) {
+        // Il resto al prossimo giro: prima lasciamo disegnare.
+        QTimer::singleShot(0, this, &CloudController::prepareSomeAndPush);
+        return;
+    }
+
+    const QVariantList payload = m_prepared;
+    QList<qint64> sent = m_preparedIds;
+    m_prepared.clear();
+    m_preparedIds.clear();
     m_batch = sent;
     // Anche senza QSO in coda ci puo' essere da mandare: un profilo cambiato,
     // il tema, un filtro salvato. Il log non e' solo l'elenco dei collegamenti.

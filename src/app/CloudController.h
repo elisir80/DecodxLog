@@ -169,6 +169,12 @@ private:
     bool m_pulling{false};
     // I QSO mandati nell'ultima spinta, nell'ordine: gli esiti tornano cosi'.
     QList<qint64> m_batch;
+    // La preparazione a fette: quello che resta da preparare e quello che e'
+    // gia' pronto per partire.
+    QList<qint64> m_toPrepare;
+    QVariantList  m_prepared;
+    QList<qint64> m_preparedIds;
+    void prepareSomeAndPush();
     qint64 m_cursor{0};
     QTimer m_autoTimer;
     QTimer m_afterQso;

@@ -281,6 +281,10 @@ int main(int argc, char* argv[])
                      [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
     engine.rootContext()->setContextProperty(QStringLiteral("startupShow"), parser.value(showOption));
     engine.loadFromModule(QStringLiteral("DecoDXLog"), QStringLiteral("Main"));
+    // La spia dei blocchi si accende a interfaccia in piedi: i secondi
+    // dell'avvio sono avvio, non un blocco, e segnalarli sarebbe gridare al
+    // lupo alla prima riga del registro.
+    QTimer::singleShot(3000, &controller, [&controller] { controller.startFreezeWatch(); });
     if (parser.isSet(themeOption)) {
         if (auto* theme = engine.singletonInstance<decodium::ui::ThemeManager*>(QStringLiteral("Decodium.UI"),
                                                                                   QStringLiteral("Theme")))

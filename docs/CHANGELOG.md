@@ -3,6 +3,26 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 0.9.2 — 20 settembre 2026
+
+**La spia dei blocchi.** Quando la finestra smette di rispondere, adesso lo scrive lei nel
+**Registro attivita'**: *«la finestra e' rimasta ferma per 3,2 s»*, con quante volte e'
+successo dall'avvio. E le operazioni che leggono tutto il log — caricare la tabella,
+ricaricarla, rifare l'elenco dei gia' lavorati per il cluster — si cronometrano da sole e
+dicono quanto ci hanno messo, se superano il mezzo secondo. Un blocco raccontato a voce non
+si trova; un blocco col suo nome e la sua durata nel registro si corregge.
+
+**La sincronizzazione non blocca piu' la finestra.** Preparare i QSO da mandare al Cloud —
+ognuno e' una lettura dal log piu' la costruzione del record — si faceva tutto in un colpo:
+con la coda piena la finestra restava ferma per secondi. Adesso si prepara a fette,
+tornando in mezzo a servire l'interfaccia. Ci si mette lo stesso tempo, ma il programma
+resta vivo.
+
+Sulla lentezza sono stati misurati, e **esclusi**, anche: DecoLink (manda un megabyte in
+venti millisecondi col log da 23.830 QSO), il ponte CAT di Decodium (risponde una riga per
+domanda e non manda niente di sua iniziativa), il caricamento e le ricariche della tabella,
+i conti dei diplomi e della mappa.
+
 ## 0.9.1 — 20 settembre 2026
 
 **DecoLink si collegava e si staccava ogni cinque secondi, e la colpa era del nome.** Nel

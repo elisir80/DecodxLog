@@ -1,5 +1,7 @@
 #include "app/ClusterController.h"
 
+#include <QElapsedTimer>
+
 #include "core/CredentialStore.h"
 #include "core/DecoLinkServer.h"
 #include "core/LogDatabase.h"
@@ -346,7 +348,18 @@ void ClusterController::rebuildIndex()
     bool lotw = true, card = true, eqsl = false;
     if (m_ctx.confirmations)
         m_ctx.confirmations(lotw, card, eqsl);
+    // Rileggere tutto il log per sapere chi e' gia' stato lavorato costa, e si
+    // rifa' a ogni QSO nuovo: se un giorno costasse troppo, lo si scopre da
+    // qui invece che dall'operatore che vede la finestra ferma.
+    QElapsedTimer clock;
+    clock.start();
     m_index.rebuild(*m_ctx.db, lotw, card, eqsl);
+    if (clock.elapsed() >= 400 && m_ctx.activity) {
+        m_ctx.activity(QStringLiteral("APP"),
+                       tr("rebuilding the worked list: %1 s")
+                           .arg(QString::number(clock.elapsed() / 1000.0, 'f', 1)),
+                       QStringLiteral("warning"));
+    }
 }
 
 void ClusterController::injectLine(const QString& line)

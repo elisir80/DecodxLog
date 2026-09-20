@@ -4750,6 +4750,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Servono il nominativo e la frequenza in kHz</translation>
     </message>
     <message>
+        <source>rebuilding the worked list: %1 s</source>
+        <translation>rifaccio l&apos;elenco dei gia&apos; lavorati: %1 s</translation>
+    </message>
+    <message>
         <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
         <translation>Decodium non è collegato con DecoLink: non posso sintonizzare %1</translation>
     </message>
@@ -4836,6 +4840,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Non riesco ad aprire il log %1: %2</translation>
     </message>
     <message>
+        <source>loading the log table</source>
+        <translation>carico la tabella del log</translation>
+    </message>
+    <message>
+        <source>reloading the log table</source>
+        <translation>ricarico la tabella del log</translation>
+    </message>
+    <message>
         <source>DecoLink listening on 127.0.0.1:%1</source>
         <translation>DecoLink in ascolto su 127.0.0.1:%1</translation>
     </message>
@@ -4846,6 +4858,17 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>(not introduced yet)</source>
         <translation>(non si è ancora presentato)</translation>
+    </message>
+    <message>
+        <source>%1: %2 s</source>
+        <translation>%1: %2 s</translation>
+    </message>
+    <message numerus="yes">
+        <source>The window stopped answering for %1 s (%n time(s) since the start)</source>
+        <translation>
+            <numerusform>la finestra e&apos; rimasta ferma per %1 s (una volta dall&apos;avvio)</numerusform>
+            <numerusform>la finestra e&apos; rimasta ferma per %1 s (%n volte dall&apos;avvio)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Listening on UDP %1</source>
