@@ -15,7 +15,7 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 endif()
 
 option(DECODXLOG_BUILD_TESTS "Build the unit tests" ON)
-option(DECOLOG_BUILD_TOOLS "Build the command-line tools (UDP simulator)" ON)
+option(DECODXLOG_BUILD_TOOLS "Build the command-line tools (UDP simulator)" ON)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Network Sql Gui Qml Quick QuickControls2 Multimedia WebSockets Positioning Location LinguistTools)
 qt_standard_project_setup(REQUIRES 6.5)
@@ -113,7 +113,7 @@ endif()
 find_package(Qt6Keychain QUIET)
 if(TARGET qt6keychain)
     target_link_libraries(decolog_core PUBLIC qt6keychain)
-    target_compile_definitions(decolog_core PUBLIC DECOLOG_HAVE_KEYCHAIN=1)
+    target_compile_definitions(decolog_core PUBLIC DECODXLOG_HAVE_KEYCHAIN=1)
     message(STATUS "DecoDXLog: qtkeychain found — credentials in the system keystore")
 else()
     message(WARNING "DecoDXLog: qtkeychain not found — credentials cannot be stored")
@@ -125,7 +125,7 @@ endif()
 find_package(OpenSSL QUIET COMPONENTS Crypto)
 if(TARGET OpenSSL::Crypto)
     target_link_libraries(decolog_core PUBLIC OpenSSL::Crypto)
-    target_compile_definitions(decolog_core PUBLIC DECOLOG_HAS_OPENSSL=1)
+    target_compile_definitions(decolog_core PUBLIC DECODXLOG_HAS_OPENSSL=1)
     message(STATUS "DecoDXLog: OpenSSL found — credentials travel sealed")
 else()
     message(WARNING "DecoDXLog: OpenSSL not found — credentials stay on this machine")
@@ -320,7 +320,7 @@ if(DECODXLOG_BUILD_TESTS)
 endif()
 
 # ── Tools ─────────────────────────────────────────────────────────────────────
-if(DECOLOG_BUILD_TOOLS)
+if(DECODXLOG_BUILD_TOOLS)
     # Finge di essere Decodium: manda un QSO in LoggedADIF (e/o QSOLogged) sulla
     # porta UDP. Serve a provare la catena ricezione → SQLite → tabella senza
     # radio e senza aprire Decodium.

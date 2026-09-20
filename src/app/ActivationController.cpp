@@ -228,7 +228,7 @@ QString ActivationController::suggestedFileName() const
         return {};
     const QString call = m_ctx.stationCall ? m_ctx.stationCall() : QString();
     const QDate day = m_session.startedAt.isValid() ? m_session.startedAt.date() : QDate::currentDate();
-    return m_session.exportFileName(call.isEmpty() ? QStringLiteral("DECOLOG") : call, day);
+    return m_session.exportFileName(call.isEmpty() ? QStringLiteral("DECODXLOG") : call, day);
 }
 
 QVariantMap ActivationController::cabrilloDefaults() const

@@ -179,7 +179,7 @@ QString CwDecoder::feed(const qint16* samples, int count)
         // accende a 3,5 e si spegne a 2,8, cosi' non traballa nel mezzo.
         const bool worthIt = m_loud > 0.004;
         const bool on = worthIt && (m_on ? m_ratio > 2.8 : m_ratio > 3.5);
-        if (qEnvironmentVariableIsSet("DECOLOG_CW_DEBUG")) {
+        if (qEnvironmentVariableIsSet("DECODXLOG_CW_DEBUG")) {
             qDebug("best=%.4f floor=%.4f ratio=%.2f on=%d run=%d dot=%.1f",
                    best, floorLevel, m_ratio, on ? 1 : 0, m_runBlocks, m_dotBlocks);
         }

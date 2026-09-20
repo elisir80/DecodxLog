@@ -2,7 +2,7 @@
 
 #include <QSettings>
 
-#ifdef DECOLOG_HAVE_KEYCHAIN
+#ifdef DECODXLOG_HAVE_KEYCHAIN
 #include <qt6keychain/keychain.h>
 #endif
 
@@ -16,7 +16,7 @@ CredentialStore::CredentialStore(const QString& keychainService, QObject* parent
 
 bool CredentialStore::compiledWithKeychain()
 {
-#ifdef DECOLOG_HAVE_KEYCHAIN
+#ifdef DECODXLOG_HAVE_KEYCHAIN
     return true;
 #else
     return false;
@@ -25,7 +25,7 @@ bool CredentialStore::compiledWithKeychain()
 
 QString CredentialStore::backend() const
 {
-#ifndef DECOLOG_HAVE_KEYCHAIN
+#ifndef DECODXLOG_HAVE_KEYCHAIN
     return tr("not available in this build");
 #elif defined(Q_OS_WIN)
     return tr("Windows Credential Manager");
@@ -116,7 +116,7 @@ void CredentialStore::save(const QString& service, const QString& accountName, c
         return;
     }
 
-#ifdef DECOLOG_HAVE_KEYCHAIN
+#ifdef DECODXLOG_HAVE_KEYCHAIN
     auto* job = new QKeychain::WritePasswordJob(m_keychainService, this);
     job->setAutoDelete(true);
     job->setKey(service);
@@ -143,7 +143,7 @@ void CredentialStore::remove(const QString& service)
     QSettings s;
     s.remove(QStringLiteral("credentials/%1").arg(service));
 
-#ifdef DECOLOG_HAVE_KEYCHAIN
+#ifdef DECODXLOG_HAVE_KEYCHAIN
     auto* job = new QKeychain::DeletePasswordJob(m_keychainService, this);
     job->setAutoDelete(true);
     job->setKey(service);
@@ -166,7 +166,7 @@ void CredentialStore::remove(const QString& service)
 void CredentialStore::readSecret(const QString& service,
                                  std::function<void(const QString&, const QString&)> done)
 {
-#ifdef DECOLOG_HAVE_KEYCHAIN
+#ifdef DECODXLOG_HAVE_KEYCHAIN
     auto* job = new QKeychain::ReadPasswordJob(m_keychainService, this);
     job->setAutoDelete(true);
     job->setKey(service);

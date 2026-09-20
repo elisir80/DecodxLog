@@ -1,6 +1,6 @@
 #include "core/SecretVault.h"
 
-#ifdef DECOLOG_HAS_OPENSSL
+#ifdef DECODXLOG_HAS_OPENSSL
 #include <openssl/evp.h>
 #include <openssl/kdf.h>
 #include <openssl/rand.h>
@@ -28,7 +28,7 @@ QByteArray saltFor(const QString& callsign)
 
 } // namespace
 
-#ifdef DECOLOG_HAS_OPENSSL
+#ifdef DECODXLOG_HAS_OPENSSL
 
 bool available() { return true; }
 
