@@ -3,6 +3,42 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 0.9.7 — 21 settembre 2026
+
+**Olandese, danese e catalano complete.** Altre tre lingue al 100%: 1210 frasi ciascuna,
+come per tedesco, francese e spagnolo. Otto lingue su quindici sono finite:
+
+> Italiano · English · Deutsch · Français · Español · **Nederlands** · **Dansk** ·
+> **Català**
+
+Restano ungherese, rumeno, lettone, russo, giapponese e le due forme del cinese: per
+adesso hanno l'ossatura. Lo stato si guarda sempre con:
+
+```sh
+python scripts/translations.py stato
+```
+
+**Anche il pannello del rotore parla le tre lingue nuove.** Le sue frasi hanno il sorgente
+in italiano (arriva da DecoRotor), quindi si sono tradotte dall'italiano: in olandese,
+danese e catalano la finestra DecoRotor e' tutta nella lingua scelta — la bussola, il
+control box, le memorie, la diagnostica e le impostazioni. Resta da fare la cosa giusta,
+cioe' portare quei sorgenti in inglese come il resto del programma.
+
+**La rosa dei venti si traduce davvero.** Le lettere della bussola non sono uguali
+dappertutto: dove l'italiano scrive `E` (est) l'olandese scrive `O` e il danese `Ø`, e
+dove l'italiano scrive `O` (ovest) l'olandese scrive `W` e il danese `V`. Il catalano usa
+le stesse lettere dell'italiano. Sono otto lettere, ma una bussola con le lettere di
+un'altra lingua non si legge.
+
+**Il pacchetto non poteva piu' uscire a meta'.** Preparando questa versione, `deploy.sh`
+ha prodotto un archivio di 46 MB invece dei soliti 110: mancavano `libstdc++-6.dll`,
+`libwinpthread-1.dll` e le altre librerie del compilatore, e la cartella non si sarebbe
+aperta su nessun computer. Il motivo: `ldd` scrive la libreria come la vede la shell —
+dentro MSYS2 `/mingw64/bin/...`, da fuori `/c/msys64/mingw64/bin/...` — e lo script
+guardava una scrittura sola. Adesso le riconosce tutte e due, e prima di fare l'archivio
+controlla che le librerie del compilatore ci siano: se mancano si ferma, invece di
+spedire una cartella che non parte.
+
 ## 0.9.6 — 21 settembre 2026
 
 **Tedesco, francese e spagnolo complete.** Tre lingue al 100%: 1210 frasi ciascuna, non

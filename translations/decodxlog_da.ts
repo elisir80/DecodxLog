@@ -5,15 +5,15 @@
     <name>AboutDialog</name>
     <message>
         <source>About DecoDXLog</source>
-        <translation type="unfinished"></translation>
+        <translation>Om DecoDXLog</translation>
     </message>
     <message>
         <source>version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>version %1</translation>
     </message>
     <message>
         <source>The station logbook of the Decodium family</source>
-        <translation type="unfinished"></translation>
+        <translation>Stationsloggen i Decodium-familien</translation>
     </message>
     <message>
         <source>Who made it</source>
@@ -21,7 +21,7 @@
     </message>
     <message>
         <source>Developer</source>
-        <translation type="unfinished"></translation>
+        <translation>Udvikler</translation>
     </message>
     <message>
         <source>Email</source>
@@ -49,11 +49,11 @@
     </message>
     <message>
         <source>Licence</source>
-        <translation type="unfinished"></translation>
+        <translation>Licens</translation>
     </message>
     <message>
         <source>Free software: you can use it, study it, change it and pass it on, sources included. The log is yours and stays on your computer — a SQLite file that opens even without us.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fri software: du må bruge den, studere den, ændre den og give den videre, kildekoden med. Loggen er din og bliver på din egen computer — en SQLite-fil, der også kan åbnes uden os.</translation>
     </message>
     <message>
         <source>Copy these details</source>
@@ -76,27 +76,27 @@
     </message>
     <message>
         <source>Free session</source>
-        <translation type="unfinished"></translation>
+        <translation>Fri session</translation>
     </message>
     <message>
         <source>Session · %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Session · %1</translation>
     </message>
     <message>
         <source>Activation / contest</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivering / contest</translation>
     </message>
     <message>
         <source>open since %1 UTC · %2</source>
-        <translation type="unfinished"></translation>
+        <translation>åben siden %1 UTC · %2</translation>
     </message>
     <message>
         <source>Export the session</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportér sessionen</translation>
     </message>
     <message>
         <source>ADIF files (*.adi)</source>
-        <translation type="unfinished"></translation>
+        <translation>ADIF-filer (*.adi)</translation>
     </message>
     <message>
         <source>QSO</source>
@@ -104,35 +104,35 @@
     </message>
     <message>
         <source>Different calls</source>
-        <translation type="unfinished"></translation>
+        <translation>Forskellige kaldesignaler</translation>
     </message>
     <message>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Varighed</translation>
     </message>
     <message>
         <source>Last QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Sidste QSO</translation>
     </message>
     <message>
         <source>Next number</source>
-        <translation type="unfinished"></translation>
+        <translation>Næste nummer</translation>
     </message>
     <message>
         <source>activation valid: %1 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>aktivering gyldig: %1 QSO</translation>
     </message>
     <message>
         <source>%1 QSO to go</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 QSO tilbage</translation>
     </message>
     <message>
         <source>%1 / %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 / %2</translation>
     </message>
     <message>
         <source>Kind</source>
-        <translation type="unfinished"></translation>
+        <translation>Type</translation>
     </message>
     <message>
         <source>Reference</source>
@@ -140,7 +140,7 @@
     </message>
     <message>
         <source>Contest (CONTEST_ID)</source>
-        <translation type="unfinished"></translation>
+        <translation>Contest (CONTEST_ID)</translation>
     </message>
     <message>
         <source>Name</source>
@@ -148,23 +148,23 @@
     </message>
     <message>
         <source>Grid of the place</source>
-        <translation type="unfinished"></translation>
+        <translation>Locator for stedet</translation>
     </message>
     <message>
         <source>Tag on every QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Mærkat på hvert QSO</translation>
     </message>
     <message>
         <source>Station profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Stationsprofil</translation>
     </message>
     <message>
         <source>The active one</source>
-        <translation type="unfinished"></translation>
+        <translation>Den aktive</translation>
     </message>
     <message>
         <source>Serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Løbenummer</translation>
     </message>
     <message>
         <source>Next</source>
@@ -172,19 +172,19 @@
     </message>
     <message>
         <source>The QSOs get CONTEST_ID and the serial number sent (STX). The number received goes in the New QSO panel.</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO&apos;erne får CONTEST_ID og det sendte løbenummer (STX). Det modtagne nummer kommer i panelet Nyt QSO.</translation>
     </message>
     <message>
         <source>The QSOs get the activator fields (MY_SIG, MY_SIG_INFO, MY_SOTA_REF…), the grid of the place and the tag. A call already worked in this session on the same band and mode counts as a duplicate, whenever it was.</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO&apos;erne får aktiveringsfelterne (MY_SIG, MY_SIG_INFO, MY_SOTA_REF…), locatoren for stedet og mærkatet. Et kaldesignal, der allerede er kørt i denne session på samme bånd og mode, tæller som dublet, uanset hvornår.</translation>
     </message>
     <message>
         <source>Export ADIF (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportér ADIF (%1)</translation>
     </message>
     <message>
         <source>Contest window (Ctrl+Shift+T)</source>
-        <translation type="unfinished"></translation>
+        <translation>Contest-vindue (Ctrl+Shift+T)</translation>
     </message>
     <message>
         <source>Close</source>
@@ -192,15 +192,15 @@
     </message>
     <message>
         <source>Apply changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Anvend ændringer</translation>
     </message>
     <message>
         <source>End session</source>
-        <translation type="unfinished"></translation>
+        <translation>Afslut session</translation>
     </message>
     <message>
         <source>Start session</source>
-        <translation type="unfinished"></translation>
+        <translation>Start session</translation>
     </message>
 </context>
 <context>
@@ -218,11 +218,11 @@
     </message>
     <message>
         <source>computed from the log · confirmations: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>beregnet ud fra loggen · bekræftelser: %1</translation>
     </message>
     <message>
         <source>card</source>
-        <translation type="unfinished"></translation>
+        <translation>kort</translation>
     </message>
     <message>
         <source>none</source>
@@ -230,39 +230,39 @@
     </message>
     <message>
         <source>confirmed %1</source>
-        <translation type="unfinished"></translation>
+        <translation>bekræftet %1</translation>
     </message>
     <message>
         <source>base award ✓</source>
-        <translation type="unfinished"></translation>
+        <translation>grunddiplom ✓</translation>
     </message>
     <message>
         <source>goal %1</source>
-        <translation type="unfinished"></translation>
+        <translation>mål %1</translation>
     </message>
     <message>
         <source>worked %1</source>
-        <translation type="unfinished"></translation>
+        <translation>kørt %1</translation>
     </message>
     <message>
         <source>band slots %1 / %2</source>
-        <translation type="unfinished"></translation>
+        <translation>båndfelter %1 / %2</translation>
     </message>
     <message>
         <source>All worked</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle kørt</translation>
     </message>
     <message>
         <source>Not confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>Ikke bekræftet</translation>
     </message>
     <message>
         <source>Never worked</source>
-        <translation type="unfinished"></translation>
+        <translation>Aldrig kørt</translation>
     </message>
     <message>
         <source>Table</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabel</translation>
     </message>
     <message>
         <source>Map</source>
@@ -274,35 +274,35 @@
     </message>
     <message>
         <source>All bands</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle bånd</translation>
     </message>
     <message>
         <source>All modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle modes</translation>
     </message>
     <message>
         <source>Digital</source>
-        <translation type="unfinished"></translation>
+        <translation>Digital</translation>
     </message>
     <message>
         <source>Phone</source>
-        <translation type="unfinished"></translation>
+        <translation>Fone</translation>
     </message>
     <message>
         <source>Confirmed by</source>
-        <translation type="unfinished"></translation>
+        <translation>Bekræftet via</translation>
     </message>
     <message>
         <source>Card</source>
-        <translation type="unfinished"></translation>
+        <translation>Kort</translation>
     </message>
     <message>
         <source>All stations</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle stationer</translation>
     </message>
     <message>
         <source>All tags</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle mærkater</translation>
     </message>
     <message>
         <source>State</source>
@@ -310,59 +310,59 @@
     </message>
     <message>
         <source>Zone</source>
-        <translation type="unfinished"></translation>
+        <translation>Zone</translation>
     </message>
     <message>
         <source>JARL number</source>
-        <translation type="unfinished"></translation>
+        <translation>JARL-nummer</translation>
     </message>
     <message>
         <source>Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Nøgle</translation>
     </message>
     <message>
         <source>Name / first QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Navn / første QSO</translation>
     </message>
     <message>
         <source>Last</source>
-        <translation type="unfinished"></translation>
+        <translation>Sidste</translation>
     </message>
     <message>
         <source>never worked</source>
-        <translation type="unfinished"></translation>
+        <translation>aldrig kørt</translation>
     </message>
     <message>
         <source>Everything worked. Well done.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt er kørt. Godt gået.</translation>
     </message>
     <message>
         <source>Nothing matches.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingenting passer.</translation>
     </message>
     <message>
         <source>No QSO with a US state (STATE field) in the log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen QSO med en amerikansk stat (feltet STATE) i loggen.</translation>
     </message>
     <message>
         <source>No QSO with a JARL number (CNTY field) in the log. The callbook fills it in when it knows it, otherwise it goes in by hand in the QSO card.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen QSO med et JARL-nummer (feltet CNTY) i loggen. Callbooken udfylder det, når den kender det, ellers skrives det i hånden i QSO-kortet.</translation>
     </message>
     <message>
         <source>No QSO counts for this award with the current filters.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen QSO tæller til dette diplom med de nuværende filtre.</translation>
     </message>
     <message>
         <source>Per band</source>
-        <translation type="unfinished"></translation>
+        <translation>Pr. bånd</translation>
     </message>
     <message>
         <source>worked / confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>kørt / bekræftet</translation>
     </message>
     <message>
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
-        <translation type="unfinished"></translation>
+        <translation>● bekræftet  ○ kørt  ·  dobbeltklik åbner det første QSO. DXCC tæller entiteter med et DXCC-nummer; brug Indstillinger → Generelt → Udfyld manglende DXCC til ældre QSO&apos;er.</translation>
     </message>
 </context>
 <context>
@@ -393,11 +393,11 @@
     </message>
     <message>
         <source>Open statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Åbn statistik</translation>
     </message>
     <message>
         <source>Open cluster window</source>
-        <translation type="unfinished"></translation>
+        <translation>Åbn cluster-vinduet</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -405,27 +405,27 @@
     </message>
     <message>
         <source>%1 confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 bekræftet</translation>
     </message>
     <message>
         <source>By band</source>
-        <translation type="unfinished"></translation>
+        <translation>Efter bånd</translation>
     </message>
     <message>
         <source>By mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Efter mode</translation>
     </message>
     <message>
         <source>Service</source>
-        <translation type="unfinished"></translation>
+        <translation>Tjeneste</translation>
     </message>
     <message>
         <source>Download LoTW confirmations</source>
-        <translation type="unfinished"></translation>
+        <translation>Hent LoTW-bekræftelser</translation>
     </message>
     <message>
         <source>Paper QSL (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Papir-QSL (%1)</translation>
     </message>
     <message>
         <source>Stop</source>
@@ -433,7 +433,7 @@
     </message>
     <message>
         <source>LoTW: TQSL signs and sends, and the confirmations come back here.</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: TQSL signerer og sender, og bekræftelserne kommer tilbage hertil.</translation>
     </message>
     <message>
         <source>Sent</source>
@@ -445,46 +445,46 @@
     </message>
     <message>
         <source>Errors</source>
-        <translation type="unfinished"></translation>
+        <translation>Fejl</translation>
     </message>
     <message>
         <source>To send</source>
-        <translation type="unfinished"></translation>
+        <translation>Skal sendes</translation>
     </message>
     <message>
         <source>sending…</source>
-        <translation type="unfinished"></translation>
+        <translation>sender…</translation>
     </message>
     <message>
         <source>Send %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Send %1</translation>
     </message>
     <message>
         <source>automatic</source>
-        <translation type="unfinished"></translation>
+        <translation>automatisk</translation>
     </message>
     <message>
         <source>LoTW…</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW…</translation>
     </message>
     <message>
         <source>LoTW last sync %1</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW sidste synkronisering %1</translation>
     </message>
 </context>
 <context>
     <name>Cabrillo</name>
     <message>
         <source>The station callsign is missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Stationens kaldesignal mangler</translation>
     </message>
     <message>
         <source>The contest name is missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Contestens navn mangler</translation>
     </message>
     <message>
         <source>No usable QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Intet brugbart QSO</translation>
     </message>
 </context>
 <context>
@@ -495,7 +495,7 @@
     </message>
     <message>
         <source>log</source>
-        <translation type="unfinished"></translation>
+        <translation>log</translation>
     </message>
     <message>
         <source>from log</source>
@@ -504,27 +504,28 @@
     <message>
         <source>Select a QSO or type a callsign.
 The call Decodium is working shows up here by itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg et QSO, eller skriv et kaldesignal.
+Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>photo</source>
-        <translation type="unfinished"></translation>
+        <translation>foto</translation>
     </message>
     <message>
         <source>worked %1×</source>
-        <translation type="unfinished"></translation>
+        <translation>kørt %1×</translation>
     </message>
     <message>
         <source>new station</source>
-        <translation type="unfinished"></translation>
+        <translation>ny station</translation>
     </message>
     <message>
         <source>NEW DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>NYT DXCC</translation>
     </message>
     <message>
         <source>NEW DXCC on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>NYT DXCC på %1</translation>
     </message>
     <message>
         <source>Distance</source>
@@ -536,50 +537,50 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Local ≈</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokal tid ≈</translation>
     </message>
     <message>
         <source>Worked before</source>
-        <translation type="unfinished"></translation>
+        <translation>Kørt før</translation>
     </message>
     <message>
         <source>new DXCC on FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>nyt DXCC på FT2</translation>
     </message>
     <message>
         <source>new on FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>ny på FT2</translation>
     </message>
     <message>
         <source>new on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ny på %1</translation>
     </message>
     <message>
         <source>LoTW ✓</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW ✓</translation>
     </message>
     <message>
         <source>Not in the log yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Endnu ikke i loggen.</translation>
     </message>
     <message>
         <source>QSL status · last QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL-status · sidste QSO</translation>
     </message>
     <message>
         <source>Open last QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Åbn sidste QSO</translation>
     </message>
 </context>
 <context>
     <name>Callbook</name>
     <message>
         <source>Unexpected answer from QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Uventet svar fra QRZ.com</translation>
     </message>
     <message>
         <source>Unexpected answer from HamQTH</source>
-        <translation type="unfinished"></translation>
+        <translation>Uventet svar fra HamQTH</translation>
     </message>
 </context>
 <context>
@@ -590,23 +591,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1/%2 online</source>
-        <translation type="unfinished"></translation>
+        <translation>%1/%2 online</translation>
     </message>
     <message>
         <source>%1 shown · %2 in the last hour</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 vist · %2 i den sidste time</translation>
     </message>
     <message>
         <source>→ Decodium</source>
-        <translation type="unfinished"></translation>
+        <translation>→ Decodium</translation>
     </message>
     <message>
         <source>Open cluster</source>
-        <translation type="unfinished"></translation>
+        <translation>Åbn cluster</translation>
     </message>
     <message>
         <source>Spot filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Spot-filtre</translation>
     </message>
     <message>
         <source>Clear all</source>
@@ -614,11 +615,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Luk</translation>
     </message>
     <message>
         <source>Name for these filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Navn på disse filtre</translation>
     </message>
     <message>
         <source>Save</source>
@@ -626,63 +627,63 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>No saved filters: use More filters → Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen gemte filtre: brug Flere filtre → Gem</translation>
     </message>
     <message>
         <source>Tune Decodium to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Stil Decodium på %1</translation>
     </message>
     <message>
         <source>Show in Call info</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis i Kaldesignal-info</translation>
     </message>
     <message>
         <source>Point the rotor at %1 (%2°)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ret rotoren mod %1 (%2°)</translation>
     </message>
     <message>
         <source>Point the rotor</source>
-        <translation type="unfinished"></translation>
+        <translation>Ret rotoren</translation>
     </message>
     <message>
         <source>Only %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kun %1</translation>
     </message>
     <message>
         <source>this entity</source>
-        <translation type="unfinished"></translation>
+        <translation>denne entitet</translation>
     </message>
     <message>
         <source>Alert me when %1 is spotted</source>
-        <translation type="unfinished"></translation>
+        <translation>Giv besked, når %1 bliver spottet</translation>
     </message>
     <message>
         <source>Hide spots from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Skjul spots fra %1</translation>
     </message>
     <message>
         <source>Decodium band</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodiums bånd</translation>
     </message>
     <message>
         <source>NEW BAND/MODE</source>
-        <translation type="unfinished"></translation>
+        <translation>NYT BÅND/MODE</translation>
     </message>
     <message>
         <source>hide worked</source>
-        <translation type="unfinished"></translation>
+        <translation>skjul kørte</translation>
     </message>
     <message>
         <source>Call / entity…</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaldesignal / entitet…</translation>
     </message>
     <message>
         <source>More filters…</source>
-        <translation type="unfinished"></translation>
+        <translation>Flere filtre…</translation>
     </message>
     <message>
         <source>Saved ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>Gemte ▾</translation>
     </message>
     <message>
         <source>kHz</source>
@@ -698,7 +699,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Entity</source>
-        <translation type="unfinished"></translation>
+        <translation>Entitet</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -718,7 +719,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>km · az</source>
-        <translation type="unfinished"></translation>
+        <translation>km · az</translation>
     </message>
     <message>
         <source>Source</source>
@@ -726,38 +727,38 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>unconf.</source>
-        <translation type="unfinished"></translation>
+        <translation>ubekr.</translation>
     </message>
     <message>
         <source>Spotted by %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Spottet af %1</translation>
     </message>
     <message>
         <source>No source connected. Open the cluster window → Sources to connect a node, RBN, HamAlert or POTA.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen kilde forbundet. Åbn cluster-vinduet → Kilder for at forbinde en node, RBN, HamAlert eller POTA.</translation>
     </message>
     <message>
         <source>No spot matches the filters (%1 hidden).</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen spot passer til filtrene (%1 skjult).</translation>
     </message>
     <message>
         <source>Waiting for spots…</source>
-        <translation type="unfinished"></translation>
+        <translation>Venter på spots…</translation>
     </message>
 </context>
 <context>
     <name>ClusterWindow</name>
     <message>
         <source>DecoDXLog — DX Cluster</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — DX Cluster</translation>
     </message>
     <message>
         <source>Spots</source>
-        <translation type="unfinished"></translation>
+        <translation>Spots</translation>
     </message>
     <message>
         <source>Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Kilder</translation>
     </message>
     <message>
         <source>Alerts</source>
@@ -765,43 +766,43 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Voice &amp; LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation>Stemme &amp; LoTW</translation>
     </message>
     <message>
         <source>Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Konsol</translation>
     </message>
     <message>
         <source>Decodium on %1 · %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium på %1 · %2</translation>
     </message>
     <message>
         <source>Decodium not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium ikke forbundet</translation>
     </message>
     <message>
         <source>Spot sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Spot-kilder</translation>
     </message>
     <message>
         <source>Add ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilføj ▾</translation>
     </message>
     <message>
         <source>Custom node…</source>
-        <translation type="unfinished"></translation>
+        <translation>Egen node…</translation>
     </message>
     <message>
         <source>All sources flow into one list. Telnet nodes log in with the callsign of the active station profile unless a login is set. RBN gives skimmer spots (CW/RTTY on 7000, FT8/FT4 on 7001). HamAlert sends the spots of your triggers (set them up on hamalert.org; the password goes in the system keystore below). POTA reads the public activation list every minute.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle kilder løber sammen i én liste. Telnet-noder logger ind med kaldesignalet fra den aktive stationsprofil, medmindre der er sat et login. RBN giver skimmer-spots (CW/RTTY på 7000, FT8/FT4 på 7001). HamAlert sender spots fra dine triggers (sæt dem op på hamalert.org; adgangskoden lægges i systemets nøglering nedenfor). POTA læser den offentlige aktiveringsliste hvert minut.</translation>
     </message>
     <message>
         <source>%1 spots</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 spots</translation>
     </message>
     <message>
         <source>, last %1Z</source>
-        <translation type="unfinished"></translation>
+        <translation>, sidste %1Z</translation>
     </message>
     <message>
         <source>On</source>
@@ -809,47 +810,47 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Redigér</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern</translation>
     </message>
     <message>
         <source>HamAlert account</source>
-        <translation type="unfinished"></translation>
+        <translation>HamAlert-konto</translation>
     </message>
     <message>
         <source>Alert rules</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarmregler</translation>
     </message>
     <message>
         <source>New rule</source>
-        <translation type="unfinished"></translation>
+        <translation>Ny regel</translation>
     </message>
     <message>
         <source>A spot that matches a rule is written in the activity log, highlighted, sent to Decodium and, if the rule says so, announced by voice. The same DX on the same band and mode is announced at most once every %1 minutes.</source>
-        <translation type="unfinished"></translation>
+        <translation>En spot, der passer til en regel, skrives i aktivitetsloggen, fremhæves, sendes til Decodium og bliver, hvis reglen siger det, sagt højt. Den samme DX på samme bånd og mode siges højst én gang hvert %1 minut.</translation>
     </message>
     <message>
         <source>DX in %1</source>
-        <translation type="unfinished"></translation>
+        <translation>DX i %1</translation>
     </message>
     <message>
         <source>spotted from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>spottet fra %1</translation>
     </message>
     <message>
         <source>not worked on band</source>
-        <translation type="unfinished"></translation>
+        <translation>ikke kørt på båndet</translation>
     </message>
     <message>
         <source>every spot</source>
-        <translation type="unfinished"></translation>
+        <translation>hver spot</translation>
     </message>
     <message>
         <source>voice</source>
-        <translation type="unfinished"></translation>
+        <translation>stemme</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -857,27 +858,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Voice announcements</source>
-        <translation type="unfinished"></translation>
+        <translation>Stemmeudkald</translation>
     </message>
     <message>
         <source>Speech: %1. Voices come from Windows Settings → Time &amp; language → Speech.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tale: %1. Stemmerne kommer fra Windows Indstillinger → Tid og sprog → Tale.</translation>
     </message>
     <message>
         <source>No speech synthesizer found (install speech-dispatcher or espeak-ng on Linux).</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen talesyntese fundet (installér speech-dispatcher eller espeak-ng på Linux).</translation>
     </message>
     <message>
         <source>Announce alerts</source>
-        <translation type="unfinished"></translation>
+        <translation>Sig alarmer højt</translation>
     </message>
     <message>
         <source>Spell calls with the phonetic alphabet</source>
-        <translation type="unfinished"></translation>
+        <translation>Stav kaldesignaler med det fonetiske alfabet</translation>
     </message>
     <message>
         <source>Voice</source>
-        <translation type="unfinished"></translation>
+        <translation>Stemme</translation>
     </message>
     <message>
         <source>System default</source>
@@ -885,19 +886,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Language of the sentences</source>
-        <translation type="unfinished"></translation>
+        <translation>Sætningernes sprog</translation>
     </message>
     <message>
         <source>Repeat the same DX after</source>
-        <translation type="unfinished"></translation>
+        <translation>Gentag samme DX efter</translation>
     </message>
     <message>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Hastighed</translation>
     </message>
     <message>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Lydstyrke</translation>
     </message>
     <message>
         <source>Test</source>
@@ -909,15 +910,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Example: “New DXCC. Bouvet. 3 Y 0 J. 20 metri. C W.” Keep the announcements on the PC speakers, not on the audio device that goes to the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksempel: “Nyt DXCC. Bouvet. 3 Y 0 J. 20 meter. C W.” Hold udkaldene på pc&apos;ens højttalere, ikke på den lydenhed, der går til radioen.</translation>
     </message>
     <message>
         <source>LoTW users</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW-brugere</translation>
     </message>
     <message>
         <source>list not loaded yet</source>
-        <translation type="unfinished"></translation>
+        <translation>listen er ikke hentet endnu</translation>
     </message>
     <message>
         <source>Update now</source>
@@ -925,19 +926,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>The ARRL list of LoTW users marks spots of stations that upload to LoTW (filter “LoTW users”). It is refreshed once a week.</source>
-        <translation type="unfinished"></translation>
+        <translation>ARRL&apos;s liste over LoTW-brugere markerer spots fra stationer, der uploader til LoTW (filteret “LoTW-brugere”). Den fornyes en gang om ugen.</translation>
     </message>
     <message>
         <source>Decodium</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium</translation>
     </message>
     <message>
         <source>Send the spots shown and the alerts to Decodium (DecoLink)</source>
-        <translation type="unfinished"></translation>
+        <translation>Send de viste spots og alarmerne til Decodium (DecoLink)</translation>
     </message>
     <message>
         <source>Double-click a spot to tune Decodium: dial frequency and mode, and the DX call ready in the QSO panel. It never starts transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dobbeltklik på en spot for at stille Decodium: frekvens og mode, og DX-kaldesignalet klar i QSO-panelet. Den begynder aldrig at sende af sig selv.</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -945,15 +946,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>First node online</source>
-        <translation type="unfinished"></translation>
+        <translation>Første node online</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished"></translation>
+        <translation>Send</translation>
     </message>
     <message>
         <source>Spot a DX</source>
-        <translation type="unfinished"></translation>
+        <translation>Spot en DX</translation>
     </message>
     <message>
         <source>Call</source>
@@ -961,19 +962,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Comment (FT2 -10 dB, JN71…)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentar (FT2 -10 dB, JN71…)</translation>
     </message>
     <message>
         <source>Post spot</source>
-        <translation type="unfinished"></translation>
+        <translation>Send spot</translation>
     </message>
     <message>
         <source>Edit source</source>
-        <translation type="unfinished"></translation>
+        <translation>Redigér kilde</translation>
     </message>
     <message>
         <source>New source</source>
-        <translation type="unfinished"></translation>
+        <translation>Ny kilde</translation>
     </message>
     <message>
         <source>Name</source>
@@ -981,11 +982,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Type</translation>
     </message>
     <message>
         <source>DX cluster</source>
-        <translation type="unfinished"></translation>
+        <translation>DX-cluster</translation>
     </message>
     <message>
         <source>Host</source>
@@ -993,19 +994,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port</translation>
     </message>
     <message>
         <source>HamAlert username</source>
-        <translation type="unfinished"></translation>
+        <translation>HamAlert-brugernavn</translation>
     </message>
     <message>
         <source>Login (empty = station profile callsign)</source>
-        <translation type="unfinished"></translation>
+        <translation>Login (tomt = kaldesignal fra stationsprofilen)</translation>
     </message>
     <message>
         <source>Commands after login (one per line)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommandoer efter login (én pr. linje)</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -1017,54 +1018,54 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Edit alert rule</source>
-        <translation type="unfinished"></translation>
+        <translation>Redigér alarmregel</translation>
     </message>
     <message>
         <source>New alert rule</source>
-        <translation type="unfinished"></translation>
+        <translation>Ny alarmregel</translation>
     </message>
     <message>
         <source>e.g. 3Y0J on any band</source>
-        <translation type="unfinished"></translation>
+        <translation>f.eks. 3Y0J på alle bånd</translation>
     </message>
     <message>
         <source>Announce by voice</source>
-        <translation type="unfinished"></translation>
+        <translation>Sig det højt</translation>
     </message>
     <message>
         <source>Send to Decodium</source>
-        <translation type="unfinished"></translation>
+        <translation>Send til Decodium</translation>
     </message>
     <message>
         <source>Save rule</source>
-        <translation type="unfinished"></translation>
+        <translation>Gem regel</translation>
     </message>
 </context>
 <context>
     <name>ContestWindow</name>
     <message>
         <source>DecoDXLog — Contest</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — Contest</translation>
     </message>
     <message>
         <source>The callsign is too short</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaldesignalet er for kort</translation>
     </message>
     <message>
         <source>Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Session</translation>
     </message>
     <message>
         <source>No session open</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen session åben</translation>
     </message>
     <message>
         <source>next number %1</source>
-        <translation type="unfinished"></translation>
+        <translation>næste nummer %1</translation>
     </message>
     <message>
         <source>Open a session…</source>
-        <translation type="unfinished"></translation>
+        <translation>Åbn en session…</translation>
     </message>
     <message>
         <source>QSO</source>
@@ -1084,19 +1085,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Last 10 min</source>
-        <translation type="unfinished"></translation>
+        <translation>Sidste 10 min</translation>
     </message>
     <message>
         <source>QSO/h</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO/t</translation>
     </message>
     <message>
         <source>Last hour</source>
-        <translation type="unfinished"></translation>
+        <translation>Sidste time</translation>
     </message>
     <message>
         <source>New QSO · Enter logs · Esc clears · Tab moves</source>
-        <translation type="unfinished"></translation>
+        <translation>Nyt QSO · Enter logger · Esc rydder · Tab flytter</translation>
     </message>
     <message>
         <source>Band</source>
@@ -1112,19 +1113,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>RST s</source>
-        <translation type="unfinished"></translation>
+        <translation>RST s</translation>
     </message>
     <message>
         <source>Nr s</source>
-        <translation type="unfinished"></translation>
+        <translation>Nr s</translation>
     </message>
     <message>
         <source>RST r</source>
-        <translation type="unfinished"></translation>
+        <translation>RST r</translation>
     </message>
     <message>
         <source>Nr r</source>
-        <translation type="unfinished"></translation>
+        <translation>Nr r</translation>
     </message>
     <message>
         <source>Log</source>
@@ -1132,75 +1133,75 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>CW macros</source>
-        <translation type="unfinished"></translation>
+        <translation>CW-makroer</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Stop</translation>
     </message>
     <message>
         <source>Edit macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Redigér makroer</translation>
     </message>
     <message>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Hastighed</translation>
     </message>
     <message>
         <source>%1 wpm</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 wpm</translation>
     </message>
     <message>
         <source>DUPE</source>
-        <translation type="unfinished"></translation>
+        <translation>DUPE</translation>
     </message>
     <message>
         <source>worked %1×</source>
-        <translation type="unfinished"></translation>
+        <translation>kørt %1×</translation>
     </message>
     <message>
         <source>new station</source>
-        <translation type="unfinished"></translation>
+        <translation>ny station</translation>
     </message>
     <message>
         <source>%1 km · %2°</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 km · %2°</translation>
     </message>
     <message>
         <source>Last QSOs of the session</source>
-        <translation type="unfinished"></translation>
+        <translation>Sessionens sidste QSO&apos;er</translation>
     </message>
     <message>
         <source>No QSO in this session yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Endnu ingen QSO i denne session.</translation>
     </message>
     <message>
         <source>Cabrillo…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabrillo…</translation>
     </message>
     <message>
         <source>ADIF of the session…</source>
-        <translation type="unfinished"></translation>
+        <translation>Sessionens ADIF…</translation>
     </message>
     <message>
         <source>Enter logs · Esc clears · space moves to the report</source>
-        <translation type="unfinished"></translation>
+        <translation>Enter logger · Esc rydder · mellemrum flytter til rapporten</translation>
     </message>
     <message>
         <source>ADIF of the session</source>
-        <translation type="unfinished"></translation>
+        <translation>Sessionens ADIF</translation>
     </message>
     <message>
         <source>ADIF files (*.adi)</source>
-        <translation type="unfinished"></translation>
+        <translation>ADIF-filer (*.adi)</translation>
     </message>
     <message>
         <source>Cabrillo log</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabrillo-log</translation>
     </message>
     <message>
         <source>Cabrillo files (*.log *.cbr)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabrillo-filer (*.log *.cbr)</translation>
     </message>
     <message>
         <source>All files (*)</source>
@@ -1208,19 +1209,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>The text goes on air as it is written, with the gaps filled in at the moment: {CALL} the callsign you are working, {MYCALL} yours, {RST} the report sent, {NR} the serial, {EXCH} what you received. The keyer is the radio&apos;s own: Hamlib hands it the text.</source>
-        <translation type="unfinished"></translation>
+        <translation>Teksten går i luften, som den står, med hullerne udfyldt i øjeblikket: {CALL} det kaldesignal, du kører, {MYCALL} dit eget, {RST} den sendte rapport, {NR} løbenummeret, {EXCH} det, du har modtaget. Nøglen er radioens egen: Hamlib rækker den teksten.</translation>
     </message>
     <message>
         <source>Default macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardmakroer</translation>
     </message>
     <message>
         <source>Cabrillo header</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabrillo-hoved</translation>
     </message>
     <message>
         <source>Contest (CONTEST)</source>
-        <translation type="unfinished"></translation>
+        <translation>Contest (CONTEST)</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -1228,74 +1229,74 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Location (section, zone)</source>
-        <translation type="unfinished"></translation>
+        <translation>Placering (sektion, zone)</translation>
     </message>
     <message>
         <source>Operators</source>
-        <translation type="unfinished"></translation>
+        <translation>Operatører</translation>
     </message>
     <message>
         <source>Club</source>
-        <translation type="unfinished"></translation>
+        <translation>Klub</translation>
     </message>
     <message>
         <source>Category</source>
-        <translation type="unfinished"></translation>
+        <translation>Kategori</translation>
     </message>
     <message>
         <source>Power</source>
-        <translation type="unfinished"></translation>
+        <translation>Effekt</translation>
     </message>
     <message>
         <source>Assisted</source>
-        <translation type="unfinished"></translation>
+        <translation>Assisteret</translation>
     </message>
     <message>
         <source>Claimed score</source>
-        <translation type="unfinished"></translation>
+        <translation>Anmeldt score</translation>
     </message>
     <message>
         <source>Soapbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Soapbox</translation>
     </message>
     <message>
         <source>The exchange sent is the serial number of the session; the received one is what was typed in “Nr r”. Frequencies go out in kHz, VHF and up as the band number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Den sendte udveksling er sessionens løbenummer; den modtagne er det, der blev skrevet i “Nr r”. Frekvenser sendes ud i kHz, VHF og opefter som båndnummer.</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Luk</translation>
     </message>
     <message>
         <source>Write the file…</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriv filen…</translation>
     </message>
 </context>
 <context>
     <name>CredentialsList</name>
     <message>
         <source>…</source>
-        <translation type="unfinished"></translation>
+        <translation>…</translation>
     </message>
     <message>
         <source>error</source>
-        <translation type="unfinished"></translation>
+        <translation>fejl</translation>
     </message>
     <message>
         <source>stored</source>
-        <translation type="unfinished"></translation>
+        <translation>gemt</translation>
     </message>
     <message>
         <source>no secret</source>
-        <translation type="unfinished"></translation>
+        <translation>ingen hemmelighed</translation>
     </message>
     <message>
         <source>not set</source>
-        <translation type="unfinished"></translation>
+        <translation>ikke sat</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Redigér</translation>
     </message>
     <message>
         <source>Add</source>
@@ -1303,23 +1304,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Secrets live in the system keystore (%1), never in the settings file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hemmeligheder ligger i systemets nøglering (%1), aldrig i indstillingsfilen.</translation>
     </message>
     <message>
         <source>This build has no system keystore (qtkeychain): credentials cannot be stored.</source>
-        <translation type="unfinished"></translation>
+        <translation>Denne build har ingen systemnøglering (qtkeychain): loginoplysninger kan ikke gemmes.</translation>
     </message>
     <message>
         <source>stored — leave empty to keep it</source>
-        <translation type="unfinished"></translation>
+        <translation>gemt — lad feltet stå tomt for at beholde den</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern</translation>
     </message>
     <message>
         <source>Check</source>
-        <translation type="unfinished"></translation>
+        <translation>Tjek</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -1327,7 +1328,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Gem</translation>
     </message>
 </context>
 <context>
@@ -1338,43 +1339,43 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Stop</translation>
     </message>
     <message>
         <source>This CAT link does not key CW: it reads the radio but it cannot send. Either connect rigctld to the radio itself, or — with Decodium holding the CAT — set up the keyer on a serial port of its own: Setup → Radio (CAT) → Keying on a serial port.</source>
-        <translation type="unfinished"></translation>
+        <translation>Denne CAT-forbindelse kan ikke nøgle CW: den læser radioen, men kan ikke sende. Slut enten rigctld til selve radioen, eller — når Decodium holder CAT&apos;en — sæt nøglen op på en serieport for sig: Indstillinger → Radio (CAT) → Nøgling på en serieport.</translation>
     </message>
     <message>
         <source>The radio is off: Setup → Radio (CAT) to turn it on. The decoder works anyway, it only needs the audio coming out of the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Radioen er slået fra: Indstillinger → Radio (CAT) for at slå den til. Dekoderen virker alligevel, den skal blot have lyden fra radioen.</translation>
     </message>
     <message>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Hastighed</translation>
     </message>
     <message>
         <source>%1 wpm</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 wpm</translation>
     </message>
     <message>
         <source>write here and press Enter: it goes out in CW</source>
-        <translation type="unfinished"></translation>
+        <translation>skriv her og tryk Enter: det går ud i CW</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished"></translation>
+        <translation>Send</translation>
     </message>
     <message>
         <source>Decoder</source>
-        <translation type="unfinished"></translation>
+        <translation>Dekoder</translation>
     </message>
     <message>
         <source>%1 wpm · %2 Hz</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 wpm · %2 Hz</translation>
     </message>
     <message>
         <source>listening…</source>
-        <translation type="unfinished"></translation>
+        <translation>lytter…</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -1389,80 +1390,80 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Details ▸</source>
-        <translation type="unfinished"></translation>
+        <translation>Detaljer ▸</translation>
     </message>
     <message>
         <source>DXCC on FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC på FT2</translation>
     </message>
     <message>
         <source>Grids on FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>Locatorer på FT2</translation>
     </message>
     <message>
         <source>Confirmed (LoTW)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bekræftet (LoTW)</translation>
     </message>
 </context>
 <context>
     <name>GlassPanel</name>
     <message>
         <source>Put it back in the main window</source>
-        <translation type="unfinished"></translation>
+        <translation>Sæt det tilbage i hovedvinduet</translation>
     </message>
     <message>
         <source>Detach it into its own window</source>
-        <translation type="unfinished"></translation>
+        <translation>Riv det ud i sit eget vindue</translation>
     </message>
     <message>
         <source>Close this panel — it comes back from Panels in the top bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Luk dette panel — det kommer tilbage fra Paneler i den øverste bjælke</translation>
     </message>
 </context>
 <context>
     <name>GridSquareMap</name>
     <message>
         <source>confirmed %1</source>
-        <translation type="unfinished"></translation>
+        <translation>bekræftet %1</translation>
     </message>
     <message>
         <source>worked %1</source>
-        <translation type="unfinished"></translation>
+        <translation>kørt %1</translation>
     </message>
     <message>
         <source>confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>bekræftet</translation>
     </message>
     <message>
         <source>worked</source>
-        <translation type="unfinished"></translation>
+        <translation>kørt</translation>
     </message>
     <message>
         <source>not worked</source>
-        <translation type="unfinished"></translation>
+        <translation>ikke kørt</translation>
     </message>
 </context>
 <context>
     <name>LogbookPanel</name>
     <message>
         <source>confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>bekræftet</translation>
     </message>
     <message>
         <source>LoTW confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW bekræftet</translation>
     </message>
     <message>
         <source>card confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>bekræftet med kort</translation>
     </message>
     <message>
         <source>eQSL confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL bekræftet</translation>
     </message>
     <message>
         <source>not confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>ikke bekræftet</translation>
     </message>
     <message>
         <source>Logbook</source>
@@ -1470,11 +1471,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1 selected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 valgt</translation>
     </message>
     <message>
         <source>%1 QSO · %2 shown</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 QSO · %2 vist</translation>
     </message>
     <message>
         <source>%1 QSO</source>
@@ -1482,7 +1483,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Actions ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>Handlinger ▾</translation>
     </message>
     <message>
         <source>Columns</source>
@@ -1494,7 +1495,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Default widths</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardbredder</translation>
     </message>
     <message>
         <source>Band</source>
@@ -1506,7 +1507,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>DXCC entity</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC-entitet</translation>
     </message>
     <message>
         <source>QSL</source>
@@ -1514,119 +1515,119 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Station profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Stationsprofil</translation>
     </message>
     <message>
         <source>Tag</source>
-        <translation type="unfinished"></translation>
+        <translation>Mærkat</translation>
     </message>
     <message>
         <source>No tags in the log yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Endnu ingen mærkater i loggen</translation>
     </message>
     <message>
         <source>This month</source>
-        <translation type="unfinished"></translation>
+        <translation>Denne måned</translation>
     </message>
     <message>
         <source>Date range…</source>
-        <translation type="unfinished"></translation>
+        <translation>Datointerval…</translation>
     </message>
     <message>
         <source>Tag the %1 QSO shown…</source>
-        <translation type="unfinished"></translation>
+        <translation>Sæt mærkat på de %1 viste QSO…</translation>
     </message>
     <message>
         <source>Remove a tag from the QSO shown…</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern et mærkat fra de viste QSO…</translation>
     </message>
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportér de %1 viste QSO til ADIF…</translation>
     </message>
     <message>
         <source>Complete the QSO shown from the callbook…</source>
-        <translation type="unfinished"></translation>
+        <translation>Udfyld de viste QSO fra callbooken…</translation>
     </message>
     <message>
         <source>Complete every QSO without a grid…</source>
-        <translation type="unfinished"></translation>
+        <translation>Udfyld hvert QSO uden locator…</translation>
     </message>
     <message>
         <source>Stop: %1 QSO still to go</source>
-        <translation type="unfinished"></translation>
+        <translation>Stop: %1 QSO tilbage</translation>
     </message>
     <message>
         <source>Clean up %1 QSO damaged by an old import…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ryd op i %1 QSO, der er ødelagt af en gammel import…</translation>
     </message>
     <message>
         <source>Clear all filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Ryd alle filtre</translation>
     </message>
     <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Slet %1? QSO&apos;et bliver i historikken og kan hentes tilbage.</translation>
     </message>
     <message>
         <source>Delete the %1 QSO selected? They stay in the history and can be recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Slet de %1 valgte QSO? De bliver i historikken og kan hentes tilbage.</translation>
     </message>
     <message>
         <source>Once more, to be sure: delete %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>En gang til, for en sikkerheds skyld: slet %1?</translation>
     </message>
     <message>
         <source>Once more, to be sure: delete %1 QSO?</source>
-        <translation type="unfinished"></translation>
+        <translation>En gang til, for en sikkerheds skyld: slet %1 QSO?</translation>
     </message>
     <message>
         <source>Delete for good</source>
-        <translation type="unfinished"></translation>
+        <translation>Slet for altid</translation>
     </message>
     <message>
         <source>Some QSO imported long ago have a name or a QTH cut in half, with a piece of the next ADIF field stuck to it. Clean them up? What cannot be read is emptied, so the callbook can write it properly; the old text stays in the history.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nogle QSO, der blev importeret for længe siden, har et navn eller et QTH, der er hugget midt over, med et stykke af det næste ADIF-felt hængende på. Skal de ryddes op? Det, der ikke kan læses, tømmes, så callbooken kan skrive det ordentligt; den gamle tekst bliver i historikken.</translation>
     </message>
     <message>
         <source>Clean up</source>
-        <translation type="unfinished"></translation>
+        <translation>Ryd op</translation>
     </message>
     <message>
         <source>Save the QSO chosen</source>
-        <translation type="unfinished"></translation>
+        <translation>Gem de valgte QSO</translation>
     </message>
     <message>
         <source>Export the QSO shown</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportér de viste QSO</translation>
     </message>
     <message>
         <source>ADIF files (*.adi)</source>
-        <translation type="unfinished"></translation>
+        <translation>ADIF-filer (*.adi)</translation>
     </message>
     <message>
         <source>Add a tag to %1 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Sæt et mærkat på %1 QSO</translation>
     </message>
     <message>
         <source>Remove a tag from %1 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern et mærkat fra %1 QSO</translation>
     </message>
     <message>
         <source>e.g. pota, field day, portable</source>
-        <translation type="unfinished"></translation>
+        <translation>f.eks. pota, field day, portabel</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Luk</translation>
     </message>
     <message>
         <source>Add tag</source>
-        <translation type="unfinished"></translation>
+        <translation>Sæt mærkat</translation>
     </message>
     <message>
         <source>Remove tag</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern mærkat</translation>
     </message>
     <message>
         <source>From (UTC)</source>
@@ -1634,11 +1635,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>To (included)</source>
-        <translation type="unfinished"></translation>
+        <translation>Til og med</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annullér</translation>
     </message>
     <message>
         <source>Apply</source>
@@ -1646,7 +1647,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Save current filters…</source>
-        <translation type="unfinished"></translation>
+        <translation>Gem de nuværende filtre…</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -1654,23 +1655,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1: confirmed — received</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: bekræftet — modtaget</translation>
     </message>
     <message>
         <source>%1: sent, waiting for the confirmation</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: sendt, venter på bekræftelsen</translation>
     </message>
     <message>
         <source>%1: not sent</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: ikke sendt</translation>
     </message>
     <message>
         <source>Filter name</source>
-        <translation type="unfinished"></translation>
+        <translation>Filterets navn</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Gem</translation>
     </message>
     <message>
         <source>Filters</source>
@@ -1678,35 +1679,35 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Search: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>Søg: %1 ✕</translation>
     </message>
     <message>
         <source>Band: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>Bånd: %1 ✕</translation>
     </message>
     <message>
         <source>Mode: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode: %1 ✕</translation>
     </message>
     <message>
         <source>DXCC: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC: %1 ✕</translation>
     </message>
     <message>
         <source>QSL: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL: %1 ✕</translation>
     </message>
     <message>
         <source>Station: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>Station: %1 ✕</translation>
     </message>
     <message>
         <source>Tag: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>Mærkat: %1 ✕</translation>
     </message>
     <message>
         <source>+ add</source>
-        <translation type="unfinished"></translation>
+        <translation>+ tilføj</translation>
     </message>
     <message>
         <source>Saved:</source>
@@ -1714,23 +1715,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1 filters ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 filtre ▾</translation>
     </message>
     <message>
         <source>none ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>ingen ▾</translation>
     </message>
     <message>
         <source>L LoTW · Q QRZ Logbook · C Club Log · E eQSL</source>
-        <translation type="unfinished"></translation>
+        <translation>L LoTW · Q QRZ Logbook · C Club Log · E eQSL</translation>
     </message>
     <message>
         <source>No QSO matches the filters.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen QSO passer til filtrene.</translation>
     </message>
     <message>
         <source>The log is empty. Log a QSO in Decodium, or import an ADIF file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Loggen er tom. Log et QSO i Decodium, eller importér en ADIF-fil.</translation>
     </message>
     <message>
         <source>Open / edit…</source>
@@ -1738,85 +1739,85 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Delete QSO…</source>
-        <translation type="unfinished"></translation>
+        <translation>Slet QSO…</translation>
     </message>
     <message>
         <source>Delete the %1 QSO selected…</source>
-        <translation type="unfinished"></translation>
+        <translation>Slet de %1 valgte QSO…</translation>
     </message>
     <message>
         <source>Complete from the callbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Udfyld fra callbooken</translation>
     </message>
     <message>
         <source>Filter by this call</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrér på dette kaldesignal</translation>
     </message>
     <message>
         <source>Filter by entity: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrér på entitet: %1</translation>
     </message>
     <message>
         <source>Filter by entity</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrér på entitet</translation>
     </message>
     <message>
         <source>Send the %1 QSO chosen to…</source>
-        <translation type="unfinished"></translation>
+        <translation>Send de %1 valgte QSO til…</translation>
     </message>
     <message>
         <source>Send this QSO to…</source>
-        <translation type="unfinished"></translation>
+        <translation>Send dette QSO til…</translation>
     </message>
     <message>
         <source>Save the %1 QSO chosen as ADIF…</source>
-        <translation type="unfinished"></translation>
+        <translation>Gem de %1 valgte QSO som ADIF…</translation>
     </message>
     <message>
         <source>Save this QSO as ADIF…</source>
-        <translation type="unfinished"></translation>
+        <translation>Gem dette QSO som ADIF…</translation>
     </message>
     <message>
         <source>Paper QSL: queue the %1 chosen for the bureau</source>
-        <translation type="unfinished"></translation>
+        <translation>Papir-QSL: sæt de %1 valgte i kø til bureauet</translation>
     </message>
     <message>
         <source>Paper QSL: queue for the bureau</source>
-        <translation type="unfinished"></translation>
+        <translation>Papir-QSL: sæt i kø til bureauet</translation>
     </message>
     <message>
         <source>Paper QSL: queue the %1 chosen as direct</source>
-        <translation type="unfinished"></translation>
+        <translation>Papir-QSL: sæt de %1 valgte i kø som direkte</translation>
     </message>
     <message>
         <source>Paper QSL: queue as direct</source>
-        <translation type="unfinished"></translation>
+        <translation>Papir-QSL: sæt i kø som direkte</translation>
     </message>
     <message>
         <source>Add tag…</source>
-        <translation type="unfinished"></translation>
+        <translation>Sæt mærkat…</translation>
     </message>
 </context>
 <context>
     <name>LogbookWindow</name>
     <message>
         <source>DecoDXLog — Logbook</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — Logbog</translation>
     </message>
 </context>
 <context>
     <name>Lotw</name>
     <message>
         <source>LoTW: username or password incorrect</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: brugernavn eller adgangskode er forkert</translation>
     </message>
     <message>
         <source>LoTW: the server answered with a web page, not with ADIF</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: serveren svarede med en webside, ikke med ADIF</translation>
     </message>
     <message>
         <source>LoTW: unexpected answer</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: uventet svar</translation>
     </message>
 </context>
 <context>
@@ -1855,15 +1856,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>closed</source>
-        <translation type="unfinished"></translation>
+        <translation>lukket</translation>
     </message>
     <message>
         <source>window</source>
-        <translation type="unfinished"></translation>
+        <translation>vindue</translation>
     </message>
     <message>
         <source>docked</source>
-        <translation type="unfinished"></translation>
+        <translation>sat fast</translation>
     </message>
     <message>
         <source>Import ADIF</source>
@@ -1883,39 +1884,39 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>ADIF files (*.adi)</source>
-        <translation type="unfinished"></translation>
+        <translation>ADIF-filer (*.adi)</translation>
     </message>
     <message>
         <source>PANELS</source>
-        <translation type="unfinished"></translation>
+        <translation>PANELER</translation>
     </message>
     <message>
         <source>Click a panel to close it or bring it back. The arrow detaches it into a window of its own; a closed panel frees its space instead of leaving a hole.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klik på et panel for at lukke det eller hente det tilbage. Pilen river det ud i sit eget vindue; et lukket panel giver sin plads fra sig i stedet for at efterlade et hul.</translation>
     </message>
     <message>
         <source>Put it back in the main window</source>
-        <translation type="unfinished"></translation>
+        <translation>Sæt det tilbage i hovedvinduet</translation>
     </message>
     <message>
         <source>Detach it into its own window</source>
-        <translation type="unfinished"></translation>
+        <translation>Riv det ud i sit eget vindue</translation>
     </message>
     <message>
         <source>Restore the default layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Gendan standardlayoutet</translation>
     </message>
     <message>
         <source>Unlock the layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Lås layoutet op</translation>
     </message>
     <message>
         <source>Lock the layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Lås layoutet</translation>
     </message>
     <message>
         <source>Detach this panel into its own window</source>
-        <translation type="unfinished"></translation>
+        <translation>Riv dette panel ud i sit eget vindue</translation>
     </message>
     <message>
         <source>Close this panel</source>
@@ -1923,7 +1924,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Panels…</source>
-        <translation type="unfinished"></translation>
+        <translation>Paneler…</translation>
     </message>
 </context>
 <context>
@@ -1934,15 +1935,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>SFI %1 · K %2</source>
-        <translation type="unfinished"></translation>
+        <translation>SFI %1 · K %2</translation>
     </message>
     <message>
         <source>Layers ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>Lag ▾</translation>
     </message>
     <message>
         <source>Coastlines</source>
-        <translation type="unfinished"></translation>
+        <translation>Kystlinjer</translation>
     </message>
     <message>
         <source>Night</source>
@@ -1950,27 +1951,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Worked grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Kørte locatorer</translation>
     </message>
     <message>
         <source>Cluster spots</source>
-        <translation type="unfinished"></translation>
+        <translation>Cluster-spots</translation>
     </message>
     <message>
         <source>Antenna heading</source>
-        <translation type="unfinished"></translation>
+        <translation>Antenneretning</translation>
     </message>
     <message>
         <source>QSOs with a grid square appear here</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO med en locator dukker op her</translation>
     </message>
     <message>
         <source>%1 grids</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 locatorer</translation>
     </message>
     <message>
         <source>%1 spots</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 spots</translation>
     </message>
 </context>
 <context>
@@ -1981,11 +1982,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Station: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Station: %1</translation>
     </message>
     <message>
         <source>No station profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen stationsprofil</translation>
     </message>
     <message>
         <source>Callsign</source>
@@ -1993,15 +1994,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Date UTC</source>
-        <translation type="unfinished"></translation>
+        <translation>Dato UTC</translation>
     </message>
     <message>
         <source>Time on</source>
-        <translation type="unfinished"></translation>
+        <translation>Starttid</translation>
     </message>
     <message>
         <source>NOW</source>
-        <translation type="unfinished"></translation>
+        <translation>NU</translation>
     </message>
     <message>
         <source>LOG</source>
@@ -2009,31 +2010,31 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Type a callsign to see what the log knows</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriv et kaldesignal for at se, hvad loggen ved</translation>
     </message>
     <message>
         <source>unknown prefix</source>
-        <translation type="unfinished"></translation>
+        <translation>ukendt præfiks</translation>
     </message>
     <message>
         <source>NEW DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>NYT DXCC</translation>
     </message>
     <message>
         <source>NEW DXCC on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>NYT DXCC på %1</translation>
     </message>
     <message>
         <source>NEW on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>NY på %1</translation>
     </message>
     <message>
         <source>worked %1×</source>
-        <translation type="unfinished"></translation>
+        <translation>kørt %1×</translation>
     </message>
     <message>
         <source>new station</source>
-        <translation type="unfinished"></translation>
+        <translation>ny station</translation>
     </message>
     <message>
         <source>Band</source>
@@ -2041,7 +2042,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Freq MHz</source>
-        <translation type="unfinished"></translation>
+        <translation>Frek. MHz</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -2049,15 +2050,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Submode</source>
-        <translation type="unfinished"></translation>
+        <translation>Submode</translation>
     </message>
     <message>
         <source>RST sent</source>
-        <translation type="unfinished"></translation>
+        <translation>RST sendt</translation>
     </message>
     <message>
         <source>RST rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation>RST modt.</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -2073,7 +2074,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>TX pwr W</source>
-        <translation type="unfinished"></translation>
+        <translation>TX-effekt W</translation>
     </message>
     <message>
         <source>Country</source>
@@ -2081,7 +2082,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Address / city</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse / by</translation>
     </message>
     <message>
         <source>State</source>
@@ -2089,7 +2090,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>County / JCC</source>
-        <translation type="unfinished"></translation>
+        <translation>County / JCC</translation>
     </message>
     <message>
         <source>DXCC</source>
@@ -2097,11 +2098,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>CQ zone</source>
-        <translation type="unfinished"></translation>
+        <translation>CQ-zone</translation>
     </message>
     <message>
         <source>ITU zone</source>
-        <translation type="unfinished"></translation>
+        <translation>ITU-zone</translation>
     </message>
     <message>
         <source>Cont</source>
@@ -2109,7 +2110,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>QSL via</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL via</translation>
     </message>
     <message>
         <source>Comment</source>
@@ -2121,7 +2122,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>pota, portable</source>
-        <translation type="unfinished"></translation>
+        <translation>pota, portabel</translation>
     </message>
     <message>
         <source>CLEAR</source>
@@ -2129,11 +2130,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Log &amp; keep</source>
-        <translation type="unfinished"></translation>
+        <translation>Log &amp; behold</translation>
     </message>
     <message>
         <source>LOG QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>LOG QSO</translation>
     </message>
 </context>
 <context>
@@ -2148,39 +2149,39 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Full form (Ctrl+N)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fuld formular (Ctrl+N)</translation>
     </message>
     <message>
         <source>INCOMING · %1</source>
-        <translation type="unfinished"></translation>
+        <translation>INDKOMMENDE · %1</translation>
     </message>
     <message>
         <source>saved ✓</source>
-        <translation type="unfinished"></translation>
+        <translation>gemt ✓</translation>
     </message>
     <message>
         <source>duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>dublet</translation>
     </message>
     <message>
         <source>not saved</source>
-        <translation type="unfinished"></translation>
+        <translation>ikke gemt</translation>
     </message>
     <message>
         <source>Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaldesignal</translation>
     </message>
     <message>
         <source>Date UTC</source>
-        <translation type="unfinished"></translation>
+        <translation>Dato UTC</translation>
     </message>
     <message>
         <source>Time on</source>
-        <translation type="unfinished"></translation>
+        <translation>Starttid</translation>
     </message>
     <message>
         <source>NOW</source>
-        <translation type="unfinished"></translation>
+        <translation>NU</translation>
     </message>
     <message>
         <source>Band</source>
@@ -2196,11 +2197,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>RST S</source>
-        <translation type="unfinished"></translation>
+        <translation>RST S</translation>
     </message>
     <message>
         <source>RST R</source>
-        <translation type="unfinished"></translation>
+        <translation>RST R</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -2216,11 +2217,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Nr rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation>Nr modt.</translation>
     </message>
     <message>
         <source>Nr sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Nr sendt</translation>
     </message>
     <message>
         <source>Comment</source>
@@ -2228,7 +2229,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>LOG QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>LOG QSO</translation>
     </message>
     <message>
         <source>CLEAR</source>
@@ -2239,49 +2240,49 @@ The call Decodium is working shows up here by itself.</source>
     <name>PanelSlot</name>
     <message>
         <source>here</source>
-        <translation type="unfinished"></translation>
+        <translation>her</translation>
     </message>
 </context>
 <context>
     <name>PanelWindow</name>
     <message>
         <source>DecoDXLog — %1</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — %1</translation>
     </message>
 </context>
 <context>
     <name>PropagationPanel</name>
     <message>
         <source>good</source>
-        <translation type="unfinished"></translation>
+        <translation>god</translation>
     </message>
     <message>
         <source>fair</source>
-        <translation type="unfinished"></translation>
+        <translation>jævn</translation>
     </message>
     <message>
         <source>poor</source>
-        <translation type="unfinished"></translation>
+        <translation>dårlig</translation>
     </message>
     <message>
         <source>closed</source>
-        <translation type="unfinished"></translation>
+        <translation>lukket</translation>
     </message>
     <message>
         <source>SFI</source>
-        <translation type="unfinished"></translation>
+        <translation>SFI</translation>
     </message>
     <message>
         <source>Sunspots</source>
-        <translation type="unfinished"></translation>
+        <translation>Solpletter</translation>
     </message>
     <message>
         <source>A index</source>
-        <translation type="unfinished"></translation>
+        <translation>A-indeks</translation>
     </message>
     <message>
         <source>K index</source>
-        <translation type="unfinished"></translation>
+        <translation>K-indeks</translation>
     </message>
     <message>
         <source>Aurora</source>
@@ -2289,27 +2290,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>X-ray</source>
-        <translation type="unfinished"></translation>
+        <translation>Røntgen</translation>
     </message>
     <message>
         <source>Geomag</source>
-        <translation type="unfinished"></translation>
+        <translation>Geomag.</translation>
     </message>
     <message>
         <source>Noise</source>
-        <translation type="unfinished"></translation>
+        <translation>Støj</translation>
     </message>
     <message>
         <source>Sol. wind</source>
-        <translation type="unfinished"></translation>
+        <translation>Solvind</translation>
     </message>
     <message>
         <source>HF · day</source>
-        <translation type="unfinished"></translation>
+        <translation>HF · dag</translation>
     </message>
     <message>
         <source>HF · night</source>
-        <translation type="unfinished"></translation>
+        <translation>HF · nat</translation>
     </message>
     <message>
         <source>VHF</source>
@@ -2317,15 +2318,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Your QSOs and the solar flux · last 14 days</source>
-        <translation type="unfinished"></translation>
+        <translation>Dine QSO og solfluxen · de sidste 14 dage</translation>
     </message>
     <message>
         <source>The bar is the QSOs of the day, the number under it the average solar flux. The flux is kept from when DecoDXLog started looking: the first days are empty.</source>
-        <translation type="unfinished"></translation>
+        <translation>Søjlen er dagens QSO, tallet nedenunder den gennemsnitlige solflux. Fluxen gemmes fra det tidspunkt, hvor DecoDXLog begyndte at se efter: de første dage er tomme.</translation>
     </message>
     <message>
         <source>asking…</source>
-        <translation type="unfinished"></translation>
+        <translation>spørger…</translation>
     </message>
     <message>
         <source>Update now</source>
@@ -2333,133 +2334,136 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>by itself every %1 min</source>
-        <translation type="unfinished"></translation>
+        <translation>automatisk hvert %1 min</translation>
     </message>
     <message>
         <source>%1 · source %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · kilde %2</translation>
     </message>
     <message>
         <source>No solar data yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Endnu ingen soldata.</translation>
     </message>
 </context>
 <context>
     <name>Qsl</name>
     <message numerus="yes">
         <source>%n QSO sent to LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO sendt til LoTW</numerusform>
+            <numerusform>%n QSO sendt til LoTW</numerusform>
+        </translation>
     </message>
     <message>
         <source>LoTW already had these QSOs</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW havde allerede disse QSO</translation>
     </message>
     <message>
         <source>Sent to LoTW, some were already there</source>
-        <translation type="unfinished"></translation>
+        <translation>Sendt til LoTW, nogle var der allerede</translation>
     </message>
     <message>
         <source>No QSO to send</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen QSO at sende</translation>
     </message>
     <message>
         <source>TQSL: cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL: afbrudt</translation>
     </message>
     <message>
         <source>LoTW rejected the file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW afviste filen: %1</translation>
     </message>
     <message>
         <source>TQSL: certificate or station location problem (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL: problem med certifikatet eller station location (%1)</translation>
     </message>
     <message>
         <source>TQSL: cannot reach LoTW (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL: kan ikke få fat i LoTW (%1)</translation>
     </message>
     <message>
         <source>TQSL: error %1 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL: fejl %1 %2</translation>
     </message>
     <message>
         <source>QRZ Logbook: QSO %1</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ Logbook: QSO %1</translation>
     </message>
     <message>
         <source>QRZ Logbook: already there</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ Logbook: var der allerede</translation>
     </message>
     <message>
         <source>QRZ Logbook: unexpected answer</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ Logbook: uventet svar</translation>
     </message>
     <message>
         <source>QRZ Logbook: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
         <source>eQSL: already there</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL: var der allerede</translation>
     </message>
     <message>
         <source>eQSL: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL: %1</translation>
     </message>
     <message>
         <source>eQSL: unexpected answer</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL: uventet svar</translation>
     </message>
     <message>
         <source>Club Log: already there</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: var der allerede</translation>
     </message>
     <message>
         <source>Club Log: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: %1</translation>
     </message>
     <message>
         <source>Club Log: accepted</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: accepteret</translation>
     </message>
     <message>
         <source>Club Log: refused (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: afvist (%1)</translation>
     </message>
     <message>
         <source>Club Log: server answered %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: serveren svarede %1</translation>
     </message>
     <message>
         <source>Club Log: no answer</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: intet svar</translation>
     </message>
 </context>
 <context>
     <name>QslCards</name>
     <message>
         <source>No QSL to print</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen QSL at printe</translation>
     </message>
     <message>
         <source>QSL labels</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL-etiketter</translation>
     </message>
     <message>
         <source>Cannot write %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke skrive %1</translation>
     </message>
     <message>
         <source>To radio %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Til radio %1</translation>
     </message>
     <message>
         <source>via %1</source>
-        <translation type="unfinished"></translation>
+        <translation>via %1</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Dato</translation>
     </message>
     <message>
         <source>UTC</source>
@@ -2475,38 +2479,38 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>RST</source>
-        <translation type="unfinished"></translation>
+        <translation>RST</translation>
     </message>
     <message>
         <source>TNX QSO · 73</source>
-        <translation type="unfinished"></translation>
+        <translation>TNX QSO · 73</translation>
     </message>
 </context>
 <context>
     <name>QslCardsWindow</name>
     <message>
         <source>DecoDXLog — Paper QSL</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — Papir-QSL</translation>
     </message>
     <message>
         <source>bureau</source>
-        <translation type="unfinished"></translation>
+        <translation>bureau</translation>
     </message>
     <message>
         <source>direct</source>
-        <translation type="unfinished"></translation>
+        <translation>direkte</translation>
     </message>
     <message>
         <source>electronic</source>
-        <translation type="unfinished"></translation>
+        <translation>elektronisk</translation>
     </message>
     <message>
         <source>manager</source>
-        <translation type="unfinished"></translation>
+        <translation>manager</translation>
     </message>
     <message>
         <source>To send</source>
-        <translation type="unfinished"></translation>
+        <translation>Skal sendes</translation>
     </message>
     <message>
         <source>Sent</source>
@@ -2514,7 +2518,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Received</source>
-        <translation type="unfinished"></translation>
+        <translation>Modtaget</translation>
     </message>
     <message>
         <source>All</source>
@@ -2522,15 +2526,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1 waiting for an answer</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 venter på svar</translation>
     </message>
     <message>
         <source>Queue every QSL to answer</source>
-        <translation type="unfinished"></translation>
+        <translation>Sæt alle QSL, der skal besvares, i kø</translation>
     </message>
     <message>
         <source>Paper QSL · %1 rows · %2 chosen</source>
-        <translation type="unfinished"></translation>
+        <translation>Papir-QSL · %1 rækker · %2 valgt</translation>
     </message>
     <message>
         <source>Call</source>
@@ -2538,7 +2542,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Dato</translation>
     </message>
     <message>
         <source>UTC</source>
@@ -2554,102 +2558,102 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>RST</source>
-        <translation type="unfinished"></translation>
+        <translation>RST</translation>
     </message>
     <message>
         <source>Via</source>
-        <translation type="unfinished"></translation>
+        <translation>Via</translation>
     </message>
     <message>
         <source>Nothing in the queue. Put a QSO here from its card, from the log row menu, or with “Queue every QSL to answer”.</source>
-        <translation type="unfinished"></translation>
+        <translation>Intet i køen. Sæt et QSO herind fra dets kort, fra rækkemenuen i loggen eller med “Sæt alle QSL, der skal besvares, i kø”.</translation>
     </message>
     <message>
         <source>Nothing here yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Her er der endnu ingenting.</translation>
     </message>
     <message>
         <source>Queue (bureau)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sæt i kø (bureau)</translation>
     </message>
     <message>
         <source>Queue (direct)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sæt i kø (direkte)</translation>
     </message>
     <message>
         <source>Mark as sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Markér som sendt</translation>
     </message>
     <message>
         <source>Out of the queue</source>
-        <translation type="unfinished"></translation>
+        <translation>Tag ud af køen</translation>
     </message>
     <message>
         <source>Labels · PDF, one label per correspondent</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiketter · PDF, én etiket pr. modpart</translation>
     </message>
     <message>
         <source>Sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Ark</translation>
     </message>
     <message>
         <source>QSO per label</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO pr. etiket</translation>
     </message>
     <message>
         <source>Cutting guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Skærelinjer</translation>
     </message>
     <message>
         <source>Write the PDF…</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriv PDF&apos;en…</translation>
     </message>
     <message>
         <source>Last file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Sidste fil: %1</translation>
     </message>
     <message>
         <source>The queue becomes labels: the QSOs of one station end up on the same label.</source>
-        <translation type="unfinished"></translation>
+        <translation>Køen bliver til etiketter: QSO&apos;erne med én station havner på den samme etiket.</translation>
     </message>
     <message>
         <source>QSL labels</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL-etiketter</translation>
     </message>
     <message>
         <source>PDF files (*.pdf)</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF-filer (*.pdf)</translation>
     </message>
 </context>
 <context>
     <name>QsoDetailDialog</name>
     <message>
         <source>QSO detail</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO-detaljer</translation>
     </message>
     <message>
         <source>Export QSO as ADIF</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportér QSO som ADIF</translation>
     </message>
     <message>
         <source>ADIF files (*.adi)</source>
-        <translation type="unfinished"></translation>
+        <translation>ADIF-filer (*.adi)</translation>
     </message>
     <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Slet %1? QSO&apos;et bliver i historikken og kan hentes tilbage.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annullér</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Slet</translation>
     </message>
     <message>
         <source>edited</source>
-        <translation type="unfinished"></translation>
+        <translation>redigeret</translation>
     </message>
     <message>
         <source>General</source>
@@ -2657,7 +2661,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Placering</translation>
     </message>
     <message>
         <source>QSL</source>
@@ -2665,7 +2669,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>ADIF extra</source>
-        <translation type="unfinished"></translation>
+        <translation>ADIF ekstra</translation>
     </message>
     <message>
         <source>History</source>
@@ -2673,15 +2677,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Date on UTC</source>
-        <translation type="unfinished"></translation>
+        <translation>Startdato UTC</translation>
     </message>
     <message>
         <source>Time on</source>
-        <translation type="unfinished"></translation>
+        <translation>Starttid</translation>
     </message>
     <message>
         <source>Time off</source>
-        <translation type="unfinished"></translation>
+        <translation>Sluttid</translation>
     </message>
     <message>
         <source>Band</source>
@@ -2689,7 +2693,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Freq MHz</source>
-        <translation type="unfinished"></translation>
+        <translation>Frek. MHz</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -2697,15 +2701,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Submode</source>
-        <translation type="unfinished"></translation>
+        <translation>Submode</translation>
     </message>
     <message>
         <source>RST sent</source>
-        <translation type="unfinished"></translation>
+        <translation>RST sendt</translation>
     </message>
     <message>
         <source>RST rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation>RST modt.</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -2713,7 +2717,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>TX pwr W</source>
-        <translation type="unfinished"></translation>
+        <translation>TX-effekt W</translation>
     </message>
     <message>
         <source>Name</source>
@@ -2721,15 +2725,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>QTH</source>
-        <translation type="unfinished"></translation>
+        <translation>QTH</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentar</translation>
     </message>
     <message>
         <source>Station profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Stationsprofil</translation>
     </message>
     <message>
         <source>none</source>
@@ -2741,11 +2745,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>CQ zone</source>
-        <translation type="unfinished"></translation>
+        <translation>CQ-zone</translation>
     </message>
     <message>
         <source>ITU zone</source>
-        <translation type="unfinished"></translation>
+        <translation>ITU-zone</translation>
     </message>
     <message>
         <source>Cont</source>
@@ -2761,19 +2765,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <source>E-mail</source>
-        <translation type="unfinished"></translation>
+        <translation>E-mail</translation>
     </message>
     <message>
         <source>QSL via</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL via</translation>
     </message>
     <message>
         <source>Prop mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Udbredelse</translation>
     </message>
     <message>
         <source>Satellite</source>
@@ -2781,11 +2785,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>My grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Min locator</translation>
     </message>
     <message>
         <source>Station call</source>
-        <translation type="unfinished"></translation>
+        <translation>Stationens kaldesignal</translation>
     </message>
     <message>
         <source>Operator</source>
@@ -2793,27 +2797,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Band RX</source>
-        <translation type="unfinished"></translation>
+        <translation>Bånd RX</translation>
     </message>
     <message>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Noter</translation>
     </message>
     <message>
         <source>Tags (comma separated)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mærkater (adskilt med komma)</translation>
     </message>
     <message>
         <source>Service</source>
-        <translation type="unfinished"></translation>
+        <translation>Tjeneste</translation>
     </message>
     <message>
         <source>Sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Sendt</translation>
     </message>
     <message>
         <source>Sent date</source>
-        <translation type="unfinished"></translation>
+        <translation>Sendt dato</translation>
     </message>
     <message>
         <source>Rcvd</source>
@@ -2821,79 +2825,79 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Rcvd date</source>
-        <translation type="unfinished"></translation>
+        <translation>Modtaget dato</translation>
     </message>
     <message>
         <source>Y yes · N no · R requested · Q queued · I ignore · M modified · V verified</source>
-        <translation type="unfinished"></translation>
+        <translation>Y ja · N nej · R anmodet · Q i kø · I ignorér · M ændret · V verificeret</translation>
     </message>
     <message>
         <source>Fields without a column of their own, kept exactly as they arrived (adif_extra). They go back out on export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Felter uden deres egen kolonne, gemt præcis som de kom ind (adif_extra). De går ud igen ved eksport.</translation>
     </message>
     <message>
         <source>FIELD_NAME</source>
-        <translation type="unfinished"></translation>
+        <translation>FIELD_NAME</translation>
     </message>
     <message>
         <source>value</source>
-        <translation type="unfinished"></translation>
+        <translation>værdi</translation>
     </message>
     <message>
         <source>+ Add</source>
-        <translation type="unfinished"></translation>
+        <translation>+ Tilføj</translation>
     </message>
     <message>
         <source>No earlier revisions: this QSO has never been edited.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen tidligere revisioner: dette QSO er aldrig blevet redigeret.</translation>
     </message>
     <message>
         <source>Restore</source>
-        <translation type="unfinished"></translation>
+        <translation>Gendan</translation>
     </message>
     <message>
         <source>QSL status · per service</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL-status · pr. tjeneste</translation>
     </message>
     <message>
         <source>Award impact</source>
-        <translation type="unfinished"></translation>
+        <translation>Betydning for diplomerne</translation>
     </message>
     <message>
         <source>FT2 Award: new DXCC %1</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2 Award: nyt DXCC %1</translation>
     </message>
     <message>
         <source>FT2 Award: DXCC already worked</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2 Award: DXCC allerede kørt</translation>
     </message>
     <message>
         <source>Not an FT2 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Ikke et FT2-QSO</translation>
     </message>
     <message>
         <source>No DXCC entity on this QSO: it does not count yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen DXCC-entitet på dette QSO: det tæller endnu ikke</translation>
     </message>
     <message>
         <source>%1 DXCC worked on FT2 · %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 DXCC kørt på FT2 · %2</translation>
     </message>
     <message>
         <source>confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>bekræftet</translation>
     </message>
     <message>
         <source>unconfirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>ubekræftet</translation>
     </message>
     <message>
         <source>soft delete · kept in history</source>
-        <translation type="unfinished"></translation>
+        <translation>blødt slettet · bevaret i historikken</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation type="unfinished"></translation>
+        <translation>Fortryd</translation>
     </message>
     <message>
         <source>Export ADIF</source>
@@ -2901,7 +2905,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Save · rev %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Gem · rev %1</translation>
     </message>
 </context>
 <context>
@@ -2912,179 +2916,182 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>PARK %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>PARK %1°</translation>
     </message>
     <message>
         <source>MEMORIE…</source>
-        <translation type="unfinished"></translation>
+        <translation>HUKOMMELSER…</translation>
     </message>
 </context>
 <context>
     <name>RotorControlPage</name>
     <message>
         <source>mappa azimutale dal QTH</source>
-        <translation type="unfinished"></translation>
+        <translation>azimutkort fra QTH</translation>
     </message>
 </context>
 <context>
     <name>RotorDisplay</name>
     <message>
         <source>control box assente</source>
-        <translation type="unfinished"></translation>
+        <translation>ingen control box</translation>
     </message>
     <message>
         <source>in rotazione verso %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>drejer mod %1°</translation>
     </message>
     <message>
         <source>in rotazione</source>
-        <translation type="unfinished"></translation>
+        <translation>drejer</translation>
     </message>
     <message>
         <source>fermo</source>
-        <translation type="unfinished"></translation>
+        <translation>stille</translation>
     </message>
     <message>
         <source>DIREZIONE LIBERA</source>
-        <translation type="unfinished"></translation>
+        <translation>FRI RETNING</translation>
     </message>
     <message>
         <source>AZIMUT</source>
-        <translation type="unfinished"></translation>
+        <translation>AZIMUT</translation>
     </message>
     <message>
         <source>ELEVAZIONE</source>
-        <translation type="unfinished"></translation>
+        <translation>ELEVATION</translation>
     </message>
 </context>
 <context>
     <name>RotorHistory</name>
     <message>
         <source>ANDAMENTO POSIZIONE</source>
-        <translation type="unfinished"></translation>
+        <translation>POSITIONENS FORLØB</translation>
     </message>
     <message>
         <source>in attesa di campioni…</source>
-        <translation type="unfinished"></translation>
+        <translation>venter på målinger…</translation>
     </message>
 </context>
 <context>
     <name>RotorLocatorBar</name>
     <message>
         <source>Locatore, es. FN31pr</source>
-        <translation type="unfinished"></translation>
+        <translation>Locator, f.eks. FN31pr</translation>
     </message>
     <message>
         <source>BREVE</source>
-        <translation type="unfinished"></translation>
+        <translation>KORT</translation>
     </message>
     <message>
         <source>LUNGA</source>
-        <translation type="unfinished"></translation>
+        <translation>LANG</translation>
     </message>
     <message>
         <source>breve %1° · lunga %2° · %3 km</source>
-        <translation type="unfinished"></translation>
+        <translation>kort %1° · lang %2° · %3 km</translation>
     </message>
     <message>
         <source>QTH di riferimento: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Udgangs-QTH: %1</translation>
     </message>
 </context>
 <context>
     <name>RotorMap</name>
     <message>
         <source>Riquadri dal gateway DecoRotor</source>
-        <translation type="unfinished"></translation>
+        <translation>Kortfelter fra DecoRotor-gatewayen</translation>
     </message>
     <message>
         <source>CLUSTER %1</source>
-        <translation type="unfinished"></translation>
+        <translation>CLUSTER %1</translation>
     </message>
     <message>
         <source>CLUSTER SPENTO</source>
-        <translation type="unfinished"></translation>
+        <translation>CLUSTER SLUKKET</translation>
     </message>
     <message numerus="yes">
         <source>%n stazione/i</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n station</numerusform>
+            <numerusform>%n stationer</numerusform>
+        </translation>
     </message>
     <message>
         <source>%1 · %2° · %3 km</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2° · %3 km</translation>
     </message>
     <message>
         <source>PUNTA</source>
-        <translation type="unfinished"></translation>
+        <translation>RET</translation>
     </message>
     <message>
         <source>MEMORIA</source>
-        <translation type="unfinished"></translation>
+        <translation>HUKOMMELSE</translation>
     </message>
     <message>
         <source>riquadri dal gateway DecoRotor</source>
-        <translation type="unfinished"></translation>
+        <translation>kortfelter fra DecoRotor-gatewayen</translation>
     </message>
     <message>
         <source>© OpenStreetMap contributors</source>
-        <translation type="unfinished"></translation>
+        <translation>© OpenStreetMap contributors</translation>
     </message>
 </context>
 <context>
     <name>RotorMemories</name>
     <message>
         <source>MEMORIE</source>
-        <translation type="unfinished"></translation>
+        <translation>HUKOMMELSER</translation>
     </message>
     <message>
         <source>%1° / %2°</source>
-        <translation type="unfinished"></translation>
+        <translation>%1° / %2°</translation>
     </message>
     <message>
         <source>VAI</source>
-        <translation type="unfinished"></translation>
+        <translation>KØR</translation>
     </message>
     <message>
         <source>Nessuna memoria: dai un nome alla direzione attuale e salvala.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen hukommelser: giv den nuværende retning et navn, og gem den.</translation>
     </message>
     <message>
         <source>Nome della memoria</source>
-        <translation type="unfinished"></translation>
+        <translation>Hukommelsens navn</translation>
     </message>
     <message>
         <source>SALVA QUI</source>
-        <translation type="unfinished"></translation>
+        <translation>GEM HER</translation>
     </message>
 </context>
 <context>
     <name>RotorNetwork</name>
     <message>
         <source>COLLEGAMENTI DI RETE</source>
-        <translation type="unfinished"></translation>
+        <translation>NETVÆRKSFORBINDELSER</translation>
     </message>
     <message>
         <source>Indirizzi da usare su telefono e software di stazione:</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresser til telefonen og stationssoftwaren:</translation>
     </message>
     <message>
         <source>Accesso protetto da token: i client devono presentarlo.</source>
-        <translation type="unfinished"></translation>
+        <translation>Adgangen er beskyttet af et token: klienterne skal vise det.</translation>
     </message>
     <message>
         <source>Accesso libero sulla rete locale. Per l&apos;uso da fuori casa passa da una VPN, non aprire porte sul router.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fri adgang på det lokale netværk. Skal du bruge det hjemmefra, så gå gennem en VPN — åbn ikke porte i routeren.</translation>
     </message>
 </context>
 <context>
     <name>RotorPanel</name>
     <message>
         <source>Rotor</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotor</translation>
     </message>
     <message>
         <source>Open ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>Åbn ▾</translation>
     </message>
     <message>
         <source>STOP</source>
@@ -3092,26 +3099,26 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Park</source>
-        <translation type="unfinished"></translation>
+        <translation>Park</translation>
     </message>
     <message>
         <source>On the DX</source>
-        <translation type="unfinished"></translation>
+        <translation>Mod DX&apos;en</translation>
     </message>
 </context>
 <context>
     <name>RotorPointing</name>
     <message>
         <source>Azimut °</source>
-        <translation type="unfinished"></translation>
+        <translation>Azimut °</translation>
     </message>
     <message>
         <source>Elevazione °</source>
-        <translation type="unfinished"></translation>
+        <translation>Elevation °</translation>
     </message>
     <message>
         <source>PUNTA</source>
-        <translation type="unfinished"></translation>
+        <translation>RET</translation>
     </message>
     <message>
         <source>N</source>
@@ -3119,15 +3126,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>NE</source>
-        <translation type="unfinished"></translation>
+        <translation>NØ</translation>
     </message>
     <message>
         <source>E</source>
-        <translation type="unfinished"></translation>
+        <translation>Ø</translation>
     </message>
     <message>
         <source>SE</source>
-        <translation type="unfinished"></translation>
+        <translation>SØ</translation>
     </message>
     <message>
         <source>S</source>
@@ -3135,53 +3142,53 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>SO</source>
-        <translation type="unfinished"></translation>
+        <translation>SV</translation>
     </message>
     <message>
         <source>O</source>
-        <translation type="unfinished"></translation>
+        <translation>V</translation>
     </message>
     <message>
         <source>NO</source>
-        <translation type="unfinished"></translation>
+        <translation>NV</translation>
     </message>
 </context>
 <context>
     <name>RotorReadout</name>
     <message>
         <source>verso %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>mod %1°</translation>
     </message>
     <message>
         <source>posizione stabile</source>
-        <translation type="unfinished"></translation>
+        <translation>positionen er stabil</translation>
     </message>
     <message>
         <source>nessuna lettura</source>
-        <translation type="unfinished"></translation>
+        <translation>ingen aflæsning</translation>
     </message>
 </context>
 <context>
     <name>RotorSettings</name>
     <message>
         <source>COLLEGAMENTO AL CONTROL BOX</source>
-        <translation type="unfinished"></translation>
+        <translation>FORBINDELSE TIL CONTROL BOX</translation>
     </message>
     <message>
         <source>Porta seriale</source>
-        <translation type="unfinished"></translation>
+        <translation>Serieport</translation>
     </message>
     <message>
         <source>Velocita&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Hastighed</translation>
     </message>
     <message>
         <source>%1 baud, 8N1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 baud, 8N1</translation>
     </message>
     <message>
         <source>Modello</source>
-        <translation type="unfinished"></translation>
+        <translation>Model</translation>
     </message>
     <message>
         <source>Stato</source>
@@ -3189,197 +3196,200 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>collegato</source>
-        <translation type="unfinished"></translation>
+        <translation>forbundet</translation>
     </message>
     <message>
         <source>assente</source>
-        <translation type="unfinished"></translation>
+        <translation>ikke til stede</translation>
     </message>
     <message>
         <source>Porta e modello si cambiano all&apos;avvio, con --port e --model.</source>
-        <translation type="unfinished"></translation>
+        <translation>Port og model ændres ved opstart med --port og --model.</translation>
     </message>
 </context>
 <context>
     <name>RotorSettingsPanel</name>
     <message>
         <source>STAZIONE E SICUREZZA</source>
-        <translation type="unfinished"></translation>
+        <translation>STATION OG SIKKERHED</translation>
     </message>
     <message>
         <source>Nominativo</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaldesignal</translation>
     </message>
     <message>
         <source>Locatore del QTH</source>
-        <translation type="unfinished"></translation>
+        <translation>QTH&apos;ets locator</translation>
     </message>
     <message>
         <source>Apertura del lobo: %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>Lobens åbning: %1°</translation>
     </message>
     <message>
         <source>Finecorsa azimut</source>
-        <translation type="unfinished"></translation>
+        <translation>Azimut-endestop</translation>
     </message>
     <message>
         <source>Posizione di riposo</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvileposition</translation>
     </message>
     <message>
         <source>Stop se cade il collegamento</source>
-        <translation type="unfinished"></translation>
+        <translation>Stop, hvis forbindelsen falder ud</translation>
     </message>
     <message>
         <source>attivo</source>
-        <translation type="unfinished"></translation>
+        <translation>aktiv</translation>
     </message>
     <message>
         <source>disattivato</source>
-        <translation type="unfinished"></translation>
+        <translation>slået fra</translation>
     </message>
     <message>
         <source>Tolleranza di arrivo</source>
-        <translation type="unfinished"></translation>
+        <translation>Tolerance ved ankomst</translation>
     </message>
     <message>
         <source>Porta seriale, modello e porta dei decode si cambiano all&apos;avvio del gateway.</source>
-        <translation type="unfinished"></translation>
+        <translation>Serieport, model og dekodningernes port ændres, når gatewayen startes.</translation>
     </message>
     <message>
         <source>Le modifiche vengono salvate subito in config.json.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ændringerne gemmes med det samme i config.json.</translation>
     </message>
 </context>
 <context>
     <name>RotorStats</name>
     <message>
         <source>ESERCIZIO</source>
-        <translation type="unfinished"></translation>
+        <translation>DRIFT</translation>
     </message>
     <message>
         <source>Frame inviati</source>
-        <translation type="unfinished"></translation>
+        <translation>Sendte frames</translation>
     </message>
     <message>
         <source>Frame ricevuti</source>
-        <translation type="unfinished"></translation>
+        <translation>Modtagne frames</translation>
     </message>
     <message>
         <source>Risposte perse</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabte svar</translation>
     </message>
     <message>
         <source>Riconnessioni</source>
-        <translation type="unfinished"></translation>
+        <translation>Genforbindelser</translation>
     </message>
     <message>
         <source>In servizio da</source>
-        <translation type="unfinished"></translation>
+        <translation>I drift siden</translation>
     </message>
     <message>
         <source>Client collegati</source>
-        <translation type="unfinished"></translation>
+        <translation>Forbundne klienter</translation>
     </message>
     <message>
         <source>Control box</source>
-        <translation type="unfinished"></translation>
+        <translation>Control box</translation>
     </message>
 </context>
 <context>
     <name>RotorStatus</name>
     <message>
         <source>pronto</source>
-        <translation type="unfinished"></translation>
+        <translation>klar</translation>
     </message>
     <message>
         <source>app</source>
-        <translation type="unfinished"></translation>
+        <translation>app</translation>
     </message>
     <message>
         <source>web</source>
-        <translation type="unfinished"></translation>
+        <translation>web</translation>
     </message>
     <message>
         <source>rotctld</source>
-        <translation type="unfinished"></translation>
+        <translation>rotctld</translation>
     </message>
     <message>
         <source>%1 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2</translation>
     </message>
 </context>
 <context>
     <name>RotorTopBar</name>
     <message>
         <source>%1 · %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2</translation>
     </message>
     <message>
         <source>CONTROL BOX %1</source>
-        <translation type="unfinished"></translation>
+        <translation>CONTROL BOX %1</translation>
     </message>
     <message>
         <source>CONTROL BOX ASSENTE</source>
-        <translation type="unfinished"></translation>
+        <translation>INGEN CONTROL BOX</translation>
     </message>
     <message>
         <source>IN ROTAZIONE</source>
-        <translation type="unfinished"></translation>
+        <translation>DREJER</translation>
     </message>
     <message>
         <source>FERMO</source>
-        <translation type="unfinished"></translation>
+        <translation>STILLE</translation>
     </message>
     <message numerus="yes">
         <source>%n client</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n klient</numerusform>
+            <numerusform>%n klienter</numerusform>
+        </translation>
     </message>
     <message>
         <source>Passa al quadrante chiaro</source>
-        <translation type="unfinished"></translation>
+        <translation>Skift til den lyse skive</translation>
     </message>
     <message>
         <source>Passa al quadrante notturno</source>
-        <translation type="unfinished"></translation>
+        <translation>Skift til natskiven</translation>
     </message>
 </context>
 <context>
     <name>RotorTraffic</name>
     <message>
         <source>TRAFFICO SERIALE</source>
-        <translation type="unfinished"></translation>
+        <translation>SERIEL TRAFIK</translation>
     </message>
     <message>
         <source>%1 @ %2 8N1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 @ %2 8N1</translation>
     </message>
     <message>
         <source>%1 frame</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 frames</translation>
     </message>
     <message>
         <source>nessun frame: il gateway li manda a richiesta</source>
-        <translation type="unfinished"></translation>
+        <translation>ingen frames: gatewayen sender dem på anmodning</translation>
     </message>
 </context>
 <context>
     <name>RotorWindow</name>
     <message>
         <source>DecoRotor — controllo rotore PRO.SIS.TEL</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoRotor — styring af PRO.SIS.TEL-rotoren</translation>
     </message>
     <message>
         <source>CONTROLLO</source>
-        <translation type="unfinished"></translation>
+        <translation>STYRING</translation>
     </message>
     <message>
         <source>DIAGNOSTICA</source>
-        <translation type="unfinished"></translation>
+        <translation>DIAGNOSTIK</translation>
     </message>
     <message>
         <source>IMPOSTAZIONI</source>
-        <translation type="unfinished"></translation>
+        <translation>INDSTILLINGER</translation>
     </message>
 </context>
 <context>
@@ -3394,131 +3404,131 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Theme &amp; density</source>
-        <translation type="unfinished"></translation>
+        <translation>Tema &amp; tæthed</translation>
     </message>
     <message>
         <source>Decodium link</source>
-        <translation type="unfinished"></translation>
+        <translation>Forbindelse til Decodium</translation>
     </message>
     <message>
         <source>Sync &amp; Cloud</source>
-        <translation type="unfinished"></translation>
+        <translation>Synkronisering &amp; Cloud</translation>
     </message>
     <message>
         <source>QSL services</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL-tjenester</translation>
     </message>
     <message>
         <source>Callbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Callbook</translation>
     </message>
     <message>
         <source>Backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Sikkerhedskopi</translation>
     </message>
     <message>
         <source>Rotor</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotor</translation>
     </message>
     <message>
         <source>Radio (CAT)</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio (CAT)</translation>
     </message>
     <message>
         <source>Empty the Cloud of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Tøm Cloud&apos;en for %1</translation>
     </message>
     <message>
         <source>Everything this callsign has on the server goes away: QSO, history, station profiles, settings, sealed credentials. It cannot be undone from here. The log on this computer stays where it is.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt, hvad dette kaldesignal har på serveren, forsvinder: QSO, historik, stationsprofiler, indstillinger, forseglede loginoplysninger. Det kan ikke fortrydes herfra. Loggen på denne computer bliver, hvor den er.</translation>
     </message>
     <message>
         <source>Write DELETE to confirm</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriv DELETE for at bekræfte</translation>
     </message>
     <message>
         <source>Empty the Cloud</source>
-        <translation type="unfinished"></translation>
+        <translation>Tøm Cloud&apos;en</translation>
     </message>
     <message>
         <source>cty.csv from country-files.com</source>
-        <translation type="unfinished"></translation>
+        <translation>cty.csv fra country-files.com</translation>
     </message>
     <message>
         <source>cty.csv (*.csv)</source>
-        <translation type="unfinished"></translation>
+        <translation>cty.csv (*.csv)</translation>
     </message>
     <message>
         <source>cty.csv %1 in use.</source>
-        <translation type="unfinished"></translation>
+        <translation>cty.csv %1 i brug.</translation>
     </message>
     <message>
         <source>TQSL program</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL-programmet</translation>
     </message>
     <message>
         <source>Programs (*.exe)</source>
-        <translation type="unfinished"></translation>
+        <translation>Programmer (*.exe)</translation>
     </message>
     <message>
         <source>All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle filer (*)</translation>
     </message>
     <message>
         <source>Backup folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Mappe til sikkerhedskopier</translation>
     </message>
     <message>
         <source>This copy of DecoDXLog</source>
-        <translation type="unfinished"></translation>
+        <translation>Denne kopi af DecoDXLog</translation>
     </message>
     <message>
         <source>DecoDXLog %1 · Qt %2 · %3</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog %1 · Qt %2 · %3</translation>
     </message>
     <message>
         <source>Log file</source>
-        <translation type="unfinished"></translation>
+        <translation>Logfil</translation>
     </message>
     <message>
         <source>Open folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Åbn mappen</translation>
     </message>
     <message>
         <source>SQLite in WAL mode. To use another file start DecoDXLog with --db &lt;path&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>SQLite i WAL-tilstand. Vil du bruge en anden fil, så start DecoDXLog med --db &lt;sti&gt;.</translation>
     </message>
     <message>
         <source>DXCC entities</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC-entiteter</translation>
     </message>
     <message>
         <source>cty.csv</source>
-        <translation type="unfinished"></translation>
+        <translation>cty.csv</translation>
     </message>
     <message>
         <source>Entities</source>
-        <translation type="unfinished"></translation>
+        <translation>Entiteter</translation>
     </message>
     <message>
         <source>QSO without DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO uden DXCC</translation>
     </message>
     <message>
         <source>Fill missing DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>Udfyld manglende DXCC</translation>
     </message>
     <message>
         <source>%1 QSO completed, each kept as a new revision.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 QSO udfyldt, hvert gemt som en ny revision.</translation>
     </message>
     <message>
         <source>Load newer cty.csv…</source>
-        <translation type="unfinished"></translation>
+        <translation>Hent en nyere cty.csv…</translation>
     </message>
     <message>
         <source>Source: %1. Updated files: country-files.com (AD1C). New QSOs from Decodium and manual entries get DXCC, country, zones and continent automatically; imported ADIF is kept as it is.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kilde: %1. Opdaterede filer: country-files.com (AD1C). Nye QSO fra Decodium og dem, du selv skriver ind, får DXCC, land, zoner og verdensdel af sig selv; importeret ADIF bliver, som det er.</translation>
     </message>
     <message>
         <source>Language</source>
@@ -3530,11 +3540,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Like the system</source>
-        <translation type="unfinished"></translation>
+        <translation>Som systemet</translation>
     </message>
     <message>
         <source>The new language shows up the next time DecoDXLog starts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Det nye sprog dukker op, næste gang DecoDXLog starter.</translation>
     </message>
     <message>
         <source>Call info</source>
@@ -3542,115 +3552,115 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Follow the DX call Decodium is working</source>
-        <translation type="unfinished"></translation>
+        <translation>Følg det DX-kaldesignal, Decodium kører</translation>
     </message>
     <message>
         <source>Duplicates</source>
-        <translation type="unfinished"></translation>
+        <translation>Dubletter</translation>
     </message>
     <message>
         <source>Digital (min)</source>
-        <translation type="unfinished"></translation>
+        <translation>Digital (min)</translation>
     </message>
     <message>
         <source>Manual (min)</source>
-        <translation type="unfinished"></translation>
+        <translation>Manuel (min)</translation>
     </message>
     <message>
         <source>Same call, band and mode/submode within this window counts as the same QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Samme kaldesignal, bånd og mode/submode inden for dette vindue tæller som det samme QSO.</translation>
     </message>
     <message>
         <source>Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Tema</translation>
     </message>
     <message>
         <source>Accent (Darkcodium)</source>
-        <translation type="unfinished"></translation>
+        <translation>Accent (Darkcodium)</translation>
     </message>
     <message>
         <source>Density</source>
-        <translation type="unfinished"></translation>
+        <translation>Tæthed</translation>
     </message>
     <message>
         <source>Custom colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Egne farver</translation>
     </message>
     <message>
         <source>Background and text over the theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Baggrund og tekst oven på temaet</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Baggrund</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst</translation>
     </message>
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
-        <translation type="unfinished"></translation>
+        <translation>Samme temaer, accenter og tætheder som Decodium: række %1 px · skrift %2 px · overskrift %3 px.</translation>
     </message>
     <message>
         <source>%1 · connected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · forbundet</translation>
     </message>
     <message>
         <source>No client heard yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Endnu ingen klient hørt</translation>
     </message>
     <message>
         <source>listening on UDP %1</source>
-        <translation type="unfinished"></translation>
+        <translation>lytter på UDP %1</translation>
     </message>
     <message>
         <source>not listening</source>
-        <translation type="unfinished"></translation>
+        <translation>lytter ikke</translation>
     </message>
     <message>
         <source>Decodium / WSJT-X UDP</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium / WSJT-X UDP</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port</translation>
     </message>
     <message>
         <source>Primary source</source>
-        <translation type="unfinished"></translation>
+        <translation>Primær kilde</translation>
     </message>
     <message>
         <source>LoggedADIF (lossless)</source>
-        <translation type="unfinished"></translation>
+        <translation>LoggedADIF (uden tab)</translation>
     </message>
     <message>
         <source>QSOLogged (structured)</source>
-        <translation type="unfinished"></translation>
+        <translation>QSOLogged (struktureret)</translation>
     </message>
     <message>
         <source>Multicast group</source>
-        <translation type="unfinished"></translation>
+        <translation>Multicast-gruppe</translation>
     </message>
     <message>
         <source>empty = unicast</source>
-        <translation type="unfinished"></translation>
+        <translation>tom = unicast</translation>
     </message>
     <message>
         <source>In Decodium set the UDP server to this address and port. A multicast group (e.g. 239.255.0.1) shares the stream with GridTracker or JTAlert. Duplicate windows are in General.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sæt UDP-serveren i Decodium til denne adresse og port. En multicast-gruppe (f.eks. 239.255.0.1) deler strømmen med GridTracker eller JTAlert. Dublerede vinduer findes under Generelt.</translation>
     </message>
     <message>
         <source>DecoLink · log towards Decodium</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoLink · loggen mod Decodium</translation>
     </message>
     <message>
         <source>Share the log with Decodium</source>
-        <translation type="unfinished"></translation>
+        <translation>Del loggen med Decodium</translation>
     </message>
     <message>
         <source>Port (127.0.0.1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Port (127.0.0.1)</translation>
     </message>
     <message>
         <source>off</source>
@@ -3658,99 +3668,102 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>error</source>
-        <translation type="unfinished"></translation>
+        <translation>fejl</translation>
     </message>
     <message numerus="yes">
         <source>%n client(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n klient</numerusform>
+            <numerusform>%n klienter</numerusform>
+        </translation>
     </message>
     <message>
         <source>waiting</source>
-        <translation type="unfinished"></translation>
+        <translation>venter</translation>
     </message>
     <message>
         <source>Decodium receives the worked calls, confirmations and FT2 Award status from this log, and a confirmation for every QSO written. Only local connections are accepted. Protocol: docs/DECOLINK.md.</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium får de kørte kaldesignaler, bekræftelserne og FT2 Award-status fra denne log, og en kvittering for hvert skrevet QSO. Kun lokale forbindelser tages imod. Protokol: docs/DECOLINK.md.</translation>
     </message>
     <message>
         <source>Sign in</source>
-        <translation type="unfinished"></translation>
+        <translation>Log ind</translation>
     </message>
     <message>
         <source>Queue (dirty)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kø (endnu ikke sendt)</translation>
     </message>
     <message>
         <source>Conflicts kept</source>
-        <translation type="unfinished"></translation>
+        <translation>Gemte konflikter</translation>
     </message>
     <message>
         <source>%1 in history</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 i historikken</translation>
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Server</translation>
     </message>
     <message>
         <source>Auto sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Synkronisér af sig selv</translation>
     </message>
     <message>
         <source>After every QSO + every 5 min</source>
-        <translation type="unfinished"></translation>
+        <translation>Efter hvert QSO + hvert 5. minut</translation>
     </message>
     <message>
         <source>Every 5 min</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvert 5. minut</translation>
     </message>
     <message>
         <source>Manual only</source>
-        <translation type="unfinished"></translation>
+        <translation>Kun manuelt</translation>
     </message>
     <message>
         <source>Conflicts</source>
-        <translation type="unfinished"></translation>
+        <translation>Konflikter</translation>
     </message>
     <message>
         <source>Last edit wins, loser kept in history</source>
-        <translation type="unfinished"></translation>
+        <translation>Den seneste ændring vinder, taberen bliver i historikken</translation>
     </message>
     <message>
         <source>Always ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Spørg altid</translation>
     </message>
     <message>
         <source>Credentials · system keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>Loginoplysninger · systemets nøglering</translation>
     </message>
     <message>
         <source>LoTW confirmations</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW-bekræftelser</translation>
     </message>
     <message>
         <source>Last sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Sidste synkronisering</translation>
     </message>
     <message>
         <source>never</source>
-        <translation type="unfinished"></translation>
+        <translation>aldrig</translation>
     </message>
     <message>
         <source>Confirmations since</source>
-        <translation type="unfinished"></translation>
+        <translation>Bekræftelser siden</translation>
     </message>
     <message>
         <source>all</source>
-        <translation type="unfinished"></translation>
+        <translation>alle</translation>
     </message>
     <message>
         <source>Confirmed in log</source>
-        <translation type="unfinished"></translation>
+        <translation>Bekræftet i loggen</translation>
     </message>
     <message>
         <source>Downloading…</source>
-        <translation type="unfinished"></translation>
+        <translation>Henter…</translation>
     </message>
     <message>
         <source>Sync now</source>
@@ -3758,35 +3771,35 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>DecoDXLog Cloud · %1</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog Cloud · %1</translation>
     </message>
     <message>
         <source>DecoDXLog Cloud · not linked</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog Cloud · ikke tilknyttet</translation>
     </message>
     <message>
         <source>%1 QSO on the server · queue %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 QSO på serveren · kø %2</translation>
     </message>
     <message>
         <source>The log stays yours and works offline: the Cloud is where your devices pass each other the changes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Loggen bliver din og virker offline: Cloud&apos;en er der, hvor dine enheder rækker hinanden ændringerne.</translation>
     </message>
     <message>
         <source>syncing…</source>
-        <translation type="unfinished"></translation>
+        <translation>synkroniserer…</translation>
     </message>
     <message>
         <source>Unlink</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern tilknytningen</translation>
     </message>
     <message>
         <source>On the server</source>
-        <translation type="unfinished"></translation>
+        <translation>På serveren</translation>
     </message>
     <message>
         <source>Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaldesignal</translation>
     </message>
     <message>
         <source>Password</source>
@@ -3794,59 +3807,59 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Create account</source>
-        <translation type="unfinished"></translation>
+        <translation>Opret konto</translation>
     </message>
     <message>
         <source>The password travels once and is not kept: DecoDXLog stores only the token the server gives back, in the system keystore. On the network use HTTPS; at home, on your own LAN, plain HTTP is fine.</source>
-        <translation type="unfinished"></translation>
+        <translation>Adgangskoden rejser én gang og gemmes ikke: DecoDXLog gemmer kun det token, serveren giver tilbage, i systemets nøglering. På nettet: brug HTTPS; hjemme, på dit eget LAN, er almindelig HTTP fint.</translation>
     </message>
     <message>
         <source>Carry the service passwords to the other devices too</source>
-        <translation type="unfinished"></translation>
+        <translation>Tag også tjenesternes adgangskoder med til de andre enheder</translation>
     </message>
     <message>
         <source>Cloud password, to open the vault on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud-adgangskode til at åbne boksen på denne enhed</translation>
     </message>
     <message>
         <source>Open the vault</source>
-        <translation type="unfinished"></translation>
+        <translation>Åbn boksen</translation>
     </message>
     <message>
         <source>They travel sealed: DecoDXLog closes them on this computer with AES-256-GCM and a key made from your Cloud password, which the server only knows as an Argon2 fingerprint. What reaches the server is a block of bytes that does not open without that password. Sign in on the other device with the same password and the services are ready there too.</source>
-        <translation type="unfinished"></translation>
+        <translation>De rejser forseglet: DecoDXLog lukker dem på denne computer med AES-256-GCM og en nøgle lavet ud fra din Cloud-adgangskode, som serveren kun kender som et Argon2-fingeraftryk. Det, der når frem til serveren, er en klump bytes, der ikke kan åbnes uden den adgangskode. Log ind på den anden enhed med samme adgangskode, så er tjenesterne klar også der.</translation>
     </message>
     <message>
         <source>This build has no OpenSSL: the service passwords cannot be sealed, so they stay on this computer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Denne build har ingen OpenSSL: tjenesternes adgangskoder kan ikke forsegles, så de bliver på denne computer.</translation>
     </message>
     <message>
         <source>Download everything again</source>
-        <translation type="unfinished"></translation>
+        <translation>Hent det hele igen</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annullér</translation>
     </message>
     <message>
         <source>Danger zone</source>
-        <translation type="unfinished"></translation>
+        <translation>Farezone</translation>
     </message>
     <message>
         <source>Empty the Cloud of this callsign: QSO, history, station profiles, settings and sealed credentials go away from the server for good. The account stays, and the log on this computer is not touched — at the next sync it all goes back up from scratch. The other devices, though, will find nothing up there.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tøm Cloud&apos;en for dette kaldesignal: QSO, historik, stationsprofiler, indstillinger og forseglede loginoplysninger forsvinder fra serveren for altid. Kontoen bliver, og loggen på denne computer røres ikke — ved næste synkronisering går det hele op igen forfra. Men de andre enheder finder ingenting deroppe.</translation>
     </message>
     <message>
         <source>Empty the Cloud…</source>
-        <translation type="unfinished"></translation>
+        <translation>Tøm Cloud&apos;en…</translation>
     </message>
     <message>
         <source>Sign in above first: emptying the Cloud is something only the owner of this callsign can ask for.</source>
-        <translation type="unfinished"></translation>
+        <translation>Log først ind ovenfor: kun ejeren af dette kaldesignal kan bede om at tømme Cloud&apos;en.</translation>
     </message>
     <message>
         <source>Automatic sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisk synkronisering</translation>
     </message>
     <message>
         <source>Off</source>
@@ -3854,35 +3867,35 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Every 6 hours</source>
-        <translation type="unfinished"></translation>
+        <translation>Hver 6. time</translation>
     </message>
     <message>
         <source>Every 12 hours</source>
-        <translation type="unfinished"></translation>
+        <translation>Hver 12. time</translation>
     </message>
     <message>
         <source>Once a day</source>
-        <translation type="unfinished"></translation>
+        <translation>En gang om dagen</translation>
     </message>
     <message>
         <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL. QRZ Logbook, Club Log and eQSL arrive later.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bekræftelser parres på kaldesignal, bånd, modegruppe (data, CW, fone) og tid inden for 30 minutter, sådan som LoTW gør det. Et bekræftet QSO bliver til en ny revision; locator, zoner, stat og county fra LoTW udfylder kun tomme felter. Upload til LoTW går stadig gennem TQSL. QRZ Logbook, Club Log og eQSL kommer senere.</translation>
     </message>
     <message>
         <source>Sending to LoTW (TQSL)</source>
-        <translation type="unfinished"></translation>
+        <translation>Afsendelse til LoTW (TQSL)</translation>
     </message>
     <message>
         <source>Station location</source>
-        <translation type="unfinished"></translation>
+        <translation>Station location</translation>
     </message>
     <message>
         <source>From the station profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Fra stationsprofilen</translation>
     </message>
     <message>
         <source>The certificate stays in TQSL: DecoDXLog writes a temporary ADIF, TQSL signs it and sends it. Duplicates are not an error, LoTW simply keeps the one it already has. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
-        <translation type="unfinished"></translation>
+        <translation>Certifikatet bliver i TQSL: DecoDXLog skriver en midlertidig ADIF, TQSL signerer den og sender den. Dubletter er ikke en fejl, LoTW beholder blot det, den allerede har. Afsendelse, automatisk afsendelse og tællerne findes i QSL-fanen nederst.</translation>
     </message>
     <message>
         <source>API key</source>
@@ -3890,83 +3903,83 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>the key Club Log gave you</source>
-        <translation type="unfinished"></translation>
+        <translation>den nøgle, Club Log har givet dig</translation>
     </message>
     <message>
         <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log vil have tre ting: kontoens e-mail og adgangskode (nedenfor), stationsprofilens kaldesignal og en API-nøgle. Nøglen er gratis og personlig og bedes om på clublog.org/need_api.php — den peger på programmet, ikke på dig. Et enkelt QSO går af sted, så snart det er logget; en pukkel går af sted som én ADIF-fil.</translation>
     </message>
     <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 sendt · %2 i kø · %3 bekræftet</translation>
     </message>
     <message>
         <source>Lookup service</source>
-        <translation type="unfinished"></translation>
+        <translation>Opslagstjeneste</translation>
     </message>
     <message>
         <source>Off (log and cty.csv only)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fra (kun loggen og cty.csv)</translation>
     </message>
     <message>
         <source>Fill empty name, QTH and grid in New QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Udfyld tomt navn, QTH og locator i Nyt QSO</translation>
     </message>
     <message>
         <source>Complete the QSO just logged (name, QTH, grid, address)</source>
-        <translation type="unfinished"></translation>
+        <translation>Udfyld det netop loggede QSO (navn, QTH, locator, adresse)</translation>
     </message>
     <message>
         <source>If this callbook doesn&apos;t know the callsign, ask the other one</source>
-        <translation type="unfinished"></translation>
+        <translation>Kender dette callbook ikke kaldesignalet, så spørg det andet</translation>
     </message>
     <message>
         <source>The two callbooks don&apos;t know the same stations: HamQTH has the ones who signed up there, QRZ has almost everybody. With the fallback on, a callsign the first one doesn&apos;t know is asked to the other — as long as that one has its user and password here below.</source>
-        <translation type="unfinished"></translation>
+        <translation>De to callbooks kender ikke de samme stationer: HamQTH har dem, der har meldt sig der, QRZ har næsten alle. Med reserven slået til bliver et kaldesignal, som den første ikke kender, spurgt hos den anden — så længe den har sin bruger og adgangskode her nedenfor.</translation>
     </message>
     <message>
         <source>Decodium sends callsign, report, band and mode: the rest the callbook knows. Right after the QSO is written DecoDXLog asks, and what comes back fills only the empty fields — what you wrote stays. One lookup per callsign, and the answer is kept for a day. From the log, &quot;Complete from the callbook&quot; does the same on QSOs already written.</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium sender kaldesignal, rapport, bånd og mode: resten kender callbooken. Lige efter at QSO&apos;et er skrevet, spørger DecoDXLog, og det, der kommer tilbage, udfylder kun de tomme felter — det, du har skrevet, bliver stående. Ét opslag pr. kaldesignal, og svaret gemmes en dag. Fra loggen gør &quot;Udfyld fra callbooken&quot; det samme ved QSO, der allerede er skrevet.</translation>
     </message>
     <message>
         <source>Try a lookup</source>
-        <translation type="unfinished"></translation>
+        <translation>Prøv et opslag</translation>
     </message>
     <message>
         <source>Look up</source>
-        <translation type="unfinished"></translation>
+        <translation>Slå op</translation>
     </message>
     <message>
         <source>Looking up…</source>
-        <translation type="unfinished"></translation>
+        <translation>Slår op…</translation>
     </message>
     <message>
         <source>QRZ.com needs an XML data subscription; HamQTH is free. Results are kept in memory for a day, so moving through the log does not use up lookups.</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ.com kræver et XML-abonnement; HamQTH er gratis. Resultaterne bliver i hukommelsen en dag, så det ikke bruger opslag at bladre gennem loggen.</translation>
     </message>
     <message>
         <source>Radio via Hamlib (rigctld)</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio via Hamlib (rigctld)</translation>
     </message>
     <message>
         <source>Talk to the radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Tal med radioen</translation>
     </message>
     <message>
         <source>How</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvordan</translation>
     </message>
     <message>
         <source>rigctld already running</source>
-        <translation type="unfinished"></translation>
+        <translation>rigctld kører allerede</translation>
     </message>
     <message>
         <source>Serial cable to the radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Serielt kabel til radioen</translation>
     </message>
     <message>
         <source>Radio (Hamlib)</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio (Hamlib)</translation>
     </message>
     <message>
         <source>Serial port</source>
@@ -3974,23 +3987,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Baud</source>
-        <translation type="unfinished"></translation>
+        <translation>Baud</translation>
     </message>
     <message>
         <source>PTT</source>
-        <translation type="unfinished"></translation>
+        <translation>PTT</translation>
     </message>
     <message>
         <source>The CAT itself (RIG)</source>
-        <translation type="unfinished"></translation>
+        <translation>CAT&apos;en selv (RIG)</translation>
     </message>
     <message>
         <source>RTS on another port</source>
-        <translation type="unfinished"></translation>
+        <translation>RTS på en anden port</translation>
     </message>
     <message>
         <source>DTR on another port</source>
-        <translation type="unfinished"></translation>
+        <translation>DTR på en anden port</translation>
     </message>
     <message>
         <source>None</source>
@@ -3998,63 +4011,63 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>PTT port</source>
-        <translation type="unfinished"></translation>
+        <translation>PTT-port</translation>
     </message>
     <message>
         <source>Test the PTT</source>
-        <translation type="unfinished"></translation>
+        <translation>Test PTT&apos;en</translation>
     </message>
     <message>
         <source>Two ports is the usual setup: the CAT reads the frequency on one, the PTT raises RTS or DTR on the other — so the radio transmits while DecoDXLog keeps reading. With a single cable leave &quot;the CAT itself&quot;: the radio goes into transmit on the CAT command, if it can.</source>
-        <translation type="unfinished"></translation>
+        <translation>To porte er den sædvanlige opstilling: CAT&apos;en læser frekvensen på den ene, PTT&apos;en hæver RTS eller DTR på den anden — så sender radioen, mens DecoDXLog bliver ved med at læse. Med ét enkelt kabel lader du &quot;CAT&apos;en selv&quot; stå: radioen går på sender på CAT-kommandoen, hvis den kan.</translation>
     </message>
     <message>
         <source>Connect now</source>
-        <translation type="unfinished"></translation>
+        <translation>Forbind nu</translation>
     </message>
     <message>
         <source>Looking…</source>
-        <translation type="unfinished"></translation>
+        <translation>Leder…</translation>
     </message>
     <message>
         <source>Find the radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Find radioen</translation>
     </message>
     <message>
         <source>radio connected</source>
-        <translation type="unfinished"></translation>
+        <translation>radio forbundet</translation>
     </message>
     <message>
         <source>radio not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>radio ikke forbundet</translation>
     </message>
     <message>
         <source>CW keyer</source>
-        <translation type="unfinished"></translation>
+        <translation>CW-nøgle</translation>
     </message>
     <message>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Hastighed</translation>
     </message>
     <message>
         <source>%1 wpm</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 wpm</translation>
     </message>
     <message>
         <source>Antenna rotor</source>
-        <translation type="unfinished"></translation>
+        <translation>Antennerotor</translation>
     </message>
     <message>
         <source>Talks to</source>
-        <translation type="unfinished"></translation>
+        <translation>Taler med</translation>
     </message>
     <message>
         <source>DecoRotor (WebSocket)</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoRotor (WebSocket)</translation>
     </message>
     <message>
         <source>rotctld (Hamlib) — any program</source>
-        <translation type="unfinished"></translation>
+        <translation>rotctld (Hamlib) — ethvert program</translation>
     </message>
     <message>
         <source>Host</source>
@@ -4062,87 +4075,87 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Beamwidth</source>
-        <translation type="unfinished"></translation>
+        <translation>Lobens bredde</translation>
     </message>
     <message>
         <source>Follow the call Decodium is working</source>
-        <translation type="unfinished"></translation>
+        <translation>Følg det kaldesignal, Decodium kører</translation>
     </message>
     <message>
         <source>Connect again</source>
-        <translation type="unfinished"></translation>
+        <translation>Forbind igen</translation>
     </message>
     <message>
         <source>DecoRotor is the gateway of the family: it reads the Prosistel control box on the serial port and publishes it on the network (WebSocket 8765). With rotctld any other rotor program works too — DecoRotor itself answers on 4532. DecoDXLog never touches the serial port: it only says where to point, and the control box keeps its own limits.</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoRotor er familiens gateway: den læser Prosistel-control boxen på serieporten og lægger den ud på netværket (WebSocket 8765). Med rotctld virker ethvert andet rotorprogram også — DecoRotor selv svarer på 4532. DecoDXLog rører aldrig serieporten: den siger kun, hvor der skal peges hen, og control boxen beholder sine egne grænser.</translation>
     </message>
     <message>
         <source>Where a bearing is known — a cluster spot, the call being worked, a QSO with a grid — the rotor menu points there. The panel is in the right column, with the compass and the STOP.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvor en retning er kendt — en cluster-spot, det kaldesignal, du kører, et QSO med en locator — peger rotormenuen derhen. Panelet er i højre kolonne, med kompasset og STOP.</translation>
     </message>
     <message>
         <source>Nightly backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Natlig sikkerhedskopi</translation>
     </message>
     <message>
         <source>Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Mappe</translation>
     </message>
     <message>
         <source>Browse…</source>
-        <translation type="unfinished"></translation>
+        <translation>Gennemse…</translation>
     </message>
     <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Med hver radio taler Hamlib, ikke DecoDXLog. Med det serielle kabel vælger du model og port, og DecoDXLog starter selv rigctld; kører rigctld allerede (til et contest-program eller på en anden computer), så giv blot vært og port. Derfra læser DecoDXLog frekvens og mode, kan stille radioen og rækker CW-makroerne til radioens egen nøgle.</translation>
     </message>
     <message>
         <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
-        <translation type="unfinished"></translation>
+        <translation>De otte makroer findes i contest-vinduet (Ctrl+Shift+T) og i CW-panelet, på tasterne F1-F8, med Esc for at stoppe.</translation>
     </message>
     <message>
         <source>Keying on a serial port</source>
-        <translation type="unfinished"></translation>
+        <translation>Nøgling på en serieport</translation>
     </message>
     <message>
         <source>Keyer port</source>
-        <translation type="unfinished"></translation>
+        <translation>Nøglens port</translation>
     </message>
     <message>
         <source>none</source>
-        <translation type="unfinished"></translation>
+        <translation>ingen</translation>
     </message>
     <message>
         <source>Pin</source>
-        <translation type="unfinished"></translation>
+        <translation>Ben</translation>
     </message>
     <message>
         <source>Send VVV</source>
-        <translation type="unfinished"></translation>
+        <translation>Send VVV</translation>
     </message>
     <message>
         <source>keyer ready</source>
-        <translation type="unfinished"></translation>
+        <translation>nøglen er klar</translation>
     </message>
     <message>
         <source>port not open</source>
-        <translation type="unfinished"></translation>
+        <translation>porten er ikke åben</translation>
     </message>
     <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
-        <translation type="unfinished"></translation>
+        <translation>Med Decodium åben er radioens CAT-port allerede optaget, og en CAT-bro kan ikke nøgle. Her nøgler DecoDXLog selv: den hæver DTR eller RTS på sin egen port — den, der er trukket til nøglekredsen — så Decodium beholder CAT&apos;en, og makroerne går i luften alligevel. Lad porten stå på &quot;ingen&quot; for at nøgle gennem CAT&apos;en som før.</translation>
     </message>
     <message>
         <source>Time (local)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tidspunkt (lokal)</translation>
     </message>
     <message>
         <source>Keep copies</source>
-        <translation type="unfinished"></translation>
+        <translation>Behold kopier</translation>
     </message>
     <message>
         <source>Last backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Sidste sikkerhedskopi</translation>
     </message>
     <message>
         <source>File</source>
@@ -4150,19 +4163,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Back up now</source>
-        <translation type="unfinished"></translation>
+        <translation>Lav en kopi nu</translation>
     </message>
     <message>
         <source>A consistent copy made with SQLite VACUUM INTO, even while DecoDXLog is logging. If the PC is off at the chosen time, the copy is made as soon as DecoDXLog is open.</source>
-        <translation type="unfinished"></translation>
+        <translation>En sammenhængende kopi lavet med SQLite VACUUM INTO, også mens DecoDXLog logger. Er pc&apos;en slukket på det valgte tidspunkt, laves kopien, så snart DecoDXLog er åben.</translation>
     </message>
     <message>
         <source>Backup nightly %1 → %2 · last %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopi hver nat %1 → %2 · sidste %3</translation>
     </message>
     <message>
         <source>Backup nightly %1 → %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopi hver nat %1 → %2</translation>
     </message>
     <message>
         <source>Apply</source>
@@ -4177,27 +4190,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Status (any of)</source>
-        <translation type="unfinished"></translation>
+        <translation>Status (en af)</translation>
     </message>
     <message>
         <source>Bands</source>
-        <translation type="unfinished"></translation>
+        <translation>Bånd</translation>
     </message>
     <message>
         <source>Modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Modes</translation>
     </message>
     <message>
         <source>DX continent</source>
-        <translation type="unfinished"></translation>
+        <translation>DX&apos;ens verdensdel</translation>
     </message>
     <message>
         <source>Spotter continent</source>
-        <translation type="unfinished"></translation>
+        <translation>Spotterens verdensdel</translation>
     </message>
     <message>
         <source>Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Kilder</translation>
     </message>
     <message>
         <source>Only</source>
@@ -4205,62 +4218,62 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>not worked on band</source>
-        <translation type="unfinished"></translation>
+        <translation>ikke kørt på båndet</translation>
     </message>
     <message>
         <source>POTA/SOTA/WWFF/IOTA</source>
-        <translation type="unfinished"></translation>
+        <translation>POTA/SOTA/WWFF/IOTA</translation>
     </message>
     <message>
         <source>LoTW users</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW-brugere</translation>
     </message>
     <message>
         <source>no skimmers</source>
-        <translation type="unfinished"></translation>
+        <translation>ingen skimmere</translation>
     </message>
     <message>
         <source>Calls (wildcards * ?)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaldesignaler (jokertegn * ?)</translation>
     </message>
     <message>
         <source>Text (call, entity, comment)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst (kaldesignal, entitet, kommentar)</translation>
     </message>
     <message>
         <source>Min SNR (skimmer)</source>
-        <translation type="unfinished"></translation>
+        <translation>Min. SNR (skimmer)</translation>
     </message>
     <message>
         <source>any</source>
-        <translation type="unfinished"></translation>
+        <translation>alle</translation>
     </message>
     <message>
         <source>Max age</source>
-        <translation type="unfinished"></translation>
+        <translation>Maks. alder</translation>
     </message>
 </context>
 <context>
     <name>StationProfilesDialog</name>
     <message>
         <source>Station profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Stationsprofiler</translation>
     </message>
     <message>
         <source>active: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>aktiv: %1</translation>
     </message>
     <message>
         <source>A profile needs a name and a station callsign.</source>
-        <translation type="unfinished"></translation>
+        <translation>En profil skal have et navn og et stationskaldesignal.</translation>
     </message>
     <message>
         <source>deleted · %1 QSO keep it</source>
-        <translation type="unfinished"></translation>
+        <translation>slettet · %1 QSO holder fast i den</translation>
     </message>
     <message>
         <source>DEFAULT</source>
-        <translation type="unfinished"></translation>
+        <translation>STANDARD</translation>
     </message>
     <message>
         <source>ACTIVE</source>
@@ -4268,19 +4281,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>No profiles yet. Create one, or start Decodium: DecoDXLog creates the first from its callsign and grid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Endnu ingen profiler. Lav en, eller start Decodium: DecoDXLog laver den første ud fra dens kaldesignal og locator.</translation>
     </message>
     <message>
         <source>+ New</source>
-        <translation type="unfinished"></translation>
+        <translation>+ Ny</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Duplikér</translation>
     </message>
     <message>
         <source>(copy)</source>
-        <translation type="unfinished"></translation>
+        <translation>(kopi)</translation>
     </message>
     <message>
         <source>Profile name</source>
@@ -4288,11 +4301,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Default profile for new QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardprofil til nye QSO</translation>
     </message>
     <message>
         <source>Station callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Stationens kaldesignal</translation>
     </message>
     <message>
         <source>Operator</source>
@@ -4300,19 +4313,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>My gridsquare</source>
-        <translation type="unfinished"></translation>
+        <translation>Min locator</translation>
     </message>
     <message>
         <source>CQ zone</source>
-        <translation type="unfinished"></translation>
+        <translation>CQ-zone</translation>
     </message>
     <message>
         <source>ITU zone</source>
-        <translation type="unfinished"></translation>
+        <translation>ITU-zone</translation>
     </message>
     <message>
         <source>My DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>Mit DXCC</translation>
     </message>
     <message>
         <source>Rig</source>
@@ -4320,58 +4333,58 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Antenna</source>
-        <translation type="unfinished"></translation>
+        <translation>Antenne</translation>
     </message>
     <message>
         <source>Def. pwr W</source>
-        <translation type="unfinished"></translation>
+        <translation>Std. effekt W</translation>
     </message>
     <message>
         <source>LoTW station location (TQSL)</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW station location (TQSL)</translation>
     </message>
     <message>
         <source>Used by &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</source>
-        <translation type="unfinished"></translation>
+        <translation>Brugt af &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</translation>
     </message>
     <message>
         <source>not synced</source>
-        <translation type="unfinished"></translation>
+        <translation>ikke synkroniseret</translation>
     </message>
     <message>
         <source>synced</source>
-        <translation type="unfinished"></translation>
+        <translation>synkroniseret</translation>
     </message>
     <message>
         <source>New profile · not saved yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Ny profil · endnu ikke gemt</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Slet</translation>
     </message>
     <message>
         <source>Use now</source>
-        <translation type="unfinished"></translation>
+        <translation>Brug den nu</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annullér</translation>
     </message>
     <message>
         <source>Save profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Gem profil</translation>
     </message>
 </context>
 <context>
     <name>StatsWindow</name>
     <message>
         <source>DecoDXLog — Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — Statistik</translation>
     </message>
     <message>
         <source>no QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>ingen QSO</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -4379,15 +4392,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>All modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle modes</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation type="unfinished"></translation>
+        <translation>År</translation>
     </message>
     <message>
         <source>All years</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle år</translation>
     </message>
     <message>
         <source>Refresh</source>
@@ -4395,86 +4408,86 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO</translation>
     </message>
     <message>
         <source>Different calls</source>
-        <translation type="unfinished"></translation>
+        <translation>Forskellige kaldesignaler</translation>
     </message>
     <message>
         <source>DXCC entities</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC-entiteter</translation>
     </message>
     <message>
         <source>Grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Locatorer</translation>
     </message>
     <message>
         <source>First QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Første QSO</translation>
     </message>
     <message>
         <source>Last QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Sidste QSO</translation>
     </message>
     <message>
         <source>Best day</source>
-        <translation type="unfinished"></translation>
+        <translation>Bedste dag</translation>
     </message>
     <message>
         <source>Best hour</source>
-        <translation type="unfinished"></translation>
+        <translation>Bedste time</translation>
     </message>
     <message>
         <source>QSO per year</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO pr. år</translation>
     </message>
     <message>
         <source>QSO per month (last 24)</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO pr. måned (de sidste 24)</translation>
     </message>
     <message>
         <source>QSO per UTC hour</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO pr. UTC-time</translation>
     </message>
     <message>
         <source>QSO per band</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO pr. bånd</translation>
     </message>
     <message>
         <source>When a band is open · QSO per band and UTC hour</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvornår et bånd er åbent · QSO pr. bånd og UTC-time</translation>
     </message>
     <message>
         <source>%1 · %2Z · %3 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2Z · %3 QSO</translation>
     </message>
     <message>
         <source>Modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Modes</translation>
     </message>
     <message>
         <source>Continents</source>
-        <translation type="unfinished"></translation>
+        <translation>Verdensdele</translation>
     </message>
     <message>
         <source>no continent on these QSOs (fill in the DXCC)</source>
-        <translation type="unfinished"></translation>
+        <translation>ingen verdensdel på disse QSO (udfyld DXCC)</translation>
     </message>
 </context>
 <context>
     <name>StatusRail</name>
     <message>
         <source>%1: connected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: forbundet</translation>
     </message>
     <message>
         <source>Decodium: waiting</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium: venter</translation>
     </message>
     <message>
         <source>UDP closed</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP lukket</translation>
     </message>
     <message>
         <source>QSO:</source>
@@ -4482,15 +4495,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Queue:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kø:</translation>
     </message>
     <message>
         <source>Last backup:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sidste kopi:</translation>
     </message>
     <message>
         <source>never</source>
-        <translation type="unfinished"></translation>
+        <translation>aldrig</translation>
     </message>
 </context>
 <context>
@@ -4513,7 +4526,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1 · %2/%3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2/%3</translation>
     </message>
     <message>
         <source>Activation</source>
@@ -4521,7 +4534,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Cluster ●</source>
-        <translation type="unfinished"></translation>
+        <translation>Cluster ●</translation>
     </message>
     <message>
         <source>Cluster</source>
@@ -4529,7 +4542,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
-        <translation type="unfinished"></translation>
+        <translation>Paneler (%1 lukket)</translation>
     </message>
     <message>
         <source>Panels</source>
@@ -4545,43 +4558,43 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Station profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Stationsprofiler</translation>
     </message>
     <message>
         <source>Cloud %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud %1</translation>
     </message>
     <message>
         <source>Cloud not linked</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud ikke tilknyttet</translation>
     </message>
     <message>
         <source>Sign in from Setup → Sync &amp; Cloud</source>
-        <translation type="unfinished"></translation>
+        <translation>Log ind fra Indstillinger → Synkronisering &amp; Cloud</translation>
     </message>
     <message>
         <source>Cloud not configured</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud er ikke sat op</translation>
     </message>
     <message>
         <source>About DecoDXLog…</source>
-        <translation type="unfinished"></translation>
+        <translation>Om DecoDXLog…</translation>
     </message>
     <message>
         <source>Settings…</source>
-        <translation type="unfinished"></translation>
+        <translation>Indstillinger…</translation>
     </message>
     <message>
         <source>Station profiles…</source>
-        <translation type="unfinished"></translation>
+        <translation>Stationsprofiler…</translation>
     </message>
     <message>
         <source>Panels…</source>
-        <translation type="unfinished"></translation>
+        <translation>Paneler…</translation>
     </message>
     <message>
         <source>Import ADIF…</source>
-        <translation type="unfinished"></translation>
+        <translation>Importér ADIF…</translation>
     </message>
     <message>
         <source>Export ADIF…</source>
@@ -4589,23 +4602,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Open the log folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Åbn logmappen</translation>
     </message>
     <message>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Afslut</translation>
     </message>
     <message>
         <source>syncing…</source>
-        <translation type="unfinished"></translation>
+        <translation>synkroniserer…</translation>
     </message>
     <message>
         <source>%1 queued</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 i kø</translation>
     </message>
     <message>
         <source>synced %1</source>
-        <translation type="unfinished"></translation>
+        <translation>synkroniseret %1</translation>
     </message>
     <message>
         <source>Sync now</source>
@@ -4620,170 +4633,197 @@ The call Decodium is working shows up here by itself.</source>
     <name>decolog::app::ActivationController</name>
     <message>
         <source>Choose what kind of session it is</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg, hvilken slags session det er</translation>
     </message>
     <message>
         <source>A %1 activation needs its reference</source>
-        <translation type="unfinished"></translation>
+        <translation>En %1-aktivering skal have sin reference</translation>
     </message>
     <message>
         <source>A contest needs its name (CONTEST_ID)</source>
-        <translation type="unfinished"></translation>
+        <translation>En contest skal have sit navn (CONTEST_ID)</translation>
     </message>
     <message>
         <source>Session open: %1 · grid %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Session åben: %1 · locator %2</translation>
     </message>
     <message numerus="yes">
         <source>Session closed: %1 · %n QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Session lukket: %1 · %n QSO</numerusform>
+            <numerusform>Session lukket: %1 · %n QSO</numerusform>
+        </translation>
     </message>
     <message>
         <source>No QSO in this session yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Endnu ingen QSO i denne session</translation>
     </message>
     <message>
         <source>Nothing to write</source>
-        <translation type="unfinished"></translation>
+        <translation>Intet at skrive</translation>
     </message>
     <message>
         <source>Cannot write %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke skrive %1</translation>
     </message>
     <message numerus="yes">
         <source>Cabrillo written: %1 (%n QSO)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cabrillo skrevet: %1 (%n QSO)</numerusform>
+            <numerusform>Cabrillo skrevet: %1 (%n QSO)</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n QSO of the session → %1</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO fra sessionen → %1</numerusform>
+            <numerusform>%n QSO fra sessionen → %1</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>decolog::app::CloudController</name>
     <message>
         <source>Cloud: %1 connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: %1 forbundet</translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n station profile(s) updated</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: %n stationsprofil opdateret</numerusform>
+            <numerusform>Cloud: %n stationsprofiler opdateret</numerusform>
+        </translation>
     </message>
     <message>
         <source>Cloud: settings updated from another device</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: indstillinger opdateret fra en anden enhed</translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n service password(s) arrived</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: %n tjenesteadgangskode ankommet</numerusform>
+            <numerusform>Cloud: %n tjenesteadgangskoder ankommet</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n QSO arrived from another device</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: %n QSO ankommet fra en anden enhed</numerusform>
+            <numerusform>Cloud: %n QSO ankommet fra en anden enhed</numerusform>
+        </translation>
     </message>
     <message>
         <source>Cloud: up to date</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: ajour</translation>
     </message>
     <message>
         <source>Cloud emptied: %1 QSO and %2 settings deleted. What is here stays, and goes back up at the next sync.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud&apos;en er tømt: %1 QSO og %2 indstillinger slettet. Det, der er her, bliver og går op igen ved næste synkronisering.</translation>
     </message>
     <message>
         <source>Cloud: sign in again (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: log ind igen (%1)</translation>
     </message>
     <message>
         <source>Cloud: not reachable, will retry (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: kan ikke nås, prøver igen (%1)</translation>
     </message>
     <message>
         <source>Cloud: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: %1</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: token kan ikke læses (%1)</translation>
     </message>
     <message>
         <source>Cloud: the password must be at least 8 characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: adgangskoden skal være på mindst 8 tegn</translation>
     </message>
     <message>
         <source>Cloud: set the server address first</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: sæt først serverens adresse</translation>
     </message>
     <message>
         <source>Cloud: creating the account…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: opretter kontoen…</translation>
     </message>
     <message>
         <source>Cloud: signing in…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: logger ind…</translation>
     </message>
     <message>
         <source>Cloud: nothing deleted — you have to write DELETE</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: intet slettet — du skal skrive DELETE</translation>
     </message>
     <message>
         <source>Cloud: emptying…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: tømmer…</translation>
     </message>
     <message>
         <source>Cloud: this device is no longer linked</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: denne enhed er ikke længere tilknyttet</translation>
     </message>
     <message>
         <source>Cloud: opening the keystore…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: åbner nøgleringen…</translation>
     </message>
     <message>
         <source>Cloud: not linked yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: endnu ikke tilknyttet</translation>
     </message>
     <message>
         <source>Cloud: syncing…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: synkroniserer…</translation>
     </message>
     <message>
         <source>Cloud: sign in first</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: log ind først</translation>
     </message>
     <message>
         <source>Cloud: the vault did not open</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: boksen åbnede ikke</translation>
     </message>
     <message>
         <source>Cloud: vault open on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: boksen er åben på denne enhed</translation>
     </message>
     <message>
         <source>Cloud: the service passwords are waiting for you to sign in on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: tjenesternes adgangskoder venter på, at du logger ind på denne enhed</translation>
     </message>
     <message>
         <source>Cloud: the service passwords did not open with this password</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: tjenesternes adgangskoder åbnede ikke med denne adgangskode</translation>
     </message>
     <message>
         <source>Cloud: sending the station settings…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: sender stationens indstillinger…</translation>
     </message>
     <message>
         <source>Cloud: write your callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: skriv dit kaldesignal</translation>
     </message>
     <message numerus="yes">
         <source>Cloud: sending %n QSO…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: sender %n QSO…</numerusform>
+            <numerusform>Cloud: sender %n QSO…</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n conflict(s) resolved, the other version is in the history</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: %n konflikt løst, den anden udgave ligger i historikken</numerusform>
+            <numerusform>Cloud: %n konflikter løst, de andre udgaver ligger i historikken</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n duplicate(s) recognised</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: %n dublet genkendt</numerusform>
+            <numerusform>Cloud: %n dubletter genkendt</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -4794,436 +4834,484 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>New band or mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Nyt bånd eller mode</translation>
     </message>
     <message>
         <source>no keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>ingen nøglering</translation>
     </message>
     <message>
         <source>No cluster node connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen cluster-node forbundet</translation>
     </message>
     <message>
         <source>Call and frequency in kHz are needed</source>
-        <translation type="unfinished"></translation>
+        <translation>Der skal bruges kaldesignal og frekvens i kHz</translation>
     </message>
     <message>
         <source>rebuilding the worked list: %1 s</source>
-        <translation type="unfinished"></translation>
+        <translation>genopbygger listen over kørte: %1 s</translation>
     </message>
     <message>
         <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium er ikke forbundet med DecoLink: kan ikke stille på %1</translation>
     </message>
     <message>
         <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Stiller Decodium: %1 %2 kHz %3</translation>
     </message>
     <message>
         <source>Alert</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarm</translation>
     </message>
     <message>
         <source>%1 LoTW users · list of %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 LoTW-brugere · liste fra %2</translation>
     </message>
     <message>
         <source>downloading the LoTW user list…</source>
-        <translation type="unfinished"></translation>
+        <translation>henter listen over LoTW-brugere…</translation>
     </message>
     <message>
         <source>LoTW user list: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste over LoTW-brugere: %1</translation>
     </message>
     <message>
         <source>LoTW user list: unexpected content</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste over LoTW-brugere: uventet indhold</translation>
     </message>
     <message>
         <source>%1 LoTW users · updated today</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 LoTW-brugere · opdateret i dag</translation>
     </message>
 </context>
 <context>
     <name>decolog::app::DecoLogController</name>
     <message>
         <source>%1 connected from %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 forbundet fra %2</translation>
     </message>
     <message>
         <source>%1 closed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 lukket</translation>
     </message>
     <message>
         <source>%1 not heard for 45 s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ikke hørt i 45 s</translation>
     </message>
     <message>
         <source>DecoLink: the port is free again, listening on 127.0.0.1:%1</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoLink: porten er fri igen, lytter på 127.0.0.1:%1</translation>
     </message>
     <message>
         <source>DecoLink: client connected (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoLink: klient forbundet (%1)</translation>
     </message>
     <message>
         <source>DecoLink: client disconnected (%1 left)</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoLink: klient koblet fra (%1 tilbage)</translation>
     </message>
     <message>
         <source>%1: %2 found</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2 fundet</translation>
     </message>
     <message>
         <source>%1: %2 completed from %3 (%4)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2 udfyldt fra %3 (%4)</translation>
     </message>
     <message>
         <source>QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO</translation>
     </message>
     <message>
         <source>LoTW: downloading… %1 kB</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: henter… %1 kB</translation>
     </message>
     <message numerus="yes">
         <source>Log opened: %1 (%n QSO)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Log åbnet: %1 (%n QSO)</numerusform>
+            <numerusform>Log åbnet: %1 (%n QSO)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Cannot open log %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke åbne loggen %1: %2</translation>
     </message>
     <message>
         <source>loading the log table</source>
-        <translation type="unfinished"></translation>
+        <translation>indlæser logtabellen</translation>
     </message>
     <message>
         <source>reloading the log table</source>
-        <translation type="unfinished"></translation>
+        <translation>genindlæser logtabellen</translation>
     </message>
     <message>
         <source>DecoLink listening on 127.0.0.1:%1</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoLink lytter på 127.0.0.1:%1</translation>
     </message>
     <message>
         <source>DecoLink cannot listen on %1: %2 — another DecoDXLog is probably open. Retrying every %3 seconds.</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoLink kan ikke lytte på %1: %2 — der er sandsynligvis en anden DecoDXLog åben. Prøver igen hvert %3. sekund.</translation>
     </message>
     <message>
         <source>(not introduced yet)</source>
-        <translation type="unfinished"></translation>
+        <translation>(har endnu ikke præsenteret sig)</translation>
     </message>
     <message>
         <source>%1: %2 s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2 s</translation>
     </message>
     <message numerus="yes">
         <source>The window stopped answering for %1 s (%n time(s) since the start)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Vinduet svarede ikke i %1 s (%n gang siden starten)</numerusform>
+            <numerusform>Vinduet svarede ikke i %1 s (%n gange siden starten)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Listening on UDP %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Lytter på UDP %1</translation>
     </message>
     <message>
         <source>Listening on UDP %1, multicast %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Lytter på UDP %1, multicast %2</translation>
     </message>
     <message>
         <source>Cannot listen on UDP %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke lytte på UDP %1: %2</translation>
     </message>
     <message>
         <source>built on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>bygget den %1</translation>
     </message>
     <message>
         <source>Interface language: %1 — it changes at the next start</source>
-        <translation type="unfinished"></translation>
+        <translation>Programmets sprog: %1 — det skifter ved næste start</translation>
     </message>
     <message>
         <source>built-in</source>
-        <translation type="unfinished"></translation>
+        <translation>indbygget</translation>
     </message>
     <message>
         <source>Not a cty.csv file</source>
-        <translation type="unfinished"></translation>
+        <translation>Ikke en cty.csv-fil</translation>
     </message>
     <message>
         <source>%1 is older than the one in use (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 er ældre end den, der er i brug (%2)</translation>
     </message>
     <message>
         <source>cty.csv %1 installed: %2 DXCC entities</source>
-        <translation type="unfinished"></translation>
+        <translation>cty.csv %1 installeret: %2 DXCC-entiteter</translation>
     </message>
     <message>
         <source>DXCC filled on %1 of %2 QSO (cty.csv %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC udfyldt på %1 af %2 QSO (cty.csv %3)</translation>
     </message>
     <message>
         <source>Station profile created from Decodium: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Stationsprofil oprettet fra Decodium: %1</translation>
     </message>
     <message>
         <source>%1 %2 %3: already worked in this activation</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 %3: allerede kørt i denne aktivering</translation>
     </message>
     <message>
         <source>%1 from %2 → %3 %4 %5 saved (uuid %6)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 fra %2 → %3 %4 %5 gemt (uuid %6)</translation>
     </message>
     <message>
         <source> · new DXCC on FT2: %1</source>
-        <translation type="unfinished"></translation>
+        <translation> · nyt DXCC på FT2: %1</translation>
     </message>
     <message>
         <source>Duplicate ignored: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Dublet ignoreret: %1</translation>
     </message>
     <message>
         <source>QSO not logged: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO ikke logget: %1</translation>
     </message>
     <message>
         <source>Already worked in this activation</source>
-        <translation type="unfinished"></translation>
+        <translation>Allerede kørt i denne aktivering</translation>
     </message>
     <message>
         <source>Logged %1 %2 %3 (manual)</source>
-        <translation type="unfinished"></translation>
+        <translation>Logget %1 %2 %3 (manuelt)</translation>
     </message>
     <message numerus="yes">
         <source>Already in log (within %n minute(s))</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Allerede i loggen (inden for %n minut)</numerusform>
+            <numerusform>Allerede i loggen (inden for %n minutter)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Cannot save the QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke gemme QSO&apos;et</translation>
     </message>
     <message>
         <source>Edited %1 · revision %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Redigeret %1 · revision %2</translation>
     </message>
     <message>
         <source>Deleted %1 (kept in history)</source>
-        <translation type="unfinished"></translation>
+        <translation>Slettet %1 (bevaret i historikken)</translation>
     </message>
     <message>
         <source>Deleted %1 QSO (kept in history)</source>
-        <translation type="unfinished"></translation>
+        <translation>Slettet %1 QSO (bevaret i historikken)</translation>
     </message>
     <message>
         <source>Restored an earlier revision of QSO #%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Gendannet en tidligere revision af QSO #%1</translation>
     </message>
     <message>
         <source>Tag &quot;%1&quot; added to %2 QSO (%3 already had it)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mærkatet &quot;%1&quot; sat på %2 QSO (%3 havde det allerede)</translation>
     </message>
     <message>
         <source>Tag &quot;%1&quot; removed from %2 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Mærkatet &quot;%1&quot; fjernet fra %2 QSO</translation>
     </message>
     <message>
         <source>Cannot read %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke læse %1: %2</translation>
     </message>
     <message>
         <source>%1: %2 new, %3 duplicates, %4 rejected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2 nye, %3 dubletter, %4 afvist</translation>
     </message>
     <message>
         <source>Cannot write %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke skrive %1: %2</translation>
     </message>
     <message numerus="yes">
         <source>%n QSO → %1</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO → %1</numerusform>
+            <numerusform>%n QSO → %1</numerusform>
+        </translation>
     </message>
     <message>
         <source>%1 · %2 MB</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2 MB</translation>
     </message>
     <message>
         <source>Backup failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Sikkerhedskopien mislykkedes: %1</translation>
     </message>
     <message>
         <source>%1 → %2 (%3 MB)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 → %2 (%3 MB)</translation>
     </message>
     <message>
         <source>LoTW: add username and password in Setup → QSL services</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: skriv brugernavn og adgangskode under Indstillinger → QSL-tjenester</translation>
     </message>
     <message>
         <source>LoTW: downloading all confirmations…</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: henter alle bekræftelser…</translation>
     </message>
     <message>
         <source>LoTW: downloading confirmations since %1…</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: henter bekræftelser siden %1…</translation>
     </message>
     <message>
         <source>LoTW: password not available (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: adgangskoden er ikke tilgængelig (%1)</translation>
     </message>
     <message>
         <source>LoTW: %1 new confirmations, %2 already marked, %3 not in the log</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: %1 nye bekræftelser, %2 allerede markeret, %3 ikke i loggen</translation>
     </message>
     <message>
         <source>  not in the log: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>  ikke i loggen: %1</translation>
     </message>
     <message>
         <source>  %1 records without call, band or date</source>
-        <translation type="unfinished"></translation>
+        <translation>  %1 poster uden kaldesignal, bånd eller dato</translation>
     </message>
     <message>
         <source>New DXCC confirmed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nyt DXCC bekræftet: %1</translation>
     </message>
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ny FT2 Award-entitet bekræftet: %1</translation>
     </message>
     <message numerus="yes">
         <source>Completing %n QSO from the callbook…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Udfylder %n QSO fra callbooken…</numerusform>
+            <numerusform>Udfylder %n QSO fra callbooken…</numerusform>
+        </translation>
     </message>
     <message>
         <source>Every QSO already has its grid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle QSO har allerede deres locator.</translation>
     </message>
     <message numerus="yes">
         <source>%n QSO to complete from the callbook: one search at a time, it takes a while.</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO skal udfyldes fra callbooken: ét opslag ad gangen, det tager sin tid.</numerusform>
+            <numerusform>%n QSO skal udfyldes fra callbooken: ét opslag ad gangen, det tager sin tid.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Stopped: %1 of %2 QSO done.</source>
-        <translation type="unfinished"></translation>
+        <translation>Stoppet: %1 af %2 QSO klaret.</translation>
     </message>
     <message>
         <source>Callbook: %1 QSO looked at.</source>
-        <translation type="unfinished"></translation>
+        <translation>Callbook: %1 QSO gennemgået.</translation>
     </message>
     <message>
         <source>Callbook: %1 of %2…</source>
-        <translation type="unfinished"></translation>
+        <translation>Callbook: %1 af %2…</translation>
     </message>
     <message numerus="yes">
         <source>%n QSO cleaned up from a bad old import (the previous text stays in the history).</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO ryddet op efter en dårlig gammel import (den tidligere tekst bliver i historikken).</numerusform>
+            <numerusform>%n QSO ryddet op efter en dårlig gammel import (den tidligere tekst bliver i historikken).</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
     <message numerus="yes">
         <source>%n QSO in the paper queue</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO i papirkøen</numerusform>
+            <numerusform>%n QSO i papirkøen</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n QSL to answer put in the queue</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSL, der skal besvares, sat i kø</numerusform>
+            <numerusform>%n QSL, der skal besvares, sat i kø</numerusform>
+        </translation>
     </message>
     <message>
         <source>no QSL waiting for an answer</source>
-        <translation type="unfinished"></translation>
+        <translation>ingen QSL venter på svar</translation>
     </message>
     <message numerus="yes">
         <source>%n QSL marked as sent</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSL markeret som sendt</numerusform>
+            <numerusform>%n QSL markeret som sendt</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n QSO taken out of the queue</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO taget ud af køen</numerusform>
+            <numerusform>%n QSO taget ud af køen</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n label(s) written</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n etiket skrevet</numerusform>
+            <numerusform>%n etiketter skrevet</numerusform>
+        </translation>
     </message>
     <message>
         <source>QSL labels: %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL-etiketter: %1 (%2)</translation>
     </message>
 </context>
 <context>
     <name>decolog::app::QslController</name>
     <message>
         <source>%1: stopped, %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: stoppet, %2</translation>
     </message>
     <message>
         <source>TQSL not found: install Trusted QSL or set its path here</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL blev ikke fundet: installér Trusted QSL, eller angiv stien her</translation>
     </message>
     <message>
         <source>TQSL is installed but has not been set up yet: open it once, so it creates its own folder with certificates and station locations</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL er installeret, men er endnu ikke sat op: åbn det én gang, så det laver sin egen mappe med certifikater og station locations</translation>
     </message>
     <message>
         <source>TQSL has no callsign certificate yet: load the .tq6 file ARRL sends you (the .tq5 request alone does not sign anything) — TQSL&apos;s folder is %1</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL har endnu ikke et kaldesignalcertifikat: indlæs den .tq6-fil, ARRL sender dig (selve .tq5-anmodningen signerer ingenting) — TQSL&apos;s mappe er %1</translation>
     </message>
     <message>
         <source>TQSL has no station location: create one in TQSL (Station → Add location)</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL har ingen station location: lav en i TQSL (Station → Add location)</translation>
     </message>
     <message numerus="yes">
         <source>TQSL ready · %n station location(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>TQSL klar · %n station location</numerusform>
+            <numerusform>TQSL klar · %n station locations</numerusform>
+        </translation>
     </message>
     <message>
         <source>no credentials: Setup → QSL services</source>
-        <translation type="unfinished"></translation>
+        <translation>ingen loginoplysninger: Indstillinger → QSL-tjenester</translation>
     </message>
     <message>
         <source>no API key: Setup → QSL services</source>
-        <translation type="unfinished"></translation>
+        <translation>ingen API-nøgle: Indstillinger → QSL-tjenester</translation>
     </message>
     <message>
         <source>no keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>ingen nøglering</translation>
     </message>
     <message>
         <source>nothing to send: they have already gone</source>
-        <translation type="unfinished"></translation>
+        <translation>intet at sende: de er allerede af sted</translation>
     </message>
     <message>
         <source>nothing to send</source>
-        <translation type="unfinished"></translation>
+        <translation>intet at sende</translation>
     </message>
     <message>
         <source>Cannot write %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke skrive %1</translation>
     </message>
     <message numerus="yes">
         <source>LoTW: sending %n QSO with TQSL…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>LoTW: sender %n QSO med TQSL…</numerusform>
+            <numerusform>LoTW: sender %n QSO med TQSL…</numerusform>
+        </translation>
     </message>
     <message>
         <source>Club Log: the station profile has no callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: stationsprofilen har intet kaldesignal</translation>
     </message>
     <message>
         <source>%1: no credentials (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: ingen loginoplysninger (%2)</translation>
     </message>
     <message numerus="yes">
         <source>Club Log: sending %n QSO…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Club Log: sender %n QSO…</numerusform>
+            <numerusform>Club Log: sender %n QSO…</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%1: sender %n QSO…</numerusform>
+            <numerusform>%1: sender %n QSO…</numerusform>
+        </translation>
     </message>
     <message>
         <source>%1: %2 sent, %3 already there, %4 rejected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2 sendt, %3 var der allerede, %4 afvist</translation>
     </message>
 </context>
 <context>
@@ -5254,7 +5342,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>R</source>
-        <translation type="unfinished"></translation>
+        <translation>R</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -5286,7 +5374,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>ITU</source>
-        <translation type="unfinished"></translation>
+        <translation>ITU</translation>
     </message>
     <message>
         <source>IOTA</source>
@@ -5313,218 +5401,221 @@ The call Decodium is working shows up here by itself.</source>
     <name>decolog::app::RigController</name>
     <message>
         <source>Sent: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Sendt: %1</translation>
     </message>
     <message>
         <source>Hamlib not found: install it first</source>
-        <translation type="unfinished"></translation>
+        <translation>Hamlib blev ikke fundet: installér det først</translation>
     </message>
     <message>
         <source>Pick the radio model first</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg først radioens model</translation>
     </message>
     <message>
         <source>No serial port on this computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen serieport på denne computer</translation>
     </message>
     <message numerus="yes">
         <source>Looking for the radio on %n port(s)…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Leder efter radioen på %n port…</numerusform>
+            <numerusform>Leder efter radioen på %n porte…</numerusform>
+        </translation>
     </message>
     <message>
         <source>The radio did not answer on any port. Check that it is on, that the CAT is enabled, and that no other program is holding the cable.</source>
-        <translation type="unfinished"></translation>
+        <translation>Radioen svarede ikke på nogen port. Se efter, om den er tændt, om CAT&apos;en er slået til, og om et andet program holder på kablet.</translation>
     </message>
     <message>
         <source>Radio found on %1 at %2 baud</source>
-        <translation type="unfinished"></translation>
+        <translation>Radioen fundet på %1 ved %2 baud</translation>
     </message>
     <message>
         <source>The radio is not connected: no PTT</source>
-        <translation type="unfinished"></translation>
+        <translation>Radioen er ikke forbundet: ingen PTT</translation>
     </message>
     <message>
         <source>PTT on for a moment: the radio should transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>PTT tændt et øjeblik: radioen skulle gerne sende</translation>
     </message>
     <message>
         <source>Hamlib not found: install it, or start rigctld yourself and use the network link</source>
-        <translation type="unfinished"></translation>
+        <translation>Hamlib blev ikke fundet: installér det, eller start selv rigctld og brug netværksforbindelsen</translation>
     </message>
     <message>
         <source>Pick the radio model and the serial port first</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg først radioens model og serieporten</translation>
     </message>
     <message>
         <source>Hamlib: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Hamlib: %1</translation>
     </message>
     <message>
         <source>rigctld did not start</source>
-        <translation type="unfinished"></translation>
+        <translation>rigctld startede ikke</translation>
     </message>
     <message>
         <source>Hamlib started on %1 (model %2, %3 baud)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hamlib startet på %1 (model %2, %3 baud)</translation>
     </message>
     <message>
         <source>No audio input to listen to</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen lydindgang at lytte til</translation>
     </message>
     <message>
         <source>The audio input did not open</source>
-        <translation type="unfinished"></translation>
+        <translation>Lydindgangen åbnede ikke</translation>
     </message>
     <message>
         <source>CW decoder listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>CW-dekoderen lytter til %1</translation>
     </message>
     <message>
         <source>CW keyer on %1 (%2): it works with the CAT busy elsewhere</source>
-        <translation type="unfinished"></translation>
+        <translation>CW-nøgle på %1 (%2): den virker, mens CAT&apos;en er optaget andetsteds</translation>
     </message>
     <message>
         <source>No CW keyer: pick a port first</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen CW-nøgle: vælg først en port</translation>
     </message>
 </context>
 <context>
     <name>decolog::app::RotorController</name>
     <message>
         <source>Rotor off</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotor slået fra</translation>
     </message>
     <message>
         <source>Looking for rotctld on %1:%2…</source>
-        <translation type="unfinished"></translation>
+        <translation>Leder efter rotctld på %1:%2…</translation>
     </message>
     <message>
         <source>Looking for DecoRotor on %1:%2…</source>
-        <translation type="unfinished"></translation>
+        <translation>Leder efter DecoRotor på %1:%2…</translation>
     </message>
     <message>
         <source>Turning to %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>Drejer mod %1°</translation>
     </message>
     <message>
         <source>Rotor connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotoren er forbundet</translation>
     </message>
     <message>
         <source>The rotor is off: Setup → Rotor</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotoren er slået fra: Indstillinger → Rotor</translation>
     </message>
     <message>
         <source>%1°</source>
-        <translation type="unfinished"></translation>
+        <translation>%1°</translation>
     </message>
     <message>
         <source>%1 · %2°</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2°</translation>
     </message>
     <message>
         <source>Rotor to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotor til %1</translation>
     </message>
     <message>
         <source>%1 s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 s</translation>
     </message>
     <message>
         <source>%1 m</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 m</translation>
     </message>
     <message>
         <source>%1 h %2 m</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 t %2 m</translation>
     </message>
     <message>
         <source>APP (WebSocket)</source>
-        <translation type="unfinished"></translation>
+        <translation>APP (WebSocket)</translation>
     </message>
     <message>
         <source>WEB UI</source>
-        <translation type="unfinished"></translation>
+        <translation>WEB UI</translation>
     </message>
     <message>
         <source>ROTCTLD (Hamlib)</source>
-        <translation type="unfinished"></translation>
+        <translation>ROTCTLD (Hamlib)</translation>
     </message>
     <message>
         <source>Rotor: %1 set on the gateway</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotor: %1 sat på gatewayen</translation>
     </message>
     <message>
         <source>Rotor: memory &quot;%1&quot; at %2°</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotor: hukommelsen &quot;%1&quot; på %2°</translation>
     </message>
     <message>
         <source>rotctld does not do locators: point in degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>rotctld kan ikke locatorer: peg i grader</translation>
     </message>
     <message>
         <source>Rotor: quick stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotor: hurtigt stop</translation>
     </message>
     <message>
         <source>Rotor: stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotor: stop</translation>
     </message>
     <message>
         <source>Rotor: park</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotor: park</translation>
     </message>
 </context>
 <context>
     <name>decolog::app::SolarController</name>
     <message>
         <source>Solar data of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Soldata fra %1</translation>
     </message>
     <message>
         <source>Asking for the solar data…</source>
-        <translation type="unfinished"></translation>
+        <translation>Beder om soldata…</translation>
     </message>
     <message>
         <source>The solar data cannot be read</source>
-        <translation type="unfinished"></translation>
+        <translation>Soldataene kan ikke læses</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::CallbookClient</name>
     <message>
         <source>%1 not found on %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 blev ikke fundet på %2</translation>
     </message>
     <message>
         <source>%1: no credentials. Add them in Setup → Callbook.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: ingen loginoplysninger. Tilføj dem under Indstillinger → Callbook.</translation>
     </message>
     <message>
         <source>%1: password not available (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: adgangskoden er ikke tilgængelig (%2)</translation>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>%1 not found</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 blev ikke fundet</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::CloudSync</name>
     <message>
         <source>This Cloud server does not know this request (%1): it is older than your DecoDXLog and has to be updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Denne Cloud-server kender ikke denne forespørgsel (%1): den er ældre end din DecoDXLog og skal opdateres.</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::ClusterConnection</name>
     <message>
         <source>the node answers but says nothing: it may be down — try another source</source>
-        <translation type="unfinished"></translation>
+        <translation>noden svarer, men siger ingenting: den er måske nede — prøv en anden kilde</translation>
     </message>
     <message>
         <source>off</source>
@@ -5532,27 +5623,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>connecting</source>
-        <translation type="unfinished"></translation>
+        <translation>forbinder</translation>
     </message>
     <message>
         <source>logging in</source>
-        <translation type="unfinished"></translation>
+        <translation>logger ind</translation>
     </message>
     <message>
         <source>online</source>
-        <translation type="unfinished"></translation>
+        <translation>online</translation>
     </message>
     <message>
         <source>retrying</source>
-        <translation type="unfinished"></translation>
+        <translation>prøver igen</translation>
     </message>
     <message>
         <source>retrying: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>prøver igen: %1</translation>
     </message>
     <message>
         <source>no callsign: set it in the station profile or in the source</source>
-        <translation type="unfinished"></translation>
+        <translation>intet kaldesignal: sæt det i stationsprofilen eller i kilden</translation>
     </message>
     <message>
         <source>connection closed</source>
@@ -5560,46 +5651,46 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>password needed</source>
-        <translation type="unfinished"></translation>
+        <translation>der skal bruges en adgangskode</translation>
     </message>
     <message>
         <source>no password stored</source>
-        <translation type="unfinished"></translation>
+        <translation>ingen adgangskode gemt</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::CredentialStore</name>
     <message>
         <source>not available in this build</source>
-        <translation type="unfinished"></translation>
+        <translation>ikke tilgængelig i denne build</translation>
     </message>
     <message>
         <source>Windows Credential Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows Credential Manager</translation>
     </message>
     <message>
         <source>macOS Keychain</source>
-        <translation type="unfinished"></translation>
+        <translation>macOS Keychain</translation>
     </message>
     <message>
         <source>Secret Service (GNOME Keyring / KWallet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Secret Service (GNOME Keyring / KWallet)</translation>
     </message>
     <message>
         <source>Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Konto</translation>
     </message>
     <message>
         <source>Token</source>
-        <translation type="unfinished"></translation>
+        <translation>Token</translation>
     </message>
     <message>
         <source>Sync between devices (Phase 3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Synkronisering mellem enheder (Fase 3)</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Brugernavn</translation>
     </message>
     <message>
         <source>Password</source>
@@ -5607,11 +5698,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Callbook lookups (XML subscription)</source>
-        <translation type="unfinished"></translation>
+        <translation>Callbook-opslag (XML-abonnement)</translation>
     </message>
     <message>
         <source>Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaldesignal</translation>
     </message>
     <message>
         <source>API key</source>
@@ -5619,11 +5710,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Upload and confirmations of the QRZ Logbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Upload og bekræftelser fra QRZ Logbook</translation>
     </message>
     <message>
         <source>Downloading confirmations; upload goes through the local TQSL</source>
-        <translation type="unfinished"></translation>
+        <translation>Henter bekræftelser; upload går gennem den lokale TQSL</translation>
     </message>
     <message>
         <source>Email</source>
@@ -5631,159 +5722,159 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>App password</source>
-        <translation type="unfinished"></translation>
+        <translation>App-adgangskode</translation>
     </message>
     <message>
         <source>Real-time upload and OQRS</source>
-        <translation type="unfinished"></translation>
+        <translation>Upload i realtid og OQRS</translation>
     </message>
     <message>
         <source>Upload and eQSL confirmations</source>
-        <translation type="unfinished"></translation>
+        <translation>Upload og eQSL-bekræftelser</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>
-        <translation type="unfinished"></translation>
+        <translation>Gratis callbook-opslag</translation>
     </message>
     <message>
         <source>Spots from your HamAlert triggers (telnet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Spots fra dine HamAlert-triggers (telnet)</translation>
     </message>
     <message>
         <source>Account saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontoen er gemt</translation>
     </message>
     <message>
         <source>Stored in the system keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>Gemt i systemets nøglering</translation>
     </message>
     <message>
         <source>No system keystore in this build: the secret was not saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen systemnøglering i denne build: hemmeligheden blev ikke gemt</translation>
     </message>
     <message>
         <source>Removed</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjernet</translation>
     </message>
     <message>
         <source>No system keystore in this build</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen systemnøglering i denne build</translation>
     </message>
     <message>
         <source>Secret present in the keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>Hemmeligheden ligger i nøgleringen</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::CwKeyer</name>
     <message>
         <source>No serial port chosen for the CW keyer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen serieport valgt til CW-nøglen</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::CwKeyerWorker</name>
     <message>
         <source>Cannot open %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke åbne %1: %2</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::LotwClient</name>
     <message>
         <source>LoTW: download cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: hentningen blev afbrudt</translation>
     </message>
     <message>
         <source>LoTW: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: %1</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::RigControl</name>
     <message>
         <source>Radio connected (rigctld %1:%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Radioen er forbundet (rigctld %1:%2)</translation>
     </message>
     <message>
         <source>Radio not reachable: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Radioen kan ikke nås: %1</translation>
     </message>
     <message>
         <source>Looking for the radio on %1:%2…</source>
-        <translation type="unfinished"></translation>
+        <translation>Leder efter radioen på %1:%2…</translation>
     </message>
     <message>
         <source>Radio off</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio slået fra</translation>
     </message>
     <message>
         <source>The radio is not connected: nothing sent in CW</source>
-        <translation type="unfinished"></translation>
+        <translation>Radioen er ikke forbundet: der blev ikke sendt noget i CW</translation>
     </message>
     <message>
         <source>This CAT link does not key CW (rigctld: %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Denne CAT-forbindelse kan ikke nøgle CW (rigctld: %1)</translation>
     </message>
     <message>
         <source>The radio did not take the CW text (rigctld: %1). Not every radio — and not every CAT bridge — can key CW: for the macros you need rigctld talking to the radio itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Radioen tog ikke imod CW-teksten (rigctld: %1). Ikke enhver radio — og ikke enhver CAT-bro — kan nøgle CW: til makroerne skal rigctld tale med selve radioen.</translation>
     </message>
     <message>
         <source>The radio answered with an error (rigctld: %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Radioen svarede med en fejl (rigctld: %1)</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::RotorLink</name>
     <message>
         <source>Rotor: connected to DecoRotor on %1:%2</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotor: forbundet til DecoRotor på %1:%2</translation>
     </message>
     <message>
         <source>Rotor: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotor: %1</translation>
     </message>
     <message>
         <source>rotctld (Hamlib)</source>
-        <translation type="unfinished"></translation>
+        <translation>rotctld (Hamlib)</translation>
     </message>
     <message>
         <source>Rotor: connected to rotctld on %1:%2</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotor: forbundet til rotctld på %1:%2</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::SolarFetcher</name>
     <message>
         <source>The solar data cannot be read</source>
-        <translation type="unfinished"></translation>
+        <translation>Soldataene kan ikke læses</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::TqslUploader</name>
     <message>
         <source>TQSL not found: install Trusted QSL, or set its path in Setup → QSL services</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL blev ikke fundet: installér Trusted QSL, eller angiv stien under Indstillinger → QSL-tjenester</translation>
     </message>
     <message>
         <source>TQSL has no certificate: import your LoTW certificate in TQSL first</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL har intet certifikat: importér først dit LoTW-certifikat i TQSL</translation>
     </message>
     <message>
         <source>TQSL stopped unexpectedly</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL stoppede uventet</translation>
     </message>
     <message>
         <source>Cannot run TQSL: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke køre TQSL: %1</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::WebQslUploader</name>
     <message>
         <source>Club Log: email, password, callsign and API key are all needed</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: der skal bruges både e-mail, adgangskode, kaldesignal og API-nøgle</translation>
     </message>
 </context>
 </TS>

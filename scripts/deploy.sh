@@ -87,13 +87,21 @@ while [ "$added" -gt 0 ] && [ "$round" -lt 10 ]; do
     while read -r f; do
         while read -r dep; do
             [ -n "$dep" ] || continue
+            # ldd scrive la libreria come la vede la shell: dentro MSYS2 e'
+            # /mingw64/bin/..., da fuori /c/msys64/mingw64/bin/... Se si guarda
+            # una scrittura sola, l'altra non trova niente e il pacchetto parte
+            # senza libstdc++: non e' un errore, e' una cartella che non si apre.
+            case "$dep" in
+                /mingw64/*) dep="$MINGW${dep#/mingw64}" ;;
+            esac
+            [ -f "$dep" ] || continue
             base=$(basename "$dep")
             if [ ! -f "$DIST/$base" ]; then
                 cp "$dep" "$DIST/"
                 echo "  + $base"
                 added=$((added + 1))
             fi
-        done < <(ldd "$f" 2>/dev/null | grep -oiE "$MINGW/bin/[^ ]+\.dll")
+        done < <(ldd "$f" 2>/dev/null | grep -oiE "($MINGW|/mingw64)/bin/[^ ]+\.dll")
     done < <(find "$DIST" -type f \( -name "*.dll" -o -name "*.exe" \))
 done
 
@@ -101,6 +109,15 @@ done
 # quindi ldd non lo vede.
 for ssl in "$MINGW"/bin/libssl-3-x64.dll "$MINGW"/bin/libcrypto-3-x64.dll; do
     [ -f "$ssl" ] && cp -n "$ssl" "$DIST/"
+done
+
+# Senza le librerie del compilatore la cartella non si apre, e Windows non dice
+# quale manca: meglio fermarsi qui che spedire un archivio che non parte.
+for must in libstdc++-6.dll libwinpthread-1.dll libgcc_s_seh-1.dll; do
+    if [ ! -f "$DIST/$must" ]; then
+        echo "manca $must: le dipendenze non si sono risolte (ldd)" >&2
+        exit 1
+    fi
 done
 
 echo "== licenze e istruzioni =="

@@ -29,3 +29,4 @@ compile_commands.json
 
 # Traduzioni compilate: le rifa la build da .ts.
 *.qm
+scripts/__pycache__/
