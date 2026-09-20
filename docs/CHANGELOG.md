@@ -3,6 +3,42 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 0.9.8 — 21 settembre 2026
+
+**Ungherese, rumeno e lettone complete.** Undici lingue su quindici sono finite: 1210
+frasi ciascuna.
+
+> Italiano · English · Deutsch · Français · Español · Nederlands · Dansk · Català ·
+> **Magyar** · **Română** · **Latviešu**
+
+Restano russo, giapponese e le due forme del cinese — quattro lingue, l'ultimo giro. Lo
+stato si guarda sempre con:
+
+```sh
+python scripts/translations.py stato
+```
+
+**Le rose dei venti di tre alfabeti diversi.** L'ungherese non scrive le lettere della
+bussola come nessun'altra lingua di casa: dove l'italiano ha `E` (est) l'ungherese ha `K`
+(kelet) e il lettone `A` (austrumi); dove l'italiano ha `O` (ovest) l'ungherese ha `Ny`
+(nyugat) e il lettone `R` (rietumi); il nord ungherese e' `É`, quello lettone `Z`. Il
+rumeno invece segue l'italiano, con `V` per ovest e `SV` per sud-ovest. Sono poche
+lettere, ma una bussola con le lettere di un'altra lingua non si legge.
+
+**Due cose trovate guardando le finestre, non i file.** In lettone «Station» e «Filters»
+restavano in inglese in cima alla finestra: erano fra le voci riprese da Decodium, dove la
+traduzione c'era ma era la parola inglese identica — quindi risultavano «fatte» e nessun
+conteggio se ne accorgeva. Riscritte, con altre quindici della stessa specie (`Avots`,
+`Brīdinājumi`, `Filtri`, `Valoda`, `Fails`, `Stacija`…). E la lettera `S` della bussola era
+rimasta `S` anche in olandese, ungherese e lettone: adesso e' `Z`, `D` e `D`. Si cambia
+solo dentro il contesto `RotorPointing`, perche' la stessa `S` e' anche la colonna del log
+(RST inviato) e li' deve restare `S`.
+
+**I plurali, contati per davvero.** Prima di scrivere le trenta frasi con `%n`, si e'
+chiesto a `lrelease` quante forme vuole ogni lingua: con tre forme rispondeva «Removed
+plural forms as the target language has less forms», con due no. Quindi due forme per
+tutte e tre, e nessuna forma buttata via in silenzio.
+
 ## 0.9.7 — 21 settembre 2026
 
 **Olandese, danese e catalano complete.** Altre tre lingue al 100%: 1210 frasi ciascuna,

@@ -3138,7 +3138,7 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
     <message>
         <source>S</source>
-        <translation>S</translation>
+        <translation>Z</translation>
     </message>
     <message>
         <source>SO</source>

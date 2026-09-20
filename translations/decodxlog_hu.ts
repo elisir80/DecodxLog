@@ -5,15 +5,15 @@
     <name>AboutDialog</name>
     <message>
         <source>About DecoDXLog</source>
-        <translation type="unfinished"></translation>
+        <translation>A DecoDXLog névjegye</translation>
     </message>
     <message>
         <source>version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 verzió</translation>
     </message>
     <message>
         <source>The station logbook of the Decodium family</source>
-        <translation type="unfinished"></translation>
+        <translation>A Decodium család állomásnaplója</translation>
     </message>
     <message>
         <source>Who made it</source>
@@ -21,7 +21,7 @@
     </message>
     <message>
         <source>Developer</source>
-        <translation type="unfinished"></translation>
+        <translation>Fejlesztő</translation>
     </message>
     <message>
         <source>Email</source>
@@ -49,11 +49,11 @@
     </message>
     <message>
         <source>Licence</source>
-        <translation type="unfinished"></translation>
+        <translation>Licenc</translation>
     </message>
     <message>
         <source>Free software: you can use it, study it, change it and pass it on, sources included. The log is yours and stays on your computer — a SQLite file that opens even without us.</source>
-        <translation type="unfinished"></translation>
+        <translation>Szabad szoftver: használhatod, tanulmányozhatod, megváltoztathatod és továbbadhatod, a forráskóddal együtt. A napló a tiéd, és a saját gépeden marad — egy SQLite-fájl, ami nélkülünk is megnyílik.</translation>
     </message>
     <message>
         <source>Copy these details</source>
@@ -76,27 +76,27 @@
     </message>
     <message>
         <source>Free session</source>
-        <translation type="unfinished"></translation>
+        <translation>Szabad munkamenet</translation>
     </message>
     <message>
         <source>Session · %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Munkamenet · %1</translation>
     </message>
     <message>
         <source>Activation / contest</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiválás / verseny</translation>
     </message>
     <message>
         <source>open since %1 UTC · %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 UTC óta nyitva · %2</translation>
     </message>
     <message>
         <source>Export the session</source>
-        <translation type="unfinished"></translation>
+        <translation>A munkamenet exportálása</translation>
     </message>
     <message>
         <source>ADIF files (*.adi)</source>
-        <translation type="unfinished"></translation>
+        <translation>ADIF-fájlok (*.adi)</translation>
     </message>
     <message>
         <source>QSO</source>
@@ -104,35 +104,35 @@
     </message>
     <message>
         <source>Different calls</source>
-        <translation type="unfinished"></translation>
+        <translation>Különböző hívójelek</translation>
     </message>
     <message>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Időtartam</translation>
     </message>
     <message>
         <source>Last QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Utolsó QSO</translation>
     </message>
     <message>
         <source>Next number</source>
-        <translation type="unfinished"></translation>
+        <translation>Következő szám</translation>
     </message>
     <message>
         <source>activation valid: %1 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>az aktiválás érvényes: %1 QSO</translation>
     </message>
     <message>
         <source>%1 QSO to go</source>
-        <translation type="unfinished"></translation>
+        <translation>még %1 QSO</translation>
     </message>
     <message>
         <source>%1 / %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 / %2</translation>
     </message>
     <message>
         <source>Kind</source>
-        <translation type="unfinished"></translation>
+        <translation>Fajta</translation>
     </message>
     <message>
         <source>Reference</source>
@@ -140,7 +140,7 @@
     </message>
     <message>
         <source>Contest (CONTEST_ID)</source>
-        <translation type="unfinished"></translation>
+        <translation>Verseny (CONTEST_ID)</translation>
     </message>
     <message>
         <source>Name</source>
@@ -148,23 +148,23 @@
     </message>
     <message>
         <source>Grid of the place</source>
-        <translation type="unfinished"></translation>
+        <translation>A hely lokátora</translation>
     </message>
     <message>
         <source>Tag on every QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Címke minden QSO-n</translation>
     </message>
     <message>
         <source>Station profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Állomásprofil</translation>
     </message>
     <message>
         <source>The active one</source>
-        <translation type="unfinished"></translation>
+        <translation>Az aktív</translation>
     </message>
     <message>
         <source>Serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorszám</translation>
     </message>
     <message>
         <source>Next</source>
@@ -172,19 +172,19 @@
     </message>
     <message>
         <source>The QSOs get CONTEST_ID and the serial number sent (STX). The number received goes in the New QSO panel.</source>
-        <translation type="unfinished"></translation>
+        <translation>A QSO-k megkapják a CONTEST_ID-t és az elküldött sorszámot (STX). A kapott szám az Új QSO panelbe kerül.</translation>
     </message>
     <message>
         <source>The QSOs get the activator fields (MY_SIG, MY_SIG_INFO, MY_SOTA_REF…), the grid of the place and the tag. A call already worked in this session on the same band and mode counts as a duplicate, whenever it was.</source>
-        <translation type="unfinished"></translation>
+        <translation>A QSO-k megkapják az aktiválási mezőket (MY_SIG, MY_SIG_INFO, MY_SOTA_REF…), a hely lokátorát és a címkét. Az a hívójel, amellyel ebben a munkamenetben ugyanazon a sávon és módban már volt QSO, duplikátumnak számít, bármikor is volt.</translation>
     </message>
     <message>
         <source>Export ADIF (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>ADIF exportálása (%1)</translation>
     </message>
     <message>
         <source>Contest window (Ctrl+Shift+T)</source>
-        <translation type="unfinished"></translation>
+        <translation>Versenyablak (Ctrl+Shift+T)</translation>
     </message>
     <message>
         <source>Close</source>
@@ -192,15 +192,15 @@
     </message>
     <message>
         <source>Apply changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Változtatások alkalmazása</translation>
     </message>
     <message>
         <source>End session</source>
-        <translation type="unfinished"></translation>
+        <translation>Munkamenet lezárása</translation>
     </message>
     <message>
         <source>Start session</source>
-        <translation type="unfinished"></translation>
+        <translation>Munkamenet indítása</translation>
     </message>
 </context>
 <context>
@@ -218,11 +218,11 @@
     </message>
     <message>
         <source>computed from the log · confirmations: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>a naplóból számolva · igazolások: %1</translation>
     </message>
     <message>
         <source>card</source>
-        <translation type="unfinished"></translation>
+        <translation>kártya</translation>
     </message>
     <message>
         <source>none</source>
@@ -230,39 +230,39 @@
     </message>
     <message>
         <source>confirmed %1</source>
-        <translation type="unfinished"></translation>
+        <translation>igazolt %1</translation>
     </message>
     <message>
         <source>base award ✓</source>
-        <translation type="unfinished"></translation>
+        <translation>alapdiploma ✓</translation>
     </message>
     <message>
         <source>goal %1</source>
-        <translation type="unfinished"></translation>
+        <translation>cél %1</translation>
     </message>
     <message>
         <source>worked %1</source>
-        <translation type="unfinished"></translation>
+        <translation>meglévő %1</translation>
     </message>
     <message>
         <source>band slots %1 / %2</source>
-        <translation type="unfinished"></translation>
+        <translation>sávmezők %1 / %2</translation>
     </message>
     <message>
         <source>All worked</source>
-        <translation type="unfinished"></translation>
+        <translation>Mind meglévő</translation>
     </message>
     <message>
         <source>Not confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem igazolt</translation>
     </message>
     <message>
         <source>Never worked</source>
-        <translation type="unfinished"></translation>
+        <translation>Soha nem volt</translation>
     </message>
     <message>
         <source>Table</source>
-        <translation type="unfinished"></translation>
+        <translation>Táblázat</translation>
     </message>
     <message>
         <source>Map</source>
@@ -274,35 +274,35 @@
     </message>
     <message>
         <source>All bands</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden sáv</translation>
     </message>
     <message>
         <source>All modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden mód</translation>
     </message>
     <message>
         <source>Digital</source>
-        <translation type="unfinished"></translation>
+        <translation>Digitális</translation>
     </message>
     <message>
         <source>Phone</source>
-        <translation type="unfinished"></translation>
+        <translation>Fone</translation>
     </message>
     <message>
         <source>Confirmed by</source>
-        <translation type="unfinished"></translation>
+        <translation>Igazolva ezzel</translation>
     </message>
     <message>
         <source>Card</source>
-        <translation type="unfinished"></translation>
+        <translation>Kártya</translation>
     </message>
     <message>
         <source>All stations</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden állomás</translation>
     </message>
     <message>
         <source>All tags</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden címke</translation>
     </message>
     <message>
         <source>State</source>
@@ -310,59 +310,59 @@
     </message>
     <message>
         <source>Zone</source>
-        <translation type="unfinished"></translation>
+        <translation>Zóna</translation>
     </message>
     <message>
         <source>JARL number</source>
-        <translation type="unfinished"></translation>
+        <translation>JARL-szám</translation>
     </message>
     <message>
         <source>Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Kulcs</translation>
     </message>
     <message>
         <source>Name / first QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Név / első QSO</translation>
     </message>
     <message>
         <source>Last</source>
-        <translation type="unfinished"></translation>
+        <translation>Utolsó</translation>
     </message>
     <message>
         <source>never worked</source>
-        <translation type="unfinished"></translation>
+        <translation>soha nem volt</translation>
     </message>
     <message>
         <source>Everything worked. Well done.</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden megvan. Szép munka.</translation>
     </message>
     <message>
         <source>Nothing matches.</source>
-        <translation type="unfinished"></translation>
+        <translation>Semmi sem illik rá.</translation>
     </message>
     <message>
         <source>No QSO with a US state (STATE field) in the log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs a naplóban olyan QSO, amelynek amerikai állama (STATE mező) volna.</translation>
     </message>
     <message>
         <source>No QSO with a JARL number (CNTY field) in the log. The callbook fills it in when it knows it, otherwise it goes in by hand in the QSO card.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs a naplóban JARL-számos (CNTY mező) QSO. A callbook kitölti, ha tudja, különben kézzel kerül be a QSO lapjára.</translation>
     </message>
     <message>
         <source>No QSO counts for this award with the current filters.</source>
-        <translation type="unfinished"></translation>
+        <translation>A jelenlegi szűrőkkel egy QSO sem számít ebbe a diplomába.</translation>
     </message>
     <message>
         <source>Per band</source>
-        <translation type="unfinished"></translation>
+        <translation>Sávonként</translation>
     </message>
     <message>
         <source>worked / confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>meglévő / igazolt</translation>
     </message>
     <message>
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
-        <translation type="unfinished"></translation>
+        <translation>● igazolt  ○ meglévő  ·  a dupla kattintás megnyitja az első QSO-t. A DXCC a DXCC-számmal rendelkező entitásokat számolja; régebbi QSO-khoz használd a Beállítások → Általános → Hiányzó DXCC pótlása pontot.</translation>
     </message>
 </context>
 <context>
@@ -393,11 +393,11 @@
     </message>
     <message>
         <source>Open statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statisztika megnyitása</translation>
     </message>
     <message>
         <source>Open cluster window</source>
-        <translation type="unfinished"></translation>
+        <translation>Cluster-ablak megnyitása</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -405,27 +405,27 @@
     </message>
     <message>
         <source>%1 confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 igazolt</translation>
     </message>
     <message>
         <source>By band</source>
-        <translation type="unfinished"></translation>
+        <translation>Sáv szerint</translation>
     </message>
     <message>
         <source>By mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mód szerint</translation>
     </message>
     <message>
         <source>Service</source>
-        <translation type="unfinished"></translation>
+        <translation>Szolgáltatás</translation>
     </message>
     <message>
         <source>Download LoTW confirmations</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW-igazolások letöltése</translation>
     </message>
     <message>
         <source>Paper QSL (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Papír QSL (%1)</translation>
     </message>
     <message>
         <source>Stop</source>
@@ -433,7 +433,7 @@
     </message>
     <message>
         <source>LoTW: TQSL signs and sends, and the confirmations come back here.</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: a TQSL aláír és elküld, az igazolások pedig ide jönnek vissza.</translation>
     </message>
     <message>
         <source>Sent</source>
@@ -445,46 +445,46 @@
     </message>
     <message>
         <source>Errors</source>
-        <translation type="unfinished"></translation>
+        <translation>Hibák</translation>
     </message>
     <message>
         <source>To send</source>
-        <translation type="unfinished"></translation>
+        <translation>Küldendő</translation>
     </message>
     <message>
         <source>sending…</source>
-        <translation type="unfinished"></translation>
+        <translation>küldés…</translation>
     </message>
     <message>
         <source>Send %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 küldése</translation>
     </message>
     <message>
         <source>automatic</source>
-        <translation type="unfinished"></translation>
+        <translation>automatikus</translation>
     </message>
     <message>
         <source>LoTW…</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW…</translation>
     </message>
     <message>
         <source>LoTW last sync %1</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW utolsó szinkron %1</translation>
     </message>
 </context>
 <context>
     <name>Cabrillo</name>
     <message>
         <source>The station callsign is missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiányzik az állomás hívójele</translation>
     </message>
     <message>
         <source>The contest name is missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiányzik a verseny neve</translation>
     </message>
     <message>
         <source>No usable QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs használható QSO</translation>
     </message>
 </context>
 <context>
@@ -495,7 +495,7 @@
     </message>
     <message>
         <source>log</source>
-        <translation type="unfinished"></translation>
+        <translation>napló</translation>
     </message>
     <message>
         <source>from log</source>
@@ -504,27 +504,28 @@
     <message>
         <source>Select a QSO or type a callsign.
 The call Decodium is working shows up here by itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Válassz egy QSO-t, vagy írj be egy hívójelet.
+Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translation>
     </message>
     <message>
         <source>photo</source>
-        <translation type="unfinished"></translation>
+        <translation>fénykép</translation>
     </message>
     <message>
         <source>worked %1×</source>
-        <translation type="unfinished"></translation>
+        <translation>%1× volt</translation>
     </message>
     <message>
         <source>new station</source>
-        <translation type="unfinished"></translation>
+        <translation>új állomás</translation>
     </message>
     <message>
         <source>NEW DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>ÚJ DXCC</translation>
     </message>
     <message>
         <source>NEW DXCC on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ÚJ DXCC ezen: %1</translation>
     </message>
     <message>
         <source>Distance</source>
@@ -536,50 +537,50 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Local ≈</source>
-        <translation type="unfinished"></translation>
+        <translation>Helyi ≈</translation>
     </message>
     <message>
         <source>Worked before</source>
-        <translation type="unfinished"></translation>
+        <translation>Volt már</translation>
     </message>
     <message>
         <source>new DXCC on FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>új DXCC FT2-n</translation>
     </message>
     <message>
         <source>new on FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>új FT2-n</translation>
     </message>
     <message>
         <source>new on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>új ezen: %1</translation>
     </message>
     <message>
         <source>LoTW ✓</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW ✓</translation>
     </message>
     <message>
         <source>Not in the log yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Még nincs a naplóban.</translation>
     </message>
     <message>
         <source>QSL status · last QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL-állapot · utolsó QSO</translation>
     </message>
     <message>
         <source>Open last QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Az utolsó QSO megnyitása</translation>
     </message>
 </context>
 <context>
     <name>Callbook</name>
     <message>
         <source>Unexpected answer from QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Váratlan válasz a QRZ.com-tól</translation>
     </message>
     <message>
         <source>Unexpected answer from HamQTH</source>
-        <translation type="unfinished"></translation>
+        <translation>Váratlan válasz a HamQTH-tól</translation>
     </message>
 </context>
 <context>
@@ -590,23 +591,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1/%2 online</source>
-        <translation type="unfinished"></translation>
+        <translation>%1/%2 online</translation>
     </message>
     <message>
         <source>%1 shown · %2 in the last hour</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 látható · %2 az utolsó órában</translation>
     </message>
     <message>
         <source>→ Decodium</source>
-        <translation type="unfinished"></translation>
+        <translation>→ Decodium</translation>
     </message>
     <message>
         <source>Open cluster</source>
-        <translation type="unfinished"></translation>
+        <translation>Cluster megnyitása</translation>
     </message>
     <message>
         <source>Spot filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Spot-szűrők</translation>
     </message>
     <message>
         <source>Clear all</source>
@@ -614,11 +615,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezárás</translation>
     </message>
     <message>
         <source>Name for these filters</source>
-        <translation type="unfinished"></translation>
+        <translation>E szűrők neve</translation>
     </message>
     <message>
         <source>Save</source>
@@ -626,63 +627,63 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>No saved filters: use More filters → Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs mentett szűrő: használd a Több szűrő → Mentés pontot</translation>
     </message>
     <message>
         <source>Tune Decodium to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>A Decodium hangolása erre: %1</translation>
     </message>
     <message>
         <source>Show in Call info</source>
-        <translation type="unfinished"></translation>
+        <translation>Megjelenítés a Hívójel-infóban</translation>
     </message>
     <message>
         <source>Point the rotor at %1 (%2°)</source>
-        <translation type="unfinished"></translation>
+        <translation>A forgató fordítása ide: %1 (%2°)</translation>
     </message>
     <message>
         <source>Point the rotor</source>
-        <translation type="unfinished"></translation>
+        <translation>A forgató fordítása</translation>
     </message>
     <message>
         <source>Only %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Csak %1</translation>
     </message>
     <message>
         <source>this entity</source>
-        <translation type="unfinished"></translation>
+        <translation>ez az entitás</translation>
     </message>
     <message>
         <source>Alert me when %1 is spotted</source>
-        <translation type="unfinished"></translation>
+        <translation>Szólj, ha %1 spotot kap</translation>
     </message>
     <message>
         <source>Hide spots from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 spotjainak elrejtése</translation>
     </message>
     <message>
         <source>Decodium band</source>
-        <translation type="unfinished"></translation>
+        <translation>A Decodium sávja</translation>
     </message>
     <message>
         <source>NEW BAND/MODE</source>
-        <translation type="unfinished"></translation>
+        <translation>ÚJ SÁV/MÓD</translation>
     </message>
     <message>
         <source>hide worked</source>
-        <translation type="unfinished"></translation>
+        <translation>meglévők elrejtése</translation>
     </message>
     <message>
         <source>Call / entity…</source>
-        <translation type="unfinished"></translation>
+        <translation>Hívójel / entitás…</translation>
     </message>
     <message>
         <source>More filters…</source>
-        <translation type="unfinished"></translation>
+        <translation>Több szűrő…</translation>
     </message>
     <message>
         <source>Saved ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>Mentett ▾</translation>
     </message>
     <message>
         <source>kHz</source>
@@ -698,7 +699,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Entity</source>
-        <translation type="unfinished"></translation>
+        <translation>Entitás</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -718,7 +719,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>km · az</source>
-        <translation type="unfinished"></translation>
+        <translation>km · az</translation>
     </message>
     <message>
         <source>Source</source>
@@ -726,38 +727,38 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>unconf.</source>
-        <translation type="unfinished"></translation>
+        <translation>nem ig.</translation>
     </message>
     <message>
         <source>Spotted by %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Spotolta: %1</translation>
     </message>
     <message>
         <source>No source connected. Open the cluster window → Sources to connect a node, RBN, HamAlert or POTA.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs csatlakoztatott forrás. Nyisd meg a cluster-ablakot → Források, és köss be egy node-ot, RBN-t, HamAlertet vagy POTA-t.</translation>
     </message>
     <message>
         <source>No spot matches the filters (%1 hidden).</source>
-        <translation type="unfinished"></translation>
+        <translation>Egy spot sem illik a szűrőkre (%1 rejtve).</translation>
     </message>
     <message>
         <source>Waiting for spots…</source>
-        <translation type="unfinished"></translation>
+        <translation>Várakozás spotokra…</translation>
     </message>
 </context>
 <context>
     <name>ClusterWindow</name>
     <message>
         <source>DecoDXLog — DX Cluster</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — DX Cluster</translation>
     </message>
     <message>
         <source>Spots</source>
-        <translation type="unfinished"></translation>
+        <translation>Spotok</translation>
     </message>
     <message>
         <source>Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Források</translation>
     </message>
     <message>
         <source>Alerts</source>
@@ -765,43 +766,43 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Voice &amp; LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation>Hang &amp; LoTW</translation>
     </message>
     <message>
         <source>Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Konzol</translation>
     </message>
     <message>
         <source>Decodium on %1 · %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium ezen: %1 · %2</translation>
     </message>
     <message>
         <source>Decodium not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>A Decodium nincs csatlakoztatva</translation>
     </message>
     <message>
         <source>Spot sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Spot-források</translation>
     </message>
     <message>
         <source>Add ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>Hozzáadás ▾</translation>
     </message>
     <message>
         <source>Custom node…</source>
-        <translation type="unfinished"></translation>
+        <translation>Saját node…</translation>
     </message>
     <message>
         <source>All sources flow into one list. Telnet nodes log in with the callsign of the active station profile unless a login is set. RBN gives skimmer spots (CW/RTTY on 7000, FT8/FT4 on 7001). HamAlert sends the spots of your triggers (set them up on hamalert.org; the password goes in the system keystore below). POTA reads the public activation list every minute.</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden forrás egyetlen listába folyik. A telnet-node-ok az aktív állomásprofil hívójelével lépnek be, hacsak nincs megadva külön belépés. Az RBN skimmer-spotokat ad (CW/RTTY a 7000-en, FT8/FT4 a 7001-en). A HamAlert a triggereid spotjait küldi (hamalert.org-on kell beállítani; a jelszó a lenti rendszerkulcstartóba kerül). A POTA percenként olvassa a nyilvános aktiválási listát.</translation>
     </message>
     <message>
         <source>%1 spots</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 spot</translation>
     </message>
     <message>
         <source>, last %1Z</source>
-        <translation type="unfinished"></translation>
+        <translation>, utolsó %1Z</translation>
     </message>
     <message>
         <source>On</source>
@@ -809,47 +810,47 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Szerkesztés</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Eltávolítás</translation>
     </message>
     <message>
         <source>HamAlert account</source>
-        <translation type="unfinished"></translation>
+        <translation>HamAlert-fiók</translation>
     </message>
     <message>
         <source>Alert rules</source>
-        <translation type="unfinished"></translation>
+        <translation>Riasztási szabályok</translation>
     </message>
     <message>
         <source>New rule</source>
-        <translation type="unfinished"></translation>
+        <translation>Új szabály</translation>
     </message>
     <message>
         <source>A spot that matches a rule is written in the activity log, highlighted, sent to Decodium and, if the rule says so, announced by voice. The same DX on the same band and mode is announced at most once every %1 minutes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Az a spot, amelyik illik egy szabályra, bekerül a tevékenységnaplóba, kiemelést kap, elmegy a Decodiumnak, és ha a szabály úgy szól, hangon is bemondódik. Ugyanaz a DX ugyanazon a sávon és módban legfeljebb %1 percenként hangzik el.</translation>
     </message>
     <message>
         <source>DX in %1</source>
-        <translation type="unfinished"></translation>
+        <translation>DX ebben: %1</translation>
     </message>
     <message>
         <source>spotted from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>innen spotolva: %1</translation>
     </message>
     <message>
         <source>not worked on band</source>
-        <translation type="unfinished"></translation>
+        <translation>a sávon még nem volt</translation>
     </message>
     <message>
         <source>every spot</source>
-        <translation type="unfinished"></translation>
+        <translation>minden spot</translation>
     </message>
     <message>
         <source>voice</source>
-        <translation type="unfinished"></translation>
+        <translation>hang</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -857,27 +858,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Voice announcements</source>
-        <translation type="unfinished"></translation>
+        <translation>Hangos bemondás</translation>
     </message>
     <message>
         <source>Speech: %1. Voices come from Windows Settings → Time &amp; language → Speech.</source>
-        <translation type="unfinished"></translation>
+        <translation>Beszéd: %1. A hangok a Windows Beállítások → Idő és nyelv → Beszéd alól jönnek.</translation>
     </message>
     <message>
         <source>No speech synthesizer found (install speech-dispatcher or espeak-ng on Linux).</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs beszédszintetizátor (Linuxon telepítsd a speech-dispatchert vagy az espeak-ng-t).</translation>
     </message>
     <message>
         <source>Announce alerts</source>
-        <translation type="unfinished"></translation>
+        <translation>Riasztások bemondása</translation>
     </message>
     <message>
         <source>Spell calls with the phonetic alphabet</source>
-        <translation type="unfinished"></translation>
+        <translation>A hívójelek betűzése a fonetikus ábécével</translation>
     </message>
     <message>
         <source>Voice</source>
-        <translation type="unfinished"></translation>
+        <translation>Hang</translation>
     </message>
     <message>
         <source>System default</source>
@@ -885,19 +886,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Language of the sentences</source>
-        <translation type="unfinished"></translation>
+        <translation>A mondatok nyelve</translation>
     </message>
     <message>
         <source>Repeat the same DX after</source>
-        <translation type="unfinished"></translation>
+        <translation>Ugyanazt a DX-et ismételje ennyi után</translation>
     </message>
     <message>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Sebesség</translation>
     </message>
     <message>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Hangerő</translation>
     </message>
     <message>
         <source>Test</source>
@@ -909,15 +910,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Example: “New DXCC. Bouvet. 3 Y 0 J. 20 metri. C W.” Keep the announcements on the PC speakers, not on the audio device that goes to the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Például: „Új DXCC. Bouvet. 3 Y 0 J. 20 méter. C W.” A bemondás a gép hangszóróján szóljon, ne azon a hangeszközön, amelyik a rádióba megy.</translation>
     </message>
     <message>
         <source>LoTW users</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW-felhasználók</translation>
     </message>
     <message>
         <source>list not loaded yet</source>
-        <translation type="unfinished"></translation>
+        <translation>a lista még nincs betöltve</translation>
     </message>
     <message>
         <source>Update now</source>
@@ -925,19 +926,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>The ARRL list of LoTW users marks spots of stations that upload to LoTW (filter “LoTW users”). It is refreshed once a week.</source>
-        <translation type="unfinished"></translation>
+        <translation>Az ARRL LoTW-felhasználói listája megjelöli azoknak az állomásoknak a spotjait, amelyek feltöltenek a LoTW-be („LoTW-felhasználók” szűrő). Hetente frissül.</translation>
     </message>
     <message>
         <source>Decodium</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium</translation>
     </message>
     <message>
         <source>Send the spots shown and the alerts to Decodium (DecoLink)</source>
-        <translation type="unfinished"></translation>
+        <translation>A látható spotok és a riasztások küldése a Decodiumnak (DecoLink)</translation>
     </message>
     <message>
         <source>Double-click a spot to tune Decodium: dial frequency and mode, and the DX call ready in the QSO panel. It never starts transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kattints duplán egy spotra, és a Decodium ráhangol: frekvencia és mód, a DX hívójele pedig készen áll a QSO-panelben. Adásba magától soha nem kezd.</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -945,15 +946,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>First node online</source>
-        <translation type="unfinished"></translation>
+        <translation>Az első node online</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished"></translation>
+        <translation>Küldés</translation>
     </message>
     <message>
         <source>Spot a DX</source>
-        <translation type="unfinished"></translation>
+        <translation>DX spotolása</translation>
     </message>
     <message>
         <source>Call</source>
@@ -961,19 +962,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Comment (FT2 -10 dB, JN71…)</source>
-        <translation type="unfinished"></translation>
+        <translation>Megjegyzés (FT2 -10 dB, JN71…)</translation>
     </message>
     <message>
         <source>Post spot</source>
-        <translation type="unfinished"></translation>
+        <translation>Spot feladása</translation>
     </message>
     <message>
         <source>Edit source</source>
-        <translation type="unfinished"></translation>
+        <translation>Forrás szerkesztése</translation>
     </message>
     <message>
         <source>New source</source>
-        <translation type="unfinished"></translation>
+        <translation>Új forrás</translation>
     </message>
     <message>
         <source>Name</source>
@@ -981,11 +982,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Fajta</translation>
     </message>
     <message>
         <source>DX cluster</source>
-        <translation type="unfinished"></translation>
+        <translation>DX-cluster</translation>
     </message>
     <message>
         <source>Host</source>
@@ -993,19 +994,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port</translation>
     </message>
     <message>
         <source>HamAlert username</source>
-        <translation type="unfinished"></translation>
+        <translation>HamAlert-felhasználónév</translation>
     </message>
     <message>
         <source>Login (empty = station profile callsign)</source>
-        <translation type="unfinished"></translation>
+        <translation>Belépés (üresen = az állomásprofil hívójele)</translation>
     </message>
     <message>
         <source>Commands after login (one per line)</source>
-        <translation type="unfinished"></translation>
+        <translation>Parancsok belépés után (soronként egy)</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -1017,54 +1018,54 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Edit alert rule</source>
-        <translation type="unfinished"></translation>
+        <translation>Riasztási szabály szerkesztése</translation>
     </message>
     <message>
         <source>New alert rule</source>
-        <translation type="unfinished"></translation>
+        <translation>Új riasztási szabály</translation>
     </message>
     <message>
         <source>e.g. 3Y0J on any band</source>
-        <translation type="unfinished"></translation>
+        <translation>pl. 3Y0J bármelyik sávon</translation>
     </message>
     <message>
         <source>Announce by voice</source>
-        <translation type="unfinished"></translation>
+        <translation>Bemondás hanggal</translation>
     </message>
     <message>
         <source>Send to Decodium</source>
-        <translation type="unfinished"></translation>
+        <translation>Küldés a Decodiumnak</translation>
     </message>
     <message>
         <source>Save rule</source>
-        <translation type="unfinished"></translation>
+        <translation>Szabály mentése</translation>
     </message>
 </context>
 <context>
     <name>ContestWindow</name>
     <message>
         <source>DecoDXLog — Contest</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — Verseny</translation>
     </message>
     <message>
         <source>The callsign is too short</source>
-        <translation type="unfinished"></translation>
+        <translation>A hívójel túl rövid</translation>
     </message>
     <message>
         <source>Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Munkamenet</translation>
     </message>
     <message>
         <source>No session open</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs nyitott munkamenet</translation>
     </message>
     <message>
         <source>next number %1</source>
-        <translation type="unfinished"></translation>
+        <translation>következő szám %1</translation>
     </message>
     <message>
         <source>Open a session…</source>
-        <translation type="unfinished"></translation>
+        <translation>Munkamenet nyitása…</translation>
     </message>
     <message>
         <source>QSO</source>
@@ -1084,19 +1085,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Last 10 min</source>
-        <translation type="unfinished"></translation>
+        <translation>Utolsó 10 perc</translation>
     </message>
     <message>
         <source>QSO/h</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO/óra</translation>
     </message>
     <message>
         <source>Last hour</source>
-        <translation type="unfinished"></translation>
+        <translation>Utolsó óra</translation>
     </message>
     <message>
         <source>New QSO · Enter logs · Esc clears · Tab moves</source>
-        <translation type="unfinished"></translation>
+        <translation>Új QSO · az Enter naplóz · az Esc töröl · a Tab léptet</translation>
     </message>
     <message>
         <source>Band</source>
@@ -1112,19 +1113,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>RST s</source>
-        <translation type="unfinished"></translation>
+        <translation>RST a</translation>
     </message>
     <message>
         <source>Nr s</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorsz. a</translation>
     </message>
     <message>
         <source>RST r</source>
-        <translation type="unfinished"></translation>
+        <translation>RST v</translation>
     </message>
     <message>
         <source>Nr r</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorsz. v</translation>
     </message>
     <message>
         <source>Log</source>
@@ -1132,75 +1133,75 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>CW macros</source>
-        <translation type="unfinished"></translation>
+        <translation>CW-makrók</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Állj</translation>
     </message>
     <message>
         <source>Edit macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Makrók szerkesztése</translation>
     </message>
     <message>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Sebesség</translation>
     </message>
     <message>
         <source>%1 wpm</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 szó/perc</translation>
     </message>
     <message>
         <source>DUPE</source>
-        <translation type="unfinished"></translation>
+        <translation>DUPE</translation>
     </message>
     <message>
         <source>worked %1×</source>
-        <translation type="unfinished"></translation>
+        <translation>%1× volt</translation>
     </message>
     <message>
         <source>new station</source>
-        <translation type="unfinished"></translation>
+        <translation>új állomás</translation>
     </message>
     <message>
         <source>%1 km · %2°</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 km · %2°</translation>
     </message>
     <message>
         <source>Last QSOs of the session</source>
-        <translation type="unfinished"></translation>
+        <translation>A munkamenet utolsó QSO-i</translation>
     </message>
     <message>
         <source>No QSO in this session yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebben a munkamenetben még nincs QSO.</translation>
     </message>
     <message>
         <source>Cabrillo…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabrillo…</translation>
     </message>
     <message>
         <source>ADIF of the session…</source>
-        <translation type="unfinished"></translation>
+        <translation>A munkamenet ADIF-je…</translation>
     </message>
     <message>
         <source>Enter logs · Esc clears · space moves to the report</source>
-        <translation type="unfinished"></translation>
+        <translation>az Enter naplóz · az Esc töröl · a szóköz a riportra ugrik</translation>
     </message>
     <message>
         <source>ADIF of the session</source>
-        <translation type="unfinished"></translation>
+        <translation>A munkamenet ADIF-je</translation>
     </message>
     <message>
         <source>ADIF files (*.adi)</source>
-        <translation type="unfinished"></translation>
+        <translation>ADIF-fájlok (*.adi)</translation>
     </message>
     <message>
         <source>Cabrillo log</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabrillo-napló</translation>
     </message>
     <message>
         <source>Cabrillo files (*.log *.cbr)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabrillo-fájlok (*.log *.cbr)</translation>
     </message>
     <message>
         <source>All files (*)</source>
@@ -1208,19 +1209,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>The text goes on air as it is written, with the gaps filled in at the moment: {CALL} the callsign you are working, {MYCALL} yours, {RST} the report sent, {NR} the serial, {EXCH} what you received. The keyer is the radio&apos;s own: Hamlib hands it the text.</source>
-        <translation type="unfinished"></translation>
+        <translation>A szöveg úgy megy adásba, ahogy le van írva, a helyek pedig abban a pillanatban töltődnek ki: {CALL} a hívójel, amivel dolgozol, {MYCALL} a tiéd, {RST} az adott riport, {NR} a sorszám, {EXCH} amit kaptál. A manipulátor a rádióé: a Hamlib adja át neki a szöveget.</translation>
     </message>
     <message>
         <source>Default macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Alapértelmezett makrók</translation>
     </message>
     <message>
         <source>Cabrillo header</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabrillo-fejléc</translation>
     </message>
     <message>
         <source>Contest (CONTEST)</source>
-        <translation type="unfinished"></translation>
+        <translation>Verseny (CONTEST)</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -1228,74 +1229,74 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Location (section, zone)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hely (szekció, zóna)</translation>
     </message>
     <message>
         <source>Operators</source>
-        <translation type="unfinished"></translation>
+        <translation>Operátorok</translation>
     </message>
     <message>
         <source>Club</source>
-        <translation type="unfinished"></translation>
+        <translation>Klub</translation>
     </message>
     <message>
         <source>Category</source>
-        <translation type="unfinished"></translation>
+        <translation>Kategória</translation>
     </message>
     <message>
         <source>Power</source>
-        <translation type="unfinished"></translation>
+        <translation>Teljesítmény</translation>
     </message>
     <message>
         <source>Assisted</source>
-        <translation type="unfinished"></translation>
+        <translation>Segített</translation>
     </message>
     <message>
         <source>Claimed score</source>
-        <translation type="unfinished"></translation>
+        <translation>Bejelentett pontszám</translation>
     </message>
     <message>
         <source>Soapbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Megjegyzés</translation>
     </message>
     <message>
         <source>The exchange sent is the serial number of the session; the received one is what was typed in “Nr r”. Frequencies go out in kHz, VHF and up as the band number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Az adott kód a munkamenet sorszáma; a kapott az, amit a „Sorsz. v” mezőbe írtál. A frekvenciák kHz-ben mennek ki, VHF-től fölfelé a sáv számaként.</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezárás</translation>
     </message>
     <message>
         <source>Write the file…</source>
-        <translation type="unfinished"></translation>
+        <translation>A fájl megírása…</translation>
     </message>
 </context>
 <context>
     <name>CredentialsList</name>
     <message>
         <source>…</source>
-        <translation type="unfinished"></translation>
+        <translation>…</translation>
     </message>
     <message>
         <source>error</source>
-        <translation type="unfinished"></translation>
+        <translation>hiba</translation>
     </message>
     <message>
         <source>stored</source>
-        <translation type="unfinished"></translation>
+        <translation>elmentve</translation>
     </message>
     <message>
         <source>no secret</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs titok</translation>
     </message>
     <message>
         <source>not set</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs beállítva</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Szerkesztés</translation>
     </message>
     <message>
         <source>Add</source>
@@ -1303,23 +1304,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Secrets live in the system keystore (%1), never in the settings file.</source>
-        <translation type="unfinished"></translation>
+        <translation>A titkok a rendszer kulcstartójában laknak (%1), soha nem a beállításfájlban.</translation>
     </message>
     <message>
         <source>This build has no system keystore (qtkeychain): credentials cannot be stored.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebben a változatban nincs rendszerkulcstartó (qtkeychain): a belépési adatokat nem lehet eltárolni.</translation>
     </message>
     <message>
         <source>stored — leave empty to keep it</source>
-        <translation type="unfinished"></translation>
+        <translation>elmentve — hagyd üresen, hogy megmaradjon</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Eltávolítás</translation>
     </message>
     <message>
         <source>Check</source>
-        <translation type="unfinished"></translation>
+        <translation>Ellenőrzés</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -1327,7 +1328,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Mentés</translation>
     </message>
 </context>
 <context>
@@ -1338,43 +1339,43 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Állj</translation>
     </message>
     <message>
         <source>This CAT link does not key CW: it reads the radio but it cannot send. Either connect rigctld to the radio itself, or — with Decodium holding the CAT — set up the keyer on a serial port of its own: Setup → Radio (CAT) → Keying on a serial port.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez a CAT-kapcsolat nem ad CW-t: olvassa a rádiót, de adni nem tud. Vagy kösd a rigctld-t magára a rádióra, vagy — ha a CAT-ot a Decodium fogja — állítsd be a manipulátort saját soros porton: Beállítások → Rádió (CAT) → Manipulálás soros porton.</translation>
     </message>
     <message>
         <source>The radio is off: Setup → Radio (CAT) to turn it on. The decoder works anyway, it only needs the audio coming out of the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>A rádió ki van kapcsolva: Beállítások → Rádió (CAT), ott lehet bekapcsolni. A dekóder így is működik, neki csak a rádióból jövő hang kell.</translation>
     </message>
     <message>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Sebesség</translation>
     </message>
     <message>
         <source>%1 wpm</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 szó/perc</translation>
     </message>
     <message>
         <source>write here and press Enter: it goes out in CW</source>
-        <translation type="unfinished"></translation>
+        <translation>ide írj, és nyomj Entert: CW-ben megy ki</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished"></translation>
+        <translation>Küldés</translation>
     </message>
     <message>
         <source>Decoder</source>
-        <translation type="unfinished"></translation>
+        <translation>Dekóder</translation>
     </message>
     <message>
         <source>%1 wpm · %2 Hz</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 szó/perc · %2 Hz</translation>
     </message>
     <message>
         <source>listening…</source>
-        <translation type="unfinished"></translation>
+        <translation>hallgatózik…</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -1389,80 +1390,80 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Details ▸</source>
-        <translation type="unfinished"></translation>
+        <translation>Részletek ▸</translation>
     </message>
     <message>
         <source>DXCC on FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC FT2-n</translation>
     </message>
     <message>
         <source>Grids on FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokátorok FT2-n</translation>
     </message>
     <message>
         <source>Confirmed (LoTW)</source>
-        <translation type="unfinished"></translation>
+        <translation>Igazolt (LoTW)</translation>
     </message>
 </context>
 <context>
     <name>GlassPanel</name>
     <message>
         <source>Put it back in the main window</source>
-        <translation type="unfinished"></translation>
+        <translation>Vissza a főablakba</translation>
     </message>
     <message>
         <source>Detach it into its own window</source>
-        <translation type="unfinished"></translation>
+        <translation>Leválasztás saját ablakba</translation>
     </message>
     <message>
         <source>Close this panel — it comes back from Panels in the top bar</source>
-        <translation type="unfinished"></translation>
+        <translation>A panel bezárása — a felső sáv Panelek pontjából jön vissza</translation>
     </message>
 </context>
 <context>
     <name>GridSquareMap</name>
     <message>
         <source>confirmed %1</source>
-        <translation type="unfinished"></translation>
+        <translation>igazolt %1</translation>
     </message>
     <message>
         <source>worked %1</source>
-        <translation type="unfinished"></translation>
+        <translation>meglévő %1</translation>
     </message>
     <message>
         <source>confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>igazolt</translation>
     </message>
     <message>
         <source>worked</source>
-        <translation type="unfinished"></translation>
+        <translation>meglévő</translation>
     </message>
     <message>
         <source>not worked</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs meg</translation>
     </message>
 </context>
 <context>
     <name>LogbookPanel</name>
     <message>
         <source>confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>igazolt</translation>
     </message>
     <message>
         <source>LoTW confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW-vel igazolt</translation>
     </message>
     <message>
         <source>card confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>kártyával igazolt</translation>
     </message>
     <message>
         <source>eQSL confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL-lel igazolt</translation>
     </message>
     <message>
         <source>not confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>nem igazolt</translation>
     </message>
     <message>
         <source>Logbook</source>
@@ -1470,11 +1471,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1 selected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 kijelölve</translation>
     </message>
     <message>
         <source>%1 QSO · %2 shown</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 QSO · %2 látható</translation>
     </message>
     <message>
         <source>%1 QSO</source>
@@ -1482,7 +1483,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Actions ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>Műveletek ▾</translation>
     </message>
     <message>
         <source>Columns</source>
@@ -1494,7 +1495,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Default widths</source>
-        <translation type="unfinished"></translation>
+        <translation>Alapértelmezett szélességek</translation>
     </message>
     <message>
         <source>Band</source>
@@ -1506,7 +1507,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>DXCC entity</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC-entitás</translation>
     </message>
     <message>
         <source>QSL</source>
@@ -1514,119 +1515,119 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Station profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Állomásprofil</translation>
     </message>
     <message>
         <source>Tag</source>
-        <translation type="unfinished"></translation>
+        <translation>Címke</translation>
     </message>
     <message>
         <source>No tags in the log yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Még nincs címke a naplóban</translation>
     </message>
     <message>
         <source>This month</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez a hónap</translation>
     </message>
     <message>
         <source>Date range…</source>
-        <translation type="unfinished"></translation>
+        <translation>Dátumtartomány…</translation>
     </message>
     <message>
         <source>Tag the %1 QSO shown…</source>
-        <translation type="unfinished"></translation>
+        <translation>A %1 látható QSO címkézése…</translation>
     </message>
     <message>
         <source>Remove a tag from the QSO shown…</source>
-        <translation type="unfinished"></translation>
+        <translation>Címke eltávolítása a látható QSO-król…</translation>
     </message>
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
-        <translation type="unfinished"></translation>
+        <translation>A %1 látható QSO exportálása ADIF-be…</translation>
     </message>
     <message>
         <source>Complete the QSO shown from the callbook…</source>
-        <translation type="unfinished"></translation>
+        <translation>A látható QSO-k kiegészítése a callbookból…</translation>
     </message>
     <message>
         <source>Complete every QSO without a grid…</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden lokátor nélküli QSO kiegészítése…</translation>
     </message>
     <message>
         <source>Stop: %1 QSO still to go</source>
-        <translation type="unfinished"></translation>
+        <translation>Állj: még %1 QSO van hátra</translation>
     </message>
     <message>
         <source>Clean up %1 QSO damaged by an old import…</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 régi importtal elrontott QSO rendbetétele…</translation>
     </message>
     <message>
         <source>Clear all filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden szűrő törlése</translation>
     </message>
     <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Törlöd ezt: %1? A QSO az előzményekben marad, és vissza lehet hozni.</translation>
     </message>
     <message>
         <source>Delete the %1 QSO selected? They stay in the history and can be recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Törlöd a kijelölt %1 QSO-t? Az előzményekben maradnak, és vissza lehet hozni őket.</translation>
     </message>
     <message>
         <source>Once more, to be sure: delete %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>Még egyszer, a biztonság kedvéért: törlöd ezt: %1?</translation>
     </message>
     <message>
         <source>Once more, to be sure: delete %1 QSO?</source>
-        <translation type="unfinished"></translation>
+        <translation>Még egyszer, a biztonság kedvéért: törlöd ezt a %1 QSO-t?</translation>
     </message>
     <message>
         <source>Delete for good</source>
-        <translation type="unfinished"></translation>
+        <translation>Végleges törlés</translation>
     </message>
     <message>
         <source>Some QSO imported long ago have a name or a QTH cut in half, with a piece of the next ADIF field stuck to it. Clean them up? What cannot be read is emptied, so the callbook can write it properly; the old text stays in the history.</source>
-        <translation type="unfinished"></translation>
+        <translation>Néhány rég beolvasott QSO-ban a név vagy a QTH félbe van vágva, és hozzá van ragadva a következő ADIF-mező egy darabja. Rendbe tegyük? Ami nem olvasható, az kiürül, hogy a callbook rendesen be tudja írni; a régi szöveg az előzményekben marad.</translation>
     </message>
     <message>
         <source>Clean up</source>
-        <translation type="unfinished"></translation>
+        <translation>Rendbetétel</translation>
     </message>
     <message>
         <source>Save the QSO chosen</source>
-        <translation type="unfinished"></translation>
+        <translation>A kiválasztott QSO-k mentése</translation>
     </message>
     <message>
         <source>Export the QSO shown</source>
-        <translation type="unfinished"></translation>
+        <translation>A látható QSO-k exportálása</translation>
     </message>
     <message>
         <source>ADIF files (*.adi)</source>
-        <translation type="unfinished"></translation>
+        <translation>ADIF-fájlok (*.adi)</translation>
     </message>
     <message>
         <source>Add a tag to %1 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Címke hozzáadása %1 QSO-hoz</translation>
     </message>
     <message>
         <source>Remove a tag from %1 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Címke eltávolítása %1 QSO-ról</translation>
     </message>
     <message>
         <source>e.g. pota, field day, portable</source>
-        <translation type="unfinished"></translation>
+        <translation>pl. pota, field day, portable</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezárás</translation>
     </message>
     <message>
         <source>Add tag</source>
-        <translation type="unfinished"></translation>
+        <translation>Címke hozzáadása</translation>
     </message>
     <message>
         <source>Remove tag</source>
-        <translation type="unfinished"></translation>
+        <translation>Címke eltávolítása</translation>
     </message>
     <message>
         <source>From (UTC)</source>
@@ -1634,11 +1635,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>To (included)</source>
-        <translation type="unfinished"></translation>
+        <translation>Eddig (bezárólag)</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Mégse</translation>
     </message>
     <message>
         <source>Apply</source>
@@ -1646,7 +1647,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Save current filters…</source>
-        <translation type="unfinished"></translation>
+        <translation>A mostani szűrők mentése…</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -1654,23 +1655,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1: confirmed — received</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: igazolt — megérkezett</translation>
     </message>
     <message>
         <source>%1: sent, waiting for the confirmation</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: elküldve, várjuk az igazolást</translation>
     </message>
     <message>
         <source>%1: not sent</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: nincs elküldve</translation>
     </message>
     <message>
         <source>Filter name</source>
-        <translation type="unfinished"></translation>
+        <translation>A szűrő neve</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Mentés</translation>
     </message>
     <message>
         <source>Filters</source>
@@ -1678,35 +1679,35 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Search: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>Keresés: %1 ✕</translation>
     </message>
     <message>
         <source>Band: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>Sáv: %1 ✕</translation>
     </message>
     <message>
         <source>Mode: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>Mód: %1 ✕</translation>
     </message>
     <message>
         <source>DXCC: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC: %1 ✕</translation>
     </message>
     <message>
         <source>QSL: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL: %1 ✕</translation>
     </message>
     <message>
         <source>Station: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>Állomás: %1 ✕</translation>
     </message>
     <message>
         <source>Tag: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>Címke: %1 ✕</translation>
     </message>
     <message>
         <source>+ add</source>
-        <translation type="unfinished"></translation>
+        <translation>+ még</translation>
     </message>
     <message>
         <source>Saved:</source>
@@ -1714,23 +1715,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1 filters ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 szűrő ▾</translation>
     </message>
     <message>
         <source>none ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs ▾</translation>
     </message>
     <message>
         <source>L LoTW · Q QRZ Logbook · C Club Log · E eQSL</source>
-        <translation type="unfinished"></translation>
+        <translation>L LoTW · Q QRZ Logbook · C Club Log · E eQSL</translation>
     </message>
     <message>
         <source>No QSO matches the filters.</source>
-        <translation type="unfinished"></translation>
+        <translation>Egy QSO sem illik a szűrőkre.</translation>
     </message>
     <message>
         <source>The log is empty. Log a QSO in Decodium, or import an ADIF file.</source>
-        <translation type="unfinished"></translation>
+        <translation>A napló üres. Naplózz egy QSO-t a Decodiumban, vagy olvass be egy ADIF-fájlt.</translation>
     </message>
     <message>
         <source>Open / edit…</source>
@@ -1738,85 +1739,85 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Delete QSO…</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO törlése…</translation>
     </message>
     <message>
         <source>Delete the %1 QSO selected…</source>
-        <translation type="unfinished"></translation>
+        <translation>A kijelölt %1 QSO törlése…</translation>
     </message>
     <message>
         <source>Complete from the callbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Kiegészítés a callbookból</translation>
     </message>
     <message>
         <source>Filter by this call</source>
-        <translation type="unfinished"></translation>
+        <translation>Szűrés erre a hívójelre</translation>
     </message>
     <message>
         <source>Filter by entity: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Szűrés entitásra: %1</translation>
     </message>
     <message>
         <source>Filter by entity</source>
-        <translation type="unfinished"></translation>
+        <translation>Szűrés entitásra</translation>
     </message>
     <message>
         <source>Send the %1 QSO chosen to…</source>
-        <translation type="unfinished"></translation>
+        <translation>A kiválasztott %1 QSO küldése ide…</translation>
     </message>
     <message>
         <source>Send this QSO to…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ennek a QSO-nak a küldése ide…</translation>
     </message>
     <message>
         <source>Save the %1 QSO chosen as ADIF…</source>
-        <translation type="unfinished"></translation>
+        <translation>A kiválasztott %1 QSO mentése ADIF-ként…</translation>
     </message>
     <message>
         <source>Save this QSO as ADIF…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ennek a QSO-nak a mentése ADIF-ként…</translation>
     </message>
     <message>
         <source>Paper QSL: queue the %1 chosen for the bureau</source>
-        <translation type="unfinished"></translation>
+        <translation>Papír QSL: a kiválasztott %1 sorba állítása a bürónak</translation>
     </message>
     <message>
         <source>Paper QSL: queue for the bureau</source>
-        <translation type="unfinished"></translation>
+        <translation>Papír QSL: sorba állítás a bürónak</translation>
     </message>
     <message>
         <source>Paper QSL: queue the %1 chosen as direct</source>
-        <translation type="unfinished"></translation>
+        <translation>Papír QSL: a kiválasztott %1 sorba állítása direktként</translation>
     </message>
     <message>
         <source>Paper QSL: queue as direct</source>
-        <translation type="unfinished"></translation>
+        <translation>Papír QSL: sorba állítás direktként</translation>
     </message>
     <message>
         <source>Add tag…</source>
-        <translation type="unfinished"></translation>
+        <translation>Címke hozzáadása…</translation>
     </message>
 </context>
 <context>
     <name>LogbookWindow</name>
     <message>
         <source>DecoDXLog — Logbook</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — Napló</translation>
     </message>
 </context>
 <context>
     <name>Lotw</name>
     <message>
         <source>LoTW: username or password incorrect</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: hibás felhasználónév vagy jelszó</translation>
     </message>
     <message>
         <source>LoTW: the server answered with a web page, not with ADIF</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: a szerver weblappal válaszolt, nem ADIF-fel</translation>
     </message>
     <message>
         <source>LoTW: unexpected answer</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: váratlan válasz</translation>
     </message>
 </context>
 <context>
@@ -1855,15 +1856,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>closed</source>
-        <translation type="unfinished"></translation>
+        <translation>bezárva</translation>
     </message>
     <message>
         <source>window</source>
-        <translation type="unfinished"></translation>
+        <translation>ablak</translation>
     </message>
     <message>
         <source>docked</source>
-        <translation type="unfinished"></translation>
+        <translation>beépítve</translation>
     </message>
     <message>
         <source>Import ADIF</source>
@@ -1883,39 +1884,39 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>ADIF files (*.adi)</source>
-        <translation type="unfinished"></translation>
+        <translation>ADIF-fájlok (*.adi)</translation>
     </message>
     <message>
         <source>PANELS</source>
-        <translation type="unfinished"></translation>
+        <translation>PANELEK</translation>
     </message>
     <message>
         <source>Click a panel to close it or bring it back. The arrow detaches it into a window of its own; a closed panel frees its space instead of leaving a hole.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kattints egy panelre, hogy bezárd vagy visszahozd. A nyíl leválasztja saját ablakba; a bezárt panel átadja a helyét, nem hagy lyukat.</translation>
     </message>
     <message>
         <source>Put it back in the main window</source>
-        <translation type="unfinished"></translation>
+        <translation>Vissza a főablakba</translation>
     </message>
     <message>
         <source>Detach it into its own window</source>
-        <translation type="unfinished"></translation>
+        <translation>Leválasztás saját ablakba</translation>
     </message>
     <message>
         <source>Restore the default layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Az alapelrendezés visszaállítása</translation>
     </message>
     <message>
         <source>Unlock the layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Az elrendezés feloldása</translation>
     </message>
     <message>
         <source>Lock the layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Az elrendezés rögzítése</translation>
     </message>
     <message>
         <source>Detach this panel into its own window</source>
-        <translation type="unfinished"></translation>
+        <translation>Ennek a panelnek a leválasztása saját ablakba</translation>
     </message>
     <message>
         <source>Close this panel</source>
@@ -1923,7 +1924,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Panels…</source>
-        <translation type="unfinished"></translation>
+        <translation>Panelek…</translation>
     </message>
 </context>
 <context>
@@ -1934,15 +1935,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>SFI %1 · K %2</source>
-        <translation type="unfinished"></translation>
+        <translation>SFI %1 · K %2</translation>
     </message>
     <message>
         <source>Layers ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>Rétegek ▾</translation>
     </message>
     <message>
         <source>Coastlines</source>
-        <translation type="unfinished"></translation>
+        <translation>Partvonalak</translation>
     </message>
     <message>
         <source>Night</source>
@@ -1950,27 +1951,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Worked grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Meglévő lokátorok</translation>
     </message>
     <message>
         <source>Cluster spots</source>
-        <translation type="unfinished"></translation>
+        <translation>Cluster-spotok</translation>
     </message>
     <message>
         <source>Antenna heading</source>
-        <translation type="unfinished"></translation>
+        <translation>Antennairány</translation>
     </message>
     <message>
         <source>QSOs with a grid square appear here</source>
-        <translation type="unfinished"></translation>
+        <translation>A lokátoros QSO-k itt jelennek meg</translation>
     </message>
     <message>
         <source>%1 grids</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 lokátor</translation>
     </message>
     <message>
         <source>%1 spots</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 spot</translation>
     </message>
 </context>
 <context>
@@ -1981,11 +1982,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Station: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Állomás: %1</translation>
     </message>
     <message>
         <source>No station profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs állomásprofil</translation>
     </message>
     <message>
         <source>Callsign</source>
@@ -1993,15 +1994,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Date UTC</source>
-        <translation type="unfinished"></translation>
+        <translation>Dátum UTC</translation>
     </message>
     <message>
         <source>Time on</source>
-        <translation type="unfinished"></translation>
+        <translation>Kezdés</translation>
     </message>
     <message>
         <source>NOW</source>
-        <translation type="unfinished"></translation>
+        <translation>MOST</translation>
     </message>
     <message>
         <source>LOG</source>
@@ -2009,31 +2010,31 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Type a callsign to see what the log knows</source>
-        <translation type="unfinished"></translation>
+        <translation>Írj be egy hívójelet, és meglátod, mit tud róla a napló</translation>
     </message>
     <message>
         <source>unknown prefix</source>
-        <translation type="unfinished"></translation>
+        <translation>ismeretlen prefix</translation>
     </message>
     <message>
         <source>NEW DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>ÚJ DXCC</translation>
     </message>
     <message>
         <source>NEW DXCC on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ÚJ DXCC ezen: %1</translation>
     </message>
     <message>
         <source>NEW on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ÚJ ezen: %1</translation>
     </message>
     <message>
         <source>worked %1×</source>
-        <translation type="unfinished"></translation>
+        <translation>%1× volt</translation>
     </message>
     <message>
         <source>new station</source>
-        <translation type="unfinished"></translation>
+        <translation>új állomás</translation>
     </message>
     <message>
         <source>Band</source>
@@ -2041,7 +2042,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Freq MHz</source>
-        <translation type="unfinished"></translation>
+        <translation>Frekv. MHz</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -2049,15 +2050,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Submode</source>
-        <translation type="unfinished"></translation>
+        <translation>Almód</translation>
     </message>
     <message>
         <source>RST sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Adott RST</translation>
     </message>
     <message>
         <source>RST rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation>Kapott RST</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -2073,7 +2074,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>TX pwr W</source>
-        <translation type="unfinished"></translation>
+        <translation>Adóteljesítmény W</translation>
     </message>
     <message>
         <source>Country</source>
@@ -2081,7 +2082,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Address / city</source>
-        <translation type="unfinished"></translation>
+        <translation>Cím / város</translation>
     </message>
     <message>
         <source>State</source>
@@ -2089,7 +2090,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>County / JCC</source>
-        <translation type="unfinished"></translation>
+        <translation>Megye / JCC</translation>
     </message>
     <message>
         <source>DXCC</source>
@@ -2097,11 +2098,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>CQ zone</source>
-        <translation type="unfinished"></translation>
+        <translation>CQ-zóna</translation>
     </message>
     <message>
         <source>ITU zone</source>
-        <translation type="unfinished"></translation>
+        <translation>ITU-zóna</translation>
     </message>
     <message>
         <source>Cont</source>
@@ -2109,7 +2110,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>QSL via</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL via</translation>
     </message>
     <message>
         <source>Comment</source>
@@ -2121,7 +2122,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>pota, portable</source>
-        <translation type="unfinished"></translation>
+        <translation>pota, portable</translation>
     </message>
     <message>
         <source>CLEAR</source>
@@ -2129,11 +2130,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Log &amp; keep</source>
-        <translation type="unfinished"></translation>
+        <translation>Naplózás és megtartás</translation>
     </message>
     <message>
         <source>LOG QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO NAPLÓZÁSA</translation>
     </message>
 </context>
 <context>
@@ -2148,39 +2149,39 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Full form (Ctrl+N)</source>
-        <translation type="unfinished"></translation>
+        <translation>Teljes űrlap (Ctrl+N)</translation>
     </message>
     <message>
         <source>INCOMING · %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ÉRKEZIK · %1</translation>
     </message>
     <message>
         <source>saved ✓</source>
-        <translation type="unfinished"></translation>
+        <translation>elmentve ✓</translation>
     </message>
     <message>
         <source>duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>duplikátum</translation>
     </message>
     <message>
         <source>not saved</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs elmentve</translation>
     </message>
     <message>
         <source>Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Hívójel</translation>
     </message>
     <message>
         <source>Date UTC</source>
-        <translation type="unfinished"></translation>
+        <translation>Dátum UTC</translation>
     </message>
     <message>
         <source>Time on</source>
-        <translation type="unfinished"></translation>
+        <translation>Kezdés</translation>
     </message>
     <message>
         <source>NOW</source>
-        <translation type="unfinished"></translation>
+        <translation>MOST</translation>
     </message>
     <message>
         <source>Band</source>
@@ -2196,11 +2197,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>RST S</source>
-        <translation type="unfinished"></translation>
+        <translation>RST A</translation>
     </message>
     <message>
         <source>RST R</source>
-        <translation type="unfinished"></translation>
+        <translation>RST V</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -2216,11 +2217,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Nr rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation>Kapott sorsz.</translation>
     </message>
     <message>
         <source>Nr sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Adott sorsz.</translation>
     </message>
     <message>
         <source>Comment</source>
@@ -2228,7 +2229,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>LOG QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO NAPLÓZÁSA</translation>
     </message>
     <message>
         <source>CLEAR</source>
@@ -2239,49 +2240,49 @@ The call Decodium is working shows up here by itself.</source>
     <name>PanelSlot</name>
     <message>
         <source>here</source>
-        <translation type="unfinished"></translation>
+        <translation>itt</translation>
     </message>
 </context>
 <context>
     <name>PanelWindow</name>
     <message>
         <source>DecoDXLog — %1</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — %1</translation>
     </message>
 </context>
 <context>
     <name>PropagationPanel</name>
     <message>
         <source>good</source>
-        <translation type="unfinished"></translation>
+        <translation>jó</translation>
     </message>
     <message>
         <source>fair</source>
-        <translation type="unfinished"></translation>
+        <translation>közepes</translation>
     </message>
     <message>
         <source>poor</source>
-        <translation type="unfinished"></translation>
+        <translation>rossz</translation>
     </message>
     <message>
         <source>closed</source>
-        <translation type="unfinished"></translation>
+        <translation>bezárva</translation>
     </message>
     <message>
         <source>SFI</source>
-        <translation type="unfinished"></translation>
+        <translation>SFI</translation>
     </message>
     <message>
         <source>Sunspots</source>
-        <translation type="unfinished"></translation>
+        <translation>Napfoltok</translation>
     </message>
     <message>
         <source>A index</source>
-        <translation type="unfinished"></translation>
+        <translation>A-index</translation>
     </message>
     <message>
         <source>K index</source>
-        <translation type="unfinished"></translation>
+        <translation>K-index</translation>
     </message>
     <message>
         <source>Aurora</source>
@@ -2289,27 +2290,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>X-ray</source>
-        <translation type="unfinished"></translation>
+        <translation>Röntgen</translation>
     </message>
     <message>
         <source>Geomag</source>
-        <translation type="unfinished"></translation>
+        <translation>Geomágn.</translation>
     </message>
     <message>
         <source>Noise</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaj</translation>
     </message>
     <message>
         <source>Sol. wind</source>
-        <translation type="unfinished"></translation>
+        <translation>Napszél</translation>
     </message>
     <message>
         <source>HF · day</source>
-        <translation type="unfinished"></translation>
+        <translation>HF · nappal</translation>
     </message>
     <message>
         <source>HF · night</source>
-        <translation type="unfinished"></translation>
+        <translation>HF · éjjel</translation>
     </message>
     <message>
         <source>VHF</source>
@@ -2317,15 +2318,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Your QSOs and the solar flux · last 14 days</source>
-        <translation type="unfinished"></translation>
+        <translation>A QSO-id és a napfluxus · utolsó 14 nap</translation>
     </message>
     <message>
         <source>The bar is the QSOs of the day, the number under it the average solar flux. The flux is kept from when DecoDXLog started looking: the first days are empty.</source>
-        <translation type="unfinished"></translation>
+        <translation>Az oszlop a nap QSO-i, alatta a szám az átlagos napfluxus. A fluxus attól kezdve van meg, amióta a DecoDXLog figyeli: az első napok üresek.</translation>
     </message>
     <message>
         <source>asking…</source>
-        <translation type="unfinished"></translation>
+        <translation>kérdezés…</translation>
     </message>
     <message>
         <source>Update now</source>
@@ -2333,133 +2334,136 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>by itself every %1 min</source>
-        <translation type="unfinished"></translation>
+        <translation>magától %1 percenként</translation>
     </message>
     <message>
         <source>%1 · source %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · forrás %2</translation>
     </message>
     <message>
         <source>No solar data yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Még nincs napadat.</translation>
     </message>
 </context>
 <context>
     <name>Qsl</name>
     <message numerus="yes">
         <source>%n QSO sent to LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO elküldve a LoTW-be</numerusform>
+            <numerusform>%n QSO elküldve a LoTW-be</numerusform>
+        </translation>
     </message>
     <message>
         <source>LoTW already had these QSOs</source>
-        <translation type="unfinished"></translation>
+        <translation>A LoTW-ben ezek a QSO-k már megvoltak</translation>
     </message>
     <message>
         <source>Sent to LoTW, some were already there</source>
-        <translation type="unfinished"></translation>
+        <translation>Elküldve a LoTW-be, néhány már ott volt</translation>
     </message>
     <message>
         <source>No QSO to send</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs küldendő QSO</translation>
     </message>
     <message>
         <source>TQSL: cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL: megszakítva</translation>
     </message>
     <message>
         <source>LoTW rejected the file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>A LoTW visszautasította a fájlt: %1</translation>
     </message>
     <message>
         <source>TQSL: certificate or station location problem (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL: baj van a tanúsítvánnyal vagy a station locationnel (%1)</translation>
     </message>
     <message>
         <source>TQSL: cannot reach LoTW (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL: a LoTW nem érhető el (%1)</translation>
     </message>
     <message>
         <source>TQSL: error %1 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL: hiba %1 %2</translation>
     </message>
     <message>
         <source>QRZ Logbook: QSO %1</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ Logbook: QSO %1</translation>
     </message>
     <message>
         <source>QRZ Logbook: already there</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ Logbook: már megvolt</translation>
     </message>
     <message>
         <source>QRZ Logbook: unexpected answer</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ Logbook: váratlan válasz</translation>
     </message>
     <message>
         <source>QRZ Logbook: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
         <source>eQSL: already there</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL: már megvolt</translation>
     </message>
     <message>
         <source>eQSL: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL: %1</translation>
     </message>
     <message>
         <source>eQSL: unexpected answer</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL: váratlan válasz</translation>
     </message>
     <message>
         <source>Club Log: already there</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: már megvolt</translation>
     </message>
     <message>
         <source>Club Log: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: %1</translation>
     </message>
     <message>
         <source>Club Log: accepted</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: elfogadva</translation>
     </message>
     <message>
         <source>Club Log: refused (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: elutasítva (%1)</translation>
     </message>
     <message>
         <source>Club Log: server answered %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: a szerver ezt válaszolta: %1</translation>
     </message>
     <message>
         <source>Club Log: no answer</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: nincs válasz</translation>
     </message>
 </context>
 <context>
     <name>QslCards</name>
     <message>
         <source>No QSL to print</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs nyomtatandó QSL</translation>
     </message>
     <message>
         <source>QSL labels</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL-címkék</translation>
     </message>
     <message>
         <source>Cannot write %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem írható: %1</translation>
     </message>
     <message>
         <source>To radio %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 rádiónak</translation>
     </message>
     <message>
         <source>via %1</source>
-        <translation type="unfinished"></translation>
+        <translation>via %1</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Dátum</translation>
     </message>
     <message>
         <source>UTC</source>
@@ -2475,38 +2479,38 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>RST</source>
-        <translation type="unfinished"></translation>
+        <translation>RST</translation>
     </message>
     <message>
         <source>TNX QSO · 73</source>
-        <translation type="unfinished"></translation>
+        <translation>TNX QSO · 73</translation>
     </message>
 </context>
 <context>
     <name>QslCardsWindow</name>
     <message>
         <source>DecoDXLog — Paper QSL</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — Papír QSL</translation>
     </message>
     <message>
         <source>bureau</source>
-        <translation type="unfinished"></translation>
+        <translation>büró</translation>
     </message>
     <message>
         <source>direct</source>
-        <translation type="unfinished"></translation>
+        <translation>direkt</translation>
     </message>
     <message>
         <source>electronic</source>
-        <translation type="unfinished"></translation>
+        <translation>elektronikus</translation>
     </message>
     <message>
         <source>manager</source>
-        <translation type="unfinished"></translation>
+        <translation>manager</translation>
     </message>
     <message>
         <source>To send</source>
-        <translation type="unfinished"></translation>
+        <translation>Küldendő</translation>
     </message>
     <message>
         <source>Sent</source>
@@ -2514,7 +2518,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Received</source>
-        <translation type="unfinished"></translation>
+        <translation>Megérkezett</translation>
     </message>
     <message>
         <source>All</source>
@@ -2522,15 +2526,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1 waiting for an answer</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 válaszra vár</translation>
     </message>
     <message>
         <source>Queue every QSL to answer</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden megválaszolandó QSL sorba állítása</translation>
     </message>
     <message>
         <source>Paper QSL · %1 rows · %2 chosen</source>
-        <translation type="unfinished"></translation>
+        <translation>Papír QSL · %1 sor · %2 kiválasztva</translation>
     </message>
     <message>
         <source>Call</source>
@@ -2538,7 +2542,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Dátum</translation>
     </message>
     <message>
         <source>UTC</source>
@@ -2554,102 +2558,102 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>RST</source>
-        <translation type="unfinished"></translation>
+        <translation>RST</translation>
     </message>
     <message>
         <source>Via</source>
-        <translation type="unfinished"></translation>
+        <translation>Via</translation>
     </message>
     <message>
         <source>Nothing in the queue. Put a QSO here from its card, from the log row menu, or with “Queue every QSL to answer”.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs semmi a sorban. Tegyél ide egy QSO-t a lapjáról, a napló sorának menüjéből, vagy a „Minden megválaszolandó QSL sorba állítása” ponttal.</translation>
     </message>
     <message>
         <source>Nothing here yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Itt még nincs semmi.</translation>
     </message>
     <message>
         <source>Queue (bureau)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorba (büró)</translation>
     </message>
     <message>
         <source>Queue (direct)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorba (direkt)</translation>
     </message>
     <message>
         <source>Mark as sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Megjelölés elküldöttként</translation>
     </message>
     <message>
         <source>Out of the queue</source>
-        <translation type="unfinished"></translation>
+        <translation>Ki a sorból</translation>
     </message>
     <message>
         <source>Labels · PDF, one label per correspondent</source>
-        <translation type="unfinished"></translation>
+        <translation>Címkék · PDF, egy címke partnerenként</translation>
     </message>
     <message>
         <source>Sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Ív</translation>
     </message>
     <message>
         <source>QSO per label</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO címkénként</translation>
     </message>
     <message>
         <source>Cutting guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Vágásjelek</translation>
     </message>
     <message>
         <source>Write the PDF…</source>
-        <translation type="unfinished"></translation>
+        <translation>A PDF megírása…</translation>
     </message>
     <message>
         <source>Last file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Utolsó fájl: %1</translation>
     </message>
     <message>
         <source>The queue becomes labels: the QSOs of one station end up on the same label.</source>
-        <translation type="unfinished"></translation>
+        <translation>A sorból címkék lesznek: egy állomás QSO-i ugyanarra a címkére kerülnek.</translation>
     </message>
     <message>
         <source>QSL labels</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL-címkék</translation>
     </message>
     <message>
         <source>PDF files (*.pdf)</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF-fájlok (*.pdf)</translation>
     </message>
 </context>
 <context>
     <name>QsoDetailDialog</name>
     <message>
         <source>QSO detail</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO részletei</translation>
     </message>
     <message>
         <source>Export QSO as ADIF</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO exportálása ADIF-ként</translation>
     </message>
     <message>
         <source>ADIF files (*.adi)</source>
-        <translation type="unfinished"></translation>
+        <translation>ADIF-fájlok (*.adi)</translation>
     </message>
     <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Törlöd ezt: %1? A QSO az előzményekben marad, és vissza lehet hozni.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Mégse</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Törlés</translation>
     </message>
     <message>
         <source>edited</source>
-        <translation type="unfinished"></translation>
+        <translation>szerkesztve</translation>
     </message>
     <message>
         <source>General</source>
@@ -2657,7 +2661,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Hely</translation>
     </message>
     <message>
         <source>QSL</source>
@@ -2665,7 +2669,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>ADIF extra</source>
-        <translation type="unfinished"></translation>
+        <translation>ADIF-extra</translation>
     </message>
     <message>
         <source>History</source>
@@ -2673,15 +2677,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Date on UTC</source>
-        <translation type="unfinished"></translation>
+        <translation>Kezdő dátum UTC</translation>
     </message>
     <message>
         <source>Time on</source>
-        <translation type="unfinished"></translation>
+        <translation>Kezdés</translation>
     </message>
     <message>
         <source>Time off</source>
-        <translation type="unfinished"></translation>
+        <translation>Vége</translation>
     </message>
     <message>
         <source>Band</source>
@@ -2689,7 +2693,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Freq MHz</source>
-        <translation type="unfinished"></translation>
+        <translation>Frekv. MHz</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -2697,15 +2701,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Submode</source>
-        <translation type="unfinished"></translation>
+        <translation>Almód</translation>
     </message>
     <message>
         <source>RST sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Adott RST</translation>
     </message>
     <message>
         <source>RST rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation>Kapott RST</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -2713,7 +2717,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>TX pwr W</source>
-        <translation type="unfinished"></translation>
+        <translation>Adóteljesítmény W</translation>
     </message>
     <message>
         <source>Name</source>
@@ -2721,15 +2725,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>QTH</source>
-        <translation type="unfinished"></translation>
+        <translation>QTH</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Megjegyzés</translation>
     </message>
     <message>
         <source>Station profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Állomásprofil</translation>
     </message>
     <message>
         <source>none</source>
@@ -2741,11 +2745,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>CQ zone</source>
-        <translation type="unfinished"></translation>
+        <translation>CQ-zóna</translation>
     </message>
     <message>
         <source>ITU zone</source>
-        <translation type="unfinished"></translation>
+        <translation>ITU-zóna</translation>
     </message>
     <message>
         <source>Cont</source>
@@ -2761,19 +2765,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Cím</translation>
     </message>
     <message>
         <source>E-mail</source>
-        <translation type="unfinished"></translation>
+        <translation>E-mail</translation>
     </message>
     <message>
         <source>QSL via</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL via</translation>
     </message>
     <message>
         <source>Prop mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Terjedés</translation>
     </message>
     <message>
         <source>Satellite</source>
@@ -2781,11 +2785,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>My grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Az én lokátorom</translation>
     </message>
     <message>
         <source>Station call</source>
-        <translation type="unfinished"></translation>
+        <translation>Az állomás hívójele</translation>
     </message>
     <message>
         <source>Operator</source>
@@ -2793,107 +2797,107 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Band RX</source>
-        <translation type="unfinished"></translation>
+        <translation>RX-sáv</translation>
     </message>
     <message>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Jegyzetek</translation>
     </message>
     <message>
         <source>Tags (comma separated)</source>
-        <translation type="unfinished"></translation>
+        <translation>Címkék (vesszővel elválasztva)</translation>
     </message>
     <message>
         <source>Service</source>
-        <translation type="unfinished"></translation>
+        <translation>Szolgáltatás</translation>
     </message>
     <message>
         <source>Sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Elküldve</translation>
     </message>
     <message>
         <source>Sent date</source>
-        <translation type="unfinished"></translation>
+        <translation>Küldés dátuma</translation>
     </message>
     <message>
         <source>Rcvd</source>
-        <translation>Rcvd</translation>
+        <translation>Vett</translation>
     </message>
     <message>
         <source>Rcvd date</source>
-        <translation type="unfinished"></translation>
+        <translation>Érkezés dátuma</translation>
     </message>
     <message>
         <source>Y yes · N no · R requested · Q queued · I ignore · M modified · V verified</source>
-        <translation type="unfinished"></translation>
+        <translation>Y igen · N nem · R kérve · Q sorban · I mellőzve · M módosítva · V ellenőrizve</translation>
     </message>
     <message>
         <source>Fields without a column of their own, kept exactly as they arrived (adif_extra). They go back out on export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Olyan mezők, amelyeknek nincs saját oszlopuk; pontosan úgy maradnak, ahogy megérkeztek (adif_extra). Exportáláskor visszamennek.</translation>
     </message>
     <message>
         <source>FIELD_NAME</source>
-        <translation type="unfinished"></translation>
+        <translation>FIELD_NAME</translation>
     </message>
     <message>
         <source>value</source>
-        <translation type="unfinished"></translation>
+        <translation>érték</translation>
     </message>
     <message>
         <source>+ Add</source>
-        <translation type="unfinished"></translation>
+        <translation>+ Hozzáadás</translation>
     </message>
     <message>
         <source>No earlier revisions: this QSO has never been edited.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs korábbi változat: ezt a QSO-t még soha nem szerkesztették.</translation>
     </message>
     <message>
         <source>Restore</source>
-        <translation type="unfinished"></translation>
+        <translation>Visszaállítás</translation>
     </message>
     <message>
         <source>QSL status · per service</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL-állapot · szolgáltatásonként</translation>
     </message>
     <message>
         <source>Award impact</source>
-        <translation type="unfinished"></translation>
+        <translation>Hatás a diplomákra</translation>
     </message>
     <message>
         <source>FT2 Award: new DXCC %1</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2 Award: új DXCC %1</translation>
     </message>
     <message>
         <source>FT2 Award: DXCC already worked</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2 Award: a DXCC már megvolt</translation>
     </message>
     <message>
         <source>Not an FT2 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem FT2-QSO</translation>
     </message>
     <message>
         <source>No DXCC entity on this QSO: it does not count yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezen a QSO-n nincs DXCC-entitás: még nem számít</translation>
     </message>
     <message>
         <source>%1 DXCC worked on FT2 · %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 DXCC megvan FT2-n · %2</translation>
     </message>
     <message>
         <source>confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>igazolt</translation>
     </message>
     <message>
         <source>unconfirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>nem igazolt</translation>
     </message>
     <message>
         <source>soft delete · kept in history</source>
-        <translation type="unfinished"></translation>
+        <translation>puha törlés · megmarad az előzményekben</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation type="unfinished"></translation>
+        <translation>Visszavonás</translation>
     </message>
     <message>
         <source>Export ADIF</source>
@@ -2901,7 +2905,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Save · rev %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mentés · rev %1</translation>
     </message>
 </context>
 <context>
@@ -2912,179 +2916,182 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>PARK %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>PARK %1°</translation>
     </message>
     <message>
         <source>MEMORIE…</source>
-        <translation type="unfinished"></translation>
+        <translation>MEMÓRIÁK…</translation>
     </message>
 </context>
 <context>
     <name>RotorControlPage</name>
     <message>
         <source>mappa azimutale dal QTH</source>
-        <translation type="unfinished"></translation>
+        <translation>azimutális térkép a QTH-ból</translation>
     </message>
 </context>
 <context>
     <name>RotorDisplay</name>
     <message>
         <source>control box assente</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs control box</translation>
     </message>
     <message>
         <source>in rotazione verso %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>forog ide: %1°</translation>
     </message>
     <message>
         <source>in rotazione</source>
-        <translation type="unfinished"></translation>
+        <translation>forog</translation>
     </message>
     <message>
         <source>fermo</source>
-        <translation type="unfinished"></translation>
+        <translation>áll</translation>
     </message>
     <message>
         <source>DIREZIONE LIBERA</source>
-        <translation type="unfinished"></translation>
+        <translation>SZABAD IRÁNY</translation>
     </message>
     <message>
         <source>AZIMUT</source>
-        <translation type="unfinished"></translation>
+        <translation>AZIMUT</translation>
     </message>
     <message>
         <source>ELEVAZIONE</source>
-        <translation type="unfinished"></translation>
+        <translation>EMELKEDÉS</translation>
     </message>
 </context>
 <context>
     <name>RotorHistory</name>
     <message>
         <source>ANDAMENTO POSIZIONE</source>
-        <translation type="unfinished"></translation>
+        <translation>A POZÍCIÓ ALAKULÁSA</translation>
     </message>
     <message>
         <source>in attesa di campioni…</source>
-        <translation type="unfinished"></translation>
+        <translation>mintákra várva…</translation>
     </message>
 </context>
 <context>
     <name>RotorLocatorBar</name>
     <message>
         <source>Locatore, es. FN31pr</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokátor, pl. FN31pr</translation>
     </message>
     <message>
         <source>BREVE</source>
-        <translation type="unfinished"></translation>
+        <translation>RÖVID</translation>
     </message>
     <message>
         <source>LUNGA</source>
-        <translation type="unfinished"></translation>
+        <translation>HOSSZÚ</translation>
     </message>
     <message>
         <source>breve %1° · lunga %2° · %3 km</source>
-        <translation type="unfinished"></translation>
+        <translation>rövid %1° · hosszú %2° · %3 km</translation>
     </message>
     <message>
         <source>QTH di riferimento: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kiinduló QTH: %1</translation>
     </message>
 </context>
 <context>
     <name>RotorMap</name>
     <message>
         <source>Riquadri dal gateway DecoRotor</source>
-        <translation type="unfinished"></translation>
+        <translation>Térképkockák a DecoRotor gatewayről</translation>
     </message>
     <message>
         <source>CLUSTER %1</source>
-        <translation type="unfinished"></translation>
+        <translation>CLUSTER %1</translation>
     </message>
     <message>
         <source>CLUSTER SPENTO</source>
-        <translation type="unfinished"></translation>
+        <translation>A CLUSTER KI VAN KAPCSOLVA</translation>
     </message>
     <message numerus="yes">
         <source>%n stazione/i</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n állomás</numerusform>
+            <numerusform>%n állomás</numerusform>
+        </translation>
     </message>
     <message>
         <source>%1 · %2° · %3 km</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2° · %3 km</translation>
     </message>
     <message>
         <source>PUNTA</source>
-        <translation type="unfinished"></translation>
+        <translation>IRÁNYÍTS</translation>
     </message>
     <message>
         <source>MEMORIA</source>
-        <translation type="unfinished"></translation>
+        <translation>MEMÓRIA</translation>
     </message>
     <message>
         <source>riquadri dal gateway DecoRotor</source>
-        <translation type="unfinished"></translation>
+        <translation>térképkockák a DecoRotor gatewayről</translation>
     </message>
     <message>
         <source>© OpenStreetMap contributors</source>
-        <translation type="unfinished"></translation>
+        <translation>© OpenStreetMap contributors</translation>
     </message>
 </context>
 <context>
     <name>RotorMemories</name>
     <message>
         <source>MEMORIE</source>
-        <translation type="unfinished"></translation>
+        <translation>MEMÓRIÁK</translation>
     </message>
     <message>
         <source>%1° / %2°</source>
-        <translation type="unfinished"></translation>
+        <translation>%1° / %2°</translation>
     </message>
     <message>
         <source>VAI</source>
-        <translation type="unfinished"></translation>
+        <translation>MEHET</translation>
     </message>
     <message>
         <source>Nessuna memoria: dai un nome alla direzione attuale e salvala.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs memória: adj nevet a mostani iránynak, és mentsd el.</translation>
     </message>
     <message>
         <source>Nome della memoria</source>
-        <translation type="unfinished"></translation>
+        <translation>A memória neve</translation>
     </message>
     <message>
         <source>SALVA QUI</source>
-        <translation type="unfinished"></translation>
+        <translation>MENTSD IDE</translation>
     </message>
 </context>
 <context>
     <name>RotorNetwork</name>
     <message>
         <source>COLLEGAMENTI DI RETE</source>
-        <translation type="unfinished"></translation>
+        <translation>HÁLÓZATI KAPCSOLATOK</translation>
     </message>
     <message>
         <source>Indirizzi da usare su telefono e software di stazione:</source>
-        <translation type="unfinished"></translation>
+        <translation>Telefonon és állomásszoftverben használható címek:</translation>
     </message>
     <message>
         <source>Accesso protetto da token: i client devono presentarlo.</source>
-        <translation type="unfinished"></translation>
+        <translation>A hozzáférést token védi: a klienseknek fel kell mutatniuk.</translation>
     </message>
     <message>
         <source>Accesso libero sulla rete locale. Per l&apos;uso da fuori casa passa da una VPN, non aprire porte sul router.</source>
-        <translation type="unfinished"></translation>
+        <translation>Szabad hozzáférés a helyi hálózaton. Otthonról kifelé VPN-en keresztül menj, ne nyiss portot a routeren.</translation>
     </message>
 </context>
 <context>
     <name>RotorPanel</name>
     <message>
         <source>Rotor</source>
-        <translation type="unfinished"></translation>
+        <translation>Forgató</translation>
     </message>
     <message>
         <source>Open ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>Megnyitás ▾</translation>
     </message>
     <message>
         <source>STOP</source>
@@ -3092,96 +3099,96 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Park</source>
-        <translation type="unfinished"></translation>
+        <translation>Parkolás</translation>
     </message>
     <message>
         <source>On the DX</source>
-        <translation type="unfinished"></translation>
+        <translation>A DX-re</translation>
     </message>
 </context>
 <context>
     <name>RotorPointing</name>
     <message>
         <source>Azimut °</source>
-        <translation type="unfinished"></translation>
+        <translation>Azimut °</translation>
     </message>
     <message>
         <source>Elevazione °</source>
-        <translation type="unfinished"></translation>
+        <translation>Emelkedés °</translation>
     </message>
     <message>
         <source>PUNTA</source>
-        <translation type="unfinished"></translation>
+        <translation>IRÁNYÍTS</translation>
     </message>
     <message>
         <source>N</source>
-        <translation>N</translation>
+        <translation>É</translation>
     </message>
     <message>
         <source>NE</source>
-        <translation type="unfinished"></translation>
+        <translation>ÉK</translation>
     </message>
     <message>
         <source>E</source>
-        <translation type="unfinished"></translation>
+        <translation>K</translation>
     </message>
     <message>
         <source>SE</source>
-        <translation type="unfinished"></translation>
+        <translation>DK</translation>
     </message>
     <message>
         <source>S</source>
-        <translation>S</translation>
+        <translation>D</translation>
     </message>
     <message>
         <source>SO</source>
-        <translation type="unfinished"></translation>
+        <translation>DNy</translation>
     </message>
     <message>
         <source>O</source>
-        <translation type="unfinished"></translation>
+        <translation>Ny</translation>
     </message>
     <message>
         <source>NO</source>
-        <translation type="unfinished"></translation>
+        <translation>ÉNy</translation>
     </message>
 </context>
 <context>
     <name>RotorReadout</name>
     <message>
         <source>verso %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>ide: %1°</translation>
     </message>
     <message>
         <source>posizione stabile</source>
-        <translation type="unfinished"></translation>
+        <translation>a pozíció állandó</translation>
     </message>
     <message>
         <source>nessuna lettura</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs leolvasás</translation>
     </message>
 </context>
 <context>
     <name>RotorSettings</name>
     <message>
         <source>COLLEGAMENTO AL CONTROL BOX</source>
-        <translation type="unfinished"></translation>
+        <translation>KAPCSOLAT A CONTROL BOXSZAL</translation>
     </message>
     <message>
         <source>Porta seriale</source>
-        <translation type="unfinished"></translation>
+        <translation>Soros port</translation>
     </message>
     <message>
         <source>Velocita&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Sebesség</translation>
     </message>
     <message>
         <source>%1 baud, 8N1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 baud, 8N1</translation>
     </message>
     <message>
         <source>Modello</source>
-        <translation type="unfinished"></translation>
+        <translation>Modell</translation>
     </message>
     <message>
         <source>Stato</source>
@@ -3189,197 +3196,200 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>collegato</source>
-        <translation type="unfinished"></translation>
+        <translation>csatlakoztatva</translation>
     </message>
     <message>
         <source>assente</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs</translation>
     </message>
     <message>
         <source>Porta e modello si cambiano all&apos;avvio, con --port e --model.</source>
-        <translation type="unfinished"></translation>
+        <translation>A portot és a modellt indításkor lehet megváltoztatni, a --port és a --model kapcsolóval.</translation>
     </message>
 </context>
 <context>
     <name>RotorSettingsPanel</name>
     <message>
         <source>STAZIONE E SICUREZZA</source>
-        <translation type="unfinished"></translation>
+        <translation>ÁLLOMÁS ÉS BIZTONSÁG</translation>
     </message>
     <message>
         <source>Nominativo</source>
-        <translation type="unfinished"></translation>
+        <translation>Hívójel</translation>
     </message>
     <message>
         <source>Locatore del QTH</source>
-        <translation type="unfinished"></translation>
+        <translation>A QTH lokátora</translation>
     </message>
     <message>
         <source>Apertura del lobo: %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>A nyaláb nyílásszöge: %1°</translation>
     </message>
     <message>
         <source>Finecorsa azimut</source>
-        <translation type="unfinished"></translation>
+        <translation>Azimut-végállás</translation>
     </message>
     <message>
         <source>Posizione di riposo</source>
-        <translation type="unfinished"></translation>
+        <translation>Nyugalmi helyzet</translation>
     </message>
     <message>
         <source>Stop se cade il collegamento</source>
-        <translation type="unfinished"></translation>
+        <translation>Állj, ha megszakad a kapcsolat</translation>
     </message>
     <message>
         <source>attivo</source>
-        <translation type="unfinished"></translation>
+        <translation>bekapcsolva</translation>
     </message>
     <message>
         <source>disattivato</source>
-        <translation type="unfinished"></translation>
+        <translation>kikapcsolva</translation>
     </message>
     <message>
         <source>Tolleranza di arrivo</source>
-        <translation type="unfinished"></translation>
+        <translation>Érkezési tűrés</translation>
     </message>
     <message>
         <source>Porta seriale, modello e porta dei decode si cambiano all&apos;avvio del gateway.</source>
-        <translation type="unfinished"></translation>
+        <translation>A soros portot, a modellt és a dekódok portját a gateway indításakor lehet megváltoztatni.</translation>
     </message>
     <message>
         <source>Le modifiche vengono salvate subito in config.json.</source>
-        <translation type="unfinished"></translation>
+        <translation>A változtatások azonnal a config.json-ba mentődnek.</translation>
     </message>
 </context>
 <context>
     <name>RotorStats</name>
     <message>
         <source>ESERCIZIO</source>
-        <translation type="unfinished"></translation>
+        <translation>ÜZEM</translation>
     </message>
     <message>
         <source>Frame inviati</source>
-        <translation type="unfinished"></translation>
+        <translation>Elküldött keretek</translation>
     </message>
     <message>
         <source>Frame ricevuti</source>
-        <translation type="unfinished"></translation>
+        <translation>Kapott keretek</translation>
     </message>
     <message>
         <source>Risposte perse</source>
-        <translation type="unfinished"></translation>
+        <translation>Elveszett válaszok</translation>
     </message>
     <message>
         <source>Riconnessioni</source>
-        <translation type="unfinished"></translation>
+        <translation>Újracsatlakozások</translation>
     </message>
     <message>
         <source>In servizio da</source>
-        <translation type="unfinished"></translation>
+        <translation>Üzemben ez óta</translation>
     </message>
     <message>
         <source>Client collegati</source>
-        <translation type="unfinished"></translation>
+        <translation>Csatlakozott kliensek</translation>
     </message>
     <message>
         <source>Control box</source>
-        <translation type="unfinished"></translation>
+        <translation>Control box</translation>
     </message>
 </context>
 <context>
     <name>RotorStatus</name>
     <message>
         <source>pronto</source>
-        <translation type="unfinished"></translation>
+        <translation>kész</translation>
     </message>
     <message>
         <source>app</source>
-        <translation type="unfinished"></translation>
+        <translation>app</translation>
     </message>
     <message>
         <source>web</source>
-        <translation type="unfinished"></translation>
+        <translation>web</translation>
     </message>
     <message>
         <source>rotctld</source>
-        <translation type="unfinished"></translation>
+        <translation>rotctld</translation>
     </message>
     <message>
         <source>%1 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2</translation>
     </message>
 </context>
 <context>
     <name>RotorTopBar</name>
     <message>
         <source>%1 · %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2</translation>
     </message>
     <message>
         <source>CONTROL BOX %1</source>
-        <translation type="unfinished"></translation>
+        <translation>CONTROL BOX %1</translation>
     </message>
     <message>
         <source>CONTROL BOX ASSENTE</source>
-        <translation type="unfinished"></translation>
+        <translation>NINCS CONTROL BOX</translation>
     </message>
     <message>
         <source>IN ROTAZIONE</source>
-        <translation type="unfinished"></translation>
+        <translation>FOROG</translation>
     </message>
     <message>
         <source>FERMO</source>
-        <translation type="unfinished"></translation>
+        <translation>ÁLL</translation>
     </message>
     <message numerus="yes">
         <source>%n client</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n kliens</numerusform>
+            <numerusform>%n kliens</numerusform>
+        </translation>
     </message>
     <message>
         <source>Passa al quadrante chiaro</source>
-        <translation type="unfinished"></translation>
+        <translation>Váltás a világos számlapra</translation>
     </message>
     <message>
         <source>Passa al quadrante notturno</source>
-        <translation type="unfinished"></translation>
+        <translation>Váltás az éjszakai számlapra</translation>
     </message>
 </context>
 <context>
     <name>RotorTraffic</name>
     <message>
         <source>TRAFFICO SERIALE</source>
-        <translation type="unfinished"></translation>
+        <translation>SOROS FORGALOM</translation>
     </message>
     <message>
         <source>%1 @ %2 8N1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 @ %2 8N1</translation>
     </message>
     <message>
         <source>%1 frame</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 keret</translation>
     </message>
     <message>
         <source>nessun frame: il gateway li manda a richiesta</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs keret: a gateway kérésre küldi őket</translation>
     </message>
 </context>
 <context>
     <name>RotorWindow</name>
     <message>
         <source>DecoRotor — controllo rotore PRO.SIS.TEL</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoRotor — PRO.SIS.TEL forgatóvezérlés</translation>
     </message>
     <message>
         <source>CONTROLLO</source>
-        <translation type="unfinished"></translation>
+        <translation>VEZÉRLÉS</translation>
     </message>
     <message>
         <source>DIAGNOSTICA</source>
-        <translation type="unfinished"></translation>
+        <translation>DIAGNOSZTIKA</translation>
     </message>
     <message>
         <source>IMPOSTAZIONI</source>
-        <translation type="unfinished"></translation>
+        <translation>BEÁLLÍTÁSOK</translation>
     </message>
 </context>
 <context>
@@ -3394,131 +3404,131 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Theme &amp; density</source>
-        <translation type="unfinished"></translation>
+        <translation>Téma és sűrűség</translation>
     </message>
     <message>
         <source>Decodium link</source>
-        <translation type="unfinished"></translation>
+        <translation>Kapcsolat a Decodiummal</translation>
     </message>
     <message>
         <source>Sync &amp; Cloud</source>
-        <translation type="unfinished"></translation>
+        <translation>Szinkron és Cloud</translation>
     </message>
     <message>
         <source>QSL services</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL-szolgáltatások</translation>
     </message>
     <message>
         <source>Callbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Callbook</translation>
     </message>
     <message>
         <source>Backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Mentés</translation>
     </message>
     <message>
         <source>Rotor</source>
-        <translation type="unfinished"></translation>
+        <translation>Forgató</translation>
     </message>
     <message>
         <source>Radio (CAT)</source>
-        <translation type="unfinished"></translation>
+        <translation>Rádió (CAT)</translation>
     </message>
     <message>
         <source>Empty the Cloud of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Cloudjának kiürítése</translation>
     </message>
     <message>
         <source>Everything this callsign has on the server goes away: QSO, history, station profiles, settings, sealed credentials. It cannot be undone from here. The log on this computer stays where it is.</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden eltűnik, ami ennek a hívójelnek a szerveren van: QSO-k, előzmények, állomásprofilok, beállítások, lezárt belépési adatok. Innen nem lehet visszacsinálni. Az ezen a gépen lévő napló a helyén marad.</translation>
     </message>
     <message>
         <source>Write DELETE to confirm</source>
-        <translation type="unfinished"></translation>
+        <translation>Írd be: DELETE, a megerősítéshez</translation>
     </message>
     <message>
         <source>Empty the Cloud</source>
-        <translation type="unfinished"></translation>
+        <translation>A Cloud kiürítése</translation>
     </message>
     <message>
         <source>cty.csv from country-files.com</source>
-        <translation type="unfinished"></translation>
+        <translation>cty.csv a country-files.com-ról</translation>
     </message>
     <message>
         <source>cty.csv (*.csv)</source>
-        <translation type="unfinished"></translation>
+        <translation>cty.csv (*.csv)</translation>
     </message>
     <message>
         <source>cty.csv %1 in use.</source>
-        <translation type="unfinished"></translation>
+        <translation>cty.csv %1 használatban.</translation>
     </message>
     <message>
         <source>TQSL program</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL-program</translation>
     </message>
     <message>
         <source>Programs (*.exe)</source>
-        <translation type="unfinished"></translation>
+        <translation>Programok (*.exe)</translation>
     </message>
     <message>
         <source>All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden fájl (*)</translation>
     </message>
     <message>
         <source>Backup folder</source>
-        <translation type="unfinished"></translation>
+        <translation>A mentések mappája</translation>
     </message>
     <message>
         <source>This copy of DecoDXLog</source>
-        <translation type="unfinished"></translation>
+        <translation>A DecoDXLog e példánya</translation>
     </message>
     <message>
         <source>DecoDXLog %1 · Qt %2 · %3</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog %1 · Qt %2 · %3</translation>
     </message>
     <message>
         <source>Log file</source>
-        <translation type="unfinished"></translation>
+        <translation>Naplófájl</translation>
     </message>
     <message>
         <source>Open folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Mappa megnyitása</translation>
     </message>
     <message>
         <source>SQLite in WAL mode. To use another file start DecoDXLog with --db &lt;path&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>SQLite WAL módban. Másik fájlhoz indítsd a DecoDXLogot a --db &lt;útvonal&gt; kapcsolóval.</translation>
     </message>
     <message>
         <source>DXCC entities</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC-entitások</translation>
     </message>
     <message>
         <source>cty.csv</source>
-        <translation type="unfinished"></translation>
+        <translation>cty.csv</translation>
     </message>
     <message>
         <source>Entities</source>
-        <translation type="unfinished"></translation>
+        <translation>Entitások</translation>
     </message>
     <message>
         <source>QSO without DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC nélküli QSO</translation>
     </message>
     <message>
         <source>Fill missing DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiányzó DXCC pótlása</translation>
     </message>
     <message>
         <source>%1 QSO completed, each kept as a new revision.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 QSO kiegészítve, mindegyik új változatként megőrizve.</translation>
     </message>
     <message>
         <source>Load newer cty.csv…</source>
-        <translation type="unfinished"></translation>
+        <translation>Újabb cty.csv betöltése…</translation>
     </message>
     <message>
         <source>Source: %1. Updated files: country-files.com (AD1C). New QSOs from Decodium and manual entries get DXCC, country, zones and continent automatically; imported ADIF is kept as it is.</source>
-        <translation type="unfinished"></translation>
+        <translation>Forrás: %1. Frissített fájlok: country-files.com (AD1C). A Decodiumból érkező és a kézzel felvitt új QSO-k maguktól megkapják a DXCC-t, az országot, a zónákat és a földrészt; a beolvasott ADIF úgy marad, ahogy van.</translation>
     </message>
     <message>
         <source>Language</source>
@@ -3530,11 +3540,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Like the system</source>
-        <translation type="unfinished"></translation>
+        <translation>Mint a rendszer</translation>
     </message>
     <message>
         <source>The new language shows up the next time DecoDXLog starts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Az új nyelv a DecoDXLog következő indításakor jelenik meg.</translation>
     </message>
     <message>
         <source>Call info</source>
@@ -3542,115 +3552,115 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Follow the DX call Decodium is working</source>
-        <translation type="unfinished"></translation>
+        <translation>Kövesse azt a DX-hívójelet, amivel a Decodium dolgozik</translation>
     </message>
     <message>
         <source>Duplicates</source>
-        <translation type="unfinished"></translation>
+        <translation>Duplikátumok</translation>
     </message>
     <message>
         <source>Digital (min)</source>
-        <translation type="unfinished"></translation>
+        <translation>Digitális (perc)</translation>
     </message>
     <message>
         <source>Manual (min)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kézi (perc)</translation>
     </message>
     <message>
         <source>Same call, band and mode/submode within this window counts as the same QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ugyanaz a hívójel, sáv és mód/almód ezen az időablakon belül ugyanannak a QSO-nak számít.</translation>
     </message>
     <message>
         <source>Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Téma</translation>
     </message>
     <message>
         <source>Accent (Darkcodium)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kiemelőszín (Darkcodium)</translation>
     </message>
     <message>
         <source>Density</source>
-        <translation type="unfinished"></translation>
+        <translation>Sűrűség</translation>
     </message>
     <message>
         <source>Custom colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Saját színek</translation>
     </message>
     <message>
         <source>Background and text over the theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Háttér és szöveg a témán felül</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Háttér</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Szöveg</translation>
     </message>
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ugyanazok a témák, kiemelőszínek és sűrűségek, mint a Decodiumban: sor %1 px · betű %2 px · fejléc %3 px.</translation>
     </message>
     <message>
         <source>%1 · connected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · csatlakozva</translation>
     </message>
     <message>
         <source>No client heard yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Még nem hallatszott kliens</translation>
     </message>
     <message>
         <source>listening on UDP %1</source>
-        <translation type="unfinished"></translation>
+        <translation>figyel az UDP %1 porton</translation>
     </message>
     <message>
         <source>not listening</source>
-        <translation type="unfinished"></translation>
+        <translation>nem figyel</translation>
     </message>
     <message>
         <source>Decodium / WSJT-X UDP</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium / WSJT-X UDP</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port</translation>
     </message>
     <message>
         <source>Primary source</source>
-        <translation type="unfinished"></translation>
+        <translation>Elsődleges forrás</translation>
     </message>
     <message>
         <source>LoggedADIF (lossless)</source>
-        <translation type="unfinished"></translation>
+        <translation>LoggedADIF (veszteség nélkül)</translation>
     </message>
     <message>
         <source>QSOLogged (structured)</source>
-        <translation type="unfinished"></translation>
+        <translation>QSOLogged (szerkezetes)</translation>
     </message>
     <message>
         <source>Multicast group</source>
-        <translation type="unfinished"></translation>
+        <translation>Multicast-csoport</translation>
     </message>
     <message>
         <source>empty = unicast</source>
-        <translation type="unfinished"></translation>
+        <translation>üres = unicast</translation>
     </message>
     <message>
         <source>In Decodium set the UDP server to this address and port. A multicast group (e.g. 239.255.0.1) shares the stream with GridTracker or JTAlert. Duplicate windows are in General.</source>
-        <translation type="unfinished"></translation>
+        <translation>A Decodiumban állítsd az UDP-szervert erre a címre és portra. Egy multicast-csoport (pl. 239.255.0.1) megosztja a folyamot a GridTrackerrel vagy a JTAlerttel. A duplikátumablak az Általános alatt van.</translation>
     </message>
     <message>
         <source>DecoLink · log towards Decodium</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoLink · a napló a Decodium felé</translation>
     </message>
     <message>
         <source>Share the log with Decodium</source>
-        <translation type="unfinished"></translation>
+        <translation>A napló megosztása a Decodiummal</translation>
     </message>
     <message>
         <source>Port (127.0.0.1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Port (127.0.0.1)</translation>
     </message>
     <message>
         <source>off</source>
@@ -3658,99 +3668,102 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>error</source>
-        <translation type="unfinished"></translation>
+        <translation>hiba</translation>
     </message>
     <message numerus="yes">
         <source>%n client(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n kliens</numerusform>
+            <numerusform>%n kliens</numerusform>
+        </translation>
     </message>
     <message>
         <source>waiting</source>
-        <translation type="unfinished"></translation>
+        <translation>várakozik</translation>
     </message>
     <message>
         <source>Decodium receives the worked calls, confirmations and FT2 Award status from this log, and a confirmation for every QSO written. Only local connections are accepted. Protocol: docs/DECOLINK.md.</source>
-        <translation type="unfinished"></translation>
+        <translation>A Decodium ebből a naplóból kapja meg a meglévő hívójeleket, az igazolásokat és az FT2 Award állását, és minden megírt QSO-ról visszaigazolást. Csak helyi kapcsolatokat fogad el. Protokoll: docs/DECOLINK.md.</translation>
     </message>
     <message>
         <source>Sign in</source>
-        <translation type="unfinished"></translation>
+        <translation>Belépés</translation>
     </message>
     <message>
         <source>Queue (dirty)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sor (küldésre vár)</translation>
     </message>
     <message>
         <source>Conflicts kept</source>
-        <translation type="unfinished"></translation>
+        <translation>Megőrzött ütközések</translation>
     </message>
     <message>
         <source>%1 in history</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 az előzményekben</translation>
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Szerver</translation>
     </message>
     <message>
         <source>Auto sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatikus szinkron</translation>
     </message>
     <message>
         <source>After every QSO + every 5 min</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden QSO után + 5 percenként</translation>
     </message>
     <message>
         <source>Every 5 min</source>
-        <translation type="unfinished"></translation>
+        <translation>5 percenként</translation>
     </message>
     <message>
         <source>Manual only</source>
-        <translation type="unfinished"></translation>
+        <translation>Csak kézzel</translation>
     </message>
     <message>
         <source>Conflicts</source>
-        <translation type="unfinished"></translation>
+        <translation>Ütközések</translation>
     </message>
     <message>
         <source>Last edit wins, loser kept in history</source>
-        <translation type="unfinished"></translation>
+        <translation>Az utolsó szerkesztés nyer, a vesztes az előzményekben marad</translation>
     </message>
     <message>
         <source>Always ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Mindig kérdezzen</translation>
     </message>
     <message>
         <source>Credentials · system keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>Belépési adatok · a rendszer kulcstartója</translation>
     </message>
     <message>
         <source>LoTW confirmations</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW-igazolások</translation>
     </message>
     <message>
         <source>Last sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Utolsó szinkron</translation>
     </message>
     <message>
         <source>never</source>
-        <translation type="unfinished"></translation>
+        <translation>soha</translation>
     </message>
     <message>
         <source>Confirmations since</source>
-        <translation type="unfinished"></translation>
+        <translation>Igazolások ettől</translation>
     </message>
     <message>
         <source>all</source>
-        <translation type="unfinished"></translation>
+        <translation>mind</translation>
     </message>
     <message>
         <source>Confirmed in log</source>
-        <translation type="unfinished"></translation>
+        <translation>Igazolt a naplóban</translation>
     </message>
     <message>
         <source>Downloading…</source>
-        <translation type="unfinished"></translation>
+        <translation>Letöltés…</translation>
     </message>
     <message>
         <source>Sync now</source>
@@ -3758,35 +3771,35 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>DecoDXLog Cloud · %1</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog Cloud · %1</translation>
     </message>
     <message>
         <source>DecoDXLog Cloud · not linked</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog Cloud · nincs összekötve</translation>
     </message>
     <message>
         <source>%1 QSO on the server · queue %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 QSO a szerveren · sor %2</translation>
     </message>
     <message>
         <source>The log stays yours and works offline: the Cloud is where your devices pass each other the changes.</source>
-        <translation type="unfinished"></translation>
+        <translation>A napló a tiéd marad, és hálózat nélkül is megy: a Cloud az a hely, ahol a gépeid átadják egymásnak a változásokat.</translation>
     </message>
     <message>
         <source>syncing…</source>
-        <translation type="unfinished"></translation>
+        <translation>szinkronizálás…</translation>
     </message>
     <message>
         <source>Unlink</source>
-        <translation type="unfinished"></translation>
+        <translation>Szétkapcsolás</translation>
     </message>
     <message>
         <source>On the server</source>
-        <translation type="unfinished"></translation>
+        <translation>A szerveren</translation>
     </message>
     <message>
         <source>Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Hívójel</translation>
     </message>
     <message>
         <source>Password</source>
@@ -3794,59 +3807,59 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Create account</source>
-        <translation type="unfinished"></translation>
+        <translation>Fiók létrehozása</translation>
     </message>
     <message>
         <source>The password travels once and is not kept: DecoDXLog stores only the token the server gives back, in the system keystore. On the network use HTTPS; at home, on your own LAN, plain HTTP is fine.</source>
-        <translation type="unfinished"></translation>
+        <translation>A jelszó egyszer utazik, és nem marad meg: a DecoDXLog csak a szervertől visszakapott tokent tárolja, a rendszer kulcstartójában. A hálózaton használj HTTPS-t; otthon, a saját LAN-odon a sima HTTP is megteszi.</translation>
     </message>
     <message>
         <source>Carry the service passwords to the other devices too</source>
-        <translation type="unfinished"></translation>
+        <translation>A szolgáltatások jelszavai a többi gépre is menjenek át</translation>
     </message>
     <message>
         <source>Cloud password, to open the vault on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud-jelszó, a széf kinyitásához ezen a gépen</translation>
     </message>
     <message>
         <source>Open the vault</source>
-        <translation type="unfinished"></translation>
+        <translation>A széf kinyitása</translation>
     </message>
     <message>
         <source>They travel sealed: DecoDXLog closes them on this computer with AES-256-GCM and a key made from your Cloud password, which the server only knows as an Argon2 fingerprint. What reaches the server is a block of bytes that does not open without that password. Sign in on the other device with the same password and the services are ready there too.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lezárva utaznak: a DecoDXLog ezen a gépen zárja le őket AES-256-GCM-mel és a Cloud-jelszavadból készült kulccsal, amelyet a szerver csak Argon2-ujjlenyomatként ismer. A szerverhez egy bájttömb érkezik, amely e jelszó nélkül nem nyílik ki. Lépj be a másik gépen ugyanazzal a jelszóval, és a szolgáltatások ott is készen állnak.</translation>
     </message>
     <message>
         <source>This build has no OpenSSL: the service passwords cannot be sealed, so they stay on this computer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebben a változatban nincs OpenSSL: a szolgáltatások jelszavait nem lehet lezárni, ezért ezen a gépen maradnak.</translation>
     </message>
     <message>
         <source>Download everything again</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden letöltése újra</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Mégse</translation>
     </message>
     <message>
         <source>Danger zone</source>
-        <translation type="unfinished"></translation>
+        <translation>Veszélyzóna</translation>
     </message>
     <message>
         <source>Empty the Cloud of this callsign: QSO, history, station profiles, settings and sealed credentials go away from the server for good. The account stays, and the log on this computer is not touched — at the next sync it all goes back up from scratch. The other devices, though, will find nothing up there.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ennek a hívójelnek a Cloudja kiürül: a QSO-k, az előzmények, az állomásprofilok, a beállítások és a lezárt belépési adatok végleg lekerülnek a szerverről. A fiók megmarad, és az ezen a gépen lévő naplóhoz senki nem nyúl — a következő szinkronnál minden újra felmegy. A többi gép viszont nem talál majd odafönt semmit.</translation>
     </message>
     <message>
         <source>Empty the Cloud…</source>
-        <translation type="unfinished"></translation>
+        <translation>A Cloud kiürítése…</translation>
     </message>
     <message>
         <source>Sign in above first: emptying the Cloud is something only the owner of this callsign can ask for.</source>
-        <translation type="unfinished"></translation>
+        <translation>Előbb lépj be odafönt: a Cloud kiürítését csak ennek a hívójelnek a gazdája kérheti.</translation>
     </message>
     <message>
         <source>Automatic sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatikus szinkron</translation>
     </message>
     <message>
         <source>Off</source>
@@ -3854,35 +3867,35 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Every 6 hours</source>
-        <translation type="unfinished"></translation>
+        <translation>6 óránként</translation>
     </message>
     <message>
         <source>Every 12 hours</source>
-        <translation type="unfinished"></translation>
+        <translation>12 óránként</translation>
     </message>
     <message>
         <source>Once a day</source>
-        <translation type="unfinished"></translation>
+        <translation>Naponta egyszer</translation>
     </message>
     <message>
         <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL. QRZ Logbook, Club Log and eQSL arrive later.</source>
-        <translation type="unfinished"></translation>
+        <translation>Az igazolásokat hívójel, sáv, módcsoport (adat, CW, fone) és 30 percen belüli idő alapján párosítjuk, ahogy a LoTW is teszi. Az igazolt QSO új változatot kap; a LoTW-ből jövő lokátor, zónák, állam és megye csak az üres mezőket tölti ki. A LoTW-be való feltöltés továbbra is a TQSL-en át megy. A QRZ Logbook, a Club Log és az eQSL később jön.</translation>
     </message>
     <message>
         <source>Sending to LoTW (TQSL)</source>
-        <translation type="unfinished"></translation>
+        <translation>Küldés a LoTW-be (TQSL)</translation>
     </message>
     <message>
         <source>Station location</source>
-        <translation type="unfinished"></translation>
+        <translation>Station location</translation>
     </message>
     <message>
         <source>From the station profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Az állomásprofilból</translation>
     </message>
     <message>
         <source>The certificate stays in TQSL: DecoDXLog writes a temporary ADIF, TQSL signs it and sends it. Duplicates are not an error, LoTW simply keeps the one it already has. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
-        <translation type="unfinished"></translation>
+        <translation>A tanúsítvány a TQSL-ben marad: a DecoDXLog ír egy ideiglenes ADIF-et, a TQSL aláírja és elküldi. A duplikátum nem hiba, a LoTW egyszerűen megtartja, ami már megvan neki. A küldés, az automatikus küldés és a számlálók az alsó QSL fülön vannak.</translation>
     </message>
     <message>
         <source>API key</source>
@@ -3890,83 +3903,83 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>the key Club Log gave you</source>
-        <translation type="unfinished"></translation>
+        <translation>a kulcs, amit a Club Logtól kaptál</translation>
     </message>
     <message>
         <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
-        <translation type="unfinished"></translation>
+        <translation>A Club Lognak három dolog kell: a fiók e-mail-címe és jelszava (lent), az állomásprofil hívójele, és egy API-kulcs. A kulcs ingyenes és személyes, a clublog.org/need_api.php oldalon lehet kérni — a programot azonosítja, nem téged. Egy QSO rögtön elmegy, ahogy naplózódik; a felhalmozódott adag egyetlen ADIF-fájlként megy el.</translation>
     </message>
     <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 elküldve · %2 sorban · %3 igazolt</translation>
     </message>
     <message>
         <source>Lookup service</source>
-        <translation type="unfinished"></translation>
+        <translation>Lekérdező szolgáltatás</translation>
     </message>
     <message>
         <source>Off (log and cty.csv only)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ki (csak a napló és a cty.csv)</translation>
     </message>
     <message>
         <source>Fill empty name, QTH and grid in New QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Üres név, QTH és lokátor kitöltése az Új QSO-ban</translation>
     </message>
     <message>
         <source>Complete the QSO just logged (name, QTH, grid, address)</source>
-        <translation type="unfinished"></translation>
+        <translation>Az imént naplózott QSO kiegészítése (név, QTH, lokátor, cím)</translation>
     </message>
     <message>
         <source>If this callbook doesn&apos;t know the callsign, ask the other one</source>
-        <translation type="unfinished"></translation>
+        <translation>Ha ez a callbook nem ismeri a hívójelet, kérdezze meg a másikat</translation>
     </message>
     <message>
         <source>The two callbooks don&apos;t know the same stations: HamQTH has the ones who signed up there, QRZ has almost everybody. With the fallback on, a callsign the first one doesn&apos;t know is asked to the other — as long as that one has its user and password here below.</source>
-        <translation type="unfinished"></translation>
+        <translation>A két callbook nem ugyanazokat az állomásokat ismeri: a HamQTH azokat, akik ott regisztráltak, a QRZ szinte mindenkit. Ha a tartalék be van kapcsolva, azt a hívójelet, amit az első nem ismer, a másiktól kérdezzük meg — feltéve, hogy annak is meg van itt lent a felhasználója és jelszava.</translation>
     </message>
     <message>
         <source>Decodium sends callsign, report, band and mode: the rest the callbook knows. Right after the QSO is written DecoDXLog asks, and what comes back fills only the empty fields — what you wrote stays. One lookup per callsign, and the answer is kept for a day. From the log, &quot;Complete from the callbook&quot; does the same on QSOs already written.</source>
-        <translation type="unfinished"></translation>
+        <translation>A Decodium a hívójelet, a riportot, a sávot és a módot küldi: a többit a callbook tudja. Rögtön a QSO megírása után a DecoDXLog megkérdezi, és ami visszajön, csak az üres mezőket tölti ki — amit te írtál, az marad. Hívójelenként egy lekérdezés, és a válasz egy napig megmarad. A naplóból a „Kiegészítés a callbookból” ugyanezt teszi a már megírt QSO-kkal.</translation>
     </message>
     <message>
         <source>Try a lookup</source>
-        <translation type="unfinished"></translation>
+        <translation>Lekérdezés kipróbálása</translation>
     </message>
     <message>
         <source>Look up</source>
-        <translation type="unfinished"></translation>
+        <translation>Lekérdezés</translation>
     </message>
     <message>
         <source>Looking up…</source>
-        <translation type="unfinished"></translation>
+        <translation>Lekérdezés…</translation>
     </message>
     <message>
         <source>QRZ.com needs an XML data subscription; HamQTH is free. Results are kept in memory for a day, so moving through the log does not use up lookups.</source>
-        <translation type="unfinished"></translation>
+        <translation>A QRZ.com XML-előfizetést kíván; a HamQTH ingyenes. Az eredmények egy napig a memóriában maradnak, így a naplóban lapozgatás nem fogyasztja a lekérdezéseket.</translation>
     </message>
     <message>
         <source>Radio via Hamlib (rigctld)</source>
-        <translation type="unfinished"></translation>
+        <translation>Rádió Hamlibon át (rigctld)</translation>
     </message>
     <message>
         <source>Talk to the radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Beszélj a rádióval</translation>
     </message>
     <message>
         <source>How</source>
-        <translation type="unfinished"></translation>
+        <translation>Hogyan</translation>
     </message>
     <message>
         <source>rigctld already running</source>
-        <translation type="unfinished"></translation>
+        <translation>a rigctld már fut</translation>
     </message>
     <message>
         <source>Serial cable to the radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Soros kábel a rádióhoz</translation>
     </message>
     <message>
         <source>Radio (Hamlib)</source>
-        <translation type="unfinished"></translation>
+        <translation>Rádió (Hamlib)</translation>
     </message>
     <message>
         <source>Serial port</source>
@@ -3974,23 +3987,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Baud</source>
-        <translation type="unfinished"></translation>
+        <translation>Baud</translation>
     </message>
     <message>
         <source>PTT</source>
-        <translation type="unfinished"></translation>
+        <translation>PTT</translation>
     </message>
     <message>
         <source>The CAT itself (RIG)</source>
-        <translation type="unfinished"></translation>
+        <translation>Maga a CAT (RIG)</translation>
     </message>
     <message>
         <source>RTS on another port</source>
-        <translation type="unfinished"></translation>
+        <translation>RTS egy másik porton</translation>
     </message>
     <message>
         <source>DTR on another port</source>
-        <translation type="unfinished"></translation>
+        <translation>DTR egy másik porton</translation>
     </message>
     <message>
         <source>None</source>
@@ -3998,63 +4011,63 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>PTT port</source>
-        <translation type="unfinished"></translation>
+        <translation>PTT-port</translation>
     </message>
     <message>
         <source>Test the PTT</source>
-        <translation type="unfinished"></translation>
+        <translation>A PTT kipróbálása</translation>
     </message>
     <message>
         <source>Two ports is the usual setup: the CAT reads the frequency on one, the PTT raises RTS or DTR on the other — so the radio transmits while DecoDXLog keeps reading. With a single cable leave &quot;the CAT itself&quot;: the radio goes into transmit on the CAT command, if it can.</source>
-        <translation type="unfinished"></translation>
+        <translation>A szokásos elrendezés két port: az egyiken a CAT olvassa a frekvenciát, a másikon a PTT húzza az RTS-t vagy a DTR-t — így a rádió adásban van, miközben a DecoDXLog tovább olvas. Egyetlen kábellel hagyd a „Maga a CAT” beállítást: a rádió a CAT parancsára megy adásba, ha tudja.</translation>
     </message>
     <message>
         <source>Connect now</source>
-        <translation type="unfinished"></translation>
+        <translation>Csatlakozás most</translation>
     </message>
     <message>
         <source>Looking…</source>
-        <translation type="unfinished"></translation>
+        <translation>Keresés…</translation>
     </message>
     <message>
         <source>Find the radio</source>
-        <translation type="unfinished"></translation>
+        <translation>A rádió megkeresése</translation>
     </message>
     <message>
         <source>radio connected</source>
-        <translation type="unfinished"></translation>
+        <translation>a rádió csatlakoztatva</translation>
     </message>
     <message>
         <source>radio not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>a rádió nincs csatlakoztatva</translation>
     </message>
     <message>
         <source>CW keyer</source>
-        <translation type="unfinished"></translation>
+        <translation>CW-manipulátor</translation>
     </message>
     <message>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Sebesség</translation>
     </message>
     <message>
         <source>%1 wpm</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 szó/perc</translation>
     </message>
     <message>
         <source>Antenna rotor</source>
-        <translation type="unfinished"></translation>
+        <translation>Antennaforgató</translation>
     </message>
     <message>
         <source>Talks to</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezzel beszél</translation>
     </message>
     <message>
         <source>DecoRotor (WebSocket)</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoRotor (WebSocket)</translation>
     </message>
     <message>
         <source>rotctld (Hamlib) — any program</source>
-        <translation type="unfinished"></translation>
+        <translation>rotctld (Hamlib) — bármelyik program</translation>
     </message>
     <message>
         <source>Host</source>
@@ -4062,87 +4075,87 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Beamwidth</source>
-        <translation type="unfinished"></translation>
+        <translation>Nyalábszélesség</translation>
     </message>
     <message>
         <source>Follow the call Decodium is working</source>
-        <translation type="unfinished"></translation>
+        <translation>Kövesse azt a hívójelet, amivel a Decodium dolgozik</translation>
     </message>
     <message>
         <source>Connect again</source>
-        <translation type="unfinished"></translation>
+        <translation>Csatlakozás újra</translation>
     </message>
     <message>
         <source>DecoRotor is the gateway of the family: it reads the Prosistel control box on the serial port and publishes it on the network (WebSocket 8765). With rotctld any other rotor program works too — DecoRotor itself answers on 4532. DecoDXLog never touches the serial port: it only says where to point, and the control box keeps its own limits.</source>
-        <translation type="unfinished"></translation>
+        <translation>A DecoRotor a család gatewaye: a soros porton olvassa a Prosistel control boxot, és kiteszi a hálózatra (WebSocket 8765). A rotctld-vel bármelyik másik forgatóprogram is működik — maga a DecoRotor a 4532-esen válaszol. A DecoDXLog soha nem nyúl a soros porthoz: csak megmondja, merre mutasson, a határokat pedig a control box tartja.</translation>
     </message>
     <message>
         <source>Where a bearing is known — a cluster spot, the call being worked, a QSO with a grid — the rotor menu points there. The panel is in the right column, with the compass and the STOP.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ahol tudható az irány — egy cluster-spot, az éppen dolgozott hívójel, egy lokátoros QSO —, oda fordít a forgató menüje. A panel a jobb oldali oszlopban van, az iránytűvel és a STOP-pal.</translation>
     </message>
     <message>
         <source>Nightly backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Éjszakai mentés</translation>
     </message>
     <message>
         <source>Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Mappa</translation>
     </message>
     <message>
         <source>Browse…</source>
-        <translation type="unfinished"></translation>
+        <translation>Tallózás…</translation>
     </message>
     <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden rádióval a Hamlib beszél, nem a DecoDXLog. Soros kábel esetén válaszd ki a modellt és a portot, és a DecoDXLog magától elindítja a rigctld-t; ha a rigctld már fut (egy versenyprogram miatt vagy egy másik gépen), elég megadni a gépet és a portot. Innen a DecoDXLog olvassa a frekvenciát és a módot, hangolni tudja a rádiót, a CW-makrókat pedig átadja a rádió saját manipulátorának.</translation>
     </message>
     <message>
         <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
-        <translation type="unfinished"></translation>
+        <translation>A nyolc makró a versenyablakban (Ctrl+Shift+T) és a CW-panelen van, az F1-F8 billentyűkön; az Esc állítja le.</translation>
     </message>
     <message>
         <source>Keying on a serial port</source>
-        <translation type="unfinished"></translation>
+        <translation>Manipulálás soros porton</translation>
     </message>
     <message>
         <source>Keyer port</source>
-        <translation type="unfinished"></translation>
+        <translation>A manipulátor portja</translation>
     </message>
     <message>
         <source>none</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs</translation>
     </message>
     <message>
         <source>Pin</source>
-        <translation type="unfinished"></translation>
+        <translation>Láb</translation>
     </message>
     <message>
         <source>Send VVV</source>
-        <translation type="unfinished"></translation>
+        <translation>VVV küldése</translation>
     </message>
     <message>
         <source>keyer ready</source>
-        <translation type="unfinished"></translation>
+        <translation>a manipulátor kész</translation>
     </message>
     <message>
         <source>port not open</source>
-        <translation type="unfinished"></translation>
+        <translation>a port nincs nyitva</translation>
     </message>
     <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ha a Decodium nyitva van, a rádió CAT-portja már foglalt, és egy CAT-híd nem tud manipulálni. Itt a DecoDXLog maga manipulál: a saját portján húzza a DTR-t vagy az RTS-t — azon, amelyik a manipuláló áramkörre van kötve —, így a CAT a Decodiumé marad, a makrók mégis adásba mennek. Hagyd a portot „nincs” állapotban, ha a CAT-on át akarsz manipulálni, mint eddig.</translation>
     </message>
     <message>
         <source>Time (local)</source>
-        <translation type="unfinished"></translation>
+        <translation>Időpont (helyi)</translation>
     </message>
     <message>
         <source>Keep copies</source>
-        <translation type="unfinished"></translation>
+        <translation>Megtartandó másolatok</translation>
     </message>
     <message>
         <source>Last backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Utolsó mentés</translation>
     </message>
     <message>
         <source>File</source>
@@ -4150,19 +4163,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Back up now</source>
-        <translation type="unfinished"></translation>
+        <translation>Mentés most</translation>
     </message>
     <message>
         <source>A consistent copy made with SQLite VACUUM INTO, even while DecoDXLog is logging. If the PC is off at the chosen time, the copy is made as soon as DecoDXLog is open.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ép másolat, SQLite VACUUM INTO-val, még naplózás közben is. Ha a gép ki van kapcsolva a megadott időpontban, a másolat akkor készül el, amint a DecoDXLog megnyílik.</translation>
     </message>
     <message>
         <source>Backup nightly %1 → %2 · last %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Mentés minden éjjel %1 → %2 · utolsó %3</translation>
     </message>
     <message>
         <source>Backup nightly %1 → %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Mentés minden éjjel %1 → %2</translation>
     </message>
     <message>
         <source>Apply</source>
@@ -4177,27 +4190,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Status (any of)</source>
-        <translation type="unfinished"></translation>
+        <translation>Állapot (bármelyik)</translation>
     </message>
     <message>
         <source>Bands</source>
-        <translation type="unfinished"></translation>
+        <translation>Sávok</translation>
     </message>
     <message>
         <source>Modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Módok</translation>
     </message>
     <message>
         <source>DX continent</source>
-        <translation type="unfinished"></translation>
+        <translation>A DX földrésze</translation>
     </message>
     <message>
         <source>Spotter continent</source>
-        <translation type="unfinished"></translation>
+        <translation>A spotoló földrésze</translation>
     </message>
     <message>
         <source>Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Források</translation>
     </message>
     <message>
         <source>Only</source>
@@ -4205,62 +4218,62 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>not worked on band</source>
-        <translation type="unfinished"></translation>
+        <translation>a sávon még nem volt</translation>
     </message>
     <message>
         <source>POTA/SOTA/WWFF/IOTA</source>
-        <translation type="unfinished"></translation>
+        <translation>POTA/SOTA/WWFF/IOTA</translation>
     </message>
     <message>
         <source>LoTW users</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW-felhasználók</translation>
     </message>
     <message>
         <source>no skimmers</source>
-        <translation type="unfinished"></translation>
+        <translation>skimmerek nélkül</translation>
     </message>
     <message>
         <source>Calls (wildcards * ?)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hívójelek (helyettesítők * ?)</translation>
     </message>
     <message>
         <source>Text (call, entity, comment)</source>
-        <translation type="unfinished"></translation>
+        <translation>Szöveg (hívójel, entitás, megjegyzés)</translation>
     </message>
     <message>
         <source>Min SNR (skimmer)</source>
-        <translation type="unfinished"></translation>
+        <translation>Min. SNR (skimmer)</translation>
     </message>
     <message>
         <source>any</source>
-        <translation type="unfinished"></translation>
+        <translation>bármi</translation>
     </message>
     <message>
         <source>Max age</source>
-        <translation type="unfinished"></translation>
+        <translation>Max. életkor</translation>
     </message>
 </context>
 <context>
     <name>StationProfilesDialog</name>
     <message>
         <source>Station profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Állomásprofilok</translation>
     </message>
     <message>
         <source>active: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>aktív: %1</translation>
     </message>
     <message>
         <source>A profile needs a name and a station callsign.</source>
-        <translation type="unfinished"></translation>
+        <translation>A profilhoz név és állomás-hívójel kell.</translation>
     </message>
     <message>
         <source>deleted · %1 QSO keep it</source>
-        <translation type="unfinished"></translation>
+        <translation>törölve · %1 QSO tartja</translation>
     </message>
     <message>
         <source>DEFAULT</source>
-        <translation type="unfinished"></translation>
+        <translation>ALAPÉRTELMEZETT</translation>
     </message>
     <message>
         <source>ACTIVE</source>
@@ -4268,19 +4281,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>No profiles yet. Create one, or start Decodium: DecoDXLog creates the first from its callsign and grid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Még nincs profil. Hozz létre egyet, vagy indítsd el a Decodiumot: a DecoDXLog az elsőt annak hívójeléből és lokátorából készíti el.</translation>
     </message>
     <message>
         <source>+ New</source>
-        <translation type="unfinished"></translation>
+        <translation>+ Új</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Másolat</translation>
     </message>
     <message>
         <source>(copy)</source>
-        <translation type="unfinished"></translation>
+        <translation>(másolat)</translation>
     </message>
     <message>
         <source>Profile name</source>
@@ -4288,11 +4301,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Default profile for new QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Alapértelmezett profil az új QSO-khoz</translation>
     </message>
     <message>
         <source>Station callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Az állomás hívójele</translation>
     </message>
     <message>
         <source>Operator</source>
@@ -4300,19 +4313,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>My gridsquare</source>
-        <translation type="unfinished"></translation>
+        <translation>Az én lokátorom</translation>
     </message>
     <message>
         <source>CQ zone</source>
-        <translation type="unfinished"></translation>
+        <translation>CQ-zóna</translation>
     </message>
     <message>
         <source>ITU zone</source>
-        <translation type="unfinished"></translation>
+        <translation>ITU-zóna</translation>
     </message>
     <message>
         <source>My DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>Az én DXCC-m</translation>
     </message>
     <message>
         <source>Rig</source>
@@ -4320,58 +4333,58 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Antenna</source>
-        <translation type="unfinished"></translation>
+        <translation>Antenna</translation>
     </message>
     <message>
         <source>Def. pwr W</source>
-        <translation type="unfinished"></translation>
+        <translation>Alap teljesítmény W</translation>
     </message>
     <message>
         <source>LoTW station location (TQSL)</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW station location (TQSL)</translation>
     </message>
     <message>
         <source>Used by &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO használja · uuid %3 · rev %4 · %5</translation>
     </message>
     <message>
         <source>not synced</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs szinkronizálva</translation>
     </message>
     <message>
         <source>synced</source>
-        <translation type="unfinished"></translation>
+        <translation>szinkronizálva</translation>
     </message>
     <message>
         <source>New profile · not saved yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Új profil · még nincs mentve</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Törlés</translation>
     </message>
     <message>
         <source>Use now</source>
-        <translation type="unfinished"></translation>
+        <translation>Használd most</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Mégse</translation>
     </message>
     <message>
         <source>Save profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Profil mentése</translation>
     </message>
 </context>
 <context>
     <name>StatsWindow</name>
     <message>
         <source>DecoDXLog — Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — Statisztika</translation>
     </message>
     <message>
         <source>no QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs QSO</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -4379,15 +4392,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>All modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden mód</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation type="unfinished"></translation>
+        <translation>Év</translation>
     </message>
     <message>
         <source>All years</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden év</translation>
     </message>
     <message>
         <source>Refresh</source>
@@ -4395,86 +4408,86 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO</translation>
     </message>
     <message>
         <source>Different calls</source>
-        <translation type="unfinished"></translation>
+        <translation>Különböző hívójelek</translation>
     </message>
     <message>
         <source>DXCC entities</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC-entitások</translation>
     </message>
     <message>
         <source>Grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokátorok</translation>
     </message>
     <message>
         <source>First QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Első QSO</translation>
     </message>
     <message>
         <source>Last QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Utolsó QSO</translation>
     </message>
     <message>
         <source>Best day</source>
-        <translation type="unfinished"></translation>
+        <translation>Legjobb nap</translation>
     </message>
     <message>
         <source>Best hour</source>
-        <translation type="unfinished"></translation>
+        <translation>Legjobb óra</translation>
     </message>
     <message>
         <source>QSO per year</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO évenként</translation>
     </message>
     <message>
         <source>QSO per month (last 24)</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO havonta (utolsó 24)</translation>
     </message>
     <message>
         <source>QSO per UTC hour</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO UTC-óránként</translation>
     </message>
     <message>
         <source>QSO per band</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO sávonként</translation>
     </message>
     <message>
         <source>When a band is open · QSO per band and UTC hour</source>
-        <translation type="unfinished"></translation>
+        <translation>Mikor nyitott egy sáv · QSO sávonként és UTC-óránként</translation>
     </message>
     <message>
         <source>%1 · %2Z · %3 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2Z · %3 QSO</translation>
     </message>
     <message>
         <source>Modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Módok</translation>
     </message>
     <message>
         <source>Continents</source>
-        <translation type="unfinished"></translation>
+        <translation>Földrészek</translation>
     </message>
     <message>
         <source>no continent on these QSOs (fill in the DXCC)</source>
-        <translation type="unfinished"></translation>
+        <translation>ezeken a QSO-kon nincs földrész (pótold a DXCC-t)</translation>
     </message>
 </context>
 <context>
     <name>StatusRail</name>
     <message>
         <source>%1: connected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: csatlakozva</translation>
     </message>
     <message>
         <source>Decodium: waiting</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium: várakozik</translation>
     </message>
     <message>
         <source>UDP closed</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP zárva</translation>
     </message>
     <message>
         <source>QSO:</source>
@@ -4482,15 +4495,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Queue:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sor:</translation>
     </message>
     <message>
         <source>Last backup:</source>
-        <translation type="unfinished"></translation>
+        <translation>Utolsó mentés:</translation>
     </message>
     <message>
         <source>never</source>
-        <translation type="unfinished"></translation>
+        <translation>soha</translation>
     </message>
 </context>
 <context>
@@ -4513,7 +4526,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1 · %2/%3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2/%3</translation>
     </message>
     <message>
         <source>Activation</source>
@@ -4521,7 +4534,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Cluster ●</source>
-        <translation type="unfinished"></translation>
+        <translation>Cluster ●</translation>
     </message>
     <message>
         <source>Cluster</source>
@@ -4529,7 +4542,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
-        <translation type="unfinished"></translation>
+        <translation>Panelek (%1 bezárva)</translation>
     </message>
     <message>
         <source>Panels</source>
@@ -4545,43 +4558,43 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Station profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Állomásprofilok</translation>
     </message>
     <message>
         <source>Cloud %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud %1</translation>
     </message>
     <message>
         <source>Cloud not linked</source>
-        <translation type="unfinished"></translation>
+        <translation>A Cloud nincs összekötve</translation>
     </message>
     <message>
         <source>Sign in from Setup → Sync &amp; Cloud</source>
-        <translation type="unfinished"></translation>
+        <translation>Lépj be a Beállítások → Szinkron és Cloud alatt</translation>
     </message>
     <message>
         <source>Cloud not configured</source>
-        <translation type="unfinished"></translation>
+        <translation>A Cloud nincs beállítva</translation>
     </message>
     <message>
         <source>About DecoDXLog…</source>
-        <translation type="unfinished"></translation>
+        <translation>A DecoDXLog névjegye…</translation>
     </message>
     <message>
         <source>Settings…</source>
-        <translation type="unfinished"></translation>
+        <translation>Beállítások…</translation>
     </message>
     <message>
         <source>Station profiles…</source>
-        <translation type="unfinished"></translation>
+        <translation>Állomásprofilok…</translation>
     </message>
     <message>
         <source>Panels…</source>
-        <translation type="unfinished"></translation>
+        <translation>Panelek…</translation>
     </message>
     <message>
         <source>Import ADIF…</source>
-        <translation type="unfinished"></translation>
+        <translation>ADIF beolvasása…</translation>
     </message>
     <message>
         <source>Export ADIF…</source>
@@ -4589,23 +4602,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Open the log folder</source>
-        <translation type="unfinished"></translation>
+        <translation>A napló mappájának megnyitása</translation>
     </message>
     <message>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Kilépés</translation>
     </message>
     <message>
         <source>syncing…</source>
-        <translation type="unfinished"></translation>
+        <translation>szinkronizálás…</translation>
     </message>
     <message>
         <source>%1 queued</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 sorban</translation>
     </message>
     <message>
         <source>synced %1</source>
-        <translation type="unfinished"></translation>
+        <translation>szinkronizálva %1</translation>
     </message>
     <message>
         <source>Sync now</source>
@@ -4620,170 +4633,197 @@ The call Decodium is working shows up here by itself.</source>
     <name>decolog::app::ActivationController</name>
     <message>
         <source>Choose what kind of session it is</source>
-        <translation type="unfinished"></translation>
+        <translation>Válaszd ki, milyen munkamenet ez</translation>
     </message>
     <message>
         <source>A %1 activation needs its reference</source>
-        <translation type="unfinished"></translation>
+        <translation>Egy %1-aktiváláshoz kell a referencia</translation>
     </message>
     <message>
         <source>A contest needs its name (CONTEST_ID)</source>
-        <translation type="unfinished"></translation>
+        <translation>Egy versenyhez kell a neve (CONTEST_ID)</translation>
     </message>
     <message>
         <source>Session open: %1 · grid %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Munkamenet nyitva: %1 · lokátor %2</translation>
     </message>
     <message numerus="yes">
         <source>Session closed: %1 · %n QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Munkamenet lezárva: %1 · %n QSO</numerusform>
+            <numerusform>Munkamenet lezárva: %1 · %n QSO</numerusform>
+        </translation>
     </message>
     <message>
         <source>No QSO in this session yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebben a munkamenetben még nincs QSO</translation>
     </message>
     <message>
         <source>Nothing to write</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs mit írni</translation>
     </message>
     <message>
         <source>Cannot write %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem írható: %1</translation>
     </message>
     <message numerus="yes">
         <source>Cabrillo written: %1 (%n QSO)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cabrillo megírva: %1 (%n QSO)</numerusform>
+            <numerusform>Cabrillo megírva: %1 (%n QSO)</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n QSO of the session → %1</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>a munkamenet %n QSO-ja → %1</numerusform>
+            <numerusform>a munkamenet %n QSO-ja → %1</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>decolog::app::CloudController</name>
     <message>
         <source>Cloud: %1 connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: %1 csatlakozva</translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n station profile(s) updated</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: %n állomásprofil frissítve</numerusform>
+            <numerusform>Cloud: %n állomásprofil frissítve</numerusform>
+        </translation>
     </message>
     <message>
         <source>Cloud: settings updated from another device</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: a beállítások frissültek egy másik gépről</translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n service password(s) arrived</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: %n szolgáltatásjelszó érkezett</numerusform>
+            <numerusform>Cloud: %n szolgáltatásjelszó érkezett</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n QSO arrived from another device</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: %n QSO érkezett egy másik gépről</numerusform>
+            <numerusform>Cloud: %n QSO érkezett egy másik gépről</numerusform>
+        </translation>
     </message>
     <message>
         <source>Cloud: up to date</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: naprakész</translation>
     </message>
     <message>
         <source>Cloud emptied: %1 QSO and %2 settings deleted. What is here stays, and goes back up at the next sync.</source>
-        <translation type="unfinished"></translation>
+        <translation>A Cloud kiürült: %1 QSO és %2 beállítás törölve. Ami itt van, az marad, és a következő szinkronnál újra felmegy.</translation>
     </message>
     <message>
         <source>Cloud: sign in again (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: lépj be újra (%1)</translation>
     </message>
     <message>
         <source>Cloud: not reachable, will retry (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: nem érhető el, újrapróbálja (%1)</translation>
     </message>
     <message>
         <source>Cloud: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: %1</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: a token nem olvasható (%1)</translation>
     </message>
     <message>
         <source>Cloud: the password must be at least 8 characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: a jelszónak legalább 8 karakteresnek kell lennie</translation>
     </message>
     <message>
         <source>Cloud: set the server address first</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: előbb állítsd be a szerver címét</translation>
     </message>
     <message>
         <source>Cloud: creating the account…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: fiók létrehozása…</translation>
     </message>
     <message>
         <source>Cloud: signing in…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: belépés…</translation>
     </message>
     <message>
         <source>Cloud: nothing deleted — you have to write DELETE</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: semmi sem törlődött — be kell írnod, hogy DELETE</translation>
     </message>
     <message>
         <source>Cloud: emptying…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: kiürítés…</translation>
     </message>
     <message>
         <source>Cloud: this device is no longer linked</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: ez a gép már nincs összekötve</translation>
     </message>
     <message>
         <source>Cloud: opening the keystore…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: a kulcstartó megnyitása…</translation>
     </message>
     <message>
         <source>Cloud: not linked yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: még nincs összekötve</translation>
     </message>
     <message>
         <source>Cloud: syncing…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: szinkronizálás…</translation>
     </message>
     <message>
         <source>Cloud: sign in first</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: előbb lépj be</translation>
     </message>
     <message>
         <source>Cloud: the vault did not open</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: a széf nem nyílt ki</translation>
     </message>
     <message>
         <source>Cloud: vault open on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: a széf nyitva ezen a gépen</translation>
     </message>
     <message>
         <source>Cloud: the service passwords are waiting for you to sign in on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: a szolgáltatások jelszavai arra várnak, hogy belépj ezen a gépen</translation>
     </message>
     <message>
         <source>Cloud: the service passwords did not open with this password</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: a szolgáltatások jelszavai nem nyíltak ki ezzel a jelszóval</translation>
     </message>
     <message>
         <source>Cloud: sending the station settings…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: az állomás beállításainak küldése…</translation>
     </message>
     <message>
         <source>Cloud: write your callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: írd be a hívójeledet</translation>
     </message>
     <message numerus="yes">
         <source>Cloud: sending %n QSO…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: %n QSO küldése…</numerusform>
+            <numerusform>Cloud: %n QSO küldése…</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n conflict(s) resolved, the other version is in the history</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: %n ütközés feloldva, a másik változat az előzményekben van</numerusform>
+            <numerusform>Cloud: %n ütközés feloldva, a másik változat az előzményekben van</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n duplicate(s) recognised</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: %n duplikátum felismerve</numerusform>
+            <numerusform>Cloud: %n duplikátum felismerve</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -4794,436 +4834,484 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>New band or mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Új sáv vagy mód</translation>
     </message>
     <message>
         <source>no keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs kulcstartó</translation>
     </message>
     <message>
         <source>No cluster node connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs csatlakoztatott cluster-node</translation>
     </message>
     <message>
         <source>Call and frequency in kHz are needed</source>
-        <translation type="unfinished"></translation>
+        <translation>Hívójel és kHz-ben megadott frekvencia kell</translation>
     </message>
     <message>
         <source>rebuilding the worked list: %1 s</source>
-        <translation type="unfinished"></translation>
+        <translation>a meglévők listájának újraépítése: %1 s</translation>
     </message>
     <message>
         <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>A Decodium nincs összekötve a DecoLinkkel: nem lehet ráhangolni erre: %1</translation>
     </message>
     <message>
         <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation type="unfinished"></translation>
+        <translation>A Decodium hangolása: %1 %2 kHz %3</translation>
     </message>
     <message>
         <source>Alert</source>
-        <translation type="unfinished"></translation>
+        <translation>Riasztás</translation>
     </message>
     <message>
         <source>%1 LoTW users · list of %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 LoTW-felhasználó · %2 listája</translation>
     </message>
     <message>
         <source>downloading the LoTW user list…</source>
-        <translation type="unfinished"></translation>
+        <translation>a LoTW-felhasználók listájának letöltése…</translation>
     </message>
     <message>
         <source>LoTW user list: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW-felhasználók listája: %1</translation>
     </message>
     <message>
         <source>LoTW user list: unexpected content</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW-felhasználók listája: váratlan tartalom</translation>
     </message>
     <message>
         <source>%1 LoTW users · updated today</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 LoTW-felhasználó · ma frissítve</translation>
     </message>
 </context>
 <context>
     <name>decolog::app::DecoLogController</name>
     <message>
         <source>%1 connected from %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 csatlakozott innen: %2</translation>
     </message>
     <message>
         <source>%1 closed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 bezárva</translation>
     </message>
     <message>
         <source>%1 not heard for 45 s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 45 másodperce nem hallatszik</translation>
     </message>
     <message>
         <source>DecoLink: the port is free again, listening on 127.0.0.1:%1</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoLink: a port újra szabad, figyel a 127.0.0.1:%1 címen</translation>
     </message>
     <message>
         <source>DecoLink: client connected (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoLink: kliens csatlakozott (%1)</translation>
     </message>
     <message>
         <source>DecoLink: client disconnected (%1 left)</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoLink: kliens lecsatlakozott (%1 maradt)</translation>
     </message>
     <message>
         <source>%1: %2 found</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2 megtalálva</translation>
     </message>
     <message>
         <source>%1: %2 completed from %3 (%4)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2 kiegészítve innen: %3 (%4)</translation>
     </message>
     <message>
         <source>QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO</translation>
     </message>
     <message>
         <source>LoTW: downloading… %1 kB</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: letöltés… %1 kB</translation>
     </message>
     <message numerus="yes">
         <source>Log opened: %1 (%n QSO)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Napló megnyitva: %1 (%n QSO)</numerusform>
+            <numerusform>Napló megnyitva: %1 (%n QSO)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Cannot open log %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem nyitható meg a napló: %1: %2</translation>
     </message>
     <message>
         <source>loading the log table</source>
-        <translation type="unfinished"></translation>
+        <translation>a naplótáblázat betöltése</translation>
     </message>
     <message>
         <source>reloading the log table</source>
-        <translation type="unfinished"></translation>
+        <translation>a naplótáblázat újratöltése</translation>
     </message>
     <message>
         <source>DecoLink listening on 127.0.0.1:%1</source>
-        <translation type="unfinished"></translation>
+        <translation>A DecoLink figyel a 127.0.0.1:%1 címen</translation>
     </message>
     <message>
         <source>DecoLink cannot listen on %1: %2 — another DecoDXLog is probably open. Retrying every %3 seconds.</source>
-        <translation type="unfinished"></translation>
+        <translation>A DecoLink nem tud figyelni ezen: %1: %2 — valószínűleg nyitva van egy másik DecoDXLog. %3 másodpercenként újrapróbálja.</translation>
     </message>
     <message>
         <source>(not introduced yet)</source>
-        <translation type="unfinished"></translation>
+        <translation>(még nem mutatkozott be)</translation>
     </message>
     <message>
         <source>%1: %2 s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2 s</translation>
     </message>
     <message numerus="yes">
         <source>The window stopped answering for %1 s (%n time(s) since the start)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Az ablak %1 másodpercig nem válaszolt (%n alkalommal az indítás óta)</numerusform>
+            <numerusform>Az ablak %1 másodpercig nem válaszolt (%n alkalommal az indítás óta)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Listening on UDP %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Figyel az UDP %1 porton</translation>
     </message>
     <message>
         <source>Listening on UDP %1, multicast %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Figyel az UDP %1 porton, multicast %2</translation>
     </message>
     <message>
         <source>Cannot listen on UDP %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem tud figyelni az UDP %1 porton: %2</translation>
     </message>
     <message>
         <source>built on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>fordítva ekkor: %1</translation>
     </message>
     <message>
         <source>Interface language: %1 — it changes at the next start</source>
-        <translation type="unfinished"></translation>
+        <translation>A felület nyelve: %1 — a következő indításkor változik</translation>
     </message>
     <message>
         <source>built-in</source>
-        <translation type="unfinished"></translation>
+        <translation>beépített</translation>
     </message>
     <message>
         <source>Not a cty.csv file</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem cty.csv fájl</translation>
     </message>
     <message>
         <source>%1 is older than the one in use (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 régebbi a használatban lévőnél (%2)</translation>
     </message>
     <message>
         <source>cty.csv %1 installed: %2 DXCC entities</source>
-        <translation type="unfinished"></translation>
+        <translation>cty.csv %1 telepítve: %2 DXCC-entitás</translation>
     </message>
     <message>
         <source>DXCC filled on %1 of %2 QSO (cty.csv %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC pótolva %2 QSO közül %1-en (cty.csv %3)</translation>
     </message>
     <message>
         <source>Station profile created from Decodium: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Állomásprofil létrehozva a Decodiumból: %1</translation>
     </message>
     <message>
         <source>%1 %2 %3: already worked in this activation</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 %3: ebben az aktiválásban már megvolt</translation>
     </message>
     <message>
         <source>%1 from %2 → %3 %4 %5 saved (uuid %6)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 innen: %2 → %3 %4 %5 elmentve (uuid %6)</translation>
     </message>
     <message>
         <source> · new DXCC on FT2: %1</source>
-        <translation type="unfinished"></translation>
+        <translation> · új DXCC FT2-n: %1</translation>
     </message>
     <message>
         <source>Duplicate ignored: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Duplikátum mellőzve: %1</translation>
     </message>
     <message>
         <source>QSO not logged: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>A QSO nem lett naplózva: %1</translation>
     </message>
     <message>
         <source>Already worked in this activation</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebben az aktiválásban már megvolt</translation>
     </message>
     <message>
         <source>Logged %1 %2 %3 (manual)</source>
-        <translation type="unfinished"></translation>
+        <translation>Naplózva %1 %2 %3 (kézzel)</translation>
     </message>
     <message numerus="yes">
         <source>Already in log (within %n minute(s))</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Már a naplóban van (%n percen belül)</numerusform>
+            <numerusform>Már a naplóban van (%n percen belül)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Cannot save the QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>A QSO-t nem lehet elmenteni</translation>
     </message>
     <message>
         <source>Edited %1 · revision %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Szerkesztve %1 · változat %2</translation>
     </message>
     <message>
         <source>Deleted %1 (kept in history)</source>
-        <translation type="unfinished"></translation>
+        <translation>Törölve %1 (megmarad az előzményekben)</translation>
     </message>
     <message>
         <source>Deleted %1 QSO (kept in history)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 QSO törölve (megmaradnak az előzményekben)</translation>
     </message>
     <message>
         <source>Restored an earlier revision of QSO #%1</source>
-        <translation type="unfinished"></translation>
+        <translation>A(z) #%1 QSO egy korábbi változata visszaállítva</translation>
     </message>
     <message>
         <source>Tag &quot;%1&quot; added to %2 QSO (%3 already had it)</source>
-        <translation type="unfinished"></translation>
+        <translation>A(z) „%1” címke hozzáadva %2 QSO-hoz (%3 már megvolt)</translation>
     </message>
     <message>
         <source>Tag &quot;%1&quot; removed from %2 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>A(z) „%1” címke eltávolítva %2 QSO-ról</translation>
     </message>
     <message>
         <source>Cannot read %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem olvasható: %1: %2</translation>
     </message>
     <message>
         <source>%1: %2 new, %3 duplicates, %4 rejected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2 új, %3 duplikátum, %4 elutasítva</translation>
     </message>
     <message>
         <source>Cannot write %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem írható: %1: %2</translation>
     </message>
     <message numerus="yes">
         <source>%n QSO → %1</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO → %1</numerusform>
+            <numerusform>%n QSO → %1</numerusform>
+        </translation>
     </message>
     <message>
         <source>%1 · %2 MB</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2 MB</translation>
     </message>
     <message>
         <source>Backup failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>A mentés nem sikerült: %1</translation>
     </message>
     <message>
         <source>%1 → %2 (%3 MB)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 → %2 (%3 MB)</translation>
     </message>
     <message>
         <source>LoTW: add username and password in Setup → QSL services</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: add meg a felhasználónevet és a jelszót a Beállítások → QSL-szolgáltatások alatt</translation>
     </message>
     <message>
         <source>LoTW: downloading all confirmations…</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: minden igazolás letöltése…</translation>
     </message>
     <message>
         <source>LoTW: downloading confirmations since %1…</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: igazolások letöltése ettől: %1…</translation>
     </message>
     <message>
         <source>LoTW: password not available (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: a jelszó nem érhető el (%1)</translation>
     </message>
     <message>
         <source>LoTW: %1 new confirmations, %2 already marked, %3 not in the log</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: %1 új igazolás, %2 már meg volt jelölve, %3 nincs a naplóban</translation>
     </message>
     <message>
         <source>  not in the log: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>  nincs a naplóban: %1</translation>
     </message>
     <message>
         <source>  %1 records without call, band or date</source>
-        <translation type="unfinished"></translation>
+        <translation>  %1 rekord hívójel, sáv vagy dátum nélkül</translation>
     </message>
     <message>
         <source>New DXCC confirmed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Új DXCC igazolva: %1</translation>
     </message>
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Új FT2 Award-entitás igazolva: %1</translation>
     </message>
     <message numerus="yes">
         <source>Completing %n QSO from the callbook…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO kiegészítése a callbookból…</numerusform>
+            <numerusform>%n QSO kiegészítése a callbookból…</numerusform>
+        </translation>
     </message>
     <message>
         <source>Every QSO already has its grid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden QSO-nak megvan már a lokátora.</translation>
     </message>
     <message numerus="yes">
         <source>%n QSO to complete from the callbook: one search at a time, it takes a while.</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO-t kell kiegészíteni a callbookból: egyszerre egy lekérdezés, ez eltart egy ideig.</numerusform>
+            <numerusform>%n QSO-t kell kiegészíteni a callbookból: egyszerre egy lekérdezés, ez eltart egy ideig.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Stopped: %1 of %2 QSO done.</source>
-        <translation type="unfinished"></translation>
+        <translation>Leállítva: %2 QSO-ból %1 kész.</translation>
     </message>
     <message>
         <source>Callbook: %1 QSO looked at.</source>
-        <translation type="unfinished"></translation>
+        <translation>Callbook: %1 QSO átnézve.</translation>
     </message>
     <message>
         <source>Callbook: %1 of %2…</source>
-        <translation type="unfinished"></translation>
+        <translation>Callbook: %2/%1…</translation>
     </message>
     <message numerus="yes">
         <source>%n QSO cleaned up from a bad old import (the previous text stays in the history).</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO rendbe téve egy rossz régi import után (az előző szöveg az előzményekben marad).</numerusform>
+            <numerusform>%n QSO rendbe téve egy rossz régi import után (az előző szöveg az előzményekben marad).</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
     <message numerus="yes">
         <source>%n QSO in the paper queue</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO a papírsorban</numerusform>
+            <numerusform>%n QSO a papírsorban</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n QSL to answer put in the queue</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n megválaszolandó QSL sorba állítva</numerusform>
+            <numerusform>%n megválaszolandó QSL sorba állítva</numerusform>
+        </translation>
     </message>
     <message>
         <source>no QSL waiting for an answer</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs válaszra váró QSL</translation>
     </message>
     <message numerus="yes">
         <source>%n QSL marked as sent</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSL elküldöttként megjelölve</numerusform>
+            <numerusform>%n QSL elküldöttként megjelölve</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n QSO taken out of the queue</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO kivéve a sorból</numerusform>
+            <numerusform>%n QSO kivéve a sorból</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n label(s) written</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n címke megírva</numerusform>
+            <numerusform>%n címke megírva</numerusform>
+        </translation>
     </message>
     <message>
         <source>QSL labels: %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL-címkék: %1 (%2)</translation>
     </message>
 </context>
 <context>
     <name>decolog::app::QslController</name>
     <message>
         <source>%1: stopped, %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: leállítva, %2</translation>
     </message>
     <message>
         <source>TQSL not found: install Trusted QSL or set its path here</source>
-        <translation type="unfinished"></translation>
+        <translation>A TQSL nincs meg: telepítsd a Trusted QSL-t, vagy add meg itt az útvonalát</translation>
     </message>
     <message>
         <source>TQSL is installed but has not been set up yet: open it once, so it creates its own folder with certificates and station locations</source>
-        <translation type="unfinished"></translation>
+        <translation>A TQSL telepítve van, de még nincs beállítva: nyisd meg egyszer, hogy létrehozza a saját mappáját a tanúsítványokkal és a station locationökkel</translation>
     </message>
     <message>
         <source>TQSL has no callsign certificate yet: load the .tq6 file ARRL sends you (the .tq5 request alone does not sign anything) — TQSL&apos;s folder is %1</source>
-        <translation type="unfinished"></translation>
+        <translation>A TQSL-nek még nincs hívójel-tanúsítványa: töltsd be a .tq6 fájlt, amit az ARRL küld (a .tq5 kérelem önmagában nem ír alá semmit) — a TQSL mappája: %1</translation>
     </message>
     <message>
         <source>TQSL has no station location: create one in TQSL (Station → Add location)</source>
-        <translation type="unfinished"></translation>
+        <translation>A TQSL-nek nincs station locationje: hozz létre egyet a TQSL-ben (Station → Add location)</translation>
     </message>
     <message numerus="yes">
         <source>TQSL ready · %n station location(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>TQSL kész · %n station location</numerusform>
+            <numerusform>TQSL kész · %n station location</numerusform>
+        </translation>
     </message>
     <message>
         <source>no credentials: Setup → QSL services</source>
-        <translation type="unfinished"></translation>
+        <translation>nincsenek belépési adatok: Beállítások → QSL-szolgáltatások</translation>
     </message>
     <message>
         <source>no API key: Setup → QSL services</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs API-kulcs: Beállítások → QSL-szolgáltatások</translation>
     </message>
     <message>
         <source>no keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs kulcstartó</translation>
     </message>
     <message>
         <source>nothing to send: they have already gone</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs mit küldeni: már elmentek</translation>
     </message>
     <message>
         <source>nothing to send</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs mit küldeni</translation>
     </message>
     <message>
         <source>Cannot write %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem írható: %1</translation>
     </message>
     <message numerus="yes">
         <source>LoTW: sending %n QSO with TQSL…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>LoTW: %n QSO küldése TQSL-lel…</numerusform>
+            <numerusform>LoTW: %n QSO küldése TQSL-lel…</numerusform>
+        </translation>
     </message>
     <message>
         <source>Club Log: the station profile has no callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: az állomásprofilnak nincs hívójele</translation>
     </message>
     <message>
         <source>%1: no credentials (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: nincsenek belépési adatok (%2)</translation>
     </message>
     <message numerus="yes">
         <source>Club Log: sending %n QSO…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Club Log: %n QSO küldése…</numerusform>
+            <numerusform>Club Log: %n QSO küldése…</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%1: %n QSO küldése…</numerusform>
+            <numerusform>%1: %n QSO küldése…</numerusform>
+        </translation>
     </message>
     <message>
         <source>%1: %2 sent, %3 already there, %4 rejected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2 elküldve, %3 már megvolt, %4 elutasítva</translation>
     </message>
 </context>
 <context>
@@ -5254,7 +5342,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>R</source>
-        <translation type="unfinished"></translation>
+        <translation>R</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -5286,7 +5374,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>ITU</source>
-        <translation type="unfinished"></translation>
+        <translation>ITU</translation>
     </message>
     <message>
         <source>IOTA</source>
@@ -5313,218 +5401,221 @@ The call Decodium is working shows up here by itself.</source>
     <name>decolog::app::RigController</name>
     <message>
         <source>Sent: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Elküldve: %1</translation>
     </message>
     <message>
         <source>Hamlib not found: install it first</source>
-        <translation type="unfinished"></translation>
+        <translation>A Hamlib nincs meg: előbb telepítsd</translation>
     </message>
     <message>
         <source>Pick the radio model first</source>
-        <translation type="unfinished"></translation>
+        <translation>Előbb válaszd ki a rádió modelljét</translation>
     </message>
     <message>
         <source>No serial port on this computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezen a gépen nincs soros port</translation>
     </message>
     <message numerus="yes">
         <source>Looking for the radio on %n port(s)…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>A rádió keresése %n porton…</numerusform>
+            <numerusform>A rádió keresése %n porton…</numerusform>
+        </translation>
     </message>
     <message>
         <source>The radio did not answer on any port. Check that it is on, that the CAT is enabled, and that no other program is holding the cable.</source>
-        <translation type="unfinished"></translation>
+        <translation>A rádió egyik porton sem válaszolt. Nézd meg, hogy be van-e kapcsolva, hogy a CAT engedélyezve van-e, és hogy nem fogja-e a kábelt egy másik program.</translation>
     </message>
     <message>
         <source>Radio found on %1 at %2 baud</source>
-        <translation type="unfinished"></translation>
+        <translation>A rádió megvan itt: %1, %2 bauddal</translation>
     </message>
     <message>
         <source>The radio is not connected: no PTT</source>
-        <translation type="unfinished"></translation>
+        <translation>A rádió nincs csatlakoztatva: nincs PTT</translation>
     </message>
     <message>
         <source>PTT on for a moment: the radio should transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>A PTT egy pillanatra bekapcsolva: a rádiónak adnia kell</translation>
     </message>
     <message>
         <source>Hamlib not found: install it, or start rigctld yourself and use the network link</source>
-        <translation type="unfinished"></translation>
+        <translation>A Hamlib nincs meg: telepítsd, vagy indítsd el magad a rigctld-t, és használd a hálózati kapcsolatot</translation>
     </message>
     <message>
         <source>Pick the radio model and the serial port first</source>
-        <translation type="unfinished"></translation>
+        <translation>Előbb válaszd ki a rádió modelljét és a soros portot</translation>
     </message>
     <message>
         <source>Hamlib: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Hamlib: %1</translation>
     </message>
     <message>
         <source>rigctld did not start</source>
-        <translation type="unfinished"></translation>
+        <translation>a rigctld nem indult el</translation>
     </message>
     <message>
         <source>Hamlib started on %1 (model %2, %3 baud)</source>
-        <translation type="unfinished"></translation>
+        <translation>A Hamlib elindult itt: %1 (modell %2, %3 baud)</translation>
     </message>
     <message>
         <source>No audio input to listen to</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs hangbemenet, amit hallgatni lehetne</translation>
     </message>
     <message>
         <source>The audio input did not open</source>
-        <translation type="unfinished"></translation>
+        <translation>A hangbemenet nem nyílt meg</translation>
     </message>
     <message>
         <source>CW decoder listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>A CW-dekóder ezt hallgatja: %1</translation>
     </message>
     <message>
         <source>CW keyer on %1 (%2): it works with the CAT busy elsewhere</source>
-        <translation type="unfinished"></translation>
+        <translation>CW-manipulátor itt: %1 (%2) — akkor is megy, ha a CAT máshol foglalt</translation>
     </message>
     <message>
         <source>No CW keyer: pick a port first</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs CW-manipulátor: előbb válassz portot</translation>
     </message>
 </context>
 <context>
     <name>decolog::app::RotorController</name>
     <message>
         <source>Rotor off</source>
-        <translation type="unfinished"></translation>
+        <translation>A forgató ki van kapcsolva</translation>
     </message>
     <message>
         <source>Looking for rotctld on %1:%2…</source>
-        <translation type="unfinished"></translation>
+        <translation>A rotctld keresése itt: %1:%2…</translation>
     </message>
     <message>
         <source>Looking for DecoRotor on %1:%2…</source>
-        <translation type="unfinished"></translation>
+        <translation>A DecoRotor keresése itt: %1:%2…</translation>
     </message>
     <message>
         <source>Turning to %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>Fordul ide: %1°</translation>
     </message>
     <message>
         <source>Rotor connected</source>
-        <translation type="unfinished"></translation>
+        <translation>A forgató csatlakoztatva</translation>
     </message>
     <message>
         <source>The rotor is off: Setup → Rotor</source>
-        <translation type="unfinished"></translation>
+        <translation>A forgató ki van kapcsolva: Beállítások → Forgató</translation>
     </message>
     <message>
         <source>%1°</source>
-        <translation type="unfinished"></translation>
+        <translation>%1°</translation>
     </message>
     <message>
         <source>%1 · %2°</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2°</translation>
     </message>
     <message>
         <source>Rotor to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Forgató ide: %1</translation>
     </message>
     <message>
         <source>%1 s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 s</translation>
     </message>
     <message>
         <source>%1 m</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 p</translation>
     </message>
     <message>
         <source>%1 h %2 m</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ó %2 p</translation>
     </message>
     <message>
         <source>APP (WebSocket)</source>
-        <translation type="unfinished"></translation>
+        <translation>APP (WebSocket)</translation>
     </message>
     <message>
         <source>WEB UI</source>
-        <translation type="unfinished"></translation>
+        <translation>WEB UI</translation>
     </message>
     <message>
         <source>ROTCTLD (Hamlib)</source>
-        <translation type="unfinished"></translation>
+        <translation>ROTCTLD (Hamlib)</translation>
     </message>
     <message>
         <source>Rotor: %1 set on the gateway</source>
-        <translation type="unfinished"></translation>
+        <translation>Forgató: %1 beállítva a gatewayen</translation>
     </message>
     <message>
         <source>Rotor: memory &quot;%1&quot; at %2°</source>
-        <translation type="unfinished"></translation>
+        <translation>Forgató: „%1” memória %2°-on</translation>
     </message>
     <message>
         <source>rotctld does not do locators: point in degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>a rotctld nem ismeri a lokátorokat: fokban adj irányt</translation>
     </message>
     <message>
         <source>Rotor: quick stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Forgató: gyorsállj</translation>
     </message>
     <message>
         <source>Rotor: stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Forgató: állj</translation>
     </message>
     <message>
         <source>Rotor: park</source>
-        <translation type="unfinished"></translation>
+        <translation>Forgató: parkolás</translation>
     </message>
 </context>
 <context>
     <name>decolog::app::SolarController</name>
     <message>
         <source>Solar data of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 napadatai</translation>
     </message>
     <message>
         <source>Asking for the solar data…</source>
-        <translation type="unfinished"></translation>
+        <translation>A napadatok lekérése…</translation>
     </message>
     <message>
         <source>The solar data cannot be read</source>
-        <translation type="unfinished"></translation>
+        <translation>A napadatok nem olvashatók</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::CallbookClient</name>
     <message>
         <source>%1 not found on %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 nincs meg itt: %2</translation>
     </message>
     <message>
         <source>%1: no credentials. Add them in Setup → Callbook.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: nincsenek belépési adatok. Add meg őket a Beállítások → Callbook alatt.</translation>
     </message>
     <message>
         <source>%1: password not available (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: a jelszó nem érhető el (%2)</translation>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>%1 not found</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 nincs meg</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::CloudSync</name>
     <message>
         <source>This Cloud server does not know this request (%1): it is older than your DecoDXLog and has to be updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez a Cloud-szerver nem ismeri ezt a kérést (%1): régebbi, mint a te DecoDXLogod, és frissíteni kell.</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::ClusterConnection</name>
     <message>
         <source>the node answers but says nothing: it may be down — try another source</source>
-        <translation type="unfinished"></translation>
+        <translation>a node válaszol, de nem mond semmit: lehet, hogy áll — próbálj másik forrást</translation>
     </message>
     <message>
         <source>off</source>
@@ -5532,27 +5623,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>connecting</source>
-        <translation type="unfinished"></translation>
+        <translation>csatlakozás</translation>
     </message>
     <message>
         <source>logging in</source>
-        <translation type="unfinished"></translation>
+        <translation>belépés</translation>
     </message>
     <message>
         <source>online</source>
-        <translation type="unfinished"></translation>
+        <translation>online</translation>
     </message>
     <message>
         <source>retrying</source>
-        <translation type="unfinished"></translation>
+        <translation>újrapróbálás</translation>
     </message>
     <message>
         <source>retrying: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>újrapróbálás: %1</translation>
     </message>
     <message>
         <source>no callsign: set it in the station profile or in the source</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs hívójel: add meg az állomásprofilban vagy a forrásban</translation>
     </message>
     <message>
         <source>connection closed</source>
@@ -5560,46 +5651,46 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>password needed</source>
-        <translation type="unfinished"></translation>
+        <translation>jelszó kell</translation>
     </message>
     <message>
         <source>no password stored</source>
-        <translation type="unfinished"></translation>
+        <translation>nincs eltárolt jelszó</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::CredentialStore</name>
     <message>
         <source>not available in this build</source>
-        <translation type="unfinished"></translation>
+        <translation>ebben a változatban nincs</translation>
     </message>
     <message>
         <source>Windows Credential Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows Credential Manager</translation>
     </message>
     <message>
         <source>macOS Keychain</source>
-        <translation type="unfinished"></translation>
+        <translation>macOS Keychain</translation>
     </message>
     <message>
         <source>Secret Service (GNOME Keyring / KWallet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Secret Service (GNOME Keyring / KWallet)</translation>
     </message>
     <message>
         <source>Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Fiók</translation>
     </message>
     <message>
         <source>Token</source>
-        <translation type="unfinished"></translation>
+        <translation>Token</translation>
     </message>
     <message>
         <source>Sync between devices (Phase 3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Szinkron a gépek között (3. fázis)</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Felhasználónév</translation>
     </message>
     <message>
         <source>Password</source>
@@ -5607,11 +5698,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Callbook lookups (XML subscription)</source>
-        <translation type="unfinished"></translation>
+        <translation>Callbook-lekérdezések (XML-előfizetés)</translation>
     </message>
     <message>
         <source>Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Hívójel</translation>
     </message>
     <message>
         <source>API key</source>
@@ -5619,11 +5710,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Upload and confirmations of the QRZ Logbook</source>
-        <translation type="unfinished"></translation>
+        <translation>A QRZ Logbook feltöltése és igazolásai</translation>
     </message>
     <message>
         <source>Downloading confirmations; upload goes through the local TQSL</source>
-        <translation type="unfinished"></translation>
+        <translation>Igazolások letöltése; a feltöltés a helyi TQSL-en át megy</translation>
     </message>
     <message>
         <source>Email</source>
@@ -5631,159 +5722,159 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>App password</source>
-        <translation type="unfinished"></translation>
+        <translation>Alkalmazásjelszó</translation>
     </message>
     <message>
         <source>Real-time upload and OQRS</source>
-        <translation type="unfinished"></translation>
+        <translation>Feltöltés valós időben és OQRS</translation>
     </message>
     <message>
         <source>Upload and eQSL confirmations</source>
-        <translation type="unfinished"></translation>
+        <translation>Feltöltés és eQSL-igazolások</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingyenes callbook-lekérdezések</translation>
     </message>
     <message>
         <source>Spots from your HamAlert triggers (telnet)</source>
-        <translation type="unfinished"></translation>
+        <translation>A HamAlert-triggereid spotjai (telnet)</translation>
     </message>
     <message>
         <source>Account saved</source>
-        <translation type="unfinished"></translation>
+        <translation>A fiók elmentve</translation>
     </message>
     <message>
         <source>Stored in the system keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>Elmentve a rendszer kulcstartójába</translation>
     </message>
     <message>
         <source>No system keystore in this build: the secret was not saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebben a változatban nincs rendszerkulcstartó: a titok nem lett elmentve</translation>
     </message>
     <message>
         <source>Removed</source>
-        <translation type="unfinished"></translation>
+        <translation>Eltávolítva</translation>
     </message>
     <message>
         <source>No system keystore in this build</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebben a változatban nincs rendszerkulcstartó</translation>
     </message>
     <message>
         <source>Secret present in the keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>A titok megvan a kulcstartóban</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::CwKeyer</name>
     <message>
         <source>No serial port chosen for the CW keyer</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs soros port választva a CW-manipulátorhoz</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::CwKeyerWorker</name>
     <message>
         <source>Cannot open %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem nyitható meg: %1: %2</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::LotwClient</name>
     <message>
         <source>LoTW: download cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: a letöltés megszakítva</translation>
     </message>
     <message>
         <source>LoTW: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: %1</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::RigControl</name>
     <message>
         <source>Radio connected (rigctld %1:%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>A rádió csatlakoztatva (rigctld %1:%2)</translation>
     </message>
     <message>
         <source>Radio not reachable: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>A rádió nem érhető el: %1</translation>
     </message>
     <message>
         <source>Looking for the radio on %1:%2…</source>
-        <translation type="unfinished"></translation>
+        <translation>A rádió keresése itt: %1:%2…</translation>
     </message>
     <message>
         <source>Radio off</source>
-        <translation type="unfinished"></translation>
+        <translation>A rádió ki van kapcsolva</translation>
     </message>
     <message>
         <source>The radio is not connected: nothing sent in CW</source>
-        <translation type="unfinished"></translation>
+        <translation>A rádió nincs csatlakoztatva: semmi sem ment ki CW-ben</translation>
     </message>
     <message>
         <source>This CAT link does not key CW (rigctld: %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez a CAT-kapcsolat nem ad CW-t (rigctld: %1)</translation>
     </message>
     <message>
         <source>The radio did not take the CW text (rigctld: %1). Not every radio — and not every CAT bridge — can key CW: for the macros you need rigctld talking to the radio itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>A rádió nem vette át a CW-szöveget (rigctld: %1). Nem minden rádió — és nem minden CAT-híd — tud CW-t adni: a makrókhoz olyan rigctld kell, amelyik magával a rádióval beszél.</translation>
     </message>
     <message>
         <source>The radio answered with an error (rigctld: %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>A rádió hibával válaszolt (rigctld: %1)</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::RotorLink</name>
     <message>
         <source>Rotor: connected to DecoRotor on %1:%2</source>
-        <translation type="unfinished"></translation>
+        <translation>Forgató: csatlakozva a DecoRotorhoz itt: %1:%2</translation>
     </message>
     <message>
         <source>Rotor: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Forgató: %1</translation>
     </message>
     <message>
         <source>rotctld (Hamlib)</source>
-        <translation type="unfinished"></translation>
+        <translation>rotctld (Hamlib)</translation>
     </message>
     <message>
         <source>Rotor: connected to rotctld on %1:%2</source>
-        <translation type="unfinished"></translation>
+        <translation>Forgató: csatlakozva a rotctld-hez itt: %1:%2</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::SolarFetcher</name>
     <message>
         <source>The solar data cannot be read</source>
-        <translation type="unfinished"></translation>
+        <translation>A napadatok nem olvashatók</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::TqslUploader</name>
     <message>
         <source>TQSL not found: install Trusted QSL, or set its path in Setup → QSL services</source>
-        <translation type="unfinished"></translation>
+        <translation>A TQSL nincs meg: telepítsd a Trusted QSL-t, vagy add meg az útvonalát a Beállítások → QSL-szolgáltatások alatt</translation>
     </message>
     <message>
         <source>TQSL has no certificate: import your LoTW certificate in TQSL first</source>
-        <translation type="unfinished"></translation>
+        <translation>A TQSL-nek nincs tanúsítványa: előbb olvasd be a LoTW-tanúsítványodat a TQSL-be</translation>
     </message>
     <message>
         <source>TQSL stopped unexpectedly</source>
-        <translation type="unfinished"></translation>
+        <translation>A TQSL váratlanul leállt</translation>
     </message>
     <message>
         <source>Cannot run TQSL: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>A TQSL nem futtatható: %1</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::WebQslUploader</name>
     <message>
         <source>Club Log: email, password, callsign and API key are all needed</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: kell az e-mail-cím, a jelszó, a hívójel és az API-kulcs is</translation>
     </message>
 </context>
 </TS>
