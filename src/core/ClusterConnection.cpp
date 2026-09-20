@@ -350,8 +350,20 @@ void ClusterConnection::checkPrompt(const QString& pending)
     }
 }
 
-void ClusterConnection::handleLine(const QString& line)
+void ClusterConnection::handleLine(const QString& raw)
 {
+    // Via i caratteri di comando prima di guardare la riga. DX Spider attacca
+    // uno o due BEL (0x07) in coda agli spot, per far suonare il terminale:
+    //   "DX de KC7PFR:  14015.0  SJ2W  CQ CONTEST  0214Z\a\a"
+    // Restavano appiccicati alla Z dell'orario, la riga non veniva riconosciuta
+    // come spot e finiva nella console come testo qualunque — il cluster
+    // "girava" ma la tabella restava vuota.
+    QString line;
+    line.reserve(raw.size());
+    for (const QChar c : raw) {
+        if (c == QLatin1Char('\t') || c.unicode() >= 0x20)
+            line.append(c);
+    }
     const QString trimmed = line.trimmed();
     if (trimmed.isEmpty())
         return;

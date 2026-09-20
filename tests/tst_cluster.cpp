@@ -148,6 +148,32 @@ private slots:
         QVERIFY(c.stateText().contains(QStringLiteral("says nothing")));
         QVERIFY(node.received.isEmpty());      // non si e' mandato il nominativo al buio
     }
+
+    // DX Spider attacca uno o due BEL in coda agli spot, per far suonare il
+    // terminale. Restavano appiccicati alla Z dell'orario: la riga non passava
+    // per spot e finiva nella console come testo — cluster che "gira" e tabella
+    // vuota. Le righe di questo test sono quelle vere di iq8do.aricaserta.it.
+    void bellsAfterTheTimeDoNotHideTheSpot()
+    {
+        FakeNode node;
+        ClusterConnection c(sourceFor(node, "cluster", "IU8LMC", ""));
+        QSignalSpy spots(&c, &ClusterConnection::spotReceived);
+        QSignalSpy lines(&c, &ClusterConnection::lineReceived);
+        c.start();
+        QVERIFY(node.waitFor("IU8LMC\r\n"));
+
+        node.say("DX de KC7PFR:    14015.0  SJ2W         CQ CONTEST      0214Z\x07\x07\r\n");
+        QTRY_COMPARE(spots.count(), 1);
+        const Spot s = spots.at(0).at(0).value<Spot>();
+        QCOMPARE(s.dxCall, QString("SJ2W"));
+        QCOMPARE(s.spotter, QString("KC7PFR"));
+        QCOMPARE(s.freqKhz, 14015.0);
+        QCOMPARE(s.comment, QString("CQ CONTEST"));
+
+        // E non deve finire anche nella console come riga qualunque.
+        for (const auto& call : lines)
+            QVERIFY(!call.at(0).toString().contains(QStringLiteral("SJ2W")));
+    }
 };
 
 QTEST_GUILESS_MAIN(TestCluster)

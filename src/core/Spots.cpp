@@ -69,6 +69,21 @@ constexpr std::array kSegments{
     Segment{50000, 50100, "CW"},   Segment{50100, 50300, "SSB"},
 };
 
+// I nodi infilano caratteri di comando in mezzo al testo: DX Spider attacca
+// uno o due BEL in coda agli spot per far suonare il terminale, e restavano
+// appiccicati alla Z dell'orario. Una riga che finisce "0214Z" con due BEL dietro non e' una
+// riga diversa: e' la stessa riga con un campanello attaccato.
+QString withoutControlChars(const QString& line)
+{
+    QString out;
+    out.reserve(line.size());
+    for (const QChar c : line) {
+        if (c == QLatin1Char('\t') || c.unicode() >= 0x20)
+            out.append(c);
+    }
+    return out;
+}
+
 QDateTime timeFromHhmm(const QString& hhmm, const QDateTime& now)
 {
     const QString digits = QString(hhmm).remove(QLatin1Char(':'));
@@ -223,7 +238,7 @@ std::optional<Spot> parseDxLine(const QString& line, const QDateTime& now)
     static const QRegularExpression re(
         QStringLiteral("^DX de\\s+([^\\s:]+):?\\s+(\\d+(?:\\.\\d+)?)\\s+(\\S+)\\s+(.*?)\\s*(\\d{4})Z(?:\\s+(.*))?$"),
         QRegularExpression::CaseInsensitiveOption);
-    const auto m = re.match(line.trimmed());
+    const auto m = re.match(withoutControlChars(line).trimmed());
     if (!m.hasMatch())
         return std::nullopt;
 
@@ -253,7 +268,7 @@ std::optional<Spot> parseShowDxLine(const QString& line, const QDateTime& now)
 {
     static const QRegularExpression re(
         QStringLiteral("^\\s*(\\d+(?:\\.\\d+)?)\\s+(\\S+)\\s+(\\d{1,2}-[A-Za-z]{3}-\\d{4})\\s+(\\d{4})Z\\s*(.*?)\\s*<([^>]+)>\\s*$"));
-    const auto m = re.match(line);
+    const auto m = re.match(withoutControlChars(line));
     if (!m.hasMatch())
         return std::nullopt;
     Spot s;

@@ -3,6 +3,19 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.5.8 — 20 settembre 2026
+
+**Il campanello del nodo non nasconde piu' gli spot.** DX Spider attacca in coda a ogni
+spot uno o due BEL — il carattere che fa suonare il terminale:
+
+    DX de KC7PFR:  14015.0  SJ2W  CQ CONTEST  0214Z<BEL><BEL>
+
+Restavano appiccicati alla Z dell'orario, la riga non veniva riconosciuta come spot e
+finiva nella console come testo qualunque. Il cluster "girava" — nella console si vedeva
+passare tutto — e **la tabella restava vuota**. Adesso i caratteri di comando si tolgono
+prima di leggere la riga, sia quando arriva dal nodo sia quando la legge il parser, e gli
+spot tornano in tabella.
+
 ## 0.5.7 — 20 settembre 2026
 
 **Un nodo che tace non e' un nodo collegato.** Certi nodi accettano il collegamento e poi

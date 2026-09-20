@@ -85,7 +85,7 @@ private:
     void connectNow();
     void onReadyRead();
     void onDisconnected();
-    void handleLine(const QString& line);
+    void handleLine(const QString& raw);
     void checkPrompt(const QString& pending);
     void loggedIn();
     void setState(State state, const QString& error = {});
