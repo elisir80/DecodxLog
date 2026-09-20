@@ -39,6 +39,10 @@ ApplicationWindow {
         property real leftWidth: 300
         property real rightWidth: 300
         property real bottomHeight: 280
+        // Il cluster tiene un'altezza sua: chi guarda gli spot vuole la fascia
+        // alta, chi guarda il registro la vuole bassa, e nessuno dei due deve
+        // rifarla ogni volta che cambia scheda.
+        property real clusterBottomHeight: 340
         property real mapWidth: 308
         property string hiddenColumns: ""
         property string columnWidths: ""
@@ -561,12 +565,24 @@ ApplicationWindow {
             }
 
             SplitView {
-                SplitView.preferredHeight: layout.bottomHeight
-                // Sul DX Cluster la fascia si alza da sola: cinque righe di spot
-                // non sono un cluster, sono un assaggio.
-                SplitView.minimumHeight: bottomTabs.currentTab === 4 ? 340 : 130
+                // Sul DX Cluster la fascia si alza da sola, perche' cinque righe
+                // di spot non sono un cluster, sono un assaggio — ma si alza e
+                // basta: da li' si tira dove si vuole, anche piu' in basso, e
+                // l'altezza scelta resta quella del cluster. Prima il minimo
+                // stesso diventava 340 e la fascia non si poteva piu' abbassare
+                // finche' si stava sugli spot.
+                SplitView.preferredHeight: bottomTabs.currentTab === 4 ? layout.clusterBottomHeight
+                                                                       : layout.bottomHeight
+                SplitView.minimumHeight: 130
                 visible: window.isPanelDocked("tabs") || window.isPanelDocked("map")
-                onHeightChanged: if (height > 0 && window.layoutIsWhole) layout.bottomHeight = height
+                onHeightChanged: {
+                    if (height > 0 && window.layoutIsWhole) {
+                        if (bottomTabs.currentTab === 4)
+                            layout.clusterBottomHeight = height
+                        else
+                            layout.bottomHeight = height
+                    }
+                }
                 orientation: Qt.Horizontal
                 handle: splitHandle
 

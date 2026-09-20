@@ -3,6 +3,15 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.5.9 — 20 settembre 2026
+
+**La fascia del DX Cluster si tira come tutte le altre.** Sugli spot l'altezza minima
+diventava 340 punti: la fascia si alzava da sola — giusto — ma poi **non si poteva piu'
+abbassare** finche' si restava li', e l'altezza forzata veniva salvata come altezza di
+tutte le altre schede. Adesso il minimo e' 130 come dappertutto, e **il cluster tiene
+un'altezza sua**: chi guarda gli spot la vuole alta, chi guarda il registro la vuole
+bassa, e cambiando scheda ognuna ritrova la propria senza rifarla ogni volta.
+
 ## 0.5.8 — 20 settembre 2026
 
 **Il campanello del nodo non nasconde piu' gli spot.** DX Spider attacca in coda a ogni
