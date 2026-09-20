@@ -111,6 +111,15 @@ ClusterConnection::ClusterConnection(const ClusterSource& source, QObject* paren
     connect(&m_loginTimer, &QTimer::timeout, this, [this] {
         if (!m_socket || m_socket->state() != QAbstractSocket::ConnectedState)
             return;
+        // Un nodo che non ha mai aperto bocca non e' un nodo collegato: e' una
+        // porta aperta su un servizio spento. Dirsi "online" li' davanti vuol
+        // dire mostrare una fonte verde che non portera' mai uno spot.
+        if (!m_heardFromNode) {
+            setState(State::Waiting, tr("the node answers but says nothing: it may be down — "
+                                        "try another source"));
+            scheduleRetry();
+            return;
+        }
         if (!m_loginSent && m_source.type != QLatin1String("hamalert"))
             checkPrompt(QStringLiteral("login:"));
         else if (m_loginSent && !m_commandsSent)
@@ -235,7 +244,7 @@ void ClusterConnection::connectNow()
     }
     m_socket = new QTcpSocket(this);
     m_buffer.clear();
-    m_loginSent = m_passwordSent = m_commandsSent = false;
+    m_loginSent = m_passwordSent = m_commandsSent = m_heardFromNode = false;
     connect(m_socket, &QTcpSocket::connected, this, [this] {
         setState(State::LoggingIn);
         m_loginTimer.start();
@@ -283,6 +292,7 @@ bool ClusterConnection::send(const QString& command)
 
 void ClusterConnection::onReadyRead()
 {
+    m_heardFromNode = true;
     m_buffer += stripTelnet(m_socket->readAll());
     qsizetype newline;
     while ((newline = m_buffer.indexOf('\n')) >= 0) {

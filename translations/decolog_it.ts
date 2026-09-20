@@ -5409,6 +5409,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
 <context>
     <name>decolog::core::ClusterConnection</name>
     <message>
+        <source>the node answers but says nothing: it may be down — try another source</source>
+        <translation>il nodo risponde ma non dice niente: forse e&apos; spento — prova un&apos;altra fonte</translation>
+    </message>
+    <message>
         <source>off</source>
         <translation>spento</translation>
     </message>

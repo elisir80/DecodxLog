@@ -105,6 +105,9 @@ private:
     bool          m_loginSent{false};
     bool          m_passwordSent{false};
     bool          m_commandsSent{false};
+    // Se dal nodo non e' mai arrivato niente, non si e' collegati: la porta
+    // risponde e basta. Un nodo spento accetta il TCP e poi tace.
+    bool          m_heardFromNode{false};
     bool          m_wanted{false};
     int           m_retries{0};
     int           m_spotCount{0};

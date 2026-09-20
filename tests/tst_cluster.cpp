@@ -132,6 +132,22 @@ private slots:
         // Primo nuovo tentativo dopo 5 secondi.
         QVERIFY(node.waitFor("IU8LMC\r\n", 8000));
     }
+
+    // Un nodo spento accetta il collegamento e poi non dice niente: la porta e'
+    // aperta, il servizio no. Non si deve finire "online", perche' una fonte
+    // verde che non porta mai uno spot e' peggio di una fonte spenta — e'
+    // quello che succedeva con dxc.ve7cc.net.
+    void aSilentNodeIsNotOnline()
+    {
+        FakeNode node;
+        node.greeting.clear();                 // accetta e tace
+        ClusterConnection c(sourceFor(node, "cluster", "IU8LMC", ""));
+        c.start();
+
+        QTRY_COMPARE_WITH_TIMEOUT(c.state(), ClusterConnection::State::Waiting, 10000);
+        QVERIFY(c.stateText().contains(QStringLiteral("says nothing")));
+        QVERIFY(node.received.isEmpty());      // non si e' mandato il nominativo al buio
+    }
 };
 
 QTEST_GUILESS_MAIN(TestCluster)

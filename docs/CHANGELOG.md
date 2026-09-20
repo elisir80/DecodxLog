@@ -3,6 +3,20 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.5.7 — 20 settembre 2026
+
+**Un nodo che tace non e' un nodo collegato.** Certi nodi accettano il collegamento e poi
+non dicono piu' niente: la porta e' aperta, il servizio spento. DecoLog aspettava quattro
+secondi, mandava il nominativo al buio, ne aspettava altri quattro e si dichiarava
+**online** — fonte verde, e nemmeno uno spot in tabella, senza una parola che spiegasse
+perche'. Adesso, se dal nodo non e' mai arrivato niente, la fonte resta in attesa e dice
+*«il nodo risponde ma non dice niente: forse e' spento — prova un'altra fonte»*, e ci
+riprova da sola.
+
+E' quello che succede in questi giorni con **dxc.ve7cc.net**, che e' fra le fonti
+preimpostate: accetta il collegamento e sta zitto. Gli altri nodi della lista — IZ7AUH,
+W3LPL, DXFun, NC7J — rispondono e mandano spot regolarmente.
+
 ## 0.5.6 — 20 settembre 2026
 
 **«Svuota il Cloud» si trova anche da scollegati.** La Zona pericolosa in Impostazioni →
