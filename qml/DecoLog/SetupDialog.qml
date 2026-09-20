@@ -692,11 +692,13 @@ DialogFrame {
                     }
 
                     // ── Zona pericolosa ──────────────────────────────────
+                    // Si vede sempre, anche scollegati: una funzione che sparisce
+                    // e' una funzione che non c'e', e chi la cerca non la trova.
+                    // Scollegati il tasto e' spento e la riga sotto dice perche'.
                     ColumnLayout {
                         Layout.fillWidth: true
                         Layout.topMargin: 10
                         spacing: 6
-                        visible: decolog.cloud.linked
                         SectionTitle { text: qsTr("Danger zone") }
                         Note {
                             text: qsTr("Empty the Cloud of this callsign: QSO, history, station profiles, "
@@ -709,8 +711,13 @@ DialogFrame {
                             Layout.alignment: Qt.AlignLeft
                             text: qsTr("Empty the Cloud…")
                             tone: Theme.errorColor
-                            enabled: !decolog.cloud.busy
+                            enabled: decolog.cloud.linked && !decolog.cloud.busy
                             onClicked: purgeCloudDialog.openDialog()
+                        }
+                        Note {
+                            visible: !decolog.cloud.linked
+                            text: qsTr("Sign in above first: emptying the Cloud is something only the owner "
+                                       + "of this callsign can ask for.")
                         }
                     }
                     Item { Layout.fillHeight: true }

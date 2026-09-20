@@ -57,7 +57,7 @@ def test_health(client):
     assert body["status"] == "ok"
     # Dice anche cosa sa fare: update.sh se ne serve per accorgersi di un
     # aggiornamento rimasto a meta'.
-    assert {"qso", "docs", "web", "stats"} <= set(body["features"])
+    assert {"qso", "docs", "web", "stats", "contest", "purge"} <= set(body["features"])
 
 
 def test_signup_then_token(client):

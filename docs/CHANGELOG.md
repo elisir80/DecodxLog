@@ -3,6 +3,20 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.5.6 — 20 settembre 2026
+
+**«Svuota il Cloud» si trova anche da scollegati.** La Zona pericolosa in Impostazioni →
+Sync e Cloud spariva del tutto finche' non si era entrati nel Cloud: chi andava a cercarla
+non la trovava e pensava che nella sua copia non ci fosse. Adesso c'e' sempre, col tasto
+spento e una riga che dice di entrare prima — una funzione che sparisce e' una funzione che
+non c'e'.
+
+**Quando il server e' piu' vecchio del programma, lo dice.** Una richiesta che il Cloud non
+conosce tornava indietro come «Not Found», e chi leggeva pensava di avere DecoLog rotto.
+Adesso il messaggio dice che e' il *server* a dover essere aggiornato, e quale richiesta non
+ha capito. Lato server, `/v1/health` dichiara anche **contest** e **purge** fra le funzioni,
+cosi' un aggiornamento a meta' si vede con un solo `curl`.
+
 ## 0.5.5 — 20 settembre 2026
 
 **L'icona nuova.** DecoLog ha la sua faccia: la nuvola del Cloud con dentro le righe del

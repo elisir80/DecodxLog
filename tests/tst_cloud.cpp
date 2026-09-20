@@ -7,6 +7,8 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QSignalSpy>
+#include <QTcpServer>
+#include <QTcpSocket>
 #include <QTest>
 
 using namespace decolog::core;
@@ -27,6 +29,33 @@ AdifRecord qso(const QString& call, const QString& time = QStringLiteral("183000
         r.set(QStringLiteral("NAME"), name);
     return r;
 }
+
+// Un server che risponde sempre come gli si dice: serve per provare cosa fa
+// DecoLog davanti a un Cloud piu' vecchio di lui.
+class FakeServer : public QObject {
+    Q_OBJECT
+
+public:
+    explicit FakeServer(const QByteArray& response)
+        : m_response(response)
+    {
+        m_server.listen(QHostAddress::LocalHost, 0);
+        connect(&m_server, &QTcpServer::newConnection, this, [this] {
+            QTcpSocket* client = m_server.nextPendingConnection();
+            connect(client, &QTcpSocket::readyRead, client, [this, client] {
+                client->readAll();
+                client->write(m_response);
+                client->disconnectFromHost();
+            });
+        });
+    }
+
+    QUrl url() const { return QUrl(QStringLiteral("http://127.0.0.1:%1").arg(m_server.serverPort())); }
+
+private:
+    QTcpServer m_server;
+    QByteArray m_response;
+};
 
 } // namespace
 
@@ -268,6 +297,33 @@ private slots:
         QVERIFY(cloudsync::detailOf(QJsonValue()).isEmpty());
         QVERIFY(cloudsync::detailOf(QJsonValue(QJsonArray())).isEmpty());
         QVERIFY(cloudsync::detailOf(QJsonValue(QJsonObject())).isEmpty());
+    }
+
+    // Un server che non conosce la richiesta risponde 404, e "Not Found" non
+    // spiega niente a chi legge: il messaggio deve dire che e' il server a
+    // essere vecchio, non il programma a essere rotto.
+    void anOldServerSaysSo()
+    {
+        FakeServer old("HTTP/1.1 404 Not Found\r\n"
+                       "Content-Type: application/json\r\n"
+                       "Content-Length: 24\r\n"
+                       "Connection: close\r\n\r\n"
+                       "{\"detail\":\"Not Found\"}");
+        CloudSync sync;
+        sync.setServer(old.url());
+        sync.setToken(QStringLiteral("un-token"));
+
+        QSignalSpy failures(&sync, &CloudSync::failed);
+        sync.purge(QStringLiteral("DELETE"));
+        QVERIFY(failures.wait(5000));
+
+        const auto error = failures.first().first().value<CloudError>();
+        QVERIFY(!error.ok);
+        QVERIFY(!error.unauthorized);
+        QVERIFY(!error.retryLater);         // riprovare non serve: manca proprio
+        QVERIFY(!error.message.contains(QStringLiteral("Not Found")));
+        QVERIFY(error.message.contains(QStringLiteral("purge")));
+        QVERIFY(error.message.contains(QStringLiteral("updated")));
     }
 };
 

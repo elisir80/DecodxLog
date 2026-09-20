@@ -3748,6 +3748,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Svuota il Cloud…</translation>
     </message>
     <message>
+        <source>Sign in above first: emptying the Cloud is something only the owner of this callsign can ask for.</source>
+        <translation>Prima entra qui sopra: svuotare il Cloud lo puo&apos; chiedere solo chi e&apos; padrone di questo nominativo.</translation>
+    </message>
+    <message>
         <source>Automatic sync</source>
         <translation>Sync automatico</translation>
     </message>
@@ -5393,6 +5397,13 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>%1 not found</source>
         <translation>%1 non trovato</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::CloudSync</name>
+    <message>
+        <source>This Cloud server does not know this request (%1): it is older than your DecoLog and has to be updated.</source>
+        <translation>Questo server Cloud non conosce questa richiesta (%1): e&apos; piu&apos; vecchio del tuo DecoLog e va aggiornato.</translation>
     </message>
 </context>
 <context>
