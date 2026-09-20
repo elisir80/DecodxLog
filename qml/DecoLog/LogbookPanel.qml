@@ -515,6 +515,27 @@ GlassPanel {
         }
     }
 
+    // Il salvataggio dei marcati: il nome di partenza dice quanti sono e di
+    // che giorno, cosi' non si salvano tre "export.adi" uno sopra l'altro.
+    FileDialog {
+        id: exportChosen
+        property var ids: []
+        function openFor(list) {
+            exportChosen.ids = list
+            const today = new Date().toISOString().slice(0, 10)
+            const one = list.length === 1 ? root.model.valueAt(root.model.rowForId(list[0]),
+                                                               root.columnOf("call")) : ""
+            currentFile = "file:///" + (one ? one.replace("/", "-") : "decolog-" + list.length + "-qso")
+                          + "-" + today + ".adi"
+            open()
+        }
+        title: qsTr("Save the QSO chosen")
+        fileMode: FileDialog.SaveFile
+        defaultSuffix: "adi"
+        nameFilters: [qsTr("ADIF files (*.adi)")]
+        onAccepted: decolog.exportQsos(exportChosen.ids, selectedFile)
+    }
+
     FileDialog {
         id: exportShown
         title: qsTr("Export the QSO shown")
@@ -1093,6 +1114,17 @@ GlassPanel {
                 }
             }
         }
+        // Un file ADIF con dentro solo quelli marcati. Serve piu' spesso di
+        // quanto sembri: si marcano dieci QSO e si mandano a chi li chiede,
+        // invece di esportare tutto il log e poi togliere ventiduemila righe.
+        StyledMenuItem {
+            readonly property var ids: root.selectedIds.length > 1 ? root.selectedIds : [rowMenu.qsoId]
+            text: root.selectedIds.length > 1
+                  ? qsTr("Save the %1 QSO chosen as ADIF…").arg(root.selectedIds.length)
+                  : qsTr("Save this QSO as ADIF…")
+            onTriggered: exportChosen.openFor(ids)
+        }
+        MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
         StyledMenuItem {
             text: root.selectedIds.length > 1
                   ? qsTr("Paper QSL: queue the %1 chosen for the bureau").arg(root.selectedIds.length)

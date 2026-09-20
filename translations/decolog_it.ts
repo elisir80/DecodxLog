@@ -1527,6 +1527,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Ripulisci</translation>
     </message>
     <message>
+        <source>Save the QSO chosen</source>
+        <translation>Salva i QSO scelti</translation>
+    </message>
+    <message>
         <source>Export the QSO shown</source>
         <translation>Esporta i QSO mostrati</translation>
     </message>
@@ -1699,6 +1703,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Manda questo QSO a…</translation>
     </message>
     <message>
+        <source>Save the %1 QSO chosen as ADIF…</source>
+        <translation>Salva i %1 QSO scelti in un file ADIF…</translation>
+    </message>
+    <message>
+        <source>Save this QSO as ADIF…</source>
+        <translation>Salva questo QSO in un file ADIF…</translation>
+    </message>
+    <message>
         <source>Paper QSL: queue the %1 chosen for the bureau</source>
         <translation>QSL cartacea: i %1 scelti in coda per il bureau</translation>
     </message>
@@ -1826,6 +1838,26 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Restore the default layout</source>
         <translation>Rimetti la disposizione di partenza</translation>
+    </message>
+    <message>
+        <source>Unlock the layout</source>
+        <translation>Sblocca la disposizione</translation>
+    </message>
+    <message>
+        <source>Lock the layout</source>
+        <translation>Blocca la disposizione</translation>
+    </message>
+    <message>
+        <source>Detach this panel into its own window</source>
+        <translation>Stacca questo pannello in una finestra sua</translation>
+    </message>
+    <message>
+        <source>Close this panel</source>
+        <translation>Chiudi questo pannello</translation>
+    </message>
+    <message>
+        <source>Panels…</source>
+        <translation>Pannelli…</translation>
     </message>
 </context>
 <context>
@@ -2135,6 +2167,13 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>CLEAR</source>
         <translation>PULISCI</translation>
+    </message>
+</context>
+<context>
+    <name>PanelSlot</name>
+    <message>
+        <source>here</source>
+        <translation>qui</translation>
     </message>
 </context>
 <context>

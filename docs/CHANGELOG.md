@@ -3,6 +3,32 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoLog cresce mentre lo si usa
 in stazione.
 
+## 0.7.0 — 20 settembre 2026
+
+Tre cose che mancavano, chieste da chi il log lo usa.
+
+**Un file ADIF con dentro solo i QSO marcati.** Si marcano le righe che servono — una o
+dieci — e col tasto destro **«Salva i 10 QSO scelti in un file ADIF…»**. Il nome di
+partenza lo propone DecoLog (il nominativo se e' uno solo, altrimenti quanti sono, piu' la
+data). Prima l'unica strada era esportare tutto il log e poi togliere a mano le
+ventiduemila righe di troppo.
+
+**La disposizione si blocca.** Tasto destro sulla testata di un pannello qualsiasi:
+**Blocca la disposizione**. Le maniglie restano disegnate ma non si tirano piu', e i
+pannelli non si spostano: quello che si e' sistemato resta com'e'. Dallo stesso menu si
+stacca il pannello in una finestra sua, lo si chiude, si aprono i Pannelli o si rimette la
+disposizione di partenza.
+
+**I pannelli si scambiano di posto.** Si prende un pannello per la maniglia **⠿** in alto a
+sinistra e lo si porta sopra un altro: quello sotto si accende — il magnete, con scritto
+**qui** — e lasciando il pulsante i due si scambiano di casella. Come il layout DX-Pedition
+di Decodium. Le otto caselle restano dove sono e tengono le loro misure: chi va nella
+colonna di sinistra prende la larghezza della colonna di sinistra. La disposizione scelta
+resta da una sessione all'altra, e a disposizione bloccata non si muove niente.
+
+Sotto il cofano, i pannelli non sono piu' scritti uno per uno nel loro posto: ogni posto e'
+una casella che ospita il pannello che le tocca (`PanelSlot.qml`).
+
 ## 0.6.0 — 20 settembre 2026
 
 **Le finestre staccate stanno ferme.** Staccando un pannello mentre altri erano gia' in

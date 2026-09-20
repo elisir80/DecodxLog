@@ -59,6 +59,13 @@ ApplicationWindow {
         // separate da virgola. Restano da una sessione all'altra.
         property string hiddenPanels: "cw"
         property string detachedPanels: ""
+        // Disposizione bloccata: le maniglie non si tirano e i pannelli non si
+        // spostano. Si mette e si toglie col tasto destro sulla testata di un
+        // pannello qualsiasi.
+        property bool layoutLocked: false
+        // Chi sta in quale casella: "casella=pannello", separati da virgola.
+        // Vuoto vuol dire la disposizione di partenza.
+        property string panelSlots: ""
     }
 
     // ── I pannelli: chi sono, dove stanno ───────────────────────────────────
@@ -95,6 +102,133 @@ ApplicationWindow {
         return ""
     }
 
+    // ── Le caselle della disposizione ───────────────────────────────────────
+    //
+    // Otto posti fissi; quale pannello ci stia dentro lo dice questa mappa, e
+    // si cambia trascinando un pannello per la maniglia sopra un altro.
+    readonly property var slotIds: ["left", "center", "rightA", "rightB", "rightC", "rightD",
+                                    "bottomLeft", "bottomRight"]
+    readonly property var defaultSlots: ({"left": "newqso", "center": "logbook",
+                                          "rightA": "callinfo", "rightB": "cw",
+                                          "rightC": "rotor", "rightD": "ft2",
+                                          "bottomLeft": "tabs", "bottomRight": "map"})
+
+    function slotMap() {
+        const map = {}
+        for (let i = 0; i < window.slotIds.length; ++i)
+            map[window.slotIds[i]] = window.defaultSlots[window.slotIds[i]]
+        const parts = String(layout.panelSlots || "").split(",")
+        const seen = []
+        for (let j = 0; j < parts.length; ++j) {
+            const pair = parts[j].split("=")
+            const slotId = String(pair[0] || "").trim()
+            const key = String(pair[1] || "").trim()
+            // Solo caselle e pannelli che esistono, e ogni pannello una volta
+            // sola: una mappa storta lascerebbe un pannello in due posti.
+            if (window.slotIds.indexOf(slotId) >= 0 && window.panelKeys.indexOf(key) >= 0
+                && seen.indexOf(key) < 0) {
+                map[slotId] = key
+                seen.push(key)
+            }
+        }
+        // Quello che nella mappa non c'e' finisce nella prima casella libera.
+        const used = []
+        for (let s = 0; s < window.slotIds.length; ++s)
+            used.push(map[window.slotIds[s]])
+        for (let k = 0; k < window.panelKeys.length; ++k) {
+            const key = window.panelKeys[k]
+            if (used.indexOf(key) >= 0)
+                continue
+            for (let s2 = 0; s2 < window.slotIds.length; ++s2) {
+                if (used.indexOf(map[window.slotIds[s2]]) !== s2) {
+                    map[window.slotIds[s2]] = key
+                    used[s2] = key
+                    break
+                }
+            }
+        }
+        return map
+    }
+
+    readonly property var slotsNow: window.slotMap()
+    function panelAt(slotId) { return window.slotsNow[slotId] || "" }
+    function slotOf(key) {
+        for (let i = 0; i < window.slotIds.length; ++i) {
+            if (window.slotsNow[window.slotIds[i]] === key)
+                return window.slotIds[i]
+        }
+        return ""
+    }
+
+    function swapSlots(slotA, slotB) {
+        if (!slotA || !slotB || slotA === slotB)
+            return
+        const map = window.slotMap()
+        const keep = map[slotA]
+        map[slotA] = map[slotB]
+        map[slotB] = keep
+        const out = []
+        for (let i = 0; i < window.slotIds.length; ++i)
+            out.push(window.slotIds[i] + "=" + map[window.slotIds[i]])
+        layout.panelSlots = out.join(",")
+    }
+
+    // ── Il trascinamento: si prende un pannello e si vede dove finisce ──────
+    property string draggingKey: ""
+    property string draggingFrom: ""
+    property string dragTargetSlot: ""
+    readonly property var slotItems: [slotLeft, slotCenter, slotRightA, slotRightB,
+                                      slotRightC, slotRightD, slotBottomLeft, slotBottomRight]
+
+    function panelItem(key) {
+        for (let i = 0; i < window.slotItems.length; ++i) {
+            if (window.slotItems[i].panelKey === key)
+                return window.slotItems[i]
+        }
+        return null
+    }
+    readonly property int tabsTab: {
+        const it = window.panelItem("tabs")
+        return it ? it.currentTab : -1
+    }
+
+    function slotUnder(screenX, screenY) {
+        for (let i = 0; i < window.slotItems.length; ++i) {
+            const s = window.slotItems[i]
+            if (!s.visible || s.width <= 0 || s.height <= 0)
+                continue
+            const at = s.mapToGlobal(0, 0)
+            if (screenX >= at.x && screenX <= at.x + s.width
+                && screenY >= at.y && screenY <= at.y + s.height)
+                return s.slotId
+        }
+        return ""
+    }
+
+    function beginPanelDrag(key, slotId) {
+        if (layout.layoutLocked)
+            return
+        window.draggingKey = key
+        window.draggingFrom = slotId
+        window.dragTargetSlot = ""
+    }
+    function updatePanelDrag(screenX, screenY) {
+        if (!window.draggingKey)
+            return
+        const over = window.slotUnder(screenX, screenY)
+        window.dragTargetSlot = over === window.draggingFrom ? "" : over
+    }
+    function endPanelDrag(screenX, screenY) {
+        if (!window.draggingKey)
+            return
+        const over = window.slotUnder(screenX, screenY)
+        if (over && over !== window.draggingFrom)
+            window.swapSlots(window.draggingFrom, over)
+        window.draggingKey = ""
+        window.draggingFrom = ""
+        window.dragTargetSlot = ""
+    }
+
     function panelListOf(text) {
         const out = []
         const parts = String(text || "").split(",")
@@ -116,6 +250,11 @@ ApplicationWindow {
     function isPanelHidden(key) { return window.hiddenPanels.indexOf(key) >= 0 }
     function isPanelDetached(key) { return window.detachedPanels.indexOf(key) >= 0 }
     function isPanelDocked(key) { return !window.isPanelHidden(key) && !window.isPanelDetached(key) }
+    // Il rotore sta nella disposizione solo se un rotore c'e': una casella con
+    // dentro un pannello spento e' spazio tolto agli altri.
+    function panelShows(key) {
+        return window.isPanelDocked(key) && (key !== "rotor" || decolog.rotor.enabled)
+    }
     function panelState(key) {
         return window.isPanelHidden(key) ? qsTr("closed")
              : window.isPanelDetached(key) ? qsTr("window") : qsTr("docked")
@@ -210,22 +349,22 @@ ApplicationWindow {
         else if (what[0] === "qso") openQso(parseInt(what[1]))
         else if (what[0] === "profiles") profilesDialog.open()
         else if (what[0] === "setup") { setupDialog.page = parseInt(what[1] || "3"); setupDialog.open() }
-        else if (what[0] === "menu") logbook.showMenu(what[1])
-        else if (what[0] === "select") logbook.showSelection(what[1], what[2])
+        else if (what[0] === "menu") window.panelItem("logbook").showMenu(what[1])
+        else if (what[0] === "select") window.panelItem("logbook").showSelection(what[1], what[2])
         // Lavori di manutenzione, utili anche da riga di comando.
         else if (what[0] === "combo") { window.showPanel("cw"); comboTimer.start() }
         else if (what[0] === "combo2") { newQsoDialog.open(); combo2Timer.start() }
         else if (what[0] === "cwsend") { window.showPanel("cw"); cwSendTimer.start() }
-        else if (what[0] === "radioprobe") { bottomTabs.currentTab = 3; decolog.rig.probeRadio() }
+        else if (what[0] === "radioprobe") { window.panelItem("tabs").setTab(3); decolog.rig.probeRadio() }
         else if (what[0] === "repair") decolog.repairImportedFields()
         else if (what[0] === "fillall") decolog.completeMissingFromCallbook()
         else if (what[0] === "maintenance") { decolog.repairImportedFields(); decolog.completeMissingFromCallbook() }
-        else if (what[0] === "tab") bottomTabs.currentTab = parseInt(what[1])
+        else if (what[0] === "tab") window.panelItem("tabs").setTab(parseInt(what[1]))
         else if (what[0] === "pop") popWindow.active = true
         else if (what[0] === "panels") { if (what[1]) { const how = what.slice(2); for (let i = 0; i < how.length; ++i) { if (what[1] === "close") window.closePanel(how[i]); else if (what[1] === "detach") window.detachPanel(how[i]); else if (what[1] === "show") window.showPanel(how[i]); else if (what[1] === "attach") window.attachPanel(how[i]) } } else panelsPopup.open() }
         else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))
         else if (what[0] === "activation") activationDialog.openDialog()
-        else if (what[0] === "modes") newQsoPanel.showModes()
+        else if (what[0] === "modes") window.panelItem("newqso").showModes()
         // Per le prove: apre tutte le finestre due volte di fila. Due volte
         // perche' il guaio da cercare e' proprio quello — la finestra che si
         // sdoppia invece di venire in primo piano.
@@ -242,6 +381,22 @@ ApplicationWindow {
                 window.detachPanel("map")
             }
         }
+        else if (what[0] === "swap") window.swapSlots(what[1], what[2])
+        else if (what[0] === "dragging") {
+            dragDropTimer.holdOn = true
+            dragDropTimer.from = what[1]
+            dragDropTimer.to = what[2]
+            dragDropTimer.start()
+        }
+        else if (what[0] === "drag") {
+            // Le misure delle caselle arrivano quando la disposizione e' fatta:
+            // prima di allora mapToGlobal risponde a caso.
+            dragDropTimer.from = what[1]
+            dragDropTimer.to = what[2]
+            dragDropTimer.start()
+        }
+        else if (what[0] === "lock") layout.layoutLocked = what[1] !== "off"
+        else if (what[0] === "layoutmenu") layoutMenu.openAt(what[1] || "logbook", 420, 300)
         else if (what[0] === "stats") openStats()
         else if (what[0] === "cards") openCards()
         else if (what[0] === "cloud") {
@@ -251,7 +406,7 @@ ApplicationWindow {
             else if (what[1] === "purge") decolog.cloud.purgeCloud("DELETE")
             else if (what[1] === "loginpurge") { decolog.cloud.login(what[2], what[3]); purgeAfterLogin.start() }
             else decolog.cloud.syncNow()
-            bottomTabs.currentTab = 3
+            window.panelItem("tabs").setTab(3)
         }
         else if (what[0] === "rotor") {
             if (what[1] === "window") {
@@ -279,7 +434,46 @@ ApplicationWindow {
     // Per le prove: svuota il Cloud appena entrato.
     Timer { id: purgeAfterLogin; interval: 4000; onTriggered: decolog.cloud.purgeCloud("DELETE") }
 
-    Timer { id: comboTimer; interval: 800; onTriggered: cwPanel.showCombo() }
+    // Il rilascio arriva dopo, cosi' nella schermata si vede il magnete acceso
+    // sulla casella dove il pannello sta per atterrare.
+    Timer {
+        id: dragDropTimer
+        property string from: ""
+        property string to: ""
+        property bool holdOn: false
+        property bool released: false
+        interval: released ? 1400 : 700
+        repeat: true
+        onTriggered: {
+            const a = window.slotItems.find(s => s.slotId === dragDropTimer.from)
+            const b = window.slotItems.find(s => s.slotId === dragDropTimer.to)
+            if (!a || !b) {
+                stop()
+                return
+            }
+            const end = b.mapToGlobal(b.width / 2, b.height / 2)
+            if (!released) {
+                // "dragging" tiene il pannello in mano: serve per fotografare
+                // il magnete acceso sulla casella di arrivo.
+                if (dragDropTimer.holdOn) {
+                    window.beginPanelDrag(a.panelKey, a.slotId)
+                    window.updatePanelDrag(end.x, end.y)
+                    stop()
+                    return
+                }
+                window.beginPanelDrag(a.panelKey, a.slotId)
+                window.updatePanelDrag(end.x, end.y)
+                released = true
+                restart()
+                return
+            }
+            window.endPanelDrag(end.x, end.y)
+            stop()
+        }
+    }
+
+    Timer { id: comboTimer; interval: 800
+           onTriggered: { const it = window.panelItem("cw"); if (it) it.showCombo() } }
     Timer { id: combo2Timer; interval: 900; onTriggered: newQsoDialog.showBandCombo() }
     Timer { id: cwSendTimer; interval: 1200; onTriggered: decolog.rig.sendMacro(0, {}) }
 
@@ -532,6 +726,43 @@ ApplicationWindow {
         }
     }
 
+    // Il menu che esce col tasto destro sulla testata di un pannello: quello
+    // che si puo' fare alla disposizione, li' dove la si guarda.
+    StyledMenu {
+        id: layoutMenu
+        property string key: ""
+        function openAt(panelKey, screenX, screenY) {
+            layoutMenu.key = panelKey
+            const p = window.contentItem.mapFromGlobal(screenX, screenY)
+            layoutMenu.popup(window.contentItem, p.x, p.y)
+        }
+
+        StyledMenuItem {
+            text: layout.layoutLocked ? qsTr("Unlock the layout") : qsTr("Lock the layout")
+            onTriggered: layout.layoutLocked = !layout.layoutLocked
+        }
+        MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
+        StyledMenuItem {
+            text: qsTr("Detach this panel into its own window")
+            enabled: layoutMenu.key.length > 0 && !window.isPanelDetached(layoutMenu.key)
+            onTriggered: window.detachPanel(layoutMenu.key)
+        }
+        StyledMenuItem {
+            text: qsTr("Close this panel")
+            enabled: layoutMenu.key.length > 0
+            onTriggered: window.closePanel(layoutMenu.key)
+        }
+        MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
+        StyledMenuItem {
+            text: qsTr("Panels…")
+            onTriggered: panelsPopup.open()
+        }
+        StyledMenuItem {
+            text: qsTr("Restore the default layout")
+            onTriggered: window.resetPanels()
+        }
+    }
+
     Shortcut { sequence: "Ctrl+N"; onActivated: newQsoDialog.open() }
     Shortcut { sequence: "Ctrl+F"; onActivated: window.focusSearch() }
     Shortcut { sequence: "Ctrl+,"; onActivated: setupDialog.open() }
@@ -573,81 +804,146 @@ ApplicationWindow {
                 orientation: Qt.Horizontal
                 handle: splitHandle
 
-                NewQsoPanel {
-                    id: newQsoPanel
+                PanelSlot {
+                    id: slotLeft
+                    slotId: "left"
+                    panelKey: window.panelAt("left")
+                    docked: window.panelShows(panelKey)
+                    highlighted: window.dragTargetSlot === "left"
+                    onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
+                    onMoveStarted: (key) => window.beginPanelDrag(key, "left")
+                    onMoveMoved: (key, x, y) => window.updatePanelDrag(x, y)
+                    onMoveEnded: (key, x, y) => window.endPanelDrag(x, y)
+                    onDetachRequested: (key) => window.detachPanel(key)
+                    onCloseRequested: (key) => window.closePanel(key)
+                    onOpenQsoRequested: (id) => window.openQso(id)
+                    onAwardRequested: (id) => awardsDialog.openAt(id)
+                    onClusterRequested: (tab) => window.openCluster(tab)
+                    onStatsRequested: window.openStats()
+                    onRotorRequested: window.openRotor()
                     SplitView.preferredWidth: layout.leftWidth
                     SplitView.minimumWidth: 260
-                    visible: window.isPanelDocked("newqso")
-                    panelKey: "newqso"
                     onWidthChanged: if (width > 0 && window.layoutIsWhole) layout.leftWidth = width
                     onExpandRequested: newQsoDialog.open()
-                    onDetachRequested: window.detachPanel("newqso")
-                    onCloseRequested: window.closePanel("newqso")
                 }
 
-                LogbookPanel {
-                    id: logbook
+                PanelSlot {
+                    id: slotCenter
+                    slotId: "center"
+                    panelKey: window.panelAt("center")
+                    docked: window.panelShows(panelKey)
+                    highlighted: window.dragTargetSlot === "center"
+                    onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
+                    onMoveStarted: (key) => window.beginPanelDrag(key, "center")
+                    onMoveMoved: (key, x, y) => window.updatePanelDrag(x, y)
+                    onMoveEnded: (key, x, y) => window.endPanelDrag(x, y)
+                    onDetachRequested: (key) => window.detachPanel(key)
+                    onCloseRequested: (key) => window.closePanel(key)
+                    onOpenQsoRequested: (id) => window.openQso(id)
+                    onAwardRequested: (id) => awardsDialog.openAt(id)
+                    onClusterRequested: (tab) => window.openCluster(tab)
+                    onStatsRequested: window.openStats()
+                    onRotorRequested: window.openRotor()
                     SplitView.fillWidth: true
                     SplitView.minimumWidth: 480
-                    visible: window.isPanelDocked("logbook")
-                    panelKey: "logbook"
                     hiddenColumns: layout.hiddenColumns
                     columnWidths: layout.columnWidths
                     savedFilters: layout.savedFilters
                     onHiddenColumnsEdited: (value) => layout.hiddenColumns = value
                     onColumnWidthsEdited: (value) => layout.columnWidths = value
                     onSavedFiltersEdited: (value) => layout.savedFilters = value
-                    onOpenQso: (id) => window.openQso(id)
-                    onPopRequested: window.detachPanel("logbook")
-                    onDetachRequested: window.detachPanel("logbook")
-                    onCloseRequested: window.closePanel("logbook")
+                    onPopRequested: (key) => window.detachPanel(key)
                 }
 
                 SplitView {
                     id: rightColumn
                     SplitView.preferredWidth: layout.rightWidth
                     SplitView.minimumWidth: 260
-                    visible: window.isPanelDocked("callinfo") || window.isPanelDocked("cw")
-                             || window.isPanelDocked("rotor") || window.isPanelDocked("ft2")
+                    visible: slotRightA.visible || slotRightB.visible
+                             || slotRightC.visible || slotRightD.visible
                     onWidthChanged: if (width > 0 && window.layoutIsWhole) layout.rightWidth = width
                     orientation: Qt.Vertical
                     handle: splitHandle
 
-                    CallInfoPanel {
+                    PanelSlot {
+                        id: slotRightA
+                        slotId: "rightA"
+                        panelKey: window.panelAt("rightA")
+                        docked: window.panelShows(panelKey)
+                        highlighted: window.dragTargetSlot === "rightA"
+                        onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
+                        onMoveStarted: (key) => window.beginPanelDrag(key, "rightA")
+                        onMoveMoved: (key, x, y) => window.updatePanelDrag(x, y)
+                        onMoveEnded: (key, x, y) => window.endPanelDrag(x, y)
+                        onDetachRequested: (key) => window.detachPanel(key)
+                        onCloseRequested: (key) => window.closePanel(key)
+                        onOpenQsoRequested: (id) => window.openQso(id)
+                        onAwardRequested: (id) => awardsDialog.openAt(id)
+                        onClusterRequested: (tab) => window.openCluster(tab)
+                        onStatsRequested: window.openStats()
+                        onRotorRequested: window.openRotor()
                         SplitView.fillHeight: true
                         SplitView.minimumHeight: 80
-                        visible: window.isPanelDocked("callinfo")
-                        panelKey: "callinfo"
-                        onOpenQso: (id) => window.openQso(id)
-                        onDetachRequested: window.detachPanel("callinfo")
-                        onCloseRequested: window.closePanel("callinfo")
                     }
-                    CwPanel {
-                        id: cwPanel
+                    PanelSlot {
+                        id: slotRightB
+                        slotId: "rightB"
+                        panelKey: window.panelAt("rightB")
+                        docked: window.panelShows(panelKey)
+                        highlighted: window.dragTargetSlot === "rightB"
+                        onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
+                        onMoveStarted: (key) => window.beginPanelDrag(key, "rightB")
+                        onMoveMoved: (key, x, y) => window.updatePanelDrag(x, y)
+                        onMoveEnded: (key, x, y) => window.endPanelDrag(x, y)
+                        onDetachRequested: (key) => window.detachPanel(key)
+                        onCloseRequested: (key) => window.closePanel(key)
+                        onOpenQsoRequested: (id) => window.openQso(id)
+                        onAwardRequested: (id) => awardsDialog.openAt(id)
+                        onClusterRequested: (tab) => window.openCluster(tab)
+                        onStatsRequested: window.openStats()
+                        onRotorRequested: window.openRotor()
                         SplitView.preferredHeight: 260
                         SplitView.minimumHeight: 120
-                        visible: window.isPanelDocked("cw")
-                        panelKey: "cw"
-                        onDetachRequested: window.detachPanel("cw")
-                        onCloseRequested: window.closePanel("cw")
                     }
-                    RotorPanel {
+                    PanelSlot {
+                        id: slotRightC
+                        slotId: "rightC"
+                        panelKey: window.panelAt("rightC")
+                        docked: window.panelShows(panelKey)
+                        highlighted: window.dragTargetSlot === "rightC"
+                        onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
+                        onMoveStarted: (key) => window.beginPanelDrag(key, "rightC")
+                        onMoveMoved: (key, x, y) => window.updatePanelDrag(x, y)
+                        onMoveEnded: (key, x, y) => window.endPanelDrag(x, y)
+                        onDetachRequested: (key) => window.detachPanel(key)
+                        onCloseRequested: (key) => window.closePanel(key)
+                        onOpenQsoRequested: (id) => window.openQso(id)
+                        onAwardRequested: (id) => awardsDialog.openAt(id)
+                        onClusterRequested: (tab) => window.openCluster(tab)
+                        onStatsRequested: window.openStats()
+                        onRotorRequested: window.openRotor()
                         SplitView.preferredHeight: implicitHeight
                         SplitView.minimumHeight: 60
-                        visible: decolog.rotor.enabled && window.isPanelDocked("rotor")
-                        panelKey: "rotor"
-                        onWindowRequested: window.openRotor()
-                        onDetachRequested: window.detachPanel("rotor")
-                        onCloseRequested: window.closePanel("rotor")
                     }
-                    Ft2AwardPanel {
+                    PanelSlot {
+                        id: slotRightD
+                        slotId: "rightD"
+                        panelKey: window.panelAt("rightD")
+                        docked: window.panelShows(panelKey)
+                        highlighted: window.dragTargetSlot === "rightD"
+                        onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
+                        onMoveStarted: (key) => window.beginPanelDrag(key, "rightD")
+                        onMoveMoved: (key, x, y) => window.updatePanelDrag(x, y)
+                        onMoveEnded: (key, x, y) => window.endPanelDrag(x, y)
+                        onDetachRequested: (key) => window.detachPanel(key)
+                        onCloseRequested: (key) => window.closePanel(key)
+                        onOpenQsoRequested: (id) => window.openQso(id)
+                        onAwardRequested: (id) => awardsDialog.openAt(id)
+                        onClusterRequested: (tab) => window.openCluster(tab)
+                        onStatsRequested: window.openStats()
+                        onRotorRequested: window.openRotor()
                         SplitView.preferredHeight: implicitHeight
                         SplitView.minimumHeight: 60
-                        visible: window.isPanelDocked("ft2")
-                        panelKey: "ft2"
-                        onDetailsRequested: awardsDialog.openAt("ft2")
-                        onDetachRequested: window.detachPanel("ft2")
-                        onCloseRequested: window.closePanel("ft2")
                     }
                 }
             }
@@ -659,13 +955,13 @@ ApplicationWindow {
                 // l'altezza scelta resta quella del cluster. Prima il minimo
                 // stesso diventava 340 e la fascia non si poteva piu' abbassare
                 // finche' si stava sugli spot.
-                SplitView.preferredHeight: bottomTabs.currentTab === 4 ? layout.clusterBottomHeight
+                SplitView.preferredHeight: window.tabsTab === 4 ? layout.clusterBottomHeight
                                                                        : layout.bottomHeight
                 SplitView.minimumHeight: 130
-                visible: window.isPanelDocked("tabs") || window.isPanelDocked("map")
+                visible: slotBottomLeft.visible || slotBottomRight.visible
                 onHeightChanged: {
                     if (height > 0 && window.layoutIsWhole) {
-                        if (bottomTabs.currentTab === 4)
+                        if (window.tabsTab === 4)
                             layout.clusterBottomHeight = height
                         else
                             layout.bottomHeight = height
@@ -674,28 +970,48 @@ ApplicationWindow {
                 orientation: Qt.Horizontal
                 handle: splitHandle
 
-                BottomTabs {
-                    id: bottomTabs
-                    SplitView.fillWidth: true
-                    SplitView.minimumWidth: 320
-                    visible: window.isPanelDocked("tabs")
-                    panelKey: "tabs"
+                PanelSlot {
+                    id: slotBottomLeft
+                    slotId: "bottomLeft"
+                    panelKey: window.panelAt("bottomLeft")
+                    docked: window.panelShows(panelKey)
+                    highlighted: window.dragTargetSlot === "bottomLeft"
+                    onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
+                    onMoveStarted: (key) => window.beginPanelDrag(key, "bottomLeft")
+                    onMoveMoved: (key, x, y) => window.updatePanelDrag(x, y)
+                    onMoveEnded: (key, x, y) => window.endPanelDrag(x, y)
+                    onDetachRequested: (key) => window.detachPanel(key)
+                    onCloseRequested: (key) => window.closePanel(key)
+                    onOpenQsoRequested: (id) => window.openQso(id)
                     onAwardRequested: (id) => awardsDialog.openAt(id)
                     onClusterRequested: (tab) => window.openCluster(tab)
                     onStatsRequested: window.openStats()
-                    onDetachRequested: window.detachPanel("tabs")
-                    onCloseRequested: window.closePanel("tabs")
+                    onRotorRequested: window.openRotor()
+                    SplitView.fillWidth: true
+                    SplitView.minimumWidth: 320
                 }
                 // Allineata alla colonna di destra, come nel mockup, finche' non
                 // la si tira da un'altra parte.
-                MapPanel {
+                PanelSlot {
+                    id: slotBottomRight
+                    slotId: "bottomRight"
+                    panelKey: window.panelAt("bottomRight")
+                    docked: window.panelShows(panelKey)
+                    highlighted: window.dragTargetSlot === "bottomRight"
+                    onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
+                    onMoveStarted: (key) => window.beginPanelDrag(key, "bottomRight")
+                    onMoveMoved: (key, x, y) => window.updatePanelDrag(x, y)
+                    onMoveEnded: (key, x, y) => window.endPanelDrag(x, y)
+                    onDetachRequested: (key) => window.detachPanel(key)
+                    onCloseRequested: (key) => window.closePanel(key)
+                    onOpenQsoRequested: (id) => window.openQso(id)
+                    onAwardRequested: (id) => awardsDialog.openAt(id)
+                    onClusterRequested: (tab) => window.openCluster(tab)
+                    onStatsRequested: window.openStats()
+                    onRotorRequested: window.openRotor()
                     SplitView.preferredWidth: layout.mapWidth
                     SplitView.minimumWidth: 180
-                    visible: window.isPanelDocked("map")
-                    panelKey: "map"
                     onWidthChanged: if (width > 0 && window.layoutIsWhole) layout.mapWidth = width
-                    onDetachRequested: window.detachPanel("map")
-                    onCloseRequested: window.closePanel("map")
                 }
             }
         }
@@ -710,11 +1026,14 @@ ApplicationWindow {
             implicitWidth: 8
             implicitHeight: 8
             color: "transparent"
+            // Disposizione bloccata: la maniglia resta disegnata ma non si tira.
+            enabled: !layout.layoutLocked
             Rectangle {
                 anchors.centerIn: parent
                 width: handleRoot.width > handleRoot.height ? 40 : 2
                 height: handleRoot.width > handleRoot.height ? 2 : 40
                 radius: 1
+                opacity: layout.layoutLocked ? 0.4 : 1
                 color: handleRoot.SplitHandle.pressed ? Theme.primaryColor
                      : handleRoot.SplitHandle.hovered ? Theme.textSecondary : Theme.borderSoft
             }

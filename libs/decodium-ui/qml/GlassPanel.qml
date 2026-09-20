@@ -25,6 +25,12 @@ Rectangle {
     signal detachRequested()
     signal attachRequested()
     signal closeRequested()
+    // Tasto destro sulla testata, e maniglia trascinata: chi ospita il
+    // pannello decide cosa farne.
+    signal menuRequested(real screenX, real screenY)
+    signal moveStarted()
+    signal moveMoved(real screenX, real screenY)
+    signal moveEnded(real screenX, real screenY)
 
     color: Theme.panelColor
     border.color: Theme.glassBorder
@@ -39,6 +45,10 @@ Rectangle {
         text: root.title
         dotColor: root.dotColor
         showDot: root.showDot
+        onMenuRequested: (x, y) => root.menuRequested(x, y)
+        onDragStarted: root.moveStarted()
+        onDragMoved: (x, y) => root.moveMoved(x, y)
+        onDragEnded: (x, y) => root.moveEnded(x, y)
 
         controls: [
             PanelControl {

@@ -19,6 +19,13 @@ Rectangle {
     // resto, sempre nello stesso posto in ogni pannello.
     property alias controls: controlsRow.data
 
+    // Il tasto destro sulla testata apre il menu della disposizione; la
+    // maniglia a sinistra si prende e si trascina per spostare il pannello.
+    signal menuRequested(real screenX, real screenY)
+    signal dragStarted()
+    signal dragMoved(real screenX, real screenY)
+    signal dragEnded(real screenX, real screenY)
+
     implicitHeight: Theme.panelHeight
     height: implicitHeight
     color: Theme.panelHeader
@@ -36,6 +43,17 @@ Rectangle {
         color: Theme.borderSoft
     }
 
+    // Sotto a tutto: prende solo il tasto destro, cosi' i pulsanti della
+    // testata continuano a funzionare come prima.
+    MouseArea {
+        anchors.fill: parent
+        acceptedButtons: Qt.RightButton
+        onClicked: function (mouse) {
+            const p = mapToGlobal(mouse.x, mouse.y)
+            root.menuRequested(p.x, p.y)
+        }
+    }
+
     RowLayout {
         anchors.fill: parent
         anchors.leftMargin: 10
@@ -45,11 +63,42 @@ Rectangle {
         clip: true
         spacing: 8
 
+        // La maniglia: si prende di qui e si porta il pannello dove si vuole.
         Text {
+            id: handle
             visible: root.showHandle
             text: "⠿"
-            color: Theme.textSecondary
+            color: handleArea.drag.active ? Theme.primaryColor
+                 : handleArea.containsMouse ? Theme.textPrimary : Theme.textSecondary
             font.pixelSize: Theme.fontSize
+
+            MouseArea {
+                id: handleArea
+                anchors.fill: parent
+                anchors.margins: -6
+                hoverEnabled: true
+                cursorShape: Qt.SizeAllCursor
+                drag.target: null
+                property bool moving: false
+                onPressed: function (mouse) {
+                    moving = true
+                    root.dragStarted()
+                }
+                onPositionChanged: function (mouse) {
+                    if (!moving)
+                        return
+                    const p = mapToGlobal(mouse.x, mouse.y)
+                    root.dragMoved(p.x, p.y)
+                }
+                onReleased: function (mouse) {
+                    if (!moving)
+                        return
+                    moving = false
+                    const p = mapToGlobal(mouse.x, mouse.y)
+                    root.dragEnded(p.x, p.y)
+                }
+                onCanceled: moving = false
+            }
         }
         Rectangle {
             visible: root.showDot

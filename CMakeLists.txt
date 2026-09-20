@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoLog
-    VERSION 0.6.0
+    VERSION 0.7.0
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -190,6 +190,7 @@ set(DECOLOG_QML_FILES
     qml/DecoLog/LogbookWindow.qml
     qml/DecoLog/CwPanel.qml
     qml/DecoLog/OnScreen.qml
+    qml/DecoLog/PanelSlot.qml
     qml/DecoLog/PanelWindow.qml
     qml/DecoLog/CredentialsList.qml
     qml/DecoLog/AwardsDialog.qml
