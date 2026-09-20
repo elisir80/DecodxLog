@@ -102,7 +102,9 @@ private slots:
 
         const auto hello = client.waitFor("hello");
         QVERIFY(hello);
-        QCOMPARE(hello->value("app").toString(), QString("DecoDXLog"));
+        // "app" e' il nome del protocollo e non cambia col nome del programma.
+        QCOMPARE(hello->value("app").toString(), QString("DecoLog"));
+        QCOMPARE(hello->value("product").toString(), QString("DecoDXLog"));
         QCOMPARE(hello->value("protocol").toInt(), 1);
         QCOMPARE(hello->value("station").toString(), QString("IU8LMC"));
 
@@ -204,6 +206,29 @@ private slots:
         // nessuno ha ancora avuto modo di mandare.
         QTRY_VERIFY_WITH_TIMEOUT(probe.bytesAvailable() > 0, 5000);
         QVERIFY(probe.readAll().contains("\"type\":\"hello\""));
+    }
+
+    // Nel saluto "app" e' il nome del protocollo, non quello del programma:
+    // Decodium chiude la connessione se legge qualcosa di diverso da "DecoLog",
+    // e cambiando nome al programma il collegamento si e' messo a cadere ogni
+    // cinque secondi. Il nome vero sta in "product".
+    void theHandshakeKeepsTheProtocolName()
+    {
+        DecoLinkServer server;
+        server.setIdentity(QStringLiteral("9.9.9"), QStringLiteral("IU8LMC"));
+        QVERIFY(server.start(0));
+
+        QTcpSocket decodium;
+        decodium.connectToHost(QHostAddress::LocalHost, server.port());
+        QVERIFY(decodium.waitForConnected(3000));
+        QTRY_VERIFY_WITH_TIMEOUT(decodium.bytesAvailable() > 0, 5000);
+
+        const QJsonObject hello = QJsonDocument::fromJson(decodium.readLine()).object();
+        QCOMPARE(hello.value(QStringLiteral("type")).toString(), QStringLiteral("hello"));
+        QCOMPARE(hello.value(QStringLiteral("app")).toString(), QStringLiteral("DecoLog"));
+        QCOMPARE(hello.value(QStringLiteral("product")).toString(), QStringLiteral("DecoDXLog"));
+        QCOMPARE(hello.value(QStringLiteral("version")).toString(), QStringLiteral("9.9.9"));
+        QCOMPARE(hello.value(QStringLiteral("station")).toString(), QStringLiteral("IU8LMC"));
     }
 };
 

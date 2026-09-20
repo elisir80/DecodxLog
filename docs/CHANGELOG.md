@@ -3,6 +3,19 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 0.9.1 — 20 settembre 2026
+
+**DecoLink si collegava e si staccava ogni cinque secondi, e la colpa era del nome.** Nel
+saluto di DecoLink il campo `app` non e' il nome del programma: e' il nome con cui questo
+lato si presenta nel protocollo, e Decodium **chiude la connessione** se ne legge uno che
+non conosce. Rinominando il programma in DecoDXLog e' cambiato anche il saluto, cosi'
+Decodium si collegava, leggeva un nome che non era «DecoLog», staccava, e riprovava dopo
+cinque secondi. Per sempre.
+
+Adesso `app` resta `DecoLog` — e' un pezzo di protocollo, come i campi ADIF
+`APP_DECOLOG_*` — mentre il nome vero viaggia accanto, nel campo nuovo `product`. Un test
+lo inchioda, cosi' non ricapita.
+
 ## 0.9.0 — 20 settembre 2026
 
 **Il CW parte anche con Decodium aperto.** Chi opera con Decodium ha la porta della radio

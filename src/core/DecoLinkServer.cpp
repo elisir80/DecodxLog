@@ -118,9 +118,15 @@ void DecoLinkServer::onNewConnection()
             s->deleteLater();
             emit clientsChanged();
         });
+        // Nel saluto "app" resta DecoLog, e non e' una dimenticanza: e' il
+        // nome con cui questo programma si presenta nel protocollo dalla prima
+        // versione, e i Decodium gia' installati chiudono la connessione se
+        // leggono un nome che non conoscono — si collegavano e si staccavano
+        // ogni cinque secondi. Il nome vero viaggia accanto, in "product".
         send(s, QJsonObject{
             {QStringLiteral("type"), QStringLiteral("hello")},
-            {QStringLiteral("app"), QStringLiteral("DecoDXLog")},
+            {QStringLiteral("app"), QStringLiteral("DecoLog")},
+            {QStringLiteral("product"), QStringLiteral("DecoDXLog")},
             {QStringLiteral("version"), m_version},
             {QStringLiteral("protocol"), kProtocol},
             {QStringLiteral("station"), m_station},

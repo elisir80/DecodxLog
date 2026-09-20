@@ -24,8 +24,15 @@ Appena connesso, ognuno manda `hello`:
 
 ```json
 {"type":"hello","app":"Decodium","version":"1.0.638","protocol":1,"station":"IU8LMC"}
-{"type":"hello","app":"DecoDXLog","version":"0.1.0","protocol":1,"station":"IU8LMC"}
+{"type":"hello","app":"DecoLog","product":"DecoDXLog","version":"0.9.1","protocol":1,"station":"IU8LMC"}
 ```
+
+**`app` e' il nome del protocollo, non quello del programma.** Dalla prima versione
+questo lato si presenta come `DecoLog`, e i Decodium gia' installati chiudono la
+connessione se leggono un nome diverso: quando il programma e' stato rinominato in
+DecoDXLog e il saluto e' cambiato con lui, il collegamento cadeva ogni cinque secondi.
+`app` resta `DecoLog` per sempre; il nome vero del programma viaggia in **`product`**,
+che chi non lo conosce ignora.
 
 Dopo il suo `hello`, DecoDXLog manda subito l'elenco dei QSO lavorati e lo stato
 dell'FT2 Award.
