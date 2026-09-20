@@ -3,6 +3,28 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 0.9.3 — 20 settembre 2026
+
+**La finestra principale si ricorda anche dove sta.** Ricordava quanto era grande ma non
+dove: chi la tiene sul secondo monitor se la ritrovava ogni volta dove decideva Windows. Le
+finestre staccate la posizione se la ricordavano da sempre; questa, che e' la principale,
+no — mancavano proprio le due righe. Adesso ci sono, e se lo schermo di prima non c'e' piu'
+la finestra torna al centro di questo invece di aprirsi nel nulla.
+
+**Il menu del marchio non e' piu' solo un disegno.** Le tre righette in alto a sinistra
+aprono un menu vero — e si clicca su tutto il riquadro, nome compreso:
+
+- **Informazioni su DecoDXLog**
+- Impostazioni, Profili stazione, Pannelli
+- Importa ADIF, Esporta ADIF, Apri la cartella del log
+- Esci
+
+**La finestra «Informazioni»** dice cos'e' questo programma e chi l'ha fatto: versione,
+sviluppatore (Martino Merola — IU8LMC), email, dove sta il codice, quanti QSO ci sono nel
+log di questa copia, con quale Qt e quando e' stato compilato, e la licenza — software
+libero, GPL-3. C'e' anche un pulsante che copia tutti questi dati negli appunti, per
+quando si segnala qualcosa.
+
 ## 0.9.2 — 20 settembre 2026
 
 **La spia dei blocchi.** Quando la finestra smette di rispondere, adesso lo scrive lei nel

@@ -38,6 +38,9 @@ class DecoLogController : public QObject {
     Q_OBJECT
 
     Q_PROPERTY(QString version READ version CONSTANT)
+    // Quello che sta nella finestra "Informazioni": chi l'ha fatto, con cosa,
+    // e dove si trova il codice. Costanti: si leggono una volta e non cambiano.
+    Q_PROPERTY(QVariantMap about READ about CONSTANT)
     Q_PROPERTY(QString qtVersion READ qtVersion CONSTANT)
     Q_PROPERTY(QString buildInfo READ buildInfo CONSTANT)
     Q_PROPERTY(QString databasePath READ databasePath CONSTANT)
@@ -162,6 +165,7 @@ public:
     void overrideUdpPort(int port) { m_udpPort = port; }
 
     QString version() const;
+    QVariantMap about() const;
     QString qtVersion() const;
     // Data della compilazione e piattaforma: serve a chi segnala un problema.
     QString buildInfo() const;

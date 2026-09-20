@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 0.9.2
+    VERSION 0.9.3
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -199,6 +199,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/CredentialsList.qml
     qml/DecoDXLog/AwardsDialog.qml
     qml/DecoDXLog/GridSquareMap.qml
+    qml/DecoDXLog/AboutDialog.qml
     qml/DecoDXLog/ActivationDialog.qml
     qml/DecoDXLog/StatsWindow.qml
     qml/DecoDXLog/ContestWindow.qml

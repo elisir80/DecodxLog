@@ -2,6 +2,73 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="it_IT" sourcelanguage="en">
 <context>
+    <name>AboutDialog</name>
+    <message>
+        <source>About DecoDXLog</source>
+        <translation>Informazioni su DecoDXLog</translation>
+    </message>
+    <message>
+        <source>version %1</source>
+        <translation>versione %1</translation>
+    </message>
+    <message>
+        <source>The station logbook of the Decodium family</source>
+        <translation>Il log di stazione della famiglia Decodium</translation>
+    </message>
+    <message>
+        <source>Who made it</source>
+        <translation>Chi l&apos;ha fatto</translation>
+    </message>
+    <message>
+        <source>Developer</source>
+        <translation>Sviluppatore</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>Email</translation>
+    </message>
+    <message>
+        <source>Home</source>
+        <translation>Dove sta di casa</translation>
+    </message>
+    <message>
+        <source>This copy</source>
+        <translation>Questa copia</translation>
+    </message>
+    <message>
+        <source>QSO in the log</source>
+        <translation>QSO nel log</translation>
+    </message>
+    <message>
+        <source>Built with</source>
+        <translation>Compilato con</translation>
+    </message>
+    <message>
+        <source>Built on</source>
+        <translation>Compilato il</translation>
+    </message>
+    <message>
+        <source>Licence</source>
+        <translation>Licenza</translation>
+    </message>
+    <message>
+        <source>Free software: you can use it, study it, change it and pass it on, sources included. The log is yours and stays on your computer — a SQLite file that opens even without us.</source>
+        <translation>Software libero: si puo&apos; usare, studiare, cambiare e passare ad altri, sorgenti compresi. Il log e&apos; tuo e resta sul tuo computer — un file SQLite che si apre anche senza di noi.</translation>
+    </message>
+    <message>
+        <source>Copy these details</source>
+        <translation>Copia questi dati</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>copiato</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Chiudi</translation>
+    </message>
+</context>
+<context>
     <name>ActivationDialog</name>
     <message>
         <source>Contest</source>
@@ -4508,6 +4575,38 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Cloud not configured</source>
         <translation>Cloud non configurato</translation>
+    </message>
+    <message>
+        <source>About DecoDXLog…</source>
+        <translation>Informazioni su DecoDXLog…</translation>
+    </message>
+    <message>
+        <source>Settings…</source>
+        <translation>Impostazioni…</translation>
+    </message>
+    <message>
+        <source>Station profiles…</source>
+        <translation>Profili stazione…</translation>
+    </message>
+    <message>
+        <source>Panels…</source>
+        <translation>Pannelli…</translation>
+    </message>
+    <message>
+        <source>Import ADIF…</source>
+        <translation>Importa ADIF…</translation>
+    </message>
+    <message>
+        <source>Export ADIF…</source>
+        <translation>Esporta ADIF…</translation>
+    </message>
+    <message>
+        <source>Open the log folder</source>
+        <translation>Apri la cartella del log</translation>
+    </message>
+    <message>
+        <source>Quit</source>
+        <translation>Esci</translation>
     </message>
     <message>
         <source>syncing…</source>

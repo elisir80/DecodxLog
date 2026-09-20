@@ -602,6 +602,22 @@ void DecoLogController::timed(const QString& what, const std::function<void()>& 
     }
 }
 
+QVariantMap DecoLogController::about() const
+{
+    return {
+        {QStringLiteral("name"), QStringLiteral("DecoDXLog")},
+        {QStringLiteral("version"), version()},
+        {QStringLiteral("author"), QStringLiteral("Martino Merola — IU8LMC")},
+        {QStringLiteral("email"), QStringLiteral("iu8lmc@gmail.com")},
+        {QStringLiteral("license"), QStringLiteral("GPL-3.0-or-later")},
+        {QStringLiteral("home"), QStringLiteral("https://github.com/iu8lmc/DecoDXLog")},
+        {QStringLiteral("family"), QStringLiteral("Decodium")},
+        {QStringLiteral("qt"), QStringLiteral(QT_VERSION_STR)},
+        {QStringLiteral("built"), QStringLiteral(__DATE__)},
+        {QStringLiteral("qsoCount"), m_db.qsoCount()},
+    };
+}
+
 void DecoLogController::startFreezeWatch()
 {
     // Un quarto di secondo fra un battito e l'altro; si dice qualcosa solo

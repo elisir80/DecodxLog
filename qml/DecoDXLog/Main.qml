@@ -39,11 +39,20 @@ ApplicationWindow {
         function onSettingsApplied() { Theme.reload() }
     }
 
+    // Se lo schermo dove stava non c'e' piu', si torna su questo.
+    OnScreen { target: window }
+
     Settings {
         id: layout
         category: "layout"
         property alias windowWidth: window.width
         property alias windowHeight: window.height
+        // Anche dove sta, non solo quanto e' grande: chi lavora con due monitor
+        // mette DecoDXLog su quello di destra e vuole ritrovarlo li'. Le
+        // finestre staccate la posizione se la ricordavano da sempre; questa,
+        // che e' la principale, no — e si riapriva dove decideva Windows.
+        property alias windowX: window.x
+        property alias windowY: window.y
         property real leftWidth: 300
         property real rightWidth: 300
         property real bottomHeight: 280
@@ -397,6 +406,8 @@ ApplicationWindow {
         }
         else if (what[0] === "lock") layout.layoutLocked = what[1] !== "off"
         else if (what[0] === "layoutmenu") layoutMenu.openAt(what[1] || "logbook", 420, 300)
+        else if (what[0] === "about") aboutDialog.open()
+        else if (what[0] === "mainmenu") topBar.openMainMenu()
         else if (what[0] === "stats") openStats()
         else if (what[0] === "cards") openCards()
         else if (what[0] === "cloud") {
@@ -480,6 +491,8 @@ ApplicationWindow {
     NewQsoDialog { id: newQsoDialog }
     QsoDetailDialog { id: qsoDialog }
     StationProfilesDialog { id: profilesDialog }
+    AboutDialog { id: aboutDialog }
+
     SetupDialog { id: setupDialog }
     ActivationDialog { id: activationDialog }
     AwardsDialog {
@@ -789,6 +802,9 @@ ApplicationWindow {
             onProfilesRequested: profilesDialog.open()
             closedPanels: window.hiddenPanels.length
             onPanelsRequested: panelsPopup.opened ? panelsPopup.close() : panelsPopup.open()
+            onAboutRequested: aboutDialog.open()
+            onLogFolderRequested: decolog.openDatabaseFolder()
+            onQuitRequested: { window.quitting = true; Qt.quit() }
         }
 
         SplitView {

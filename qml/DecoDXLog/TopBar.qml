@@ -16,6 +16,11 @@ Rectangle {
     signal activationRequested()
     signal profilesRequested()
     signal panelsRequested()
+    signal aboutRequested()
+    // Per le prove: apre il menu del marchio senza mouse.
+    function openMainMenu() { mainMenu.popup(brandBlock, 0, brandBlock.height + 4) }
+    signal logFolderRequested()
+    signal quitRequested()
     // Quanti pannelli sono chiusi adesso: lo dice il pulsante, cosi' un pannello
     // sparito non e' un pannello perso.
     property int closedPanels: 0
@@ -37,16 +42,29 @@ Rectangle {
     }
 
     component Block: Rectangle {
+        id: blockRoot
         default property alias content: blockRow.data
         property color outline: Theme.glassBorder
         property int hPadding: 12
         property alias spacing: blockRow.spacing
+        // Un riquadro che si puo' premere tutto intero: serve al marchio, che
+        // apre il menu. Il MouseArea sta qui e non fra il contenuto, perche'
+        // li' dentro c'e' un layout e gli anchors non ci vanno.
+        property bool clickable: false
+        signal clicked()
         implicitHeight: 48
         implicitWidth: blockRow.implicitWidth + hPadding * 2
         radius: 6
         color: Theme.panelColor
         border.width: 1
         border.color: outline
+        MouseArea {
+            anchors.fill: parent
+            enabled: blockRoot.clickable
+            hoverEnabled: blockRoot.clickable
+            cursorShape: Qt.PointingHandCursor
+            onClicked: blockRoot.clicked()
+        }
         RowLayout {
             id: blockRow
             anchors.fill: parent
@@ -64,7 +82,30 @@ Rectangle {
 
         // Marchio e versione.
         Block {
+            id: brandBlock
             hPadding: 14
+
+            // Tutto il riquadro del marchio apre il menu: le tre righette da
+            // sole sono un bersaglio piccolo, e la gente ci clicca sopra il nome.
+            clickable: true
+            onClicked: mainMenu.opened ? mainMenu.close()
+                                       : mainMenu.popup(brandBlock, 0, brandBlock.height + 4)
+
+            StyledMenu {
+                id: mainMenu
+                StyledMenuItem { text: qsTr("About DecoDXLog…"); onTriggered: root.aboutRequested() }
+                MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
+                StyledMenuItem { text: qsTr("Settings…"); onTriggered: root.setupRequested() }
+                StyledMenuItem { text: qsTr("Station profiles…"); onTriggered: root.profilesRequested() }
+                StyledMenuItem { text: qsTr("Panels…"); onTriggered: root.panelsRequested() }
+                MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
+                StyledMenuItem { text: qsTr("Import ADIF…"); onTriggered: root.importRequested() }
+                StyledMenuItem { text: qsTr("Export ADIF…"); onTriggered: root.exportRequested() }
+                StyledMenuItem { text: qsTr("Open the log folder"); onTriggered: root.logFolderRequested() }
+                MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
+                StyledMenuItem { text: qsTr("Quit"); onTriggered: root.quitRequested() }
+            }
+
             Text {
                 text: "≡"
                 color: Theme.textSecondary
