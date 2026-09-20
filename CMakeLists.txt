@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 0.8.1
+    VERSION 0.9.0
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -17,7 +17,7 @@ endif()
 option(DECODXLOG_BUILD_TESTS "Build the unit tests" ON)
 option(DECODXLOG_BUILD_TOOLS "Build the command-line tools (UDP simulator)" ON)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Network Sql Gui Qml Quick QuickControls2 Multimedia WebSockets Positioning Location LinguistTools)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Network Sql Gui Qml Quick QuickControls2 Multimedia WebSockets Positioning Location SerialPort LinguistTools)
 qt_standard_project_setup(REQUIRES 6.5)
 if(QT_KNOWN_POLICY_QTP0004)
     qt_policy(SET QTP0004 NEW)
@@ -59,6 +59,8 @@ add_library(decolog_core STATIC
     src/core/CredentialStore.h
     src/core/Maidenhead.cpp
     src/core/CwDecoder.cpp
+    src/core/CwKeyer.cpp
+    src/core/CwKeyer.h
     src/core/RigControl.cpp
     src/core/Maidenhead.h
     src/core/LogDatabase.cpp
@@ -100,7 +102,9 @@ target_include_directories(decolog_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 # Qt6::Gui serve alle etichette QSL: QPdfWriter e QPainter stanno li' dentro, e
 # cosi' il PDF si scrive senza moduli di stampa e senza una stampante.
 # Qt6::WebSockets: DecoRotor pubblica lo stato del rotore su WebSocket.
-target_link_libraries(decolog_core PUBLIC Qt6::Core Qt6::Network Qt6::Sql Qt6::Gui Qt6::WebSockets)
+# Qt6::SerialPort: il manipolatore CW alza e abbassa DTR o RTS di una porta,
+# che e' come si manipola da sempre quando il CAT sta occupato altrove.
+target_link_libraries(decolog_core PUBLIC Qt6::Core Qt6::Network Qt6::Sql Qt6::Gui Qt6::WebSockets Qt6::SerialPort)
 # Annunci vocali: su Windows la sintesi del sistema (SAPI).
 if(WIN32)
     target_link_libraries(decolog_core PRIVATE sapi ole32)
@@ -286,7 +290,7 @@ set_target_properties(decolog PROPERTIES
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig cw cloud cloudsettings vault)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig cw cwkeyer cloud cloudsettings vault)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

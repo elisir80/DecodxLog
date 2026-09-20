@@ -42,6 +42,15 @@ RigController::RigController(Context context, QObject* parent)
     m_rigModel = s.value(QStringLiteral("rig/model"), 0).toInt();
     m_baud = s.value(QStringLiteral("rig/baud"), 38400).toInt();
     m_pttType = s.value(QStringLiteral("rig/pttType"), QStringLiteral("RIG")).toString();
+    m_keyerPort = s.value(QStringLiteral("rig/keyerPort")).toString();
+    m_keyerLine = s.value(QStringLiteral("rig/keyerLine"), QStringLiteral("DTR")).toString();
+    connect(&m_keyer, &core::CwKeyer::failed, this, [this](const QString& why) {
+        if (m_ctx.activity)
+            m_ctx.activity(QStringLiteral("CW"), why, QStringLiteral("warning"));
+        emit stateChanged();
+    });
+    if (!m_keyerPort.isEmpty())
+        QTimer::singleShot(0, this, [this] { openKeyer(); });
     m_pttPort = s.value(QStringLiteral("rig/pttPort")).toString();
     m_audioInput = s.value(QStringLiteral("cw/audioInput")).toString();
     loadMacros();
@@ -675,12 +684,71 @@ void RigController::sendText(const QString& text, const QVariantMap& context)
     const QString ready = expand(text, context);
     if (ready.isEmpty())
         return;
+    // Il manipolatore sulla seriale ha la precedenza: se c'e', e' quello che
+    // l'operatore ha attaccato alla radio apposta.
+    if (m_keyer.isOpen()) {
+        m_keyer.send(ready, wpm());
+        return;
+    }
     m_rig.sendMorse(ready);
 }
 
 void RigController::stop()
 {
+    m_keyer.stop();
     m_rig.stopMorse();
+}
+
+// ── Il manipolatore sulla seriale ───────────────────────────────────────────
+
+void RigController::openKeyer()
+{
+    m_keyer.close();
+    if (m_keyerPort.isEmpty()) {
+        emit stateChanged();
+        return;
+    }
+    if (m_keyer.open(m_keyerPort, m_keyerLine) && m_ctx.activity) {
+        m_ctx.activity(QStringLiteral("CW"),
+                       tr("CW keyer on %1 (%2): it works with the CAT busy elsewhere")
+                           .arg(m_keyerPort, m_keyerLine),
+                       QStringLiteral("success"));
+    }
+    emit stateChanged();
+}
+
+void RigController::setKeyerPort(const QString& port)
+{
+    const QString clean = port.trimmed();
+    if (clean == m_keyerPort)
+        return;
+    m_keyerPort = clean;
+    QSettings().setValue(QStringLiteral("rig/keyerPort"), m_keyerPort);
+    openKeyer();
+    emit changed();
+}
+
+void RigController::setKeyerLine(const QString& line)
+{
+    const QString clean = line.trimmed().toUpper() == QLatin1String("RTS") ? QStringLiteral("RTS")
+                                                                           : QStringLiteral("DTR");
+    if (clean == m_keyerLine)
+        return;
+    m_keyerLine = clean;
+    QSettings().setValue(QStringLiteral("rig/keyerLine"), m_keyerLine);
+    openKeyer();
+    emit changed();
+}
+
+void RigController::testKeyer()
+{
+    if (!m_keyer.isOpen()) {
+        if (m_ctx.activity)
+            m_ctx.activity(QStringLiteral("CW"), tr("No CW keyer: pick a port first"),
+                           QStringLiteral("warning"));
+        return;
+    }
+    m_keyer.send(QStringLiteral("VVV"), wpm());
 }
 
 void RigController::setMacro(int index, const QString& label, const QString& text)

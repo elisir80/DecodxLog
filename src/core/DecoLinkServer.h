@@ -14,6 +14,7 @@
 #include <QJsonObject>
 #include <QList>
 #include <QObject>
+#include <QTimer>
 #include <QString>
 #include <functional>
 
@@ -30,6 +31,10 @@ public:
     static constexpr int kDefaultPort = 52237;
     static constexpr int kChunkRows = 2000;
     static constexpr int kMaxQueryCalls = 200;
+
+    // Quando la porta e' occupata — quasi sempre un altro DecoDXLog aperto —
+    // si riprova da soli ogni tanto, invece di restare zitti per sempre.
+    static constexpr int kRetrySeconds = 15;
 
     struct ClientInfo {
         QString app;
@@ -53,6 +58,9 @@ public:
     bool isListening() const;
     quint16 port() const;
     QString lastError() const { return m_lastError; }
+    // Ogni quanto si riprova quando la porta e' occupata: i test non hanno
+    // quindici secondi da buttare.
+    void setRetryInterval(int milliseconds) { m_retryMs = milliseconds; }
 
     QList<ClientInfo> clients() const;
     int clientCount() const { return static_cast<int>(m_clients.size()); }
@@ -66,6 +74,8 @@ public:
 signals:
     void clientsChanged();
     void listeningChanged();
+    // Ce l'ha fatta dopo che la porta si e' liberata.
+    void listeningRecovered();
 
 private:
     void onNewConnection();
@@ -80,6 +90,9 @@ private:
     QString m_version;
     QString m_station;
     QString m_lastError;
+    QTimer* m_retryTimer{nullptr};
+    int m_retryMs{kRetrySeconds * 1000};
+    quint16 m_wantedPort{kDefaultPort};
 };
 
 } // namespace decolog::core

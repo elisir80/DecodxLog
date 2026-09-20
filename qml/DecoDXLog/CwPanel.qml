@@ -71,8 +71,9 @@ GlassPanel {
             color: Theme.errorColor
             font.pixelSize: 12
             text: qsTr("This CAT link does not key CW: it reads the radio but it cannot send. "
-                       + "For the macros connect rigctld to the radio itself (Setup → Radio (CAT) "
-                       + "→ serial cable).")
+                       + "Either connect rigctld to the radio itself, or — with Decodium holding "
+                       + "the CAT — set up the keyer on a serial port of its own: "
+                       + "Setup → Radio (CAT) → Keying on a serial port.")
         }
 
         // La radio spenta non si nasconde: si dice dov'e' l'interruttore.

@@ -1165,9 +1165,65 @@ DialogFrame {
                         }
                     }
                     Note {
-                        text: qsTr("The eight macros are in the contest window (Ctrl+Shift+T), on the F1-F8 "
-                                   + "keys, with Esc to stop. The text goes out through the radio's keyer, "
-                                   + "so what you hear in the monitor is what goes on air.")
+                        text: qsTr("The eight macros are in the contest window (Ctrl+Shift+T) and in the CW "
+                                   + "panel, on the F1-F8 keys, with Esc to stop.")
+                    }
+
+                    //  Il manipolatore su una porta tutta sua: e' la via per
+                    //  chi tiene Decodium aperto, che il CAT ce l'ha gia' lui.
+                    SectionTitle { text: qsTr("Keying on a serial port") }
+                    RowLayout {
+                        spacing: 12
+                        LabeledField {
+                            label: qsTr("Keyer port")
+                            StyledComboBox {
+                                id: keyerPortBox
+                                Layout.preferredWidth: 160
+                                editable: true
+                                model: [qsTr("none")].concat(decolog.rig.serialPorts())
+                                Component.onCompleted: editText = decolog.rig.keyerPort
+                                onActivated: decolog.rig.keyerPort = currentIndex === 0 ? "" : currentText
+                                onEditTextChanged: if (activeFocus) decolog.rig.keyerPort = editText
+                                Connections {
+                                    target: decolog.rig
+                                    function onChanged() {
+                                        if (!keyerPortBox.activeFocus)
+                                            keyerPortBox.editText = decolog.rig.keyerPort
+                                    }
+                                }
+                            }
+                        }
+                        LabeledField {
+                            label: qsTr("Pin")
+                            StyledComboBox {
+                                Layout.preferredWidth: 110
+                                readonly property var lines: ["DTR", "RTS"]
+                                model: lines
+                                currentIndex: Math.max(0, lines.indexOf(decolog.rig.keyerLine))
+                                onActivated: decolog.rig.keyerLine = lines[currentIndex]
+                            }
+                        }
+                        GlassButton {
+                            Layout.alignment: Qt.AlignBottom
+                            Layout.bottomMargin: 2
+                            text: qsTr("Send VVV")
+                            enabled: decolog.rig.keyerOn
+                            onClicked: decolog.rig.testKeyer()
+                        }
+                        Pill {
+                            Layout.alignment: Qt.AlignBottom
+                            Layout.bottomMargin: 6
+                            visible: decolog.rig.keyerPort.length > 0
+                            text: decolog.rig.keyerOn ? qsTr("keyer ready") : qsTr("port not open")
+                            tone: decolog.rig.keyerOn ? Theme.accentColor : Theme.errorColor
+                        }
+                    }
+                    Note {
+                        text: qsTr("With Decodium open the radio's CAT port is already taken, and a CAT "
+                                   + "bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or "
+                                   + "RTS on a port of its own — the one wired to the keying circuit — so "
+                                   + "Decodium keeps the CAT and the macros go on air anyway. Leave the "
+                                   + "port on \"none\" to key through the CAT as before.")
                     }
                     Item { Layout.fillHeight: true }
                 }

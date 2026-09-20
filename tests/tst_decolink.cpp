@@ -6,6 +6,7 @@
 #include <QElapsedTimer>
 #include <QJsonDocument>
 #include <QSignalSpy>
+#include <QTcpServer>
 #include <QTcpSocket>
 #include <QTest>
 
@@ -167,6 +168,42 @@ private slots:
         QVERIFY(server.isListening());
         probe.connectToHost(QHostAddress::LocalHost, server.port());
         QVERIFY(probe.waitForConnected(3000));
+    }
+
+    // La porta occupata da un altro programma — quasi sempre un secondo
+    // DecoDXLog — non deve spegnere DecoLink per sempre: appena si libera,
+    // l'ascolto riparte da solo. Senza questo, chi apriva due copie si
+    // ritrovava Decodium collegato ora all'una ora all'altra, e il
+    // collegamento sembrava andare e venire.
+    void aBusyPortIsTriedAgain()
+    {
+        // Qualcun altro tiene la porta.
+        QTcpServer squatter;
+        QVERIFY(squatter.listen(QHostAddress::LocalHost, 0));
+        const quint16 port = squatter.serverPort();
+
+        DecoLinkServer server;
+        server.setRetryInterval(200);
+        QSignalSpy back(&server, &DecoLinkServer::listeningRecovered);
+        QVERIFY(!server.start(port));
+        QVERIFY(!server.isListening());
+        QVERIFY(!server.lastError().isEmpty());
+
+        // La porta si libera: senza che nessuno glielo dica, DecoLink la prende.
+        squatter.close();
+        QTRY_VERIFY_WITH_TIMEOUT(server.isListening(), 5000);
+        QCOMPARE(server.port(), port);
+        QCOMPARE(back.count(), 1);
+
+        // E da li' funziona come sempre.
+        QTcpSocket probe;
+        probe.connectToHost(QHostAddress::LocalHost, port);
+        QVERIFY(probe.waitForConnected(3000));
+        // L'accettazione passa dal giro degli eventi: QTRY lo fa girare,
+        // waitForReadyRead no — resterebbe li' ad aspettare un saluto che
+        // nessuno ha ancora avuto modo di mandare.
+        QTRY_VERIFY_WITH_TIMEOUT(probe.bytesAvailable() > 0, 5000);
+        QVERIFY(probe.readAll().contains("\"type\":\"hello\""));
     }
 };
 

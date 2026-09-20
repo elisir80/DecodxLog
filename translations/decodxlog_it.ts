@@ -1275,8 +1275,8 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Ferma</translation>
     </message>
     <message>
-        <source>This CAT link does not key CW: it reads the radio but it cannot send. For the macros connect rigctld to the radio itself (Setup → Radio (CAT) → serial cable).</source>
-        <translation>Questo collegamento CAT il CW non lo manda: legge la radio ma non trasmette. Per le macro collega rigctld alla radio stessa (Impostazioni → Radio (CAT) → cavo seriale).</translation>
+        <source>This CAT link does not key CW: it reads the radio but it cannot send. Either connect rigctld to the radio itself, or — with Decodium holding the CAT — set up the keyer on a serial port of its own: Setup → Radio (CAT) → Keying on a serial port.</source>
+        <translation>Questo collegamento CAT il CW non lo manda: legge la radio ma non trasmette. O colleghi rigctld alla radio stessa, oppure — se il CAT ce l&apos;ha Decodium — metti il manipolatore su una porta seriale tutta sua: Impostazioni → Radio (CAT) → Manipolazione su porta seriale.</translation>
     </message>
     <message>
         <source>The radio is off: Setup → Radio (CAT) to turn it on. The decoder works anyway, it only needs the audio coming out of the radio.</source>
@@ -3987,10 +3987,6 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>%1 wpm</translation>
     </message>
     <message>
-        <source>The eight macros are in the contest window (Ctrl+Shift+T), on the F1-F8 keys, with Esc to stop. The text goes out through the radio&apos;s keyer, so what you hear in the monitor is what goes on air.</source>
-        <translation>Le otto macro stanno nella finestra contest (Ctrl+Shift+T), sui tasti F1-F8, con Esc per fermare. Il testo esce dal manipolatore della radio, quindi quello che senti nel monitor è quello che va in aria.</translation>
-    </message>
-    <message>
         <source>Antenna rotor</source>
         <translation>Rotore d&apos;antenna</translation>
     </message>
@@ -4045,6 +4041,42 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
         <translation>A parlare con le radio è Hamlib, non DecoDXLog. Col cavo seriale scegli il modello e la porta e rigctld lo avvia DecoDXLog da solo; se rigctld ce l&apos;hai già acceso (per un altro programma, o su un altro computer) basta host e porta. Da lì DecoDXLog legge frequenza e modo, può spostare la radio, e passa le macro CW al manipolatore della radio.</translation>
+    </message>
+    <message>
+        <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
+        <translation>Le otto macro stanno nella finestra contest (Ctrl+Shift+T) e nel pannello CW, sui tasti F1-F8, con Esc per fermare.</translation>
+    </message>
+    <message>
+        <source>Keying on a serial port</source>
+        <translation>Manipolazione su porta seriale</translation>
+    </message>
+    <message>
+        <source>Keyer port</source>
+        <translation>Porta del manipolatore</translation>
+    </message>
+    <message>
+        <source>none</source>
+        <translation>nessuna</translation>
+    </message>
+    <message>
+        <source>Pin</source>
+        <translation>Piedino</translation>
+    </message>
+    <message>
+        <source>Send VVV</source>
+        <translation>Manda VVV</translation>
+    </message>
+    <message>
+        <source>keyer ready</source>
+        <translation>manipolatore pronto</translation>
+    </message>
+    <message>
+        <source>port not open</source>
+        <translation>porta non aperta</translation>
+    </message>
+    <message>
+        <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
+        <translation>Con Decodium aperto la porta del CAT e&apos; gia&apos; occupata, e un ponte CAT il manipolatore non lo sa fare. Qui il CW lo manipola DecoDXLog da solo: alza DTR o RTS su una porta tutta sua — quella attaccata al circuito di manipolazione — cosi&apos; Decodium si tiene il CAT e le macro vanno in aria lo stesso. Lascia la porta su &quot;nessuna&quot; per manipolare dal CAT come prima.</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -4765,6 +4797,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>%1 non si sente da 45 s</translation>
     </message>
     <message>
+        <source>DecoLink: the port is free again, listening on 127.0.0.1:%1</source>
+        <translation>DecoLink: la porta si e&apos; liberata, in ascolto su 127.0.0.1:%1</translation>
+    </message>
+    <message>
         <source>DecoLink: client connected (%1)</source>
         <translation>DecoLink: client collegato (%1)</translation>
     </message>
@@ -4804,8 +4840,8 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>DecoLink in ascolto su 127.0.0.1:%1</translation>
     </message>
     <message>
-        <source>DecoLink cannot listen on %1: %2</source>
-        <translation>DecoLink non può ascoltare su %1: %2</translation>
+        <source>DecoLink cannot listen on %1: %2 — another DecoDXLog is probably open. Retrying every %3 seconds.</source>
+        <translation>DecoLink non puo&apos; ascoltare su %1: %2 — probabilmente c&apos;e&apos; un altro DecoDXLog aperto. Riprovo ogni %3 secondi.</translation>
     </message>
     <message>
         <source>(not introduced yet)</source>
@@ -5312,6 +5348,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <source>CW decoder listening to %1</source>
         <translation>Decoder CW in ascolto su %1</translation>
     </message>
+    <message>
+        <source>CW keyer on %1 (%2): it works with the CAT busy elsewhere</source>
+        <translation>Manipolatore CW su %1 (%2): funziona anche col CAT occupato altrove</translation>
+    </message>
+    <message>
+        <source>No CW keyer: pick a port first</source>
+        <translation>Nessun manipolatore: prima scegli una porta</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::RotorController</name>
@@ -5597,6 +5641,20 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Secret present in the keystore</source>
         <translation>Il segreto c&apos;è nel portachiavi</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::CwKeyer</name>
+    <message>
+        <source>No serial port chosen for the CW keyer</source>
+        <translation>Nessuna porta seriale scelta per il manipolatore CW</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::CwKeyerWorker</name>
+    <message>
+        <source>Cannot open %1: %2</source>
+        <translation>Non riesco ad aprire %1: %2</translation>
     </message>
 </context>
 <context>

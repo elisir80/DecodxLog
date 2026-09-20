@@ -168,6 +168,11 @@ DecoLogController::DecoLogController(QObject* parent)
     m_decoLink.awardState = [this] { return decoLinkAward(); };
     m_decoLink.resolveQuery = [this](const QJsonObject& q) { return decoLinkQuery(q); };
     connect(&m_decoLink, &DecoLinkServer::listeningChanged, this, &DecoLogController::decoLinkChanged);
+    connect(&m_decoLink, &DecoLinkServer::listeningRecovered, this, [this] {
+        addActivity(QStringLiteral("LINK"),
+                    tr("DecoLink: the port is free again, listening on 127.0.0.1:%1").arg(m_decoLinkPort),
+                    QStringLiteral("success"));
+    });
     connect(&m_decoLink, &DecoLinkServer::clientsChanged, this, [this] {
         const int n = m_decoLink.clientCount();
         static int previous = 0;
@@ -456,8 +461,11 @@ void DecoLogController::startDecoLink()
     if (m_decoLink.start(static_cast<quint16>(m_decoLinkPort)))
         addActivity(QStringLiteral("LINK"), tr("DecoLink listening on 127.0.0.1:%1").arg(m_decoLinkPort));
     else
-        addActivity(QStringLiteral("LINK"), tr("DecoLink cannot listen on %1: %2").arg(m_decoLinkPort).arg(m_decoLink.lastError()),
-                    QStringLiteral("error"));
+        addActivity(QStringLiteral("LINK"),
+                    tr("DecoLink cannot listen on %1: %2 — another DecoDXLog is probably open. "
+                       "Retrying every %3 seconds.")
+                        .arg(m_decoLinkPort).arg(m_decoLink.lastError()).arg(DecoLinkServer::kRetrySeconds),
+                    QStringLiteral("warning"));
     emit decoLinkChanged();
 }
 

@@ -31,16 +31,40 @@ void DecoLinkServer::setIdentity(const QString& version, const QString& station)
 
 bool DecoLinkServer::start(quint16 port)
 {
+    const bool wasRetrying = m_retryTimer && m_retryTimer->isActive();
     stop();
+    m_wantedPort = port;
     m_server = new QTcpServer(this);
     // Solo loopback: il log non si espone alla rete.
     if (!m_server->listen(QHostAddress::LocalHost, port)) {
         m_lastError = m_server->errorString();
         delete m_server;
         m_server = nullptr;
+        // La porta occupata non e' una condanna: di solito e' un altro
+        // DecoDXLog ancora aperto, e quando si chiude questa deve prendere il
+        // suo posto da sola. Senza, Decodium si collegava a una copia e
+        // all'altra a seconda di chi era partito prima, e sembrava che il
+        // collegamento andasse e venisse.
+        if (!m_retryTimer) {
+            m_retryTimer = new QTimer(this);
+            m_retryTimer->setInterval(m_retryMs);
+            connect(m_retryTimer, &QTimer::timeout, this, [this] {
+                if (isListening()) {
+                    m_retryTimer->stop();
+                    return;
+                }
+                if (start(m_wantedPort))
+                    emit listeningRecovered();
+            });
+        }
+        m_retryTimer->setInterval(m_retryMs);
+        m_retryTimer->start();
         emit listeningChanged();
         return false;
     }
+    if (m_retryTimer)
+        m_retryTimer->stop();
+    Q_UNUSED(wasRetrying);
     m_lastError.clear();
     connect(m_server, &QTcpServer::newConnection, this, &DecoLinkServer::onNewConnection);
     emit listeningChanged();
@@ -49,6 +73,8 @@ bool DecoLinkServer::start(quint16 port)
 
 void DecoLinkServer::stop()
 {
+    if (m_retryTimer)
+        m_retryTimer->stop();
     const auto sockets = m_clients.keys();
     for (QTcpSocket* s : sockets) {
         s->disconnect(this);

@@ -3,6 +3,29 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 0.9.0 — 20 settembre 2026
+
+**Il CW parte anche con Decodium aperto.** Chi opera con Decodium ha la porta della radio
+gia' occupata: il CAT passa dal ponte di Decodium, e quel ponte il manipolatore non lo sa
+fare — i tasti F1-F8 restavano li' senza fare niente. Adesso il CW lo manipola DecoDXLog da
+solo, come si e' sempre fatto: alza e abbassa **DTR o RTS di una porta tutta sua**, quella
+attaccata al circuito di manipolazione. Decodium si tiene il CAT, le macro vanno in aria.
+
+Si sceglie in **Impostazioni → Radio (CAT) → Manipolazione su porta seriale**: la porta, il
+piedino (DTR o RTS) e un pulsante **Manda VVV** per sentire se la radio va in aria davvero.
+Lasciando la porta su «nessuna» si manipola dal CAT come prima.
+
+I tempi non ballano: la manipolazione gira in un thread suo a priorita' alta, che dorme a
+colpi corti e chiude l'attesa contando i microsecondi — i timer di Windows, a 40
+millisecondi per punto, sbagliano di piu' di quanto dura il punto. PARIS a 20 parole al
+minuto dura tre secondi esatti, che e' la definizione stessa della velocita' in CW.
+
+**DecoLink non si arrende alla porta occupata.** Se all'avvio la porta 52237 e' presa —
+quasi sempre un altro DecoDXLog ancora aperto — prima DecoLink si spegneva e basta, per
+tutta la sessione. Con due copie aperte Decodium si collegava ora all'una ora all'altra, e
+il collegamento sembrava andare e venire. Adesso si riprova ogni quindici secondi e appena
+la porta si libera l'ascolto riparte da solo, dicendolo nel registro.
+
 ## 0.8.1 — 20 settembre 2026
 
 **Il marchio rimasto in maiuscolo.** Cambiando nome al programma si cercava "DecoLog"
