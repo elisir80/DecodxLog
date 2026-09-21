@@ -70,6 +70,9 @@ ApplicationWindow {
         }
         root.chosen = next
     }
+    // Per le schermate di prova.
+    function showCardMenu() { cardDesign.showKeyMenu() }
+
     function viaLabel(code) {
         return code === "B" ? qsTr("bureau")
              : code === "D" ? qsTr("direct")
@@ -374,6 +377,7 @@ ApplicationWindow {
         }
 
         QslCardDesign {
+            id: cardDesign
             visible: root.view === "card"
             Layout.fillWidth: true
             Layout.fillHeight: true

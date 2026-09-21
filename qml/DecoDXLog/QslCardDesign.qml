@@ -65,6 +65,9 @@ ColumnLayout {
         return root.sample[key] || ""
     }
 
+    // Per le schermate di prova: apre l'elenco dei campi che si possono posare.
+    function showKeyMenu() { keyMenu.popup() }
+
     function keyLabel(key) {
         const all = root.cards.cardKeys()
         for (let i = 0; i < all.length; ++i) {
@@ -264,7 +267,10 @@ ColumnLayout {
                     id: keyMenu
                     Instantiator {
                         model: root.cards.cardKeys()
-                        delegate: MenuItem {
+                        // StyledMenuItem e non MenuItem: quello di Qt resta coi
+                        // colori del sistema, e su un tema scuro il testo si
+                        // legge a stento.
+                        delegate: StyledMenuItem {
                             required property var modelData
                             text: modelData.label
                             onTriggered: {

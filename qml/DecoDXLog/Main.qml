@@ -422,7 +422,9 @@ ApplicationWindow {
         else if (what[0] === "updateget") { decolog.updates.checkNow(); updateGetTimer.start() }
         else if (what[0] === "mainmenu") topBar.openMainMenu()
         else if (what[0] === "stats") openStats()
-        else if (what[0] === "cards") openCards(what[1])
+        else if (what[0] === "cards") { openCards(what[1])
+                                       if (what[2] === "menu" && cardsWindow.item)
+                                           cardsWindow.item.showCardMenu() }
         else if (what[0] === "cloud") {
             // cloud:signup:CALL:PASSWORD · cloud:login:CALL:PASSWORD · cloud:sync
             if (what[1] === "signup") decolog.cloud.signup(what[2], what[3])
