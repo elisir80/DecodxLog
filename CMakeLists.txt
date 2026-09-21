@@ -262,10 +262,17 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/SpotFilterEditor.qml
 )
 
+# OUTPUT_DIRECTORY non e' un vezzo: senza, Qt si fa una cartella "DecoDXLog"
+# nella cartella di compilazione, e su Linux l'eseguibile si chiama DecoDXLog
+# pure lui — il collegamento si ferma con "cannot open output file DecoDXLog:
+# Is a directory". Su Windows non succedeva perche' li' l'eseguibile ha .exe.
+# Il modulo finisce comunque nelle risorse, quindi spostarlo non cambia niente
+# a chi lo usa.
 qt_add_qml_module(decolog
     URI DecoDXLog
     VERSION 1.0
     QML_FILES ${DECODXLOG_QML_FILES}
+    OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/qml_modules/DecoDXLog
 )
 
 # Traduzioni: lrelease le compila e le mette fra le risorse (:/i18n). lupdate si
