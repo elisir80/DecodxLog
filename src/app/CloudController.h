@@ -68,7 +68,7 @@ public:
     QString server() const { return m_server; }
     void setServer(const QString& url);
     QString callsign() const { return m_callsign; }
-    bool linked() const { return !m_token.isEmpty(); }
+    bool linked() const { return !m_token.isEmpty() || m_storedCloudToken; }
     bool busy() const { return m_busy; }
     QString status() const { return m_status; }
     QString lastSync() const { return m_lastSync; }
@@ -162,6 +162,10 @@ private:
     bool m_automatic{true};
     // Collegamento di passaggio (prove da riga di comando): niente portachiavi.
     bool m_ephemeral{false};
+    // Il token esiste nel portachiavi, ma non e' stato ancora letto in questa
+    // sessione: basta per mostrare il Cloud come collegato, non basta per
+    // avviare sync automatici che aprirebbero il portachiavi allo startup.
+    bool m_storedCloudToken{false};
     // Sync chiesto mentre il token stava ancora uscendo dal portachiavi.
     bool m_syncWhenReady{false};
     // Il cursore e' gia' stato riportato in pari dopo la spinta di questo giro?
