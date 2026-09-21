@@ -75,6 +75,7 @@ private:
     QString m_keychainService;
     QHash<QString, QString> m_errors;
     QHash<QString, bool> m_busy;
+    QHash<QString, QString> m_secretCache;
 };
 
 } // namespace decolog::core

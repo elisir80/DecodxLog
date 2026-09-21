@@ -121,10 +121,14 @@ void CredentialStore::save(const QString& service, const QString& accountName, c
     job->setAutoDelete(true);
     job->setKey(service);
     job->setTextData(secret);
-    connect(job, &QKeychain::Job::finished, this, [this, service](QKeychain::Job* j) {
+    connect(job, &QKeychain::Job::finished, this, [this, service, secret](QKeychain::Job* j) {
         const bool ok = j->error() == QKeychain::NoError;
-        if (ok)
+        if (ok) {
             QSettings().setValue(settingsKey(service, "stored"), true);
+            m_secretCache.insert(service, secret);
+        } else {
+            m_secretCache.remove(service);
+        }
         setError(service, ok ? QString() : j->errorString());
         setBusy(service, false);
         emit finished(service, ok, ok ? tr("Stored in the system keystore") : j->errorString());
@@ -140,6 +144,8 @@ void CredentialStore::save(const QString& service, const QString& accountName, c
 
 void CredentialStore::remove(const QString& service)
 {
+    m_secretCache.remove(service);
+
     QSettings s;
     s.remove(QStringLiteral("credentials/%1").arg(service));
 
@@ -166,15 +172,25 @@ void CredentialStore::remove(const QString& service)
 void CredentialStore::readSecret(const QString& service,
                                  std::function<void(const QString&, const QString&)> done)
 {
+    if (m_secretCache.contains(service)) {
+        done(m_secretCache.value(service), {});
+        return;
+    }
+
 #ifdef DECODXLOG_HAVE_KEYCHAIN
     auto* job = new QKeychain::ReadPasswordJob(m_keychainService, this);
     job->setAutoDelete(true);
     job->setKey(service);
-    connect(job, &QKeychain::Job::finished, this, [job, done](QKeychain::Job* j) {
-        if (j->error() == QKeychain::NoError)
-            done(job->textData(), {});
-        else
+    connect(job, &QKeychain::Job::finished, this, [this, job, service, done](QKeychain::Job* j) {
+        if (j->error() == QKeychain::NoError) {
+            const QString secret = job->textData();
+            if (!secret.isEmpty())
+                m_secretCache.insert(service, secret);
+            done(secret, {});
+        } else {
+            m_secretCache.remove(service);
             done({}, j->errorString());
+        }
     });
     job->start();
 #else

@@ -198,7 +198,7 @@ CloudController::CloudController(Context context, QObject* parent)
     // Sync a tempo: ogni cinque minuti, se c'e' qualcosa da fare.
     m_autoTimer.setInterval(5 * 60 * 1000);
     connect(&m_autoTimer, &QTimer::timeout, this, [this] {
-        if (linked() && !m_busy)
+        if (!m_token.isEmpty() && !m_busy)
             syncNow();
     });
     // La frequenza di adesso: una volta ogni venti secondi basta e avanza per
@@ -206,7 +206,7 @@ CloudController::CloudController(Context context, QObject* parent)
     m_presenceTimer.setSingleShot(true);
     m_presenceTimer.setInterval(20'000);
     connect(&m_presenceTimer, &QTimer::timeout, this, [this] {
-        if (!linked() || m_presence.isEmpty())
+        if (m_token.isEmpty() || m_presence.isEmpty())
             return;
         if (m_presence == m_presenceSent)
             return;   // niente di nuovo da dire
@@ -218,7 +218,7 @@ CloudController::CloudController(Context context, QObject* parent)
     m_afterQso.setSingleShot(true);
     m_afterQso.setInterval(20'000);
     connect(&m_afterQso, &QTimer::timeout, this, [this] {
-        if (linked() && !m_busy)
+        if (!m_token.isEmpty() && !m_busy)
             syncNow();
     });
 
@@ -231,8 +231,12 @@ void CloudController::start(bool automatic)
         return;
     m_automatic = automatic;
     m_cursor = m_ctx.db->syncState(accountKey()).value(QStringLiteral("cursor")).toLongLong();
-    loadToken();
-    if (automatic && m_autoMode != QLatin1String("manual"))
+    m_storedCloudToken = !m_ephemeral
+        && m_ctx.credentials
+        && m_ctx.credentials->hasSecret(QStringLiteral("cloud"));
+    if (m_storedCloudToken && m_status.isEmpty())
+        m_status = tr("Cloud: linked — sync will unlock it when needed");
+    if (automatic && m_autoMode != QLatin1String("manual") && !m_token.isEmpty())
         m_autoTimer.start();
     emit changed();
 }
@@ -267,8 +271,11 @@ void CloudController::loadToken()
 {
     if (m_ephemeral)
         return;   // collegamento di passaggio: il token lo da' chi prova
-    if (!m_ctx.credentials || !m_ctx.credentials->hasSecret(QStringLiteral("cloud")))
+    if (!m_ctx.credentials || !m_ctx.credentials->hasSecret(QStringLiteral("cloud"))) {
+        m_storedCloudToken = false;
         return;
+    }
+    m_storedCloudToken = true;
     m_ctx.credentials->readSecret(QStringLiteral("cloud"), [this](const QString& token, const QString& error) {
         if (token.isEmpty()) {
             m_status = tr("Cloud: token not readable (%1)").arg(error);
@@ -276,8 +283,11 @@ void CloudController::loadToken()
             return;
         }
         m_token = token;
+        m_storedCloudToken = true;
         m_sync.setToken(token);
         loadVaultKey();
+        if (m_automatic && m_autoMode != QLatin1String("manual") && !m_autoTimer.isActive())
+            m_autoTimer.start();
         emit changed();
         // Un giro subito: quello che e' cambiato altrove arriva senza chiederlo,
         // oppure quello gia' chiesto mentre il token era per strada.
@@ -291,6 +301,7 @@ void CloudController::loadToken()
 void CloudController::saveToken(const QString& token, const QString& callsign)
 {
     m_token = token;
+    m_storedCloudToken = true;
     m_callsign = callsign;
     m_sync.setToken(token);
     if (m_ephemeral) {
@@ -328,6 +339,7 @@ void CloudController::overrideServer(const QString& url)
     // token vive solo in memoria.
     m_ephemeral = true;
     m_token.clear();
+    m_storedCloudToken = false;
     m_sync.setToken(QString());
     m_server = url.trimmed();
     m_sync.setServer(QUrl(m_server));
@@ -342,7 +354,7 @@ void CloudController::setAutoMode(const QString& mode)
     QSettings().setValue(QStringLiteral("cloud/auto"), mode);
     if (mode == QLatin1String("manual"))
         m_autoTimer.stop();
-    else
+    else if (!m_token.isEmpty())
         m_autoTimer.start();
     emit changed();
 }
@@ -419,6 +431,7 @@ void CloudController::purgeCloud(const QString& confirm)
 void CloudController::logout()
 {
     m_token.clear();
+    m_storedCloudToken = false;
     m_sync.setToken(QString());
     // Staccare il dispositivo vuol dire anche buttare la chiave: le credenziali
     // dei servizi restano nel portachiavi, ma il blocco sul server non si apre
@@ -437,15 +450,16 @@ void CloudController::logout()
 
 void CloudController::syncNow()
 {
+    if (m_token.isEmpty() && m_storedCloudToken) {
+        // Il token e' salvato, ma volutamente non viene letto allo startup:
+        // si apre il portachiavi solo quando l'utente chiede davvero il sync.
+        m_syncWhenReady = true;
+        m_status = tr("Cloud: opening the keystore…");
+        emit changed();
+        loadToken();
+        return;
+    }
     if (!linked()) {
-        // Il token puo' essere ancora nel portachiavi: la richiesta non si
-        // butta via, parte appena arriva.
-        if (m_ctx.credentials && m_ctx.credentials->hasSecret(QStringLiteral("cloud"))) {
-            m_syncWhenReady = true;
-            m_status = tr("Cloud: opening the keystore…");
-            emit changed();
-            return;
-        }
         finish(tr("Cloud: not linked yet"), QStringLiteral("warning"));
         return;
     }
@@ -857,7 +871,7 @@ bool CloudController::applyRemoteSecrets(const QVariantMap& document)
 
 void CloudController::qsoLogged()
 {
-    if (linked() && m_autoMode == QLatin1String("qso"))
+    if (!m_token.isEmpty() && m_autoMode == QLatin1String("qso"))
         m_afterQso.start();
 }
 
@@ -873,7 +887,7 @@ void CloudController::clientStateChanged(const QVariantMap& state)
 {
     // Vale anche per un collegamento di passaggio: la frequenza non si scrive da
     // nessuna parte qui, va al server che si sta provando e basta.
-    if (!linked())
+    if (m_token.isEmpty())
         return;
     m_presence = state;
 

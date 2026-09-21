@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.7.1
+    VERSION 1.7.2
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -338,6 +338,7 @@ set_target_properties(decolog PROPERTIES
     OUTPUT_NAME DecoDXLog
     WIN32_EXECUTABLE ON
     MACOSX_BUNDLE ON
+    MACOSX_BUNDLE_GUI_IDENTIFIER "org.decodium.DecoDXLog"
     MACOSX_BUNDLE_SHORT_VERSION_STRING "${PROJECT_VERSION}"
     MACOSX_BUNDLE_BUNDLE_VERSION "${PROJECT_VERSION}"
 )

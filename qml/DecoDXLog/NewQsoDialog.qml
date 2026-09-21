@@ -39,8 +39,10 @@ DialogFrame {
     function clearAll() {
         for (const f of [callField, gridField, nameField, qthField, commentField, potaField, sotaField,
                          iotaField, wwffField, tagsField, countryField, addressField, stateField,
-                         cntyField, contField, cqzField, ituzField, dxccField, qslViaField])
+                         cntyField, contField, cqzField, ituzField, dxccField, qslViaField,
+                         satNameField, satModeField])
             f.text = ""
+        propModeBox.currentIndex = 0
         sentField.text = "59"
         rcvdField.text = "59"
         errorText.text = ""
@@ -60,6 +62,7 @@ DialogFrame {
             rst_sent: sentField.text, rst_rcvd: rcvdField.text,
             gridsquare: gridField.text, name: nameField.text, qth: qthField.text, tx_pwr: pwrField.text,
             pota_ref: potaField.text, sota_ref: sotaField.text, iota: iotaField.text, wwff_ref: wwffField.text,
+            prop_mode: propModeBox.editText, sat_name: satNameField.text, sat_mode: satModeField.text,
             comment: commentField.text, tags: tagsField.text,
             country: countryField.text, address: addressField.text, state: stateField.text,
             cnty: cntyField.text, cont: contField.text, cqz: cqzField.text, ituz: ituzField.text,
@@ -420,6 +423,33 @@ DialogFrame {
                     Layout.horizontalStretchFactor: 3; Layout.fillWidth: true
                     label: "WWFF"
                     StyledTextField { id: wwffField; Layout.fillWidth: true; uppercase: true; placeholderText: "—" }
+                }
+            }
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 10
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 4; Layout.fillWidth: true
+                    label: qsTr("Prop mode")
+                    StyledComboBox {
+                        id: propModeBox
+                        Layout.fillWidth: true
+                        editable: true
+                        model: ["", "SAT", "AUR", "AUE", "BS", "ECH", "EME", "ES", "F2", "FAI", "GWAVE", "ION", "IRL", "MS", "RPT", "RS", "TEP", "TR"]
+                    }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 4; Layout.fillWidth: true
+                    label: qsTr("Satellite")
+                    StyledTextField { id: satNameField; Layout.fillWidth: true; uppercase: true; placeholderText: "OSCAR-100" }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 4; Layout.fillWidth: true
+                    label: qsTr("Sat mode")
+                    StyledTextField { id: satModeField; Layout.fillWidth: true; uppercase: true; placeholderText: "U/V" }
                 }
             }
             RowLayout {

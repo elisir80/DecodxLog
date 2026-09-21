@@ -3,6 +3,28 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.7.2 — 21 settembre 2026
+
+Quattro cose, tutte di elisir80.
+
+**I satelliti si scrivono a mano.** Nella scheda del QSO e nel pannello rapido ci sono
+`SAT_NAME` e `SAT_MODE`, per chi lavora via satellite e non ha un programma che glieli
+manda. Lo schema del database passa alla versione 4; un log gia' fatto ci arriva da solo
+alla prima apertura, e la colonna nuova si aggiunge senza toccare i QSO.
+
+**Il portachiavi non chiede la password all'avvio.** Prima DecoDXLog andava a leggere i
+segreti appena partito, e su Linux quello vuol dire la finestra del portachiavi in faccia
+prima ancora di vedere il log. Adesso li chiede quando servono davvero, e quello che ha
+gia' letto se lo tiene per il resto della sessione invece di ridomandarlo ogni volta.
+
+**«Riporta i pannelli com'erano» li riporta davvero com'erano**: non solo quali sono
+aperti, ma anche le misure delle colonne, l'altezza della fascia di sotto e il blocco della
+disposizione.
+
+**Il rotore staccato si comporta come gli altri.** Chiudere la sua finestra lo riattacca
+invece di lasciarlo sparito, e il pannello resta nella disposizione anche quando un rotore
+non c'e' — prima la casella spariva e gli altri si spostavano sotto le mani.
+
 ## 1.7.1 — 21 settembre 2026
 
 **Le versioni per Linux e macOS si costruiscono da sole.** Tre flussi di GitHub Actions —
