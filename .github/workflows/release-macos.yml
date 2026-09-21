@@ -45,10 +45,21 @@ jobs:
       - name: Deploy app bundle
         run: |
           export PATH="$(brew --prefix qt)/bin:$PATH"
-          macdeployqt build/DecoDXLog.app -qmldir=qml -qmldir=libs/decodium-ui/qml -dmg -verbose=1
+          macdeployqt build/DecoDXLog.app -qmldir=qml -qmldir=libs/decodium-ui/qml -verbose=1
           version="${GITHUB_REF_NAME#v}"
           mkdir -p release-assets
-          mv build/DecoDXLog.dmg "release-assets/DecoDXLog-$version-macos-${{ matrix.arch }}.dmg"
+
+          while IFS= read -r -d '' item; do
+            codesign --force --sign - --timestamp=none "$item"
+          done < <(find build/DecoDXLog.app/Contents -type f \( -perm -111 -o -name "*.dylib" -o -name "*.so" \) -print0)
+
+          codesign --force --deep --sign - --timestamp=none build/DecoDXLog.app
+          codesign --verify --deep --strict --verbose=2 build/DecoDXLog.app
+
+          hdiutil create -volname "DecoDXLog $version" \
+            -srcfolder build/DecoDXLog.app \
+            -ov -format UDZO \
+            "release-assets/DecoDXLog-$version-macos-${{ matrix.arch }}.dmg"
 
       - name: Ensure release exists
         env:
