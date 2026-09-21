@@ -43,7 +43,13 @@ def new_uuid() -> str:
 
 
 class Account(Base):
-    """Un operatore. Il nominativo e' il nome utente: qui non c'e' altro da sapere."""
+    """Un operatore. Il nominativo e' il nome utente: qui non c'e' altro da sapere.
+
+    `approved` dice se puo' usare il servizio: chi si registra nasce in attesa e
+    ci entra quando qualcuno, leggendo l'email di avviso, dice di si'.
+    `approval_token` e' la chiave che sta in quel collegamento, e si cancella
+    appena la decisione e' presa: il collegamento vale una volta sola.
+    """
 
     __tablename__ = "account"
 
@@ -51,6 +57,11 @@ class Account(Base):
     callsign: Mapped[str] = mapped_column(String(32), unique=True, index=True)
     password_hash: Mapped[str] = mapped_column(Text)
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    approved: Mapped[bool] = mapped_column(Boolean, default=False)
+    approved_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    approval_token: Mapped[str] = mapped_column(String(64), default="")
+    # Da dove e' arrivata la registrazione: nell'email serve a capire chi e'.
+    signup_ip: Mapped[str] = mapped_column(String(64), default="")
 
     tokens: Mapped[list["Token"]] = relationship(back_populates="account", cascade="all, delete-orphan")
 
@@ -205,5 +216,38 @@ engine = create_engine(
 SessionLocal = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False, future=True)
 
 
+# Le colonne arrivate dopo il primo giorno di servizio. `create_all` crea le
+# tabelle che mancano ma non tocca quelle che ci sono gia': queste si aggiungono
+# a mano, una volta, e chi c'era prima resta dentro — non si chiude fuori
+# qualcuno che usava il servizio ieri.
+_ADDED_COLUMNS = (
+    ("account", "approved", "BOOLEAN NOT NULL DEFAULT TRUE", "UPDATE account SET approved = TRUE"),
+    ("account", "approved_at", "TIMESTAMP WITH TIME ZONE", None),
+    ("account", "approval_token", "VARCHAR(64) NOT NULL DEFAULT ''", None),
+    ("account", "signup_ip", "VARCHAR(64) NOT NULL DEFAULT ''", None),
+)
+
+
+def _migrate() -> None:
+    from sqlalchemy import inspect, text
+
+    inspector = inspect(engine)
+    if "account" not in inspector.get_table_names():
+        return
+    sqlite = engine.dialect.name == "sqlite"
+    for table, column, ddl, backfill in _ADDED_COLUMNS:
+        existing = {c["name"] for c in inspector.get_columns(table)}
+        if column in existing:
+            continue
+        if sqlite:
+            # SQLite non conosce i tipi con fuso e vuole il DEFAULT costante.
+            ddl = ddl.replace("TIMESTAMP WITH TIME ZONE", "TIMESTAMP").replace("TRUE", "1")
+        with engine.begin() as connection:
+            connection.execute(text(f"ALTER TABLE {table} ADD COLUMN {column} {ddl}"))
+            if backfill:
+                connection.execute(text(backfill.replace("TRUE", "1") if sqlite else backfill))
+
+
 def create_all() -> None:
     Base.metadata.create_all(engine)
+    _migrate()

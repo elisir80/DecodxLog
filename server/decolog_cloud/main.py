@@ -14,6 +14,7 @@ client Qt di DecoDXLog implementa.
 from __future__ import annotations
 
 import datetime as dt
+import logging
 from contextlib import asynccontextmanager
 
 from fastapi import Depends, FastAPI, HTTPException, Query, Request, status
@@ -27,7 +28,7 @@ from pathlib import Path
 
 from fastapi.staticfiles import StaticFiles
 
-from . import auth, sync, web
+from . import approval, auth, sync, web
 from .models import Account, Counter, Doc, Qso, QsoHistory, create_all
 from .settings import settings
 
@@ -35,6 +36,15 @@ from .settings import settings
 async def lifespan(_: FastAPI):
     # Le tabelle si creano all'avvio: il servizio parte anche su un database vuoto.
     create_all()
+    # uvicorn configura i propri registri e lascia stare gli altri: senza questo,
+    # quello che scrive decolog — un avviso non partito, un account approvato —
+    # non arriverebbe da nessuna parte, e il journal resterebbe muto.
+    decolog_log = logging.getLogger("decolog")
+    if not decolog_log.handlers and not logging.getLogger().handlers:
+        handler = logging.StreamHandler()
+        handler.setFormatter(logging.Formatter("%(levelname)s:     %(name)s %(message)s"))
+        decolog_log.addHandler(handler)
+    decolog_log.setLevel(logging.INFO)
     yield
 
 
@@ -156,15 +166,29 @@ class StatusOut(BaseModel):
 
 
 @app.post("/v1/auth/signup", response_model=TokenOut)
-def signup(body: Credentials, db: Session = Depends(auth.session)) -> TokenOut:
+def signup(body: Credentials, request: Request, db: Session = Depends(auth.session)) -> TokenOut:
     if not settings.allow_signup:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "registrazione chiusa su questo server")
     callsign = body.callsign.strip().upper()
     if db.scalar(select(Account).where(Account.callsign == callsign)):
+        # Chi esiste gia' non fa partire nessun avviso: se no bastava provare
+        # cinquanta nominativi noti per riempire una casella.
         raise HTTPException(status.HTTP_409_CONFLICT, "nominativo gia' registrato")
-    account = Account(callsign=callsign, password_hash=auth.hash_password(body.password))
+    ip = approval.client_ip(request)
+    # Con l'approvazione accesa l'account nasce in attesa: il token glielo diamo
+    # lo stesso, cosi' il programma non resta a meta', ma il sync dice di no
+    # finche' qualcuno non ha detto di si'.
+    account = Account(
+        callsign=callsign,
+        password_hash=auth.hash_password(body.password),
+        approved=not settings.approval_required,
+        approval_token=approval.new_token() if settings.approval_required else "",
+        signup_ip=ip,
+    )
     db.add(account)
     db.commit()
+    if settings.approval_required:
+        approval.notify(account, ip)
     return TokenOut(token=auth.issue_token(db, account, body.device), callsign=callsign)
 
 
@@ -345,4 +369,7 @@ def health() -> dict:
 # Le pagine stanno in coda alle rotte /v1, cosi' l'API resta il contratto e la
 # web UI e' quello che ci si appoggia sopra.
 app.mount("/static", StaticFiles(directory=str(Path(__file__).parent / "static")), name="static")
+# La pagina che decide chi entra sta prima del sito: e' un collegamento che
+# arriva per email, non una cosa che si naviga.
+app.include_router(approval.router)
 app.include_router(web.router)

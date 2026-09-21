@@ -18,6 +18,8 @@ from fastapi.testclient import TestClient  # noqa: E402
 
 from decolog_cloud import models  # noqa: E402
 from decolog_cloud.main import app  # noqa: E402
+
+from .helpers import approve  # noqa: E402
 from decolog_cloud.sync import mode_group  # noqa: E402
 
 
@@ -36,6 +38,9 @@ def client(tmp_path, monkeypatch):
 def signup(client, callsign="IU8LMC", password="una password lunga"):
     reply = client.post("/v1/auth/signup", json={"callsign": callsign, "password": password, "device": "prova"})
     assert reply.status_code == 200, reply.text
+    # Chi si registra aspetta il via libera: qui glielo diamo, come farebbe chi
+    # riceve l'email.
+    approve(client, callsign)
     return {"Authorization": "Bearer " + reply.json()["token"]}
 
 

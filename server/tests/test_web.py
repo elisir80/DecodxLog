@@ -19,6 +19,8 @@ from fastapi.testclient import TestClient  # noqa: E402
 from decolog_cloud import models  # noqa: E402
 from decolog_cloud.main import app  # noqa: E402
 
+from .helpers import approve  # noqa: E402
+
 
 @pytest.fixture()
 def client(tmp_path):
@@ -37,6 +39,7 @@ PASSWORD = "una password lunga"
 def account(client, callsign="IU8LMC"):
     reply = client.post("/v1/auth/signup", json={"callsign": callsign, "password": PASSWORD})
     assert reply.status_code == 200
+    approve(client, callsign)
     return {"Authorization": "Bearer " + reply.json()["token"]}
 
 

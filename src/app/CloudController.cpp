@@ -180,6 +180,15 @@ CloudController::CloudController(Context context, QObject* parent)
             finish(tr("Cloud: sign in again (%1)").arg(error.message), QStringLiteral("warning"));
             return;
         }
+        if (error.forbidden) {
+            // Il token va bene: e' l'account che ancora non puo'. Succede quando
+            // la registrazione aspetta il via libera di chi tiene il servizio.
+            // Buttare il token e chiedere di rientrare non servirebbe a niente:
+            // si rientrerebbe e si tornerebbe qui. Si dice com'e' e si aspetta.
+            m_ctx.db->setSyncState(accountKey(), {{QStringLiteral("lastError"), error.message}});
+            finish(tr("Cloud: %1").arg(error.message), QStringLiteral("warning"));
+            return;
+        }
         m_ctx.db->setSyncState(accountKey(), {{QStringLiteral("lastError"), error.message}});
         finish(error.retryLater ? tr("Cloud: not reachable, will retry (%1)").arg(error.message)
                                 : tr("Cloud: %1").arg(error.message),

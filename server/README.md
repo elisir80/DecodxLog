@@ -144,8 +144,21 @@ Sono due container: il servizio e PostgreSQL. Le variabili che contano:
 |---|---|---|
 | `DECOLOG_DATABASE_URL` | SQLite locale | `postgresql+psycopg://utente:password@host/decolog` |
 | `DECOLOG_ALLOW_SIGNUP` | `1` | a `0` chiude la registrazione: nessuno si fa un account da solo |
+| `DECOLOG_APPROVAL` | `1` | chi si registra aspetta il via libera; a `0` entra subito, come prima |
+| `DECOLOG_PUBLIC_URL` | `https://cloud.ft2.it` | l'indirizzo da fuori, per i collegamenti nell'email |
 | `DECOLOG_PAGE_SIZE` | `500` | quanti QSO per pagina di pull |
 | `DECOLOG_TOKEN_DAYS` | `180` | quanto dura un token |
+| `DECOLOG_SMTP_HOST` | `smtp.gmail.com` | il server di posta per l'avviso |
+| `DECOLOG_SMTP_PORT` | `587` | `587` STARTTLS, `465` cifrato dall'inizio |
+| `DECOLOG_SMTP_USER` | — | la casella da cui parte l'avviso |
+| `DECOLOG_SMTP_PASSWORD` | — | la app password di quella casella, non la password dell'account |
+| `DECOLOG_NOTIFY_EMAIL` | — | a chi arriva l'avviso |
+| `DECOLOG_SIGNUP_NOTIFY_MINUTES` | `10` | un avviso per indirizzo ogni tot minuti |
+
+Senza le quattro variabili della posta l'avviso non parte: resta una riga nel
+registro, la registrazione funziona lo stesso e gli account restano in attesa —
+si approvano aprendo `/admin/signup/<id>/<chiave>`, che si legge dal database.
+Un servizio non si pianta perche' non riesce a mandare una email.
 
 Dietro un proxy con HTTPS: il token viaggia in chiaro, quindi **niente HTTP su
 Internet**. In casa, sulla propria rete, va benissimo com'e'.

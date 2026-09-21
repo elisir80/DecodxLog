@@ -22,7 +22,11 @@ namespace decolog::core {
 struct CloudError {
     bool    ok{true};
     bool    retryLater{false};   // rete giu' o servizio occupato: si riprova
-    bool    unauthorized{false}; // token scaduto o password cambiata
+    bool    unauthorized{false}; // token scaduto o password cambiata: si rientra
+    // Il token e' buono, e' l'account che non puo': una registrazione che
+    // aspetta il via libera dell'operatore del servizio. Qui rientrare non
+    // serve a niente — si aspetta, e il token si tiene.
+    bool    forbidden{false};
     QString message;
 };
 

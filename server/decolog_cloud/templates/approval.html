@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DecoDXLog Cloud — chi entra</title>
+  <link rel="stylesheet" href="/static/decolog.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand block">
+      <span class="name">DECODXLOG</span>
+      <span class="ver">cloud</span>
+    </div>
+  </header>
+
+  <div class="panel login">
+    <header>
+      <span class="grip">⠿</span><span class="dot"></span>
+      <h2>Chi entra nel Cloud</h2>
+    </header>
+    <div class="body">
+      {% if account %}
+        <p class="muted">Questo nominativo si è registrato e aspetta il tuo via libera.</p>
+        <p><strong style="font-size:1.4em">{{ account.callsign }}</strong></p>
+        <p class="muted">
+          Registrato il {{ account.created_at.strftime('%d/%m/%Y alle %H:%M') }} UTC{% if account.signup_ip %},
+          da {{ account.signup_ip }}{% endif %}.
+        </p>
+        <form method="post" class="stack">
+          <button type="submit" name="answer" value="si">Fallo entrare</button>
+          {# Rifiutare cancella l'account: si dice, non si nasconde. #}
+          <button type="submit" name="answer" value="no">Rifiuta e cancella</button>
+        </form>
+        <p class="muted">
+          Finché non decidi, {{ account.callsign }} può registrarsi e avere il token, ma il
+          sync gli risponde che la registrazione è in attesa. Questo collegamento vale una
+          volta sola.
+        </p>
+      {% else %}
+        <p>{{ message }}</p>
+        <p class="muted">
+          Un collegamento di questi vale una volta sola: se la decisione è già stata presa,
+          non funziona più.
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <p class="foot">Il log vero resta sul computer di chi opera: qui c'è la copia che i suoi dispositivi si passano.</p>
+</div>
+</body>
+</html>

@@ -28,6 +28,25 @@ class Settings:
     token_days: int = _int("DECOLOG_TOKEN_DAYS", 180)
     # La registrazione libera si chiude quando il servizio e' di una persona sola.
     allow_signup: bool = os.environ.get("DECOLOG_ALLOW_SIGNUP", "1") not in ("0", "false", "no")
+    # La porta resta aperta, ma chi entra lo decide una persona: l'account nasce
+    # in attesa e il sync gli risponde di no finche' non e' approvato. A zero si
+    # torna a com'era, cioe' dentro subito.
+    approval_required: bool = os.environ.get("DECOLOG_APPROVAL", "1") not in ("0", "false", "no")
+    # Dove sta il servizio visto da fuori: serve a scrivere i collegamenti
+    # nell'email, che si aprono dal telefono.
+    public_url: str = os.environ.get("DECOLOG_PUBLIC_URL", "https://cloud.ft2.it").rstrip("/")
+
+    # ── L'email di avviso ────────────────────────────────────────────────────
+    # Senza queste, l'avviso non parte e resta una riga nel registro: un server
+    # non si deve piantare perche' non riesce a mandare una posta.
+    smtp_host: str = os.environ.get("DECOLOG_SMTP_HOST", "smtp.gmail.com")
+    smtp_port: int = _int("DECOLOG_SMTP_PORT", 587)
+    smtp_user: str = os.environ.get("DECOLOG_SMTP_USER", "")
+    smtp_password: str = os.environ.get("DECOLOG_SMTP_PASSWORD", "")
+    notify_email: str = os.environ.get("DECOLOG_NOTIFY_EMAIL", "")
+    # Una email per indirizzo ogni tanti minuti: chi prova cinquanta nominativi
+    # di fila non riempie la casella di nessuno.
+    notify_minutes: int = _int("DECOLOG_SIGNUP_NOTIFY_MINUTES", 10)
 
 
 settings = Settings()

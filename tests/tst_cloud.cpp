@@ -325,6 +325,52 @@ private slots:
         QVERIFY(error.message.contains(QStringLiteral("purge")));
         QVERIFY(error.message.contains(QStringLiteral("updated")));
     }
+
+    // Un token scaduto e una registrazione che aspetta il via libera non sono
+    // la stessa cosa, e il programma non deve trattarle uguale: nel primo caso
+    // si rientra, nel secondo rientrare non serve a niente — si aspetta, e il
+    // token si tiene.
+    void waitingForAYesIsNotAnExpiredToken()
+    {
+        FakeServer waiting("HTTP/1.1 403 Forbidden\r\n"
+                           "Content-Type: application/json\r\n"
+                           "Connection: close\r\n\r\n"
+                           "{\"detail\":\"registrazione in attesa di approvazione\"}");
+        CloudSync sync;
+        sync.setServer(waiting.url());
+        sync.setToken(QStringLiteral("un-token"));
+
+        QSignalSpy failures(&sync, &CloudSync::failed);
+        sync.status();
+        QVERIFY(failures.wait(5000));
+
+        const auto error = failures.first().first().value<CloudError>();
+        QVERIFY(!error.ok);
+        QVERIFY(error.forbidden);
+        QVERIFY(!error.unauthorized);       // il token e' buono: non si butta
+        QVERIFY(!error.retryLater);
+        QVERIFY2(error.message.contains(QStringLiteral("attesa di approvazione")),
+                 qPrintable(error.message));
+    }
+
+    void anExpiredTokenStillAsksToSignInAgain()
+    {
+        FakeServer gone("HTTP/1.1 401 Unauthorized\r\n"
+                        "Content-Type: application/json\r\n"
+                        "Connection: close\r\n\r\n"
+                        "{\"detail\":\"token scaduto\"}");
+        CloudSync sync;
+        sync.setServer(gone.url());
+        sync.setToken(QStringLiteral("un-token"));
+
+        QSignalSpy failures(&sync, &CloudSync::failed);
+        sync.status();
+        QVERIFY(failures.wait(5000));
+
+        const auto error = failures.first().first().value<CloudError>();
+        QVERIFY(error.unauthorized);
+        QVERIFY(!error.forbidden);
+    }
 };
 
 QTEST_GUILESS_MAIN(TestCloud)

@@ -87,4 +87,11 @@ def current_account(
     account = db.get(Account, token.account_id)
     if account is None:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "account sparito")
+    if settings.approval_required and not account.approved:
+        # 403 e non 401: il token e' buono, e' l'account che aspetta. Il
+        # programma deve dirlo cosi' com'e', non chiedere di nuovo la password.
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN,
+            "registrazione in attesa di approvazione: il Cloud si apre quando l'operatore del servizio dice di si'",
+        )
     return account

@@ -112,7 +112,8 @@ void CloudSync::watch(QNetworkReply* reply, const QString& what)
         if (reply->error() != QNetworkReply::NoError || code >= 400) {
             CloudError error;
             error.ok = false;
-            error.unauthorized = code == 401 || code == 403;
+            error.unauthorized = code == 401;
+            error.forbidden = code == 403;
             // Rete giu', servizio in manutenzione, troppe richieste: si riprova.
             error.retryLater = code == 0 || code == 429 || code >= 500;
             const QString detail = cloudsync::detailOf(answer.value(QStringLiteral("detail")));

@@ -54,16 +54,40 @@ stesso servizio, e nginx le passa gia'.
 In DecoDXLog: **Impostazioni → Sync e Cloud**, server `https://cloud.ft2.it`,
 nominativo e password, **Crea l'account**.
 
-Fatto questo, chiudi la porta:
+## Chi entra, lo decidi tu
 
-```bash
-sudo sed -i 's/DECOLOG_ALLOW_SIGNUP=1/DECOLOG_ALLOW_SIGNUP=0/' /etc/decolog-cloud.env
-sudo systemctl restart decolog-cloud
+La porta resta aperta — chiudere `DECOLOG_ALLOW_SIGNUP` vuol dire che chi
+arriva trova un rifiuto secco e non si capisce perche'. Chi si registra ottiene
+il suo token, ma l'account nasce **in attesa**: il sync gli risponde che la
+registrazione aspetta l'approvazione, e lo dice con quelle parole.
+
+A ogni registrazione arriva una email a `DECOLOG_NOTIFY_EMAIL` con il
+nominativo, l'ora e l'indirizzo da cui e' arrivata, e un collegamento. Il
+collegamento apre una pagina con due pulsanti: **fallo entrare** oppure
+**rifiuta e cancella**. Vale una volta sola. Si fa dal telefono, senza SSH.
+
+Le variabili della posta stanno in `/etc/decolog-cloud.env`: sono le stesse
+credenziali Gmail della community.
+
+```
+DECOLOG_NOTIFY_EMAIL=iu8lmc@gmail.com
+DECOLOG_SMTP_USER=...
+DECOLOG_SMTP_PASSWORD=...
+DECOLOG_PUBLIC_URL=https://cloud.ft2.it
 ```
 
-Da quel momento nessun altro puo' registrarsi; i dispositivi gia' collegati
-continuano a funzionare, e per aggiungerne uno basta rifare l'accesso con la
-stessa password.
+Rifiutare **cancella** l'account: chi e' stato rifiutato per sbaglio si
+registra di nuovo e arriva un altro avviso. Chi aveva gia' un account prima di
+questa versione resta dentro: la migrazione li segna tutti approvati.
+
+Per tornare a com'era — chiunque si registra ed entra subito — si mette
+`DECOLOG_APPROVAL=0`.
+
+Chi aspetta ancora, da riga di comando:
+
+```bash
+sudo -u decolog /opt/decolog-cloud/.venv/bin/python -c   "from decolog_cloud import approval, models;    db = models.SessionLocal();    print([(a.callsign, a.id, a.approval_token) for a in approval.pending(db)])"
+```
 
 ## Ogni giorno
 

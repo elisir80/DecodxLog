@@ -31,6 +31,7 @@ from sqlalchemy.orm import Session
 
 from . import analytics, auth, solar as solar_source, sync, theme as theming
 from .models import Account, Doc, Qso
+from .settings import settings
 
 HERE = Path(__file__).parent
 templates = Jinja2Templates(directory=str(HERE / "templates"))
@@ -140,6 +141,15 @@ def login(
         # nominativi esistono.
         return templates.TemplateResponse(
             request, "login.html", {"error": "Nominativo o password non validi."}, status_code=401
+        )
+    if settings.approval_required and not account.approved:
+        # Password giusta, ma l'account aspetta ancora: qui si puo' dire com'e',
+        # perche' chi scrive la password giusta sa gia' di esistere.
+        return templates.TemplateResponse(
+            request,
+            "login.html",
+            {"error": "La registrazione è in attesa di approvazione: riprova più tardi."},
+            status_code=403,
         )
 
     raw = auth.new_token()
