@@ -29,7 +29,7 @@ RotorGlass {
                 id: azField
 
                 Layout.fillWidth: true
-                placeholderText: qsTr("Azimut °")
+                placeholderText: qsTr("Azimuth °")
                 validator: DoubleValidator { bottom: 0; top: 360; decimals: 1 }
                 onAccepted: panel.send()
             }
@@ -39,14 +39,14 @@ RotorGlass {
 
                 Layout.fillWidth: true
                 visible: panel.st.hasEl === true
-                placeholderText: qsTr("Elevazione °")
+                placeholderText: qsTr("Elevation °")
                 validator: DoubleValidator { bottom: 0; top: 180; decimals: 1 }
                 onAccepted: panel.send()
             }
 
             RotorButton {
                 Layout.preferredWidth: 92
-                text: qsTr("PUNTA")
+                text: qsTr("POINT")
                 kind: 1
                 onClicked: panel.send()
             }
@@ -61,8 +61,8 @@ RotorGlass {
                 model: [
                     { name: qsTr("N"), deg: 0 }, { name: qsTr("NE"), deg: 45 },
                     { name: qsTr("E"), deg: 90 }, { name: qsTr("SE"), deg: 135 },
-                    { name: qsTr("S"), deg: 180 }, { name: qsTr("SO"), deg: 225 },
-                    { name: qsTr("O"), deg: 270 }, { name: qsTr("NO"), deg: 315 }
+                    { name: qsTr("S"), deg: 180 }, { name: qsTr("SW"), deg: 225 },
+                    { name: qsTr("W"), deg: 270 }, { name: qsTr("NW"), deg: 315 }
                 ]
 
                 RotorButton {

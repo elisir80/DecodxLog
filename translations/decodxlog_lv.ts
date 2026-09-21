@@ -2920,86 +2920,86 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>PARK %1°</translation>
     </message>
     <message>
-        <source>MEMORIE…</source>
+        <source>MEMORIES…</source>
         <translation>ATMIŅAS…</translation>
     </message>
 </context>
 <context>
     <name>RotorControlPage</name>
     <message>
-        <source>mappa azimutale dal QTH</source>
+        <source>azimuthal map from the QTH</source>
         <translation>azimutālā karte no QTH</translation>
     </message>
 </context>
 <context>
     <name>RotorDisplay</name>
     <message>
-        <source>control box assente</source>
+        <source>no control box</source>
         <translation>nav control box</translation>
     </message>
     <message>
-        <source>in rotazione verso %1°</source>
+        <source>turning towards %1°</source>
         <translation>griežas uz %1°</translation>
     </message>
     <message>
-        <source>in rotazione</source>
+        <source>turning</source>
         <translation>griežas</translation>
     </message>
     <message>
-        <source>fermo</source>
+        <source>still</source>
         <translation>stāv</translation>
     </message>
     <message>
-        <source>DIREZIONE LIBERA</source>
+        <source>FREE DIRECTION</source>
         <translation>BRĪVS VIRZIENS</translation>
     </message>
     <message>
-        <source>AZIMUT</source>
+        <source>AZIMUTH</source>
         <translation>AZIMUTS</translation>
     </message>
     <message>
-        <source>ELEVAZIONE</source>
+        <source>ELEVATION</source>
         <translation>ELEVĀCIJA</translation>
     </message>
 </context>
 <context>
     <name>RotorHistory</name>
     <message>
-        <source>ANDAMENTO POSIZIONE</source>
+        <source>POSITION OVER TIME</source>
         <translation>POZĪCIJAS GAITA</translation>
     </message>
     <message>
-        <source>in attesa di campioni…</source>
+        <source>waiting for readings…</source>
         <translation>gaida mērījumus…</translation>
     </message>
 </context>
 <context>
     <name>RotorLocatorBar</name>
     <message>
-        <source>Locatore, es. FN31pr</source>
+        <source>Grid, e.g. FN31pr</source>
         <translation>Lokators, piem., FN31pr</translation>
     </message>
     <message>
-        <source>BREVE</source>
+        <source>SHORT</source>
         <translation>ĪSAIS</translation>
     </message>
     <message>
-        <source>LUNGA</source>
+        <source>LONG</source>
         <translation>GARAIS</translation>
     </message>
     <message>
-        <source>breve %1° · lunga %2° · %3 km</source>
+        <source>short %1° · long %2° · %3 km</source>
         <translation>īsais %1° · garais %2° · %3 km</translation>
     </message>
     <message>
-        <source>QTH di riferimento: %1</source>
+        <source>Home QTH: %1</source>
         <translation>Atskaites QTH: %1</translation>
     </message>
 </context>
 <context>
     <name>RotorMap</name>
     <message>
-        <source>Riquadri dal gateway DecoRotor</source>
+        <source>Map tiles from the DecoRotor gateway</source>
         <translation>Kartes rūtis no DecoRotor vārtejas</translation>
     </message>
     <message>
@@ -3007,11 +3007,11 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>KLASTERIS %1</translation>
     </message>
     <message>
-        <source>CLUSTER SPENTO</source>
+        <source>CLUSTER OFF</source>
         <translation>KLASTERIS IZSLĒGTS</translation>
     </message>
     <message numerus="yes">
-        <source>%n stazione/i</source>
+        <source>%n station(s)</source>
         <translation>
             <numerusform>%n stacija</numerusform>
             <numerusform>%n stacijas</numerusform>
@@ -3023,15 +3023,15 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>%1 · %2° · %3 km</translation>
     </message>
     <message>
-        <source>PUNTA</source>
+        <source>POINT</source>
         <translation>PAGRIEZ</translation>
     </message>
     <message>
-        <source>MEMORIA</source>
+        <source>MEMORY</source>
         <translation>ATMIŅA</translation>
     </message>
     <message>
-        <source>riquadri dal gateway DecoRotor</source>
+        <source>map tiles from the DecoRotor gateway</source>
         <translation>kartes rūtis no DecoRotor vārtejas</translation>
     </message>
     <message>
@@ -3042,7 +3042,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
 <context>
     <name>RotorMemories</name>
     <message>
-        <source>MEMORIE</source>
+        <source>MEMORIES</source>
         <translation>ATMIŅAS</translation>
     </message>
     <message>
@@ -3050,38 +3050,38 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>%1° / %2°</translation>
     </message>
     <message>
-        <source>VAI</source>
+        <source>GO</source>
         <translation>AIZIET</translation>
     </message>
     <message>
-        <source>Nessuna memoria: dai un nome alla direzione attuale e salvala.</source>
+        <source>No memories: give the direction it is pointing now a name and save it.</source>
         <translation>Nav nevienas atmiņas: dod pašreizējam virzienam vārdu un saglabā to.</translation>
     </message>
     <message>
-        <source>Nome della memoria</source>
+        <source>Name of the memory</source>
         <translation>Atmiņas nosaukums</translation>
     </message>
     <message>
-        <source>SALVA QUI</source>
+        <source>SAVE HERE</source>
         <translation>SAGLABĀT ŠEIT</translation>
     </message>
 </context>
 <context>
     <name>RotorNetwork</name>
     <message>
-        <source>COLLEGAMENTI DI RETE</source>
+        <source>NETWORK LINKS</source>
         <translation>TĪKLA SAVIENOJUMI</translation>
     </message>
     <message>
-        <source>Indirizzi da usare su telefono e software di stazione:</source>
+        <source>Addresses to use on the phone and in station software:</source>
         <translation>Adreses, ko lietot telefonā un stacijas programmās:</translation>
     </message>
     <message>
-        <source>Accesso protetto da token: i client devono presentarlo.</source>
+        <source>Access is closed by a token: the clients have to show it.</source>
         <translation>Piekļuvi sargā marķieris: klientiem tas jāuzrāda.</translation>
     </message>
     <message>
-        <source>Accesso libero sulla rete locale. Per l&apos;uso da fuori casa passa da una VPN, non aprire porte sul router.</source>
+        <source>Open access on the local network. From outside the house go through a VPN, do not open ports on the router.</source>
         <translation>Brīva piekļuve vietējā tīklā. Lietošanai no ārpuses ej caur VPN, neatver portus rūterī.</translation>
     </message>
 </context>
@@ -3111,15 +3111,15 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
 <context>
     <name>RotorPointing</name>
     <message>
-        <source>Azimut °</source>
+        <source>Azimuth °</source>
         <translation>Azimuts °</translation>
     </message>
     <message>
-        <source>Elevazione °</source>
+        <source>Elevation °</source>
         <translation>Elevācija °</translation>
     </message>
     <message>
-        <source>PUNTA</source>
+        <source>POINT</source>
         <translation>PAGRIEZ</translation>
     </message>
     <message>
@@ -3143,45 +3143,45 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>D</translation>
     </message>
     <message>
-        <source>SO</source>
+        <source>SW</source>
         <translation>DR</translation>
     </message>
     <message>
-        <source>O</source>
+        <source>W</source>
         <translation>R</translation>
     </message>
     <message>
-        <source>NO</source>
+        <source>NW</source>
         <translation>ZR</translation>
     </message>
 </context>
 <context>
     <name>RotorReadout</name>
     <message>
-        <source>verso %1°</source>
+        <source>towards %1°</source>
         <translation>uz %1°</translation>
     </message>
     <message>
-        <source>posizione stabile</source>
+        <source>position steady</source>
         <translation>pozīcija stabila</translation>
     </message>
     <message>
-        <source>nessuna lettura</source>
+        <source>no reading</source>
         <translation>nav nolasījuma</translation>
     </message>
 </context>
 <context>
     <name>RotorSettings</name>
     <message>
-        <source>COLLEGAMENTO AL CONTROL BOX</source>
+        <source>LINK TO THE CONTROL BOX</source>
         <translation>SAVIENOJUMS AR CONTROL BOX</translation>
     </message>
     <message>
-        <source>Porta seriale</source>
+        <source>Serial port</source>
         <translation>Seriālais ports</translation>
     </message>
     <message>
-        <source>Velocita&apos;</source>
+        <source>Speed</source>
         <translation>Ātrums</translation>
     </message>
     <message>
@@ -3189,105 +3189,105 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>%1 bodi, 8N1</translation>
     </message>
     <message>
-        <source>Modello</source>
+        <source>Model</source>
         <translation>Modelis</translation>
     </message>
     <message>
-        <source>Stato</source>
+        <source>Status</source>
         <translation>Statuss</translation>
     </message>
     <message>
-        <source>collegato</source>
+        <source>connected</source>
         <translation>pieslēgts</translation>
     </message>
     <message>
-        <source>assente</source>
+        <source>not there</source>
         <translation>nav</translation>
     </message>
     <message>
-        <source>Porta e modello si cambiano all&apos;avvio, con --port e --model.</source>
+        <source>Port and model are changed at startup, with --port and --model.</source>
         <translation>Portu un modeli maina, startējot, ar --port un --model.</translation>
     </message>
 </context>
 <context>
     <name>RotorSettingsPanel</name>
     <message>
-        <source>STAZIONE E SICUREZZA</source>
+        <source>STATION AND SAFETY</source>
         <translation>STACIJA UN DROŠĪBA</translation>
     </message>
     <message>
-        <source>Nominativo</source>
+        <source>Callsign</source>
         <translation>Izsaukuma signāls</translation>
     </message>
     <message>
-        <source>Locatore del QTH</source>
+        <source>Grid of the QTH</source>
         <translation>QTH lokators</translation>
     </message>
     <message>
-        <source>Apertura del lobo: %1°</source>
+        <source>Beamwidth: %1°</source>
         <translation>Staru kūļa platums: %1°</translation>
     </message>
     <message>
-        <source>Finecorsa azimut</source>
+        <source>Azimuth end stop</source>
         <translation>Azimuta gala slēdzis</translation>
     </message>
     <message>
-        <source>Posizione di riposo</source>
+        <source>Rest position</source>
         <translation>Miera stāvoklis</translation>
     </message>
     <message>
-        <source>Stop se cade il collegamento</source>
+        <source>Stop if the link drops</source>
         <translation>Apturēt, ja pārtrūkst savienojums</translation>
     </message>
     <message>
-        <source>attivo</source>
+        <source>on</source>
         <translation>ieslēgts</translation>
     </message>
     <message>
-        <source>disattivato</source>
+        <source>off</source>
         <translation>izslēgts</translation>
     </message>
     <message>
-        <source>Tolleranza di arrivo</source>
+        <source>Arrival tolerance</source>
         <translation>Pielaide pienākot</translation>
     </message>
     <message>
-        <source>Porta seriale, modello e porta dei decode si cambiano all&apos;avvio del gateway.</source>
+        <source>Serial port, model and the decodes port are changed when the gateway starts.</source>
         <translation>Seriālo portu, modeli un dekodēšanas portu maina, startējot vārteju.</translation>
     </message>
     <message>
-        <source>Le modifiche vengono salvate subito in config.json.</source>
+        <source>Changes are saved in config.json straight away.</source>
         <translation>Izmaiņas uzreiz tiek saglabātas failā config.json.</translation>
     </message>
 </context>
 <context>
     <name>RotorStats</name>
     <message>
-        <source>ESERCIZIO</source>
+        <source>IN SERVICE</source>
         <translation>DARBĪBA</translation>
     </message>
     <message>
-        <source>Frame inviati</source>
+        <source>Frames sent</source>
         <translation>Nosūtītie kadri</translation>
     </message>
     <message>
-        <source>Frame ricevuti</source>
+        <source>Frames received</source>
         <translation>Saņemtie kadri</translation>
     </message>
     <message>
-        <source>Risposte perse</source>
+        <source>Answers lost</source>
         <translation>Zudušās atbildes</translation>
     </message>
     <message>
-        <source>Riconnessioni</source>
+        <source>Reconnections</source>
         <translation>Atkārtoti savienojumi</translation>
     </message>
     <message>
-        <source>In servizio da</source>
+        <source>Running since</source>
         <translation>Darbībā kopš</translation>
     </message>
     <message>
-        <source>Client collegati</source>
+        <source>Clients connected</source>
         <translation>Pieslēgtie klienti</translation>
     </message>
     <message>
@@ -3298,7 +3298,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
 <context>
     <name>RotorStatus</name>
     <message>
-        <source>pronto</source>
+        <source>ready</source>
         <translation>gatavs</translation>
     </message>
     <message>
@@ -3329,15 +3329,15 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>CONTROL BOX %1</translation>
     </message>
     <message>
-        <source>CONTROL BOX ASSENTE</source>
+        <source>NO CONTROL BOX</source>
         <translation>NAV CONTROL BOX</translation>
     </message>
     <message>
-        <source>IN ROTAZIONE</source>
+        <source>TURNING</source>
         <translation>GRIEŽAS</translation>
     </message>
     <message>
-        <source>FERMO</source>
+        <source>STILL</source>
         <translation>STĀV</translation>
     </message>
     <message numerus="yes">
@@ -3349,18 +3349,18 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         </translation>
     </message>
     <message>
-        <source>Passa al quadrante chiaro</source>
+        <source>Switch to the light dial</source>
         <translation>Pārslēgties uz gaišo ciparnīcu</translation>
     </message>
     <message>
-        <source>Passa al quadrante notturno</source>
+        <source>Switch to the night dial</source>
         <translation>Pārslēgties uz nakts ciparnīcu</translation>
     </message>
 </context>
 <context>
     <name>RotorTraffic</name>
     <message>
-        <source>TRAFFICO SERIALE</source>
+        <source>SERIAL TRAFFIC</source>
         <translation>SERIĀLĀ SATIKSME</translation>
     </message>
     <message>
@@ -3368,30 +3368,30 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>%1 @ %2 8N1</translation>
     </message>
     <message>
-        <source>%1 frame</source>
+        <source>%1 frames</source>
         <translation>%1 kadri</translation>
     </message>
     <message>
-        <source>nessun frame: il gateway li manda a richiesta</source>
+        <source>no frames: the gateway sends them when asked</source>
         <translation>nav neviena kadra: vārteja tos sūta pēc pieprasījuma</translation>
     </message>
 </context>
 <context>
     <name>RotorWindow</name>
     <message>
-        <source>DecoRotor — controllo rotore PRO.SIS.TEL</source>
+        <source>DecoRotor — PRO.SIS.TEL rotor control</source>
         <translation>DecoRotor — PRO.SIS.TEL rotora vadība</translation>
     </message>
     <message>
-        <source>CONTROLLO</source>
+        <source>CONTROL</source>
         <translation>VADĪBA</translation>
     </message>
     <message>
-        <source>DIAGNOSTICA</source>
+        <source>DIAGNOSTICS</source>
         <translation>DIAGNOSTIKA</translation>
     </message>
     <message>
-        <source>IMPOSTAZIONI</source>
+        <source>SETTINGS</source>
         <translation>IESTATĪJUMI</translation>
     </message>
 </context>
@@ -4634,6 +4634,13 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>VfoDisplay</name>
+    <message>
+        <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
+        <translation>Ritenītis: cipars zem rādītāja. Klikšķis: ierakstīt frekvenci.</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::ActivationController</name>
     <message>
         <source>Choose what kind of session it is</source>
@@ -5055,6 +5062,26 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>QSO not logged: %1</source>
         <translation>QSO nav ierakstīts: %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send the frequency: the radio is not connected and Decodium is not there either.</source>
+        <translation>Frekvencei nav kurp iet: radio nav pieslēgta, un arī Decodium šeit nav.</translation>
+    </message>
+    <message>
+        <source>radio and Decodium</source>
+        <translation>radio un Decodium</translation>
+    </message>
+    <message>
+        <source>radio</source>
+        <translation>radio</translation>
+    </message>
+    <message>
+        <source>Tuned to %1 MHz %2 (%3)</source>
+        <translation>Noskaņots uz %1 MHz %2 (%3)</translation>
+    </message>
+    <message>
+        <source>Mode %1 (%2)</source>
+        <translation>Režīms %1 (%2)</translation>
     </message>
     <message>
         <source>Already worked in this activation</source>

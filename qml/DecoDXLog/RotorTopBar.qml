@@ -73,13 +73,13 @@ Rectangle {
 
         RotorLed {
             label: bar.st.connected ? qsTr("CONTROL BOX %1").arg(bar.st.port || "")
-                                    : qsTr("CONTROL BOX ASSENTE")
+                                    : qsTr("NO CONTROL BOX")
             colour: bar.st.connected ? rt.accent : rt.danger
             blinking: !bar.st.connected
         }
 
         RotorLed {
-            label: bar.st.moving ? qsTr("IN ROTAZIONE") : qsTr("FERMO")
+            label: bar.st.moving ? qsTr("TURNING") : qsTr("STILL")
             colour: bar.st.moving ? rt.warning : rt.textDim
             blinking: bar.st.moving === true
         }
@@ -120,8 +120,8 @@ Rectangle {
             }
 
             ToolTip.visible: light.hovered
-            ToolTip.text: bar.nightMode ? qsTr("Passa al quadrante chiaro")
-                                        : qsTr("Passa al quadrante notturno")
+            ToolTip.text: bar.nightMode ? qsTr("Switch to the light dial")
+                                        : qsTr("Switch to the night dial")
         }
     }
 }

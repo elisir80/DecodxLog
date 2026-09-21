@@ -365,6 +365,17 @@ public:
     Q_INVOKABLE QString logManualQso(const QVariantMap& fields);
     Q_INVOKABLE QVariantMap utcNow() const;
 
+    // ── Il VFO della barra in alto ───────────────────────────────────────────
+    //
+    // La frequenza scritta in cima non e' solo un numero da guardare: la
+    // rotellina la muove, un clic la fa scrivere, e il modo si sceglie da un
+    // elenco. Dove va a finire dipende da chi c'e': la radio, se il CAT e'
+    // collegato, e Decodium, se DecoLink ha qualcuno dall'altra parte. Se non
+    // c'e' nessuno dei due, si dice invece di far finta.
+    Q_INVOKABLE void tuneTo(double mhz, const QString& mode = QString());
+    // I modi da mettere nel menu: {name, cat, group}.
+    Q_INVOKABLE QVariantList operatingModes() const;
+
     // Scheda di un QSO: campi ADIF, dati di sync, QSL, storico, effetto sugli award.
     Q_INVOKABLE QVariantMap qsoDetail(qint64 id) const;
     // `fields` e' la mappa ADIF completa (come in qsoDetail().fields).

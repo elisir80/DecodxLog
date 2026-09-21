@@ -39,15 +39,25 @@ GlassPanel {
         }
     ]
 
-    implicitHeight: 208
+    implicitHeight: 236
+
+    // Il quadrante e i gradi in alto, i comandi in fondo larghi quanto il
+    // pannello: nella colonna stretta i pulsanti andavano a capo a meta' e la
+    // scritta di stato si mangiava il resto.
+    ColumnLayout {
+        anchors.fill: parent
+        spacing: 6
 
     RowLayout {
-        anchors.fill: parent
+        Layout.fillWidth: true
+        Layout.fillHeight: true
         spacing: 10
 
         RotorDial {
-            Layout.preferredWidth: 132
-            Layout.preferredHeight: 132
+            // Il quadrante si stringe con il pannello, fino a restare leggibile.
+            readonly property int side: Math.max(92, Math.min(132, root.width * 0.42))
+            Layout.preferredWidth: side
+            Layout.preferredHeight: side
             Layout.alignment: Qt.AlignVCenter
 
             azimuth: root.state.az || 0
@@ -98,58 +108,69 @@ GlassPanel {
             }
 
             Item { Layout.fillHeight: true }
-
-            Flow {
-                Layout.fillWidth: true
-                spacing: 4
-                GlassButton {
-                    text: "−10"; buttonHeight: 22; fontPixelSize: 11
-                    enabled: root.state.connected
-                    onClicked: root.rotor.nudge(-10)
-                }
-                GlassButton {
-                    text: "−1"; buttonHeight: 22; fontPixelSize: 11
-                    enabled: root.state.connected
-                    onClicked: root.rotor.nudge(-1)
-                }
-                GlassButton {
-                    text: "+1"; buttonHeight: 22; fontPixelSize: 11
-                    enabled: root.state.connected
-                    onClicked: root.rotor.nudge(1)
-                }
-                GlassButton {
-                    text: "+10"; buttonHeight: 22; fontPixelSize: 11
-                    enabled: root.state.connected
-                    onClicked: root.rotor.nudge(10)
-                }
-            }
-
-            Flow {
-                Layout.fillWidth: true
-                spacing: 4
-                GlassButton {
-                    text: qsTr("STOP")
-                    tone: Theme.errorColor
-                    buttonHeight: 22
-                    fontPixelSize: 11
-                    enabled: root.state.connected
-                    onClicked: root.rotor.stopNow(false)
-                }
-                GlassButton {
-                    text: qsTr("Park"); buttonHeight: 22; fontPixelSize: 11
-                    enabled: root.state.connected
-                    onClicked: root.rotor.park()
-                }
-                GlassButton {
-                    readonly property var info: decolog.callInfo
-                    text: qsTr("On the DX")
-                    tone: Theme.primaryColor
-                    buttonHeight: 22
-                    fontPixelSize: 11
-                    enabled: root.state.connected && info.azimuth !== undefined
-                    onClicked: root.rotor.pointTo(info.azimuth, info.call || "")
-                }
-            }
         }
+    }
+
+    // Due file di pulsanti che occupano tutta la larghezza: quattro passi in
+    // alto, i tre comandi sotto. Ogni pulsante si allarga con il pannello,
+    // quindi restano in riga anche quando la colonna e' stretta.
+    GridLayout {
+        Layout.fillWidth: true
+        columns: 4
+        columnSpacing: 4
+        rowSpacing: 4
+
+        GlassButton {
+            Layout.fillWidth: true
+            text: "−10"; buttonHeight: 22; fontPixelSize: 11
+            enabled: root.state.connected
+            onClicked: root.rotor.nudge(-10)
+        }
+        GlassButton {
+            Layout.fillWidth: true
+            text: "−1"; buttonHeight: 22; fontPixelSize: 11
+            enabled: root.state.connected
+            onClicked: root.rotor.nudge(-1)
+        }
+        GlassButton {
+            Layout.fillWidth: true
+            text: "+1"; buttonHeight: 22; fontPixelSize: 11
+            enabled: root.state.connected
+            onClicked: root.rotor.nudge(1)
+        }
+        GlassButton {
+            Layout.fillWidth: true
+            text: "+10"; buttonHeight: 22; fontPixelSize: 11
+            enabled: root.state.connected
+            onClicked: root.rotor.nudge(10)
+        }
+
+        GlassButton {
+            Layout.fillWidth: true
+            text: qsTr("STOP")
+            tone: Theme.errorColor
+            buttonHeight: 22
+            fontPixelSize: 11
+            enabled: root.state.connected
+            onClicked: root.rotor.stopNow(false)
+        }
+        GlassButton {
+            Layout.fillWidth: true
+            text: qsTr("Park"); buttonHeight: 22; fontPixelSize: 11
+            enabled: root.state.connected
+            onClicked: root.rotor.park()
+        }
+        GlassButton {
+            readonly property var info: decolog.callInfo
+            Layout.fillWidth: true
+            Layout.columnSpan: 2
+            text: qsTr("On the DX")
+            tone: Theme.primaryColor
+            buttonHeight: 22
+            fontPixelSize: 11
+            enabled: root.state.connected && info.azimuth !== undefined
+            onClicked: root.rotor.pointTo(info.azimuth, info.call || "")
+        }
+    }
     }
 }

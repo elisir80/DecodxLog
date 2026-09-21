@@ -30,7 +30,7 @@ Rectangle {
 
             Layout.preferredWidth: 176
             implicitHeight: 32
-            placeholderText: qsTr("Locatore, es. FN31pr")
+            placeholderText: qsTr("Grid, e.g. FN31pr")
             font.capitalization: Font.AllUppercase
             onTextChanged: bar.rotor.askBearing(text)
             onAccepted: bar.rotor.pointLocator(text, false)
@@ -39,7 +39,7 @@ Rectangle {
         RotorButton {
             Layout.preferredWidth: 76
             Layout.preferredHeight: 32
-            text: qsTr("BREVE")
+            text: qsTr("SHORT")
             kind: 1
             enabled: bar.bearingValid
             onClicked: bar.rotor.pointLocator(locatorField.text, false)
@@ -48,7 +48,7 @@ Rectangle {
         RotorButton {
             Layout.preferredWidth: 76
             Layout.preferredHeight: 32
-            text: qsTr("LUNGA")
+            text: qsTr("LONG")
             enabled: bar.bearingValid
             onClicked: bar.rotor.pointLocator(locatorField.text, true)
         }
@@ -56,11 +56,11 @@ Rectangle {
         Text {
             Layout.fillWidth: true
             text: bar.bearingValid
-                  ? qsTr("breve %1° · lunga %2° · %3 km")
+                  ? qsTr("short %1° · long %2° · %3 km")
                         .arg(bar.bearing.short_path.toFixed(1))
                         .arg(bar.bearing.long_path.toFixed(1))
                         .arg(bar.bearing.distance_km.toFixed(0))
-                  : qsTr("QTH di riferimento: %1").arg(bar.rotor.state.locator || "")
+                  : qsTr("Home QTH: %1").arg(bar.rotor.state.locator || "")
             color: bar.bearingValid ? rt.accent : rt.textDim
             font.pixelSize: rt.fontSmall
             font.family: rt.monoFamily

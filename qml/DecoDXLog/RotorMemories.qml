@@ -7,7 +7,7 @@ import QtQuick.Layouts
 RotorGlass {
     id: panel
 
-    title: qsTr("MEMORIE")
+    title: qsTr("MEMORIES")
 
     RotorPalette { id: rt }
 
@@ -83,7 +83,7 @@ RotorGlass {
                         RotorButton {
                             Layout.preferredWidth: 64
                             Layout.preferredHeight: 28
-                            text: qsTr("VAI")
+                            text: qsTr("GO")
                             kind: 1
                             onClicked: panel.rotor.recallPreset(row.modelData.name)
                         }
@@ -102,7 +102,7 @@ RotorGlass {
         Text {
             Layout.fillWidth: true
             visible: panel.rotor.presets.length === 0
-            text: qsTr("Nessuna memoria: dai un nome alla direzione attuale e salvala.")
+            text: qsTr("No memories: give the direction it is pointing now a name and save it.")
             color: rt.textDim
             font.pixelSize: rt.fontSmall
             wrapMode: Text.WordWrap
@@ -116,13 +116,13 @@ RotorGlass {
                 id: nameField
 
                 Layout.fillWidth: true
-                placeholderText: qsTr("Nome della memoria")
+                placeholderText: qsTr("Name of the memory")
                 onAccepted: panel.store()
             }
 
             RotorButton {
                 Layout.preferredWidth: 110
-                text: qsTr("SALVA QUI")
+                text: qsTr("SAVE HERE")
                 enabled: panel.rotor.state.connected === true && nameField.text.trim().length > 0
                 onClicked: panel.store()
             }

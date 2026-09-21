@@ -7,7 +7,7 @@ import QtQuick.Shapes
 RotorGlass {
     id: strip
 
-    title: qsTr("ANDAMENTO POSIZIONE")
+    title: qsTr("POSITION OVER TIME")
 
     RotorPalette { id: rt }
 
@@ -81,7 +81,7 @@ RotorGlass {
         Text {
             anchors.centerIn: parent
             visible: strip.samples.length <= 1
-            text: qsTr("in attesa di campioni…")
+            text: qsTr("waiting for readings…")
             color: rt.textDim
             font.pixelSize: rt.fontSmall
         }

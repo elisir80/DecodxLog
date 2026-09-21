@@ -74,7 +74,7 @@ RotorGlass {
             RotorButton {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 34
-                text: qsTr("MEMORIE…")
+                text: qsTr("MEMORIES…")
                 onClicked: bar.presetsRequested()
             }
         }

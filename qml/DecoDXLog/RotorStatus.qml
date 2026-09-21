@@ -33,7 +33,7 @@ Rectangle {
 
         Text {
             readonly property string problem: strip.st.error || ""
-            text: problem.length > 0 ? problem : qsTr("pronto")
+            text: problem.length > 0 ? problem : qsTr("ready")
             color: problem.length > 0 ? rt.danger : rt.textDim
             font.pixelSize: rt.fontSmall
             elide: Text.ElideRight

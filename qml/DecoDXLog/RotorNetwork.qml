@@ -7,7 +7,7 @@ import QtQuick.Layouts
 RotorGlass {
     id: panel
 
-    title: qsTr("COLLEGAMENTI DI RETE")
+    title: qsTr("NETWORK LINKS")
 
     RotorPalette { id: rt }
 
@@ -20,7 +20,7 @@ RotorGlass {
 
         Text {
             Layout.fillWidth: true
-            text: qsTr("Indirizzi da usare su telefono e software di stazione:")
+            text: qsTr("Addresses to use on the phone and in station software:")
             color: rt.textSecondary
             font.pixelSize: rt.fontSmall
             wrapMode: Text.WordWrap
@@ -60,8 +60,8 @@ RotorGlass {
         Text {
             Layout.fillWidth: true
             text: panel.st.tokenRequired
-                  ? qsTr("Accesso protetto da token: i client devono presentarlo.")
-                  : qsTr("Accesso libero sulla rete locale. Per l'uso da fuori casa passa da una VPN, non aprire porte sul router.")
+                  ? qsTr("Access is closed by a token: the clients have to show it.")
+                  : qsTr("Open access on the local network. From outside the house go through a VPN, do not open ports on the router.")
             color: panel.st.tokenRequired ? rt.accent : rt.warning
             font.pixelSize: rt.fontSmall
             wrapMode: Text.WordWrap

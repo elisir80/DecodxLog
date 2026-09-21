@@ -142,7 +142,7 @@ Item {
 
         PluginParameter {
             name: "osm.mapping.custom.mapcopyright"
-            value: qsTr("Riquadri dal gateway DecoRotor")
+            value: qsTr("Map tiles from the DecoRotor gateway")
         }
     }
 
@@ -330,13 +330,13 @@ Item {
             RotorLed {
                 label: decolog.cluster.onlineCount > 0
                        ? qsTr("CLUSTER %1").arg(decolog.cluster.onlineCount)
-                       : qsTr("CLUSTER SPENTO")
+                       : qsTr("CLUSTER OFF")
                 colour: decolog.cluster.onlineCount > 0 ? rt.accent : rt.danger
                 blinking: false
             }
 
             Text {
-                text: qsTr("%n stazione/i", "", view.spotCount)
+                text: qsTr("%n station(s)", "", view.spotCount)
                 color: rt.textSecondary
                 font.pixelSize: rt.fontSmall
             }
@@ -482,7 +482,7 @@ Item {
                 RotorButton {
                     Layout.fillWidth: true
                     Layout.preferredHeight: 30
-                    text: qsTr("PUNTA")
+                    text: qsTr("POINT")
                     kind: 1
                     onClicked: view.rotor.pointTo(view.selectedSpot.az, view.selectedSpot.call)
                 }
@@ -490,7 +490,7 @@ Item {
                 RotorButton {
                     Layout.preferredWidth: 94
                     Layout.preferredHeight: 30
-                    text: qsTr("MEMORIA")
+                    text: qsTr("MEMORY")
                     onClicked: view.rotor.savePresetHere(view.selectedSpot.call)
                 }
             }
@@ -511,7 +511,7 @@ Item {
         anchors.right: parent.right
         anchors.bottom: footer.top
         anchors.margins: 6
-        text: view.rotor.tileEndpoint.length > 0 ? qsTr("riquadri dal gateway DecoRotor")
+        text: view.rotor.tileEndpoint.length > 0 ? qsTr("map tiles from the DecoRotor gateway")
                                                  : qsTr("© OpenStreetMap contributors")
         color: rt.textDim
         font.pixelSize: 9

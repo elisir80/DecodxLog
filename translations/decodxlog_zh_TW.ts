@@ -2918,86 +2918,86 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>停放 %1°</translation>
     </message>
     <message>
-        <source>MEMORIE…</source>
+        <source>MEMORIES…</source>
         <translation>記憶位…</translation>
     </message>
 </context>
 <context>
     <name>RotorControlPage</name>
     <message>
-        <source>mappa azimutale dal QTH</source>
+        <source>azimuthal map from the QTH</source>
         <translation>以 QTH 為中心的方位地圖</translation>
     </message>
 </context>
 <context>
     <name>RotorDisplay</name>
     <message>
-        <source>control box assente</source>
+        <source>no control box</source>
         <translation>沒有控制盒</translation>
     </message>
     <message>
-        <source>in rotazione verso %1°</source>
+        <source>turning towards %1°</source>
         <translation>正轉向 %1°</translation>
     </message>
     <message>
-        <source>in rotazione</source>
+        <source>turning</source>
         <translation>正在轉動</translation>
     </message>
     <message>
-        <source>fermo</source>
+        <source>still</source>
         <translation>停著</translation>
     </message>
     <message>
-        <source>DIREZIONE LIBERA</source>
+        <source>FREE DIRECTION</source>
         <translation>自由方向</translation>
     </message>
     <message>
-        <source>AZIMUT</source>
+        <source>AZIMUTH</source>
         <translation>方位角</translation>
     </message>
     <message>
-        <source>ELEVAZIONE</source>
+        <source>ELEVATION</source>
         <translation>仰角</translation>
     </message>
 </context>
 <context>
     <name>RotorHistory</name>
     <message>
-        <source>ANDAMENTO POSIZIONE</source>
+        <source>POSITION OVER TIME</source>
         <translation>位置變化</translation>
     </message>
     <message>
-        <source>in attesa di campioni…</source>
+        <source>waiting for readings…</source>
         <translation>正在等取樣…</translation>
     </message>
 </context>
 <context>
     <name>RotorLocatorBar</name>
     <message>
-        <source>Locatore, es. FN31pr</source>
+        <source>Grid, e.g. FN31pr</source>
         <translation>網格，例如 FN31pr</translation>
     </message>
     <message>
-        <source>BREVE</source>
+        <source>SHORT</source>
         <translation>短路徑</translation>
     </message>
     <message>
-        <source>LUNGA</source>
+        <source>LONG</source>
         <translation>長路徑</translation>
     </message>
     <message>
-        <source>breve %1° · lunga %2° · %3 km</source>
+        <source>short %1° · long %2° · %3 km</source>
         <translation>短路徑 %1° · 長路徑 %2° · %3 km</translation>
     </message>
     <message>
-        <source>QTH di riferimento: %1</source>
+        <source>Home QTH: %1</source>
         <translation>參照 QTH：%1</translation>
     </message>
 </context>
 <context>
     <name>RotorMap</name>
     <message>
-        <source>Riquadri dal gateway DecoRotor</source>
+        <source>Map tiles from the DecoRotor gateway</source>
         <translation>來自 DecoRotor 閘道的地圖圖磚</translation>
     </message>
     <message>
@@ -3005,11 +3005,11 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>叢集 %1</translation>
     </message>
     <message>
-        <source>CLUSTER SPENTO</source>
+        <source>CLUSTER OFF</source>
         <translation>叢集已關閉</translation>
     </message>
     <message numerus="yes">
-        <source>%n stazione/i</source>
+        <source>%n station(s)</source>
         <translation>
             <numerusform>%n 個電台</numerusform>
         </translation>
@@ -3019,15 +3019,15 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>%1 · %2° · %3 km</translation>
     </message>
     <message>
-        <source>PUNTA</source>
+        <source>POINT</source>
         <translation>指向</translation>
     </message>
     <message>
-        <source>MEMORIA</source>
+        <source>MEMORY</source>
         <translation>記憶位</translation>
     </message>
     <message>
-        <source>riquadri dal gateway DecoRotor</source>
+        <source>map tiles from the DecoRotor gateway</source>
         <translation>來自 DecoRotor 閘道的地圖圖磚</translation>
     </message>
     <message>
@@ -3038,7 +3038,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
 <context>
     <name>RotorMemories</name>
     <message>
-        <source>MEMORIE</source>
+        <source>MEMORIES</source>
         <translation>記憶位</translation>
     </message>
     <message>
@@ -3046,38 +3046,38 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>%1° / %2°</translation>
     </message>
     <message>
-        <source>VAI</source>
+        <source>GO</source>
         <translation>走</translation>
     </message>
     <message>
-        <source>Nessuna memoria: dai un nome alla direzione attuale e salvala.</source>
+        <source>No memories: give the direction it is pointing now a name and save it.</source>
         <translation>還沒有記憶位：給現在的方向取個名字並儲存。</translation>
     </message>
     <message>
-        <source>Nome della memoria</source>
+        <source>Name of the memory</source>
         <translation>記憶位的名稱</translation>
     </message>
     <message>
-        <source>SALVA QUI</source>
+        <source>SAVE HERE</source>
         <translation>儲存到這裡</translation>
     </message>
 </context>
 <context>
     <name>RotorNetwork</name>
     <message>
-        <source>COLLEGAMENTI DI RETE</source>
+        <source>NETWORK LINKS</source>
         <translation>網路連線</translation>
     </message>
     <message>
-        <source>Indirizzi da usare su telefono e software di stazione:</source>
+        <source>Addresses to use on the phone and in station software:</source>
         <translation>在手機和電台軟體上用的位址：</translation>
     </message>
     <message>
-        <source>Accesso protetto da token: i client devono presentarlo.</source>
+        <source>Access is closed by a token: the clients have to show it.</source>
         <translation>存取由權杖保護：用戶端必須出示它。</translation>
     </message>
     <message>
-        <source>Accesso libero sulla rete locale. Per l&apos;uso da fuori casa passa da una VPN, non aprire porte sul router.</source>
+        <source>Open access on the local network. From outside the house go through a VPN, do not open ports on the router.</source>
         <translation>在本地網路裡可以自由存取。要從外面用，請走 VPN，不要在路由器上開連接埠。</translation>
     </message>
 </context>
@@ -3107,15 +3107,15 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
 <context>
     <name>RotorPointing</name>
     <message>
-        <source>Azimut °</source>
+        <source>Azimuth °</source>
         <translation>方位角 °</translation>
     </message>
     <message>
-        <source>Elevazione °</source>
+        <source>Elevation °</source>
         <translation>仰角 °</translation>
     </message>
     <message>
-        <source>PUNTA</source>
+        <source>POINT</source>
         <translation>指向</translation>
     </message>
     <message>
@@ -3139,45 +3139,45 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>南</translation>
     </message>
     <message>
-        <source>SO</source>
+        <source>SW</source>
         <translation>西南</translation>
     </message>
     <message>
-        <source>O</source>
+        <source>W</source>
         <translation>西</translation>
     </message>
     <message>
-        <source>NO</source>
+        <source>NW</source>
         <translation>西北</translation>
     </message>
 </context>
 <context>
     <name>RotorReadout</name>
     <message>
-        <source>verso %1°</source>
+        <source>towards %1°</source>
         <translation>朝向 %1°</translation>
     </message>
     <message>
-        <source>posizione stabile</source>
+        <source>position steady</source>
         <translation>位置穩定</translation>
     </message>
     <message>
-        <source>nessuna lettura</source>
+        <source>no reading</source>
         <translation>沒有讀數</translation>
     </message>
 </context>
 <context>
     <name>RotorSettings</name>
     <message>
-        <source>COLLEGAMENTO AL CONTROL BOX</source>
+        <source>LINK TO THE CONTROL BOX</source>
         <translation>與控制盒的連線</translation>
     </message>
     <message>
-        <source>Porta seriale</source>
+        <source>Serial port</source>
         <translation>序列埠</translation>
     </message>
     <message>
-        <source>Velocita&apos;</source>
+        <source>Speed</source>
         <translation>速率</translation>
     </message>
     <message>
@@ -3185,105 +3185,105 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>%1 baud，8N1</translation>
     </message>
     <message>
-        <source>Modello</source>
+        <source>Model</source>
         <translation>型號</translation>
     </message>
     <message>
-        <source>Stato</source>
+        <source>Status</source>
         <translation>狀態</translation>
     </message>
     <message>
-        <source>collegato</source>
+        <source>connected</source>
         <translation>已連接</translation>
     </message>
     <message>
-        <source>assente</source>
+        <source>not there</source>
         <translation>沒有</translation>
     </message>
     <message>
-        <source>Porta e modello si cambiano all&apos;avvio, con --port e --model.</source>
+        <source>Port and model are changed at startup, with --port and --model.</source>
         <translation>連接埠和型號在啟動時用 --port 和 --model 改。</translation>
     </message>
 </context>
 <context>
     <name>RotorSettingsPanel</name>
     <message>
-        <source>STAZIONE E SICUREZZA</source>
+        <source>STATION AND SAFETY</source>
         <translation>電台與安全</translation>
     </message>
     <message>
-        <source>Nominativo</source>
+        <source>Callsign</source>
         <translation>呼號</translation>
     </message>
     <message>
-        <source>Locatore del QTH</source>
+        <source>Grid of the QTH</source>
         <translation>QTH 的網格</translation>
     </message>
     <message>
-        <source>Apertura del lobo: %1°</source>
+        <source>Beamwidth: %1°</source>
         <translation>波瓣寬度：%1°</translation>
     </message>
     <message>
-        <source>Finecorsa azimut</source>
+        <source>Azimuth end stop</source>
         <translation>方位限位</translation>
     </message>
     <message>
-        <source>Posizione di riposo</source>
+        <source>Rest position</source>
         <translation>休止位置</translation>
     </message>
     <message>
-        <source>Stop se cade il collegamento</source>
+        <source>Stop if the link drops</source>
         <translation>連線斷了就停</translation>
     </message>
     <message>
-        <source>attivo</source>
+        <source>on</source>
         <translation>開</translation>
     </message>
     <message>
-        <source>disattivato</source>
+        <source>off</source>
         <translation>關</translation>
     </message>
     <message>
-        <source>Tolleranza di arrivo</source>
+        <source>Arrival tolerance</source>
         <translation>到位容差</translation>
     </message>
     <message>
-        <source>Porta seriale, modello e porta dei decode si cambiano all&apos;avvio del gateway.</source>
+        <source>Serial port, model and the decodes port are changed when the gateway starts.</source>
         <translation>序列埠、型號和解碼連接埠在閘道啟動時更改。</translation>
     </message>
     <message>
-        <source>Le modifiche vengono salvate subito in config.json.</source>
+        <source>Changes are saved in config.json straight away.</source>
         <translation>改動會立刻儲存到 config.json。</translation>
     </message>
 </context>
 <context>
     <name>RotorStats</name>
     <message>
-        <source>ESERCIZIO</source>
+        <source>IN SERVICE</source>
         <translation>運行</translation>
     </message>
     <message>
-        <source>Frame inviati</source>
+        <source>Frames sent</source>
         <translation>已送出的訊框</translation>
     </message>
     <message>
-        <source>Frame ricevuti</source>
+        <source>Frames received</source>
         <translation>已收到的訊框</translation>
     </message>
     <message>
-        <source>Risposte perse</source>
+        <source>Answers lost</source>
         <translation>遺失的回覆</translation>
     </message>
     <message>
-        <source>Riconnessioni</source>
+        <source>Reconnections</source>
         <translation>重連次數</translation>
     </message>
     <message>
-        <source>In servizio da</source>
+        <source>Running since</source>
         <translation>運行自</translation>
     </message>
     <message>
-        <source>Client collegati</source>
+        <source>Clients connected</source>
         <translation>已連接的用戶端</translation>
     </message>
     <message>
@@ -3294,7 +3294,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
 <context>
     <name>RotorStatus</name>
     <message>
-        <source>pronto</source>
+        <source>ready</source>
         <translation>就緒</translation>
     </message>
     <message>
@@ -3325,15 +3325,15 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>控制盒 %1</translation>
     </message>
     <message>
-        <source>CONTROL BOX ASSENTE</source>
+        <source>NO CONTROL BOX</source>
         <translation>沒有控制盒</translation>
     </message>
     <message>
-        <source>IN ROTAZIONE</source>
+        <source>TURNING</source>
         <translation>正在轉動</translation>
     </message>
     <message>
-        <source>FERMO</source>
+        <source>STILL</source>
         <translation>停著</translation>
     </message>
     <message numerus="yes">
@@ -3343,18 +3343,18 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         </translation>
     </message>
     <message>
-        <source>Passa al quadrante chiaro</source>
+        <source>Switch to the light dial</source>
         <translation>換成淺色錶盤</translation>
     </message>
     <message>
-        <source>Passa al quadrante notturno</source>
+        <source>Switch to the night dial</source>
         <translation>換成夜間錶盤</translation>
     </message>
 </context>
 <context>
     <name>RotorTraffic</name>
     <message>
-        <source>TRAFFICO SERIALE</source>
+        <source>SERIAL TRAFFIC</source>
         <translation>序列埠通訊</translation>
     </message>
     <message>
@@ -3362,30 +3362,30 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>%1 @ %2 8N1</translation>
     </message>
     <message>
-        <source>%1 frame</source>
+        <source>%1 frames</source>
         <translation>%1 個訊框</translation>
     </message>
     <message>
-        <source>nessun frame: il gateway li manda a richiesta</source>
+        <source>no frames: the gateway sends them when asked</source>
         <translation>沒有訊框：閘道按請求傳送</translation>
     </message>
 </context>
 <context>
     <name>RotorWindow</name>
     <message>
-        <source>DecoRotor — controllo rotore PRO.SIS.TEL</source>
+        <source>DecoRotor — PRO.SIS.TEL rotor control</source>
         <translation>DecoRotor — PRO.SIS.TEL 旋轉器控制</translation>
     </message>
     <message>
-        <source>CONTROLLO</source>
+        <source>CONTROL</source>
         <translation>控制</translation>
     </message>
     <message>
-        <source>DIAGNOSTICA</source>
+        <source>DIAGNOSTICS</source>
         <translation>診斷</translation>
     </message>
     <message>
-        <source>IMPOSTAZIONI</source>
+        <source>SETTINGS</source>
         <translation>設定</translation>
     </message>
 </context>
@@ -4626,6 +4626,13 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
 </context>
 <context>
+    <name>VfoDisplay</name>
+    <message>
+        <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
+        <translation>滾輪：改動指標下的那一位。按一下：直接寫頻率。</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::ActivationController</name>
     <message>
         <source>Choose what kind of session it is</source>
@@ -5025,6 +5032,26 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>QSO not logged: %1</source>
         <translation>QSO 沒有記錄：%1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send the frequency: the radio is not connected and Decodium is not there either.</source>
+        <translation>頻率沒有地方可去：電台沒有連接，Decodium 也不在。</translation>
+    </message>
+    <message>
+        <source>radio and Decodium</source>
+        <translation>電台和 Decodium</translation>
+    </message>
+    <message>
+        <source>radio</source>
+        <translation>電台</translation>
+    </message>
+    <message>
+        <source>Tuned to %1 MHz %2 (%3)</source>
+        <translation>已調到 %1 MHz %2（%3）</translation>
+    </message>
+    <message>
+        <source>Mode %1 (%2)</source>
+        <translation>模式 %1（%2）</translation>
     </message>
     <message>
         <source>Already worked in this activation</source>

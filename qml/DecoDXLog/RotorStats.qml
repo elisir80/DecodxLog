@@ -6,7 +6,7 @@ import QtQuick.Layouts
 RotorGlass {
     id: panel
 
-    title: qsTr("ESERCIZIO")
+    title: qsTr("IN SERVICE")
 
     RotorPalette { id: rt }
 
@@ -19,14 +19,14 @@ RotorGlass {
 
         Repeater {
             model: [
-                { caption: qsTr("Frame inviati"), value: String(panel.st.txFrames || 0), tint: rt.warning },
-                { caption: qsTr("Frame ricevuti"), value: String(panel.st.rxFrames || 0), tint: rt.accent },
-                { caption: qsTr("Risposte perse"), value: String(panel.st.errorCount || 0),
+                { caption: qsTr("Frames sent"), value: String(panel.st.txFrames || 0), tint: rt.warning },
+                { caption: qsTr("Frames received"), value: String(panel.st.rxFrames || 0), tint: rt.accent },
+                { caption: qsTr("Answers lost"), value: String(panel.st.errorCount || 0),
                   tint: (panel.st.errorCount || 0) > 0 ? rt.danger : rt.textSecondary },
-                { caption: qsTr("Riconnessioni"), value: String(panel.st.reconnects || 0),
+                { caption: qsTr("Reconnections"), value: String(panel.st.reconnects || 0),
                   tint: (panel.st.reconnects || 0) > 0 ? rt.warning : rt.textSecondary },
-                { caption: qsTr("In servizio da"), value: panel.rotor.uptimeText, tint: rt.primary },
-                { caption: qsTr("Client collegati"), value: String(panel.st.clients || 0), tint: rt.primary }
+                { caption: qsTr("Running since"), value: panel.rotor.uptimeText, tint: rt.primary },
+                { caption: qsTr("Clients connected"), value: String(panel.st.clients || 0), tint: rt.primary }
             ]
 
             RowLayout {

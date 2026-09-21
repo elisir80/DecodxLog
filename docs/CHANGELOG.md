@@ -3,6 +3,62 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.1.0 — 21 settembre 2026
+
+**La frequenza in cima e' diventata una manopola.** Le cifre non sono piu' solo da
+guardare:
+
+* **la rotellina del mouse muove la cifra sotto il puntatore** — come la manopola di una
+  radio, dove ogni tacca vale quanto la cifra che stai guardando. Una sottolineatura dice
+  quale cifra sta per muoversi, cosi' la rotellina non e' una sorpresa: sopra il `4` di
+  `14.074000` si va di 1 MHz, sopra l'ultima cifra di 1 Hz;
+* **un clic apre la casella e la frequenza si scrive**. In MHz (`14.074`) o in kHz
+  (`14074`), come viene comodo: un numero piu' grande di mille non puo' essere altro che
+  kHz. Invio conferma, Esc lascia le cose com'erano.
+
+**Il modo si sceglie da un elenco.** La pillola accanto alla frequenza si clicca e si apre
+la lista: CW, CW-R, USB, LSB, AM, FM in cima, e sotto tutti i digitali — FT8, FT4, FT2,
+JS8, JT65, JT9, Q65, MSK144, WSPR, RTTY, RTTY-R, PSK31, PSK63, OLIVIA, MFSK, CONTESTI,
+HELL, SSTV, PACKET.
+
+**Dove va a finire quello che scegli.** Alla radio, se il CAT e' collegato, e a Decodium,
+se DecoLink ha qualcuno dall'altra parte — cosi' i due non si raccontano due frequenze
+diverse. Se non c'e' nessuno dei due, il registro lo dice invece di far finta di aver
+fatto qualcosa.
+
+La radio, pero', i modi non li chiama come li chiamiamo noi: per Hamlib tutti i digitali
+sono una banda laterale con i dati dentro. La corrispondenza sta in un posto solo
+(`src/core/Modes.cpp`) e ha le sue prove:
+
+| quello che scegli | quello che riceve la radio |
+|---|---|
+| CW · CW-R | `CW` · `CWR` |
+| USB · LSB · AM · FM | `USB` · `LSB` · `AM` · `FM` |
+| RTTY · RTTY-R | `RTTY` · `RTTYR` |
+| FT8, FT4, JS8, PSK31, Q65… | `PKTUSB` |
+| PACKET | `PKTFM` |
+| un modo che non si conosce | `USB`, che non fa danni |
+
+Provato con un finto rigctld: scegliendo 7.026 in CW arriva `+F 7026000` e `+M CW`,
+scegliendo 14.074 in FT8 arriva `+F 14074000` e `+M PKTUSB`.
+
+**E la frequenza si vede anche senza Decodium.** Se Decodium non c'e' ma il CAT e'
+collegato, in cima compare quella della radio, con il suo modo: prima restava
+`--.------` anche con la radio accesa.
+
+**Il pannello del rotore, finalmente in inglese.** Le sue frasi avevano il sorgente in
+italiano (arriva da DecoRotor): in inglese quel pannello parlava italiano, ed era la cosa
+segnalata dalla 0.9.6 in poi. Adesso i sorgenti sono inglesi come tutto il resto, e le
+quindici traduzioni si sono portate dietro quello che avevano gia' — `lupdate` dice «0
+new», cioe' non si e' perso niente per strada. Anche la rosa dei venti era italiana nel
+sorgente: `SO` e `O` in inglese non vogliono dire sud-ovest e ovest, e adesso sono `SW` e
+`W`.
+
+**E il pannello si e' sistemato anche nella colonna stretta.** I quattro passi (−10, −1,
++1, +10) andavano a capo a meta' e la scritta di stato si mangiava il resto. Adesso i
+comandi stanno in fondo, larghi quanto il pannello, in due file ordinate, e il quadrante
+si stringe con la colonna invece di schiacciare tutto il resto.
+
 ## 1.0.0 — 21 settembre 2026
 
 **Quindici lingue su quindici.** Russo, giapponese e le due forme del cinese chiudono il

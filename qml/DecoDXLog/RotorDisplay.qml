@@ -31,12 +31,12 @@ RotorGlass {
 
     readonly property string activity: {
         if (!st.connected)
-            return qsTr("control box assente")
+            return qsTr("no control box")
         if (st.moving && panel.azTarget >= 0)
-            return qsTr("in rotazione verso %1°").arg(panel.azTarget.toFixed(1))
+            return qsTr("turning towards %1°").arg(panel.azTarget.toFixed(1))
         if (st.moving)
-            return qsTr("in rotazione")
-        return qsTr("fermo")
+            return qsTr("turning")
+        return qsTr("still")
     }
 
     ColumnLayout {
@@ -63,7 +63,7 @@ RotorGlass {
                         anchors.centerIn: parent
                         width: parent.width - 16
                         text: panel.standingOn.length > 0 ? panel.standingOn.toUpperCase()
-                                                          : qsTr("DIREZIONE LIBERA")
+                                                          : qsTr("FREE DIRECTION")
                         color: panel.standingOn.length > 0 ? rt.textPrimary : rt.textDim
                         font.pixelSize: rt.fontBody
                         font.bold: true
@@ -88,7 +88,7 @@ RotorGlass {
 
             RotorReadout {
                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-                label: qsTr("AZIMUT")
+                label: qsTr("AZIMUTH")
                 value: panel.st.az || 0
                 target: panel.azTarget
                 valid: panel.hasPosition
@@ -111,7 +111,7 @@ RotorGlass {
             RotorReadout {
                 Layout.alignment: Qt.AlignRight | Qt.AlignBottom
                 visible: panel.st.hasEl === true
-                label: qsTr("ELEVAZIONE")
+                label: qsTr("ELEVATION")
                 value: panel.st.el || 0
                 target: panel.elTarget
                 valid: panel.st.hasEl === true

@@ -1,0 +1,27 @@
+// DecoDXLog — i modi con cui si opera, e come li chiama la radio.
+//
+// Sul display si sceglie il modo come lo si dice in aria: CW, USB, FT8, RTTY.
+// La radio, via Hamlib, ne conosce di meno: tutti i modi digitali per lei sono
+// una banda laterale con i dati dentro (PKTUSB). Qui sta la corrispondenza, una
+// volta sola, cosi' non se la inventa ogni finestra.
+#pragma once
+
+#include <QString>
+#include <QVector>
+
+namespace decolog::core::modes {
+
+struct Entry {
+    QString name;   // come lo scrive l'operatore e come va nel log: FT8, CW, USB
+    QString cat;    // come lo vuole Hamlib: CW, USB, LSB, RTTY, PKTUSB…
+    QString group;  // "cw", "voice", "data": servono solo a dividere il menu
+};
+
+// I modi nell'ordine in cui conviene trovarli: prima CW e fonia, poi i digitali.
+QVector<Entry> all();
+
+// Il nome che vuole Hamlib per questo modo. Un modo che non si conosce finisce
+// su USB, che e' la scelta che non fa danni.
+QString catFor(const QString& mode);
+
+} // namespace decolog::core::modes

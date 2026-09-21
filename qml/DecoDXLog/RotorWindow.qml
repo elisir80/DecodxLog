@@ -23,7 +23,7 @@ ApplicationWindow {
     minimumWidth: 940
     minimumHeight: 600
     visible: true
-    title: qsTr("DecoRotor — controllo rotore PRO.SIS.TEL")
+    title: qsTr("DecoRotor — PRO.SIS.TEL rotor control")
     color: rt.bgDeep
 
     OnScreen { target: root }
@@ -62,7 +62,7 @@ ApplicationWindow {
             background: Item {}
 
             Repeater {
-                model: [qsTr("CONTROLLO"), qsTr("DIAGNOSTICA"), qsTr("IMPOSTAZIONI")]
+                model: [qsTr("CONTROL"), qsTr("DIAGNOSTICS"), qsTr("SETTINGS")]
 
                 TabButton {
                     id: tab

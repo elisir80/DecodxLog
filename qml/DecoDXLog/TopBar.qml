@@ -19,6 +19,8 @@ Rectangle {
     signal aboutRequested()
     // Per le prove: apre il menu del marchio senza mouse.
     function openMainMenu() { mainMenu.popup(brandBlock, 0, brandBlock.height + 4) }
+    // Idem per l'elenco dei modi, che di solito si apre cliccando la pillola.
+    function openModeMenu() { modeMenu.popup(modePill, 0, modePill.height + 6) }
     signal logFolderRequested()
     signal quitRequested()
     // Quanti pannelli sono chiusi adesso: lo dice il pulsante, cosi' un pannello
@@ -143,25 +145,58 @@ Rectangle {
                 glow: decolog.clientConnected
                 blinking: decolog.transmitting
             }
-            Text {
-                text: decolog.dialFrequency.length ? decolog.dialFrequency : "--.------"
-                color: decolog.clientConnected ? Theme.accentColor : Theme.textSecondary
-                font.family: Theme.monoFamily
-                font.pixelSize: 20
-                font.bold: true
+            VfoDisplay {
+                id: vfo
+                // Quella di Decodium se c'e'; se no quella della radio, che
+                // sul CAT la sa lo stesso.
+                mhz: decolog.dialFrequency.length ? parseFloat(decolog.dialFrequency)
+                   : (decolog.rig.connected ? decolog.rig.frequencyHz / 1e6 : 0)
+                tunable: decolog.rig.connected || decolog.clientConnected
+                textColor: decolog.clientConnected || decolog.rig.connected
+                           ? Theme.accentColor : Theme.textSecondary
+                onTuned: (freq) => decolog.tuneTo(freq, "")
             }
             Text {
                 text: "MHz"
                 color: Theme.textSecondary
                 font.pixelSize: 12
             }
+            // Il modo: si clicca e si sceglie, CW e fonia in cima, i digitali
+            // sotto. Quello che si sceglie va alla radio e a Decodium.
             Pill {
-                visible: decolog.currentMode.length > 0
-                text: decolog.currentMode
+                id: modePill
+                readonly property string shown: decolog.currentMode.length ? decolog.currentMode
+                                                                           : decolog.rig.mode
+                visible: shown.length > 0 || vfo.tunable
+                text: shown.length ? shown : "···"
                 tone: Theme.primaryColor
                 rounded: false
                 pillHeight: 26
                 fontPixelSize: 12
+                interactive: vfo.tunable
+                onClicked: modeMenu.opened ? modeMenu.close()
+                                           : modeMenu.popup(modePill, 0, modePill.height + 6)
+
+                StyledMenu {
+                    id: modeMenu
+                    // L'elenco non cambia mentre il programma e' aperto: si
+                    // chiede una volta sola, se no l'Instantiator rifa' tutte
+                    // le voci ogni volta che qualcuno lo guarda.
+                    readonly property var entries: decolog.operatingModes()
+
+                    Instantiator {
+                        model: modeMenu.entries
+                        delegate: StyledMenuItem {
+                            required property var modelData
+                            text: modelData.name
+                            checkable: true
+                            checked: modePill.shown === modelData.name
+                            onTriggered: decolog.tuneTo(vfo.mhz, modelData.name)
+                        }
+                        onObjectAdded: (index, object) => modeMenu.insertItem(index, object)
+                        onObjectRemoved: (index, object) => modeMenu.removeItem(object)
+                    }
+                }
             }
         }
 

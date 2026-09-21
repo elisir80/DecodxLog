@@ -116,7 +116,7 @@ RowLayout {
 
                 Text {
                     anchors.right: parent.right
-                    text: qsTr("mappa azimutale dal QTH")
+                    text: qsTr("azimuthal map from the QTH")
                     color: rt.textDim
                     font.pixelSize: rt.fontSmall
                 }

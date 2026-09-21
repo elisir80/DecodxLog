@@ -2919,86 +2919,86 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>PARK %1°</translation>
     </message>
     <message>
-        <source>MEMORIE…</source>
+        <source>MEMORIES…</source>
         <translation>MEMORIAS…</translation>
     </message>
 </context>
 <context>
     <name>RotorControlPage</name>
     <message>
-        <source>mappa azimutale dal QTH</source>
+        <source>azimuthal map from the QTH</source>
         <translation>mapa azimutal desde el QTH</translation>
     </message>
 </context>
 <context>
     <name>RotorDisplay</name>
     <message>
-        <source>control box assente</source>
+        <source>no control box</source>
         <translation>caja de control ausente</translation>
     </message>
     <message>
-        <source>in rotazione verso %1°</source>
+        <source>turning towards %1°</source>
         <translation>girando hacia %1°</translation>
     </message>
     <message>
-        <source>in rotazione</source>
+        <source>turning</source>
         <translation>girando</translation>
     </message>
     <message>
-        <source>fermo</source>
+        <source>still</source>
         <translation>parado</translation>
     </message>
     <message>
-        <source>DIREZIONE LIBERA</source>
+        <source>FREE DIRECTION</source>
         <translation>DIRECCIÓN LIBRE</translation>
     </message>
     <message>
-        <source>AZIMUT</source>
+        <source>AZIMUTH</source>
         <translation>ACIMUT</translation>
     </message>
     <message>
-        <source>ELEVAZIONE</source>
+        <source>ELEVATION</source>
         <translation>ELEVACIÓN</translation>
     </message>
 </context>
 <context>
     <name>RotorHistory</name>
     <message>
-        <source>ANDAMENTO POSIZIONE</source>
+        <source>POSITION OVER TIME</source>
         <translation>EVOLUCIÓN DE LA POSICIÓN</translation>
     </message>
     <message>
-        <source>in attesa di campioni…</source>
+        <source>waiting for readings…</source>
         <translation>esperando muestras…</translation>
     </message>
 </context>
 <context>
     <name>RotorLocatorBar</name>
     <message>
-        <source>Locatore, es. FN31pr</source>
+        <source>Grid, e.g. FN31pr</source>
         <translation>Locator, p. ej. FN31pr</translation>
     </message>
     <message>
-        <source>BREVE</source>
+        <source>SHORT</source>
         <translation>CORTO</translation>
     </message>
     <message>
-        <source>LUNGA</source>
+        <source>LONG</source>
         <translation>LARGO</translation>
     </message>
     <message>
-        <source>breve %1° · lunga %2° · %3 km</source>
+        <source>short %1° · long %2° · %3 km</source>
         <translation>corto %1° · largo %2° · %3 km</translation>
     </message>
     <message>
-        <source>QTH di riferimento: %1</source>
+        <source>Home QTH: %1</source>
         <translation>QTH de referencia: %1</translation>
     </message>
 </context>
 <context>
     <name>RotorMap</name>
     <message>
-        <source>Riquadri dal gateway DecoRotor</source>
+        <source>Map tiles from the DecoRotor gateway</source>
         <translation>Teselas desde la pasarela DecoRotor</translation>
     </message>
     <message>
@@ -3006,11 +3006,11 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>CLÚSTER %1</translation>
     </message>
     <message>
-        <source>CLUSTER SPENTO</source>
+        <source>CLUSTER OFF</source>
         <translation>CLÚSTER APAGADO</translation>
     </message>
     <message numerus="yes">
-        <source>%n stazione/i</source>
+        <source>%n station(s)</source>
         <translation>
             <numerusform>%n estación</numerusform>
             <numerusform>%n estaciones</numerusform>
@@ -3021,15 +3021,15 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>%1 · %2° · %3 km</translation>
     </message>
     <message>
-        <source>PUNTA</source>
+        <source>POINT</source>
         <translation>APUNTAR</translation>
     </message>
     <message>
-        <source>MEMORIA</source>
+        <source>MEMORY</source>
         <translation>MEMORIA</translation>
     </message>
     <message>
-        <source>riquadri dal gateway DecoRotor</source>
+        <source>map tiles from the DecoRotor gateway</source>
         <translation>teselas desde la pasarela DecoRotor</translation>
     </message>
     <message>
@@ -3040,7 +3040,7 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
 <context>
     <name>RotorMemories</name>
     <message>
-        <source>MEMORIE</source>
+        <source>MEMORIES</source>
         <translation>MEMORIAS</translation>
     </message>
     <message>
@@ -3048,38 +3048,38 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>%1° / %2°</translation>
     </message>
     <message>
-        <source>VAI</source>
+        <source>GO</source>
         <translation>IR</translation>
     </message>
     <message>
-        <source>Nessuna memoria: dai un nome alla direzione attuale e salvala.</source>
+        <source>No memories: give the direction it is pointing now a name and save it.</source>
         <translation>Ninguna memoria: dale un nombre a la dirección actual y guárdala.</translation>
     </message>
     <message>
-        <source>Nome della memoria</source>
+        <source>Name of the memory</source>
         <translation>Nombre de la memoria</translation>
     </message>
     <message>
-        <source>SALVA QUI</source>
+        <source>SAVE HERE</source>
         <translation>GUARDAR AQUÍ</translation>
     </message>
 </context>
 <context>
     <name>RotorNetwork</name>
     <message>
-        <source>COLLEGAMENTI DI RETE</source>
+        <source>NETWORK LINKS</source>
         <translation>CONEXIONES DE RED</translation>
     </message>
     <message>
-        <source>Indirizzi da usare su telefono e software di stazione:</source>
+        <source>Addresses to use on the phone and in station software:</source>
         <translation>Direcciones para el teléfono y el software de estación:</translation>
     </message>
     <message>
-        <source>Accesso protetto da token: i client devono presentarlo.</source>
+        <source>Access is closed by a token: the clients have to show it.</source>
         <translation>Acceso protegido con token: los clientes deben presentarlo.</translation>
     </message>
     <message>
-        <source>Accesso libero sulla rete locale. Per l&apos;uso da fuori casa passa da una VPN, non aprire porte sul router.</source>
+        <source>Open access on the local network. From outside the house go through a VPN, do not open ports on the router.</source>
         <translation>Acceso libre en la red local. Desde fuera de casa pasa por una VPN, no abras puertos en el router.</translation>
     </message>
 </context>
@@ -3109,15 +3109,15 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
 <context>
     <name>RotorPointing</name>
     <message>
-        <source>Azimut °</source>
+        <source>Azimuth °</source>
         <translation>Acimut °</translation>
     </message>
     <message>
-        <source>Elevazione °</source>
+        <source>Elevation °</source>
         <translation>Elevación °</translation>
     </message>
     <message>
-        <source>PUNTA</source>
+        <source>POINT</source>
         <translation>APUNTAR</translation>
     </message>
     <message>
@@ -3141,45 +3141,45 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>S</translation>
     </message>
     <message>
-        <source>SO</source>
+        <source>SW</source>
         <translation>SO</translation>
     </message>
     <message>
-        <source>O</source>
+        <source>W</source>
         <translation>O</translation>
     </message>
     <message>
-        <source>NO</source>
+        <source>NW</source>
         <translation>NO</translation>
     </message>
 </context>
 <context>
     <name>RotorReadout</name>
     <message>
-        <source>verso %1°</source>
+        <source>towards %1°</source>
         <translation>hacia %1°</translation>
     </message>
     <message>
-        <source>posizione stabile</source>
+        <source>position steady</source>
         <translation>posición estable</translation>
     </message>
     <message>
-        <source>nessuna lettura</source>
+        <source>no reading</source>
         <translation>sin lectura</translation>
     </message>
 </context>
 <context>
     <name>RotorSettings</name>
     <message>
-        <source>COLLEGAMENTO AL CONTROL BOX</source>
+        <source>LINK TO THE CONTROL BOX</source>
         <translation>CONEXIÓN A LA CAJA DE CONTROL</translation>
     </message>
     <message>
-        <source>Porta seriale</source>
+        <source>Serial port</source>
         <translation>Puerto serie</translation>
     </message>
     <message>
-        <source>Velocita&apos;</source>
+        <source>Speed</source>
         <translation>Velocidad</translation>
     </message>
     <message>
@@ -3187,105 +3187,105 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>%1 baudios, 8N1</translation>
     </message>
     <message>
-        <source>Modello</source>
+        <source>Model</source>
         <translation>Modelo</translation>
     </message>
     <message>
-        <source>Stato</source>
+        <source>Status</source>
         <translation>Estado</translation>
     </message>
     <message>
-        <source>collegato</source>
+        <source>connected</source>
         <translation>conectado</translation>
     </message>
     <message>
-        <source>assente</source>
+        <source>not there</source>
         <translation>ausente</translation>
     </message>
     <message>
-        <source>Porta e modello si cambiano all&apos;avvio, con --port e --model.</source>
+        <source>Port and model are changed at startup, with --port and --model.</source>
         <translation>El puerto y el modelo se cambian al arrancar, con --port y --model.</translation>
     </message>
 </context>
 <context>
     <name>RotorSettingsPanel</name>
     <message>
-        <source>STAZIONE E SICUREZZA</source>
+        <source>STATION AND SAFETY</source>
         <translation>ESTACIÓN Y SEGURIDAD</translation>
     </message>
     <message>
-        <source>Nominativo</source>
+        <source>Callsign</source>
         <translation>Indicativo</translation>
     </message>
     <message>
-        <source>Locatore del QTH</source>
+        <source>Grid of the QTH</source>
         <translation>Locator del QTH</translation>
     </message>
     <message>
-        <source>Apertura del lobo: %1°</source>
+        <source>Beamwidth: %1°</source>
         <translation>Apertura del lóbulo: %1°</translation>
     </message>
     <message>
-        <source>Finecorsa azimut</source>
+        <source>Azimuth end stop</source>
         <translation>Tope de acimut</translation>
     </message>
     <message>
-        <source>Posizione di riposo</source>
+        <source>Rest position</source>
         <translation>Posición de reposo</translation>
     </message>
     <message>
-        <source>Stop se cade il collegamento</source>
+        <source>Stop if the link drops</source>
         <translation>Parar si se cae el enlace</translation>
     </message>
     <message>
-        <source>attivo</source>
+        <source>on</source>
         <translation>activo</translation>
     </message>
     <message>
-        <source>disattivato</source>
+        <source>off</source>
         <translation>desactivado</translation>
     </message>
     <message>
-        <source>Tolleranza di arrivo</source>
+        <source>Arrival tolerance</source>
         <translation>Tolerancia de llegada</translation>
     </message>
     <message>
-        <source>Porta seriale, modello e porta dei decode si cambiano all&apos;avvio del gateway.</source>
+        <source>Serial port, model and the decodes port are changed when the gateway starts.</source>
         <translation>El puerto serie, el modelo y el puerto de los decodes se cambian al arrancar la pasarela.</translation>
     </message>
     <message>
-        <source>Le modifiche vengono salvate subito in config.json.</source>
+        <source>Changes are saved in config.json straight away.</source>
         <translation>Los cambios se guardan enseguida en config.json.</translation>
     </message>
 </context>
 <context>
     <name>RotorStats</name>
     <message>
-        <source>ESERCIZIO</source>
+        <source>IN SERVICE</source>
         <translation>SERVICIO</translation>
     </message>
     <message>
-        <source>Frame inviati</source>
+        <source>Frames sent</source>
         <translation>Tramas enviadas</translation>
     </message>
     <message>
-        <source>Frame ricevuti</source>
+        <source>Frames received</source>
         <translation>Tramas recibidas</translation>
     </message>
     <message>
-        <source>Risposte perse</source>
+        <source>Answers lost</source>
         <translation>Respuestas perdidas</translation>
     </message>
     <message>
-        <source>Riconnessioni</source>
+        <source>Reconnections</source>
         <translation>Reconexiones</translation>
     </message>
     <message>
-        <source>In servizio da</source>
+        <source>Running since</source>
         <translation>En servicio desde</translation>
     </message>
     <message>
-        <source>Client collegati</source>
+        <source>Clients connected</source>
         <translation>Clientes conectados</translation>
     </message>
     <message>
@@ -3296,7 +3296,7 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
 <context>
     <name>RotorStatus</name>
     <message>
-        <source>pronto</source>
+        <source>ready</source>
         <translation>listo</translation>
     </message>
     <message>
@@ -3327,15 +3327,15 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>CAJA DE CONTROL %1</translation>
     </message>
     <message>
-        <source>CONTROL BOX ASSENTE</source>
+        <source>NO CONTROL BOX</source>
         <translation>CAJA DE CONTROL AUSENTE</translation>
     </message>
     <message>
-        <source>IN ROTAZIONE</source>
+        <source>TURNING</source>
         <translation>GIRANDO</translation>
     </message>
     <message>
-        <source>FERMO</source>
+        <source>STILL</source>
         <translation>PARADO</translation>
     </message>
     <message numerus="yes">
@@ -3346,18 +3346,18 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         </translation>
     </message>
     <message>
-        <source>Passa al quadrante chiaro</source>
+        <source>Switch to the light dial</source>
         <translation>Cambiar a la esfera clara</translation>
     </message>
     <message>
-        <source>Passa al quadrante notturno</source>
+        <source>Switch to the night dial</source>
         <translation>Cambiar a la esfera nocturna</translation>
     </message>
 </context>
 <context>
     <name>RotorTraffic</name>
     <message>
-        <source>TRAFFICO SERIALE</source>
+        <source>SERIAL TRAFFIC</source>
         <translation>TRÁFICO SERIE</translation>
     </message>
     <message>
@@ -3365,30 +3365,30 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>%1 @ %2 8N1</translation>
     </message>
     <message>
-        <source>%1 frame</source>
+        <source>%1 frames</source>
         <translation>%1 tramas</translation>
     </message>
     <message>
-        <source>nessun frame: il gateway li manda a richiesta</source>
+        <source>no frames: the gateway sends them when asked</source>
         <translation>ninguna trama: la pasarela las manda a petición</translation>
     </message>
 </context>
 <context>
     <name>RotorWindow</name>
     <message>
-        <source>DecoRotor — controllo rotore PRO.SIS.TEL</source>
+        <source>DecoRotor — PRO.SIS.TEL rotor control</source>
         <translation>DecoRotor — control de rotor PRO.SIS.TEL</translation>
     </message>
     <message>
-        <source>CONTROLLO</source>
+        <source>CONTROL</source>
         <translation>CONTROL</translation>
     </message>
     <message>
-        <source>DIAGNOSTICA</source>
+        <source>DIAGNOSTICS</source>
         <translation>DIAGNÓSTICO</translation>
     </message>
     <message>
-        <source>IMPOSTAZIONI</source>
+        <source>SETTINGS</source>
         <translation>AJUSTES</translation>
     </message>
 </context>
@@ -4630,6 +4630,13 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     </message>
 </context>
 <context>
+    <name>VfoDisplay</name>
+    <message>
+        <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
+        <translation>Rueda: la cifra bajo el puntero. Clic: escribir la frecuencia.</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::ActivationController</name>
     <message>
         <source>Choose what kind of session it is</source>
@@ -5040,6 +5047,26 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>QSO not logged: %1</source>
         <translation>QSO sin registrar: %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send the frequency: the radio is not connected and Decodium is not there either.</source>
+        <translation>La frecuencia no tiene a dónde ir: la radio no está conectada y Decodium tampoco está.</translation>
+    </message>
+    <message>
+        <source>radio and Decodium</source>
+        <translation>radio y Decodium</translation>
+    </message>
+    <message>
+        <source>radio</source>
+        <translation>radio</translation>
+    </message>
+    <message>
+        <source>Tuned to %1 MHz %2 (%3)</source>
+        <translation>Sintonizado en %1 MHz %2 (%3)</translation>
+    </message>
+    <message>
+        <source>Mode %1 (%2)</source>
+        <translation>Modo %1 (%2)</translation>
     </message>
     <message>
         <source>Already worked in this activation</source>

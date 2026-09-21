@@ -8,7 +8,7 @@ import QtQuick.Layouts
 RotorGlass {
     id: panel
 
-    title: qsTr("STAZIONE E SICUREZZA")
+    title: qsTr("STATION AND SAFETY")
 
     RotorPalette { id: rt }
 
@@ -22,7 +22,7 @@ RotorGlass {
         columnSpacing: 14
 
         Text {
-            text: qsTr("Nominativo")
+            text: qsTr("Callsign")
             color: rt.textSecondary
             font.pixelSize: rt.fontBody
         }
@@ -35,7 +35,7 @@ RotorGlass {
         }
 
         Text {
-            text: qsTr("Locatore del QTH")
+            text: qsTr("Grid of the QTH")
             color: rt.textSecondary
             font.pixelSize: rt.fontBody
         }
@@ -48,7 +48,7 @@ RotorGlass {
         }
 
         Text {
-            text: qsTr("Apertura del lobo: %1°").arg((panel.st.beamwidth || 45).toFixed(0))
+            text: qsTr("Beamwidth: %1°").arg((panel.st.beamwidth || 45).toFixed(0))
             color: rt.textSecondary
             font.pixelSize: rt.fontBody
         }
@@ -92,7 +92,7 @@ RotorGlass {
         }
 
         Text {
-            text: qsTr("Finecorsa azimut")
+            text: qsTr("Azimuth end stop")
             color: rt.textSecondary
             font.pixelSize: rt.fontBody
         }
@@ -122,7 +122,7 @@ RotorGlass {
         }
 
         Text {
-            text: qsTr("Posizione di riposo")
+            text: qsTr("Rest position")
             color: rt.textSecondary
             font.pixelSize: rt.fontBody
         }
@@ -135,7 +135,7 @@ RotorGlass {
         }
 
         Text {
-            text: qsTr("Stop se cade il collegamento")
+            text: qsTr("Stop if the link drops")
             color: rt.textSecondary
             font.pixelSize: rt.fontBody
         }
@@ -171,7 +171,7 @@ RotorGlass {
             }
 
             contentItem: Text {
-                text: guardSwitch.checked ? qsTr("attivo") : qsTr("disattivato")
+                text: guardSwitch.checked ? qsTr("on") : qsTr("off")
                 color: rt.textSecondary
                 font.pixelSize: rt.fontSmall
                 leftPadding: guardSwitch.indicator.width + 10
@@ -180,7 +180,7 @@ RotorGlass {
         }
 
         Text {
-            text: qsTr("Tolleranza di arrivo")
+            text: qsTr("Arrival tolerance")
             color: rt.textSecondary
             font.pixelSize: rt.fontBody
         }
@@ -200,7 +200,7 @@ RotorGlass {
         Text {
             Layout.columnSpan: 2
             Layout.fillWidth: true
-            text: qsTr("Porta seriale, modello e porta dei decode si cambiano all'avvio del gateway.")
+            text: qsTr("Serial port, model and the decodes port are changed when the gateway starts.")
             color: rt.textDim
             font.pixelSize: rt.fontSmall
             wrapMode: Text.WordWrap
@@ -209,7 +209,7 @@ RotorGlass {
         Text {
             Layout.columnSpan: 2
             Layout.fillWidth: true
-            text: qsTr("Le modifiche vengono salvate subito in config.json.")
+            text: qsTr("Changes are saved in config.json straight away.")
             color: rt.textDim
             font.pixelSize: rt.fontSmall
             wrapMode: Text.WordWrap

@@ -2918,86 +2918,86 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>PARK %1°</translation>
     </message>
     <message>
-        <source>MEMORIE…</source>
+        <source>MEMORIES…</source>
         <translation>メモリー…</translation>
     </message>
 </context>
 <context>
     <name>RotorControlPage</name>
     <message>
-        <source>mappa azimutale dal QTH</source>
+        <source>azimuthal map from the QTH</source>
         <translation>QTH からの方位図</translation>
     </message>
 </context>
 <context>
     <name>RotorDisplay</name>
     <message>
-        <source>control box assente</source>
+        <source>no control box</source>
         <translation>コントロールボックスがありません</translation>
     </message>
     <message>
-        <source>in rotazione verso %1°</source>
+        <source>turning towards %1°</source>
         <translation>%1° へ回転中</translation>
     </message>
     <message>
-        <source>in rotazione</source>
+        <source>turning</source>
         <translation>回転中</translation>
     </message>
     <message>
-        <source>fermo</source>
+        <source>still</source>
         <translation>止まっています</translation>
     </message>
     <message>
-        <source>DIREZIONE LIBERA</source>
+        <source>FREE DIRECTION</source>
         <translation>自由な向き</translation>
     </message>
     <message>
-        <source>AZIMUT</source>
+        <source>AZIMUTH</source>
         <translation>方位</translation>
     </message>
     <message>
-        <source>ELEVAZIONE</source>
+        <source>ELEVATION</source>
         <translation>仰角</translation>
     </message>
 </context>
 <context>
     <name>RotorHistory</name>
     <message>
-        <source>ANDAMENTO POSIZIONE</source>
+        <source>POSITION OVER TIME</source>
         <translation>向きの移り変わり</translation>
     </message>
     <message>
-        <source>in attesa di campioni…</source>
+        <source>waiting for readings…</source>
         <translation>測りを待っています…</translation>
     </message>
 </context>
 <context>
     <name>RotorLocatorBar</name>
     <message>
-        <source>Locatore, es. FN31pr</source>
+        <source>Grid, e.g. FN31pr</source>
         <translation>グリッド、たとえば FN31pr</translation>
     </message>
     <message>
-        <source>BREVE</source>
+        <source>SHORT</source>
         <translation>短経路</translation>
     </message>
     <message>
-        <source>LUNGA</source>
+        <source>LONG</source>
         <translation>長経路</translation>
     </message>
     <message>
-        <source>breve %1° · lunga %2° · %3 km</source>
+        <source>short %1° · long %2° · %3 km</source>
         <translation>短経路 %1° · 長経路 %2° · %3 km</translation>
     </message>
     <message>
-        <source>QTH di riferimento: %1</source>
+        <source>Home QTH: %1</source>
         <translation>もとにする QTH: %1</translation>
     </message>
 </context>
 <context>
     <name>RotorMap</name>
     <message>
-        <source>Riquadri dal gateway DecoRotor</source>
+        <source>Map tiles from the DecoRotor gateway</source>
         <translation>DecoRotor ゲートウェイからの地図タイル</translation>
     </message>
     <message>
@@ -3005,11 +3005,11 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>クラスター %1</translation>
     </message>
     <message>
-        <source>CLUSTER SPENTO</source>
+        <source>CLUSTER OFF</source>
         <translation>クラスターは切ってあります</translation>
     </message>
     <message numerus="yes">
-        <source>%n stazione/i</source>
+        <source>%n station(s)</source>
         <translation>
             <numerusform>%n 局</numerusform>
         </translation>
@@ -3019,15 +3019,15 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>%1 · %2° · %3 km</translation>
     </message>
     <message>
-        <source>PUNTA</source>
+        <source>POINT</source>
         <translation>向ける</translation>
     </message>
     <message>
-        <source>MEMORIA</source>
+        <source>MEMORY</source>
         <translation>メモリー</translation>
     </message>
     <message>
-        <source>riquadri dal gateway DecoRotor</source>
+        <source>map tiles from the DecoRotor gateway</source>
         <translation>DecoRotor ゲートウェイからの地図タイル</translation>
     </message>
     <message>
@@ -3038,7 +3038,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 <context>
     <name>RotorMemories</name>
     <message>
-        <source>MEMORIE</source>
+        <source>MEMORIES</source>
         <translation>メモリー</translation>
     </message>
     <message>
@@ -3046,38 +3046,38 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>%1° / %2°</translation>
     </message>
     <message>
-        <source>VAI</source>
+        <source>GO</source>
         <translation>行く</translation>
     </message>
     <message>
-        <source>Nessuna memoria: dai un nome alla direzione attuale e salvala.</source>
+        <source>No memories: give the direction it is pointing now a name and save it.</source>
         <translation>メモリーがありません。今の向きに名前を付けて保存してください。</translation>
     </message>
     <message>
-        <source>Nome della memoria</source>
+        <source>Name of the memory</source>
         <translation>メモリーの名前</translation>
     </message>
     <message>
-        <source>SALVA QUI</source>
+        <source>SAVE HERE</source>
         <translation>ここに保存</translation>
     </message>
 </context>
 <context>
     <name>RotorNetwork</name>
     <message>
-        <source>COLLEGAMENTI DI RETE</source>
+        <source>NETWORK LINKS</source>
         <translation>ネットワークのつなぎ先</translation>
     </message>
     <message>
-        <source>Indirizzi da usare su telefono e software di stazione:</source>
+        <source>Addresses to use on the phone and in station software:</source>
         <translation>電話や局のソフトで使うアドレス:</translation>
     </message>
     <message>
-        <source>Accesso protetto da token: i client devono presentarlo.</source>
+        <source>Access is closed by a token: the clients have to show it.</source>
         <translation>アクセスはトークンで守られています。クライアントはそれを見せる必要があります。</translation>
     </message>
     <message>
-        <source>Accesso libero sulla rete locale. Per l&apos;uso da fuori casa passa da una VPN, non aprire porte sul router.</source>
+        <source>Open access on the local network. From outside the house go through a VPN, do not open ports on the router.</source>
         <translation>家の中のネットワークでは誰でも入れます。外から使うときは VPN を通してください。ルーターのポートは開けないように。</translation>
     </message>
 </context>
@@ -3107,15 +3107,15 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 <context>
     <name>RotorPointing</name>
     <message>
-        <source>Azimut °</source>
+        <source>Azimuth °</source>
         <translation>方位 °</translation>
     </message>
     <message>
-        <source>Elevazione °</source>
+        <source>Elevation °</source>
         <translation>仰角 °</translation>
     </message>
     <message>
-        <source>PUNTA</source>
+        <source>POINT</source>
         <translation>向ける</translation>
     </message>
     <message>
@@ -3139,45 +3139,45 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>南</translation>
     </message>
     <message>
-        <source>SO</source>
+        <source>SW</source>
         <translation>南西</translation>
     </message>
     <message>
-        <source>O</source>
+        <source>W</source>
         <translation>西</translation>
     </message>
     <message>
-        <source>NO</source>
+        <source>NW</source>
         <translation>北西</translation>
     </message>
 </context>
 <context>
     <name>RotorReadout</name>
     <message>
-        <source>verso %1°</source>
+        <source>towards %1°</source>
         <translation>%1° へ</translation>
     </message>
     <message>
-        <source>posizione stabile</source>
+        <source>position steady</source>
         <translation>向きは落ち着いています</translation>
     </message>
     <message>
-        <source>nessuna lettura</source>
+        <source>no reading</source>
         <translation>読み取りがありません</translation>
     </message>
 </context>
 <context>
     <name>RotorSettings</name>
     <message>
-        <source>COLLEGAMENTO AL CONTROL BOX</source>
+        <source>LINK TO THE CONTROL BOX</source>
         <translation>コントロールボックスとのつながり</translation>
     </message>
     <message>
-        <source>Porta seriale</source>
+        <source>Serial port</source>
         <translation>シリアルポート</translation>
     </message>
     <message>
-        <source>Velocita&apos;</source>
+        <source>Speed</source>
         <translation>速さ</translation>
     </message>
     <message>
@@ -3185,105 +3185,105 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>%1 baud, 8N1</translation>
     </message>
     <message>
-        <source>Modello</source>
+        <source>Model</source>
         <translation>機種</translation>
     </message>
     <message>
-        <source>Stato</source>
+        <source>Status</source>
         <translation>状態</translation>
     </message>
     <message>
-        <source>collegato</source>
+        <source>connected</source>
         <translation>つながっています</translation>
     </message>
     <message>
-        <source>assente</source>
+        <source>not there</source>
         <translation>ありません</translation>
     </message>
     <message>
-        <source>Porta e modello si cambiano all&apos;avvio, con --port e --model.</source>
+        <source>Port and model are changed at startup, with --port and --model.</source>
         <translation>ポートと機種は起動のときに --port と --model で変えます。</translation>
     </message>
 </context>
 <context>
     <name>RotorSettingsPanel</name>
     <message>
-        <source>STAZIONE E SICUREZZA</source>
+        <source>STATION AND SAFETY</source>
         <translation>局と安全</translation>
     </message>
     <message>
-        <source>Nominativo</source>
+        <source>Callsign</source>
         <translation>コールサイン</translation>
     </message>
     <message>
-        <source>Locatore del QTH</source>
+        <source>Grid of the QTH</source>
         <translation>QTH のグリッド</translation>
     </message>
     <message>
-        <source>Apertura del lobo: %1°</source>
+        <source>Beamwidth: %1°</source>
         <translation>ビームの広がり: %1°</translation>
     </message>
     <message>
-        <source>Finecorsa azimut</source>
+        <source>Azimuth end stop</source>
         <translation>方位の止まり</translation>
     </message>
     <message>
-        <source>Posizione di riposo</source>
+        <source>Rest position</source>
         <translation>休みの位置</translation>
     </message>
     <message>
-        <source>Stop se cade il collegamento</source>
+        <source>Stop if the link drops</source>
         <translation>つながりが切れたら止める</translation>
     </message>
     <message>
-        <source>attivo</source>
+        <source>on</source>
         <translation>入</translation>
     </message>
     <message>
-        <source>disattivato</source>
+        <source>off</source>
         <translation>切</translation>
     </message>
     <message>
-        <source>Tolleranza di arrivo</source>
+        <source>Arrival tolerance</source>
         <translation>着いたとみなす幅</translation>
     </message>
     <message>
-        <source>Porta seriale, modello e porta dei decode si cambiano all&apos;avvio del gateway.</source>
+        <source>Serial port, model and the decodes port are changed when the gateway starts.</source>
         <translation>シリアルポート、機種、デコードのポートは、ゲートウェイを起動するときに変えます。</translation>
     </message>
     <message>
-        <source>Le modifiche vengono salvate subito in config.json.</source>
+        <source>Changes are saved in config.json straight away.</source>
         <translation>変えたところはすぐ config.json に保存されます。</translation>
     </message>
 </context>
 <context>
     <name>RotorStats</name>
     <message>
-        <source>ESERCIZIO</source>
+        <source>IN SERVICE</source>
         <translation>運用</translation>
     </message>
     <message>
-        <source>Frame inviati</source>
+        <source>Frames sent</source>
         <translation>送ったフレーム</translation>
     </message>
     <message>
-        <source>Frame ricevuti</source>
+        <source>Frames received</source>
         <translation>受けたフレーム</translation>
     </message>
     <message>
-        <source>Risposte perse</source>
+        <source>Answers lost</source>
         <translation>落とした返事</translation>
     </message>
     <message>
-        <source>Riconnessioni</source>
+        <source>Reconnections</source>
         <translation>つなぎ直した回数</translation>
     </message>
     <message>
-        <source>In servizio da</source>
+        <source>Running since</source>
         <translation>動きはじめてから</translation>
     </message>
     <message>
-        <source>Client collegati</source>
+        <source>Clients connected</source>
         <translation>つながっているクライアント</translation>
     </message>
     <message>
@@ -3294,7 +3294,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 <context>
     <name>RotorStatus</name>
     <message>
-        <source>pronto</source>
+        <source>ready</source>
         <translation>用意できました</translation>
     </message>
     <message>
@@ -3325,15 +3325,15 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>コントロールボックス %1</translation>
     </message>
     <message>
-        <source>CONTROL BOX ASSENTE</source>
+        <source>NO CONTROL BOX</source>
         <translation>コントロールボックスがありません</translation>
     </message>
     <message>
-        <source>IN ROTAZIONE</source>
+        <source>TURNING</source>
         <translation>回転中</translation>
     </message>
     <message>
-        <source>FERMO</source>
+        <source>STILL</source>
         <translation>止まっています</translation>
     </message>
     <message numerus="yes">
@@ -3343,18 +3343,18 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         </translation>
     </message>
     <message>
-        <source>Passa al quadrante chiaro</source>
+        <source>Switch to the light dial</source>
         <translation>明るい文字盤にする</translation>
     </message>
     <message>
-        <source>Passa al quadrante notturno</source>
+        <source>Switch to the night dial</source>
         <translation>夜の文字盤にする</translation>
     </message>
 </context>
 <context>
     <name>RotorTraffic</name>
     <message>
-        <source>TRAFFICO SERIALE</source>
+        <source>SERIAL TRAFFIC</source>
         <translation>シリアルのやりとり</translation>
     </message>
     <message>
@@ -3362,30 +3362,30 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>%1 @ %2 8N1</translation>
     </message>
     <message>
-        <source>%1 frame</source>
+        <source>%1 frames</source>
         <translation>%1 フレーム</translation>
     </message>
     <message>
-        <source>nessun frame: il gateway li manda a richiesta</source>
+        <source>no frames: the gateway sends them when asked</source>
         <translation>フレームがありません。ゲートウェイは頼まれたときに送ります</translation>
     </message>
 </context>
 <context>
     <name>RotorWindow</name>
     <message>
-        <source>DecoRotor — controllo rotore PRO.SIS.TEL</source>
+        <source>DecoRotor — PRO.SIS.TEL rotor control</source>
         <translation>DecoRotor — PRO.SIS.TEL ローテーターの操作</translation>
     </message>
     <message>
-        <source>CONTROLLO</source>
+        <source>CONTROL</source>
         <translation>操作</translation>
     </message>
     <message>
-        <source>DIAGNOSTICA</source>
+        <source>DIAGNOSTICS</source>
         <translation>調べる</translation>
     </message>
     <message>
-        <source>IMPOSTAZIONI</source>
+        <source>SETTINGS</source>
         <translation>設定</translation>
     </message>
 </context>
@@ -4626,6 +4626,13 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>VfoDisplay</name>
+    <message>
+        <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
+        <translation>ホイール: 指している桁が動きます。クリック: 周波数を書きます。</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::ActivationController</name>
     <message>
         <source>Choose what kind of session it is</source>
@@ -5025,6 +5032,26 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>QSO not logged: %1</source>
         <translation>QSO を記録しませんでした: %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send the frequency: the radio is not connected and Decodium is not there either.</source>
+        <translation>周波数の行き先がありません。無線機もつながっていないし、Decodium もいません。</translation>
+    </message>
+    <message>
+        <source>radio and Decodium</source>
+        <translation>無線機と Decodium</translation>
+    </message>
+    <message>
+        <source>radio</source>
+        <translation>無線機</translation>
+    </message>
+    <message>
+        <source>Tuned to %1 MHz %2 (%3)</source>
+        <translation>%1 MHz %2 に合わせました (%3)</translation>
+    </message>
+    <message>
+        <source>Mode %1 (%2)</source>
+        <translation>モード %1 (%2)</translation>
     </message>
     <message>
         <source>Already worked in this activation</source>

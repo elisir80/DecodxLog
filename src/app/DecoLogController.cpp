@@ -2,6 +2,8 @@
 
 #include "core/Bands.h"
 #include "core/Maidenhead.h"
+#include "core/Modes.h"
+#include "core/Spots.h"
 #include "ThemeManager.h"
 
 #include <QCoreApplication>
@@ -1447,6 +1449,76 @@ void DecoLogController::onQsoReceived(const AdifRecord& input, const QString& so
 
     if (call == m_lookupCall.toUpper())
         refreshCallInfo();
+}
+
+// ── Il VFO della barra in alto ────────────────────────────────────────────────
+//
+// Chi opera gira la manopola: qui la manopola e' la rotellina sopra le cifre, e
+// la cifra che cambia e' quella sotto il puntatore. Quello che si decide qui
+// va alla radio (via Hamlib) e a Decodium (via DecoLink), cosi' i due restano
+// d'accordo invece di raccontarsi due frequenze diverse.
+
+void DecoLogController::tuneTo(double mhz, const QString& mode)
+{
+    if (mhz <= 0 && mode.isEmpty())
+        return;
+    const double khz = mhz * 1000.0;
+    auto* rig = qobject_cast<RigController*>(m_rig);
+    const bool toRadio = rig && rig->connected();
+    // A Decodium si manda solo quando c'e' una frequenza: un "vai" senza dire
+    // dove non vuol dire niente.
+    const bool toDecodium = m_decoLink.clientCount() > 0 && mhz > 0;
+
+    if (!toRadio && !toDecodium) {
+        addActivity(QStringLiteral("RIG"),
+                    tr("Nowhere to send the frequency: the radio is not connected and "
+                       "Decodium is not there either."),
+                    QStringLiteral("warning"));
+        return;
+    }
+
+    if (toRadio) {
+        // Il modo si tocca solo se e' stato chiesto: girando la rotellina si
+        // cambia la frequenza, non il modo.
+        rig->tuneTo(mhz > 0 ? static_cast<qint64>(std::llround(mhz * 1e6)) : 0,
+                    mode.isEmpty() ? QString() : modes::catFor(mode));
+    }
+
+    if (toDecodium) {
+        // Per i modi digitali Decodium vuole la frequenza del VFO e il tono
+        // nell'audio: se quella scritta cade in una sotto-banda conosciuta, si
+        // separano le due cose come fa il cluster.
+        const auto tuning = spots::tuningFor(khz, mode);
+        m_decoLink.broadcast(QJsonObject{
+            {QStringLiteral("type"), QStringLiteral("tune")},
+            {QStringLiteral("freqKhz"), khz},
+            {QStringLiteral("dialKhz"), tuning.dialKhz},
+            {QStringLiteral("audioHz"), tuning.audioHz},
+            {QStringLiteral("mode"), mode},
+        });
+    }
+
+    const QString where = toRadio && toDecodium ? tr("radio and Decodium")
+                        : toRadio               ? tr("radio")
+                                                : QStringLiteral("Decodium");
+    if (mhz > 0) {
+        addActivity(QStringLiteral("RIG"),
+                    tr("Tuned to %1 MHz %2 (%3)")
+                        .arg(QString::number(mhz, 'f', 6), mode.isEmpty() ? QStringLiteral("—") : mode, where));
+    } else {
+        addActivity(QStringLiteral("RIG"), tr("Mode %1 (%2)").arg(mode, where));
+    }
+}
+
+QVariantList DecoLogController::operatingModes() const
+{
+    QVariantList out;
+    for (const auto& e : modes::all()) {
+        out.append(QVariantMap{{QStringLiteral("name"), e.name},
+                               {QStringLiteral("cat"), e.cat},
+                               {QStringLiteral("group"), e.group}});
+    }
+    return out;
 }
 
 // ── QSO a mano ────────────────────────────────────────────────────────────────

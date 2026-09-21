@@ -7,7 +7,7 @@ import QtQuick.Layouts
 RotorGlass {
     id: panel
 
-    title: qsTr("TRAFFICO SERIALE")
+    title: qsTr("SERIAL TRAFFIC")
 
     RotorPalette { id: rt }
 
@@ -33,7 +33,7 @@ RotorGlass {
 
             RotorLed {
                 colour: rt.accent
-                label: qsTr("%1 frame").arg(panel.rotor.traffic.length)
+                label: qsTr("%1 frames").arg(panel.rotor.traffic.length)
             }
         }
 
@@ -83,7 +83,7 @@ RotorGlass {
             Text {
                 anchors.centerIn: parent
                 visible: panel.rotor.traffic.length === 0
-                text: qsTr("nessun frame: il gateway li manda a richiesta")
+                text: qsTr("no frames: the gateway sends them when asked")
                 color: rt.textDim
                 font.pixelSize: rt.fontSmall
             }

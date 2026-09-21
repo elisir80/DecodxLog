@@ -365,6 +365,12 @@ ApplicationWindow {
         else if (what[0] === "combo2") { newQsoDialog.open(); combo2Timer.start() }
         else if (what[0] === "cwsend") { window.showPanel("cw"); cwSendTimer.start() }
         else if (what[0] === "radioprobe") { window.panelItem("tabs").setTab(3); decolog.rig.probeRadio() }
+        // Il VFO della barra: "tune:14.074" o "tune:14.074:FT8"; "modes" apre
+        // l'elenco dei modi, per guardarlo.
+        else if (what[0] === "tune") { window.panelItem("tabs").setTab(3)
+                                      tuneTimer.mhz = parseFloat(what[1]); tuneTimer.mode = what[2] || ""
+                                      tuneTimer.start() }
+        else if (what[0] === "modes") topBar.openModeMenu()
         else if (what[0] === "repair") decolog.repairImportedFields()
         else if (what[0] === "fillall") decolog.completeMissingFromCallbook()
         else if (what[0] === "maintenance") { decolog.repairImportedFields(); decolog.completeMissingFromCallbook() }
@@ -487,6 +493,11 @@ ApplicationWindow {
            onTriggered: { const it = window.panelItem("cw"); if (it) it.showCombo() } }
     Timer { id: combo2Timer; interval: 900; onTriggered: newQsoDialog.showBandCombo() }
     Timer { id: cwSendTimer; interval: 1200; onTriggered: decolog.rig.sendMacro(0, {}) }
+    // La radio ci mette un attimo a rispondere: la prova aspetta che ci sia.
+    Timer { id: tuneTimer; interval: 1500
+           property real mhz: 0
+           property string mode: ""
+           onTriggered: decolog.tuneTo(mhz, mode) }
 
     NewQsoDialog { id: newQsoDialog }
     QsoDetailDialog { id: qsoDialog }

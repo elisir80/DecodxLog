@@ -59,8 +59,8 @@ Item {
         Text {
             anchors.right: parent.right
             text: readout.target >= 0
-                  ? qsTr("verso %1°").arg(readout.target.toFixed(1))
-                  : (readout.valid ? qsTr("posizione stabile") : qsTr("nessuna lettura"))
+                  ? qsTr("towards %1°").arg(readout.target.toFixed(1))
+                  : (readout.valid ? qsTr("position steady") : qsTr("no reading"))
             color: readout.target >= 0 ? rt.primary : rt.textDim
             font.pixelSize: rt.fontBody
             font.family: rt.monoFamily

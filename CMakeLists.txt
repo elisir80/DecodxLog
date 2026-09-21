@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.0.0
+    VERSION 1.1.0
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -58,6 +58,8 @@ add_library(decolog_core STATIC
     src/core/CredentialStore.cpp
     src/core/CredentialStore.h
     src/core/Maidenhead.cpp
+    src/core/Modes.cpp
+    src/core/Modes.h
     src/core/CwDecoder.cpp
     src/core/CwKeyer.cpp
     src/core/CwKeyer.h
@@ -179,6 +181,7 @@ qt_add_executable(decolog
 set(DECODXLOG_QML_FILES
     qml/DecoDXLog/Main.qml
     qml/DecoDXLog/TopBar.qml
+    qml/DecoDXLog/VfoDisplay.qml
     qml/DecoDXLog/NewQsoPanel.qml
     qml/DecoDXLog/LogbookPanel.qml
     qml/DecoDXLog/CallInfoPanel.qml
@@ -311,7 +314,7 @@ set_target_properties(decolog PROPERTIES
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig cw cwkeyer cloud cloudsettings vault)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes cw cwkeyer cloud cloudsettings vault)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

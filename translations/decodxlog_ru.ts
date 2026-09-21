@@ -2920,86 +2920,86 @@ The call Decodium is working shows up here by itself.</source>
         <translation>ПАРКОВКА %1°</translation>
     </message>
     <message>
-        <source>MEMORIE…</source>
+        <source>MEMORIES…</source>
         <translation>ПАМЯТЬ…</translation>
     </message>
 </context>
 <context>
     <name>RotorControlPage</name>
     <message>
-        <source>mappa azimutale dal QTH</source>
+        <source>azimuthal map from the QTH</source>
         <translation>азимутальная карта от QTH</translation>
     </message>
 </context>
 <context>
     <name>RotorDisplay</name>
     <message>
-        <source>control box assente</source>
+        <source>no control box</source>
         <translation>блока управления нет</translation>
     </message>
     <message>
-        <source>in rotazione verso %1°</source>
+        <source>turning towards %1°</source>
         <translation>поворот на %1°</translation>
     </message>
     <message>
-        <source>in rotazione</source>
+        <source>turning</source>
         <translation>поворачивается</translation>
     </message>
     <message>
-        <source>fermo</source>
+        <source>still</source>
         <translation>стоит</translation>
     </message>
     <message>
-        <source>DIREZIONE LIBERA</source>
+        <source>FREE DIRECTION</source>
         <translation>СВОБОДНОЕ НАПРАВЛЕНИЕ</translation>
     </message>
     <message>
-        <source>AZIMUT</source>
+        <source>AZIMUTH</source>
         <translation>АЗИМУТ</translation>
     </message>
     <message>
-        <source>ELEVAZIONE</source>
+        <source>ELEVATION</source>
         <translation>УГОЛ МЕСТА</translation>
     </message>
 </context>
 <context>
     <name>RotorHistory</name>
     <message>
-        <source>ANDAMENTO POSIZIONE</source>
+        <source>POSITION OVER TIME</source>
         <translation>ХОД ПОЛОЖЕНИЯ</translation>
     </message>
     <message>
-        <source>in attesa di campioni…</source>
+        <source>waiting for readings…</source>
         <translation>ждём замеров…</translation>
     </message>
 </context>
 <context>
     <name>RotorLocatorBar</name>
     <message>
-        <source>Locatore, es. FN31pr</source>
+        <source>Grid, e.g. FN31pr</source>
         <translation>Локатор, например FN31pr</translation>
     </message>
     <message>
-        <source>BREVE</source>
+        <source>SHORT</source>
         <translation>КОРОТКИЙ</translation>
     </message>
     <message>
-        <source>LUNGA</source>
+        <source>LONG</source>
         <translation>ДЛИННЫЙ</translation>
     </message>
     <message>
-        <source>breve %1° · lunga %2° · %3 km</source>
+        <source>short %1° · long %2° · %3 km</source>
         <translation>короткий %1° · длинный %2° · %3 км</translation>
     </message>
     <message>
-        <source>QTH di riferimento: %1</source>
+        <source>Home QTH: %1</source>
         <translation>Опорный QTH: %1</translation>
     </message>
 </context>
 <context>
     <name>RotorMap</name>
     <message>
-        <source>Riquadri dal gateway DecoRotor</source>
+        <source>Map tiles from the DecoRotor gateway</source>
         <translation>Плитки карты от шлюза DecoRotor</translation>
     </message>
     <message>
@@ -3007,11 +3007,11 @@ The call Decodium is working shows up here by itself.</source>
         <translation>КЛАСТЕР %1</translation>
     </message>
     <message>
-        <source>CLUSTER SPENTO</source>
+        <source>CLUSTER OFF</source>
         <translation>КЛАСТЕР ВЫКЛЮЧЕН</translation>
     </message>
     <message numerus="yes">
-        <source>%n stazione/i</source>
+        <source>%n station(s)</source>
         <translation>
             <numerusform>%n станция</numerusform>
             <numerusform>%n станции</numerusform>
@@ -3023,15 +3023,15 @@ The call Decodium is working shows up here by itself.</source>
         <translation>%1 · %2° · %3 км</translation>
     </message>
     <message>
-        <source>PUNTA</source>
+        <source>POINT</source>
         <translation>НАВЕСТИ</translation>
     </message>
     <message>
-        <source>MEMORIA</source>
+        <source>MEMORY</source>
         <translation>ПАМЯТЬ</translation>
     </message>
     <message>
-        <source>riquadri dal gateway DecoRotor</source>
+        <source>map tiles from the DecoRotor gateway</source>
         <translation>плитки карты от шлюза DecoRotor</translation>
     </message>
     <message>
@@ -3042,7 +3042,7 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>RotorMemories</name>
     <message>
-        <source>MEMORIE</source>
+        <source>MEMORIES</source>
         <translation>ПАМЯТЬ</translation>
     </message>
     <message>
@@ -3050,38 +3050,38 @@ The call Decodium is working shows up here by itself.</source>
         <translation>%1° / %2°</translation>
     </message>
     <message>
-        <source>VAI</source>
+        <source>GO</source>
         <translation>ВПЕРЁД</translation>
     </message>
     <message>
-        <source>Nessuna memoria: dai un nome alla direzione attuale e salvala.</source>
+        <source>No memories: give the direction it is pointing now a name and save it.</source>
         <translation>Ячеек памяти нет: дайте имя нынешнему направлению и сохраните его.</translation>
     </message>
     <message>
-        <source>Nome della memoria</source>
+        <source>Name of the memory</source>
         <translation>Имя ячейки</translation>
     </message>
     <message>
-        <source>SALVA QUI</source>
+        <source>SAVE HERE</source>
         <translation>СОХРАНИТЬ СЮДА</translation>
     </message>
 </context>
 <context>
     <name>RotorNetwork</name>
     <message>
-        <source>COLLEGAMENTI DI RETE</source>
+        <source>NETWORK LINKS</source>
         <translation>СЕТЕВЫЕ ПОДКЛЮЧЕНИЯ</translation>
     </message>
     <message>
-        <source>Indirizzi da usare su telefono e software di stazione:</source>
+        <source>Addresses to use on the phone and in station software:</source>
         <translation>Адреса для телефона и программ станции:</translation>
     </message>
     <message>
-        <source>Accesso protetto da token: i client devono presentarlo.</source>
+        <source>Access is closed by a token: the clients have to show it.</source>
         <translation>Доступ закрыт токеном: клиенты должны его предъявить.</translation>
     </message>
     <message>
-        <source>Accesso libero sulla rete locale. Per l&apos;uso da fuori casa passa da una VPN, non aprire porte sul router.</source>
+        <source>Open access on the local network. From outside the house go through a VPN, do not open ports on the router.</source>
         <translation>Свободный доступ в местной сети. Для работы из-за дома идите через VPN, не открывайте порты на маршрутизаторе.</translation>
     </message>
 </context>
@@ -3111,15 +3111,15 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>RotorPointing</name>
     <message>
-        <source>Azimut °</source>
+        <source>Azimuth °</source>
         <translation>Азимут °</translation>
     </message>
     <message>
-        <source>Elevazione °</source>
+        <source>Elevation °</source>
         <translation>Угол места °</translation>
     </message>
     <message>
-        <source>PUNTA</source>
+        <source>POINT</source>
         <translation>НАВЕСТИ</translation>
     </message>
     <message>
@@ -3143,45 +3143,45 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Ю</translation>
     </message>
     <message>
-        <source>SO</source>
+        <source>SW</source>
         <translation>ЮЗ</translation>
     </message>
     <message>
-        <source>O</source>
+        <source>W</source>
         <translation>З</translation>
     </message>
     <message>
-        <source>NO</source>
+        <source>NW</source>
         <translation>СЗ</translation>
     </message>
 </context>
 <context>
     <name>RotorReadout</name>
     <message>
-        <source>verso %1°</source>
+        <source>towards %1°</source>
         <translation>на %1°</translation>
     </message>
     <message>
-        <source>posizione stabile</source>
+        <source>position steady</source>
         <translation>положение устойчиво</translation>
     </message>
     <message>
-        <source>nessuna lettura</source>
+        <source>no reading</source>
         <translation>показаний нет</translation>
     </message>
 </context>
 <context>
     <name>RotorSettings</name>
     <message>
-        <source>COLLEGAMENTO AL CONTROL BOX</source>
+        <source>LINK TO THE CONTROL BOX</source>
         <translation>СВЯЗЬ С БЛОКОМ УПРАВЛЕНИЯ</translation>
     </message>
     <message>
-        <source>Porta seriale</source>
+        <source>Serial port</source>
         <translation>Последовательный порт</translation>
     </message>
     <message>
-        <source>Velocita&apos;</source>
+        <source>Speed</source>
         <translation>Скорость</translation>
     </message>
     <message>
@@ -3189,105 +3189,105 @@ The call Decodium is working shows up here by itself.</source>
         <translation>%1 бод, 8N1</translation>
     </message>
     <message>
-        <source>Modello</source>
+        <source>Model</source>
         <translation>Модель</translation>
     </message>
     <message>
-        <source>Stato</source>
+        <source>Status</source>
         <translation>Состояние</translation>
     </message>
     <message>
-        <source>collegato</source>
+        <source>connected</source>
         <translation>подключён</translation>
     </message>
     <message>
-        <source>assente</source>
+        <source>not there</source>
         <translation>нет</translation>
     </message>
     <message>
-        <source>Porta e modello si cambiano all&apos;avvio, con --port e --model.</source>
+        <source>Port and model are changed at startup, with --port and --model.</source>
         <translation>Порт и модель меняются при запуске, ключами --port и --model.</translation>
     </message>
 </context>
 <context>
     <name>RotorSettingsPanel</name>
     <message>
-        <source>STAZIONE E SICUREZZA</source>
+        <source>STATION AND SAFETY</source>
         <translation>СТАНЦИЯ И БЕЗОПАСНОСТЬ</translation>
     </message>
     <message>
-        <source>Nominativo</source>
+        <source>Callsign</source>
         <translation>Позывной</translation>
     </message>
     <message>
-        <source>Locatore del QTH</source>
+        <source>Grid of the QTH</source>
         <translation>Локатор QTH</translation>
     </message>
     <message>
-        <source>Apertura del lobo: %1°</source>
+        <source>Beamwidth: %1°</source>
         <translation>Ширина лепестка: %1°</translation>
     </message>
     <message>
-        <source>Finecorsa azimut</source>
+        <source>Azimuth end stop</source>
         <translation>Концевик по азимуту</translation>
     </message>
     <message>
-        <source>Posizione di riposo</source>
+        <source>Rest position</source>
         <translation>Положение покоя</translation>
     </message>
     <message>
-        <source>Stop se cade il collegamento</source>
+        <source>Stop if the link drops</source>
         <translation>Стоп, если связь пропала</translation>
     </message>
     <message>
-        <source>attivo</source>
+        <source>on</source>
         <translation>включено</translation>
     </message>
     <message>
-        <source>disattivato</source>
+        <source>off</source>
         <translation>выключено</translation>
     </message>
     <message>
-        <source>Tolleranza di arrivo</source>
+        <source>Arrival tolerance</source>
         <translation>Допуск при подходе</translation>
     </message>
     <message>
-        <source>Porta seriale, modello e porta dei decode si cambiano all&apos;avvio del gateway.</source>
+        <source>Serial port, model and the decodes port are changed when the gateway starts.</source>
         <translation>Последовательный порт, модель и порт декодов меняются при запуске шлюза.</translation>
     </message>
     <message>
-        <source>Le modifiche vengono salvate subito in config.json.</source>
+        <source>Changes are saved in config.json straight away.</source>
         <translation>Изменения сразу сохраняются в config.json.</translation>
     </message>
 </context>
 <context>
     <name>RotorStats</name>
     <message>
-        <source>ESERCIZIO</source>
+        <source>IN SERVICE</source>
         <translation>РАБОТА</translation>
     </message>
     <message>
-        <source>Frame inviati</source>
+        <source>Frames sent</source>
         <translation>Кадров отправлено</translation>
     </message>
     <message>
-        <source>Frame ricevuti</source>
+        <source>Frames received</source>
         <translation>Кадров принято</translation>
     </message>
     <message>
-        <source>Risposte perse</source>
+        <source>Answers lost</source>
         <translation>Потеряно ответов</translation>
     </message>
     <message>
-        <source>Riconnessioni</source>
+        <source>Reconnections</source>
         <translation>Переподключений</translation>
     </message>
     <message>
-        <source>In servizio da</source>
+        <source>Running since</source>
         <translation>В работе с</translation>
     </message>
     <message>
-        <source>Client collegati</source>
+        <source>Clients connected</source>
         <translation>Подключённых клиентов</translation>
     </message>
     <message>
@@ -3298,7 +3298,7 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>RotorStatus</name>
     <message>
-        <source>pronto</source>
+        <source>ready</source>
         <translation>готов</translation>
     </message>
     <message>
@@ -3329,15 +3329,15 @@ The call Decodium is working shows up here by itself.</source>
         <translation>БЛОК УПРАВЛЕНИЯ %1</translation>
     </message>
     <message>
-        <source>CONTROL BOX ASSENTE</source>
+        <source>NO CONTROL BOX</source>
         <translation>БЛОКА УПРАВЛЕНИЯ НЕТ</translation>
     </message>
     <message>
-        <source>IN ROTAZIONE</source>
+        <source>TURNING</source>
         <translation>ПОВОРАЧИВАЕТСЯ</translation>
     </message>
     <message>
-        <source>FERMO</source>
+        <source>STILL</source>
         <translation>СТОИТ</translation>
     </message>
     <message numerus="yes">
@@ -3349,18 +3349,18 @@ The call Decodium is working shows up here by itself.</source>
         </translation>
     </message>
     <message>
-        <source>Passa al quadrante chiaro</source>
+        <source>Switch to the light dial</source>
         <translation>Светлый циферблат</translation>
     </message>
     <message>
-        <source>Passa al quadrante notturno</source>
+        <source>Switch to the night dial</source>
         <translation>Ночной циферблат</translation>
     </message>
 </context>
 <context>
     <name>RotorTraffic</name>
     <message>
-        <source>TRAFFICO SERIALE</source>
+        <source>SERIAL TRAFFIC</source>
         <translation>ОБМЕН ПО ПОРТУ</translation>
     </message>
     <message>
@@ -3368,30 +3368,30 @@ The call Decodium is working shows up here by itself.</source>
         <translation>%1 @ %2 8N1</translation>
     </message>
     <message>
-        <source>%1 frame</source>
+        <source>%1 frames</source>
         <translation>кадров: %1</translation>
     </message>
     <message>
-        <source>nessun frame: il gateway li manda a richiesta</source>
+        <source>no frames: the gateway sends them when asked</source>
         <translation>кадров нет: шлюз шлёт их по запросу</translation>
     </message>
 </context>
 <context>
     <name>RotorWindow</name>
     <message>
-        <source>DecoRotor — controllo rotore PRO.SIS.TEL</source>
+        <source>DecoRotor — PRO.SIS.TEL rotor control</source>
         <translation>DecoRotor — управление поворотным устройством PRO.SIS.TEL</translation>
     </message>
     <message>
-        <source>CONTROLLO</source>
+        <source>CONTROL</source>
         <translation>УПРАВЛЕНИЕ</translation>
     </message>
     <message>
-        <source>DIAGNOSTICA</source>
+        <source>DIAGNOSTICS</source>
         <translation>ДИАГНОСТИКА</translation>
     </message>
     <message>
-        <source>IMPOSTAZIONI</source>
+        <source>SETTINGS</source>
         <translation>НАСТРОЙКИ</translation>
     </message>
 </context>
@@ -4634,6 +4634,13 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>VfoDisplay</name>
+    <message>
+        <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
+        <translation>Колёсико: цифра под указателем. Щелчок: написать частоту.</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::ActivationController</name>
     <message>
         <source>Choose what kind of session it is</source>
@@ -5055,6 +5062,26 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>QSO not logged: %1</source>
         <translation>QSO не записан: %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send the frequency: the radio is not connected and Decodium is not there either.</source>
+        <translation>Частоте некуда идти: трансивер не подключён, и Decodium тоже нет.</translation>
+    </message>
+    <message>
+        <source>radio and Decodium</source>
+        <translation>трансивер и Decodium</translation>
+    </message>
+    <message>
+        <source>radio</source>
+        <translation>трансивер</translation>
+    </message>
+    <message>
+        <source>Tuned to %1 MHz %2 (%3)</source>
+        <translation>Настроено на %1 МГц %2 (%3)</translation>
+    </message>
+    <message>
+        <source>Mode %1 (%2)</source>
+        <translation>Режим %1 (%2)</translation>
     </message>
     <message>
         <source>Already worked in this activation</source>

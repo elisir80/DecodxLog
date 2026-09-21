@@ -35,7 +35,7 @@ RowLayout {
         RotorGlass {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            title: qsTr("COLLEGAMENTO AL CONTROL BOX")
+            title: qsTr("LINK TO THE CONTROL BOX")
 
             ColumnLayout {
                 anchors.fill: parent
@@ -43,10 +43,10 @@ RowLayout {
 
                 Repeater {
                     model: [
-                        { caption: qsTr("Porta seriale"), value: page.st.port || "—" },
-                        { caption: qsTr("Velocita'"), value: qsTr("%1 baud, 8N1").arg(9600) },
-                        { caption: qsTr("Modello"), value: page.st.modelLabel || "—" },
-                        { caption: qsTr("Stato"), value: page.st.connected ? qsTr("collegato") : qsTr("assente") }
+                        { caption: qsTr("Serial port"), value: page.st.port || "—" },
+                        { caption: qsTr("Speed"), value: qsTr("%1 baud, 8N1").arg(9600) },
+                        { caption: qsTr("Model"), value: page.st.modelLabel || "—" },
+                        { caption: qsTr("Status"), value: page.st.connected ? qsTr("connected") : qsTr("not there") }
                     ]
 
                     RowLayout {
@@ -75,7 +75,7 @@ RowLayout {
 
                 Text {
                     Layout.fillWidth: true
-                    text: qsTr("Porta e modello si cambiano all'avvio, con --port e --model.")
+                    text: qsTr("Port and model are changed at startup, with --port and --model.")
                     color: rt.textDim
                     font.pixelSize: rt.fontSmall
                     wrapMode: Text.WordWrap
