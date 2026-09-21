@@ -5143,12 +5143,20 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>rifaccio l&apos;elenco dei gia&apos; lavorati: %1 s</translation>
     </message>
     <message>
-        <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation>Decodium non è collegato con DecoLink: non posso sintonizzare %1</translation>
+        <source>Tune radio and Decodium: %1</source>
+        <translation>Sintonizzo radio e Decodium: %1</translation>
     </message>
     <message>
-        <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation>Sintonizzo Decodium: %1 %2 kHz %3</translation>
+        <source>Tune radio: %1</source>
+        <translation>Sintonizzo la radio: %1</translation>
+    </message>
+    <message>
+        <source>Tune Decodium: %1</source>
+        <translation>Sintonizzo Decodium: %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send %1: the radio is not connected and Decodium is not there either.</source>
+        <translation>%1 non si puo&apos; mandare da nessuna parte: la radio non e&apos; collegata e Decodium nemmeno.</translation>
     </message>
     <message>
         <source>Alert</source>

@@ -5142,12 +5142,20 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation type="unfinished"></translation>
+        <source>Tune radio and Decodium: %1</source>
+        <translation>Tune radio and Decodium: %1</translation>
     </message>
     <message>
-        <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation type="unfinished"></translation>
+        <source>Tune radio: %1</source>
+        <translation>Tune radio: %1</translation>
+    </message>
+    <message>
+        <source>Tune Decodium: %1</source>
+        <translation>Tune Decodium: %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send %1: the radio is not connected and Decodium is not there either.</source>
+        <translation>Nowhere to send %1: the radio is not connected and Decodium is not there either.</translation>
     </message>
     <message>
         <source>Alert</source>

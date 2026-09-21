@@ -5143,12 +5143,20 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>die Liste der gearbeiteten wird neu gebaut: %1 s</translation>
     </message>
     <message>
-        <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation>Decodium ist nicht über DecoLink verbunden: %1 kann nicht eingestellt werden</translation>
+        <source>Tune radio and Decodium: %1</source>
+        <translation>Funkgerät und Decodium abgestimmt: %1</translation>
     </message>
     <message>
-        <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation>Decodium einstellen: %1 %2 kHz %3</translation>
+        <source>Tune radio: %1</source>
+        <translation>Funkgerät abgestimmt: %1</translation>
+    </message>
+    <message>
+        <source>Tune Decodium: %1</source>
+        <translation>Decodium abgestimmt: %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send %1: the radio is not connected and Decodium is not there either.</source>
+        <translation>%1 kann nirgendwohin: das Funkgerät ist nicht verbunden und Decodium auch nicht.</translation>
     </message>
     <message>
         <source>Alert</source>

@@ -5143,12 +5143,20 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>genopbygger listen over kørte: %1 s</translation>
     </message>
     <message>
-        <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation>Decodium er ikke forbundet med DecoLink: kan ikke stille på %1</translation>
+        <source>Tune radio and Decodium: %1</source>
+        <translation>Radio og Decodium stemt ind: %1</translation>
     </message>
     <message>
-        <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation>Stiller Decodium: %1 %2 kHz %3</translation>
+        <source>Tune radio: %1</source>
+        <translation>Radio stemt ind: %1</translation>
+    </message>
+    <message>
+        <source>Tune Decodium: %1</source>
+        <translation>Decodium stemt ind: %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send %1: the radio is not connected and Decodium is not there either.</source>
+        <translation>%1 kan ikke sendes nogen steder: radioen er ikke forbundet, og Decodium heller ikke.</translation>
     </message>
     <message>
         <source>Alert</source>

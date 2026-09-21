@@ -5143,12 +5143,20 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
         <translation>reconstruction de la liste des travaillés : %1 s</translation>
     </message>
     <message>
-        <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation>Decodium n&apos;est pas relié par DecoLink : impossible de se régler sur %1</translation>
+        <source>Tune radio and Decodium: %1</source>
+        <translation>Radio et Decodium accordés : %1</translation>
     </message>
     <message>
-        <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation>Régler Decodium : %1 %2 kHz %3</translation>
+        <source>Tune radio: %1</source>
+        <translation>Radio accordée : %1</translation>
+    </message>
+    <message>
+        <source>Tune Decodium: %1</source>
+        <translation>Decodium accordé : %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send %1: the radio is not connected and Decodium is not there either.</source>
+        <translation>%1 ne peut aller nulle part : la radio n&apos;est pas reliée et Decodium non plus.</translation>
     </message>
     <message>
         <source>Alert</source>

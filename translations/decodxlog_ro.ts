@@ -5158,12 +5158,20 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>se reface lista celor lucrate: %1 s</translation>
     </message>
     <message>
-        <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation>Decodium nu este conectat prin DecoLink: nu se poate pune pe %1</translation>
+        <source>Tune radio and Decodium: %1</source>
+        <translation>Acordez stația și Decodium: %1</translation>
     </message>
     <message>
-        <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation>Pune Decodium: %1 %2 kHz %3</translation>
+        <source>Tune radio: %1</source>
+        <translation>Acordez stația: %1</translation>
+    </message>
+    <message>
+        <source>Tune Decodium: %1</source>
+        <translation>Acordez Decodium: %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send %1: the radio is not connected and Decodium is not there either.</source>
+        <translation>%1 nu are unde să meargă: stația nu e conectată, nici Decodium.</translation>
     </message>
     <message>
         <source>Alert</source>

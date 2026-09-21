@@ -375,6 +375,19 @@ ApplicationWindow {
         }
     }
 
+    // Lo spot finto entra nel modello un attimo dopo: si aspetta, poi si fa il
+    // doppio clic sulla prima riga.
+    Timer {
+        id: clusterTuneTimer
+        interval: 600
+        onTriggered: {
+            const model = decolog.cluster.spots
+            if (model && model.count > 0)
+                decolog.cluster.tune(model.get(0).spotKey)
+            window.panelItem("tabs").setTab(3)
+        }
+    }
+
     Component.onCompleted: {
         const what = startupShow.split(":")
         if (what[0] === "new") newQsoDialog.open()
@@ -400,6 +413,15 @@ ApplicationWindow {
         else if (what[0] === "tab") window.panelItem("tabs").setTab(parseInt(what[1]))
         else if (what[0] === "pop") popWindow.active = true
         else if (what[0] === "panels") { if (what[1]) { const how = what.slice(2); for (let i = 0; i < how.length; ++i) { if (what[1] === "close") window.closePanel(how[i]); else if (what[1] === "detach") window.detachPanel(how[i]); else if (what[1] === "show") window.showPanel(how[i]); else if (what[1] === "attach") window.attachPanel(how[i]) } } else panelsPopup.open() }
+        // "cluster:spot:14025.1:3Y0J:CW" mette una riga come se venisse da un
+        // nodo e ci fa sopra il doppio clic: serve a guardare se la radio ci va.
+        else if (what[0] === "cluster" && what[1] === "spot") {
+            const now = new Date()
+            const hhmm = ("0" + now.getUTCHours()).slice(-2) + ("0" + now.getUTCMinutes()).slice(-2)
+            decolog.cluster.injectLine("DX de IK0TEST:  " + what[2] + "  " + what[3]
+                                       + "  " + (what[4] || "CW") + " 18 dB  " + hhmm + "Z")
+            clusterTuneTimer.start()
+        }
         else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))
         else if (what[0] === "activation") activationDialog.openDialog()
         else if (what[0] === "modes") window.panelItem("newqso").showModes()

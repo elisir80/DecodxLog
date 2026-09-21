@@ -5128,12 +5128,20 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>正在重建已通联名单：%1 秒</translation>
     </message>
     <message>
-        <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation>Decodium 没有通过 DecoLink 连上：没法调到 %1</translation>
+        <source>Tune radio and Decodium: %1</source>
+        <translation>已把电台和 Decodium 调过去：%1</translation>
     </message>
     <message>
-        <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation>把 Decodium 调到：%1 %2 kHz %3</translation>
+        <source>Tune radio: %1</source>
+        <translation>已把电台调过去：%1</translation>
+    </message>
+    <message>
+        <source>Tune Decodium: %1</source>
+        <translation>已把 Decodium 调过去：%1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send %1: the radio is not connected and Decodium is not there either.</source>
+        <translation>%1 无处可送：电台没连接，Decodium 也不在。</translation>
     </message>
     <message>
         <source>Alert</source>

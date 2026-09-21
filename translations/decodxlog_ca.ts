@@ -5143,12 +5143,20 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>refent la llista de treballats: %1 s</translation>
     </message>
     <message>
-        <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation>Decodium no està connectat amb DecoLink: no es pot sintonitzar %1</translation>
+        <source>Tune radio and Decodium: %1</source>
+        <translation>Sintonitzo ràdio i Decodium: %1</translation>
     </message>
     <message>
-        <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation>Sintonitza Decodium: %1 %2 kHz %3</translation>
+        <source>Tune radio: %1</source>
+        <translation>Sintonitzo la ràdio: %1</translation>
+    </message>
+    <message>
+        <source>Tune Decodium: %1</source>
+        <translation>Sintonitzo Decodium: %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send %1: the radio is not connected and Decodium is not there either.</source>
+        <translation>%1 no es pot enviar enlloc: la ràdio no està connectada i Decodium tampoc.</translation>
     </message>
     <message>
         <source>Alert</source>

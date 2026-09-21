@@ -407,6 +407,16 @@ bool DecoLogController::openDatabase(const QString& path)
         addActivity(category, text, level);
     };
     ctx.lookup = [this](const QString& call) { setLookupCall(call); };
+    // Il doppio clic su uno spot porta la radio dove sta il DX: frequenza e
+    // modo, tradotto in quello che vuole Hamlib.
+    ctx.tuneRadio = [this](double mhz, const QString& mode) {
+        auto* rig = qobject_cast<RigController*>(m_rig);
+        if (!rig || !rig->connected() || mhz <= 0)
+            return false;
+        rig->tuneTo(static_cast<qint64>(std::llround(mhz * 1e6)),
+                    mode.isEmpty() ? QString() : modes::catFor(mode, mhz));
+        return true;
+    };
     m_cluster = new ClusterController(std::move(ctx), this);
 
     QslController::Context qslCtx;
@@ -1558,7 +1568,7 @@ void DecoLogController::tuneTo(double mhz, const QString& mode)
         // Il modo si tocca solo se e' stato chiesto: girando la rotellina si
         // cambia la frequenza, non il modo.
         rig->tuneTo(mhz > 0 ? static_cast<qint64>(std::llround(mhz * 1e6)) : 0,
-                    mode.isEmpty() ? QString() : modes::catFor(mode));
+                    mode.isEmpty() ? QString() : modes::catFor(mode, mhz));
     }
 
     if (toDecodium) {

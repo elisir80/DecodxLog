@@ -3,6 +3,29 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.7.3 — 22 settembre 2026
+
+**Il doppio clic su uno spot del cluster adesso muove la radio.** Prima parlava solo a
+Decodium: il log si spostava di banda, ma il VFO restava dov'era. E se Decodium non era
+aperto — cioe' sempre, per chi lavora in CW o in fonia — il doppio clic non faceva
+proprio niente, con un avviso che diceva che Decodium non c'era.
+
+Adesso la radio ci va: frequenza e modo dello spot, per via del CAT. Decodium lo riceve
+lo stesso quando c'e', e la riga nel registro dice dove e' finito il comando — «radio e
+Decodium», «radio», «Decodium», o che non c'era nessuno dei due.
+
+**Per i modi digitali il VFO va sulla sotto-banda, non sulla frequenza dello spot.** Uno
+spot FT8 a 18101.5 kHz porta la radio su 18100.0 in PKTUSB: il DX sta a 1500 Hz
+nell'audio, e una radio messa su 18101.5 non lo sentirebbe.
+
+**E la fonia sceglie la banda laterale giusta.** Sotto i 10 MHz si parla in LSB, sopra in
+USB: lo sanno tutti in aria, ma il programma no — uno spot in fonia sui 40 metri portava
+la radio in USB. Chi scrive USB o LSB di suo non viene toccato.
+
+Provato con un rigctld finto che scrive quello che riceve: CW a 14025.1 → `+F 14025100`
+`+M CW`; FT8 a 18101.5 → `+F 18100000` `+M PKTUSB`; SSB a 14205 → `+M USB`; SSB a 7125 →
+`+M LSB`.
+
 ## 1.7.2 — 22 settembre 2026 (pacchetti rifatti)
 
 **I pacchetti della 1.7.1 e della 1.7.2 non partivano.** Li costruivano i flussi di

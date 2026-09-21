@@ -84,6 +84,26 @@ private slots:
         }
     }
 
+    // "SSB" non dice quale banda laterale: sotto i 10 MHz si parla in LSB,
+    // sopra in USB. Lo sanno tutti in aria, e adesso anche il programma —
+    // prima uno spot in fonia sui 40 metri portava la radio in USB.
+    void ssbPicksTheSideTheBandUses()
+    {
+        QCOMPARE(modes::catFor("SSB", 3.750), QString("LSB"));
+        QCOMPARE(modes::catFor("SSB", 7.120), QString("LSB"));
+        QCOMPARE(modes::catFor("SSB", 14.205), QString("USB"));
+        QCOMPARE(modes::catFor("SSB", 28.400), QString("USB"));
+        QCOMPARE(modes::catFor("PHONE", 1.845), QString("LSB"));
+        // Chi ha scritto USB o LSB sapeva quello che voleva: non si tocca.
+        QCOMPARE(modes::catFor("USB", 7.120), QString("USB"));
+        QCOMPARE(modes::catFor("LSB", 14.205), QString("LSB"));
+        // Senza frequenza vale il caso generale di sempre.
+        QCOMPARE(modes::catFor("SSB", 0), modes::catFor("SSB"));
+        // Gli altri modi non cambiano per la banda.
+        QCOMPARE(modes::catFor("CW", 3.550), QString("CW"));
+        QCOMPARE(modes::catFor("FT8", 7.074), QString("PKTUSB"));
+    }
+
     // Il gruppo per la griglia banda x modo: CW, fonia, digitale. E' lo stesso
     // criterio dei diplomi, e quello che non si conosce finisce fra i digitali.
     void groupsLikeTheAwards()

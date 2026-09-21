@@ -5158,12 +5158,20 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>pārbūvē nostrādāto sarakstu: %1 s</translation>
     </message>
     <message>
-        <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation>Decodium nav savienots ar DecoLink: nevar noskaņot uz %1</translation>
+        <source>Tune radio and Decodium: %1</source>
+        <translation>Uzregulēju staciju un Decodium: %1</translation>
     </message>
     <message>
-        <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation>Noskaņo Decodium: %1 %2 kHz %3</translation>
+        <source>Tune radio: %1</source>
+        <translation>Uzregulēju staciju: %1</translation>
+    </message>
+    <message>
+        <source>Tune Decodium: %1</source>
+        <translation>Uzregulēju Decodium: %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send %1: the radio is not connected and Decodium is not there either.</source>
+        <translation>%1 nav kur sūtīt: stacija nav pieslēgta, un Decodium arī ne.</translation>
     </message>
     <message>
         <source>Alert</source>

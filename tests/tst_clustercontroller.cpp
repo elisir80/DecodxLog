@@ -94,6 +94,10 @@ private slots:
 
         QStringList activity;
         QString looked;
+        // La radio finta: si segna dove le e' stato detto di andare.
+        double radioMhz = 0;
+        QString radioMode;
+        bool radioThere = true;
         ClusterController::Context ctx;
         ctx.db = &db;
         ctx.countries = &countries;
@@ -102,6 +106,13 @@ private slots:
         ctx.stationGrid = [] { return QStringLiteral("JN71DC"); };
         ctx.activity = [&activity](const QString& cat, const QString& text, const QString&) { activity << cat + ": " + text; };
         ctx.lookup = [&looked](const QString& call) { looked = call; };
+        ctx.tuneRadio = [&](double mhz, const QString& mode) {
+            if (!radioThere)
+                return false;
+            radioMhz = mhz;
+            radioMode = mode;
+            return true;
+        };
         ClusterController cluster(std::move(ctx));
         cluster.setMuted(true);
 
@@ -153,6 +164,53 @@ private slots:
         QCOMPARE(tune->value("dialKhz").toDouble(), 18100.0);
         QCOMPARE(tune->value("audioHz").toInt(), 1500);
         QCOMPARE(tune->value("mode").toString(), QString("FT8"));
+
+        // E la radio ci va davvero. Per un modo digitale il VFO sta sulla
+        // sotto-banda, non sulla frequenza dello spot: il DX e' un tono
+        // nell'audio, e una radio portata su 18101.5 non lo sentirebbe.
+        QCOMPARE(radioMhz, 18.100);
+        QCOMPARE(radioMode, QString("FT8"));
+
+        // In CW il quadrante e' la frequenza dello spot, senza scarti.
+        cluster.injectLine(QString("DX de F5ABC:  14025.1  3Y0J  CW 18 dB  %1Z").arg(hhmm));
+        radioMhz = 0;
+        radioMode.clear();
+        for (int i = 0; i < model->count(); ++i) {
+            if (model->get(i).value("call").toString() == QLatin1String("3Y0J")) {
+                cluster.tune(model->get(i).value("spotKey").toString());
+                break;
+            }
+        }
+        QCOMPARE(radioMhz, 14.0251);
+        QCOMPARE(radioMode, QString("CW"));
+
+        // Senza Decodium la radio si muove lo stesso: chi lavora in CW non ha
+        // Decodium aperto, e fino a ieri un doppio clic non muoveva un VFO.
+        decodium.socket.disconnectFromHost();
+        QTRY_COMPARE_WITH_TIMEOUT(link.clientCount(), 0, 4000);
+        radioMhz = 0;
+        activity.clear();
+        for (int i = 0; i < model->count(); ++i) {
+            if (model->get(i).value("call").toString() == QLatin1String("3Y0J")) {
+                cluster.tune(model->get(i).value("spotKey").toString());
+                break;
+            }
+        }
+        QCOMPARE(radioMhz, 14.0251);
+        QVERIFY2(activity.last().contains(QStringLiteral("radio")), qPrintable(activity.last()));
+
+        // E senza ne' radio ne' Decodium si dice, invece di non fare niente in
+        // silenzio.
+        radioThere = false;
+        activity.clear();
+        for (int i = 0; i < model->count(); ++i) {
+            if (model->get(i).value("call").toString() == QLatin1String("3Y0J")) {
+                cluster.tune(model->get(i).value("spotKey").toString());
+                break;
+            }
+        }
+        QVERIFY2(activity.last().contains(QStringLiteral("Nowhere")), qPrintable(activity.last()));
+        radioThere = true;
 
         // Un QSO nuovo nel log cambia lo stato degli spot gia' in lista.
         cluster.setFilter({});

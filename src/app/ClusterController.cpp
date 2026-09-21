@@ -544,26 +544,45 @@ void ClusterController::tune(const QString& spotKey)
         return;
     if (m_ctx.lookup)
         m_ctx.lookup(e->spot.dxCall);
-    if (!m_ctx.decoLink || m_ctx.decoLink->clientCount() == 0) {
-        if (m_ctx.activity)
-            m_ctx.activity(QStringLiteral("CLUSTER"), tr("Decodium is not connected with DecoLink: cannot tune to %1")
-                                                          .arg(e->spot.dxCall), QStringLiteral("warning"));
-        return;
-    }
+
+    // Per i modi digitali la frequenza dello spot non e' quella del VFO: il
+    // quadrante sta sulla sotto-banda e il segnale e' un tono nell'audio. La
+    // radio va sul quadrante, non sullo spot.
     const auto tuning = spots::tuningFor(e->spot.freqKhz, e->spot.mode);
-    m_ctx.decoLink->broadcast(QJsonObject{
-        {QStringLiteral("type"), QStringLiteral("tune")},
-        {QStringLiteral("call"), e->spot.dxCall},
-        {QStringLiteral("freqKhz"), e->spot.freqKhz},
-        {QStringLiteral("dialKhz"), tuning.dialKhz},
-        {QStringLiteral("audioHz"), tuning.audioHz},
-        {QStringLiteral("mode"), e->spot.mode},
-        {QStringLiteral("grid"), e->spot.dxGrid},
-    });
-    if (m_ctx.activity)
-        m_ctx.activity(QStringLiteral("CLUSTER"), tr("Tune Decodium: %1 %2 kHz %3")
-                                                      .arg(e->spot.dxCall, QString::number(e->spot.freqKhz, 'f', 1), e->spot.mode),
-                       QStringLiteral("info"));
+
+    // Prima la radio: e' quella che l'operatore guarda. Va fatto anche quando
+    // Decodium non c'e' — chi lavora in CW o in SSB non ha Decodium aperto, e
+    // fino a ieri un doppio clic sullo spot non muoveva un VFO.
+    const bool toRadio = m_ctx.tuneRadio && m_ctx.tuneRadio(tuning.dialKhz / 1000.0, e->spot.mode);
+
+    const bool toDecodium = m_ctx.decoLink && m_ctx.decoLink->clientCount() > 0;
+    if (toDecodium) {
+        m_ctx.decoLink->broadcast(QJsonObject{
+            {QStringLiteral("type"), QStringLiteral("tune")},
+            {QStringLiteral("call"), e->spot.dxCall},
+            {QStringLiteral("freqKhz"), e->spot.freqKhz},
+            {QStringLiteral("dialKhz"), tuning.dialKhz},
+            {QStringLiteral("audioHz"), tuning.audioHz},
+            {QStringLiteral("mode"), e->spot.mode},
+            {QStringLiteral("grid"), e->spot.dxGrid},
+        });
+    }
+
+    if (!m_ctx.activity)
+        return;
+    const QString what = QStringLiteral("%1 %2 kHz %3")
+                             .arg(e->spot.dxCall, QString::number(e->spot.freqKhz, 'f', 1), e->spot.mode);
+    if (toRadio && toDecodium)
+        m_ctx.activity(QStringLiteral("CLUSTER"), tr("Tune radio and Decodium: %1").arg(what), QStringLiteral("info"));
+    else if (toRadio)
+        m_ctx.activity(QStringLiteral("CLUSTER"), tr("Tune radio: %1").arg(what), QStringLiteral("info"));
+    else if (toDecodium)
+        m_ctx.activity(QStringLiteral("CLUSTER"), tr("Tune Decodium: %1").arg(what), QStringLiteral("info"));
+    else
+        m_ctx.activity(QStringLiteral("CLUSTER"),
+                       tr("Nowhere to send %1: the radio is not connected and Decodium is not there either.")
+                           .arg(e->spot.dxCall),
+                       QStringLiteral("warning"));
 }
 
 void ClusterController::lookupSpot(const QString& spotKey)

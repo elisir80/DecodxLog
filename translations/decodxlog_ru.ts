@@ -5158,12 +5158,20 @@ The call Decodium is working shows up here by itself.</source>
         <translation>перестраиваем список проведённых: %1 с</translation>
     </message>
     <message>
-        <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation>Decodium не подключён по DecoLink: настроить на %1 нельзя</translation>
+        <source>Tune radio and Decodium: %1</source>
+        <translation>Настроены трансивер и Decodium: %1</translation>
     </message>
     <message>
-        <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation>Настраиваем Decodium: %1 %2 кГц %3</translation>
+        <source>Tune radio: %1</source>
+        <translation>Настроен трансивер: %1</translation>
+    </message>
+    <message>
+        <source>Tune Decodium: %1</source>
+        <translation>Настроен Decodium: %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send %1: the radio is not connected and Decodium is not there either.</source>
+        <translation>%1 некуда отправить: трансивер не подключён, и Decodium тоже.</translation>
     </message>
     <message>
         <source>Alert</source>

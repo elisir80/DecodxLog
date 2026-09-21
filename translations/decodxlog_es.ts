@@ -5143,12 +5143,20 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>rehaciendo la lista de los trabajados: %1 s</translation>
     </message>
     <message>
-        <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation>Decodium no está enlazado con DecoLink: no se puede sintonizar %1</translation>
+        <source>Tune radio and Decodium: %1</source>
+        <translation>Sintonizo radio y Decodium: %1</translation>
     </message>
     <message>
-        <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation>Sintonizar Decodium: %1 %2 kHz %3</translation>
+        <source>Tune radio: %1</source>
+        <translation>Sintonizo la radio: %1</translation>
+    </message>
+    <message>
+        <source>Tune Decodium: %1</source>
+        <translation>Sintonizo Decodium: %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send %1: the radio is not connected and Decodium is not there either.</source>
+        <translation>%1 no se puede mandar a ningún sitio: la radio no está conectada y Decodium tampoco.</translation>
     </message>
     <message>
         <source>Alert</source>

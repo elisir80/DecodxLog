@@ -66,6 +66,17 @@ QString groupFor(const QString& mode)
     return QStringLiteral("DATA");
 }
 
+QString catFor(const QString& mode, double mhz)
+{
+    const QString cat = catFor(mode);
+    // Solo la fonia generica si decide qui: chi ha scritto USB o LSB sapeva
+    // quello che voleva, e non glielo si cambia sotto.
+    const QString wanted = mode.trimmed().toUpper();
+    if (mhz > 0 && (wanted == QLatin1String("SSB") || wanted == QLatin1String("PHONE")))
+        return mhz < 10.0 ? QStringLiteral("LSB") : QStringLiteral("USB");
+    return cat;
+}
+
 QString catFor(const QString& mode)
 {
     const QString wanted = mode.trimmed().toUpper();

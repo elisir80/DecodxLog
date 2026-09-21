@@ -72,6 +72,9 @@ public:
         std::function<void(bool& lotw, bool& card, bool& eqsl)> confirmations;
         std::function<void(const QString& category, const QString& text, const QString& level)> activity;
         std::function<void(const QString& call)> lookup;
+        // Porta la radio sulla frequenza e sul modo dello spot. Torna false se
+        // la radio non c'e': allora si prova comunque con Decodium.
+        std::function<bool(double mhz, const QString& mode)> tuneRadio;
     };
 
     explicit ClusterController(Context context, QObject* parent = nullptr);
@@ -83,7 +86,7 @@ public:
     void logChanged();
     void decodiumBandChanged();
     // Una riga come se arrivasse da un nodo (prove e demo).
-    void injectLine(const QString& line);
+    Q_INVOKABLE void injectLine(const QString& line);
     // Silenzio per questa sessione, senza cambiare l'impostazione (schermate di prova).
     void setMuted(bool muted) { m_muted = muted; }
 

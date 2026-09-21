@@ -5128,12 +5128,20 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>a meglévők listájának újraépítése: %1 s</translation>
     </message>
     <message>
-        <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation>A Decodium nincs összekötve a DecoLinkkel: nem lehet ráhangolni erre: %1</translation>
+        <source>Tune radio and Decodium: %1</source>
+        <translation>Rádió és Decodium ráhangolva: %1</translation>
     </message>
     <message>
-        <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation>A Decodium hangolása: %1 %2 kHz %3</translation>
+        <source>Tune radio: %1</source>
+        <translation>Rádió ráhangolva: %1</translation>
+    </message>
+    <message>
+        <source>Tune Decodium: %1</source>
+        <translation>Decodium ráhangolva: %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send %1: the radio is not connected and Decodium is not there either.</source>
+        <translation>%1 nincs hova menjen: a rádió nincs összekötve, és a Decodium sem.</translation>
     </message>
     <message>
         <source>Alert</source>

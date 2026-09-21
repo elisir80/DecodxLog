@@ -5143,12 +5143,20 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>de lijst van gewerkte opnieuw opbouwen: %1 s</translation>
     </message>
     <message>
-        <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation>Decodium is niet met DecoLink verbonden: kan niet op %1 afstemmen</translation>
+        <source>Tune radio and Decodium: %1</source>
+        <translation>Set en Decodium afgestemd: %1</translation>
     </message>
     <message>
-        <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation>Decodium afstemmen: %1 %2 kHz %3</translation>
+        <source>Tune radio: %1</source>
+        <translation>Set afgestemd: %1</translation>
+    </message>
+    <message>
+        <source>Tune Decodium: %1</source>
+        <translation>Decodium afgestemd: %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send %1: the radio is not connected and Decodium is not there either.</source>
+        <translation>%1 kan nergens heen: de set is niet verbonden en Decodium ook niet.</translation>
     </message>
     <message>
         <source>Alert</source>

@@ -29,4 +29,9 @@ QString groupFor(const QString& mode);
 // su USB, che e' la scelta che non fa danni.
 QString catFor(const QString& mode);
 
+// Lo stesso, sapendo dove sta il VFO. Serve alla fonia: "SSB" non dice quale
+// banda laterale, e la regola la sanno tutti tranne il programma — sotto i
+// 10 MHz si parla in LSB, sopra in USB. Con mhz a zero vale il caso generale.
+QString catFor(const QString& mode, double mhz);
+
 } // namespace decolog::core::modes

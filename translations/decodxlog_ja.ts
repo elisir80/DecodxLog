@@ -5128,12 +5128,20 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>交信済みの一覧を作り直しています: %1 秒</translation>
     </message>
     <message>
-        <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation>Decodium が DecoLink でつながっていません。%1 に合わせられません</translation>
+        <source>Tune radio and Decodium: %1</source>
+        <translation>無線機と Decodium を合わせました: %1</translation>
     </message>
     <message>
-        <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation>Decodium を合わせます: %1 %2 kHz %3</translation>
+        <source>Tune radio: %1</source>
+        <translation>無線機を合わせました: %1</translation>
+    </message>
+    <message>
+        <source>Tune Decodium: %1</source>
+        <translation>Decodium を合わせました: %1</translation>
+    </message>
+    <message>
+        <source>Nowhere to send %1: the radio is not connected and Decodium is not there either.</source>
+        <translation>%1 の送り先がありません。無線機もつながっていませんし、Decodium もいません。</translation>
     </message>
     <message>
         <source>Alert</source>
