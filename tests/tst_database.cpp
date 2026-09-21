@@ -416,6 +416,48 @@ private slots:
         QCOMPARE(wb.name, QString("Bob"));
         QCOMPARE(db.workedBefore("N0NE").count, 0);
     }
+
+    // La griglia banda x modo: una casella per banda e gruppo di modo, con le
+    // conferme messe insieme da servizi diversi dello stesso QSO.
+    void bandModeSlots()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        // Due digitali diversi sulla stessa banda: una casella sola.
+        QCOMPARE(db.importAdif("<CALL:6>JA1ZZZ<QSO_DATE:8>20260101<TIME_ON:4>1000<BAND:3>20m<MODE:3>FT8"
+                               "<DXCC:3>339<LOTW_QSL_RCVD:1>Y<EOR>"
+                               "<CALL:6>JA1ZZZ<QSO_DATE:8>20260102<TIME_ON:4>1000<BAND:3>20m<MODE:4>RTTY"
+                               "<DXCC:3>339<EQSL_QSL_RCVD:1>Y<EOR>"
+                               // Stessa banda, ma in CW: casella a parte.
+                               "<CALL:6>JA1ZZZ<QSO_DATE:8>20260103<TIME_ON:4>1000<BAND:3>20m<MODE:2>CW"
+                               "<DXCC:3>339<EOR>"
+                               // La fonia, e un'altra stazione della stessa entita'.
+                               "<CALL:6>JA1ZZZ<QSO_DATE:8>20260104<TIME_ON:4>1000<BAND:3>40m<MODE:3>SSB"
+                               "<DXCC:3>339<EOR>"
+                               "<CALL:6>JA3ABC<QSO_DATE:8>20260105<TIME_ON:4>1000<BAND:3>15m<MODE:3>SSB"
+                               "<DXCC:3>339<EOR>").inserted, 5);
+
+        auto describe = [](const QList<LogDatabase::BandModeSlot>& list) {
+            QStringList out;
+            for (const auto& s : list) {
+                QString marks;
+                if (s.lotw) marks += "L";
+                if (s.eqsl) marks += "e";
+                if (s.card) marks += "K";
+                out << s.band + "/" + s.group + "/" + QString::number(s.count) + (marks.isEmpty() ? "" : "/" + marks);
+            }
+            out.sort();
+            return out;
+        };
+
+        QCOMPARE(describe(db.bandModeSlotsForCall("ja1zzz")),
+                 QStringList({"20m/CW/1", "20m/DATA/2/Le", "40m/PHONE/1"}));
+        // L'entita' aggiunge quello che hanno fatto le altre stazioni.
+        QCOMPARE(describe(db.bandModeSlotsForDxcc(339)),
+                 QStringList({"15m/PHONE/1", "20m/CW/1", "20m/DATA/2/Le", "40m/PHONE/1"}));
+        QVERIFY(db.bandModeSlotsForCall("N0NE").isEmpty());
+        QVERIFY(db.bandModeSlotsForDxcc(0).isEmpty());
+    }
 };
 
 QTEST_GUILESS_MAIN(TestDatabase)

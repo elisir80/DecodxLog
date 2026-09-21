@@ -412,6 +412,8 @@ ApplicationWindow {
         }
         else if (what[0] === "lock") layout.layoutLocked = what[1] !== "off"
         else if (what[0] === "layoutmenu") layoutMenu.openAt(what[1] || "logbook", 420, 300)
+        // "lookup:JA1ZZZ": la scheda del nominativo, con la griglia banda x modo.
+        else if (what[0] === "lookup") { if (what[2] === "detach") window.detachPanel("callinfo"); else window.showPanel("callinfo"); decolog.lookupCall = what[1] || "" }
         else if (what[0] === "about") aboutDialog.open()
         else if (what[0] === "update") updateDialog.open()
         else if (what[0] === "updatecheck") { window.panelItem("tabs").setTab(3); decolog.updates.checkNow() }

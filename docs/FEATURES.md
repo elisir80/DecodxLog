@@ -165,6 +165,12 @@ Quello che manca è in fondo.
 - **Callbook QRZ.com (XML) o HamQTH**: nome, QTH, locatore, zone, foto, utente LoTW/eQSL,
   risultati tenuti un giorno. / **QRZ.com (XML) or HamQTH callbook**: name, QTH, grid, zones,
   photo, LoTW/eQSL user, results cached for a day.
+- **Griglia banda per modo**, due volte: il nominativo e la sua entita' DXCC. Una riga per
+  CW, digitale e fonia, una colonna per banda; casella vuota mai lavorata, arancione
+  lavorata, verde confermata con le lettere di chi ha confermato (`L` LoTW, `e` eQSL, `C`
+  Club Log, `Q` QRZ, `K` cartolina). / **Band by mode grid**, twice: the callsign and its
+  DXCC entity. One row for CW, digital and phone, one column per band; an empty cell means
+  never worked, amber worked, green confirmed with the letters of who confirmed it.
 - **Stato QSL dell'ultimo QSO**. / **QSL state of the last QSO**.
 
 ## 8bis. Radio e CW / Radio and CW

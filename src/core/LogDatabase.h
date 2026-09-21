@@ -209,6 +209,24 @@ public:
     // Bande e modi (FT2, non MFSK) in cui un'entita' DXCC e' gia' stata lavorata.
     struct DxccWorked { int count{0}; QStringList bands; QStringList modes; };
     DxccWorked dxccWorked(int dxcc) const;
+
+    // Una casella della griglia banda x modo: quanti QSO ci sono dentro e come
+    // sono confermati. E' quello che serve per rispondere alla domanda vera
+    // mentre si chiama: "questo, su questa banda, mi manca?".
+    struct BandModeSlot {
+        QString band;
+        QString group;        // CW | PHONE | DATA
+        int     count{0};
+        bool    lotw{false};
+        bool    eqsl{false};
+        bool    card{false};
+        bool    clublog{false};
+        bool    qrz{false};
+        bool confirmed() const { return lotw || eqsl || card || clublog || qrz; }
+    };
+    // Le caselle di un nominativo e quelle di tutta la sua entita' DXCC.
+    QList<BandModeSlot> bandModeSlotsForCall(const QString& call) const;
+    QList<BandModeSlot> bandModeSlotsForDxcc(int dxcc) const;
     // Tutti i QSO in forma compatta per DecoLink: [call, banda, modo, data yyyyMMdd,
     // locatore a 4, confermato 0/1], con le conferme accettate indicate.
     QList<QJsonArray> workedRows(bool confirmLotw, bool confirmCard, bool confirmEqsl) const;

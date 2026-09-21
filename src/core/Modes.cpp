@@ -1,6 +1,7 @@
 #include "core/Modes.h"
 
 #include <QHash>
+#include <QSet>
 
 namespace decolog::core::modes {
 
@@ -47,6 +48,22 @@ const QVector<Entry>& table()
 QVector<Entry> all()
 {
     return table();
+}
+
+QString groupFor(const QString& mode)
+{
+    const QString m = mode.trimmed().toUpper();
+    if (m == QLatin1String("CW") || m == QLatin1String("CWR") || m == QLatin1String("CW-R"))
+        return QStringLiteral("CW");
+    static const QSet<QString> phone{QStringLiteral("SSB"), QStringLiteral("USB"), QStringLiteral("LSB"),
+                                     QStringLiteral("AM"), QStringLiteral("FM"), QStringLiteral("PHONE"),
+                                     QStringLiteral("DIGITALVOICE"), QStringLiteral("DSTAR"),
+                                     QStringLiteral("C4FM"), QStringLiteral("DMR")};
+    if (phone.contains(m))
+        return QStringLiteral("PHONE");
+    // Senza modo non si sa dove metterlo: si lascia fra i digitali, dove
+    // finisce quasi tutto quello che non e' voce ne' manipolatore.
+    return QStringLiteral("DATA");
 }
 
 QString catFor(const QString& mode)

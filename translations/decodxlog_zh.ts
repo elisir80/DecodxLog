@@ -366,6 +366,19 @@
     </message>
 </context>
 <context>
+    <name>BandModeGrid</name>
+    <message numerus="yes">
+        <source>%1 · %n QSO</source>
+        <translation>
+            <numerusform>%1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>confirmed: %1</source>
+        <translation>已确认：%1</translation>
+    </message>
+</context>
+<context>
     <name>BottomTabs</name>
     <message>
         <source>Awards</source>
@@ -562,6 +575,18 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Not in the log yet.</source>
         <translation>日志里还没有。</translation>
+    </message>
+    <message>
+        <source>Bands · modes</source>
+        <translation>波段 · 模式</translation>
+    </message>
+    <message>
+        <source>%1 · bands · modes</source>
+        <translation>%1 · 波段 · 模式</translation>
+    </message>
+    <message>
+        <source>Entity · bands · modes</source>
+        <translation>实体 · 波段 · 模式</translation>
     </message>
     <message>
         <source>QSL status · last QSO</source>
@@ -4944,6 +4969,14 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
 </context>
 <context>
     <name>decolog::app::DecoLogController</name>
+    <message>
+        <source>Digital</source>
+        <translation>数字</translation>
+    </message>
+    <message>
+        <source>Phone</source>
+        <translation>话音</translation>
+    </message>
     <message>
         <source>%1 connected from %2</source>
         <translation>%1 从 %2 连上了</translation>

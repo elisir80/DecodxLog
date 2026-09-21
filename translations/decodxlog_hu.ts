@@ -366,6 +366,19 @@
     </message>
 </context>
 <context>
+    <name>BandModeGrid</name>
+    <message numerus="yes">
+        <source>%1 · %n QSO</source>
+        <translation>
+            <numerusform>%1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>confirmed: %1</source>
+        <translation>megerősítve: %1</translation>
+    </message>
+</context>
+<context>
     <name>BottomTabs</name>
     <message>
         <source>Awards</source>
@@ -562,6 +575,18 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Not in the log yet.</source>
         <translation>Még nincs a naplóban.</translation>
+    </message>
+    <message>
+        <source>Bands · modes</source>
+        <translation>Sávok · módok</translation>
+    </message>
+    <message>
+        <source>%1 · bands · modes</source>
+        <translation>%1 · sávok · módok</translation>
+    </message>
+    <message>
+        <source>Entity · bands · modes</source>
+        <translation>Entitás · sávok · módok</translation>
     </message>
     <message>
         <source>QSL status · last QSO</source>
@@ -4944,6 +4969,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
 </context>
 <context>
     <name>decolog::app::DecoLogController</name>
+    <message>
+        <source>Digital</source>
+        <translation>Digitális</translation>
+    </message>
+    <message>
+        <source>Phone</source>
+        <translation>Fone</translation>
+    </message>
     <message>
         <source>%1 connected from %2</source>
         <translation>%1 csatlakozott innen: %2</translation>

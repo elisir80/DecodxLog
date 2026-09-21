@@ -20,6 +20,11 @@ struct Entry {
 // I modi nell'ordine in cui conviene trovarli: prima CW e fonia, poi i digitali.
 QVector<Entry> all();
 
+// Il gruppo a cui appartiene un modo quando si conta: "CW", "PHONE", "DATA".
+// E' lo stesso criterio dei diplomi — la fonia e' la fonia, il CW e' il CW, e
+// tutto il resto e' digitale — e serve alla griglia banda x modo.
+QString groupFor(const QString& mode);
+
 // Il nome che vuole Hamlib per questo modo. Un modo che non si conosce finisce
 // su USB, che e' la scelta che non fa danni.
 QString catFor(const QString& mode);

@@ -366,6 +366,20 @@
     </message>
 </context>
 <context>
+    <name>BandModeGrid</name>
+    <message numerus="yes">
+        <source>%1 · %n QSO</source>
+        <translation>
+            <numerusform>%1 · %n QSO</numerusform>
+            <numerusform>%1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>confirmed: %1</source>
+        <translation>confirmado: %1</translation>
+    </message>
+</context>
+<context>
     <name>BottomTabs</name>
     <message>
         <source>Awards</source>
@@ -562,6 +576,18 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>Not in the log yet.</source>
         <translation>Todavía no está en el registro.</translation>
+    </message>
+    <message>
+        <source>Bands · modes</source>
+        <translation>Bandas · modos</translation>
+    </message>
+    <message>
+        <source>%1 · bands · modes</source>
+        <translation>%1 · bandas · modos</translation>
+    </message>
+    <message>
+        <source>Entity · bands · modes</source>
+        <translation>Entidad · bandas · modos</translation>
     </message>
     <message>
         <source>QSL status · last QSO</source>
@@ -4957,6 +4983,14 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
 </context>
 <context>
     <name>decolog::app::DecoLogController</name>
+    <message>
+        <source>Digital</source>
+        <translation>Digital</translation>
+    </message>
+    <message>
+        <source>Phone</source>
+        <translation>Fonía</translation>
+    </message>
     <message>
         <source>%1 connected from %2</source>
         <translation>%1 conectado desde %2</translation>

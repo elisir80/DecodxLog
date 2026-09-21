@@ -20,7 +20,9 @@
 #include <QSettings>
 #include <QSqlDatabase>
 #include <QStandardPaths>
+#include <algorithm>
 #include <cmath>
+#include <utility>
 
 namespace decolog::app {
 
@@ -50,6 +52,68 @@ QString serviceLabel(const QString& service)
 
 const QStringList kServices{QStringLiteral("lotw"), QStringLiteral("qrz"), QStringLiteral("clublog"),
                             QStringLiteral("eqsl"), QStringLiteral("card")};
+
+// Le colonne della griglia banda x modo: quelle che un operatore si aspetta di
+// vedere sempre, anche vuote. Le altre si aggiungono solo se il log le ha.
+const QStringList kSlotBands{
+    QStringLiteral("160m"), QStringLiteral("80m"), QStringLiteral("40m"), QStringLiteral("30m"),
+    QStringLiteral("20m"), QStringLiteral("17m"), QStringLiteral("15m"), QStringLiteral("12m"),
+    QStringLiteral("10m"), QStringLiteral("6m"), QStringLiteral("2m"), QStringLiteral("70cm")};
+
+// La griglia gia' montata: le colonne, e per ogni riga (CW, digitale, fonia) una
+// casella per colonna. Vuota dove non si e' lavorato: in QML resta un buco grigio.
+QVariantMap slotGrid(const QList<LogDatabase::BandModeSlot>& worked)
+{
+    QStringList columns = kSlotBands;
+    // Una banda fuori dall'elenco (630m, 23cm, un satellite) non si butta via:
+    // va in fondo, nell'ordine delle bande.
+    QStringList extra;
+    for (const auto& s : worked) {
+        if (!s.band.isEmpty() && !columns.contains(s.band) && !extra.contains(s.band))
+            extra << s.band;
+    }
+    const QStringList order = bands::all();
+    std::sort(extra.begin(), extra.end(), [&order](const QString& a, const QString& b) {
+        return order.indexOf(a) < order.indexOf(b);
+    });
+    columns << extra;
+
+    struct Row { const char* group; QString label; };
+    const QVector<Row> rows{
+        {"CW",    QStringLiteral("CW")},
+        {"DATA",  DecoLogController::tr("Digital")},
+        {"PHONE", DecoLogController::tr("Phone")},
+    };
+
+    QVariantList out;
+    for (const Row& r : rows) {
+        QVariantList cells;
+        for (const QString& band : std::as_const(columns)) {
+            QVariantMap cell{{QStringLiteral("band"), band}, {QStringLiteral("count"), 0}};
+            for (const auto& s : worked) {
+                if (s.band != band || s.group != QLatin1String(r.group))
+                    continue;
+                // Le lettere sono quelle dei diplomi: L LoTW, e eQSL, C Club Log,
+                // Q QRZ, K la cartolina in mano.
+                QString marks;
+                if (s.lotw)    marks += QLatin1Char('L');
+                if (s.eqsl)    marks += QLatin1Char('e');
+                if (s.clublog) marks += QLatin1Char('C');
+                if (s.qrz)     marks += QLatin1Char('Q');
+                if (s.card)    marks += QLatin1Char('K');
+                cell[QStringLiteral("count")] = s.count;
+                cell[QStringLiteral("confirmed")] = s.confirmed();
+                cell[QStringLiteral("marks")] = marks;
+                break;
+            }
+            cells << cell;
+        }
+        out << QVariantMap{{QStringLiteral("group"), QString::fromLatin1(r.group)},
+                           {QStringLiteral("label"), r.label},
+                           {QStringLiteral("cells"), cells}};
+    }
+    return QVariantMap{{QStringLiteral("bands"), columns}, {QStringLiteral("rows"), out}};
+}
 
 // Campi che la scheda del QSO mostra nelle sue schede; tutto il resto e' "ADIF extra".
 const QStringList kKnownFields{
@@ -2594,6 +2658,7 @@ void DecoLogController::refreshCallInfo()
         {QStringLiteral("ituz"), wb.ituz},
         {QStringLiteral("recent"), recent},
         {QStringLiteral("workedFt2"), wb.modes.contains(QStringLiteral("FT2"))},
+        {QStringLiteral("slots"), slotGrid(m_db.bandModeSlotsForCall(m_lookupCall))},
     };
 
     // Il callbook completa quello che il log non sa: nome, QTH, locatore. Quello
@@ -2631,6 +2696,7 @@ void DecoLogController::refreshCallInfo()
         info[QStringLiteral("entityWorked")] = worked.count;
         info[QStringLiteral("entityBands")] = worked.bands;
         info[QStringLiteral("entityModes")] = worked.modes;
+        info[QStringLiteral("entitySlots")] = slotGrid(m_db.bandModeSlotsForDxcc(e->dxcc));
         if (info.value(QStringLiteral("country")).toString().isEmpty())
             info[QStringLiteral("country")] = e->name;
         if (info.value(QStringLiteral("cqz")).toInt() == 0)

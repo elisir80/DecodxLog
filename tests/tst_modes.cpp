@@ -83,6 +83,24 @@ private slots:
             QCOMPARE(modes::catFor(e.name), e.cat);
         }
     }
+
+    // Il gruppo per la griglia banda x modo: CW, fonia, digitale. E' lo stesso
+    // criterio dei diplomi, e quello che non si conosce finisce fra i digitali.
+    void groupsLikeTheAwards()
+    {
+        QCOMPARE(modes::groupFor("CW"), QString("CW"));
+        QCOMPARE(modes::groupFor("cw-r"), QString("CW"));
+        QCOMPARE(modes::groupFor("SSB"), QString("PHONE"));
+        QCOMPARE(modes::groupFor("usb"), QString("PHONE"));
+        QCOMPARE(modes::groupFor("LSB"), QString("PHONE"));
+        QCOMPARE(modes::groupFor("AM"), QString("PHONE"));
+        QCOMPARE(modes::groupFor("FM"), QString("PHONE"));
+        QCOMPARE(modes::groupFor("FT8"), QString("DATA"));
+        QCOMPARE(modes::groupFor("RTTY"), QString("DATA"));
+        QCOMPARE(modes::groupFor(" MFSK "), QString("DATA"));
+        QCOMPARE(modes::groupFor("FT2"), QString("DATA"));
+        QCOMPARE(modes::groupFor(""), QString("DATA"));
+    }
 };
 
 QTEST_MAIN(TestModes)

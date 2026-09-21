@@ -3,6 +3,31 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.3.0 — 21 settembre 2026
+
+**Nella scheda del nominativo c'e' la griglia banda per modo.** Quella che chi caccia il
+DX si tiene appesa al muro: una riga per CW, digitale e fonia, una colonna per banda —
+160, 80, 40, 30, 20, 17, 15, 12, 10, 6, 2 e 70 centimetri, piu' le bande fuori elenco che
+il log ha davvero usato. La casella vuota vuol dire mai lavorato; quella arancione,
+lavorato e basta; quella verde, confermato.
+
+**Dentro la casella verde ci sono le lettere di chi ha confermato**: `L` LoTW, `e` eQSL,
+`C` Club Log, `Q` QRZ, `K` la cartolina in mano. Passandoci sopra il puntatore, il fumetto
+dice la banda, quanti QSO ci sono dentro e da dove arriva la conferma.
+
+**Le griglie sono due.** La prima e' la stazione che si sta chiamando; la seconda e' la
+sua entita' DXCC, cioe' tutto quello che si e' lavorato in quel Paese, da qualunque
+nominativo. La prima dice se quel nominativo lo si conosce gia'; la seconda dice se quel
+Paese serve ancora, e su quale banda. Se il nominativo non e' mai stato lavorato resta
+solo la seconda.
+
+Il criterio con cui un modo finisce in CW, fonia o digitale e' lo stesso dei diplomi:
+quello che non e' manipolatore ne' voce sta fra i digitali — FT8, FT4, FT2, RTTY, PSK e
+tutti gli altri.
+
+Tutto arriva da una sola interrogazione al database, raggruppata li' dentro: la scheda si
+riempie anche con un log grosso.
+
 ## 1.2.0 — 21 settembre 2026
 
 **DecoDXLog si accorge da solo quando esce una versione nuova.** Una volta al giorno

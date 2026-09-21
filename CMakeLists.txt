@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.2.0
+    VERSION 1.3.0
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -188,6 +188,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/VfoDisplay.qml
     qml/DecoDXLog/NewQsoPanel.qml
     qml/DecoDXLog/LogbookPanel.qml
+    qml/DecoDXLog/BandModeGrid.qml
     qml/DecoDXLog/CallInfoPanel.qml
     qml/DecoDXLog/Ft2AwardPanel.qml
     qml/DecoDXLog/BottomTabs.qml

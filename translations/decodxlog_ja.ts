@@ -366,6 +366,19 @@
     </message>
 </context>
 <context>
+    <name>BandModeGrid</name>
+    <message numerus="yes">
+        <source>%1 · %n QSO</source>
+        <translation>
+            <numerusform>%1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>confirmed: %1</source>
+        <translation>確認済み: %1</translation>
+    </message>
+</context>
+<context>
     <name>BottomTabs</name>
     <message>
         <source>Awards</source>
@@ -562,6 +575,18 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Not in the log yet.</source>
         <translation>まだログにありません。</translation>
+    </message>
+    <message>
+        <source>Bands · modes</source>
+        <translation>バンド・モード</translation>
+    </message>
+    <message>
+        <source>%1 · bands · modes</source>
+        <translation>%1・バンド・モード</translation>
+    </message>
+    <message>
+        <source>Entity · bands · modes</source>
+        <translation>エンティティ・バンド・モード</translation>
     </message>
     <message>
         <source>QSL status · last QSO</source>
@@ -4944,6 +4969,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 </context>
 <context>
     <name>decolog::app::DecoLogController</name>
+    <message>
+        <source>Digital</source>
+        <translation>デジタル</translation>
+    </message>
+    <message>
+        <source>Phone</source>
+        <translation>フォーン</translation>
+    </message>
     <message>
         <source>%1 connected from %2</source>
         <translation>%1 が %2 からつながりました</translation>

@@ -282,11 +282,11 @@
     </message>
     <message>
         <source>Digital</source>
-        <translation type="unfinished"></translation>
+        <translation>Digital</translation>
     </message>
     <message>
         <source>Phone</source>
-        <translation type="unfinished"></translation>
+        <translation>Phone</translation>
     </message>
     <message>
         <source>Confirmed by</source>
@@ -363,6 +363,20 @@
     <message>
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BandModeGrid</name>
+    <message numerus="yes">
+        <source>%1 · %n QSO</source>
+        <translation>
+            <numerusform>%1 · %n QSO</numerusform>
+            <numerusform>%1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>confirmed: %1</source>
+        <translation>confirmed: %1</translation>
     </message>
 </context>
 <context>
@@ -561,6 +575,18 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Not in the log yet.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bands · modes</source>
+        <translation>Bands · modes</translation>
+    </message>
+    <message>
+        <source>%1 · bands · modes</source>
+        <translation>%1 · bands · modes</translation>
+    </message>
+    <message>
+        <source>Entity · bands · modes</source>
+        <translation>Entity · bands · modes</translation>
     </message>
     <message>
         <source>QSL status · last QSO</source>
@@ -4956,6 +4982,14 @@ The call Decodium is working shows up here by itself.</source>
 </context>
 <context>
     <name>decolog::app::DecoLogController</name>
+    <message>
+        <source>Digital</source>
+        <translation>Digital</translation>
+    </message>
+    <message>
+        <source>Phone</source>
+        <translation>Phone</translation>
+    </message>
     <message>
         <source>%1 connected from %2</source>
         <translation type="unfinished"></translation>

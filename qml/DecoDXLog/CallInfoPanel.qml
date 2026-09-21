@@ -276,6 +276,35 @@ GlassPanel {
                 }
             }
 
+            // ── Griglia banda x modo ────────────────────────────────────────
+            // Prima la stazione, poi la sua entita': la seconda e' quella che
+            // conta per il DXCC, ma chi chiama vuole vedere subito la prima.
+            ColumnLayout {
+                visible: root.worked
+                Layout.fillWidth: true
+                spacing: 4
+                SectionTitle { text: qsTr("Bands · modes") }
+                BandModeGrid {
+                    Layout.fillWidth: true
+                    grid: root.info.slots || ({})
+                }
+            }
+
+            ColumnLayout {
+                visible: (root.info.entityWorked || 0) > 0
+                Layout.fillWidth: true
+                spacing: 4
+                SectionTitle {
+                    text: root.info.entity !== undefined
+                          ? qsTr("%1 · bands · modes").arg(root.info.entity)
+                          : qsTr("Entity · bands · modes")
+                }
+                BandModeGrid {
+                    Layout.fillWidth: true
+                    grid: root.info.entitySlots || ({})
+                }
+            }
+
             // ── QSL dell'ultimo QSO ─────────────────────────────────────────
             ColumnLayout {
                 visible: root.worked

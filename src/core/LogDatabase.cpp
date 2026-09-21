@@ -1,5 +1,7 @@
 #include "core/LogDatabase.h"
 
+#include "core/Modes.h"
+
 #include "core/Bands.h"
 
 #include <QFile>
@@ -1125,6 +1127,79 @@ LogDatabase::DxccWorked LogDatabase::dxccWorked(int dxcc) const
         ++w.count;
     }
     return w;
+}
+
+namespace {
+
+// Le caselle della griglia: una query sola, gia' raggruppata dal database, con
+// le conferme accanto. Il gruppo del modo (CW, fonia, digitale) lo decide
+// modes::groupFor, che e' lo stesso criterio dei diplomi.
+QList<LogDatabase::BandModeSlot> slotsFrom(QSqlQuery& q)
+{
+    QHash<QString, LogDatabase::BandModeSlot> byKey;
+    QStringList order;
+    while (q.next()) {
+        const QString band = q.value(0).toString();
+        const QString group = modes::groupFor(displayMode(q.value(1).toString(), q.value(2).toString()));
+        const QString key = band + QLatin1Char('|') + group;
+        if (!byKey.contains(key)) {
+            LogDatabase::BandModeSlot slot;
+            slot.band = band;
+            slot.group = group;
+            byKey.insert(key, slot);
+            order << key;
+        }
+        LogDatabase::BandModeSlot& slot = byKey[key];
+        slot.count += q.value(3).toInt();
+        slot.lotw    = slot.lotw    || q.value(4).toInt() > 0;
+        slot.eqsl    = slot.eqsl    || q.value(5).toInt() > 0;
+        slot.card    = slot.card    || q.value(6).toInt() > 0;
+        slot.clublog = slot.clublog || q.value(7).toInt() > 0;
+        slot.qrz     = slot.qrz     || q.value(8).toInt() > 0;
+    }
+    QList<LogDatabase::BandModeSlot> out;
+    out.reserve(order.size());
+    for (const QString& key : order)
+        out << byKey.value(key);
+    return out;
+}
+
+const char* kSlotColumns =
+    "SELECT q.band, q.mode, q.submode, COUNT(DISTINCT q.id),"
+    " MAX(CASE WHEN s.service = 'lotw'    AND s.rcvd = 'Y' THEN 1 ELSE 0 END),"
+    " MAX(CASE WHEN s.service = 'eqsl'    AND s.rcvd = 'Y' THEN 1 ELSE 0 END),"
+    " MAX(CASE WHEN s.service = 'card'    AND s.rcvd = 'Y' THEN 1 ELSE 0 END),"
+    " MAX(CASE WHEN s.service = 'clublog' AND s.rcvd = 'Y' THEN 1 ELSE 0 END),"
+    " MAX(CASE WHEN s.service = 'qrz'     AND s.rcvd = 'Y' THEN 1 ELSE 0 END)"
+    " FROM qso q LEFT JOIN qsl_status s ON s.qso_id = q.id"
+    " WHERE q.deleted = 0 AND ";
+
+} // namespace
+
+QList<LogDatabase::BandModeSlot> LogDatabase::bandModeSlotsForCall(const QString& call) const
+{
+    if (call.trimmed().isEmpty())
+        return {};
+    QSqlQuery q(connection());
+    q.prepare(QLatin1String(kSlotColumns)
+              + QStringLiteral("q.call = ? GROUP BY q.band, q.mode, q.submode"));
+    q.addBindValue(call.trimmed().toUpper());
+    if (!q.exec())
+        return {};
+    return slotsFrom(q);
+}
+
+QList<LogDatabase::BandModeSlot> LogDatabase::bandModeSlotsForDxcc(int dxcc) const
+{
+    if (dxcc <= 0)
+        return {};
+    QSqlQuery q(connection());
+    q.prepare(QLatin1String(kSlotColumns)
+              + QStringLiteral("q.dxcc = ? GROUP BY q.band, q.mode, q.submode"));
+    q.addBindValue(dxcc);
+    if (!q.exec())
+        return {};
+    return slotsFrom(q);
 }
 
 QJsonArray LogDatabase::workedRow(const QString& call, const QString& band, const QString& mode,
