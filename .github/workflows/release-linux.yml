@@ -129,6 +129,14 @@ jobs:
           wget -O linuxdeploy-plugin-qt "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-${{ matrix.linuxdeploy_arch }}.AppImage"
           chmod +x linuxdeploy linuxdeploy-plugin-qt
 
+      - name: Remove optional Mimer SQL driver
+        if: matrix.arch == 'x86_64'
+        run: |
+          mimer_driver="$QT_ROOT_DIR/plugins/sqldrivers/libqsqlmimer.so"
+          if [ -f "$mimer_driver" ]; then
+            mv "$mimer_driver" "$mimer_driver.disabled"
+          fi
+
       - name: Build AppImage
         env:
           APPIMAGE_EXTRACT_AND_RUN: "1"
