@@ -125,7 +125,7 @@ const QStringList kKnownFields{
     QStringLiteral("COUNTRY"), QStringLiteral("DXCC"), QStringLiteral("CQZ"), QStringLiteral("ITUZ"),
     QStringLiteral("CONT"), QStringLiteral("STATE"), QStringLiteral("CNTY"), QStringLiteral("IOTA"),
     QStringLiteral("SOTA_REF"), QStringLiteral("POTA_REF"), QStringLiteral("WWFF_REF"), QStringLiteral("PROP_MODE"),
-    QStringLiteral("SAT_NAME"), QStringLiteral("TX_PWR"), QStringLiteral("COMMENT"), QStringLiteral("NOTES"),
+    QStringLiteral("SAT_NAME"), QStringLiteral("SAT_MODE"), QStringLiteral("TX_PWR"), QStringLiteral("COMMENT"), QStringLiteral("NOTES"),
     QStringLiteral("STATION_CALLSIGN"), QStringLiteral("OPERATOR"), QStringLiteral("MY_GRIDSQUARE"),
     QStringLiteral("LOTW_QSL_SENT"), QStringLiteral("LOTW_QSLSDATE"), QStringLiteral("LOTW_QSL_RCVD"),
     QStringLiteral("LOTW_QSLRDATE"), QStringLiteral("QRZCOM_QSO_UPLOAD_STATUS"), QStringLiteral("QRZCOM_QSO_UPLOAD_DATE"),
@@ -1640,6 +1640,9 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
     r.set(QStringLiteral("SOTA_REF"), text("sota_ref").toUpper());
     r.set(QStringLiteral("IOTA"), text("iota").toUpper());
     r.set(QStringLiteral("WWFF_REF"), text("wwff_ref").toUpper());
+    r.set(QStringLiteral("PROP_MODE"), text("prop_mode").toUpper());
+    r.set(QStringLiteral("SAT_NAME"), text("sat_name").toUpper());
+    r.set(QStringLiteral("SAT_MODE"), text("sat_mode").toUpper());
     r.set(QStringLiteral("COMMENT"), text("comment"));
     // Quello che dice il callbook e che prima si poteva scrivere solo dopo:
     // nazione, citta', zone, stato e contea entrano subito nel QSO.

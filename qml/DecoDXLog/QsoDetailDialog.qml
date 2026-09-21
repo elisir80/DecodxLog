@@ -394,11 +394,13 @@ DialogFrame {
                         Layout.fillWidth: true
                         spacing: 10
                         AdifInput {
-                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 4; key: "PROP_MODE"; label: qsTr("Prop mode"); upper: true }
+                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 3; key: "PROP_MODE"; label: qsTr("Prop mode"); upper: true }
                         AdifInput {
-                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 4; key: "SAT_NAME"; label: qsTr("Satellite"); upper: true }
+                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 3; key: "SAT_NAME"; label: qsTr("Satellite"); upper: true }
                         AdifInput {
-                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 4; key: "MY_GRIDSQUARE"; label: qsTr("My grid"); upper: true }
+                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 3; key: "SAT_MODE"; label: qsTr("Sat mode"); upper: true }
+                        AdifInput {
+                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 3; key: "MY_GRIDSQUARE"; label: qsTr("My grid"); upper: true }
                     }
                     RowLayout {
                         Layout.fillWidth: true

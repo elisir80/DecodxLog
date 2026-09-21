@@ -58,6 +58,7 @@ constexpr std::array kColumns{
     Column{"WWFF_REF", "wwff_ref", Kind::Text},
     Column{"PROP_MODE", "prop_mode", Kind::Text},
     Column{"SAT_NAME", "sat_name", Kind::Text},
+    Column{"SAT_MODE", "sat_mode", Kind::Text},
     Column{"TX_PWR", "tx_pwr", Kind::Real},
     Column{"COMMENT", "comment", Kind::Text},
     Column{"NOTES", "notes", Kind::Text},
@@ -333,6 +334,7 @@ bool LogDatabase::migrate()
     const QList<Step> steps{
         {2, {QStringLiteral("ALTER TABLE qso ADD COLUMN tags TEXT")}},
         {3, {QStringLiteral("ALTER TABLE qsl_status ADD COLUMN via TEXT")}},
+        {4, {QStringLiteral("ALTER TABLE qso ADD COLUMN sat_mode TEXT")}},
     };
     for (const Step& step : steps) {
         if (version >= step.to)

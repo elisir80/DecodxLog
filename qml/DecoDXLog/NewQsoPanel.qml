@@ -56,6 +56,9 @@ GlassPanel {
         qthField.text = ""
         gridField.text = ""
         commentField.text = ""
+        propModeBox.currentIndex = 0
+        satNameField.text = ""
+        satModeField.text = ""
         srxField.text = ""
         rcvdField.text = "59"
         formError.text = ""
@@ -69,6 +72,7 @@ GlassPanel {
             freq: freqField.text, band: bandBox.currentIndex > 0 ? bandBox.currentText : "",
             mode: modeBox.editText, rst_sent: sentField.text, rst_rcvd: rcvdField.text,
             gridsquare: gridField.text, name: nameField.text, qth: qthField.text, comment: commentField.text,
+            prop_mode: propModeBox.editText, sat_name: satNameField.text, sat_mode: satModeField.text,
             srx: srxField.text
         })
         formError.text = error
@@ -316,6 +320,36 @@ GlassPanel {
                         Layout.fillWidth: true
                         label: qsTr("QTH")
                         StyledTextField { id: qthField; Layout.fillWidth: true; mono: false }
+                    }
+                }
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+                    LabeledField {
+                        Layout.preferredWidth: 1
+                        Layout.horizontalStretchFactor: 2
+                        Layout.fillWidth: true
+                        label: qsTr("Prop")
+                        StyledComboBox {
+                            id: propModeBox
+                            Layout.fillWidth: true
+                            editable: true
+                            model: ["", "SAT", "AUR", "AUE", "BS", "ECH", "EME", "ES", "F2", "FAI", "GWAVE", "ION", "IRL", "MS", "RPT", "RS", "TEP", "TR"]
+                        }
+                    }
+                    LabeledField {
+                        Layout.preferredWidth: 1
+                        Layout.horizontalStretchFactor: 2
+                        Layout.fillWidth: true
+                        label: qsTr("Sat")
+                        StyledTextField { id: satNameField; Layout.fillWidth: true; uppercase: true; placeholderText: "—" }
+                    }
+                    LabeledField {
+                        Layout.preferredWidth: 1
+                        Layout.horizontalStretchFactor: 2
+                        Layout.fillWidth: true
+                        label: qsTr("Sat mode")
+                        StyledTextField { id: satModeField; Layout.fillWidth: true; uppercase: true; placeholderText: "—" }
                     }
                 }
                 RowLayout {
