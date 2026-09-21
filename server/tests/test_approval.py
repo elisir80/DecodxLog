@@ -240,3 +240,10 @@ def test_a_mail_server_that_says_no_does_not_take_the_service_down(monkeypatch):
     monkeypatch.setattr(mailer, "settings", with_mailbox())
     # Non solleva: torna False e basta. Il servizio non si pianta per una posta.
     assert mailer.send("prova", "il corpo") is False
+
+
+def test_health_says_whether_the_approval_is_on(client):
+    # update.sh guarda qui per sapere se sul server gira davvero il codice
+    # nuovo: un aggiornamento a meta' si vede da questa riga.
+    features = client.get("/v1/health").json()["features"]
+    assert "approval" in features

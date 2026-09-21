@@ -361,8 +361,12 @@ def health() -> dict:
     #   stats   — statistiche, diplomi, QSL e mappa calcolati dal log
     #   contest — punteggio del contest, nel log dal browser
     #   purge   — svuotare il Cloud di un nominativo (/v1/account/purge)
+    #   approval— chi si registra aspetta il via libera di una persona
+    features = ["qso", "docs", "web", "stats", "contest", "purge"]
+    if settings.approval_required:
+        features.append("approval")
     return {"status": "ok", "service": "decolog-cloud", "version": app.version,
-            "features": ["qso", "docs", "web", "stats", "contest", "purge"]}
+            "features": features}
 
 
 # ── Il log dal browser ────────────────────────────────────────────────────────
