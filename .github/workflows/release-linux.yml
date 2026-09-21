@@ -23,10 +23,10 @@ jobs:
       matrix:
         include:
           - arch: x86_64
-            runner: ubuntu-24.04
+            runner: ubuntu-26.04
             linuxdeploy_arch: x86_64
           - arch: aarch64
-            runner: ubuntu-24.04-arm
+            runner: ubuntu-26.04-arm
             linuxdeploy_arch: aarch64
 
     steps:
@@ -58,9 +58,7 @@ jobs:
             libssl-dev
 
       - name: Configure
-        run: |
-          sed -i 's/find_package(Qt6 6.5 /find_package(Qt6 6.4 /' CMakeLists.txt
-          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
 
       - name: Build
         run: cmake --build build --parallel 3 --target decolog
