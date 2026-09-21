@@ -77,6 +77,12 @@ ApplicationWindow {
         property string panelSlots: ""
     }
 
+    readonly property real defaultLeftWidth: 300
+    readonly property real defaultRightWidth: 300
+    readonly property real defaultBottomHeight: 280
+    readonly property real defaultClusterBottomHeight: 340
+    readonly property real defaultMapWidth: 308
+
     // ── I pannelli: chi sono, dove stanno ───────────────────────────────────
     //
     // Ogni pannello ha una chiave. Con quella si sa come si chiama, da quale
@@ -259,10 +265,8 @@ ApplicationWindow {
     function isPanelHidden(key) { return window.hiddenPanels.indexOf(key) >= 0 }
     function isPanelDetached(key) { return window.detachedPanels.indexOf(key) >= 0 }
     function isPanelDocked(key) { return !window.isPanelHidden(key) && !window.isPanelDetached(key) }
-    // Il rotore sta nella disposizione solo se un rotore c'e': una casella con
-    // dentro un pannello spento e' spazio tolto agli altri.
     function panelShows(key) {
-        return window.isPanelDocked(key) && (key !== "rotor" || decolog.rotor.enabled)
+        return window.isPanelDocked(key)
     }
     function panelState(key) {
         return window.isPanelHidden(key) ? qsTr("closed")
@@ -283,6 +287,8 @@ ApplicationWindow {
         // Chiuso e' chiuso: se era in finestra, la finestra sparisce.
         layout.detachedPanels = window.panelListOf(layout.detachedPanels)
                                       .filter(function (k) { return k !== key }).join(",")
+        if (key === "rotor")
+            rotorWindow.active = false
         const hidden = window.panelListOf(layout.hiddenPanels)
         if (hidden.indexOf(key) < 0)
             layout.hiddenPanels = hidden.concat([key]).join(",")
@@ -292,10 +298,14 @@ ApplicationWindow {
         const detached = window.panelListOf(layout.detachedPanels)
         if (detached.indexOf(key) < 0)
             layout.detachedPanels = detached.concat([key]).join(",")
+        if (key === "rotor")
+            window.openRotor()
     }
     function attachPanel(key) {
         layout.detachedPanels = window.panelListOf(layout.detachedPanels)
                                       .filter(function (k) { return k !== key }).join(",")
+        if (key === "rotor")
+            rotorWindow.active = false
         window.showPanel(key)
     }
     function togglePanel(key) {
@@ -303,8 +313,19 @@ ApplicationWindow {
         else window.closePanel(key)
     }
     function resetPanels() {
+        layout.panelSlots = ""
         layout.hiddenPanels = ""
         layout.detachedPanels = ""
+        layout.layoutLocked = false
+        layout.leftWidth = window.defaultLeftWidth
+        layout.rightWidth = window.defaultRightWidth
+        layout.bottomHeight = window.defaultBottomHeight
+        layout.clusterBottomHeight = window.defaultClusterBottomHeight
+        layout.mapWidth = window.defaultMapWidth
+        window.draggingKey = ""
+        window.draggingFrom = ""
+        window.dragTargetSlot = ""
+        window.syncDetachedWindows()
     }
 
     // ── Azioni comuni a barra, scorciatoie e pannelli ───────────────────────
@@ -563,7 +584,11 @@ ApplicationWindow {
         id: rotorWindow
         active: false
         sourceComponent: RotorWindow {
-            onClosing: Qt.callLater(function () { rotorWindow.active = false })
+            onClosing: Qt.callLater(function () {
+                if (!window.quitting && window.isPanelDetached("rotor"))
+                    window.attachPanel("rotor")
+                rotorWindow.active = false
+            })
         }
     }
 
@@ -624,6 +649,9 @@ ApplicationWindow {
 
     function syncDetachedWindows() {
         const wanted = window.panelListOf(layout.detachedPanels)
+                             .filter(function (key) { return key !== "rotor" })
+        if (window.isPanelDetached("rotor"))
+            window.openRotor()
         // Prima via quelle che non servono piu', poi dentro quelle nuove: cosi'
         // le finestre che restano non vengono nemmeno sfiorate.
         for (let i = detachedModel.count - 1; i >= 0; --i) {
@@ -931,7 +959,7 @@ ApplicationWindow {
                         onStatsRequested: window.openStats()
                         onRotorRequested: window.openRotor()
                         SplitView.fillHeight: true
-                        SplitView.minimumHeight: 80
+                        SplitView.minimumHeight: panelKey === "rotor" ? 220 : 80
                     }
                     PanelSlot {
                         id: slotRightB
@@ -950,8 +978,8 @@ ApplicationWindow {
                         onClusterRequested: (tab) => window.openCluster(tab)
                         onStatsRequested: window.openStats()
                         onRotorRequested: window.openRotor()
-                        SplitView.preferredHeight: 260
-                        SplitView.minimumHeight: 120
+                        SplitView.preferredHeight: panelKey === "rotor" ? Math.max(implicitHeight, 220) : 260
+                        SplitView.minimumHeight: panelKey === "rotor" ? 220 : 120
                     }
                     PanelSlot {
                         id: slotRightC
@@ -970,8 +998,8 @@ ApplicationWindow {
                         onClusterRequested: (tab) => window.openCluster(tab)
                         onStatsRequested: window.openStats()
                         onRotorRequested: window.openRotor()
-                        SplitView.preferredHeight: implicitHeight
-                        SplitView.minimumHeight: 60
+                        SplitView.preferredHeight: panelKey === "rotor" ? Math.max(implicitHeight, 220) : implicitHeight
+                        SplitView.minimumHeight: panelKey === "rotor" ? 220 : 60
                     }
                     PanelSlot {
                         id: slotRightD
@@ -990,8 +1018,8 @@ ApplicationWindow {
                         onClusterRequested: (tab) => window.openCluster(tab)
                         onStatsRequested: window.openStats()
                         onRotorRequested: window.openRotor()
-                        SplitView.preferredHeight: implicitHeight
-                        SplitView.minimumHeight: 60
+                        SplitView.preferredHeight: panelKey === "rotor" ? Math.max(implicitHeight, 220) : implicitHeight
+                        SplitView.minimumHeight: panelKey === "rotor" ? 220 : 60
                     }
                 }
             }
