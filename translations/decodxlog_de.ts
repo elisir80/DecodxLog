@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it_IT" sourcelanguage="en">
+<TS version="2.1" language="de_DE" sourcelanguage="en">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -4939,6 +4939,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Logbuch %1 lässt sich nicht öffnen: %2</translation>
     </message>
     <message>
+        <source>This computer has no font with ideographs: the writing shows up as little boxes. On Windows they arrive with the language: Settings → Time &amp; language → Language → Add a language.</source>
+        <translation>Auf diesem Rechner gibt es keine Schrift mit Ideogrammen: der Text kommt als kleine Kästchen heraus. Unter Windows kommen sie mit der Sprache: Einstellungen → Zeit und Sprache → Sprache → Sprache hinzufügen.</translation>
+    </message>
+    <message>
         <source>loading the log table</source>
         <translation>die Logbuchtabelle wird geladen</translation>
     </message>
@@ -4984,6 +4988,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>built on %1</source>
         <translation>gebaut am %1</translation>
+    </message>
+    <message>
+        <source>radio (CAT)</source>
+        <translation>Funkgerät (CAT)</translation>
     </message>
     <message>
         <source>Interface language: %1 — it changes at the next start</source>

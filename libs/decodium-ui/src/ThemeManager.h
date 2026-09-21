@@ -119,6 +119,17 @@ public:
     QString monoFamily() const;
     QString uiFamily() const;
 
+    // La lingua dell'interfaccia decide i caratteri: Consolas e Segoe UI non
+    // hanno gli ideogrammi, e in giapponese o in cinese mezza finestra
+    // diventerebbe una fila di quadratini. Si chiama prima di costruire il
+    // tema, cioe' subito dopo aver scelto la lingua.
+    static void setLanguage(const QString& code);
+
+    // Vero quando la lingua vuole gli ideogrammi e sul computer non c'e'
+    // nessun carattere che li abbia: senza, mezza finestra e' quadratini, e
+    // conviene dirlo invece di lasciar credere che sia rotto il programma.
+    static bool ideographsMissing();
+
 signals:
     void paletteChanged();
     void densityChanged();

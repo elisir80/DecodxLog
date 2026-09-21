@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it_IT" sourcelanguage="en">
+<TS version="2.1" language="da_DK" sourcelanguage="en">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -4939,6 +4939,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Kan ikke åbne loggen %1: %2</translation>
     </message>
     <message>
+        <source>This computer has no font with ideographs: the writing shows up as little boxes. On Windows they arrive with the language: Settings → Time &amp; language → Language → Add a language.</source>
+        <translation>Denne computer har ingen skrift med ideogrammer: teksten kommer ud som små firkanter. På Windows følger de med sproget: Indstillinger → Tid og sprog → Sprog → Tilføj et sprog.</translation>
+    </message>
+    <message>
         <source>loading the log table</source>
         <translation>indlæser logtabellen</translation>
     </message>
@@ -4984,6 +4988,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>built on %1</source>
         <translation>bygget den %1</translation>
+    </message>
+    <message>
+        <source>radio (CAT)</source>
+        <translation>radio (CAT)</translation>
     </message>
     <message>
         <source>Interface language: %1 — it changes at the next start</source>

@@ -3,6 +3,56 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.0.0 — 21 settembre 2026
+
+**Quindici lingue su quindici.** Russo, giapponese e le due forme del cinese chiudono il
+giro: 1212 frasi per lingua, nessun angolo lasciato in inglese.
+
+> Italiano · English · Deutsch · Français · Español · Nederlands · Dansk · Català ·
+> Magyar · Română · Latviešu · **Русский** · **日本語** · **简体中文** · **繁體中文**
+
+**I plurali, finalmente contati da chi li sa contare.** I quindici file `.ts` erano nati
+copiando l'italiano e dicevano tutti `language="it_IT"`: lrelease dava a tutti *due* forme
+plurali, quelle dell'italiano. Adesso ogni file dice la sua lingua, e le forme sono quelle
+giuste. In che ordine stanno non si indovina: si e' costruito un `.qm` con forme numerate
+e si e' guardato quale esce per n = 0, 1, 2, 3, 5, 11, 21, 101.
+
+| lingua | forme | come vengono usate |
+|---|---:|---|
+| ungherese | 1 | dopo un numero il nome resta singolare |
+| italiano, tedesco, francese, spagnolo, catalano, olandese, danese | 2 | 1 · tutto il resto |
+| rumeno | 3 | 1 · 0 e 2-19 · da 20 in su, che vuole «de» |
+| lettone | 3 | 1 · 2-19 · 0 |
+| russo | 3 | 1 · 2-4 · 0 e 5-20 |
+| giapponese, cinese | 1 | il numero non cambia il nome |
+
+Trenta frasi con `%n` per lingua, riscritte una per una con il numero di forme che serve:
+prima il russo contava come l'italiano, e «5 QSO» prendeva la forma di «2 QSO».
+
+**I caratteri vengono dopo la lingua.** Consolas e Segoe UI non hanno gli ideogrammi: in
+giapponese o in cinese mezza finestra diventava una fila di quadratini. Adesso, quando la
+lingua li vuole, si parte da un carattere che li ha — MS Gothic, NSimSun, MingLiU, e per
+il testo normale Yu Gothic UI, Microsoft YaHei, Microsoft JhengHei. Sono caratteri a
+larghezza fissa anche per le lettere latine, quindi la tabella del log resta in colonna.
+
+E se sul computer non c'e' nessun carattere con gli ideogrammi — succede su un Windows
+europeo, dove i font giapponesi e cinesi si scaricano a parte — il registro di attivita'
+lo dice a chiare lettere, nella lingua scelta, invece di lasciar credere che sia rotto il
+programma:
+
+> Questo computer non ha un carattere con gli ideogrammi: la scrittura viene fuori a
+> quadratini. Su Windows arrivano con la lingua: Impostazioni → Data/ora e lingua →
+> Lingua → Aggiungi una lingua.
+
+**Due frasi che nessuno aveva mai tradotto.** `lupdate` non girava da un po': «radio
+(CAT)» — quella che compare nel Cloud quando la frequenza arriva dal CAT invece che da
+Decodium — non era mai entrata nei file. Adesso c'e', in tutte e quindici.
+
+**La rosa dei venti, per finire.** In russo la bussola dice `С СВ В ЮВ Ю ЮЗ З СЗ`, in
+giapponese e in cinese `北 北東 東 南東 南 南西 西 北西`. La `S` si cambia solo dentro il
+contesto `RotorPointing`: la stessa `S` e' anche la colonna del log (RST inviato), e li'
+resta `S`, che e' la sigla internazionale.
+
 ## 0.9.8 — 21 settembre 2026
 
 **Ungherese, rumeno e lettone complete.** Undici lingue su quindici sono finite: 1210

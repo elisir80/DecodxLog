@@ -173,6 +173,11 @@ int main(int argc, char* argv[])
                               QLibraryInfo::path(QLibraryInfo::TranslationsPath)))
             app.installTranslator(&qtTranslator);
     }
+    // I caratteri vengono dopo la lingua: Consolas e Segoe UI non hanno gli
+    // ideogrammi, e in giapponese o in cinese mezza finestra sarebbe una fila
+    // di quadratini. In quelle lingue si parte da MS Gothic, NSimSun, MingLiU.
+    decodium::ui::ThemeManager::setLanguage(language);
+
     // L'interfaccia disegna le proprie superfici; uno stile di piattaforma
     // combatterebbe i pannelli invece di aiutarli.
     QQuickStyle::setStyle(QStringLiteral("Basic"));

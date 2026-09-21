@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it_IT" sourcelanguage="en">
+<TS version="2.1" language="es_ES" sourcelanguage="en">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -4939,6 +4939,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>No se puede abrir el registro %1: %2</translation>
     </message>
     <message>
+        <source>This computer has no font with ideographs: the writing shows up as little boxes. On Windows they arrive with the language: Settings → Time &amp; language → Language → Add a language.</source>
+        <translation>Este ordenador no tiene ninguna fuente con ideogramas: la escritura sale en cuadraditos. En Windows llegan con el idioma: Configuración → Hora e idioma → Idioma → Agregar un idioma.</translation>
+    </message>
+    <message>
         <source>loading the log table</source>
         <translation>cargando la tabla del registro</translation>
     </message>
@@ -4984,6 +4988,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>built on %1</source>
         <translation>compilado el %1</translation>
+    </message>
+    <message>
+        <source>radio (CAT)</source>
+        <translation>radio (CAT)</translation>
     </message>
     <message>
         <source>Interface language: %1 — it changes at the next start</source>

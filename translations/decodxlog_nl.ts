@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it_IT" sourcelanguage="en">
+<TS version="2.1" language="nl_NL" sourcelanguage="en">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -4939,6 +4939,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Kan logboek %1 niet openen: %2</translation>
     </message>
     <message>
+        <source>This computer has no font with ideographs: the writing shows up as little boxes. On Windows they arrive with the language: Settings → Time &amp; language → Language → Add a language.</source>
+        <translation>Deze computer heeft geen lettertype met ideogrammen: de tekst komt er als vierkantjes uit. Op Windows komen ze mee met de taal: Instellingen → Tijd en taal → Taal → Een taal toevoegen.</translation>
+    </message>
+    <message>
         <source>loading the log table</source>
         <translation>de logboektabel laden</translation>
     </message>
@@ -4984,6 +4988,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>built on %1</source>
         <translation>gebouwd op %1</translation>
+    </message>
+    <message>
+        <source>radio (CAT)</source>
+        <translation>radio (CAT)</translation>
     </message>
     <message>
         <source>Interface language: %1 — it changes at the next start</source>

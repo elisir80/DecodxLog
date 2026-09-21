@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it_IT" sourcelanguage="en">
+<TS version="2.1" language="lv_LV" sourcelanguage="en">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -2352,6 +2352,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>%n QSO nosūtīts uz LoTW</numerusform>
             <numerusform>%n QSO nosūtīti uz LoTW</numerusform>
+            <numerusform>%n QSO nosūtīti uz LoTW</numerusform>
         </translation>
     </message>
     <message>
@@ -3014,6 +3015,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>%n stacija</numerusform>
             <numerusform>%n stacijas</numerusform>
+            <numerusform>%n stacijas</numerusform>
         </translation>
     </message>
     <message>
@@ -3342,6 +3344,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <source>%n client</source>
         <translation>
             <numerusform>%n klients</numerusform>
+            <numerusform>%n klienti</numerusform>
             <numerusform>%n klienti</numerusform>
         </translation>
     </message>
@@ -3674,6 +3677,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <source>%n client(s)</source>
         <translation>
             <numerusform>%n klients</numerusform>
+            <numerusform>%n klienti</numerusform>
             <numerusform>%n klienti</numerusform>
         </translation>
     </message>
@@ -4652,6 +4656,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>Sesija aizvērta: %1 · %n QSO</numerusform>
             <numerusform>Sesija aizvērta: %1 · %n QSO</numerusform>
+            <numerusform>Sesija aizvērta: %1 · %n QSO</numerusform>
         </translation>
     </message>
     <message>
@@ -4671,11 +4676,13 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>Cabrillo ierakstīts: %1 (%n QSO)</numerusform>
             <numerusform>Cabrillo ierakstīts: %1 (%n QSO)</numerusform>
+            <numerusform>Cabrillo ierakstīts: %1 (%n QSO)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n QSO of the session → %1</source>
         <translation>
+            <numerusform>%n sesijas QSO → %1</numerusform>
             <numerusform>%n sesijas QSO → %1</numerusform>
             <numerusform>%n sesijas QSO → %1</numerusform>
         </translation>
@@ -4692,6 +4699,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>Cloud: atjaunināts %n stacijas profils</numerusform>
             <numerusform>Cloud: atjaunināti %n staciju profili</numerusform>
+            <numerusform>Cloud: atjaunināti %n staciju profili</numerusform>
         </translation>
     </message>
     <message>
@@ -4703,12 +4711,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>Cloud: atnākusi %n pakalpojuma parole</numerusform>
             <numerusform>Cloud: atnākušas %n pakalpojumu paroles</numerusform>
+            <numerusform>Cloud: atnākušas %n pakalpojumu paroles</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n QSO arrived from another device</source>
         <translation>
             <numerusform>Cloud: no citas ierīces atnācis %n QSO</numerusform>
+            <numerusform>Cloud: no citas ierīces atnākuši %n QSO</numerusform>
             <numerusform>Cloud: no citas ierīces atnākuši %n QSO</numerusform>
         </translation>
     </message>
@@ -4809,6 +4819,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>Cloud: sūta %n QSO…</numerusform>
             <numerusform>Cloud: sūta %n QSO…</numerusform>
+            <numerusform>Cloud: sūta %n QSO…</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -4816,12 +4827,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>Cloud: atrisināts %n konflikts, otra redakcija ir vēsturē</numerusform>
             <numerusform>Cloud: atrisināti %n konflikti, pārējās redakcijas ir vēsturē</numerusform>
+            <numerusform>Cloud: atrisināti %n konflikti, pārējās redakcijas ir vēsturē</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n duplicate(s) recognised</source>
         <translation>
             <numerusform>Cloud: atpazīts %n dublikāts</numerusform>
+            <numerusform>Cloud: atpazīti %n dublikāti</numerusform>
             <numerusform>Cloud: atpazīti %n dublikāti</numerusform>
         </translation>
     </message>
@@ -4932,11 +4945,16 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>Žurnāls atvērts: %1 (%n QSO)</numerusform>
             <numerusform>Žurnāls atvērts: %1 (%n QSO)</numerusform>
+            <numerusform>Žurnāls atvērts: %1 (%n QSO)</numerusform>
         </translation>
     </message>
     <message>
         <source>Cannot open log %1: %2</source>
         <translation>Nevar atvērt žurnālu %1: %2</translation>
+    </message>
+    <message>
+        <source>This computer has no font with ideographs: the writing shows up as little boxes. On Windows they arrive with the language: Settings → Time &amp; language → Language → Add a language.</source>
+        <translation>Šajā datorā nav neviena fonta ar hieroglifiem: raksts iznāk kā mazi kvadrātiņi. Windows tie nāk kopā ar valodu: Iestatījumi → Laiks un valoda → Valoda → Pievienot valodu.</translation>
     </message>
     <message>
         <source>loading the log table</source>
@@ -4967,6 +4985,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>Logs %1 s neatbildēja (%n reizi kopš starta)</numerusform>
             <numerusform>Logs %1 s neatbildēja (%n reizes kopš starta)</numerusform>
+            <numerusform>Logs %1 s neatbildēja (%n reizes kopš starta)</numerusform>
         </translation>
     </message>
     <message>
@@ -4984,6 +5003,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>built on %1</source>
         <translation>būvēts %1</translation>
+    </message>
+    <message>
+        <source>radio (CAT)</source>
+        <translation>radio (CAT)</translation>
     </message>
     <message>
         <source>Interface language: %1 — it changes at the next start</source>
@@ -5046,6 +5069,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>Jau ir žurnālā (%n minūtes laikā)</numerusform>
             <numerusform>Jau ir žurnālā (%n minūšu laikā)</numerusform>
+            <numerusform>Jau ir žurnālā (%n minūšu laikā)</numerusform>
         </translation>
     </message>
     <message>
@@ -5091,6 +5115,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message numerus="yes">
         <source>%n QSO → %1</source>
         <translation>
+            <numerusform>%n QSO → %1</numerusform>
             <numerusform>%n QSO → %1</numerusform>
             <numerusform>%n QSO → %1</numerusform>
         </translation>
@@ -5148,6 +5173,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>Papildina %n QSO no callbook…</numerusform>
             <numerusform>Papildina %n QSO no callbook…</numerusform>
+            <numerusform>Papildina %n QSO no callbook…</numerusform>
         </translation>
     </message>
     <message>
@@ -5157,6 +5183,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message numerus="yes">
         <source>%n QSO to complete from the callbook: one search at a time, it takes a while.</source>
         <translation>
+            <numerusform>%n QSO jāpapildina no callbook: pa vienai uzziņai, tas prasa laiku.</numerusform>
             <numerusform>%n QSO jāpapildina no callbook: pa vienai uzziņai, tas prasa laiku.</numerusform>
             <numerusform>%n QSO jāpapildina no callbook: pa vienai uzziņai, tas prasa laiku.</numerusform>
         </translation>
@@ -5178,6 +5205,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>%n QSO sakārtots pēc slikta veca importa (iepriekšējais teksts paliek vēsturē).</numerusform>
             <numerusform>%n QSO sakārtoti pēc slikta veca importa (iepriekšējais teksts paliek vēsturē).</numerusform>
+            <numerusform>%n QSO sakārtoti pēc slikta veca importa (iepriekšējais teksts paliek vēsturē).</numerusform>
         </translation>
     </message>
 </context>
@@ -5188,12 +5216,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>%n QSO papīra rindā</numerusform>
             <numerusform>%n QSO papīra rindā</numerusform>
+            <numerusform>%n QSO papīra rindā</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n QSL to answer put in the queue</source>
         <translation>
             <numerusform>%n atbildama QSL ielikta rindā</numerusform>
+            <numerusform>%n atbildamas QSL ieliktas rindā</numerusform>
             <numerusform>%n atbildamas QSL ieliktas rindā</numerusform>
         </translation>
     </message>
@@ -5206,6 +5236,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>%n QSL atzīmēta kā nosūtīta</numerusform>
             <numerusform>%n QSL atzīmētas kā nosūtītas</numerusform>
+            <numerusform>%n QSL atzīmētas kā nosūtītas</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -5213,12 +5244,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>%n QSO izņemts no rindas</numerusform>
             <numerusform>%n QSO izņemti no rindas</numerusform>
+            <numerusform>%n QSO izņemti no rindas</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n label(s) written</source>
         <translation>
             <numerusform>%n uzlīme uzrakstīta</numerusform>
+            <numerusform>%n uzlīmes uzrakstītas</numerusform>
             <numerusform>%n uzlīmes uzrakstītas</numerusform>
         </translation>
     </message>
@@ -5254,6 +5287,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>TQSL gatavs · %n station location</numerusform>
             <numerusform>TQSL gatavs · %n station locations</numerusform>
+            <numerusform>TQSL gatavs · %n station locations</numerusform>
         </translation>
     </message>
     <message>
@@ -5285,6 +5319,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>LoTW: sūta %n QSO ar TQSL…</numerusform>
             <numerusform>LoTW: sūta %n QSO ar TQSL…</numerusform>
+            <numerusform>LoTW: sūta %n QSO ar TQSL…</numerusform>
         </translation>
     </message>
     <message>
@@ -5300,11 +5335,13 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>
             <numerusform>Club Log: sūta %n QSO…</numerusform>
             <numerusform>Club Log: sūta %n QSO…</numerusform>
+            <numerusform>Club Log: sūta %n QSO…</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
         <translation>
+            <numerusform>%1: sūta %n QSO…</numerusform>
             <numerusform>%1: sūta %n QSO…</numerusform>
             <numerusform>%1: sūta %n QSO…</numerusform>
         </translation>
@@ -5419,6 +5456,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <source>Looking for the radio on %n port(s)…</source>
         <translation>
             <numerusform>Meklē radio %n portā…</numerusform>
+            <numerusform>Meklē radio %n portos…</numerusform>
             <numerusform>Meklē radio %n portos…</numerusform>
         </translation>
     </message>

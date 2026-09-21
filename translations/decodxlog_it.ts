@@ -4939,6 +4939,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Non riesco ad aprire il log %1: %2</translation>
     </message>
     <message>
+        <source>This computer has no font with ideographs: the writing shows up as little boxes. On Windows they arrive with the language: Settings → Time &amp; language → Language → Add a language.</source>
+        <translation>Questo computer non ha un carattere con gli ideogrammi: la scrittura viene fuori a quadratini. Su Windows arrivano con la lingua: Impostazioni → Data/ora e lingua → Lingua → Aggiungi una lingua.</translation>
+    </message>
+    <message>
         <source>loading the log table</source>
         <translation>carico la tabella del log</translation>
     </message>
@@ -4984,6 +4988,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>built on %1</source>
         <translation>compilato il %1</translation>
+    </message>
+    <message>
+        <source>radio (CAT)</source>
+        <translation>radio (CAT)</translation>
     </message>
     <message>
         <source>Interface language: %1 — it changes at the next start</source>

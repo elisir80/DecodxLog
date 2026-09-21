@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it_IT" sourcelanguage="en">
+<TS version="2.1" language="hu_HU" sourcelanguage="en">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -2351,7 +2351,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>%n QSO sent to LoTW</source>
         <translation>
             <numerusform>%n QSO elküldve a LoTW-be</numerusform>
-            <numerusform>%n QSO elküldve a LoTW-be</numerusform>
         </translation>
     </message>
     <message>
@@ -3013,7 +3012,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>%n stazione/i</source>
         <translation>
             <numerusform>%n állomás</numerusform>
-            <numerusform>%n állomás</numerusform>
         </translation>
     </message>
     <message>
@@ -3341,7 +3339,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message numerus="yes">
         <source>%n client</source>
         <translation>
-            <numerusform>%n kliens</numerusform>
             <numerusform>%n kliens</numerusform>
         </translation>
     </message>
@@ -3673,7 +3670,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message numerus="yes">
         <source>%n client(s)</source>
         <translation>
-            <numerusform>%n kliens</numerusform>
             <numerusform>%n kliens</numerusform>
         </translation>
     </message>
@@ -4651,7 +4647,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>Session closed: %1 · %n QSO</source>
         <translation>
             <numerusform>Munkamenet lezárva: %1 · %n QSO</numerusform>
-            <numerusform>Munkamenet lezárva: %1 · %n QSO</numerusform>
         </translation>
     </message>
     <message>
@@ -4670,13 +4665,11 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>Cabrillo written: %1 (%n QSO)</source>
         <translation>
             <numerusform>Cabrillo megírva: %1 (%n QSO)</numerusform>
-            <numerusform>Cabrillo megírva: %1 (%n QSO)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n QSO of the session → %1</source>
         <translation>
-            <numerusform>a munkamenet %n QSO-ja → %1</numerusform>
             <numerusform>a munkamenet %n QSO-ja → %1</numerusform>
         </translation>
     </message>
@@ -4691,7 +4684,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>Cloud: %n station profile(s) updated</source>
         <translation>
             <numerusform>Cloud: %n állomásprofil frissítve</numerusform>
-            <numerusform>Cloud: %n állomásprofil frissítve</numerusform>
         </translation>
     </message>
     <message>
@@ -4702,13 +4694,11 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>Cloud: %n service password(s) arrived</source>
         <translation>
             <numerusform>Cloud: %n szolgáltatásjelszó érkezett</numerusform>
-            <numerusform>Cloud: %n szolgáltatásjelszó érkezett</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n QSO arrived from another device</source>
         <translation>
-            <numerusform>Cloud: %n QSO érkezett egy másik gépről</numerusform>
             <numerusform>Cloud: %n QSO érkezett egy másik gépről</numerusform>
         </translation>
     </message>
@@ -4808,20 +4798,17 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>Cloud: sending %n QSO…</source>
         <translation>
             <numerusform>Cloud: %n QSO küldése…</numerusform>
-            <numerusform>Cloud: %n QSO küldése…</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n conflict(s) resolved, the other version is in the history</source>
         <translation>
             <numerusform>Cloud: %n ütközés feloldva, a másik változat az előzményekben van</numerusform>
-            <numerusform>Cloud: %n ütközés feloldva, a másik változat az előzményekben van</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n duplicate(s) recognised</source>
         <translation>
-            <numerusform>Cloud: %n duplikátum felismerve</numerusform>
             <numerusform>Cloud: %n duplikátum felismerve</numerusform>
         </translation>
     </message>
@@ -4931,12 +4918,15 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>Log opened: %1 (%n QSO)</source>
         <translation>
             <numerusform>Napló megnyitva: %1 (%n QSO)</numerusform>
-            <numerusform>Napló megnyitva: %1 (%n QSO)</numerusform>
         </translation>
     </message>
     <message>
         <source>Cannot open log %1: %2</source>
         <translation>Nem nyitható meg a napló: %1: %2</translation>
+    </message>
+    <message>
+        <source>This computer has no font with ideographs: the writing shows up as little boxes. On Windows they arrive with the language: Settings → Time &amp; language → Language → Add a language.</source>
+        <translation>Ezen a gépen nincs olyan betűkészlet, amelyben benne vannak az írásjegyek: a szöveg kis négyzetekként jelenik meg. Windowson a nyelvvel együtt érkeznek: Beállítások → Idő és nyelv → Nyelv → Nyelv hozzáadása.</translation>
     </message>
     <message>
         <source>loading the log table</source>
@@ -4966,7 +4956,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>The window stopped answering for %1 s (%n time(s) since the start)</source>
         <translation>
             <numerusform>Az ablak %1 másodpercig nem válaszolt (%n alkalommal az indítás óta)</numerusform>
-            <numerusform>Az ablak %1 másodpercig nem válaszolt (%n alkalommal az indítás óta)</numerusform>
         </translation>
     </message>
     <message>
@@ -4984,6 +4973,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>built on %1</source>
         <translation>fordítva ekkor: %1</translation>
+    </message>
+    <message>
+        <source>radio (CAT)</source>
+        <translation>rádió (CAT)</translation>
     </message>
     <message>
         <source>Interface language: %1 — it changes at the next start</source>
@@ -5045,7 +5038,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>Already in log (within %n minute(s))</source>
         <translation>
             <numerusform>Már a naplóban van (%n percen belül)</numerusform>
-            <numerusform>Már a naplóban van (%n percen belül)</numerusform>
         </translation>
     </message>
     <message>
@@ -5091,7 +5083,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message numerus="yes">
         <source>%n QSO → %1</source>
         <translation>
-            <numerusform>%n QSO → %1</numerusform>
             <numerusform>%n QSO → %1</numerusform>
         </translation>
     </message>
@@ -5147,7 +5138,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>Completing %n QSO from the callbook…</source>
         <translation>
             <numerusform>%n QSO kiegészítése a callbookból…</numerusform>
-            <numerusform>%n QSO kiegészítése a callbookból…</numerusform>
         </translation>
     </message>
     <message>
@@ -5157,7 +5147,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message numerus="yes">
         <source>%n QSO to complete from the callbook: one search at a time, it takes a while.</source>
         <translation>
-            <numerusform>%n QSO-t kell kiegészíteni a callbookból: egyszerre egy lekérdezés, ez eltart egy ideig.</numerusform>
             <numerusform>%n QSO-t kell kiegészíteni a callbookból: egyszerre egy lekérdezés, ez eltart egy ideig.</numerusform>
         </translation>
     </message>
@@ -5177,7 +5166,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>%n QSO cleaned up from a bad old import (the previous text stays in the history).</source>
         <translation>
             <numerusform>%n QSO rendbe téve egy rossz régi import után (az előző szöveg az előzményekben marad).</numerusform>
-            <numerusform>%n QSO rendbe téve egy rossz régi import után (az előző szöveg az előzményekben marad).</numerusform>
         </translation>
     </message>
 </context>
@@ -5187,13 +5175,11 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>%n QSO in the paper queue</source>
         <translation>
             <numerusform>%n QSO a papírsorban</numerusform>
-            <numerusform>%n QSO a papírsorban</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n QSL to answer put in the queue</source>
         <translation>
-            <numerusform>%n megválaszolandó QSL sorba állítva</numerusform>
             <numerusform>%n megválaszolandó QSL sorba állítva</numerusform>
         </translation>
     </message>
@@ -5205,20 +5191,17 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>%n QSL marked as sent</source>
         <translation>
             <numerusform>%n QSL elküldöttként megjelölve</numerusform>
-            <numerusform>%n QSL elküldöttként megjelölve</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n QSO taken out of the queue</source>
         <translation>
             <numerusform>%n QSO kivéve a sorból</numerusform>
-            <numerusform>%n QSO kivéve a sorból</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n label(s) written</source>
         <translation>
-            <numerusform>%n címke megírva</numerusform>
             <numerusform>%n címke megírva</numerusform>
         </translation>
     </message>
@@ -5253,7 +5236,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>TQSL ready · %n station location(s)</source>
         <translation>
             <numerusform>TQSL kész · %n station location</numerusform>
-            <numerusform>TQSL kész · %n station location</numerusform>
         </translation>
     </message>
     <message>
@@ -5284,7 +5266,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>LoTW: sending %n QSO with TQSL…</source>
         <translation>
             <numerusform>LoTW: %n QSO küldése TQSL-lel…</numerusform>
-            <numerusform>LoTW: %n QSO küldése TQSL-lel…</numerusform>
         </translation>
     </message>
     <message>
@@ -5299,13 +5280,11 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>Club Log: sending %n QSO…</source>
         <translation>
             <numerusform>Club Log: %n QSO küldése…</numerusform>
-            <numerusform>Club Log: %n QSO küldése…</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
         <translation>
-            <numerusform>%1: %n QSO küldése…</numerusform>
             <numerusform>%1: %n QSO küldése…</numerusform>
         </translation>
     </message>
@@ -5418,7 +5397,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message numerus="yes">
         <source>Looking for the radio on %n port(s)…</source>
         <translation>
-            <numerusform>A rádió keresése %n porton…</numerusform>
             <numerusform>A rádió keresése %n porton…</numerusform>
         </translation>
     </message>

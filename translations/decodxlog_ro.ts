@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it_IT" sourcelanguage="en">
+<TS version="2.1" language="ro_RO" sourcelanguage="en">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -2352,6 +2352,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>%n QSO trimis la LoTW</numerusform>
             <numerusform>%n QSO-uri trimise la LoTW</numerusform>
+            <numerusform>%n de QSO-uri trimise la LoTW</numerusform>
         </translation>
     </message>
     <message>
@@ -3014,6 +3015,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>%n stație</numerusform>
             <numerusform>%n stații</numerusform>
+            <numerusform>%n de stații</numerusform>
         </translation>
     </message>
     <message>
@@ -3343,6 +3345,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>%n client</numerusform>
             <numerusform>%n clienți</numerusform>
+            <numerusform>%n de clienți</numerusform>
         </translation>
     </message>
     <message>
@@ -3675,6 +3678,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>%n client</numerusform>
             <numerusform>%n clienți</numerusform>
+            <numerusform>%n de clienți</numerusform>
         </translation>
     </message>
     <message>
@@ -4652,6 +4656,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>Sesiune închisă: %1 · %n QSO</numerusform>
             <numerusform>Sesiune închisă: %1 · %n QSO</numerusform>
+            <numerusform>Sesiune închisă: %1 · %n de QSO</numerusform>
         </translation>
     </message>
     <message>
@@ -4671,6 +4676,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>Cabrillo scris: %1 (%n QSO)</numerusform>
             <numerusform>Cabrillo scris: %1 (%n QSO)</numerusform>
+            <numerusform>Cabrillo scris: %1 (%n de QSO)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -4678,6 +4684,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>%n QSO ale sesiunii → %1</numerusform>
             <numerusform>%n QSO ale sesiunii → %1</numerusform>
+            <numerusform>%n de QSO ale sesiunii → %1</numerusform>
         </translation>
     </message>
 </context>
@@ -4692,6 +4699,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>Cloud: %n profil de stație actualizat</numerusform>
             <numerusform>Cloud: %n profiluri de stație actualizate</numerusform>
+            <numerusform>Cloud: %n de profiluri de stație actualizate</numerusform>
         </translation>
     </message>
     <message>
@@ -4703,6 +4711,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>Cloud: a sosit %n parolă de serviciu</numerusform>
             <numerusform>Cloud: au sosit %n parole de serviciu</numerusform>
+            <numerusform>Cloud: au sosit %n de parole de serviciu</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -4710,6 +4719,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>Cloud: a sosit %n QSO de pe alt dispozitiv</numerusform>
             <numerusform>Cloud: au sosit %n QSO de pe alt dispozitiv</numerusform>
+            <numerusform>Cloud: au sosit %n de QSO de pe alt dispozitiv</numerusform>
         </translation>
     </message>
     <message>
@@ -4809,6 +4819,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>Cloud: se trimite %n QSO…</numerusform>
             <numerusform>Cloud: se trimit %n QSO…</numerusform>
+            <numerusform>Cloud: se trimit %n de QSO…</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -4816,6 +4827,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>Cloud: %n conflict rezolvat, cealaltă versiune este în istoric</numerusform>
             <numerusform>Cloud: %n conflicte rezolvate, celelalte versiuni sunt în istoric</numerusform>
+            <numerusform>Cloud: %n de conflicte rezolvate, celelalte versiuni sunt în istoric</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -4823,6 +4835,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>Cloud: %n dublură recunoscută</numerusform>
             <numerusform>Cloud: %n dubluri recunoscute</numerusform>
+            <numerusform>Cloud: %n de dubluri recunoscute</numerusform>
         </translation>
     </message>
 </context>
@@ -4932,11 +4945,16 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>Jurnal deschis: %1 (%n QSO)</numerusform>
             <numerusform>Jurnal deschis: %1 (%n QSO)</numerusform>
+            <numerusform>Jurnal deschis: %1 (%n de QSO)</numerusform>
         </translation>
     </message>
     <message>
         <source>Cannot open log %1: %2</source>
         <translation>Nu se poate deschide jurnalul %1: %2</translation>
+    </message>
+    <message>
+        <source>This computer has no font with ideographs: the writing shows up as little boxes. On Windows they arrive with the language: Settings → Time &amp; language → Language → Add a language.</source>
+        <translation>Acest calculator nu are niciun font cu ideograme: scrisul iese ca niște pătrățele. Pe Windows vin odată cu limba: Setări → Oră și limbă → Limbă → Adaugă o limbă.</translation>
     </message>
     <message>
         <source>loading the log table</source>
@@ -4967,6 +4985,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>Fereastra nu a răspuns %1 s (%n dată de la pornire)</numerusform>
             <numerusform>Fereastra nu a răspuns %1 s (de %n ori de la pornire)</numerusform>
+            <numerusform>Fereastra nu a răspuns %1 s (de %n ori de la pornire)</numerusform>
         </translation>
     </message>
     <message>
@@ -4984,6 +5003,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>built on %1</source>
         <translation>compilat pe %1</translation>
+    </message>
+    <message>
+        <source>radio (CAT)</source>
+        <translation>radio (CAT)</translation>
     </message>
     <message>
         <source>Interface language: %1 — it changes at the next start</source>
@@ -5046,6 +5069,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>Este deja în jurnal (în %n minut)</numerusform>
             <numerusform>Este deja în jurnal (în %n minute)</numerusform>
+            <numerusform>Este deja în jurnal (în %n de minute)</numerusform>
         </translation>
     </message>
     <message>
@@ -5093,6 +5117,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>%n QSO → %1</numerusform>
             <numerusform>%n QSO → %1</numerusform>
+            <numerusform>%n de QSO → %1</numerusform>
         </translation>
     </message>
     <message>
@@ -5148,6 +5173,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>Se completează %n QSO din callbook…</numerusform>
             <numerusform>Se completează %n QSO din callbook…</numerusform>
+            <numerusform>Se completează %n de QSO din callbook…</numerusform>
         </translation>
     </message>
     <message>
@@ -5159,6 +5185,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>%n QSO de completat din callbook: o căutare pe rând, durează un pic.</numerusform>
             <numerusform>%n QSO de completat din callbook: o căutare pe rând, durează un pic.</numerusform>
+            <numerusform>%n de QSO de completat din callbook: o căutare pe rând, durează un pic.</numerusform>
         </translation>
     </message>
     <message>
@@ -5178,6 +5205,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>%n QSO curățat după un import vechi prost (textul dinainte rămâne în istoric).</numerusform>
             <numerusform>%n QSO curățate după un import vechi prost (textul dinainte rămâne în istoric).</numerusform>
+            <numerusform>%n de QSO curățate după un import vechi prost (textul dinainte rămâne în istoric).</numerusform>
         </translation>
     </message>
 </context>
@@ -5188,6 +5216,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>%n QSO în coada de hârtie</numerusform>
             <numerusform>%n QSO în coada de hârtie</numerusform>
+            <numerusform>%n de QSO în coada de hârtie</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -5195,6 +5224,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>%n QSL de răspuns pusă la coadă</numerusform>
             <numerusform>%n QSL de răspuns puse la coadă</numerusform>
+            <numerusform>%n de QSL de răspuns puse la coadă</numerusform>
         </translation>
     </message>
     <message>
@@ -5206,6 +5236,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>%n QSL marcată ca trimisă</numerusform>
             <numerusform>%n QSL marcate ca trimise</numerusform>
+            <numerusform>%n de QSL marcate ca trimise</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -5213,6 +5244,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>%n QSO scos din coadă</numerusform>
             <numerusform>%n QSO scoase din coadă</numerusform>
+            <numerusform>%n de QSO scoase din coadă</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -5220,6 +5252,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>%n etichetă scrisă</numerusform>
             <numerusform>%n etichete scrise</numerusform>
+            <numerusform>%n de etichete scrise</numerusform>
         </translation>
     </message>
     <message>
@@ -5254,6 +5287,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>TQSL gata · %n station location</numerusform>
             <numerusform>TQSL gata · %n station locations</numerusform>
+            <numerusform>TQSL gata · %n de station locations</numerusform>
         </translation>
     </message>
     <message>
@@ -5285,6 +5319,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>LoTW: se trimite %n QSO cu TQSL…</numerusform>
             <numerusform>LoTW: se trimit %n QSO cu TQSL…</numerusform>
+            <numerusform>LoTW: se trimit %n de QSO cu TQSL…</numerusform>
         </translation>
     </message>
     <message>
@@ -5300,6 +5335,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>Club Log: se trimite %n QSO…</numerusform>
             <numerusform>Club Log: se trimit %n QSO…</numerusform>
+            <numerusform>Club Log: se trimit %n de QSO…</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -5307,6 +5343,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>%1: se trimite %n QSO…</numerusform>
             <numerusform>%1: se trimit %n QSO…</numerusform>
+            <numerusform>%1: se trimit %n de QSO…</numerusform>
         </translation>
     </message>
     <message>
@@ -5420,6 +5457,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>
             <numerusform>Se caută stația pe %n port…</numerusform>
             <numerusform>Se caută stația pe %n porturi…</numerusform>
+            <numerusform>Se caută stația pe %n de porturi…</numerusform>
         </translation>
     </message>
     <message>

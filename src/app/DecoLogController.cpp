@@ -2,6 +2,7 @@
 
 #include "core/Bands.h"
 #include "core/Maidenhead.h"
+#include "ThemeManager.h"
 
 #include <QCoreApplication>
 #include <QDesktopServices>
@@ -300,6 +301,16 @@ bool DecoLogController::openDatabase(const QString& path)
     }
     if (m_backupDir.isEmpty())
         m_backupDir = QDir(QFileInfo(path).absolutePath()).filePath(QStringLiteral("backup"));
+
+    // Giapponese e cinese senza i caratteri giusti: la finestra si riempie di
+    // quadratini e sembra rotto il programma. Non lo e': mancano i caratteri.
+    if (decodium::ui::ThemeManager::ideographsMissing()) {
+        addActivity(QStringLiteral("LOG"),
+                    tr("This computer has no font with ideographs: the writing shows up as "
+                       "little boxes. On Windows they arrive with the language: Settings → "
+                       "Time & language → Language → Add a language."),
+                    QStringLiteral("warning"));
+    }
 
     timed(tr("loading the log table"), [this] { m_model = new QsoTableModel(&m_db, this); });
     m_profiles = new StationProfileModel(&m_db, this);

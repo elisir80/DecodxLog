@@ -12,7 +12,59 @@ const QString kOcean    = QStringLiteral("Ocean Blue");
 const QString kStellar  = QStringLiteral("Stellar Light");
 const QString kDark     = QStringLiteral("Darkcodium");
 
+// Lingua dell'interfaccia, per scegliere i caratteri. Vuota finche' nessuno la
+// dice: allora si va sui caratteri di sempre.
+QString g_language;
+
+// I caratteri che hanno gli ideogrammi, in ordine di preferenza. Per il testo a
+// spaziatura fissa si prendono quelli giapponesi e cinesi che sono davvero a
+// larghezza fissa (MS Gothic, NSimSun, MingLiU): le lettere latine restano in
+// colonna, come vuole la tabella del log.
+QStringList cjkFamilies(const QString& language, bool mono)
+{
+    const QString base = language.section(QLatin1Char('_'), 0, 0);
+    if (base == QLatin1String("ja"))
+        return mono ? QStringList{QStringLiteral("MS Gothic"), QStringLiteral("Yu Gothic UI"),
+                                  QStringLiteral("Meiryo"), QStringLiteral("Noto Sans Mono CJK JP")}
+                    : QStringList{QStringLiteral("Yu Gothic UI"), QStringLiteral("Meiryo"),
+                                  QStringLiteral("MS Gothic"), QStringLiteral("Noto Sans CJK JP")};
+    if (language == QLatin1String("zh_TW") || language == QLatin1String("zh_HK"))
+        return mono ? QStringList{QStringLiteral("MingLiU"), QStringLiteral("Microsoft JhengHei"),
+                                  QStringLiteral("PMingLiU"), QStringLiteral("Noto Sans Mono CJK TC")}
+                    : QStringList{QStringLiteral("Microsoft JhengHei UI"), QStringLiteral("Microsoft JhengHei"),
+                                  QStringLiteral("PMingLiU"), QStringLiteral("Noto Sans CJK TC")};
+    if (base == QLatin1String("zh"))
+        return mono ? QStringList{QStringLiteral("NSimSun"), QStringLiteral("SimSun"),
+                                  QStringLiteral("Microsoft YaHei"), QStringLiteral("Noto Sans Mono CJK SC")}
+                    : QStringList{QStringLiteral("Microsoft YaHei UI"), QStringLiteral("Microsoft YaHei"),
+                                  QStringLiteral("SimSun"), QStringLiteral("Noto Sans CJK SC")};
+    if (base == QLatin1String("ko"))
+        return mono ? QStringList{QStringLiteral("GulimChe"), QStringLiteral("Malgun Gothic"),
+                                  QStringLiteral("Gulim"), QStringLiteral("Noto Sans Mono CJK KR")}
+                    : QStringList{QStringLiteral("Malgun Gothic"), QStringLiteral("Gulim"),
+                                  QStringLiteral("Noto Sans CJK KR")};
+    return {};
+}
+
 } // namespace
+
+void ThemeManager::setLanguage(const QString& code)
+{
+    g_language = code;
+}
+
+bool ThemeManager::ideographsMissing()
+{
+    const QStringList wanted = cjkFamilies(g_language, false);
+    if (wanted.isEmpty())
+        return false;
+    const QStringList installed = QFontDatabase::families();
+    for (const QString& family : wanted) {
+        if (installed.contains(family))
+            return false;
+    }
+    return true;
+}
 
 ThemeManager::ThemeManager(QObject* parent)
     : QObject(parent)
@@ -297,6 +349,11 @@ QString ThemeManager::monoFamily() const
     // finirebbe su un carattere proporzionale.
     static const QString family = [] {
         const QStringList installed = QFontDatabase::families();
+        // Giapponese, cinese, coreano: prima i caratteri che hanno gli ideogrammi.
+        for (const QString& cjk : cjkFamilies(g_language, true)) {
+            if (installed.contains(cjk))
+                return cjk;
+        }
 #ifdef Q_OS_WIN
         for (const auto* candidate : {"Cascadia Mono", "Consolas"}) {
             if (installed.contains(QLatin1String(candidate)))
@@ -323,6 +380,10 @@ QString ThemeManager::uiFamily() const
 {
     static const QString family = [] {
         const QStringList installed = QFontDatabase::families();
+        for (const QString& cjk : cjkFamilies(g_language, false)) {
+            if (installed.contains(cjk))
+                return cjk;
+        }
 #ifdef Q_OS_MACOS
         for (const auto* candidate : {"SF Pro Text", "Helvetica Neue", "Arial"}) {
             if (installed.contains(QLatin1String(candidate)))

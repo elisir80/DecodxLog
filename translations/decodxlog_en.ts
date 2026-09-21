@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it_IT" sourcelanguage="en">
+<TS version="2.1" language="en_US" sourcelanguage="en">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -2348,7 +2348,10 @@ The call Decodium is working shows up here by itself.</source>
     <name>Qsl</name>
     <message numerus="yes">
         <source>%n QSO sent to LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>LoTW already had these QSOs</source>
@@ -3007,7 +3010,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>%n stazione/i</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>%1 · %2° · %3 km</source>
@@ -3333,7 +3339,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>%n client</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>Passa al quadrante chiaro</source>
@@ -3662,7 +3671,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>%n client(s)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>waiting</source>
@@ -4636,7 +4648,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>Session closed: %1 · %n QSO</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>No QSO in this session yet</source>
@@ -4652,11 +4667,17 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>Cabrillo written: %1 (%n QSO)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n QSO of the session → %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -4667,7 +4688,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>Cloud: %n station profile(s) updated</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>Cloud: settings updated from another device</source>
@@ -4675,11 +4699,17 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>Cloud: %n service password(s) arrived</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n QSO arrived from another device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>Cloud: up to date</source>
@@ -4775,15 +4805,24 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>Cloud: sending %n QSO…</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n conflict(s) resolved, the other version is in the history</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n duplicate(s) recognised</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -4889,10 +4928,17 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>Log opened: %1 (%n QSO)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>Cannot open log %1: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This computer has no font with ideographs: the writing shows up as little boxes. On Windows they arrive with the language: Settings → Time &amp; language → Language → Add a language.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4921,7 +4967,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>The window stopped answering for %1 s (%n time(s) since the start)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>Listening on UDP %1</source>
@@ -4937,6 +4986,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>built on %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>radio (CAT)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4997,7 +5050,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>Already in log (within %n minute(s))</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>Cannot save the QSO</source>
@@ -5041,7 +5097,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>%n QSO → %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>%1 · %2 MB</source>
@@ -5093,7 +5152,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>Completing %n QSO from the callbook…</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>Every QSO already has its grid.</source>
@@ -5101,7 +5163,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>%n QSO to complete from the callbook: one search at a time, it takes a while.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>Stopped: %1 of %2 QSO done.</source>
@@ -5117,18 +5182,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>%n QSO cleaned up from a bad old import (the previous text stays in the history).</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
     <message numerus="yes">
         <source>%n QSO in the paper queue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n QSL to answer put in the queue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>no QSL waiting for an answer</source>
@@ -5136,15 +5210,24 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>%n QSL marked as sent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n QSO taken out of the queue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n label(s) written</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>QSL labels: %1 (%2)</source>
@@ -5175,7 +5258,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>TQSL ready · %n station location(s)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>no credentials: Setup → QSL services</source>
@@ -5203,7 +5289,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>LoTW: sending %n QSO with TQSL…</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>Club Log: the station profile has no callsign</source>
@@ -5215,11 +5304,17 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>Club Log: sending %n QSO…</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>%1: %2 sent, %3 already there, %4 rejected</source>
@@ -5329,7 +5424,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>Looking for the radio on %n port(s)…</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>The radio did not answer on any port. Check that it is on, that the CAT is enabled, and that no other program is holding the cable.</source>

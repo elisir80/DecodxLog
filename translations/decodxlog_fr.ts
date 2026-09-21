@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it_IT" sourcelanguage="en">
+<TS version="2.1" language="fr_FR" sourcelanguage="en">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -4491,7 +4491,7 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
     </message>
     <message>
         <source>QSO:</source>
-        <translation>QSO :</translation>
+        <translation>QSO&#xa0;:</translation>
     </message>
     <message>
         <source>Queue:</source>
@@ -4939,6 +4939,10 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
         <translation>Impossible d&apos;ouvrir le journal %1 : %2</translation>
     </message>
     <message>
+        <source>This computer has no font with ideographs: the writing shows up as little boxes. On Windows they arrive with the language: Settings → Time &amp; language → Language → Add a language.</source>
+        <translation>Cet ordinateur n&apos;a aucune police avec des idéogrammes : le texte sort en petits carrés. Sous Windows elles arrivent avec la langue : Paramètres → Heure et langue → Langue → Ajouter une langue.</translation>
+    </message>
+    <message>
         <source>loading the log table</source>
         <translation>chargement de la table du journal</translation>
     </message>
@@ -4984,6 +4988,10 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
     <message>
         <source>built on %1</source>
         <translation>construit le %1</translation>
+    </message>
+    <message>
+        <source>radio (CAT)</source>
+        <translation>radio (CAT)</translation>
     </message>
     <message>
         <source>Interface language: %1 — it changes at the next start</source>

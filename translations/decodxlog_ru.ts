@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it_IT" sourcelanguage="en">
+<TS version="2.1" language="ru_RU" sourcelanguage="en">
 <context>
     <name>AboutDialog</name>
     <message>
         <source>About DecoDXLog</source>
-        <translation type="unfinished"></translation>
+        <translation>О DecoDXLog</translation>
     </message>
     <message>
         <source>version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>версия %1</translation>
     </message>
     <message>
         <source>The station logbook of the Decodium family</source>
-        <translation type="unfinished"></translation>
+        <translation>Аппаратный журнал семейства Decodium</translation>
     </message>
     <message>
         <source>Who made it</source>
@@ -21,7 +21,7 @@
     </message>
     <message>
         <source>Developer</source>
-        <translation type="unfinished"></translation>
+        <translation>Разработчик</translation>
     </message>
     <message>
         <source>Email</source>
@@ -49,11 +49,11 @@
     </message>
     <message>
         <source>Licence</source>
-        <translation type="unfinished"></translation>
+        <translation>Лицензия</translation>
     </message>
     <message>
         <source>Free software: you can use it, study it, change it and pass it on, sources included. The log is yours and stays on your computer — a SQLite file that opens even without us.</source>
-        <translation type="unfinished"></translation>
+        <translation>Свободная программа: её можно использовать, изучать, изменять и передавать дальше вместе с исходным кодом. Журнал — ваш и остаётся на вашем компьютере: это файл SQLite, который открывается и без нас.</translation>
     </message>
     <message>
         <source>Copy these details</source>
@@ -72,31 +72,31 @@
     <name>ActivationDialog</name>
     <message>
         <source>Contest</source>
-        <translation>Contest</translation>
+        <translation>Соревнование</translation>
     </message>
     <message>
         <source>Free session</source>
-        <translation type="unfinished"></translation>
+        <translation>Свободный сеанс</translation>
     </message>
     <message>
         <source>Session · %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Сеанс · %1</translation>
     </message>
     <message>
         <source>Activation / contest</source>
-        <translation type="unfinished"></translation>
+        <translation>Активация / соревнование</translation>
     </message>
     <message>
         <source>open since %1 UTC · %2</source>
-        <translation type="unfinished"></translation>
+        <translation>открыт с %1 UTC · %2</translation>
     </message>
     <message>
         <source>Export the session</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт сеанса</translation>
     </message>
     <message>
         <source>ADIF files (*.adi)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы ADIF (*.adi)</translation>
     </message>
     <message>
         <source>QSO</source>
@@ -104,35 +104,35 @@
     </message>
     <message>
         <source>Different calls</source>
-        <translation type="unfinished"></translation>
+        <translation>Разных позывных</translation>
     </message>
     <message>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Длительность</translation>
     </message>
     <message>
         <source>Last QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Последний QSO</translation>
     </message>
     <message>
         <source>Next number</source>
-        <translation type="unfinished"></translation>
+        <translation>Следующий номер</translation>
     </message>
     <message>
         <source>activation valid: %1 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>активация засчитана: %1 QSO</translation>
     </message>
     <message>
         <source>%1 QSO to go</source>
-        <translation type="unfinished"></translation>
+        <translation>осталось %1 QSO</translation>
     </message>
     <message>
         <source>%1 / %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 / %2</translation>
     </message>
     <message>
         <source>Kind</source>
-        <translation type="unfinished"></translation>
+        <translation>Вид</translation>
     </message>
     <message>
         <source>Reference</source>
@@ -140,7 +140,7 @@
     </message>
     <message>
         <source>Contest (CONTEST_ID)</source>
-        <translation type="unfinished"></translation>
+        <translation>Соревнование (CONTEST_ID)</translation>
     </message>
     <message>
         <source>Name</source>
@@ -148,23 +148,23 @@
     </message>
     <message>
         <source>Grid of the place</source>
-        <translation type="unfinished"></translation>
+        <translation>Локатор места</translation>
     </message>
     <message>
         <source>Tag on every QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Метка на каждом QSO</translation>
     </message>
     <message>
         <source>Station profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Профиль станции</translation>
     </message>
     <message>
         <source>The active one</source>
-        <translation type="unfinished"></translation>
+        <translation>Активный</translation>
     </message>
     <message>
         <source>Serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Порядковый номер</translation>
     </message>
     <message>
         <source>Next</source>
@@ -172,35 +172,35 @@
     </message>
     <message>
         <source>The QSOs get CONTEST_ID and the serial number sent (STX). The number received goes in the New QSO panel.</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO получают CONTEST_ID и переданный порядковый номер (STX). Принятый номер вводится в панели «Новый QSO».</translation>
     </message>
     <message>
         <source>The QSOs get the activator fields (MY_SIG, MY_SIG_INFO, MY_SOTA_REF…), the grid of the place and the tag. A call already worked in this session on the same band and mode counts as a duplicate, whenever it was.</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO получают поля активатора (MY_SIG, MY_SIG_INFO, MY_SOTA_REF…), локатор места и метку. Позывной, уже проведённый в этом сеансе на том же диапазоне и в том же режиме, считается дублем — когда бы это ни было.</translation>
     </message>
     <message>
         <source>Export ADIF (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт ADIF (%1)</translation>
     </message>
     <message>
         <source>Contest window (Ctrl+Shift+T)</source>
-        <translation type="unfinished"></translation>
+        <translation>Окно соревнования (Ctrl+Shift+T)</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть</translation>
     </message>
     <message>
         <source>Apply changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Применить изменения</translation>
     </message>
     <message>
         <source>End session</source>
-        <translation type="unfinished"></translation>
+        <translation>Закончить сеанс</translation>
     </message>
     <message>
         <source>Start session</source>
-        <translation type="unfinished"></translation>
+        <translation>Начать сеанс</translation>
     </message>
 </context>
 <context>
@@ -218,11 +218,11 @@
     </message>
     <message>
         <source>computed from the log · confirmations: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>посчитано по журналу · подтверждения: %1</translation>
     </message>
     <message>
         <source>card</source>
-        <translation type="unfinished"></translation>
+        <translation>карточка</translation>
     </message>
     <message>
         <source>none</source>
@@ -230,39 +230,39 @@
     </message>
     <message>
         <source>confirmed %1</source>
-        <translation type="unfinished"></translation>
+        <translation>подтверждено %1</translation>
     </message>
     <message>
         <source>base award ✓</source>
-        <translation type="unfinished"></translation>
+        <translation>базовый диплом ✓</translation>
     </message>
     <message>
         <source>goal %1</source>
-        <translation type="unfinished"></translation>
+        <translation>цель %1</translation>
     </message>
     <message>
         <source>worked %1</source>
-        <translation type="unfinished"></translation>
+        <translation>проведено %1</translation>
     </message>
     <message>
         <source>band slots %1 / %2</source>
-        <translation type="unfinished"></translation>
+        <translation>диапазонов %1 / %2</translation>
     </message>
     <message>
         <source>All worked</source>
-        <translation type="unfinished"></translation>
+        <translation>Все проведены</translation>
     </message>
     <message>
         <source>Not confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>Не подтверждены</translation>
     </message>
     <message>
         <source>Never worked</source>
-        <translation type="unfinished"></translation>
+        <translation>Ни разу не проведены</translation>
     </message>
     <message>
         <source>Table</source>
-        <translation type="unfinished"></translation>
+        <translation>Таблица</translation>
     </message>
     <message>
         <source>Map</source>
@@ -274,35 +274,35 @@
     </message>
     <message>
         <source>All bands</source>
-        <translation type="unfinished"></translation>
+        <translation>Все диапазоны</translation>
     </message>
     <message>
         <source>All modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Все режимы</translation>
     </message>
     <message>
         <source>Digital</source>
-        <translation type="unfinished"></translation>
+        <translation>Цифровые</translation>
     </message>
     <message>
         <source>Phone</source>
-        <translation type="unfinished"></translation>
+        <translation>Телефон</translation>
     </message>
     <message>
         <source>Confirmed by</source>
-        <translation type="unfinished"></translation>
+        <translation>Подтверждено через</translation>
     </message>
     <message>
         <source>Card</source>
-        <translation type="unfinished"></translation>
+        <translation>Карточка</translation>
     </message>
     <message>
         <source>All stations</source>
-        <translation type="unfinished"></translation>
+        <translation>Все станции</translation>
     </message>
     <message>
         <source>All tags</source>
-        <translation type="unfinished"></translation>
+        <translation>Все метки</translation>
     </message>
     <message>
         <source>State</source>
@@ -310,59 +310,59 @@
     </message>
     <message>
         <source>Zone</source>
-        <translation type="unfinished"></translation>
+        <translation>Зона</translation>
     </message>
     <message>
         <source>JARL number</source>
-        <translation type="unfinished"></translation>
+        <translation>Номер JARL</translation>
     </message>
     <message>
         <source>Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Ключ</translation>
     </message>
     <message>
         <source>Name / first QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя / первый QSO</translation>
     </message>
     <message>
         <source>Last</source>
-        <translation type="unfinished"></translation>
+        <translation>Последний</translation>
     </message>
     <message>
         <source>never worked</source>
-        <translation type="unfinished"></translation>
+        <translation>ни разу не проведён</translation>
     </message>
     <message>
         <source>Everything worked. Well done.</source>
-        <translation type="unfinished"></translation>
+        <translation>Все проведены. Отличная работа.</translation>
     </message>
     <message>
         <source>Nothing matches.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ничего не подходит.</translation>
     </message>
     <message>
         <source>No QSO with a US state (STATE field) in the log.</source>
-        <translation type="unfinished"></translation>
+        <translation>В журнале нет QSO со штатом США (поле STATE).</translation>
     </message>
     <message>
         <source>No QSO with a JARL number (CNTY field) in the log. The callbook fills it in when it knows it, otherwise it goes in by hand in the QSO card.</source>
-        <translation type="unfinished"></translation>
+        <translation>В журнале нет QSO с номером JARL (поле CNTY). Callbook подставляет его, когда знает, иначе он вводится вручную в карточке QSO.</translation>
     </message>
     <message>
         <source>No QSO counts for this award with the current filters.</source>
-        <translation type="unfinished"></translation>
+        <translation>С нынешними фильтрами ни один QSO не идёт в зачёт этого диплома.</translation>
     </message>
     <message>
         <source>Per band</source>
-        <translation type="unfinished"></translation>
+        <translation>По диапазонам</translation>
     </message>
     <message>
         <source>worked / confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>проведено / подтверждено</translation>
     </message>
     <message>
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
-        <translation type="unfinished"></translation>
+        <translation>● подтверждён  ○ проведён  ·  двойной щелчок открывает первый QSO. DXCC считает территории с номером DXCC; для старых QSO используйте Настройки → Общие → Дополнить недостающие DXCC.</translation>
     </message>
 </context>
 <context>
@@ -393,11 +393,11 @@
     </message>
     <message>
         <source>Open statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть статистику</translation>
     </message>
     <message>
         <source>Open cluster window</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть окно кластера</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -405,27 +405,27 @@
     </message>
     <message>
         <source>%1 confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 подтверждено</translation>
     </message>
     <message>
         <source>By band</source>
-        <translation type="unfinished"></translation>
+        <translation>По диапазонам</translation>
     </message>
     <message>
         <source>By mode</source>
-        <translation type="unfinished"></translation>
+        <translation>По режимам</translation>
     </message>
     <message>
         <source>Service</source>
-        <translation type="unfinished"></translation>
+        <translation>Служба</translation>
     </message>
     <message>
         <source>Download LoTW confirmations</source>
-        <translation type="unfinished"></translation>
+        <translation>Скачать подтверждения LoTW</translation>
     </message>
     <message>
         <source>Paper QSL (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Бумажные QSL (%1)</translation>
     </message>
     <message>
         <source>Stop</source>
@@ -433,7 +433,7 @@
     </message>
     <message>
         <source>LoTW: TQSL signs and sends, and the confirmations come back here.</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: TQSL подписывает и отправляет, а подтверждения возвращаются сюда.</translation>
     </message>
     <message>
         <source>Sent</source>
@@ -445,46 +445,46 @@
     </message>
     <message>
         <source>Errors</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибки</translation>
     </message>
     <message>
         <source>To send</source>
-        <translation type="unfinished"></translation>
+        <translation>К отправке</translation>
     </message>
     <message>
         <source>sending…</source>
-        <translation type="unfinished"></translation>
+        <translation>отправка…</translation>
     </message>
     <message>
         <source>Send %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить %1</translation>
     </message>
     <message>
         <source>automatic</source>
-        <translation type="unfinished"></translation>
+        <translation>автоматически</translation>
     </message>
     <message>
         <source>LoTW…</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW…</translation>
     </message>
     <message>
         <source>LoTW last sync %1</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW, последняя синхронизация %1</translation>
     </message>
 </context>
 <context>
     <name>Cabrillo</name>
     <message>
         <source>The station callsign is missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Не указан позывной станции</translation>
     </message>
     <message>
         <source>The contest name is missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Не указано название соревнования</translation>
     </message>
     <message>
         <source>No usable QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет подходящих QSO</translation>
     </message>
 </context>
 <context>
@@ -495,7 +495,7 @@
     </message>
     <message>
         <source>log</source>
-        <translation type="unfinished"></translation>
+        <translation>журнал</translation>
     </message>
     <message>
         <source>from log</source>
@@ -504,27 +504,28 @@
     <message>
         <source>Select a QSO or type a callsign.
 The call Decodium is working shows up here by itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите QSO или введите позывной.
+Позывной, с которым работает Decodium, появляется здесь сам.</translation>
     </message>
     <message>
         <source>photo</source>
-        <translation type="unfinished"></translation>
+        <translation>фото</translation>
     </message>
     <message>
         <source>worked %1×</source>
-        <translation type="unfinished"></translation>
+        <translation>проведено %1×</translation>
     </message>
     <message>
         <source>new station</source>
-        <translation type="unfinished"></translation>
+        <translation>новая станция</translation>
     </message>
     <message>
         <source>NEW DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>НОВЫЙ DXCC</translation>
     </message>
     <message>
         <source>NEW DXCC on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>НОВЫЙ DXCC на %1</translation>
     </message>
     <message>
         <source>Distance</source>
@@ -536,50 +537,50 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Local ≈</source>
-        <translation type="unfinished"></translation>
+        <translation>Местное ≈</translation>
     </message>
     <message>
         <source>Worked before</source>
-        <translation type="unfinished"></translation>
+        <translation>Уже проводился</translation>
     </message>
     <message>
         <source>new DXCC on FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>новый DXCC на FT2</translation>
     </message>
     <message>
         <source>new on FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>новый на FT2</translation>
     </message>
     <message>
         <source>new on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>новый на %1</translation>
     </message>
     <message>
         <source>LoTW ✓</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW ✓</translation>
     </message>
     <message>
         <source>Not in the log yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>В журнале ещё нет.</translation>
     </message>
     <message>
         <source>QSL status · last QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Состояние QSL · последний QSO</translation>
     </message>
     <message>
         <source>Open last QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть последний QSO</translation>
     </message>
 </context>
 <context>
     <name>Callbook</name>
     <message>
         <source>Unexpected answer from QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Неожиданный ответ от QRZ.com</translation>
     </message>
     <message>
         <source>Unexpected answer from HamQTH</source>
-        <translation type="unfinished"></translation>
+        <translation>Неожиданный ответ от HamQTH</translation>
     </message>
 </context>
 <context>
@@ -590,23 +591,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1/%2 online</source>
-        <translation type="unfinished"></translation>
+        <translation>%1/%2 на связи</translation>
     </message>
     <message>
         <source>%1 shown · %2 in the last hour</source>
-        <translation type="unfinished"></translation>
+        <translation>показано %1 · %2 за последний час</translation>
     </message>
     <message>
         <source>→ Decodium</source>
-        <translation type="unfinished"></translation>
+        <translation>→ Decodium</translation>
     </message>
     <message>
         <source>Open cluster</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть кластер</translation>
     </message>
     <message>
         <source>Spot filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Фильтры спотов</translation>
     </message>
     <message>
         <source>Clear all</source>
@@ -614,11 +615,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть</translation>
     </message>
     <message>
         <source>Name for these filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Название этих фильтров</translation>
     </message>
     <message>
         <source>Save</source>
@@ -626,63 +627,63 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>No saved filters: use More filters → Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранённых фильтров нет: «Ещё фильтры» → «Сохранить»</translation>
     </message>
     <message>
         <source>Tune Decodium to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Настроить Decodium на %1</translation>
     </message>
     <message>
         <source>Show in Call info</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать в «Сведениях о позывном»</translation>
     </message>
     <message>
         <source>Point the rotor at %1 (%2°)</source>
-        <translation type="unfinished"></translation>
+        <translation>Повернуть поворотное устройство на %1 (%2°)</translation>
     </message>
     <message>
         <source>Point the rotor</source>
-        <translation type="unfinished"></translation>
+        <translation>Повернуть поворотное устройство</translation>
     </message>
     <message>
         <source>Only %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Только %1</translation>
     </message>
     <message>
         <source>this entity</source>
-        <translation type="unfinished"></translation>
+        <translation>эта территория</translation>
     </message>
     <message>
         <source>Alert me when %1 is spotted</source>
-        <translation type="unfinished"></translation>
+        <translation>Сообщить, когда появится спот на %1</translation>
     </message>
     <message>
         <source>Hide spots from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Скрыть споты от %1</translation>
     </message>
     <message>
         <source>Decodium band</source>
-        <translation type="unfinished"></translation>
+        <translation>Диапазон Decodium</translation>
     </message>
     <message>
         <source>NEW BAND/MODE</source>
-        <translation type="unfinished"></translation>
+        <translation>НОВЫЙ ДИАПАЗОН/РЕЖИМ</translation>
     </message>
     <message>
         <source>hide worked</source>
-        <translation type="unfinished"></translation>
+        <translation>скрыть проведённые</translation>
     </message>
     <message>
         <source>Call / entity…</source>
-        <translation type="unfinished"></translation>
+        <translation>Позывной / территория…</translation>
     </message>
     <message>
         <source>More filters…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ещё фильтры…</translation>
     </message>
     <message>
         <source>Saved ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранённые ▾</translation>
     </message>
     <message>
         <source>kHz</source>
@@ -698,7 +699,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Entity</source>
-        <translation type="unfinished"></translation>
+        <translation>Территория</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -718,7 +719,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>km · az</source>
-        <translation type="unfinished"></translation>
+        <translation>км · аз</translation>
     </message>
     <message>
         <source>Source</source>
@@ -726,38 +727,38 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>unconf.</source>
-        <translation type="unfinished"></translation>
+        <translation>не подтв.</translation>
     </message>
     <message>
         <source>Spotted by %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Спот от %1</translation>
     </message>
     <message>
         <source>No source connected. Open the cluster window → Sources to connect a node, RBN, HamAlert or POTA.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ни один источник не подключён. Откройте окно кластера → «Источники» и подключите узел, RBN, HamAlert или POTA.</translation>
     </message>
     <message>
         <source>No spot matches the filters (%1 hidden).</source>
-        <translation type="unfinished"></translation>
+        <translation>Ни один спот не подходит под фильтры (%1 скрыто).</translation>
     </message>
     <message>
         <source>Waiting for spots…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ждём споты…</translation>
     </message>
 </context>
 <context>
     <name>ClusterWindow</name>
     <message>
         <source>DecoDXLog — DX Cluster</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — DX-кластер</translation>
     </message>
     <message>
         <source>Spots</source>
-        <translation type="unfinished"></translation>
+        <translation>Споты</translation>
     </message>
     <message>
         <source>Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Источники</translation>
     </message>
     <message>
         <source>Alerts</source>
@@ -765,43 +766,43 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Voice &amp; LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation>Голос и LoTW</translation>
     </message>
     <message>
         <source>Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Консоль</translation>
     </message>
     <message>
         <source>Decodium on %1 · %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium на %1 · %2</translation>
     </message>
     <message>
         <source>Decodium not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium не подключён</translation>
     </message>
     <message>
         <source>Spot sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Источники спотов</translation>
     </message>
     <message>
         <source>Add ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить ▾</translation>
     </message>
     <message>
         <source>Custom node…</source>
-        <translation type="unfinished"></translation>
+        <translation>Свой узел…</translation>
     </message>
     <message>
         <source>All sources flow into one list. Telnet nodes log in with the callsign of the active station profile unless a login is set. RBN gives skimmer spots (CW/RTTY on 7000, FT8/FT4 on 7001). HamAlert sends the spots of your triggers (set them up on hamalert.org; the password goes in the system keystore below). POTA reads the public activation list every minute.</source>
-        <translation type="unfinished"></translation>
+        <translation>Все источники сливаются в один список. Узлы telnet входят с позывным активного профиля станции, если не задан отдельный логин. RBN даёт споты скиммеров (CW/RTTY на 7000, FT8/FT4 на 7001). HamAlert присылает споты по вашим триггерам (их настраивают на hamalert.org; пароль ложится в хранилище ключей системы ниже). POTA читает открытый список активаций каждую минуту.</translation>
     </message>
     <message>
         <source>%1 spots</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 спотов</translation>
     </message>
     <message>
         <source>, last %1Z</source>
-        <translation type="unfinished"></translation>
+        <translation>, последний %1Z</translation>
     </message>
     <message>
         <source>On</source>
@@ -809,47 +810,47 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменить</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Убрать</translation>
     </message>
     <message>
         <source>HamAlert account</source>
-        <translation type="unfinished"></translation>
+        <translation>Учётная запись HamAlert</translation>
     </message>
     <message>
         <source>Alert rules</source>
-        <translation type="unfinished"></translation>
+        <translation>Правила оповещений</translation>
     </message>
     <message>
         <source>New rule</source>
-        <translation type="unfinished"></translation>
+        <translation>Новое правило</translation>
     </message>
     <message>
         <source>A spot that matches a rule is written in the activity log, highlighted, sent to Decodium and, if the rule says so, announced by voice. The same DX on the same band and mode is announced at most once every %1 minutes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Спот, подошедший под правило, попадает в журнал событий, выделяется, уходит в Decodium и, если так сказано в правиле, объявляется голосом. Один и тот же DX на том же диапазоне и в том же режиме объявляется не чаще одного раза в %1 минут.</translation>
     </message>
     <message>
         <source>DX in %1</source>
-        <translation type="unfinished"></translation>
+        <translation>DX в %1</translation>
     </message>
     <message>
         <source>spotted from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>спот из %1</translation>
     </message>
     <message>
         <source>not worked on band</source>
-        <translation type="unfinished"></translation>
+        <translation>не проведён на диапазоне</translation>
     </message>
     <message>
         <source>every spot</source>
-        <translation type="unfinished"></translation>
+        <translation>каждый спот</translation>
     </message>
     <message>
         <source>voice</source>
-        <translation type="unfinished"></translation>
+        <translation>голос</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -857,27 +858,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Voice announcements</source>
-        <translation type="unfinished"></translation>
+        <translation>Голосовые объявления</translation>
     </message>
     <message>
         <source>Speech: %1. Voices come from Windows Settings → Time &amp; language → Speech.</source>
-        <translation type="unfinished"></translation>
+        <translation>Синтез речи: %1. Голоса берутся из «Параметры Windows → Время и язык → Речь».</translation>
     </message>
     <message>
         <source>No speech synthesizer found (install speech-dispatcher or espeak-ng on Linux).</source>
-        <translation type="unfinished"></translation>
+        <translation>Синтезатор речи не найден (на Linux поставьте speech-dispatcher или espeak-ng).</translation>
     </message>
     <message>
         <source>Announce alerts</source>
-        <translation type="unfinished"></translation>
+        <translation>Объявлять оповещения</translation>
     </message>
     <message>
         <source>Spell calls with the phonetic alphabet</source>
-        <translation type="unfinished"></translation>
+        <translation>Позывные читать по фонетическому алфавиту</translation>
     </message>
     <message>
         <source>Voice</source>
-        <translation type="unfinished"></translation>
+        <translation>Голос</translation>
     </message>
     <message>
         <source>System default</source>
@@ -885,19 +886,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Language of the sentences</source>
-        <translation type="unfinished"></translation>
+        <translation>Язык фраз</translation>
     </message>
     <message>
         <source>Repeat the same DX after</source>
-        <translation type="unfinished"></translation>
+        <translation>Повторять тот же DX через</translation>
     </message>
     <message>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Скорость</translation>
     </message>
     <message>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Громкость</translation>
     </message>
     <message>
         <source>Test</source>
@@ -905,19 +906,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Стоп</translation>
     </message>
     <message>
         <source>Example: “New DXCC. Bouvet. 3 Y 0 J. 20 metri. C W.” Keep the announcements on the PC speakers, not on the audio device that goes to the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Например: «Новый DXCC. Буве. 3 Y 0 J. 20 метров. C W.» Пусть объявления идут в динамики компьютера, а не в то устройство, которое подключено к трансиверу.</translation>
     </message>
     <message>
         <source>LoTW users</source>
-        <translation type="unfinished"></translation>
+        <translation>Пользователи LoTW</translation>
     </message>
     <message>
         <source>list not loaded yet</source>
-        <translation type="unfinished"></translation>
+        <translation>список ещё не загружен</translation>
     </message>
     <message>
         <source>Update now</source>
@@ -925,19 +926,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>The ARRL list of LoTW users marks spots of stations that upload to LoTW (filter “LoTW users”). It is refreshed once a week.</source>
-        <translation type="unfinished"></translation>
+        <translation>Список пользователей LoTW от ARRL помечает споты станций, которые грузят в LoTW (фильтр «Пользователи LoTW»). Он обновляется раз в неделю.</translation>
     </message>
     <message>
         <source>Decodium</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium</translation>
     </message>
     <message>
         <source>Send the spots shown and the alerts to Decodium (DecoLink)</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправлять показанные споты и оповещения в Decodium (DecoLink)</translation>
     </message>
     <message>
         <source>Double-click a spot to tune Decodium: dial frequency and mode, and the DX call ready in the QSO panel. It never starts transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Двойной щелчок по споту настраивает Decodium: частота и режим, а позывной DX уже готов в панели QSO. Передачу он сам никогда не включает.</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -945,15 +946,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>First node online</source>
-        <translation type="unfinished"></translation>
+        <translation>Первый узел на связи</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить</translation>
     </message>
     <message>
         <source>Spot a DX</source>
-        <translation type="unfinished"></translation>
+        <translation>Дать спот</translation>
     </message>
     <message>
         <source>Call</source>
@@ -961,19 +962,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Comment (FT2 -10 dB, JN71…)</source>
-        <translation type="unfinished"></translation>
+        <translation>Комментарий (FT2 -10 dB, JN71…)</translation>
     </message>
     <message>
         <source>Post spot</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить спот</translation>
     </message>
     <message>
         <source>Edit source</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменить источник</translation>
     </message>
     <message>
         <source>New source</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый источник</translation>
     </message>
     <message>
         <source>Name</source>
@@ -981,11 +982,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <source>DX cluster</source>
-        <translation type="unfinished"></translation>
+        <translation>DX-кластер</translation>
     </message>
     <message>
         <source>Host</source>
@@ -993,19 +994,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт</translation>
     </message>
     <message>
         <source>HamAlert username</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя пользователя HamAlert</translation>
     </message>
     <message>
         <source>Login (empty = station profile callsign)</source>
-        <translation type="unfinished"></translation>
+        <translation>Логин (пусто = позывной профиля станции)</translation>
     </message>
     <message>
         <source>Commands after login (one per line)</source>
-        <translation type="unfinished"></translation>
+        <translation>Команды после входа (по одной в строке)</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -1013,62 +1014,62 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить</translation>
     </message>
     <message>
         <source>Edit alert rule</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменить правило оповещения</translation>
     </message>
     <message>
         <source>New alert rule</source>
-        <translation type="unfinished"></translation>
+        <translation>Новое правило оповещения</translation>
     </message>
     <message>
         <source>e.g. 3Y0J on any band</source>
-        <translation type="unfinished"></translation>
+        <translation>например, 3Y0J на любом диапазоне</translation>
     </message>
     <message>
         <source>Announce by voice</source>
-        <translation type="unfinished"></translation>
+        <translation>Объявлять голосом</translation>
     </message>
     <message>
         <source>Send to Decodium</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправлять в Decodium</translation>
     </message>
     <message>
         <source>Save rule</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить правило</translation>
     </message>
 </context>
 <context>
     <name>ContestWindow</name>
     <message>
         <source>DecoDXLog — Contest</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — Соревнование</translation>
     </message>
     <message>
         <source>The callsign is too short</source>
-        <translation type="unfinished"></translation>
+        <translation>Позывной слишком короткий</translation>
     </message>
     <message>
         <source>Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Сеанс</translation>
     </message>
     <message>
         <source>No session open</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет открытого сеанса</translation>
     </message>
     <message>
         <source>next number %1</source>
-        <translation type="unfinished"></translation>
+        <translation>следующий номер %1</translation>
     </message>
     <message>
         <source>Open a session…</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть сеанс…</translation>
     </message>
     <message>
         <source>QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO</translation>
     </message>
     <message>
         <source>Calls</source>
@@ -1080,23 +1081,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Локаторы</translation>
     </message>
     <message>
         <source>Last 10 min</source>
-        <translation type="unfinished"></translation>
+        <translation>Последние 10 мин</translation>
     </message>
     <message>
         <source>QSO/h</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO/ч</translation>
     </message>
     <message>
         <source>Last hour</source>
-        <translation type="unfinished"></translation>
+        <translation>Последний час</translation>
     </message>
     <message>
         <source>New QSO · Enter logs · Esc clears · Tab moves</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый QSO · Enter записывает · Esc очищает · Tab переходит</translation>
     </message>
     <message>
         <source>Band</source>
@@ -1112,19 +1113,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>RST s</source>
-        <translation type="unfinished"></translation>
+        <translation>RST пер</translation>
     </message>
     <message>
         <source>Nr s</source>
-        <translation type="unfinished"></translation>
+        <translation>№ пер</translation>
     </message>
     <message>
         <source>RST r</source>
-        <translation type="unfinished"></translation>
+        <translation>RST прин</translation>
     </message>
     <message>
         <source>Nr r</source>
-        <translation type="unfinished"></translation>
+        <translation>№ прин</translation>
     </message>
     <message>
         <source>Log</source>
@@ -1132,75 +1133,75 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>CW macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Макросы CW</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Стоп</translation>
     </message>
     <message>
         <source>Edit macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменить макросы</translation>
     </message>
     <message>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Скорость</translation>
     </message>
     <message>
         <source>%1 wpm</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 сл/мин</translation>
     </message>
     <message>
         <source>DUPE</source>
-        <translation type="unfinished"></translation>
+        <translation>ДУБЛЬ</translation>
     </message>
     <message>
         <source>worked %1×</source>
-        <translation type="unfinished"></translation>
+        <translation>проведено %1×</translation>
     </message>
     <message>
         <source>new station</source>
-        <translation type="unfinished"></translation>
+        <translation>новая станция</translation>
     </message>
     <message>
         <source>%1 km · %2°</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 км · %2°</translation>
     </message>
     <message>
         <source>Last QSOs of the session</source>
-        <translation type="unfinished"></translation>
+        <translation>Последние QSO сеанса</translation>
     </message>
     <message>
         <source>No QSO in this session yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>В этом сеансе ещё нет QSO.</translation>
     </message>
     <message>
         <source>Cabrillo…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabrillo…</translation>
     </message>
     <message>
         <source>ADIF of the session…</source>
-        <translation type="unfinished"></translation>
+        <translation>ADIF сеанса…</translation>
     </message>
     <message>
         <source>Enter logs · Esc clears · space moves to the report</source>
-        <translation type="unfinished"></translation>
+        <translation>Enter записывает · Esc очищает · пробел переводит к рапорту</translation>
     </message>
     <message>
         <source>ADIF of the session</source>
-        <translation type="unfinished"></translation>
+        <translation>ADIF сеанса</translation>
     </message>
     <message>
         <source>ADIF files (*.adi)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы ADIF (*.adi)</translation>
     </message>
     <message>
         <source>Cabrillo log</source>
-        <translation type="unfinished"></translation>
+        <translation>Журнал Cabrillo</translation>
     </message>
     <message>
         <source>Cabrillo files (*.log *.cbr)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы Cabrillo (*.log *.cbr)</translation>
     </message>
     <message>
         <source>All files (*)</source>
@@ -1208,19 +1209,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>The text goes on air as it is written, with the gaps filled in at the moment: {CALL} the callsign you are working, {MYCALL} yours, {RST} the report sent, {NR} the serial, {EXCH} what you received. The keyer is the radio&apos;s own: Hamlib hands it the text.</source>
-        <translation type="unfinished"></translation>
+        <translation>Текст уходит в эфир как написан, а пропуски заполняются в тот же миг: {CALL} — позывной, с которым работаете, {MYCALL} — ваш, {RST} — переданный рапорт, {NR} — номер, {EXCH} — то, что приняли. Ключ — собственный ключ трансивера: Hamlib передаёт ему текст.</translation>
     </message>
     <message>
         <source>Default macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Макросы по умолчанию</translation>
     </message>
     <message>
         <source>Cabrillo header</source>
-        <translation type="unfinished"></translation>
+        <translation>Заголовок Cabrillo</translation>
     </message>
     <message>
         <source>Contest (CONTEST)</source>
-        <translation type="unfinished"></translation>
+        <translation>Соревнование (CONTEST)</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -1228,74 +1229,74 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Location (section, zone)</source>
-        <translation type="unfinished"></translation>
+        <translation>Местоположение (секция, зона)</translation>
     </message>
     <message>
         <source>Operators</source>
-        <translation type="unfinished"></translation>
+        <translation>Операторы</translation>
     </message>
     <message>
         <source>Club</source>
-        <translation type="unfinished"></translation>
+        <translation>Клуб</translation>
     </message>
     <message>
         <source>Category</source>
-        <translation type="unfinished"></translation>
+        <translation>Категория</translation>
     </message>
     <message>
         <source>Power</source>
-        <translation type="unfinished"></translation>
+        <translation>Мощность</translation>
     </message>
     <message>
         <source>Assisted</source>
-        <translation type="unfinished"></translation>
+        <translation>С подсказкой</translation>
     </message>
     <message>
         <source>Claimed score</source>
-        <translation type="unfinished"></translation>
+        <translation>Заявленный результат</translation>
     </message>
     <message>
         <source>Soapbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Комментарий</translation>
     </message>
     <message>
         <source>The exchange sent is the serial number of the session; the received one is what was typed in “Nr r”. Frequencies go out in kHz, VHF and up as the band number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Переданный контрольный номер — это порядковый номер сеанса; принятый — то, что введено в «№ прин». Частоты уходят в кГц, от УКВ и выше — номером диапазона.</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть</translation>
     </message>
     <message>
         <source>Write the file…</source>
-        <translation type="unfinished"></translation>
+        <translation>Записать файл…</translation>
     </message>
 </context>
 <context>
     <name>CredentialsList</name>
     <message>
         <source>…</source>
-        <translation type="unfinished"></translation>
+        <translation>…</translation>
     </message>
     <message>
         <source>error</source>
-        <translation type="unfinished"></translation>
+        <translation>ошибка</translation>
     </message>
     <message>
         <source>stored</source>
-        <translation type="unfinished"></translation>
+        <translation>сохранён</translation>
     </message>
     <message>
         <source>no secret</source>
-        <translation type="unfinished"></translation>
+        <translation>секрета нет</translation>
     </message>
     <message>
         <source>not set</source>
-        <translation type="unfinished"></translation>
+        <translation>не задано</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменить</translation>
     </message>
     <message>
         <source>Add</source>
@@ -1303,31 +1304,31 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Secrets live in the system keystore (%1), never in the settings file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Секреты живут в хранилище ключей системы (%1), а не в файле настроек.</translation>
     </message>
     <message>
         <source>This build has no system keystore (qtkeychain): credentials cannot be stored.</source>
-        <translation type="unfinished"></translation>
+        <translation>В этой сборке нет хранилища ключей системы (qtkeychain): учётные данные сохранить нельзя.</translation>
     </message>
     <message>
         <source>stored — leave empty to keep it</source>
-        <translation type="unfinished"></translation>
+        <translation>сохранён — оставьте пустым, чтобы не менять</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Убрать</translation>
     </message>
     <message>
         <source>Check</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверить</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Отмена</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить</translation>
     </message>
 </context>
 <context>
@@ -1338,43 +1339,43 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Стоп</translation>
     </message>
     <message>
         <source>This CAT link does not key CW: it reads the radio but it cannot send. Either connect rigctld to the radio itself, or — with Decodium holding the CAT — set up the keyer on a serial port of its own: Setup → Radio (CAT) → Keying on a serial port.</source>
-        <translation type="unfinished"></translation>
+        <translation>Эта связь по CAT не манипулирует CW: она читает трансивер, но передавать не может. Либо подключите rigctld прямо к трансиверу, либо — если CAT занят Decodium — заведите ключ на отдельном последовательном порту: Настройки → Трансивер (CAT) → Манипуляция на последовательном порту.</translation>
     </message>
     <message>
         <source>The radio is off: Setup → Radio (CAT) to turn it on. The decoder works anyway, it only needs the audio coming out of the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Трансивер выключен: включить его можно в Настройки → Трансивер (CAT). Декодер работает и так — ему нужен только звук из трансивера.</translation>
     </message>
     <message>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Скорость</translation>
     </message>
     <message>
         <source>%1 wpm</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 сл/мин</translation>
     </message>
     <message>
         <source>write here and press Enter: it goes out in CW</source>
-        <translation type="unfinished"></translation>
+        <translation>пишите здесь и жмите Enter: уйдёт в CW</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить</translation>
     </message>
     <message>
         <source>Decoder</source>
-        <translation type="unfinished"></translation>
+        <translation>Декодер</translation>
     </message>
     <message>
         <source>%1 wpm · %2 Hz</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 сл/мин · %2 Гц</translation>
     </message>
     <message>
         <source>listening…</source>
-        <translation type="unfinished"></translation>
+        <translation>слушаем…</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -1389,80 +1390,80 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Details ▸</source>
-        <translation type="unfinished"></translation>
+        <translation>Подробности ▸</translation>
     </message>
     <message>
         <source>DXCC on FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC на FT2</translation>
     </message>
     <message>
         <source>Grids on FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>Локаторы на FT2</translation>
     </message>
     <message>
         <source>Confirmed (LoTW)</source>
-        <translation type="unfinished"></translation>
+        <translation>Подтверждено (LoTW)</translation>
     </message>
 </context>
 <context>
     <name>GlassPanel</name>
     <message>
         <source>Put it back in the main window</source>
-        <translation type="unfinished"></translation>
+        <translation>Вернуть в главное окно</translation>
     </message>
     <message>
         <source>Detach it into its own window</source>
-        <translation type="unfinished"></translation>
+        <translation>Отделить в своё окно</translation>
     </message>
     <message>
         <source>Close this panel — it comes back from Panels in the top bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть эту панель — вернуть её можно из «Панели» в верхней строке</translation>
     </message>
 </context>
 <context>
     <name>GridSquareMap</name>
     <message>
         <source>confirmed %1</source>
-        <translation type="unfinished"></translation>
+        <translation>подтверждено %1</translation>
     </message>
     <message>
         <source>worked %1</source>
-        <translation type="unfinished"></translation>
+        <translation>проведено %1</translation>
     </message>
     <message>
         <source>confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>подтверждён</translation>
     </message>
     <message>
         <source>worked</source>
-        <translation type="unfinished"></translation>
+        <translation>проведён</translation>
     </message>
     <message>
         <source>not worked</source>
-        <translation type="unfinished"></translation>
+        <translation>не проведён</translation>
     </message>
 </context>
 <context>
     <name>LogbookPanel</name>
     <message>
         <source>confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>подтверждён</translation>
     </message>
     <message>
         <source>LoTW confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>подтверждён в LoTW</translation>
     </message>
     <message>
         <source>card confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>подтверждён карточкой</translation>
     </message>
     <message>
         <source>eQSL confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>подтверждён в eQSL</translation>
     </message>
     <message>
         <source>not confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>не подтверждён</translation>
     </message>
     <message>
         <source>Logbook</source>
@@ -1470,11 +1471,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1 selected</source>
-        <translation type="unfinished"></translation>
+        <translation>выбрано %1</translation>
     </message>
     <message>
         <source>%1 QSO · %2 shown</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 QSO · показано %2</translation>
     </message>
     <message>
         <source>%1 QSO</source>
@@ -1482,7 +1483,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Actions ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>Действия ▾</translation>
     </message>
     <message>
         <source>Columns</source>
@@ -1494,7 +1495,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Default widths</source>
-        <translation type="unfinished"></translation>
+        <translation>Ширина по умолчанию</translation>
     </message>
     <message>
         <source>Band</source>
@@ -1506,7 +1507,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>DXCC entity</source>
-        <translation type="unfinished"></translation>
+        <translation>Территория DXCC</translation>
     </message>
     <message>
         <source>QSL</source>
@@ -1514,119 +1515,119 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Station profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Профиль станции</translation>
     </message>
     <message>
         <source>Tag</source>
-        <translation type="unfinished"></translation>
+        <translation>Метка</translation>
     </message>
     <message>
         <source>No tags in the log yet</source>
-        <translation type="unfinished"></translation>
+        <translation>В журнале ещё нет меток</translation>
     </message>
     <message>
         <source>This month</source>
-        <translation type="unfinished"></translation>
+        <translation>Этот месяц</translation>
     </message>
     <message>
         <source>Date range…</source>
-        <translation type="unfinished"></translation>
+        <translation>Диапазон дат…</translation>
     </message>
     <message>
         <source>Tag the %1 QSO shown…</source>
-        <translation type="unfinished"></translation>
+        <translation>Пометить показанные %1 QSO…</translation>
     </message>
     <message>
         <source>Remove a tag from the QSO shown…</source>
-        <translation type="unfinished"></translation>
+        <translation>Снять метку с показанных QSO…</translation>
     </message>
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспортировать показанные %1 QSO в ADIF…</translation>
     </message>
     <message>
         <source>Complete the QSO shown from the callbook…</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнить показанные QSO из callbook…</translation>
     </message>
     <message>
         <source>Complete every QSO without a grid…</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнить все QSO без локатора…</translation>
     </message>
     <message>
         <source>Stop: %1 QSO still to go</source>
-        <translation type="unfinished"></translation>
+        <translation>Стоп: осталось %1 QSO</translation>
     </message>
     <message>
         <source>Clean up %1 QSO damaged by an old import…</source>
-        <translation type="unfinished"></translation>
+        <translation>Починить %1 QSO, испорченных старым импортом…</translation>
     </message>
     <message>
         <source>Clear all filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Снять все фильтры</translation>
     </message>
     <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить %1? QSO остаётся в истории, его можно вернуть.</translation>
     </message>
     <message>
         <source>Delete the %1 QSO selected? They stay in the history and can be recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить выбранные %1 QSO? Они остаются в истории, их можно вернуть.</translation>
     </message>
     <message>
         <source>Once more, to be sure: delete %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ещё раз, для верности: удалить %1?</translation>
     </message>
     <message>
         <source>Once more, to be sure: delete %1 QSO?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ещё раз, для верности: удалить %1 QSO?</translation>
     </message>
     <message>
         <source>Delete for good</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить насовсем</translation>
     </message>
     <message>
         <source>Some QSO imported long ago have a name or a QTH cut in half, with a piece of the next ADIF field stuck to it. Clean them up? What cannot be read is emptied, so the callbook can write it properly; the old text stays in the history.</source>
-        <translation type="unfinished"></translation>
+        <translation>У некоторых QSO, загруженных давно, имя или QTH обрезаны посередине, и к ним прилип кусок следующего поля ADIF. Починить их? То, что не читается, очищается, чтобы callbook записал как надо; старый текст остаётся в истории.</translation>
     </message>
     <message>
         <source>Clean up</source>
-        <translation type="unfinished"></translation>
+        <translation>Починить</translation>
     </message>
     <message>
         <source>Save the QSO chosen</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить выбранные QSO</translation>
     </message>
     <message>
         <source>Export the QSO shown</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспортировать показанные QSO</translation>
     </message>
     <message>
         <source>ADIF files (*.adi)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы ADIF (*.adi)</translation>
     </message>
     <message>
         <source>Add a tag to %1 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить метку к %1 QSO</translation>
     </message>
     <message>
         <source>Remove a tag from %1 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Снять метку с %1 QSO</translation>
     </message>
     <message>
         <source>e.g. pota, field day, portable</source>
-        <translation type="unfinished"></translation>
+        <translation>например: pota, field day, portable</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть</translation>
     </message>
     <message>
         <source>Add tag</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить метку</translation>
     </message>
     <message>
         <source>Remove tag</source>
-        <translation type="unfinished"></translation>
+        <translation>Снять метку</translation>
     </message>
     <message>
         <source>From (UTC)</source>
@@ -1634,11 +1635,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>To (included)</source>
-        <translation type="unfinished"></translation>
+        <translation>По (включительно)</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Отмена</translation>
     </message>
     <message>
         <source>Apply</source>
@@ -1646,31 +1647,31 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Save current filters…</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить нынешние фильтры…</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <source>%1: confirmed — received</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: подтверждён — принят</translation>
     </message>
     <message>
         <source>%1: sent, waiting for the confirmation</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: отправлен, ждём подтверждения</translation>
     </message>
     <message>
         <source>%1: not sent</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: не отправлен</translation>
     </message>
     <message>
         <source>Filter name</source>
-        <translation type="unfinished"></translation>
+        <translation>Название фильтра</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить</translation>
     </message>
     <message>
         <source>Filters</source>
@@ -1678,35 +1679,35 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Search: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>Поиск: %1 ✕</translation>
     </message>
     <message>
         <source>Band: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>Диапазон: %1 ✕</translation>
     </message>
     <message>
         <source>Mode: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим: %1 ✕</translation>
     </message>
     <message>
         <source>DXCC: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC: %1 ✕</translation>
     </message>
     <message>
         <source>QSL: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL: %1 ✕</translation>
     </message>
     <message>
         <source>Station: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>Станция: %1 ✕</translation>
     </message>
     <message>
         <source>Tag: %1 ✕</source>
-        <translation type="unfinished"></translation>
+        <translation>Метка: %1 ✕</translation>
     </message>
     <message>
         <source>+ add</source>
-        <translation type="unfinished"></translation>
+        <translation>+ ещё</translation>
     </message>
     <message>
         <source>Saved:</source>
@@ -1714,23 +1715,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1 filters ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>фильтров: %1 ▾</translation>
     </message>
     <message>
         <source>none ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>нет ▾</translation>
     </message>
     <message>
         <source>L LoTW · Q QRZ Logbook · C Club Log · E eQSL</source>
-        <translation type="unfinished"></translation>
+        <translation>L LoTW · Q QRZ Logbook · C Club Log · E eQSL</translation>
     </message>
     <message>
         <source>No QSO matches the filters.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ни один QSO не подходит под фильтры.</translation>
     </message>
     <message>
         <source>The log is empty. Log a QSO in Decodium, or import an ADIF file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Журнал пуст. Проведите QSO в Decodium или загрузите файл ADIF.</translation>
     </message>
     <message>
         <source>Open / edit…</source>
@@ -1738,85 +1739,85 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Delete QSO…</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить QSO…</translation>
     </message>
     <message>
         <source>Delete the %1 QSO selected…</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить выбранные %1 QSO…</translation>
     </message>
     <message>
         <source>Complete from the callbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнить из callbook</translation>
     </message>
     <message>
         <source>Filter by this call</source>
-        <translation type="unfinished"></translation>
+        <translation>Отфильтровать по этому позывному</translation>
     </message>
     <message>
         <source>Filter by entity: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Отфильтровать по территории: %1</translation>
     </message>
     <message>
         <source>Filter by entity</source>
-        <translation type="unfinished"></translation>
+        <translation>Отфильтровать по территории</translation>
     </message>
     <message>
         <source>Send the %1 QSO chosen to…</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить выбранные %1 QSO в…</translation>
     </message>
     <message>
         <source>Send this QSO to…</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить этот QSO в…</translation>
     </message>
     <message>
         <source>Save the %1 QSO chosen as ADIF…</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить выбранные %1 QSO как ADIF…</translation>
     </message>
     <message>
         <source>Save this QSO as ADIF…</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить этот QSO как ADIF…</translation>
     </message>
     <message>
         <source>Paper QSL: queue the %1 chosen for the bureau</source>
-        <translation type="unfinished"></translation>
+        <translation>Бумажные QSL: поставить выбранные %1 в очередь на бюро</translation>
     </message>
     <message>
         <source>Paper QSL: queue for the bureau</source>
-        <translation type="unfinished"></translation>
+        <translation>Бумажные QSL: в очередь на бюро</translation>
     </message>
     <message>
         <source>Paper QSL: queue the %1 chosen as direct</source>
-        <translation type="unfinished"></translation>
+        <translation>Бумажные QSL: поставить выбранные %1 в очередь директом</translation>
     </message>
     <message>
         <source>Paper QSL: queue as direct</source>
-        <translation type="unfinished"></translation>
+        <translation>Бумажные QSL: в очередь директом</translation>
     </message>
     <message>
         <source>Add tag…</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить метку…</translation>
     </message>
 </context>
 <context>
     <name>LogbookWindow</name>
     <message>
         <source>DecoDXLog — Logbook</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — Журнал</translation>
     </message>
 </context>
 <context>
     <name>Lotw</name>
     <message>
         <source>LoTW: username or password incorrect</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: неверное имя пользователя или пароль</translation>
     </message>
     <message>
         <source>LoTW: the server answered with a web page, not with ADIF</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: сервер ответил веб-страницей, а не ADIF</translation>
     </message>
     <message>
         <source>LoTW: unexpected answer</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: неожиданный ответ</translation>
     </message>
 </context>
 <context>
@@ -1855,15 +1856,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>closed</source>
-        <translation type="unfinished"></translation>
+        <translation>закрыта</translation>
     </message>
     <message>
         <source>window</source>
-        <translation type="unfinished"></translation>
+        <translation>окно</translation>
     </message>
     <message>
         <source>docked</source>
-        <translation type="unfinished"></translation>
+        <translation>в окне программы</translation>
     </message>
     <message>
         <source>Import ADIF</source>
@@ -1875,7 +1876,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Все файлы (*)</translation>
     </message>
     <message>
         <source>Export ADIF</source>
@@ -1883,39 +1884,39 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>ADIF files (*.adi)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы ADIF (*.adi)</translation>
     </message>
     <message>
         <source>PANELS</source>
-        <translation type="unfinished"></translation>
+        <translation>ПАНЕЛИ</translation>
     </message>
     <message>
         <source>Click a panel to close it or bring it back. The arrow detaches it into a window of its own; a closed panel frees its space instead of leaving a hole.</source>
-        <translation type="unfinished"></translation>
+        <translation>Щёлкните по панели, чтобы закрыть её или вернуть. Стрелка отделяет её в своё окно; закрытая панель отдаёт своё место, а не оставляет дыру.</translation>
     </message>
     <message>
         <source>Put it back in the main window</source>
-        <translation type="unfinished"></translation>
+        <translation>Вернуть в главное окно</translation>
     </message>
     <message>
         <source>Detach it into its own window</source>
-        <translation type="unfinished"></translation>
+        <translation>Отделить в своё окно</translation>
     </message>
     <message>
         <source>Restore the default layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Вернуть исходное расположение</translation>
     </message>
     <message>
         <source>Unlock the layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Разблокировать расположение</translation>
     </message>
     <message>
         <source>Lock the layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Заблокировать расположение</translation>
     </message>
     <message>
         <source>Detach this panel into its own window</source>
-        <translation type="unfinished"></translation>
+        <translation>Отделить эту панель в своё окно</translation>
     </message>
     <message>
         <source>Close this panel</source>
@@ -1923,7 +1924,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Panels…</source>
-        <translation type="unfinished"></translation>
+        <translation>Панели…</translation>
     </message>
 </context>
 <context>
@@ -1934,15 +1935,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>SFI %1 · K %2</source>
-        <translation type="unfinished"></translation>
+        <translation>SFI %1 · K %2</translation>
     </message>
     <message>
         <source>Layers ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>Слои ▾</translation>
     </message>
     <message>
         <source>Coastlines</source>
-        <translation type="unfinished"></translation>
+        <translation>Береговые линии</translation>
     </message>
     <message>
         <source>Night</source>
@@ -1950,27 +1951,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Worked grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Проведённые локаторы</translation>
     </message>
     <message>
         <source>Cluster spots</source>
-        <translation type="unfinished"></translation>
+        <translation>Споты кластера</translation>
     </message>
     <message>
         <source>Antenna heading</source>
-        <translation type="unfinished"></translation>
+        <translation>Направление антенны</translation>
     </message>
     <message>
         <source>QSOs with a grid square appear here</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO с локатором появляются здесь</translation>
     </message>
     <message>
         <source>%1 grids</source>
-        <translation type="unfinished"></translation>
+        <translation>локаторов: %1</translation>
     </message>
     <message>
         <source>%1 spots</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 спотов</translation>
     </message>
 </context>
 <context>
@@ -1981,27 +1982,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Station: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Станция: %1</translation>
     </message>
     <message>
         <source>No station profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Профиля станции нет</translation>
     </message>
     <message>
         <source>Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Позывной</translation>
     </message>
     <message>
         <source>Date UTC</source>
-        <translation type="unfinished"></translation>
+        <translation>Дата UTC</translation>
     </message>
     <message>
         <source>Time on</source>
-        <translation type="unfinished"></translation>
+        <translation>Начало</translation>
     </message>
     <message>
         <source>NOW</source>
-        <translation type="unfinished"></translation>
+        <translation>СЕЙЧАС</translation>
     </message>
     <message>
         <source>LOG</source>
@@ -2009,31 +2010,31 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Type a callsign to see what the log knows</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите позывной — посмотрим, что знает журнал</translation>
     </message>
     <message>
         <source>unknown prefix</source>
-        <translation type="unfinished"></translation>
+        <translation>незнакомый префикс</translation>
     </message>
     <message>
         <source>NEW DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>НОВЫЙ DXCC</translation>
     </message>
     <message>
         <source>NEW DXCC on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>НОВЫЙ DXCC на %1</translation>
     </message>
     <message>
         <source>NEW on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>НОВЫЙ на %1</translation>
     </message>
     <message>
         <source>worked %1×</source>
-        <translation type="unfinished"></translation>
+        <translation>проведено %1×</translation>
     </message>
     <message>
         <source>new station</source>
-        <translation type="unfinished"></translation>
+        <translation>новая станция</translation>
     </message>
     <message>
         <source>Band</source>
@@ -2041,7 +2042,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Freq MHz</source>
-        <translation type="unfinished"></translation>
+        <translation>Частота МГц</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -2049,15 +2050,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Submode</source>
-        <translation type="unfinished"></translation>
+        <translation>Подрежим</translation>
     </message>
     <message>
         <source>RST sent</source>
-        <translation type="unfinished"></translation>
+        <translation>RST передан</translation>
     </message>
     <message>
         <source>RST rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation>RST принят</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -2073,7 +2074,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>TX pwr W</source>
-        <translation type="unfinished"></translation>
+        <translation>Мощность Вт</translation>
     </message>
     <message>
         <source>Country</source>
@@ -2081,7 +2082,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Address / city</source>
-        <translation type="unfinished"></translation>
+        <translation>Адрес / город</translation>
     </message>
     <message>
         <source>State</source>
@@ -2089,7 +2090,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>County / JCC</source>
-        <translation type="unfinished"></translation>
+        <translation>Округ / JCC</translation>
     </message>
     <message>
         <source>DXCC</source>
@@ -2097,11 +2098,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>CQ zone</source>
-        <translation type="unfinished"></translation>
+        <translation>Зона CQ</translation>
     </message>
     <message>
         <source>ITU zone</source>
-        <translation type="unfinished"></translation>
+        <translation>Зона ITU</translation>
     </message>
     <message>
         <source>Cont</source>
@@ -2109,7 +2110,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>QSL via</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL через</translation>
     </message>
     <message>
         <source>Comment</source>
@@ -2121,7 +2122,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>pota, portable</source>
-        <translation type="unfinished"></translation>
+        <translation>pota, portable</translation>
     </message>
     <message>
         <source>CLEAR</source>
@@ -2129,11 +2130,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Log &amp; keep</source>
-        <translation type="unfinished"></translation>
+        <translation>Записать и оставить</translation>
     </message>
     <message>
         <source>LOG QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>ЗАПИСАТЬ QSO</translation>
     </message>
 </context>
 <context>
@@ -2148,39 +2149,39 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Full form (Ctrl+N)</source>
-        <translation type="unfinished"></translation>
+        <translation>Полная форма (Ctrl+N)</translation>
     </message>
     <message>
         <source>INCOMING · %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ВХОДЯЩИЙ · %1</translation>
     </message>
     <message>
         <source>saved ✓</source>
-        <translation type="unfinished"></translation>
+        <translation>сохранён ✓</translation>
     </message>
     <message>
         <source>duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>дубль</translation>
     </message>
     <message>
         <source>not saved</source>
-        <translation type="unfinished"></translation>
+        <translation>не сохранён</translation>
     </message>
     <message>
         <source>Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Позывной</translation>
     </message>
     <message>
         <source>Date UTC</source>
-        <translation type="unfinished"></translation>
+        <translation>Дата UTC</translation>
     </message>
     <message>
         <source>Time on</source>
-        <translation type="unfinished"></translation>
+        <translation>Начало</translation>
     </message>
     <message>
         <source>NOW</source>
-        <translation type="unfinished"></translation>
+        <translation>СЕЙЧАС</translation>
     </message>
     <message>
         <source>Band</source>
@@ -2196,11 +2197,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>RST S</source>
-        <translation type="unfinished"></translation>
+        <translation>RST пер</translation>
     </message>
     <message>
         <source>RST R</source>
-        <translation type="unfinished"></translation>
+        <translation>RST прин</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -2212,76 +2213,76 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>QTH</source>
-        <translation type="unfinished"></translation>
+        <translation>QTH</translation>
     </message>
     <message>
         <source>Nr rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation>№ принят</translation>
     </message>
     <message>
         <source>Nr sent</source>
-        <translation type="unfinished"></translation>
+        <translation>№ передан</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Комментарий</translation>
     </message>
     <message>
         <source>LOG QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>ЗАПИСАТЬ QSO</translation>
     </message>
     <message>
         <source>CLEAR</source>
-        <translation type="unfinished"></translation>
+        <translation>ОЧИСТИТЬ</translation>
     </message>
 </context>
 <context>
     <name>PanelSlot</name>
     <message>
         <source>here</source>
-        <translation type="unfinished"></translation>
+        <translation>здесь</translation>
     </message>
 </context>
 <context>
     <name>PanelWindow</name>
     <message>
         <source>DecoDXLog — %1</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — %1</translation>
     </message>
 </context>
 <context>
     <name>PropagationPanel</name>
     <message>
         <source>good</source>
-        <translation type="unfinished"></translation>
+        <translation>хорошее</translation>
     </message>
     <message>
         <source>fair</source>
-        <translation type="unfinished"></translation>
+        <translation>среднее</translation>
     </message>
     <message>
         <source>poor</source>
-        <translation type="unfinished"></translation>
+        <translation>плохое</translation>
     </message>
     <message>
         <source>closed</source>
-        <translation type="unfinished"></translation>
+        <translation>закрыта</translation>
     </message>
     <message>
         <source>SFI</source>
-        <translation type="unfinished"></translation>
+        <translation>SFI</translation>
     </message>
     <message>
         <source>Sunspots</source>
-        <translation type="unfinished"></translation>
+        <translation>Солнечные пятна</translation>
     </message>
     <message>
         <source>A index</source>
-        <translation type="unfinished"></translation>
+        <translation>Индекс A</translation>
     </message>
     <message>
         <source>K index</source>
-        <translation type="unfinished"></translation>
+        <translation>Индекс K</translation>
     </message>
     <message>
         <source>Aurora</source>
@@ -2289,27 +2290,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>X-ray</source>
-        <translation type="unfinished"></translation>
+        <translation>Рентген</translation>
     </message>
     <message>
         <source>Geomag</source>
-        <translation type="unfinished"></translation>
+        <translation>Геомагн.</translation>
     </message>
     <message>
         <source>Noise</source>
-        <translation type="unfinished"></translation>
+        <translation>Шум</translation>
     </message>
     <message>
         <source>Sol. wind</source>
-        <translation type="unfinished"></translation>
+        <translation>Солн. ветер</translation>
     </message>
     <message>
         <source>HF · day</source>
-        <translation type="unfinished"></translation>
+        <translation>КВ · день</translation>
     </message>
     <message>
         <source>HF · night</source>
-        <translation type="unfinished"></translation>
+        <translation>КВ · ночь</translation>
     </message>
     <message>
         <source>VHF</source>
@@ -2317,149 +2318,153 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Your QSOs and the solar flux · last 14 days</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваши QSO и солнечный поток · последние 14 дней</translation>
     </message>
     <message>
         <source>The bar is the QSOs of the day, the number under it the average solar flux. The flux is kept from when DecoDXLog started looking: the first days are empty.</source>
-        <translation type="unfinished"></translation>
+        <translation>Столбик — это QSO за день, число под ним — средний солнечный поток. Поток хранится с того дня, когда DecoDXLog начал смотреть: первые дни пустые.</translation>
     </message>
     <message>
         <source>asking…</source>
-        <translation type="unfinished"></translation>
+        <translation>спрашиваем…</translation>
     </message>
     <message>
         <source>Update now</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить сейчас</translation>
     </message>
     <message>
         <source>by itself every %1 min</source>
-        <translation type="unfinished"></translation>
+        <translation>само каждые %1 мин</translation>
     </message>
     <message>
         <source>%1 · source %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · источник %2</translation>
     </message>
     <message>
         <source>No solar data yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Данных о Солнце пока нет.</translation>
     </message>
 </context>
 <context>
     <name>Qsl</name>
     <message numerus="yes">
         <source>%n QSO sent to LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO отправлено в LoTW</numerusform>
+            <numerusform>%n QSO отправлено в LoTW</numerusform>
+            <numerusform>%n QSO отправлено в LoTW</numerusform>
+        </translation>
     </message>
     <message>
         <source>LoTW already had these QSOs</source>
-        <translation type="unfinished"></translation>
+        <translation>В LoTW эти QSO уже были</translation>
     </message>
     <message>
         <source>Sent to LoTW, some were already there</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправлено в LoTW, часть уже была там</translation>
     </message>
     <message>
         <source>No QSO to send</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет QSO для отправки</translation>
     </message>
     <message>
         <source>TQSL: cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL: отменено</translation>
     </message>
     <message>
         <source>LoTW rejected the file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW отклонил файл: %1</translation>
     </message>
     <message>
         <source>TQSL: certificate or station location problem (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL: беда с сертификатом или station location (%1)</translation>
     </message>
     <message>
         <source>TQSL: cannot reach LoTW (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL: не достучаться до LoTW (%1)</translation>
     </message>
     <message>
         <source>TQSL: error %1 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL: ошибка %1 %2</translation>
     </message>
     <message>
         <source>QRZ Logbook: QSO %1</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ Logbook: QSO %1</translation>
     </message>
     <message>
         <source>QRZ Logbook: already there</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ Logbook: уже было</translation>
     </message>
     <message>
         <source>QRZ Logbook: unexpected answer</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ Logbook: неожиданный ответ</translation>
     </message>
     <message>
         <source>QRZ Logbook: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
         <source>eQSL: already there</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL: уже было</translation>
     </message>
     <message>
         <source>eQSL: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL: %1</translation>
     </message>
     <message>
         <source>eQSL: unexpected answer</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL: неожиданный ответ</translation>
     </message>
     <message>
         <source>Club Log: already there</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: уже было</translation>
     </message>
     <message>
         <source>Club Log: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: %1</translation>
     </message>
     <message>
         <source>Club Log: accepted</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: принято</translation>
     </message>
     <message>
         <source>Club Log: refused (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: отказано (%1)</translation>
     </message>
     <message>
         <source>Club Log: server answered %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: сервер ответил %1</translation>
     </message>
     <message>
         <source>Club Log: no answer</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: нет ответа</translation>
     </message>
 </context>
 <context>
     <name>QslCards</name>
     <message>
         <source>No QSL to print</source>
-        <translation type="unfinished"></translation>
+        <translation>Печатать нечего</translation>
     </message>
     <message>
         <source>QSL labels</source>
-        <translation type="unfinished"></translation>
+        <translation>Наклейки QSL</translation>
     </message>
     <message>
         <source>Cannot write %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не записать %1</translation>
     </message>
     <message>
         <source>To radio %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Станции %1</translation>
     </message>
     <message>
         <source>via %1</source>
-        <translation type="unfinished"></translation>
+        <translation>через %1</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Дата</translation>
     </message>
     <message>
         <source>UTC</source>
@@ -2475,46 +2480,46 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>RST</source>
-        <translation type="unfinished"></translation>
+        <translation>RST</translation>
     </message>
     <message>
         <source>TNX QSO · 73</source>
-        <translation type="unfinished"></translation>
+        <translation>TNX QSO · 73</translation>
     </message>
 </context>
 <context>
     <name>QslCardsWindow</name>
     <message>
         <source>DecoDXLog — Paper QSL</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — Бумажные QSL</translation>
     </message>
     <message>
         <source>bureau</source>
-        <translation type="unfinished"></translation>
+        <translation>бюро</translation>
     </message>
     <message>
         <source>direct</source>
-        <translation type="unfinished"></translation>
+        <translation>директ</translation>
     </message>
     <message>
         <source>electronic</source>
-        <translation type="unfinished"></translation>
+        <translation>электронная</translation>
     </message>
     <message>
         <source>manager</source>
-        <translation type="unfinished"></translation>
+        <translation>менеджер</translation>
     </message>
     <message>
         <source>To send</source>
-        <translation type="unfinished"></translation>
+        <translation>К отправке</translation>
     </message>
     <message>
         <source>Sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправлено</translation>
     </message>
     <message>
         <source>Received</source>
-        <translation type="unfinished"></translation>
+        <translation>Получено</translation>
     </message>
     <message>
         <source>All</source>
@@ -2522,15 +2527,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1 waiting for an answer</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ждут ответа</translation>
     </message>
     <message>
         <source>Queue every QSL to answer</source>
-        <translation type="unfinished"></translation>
+        <translation>Поставить в очередь все QSL, на которые надо ответить</translation>
     </message>
     <message>
         <source>Paper QSL · %1 rows · %2 chosen</source>
-        <translation type="unfinished"></translation>
+        <translation>Бумажные QSL · строк: %1 · выбрано: %2</translation>
     </message>
     <message>
         <source>Call</source>
@@ -2538,7 +2543,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Дата</translation>
     </message>
     <message>
         <source>UTC</source>
@@ -2554,102 +2559,102 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>RST</source>
-        <translation type="unfinished"></translation>
+        <translation>RST</translation>
     </message>
     <message>
         <source>Via</source>
-        <translation type="unfinished"></translation>
+        <translation>Через</translation>
     </message>
     <message>
         <source>Nothing in the queue. Put a QSO here from its card, from the log row menu, or with “Queue every QSL to answer”.</source>
-        <translation type="unfinished"></translation>
+        <translation>В очереди пусто. Положите сюда QSO из его карточки, из меню строки журнала или кнопкой «Поставить в очередь все QSL, на которые надо ответить».</translation>
     </message>
     <message>
         <source>Nothing here yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Здесь пока ничего нет.</translation>
     </message>
     <message>
         <source>Queue (bureau)</source>
-        <translation type="unfinished"></translation>
+        <translation>В очередь (бюро)</translation>
     </message>
     <message>
         <source>Queue (direct)</source>
-        <translation type="unfinished"></translation>
+        <translation>В очередь (директ)</translation>
     </message>
     <message>
         <source>Mark as sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Отметить как отправленную</translation>
     </message>
     <message>
         <source>Out of the queue</source>
-        <translation type="unfinished"></translation>
+        <translation>Убрать из очереди</translation>
     </message>
     <message>
         <source>Labels · PDF, one label per correspondent</source>
-        <translation type="unfinished"></translation>
+        <translation>Наклейки · PDF, по одной на корреспондента</translation>
     </message>
     <message>
         <source>Sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Лист</translation>
     </message>
     <message>
         <source>QSO per label</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO на наклейку</translation>
     </message>
     <message>
         <source>Cutting guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Линии реза</translation>
     </message>
     <message>
         <source>Write the PDF…</source>
-        <translation type="unfinished"></translation>
+        <translation>Записать PDF…</translation>
     </message>
     <message>
         <source>Last file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Последний файл: %1</translation>
     </message>
     <message>
         <source>The queue becomes labels: the QSOs of one station end up on the same label.</source>
-        <translation type="unfinished"></translation>
+        <translation>Очередь превращается в наклейки: QSO одной станции попадают на одну наклейку.</translation>
     </message>
     <message>
         <source>QSL labels</source>
-        <translation type="unfinished"></translation>
+        <translation>Наклейки QSL</translation>
     </message>
     <message>
         <source>PDF files (*.pdf)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы PDF (*.pdf)</translation>
     </message>
 </context>
 <context>
     <name>QsoDetailDialog</name>
     <message>
         <source>QSO detail</source>
-        <translation type="unfinished"></translation>
+        <translation>Карточка QSO</translation>
     </message>
     <message>
         <source>Export QSO as ADIF</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспортировать QSO в ADIF</translation>
     </message>
     <message>
         <source>ADIF files (*.adi)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы ADIF (*.adi)</translation>
     </message>
     <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить %1? QSO остаётся в истории, его можно вернуть.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Отмена</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <source>edited</source>
-        <translation type="unfinished"></translation>
+        <translation>изменён</translation>
     </message>
     <message>
         <source>General</source>
@@ -2657,7 +2662,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Место</translation>
     </message>
     <message>
         <source>QSL</source>
@@ -2665,7 +2670,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>ADIF extra</source>
-        <translation type="unfinished"></translation>
+        <translation>Прочее ADIF</translation>
     </message>
     <message>
         <source>History</source>
@@ -2673,15 +2678,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Date on UTC</source>
-        <translation type="unfinished"></translation>
+        <translation>Дата начала UTC</translation>
     </message>
     <message>
         <source>Time on</source>
-        <translation type="unfinished"></translation>
+        <translation>Начало</translation>
     </message>
     <message>
         <source>Time off</source>
-        <translation type="unfinished"></translation>
+        <translation>Конец</translation>
     </message>
     <message>
         <source>Band</source>
@@ -2689,7 +2694,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Freq MHz</source>
-        <translation type="unfinished"></translation>
+        <translation>Частота МГц</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -2697,15 +2702,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Submode</source>
-        <translation type="unfinished"></translation>
+        <translation>Подрежим</translation>
     </message>
     <message>
         <source>RST sent</source>
-        <translation type="unfinished"></translation>
+        <translation>RST передан</translation>
     </message>
     <message>
         <source>RST rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation>RST принят</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -2713,7 +2718,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>TX pwr W</source>
-        <translation type="unfinished"></translation>
+        <translation>Мощность Вт</translation>
     </message>
     <message>
         <source>Name</source>
@@ -2721,19 +2726,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>QTH</source>
-        <translation type="unfinished"></translation>
+        <translation>QTH</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Комментарий</translation>
     </message>
     <message>
         <source>Station profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Профиль станции</translation>
     </message>
     <message>
         <source>none</source>
-        <translation type="unfinished"></translation>
+        <translation>нет</translation>
     </message>
     <message>
         <source>Country</source>
@@ -2741,15 +2746,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>CQ zone</source>
-        <translation type="unfinished"></translation>
+        <translation>Зона CQ</translation>
     </message>
     <message>
         <source>ITU zone</source>
-        <translation type="unfinished"></translation>
+        <translation>Зона ITU</translation>
     </message>
     <message>
         <source>Cont</source>
-        <translation type="unfinished"></translation>
+        <translation>Континент</translation>
     </message>
     <message>
         <source>State</source>
@@ -2761,19 +2766,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Адрес</translation>
     </message>
     <message>
         <source>E-mail</source>
-        <translation type="unfinished"></translation>
+        <translation>Эл. почта</translation>
     </message>
     <message>
         <source>QSL via</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL через</translation>
     </message>
     <message>
         <source>Prop mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Способ прохождения</translation>
     </message>
     <message>
         <source>Satellite</source>
@@ -2781,11 +2786,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>My grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Мой локатор</translation>
     </message>
     <message>
         <source>Station call</source>
-        <translation type="unfinished"></translation>
+        <translation>Позывной станции</translation>
     </message>
     <message>
         <source>Operator</source>
@@ -2793,27 +2798,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Band RX</source>
-        <translation type="unfinished"></translation>
+        <translation>Диапазон приёма</translation>
     </message>
     <message>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Заметки</translation>
     </message>
     <message>
         <source>Tags (comma separated)</source>
-        <translation type="unfinished"></translation>
+        <translation>Метки (через запятую)</translation>
     </message>
     <message>
         <source>Service</source>
-        <translation type="unfinished"></translation>
+        <translation>Служба</translation>
     </message>
     <message>
         <source>Sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправлено</translation>
     </message>
     <message>
         <source>Sent date</source>
-        <translation type="unfinished"></translation>
+        <translation>Дата отправки</translation>
     </message>
     <message>
         <source>Rcvd</source>
@@ -2821,87 +2826,87 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Rcvd date</source>
-        <translation type="unfinished"></translation>
+        <translation>Дата получения</translation>
     </message>
     <message>
         <source>Y yes · N no · R requested · Q queued · I ignore · M modified · V verified</source>
-        <translation type="unfinished"></translation>
+        <translation>Y да · N нет · R запрошена · Q в очереди · I не учитывать · M изменена · V проверена</translation>
     </message>
     <message>
         <source>Fields without a column of their own, kept exactly as they arrived (adif_extra). They go back out on export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Поля, у которых нет своего столбца; хранятся ровно такими, какими пришли (adif_extra). При экспорте уходят обратно.</translation>
     </message>
     <message>
         <source>FIELD_NAME</source>
-        <translation type="unfinished"></translation>
+        <translation>FIELD_NAME</translation>
     </message>
     <message>
         <source>value</source>
-        <translation type="unfinished"></translation>
+        <translation>значение</translation>
     </message>
     <message>
         <source>+ Add</source>
-        <translation type="unfinished"></translation>
+        <translation>+ Добавить</translation>
     </message>
     <message>
         <source>No earlier revisions: this QSO has never been edited.</source>
-        <translation type="unfinished"></translation>
+        <translation>Прежних версий нет: этот QSO ни разу не правили.</translation>
     </message>
     <message>
         <source>Restore</source>
-        <translation type="unfinished"></translation>
+        <translation>Вернуть</translation>
     </message>
     <message>
         <source>QSL status · per service</source>
-        <translation type="unfinished"></translation>
+        <translation>Состояние QSL · по службам</translation>
     </message>
     <message>
         <source>Award impact</source>
-        <translation type="unfinished"></translation>
+        <translation>Что это даёт дипломам</translation>
     </message>
     <message>
         <source>FT2 Award: new DXCC %1</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2 Award: новый DXCC %1</translation>
     </message>
     <message>
         <source>FT2 Award: DXCC already worked</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2 Award: этот DXCC уже был</translation>
     </message>
     <message>
         <source>Not an FT2 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Это не QSO на FT2</translation>
     </message>
     <message>
         <source>No DXCC entity on this QSO: it does not count yet</source>
-        <translation type="unfinished"></translation>
+        <translation>У этого QSO нет территории DXCC: пока не считается</translation>
     </message>
     <message>
         <source>%1 DXCC worked on FT2 · %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 DXCC проведено на FT2 · %2</translation>
     </message>
     <message>
         <source>confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>подтверждён</translation>
     </message>
     <message>
         <source>unconfirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>не подтверждён</translation>
     </message>
     <message>
         <source>soft delete · kept in history</source>
-        <translation type="unfinished"></translation>
+        <translation>мягкое удаление · остаётся в истории</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation type="unfinished"></translation>
+        <translation>Отменить правки</translation>
     </message>
     <message>
         <source>Export ADIF</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт ADIF</translation>
     </message>
     <message>
         <source>Save · rev %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить · ред. %1</translation>
     </message>
 </context>
 <context>
@@ -2912,276 +2917,280 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>PARK %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>ПАРКОВКА %1°</translation>
     </message>
     <message>
         <source>MEMORIE…</source>
-        <translation type="unfinished"></translation>
+        <translation>ПАМЯТЬ…</translation>
     </message>
 </context>
 <context>
     <name>RotorControlPage</name>
     <message>
         <source>mappa azimutale dal QTH</source>
-        <translation type="unfinished"></translation>
+        <translation>азимутальная карта от QTH</translation>
     </message>
 </context>
 <context>
     <name>RotorDisplay</name>
     <message>
         <source>control box assente</source>
-        <translation type="unfinished"></translation>
+        <translation>блока управления нет</translation>
     </message>
     <message>
         <source>in rotazione verso %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>поворот на %1°</translation>
     </message>
     <message>
         <source>in rotazione</source>
-        <translation type="unfinished"></translation>
+        <translation>поворачивается</translation>
     </message>
     <message>
         <source>fermo</source>
-        <translation type="unfinished"></translation>
+        <translation>стоит</translation>
     </message>
     <message>
         <source>DIREZIONE LIBERA</source>
-        <translation type="unfinished"></translation>
+        <translation>СВОБОДНОЕ НАПРАВЛЕНИЕ</translation>
     </message>
     <message>
         <source>AZIMUT</source>
-        <translation type="unfinished"></translation>
+        <translation>АЗИМУТ</translation>
     </message>
     <message>
         <source>ELEVAZIONE</source>
-        <translation type="unfinished"></translation>
+        <translation>УГОЛ МЕСТА</translation>
     </message>
 </context>
 <context>
     <name>RotorHistory</name>
     <message>
         <source>ANDAMENTO POSIZIONE</source>
-        <translation type="unfinished"></translation>
+        <translation>ХОД ПОЛОЖЕНИЯ</translation>
     </message>
     <message>
         <source>in attesa di campioni…</source>
-        <translation type="unfinished"></translation>
+        <translation>ждём замеров…</translation>
     </message>
 </context>
 <context>
     <name>RotorLocatorBar</name>
     <message>
         <source>Locatore, es. FN31pr</source>
-        <translation type="unfinished"></translation>
+        <translation>Локатор, например FN31pr</translation>
     </message>
     <message>
         <source>BREVE</source>
-        <translation type="unfinished"></translation>
+        <translation>КОРОТКИЙ</translation>
     </message>
     <message>
         <source>LUNGA</source>
-        <translation type="unfinished"></translation>
+        <translation>ДЛИННЫЙ</translation>
     </message>
     <message>
         <source>breve %1° · lunga %2° · %3 km</source>
-        <translation type="unfinished"></translation>
+        <translation>короткий %1° · длинный %2° · %3 км</translation>
     </message>
     <message>
         <source>QTH di riferimento: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Опорный QTH: %1</translation>
     </message>
 </context>
 <context>
     <name>RotorMap</name>
     <message>
         <source>Riquadri dal gateway DecoRotor</source>
-        <translation type="unfinished"></translation>
+        <translation>Плитки карты от шлюза DecoRotor</translation>
     </message>
     <message>
         <source>CLUSTER %1</source>
-        <translation type="unfinished"></translation>
+        <translation>КЛАСТЕР %1</translation>
     </message>
     <message>
         <source>CLUSTER SPENTO</source>
-        <translation type="unfinished"></translation>
+        <translation>КЛАСТЕР ВЫКЛЮЧЕН</translation>
     </message>
     <message numerus="yes">
         <source>%n stazione/i</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n станция</numerusform>
+            <numerusform>%n станции</numerusform>
+            <numerusform>%n станций</numerusform>
+        </translation>
     </message>
     <message>
         <source>%1 · %2° · %3 km</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2° · %3 км</translation>
     </message>
     <message>
         <source>PUNTA</source>
-        <translation type="unfinished"></translation>
+        <translation>НАВЕСТИ</translation>
     </message>
     <message>
         <source>MEMORIA</source>
-        <translation type="unfinished"></translation>
+        <translation>ПАМЯТЬ</translation>
     </message>
     <message>
         <source>riquadri dal gateway DecoRotor</source>
-        <translation type="unfinished"></translation>
+        <translation>плитки карты от шлюза DecoRotor</translation>
     </message>
     <message>
         <source>© OpenStreetMap contributors</source>
-        <translation type="unfinished"></translation>
+        <translation>© OpenStreetMap contributors</translation>
     </message>
 </context>
 <context>
     <name>RotorMemories</name>
     <message>
         <source>MEMORIE</source>
-        <translation type="unfinished"></translation>
+        <translation>ПАМЯТЬ</translation>
     </message>
     <message>
         <source>%1° / %2°</source>
-        <translation type="unfinished"></translation>
+        <translation>%1° / %2°</translation>
     </message>
     <message>
         <source>VAI</source>
-        <translation type="unfinished"></translation>
+        <translation>ВПЕРЁД</translation>
     </message>
     <message>
         <source>Nessuna memoria: dai un nome alla direzione attuale e salvala.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ячеек памяти нет: дайте имя нынешнему направлению и сохраните его.</translation>
     </message>
     <message>
         <source>Nome della memoria</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя ячейки</translation>
     </message>
     <message>
         <source>SALVA QUI</source>
-        <translation type="unfinished"></translation>
+        <translation>СОХРАНИТЬ СЮДА</translation>
     </message>
 </context>
 <context>
     <name>RotorNetwork</name>
     <message>
         <source>COLLEGAMENTI DI RETE</source>
-        <translation type="unfinished"></translation>
+        <translation>СЕТЕВЫЕ ПОДКЛЮЧЕНИЯ</translation>
     </message>
     <message>
         <source>Indirizzi da usare su telefono e software di stazione:</source>
-        <translation type="unfinished"></translation>
+        <translation>Адреса для телефона и программ станции:</translation>
     </message>
     <message>
         <source>Accesso protetto da token: i client devono presentarlo.</source>
-        <translation type="unfinished"></translation>
+        <translation>Доступ закрыт токеном: клиенты должны его предъявить.</translation>
     </message>
     <message>
         <source>Accesso libero sulla rete locale. Per l&apos;uso da fuori casa passa da una VPN, non aprire porte sul router.</source>
-        <translation type="unfinished"></translation>
+        <translation>Свободный доступ в местной сети. Для работы из-за дома идите через VPN, не открывайте порты на маршрутизаторе.</translation>
     </message>
 </context>
 <context>
     <name>RotorPanel</name>
     <message>
         <source>Rotor</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворотное устройство</translation>
     </message>
     <message>
         <source>Open ▾</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть ▾</translation>
     </message>
     <message>
         <source>STOP</source>
-        <translation type="unfinished"></translation>
+        <translation>СТОП</translation>
     </message>
     <message>
         <source>Park</source>
-        <translation type="unfinished"></translation>
+        <translation>Парковка</translation>
     </message>
     <message>
         <source>On the DX</source>
-        <translation type="unfinished"></translation>
+        <translation>На DX</translation>
     </message>
 </context>
 <context>
     <name>RotorPointing</name>
     <message>
         <source>Azimut °</source>
-        <translation type="unfinished"></translation>
+        <translation>Азимут °</translation>
     </message>
     <message>
         <source>Elevazione °</source>
-        <translation type="unfinished"></translation>
+        <translation>Угол места °</translation>
     </message>
     <message>
         <source>PUNTA</source>
-        <translation type="unfinished"></translation>
+        <translation>НАВЕСТИ</translation>
     </message>
     <message>
         <source>N</source>
-        <translation>Н</translation>
-    </message>
-    <message>
-        <source>NE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>E</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>S</source>
         <translation>С</translation>
     </message>
     <message>
+        <source>NE</source>
+        <translation>СВ</translation>
+    </message>
+    <message>
+        <source>E</source>
+        <translation>В</translation>
+    </message>
+    <message>
+        <source>SE</source>
+        <translation>ЮВ</translation>
+    </message>
+    <message>
+        <source>S</source>
+        <translation>Ю</translation>
+    </message>
+    <message>
         <source>SO</source>
-        <translation type="unfinished"></translation>
+        <translation>ЮЗ</translation>
     </message>
     <message>
         <source>O</source>
-        <translation type="unfinished"></translation>
+        <translation>З</translation>
     </message>
     <message>
         <source>NO</source>
-        <translation type="unfinished"></translation>
+        <translation>СЗ</translation>
     </message>
 </context>
 <context>
     <name>RotorReadout</name>
     <message>
         <source>verso %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>на %1°</translation>
     </message>
     <message>
         <source>posizione stabile</source>
-        <translation type="unfinished"></translation>
+        <translation>положение устойчиво</translation>
     </message>
     <message>
         <source>nessuna lettura</source>
-        <translation type="unfinished"></translation>
+        <translation>показаний нет</translation>
     </message>
 </context>
 <context>
     <name>RotorSettings</name>
     <message>
         <source>COLLEGAMENTO AL CONTROL BOX</source>
-        <translation type="unfinished"></translation>
+        <translation>СВЯЗЬ С БЛОКОМ УПРАВЛЕНИЯ</translation>
     </message>
     <message>
         <source>Porta seriale</source>
-        <translation type="unfinished"></translation>
+        <translation>Последовательный порт</translation>
     </message>
     <message>
         <source>Velocita&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Скорость</translation>
     </message>
     <message>
         <source>%1 baud, 8N1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 бод, 8N1</translation>
     </message>
     <message>
         <source>Modello</source>
-        <translation type="unfinished"></translation>
+        <translation>Модель</translation>
     </message>
     <message>
         <source>Stato</source>
@@ -3189,197 +3198,201 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>collegato</source>
-        <translation type="unfinished"></translation>
+        <translation>подключён</translation>
     </message>
     <message>
         <source>assente</source>
-        <translation type="unfinished"></translation>
+        <translation>нет</translation>
     </message>
     <message>
         <source>Porta e modello si cambiano all&apos;avvio, con --port e --model.</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт и модель меняются при запуске, ключами --port и --model.</translation>
     </message>
 </context>
 <context>
     <name>RotorSettingsPanel</name>
     <message>
         <source>STAZIONE E SICUREZZA</source>
-        <translation type="unfinished"></translation>
+        <translation>СТАНЦИЯ И БЕЗОПАСНОСТЬ</translation>
     </message>
     <message>
         <source>Nominativo</source>
-        <translation type="unfinished"></translation>
+        <translation>Позывной</translation>
     </message>
     <message>
         <source>Locatore del QTH</source>
-        <translation type="unfinished"></translation>
+        <translation>Локатор QTH</translation>
     </message>
     <message>
         <source>Apertura del lobo: %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>Ширина лепестка: %1°</translation>
     </message>
     <message>
         <source>Finecorsa azimut</source>
-        <translation type="unfinished"></translation>
+        <translation>Концевик по азимуту</translation>
     </message>
     <message>
         <source>Posizione di riposo</source>
-        <translation type="unfinished"></translation>
+        <translation>Положение покоя</translation>
     </message>
     <message>
         <source>Stop se cade il collegamento</source>
-        <translation type="unfinished"></translation>
+        <translation>Стоп, если связь пропала</translation>
     </message>
     <message>
         <source>attivo</source>
-        <translation type="unfinished"></translation>
+        <translation>включено</translation>
     </message>
     <message>
         <source>disattivato</source>
-        <translation type="unfinished"></translation>
+        <translation>выключено</translation>
     </message>
     <message>
         <source>Tolleranza di arrivo</source>
-        <translation type="unfinished"></translation>
+        <translation>Допуск при подходе</translation>
     </message>
     <message>
         <source>Porta seriale, modello e porta dei decode si cambiano all&apos;avvio del gateway.</source>
-        <translation type="unfinished"></translation>
+        <translation>Последовательный порт, модель и порт декодов меняются при запуске шлюза.</translation>
     </message>
     <message>
         <source>Le modifiche vengono salvate subito in config.json.</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменения сразу сохраняются в config.json.</translation>
     </message>
 </context>
 <context>
     <name>RotorStats</name>
     <message>
         <source>ESERCIZIO</source>
-        <translation type="unfinished"></translation>
+        <translation>РАБОТА</translation>
     </message>
     <message>
         <source>Frame inviati</source>
-        <translation type="unfinished"></translation>
+        <translation>Кадров отправлено</translation>
     </message>
     <message>
         <source>Frame ricevuti</source>
-        <translation type="unfinished"></translation>
+        <translation>Кадров принято</translation>
     </message>
     <message>
         <source>Risposte perse</source>
-        <translation type="unfinished"></translation>
+        <translation>Потеряно ответов</translation>
     </message>
     <message>
         <source>Riconnessioni</source>
-        <translation type="unfinished"></translation>
+        <translation>Переподключений</translation>
     </message>
     <message>
         <source>In servizio da</source>
-        <translation type="unfinished"></translation>
+        <translation>В работе с</translation>
     </message>
     <message>
         <source>Client collegati</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключённых клиентов</translation>
     </message>
     <message>
         <source>Control box</source>
-        <translation type="unfinished"></translation>
+        <translation>Блок управления</translation>
     </message>
 </context>
 <context>
     <name>RotorStatus</name>
     <message>
         <source>pronto</source>
-        <translation type="unfinished"></translation>
+        <translation>готов</translation>
     </message>
     <message>
         <source>app</source>
-        <translation type="unfinished"></translation>
+        <translation>прил.</translation>
     </message>
     <message>
         <source>web</source>
-        <translation type="unfinished"></translation>
+        <translation>веб</translation>
     </message>
     <message>
         <source>rotctld</source>
-        <translation type="unfinished"></translation>
+        <translation>rotctld</translation>
     </message>
     <message>
         <source>%1 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2</translation>
     </message>
 </context>
 <context>
     <name>RotorTopBar</name>
     <message>
         <source>%1 · %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2</translation>
     </message>
     <message>
         <source>CONTROL BOX %1</source>
-        <translation type="unfinished"></translation>
+        <translation>БЛОК УПРАВЛЕНИЯ %1</translation>
     </message>
     <message>
         <source>CONTROL BOX ASSENTE</source>
-        <translation type="unfinished"></translation>
+        <translation>БЛОКА УПРАВЛЕНИЯ НЕТ</translation>
     </message>
     <message>
         <source>IN ROTAZIONE</source>
-        <translation type="unfinished"></translation>
+        <translation>ПОВОРАЧИВАЕТСЯ</translation>
     </message>
     <message>
         <source>FERMO</source>
-        <translation type="unfinished"></translation>
+        <translation>СТОИТ</translation>
     </message>
     <message numerus="yes">
         <source>%n client</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n клиент</numerusform>
+            <numerusform>%n клиента</numerusform>
+            <numerusform>%n клиентов</numerusform>
+        </translation>
     </message>
     <message>
         <source>Passa al quadrante chiaro</source>
-        <translation type="unfinished"></translation>
+        <translation>Светлый циферблат</translation>
     </message>
     <message>
         <source>Passa al quadrante notturno</source>
-        <translation type="unfinished"></translation>
+        <translation>Ночной циферблат</translation>
     </message>
 </context>
 <context>
     <name>RotorTraffic</name>
     <message>
         <source>TRAFFICO SERIALE</source>
-        <translation type="unfinished"></translation>
+        <translation>ОБМЕН ПО ПОРТУ</translation>
     </message>
     <message>
         <source>%1 @ %2 8N1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 @ %2 8N1</translation>
     </message>
     <message>
         <source>%1 frame</source>
-        <translation type="unfinished"></translation>
+        <translation>кадров: %1</translation>
     </message>
     <message>
         <source>nessun frame: il gateway li manda a richiesta</source>
-        <translation type="unfinished"></translation>
+        <translation>кадров нет: шлюз шлёт их по запросу</translation>
     </message>
 </context>
 <context>
     <name>RotorWindow</name>
     <message>
         <source>DecoRotor — controllo rotore PRO.SIS.TEL</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoRotor — управление поворотным устройством PRO.SIS.TEL</translation>
     </message>
     <message>
         <source>CONTROLLO</source>
-        <translation type="unfinished"></translation>
+        <translation>УПРАВЛЕНИЕ</translation>
     </message>
     <message>
         <source>DIAGNOSTICA</source>
-        <translation type="unfinished"></translation>
+        <translation>ДИАГНОСТИКА</translation>
     </message>
     <message>
         <source>IMPOSTAZIONI</source>
-        <translation type="unfinished"></translation>
+        <translation>НАСТРОЙКИ</translation>
     </message>
 </context>
 <context>
@@ -3390,135 +3403,135 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>Общие</translation>
     </message>
     <message>
         <source>Theme &amp; density</source>
-        <translation type="unfinished"></translation>
+        <translation>Тема и плотность</translation>
     </message>
     <message>
         <source>Decodium link</source>
-        <translation type="unfinished"></translation>
+        <translation>Связь с Decodium</translation>
     </message>
     <message>
         <source>Sync &amp; Cloud</source>
-        <translation type="unfinished"></translation>
+        <translation>Синхронизация и Cloud</translation>
     </message>
     <message>
         <source>QSL services</source>
-        <translation type="unfinished"></translation>
+        <translation>Службы QSL</translation>
     </message>
     <message>
         <source>Callbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Callbook</translation>
     </message>
     <message>
         <source>Backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Резервные копии</translation>
     </message>
     <message>
         <source>Rotor</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворотное устройство</translation>
     </message>
     <message>
         <source>Radio (CAT)</source>
-        <translation type="unfinished"></translation>
+        <translation>Трансивер (CAT)</translation>
     </message>
     <message>
         <source>Empty the Cloud of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить Cloud для %1</translation>
     </message>
     <message>
         <source>Everything this callsign has on the server goes away: QSO, history, station profiles, settings, sealed credentials. It cannot be undone from here. The log on this computer stays where it is.</source>
-        <translation type="unfinished"></translation>
+        <translation>Всё, что есть у этого позывного на сервере, исчезнет: QSO, история, профили станции, настройки, запечатанные учётные данные. Отсюда это не отменить. Журнал на этом компьютере остаётся на месте.</translation>
     </message>
     <message>
         <source>Write DELETE to confirm</source>
-        <translation type="unfinished"></translation>
+        <translation>Напишите DELETE для подтверждения</translation>
     </message>
     <message>
         <source>Empty the Cloud</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить Cloud</translation>
     </message>
     <message>
         <source>cty.csv from country-files.com</source>
-        <translation type="unfinished"></translation>
+        <translation>cty.csv с country-files.com</translation>
     </message>
     <message>
         <source>cty.csv (*.csv)</source>
-        <translation type="unfinished"></translation>
+        <translation>cty.csv (*.csv)</translation>
     </message>
     <message>
         <source>cty.csv %1 in use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Используется cty.csv %1.</translation>
     </message>
     <message>
         <source>TQSL program</source>
-        <translation type="unfinished"></translation>
+        <translation>Программа TQSL</translation>
     </message>
     <message>
         <source>Programs (*.exe)</source>
-        <translation type="unfinished"></translation>
+        <translation>Программы (*.exe)</translation>
     </message>
     <message>
         <source>All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Все файлы (*)</translation>
     </message>
     <message>
         <source>Backup folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Папка для копий</translation>
     </message>
     <message>
         <source>This copy of DecoDXLog</source>
-        <translation type="unfinished"></translation>
+        <translation>Этот экземпляр DecoDXLog</translation>
     </message>
     <message>
         <source>DecoDXLog %1 · Qt %2 · %3</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog %1 · Qt %2 · %3</translation>
     </message>
     <message>
         <source>Log file</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл журнала</translation>
     </message>
     <message>
         <source>Open folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть папку</translation>
     </message>
     <message>
         <source>SQLite in WAL mode. To use another file start DecoDXLog with --db &lt;path&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>SQLite в режиме WAL. Чтобы взять другой файл, запустите DecoDXLog с --db &lt;путь&gt;.</translation>
     </message>
     <message>
         <source>DXCC entities</source>
-        <translation type="unfinished"></translation>
+        <translation>Территории DXCC</translation>
     </message>
     <message>
         <source>cty.csv</source>
-        <translation type="unfinished"></translation>
+        <translation>cty.csv</translation>
     </message>
     <message>
         <source>Entities</source>
-        <translation type="unfinished"></translation>
+        <translation>Территорий</translation>
     </message>
     <message>
         <source>QSO without DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO без DXCC</translation>
     </message>
     <message>
         <source>Fill missing DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнить недостающие DXCC</translation>
     </message>
     <message>
         <source>%1 QSO completed, each kept as a new revision.</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнено %1 QSO, каждый сохранён как новая версия.</translation>
     </message>
     <message>
         <source>Load newer cty.csv…</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить более свежий cty.csv…</translation>
     </message>
     <message>
         <source>Source: %1. Updated files: country-files.com (AD1C). New QSOs from Decodium and manual entries get DXCC, country, zones and continent automatically; imported ADIF is kept as it is.</source>
-        <translation type="unfinished"></translation>
+        <translation>Источник: %1. Свежие файлы: country-files.com (AD1C). Новые QSO из Decodium и введённые вручную сами получают DXCC, страну, зоны и континент; загруженный ADIF остаётся как есть.</translation>
     </message>
     <message>
         <source>Language</source>
@@ -3530,11 +3543,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Like the system</source>
-        <translation type="unfinished"></translation>
+        <translation>Как в системе</translation>
     </message>
     <message>
         <source>The new language shows up the next time DecoDXLog starts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый язык появится при следующем запуске DecoDXLog.</translation>
     </message>
     <message>
         <source>Call info</source>
@@ -3542,115 +3555,115 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Follow the DX call Decodium is working</source>
-        <translation type="unfinished"></translation>
+        <translation>Следить за позывным DX, с которым работает Decodium</translation>
     </message>
     <message>
         <source>Duplicates</source>
-        <translation type="unfinished"></translation>
+        <translation>Дубли</translation>
     </message>
     <message>
         <source>Digital (min)</source>
-        <translation type="unfinished"></translation>
+        <translation>Цифровые (мин)</translation>
     </message>
     <message>
         <source>Manual (min)</source>
-        <translation type="unfinished"></translation>
+        <translation>Вручную (мин)</translation>
     </message>
     <message>
         <source>Same call, band and mode/submode within this window counts as the same QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Тот же позывной, диапазон и режим/подрежим в этом окне времени считаются тем же QSO.</translation>
     </message>
     <message>
         <source>Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Тема</translation>
     </message>
     <message>
         <source>Accent (Darkcodium)</source>
-        <translation type="unfinished"></translation>
+        <translation>Акцент (Darkcodium)</translation>
     </message>
     <message>
         <source>Density</source>
-        <translation type="unfinished"></translation>
+        <translation>Плотность</translation>
     </message>
     <message>
         <source>Custom colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Свои цвета</translation>
     </message>
     <message>
         <source>Background and text over the theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Фон и текст поверх темы</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Фон</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Текст</translation>
     </message>
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
-        <translation type="unfinished"></translation>
+        <translation>Те же темы, акценты и плотности, что в Decodium: строка %1 px · шрифт %2 px · заголовок %3 px.</translation>
     </message>
     <message>
         <source>%1 · connected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · подключён</translation>
     </message>
     <message>
         <source>No client heard yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Клиентов пока не слышно</translation>
     </message>
     <message>
         <source>listening on UDP %1</source>
-        <translation type="unfinished"></translation>
+        <translation>слушаем UDP %1</translation>
     </message>
     <message>
         <source>not listening</source>
-        <translation type="unfinished"></translation>
+        <translation>не слушаем</translation>
     </message>
     <message>
         <source>Decodium / WSJT-X UDP</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium / WSJT-X UDP</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт</translation>
     </message>
     <message>
         <source>Primary source</source>
-        <translation type="unfinished"></translation>
+        <translation>Основной источник</translation>
     </message>
     <message>
         <source>LoggedADIF (lossless)</source>
-        <translation type="unfinished"></translation>
+        <translation>LoggedADIF (без потерь)</translation>
     </message>
     <message>
         <source>QSOLogged (structured)</source>
-        <translation type="unfinished"></translation>
+        <translation>QSOLogged (по полям)</translation>
     </message>
     <message>
         <source>Multicast group</source>
-        <translation type="unfinished"></translation>
+        <translation>Группа multicast</translation>
     </message>
     <message>
         <source>empty = unicast</source>
-        <translation type="unfinished"></translation>
+        <translation>пусто = unicast</translation>
     </message>
     <message>
         <source>In Decodium set the UDP server to this address and port. A multicast group (e.g. 239.255.0.1) shares the stream with GridTracker or JTAlert. Duplicate windows are in General.</source>
-        <translation type="unfinished"></translation>
+        <translation>В Decodium укажите этот адрес и порт как UDP-сервер. Группа multicast (например, 239.255.0.1) делит поток с GridTracker или JTAlert. Окно дублей — в разделе «Общие».</translation>
     </message>
     <message>
         <source>DecoLink · log towards Decodium</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoLink · журнал в сторону Decodium</translation>
     </message>
     <message>
         <source>Share the log with Decodium</source>
-        <translation type="unfinished"></translation>
+        <translation>Делиться журналом с Decodium</translation>
     </message>
     <message>
         <source>Port (127.0.0.1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт (127.0.0.1)</translation>
     </message>
     <message>
         <source>off</source>
@@ -3658,99 +3671,103 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>error</source>
-        <translation type="unfinished"></translation>
+        <translation>ошибка</translation>
     </message>
     <message numerus="yes">
         <source>%n client(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n клиент</numerusform>
+            <numerusform>%n клиента</numerusform>
+            <numerusform>%n клиентов</numerusform>
+        </translation>
     </message>
     <message>
         <source>waiting</source>
-        <translation type="unfinished"></translation>
+        <translation>ждём</translation>
     </message>
     <message>
         <source>Decodium receives the worked calls, confirmations and FT2 Award status from this log, and a confirmation for every QSO written. Only local connections are accepted. Protocol: docs/DECOLINK.md.</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium получает из этого журнала проведённые позывные, подтверждения и состояние FT2 Award, а также подтверждение на каждый записанный QSO. Принимаются только местные подключения. Протокол: docs/DECOLINK.md.</translation>
     </message>
     <message>
         <source>Sign in</source>
-        <translation type="unfinished"></translation>
+        <translation>Войти</translation>
     </message>
     <message>
         <source>Queue (dirty)</source>
-        <translation type="unfinished"></translation>
+        <translation>Очередь (к отправке)</translation>
     </message>
     <message>
         <source>Conflicts kept</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранено расхождений</translation>
     </message>
     <message>
         <source>%1 in history</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 в истории</translation>
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер</translation>
     </message>
     <message>
         <source>Auto sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Сама синхронизация</translation>
     </message>
     <message>
         <source>After every QSO + every 5 min</source>
-        <translation type="unfinished"></translation>
+        <translation>После каждого QSO + каждые 5 мин</translation>
     </message>
     <message>
         <source>Every 5 min</source>
-        <translation type="unfinished"></translation>
+        <translation>Каждые 5 мин</translation>
     </message>
     <message>
         <source>Manual only</source>
-        <translation type="unfinished"></translation>
+        <translation>Только вручную</translation>
     </message>
     <message>
         <source>Conflicts</source>
-        <translation type="unfinished"></translation>
+        <translation>Расхождения</translation>
     </message>
     <message>
         <source>Last edit wins, loser kept in history</source>
-        <translation type="unfinished"></translation>
+        <translation>Побеждает последняя правка, проигравшая остаётся в истории</translation>
     </message>
     <message>
         <source>Always ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Всегда спрашивать</translation>
     </message>
     <message>
         <source>Credentials · system keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>Учётные данные · хранилище ключей системы</translation>
     </message>
     <message>
         <source>LoTW confirmations</source>
-        <translation type="unfinished"></translation>
+        <translation>Подтверждения LoTW</translation>
     </message>
     <message>
         <source>Last sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Последняя синхронизация</translation>
     </message>
     <message>
         <source>never</source>
-        <translation type="unfinished"></translation>
+        <translation>никогда</translation>
     </message>
     <message>
         <source>Confirmations since</source>
-        <translation type="unfinished"></translation>
+        <translation>Подтверждения начиная с</translation>
     </message>
     <message>
         <source>all</source>
-        <translation type="unfinished"></translation>
+        <translation>все</translation>
     </message>
     <message>
         <source>Confirmed in log</source>
-        <translation type="unfinished"></translation>
+        <translation>Подтверждено в журнале</translation>
     </message>
     <message>
         <source>Downloading…</source>
-        <translation type="unfinished"></translation>
+        <translation>Скачиваем…</translation>
     </message>
     <message>
         <source>Sync now</source>
@@ -3758,35 +3775,35 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>DecoDXLog Cloud · %1</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog Cloud · %1</translation>
     </message>
     <message>
         <source>DecoDXLog Cloud · not linked</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog Cloud · не связан</translation>
     </message>
     <message>
         <source>%1 QSO on the server · queue %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 QSO на сервере · очередь %2</translation>
     </message>
     <message>
         <source>The log stays yours and works offline: the Cloud is where your devices pass each other the changes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Журнал остаётся вашим и работает без сети: Cloud — это место, где ваши устройства передают друг другу изменения.</translation>
     </message>
     <message>
         <source>syncing…</source>
-        <translation type="unfinished"></translation>
+        <translation>синхронизация…</translation>
     </message>
     <message>
         <source>Unlink</source>
-        <translation type="unfinished"></translation>
+        <translation>Отвязать</translation>
     </message>
     <message>
         <source>On the server</source>
-        <translation type="unfinished"></translation>
+        <translation>На сервере</translation>
     </message>
     <message>
         <source>Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Позывной</translation>
     </message>
     <message>
         <source>Password</source>
@@ -3794,59 +3811,59 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Create account</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать учётную запись</translation>
     </message>
     <message>
         <source>The password travels once and is not kept: DecoDXLog stores only the token the server gives back, in the system keystore. On the network use HTTPS; at home, on your own LAN, plain HTTP is fine.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль уходит один раз и не хранится: DecoDXLog держит только токен, который вернул сервер, в хранилище ключей системы. В сети используйте HTTPS; дома, в своей локальной сети, хватит обычного HTTP.</translation>
     </message>
     <message>
         <source>Carry the service passwords to the other devices too</source>
-        <translation type="unfinished"></translation>
+        <translation>Переносить пароли служб и на другие устройства</translation>
     </message>
     <message>
         <source>Cloud password, to open the vault on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль Cloud, чтобы открыть сейф на этом устройстве</translation>
     </message>
     <message>
         <source>Open the vault</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть сейф</translation>
     </message>
     <message>
         <source>They travel sealed: DecoDXLog closes them on this computer with AES-256-GCM and a key made from your Cloud password, which the server only knows as an Argon2 fingerprint. What reaches the server is a block of bytes that does not open without that password. Sign in on the other device with the same password and the services are ready there too.</source>
-        <translation type="unfinished"></translation>
+        <translation>Они едут запечатанными: DecoDXLog закрывает их на этом компьютере с помощью AES-256-GCM и ключа, сделанного из вашего пароля Cloud, который сервер знает лишь как отпечаток Argon2. До сервера доходит кусок байтов, который без этого пароля не открывается. Войдите на другом устройстве с тем же паролем — и службы готовы и там.</translation>
     </message>
     <message>
         <source>This build has no OpenSSL: the service passwords cannot be sealed, so they stay on this computer.</source>
-        <translation type="unfinished"></translation>
+        <translation>В этой сборке нет OpenSSL: пароли служб запечатать нельзя, поэтому они остаются на этом компьютере.</translation>
     </message>
     <message>
         <source>Download everything again</source>
-        <translation type="unfinished"></translation>
+        <translation>Скачать всё заново</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Отмена</translation>
     </message>
     <message>
         <source>Danger zone</source>
-        <translation type="unfinished"></translation>
+        <translation>Опасная зона</translation>
     </message>
     <message>
         <source>Empty the Cloud of this callsign: QSO, history, station profiles, settings and sealed credentials go away from the server for good. The account stays, and the log on this computer is not touched — at the next sync it all goes back up from scratch. The other devices, though, will find nothing up there.</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить Cloud для этого позывного: QSO, история, профили станции, настройки и запечатанные учётные данные исчезнут с сервера навсегда. Учётная запись остаётся, журнал на этом компьютере не трогаем — при следующей синхронизации всё уйдёт наверх заново. А вот другие устройства ничего там уже не найдут.</translation>
     </message>
     <message>
         <source>Empty the Cloud…</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить Cloud…</translation>
     </message>
     <message>
         <source>Sign in above first: emptying the Cloud is something only the owner of this callsign can ask for.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сначала войдите выше: очистить Cloud может только хозяин этого позывного.</translation>
     </message>
     <message>
         <source>Automatic sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Сама синхронизация</translation>
     </message>
     <message>
         <source>Off</source>
@@ -3854,35 +3871,35 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Every 6 hours</source>
-        <translation type="unfinished"></translation>
+        <translation>Каждые 6 часов</translation>
     </message>
     <message>
         <source>Every 12 hours</source>
-        <translation type="unfinished"></translation>
+        <translation>Каждые 12 часов</translation>
     </message>
     <message>
         <source>Once a day</source>
-        <translation type="unfinished"></translation>
+        <translation>Раз в сутки</translation>
     </message>
     <message>
         <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL. QRZ Logbook, Club Log and eQSL arrive later.</source>
-        <translation type="unfinished"></translation>
+        <translation>Подтверждения сводятся по позывному, диапазону, группе режимов (данные, CW, телефон) и времени в пределах 30 минут — как это делает LoTW. Подтверждённый QSO становится новой версией; локатор, зоны, штат и округ из LoTW заполняют только пустые поля. Загрузка в LoTW по-прежнему идёт через TQSL. QRZ Logbook, Club Log и eQSL придут позже.</translation>
     </message>
     <message>
         <source>Sending to LoTW (TQSL)</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправка в LoTW (TQSL)</translation>
     </message>
     <message>
         <source>Station location</source>
-        <translation type="unfinished"></translation>
+        <translation>Station location</translation>
     </message>
     <message>
         <source>From the station profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Из профиля станции</translation>
     </message>
     <message>
         <source>The certificate stays in TQSL: DecoDXLog writes a temporary ADIF, TQSL signs it and sends it. Duplicates are not an error, LoTW simply keeps the one it already has. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сертификат остаётся в TQSL: DecoDXLog пишет временный ADIF, TQSL его подписывает и отправляет. Дубли — не ошибка, LoTW просто оставляет то, что у него уже есть. Отправка, отправка сама собой и счётчики — на вкладке QSL внизу.</translation>
     </message>
     <message>
         <source>API key</source>
@@ -3890,83 +3907,83 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>the key Club Log gave you</source>
-        <translation type="unfinished"></translation>
+        <translation>ключ, который выдал Club Log</translation>
     </message>
     <message>
         <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log нужны три вещи: почта и пароль учётной записи (ниже), позывной из профиля станции и ключ API. Ключ бесплатный и личный, его просят на clublog.org/need_api.php — он указывает на программу, а не на вас. Один QSO уходит сразу, как записан; накопившееся уходит одним файлом ADIF.</translation>
     </message>
     <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>отправлено %1 · в очереди %2 · подтверждено %3</translation>
     </message>
     <message>
         <source>Lookup service</source>
-        <translation type="unfinished"></translation>
+        <translation>Служба справок</translation>
     </message>
     <message>
         <source>Off (log and cty.csv only)</source>
-        <translation type="unfinished"></translation>
+        <translation>Выключено (только журнал и cty.csv)</translation>
     </message>
     <message>
         <source>Fill empty name, QTH and grid in New QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Заполнять пустые имя, QTH и локатор в «Новом QSO»</translation>
     </message>
     <message>
         <source>Complete the QSO just logged (name, QTH, grid, address)</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнять только что записанный QSO (имя, QTH, локатор, адрес)</translation>
     </message>
     <message>
         <source>If this callbook doesn&apos;t know the callsign, ask the other one</source>
-        <translation type="unfinished"></translation>
+        <translation>Если этот callbook не знает позывной, спросить другой</translation>
     </message>
     <message>
         <source>The two callbooks don&apos;t know the same stations: HamQTH has the ones who signed up there, QRZ has almost everybody. With the fallback on, a callsign the first one doesn&apos;t know is asked to the other — as long as that one has its user and password here below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Два callbook знают не одни и те же станции: в HamQTH есть те, кто там записался, в QRZ — почти все. Если запасной включён, позывной, которого не знает первый, спрашивают у второго — при условии, что у него ниже указаны имя пользователя и пароль.</translation>
     </message>
     <message>
         <source>Decodium sends callsign, report, band and mode: the rest the callbook knows. Right after the QSO is written DecoDXLog asks, and what comes back fills only the empty fields — what you wrote stays. One lookup per callsign, and the answer is kept for a day. From the log, &quot;Complete from the callbook&quot; does the same on QSOs already written.</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium присылает позывной, рапорт, диапазон и режим: остальное знает callbook. Сразу после записи QSO DecoDXLog спрашивает, и то, что приходит, заполняет только пустые поля — написанное вами остаётся. Один запрос на позывной, ответ хранится сутки. Из журнала «Дополнить из callbook» делает то же самое с уже записанными QSO.</translation>
     </message>
     <message>
         <source>Try a lookup</source>
-        <translation type="unfinished"></translation>
+        <translation>Попробовать запрос</translation>
     </message>
     <message>
         <source>Look up</source>
-        <translation type="unfinished"></translation>
+        <translation>Найти</translation>
     </message>
     <message>
         <source>Looking up…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ищем…</translation>
     </message>
     <message>
         <source>QRZ.com needs an XML data subscription; HamQTH is free. Results are kept in memory for a day, so moving through the log does not use up lookups.</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ.com требует подписки на XML-данные; HamQTH бесплатен. Ответы держатся в памяти сутки, поэтому хождение по журналу не тратит запросы.</translation>
     </message>
     <message>
         <source>Radio via Hamlib (rigctld)</source>
-        <translation type="unfinished"></translation>
+        <translation>Трансивер через Hamlib (rigctld)</translation>
     </message>
     <message>
         <source>Talk to the radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Говорить с трансивером</translation>
     </message>
     <message>
         <source>How</source>
-        <translation type="unfinished"></translation>
+        <translation>Как</translation>
     </message>
     <message>
         <source>rigctld already running</source>
-        <translation type="unfinished"></translation>
+        <translation>rigctld уже запущен</translation>
     </message>
     <message>
         <source>Serial cable to the radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Последовательный кабель к трансиверу</translation>
     </message>
     <message>
         <source>Radio (Hamlib)</source>
-        <translation type="unfinished"></translation>
+        <translation>Трансивер (Hamlib)</translation>
     </message>
     <message>
         <source>Serial port</source>
@@ -3974,23 +3991,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Baud</source>
-        <translation type="unfinished"></translation>
+        <translation>Скорость</translation>
     </message>
     <message>
         <source>PTT</source>
-        <translation type="unfinished"></translation>
+        <translation>PTT</translation>
     </message>
     <message>
         <source>The CAT itself (RIG)</source>
-        <translation type="unfinished"></translation>
+        <translation>Сам CAT (RIG)</translation>
     </message>
     <message>
         <source>RTS on another port</source>
-        <translation type="unfinished"></translation>
+        <translation>RTS на другом порту</translation>
     </message>
     <message>
         <source>DTR on another port</source>
-        <translation type="unfinished"></translation>
+        <translation>DTR на другом порту</translation>
     </message>
     <message>
         <source>None</source>
@@ -3998,151 +4015,151 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>PTT port</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт PTT</translation>
     </message>
     <message>
         <source>Test the PTT</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверить PTT</translation>
     </message>
     <message>
         <source>Two ports is the usual setup: the CAT reads the frequency on one, the PTT raises RTS or DTR on the other — so the radio transmits while DecoDXLog keeps reading. With a single cable leave &quot;the CAT itself&quot;: the radio goes into transmit on the CAT command, if it can.</source>
-        <translation type="unfinished"></translation>
+        <translation>Обычная схема — два порта: по одному CAT читает частоту, по другому PTT поднимает RTS или DTR — и трансивер передаёт, пока DecoDXLog продолжает читать. С одним кабелем оставьте «Сам CAT»: трансивер перейдёт на передачу по команде CAT, если умеет.</translation>
     </message>
     <message>
         <source>Connect now</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключиться сейчас</translation>
     </message>
     <message>
         <source>Looking…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ищем…</translation>
     </message>
     <message>
         <source>Find the radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Найти трансивер</translation>
     </message>
     <message>
         <source>radio connected</source>
-        <translation type="unfinished"></translation>
+        <translation>трансивер подключён</translation>
     </message>
     <message>
         <source>radio not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>трансивер не подключён</translation>
     </message>
     <message>
         <source>CW keyer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ключ CW</translation>
     </message>
     <message>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Скорость</translation>
     </message>
     <message>
         <source>%1 wpm</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 сл/мин</translation>
     </message>
     <message>
         <source>Antenna rotor</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворотное устройство</translation>
     </message>
     <message>
         <source>Talks to</source>
-        <translation type="unfinished"></translation>
+        <translation>Говорит с</translation>
     </message>
     <message>
         <source>DecoRotor (WebSocket)</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoRotor (WebSocket)</translation>
     </message>
     <message>
         <source>rotctld (Hamlib) — any program</source>
-        <translation type="unfinished"></translation>
+        <translation>rotctld (Hamlib) — любая программа</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation type="unfinished"></translation>
+        <translation>Адрес</translation>
     </message>
     <message>
         <source>Beamwidth</source>
-        <translation type="unfinished"></translation>
+        <translation>Ширина лепестка</translation>
     </message>
     <message>
         <source>Follow the call Decodium is working</source>
-        <translation type="unfinished"></translation>
+        <translation>Следить за позывным, с которым работает Decodium</translation>
     </message>
     <message>
         <source>Connect again</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключиться снова</translation>
     </message>
     <message>
         <source>DecoRotor is the gateway of the family: it reads the Prosistel control box on the serial port and publishes it on the network (WebSocket 8765). With rotctld any other rotor program works too — DecoRotor itself answers on 4532. DecoDXLog never touches the serial port: it only says where to point, and the control box keeps its own limits.</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoRotor — шлюз семейства: он читает блок управления Prosistel на последовательном порту и выкладывает его в сеть (WebSocket 8765). Через rotctld работает и любая другая программа поворота — сам DecoRotor отвечает на 4532. DecoDXLog никогда не трогает последовательный порт: он только говорит, куда повернуть, а пределы держит блок управления.</translation>
     </message>
     <message>
         <source>Where a bearing is known — a cluster spot, the call being worked, a QSO with a grid — the rotor menu points there. The panel is in the right column, with the compass and the STOP.</source>
-        <translation type="unfinished"></translation>
+        <translation>Там, где известно направление — спот кластера, позывной, с которым идёт работа, QSO с локатором, — меню поворотного устройства ведёт туда. Панель стоит в правом столбце, с компасом и кнопкой СТОП.</translation>
     </message>
     <message>
         <source>Nightly backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Ночная резервная копия</translation>
     </message>
     <message>
         <source>Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Папка</translation>
     </message>
     <message>
         <source>Browse…</source>
-        <translation type="unfinished"></translation>
+        <translation>Обзор…</translation>
     </message>
     <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
-        <translation type="unfinished"></translation>
+        <translation>С каждым трансивером говорит Hamlib, а не DecoDXLog. При последовательном кабеле выберите модель и порт — DecoDXLog сам запустит rigctld; если rigctld уже работает (для контестовой программы или на другом компьютере), достаточно указать адрес и порт. Дальше DecoDXLog читает частоту и режим, умеет настраивать трансивер и передаёт макросы CW собственному ключу трансивера.</translation>
     </message>
     <message>
         <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
-        <translation type="unfinished"></translation>
+        <translation>Восемь макросов — в окне соревнования (Ctrl+Shift+T) и в панели CW, на клавишах F1-F8; Esc останавливает.</translation>
     </message>
     <message>
         <source>Keying on a serial port</source>
-        <translation type="unfinished"></translation>
+        <translation>Манипуляция на последовательном порту</translation>
     </message>
     <message>
         <source>Keyer port</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт ключа</translation>
     </message>
     <message>
         <source>none</source>
-        <translation type="unfinished"></translation>
+        <translation>нет</translation>
     </message>
     <message>
         <source>Pin</source>
-        <translation type="unfinished"></translation>
+        <translation>Вывод</translation>
     </message>
     <message>
         <source>Send VVV</source>
-        <translation type="unfinished"></translation>
+        <translation>Передать VVV</translation>
     </message>
     <message>
         <source>keyer ready</source>
-        <translation type="unfinished"></translation>
+        <translation>ключ готов</translation>
     </message>
     <message>
         <source>port not open</source>
-        <translation type="unfinished"></translation>
+        <translation>порт не открыт</translation>
     </message>
     <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
-        <translation type="unfinished"></translation>
+        <translation>Когда открыт Decodium, порт CAT трансивера уже занят, а мост CAT манипулировать не умеет. Здесь DecoDXLog манипулирует сам: он поднимает DTR или RTS на своём порту — том, что идёт на схему манипуляции, — так что CAT остаётся у Decodium, а макросы всё равно уходят в эфир. Оставьте порт на «нет», чтобы манипулировать через CAT, как раньше.</translation>
     </message>
     <message>
         <source>Time (local)</source>
-        <translation type="unfinished"></translation>
+        <translation>Время (местное)</translation>
     </message>
     <message>
         <source>Keep copies</source>
-        <translation type="unfinished"></translation>
+        <translation>Хранить копий</translation>
     </message>
     <message>
         <source>Last backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Последняя копия</translation>
     </message>
     <message>
         <source>File</source>
@@ -4150,23 +4167,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Back up now</source>
-        <translation type="unfinished"></translation>
+        <translation>Сделать копию сейчас</translation>
     </message>
     <message>
         <source>A consistent copy made with SQLite VACUUM INTO, even while DecoDXLog is logging. If the PC is off at the chosen time, the copy is made as soon as DecoDXLog is open.</source>
-        <translation type="unfinished"></translation>
+        <translation>Цельная копия, сделанная через SQLite VACUUM INTO, даже пока DecoDXLog записывает. Если в назначенный час компьютер выключен, копия делается, как только DecoDXLog открыт.</translation>
     </message>
     <message>
         <source>Backup nightly %1 → %2 · last %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Копия каждую ночь %1 → %2 · последняя %3</translation>
     </message>
     <message>
         <source>Backup nightly %1 → %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Копия каждую ночь %1 → %2</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Применить</translation>
     </message>
 </context>
 <context>
@@ -4177,27 +4194,27 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Status (any of)</source>
-        <translation type="unfinished"></translation>
+        <translation>Состояние (любое из)</translation>
     </message>
     <message>
         <source>Bands</source>
-        <translation type="unfinished"></translation>
+        <translation>Диапазоны</translation>
     </message>
     <message>
         <source>Modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Режимы</translation>
     </message>
     <message>
         <source>DX continent</source>
-        <translation type="unfinished"></translation>
+        <translation>Континент DX</translation>
     </message>
     <message>
         <source>Spotter continent</source>
-        <translation type="unfinished"></translation>
+        <translation>Континент того, кто дал спот</translation>
     </message>
     <message>
         <source>Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Источники</translation>
     </message>
     <message>
         <source>Only</source>
@@ -4205,62 +4222,62 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>not worked on band</source>
-        <translation type="unfinished"></translation>
+        <translation>не проведён на диапазоне</translation>
     </message>
     <message>
         <source>POTA/SOTA/WWFF/IOTA</source>
-        <translation type="unfinished"></translation>
+        <translation>POTA/SOTA/WWFF/IOTA</translation>
     </message>
     <message>
         <source>LoTW users</source>
-        <translation type="unfinished"></translation>
+        <translation>Пользователи LoTW</translation>
     </message>
     <message>
         <source>no skimmers</source>
-        <translation type="unfinished"></translation>
+        <translation>без скиммеров</translation>
     </message>
     <message>
         <source>Calls (wildcards * ?)</source>
-        <translation type="unfinished"></translation>
+        <translation>Позывные (подстановки * ?)</translation>
     </message>
     <message>
         <source>Text (call, entity, comment)</source>
-        <translation type="unfinished"></translation>
+        <translation>Текст (позывной, территория, комментарий)</translation>
     </message>
     <message>
         <source>Min SNR (skimmer)</source>
-        <translation type="unfinished"></translation>
+        <translation>Мин. SNR (скиммер)</translation>
     </message>
     <message>
         <source>any</source>
-        <translation type="unfinished"></translation>
+        <translation>любой</translation>
     </message>
     <message>
         <source>Max age</source>
-        <translation type="unfinished"></translation>
+        <translation>Не старше</translation>
     </message>
 </context>
 <context>
     <name>StationProfilesDialog</name>
     <message>
         <source>Station profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Профили станции</translation>
     </message>
     <message>
         <source>active: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>активный: %1</translation>
     </message>
     <message>
         <source>A profile needs a name and a station callsign.</source>
-        <translation type="unfinished"></translation>
+        <translation>Профилю нужны имя и позывной станции.</translation>
     </message>
     <message>
         <source>deleted · %1 QSO keep it</source>
-        <translation type="unfinished"></translation>
+        <translation>удалён · %1 QSO его держат</translation>
     </message>
     <message>
         <source>DEFAULT</source>
-        <translation type="unfinished"></translation>
+        <translation>ПО УМОЛЧАНИЮ</translation>
     </message>
     <message>
         <source>ACTIVE</source>
@@ -4268,19 +4285,19 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>No profiles yet. Create one, or start Decodium: DecoDXLog creates the first from its callsign and grid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Профилей пока нет. Создайте один или запустите Decodium: DecoDXLog сделает первый из его позывного и локатора.</translation>
     </message>
     <message>
         <source>+ New</source>
-        <translation type="unfinished"></translation>
+        <translation>+ Новый</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Скопировать</translation>
     </message>
     <message>
         <source>(copy)</source>
-        <translation type="unfinished"></translation>
+        <translation>(копия)</translation>
     </message>
     <message>
         <source>Profile name</source>
@@ -4288,31 +4305,31 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Default profile for new QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Профиль по умолчанию для новых QSO</translation>
     </message>
     <message>
         <source>Station callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Позывной станции</translation>
     </message>
     <message>
         <source>Operator</source>
-        <translation type="unfinished"></translation>
+        <translation>Оператор</translation>
     </message>
     <message>
         <source>My gridsquare</source>
-        <translation type="unfinished"></translation>
+        <translation>Мой локатор</translation>
     </message>
     <message>
         <source>CQ zone</source>
-        <translation type="unfinished"></translation>
+        <translation>Зона CQ</translation>
     </message>
     <message>
         <source>ITU zone</source>
-        <translation type="unfinished"></translation>
+        <translation>Зона ITU</translation>
     </message>
     <message>
         <source>My DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>Мой DXCC</translation>
     </message>
     <message>
         <source>Rig</source>
@@ -4320,58 +4337,58 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Antenna</source>
-        <translation type="unfinished"></translation>
+        <translation>Антенна</translation>
     </message>
     <message>
         <source>Def. pwr W</source>
-        <translation type="unfinished"></translation>
+        <translation>Мощность по умолч. Вт</translation>
     </message>
     <message>
         <source>LoTW station location (TQSL)</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW station location (TQSL)</translation>
     </message>
     <message>
         <source>Used by &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</source>
-        <translation type="unfinished"></translation>
+        <translation>Используется &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · ред. %4 · %5</translation>
     </message>
     <message>
         <source>not synced</source>
-        <translation type="unfinished"></translation>
+        <translation>не синхронизирован</translation>
     </message>
     <message>
         <source>synced</source>
-        <translation type="unfinished"></translation>
+        <translation>синхронизирован</translation>
     </message>
     <message>
         <source>New profile · not saved yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый профиль · ещё не сохранён</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <source>Use now</source>
-        <translation type="unfinished"></translation>
+        <translation>Взять сейчас</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Отмена</translation>
     </message>
     <message>
         <source>Save profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить профиль</translation>
     </message>
 </context>
 <context>
     <name>StatsWindow</name>
     <message>
         <source>DecoDXLog — Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoDXLog — Статистика</translation>
     </message>
     <message>
         <source>no QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>нет QSO</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -4379,15 +4396,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>All modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Все режимы</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation type="unfinished"></translation>
+        <translation>Год</translation>
     </message>
     <message>
         <source>All years</source>
-        <translation type="unfinished"></translation>
+        <translation>Все годы</translation>
     </message>
     <message>
         <source>Refresh</source>
@@ -4395,86 +4412,86 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO</translation>
     </message>
     <message>
         <source>Different calls</source>
-        <translation type="unfinished"></translation>
+        <translation>Разных позывных</translation>
     </message>
     <message>
         <source>DXCC entities</source>
-        <translation type="unfinished"></translation>
+        <translation>Территории DXCC</translation>
     </message>
     <message>
         <source>Grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Локаторы</translation>
     </message>
     <message>
         <source>First QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Первый QSO</translation>
     </message>
     <message>
         <source>Last QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Последний QSO</translation>
     </message>
     <message>
         <source>Best day</source>
-        <translation type="unfinished"></translation>
+        <translation>Лучший день</translation>
     </message>
     <message>
         <source>Best hour</source>
-        <translation type="unfinished"></translation>
+        <translation>Лучший час</translation>
     </message>
     <message>
         <source>QSO per year</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO по годам</translation>
     </message>
     <message>
         <source>QSO per month (last 24)</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO по месяцам (последние 24)</translation>
     </message>
     <message>
         <source>QSO per UTC hour</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO по часам UTC</translation>
     </message>
     <message>
         <source>QSO per band</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO по диапазонам</translation>
     </message>
     <message>
         <source>When a band is open · QSO per band and UTC hour</source>
-        <translation type="unfinished"></translation>
+        <translation>Когда открыт диапазон · QSO по диапазонам и часам UTC</translation>
     </message>
     <message>
         <source>%1 · %2Z · %3 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2Z · %3 QSO</translation>
     </message>
     <message>
         <source>Modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Режимы</translation>
     </message>
     <message>
         <source>Continents</source>
-        <translation type="unfinished"></translation>
+        <translation>Континенты</translation>
     </message>
     <message>
         <source>no continent on these QSOs (fill in the DXCC)</source>
-        <translation type="unfinished"></translation>
+        <translation>у этих QSO нет континента (дополните DXCC)</translation>
     </message>
 </context>
 <context>
     <name>StatusRail</name>
     <message>
         <source>%1: connected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: подключён</translation>
     </message>
     <message>
         <source>Decodium: waiting</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium: ждём</translation>
     </message>
     <message>
         <source>UDP closed</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP закрыт</translation>
     </message>
     <message>
         <source>QSO:</source>
@@ -4482,15 +4499,15 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Queue:</source>
-        <translation type="unfinished"></translation>
+        <translation>Очередь:</translation>
     </message>
     <message>
         <source>Last backup:</source>
-        <translation type="unfinished"></translation>
+        <translation>Последняя копия:</translation>
     </message>
     <message>
         <source>never</source>
-        <translation type="unfinished"></translation>
+        <translation>никогда</translation>
     </message>
 </context>
 <context>
@@ -4513,7 +4530,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1 · %2/%3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2/%3</translation>
     </message>
     <message>
         <source>Activation</source>
@@ -4521,7 +4538,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Cluster ●</source>
-        <translation type="unfinished"></translation>
+        <translation>Кластер ●</translation>
     </message>
     <message>
         <source>Cluster</source>
@@ -4529,7 +4546,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
-        <translation type="unfinished"></translation>
+        <translation>Панели (закрыто: %1)</translation>
     </message>
     <message>
         <source>Panels</source>
@@ -4545,43 +4562,43 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Station profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Профили станции</translation>
     </message>
     <message>
         <source>Cloud %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud %1</translation>
     </message>
     <message>
         <source>Cloud not linked</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud не связан</translation>
     </message>
     <message>
         <source>Sign in from Setup → Sync &amp; Cloud</source>
-        <translation type="unfinished"></translation>
+        <translation>Войти можно в «Настройки → Синхронизация и Cloud»</translation>
     </message>
     <message>
         <source>Cloud not configured</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud не настроен</translation>
     </message>
     <message>
         <source>About DecoDXLog…</source>
-        <translation type="unfinished"></translation>
+        <translation>О DecoDXLog…</translation>
     </message>
     <message>
         <source>Settings…</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки…</translation>
     </message>
     <message>
         <source>Station profiles…</source>
-        <translation type="unfinished"></translation>
+        <translation>Профили станции…</translation>
     </message>
     <message>
         <source>Panels…</source>
-        <translation type="unfinished"></translation>
+        <translation>Панели…</translation>
     </message>
     <message>
         <source>Import ADIF…</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить ADIF…</translation>
     </message>
     <message>
         <source>Export ADIF…</source>
@@ -4589,23 +4606,23 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Open the log folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть папку журнала</translation>
     </message>
     <message>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Выход</translation>
     </message>
     <message>
         <source>syncing…</source>
-        <translation type="unfinished"></translation>
+        <translation>синхронизация…</translation>
     </message>
     <message>
         <source>%1 queued</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 в очереди</translation>
     </message>
     <message>
         <source>synced %1</source>
-        <translation type="unfinished"></translation>
+        <translation>синхронизировано %1</translation>
     </message>
     <message>
         <source>Sync now</source>
@@ -4620,170 +4637,206 @@ The call Decodium is working shows up here by itself.</source>
     <name>decolog::app::ActivationController</name>
     <message>
         <source>Choose what kind of session it is</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите, какой это сеанс</translation>
     </message>
     <message>
         <source>A %1 activation needs its reference</source>
-        <translation type="unfinished"></translation>
+        <translation>Активации %1 нужен её номер</translation>
     </message>
     <message>
         <source>A contest needs its name (CONTEST_ID)</source>
-        <translation type="unfinished"></translation>
+        <translation>Соревнованию нужно название (CONTEST_ID)</translation>
     </message>
     <message>
         <source>Session open: %1 · grid %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Сеанс открыт: %1 · локатор %2</translation>
     </message>
     <message numerus="yes">
         <source>Session closed: %1 · %n QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Сеанс закрыт: %1 · %n QSO</numerusform>
+            <numerusform>Сеанс закрыт: %1 · %n QSO</numerusform>
+            <numerusform>Сеанс закрыт: %1 · %n QSO</numerusform>
+        </translation>
     </message>
     <message>
         <source>No QSO in this session yet</source>
-        <translation type="unfinished"></translation>
+        <translation>В этом сеансе ещё нет QSO</translation>
     </message>
     <message>
         <source>Nothing to write</source>
-        <translation type="unfinished"></translation>
+        <translation>Записывать нечего</translation>
     </message>
     <message>
         <source>Cannot write %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не записать %1</translation>
     </message>
     <message numerus="yes">
         <source>Cabrillo written: %1 (%n QSO)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cabrillo записан: %1 (%n QSO)</numerusform>
+            <numerusform>Cabrillo записан: %1 (%n QSO)</numerusform>
+            <numerusform>Cabrillo записан: %1 (%n QSO)</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n QSO of the session → %1</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO сеанса → %1</numerusform>
+            <numerusform>%n QSO сеанса → %1</numerusform>
+            <numerusform>%n QSO сеанса → %1</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>decolog::app::CloudController</name>
     <message>
         <source>Cloud: %1 connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: %1 подключён</translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n station profile(s) updated</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: обновлён %n профиль станции</numerusform>
+            <numerusform>Cloud: обновлено %n профиля станции</numerusform>
+            <numerusform>Cloud: обновлено %n профилей станции</numerusform>
+        </translation>
     </message>
     <message>
         <source>Cloud: settings updated from another device</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: настройки обновлены с другого устройства</translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n service password(s) arrived</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: пришёл %n пароль службы</numerusform>
+            <numerusform>Cloud: пришло %n пароля служб</numerusform>
+            <numerusform>Cloud: пришло %n паролей служб</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n QSO arrived from another device</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: с другого устройства пришёл %n QSO</numerusform>
+            <numerusform>Cloud: с другого устройства пришло %n QSO</numerusform>
+            <numerusform>Cloud: с другого устройства пришло %n QSO</numerusform>
+        </translation>
     </message>
     <message>
         <source>Cloud: up to date</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: всё свежо</translation>
     </message>
     <message>
         <source>Cloud emptied: %1 QSO and %2 settings deleted. What is here stays, and goes back up at the next sync.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud очищен: удалено %1 QSO и %2 настроек. То, что здесь, остаётся и при следующей синхронизации уйдёт наверх заново.</translation>
     </message>
     <message>
         <source>Cloud: sign in again (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: войдите заново (%1)</translation>
     </message>
     <message>
         <source>Cloud: not reachable, will retry (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: не достучаться, попробуем ещё (%1)</translation>
     </message>
     <message>
         <source>Cloud: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: %1</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: токен не прочитать (%1)</translation>
     </message>
     <message>
         <source>Cloud: the password must be at least 8 characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: пароль должен быть не короче 8 знаков</translation>
     </message>
     <message>
         <source>Cloud: set the server address first</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: сначала укажите адрес сервера</translation>
     </message>
     <message>
         <source>Cloud: creating the account…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: создаём учётную запись…</translation>
     </message>
     <message>
         <source>Cloud: signing in…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: входим…</translation>
     </message>
     <message>
         <source>Cloud: nothing deleted — you have to write DELETE</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: ничего не удалено — нужно написать DELETE</translation>
     </message>
     <message>
         <source>Cloud: emptying…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: очищаем…</translation>
     </message>
     <message>
         <source>Cloud: this device is no longer linked</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: это устройство больше не связано</translation>
     </message>
     <message>
         <source>Cloud: opening the keystore…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: открываем хранилище ключей…</translation>
     </message>
     <message>
         <source>Cloud: not linked yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: ещё не связан</translation>
     </message>
     <message>
         <source>Cloud: syncing…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: синхронизируем…</translation>
     </message>
     <message>
         <source>Cloud: sign in first</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: сначала войдите</translation>
     </message>
     <message>
         <source>Cloud: the vault did not open</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: сейф не открылся</translation>
     </message>
     <message>
         <source>Cloud: vault open on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: сейф открыт на этом устройстве</translation>
     </message>
     <message>
         <source>Cloud: the service passwords are waiting for you to sign in on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: пароли служб ждут, пока вы войдёте на этом устройстве</translation>
     </message>
     <message>
         <source>Cloud: the service passwords did not open with this password</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: пароли служб этим паролем не открылись</translation>
     </message>
     <message>
         <source>Cloud: sending the station settings…</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: отправляем настройки станции…</translation>
     </message>
     <message>
         <source>Cloud: write your callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud: напишите свой позывной</translation>
     </message>
     <message numerus="yes">
         <source>Cloud: sending %n QSO…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: отправляем %n QSO…</numerusform>
+            <numerusform>Cloud: отправляем %n QSO…</numerusform>
+            <numerusform>Cloud: отправляем %n QSO…</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n conflict(s) resolved, the other version is in the history</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: улажено %n расхождение, другая версия лежит в истории</numerusform>
+            <numerusform>Cloud: улажено %n расхождения, другие версии лежат в истории</numerusform>
+            <numerusform>Cloud: улажено %n расхождений, другие версии лежат в истории</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Cloud: %n duplicate(s) recognised</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Cloud: распознан %n дубль</numerusform>
+            <numerusform>Cloud: распознано %n дубля</numerusform>
+            <numerusform>Cloud: распознано %n дублей</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -4794,436 +4847,508 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>New band or mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый диапазон или режим</translation>
     </message>
     <message>
         <source>no keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>хранилища ключей нет</translation>
     </message>
     <message>
         <source>No cluster node connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Ни один узел кластера не подключён</translation>
     </message>
     <message>
         <source>Call and frequency in kHz are needed</source>
-        <translation type="unfinished"></translation>
+        <translation>Нужны позывной и частота в кГц</translation>
     </message>
     <message>
         <source>rebuilding the worked list: %1 s</source>
-        <translation type="unfinished"></translation>
+        <translation>перестраиваем список проведённых: %1 с</translation>
     </message>
     <message>
         <source>Decodium is not connected with DecoLink: cannot tune to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodium не подключён по DecoLink: настроить на %1 нельзя</translation>
     </message>
     <message>
         <source>Tune Decodium: %1 %2 kHz %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Настраиваем Decodium: %1 %2 кГц %3</translation>
     </message>
     <message>
         <source>Alert</source>
-        <translation type="unfinished"></translation>
+        <translation>Оповещение</translation>
     </message>
     <message>
         <source>%1 LoTW users · list of %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 пользователей LoTW · список от %2</translation>
     </message>
     <message>
         <source>downloading the LoTW user list…</source>
-        <translation type="unfinished"></translation>
+        <translation>скачиваем список пользователей LoTW…</translation>
     </message>
     <message>
         <source>LoTW user list: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Список пользователей LoTW: %1</translation>
     </message>
     <message>
         <source>LoTW user list: unexpected content</source>
-        <translation type="unfinished"></translation>
+        <translation>Список пользователей LoTW: неожиданное содержимое</translation>
     </message>
     <message>
         <source>%1 LoTW users · updated today</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 пользователей LoTW · обновлён сегодня</translation>
     </message>
 </context>
 <context>
     <name>decolog::app::DecoLogController</name>
     <message>
         <source>%1 connected from %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 подключился с %2</translation>
     </message>
     <message>
         <source>%1 closed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 закрыт</translation>
     </message>
     <message>
         <source>%1 not heard for 45 s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 не слышно уже 45 с</translation>
     </message>
     <message>
         <source>DecoLink: the port is free again, listening on 127.0.0.1:%1</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoLink: порт снова свободен, слушаем 127.0.0.1:%1</translation>
     </message>
     <message>
         <source>DecoLink: client connected (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoLink: клиент подключился (%1)</translation>
     </message>
     <message>
         <source>DecoLink: client disconnected (%1 left)</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoLink: клиент отключился (осталось %1)</translation>
     </message>
     <message>
         <source>%1: %2 found</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2 найден</translation>
     </message>
     <message>
         <source>%1: %2 completed from %3 (%4)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2 дополнен из %3 (%4)</translation>
     </message>
     <message>
         <source>QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO</translation>
     </message>
     <message>
         <source>LoTW: downloading… %1 kB</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: скачиваем… %1 кБ</translation>
     </message>
     <message numerus="yes">
         <source>Log opened: %1 (%n QSO)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Журнал открыт: %1 (%n QSO)</numerusform>
+            <numerusform>Журнал открыт: %1 (%n QSO)</numerusform>
+            <numerusform>Журнал открыт: %1 (%n QSO)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Cannot open log %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Не открыть журнал %1: %2</translation>
+    </message>
+    <message>
+        <source>This computer has no font with ideographs: the writing shows up as little boxes. On Windows they arrive with the language: Settings → Time &amp; language → Language → Add a language.</source>
+        <translation>На этом компьютере нет шрифта с иероглифами: текст выходит квадратиками. В Windows они приходят вместе с языком: Параметры → Время и язык → Язык → Добавить язык.</translation>
     </message>
     <message>
         <source>loading the log table</source>
-        <translation type="unfinished"></translation>
+        <translation>загружаем таблицу журнала</translation>
     </message>
     <message>
         <source>reloading the log table</source>
-        <translation type="unfinished"></translation>
+        <translation>перезагружаем таблицу журнала</translation>
     </message>
     <message>
         <source>DecoLink listening on 127.0.0.1:%1</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoLink слушает 127.0.0.1:%1</translation>
     </message>
     <message>
         <source>DecoLink cannot listen on %1: %2 — another DecoDXLog is probably open. Retrying every %3 seconds.</source>
-        <translation type="unfinished"></translation>
+        <translation>DecoLink не может слушать %1: %2 — похоже, открыт другой DecoDXLog. Пробуем снова каждые %3 с.</translation>
     </message>
     <message>
         <source>(not introduced yet)</source>
-        <translation type="unfinished"></translation>
+        <translation>(ещё не представился)</translation>
     </message>
     <message>
         <source>%1: %2 s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2 с</translation>
     </message>
     <message numerus="yes">
         <source>The window stopped answering for %1 s (%n time(s) since the start)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Окно не отвечало %1 с (%n раз с запуска)</numerusform>
+            <numerusform>Окно не отвечало %1 с (%n раза с запуска)</numerusform>
+            <numerusform>Окно не отвечало %1 с (%n раз с запуска)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Listening on UDP %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Слушаем UDP %1</translation>
     </message>
     <message>
         <source>Listening on UDP %1, multicast %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Слушаем UDP %1, multicast %2</translation>
     </message>
     <message>
         <source>Cannot listen on UDP %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Не слушать UDP %1: %2</translation>
     </message>
     <message>
         <source>built on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>собрано %1</translation>
+    </message>
+    <message>
+        <source>radio (CAT)</source>
+        <translation>трансивер (CAT)</translation>
     </message>
     <message>
         <source>Interface language: %1 — it changes at the next start</source>
-        <translation type="unfinished"></translation>
+        <translation>Язык интерфейса: %1 — сменится при следующем запуске</translation>
     </message>
     <message>
         <source>built-in</source>
-        <translation type="unfinished"></translation>
+        <translation>встроенный</translation>
     </message>
     <message>
         <source>Not a cty.csv file</source>
-        <translation type="unfinished"></translation>
+        <translation>Это не файл cty.csv</translation>
     </message>
     <message>
         <source>%1 is older than the one in use (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 старее того, что в ходу (%2)</translation>
     </message>
     <message>
         <source>cty.csv %1 installed: %2 DXCC entities</source>
-        <translation type="unfinished"></translation>
+        <translation>cty.csv %1 поставлен: территорий DXCC — %2</translation>
     </message>
     <message>
         <source>DXCC filled on %1 of %2 QSO (cty.csv %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC дополнен у %1 из %2 QSO (cty.csv %3)</translation>
     </message>
     <message>
         <source>Station profile created from Decodium: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Профиль станции создан из Decodium: %1</translation>
     </message>
     <message>
         <source>%1 %2 %3: already worked in this activation</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 %3: в этой активации уже был</translation>
     </message>
     <message>
         <source>%1 from %2 → %3 %4 %5 saved (uuid %6)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 от %2 → %3 %4 %5 сохранён (uuid %6)</translation>
     </message>
     <message>
         <source> · new DXCC on FT2: %1</source>
-        <translation type="unfinished"></translation>
+        <translation> · новый DXCC на FT2: %1</translation>
     </message>
     <message>
         <source>Duplicate ignored: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Дубль пропущен: %1</translation>
     </message>
     <message>
         <source>QSO not logged: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO не записан: %1</translation>
     </message>
     <message>
         <source>Already worked in this activation</source>
-        <translation type="unfinished"></translation>
+        <translation>В этой активации уже был</translation>
     </message>
     <message>
         <source>Logged %1 %2 %3 (manual)</source>
-        <translation type="unfinished"></translation>
+        <translation>Записан %1 %2 %3 (вручную)</translation>
     </message>
     <message numerus="yes">
         <source>Already in log (within %n minute(s))</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Уже есть в журнале (в пределах %n минуты)</numerusform>
+            <numerusform>Уже есть в журнале (в пределах %n минут)</numerusform>
+            <numerusform>Уже есть в журнале (в пределах %n минут)</numerusform>
+        </translation>
     </message>
     <message>
         <source>Cannot save the QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO не сохранить</translation>
     </message>
     <message>
         <source>Edited %1 · revision %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменён %1 · версия %2</translation>
     </message>
     <message>
         <source>Deleted %1 (kept in history)</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалён %1 (остаётся в истории)</translation>
     </message>
     <message>
         <source>Deleted %1 QSO (kept in history)</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалено %1 QSO (остаются в истории)</translation>
     </message>
     <message>
         <source>Restored an earlier revision of QSO #%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Возвращена прежняя версия QSO #%1</translation>
     </message>
     <message>
         <source>Tag &quot;%1&quot; added to %2 QSO (%3 already had it)</source>
-        <translation type="unfinished"></translation>
+        <translation>Метка «%1» добавлена к %2 QSO (у %3 она уже была)</translation>
     </message>
     <message>
         <source>Tag &quot;%1&quot; removed from %2 QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Метка «%1» снята с %2 QSO</translation>
     </message>
     <message>
         <source>Cannot read %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Не прочитать %1: %2</translation>
     </message>
     <message>
         <source>%1: %2 new, %3 duplicates, %4 rejected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: новых %2, дублей %3, отклонено %4</translation>
     </message>
     <message>
         <source>Cannot write %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Не записать %1: %2</translation>
     </message>
     <message numerus="yes">
         <source>%n QSO → %1</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO → %1</numerusform>
+            <numerusform>%n QSO → %1</numerusform>
+            <numerusform>%n QSO → %1</numerusform>
+        </translation>
     </message>
     <message>
         <source>%1 · %2 MB</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2 МБ</translation>
     </message>
     <message>
         <source>Backup failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Копия не удалась: %1</translation>
     </message>
     <message>
         <source>%1 → %2 (%3 MB)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 → %2 (%3 МБ)</translation>
     </message>
     <message>
         <source>LoTW: add username and password in Setup → QSL services</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: укажите имя пользователя и пароль в «Настройки → Службы QSL»</translation>
     </message>
     <message>
         <source>LoTW: downloading all confirmations…</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: скачиваем все подтверждения…</translation>
     </message>
     <message>
         <source>LoTW: downloading confirmations since %1…</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: скачиваем подтверждения с %1…</translation>
     </message>
     <message>
         <source>LoTW: password not available (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: пароль недоступен (%1)</translation>
     </message>
     <message>
         <source>LoTW: %1 new confirmations, %2 already marked, %3 not in the log</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: новых подтверждений %1, уже отмечено %2, нет в журнале %3</translation>
     </message>
     <message>
         <source>  not in the log: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>  нет в журнале: %1</translation>
     </message>
     <message>
         <source>  %1 records without call, band or date</source>
-        <translation type="unfinished"></translation>
+        <translation>  записей без позывного, диапазона или даты: %1</translation>
     </message>
     <message>
         <source>New DXCC confirmed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Подтверждён новый DXCC: %1</translation>
     </message>
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Подтверждена новая территория FT2 Award: %1</translation>
     </message>
     <message numerus="yes">
         <source>Completing %n QSO from the callbook…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Дополняем %n QSO из callbook…</numerusform>
+            <numerusform>Дополняем %n QSO из callbook…</numerusform>
+            <numerusform>Дополняем %n QSO из callbook…</numerusform>
+        </translation>
     </message>
     <message>
         <source>Every QSO already has its grid.</source>
-        <translation type="unfinished"></translation>
+        <translation>У каждого QSO локатор уже есть.</translation>
     </message>
     <message numerus="yes">
         <source>%n QSO to complete from the callbook: one search at a time, it takes a while.</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Из callbook нужно дополнить %n QSO: по одному запросу за раз, это небыстро.</numerusform>
+            <numerusform>Из callbook нужно дополнить %n QSO: по одному запросу за раз, это небыстро.</numerusform>
+            <numerusform>Из callbook нужно дополнить %n QSO: по одному запросу за раз, это небыстро.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Stopped: %1 of %2 QSO done.</source>
-        <translation type="unfinished"></translation>
+        <translation>Остановлено: сделано %1 из %2 QSO.</translation>
     </message>
     <message>
         <source>Callbook: %1 QSO looked at.</source>
-        <translation type="unfinished"></translation>
+        <translation>Callbook: просмотрено %1 QSO.</translation>
     </message>
     <message>
         <source>Callbook: %1 of %2…</source>
-        <translation type="unfinished"></translation>
+        <translation>Callbook: %1 из %2…</translation>
     </message>
     <message numerus="yes">
         <source>%n QSO cleaned up from a bad old import (the previous text stays in the history).</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Починен %n QSO после плохого старого импорта (прежний текст остаётся в истории).</numerusform>
+            <numerusform>Починено %n QSO после плохого старого импорта (прежний текст остаётся в истории).</numerusform>
+            <numerusform>Починено %n QSO после плохого старого импорта (прежний текст остаётся в истории).</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
     <message numerus="yes">
         <source>%n QSO in the paper queue</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO в бумажной очереди</numerusform>
+            <numerusform>%n QSO в бумажной очереди</numerusform>
+            <numerusform>%n QSO в бумажной очереди</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n QSL to answer put in the queue</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>В очередь поставлена %n QSL для ответа</numerusform>
+            <numerusform>В очередь поставлено %n QSL для ответа</numerusform>
+            <numerusform>В очередь поставлено %n QSL для ответа</numerusform>
+        </translation>
     </message>
     <message>
         <source>no QSL waiting for an answer</source>
-        <translation type="unfinished"></translation>
+        <translation>нет QSL, ждущих ответа</translation>
     </message>
     <message numerus="yes">
         <source>%n QSL marked as sent</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSL отмечена как отправленная</numerusform>
+            <numerusform>%n QSL отмечено как отправленные</numerusform>
+            <numerusform>%n QSL отмечено как отправленные</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n QSO taken out of the queue</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n QSO убран из очереди</numerusform>
+            <numerusform>%n QSO убрано из очереди</numerusform>
+            <numerusform>%n QSO убрано из очереди</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%n label(s) written</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Написана %n наклейка</numerusform>
+            <numerusform>Написано %n наклейки</numerusform>
+            <numerusform>Написано %n наклеек</numerusform>
+        </translation>
     </message>
     <message>
         <source>QSL labels: %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Наклейки QSL: %1 (%2)</translation>
     </message>
 </context>
 <context>
     <name>decolog::app::QslController</name>
     <message>
         <source>%1: stopped, %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: остановлено, %2</translation>
     </message>
     <message>
         <source>TQSL not found: install Trusted QSL or set its path here</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL не найден: поставьте Trusted QSL или укажите здесь путь к нему</translation>
     </message>
     <message>
         <source>TQSL is installed but has not been set up yet: open it once, so it creates its own folder with certificates and station locations</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL стоит, но ещё не настроен: откройте его один раз, чтобы он создал свою папку с сертификатами и station locations</translation>
     </message>
     <message>
         <source>TQSL has no callsign certificate yet: load the .tq6 file ARRL sends you (the .tq5 request alone does not sign anything) — TQSL&apos;s folder is %1</source>
-        <translation type="unfinished"></translation>
+        <translation>У TQSL ещё нет сертификата на позывной: загрузите файл .tq6, который присылает ARRL (сама заявка .tq5 ничего не подписывает) — папка TQSL: %1</translation>
     </message>
     <message>
         <source>TQSL has no station location: create one in TQSL (Station → Add location)</source>
-        <translation type="unfinished"></translation>
+        <translation>У TQSL нет station location: создайте её в TQSL (Station → Add location)</translation>
     </message>
     <message numerus="yes">
         <source>TQSL ready · %n station location(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>TQSL готов · %n station location</numerusform>
+            <numerusform>TQSL готов · %n station location</numerusform>
+            <numerusform>TQSL готов · %n station location</numerusform>
+        </translation>
     </message>
     <message>
         <source>no credentials: Setup → QSL services</source>
-        <translation type="unfinished"></translation>
+        <translation>нет учётных данных: Настройки → Службы QSL</translation>
     </message>
     <message>
         <source>no API key: Setup → QSL services</source>
-        <translation type="unfinished"></translation>
+        <translation>нет ключа API: Настройки → Службы QSL</translation>
     </message>
     <message>
         <source>no keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>хранилища ключей нет</translation>
     </message>
     <message>
         <source>nothing to send: they have already gone</source>
-        <translation type="unfinished"></translation>
+        <translation>отправлять нечего: уже ушли</translation>
     </message>
     <message>
         <source>nothing to send</source>
-        <translation type="unfinished"></translation>
+        <translation>отправлять нечего</translation>
     </message>
     <message>
         <source>Cannot write %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не записать %1</translation>
     </message>
     <message numerus="yes">
         <source>LoTW: sending %n QSO with TQSL…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>LoTW: отправляем %n QSO через TQSL…</numerusform>
+            <numerusform>LoTW: отправляем %n QSO через TQSL…</numerusform>
+            <numerusform>LoTW: отправляем %n QSO через TQSL…</numerusform>
+        </translation>
     </message>
     <message>
         <source>Club Log: the station profile has no callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: в профиле станции нет позывного</translation>
     </message>
     <message>
         <source>%1: no credentials (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: нет учётных данных (%2)</translation>
     </message>
     <message numerus="yes">
         <source>Club Log: sending %n QSO…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Club Log: отправляем %n QSO…</numerusform>
+            <numerusform>Club Log: отправляем %n QSO…</numerusform>
+            <numerusform>Club Log: отправляем %n QSO…</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%1: отправляем %n QSO…</numerusform>
+            <numerusform>%1: отправляем %n QSO…</numerusform>
+            <numerusform>%1: отправляем %n QSO…</numerusform>
+        </translation>
     </message>
     <message>
         <source>%1: %2 sent, %3 already there, %4 rejected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: отправлено %2, уже было %3, отклонено %4</translation>
     </message>
 </context>
 <context>
@@ -5250,11 +5375,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>S</source>
-        <translation type="unfinished"></translation>
+        <translation>S</translation>
     </message>
     <message>
         <source>R</source>
-        <translation type="unfinished"></translation>
+        <translation>R</translation>
     </message>
     <message>
         <source>Grid</source>
@@ -5286,7 +5411,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>ITU</source>
-        <translation type="unfinished"></translation>
+        <translation>ITU</translation>
     </message>
     <message>
         <source>IOTA</source>
@@ -5313,246 +5438,250 @@ The call Decodium is working shows up here by itself.</source>
     <name>decolog::app::RigController</name>
     <message>
         <source>Sent: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправлено: %1</translation>
     </message>
     <message>
         <source>Hamlib not found: install it first</source>
-        <translation type="unfinished"></translation>
+        <translation>Hamlib не найден: сперва поставьте его</translation>
     </message>
     <message>
         <source>Pick the radio model first</source>
-        <translation type="unfinished"></translation>
+        <translation>Сначала выберите модель трансивера</translation>
     </message>
     <message>
         <source>No serial port on this computer</source>
-        <translation type="unfinished"></translation>
+        <translation>На этом компьютере нет последовательных портов</translation>
     </message>
     <message numerus="yes">
         <source>Looking for the radio on %n port(s)…</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Ищем трансивер на %n порту…</numerusform>
+            <numerusform>Ищем трансивер на %n портах…</numerusform>
+            <numerusform>Ищем трансивер на %n портах…</numerusform>
+        </translation>
     </message>
     <message>
         <source>The radio did not answer on any port. Check that it is on, that the CAT is enabled, and that no other program is holding the cable.</source>
-        <translation type="unfinished"></translation>
+        <translation>Трансивер не ответил ни на одном порту. Проверьте, включён ли он, включён ли CAT и не держит ли кабель другая программа.</translation>
     </message>
     <message>
         <source>Radio found on %1 at %2 baud</source>
-        <translation type="unfinished"></translation>
+        <translation>Трансивер найден на %1, %2 бод</translation>
     </message>
     <message>
         <source>The radio is not connected: no PTT</source>
-        <translation type="unfinished"></translation>
+        <translation>Трансивер не подключён: PTT нет</translation>
     </message>
     <message>
         <source>PTT on for a moment: the radio should transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>PTT поднят на миг: трансивер должен передать</translation>
     </message>
     <message>
         <source>Hamlib not found: install it, or start rigctld yourself and use the network link</source>
-        <translation type="unfinished"></translation>
+        <translation>Hamlib не найден: поставьте его или запустите rigctld сами и подключайтесь по сети</translation>
     </message>
     <message>
         <source>Pick the radio model and the serial port first</source>
-        <translation type="unfinished"></translation>
+        <translation>Сначала выберите модель трансивера и последовательный порт</translation>
     </message>
     <message>
         <source>Hamlib: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Hamlib: %1</translation>
     </message>
     <message>
         <source>rigctld did not start</source>
-        <translation type="unfinished"></translation>
+        <translation>rigctld не запустился</translation>
     </message>
     <message>
         <source>Hamlib started on %1 (model %2, %3 baud)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hamlib запущен на %1 (модель %2, %3 бод)</translation>
     </message>
     <message>
         <source>No audio input to listen to</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет звукового входа, который слушать</translation>
     </message>
     <message>
         <source>The audio input did not open</source>
-        <translation type="unfinished"></translation>
+        <translation>Звуковой вход не открылся</translation>
     </message>
     <message>
         <source>CW decoder listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Декодер CW слушает %1</translation>
     </message>
     <message>
         <source>CW keyer on %1 (%2): it works with the CAT busy elsewhere</source>
-        <translation type="unfinished"></translation>
+        <translation>Ключ CW на %1 (%2): работает, даже когда CAT занят в другом месте</translation>
     </message>
     <message>
         <source>No CW keyer: pick a port first</source>
-        <translation type="unfinished"></translation>
+        <translation>Ключа CW нет: сначала выберите порт</translation>
     </message>
 </context>
 <context>
     <name>decolog::app::RotorController</name>
     <message>
         <source>Rotor off</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворотное устройство выключено</translation>
     </message>
     <message>
         <source>Looking for rotctld on %1:%2…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ищем rotctld на %1:%2…</translation>
     </message>
     <message>
         <source>Looking for DecoRotor on %1:%2…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ищем DecoRotor на %1:%2…</translation>
     </message>
     <message>
         <source>Turning to %1°</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворачиваем на %1°</translation>
     </message>
     <message>
         <source>Rotor connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворотное устройство подключено</translation>
     </message>
     <message>
         <source>The rotor is off: Setup → Rotor</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворотное устройство выключено: Настройки → Поворотное устройство</translation>
     </message>
     <message>
         <source>%1°</source>
-        <translation type="unfinished"></translation>
+        <translation>%1°</translation>
     </message>
     <message>
         <source>%1 · %2°</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 · %2°</translation>
     </message>
     <message>
         <source>Rotor to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворотное устройство на %1</translation>
     </message>
     <message>
         <source>%1 s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 с</translation>
     </message>
     <message>
         <source>%1 m</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 мин</translation>
     </message>
     <message>
         <source>%1 h %2 m</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ч %2 мин</translation>
     </message>
     <message>
         <source>APP (WebSocket)</source>
-        <translation type="unfinished"></translation>
+        <translation>APP (WebSocket)</translation>
     </message>
     <message>
         <source>WEB UI</source>
-        <translation type="unfinished"></translation>
+        <translation>WEB UI</translation>
     </message>
     <message>
         <source>ROTCTLD (Hamlib)</source>
-        <translation type="unfinished"></translation>
+        <translation>ROTCTLD (Hamlib)</translation>
     </message>
     <message>
         <source>Rotor: %1 set on the gateway</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворот: %1 задано на шлюзе</translation>
     </message>
     <message>
         <source>Rotor: memory &quot;%1&quot; at %2°</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворот: ячейка «%1» на %2°</translation>
     </message>
     <message>
         <source>rotctld does not do locators: point in degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>rotctld не понимает локаторы: направляйте в градусах</translation>
     </message>
     <message>
         <source>Rotor: quick stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворот: быстрый стоп</translation>
     </message>
     <message>
         <source>Rotor: stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворот: стоп</translation>
     </message>
     <message>
         <source>Rotor: park</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворот: парковка</translation>
     </message>
 </context>
 <context>
     <name>decolog::app::SolarController</name>
     <message>
         <source>Solar data of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Данные о Солнце от %1</translation>
     </message>
     <message>
         <source>Asking for the solar data…</source>
-        <translation type="unfinished"></translation>
+        <translation>Запрашиваем данные о Солнце…</translation>
     </message>
     <message>
         <source>The solar data cannot be read</source>
-        <translation type="unfinished"></translation>
+        <translation>Данные о Солнце не прочитать</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::CallbookClient</name>
     <message>
         <source>%1 not found on %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 не найден на %2</translation>
     </message>
     <message>
         <source>%1: no credentials. Add them in Setup → Callbook.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: нет учётных данных. Укажите их в «Настройки → Callbook».</translation>
     </message>
     <message>
         <source>%1: password not available (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: пароль недоступен (%2)</translation>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>%1 not found</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 не найден</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::CloudSync</name>
     <message>
         <source>This Cloud server does not know this request (%1): it is older than your DecoDXLog and has to be updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Этот сервер Cloud не знает такого запроса (%1): он старее вашего DecoDXLog, его надо обновить.</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::ClusterConnection</name>
     <message>
         <source>the node answers but says nothing: it may be down — try another source</source>
-        <translation type="unfinished"></translation>
+        <translation>узел отвечает, но молчит: может, он лежит — попробуйте другой источник</translation>
     </message>
     <message>
         <source>off</source>
-        <translation type="unfinished"></translation>
+        <translation>выкл.</translation>
     </message>
     <message>
         <source>connecting</source>
-        <translation type="unfinished"></translation>
+        <translation>подключаемся</translation>
     </message>
     <message>
         <source>logging in</source>
-        <translation type="unfinished"></translation>
+        <translation>входим</translation>
     </message>
     <message>
         <source>online</source>
-        <translation type="unfinished"></translation>
+        <translation>на связи</translation>
     </message>
     <message>
         <source>retrying</source>
-        <translation type="unfinished"></translation>
+        <translation>пробуем снова</translation>
     </message>
     <message>
         <source>retrying: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>пробуем снова: %1</translation>
     </message>
     <message>
         <source>no callsign: set it in the station profile or in the source</source>
-        <translation type="unfinished"></translation>
+        <translation>нет позывного: укажите его в профиле станции или в источнике</translation>
     </message>
     <message>
         <source>connection closed</source>
@@ -5560,230 +5689,230 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>password needed</source>
-        <translation type="unfinished"></translation>
+        <translation>нужен пароль</translation>
     </message>
     <message>
         <source>no password stored</source>
-        <translation type="unfinished"></translation>
+        <translation>пароль не сохранён</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::CredentialStore</name>
     <message>
         <source>not available in this build</source>
-        <translation type="unfinished"></translation>
+        <translation>в этой сборке нет</translation>
     </message>
     <message>
         <source>Windows Credential Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows Credential Manager</translation>
     </message>
     <message>
         <source>macOS Keychain</source>
-        <translation type="unfinished"></translation>
+        <translation>macOS Keychain</translation>
     </message>
     <message>
         <source>Secret Service (GNOME Keyring / KWallet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Secret Service (GNOME Keyring / KWallet)</translation>
     </message>
     <message>
         <source>Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Учётная запись</translation>
     </message>
     <message>
         <source>Token</source>
-        <translation type="unfinished"></translation>
+        <translation>Токен</translation>
     </message>
     <message>
         <source>Sync between devices (Phase 3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Синхронизация между устройствами (этап 3)</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя пользователя</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль</translation>
     </message>
     <message>
         <source>Callbook lookups (XML subscription)</source>
-        <translation type="unfinished"></translation>
+        <translation>Запросы в callbook (подписка XML)</translation>
     </message>
     <message>
         <source>Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Позывной</translation>
     </message>
     <message>
         <source>API key</source>
-        <translation type="unfinished"></translation>
+        <translation>Ключ API</translation>
     </message>
     <message>
         <source>Upload and confirmations of the QRZ Logbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузка и подтверждения QRZ Logbook</translation>
     </message>
     <message>
         <source>Downloading confirmations; upload goes through the local TQSL</source>
-        <translation type="unfinished"></translation>
+        <translation>Скачивание подтверждений; загрузка идёт через местный TQSL</translation>
     </message>
     <message>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Эл. почта</translation>
     </message>
     <message>
         <source>App password</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль приложения</translation>
     </message>
     <message>
         <source>Real-time upload and OQRS</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузка в реальном времени и OQRS</translation>
     </message>
     <message>
         <source>Upload and eQSL confirmations</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузка и подтверждения eQSL</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>
-        <translation type="unfinished"></translation>
+        <translation>Бесплатные запросы в callbook</translation>
     </message>
     <message>
         <source>Spots from your HamAlert triggers (telnet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Споты по вашим триггерам HamAlert (telnet)</translation>
     </message>
     <message>
         <source>Account saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Учётная запись сохранена</translation>
     </message>
     <message>
         <source>Stored in the system keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранено в хранилище ключей системы</translation>
     </message>
     <message>
         <source>No system keystore in this build: the secret was not saved</source>
-        <translation type="unfinished"></translation>
+        <translation>В этой сборке нет хранилища ключей системы: секрет не сохранён</translation>
     </message>
     <message>
         <source>Removed</source>
-        <translation type="unfinished"></translation>
+        <translation>Убрано</translation>
     </message>
     <message>
         <source>No system keystore in this build</source>
-        <translation type="unfinished"></translation>
+        <translation>В этой сборке нет хранилища ключей системы</translation>
     </message>
     <message>
         <source>Secret present in the keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>Секрет есть в хранилище ключей</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::CwKeyer</name>
     <message>
         <source>No serial port chosen for the CW keyer</source>
-        <translation type="unfinished"></translation>
+        <translation>Для ключа CW не выбран последовательный порт</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::CwKeyerWorker</name>
     <message>
         <source>Cannot open %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Не открыть %1: %2</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::LotwClient</name>
     <message>
         <source>LoTW: download cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: скачивание прервано</translation>
     </message>
     <message>
         <source>LoTW: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW: %1</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::RigControl</name>
     <message>
         <source>Radio connected (rigctld %1:%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Трансивер подключён (rigctld %1:%2)</translation>
     </message>
     <message>
         <source>Radio not reachable: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>До трансивера не достучаться: %1</translation>
     </message>
     <message>
         <source>Looking for the radio on %1:%2…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ищем трансивер на %1:%2…</translation>
     </message>
     <message>
         <source>Radio off</source>
-        <translation type="unfinished"></translation>
+        <translation>Трансивер выключен</translation>
     </message>
     <message>
         <source>The radio is not connected: nothing sent in CW</source>
-        <translation type="unfinished"></translation>
+        <translation>Трансивер не подключён: в CW ничего не ушло</translation>
     </message>
     <message>
         <source>This CAT link does not key CW (rigctld: %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Эта связь по CAT не манипулирует CW (rigctld: %1)</translation>
     </message>
     <message>
         <source>The radio did not take the CW text (rigctld: %1). Not every radio — and not every CAT bridge — can key CW: for the macros you need rigctld talking to the radio itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Трансивер не принял текст CW (rigctld: %1). Не всякий трансивер — и не всякий мост CAT — умеет манипулировать: для макросов нужен rigctld, говорящий с самим трансивером.</translation>
     </message>
     <message>
         <source>The radio answered with an error (rigctld: %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Трансивер ответил ошибкой (rigctld: %1)</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::RotorLink</name>
     <message>
         <source>Rotor: connected to DecoRotor on %1:%2</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворот: подключились к DecoRotor на %1:%2</translation>
     </message>
     <message>
         <source>Rotor: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворот: %1</translation>
     </message>
     <message>
         <source>rotctld (Hamlib)</source>
-        <translation type="unfinished"></translation>
+        <translation>rotctld (Hamlib)</translation>
     </message>
     <message>
         <source>Rotor: connected to rotctld on %1:%2</source>
-        <translation type="unfinished"></translation>
+        <translation>Поворот: подключились к rotctld на %1:%2</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::SolarFetcher</name>
     <message>
         <source>The solar data cannot be read</source>
-        <translation type="unfinished"></translation>
+        <translation>Данные о Солнце не прочитать</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::TqslUploader</name>
     <message>
         <source>TQSL not found: install Trusted QSL, or set its path in Setup → QSL services</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL не найден: поставьте Trusted QSL или укажите путь в «Настройки → Службы QSL»</translation>
     </message>
     <message>
         <source>TQSL has no certificate: import your LoTW certificate in TQSL first</source>
-        <translation type="unfinished"></translation>
+        <translation>У TQSL нет сертификата: сначала загрузите свой сертификат LoTW в TQSL</translation>
     </message>
     <message>
         <source>TQSL stopped unexpectedly</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL неожиданно остановился</translation>
     </message>
     <message>
         <source>Cannot run TQSL: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не запустить TQSL: %1</translation>
     </message>
 </context>
 <context>
     <name>decolog::core::WebQslUploader</name>
     <message>
         <source>Club Log: email, password, callsign and API key are all needed</source>
-        <translation type="unfinished"></translation>
+        <translation>Club Log: нужны и почта, и пароль, и позывной, и ключ API</translation>
     </message>
 </context>
 </TS>

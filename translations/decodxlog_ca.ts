@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it_IT" sourcelanguage="en">
+<TS version="2.1" language="ca_ES" sourcelanguage="en">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -4939,6 +4939,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>No es pot obrir el quadern %1: %2</translation>
     </message>
     <message>
+        <source>This computer has no font with ideographs: the writing shows up as little boxes. On Windows they arrive with the language: Settings → Time &amp; language → Language → Add a language.</source>
+        <translation>Aquest ordinador no té cap lletra amb ideogrames: l&apos;escriptura surt en quadradets. A Windows arriben amb la llengua: Configuració → Hora i idioma → Idioma → Afegeix un idioma.</translation>
+    </message>
+    <message>
         <source>loading the log table</source>
         <translation>carregant la taula del quadern</translation>
     </message>
@@ -4984,6 +4988,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>built on %1</source>
         <translation>compilat el %1</translation>
+    </message>
+    <message>
+        <source>radio (CAT)</source>
+        <translation>ràdio (CAT)</translation>
     </message>
     <message>
         <source>Interface language: %1 — it changes at the next start</source>
