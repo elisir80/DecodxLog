@@ -1,0 +1,115 @@
+name: Release Linux
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag
+        required: true
+        default: v1.5.1
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  appimage:
+    name: Linux ${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x86_64
+            runner: ubuntu-24.04
+            linuxdeploy_arch: x86_64
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
+            linuxdeploy_arch: aarch64
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            cmake \
+            file \
+            fuse \
+            libfuse2 \
+            ninja-build \
+            patchelf \
+            wget \
+            qt6-base-dev \
+            qt6-base-dev-tools \
+            qt6-declarative-dev \
+            qt6-declarative-dev-tools \
+            qt6-l10n-tools \
+            qt6-multimedia-dev \
+            qt6-positioning-dev \
+            qt6-serialport-dev \
+            qt6-websockets-dev \
+            qtkeychain-qt6-dev \
+            libssl-dev
+
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
+
+      - name: Build
+        run: cmake --build build --parallel 3 --target decolog
+
+      - name: Install into AppDir
+        run: DESTDIR="$PWD/AppDir" cmake --install build
+
+      - name: Add desktop metadata
+        run: |
+          mkdir -p AppDir/usr/share/applications AppDir/usr/share/icons/hicolor/256x256/apps
+          cp resources/decodxlog.png AppDir/usr/share/icons/hicolor/256x256/apps/decodxlog.png
+          cat > AppDir/usr/share/applications/decodxlog.desktop <<'EOF'
+          [Desktop Entry]
+          Type=Application
+          Name=DecoDXLog
+          Exec=DecoDXLog
+          Icon=decodxlog
+          Categories=Network;HamRadio;
+          EOF
+
+      - name: Download linuxdeploy
+        run: |
+          wget -O linuxdeploy "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-${{ matrix.linuxdeploy_arch }}.AppImage"
+          wget -O linuxdeploy-plugin-qt "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-${{ matrix.linuxdeploy_arch }}.AppImage"
+          chmod +x linuxdeploy linuxdeploy-plugin-qt
+
+      - name: Build AppImage
+        env:
+          QML_SOURCES_PATHS: qml,libs/decodium-ui/qml
+          VERSION: ${{ github.ref_name }}
+        run: |
+          ./linuxdeploy \
+            --appdir AppDir \
+            --executable AppDir/usr/bin/DecoDXLog \
+            --desktop-file AppDir/usr/share/applications/decodxlog.desktop \
+            --icon-file AppDir/usr/share/icons/hicolor/256x256/apps/decodxlog.png \
+            --plugin qt \
+            --output appimage
+          version="${GITHUB_REF_NAME#v}"
+          mkdir -p release-assets
+          mv DecoDXLog-*.AppImage "release-assets/DecoDXLog-$version-linux-${{ matrix.arch }}.AppImage"
+
+      - name: Ensure release exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ github.event.inputs.tag || github.ref_name }}
+        run: gh release view "$TAG_NAME" >/dev/null 2>&1 || gh release create "$TAG_NAME" --title "DecoDXLog $TAG_NAME" --notes "DecoDXLog $TAG_NAME"
+
+      - name: Upload release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ github.event.inputs.tag || github.ref_name }}
+        run: gh release upload "$TAG_NAME" release-assets/* --clobber
+
