@@ -3,6 +3,80 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.7.1 — 21 settembre 2026
+
+**Le versioni per Linux e macOS si costruiscono da sole.** Tre flussi di GitHub Actions —
+`release-linux.yml`, `release-macos.yml`, `release-windows.yml` — preparano l'AppImage, il
+pacchetto per il Mac e quello per Windows a ogni tag, con il Qt ufficiale invece di quello
+che capita sulla macchina. Il lavoro e' di elisir80, che tiene le build fuori da Windows.
+
+Dentro il programma non cambia niente di quello che si vede: un `#include` che mancava e
+che su Windows passava lo stesso (`QJsonDocument` in `DecoLogController.cpp`), e il numero
+di versione scritto anche nel pacchetto del Mac, che altrimenti nel Finder resta a zero.
+
+## 1.7.0 — 21 settembre 2026
+
+**«Gli otto di serie»: i campi che una QSL ha sempre, gia' nei loro riquadri.** Un
+pulsante, e sulla cartolina compaiono nominativo, giorno, mese, anno, UTC, MHz, modo e RST,
+ognuno in mezzo alla sua casella. Prima bisognava aggiungerli uno per uno dal menu e poi
+trascinarli, otto volte.
+
+Le posizioni non sono a occhio. Sono misurate sulla cartolina vera: si trovano le righe e
+le colonne della tabella guardando dove i pixel sono scuri, si prende il centro di ogni
+casella vuota, e da li' escono le frazioni. La fascia del nominativo comincia dove finisce
+la scritta «Confirming QSO/SWL to:», che pure si misura invece di indovinarla.
+
+Il pulsante non sdoppia niente: un campo gia' posato si sposta al suo posto invece di
+comparire due volte, e quello che si e' messo a mano e non e' fra gli otto — un testo
+libero, il nome, il locatore — resta dov'e'. La prova automatica lo verifica, e verifica
+anche che tutti e otto cadano dentro i riquadri e non a un pelo fuori.
+
+Su una cartolina fatta in un altro modo finiscono nel posto sbagliato: allora si
+trascinano, che e' il mestiere di questo pannello. Il fumetto del pulsante lo dice.
+
+## 1.6.1 — 21 settembre 2026
+
+**Nel menu «Aggiungi un campo» il testo non si leggeva.** Le voci — Nominativo, Data,
+Giorno, e tutte le altre — uscivano grigio scuro su fondo scuro, come se fossero spente.
+
+Era una voce di menu di Qt lasciata com'e': quella, sul tema scuro, tiene i colori del
+sistema. Tutti gli altri menu del programma usano StyledMenuItem, che i colori li prende
+dal tema; quello della cartolina se n'era dimenticato — ed era l'unico in tutto l'albero.
+Adesso e' come gli altri: carattere a spaziatura fissa, testo chiaro, la voce sotto il
+puntatore si accende.
+
+## 1.6.0 — 21 settembre 2026
+
+**La cartolina QSL torna, vestita come il resto del programma.** Nella 1.5.1 era stata
+tolta per un malinteso: il problema non era la funzione, era che il pannello non somigliava
+a niente altro dentro DecoDXLog — una striscia di controlli nudi in mezzo a una finestra
+fatta di pannelli di vetro.
+
+Adesso sono tre pannelli come tutti gli altri, con la testata, il pallino e le etichette
+sopra i controlli:
+
+- **La cartolina**, che si prende tutto lo spazio che avanza. Il modello si carica dalla
+  sua testata, dove stanno anche il nome del file e la misura in pixel; senza modello il
+  riquadro non finge niente, dice cosa manca e offre il pulsante per caricarlo.
+- **Il campo**, che cambia titolo secondo quello che si e' scelto — «Campo · Nominativo» —
+  e tiene corpo, aggancio, colore e grassetto ognuno sotto la sua etichetta. Il colore in
+  uso si riconosce dal bordo.
+- **Stampare**, con le cartoline per foglio e i due pulsanti.
+
+La cartolina vera sta in mezzo al suo pannello con un filo di bordo attorno: porta i propri
+colori, come una foto appoggiata sul tavolo, e non si mischia col tema scuro.
+
+Di sotto non e' cambiato niente: gli stessi ventuno campi, le stesse posizioni in frazione
+del modello, lo stesso PDF e gli stessi PNG.
+
+## 1.5.1 — 21 settembre 2026
+
+**Via il laboratorio delle QSL cartacee.** La 1.5.0 aveva aggiunto un pannello per
+disegnare la propria cartolina QSL — caricare l'immagine, posarci sopra i campi, stamparla.
+E' durata poche ore, per un malinteso: il guaio era il vestito, non la funzione, e nella
+1.6.0 e' tornata. La riga resta qui perche' la 1.5.1 e' uscita davvero, e chi l'ha
+installata deve poter capire cosa gli era successo.
+
 ## 1.5.0 — 21 settembre 2026
 
 **La cartolina QSL si stampa da qui.** Fino a ieri delle QSL di carta DecoDXLog sapeva
