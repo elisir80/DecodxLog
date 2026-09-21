@@ -48,6 +48,11 @@ jobs:
         working-directory: build
         env:
           QT_QPA_PLATFORM: offscreen
+          # La prova della radio cade solo qui, mai su una macchina vera: in
+          # dodici giri di fila non sbaglia un colpo. Finche' non si capisce
+          # perche', il traccia-risposte resta acceso, cosi' la prossima volta
+          # che cade si legge cosa e' arrivato invece di tirare a indovinare.
+          DECODXLOG_RIG_DEBUG: 1
         run: ctest --output-on-failure
 
       - name: Package
@@ -93,4 +98,9 @@ jobs:
         working-directory: build
         env:
           QT_QPA_PLATFORM: offscreen
+          # La prova della radio cade solo qui, mai su una macchina vera: in
+          # dodici giri di fila non sbaglia un colpo. Finche' non si capisce
+          # perche', il traccia-risposte resta acceso, cosi' la prossima volta
+          # che cade si legge cosa e' arrivato invece di tirare a indovinare.
+          DECODXLOG_RIG_DEBUG: 1
         run: ctest --output-on-failure
