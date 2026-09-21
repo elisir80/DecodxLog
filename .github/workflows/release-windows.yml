@@ -18,79 +18,86 @@ jobs:
   windows:
     name: Windows x64
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: msys2 {0}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install MSYS2 packages
-        uses: msys2/setup-msys2@v2
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
         with:
-          msystem: UCRT64
-          update: true
-          install: >-
-            base-devel
-            git
-            zip
-            mingw-w64-ucrt-x86_64-7zip
-            mingw-w64-ucrt-x86_64-cmake
-            mingw-w64-ucrt-x86_64-gcc
-            mingw-w64-ucrt-x86_64-ninja
-            mingw-w64-ucrt-x86_64-openssl
-            mingw-w64-ucrt-x86_64-qt6-base
-            mingw-w64-ucrt-x86_64-qt6-declarative
-            mingw-w64-ucrt-x86_64-qt6-location
-            mingw-w64-ucrt-x86_64-qt6-multimedia
-            mingw-w64-ucrt-x86_64-qt6-positioning
-            mingw-w64-ucrt-x86_64-qt6-serialport
-            mingw-w64-ucrt-x86_64-qt6-tools
-            mingw-w64-ucrt-x86_64-qt6-websockets
-            mingw-w64-ucrt-x86_64-qtkeychain
+          version: "6.8.3"
+          arch: win64_msvc2022_64
+          modules: "qtmultimedia qtpositioning qtlocation qtserialport qtwebsockets"
+          cache: true
 
-      - name: Complete MSYS2 Qt install
-        run: |
-          pacman -S --needed --noconfirm \
-            mingw-w64-ucrt-x86_64-qt6-multimedia \
-            mingw-w64-ucrt-x86_64-qt6-multimedia-ffmpeg \
-            mingw-w64-ucrt-x86_64-qt6-shadertools \
-            mingw-w64-ucrt-x86_64-qtkeychain
+      - name: Enable MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
 
-      - name: Install Inno Setup
+      - name: Install tools
         shell: pwsh
-        run: choco install innosetup --no-progress -y
+        run: choco install ninja innosetup --no-progress -y
 
       - name: Configure
-        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+        shell: pwsh
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$env:QT_ROOT_DIR"
 
-      - name: Build installer and portable ZIP
-        run: MINGW=/ucrt64 bash scripts/installer.sh
+      - name: Build
+        shell: pwsh
+        run: cmake --build build --parallel 3 --target decolog
 
-      - name: Smoke test
-        run: ./build/DecoDXLog.exe --help || true
-
-      - name: Prepare asset names
-        id: names
-        shell: bash
+      - name: Deploy portable folder
+        shell: pwsh
         run: |
-          version="${GITHUB_REF_NAME#v}"
-          echo "version=$version" >> "$GITHUB_OUTPUT"
-          mkdir -p release-assets
-          cp "DecoDXLog-$version-setup.exe" "release-assets/DecoDXLog-$version-windows-x64-setup.exe"
-          cp "DecoDXLog-$version-win64.zip" "release-assets/DecoDXLog-$version-windows-x64-portable.zip"
+          $version = "${env:GITHUB_REF_NAME}".TrimStart("v")
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Copy-Item build\DecoDXLog.exe dist\
+          & "$env:QT_ROOT_DIR\bin\windeployqt.exe" `
+            --qmldir qml `
+            --qmldir libs\decodium-ui\qml `
+            --release `
+            --no-translations `
+            --no-system-d3d-compiler `
+            --no-opengl-sw `
+            dist\DecoDXLog.exe
+          Copy-Item LICENSE dist\LICENSE.txt
+          Copy-Item resources\cty\COPYRIGHT.txt dist\cty.csv-COPYRIGHT.txt
+          Copy-Item libs\ggmorse\LICENSE dist\ggmorse-LICENSE.txt
+          Copy-Item resources\decodxlog.ico dist\decodxlog.ico
+          @"
+          DecoDXLog $version
+
+          Avvio: doppio clic su DecoDXLog.exe.
+          Il log e le impostazioni stanno in %APPDATA%\Decodium.
+          "@ | Set-Content -Encoding UTF8 dist\LEGGIMI.txt
+
+      - name: Build installer
+        shell: pwsh
+        run: |
+          $version = "${env:GITHUB_REF_NAME}".TrimStart("v")
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          & $iscc /Qp "/DVersion=$version" "/DSource=$PWD\dist" "/DOut=$PWD" "$PWD\packaging\decodxlog.iss"
+
+      - name: Prepare release assets
+        shell: pwsh
+        run: |
+          $version = "${env:GITHUB_REF_NAME}".TrimStart("v")
+          New-Item -ItemType Directory -Force release-assets | Out-Null
+          Compress-Archive -Path dist -DestinationPath "release-assets\DecoDXLog-$version-windows-x64-portable.zip" -Force
+          Copy-Item "DecoDXLog-$version-setup.exe" "release-assets\DecoDXLog-$version-windows-x64-setup.exe"
 
       - name: Ensure release exists
-        shell: bash
+        shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
           TAG_NAME: ${{ github.event.inputs.tag || github.ref_name }}
-        run: gh release view "$TAG_NAME" >/dev/null 2>&1 || gh release create "$TAG_NAME" --title "DecoDXLog $TAG_NAME" --notes "DecoDXLog $TAG_NAME"
+        run: gh release view "$env:TAG_NAME" *> $null; if ($LASTEXITCODE -ne 0) { gh release create "$env:TAG_NAME" --title "DecoDXLog $env:TAG_NAME" --notes "DecoDXLog $env:TAG_NAME" }
 
       - name: Upload release assets
-        shell: bash
+        shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
           TAG_NAME: ${{ github.event.inputs.tag || github.ref_name }}
-        run: gh release upload "$TAG_NAME" release-assets/* --clobber
+        run: gh release upload "$env:TAG_NAME" release-assets\* --clobber
