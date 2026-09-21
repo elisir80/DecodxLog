@@ -26,39 +26,82 @@ jobs:
             runner: ubuntu-24.04
             linuxdeploy_arch: x86_64
           - arch: aarch64
-            runner: ubuntu-24.04-arm
+            runner: ubuntu-26.04-arm
             linuxdeploy_arch: aarch64
-    container:
-      image: archlinux:base-devel
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install dependencies
+      - name: Install Qt x86_64
+        if: matrix.arch == 'x86_64'
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: "6.8.3"
+          arch: linux_gcc_64
+          modules: "qtmultimedia qtpositioning qtlocation qtserialport qtwebsockets"
+          cache: true
+
+      - name: Install x86_64 dependencies
+        if: matrix.arch == 'x86_64'
         run: |
-          pacman -Syu --noconfirm
-          pacman -S --needed --noconfirm \
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
             cmake \
             file \
-            fuse2 \
-            gcc \
-            git \
+            fuse \
+            libfuse2 \
+            libgl1-mesa-dev \
+            libsecret-1-dev \
+            libxkbcommon-dev \
+            ninja-build \
+            patchelf \
+            wget
+
+      - name: Build qtkeychain x86_64
+        if: matrix.arch == 'x86_64'
+        run: |
+          git clone --depth 1 --branch 0.17.0 https://github.com/frankosterfeld/qtkeychain.git /tmp/qtkeychain
+          cmake -S /tmp/qtkeychain -B /tmp/qtkeychain/build -G Ninja -DBUILD_WITH_QT6=ON -DBUILD_TRANSLATIONS=OFF -DCMAKE_INSTALL_PREFIX="$QT_ROOT_DIR"
+          cmake --build /tmp/qtkeychain/build
+          cmake --install /tmp/qtkeychain/build
+
+      - name: Install aarch64 dependencies
+        if: matrix.arch == 'aarch64'
+        run: |
+          sudo add-apt-repository -y universe
+          sudo apt-get update
+          apt-cache policy qt6-location-dev
+          sudo apt-get install -y \
+            build-essential \
+            cmake \
+            file \
+            fuse \
+            libfuse2 \
             ninja-build \
             patchelf \
             wget \
-            openssl \
-            qt6-base \
-            qt6-declarative \
-            qt6-location \
-            qt6-multimedia \
-            qt6-positioning \
-            qt6-serialport \
-            qt6-tools \
-            qt6-websockets \
-            qtkeychain-qt6
+            qt6-base-dev \
+            qt6-base-dev-tools \
+            qt6-declarative-dev \
+            qt6-declarative-dev-tools \
+            qt6-location-dev \
+            qt6-l10n-tools \
+            qt6-multimedia-dev \
+            qt6-positioning-dev \
+            qt6-serialport-dev \
+            qt6-tools-dev \
+            qt6-websockets-dev \
+            qtkeychain-qt6-dev \
+            libssl-dev
 
-      - name: Configure
+      - name: Configure x86_64
+        if: matrix.arch == 'x86_64'
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_PREFIX_PATH="$QT_ROOT_DIR"
+
+      - name: Configure aarch64
+        if: matrix.arch == 'aarch64'
         run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
 
       - name: Build
