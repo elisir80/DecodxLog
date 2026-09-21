@@ -335,9 +335,11 @@ ApplicationWindow {
             rotorWindow.item.requestActivate()
         }
     }
-    function openCards() {
+    function openCards(view) {
         cardsWindow.active = true
         if (cardsWindow.item) {
+            if (view)
+                cardsWindow.item.view = view
             cardsWindow.item.raise()
             cardsWindow.item.requestActivate()
         }
@@ -420,7 +422,7 @@ ApplicationWindow {
         else if (what[0] === "updateget") { decolog.updates.checkNow(); updateGetTimer.start() }
         else if (what[0] === "mainmenu") topBar.openMainMenu()
         else if (what[0] === "stats") openStats()
-        else if (what[0] === "cards") openCards()
+        else if (what[0] === "cards") openCards(what[1])
         else if (what[0] === "cloud") {
             // cloud:signup:CALL:PASSWORD · cloud:login:CALL:PASSWORD · cloud:sync
             if (what[1] === "signup") decolog.cloud.signup(what[2], what[3])

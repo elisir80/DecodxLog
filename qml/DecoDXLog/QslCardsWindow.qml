@@ -14,6 +14,8 @@ ApplicationWindow {
     id: root
 
     property string state: "queue"
+    // Quale dei due mestieri si sta facendo: "queue" o "card".
+    property string view: "queue"
     property int revision: 0
     property var chosen: ({})       // id -> true
 
@@ -80,7 +82,30 @@ ApplicationWindow {
         anchors.margins: 12
         spacing: 10
 
+        // Due mestieri diversi nella stessa finestra: tenere la coda, e
+        // preparare la cartolina da stampare.
         RowLayout {
+            Layout.fillWidth: true
+            spacing: 8
+            Repeater {
+                model: [{ id: "queue", text: qsTr("Queue & labels") },
+                        { id: "card", text: qsTr("QSL card") }]
+                GlassButton {
+                    required property var modelData
+                    text: modelData.text
+                    tone: root.view === modelData.id ? Theme.secondaryColor : Theme.glassBorder
+                    filled: root.view === modelData.id
+                    buttonHeight: 28
+                    fontPixelSize: 12
+                    onClicked: root.view = modelData.id
+                }
+            }
+            Item { Layout.fillWidth: true }
+        }
+        Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Theme.borderSoft }
+
+        RowLayout {
+            visible: root.view === "queue"
             Layout.fillWidth: true
             spacing: 8
 
@@ -116,6 +141,7 @@ ApplicationWindow {
         }
 
         GlassPanel {
+            visible: root.view === "queue"
             Layout.fillWidth: true
             Layout.fillHeight: true
             title: qsTr("Paper QSL · %1 rows · %2 chosen").arg(root.rows.length).arg(root.selectedIds().length)
@@ -246,6 +272,7 @@ ApplicationWindow {
         }
 
         RowLayout {
+            visible: root.view === "queue"
             Layout.fillWidth: true
             spacing: 8
 
@@ -289,6 +316,7 @@ ApplicationWindow {
         }
 
         GlassPanel {
+            visible: root.view === "queue"
             Layout.fillWidth: true
             Layout.preferredHeight: 108
             title: qsTr("Labels · PDF, one label per correspondent")
@@ -343,6 +371,13 @@ ApplicationWindow {
                     font.pixelSize: 11
                 }
             }
+        }
+
+        QslCardDesign {
+            visible: root.view === "card"
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            selectedIds: root.selectedIds()
         }
     }
 

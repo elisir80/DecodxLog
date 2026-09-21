@@ -447,6 +447,10 @@
         <translation>Papīra QSL (%1)</translation>
     </message>
     <message>
+        <source>QSL card</source>
+        <translation>QSL kartīte</translation>
+    </message>
+    <message>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
@@ -2476,6 +2480,141 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>QslCardDesign</name>
+    <message>
+        <source>Card model</source>
+        <translation>Kartītes paraugs</translation>
+    </message>
+    <message>
+        <source>no image yet</source>
+        <translation>vēl nav attēla</translation>
+    </message>
+    <message>
+        <source>The card · %1 fields</source>
+        <translation>Kartīte · %1 lauki</translation>
+    </message>
+    <message>
+        <source>The card</source>
+        <translation>Kartīte</translation>
+    </message>
+    <message>
+        <source>Load an image…</source>
+        <translation>Ielādēt attēlu…</translation>
+    </message>
+    <message>
+        <source>Load the image of your QSL card: a scan or the file the printer gave you. Then drop the fields on it and drag them where the boxes are.</source>
+        <translation>Ielādē savas QSL kartītes attēlu: skenējumu vai tipogrāfijas doto datni. Tad uzliec tai laukus un pavelc tos turp, kur ir ailītes.</translation>
+    </message>
+    <message>
+        <source>Field · %1</source>
+        <translation>Lauks · %1</translation>
+    </message>
+    <message>
+        <source>Fields · drag them where the boxes are</source>
+        <translation>Lauki · pavelc tos turp, kur ir ailītes</translation>
+    </message>
+    <message>
+        <source>Add a field ▾</source>
+        <translation>Pievienot lauku ▾</translation>
+    </message>
+    <message>
+        <source>Click a field on the card to change it.</source>
+        <translation>Uzklikšķini uz lauka kartītē, lai to mainītu.</translation>
+    </message>
+    <message>
+        <source>Add the fields you want on the card, then drag them onto the boxes.</source>
+        <translation>Pievieno laukus, ko gribi uz kartītes, un pavelc tos uz ailītēm.</translation>
+    </message>
+    <message>
+        <source>Free text</source>
+        <translation>Brīvs teksts</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Izmērs</translation>
+    </message>
+    <message>
+        <source>Hangs</source>
+        <translation>Piesaiste</translation>
+    </message>
+    <message>
+        <source>Colour</source>
+        <translation>Krāsa</translation>
+    </message>
+    <message>
+        <source>Bold</source>
+        <translation>Treknraksts</translation>
+    </message>
+    <message>
+        <source>left</source>
+        <translation>pa kreisi</translation>
+    </message>
+    <message>
+        <source>centre</source>
+        <translation>vidū</translation>
+    </message>
+    <message>
+        <source>right</source>
+        <translation>pa labi</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Noņemt</translation>
+    </message>
+    <message>
+        <source>Print · a PDF sheet, or one PNG per QSO</source>
+        <translation>Drukāt · viena PDF lapa, vai viens PNG uz QSO</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n chosen QSO</source>
+        <translation>
+            <numerusform>%n izvēlēts QSO</numerusform>
+            <numerusform>%n izvēlēti QSO</numerusform>
+            <numerusform>%n izvēlētu QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Cards per sheet</source>
+        <translation>Kartītes uz lapas</translation>
+    </message>
+    <message>
+        <source>Write the PDF…</source>
+        <translation>Ierakstīt PDF…</translation>
+    </message>
+    <message>
+        <source>One PNG each…</source>
+        <translation>Katrai savs PNG…</translation>
+    </message>
+    <message>
+        <source>Nothing chosen in the queue: the whole queue becomes cards.</source>
+        <translation>Rindā nekas nav izvēlēts: par kartītēm kļūst visa rinda.</translation>
+    </message>
+    <message>
+        <source>The image of your QSL card</source>
+        <translation>Tavas QSL kartītes attēls</translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.bmp *.webp)</source>
+        <translation>Attēli (*.png *.jpg *.jpeg *.bmp *.webp)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Visi faili (*)</translation>
+    </message>
+    <message>
+        <source>QSL cards</source>
+        <translation>QSL kartītes</translation>
+    </message>
+    <message>
+        <source>PDF files (*.pdf)</source>
+        <translation>PDF faili (*.pdf)</translation>
+    </message>
+    <message>
+        <source>Where to put the cards</source>
+        <translation>Kur likt kartītes</translation>
+    </message>
+</context>
+<context>
     <name>QslCards</name>
     <message>
         <source>No QSL to print</source>
@@ -2543,6 +2682,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>manager</source>
         <translation>menedžeris</translation>
+    </message>
+    <message>
+        <source>Queue &amp; labels</source>
+        <translation>Rinda un uzlīmes</translation>
+    </message>
+    <message>
+        <source>QSL card</source>
+        <translation>QSL kartīte</translation>
     </message>
     <message>
         <source>To send</source>
@@ -5391,6 +5538,118 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>QSL labels: %1 (%2)</source>
         <translation>QSL uzlīmes: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Callsign</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Datums</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation>Diena</translation>
+    </message>
+    <message>
+        <source>Month (number)</source>
+        <translation>Mēnesis (skaitlis)</translation>
+    </message>
+    <message>
+        <source>Month (name)</source>
+        <translation>Mēnesis (nosaukums)</translation>
+    </message>
+    <message>
+        <source>Year</source>
+        <translation>Gads</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>MHz</source>
+        <translation>MHz</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Band</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Mode</translation>
+    </message>
+    <message>
+        <source>RST</source>
+        <translation>RST</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>Country</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>Grid</translation>
+    </message>
+    <message>
+        <source>Via</source>
+        <translation>Via</translation>
+    </message>
+    <message>
+        <source>My callsign</source>
+        <translation>Mans izsaukuma signāls</translation>
+    </message>
+    <message>
+        <source>My grid</source>
+        <translation>Mans lokators</translation>
+    </message>
+    <message>
+        <source>My name</source>
+        <translation>Mans vārds</translation>
+    </message>
+    <message>
+        <source>My QTH</source>
+        <translation>Mans QTH</translation>
+    </message>
+    <message>
+        <source>Free text</source>
+        <translation>Brīvs teksts</translation>
+    </message>
+    <message>
+        <source>This file is not an image DecoDXLog can read.</source>
+        <translation>Šī datne nav attēls, ko DecoDXLog prastu izlasīt.</translation>
+    </message>
+    <message>
+        <source>QSL card model: %1 (%2 x %3)</source>
+        <translation>QSL kartītes paraugs: %1 (%2 × %3)</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>teksts</translation>
+    </message>
+    <message>
+        <source>No QSO to make a card for.</source>
+        <translation>Nav neviena QSO, par ko taisīt kartīti.</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n card(s) written</source>
+        <translation>
+            <numerusform>%n kartīte uzrakstīta</numerusform>
+            <numerusform>%n kartītes uzrakstītas</numerusform>
+            <numerusform>%n kartīšu uzrakstītas</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>QSL cards: %1 (%2)</source>
+        <translation>QSL kartītes: %1 (%2)</translation>
     </message>
 </context>
 <context>

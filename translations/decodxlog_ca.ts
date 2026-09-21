@@ -446,6 +446,10 @@
         <translation>QSL de paper (%1)</translation>
     </message>
     <message>
+        <source>QSL card</source>
+        <translation>Targeta QSL</translation>
+    </message>
+    <message>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
@@ -2474,6 +2478,140 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
 </context>
 <context>
+    <name>QslCardDesign</name>
+    <message>
+        <source>Card model</source>
+        <translation>Model de targeta</translation>
+    </message>
+    <message>
+        <source>no image yet</source>
+        <translation>encara sense imatge</translation>
+    </message>
+    <message>
+        <source>The card · %1 fields</source>
+        <translation>La targeta · %1 camps</translation>
+    </message>
+    <message>
+        <source>The card</source>
+        <translation>La targeta</translation>
+    </message>
+    <message>
+        <source>Load an image…</source>
+        <translation>Carrega una imatge…</translation>
+    </message>
+    <message>
+        <source>Load the image of your QSL card: a scan or the file the printer gave you. Then drop the fields on it and drag them where the boxes are.</source>
+        <translation>Carrega la imatge de la teva QSL: un escaneig o el fitxer que t&apos;ha donat la impremta. Després posa-hi els camps a sobre i arrossega&apos;ls on són les caselles.</translation>
+    </message>
+    <message>
+        <source>Field · %1</source>
+        <translation>Camp · %1</translation>
+    </message>
+    <message>
+        <source>Fields · drag them where the boxes are</source>
+        <translation>Els camps · arrossega&apos;ls on són les caselles</translation>
+    </message>
+    <message>
+        <source>Add a field ▾</source>
+        <translation>Afegeix un camp ▾</translation>
+    </message>
+    <message>
+        <source>Click a field on the card to change it.</source>
+        <translation>Clica un camp de la targeta per canviar-lo.</translation>
+    </message>
+    <message>
+        <source>Add the fields you want on the card, then drag them onto the boxes.</source>
+        <translation>Afegeix els camps que vulguis a la targeta i arrossega&apos;ls a les caselles.</translation>
+    </message>
+    <message>
+        <source>Free text</source>
+        <translation>Text lliure</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Cos</translation>
+    </message>
+    <message>
+        <source>Hangs</source>
+        <translation>S&apos;ancora</translation>
+    </message>
+    <message>
+        <source>Colour</source>
+        <translation>Color</translation>
+    </message>
+    <message>
+        <source>Bold</source>
+        <translation>Negreta</translation>
+    </message>
+    <message>
+        <source>left</source>
+        <translation>a l&apos;esquerra</translation>
+    </message>
+    <message>
+        <source>centre</source>
+        <translation>al centre</translation>
+    </message>
+    <message>
+        <source>right</source>
+        <translation>a la dreta</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Treu</translation>
+    </message>
+    <message>
+        <source>Print · a PDF sheet, or one PNG per QSO</source>
+        <translation>Imprimir · un full PDF, o un PNG per QSO</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n chosen QSO</source>
+        <translation>
+            <numerusform>%n QSO triat</numerusform>
+            <numerusform>%n QSO triats</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Cards per sheet</source>
+        <translation>Targetes per full</translation>
+    </message>
+    <message>
+        <source>Write the PDF…</source>
+        <translation>Escriu el PDF…</translation>
+    </message>
+    <message>
+        <source>One PNG each…</source>
+        <translation>Un PNG cadascuna…</translation>
+    </message>
+    <message>
+        <source>Nothing chosen in the queue: the whole queue becomes cards.</source>
+        <translation>Res triat a la cua: tota la cua es converteix en targetes.</translation>
+    </message>
+    <message>
+        <source>The image of your QSL card</source>
+        <translation>La imatge de la teva targeta QSL</translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.bmp *.webp)</source>
+        <translation>Imatges (*.png *.jpg *.jpeg *.bmp *.webp)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Tots els fitxers (*)</translation>
+    </message>
+    <message>
+        <source>QSL cards</source>
+        <translation>Targetes QSL</translation>
+    </message>
+    <message>
+        <source>PDF files (*.pdf)</source>
+        <translation>Fitxers PDF (*.pdf)</translation>
+    </message>
+    <message>
+        <source>Where to put the cards</source>
+        <translation>On posar les targetes</translation>
+    </message>
+</context>
+<context>
     <name>QslCards</name>
     <message>
         <source>No QSL to print</source>
@@ -2541,6 +2679,14 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>manager</source>
         <translation>manager</translation>
+    </message>
+    <message>
+        <source>Queue &amp; labels</source>
+        <translation>Cua i etiquetes</translation>
+    </message>
+    <message>
+        <source>QSL card</source>
+        <translation>Targeta QSL</translation>
     </message>
     <message>
         <source>To send</source>
@@ -5365,6 +5511,117 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>QSL labels: %1 (%2)</source>
         <translation>Etiquetes de QSL: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Indicatiu</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Data</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation>Dia</translation>
+    </message>
+    <message>
+        <source>Month (number)</source>
+        <translation>Mes (número)</translation>
+    </message>
+    <message>
+        <source>Month (name)</source>
+        <translation>Mes (nom)</translation>
+    </message>
+    <message>
+        <source>Year</source>
+        <translation>Any</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>MHz</source>
+        <translation>MHz</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Banda</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Mode</translation>
+    </message>
+    <message>
+        <source>RST</source>
+        <translation>RST</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Nom</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>País</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>Via</source>
+        <translation>Via</translation>
+    </message>
+    <message>
+        <source>My callsign</source>
+        <translation>El meu indicatiu</translation>
+    </message>
+    <message>
+        <source>My grid</source>
+        <translation>El meu locator</translation>
+    </message>
+    <message>
+        <source>My name</source>
+        <translation>El meu nom</translation>
+    </message>
+    <message>
+        <source>My QTH</source>
+        <translation>El meu QTH</translation>
+    </message>
+    <message>
+        <source>Free text</source>
+        <translation>Text lliure</translation>
+    </message>
+    <message>
+        <source>This file is not an image DecoDXLog can read.</source>
+        <translation>Aquest fitxer no és una imatge que DecoDXLog sàpiga llegir.</translation>
+    </message>
+    <message>
+        <source>QSL card model: %1 (%2 x %3)</source>
+        <translation>Model de targeta QSL: %1 (%2 × %3)</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>text</translation>
+    </message>
+    <message>
+        <source>No QSO to make a card for.</source>
+        <translation>Cap QSO del qual fer una targeta.</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n card(s) written</source>
+        <translation>
+            <numerusform>%n targeta escrita</numerusform>
+            <numerusform>%n targetes escrites</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>QSL cards: %1 (%2)</source>
+        <translation>Targetes QSL: %1 (%2)</translation>
     </message>
 </context>
 <context>

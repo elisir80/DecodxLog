@@ -446,6 +446,10 @@
         <translation>QSL cartacee (%1)</translation>
     </message>
     <message>
+        <source>QSL card</source>
+        <translation>Cartolina QSL</translation>
+    </message>
+    <message>
         <source>Stop</source>
         <translation>Ferma</translation>
     </message>
@@ -2474,6 +2478,140 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>QslCardDesign</name>
+    <message>
+        <source>Card model</source>
+        <translation>Modello della cartolina</translation>
+    </message>
+    <message>
+        <source>no image yet</source>
+        <translation>nessuna immagine</translation>
+    </message>
+    <message>
+        <source>The card · %1 fields</source>
+        <translation>La cartolina · %1 campi</translation>
+    </message>
+    <message>
+        <source>The card</source>
+        <translation>La cartolina</translation>
+    </message>
+    <message>
+        <source>Load an image…</source>
+        <translation>Carica un&apos;immagine…</translation>
+    </message>
+    <message>
+        <source>Load the image of your QSL card: a scan or the file the printer gave you. Then drop the fields on it and drag them where the boxes are.</source>
+        <translation>Carica l&apos;immagine della tua QSL: una scansione o il file che ti ha dato la tipografia. Poi posaci sopra i campi e trascinali dove stanno i riquadri.</translation>
+    </message>
+    <message>
+        <source>Field · %1</source>
+        <translation>Campo · %1</translation>
+    </message>
+    <message>
+        <source>Fields · drag them where the boxes are</source>
+        <translation>I campi · trascinali dove stanno i riquadri</translation>
+    </message>
+    <message>
+        <source>Add a field ▾</source>
+        <translation>Aggiungi un campo ▾</translation>
+    </message>
+    <message>
+        <source>Click a field on the card to change it.</source>
+        <translation>Clicca un campo sulla cartolina per cambiarlo.</translation>
+    </message>
+    <message>
+        <source>Add the fields you want on the card, then drag them onto the boxes.</source>
+        <translation>Aggiungi i campi che vuoi sulla cartolina, poi trascinali sui riquadri.</translation>
+    </message>
+    <message>
+        <source>Free text</source>
+        <translation>Testo libero</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Corpo</translation>
+    </message>
+    <message>
+        <source>Hangs</source>
+        <translation>Aggancio</translation>
+    </message>
+    <message>
+        <source>Colour</source>
+        <translation>Colore</translation>
+    </message>
+    <message>
+        <source>Bold</source>
+        <translation>Grassetto</translation>
+    </message>
+    <message>
+        <source>left</source>
+        <translation>a sinistra</translation>
+    </message>
+    <message>
+        <source>centre</source>
+        <translation>al centro</translation>
+    </message>
+    <message>
+        <source>right</source>
+        <translation>a destra</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Togli</translation>
+    </message>
+    <message>
+        <source>Print · a PDF sheet, or one PNG per QSO</source>
+        <translation>Stampare · un foglio PDF, o un PNG per QSO</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n chosen QSO</source>
+        <translation>
+            <numerusform>%n QSO scelto</numerusform>
+            <numerusform>%n QSO scelti</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Cards per sheet</source>
+        <translation>Cartoline per foglio</translation>
+    </message>
+    <message>
+        <source>Write the PDF…</source>
+        <translation>Scrivi il PDF…</translation>
+    </message>
+    <message>
+        <source>One PNG each…</source>
+        <translation>Un PNG per ognuna…</translation>
+    </message>
+    <message>
+        <source>Nothing chosen in the queue: the whole queue becomes cards.</source>
+        <translation>Niente di scelto nella coda: diventa cartolina tutta la coda.</translation>
+    </message>
+    <message>
+        <source>The image of your QSL card</source>
+        <translation>L&apos;immagine della tua QSL</translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.bmp *.webp)</source>
+        <translation>Immagini (*.png *.jpg *.jpeg *.bmp *.webp)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Tutti i file (*)</translation>
+    </message>
+    <message>
+        <source>QSL cards</source>
+        <translation>Cartoline QSL</translation>
+    </message>
+    <message>
+        <source>PDF files (*.pdf)</source>
+        <translation>File PDF (*.pdf)</translation>
+    </message>
+    <message>
+        <source>Where to put the cards</source>
+        <translation>Dove mettere le cartoline</translation>
+    </message>
+</context>
+<context>
     <name>QslCards</name>
     <message>
         <source>No QSL to print</source>
@@ -2541,6 +2679,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>manager</source>
         <translation>manager</translation>
+    </message>
+    <message>
+        <source>Queue &amp; labels</source>
+        <translation>Coda ed etichette</translation>
+    </message>
+    <message>
+        <source>QSL card</source>
+        <translation>Cartolina QSL</translation>
     </message>
     <message>
         <source>To send</source>
@@ -5365,6 +5511,117 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>QSL labels: %1 (%2)</source>
         <translation>Etichette QSL: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Nominativo</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Data</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation>Giorno</translation>
+    </message>
+    <message>
+        <source>Month (number)</source>
+        <translation>Mese (numero)</translation>
+    </message>
+    <message>
+        <source>Month (name)</source>
+        <translation>Mese (nome)</translation>
+    </message>
+    <message>
+        <source>Year</source>
+        <translation>Anno</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>MHz</source>
+        <translation>MHz</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Banda</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Modo</translation>
+    </message>
+    <message>
+        <source>RST</source>
+        <translation>RST</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Nome</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>Paese</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>Locatore</translation>
+    </message>
+    <message>
+        <source>Via</source>
+        <translation>Via</translation>
+    </message>
+    <message>
+        <source>My callsign</source>
+        <translation>Il mio nominativo</translation>
+    </message>
+    <message>
+        <source>My grid</source>
+        <translation>Il mio locatore</translation>
+    </message>
+    <message>
+        <source>My name</source>
+        <translation>Il mio nome</translation>
+    </message>
+    <message>
+        <source>My QTH</source>
+        <translation>Il mio QTH</translation>
+    </message>
+    <message>
+        <source>Free text</source>
+        <translation>Testo libero</translation>
+    </message>
+    <message>
+        <source>This file is not an image DecoDXLog can read.</source>
+        <translation>Questo file non è un&apos;immagine che DecoDXLog sappia leggere.</translation>
+    </message>
+    <message>
+        <source>QSL card model: %1 (%2 x %3)</source>
+        <translation>Modello della cartolina QSL: %1 (%2 × %3)</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>testo</translation>
+    </message>
+    <message>
+        <source>No QSO to make a card for.</source>
+        <translation>Nessun QSO di cui fare la cartolina.</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n card(s) written</source>
+        <translation>
+            <numerusform>%n cartolina scritta</numerusform>
+            <numerusform>%n cartoline scritte</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>QSL cards: %1 (%2)</source>
+        <translation>Cartoline QSL: %1 (%2)</translation>
     </message>
 </context>
 <context>
