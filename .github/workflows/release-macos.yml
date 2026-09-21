@@ -1,0 +1,63 @@
+name: Release macOS
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag
+        required: true
+        default: v1.5.1
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  macos:
+    name: macOS ${{ matrix.name }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: apple-silicon
+            runner: macos-14
+            arch: arm64
+          - name: intel
+            runner: macos-13
+            arch: x86_64
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: brew install cmake ninja qt qtkeychain openssl@3
+
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$(brew --prefix qt);$(brew --prefix qtkeychain)" -DOPENSSL_ROOT_DIR="$(brew --prefix openssl@3)"
+
+      - name: Build
+        run: cmake --build build --parallel 3 --target decolog
+
+      - name: Deploy app bundle
+        run: |
+          export PATH="$(brew --prefix qt)/bin:$PATH"
+          macdeployqt build/DecoDXLog.app -qmldir=qml -qmldir=libs/decodium-ui/qml -dmg -verbose=1
+          version="${GITHUB_REF_NAME#v}"
+          mkdir -p release-assets
+          mv build/DecoDXLog.dmg "release-assets/DecoDXLog-$version-macos-${{ matrix.arch }}.dmg"
+
+      - name: Ensure release exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ github.event.inputs.tag || github.ref_name }}
+        run: gh release view "$TAG_NAME" >/dev/null 2>&1 || gh release create "$TAG_NAME" --title "DecoDXLog $TAG_NAME" --notes "DecoDXLog $TAG_NAME"
+
+      - name: Upload release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ github.event.inputs.tag || github.ref_name }}
+        run: gh release upload "$TAG_NAME" release-assets/* --clobber
