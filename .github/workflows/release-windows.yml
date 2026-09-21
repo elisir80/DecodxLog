@@ -29,34 +29,34 @@ jobs:
       - name: Install MSYS2 packages
         uses: msys2/setup-msys2@v2
         with:
-          msystem: MINGW64
+          msystem: UCRT64
           update: true
           install: >-
             base-devel
             git
             zip
-            mingw-w64-x86_64-7zip
-            mingw-w64-x86_64-cmake
-            mingw-w64-x86_64-gcc
-            mingw-w64-x86_64-ninja
-            mingw-w64-x86_64-openssl
-            mingw-w64-x86_64-qt6-base
-            mingw-w64-x86_64-qt6-declarative
-            mingw-w64-x86_64-qt6-location
-            mingw-w64-x86_64-qt6-multimedia
-            mingw-w64-x86_64-qt6-positioning
-            mingw-w64-x86_64-qt6-serialport
-            mingw-w64-x86_64-qt6-tools
-            mingw-w64-x86_64-qt6-websockets
-            mingw-w64-x86_64-qtkeychain
+            mingw-w64-ucrt-x86_64-7zip
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-ninja
+            mingw-w64-ucrt-x86_64-openssl
+            mingw-w64-ucrt-x86_64-qt6-base
+            mingw-w64-ucrt-x86_64-qt6-declarative
+            mingw-w64-ucrt-x86_64-qt6-location
+            mingw-w64-ucrt-x86_64-qt6-multimedia
+            mingw-w64-ucrt-x86_64-qt6-positioning
+            mingw-w64-ucrt-x86_64-qt6-serialport
+            mingw-w64-ucrt-x86_64-qt6-tools
+            mingw-w64-ucrt-x86_64-qt6-websockets
+            mingw-w64-ucrt-x86_64-qtkeychain
 
       - name: Complete MSYS2 Qt install
         run: |
           pacman -S --needed --noconfirm \
-            mingw-w64-x86_64-qt6-multimedia \
-            mingw-w64-x86_64-qt6-multimedia-ffmpeg \
-            mingw-w64-x86_64-qt6-shadertools \
-            mingw-w64-x86_64-qtkeychain
+            mingw-w64-ucrt-x86_64-qt6-multimedia \
+            mingw-w64-ucrt-x86_64-qt6-multimedia-ffmpeg \
+            mingw-w64-ucrt-x86_64-qt6-shadertools \
+            mingw-w64-ucrt-x86_64-qtkeychain
 
       - name: Install Inno Setup
         shell: pwsh
@@ -66,7 +66,7 @@ jobs:
         run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
 
       - name: Build installer and portable ZIP
-        run: bash scripts/installer.sh
+        run: MINGW=/ucrt64 bash scripts/installer.sh
 
       - name: Smoke test
         run: ./build/DecoDXLog.exe --help || true
