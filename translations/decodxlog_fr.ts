@@ -56,6 +56,10 @@
         <translation>Logiciel libre : vous pouvez l&apos;utiliser, l&apos;étudier, le modifier et le transmettre, sources comprises. Le journal est à vous et reste sur votre ordinateur — un fichier SQLite qui s&apos;ouvre même sans nous.</translation>
     </message>
     <message>
+        <source>Inside there is other people&apos;s work: the CW decoder is ggmorse by Georgi Gerganov (MIT licence), the DXCC entity list is AD1C&apos;s cty.csv, and the radio is spoken to through Hamlib.</source>
+        <translation>Il y a là-dedans le travail d&apos;autres personnes : le décodeur CW est ggmorse de Georgi Gerganov (licence MIT), la liste des entités DXCC est le cty.csv d&apos;AD1C, et on parle à la radio par Hamlib.</translation>
+    </message>
+    <message>
         <source>Copy these details</source>
         <translation>Copier ces informations</translation>
     </message>
@@ -1366,6 +1370,10 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
     <message>
         <source>Stop</source>
         <translation>Arrêter</translation>
+    </message>
+    <message>
+        <source>On top</source>
+        <translation>Au premier plan</translation>
     </message>
     <message>
         <source>This CAT link does not key CW: it reads the radio but it cannot send. Either connect rigctld to the radio itself, or — with Decodium holding the CAT — set up the keyer on a serial port of its own: Setup → Radio (CAT) → Keying on a serial port.</source>

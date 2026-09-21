@@ -33,15 +33,30 @@ ApplicationWindow {
     color: Theme.bgDeep
     title: qsTr("DecoDXLog — %1").arg(root.panelTitle)
 
+    // Davanti a tutte le altre. Il CW nasce cosi': mentre si manipola si guarda
+    // quello che esce dal decoder e si scrive nel log, e la finestra del CW non
+    // deve finire dietro a quella grande. Dalla puntina nella sua testata si
+    // toglie, e resta tolta.
+    property bool alwaysOnTop: false
+    flags: Qt.Window | (root.alwaysOnTop ? Qt.WindowStaysOnTopHint : 0)
+
     OnScreen { target: root }
 
     Settings {
+        id: panelSettings
         category: "layout/panel/" + root.panelKey
         property alias windowWidth: root.width
         property alias windowHeight: root.height
         property alias windowX: root.x
         property alias windowY: root.y
     }
+
+    Component.onCompleted: {
+        // Il .ini restituisce stringhe: "true" e true sono la stessa cosa.
+        const saved = panelSettings.value("alwaysOnTop", root.panelKey === "cw")
+        root.alwaysOnTop = saved === true || saved === "true"
+    }
+    onAlwaysOnTopChanged: panelSettings.setValue("alwaysOnTop", root.alwaysOnTop)
 
     QsoDetailDialog { id: qsoDialog }
 

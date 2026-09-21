@@ -3,6 +3,45 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.4.0 — 21 settembre 2026
+
+**Il decoder CW adesso e' ggmorse.** Quello di Georgi Gerganov
+(github.com/ggerganov/ggmorse, licenza MIT), copiato dentro `libs/ggmorse`: otto file e
+nessuna dipendenza. Il decoder di prima era roba nostra — un filtro stretto sul tono e i
+tempi misurati a occhio — e leggeva, ma solo se il segnale era pulito e la velocita' non
+cambiava.
+
+Cosa cambia, misurato:
+
+- **la velocita' e' giusta**, non a spanne: a 15, 20, 25 e 35 parole al minuto legge 15,
+  20, 25 e 35. Prima si accettava un terzo di errore;
+- **il tono lo trova entro pochi hertz** (550 Hz letti 547), e cercandolo fra 200 e 1200,
+  non piu' fra 400 e 1000;
+- **legge anche sotto il rumore**: con rumore di ampiezza doppia rispetto al segnale il
+  testo esce ancora tutto.
+
+**E sulla banda vuota non scrive niente.** ggmorse, lasciato a se', su mezzo minuto di
+solo fruscio tira fuori una cinquantina di lettere inventate — il rumore a tratti somiglia
+al Morse. DecoDXLog guarda quanto i tempi misurati somigliano davvero al Morse (il costo
+che ggmorse calcola da solo: sotto 0.01 con un segnale, intorno a 1 col solo rumore) e
+lascia passare solo quello che sta sotto 0.2. Su trenta secondi di rumore, a qualunque
+livello, non esce piu' una lettera.
+
+Una cosa e' diversa da prima: **tre lettere sole, da fermo, non bastano**. ggmorse misura i
+tempi su una finestra di tre secondi, e finche' non ha agganciato la velocita' le prime
+lettere possono restare indietro. In aria non cambia niente — nessuno manda tre caratteri
+e chiude — ma vale la pena dirlo.
+
+**La finestra del CW sganciata sta davanti alle altre.** Mentre si manipola si guarda
+quello che esce dal decoder e si scrive nel log: la finestra del CW non deve finire dietro
+a quella grande. Nella sua testata c'e' il pulsante «Davanti» per toglierlo, e resta tolto.
+
+**Le Impostazioni scorrono.** Una pagina lunga — Servizi QSL, Radio — spingeva «Annulla» e
+«Applica» fuori dalla finestra, e la meta' di sotto non si raggiungeva in nessun modo.
+Adesso la pagina ha la sua barra di scorrimento, i due pulsanti restano incollati in
+fondo, e su uno schermo largo il contenuto si ferma a 920 punti invece di allungarsi da un
+bordo all'altro.
+
 ## 1.3.0 — 21 settembre 2026
 
 **Nella scheda del nominativo c'e' la griglia banda per modo.** Quella che chi caccia il

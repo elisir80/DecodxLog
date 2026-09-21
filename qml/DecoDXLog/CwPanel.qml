@@ -7,6 +7,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Window
 import Decodium.UI
 
 GlassPanel {
@@ -55,6 +56,21 @@ GlassPanel {
             fontPixelSize: 11
             enabled: root.rig.connected
             onClicked: root.rig.stop()
+        },
+        // La puntina: staccato, il CW sta davanti alle altre finestre. Si vede
+        // solo quando c'e' una finestra da tenere davanti.
+        GlassButton {
+            id: onTopButton
+            readonly property var hostWindow: root.Window.window
+            anchors.verticalCenter: parent.verticalCenter
+            visible: root.detached && hostWindow !== null
+                     && hostWindow.alwaysOnTop !== undefined
+            text: qsTr("On top")
+            tone: Theme.primaryColor
+            filled: visible && hostWindow.alwaysOnTop
+            buttonHeight: 22
+            fontPixelSize: 11
+            onClicked: hostWindow.alwaysOnTop = !hostWindow.alwaysOnTop
         }
     ]
 

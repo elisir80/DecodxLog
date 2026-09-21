@@ -106,6 +106,14 @@ DialogFrame {
                        + "opens even without us.")
         }
 
+        // Il lavoro degli altri si dice, con nome e licenza.
+        Note {
+            Layout.fillWidth: true
+            text: qsTr("Inside there is other people's work: the CW decoder is ggmorse by Georgi "
+                       + "Gerganov (MIT licence), the DXCC entity list is AD1C's cty.csv, and the "
+                       + "radio is spoken to through Hamlib.")
+        }
+
         Item { Layout.fillHeight: true }
 
         RowLayout {

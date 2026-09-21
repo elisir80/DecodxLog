@@ -5,7 +5,8 @@ stessa grammatica di finestre di Decodium e DecoRTTY. FT2 è un modo di prima
 classe (`MODE=MFSK`, `SUBMODE=FT2`).
 
 Specifica di partenza: [`docs/FASE0_SPEC.md`](docs/FASE0_SPEC.md).
-Licenza: GPL-3.0.
+Licenza: GPL-3.0. Dentro `libs/ggmorse` c'e' ggmorse di Georgi Gerganov, licenza MIT,
+con la sua `LICENSE` accanto.
 
 ## Stato: 0.5.2
 
@@ -120,6 +121,7 @@ Funziona:
 
 ```
 libs/decodium-ui/   tema e componenti comuni (candidato a modulo condiviso)
+libs/ggmorse/       il decodificatore Morse di G. Gerganov (MIT), copiato qui
 src/core/           ADIF, bande, database, protocollo UDP — senza GUI
 src/app/            controller, modello della tabella e dei profili
 qml/DecoDXLog/        finestra principale

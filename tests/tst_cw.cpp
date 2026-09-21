@@ -100,7 +100,9 @@ private slots:
             text += decoder.flush();
             QVERIFY2(text.contains(QStringLiteral("PARIS")), qPrintable(QStringLiteral("%1 wpm: %2").arg(wpm).arg(text)));
             // La velocita' che ha imparato e' quella giusta, a spanne.
-            QVERIFY2(qAbs(decoder.wpm() - wpm) <= wpm / 3 + 2,
+            // ggmorse la misura, non la indovina: due parole al minuto di
+            // scarto sono gia' larghe.
+            QVERIFY2(qAbs(decoder.wpm() - wpm) <= 2,
                      qPrintable(QStringLiteral("%1 wpm letti come %2").arg(wpm).arg(decoder.wpm())));
         }
     }
@@ -119,14 +121,53 @@ private slots:
 
     void findsTheToneByItself()
     {
+        // Il tono non si dice a nessuno: lo trova guardando dove sta l'energia.
+        // Tre lettere sole non bastano — ggmorse misura i tempi su una finestra
+        // di tre secondi, e finche' non ha agganciato la velocita' le prime
+        // lettere possono restare indietro: si manda quello che si manderebbe
+        // in aria davvero.
         CwDecoder decoder(8000);
-        const QVector<qint16> audio = morseAudio(QStringLiteral("SOS"), 18, 8000, 550);
+        const QVector<qint16> audio = morseAudio(QStringLiteral("SOS SOS SOS"), 18, 8000, 550);
         QString text;
         for (int i = 0; i < audio.size(); i += 512)
             text += decoder.feed(audio.constData() + i, qMin(512, audio.size() - i));
         text += decoder.flush();
-        QVERIFY2(text.contains(QStringLiteral("SOS")), qPrintable(text));
-        QVERIFY2(qAbs(decoder.toneHz() - 550) < 60, qPrintable(QString::number(decoder.toneHz())));
+        QVERIFY2(text.contains(QStringLiteral("SOS SOS")), qPrintable(text));
+        QVERIFY2(qAbs(decoder.toneHz() - 550) < 20, qPrintable(QString::number(decoder.toneHz())));
+    }
+
+    void staysQuietOnAnEmptyBand()
+    {
+        // Mezzo minuto di solo rumore, come quando la radio e' accesa e non
+        // trasmette nessuno: dal riquadro non deve uscire niente. Il rumore a
+        // tratti somiglia al Morse, e un decoder che non lo riconosce riempie
+        // lo schermo di lettere che nessuno ha mandato.
+        std::srand(11);
+        CwDecoder decoder(8000);
+        QVector<qint16> chunk(512);
+        QString text;
+        for (int block = 0; block < 30 * 8000 / 512; ++block) {
+            for (int i = 0; i < chunk.size(); ++i)
+                chunk[i] = static_cast<qint16>(((std::rand() % 2000) / 1000.0 - 1.0) * 0.2 * 32000);
+            text += decoder.feed(chunk.constData(), chunk.size());
+        }
+        text += decoder.flush();
+        QVERIFY2(text.trimmed().isEmpty(), qPrintable(text));
+    }
+
+    void listensOnlyWhereItIsTold()
+    {
+        // Col tono fissato non va a cercare: ascolta li' e basta.
+        CwDecoder decoder(8000);
+        decoder.setTone(600);
+        const QVector<qint16> audio = morseAudio(QStringLiteral("CQ CQ DE IU8LMC"), 22, 8000, 600);
+        QString text;
+        for (int i = 0; i < audio.size(); i += 512)
+            text += decoder.feed(audio.constData() + i, qMin(512, audio.size() - i));
+        text += decoder.flush();
+        QVERIFY2(text.contains(QStringLiteral("IU8LMC")), qPrintable(text));
+        QCOMPARE(decoder.tone(), 600);
+        QVERIFY2(qAbs(decoder.toneHz() - 600) < 5, qPrintable(QString::number(decoder.toneHz())));
     }
 };
 

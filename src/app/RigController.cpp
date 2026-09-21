@@ -630,6 +630,13 @@ void RigController::startAudio()
 
 void RigController::stopAudio()
 {
+    // L'ultima lettera sta ancora nel decodificatore: la finestra di analisi e'
+    // lunga tre secondi, e spegnendo si chiuderebbe con una lettera in meno.
+    if (m_audio) {
+        const QString last = m_decoder.flush();
+        if (!last.isEmpty())
+            m_decoderText += last;
+    }
     if (m_audio)
         m_audio->stop();
     m_audio.reset();

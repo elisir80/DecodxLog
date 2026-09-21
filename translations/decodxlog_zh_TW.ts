@@ -56,6 +56,10 @@
         <translation>自由軟體：你可以使用、研究、修改，並連同原始碼一起傳給別人。日誌是你的，留在你自己的電腦上 — 一個沒有我們也能打開的 SQLite 檔案。</translation>
     </message>
     <message>
+        <source>Inside there is other people&apos;s work: the CW decoder is ggmorse by Georgi Gerganov (MIT licence), the DXCC entity list is AD1C&apos;s cty.csv, and the radio is spoken to through Hamlib.</source>
+        <translation>裡面也有別人的工作：CW 解碼器是 Georgi Gerganov 的 ggmorse（MIT 授權），DXCC 實體表是 AD1C 的 cty.csv，與電台的對話透過 Hamlib。</translation>
+    </message>
+    <message>
         <source>Copy these details</source>
         <translation>複製這些資訊</translation>
     </message>
@@ -1365,6 +1369,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Stop</source>
         <translation>停止</translation>
+    </message>
+    <message>
+        <source>On top</source>
+        <translation>置頂</translation>
     </message>
     <message>
         <source>This CAT link does not key CW: it reads the radio but it cannot send. Either connect rigctld to the radio itself, or — with Decodium holding the CAT — set up the keyer on a serial port of its own: Setup → Radio (CAT) → Keying on a serial port.</source>

@@ -179,12 +179,16 @@ Quello che manca è in fondo.
   VFO e comanda il PTT. Niente porte seriali: quelle le sa gia' Hamlib. / **The radio through
   Hamlib**: DecoDXLog talks to **rigctld**, reads frequency and mode, moves the VFO and keys
   the PTT. No serial ports: Hamlib already knows them.
-- **Il pannello CW**, da solo o staccato in finestra: macro, velocita', riga per mandare
+- **Il pannello CW**, da solo o staccato in finestra — e staccato **sta davanti alle altre
+  finestre**, che mentre si manipola serve: macro, velocita', riga per mandare
   quello che si scrive e decoder. / **The CW panel**, docked or in its own window: macros,
   speed, a line to send what you type, and the decoder.
-- **Decoder CW dentro DecoDXLog**: legge l'audio che esce dalla radio, trova il tono da solo e
-  impara la velocita' mentre ascolta. / **CW decoder inside DecoDXLog**: it reads the audio
-  coming out of the radio, finds the tone by itself and learns the speed while listening.
+- **Decoder CW dentro DecoDXLog** (ggmorse, MIT): legge l'audio che esce dalla radio, trova
+  il tono da solo fra 200 e 1200 Hz e misura la velocita' mentre ascolta. Sulla banda vuota
+  sta zitto: quello che non somiglia abbastanza al Morse non passa. / **CW decoder inside
+  DecoDXLog** (ggmorse, MIT): it reads the audio coming out of the radio, finds the tone by
+  itself between 200 and 1200 Hz and measures the speed while listening. On an empty band it
+  stays quiet: what does not look enough like Morse does not get through.
 - **La radio anche col cavo**: modello Hamlib + porta seriale, e rigctld lo avvia DecoDXLog; il
   **PTT** puo' stare su un'altra porta (RTS o DTR), come vuole chi ha due COM. /
   **The radio over the cable too**: Hamlib model + serial port, and DecoDXLog starts rigctld.

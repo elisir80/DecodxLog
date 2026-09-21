@@ -1,82 +1,72 @@
 // DecoDXLog — il decoder CW: dall'audio alle lettere.
 //
-// Non serve una radio che decodifichi: basta l'audio che esce dalla radio.
-// Si guarda quanta energia c'e' sul tono del CW (Goertzel, che e' un filtro
-// stretto e costa poco), si segna quando il tono c'e' e quando non c'e', e da
-// quei tempi si tirano fuori punti, linee e spazi. La velocita' non si chiede a
-// nessuno: si impara dai punti che arrivano.
+// Non serve una radio che decodifichi: basta l'audio che esce dalla radio. A
+// leggerlo ci pensa ggmorse (libs/ggmorse), il decodificatore di Georgi
+// Gerganov: trova il tono da solo guardando lo spettro, misura i tempi di ogni
+// segno su una finestra di tre secondi e ne tira fuori le lettere. La velocita'
+// non si chiede a nessuno: la impara ascoltando.
+//
+// Qui dentro c'e' solo quello che serve a portargli l'audio a pezzetti, come
+// arriva dalla scheda audio, e a riprendersi il testo.
 #pragma once
 
+#include <QByteArray>
 #include <QString>
-#include <QVector>
+
+#include <memory>
+
+class GGMorse;
 
 namespace decolog::core {
 
 class CwDecoder {
 public:
     explicit CwDecoder(int sampleRate = 8000);
+    ~CwDecoder();
+
+    CwDecoder(const CwDecoder&) = delete;
+    CwDecoder& operator=(const CwDecoder&) = delete;
 
     void setSampleRate(int sampleRate);
     int sampleRate() const { return m_sampleRate; }
 
-    // Il tono da ascoltare, in hertz. 0: lo cerca da solo fra 400 e 1000 Hz,
+    // Il tono da ascoltare, in hertz. 0: lo cerca da solo fra 200 e 1200 Hz,
     // che e' dove sta il CW di chiunque.
     void setTone(int hz);
     int tone() const { return m_tone; }
-    double toneHz() const { return m_foundTone; }
+    double toneHz() const { return m_toneHz; }
 
     // La velocita' che ha imparato, in parole al minuto.
-    int wpm() const;
+    int wpm() const { return m_wpm; }
 
     // Manda dentro l'audio (mono, 16 bit) e torna il testo nuovo, se ne e'
     // uscito. Si puo' chiamare a pezzi piccoli: lo stato resta.
     QString feed(const qint16* samples, int count);
-    // Quello che resta da dire quando il segnale finisce (l'ultima lettera).
+    // Quello che resta da dire quando il segnale finisce (l'ultima lettera):
+    // un po' di silenzio, che e' quello che aspetta per chiudere la parola.
     QString flush();
     void reset();
 
 private:
-    struct Bin {
-        double frequency{0};
-        double coeff{0};
-        double s1{0};
-        double s2{0};
-    };
-
-    void rebuildBins();
-    double magnitudeOf(Bin& bin) const;
-    void pushRun(bool mark, int blocks);
-    void closeCharacter();
-    void emitPending();
-    double dotGuess() const;
+    void rebuild();
+    QString drain();
 
     int m_sampleRate{8000};
     int m_tone{0};
-    double m_foundTone{0};
-    int m_blockSize{64};
-    QVector<Bin> m_bins;
-    QVector<qint16> m_partial;
+    std::unique_ptr<GGMorse> m_morse;
+    // L'audio che e' arrivato e non e' ancora stato consumato: ggmorse lo
+    // chiede a blocchi interi, e dalla scheda audio arriva come capita.
+    QByteArray m_pending;
+    qsizetype m_taken{0};
 
-    // Soglia che si adatta: il rumore sale e scende, il CW resta leggibile.
-    double m_loud{0};
-    double m_quiet{0};
-    double m_ratio{0};
-    bool m_on{false};
-    int m_runBlocks{0};
-    double m_dotBlocks{0};
-
-    // I segni della lettera in corso, ancora in blocchi: si trasformano in
-    // punti e linee solo quando la lettera e' finita, quando cioe' si sa
-    // quanto dura un punto.
-    QVector<int> m_marks;
-    // La lettera di prima, ancora in blocchi: si scrive quando la prossima e'
-    // finita, con la velocita' imparata nel frattempo.
-    QVector<int> m_pendingMarks;
-    bool m_pendingWord{false};
-    int m_shortestMark{0};
-    bool m_sawLongMark{false};
-    QString m_output;
-    bool m_wordPending{false};
+    // Tono e velocita' si leggono solo mentre il decodificatore sta davvero
+    // leggendo qualcosa: nel silenzio le sue stime scendono a fondo scala, e
+    // nel pannello si vedrebbe la velocita' crollare a ogni pausa.
+    double m_toneHz{0};
+    int m_wpm{0};
+    // L'ultima lettera uscita: serve a non mettere due righe vuote di fila
+    // quando il tono cambia fra una chiamata e l'altra.
+    QChar m_last;
 };
 
 // La tavola del Morse, per chi deve scrivere e per chi deve leggere.

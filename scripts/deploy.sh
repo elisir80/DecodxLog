@@ -123,6 +123,8 @@ done
 echo "== licenze e istruzioni =="
 cp "$ROOT/LICENSE" "$DIST/LICENSE.txt"
 cp "$ROOT/resources/cty/COPYRIGHT.txt" "$DIST/cty.csv-COPYRIGHT.txt"
+# Il decodificatore CW e' ggmorse, licenza MIT: la sua licenza va distribuita.
+cp "$ROOT/libs/ggmorse/LICENSE" "$DIST/ggmorse-LICENSE.txt"
 # L'icona accanto all'eseguibile serve a chi si crea un collegamento a mano.
 cp "$ROOT/resources/decodxlog.ico" "$DIST/decodxlog.ico"
 
@@ -154,7 +156,8 @@ Cosa c'e' dentro
 
 Licenza
   GPL-3.0 (LICENSE.txt). L'elenco delle entita' DXCC e' il cty.csv di AD1C
-  (cty.csv-COPYRIGHT.txt).
+  (cty.csv-COPYRIGHT.txt). Il decodificatore CW e' ggmorse di Georgi Gerganov,
+  licenza MIT (ggmorse-LICENSE.txt).
 EOF
 
 if [ -z "${NO_ZIP:-}" ]; then

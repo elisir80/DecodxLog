@@ -56,6 +56,10 @@
         <translation>Szabad szoftver: használhatod, tanulmányozhatod, megváltoztathatod és továbbadhatod, a forráskóddal együtt. A napló a tiéd, és a saját gépeden marad — egy SQLite-fájl, ami nélkülünk is megnyílik.</translation>
     </message>
     <message>
+        <source>Inside there is other people&apos;s work: the CW decoder is ggmorse by Georgi Gerganov (MIT licence), the DXCC entity list is AD1C&apos;s cty.csv, and the radio is spoken to through Hamlib.</source>
+        <translation>Mások munkája is van benne: a CW-dekóder Georgi Gerganov ggmorse programja (MIT licenc), a DXCC-entitások listája az AD1C cty.csv fájlja, a rádióval pedig a Hamlib beszél.</translation>
+    </message>
+    <message>
         <source>Copy these details</source>
         <translation>Adatok másolása</translation>
     </message>
@@ -1365,6 +1369,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Stop</source>
         <translation>Állj</translation>
+    </message>
+    <message>
+        <source>On top</source>
+        <translation>Elöl</translation>
     </message>
     <message>
         <source>This CAT link does not key CW: it reads the radio but it cannot send. Either connect rigctld to the radio itself, or — with Decodium holding the CAT — set up the keyer on a serial port of its own: Setup → Radio (CAT) → Keying on a serial port.</source>

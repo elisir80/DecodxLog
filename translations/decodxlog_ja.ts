@@ -56,6 +56,10 @@
         <translation>自由なソフトウェアです。使い、調べ、変え、ソースごと人に渡せます。ログはあなたのもので、あなたのコンピューターに残ります — 私たちがいなくても開ける SQLite のファイルです。</translation>
     </message>
     <message>
+        <source>Inside there is other people&apos;s work: the CW decoder is ggmorse by Georgi Gerganov (MIT licence), the DXCC entity list is AD1C&apos;s cty.csv, and the radio is spoken to through Hamlib.</source>
+        <translation>ほかの人の仕事も入っています。CW デコーダーは Georgi Gerganov の ggmorse（MIT ライセンス）、DXCC エンティティの一覧は AD1C の cty.csv、無線機との会話は Hamlib を通します。</translation>
+    </message>
+    <message>
         <source>Copy these details</source>
         <translation>この情報をコピー</translation>
     </message>
@@ -1365,6 +1369,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Stop</source>
         <translation>停止</translation>
+    </message>
+    <message>
+        <source>On top</source>
+        <translation>最前面</translation>
     </message>
     <message>
         <source>This CAT link does not key CW: it reads the radio but it cannot send. Either connect rigctld to the radio itself, or — with Decodium holding the CAT — set up the keyer on a serial port of its own: Setup → Radio (CAT) → Keying on a serial port.</source>

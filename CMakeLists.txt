@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.3.0
+    VERSION 1.4.0
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -28,6 +28,18 @@ endif()
 # uscire da qui e diventare un modulo condiviso con Decodium e DecoRTTY (Fase 0,
 # §4.2): nulla la' dentro sa di DecoDXLog.
 add_subdirectory(libs/decodium-ui)
+
+# ── ggmorse ───────────────────────────────────────────────────────────────────
+# Il decodificatore Morse di Georgi Gerganov (MIT), copiato in libs/ggmorse:
+# otto file, nessuna dipendenza. GGMORSE_QUIET gli toglie le stampe su stdout —
+# il testo ce lo prendiamo da takeRxData().
+add_library(ggmorse STATIC
+    libs/ggmorse/src/ggmorse.cpp
+    libs/ggmorse/src/resampler.cpp
+)
+target_include_directories(ggmorse PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/ggmorse/include)
+target_compile_definitions(ggmorse PRIVATE GGMORSE_QUIET)
+set_target_properties(ggmorse PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 # ── Core ──────────────────────────────────────────────────────────────────────
 # Niente GUI: ADIF, database e protocollo UDP si provano da soli e serviranno
@@ -109,6 +121,8 @@ target_include_directories(decolog_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 # Qt6::SerialPort: il manipolatore CW alza e abbassa DTR o RTS di una porta,
 # che e' come si manipola da sempre quando il CAT sta occupato altrove.
 target_link_libraries(decolog_core PUBLIC Qt6::Core Qt6::Network Qt6::Sql Qt6::Gui Qt6::WebSockets Qt6::SerialPort)
+# Il decodificatore CW: ggmorse fa il lavoro, CwDecoder gli porta l'audio.
+target_link_libraries(decolog_core PRIVATE ggmorse)
 # Annunci vocali: su Windows la sintesi del sistema (SAPI).
 if(WIN32)
     target_link_libraries(decolog_core PRIVATE sapi ole32)

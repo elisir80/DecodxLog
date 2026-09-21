@@ -181,12 +181,31 @@ DialogFrame {
             }
             Rectangle { Layout.fillHeight: true; implicitWidth: 1; color: Theme.borderSoft }
 
-            StackLayout {
+            // La pagina scorre. Senza, una pagina lunga spingeva i pulsanti
+            // «Annulla» e «Applica» fuori dalla finestra, e la meta' di sotto
+            // non si raggiungeva in nessun modo.
+            ScrollView {
+                id: pageScroll
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.margins: 14
-                Layout.minimumHeight: 470
                 Layout.minimumWidth: 0
+                Layout.minimumHeight: 0
+                padding: 14
+                clip: true
+                contentWidth: availableWidth
+                ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+                ScrollBar.vertical: ScrollBar {}
+
+            StackLayout {
+                id: pageStack
+                // La riga non si allunga all'infinito: su uno schermo largo un
+                // campo lungo un metro non si legge meglio, si legge peggio.
+                readonly property real pageWidth: Math.min(920, pageScroll.availableWidth)
+                readonly property Item current: pageStack.children[root.page] || null
+                width: pageWidth
+                x: Math.max(0, (pageScroll.availableWidth - pageWidth) / 2)
+                height: Math.max(pageScroll.availableHeight,
+                                 current ? current.implicitHeight : 0)
                 clip: true
                 currentIndex: root.page
 
@@ -1406,6 +1425,7 @@ DialogFrame {
                     Note { text: qsTr("A consistent copy made with SQLite VACUUM INTO, even while DecoDXLog is logging. If the PC is off at the chosen time, the copy is made as soon as DecoDXLog is open.") }
                     Item { Layout.fillHeight: true }
                 }
+            }
             }
         }
 
