@@ -128,6 +128,34 @@ private slots:
         QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+\\stop_morse")), 5000);
     }
 
+    // rigctld risponde a "get_level" col valore nudo e *poi* con RPRT. Il
+    // valore nudo bastava a chiudere la risposta, e il RPRT che arrivava dopo
+    // si prendeva la domanda seguente: da li' in poi ogni risposta finiva sulla
+    // domanda sbagliata, e l'errore del CW spariva del tutto.
+    //
+    // Qui si aspetta apposta che la velocita' sia arrivata — cioe' che quella
+    // risposta col valore nudo sia stata chiusa — e solo allora si manda il CW.
+    void theTailOfOneAnswerIsNotTheAnswerToTheNext()
+    {
+        FakeRigctld rig;
+        rig.morseWorks = false;
+        RigControl control;
+        control.connectTo(QStringLiteral("127.0.0.1"), rig.serverPort());
+        QTRY_VERIFY_WITH_TIMEOUT(control.connected(), 5000);
+        QTRY_COMPARE_WITH_TIMEOUT(control.speedWpm(), 22, 5000);
+
+        QSignalSpy failed(&control, &RigControl::failed);
+        control.sendMorse(QStringLiteral("TEST"));
+        QVERIFY2(failed.wait(5000), "la risposta al CW e' stata attribuita a un'altra domanda");
+        QVERIFY(failed.first().at(0).toString().contains(QStringLiteral("CW")));
+
+        // E la radio continua a rispondere a tono anche dopo: la coda non e'
+        // rimasta sfasata di uno.
+        control.setFrequency(7025000);
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+F 7025000")), 5000);
+        QTRY_COMPARE_WITH_TIMEOUT(control.frequencyHz(), 7025000LL, 5000);
+    }
+
     void aRadioThatDoesNotKeyCwSaysSo()
     {
         FakeRigctld rig;

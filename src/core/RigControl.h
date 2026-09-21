@@ -71,7 +71,7 @@ private:
     QTimer m_poll;
     QTimer m_retry;
     QQueue<Pending> m_pending;
-    QStringList m_lines;      // righe della risposta in arrivo, fino a RPRT
+    QStringList m_lines;             // righe della risposta in arrivo, fino a RPRT
     QByteArray m_buffer;
 
     QString m_host;

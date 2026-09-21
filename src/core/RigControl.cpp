@@ -177,17 +177,24 @@ void RigControl::readFromRig()
         if (m_pending.isEmpty())
             continue;
         const int wanted = m_pending.head().values;
-        // Le righe del modo esteso hanno i due punti ("get_freq:", "Mode: CW"):
-        // quelle si lasciano stare, perche' li' il RPRT arriva comunque. Si
-        // contano solo i valori nudi, che sono quelli che il RPRT non ce l'hanno.
-        if (wanted <= 0 || line.contains(QLatin1Char(':')))
+        if (wanted <= 0)
             continue;
-        int values = 0;
+        // Una riga coi due punti ("get_level: KEYSPD", "Mode: CW") dice che
+        // questa risposta e' di rigctld vero, e quello il RPRT lo manda sempre:
+        // qui non si conta niente e si aspetta.
+        //
+        // Contare lo stesso era un guaio serio: la risposta si chiudeva al
+        // valore nudo, e il RPRT che arrivava subito dopo si prendeva la
+        // domanda seguente. Da li' in poi ogni risposta finiva sulla domanda
+        // sbagliata — e l'errore "questa radio non manipola" spariva del tutto.
+        bool extended = false;
         for (const QString& seen : std::as_const(m_lines)) {
-            if (!seen.contains(QLatin1Char(':')))
-                ++values;
+            if (seen.contains(QLatin1Char(':')))
+                extended = true;
         }
-        if (values >= wanted) {
+        if (extended)
+            continue;
+        if (m_lines.size() >= wanted) {
             QStringList block = m_lines;
             block << QStringLiteral("RPRT 0");
             m_lines.clear();
