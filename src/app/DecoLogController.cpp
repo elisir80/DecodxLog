@@ -14,6 +14,7 @@
 #include <QHostAddress>
 #include <QLocale>
 #include <QJsonArray>
+#include <QJsonDocument>
 #include <QJsonObject>
 #include <QSet>
 #include <QRegularExpression>
