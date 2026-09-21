@@ -2151,6 +2151,18 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>QSL via</translation>
     </message>
     <message>
+        <source>Prop mode</source>
+        <translation>Udbredelse</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Satelit</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat-modus</translation>
+    </message>
+    <message>
         <source>Comment</source>
         <translation>Kommentar</translation>
     </message>
@@ -2252,6 +2264,18 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>QTH</source>
         <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Prop</source>
+        <translation>Prop</translation>
+    </message>
+    <message>
+        <source>Sat</source>
+        <translation>Sat</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat-modus</translation>
     </message>
     <message>
         <source>Nr rcvd</source>
@@ -2970,6 +2994,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Satellite</source>
         <translation>Satelit</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat-modus</translation>
     </message>
     <message>
         <source>My grid</source>
@@ -4989,6 +5017,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Cloud: %1</source>
         <translation>Cloud: %1</translation>
+    </message>
+    <message>
+        <source>Cloud: linked — sync will unlock it when needed</source>
+        <translation>Cloud: forbundet — synkroniseringen låser den op, når der er brug for det</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>

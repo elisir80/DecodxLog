@@ -2150,6 +2150,18 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>QSL 经由</translation>
     </message>
     <message>
+        <source>Prop mode</source>
+        <translation>传播方式</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>卫星</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>卫星模式</translation>
+    </message>
+    <message>
         <source>Comment</source>
         <translation>备注</translation>
     </message>
@@ -2251,6 +2263,18 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>QTH</source>
         <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Prop</source>
+        <translation>传播</translation>
+    </message>
+    <message>
+        <source>Sat</source>
+        <translation>卫星</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>卫星模式</translation>
     </message>
     <message>
         <source>Nr rcvd</source>
@@ -2967,6 +2991,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Satellite</source>
         <translation>卫星</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>卫星模式</translation>
     </message>
     <message>
         <source>My grid</source>
@@ -4977,6 +5005,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Cloud: %1</source>
         <translation>Cloud：%1</translation>
+    </message>
+    <message>
+        <source>Cloud: linked — sync will unlock it when needed</source>
+        <translation>Cloud：已连接 — 需要时同步会解锁</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>

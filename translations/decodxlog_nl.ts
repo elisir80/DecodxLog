@@ -2151,6 +2151,18 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>QSL via</translation>
     </message>
     <message>
+        <source>Prop mode</source>
+        <translation>Propagatie</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Satelliet</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat-mode</translation>
+    </message>
+    <message>
         <source>Comment</source>
         <translation>Opmerking</translation>
     </message>
@@ -2252,6 +2264,18 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>QTH</source>
         <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Prop</source>
+        <translation>Prop</translation>
+    </message>
+    <message>
+        <source>Sat</source>
+        <translation>Sat</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat-mode</translation>
     </message>
     <message>
         <source>Nr rcvd</source>
@@ -2970,6 +2994,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Satellite</source>
         <translation>Satelliet</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat-mode</translation>
     </message>
     <message>
         <source>My grid</source>
@@ -4989,6 +5017,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Cloud: %1</source>
         <translation>Cloud: %1</translation>
+    </message>
+    <message>
+        <source>Cloud: linked — sync will unlock it when needed</source>
+        <translation>Cloud: gekoppeld — de sync ontgrendelt hem wanneer het nodig is</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>

@@ -2152,6 +2152,18 @@ The call Decodium is working shows up here by itself.</source>
         <translation>QSL через</translation>
     </message>
     <message>
+        <source>Prop mode</source>
+        <translation>Способ прохождения</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Спутник</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Режим спутн.</translation>
+    </message>
+    <message>
         <source>Comment</source>
         <translation>Комментарий</translation>
     </message>
@@ -2253,6 +2265,18 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>QTH</source>
         <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Prop</source>
+        <translation>Прох.</translation>
+    </message>
+    <message>
+        <source>Sat</source>
+        <translation>Спутн.</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Режим спутн.</translation>
     </message>
     <message>
         <source>Nr rcvd</source>
@@ -2973,6 +2997,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Satellite</source>
         <translation>Спутник</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Режим спутн.</translation>
     </message>
     <message>
         <source>My grid</source>
@@ -5001,6 +5029,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Cloud: %1</source>
         <translation>Cloud: %1</translation>
+    </message>
+    <message>
+        <source>Cloud: linked — sync will unlock it when needed</source>
+        <translation>Cloud: подключён — синхронизация откроет его, когда понадобится</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>

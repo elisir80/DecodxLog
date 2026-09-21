@@ -2151,6 +2151,18 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>QSL via</translation>
     </message>
     <message>
+        <source>Prop mode</source>
+        <translation>Mode de propagació</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Satèl·lit</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Mode sat</translation>
+    </message>
+    <message>
         <source>Comment</source>
         <translation>Comentari</translation>
     </message>
@@ -2252,6 +2264,18 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>QTH</source>
         <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Prop</source>
+        <translation>Prop</translation>
+    </message>
+    <message>
+        <source>Sat</source>
+        <translation>Sat</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Mode sat</translation>
     </message>
     <message>
         <source>Nr rcvd</source>
@@ -2970,6 +2994,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Satellite</source>
         <translation>Satèl·lit</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Mode sat</translation>
     </message>
     <message>
         <source>My grid</source>
@@ -4989,6 +5017,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Cloud: %1</source>
         <translation>Cloud: %1</translation>
+    </message>
+    <message>
+        <source>Cloud: linked — sync will unlock it when needed</source>
+        <translation>Cloud: enllaçat — la sincronització el desbloqueja quan cal</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>

@@ -2152,6 +2152,18 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>QSL via</translation>
     </message>
     <message>
+        <source>Prop mode</source>
+        <translation>Izplatīšanās veids</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Satelīts</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat veids</translation>
+    </message>
+    <message>
         <source>Comment</source>
         <translation>Comment</translation>
     </message>
@@ -2253,6 +2265,18 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>QTH</source>
         <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Prop</source>
+        <translation>Izpl.</translation>
+    </message>
+    <message>
+        <source>Sat</source>
+        <translation>Sat</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat veids</translation>
     </message>
     <message>
         <source>Nr rcvd</source>
@@ -2973,6 +2997,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Satellite</source>
         <translation>Satelīts</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat veids</translation>
     </message>
     <message>
         <source>My grid</source>
@@ -5001,6 +5029,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Cloud: %1</source>
         <translation>Cloud: %1</translation>
+    </message>
+    <message>
+        <source>Cloud: linked — sync will unlock it when needed</source>
+        <translation>Cloud: saistīts — sinhronizācija to atslēdz, kad vajag</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>

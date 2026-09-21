@@ -2150,6 +2150,18 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>QSL via</translation>
     </message>
     <message>
+        <source>Prop mode</source>
+        <translation>Terjedés</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Műhold</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat mód</translation>
+    </message>
+    <message>
         <source>Comment</source>
         <translation>Megjegyzés</translation>
     </message>
@@ -2251,6 +2263,18 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>QTH</source>
         <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Prop</source>
+        <translation>Terj.</translation>
+    </message>
+    <message>
+        <source>Sat</source>
+        <translation>Sat</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat mód</translation>
     </message>
     <message>
         <source>Nr rcvd</source>
@@ -2967,6 +2991,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Satellite</source>
         <translation>Műhold</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat mód</translation>
     </message>
     <message>
         <source>My grid</source>
@@ -4977,6 +5005,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Cloud: %1</source>
         <translation>Cloud: %1</translation>
+    </message>
+    <message>
+        <source>Cloud: linked — sync will unlock it when needed</source>
+        <translation>Cloud: összekötve — a szinkron akkor nyitja fel, amikor kell</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>

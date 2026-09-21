@@ -2151,6 +2151,18 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>QSL vía</translation>
     </message>
     <message>
+        <source>Prop mode</source>
+        <translation>Modo de propagación</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Satelite</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Modo sat</translation>
+    </message>
+    <message>
         <source>Comment</source>
         <translation>Comentario</translation>
     </message>
@@ -2252,6 +2264,18 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>QTH</source>
         <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Prop</source>
+        <translation>Prop</translation>
+    </message>
+    <message>
+        <source>Sat</source>
+        <translation>Sat</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Modo sat</translation>
     </message>
     <message>
         <source>Nr rcvd</source>
@@ -2970,6 +2994,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>Satellite</source>
         <translation>Satelite</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Modo sat</translation>
     </message>
     <message>
         <source>My grid</source>
@@ -4989,6 +5017,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>Cloud: %1</source>
         <translation>Cloud: %1</translation>
+    </message>
+    <message>
+        <source>Cloud: linked — sync will unlock it when needed</source>
+        <translation>Cloud: enlazado — la sincronización lo desbloquea cuando hace falta</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>

@@ -2151,6 +2151,18 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>QSL via</translation>
     </message>
     <message>
+        <source>Prop mode</source>
+        <translation>Ausbreitungsart</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Satellit</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat-Art</translation>
+    </message>
+    <message>
         <source>Comment</source>
         <translation>Kommentar</translation>
     </message>
@@ -2252,6 +2264,18 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>QTH</source>
         <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Prop</source>
+        <translation>Ausbr.</translation>
+    </message>
+    <message>
+        <source>Sat</source>
+        <translation>Sat</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat-Art</translation>
     </message>
     <message>
         <source>Nr rcvd</source>
@@ -2970,6 +2994,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Satellite</source>
         <translation>Satellit</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat-Art</translation>
     </message>
     <message>
         <source>My grid</source>
@@ -4989,6 +5017,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Cloud: %1</source>
         <translation>Cloud: %1</translation>
+    </message>
+    <message>
+        <source>Cloud: linked — sync will unlock it when needed</source>
+        <translation>Cloud: verbunden — der Sync schließt ihn auf, wenn er ihn braucht</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>

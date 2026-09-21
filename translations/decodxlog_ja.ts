@@ -2150,6 +2150,18 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>QSL 経由</translation>
     </message>
     <message>
+        <source>Prop mode</source>
+        <translation>伝わり方</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>衛星</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>サテライトのモード</translation>
+    </message>
+    <message>
         <source>Comment</source>
         <translation>コメント</translation>
     </message>
@@ -2251,6 +2263,18 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>QTH</source>
         <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Prop</source>
+        <translation>伝搬</translation>
+    </message>
+    <message>
+        <source>Sat</source>
+        <translation>サテライト</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>サテライトのモード</translation>
     </message>
     <message>
         <source>Nr rcvd</source>
@@ -2967,6 +2991,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Satellite</source>
         <translation>衛星</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>サテライトのモード</translation>
     </message>
     <message>
         <source>My grid</source>
@@ -4977,6 +5005,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Cloud: %1</source>
         <translation>Cloud: %1</translation>
+    </message>
+    <message>
+        <source>Cloud: linked — sync will unlock it when needed</source>
+        <translation>Cloud: つながっています。必要になったら同期が鍵を開けます</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>

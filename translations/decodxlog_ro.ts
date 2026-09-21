@@ -2152,6 +2152,18 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>QSL via</translation>
     </message>
     <message>
+        <source>Prop mode</source>
+        <translation>Mod de propagare</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Satelit</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Mod sat</translation>
+    </message>
+    <message>
         <source>Comment</source>
         <translation>Comentariu</translation>
     </message>
@@ -2253,6 +2265,18 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>QTH</source>
         <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Prop</source>
+        <translation>Prop</translation>
+    </message>
+    <message>
+        <source>Sat</source>
+        <translation>Sat</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Mod sat</translation>
     </message>
     <message>
         <source>Nr rcvd</source>
@@ -2973,6 +2997,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Satellite</source>
         <translation>Satelit</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Mod sat</translation>
     </message>
     <message>
         <source>My grid</source>
@@ -5001,6 +5029,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Cloud: %1</source>
         <translation>Cloud: %1</translation>
+    </message>
+    <message>
+        <source>Cloud: linked — sync will unlock it when needed</source>
+        <translation>Cloud: legat — sincronizarea îl deblochează când e nevoie</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>

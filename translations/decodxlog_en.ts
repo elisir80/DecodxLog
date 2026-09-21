@@ -2150,6 +2150,18 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Prop mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat mode</translation>
+    </message>
+    <message>
         <source>Comment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2251,6 +2263,18 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>QTH</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prop</source>
+        <translation>Prop</translation>
+    </message>
+    <message>
+        <source>Sat</source>
+        <translation>Sat</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat mode</translation>
     </message>
     <message>
         <source>Nr rcvd</source>
@@ -2969,6 +2993,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Satellite</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat mode</translation>
     </message>
     <message>
         <source>My grid</source>
@@ -4988,6 +5016,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Cloud: %1</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cloud: linked — sync will unlock it when needed</source>
+        <translation>Cloud: linked — sync will unlock it when needed</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>
