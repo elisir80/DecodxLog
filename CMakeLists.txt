@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.5.0
+    VERSION 1.5.1
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -83,8 +83,6 @@ add_library(decolog_core STATIC
     src/core/Lotw.h
     src/core/NetworkError.h
     src/core/QslCards.cpp
-    src/core/QslDesign.cpp
-    src/core/QslDesign.h
     src/core/QslCards.h
     src/core/QslUpload.cpp
     src/core/QslUpload.h
@@ -211,7 +209,6 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/MapPanel.qml
     qml/DecoDXLog/StatusRail.qml
     qml/DecoDXLog/NewQsoDialog.qml
-    qml/DecoDXLog/QslCardDesign.qml
     qml/DecoDXLog/QslCardsWindow.qml
     qml/DecoDXLog/QsoDetailDialog.qml
     qml/DecoDXLog/StationProfilesDialog.qml
@@ -350,12 +347,6 @@ if(DECODXLOG_BUILD_TESTS)
     set_target_properties(tst_qslcards PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME qslcards COMMAND tst_qslcards)
     set_tests_properties(qslcards PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
-    # La cartolina QSL disegna sul serio: stessa storia, serve QtGui.
-    qt_add_executable(tst_qsldesign tests/tst_qsldesign.cpp)
-    target_link_libraries(tst_qsldesign PRIVATE decolog_core Qt6::Test Qt6::Gui)
-    set_target_properties(tst_qsldesign PROPERTIES WIN32_EXECUTABLE OFF)
-    add_test(NAME qsldesign COMMAND tst_qsldesign)
-    set_tests_properties(qsldesign PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
     # La tabella del log sta nell'applicazione, ma i suoi filtri sono SQL da provare.
     qt_add_executable(tst_qsomodel tests/tst_qsomodel.cpp src/app/QsoTableModel.cpp src/app/QsoTableModel.h)
     target_include_directories(tst_qsomodel PRIVATE src)

@@ -446,10 +446,6 @@
         <translation>Papir-QSL (%1)</translation>
     </message>
     <message>
-        <source>QSL card</source>
-        <translation>QSL-kort</translation>
-    </message>
-    <message>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
@@ -2478,108 +2474,6 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
-    <name>QslCardDesign</name>
-    <message>
-        <source>Card model</source>
-        <translation>Kortskabelon</translation>
-    </message>
-    <message>
-        <source>no image yet</source>
-        <translation>endnu intet billede</translation>
-    </message>
-    <message>
-        <source>Load an image…</source>
-        <translation>Indlæs et billede…</translation>
-    </message>
-    <message>
-        <source>Load the image of your QSL card: a scan or the file the printer gave you. Then drop the fields on it and drag them where the boxes are.</source>
-        <translation>Indlæs billedet af dit QSL-kort: en scanning eller filen fra trykkeriet. Læg derefter felterne ovenpå og træk dem hen, hvor rubrikkerne er.</translation>
-    </message>
-    <message>
-        <source>Add a field ▾</source>
-        <translation>Tilføj et felt ▾</translation>
-    </message>
-    <message>
-        <source>Click a field on the card to change it.</source>
-        <translation>Klik på et felt på kortet for at ændre det.</translation>
-    </message>
-    <message>
-        <source>Free text</source>
-        <translation>Fri tekst</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation>Størrelse</translation>
-    </message>
-    <message>
-        <source>Bold</source>
-        <translation>Fed</translation>
-    </message>
-    <message>
-        <source>left</source>
-        <translation>venstre</translation>
-    </message>
-    <message>
-        <source>centre</source>
-        <translation>midt</translation>
-    </message>
-    <message>
-        <source>right</source>
-        <translation>højre</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>Fjern</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n chosen QSO</source>
-        <translation>
-            <numerusform>%n valgt QSO</numerusform>
-            <numerusform>%n valgte QSO</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>the whole queue</source>
-        <translation>hele køen</translation>
-    </message>
-    <message>
-        <source>Cards per sheet</source>
-        <translation>Kort pr. ark</translation>
-    </message>
-    <message>
-        <source>Write the PDF…</source>
-        <translation>Skriv PDF&apos;en…</translation>
-    </message>
-    <message>
-        <source>One PNG each…</source>
-        <translation>Et PNG hver…</translation>
-    </message>
-    <message>
-        <source>The image of your QSL card</source>
-        <translation>Billedet af dit QSL-kort</translation>
-    </message>
-    <message>
-        <source>Images (*.png *.jpg *.jpeg *.bmp *.webp)</source>
-        <translation>Billeder (*.png *.jpg *.jpeg *.bmp *.webp)</translation>
-    </message>
-    <message>
-        <source>All files (*)</source>
-        <translation>Alle filer (*)</translation>
-    </message>
-    <message>
-        <source>QSL cards</source>
-        <translation>QSL-kort</translation>
-    </message>
-    <message>
-        <source>PDF files (*.pdf)</source>
-        <translation>PDF-filer (*.pdf)</translation>
-    </message>
-    <message>
-        <source>Where to put the cards</source>
-        <translation>Hvor kortene skal ligge</translation>
-    </message>
-</context>
-<context>
     <name>QslCards</name>
     <message>
         <source>No QSL to print</source>
@@ -2647,14 +2541,6 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>manager</source>
         <translation>manager</translation>
-    </message>
-    <message>
-        <source>Queue &amp; labels</source>
-        <translation>Kø og etiketter</translation>
-    </message>
-    <message>
-        <source>QSL card</source>
-        <translation>QSL-kort</translation>
     </message>
     <message>
         <source>To send</source>
@@ -5479,117 +5365,6 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>QSL labels: %1 (%2)</source>
         <translation>QSL-etiketter: %1 (%2)</translation>
-    </message>
-    <message>
-        <source>Callsign</source>
-        <translation>Kaldesignal</translation>
-    </message>
-    <message>
-        <source>Date</source>
-        <translation>Dato</translation>
-    </message>
-    <message>
-        <source>Day</source>
-        <translation>Dag</translation>
-    </message>
-    <message>
-        <source>Month (number)</source>
-        <translation>Måned (tal)</translation>
-    </message>
-    <message>
-        <source>Month (name)</source>
-        <translation>Måned (navn)</translation>
-    </message>
-    <message>
-        <source>Year</source>
-        <translation>År</translation>
-    </message>
-    <message>
-        <source>UTC</source>
-        <translation>UTC</translation>
-    </message>
-    <message>
-        <source>MHz</source>
-        <translation>MHz</translation>
-    </message>
-    <message>
-        <source>Band</source>
-        <translation>Bånd</translation>
-    </message>
-    <message>
-        <source>Mode</source>
-        <translation>Tilstand</translation>
-    </message>
-    <message>
-        <source>RST</source>
-        <translation>RST</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation>Navn</translation>
-    </message>
-    <message>
-        <source>QTH</source>
-        <translation>QTH</translation>
-    </message>
-    <message>
-        <source>Country</source>
-        <translation>Land</translation>
-    </message>
-    <message>
-        <source>Grid</source>
-        <translation>Gitter</translation>
-    </message>
-    <message>
-        <source>Via</source>
-        <translation>Via</translation>
-    </message>
-    <message>
-        <source>My callsign</source>
-        <translation>Mit kaldesignal</translation>
-    </message>
-    <message>
-        <source>My grid</source>
-        <translation>Min locator</translation>
-    </message>
-    <message>
-        <source>My name</source>
-        <translation>Mit navn</translation>
-    </message>
-    <message>
-        <source>My QTH</source>
-        <translation>Mit QTH</translation>
-    </message>
-    <message>
-        <source>Free text</source>
-        <translation>Fri tekst</translation>
-    </message>
-    <message>
-        <source>This file is not an image DecoDXLog can read.</source>
-        <translation>Denne fil er ikke et billede, DecoDXLog kan læse.</translation>
-    </message>
-    <message>
-        <source>QSL card model: %1 (%2 x %3)</source>
-        <translation>QSL-kortskabelon: %1 (%2 × %3)</translation>
-    </message>
-    <message>
-        <source>text</source>
-        <translation>tekst</translation>
-    </message>
-    <message>
-        <source>No QSO to make a card for.</source>
-        <translation>Ingen QSO at lave et kort af.</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n card(s) written</source>
-        <translation>
-            <numerusform>%n kort skrevet</numerusform>
-            <numerusform>%n kort skrevet</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>QSL cards: %1 (%2)</source>
-        <translation>QSL-kort: %1 (%2)</translation>
     </message>
 </context>
 <context>

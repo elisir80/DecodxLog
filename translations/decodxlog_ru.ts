@@ -447,10 +447,6 @@
         <translation>Бумажные QSL (%1)</translation>
     </message>
     <message>
-        <source>QSL card</source>
-        <translation>QSL-карточка</translation>
-    </message>
-    <message>
         <source>Stop</source>
         <translation>Стоп</translation>
     </message>
@@ -2480,109 +2476,6 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
-    <name>QslCardDesign</name>
-    <message>
-        <source>Card model</source>
-        <translation>Образец карточки</translation>
-    </message>
-    <message>
-        <source>no image yet</source>
-        <translation>изображения ещё нет</translation>
-    </message>
-    <message>
-        <source>Load an image…</source>
-        <translation>Загрузить изображение…</translation>
-    </message>
-    <message>
-        <source>Load the image of your QSL card: a scan or the file the printer gave you. Then drop the fields on it and drag them where the boxes are.</source>
-        <translation>Загрузи изображение своей QSL: скан или файл из типографии. Потом положи на него поля и перетащи их туда, где клетки.</translation>
-    </message>
-    <message>
-        <source>Add a field ▾</source>
-        <translation>Добавить поле ▾</translation>
-    </message>
-    <message>
-        <source>Click a field on the card to change it.</source>
-        <translation>Щёлкни по полю на карточке, чтобы его изменить.</translation>
-    </message>
-    <message>
-        <source>Free text</source>
-        <translation>Свободный текст</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation>Кегль</translation>
-    </message>
-    <message>
-        <source>Bold</source>
-        <translation>Жирный</translation>
-    </message>
-    <message>
-        <source>left</source>
-        <translation>слева</translation>
-    </message>
-    <message>
-        <source>centre</source>
-        <translation>по центру</translation>
-    </message>
-    <message>
-        <source>right</source>
-        <translation>справа</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>Убрать</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n chosen QSO</source>
-        <translation>
-            <numerusform>%n выбранный QSO</numerusform>
-            <numerusform>%n выбранных QSO</numerusform>
-            <numerusform>%n выбранных QSO</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>the whole queue</source>
-        <translation>вся очередь</translation>
-    </message>
-    <message>
-        <source>Cards per sheet</source>
-        <translation>Карточек на листе</translation>
-    </message>
-    <message>
-        <source>Write the PDF…</source>
-        <translation>Записать PDF…</translation>
-    </message>
-    <message>
-        <source>One PNG each…</source>
-        <translation>По одному PNG…</translation>
-    </message>
-    <message>
-        <source>The image of your QSL card</source>
-        <translation>Изображение твоей QSL-карточки</translation>
-    </message>
-    <message>
-        <source>Images (*.png *.jpg *.jpeg *.bmp *.webp)</source>
-        <translation>Изображения (*.png *.jpg *.jpeg *.bmp *.webp)</translation>
-    </message>
-    <message>
-        <source>All files (*)</source>
-        <translation>Все файлы (*)</translation>
-    </message>
-    <message>
-        <source>QSL cards</source>
-        <translation>QSL-карточки</translation>
-    </message>
-    <message>
-        <source>PDF files (*.pdf)</source>
-        <translation>Файлы PDF (*.pdf)</translation>
-    </message>
-    <message>
-        <source>Where to put the cards</source>
-        <translation>Куда положить карточки</translation>
-    </message>
-</context>
-<context>
     <name>QslCards</name>
     <message>
         <source>No QSL to print</source>
@@ -2650,14 +2543,6 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>manager</source>
         <translation>менеджер</translation>
-    </message>
-    <message>
-        <source>Queue &amp; labels</source>
-        <translation>Очередь и наклейки</translation>
-    </message>
-    <message>
-        <source>QSL card</source>
-        <translation>QSL-карточка</translation>
     </message>
     <message>
         <source>To send</source>
@@ -5506,118 +5391,6 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>QSL labels: %1 (%2)</source>
         <translation>Наклейки QSL: %1 (%2)</translation>
-    </message>
-    <message>
-        <source>Callsign</source>
-        <translation>Позывной</translation>
-    </message>
-    <message>
-        <source>Date</source>
-        <translation>Дата</translation>
-    </message>
-    <message>
-        <source>Day</source>
-        <translation>День</translation>
-    </message>
-    <message>
-        <source>Month (number)</source>
-        <translation>Месяц (число)</translation>
-    </message>
-    <message>
-        <source>Month (name)</source>
-        <translation>Месяц (название)</translation>
-    </message>
-    <message>
-        <source>Year</source>
-        <translation>Год</translation>
-    </message>
-    <message>
-        <source>UTC</source>
-        <translation>UTC</translation>
-    </message>
-    <message>
-        <source>MHz</source>
-        <translation>МГц</translation>
-    </message>
-    <message>
-        <source>Band</source>
-        <translation>Диапазон</translation>
-    </message>
-    <message>
-        <source>Mode</source>
-        <translation>Режим</translation>
-    </message>
-    <message>
-        <source>RST</source>
-        <translation>RST</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation>Имя</translation>
-    </message>
-    <message>
-        <source>QTH</source>
-        <translation>QTH</translation>
-    </message>
-    <message>
-        <source>Country</source>
-        <translation>Страна</translation>
-    </message>
-    <message>
-        <source>Grid</source>
-        <translation>Сетка</translation>
-    </message>
-    <message>
-        <source>Via</source>
-        <translation>Через</translation>
-    </message>
-    <message>
-        <source>My callsign</source>
-        <translation>Мой позывной</translation>
-    </message>
-    <message>
-        <source>My grid</source>
-        <translation>Мой локатор</translation>
-    </message>
-    <message>
-        <source>My name</source>
-        <translation>Моё имя</translation>
-    </message>
-    <message>
-        <source>My QTH</source>
-        <translation>Мой QTH</translation>
-    </message>
-    <message>
-        <source>Free text</source>
-        <translation>Свободный текст</translation>
-    </message>
-    <message>
-        <source>This file is not an image DecoDXLog can read.</source>
-        <translation>Этот файл — не изображение, которое DecoDXLog умеет читать.</translation>
-    </message>
-    <message>
-        <source>QSL card model: %1 (%2 x %3)</source>
-        <translation>Образец QSL-карточки: %1 (%2 × %3)</translation>
-    </message>
-    <message>
-        <source>text</source>
-        <translation>текст</translation>
-    </message>
-    <message>
-        <source>No QSO to make a card for.</source>
-        <translation>Нет QSO, для которого делать карточку.</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n card(s) written</source>
-        <translation>
-            <numerusform>%n карточка записана</numerusform>
-            <numerusform>%n карточки записаны</numerusform>
-            <numerusform>%n карточек записано</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>QSL cards: %1 (%2)</source>
-        <translation>QSL-карточки: %1 (%2)</translation>
     </message>
 </context>
 <context>

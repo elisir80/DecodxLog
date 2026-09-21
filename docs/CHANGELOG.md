@@ -3,38 +3,6 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
-## 1.5.0 — 21 settembre 2026
-
-**La cartolina QSL si stampa da qui.** Fino a ieri delle QSL di carta DecoDXLog sapeva
-fare solo le etichette adesive. Adesso c'e' la cartolina vera: si carica l'immagine della
-propria QSL — la scansione, o il file che ha dato la tipografia — e ci si posano sopra i
-campi, trascinandoli col mouse dove stanno i riquadri vuoti.
-
-I campi sono ventuno: nominativo, data intera o spezzata in giorno, mese (in cifre o
-JAN/FEB/MAR) e anno, ora UTC, MHz, banda, modo, RST, nome, QTH, paese, locatore, il via, i
-propri dati dal profilo di stazione, e il testo libero per scriverci quello che si vuole.
-Di ognuno si sceglie il corpo, il grassetto, il colore e se si aggancia a sinistra, in
-mezzo o a destra del punto dove sta.
-
-**Quello che si vede e' quello che si stampa.** L'anteprima non e' un disegno a parte: e'
-la stessa cartolina, con dentro un QSO vero preso dalla coda. Le posizioni non sono in
-pixel ma in frazione del modello, e i corpi in millesimi della sua altezza: cambiare la
-cartolina con una scansione piu' grande non sposta piu' niente.
-
-In uscita, due strade: **un PDF** con una, due o quattro cartoline per foglio A4 (dentro
-la casella la cartolina tiene le sue proporzioni — una QSL stirata non la manda nessuno),
-oppure **un PNG per ogni QSO**, alla misura del modello, per chi le manda a stampare
-altrove. Si stampano quelle scelte nella coda, o tutta la coda.
-
-La cartolina si prepara una volta e resta: com'e' fatta sta nelle impostazioni, quindi
-segue il resto nella copia di sicurezza.
-
-Cosa non fa, per ora: una faccia sola (il davanti), una riga per campo, e niente testo
-ruotato.
-
-La si apre da **Invio QSL → Cartolina QSL**, o dal pulsante in cima alla finestra delle
-QSL di carta.
-
 ## 1.4.0 — 21 settembre 2026
 
 **Il decoder CW adesso e' ggmorse.** Quello di Georgi Gerganov

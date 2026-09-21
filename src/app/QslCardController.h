@@ -6,13 +6,10 @@
 // tutti.
 #pragma once
 
-#include "core/QslDesign.h"
-
 #include <QObject>
 #include <QString>
 #include <QUrl>
 #include <QVariantList>
-#include <QSize>
 #include <QVariantMap>
 #include <functional>
 
@@ -29,10 +26,6 @@ class QslCardController : public QObject {
     Q_PROPERTY(QVariantList sheets READ sheets CONSTANT)
     Q_PROPERTY(QString lastFile READ lastFile NOTIFY changed)
     Q_PROPERTY(QString status READ status NOTIFY changed)
-    // La cartolina: il modello (un'immagine) e i campi posati sopra.
-    Q_PROPERTY(QString cardTemplate READ cardTemplate NOTIFY cardChanged)
-    Q_PROPERTY(QVariantList cardFields READ cardFields NOTIFY cardChanged)
-    Q_PROPERTY(QSize cardSize READ cardSize NOTIFY cardChanged)
 
 public:
     struct Context {
@@ -64,47 +57,16 @@ public:
     Q_INVOKABLE QString writeLabels(const QUrl& file, const QString& sheetId, int perLabel, bool guides);
     Q_INVOKABLE void refresh();
 
-    // ── La cartolina ────────────────────────────────────────────────────────
-    QString cardTemplate() const { return m_card.templatePath; }
-    QVariantList cardFields() const;
-    // La misura del modello in pixel: serve a QML per tenere le proporzioni.
-    QSize cardSize() const { return m_cardSize; }
-
-    // Le chiavi che si possono posare, con l'etichetta gia' tradotta.
-    Q_INVOKABLE QVariantList cardKeys() const;
-    Q_INVOKABLE void setCardTemplate(const QUrl& file);
-    Q_INVOKABLE void addCardField(const QString& key);
-    // Trascinamento: x e y sono frazioni del modello (0..1).
-    Q_INVOKABLE void moveCardField(int index, double x, double y);
-    // Solo le chiavi presenti in `props` cambiano: size, bold, color, align, text.
-    Q_INVOKABLE void updateCardField(int index, const QVariantMap& props);
-    Q_INVOKABLE void removeCardField(int index);
-    // Una cartolina di prova: il primo QSO in coda, o uno inventato se la coda
-    // e' vuota — senza, non si vedrebbe dove si stanno mettendo i campi.
-    Q_INVOKABLE QVariantMap sampleQso() const;
-    Q_INVOKABLE QVariantMap stationInfo() const;
-    // Scrive le cartoline dei QSO scelti (o di tutta la coda se `ids` e' vuota).
-    Q_INVOKABLE QString writeCardsPdf(const QUrl& file, const QVariantList& ids, int perPage);
-    Q_INVOKABLE QString writeCardsPng(const QUrl& folder, const QVariantList& ids);
-
 signals:
     void changed();
-    void cardChanged();
 
 private:
     void note(const QString& text, const QString& level);
     void touch(qint64 id, const QString& sent, const QString& rcvd, const QString& via);
 
-    void loadCard();
-    void saveCard();
-    void measureTemplate();
-    QList<QVariantMap> chosenQsos(const QVariantList& ids) const;
-
     Context m_ctx;
     QString m_lastFile;
     QString m_status;
-    core::qsldesign::Card m_card;
-    QSize m_cardSize;
 };
 
 } // namespace decolog::app

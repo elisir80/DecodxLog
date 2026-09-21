@@ -445,10 +445,6 @@
         <translation>紙本 QSL (%1)</translation>
     </message>
     <message>
-        <source>QSL card</source>
-        <translation>QSL 卡片</translation>
-    </message>
-    <message>
         <source>Stop</source>
         <translation>停止位元</translation>
     </message>
@@ -2476,107 +2472,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
 </context>
 <context>
-    <name>QslCardDesign</name>
-    <message>
-        <source>Card model</source>
-        <translation>卡片範本</translation>
-    </message>
-    <message>
-        <source>no image yet</source>
-        <translation>還沒有圖片</translation>
-    </message>
-    <message>
-        <source>Load an image…</source>
-        <translation>載入圖片…</translation>
-    </message>
-    <message>
-        <source>Load the image of your QSL card: a scan or the file the printer gave you. Then drop the fields on it and drag them where the boxes are.</source>
-        <translation>載入你自己的 QSL 卡片圖片：掃描檔，或者印刷廠給你的檔案。然後把欄位放上去，拖到空格所在的位置。</translation>
-    </message>
-    <message>
-        <source>Add a field ▾</source>
-        <translation>新增欄位 ▾</translation>
-    </message>
-    <message>
-        <source>Click a field on the card to change it.</source>
-        <translation>點一下卡片上的欄位就能修改它。</translation>
-    </message>
-    <message>
-        <source>Free text</source>
-        <translation>自由文字</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation>字級</translation>
-    </message>
-    <message>
-        <source>Bold</source>
-        <translation>粗體</translation>
-    </message>
-    <message>
-        <source>left</source>
-        <translation>左</translation>
-    </message>
-    <message>
-        <source>centre</source>
-        <translation>置中</translation>
-    </message>
-    <message>
-        <source>right</source>
-        <translation>右</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>移除</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n chosen QSO</source>
-        <translation>
-            <numerusform>已選 %n 個 QSO</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>the whole queue</source>
-        <translation>整個佇列</translation>
-    </message>
-    <message>
-        <source>Cards per sheet</source>
-        <translation>每張紙的卡片數</translation>
-    </message>
-    <message>
-        <source>Write the PDF…</source>
-        <translation>寫出 PDF…</translation>
-    </message>
-    <message>
-        <source>One PNG each…</source>
-        <translation>每張一個 PNG…</translation>
-    </message>
-    <message>
-        <source>The image of your QSL card</source>
-        <translation>你的 QSL 卡片圖片</translation>
-    </message>
-    <message>
-        <source>Images (*.png *.jpg *.jpeg *.bmp *.webp)</source>
-        <translation>圖片 (*.png *.jpg *.jpeg *.bmp *.webp)</translation>
-    </message>
-    <message>
-        <source>All files (*)</source>
-        <translation>所有檔案 (*)</translation>
-    </message>
-    <message>
-        <source>QSL cards</source>
-        <translation>QSL 卡片</translation>
-    </message>
-    <message>
-        <source>PDF files (*.pdf)</source>
-        <translation>PDF 檔案 (*.pdf)</translation>
-    </message>
-    <message>
-        <source>Where to put the cards</source>
-        <translation>把卡片放在哪裡</translation>
-    </message>
-</context>
-<context>
     <name>QslCards</name>
     <message>
         <source>No QSL to print</source>
@@ -2644,14 +2539,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>manager</source>
         <translation>代理</translation>
-    </message>
-    <message>
-        <source>Queue &amp; labels</source>
-        <translation>佇列與標籤</translation>
-    </message>
-    <message>
-        <source>QSL card</source>
-        <translation>QSL 卡片</translation>
     </message>
     <message>
         <source>To send</source>
@@ -5452,116 +5339,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>QSL labels: %1 (%2)</source>
         <translation>QSL 標籤：%1 (%2)</translation>
-    </message>
-    <message>
-        <source>Callsign</source>
-        <translation>呼號</translation>
-    </message>
-    <message>
-        <source>Date</source>
-        <translation>日期</translation>
-    </message>
-    <message>
-        <source>Day</source>
-        <translation>日</translation>
-    </message>
-    <message>
-        <source>Month (number)</source>
-        <translation>月（數字）</translation>
-    </message>
-    <message>
-        <source>Month (name)</source>
-        <translation>月（名稱）</translation>
-    </message>
-    <message>
-        <source>Year</source>
-        <translation>年</translation>
-    </message>
-    <message>
-        <source>UTC</source>
-        <translation>UTC</translation>
-    </message>
-    <message>
-        <source>MHz</source>
-        <translation>MHz</translation>
-    </message>
-    <message>
-        <source>Band</source>
-        <translation>波段</translation>
-    </message>
-    <message>
-        <source>Mode</source>
-        <translation>模式</translation>
-    </message>
-    <message>
-        <source>RST</source>
-        <translation>RST</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation>姓名</translation>
-    </message>
-    <message>
-        <source>QTH</source>
-        <translation>QTH</translation>
-    </message>
-    <message>
-        <source>Country</source>
-        <translation>國家</translation>
-    </message>
-    <message>
-        <source>Grid</source>
-        <translation>網格</translation>
-    </message>
-    <message>
-        <source>Via</source>
-        <translation>經由</translation>
-    </message>
-    <message>
-        <source>My callsign</source>
-        <translation>我的呼號</translation>
-    </message>
-    <message>
-        <source>My grid</source>
-        <translation>我的網格</translation>
-    </message>
-    <message>
-        <source>My name</source>
-        <translation>我的名字</translation>
-    </message>
-    <message>
-        <source>My QTH</source>
-        <translation>我的 QTH</translation>
-    </message>
-    <message>
-        <source>Free text</source>
-        <translation>自由文字</translation>
-    </message>
-    <message>
-        <source>This file is not an image DecoDXLog can read.</source>
-        <translation>這個檔案不是 DecoDXLog 能讀的圖片。</translation>
-    </message>
-    <message>
-        <source>QSL card model: %1 (%2 x %3)</source>
-        <translation>QSL 卡片範本：%1 (%2 × %3)</translation>
-    </message>
-    <message>
-        <source>text</source>
-        <translation>文字</translation>
-    </message>
-    <message>
-        <source>No QSO to make a card for.</source>
-        <translation>沒有可以做卡片的 QSO。</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n card(s) written</source>
-        <translation>
-            <numerusform>已寫入 %n 張卡片</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>QSL cards: %1 (%2)</source>
-        <translation>QSL 卡片：%1 (%2)</translation>
     </message>
 </context>
 <context>

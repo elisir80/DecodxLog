@@ -312,15 +312,7 @@ GlassPanel {
                     text: qsTr("Paper QSL (%1)").arg(decolog.cards.counts.queue || 0)
                     buttonHeight: 24
                     fontPixelSize: 11
-                    onClicked: window.openCards("queue")
-                }
-                GlassButton {
-                    // Dritto alla cartolina: e' li' che si carica la propria QSL
-                    // e si mettono i campi al loro posto.
-                    text: qsTr("QSL card")
-                    buttonHeight: 24
-                    fontPixelSize: 11
-                    onClicked: window.openCards("card")
+                    onClicked: window.openCards()
                 }
                 GlassButton {
                     visible: decolog.qsl.busy
