@@ -29,6 +29,12 @@ jobs:
             mingw-w64-x86_64-qt6-declarative
             mingw-w64-x86_64-qt6-tools
             mingw-w64-x86_64-qt6-translations
+            mingw-w64-x86_64-qt6-multimedia
+            mingw-w64-x86_64-qt6-positioning
+            mingw-w64-x86_64-qt6-location
+            mingw-w64-x86_64-qt6-serialport
+            mingw-w64-x86_64-qt6-websockets
+            mingw-w64-x86_64-qt6-shadertools
             mingw-w64-x86_64-qtkeychain
             mingw-w64-x86_64-openssl
 
@@ -62,6 +68,7 @@ jobs:
         with:
           version: '6.8.3'
           arch: linux_gcc_64
+          modules: "qtmultimedia qtpositioning qtlocation qtserialport qtwebsockets"
           cache: true
 
       - name: Packages
