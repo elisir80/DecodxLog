@@ -1,3 +1,9 @@
+# ATTENZIONE — questo flusso non parte piu' da solo.
+#
+# Il suo gemello per Windows produceva un pacchetto che va in crash all'avvio
+# (0xC0000409), e nessuno qui puo' provare un AppImage: senza una macchina Linux
+# su cui aprirlo, pubblicarlo vuol dire dare alla gente qualcosa che non si sa
+# se funziona. Si lancia a mano, e chi lo lancia lo prova.
 name: Release Linux
 
 on:
@@ -7,9 +13,6 @@ on:
         description: Release tag
         required: true
         default: v1.7.2
-  push:
-    tags:
-      - "v*"
 
 permissions:
   contents: write

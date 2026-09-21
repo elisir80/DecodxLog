@@ -1,3 +1,21 @@
+# ATTENZIONE — questo flusso non parte piu' da solo.
+#
+# Il pacchetto che costruiva qui (MSVC + Qt ufficiale) si avvia e muore subito
+# con 0xC0000409, stack buffer overrun: provato tre volte di fila sulla 1.7.2,
+# sempre uguale. Lo stesso identico codice compilato con MSYS2/MinGW parte e
+# funziona, quindi non e' il programma: e' come viene messo insieme il pacchetto.
+#
+# E faceva danno da solo: l'aggiornamento automatico cerca un file che finisce
+# per "-setup.exe", e questo si chiamava cosi'. Chi diceva di si' si ritrovava
+# un DecoDXLog che non partiva piu'.
+#
+# Il pacchetto per Windows lo si prepara a mano, come si e' sempre fatto fino
+# alla 1.7.0, e come si e' tornati a fare dalla 1.7.2:
+#     MINGW=/c/msys64/mingw64 BUILD=.../build-rel bash scripts/installer.sh
+#     MINGW=/c/msys64/mingw64 BUILD=.../build-rel bash scripts/deploy.sh
+#
+# Resta qui perche' il lavoro e' buono e un giorno si capira' cosa lo rompe: si
+# lancia a mano, e quello che ne esce si prova prima di pubblicarlo.
 name: Release Windows
 
 on:
@@ -7,9 +25,6 @@ on:
         description: Release tag
         required: true
         default: v1.7.2
-  push:
-    tags:
-      - "v*"
 
 permissions:
   contents: write

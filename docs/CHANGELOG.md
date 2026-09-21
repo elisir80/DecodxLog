@@ -3,6 +3,27 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.7.2 — 22 settembre 2026 (pacchetti rifatti)
+
+**I pacchetti della 1.7.1 e della 1.7.2 non partivano.** Li costruivano i flussi di
+GitHub Actions con MSVC e il Qt ufficiale, e quello che ne usciva si avviava e moriva
+subito: `0xC0000409`, stack buffer overrun. Provato tre volte di fila, sempre uguale. Lo
+stesso identico codice compilato con MSYS2/MinGW parte e funziona — quindi non era il
+programma, era come veniva messo insieme il pacchetto.
+
+**E si faceva strada da solo.** L'aggiornamento automatico cerca fra gli allegati quello
+che finisce per `-setup.exe`, e il pacchetto rotto si chiamava proprio cosi': chi diceva
+di si' si ritrovava un DecoDXLog che non si apriva piu'.
+
+I tre flussi non partono piu' a ogni tag — restano, si lanciano a mano, e chi li lancia
+prova quello che ne esce. Il pacchetto per Windows torna a farlo `scripts/installer.sh`
+con MSYS2, come fino alla 1.7.0. Gli allegati della 1.7.2 sono stati rifatti e provati:
+scompattato, installato, aperto. Quelli della 1.7.1 sono stati tolti — i binari stanno
+nella 1.7.2, che ha tutto.
+
+Il codice della 1.7.2 non e' cambiato: i satelliti a mano, il portachiavi, i pannelli e il
+rotore sono quelli di prima.
+
 ## 1.7.2 — 21 settembre 2026
 
 Quattro cose, tutte di elisir80.
