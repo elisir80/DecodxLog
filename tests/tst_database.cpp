@@ -399,8 +399,10 @@ private slots:
         QCOMPARE(counts.at(0).key, QString("Field Day"));
         QCOMPARE(counts.at(0).count, 2);
 
-        // Le etichette tornano nell'export ADIF.
-        QVERIFY(db.exportAdif({a}).contains("<app_decolog_tags:18>portable,Field Day"));
+        // Le etichette tornano nell'export ADIF. Il tipo si scrive per esteso:
+        // con le sole graffe un compilatore puo' vederci anche la versione che
+        // prende una stringa, e su Linux si ferma li'.
+        QVERIFY(db.exportAdif(QList<qint64>{a}).contains("<app_decolog_tags:18>portable,Field Day"));
     }
 
     void workedBefore()

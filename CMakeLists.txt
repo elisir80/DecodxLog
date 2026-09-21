@@ -385,6 +385,16 @@ if(DECODXLOG_BUILD_TESTS)
     target_link_libraries(tst_activation PRIVATE decolog_core Qt6::Test)
     set_target_properties(tst_activation PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME activation COMMAND tst_activation)
+
+    # Su Windows Qt scrive i suoi messaggi nel canale del debugger quando non
+    # trova una console: ctest vede la prova rossa e nessuna riga che dica
+    # perche'. Con questo il resoconto esce su stderr e si legge, sul CI come
+    # sul proprio computer. Si aggiunge in coda a quello che c'e' gia', perche'
+    # qualche prova ha bisogno anche di QT_QPA_PLATFORM.
+    get_property(decolog_tests DIRECTORY PROPERTY TESTS)
+    foreach(decolog_test IN LISTS decolog_tests)
+        set_property(TEST ${decolog_test} APPEND PROPERTY ENVIRONMENT "QT_FORCE_STDERR_LOGGING=1")
+    endforeach()
 endif()
 
 # ── Tools ─────────────────────────────────────────────────────────────────────
