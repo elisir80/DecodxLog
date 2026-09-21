@@ -2514,6 +2514,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>新增欄位 ▾</translation>
     </message>
     <message>
+        <source>The usual eight</source>
+        <translation>常用的八個</translation>
+    </message>
+    <message>
+        <source>Callsign, day, month, year, UTC, MHz, mode and RST, in the boxes where a QSL usually has them. Those already on the card move there. On a card made differently, drag them.</source>
+        <translation>呼號、日、月、年、UTC、MHz、模式和 RST，放在 QSL 通常擺放它們的空格裡。已經在卡片上的會移到那裡。卡片做法不同時，自己拖一下。</translation>
+    </message>
+    <message>
         <source>Click a field on the card to change it.</source>
         <translation>點一下卡片上的欄位就能修改它。</translation>
     </message>
@@ -5580,6 +5588,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>text</source>
         <translation>文字</translation>
+    </message>
+    <message>
+        <source>The usual fields are on the card: drag any that do not fall in the right box.</source>
+        <translation>常用欄位已經在卡片上了：沒落進正確空格的，拖一下。</translation>
     </message>
     <message>
         <source>No QSO to make a card for.</source>

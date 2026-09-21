@@ -269,6 +269,11 @@ Quello che manca è in fondo.
   commercio, segni di taglio a scelta, senza stampante di mezzo. / **PDF labels**: one per
   correspondent with up to six QSOs, four off-the-shelf sheets, optional cutting guides, no
   printer in the way.
+- **Gli otto di serie**: un pulsante mette nominativo, giorno, mese, anno, UTC, MHz, modo e
+  RST nei riquadri dove una QSL li ha di solito, misurati sulla cartolina invece che a
+  occhio; quelli gia' posati si spostano li' invece di sdoppiarsi. / **The usual eight**: one
+  button puts callsign, day, month, year, UTC, MHz, mode and RST in the boxes where a QSL
+  usually has them; fields already placed move there instead of doubling up.
 - **La cartolina QSL**: si carica l'immagine della propria QSL e ci si posano sopra i campi
   trascinandoli col mouse — nominativo, data (intera o spezzata in giorno, mese e anno),
   UTC, MHz, banda, modo, RST, nome, QTH, locatore, i propri dati e il testo libero. Di

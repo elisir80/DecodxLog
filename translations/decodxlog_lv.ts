@@ -2518,6 +2518,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Pievienot lauku ▾</translation>
     </message>
     <message>
+        <source>The usual eight</source>
+        <translation>Astoņi parastie</translation>
+    </message>
+    <message>
+        <source>Callsign, day, month, year, UTC, MHz, mode and RST, in the boxes where a QSL usually has them. Those already on the card move there. On a card made differently, drag them.</source>
+        <translation>Izsaukuma signāls, diena, mēnesis, gads, UTC, MHz, veids un RST, tajās ailītēs, kur QSL kartītē tie parasti ir. Tie, kas jau ir uz kartītes, pārceļas turp. Citādi veidotā kartītē pavelc tos.</translation>
+    </message>
+    <message>
         <source>Click a field on the card to change it.</source>
         <translation>Uzklikšķini uz lauka kartītē, lai to mainītu.</translation>
     </message>
@@ -5634,6 +5642,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>text</source>
         <translation>teksts</translation>
+    </message>
+    <message>
+        <source>The usual fields are on the card: drag any that do not fall in the right box.</source>
+        <translation>Parastie lauki ir uz kartītes: pavelc tos, kas neiekrita pareizajā ailītē.</translation>
     </message>
     <message>
         <source>No QSO to make a card for.</source>

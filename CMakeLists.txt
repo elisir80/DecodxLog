@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.6.1
+    VERSION 1.7.0
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -356,6 +356,15 @@ if(DECODXLOG_BUILD_TESTS)
     set_target_properties(tst_qsldesign PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME qsldesign COMMAND tst_qsldesign)
     set_tests_properties(qsldesign PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+    # I campi di serie della cartolina stanno nel controller: la prova guarda che
+    # cadano dentro i riquadri della QSL, e che il pulsante non li sdoppi.
+    qt_add_executable(tst_qslcardcontroller tests/tst_qslcardcontroller.cpp
+        src/app/QslCardController.cpp src/app/QslCardController.h)
+    target_include_directories(tst_qslcardcontroller PRIVATE src)
+    target_link_libraries(tst_qslcardcontroller PRIVATE decolog_core Qt6::Test Qt6::Gui)
+    set_target_properties(tst_qslcardcontroller PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME qslcardcontroller COMMAND tst_qslcardcontroller)
+    set_tests_properties(qslcardcontroller PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
     # La tabella del log sta nell'applicazione, ma i suoi filtri sono SQL da provare.
     qt_add_executable(tst_qsomodel tests/tst_qsomodel.cpp src/app/QsoTableModel.cpp src/app/QsoTableModel.h)
     target_include_directories(tst_qsomodel PRIVATE src)

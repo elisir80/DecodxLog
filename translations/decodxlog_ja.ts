@@ -2514,6 +2514,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>項目を追加 ▾</translation>
     </message>
     <message>
+        <source>The usual eight</source>
+        <translation>いつもの八つ</translation>
+    </message>
+    <message>
+        <source>Callsign, day, month, year, UTC, MHz, mode and RST, in the boxes where a QSL usually has them. Those already on the card move there. On a card made differently, drag them.</source>
+        <translation>コールサイン、日、月、年、UTC、MHz、モード、RST を、QSL でいつもある枠に置きます。すでにカードにあるものはそこへ移ります。作りの違うカードでは自分でドラッグしてください。</translation>
+    </message>
+    <message>
         <source>Click a field on the card to change it.</source>
         <translation>カード上の項目をクリックすると変えられます。</translation>
     </message>
@@ -5580,6 +5588,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>text</source>
         <translation>文字</translation>
+    </message>
+    <message>
+        <source>The usual fields are on the card: drag any that do not fall in the right box.</source>
+        <translation>いつもの項目がカードに載りました。枠に入らなかったものはドラッグしてください。</translation>
     </message>
     <message>
         <source>No QSO to make a card for.</source>

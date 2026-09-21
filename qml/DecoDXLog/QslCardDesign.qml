@@ -284,6 +284,23 @@ ColumnLayout {
                 }
             }
 
+            // Una QSL ha quasi sempre gli stessi otto riquadri: si mettono tutti
+            // in una volta, e si trascina solo quello che non cade giusto.
+            GlassButton {
+                Layout.alignment: Qt.AlignBottom
+                Layout.bottomMargin: 2
+                text: qsTr("The usual eight")
+                tone: Theme.secondaryColor
+                buttonHeight: 26
+                fontPixelSize: 12
+                enabled: root.hasTemplate
+                onClicked: root.cards.addStandardCardFields()
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Callsign, day, month, year, UTC, MHz, mode and RST, in the boxes "
+                                   + "where a QSL usually has them. Those already on the card move "
+                                   + "there. On a card made differently, drag them.")
+            }
+
             Text {
                 visible: root.chosenField === null
                 Layout.fillWidth: true

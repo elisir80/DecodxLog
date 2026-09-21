@@ -2516,6 +2516,14 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Afegeix un camp ▾</translation>
     </message>
     <message>
+        <source>The usual eight</source>
+        <translation>Els vuit de sempre</translation>
+    </message>
+    <message>
+        <source>Callsign, day, month, year, UTC, MHz, mode and RST, in the boxes where a QSL usually has them. Those already on the card move there. On a card made differently, drag them.</source>
+        <translation>Indicatiu, dia, mes, any, UTC, MHz, mode i RST, a les caselles on una QSL els sol tenir. Els que ja són a la targeta s&apos;hi mouen. En una targeta feta d&apos;una altra manera, arrossega&apos;ls.</translation>
+    </message>
+    <message>
         <source>Click a field on the card to change it.</source>
         <translation>Clica un camp de la targeta per canviar-lo.</translation>
     </message>
@@ -5607,6 +5615,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>text</source>
         <translation>text</translation>
+    </message>
+    <message>
+        <source>The usual fields are on the card: drag any that do not fall in the right box.</source>
+        <translation>Els camps de sempre són a la targeta: arrossega els que no caiguin a la casella correcta.</translation>
     </message>
     <message>
         <source>No QSO to make a card for.</source>

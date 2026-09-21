@@ -2516,6 +2516,14 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>Añadir un campo ▾</translation>
     </message>
     <message>
+        <source>The usual eight</source>
+        <translation>Los ocho de siempre</translation>
+    </message>
+    <message>
+        <source>Callsign, day, month, year, UTC, MHz, mode and RST, in the boxes where a QSL usually has them. Those already on the card move there. On a card made differently, drag them.</source>
+        <translation>Indicativo, día, mes, año, UTC, MHz, modo y RST, en las casillas donde una QSL los suele tener. Los que ya están en la tarjeta se mueven allí. En una tarjeta hecha de otra forma, arrástralos.</translation>
+    </message>
+    <message>
         <source>Click a field on the card to change it.</source>
         <translation>Pulsa un campo de la tarjeta para cambiarlo.</translation>
     </message>
@@ -5607,6 +5615,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>text</source>
         <translation>texto</translation>
+    </message>
+    <message>
+        <source>The usual fields are on the card: drag any that do not fall in the right box.</source>
+        <translation>Los campos de siempre están en la tarjeta: arrastra los que no caigan en la casilla correcta.</translation>
     </message>
     <message>
         <source>No QSO to make a card for.</source>

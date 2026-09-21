@@ -2516,6 +2516,14 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Een veld toevoegen ▾</translation>
     </message>
     <message>
+        <source>The usual eight</source>
+        <translation>De gebruikelijke acht</translation>
+    </message>
+    <message>
+        <source>Callsign, day, month, year, UTC, MHz, mode and RST, in the boxes where a QSL usually has them. Those already on the card move there. On a card made differently, drag them.</source>
+        <translation>Roepletters, dag, maand, jaar, UTC, MHz, mode en RST, in de vakjes waar een QSL ze meestal heeft. Wat al op de kaart staat, verhuist daarheen. Op een anders gemaakte kaart sleep je ze.</translation>
+    </message>
+    <message>
         <source>Click a field on the card to change it.</source>
         <translation>Klik een veld op de kaart aan om het te wijzigen.</translation>
     </message>
@@ -5607,6 +5615,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>text</source>
         <translation>tekst</translation>
+    </message>
+    <message>
+        <source>The usual fields are on the card: drag any that do not fall in the right box.</source>
+        <translation>De gebruikelijke velden staan op de kaart: sleep die niet in het juiste vakje vallen.</translation>
     </message>
     <message>
         <source>No QSO to make a card for.</source>

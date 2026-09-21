@@ -2516,6 +2516,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Aggiungi un campo ▾</translation>
     </message>
     <message>
+        <source>The usual eight</source>
+        <translation>Gli otto di serie</translation>
+    </message>
+    <message>
+        <source>Callsign, day, month, year, UTC, MHz, mode and RST, in the boxes where a QSL usually has them. Those already on the card move there. On a card made differently, drag them.</source>
+        <translation>Nominativo, giorno, mese, anno, UTC, MHz, modo e RST, nei riquadri dove una QSL li ha di solito. Quelli gia&apos; sulla cartolina si spostano li&apos;. Su una cartolina fatta in un altro modo, trascinali.</translation>
+    </message>
+    <message>
         <source>Click a field on the card to change it.</source>
         <translation>Clicca un campo sulla cartolina per cambiarlo.</translation>
     </message>
@@ -5607,6 +5615,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>text</source>
         <translation>testo</translation>
+    </message>
+    <message>
+        <source>The usual fields are on the card: drag any that do not fall in the right box.</source>
+        <translation>I campi di serie sono sulla cartolina: trascina quelli che non cadono nel riquadro giusto.</translation>
     </message>
     <message>
         <source>No QSO to make a card for.</source>

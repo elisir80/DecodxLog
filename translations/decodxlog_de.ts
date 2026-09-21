@@ -2516,6 +2516,14 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Ein Feld hinzufügen ▾</translation>
     </message>
     <message>
+        <source>The usual eight</source>
+        <translation>Die üblichen acht</translation>
+    </message>
+    <message>
+        <source>Callsign, day, month, year, UTC, MHz, mode and RST, in the boxes where a QSL usually has them. Those already on the card move there. On a card made differently, drag them.</source>
+        <translation>Rufzeichen, Tag, Monat, Jahr, UTC, MHz, Sendeart und RST, in den Kästchen, wo eine QSL sie meistens hat. Was schon auf der Karte ist, wandert dorthin. Auf einer anders gebauten Karte zieh sie hin.</translation>
+    </message>
+    <message>
         <source>Click a field on the card to change it.</source>
         <translation>Klicke ein Feld auf der Karte an, um es zu ändern.</translation>
     </message>
@@ -5607,6 +5615,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>text</source>
         <translation>Text</translation>
+    </message>
+    <message>
+        <source>The usual fields are on the card: drag any that do not fall in the right box.</source>
+        <translation>Die üblichen Felder sind auf der Karte: zieh die, die nicht ins richtige Kästchen fallen.</translation>
     </message>
     <message>
         <source>No QSO to make a card for.</source>

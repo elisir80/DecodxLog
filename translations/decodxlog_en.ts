@@ -2515,6 +2515,14 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Add a field ▾</translation>
     </message>
     <message>
+        <source>The usual eight</source>
+        <translation>The usual eight</translation>
+    </message>
+    <message>
+        <source>Callsign, day, month, year, UTC, MHz, mode and RST, in the boxes where a QSL usually has them. Those already on the card move there. On a card made differently, drag them.</source>
+        <translation>Callsign, day, month, year, UTC, MHz, mode and RST, in the boxes where a QSL usually has them. Those already on the card move there. On a card made differently, drag them.</translation>
+    </message>
+    <message>
         <source>Click a field on the card to change it.</source>
         <translation>Click a field on the card to change it.</translation>
     </message>
@@ -5606,6 +5614,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>text</source>
         <translation>text</translation>
+    </message>
+    <message>
+        <source>The usual fields are on the card: drag any that do not fall in the right box.</source>
+        <translation>The usual fields are on the card: drag any that do not fall in the right box.</translation>
     </message>
     <message>
         <source>No QSO to make a card for.</source>

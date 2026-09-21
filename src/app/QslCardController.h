@@ -74,6 +74,9 @@ public:
     Q_INVOKABLE QVariantList cardKeys() const;
     Q_INVOKABLE void setCardTemplate(const QUrl& file);
     Q_INVOKABLE void addCardField(const QString& key);
+    // Gli otto campi che stanno su quasi tutte le QSL, gia' nei riquadri dove
+    // stanno di solito. Quelli gia' posati si spostano li' invece di sdoppiarsi.
+    Q_INVOKABLE void addStandardCardFields();
     // Trascinamento: x e y sono frazioni del modello (0..1).
     Q_INVOKABLE void moveCardField(int index, double x, double y);
     // Solo le chiavi presenti in `props` cambiano: size, bold, color, align, text.

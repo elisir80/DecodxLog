@@ -4,6 +4,8 @@
 #include "core/QslCards.h"
 
 #include <QDateTime>
+
+#include <algorithm>
 #include <QDir>
 #include <QImageReader>
 #include <QJsonDocument>
@@ -327,6 +329,60 @@ void QslCardController::addCardField(const QString& key)
         field.text = tr("text");
     m_card.fields << field;
     saveCard();
+}
+
+namespace {
+
+// I riquadri della QSL classica: la fascia "Confirming QSO/SWL to" e la tabella
+// DAY MONTH YEAR UTC MHZ MODE RST sotto. Le misure non sono a occhio: sono
+// prese dalla cartolina di IU8LMC (1920 x 1080) trovando le righe e le colonne
+// della tabella, e poi ridotte a frazione, che vale per qualunque misura.
+//
+// Su una cartolina fatta in un altro modo finiscono nel posto sbagliato: allora
+// si trascinano, che e' il mestiere di questo pannello.
+struct Slot {
+    const char* key;
+    double x;
+    double y;
+};
+
+const Slot kStandardSlots[] = {
+    {"call",  0.8237, 0.4907},   // dopo "Confirming QSO/SWL to:"
+    {"day",   0.0721, 0.7065},
+    {"month", 0.2156, 0.7065},
+    {"year",  0.3471, 0.7065},
+    {"time",  0.4708, 0.7065},
+    {"freq",  0.6081, 0.7065},
+    {"mode",  0.7539, 0.7065},
+    {"rst",   0.9128, 0.7065},
+};
+
+// Il corpo: sulla cartolina di prova le scritte della tabella sono alte una
+// cinquantina di pixel su 1080.
+constexpr int kStandardSize = 46;
+
+} // namespace
+
+void QslCardController::addStandardCardFields()
+{
+    for (const Slot& slot : kStandardSlots) {
+        const QString key = QString::fromLatin1(slot.key);
+        auto found = std::find_if(m_card.fields.begin(), m_card.fields.end(),
+                                  [&key](const qsldesign::Field& f) { return f.key == key; });
+        qsldesign::Field& field = found != m_card.fields.end()
+                                      ? *found
+                                      : (m_card.fields.append(qsldesign::Field{}), m_card.fields.last());
+        field.key = key;
+        field.x = slot.x;
+        field.y = slot.y;
+        field.size = kStandardSize;
+        field.bold = true;
+        // In mezzo al riquadro: e' li' che sta bene un dato dentro una casella.
+        field.align = QStringLiteral("center");
+    }
+    saveCard();
+    note(tr("The usual fields are on the card: drag any that do not fall in the right box."),
+         QStringLiteral("info"));
 }
 
 void QslCardController::moveCardField(int index, double x, double y)

@@ -2518,6 +2518,14 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Добавить поле ▾</translation>
     </message>
     <message>
+        <source>The usual eight</source>
+        <translation>Обычные восемь</translation>
+    </message>
+    <message>
+        <source>Callsign, day, month, year, UTC, MHz, mode and RST, in the boxes where a QSL usually has them. Those already on the card move there. On a card made differently, drag them.</source>
+        <translation>Позывной, день, месяц, год, UTC, МГц, режим и RST — в тех клетках, где они обычно стоят на QSL. То, что уже на карточке, переезжает туда. На карточке другого вида перетащи их сам.</translation>
+    </message>
+    <message>
         <source>Click a field on the card to change it.</source>
         <translation>Щёлкни по полю на карточке, чтобы его изменить.</translation>
     </message>
@@ -5634,6 +5642,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>text</source>
         <translation>текст</translation>
+    </message>
+    <message>
+        <source>The usual fields are on the card: drag any that do not fall in the right box.</source>
+        <translation>Обычные поля на карточке: перетащи те, что не попали в нужную клетку.</translation>
     </message>
     <message>
         <source>No QSO to make a card for.</source>

@@ -2514,6 +2514,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Mező hozzáadása ▾</translation>
     </message>
     <message>
+        <source>The usual eight</source>
+        <translation>A szokásos nyolc</translation>
+    </message>
+    <message>
+        <source>Callsign, day, month, year, UTC, MHz, mode and RST, in the boxes where a QSL usually has them. Those already on the card move there. On a card made differently, drag them.</source>
+        <translation>Hívójel, nap, hónap, év, UTC, MHz, mód és RST, azokban a rublikákban, ahol egy QSL-lapon lenni szoktak. Ami már a lapon van, odaköltözik. Másképp készült lapon húzd őket a helyükre.</translation>
+    </message>
+    <message>
         <source>Click a field on the card to change it.</source>
         <translation>Kattints egy mezőre a lapon, ha változtatni akarsz rajta.</translation>
     </message>
@@ -5580,6 +5588,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>text</source>
         <translation>szöveg</translation>
+    </message>
+    <message>
+        <source>The usual fields are on the card: drag any that do not fall in the right box.</source>
+        <translation>A szokásos mezők a lapon vannak: húzd át azokat, amik nem a jó rublikába estek.</translation>
     </message>
     <message>
         <source>No QSO to make a card for.</source>

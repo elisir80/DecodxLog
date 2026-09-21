@@ -2518,6 +2518,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Adaugă un câmp ▾</translation>
     </message>
     <message>
+        <source>The usual eight</source>
+        <translation>Cele opt obișnuite</translation>
+    </message>
+    <message>
+        <source>Callsign, day, month, year, UTC, MHz, mode and RST, in the boxes where a QSL usually has them. Those already on the card move there. On a card made differently, drag them.</source>
+        <translation>Indicativ, zi, lună, an, UTC, MHz, mod și RST, în căsuțele unde o carte QSL le are de obicei. Cele care sunt deja pe carte se mută acolo. Pe o carte făcută altfel, trage-le.</translation>
+    </message>
+    <message>
         <source>Click a field on the card to change it.</source>
         <translation>Apasă un câmp de pe carte ca să-l schimbi.</translation>
     </message>
@@ -5634,6 +5642,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>text</source>
         <translation>text</translation>
+    </message>
+    <message>
+        <source>The usual fields are on the card: drag any that do not fall in the right box.</source>
+        <translation>Câmpurile obișnuite sunt pe carte: trage-le pe cele care nu cad în căsuța potrivită.</translation>
     </message>
     <message>
         <source>No QSO to make a card for.</source>

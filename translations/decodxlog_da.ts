@@ -2516,6 +2516,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Tilføj et felt ▾</translation>
     </message>
     <message>
+        <source>The usual eight</source>
+        <translation>De sædvanlige otte</translation>
+    </message>
+    <message>
+        <source>Callsign, day, month, year, UTC, MHz, mode and RST, in the boxes where a QSL usually has them. Those already on the card move there. On a card made differently, drag them.</source>
+        <translation>Kaldesignal, dag, måned, år, UTC, MHz, modus og RST, i de rubrikker, hvor et QSL-kort plejer at have dem. Dem, der allerede er på kortet, flytter derhen. På et kort lavet anderledes trækker du dem.</translation>
+    </message>
+    <message>
         <source>Click a field on the card to change it.</source>
         <translation>Klik på et felt på kortet for at ændre det.</translation>
     </message>
@@ -5607,6 +5615,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>text</source>
         <translation>tekst</translation>
+    </message>
+    <message>
+        <source>The usual fields are on the card: drag any that do not fall in the right box.</source>
+        <translation>De sædvanlige felter er på kortet: træk dem, der ikke falder i den rigtige rubrik.</translation>
     </message>
     <message>
         <source>No QSO to make a card for.</source>
