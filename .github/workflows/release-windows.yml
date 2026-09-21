@@ -1,0 +1,89 @@
+name: Release Windows
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag
+        required: true
+        default: v1.5.1
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    name: Windows x64
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install MSYS2 packages
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            base-devel
+            git
+            zip
+            mingw-w64-x86_64-7zip
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-ninja
+            mingw-w64-x86_64-openssl
+            mingw-w64-x86_64-qt6-base
+            mingw-w64-x86_64-qt6-declarative
+            mingw-w64-x86_64-qt6-location
+            mingw-w64-x86_64-qt6-multimedia
+            mingw-w64-x86_64-qt6-positioning
+            mingw-w64-x86_64-qt6-serialport
+            mingw-w64-x86_64-qt6-tools
+            mingw-w64-x86_64-qt6-websockets
+            mingw-w64-x86_64-qtkeychain-qt6
+
+      - name: Install Inno Setup
+        shell: pwsh
+        run: choco install innosetup --no-progress -y
+
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build installer and portable ZIP
+        run: bash scripts/installer.sh
+
+      - name: Smoke test
+        run: ./build/DecoDXLog.exe --help || true
+
+      - name: Prepare asset names
+        id: names
+        shell: bash
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          mkdir -p release-assets
+          cp "DecoDXLog-$version-setup.exe" "release-assets/DecoDXLog-$version-windows-x64-setup.exe"
+          cp "DecoDXLog-$version-win64.zip" "release-assets/DecoDXLog-$version-windows-x64-portable.zip"
+
+      - name: Ensure release exists
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ github.event.inputs.tag || github.ref_name }}
+        run: gh release view "$TAG_NAME" >/dev/null 2>&1 || gh release create "$TAG_NAME" --title "DecoDXLog $TAG_NAME" --notes "DecoDXLog $TAG_NAME"
+
+      - name: Upload release assets
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ github.event.inputs.tag || github.ref_name }}
+        run: gh release upload "$TAG_NAME" release-assets/* --clobber
+
