@@ -23,11 +23,13 @@ jobs:
       matrix:
         include:
           - arch: x86_64
-            runner: ubuntu-26.04
+            runner: ubuntu-24.04
             linuxdeploy_arch: x86_64
           - arch: aarch64
-            runner: ubuntu-26.04-arm
+            runner: ubuntu-24.04-arm
             linuxdeploy_arch: aarch64
+    container:
+      image: archlinux:base-devel
 
     steps:
       - name: Checkout
@@ -35,27 +37,26 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            build-essential \
+          pacman -Syu --noconfirm
+          pacman -S --needed --noconfirm \
             cmake \
             file \
-            fuse \
-            libfuse2 \
+            fuse2 \
+            gcc \
+            git \
             ninja-build \
             patchelf \
             wget \
-            qt6-base-dev \
-            qt6-base-dev-tools \
-            qt6-declarative-dev \
-            qt6-declarative-dev-tools \
-            qt6-l10n-tools \
-            qt6-multimedia-dev \
-            qt6-positioning-dev \
-            qt6-serialport-dev \
-            qt6-websockets-dev \
-            qtkeychain-qt6-dev \
-            libssl-dev
+            openssl \
+            qt6-base \
+            qt6-declarative \
+            qt6-location \
+            qt6-multimedia \
+            qt6-positioning \
+            qt6-serialport \
+            qt6-tools \
+            qt6-websockets \
+            qtkeychain-qt6
 
       - name: Configure
         run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
@@ -87,6 +88,7 @@ jobs:
 
       - name: Build AppImage
         env:
+          APPIMAGE_EXTRACT_AND_RUN: "1"
           QML_SOURCES_PATHS: qml,libs/decodium-ui/qml
           VERSION: ${{ github.ref_name }}
         run: |
