@@ -445,6 +445,10 @@
         <translation>Papír QSL (%1)</translation>
     </message>
     <message>
+        <source>QSL card</source>
+        <translation>QSL-lap</translation>
+    </message>
+    <message>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
@@ -2472,6 +2476,107 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>QslCardDesign</name>
+    <message>
+        <source>Card model</source>
+        <translation>Lapminta</translation>
+    </message>
+    <message>
+        <source>no image yet</source>
+        <translation>még nincs kép</translation>
+    </message>
+    <message>
+        <source>Load an image…</source>
+        <translation>Kép betöltése…</translation>
+    </message>
+    <message>
+        <source>Load the image of your QSL card: a scan or the file the printer gave you. Then drop the fields on it and drag them where the boxes are.</source>
+        <translation>Töltsd be a QSL-lapod képét: egy beolvasást vagy a nyomdától kapott fájlt. Aztán tedd rá a mezőket, és húzd őket oda, ahol a rublikák vannak.</translation>
+    </message>
+    <message>
+        <source>Add a field ▾</source>
+        <translation>Mező hozzáadása ▾</translation>
+    </message>
+    <message>
+        <source>Click a field on the card to change it.</source>
+        <translation>Kattints egy mezőre a lapon, ha változtatni akarsz rajta.</translation>
+    </message>
+    <message>
+        <source>Free text</source>
+        <translation>Szabad szöveg</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Méret</translation>
+    </message>
+    <message>
+        <source>Bold</source>
+        <translation>Félkövér</translation>
+    </message>
+    <message>
+        <source>left</source>
+        <translation>balra</translation>
+    </message>
+    <message>
+        <source>centre</source>
+        <translation>középre</translation>
+    </message>
+    <message>
+        <source>right</source>
+        <translation>jobbra</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Eltávolítás</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n chosen QSO</source>
+        <translation>
+            <numerusform>%n választott QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>the whole queue</source>
+        <translation>az egész sor</translation>
+    </message>
+    <message>
+        <source>Cards per sheet</source>
+        <translation>Lap laponként</translation>
+    </message>
+    <message>
+        <source>Write the PDF…</source>
+        <translation>A PDF megírása…</translation>
+    </message>
+    <message>
+        <source>One PNG each…</source>
+        <translation>Egy-egy PNG…</translation>
+    </message>
+    <message>
+        <source>The image of your QSL card</source>
+        <translation>A QSL-lapod képe</translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.bmp *.webp)</source>
+        <translation>Képek (*.png *.jpg *.jpeg *.bmp *.webp)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Minden fájl (*)</translation>
+    </message>
+    <message>
+        <source>QSL cards</source>
+        <translation>QSL-lapok</translation>
+    </message>
+    <message>
+        <source>PDF files (*.pdf)</source>
+        <translation>PDF-fájlok (*.pdf)</translation>
+    </message>
+    <message>
+        <source>Where to put the cards</source>
+        <translation>Hová kerüljenek a lapok</translation>
+    </message>
+</context>
+<context>
     <name>QslCards</name>
     <message>
         <source>No QSL to print</source>
@@ -2539,6 +2644,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>manager</source>
         <translation>manager</translation>
+    </message>
+    <message>
+        <source>Queue &amp; labels</source>
+        <translation>Sor és címkék</translation>
+    </message>
+    <message>
+        <source>QSL card</source>
+        <translation>QSL-lap</translation>
     </message>
     <message>
         <source>To send</source>
@@ -5339,6 +5452,116 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>QSL labels: %1 (%2)</source>
         <translation>QSL-címkék: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Hívójel</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Dátum</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation>Nap</translation>
+    </message>
+    <message>
+        <source>Month (number)</source>
+        <translation>Hónap (szám)</translation>
+    </message>
+    <message>
+        <source>Month (name)</source>
+        <translation>Hónap (név)</translation>
+    </message>
+    <message>
+        <source>Year</source>
+        <translation>Év</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>MHz</source>
+        <translation>MHz</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Sáv</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Üzemmód</translation>
+    </message>
+    <message>
+        <source>RST</source>
+        <translation>RST</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Név</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>Ország</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>QRA</translation>
+    </message>
+    <message>
+        <source>Via</source>
+        <translation>Via</translation>
+    </message>
+    <message>
+        <source>My callsign</source>
+        <translation>A hívójelem</translation>
+    </message>
+    <message>
+        <source>My grid</source>
+        <translation>Az én lokátorom</translation>
+    </message>
+    <message>
+        <source>My name</source>
+        <translation>A nevem</translation>
+    </message>
+    <message>
+        <source>My QTH</source>
+        <translation>A QTH-m</translation>
+    </message>
+    <message>
+        <source>Free text</source>
+        <translation>Szabad szöveg</translation>
+    </message>
+    <message>
+        <source>This file is not an image DecoDXLog can read.</source>
+        <translation>Ez a fájl nem olyan kép, amit a DecoDXLog el tud olvasni.</translation>
+    </message>
+    <message>
+        <source>QSL card model: %1 (%2 x %3)</source>
+        <translation>QSL-lapminta: %1 (%2 × %3)</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>szöveg</translation>
+    </message>
+    <message>
+        <source>No QSO to make a card for.</source>
+        <translation>Nincs QSO, amiről lapot lehetne készíteni.</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n card(s) written</source>
+        <translation>
+            <numerusform>%n lap megírva</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>QSL cards: %1 (%2)</source>
+        <translation>QSL-lapok: %1 (%2)</translation>
     </message>
 </context>
 <context>

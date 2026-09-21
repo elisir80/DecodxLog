@@ -447,6 +447,10 @@
         <translation>QSL pe hârtie (%1)</translation>
     </message>
     <message>
+        <source>QSL card</source>
+        <translation>Carte QSL</translation>
+    </message>
+    <message>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
@@ -2476,6 +2480,109 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
 </context>
 <context>
+    <name>QslCardDesign</name>
+    <message>
+        <source>Card model</source>
+        <translation>Modelul cărții</translation>
+    </message>
+    <message>
+        <source>no image yet</source>
+        <translation>încă nicio imagine</translation>
+    </message>
+    <message>
+        <source>Load an image…</source>
+        <translation>Încarcă o imagine…</translation>
+    </message>
+    <message>
+        <source>Load the image of your QSL card: a scan or the file the printer gave you. Then drop the fields on it and drag them where the boxes are.</source>
+        <translation>Încarcă imaginea cărții tale QSL: o scanare sau fișierul de la tipografie. Apoi pune câmpurile deasupra și trage-le acolo unde sunt căsuțele.</translation>
+    </message>
+    <message>
+        <source>Add a field ▾</source>
+        <translation>Adaugă un câmp ▾</translation>
+    </message>
+    <message>
+        <source>Click a field on the card to change it.</source>
+        <translation>Apasă un câmp de pe carte ca să-l schimbi.</translation>
+    </message>
+    <message>
+        <source>Free text</source>
+        <translation>Text liber</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Corp</translation>
+    </message>
+    <message>
+        <source>Bold</source>
+        <translation>Aldin</translation>
+    </message>
+    <message>
+        <source>left</source>
+        <translation>la stânga</translation>
+    </message>
+    <message>
+        <source>centre</source>
+        <translation>la mijloc</translation>
+    </message>
+    <message>
+        <source>right</source>
+        <translation>la dreapta</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Înlătură</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n chosen QSO</source>
+        <translation>
+            <numerusform>%n QSO ales</numerusform>
+            <numerusform>%n QSO alese</numerusform>
+            <numerusform>%n de QSO alese</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>the whole queue</source>
+        <translation>toată coada</translation>
+    </message>
+    <message>
+        <source>Cards per sheet</source>
+        <translation>Cărți pe coală</translation>
+    </message>
+    <message>
+        <source>Write the PDF…</source>
+        <translation>Scrie PDF-ul…</translation>
+    </message>
+    <message>
+        <source>One PNG each…</source>
+        <translation>Câte un PNG…</translation>
+    </message>
+    <message>
+        <source>The image of your QSL card</source>
+        <translation>Imaginea cărții tale QSL</translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.bmp *.webp)</source>
+        <translation>Imagini (*.png *.jpg *.jpeg *.bmp *.webp)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Toate fișierele (*)</translation>
+    </message>
+    <message>
+        <source>QSL cards</source>
+        <translation>Cărți QSL</translation>
+    </message>
+    <message>
+        <source>PDF files (*.pdf)</source>
+        <translation>Fișiere PDF (*.pdf)</translation>
+    </message>
+    <message>
+        <source>Where to put the cards</source>
+        <translation>Unde să pună cărțile</translation>
+    </message>
+</context>
+<context>
     <name>QslCards</name>
     <message>
         <source>No QSL to print</source>
@@ -2543,6 +2650,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>manager</source>
         <translation>manager</translation>
+    </message>
+    <message>
+        <source>Queue &amp; labels</source>
+        <translation>Coadă și etichete</translation>
+    </message>
+    <message>
+        <source>QSL card</source>
+        <translation>Carte QSL</translation>
     </message>
     <message>
         <source>To send</source>
@@ -5391,6 +5506,118 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>QSL labels: %1 (%2)</source>
         <translation>Etichete QSL: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Indicativ</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Data</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation>Zi</translation>
+    </message>
+    <message>
+        <source>Month (number)</source>
+        <translation>Luna (număr)</translation>
+    </message>
+    <message>
+        <source>Month (name)</source>
+        <translation>Luna (nume)</translation>
+    </message>
+    <message>
+        <source>Year</source>
+        <translation>An</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>MHz</source>
+        <translation>MHz</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Bandă</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Mod</translation>
+    </message>
+    <message>
+        <source>RST</source>
+        <translation>RST</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Nume</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>Țară</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>Via</source>
+        <translation>Via</translation>
+    </message>
+    <message>
+        <source>My callsign</source>
+        <translation>Indicativul meu</translation>
+    </message>
+    <message>
+        <source>My grid</source>
+        <translation>Locatorul meu</translation>
+    </message>
+    <message>
+        <source>My name</source>
+        <translation>Numele meu</translation>
+    </message>
+    <message>
+        <source>My QTH</source>
+        <translation>QTH-ul meu</translation>
+    </message>
+    <message>
+        <source>Free text</source>
+        <translation>Text liber</translation>
+    </message>
+    <message>
+        <source>This file is not an image DecoDXLog can read.</source>
+        <translation>Acest fișier nu este o imagine pe care DecoDXLog să o poată citi.</translation>
+    </message>
+    <message>
+        <source>QSL card model: %1 (%2 x %3)</source>
+        <translation>Modelul cărții QSL: %1 (%2 × %3)</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>text</translation>
+    </message>
+    <message>
+        <source>No QSO to make a card for.</source>
+        <translation>Niciun QSO din care să faci o carte.</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n card(s) written</source>
+        <translation>
+            <numerusform>%n carte scrisă</numerusform>
+            <numerusform>%n cărți scrise</numerusform>
+            <numerusform>%n de cărți scrise</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>QSL cards: %1 (%2)</source>
+        <translation>Cărți QSL: %1 (%2)</translation>
     </message>
 </context>
 <context>

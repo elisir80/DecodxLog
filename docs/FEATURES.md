@@ -269,6 +269,16 @@ Quello che manca è in fondo.
   commercio, segni di taglio a scelta, senza stampante di mezzo. / **PDF labels**: one per
   correspondent with up to six QSOs, four off-the-shelf sheets, optional cutting guides, no
   printer in the way.
+- **La cartolina QSL**: si carica l'immagine della propria QSL e ci si posano sopra i campi
+  trascinandoli col mouse — nominativo, data (intera o spezzata in giorno, mese e anno),
+  UTC, MHz, banda, modo, RST, nome, QTH, locatore, i propri dati e il testo libero. Di
+  ognuno si sceglie corpo, grassetto, colore e allineamento. Esce un PDF (una, due o
+  quattro per foglio A4) o un PNG per QSO. Quello che si vede nell'anteprima e' quello che
+  si stampa. / **The QSL card**: load the image of your own card and drop the fields on it,
+  dragging them with the mouse — callsign, date (whole or split into day, month and year),
+  UTC, MHz, band, mode, RST, name, QTH, grid, your own details and free text. Each one has
+  its size, weight, colour and alignment. Out comes a PDF (one, two or four to an A4 sheet)
+  or one PNG per QSO. What the preview shows is what gets printed.
 - **La via** (bureau, diretta, elettronica) resta sul QSO e torna nell'export come
   `QSL_SENT_VIA`. / **The route** (bureau, direct, electronic) stays on the QSO and comes
   back in the export as `QSL_SENT_VIA`.

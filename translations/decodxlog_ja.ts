@@ -445,6 +445,10 @@
         <translation>紙の QSL (%1)</translation>
     </message>
     <message>
+        <source>QSL card</source>
+        <translation>QSL カード</translation>
+    </message>
+    <message>
         <source>Stop</source>
         <translation>ストップ</translation>
     </message>
@@ -2472,6 +2476,107 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>QslCardDesign</name>
+    <message>
+        <source>Card model</source>
+        <translation>カードの原稿</translation>
+    </message>
+    <message>
+        <source>no image yet</source>
+        <translation>画像はまだありません</translation>
+    </message>
+    <message>
+        <source>Load an image…</source>
+        <translation>画像を読み込む…</translation>
+    </message>
+    <message>
+        <source>Load the image of your QSL card: a scan or the file the printer gave you. Then drop the fields on it and drag them where the boxes are.</source>
+        <translation>自分の QSL カードの画像を読み込みます。スキャンでも、印刷所からもらったファイルでもかまいません。そのうえに項目を置き、枠のある場所へドラッグします。</translation>
+    </message>
+    <message>
+        <source>Add a field ▾</source>
+        <translation>項目を追加 ▾</translation>
+    </message>
+    <message>
+        <source>Click a field on the card to change it.</source>
+        <translation>カード上の項目をクリックすると変えられます。</translation>
+    </message>
+    <message>
+        <source>Free text</source>
+        <translation>自由な文字</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>大きさ</translation>
+    </message>
+    <message>
+        <source>Bold</source>
+        <translation>太字</translation>
+    </message>
+    <message>
+        <source>left</source>
+        <translation>左</translation>
+    </message>
+    <message>
+        <source>centre</source>
+        <translation>中央</translation>
+    </message>
+    <message>
+        <source>right</source>
+        <translation>右</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>外す</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n chosen QSO</source>
+        <translation>
+            <numerusform>選んだ QSO %n 件</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>the whole queue</source>
+        <translation>待ち行列ぜんぶ</translation>
+    </message>
+    <message>
+        <source>Cards per sheet</source>
+        <translation>1 枚あたりのカード数</translation>
+    </message>
+    <message>
+        <source>Write the PDF…</source>
+        <translation>PDF を書く…</translation>
+    </message>
+    <message>
+        <source>One PNG each…</source>
+        <translation>1 枚ずつ PNG…</translation>
+    </message>
+    <message>
+        <source>The image of your QSL card</source>
+        <translation>自分の QSL カードの画像</translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.bmp *.webp)</source>
+        <translation>画像 (*.png *.jpg *.jpeg *.bmp *.webp)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>すべてのファイル (*)</translation>
+    </message>
+    <message>
+        <source>QSL cards</source>
+        <translation>QSL カード</translation>
+    </message>
+    <message>
+        <source>PDF files (*.pdf)</source>
+        <translation>PDF ファイル (*.pdf)</translation>
+    </message>
+    <message>
+        <source>Where to put the cards</source>
+        <translation>カードを置く場所</translation>
+    </message>
+</context>
+<context>
     <name>QslCards</name>
     <message>
         <source>No QSL to print</source>
@@ -2539,6 +2644,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>manager</source>
         <translation>マネージャー</translation>
+    </message>
+    <message>
+        <source>Queue &amp; labels</source>
+        <translation>待ち行列とラベル</translation>
+    </message>
+    <message>
+        <source>QSL card</source>
+        <translation>QSL カード</translation>
     </message>
     <message>
         <source>To send</source>
@@ -5339,6 +5452,116 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>QSL labels: %1 (%2)</source>
         <translation>QSL のラベル: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>コールサイン</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>日付</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation>日</translation>
+    </message>
+    <message>
+        <source>Month (number)</source>
+        <translation>月（数字）</translation>
+    </message>
+    <message>
+        <source>Month (name)</source>
+        <translation>月（名前）</translation>
+    </message>
+    <message>
+        <source>Year</source>
+        <translation>年</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>MHz</source>
+        <translation>MHz</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>バンド</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>モード</translation>
+    </message>
+    <message>
+        <source>RST</source>
+        <translation>RST</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>名前</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation>QTH</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>国</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>グリッド</translation>
+    </message>
+    <message>
+        <source>Via</source>
+        <translation>経由</translation>
+    </message>
+    <message>
+        <source>My callsign</source>
+        <translation>自局のコールサイン</translation>
+    </message>
+    <message>
+        <source>My grid</source>
+        <translation>自分のグリッド</translation>
+    </message>
+    <message>
+        <source>My name</source>
+        <translation>自分の名前</translation>
+    </message>
+    <message>
+        <source>My QTH</source>
+        <translation>自分の QTH</translation>
+    </message>
+    <message>
+        <source>Free text</source>
+        <translation>自由な文字</translation>
+    </message>
+    <message>
+        <source>This file is not an image DecoDXLog can read.</source>
+        <translation>このファイルは DecoDXLog が読める画像ではありません。</translation>
+    </message>
+    <message>
+        <source>QSL card model: %1 (%2 x %3)</source>
+        <translation>QSL カードの原稿: %1 (%2 × %3)</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>文字</translation>
+    </message>
+    <message>
+        <source>No QSO to make a card for.</source>
+        <translation>カードにする QSO がありません。</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n card(s) written</source>
+        <translation>
+            <numerusform>カードを %n 枚書きました</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>QSL cards: %1 (%2)</source>
+        <translation>QSL カード: %1 (%2)</translation>
     </message>
 </context>
 <context>

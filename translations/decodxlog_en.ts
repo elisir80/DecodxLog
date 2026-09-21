@@ -446,6 +446,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>QSL card</source>
+        <translation>QSL card</translation>
+    </message>
+    <message>
         <source>Stop</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2473,6 +2477,108 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>QslCardDesign</name>
+    <message>
+        <source>Card model</source>
+        <translation>Card model</translation>
+    </message>
+    <message>
+        <source>no image yet</source>
+        <translation>no image yet</translation>
+    </message>
+    <message>
+        <source>Load an image…</source>
+        <translation>Load an image…</translation>
+    </message>
+    <message>
+        <source>Load the image of your QSL card: a scan or the file the printer gave you. Then drop the fields on it and drag them where the boxes are.</source>
+        <translation>Load the image of your QSL card: a scan or the file the printer gave you. Then drop the fields on it and drag them where the boxes are.</translation>
+    </message>
+    <message>
+        <source>Add a field ▾</source>
+        <translation>Add a field ▾</translation>
+    </message>
+    <message>
+        <source>Click a field on the card to change it.</source>
+        <translation>Click a field on the card to change it.</translation>
+    </message>
+    <message>
+        <source>Free text</source>
+        <translation>Free text</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Size</translation>
+    </message>
+    <message>
+        <source>Bold</source>
+        <translation>Bold</translation>
+    </message>
+    <message>
+        <source>left</source>
+        <translation>left</translation>
+    </message>
+    <message>
+        <source>centre</source>
+        <translation>centre</translation>
+    </message>
+    <message>
+        <source>right</source>
+        <translation>right</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n chosen QSO</source>
+        <translation>
+            <numerusform>%n chosen QSO</numerusform>
+            <numerusform>%n chosen QSOs</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>the whole queue</source>
+        <translation>the whole queue</translation>
+    </message>
+    <message>
+        <source>Cards per sheet</source>
+        <translation>Cards per sheet</translation>
+    </message>
+    <message>
+        <source>Write the PDF…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One PNG each…</source>
+        <translation>One PNG each…</translation>
+    </message>
+    <message>
+        <source>The image of your QSL card</source>
+        <translation>The image of your QSL card</translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.bmp *.webp)</source>
+        <translation>Images (*.png *.jpg *.jpeg *.bmp *.webp)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QSL cards</source>
+        <translation>QSL cards</translation>
+    </message>
+    <message>
+        <source>PDF files (*.pdf)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Where to put the cards</source>
+        <translation>Where to put the cards</translation>
+    </message>
+</context>
+<context>
     <name>QslCards</name>
     <message>
         <source>No QSL to print</source>
@@ -2540,6 +2646,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>manager</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Queue &amp; labels</source>
+        <translation>Queue &amp; labels</translation>
+    </message>
+    <message>
+        <source>QSL card</source>
+        <translation>QSL card</translation>
     </message>
     <message>
         <source>To send</source>
@@ -5364,6 +5478,117 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>QSL labels: %1 (%2)</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation>Day</translation>
+    </message>
+    <message>
+        <source>Month (number)</source>
+        <translation>Month (number)</translation>
+    </message>
+    <message>
+        <source>Month (name)</source>
+        <translation>Month (name)</translation>
+    </message>
+    <message>
+        <source>Year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MHz</source>
+        <translation>MHz</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RST</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Via</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My callsign</source>
+        <translation>My callsign</translation>
+    </message>
+    <message>
+        <source>My grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My name</source>
+        <translation>My name</translation>
+    </message>
+    <message>
+        <source>My QTH</source>
+        <translation>My QTH</translation>
+    </message>
+    <message>
+        <source>Free text</source>
+        <translation>Free text</translation>
+    </message>
+    <message>
+        <source>This file is not an image DecoDXLog can read.</source>
+        <translation>This file is not an image DecoDXLog can read.</translation>
+    </message>
+    <message>
+        <source>QSL card model: %1 (%2 x %3)</source>
+        <translation>QSL card model: %1 (%2 x %3)</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>text</translation>
+    </message>
+    <message>
+        <source>No QSO to make a card for.</source>
+        <translation>No QSO to make a card for.</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n card(s) written</source>
+        <translation>
+            <numerusform>%n card written</numerusform>
+            <numerusform>%n cards written</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>QSL cards: %1 (%2)</source>
+        <translation>QSL cards: %1 (%2)</translation>
     </message>
 </context>
 <context>
