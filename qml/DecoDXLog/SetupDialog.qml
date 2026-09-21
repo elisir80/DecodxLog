@@ -14,6 +14,10 @@ DialogFrame {
 
     property int page: 3
 
+    // La pillola «c'e' una versione nuova» apre la finestra dell'aggiornamento,
+    // che sta in Main: da qui si chiede e basta.
+    signal updateRequested()
+
     title: qsTr("Setup")
     dotColor: Theme.secondaryColor
     // Larga quanto serve alla pagina piu' fitta: in italiano le etichette sono
@@ -251,6 +255,43 @@ DialogFrame {
                         }
                     }
                     Note { text: qsTr("The new language shows up the next time DecoDXLog starts.") }
+
+                    // ── Aggiornamenti ──────────────────────────────────────
+                    SectionTitle { text: qsTr("Updates") }
+                    ToggleSwitch {
+                        text: qsTr("Look for a new version by itself")
+                        checked: decolog.updates.automatic
+                        onToggled: decolog.updates.automatic = checked
+                    }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 10
+                        GlassButton {
+                            text: decolog.updates.checking ? qsTr("Looking…") : qsTr("Look now")
+                            enabled: !decolog.updates.checking
+                            onClicked: decolog.updates.checkNow()
+                        }
+                        Pill {
+                            visible: decolog.updates.available
+                            text: qsTr("DecoDXLog %1 is out").arg(decolog.updates.latestVersion)
+                            tone: Theme.accentColor
+                            interactive: true
+                            onClicked: root.updateRequested()
+                        }
+                        Text {
+                            Layout.fillWidth: true
+                            text: decolog.updates.status
+                            color: Theme.textSecondary
+                            font.pixelSize: 11
+                            elide: Text.ElideRight
+                        }
+                    }
+                    Note {
+                        text: qsTr("Once a day DecoDXLog asks GitHub if there is a newer version, and says so "
+                                   + "only when there is. Downloading and installing is up to you: nothing "
+                                   + "changes under your feet while you are working. Last look: %1")
+                               .arg(decolog.updates.lastCheck.length ? decolog.updates.lastCheck : qsTr("never"))
+                    }
 
                     SectionTitle { text: qsTr("Call info") }
                     ToggleSwitch {

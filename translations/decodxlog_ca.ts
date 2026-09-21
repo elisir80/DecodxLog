@@ -3547,6 +3547,26 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>La llengua nova es veu el pròxim cop que s&apos;arrenqui DecoDXLog.</translation>
     </message>
     <message>
+        <source>Updates</source>
+        <translation>Actualitzacions</translation>
+    </message>
+    <message>
+        <source>Look for a new version by itself</source>
+        <translation>Mira tot sol si hi ha una versió nova</translation>
+    </message>
+    <message>
+        <source>Look now</source>
+        <translation>Mira ara</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>Ha sortit DecoDXLog %1</translation>
+    </message>
+    <message>
+        <source>Once a day DecoDXLog asks GitHub if there is a newer version, and says so only when there is. Downloading and installing is up to you: nothing changes under your feet while you are working. Last look: %1</source>
+        <translation>Un cop al dia DecoDXLog pregunta a GitHub si hi ha una versió més nova, i només ho diu quan n&apos;hi ha. Baixar-la i instal·lar-la ho decideixes tu: res no canvia sota les teves mans mentre treballes. Darrera mirada: %1</translation>
+    </message>
+    <message>
         <source>Call info</source>
         <translation>Fitxa indicatiu</translation>
     </message>
@@ -4630,6 +4650,49 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
 </context>
 <context>
+    <name>UpdateDialog</name>
+    <message>
+        <source>A new version is out</source>
+        <translation>Ha sortit una versió nova</translation>
+    </message>
+    <message>
+        <source>you have %1</source>
+        <translation>tu tens la %1</translation>
+    </message>
+    <message>
+        <source>What is new</source>
+        <translation>Què hi ha de nou</translation>
+    </message>
+    <message>
+        <source>Update now (%1)</source>
+        <translation>Actualitza ara (%1)</translation>
+    </message>
+    <message>
+        <source>Update now</source>
+        <translation>Actualitza ara</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Atura</translation>
+    </message>
+    <message>
+        <source>Open the page</source>
+        <translation>Obre la pàgina</translation>
+    </message>
+    <message>
+        <source>Later</source>
+        <translation>Més tard</translation>
+    </message>
+    <message>
+        <source>Skip this version</source>
+        <translation>Salta&apos;t aquesta versió</translation>
+    </message>
+    <message>
+        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
+        <translation>«Actualitza ara» baixa l&apos;instal·lador i l&apos;obre: DecoDXLog es tanca, perquè un instal·lador no pot substituir els fitxers d&apos;un programa que està en marxa. El quadern i la configuració es queden on són.</translation>
+    </message>
+</context>
+<context>
     <name>VfoDisplay</name>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
@@ -5617,6 +5680,57 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::UpdateController</name>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>Ha sortit DecoDXLog %1</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out — you have %2</source>
+        <translation>Ha sortit DecoDXLog %1 — tu tens la %2</translation>
+    </message>
+    <message>
+        <source>this is the latest version</source>
+        <translation>aquesta és l&apos;última versió</translation>
+    </message>
+    <message>
+        <source>cannot ask GitHub: %1</source>
+        <translation>no es pot preguntar a GitHub: %1</translation>
+    </message>
+    <message>
+        <source>the download did not finish: %1</source>
+        <translation>la baixada no ha acabat: %1</translation>
+    </message>
+    <message>
+        <source>Update not downloaded: %1</source>
+        <translation>Actualització no baixada: %1</translation>
+    </message>
+    <message>
+        <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
+        <translation>Instal·lador a punt: %1 — DecoDXLog es tanca i l&apos;instal·lador s&apos;obre</translation>
+    </message>
+    <message>
+        <source>starting the installer…</source>
+        <translation>engegant l&apos;instal·lador…</translation>
+    </message>
+    <message>
+        <source>asking GitHub…</source>
+        <translation>preguntant a GitHub…</translation>
+    </message>
+    <message>
+        <source>downloading %1…</source>
+        <translation>baixant %1…</translation>
+    </message>
+    <message>
+        <source>download stopped</source>
+        <translation>baixada aturada</translation>
+    </message>
+    <message>
+        <source>version %1 set aside</source>
+        <translation>versió %1 deixada de banda</translation>
+    </message>
+</context>
+<context>
     <name>decolog::core::CallbookClient</name>
     <message>
         <source>%1 not found on %2</source>
@@ -5903,6 +6017,17 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Cannot run TQSL: %1</source>
         <translation>No es pot executar el TQSL: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::UpdateFetcher</name>
+    <message>
+        <source>the answer from GitHub was not understood</source>
+        <translation>la resposta de GitHub no s&apos;ha entès</translation>
+    </message>
+    <message>
+        <source>cannot write %1</source>
+        <translation>no es pot escriure %1</translation>
     </message>
 </context>
 <context>

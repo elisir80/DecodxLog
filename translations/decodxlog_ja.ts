@@ -3544,6 +3544,26 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>新しい言語は、次に DecoDXLog を起動したときに出ます。</translation>
     </message>
     <message>
+        <source>Updates</source>
+        <translation>更新</translation>
+    </message>
+    <message>
+        <source>Look for a new version by itself</source>
+        <translation>新しい版が出ていないか、ひとりでに見る</translation>
+    </message>
+    <message>
+        <source>Look now</source>
+        <translation>今すぐ見る</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>DecoDXLog %1 が出ました</translation>
+    </message>
+    <message>
+        <source>Once a day DecoDXLog asks GitHub if there is a newer version, and says so only when there is. Downloading and installing is up to you: nothing changes under your feet while you are working. Last look: %1</source>
+        <translation>DecoDXLog は一日に一度、新しい版が出ていないか GitHub に聞きます。出ているときだけ知らせます。取り込んで入れるかどうかは、あなたが決めます。作業の最中に、手元で勝手に変わることはありません。最後に見たとき: %1</translation>
+    </message>
+    <message>
         <source>Call info</source>
         <translation>コールサイン情報</translation>
     </message>
@@ -4626,6 +4646,49 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>UpdateDialog</name>
+    <message>
+        <source>A new version is out</source>
+        <translation>新しい版が出ました</translation>
+    </message>
+    <message>
+        <source>you have %1</source>
+        <translation>お使いのものは %1</translation>
+    </message>
+    <message>
+        <source>What is new</source>
+        <translation>新しいところ</translation>
+    </message>
+    <message>
+        <source>Update now (%1)</source>
+        <translation>今すぐ更新 (%1)</translation>
+    </message>
+    <message>
+        <source>Update now</source>
+        <translation>今すぐ更新</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>停止</translation>
+    </message>
+    <message>
+        <source>Open the page</source>
+        <translation>ページを開く</translation>
+    </message>
+    <message>
+        <source>Later</source>
+        <translation>あとで</translation>
+    </message>
+    <message>
+        <source>Skip this version</source>
+        <translation>この版は見送る</translation>
+    </message>
+    <message>
+        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
+        <translation>「今すぐ更新」はインストーラーを取り込んで開きます。動いているプログラムのファイルはインストーラーでは置き換えられないので、DecoDXLog は閉じます。ログと設定はそのままです。</translation>
+    </message>
+</context>
+<context>
     <name>VfoDisplay</name>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
@@ -5587,6 +5650,57 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>decolog::app::UpdateController</name>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>DecoDXLog %1 が出ました</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out — you have %2</source>
+        <translation>DecoDXLog %1 が出ました — お使いのものは %2</translation>
+    </message>
+    <message>
+        <source>this is the latest version</source>
+        <translation>これが最新の版です</translation>
+    </message>
+    <message>
+        <source>cannot ask GitHub: %1</source>
+        <translation>GitHub に聞けません: %1</translation>
+    </message>
+    <message>
+        <source>the download did not finish: %1</source>
+        <translation>取り込みが終わりませんでした: %1</translation>
+    </message>
+    <message>
+        <source>Update not downloaded: %1</source>
+        <translation>更新を取り込めませんでした: %1</translation>
+    </message>
+    <message>
+        <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
+        <translation>インストーラーの用意ができました: %1 — DecoDXLog が閉じ、インストーラーが開きます</translation>
+    </message>
+    <message>
+        <source>starting the installer…</source>
+        <translation>インストーラーを始めます…</translation>
+    </message>
+    <message>
+        <source>asking GitHub…</source>
+        <translation>GitHub に聞いています…</translation>
+    </message>
+    <message>
+        <source>downloading %1…</source>
+        <translation>%1 を取り込んでいます…</translation>
+    </message>
+    <message>
+        <source>download stopped</source>
+        <translation>取り込みを止めました</translation>
+    </message>
+    <message>
+        <source>version %1 set aside</source>
+        <translation>%1 の版は見送りました</translation>
+    </message>
+</context>
+<context>
     <name>decolog::core::CallbookClient</name>
     <message>
         <source>%1 not found on %2</source>
@@ -5873,6 +5987,17 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Cannot run TQSL: %1</source>
         <translation>TQSL を動かせません: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::UpdateFetcher</name>
+    <message>
+        <source>the answer from GitHub was not understood</source>
+        <translation>GitHub からの返事が分かりませんでした</translation>
+    </message>
+    <message>
+        <source>cannot write %1</source>
+        <translation>%1 を書けません</translation>
     </message>
 </context>
 <context>

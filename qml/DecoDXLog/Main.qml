@@ -413,6 +413,9 @@ ApplicationWindow {
         else if (what[0] === "lock") layout.layoutLocked = what[1] !== "off"
         else if (what[0] === "layoutmenu") layoutMenu.openAt(what[1] || "logbook", 420, 300)
         else if (what[0] === "about") aboutDialog.open()
+        else if (what[0] === "update") updateDialog.open()
+        else if (what[0] === "updatecheck") { window.panelItem("tabs").setTab(3); decolog.updates.checkNow() }
+        else if (what[0] === "updateget") { decolog.updates.checkNow(); updateGetTimer.start() }
         else if (what[0] === "mainmenu") topBar.openMainMenu()
         else if (what[0] === "stats") openStats()
         else if (what[0] === "cards") openCards()
@@ -493,6 +496,8 @@ ApplicationWindow {
            onTriggered: { const it = window.panelItem("cw"); if (it) it.showCombo() } }
     Timer { id: combo2Timer; interval: 900; onTriggered: newQsoDialog.showBandCombo() }
     Timer { id: cwSendTimer; interval: 1200; onTriggered: decolog.rig.sendMacro(0, {}) }
+    // Prova dell'aggiornamento: si aspetta la risposta, poi si scarica.
+    Timer { id: updateGetTimer; interval: 2500; onTriggered: decolog.updates.downloadAndInstall() }
     // La radio ci mette un attimo a rispondere: la prova aspetta che ci sia.
     Timer { id: tuneTimer; interval: 1500
            property real mhz: 0
@@ -503,8 +508,16 @@ ApplicationWindow {
     QsoDetailDialog { id: qsoDialog }
     StationProfilesDialog { id: profilesDialog }
     AboutDialog { id: aboutDialog }
+    UpdateDialog { id: updateDialog }
 
-    SetupDialog { id: setupDialog }
+    // Quando il controllo trova una versione nuova la finestra si apre da se':
+    // e' l'unico momento in cui l'aggiornamento si fa vedere.
+    Connections {
+        target: decolog.updates
+        function onUpdateFound(version) { updateDialog.open() }
+    }
+
+    SetupDialog { id: setupDialog; onUpdateRequested: updateDialog.open() }
     ActivationDialog { id: activationDialog }
     AwardsDialog {
         id: awardsDialog

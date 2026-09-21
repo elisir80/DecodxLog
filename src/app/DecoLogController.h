@@ -13,6 +13,7 @@
 #include "app/RigController.h"
 #include "app/RotorController.h"
 #include "app/SolarController.h"
+#include "app/UpdateController.h"
 #include "app/QsoTableModel.h"
 #include "app/StationProfileModel.h"
 #include "core/Awards.h"
@@ -52,6 +53,8 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QObject* qsl READ qsl CONSTANT)
     Q_PROPERTY(QObject* cards READ cards CONSTANT)
     Q_PROPERTY(QObject* solar READ solar CONSTANT)
+    // Gli aggiornamenti: guarda da solo se e' uscita una versione nuova.
+    Q_PROPERTY(QObject* updates READ updates CONSTANT)
     Q_PROPERTY(QObject* rotor READ rotor CONSTANT)
     // La radio via Hamlib, con le macro in CW per i contest.
     Q_PROPERTY(QObject* rig READ rig CONSTANT)
@@ -178,6 +181,7 @@ public:
     QObject* qsl() const { return m_qsl; }
     QObject* cards() const { return m_cards; }
     QObject* solar() const { return m_solar; }
+    QObject* updates() const { return m_updates; }
     QObject* rotor() const { return m_rotor; }
     QObject* rig() const { return m_rig; }
     QObject* cloud() const { return m_cloud; }
@@ -513,6 +517,7 @@ private:
     QslController*       m_qsl{nullptr};
     QslCardController*   m_cards{nullptr};
     SolarController*     m_solar{nullptr};
+    UpdateController*    m_updates{nullptr};
     RotorController*     m_rotor{nullptr};
     RigController*       m_rig{nullptr};
     CloudController*     m_cloud{nullptr};

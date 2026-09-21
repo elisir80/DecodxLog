@@ -3544,6 +3544,26 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>新語言會在下次啟動 DecoDXLog 時出現。</translation>
     </message>
     <message>
+        <source>Updates</source>
+        <translation>更新</translation>
+    </message>
+    <message>
+        <source>Look for a new version by itself</source>
+        <translation>自己去看有沒有新版本</translation>
+    </message>
+    <message>
+        <source>Look now</source>
+        <translation>現在就看</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>DecoDXLog %1 出來了</translation>
+    </message>
+    <message>
+        <source>Once a day DecoDXLog asks GitHub if there is a newer version, and says so only when there is. Downloading and installing is up to you: nothing changes under your feet while you are working. Last look: %1</source>
+        <translation>DecoDXLog 每天問一次 GitHub 有沒有更新的版本，只有真的有才會說。下載和安裝由你決定：你做事的時候，什麼都不會在手底下悄悄變。上次查看：%1</translation>
+    </message>
+    <message>
         <source>Call info</source>
         <translation>呼號資訊</translation>
     </message>
@@ -4626,6 +4646,49 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
 </context>
 <context>
+    <name>UpdateDialog</name>
+    <message>
+        <source>A new version is out</source>
+        <translation>出了一個新版本</translation>
+    </message>
+    <message>
+        <source>you have %1</source>
+        <translation>你現在用的是 %1</translation>
+    </message>
+    <message>
+        <source>What is new</source>
+        <translation>有什麼新東西</translation>
+    </message>
+    <message>
+        <source>Update now (%1)</source>
+        <translation>立即更新（%1）</translation>
+    </message>
+    <message>
+        <source>Update now</source>
+        <translation>立即更新</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>停止</translation>
+    </message>
+    <message>
+        <source>Open the page</source>
+        <translation>開啟頁面</translation>
+    </message>
+    <message>
+        <source>Later</source>
+        <translation>以後再說</translation>
+    </message>
+    <message>
+        <source>Skip this version</source>
+        <translation>跳過這個版本</translation>
+    </message>
+    <message>
+        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
+        <translation>「立即更新」會下載安裝程式並開啟它：DecoDXLog 會關閉，因為安裝程式沒法替換正在執行的程式的檔案。日誌和設定留在原處。</translation>
+    </message>
+</context>
+<context>
     <name>VfoDisplay</name>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
@@ -5587,6 +5650,57 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::UpdateController</name>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>DecoDXLog %1 出來了</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out — you have %2</source>
+        <translation>DecoDXLog %1 出來了 — 你現在用的是 %2</translation>
+    </message>
+    <message>
+        <source>this is the latest version</source>
+        <translation>這已經是最新版本</translation>
+    </message>
+    <message>
+        <source>cannot ask GitHub: %1</source>
+        <translation>問不到 GitHub：%1</translation>
+    </message>
+    <message>
+        <source>the download did not finish: %1</source>
+        <translation>下載沒有完成：%1</translation>
+    </message>
+    <message>
+        <source>Update not downloaded: %1</source>
+        <translation>更新沒有下載下來：%1</translation>
+    </message>
+    <message>
+        <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
+        <translation>安裝程式已就緒：%1 — DecoDXLog 關閉，安裝程式開啟</translation>
+    </message>
+    <message>
+        <source>starting the installer…</source>
+        <translation>正在啟動安裝程式…</translation>
+    </message>
+    <message>
+        <source>asking GitHub…</source>
+        <translation>正在問 GitHub…</translation>
+    </message>
+    <message>
+        <source>downloading %1…</source>
+        <translation>正在下載 %1…</translation>
+    </message>
+    <message>
+        <source>download stopped</source>
+        <translation>下載已停止</translation>
+    </message>
+    <message>
+        <source>version %1 set aside</source>
+        <translation>%1 版本先放一邊</translation>
+    </message>
+</context>
+<context>
     <name>decolog::core::CallbookClient</name>
     <message>
         <source>%1 not found on %2</source>
@@ -5873,6 +5987,17 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Cannot run TQSL: %1</source>
         <translation>跑不起 TQSL：%1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::UpdateFetcher</name>
+    <message>
+        <source>the answer from GitHub was not understood</source>
+        <translation>沒看懂 GitHub 的回覆</translation>
+    </message>
+    <message>
+        <source>cannot write %1</source>
+        <translation>寫不了 %1</translation>
     </message>
 </context>
 <context>

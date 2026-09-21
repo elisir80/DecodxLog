@@ -3547,6 +3547,26 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Det nye sprog dukker op, næste gang DecoDXLog starter.</translation>
     </message>
     <message>
+        <source>Updates</source>
+        <translation>Opdateringer</translation>
+    </message>
+    <message>
+        <source>Look for a new version by itself</source>
+        <translation>Se af sig selv efter en ny udgave</translation>
+    </message>
+    <message>
+        <source>Look now</source>
+        <translation>Se efter nu</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>DecoDXLog %1 er kommet</translation>
+    </message>
+    <message>
+        <source>Once a day DecoDXLog asks GitHub if there is a newer version, and says so only when there is. Downloading and installing is up to you: nothing changes under your feet while you are working. Last look: %1</source>
+        <translation>En gang om dagen spørger DecoDXLog GitHub, om der er en nyere udgave, og siger det kun, når der er. At hente og installere bestemmer du: der ændrer sig ikke noget under hænderne på dig, mens du arbejder. Sidst set efter: %1</translation>
+    </message>
+    <message>
         <source>Call info</source>
         <translation>Kaldesignalinfo</translation>
     </message>
@@ -4630,6 +4650,49 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
+    <name>UpdateDialog</name>
+    <message>
+        <source>A new version is out</source>
+        <translation>Der er kommet en ny udgave</translation>
+    </message>
+    <message>
+        <source>you have %1</source>
+        <translation>du har %1</translation>
+    </message>
+    <message>
+        <source>What is new</source>
+        <translation>Hvad der er nyt</translation>
+    </message>
+    <message>
+        <source>Update now (%1)</source>
+        <translation>Opdatér nu (%1)</translation>
+    </message>
+    <message>
+        <source>Update now</source>
+        <translation>Opdatér nu</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Stop</translation>
+    </message>
+    <message>
+        <source>Open the page</source>
+        <translation>Åbn siden</translation>
+    </message>
+    <message>
+        <source>Later</source>
+        <translation>Senere</translation>
+    </message>
+    <message>
+        <source>Skip this version</source>
+        <translation>Spring denne udgave over</translation>
+    </message>
+    <message>
+        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
+        <translation>«Opdatér nu» henter installationsprogrammet og åbner det: DecoDXLog lukker, for et installationsprogram kan ikke erstatte filerne i et program, der kører. Loggen og indstillingerne bliver, hvor de er.</translation>
+    </message>
+</context>
+<context>
     <name>VfoDisplay</name>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
@@ -5617,6 +5680,57 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::UpdateController</name>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>DecoDXLog %1 er kommet</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out — you have %2</source>
+        <translation>DecoDXLog %1 er kommet — du har %2</translation>
+    </message>
+    <message>
+        <source>this is the latest version</source>
+        <translation>det er den nyeste udgave</translation>
+    </message>
+    <message>
+        <source>cannot ask GitHub: %1</source>
+        <translation>kan ikke spørge GitHub: %1</translation>
+    </message>
+    <message>
+        <source>the download did not finish: %1</source>
+        <translation>hentningen blev ikke færdig: %1</translation>
+    </message>
+    <message>
+        <source>Update not downloaded: %1</source>
+        <translation>Opdateringen blev ikke hentet: %1</translation>
+    </message>
+    <message>
+        <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
+        <translation>Installationsprogrammet er klar: %1 — DecoDXLog lukker, og installationsprogrammet åbner</translation>
+    </message>
+    <message>
+        <source>starting the installer…</source>
+        <translation>starter installationsprogrammet…</translation>
+    </message>
+    <message>
+        <source>asking GitHub…</source>
+        <translation>spørger GitHub…</translation>
+    </message>
+    <message>
+        <source>downloading %1…</source>
+        <translation>henter %1…</translation>
+    </message>
+    <message>
+        <source>download stopped</source>
+        <translation>hentning stoppet</translation>
+    </message>
+    <message>
+        <source>version %1 set aside</source>
+        <translation>udgave %1 lagt til side</translation>
+    </message>
+</context>
+<context>
     <name>decolog::core::CallbookClient</name>
     <message>
         <source>%1 not found on %2</source>
@@ -5903,6 +6017,17 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Cannot run TQSL: %1</source>
         <translation>Kan ikke køre TQSL: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::UpdateFetcher</name>
+    <message>
+        <source>the answer from GitHub was not understood</source>
+        <translation>svaret fra GitHub blev ikke forstået</translation>
+    </message>
+    <message>
+        <source>cannot write %1</source>
+        <translation>kan ikke skrive %1</translation>
     </message>
 </context>
 <context>

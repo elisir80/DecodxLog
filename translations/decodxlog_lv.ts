@@ -3550,6 +3550,26 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Jaunā valoda parādās, nākamreiz startējot DecoDXLog.</translation>
     </message>
     <message>
+        <source>Updates</source>
+        <translation>Atjauninājumi</translation>
+    </message>
+    <message>
+        <source>Look for a new version by itself</source>
+        <translation>Pašam paskatīties, vai nav jaunas versijas</translation>
+    </message>
+    <message>
+        <source>Look now</source>
+        <translation>Paskatīties tagad</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>Iznākusi DecoDXLog %1</translation>
+    </message>
+    <message>
+        <source>Once a day DecoDXLog asks GitHub if there is a newer version, and says so only when there is. Downloading and installing is up to you: nothing changes under your feet while you are working. Last look: %1</source>
+        <translation>Reizi dienā DecoDXLog pajautā GitHub, vai nav jaunākas versijas, un pasaka tikai tad, kad ir. Lejupielādi un uzstādīšanu izlem tu: nekas nemainās zem rokām, kamēr strādā. Pēdējā reize: %1</translation>
+    </message>
+    <message>
         <source>Call info</source>
         <translation>Izsaukuma dati</translation>
     </message>
@@ -4634,6 +4654,49 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>UpdateDialog</name>
+    <message>
+        <source>A new version is out</source>
+        <translation>Iznākusi jauna versija</translation>
+    </message>
+    <message>
+        <source>you have %1</source>
+        <translation>tev ir %1</translation>
+    </message>
+    <message>
+        <source>What is new</source>
+        <translation>Kas jauns</translation>
+    </message>
+    <message>
+        <source>Update now (%1)</source>
+        <translation>Atjaunināt tagad (%1)</translation>
+    </message>
+    <message>
+        <source>Update now</source>
+        <translation>Atjaunināt tagad</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Apturēt</translation>
+    </message>
+    <message>
+        <source>Open the page</source>
+        <translation>Atvērt lapu</translation>
+    </message>
+    <message>
+        <source>Later</source>
+        <translation>Vēlāk</translation>
+    </message>
+    <message>
+        <source>Skip this version</source>
+        <translation>Izlaist šo versiju</translation>
+    </message>
+    <message>
+        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
+        <translation>«Atjaunināt tagad» lejupielādē uzstādīšanas programmu un atver to: DecoDXLog aizveras, jo uzstādīšanas programma nevar aizstāt strādājošas programmas failus. Žurnāls un iestatījumi paliek, kur bijuši.</translation>
+    </message>
+</context>
+<context>
     <name>VfoDisplay</name>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
@@ -5647,6 +5710,57 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>decolog::app::UpdateController</name>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>Iznākusi DecoDXLog %1</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out — you have %2</source>
+        <translation>Iznākusi DecoDXLog %1 — tev ir %2</translation>
+    </message>
+    <message>
+        <source>this is the latest version</source>
+        <translation>šī ir jaunākā versija</translation>
+    </message>
+    <message>
+        <source>cannot ask GitHub: %1</source>
+        <translation>nevar pajautāt GitHub: %1</translation>
+    </message>
+    <message>
+        <source>the download did not finish: %1</source>
+        <translation>lejupielāde nepabeidzās: %1</translation>
+    </message>
+    <message>
+        <source>Update not downloaded: %1</source>
+        <translation>Atjauninājums nav lejupielādēts: %1</translation>
+    </message>
+    <message>
+        <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
+        <translation>Uzstādīšanas programma gatava: %1 — DecoDXLog aizveras un uzstādīšana atveras</translation>
+    </message>
+    <message>
+        <source>starting the installer…</source>
+        <translation>startē uzstādīšanas programmu…</translation>
+    </message>
+    <message>
+        <source>asking GitHub…</source>
+        <translation>jautā GitHub…</translation>
+    </message>
+    <message>
+        <source>downloading %1…</source>
+        <translation>lejupielādē %1…</translation>
+    </message>
+    <message>
+        <source>download stopped</source>
+        <translation>lejupielāde apturēta</translation>
+    </message>
+    <message>
+        <source>version %1 set aside</source>
+        <translation>versija %1 nolikta malā</translation>
+    </message>
+</context>
+<context>
     <name>decolog::core::CallbookClient</name>
     <message>
         <source>%1 not found on %2</source>
@@ -5933,6 +6047,17 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Cannot run TQSL: %1</source>
         <translation>Nevar palaist TQSL: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::UpdateFetcher</name>
+    <message>
+        <source>the answer from GitHub was not understood</source>
+        <translation>GitHub atbilde netika saprasta</translation>
+    </message>
+    <message>
+        <source>cannot write %1</source>
+        <translation>nevar ierakstīt %1</translation>
     </message>
 </context>
 <context>

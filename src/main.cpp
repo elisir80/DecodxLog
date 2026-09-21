@@ -228,6 +228,12 @@ int main(int argc, char* argv[])
     QCommandLineOption cloudOption(QStringLiteral("cloud"), QStringLiteral("Use this DecoDXLog Cloud server."),
                                    QStringLiteral("url"));
     parser.addOption(cloudOption);
+    // Dove chiedere se c'e' una versione nuova: per le prove, senza andare
+    // davvero su GitHub.
+    QCommandLineOption updatesOption(QStringLiteral("updates-url"),
+                                     QStringLiteral("Ask this address for the latest release."),
+                                     QStringLiteral("url"));
+    parser.addOption(updatesOption);
     parser.addOption(themeOption);
     parser.addOption(showOption);
     parser.addOption(dbOption);
@@ -265,6 +271,10 @@ int main(int argc, char* argv[])
     } else {
         controller.startRotor();
     controller.startCloud(!parser.isSet(grabOption));
+    }
+    if (parser.isSet(updatesOption)) {
+        if (auto* upd = qobject_cast<decolog::app::UpdateController*>(controller.updates()))
+            upd->overrideUrl(QUrl(parser.value(updatesOption)));
     }
     if (parser.isSet(rigOption)) {
         const QString value = parser.value(rigOption);

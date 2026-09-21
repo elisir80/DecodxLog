@@ -3547,6 +3547,26 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Die neue Sprache erscheint beim nächsten Start von DecoDXLog.</translation>
     </message>
     <message>
+        <source>Updates</source>
+        <translation>Aktualisierungen</translation>
+    </message>
+    <message>
+        <source>Look for a new version by itself</source>
+        <translation>Von selbst nach einer neuen Fassung sehen</translation>
+    </message>
+    <message>
+        <source>Look now</source>
+        <translation>Jetzt nachsehen</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>DecoDXLog %1 ist da</translation>
+    </message>
+    <message>
+        <source>Once a day DecoDXLog asks GitHub if there is a newer version, and says so only when there is. Downloading and installing is up to you: nothing changes under your feet while you are working. Last look: %1</source>
+        <translation>Einmal am Tag fragt DecoDXLog bei GitHub nach, ob es eine neuere Fassung gibt, und sagt es nur dann, wenn es eine gibt. Herunterladen und installieren entscheidest du: nichts ändert sich unter deinen Händen, während du arbeitest. Zuletzt nachgesehen: %1</translation>
+    </message>
+    <message>
         <source>Call info</source>
         <translation>Rufzeicheninfo</translation>
     </message>
@@ -4630,6 +4650,49 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     </message>
 </context>
 <context>
+    <name>UpdateDialog</name>
+    <message>
+        <source>A new version is out</source>
+        <translation>Es gibt eine neue Fassung</translation>
+    </message>
+    <message>
+        <source>you have %1</source>
+        <translation>du hast %1</translation>
+    </message>
+    <message>
+        <source>What is new</source>
+        <translation>Was neu ist</translation>
+    </message>
+    <message>
+        <source>Update now (%1)</source>
+        <translation>Jetzt aktualisieren (%1)</translation>
+    </message>
+    <message>
+        <source>Update now</source>
+        <translation>Jetzt aktualisieren</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Stopp</translation>
+    </message>
+    <message>
+        <source>Open the page</source>
+        <translation>Die Seite öffnen</translation>
+    </message>
+    <message>
+        <source>Later</source>
+        <translation>Später</translation>
+    </message>
+    <message>
+        <source>Skip this version</source>
+        <translation>Diese Fassung überspringen</translation>
+    </message>
+    <message>
+        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
+        <translation>«Jetzt aktualisieren» lädt das Installationsprogramm und öffnet es: DecoDXLog schließt sich, denn ein Installationsprogramm kann die Dateien eines laufenden Programms nicht ersetzen. Logbuch und Einstellungen bleiben, wo sie sind.</translation>
+    </message>
+</context>
+<context>
     <name>VfoDisplay</name>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
@@ -5617,6 +5680,57 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     </message>
 </context>
 <context>
+    <name>decolog::app::UpdateController</name>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>DecoDXLog %1 ist da</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out — you have %2</source>
+        <translation>DecoDXLog %1 ist da — du hast %2</translation>
+    </message>
+    <message>
+        <source>this is the latest version</source>
+        <translation>das ist die neueste Fassung</translation>
+    </message>
+    <message>
+        <source>cannot ask GitHub: %1</source>
+        <translation>GitHub lässt sich nicht fragen: %1</translation>
+    </message>
+    <message>
+        <source>the download did not finish: %1</source>
+        <translation>der Download ist nicht fertig geworden: %1</translation>
+    </message>
+    <message>
+        <source>Update not downloaded: %1</source>
+        <translation>Aktualisierung nicht geladen: %1</translation>
+    </message>
+    <message>
+        <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
+        <translation>Installationsprogramm bereit: %1 — DecoDXLog schließt sich und das Installationsprogramm öffnet sich</translation>
+    </message>
+    <message>
+        <source>starting the installer…</source>
+        <translation>das Installationsprogramm startet…</translation>
+    </message>
+    <message>
+        <source>asking GitHub…</source>
+        <translation>GitHub wird gefragt…</translation>
+    </message>
+    <message>
+        <source>downloading %1…</source>
+        <translation>%1 werden geladen…</translation>
+    </message>
+    <message>
+        <source>download stopped</source>
+        <translation>Download angehalten</translation>
+    </message>
+    <message>
+        <source>version %1 set aside</source>
+        <translation>Fassung %1 beiseitegelegt</translation>
+    </message>
+</context>
+<context>
     <name>decolog::core::CallbookClient</name>
     <message>
         <source>%1 not found on %2</source>
@@ -5903,6 +6017,17 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Cannot run TQSL: %1</source>
         <translation>TQSL lässt sich nicht starten: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::UpdateFetcher</name>
+    <message>
+        <source>the answer from GitHub was not understood</source>
+        <translation>die Antwort von GitHub wurde nicht verstanden</translation>
+    </message>
+    <message>
+        <source>cannot write %1</source>
+        <translation>%1 lässt sich nicht schreiben</translation>
     </message>
 </context>
 <context>

@@ -3544,6 +3544,26 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Az új nyelv a DecoDXLog következő indításakor jelenik meg.</translation>
     </message>
     <message>
+        <source>Updates</source>
+        <translation>Frissítések</translation>
+    </message>
+    <message>
+        <source>Look for a new version by itself</source>
+        <translation>Magától nézze meg, van-e új változat</translation>
+    </message>
+    <message>
+        <source>Look now</source>
+        <translation>Nézd meg most</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>Megjelent a DecoDXLog %1</translation>
+    </message>
+    <message>
+        <source>Once a day DecoDXLog asks GitHub if there is a newer version, and says so only when there is. Downloading and installing is up to you: nothing changes under your feet while you are working. Last look: %1</source>
+        <translation>A DecoDXLog naponta egyszer megkérdezi a GitHubot, van-e újabb változat, és csak akkor szól, ha van. A letöltést és a telepítést te döntöd el: munka közben semmi sem változik a kezed alatt. Utolsó nézés: %1</translation>
+    </message>
+    <message>
         <source>Call info</source>
         <translation>Hívójel-adatok</translation>
     </message>
@@ -4626,6 +4646,49 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>UpdateDialog</name>
+    <message>
+        <source>A new version is out</source>
+        <translation>Megjelent egy új változat</translation>
+    </message>
+    <message>
+        <source>you have %1</source>
+        <translation>neked a %1 van</translation>
+    </message>
+    <message>
+        <source>What is new</source>
+        <translation>Mi az újdonság</translation>
+    </message>
+    <message>
+        <source>Update now (%1)</source>
+        <translation>Frissítés most (%1)</translation>
+    </message>
+    <message>
+        <source>Update now</source>
+        <translation>Frissítés most</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Állj</translation>
+    </message>
+    <message>
+        <source>Open the page</source>
+        <translation>Nyisd meg az oldalt</translation>
+    </message>
+    <message>
+        <source>Later</source>
+        <translation>Később</translation>
+    </message>
+    <message>
+        <source>Skip this version</source>
+        <translation>Ezt a változatot kihagyom</translation>
+    </message>
+    <message>
+        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
+        <translation>A «Frissítés most» letölti a telepítőt és megnyitja: a DecoDXLog bezárul, mert a telepítő nem tudja lecserélni egy futó program fájljait. A napló és a beállítások ott maradnak, ahol vannak.</translation>
+    </message>
+</context>
+<context>
     <name>VfoDisplay</name>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
@@ -5587,6 +5650,57 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>decolog::app::UpdateController</name>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>Megjelent a DecoDXLog %1</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out — you have %2</source>
+        <translation>Megjelent a DecoDXLog %1 — neked a %2 van</translation>
+    </message>
+    <message>
+        <source>this is the latest version</source>
+        <translation>ez a legújabb változat</translation>
+    </message>
+    <message>
+        <source>cannot ask GitHub: %1</source>
+        <translation>nem lehet megkérdezni a GitHubot: %1</translation>
+    </message>
+    <message>
+        <source>the download did not finish: %1</source>
+        <translation>a letöltés nem fejeződött be: %1</translation>
+    </message>
+    <message>
+        <source>Update not downloaded: %1</source>
+        <translation>A frissítés nem töltődött le: %1</translation>
+    </message>
+    <message>
+        <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
+        <translation>A telepítő kész: %1 — a DecoDXLog bezárul, és a telepítő megnyílik</translation>
+    </message>
+    <message>
+        <source>starting the installer…</source>
+        <translation>a telepítő indul…</translation>
+    </message>
+    <message>
+        <source>asking GitHub…</source>
+        <translation>kérdezem a GitHubot…</translation>
+    </message>
+    <message>
+        <source>downloading %1…</source>
+        <translation>%1 letöltése…</translation>
+    </message>
+    <message>
+        <source>download stopped</source>
+        <translation>a letöltés leállt</translation>
+    </message>
+    <message>
+        <source>version %1 set aside</source>
+        <translation>a %1 változat félretéve</translation>
+    </message>
+</context>
+<context>
     <name>decolog::core::CallbookClient</name>
     <message>
         <source>%1 not found on %2</source>
@@ -5873,6 +5987,17 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Cannot run TQSL: %1</source>
         <translation>A TQSL nem futtatható: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::UpdateFetcher</name>
+    <message>
+        <source>the answer from GitHub was not understood</source>
+        <translation>a GitHub válaszát nem sikerült értelmezni</translation>
+    </message>
+    <message>
+        <source>cannot write %1</source>
+        <translation>nem lehet írni: %1</translation>
     </message>
 </context>
 <context>

@@ -3,6 +3,47 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.2.0 — 21 settembre 2026
+
+**DecoDXLog si accorge da solo quando esce una versione nuova.** Una volta al giorno
+chiede a GitHub se c'e' qualcosa di piu' recente — in silenzio, senza aprire finestre.
+Solo quando c'e' davvero si fa vedere, con una finestra che dice cosa e' cambiato e tre
+strade: aggiorna adesso, vai a leggere la pagina, o metti da parte questa versione e non
+se ne parla piu'.
+
+Il controllo si spegne dalle impostazioni (Generale → Aggiornamenti), dove c'e' anche il
+pulsante per cercare subito e la data dell'ultimo controllo.
+
+**«Aggiorna ora» fa tutto: scarica l'installatore, lo apre e si toglie di mezzo.**
+DecoDXLog si chiude da solo, perche' un installatore non puo' sostituire i file di un
+programma in esecuzione. Il log e le impostazioni restano dove sono — stanno in
+`%APPDATA%\Decodium`, che l'installatore non tocca ne' installando ne' disinstallando.
+
+**Ma non si aggiorna mai da solo senza chiedere.** Il controllo e' automatico, lo scarico
+no: durante un contest nessuno vuole un programma che si cambia sotto i piedi. E una
+versione messa da parte non si ripropone.
+
+**C'e' l'installatore.** `DecoDXLog-<versione>-setup.exe`: si installa per l'utente, in
+`%LOCALAPPDATA%\Programs\DecoDXLog`, **senza chiedere i permessi di amministratore** — e
+proprio per questo l'aggiornamento automatico puo' lanciarlo da solo. Mette il
+collegamento nel menu Start (quello sul desktop e' facoltativo), riconosce una versione
+gia' installata e la aggiorna invece di affiancarle una seconda copia, e se DecoDXLog e'
+aperto lo dice e si offre di chiuderlo. Il disinstallatore c'e', e porta via solo il
+programma. L'installatore parla undici lingue di quelle di casa: inglese, italiano,
+tedesco, francese, spagnolo, catalano, olandese, danese, ungherese, giapponese, russo.
+
+Lo zip resta: chi preferisce scompattare e lanciare fa come ha sempre fatto.
+
+**Le cose che si potevano sbagliare, provate una per una.** Il confronto delle versioni
+non e' un confronto di lettere: `1.10.0` viene **dopo** `1.9.0`, non prima. Una bozza o un
+pre-rilascio non si propongono. Una risposta che non si capisce non e' una versione nuova.
+Sette prove tengono ferme queste cose (`tests/tst_updates.cpp`).
+
+E la catena intera e' stata provata davvero, con un finto GitHub in locale: il controllo
+trova la versione, la finestra si apre da sola, «Aggiorna ora» scarica il file, lo lancia
+e DecoDXLog si chiude. L'installatore vero e' stato installato, avviato e disinstallato:
+1775 file dentro, niente lasciato indietro, collegamento nel menu Start creato e tolto.
+
 ## 1.1.0 — 21 settembre 2026
 
 **La frequenza in cima e' diventata una manopola.** Le cifre non sono piu' solo da

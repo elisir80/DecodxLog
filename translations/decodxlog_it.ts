@@ -3547,6 +3547,26 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>La lingua nuova si vede al prossimo avvio di DecoDXLog.</translation>
     </message>
     <message>
+        <source>Updates</source>
+        <translation>Aggiornamenti</translation>
+    </message>
+    <message>
+        <source>Look for a new version by itself</source>
+        <translation>Cerca da solo se c&apos;e&apos; una versione nuova</translation>
+    </message>
+    <message>
+        <source>Look now</source>
+        <translation>Cerca adesso</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>E&apos; uscito DecoDXLog %1</translation>
+    </message>
+    <message>
+        <source>Once a day DecoDXLog asks GitHub if there is a newer version, and says so only when there is. Downloading and installing is up to you: nothing changes under your feet while you are working. Last look: %1</source>
+        <translation>Una volta al giorno DecoDXLog chiede a GitHub se c&apos;e&apos; una versione piu&apos; nuova, e lo dice solo quando c&apos;e&apos;. Scaricare e installare lo decidi tu: niente cambia sotto i piedi mentre stai lavorando. Ultimo controllo: %1</translation>
+    </message>
+    <message>
         <source>Call info</source>
         <translation>Scheda nominativo</translation>
     </message>
@@ -4630,6 +4650,49 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>UpdateDialog</name>
+    <message>
+        <source>A new version is out</source>
+        <translation>E&apos; uscita una versione nuova</translation>
+    </message>
+    <message>
+        <source>you have %1</source>
+        <translation>tu hai la %1</translation>
+    </message>
+    <message>
+        <source>What is new</source>
+        <translation>Cosa c&apos;e&apos; di nuovo</translation>
+    </message>
+    <message>
+        <source>Update now (%1)</source>
+        <translation>Aggiorna ora (%1)</translation>
+    </message>
+    <message>
+        <source>Update now</source>
+        <translation>Aggiorna ora</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Ferma</translation>
+    </message>
+    <message>
+        <source>Open the page</source>
+        <translation>Apri la pagina</translation>
+    </message>
+    <message>
+        <source>Later</source>
+        <translation>Piu&apos; tardi</translation>
+    </message>
+    <message>
+        <source>Skip this version</source>
+        <translation>Salta questa versione</translation>
+    </message>
+    <message>
+        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
+        <translation>«Aggiorna ora» scarica l&apos;installatore e lo apre: DecoDXLog si chiude, perche&apos; un installatore non puo&apos; sostituire i file di un programma in esecuzione. Il log e le impostazioni restano dove sono.</translation>
+    </message>
+</context>
+<context>
     <name>VfoDisplay</name>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
@@ -5617,6 +5680,57 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::UpdateController</name>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>E&apos; uscito DecoDXLog %1</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out — you have %2</source>
+        <translation>E&apos; uscito DecoDXLog %1 — tu hai la %2</translation>
+    </message>
+    <message>
+        <source>this is the latest version</source>
+        <translation>questa e&apos; l&apos;ultima versione</translation>
+    </message>
+    <message>
+        <source>cannot ask GitHub: %1</source>
+        <translation>non riesco a chiedere a GitHub: %1</translation>
+    </message>
+    <message>
+        <source>the download did not finish: %1</source>
+        <translation>lo scarico non e&apos; finito: %1</translation>
+    </message>
+    <message>
+        <source>Update not downloaded: %1</source>
+        <translation>Aggiornamento non scaricato: %1</translation>
+    </message>
+    <message>
+        <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
+        <translation>Installatore pronto: %1 — DecoDXLog si chiude e l&apos;installatore si apre</translation>
+    </message>
+    <message>
+        <source>starting the installer…</source>
+        <translation>avvio l&apos;installatore…</translation>
+    </message>
+    <message>
+        <source>asking GitHub…</source>
+        <translation>chiedo a GitHub…</translation>
+    </message>
+    <message>
+        <source>downloading %1…</source>
+        <translation>scarico %1…</translation>
+    </message>
+    <message>
+        <source>download stopped</source>
+        <translation>scarico fermato</translation>
+    </message>
+    <message>
+        <source>version %1 set aside</source>
+        <translation>versione %1 messa da parte</translation>
+    </message>
+</context>
+<context>
     <name>decolog::core::CallbookClient</name>
     <message>
         <source>%1 not found on %2</source>
@@ -5903,6 +6017,17 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Cannot run TQSL: %1</source>
         <translation>Non riesco ad avviare TQSL: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::UpdateFetcher</name>
+    <message>
+        <source>the answer from GitHub was not understood</source>
+        <translation>la risposta di GitHub non si e&apos; capita</translation>
+    </message>
+    <message>
+        <source>cannot write %1</source>
+        <translation>non riesco a scrivere %1</translation>
     </message>
 </context>
 <context>

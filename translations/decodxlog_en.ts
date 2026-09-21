@@ -3546,6 +3546,26 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Look for a new version by itself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Look now</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Once a day DecoDXLog asks GitHub if there is a newer version, and says so only when there is. Downloading and installing is up to you: nothing changes under your feet while you are working. Last look: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Call info</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4629,6 +4649,49 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>UpdateDialog</name>
+    <message>
+        <source>A new version is out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>you have %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>What is new</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update now (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update now</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Skip this version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>VfoDisplay</name>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
@@ -5616,6 +5679,57 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>decolog::app::UpdateController</name>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out — you have %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>this is the latest version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cannot ask GitHub: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the download did not finish: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update not downloaded: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>starting the installer…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>asking GitHub…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>downloading %1…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>download stopped</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>version %1 set aside</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>decolog::core::CallbookClient</name>
     <message>
         <source>%1 not found on %2</source>
@@ -5901,6 +6015,17 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Cannot run TQSL: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::UpdateFetcher</name>
+    <message>
+        <source>the answer from GitHub was not understood</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cannot write %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

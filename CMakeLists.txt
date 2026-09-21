@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.1.0
+    VERSION 1.2.0
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -86,6 +86,8 @@ add_library(decolog_core STATIC
     src/core/WsjtxProtocol.h
     src/core/UdpReceiver.cpp
     src/core/UdpReceiver.h
+    src/core/Updates.cpp
+    src/core/Updates.h
     src/core/VoiceAnnouncer.cpp
     src/core/VoiceAnnouncer.h
 )
@@ -168,6 +170,8 @@ qt_add_executable(decolog
     src/app/RotorController.h
     src/app/SolarController.cpp
     src/app/SolarController.h
+    src/app/UpdateController.cpp
+    src/app/UpdateController.h
     src/app/SpotModel.cpp
     src/app/SpotModel.h
     src/app/ActivationController.cpp
@@ -203,6 +207,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/AwardsDialog.qml
     qml/DecoDXLog/GridSquareMap.qml
     qml/DecoDXLog/AboutDialog.qml
+    qml/DecoDXLog/UpdateDialog.qml
     qml/DecoDXLog/ActivationDialog.qml
     qml/DecoDXLog/StatsWindow.qml
     qml/DecoDXLog/ContestWindow.qml
@@ -314,7 +319,7 @@ set_target_properties(decolog PROPERTIES
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes cw cwkeyer cloud cloudsettings vault)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

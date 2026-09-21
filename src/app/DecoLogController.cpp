@@ -385,6 +385,16 @@ bool DecoLogController::openDatabase(const QString& path)
     };
     m_solar = new SolarController(std::move(solarCtx), this);
 
+    // Gli aggiornamenti: una volta al giorno si guarda se e' uscita una
+    // versione nuova, e se c'e' lo si dice. Scaricare e installare lo decide
+    // chi opera.
+    UpdateController::Context updCtx;
+    updCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
+        addActivity(category, text, level);
+    };
+    updCtx.quit = [] { QCoreApplication::quit(); };
+    m_updates = new UpdateController(std::move(updCtx), this);
+
     RotorController::Context rotorCtx;
     rotorCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
         addActivity(category, text, level);
@@ -450,6 +460,8 @@ void DecoLogController::startCluster()
     // mentre si opera, e nessuna delle due serve prima che il log sia aperto.
     if (m_solar)
         m_solar->start();
+    if (m_updates)
+        m_updates->start();
 }
 
 void DecoLogController::startCloud(bool automatic)

@@ -3550,6 +3550,26 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Limba nouă apare la următoarea pornire a DecoDXLog.</translation>
     </message>
     <message>
+        <source>Updates</source>
+        <translation>Actualizări</translation>
+    </message>
+    <message>
+        <source>Look for a new version by itself</source>
+        <translation>Caută singur dacă există o versiune nouă</translation>
+    </message>
+    <message>
+        <source>Look now</source>
+        <translation>Caută acum</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>A ieșit DecoDXLog %1</translation>
+    </message>
+    <message>
+        <source>Once a day DecoDXLog asks GitHub if there is a newer version, and says so only when there is. Downloading and installing is up to you: nothing changes under your feet while you are working. Last look: %1</source>
+        <translation>O dată pe zi DecoDXLog întreabă GitHub dacă există o versiune mai nouă și spune doar atunci când este. Descărcarea și instalarea le hotărăști tu: nimic nu se schimbă sub mâinile tale în timp ce lucrezi. Ultima căutare: %1</translation>
+    </message>
+    <message>
         <source>Call info</source>
         <translation>Fișa indicativului</translation>
     </message>
@@ -4634,6 +4654,49 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
 </context>
 <context>
+    <name>UpdateDialog</name>
+    <message>
+        <source>A new version is out</source>
+        <translation>A ieșit o versiune nouă</translation>
+    </message>
+    <message>
+        <source>you have %1</source>
+        <translation>tu ai %1</translation>
+    </message>
+    <message>
+        <source>What is new</source>
+        <translation>Ce este nou</translation>
+    </message>
+    <message>
+        <source>Update now (%1)</source>
+        <translation>Actualizează acum (%1)</translation>
+    </message>
+    <message>
+        <source>Update now</source>
+        <translation>Actualizează acum</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Oprește</translation>
+    </message>
+    <message>
+        <source>Open the page</source>
+        <translation>Deschide pagina</translation>
+    </message>
+    <message>
+        <source>Later</source>
+        <translation>Mai târziu</translation>
+    </message>
+    <message>
+        <source>Skip this version</source>
+        <translation>Sari peste această versiune</translation>
+    </message>
+    <message>
+        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
+        <translation>«Actualizează acum» descarcă programul de instalare și îl deschide: DecoDXLog se închide, pentru că un program de instalare nu poate înlocui fișierele unui program care rulează. Jurnalul și setările rămân unde sunt.</translation>
+    </message>
+</context>
+<context>
     <name>VfoDisplay</name>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
@@ -5647,6 +5710,57 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::UpdateController</name>
+    <message>
+        <source>DecoDXLog %1 is out</source>
+        <translation>A ieșit DecoDXLog %1</translation>
+    </message>
+    <message>
+        <source>DecoDXLog %1 is out — you have %2</source>
+        <translation>A ieșit DecoDXLog %1 — tu ai %2</translation>
+    </message>
+    <message>
+        <source>this is the latest version</source>
+        <translation>aceasta este ultima versiune</translation>
+    </message>
+    <message>
+        <source>cannot ask GitHub: %1</source>
+        <translation>nu se poate întreba GitHub: %1</translation>
+    </message>
+    <message>
+        <source>the download did not finish: %1</source>
+        <translation>descărcarea nu s-a terminat: %1</translation>
+    </message>
+    <message>
+        <source>Update not downloaded: %1</source>
+        <translation>Actualizarea nu a fost descărcată: %1</translation>
+    </message>
+    <message>
+        <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
+        <translation>Programul de instalare este gata: %1 — DecoDXLog se închide și instalarea se deschide</translation>
+    </message>
+    <message>
+        <source>starting the installer…</source>
+        <translation>pornește programul de instalare…</translation>
+    </message>
+    <message>
+        <source>asking GitHub…</source>
+        <translation>se întreabă GitHub…</translation>
+    </message>
+    <message>
+        <source>downloading %1…</source>
+        <translation>se descarcă %1…</translation>
+    </message>
+    <message>
+        <source>download stopped</source>
+        <translation>descărcare oprită</translation>
+    </message>
+    <message>
+        <source>version %1 set aside</source>
+        <translation>versiunea %1 pusă deoparte</translation>
+    </message>
+</context>
+<context>
     <name>decolog::core::CallbookClient</name>
     <message>
         <source>%1 not found on %2</source>
@@ -5933,6 +6047,17 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Cannot run TQSL: %1</source>
         <translation>Nu se poate rula TQSL: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::UpdateFetcher</name>
+    <message>
+        <source>the answer from GitHub was not understood</source>
+        <translation>răspunsul de la GitHub nu a fost înțeles</translation>
+    </message>
+    <message>
+        <source>cannot write %1</source>
+        <translation>nu se poate scrie %1</translation>
     </message>
 </context>
 <context>
