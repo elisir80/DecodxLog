@@ -1,6 +1,7 @@
 #include "app/ActivationController.h"
 
 #include "core/Cabrillo.h"
+#include "core/ContestRules.h"
 #include "core/Contests.h"
 #include "core/LogDatabase.h"
 #include "core/Spots.h"
@@ -420,6 +421,91 @@ QVariantList ActivationController::contests(const QString& search) const
 QString ActivationController::contestName(const QString& id) const
 {
     return core::contests::nameFor(id);
+}
+
+QVariantMap ActivationController::score() const
+{
+    const core::ContestRules rules = core::contestrules::forId(m_session.contestId);
+    QVariantMap out{
+        {QStringLiteral("valid"), rules.valid},
+        {QStringLiteral("contestId"), m_session.contestId},
+        {QStringLiteral("exchangeLabel"), rules.valid ? rules.exchangeLabel : tr("Exchange")},
+        {QStringLiteral("source"), rules.source},
+        {QStringLiteral("points"), 0},
+        {QStringLiteral("multipliers"), 0},
+        {QStringLiteral("score"), 0},
+        {QStringLiteral("bands"), QVariantList{}},
+    };
+    if (!rules.valid || !m_session.active || !m_ctx.db || !m_ctx.db->isOpen())
+        return out;
+
+    const core::ContestStation me = m_ctx.station ? m_ctx.station() : core::ContestStation{};
+    int points = 0;
+    QSet<QString> mults;
+    // Per banda: quanti QSO, quanti punti, quanti moltiplicatori nuovi.
+    QMap<QString, QVariantMap> perBand;
+    QSet<QString> seenPerBand;
+
+    for (const QVariant& v : qsoIds()) {
+        const auto record = m_ctx.db->record(v.toLongLong());
+        if (!record)
+            continue;
+        core::ContestQso qso;
+        qso.call = record->value(QStringLiteral("CALL"));
+        qso.band = record->value(QStringLiteral("BAND")).toLower();
+        qso.mode = record->value(QStringLiteral("MODE")).toUpper();
+        if (qso.mode == QLatin1String("MFSK") && !record->value(QStringLiteral("SUBMODE")).isEmpty())
+            qso.mode = record->value(QStringLiteral("SUBMODE")).toUpper();
+        qso.exchange = record->value(QStringLiteral("SRX_STRING"));
+        if (qso.exchange.isEmpty())
+            qso.exchange = record->value(QStringLiteral("SRX"));
+        qso.dxcc = record->value(QStringLiteral("DXCC")).toInt();
+        qso.continent = record->value(QStringLiteral("CONT")).toUpper();
+        qso.cqZone = record->value(QStringLiteral("CQZ")).toInt();
+        qso.ituZone = record->value(QStringLiteral("ITUZ")).toInt();
+        // Un QSO scritto in fretta non ha il paese: lo si chiede al cty.csv,
+        // invece di contare zero punti per un dato che si puo' sapere.
+        if ((qso.dxcc == 0 || qso.continent.isEmpty()) && m_ctx.locate) {
+            const core::ContestStation found = m_ctx.locate(qso.call);
+            if (qso.dxcc == 0)
+                qso.dxcc = found.dxcc;
+            if (qso.continent.isEmpty())
+                qso.continent = found.continent;
+            if (qso.cqZone == 0)
+                qso.cqZone = found.cqZone;
+            if (qso.ituZone == 0)
+                qso.ituZone = found.ituZone;
+        }
+
+        const int value = core::contestrules::points(rules, qso, me);
+        points += value;
+
+        QVariantMap& band = perBand[qso.band];
+        band[QStringLiteral("band")] = qso.band;
+        band[QStringLiteral("qsos")] = band.value(QStringLiteral("qsos")).toInt() + 1;
+        band[QStringLiteral("points")] = band.value(QStringLiteral("points")).toInt() + value;
+
+        for (const QString& key : core::contestrules::multipliers(rules, qso, me)) {
+            if (mults.contains(key))
+                continue;
+            mults.insert(key);
+            band[QStringLiteral("multipliers")] = band.value(QStringLiteral("multipliers")).toInt() + 1;
+        }
+    }
+
+    QVariantList bands;
+    for (const QVariantMap& band : std::as_const(perBand))
+        bands << band;
+    out[QStringLiteral("points")] = points;
+    out[QStringLiteral("multipliers")] = mults.size();
+    out[QStringLiteral("score")] = static_cast<qint64>(points) * mults.size();
+    out[QStringLiteral("bands")] = bands;
+    return out;
+}
+
+QString ActivationController::checkExchange(const QString& exchange) const
+{
+    return core::contestrules::checkExchange(core::contestrules::forId(m_session.contestId), exchange);
 }
 
 } // namespace decolog::app

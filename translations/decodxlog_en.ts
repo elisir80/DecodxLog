@@ -1122,6 +1122,65 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>ContestRules</name>
+    <message>
+        <source>CQ zone</source>
+        <translation>CQ zone</translation>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation>Number</translation>
+    </message>
+    <message>
+        <source>ITU zone or HQ</source>
+        <translation>ITU zone or HQ</translation>
+    </message>
+    <message>
+        <source>Province or number</source>
+        <translation>Province or number</translation>
+    </message>
+    <message>
+        <source>ARI section (ASC)</source>
+        <translation>ARI section (ASC)</translation>
+    </message>
+    <message>
+        <source>Province</source>
+        <translation>Province</translation>
+    </message>
+    <message>
+        <source>The exchange is missing.</source>
+        <translation>The exchange is missing.</translation>
+    </message>
+    <message>
+        <source>A number was expected.</source>
+        <translation>A number was expected.</translation>
+    </message>
+    <message>
+        <source>A CQ zone goes from 1 to 40.</source>
+        <translation>A CQ zone goes from 1 to 40.</translation>
+    </message>
+    <message>
+        <source>An ITU zone or a society abbreviation.</source>
+        <translation>An ITU zone or a society abbreviation.</translation>
+    </message>
+    <message>
+        <source>An ITU zone goes from 1 to 90.</source>
+        <translation>An ITU zone goes from 1 to 90.</translation>
+    </message>
+    <message>
+        <source>%1 is not an Italian province.</source>
+        <translation>%1 is not an Italian province.</translation>
+    </message>
+    <message>
+        <source>An ASC code is a letter and two digits, like L01.</source>
+        <translation>An ASC code is a letter and two digits, like L01.</translation>
+    </message>
+    <message>
+        <source>A locator was expected, like JN70.</source>
+        <translation>A locator was expected, like JN70.</translation>
+    </message>
+</context>
+<context>
     <name>ContestWindow</name>
     <message>
         <source>DecoDXLog — Contest</source>
@@ -1174,6 +1233,18 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Last hour</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Points</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
     </message>
     <message>
         <source>New QSO · Enter logs · Esc clears · Tab moves</source>
@@ -1246,6 +1317,18 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>%1 km · %2°</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Band by band · QSO, points, multipliers</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 pt · %2 mult</source>
+        <translation>%1 pt · %2 mult</translation>
     </message>
     <message>
         <source>Last QSOs of the session</source>
@@ -2271,7 +2354,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>CQ zone</source>
-        <translation type="unfinished"></translation>
+        <translation>CQ zone</translation>
     </message>
     <message>
         <source>ITU zone</source>
@@ -3148,7 +3231,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>CQ zone</source>
-        <translation type="unfinished"></translation>
+        <translation>CQ zone</translation>
     </message>
     <message>
         <source>ITU zone</source>
@@ -4816,7 +4899,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>CQ zone</source>
-        <translation type="unfinished"></translation>
+        <translation>CQ zone</translation>
     </message>
     <message>
         <source>ITU zone</source>
@@ -5232,6 +5315,10 @@ The call Decodium is working shows up here by itself.</source>
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Exchange</source>
+        <translation>Exchange</translation>
     </message>
 </context>
 <context>

@@ -85,6 +85,8 @@ add_library(decolog_core STATIC
     src/core/Lotw.h
     src/app/LogLibrary.cpp
     src/app/LogLibrary.h
+    src/core/ContestRules.cpp
+    src/core/ContestRules.h
     src/core/Contests.cpp
     src/core/Contests.h
     src/core/NetworkError.h
@@ -407,6 +409,12 @@ if(DECODXLOG_BUILD_TESTS)
     target_link_libraries(tst_loglibrary PRIVATE decolog_core Qt6::Test)
     set_target_properties(tst_loglibrary PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME loglibrary COMMAND tst_loglibrary)
+    # Le regole dei contest: ogni numero viene da un regolamento.
+    qt_add_executable(tst_contestrules tests/tst_contestrules.cpp)
+    target_include_directories(tst_contestrules PRIVATE src)
+    target_link_libraries(tst_contestrules PRIVATE decolog_core Qt6::Test)
+    set_target_properties(tst_contestrules PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME contestrules COMMAND tst_contestrules)
     set_tests_properties(loglibrary PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 
     # Su Windows Qt scrive i suoi messaggi nel canale del debugger quando non

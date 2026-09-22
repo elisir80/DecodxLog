@@ -18,6 +18,8 @@ ApplicationWindow {
     readonly property var session: { revision; return decolog.activation.state }
     readonly property var recent: { revision; return decolog.activation.recentQsos(14) }
     readonly property var rate: { revision; return decolog.activation.rate() }
+    // Punti, moltiplicatori e punteggio secondo il regolamento del contest.
+    readonly property var scoring: { revision; return decolog.activation.score() }
     readonly property bool running: decolog.activation.active
 
     property string band: ""
@@ -68,6 +70,14 @@ ApplicationWindow {
         callField.forceActiveFocus()
     }
 
+    // Quello che non va nello scambio ricevuto, mentre lo si scrive: vuoto
+    // finche' il campo e' vuoto, perche' avvisare prima che si scriva e' rumore.
+    readonly property string exchangeProblem: {
+        revision
+        if (!running || rcvdNr.text.trim().length === 0)
+            return ""
+        return decolog.activation.checkExchange(rcvdNr.text)
+    }
     readonly property bool duplicate: callField.text.trim().length > 0
                                       && decolog.activation.wouldDuplicate(callField.text, root.band, root.mode)
 
@@ -94,6 +104,10 @@ ApplicationWindow {
             rst_sent: sentRst.text, rst_rcvd: rcvdRst.text,
             srx: rcvdNr.text
         })
+        // Lo scambio storto non ferma il QSO — la stazione e' gia' passata — ma
+        // si dice, cosi' si corregge adesso invece che a spoglio fatto.
+        if (root.exchangeProblem.length > 0)
+            message.text = root.exchangeProblem
         if (error.length > 0) {
             message.text = error
             return
@@ -181,6 +195,23 @@ ApplicationWindow {
                 tone: (root.rate.perHour10 || 0) >= 60 ? Theme.accentColor : Theme.textPrimary
             }
             Tile { label: qsTr("Last hour"); value: String(root.rate.last60 || 0) }
+            Tile {
+                visible: root.scoring.valid
+                label: qsTr("Points")
+                value: String(root.scoring.points || 0)
+            }
+            Tile {
+                visible: root.scoring.valid
+                label: qsTr("Mult")
+                value: String(root.scoring.multipliers || 0)
+                tone: Theme.warningColor
+            }
+            Tile {
+                visible: root.scoring.valid
+                label: qsTr("Score")
+                value: String(root.scoring.score || 0)
+                tone: Theme.accentColor
+            }
             Item { Layout.fillWidth: true }
         }
 
@@ -261,12 +292,17 @@ ApplicationWindow {
                     }
                 }
                 LabeledField {
-                    label: qsTr("Nr r")
+                    // Il nome del campo lo decide il contest: zona, provincia,
+                    // sezione o numero. Scrivere "59 14" dove ci vuole una
+                    // provincia e' l'errore che si scopre a spoglio fatto.
+                    label: root.scoring.exchangeLabel || qsTr("Nr r")
                     StyledTextField {
                         id: rcvdNr
-                        Layout.preferredWidth: 110
+                        Layout.preferredWidth: 130
                         fieldHeight: 38
                         uppercase: true
+                        accentBorder: root.exchangeProblem.length > 0 ? Theme.warningColor
+                                                                      : Theme.primaryColor
                     }
                 }
                 GlassButton {
@@ -435,6 +471,62 @@ ApplicationWindow {
                 font.pixelSize: 12
                 elide: Text.ElideRight
                 Layout.maximumWidth: 380
+            }
+        }
+
+        // ── Come va, banda per banda ────────────────────────────────────────
+        //
+        // Nei contest i moltiplicatori si contano per banda: sapere che sui 20
+        // ce ne sono trenta e sugli 80 due e' quello che dice dove andare.
+        GlassPanel {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 92
+            visible: root.scoring.valid && (root.scoring.bands || []).length > 0
+            title: qsTr("Band by band · QSO, points, multipliers")
+
+            RowLayout {
+                anchors.fill: parent
+                anchors.margins: 8
+                spacing: 8
+                Repeater {
+                    model: root.scoring.bands || []
+                    Rectangle {
+                        required property var modelData
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        radius: 4
+                        color: modelData.band === root.band ? Theme.rowMatchBg : Theme.bgDeep
+                        border.color: modelData.band === root.band ? Theme.accentColor : Theme.borderSoft
+
+                        ColumnLayout {
+                            anchors.centerIn: parent
+                            spacing: 1
+                            Text {
+                                Layout.alignment: Qt.AlignHCenter
+                                text: modelData.band
+                                color: Theme.textPrimary
+                                font.family: Theme.monoFamily
+                                font.pixelSize: 13
+                                font.bold: true
+                            }
+                            Text {
+                                Layout.alignment: Qt.AlignHCenter
+                                text: qsTr("%1 QSO").arg(modelData.qsos || 0)
+                                color: Theme.textSecondary
+                                font.pixelSize: 11
+                            }
+                            Text {
+                                Layout.alignment: Qt.AlignHCenter
+                                text: qsTr("%1 pt · %2 mult").arg(modelData.points || 0)
+                                                             .arg(modelData.multipliers || 0)
+                                color: Theme.primaryColor
+                                font.family: Theme.monoFamily
+                                font.pixelSize: 11
+                            }
+                        }
+                    }
+                }
+                Item { Layout.fillWidth: true; visible: (root.scoring.bands || []).length < 3 }
             }
         }
 

@@ -1121,6 +1121,65 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>ContestRules</name>
+    <message>
+        <source>CQ zone</source>
+        <translation>CQ ゾーン</translation>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation>番号</translation>
+    </message>
+    <message>
+        <source>ITU zone or HQ</source>
+        <translation>ITU ゾーンまたは HQ</translation>
+    </message>
+    <message>
+        <source>Province or number</source>
+        <translation>州または番号</translation>
+    </message>
+    <message>
+        <source>ARI section (ASC)</source>
+        <translation>ARI セクション (ASC)</translation>
+    </message>
+    <message>
+        <source>Province</source>
+        <translation>州</translation>
+    </message>
+    <message>
+        <source>The exchange is missing.</source>
+        <translation>交換がありません。</translation>
+    </message>
+    <message>
+        <source>A number was expected.</source>
+        <translation>数字が必要です。</translation>
+    </message>
+    <message>
+        <source>A CQ zone goes from 1 to 40.</source>
+        <translation>CQ ゾーンは 1 から 40 までです。</translation>
+    </message>
+    <message>
+        <source>An ITU zone or a society abbreviation.</source>
+        <translation>ITU ゾーンか協会の略号です。</translation>
+    </message>
+    <message>
+        <source>An ITU zone goes from 1 to 90.</source>
+        <translation>ITU ゾーンは 1 から 90 までです。</translation>
+    </message>
+    <message>
+        <source>%1 is not an Italian province.</source>
+        <translation>%1 はイタリアの州ではありません。</translation>
+    </message>
+    <message>
+        <source>An ASC code is a letter and two digits, like L01.</source>
+        <translation>ASC コードは L01 のように英字 1 つと数字 2 つです。</translation>
+    </message>
+    <message>
+        <source>A locator was expected, like JN70.</source>
+        <translation>JN70 のようなロケーターが必要です。</translation>
+    </message>
+</context>
+<context>
     <name>ContestWindow</name>
     <message>
         <source>DecoDXLog — Contest</source>
@@ -1173,6 +1232,18 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Last hour</source>
         <translation>直近 1 時間</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>得点</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>マルチ</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>スコア</translation>
     </message>
     <message>
         <source>New QSO · Enter logs · Esc clears · Tab moves</source>
@@ -1245,6 +1316,18 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>%1 km · %2°</source>
         <translation>%1 km · %2°</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>バンドごと · QSO、得点、マルチ</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>%1 pt · %2 mult</source>
+        <translation>%1 点 · %2 マルチ</translation>
     </message>
     <message>
         <source>Last QSOs of the session</source>
@@ -5221,6 +5304,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>
             <numerusform>セッションの %n QSO → %1</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Exchange</source>
+        <translation>交換</translation>
     </message>
 </context>
 <context>

@@ -1125,6 +1125,65 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
 </context>
 <context>
+    <name>ContestRules</name>
+    <message>
+        <source>CQ zone</source>
+        <translation>Zonă CQ</translation>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation>Număr</translation>
+    </message>
+    <message>
+        <source>ITU zone or HQ</source>
+        <translation>Zonă ITU sau HQ</translation>
+    </message>
+    <message>
+        <source>Province or number</source>
+        <translation>Provincie sau număr</translation>
+    </message>
+    <message>
+        <source>ARI section (ASC)</source>
+        <translation>Secție ARI (ASC)</translation>
+    </message>
+    <message>
+        <source>Province</source>
+        <translation>Provincie</translation>
+    </message>
+    <message>
+        <source>The exchange is missing.</source>
+        <translation>Lipsește schimbul.</translation>
+    </message>
+    <message>
+        <source>A number was expected.</source>
+        <translation>Se aștepta un număr.</translation>
+    </message>
+    <message>
+        <source>A CQ zone goes from 1 to 40.</source>
+        <translation>O zonă CQ merge de la 1 la 40.</translation>
+    </message>
+    <message>
+        <source>An ITU zone or a society abbreviation.</source>
+        <translation>O zonă ITU sau sigla unei societăți.</translation>
+    </message>
+    <message>
+        <source>An ITU zone goes from 1 to 90.</source>
+        <translation>O zonă ITU merge de la 1 la 90.</translation>
+    </message>
+    <message>
+        <source>%1 is not an Italian province.</source>
+        <translation>%1 nu e o provincie italiană.</translation>
+    </message>
+    <message>
+        <source>An ASC code is a letter and two digits, like L01.</source>
+        <translation>Un cod ASC e o literă și două cifre, ca L01.</translation>
+    </message>
+    <message>
+        <source>A locator was expected, like JN70.</source>
+        <translation>Se aștepta un locator, ca JN70.</translation>
+    </message>
+</context>
+<context>
     <name>ContestWindow</name>
     <message>
         <source>DecoDXLog — Contest</source>
@@ -1177,6 +1236,18 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Last hour</source>
         <translation>Ultima oră</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Puncte</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Scor</translation>
     </message>
     <message>
         <source>New QSO · Enter logs · Esc clears · Tab moves</source>
@@ -1249,6 +1320,18 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>%1 km · %2°</source>
         <translation>%1 km · %2°</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Bandă cu bandă · QSO, puncte, multiplicatori</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>%1 pt · %2 mult</source>
+        <translation>%1 pct · %2 mult</translation>
     </message>
     <message>
         <source>Last QSOs of the session</source>
@@ -5245,6 +5328,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
             <numerusform>%n QSO ale sesiunii → %1</numerusform>
             <numerusform>%n de QSO ale sesiunii → %1</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Exchange</source>
+        <translation>Schimb</translation>
     </message>
 </context>
 <context>

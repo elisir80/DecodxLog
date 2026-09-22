@@ -1123,6 +1123,65 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
     </message>
 </context>
 <context>
+    <name>ContestRules</name>
+    <message>
+        <source>CQ zone</source>
+        <translation>Zone CQ</translation>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation>Numéro</translation>
+    </message>
+    <message>
+        <source>ITU zone or HQ</source>
+        <translation>Zone ITU ou HQ</translation>
+    </message>
+    <message>
+        <source>Province or number</source>
+        <translation>Province ou numéro</translation>
+    </message>
+    <message>
+        <source>ARI section (ASC)</source>
+        <translation>Section ARI (ASC)</translation>
+    </message>
+    <message>
+        <source>Province</source>
+        <translation>Province</translation>
+    </message>
+    <message>
+        <source>The exchange is missing.</source>
+        <translation>L&apos;échange manque.</translation>
+    </message>
+    <message>
+        <source>A number was expected.</source>
+        <translation>Un nombre était attendu.</translation>
+    </message>
+    <message>
+        <source>A CQ zone goes from 1 to 40.</source>
+        <translation>Une zone CQ va de 1 à 40.</translation>
+    </message>
+    <message>
+        <source>An ITU zone or a society abbreviation.</source>
+        <translation>Une zone ITU ou le sigle d&apos;une société.</translation>
+    </message>
+    <message>
+        <source>An ITU zone goes from 1 to 90.</source>
+        <translation>Une zone ITU va de 1 à 90.</translation>
+    </message>
+    <message>
+        <source>%1 is not an Italian province.</source>
+        <translation>%1 n&apos;est pas une province italienne.</translation>
+    </message>
+    <message>
+        <source>An ASC code is a letter and two digits, like L01.</source>
+        <translation>Un code ASC est une lettre et deux chiffres, comme L01.</translation>
+    </message>
+    <message>
+        <source>A locator was expected, like JN70.</source>
+        <translation>Un locator était attendu, comme JN70.</translation>
+    </message>
+</context>
+<context>
     <name>ContestWindow</name>
     <message>
         <source>DecoDXLog — Contest</source>
@@ -1175,6 +1234,18 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
     <message>
         <source>Last hour</source>
         <translation>Dernière heure</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Points</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
     </message>
     <message>
         <source>New QSO · Enter logs · Esc clears · Tab moves</source>
@@ -1247,6 +1318,18 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
     <message>
         <source>%1 km · %2°</source>
         <translation>%1 km · %2°</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Bande par bande · QSO, points, multiplicateurs</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>%1 pt · %2 mult</source>
+        <translation>%1 pt · %2 mult</translation>
     </message>
     <message>
         <source>Last QSOs of the session</source>
@@ -5233,6 +5316,10 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
             <numerusform>%n QSO de la session → %1</numerusform>
             <numerusform>%n QSO de la session → %1</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Exchange</source>
+        <translation>Échange</translation>
     </message>
 </context>
 <context>

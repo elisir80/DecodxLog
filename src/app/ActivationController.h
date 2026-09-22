@@ -8,6 +8,7 @@
 #pragma once
 
 #include "core/Activation.h"
+#include "core/ContestRules.h"
 
 #include <QObject>
 #include <QUrl>
@@ -41,6 +42,11 @@ public:
         std::function<qint64()> activeProfileId;
         std::function<void(const QString& category, const QString& text, const QString& level)> activity;
         std::function<void()> logChanged;
+        // Dove sta la propria stazione: paese, continente e zone. Serve a sapere
+        // quanto vale un QSO, che nei contest dipende da dove sono i due.
+        std::function<core::ContestStation()> station;
+        // Il paese e le zone di un nominativo, secondo il cty.csv.
+        std::function<core::ContestStation(const QString& call)> locate;
     };
 
     explicit ActivationController(Context context, QObject* parent = nullptr);
@@ -76,6 +82,13 @@ public:
     Q_INVOKABLE QVariantList contests(const QString& search = {}) const;
     // Il nome di un identificativo, vuoto se non e' uno di quelli conosciuti.
     Q_INVOKABLE QString contestName(const QString& id) const;
+    // Punti, moltiplicatori e punteggio della sessione, secondo il regolamento
+    // del contest: {valid, points, multipliers, score, exchangeLabel, source,
+    // bands: [{band, qsos, points, multipliers}]}. `valid` falso vuol dire che
+    // di quel contest non si sanno le regole, e allora non si inventa un numero.
+    Q_INVOKABLE QVariantMap score() const;
+    // Lo scambio ricevuto ha la forma che il contest vuole? Vuoto se va bene.
+    Q_INVOKABLE QString checkExchange(const QString& exchange) const;
     // Scrive l'ADIF della sessione. Restituisce un messaggio d'errore, o "".
     Q_INVOKABLE QString exportAdif(const QUrl& file);
     // Scrive il Cabrillo del contest. `info` sono le righe della testata:

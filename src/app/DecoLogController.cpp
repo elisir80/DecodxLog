@@ -553,6 +553,31 @@ bool DecoLogController::openDatabase(const QString& path)
         addActivity(category, text, level);
     };
     actCtx.logChanged = [this] { emit logChanged(); };
+    // Dove sta la propria stazione e dove stanno gli altri: nei contest il
+    // valore di un QSO dipende da questo, e il cty.csv lo sa gia'.
+    actCtx.locate = [this](const QString& call) {
+        core::ContestStation out;
+        if (const auto e = m_countries.lookup(call)) {
+            out.dxcc = e->dxcc;
+            out.continent = e->continent;
+            out.cqZone = e->cqZone;
+            out.ituZone = e->ituZone;
+        }
+        return out;
+    };
+    // La propria stazione: il nominativo del profilo, risolto dal cty.csv.
+    actCtx.station = [this] {
+        core::ContestStation out;
+        const QString call = m_profiles->activeProfile()
+                                 .value(QStringLiteral("stationCallsign")).toString();
+        if (const auto e = m_countries.lookup(call)) {
+            out.dxcc = e->dxcc;
+            out.continent = e->continent;
+            out.cqZone = e->cqZone;
+            out.ituZone = e->ituZone;
+        }
+        return out;
+    };
     m_activation = new ActivationController(std::move(actCtx), this);
     m_activation->load();
     connect(this, &DecoLogController::logChanged, m_cluster, &ClusterController::logChanged);

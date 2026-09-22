@@ -1125,6 +1125,65 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>ContestRules</name>
+    <message>
+        <source>CQ zone</source>
+        <translation>CQ zona</translation>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation>Numurs</translation>
+    </message>
+    <message>
+        <source>ITU zone or HQ</source>
+        <translation>ITU zona vai HQ</translation>
+    </message>
+    <message>
+        <source>Province or number</source>
+        <translation>Province vai numurs</translation>
+    </message>
+    <message>
+        <source>ARI section (ASC)</source>
+        <translation>ARI sekcija (ASC)</translation>
+    </message>
+    <message>
+        <source>Province</source>
+        <translation>Province</translation>
+    </message>
+    <message>
+        <source>The exchange is missing.</source>
+        <translation>Trūkst apmaiņas.</translation>
+    </message>
+    <message>
+        <source>A number was expected.</source>
+        <translation>Bija gaidāms skaitlis.</translation>
+    </message>
+    <message>
+        <source>A CQ zone goes from 1 to 40.</source>
+        <translation>CQ zona ir no 1 līdz 40.</translation>
+    </message>
+    <message>
+        <source>An ITU zone or a society abbreviation.</source>
+        <translation>ITU zona vai biedrības saīsinājums.</translation>
+    </message>
+    <message>
+        <source>An ITU zone goes from 1 to 90.</source>
+        <translation>ITU zona ir no 1 līdz 90.</translation>
+    </message>
+    <message>
+        <source>%1 is not an Italian province.</source>
+        <translation>%1 nav Itālijas province.</translation>
+    </message>
+    <message>
+        <source>An ASC code is a letter and two digits, like L01.</source>
+        <translation>ASC kods ir burts un divi cipari, kā L01.</translation>
+    </message>
+    <message>
+        <source>A locator was expected, like JN70.</source>
+        <translation>Bija gaidīts lokators, kā JN70.</translation>
+    </message>
+</context>
+<context>
     <name>ContestWindow</name>
     <message>
         <source>DecoDXLog — Contest</source>
@@ -1177,6 +1236,18 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Last hour</source>
         <translation>Pēdējā stunda</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punkti</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Reiz.</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Rezultāts</translation>
     </message>
     <message>
         <source>New QSO · Enter logs · Esc clears · Tab moves</source>
@@ -1249,6 +1320,18 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>%1 km · %2°</source>
         <translation>%1 km · %2°</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Josla pēc joslas · QSO, punkti, reizinātāji</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>%1 pt · %2 mult</source>
+        <translation>%1 p · %2 reiz.</translation>
     </message>
     <message>
         <source>Last QSOs of the session</source>
@@ -5245,6 +5328,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
             <numerusform>%n sesijas QSO → %1</numerusform>
             <numerusform>%n sesijas QSO → %1</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Exchange</source>
+        <translation>Apmaiņa</translation>
     </message>
 </context>
 <context>

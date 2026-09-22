@@ -1121,6 +1121,65 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     </message>
 </context>
 <context>
+    <name>ContestRules</name>
+    <message>
+        <source>CQ zone</source>
+        <translation>CQ 分区</translation>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation>编号</translation>
+    </message>
+    <message>
+        <source>ITU zone or HQ</source>
+        <translation>ITU 分区或 HQ</translation>
+    </message>
+    <message>
+        <source>Province or number</source>
+        <translation>省或编号</translation>
+    </message>
+    <message>
+        <source>ARI section (ASC)</source>
+        <translation>ARI 分会（ASC）</translation>
+    </message>
+    <message>
+        <source>Province</source>
+        <translation>省</translation>
+    </message>
+    <message>
+        <source>The exchange is missing.</source>
+        <translation>缺少交换内容。</translation>
+    </message>
+    <message>
+        <source>A number was expected.</source>
+        <translation>需要一个数字。</translation>
+    </message>
+    <message>
+        <source>A CQ zone goes from 1 to 40.</source>
+        <translation>CQ 分区从 1 到 40。</translation>
+    </message>
+    <message>
+        <source>An ITU zone or a society abbreviation.</source>
+        <translation>ITU 分区或协会缩写。</translation>
+    </message>
+    <message>
+        <source>An ITU zone goes from 1 to 90.</source>
+        <translation>ITU 分区从 1 到 90。</translation>
+    </message>
+    <message>
+        <source>%1 is not an Italian province.</source>
+        <translation>%1 不是意大利的省。</translation>
+    </message>
+    <message>
+        <source>An ASC code is a letter and two digits, like L01.</source>
+        <translation>ASC 代码是一个字母加两位数字，如 L01。</translation>
+    </message>
+    <message>
+        <source>A locator was expected, like JN70.</source>
+        <translation>需要一个网格，如 JN70。</translation>
+    </message>
+</context>
+<context>
     <name>ContestWindow</name>
     <message>
         <source>DecoDXLog — Contest</source>
@@ -1173,6 +1232,18 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Last hour</source>
         <translation>最近一小时</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>分数</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>倍增</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>总分</translation>
     </message>
     <message>
         <source>New QSO · Enter logs · Esc clears · Tab moves</source>
@@ -1245,6 +1316,18 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>%1 km · %2°</source>
         <translation>%1 km · %2°</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>逐波段 · QSO、分数、倍增</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>%1 pt · %2 mult</source>
+        <translation>%1 分 · %2 倍增</translation>
     </message>
     <message>
         <source>Last QSOs of the session</source>
@@ -5221,6 +5304,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>
             <numerusform>本次会话的 %n 个 QSO → %1</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Exchange</source>
+        <translation>交换</translation>
     </message>
 </context>
 <context>

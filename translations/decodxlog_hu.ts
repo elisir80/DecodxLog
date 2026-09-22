@@ -1121,6 +1121,65 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>ContestRules</name>
+    <message>
+        <source>CQ zone</source>
+        <translation>CQ-zóna</translation>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation>Szám</translation>
+    </message>
+    <message>
+        <source>ITU zone or HQ</source>
+        <translation>ITU-zóna vagy HQ</translation>
+    </message>
+    <message>
+        <source>Province or number</source>
+        <translation>Tartomány vagy szám</translation>
+    </message>
+    <message>
+        <source>ARI section (ASC)</source>
+        <translation>ARI-szekció (ASC)</translation>
+    </message>
+    <message>
+        <source>Province</source>
+        <translation>Tartomány</translation>
+    </message>
+    <message>
+        <source>The exchange is missing.</source>
+        <translation>Hiányzik a csere.</translation>
+    </message>
+    <message>
+        <source>A number was expected.</source>
+        <translation>Számot vártunk.</translation>
+    </message>
+    <message>
+        <source>A CQ zone goes from 1 to 40.</source>
+        <translation>A CQ-zóna 1-től 40-ig megy.</translation>
+    </message>
+    <message>
+        <source>An ITU zone or a society abbreviation.</source>
+        <translation>ITU-zóna vagy egy társaság rövidítése.</translation>
+    </message>
+    <message>
+        <source>An ITU zone goes from 1 to 90.</source>
+        <translation>Az ITU-zóna 1-től 90-ig megy.</translation>
+    </message>
+    <message>
+        <source>%1 is not an Italian province.</source>
+        <translation>A(z) %1 nem olasz tartomány.</translation>
+    </message>
+    <message>
+        <source>An ASC code is a letter and two digits, like L01.</source>
+        <translation>Az ASC-kód egy betű és két számjegy, mint az L01.</translation>
+    </message>
+    <message>
+        <source>A locator was expected, like JN70.</source>
+        <translation>Locatort vártunk, mint a JN70.</translation>
+    </message>
+</context>
+<context>
     <name>ContestWindow</name>
     <message>
         <source>DecoDXLog — Contest</source>
@@ -1173,6 +1232,18 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Last hour</source>
         <translation>Utolsó óra</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Pont</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Szorzó</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Eredmény</translation>
     </message>
     <message>
         <source>New QSO · Enter logs · Esc clears · Tab moves</source>
@@ -1245,6 +1316,18 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>%1 km · %2°</source>
         <translation>%1 km · %2°</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Sávonként · QSO, pont, szorzó</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>%1 pt · %2 mult</source>
+        <translation>%1 pont · %2 szorzó</translation>
     </message>
     <message>
         <source>Last QSOs of the session</source>
@@ -5221,6 +5304,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>
             <numerusform>a munkamenet %n QSO-ja → %1</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Exchange</source>
+        <translation>Csere</translation>
     </message>
 </context>
 <context>

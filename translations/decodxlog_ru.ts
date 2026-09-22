@@ -1125,6 +1125,65 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>ContestRules</name>
+    <message>
+        <source>CQ zone</source>
+        <translation>Зона CQ</translation>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation>Номер</translation>
+    </message>
+    <message>
+        <source>ITU zone or HQ</source>
+        <translation>Зона ITU или HQ</translation>
+    </message>
+    <message>
+        <source>Province or number</source>
+        <translation>Провинция или номер</translation>
+    </message>
+    <message>
+        <source>ARI section (ASC)</source>
+        <translation>Секция ARI (ASC)</translation>
+    </message>
+    <message>
+        <source>Province</source>
+        <translation>Провинция</translation>
+    </message>
+    <message>
+        <source>The exchange is missing.</source>
+        <translation>Нет обмена.</translation>
+    </message>
+    <message>
+        <source>A number was expected.</source>
+        <translation>Ожидалось число.</translation>
+    </message>
+    <message>
+        <source>A CQ zone goes from 1 to 40.</source>
+        <translation>Зона CQ — от 1 до 40.</translation>
+    </message>
+    <message>
+        <source>An ITU zone or a society abbreviation.</source>
+        <translation>Зона ITU или сокращение общества.</translation>
+    </message>
+    <message>
+        <source>An ITU zone goes from 1 to 90.</source>
+        <translation>Зона ITU — от 1 до 90.</translation>
+    </message>
+    <message>
+        <source>%1 is not an Italian province.</source>
+        <translation>%1 — не итальянская провинция.</translation>
+    </message>
+    <message>
+        <source>An ASC code is a letter and two digits, like L01.</source>
+        <translation>Код ASC — буква и две цифры, например L01.</translation>
+    </message>
+    <message>
+        <source>A locator was expected, like JN70.</source>
+        <translation>Ожидался локатор, например JN70.</translation>
+    </message>
+</context>
+<context>
     <name>ContestWindow</name>
     <message>
         <source>DecoDXLog — Contest</source>
@@ -1177,6 +1236,18 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Last hour</source>
         <translation>Последний час</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Очки</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Множ.</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Результат</translation>
     </message>
     <message>
         <source>New QSO · Enter logs · Esc clears · Tab moves</source>
@@ -1249,6 +1320,18 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>%1 km · %2°</source>
         <translation>%1 км · %2°</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>По диапазонам · QSO, очки, множители</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>%1 pt · %2 mult</source>
+        <translation>%1 очк · %2 множ.</translation>
     </message>
     <message>
         <source>Last QSOs of the session</source>
@@ -5245,6 +5328,10 @@ The call Decodium is working shows up here by itself.</source>
             <numerusform>%n QSO сеанса → %1</numerusform>
             <numerusform>%n QSO сеанса → %1</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Exchange</source>
+        <translation>Обмен</translation>
     </message>
 </context>
 <context>
