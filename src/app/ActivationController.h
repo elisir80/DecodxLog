@@ -70,6 +70,12 @@ public:
     Q_INVOKABLE QVariantList qsoIds() const;
     // Nome del file suggerito per l'invio (POTA e compagnia).
     Q_INVOKABLE QString suggestedFileName() const;
+    // I contest che il programma conosce (quelli dell'enumerazione ADIF piu' i
+    // contest ARI), filtrati per testo: {id, name, label}. Serve a scegliere
+    // invece di scrivere a memoria un CONTEST_ID.
+    Q_INVOKABLE QVariantList contests(const QString& search = {}) const;
+    // Il nome di un identificativo, vuoto se non e' uno di quelli conosciuti.
+    Q_INVOKABLE QString contestName(const QString& id) const;
     // Scrive l'ADIF della sessione. Restituisce un messaggio d'errore, o "".
     Q_INVOKABLE QString exportAdif(const QUrl& file);
     // Scrive il Cabrillo del contest. `info` sono le righe della testata:

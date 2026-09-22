@@ -83,6 +83,8 @@ add_library(decolog_core STATIC
     src/core/LogDatabase.h
     src/core/Lotw.cpp
     src/core/Lotw.h
+    src/core/Contests.cpp
+    src/core/Contests.h
     src/core/NetworkError.h
     src/core/QslCards.cpp
     src/core/QslDesign.cpp

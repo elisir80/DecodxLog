@@ -423,7 +423,7 @@ ApplicationWindow {
             clusterTuneTimer.start()
         }
         else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))
-        else if (what[0] === "activation") activationDialog.openDialog()
+        else if (what[0] === "activation") { activationDialog.openDialog(what[1] || ""); if (what[2] === "choose") Qt.callLater(activationDialog.chooseContest) }
         else if (what[0] === "modes") window.panelItem("newqso").showModes()
         // Per le prove: apre tutte le finestre due volte di fila. Due volte
         // perche' il guaio da cercare e' proprio quello — la finestra che si

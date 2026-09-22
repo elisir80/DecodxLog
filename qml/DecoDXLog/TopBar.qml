@@ -210,7 +210,7 @@ Rectangle {
                 readonly property var act: decolog.activation
                 text: act.active
                       ? qsTr("%1 · %2/%3").arg(act.state.title).arg(act.qsoCount).arg(act.requiredQsos > 0 ? act.requiredQsos : act.qsoCount)
-                      : qsTr("Activation")
+                      : qsTr("Contest")
                 tone: !act.active ? "transparent"
                       : act.requiredQsos > 0 && act.qsoCount < act.requiredQsos ? Theme.warningColor : Theme.accentColor
                 filled: act.active

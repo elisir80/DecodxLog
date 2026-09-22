@@ -14,13 +14,16 @@ DialogFrame {
     readonly property var state: act.state
     property var draft: ({})
 
-    function openDialog() {
+    // `kind` apre gia' sul tipo giusto: "contest" quando si arriva dal contest.
+    function openDialog(kind) {
         draft = act.active ? Object.assign({}, root.state)
-                           : { kind: "pota", reference: "", name: "", contestId: "", myGrid: decolog.myGrid,
-                               tag: "", band: "", mode: "", serialEnabled: false, nextSerial: 1 }
+                           : { kind: kind || "pota", reference: "", name: "", contestId: "",
+                               myGrid: decolog.myGrid, tag: "", band: "", mode: "",
+                               serialEnabled: kind === "contest", nextSerial: 1 }
         errorText.text = ""
         open()
     }
+    function chooseContest() { contestPicker.openPicker() }
     function set(key, value) {
         const d = Object.assign({}, root.draft)
         d[key] = value
@@ -30,7 +33,7 @@ DialogFrame {
                                          contest: qsTr("Contest"), free: qsTr("Free session") })
     readonly property bool needsReference: ["pota", "sota", "wwff", "iota"].indexOf(draft.kind) >= 0
 
-    title: act.active ? qsTr("Session · %1").arg(root.state.title) : qsTr("Activation / contest")
+    title: act.active ? qsTr("Session · %1").arg(root.state.title) : qsTr("Contest and activations")
     dotColor: act.active ? Theme.accentColor : Theme.secondaryColor
     dialogKey: "activation"
     width: 760
@@ -130,13 +133,33 @@ DialogFrame {
             LabeledField {
                 Layout.fillWidth: true
                 visible: root.draft.kind === "contest"
-                label: qsTr("Contest (CONTEST_ID)")
-                StyledTextField {
+                label: qsTr("Contest")
+                RowLayout {
                     Layout.fillWidth: true
-                    uppercase: true
-                    text: root.draft.contestId || ""
-                    placeholderText: "CQ-WW-SSB"
-                    onTextEdited: root.set("contestId", text)
+                    spacing: 6
+                    StyledTextField {
+                        id: contestIdField
+                        Layout.preferredWidth: 150
+                        uppercase: true
+                        text: root.draft.contestId || ""
+                        placeholderText: "CQ-WW-SSB"
+                        onTextEdited: root.set("contestId", text)
+                    }
+                    Text {
+                        Layout.fillWidth: true
+                        elide: Text.ElideRight
+                        color: Theme.textSecondary
+                        font.pixelSize: 12
+                        // Il nome dice se l'id e' quello giusto: "CQ-WW-SSB" da
+                        // solo non si controlla guardandolo.
+                        text: !(root.draft.contestId || "").length ? qsTr("pick it from the list")
+                              : decolog.activation.contestName(root.draft.contestId)
+                                || qsTr("identifier not in the list")
+                    }
+                    GlassButton {
+                        text: qsTr("Choose…")
+                        onClicked: contestPicker.openPicker()
+                    }
                 }
             }
             LabeledField {
@@ -260,6 +283,89 @@ DialogFrame {
                     if (errorText.text.length === 0)
                         root.close()
                 }
+            }
+        }
+    }
+
+    // I contest che il programma conosce: l'elenco ADIF piu' quelli della ARI.
+    Popup {
+        id: contestPicker
+        anchors.centerIn: Overlay.overlay
+        modal: true
+        padding: 14
+        width: Math.min(620, root.width - 60)
+        height: Math.min(520, root.height - 60)
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+        background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 6 }
+
+        property string search: ""
+        readonly property var found: decolog.activation.contests(search)
+
+        function openPicker() {
+            search = ""
+            searchField.text = ""
+            open()
+            searchField.forceActiveFocus()
+        }
+
+        contentItem: ColumnLayout {
+            spacing: 10
+            SectionTitle { text: qsTr("Choose the contest") }
+            StyledTextField {
+                id: searchField
+                Layout.fillWidth: true
+                mono: false
+                placeholderText: qsTr("Search by name or identifier…")
+                onTextChanged: contestPicker.search = text
+            }
+            Text {
+                text: qsTr("%n contest(s)", "", contestPicker.found.length)
+                color: Theme.textSecondary
+                font.pixelSize: 11
+            }
+            ListView {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                clip: true
+                model: contestPicker.found
+                ScrollBar.vertical: PanelScrollBar {}
+                delegate: ItemDelegate {
+                    required property var modelData
+                    width: ListView.view.width
+                    height: 30
+                    contentItem: RowLayout {
+                        spacing: 8
+                        Text {
+                            Layout.preferredWidth: 170
+                            text: modelData.id
+                            color: Theme.primaryColor
+                            font.family: Theme.monoFamily
+                            font.pixelSize: 12
+                        }
+                        Text {
+                            Layout.fillWidth: true
+                            elide: Text.ElideRight
+                            text: modelData.name
+                            color: Theme.textPrimary
+                            font.pixelSize: 12
+                        }
+                    }
+                    background: Rectangle {
+                        color: parent.hovered ? Theme.bgLight : "transparent"
+                        radius: 4
+                    }
+                    onClicked: {
+                        root.set("contestId", modelData.id)
+                        if (!(root.draft.name || "").length)
+                            root.set("name", modelData.name)
+                        contestPicker.close()
+                    }
+                }
+            }
+            RowLayout {
+                Layout.fillWidth: true
+                Item { Layout.fillWidth: true }
+                GlassButton { text: qsTr("Cancel"); onClicked: contestPicker.close() }
             }
         }
     }

@@ -1,6 +1,7 @@
 #include "app/ActivationController.h"
 
 #include "core/Cabrillo.h"
+#include "core/Contests.h"
 #include "core/LogDatabase.h"
 #include "core/Spots.h"
 
@@ -399,6 +400,26 @@ QString ActivationController::exportAdif(const QUrl& url)
         m_ctx.activity(QStringLiteral("ACT"), tr("%n QSO of the session → %1", nullptr, static_cast<int>(list.size())).arg(path),
                        QStringLiteral("success"));
     return {};
+}
+
+QVariantList ActivationController::contests(const QString& search) const
+{
+    QVariantList out;
+    for (const core::Contest& c : core::contests::search(search)) {
+        out << QVariantMap{
+            {QStringLiteral("id"), c.id},
+            {QStringLiteral("name"), c.name},
+            // Quello che si legge nell'elenco: il nome, e l'id fra parentesi
+            // perche' e' quello che finisce nel log.
+            {QStringLiteral("label"), QStringLiteral("%1  (%2)").arg(c.name, c.id)},
+        };
+    }
+    return out;
+}
+
+QString ActivationController::contestName(const QString& id) const
+{
+    return core::contests::nameFor(id);
 }
 
 } // namespace decolog::app
