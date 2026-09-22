@@ -139,6 +139,14 @@
         <translation>Эталон</translation>
     </message>
     <message>
+        <source>Contest desk</source>
+        <translation>Рабочее место контеста</translation>
+    </message>
+    <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Одно окно (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Контесты и активации</translation>
     </message>
@@ -193,10 +201,6 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>Экспорт ADIF (%1)</translation>
-    </message>
-    <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Окно соревнования (Ctrl+Shift+T)</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1129,6 +1133,100 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>Позывной слишком короткий</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · следующий %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Соревнование</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Нет открытого сеанса</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Диапазон</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>уже работали</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Позывной</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST пер</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>№ пер</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST прин</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>№ прин</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Аппаратный журнал</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Открой сессию в «Контест», и QSO пойдут сюда.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Как идёт</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Позывные</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Длительность</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Последние 10 мин</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/ч</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Последний час</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Последние QSO</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1185,6 +1283,45 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>Ожидался локатор, например JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Результат</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>Правил %1 в программе нет: QSO попадут в журнал и в Cabrillo, но результат придётся считать где-то ещё.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Нет открытой сессии контеста.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Очки</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Множ.</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>По диапазонам · QSO, очки, множители</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Экспорт…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Регламент: %1</translation>
     </message>
 </context>
 <context>
@@ -2118,6 +2255,22 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Map</source>
         <translation>Карта</translation>
+    </message>
+    <message>
+        <source>Contest entry</source>
+        <translation>Ввод контеста</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Результат и множители</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Как идёт</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX-кластер</translation>
     </message>
     <message>
         <source>closed</source>

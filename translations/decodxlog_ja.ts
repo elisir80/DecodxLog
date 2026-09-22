@@ -139,6 +139,14 @@
         <translation>リファレンス</translation>
     </message>
     <message>
+        <source>Contest desk</source>
+        <translation>コンテストデスク</translation>
+    </message>
+    <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>単一ウィンドウ (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>コンテストとアクティベーション</translation>
     </message>
@@ -193,10 +201,6 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>ADIF を書き出す (%1)</translation>
-    </message>
-    <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>コンテスト窓 (Ctrl+Shift+T)</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1125,6 +1129,100 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>コールサインが短すぎます</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · 次は %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>コンテスト</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>開いているセッションがありません</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>バンド</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>モード</translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>交信済み</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>コールサイン</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST 送</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Nr 送</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST 受</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Nr 受</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>ログ</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>「コンテスト」でセッションを開くと、QSO がここに入ります。</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>進み具合</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>コールサイン</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>経過時間</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>直近 10 分</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/時</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>直近 1 時間</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>最近の QSO</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1181,6 +1279,45 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>JN70 のようなロケーターが必要です。</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>スコア</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>%1 の規則はこのプログラムにありません。QSO はログと Cabrillo に入りますが、得点は別で数えてください。</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>開いているコンテストセッションはありません。</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>得点</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>マルチ</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>バンドごと · QSO、得点、マルチ</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>書き出し…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>規則: %1</translation>
     </message>
 </context>
 <context>
@@ -2110,6 +2247,22 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Map</source>
         <translation>地図</translation>
+    </message>
+    <message>
+        <source>Contest entry</source>
+        <translation>コンテスト入力</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>得点とマルチ</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>進み具合</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX クラスター</translation>
     </message>
     <message>
         <source>closed</source>

@@ -139,6 +139,14 @@
         <translation>Referència</translation>
     </message>
     <message>
+        <source>Contest desk</source>
+        <translation>Lloc de concurs</translation>
+    </message>
+    <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Finestra única (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Concursos i activacions</translation>
     </message>
@@ -193,10 +201,6 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>Exporta ADIF (%1)</translation>
-    </message>
-    <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Finestra de concurs (Ctrl+Shift+T)</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1127,6 +1131,100 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>L&apos;indicatiu és massa curt</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · següent %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Cap sessió oberta</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Banda</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Mode</translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>ja treballat</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Indicatiu</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST s</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Nr s</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST r</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Nr r</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Registre</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Obre una sessió a Concurs i els QSO arriben aquí.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Com va</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Indicatius</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Durada</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Últims 10 min</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/h</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Última hora</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Últims QSO</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1183,6 +1281,45 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>S&apos;esperava un locator, com JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Puntuació</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>Les regles de %1 no són al programa: els QSO van al registre i al Cabrillo, però la puntuació s&apos;ha de comptar en un altre lloc.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Cap sessió de concurs oberta.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punts</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Banda per banda · QSO, punts, multiplicadors</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Exporta…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Reglament: %1</translation>
     </message>
 </context>
 <context>
@@ -2114,6 +2251,22 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Map</source>
         <translation>Mapa</translation>
+    </message>
+    <message>
+        <source>Contest entry</source>
+        <translation>Entrada de concurs</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Puntuació i multiplicadors</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Com va</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>Clúster DX</translation>
     </message>
     <message>
         <source>closed</source>

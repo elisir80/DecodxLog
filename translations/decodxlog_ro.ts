@@ -139,6 +139,14 @@
         <translation>Referință</translation>
     </message>
     <message>
+        <source>Contest desk</source>
+        <translation>Postul de concurs</translation>
+    </message>
+    <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Fereastră unică (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Concursuri și activări</translation>
     </message>
@@ -193,10 +201,6 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>Exportă ADIF (%1)</translation>
-    </message>
-    <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Fereastra de concurs (Ctrl+Shift+T)</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1129,6 +1133,100 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>Indicativul este prea scurt</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · următorul %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Concurs</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Nicio sesiune deschisă</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Bandă</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Mod</translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>deja lucrat</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Indicativ</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST t</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Nr t</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST p</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Nr p</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Jurnal</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Deschide o sesiune la Concurs și QSO-urile ajung aici.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Cum merge</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Indicative</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Durată</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Ultimele 10 min</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/h</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Ultima oră</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Ultimele QSO</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1185,6 +1283,45 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>Se aștepta un locator, ca JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Scor</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>Regulile de la %1 nu sunt în program: QSO-urile intră în jurnal și în Cabrillo, dar scorul trebuie numărat altundeva.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Nicio sesiune de concurs deschisă.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Puncte</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Bandă cu bandă · QSO, puncte, multiplicatori</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Exportă…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Regulament: %1</translation>
     </message>
 </context>
 <context>
@@ -2118,6 +2255,22 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Map</source>
         <translation>Hartă</translation>
+    </message>
+    <message>
+        <source>Contest entry</source>
+        <translation>Introducere concurs</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Scor și multiplicatori</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Cum merge</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>Cluster DX</translation>
     </message>
     <message>
         <source>closed</source>

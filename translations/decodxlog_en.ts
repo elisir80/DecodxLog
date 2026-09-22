@@ -108,7 +108,7 @@
     </message>
     <message>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Duration</translation>
     </message>
     <message>
         <source>Last QSO</source>
@@ -137,6 +137,14 @@
     <message>
         <source>Reference</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Contest desk</translation>
+    </message>
+    <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Single window (Ctrl+Shift+T)</translation>
     </message>
     <message>
         <source>Contest and activations</source>
@@ -192,10 +200,6 @@
     </message>
     <message>
         <source>Export ADIF (%1)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -450,7 +454,7 @@
     </message>
     <message>
         <source>DX Cluster</source>
-        <translation type="unfinished"></translation>
+        <translation>DX Cluster</translation>
     </message>
     <message>
         <source>Propagation</source>
@@ -667,7 +671,7 @@ The call Decodium is working shows up here by itself.</source>
     <name>ClusterPanel</name>
     <message>
         <source>DX Cluster</source>
-        <translation type="unfinished"></translation>
+        <translation>DX Cluster</translation>
     </message>
     <message>
         <source>%1/%2 online</source>
@@ -1126,6 +1130,100 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · next %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>already worked</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Open a session from Contest, then the QSOs come in here.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>How it is going</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Duration</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Last QSOs</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1182,6 +1280,45 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>A locator was expected, like JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>No contest session open.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Points</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Band by band · QSO, points, multipliers</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Export…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Rules: %1</translation>
     </message>
 </context>
 <context>
@@ -2113,6 +2250,22 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Map</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contest entry</source>
+        <translation>Contest entry</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Score and multipliers</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>How it is going</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX Cluster</translation>
     </message>
     <message>
         <source>closed</source>

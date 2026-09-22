@@ -139,6 +139,14 @@
         <translation>Referenz</translation>
     </message>
     <message>
+        <source>Contest desk</source>
+        <translation>Contest-Arbeitsplatz</translation>
+    </message>
+    <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Einzelfenster (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Contests und Aktivierungen</translation>
     </message>
@@ -193,10 +201,6 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>ADIF exportieren (%1)</translation>
-    </message>
-    <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Contest-Fenster (Strg+Umschalt+T)</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1127,6 +1131,100 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>Das Rufzeichen ist zu kurz</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · nächste %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Keine Sitzung offen</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Band</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>schon gearbeitet</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Rufzeichen</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST g</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Nr. g</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST e</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Nr. e</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Logbuch</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Öffne eine Session unter Contest, dann kommen die QSOs hier an.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Wie es läuft</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Rufzeichen</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Dauer</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Letzte 10 Min.</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/h</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Letzte Stunde</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Letzte QSOs</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1183,6 +1281,45 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>Ein Locator wurde erwartet, wie JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Ergebnis</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>Die Regeln von %1 sind nicht im Programm: die QSOs kommen ins Log und ins Cabrillo, aber das Ergebnis muss anderswo gezählt werden.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Keine Contest-Session offen.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punkte</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Band für Band · QSO, Punkte, Multiplikatoren</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Exportieren…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Regelwerk: %1</translation>
     </message>
 </context>
 <context>
@@ -2114,6 +2251,22 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Map</source>
         <translation>Karte</translation>
+    </message>
+    <message>
+        <source>Contest entry</source>
+        <translation>Contest-Eingabe</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Ergebnis und Multiplikatoren</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Wie es läuft</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX-Cluster</translation>
     </message>
     <message>
         <source>closed</source>

@@ -139,6 +139,14 @@
         <translation>Referenza</translation>
     </message>
     <message>
+        <source>Contest desk</source>
+        <translation>Banco del contest</translation>
+    </message>
+    <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Finestra unica (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Contest e attivazioni</translation>
     </message>
@@ -193,10 +201,6 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>Esporta ADIF (%1)</translation>
-    </message>
-    <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Finestra contest (Ctrl+Shift+T)</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1127,6 +1131,100 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>Il nominativo è troppo corto</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · prossimo %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Nessuna sessione aperta</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Banda</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Modo</translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>già lavorato</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Nominativo</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST i</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Nr i</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST r</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Nr r</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Registra</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Apri una sessione da Contest, e i QSO arrivano qui.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Come va</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Nominativi</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Durata</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Ultimi 10 min</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/h</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Ultima ora</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Ultimi QSO</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1183,6 +1281,45 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>Ci vuole un locatore, come JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Punteggio</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>Le regole di %1 non sono nel programma: i QSO vanno nel log e nel Cabrillo, ma il punteggio va contato altrove.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Nessuna sessione di contest aperta.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punti</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Molt</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Banda per banda · QSO, punti, moltiplicatori</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Esporta…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Regolamento: %1</translation>
     </message>
 </context>
 <context>
@@ -2114,6 +2251,22 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Map</source>
         <translation>Mappa</translation>
+    </message>
+    <message>
+        <source>Contest entry</source>
+        <translation>Inserimento contest</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Punteggio e moltiplicatori</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Come va</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX Cluster</translation>
     </message>
     <message>
         <source>closed</source>

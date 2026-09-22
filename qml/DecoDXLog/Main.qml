@@ -68,6 +68,9 @@ ApplicationWindow {
         // separate da virgola. Restano da una sessione all'altra.
         property string hiddenPanels: "cw"
         property string detachedPanels: ""
+        // Il banco del contest si dispone da solo una volta sola: dopo comanda
+        // chi ha spostato le finestre.
+        property bool contestDeskArranged: false
         // Disposizione bloccata: le maniglie non si tirano e i pannelli non si
         // spostano. Si mette e si toglie col tasto destro sulla testata di un
         // pannello qualsiasi.
@@ -88,7 +91,12 @@ ApplicationWindow {
     // Ogni pannello ha una chiave. Con quella si sa come si chiama, da quale
     // file nasce quando lo si stacca, e se adesso e' agganciato, in finestra o
     // chiuso. Chiuso vuol dire chiuso davvero: lo spazio non resta vuoto.
-    readonly property var panelKeys: ["newqso", "logbook", "callinfo", "cw", "rotor", "ft2", "tabs", "map"]
+    readonly property var panelKeys: ["newqso", "logbook", "callinfo", "cw", "rotor", "ft2", "tabs", "map",
+                                      "contest", "score", "rate", "cluster"]
+    // Gli ultimi quattro vivono solo in finestra: nel contest ognuno se li
+    // mette dove vuole, e nella disposizione agganciata non hanno un posto.
+    readonly property var windowOnlyPanels: ["contest", "score", "rate", "cluster"]
+    function isWindowOnly(key) { return window.windowOnlyPanels.indexOf(key) >= 0 }
 
     function panelTitle(key) {
         switch (key) {
@@ -100,6 +108,10 @@ ApplicationWindow {
         case "ft2":      return qsTr("FT2 Award")
         case "tabs":     return qsTr("Awards, statistics, QSL, activity")
         case "map":      return qsTr("Map")
+        case "contest":  return qsTr("Contest entry")
+        case "score":    return qsTr("Score and multipliers")
+        case "rate":     return qsTr("How it is going")
+        case "cluster":  return qsTr("DX Cluster")
         }
         return key
     }
@@ -113,6 +125,10 @@ ApplicationWindow {
         case "ft2":      return "Ft2AwardPanel.qml"
         case "tabs":     return "BottomTabs.qml"
         case "map":      return "MapPanel.qml"
+        case "contest":  return "ContestEntryPanel.qml"
+        case "score":    return "ContestScorePanel.qml"
+        case "rate":     return "ContestRatePanel.qml"
+        case "cluster":  return "ClusterPanel.qml"
         }
         return ""
     }
@@ -349,25 +365,63 @@ ApplicationWindow {
             contestWindow.item.requestActivate()
         }
     }
-    // Il banco del contest: quello che serve durante una gara, aperto insieme.
-    // La finestra dell'inserimento veloce con punteggio e statistiche, il
-    // cluster ridotto ai filtri e ai moltiplicatori che mancano, e la finestra
-    // CW quando il contest e' in telegrafia. Niente altro: durante una gara
-    // ogni finestra in piu' e' una finestra da spostare.
+    // Il banco del contest: ogni cosa in una finestra sua, che si sposta e si
+    // ridimensiona come si vuole — anche su un altro monitor. Sono le stesse
+    // finestre dei pannelli staccati, quindi misura e posizione restano dove le
+    // si mette, e la volta dopo si riaprono li'.
+    //
+    // La CW entra solo se il contest e' in telegrafia: in SSB e' una finestra
+    // da spostare e basta.
+    readonly property var contestDeskPanels: ["contest", "cluster", "logbook", "callinfo",
+                                              "rate", "score", "map"]
     function openContestDesk() {
-        window.openContest()
-        clusterWindow.contestMode = true
-        clusterWindow.tab = 0
-        clusterWindow.active = true
-        if (clusterWindow.item)
-            clusterWindow.item.raise()
-        if (decolog.activation.isCwContest() && !window.isPanelDetached("cw")) {
-            window.showPanel("cw")
-            window.detachPanel("cw")
+        const wanted = window.contestDeskPanels.slice()
+        if (decolog.activation.isCwContest())
+            wanted.push("cw")
+        for (let i = 0; i < wanted.length; ++i)
+            window.detachPanel(wanted[i])
+        // La prima volta si mettono in ordine; dopo comanda chi le ha spostate.
+        if (!layout.contestDeskArranged) {
+            Qt.callLater(window.arrangeContestDesk)
+            layout.contestDeskArranged = true
         }
-        // La finestra dell'inserimento resta davanti: e' quella dove si scrive.
-        if (contestWindow.item)
-            contestWindow.item.requestActivate()
+        Qt.callLater(function () { window.raisePanel("contest") })
+    }
+
+    // Una disposizione di partenza: l'inserimento in mezzo in alto, il cluster
+    // in colonna a sinistra, il log sotto, punteggio e ritmo a destra. Non e'
+    // la disposizione giusta per tutti — non esiste — ma e' meglio di otto
+    // finestre una sopra l'altra.
+    function arrangeContestDesk() {
+        const screen = window.screen
+        if (!screen)
+            return
+        const W = screen.desktopAvailableWidth
+        const H = screen.desktopAvailableHeight
+        const left = Math.round(W * 0.22)      // colonna del cluster
+        const right = Math.round(W * 0.24)     // colonna di punteggio e ritmo
+        const middle = W - left - right
+        // Sotto una certa misura una finestra non mostra piu' quello che ha
+        // dentro: meglio che esca dal bordo dello schermo che darla vuota.
+        const place = function (key, x, y, w, h) {
+            const win = window.panelWindowFor(key)
+            if (!win)
+                return
+            win.x = Math.round(x)
+            win.y = Math.round(y)
+            win.width = Math.round(Math.max(w, 360))
+            win.height = Math.round(Math.max(h, key === "contest" ? 250 : 200))
+        }
+        // Il cluster verticale, tutta l'altezza: in contest si guarda in colonna.
+        place("cluster", 0, 0, left, H)
+        place("contest", left, 0, middle, Math.round(H * 0.30))
+        place("logbook", left, Math.round(H * 0.30), middle, Math.round(H * 0.40))
+        place("map", left, Math.round(H * 0.70), Math.round(middle / 2), Math.round(H * 0.30))
+        place("cw", left + Math.round(middle / 2), Math.round(H * 0.70),
+              Math.round(middle / 2), Math.round(H * 0.30))
+        place("score", W - right, 0, right, Math.round(H * 0.38))
+        place("rate", W - right, Math.round(H * 0.38), right, Math.round(H * 0.32))
+        place("callinfo", W - right, Math.round(H * 0.70), right, Math.round(H * 0.30))
     }
     function openRotor() {
         rotorWindow.active = true
@@ -728,17 +782,45 @@ ApplicationWindow {
         function onDetachedPanelsChanged() { window.syncDetachedWindows() }
     }
 
+    // La finestra di un pannello staccato, per spostarla o portarla davanti.
+    function panelWindowFor(key) {
+        for (let i = 0; i < detachedModel.count; ++i) {
+            if (detachedModel.get(i).key === key)
+                return detachedWindows.objectAt(i)
+        }
+        return null
+    }
+    function raisePanel(key) {
+        const win = window.panelWindowFor(key)
+        if (win) {
+            win.raise()
+            win.requestActivate()
+        }
+    }
+
     Instantiator {
+        id: detachedWindows
         model: detachedModel
         delegate: PanelWindow {
             required property string key
             panelKey: key
             panelTitle: window.panelTitle(key)
             panelSource: window.panelSource(key)
+            // Quelli del contest vivono solo in finestra: riagganciarli
+            // vorrebbe dire farli sparire, perche' nella disposizione della
+            // finestra principale non hanno un posto.
+            dockable: !window.isWindowOnly(key)
             // La X di una finestra staccata riaggancia il pannello. Ma quando a
             // chiudersi e' tutto il programma, la finestra si chiude lo stesso e
             // quello non e' un riaggancio: prima tornavano dentro tutti.
-            onClosing: if (!window.quitting) window.attachPanel(panelKey)
+            onClosing: {
+                if (window.quitting)
+                    return
+                if (window.isWindowOnly(panelKey))
+                    window.closePanel(panelKey)
+                else
+                    window.attachPanel(panelKey)
+            }
             onAttachRequested: window.attachPanel(panelKey)
             onCloseRequested: window.closePanel(panelKey)
             onOpenQsoRequested: (id) => window.openQso(id)
@@ -746,6 +828,7 @@ ApplicationWindow {
             onClusterRequested: (tab) => window.openCluster(tab)
             onStatsRequested: window.openStats()
             onRotorRequested: window.openRotor()
+            onContestRequested: window.openContest()
         }
     }
 

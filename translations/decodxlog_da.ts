@@ -139,6 +139,14 @@
         <translation>Reference</translation>
     </message>
     <message>
+        <source>Contest desk</source>
+        <translation>Contest-arbejdsplads</translation>
+    </message>
+    <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Enkelt vindue (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Contests og aktiveringer</translation>
     </message>
@@ -193,10 +201,6 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>Eksportér ADIF (%1)</translation>
-    </message>
-    <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Contest-vindue (Ctrl+Shift+T)</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1127,6 +1131,100 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>Kaldesignalet er for kort</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · næste %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Ingen session åben</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Bånd</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>allerede kørt</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Kaldesignal</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST s</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Nr s</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST r</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Nr r</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Logbog</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Åbn en session under Contest, så kommer QSO&apos;erne ind her.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Hvordan det går</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Kald</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Varighed</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Sidste 10 min</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/t</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Sidste time</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Sidste QSO&apos;er</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1183,6 +1281,45 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>Der blev forventet en locator, som JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>Reglerne for %1 er ikke i programmet: QSO&apos;erne kommer i loggen og i Cabrillo, men scoren skal tælles et andet sted.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Ingen contest-session åben.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Point</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Bånd for bånd · QSO, point, multiplikatorer</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Eksportér…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Regler: %1</translation>
     </message>
 </context>
 <context>
@@ -2114,6 +2251,22 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Map</source>
         <translation>Kort</translation>
+    </message>
+    <message>
+        <source>Contest entry</source>
+        <translation>Contest-indtastning</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Score og multiplikatorer</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Hvordan det går</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX-klynge</translation>
     </message>
     <message>
         <source>closed</source>

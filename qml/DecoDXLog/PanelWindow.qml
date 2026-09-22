@@ -12,6 +12,10 @@ ApplicationWindow {
     property string panelKey: ""
     property string panelTitle: ""
     property string panelSource: ""
+    // Falso per i pannelli che vivono solo in finestra (quelli del contest):
+    // il pulsante per riagganciare non si vede, perche' non hanno un posto
+    // nella finestra principale.
+    property bool dockable: true
 
     // Riagganciare alla finestra principale, oppure chiudere del tutto.
     signal attachRequested()
@@ -22,6 +26,7 @@ ApplicationWindow {
     signal clusterRequested(int tab)
     signal statsRequested()
     signal rotorRequested()
+    signal contestRequested()
 
     // Una misura di partenza sensata per quel pannello: il log e le schede
     // vogliono spazio, la scheda nominativo no. Poi vale quella che si sceglie.
@@ -70,6 +75,8 @@ ApplicationWindow {
                 item.panelKey = root.panelKey
                 item.detached = true
             }
+            if (item.dockable !== undefined)
+                item.dockable = root.dockable
             // Il logbook ha il suo pulsante "Stacca": qui non serve piu'.
             if (item.showPopButton !== undefined)
                 item.showPopButton = false
@@ -88,6 +95,7 @@ ApplicationWindow {
         function onStatsRequested() { root.statsRequested() }
         function onClusterRequested(tab) { root.clusterRequested(tab) }
         function onWindowRequested() { root.rotorRequested() }
+        function onContestRequested() { root.contestRequested() }
         function onPopRequested() { }
     }
 }

@@ -139,6 +139,14 @@
         <translation>Atsauce</translation>
     </message>
     <message>
+        <source>Contest desk</source>
+        <translation>Konkursa darbavieta</translation>
+    </message>
+    <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Viens logs (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Konkursi un aktivizēšanas</translation>
     </message>
@@ -193,10 +201,6 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>Eksportēt ADIF (%1)</translation>
-    </message>
-    <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Sacensību logs (Ctrl+Shift+T)</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1129,6 +1133,100 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>Izsaukuma signāls ir par īsu</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · nākamais %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Sacensības</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Nav atvērtas sesijas</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>jau strādāts</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST n</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Nr n</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST s</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Nr s</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Žurnāls</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Atver sesiju sadaļā Konkurss, un QSO nonāk šeit.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Kā iet</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Izsaukumi</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Ilgums</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Pēdējās 10 min</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/h</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Pēdējā stunda</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Pēdējie QSO</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1185,6 +1283,45 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>Bija gaidīts lokators, kā JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Rezultāts</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>%1 noteikumu programmā nav: QSO nonāk žurnālā un Cabrillo, bet rezultāts jāskaitīa citur.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Nav atvērtas konkursa sesijas.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punkti</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Reiz.</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Josla pēc joslas · QSO, punkti, reizinātāji</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Eksportēt…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Noteikumi: %1</translation>
     </message>
 </context>
 <context>
@@ -2118,6 +2255,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Map</source>
         <translation>Karte</translation>
+    </message>
+    <message>
+        <source>Contest entry</source>
+        <translation>Konkursa ievade</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Rezultāts un reizinātāji</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Kā iet</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX Cluster</translation>
     </message>
     <message>
         <source>closed</source>

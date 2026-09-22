@@ -139,6 +139,14 @@
         <translation>Referencia</translation>
     </message>
     <message>
+        <source>Contest desk</source>
+        <translation>Contest-munkahely</translation>
+    </message>
+    <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Egyetlen ablak (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Contestek és aktiválások</translation>
     </message>
@@ -193,10 +201,6 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>ADIF exportálása (%1)</translation>
-    </message>
-    <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Versenyablak (Ctrl+Shift+T)</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1125,6 +1129,100 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>A hívójel túl rövid</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · következő %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Verseny</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Nincs nyitott munkamenet</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Sáv</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Üzemmód</translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>már megvolt</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Hívójel</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST a</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Sorsz. a</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST v</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Sorsz. v</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Napló</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Nyiss egy munkamenetet a Contestnél, és a QSO-k ide érkeznek.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Hogy megy</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Hívójelek</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Időtartam</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Utolsó 10 perc</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/óra</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Utolsó óra</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Utolsó QSO-k</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1181,6 +1279,45 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>Locatort vártunk, mint a JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Eredmény</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>A(z) %1 szabályai nincsenek a programban: a QSO-k bekerülnek a naplóba és a Cabrillóba, de az eredményt máshol kell számolni.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Nincs nyitott contest-munkamenet.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Pont</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Szorzó</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Sávonként · QSO, pont, szorzó</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Export…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Szabályzat: %1</translation>
     </message>
 </context>
 <context>
@@ -2110,6 +2247,22 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Map</source>
         <translation>Térkép</translation>
+    </message>
+    <message>
+        <source>Contest entry</source>
+        <translation>Contest-bevitel</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Eredmény és szorzók</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Hogy megy</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX Cluster</translation>
     </message>
     <message>
         <source>closed</source>

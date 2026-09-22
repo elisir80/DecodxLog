@@ -139,6 +139,14 @@
         <translation>Referentie</translation>
     </message>
     <message>
+        <source>Contest desk</source>
+        <translation>Contestwerkplek</translation>
+    </message>
+    <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Één venster (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Contests en activeringen</translation>
     </message>
@@ -193,10 +201,6 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>ADIF exporteren (%1)</translation>
-    </message>
-    <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Contestvenster (Ctrl+Shift+T)</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1127,6 +1131,100 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>De roepletters zijn te kort</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · volgende %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Geen sessie open</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Band</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>al gewerkt</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST s</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Nr s</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST r</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Nr r</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Logboek</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Open een sessie bij Contest, dan komen de QSO&apos;s hier binnen.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Hoe het gaat</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Calls</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Duur</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Laatste 10 min</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/u</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Laatste uur</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Laatste QSO&apos;s</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1183,6 +1281,45 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>Er werd een locator verwacht, zoals JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>De regels van %1 zitten niet in het programma: de QSO&apos;s gaan naar het log en naar Cabrillo, maar de score moet elders geteld worden.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Geen contestsessie open.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punten</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Band voor band · QSO, punten, multipliers</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Exporteren…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Reglement: %1</translation>
     </message>
 </context>
 <context>
@@ -2114,6 +2251,22 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Map</source>
         <translation>Kaart</translation>
+    </message>
+    <message>
+        <source>Contest entry</source>
+        <translation>Contestinvoer</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Score en multipliers</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Hoe het gaat</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX-cluster</translation>
     </message>
     <message>
         <source>closed</source>

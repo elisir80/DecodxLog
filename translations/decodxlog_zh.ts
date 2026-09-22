@@ -139,6 +139,14 @@
         <translation>参考</translation>
     </message>
     <message>
+        <source>Contest desk</source>
+        <translation>竞赛工作台</translation>
+    </message>
+    <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>单一窗口 (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>竞赛与激活</translation>
     </message>
@@ -193,10 +201,6 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>导出 ADIF (%1)</translation>
-    </message>
-    <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>比赛窗口 (Ctrl+Shift+T)</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1125,6 +1129,100 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>呼号太短</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · 下一个 %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>竞赛</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>没有打开的会话</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>波段</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>模式</translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>已通联</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>呼号</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST 发</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>号 发</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST 收</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>号 收</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>日志</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>在“竞赛”里开一个会话，QSO 就会进到这里。</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>进展如何</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>呼号</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>时长</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>最近 10 分钟</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/小时</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>最近一小时</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>最近的 QSO</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1181,6 +1279,45 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>需要一个网格，如 JN70。</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>总分</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>程序里没有 %1 的规则：QSO 会进日志和 Cabrillo，但分数要在别处计算。</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>没有打开的竞赛会话。</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>分数</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>倍增</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>逐波段 · QSO、分数、倍增</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>导出…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>规则：%1</translation>
     </message>
 </context>
 <context>
@@ -2110,6 +2247,22 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Map</source>
         <translation>地图</translation>
+    </message>
+    <message>
+        <source>Contest entry</source>
+        <translation>竞赛录入</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>分数与倍增</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>进展如何</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX 集群</translation>
     </message>
     <message>
         <source>closed</source>

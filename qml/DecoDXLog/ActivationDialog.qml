@@ -256,7 +256,14 @@ DialogFrame {
                 onClicked: exportDialog.open()
             }
             GlassButton {
-                text: qsTr("Contest window (Ctrl+Shift+T)")
+                // Il banco: ogni cosa in una finestra sua, da mettere dove si
+                // vuole. E' quello che serve in gara.
+                text: qsTr("Contest desk")
+                tone: Theme.accentColor
+                onClicked: { window.openContestDesk(); root.close() }
+            }
+            GlassButton {
+                text: qsTr("Single window (Ctrl+Shift+T)")
                 tone: Theme.primaryColor
                 onClicked: { window.openContest(); root.close() }
             }
