@@ -2615,8 +2615,48 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Un PNG per ognuna…</translation>
     </message>
     <message>
+        <source>Sending…</source>
+        <translation>Sto mandando…</translation>
+    </message>
+    <message>
+        <source>Send by email…</source>
+        <translation>Manda per email…</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). What goes out is sent by your own mailbox.</source>
+        <translation>L&apos;indirizzo lo sa il callbook (QRZ.com o HamQTH). A mandare è la tua casella.</translation>
+    </message>
+    <message>
+        <source>First set up the outgoing mailbox: Setup → QSL services.</source>
+        <translation>Prima prepara la casella da cui parte: Impostazioni → Servizi QSL.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Ferma</translation>
+    </message>
+    <message>
         <source>Nothing chosen in the queue: the whole queue becomes cards.</source>
         <translation>Niente di scelto nella coda: diventa cartolina tutta la coda.</translation>
+    </message>
+    <message>
+        <source>Send the card by email</source>
+        <translation>Manda la cartolina per email</translation>
+    </message>
+    <message>
+        <source>From %1. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so.</source>
+        <translation>Da %1. Per ogni QSO scelto l&apos;indirizzo si chiede al callbook, la cartolina si disegna e parte come allegato PNG. Le stazioni di cui il callbook non ha l&apos;email si saltano, e si dice quali.</translation>
+    </message>
+    <message>
+        <source>There is no outgoing mailbox yet. It goes in Setup → QSL services: the address and the password of the mailbox the cards go out from.</source>
+        <translation>La casella da cui mandare non c&apos;è ancora. Si prepara in Impostazioni → Servizi QSL: l&apos;indirizzo e la password della casella da cui escono le cartoline.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annulla</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Manda</translation>
     </message>
     <message>
         <source>The image of your QSL card</source>
@@ -4146,6 +4186,38 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Club Log vuole tre cose: l&apos;email e la password dell&apos;account (qui sotto), il nominativo del profilo stazione e una chiave API. La chiave è gratuita e personale, si chiede su clublog.org/need_api.php — dice quale programma sta scrivendo, non chi sei. Un QSO appena registrato parte da solo, un arretrato parte come un unico file ADIF.</translation>
     </message>
     <message>
+        <source>QSL by email</source>
+        <translation>QSL per email</translation>
+    </message>
+    <message>
+        <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
+        <translation>La cartolina parte dalla tua casella, e l&apos;indirizzo di chi la riceve lo sa il callbook — QRZ.com o HamQTH. Con Gmail ci vuole una password per le app, non quella con cui entri: si fa su myaccount.google.com/apppasswords. Niente parte senza che tu lo chieda: il pulsante sta in Cartolina QSL → Manda per email.</translation>
+    </message>
+    <message>
+        <source>Mail server</source>
+        <translation>Server di posta</translation>
+    </message>
+    <message>
+        <source>Your name in the message</source>
+        <translation>Il tuo nome nel messaggio</translation>
+    </message>
+    <message>
+        <source>587 asks for encryption with STARTTLS, 465 is encrypted from the first byte. A server that offers neither is refused: the password travels through there.</source>
+        <translation>La 587 chiede la cifratura con STARTTLS, la 465 è cifrata dal primo byte. Un server che non offre né l&apos;una né l&apos;altra si rifiuta: di lì passa la password.</translation>
+    </message>
+    <message>
+        <source>Subject</source>
+        <translation>Oggetto</translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <translation>Messaggio</translation>
+    </message>
+    <message>
+        <source>In the subject and the message: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} for the station you worked, {MYCALL} and {MYNAME} for yourself.</source>
+        <translation>Nell&apos;oggetto e nel messaggio: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} per la stazione lavorata, {MYCALL} e {MYNAME} per te.</translation>
+    </message>
+    <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
         <translation>%1 inviati · %2 in coda · %3 confermati</translation>
     </message>
@@ -5222,6 +5294,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>%1: %2 trovato</translation>
     </message>
     <message>
+        <source>%1 is in the callbook but has no email there</source>
+        <translation>%1 è nel callbook ma lì non ha un&apos;email</translation>
+    </message>
+    <message>
         <source>%1: %2 completed from %3 (%4)</source>
         <translation>%1: %2 completato da %3 (%4)</translation>
     </message>
@@ -5294,6 +5370,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>built on %1</source>
         <translation>compilato il %1</translation>
+    </message>
+    <message>
+        <source>no callsign</source>
+        <translation>nessun nominativo</translation>
+    </message>
+    <message>
+        <source>no callbook is set up: Setup -&gt; Callbook</source>
+        <translation>nessun callbook impostato: Impostazioni → Callbook</translation>
     </message>
     <message>
         <source>radio (CAT)</source>
@@ -5517,6 +5601,25 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
+    <message>
+        <source>QSL sent to %1</source>
+        <translation>QSL mandata a %1</translation>
+    </message>
+    <message>
+        <source>QSL not sent to %1: %2</source>
+        <translation>QSL non mandata a %1: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSL sent by email</source>
+        <translation>
+            <numerusform>%n QSL mandata per email</numerusform>
+            <numerusform>%n QSL mandate per email</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 sent, %2 not</source>
+        <translation>%1 mandate, %2 no</translation>
+    </message>
     <message numerus="yes">
         <source>%n QSO in the paper queue</source>
         <translation>
@@ -5674,6 +5777,41 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>QSL cards: %1 (%2)</source>
         <translation>Cartoline QSL: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>No QSO to send a card to.</source>
+        <translation>Nessun QSO a cui mandare una cartolina.</translation>
+    </message>
+    <message>
+        <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>
+        <translation>Prima prepara la casella da cui parte: Impostazioni → Servizi QSL.</translation>
+    </message>
+    <message>
+        <source>The card has no fields yet: nothing to send.</source>
+        <translation>La cartolina non ha ancora nessun campo: non c&apos;è niente da mandare.</translation>
+    </message>
+    <message>
+        <source>Sending by email is not available.</source>
+        <translation>L&apos;invio per email non è disponibile.</translation>
+    </message>
+    <message numerus="yes">
+        <source>Looking up %n address(es)…</source>
+        <translation>
+            <numerusform>Cerco %n indirizzo…</numerusform>
+            <numerusform>Cerco %n indirizzi…</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No password for the outgoing mailbox.</source>
+        <translation>Manca la password della casella.</translation>
+    </message>
+    <message>
+        <source>%1: no email in the callbook (%2)</source>
+        <translation>%1: nel callbook non c&apos;è un&apos;email (%2)</translation>
+    </message>
+    <message>
+        <source>Sending stopped.</source>
+        <translation>Invio fermato.</translation>
     </message>
 </context>
 <context>
@@ -6241,6 +6379,18 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Gli spot dei tuoi trigger HamAlert (telnet)</translation>
     </message>
     <message>
+        <source>Outgoing mailbox</source>
+        <translation>Casella da cui mandare</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Indirizzo</translation>
+    </message>
+    <message>
+        <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
+        <translation>Manda le QSL per email. Con Gmail ci vuole una password per le app, non quella dell&apos;account.</translation>
+    </message>
+    <message>
         <source>Account saved</source>
         <translation>Account salvato</translation>
     </message>
@@ -6288,6 +6438,33 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>LoTW: %1</source>
         <translation>LoTW: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::MailSender</name>
+    <message>
+        <source>the mail server did not answer</source>
+        <translation>il server di posta non ha risposto</translation>
+    </message>
+    <message>
+        <source>no outgoing mailbox is set up</source>
+        <translation>non c&apos;è una casella da cui mandare</translation>
+    </message>
+    <message>
+        <source>no email address for this station</source>
+        <translation>per questa stazione non c&apos;è un indirizzo email</translation>
+    </message>
+    <message>
+        <source>connection lost</source>
+        <translation>collegamento caduto</translation>
+    </message>
+    <message>
+        <source>the mail server&apos;s certificate is not trusted (%1)</source>
+        <translation>il certificato del server di posta non è attendibile (%1)</translation>
+    </message>
+    <message>
+        <source>the mail server does not offer an encrypted connection (STARTTLS)</source>
+        <translation>il server di posta non offre un collegamento cifrato (STARTTLS)</translation>
     </message>
 </context>
 <context>

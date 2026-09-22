@@ -2615,8 +2615,48 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Et PNG hver…</translation>
     </message>
     <message>
+        <source>Sending…</source>
+        <translation>Sender…</translation>
+    </message>
+    <message>
+        <source>Send by email…</source>
+        <translation>Send med e-mail…</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). What goes out is sent by your own mailbox.</source>
+        <translation>Adressen kender kaldebogen (QRZ.com eller HamQTH). Det, der går ud, går ud fra din egen postkasse.</translation>
+    </message>
+    <message>
+        <source>First set up the outgoing mailbox: Setup → QSL services.</source>
+        <translation>Sæt først den udgående postkasse op: Opsætning → QSL-tjenester.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Stop</translation>
+    </message>
+    <message>
         <source>Nothing chosen in the queue: the whole queue becomes cards.</source>
         <translation>Intet valgt i køen: hele køen bliver til kort.</translation>
+    </message>
+    <message>
+        <source>Send the card by email</source>
+        <translation>Send kortet med e-mail</translation>
+    </message>
+    <message>
+        <source>From %1. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so.</source>
+        <translation>Fra %1. For hvert valgt QSO slås adressen op i kaldebogen, kortet tegnes og sendes som PNG-vedhæftning. Stationer, kaldebogen ikke har e-mail til, springes over, og der siges hvilke.</translation>
+    </message>
+    <message>
+        <source>There is no outgoing mailbox yet. It goes in Setup → QSL services: the address and the password of the mailbox the cards go out from.</source>
+        <translation>Der er endnu ingen udgående postkasse. Den sættes op i Opsætning → QSL-tjenester: adressen og adgangskoden til den postkasse, kortene går ud fra.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annullér</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Send</translation>
     </message>
     <message>
         <source>The image of your QSL card</source>
@@ -4146,6 +4186,38 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Club Log vil have tre ting: kontoens e-mail og adgangskode (nedenfor), stationsprofilens kaldesignal og en API-nøgle. Nøglen er gratis og personlig og bedes om på clublog.org/need_api.php — den peger på programmet, ikke på dig. Et enkelt QSO går af sted, så snart det er logget; en pukkel går af sted som én ADIF-fil.</translation>
     </message>
     <message>
+        <source>QSL by email</source>
+        <translation>QSL med e-mail</translation>
+    </message>
+    <message>
+        <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
+        <translation>Kortet går ud fra din egen postkasse, og adressen på den, der får det, kender kaldebogen — QRZ.com eller HamQTH. Gmail vil have en app-adgangskode til det, ikke den, du logger ind med: den laves på myaccount.google.com/apppasswords. Intet går ud, uden at du beder om det: knappen sidder i QSL-kort → Send med e-mail.</translation>
+    </message>
+    <message>
+        <source>Mail server</source>
+        <translation>Mailserver</translation>
+    </message>
+    <message>
+        <source>Your name in the message</source>
+        <translation>Dit navn i beskeden</translation>
+    </message>
+    <message>
+        <source>587 asks for encryption with STARTTLS, 465 is encrypted from the first byte. A server that offers neither is refused: the password travels through there.</source>
+        <translation>587 beder om kryptering med STARTTLS, 465 er krypteret fra første byte. En server, der ikke tilbyder nogen af delene, afvises: dér går adgangskoden igennem.</translation>
+    </message>
+    <message>
+        <source>Subject</source>
+        <translation>Emne</translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <translation>Besked</translation>
+    </message>
+    <message>
+        <source>In the subject and the message: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} for the station you worked, {MYCALL} and {MYNAME} for yourself.</source>
+        <translation>I emnet og i beskeden: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} for den arbejdede station, {MYCALL} og {MYNAME} for dig selv.</translation>
+    </message>
+    <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
         <translation>%1 sendt · %2 i kø · %3 bekræftet</translation>
     </message>
@@ -5222,6 +5294,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>%1: %2 fundet</translation>
     </message>
     <message>
+        <source>%1 is in the callbook but has no email there</source>
+        <translation>%1 står i kaldebogen, men har ingen e-mail dér</translation>
+    </message>
+    <message>
         <source>%1: %2 completed from %3 (%4)</source>
         <translation>%1: %2 udfyldt fra %3 (%4)</translation>
     </message>
@@ -5294,6 +5370,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>built on %1</source>
         <translation>bygget den %1</translation>
+    </message>
+    <message>
+        <source>no callsign</source>
+        <translation>intet kaldesignal</translation>
+    </message>
+    <message>
+        <source>no callbook is set up: Setup -&gt; Callbook</source>
+        <translation>der er ingen kaldebog sat op: Opsætning → Kaldebog</translation>
     </message>
     <message>
         <source>radio (CAT)</source>
@@ -5517,6 +5601,25 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
+    <message>
+        <source>QSL sent to %1</source>
+        <translation>QSL sendt til %1</translation>
+    </message>
+    <message>
+        <source>QSL not sent to %1: %2</source>
+        <translation>QSL ikke sendt til %1: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSL sent by email</source>
+        <translation>
+            <numerusform>%n QSL sendt med e-mail</numerusform>
+            <numerusform>%n QSL sendt med e-mail</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 sent, %2 not</source>
+        <translation>%1 sendt, %2 ikke</translation>
+    </message>
     <message numerus="yes">
         <source>%n QSO in the paper queue</source>
         <translation>
@@ -5674,6 +5777,41 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>QSL cards: %1 (%2)</source>
         <translation>QSL-kort: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>No QSO to send a card to.</source>
+        <translation>Ingen QSO at sende et kort til.</translation>
+    </message>
+    <message>
+        <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>
+        <translation>Sæt først den udgående postkasse op: Opsætning → QSL-tjenester.</translation>
+    </message>
+    <message>
+        <source>The card has no fields yet: nothing to send.</source>
+        <translation>Kortet har endnu ingen felter: der er intet at sende.</translation>
+    </message>
+    <message>
+        <source>Sending by email is not available.</source>
+        <translation>Afsendelse med e-mail er ikke til rådighed.</translation>
+    </message>
+    <message numerus="yes">
+        <source>Looking up %n address(es)…</source>
+        <translation>
+            <numerusform>Jeg slår %n adresse op…</numerusform>
+            <numerusform>Jeg slår %n adresser op…</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No password for the outgoing mailbox.</source>
+        <translation>Adgangskoden til postkassen mangler.</translation>
+    </message>
+    <message>
+        <source>%1: no email in the callbook (%2)</source>
+        <translation>%1: ingen e-mail i kaldebogen (%2)</translation>
+    </message>
+    <message>
+        <source>Sending stopped.</source>
+        <translation>Afsendelse stoppet.</translation>
     </message>
 </context>
 <context>
@@ -6241,6 +6379,18 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Spots fra dine HamAlert-triggers (telnet)</translation>
     </message>
     <message>
+        <source>Outgoing mailbox</source>
+        <translation>Udgående postkasse</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Adresse</translation>
+    </message>
+    <message>
+        <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
+        <translation>Send QSL-kort med e-mail. Gmail vil have en app-adgangskode, ikke kontoens.</translation>
+    </message>
+    <message>
         <source>Account saved</source>
         <translation>Kontoen er gemt</translation>
     </message>
@@ -6288,6 +6438,33 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>LoTW: %1</source>
         <translation>LoTW: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::MailSender</name>
+    <message>
+        <source>the mail server did not answer</source>
+        <translation>mailserveren svarede ikke</translation>
+    </message>
+    <message>
+        <source>no outgoing mailbox is set up</source>
+        <translation>der er ikke sat en udgående postkasse op</translation>
+    </message>
+    <message>
+        <source>no email address for this station</source>
+        <translation>for denne station er der ingen e-mailadresse</translation>
+    </message>
+    <message>
+        <source>connection lost</source>
+        <translation>forbindelsen gik tabt</translation>
+    </message>
+    <message>
+        <source>the mail server&apos;s certificate is not trusted (%1)</source>
+        <translation>mailserverens certifikat er ikke til at stole på (%1)</translation>
+    </message>
+    <message>
+        <source>the mail server does not offer an encrypted connection (STARTTLS)</source>
+        <translation>mailserveren tilbyder ingen krypteret forbindelse (STARTTLS)</translation>
     </message>
 </context>
 <context>

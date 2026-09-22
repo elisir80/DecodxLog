@@ -303,6 +303,14 @@ DecoLogController::DecoLogController(QObject* parent)
         emit callbookChanged();
         if (call == m_lookupCall)
             refreshCallInfo();
+        // Chi aspettava l'email di questo nominativo — l'invio delle QSL —
+        // la riceve adesso, una risposta per tutti.
+        const QString email = record.email.trimmed();
+        for (const auto& done : m_awaitingEmail.take(call)) {
+            done(email, email.isEmpty()
+                            ? tr("%1 is in the callbook but has no email there").arg(call)
+                            : QString());
+        }
         // I QSO che aspettavano questo nominativo si completano adesso.
         const QList<qint64> waiting = m_awaitingCallbook.take(call);
         for (qint64 id : waiting) {
@@ -322,6 +330,8 @@ DecoLogController::DecoLogController(QObject* parent)
         // Chi aspettava resta com'e': un QSO senza nome e' meglio di un QSO con
         // un nome inventato.
         m_awaitingCallbook.remove(call);
+        for (const auto& done : m_awaitingEmail.take(call))
+            done(QString(), message);
         // Credenziali sbagliate o rete assente: una riga nel registro, non una per nominativo.
         if (message != m_callbookStatus && !message.contains(QLatin1String("not found"), Qt::CaseInsensitive))
             addActivity(QStringLiteral("CALLBOOK"), message, QStringLiteral("warning"));
@@ -440,6 +450,12 @@ bool DecoLogController::openDatabase(const QString& path)
 
     QslCardController::Context cardCtx;
     cardCtx.db = &m_db;
+    cardCtx.credentials = m_credentials;
+    // L'email del corrispondente per mandargli la cartolina: la sa il callbook.
+    cardCtx.emailFor = [this](const QString& call,
+                              std::function<void(const QString&, const QString&)> done) {
+        emailFor(call, std::move(done));
+    };
     cardCtx.station = [this] {
         const QVariantMap profile = m_profiles->activeProfile();
         return QVariantMap{{QStringLiteral("call"), profile.value(QStringLiteral("stationCallsign"))},
@@ -842,6 +858,35 @@ void DecoLogController::setFollowDxCall(bool follow)
 bool DecoLogController::clientConnected() const
 {
     return m_clientLastSeen.isValid();
+}
+
+void DecoLogController::emailFor(const QString& call,
+                                 std::function<void(const QString&, const QString&)> done)
+{
+    if (!done)
+        return;
+    const QString c = call.trimmed().toUpper();
+    if (c.isEmpty()) {
+        done(QString(), tr("no callsign"));
+        return;
+    }
+    // Gia' chiesta prima: si risponde senza disturbare di nuovo il callbook.
+    if (const auto it = m_callbookResults.constFind(c); it != m_callbookResults.constEnd()) {
+        const QString email = it->value(QStringLiteral("email")).toString().trimmed();
+        done(email, email.isEmpty()
+                        ? tr("%1 is in the callbook but has no email there").arg(c)
+                        : QString());
+        return;
+    }
+    if (m_callbook.provider() == CallbookClient::Provider::None) {
+        done(QString(), tr("no callbook is set up: Setup -> Callbook"));
+        return;
+    }
+    // Una ricerca sola per nominativo, anche se ad aspettarla sono in tanti.
+    const bool alreadyAsked = m_awaitingEmail.contains(c);
+    m_awaitingEmail[c].append(std::move(done));
+    if (!alreadyAsked)
+        m_callbook.lookup(c);
 }
 
 QString DecoLogController::shownFrequency() const

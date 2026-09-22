@@ -2612,8 +2612,48 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>1 枚ずつ PNG…</translation>
     </message>
     <message>
+        <source>Sending…</source>
+        <translation>送っています…</translation>
+    </message>
+    <message>
+        <source>Send by email…</source>
+        <translation>メールで送る…</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). What goes out is sent by your own mailbox.</source>
+        <translation>あて先はコールブック（QRZ.com か HamQTH）が知っています。送るのは自分のメールボックスです。</translation>
+    </message>
+    <message>
+        <source>First set up the outgoing mailbox: Setup → QSL services.</source>
+        <translation>先に送信用のメールボックスを用意してください。設定 → QSL サービス。</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>ストップ</translation>
+    </message>
+    <message>
         <source>Nothing chosen in the queue: the whole queue becomes cards.</source>
         <translation>待ち行列で何も選んでいません。待ち行列ぜんぶがカードになります。</translation>
+    </message>
+    <message>
+        <source>Send the card by email</source>
+        <translation>カードをメールで送る</translation>
+    </message>
+    <message>
+        <source>From %1. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so.</source>
+        <translation>%1 から送ります。選んだ QSO ごとにコールブックであて先を調べ、カードを描いて PNG の添付として送ります。コールブックにメールがない局は飛ばし、どの局かをお伝えします。</translation>
+    </message>
+    <message>
+        <source>There is no outgoing mailbox yet. It goes in Setup → QSL services: the address and the password of the mailbox the cards go out from.</source>
+        <translation>送信用のメールボックスがまだありません。設定 → QSL サービスで用意します。カードを送り出すメールボックスのアドレスとパスワードです。</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>キャンセル</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>送る</translation>
     </message>
     <message>
         <source>The image of your QSL card</source>
@@ -4140,6 +4180,38 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>Club Log がほしいのは三つです。アカウントのメールとパスワード (下)、局プロファイルのコールサイン、そして API キー。キーは無料で自分だけのもので、clublog.org/need_api.php でもらいます。あれはプログラムを指すもので、あなたを指すものではありません。1 件の QSO は記録したらすぐ出ていきます。たまったぶんは 1 つの ADIF ファイルで出ていきます。</translation>
     </message>
     <message>
+        <source>QSL by email</source>
+        <translation>メールで QSL</translation>
+    </message>
+    <message>
+        <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
+        <translation>カードは自分のメールボックスから出ていき、受け取る相手のあて先はコールブック（QRZ.com か HamQTH）が知っています。Gmail ではログイン用ではなくアプリパスワードが要ります。myaccount.google.com/apppasswords で作れます。頼まないかぎり何も出ていきません。ボタンは QSL カード → メールで送る にあります。</translation>
+    </message>
+    <message>
+        <source>Mail server</source>
+        <translation>メールサーバー</translation>
+    </message>
+    <message>
+        <source>Your name in the message</source>
+        <translation>メールに書く自分の名前</translation>
+    </message>
+    <message>
+        <source>587 asks for encryption with STARTTLS, 465 is encrypted from the first byte. A server that offers neither is refused: the password travels through there.</source>
+        <translation>587 は STARTTLS で暗号化を求め、465 は最初のバイトから暗号化されています。どちらも用意していないサーバーは断ります。そこをパスワードが通るからです。</translation>
+    </message>
+    <message>
+        <source>Subject</source>
+        <translation>件名</translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <translation>本文</translation>
+    </message>
+    <message>
+        <source>In the subject and the message: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} for the station you worked, {MYCALL} and {MYNAME} for yourself.</source>
+        <translation>件名と本文では、交信した局に {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST}、自分には {MYCALL} と {MYNAME} が使えます。</translation>
+    </message>
+    <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
         <translation>%1 送信 · %2 列に · %3 確認</translation>
     </message>
@@ -5207,6 +5279,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>%1: %2 が見つかりました</translation>
     </message>
     <message>
+        <source>%1 is in the callbook but has no email there</source>
+        <translation>%1 はコールブックにありますが、そこにメールがありません</translation>
+    </message>
+    <message>
         <source>%1: %2 completed from %3 (%4)</source>
         <translation>%1: %2 を %3 から補いました (%4)</translation>
     </message>
@@ -5277,6 +5353,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>built on %1</source>
         <translation>%1 にビルド</translation>
+    </message>
+    <message>
+        <source>no callsign</source>
+        <translation>コールサインがありません</translation>
+    </message>
+    <message>
+        <source>no callbook is set up: Setup -&gt; Callbook</source>
+        <translation>コールブックが設定されていません。設定 → コールブック</translation>
     </message>
     <message>
         <source>radio (CAT)</source>
@@ -5495,6 +5579,24 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
+    <message>
+        <source>QSL sent to %1</source>
+        <translation>%1 に QSL を送りました</translation>
+    </message>
+    <message>
+        <source>QSL not sent to %1: %2</source>
+        <translation>%1 に QSL を送れませんでした: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSL sent by email</source>
+        <translation>
+            <numerusform>QSL を %n 枚メールで送りました</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 sent, %2 not</source>
+        <translation>%1 枚送り、%2 枚は送れませんでした</translation>
+    </message>
     <message numerus="yes">
         <source>%n QSO in the paper queue</source>
         <translation>
@@ -5646,6 +5748,40 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>QSL cards: %1 (%2)</source>
         <translation>QSL カード: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>No QSO to send a card to.</source>
+        <translation>カードを送る QSO がありません。</translation>
+    </message>
+    <message>
+        <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>
+        <translation>先に送信用のメールボックスを用意してください。設定 → QSL サービス。</translation>
+    </message>
+    <message>
+        <source>The card has no fields yet: nothing to send.</source>
+        <translation>カードにまだ項目がありません。送るものがありません。</translation>
+    </message>
+    <message>
+        <source>Sending by email is not available.</source>
+        <translation>メールでの送信は使えません。</translation>
+    </message>
+    <message numerus="yes">
+        <source>Looking up %n address(es)…</source>
+        <translation>
+            <numerusform>あて先を %n 件調べています…</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No password for the outgoing mailbox.</source>
+        <translation>メールボックスのパスワードがありません。</translation>
+    </message>
+    <message>
+        <source>%1: no email in the callbook (%2)</source>
+        <translation>%1: コールブックにメールがありません (%2)</translation>
+    </message>
+    <message>
+        <source>Sending stopped.</source>
+        <translation>送信をやめました。</translation>
     </message>
 </context>
 <context>
@@ -6208,6 +6344,18 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>HamAlert のトリガーからのスポット (telnet)</translation>
     </message>
     <message>
+        <source>Outgoing mailbox</source>
+        <translation>送信するメールボックス</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>住所</translation>
+    </message>
+    <message>
+        <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
+        <translation>QSL カードをメールで送ります。Gmail ではアカウントのパスワードではなくアプリパスワードが要ります。</translation>
+    </message>
+    <message>
         <source>Account saved</source>
         <translation>アカウントを保存しました</translation>
     </message>
@@ -6255,6 +6403,33 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>LoTW: %1</source>
         <translation>LoTW: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::MailSender</name>
+    <message>
+        <source>the mail server did not answer</source>
+        <translation>メールサーバーが応答しませんでした</translation>
+    </message>
+    <message>
+        <source>no outgoing mailbox is set up</source>
+        <translation>送信するメールボックスが用意されていません</translation>
+    </message>
+    <message>
+        <source>no email address for this station</source>
+        <translation>この局のメールアドレスがありません</translation>
+    </message>
+    <message>
+        <source>connection lost</source>
+        <translation>接続が切れました</translation>
+    </message>
+    <message>
+        <source>the mail server&apos;s certificate is not trusted (%1)</source>
+        <translation>メールサーバーの証明書が信用できません (%1)</translation>
+    </message>
+    <message>
+        <source>the mail server does not offer an encrypted connection (STARTTLS)</source>
+        <translation>メールサーバーが暗号化された接続 (STARTTLS) を用意していません</translation>
     </message>
 </context>
 <context>

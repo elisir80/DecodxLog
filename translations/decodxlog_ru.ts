@@ -2618,8 +2618,48 @@ The call Decodium is working shows up here by itself.</source>
         <translation>По одному PNG…</translation>
     </message>
     <message>
+        <source>Sending…</source>
+        <translation>Отправляю…</translation>
+    </message>
+    <message>
+        <source>Send by email…</source>
+        <translation>Отправить по почте…</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). What goes out is sent by your own mailbox.</source>
+        <translation>Адрес знает позывной-справочник (QRZ.com или HamQTH). Уходит всё из твоего собственного ящика.</translation>
+    </message>
+    <message>
+        <source>First set up the outgoing mailbox: Setup → QSL services.</source>
+        <translation>Сначала настрой ящик для отправки: Настройки → Службы QSL.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Стоп</translation>
+    </message>
+    <message>
         <source>Nothing chosen in the queue: the whole queue becomes cards.</source>
         <translation>В очереди ничего не выбрано: карточками станет вся очередь.</translation>
+    </message>
+    <message>
+        <source>Send the card by email</source>
+        <translation>Отправить карточку по почте</translation>
+    </message>
+    <message>
+        <source>From %1. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so.</source>
+        <translation>От %1. Для каждого выбранного QSO адрес спрашивается у справочника, карточка рисуется и уходит вложением PNG. Станции, для которых у справочника нет почты, пропускаются, и говорится какие.</translation>
+    </message>
+    <message>
+        <source>There is no outgoing mailbox yet. It goes in Setup → QSL services: the address and the password of the mailbox the cards go out from.</source>
+        <translation>Ящика для отправки ещё нет. Он настраивается в Настройки → Службы QSL: адрес и пароль ящика, из которого уходят карточки.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Отправить</translation>
     </message>
     <message>
         <source>The image of your QSL card</source>
@@ -4152,6 +4192,38 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Club Log нужны три вещи: почта и пароль учётной записи (ниже), позывной из профиля станции и ключ API. Ключ бесплатный и личный, его просят на clublog.org/need_api.php — он указывает на программу, а не на вас. Один QSO уходит сразу, как записан; накопившееся уходит одним файлом ADIF.</translation>
     </message>
     <message>
+        <source>QSL by email</source>
+        <translation>QSL по почте</translation>
+    </message>
+    <message>
+        <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
+        <translation>Карточка уходит из твоего собственного ящика, а адрес получателя знает справочник — QRZ.com или HamQTH. Gmail просит для этого пароль приложения, а не тот, с которым ты входишь: он делается на myaccount.google.com/apppasswords. Ничего не уходит без твоей просьбы: кнопка в QSL-карточка → Отправить по почте.</translation>
+    </message>
+    <message>
+        <source>Mail server</source>
+        <translation>Почтовый сервер</translation>
+    </message>
+    <message>
+        <source>Your name in the message</source>
+        <translation>Твоё имя в письме</translation>
+    </message>
+    <message>
+        <source>587 asks for encryption with STARTTLS, 465 is encrypted from the first byte. A server that offers neither is refused: the password travels through there.</source>
+        <translation>587 просит шифрование через STARTTLS, 465 зашифрован с первого байта. Сервер, который не предлагает ни того, ни другого, отвергается: через него идёт пароль.</translation>
+    </message>
+    <message>
+        <source>Subject</source>
+        <translation>Тема</translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <translation>Сообщение</translation>
+    </message>
+    <message>
+        <source>In the subject and the message: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} for the station you worked, {MYCALL} and {MYNAME} for yourself.</source>
+        <translation>В теме и в сообщении: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} для сработанной станции, {MYCALL} и {MYNAME} для себя.</translation>
+    </message>
+    <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
         <translation>отправлено %1 · в очереди %2 · подтверждено %3</translation>
     </message>
@@ -5237,6 +5309,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>%1: %2 найден</translation>
     </message>
     <message>
+        <source>%1 is in the callbook but has no email there</source>
+        <translation>%1 есть в справочнике, но почты там нет</translation>
+    </message>
+    <message>
         <source>%1: %2 completed from %3 (%4)</source>
         <translation>%1: %2 дополнен из %3 (%4)</translation>
     </message>
@@ -5311,6 +5387,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>built on %1</source>
         <translation>собрано %1</translation>
+    </message>
+    <message>
+        <source>no callsign</source>
+        <translation>нет позывного</translation>
+    </message>
+    <message>
+        <source>no callbook is set up: Setup -&gt; Callbook</source>
+        <translation>справочник не настроен: Настройки → Справочник</translation>
     </message>
     <message>
         <source>radio (CAT)</source>
@@ -5539,6 +5623,26 @@ The call Decodium is working shows up here by itself.</source>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
+    <message>
+        <source>QSL sent to %1</source>
+        <translation>QSL отправлена на %1</translation>
+    </message>
+    <message>
+        <source>QSL not sent to %1: %2</source>
+        <translation>QSL не отправлена на %1: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSL sent by email</source>
+        <translation>
+            <numerusform>%n QSL отправлена по почте</numerusform>
+            <numerusform>%n QSL отправлены по почте</numerusform>
+            <numerusform>%n QSL отправлено по почте</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 sent, %2 not</source>
+        <translation>%1 отправлено, %2 нет</translation>
+    </message>
     <message numerus="yes">
         <source>%n QSO in the paper queue</source>
         <translation>
@@ -5702,6 +5806,42 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>QSL cards: %1 (%2)</source>
         <translation>QSL-карточки: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>No QSO to send a card to.</source>
+        <translation>Нет QSO, которому отправить карточку.</translation>
+    </message>
+    <message>
+        <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>
+        <translation>Сначала настрой ящик для отправки: Настройки → Службы QSL.</translation>
+    </message>
+    <message>
+        <source>The card has no fields yet: nothing to send.</source>
+        <translation>У карточки ещё нет полей: отправлять нечего.</translation>
+    </message>
+    <message>
+        <source>Sending by email is not available.</source>
+        <translation>Отправка по почте недоступна.</translation>
+    </message>
+    <message numerus="yes">
+        <source>Looking up %n address(es)…</source>
+        <translation>
+            <numerusform>Ищу %n адрес…</numerusform>
+            <numerusform>Ищу %n адреса…</numerusform>
+            <numerusform>Ищу %n адресов…</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No password for the outgoing mailbox.</source>
+        <translation>Нет пароля от почтового ящика.</translation>
+    </message>
+    <message>
+        <source>%1: no email in the callbook (%2)</source>
+        <translation>%1: в справочнике нет почты (%2)</translation>
+    </message>
+    <message>
+        <source>Sending stopped.</source>
+        <translation>Отправка остановлена.</translation>
     </message>
 </context>
 <context>
@@ -6274,6 +6414,18 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Споты по вашим триггерам HamAlert (telnet)</translation>
     </message>
     <message>
+        <source>Outgoing mailbox</source>
+        <translation>Ящик для отправки</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Адрес</translation>
+    </message>
+    <message>
+        <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
+        <translation>Отправка QSL по почте. Gmail просит пароль приложения, а не пароль от аккаунта.</translation>
+    </message>
+    <message>
         <source>Account saved</source>
         <translation>Учётная запись сохранена</translation>
     </message>
@@ -6321,6 +6473,33 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>LoTW: %1</source>
         <translation>LoTW: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::MailSender</name>
+    <message>
+        <source>the mail server did not answer</source>
+        <translation>почтовый сервер не ответил</translation>
+    </message>
+    <message>
+        <source>no outgoing mailbox is set up</source>
+        <translation>ящик для отправки не настроен</translation>
+    </message>
+    <message>
+        <source>no email address for this station</source>
+        <translation>для этой станции нет почтового адреса</translation>
+    </message>
+    <message>
+        <source>connection lost</source>
+        <translation>связь оборвалась</translation>
+    </message>
+    <message>
+        <source>the mail server&apos;s certificate is not trusted (%1)</source>
+        <translation>сертификату почтового сервера нельзя доверять (%1)</translation>
+    </message>
+    <message>
+        <source>the mail server does not offer an encrypted connection (STARTTLS)</source>
+        <translation>почтовый сервер не предлагает шифрованное соединение (STARTTLS)</translation>
     </message>
 </context>
 <context>

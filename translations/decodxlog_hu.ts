@@ -2612,8 +2612,48 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Egy-egy PNG…</translation>
     </message>
     <message>
+        <source>Sending…</source>
+        <translation>Küldés…</translation>
+    </message>
+    <message>
+        <source>Send by email…</source>
+        <translation>Küldés e-mailben…</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). What goes out is sent by your own mailbox.</source>
+        <translation>A címet a hívójelkönyv tudja (QRZ.com vagy HamQTH). Ami kimegy, a te saját postafiókodból megy ki.</translation>
+    </message>
+    <message>
+        <source>First set up the outgoing mailbox: Setup → QSL services.</source>
+        <translation>Előbb állítsd be a kimenő postafiókot: Beállítások → QSL-szolgáltatások.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Stop</translation>
+    </message>
+    <message>
         <source>Nothing chosen in the queue: the whole queue becomes cards.</source>
         <translation>Semmi sincs kiválasztva a sorban: az egész sorból lap lesz.</translation>
+    </message>
+    <message>
+        <source>Send the card by email</source>
+        <translation>A lap küldése e-mailben</translation>
+    </message>
+    <message>
+        <source>From %1. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so.</source>
+        <translation>Innen: %1. Minden kiválasztott QSO-hoz a cím a hívójelkönyvből jön, a lap megrajzolódik és PNG-mellékletként megy ki. Azokat az állomásokat, amikhez a hívójelkönyvnek nincs e-mailje, kihagyja, és megmondja, melyeket.</translation>
+    </message>
+    <message>
+        <source>There is no outgoing mailbox yet. It goes in Setup → QSL services: the address and the password of the mailbox the cards go out from.</source>
+        <translation>Kimenő postafiók még nincs. A Beállítások → QSL-szolgáltatások alatt kerül be: annak a postafióknak a címe és jelszava, ahonnan a lapok kimennek.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Mégse</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Küldés</translation>
     </message>
     <message>
         <source>The image of your QSL card</source>
@@ -4140,6 +4180,38 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>A Club Lognak három dolog kell: a fiók e-mail-címe és jelszava (lent), az állomásprofil hívójele, és egy API-kulcs. A kulcs ingyenes és személyes, a clublog.org/need_api.php oldalon lehet kérni — a programot azonosítja, nem téged. Egy QSO rögtön elmegy, ahogy naplózódik; a felhalmozódott adag egyetlen ADIF-fájlként megy el.</translation>
     </message>
     <message>
+        <source>QSL by email</source>
+        <translation>QSL e-mailben</translation>
+    </message>
+    <message>
+        <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
+        <translation>A lap a te saját postafiókodból megy ki, a címzett címét pedig a hívójelkönyv tudja — QRZ.com vagy HamQTH. A Gmail ehhez alkalmazásjelszót kér, nem azt, amivel belépsz: a myaccount.google.com/apppasswords oldalon készül. Semmi nem megy ki anélkül, hogy kérnéd: a gomb a QSL-lap → Küldés e-mailben alatt van.</translation>
+    </message>
+    <message>
+        <source>Mail server</source>
+        <translation>Levelezőkiszolgáló</translation>
+    </message>
+    <message>
+        <source>Your name in the message</source>
+        <translation>A neved az üzenetben</translation>
+    </message>
+    <message>
+        <source>587 asks for encryption with STARTTLS, 465 is encrypted from the first byte. A server that offers neither is refused: the password travels through there.</source>
+        <translation>Az 587 STARTTLS-sel kér titkosítást, a 465 az első bájttól titkosított. Az a kiszolgáló, amelyik egyiket sem kínálja, elutasításra kerül: arra megy át a jelszó.</translation>
+    </message>
+    <message>
+        <source>Subject</source>
+        <translation>Tárgy</translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <translation>Üzenet</translation>
+    </message>
+    <message>
+        <source>In the subject and the message: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} for the station you worked, {MYCALL} and {MYNAME} for yourself.</source>
+        <translation>A tárgyban és az üzenetben: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} a dolgozott állomáshoz, {MYCALL} és {MYNAME} magadhoz.</translation>
+    </message>
+    <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
         <translation>%1 elküldve · %2 sorban · %3 igazolt</translation>
     </message>
@@ -5207,6 +5279,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>%1: %2 megtalálva</translation>
     </message>
     <message>
+        <source>%1 is in the callbook but has no email there</source>
+        <translation>%1 benne van a hívójelkönyvben, de ott nincs e-mailje</translation>
+    </message>
+    <message>
         <source>%1: %2 completed from %3 (%4)</source>
         <translation>%1: %2 kiegészítve innen: %3 (%4)</translation>
     </message>
@@ -5277,6 +5353,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>built on %1</source>
         <translation>fordítva ekkor: %1</translation>
+    </message>
+    <message>
+        <source>no callsign</source>
+        <translation>nincs hívójel</translation>
+    </message>
+    <message>
+        <source>no callbook is set up: Setup -&gt; Callbook</source>
+        <translation>nincs beállítva hívójelkönyv: Beállítások → Hívójelkönyv</translation>
     </message>
     <message>
         <source>radio (CAT)</source>
@@ -5495,6 +5579,24 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
+    <message>
+        <source>QSL sent to %1</source>
+        <translation>QSL elküldve ide: %1</translation>
+    </message>
+    <message>
+        <source>QSL not sent to %1: %2</source>
+        <translation>A QSL nem ment el ide: %1 (%2)</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSL sent by email</source>
+        <translation>
+            <numerusform>%n QSL elküldve e-mailben</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 sent, %2 not</source>
+        <translation>%1 elment, %2 nem</translation>
+    </message>
     <message numerus="yes">
         <source>%n QSO in the paper queue</source>
         <translation>
@@ -5646,6 +5748,40 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>QSL cards: %1 (%2)</source>
         <translation>QSL-lapok: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>No QSO to send a card to.</source>
+        <translation>Nincs QSO, amihez lapot lehetne küldeni.</translation>
+    </message>
+    <message>
+        <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>
+        <translation>Előbb állítsd be a kimenő postafiókot: Beállítások → QSL-szolgáltatások.</translation>
+    </message>
+    <message>
+        <source>The card has no fields yet: nothing to send.</source>
+        <translation>A lapon még nincs egy mező sem: nincs mit küldeni.</translation>
+    </message>
+    <message>
+        <source>Sending by email is not available.</source>
+        <translation>Az e-mailben küldés nem érhető el.</translation>
+    </message>
+    <message numerus="yes">
+        <source>Looking up %n address(es)…</source>
+        <translation>
+            <numerusform>%n címet keresek…</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No password for the outgoing mailbox.</source>
+        <translation>Hiányzik a postafiók jelszava.</translation>
+    </message>
+    <message>
+        <source>%1: no email in the callbook (%2)</source>
+        <translation>%1: a hívójelkönyvben nincs e-mail (%2)</translation>
+    </message>
+    <message>
+        <source>Sending stopped.</source>
+        <translation>A küldés leállt.</translation>
     </message>
 </context>
 <context>
@@ -6208,6 +6344,18 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>A HamAlert-triggereid spotjai (telnet)</translation>
     </message>
     <message>
+        <source>Outgoing mailbox</source>
+        <translation>Kimenő postafiók</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Cím</translation>
+    </message>
+    <message>
+        <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
+        <translation>QSL-lapok küldése e-mailben. A Gmail alkalmazásjelszót kér, nem a fiókét.</translation>
+    </message>
+    <message>
         <source>Account saved</source>
         <translation>A fiók elmentve</translation>
     </message>
@@ -6255,6 +6403,33 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>LoTW: %1</source>
         <translation>LoTW: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::MailSender</name>
+    <message>
+        <source>the mail server did not answer</source>
+        <translation>a levelezőkiszolgáló nem válaszolt</translation>
+    </message>
+    <message>
+        <source>no outgoing mailbox is set up</source>
+        <translation>nincs beállítva kimenő postafiók</translation>
+    </message>
+    <message>
+        <source>no email address for this station</source>
+        <translation>ehhez az állomáshoz nincs e-mail cím</translation>
+    </message>
+    <message>
+        <source>connection lost</source>
+        <translation>megszakadt a kapcsolat</translation>
+    </message>
+    <message>
+        <source>the mail server&apos;s certificate is not trusted (%1)</source>
+        <translation>a levelezőkiszolgáló tanúsítványa nem megbízható (%1)</translation>
+    </message>
+    <message>
+        <source>the mail server does not offer an encrypted connection (STARTTLS)</source>
+        <translation>a levelezőkiszolgáló nem kínál titkosított kapcsolatot (STARTTLS)</translation>
     </message>
 </context>
 <context>

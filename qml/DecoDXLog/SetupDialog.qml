@@ -905,6 +905,83 @@ DialogFrame {
                         Layout.fillWidth: true
                         serviceIds: ["lotw", "qrzlogbook", "clublog", "eqsl"]
                     }
+
+                    // ── La casella da cui partono le cartoline ─────────────
+                    SectionTitle { text: qsTr("QSL by email") }
+                    Note {
+                        text: qsTr("The card goes out from your own mailbox, and the address of whoever gets it comes "
+                                   + "from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, "
+                                   + "not the one you sign in with: you make it at myaccount.google.com/apppasswords. "
+                                   + "Nothing leaves without you asking: the button is in QSL card → Send by email.")
+                    }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 8
+                        LabeledField {
+                            Layout.fillWidth: true
+                            label: qsTr("Mail server")
+                            StyledTextField {
+                                id: mailHost
+                                Layout.fillWidth: true
+                                text: decolog.cards.mail.host
+                                placeholderText: "smtp.gmail.com"
+                                onEditingFinished: decolog.cards.setMail({ "host": text })
+                            }
+                        }
+                        LabeledField {
+                            Layout.preferredWidth: 90
+                            label: qsTr("Port")
+                            StyledTextField {
+                                id: mailPort
+                                Layout.fillWidth: true
+                                text: decolog.cards.mail.port
+                                onEditingFinished: decolog.cards.setMail({ "port": parseInt(text) })
+                            }
+                        }
+                        LabeledField {
+                            Layout.fillWidth: true
+                            label: qsTr("Your name in the message")
+                            StyledTextField {
+                                Layout.fillWidth: true
+                                mono: false
+                                text: decolog.cards.mail.fromName
+                                placeholderText: decolog.cards.stationInfo().call || ""
+                                onEditingFinished: decolog.cards.setMail({ "fromName": text })
+                            }
+                        }
+                    }
+                    Note {
+                        text: qsTr("587 asks for encryption with STARTTLS, 465 is encrypted from the first byte. "
+                                   + "A server that offers neither is refused: the password travels through there.")
+                    }
+                    LabeledField {
+                        Layout.fillWidth: true
+                        label: qsTr("Subject")
+                        StyledTextField {
+                            Layout.fillWidth: true
+                            mono: false
+                            text: decolog.cards.mail.subject
+                            onEditingFinished: decolog.cards.setMail({ "subject": text })
+                        }
+                    }
+                    LabeledField {
+                        Layout.fillWidth: true
+                        label: qsTr("Message")
+                        StyledTextArea {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 120
+                            text: decolog.cards.mail.body
+                            onEditingFinished: decolog.cards.setMail({ "body": text })
+                        }
+                    }
+                    Note {
+                        text: qsTr("In the subject and the message: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} "
+                                   + "for the station you worked, {MYCALL} and {MYNAME} for yourself.")
+                    }
+                    CredentialsList {
+                        Layout.fillWidth: true
+                        serviceIds: ["mail"]
+                    }
                     Repeater {
                         model: decolog.qslSummary
                         RowLayout {

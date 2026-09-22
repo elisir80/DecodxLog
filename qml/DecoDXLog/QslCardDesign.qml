@@ -441,16 +441,91 @@ ColumnLayout {
                 enabled: root.fields.length > 0
                 onClicked: pngDialog.open()
             }
+            // La cartolina per email: l'indirizzo lo sa il callbook.
+            GlassButton {
+                Layout.alignment: Qt.AlignBottom
+                Layout.bottomMargin: 2
+                text: root.cards.mailBusy ? qsTr("Sending…") : qsTr("Send by email…")
+                tone: Theme.secondaryColor
+                buttonHeight: 28
+                enabled: root.fields.length > 0 && !root.cards.mailBusy
+                onClicked: mailDialog.open()
+                ToolTip.visible: hovered
+                ToolTip.text: root.cards.mail.ready
+                              ? qsTr("The address comes from the callbook (QRZ.com or HamQTH). "
+                                     + "What goes out is sent by your own mailbox.")
+                              : qsTr("First set up the outgoing mailbox: Setup → QSL services.")
+            }
+            GlassButton {
+                Layout.alignment: Qt.AlignBottom
+                Layout.bottomMargin: 2
+                visible: root.cards.mailBusy
+                text: qsTr("Stop")
+                tone: Theme.errorColor
+                buttonHeight: 28
+                onClicked: root.cards.cancelMail()
+            }
             Text {
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignBottom
                 Layout.bottomMargin: 6
                 wrapMode: Text.Wrap
-                text: root.selectedIds.length > 0
+                text: root.cards.mailStatus.length > 0 ? root.cards.mailStatus
+                    : root.selectedIds.length > 0
                       ? qsTr("%n chosen QSO", "", root.selectedIds.length)
                       : qsTr("Nothing chosen in the queue: the whole queue becomes cards.")
                 color: Theme.textSecondary
                 font.pixelSize: 11
+            }
+        }
+    }
+
+    // Prima di mandare si dice a chi e con cosa: una email parte e non torna.
+    Popup {
+        id: mailDialog
+        anchors.centerIn: Overlay.overlay
+        modal: true
+        padding: 16
+        width: Math.min(520, root.width - 40)
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+        background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 6 }
+        contentItem: ColumnLayout {
+            spacing: 10
+            SectionTitle { text: qsTr("Send the card by email") }
+            Text {
+                Layout.fillWidth: true
+                wrapMode: Text.Wrap
+                text: root.cards.mail.ready
+                      ? qsTr("From %1. For every chosen QSO the address is looked up in the callbook, "
+                             + "the card is drawn and sent as a PNG attachment. Stations the callbook "
+                             + "has no email for are skipped and said so.")
+                            .arg(root.cards.mail.address)
+                      : qsTr("There is no outgoing mailbox yet. It goes in Setup → QSL services: "
+                             + "the address and the password of the mailbox the cards go out from.")
+                color: Theme.textSecondary
+                font.pixelSize: 12
+            }
+            Text {
+                Layout.fillWidth: true
+                wrapMode: Text.Wrap
+                text: root.selectedIds.length > 0
+                      ? qsTr("%n chosen QSO", "", root.selectedIds.length)
+                      : qsTr("Nothing chosen in the queue: the whole queue becomes cards.")
+                color: Theme.warningColor
+                font.pixelSize: 12
+            }
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 8
+                Item { Layout.fillWidth: true }
+                GlassButton { text: qsTr("Cancel"); onClicked: mailDialog.close() }
+                GlassButton {
+                    text: qsTr("Send")
+                    tone: Theme.accentColor
+                    filled: true
+                    enabled: root.cards.mail.ready
+                    onClicked: { mailDialog.close(); root.cards.sendCardsByEmail(root.selectedIds) }
+                }
             }
         }
     }

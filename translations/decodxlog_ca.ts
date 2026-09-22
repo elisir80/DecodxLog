@@ -2615,8 +2615,48 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Un PNG cadascuna…</translation>
     </message>
     <message>
+        <source>Sending…</source>
+        <translation>Enviant…</translation>
+    </message>
+    <message>
+        <source>Send by email…</source>
+        <translation>Envia per correu…</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). What goes out is sent by your own mailbox.</source>
+        <translation>L&apos;adreça la sap el callbook (QRZ.com o HamQTH). El que surt, surt de la teva pròpia bústia.</translation>
+    </message>
+    <message>
+        <source>First set up the outgoing mailbox: Setup → QSL services.</source>
+        <translation>Prepara primer la bústia de sortida: Configuració → Serveis QSL.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Stop</translation>
+    </message>
+    <message>
         <source>Nothing chosen in the queue: the whole queue becomes cards.</source>
         <translation>Res triat a la cua: tota la cua es converteix en targetes.</translation>
+    </message>
+    <message>
+        <source>Send the card by email</source>
+        <translation>Envia la targeta per correu</translation>
+    </message>
+    <message>
+        <source>From %1. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so.</source>
+        <translation>Des de %1. Per a cada QSO triat es demana l&apos;adreça al callbook, es dibuixa la targeta i surt com a adjunt PNG. Les estacions de les quals el callbook no té correu se salten, i es diu quines.</translation>
+    </message>
+    <message>
+        <source>There is no outgoing mailbox yet. It goes in Setup → QSL services: the address and the password of the mailbox the cards go out from.</source>
+        <translation>Encara no hi ha bústia de sortida. Es prepara a Configuració → Serveis QSL: l&apos;adreça i la contrasenya de la bústia d&apos;on surten les targetes.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancel·la</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Envia</translation>
     </message>
     <message>
         <source>The image of your QSL card</source>
@@ -4146,6 +4186,38 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Club Log vol tres coses: el correu i la contrasenya del compte (aquí sota), l&apos;indicatiu del perfil d&apos;estació i una clau API. La clau és gratuïta i personal, i es demana a clublog.org/need_api.php — identifica el programa, no pas tu. Un QSO sol marxa tan bon punt es registra; una pila endarrerida marxa com un sol fitxer ADIF.</translation>
     </message>
     <message>
+        <source>QSL by email</source>
+        <translation>QSL per correu</translation>
+    </message>
+    <message>
+        <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
+        <translation>La targeta surt de la teva pròpia bústia, i l&apos;adreça de qui la rep la sap el callbook — QRZ.com o HamQTH. Gmail demana per això una contrasenya d&apos;aplicació, no la que fas servir per entrar: es fa a myaccount.google.com/apppasswords. No surt res sense que ho demanis: el botó és a Targeta QSL → Envia per correu.</translation>
+    </message>
+    <message>
+        <source>Mail server</source>
+        <translation>Servidor de correu</translation>
+    </message>
+    <message>
+        <source>Your name in the message</source>
+        <translation>El teu nom al missatge</translation>
+    </message>
+    <message>
+        <source>587 asks for encryption with STARTTLS, 465 is encrypted from the first byte. A server that offers neither is refused: the password travels through there.</source>
+        <translation>El 587 demana el xifratge amb STARTTLS, el 465 va xifrat des del primer byte. Un servidor que no ofereix cap dels dos es rebutja: per allà hi passa la contrasenya.</translation>
+    </message>
+    <message>
+        <source>Subject</source>
+        <translation>Assumpte</translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <translation>Missatge</translation>
+    </message>
+    <message>
+        <source>In the subject and the message: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} for the station you worked, {MYCALL} and {MYNAME} for yourself.</source>
+        <translation>A l&apos;assumpte i al missatge: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} per a l&apos;estació treballada, {MYCALL} i {MYNAME} per a tu.</translation>
+    </message>
+    <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
         <translation>%1 enviats · %2 a la cua · %3 confirmats</translation>
     </message>
@@ -5222,6 +5294,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>%1: %2 trobat</translation>
     </message>
     <message>
+        <source>%1 is in the callbook but has no email there</source>
+        <translation>%1 és al callbook però allà no hi té correu</translation>
+    </message>
+    <message>
         <source>%1: %2 completed from %3 (%4)</source>
         <translation>%1: %2 completat des de %3 (%4)</translation>
     </message>
@@ -5294,6 +5370,14 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>built on %1</source>
         <translation>compilat el %1</translation>
+    </message>
+    <message>
+        <source>no callsign</source>
+        <translation>cap indicatiu</translation>
+    </message>
+    <message>
+        <source>no callbook is set up: Setup -&gt; Callbook</source>
+        <translation>no hi ha cap callbook configurat: Configuració → Callbook</translation>
     </message>
     <message>
         <source>radio (CAT)</source>
@@ -5517,6 +5601,25 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
+    <message>
+        <source>QSL sent to %1</source>
+        <translation>QSL enviada a %1</translation>
+    </message>
+    <message>
+        <source>QSL not sent to %1: %2</source>
+        <translation>QSL no enviada a %1: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSL sent by email</source>
+        <translation>
+            <numerusform>%n QSL enviada per correu</numerusform>
+            <numerusform>%n QSL enviades per correu</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 sent, %2 not</source>
+        <translation>%1 enviades, %2 no</translation>
+    </message>
     <message numerus="yes">
         <source>%n QSO in the paper queue</source>
         <translation>
@@ -5674,6 +5777,41 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>QSL cards: %1 (%2)</source>
         <translation>Targetes QSL: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>No QSO to send a card to.</source>
+        <translation>Cap QSO a qui enviar una targeta.</translation>
+    </message>
+    <message>
+        <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>
+        <translation>Prepara primer la bústia de sortida: Configuració → Serveis QSL.</translation>
+    </message>
+    <message>
+        <source>The card has no fields yet: nothing to send.</source>
+        <translation>La targeta encara no té cap camp: no hi ha res per enviar.</translation>
+    </message>
+    <message>
+        <source>Sending by email is not available.</source>
+        <translation>L&apos;enviament per correu no està disponible.</translation>
+    </message>
+    <message numerus="yes">
+        <source>Looking up %n address(es)…</source>
+        <translation>
+            <numerusform>Cerco %n adreça…</numerusform>
+            <numerusform>Cerco %n adreces…</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No password for the outgoing mailbox.</source>
+        <translation>Falta la contrasenya de la bústia.</translation>
+    </message>
+    <message>
+        <source>%1: no email in the callbook (%2)</source>
+        <translation>%1: al callbook no hi ha correu (%2)</translation>
+    </message>
+    <message>
+        <source>Sending stopped.</source>
+        <translation>Enviament aturat.</translation>
     </message>
 </context>
 <context>
@@ -6241,6 +6379,18 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Spots dels teus triggers de HamAlert (telnet)</translation>
     </message>
     <message>
+        <source>Outgoing mailbox</source>
+        <translation>Bústia de sortida</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Adreça</translation>
+    </message>
+    <message>
+        <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
+        <translation>Envia les QSL per correu. Gmail demana una contrasenya d&apos;aplicació, no la del compte.</translation>
+    </message>
+    <message>
         <source>Account saved</source>
         <translation>Compte desat</translation>
     </message>
@@ -6288,6 +6438,33 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>LoTW: %1</source>
         <translation>LoTW: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::MailSender</name>
+    <message>
+        <source>the mail server did not answer</source>
+        <translation>el servidor de correu no ha respost</translation>
+    </message>
+    <message>
+        <source>no outgoing mailbox is set up</source>
+        <translation>no hi ha cap bústia de sortida configurada</translation>
+    </message>
+    <message>
+        <source>no email address for this station</source>
+        <translation>per a aquesta estació no hi ha adreça de correu</translation>
+    </message>
+    <message>
+        <source>connection lost</source>
+        <translation>connexió perduda</translation>
+    </message>
+    <message>
+        <source>the mail server&apos;s certificate is not trusted (%1)</source>
+        <translation>el certificat del servidor de correu no és de fiar (%1)</translation>
+    </message>
+    <message>
+        <source>the mail server does not offer an encrypted connection (STARTTLS)</source>
+        <translation>el servidor de correu no ofereix una connexió xifrada (STARTTLS)</translation>
     </message>
 </context>
 <context>

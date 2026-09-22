@@ -2612,8 +2612,48 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>每张一个 PNG…</translation>
     </message>
     <message>
+        <source>Sending…</source>
+        <translation>正在发送…</translation>
+    </message>
+    <message>
+        <source>Send by email…</source>
+        <translation>用邮件发送…</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). What goes out is sent by your own mailbox.</source>
+        <translation>地址由呼号簿（QRZ.com 或 HamQTH）提供。发出去的是你自己的邮箱。</translation>
+    </message>
+    <message>
+        <source>First set up the outgoing mailbox: Setup → QSL services.</source>
+        <translation>先把发信邮箱准备好：设置 → QSL 服务。</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>停止位</translation>
+    </message>
+    <message>
         <source>Nothing chosen in the queue: the whole queue becomes cards.</source>
         <translation>队列里没有选中任何一条：整个队列都会做成卡片。</translation>
+    </message>
+    <message>
+        <source>Send the card by email</source>
+        <translation>用邮件发送卡片</translation>
+    </message>
+    <message>
+        <source>From %1. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so.</source>
+        <translation>从 %1 发出。对每个选中的 QSO，到呼号簿里查地址，画好卡片，作为 PNG 附件发出。呼号簿里没有邮箱的电台会跳过，并告诉你是哪些。</translation>
+    </message>
+    <message>
+        <source>There is no outgoing mailbox yet. It goes in Setup → QSL services: the address and the password of the mailbox the cards go out from.</source>
+        <translation>还没有发信邮箱。在设置 → QSL 服务里准备：卡片发出所用邮箱的地址和密码。</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>发送</translation>
     </message>
     <message>
         <source>The image of your QSL card</source>
@@ -4140,6 +4180,38 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>Club Log 要三样东西：账户的邮箱和密码（下面）、电台配置里的呼号，以及一个 API 密钥。密钥是免费的、属于你个人的，在 clublog.org/need_api.php 申请 — 它标识的是程序，不是你。单个 QSO 一记录就发走，积压的则作为一个 ADIF 文件发走。</translation>
     </message>
     <message>
+        <source>QSL by email</source>
+        <translation>用邮件发 QSL</translation>
+    </message>
+    <message>
+        <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
+        <translation>卡片从你自己的邮箱发出，收件人的地址由呼号簿提供 —— QRZ.com 或 HamQTH。Gmail 要的是应用专用密码，不是你登录用的那个：在 myaccount.google.com/apppasswords 生成。不经你要求什么都不会发出：按钮在 QSL 卡片 → 用邮件发送。</translation>
+    </message>
+    <message>
+        <source>Mail server</source>
+        <translation>邮件服务器</translation>
+    </message>
+    <message>
+        <source>Your name in the message</source>
+        <translation>邮件里你的名字</translation>
+    </message>
+    <message>
+        <source>587 asks for encryption with STARTTLS, 465 is encrypted from the first byte. A server that offers neither is refused: the password travels through there.</source>
+        <translation>587 用 STARTTLS 请求加密，465 从第一个字节就是加密的。两者都不提供的服务器会被拒绝：密码要从那里经过。</translation>
+    </message>
+    <message>
+        <source>Subject</source>
+        <translation>主题</translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <translation>正文</translation>
+    </message>
+    <message>
+        <source>In the subject and the message: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} for the station you worked, {MYCALL} and {MYNAME} for yourself.</source>
+        <translation>主题和正文里：{CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} 是对方电台，{MYCALL} 和 {MYNAME} 是你自己。</translation>
+    </message>
+    <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
         <translation>已发送 %1 · 队列 %2 · 已确认 %3</translation>
     </message>
@@ -5207,6 +5279,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>%1：找到了 %2</translation>
     </message>
     <message>
+        <source>%1 is in the callbook but has no email there</source>
+        <translation>%1 在呼号簿里，但那里没有邮箱</translation>
+    </message>
+    <message>
         <source>%1: %2 completed from %3 (%4)</source>
         <translation>%1：%2 已从 %3 补全 (%4)</translation>
     </message>
@@ -5277,6 +5353,14 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>built on %1</source>
         <translation>构建于 %1</translation>
+    </message>
+    <message>
+        <source>no callsign</source>
+        <translation>没有呼号</translation>
+    </message>
+    <message>
+        <source>no callbook is set up: Setup -&gt; Callbook</source>
+        <translation>没有设置呼号簿：设置 → 呼号簿</translation>
     </message>
     <message>
         <source>radio (CAT)</source>
@@ -5495,6 +5579,24 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
+    <message>
+        <source>QSL sent to %1</source>
+        <translation>QSL 已发给 %1</translation>
+    </message>
+    <message>
+        <source>QSL not sent to %1: %2</source>
+        <translation>QSL 没能发给 %1：%2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSL sent by email</source>
+        <translation>
+            <numerusform>已用邮件发出 %n 张 QSL</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 sent, %2 not</source>
+        <translation>%1 张发出，%2 张没有</translation>
+    </message>
     <message numerus="yes">
         <source>%n QSO in the paper queue</source>
         <translation>
@@ -5646,6 +5748,40 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>QSL cards: %1 (%2)</source>
         <translation>QSL 卡片：%1 (%2)</translation>
+    </message>
+    <message>
+        <source>No QSO to send a card to.</source>
+        <translation>没有可以发卡片的 QSO。</translation>
+    </message>
+    <message>
+        <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>
+        <translation>先把发信邮箱准备好：设置 → QSL 服务。</translation>
+    </message>
+    <message>
+        <source>The card has no fields yet: nothing to send.</source>
+        <translation>卡片上还没有字段：没有可发的内容。</translation>
+    </message>
+    <message>
+        <source>Sending by email is not available.</source>
+        <translation>用邮件发送暂时不可用。</translation>
+    </message>
+    <message numerus="yes">
+        <source>Looking up %n address(es)…</source>
+        <translation>
+            <numerusform>正在查 %n 个地址…</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No password for the outgoing mailbox.</source>
+        <translation>缺少邮箱密码。</translation>
+    </message>
+    <message>
+        <source>%1: no email in the callbook (%2)</source>
+        <translation>%1：呼号簿里没有邮箱（%2）</translation>
+    </message>
+    <message>
+        <source>Sending stopped.</source>
+        <translation>发送已停止。</translation>
     </message>
 </context>
 <context>
@@ -6208,6 +6344,18 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>来自你的 HamAlert 触发器的点报（telnet）</translation>
     </message>
     <message>
+        <source>Outgoing mailbox</source>
+        <translation>发信邮箱</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>地址</translation>
+    </message>
+    <message>
+        <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
+        <translation>用邮件发送 QSL 卡片。Gmail 要的是应用专用密码，不是账号密码。</translation>
+    </message>
+    <message>
         <source>Account saved</source>
         <translation>账户已保存</translation>
     </message>
@@ -6255,6 +6403,33 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>LoTW: %1</source>
         <translation>LoTW：%1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::MailSender</name>
+    <message>
+        <source>the mail server did not answer</source>
+        <translation>邮件服务器没有回应</translation>
+    </message>
+    <message>
+        <source>no outgoing mailbox is set up</source>
+        <translation>没有准备好发信邮箱</translation>
+    </message>
+    <message>
+        <source>no email address for this station</source>
+        <translation>这个电台没有邮箱地址</translation>
+    </message>
+    <message>
+        <source>connection lost</source>
+        <translation>连接断开</translation>
+    </message>
+    <message>
+        <source>the mail server&apos;s certificate is not trusted (%1)</source>
+        <translation>邮件服务器的证书不可信（%1）</translation>
+    </message>
+    <message>
+        <source>the mail server does not offer an encrypted connection (STARTTLS)</source>
+        <translation>邮件服务器不提供加密连接（STARTTLS）</translation>
     </message>
 </context>
 <context>

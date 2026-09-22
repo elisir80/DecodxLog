@@ -2618,8 +2618,48 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Katrai savs PNG…</translation>
     </message>
     <message>
+        <source>Sending…</source>
+        <translation>Sūta…</translation>
+    </message>
+    <message>
+        <source>Send by email…</source>
+        <translation>Sūtīt pa e-pastu…</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). What goes out is sent by your own mailbox.</source>
+        <translation>Adresi zina izsaukuma signālu grāmata (QRZ.com vai HamQTH). Tas, kas aiziet, aiziet no tavas pastkastītes.</translation>
+    </message>
+    <message>
+        <source>First set up the outgoing mailbox: Setup → QSL services.</source>
+        <translation>Vispirms sagatavo izejošo pastkastīti: Iestatījumi → QSL pakalpojumi.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Stop</translation>
+    </message>
+    <message>
         <source>Nothing chosen in the queue: the whole queue becomes cards.</source>
         <translation>Rindā nekas nav izvēlēts: par kartītēm kļūst visa rinda.</translation>
+    </message>
+    <message>
+        <source>Send the card by email</source>
+        <translation>Nosūtīt kartīti pa e-pastu</translation>
+    </message>
+    <message>
+        <source>From %1. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so.</source>
+        <translation>No %1. Katram izvēlētajam QSO adresi jautā grāmatai, kartīti uzzīmē un nosūta kā PNG pielikumu. Stacijas, kurām grāmatā nav e-pasta, izlaiž, un pasaka, kuras.</translation>
+    </message>
+    <message>
+        <source>There is no outgoing mailbox yet. It goes in Setup → QSL services: the address and the password of the mailbox the cards go out from.</source>
+        <translation>Izejošās pastkastītes vēl nav. To sagatavo sadaļā Iestatījumi → QSL pakalpojumi: tās pastkastītes adrese un parole, no kuras kartītes aiziet.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Atcelt</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Sūtīt</translation>
     </message>
     <message>
         <source>The image of your QSL card</source>
@@ -4152,6 +4192,38 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Club Log vajadzīgas trīs lietas: konta e-pasts un parole (zemāk), stacijas profila izsaukuma signāls un API atslēga. Atslēga ir bez maksas un personiska, un to pieprasa clublog.org/need_api.php — tā apzīmē programmu, nevis tevi. Viens QSO aiziet uzreiz pēc ierakstīšanas, uzkrājums aiziet kā viens ADIF fails.</translation>
     </message>
     <message>
+        <source>QSL by email</source>
+        <translation>QSL pa e-pastu</translation>
+    </message>
+    <message>
+        <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
+        <translation>Kartīte aiziet no tavas pastkastītes, bet saņēmēja adresi zina izsaukuma signālu grāmata — QRZ.com vai HamQTH. Gmail tam prasa lietotnes paroli, nevis to, ar kuru ieej: to izveido vietnē myaccount.google.com/apppasswords. Nekas neaiziet, ja tu to neprasi: poga ir sadaļā QSL kartīte → Sūtīt pa e-pastu.</translation>
+    </message>
+    <message>
+        <source>Mail server</source>
+        <translation>Pasta serveris</translation>
+    </message>
+    <message>
+        <source>Your name in the message</source>
+        <translation>Tavs vārds ziņā</translation>
+    </message>
+    <message>
+        <source>587 asks for encryption with STARTTLS, 465 is encrypted from the first byte. A server that offers neither is refused: the password travels through there.</source>
+        <translation>587 prasa šifrēšanu ar STARTTLS, 465 ir šifrēts no pirmā baita. Serveri, kas nepiedāvā nevienu no tiem, atsaka: pa turieni iet parole.</translation>
+    </message>
+    <message>
+        <source>Subject</source>
+        <translation>Temats</translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <translation>Ziņa</translation>
+    </message>
+    <message>
+        <source>In the subject and the message: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} for the station you worked, {MYCALL} and {MYNAME} for yourself.</source>
+        <translation>Tematā un ziņā: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} nostrādātajai stacijai, {MYCALL} un {MYNAME} tev pašam.</translation>
+    </message>
+    <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
         <translation>%1 nosūtīti · %2 rindā · %3 apstiprināti</translation>
     </message>
@@ -5237,6 +5309,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>%1: %2 atrasts</translation>
     </message>
     <message>
+        <source>%1 is in the callbook but has no email there</source>
+        <translation>%1 ir grāmatā, bet tur nav e-pasta</translation>
+    </message>
+    <message>
         <source>%1: %2 completed from %3 (%4)</source>
         <translation>%1: %2 papildināts no %3 (%4)</translation>
     </message>
@@ -5311,6 +5387,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>built on %1</source>
         <translation>būvēts %1</translation>
+    </message>
+    <message>
+        <source>no callsign</source>
+        <translation>nav izsaukuma signāla</translation>
+    </message>
+    <message>
+        <source>no callbook is set up: Setup -&gt; Callbook</source>
+        <translation>nav iestatīta neviena grāmata: Iestatījumi → Grāmata</translation>
     </message>
     <message>
         <source>radio (CAT)</source>
@@ -5539,6 +5623,26 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
+    <message>
+        <source>QSL sent to %1</source>
+        <translation>QSL nosūtīta uz %1</translation>
+    </message>
+    <message>
+        <source>QSL not sent to %1: %2</source>
+        <translation>QSL nav nosūtīta uz %1: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSL sent by email</source>
+        <translation>
+            <numerusform>%n QSL nosūtīta pa e-pastu</numerusform>
+            <numerusform>%n QSL nosūtītas pa e-pastu</numerusform>
+            <numerusform>%n QSL nosūtītu pa e-pastu</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 sent, %2 not</source>
+        <translation>%1 nosūtītas, %2 ne</translation>
+    </message>
     <message numerus="yes">
         <source>%n QSO in the paper queue</source>
         <translation>
@@ -5702,6 +5806,42 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>QSL cards: %1 (%2)</source>
         <translation>QSL kartītes: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>No QSO to send a card to.</source>
+        <translation>Nav neviena QSO, kuram sūtīt kartīti.</translation>
+    </message>
+    <message>
+        <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>
+        <translation>Vispirms sagatavo izejošo pastkastīti: Iestatījumi → QSL pakalpojumi.</translation>
+    </message>
+    <message>
+        <source>The card has no fields yet: nothing to send.</source>
+        <translation>Kartītei vēl nav neviena lauka: nav ko sūtīt.</translation>
+    </message>
+    <message>
+        <source>Sending by email is not available.</source>
+        <translation>Sūtīšana pa e-pastu nav pieejama.</translation>
+    </message>
+    <message numerus="yes">
+        <source>Looking up %n address(es)…</source>
+        <translation>
+            <numerusform>Meklēju %n adresi…</numerusform>
+            <numerusform>Meklēju %n adreses…</numerusform>
+            <numerusform>Meklēju %n adrešu…</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No password for the outgoing mailbox.</source>
+        <translation>Trūkst pastkastītes paroles.</translation>
+    </message>
+    <message>
+        <source>%1: no email in the callbook (%2)</source>
+        <translation>%1: grāmatā nav e-pasta (%2)</translation>
+    </message>
+    <message>
+        <source>Sending stopped.</source>
+        <translation>Sūtīšana apturēta.</translation>
     </message>
 </context>
 <context>
@@ -6274,6 +6414,18 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Spoti no taviem HamAlert trigeriem (telnet)</translation>
     </message>
     <message>
+        <source>Outgoing mailbox</source>
+        <translation>Izejošā pastkastīte</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Adrese</translation>
+    </message>
+    <message>
+        <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
+        <translation>Sūtīt QSL kartītes pa e-pastu. Gmail prasa lietotnes paroli, nevis konta paroli.</translation>
+    </message>
+    <message>
         <source>Account saved</source>
         <translation>Konts saglabāts</translation>
     </message>
@@ -6321,6 +6473,33 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>LoTW: %1</source>
         <translation>LoTW: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::MailSender</name>
+    <message>
+        <source>the mail server did not answer</source>
+        <translation>pasta serveris neatbildēja</translation>
+    </message>
+    <message>
+        <source>no outgoing mailbox is set up</source>
+        <translation>nav sagatavota izejošā pastkastīte</translation>
+    </message>
+    <message>
+        <source>no email address for this station</source>
+        <translation>šai stacijai nav e-pasta adreses</translation>
+    </message>
+    <message>
+        <source>connection lost</source>
+        <translation>savienojums pārtrūka</translation>
+    </message>
+    <message>
+        <source>the mail server&apos;s certificate is not trusted (%1)</source>
+        <translation>pasta servera sertifikātam nevar uzticēties (%1)</translation>
+    </message>
+    <message>
+        <source>the mail server does not offer an encrypted connection (STARTTLS)</source>
+        <translation>pasta serveris nepiedāvā šifrētu savienojumu (STARTTLS)</translation>
     </message>
 </context>
 <context>

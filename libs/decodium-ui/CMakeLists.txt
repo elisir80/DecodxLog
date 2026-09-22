@@ -26,6 +26,7 @@ set(DECODIUM_UI_QML_FILES
     qml/Led.qml
     qml/StyledMenu.qml
     qml/PanelScrollBar.qml
+    qml/StyledTextArea.qml
     qml/StyledMenuItem.qml
 )
 

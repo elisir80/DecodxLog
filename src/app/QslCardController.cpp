@@ -1,5 +1,6 @@
 #include "app/QslCardController.h"
 
+#include "core/CredentialStore.h"
 #include "core/LogDatabase.h"
 #include "core/QslCards.h"
 
@@ -7,7 +8,10 @@
 
 #include <algorithm>
 #include <QDir>
+#include <QBuffer>
+#include <QImage>
 #include <QImageReader>
+#include <QPainter>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QSettings>
@@ -43,6 +47,32 @@ QslCardController::QslCardController(Context context, QObject* parent)
     , m_ctx(std::move(context))
 {
     loadCard();
+    loadMail();
+
+    connect(&m_mail, &core::MailSender::sent, this, [this](qint64 id, const QString& to) {
+        ++m_mailSent;
+        // Una QSL partita e' una QSL mandata: la coda lo registra, con la via
+        // elettronica, cosi' non si rimanda la stessa cartolina due volte.
+        touch(id, QStringLiteral("Y"), QString(), QStringLiteral("E"));
+        note(tr("QSL sent to %1").arg(to), QStringLiteral("success"));
+        emit changed();
+        emit mailChanged();
+    });
+    connect(&m_mail, &core::MailSender::failed, this,
+            [this](qint64, const QString& to, const QString& error) {
+                ++m_mailFailed;
+                note(to.isEmpty() ? error : tr("QSL not sent to %1: %2").arg(to, error),
+                     QStringLiteral("error"));
+                emit mailChanged();
+            });
+    connect(&m_mail, &core::MailSender::finished, this, [this] {
+        if (m_mailWaiting > 0)
+            return;   // altre stanno ancora aspettando l'email dal callbook
+        m_mailStatus = m_mailFailed == 0
+                           ? tr("%n QSL sent by email", nullptr, m_mailSent)
+                           : tr("%1 sent, %2 not").arg(m_mailSent).arg(m_mailFailed);
+        emit mailChanged();
+    });
 }
 
 QVariantList QslCardController::rows(const QString& state, int limit) const
@@ -513,6 +543,217 @@ QString QslCardController::writeCardsPng(const QUrl& folder, const QVariantList&
     note(tr("QSL cards: %1 (%2)").arg(m_status, QDir::toNativeSeparators(dir)), QStringLiteral("success"));
     emit changed();
     return dir;
+}
+
+// ── Mandare le cartoline per email ──────────────────────────────────────────
+
+namespace {
+
+// Quello che si scrive nell'email quando non lo si e' scritto nelle
+// impostazioni. I segnaposto sono gli stessi che si vedono nel riquadro.
+const char* kDefaultSubject = "QSL {MYCALL} -> {CALL}";
+const char* kDefaultBody =
+    "Dear {NAME},\n"
+    "\n"
+    "thank you for the QSO on {DATE} at {TIME} UTC, {BAND} {MODE}, RST {RST}.\n"
+    "My QSL card is attached. A QSL from you would be very welcome.\n"
+    "\n"
+    "73 de {MYCALL}\n";
+
+QString fill(const QString& text, const QVariantMap& qso, const QVariantMap& station)
+{
+    QString out = text;
+    auto put = [&out](const char* key, const QString& value) {
+        out.replace(QLatin1String(key), value);
+    };
+    put("{CALL}", qso.value(QStringLiteral("call")).toString());
+    put("{NAME}", qso.value(QStringLiteral("name")).toString().isEmpty()
+                      ? qso.value(QStringLiteral("call")).toString()
+                      : qso.value(QStringLiteral("name")).toString());
+    put("{DATE}", qso.value(QStringLiteral("date")).toString());
+    const QString time = qso.value(QStringLiteral("time")).toString();
+    put("{TIME}", time.size() == 4 ? time.left(2) + QLatin1Char(':') + time.mid(2) : time);
+    put("{BAND}", qso.value(QStringLiteral("band")).toString());
+    put("{MODE}", qso.value(QStringLiteral("mode")).toString());
+    put("{RST}", qso.value(QStringLiteral("rst")).toString());
+    put("{MYCALL}", station.value(QStringLiteral("call")).toString());
+    put("{MYNAME}", station.value(QStringLiteral("name")).toString());
+    return out;
+}
+
+} // namespace
+
+void QslCardController::loadMail()
+{
+    QSettings s;
+    core::MailAccount account;
+    account.host = s.value(QStringLiteral("mail/host"), QStringLiteral("smtp.gmail.com")).toString();
+    account.port = s.value(QStringLiteral("mail/port"), 587).toInt();
+    account.fromName = s.value(QStringLiteral("mail/fromName")).toString();
+    // L'indirizzo e' quello del portachiavi: e' lo stesso con cui ci si
+    // autentica, e tenerne due sarebbe un modo per sbagliarli.
+    if (m_ctx.credentials)
+        account.user = m_ctx.credentials->account(QStringLiteral("mail"));
+    m_mail.setAccount(account);
+}
+
+QVariantMap QslCardController::mail() const
+{
+    const core::MailAccount a = m_mail.account();
+    QSettings s;
+    return QVariantMap{
+        {QStringLiteral("host"), a.host},
+        {QStringLiteral("port"), a.port},
+        {QStringLiteral("address"), a.user},
+        {QStringLiteral("fromName"), a.fromName},
+        {QStringLiteral("subject"), s.value(QStringLiteral("mail/subject"),
+                                            QLatin1String(kDefaultSubject)).toString()},
+        {QStringLiteral("body"), s.value(QStringLiteral("mail/body"),
+                                         QLatin1String(kDefaultBody)).toString()},
+        {QStringLiteral("ready"), !a.host.trimmed().isEmpty() && !a.user.trimmed().isEmpty()},
+    };
+}
+
+bool QslCardController::mailBusy() const
+{
+    return m_mailWaiting > 0 || m_mail.busy();
+}
+
+void QslCardController::setMail(const QVariantMap& settings)
+{
+    QSettings s;
+    if (settings.contains(QStringLiteral("host")))
+        s.setValue(QStringLiteral("mail/host"), settings.value(QStringLiteral("host")).toString().trimmed());
+    if (settings.contains(QStringLiteral("port")))
+        s.setValue(QStringLiteral("mail/port"), qBound(1, settings.value(QStringLiteral("port")).toInt(), 65535));
+    if (settings.contains(QStringLiteral("fromName")))
+        s.setValue(QStringLiteral("mail/fromName"), settings.value(QStringLiteral("fromName")).toString());
+    if (settings.contains(QStringLiteral("subject")))
+        s.setValue(QStringLiteral("mail/subject"), settings.value(QStringLiteral("subject")).toString());
+    if (settings.contains(QStringLiteral("body")))
+        s.setValue(QStringLiteral("mail/body"), settings.value(QStringLiteral("body")).toString());
+    loadMail();
+    emit mailChanged();
+}
+
+QString QslCardController::mailBodyFor(const QVariantMap& qso) const
+{
+    return fill(QSettings().value(QStringLiteral("mail/body"), QLatin1String(kDefaultBody)).toString(),
+                qso, stationInfo());
+}
+
+void QslCardController::queueCard(const QVariantMap& qso, const QString& email)
+{
+    // La cartolina si disegna qui, in memoria: non serve lasciare file in giro
+    // per mandarne uno.
+    const QImage background(m_card.templatePath);
+    const QSize size = background.isNull() ? QSize(1748, 1240) : background.size();
+    QImage image(size, QImage::Format_RGB32);
+    image.fill(Qt::white);
+    {
+        QPainter painter(&image);
+        painter.setRenderHint(QPainter::Antialiasing, true);
+        painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+        core::qsldesign::paint(painter, QRectF(QPointF(0, 0), QSizeF(size)), background,
+                               m_card, qso, stationInfo());
+    }
+    QByteArray png;
+    QBuffer buffer(&png);
+    buffer.open(QIODevice::WriteOnly);
+    image.save(&buffer, "PNG");
+
+    const QString call = qso.value(QStringLiteral("call")).toString().toUpper();
+    core::MailMessage message;
+    message.tag = qso.value(QStringLiteral("id")).toLongLong();
+    message.to = email;
+    message.subject = fill(QSettings().value(QStringLiteral("mail/subject"),
+                                             QLatin1String(kDefaultSubject)).toString(),
+                           qso, stationInfo());
+    message.body = mailBodyFor(qso);
+    message.attachmentName = QStringLiteral("%1-%2.png")
+                                 .arg(call, qso.value(QStringLiteral("date")).toString()
+                                                .remove(QLatin1Char('-')));
+    message.attachment = png;
+    m_mail.send(message);
+}
+
+void QslCardController::sendCardsByEmail(const QVariantList& ids)
+{
+    const QList<QVariantMap> qsos = chosenQsos(ids);
+    if (qsos.isEmpty()) {
+        m_mailStatus = tr("No QSO to send a card to.");
+        note(m_mailStatus, QStringLiteral("warning"));
+        emit mailChanged();
+        return;
+    }
+    if (!mail().value(QStringLiteral("ready")).toBool()) {
+        m_mailStatus = tr("Set up the outgoing mailbox first: Setup -> QSL services.");
+        note(m_mailStatus, QStringLiteral("warning"));
+        emit mailChanged();
+        return;
+    }
+    if (m_card.fields.isEmpty()) {
+        m_mailStatus = tr("The card has no fields yet: nothing to send.");
+        note(m_mailStatus, QStringLiteral("warning"));
+        emit mailChanged();
+        return;
+    }
+    if (!m_ctx.credentials || !m_ctx.emailFor) {
+        m_mailStatus = tr("Sending by email is not available.");
+        emit mailChanged();
+        return;
+    }
+
+    m_mailSent = 0;
+    m_mailFailed = 0;
+    m_mailWaiting = static_cast<int>(qsos.size());
+    m_mailStatus = tr("Looking up %n address(es)…", nullptr, static_cast<int>(qsos.size()));
+    emit mailChanged();
+
+    // La password sta nel portachiavi: si chiede una volta sola, e solo adesso
+    // che serve davvero.
+    m_ctx.credentials->readSecret(QStringLiteral("mail"), [this, qsos](const QString& secret,
+                                                                      const QString& error) {
+        if (secret.isEmpty()) {
+            m_mailWaiting = 0;
+            m_mailStatus = error.isEmpty()
+                               ? tr("No password for the outgoing mailbox.")
+                               : error;
+            note(m_mailStatus, QStringLiteral("error"));
+            emit mailChanged();
+            return;
+        }
+        core::MailAccount account = m_mail.account();
+        account.password = secret;
+        m_mail.setAccount(account);
+
+        for (const QVariantMap& qso : qsos) {
+            const QString call = qso.value(QStringLiteral("call")).toString();
+            m_ctx.emailFor(call, [this, qso, call](const QString& email, const QString& why) {
+                --m_mailWaiting;
+                if (email.isEmpty()) {
+                    ++m_mailFailed;
+                    note(tr("%1: no email in the callbook (%2)").arg(call, why),
+                         QStringLiteral("warning"));
+                    emit mailChanged();
+                } else {
+                    queueCard(qso, email);
+                }
+                if (m_mailWaiting == 0 && !m_mail.busy()) {
+                    m_mailStatus = tr("%1 sent, %2 not").arg(m_mailSent).arg(m_mailFailed);
+                    emit mailChanged();
+                }
+            });
+        }
+    });
+}
+
+void QslCardController::cancelMail()
+{
+    m_mailWaiting = 0;
+    m_mail.cancel();
+    m_mailStatus = tr("Sending stopped.");
+    emit mailChanged();
 }
 
 void QslCardController::refresh()

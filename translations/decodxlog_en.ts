@@ -2614,8 +2614,48 @@ The call Decodium is working shows up here by itself.</source>
         <translation>One PNG each…</translation>
     </message>
     <message>
+        <source>Sending…</source>
+        <translation>Sending…</translation>
+    </message>
+    <message>
+        <source>Send by email…</source>
+        <translation>Send by email…</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). What goes out is sent by your own mailbox.</source>
+        <translation>The address comes from the callbook (QRZ.com or HamQTH). What goes out is sent by your own mailbox.</translation>
+    </message>
+    <message>
+        <source>First set up the outgoing mailbox: Setup → QSL services.</source>
+        <translation>First set up the outgoing mailbox: Setup → QSL services.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Nothing chosen in the queue: the whole queue becomes cards.</source>
         <translation>Nothing chosen in the queue: the whole queue becomes cards.</translation>
+    </message>
+    <message>
+        <source>Send the card by email</source>
+        <translation>Send the card by email</translation>
+    </message>
+    <message>
+        <source>From %1. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so.</source>
+        <translation>From %1. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so.</translation>
+    </message>
+    <message>
+        <source>There is no outgoing mailbox yet. It goes in Setup → QSL services: the address and the password of the mailbox the cards go out from.</source>
+        <translation>There is no outgoing mailbox yet. It goes in Setup → QSL services: the address and the password of the mailbox the cards go out from.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The image of your QSL card</source>
@@ -4145,6 +4185,38 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>QSL by email</source>
+        <translation>QSL by email</translation>
+    </message>
+    <message>
+        <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
+        <translation>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</translation>
+    </message>
+    <message>
+        <source>Mail server</source>
+        <translation>Mail server</translation>
+    </message>
+    <message>
+        <source>Your name in the message</source>
+        <translation>Your name in the message</translation>
+    </message>
+    <message>
+        <source>587 asks for encryption with STARTTLS, 465 is encrypted from the first byte. A server that offers neither is refused: the password travels through there.</source>
+        <translation>587 asks for encryption with STARTTLS, 465 is encrypted from the first byte. A server that offers neither is refused: the password travels through there.</translation>
+    </message>
+    <message>
+        <source>Subject</source>
+        <translation>Subject</translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <translation>Message</translation>
+    </message>
+    <message>
+        <source>In the subject and the message: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} for the station you worked, {MYCALL} and {MYNAME} for yourself.</source>
+        <translation>In the subject and the message: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} for the station you worked, {MYCALL} and {MYNAME} for yourself.</translation>
+    </message>
+    <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5221,6 +5293,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>%1 is in the callbook but has no email there</source>
+        <translation>%1 is in the callbook but has no email there</translation>
+    </message>
+    <message>
         <source>%1: %2 completed from %3 (%4)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5293,6 +5369,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>built on %1</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>no callsign</source>
+        <translation>no callsign</translation>
+    </message>
+    <message>
+        <source>no callbook is set up: Setup -&gt; Callbook</source>
+        <translation>no callbook is set up: Setup -&gt; Callbook</translation>
     </message>
     <message>
         <source>radio (CAT)</source>
@@ -5516,6 +5600,25 @@ The call Decodium is working shows up here by itself.</source>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
+    <message>
+        <source>QSL sent to %1</source>
+        <translation>QSL sent to %1</translation>
+    </message>
+    <message>
+        <source>QSL not sent to %1: %2</source>
+        <translation>QSL not sent to %1: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSL sent by email</source>
+        <translation>
+            <numerusform>%n QSL sent by email</numerusform>
+            <numerusform>%n QSLs sent by email</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 sent, %2 not</source>
+        <translation>%1 sent, %2 not</translation>
+    </message>
     <message numerus="yes">
         <source>%n QSO in the paper queue</source>
         <translation type="unfinished">
@@ -5673,6 +5776,41 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>QSL cards: %1 (%2)</source>
         <translation>QSL cards: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>No QSO to send a card to.</source>
+        <translation>No QSO to send a card to.</translation>
+    </message>
+    <message>
+        <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>
+        <translation>Set up the outgoing mailbox first: Setup -&gt; QSL services.</translation>
+    </message>
+    <message>
+        <source>The card has no fields yet: nothing to send.</source>
+        <translation>The card has no fields yet: nothing to send.</translation>
+    </message>
+    <message>
+        <source>Sending by email is not available.</source>
+        <translation>Sending by email is not available.</translation>
+    </message>
+    <message numerus="yes">
+        <source>Looking up %n address(es)…</source>
+        <translation>
+            <numerusform>Looking up %n address…</numerusform>
+            <numerusform>Looking up %n addresses…</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No password for the outgoing mailbox.</source>
+        <translation>No password for the outgoing mailbox.</translation>
+    </message>
+    <message>
+        <source>%1: no email in the callbook (%2)</source>
+        <translation>%1: no email in the callbook (%2)</translation>
+    </message>
+    <message>
+        <source>Sending stopped.</source>
+        <translation>Sending stopped.</translation>
     </message>
 </context>
 <context>
@@ -6240,6 +6378,18 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Outgoing mailbox</source>
+        <translation>Outgoing mailbox</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
+        <translation>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</translation>
+    </message>
+    <message>
         <source>Account saved</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6287,6 +6437,33 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>LoTW: %1</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::MailSender</name>
+    <message>
+        <source>the mail server did not answer</source>
+        <translation>the mail server did not answer</translation>
+    </message>
+    <message>
+        <source>no outgoing mailbox is set up</source>
+        <translation>no outgoing mailbox is set up</translation>
+    </message>
+    <message>
+        <source>no email address for this station</source>
+        <translation>no email address for this station</translation>
+    </message>
+    <message>
+        <source>connection lost</source>
+        <translation>connection lost</translation>
+    </message>
+    <message>
+        <source>the mail server&apos;s certificate is not trusted (%1)</source>
+        <translation>the mail server&apos;s certificate is not trusted (%1)</translation>
+    </message>
+    <message>
+        <source>the mail server does not offer an encrypted connection (STARTTLS)</source>
+        <translation>the mail server does not offer an encrypted connection (STARTTLS)</translation>
     </message>
 </context>
 <context>

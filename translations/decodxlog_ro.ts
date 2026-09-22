@@ -2618,8 +2618,48 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Câte un PNG…</translation>
     </message>
     <message>
+        <source>Sending…</source>
+        <translation>Se trimite…</translation>
+    </message>
+    <message>
+        <source>Send by email…</source>
+        <translation>Trimite prin email…</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). What goes out is sent by your own mailbox.</source>
+        <translation>Adresa o știe callbook-ul (QRZ.com sau HamQTH). Ce pleacă, pleacă din cutia ta poștală.</translation>
+    </message>
+    <message>
+        <source>First set up the outgoing mailbox: Setup → QSL services.</source>
+        <translation>Pregătește întâi cutia de trimitere: Setări → Servicii QSL.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Stop</translation>
+    </message>
+    <message>
         <source>Nothing chosen in the queue: the whole queue becomes cards.</source>
         <translation>Nimic ales în coadă: toată coada devine cărți.</translation>
+    </message>
+    <message>
+        <source>Send the card by email</source>
+        <translation>Trimite cartea prin email</translation>
+    </message>
+    <message>
+        <source>From %1. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so.</source>
+        <translation>De la %1. Pentru fiecare QSO ales adresa se cere callbook-ului, cartea se desenează și pleacă ca atașament PNG. Stațiile pentru care callbook-ul nu are email se sar, și se spune care.</translation>
+    </message>
+    <message>
+        <source>There is no outgoing mailbox yet. It goes in Setup → QSL services: the address and the password of the mailbox the cards go out from.</source>
+        <translation>Încă nu există o cutie de trimitere. Se pregătește în Setări → Servicii QSL: adresa și parola cutiei din care pleacă cărțile.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anulează</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Trimite</translation>
     </message>
     <message>
         <source>The image of your QSL card</source>
@@ -4152,6 +4192,38 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Club Log vrea trei lucruri: adresa de e-mail și parola contului (mai jos), indicativul profilului de stație și o cheie API. Cheia este gratuită și personală și se cere la clublog.org/need_api.php — identifică programul, nu pe tine. Un singur QSO pleacă imediat ce este înregistrat, o restanță pleacă într-un singur fișier ADIF.</translation>
     </message>
     <message>
+        <source>QSL by email</source>
+        <translation>QSL prin email</translation>
+    </message>
+    <message>
+        <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
+        <translation>Cartea pleacă din cutia ta poștală, iar adresa celui care o primește o știe callbook-ul — QRZ.com sau HamQTH. Gmail cere pentru asta o parolă de aplicație, nu cea cu care intri: se face pe myaccount.google.com/apppasswords. Nimic nu pleacă fără să ceri tu: butonul e în Carte QSL → Trimite prin email.</translation>
+    </message>
+    <message>
+        <source>Mail server</source>
+        <translation>Server de email</translation>
+    </message>
+    <message>
+        <source>Your name in the message</source>
+        <translation>Numele tău în mesaj</translation>
+    </message>
+    <message>
+        <source>587 asks for encryption with STARTTLS, 465 is encrypted from the first byte. A server that offers neither is refused: the password travels through there.</source>
+        <translation>587 cere criptarea cu STARTTLS, 465 e criptat de la primul octet. Un server care nu oferă niciuna dintre ele e refuzat: pe acolo trece parola.</translation>
+    </message>
+    <message>
+        <source>Subject</source>
+        <translation>Subiect</translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <translation>Mesaj</translation>
+    </message>
+    <message>
+        <source>In the subject and the message: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} for the station you worked, {MYCALL} and {MYNAME} for yourself.</source>
+        <translation>În subiect și în mesaj: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} pentru stația lucrată, {MYCALL} și {MYNAME} pentru tine.</translation>
+    </message>
+    <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
         <translation>%1 trimise · %2 la coadă · %3 confirmate</translation>
     </message>
@@ -5237,6 +5309,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>%1: %2 găsit</translation>
     </message>
     <message>
+        <source>%1 is in the callbook but has no email there</source>
+        <translation>%1 e în callbook, dar acolo nu are email</translation>
+    </message>
+    <message>
         <source>%1: %2 completed from %3 (%4)</source>
         <translation>%1: %2 completat din %3 (%4)</translation>
     </message>
@@ -5311,6 +5387,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>built on %1</source>
         <translation>compilat pe %1</translation>
+    </message>
+    <message>
+        <source>no callsign</source>
+        <translation>niciun indicativ</translation>
+    </message>
+    <message>
+        <source>no callbook is set up: Setup -&gt; Callbook</source>
+        <translation>niciun callbook setat: Setări → Callbook</translation>
     </message>
     <message>
         <source>radio (CAT)</source>
@@ -5539,6 +5623,26 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
+    <message>
+        <source>QSL sent to %1</source>
+        <translation>QSL trimisă la %1</translation>
+    </message>
+    <message>
+        <source>QSL not sent to %1: %2</source>
+        <translation>QSL netrimisă la %1: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSL sent by email</source>
+        <translation>
+            <numerusform>%n QSL trimisă prin email</numerusform>
+            <numerusform>%n QSL trimise prin email</numerusform>
+            <numerusform>%n de QSL trimise prin email</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 sent, %2 not</source>
+        <translation>%1 trimise, %2 nu</translation>
+    </message>
     <message numerus="yes">
         <source>%n QSO in the paper queue</source>
         <translation>
@@ -5702,6 +5806,42 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>QSL cards: %1 (%2)</source>
         <translation>Cărți QSL: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>No QSO to send a card to.</source>
+        <translation>Niciun QSO căruia să-i trimiți o carte.</translation>
+    </message>
+    <message>
+        <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>
+        <translation>Pregătește întâi cutia de trimitere: Setări → Servicii QSL.</translation>
+    </message>
+    <message>
+        <source>The card has no fields yet: nothing to send.</source>
+        <translation>Cartea nu are încă niciun câmp: nu e nimic de trimis.</translation>
+    </message>
+    <message>
+        <source>Sending by email is not available.</source>
+        <translation>Trimiterea prin email nu e disponibilă.</translation>
+    </message>
+    <message numerus="yes">
+        <source>Looking up %n address(es)…</source>
+        <translation>
+            <numerusform>Caut %n adresă…</numerusform>
+            <numerusform>Caut %n adrese…</numerusform>
+            <numerusform>Caut %n de adrese…</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No password for the outgoing mailbox.</source>
+        <translation>Lipsește parola cutiei poștale.</translation>
+    </message>
+    <message>
+        <source>%1: no email in the callbook (%2)</source>
+        <translation>%1: în callbook nu e niciun email (%2)</translation>
+    </message>
+    <message>
+        <source>Sending stopped.</source>
+        <translation>Trimiterea s-a oprit.</translation>
     </message>
 </context>
 <context>
@@ -6274,6 +6414,18 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Spoturi de la declanșatoarele tale HamAlert (telnet)</translation>
     </message>
     <message>
+        <source>Outgoing mailbox</source>
+        <translation>Cutia de trimitere</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Adresă</translation>
+    </message>
+    <message>
+        <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
+        <translation>Trimite cărțile QSL prin email. Gmail cere o parolă de aplicație, nu pe cea a contului.</translation>
+    </message>
+    <message>
         <source>Account saved</source>
         <translation>Cont salvat</translation>
     </message>
@@ -6321,6 +6473,33 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>LoTW: %1</source>
         <translation>LoTW: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::MailSender</name>
+    <message>
+        <source>the mail server did not answer</source>
+        <translation>serverul de email nu a răspuns</translation>
+    </message>
+    <message>
+        <source>no outgoing mailbox is set up</source>
+        <translation>nu e pregătită nicio cutie de trimitere</translation>
+    </message>
+    <message>
+        <source>no email address for this station</source>
+        <translation>pentru stația asta nu există o adresă de email</translation>
+    </message>
+    <message>
+        <source>connection lost</source>
+        <translation>legătura s-a pierdut</translation>
+    </message>
+    <message>
+        <source>the mail server&apos;s certificate is not trusted (%1)</source>
+        <translation>certificatul serverului de email nu e de încredere (%1)</translation>
+    </message>
+    <message>
+        <source>the mail server does not offer an encrypted connection (STARTTLS)</source>
+        <translation>serverul de email nu oferă o legătură criptată (STARTTLS)</translation>
     </message>
 </context>
 <context>

@@ -2615,8 +2615,48 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Elk een PNG…</translation>
     </message>
     <message>
+        <source>Sending…</source>
+        <translation>Bezig met versturen…</translation>
+    </message>
+    <message>
+        <source>Send by email…</source>
+        <translation>Per e-mail versturen…</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). What goes out is sent by your own mailbox.</source>
+        <translation>Het adres kent het roepletterboek (QRZ.com of HamQTH). Wat weggaat, gaat weg uit je eigen mailbox.</translation>
+    </message>
+    <message>
+        <source>First set up the outgoing mailbox: Setup → QSL services.</source>
+        <translation>Richt eerst de uitgaande mailbox in: Instellingen → QSL-diensten.</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Stop</translation>
+    </message>
+    <message>
         <source>Nothing chosen in the queue: the whole queue becomes cards.</source>
         <translation>Niets gekozen in de wachtrij: de hele wachtrij wordt kaarten.</translation>
+    </message>
+    <message>
+        <source>Send the card by email</source>
+        <translation>De kaart per e-mail versturen</translation>
+    </message>
+    <message>
+        <source>From %1. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so.</source>
+        <translation>Vanaf %1. Voor elk gekozen QSO wordt het adres in het roepletterboek opgezocht, de kaart getekend en als PNG-bijlage verstuurd. Stations waarvan het roepletterboek geen e-mail heeft worden overgeslagen, en er wordt gezegd welke.</translation>
+    </message>
+    <message>
+        <source>There is no outgoing mailbox yet. It goes in Setup → QSL services: the address and the password of the mailbox the cards go out from.</source>
+        <translation>Er is nog geen uitgaande mailbox. Die wordt ingericht in Instellingen → QSL-diensten: het adres en het wachtwoord van de mailbox waar de kaarten vandaan gaan.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Versturen</translation>
     </message>
     <message>
         <source>The image of your QSL card</source>
@@ -4146,6 +4186,38 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Club Log wil drie dingen: het e-mailadres en het wachtwoord van de account (hieronder), de roepletters van het stationsprofiel, en een API-sleutel. De sleutel is gratis en persoonlijk, en wordt aangevraagd op clublog.org/need_api.php — hij wijst het programma aan, niet jou. Eén QSO gaat weg zodra het gelogd is, een achterstand gaat als één ADIF-bestand weg.</translation>
     </message>
     <message>
+        <source>QSL by email</source>
+        <translation>QSL per e-mail</translation>
+    </message>
+    <message>
+        <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
+        <translation>De kaart gaat weg uit je eigen mailbox, en het adres van wie hem krijgt kent het roepletterboek — QRZ.com of HamQTH. Gmail wil daarvoor een app-wachtwoord, niet dat waarmee je inlogt: dat maak je op myaccount.google.com/apppasswords. Er gaat niets weg zonder dat je erom vraagt: de knop zit in QSL-kaart → Per e-mail versturen.</translation>
+    </message>
+    <message>
+        <source>Mail server</source>
+        <translation>Mailserver</translation>
+    </message>
+    <message>
+        <source>Your name in the message</source>
+        <translation>Jouw naam in het bericht</translation>
+    </message>
+    <message>
+        <source>587 asks for encryption with STARTTLS, 465 is encrypted from the first byte. A server that offers neither is refused: the password travels through there.</source>
+        <translation>587 vraagt om versleuteling met STARTTLS, 465 is vanaf de eerste byte versleuteld. Een server die geen van beide biedt wordt geweigerd: daar gaat het wachtwoord doorheen.</translation>
+    </message>
+    <message>
+        <source>Subject</source>
+        <translation>Onderwerp</translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <translation>Bericht</translation>
+    </message>
+    <message>
+        <source>In the subject and the message: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} for the station you worked, {MYCALL} and {MYNAME} for yourself.</source>
+        <translation>In het onderwerp en het bericht: {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} voor het gewerkte station, {MYCALL} en {MYNAME} voor jezelf.</translation>
+    </message>
+    <message>
         <source>%1 sent · %2 queued · %3 confirmed</source>
         <translation>%1 verzonden · %2 in de rij · %3 bevestigd</translation>
     </message>
@@ -5222,6 +5294,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>%1: %2 gevonden</translation>
     </message>
     <message>
+        <source>%1 is in the callbook but has no email there</source>
+        <translation>%1 staat in het roepletterboek maar heeft daar geen e-mail</translation>
+    </message>
+    <message>
         <source>%1: %2 completed from %3 (%4)</source>
         <translation>%1: %2 aangevuld uit %3 (%4)</translation>
     </message>
@@ -5294,6 +5370,14 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>built on %1</source>
         <translation>gebouwd op %1</translation>
+    </message>
+    <message>
+        <source>no callsign</source>
+        <translation>geen roepletters</translation>
+    </message>
+    <message>
+        <source>no callbook is set up: Setup -&gt; Callbook</source>
+        <translation>er is geen roepletterboek ingesteld: Instellingen → Roepletterboek</translation>
     </message>
     <message>
         <source>radio (CAT)</source>
@@ -5517,6 +5601,25 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
 </context>
 <context>
     <name>decolog::app::QslCardController</name>
+    <message>
+        <source>QSL sent to %1</source>
+        <translation>QSL verstuurd naar %1</translation>
+    </message>
+    <message>
+        <source>QSL not sent to %1: %2</source>
+        <translation>QSL niet verstuurd naar %1: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSL sent by email</source>
+        <translation>
+            <numerusform>%n QSL per e-mail verstuurd</numerusform>
+            <numerusform>%n QSL's per e-mail verstuurd</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 sent, %2 not</source>
+        <translation>%1 verstuurd, %2 niet</translation>
+    </message>
     <message numerus="yes">
         <source>%n QSO in the paper queue</source>
         <translation>
@@ -5674,6 +5777,41 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>QSL cards: %1 (%2)</source>
         <translation>QSL-kaarten: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>No QSO to send a card to.</source>
+        <translation>Geen QSO om een kaart naartoe te sturen.</translation>
+    </message>
+    <message>
+        <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>
+        <translation>Richt eerst de uitgaande mailbox in: Instellingen → QSL-diensten.</translation>
+    </message>
+    <message>
+        <source>The card has no fields yet: nothing to send.</source>
+        <translation>De kaart heeft nog geen velden: er is niets te versturen.</translation>
+    </message>
+    <message>
+        <source>Sending by email is not available.</source>
+        <translation>Versturen per e-mail is niet beschikbaar.</translation>
+    </message>
+    <message numerus="yes">
+        <source>Looking up %n address(es)…</source>
+        <translation>
+            <numerusform>Ik zoek %n adres…</numerusform>
+            <numerusform>Ik zoek %n adressen…</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No password for the outgoing mailbox.</source>
+        <translation>Het wachtwoord van de mailbox ontbreekt.</translation>
+    </message>
+    <message>
+        <source>%1: no email in the callbook (%2)</source>
+        <translation>%1: geen e-mail in het roepletterboek (%2)</translation>
+    </message>
+    <message>
+        <source>Sending stopped.</source>
+        <translation>Versturen gestopt.</translation>
     </message>
 </context>
 <context>
@@ -6241,6 +6379,18 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Spots van je HamAlert-triggers (telnet)</translation>
     </message>
     <message>
+        <source>Outgoing mailbox</source>
+        <translation>Uitgaande mailbox</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Adres</translation>
+    </message>
+    <message>
+        <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
+        <translation>QSL-kaarten per e-mail versturen. Gmail wil een app-wachtwoord, niet dat van het account.</translation>
+    </message>
+    <message>
         <source>Account saved</source>
         <translation>Account opgeslagen</translation>
     </message>
@@ -6288,6 +6438,33 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>LoTW: %1</source>
         <translation>LoTW: %1</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::MailSender</name>
+    <message>
+        <source>the mail server did not answer</source>
+        <translation>de mailserver heeft niet geantwoord</translation>
+    </message>
+    <message>
+        <source>no outgoing mailbox is set up</source>
+        <translation>er is geen uitgaande mailbox ingericht</translation>
+    </message>
+    <message>
+        <source>no email address for this station</source>
+        <translation>voor dit station is er geen e-mailadres</translation>
+    </message>
+    <message>
+        <source>connection lost</source>
+        <translation>verbinding verbroken</translation>
+    </message>
+    <message>
+        <source>the mail server&apos;s certificate is not trusted (%1)</source>
+        <translation>het certificaat van de mailserver is niet te vertrouwen (%1)</translation>
+    </message>
+    <message>
+        <source>the mail server does not offer an encrypted connection (STARTTLS)</source>
+        <translation>de mailserver biedt geen versleutelde verbinding (STARTTLS)</translation>
     </message>
 </context>
 <context>

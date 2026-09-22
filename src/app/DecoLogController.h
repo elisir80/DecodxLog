@@ -222,6 +222,12 @@ public:
     // vero; Decodium quando la radio non c'e'. Il modo di Decodium vince solo
     // se dice la stessa cosa della radio con un nome piu' preciso — "FT8"
     // invece di "PKTUSB".
+    // L'email del corrispondente secondo il callbook. Se c'e' gia' risponde
+    // subito, se no la cerca e richiama quando arriva. Senza callbook, o senza
+    // email nella scheda, richiama con l'errore.
+    void emailFor(const QString& call,
+                  std::function<void(const QString& email, const QString& error)> done);
+
     QString shownFrequency() const;
     QString shownMode() const;
     QString dxCall() const { return m_status.dxCall; }
@@ -521,6 +527,9 @@ private:
     // nominativo, perche' due QSO con lo stesso corrispondente si accontentano
     // di una ricerca sola.
     QHash<QString, QList<qint64>> m_awaitingCallbook;
+    // Chi aspetta di sapere l'email di un nominativo: si risponde a tutti
+    // insieme quando il callbook risponde, una ricerca sola per nominativo.
+    QHash<QString, QList<std::function<void(const QString&, const QString&)>>> m_awaitingEmail;
     QString           m_countriesSource;
     mutable QVariantList m_coastline;
     mutable QVariantList m_land;

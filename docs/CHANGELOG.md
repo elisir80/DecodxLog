@@ -3,6 +3,35 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.8.0 — 22 settembre 2026
+
+**La QSL si manda per email, e l'indirizzo lo sa il callbook.** Oltre al PDF e ai PNG c'e'
+un terzo pulsante: «Manda per email». Per ogni QSO scelto DecoDXLog chiede l'indirizzo a
+QRZ.com o HamQTH — quello che gia' usa per nome, QTH e locatore — disegna la cartolina di
+quel collegamento e la manda come allegato PNG.
+
+Le stazioni di cui il callbook non ha l'email si saltano, una riga per ognuna nel registro:
+meglio saperlo che credere di aver mandato cinquanta cartoline e averne mandate trenta.
+Una QSL partita si segna come mandata nella coda, con la via elettronica, cosi' non si
+rimanda due volte la stessa.
+
+**Il client SMTP e' scritto qui dentro.** Qt non ne ha uno, e per una funzione sola non
+vale la pena tirarsi dietro una libreria: il protocollo e' cinque comandi in fila. Una
+email per volta, in coda — mandarne cinquanta non apre cinquanta connessioni — e quello che
+va storto si legge, invece di sparire.
+
+**La posta esce solo cifrata.** Sulla 465 dal primo byte, sulla 587 con STARTTLS; un server
+che non offre ne' l'una ne' l'altra viene rifiutato, e un certificato che non convince pure.
+Di li' passa la password della casella.
+
+Si prepara in **Impostazioni → Servizi QSL**: server, porta, il proprio nome, l'oggetto e
+il testo — con {CALL} {NAME} {DATE} {TIME} {BAND} {MODE} {RST} e {MYCALL} {MYNAME} — e
+l'indirizzo con la password, che va nel portachiavi di sistema come tutte le altre. Con
+Gmail ci vuole una password per le app, non quella con cui si entra.
+
+Niente parte senza chiederlo: il pulsante apre una finestra che dice da quale casella, a
+quanti QSO, e aspetta un «Manda».
+
 ## 1.7.4 — 22 settembre 2026
 
 Quattro cose segnalate in stazione, tutte vere.

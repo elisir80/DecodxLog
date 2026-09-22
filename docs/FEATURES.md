@@ -269,6 +269,12 @@ Quello che manca è in fondo.
   commercio, segni di taglio a scelta, senza stampante di mezzo. / **PDF labels**: one per
   correspondent with up to six QSOs, four off-the-shelf sheets, optional cutting guides, no
   printer in the way.
+- **La QSL per email**: l'indirizzo lo prende dal callbook (QRZ.com o HamQTH), disegna la
+  cartolina di quel QSO e la manda dalla propria casella come allegato PNG; solo su
+  connessione cifrata, e chi non ha l'email nel callbook si salta dicendolo. / **QSL by
+  email**: the address comes from the callbook (QRZ.com or HamQTH), the card for that QSO is
+  drawn and sent from your own mailbox as a PNG attachment; encrypted connections only, and
+  stations with no email in the callbook are skipped and named.
 - **Gli otto di serie**: un pulsante mette nominativo, giorno, mese, anno, UTC, MHz, modo e
   RST nei riquadri dove una QSL li ha di solito, misurati sulla cartolina invece che a
   occhio; quelli gia' posati si spostano li' invece di sdoppiarsi. / **The usual eight**: one

@@ -6,6 +6,7 @@
 // tutti.
 #pragma once
 
+#include "core/MailSender.h"
 #include "core/QslDesign.h"
 
 #include <QObject>
@@ -18,6 +19,7 @@
 
 namespace decolog::core {
 class LogDatabase;
+class CredentialStore;
 }
 
 namespace decolog::app {
@@ -33,6 +35,10 @@ class QslCardController : public QObject {
     Q_PROPERTY(QString cardTemplate READ cardTemplate NOTIFY cardChanged)
     Q_PROPERTY(QVariantList cardFields READ cardFields NOTIFY cardChanged)
     Q_PROPERTY(QSize cardSize READ cardSize NOTIFY cardChanged)
+    // La casella da cui partono le QSL, e a che punto sta un invio.
+    Q_PROPERTY(QVariantMap mail READ mail NOTIFY mailChanged)
+    Q_PROPERTY(QString mailStatus READ mailStatus NOTIFY mailChanged)
+    Q_PROPERTY(bool mailBusy READ mailBusy NOTIFY mailChanged)
 
 public:
     struct Context {
@@ -40,6 +46,10 @@ public:
         std::function<QVariantMap()> station;   // call, grid, name del profilo attivo
         std::function<void(const QString& category, const QString& text, const QString& level)> activity;
         std::function<void()> logChanged;
+        core::CredentialStore* credentials{nullptr};
+        // L'email del corrispondente secondo il callbook: arriva quando arriva.
+        std::function<void(const QString& call,
+                           std::function<void(const QString& email, const QString& error)>)> emailFor;
     };
 
     explicit QslCardController(Context context, QObject* parent = nullptr);
@@ -90,9 +100,22 @@ public:
     Q_INVOKABLE QString writeCardsPdf(const QUrl& file, const QVariantList& ids, int perPage);
     Q_INVOKABLE QString writeCardsPng(const QUrl& folder, const QVariantList& ids);
 
+    // ── Mandare le cartoline per email ──────────────────────────────────────
+    QVariantMap mail() const;
+    QString mailStatus() const { return m_mailStatus; }
+    bool mailBusy() const;
+    // host, port, subject, body: quello che non e' segreto. L'indirizzo e la
+    // password stanno nel portachiavi, sotto "mail".
+    Q_INVOKABLE void setMail(const QVariantMap& settings);
+    // Manda la cartolina ai QSO scelti (o a tutta la coda). Per ognuno chiede
+    // l'email al callbook, disegna la sua cartolina e la spedisce.
+    Q_INVOKABLE void sendCardsByEmail(const QVariantList& ids);
+    Q_INVOKABLE void cancelMail();
+
 signals:
     void changed();
     void cardChanged();
+    void mailChanged();
 
 private:
     void note(const QString& text, const QString& level);
@@ -108,6 +131,16 @@ private:
     QString m_status;
     core::qsldesign::Card m_card;
     QSize m_cardSize;
+
+    void loadMail();
+    void queueCard(const QVariantMap& qso, const QString& email);
+    QString mailBodyFor(const QVariantMap& qso) const;
+
+    core::MailSender m_mail;
+    QString m_mailStatus;
+    int m_mailWaiting{0};     // quanti aspettano ancora l'email dal callbook
+    int m_mailSent{0};
+    int m_mailFailed{0};
 };
 
 } // namespace decolog::app
