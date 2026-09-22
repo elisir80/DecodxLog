@@ -3,6 +3,55 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.11.0 — 22 settembre 2026
+
+**La sezione si chiama Contest, i contest sono tutti quelli che esistono, e sei di loro sanno
+le proprie regole.**
+
+Il pulsante diceva «Attivazione» e il contest era un campo dove scrivere a memoria un
+CONTEST_ID: se lo si sbagliava non lo diceva nessuno, lo scopriva chi riceveva il log.
+Adesso l'elenco c'e': i **242 contest dell'enumerazione Contest_ID di ADIF 3.1.5**, generati
+dalla specifica e non scritti a mano, piu' gli otto contest della ARI che la tabella ADIF non
+conosce. Si cercano per nome o per identificativo, e accanto al campo si legge il nome di
+quello scelto.
+
+**Sei contest hanno la scheda delle regole**, e ogni numero viene dal regolamento, citato nel
+codice accanto al punto da cui esce:
+
+| Contest | Scambio | Punti | Moltiplicatori |
+| --- | --- | --- | --- |
+| CQ WW (SSB, CW, RTTY) | zona CQ | 0 stesso paese, 1 stesso continente (2 fra nordamericani), 3 altro continente | zone e paesi, per banda |
+| CQ WPX (SSB, CW, RTTY) | progressivo | 3 e 1 sulle bande alte, il doppio su 40, 80 e 160; il proprio paese 1 | prefissi, una volta sola |
+| IARU HF | zona ITU o sigla HQ | 1 stessa zona o HQ, 3 stesso continente, 5 tutto diverso | zone e HQ, per banda |
+| ARI DX | provincia o progressivo | 10 a una stazione italiana, 3 altro continente, 1 stesso continente | province e paesi, per banda |
+| ARI Contest delle Sezioni | codice ASC | per banda: 40m 1, 80m e 20m 2, 160m e 15m 3, 10m 4 | ASC, per banda e per modo |
+| ARI Contest 40/80 | provincia | per modo: CW 3, RTTY 2, SSB 1 | province, per banda e per modo |
+
+Nella finestra contest ci sono **punti, moltiplicatori e punteggio** che salgono a ogni QSO, e
+sotto la riga **banda per banda**: quanti QSO, quanti punti e quanti moltiplicatori su ognuna,
+perche' nei contest i moltiplicatori si contano per banda e sapere dove mancano e' quello che
+dice dove andare.
+
+**Il campo dello scambio prende il nome del contest** — Zona CQ, Provincia, Sezione ARI — e
+avvisa quando quello che si e' scritto non ha la forma che il regolamento vuole: una zona CQ
+non e' 55, un codice ASC non e' «L1». Il QSO si registra lo stesso, perche' la stazione e' gia'
+passata, ma lo si corregge adesso invece che a gara finita.
+
+Un contest senza scheda non ha punteggio, e il programma lo dice invece di dare un numero che
+non vuol dire niente: gli altri 244 restano buoni per il log e per il Cabrillo.
+
+**Piu' log per la stessa stazione: uno per tutti i giorni, uno per ogni contest.** I duplicati,
+il punteggio e il Cabrillo si contano su un log solo, e a gara finita i QSO della gara non
+devono mescolarsi con quelli di sempre. Il pulsante **Log** apre l'elenco: si crea un log nuovo
+dandogli un nome, si aggiunge uno che sta gia' sul disco, si apre quello che serve. Chi vuole
+se lo fa chiedere all'avvio; di serie no, perche' chi ha un log solo non deve rispondere a
+niente.
+
+Aprire un altro log riavvia il programma su quel file: e' l'unica cosa che non lascia in giro
+mezzo programma legato al log di prima — radio, cluster, sessione e finestre staccate ripartono
+insieme. Un log nuovo si crea davvero subito, con le sue tabelle: se non si apre e' meglio
+scoprirlo prima della gara. Dimenticare un log non cancella niente dal disco.
+
 ## 1.10.0 — 22 settembre 2026
 
 **Due diplomi italiani fra quelli che DecoDXLog calcola: il WAIP e il DCI.**
