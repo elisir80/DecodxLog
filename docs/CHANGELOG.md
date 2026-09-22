@@ -3,6 +3,44 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.13.0 — 23 settembre 2026
+
+**Il banco del contest e' fatto di finestre vere, ognuna dove si vuole.** La finestra unica
+metteva tutto insieme e non si poteva spostare niente: in gara serve il contrario, ogni cosa
+in una finestra sua, grande quanto si vuole e dove si vuole — anche su un altro monitor.
+
+Il banco apre otto finestre, che sono le stesse dei pannelli staccati, quindi **misura e
+posizione si ricordano**: la volta dopo si riaprono dove le si e' lasciate.
+
+| Finestra | Cosa c'e' dentro |
+| --- | --- |
+| Inserimento contest | nominativo grande, RST, progressivo, scambio col nome del contest, Invio registra |
+| Cluster in colonna | verticale, filtri e spot, con i moltiplicatori che mancano in evidenza |
+| Log | il registro della stazione |
+| Scheda nominativo | quello che il log e il callbook sanno di chi si sta lavorando |
+| Come va | QSO, nominativi, durata, ultimi 10 minuti, QSO/h, ultima ora, ultimi collegati |
+| Punteggio | punti, moltiplicatori, totale, e la lista banda per banda |
+| Mappa | i QSO con locatore |
+| CW | solo quando il contest e' in telegrafia |
+
+**La prima volta si dispongono da sole** — cluster in colonna a sinistra, inserimento in mezzo
+in alto, log sotto, punteggio e ritmo a destra, mappa e CW in basso — e da li' in poi comanda
+chi le sposta: le posizioni scelte non si toccano piu'.
+
+Tre pannelli sono nuovi (inserimento, punteggio, ritmo) e il **cluster e' diventato un pannello
+come gli altri**, quindi si stacca in finestra e in colonna stretta tiene solo le colonne che
+servono.
+
+Quando la finestra dell'inserimento e' stretta **i campi vanno a capo** invece di schiacciare il
+nominativo fino a farlo sparire: in una finestra che si ridimensiona a piacere «stretta»
+succede, e succedeva. I quattro pannelli del contest vivono solo in finestra: la ✕ li chiude
+invece di riagganciarli, perche' nella disposizione della finestra principale non hanno un
+posto e riagganciarli voleva dire perderli.
+
+Nel dialogo Contest ci sono due pulsanti: **Banco del contest** (le finestre) e **Finestra
+unica** (quella di prima, che tiene Cabrillo ed export — dal pannello del punteggio ci si arriva
+con «Esporta…»).
+
 ## 1.12.0 — 22 settembre 2026
 
 **Il banco del contest si apre da solo.** Aprire una sessione di contest voleva dire aprire a
