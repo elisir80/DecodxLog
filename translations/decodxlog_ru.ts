@@ -809,6 +809,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Источник</translation>
     </message>
     <message>
+        <source>mult</source>
+        <translation>множ.</translation>
+    </message>
+    <message>
         <source>unconf.</source>
         <translation>не подтв.</translation>
     </message>

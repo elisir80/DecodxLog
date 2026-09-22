@@ -807,6 +807,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Kilde</translation>
     </message>
     <message>
+        <source>mult</source>
+        <translation>mult</translation>
+    </message>
+    <message>
         <source>unconf.</source>
         <translation>ubekr.</translation>
     </message>

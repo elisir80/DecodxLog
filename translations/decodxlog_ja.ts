@@ -805,6 +805,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>ソース</translation>
     </message>
     <message>
+        <source>mult</source>
+        <translation>マルチ</translation>
+    </message>
+    <message>
         <source>unconf.</source>
         <translation>未確認</translation>
     </message>

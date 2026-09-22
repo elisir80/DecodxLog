@@ -809,6 +809,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Avots</translation>
     </message>
     <message>
+        <source>mult</source>
+        <translation>reiz.</translation>
+    </message>
+    <message>
         <source>unconf.</source>
         <translation>neapst.</translation>
     </message>

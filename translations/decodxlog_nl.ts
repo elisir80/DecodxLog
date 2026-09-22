@@ -807,6 +807,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Bron</translation>
     </message>
     <message>
+        <source>mult</source>
+        <translation>mult</translation>
+    </message>
+    <message>
         <source>unconf.</source>
         <translation>onbev.</translation>
     </message>

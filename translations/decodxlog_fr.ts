@@ -807,6 +807,10 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
         <translation>Source</translation>
     </message>
     <message>
+        <source>mult</source>
+        <translation>mult</translation>
+    </message>
+    <message>
         <source>unconf.</source>
         <translation>non conf.</translation>
     </message>

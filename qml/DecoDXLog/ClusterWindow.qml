@@ -10,6 +10,10 @@ ApplicationWindow {
     id: root
 
     property int tab: 0
+    // In contest il cluster e' una cosa sola: i filtri e gli spot, con i
+    // moltiplicatori che mancano in evidenza. Le altre schede — fonti, avvisi,
+    // console — durante una gara sono in mezzo ai piedi.
+    property bool contestMode: false
     readonly property var cluster: decolog.cluster
 
     width: 1280
@@ -64,7 +68,9 @@ ApplicationWindow {
             Layout.fillWidth: true
             spacing: 4
             Repeater {
-                model: [qsTr("Spots"), qsTr("Sources"), qsTr("Alerts"), qsTr("Voice & LoTW"), qsTr("Console")]
+                model: root.contestMode ? [qsTr("Spots")]
+                                        : [qsTr("Spots"), qsTr("Sources"), qsTr("Alerts"),
+                                           qsTr("Voice & LoTW"), qsTr("Console")]
                 TabChip {
                     required property string modelData
                     required property int index
@@ -92,6 +98,7 @@ ApplicationWindow {
 
             // ── Spot ────────────────────────────────────────────────────────
             ClusterPanel {
+                contestMode: root.contestMode
                 id: spotsPanel
                 onWindowRequested: (t) => root.tab = t
             }

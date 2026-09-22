@@ -809,6 +809,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Sursă</translation>
     </message>
     <message>
+        <source>mult</source>
+        <translation>mult</translation>
+    </message>
+    <message>
         <source>unconf.</source>
         <translation>neconf.</translation>
     </message>

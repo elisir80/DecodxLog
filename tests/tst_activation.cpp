@@ -60,6 +60,115 @@ private slots:
         QVERIFY(back.serialEnabled);
     }
 
+    void theContestKnowsWhatEachSpotIsWorth()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        ActivationController::Context ctx;
+        ctx.db = &db;
+        ctx.stationCall = [] { return QStringLiteral("IU8LMC"); };
+        ctx.stationGrid = [] { return QStringLiteral("JN70"); };
+        ctx.activeProfileId = [] { return qint64(0); };
+        // Io sono in Italia: Europa, zona CQ 15.
+        ctx.station = [] { return decolog::core::ContestStation{248, QStringLiteral("EU"), 15, 28}; };
+        // Un cty.csv in miniatura: quel tanto che basta alla prova.
+        ctx.locate = [](const QString& call) {
+            if (call.startsWith(QStringLiteral("W")))
+                return decolog::core::ContestStation{291, QStringLiteral("NA"), 5, 8};
+            if (call.startsWith(QStringLiteral("JA")))
+                return decolog::core::ContestStation{339, QStringLiteral("AS"), 25, 45};
+            if (call.startsWith(QStringLiteral("DL")))
+                return decolog::core::ContestStation{230, QStringLiteral("EU"), 14, 28};
+            return decolog::core::ContestStation{};
+        };
+        ActivationController act(std::move(ctx));
+        act.load();
+        QVERIFY(act.start({{"kind", "contest"}, {"contestId", "CQ-WW-CW"},
+                           {"serialEnabled", true}}).isEmpty());
+
+        // Prima di lavorare qualcuno, ogni spot porta due moltiplicatori nuovi.
+        const QVariantMap before = act.spotValue(QStringLiteral("W1AW"), QStringLiteral("20m"),
+                                                 QStringLiteral("CW"));
+        QCOMPARE(before.value("points").toInt(), 3);
+        QCOMPARE(before.value("newMultiplier").toBool(), true);
+        QCOMPARE(before.value("duplicate").toBool(), false);
+
+        auto log = [&db, &act](const char* call, const char* band, const char* mode,
+                               int dxcc, const char* cont, int cqz) {
+            AdifRecord r{{"CALL", call}, {"QSO_DATE", QDateTime::currentDateTimeUtc().toString("yyyyMMdd")},
+                         {"TIME_ON", QDateTime::currentDateTimeUtc().toString("hhmmss")},
+                         {"BAND", band}, {"MODE", mode}, {"DXCC", QString::number(dxcc)},
+                         {"CONT", cont}, {"CQZ", QString::number(cqz)}};
+            act.applyTo(r);
+            const auto res = db.insertQso(r, "manual", {}, true);
+            if (res.status == InsertResult::Status::Inserted)
+                act.qsoLogged();
+            return res;
+        };
+        QCOMPARE(log("W1AW", "20m", "CW", 291, "NA", 5).status, InsertResult::Status::Inserted);
+
+        // Adesso il punteggio c'e': 3 punti, zona 5 e paese 291 sui 20 metri.
+        const QVariantMap score = act.score();
+        QCOMPARE(score.value("valid").toBool(), true);
+        QCOMPARE(score.value("points").toInt(), 3);
+        QCOMPARE(score.value("multipliers").toInt(), 2);
+        QCOMPARE(score.value("score").toInt(), 6);
+
+        // Un altro americano sulla stessa banda non porta piu' niente: stessa
+        // zona, stesso paese. E' quello che il cluster deve smettere di segnare.
+        const QVariantMap again = act.spotValue(QStringLiteral("W2XX"), QStringLiteral("20m"),
+                                                QStringLiteral("CW"));
+        QCOMPARE(again.value("points").toInt(), 3);
+        QCOMPARE(again.value("newMultiplier").toBool(), false);
+        // Ma sui 40 metri sono moltiplicatori nuovi: nel CQ WW si contano per
+        // banda, ed e' per questo che si cambia banda.
+        const QVariantMap lower = act.spotValue(QStringLiteral("W2XX"), QStringLiteral("40m"),
+                                                QStringLiteral("CW"));
+        QCOMPARE(lower.value("newMultiplier").toBool(), true);
+        // Lo stesso nominativo gia' lavorato su quella banda e' un duplicato.
+        const QVariantMap dupe = act.spotValue(QStringLiteral("W1AW"), QStringLiteral("20m"),
+                                               QStringLiteral("CW"));
+        QCOMPARE(dupe.value("duplicate").toBool(), true);
+
+        // Il giapponese porta zona e paese nuovi, e vale 3 punti.
+        const QVariantMap japan = act.spotValue(QStringLiteral("JA1ABC"), QStringLiteral("20m"),
+                                                QStringLiteral("CW"));
+        QCOMPARE(japan.value("points").toInt(), 3);
+        QCOMPARE(japan.value("newMultiplier").toBool(), true);
+
+        // Il tedesco e' nel mio continente: 1 punto.
+        const QVariantMap german = act.spotValue(QStringLiteral("DL9ZZT"), QStringLiteral("20m"),
+                                                 QStringLiteral("CW"));
+        QCOMPARE(german.value("points").toInt(), 1);
+
+        // E il contest e' in CW: la finestra della telegrafia serve.
+        QVERIFY(act.isCwContest());
+    }
+
+    void aContestWithoutRulesHasNoScoreAndSaysIt()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        ActivationController::Context ctx;
+        ctx.db = &db;
+        ctx.stationCall = [] { return QStringLiteral("IU8LMC"); };
+        ctx.stationGrid = [] { return QStringLiteral("JN70"); };
+        ctx.activeProfileId = [] { return qint64(0); };
+        ActivationController act(std::move(ctx));
+        act.load();
+        QVERIFY(act.start({{"kind", "contest"}, {"contestId", "AL-QSO-PARTY"}}).isEmpty());
+
+        const QVariantMap score = act.score();
+        QCOMPARE(score.value("valid").toBool(), false);
+        QCOMPARE(score.value("score").toInt(), 0);
+        // E nessuno spot risulta moltiplicatore: meglio niente che un numero
+        // inventato.
+        QCOMPARE(act.spotValue(QStringLiteral("W1AW"), QStringLiteral("20m"),
+                               QStringLiteral("SSB")).value("newMultiplier").toBool(), false);
+        // Un contest in SSB non apre la finestra della telegrafia.
+        QVERIFY(!act.isCwContest());
+    }
+
     void sessionOnTheLog()
     {
         LogDatabase db;

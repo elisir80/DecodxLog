@@ -349,6 +349,26 @@ ApplicationWindow {
             contestWindow.item.requestActivate()
         }
     }
+    // Il banco del contest: quello che serve durante una gara, aperto insieme.
+    // La finestra dell'inserimento veloce con punteggio e statistiche, il
+    // cluster ridotto ai filtri e ai moltiplicatori che mancano, e la finestra
+    // CW quando il contest e' in telegrafia. Niente altro: durante una gara
+    // ogni finestra in piu' e' una finestra da spostare.
+    function openContestDesk() {
+        window.openContest()
+        clusterWindow.contestMode = true
+        clusterWindow.tab = 0
+        clusterWindow.active = true
+        if (clusterWindow.item)
+            clusterWindow.item.raise()
+        if (decolog.activation.isCwContest() && !window.isPanelDetached("cw")) {
+            window.showPanel("cw")
+            window.detachPanel("cw")
+        }
+        // La finestra dell'inserimento resta davanti: e' quella dove si scrive.
+        if (contestWindow.item)
+            contestWindow.item.requestActivate()
+    }
     function openRotor() {
         rotorWindow.active = true
         if (rotorWindow.item) {
@@ -390,7 +410,8 @@ ApplicationWindow {
 
     Component.onCompleted: {
         const what = startupShow.split(":")
-        if (what[0] === "new") newQsoDialog.open()
+        if (what[0] === "contestdesk") window.openContestDesk()
+        else if (what[0] === "new") newQsoDialog.open()
         else if (what[0] === "qso") { openQso(parseInt(what[1])); if (what[2]) qsoDialog.currentTab = parseInt(what[2]) }
         else if (what[0] === "profiles") profilesDialog.open()
         else if (what[0] === "setup") { setupDialog.page = parseInt(what[1] || "3"); setupDialog.open(); if (what[2] === "end") Qt.callLater(setupDialog.scrollToBottom) }
@@ -640,9 +661,11 @@ ApplicationWindow {
     Loader {
         id: clusterWindow
         property int tab: 0
+        property bool contestMode: false
         active: false
         sourceComponent: ClusterWindow {
             tab: clusterWindow.tab
+            contestMode: clusterWindow.contestMode
             onClosing: Qt.callLater(function () { clusterWindow.active = false })
         }
     }
