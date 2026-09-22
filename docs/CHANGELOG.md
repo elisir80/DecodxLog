@@ -3,6 +3,37 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.10.0 — 22 settembre 2026
+
+**Due diplomi italiani fra quelli che DecoDXLog calcola: il WAIP e il DCI.**
+
+Il **WAIP** conta le 110 province italiane. La sigla arriva dal campo STATE dei QSO con
+l'Italia e con la Sardegna — due entita' DXCC ma un paese solo, e il diploma conta le
+province di tutte e due — e si legge come la scrivono i log: «NA», «I-NA», «NA Napoli».
+Carbonia-Iglesias, che dal 2016 non esiste piu', finisce in Sud Sardegna invece di restare
+senza provincia; Ogliastra, Olbia-Tempio e Medio Campidano restano voci a se', perche' il
+WAIP continua a contarle. Il traguardo e' 75, il piu' alto dei due del regolamento (60 per
+chi non trasmette dall'Italia), cosi' la barra non da' per preso un diploma che ancora non
+lo e'.
+
+Il **DCI**, i castelli d'Italia, segue il regolamento della Sezione A.R.I. di Mondovi'
+aggiornato al 15 settembre 2025: **30 castelli in almeno 5 regioni diverse, e uno della
+provincia di Cuneo** (20 per le stazioni fuori d'Italia). Sotto il titolo si legge a che
+punto si e' — quanti castelli, in quante regioni, e se Cuneo c'e' — perche' le regioni sono
+l'unica cosa che guardando il numero non si poteva sapere.
+
+Contano i QSO **dal 1 gennaio 2001, dai 160 ai 2 metri, in SSB, CW o digitale**: un castello
+lavorato in FM non vale, e dirlo qui costa meno che vederselo scartare da chi rilascia il
+diploma. C'e' anche il **DCPC**, i castelli della sola provincia di Cuneo: dieci, e si chiede
+dopo aver preso il DCI.
+
+**Il riferimento del castello si scrive, non solo si importa.** SIG e SIG_INFO — il programma
+di un QSO e il suo riferimento — sono entrati nel log e nella scheda del QSO, e il nuovo QSO
+ha un campo DCI che li riempie da solo: si scrive «na 015» e diventa «NA015», come vuole il
+regolamento. Nei log scritti a mano il riferimento finisce quasi sempre nel commento, e
+anche li' viene trovato — ma con la parola DCI davanti, se no un «TNX 001» qualunque
+diventerebbe un castello.
+
 ## 1.9.0 — 22 settembre 2026
 
 **La QSL per email puo' partire dal Cloud, e cosi' nessuna password di posta resta sul
