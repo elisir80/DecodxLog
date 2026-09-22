@@ -87,10 +87,6 @@
         <translation>Sesija · %1</translation>
     </message>
     <message>
-        <source>Activation / contest</source>
-        <translation>Aktivizēšana / sacensības</translation>
-    </message>
-    <message>
         <source>open since %1 UTC · %2</source>
         <translation>atvērta kopš %1 UTC · %2</translation>
     </message>
@@ -143,8 +139,20 @@
         <translation>Atsauce</translation>
     </message>
     <message>
-        <source>Contest (CONTEST_ID)</source>
-        <translation>Sacensības (CONTEST_ID)</translation>
+        <source>Contest and activations</source>
+        <translation>Konkursi un aktivizēšanas</translation>
+    </message>
+    <message>
+        <source>pick it from the list</source>
+        <translation>izvēlies no saraksta</translation>
+    </message>
+    <message>
+        <source>identifier not in the list</source>
+        <translation>identifikators nav sarakstā</translation>
+    </message>
+    <message>
+        <source>Choose…</source>
+        <translation>Izvēlēties…</translation>
     </message>
     <message>
         <source>Name</source>
@@ -205,6 +213,26 @@
     <message>
         <source>Start session</source>
         <translation>Sākt sesiju</translation>
+    </message>
+    <message>
+        <source>Choose the contest</source>
+        <translation>Izvēlies konkursu</translation>
+    </message>
+    <message>
+        <source>Search by name or identifier…</source>
+        <translation>Meklē pēc nosaukuma vai identifikatora…</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n contest(s)</source>
+        <translation>
+            <numerusform>%n konkurss</numerusform>
+            <numerusform>%n konkursi</numerusform>
+            <numerusform>%n konkursu</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Atcelt</translation>
     </message>
 </context>
 <context>
@@ -1862,6 +1890,97 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>DecoDXLog — Logbook</source>
         <translation>DecoDXLog — Žurnāls</translation>
+    </message>
+</context>
+<context>
+    <name>LogsDialog</name>
+    <message>
+        <source>Station logs</source>
+        <translation>Stacijas žurnāli</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n log(s)</source>
+        <translation>
+            <numerusform>%n žurnāls</numerusform>
+            <numerusform>%n žurnāli</numerusform>
+            <numerusform>%n žurnālu</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open an existing log</source>
+        <translation>Atvērt esošu žurnālu</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>DecoDXLog žurnāli (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Visi faili (*)</translation>
+    </message>
+    <message>
+        <source>open now</source>
+        <translation>atvērts tagad</translation>
+    </message>
+    <message>
+        <source>%1 — the file is not there any more</source>
+        <translation>%1 — faila vairs nav</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO</source>
+        <translation>
+            <numerusform>%1 · %n QSO</numerusform>
+            <numerusform>%1 · %n QSO</numerusform>
+            <numerusform>%1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Atvērt</translation>
+    </message>
+    <message>
+        <source>Forget</source>
+        <translation>Aizmirst</translation>
+    </message>
+    <message>
+        <source>Only the log you are using. Make another one for a contest.</source>
+        <translation>Ir tikai tas žurnāls, ko lieto. Izveido vēl vienu konkursam.</translation>
+    </message>
+    <message>
+        <source>New log</source>
+        <translation>Jauns žurnāls</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CQ WW SSB 2026</source>
+        <translation>CQ WW SSB 2026</translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation>Izveidot</translation>
+    </message>
+    <message>
+        <source>Log created. Press Open to work on it.</source>
+        <translation>Žurnāls izveidots. Nospied Atvērt, lai tajā strādātu.</translation>
+    </message>
+    <message>
+        <source>Add an existing one…</source>
+        <translation>Pievienot esošu…</translation>
+    </message>
+    <message>
+        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
+        <translation>Fails nokļūst %1 un paliek tur: DecoDXLog nekad nedzēš žurnālu.</translation>
+    </message>
+    <message>
+        <source>Ask which log to open when DecoDXLog starts</source>
+        <translation>Jautāt, kuru žurnālu atvērt, kad DecoDXLog sākas</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Aizvērt</translation>
     </message>
 </context>
 <context>
@@ -4919,10 +5038,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>%1 · %2/%3</translation>
     </message>
     <message>
-        <source>Activation</source>
-        <translation>Aktivizēšana</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>Klasteris ●</translation>
     </message>
@@ -4997,6 +5112,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Quit</source>
         <translation>Iziet</translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>Žurnāli</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Sacensības</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5695,6 +5818,37 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
             <numerusform>%n QSO sakārtoti pēc slikta veca importa (iepriekšējais teksts paliek vēsturē).</numerusform>
             <numerusform>%n QSO sakārtoti pēc slikta veca importa (iepriekšējais teksts paliek vēsturē).</numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::LogLibrary</name>
+    <message>
+        <source>Give the log a name.</source>
+        <translation>Dod žurnālam nosaukumu.</translation>
+    </message>
+    <message>
+        <source>There is already a file called %1.</source>
+        <translation>Jau ir fails ar nosaukumu %1.</translation>
+    </message>
+    <message>
+        <source>The log could not be created.</source>
+        <translation>Žurnālu neizdevās izveidot.</translation>
+    </message>
+    <message>
+        <source>No file chosen.</source>
+        <translation>Nav izvēlēts fails.</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation>%1 nav atrodams.</translation>
+    </message>
+    <message>
+        <source>%1 is not a DecoDXLog log.</source>
+        <translation>%1 nav DecoDXLog žurnāls.</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted on %1.</source>
+        <translation>Programma nespēja restartēties uz %1.</translation>
     </message>
 </context>
 <context>

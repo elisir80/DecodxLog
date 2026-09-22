@@ -87,10 +87,6 @@
         <translation>Sessió · %1</translation>
     </message>
     <message>
-        <source>Activation / contest</source>
-        <translation>Activació / concurs</translation>
-    </message>
-    <message>
         <source>open since %1 UTC · %2</source>
         <translation>oberta des de les %1 UTC · %2</translation>
     </message>
@@ -143,8 +139,20 @@
         <translation>Referència</translation>
     </message>
     <message>
-        <source>Contest (CONTEST_ID)</source>
-        <translation>Concurs (CONTEST_ID)</translation>
+        <source>Contest and activations</source>
+        <translation>Concursos i activacions</translation>
+    </message>
+    <message>
+        <source>pick it from the list</source>
+        <translation>tria&apos;l de la llista</translation>
+    </message>
+    <message>
+        <source>identifier not in the list</source>
+        <translation>identificador que no és a la llista</translation>
+    </message>
+    <message>
+        <source>Choose…</source>
+        <translation>Tria…</translation>
     </message>
     <message>
         <source>Name</source>
@@ -205,6 +213,25 @@
     <message>
         <source>Start session</source>
         <translation>Comença la sessió</translation>
+    </message>
+    <message>
+        <source>Choose the contest</source>
+        <translation>Tria el concurs</translation>
+    </message>
+    <message>
+        <source>Search by name or identifier…</source>
+        <translation>Cerca per nom o identificador…</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n contest(s)</source>
+        <translation>
+            <numerusform>%n concurs</numerusform>
+            <numerusform>%n concursos</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancel·la</translation>
     </message>
 </context>
 <context>
@@ -1861,6 +1888,95 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>DecoDXLog — Logbook</source>
         <translation>DecoDXLog — Quadern</translation>
+    </message>
+</context>
+<context>
+    <name>LogsDialog</name>
+    <message>
+        <source>Station logs</source>
+        <translation>Registres de l&apos;estació</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n log(s)</source>
+        <translation>
+            <numerusform>%n registre</numerusform>
+            <numerusform>%n registres</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open an existing log</source>
+        <translation>Obre un registre ja fet</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>Registres de DecoDXLog (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Tots els fitxers (*)</translation>
+    </message>
+    <message>
+        <source>open now</source>
+        <translation>obert ara</translation>
+    </message>
+    <message>
+        <source>%1 — the file is not there any more</source>
+        <translation>%1 — el fitxer ja no hi és</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO</source>
+        <translation>
+            <numerusform>%1 · %n QSO</numerusform>
+            <numerusform>%1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Obre</translation>
+    </message>
+    <message>
+        <source>Forget</source>
+        <translation>Oblida</translation>
+    </message>
+    <message>
+        <source>Only the log you are using. Make another one for a contest.</source>
+        <translation>Només hi ha el registre que fas servir. Fes-ne un altre per a un concurs.</translation>
+    </message>
+    <message>
+        <source>New log</source>
+        <translation>Registre nou</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Nom</translation>
+    </message>
+    <message>
+        <source>CQ WW SSB 2026</source>
+        <translation>CQ WW SSB 2026</translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation>Crea</translation>
+    </message>
+    <message>
+        <source>Log created. Press Open to work on it.</source>
+        <translation>Registre creat. Prem Obre per treballar-hi.</translation>
+    </message>
+    <message>
+        <source>Add an existing one…</source>
+        <translation>Afegeix-ne un de ja fet…</translation>
+    </message>
+    <message>
+        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
+        <translation>El fitxer va a %1 i s&apos;hi queda: DecoDXLog no esborra mai un registre.</translation>
+    </message>
+    <message>
+        <source>Ask which log to open when DecoDXLog starts</source>
+        <translation>Pregunta quin registre obrir quan arrenca DecoDXLog</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Tanca</translation>
     </message>
 </context>
 <context>
@@ -4913,10 +5029,6 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>%1 · %2/%3</translation>
     </message>
     <message>
-        <source>Activation</source>
-        <translation>Activació</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>Clúster ●</translation>
     </message>
@@ -4991,6 +5103,14 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Quit</source>
         <translation>Surt</translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>Registres</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5673,6 +5793,37 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
             <numerusform>%n QSO netejat d&apos;una importació antiga dolenta (el text anterior es queda a l&apos;historial).</numerusform>
             <numerusform>%n QSO netejats d&apos;una importació antiga dolenta (el text anterior es queda a l&apos;historial).</numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::LogLibrary</name>
+    <message>
+        <source>Give the log a name.</source>
+        <translation>Posa un nom al registre.</translation>
+    </message>
+    <message>
+        <source>There is already a file called %1.</source>
+        <translation>Ja hi ha un fitxer que es diu %1.</translation>
+    </message>
+    <message>
+        <source>The log could not be created.</source>
+        <translation>El registre no s&apos;ha pogut crear.</translation>
+    </message>
+    <message>
+        <source>No file chosen.</source>
+        <translation>Cap fitxer triat.</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation>%1 no hi és.</translation>
+    </message>
+    <message>
+        <source>%1 is not a DecoDXLog log.</source>
+        <translation>%1 no és un registre de DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted on %1.</source>
+        <translation>El programa no ha pogut reiniciar-se a %1.</translation>
     </message>
 </context>
 <context>

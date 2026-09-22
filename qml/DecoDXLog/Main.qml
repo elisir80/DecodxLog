@@ -423,6 +423,7 @@ ApplicationWindow {
             clusterTuneTimer.start()
         }
         else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))
+        else if (what[0] === "logs") logsDialog.openDialog()
         else if (what[0] === "activation") { activationDialog.openDialog(what[1] || ""); if (what[2] === "choose") Qt.callLater(activationDialog.chooseContest) }
         else if (what[0] === "modes") window.panelItem("newqso").showModes()
         // Per le prove: apre tutte le finestre due volte di fila. Due volte
@@ -570,6 +571,12 @@ ApplicationWindow {
 
     SetupDialog { id: setupDialog; onUpdateRequested: updateDialog.open() }
     ActivationDialog { id: activationDialog }
+    LogsDialog {
+        id: logsDialog
+        // All'avvio si chiede quale log aprire, per chi tiene un log per ogni
+        // contest. Di serie no: chi ne ha uno solo non deve rispondere a niente.
+        Component.onCompleted: if (decolog.logs.askAtStart) Qt.callLater(logsDialog.openDialog)
+    }
     AwardsDialog {
         id: awardsDialog
         onOpenQso: (id) => window.openQso(id)
@@ -876,6 +883,7 @@ ApplicationWindow {
             id: topBar
             Layout.fillWidth: true
             onSetupRequested: setupDialog.open()
+            onLogsRequested: logsDialog.openDialog()
             onImportRequested: importDialog.open()
             onExportRequested: exportDialog.open()
             onAwardsRequested: awardsDialog.openAt("")

@@ -69,14 +69,14 @@
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Close</translation>
     </message>
 </context>
 <context>
     <name>ActivationDialog</name>
     <message>
         <source>Contest</source>
-        <translation type="unfinished"></translation>
+        <translation>Contest</translation>
     </message>
     <message>
         <source>Free session</source>
@@ -84,10 +84,6 @@
     </message>
     <message>
         <source>Session · %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Activation / contest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -143,8 +139,20 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Contest (CONTEST_ID)</source>
-        <translation type="unfinished"></translation>
+        <source>Contest and activations</source>
+        <translation>Contest and activations</translation>
+    </message>
+    <message>
+        <source>pick it from the list</source>
+        <translation>pick it from the list</translation>
+    </message>
+    <message>
+        <source>identifier not in the list</source>
+        <translation>identifier not in the list</translation>
+    </message>
+    <message>
+        <source>Choose…</source>
+        <translation>Choose…</translation>
     </message>
     <message>
         <source>Name</source>
@@ -192,7 +200,7 @@
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Close</translation>
     </message>
     <message>
         <source>Apply changes</source>
@@ -204,6 +212,25 @@
     </message>
     <message>
         <source>Start session</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the contest</source>
+        <translation>Choose the contest</translation>
+    </message>
+    <message>
+        <source>Search by name or identifier…</source>
+        <translation>Search by name or identifier…</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n contest(s)</source>
+        <translation>
+            <numerusform>%n contest</numerusform>
+            <numerusform>%n contests</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -668,7 +695,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Close</translation>
     </message>
     <message>
         <source>Name for these filters</source>
@@ -1318,7 +1345,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Close</translation>
     </message>
     <message>
         <source>Write the file…</source>
@@ -1676,7 +1703,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Close</translation>
     </message>
     <message>
         <source>Add tag</source>
@@ -1860,6 +1887,95 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>DecoDXLog — Logbook</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LogsDialog</name>
+    <message>
+        <source>Station logs</source>
+        <translation>Station logs</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n log(s)</source>
+        <translation>
+            <numerusform>%n log</numerusform>
+            <numerusform>%n logs</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open an existing log</source>
+        <translation>Open an existing log</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>DecoDXLog logs (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>open now</source>
+        <translation>open now</translation>
+    </message>
+    <message>
+        <source>%1 — the file is not there any more</source>
+        <translation>%1 — the file is not there any more</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO</source>
+        <translation>
+            <numerusform>%1 · %n QSO</numerusform>
+            <numerusform>%1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Open</translation>
+    </message>
+    <message>
+        <source>Forget</source>
+        <translation>Forget</translation>
+    </message>
+    <message>
+        <source>Only the log you are using. Make another one for a contest.</source>
+        <translation>Only the log you are using. Make another one for a contest.</translation>
+    </message>
+    <message>
+        <source>New log</source>
+        <translation>New log</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CQ WW SSB 2026</source>
+        <translation>CQ WW SSB 2026</translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation>Create</translation>
+    </message>
+    <message>
+        <source>Log created. Press Open to work on it.</source>
+        <translation>Log created. Press Open to work on it.</translation>
+    </message>
+    <message>
+        <source>Add an existing one…</source>
+        <translation>Add an existing one…</translation>
+    </message>
+    <message>
+        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
+        <translation>The file goes in %1 and stays there: DecoDXLog never deletes a log.</translation>
+    </message>
+    <message>
+        <source>Ask which log to open when DecoDXLog starts</source>
+        <translation>Ask which log to open when DecoDXLog starts</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Close</translation>
     </message>
 </context>
 <context>
@@ -4912,10 +5028,6 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Activation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4990,6 +5102,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Quit</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>Logs</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5672,6 +5792,37 @@ The call Decodium is working shows up here by itself.</source>
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::LogLibrary</name>
+    <message>
+        <source>Give the log a name.</source>
+        <translation>Give the log a name.</translation>
+    </message>
+    <message>
+        <source>There is already a file called %1.</source>
+        <translation>There is already a file called %1.</translation>
+    </message>
+    <message>
+        <source>The log could not be created.</source>
+        <translation>The log could not be created.</translation>
+    </message>
+    <message>
+        <source>No file chosen.</source>
+        <translation>No file chosen.</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation>%1 is not there.</translation>
+    </message>
+    <message>
+        <source>%1 is not a DecoDXLog log.</source>
+        <translation>%1 is not a DecoDXLog log.</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted on %1.</source>
+        <translation>The program could not be restarted on %1.</translation>
     </message>
 </context>
 <context>

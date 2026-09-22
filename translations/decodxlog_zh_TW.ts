@@ -87,10 +87,6 @@
         <translation>會話 · %1</translation>
     </message>
     <message>
-        <source>Activation / contest</source>
-        <translation>激活 / 比賽</translation>
-    </message>
-    <message>
         <source>open since %1 UTC · %2</source>
         <translation>自 %1 UTC 開啟 · %2</translation>
     </message>
@@ -143,8 +139,20 @@
         <translation>參考</translation>
     </message>
     <message>
-        <source>Contest (CONTEST_ID)</source>
-        <translation>比賽 (CONTEST_ID)</translation>
+        <source>Contest and activations</source>
+        <translation>競賽與啟用</translation>
+    </message>
+    <message>
+        <source>pick it from the list</source>
+        <translation>從清單中選</translation>
+    </message>
+    <message>
+        <source>identifier not in the list</source>
+        <translation>識別碼不在清單中</translation>
+    </message>
+    <message>
+        <source>Choose…</source>
+        <translation>選擇…</translation>
     </message>
     <message>
         <source>Name</source>
@@ -205,6 +213,24 @@
     <message>
         <source>Start session</source>
         <translation>開始會話</translation>
+    </message>
+    <message>
+        <source>Choose the contest</source>
+        <translation>選擇競賽</translation>
+    </message>
+    <message>
+        <source>Search by name or identifier…</source>
+        <translation>依名稱或識別碼搜尋…</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n contest(s)</source>
+        <translation>
+            <numerusform>%n 個競賽</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>取消</translation>
     </message>
 </context>
 <context>
@@ -1860,6 +1886,93 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>DecoDXLog — Logbook</source>
         <translation>DecoDXLog — 日誌</translation>
+    </message>
+</context>
+<context>
+    <name>LogsDialog</name>
+    <message>
+        <source>Station logs</source>
+        <translation>電台日誌</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n log(s)</source>
+        <translation>
+            <numerusform>%n 個日誌</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open an existing log</source>
+        <translation>開啟現有的日誌</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>DecoDXLog 日誌 (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>所有檔案 (*)</translation>
+    </message>
+    <message>
+        <source>open now</source>
+        <translation>正在使用</translation>
+    </message>
+    <message>
+        <source>%1 — the file is not there any more</source>
+        <translation>%1 — 檔案已不在</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO</source>
+        <translation>
+            <numerusform>%1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>開啟</translation>
+    </message>
+    <message>
+        <source>Forget</source>
+        <translation>從清單移除</translation>
+    </message>
+    <message>
+        <source>Only the log you are using. Make another one for a contest.</source>
+        <translation>只有你正在用的日誌。為競賽再建一個。</translation>
+    </message>
+    <message>
+        <source>New log</source>
+        <translation>新日誌</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>姓名</translation>
+    </message>
+    <message>
+        <source>CQ WW SSB 2026</source>
+        <translation>CQ WW SSB 2026</translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation>建立</translation>
+    </message>
+    <message>
+        <source>Log created. Press Open to work on it.</source>
+        <translation>日誌已建立。按「開啟」在其中工作。</translation>
+    </message>
+    <message>
+        <source>Add an existing one…</source>
+        <translation>加入現有的日誌…</translation>
+    </message>
+    <message>
+        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
+        <translation>檔案放在 %1 並留在那裡：DecoDXLog 從不刪除日誌。</translation>
+    </message>
+    <message>
+        <source>Ask which log to open when DecoDXLog starts</source>
+        <translation>DecoDXLog 啟動時詢問開啟哪個日誌</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>關閉</translation>
     </message>
 </context>
 <context>
@@ -4907,10 +5020,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>%1 · %2/%3</translation>
     </message>
     <message>
-        <source>Activation</source>
-        <translation>啟動</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>叢集 ●</translation>
     </message>
@@ -4985,6 +5094,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Quit</source>
         <translation>結束</translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>日誌</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>比賽</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5651,6 +5768,37 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>
             <numerusform>整理了 %n 個被舊匯入弄壞的 QSO（原來的文字留在歷史裡）。</numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::LogLibrary</name>
+    <message>
+        <source>Give the log a name.</source>
+        <translation>給日誌取個名字。</translation>
+    </message>
+    <message>
+        <source>There is already a file called %1.</source>
+        <translation>已經有一個叫 %1 的檔案。</translation>
+    </message>
+    <message>
+        <source>The log could not be created.</source>
+        <translation>無法建立日誌。</translation>
+    </message>
+    <message>
+        <source>No file chosen.</source>
+        <translation>沒有選擇檔案。</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation>%1 不在。</translation>
+    </message>
+    <message>
+        <source>%1 is not a DecoDXLog log.</source>
+        <translation>%1 不是 DecoDXLog 日誌。</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted on %1.</source>
+        <translation>程式無法在 %1 上重新啟動。</translation>
     </message>
 </context>
 <context>

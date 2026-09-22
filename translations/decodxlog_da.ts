@@ -87,10 +87,6 @@
         <translation>Session · %1</translation>
     </message>
     <message>
-        <source>Activation / contest</source>
-        <translation>Aktivering / contest</translation>
-    </message>
-    <message>
         <source>open since %1 UTC · %2</source>
         <translation>åben siden %1 UTC · %2</translation>
     </message>
@@ -143,8 +139,20 @@
         <translation>Reference</translation>
     </message>
     <message>
-        <source>Contest (CONTEST_ID)</source>
-        <translation>Contest (CONTEST_ID)</translation>
+        <source>Contest and activations</source>
+        <translation>Contests og aktiveringer</translation>
+    </message>
+    <message>
+        <source>pick it from the list</source>
+        <translation>vælg fra listen</translation>
+    </message>
+    <message>
+        <source>identifier not in the list</source>
+        <translation>identifikator ikke på listen</translation>
+    </message>
+    <message>
+        <source>Choose…</source>
+        <translation>Vælg…</translation>
     </message>
     <message>
         <source>Name</source>
@@ -205,6 +213,25 @@
     <message>
         <source>Start session</source>
         <translation>Start session</translation>
+    </message>
+    <message>
+        <source>Choose the contest</source>
+        <translation>Vælg contesten</translation>
+    </message>
+    <message>
+        <source>Search by name or identifier…</source>
+        <translation>Søg på navn eller identifikator…</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n contest(s)</source>
+        <translation>
+            <numerusform>%n contest</numerusform>
+            <numerusform>%n contests</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annullér</translation>
     </message>
 </context>
 <context>
@@ -1861,6 +1888,95 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>DecoDXLog — Logbook</source>
         <translation>DecoDXLog — Logbog</translation>
+    </message>
+</context>
+<context>
+    <name>LogsDialog</name>
+    <message>
+        <source>Station logs</source>
+        <translation>Stationslogs</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n log(s)</source>
+        <translation>
+            <numerusform>%n log</numerusform>
+            <numerusform>%n logs</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open an existing log</source>
+        <translation>Åbn en log der findes</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>DecoDXLog-logs (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Alle filer (*)</translation>
+    </message>
+    <message>
+        <source>open now</source>
+        <translation>åben nu</translation>
+    </message>
+    <message>
+        <source>%1 — the file is not there any more</source>
+        <translation>%1 — filen er der ikke mere</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO</source>
+        <translation>
+            <numerusform>%1 · %n QSO</numerusform>
+            <numerusform>%1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Åbn</translation>
+    </message>
+    <message>
+        <source>Forget</source>
+        <translation>Glem</translation>
+    </message>
+    <message>
+        <source>Only the log you are using. Make another one for a contest.</source>
+        <translation>Kun den log du bruger. Lav en mere til en contest.</translation>
+    </message>
+    <message>
+        <source>New log</source>
+        <translation>Ny log</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Navn</translation>
+    </message>
+    <message>
+        <source>CQ WW SSB 2026</source>
+        <translation>CQ WW SSB 2026</translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation>Opret</translation>
+    </message>
+    <message>
+        <source>Log created. Press Open to work on it.</source>
+        <translation>Log oprettet. Tryk Åbn for at arbejde i den.</translation>
+    </message>
+    <message>
+        <source>Add an existing one…</source>
+        <translation>Tilføj en der findes…</translation>
+    </message>
+    <message>
+        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
+        <translation>Filen ligger i %1 og bliver der: DecoDXLog sletter aldrig en log.</translation>
+    </message>
+    <message>
+        <source>Ask which log to open when DecoDXLog starts</source>
+        <translation>Spørg hvilken log der skal åbnes når DecoDXLog starter</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Luk</translation>
     </message>
 </context>
 <context>
@@ -4913,10 +5029,6 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>%1 · %2/%3</translation>
     </message>
     <message>
-        <source>Activation</source>
-        <translation>Aktivering</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>Cluster ●</translation>
     </message>
@@ -4991,6 +5103,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Quit</source>
         <translation>Afslut</translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>Logs</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5673,6 +5793,37 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
             <numerusform>%n QSO ryddet op efter en dårlig gammel import (den tidligere tekst bliver i historikken).</numerusform>
             <numerusform>%n QSO ryddet op efter en dårlig gammel import (den tidligere tekst bliver i historikken).</numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::LogLibrary</name>
+    <message>
+        <source>Give the log a name.</source>
+        <translation>Giv loggen et navn.</translation>
+    </message>
+    <message>
+        <source>There is already a file called %1.</source>
+        <translation>Der er allerede en fil der hedder %1.</translation>
+    </message>
+    <message>
+        <source>The log could not be created.</source>
+        <translation>Loggen kunne ikke oprettes.</translation>
+    </message>
+    <message>
+        <source>No file chosen.</source>
+        <translation>Ingen fil valgt.</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation>%1 er der ikke.</translation>
+    </message>
+    <message>
+        <source>%1 is not a DecoDXLog log.</source>
+        <translation>%1 er ikke en DecoDXLog-log.</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted on %1.</source>
+        <translation>Programmet kunne ikke starte igen på %1.</translation>
     </message>
 </context>
 <context>

@@ -87,10 +87,6 @@
         <translation>Сеанс · %1</translation>
     </message>
     <message>
-        <source>Activation / contest</source>
-        <translation>Активация / соревнование</translation>
-    </message>
-    <message>
         <source>open since %1 UTC · %2</source>
         <translation>открыт с %1 UTC · %2</translation>
     </message>
@@ -143,8 +139,20 @@
         <translation>Эталон</translation>
     </message>
     <message>
-        <source>Contest (CONTEST_ID)</source>
-        <translation>Соревнование (CONTEST_ID)</translation>
+        <source>Contest and activations</source>
+        <translation>Контесты и активации</translation>
+    </message>
+    <message>
+        <source>pick it from the list</source>
+        <translation>выбери из списка</translation>
+    </message>
+    <message>
+        <source>identifier not in the list</source>
+        <translation>идентификатора нет в списке</translation>
+    </message>
+    <message>
+        <source>Choose…</source>
+        <translation>Выбрать…</translation>
     </message>
     <message>
         <source>Name</source>
@@ -205,6 +213,26 @@
     <message>
         <source>Start session</source>
         <translation>Начать сеанс</translation>
+    </message>
+    <message>
+        <source>Choose the contest</source>
+        <translation>Выбери контест</translation>
+    </message>
+    <message>
+        <source>Search by name or identifier…</source>
+        <translation>Поиск по названию или идентификатору…</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n contest(s)</source>
+        <translation>
+            <numerusform>%n контест</numerusform>
+            <numerusform>%n контеста</numerusform>
+            <numerusform>%n контестов</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
     </message>
 </context>
 <context>
@@ -1862,6 +1890,97 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>DecoDXLog — Logbook</source>
         <translation>DecoDXLog — Журнал</translation>
+    </message>
+</context>
+<context>
+    <name>LogsDialog</name>
+    <message>
+        <source>Station logs</source>
+        <translation>Журналы станции</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n log(s)</source>
+        <translation>
+            <numerusform>%n журнал</numerusform>
+            <numerusform>%n журнала</numerusform>
+            <numerusform>%n журналов</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open an existing log</source>
+        <translation>Открыть существующий журнал</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>Журналы DecoDXLog (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Все файлы (*)</translation>
+    </message>
+    <message>
+        <source>open now</source>
+        <translation>открыт сейчас</translation>
+    </message>
+    <message>
+        <source>%1 — the file is not there any more</source>
+        <translation>%1 — файла больше нет</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO</source>
+        <translation>
+            <numerusform>%1 · %n QSO</numerusform>
+            <numerusform>%1 · %n QSO</numerusform>
+            <numerusform>%1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Открыть</translation>
+    </message>
+    <message>
+        <source>Forget</source>
+        <translation>Забыть</translation>
+    </message>
+    <message>
+        <source>Only the log you are using. Make another one for a contest.</source>
+        <translation>Есть только тот журнал, который ты ведёшь. Сделай ещё один для контеста.</translation>
+    </message>
+    <message>
+        <source>New log</source>
+        <translation>Новый журнал</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Имя</translation>
+    </message>
+    <message>
+        <source>CQ WW SSB 2026</source>
+        <translation>CQ WW SSB 2026</translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation>Создать</translation>
+    </message>
+    <message>
+        <source>Log created. Press Open to work on it.</source>
+        <translation>Журнал создан. Нажми «Открыть», чтобы работать в нём.</translation>
+    </message>
+    <message>
+        <source>Add an existing one…</source>
+        <translation>Добавить существующий…</translation>
+    </message>
+    <message>
+        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
+        <translation>Файл ложится в %1 и остаётся там: DecoDXLog никогда не удаляет журнал.</translation>
+    </message>
+    <message>
+        <source>Ask which log to open when DecoDXLog starts</source>
+        <translation>Спрашивать при запуске, какой журнал открыть</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Закрыть</translation>
     </message>
 </context>
 <context>
@@ -4919,10 +5038,6 @@ The call Decodium is working shows up here by itself.</source>
         <translation>%1 · %2/%3</translation>
     </message>
     <message>
-        <source>Activation</source>
-        <translation>Активация</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>Кластер ●</translation>
     </message>
@@ -4997,6 +5112,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Quit</source>
         <translation>Выход</translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>Журналы</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Соревнование</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5695,6 +5818,37 @@ The call Decodium is working shows up here by itself.</source>
             <numerusform>Починено %n QSO после плохого старого импорта (прежний текст остаётся в истории).</numerusform>
             <numerusform>Починено %n QSO после плохого старого импорта (прежний текст остаётся в истории).</numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::LogLibrary</name>
+    <message>
+        <source>Give the log a name.</source>
+        <translation>Дай журналу имя.</translation>
+    </message>
+    <message>
+        <source>There is already a file called %1.</source>
+        <translation>Файл с именем %1 уже есть.</translation>
+    </message>
+    <message>
+        <source>The log could not be created.</source>
+        <translation>Журнал не удалось создать.</translation>
+    </message>
+    <message>
+        <source>No file chosen.</source>
+        <translation>Файл не выбран.</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation>%1 нет на месте.</translation>
+    </message>
+    <message>
+        <source>%1 is not a DecoDXLog log.</source>
+        <translation>%1 — не журнал DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted on %1.</source>
+        <translation>Программа не смогла перезапуститься на %1.</translation>
     </message>
 </context>
 <context>

@@ -83,6 +83,8 @@ add_library(decolog_core STATIC
     src/core/LogDatabase.h
     src/core/Lotw.cpp
     src/core/Lotw.h
+    src/app/LogLibrary.cpp
+    src/app/LogLibrary.h
     src/core/Contests.cpp
     src/core/Contests.h
     src/core/NetworkError.h
@@ -231,6 +233,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/AboutDialog.qml
     qml/DecoDXLog/UpdateDialog.qml
     qml/DecoDXLog/ActivationDialog.qml
+    qml/DecoDXLog/LogsDialog.qml
     qml/DecoDXLog/StatsWindow.qml
     qml/DecoDXLog/ContestWindow.qml
     qml/DecoDXLog/RotorPalette.qml
@@ -397,6 +400,14 @@ if(DECODXLOG_BUILD_TESTS)
     target_link_libraries(tst_activation PRIVATE decolog_core Qt6::Test)
     set_target_properties(tst_activation PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME activation COMMAND tst_activation)
+    # I log della stazione: crearne uno per il contest e ritrovarli tutti.
+    qt_add_executable(tst_loglibrary tests/tst_loglibrary.cpp
+        src/app/LogLibrary.cpp src/app/LogLibrary.h)
+    target_include_directories(tst_loglibrary PRIVATE src)
+    target_link_libraries(tst_loglibrary PRIVATE decolog_core Qt6::Test)
+    set_target_properties(tst_loglibrary PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME loglibrary COMMAND tst_loglibrary)
+    set_tests_properties(loglibrary PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 
     # Su Windows Qt scrive i suoi messaggi nel canale del debugger quando non
     # trova una console: ctest vede la prova rossa e nessuna riga che dica

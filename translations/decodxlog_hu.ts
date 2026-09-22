@@ -87,10 +87,6 @@
         <translation>Munkamenet · %1</translation>
     </message>
     <message>
-        <source>Activation / contest</source>
-        <translation>Aktiválás / verseny</translation>
-    </message>
-    <message>
         <source>open since %1 UTC · %2</source>
         <translation>%1 UTC óta nyitva · %2</translation>
     </message>
@@ -143,8 +139,20 @@
         <translation>Referencia</translation>
     </message>
     <message>
-        <source>Contest (CONTEST_ID)</source>
-        <translation>Verseny (CONTEST_ID)</translation>
+        <source>Contest and activations</source>
+        <translation>Contestek és aktiválások</translation>
+    </message>
+    <message>
+        <source>pick it from the list</source>
+        <translation>válaszd a listából</translation>
+    </message>
+    <message>
+        <source>identifier not in the list</source>
+        <translation>az azonosító nincs a listában</translation>
+    </message>
+    <message>
+        <source>Choose…</source>
+        <translation>Választás…</translation>
     </message>
     <message>
         <source>Name</source>
@@ -205,6 +213,24 @@
     <message>
         <source>Start session</source>
         <translation>Munkamenet indítása</translation>
+    </message>
+    <message>
+        <source>Choose the contest</source>
+        <translation>Válassz contestet</translation>
+    </message>
+    <message>
+        <source>Search by name or identifier…</source>
+        <translation>Keresés név vagy azonosító szerint…</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n contest(s)</source>
+        <translation>
+            <numerusform>%n contest</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Mégse</translation>
     </message>
 </context>
 <context>
@@ -1860,6 +1886,93 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>DecoDXLog — Logbook</source>
         <translation>DecoDXLog — Napló</translation>
+    </message>
+</context>
+<context>
+    <name>LogsDialog</name>
+    <message>
+        <source>Station logs</source>
+        <translation>Állomás naplói</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n log(s)</source>
+        <translation>
+            <numerusform>%n napló</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open an existing log</source>
+        <translation>Meglévő napló megnyitása</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>DecoDXLog-naplók (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Minden fájl (*)</translation>
+    </message>
+    <message>
+        <source>open now</source>
+        <translation>most nyitva</translation>
+    </message>
+    <message>
+        <source>%1 — the file is not there any more</source>
+        <translation>%1 — a fájl már nincs meg</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO</source>
+        <translation>
+            <numerusform>%1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Megnyitás</translation>
+    </message>
+    <message>
+        <source>Forget</source>
+        <translation>Elfelejtés</translation>
+    </message>
+    <message>
+        <source>Only the log you are using. Make another one for a contest.</source>
+        <translation>Csak az a napló, amit használsz. Csinálj még egyet egy contesthez.</translation>
+    </message>
+    <message>
+        <source>New log</source>
+        <translation>Új napló</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Név</translation>
+    </message>
+    <message>
+        <source>CQ WW SSB 2026</source>
+        <translation>CQ WW SSB 2026</translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation>Létrehozás</translation>
+    </message>
+    <message>
+        <source>Log created. Press Open to work on it.</source>
+        <translation>Napló létrehozva. Nyomd meg a Megnyitást, hogy benne dolgozz.</translation>
+    </message>
+    <message>
+        <source>Add an existing one…</source>
+        <translation>Meglévő hozzáadása…</translation>
+    </message>
+    <message>
+        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
+        <translation>A fájl a %1 mappába kerül és ott marad: a DecoDXLog soha nem töröl naplót.</translation>
+    </message>
+    <message>
+        <source>Ask which log to open when DecoDXLog starts</source>
+        <translation>Kérdezze meg induláskor, melyik naplót nyissa meg</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Bezárás</translation>
     </message>
 </context>
 <context>
@@ -4907,10 +5020,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>%1 · %2/%3</translation>
     </message>
     <message>
-        <source>Activation</source>
-        <translation>Aktiválás</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>Cluster ●</translation>
     </message>
@@ -4985,6 +5094,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Quit</source>
         <translation>Kilépés</translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>Naplók</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Verseny</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5651,6 +5768,37 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>
             <numerusform>%n QSO rendbe téve egy rossz régi import után (az előző szöveg az előzményekben marad).</numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::LogLibrary</name>
+    <message>
+        <source>Give the log a name.</source>
+        <translation>Adj nevet a naplónak.</translation>
+    </message>
+    <message>
+        <source>There is already a file called %1.</source>
+        <translation>Már van %1 nevű fájl.</translation>
+    </message>
+    <message>
+        <source>The log could not be created.</source>
+        <translation>A naplót nem sikerült létrehozni.</translation>
+    </message>
+    <message>
+        <source>No file chosen.</source>
+        <translation>Nincs kiválasztott fájl.</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation>%1 nincs meg.</translation>
+    </message>
+    <message>
+        <source>%1 is not a DecoDXLog log.</source>
+        <translation>%1 nem DecoDXLog-napló.</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted on %1.</source>
+        <translation>A program nem tudott újraindulni ezen: %1.</translation>
     </message>
 </context>
 <context>

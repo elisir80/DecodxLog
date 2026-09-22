@@ -7,6 +7,7 @@
 
 #include "app/ClusterController.h"
 #include "app/ActivationController.h"
+#include "app/LogLibrary.h"
 #include "app/QslCardController.h"
 #include "app/QslController.h"
 #include "app/CloudController.h"
@@ -60,6 +61,8 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QObject* rig READ rig CONSTANT)
     Q_PROPERTY(QObject* cloud READ cloud CONSTANT)
     Q_PROPERTY(QObject* activation READ activation CONSTANT)
+    // I log della stazione: quello aperto e gli altri, per i contest.
+    Q_PROPERTY(QObject* logs READ logs CONSTANT)
 
     // ── Collegamento con Decodium ──────────────────────────────────────────
     Q_PROPERTY(int udpPort READ udpPort WRITE setUdpPort NOTIFY udpChanged)
@@ -189,6 +192,7 @@ public:
     QObject* rig() const { return m_rig; }
     QObject* cloud() const { return m_cloud; }
     QObject* activation() const { return m_activation; }
+    QObject* logs() const { return m_logs; }
     // Dopo openDatabase e startDecoLink: le fonti del cluster si collegano.
     void startCluster();
     // Il rotore si collega anche in una prova: leggere dove guarda l'antenna
@@ -545,6 +549,7 @@ private:
     RigController*       m_rig{nullptr};
     CloudController*     m_cloud{nullptr};
     ActivationController* m_activation{nullptr};
+    LogLibrary* m_logs{nullptr};
 
     int       m_udpPort{2237};
     QString   m_multicast;

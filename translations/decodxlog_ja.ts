@@ -87,10 +87,6 @@
         <translation>セッション · %1</translation>
     </message>
     <message>
-        <source>Activation / contest</source>
-        <translation>アクティベーション / コンテスト</translation>
-    </message>
-    <message>
         <source>open since %1 UTC · %2</source>
         <translation>%1 UTC から開いています · %2</translation>
     </message>
@@ -143,8 +139,20 @@
         <translation>リファレンス</translation>
     </message>
     <message>
-        <source>Contest (CONTEST_ID)</source>
-        <translation>コンテスト (CONTEST_ID)</translation>
+        <source>Contest and activations</source>
+        <translation>コンテストとアクティベーション</translation>
+    </message>
+    <message>
+        <source>pick it from the list</source>
+        <translation>一覧から選んでください</translation>
+    </message>
+    <message>
+        <source>identifier not in the list</source>
+        <translation>一覧にない識別子です</translation>
+    </message>
+    <message>
+        <source>Choose…</source>
+        <translation>選ぶ…</translation>
     </message>
     <message>
         <source>Name</source>
@@ -205,6 +213,24 @@
     <message>
         <source>Start session</source>
         <translation>セッションを始める</translation>
+    </message>
+    <message>
+        <source>Choose the contest</source>
+        <translation>コンテストを選ぶ</translation>
+    </message>
+    <message>
+        <source>Search by name or identifier…</source>
+        <translation>名前か識別子で検索…</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n contest(s)</source>
+        <translation>
+            <numerusform>%n 件のコンテスト</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1860,6 +1886,93 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>DecoDXLog — Logbook</source>
         <translation>DecoDXLog — ログ</translation>
+    </message>
+</context>
+<context>
+    <name>LogsDialog</name>
+    <message>
+        <source>Station logs</source>
+        <translation>局のログ</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n log(s)</source>
+        <translation>
+            <numerusform>%n 件のログ</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open an existing log</source>
+        <translation>あるログを開く</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>DecoDXLog のログ (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>すべてのファイル (*)</translation>
+    </message>
+    <message>
+        <source>open now</source>
+        <translation>今開いています</translation>
+    </message>
+    <message>
+        <source>%1 — the file is not there any more</source>
+        <translation>%1 — ファイルがもうありません</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO</source>
+        <translation>
+            <numerusform>%1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>開く</translation>
+    </message>
+    <message>
+        <source>Forget</source>
+        <translation>一覧から外す</translation>
+    </message>
+    <message>
+        <source>Only the log you are using. Make another one for a contest.</source>
+        <translation>使っているログだけです。コンテスト用にもう一つ作りましょう。</translation>
+    </message>
+    <message>
+        <source>New log</source>
+        <translation>新しいログ</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>名前</translation>
+    </message>
+    <message>
+        <source>CQ WW SSB 2026</source>
+        <translation>CQ WW SSB 2026</translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation>作る</translation>
+    </message>
+    <message>
+        <source>Log created. Press Open to work on it.</source>
+        <translation>ログを作りました。「開く」を押すとそこで作業できます。</translation>
+    </message>
+    <message>
+        <source>Add an existing one…</source>
+        <translation>あるログを追加…</translation>
+    </message>
+    <message>
+        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
+        <translation>ファイルは %1 に置かれ、そこに残ります。DecoDXLog がログを消すことはありません。</translation>
+    </message>
+    <message>
+        <source>Ask which log to open when DecoDXLog starts</source>
+        <translation>DecoDXLog の起動時にどのログを開くか尋ねる</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>閉じる</translation>
     </message>
 </context>
 <context>
@@ -4907,10 +5020,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>%1 · %2/%3</translation>
     </message>
     <message>
-        <source>Activation</source>
-        <translation>アクティベーション</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>クラスター ●</translation>
     </message>
@@ -4985,6 +5094,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Quit</source>
         <translation>終わる</translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>ログ</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>コンテスト</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5651,6 +5768,37 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>
             <numerusform>古いよくない取り込みで壊れた QSO を %n 件直しました (前の文字は履歴に残ります)。</numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::LogLibrary</name>
+    <message>
+        <source>Give the log a name.</source>
+        <translation>ログに名前を付けてください。</translation>
+    </message>
+    <message>
+        <source>There is already a file called %1.</source>
+        <translation>%1 というファイルがすでにあります。</translation>
+    </message>
+    <message>
+        <source>The log could not be created.</source>
+        <translation>ログを作れませんでした。</translation>
+    </message>
+    <message>
+        <source>No file chosen.</source>
+        <translation>ファイルが選ばれていません。</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation>%1 がありません。</translation>
+    </message>
+    <message>
+        <source>%1 is not a DecoDXLog log.</source>
+        <translation>%1 は DecoDXLog のログではありません。</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted on %1.</source>
+        <translation>%1 でプログラムを再起動できませんでした。</translation>
     </message>
 </context>
 <context>

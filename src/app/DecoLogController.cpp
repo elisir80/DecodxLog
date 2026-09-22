@@ -371,6 +371,12 @@ DecoLogController::~DecoLogController() = default;
 bool DecoLogController::openDatabase(const QString& path)
 {
     const bool ok = m_db.open(path);
+    // L'elenco dei log si tiene aggiornato da solo: quello che si apre entra
+    // nell'elenco e diventa il piu' recente.
+    if (!m_logs)
+        m_logs = new LogLibrary(this);
+    if (ok)
+        m_logs->setCurrent(path);
     if (ok) {
         addActivity(QStringLiteral("LOG"), tr("Log opened: %1 (%n QSO)", nullptr, m_db.qsoCount()).arg(path));
     } else {

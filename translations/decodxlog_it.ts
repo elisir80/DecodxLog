@@ -87,10 +87,6 @@
         <translation>Sessione · %1</translation>
     </message>
     <message>
-        <source>Activation / contest</source>
-        <translation>Attivazione / contest</translation>
-    </message>
-    <message>
         <source>open since %1 UTC · %2</source>
         <translation>aperta dalle %1 UTC · %2</translation>
     </message>
@@ -143,8 +139,20 @@
         <translation>Referenza</translation>
     </message>
     <message>
-        <source>Contest (CONTEST_ID)</source>
-        <translation>Contest (CONTEST_ID)</translation>
+        <source>Contest and activations</source>
+        <translation>Contest e attivazioni</translation>
+    </message>
+    <message>
+        <source>pick it from the list</source>
+        <translation>scegli dall&apos;elenco</translation>
+    </message>
+    <message>
+        <source>identifier not in the list</source>
+        <translation>identificativo non in elenco</translation>
+    </message>
+    <message>
+        <source>Choose…</source>
+        <translation>Scegli…</translation>
     </message>
     <message>
         <source>Name</source>
@@ -205,6 +213,25 @@
     <message>
         <source>Start session</source>
         <translation>Apri la sessione</translation>
+    </message>
+    <message>
+        <source>Choose the contest</source>
+        <translation>Scegli il contest</translation>
+    </message>
+    <message>
+        <source>Search by name or identifier…</source>
+        <translation>Cerca per nome o identificativo…</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n contest(s)</source>
+        <translation>
+            <numerusform>%n contest</numerusform>
+            <numerusform>%n contest</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annulla</translation>
     </message>
 </context>
 <context>
@@ -1861,6 +1888,95 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>DecoDXLog — Logbook</source>
         <translation>DecoDXLog — Log</translation>
+    </message>
+</context>
+<context>
+    <name>LogsDialog</name>
+    <message>
+        <source>Station logs</source>
+        <translation>Log della stazione</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n log(s)</source>
+        <translation>
+            <numerusform>%n log</numerusform>
+            <numerusform>%n log</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open an existing log</source>
+        <translation>Apri un log già fatto</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>Log di DecoDXLog (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Tutti i file (*)</translation>
+    </message>
+    <message>
+        <source>open now</source>
+        <translation>aperto adesso</translation>
+    </message>
+    <message>
+        <source>%1 — the file is not there any more</source>
+        <translation>%1 — il file non c&apos;è più</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO</source>
+        <translation>
+            <numerusform>%1 · %n QSO</numerusform>
+            <numerusform>%1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Apri</translation>
+    </message>
+    <message>
+        <source>Forget</source>
+        <translation>Dimentica</translation>
+    </message>
+    <message>
+        <source>Only the log you are using. Make another one for a contest.</source>
+        <translation>C&apos;è solo il log che stai usando. Fanne un altro per un contest.</translation>
+    </message>
+    <message>
+        <source>New log</source>
+        <translation>Log nuovo</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Nome</translation>
+    </message>
+    <message>
+        <source>CQ WW SSB 2026</source>
+        <translation>CQ WW SSB 2026</translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation>Crea</translation>
+    </message>
+    <message>
+        <source>Log created. Press Open to work on it.</source>
+        <translation>Log creato. Premi Apri per lavorarci.</translation>
+    </message>
+    <message>
+        <source>Add an existing one…</source>
+        <translation>Aggiungine uno già fatto…</translation>
+    </message>
+    <message>
+        <source>The file goes in %1 and stays there: DecoDXLog never deletes a log.</source>
+        <translation>Il file va in %1 e resta lì: DecoDXLog non cancella mai un log.</translation>
+    </message>
+    <message>
+        <source>Ask which log to open when DecoDXLog starts</source>
+        <translation>Chiedi quale log aprire quando DecoDXLog parte</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Chiudi</translation>
     </message>
 </context>
 <context>
@@ -4913,10 +5029,6 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>%1 · %2/%3</translation>
     </message>
     <message>
-        <source>Activation</source>
-        <translation>Attivazione</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>Cluster ●</translation>
     </message>
@@ -4991,6 +5103,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Quit</source>
         <translation>Esci</translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>Log</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5673,6 +5793,37 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
             <numerusform>%n QSO ripulito da un vecchio import sbagliato (il testo di prima resta nello storico).</numerusform>
             <numerusform>%n QSO ripuliti da un vecchio import sbagliato (il testo di prima resta nello storico).</numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::LogLibrary</name>
+    <message>
+        <source>Give the log a name.</source>
+        <translation>Dai un nome al log.</translation>
+    </message>
+    <message>
+        <source>There is already a file called %1.</source>
+        <translation>C&apos;è già un file che si chiama %1.</translation>
+    </message>
+    <message>
+        <source>The log could not be created.</source>
+        <translation>Il log non si è potuto creare.</translation>
+    </message>
+    <message>
+        <source>No file chosen.</source>
+        <translation>Nessun file scelto.</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation>%1 non c&apos;è.</translation>
+    </message>
+    <message>
+        <source>%1 is not a DecoDXLog log.</source>
+        <translation>%1 non è un log di DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted on %1.</source>
+        <translation>Il programma non è riuscito a ripartire su %1.</translation>
     </message>
 </context>
 <context>

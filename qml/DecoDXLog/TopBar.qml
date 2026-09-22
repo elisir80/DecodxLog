@@ -9,6 +9,7 @@ Rectangle {
     id: root
 
     signal setupRequested()
+    signal logsRequested()
     signal importRequested()
     signal exportRequested()
     signal awardsRequested()
@@ -203,6 +204,8 @@ Rectangle {
             hPadding: 10
             spacing: 6
             GlassButton { text: qsTr("Setup"); tone: Theme.primaryColor; filled: true; onClicked: root.setupRequested() }
+            // I log della stazione: quello di sempre e quelli dei contest.
+            GlassButton { text: qsTr("Logs"); onClicked: root.logsRequested() }
             GlassButton { text: qsTr("Import"); onClicked: root.importRequested() }
             GlassButton { text: qsTr("Export"); onClicked: root.exportRequested() }
             GlassButton { text: qsTr("Awards"); onClicked: root.awardsRequested() }
