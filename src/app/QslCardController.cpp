@@ -17,8 +17,6 @@
 #include <QImage>
 #include <QImageReader>
 #include <QPainter>
-#include <QJsonDocument>
-#include <QJsonObject>
 #include <QSettings>
 #include <QUrl>
 
@@ -702,9 +700,8 @@ void QslCardController::sendThroughCloud(const QVariantMap& qso, const QString& 
         return;
     }
 
-    static QNetworkAccessManager* network = nullptr;
-    if (!network)
-        network = new QNetworkAccessManager(this);
+    if (!m_network)
+        m_network = new QNetworkAccessManager(this);
 
     QUrl url(access.first);
     url.setPath(QStringLiteral("/v1/qsl/mail"));
@@ -726,9 +723,12 @@ void QslCardController::sendThroughCloud(const QVariantMap& qso, const QString& 
     };
 
     ++m_mailWaiting;
-    QNetworkReply* reply = network->post(request, QJsonDocument(body).toJson(QJsonDocument::Compact));
+    QNetworkReply* reply = m_network->post(request, QJsonDocument(body).toJson(QJsonDocument::Compact));
     connect(reply, &QNetworkReply::finished, this, [this, reply, id, call, email] {
         reply->deleteLater();
+        // Fermato a meta': i conti sono gia' azzerati, non si tocca piu' niente.
+        if (reply->error() == QNetworkReply::OperationCanceledError)
+            return;
         --m_mailWaiting;
         const int code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         const QJsonObject answer = QJsonDocument::fromJson(reply->readAll()).object();
@@ -867,6 +867,13 @@ void QslCardController::lookupAndSend(const QList<QVariantMap>& qsos)
 
 void QslCardController::cancelMail()
 {
+    // Quelle gia' consegnate al Cloud sono partite e non tornano indietro; le
+    // altre si fermano qui, prima di uscire.
+    if (m_network) {
+        const QList<QNetworkReply*> flying = m_network->findChildren<QNetworkReply*>();
+        for (QNetworkReply* reply : flying)
+            reply->abort();
+    }
     m_mailWaiting = 0;
     m_mail.cancel();
     m_mailStatus = tr("Sending stopped.");

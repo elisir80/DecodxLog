@@ -18,6 +18,8 @@
 #include <QVariantMap>
 #include <functional>
 
+class QNetworkAccessManager;
+
 namespace decolog::core {
 class LogDatabase;
 class CredentialStore;
@@ -151,6 +153,9 @@ private:
 
     core::MailSender m_mail;
     QString m_mailStatus;
+    // Le richieste al Cloud: tenerne il padre serve a poterle fermare tutte
+    // quando si preme «Ferma» a meta' di un invio.
+    QNetworkAccessManager* m_network{nullptr};
     int m_mailWaiting{0};     // quanti aspettano ancora l'email dal callbook
     int m_mailSent{0};
     int m_mailFailed{0};

@@ -12,6 +12,7 @@
 #include <QSettings>
 #include <QSignalSpy>
 #include <QTcpServer>
+#include <QTimer>
 #include <QTcpSocket>
 #include <QStandardPaths>
 #include <QTemporaryDir>
@@ -256,6 +257,56 @@ private slots:
         // E il QSO risulta mandato per via elettronica.
         QCOMPARE(cards.rows(QStringLiteral("queue")).size(), 0);
         QCOMPARE(cards.rows(QStringLiteral("sent")).size(), 1);
+    }
+
+    void stopDuringACloudSendLeavesTheQueueAlone()
+    {
+        core::LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        const core::InsertResult added = db.insertQso(
+            {{"CALL", "dl9zzt"}, {"QSO_DATE", "20260218"}, {"TIME_ON", "101500"},
+             {"FREQ", "14.084"}, {"MODE", "FT2"}, {"STATION_CALLSIGN", "IU8LMC"}},
+            QStringLiteral("test"));
+
+        // Un Cloud lento: accetta la connessione e risponde «mandata» mezzo
+        // secondo dopo. Se «Ferma» non fermasse davvero la richiesta, quella
+        // risposta arriverebbe lo stesso e la QSL risulterebbe partita.
+        QTcpServer slow;
+        QVERIFY(slow.listen(QHostAddress::LocalHost));
+        QObject::connect(&slow, &QTcpServer::newConnection, &slow, [&slow] {
+            QTcpSocket* socket = slow.nextPendingConnection();
+            QTimer::singleShot(500, socket, [socket] {
+                socket->write("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n"
+                              "Content-Length: 29\r\n\r\n{\"sent\":true,\"remaining\":99}");
+                socket->disconnectFromHost();
+            });
+        });
+
+        QslCardController::Context ctx;
+        ctx.db = &db;
+        ctx.cloudAccess = [&slow] {
+            return QPair<QString, QString>{
+                QStringLiteral("http://127.0.0.1:%1").arg(slow.serverPort()),
+                QStringLiteral("un-token")};
+        };
+        ctx.emailFor = [](const QString&, std::function<void(const QString&, const QString&)> done) {
+            done(QStringLiteral("dl9zzt@example.de"), QString());
+        };
+
+        QslCardController cards{ctx};
+        cards.addStandardCardFields();
+        cards.enqueue({QVariant(added.id)}, QStringLiteral("E"));
+        cards.sendCardsByEmail({});
+        QVERIFY(cards.mailBusy());
+
+        cards.cancelMail();
+        QVERIFY(!cards.mailBusy());
+        // La richiesta annullata torna qui: non deve contare come mandata ne'
+        // come fallita, e la QSL resta in coda per riprovare.
+        QTest::qWait(1200);
+        QVERIFY(!cards.mailBusy());
+        QCOMPARE(cards.rows(QStringLiteral("queue")).size(), 1);
+        QCOMPARE(cards.rows(QStringLiteral("sent")).size(), 0);
     }
 
     void withoutACloudNothingLeavesAndItSaysSo()
