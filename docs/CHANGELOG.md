@@ -3,6 +3,27 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.12.0 — 22 settembre 2026
+
+**Il banco del contest si apre da solo.** Aprire una sessione di contest voleva dire aprire a
+mano la finestra del contest, poi quella del cluster, poi quella CW, e spostarle tutte. Adesso
+partono insieme: l'**inserimento veloce** con progressivo, punteggio e statistiche; il
+**cluster**; e la **finestra CW** quando il contest e' in telegrafia — lo si capisce dal modo
+della sessione o dall'identificativo che finisce in -CW. La finestra dove si scrive resta
+davanti.
+
+**Il cluster durante una gara e' un'altra cosa.** Niente schede di fonti, avvisi, voce e
+console: solo i filtri e gli spot. E gli spot che portano **un moltiplicatore che ancora non si
+ha** si vedono da lontano: riga colorata, barra piu' spessa e la targhetta che dice quale —
+«zona 5», «paese 291», «prov RM».
+
+Un secondo americano sulla stessa banda smette di essere segnato, perche' quella zona e quel
+paese ci sono gia'; sui 40 metri torna a essere un moltiplicatore, che e' il motivo per cui si
+cambia banda. Quello che uno spot vale lo dice la scheda del contest — punti, moltiplicatore
+nuovo, duplicato — calcolato con il cty.csv invece che con lo scambio, che prima di lavorare
+qualcuno non si sa. Per i contest senza scheda non si segna niente: meglio niente che un numero
+inventato.
+
 ## 1.11.0 — 22 settembre 2026
 
 **La sezione si chiama Contest, i contest sono tutti quelli che esistono, e sei di loro sanno
