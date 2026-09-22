@@ -2651,6 +2651,22 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Encara no hi ha bústia de sortida. Es prepara a Configuració → Serveis QSL: l&apos;adreça i la contrasenya de la bústia d&apos;on surten les targetes.</translation>
     </message>
     <message>
+        <source>Link the Cloud first, or choose your own mailbox: Setup → QSL services.</source>
+        <translation>Enllaça primer el Núvol, o tria la teva pròpia bústia: Configuració → Serveis QSL.</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). The Cloud posts the card in your name, and answers come back to you.</source>
+        <translation>L&apos;adreça la sap el callbook (QRZ.com o HamQTH). La targeta la posa al correu el Núvol en nom teu, i qui respon t&apos;escriu a tu.</translation>
+    </message>
+    <message>
+        <source>The Cloud is not linked yet: it goes in Setup → Cloud. Or send from your own mailbox instead, in Setup → QSL services.</source>
+        <translation>El Núvol encara no està enllaçat: s&apos;enllaça a Configuració → Sync i Núvol. O envia des de la teva bústia, a Configuració → Serveis QSL.</translation>
+    </message>
+    <message>
+        <source>Through the Cloud, in your name. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so, and there is a ceiling of cards per day.</source>
+        <translation>Pel Núvol, en nom teu. Per a cada QSO triat l&apos;adreça es busca al callbook, la targeta es dibuixa i surt com a adjunt PNG. Les estacions de les quals el callbook no té correu es queden i s&apos;avisa, i hi ha un sostre de targetes al dia.</translation>
+    </message>
+    <message>
         <source>Cancel</source>
         <translation>Cancel·la</translation>
     </message>
@@ -4188,6 +4204,38 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>QSL by email</source>
         <translation>QSL per correu</translation>
+    </message>
+    <message>
+        <source>Who puts the card in the post</source>
+        <translation>Qui posa la targeta al correu</translation>
+    </message>
+    <message>
+        <source>The Cloud, in my name</source>
+        <translation>El Núvol, en nom meu</translation>
+    </message>
+    <message>
+        <source>My own mailbox</source>
+        <translation>La meva pròpia bústia</translation>
+    </message>
+    <message>
+        <source>Ready to send.</source>
+        <translation>A punt per enviar.</translation>
+    </message>
+    <message>
+        <source>Link the Cloud in the Cloud page: without it there is nowhere to send from.</source>
+        <translation>Enllaça el Núvol a la pàgina del Núvol: sense ell no hi ha des d&apos;on enviar.</translation>
+    </message>
+    <message>
+        <source>Fill in the mail server and the password below.</source>
+        <translation>Omple el servidor de correu i la contrasenya de sota.</translation>
+    </message>
+    <message>
+        <source>The card goes to the DecoDXLog Cloud, and the Cloud posts it — so no mailbox password stays on this computer. It leaves as «%1 via DecoDXLog», and whoever answers writes to you, not to the service. There is a ceiling of cards per day: a shared mailbox that sends too much ends up in the spam lists, and it would end up there for everybody at once.</source>
+        <translation>La targeta va al Núvol de DecoDXLog, i l&apos;envia ell — així cap contrasenya de bústia no es queda en aquest ordinador. Surt com a «%1 via DecoDXLog», i qui respon t&apos;escriu a tu, no al servei. Hi ha un sostre de targetes al dia: una bústia compartida que envia massa acaba a les llistes de brossa, i hi acabaria per a tothom alhora.</translation>
+    </message>
+    <message>
+        <source>your callsign</source>
+        <translation>el teu indicatiu</translation>
     </message>
     <message>
         <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
@@ -5779,8 +5827,16 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Targetes QSL: %1 (%2)</translation>
     </message>
     <message>
+        <source>%1: the Cloud is not linked, so there is nowhere to send from</source>
+        <translation>%1: el Núvol no està enllaçat, no hi ha des d&apos;on enviar</translation>
+    </message>
+    <message>
         <source>No QSO to send a card to.</source>
         <translation>Cap QSO a qui enviar una targeta.</translation>
+    </message>
+    <message>
+        <source>Link the Cloud first, or send from your own mailbox: Setup -&gt; QSL services.</source>
+        <translation>Enllaça primer el Núvol, o envia des de la teva bústia: Configuració -&gt; Serveis QSL.</translation>
     </message>
     <message>
         <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>

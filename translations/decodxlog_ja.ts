@@ -2648,6 +2648,22 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>送信用のメールボックスがまだありません。設定 → QSL サービスで用意します。カードを送り出すメールボックスのアドレスとパスワードです。</translation>
     </message>
     <message>
+        <source>Link the Cloud first, or choose your own mailbox: Setup → QSL services.</source>
+        <translation>まずクラウドを接続するか、自分のメールボックスを選んでください: 設定 → QSL サービス。</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). The Cloud posts the card in your name, and answers come back to you.</source>
+        <translation>宛先はコールブック（QRZ.com または HamQTH）からです。カードはクラウドがあなたの名前で差し出し、返信はあなたに届きます。</translation>
+    </message>
+    <message>
+        <source>The Cloud is not linked yet: it goes in Setup → Cloud. Or send from your own mailbox instead, in Setup → QSL services.</source>
+        <translation>クラウドはまだ接続されていません: 設定 → 同期とクラウドで接続できます。または設定 → QSL サービスで自分のメールボックスから送ります。</translation>
+    </message>
+    <message>
+        <source>Through the Cloud, in your name. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so, and there is a ceiling of cards per day.</source>
+        <translation>クラウド経由で、あなたの名前で送ります。選んだ QSO ごとにコールブックで宛先を探し、カードを描いて PNG 添付で送信します。コールブックにメールがない局は送られず、その旨をお知らせします。また 1 日の上限があります。</translation>
+    </message>
+    <message>
         <source>Cancel</source>
         <translation>キャンセル</translation>
     </message>
@@ -4182,6 +4198,38 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>QSL by email</source>
         <translation>メールで QSL</translation>
+    </message>
+    <message>
+        <source>Who puts the card in the post</source>
+        <translation>カードを差し出すのは</translation>
+    </message>
+    <message>
+        <source>The Cloud, in my name</source>
+        <translation>クラウドが私の名前で</translation>
+    </message>
+    <message>
+        <source>My own mailbox</source>
+        <translation>自分のメールボックス</translation>
+    </message>
+    <message>
+        <source>Ready to send.</source>
+        <translation>送信の準備ができました。</translation>
+    </message>
+    <message>
+        <source>Link the Cloud in the Cloud page: without it there is nowhere to send from.</source>
+        <translation>クラウドのページでクラウドを接続してください: それがないと送る元がありません。</translation>
+    </message>
+    <message>
+        <source>Fill in the mail server and the password below.</source>
+        <translation>下のメールサーバーとパスワードを入力してください。</translation>
+    </message>
+    <message>
+        <source>The card goes to the DecoDXLog Cloud, and the Cloud posts it — so no mailbox password stays on this computer. It leaves as «%1 via DecoDXLog», and whoever answers writes to you, not to the service. There is a ceiling of cards per day: a shared mailbox that sends too much ends up in the spam lists, and it would end up there for everybody at once.</source>
+        <translation>カードは DecoDXLog クラウドに送られ、クラウドが差し出します — だからメールのパスワードはこのパソコンに残りません。「%1 via DecoDXLog」として届き、返信はサービスではなくあなたに届きます。1 日の上限があります: 共用のメールボックスが送りすぎると迷惑メールリストに入り、全員が一度にそうなってしまいます。</translation>
+    </message>
+    <message>
+        <source>your callsign</source>
+        <translation>あなたのコールサイン</translation>
     </message>
     <message>
         <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
@@ -5750,8 +5798,16 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>QSL カード: %1 (%2)</translation>
     </message>
     <message>
+        <source>%1: the Cloud is not linked, so there is nowhere to send from</source>
+        <translation>%1: クラウドが接続されておらず、送る元がありません</translation>
+    </message>
+    <message>
         <source>No QSO to send a card to.</source>
         <translation>カードを送る QSO がありません。</translation>
+    </message>
+    <message>
+        <source>Link the Cloud first, or send from your own mailbox: Setup -&gt; QSL services.</source>
+        <translation>まずクラウドを接続するか、自分のメールボックスから送ってください: 設定 -&gt; QSL サービス。</translation>
     </message>
     <message>
         <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>

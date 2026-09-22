@@ -9,6 +9,11 @@
 #include <algorithm>
 #include <QDir>
 #include <QBuffer>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QNetworkRequest>
 #include <QImage>
 #include <QImageReader>
 #include <QPainter>
@@ -610,7 +615,12 @@ QVariantMap QslCardController::mail() const
                                             QLatin1String(kDefaultSubject)).toString()},
         {QStringLiteral("body"), s.value(QStringLiteral("mail/body"),
                                          QLatin1String(kDefaultBody)).toString()},
-        {QStringLiteral("ready"), !a.host.trimmed().isEmpty() && !a.user.trimmed().isEmpty()},
+        {QStringLiteral("route"), mailRoute()},
+        {QStringLiteral("mailboxReady"), !a.host.trimmed().isEmpty() && !a.user.trimmed().isEmpty()},
+        {QStringLiteral("cloudReady"), m_ctx.cloudAccess && !m_ctx.cloudAccess().second.isEmpty()},
+        {QStringLiteral("ready"), mailRoute() == QLatin1String("cloud")
+                                     ? (m_ctx.cloudAccess && !m_ctx.cloudAccess().second.isEmpty())
+                                     : (!a.host.trimmed().isEmpty() && !a.user.trimmed().isEmpty())},
     };
 }
 
@@ -642,10 +652,10 @@ QString QslCardController::mailBodyFor(const QVariantMap& qso) const
                 qso, stationInfo());
 }
 
-void QslCardController::queueCard(const QVariantMap& qso, const QString& email)
+QByteArray QslCardController::drawCard(const QVariantMap& qso) const
 {
-    // La cartolina si disegna qui, in memoria: non serve lasciare file in giro
-    // per mandarne uno.
+    // La cartolina si disegna in memoria: non serve lasciare file in giro per
+    // mandarne uno.
     const QImage background(m_card.templatePath);
     const QSize size = background.isNull() ? QSize(1748, 1240) : background.size();
     QImage image(size, QImage::Format_RGB32);
@@ -661,6 +671,95 @@ void QslCardController::queueCard(const QVariantMap& qso, const QString& email)
     QBuffer buffer(&png);
     buffer.open(QIODevice::WriteOnly);
     image.save(&buffer, "PNG");
+    return png;
+}
+
+QString QslCardController::mailRoute() const
+{
+    return QSettings().value(QStringLiteral("mail/route"), QStringLiteral("cloud")).toString();
+}
+
+void QslCardController::setMailRoute(const QString& route)
+{
+    QSettings().setValue(QStringLiteral("mail/route"),
+                         route == QLatin1String("mailbox") ? route : QStringLiteral("cloud"));
+    emit mailChanged();
+}
+
+// Il Cloud fa da ponte: la cartolina va li', e la casella ce l'ha il server.
+// Cosi' sul computer dell'operatore non c'e' nessuna password di posta.
+void QslCardController::sendThroughCloud(const QVariantMap& qso, const QString& email,
+                                         const QByteArray& png)
+{
+    const auto access = m_ctx.cloudAccess ? m_ctx.cloudAccess() : QPair<QString, QString>{};
+    const qint64 id = qso.value(QStringLiteral("id")).toLongLong();
+    const QString call = qso.value(QStringLiteral("call")).toString().toUpper();
+    if (access.first.isEmpty() || access.second.isEmpty()) {
+        ++m_mailFailed;
+        note(tr("%1: the Cloud is not linked, so there is nowhere to send from").arg(call),
+             QStringLiteral("error"));
+        emit mailChanged();
+        return;
+    }
+
+    static QNetworkAccessManager* network = nullptr;
+    if (!network)
+        network = new QNetworkAccessManager(this);
+
+    QUrl url(access.first);
+    url.setPath(QStringLiteral("/v1/qsl/mail"));
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/json"));
+    request.setRawHeader("Authorization", "Bearer " + access.second.toUtf8());
+
+    const QJsonObject body{
+        {QStringLiteral("to"), email},
+        {QStringLiteral("subject"), fill(QSettings().value(QStringLiteral("mail/subject"),
+                                                           QLatin1String(kDefaultSubject)).toString(),
+                                         qso, stationInfo())},
+        {QStringLiteral("body"), mailBodyFor(qso)},
+        {QStringLiteral("replyTo"), m_ctx.replyTo ? m_ctx.replyTo() : QString()},
+        {QStringLiteral("attachmentName"),
+         QStringLiteral("%1-%2.png").arg(call, qso.value(QStringLiteral("date")).toString()
+                                                   .remove(QLatin1Char('-')))},
+        {QStringLiteral("attachment"), QString::fromLatin1(png.toBase64())},
+    };
+
+    ++m_mailWaiting;
+    QNetworkReply* reply = network->post(request, QJsonDocument(body).toJson(QJsonDocument::Compact));
+    connect(reply, &QNetworkReply::finished, this, [this, reply, id, call, email] {
+        reply->deleteLater();
+        --m_mailWaiting;
+        const int code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        const QJsonObject answer = QJsonDocument::fromJson(reply->readAll()).object();
+        if (code == 200) {
+            ++m_mailSent;
+            touch(id, QStringLiteral("Y"), QString(), QStringLiteral("E"));
+            note(tr("QSL sent to %1").arg(email), QStringLiteral("success"));
+            emit changed();
+        } else {
+            ++m_mailFailed;
+            const QString detail = answer.value(QStringLiteral("detail")).toString();
+            note(tr("QSL not sent to %1: %2")
+                     .arg(email, detail.isEmpty() ? reply->errorString() : detail),
+                 QStringLiteral("error"));
+        }
+        if (m_mailWaiting == 0) {
+            m_mailStatus = m_mailFailed == 0
+                               ? tr("%n QSL sent by email", nullptr, m_mailSent)
+                               : tr("%1 sent, %2 not").arg(m_mailSent).arg(m_mailFailed);
+        }
+        emit mailChanged();
+    });
+}
+
+void QslCardController::queueCard(const QVariantMap& qso, const QString& email)
+{
+    const QByteArray png = drawCard(qso);
+    if (mailRoute() == QLatin1String("cloud")) {
+        sendThroughCloud(qso, email, png);
+        return;
+    }
 
     const QString call = qso.value(QStringLiteral("call")).toString().toUpper();
     core::MailMessage message;
@@ -687,7 +786,10 @@ void QslCardController::sendCardsByEmail(const QVariantList& ids)
         return;
     }
     if (!mail().value(QStringLiteral("ready")).toBool()) {
-        m_mailStatus = tr("Set up the outgoing mailbox first: Setup -> QSL services.");
+        m_mailStatus = mailRoute() == QLatin1String("cloud")
+                           ? tr("Link the Cloud first, or send from your own mailbox: "
+                                "Setup -> QSL services.")
+                           : tr("Set up the outgoing mailbox first: Setup -> QSL services.");
         note(m_mailStatus, QStringLiteral("warning"));
         emit mailChanged();
         return;
@@ -698,7 +800,7 @@ void QslCardController::sendCardsByEmail(const QVariantList& ids)
         emit mailChanged();
         return;
     }
-    if (!m_ctx.credentials || !m_ctx.emailFor) {
+    if (!m_ctx.emailFor) {
         m_mailStatus = tr("Sending by email is not available.");
         emit mailChanged();
         return;
@@ -710,8 +812,19 @@ void QslCardController::sendCardsByEmail(const QVariantList& ids)
     m_mailStatus = tr("Looking up %n address(es)…", nullptr, static_cast<int>(qsos.size()));
     emit mailChanged();
 
-    // La password sta nel portachiavi: si chiede una volta sola, e solo adesso
-    // che serve davvero.
+    // Dal Cloud la password non serve: ce l'ha il server. Si parte e basta.
+    if (mailRoute() == QLatin1String("cloud")) {
+        lookupAndSend(qsos);
+        return;
+    }
+    // Dalla propria casella invece serve, e sta nel portachiavi: si chiede una
+    // volta sola, e solo adesso che serve davvero.
+    if (!m_ctx.credentials) {
+        m_mailWaiting = 0;
+        m_mailStatus = tr("Sending by email is not available.");
+        emit mailChanged();
+        return;
+    }
     m_ctx.credentials->readSecret(QStringLiteral("mail"), [this, qsos](const QString& secret,
                                                                       const QString& error) {
         if (secret.isEmpty()) {
@@ -726,26 +839,30 @@ void QslCardController::sendCardsByEmail(const QVariantList& ids)
         core::MailAccount account = m_mail.account();
         account.password = secret;
         m_mail.setAccount(account);
-
-        for (const QVariantMap& qso : qsos) {
-            const QString call = qso.value(QStringLiteral("call")).toString();
-            m_ctx.emailFor(call, [this, qso, call](const QString& email, const QString& why) {
-                --m_mailWaiting;
-                if (email.isEmpty()) {
-                    ++m_mailFailed;
-                    note(tr("%1: no email in the callbook (%2)").arg(call, why),
-                         QStringLiteral("warning"));
-                    emit mailChanged();
-                } else {
-                    queueCard(qso, email);
-                }
-                if (m_mailWaiting == 0 && !m_mail.busy()) {
-                    m_mailStatus = tr("%1 sent, %2 not").arg(m_mailSent).arg(m_mailFailed);
-                    emit mailChanged();
-                }
-            });
-        }
+        lookupAndSend(qsos);
     });
+}
+
+void QslCardController::lookupAndSend(const QList<QVariantMap>& qsos)
+{
+    for (const QVariantMap& qso : qsos) {
+        const QString call = qso.value(QStringLiteral("call")).toString();
+        m_ctx.emailFor(call, [this, qso, call](const QString& email, const QString& why) {
+            --m_mailWaiting;
+            if (email.isEmpty()) {
+                ++m_mailFailed;
+                note(tr("%1: no email in the callbook (%2)").arg(call, why),
+                     QStringLiteral("warning"));
+                emit mailChanged();
+            } else {
+                queueCard(qso, email);
+            }
+            if (m_mailWaiting == 0 && !m_mail.busy()) {
+                m_mailStatus = tr("%1 sent, %2 not").arg(m_mailSent).arg(m_mailFailed);
+                emit mailChanged();
+            }
+        });
+    }
 }
 
 void QslCardController::cancelMail()

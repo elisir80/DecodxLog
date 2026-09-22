@@ -2648,6 +2648,22 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>還沒有寄信信箱。在設定 → QSL 服務裡準備：卡片寄出所用信箱的地址和密碼。</translation>
     </message>
     <message>
+        <source>Link the Cloud first, or choose your own mailbox: Setup → QSL services.</source>
+        <translation>請先連接雲端，或選擇你自己的信箱：設定 → QSL 服務。</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). The Cloud posts the card in your name, and answers come back to you.</source>
+        <translation>地址來自呼號簿（QRZ.com 或 HamQTH）。卡片由雲端以你的名義寄出，回信直接到你那裡。</translation>
+    </message>
+    <message>
+        <source>The Cloud is not linked yet: it goes in Setup → Cloud. Or send from your own mailbox instead, in Setup → QSL services.</source>
+        <translation>雲端還沒連接：在設定 → 同步與雲端裡連接。或者在設定 → QSL 服務裡改用你自己的信箱寄。</translation>
+    </message>
+    <message>
+        <source>Through the Cloud, in your name. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so, and there is a ceiling of cards per day.</source>
+        <translation>經由雲端，以你的名義。每個選中的 QSO 都會在呼號簿裡查地址，畫好卡片並以 PNG 附件寄出。呼號簿裡沒有信箱的電台會被跳過並告知，而且每天有張數上限。</translation>
+    </message>
+    <message>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -4182,6 +4198,38 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>QSL by email</source>
         <translation>用郵件發 QSL</translation>
+    </message>
+    <message>
+        <source>Who puts the card in the post</source>
+        <translation>由誰把卡片寄出</translation>
+    </message>
+    <message>
+        <source>The Cloud, in my name</source>
+        <translation>雲端，以我的名義</translation>
+    </message>
+    <message>
+        <source>My own mailbox</source>
+        <translation>我自己的信箱</translation>
+    </message>
+    <message>
+        <source>Ready to send.</source>
+        <translation>可以寄出了。</translation>
+    </message>
+    <message>
+        <source>Link the Cloud in the Cloud page: without it there is nowhere to send from.</source>
+        <translation>在雲端頁面裡連接雲端：沒有它就無處可寄。</translation>
+    </message>
+    <message>
+        <source>Fill in the mail server and the password below.</source>
+        <translation>請填寫下面的郵件伺服器和密碼。</translation>
+    </message>
+    <message>
+        <source>The card goes to the DecoDXLog Cloud, and the Cloud posts it — so no mailbox password stays on this computer. It leaves as «%1 via DecoDXLog», and whoever answers writes to you, not to the service. There is a ceiling of cards per day: a shared mailbox that sends too much ends up in the spam lists, and it would end up there for everybody at once.</source>
+        <translation>卡片先送到 DecoDXLog 雲端，再由雲端寄出 — 這樣這台電腦上不會留下任何信箱密碼。它以「%1 via DecoDXLog」寄出，回信寫給你，而不是寫給服務。每天有上限：共用信箱寄得太多會落入垃圾郵件名單，而且是所有人一起落入。</translation>
+    </message>
+    <message>
+        <source>your callsign</source>
+        <translation>你的呼號</translation>
     </message>
     <message>
         <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
@@ -5750,8 +5798,16 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>QSL 卡片：%1 (%2)</translation>
     </message>
     <message>
+        <source>%1: the Cloud is not linked, so there is nowhere to send from</source>
+        <translation>%1：雲端未連接，無處可寄</translation>
+    </message>
+    <message>
         <source>No QSO to send a card to.</source>
         <translation>沒有可以寄卡片的 QSO。</translation>
+    </message>
+    <message>
+        <source>Link the Cloud first, or send from your own mailbox: Setup -&gt; QSL services.</source>
+        <translation>請先連接雲端，或用你自己的信箱寄：設定 -&gt; QSL 服務。</translation>
     </message>
     <message>
         <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>

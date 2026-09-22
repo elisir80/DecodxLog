@@ -41,7 +41,12 @@ ColumnLayout {
             spacing: 10
 
             Text {
+                // Un'etichetta lunga («Casella da cui mandare») non entrava nei
+                // 120 e finiva sopra la descrizione accanto.
                 Layout.preferredWidth: 120
+                Layout.maximumWidth: 200
+                Layout.minimumWidth: Math.min(200, implicitWidth)
+                elide: Text.ElideRight
                 text: row.modelData.label
                 color: Theme.textPrimary
                 font.family: Theme.monoFamily

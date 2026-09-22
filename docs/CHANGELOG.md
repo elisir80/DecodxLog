@@ -3,6 +3,33 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.9.0 — 22 settembre 2026
+
+**La QSL per email puo' partire dal Cloud, e cosi' nessuna password di posta resta sul
+computer.** Fino alla 1.8.0 per mandare una cartolina bisognava dare a DecoDXLog l'indirizzo
+e la password di una casella. Adesso c'e' una seconda via, ed e' quella di serie: la
+cartolina va al Cloud di DecoDXLog con il token che si ha gia', e la imbuca il server. La
+password sta su una macchina sola, non su ogni computer che scarica il programma.
+
+L'email parte come «IU8LMC via DecoDXLog», e il Rispondi-a e' l'indirizzo dell'operatore:
+chi riceve la cartolina risponde a chi gliel'ha mandata, non al servizio. In fondo al
+messaggio si legge da chi viene — una QSL anonima non serve a niente.
+
+**C'e' un tetto di cartoline al giorno**, per nominativo e in tutto. Non e' un capriccio:
+una casella di tutti che manda a sconosciuti in giro per il mondo e' esattamente quello che
+i filtri antispam guardano, e se una persona sola potesse mandarne diecimila il dominio
+finirebbe in lista nera per tutti insieme. Quando il tetto si tocca si dice, e si riprende
+il giorno dopo.
+
+**Si sceglie in Impostazioni → Servizi QSL**, alla voce «Chi imbuca la cartolina»: «Il
+Cloud, a nome mio» oppure «La mia casella». Con il Cloud i campi del server di posta e la
+password spariscono, perche' non servono — e non si chiede al portachiavi qualcosa che non
+si usa. Chi preferisce la propria casella non perde niente: la via di prima e' tutta li'.
+
+Il Cloud accetta solo cartoline vere (un PNG, non un file qualunque), rifiuta gli indirizzi
+con dentro un a capo — quelli servono solo a infilare intestazioni di nascosto — e non fa
+da ponte per un account non ancora approvato.
+
 ## 1.8.0 — 22 settembre 2026
 
 **La QSL si manda per email, e l'indirizzo lo sa il callbook.** Oltre al PDF e ai PNG c'e'

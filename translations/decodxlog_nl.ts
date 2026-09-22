@@ -2651,6 +2651,22 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Er is nog geen uitgaande mailbox. Die wordt ingericht in Instellingen → QSL-diensten: het adres en het wachtwoord van de mailbox waar de kaarten vandaan gaan.</translation>
     </message>
     <message>
+        <source>Link the Cloud first, or choose your own mailbox: Setup → QSL services.</source>
+        <translation>Koppel eerst de Cloud, of kies je eigen mailbox: Instellingen → QSL-diensten.</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). The Cloud posts the card in your name, and answers come back to you.</source>
+        <translation>Het adres komt uit het callbook (QRZ.com of HamQTH). De Cloud post de kaart op jouw naam, en wie antwoordt schrijft aan jou.</translation>
+    </message>
+    <message>
+        <source>The Cloud is not linked yet: it goes in Setup → Cloud. Or send from your own mailbox instead, in Setup → QSL services.</source>
+        <translation>De Cloud is nog niet gekoppeld: dat gaat in Instellingen → Sync en Cloud. Of stuur vanuit je eigen mailbox, in Instellingen → QSL-diensten.</translation>
+    </message>
+    <message>
+        <source>Through the Cloud, in your name. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so, and there is a ceiling of cards per day.</source>
+        <translation>Via de Cloud, op jouw naam. Voor elk gekozen QSO wordt het adres in het callbook gezocht, de kaart getekend en als PNG-bijlage verstuurd. Stations waarvan het callbook geen e-mail heeft blijven liggen en worden genoemd, en er is een plafond aan kaarten per dag.</translation>
+    </message>
+    <message>
         <source>Cancel</source>
         <translation>Annuleren</translation>
     </message>
@@ -4190,6 +4206,38 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>QSL per e-mail</translation>
     </message>
     <message>
+        <source>Who puts the card in the post</source>
+        <translation>Wie de kaart op de post doet</translation>
+    </message>
+    <message>
+        <source>The Cloud, in my name</source>
+        <translation>De Cloud, op mijn naam</translation>
+    </message>
+    <message>
+        <source>My own mailbox</source>
+        <translation>Mijn eigen mailbox</translation>
+    </message>
+    <message>
+        <source>Ready to send.</source>
+        <translation>Klaar om te versturen.</translation>
+    </message>
+    <message>
+        <source>Link the Cloud in the Cloud page: without it there is nowhere to send from.</source>
+        <translation>Koppel de Cloud op de Cloud-pagina: zonder die is er geen afzender.</translation>
+    </message>
+    <message>
+        <source>Fill in the mail server and the password below.</source>
+        <translation>Vul hieronder de mailserver en het wachtwoord in.</translation>
+    </message>
+    <message>
+        <source>The card goes to the DecoDXLog Cloud, and the Cloud posts it — so no mailbox password stays on this computer. It leaves as «%1 via DecoDXLog», and whoever answers writes to you, not to the service. There is a ceiling of cards per day: a shared mailbox that sends too much ends up in the spam lists, and it would end up there for everybody at once.</source>
+        <translation>De kaart gaat naar de DecoDXLog-Cloud, en die post hem — zo blijft er geen mailboxwachtwoord op deze computer staan. Hij vertrekt als «%1 via DecoDXLog», en wie antwoordt schrijft aan jou, niet aan de dienst. Er is een plafond aan kaarten per dag: een gedeelde mailbox die te veel stuurt belandt in de spamlijsten, en zou daar voor iedereen tegelijk belanden.</translation>
+    </message>
+    <message>
+        <source>your callsign</source>
+        <translation>jouw roepletters</translation>
+    </message>
+    <message>
         <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
         <translation>De kaart gaat weg uit je eigen mailbox, en het adres van wie hem krijgt kent het roepletterboek — QRZ.com of HamQTH. Gmail wil daarvoor een app-wachtwoord, niet dat waarmee je inlogt: dat maak je op myaccount.google.com/apppasswords. Er gaat niets weg zonder dat je erom vraagt: de knop zit in QSL-kaart → Per e-mail versturen.</translation>
     </message>
@@ -5613,7 +5661,7 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <source>%n QSL sent by email</source>
         <translation>
             <numerusform>%n QSL per e-mail verstuurd</numerusform>
-            <numerusform>%n QSL's per e-mail verstuurd</numerusform>
+            <numerusform>%n QSL&apos;s per e-mail verstuurd</numerusform>
         </translation>
     </message>
     <message>
@@ -5779,8 +5827,16 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>QSL-kaarten: %1 (%2)</translation>
     </message>
     <message>
+        <source>%1: the Cloud is not linked, so there is nowhere to send from</source>
+        <translation>%1: de Cloud is niet gekoppeld, er is geen afzender</translation>
+    </message>
+    <message>
         <source>No QSO to send a card to.</source>
         <translation>Geen QSO om een kaart naartoe te sturen.</translation>
+    </message>
+    <message>
+        <source>Link the Cloud first, or send from your own mailbox: Setup -&gt; QSL services.</source>
+        <translation>Koppel eerst de Cloud, of stuur vanuit je eigen mailbox: Instellingen -&gt; QSL-diensten.</translation>
     </message>
     <message>
         <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>

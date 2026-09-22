@@ -2654,6 +2654,22 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Încă nu există o cutie de trimitere. Se pregătește în Setări → Servicii QSL: adresa și parola cutiei din care pleacă cărțile.</translation>
     </message>
     <message>
+        <source>Link the Cloud first, or choose your own mailbox: Setup → QSL services.</source>
+        <translation>Leagă mai întâi Cloudul, sau alege-ți propria căsuță: Setări → Servicii QSL.</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). The Cloud posts the card in your name, and answers come back to you.</source>
+        <translation>Adresa o știe callbookul (QRZ.com sau HamQTH). Cartonul îl pune la poștă Cloudul în numele tău, iar cine răspunde îți scrie ție.</translation>
+    </message>
+    <message>
+        <source>The Cloud is not linked yet: it goes in Setup → Cloud. Or send from your own mailbox instead, in Setup → QSL services.</source>
+        <translation>Cloudul nu e încă legat: se leagă în Setări → Sync și Cloud. Sau trimite din propria căsuță, în Setări → Servicii QSL.</translation>
+    </message>
+    <message>
+        <source>Through the Cloud, in your name. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so, and there is a ceiling of cards per day.</source>
+        <translation>Prin Cloud, în numele tău. Pentru fiecare QSO ales adresa se caută în callbook, cartonul se desenează și pleacă ca atașament PNG. Stațiile pentru care callbookul nu are e-mail rămân și ți se spune, și există un plafon de cartoane pe zi.</translation>
+    </message>
+    <message>
         <source>Cancel</source>
         <translation>Anulează</translation>
     </message>
@@ -4194,6 +4210,38 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>QSL by email</source>
         <translation>QSL prin email</translation>
+    </message>
+    <message>
+        <source>Who puts the card in the post</source>
+        <translation>Cine pune cartonul la poștă</translation>
+    </message>
+    <message>
+        <source>The Cloud, in my name</source>
+        <translation>Cloudul, în numele meu</translation>
+    </message>
+    <message>
+        <source>My own mailbox</source>
+        <translation>Propria mea căsuță</translation>
+    </message>
+    <message>
+        <source>Ready to send.</source>
+        <translation>Gata de trimis.</translation>
+    </message>
+    <message>
+        <source>Link the Cloud in the Cloud page: without it there is nowhere to send from.</source>
+        <translation>Leagă Cloudul în pagina Cloud: fără el nu e de unde trimite.</translation>
+    </message>
+    <message>
+        <source>Fill in the mail server and the password below.</source>
+        <translation>Completează mai jos serverul de poștă și parola.</translation>
+    </message>
+    <message>
+        <source>The card goes to the DecoDXLog Cloud, and the Cloud posts it — so no mailbox password stays on this computer. It leaves as «%1 via DecoDXLog», and whoever answers writes to you, not to the service. There is a ceiling of cards per day: a shared mailbox that sends too much ends up in the spam lists, and it would end up there for everybody at once.</source>
+        <translation>Cartonul merge la Cloudul DecoDXLog, și el îl pune la poștă — așa nicio parolă de căsuță nu rămâne pe acest calculator. Pleacă drept «%1 via DecoDXLog», iar cine răspunde îți scrie ție, nu serviciului. Există un plafon de cartoane pe zi: o căsuță comună care trimite prea mult ajunge pe listele de spam, și ar ajunge acolo pentru toți deodată.</translation>
+    </message>
+    <message>
+        <source>your callsign</source>
+        <translation>indicativul tău</translation>
     </message>
     <message>
         <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
@@ -5808,8 +5856,16 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Cărți QSL: %1 (%2)</translation>
     </message>
     <message>
+        <source>%1: the Cloud is not linked, so there is nowhere to send from</source>
+        <translation>%1: Cloudul nu e legat, nu e de unde trimite</translation>
+    </message>
+    <message>
         <source>No QSO to send a card to.</source>
         <translation>Niciun QSO căruia să-i trimiți o carte.</translation>
+    </message>
+    <message>
+        <source>Link the Cloud first, or send from your own mailbox: Setup -&gt; QSL services.</source>
+        <translation>Leagă mai întâi Cloudul, sau trimite din propria căsuță: Setări -&gt; Servicii QSL.</translation>
     </message>
     <message>
         <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>

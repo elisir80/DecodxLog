@@ -5,12 +5,19 @@
 // tabella trovate guardando i pixel — e qui si controlla che cadano dentro i
 // riquadri, non che siano un certo numero: un numero non direbbe niente.
 #include "app/QslCardController.h"
+#include "core/LogDatabase.h"
 
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QSettings>
+#include <QSignalSpy>
+#include <QTcpServer>
+#include <QTcpSocket>
 #include <QStandardPaths>
 #include <QTemporaryDir>
 #include <QTest>
 
+using namespace decolog;
 using namespace decolog::app;
 
 namespace {
@@ -33,6 +40,49 @@ const Box kBoxes[] = {
     {"freq",  1029 / 1920.0, 1306 / 1920.0, 738 / 1080.0, 851 / 1080.0},
     {"mode",  1306 / 1920.0, 1589 / 1920.0, 738 / 1080.0, 851 / 1080.0},
     {"rst",   1589 / 1920.0, 1916 / 1920.0, 738 / 1080.0, 851 / 1080.0},
+};
+
+// Un Cloud finto: ascolta su una porta qualunque, risponde 200 e si tiene
+// quello che ha ricevuto. Serve a provare che il programma parli davvero la
+// lingua che il server si aspetta, invece di fidarsi che la parli.
+class FakeCloud : public QTcpServer {
+public:
+    QByteArray request;
+    QByteArray body;
+
+    explicit FakeCloud(QObject* parent = nullptr) : QTcpServer(parent)
+    {
+        connect(this, &QTcpServer::newConnection, this, [this] {
+            QTcpSocket* socket = nextPendingConnection();
+            connect(socket, &QTcpSocket::readyRead, socket, [this, socket] {
+                request += socket->readAll();
+                const int head = request.indexOf("\r\n\r\n");
+                if (head < 0)
+                    return;
+                // Si aspetta tutto il corpo: una cartolina non sta in un pacchetto.
+                body = request.mid(head + 4);
+                if (body.size() < contentLength())
+                    return;
+                socket->write("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n"
+                              "Content-Length: 29\r\n\r\n{\"sent\":true,\"remaining\":99}");
+                socket->disconnectFromHost();
+            });
+        });
+    }
+
+    QString url() const { return QStringLiteral("http://127.0.0.1:%1").arg(serverPort()); }
+
+    int contentLength() const { return header("Content-Length").toInt(); }
+
+    QByteArray header(const QByteArray& name) const
+    {
+        const QList<QByteArray> lines = request.left(request.indexOf("\r\n\r\n")).split('\n');
+        for (const QByteArray& line : lines) {
+            if (line.toLower().startsWith(name.toLower() + ":"))
+                return line.mid(name.size() + 1).trimmed();
+        }
+        return {};
+    }
 };
 
 QVariantMap fieldFor(const QVariantList& fields, const QString& key)
@@ -118,6 +168,114 @@ private slots:
         QCOMPARE(cards.cardFields().size(), 8);
         const QVariantMap rst = fieldFor(cards.cardFields(), QStringLiteral("rst"));
         QVERIFY(rst.value(QStringLiteral("x")).toDouble() > 0.8);
+    }
+
+    // La via del Cloud
+    //
+    // La ragione di tutto questo e' che la password di una casella non stia sul
+    // computer di chi opera. Quindi la prova guarda proprio quello: che parta
+    // una richiesta al Cloud, col token, la cartolina dentro, e nessun segreto.
+
+    void theCloudRouteIsTheOneOutOfTheBox()
+    {
+        QslCardController cards{QslCardController::Context{}};
+        QCOMPARE(cards.mail().value(QStringLiteral("route")).toString(), QStringLiteral("cloud"));
+        // Senza Cloud collegato non si manda: non c'e' da dove.
+        QCOMPARE(cards.mail().value(QStringLiteral("ready")).toBool(), false);
+    }
+
+    void choosingOnesOwnMailboxLooksAtTheMailboxInstead()
+    {
+        QslCardController::Context ctx;
+        ctx.cloudAccess = [] {
+            return QPair<QString, QString>{QStringLiteral("http://x"), QStringLiteral("token")};
+        };
+        QslCardController cards{ctx};
+        QCOMPARE(cards.mail().value(QStringLiteral("ready")).toBool(), true);
+
+        cards.setMailRoute(QStringLiteral("mailbox"));
+        QCOMPARE(cards.mail().value(QStringLiteral("route")).toString(), QStringLiteral("mailbox"));
+        // Il Cloud c'e' lo stesso, ma adesso conta la casella, che non c'e'.
+        QCOMPARE(cards.mail().value(QStringLiteral("cloudReady")).toBool(), true);
+        QCOMPARE(cards.mail().value(QStringLiteral("ready")).toBool(), false);
+
+        // Una via che non esiste non lascia il programma senza via d'uscita.
+        cards.setMailRoute(QStringLiteral("piccioni"));
+        QCOMPARE(cards.mail().value(QStringLiteral("route")).toString(), QStringLiteral("cloud"));
+    }
+
+    void theCardGoesToTheCloudWithTheTokenAndNoPassword()
+    {
+        core::LogDatabase db;
+        QVERIFY2(db.open(QStringLiteral(":memory:")), qPrintable(db.lastError()));
+        const core::InsertResult added = db.insertQso(
+            {{"CALL", "dl9zzt"}, {"QSO_DATE", "20260218"}, {"TIME_ON", "101500"},
+             {"FREQ", "14.084"}, {"MODE", "FT2"}, {"RST_SENT", "-10"},
+             {"STATION_CALLSIGN", "IU8LMC"}},
+            QStringLiteral("test"));
+        QCOMPARE(added.status, core::InsertResult::Status::Inserted);
+
+        FakeCloud cloud;
+        QVERIFY(cloud.listen(QHostAddress::LocalHost));
+
+        QslCardController::Context ctx;
+        ctx.db = &db;
+        ctx.station = [] {
+            return QVariantMap{{QStringLiteral("call"), QStringLiteral("IU8LMC")}};
+        };
+        ctx.cloudAccess = [&cloud] {
+            return QPair<QString, QString>{cloud.url(), QStringLiteral("un-token")};
+        };
+        ctx.replyTo = [] { return QStringLiteral("iu8lmc@example.it"); };
+        ctx.emailFor = [](const QString&, std::function<void(const QString&, const QString&)> done) {
+            done(QStringLiteral("dl9zzt@example.de"), QString());
+        };
+
+        QslCardController cards{ctx};
+        cards.addStandardCardFields();
+        cards.enqueue({QVariant(added.id)}, QStringLiteral("E"));
+
+        QSignalSpy done(&cards, &QslCardController::changed);
+        cards.sendCardsByEmail({});
+        QVERIFY2(done.wait(15000), "il Cloud non ha ricevuto niente");
+
+        const QJsonObject posted = QJsonDocument::fromJson(cloud.body).object();
+        QVERIFY(cloud.request.startsWith("POST /v1/qsl/mail "));
+        QCOMPARE(cloud.header("Authorization"), QByteArray("Bearer un-token"));
+        QCOMPARE(posted.value(QStringLiteral("to")).toString(), QStringLiteral("dl9zzt@example.de"));
+        // Chi risponde arriva all'operatore, non alla casella del servizio.
+        QCOMPARE(posted.value(QStringLiteral("replyTo")).toString(),
+                 QStringLiteral("iu8lmc@example.it"));
+        QVERIFY(posted.value(QStringLiteral("attachmentName")).toString()
+                    .startsWith(QStringLiteral("DL9ZZT-20260218")));
+        // Quello che parte e' una cartolina vera: il server rifiuta tutto il resto.
+        const QByteArray png = QByteArray::fromBase64(
+            posted.value(QStringLiteral("attachment")).toString().toLatin1());
+        QVERIFY(png.startsWith(QByteArray("\x89PNG\r\n\x1a\n", 8)));
+
+        // E il QSO risulta mandato per via elettronica.
+        QCOMPARE(cards.rows(QStringLiteral("queue")).size(), 0);
+        QCOMPARE(cards.rows(QStringLiteral("sent")).size(), 1);
+    }
+
+    void withoutACloudNothingLeavesAndItSaysSo()
+    {
+        core::LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        const core::InsertResult added = db.insertQso(
+            {{"CALL", "dl9zzt"}, {"QSO_DATE", "20260218"}, {"TIME_ON", "101500"},
+             {"FREQ", "14.084"}, {"MODE", "FT2"}, {"STATION_CALLSIGN", "IU8LMC"}},
+            QStringLiteral("test"));
+        QslCardController::Context ctx;
+        ctx.db = &db;
+        QslCardController cards{ctx};
+        cards.addStandardCardFields();
+        cards.enqueue({QVariant(added.id)}, QStringLiteral("E"));
+
+        cards.sendCardsByEmail({});
+        // Non si prova nemmeno, e non si dice "mandata": si dice cosa manca.
+        QVERIFY(!cards.mailStatus().isEmpty());
+        QCOMPARE(cards.rows(QStringLiteral("queue")).size(), 1);
     }
 
     void whatWasPutByHandAndIsNotUsualStays()

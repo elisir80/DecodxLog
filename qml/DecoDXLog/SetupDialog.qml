@@ -30,6 +30,13 @@ DialogFrame {
                                   qsTr("Sync & Cloud"), qsTr("QSL services"), qsTr("Callbook"),
                                   qsTr("Radio (CAT)"), qsTr("Rotor"), qsTr("Backup")]
 
+    // Per le prove: la meta' di sotto di una pagina lunga si vede solo
+    // scorrendo, e una prova non ha un dito da passare sulla rotella.
+    function scrollToBottom() {
+        const flick = pageScroll.contentItem
+        flick.contentY = Math.max(0, flick.contentHeight - flick.height)
+    }
+
     onOpened: {
         portField.text = decolog.udpPort
         groupField.text = decolog.multicastGroup
@@ -908,15 +915,47 @@ DialogFrame {
 
                     // ── La casella da cui partono le cartoline ─────────────
                     SectionTitle { text: qsTr("QSL by email") }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 12
+                        LabeledField {
+                            label: qsTr("Who puts the card in the post")
+                            StyledComboBox {
+                                Layout.preferredWidth: 320
+                                readonly property var ids: ["cloud", "mailbox"]
+                                model: [qsTr("The Cloud, in my name"), qsTr("My own mailbox")]
+                                currentIndex: Math.max(0, ids.indexOf(decolog.cards.mail.route))
+                                onActivated: decolog.cards.setMailRoute(ids[currentIndex])
+                            }
+                        }
+                        Text {
+                            Layout.fillWidth: true
+                            wrapMode: Text.WordWrap
+                            font.family: Theme.monoFamily
+                            font.pixelSize: 12
+                            color: decolog.cards.mail.ready ? Theme.successColor : Theme.textSecondary
+                            text: decolog.cards.mail.ready ? qsTr("Ready to send.")
+                                 : decolog.cards.mail.route === "cloud"
+                                   ? qsTr("Link the Cloud in the Cloud page: without it there is nowhere to send from.")
+                                   : qsTr("Fill in the mail server and the password below.")
+                        }
+                    }
                     Note {
-                        text: qsTr("The card goes out from your own mailbox, and the address of whoever gets it comes "
-                                   + "from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, "
-                                   + "not the one you sign in with: you make it at myaccount.google.com/apppasswords. "
-                                   + "Nothing leaves without you asking: the button is in QSL card → Send by email.")
+                        text: decolog.cards.mail.route === "cloud"
+                              ? qsTr("The card goes to the DecoDXLog Cloud, and the Cloud posts it — so no mailbox "
+                                     + "password stays on this computer. It leaves as «%1 via DecoDXLog», and whoever "
+                                     + "answers writes to you, not to the service. There is a ceiling of cards per day: "
+                                     + "a shared mailbox that sends too much ends up in the spam lists, and it would "
+                                     + "end up there for everybody at once.").arg(decolog.cards.stationInfo().call || qsTr("your callsign"))
+                              : qsTr("The card goes out from your own mailbox, and the address of whoever gets it comes "
+                                     + "from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, "
+                                     + "not the one you sign in with: you make it at myaccount.google.com/apppasswords. "
+                                     + "Nothing leaves without you asking: the button is in QSL card → Send by email.")
                     }
                     RowLayout {
                         Layout.fillWidth: true
                         spacing: 8
+                        visible: decolog.cards.mail.route !== "cloud"
                         LabeledField {
                             Layout.fillWidth: true
                             label: qsTr("Mail server")
@@ -951,6 +990,7 @@ DialogFrame {
                         }
                     }
                     Note {
+                        visible: decolog.cards.mail.route !== "cloud"
                         text: qsTr("587 asks for encryption with STARTTLS, 465 is encrypted from the first byte. "
                                    + "A server that offers neither is refused: the password travels through there.")
                     }
@@ -980,6 +1020,7 @@ DialogFrame {
                     }
                     CredentialsList {
                         Layout.fillWidth: true
+                        visible: decolog.cards.mail.route !== "cloud"
                         serviceIds: ["mail"]
                     }
                     Repeater {

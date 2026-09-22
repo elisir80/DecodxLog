@@ -451,10 +451,15 @@ ColumnLayout {
                 enabled: root.fields.length > 0 && !root.cards.mailBusy
                 onClicked: mailDialog.open()
                 ToolTip.visible: hovered
-                ToolTip.text: root.cards.mail.ready
-                              ? qsTr("The address comes from the callbook (QRZ.com or HamQTH). "
-                                     + "What goes out is sent by your own mailbox.")
-                              : qsTr("First set up the outgoing mailbox: Setup → QSL services.")
+                ToolTip.text: !root.cards.mail.ready
+                              ? (root.cards.mail.route === "cloud"
+                                 ? qsTr("Link the Cloud first, or choose your own mailbox: Setup → QSL services.")
+                                 : qsTr("First set up the outgoing mailbox: Setup → QSL services."))
+                              : root.cards.mail.route === "cloud"
+                                ? qsTr("The address comes from the callbook (QRZ.com or HamQTH). "
+                                       + "The Cloud posts the card in your name, and answers come back to you.")
+                                : qsTr("The address comes from the callbook (QRZ.com or HamQTH). "
+                                       + "What goes out is sent by your own mailbox.")
             }
             GlassButton {
                 Layout.alignment: Qt.AlignBottom
@@ -495,13 +500,21 @@ ColumnLayout {
             Text {
                 Layout.fillWidth: true
                 wrapMode: Text.Wrap
-                text: root.cards.mail.ready
-                      ? qsTr("From %1. For every chosen QSO the address is looked up in the callbook, "
-                             + "the card is drawn and sent as a PNG attachment. Stations the callbook "
-                             + "has no email for are skipped and said so.")
-                            .arg(root.cards.mail.address)
-                      : qsTr("There is no outgoing mailbox yet. It goes in Setup → QSL services: "
-                             + "the address and the password of the mailbox the cards go out from.")
+                text: !root.cards.mail.ready
+                      ? (root.cards.mail.route === "cloud"
+                         ? qsTr("The Cloud is not linked yet: it goes in Setup → Cloud. Or send from your own "
+                                + "mailbox instead, in Setup → QSL services.")
+                         : qsTr("There is no outgoing mailbox yet. It goes in Setup → QSL services: "
+                                + "the address and the password of the mailbox the cards go out from."))
+                      : root.cards.mail.route === "cloud"
+                        ? qsTr("Through the Cloud, in your name. For every chosen QSO the address is looked up "
+                               + "in the callbook, the card is drawn and sent as a PNG attachment. Stations the "
+                               + "callbook has no email for are skipped and said so, and there is a ceiling of "
+                               + "cards per day.")
+                        : qsTr("From %1. For every chosen QSO the address is looked up in the callbook, "
+                               + "the card is drawn and sent as a PNG attachment. Stations the callbook "
+                               + "has no email for are skipped and said so.")
+                              .arg(root.cards.mail.address)
                 color: Theme.textSecondary
                 font.pixelSize: 12
             }

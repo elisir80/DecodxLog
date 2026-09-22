@@ -2654,6 +2654,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Izejošās pastkastītes vēl nav. To sagatavo sadaļā Iestatījumi → QSL pakalpojumi: tās pastkastītes adrese un parole, no kuras kartītes aiziet.</translation>
     </message>
     <message>
+        <source>Link the Cloud first, or choose your own mailbox: Setup → QSL services.</source>
+        <translation>Vispirms savieno Mākoni vai izvēlies savu pastkasti: Iestatījumi → QSL pakalpojumi.</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). The Cloud posts the card in your name, and answers come back to you.</source>
+        <translation>Adresi zina callbook (QRZ.com vai HamQTH). Karttņu pastkāstē iemet Mākonis tavu vārdā, un tas, kas atbild, raksta tev.</translation>
+    </message>
+    <message>
+        <source>The Cloud is not linked yet: it goes in Setup → Cloud. Or send from your own mailbox instead, in Setup → QSL services.</source>
+        <translation>Mākonis vēl nav savienots: to dara Iestatījumi → Sync un Mākonis. Vai sūti no savas pastkastes, Iestatījumi → QSL pakalpojumi.</translation>
+    </message>
+    <message>
+        <source>Through the Cloud, in your name. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so, and there is a ceiling of cards per day.</source>
+        <translation>Caur Mākoni, tavu vārdā. Katram izvēlētajam QSO adresi meklē callbookā, karttiņu uzzīmē un nosūta kā PNG pielikumu. Stacijas, kurām callbookā nav e-pasta, paliek pāri un par tām tiek pateikts; un ir dienas karttņu ierobežojums.</translation>
+    </message>
+    <message>
         <source>Cancel</source>
         <translation>Atcelt</translation>
     </message>
@@ -4194,6 +4210,38 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>QSL by email</source>
         <translation>QSL pa e-pastu</translation>
+    </message>
+    <message>
+        <source>Who puts the card in the post</source>
+        <translation>Kas iemet karttiņu pastkāstē</translation>
+    </message>
+    <message>
+        <source>The Cloud, in my name</source>
+        <translation>Mākonis, manu vārdā</translation>
+    </message>
+    <message>
+        <source>My own mailbox</source>
+        <translation>Mana pastkaste</translation>
+    </message>
+    <message>
+        <source>Ready to send.</source>
+        <translation>Gatavs sūtīšanai.</translation>
+    </message>
+    <message>
+        <source>Link the Cloud in the Cloud page: without it there is nowhere to send from.</source>
+        <translation>Savieno Mākoni Mākoņa lapā: bez tā nav no kurienes sūtīt.</translation>
+    </message>
+    <message>
+        <source>Fill in the mail server and the password below.</source>
+        <translation>Aizpildi zemāk pasta serveri un paroli.</translation>
+    </message>
+    <message>
+        <source>The card goes to the DecoDXLog Cloud, and the Cloud posts it — so no mailbox password stays on this computer. It leaves as «%1 via DecoDXLog», and whoever answers writes to you, not to the service. There is a ceiling of cards per day: a shared mailbox that sends too much ends up in the spam lists, and it would end up there for everybody at once.</source>
+        <translation>Karttiņa aiziet uz DecoDXLog Mākoni, un tas to iemet pastkāstē — tā uz šī datora nepaliek nevienas pastkastes parole. Tā aiziet kā «%1 via DecoDXLog», un tas, kas atbild, raksta tev, nevis pakalpojumam. Ir dienas ierobežojums: kopīga pastkaste, kas sūta par daudz, nonāk surogātpasta sarakstos, un nonāktu tur uzreiz visiem.</translation>
+    </message>
+    <message>
+        <source>your callsign</source>
+        <translation>tavs izsaukuma signāls</translation>
     </message>
     <message>
         <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
@@ -5808,8 +5856,16 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>QSL kartītes: %1 (%2)</translation>
     </message>
     <message>
+        <source>%1: the Cloud is not linked, so there is nowhere to send from</source>
+        <translation>%1: Mākonis nav savienots, nav no kurienes sūtīt</translation>
+    </message>
+    <message>
         <source>No QSO to send a card to.</source>
         <translation>Nav neviena QSO, kuram sūtīt kartīti.</translation>
+    </message>
+    <message>
+        <source>Link the Cloud first, or send from your own mailbox: Setup -&gt; QSL services.</source>
+        <translation>Vispirms savieno Mākoni vai sūti no savas pastkastes: Iestatījumi -&gt; QSL pakalpojumi.</translation>
     </message>
     <message>
         <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>

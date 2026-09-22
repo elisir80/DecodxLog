@@ -2651,6 +2651,22 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Der er endnu ingen udgående postkasse. Den sættes op i Opsætning → QSL-tjenester: adressen og adgangskoden til den postkasse, kortene går ud fra.</translation>
     </message>
     <message>
+        <source>Link the Cloud first, or choose your own mailbox: Setup → QSL services.</source>
+        <translation>Forbind Skyen først, eller vælg din egen postkasse: Indstillinger → QSL-tjenester.</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). The Cloud posts the card in your name, and answers come back to you.</source>
+        <translation>Adressen kommer fra callbook (QRZ.com eller HamQTH). Skyen poster kortet i dit navn, og den der svarer skriver til dig.</translation>
+    </message>
+    <message>
+        <source>The Cloud is not linked yet: it goes in Setup → Cloud. Or send from your own mailbox instead, in Setup → QSL services.</source>
+        <translation>Skyen er ikke forbundet endnu: det sker i Indstillinger → Sync og Sky. Eller send fra din egen postkasse, i Indstillinger → QSL-tjenester.</translation>
+    </message>
+    <message>
+        <source>Through the Cloud, in your name. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so, and there is a ceiling of cards per day.</source>
+        <translation>Gennem Skyen, i dit navn. For hvert valgt QSO slås adressen op i callbook, kortet tegnes og sendes som PNG-vedhæftning. Stationer som callbook ikke har en e-mail til bliver tilbage og nævnes, og der er et loft over kort pr. dag.</translation>
+    </message>
+    <message>
         <source>Cancel</source>
         <translation>Annullér</translation>
     </message>
@@ -4188,6 +4204,38 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>QSL by email</source>
         <translation>QSL med e-mail</translation>
+    </message>
+    <message>
+        <source>Who puts the card in the post</source>
+        <translation>Hvem poster kortet</translation>
+    </message>
+    <message>
+        <source>The Cloud, in my name</source>
+        <translation>Skyen, i mit navn</translation>
+    </message>
+    <message>
+        <source>My own mailbox</source>
+        <translation>Min egen postkasse</translation>
+    </message>
+    <message>
+        <source>Ready to send.</source>
+        <translation>Klar til at sende.</translation>
+    </message>
+    <message>
+        <source>Link the Cloud in the Cloud page: without it there is nowhere to send from.</source>
+        <translation>Forbind Skyen på Sky-siden: uden den er der ingen afsender.</translation>
+    </message>
+    <message>
+        <source>Fill in the mail server and the password below.</source>
+        <translation>Udfyld mailserveren og adgangskoden nedenfor.</translation>
+    </message>
+    <message>
+        <source>The card goes to the DecoDXLog Cloud, and the Cloud posts it — so no mailbox password stays on this computer. It leaves as «%1 via DecoDXLog», and whoever answers writes to you, not to the service. There is a ceiling of cards per day: a shared mailbox that sends too much ends up in the spam lists, and it would end up there for everybody at once.</source>
+        <translation>Kortet går til DecoDXLog-Skyen, og Skyen poster det — så bliver der ingen postkasseadgangskode på denne computer. Det sendes som «%1 via DecoDXLog», og den der svarer skriver til dig, ikke til tjenesten. Der er et loft over kort pr. dag: en fælles postkasse der sender for meget ender på spamlisterne, og den ville ende der for alle på én gang.</translation>
+    </message>
+    <message>
+        <source>your callsign</source>
+        <translation>dit kaldesignal</translation>
     </message>
     <message>
         <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
@@ -5779,8 +5827,16 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>QSL-kort: %1 (%2)</translation>
     </message>
     <message>
+        <source>%1: the Cloud is not linked, so there is nowhere to send from</source>
+        <translation>%1: Skyen er ikke forbundet, der er ingen afsender</translation>
+    </message>
+    <message>
         <source>No QSO to send a card to.</source>
         <translation>Ingen QSO at sende et kort til.</translation>
+    </message>
+    <message>
+        <source>Link the Cloud first, or send from your own mailbox: Setup -&gt; QSL services.</source>
+        <translation>Forbind Skyen først, eller send fra din egen postkasse: Indstillinger -&gt; QSL-tjenester.</translation>
     </message>
     <message>
         <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>

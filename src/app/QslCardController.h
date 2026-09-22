@@ -13,6 +13,7 @@
 #include <QString>
 #include <QUrl>
 #include <QVariantList>
+#include <QPair>
 #include <QSize>
 #include <QVariantMap>
 #include <functional>
@@ -50,6 +51,12 @@ public:
         // L'email del corrispondente secondo il callbook: arriva quando arriva.
         std::function<void(const QString& call,
                            std::function<void(const QString& email, const QString& error)>)> emailFor;
+        // Il Cloud, per chi preferisce non tenere la password di una casella
+        // sul proprio computer: indirizzo del servizio e token, vuoti se non
+        // si e' collegati.
+        std::function<QPair<QString, QString>()> cloudAccess;
+        // Il proprio indirizzo email, a cui devono tornare le risposte.
+        std::function<QString()> replyTo;
     };
 
     explicit QslCardController(Context context, QObject* parent = nullptr);
@@ -111,6 +118,8 @@ public:
     // l'email al callbook, disegna la sua cartolina e la spedisce.
     Q_INVOKABLE void sendCardsByEmail(const QVariantList& ids);
     Q_INVOKABLE void cancelMail();
+    // "mailbox" (la casella dell'operatore) o "cloud" (il server fa da ponte).
+    Q_INVOKABLE void setMailRoute(const QString& route);
 
 signals:
     void changed();
@@ -134,6 +143,10 @@ private:
 
     void loadMail();
     void queueCard(const QVariantMap& qso, const QString& email);
+    void sendThroughCloud(const QVariantMap& qso, const QString& email, const QByteArray& png);
+    QByteArray drawCard(const QVariantMap& qso) const;
+    QString mailRoute() const;
+    void lookupAndSend(const QList<QVariantMap>& qsos);
     QString mailBodyFor(const QVariantMap& qso) const;
 
     core::MailSender m_mail;

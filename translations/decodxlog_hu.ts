@@ -2648,6 +2648,22 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Kimenő postafiók még nincs. A Beállítások → QSL-szolgáltatások alatt kerül be: annak a postafióknak a címe és jelszava, ahonnan a lapok kimennek.</translation>
     </message>
     <message>
+        <source>Link the Cloud first, or choose your own mailbox: Setup → QSL services.</source>
+        <translation>Előbb kapcsold össze a Felhőt, vagy válaszd a saját postafiókodat: Beállítások → QSL-szolgáltatások.</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). The Cloud posts the card in your name, and answers come back to you.</source>
+        <translation>A címet a callbook tudja (QRZ.com vagy HamQTH). A lapot a Felhő adja fel a te nevedben, és aki válaszol, neked ír.</translation>
+    </message>
+    <message>
+        <source>The Cloud is not linked yet: it goes in Setup → Cloud. Or send from your own mailbox instead, in Setup → QSL services.</source>
+        <translation>A Felhő még nincs összekapcsolva: a Beállítások → Sync és Felhő alatt megy. Vagy küldd a saját postafiókodból, a Beállítások → QSL-szolgáltatások alatt.</translation>
+    </message>
+    <message>
+        <source>Through the Cloud, in your name. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so, and there is a ceiling of cards per day.</source>
+        <translation>A Felhőn keresztül, a te nevedben. Minden kiválasztott QSO-hoz a címet a callbookban keresi meg, a lapot megrajzolja és PNG-mellékletként küldi. Azok az állomások, amelyekhez a callbooknak nincs e-mailje, kimaradnak és ezt megmondja; és van napi felső határ a lapokra.</translation>
+    </message>
+    <message>
         <source>Cancel</source>
         <translation>Mégse</translation>
     </message>
@@ -4182,6 +4198,38 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>QSL by email</source>
         <translation>QSL e-mailben</translation>
+    </message>
+    <message>
+        <source>Who puts the card in the post</source>
+        <translation>Ki adja fel a lapot</translation>
+    </message>
+    <message>
+        <source>The Cloud, in my name</source>
+        <translation>A Felhő, az én nevemben</translation>
+    </message>
+    <message>
+        <source>My own mailbox</source>
+        <translation>A saját postafiókom</translation>
+    </message>
+    <message>
+        <source>Ready to send.</source>
+        <translation>Készen áll a küldésre.</translation>
+    </message>
+    <message>
+        <source>Link the Cloud in the Cloud page: without it there is nowhere to send from.</source>
+        <translation>Kapcsold össze a Felhőt a Felhő oldalon: nélküle nincs honnan küldeni.</translation>
+    </message>
+    <message>
+        <source>Fill in the mail server and the password below.</source>
+        <translation>Töltsd ki lent a levelezőszervert és a jelszót.</translation>
+    </message>
+    <message>
+        <source>The card goes to the DecoDXLog Cloud, and the Cloud posts it — so no mailbox password stays on this computer. It leaves as «%1 via DecoDXLog», and whoever answers writes to you, not to the service. There is a ceiling of cards per day: a shared mailbox that sends too much ends up in the spam lists, and it would end up there for everybody at once.</source>
+        <translation>A lap a DecoDXLog Felhőjébe megy, és a Felhő adja fel — így semmilyen postafiók-jelszó nem marad ezen a számítógépen. Így indul: «%1 via DecoDXLog», és aki válaszol, neked ír, nem a szolgáltatásnak. Van napi felső határ: egy közös postafiók, amely túl sokat küld, a spamlistákon végzi — és ott végezne mindenki számára egyszerre.</translation>
+    </message>
+    <message>
+        <source>your callsign</source>
+        <translation>a hívójeled</translation>
     </message>
     <message>
         <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
@@ -5750,8 +5798,16 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>QSL-lapok: %1 (%2)</translation>
     </message>
     <message>
+        <source>%1: the Cloud is not linked, so there is nowhere to send from</source>
+        <translation>%1: a Felhő nincs összekapcsolva, nincs honnan küldeni</translation>
+    </message>
+    <message>
         <source>No QSO to send a card to.</source>
         <translation>Nincs QSO, amihez lapot lehetne küldeni.</translation>
+    </message>
+    <message>
+        <source>Link the Cloud first, or send from your own mailbox: Setup -&gt; QSL services.</source>
+        <translation>Előbb kapcsold össze a Felhőt, vagy küldd a saját postafiókodból: Beállítások -&gt; QSL-szolgáltatások.</translation>
     </message>
     <message>
         <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>

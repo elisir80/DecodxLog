@@ -451,6 +451,17 @@ bool DecoLogController::openDatabase(const QString& path)
     QslCardController::Context cardCtx;
     cardCtx.db = &m_db;
     cardCtx.credentials = m_credentials;
+    // Il Cloud come ponte per le QSL: cosi' la password di una casella non sta
+    // sul computer di chi opera, ma solo sul server.
+    cardCtx.cloudAccess = [this]() -> QPair<QString, QString> {
+        auto* cloud = qobject_cast<CloudController*>(m_cloud);
+        if (!cloud)
+            return {};
+        return {cloud->server(), cloud->token()};
+    };
+    cardCtx.replyTo = [this] {
+        return m_profiles->activeProfile().value(QStringLiteral("email")).toString();
+    };
     // L'email del corrispondente per mandargli la cartolina: la sa il callbook.
     cardCtx.emailFor = [this](const QString& call,
                               std::function<void(const QString&, const QString&)> done) {

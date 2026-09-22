@@ -69,6 +69,9 @@ public:
     void setServer(const QString& url);
     QString callsign() const { return m_callsign; }
     bool linked() const { return !m_token.isEmpty() || m_storedCloudToken; }
+    // Per chi deve chiedere qualcosa al Cloud che non e' il sync: l'invio
+    // delle QSL. Vuoto quando non si e' collegati.
+    QString token() const { return m_token; }
     bool busy() const { return m_busy; }
     QString status() const { return m_status; }
     QString lastSync() const { return m_lastSync; }

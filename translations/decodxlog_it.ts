@@ -2651,6 +2651,22 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>La casella da cui mandare non c&apos;è ancora. Si prepara in Impostazioni → Servizi QSL: l&apos;indirizzo e la password della casella da cui escono le cartoline.</translation>
     </message>
     <message>
+        <source>Link the Cloud first, or choose your own mailbox: Setup → QSL services.</source>
+        <translation>Collega prima il Cloud, oppure scegli la tua casella: Impostazioni → Servizi QSL.</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). The Cloud posts the card in your name, and answers come back to you.</source>
+        <translation>L&apos;indirizzo lo sa il callbook (QRZ.com o HamQTH). La cartolina la imbuca il Cloud a nome tuo, e chi risponde scrive a te.</translation>
+    </message>
+    <message>
+        <source>The Cloud is not linked yet: it goes in Setup → Cloud. Or send from your own mailbox instead, in Setup → QSL services.</source>
+        <translation>Il Cloud non è ancora collegato: si collega in Impostazioni → Sync e Cloud. Oppure manda dalla tua casella, in Impostazioni → Servizi QSL.</translation>
+    </message>
+    <message>
+        <source>Through the Cloud, in your name. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so, and there is a ceiling of cards per day.</source>
+        <translation>Dal Cloud, a nome tuo. Per ogni QSO scelto l&apos;indirizzo si cerca nel callbook, la cartolina si disegna e parte come allegato PNG. Le stazioni di cui il callbook non ha l&apos;email restano indietro e te lo dice, e c&apos;è un tetto di cartoline al giorno.</translation>
+    </message>
+    <message>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>
@@ -4188,6 +4204,38 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>QSL by email</source>
         <translation>QSL per email</translation>
+    </message>
+    <message>
+        <source>Who puts the card in the post</source>
+        <translation>Chi imbuca la cartolina</translation>
+    </message>
+    <message>
+        <source>The Cloud, in my name</source>
+        <translation>Il Cloud, a nome mio</translation>
+    </message>
+    <message>
+        <source>My own mailbox</source>
+        <translation>La mia casella</translation>
+    </message>
+    <message>
+        <source>Ready to send.</source>
+        <translation>Pronto a mandare.</translation>
+    </message>
+    <message>
+        <source>Link the Cloud in the Cloud page: without it there is nowhere to send from.</source>
+        <translation>Collega il Cloud nella pagina del Cloud: senza, non c&apos;è da dove mandare.</translation>
+    </message>
+    <message>
+        <source>Fill in the mail server and the password below.</source>
+        <translation>Riempi il server di posta e la password qui sotto.</translation>
+    </message>
+    <message>
+        <source>The card goes to the DecoDXLog Cloud, and the Cloud posts it — so no mailbox password stays on this computer. It leaves as «%1 via DecoDXLog», and whoever answers writes to you, not to the service. There is a ceiling of cards per day: a shared mailbox that sends too much ends up in the spam lists, and it would end up there for everybody at once.</source>
+        <translation>La cartolina va al Cloud di DecoDXLog, e la imbuca lui — così nessuna password di posta resta su questo computer. Parte come «%1 via DecoDXLog», e chi risponde scrive a te, non al servizio. C&apos;è un tetto di cartoline al giorno: una casella di tutti che manda troppo finisce nelle liste dello spam, e ci finirebbe per tutti insieme.</translation>
+    </message>
+    <message>
+        <source>your callsign</source>
+        <translation>il tuo nominativo</translation>
     </message>
     <message>
         <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
@@ -5779,8 +5827,16 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Cartoline QSL: %1 (%2)</translation>
     </message>
     <message>
+        <source>%1: the Cloud is not linked, so there is nowhere to send from</source>
+        <translation>%1: il Cloud non è collegato, non c&apos;è da dove mandare</translation>
+    </message>
+    <message>
         <source>No QSO to send a card to.</source>
         <translation>Nessun QSO a cui mandare una cartolina.</translation>
+    </message>
+    <message>
+        <source>Link the Cloud first, or send from your own mailbox: Setup -&gt; QSL services.</source>
+        <translation>Collega prima il Cloud, oppure manda dalla tua casella: Impostazioni -&gt; Servizi QSL.</translation>
     </message>
     <message>
         <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>

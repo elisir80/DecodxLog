@@ -2654,6 +2654,22 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Ящика для отправки ещё нет. Он настраивается в Настройки → Службы QSL: адрес и пароль ящика, из которого уходят карточки.</translation>
     </message>
     <message>
+        <source>Link the Cloud first, or choose your own mailbox: Setup → QSL services.</source>
+        <translation>Сначала подключи Облако или выбери свой почтовый ящик: Настройки → Службы QSL.</translation>
+    </message>
+    <message>
+        <source>The address comes from the callbook (QRZ.com or HamQTH). The Cloud posts the card in your name, and answers come back to you.</source>
+        <translation>Адрес знает callbook (QRZ.com или HamQTH). Карточку отправляет Облако от твоего имени, а тот, кто ответит, напишет тебе.</translation>
+    </message>
+    <message>
+        <source>The Cloud is not linked yet: it goes in Setup → Cloud. Or send from your own mailbox instead, in Setup → QSL services.</source>
+        <translation>Облако ещё не подключено: это делается в Настройках → Синхронизация и Облако. Либо отправляй со своего ящика, в Настройках → Службы QSL.</translation>
+    </message>
+    <message>
+        <source>Through the Cloud, in your name. For every chosen QSO the address is looked up in the callbook, the card is drawn and sent as a PNG attachment. Stations the callbook has no email for are skipped and said so, and there is a ceiling of cards per day.</source>
+        <translation>Через Облако, от твоего имени. Для каждого выбранного QSO адрес ищется в callbook, карточка рисуется и уходит вложением PNG. Станции, для которых в callbook нет почты, остаются, и об этом говорится; есть также дневной предел карточек.</translation>
+    </message>
+    <message>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
@@ -4194,6 +4210,38 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>QSL by email</source>
         <translation>QSL по почте</translation>
+    </message>
+    <message>
+        <source>Who puts the card in the post</source>
+        <translation>Кто отправляет карточку</translation>
+    </message>
+    <message>
+        <source>The Cloud, in my name</source>
+        <translation>Облако, от моего имени</translation>
+    </message>
+    <message>
+        <source>My own mailbox</source>
+        <translation>Мой собственный ящик</translation>
+    </message>
+    <message>
+        <source>Ready to send.</source>
+        <translation>Готово к отправке.</translation>
+    </message>
+    <message>
+        <source>Link the Cloud in the Cloud page: without it there is nowhere to send from.</source>
+        <translation>Подключи Облако на странице Облака: без него отправлять неоткуда.</translation>
+    </message>
+    <message>
+        <source>Fill in the mail server and the password below.</source>
+        <translation>Заполни ниже почтовый сервер и пароль.</translation>
+    </message>
+    <message>
+        <source>The card goes to the DecoDXLog Cloud, and the Cloud posts it — so no mailbox password stays on this computer. It leaves as «%1 via DecoDXLog», and whoever answers writes to you, not to the service. There is a ceiling of cards per day: a shared mailbox that sends too much ends up in the spam lists, and it would end up there for everybody at once.</source>
+        <translation>Карточка идёт в Облако DecoDXLog, и оно её отправляет — так на этом компьютере не остаётся ни одного почтового пароля. Она уходит как «%1 via DecoDXLog», и тот, кто ответит, пишет тебе, а не службе. Есть дневной предел: общий ящик, который шлёт слишком много, попадает в списки спама — и попадёт туда сразу для всех.</translation>
+    </message>
+    <message>
+        <source>your callsign</source>
+        <translation>твой позывной</translation>
     </message>
     <message>
         <source>The card goes out from your own mailbox, and the address of whoever gets it comes from the callbook — QRZ.com or HamQTH. With Gmail it wants an app password, not the one you sign in with: you make it at myaccount.google.com/apppasswords. Nothing leaves without you asking: the button is in QSL card → Send by email.</source>
@@ -5808,8 +5856,16 @@ The call Decodium is working shows up here by itself.</source>
         <translation>QSL-карточки: %1 (%2)</translation>
     </message>
     <message>
+        <source>%1: the Cloud is not linked, so there is nowhere to send from</source>
+        <translation>%1: Облако не подключено, отправлять неоткуда</translation>
+    </message>
+    <message>
         <source>No QSO to send a card to.</source>
         <translation>Нет QSO, которому отправить карточку.</translation>
+    </message>
+    <message>
+        <source>Link the Cloud first, or send from your own mailbox: Setup -&gt; QSL services.</source>
+        <translation>Сначала подключи Облако или отправляй со своего ящика: Настройки -&gt; Службы QSL.</translation>
     </message>
     <message>
         <source>Set up the outgoing mailbox first: Setup -&gt; QSL services.</source>
