@@ -154,6 +154,13 @@ Sono due container: il servizio e PostgreSQL. Le variabili che contano:
 | `DECOLOG_SMTP_PASSWORD` | — | la app password di quella casella, non la password dell'account |
 | `DECOLOG_NOTIFY_EMAIL` | — | a chi arriva l'avviso |
 | `DECOLOG_SIGNUP_NOTIFY_MINUTES` | `10` | un avviso per indirizzo ogni tot minuti |
+| `DECOLOG_QSL_SMTP_HOST` | — | la casella da cui escono le QSL; senza, l'inoltro e' spento |
+| `DECOLOG_QSL_SMTP_PORT` | `465` | `465` cifrata dall'inizio, `587` con STARTTLS |
+| `DECOLOG_QSL_SMTP_USER` | — | l'indirizzo della casella delle QSL |
+| `DECOLOG_QSL_SMTP_PASSWORD` | — | la sua password |
+| `DECOLOG_QSL_FROM_NAME` | `DecoDXLog` | il nome che si legge come mittente |
+| `DECOLOG_QSL_DAILY_LIMIT` | `100` | cartoline al giorno per nominativo |
+| `DECOLOG_QSL_DAILY_TOTAL` | `500` | cartoline al giorno da tutti insieme |
 
 Senza le quattro variabili della posta l'avviso non parte: resta una riga nel
 registro, la registrazione funziona lo stesso e gli account restano in attesa —

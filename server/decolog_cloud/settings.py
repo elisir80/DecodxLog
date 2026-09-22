@@ -48,5 +48,20 @@ class Settings:
     # di fila non riempie la casella di nessuno.
     notify_minutes: int = _int("DECOLOG_SIGNUP_NOTIFY_MINUTES", 10)
 
+    # ── Le QSL che passano di qui ────────────────────────────────────────────
+    # Una casella a parte da quella degli avvisi: le QSL vanno a sconosciuti, e
+    # se finisce in lista nera non deve portarsi dietro gli avvisi di servizio.
+    # Senza queste, l'inoltro delle QSL e' spento e il programma lo dice.
+    qsl_smtp_host: str = os.environ.get("DECOLOG_QSL_SMTP_HOST", "")
+    qsl_smtp_port: int = _int("DECOLOG_QSL_SMTP_PORT", 465)
+    qsl_smtp_user: str = os.environ.get("DECOLOG_QSL_SMTP_USER", "")
+    qsl_smtp_password: str = os.environ.get("DECOLOG_QSL_SMTP_PASSWORD", "")
+    qsl_from_name: str = os.environ.get("DECOLOG_QSL_FROM_NAME", "DecoDXLog")
+    # Quante cartoline al giorno per nominativo: e' il freno che impedisce a una
+    # persona sola di bruciare la reputazione del dominio per tutti.
+    qsl_daily_limit: int = _int("DECOLOG_QSL_DAILY_LIMIT", 100)
+    # E quante in tutto, da tutti, nello stesso giorno.
+    qsl_daily_total: int = _int("DECOLOG_QSL_DAILY_TOTAL", 500)
+
 
 settings = Settings()

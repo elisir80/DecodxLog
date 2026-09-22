@@ -28,7 +28,7 @@ from pathlib import Path
 
 from fastapi.staticfiles import StaticFiles
 
-from . import approval, auth, sync, web
+from . import approval, auth, mailer, qslmail, sync, web
 from .models import Account, Counter, Doc, Qso, QsoHistory, create_all
 from .settings import settings
 
@@ -365,6 +365,10 @@ def health() -> dict:
     features = ["qso", "docs", "web", "stats", "contest", "purge"]
     if settings.approval_required:
         features.append("approval")
+    # Il programma guarda qui per sapere se puo' mandare le QSL da questo Cloud
+    # invece che dalla casella dell'operatore.
+    if mailer.cards().ready:
+        features.append("qslmail")
     return {"status": "ok", "service": "decolog-cloud", "version": app.version,
             "features": features}
 
@@ -375,5 +379,6 @@ def health() -> dict:
 app.mount("/static", StaticFiles(directory=str(Path(__file__).parent / "static")), name="static")
 # La pagina che decide chi entra sta prima del sito: e' un collegamento che
 # arriva per email, non una cosa che si naviga.
+app.include_router(qslmail.router)
 app.include_router(approval.router)
 app.include_router(web.router)

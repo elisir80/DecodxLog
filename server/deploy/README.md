@@ -83,6 +83,43 @@ questa versione resta dentro: la migrazione li segna tutti approvati.
 Per tornare a com'era — chiunque si registra ed entra subito — si mette
 `DECOLOG_APPROVAL=0`.
 
+## Le QSL che passano di qui
+
+DecoDXLog puo' mandare le cartoline QSL dalla casella dell'operatore, oppure
+appoggiarsi a questo server. Nel secondo caso la password sta **solo qui**: il
+programma manda la cartolina a `/v1/qsl/mail` con il suo token, e il server la
+spedisce.
+
+```
+DECOLOG_QSL_SMTP_HOST=smtps.aruba.it
+DECOLOG_QSL_SMTP_PORT=465
+DECOLOG_QSL_SMTP_USER=decodxlog@ft2.it
+DECOLOG_QSL_SMTP_PASSWORD=...
+DECOLOG_QSL_FROM_NAME=DecoDXLog
+DECOLOG_QSL_DAILY_LIMIT=100
+DECOLOG_QSL_DAILY_TOTAL=500
+```
+
+E' una casella **a parte** da quella degli avvisi, e non e' un vezzo: le QSL
+vanno a sconosciuti in giro per il mondo, e se quella casella finisce in lista
+nera non deve portarsi dietro le email che avvisano chi tiene il servizio.
+
+I due tetti sono il freno che tiene in piedi la reputazione del dominio: senza,
+una persona sola potrebbe mandare diecimila cartoline in una notte e fare
+finire `ft2.it` nelle liste nere per tutti. Quando si toccano, il programma
+dice che si riprende domani.
+
+Chi manda e a chi finisce nel journal, una riga per cartolina:
+
+```bash
+journalctl -u decolog-cloud | grep "decolog.qsl"
+```
+
+Un account in attesa di approvazione non puo' mandare niente: il ponte e' per
+chi e' gia' entrato. Per chiuderlo del tutto basta togliere
+`DECOLOG_QSL_SMTP_HOST` e riavviare — il programma se ne accorge da
+`/v1/health` e torna a usare la casella dell'operatore.
+
 Chi aspetta ancora, da riga di comando:
 
 ```bash
