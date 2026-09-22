@@ -8,7 +8,7 @@ CREATE TABLE schema_version (
     version     INTEGER NOT NULL,
     applied_at  TEXT    NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ','now'))
 );
-INSERT INTO schema_version (version) VALUES (4);
+INSERT INTO schema_version (version) VALUES (5);
 
 -- Profili stazione (portatile, casa, evento speciale...)
 CREATE TABLE station_profile (
@@ -64,6 +64,8 @@ CREATE TABLE qso (
     sota_ref            TEXT,
     pota_ref            TEXT,
     wwff_ref            TEXT,
+    sig                 TEXT,
+    sig_info            TEXT,
     prop_mode           TEXT,
     sat_name            TEXT,
     sat_mode            TEXT,

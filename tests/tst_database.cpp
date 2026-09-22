@@ -17,7 +17,7 @@ namespace {
 // La versione dello schema, che sta in db/schema.sql. Sta qui una volta sola:
 // chi aggiunge una colonna cambia il file, l'ultimo passo di migrate() e questo
 // numero, e non va a caccia di tre QCOMPARE sparsi.
-constexpr int kSchemaVersion = 4;
+constexpr int kSchemaVersion = 5;
 
 // Confronto semantico: i numeri come numeri (14.074 == 14.074000), le ore a
 // quattro cifre come le stesse ore con i secondi a zero.
@@ -371,9 +371,12 @@ private slots:
             QCOMPARE(q.value(0).toInt(), 1);
             QVERIFY(q.exec("SELECT COUNT(*) FROM pragma_table_info('qsl_status') WHERE name = 'via'") && q.next());
             QCOMPARE(q.value(0).toInt(), 1);
-            // L'ultimo passo, quello dei satelliti: un log vecchio deve
-            // arrivare fino a qui, non fermarsi a meta' strada.
             QVERIFY(q.exec("SELECT COUNT(*) FROM pragma_table_info('qso') WHERE name = 'sat_mode'") && q.next());
+            QCOMPARE(q.value(0).toInt(), 1);
+            // L'ultimo passo, quello del riferimento di un programma (il DCI dei
+            // castelli): un log vecchio deve arrivare fino a qui, non fermarsi a
+            // meta' strada.
+            QVERIFY(q.exec("SELECT COUNT(*) FROM pragma_table_info('qso') WHERE name = 'sig_info'") && q.next());
             QCOMPARE(q.value(0).toInt(), 1);
             db.close();
             // Una seconda apertura non rifa la migrazione.

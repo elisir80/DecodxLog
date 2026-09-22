@@ -3043,6 +3043,14 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Program</source>
+        <translation>Program</translation>
+    </message>
+    <message>
+        <source>Reference (DCI, GMA…)</source>
+        <translation>Reference (DCI, GMA…)</translation>
+    </message>
+    <message>
         <source>Prop mode</source>
         <translation type="unfinished"></translation>
     </message>

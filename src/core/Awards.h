@@ -1,5 +1,5 @@
 // DecoDXLog — award calcolati dal log: DXCC, WAZ, WAS, WPX, locatori, IOTA, POTA,
-// SOTA, WWFF e FT2.
+// SOTA, WWFF, WAIP, DCI e FT2.
 //
 // Nessuna tabella in piu' nel database: gli award si ricalcolano dai QSO, cosi'
 // una correzione a un QSO si vede subito ovunque. Per ogni elemento (un'entita',
@@ -28,6 +28,24 @@ QString wpxPrefix(const QString& callsign);
 
 // I 50 stati USA con il nome, per WAS.
 const QMap<QString, QString>& usStates();
+
+// Le 110 province italiane del WAIP, con il nome. La chiave e' la sigla
+// automobilistica, che e' anche quella che ADIF usa per l'Italia. Ci sono anche
+// le sarde soppresse nel 2016 (OG, OT, VS), perche' i QSO di allora sono ancora
+// nei log e il WAIP continua a contarle.
+const QMap<QString, QString>& italianProvinces();
+
+// La provincia da come la scrivono i log: "NA", "na", "I-NA", "NA Napoli".
+// Vuota se non e' una sigla che esiste.
+QString italianProvince(const QString& state);
+
+// Il riferimento DCI (Castelli d'Italia): due lettere di provincia e tre cifre,
+// come vuole il regolamento — "PR001". Si accetta come lo scrivono i log —
+// "DCI PR-001", "dci pr001" — e si guarda anche nel commento e nelle note,
+// perche' li' e' dove finisce quasi sempre. Vuoto se non c'e' niente che
+// somigli a un riferimento.
+QString dciReference(const QString& sig, const QString& sigInfo,
+                     const QString& comment, const QString& notes);
 
 // I continenti dell'IARU con il nome, per il WAC. L'Antartide c'e' — chi l'ha
 // lavorata vuole vederla — ma il traguardo del diploma resta sei.

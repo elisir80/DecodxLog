@@ -3047,6 +3047,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>QSL via</translation>
     </message>
     <message>
+        <source>Program</source>
+        <translation>Program</translation>
+    </message>
+    <message>
+        <source>Reference (DCI, GMA…)</source>
+        <translation>Referință (DCI, GMA…)</translation>
+    </message>
+    <message>
         <source>Prop mode</source>
         <translation>Mod de propagare</translation>
     </message>

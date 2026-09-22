@@ -3044,6 +3044,14 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>QSL via</translation>
     </message>
     <message>
+        <source>Program</source>
+        <translation>Programa</translation>
+    </message>
+    <message>
+        <source>Reference (DCI, GMA…)</source>
+        <translation>Referència (DCI, GMA…)</translation>
+    </message>
+    <message>
         <source>Prop mode</source>
         <translation>Mode de propagació</translation>
     </message>

@@ -124,7 +124,8 @@ const QStringList kKnownFields{
     QStringLiteral("RST_RCVD"), QStringLiteral("GRIDSQUARE"), QStringLiteral("NAME"), QStringLiteral("QTH"),
     QStringLiteral("COUNTRY"), QStringLiteral("DXCC"), QStringLiteral("CQZ"), QStringLiteral("ITUZ"),
     QStringLiteral("CONT"), QStringLiteral("STATE"), QStringLiteral("CNTY"), QStringLiteral("IOTA"),
-    QStringLiteral("SOTA_REF"), QStringLiteral("POTA_REF"), QStringLiteral("WWFF_REF"), QStringLiteral("PROP_MODE"),
+    QStringLiteral("SOTA_REF"), QStringLiteral("POTA_REF"), QStringLiteral("WWFF_REF"),
+    QStringLiteral("SIG"), QStringLiteral("SIG_INFO"), QStringLiteral("PROP_MODE"),
     QStringLiteral("SAT_NAME"), QStringLiteral("SAT_MODE"), QStringLiteral("TX_PWR"), QStringLiteral("COMMENT"), QStringLiteral("NOTES"),
     QStringLiteral("STATION_CALLSIGN"), QStringLiteral("OPERATOR"), QStringLiteral("MY_GRIDSQUARE"),
     QStringLiteral("LOTW_QSL_SENT"), QStringLiteral("LOTW_QSLSDATE"), QStringLiteral("LOTW_QSL_RCVD"),
@@ -1732,6 +1733,13 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
     r.set(QStringLiteral("SOTA_REF"), text("sota_ref").toUpper());
     r.set(QStringLiteral("IOTA"), text("iota").toUpper());
     r.set(QStringLiteral("WWFF_REF"), text("wwff_ref").toUpper());
+    // Il castello si scrive come viene — "na 015", "NA-015" — e si mette a
+    // posto qui: il regolamento lo vuole attaccato, "NA015".
+    const QString castle = text("dci").toUpper().remove(QLatin1Char(' ')).remove(QLatin1Char('-'));
+    if (!castle.isEmpty()) {
+        r.set(QStringLiteral("SIG"), QStringLiteral("DCI"));
+        r.set(QStringLiteral("SIG_INFO"), castle);
+    }
     r.set(QStringLiteral("PROP_MODE"), text("prop_mode").toUpper());
     r.set(QStringLiteral("SAT_NAME"), text("sat_name").toUpper());
     r.set(QStringLiteral("SAT_MODE"), text("sat_mode").toUpper());

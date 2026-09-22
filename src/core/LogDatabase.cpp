@@ -56,6 +56,10 @@ constexpr std::array kColumns{
     Column{"SOTA_REF", "sota_ref", Kind::Text},
     Column{"POTA_REF", "pota_ref", Kind::Text},
     Column{"WWFF_REF", "wwff_ref", Kind::Text},
+    // Il programma di un QSO e il suo riferimento: "DCI" e "PR001", "GMA" e
+    // "I/PI-001". I diplomi italiani viaggiano qui dentro.
+    Column{"SIG", "sig", Kind::Text},
+    Column{"SIG_INFO", "sig_info", Kind::Text},
     Column{"PROP_MODE", "prop_mode", Kind::Text},
     Column{"SAT_NAME", "sat_name", Kind::Text},
     Column{"SAT_MODE", "sat_mode", Kind::Text},
@@ -335,6 +339,8 @@ bool LogDatabase::migrate()
         {2, {QStringLiteral("ALTER TABLE qso ADD COLUMN tags TEXT")}},
         {3, {QStringLiteral("ALTER TABLE qsl_status ADD COLUMN via TEXT")}},
         {4, {QStringLiteral("ALTER TABLE qso ADD COLUMN sat_mode TEXT")}},
+        {5, {QStringLiteral("ALTER TABLE qso ADD COLUMN sig TEXT"),
+             QStringLiteral("ALTER TABLE qso ADD COLUMN sig_info TEXT")}},
     };
     for (const Step& step : steps) {
         if (version >= step.to)

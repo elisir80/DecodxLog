@@ -3047,6 +3047,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>QSL via</translation>
     </message>
     <message>
+        <source>Program</source>
+        <translation>Programma</translation>
+    </message>
+    <message>
+        <source>Reference (DCI, GMA…)</source>
+        <translation>Atsauce (DCI, GMA…)</translation>
+    </message>
+    <message>
         <source>Prop mode</source>
         <translation>Izplatīšanās veids</translation>
     </message>

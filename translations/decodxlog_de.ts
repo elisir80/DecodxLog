@@ -3044,6 +3044,14 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>QSL via</translation>
     </message>
     <message>
+        <source>Program</source>
+        <translation>Programm</translation>
+    </message>
+    <message>
+        <source>Reference (DCI, GMA…)</source>
+        <translation>Referenz (DCI, GMA…)</translation>
+    </message>
+    <message>
         <source>Prop mode</source>
         <translation>Ausbreitungsart</translation>
     </message>

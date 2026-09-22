@@ -38,7 +38,7 @@ DialogFrame {
 
     function clearAll() {
         for (const f of [callField, gridField, nameField, qthField, commentField, potaField, sotaField,
-                         iotaField, wwffField, tagsField, countryField, addressField, stateField,
+                         iotaField, wwffField, dciField, tagsField, countryField, addressField, stateField,
                          cntyField, contField, cqzField, ituzField, dxccField, qslViaField,
                          satNameField, satModeField])
             f.text = ""
@@ -62,6 +62,7 @@ DialogFrame {
             rst_sent: sentField.text, rst_rcvd: rcvdField.text,
             gridsquare: gridField.text, name: nameField.text, qth: qthField.text, tx_pwr: pwrField.text,
             pota_ref: potaField.text, sota_ref: sotaField.text, iota: iotaField.text, wwff_ref: wwffField.text,
+            dci: dciField.text,
             prop_mode: propModeBox.editText, sat_name: satNameField.text, sat_mode: satModeField.text,
             comment: commentField.text, tags: tagsField.text,
             country: countryField.text, address: addressField.text, state: stateField.text,
@@ -423,6 +424,13 @@ DialogFrame {
                     Layout.horizontalStretchFactor: 3; Layout.fillWidth: true
                     label: "WWFF"
                     StyledTextField { id: wwffField; Layout.fillWidth: true; uppercase: true; placeholderText: "—" }
+                }
+                LabeledField {
+                    Layout.preferredWidth: 1
+                    Layout.horizontalStretchFactor: 3; Layout.fillWidth: true
+                    label: "DCI"
+                    // Il castello: due lettere di provincia e tre cifre, "NA015".
+                    StyledTextField { id: dciField; Layout.fillWidth: true; uppercase: true; placeholderText: "NA015" }
                 }
             }
             RowLayout {

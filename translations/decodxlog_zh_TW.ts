@@ -3041,6 +3041,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>QSL 經由</translation>
     </message>
     <message>
+        <source>Program</source>
+        <translation>計畫</translation>
+    </message>
+    <message>
+        <source>Reference (DCI, GMA…)</source>
+        <translation>參考編號（DCI、GMA…）</translation>
+    </message>
+    <message>
         <source>Prop mode</source>
         <translation>傳播方式</translation>
     </message>

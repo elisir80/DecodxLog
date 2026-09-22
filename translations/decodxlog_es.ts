@@ -3044,6 +3044,14 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>QSL vía</translation>
     </message>
     <message>
+        <source>Program</source>
+        <translation>Programa</translation>
+    </message>
+    <message>
+        <source>Reference (DCI, GMA…)</source>
+        <translation>Referencia (DCI, GMA…)</translation>
+    </message>
+    <message>
         <source>Prop mode</source>
         <translation>Modo de propagación</translation>
     </message>

@@ -3044,6 +3044,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>QSL via</translation>
     </message>
     <message>
+        <source>Program</source>
+        <translation>Programma</translation>
+    </message>
+    <message>
+        <source>Reference (DCI, GMA…)</source>
+        <translation>Riferimento (DCI, GMA…)</translation>
+    </message>
+    <message>
         <source>Prop mode</source>
         <translation>Propagazione</translation>
     </message>

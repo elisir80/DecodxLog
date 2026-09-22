@@ -3047,6 +3047,14 @@ The call Decodium is working shows up here by itself.</source>
         <translation>QSL через</translation>
     </message>
     <message>
+        <source>Program</source>
+        <translation>Программа</translation>
+    </message>
+    <message>
+        <source>Reference (DCI, GMA…)</source>
+        <translation>Ссылка (DCI, GMA…)</translation>
+    </message>
+    <message>
         <source>Prop mode</source>
         <translation>Способ прохождения</translation>
     </message>

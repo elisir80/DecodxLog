@@ -3041,6 +3041,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>QSL 経由</translation>
     </message>
     <message>
+        <source>Program</source>
+        <translation>プログラム</translation>
+    </message>
+    <message>
+        <source>Reference (DCI, GMA…)</source>
+        <translation>参照番号 (DCI, GMA…)</translation>
+    </message>
+    <message>
         <source>Prop mode</source>
         <translation>伝わり方</translation>
     </message>

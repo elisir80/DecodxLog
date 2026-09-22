@@ -320,6 +320,144 @@ private slots:
         QCOMPARE(totals.at(1).worked, 1);
     }
 
+    void italianProvincesAreCountedForWaip()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        auto worked = [&db](const QString& call, int dxcc, const QString& state, const QString& band) {
+            AdifRecord r;
+            r.set(QStringLiteral("CALL"), call);
+            r.set(QStringLiteral("QSO_DATE"), QStringLiteral("20260918"));
+            r.set(QStringLiteral("TIME_ON"), QStringLiteral("120000"));
+            r.set(QStringLiteral("BAND"), band);
+            r.set(QStringLiteral("MODE"), QStringLiteral("CW"));
+            r.set(QStringLiteral("DXCC"), QString::number(dxcc));
+            r.set(QStringLiteral("STATE"), state);
+            db.insertQso(r, QStringLiteral("test"));
+        };
+        worked(QStringLiteral("IU8LMC"), 248, QStringLiteral("NA"), QStringLiteral("20m"));
+        worked(QStringLiteral("IK0ABC"), 248, QStringLiteral("RM"), QStringLiteral("20m"));
+        worked(QStringLiteral("IZ8XYZ"), 248, QStringLiteral("na"), QStringLiteral("40m"));  // la stessa, in minuscolo
+        // La Sardegna e' un'altra entita' DXCC, ma le sue province contano.
+        worked(QStringLiteral("IS0ABC"), 225, QStringLiteral("CA"), QStringLiteral("20m"));
+        // Una provincia che non esiste, e una stazione che italiana non e'.
+        worked(QStringLiteral("IK1QQQ"), 248, QStringLiteral("ZZ"), QStringLiteral("20m"));
+        worked(QStringLiteral("DL9ZZT"), 230, QStringLiteral("NA"), QStringLiteral("20m"));
+
+        AwardCalculator calc;
+        const auto results = calc.compute(db, AwardFilter{});
+        const auto waip = std::find_if(results.cbegin(), results.cend(),
+                                       [](const AwardResult& r) { return r.id == QLatin1String("waip"); });
+        QVERIFY(waip != results.cend());
+        QCOMPARE(waip->worked(), 3);      // NA, RM, CA — non sei QSO
+        QCOMPARE(waip->total, 110);
+        QCOMPARE(waip->target, 75);
+        // La sigla porta con se' il nome, che e' quello che si legge nell'elenco.
+        const auto napoli = std::find_if(waip->items.cbegin(), waip->items.cend(),
+                                         [](const AwardItem& i) { return i.key == QLatin1String("NA"); });
+        QVERIFY(napoli != waip->items.cend());
+        QCOMPARE(napoli->name, QStringLiteral("Napoli"));
+        // E si legge banda per banda, come gli altri diplomi.
+        const auto totals = waip->bandTotals({QStringLiteral("20m"), QStringLiteral("40m")});
+        QCOMPARE(totals.at(0).worked, 3);
+        QCOMPARE(totals.at(1).worked, 1);
+    }
+
+    void theProvinceIsReadHoweverItIsWritten()
+    {
+        QCOMPARE(awards::italianProvince(QStringLiteral("NA")), QStringLiteral("NA"));
+        QCOMPARE(awards::italianProvince(QStringLiteral("na")), QStringLiteral("NA"));
+        QCOMPARE(awards::italianProvince(QStringLiteral("I-NA")), QStringLiteral("NA"));
+        QCOMPARE(awards::italianProvince(QStringLiteral("NA Napoli")), QStringLiteral("NA"));
+        // Carbonia-Iglesias non c'e' piu': i QSO di allora vanno a Sud Sardegna,
+        // invece di restare senza provincia.
+        QCOMPARE(awards::italianProvince(QStringLiteral("CI")), QStringLiteral("SU"));
+        // Le sarde soppresse che il WAIP conta ancora ci sono tutte e tre.
+        QCOMPARE(awards::italianProvince(QStringLiteral("OG")), QStringLiteral("OG"));
+        QCOMPARE(awards::italianProvince(QStringLiteral("OT")), QStringLiteral("OT"));
+        QCOMPARE(awards::italianProvince(QStringLiteral("VS")), QStringLiteral("VS"));
+        // Quello che non e' una provincia resta fuori: contarlo vorrebbe dire
+        // dire a chi guarda che ha una provincia che non ha lavorato.
+        QVERIFY(awards::italianProvince(QStringLiteral("ZZ")).isEmpty());
+        QVERIFY(awards::italianProvince(QStringLiteral("")).isEmpty());
+        QVERIFY(awards::italianProvince(QStringLiteral("12")).isEmpty());
+        // E sono centodieci, come dice il regolamento.
+        QCOMPARE(awards::italianProvinces().size(), 110);
+    }
+
+    void castlesAreCountedForDci()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        auto worked = [&db](const QString& call, const QString& sig, const QString& sigInfo,
+                            const QString& comment, const QString& band) {
+            AdifRecord r;
+            r.set(QStringLiteral("CALL"), call);
+            r.set(QStringLiteral("QSO_DATE"), QStringLiteral("20260918"));
+            r.set(QStringLiteral("TIME_ON"), QStringLiteral("120000"));
+            r.set(QStringLiteral("BAND"), band);
+            r.set(QStringLiteral("MODE"), QStringLiteral("CW"));
+            r.set(QStringLiteral("DXCC"), QStringLiteral("248"));
+            if (!sig.isEmpty())
+                r.set(QStringLiteral("SIG"), sig);
+            if (!sigInfo.isEmpty())
+                r.set(QStringLiteral("SIG_INFO"), sigInfo);
+            if (!comment.isEmpty())
+                r.set(QStringLiteral("COMMENT"), comment);
+            db.insertQso(r, QStringLiteral("test"));
+        };
+        // Il log fatto bene: il programma e il riferimento al posto loro.
+        worked(QStringLiteral("IK0ABC"), QStringLiteral("DCI"), QStringLiteral("PR001"),
+               QString(), QStringLiteral("20m"));
+        // Lo stesso castello su un'altra banda, scritto come capita.
+        worked(QStringLiteral("IK0DEF"), QString(), QString(),
+               QStringLiteral("DCI PR-001 tnx"), QStringLiteral("40m"));
+        // Un altro castello, in minuscolo nel commento.
+        worked(QStringLiteral("IZ8GHI"), QString(), QString(),
+               QStringLiteral("dci na015"), QStringLiteral("20m"));
+        // Un numero qualunque nel commento non e' un castello.
+        worked(QStringLiteral("IW1JKL"), QString(), QString(),
+               QStringLiteral("TNX 001 73"), QStringLiteral("20m"));
+        // E nemmeno una provincia che non esiste.
+        worked(QStringLiteral("IK2MNO"), QStringLiteral("DCI"), QStringLiteral("ZZ001"),
+               QString(), QStringLiteral("20m"));
+
+        AwardCalculator calc;
+        const auto results = calc.compute(db, AwardFilter{});
+        const auto dci = std::find_if(results.cbegin(), results.cend(),
+                                      [](const AwardResult& r) { return r.id == QLatin1String("dci"); });
+        QVERIFY(dci != results.cend());
+        QCOMPARE(dci->worked(), 2);       // PR001 una volta sola, piu' NA015
+        const auto parma = std::find_if(dci->items.cbegin(), dci->items.cend(),
+                                        [](const AwardItem& i) { return i.key == QLatin1String("PR001"); });
+        QVERIFY(parma != dci->items.cend());
+        QCOMPARE(parma->name, QStringLiteral("Parma"));
+        QCOMPARE(parma->qsoCount, 2);
+        const auto totals = dci->bandTotals({QStringLiteral("20m"), QStringLiteral("40m")});
+        QCOMPARE(totals.at(0).worked, 2);
+        QCOMPARE(totals.at(1).worked, 1);
+    }
+
+    void theCastleReferenceIsReadHoweverItIsWritten()
+    {
+        const QString none;
+        QCOMPARE(awards::dciReference(QStringLiteral("DCI"), QStringLiteral("PR001"), none, none),
+                 QStringLiteral("PR001"));
+        QCOMPARE(awards::dciReference(QStringLiteral("dci"), QStringLiteral("pr-001"), none, none),
+                 QStringLiteral("PR001"));
+        QCOMPARE(awards::dciReference(none, none, QStringLiteral("DCI PR001"), none),
+                 QStringLiteral("PR001"));
+        QCOMPARE(awards::dciReference(none, none, none, QStringLiteral("attivo dci: NA-015 oggi")),
+                 QStringLiteral("NA015"));
+        // Senza la parola DCI davanti, nel testo libero non si indovina.
+        QVERIFY(awards::dciReference(none, none, QStringLiteral("PR001"), none).isEmpty());
+        QVERIFY(awards::dciReference(none, none, QStringLiteral("TNX 001"), none).isEmpty());
+        // Una provincia che non esiste non e' un castello.
+        QVERIFY(awards::dciReference(QStringLiteral("DCI"), QStringLiteral("ZZ001"), none, none).isEmpty());
+        // Un altro programma nello stesso campo non diventa un castello.
+        QVERIFY(awards::dciReference(QStringLiteral("GMA"), QStringLiteral("I/PI-001"), none, none).isEmpty());
+    }
+
     void theJarlNumberIsReadHoweverItIsWritten()
     {
         QCOMPARE(awards::japanJarlCode(QStringLiteral("1001")), QStringLiteral("1001"));

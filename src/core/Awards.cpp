@@ -103,6 +103,80 @@ const QMap<QString, QString>& usStates()
     return states;
 }
 
+const QMap<QString, QString>& italianProvinces()
+{
+    static const QMap<QString, QString> list{
+        {"AG", "Agrigento"}, {"AL", "Alessandria"}, {"AN", "Ancona"}, {"AO", "Aosta"},
+        {"AP", "Ascoli Piceno"}, {"AQ", "L'Aquila"}, {"AR", "Arezzo"}, {"AT", "Asti"},
+        {"AV", "Avellino"}, {"BA", "Bari"}, {"BG", "Bergamo"}, {"BI", "Biella"}, {"BL", "Belluno"},
+        {"BN", "Benevento"}, {"BO", "Bologna"}, {"BR", "Brindisi"}, {"BS", "Brescia"},
+        {"BT", "Barletta-Andria-Trani"}, {"BZ", "Bolzano"}, {"CA", "Cagliari"},
+        {"CB", "Campobasso"}, {"CE", "Caserta"}, {"CH", "Chieti"}, {"CL", "Caltanissetta"},
+        {"CN", "Cuneo"}, {"CO", "Como"}, {"CR", "Cremona"}, {"CS", "Cosenza"}, {"CT", "Catania"},
+        {"CZ", "Catanzaro"}, {"EN", "Enna"}, {"FC", "Forli-Cesena"}, {"FE", "Ferrara"},
+        {"FG", "Foggia"}, {"FI", "Firenze"}, {"FM", "Fermo"}, {"FR", "Frosinone"}, {"GE", "Genova"},
+        {"GO", "Gorizia"}, {"GR", "Grosseto"}, {"IM", "Imperia"}, {"IS", "Isernia"},
+        {"KR", "Crotone"}, {"LC", "Lecco"}, {"LE", "Lecce"}, {"LI", "Livorno"}, {"LO", "Lodi"},
+        {"LT", "Latina"}, {"LU", "Lucca"}, {"MB", "Monza e Brianza"}, {"MC", "Macerata"},
+        {"ME", "Messina"}, {"MI", "Milano"}, {"MN", "Mantova"}, {"MO", "Modena"},
+        {"MS", "Massa-Carrara"}, {"MT", "Matera"}, {"NA", "Napoli"}, {"NO", "Novara"},
+        {"NU", "Nuoro"}, {"OG", "Ogliastra"}, {"OR", "Oristano"}, {"OT", "Olbia-Tempio"},
+        {"PA", "Palermo"}, {"PC", "Piacenza"}, {"PD", "Padova"}, {"PE", "Pescara"},
+        {"PG", "Perugia"}, {"PI", "Pisa"}, {"PN", "Pordenone"}, {"PO", "Prato"}, {"PR", "Parma"},
+        {"PT", "Pistoia"}, {"PU", "Pesaro-Urbino"}, {"PV", "Pavia"}, {"PZ", "Potenza"},
+        {"RA", "Ravenna"}, {"RC", "Reggio Calabria"}, {"RE", "Reggio Emilia"}, {"RG", "Ragusa"},
+        {"RI", "Rieti"}, {"RM", "Roma"}, {"RN", "Rimini"}, {"RO", "Rovigo"}, {"SA", "Salerno"},
+        {"SI", "Siena"}, {"SO", "Sondrio"}, {"SP", "La Spezia"}, {"SR", "Siracusa"},
+        {"SS", "Sassari"}, {"SU", "Sud Sardegna"}, {"SV", "Savona"}, {"TA", "Taranto"},
+        {"TE", "Teramo"}, {"TN", "Trento"}, {"TO", "Torino"}, {"TP", "Trapani"}, {"TR", "Terni"},
+        {"TS", "Trieste"}, {"TV", "Treviso"}, {"UD", "Udine"}, {"VA", "Varese"},
+        {"VB", "Verbano-Cusio-Ossola"}, {"VC", "Vercelli"}, {"VE", "Venezia"}, {"VI", "Vicenza"},
+        {"VR", "Verona"}, {"VS", "Medio Campidano"}, {"VT", "Viterbo"}, {"VV", "Vibo Valentia"},};
+    return list;
+}
+
+QString italianProvince(const QString& state)
+{
+    // I log scrivono "NA", ma anche "I-NA" o "NA Napoli": si guardano tutti i
+    // gruppi di lettere e si tiene il primo che e' una sigla vera. Piu' di cosi'
+    // non si indovina, e indovinare qui vorrebbe dire contare una provincia che
+    // nessuno ha lavorato.
+    for (const QString& group : state.toUpper().split(QRegularExpression(QStringLiteral("[^A-Z]+")),
+                                                      Qt::SkipEmptyParts)) {
+        if (group.size() != 2)
+            continue;
+        // Carbonia-Iglesias non esiste piu': il suo territorio e' Sud Sardegna,
+        // e li' vanno i QSO di prima del 2016, invece di restare senza provincia.
+        const QString code = group == QLatin1String("CI") ? QStringLiteral("SU") : group;
+        if (italianProvinces().contains(code))
+            return code;
+    }
+    return {};
+}
+
+QString dciReference(const QString& sig, const QString& sigInfo,
+                     const QString& comment, const QString& notes)
+{
+    // Dentro SIG_INFO il riferimento e' gia' solo: basta che sia fatto bene.
+    static const QRegularExpression bare(QStringLiteral("^([A-Z]{2})[ -]?(\\d{3})$"));
+    // Nel testo libero invece si pretende la parola DCI davanti: senza, un
+    // "TNX 001" qualunque diventerebbe un castello.
+    static const QRegularExpression tagged(
+        QStringLiteral("\\bDCI[ :-]*([A-Z]{2})[ -]?(\\d{3})\\b"));
+
+    if (sig.trimmed().compare(QLatin1String("DCI"), Qt::CaseInsensitive) == 0) {
+        const QRegularExpressionMatch m = bare.match(sigInfo.trimmed().toUpper());
+        if (m.hasMatch() && italianProvinces().contains(m.captured(1)))
+            return m.captured(1) + m.captured(2);
+    }
+    for (const QString& text : {sigInfo, comment, notes}) {
+        const QRegularExpressionMatch m = tagged.match(text.toUpper());
+        if (m.hasMatch() && italianProvinces().contains(m.captured(1)))
+            return m.captured(1) + m.captured(2);
+    }
+    return {};
+}
+
 const QMap<QString, QString>& continents()
 {
     static const QMap<QString, QString> list{
@@ -234,10 +308,11 @@ AwardCalculator::AwardCalculator(DxccName dxccName)
 QStringList AwardCalculator::awardIds()
 {
     return {QStringLiteral("dxcc"), QStringLiteral("ft2"), QStringLiteral("wac"), QStringLiteral("waac"),
-            QStringLiteral("waz"), QStringLiteral("was"), QStringLiteral("waja"), QStringLiteral("ajd"),
+            QStringLiteral("waz"), QStringLiteral("was"), QStringLiteral("waip"),
+            QStringLiteral("waja"), QStringLiteral("ajd"),
             QStringLiteral("jcc"), QStringLiteral("jcg"), QStringLiteral("wpx"),
             QStringLiteral("grids"), QStringLiteral("iota"), QStringLiteral("pota"), QStringLiteral("sota"),
-            QStringLiteral("wwff")};
+            QStringLiteral("wwff"), QStringLiteral("dci")};
 }
 
 namespace {
@@ -314,6 +389,13 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
     define("pota", QStringLiteral("POTA"), 0, 0);
     define("sota", QStringLiteral("SOTA"), 0, 0);
     define("wwff", QStringLiteral("WWFF"), 44, 0);
+    // WAIP: le 110 province italiane. Il traguardo del diploma base e' 75 per
+    // gli italiani e 60 per gli altri; qui sta il piu' alto dei due, cosi' la
+    // barra non da' per preso un diploma che per il regolamento non lo e'.
+    define("waip", QStringLiteral("WAIP"), 75, 110);
+    // DCI, i castelli d'Italia: quanti siano lo decide chi tiene l'elenco e
+    // cresce ogni anno, quindi niente totale e niente traguardo.
+    define("dci", QStringLiteral("DCI"), 0, 0);
 
     QSqlQuery q(db.connection());
     q.setForwardOnly(true);
@@ -321,6 +403,7 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         "SELECT id, call, band, mode, IFNULL(submode, ''), dxcc, cqz, state, gridsquare, iota, pota_ref, sota_ref, "
         "wwff_ref, qso_datetime_on, IFNULL(station_profile_id, 0), IFNULL(tags, ''), "
         "IFNULL(cont, ''), IFNULL(cnty, ''), "
+        "IFNULL(sig, ''), IFNULL(sig_info, ''), IFNULL(comment, ''), IFNULL(notes, ''), "
         "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'lotw'), "
         "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'card'), "
         "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'eqsl') "
@@ -351,9 +434,9 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         const QString call = q.value(1).toString();
         const int dxcc = q.value(5).toInt();
         const QDateTime on = QDateTime::fromString(q.value(13).toString(), Qt::ISODate).toUTC();
-        const bool confirmed = (filter.confirmLotw && q.value(18).toString() == QLatin1String("Y"))
-                            || (filter.confirmCard && q.value(19).toString() == QLatin1String("Y"))
-                            || (filter.confirmEqsl && q.value(20).toString() == QLatin1String("Y"));
+        const bool confirmed = (filter.confirmLotw && q.value(22).toString() == QLatin1String("Y"))
+                            || (filter.confirmCard && q.value(23).toString() == QLatin1String("Y"))
+                            || (filter.confirmEqsl && q.value(24).toString() == QLatin1String("Y"));
 
         auto add = [&](const char* award, const QString& key, const QString& name) {
             if (key.isEmpty())
@@ -411,6 +494,19 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
                 add(awards::isJapanGun(jarl) ? "jcg" : "jcc", jarl, prefecture);
             }
         }
+        // Italia (248) e Sardegna (225) sono due entita' DXCC ma un paese solo:
+        // il WAIP conta le province di tutte e due.
+        if (dxcc == 248 || dxcc == 225) {
+            const QString province = awards::italianProvince(state);
+            if (!province.isEmpty())
+                add("waip", province, awards::italianProvinces().value(province));
+        }
+        // Il castello: il riferimento sta in SIG_INFO quando il log e' fatto
+        // bene, nel commento o nelle note quando e' fatto come capita.
+        const QString castle = awards::dciReference(q.value(18).toString(), q.value(19).toString(),
+                                                    q.value(20).toString(), q.value(21).toString());
+        if (!castle.isEmpty())
+            add("dci", castle, awards::italianProvinces().value(castle.left(2)));
         add("wpx", awards::wpxPrefix(call), QString());
         const QString grid = q.value(8).toString().trimmed().toUpper();
         if (grid.size() >= 4)

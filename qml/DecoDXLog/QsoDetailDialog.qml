@@ -393,6 +393,18 @@ DialogFrame {
                     RowLayout {
                         Layout.fillWidth: true
                         spacing: 10
+                        // SIG e SIG_INFO: il programma di un QSO e il suo
+                        // riferimento. "DCI" e "NA015" per i castelli d'Italia.
+                        AdifInput {
+                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 3
+                            key: "SIG"; label: qsTr("Program"); upper: true }
+                        AdifInput {
+                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 9
+                            key: "SIG_INFO"; label: qsTr("Reference (DCI, GMA…)"); upper: true }
+                    }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 10
                         AdifInput {
                             Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 3; key: "PROP_MODE"; label: qsTr("Prop mode"); upper: true }
                         AdifInput {
