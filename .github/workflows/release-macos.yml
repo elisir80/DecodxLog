@@ -52,6 +52,7 @@ jobs:
             -qmldir=libs/decodium-ui/qml \
             -libpath="$(brew --prefix brotli)/lib" \
             -libpath="$(brew --prefix webp)/lib" \
+            -no-codesign \
             -verbose=1
           version="${GITHUB_REF_NAME#v}"
           mkdir -p release-assets
