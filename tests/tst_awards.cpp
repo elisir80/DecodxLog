@@ -428,6 +428,8 @@ private slots:
                                       [](const AwardResult& r) { return r.id == QLatin1String("dci"); });
         QVERIFY(dci != results.cend());
         QCOMPARE(dci->worked(), 2);       // PR001 una volta sola, piu' NA015
+        // Il traguardo e' quello del regolamento: 30 castelli.
+        QCOMPARE(dci->target, 30);
         const auto parma = std::find_if(dci->items.cbegin(), dci->items.cend(),
                                         [](const AwardItem& i) { return i.key == QLatin1String("PR001"); });
         QVERIFY(parma != dci->items.cend());
@@ -456,6 +458,112 @@ private slots:
         QVERIFY(awards::dciReference(QStringLiteral("DCI"), QStringLiteral("ZZ001"), none, none).isEmpty());
         // Un altro programma nello stesso campo non diventa un castello.
         QVERIFY(awards::dciReference(QStringLiteral("GMA"), QStringLiteral("I/PI-001"), none, none).isEmpty());
+    }
+
+    void theDciRulesDecideWhichQsosCount()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        auto worked = [&db](const QString& call, const QString& date, const QString& band,
+                            const QString& mode, const QString& ref) {
+            AdifRecord r;
+            r.set(QStringLiteral("CALL"), call);
+            r.set(QStringLiteral("QSO_DATE"), date);
+            r.set(QStringLiteral("TIME_ON"), QStringLiteral("120000"));
+            r.set(QStringLiteral("BAND"), band);
+            r.set(QStringLiteral("MODE"), mode);
+            r.set(QStringLiteral("DXCC"), QStringLiteral("248"));
+            r.set(QStringLiteral("SIG"), QStringLiteral("DCI"));
+            r.set(QStringLiteral("SIG_INFO"), ref);
+            db.insertQso(r, QStringLiteral("test"));
+        };
+        // Questo conta: dopo il 2001, in HF, in CW.
+        worked(QStringLiteral("IK0ABC"), QStringLiteral("20260218"), QStringLiteral("20m"),
+               QStringLiteral("CW"), QStringLiteral("RM012"));
+        // Il diploma vale dai QSO del 1 gennaio 2001: prima no.
+        worked(QStringLiteral("IK0DEF"), QStringLiteral("20001231"), QStringLiteral("20m"),
+               QStringLiteral("CW"), QStringLiteral("RM013"));
+        // Il primo giorno buono invece si', ed e' il confine giusto.
+        worked(QStringLiteral("IK0GHI"), QStringLiteral("20010101"), QStringLiteral("20m"),
+               QStringLiteral("SSB"), QStringLiteral("RM014"));
+        // I modi sono SSB, CW e digitale: la FM no.
+        worked(QStringLiteral("IZ8JKL"), QStringLiteral("20260218"), QStringLiteral("20m"),
+               QStringLiteral("FM"), QStringLiteral("NA016"));
+        // E le bande vanno dai 160 ai 2 metri: i 70 centimetri sono fuori.
+        worked(QStringLiteral("IZ8MNO"), QStringLiteral("20260218"), QStringLiteral("70cm"),
+               QStringLiteral("SSB"), QStringLiteral("NA017"));
+        // I 2 metri invece sono dentro, ed e' l'altro confine.
+        worked(QStringLiteral("IZ8PQR"), QStringLiteral("20260218"), QStringLiteral("2m"),
+               QStringLiteral("SSB"), QStringLiteral("NA018"));
+
+        AwardCalculator calc;
+        const auto results = calc.compute(db, AwardFilter{});
+        const auto dci = std::find_if(results.cbegin(), results.cend(),
+                                      [](const AwardResult& r) { return r.id == QLatin1String("dci"); });
+        QVERIFY(dci != results.cend());
+        QCOMPARE(dci->worked(), 3);       // RM012, RM014, NA018
+    }
+
+    void theDciSaysHowFarTheDiplomaIs()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(QStringLiteral(":memory:")));
+        auto worked = [&db](const QString& call, const QString& ref) {
+            AdifRecord r;
+            r.set(QStringLiteral("CALL"), call);
+            r.set(QStringLiteral("QSO_DATE"), QStringLiteral("20260218"));
+            r.set(QStringLiteral("TIME_ON"), QStringLiteral("120000"));
+            r.set(QStringLiteral("BAND"), QStringLiteral("20m"));
+            r.set(QStringLiteral("MODE"), QStringLiteral("CW"));
+            r.set(QStringLiteral("DXCC"), QStringLiteral("248"));
+            r.set(QStringLiteral("SIG"), QStringLiteral("DCI"));
+            r.set(QStringLiteral("SIG_INFO"), ref);
+            db.insertQso(r, QStringLiteral("test"));
+        };
+        worked(QStringLiteral("IK0ABC"), QStringLiteral("RM012"));   // Lazio
+        worked(QStringLiteral("IZ8DEF"), QStringLiteral("NA015"));   // Campania
+        worked(QStringLiteral("IK2GHI"), QStringLiteral("MI003"));   // Lombardia
+        worked(QStringLiteral("IK2JKL"), QStringLiteral("BG007"));   // ancora Lombardia
+
+        AwardCalculator calc;
+        auto results = calc.compute(db, AwardFilter{});
+        auto dci = std::find_if(results.cbegin(), results.cend(),
+                                [](const AwardResult& r) { return r.id == QLatin1String("dci"); });
+        QVERIFY(dci != results.cend());
+        // Quattro castelli, ma tre regioni: Bergamo e Milano sono la stessa.
+        QVERIFY2(dci->requirement.contains(QStringLiteral("4")), qPrintable(dci->requirement));
+        QVERIFY2(dci->requirement.contains(QStringLiteral("3")), qPrintable(dci->requirement));
+        // E Cuneo non c'e' ancora: il regolamento ne vuole uno.
+        const QString withoutCuneo = dci->requirement;
+
+        worked(QStringLiteral("IK1MNO"), QStringLiteral("CN001"));
+        results = calc.compute(db, AwardFilter{});
+        dci = std::find_if(results.cbegin(), results.cend(),
+                           [](const AwardResult& r) { return r.id == QLatin1String("dci"); });
+        QVERIFY(dci->requirement != withoutCuneo);
+        // Il castello di Cuneo conta anche per il diploma della sua provincia.
+        const auto dcpc = std::find_if(results.cbegin(), results.cend(),
+                                       [](const AwardResult& r) { return r.id == QLatin1String("dcpc"); });
+        QVERIFY(dcpc != results.cend());
+        QCOMPARE(dcpc->worked(), 1);
+        QCOMPARE(dcpc->target, 10);
+    }
+
+    void everyProvinceHasItsRegion()
+    {
+        // Le venti regioni ci sono tutte, e ogni provincia ne ha una: se una
+        // sigla restasse senza, il DCI conterebbe una regione in meno di quelle
+        // davvero lavorate.
+        QCOMPARE(awards::italianRegions().size(), awards::italianProvinces().size());
+        QSet<QString> regions;
+        for (const QString& province : awards::italianProvinces().keys()) {
+            const QString region = awards::italianRegions().value(province);
+            QVERIFY2(!region.isEmpty(), qPrintable(province));
+            regions.insert(region);
+        }
+        QCOMPARE(regions.size(), 20);
+        QCOMPARE(awards::italianRegions().value(QStringLiteral("CN")), QStringLiteral("Piemonte"));
+        QCOMPARE(awards::italianRegions().value(QStringLiteral("NA")), QStringLiteral("Campania"));
     }
 
     void theJarlNumberIsReadHoweverItIsWritten()

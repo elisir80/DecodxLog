@@ -213,6 +213,26 @@
         <source>Grids</source>
         <translation>Locatoare</translation>
     </message>
+    <message>
+        <source>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</source>
+        <translation>Diplomă: 30 de castele din 5 regiuni diferite (20 pentru stațiile din afara Italiei), cel puțin unul din provincia Cuneo. Până acum: %1 în %2 regiuni, Cuneo %3.</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>da</translation>
+    </message>
+    <message>
+        <source>not yet</source>
+        <translation>încă nu</translation>
+    </message>
+    <message>
+        <source>Ten different castles in the province of Cuneo, once you hold the DCI.</source>
+        <translation>Zece castele diferite din provincia Cuneo, după ce ai obținut DCI.</translation>
+    </message>
+    <message>
+        <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
+        <translation>Diplomă: 75 de provincii pentru stațiile italiene, 60 pentru celelalte.</translation>
+    </message>
 </context>
 <context>
     <name>AwardsDialog</name>

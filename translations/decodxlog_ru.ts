@@ -213,6 +213,26 @@
         <source>Grids</source>
         <translation>Квадраты</translation>
     </message>
+    <message>
+        <source>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</source>
+        <translation>Диплом: 30 замков в 5 разных регионах (20 для станций за пределами Италии), хотя бы один в провинции Кунео. Пока: %1 в %2 регионах, Кунео %3.</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>да</translation>
+    </message>
+    <message>
+        <source>not yet</source>
+        <translation>пока нет</translation>
+    </message>
+    <message>
+        <source>Ten different castles in the province of Cuneo, once you hold the DCI.</source>
+        <translation>Десять разных замков провинции Кунео, когда DCI уже получен.</translation>
+    </message>
+    <message>
+        <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
+        <translation>Диплом: 75 провинций для итальянских станций, 60 для остальных.</translation>
+    </message>
 </context>
 <context>
     <name>AwardsDialog</name>

@@ -213,6 +213,26 @@
         <source>Grids</source>
         <translation>网格</translation>
     </message>
+    <message>
+        <source>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</source>
+        <translation>证书：5 个不同大区的 30 座城堡（意大利境外电台为 20 座），其中至少一座在库内奥省。目前：%2 个大区共 %1 座，库内奥 %3。</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>有</translation>
+    </message>
+    <message>
+        <source>not yet</source>
+        <translation>还没有</translation>
+    </message>
+    <message>
+        <source>Ten different castles in the province of Cuneo, once you hold the DCI.</source>
+        <translation>库内奥省的十座不同城堡，需先取得 DCI。</translation>
+    </message>
+    <message>
+        <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
+        <translation>证书：意大利电台 75 个省，其他电台 60 个。</translation>
+    </message>
 </context>
 <context>
     <name>AwardsDialog</name>

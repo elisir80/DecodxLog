@@ -171,6 +171,18 @@ DialogFrame {
                 }
             }
 
+            // Quello che il regolamento chiede oltre al numero: il DCI vuole
+            // anche cinque regioni e un castello di Cuneo, e il conto va fatto
+            // da qualche parte -- meglio qui che a mano.
+            Text {
+                Layout.fillWidth: true
+                visible: (root.current.requirement || "").length > 0
+                text: root.current.requirement || ""
+                wrapMode: Text.Wrap
+                color: Theme.textSecondary
+                font.pixelSize: 12
+            }
+
             RowLayout {
                 Layout.fillWidth: true
                 spacing: 8

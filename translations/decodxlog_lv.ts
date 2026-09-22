@@ -213,6 +213,26 @@
         <source>Grids</source>
         <translation>Kvadrāti</translation>
     </message>
+    <message>
+        <source>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</source>
+        <translation>Diploms: 30 pilis 5 dažādos reģionos (20 stacijām ārpus Itālijas), vismaz viena Kuneo province. Līdz šim: %1 %2 reģionos, Kuneo %3.</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>jā</translation>
+    </message>
+    <message>
+        <source>not yet</source>
+        <translation>vēl ne</translation>
+    </message>
+    <message>
+        <source>Ten different castles in the province of Cuneo, once you hold the DCI.</source>
+        <translation>Desmit dažādas pilis Kuneo provincē, kad jau ir DCI.</translation>
+    </message>
+    <message>
+        <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
+        <translation>Diploms: 75 provinces itāļu stacijām, 60 pārējām.</translation>
+    </message>
 </context>
 <context>
     <name>AwardsDialog</name>

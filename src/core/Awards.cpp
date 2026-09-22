@@ -154,6 +154,40 @@ QString italianProvince(const QString& state)
     return {};
 }
 
+const QMap<QString, QString>& italianRegions()
+{
+    static const QMap<QString, QString> list{
+        {"AG", "Sicilia"}, {"AL", "Piemonte"}, {"AN", "Marche"}, {"AO", "Valle d'Aosta"},
+        {"AP", "Marche"}, {"AQ", "Abruzzo"}, {"AR", "Toscana"}, {"AT", "Piemonte"},
+        {"AV", "Campania"}, {"BA", "Puglia"}, {"BG", "Lombardia"}, {"BI", "Piemonte"},
+        {"BL", "Veneto"}, {"BN", "Campania"}, {"BO", "Emilia-Romagna"}, {"BR", "Puglia"},
+        {"BS", "Lombardia"}, {"BT", "Puglia"}, {"BZ", "Trentino-Alto Adige"}, {"CA", "Sardegna"},
+        {"CB", "Molise"}, {"CE", "Campania"}, {"CH", "Abruzzo"}, {"CL", "Sicilia"},
+        {"CN", "Piemonte"}, {"CO", "Lombardia"}, {"CR", "Lombardia"}, {"CS", "Calabria"},
+        {"CT", "Sicilia"}, {"CZ", "Calabria"}, {"EN", "Sicilia"}, {"FC", "Emilia-Romagna"},
+        {"FE", "Emilia-Romagna"}, {"FG", "Puglia"}, {"FI", "Toscana"}, {"FM", "Marche"},
+        {"FR", "Lazio"}, {"GE", "Liguria"}, {"GO", "Friuli-Venezia Giulia"}, {"GR", "Toscana"},
+        {"IM", "Liguria"}, {"IS", "Molise"}, {"KR", "Calabria"}, {"LC", "Lombardia"},
+        {"LE", "Puglia"}, {"LI", "Toscana"}, {"LO", "Lombardia"}, {"LT", "Lazio"},
+        {"LU", "Toscana"}, {"MB", "Lombardia"}, {"MC", "Marche"}, {"ME", "Sicilia"},
+        {"MI", "Lombardia"}, {"MN", "Lombardia"}, {"MO", "Emilia-Romagna"}, {"MS", "Toscana"},
+        {"MT", "Basilicata"}, {"NA", "Campania"}, {"NO", "Piemonte"}, {"NU", "Sardegna"},
+        {"OG", "Sardegna"}, {"OR", "Sardegna"}, {"OT", "Sardegna"}, {"PA", "Sicilia"},
+        {"PC", "Emilia-Romagna"}, {"PD", "Veneto"}, {"PE", "Abruzzo"}, {"PG", "Umbria"},
+        {"PI", "Toscana"}, {"PN", "Friuli-Venezia Giulia"}, {"PO", "Toscana"},
+        {"PR", "Emilia-Romagna"}, {"PT", "Toscana"}, {"PU", "Marche"}, {"PV", "Lombardia"},
+        {"PZ", "Basilicata"}, {"RA", "Emilia-Romagna"}, {"RC", "Calabria"},
+        {"RE", "Emilia-Romagna"}, {"RG", "Sicilia"}, {"RI", "Lazio"}, {"RM", "Lazio"},
+        {"RN", "Emilia-Romagna"}, {"RO", "Veneto"}, {"SA", "Campania"}, {"SI", "Toscana"},
+        {"SO", "Lombardia"}, {"SP", "Liguria"}, {"SR", "Sicilia"}, {"SS", "Sardegna"},
+        {"SU", "Sardegna"}, {"SV", "Liguria"}, {"TA", "Puglia"}, {"TE", "Abruzzo"},
+        {"TN", "Trentino-Alto Adige"}, {"TO", "Piemonte"}, {"TP", "Sicilia"}, {"TR", "Umbria"},
+        {"TS", "Friuli-Venezia Giulia"}, {"TV", "Veneto"}, {"UD", "Friuli-Venezia Giulia"},
+        {"VA", "Lombardia"}, {"VB", "Piemonte"}, {"VC", "Piemonte"}, {"VE", "Veneto"},
+        {"VI", "Veneto"}, {"VR", "Veneto"}, {"VS", "Sardegna"}, {"VT", "Lazio"}, {"VV", "Calabria"},};
+    return list;
+}
+
 QString dciReference(const QString& sig, const QString& sigInfo,
                      const QString& comment, const QString& notes)
 {
@@ -312,7 +346,7 @@ QStringList AwardCalculator::awardIds()
             QStringLiteral("waja"), QStringLiteral("ajd"),
             QStringLiteral("jcc"), QStringLiteral("jcg"), QStringLiteral("wpx"),
             QStringLiteral("grids"), QStringLiteral("iota"), QStringLiteral("pota"), QStringLiteral("sota"),
-            QStringLiteral("wwff"), QStringLiteral("dci")};
+            QStringLiteral("wwff"), QStringLiteral("dci"), QStringLiteral("dcpc")};
 }
 
 namespace {
@@ -334,6 +368,25 @@ bool modeMatches(const QString& group, const QString& mode, const QString& submo
     if (group == QLatin1String("DIGITAL"))
         return mode != QLatin1String("CW") && !phone.contains(mode);
     return true;
+}
+
+// I QSO che il DCI considera validi (regolamento, punti 3 e 4): dal 1 gennaio
+// 2001, dai 160 ai 2 metri, in SSB, CW o digitale. Un castello lavorato in FM,
+// o prima che il diploma esistesse, non si conta: meglio dirlo qui che vederselo
+// scartare da chi rilascia il diploma.
+bool dciCounts(const QDateTime& when, const QString& band, const QString& mode)
+{
+    static const QDate start(2001, 1, 1);
+    if (when.isValid() && when.date() < start)
+        return false;
+    static const QSet<QString> bands{
+        QStringLiteral("160m"), QStringLiteral("80m"), QStringLiteral("60m"), QStringLiteral("40m"),
+        QStringLiteral("30m"), QStringLiteral("20m"), QStringLiteral("17m"), QStringLiteral("15m"),
+        QStringLiteral("12m"), QStringLiteral("10m"), QStringLiteral("6m"), QStringLiteral("4m"),
+        QStringLiteral("2m")};
+    if (!band.isEmpty() && !bands.contains(band.toLower()))
+        return false;
+    return mode != QLatin1String("FM") && mode != QLatin1String("AM");
 }
 
 // Chiave di ordinamento: numeri come numeri, il resto come testo.
@@ -393,9 +446,15 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
     // gli italiani e 60 per gli altri; qui sta il piu' alto dei due, cosi' la
     // barra non da' per preso un diploma che per il regolamento non lo e'.
     define("waip", QStringLiteral("WAIP"), 75, 110);
-    // DCI, i castelli d'Italia: quanti siano lo decide chi tiene l'elenco e
-    // cresce ogni anno, quindi niente totale e niente traguardo.
-    define("dci", QStringLiteral("DCI"), 0, 0);
+    // DCI, i castelli d'Italia (regolamento del 15 settembre 2025, punto 2):
+    // il diploma si prende con 30 castelli in almeno 5 regioni diverse, e uno
+    // dev'essere della provincia di Cuneo. Per le stazioni non italiane ne
+    // bastano 20, sempre in 5 regioni. Quanti castelli esistano lo decide chi
+    // tiene l'elenco e cresce ogni anno, quindi niente totale.
+    define("dci", QStringLiteral("DCI"), 30, 0);
+    // DCPC, i castelli della sola provincia di Cuneo (punto 7): dieci, e si
+    // chiede dopo aver preso il DCI.
+    define("dcpc", QStringLiteral("DCPC"), 10, 0);
 
     QSqlQuery q(db.connection());
     q.setForwardOnly(true);
@@ -505,8 +564,12 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         // bene, nel commento o nelle note quando e' fatto come capita.
         const QString castle = awards::dciReference(q.value(18).toString(), q.value(19).toString(),
                                                     q.value(20).toString(), q.value(21).toString());
-        if (!castle.isEmpty())
-            add("dci", castle, awards::italianProvinces().value(castle.left(2)));
+        if (!castle.isEmpty() && dciCounts(on, band, mode)) {
+            const QString province = castle.left(2);
+            add("dci", castle, awards::italianProvinces().value(province));
+            if (province == QLatin1String("CN"))
+                add("dcpc", castle, awards::italianRegions().value(province));
+        }
         add("wpx", awards::wpxPrefix(call), QString());
         const QString grid = q.value(8).toString().trimmed().toUpper();
         if (grid.size() >= 4)
@@ -524,6 +587,36 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         Builder& b = builders[id];
         b.result.items = b.items.values();
         std::sort(b.result.items.begin(), b.result.items.end(), keyLess);
+        if (id == QLatin1String("dci")) {
+            // Il numero da solo non basta a sapere se il diploma si puo'
+            // chiedere: servono le regioni, e un castello della provincia di
+            // Cuneo. Meglio leggerlo che contarselo a mano.
+            QSet<QString> regions;
+            bool cuneo = false;
+            for (const AwardItem& item : std::as_const(b.result.items)) {
+                const QString province = item.key.left(2);
+                const QString region = awards::italianRegions().value(province);
+                if (!region.isEmpty())
+                    regions.insert(region);
+                if (province == QLatin1String("CN"))
+                    cuneo = true;
+            }
+            b.result.requirement =
+                QCoreApplication::translate(
+                    "Awards",
+                    "Diploma: 30 castles in 5 different regions (20 for stations outside Italy), "
+                    "at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.")
+                    .arg(b.result.items.size())
+                    .arg(regions.size())
+                    .arg(cuneo ? QCoreApplication::translate("Awards", "yes")
+                               : QCoreApplication::translate("Awards", "not yet"));
+        } else if (id == QLatin1String("dcpc")) {
+            b.result.requirement = QCoreApplication::translate(
+                "Awards", "Ten different castles in the province of Cuneo, once you hold the DCI.");
+        } else if (id == QLatin1String("waip")) {
+            b.result.requirement = QCoreApplication::translate(
+                "Awards", "Diploma: 75 provinces for Italian stations, 60 for the others.");
+        }
         out << b.result;
     }
     return out;

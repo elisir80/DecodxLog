@@ -39,6 +39,11 @@ const QMap<QString, QString>& italianProvinces();
 // Vuota se non e' una sigla che esiste.
 QString italianProvince(const QString& state);
 
+// La regione di una provincia, per i diplomi che contano le regioni: il DCI
+// vuole castelli in cinque regioni diverse, e gli endorsement tre castelli per
+// ogni regione.
+const QMap<QString, QString>& italianRegions();
+
 // Il riferimento DCI (Castelli d'Italia): due lettere di provincia e tre cifre,
 // come vuole il regolamento — "PR001". Si accetta come lo scrivono i log —
 // "DCI PR-001", "dci pr001" — e si guarda anche nel commento e nelle note,
@@ -106,6 +111,10 @@ struct AwardItem {
 struct AwardResult {
     QString id;                 // "dxcc", "waz"...
     QString title;
+    // Quello che il regolamento chiede oltre al numero, gia' tradotto e gia'
+    // confrontato con il log: "30 castelli in 5 regioni, uno della provincia di
+    // Cuneo - ne hai 12 in 4 regioni, Cuneo manca". Vuoto se non c'e' altro.
+    QString requirement;
     int target{0};              // traguardo del diploma base (0 = nessuno)
     int total{0};               // elementi esistenti, se il numero e' fisso (40 zone, 50 stati)
     QList<AwardItem> items;     // ordinati per chiave

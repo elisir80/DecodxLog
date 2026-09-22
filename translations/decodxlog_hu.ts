@@ -213,6 +213,26 @@
         <source>Grids</source>
         <translation>Gridek</translation>
     </message>
+    <message>
+        <source>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</source>
+        <translation>Oklevél: 30 vár 5 különböző régióban (Olaszországon kívüli állomásoknak 20), közülük legalább egy Cuneo tartományból. Eddig: %1 vár %2 régióban, Cuneo %3.</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>igen</translation>
+    </message>
+    <message>
+        <source>not yet</source>
+        <translation>még nem</translation>
+    </message>
+    <message>
+        <source>Ten different castles in the province of Cuneo, once you hold the DCI.</source>
+        <translation>Tíz különböző vár Cuneo tartományból, ha már megvan a DCI.</translation>
+    </message>
+    <message>
+        <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
+        <translation>Oklevél: 75 tartomány az olasz állomásoknak, 60 a többinek.</translation>
+    </message>
 </context>
 <context>
     <name>AwardsDialog</name>

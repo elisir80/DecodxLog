@@ -213,6 +213,26 @@
         <source>Grids</source>
         <translation>グリッド</translation>
     </message>
+    <message>
+        <source>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</source>
+        <translation>ディプロマ: 5 つの異なる州にある 30 の城（イタリア国外の局は 20）、うち少なくとも 1 つはクネオ県。現在: %2 州で %1、クネオ %3。</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>あり</translation>
+    </message>
+    <message>
+        <source>not yet</source>
+        <translation>まだ</translation>
+    </message>
+    <message>
+        <source>Ten different castles in the province of Cuneo, once you hold the DCI.</source>
+        <translation>クネオ県の異なる 10 の城。DCI を取得してから申請できます。</translation>
+    </message>
+    <message>
+        <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
+        <translation>ディプロマ: イタリアの局は 75 県、それ以外は 60 県。</translation>
+    </message>
 </context>
 <context>
     <name>AwardsDialog</name>

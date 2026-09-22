@@ -1240,6 +1240,9 @@ QVariantList DecoLogController::awardSummary() const
                                           : r.id == QLatin1String("waac") ? africanEntities() : r.total},
             {QStringLiteral("slotsWorked"), slotsWorked},
             {QStringLiteral("slotsConfirmed"), slotsConfirmed},
+            // Quello che il regolamento chiede oltre al numero: vuoto per quasi
+            // tutti, una riga per chi ne ha (il DCI vuole anche le regioni).
+            {QStringLiteral("requirement"), r.requirement},
         };
 
         // Il DXCC Challenge non e' un altro elenco di entita': sono gli stessi

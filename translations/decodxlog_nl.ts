@@ -213,6 +213,26 @@
         <source>Grids</source>
         <translation>Grids</translation>
     </message>
+    <message>
+        <source>Diploma: 30 castles in 5 different regions (20 for stations outside Italy), at least one in the province of Cuneo. So far: %1 in %2 regions, Cuneo %3.</source>
+        <translation>Diploma: 30 kastelen in 5 verschillende regio&apos;s (20 voor stations buiten Italië), minstens één in de provincie Cuneo. Tot nu toe: %1 in %2 regio&apos;s, Cuneo %3.</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation>ja</translation>
+    </message>
+    <message>
+        <source>not yet</source>
+        <translation>nog niet</translation>
+    </message>
+    <message>
+        <source>Ten different castles in the province of Cuneo, once you hold the DCI.</source>
+        <translation>Tien verschillende kastelen in de provincie Cuneo, zodra je het DCI hebt.</translation>
+    </message>
+    <message>
+        <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
+        <translation>Diploma: 75 provincies voor Italiaanse stations, 60 voor de andere.</translation>
+    </message>
 </context>
 <context>
     <name>AwardsDialog</name>
