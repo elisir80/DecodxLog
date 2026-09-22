@@ -57,9 +57,14 @@ jobs:
           version="${GITHUB_REF_NAME#v}"
           mkdir -p release-assets
 
-          while IFS= read -r -d '' item; do
-            codesign --force --sign - --timestamp=none "$item"
-          done < <(find -L build/DecoDXLog.app/Contents -type f \( -perm -111 -o -name "*.dylib" -o -name "*.so" \) -print0)
+          find -L build/DecoDXLog.app/Contents -type f -print0 \
+            | xargs -0 file \
+            | awk -F: '/Mach-O/ { print length($1) "\t" $1 }' \
+            | sort -rn \
+            | cut -f2- \
+            | while IFS= read -r item; do
+                codesign --force --sign - --timestamp=none "$item"
+              done
 
           codesign --force --deep --sign - --timestamp=none build/DecoDXLog.app
           codesign --verify --deep --strict --verbose=2 build/DecoDXLog.app
