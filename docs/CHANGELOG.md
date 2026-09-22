@@ -3,6 +3,32 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.7.4 — 22 settembre 2026
+
+Quattro cose segnalate in stazione, tutte vere.
+
+**Lo spot del cluster adesso prepara il QSO.** Doppio clic su una stazione e il riquadro
+del QSO nuovo si riempie: nominativo, banda, modo, frequenza. Prima restava vuoto, e
+siccome il callbook riempie nome, QTH e locatore solo quando il nominativo nel riquadro e'
+quello cercato, di QRZ non arrivava niente. Adesso arriva.
+
+**Il display in cima segue la radio.** Mostrava la frequenza e il modo che diceva
+Decodium, e quelli vincevano sempre: con Decodium aperto su FT8, cliccare uno spot in CW
+portava la radio in CW mentre in cima restava scritto FT8 a 14.074. Adesso quando la radio
+e' collegata comanda lei, che e' lo stato vero. Il nome di Decodium si tiene solo quando
+dice la stessa cosa in modo piu' preciso — «FT8» invece di «PKTUSB».
+
+**La scheda del nominativo non si lascia piu' schiacciare.** Nella colonna di destra gli
+altri pannelli, con le loro misure, la riducevano a una riga: si vedeva il nominativo e
+basta. Adesso tiene almeno duecento punti, e sotto c'e' tutto il resto.
+
+**E si vede quando un pannello ha altro sotto.** La barra di scorrimento di Qt sbiadisce
+appena si smette di toccarla: un pannello basso sembrava che avesse mangiato la parte di
+sotto — nell'invio QSL sparivano eQSL e i tre pulsanti — e non c'era modo di accorgersi
+che bastava scorrere. Adesso la barra resta li' finche' c'e' qualcosa da scorrere, nella
+scheda del nominativo, nel QSO nuovo, nel CW, nelle sei schede in basso e nelle
+Impostazioni.
+
 ## 1.7.3 — 22 settembre 2026
 
 **Il doppio clic su uno spot del cluster adesso muove la radio.** Prima parlava solo a

@@ -147,10 +147,10 @@ Rectangle {
             }
             VfoDisplay {
                 id: vfo
-                // Quella di Decodium se c'e'; se no quella della radio, che
-                // sul CAT la sa lo stesso.
-                mhz: decolog.dialFrequency.length ? parseFloat(decolog.dialFrequency)
-                   : (decolog.rig.connected ? decolog.rig.frequencyHz / 1e6 : 0)
+                // La radio quando c'e', perche' e' lo stato vero; Decodium
+                // quando la radio non c'e'. Chi clicca uno spot deve vedere il
+                // display muoversi con il VFO.
+                mhz: decolog.shownFrequency.length ? parseFloat(decolog.shownFrequency) : 0
                 tunable: decolog.rig.connected || decolog.clientConnected
                 textColor: decolog.clientConnected || decolog.rig.connected
                            ? Theme.accentColor : Theme.textSecondary
@@ -165,8 +165,7 @@ Rectangle {
             // sotto. Quello che si sceglie va alla radio e a Decodium.
             Pill {
                 id: modePill
-                readonly property string shown: decolog.currentMode.length ? decolog.currentMode
-                                                                           : decolog.rig.mode
+                readonly property string shown: decolog.shownMode
                 visible: shown.length > 0 || vfo.tunable
                 text: shown.length ? shown : "···"
                 tone: Theme.primaryColor

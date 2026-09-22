@@ -75,6 +75,9 @@ public:
         // Porta la radio sulla frequenza e sul modo dello spot. Torna false se
         // la radio non c'e': allora si prova comunque con Decodium.
         std::function<bool(double mhz, const QString& mode)> tuneRadio;
+        // Mette il DX nel riquadro del QSO nuovo: nominativo, banda, modo,
+        // frequenza. Da li' il callbook riempie nome, QTH e locatore.
+        std::function<void(const QVariantMap& fields)> prepareQso;
     };
 
     explicit ClusterController(Context context, QObject* parent = nullptr);

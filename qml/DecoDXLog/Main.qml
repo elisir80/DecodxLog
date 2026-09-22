@@ -981,7 +981,12 @@ ApplicationWindow {
                         onStatsRequested: window.openStats()
                         onRotorRequested: window.openRotor()
                         SplitView.fillHeight: true
-                        SplitView.minimumHeight: panelKey === "rotor" ? 220 : 80
+                        // La scheda del nominativo e' quella che si guarda di
+                        // piu': schiacciata a una riga non serve a niente, e
+                        // gli altri pannelli della colonna, con le loro misure
+                        // preferite, la riducevano proprio a quello.
+                        SplitView.minimumHeight: panelKey === "rotor" ? 220
+                                               : panelKey === "callinfo" ? 200 : 80
                     }
                     PanelSlot {
                         id: slotRightB

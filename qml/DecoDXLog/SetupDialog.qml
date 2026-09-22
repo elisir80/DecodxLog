@@ -194,7 +194,7 @@ DialogFrame {
                 clip: true
                 contentWidth: availableWidth
                 ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-                ScrollBar.vertical: ScrollBar {}
+                ScrollBar.vertical: PanelScrollBar {}
 
             StackLayout {
                 id: pageStack

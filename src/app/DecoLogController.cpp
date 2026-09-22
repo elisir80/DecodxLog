@@ -407,6 +407,7 @@ bool DecoLogController::openDatabase(const QString& path)
         addActivity(category, text, level);
     };
     ctx.lookup = [this](const QString& call) { setLookupCall(call); };
+    ctx.prepareQso = [this](const QVariantMap& fields) { emit qsoPrepared(fields); };
     // Il doppio clic su uno spot porta la radio dove sta il DX: frequenza e
     // modo, tradotto in quello che vuole Hamlib.
     ctx.tuneRadio = [this](double mhz, const QString& mode) {
@@ -489,6 +490,9 @@ bool DecoLogController::openDatabase(const QString& path)
     // Il CloudController manda al massimo una volta ogni venti secondi, quindi
     // girare la manopola non intasa niente.
     connect(m_rig, SIGNAL(stateChanged()), this, SLOT(reportPresenceToCloud()));
+    // La barra in cima mostra la radio: quando la radio si muove, si rifa'.
+    connect(m_rig, SIGNAL(stateChanged()), this, SIGNAL(tuningChanged()));
+    connect(this, &DecoLogController::clientChanged, this, &DecoLogController::tuningChanged);
 
     CloudController::Context cloudCtx;
     cloudCtx.db = &m_db;
@@ -838,6 +842,28 @@ void DecoLogController::setFollowDxCall(bool follow)
 bool DecoLogController::clientConnected() const
 {
     return m_clientLastSeen.isValid();
+}
+
+QString DecoLogController::shownFrequency() const
+{
+    auto* rig = qobject_cast<RigController*>(m_rig);
+    if (rig && rig->connected() && rig->frequencyHz() > 0)
+        return QString::number(static_cast<double>(rig->frequencyHz()) / 1e6, 'f', 6);
+    return dialFrequency();
+}
+
+QString DecoLogController::shownMode() const
+{
+    auto* rig = qobject_cast<RigController*>(m_rig);
+    const QString fromDecodium = currentMode();
+    if (!rig || !rig->connected() || rig->mode().isEmpty())
+        return fromDecodium;
+    // Se Decodium e la radio stanno sulla stessa cosa, si mostra il nome di
+    // Decodium: "FT8" dice piu' di "PKTUSB". Se no comanda la radio, che e'
+    // quella che trasmette davvero.
+    if (!fromDecodium.isEmpty() && modes::catFor(fromDecodium) == rig->mode())
+        return fromDecodium;
+    return rig->mode();
 }
 
 QString DecoLogController::dialFrequency() const

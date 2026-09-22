@@ -60,6 +60,7 @@ DialogFrame {
             Layout.fillWidth: true
             Layout.fillHeight: true
             clip: true
+            ScrollBar.vertical: PanelScrollBar {}
             TextArea {
                 readOnly: true
                 wrapMode: TextArea.Wrap

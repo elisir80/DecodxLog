@@ -219,6 +219,7 @@ GlassPanel {
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.minimumHeight: 60
+            ScrollBar.vertical: PanelScrollBar {}
             clip: true
             contentWidth: availableWidth
 

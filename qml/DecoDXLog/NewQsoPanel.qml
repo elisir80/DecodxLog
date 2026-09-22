@@ -82,6 +82,32 @@ GlassPanel {
 
     Component.onCompleted: resetTime()
 
+    // Uno spot scelto nel cluster: il DX finisce qui, pronto da registrare.
+    // Il nominativo si sostituisce sempre — cliccare uno spot vuol dire "adesso
+    // lavoro questo" — ma quello che l'operatore ha scritto di suo (nome, QTH,
+    // rapporti, commento) non si tocca: lo aggiorna semmai il callbook, e solo
+    // dove e' vuoto.
+    Connections {
+        target: decolog
+        function onQsoPrepared(fields) {
+            if (!fields || !fields.call)
+                return
+            if (callField.text.trim().toUpperCase() !== String(fields.call).toUpperCase()) {
+                root.clearForm()
+                callField.text = fields.call
+            }
+            if (fields.mhz > 0)
+                freqField.text = Number(fields.mhz).toFixed(6)
+            if (fields.mode) {
+                const i = modeBox.find(fields.mode)
+                if (i >= 0) modeBox.currentIndex = i
+                else modeBox.editText = fields.mode
+            }
+            if (fields.grid && gridField.text.length === 0)
+                gridField.text = fields.grid
+        }
+    }
+
     // Come nella scheda completa: il callbook riempie solo i campi vuoti.
     Connections {
         target: decolog
@@ -99,6 +125,7 @@ GlassPanel {
         anchors.fill: parent
         contentWidth: availableWidth
         clip: true
+        ScrollBar.vertical: PanelScrollBar {}
 
         ColumnLayout {
             width: parent.width

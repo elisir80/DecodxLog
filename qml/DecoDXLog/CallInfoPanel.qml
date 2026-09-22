@@ -49,6 +49,7 @@ GlassPanel {
         anchors.fill: parent
         contentWidth: availableWidth
         clip: true
+        ScrollBar.vertical: PanelScrollBar {}
 
         ColumnLayout {
             width: parent.width

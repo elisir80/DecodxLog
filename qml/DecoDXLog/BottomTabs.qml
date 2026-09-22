@@ -127,7 +127,7 @@ GlassPanel {
             id: awardsScroll
             clip: true
             contentWidth: availableWidth
-            ScrollBar.vertical.policy: ScrollBar.AsNeeded
+            ScrollBar.vertical: PanelScrollBar {}
 
             Flow {
             width: awardsScroll.availableWidth
@@ -186,7 +186,7 @@ GlassPanel {
             id: statsScroll
             clip: true
             contentWidth: availableWidth
-            ScrollBar.vertical.policy: ScrollBar.AsNeeded
+            ScrollBar.vertical: PanelScrollBar {}
 
             RowLayout {
             width: statsScroll.availableWidth
@@ -235,7 +235,7 @@ GlassPanel {
             id: qslScroll
             clip: true
             contentWidth: availableWidth
-            ScrollBar.vertical.policy: ScrollBar.AsNeeded
+            ScrollBar.vertical: PanelScrollBar {}
 
             ColumnLayout {
             width: qslScroll.availableWidth
@@ -347,7 +347,7 @@ GlassPanel {
         ListView {
             clip: true
             model: decolog.activity
-            ScrollBar.vertical: ScrollBar {}
+            ScrollBar.vertical: PanelScrollBar {}
             delegate: Text {
                 required property var modelData
                 width: ListView.view.width

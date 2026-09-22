@@ -95,6 +95,9 @@ class DecoLogController : public QObject {
 
     Q_PROPERTY(QString lookupCall READ lookupCall WRITE setLookupCall NOTIFY lookupChanged)
     Q_PROPERTY(QVariantMap callInfo READ callInfo NOTIFY lookupChanged)
+    // Cambiano sia quando parla Decodium sia quando si muove la radio.
+    Q_PROPERTY(QString shownFrequency READ shownFrequency NOTIFY tuningChanged)
+    Q_PROPERTY(QString shownMode READ shownMode NOTIFY tuningChanged)
     Q_PROPERTY(QString myGrid READ myGrid NOTIFY stationChanged)
     Q_PROPERTY(QVariantMap myPosition READ myPosition NOTIFY stationChanged)
 
@@ -215,6 +218,12 @@ public:
     QString dialFrequency() const;
     QString dialBand() const;
     QString currentMode() const { return m_status.submode.isEmpty() ? m_status.mode : m_status.submode; }
+    // Quello che si mostra in cima: la radio quando c'e', perche' e' lo stato
+    // vero; Decodium quando la radio non c'e'. Il modo di Decodium vince solo
+    // se dice la stessa cosa della radio con un nome piu' preciso — "FT8"
+    // invece di "PKTUSB".
+    QString shownFrequency() const;
+    QString shownMode() const;
     QString dxCall() const { return m_status.dxCall; }
     QString deCall() const { return m_status.deCall; }
     bool transmitting() const { return m_status.transmitting; }
@@ -418,6 +427,11 @@ signals:
     void incomingChanged();
     void activityChanged();
     void lookupChanged();
+    // Un DX scelto altrove — per ora dal cluster — da mettere nel riquadro del
+    // QSO nuovo: call, mhz, mode, grid.
+    void qsoPrepared(const QVariantMap& fields);
+    // Frequenza o modo mostrati in cima: cambiati.
+    void tuningChanged();
     void stationChanged();
     void backupChanged();
     void cloudChanged();

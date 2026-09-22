@@ -555,6 +555,18 @@ void ClusterController::tune(const QString& spotKey)
     // fino a ieri un doppio clic sullo spot non muoveva un VFO.
     const bool toRadio = m_ctx.tuneRadio && m_ctx.tuneRadio(tuning.dialKhz / 1000.0, e->spot.mode);
 
+    // Il QSO si prepara comunque, anche senza radio e senza Decodium: chi
+    // clicca su uno spot vuole quella stazione nel riquadro, e da li' parte il
+    // callbook con nome, QTH e locatore.
+    if (m_ctx.prepareQso) {
+        m_ctx.prepareQso(QVariantMap{
+            {QStringLiteral("call"), e->spot.dxCall},
+            {QStringLiteral("mhz"), e->spot.freqKhz / 1000.0},
+            {QStringLiteral("mode"), e->spot.mode},
+            {QStringLiteral("grid"), e->spot.dxGrid},
+        });
+    }
+
     const bool toDecodium = m_ctx.decoLink && m_ctx.decoLink->clientCount() > 0;
     if (toDecodium) {
         m_ctx.decoLink->broadcast(QJsonObject{

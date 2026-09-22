@@ -28,7 +28,7 @@ RotorGlass {
             Layout.fillWidth: true
             Layout.fillHeight: true
             clip: true
-
+    
             ListView {
                 id: list
 
