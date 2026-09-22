@@ -279,9 +279,16 @@ DialogFrame {
                 tone: Theme.accentColor
                 filled: true
                 onClicked: {
+                    const wasContest = root.draft.kind === "contest"
                     errorText.text = root.act.start(root.draft)
-                    if (errorText.text.length === 0)
+                    if (errorText.text.length === 0) {
                         root.close()
+                        // In un contest il banco si apre da solo: la finestra
+                        // dell'inserimento, il cluster dei moltiplicatori e la
+                        // CW se e' una gara in telegrafia.
+                        if (wasContest)
+                            Qt.callLater(window.openContestDesk)
+                    }
                 }
             }
         }

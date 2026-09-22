@@ -13,6 +13,7 @@
 #include <QObject>
 #include <QUrl>
 #include <QVariantList>
+#include <QSet>
 #include <QVariantMap>
 #include <functional>
 
@@ -89,6 +90,14 @@ public:
     Q_INVOKABLE QVariantMap score() const;
     // Lo scambio ricevuto ha la forma che il contest vuole? Vuoto se va bene.
     Q_INVOKABLE QString checkExchange(const QString& exchange) const;
+    // Quanto vale questo spot per il contest aperto: {points, newMultiplier,
+    // duplicate, label}. Serve al cluster, per far vedere subito quali spot
+    // portano un moltiplicatore che non si ha ancora.
+    Q_INVOKABLE QVariantMap spotValue(const QString& call, const QString& band,
+                                      const QString& mode) const;
+    // Vero quando il contest aperto si fa in telegrafia: la finestra CW serve
+    // solo allora.
+    Q_INVOKABLE bool isCwContest() const;
     // Scrive l'ADIF della sessione. Restituisce un messaggio d'errore, o "".
     Q_INVOKABLE QString exportAdif(const QUrl& file);
     // Scrive il Cabrillo del contest. `info` sono le righe della testata:
@@ -124,6 +133,8 @@ signals:
     void changed();
 
 private:
+    // Le chiavi dei moltiplicatori gia' in tasca, per sapere quali mancano.
+    QSet<QString> workedMultipliers() const;
     void save();
     void recount();
 

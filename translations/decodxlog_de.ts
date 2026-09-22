@@ -807,6 +807,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Quelle</translation>
     </message>
     <message>
+        <source>mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
         <source>unconf.</source>
         <translation>unbest.</translation>
     </message>

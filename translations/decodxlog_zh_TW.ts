@@ -805,6 +805,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>來源</translation>
     </message>
     <message>
+        <source>mult</source>
+        <translation>倍增</translation>
+    </message>
+    <message>
         <source>unconf.</source>
         <translation>未確認</translation>
     </message>

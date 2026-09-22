@@ -10,6 +10,10 @@ GlassPanel {
     id: root
 
     property bool compact: false
+    // Durante un contest il cluster serve a una cosa sola: vedere chi porta un
+    // moltiplicatore che non si ha. Via tutto il resto, e quelli che contano si
+    // vedono da lontano.
+    property bool contestMode: false
     signal windowRequested(int tab)
 
     readonly property var cluster: decolog.cluster
@@ -378,12 +382,24 @@ GlassPanel {
                 required property bool lotw
                 required property bool fresh
 
+                // Quanto vale questo spot nel contest aperto: i punti, e se
+                // porta un moltiplicatore nuovo. Vuoto fuori dai contest.
+                readonly property var contestValue: root.contestMode
+                    ? decolog.activation.spotValue(call, band, mode) : ({})
+                readonly property bool newMultiplier: !!contestValue.newMultiplier
+
                 width: ListView.view.width
                 height: Theme.rowHeight
                 color: area.containsMouse ? Theme.glassOverlay
+                     : line.newMultiplier ? Qt.rgba(Theme.warningColor.r, Theme.warningColor.g,
+                                                    Theme.warningColor.b, 0.18)
                      : fresh && (status & 15) ? Qt.rgba(root.statusColor(status).r, root.statusColor(status).g, root.statusColor(status).b, 0.10)
                      : "transparent"
-                Rectangle { anchors { left: parent.left; top: parent.top; bottom: parent.bottom } width: 3; color: root.statusColor(line.status) }
+                Rectangle {
+                    anchors { left: parent.left; top: parent.top; bottom: parent.bottom }
+                    width: line.newMultiplier ? 5 : 3
+                    color: line.newMultiplier ? Theme.warningColor : root.statusColor(line.status)
+                }
                 Rectangle { anchors { left: parent.left; right: parent.right; bottom: parent.bottom } height: 1; color: Theme.borderSoft }
 
                 RowLayout {
@@ -415,8 +431,27 @@ GlassPanel {
                     Item {
                         Layout.preferredWidth: 86
                         implicitHeight: 18
+                        // Nel contest conta il moltiplicatore, non il DXCC nuovo.
                         Rectangle {
-                            visible: line.statusLabel.length > 0
+                            visible: line.newMultiplier
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: parent.width
+                            height: 18
+                            radius: 3
+                            color: Qt.rgba(Theme.warningColor.r, Theme.warningColor.g,
+                                           Theme.warningColor.b, 0.22)
+                            border.color: Theme.warningColor
+                            Text {
+                                anchors.centerIn: parent
+                                text: line.contestValue.label || qsTr("mult")
+                                color: Theme.warningColor
+                                font.family: Theme.monoFamily
+                                font.pixelSize: 10
+                                font.bold: true
+                            }
+                        }
+                        Rectangle {
+                            visible: !line.newMultiplier && line.statusLabel.length > 0
                             anchors.verticalCenter: parent.verticalCenter
                             width: badge.implicitWidth + 10
                             height: 16

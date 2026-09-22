@@ -805,6 +805,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Forrás</translation>
     </message>
     <message>
+        <source>mult</source>
+        <translation>szorzó</translation>
+    </message>
+    <message>
         <source>unconf.</source>
         <translation>nem ig.</translation>
     </message>

@@ -508,4 +508,97 @@ QString ActivationController::checkExchange(const QString& exchange) const
     return core::contestrules::checkExchange(core::contestrules::forId(m_session.contestId), exchange);
 }
 
+QVariantMap ActivationController::spotValue(const QString& call, const QString& band,
+                                            const QString& mode) const
+{
+    QVariantMap out{{QStringLiteral("points"), 0},
+                    {QStringLiteral("newMultiplier"), false},
+                    {QStringLiteral("duplicate"), false},
+                    {QStringLiteral("label"), QString()}};
+    const core::ContestRules rules = core::contestrules::forId(m_session.contestId);
+    if (!rules.valid || !m_session.active || call.trimmed().isEmpty())
+        return out;
+
+    const core::ContestStation me = m_ctx.station ? m_ctx.station() : core::ContestStation{};
+    core::ContestQso qso;
+    qso.call = call.trimmed().toUpper();
+    qso.band = band.toLower();
+    qso.mode = mode.toUpper();
+    if (m_ctx.locate) {
+        const core::ContestStation where = m_ctx.locate(qso.call);
+        qso.dxcc = where.dxcc;
+        qso.continent = where.continent;
+        qso.cqZone = where.cqZone;
+        qso.ituZone = where.ituZone;
+    }
+    // Lo scambio non si sa prima di averlo lavorato: per i contest che contano
+    // zone o paesi basta il cty.csv, per gli altri (province, sezioni) il
+    // moltiplicatore si sapra' solo a QSO fatto.
+    out[QStringLiteral("points")] = core::contestrules::points(rules, qso, me);
+    out[QStringLiteral("duplicate")] = isDuplicate(qso.call, qso.band, qso.mode);
+
+    const QStringList keys = core::contestrules::multipliers(rules, qso, me);
+    if (keys.isEmpty())
+        return out;
+    const QSet<QString> already = workedMultipliers();
+    QStringList missing;
+    for (const QString& key : keys) {
+        if (!already.contains(key))
+            missing << key.section(QLatin1Char('|'), 0, 0);
+    }
+    out[QStringLiteral("newMultiplier")] = !missing.isEmpty();
+    out[QStringLiteral("label")] = missing.join(QStringLiteral(" · "));
+    return out;
+}
+
+bool ActivationController::isCwContest() const
+{
+    if (!m_session.active)
+        return false;
+    if (m_session.mode.compare(QLatin1String("CW"), Qt::CaseInsensitive) == 0)
+        return true;
+    // Un contest che si fa solo in telegrafia lo dice nel suo identificativo.
+    return m_session.contestId.endsWith(QLatin1String("-CW"), Qt::CaseInsensitive)
+           || m_session.contestId.contains(QLatin1String("-CW-"), Qt::CaseInsensitive);
+}
+
+QSet<QString> ActivationController::workedMultipliers() const
+{
+    QSet<QString> out;
+    const core::ContestRules rules = core::contestrules::forId(m_session.contestId);
+    if (!rules.valid || !m_ctx.db || !m_ctx.db->isOpen())
+        return out;
+    const core::ContestStation me = m_ctx.station ? m_ctx.station() : core::ContestStation{};
+    for (const QVariant& v : qsoIds()) {
+        const auto record = m_ctx.db->record(v.toLongLong());
+        if (!record)
+            continue;
+        core::ContestQso qso;
+        qso.call = record->value(QStringLiteral("CALL"));
+        qso.band = record->value(QStringLiteral("BAND")).toLower();
+        qso.mode = record->value(QStringLiteral("MODE")).toUpper();
+        qso.exchange = record->value(QStringLiteral("SRX_STRING"));
+        if (qso.exchange.isEmpty())
+            qso.exchange = record->value(QStringLiteral("SRX"));
+        qso.dxcc = record->value(QStringLiteral("DXCC")).toInt();
+        qso.continent = record->value(QStringLiteral("CONT")).toUpper();
+        qso.cqZone = record->value(QStringLiteral("CQZ")).toInt();
+        qso.ituZone = record->value(QStringLiteral("ITUZ")).toInt();
+        if ((qso.dxcc == 0 || qso.continent.isEmpty()) && m_ctx.locate) {
+            const core::ContestStation found = m_ctx.locate(qso.call);
+            if (qso.dxcc == 0)
+                qso.dxcc = found.dxcc;
+            if (qso.continent.isEmpty())
+                qso.continent = found.continent;
+            if (qso.cqZone == 0)
+                qso.cqZone = found.cqZone;
+            if (qso.ituZone == 0)
+                qso.ituZone = found.ituZone;
+        }
+        for (const QString& key : core::contestrules::multipliers(rules, qso, me))
+            out.insert(key);
+    }
+    return out;
+}
+
 } // namespace decolog::app

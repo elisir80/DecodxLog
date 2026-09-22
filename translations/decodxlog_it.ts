@@ -807,6 +807,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Fonte</translation>
     </message>
     <message>
+        <source>mult</source>
+        <translation>molt</translation>
+    </message>
+    <message>
         <source>unconf.</source>
         <translation>non conf.</translation>
     </message>

@@ -807,6 +807,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Font</translation>
     </message>
     <message>
+        <source>mult</source>
+        <translation>mult</translation>
+    </message>
+    <message>
         <source>unconf.</source>
         <translation>no conf.</translation>
     </message>
