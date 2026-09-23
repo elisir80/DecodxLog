@@ -3,6 +3,21 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.15.2 — 23 settembre 2026
+
+**Le finestre di Windows e le tendine non finiscono piu' sotto il banco.** In modalita' contest
+le finestre della gara erano "sempre in primo piano" per tutto il sistema: coprivano le
+finestre di dialogo di DecoDXLog (Impostazioni, Log, Contest…), quelle di Windows (apri,
+salva, avvisi) e le tendine.
+
+- le finestre della gara stanno **sopra la finestra principale perche' sono sue** — si
+  riducono a icona con lei — ma non piu' sopra a tutto: le finestre di dialogo di DecoDXLog e
+  di Windows si aprono davanti;
+- nella pulsantiera del banco c'e' **Davanti anche agli altri programmi**, spento di
+  partenza, per chi vuole le finestre della gara sopra Decodium o altri programmi;
+- **le tendine** si aprono in una finestra loro: stanno sopra tutto ed escono dal bordo delle
+  finestre piccole invece di restare tagliate; lo stesso per il menu **Pannelli**.
+
 ## 1.15.1 — 23 settembre 2026
 
 **La barra in alto va a capo sugli schermi piccoli.** Su uno schermo stretto i riquadri della
