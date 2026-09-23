@@ -1228,8 +1228,8 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>To skærme</translation>
     </message>
     <message>
-        <source>Always in front, never minimised</source>
-        <translation>Altid forrest, aldrig minimeret</translation>
+        <source>In front of other programs too</source>
+        <translation>Også foran andre programmer</translation>
     </message>
     <message>
         <source>Cabrillo…</source>

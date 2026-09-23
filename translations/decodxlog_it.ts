@@ -1228,8 +1228,8 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Due schermi</translation>
     </message>
     <message>
-        <source>Always in front, never minimised</source>
-        <translation>Sempre davanti, mai a icona</translation>
+        <source>In front of other programs too</source>
+        <translation>Davanti anche agli altri programmi</translation>
     </message>
     <message>
         <source>Cabrillo…</source>

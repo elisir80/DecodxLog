@@ -1228,8 +1228,8 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Twee schermen</translation>
     </message>
     <message>
-        <source>Always in front, never minimised</source>
-        <translation>Altijd vooraan, nooit geminimaliseerd</translation>
+        <source>In front of other programs too</source>
+        <translation>Ook vóór andere programma&apos;s</translation>
     </message>
     <message>
         <source>Cabrillo…</source>

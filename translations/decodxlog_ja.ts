@@ -1226,8 +1226,8 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>画面 2 台</translation>
     </message>
     <message>
-        <source>Always in front, never minimised</source>
-        <translation>常に手前、最小化なし</translation>
+        <source>In front of other programs too</source>
+        <translation>他のプログラムよりも前面に表示</translation>
     </message>
     <message>
         <source>Cabrillo…</source>

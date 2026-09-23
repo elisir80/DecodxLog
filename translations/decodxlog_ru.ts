@@ -1230,8 +1230,8 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Два экрана</translation>
     </message>
     <message>
-        <source>Always in front, never minimised</source>
-        <translation>Всегда сверху, никогда не сворачивать</translation>
+        <source>In front of other programs too</source>
+        <translation>Поверх других программ тоже</translation>
     </message>
     <message>
         <source>Cabrillo…</source>

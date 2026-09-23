@@ -1228,8 +1228,8 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Dues pantalles</translation>
     </message>
     <message>
-        <source>Always in front, never minimised</source>
-        <translation>Sempre al davant, mai minimitzada</translation>
+        <source>In front of other programs too</source>
+        <translation>Davant també d&apos;altres programes</translation>
     </message>
     <message>
         <source>Cabrillo…</source>

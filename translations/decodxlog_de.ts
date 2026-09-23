@@ -1228,8 +1228,8 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Zwei Bildschirme</translation>
     </message>
     <message>
-        <source>Always in front, never minimised</source>
-        <translation>Immer vorn, nie minimiert</translation>
+        <source>In front of other programs too</source>
+        <translation>Auch vor anderen Programmen</translation>
     </message>
     <message>
         <source>Cabrillo…</source>

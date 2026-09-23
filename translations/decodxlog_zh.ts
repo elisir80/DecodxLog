@@ -1226,8 +1226,8 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>双屏</translation>
     </message>
     <message>
-        <source>Always in front, never minimised</source>
-        <translation>始终在前，不会最小化</translation>
+        <source>In front of other programs too</source>
+        <translation>也显示在其他程序前面</translation>
     </message>
     <message>
         <source>Cabrillo…</source>

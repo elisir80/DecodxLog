@@ -1226,8 +1226,8 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Két képernyő</translation>
     </message>
     <message>
-        <source>Always in front, never minimised</source>
-        <translation>Mindig elöl, sosem kicsinyítve</translation>
+        <source>In front of other programs too</source>
+        <translation>Más programok előtt is</translation>
     </message>
     <message>
         <source>Cabrillo…</source>

@@ -393,9 +393,11 @@ ApplicationWindow {
     // e sempre davanti. Si esce dalla pulsantiera, o chiudendo la sessione, e
     // la finestra principale torna com'era.
     readonly property bool contestModeOn: layout.contestModeOn
-    // Davanti a tutto: si toglie dalla pulsantiera, per chi lavora con un
-    // altro programma accanto.
-    property bool contestOnTop: true
+    // Davanti anche agli altri programmi: si accende dalla pulsantiera. Di
+    // solito resta spento, perche' le finestre della gara stanno gia' sopra
+    // la principale in quanto sue, e una finestra "sempre in primo piano"
+    // copre anche le finestre di Windows e le finestre di dialogo di DecoDXLog.
+    property bool contestOnTop: false
     function isContestDeskKey(key) {
         return window.contestDeskPanels.indexOf(key) >= 0 || key === "cw"
     }
@@ -1076,6 +1078,9 @@ ApplicationWindow {
     // ── Il menu dei pannelli ────────────────────────────────────────────────
     Popup {
         id: panelsPopup
+        // Una finestra sua: in modalita' contest resta sopra le finestre della
+        // gara invece di aprirsi sotto.
+        popupType: Popup.Window
         parent: Overlay.overlay
         x: window.width - width - 16
         y: 72

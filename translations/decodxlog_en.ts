@@ -1227,8 +1227,8 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Two screens</translation>
     </message>
     <message>
-        <source>Always in front, never minimised</source>
-        <translation>Always in front, never minimised</translation>
+        <source>In front of other programs too</source>
+        <translation>In front of other programs too</translation>
     </message>
     <message>
         <source>Cabrillo…</source>

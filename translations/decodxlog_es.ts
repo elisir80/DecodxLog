@@ -1228,8 +1228,8 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>Dos pantallas</translation>
     </message>
     <message>
-        <source>Always in front, never minimised</source>
-        <translation>Siempre delante, nunca minimizada</translation>
+        <source>In front of other programs too</source>
+        <translation>Delante también de otros programas</translation>
     </message>
     <message>
         <source>Cabrillo…</source>

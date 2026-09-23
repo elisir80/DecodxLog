@@ -26,7 +26,7 @@ GlassPanel {
     // Quali finestre sono aperte adesso: la finestra principale la tiene
     // aggiornata.
     property var openPanels: []
-    property bool allOnTop: true
+    property bool allOnTop: false
 
     Connections {
         target: decolog.activation
@@ -140,7 +140,7 @@ GlassPanel {
             }
             Text {
                 Layout.fillWidth: true
-                text: qsTr("Always in front, never minimised")
+                text: qsTr("In front of other programs too")
                 color: Theme.textPrimary
                 font.pixelSize: 11
                 wrapMode: Text.Wrap

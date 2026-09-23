@@ -1230,8 +1230,8 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Două ecrane</translation>
     </message>
     <message>
-        <source>Always in front, never minimised</source>
-        <translation>Mereu în față, niciodată minimizat</translation>
+        <source>In front of other programs too</source>
+        <translation>Și în fața altor programe</translation>
     </message>
     <message>
         <source>Cabrillo…</source>

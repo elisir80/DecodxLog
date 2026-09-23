@@ -1230,8 +1230,8 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Divi ekrāni</translation>
     </message>
     <message>
-        <source>Always in front, never minimised</source>
-        <translation>Vienmēr priekšā, nekad nesamazināts</translation>
+        <source>In front of other programs too</source>
+        <translation>Arī citu programmu priekšā</translation>
     </message>
     <message>
         <source>Cabrillo…</source>
