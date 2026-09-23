@@ -3,6 +3,24 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.15.3 — 23 settembre 2026
+
+**Le finestre senza la barra di Windows: il titolo sta nella testata.** Sopra ogni finestra
+staccata e ogni finestra di dialogo c'erano due barre — quella di Windows e la testata del
+pannello — con lo stesso titolo. Spazio perso, soprattutto in gara con tante finestre aperte.
+
+- **finestre staccate e del banco contest**: resta solo la testata del pannello. Si
+  **spostano dalla testata** (portandole al bordo dello schermo Windows le aggancia), il
+  **doppio clic** le ingrandisce o le rimette com'erano, dai **bordi e dagli angoli** si
+  ridimensionano; il margine attorno al pannello scende da 8 a 3 pixel, e un filo colorato
+  segna la finestra attiva;
+- **finestre di dialogo** (Impostazioni, Log, Contest, Informazioni…): lo stesso, con la
+  testata e la ✕;
+- **finestre grandi** (cluster, contest, log, QSL cartacee, statistiche, rotore): una testata
+  bassa con il titolo, senza "DecoDXLog —" davanti, e i comandi riduci, ingrandisci, chiudi;
+- **scritte piu' corte**: nel cluster "1718/3000 spot" al posto della frase intera;
+  l'inserimento contest senza sessione dice "Inserimento contest · nessuna sessione".
+
 ## 1.15.2 — 23 settembre 2026
 
 **Le finestre di Windows e le tendine non finiscono piu' sotto il banco.** In modalita' contest
