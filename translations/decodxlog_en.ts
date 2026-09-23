@@ -1192,6 +1192,14 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · country</translation>
+    </message>
+    <message>
         <source>Log</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1500,6 +1508,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Nr r</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · country</translation>
     </message>
     <message>
         <source>Log</source>

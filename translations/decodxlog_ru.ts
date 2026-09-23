@@ -1195,6 +1195,14 @@ The call Decodium is working shows up here by itself.</source>
         <translation>№ прин</translation>
     </message>
     <message>
+        <source>%1 · log</source>
+        <translation>%1 · лог</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · страна</translation>
+    </message>
+    <message>
         <source>Log</source>
         <translation>Аппаратный журнал</translation>
     </message>
@@ -1504,6 +1512,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Nr r</source>
         <translation>№ прин</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · лог</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · страна</translation>
     </message>
     <message>
         <source>Log</source>

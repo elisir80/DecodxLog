@@ -115,8 +115,43 @@ ApplicationWindow {
             }
             root.raise()
             root.requestActivate()
-            rcvdNr.forceActiveFocus()
+            root.goToExchange()
         }
+    }
+
+    // Lo scambio che la stazione mandera', scritto da solo mentre si batte il
+    // nominativo: la zona dal paese, o quello che ha mandato l'ultima volta
+    // (la provincia, la sezione, la zona di una HQ). Si sostituisce solo un
+    // campo vuoto o gia' riempito da qui: quello scritto a mano non si tocca.
+    // Il progressivo non si puo' sapere prima, e resta da scrivere.
+    property string autoFrom: ""
+    property bool settingAuto: false
+    function suggestExchange() {
+        if (!root.running)
+            return
+        if (rcvdNr.text.length > 0 && root.autoFrom === "")
+            return
+        const s = decolog.activation.suggestExchange(callField.text.trim())
+        root.settingAuto = true
+        rcvdNr.text = s.value || ""
+        root.settingAuto = false
+        root.autoFrom = rcvdNr.text.length > 0 ? s.from : ""
+    }
+    Timer { id: suggestTimer; interval: 200; onTriggered: root.suggestExchange() }
+    // Il nome del campo dice da dove viene quello che c'e' dentro.
+    function exchangeLabelText() {
+        const base = root.scoring.exchangeLabel || qsTr("Nr r")
+        return root.autoFrom === "log" ? qsTr("%1 · log").arg(base)
+             : root.autoFrom === "cty" ? qsTr("%1 · country").arg(base)
+             : base
+    }
+    // Si passa allo scambio con tutto selezionato: se il suggerimento va bene
+    // si preme Invio, se no si scrive sopra.
+    function goToExchange() {
+        suggestTimer.stop()
+        root.suggestExchange()
+        rcvdNr.forceActiveFocus()
+        rcvdNr.selectAll()
     }
 
     function clearEntry() {
@@ -298,7 +333,10 @@ ApplicationWindow {
                         fieldHeight: 38
                         font.pixelSize: 20
                         accentBorder: root.duplicate ? Theme.errorColor : Theme.primaryColor
-                        onTextChanged: decolog.lookupCall = text
+                        onTextChanged: {
+                            decolog.lookupCall = text
+                            suggestTimer.restart()
+                        }
                         Keys.onSpacePressed: rcvdRst.forceActiveFocus()
                     }
                 }
@@ -333,10 +371,12 @@ ApplicationWindow {
                     // Il nome del campo lo decide il contest: zona, provincia,
                     // sezione o numero. Scrivere "59 14" dove ci vuole una
                     // provincia e' l'errore che si scopre a spoglio fatto.
-                    label: root.scoring.exchangeLabel || qsTr("Nr r")
+                    label: root.exchangeLabelText()
                     StyledTextField {
                         id: rcvdNr
                         Layout.preferredWidth: 130
+                        onTextChanged: if (!root.settingAuto) root.autoFrom = ""
+                        color: root.autoFrom.length > 0 ? Theme.accentColor : Theme.textPrimary
                         fieldHeight: 38
                         uppercase: true
                         accentBorder: root.exchangeProblem.length > 0 ? Theme.warningColor

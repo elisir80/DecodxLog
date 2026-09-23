@@ -1195,6 +1195,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Nr s</translation>
     </message>
     <message>
+        <source>%1 · log</source>
+        <translation>%1 · žurnāls</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · valsts</translation>
+    </message>
+    <message>
         <source>Log</source>
         <translation>Žurnāls</translation>
     </message>
@@ -1504,6 +1512,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Nr r</source>
         <translation>Nr s</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · žurnāls</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · valsts</translation>
     </message>
     <message>
         <source>Log</source>

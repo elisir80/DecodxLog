@@ -1191,6 +1191,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Sorsz. v</translation>
     </message>
     <message>
+        <source>%1 · log</source>
+        <translation>%1 · napló</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · ország</translation>
+    </message>
+    <message>
         <source>Log</source>
         <translation>Napló</translation>
     </message>
@@ -1498,6 +1506,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Nr r</source>
         <translation>Sorsz. v</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · napló</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · ország</translation>
     </message>
     <message>
         <source>Log</source>

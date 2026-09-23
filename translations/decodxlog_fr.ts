@@ -1193,6 +1193,14 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
         <translation>N° r</translation>
     </message>
     <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · pays</translation>
+    </message>
+    <message>
         <source>Log</source>
         <translation>Journal</translation>
     </message>
@@ -1501,6 +1509,14 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
     <message>
         <source>Nr r</source>
         <translation>N° r</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · pays</translation>
     </message>
     <message>
         <source>Log</source>

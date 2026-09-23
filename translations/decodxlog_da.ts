@@ -1193,6 +1193,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Nr r</translation>
     </message>
     <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · land</translation>
+    </message>
+    <message>
         <source>Log</source>
         <translation>Logbog</translation>
     </message>
@@ -1501,6 +1509,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Nr r</source>
         <translation>Nr r</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · land</translation>
     </message>
     <message>
         <source>Log</source>

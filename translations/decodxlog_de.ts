@@ -1193,6 +1193,14 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Nr. e</translation>
     </message>
     <message>
+        <source>%1 · log</source>
+        <translation>%1 · Log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · Land</translation>
+    </message>
+    <message>
         <source>Log</source>
         <translation>Logbuch</translation>
     </message>
@@ -1501,6 +1509,14 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Nr r</source>
         <translation>Nr. e</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · Log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · Land</translation>
     </message>
     <message>
         <source>Log</source>

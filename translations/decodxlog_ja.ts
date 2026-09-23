@@ -1191,6 +1191,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>Nr 受</translation>
     </message>
     <message>
+        <source>%1 · log</source>
+        <translation>%1 · ログ</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · 国</translation>
+    </message>
+    <message>
         <source>Log</source>
         <translation>ログ</translation>
     </message>
@@ -1498,6 +1506,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Nr r</source>
         <translation>Nr 受</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · ログ</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · 国</translation>
     </message>
     <message>
         <source>Log</source>

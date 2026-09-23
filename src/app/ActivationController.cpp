@@ -1,5 +1,6 @@
 #include "app/ActivationController.h"
 
+#include "core/Awards.h"
 #include "core/Cabrillo.h"
 #include "core/ContestRules.h"
 #include "core/Contests.h"
@@ -190,6 +191,133 @@ bool ActivationController::isDuplicate(const QString& call, const QString& band,
     q.addBindValue(m_session.startedAt.toString(Qt::ISODate));
     q.addBindValue(mode.trimmed().toUpper());
     return q.exec() && q.next() && q.value(0).toInt() > 0;
+}
+
+QVariantMap ActivationController::suggestExchange(const QString& rawCall) const
+{
+    QVariantMap out{{QStringLiteral("value"), QString()}, {QStringLiteral("from"), QString()}};
+    const QString call = rawCall.trimmed().toUpper();
+    const core::ContestRules rules = core::contestrules::forId(m_session.contestId);
+    if (!rules.valid || !m_session.active || call.size() < 3)
+        return out;
+    auto answer = [&out](const QString& value, const char* from) {
+        out[QStringLiteral("value")] = value;
+        out[QStringLiteral("from")] = QLatin1String(from);
+        return out;
+    };
+
+    // Quello che la stazione ha mandato l'ultima volta, e cosa di lei sa il
+    // log: una stazione non cambia zona ne' provincia da un anno all'altro.
+    struct Past {
+        int cqz{0};
+        int ituz{0};
+        QString state;
+        QString grid;
+        QString contestId;
+        QString exchange;
+    };
+    QList<Past> past;
+    if (m_ctx.db && m_ctx.db->isOpen()) {
+        QSqlQuery q(m_ctx.db->connection());
+        q.setForwardOnly(true);
+        q.prepare(QStringLiteral(
+            "SELECT IFNULL(cqz, 0), IFNULL(ituz, 0), IFNULL(state, ''), IFNULL(gridsquare, ''), "
+            "IFNULL(adif_extra, '') FROM qso WHERE deleted = 0 AND call = ? "
+            "ORDER BY qso_datetime_on DESC LIMIT 30"));
+        q.addBindValue(call);
+        if (q.exec()) {
+            while (q.next()) {
+                Past p;
+                p.cqz = q.value(0).toInt();
+                p.ituz = q.value(1).toInt();
+                p.state = q.value(2).toString();
+                p.grid = q.value(3).toString();
+                const QString extra = q.value(4).toString();
+                if (!extra.isEmpty()) {
+                    const QJsonObject fields = QJsonDocument::fromJson(extra.toUtf8()).object();
+                    p.contestId = fields.value(QStringLiteral("CONTEST_ID")).toString().toUpper();
+                    p.exchange = fields.value(QStringLiteral("SRX_STRING")).toString().trimmed().toUpper();
+                    if (p.exchange.isEmpty())
+                        p.exchange = fields.value(QStringLiteral("SRX")).toString().trimmed().toUpper();
+                }
+                past << p;
+            }
+        }
+    }
+    const core::ContestStation where = m_ctx.locate ? m_ctx.locate(call) : core::ContestStation{};
+    // Lo scambio di un QSO fatto in un contest dello stesso tipo: il CQ WW in
+    // CW e quello in SSB si scambiano la stessa cosa.
+    auto sameKind = [&rules](const QString& id) {
+        if (id == rules.id)
+            return true;
+        const QString family = rules.id.section(QLatin1Char('-'), 0, 1);
+        return !family.isEmpty() && id.startsWith(family + QLatin1Char('-'));
+    };
+
+    switch (rules.exchange) {
+    case core::ContestRules::Exchange::CqZone:
+        for (const Past& p : past) {
+            if (sameKind(p.contestId) && !p.exchange.isEmpty())
+                return answer(QString::number(p.exchange.toInt()), "log");
+        }
+        for (const Past& p : past) {
+            if (p.cqz > 0)
+                return answer(QString::number(p.cqz), "log");
+        }
+        if (where.cqZone > 0)
+            return answer(QString::number(where.cqZone), "cty");
+        return out;
+    case core::ContestRules::Exchange::ItuZone:
+        // Le stazioni HQ mandano la sigla della societa' al posto della zona:
+        // si sa solo da una gara gia' fatta con loro.
+        for (const Past& p : past) {
+            if (sameKind(p.contestId) && !p.exchange.isEmpty())
+                return answer(p.exchange, "log");
+        }
+        for (const Past& p : past) {
+            if (p.ituz > 0)
+                return answer(QString::number(p.ituz), "log");
+        }
+        if (where.ituZone > 0)
+            return answer(QString::number(where.ituZone), "cty");
+        return out;
+    case core::ContestRules::Exchange::Province: {
+        // Le italiane mandano la provincia; le altre il progressivo, che non
+        // si puo' sapere prima.
+        const bool italian = where.dxcc == 248 || where.dxcc == 225;
+        if (!italian)
+            return out;
+        for (const Past& p : past) {
+            if (sameKind(p.contestId)) {
+                const QString code = core::awards::italianProvince(p.exchange);
+                if (!code.isEmpty())
+                    return answer(code, "log");
+            }
+        }
+        for (const Past& p : past) {
+            const QString code = core::awards::italianProvince(p.state);
+            if (!code.isEmpty())
+                return answer(code, "log");
+        }
+        return out;
+    }
+    case core::ContestRules::Exchange::AriSection:
+        for (const Past& p : past) {
+            if (sameKind(p.contestId) && !p.exchange.isEmpty())
+                return answer(p.exchange, "log");
+        }
+        return out;
+    case core::ContestRules::Exchange::Grid:
+        for (const Past& p : past) {
+            if (p.grid.size() >= 4)
+                return answer(p.grid.left(4).toUpper(), "log");
+        }
+        return out;
+    case core::ContestRules::Exchange::Serial:
+    case core::ContestRules::Exchange::None:
+        return out;
+    }
+    return out;
 }
 
 void ActivationController::applyTo(AdifRecord& record) const

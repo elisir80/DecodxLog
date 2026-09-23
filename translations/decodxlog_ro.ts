@@ -1195,6 +1195,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Nr p</translation>
     </message>
     <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · țară</translation>
+    </message>
+    <message>
         <source>Log</source>
         <translation>Jurnal</translation>
     </message>
@@ -1504,6 +1512,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Nr r</source>
         <translation>Nr p</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · țară</translation>
     </message>
     <message>
         <source>Log</source>

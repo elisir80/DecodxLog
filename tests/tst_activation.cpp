@@ -120,6 +120,78 @@ private slots:
         QCOMPARE(score.value("multipliers").toInt(), 1);
     }
 
+    void theExchangeIsSuggestedWhileTypingTheCall()
+    {
+        // Si scrive il nominativo e lo scambio si riempie da solo: la zona dal
+        // paese, o quello che la stazione ha mandato l'ultima volta. Il
+        // progressivo non si puo' sapere, e non si inventa.
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        // Un QSO di un anno fa con I2XYZ, nel 40/80: mando' MI.
+        QVERIFY(db.insertQso({{"CALL", "I2XYZ"}, {"QSO_DATE", "20250105"}, {"TIME_ON", "0800"},
+                              {"BAND", "40m"}, {"MODE", "SSB"}, {"DXCC", "248"},
+                              {"CONTEST_ID", "ARI-40-80"}, {"SRX_STRING", "MI"}}, "import").status
+                == InsertResult::Status::Inserted);
+        // Uno con I8ABC, fuori dai contest, con la provincia nel campo STATE.
+        QVERIFY(db.insertQso({{"CALL", "I8ABC"}, {"QSO_DATE", "20250301"}, {"TIME_ON", "0900"},
+                              {"BAND", "20m"}, {"MODE", "FT8"}, {"DXCC", "248"}, {"STATE", "NA"}},
+                             "import").status == InsertResult::Status::Inserted);
+        // Una HQ nella IARU dell'anno scorso: mando' la sigla della societa'.
+        QVERIFY(db.insertQso({{"CALL", "DA0HQ"}, {"QSO_DATE", "20250712"}, {"TIME_ON", "1300"},
+                              {"BAND", "20m"}, {"MODE", "CW"}, {"DXCC", "230"}, {"ITUZ", "28"},
+                              {"CONTEST_ID", "IARU-HF"}, {"SRX_STRING", "DARC"}}, "import").status
+                == InsertResult::Status::Inserted);
+
+        ActivationController::Context ctx;
+        ctx.db = &db;
+        ctx.stationCall = [] { return QStringLiteral("IU8LMC"); };
+        ctx.stationGrid = [] { return QStringLiteral("JN70"); };
+        ctx.activeProfileId = [] { return qint64(0); };
+        ctx.station = [] { return decolog::core::ContestStation{248, QStringLiteral("EU"), 15, 28}; };
+        ctx.locate = [](const QString& call) {
+            if (call.startsWith(QStringLiteral("W")))
+                return decolog::core::ContestStation{291, QStringLiteral("NA"), 5, 8};
+            if (call.startsWith(QStringLiteral("I")))
+                return decolog::core::ContestStation{248, QStringLiteral("EU"), 15, 28};
+            if (call.startsWith(QStringLiteral("D")))
+                return decolog::core::ContestStation{230, QStringLiteral("EU"), 14, 28};
+            return decolog::core::ContestStation{};
+        };
+        ActivationController act(std::move(ctx));
+        act.load();
+
+        // CQ WW: la zona CQ dal paese.
+        QVERIFY(act.start({{"kind", "contest"}, {"contestId", "CQ-WW-CW"}}).isEmpty());
+        QVariantMap s = act.suggestExchange(QStringLiteral("W1AW"));
+        QCOMPARE(s.value("value").toString(), QString("5"));
+        QCOMPARE(s.value("from").toString(), QString("cty"));
+        act.stop();
+
+        // IARU: la HQ ha mandato DARC, e DARC si suggerisce; un americano la
+        // sua zona ITU.
+        QVERIFY(act.start({{"kind", "contest"}, {"contestId", "IARU-HF"}}).isEmpty());
+        s = act.suggestExchange(QStringLiteral("DA0HQ"));
+        QCOMPARE(s.value("value").toString(), QString("DARC"));
+        QCOMPARE(s.value("from").toString(), QString("log"));
+        QCOMPARE(act.suggestExchange(QStringLiteral("W1AW")).value("value").toString(), QString("8"));
+        act.stop();
+
+        // 40/80: la provincia di un QSO di gara, o quella del campo STATE.
+        QVERIFY(act.start({{"kind", "contest"}, {"contestId", "ARI-40-80"}}).isEmpty());
+        s = act.suggestExchange(QStringLiteral("I2XYZ"));
+        QCOMPARE(s.value("value").toString(), QString("MI"));
+        QCOMPARE(s.value("from").toString(), QString("log"));
+        QCOMPARE(act.suggestExchange(QStringLiteral("I8ABC")).value("value").toString(), QString("NA"));
+        // Un italiano mai lavorato: non si sa, e non si indovina.
+        QVERIFY(act.suggestExchange(QStringLiteral("I1NEW")).value("value").toString().isEmpty());
+        act.stop();
+
+        // WPX: il progressivo non si puo' sapere prima.
+        QVERIFY(act.start({{"kind", "contest"}, {"contestId", "CQ-WPX-CW"}}).isEmpty());
+        QVERIFY(act.suggestExchange(QStringLiteral("W1AW")).value("value").toString().isEmpty());
+        act.stop();
+    }
+
     void theContestKnowsWhatEachSpotIsWorth()
     {
         LogDatabase db;

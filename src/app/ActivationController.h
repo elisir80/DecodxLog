@@ -98,6 +98,11 @@ public:
     // Vero quando il contest aperto si fa in telegrafia: la finestra CW serve
     // solo allora.
     Q_INVOKABLE bool isCwContest() const;
+    // Lo scambio che questa stazione probabilmente mandera', da mettere nel
+    // campo mentre si scrive il nominativo: {value, from}. `from` e' "log" se
+    // viene da un QSO gia' fatto con lei, "cty" se dal paese (le zone), vuoto
+    // se non si puo' sapere (il progressivo, una sezione mai lavorata).
+    Q_INVOKABLE QVariantMap suggestExchange(const QString& call) const;
     // Il log e' cambiato fuori dalla sessione (un QSO corretto, cancellato,
     // importato): il punteggio in memoria non vale piu'.
     void invalidateScore() { m_score.valid = false; }

@@ -1193,6 +1193,14 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Nr r</translation>
     </message>
     <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · land</translation>
+    </message>
+    <message>
         <source>Log</source>
         <translation>Logboek</translation>
     </message>
@@ -1501,6 +1509,14 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Nr r</source>
         <translation>Nr r</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · land</translation>
     </message>
     <message>
         <source>Log</source>

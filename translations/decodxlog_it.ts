@@ -1193,6 +1193,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Nr r</translation>
     </message>
     <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · paese</translation>
+    </message>
+    <message>
         <source>Log</source>
         <translation>Registra</translation>
     </message>
@@ -1501,6 +1509,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Nr r</source>
         <translation>Nr r</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · paese</translation>
     </message>
     <message>
         <source>Log</source>

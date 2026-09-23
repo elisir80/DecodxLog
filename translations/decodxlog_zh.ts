@@ -1191,6 +1191,14 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>号 收</translation>
     </message>
     <message>
+        <source>%1 · log</source>
+        <translation>%1 · 日志</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · 国家</translation>
+    </message>
+    <message>
         <source>Log</source>
         <translation>日志</translation>
     </message>
@@ -1498,6 +1506,14 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Nr r</source>
         <translation>号 收</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · 日志</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · 国家</translation>
     </message>
     <message>
         <source>Log</source>
