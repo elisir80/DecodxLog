@@ -179,6 +179,8 @@ endif()
 qt_add_executable(decolog
     ${DECODXLOG_WIN_RESOURCES}
     src/main.cpp
+    src/CrashLog.cpp
+    src/CrashLog.h
     src/app/QsoTableModel.cpp
     src/app/QsoTableModel.h
     src/app/DecoLogController.cpp

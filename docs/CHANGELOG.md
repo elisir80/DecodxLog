@@ -17,6 +17,12 @@ in stazione.
   fondo (coste, notte, reticolo, locatori) si ridisegna solo quando cambia, gli spot si
   aggiornano al massimo ogni due secondi. Uno spot costa **1 ms**.
 - **Scheda nominativo**: tolto un calcolo che ripartiva piu' volte a ogni nominativo scelto.
+- **Se il programma cade, lascia un biglietto.** Nel registro di Windows c'erano chiusure
+  improvvise di DecoDXLog, sempre nello stesso punto (mentre si aggiunge un elemento a un
+  elenco), ma il registro tiene solo l'ultimo passo e non dice chi ce l'ha portato. Adesso,
+  se succede, in `%LOCALAPPDATA%\Decodium\DecoDXLog\crash` resta un file `crash-….txt`
+  con la strada intera e cosa stava facendo il programma: basta mandarlo per trovare la
+  causa.
 
 ## 1.15.3 — 23 settembre 2026
 
