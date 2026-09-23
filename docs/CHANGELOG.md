@@ -3,6 +3,27 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.14.1 — 23 settembre 2026
+
+**Un QSO in gara non ferma piu' il programma.** Registrare un QSO teneva il programma fermo
+per secondi — quattro, su una stazione vera — proprio nel momento in cui la stazione dall'altra
+parte aspetta. Adesso un QSO si registra in circa **70 millisecondi**.
+
+Misurato su un log da stazione vera (15.400 QSO, una gara in corso da 400), prima e dopo:
+**2,4 secondi per QSO prima, 70 millisecondi dopo**, e il blocco piu' lungo fra un QSO e
+l'altro sotto i 115 ms.
+
+Non era una cosa sola. Il diploma FT2 si ricalcolava 22 volte per ogni QSO, una per ogni
+riquadro che lo mostra; le statistiche per banda 28 volte; il punteggio del contest 5 volte,
+ogni volta rileggendo i QSO della gara uno per uno; e il riepilogo dei diplomi anche con la
+finestra dei diplomi chiusa. Adesso:
+
+- il punteggio della gara si calcola **una volta per QSO**, con una sola lettura del log, e lo
+  leggono tutte le finestre — cluster, punteggio, inserimento, pulsantiera — dallo stesso conto;
+- diplomi e statistiche di tutto il log si aggiornano **un attimo dopo**, quando si smette di
+  scrivere, e **in un thread a parte**: la finestra non si ferma mai;
+- quello che non si vede non si calcola piu'.
+
 ## 1.14.0 — 23 settembre 2026
 
 **Il pieno controllo del banco: pulsantiera, tre disposizioni, finestre che restano davanti.**
