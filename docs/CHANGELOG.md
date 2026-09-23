@@ -3,6 +3,36 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.14.0 — 23 settembre 2026
+
+**Il pieno controllo del banco: pulsantiera, tre disposizioni, finestre che restano davanti.**
+
+Mancavano tre cose per lavorarci davvero in gara.
+
+**Le finestre non spariscono piu'.** Sotto quella grande, o ridotte a icona: una finestra
+sparita mentre passa la stazione e' un QSO perso. In contest stanno davanti e il pulsante per
+ridurle non c'e' proprio, cosi' non ci si casca. Si spegne dall'interruttore della pulsantiera,
+per chi preferisce.
+
+**La pulsantiera.** E' una finestra piccola come le altre, e da li' si comanda tutto: si
+accendono e si spengono le otto finestre una per una, si sceglie la disposizione, e si arriva
+al Cabrillo e all'invio del log. In fondo si legge a che punto sta la gara, cosi' anche con
+tutto il resto chiuso si sa come va.
+
+**Le disposizioni sono tre**, e si cambiano con un pulsante: **Colonne** (cluster, lavoro,
+conti — quella che regge uno schermo solo), **Al centro** (tutto attorno all'inserimento) e
+**Due schermi**, che se di schermo ce n'e' uno solo ricade sulle colonne invece di mandare
+meta' banco nel nulla. La scelta si ricorda, e le finestre spostate a mano restano dove sono.
+
+**Il cluster in gara era ancora troppo pieno.** Adesso la fila dei filtri si apre solo quando
+serve, e c'e' «solo molt», che nasconde tutto quello che non porta un moltiplicatore: in una
+colonna stretta e' la differenza fra guardare e cercare.
+
+**E il log si manda.** Ogni contest con la scheda sa dove va — CQ WW e WPX al loro logcheck,
+IARU al submission ARRL, i tre ARI a contest.ari.it — ed entro quanti giorni. Il programma
+scrive il Cabrillo con il punteggio contato e apre la pagina. A caricarlo e' l'operatore: un
+log spedito per sbaglio non si richiama indietro.
+
 ## 1.13.0 — 23 settembre 2026
 
 **Il banco del contest e' fatto di finestre vere, ognuna dove si vuole.** La finestra unica
