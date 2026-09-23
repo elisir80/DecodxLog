@@ -35,7 +35,9 @@ Rectangle {
 
     readonly property var profiles: decolog.stationProfiles
 
-    implicitHeight: 64
+    // Sugli schermi piccoli la barra va a capo: i riquadri scendono sulla riga
+    // sotto invece di uscire dalla finestra, e la barra si alza con loro.
+    implicitHeight: bar.implicitHeight + 16
     color: Theme.bgMedium
 
     Rectangle {
@@ -77,14 +79,39 @@ Rectangle {
         }
     }
 
-    RowLayout {
-        anchors.fill: parent
+    // Un riquadro a larghezza fissa dentro la barra che va a capo: il Flow
+    // guarda la larghezza vera, non quella che il riquadro vorrebbe.
+    component FixedBlock: Block {
+        width: implicitWidth
+        height: implicitHeight
+    }
+
+    Flow {
+        id: bar
+        anchors { left: parent.left; right: parent.right; top: parent.top }
         anchors.leftMargin: 12
         anchors.rightMargin: 12
+        anchors.topMargin: 8
         spacing: 10
 
+        // Quanto occupa tutto in fila: se ci sta su una riga, il cloud e la
+        // ricerca restano spinti a destra come prima; se non ci sta, si va a
+        // capo e il vuoto sparisce.
+        readonly property real rowWidth: {
+            let w = 0
+            let n = 0
+            for (let i = 0; i < children.length; ++i) {
+                const c = children[i]
+                if (c === spacer || !c.visible)
+                    continue
+                w += c.width
+                ++n
+            }
+            return w + spacing * n
+        }
+
         // Marchio e versione.
-        Block {
+        FixedBlock {
             id: brandBlock
             hPadding: 14
 
@@ -135,7 +162,7 @@ Rectangle {
         }
 
         // Frequenza e modo di Decodium: DecoDXLog non tocca il CAT, li legge dallo Status.
-        Block {
+        FixedBlock {
             outline: decolog.clientConnected ? Theme.accentColor : Theme.glassBorder
             hPadding: 14
             Led {
@@ -200,9 +227,29 @@ Rectangle {
             }
         }
 
-        Block {
-            hPadding: 10
-            spacing: 6
+        Rectangle {
+            id: commands
+            // In fila se c'e' posto, altrimenti i pulsanti vanno a capo dentro
+            // il riquadro, che non esce mai dalla finestra.
+            readonly property real rowWidth: {
+                let w = 0
+                for (let i = 0; i < commandFlow.children.length; ++i)
+                    w += commandFlow.children[i].implicitWidth
+                return w + commandFlow.spacing * Math.max(0, commandFlow.children.length - 1)
+            }
+            width: Math.min(rowWidth, bar.width - 20) + 20
+            height: Math.max(48, commandFlow.implicitHeight + 18)
+            radius: 6
+            color: Theme.panelColor
+            border.width: 1
+            border.color: Theme.glassBorder
+
+            Flow {
+                id: commandFlow
+                anchors.fill: parent
+                anchors.margins: 10
+                anchors.topMargin: 9
+                spacing: 6
             GlassButton { text: qsTr("Setup"); tone: Theme.primaryColor; filled: true; onClicked: root.setupRequested() }
             // I log della stazione: quello di sempre e quelli dei contest.
             GlassButton { text: qsTr("Logs"); onClicked: root.logsRequested() }
@@ -229,10 +276,11 @@ Rectangle {
                 tone: root.closedPanels > 0 ? Theme.warningColor : "transparent"
                 onClicked: root.panelsRequested()
             }
+            }
         }
 
         // Il profilo con cui si scrivono i QSO nuovi.
-        Block {
+        FixedBlock {
             Text {
                 text: qsTr("Station")
                 color: Theme.textSecondary
@@ -240,7 +288,7 @@ Rectangle {
             }
             StyledComboBox {
                 id: stationBox
-                Layout.preferredWidth: 180
+                Layout.preferredWidth: 160
                 model: root.profiles
                 textRole: "name"
                 valueRole: "profileId"
@@ -268,10 +316,14 @@ Rectangle {
             }
         }
 
-        Item { Layout.fillWidth: true }
+        Item {
+            id: spacer
+            width: Math.max(0, bar.width - bar.rowWidth)
+            height: 1
+        }
 
         // DecoDXLog Cloud: come sta il collegamento e cosa aspetta di partire.
-        Block {
+        FixedBlock {
             Led {
                 color: decolog.cloud.busy ? Theme.primaryColor
                      : decolog.cloud.linked ? Theme.accentColor
@@ -297,18 +349,23 @@ Rectangle {
                     font.pixelSize: 11
                 }
             }
+            // Solo l'icona: lo stato e' gia' scritto accanto, e la barra
+            // cosi' sta su una riga anche su uno schermo normale.
             GlassButton {
-                text: decolog.cloud.busy ? qsTr("syncing…") : qsTr("Sync now")
+                text: "⟳"
                 tone: Theme.primaryColor
                 filled: true
+                minimumWidth: 30
+                implicitWidth: 30
+                fontPixelSize: 14
                 enabled: decolog.cloud.linked && !decolog.cloud.busy
                 onClicked: decolog.cloud.syncNow()
-                ToolTip.visible: hovered && !decolog.cloud.linked
-                ToolTip.text: qsTr("Sign in from Setup → Sync & Cloud")
+                ToolTip.visible: hovered
+                ToolTip.text: decolog.cloud.linked ? qsTr("Sync now") : qsTr("Sign in from Setup → Sync & Cloud")
             }
         }
 
-        Block {
+        FixedBlock {
             hPadding: 10
             spacing: 6
             StyledTextField {

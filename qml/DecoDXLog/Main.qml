@@ -15,7 +15,9 @@ ApplicationWindow {
 
     width: 1440
     height: 900
-    minimumWidth: 1100
+    // Su uno schermo piccolo la finestra non puo' chiedere piu' di quello che c'e':
+    // la barra in alto va a capo, e il resto si stringe.
+    minimumWidth: Math.min(1100, Screen.desktopAvailableWidth > 0 ? Screen.desktopAvailableWidth : 1100)
     minimumHeight: 640
     visible: true
     title: "DecoDXLog " + decolog.version
