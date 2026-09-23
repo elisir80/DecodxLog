@@ -3,6 +3,26 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.15.6 — 24 settembre 2026
+
+**Lo scambio si scrive da solo mentre si batte il nominativo.** Nell'inserimento veloce del
+contest (e nella finestra Contest) il campo dello scambio si riempie con quello che la
+stazione probabilmente mandera':
+
+- **CQ WW**: la zona CQ, da un QSO gia' fatto con lei o dal paese;
+- **IARU HF**: la zona ITU, o la sigla della societa' (DARC, ARI…) se era una stazione HQ in
+  una IARU precedente;
+- **ARI DX e 40/80**: la provincia delle stazioni italiane, dall'ultima gara o dalla provincia
+  salvata nel QSO;
+- **Sezioni ARI**: la sezione mandata l'ultima volta;
+- **CQ WPX e i contest a progressivo**: niente, il numero ricevuto non si puo' sapere prima.
+  Il proprio progressivo resta, come sempre, in "Nr i".
+
+Il nome del campo dice da dove viene ("Zona CQ · paese", "Provincia · log") e il valore
+suggerito e' colorato. Con la barra spaziatrice o con un clic su uno spot del cluster si
+arriva allo scambio gia' selezionato: **Invio** se va bene, si scrive sopra se no. Quello
+scritto a mano non si tocca mai.
+
 ## 1.15.5 — 23 settembre 2026
 
 **Contest Mode: tutto in un menu nella barra in alto.** La pulsantiera "Banco del contest" era
