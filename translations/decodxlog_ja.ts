@@ -677,8 +677,8 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>%1/%2 オンライン</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 件表示 · 直近 1 時間で %2 件</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 スポット</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -1269,8 +1269,8 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>コンテスト</translation>
     </message>
     <message>
-        <source>No session open</source>
-        <translation>開いているセッションがありません</translation>
+        <source>Contest entry · no session</source>
+        <translation>コンテスト入力 · セッションなし</translation>
     </message>
     <message>
         <source>Band</source>
@@ -5611,6 +5611,21 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>ホイール: 指している桁が動きます。クリック: 周波数を書きます。</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>最小化</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>最大化または元に戻す</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>閉じる</translation>
     </message>
 </context>
 <context>

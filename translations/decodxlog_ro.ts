@@ -681,8 +681,8 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>%1/%2 online</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 afișate · %2 în ultima oră</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 spoturi</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -1273,8 +1273,8 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Concurs</translation>
     </message>
     <message>
-        <source>No session open</source>
-        <translation>Nicio sesiune deschisă</translation>
+        <source>Contest entry · no session</source>
+        <translation>Introducere concurs · nicio sesiune</translation>
     </message>
     <message>
         <source>Band</source>
@@ -5631,6 +5631,21 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Rotița: cifra de sub cursor. Clic: scrie frecvența.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Minimizează</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Maximizează sau restaurează</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Închide</translation>
     </message>
 </context>
 <context>

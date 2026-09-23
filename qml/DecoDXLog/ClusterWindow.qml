@@ -26,6 +26,16 @@ ApplicationWindow {
 
     OnScreen { target: root }
 
+    // Niente barra di Windows: la testata e' la nostra, piu' bassa, con gli
+    // stessi comandi. Si sposta dalla testata e si ridimensiona dai bordi.
+    flags: Qt.Window | Qt.FramelessWindowHint | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint
+    header: WindowTitleBar { window: root }
+    WindowChrome {
+        window: root
+        parent: root.contentItem.parent
+        dragHeight: Theme.panelHeight
+    }
+
     Settings {
         category: "clusterWindow"
         property alias width: root.width

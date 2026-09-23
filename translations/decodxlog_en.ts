@@ -678,8 +678,8 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation type="unfinished"></translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 spots</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -1270,8 +1270,8 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Contest</translation>
     </message>
     <message>
-        <source>No session open</source>
-        <translation type="unfinished"></translation>
+        <source>Contest entry · no session</source>
+        <translation>Contest entry · no session</translation>
     </message>
     <message>
         <source>Band</source>
@@ -5620,6 +5620,21 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Minimise</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Maximise or restore</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Close</translation>
     </message>
 </context>
 <context>

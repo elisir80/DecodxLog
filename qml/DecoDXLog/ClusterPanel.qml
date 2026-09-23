@@ -75,7 +75,9 @@ GlassPanel {
         },
         Text {
             anchors.verticalCenter: parent.verticalCenter
-            text: qsTr("%1 shown · %2 in the last hour").arg(root.model.count).arg(root.model.totalCount)
+            // Corto: la testata di una finestra stretta non ha posto per una
+            // frase, e i due numeri dicono gia' tutto.
+            text: qsTr("%1/%2 spots").arg(root.model.count).arg(root.model.totalCount)
             color: Theme.textSecondary
             font.family: Theme.monoFamily
             font.pixelSize: 11

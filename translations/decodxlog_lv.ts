@@ -681,8 +681,8 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>%1/%2 tiešsaistē</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 rādīti · %2 pēdējā stundā</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 spoti</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -1273,8 +1273,8 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Sacensības</translation>
     </message>
     <message>
-        <source>No session open</source>
-        <translation>Nav atvērtas sesijas</translation>
+        <source>Contest entry · no session</source>
+        <translation>Konkursa ievade · nav sesijas</translation>
     </message>
     <message>
         <source>Band</source>
@@ -5631,6 +5631,21 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Ritenītis: cipars zem rādītāja. Klikšķis: ierakstīt frekvenci.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Minimizēt</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Maksimizēt vai atjaunot</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Aizvērt</translation>
     </message>
 </context>
 <context>

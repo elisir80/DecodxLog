@@ -679,8 +679,8 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>%1/%2 in linea</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 mostrati · %2 nell&apos;ultima ora</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 spot</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -1271,8 +1271,8 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Contest</translation>
     </message>
     <message>
-        <source>No session open</source>
-        <translation>Nessuna sessione aperta</translation>
+        <source>Contest entry · no session</source>
+        <translation>Inserimento contest · nessuna sessione</translation>
     </message>
     <message>
         <source>Band</source>
@@ -5621,6 +5621,21 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Rotellina: la cifra sotto il puntatore. Clic: si scrive la frequenza.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Riduci a icona</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Ingrandisci o ripristina</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Chiudi</translation>
     </message>
 </context>
 <context>

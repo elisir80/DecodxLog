@@ -679,8 +679,8 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>%1/%2 online</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 vist · %2 i den sidste time</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 spots</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -1271,8 +1271,8 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Contest</translation>
     </message>
     <message>
-        <source>No session open</source>
-        <translation>Ingen session åben</translation>
+        <source>Contest entry · no session</source>
+        <translation>Contestindtastning · ingen session</translation>
     </message>
     <message>
         <source>Band</source>
@@ -5621,6 +5621,21 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Hjulet: cifret under markøren. Klik: skriv frekvensen.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Minimer</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Maksimer eller gendan</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Luk</translation>
     </message>
 </context>
 <context>

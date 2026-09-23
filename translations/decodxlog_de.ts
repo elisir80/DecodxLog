@@ -679,8 +679,8 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>%1/%2 verbunden</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 gezeigt · %2 in der letzten Stunde</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 Spots</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -1271,8 +1271,8 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Contest</translation>
     </message>
     <message>
-        <source>No session open</source>
-        <translation>Keine Sitzung offen</translation>
+        <source>Contest entry · no session</source>
+        <translation>Contest-Eingabe · keine Sitzung</translation>
     </message>
     <message>
         <source>Band</source>
@@ -5621,6 +5621,21 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Mausrad: die Ziffer unter dem Zeiger. Klick: die Frequenz schreiben.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Minimieren</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Maximieren oder wiederherstellen</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>

@@ -677,8 +677,8 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>%1/%2 上線</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>顯示 %1 筆 · 最近一小時 %2 筆</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 則報點</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -1269,8 +1269,8 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>比賽</translation>
     </message>
     <message>
-        <source>No session open</source>
-        <translation>沒有開啟的會話</translation>
+        <source>Contest entry · no session</source>
+        <translation>競賽輸入 · 無工作階段</translation>
     </message>
     <message>
         <source>Band</source>
@@ -5611,6 +5611,21 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>滾輪：改動指標下的那一位。按一下：直接寫頻率。</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>最小化</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>最大化或還原</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>關閉</translation>
     </message>
 </context>
 <context>

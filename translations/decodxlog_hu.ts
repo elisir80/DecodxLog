@@ -677,8 +677,8 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>%1/%2 online</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 látható · %2 az utolsó órában</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 spot</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -1269,8 +1269,8 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Verseny</translation>
     </message>
     <message>
-        <source>No session open</source>
-        <translation>Nincs nyitott munkamenet</translation>
+        <source>Contest entry · no session</source>
+        <translation>Verseny bevitel · nincs munkamenet</translation>
     </message>
     <message>
         <source>Band</source>
@@ -5611,6 +5611,21 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Görgő: a mutató alatti számjegy. Kattintás: a frekvencia beírása.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Kis méret</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Teljes méret vagy visszaállítás</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Bezárás</translation>
     </message>
 </context>
 <context>

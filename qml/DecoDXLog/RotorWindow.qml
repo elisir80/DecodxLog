@@ -8,6 +8,7 @@ import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Layouts
 import QtCore
+import Decodium.UI as DUI
 
 ApplicationWindow {
     id: root
@@ -41,9 +42,21 @@ ApplicationWindow {
 
     // Il quadrante chiaro o notturno e' una scelta che resta: alla riapertura
     // lo shack ritrova la luce che aveva.
-    header: RotorTopBar {
-        nightMode: root.nightMode
-        onLightToggled: root.nightMode = !root.nightMode
+    // Niente barra di Windows: sopra la barra del rotore c'e' la nostra testata,
+    // piu' bassa. Si sposta dalla testata e si ridimensiona dai bordi.
+    flags: Qt.Window | Qt.FramelessWindowHint | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint
+    header: Column {
+        DUI.WindowTitleBar { window: root; width: parent.width }
+        RotorTopBar {
+            width: parent.width
+            nightMode: root.nightMode
+            onLightToggled: root.nightMode = !root.nightMode
+        }
+    }
+    DUI.WindowChrome {
+        window: root
+        parent: root.contentItem.parent
+        dragHeight: DUI.Theme.panelHeight
     }
 
     footer: RotorStatus {

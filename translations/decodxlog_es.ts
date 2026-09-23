@@ -679,8 +679,8 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>%1/%2 conectadas</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 mostrados · %2 en la última hora</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 spots</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -1271,8 +1271,8 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>Concurso</translation>
     </message>
     <message>
-        <source>No session open</source>
-        <translation>Ninguna sesión abierta</translation>
+        <source>Contest entry · no session</source>
+        <translation>Entrada de concurso · sin sesión</translation>
     </message>
     <message>
         <source>Band</source>
@@ -5621,6 +5621,21 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Rueda: la cifra bajo el puntero. Clic: escribir la frecuencia.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Minimizar</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Maximizar o restaurar</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Cerrar</translation>
     </message>
 </context>
 <context>

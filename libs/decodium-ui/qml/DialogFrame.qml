@@ -62,8 +62,15 @@ ApplicationWindow {
     // Una finestra di dialogo: sta sopra a quella che l'ha aperta, ma si sposta
     // dove si vuole — anche su un altro schermo — si ingrandisce, si riduce a
     // icona e si chiude come tutte le altre.
-    flags: Qt.Dialog | Qt.WindowTitleHint | Qt.WindowSystemMenuHint
-           | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint | Qt.WindowCloseButtonHint
+    // La barra di Windows no: il titolo sta gia' nella testata qui sotto. Dalla
+    // testata si sposta, doppio clic la ingrandisce, dai bordi si ridimensiona.
+    flags: Qt.Dialog | Qt.FramelessWindowHint | Qt.WindowMinimizeButtonHint
+
+    WindowChrome {
+        window: root
+        parent: root.contentItem.parent
+        dragHeight: Theme.panelHeight
+    }
 
     onVisibleChanged: if (!visible) root.closed()
 

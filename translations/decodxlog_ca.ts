@@ -679,8 +679,8 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>%1/%2 en línia</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 mostrats · %2 en l&apos;última hora</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 spots</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -1271,8 +1271,8 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Contest</translation>
     </message>
     <message>
-        <source>No session open</source>
-        <translation>Cap sessió oberta</translation>
+        <source>Contest entry · no session</source>
+        <translation>Entrada de concurs · cap sessió</translation>
     </message>
     <message>
         <source>Band</source>
@@ -5621,6 +5621,21 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Roda: la xifra sota el punter. Clic: escriure la freqüència.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Minimitza</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Maximitza o restaura</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Tanca</translation>
     </message>
 </context>
 <context>

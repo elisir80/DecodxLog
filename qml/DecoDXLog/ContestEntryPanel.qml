@@ -87,7 +87,7 @@ GlassPanel {
 
     title: root.running ? qsTr("%1 · next %2").arg(root.session.title || qsTr("Contest"))
                                               .arg(root.session.nextSerial || 1)
-                        : qsTr("No session open")
+                        : qsTr("Contest entry · no session")
     dotColor: root.running ? Theme.accentColor : Theme.textSecondary
 
     ColumnLayout {

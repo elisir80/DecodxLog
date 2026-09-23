@@ -53,13 +53,22 @@ ApplicationWindow {
     // perso. Il pulsante per ridurre non c'e' proprio, cosi' non ci si casca.
     property bool contestMode: false
     property bool pinned: true
+    // Niente barra di Windows: il titolo e' gia' nella testata del pannello, e
+    // la barra sopra era spazio perso. Si sposta dalla testata, si ridimensiona
+    // dai bordi (WindowChrome qui sotto).
     flags: root.contestMode
-           ? (Qt.Window | Qt.WindowTitleHint | Qt.WindowSystemMenuHint
-              | Qt.WindowCloseButtonHint | Qt.WindowMaximizeButtonHint
+           ? (Qt.Window | Qt.FramelessWindowHint
               | (root.pinned ? Qt.WindowStaysOnTopHint : 0))
-           : (Qt.Window | (root.alwaysOnTop ? Qt.WindowStaysOnTopHint : 0))
+           : (Qt.Window | Qt.FramelessWindowHint | Qt.WindowMinimizeButtonHint
+              | (root.alwaysOnTop ? Qt.WindowStaysOnTopHint : 0))
 
     OnScreen { target: root }
+
+    WindowChrome {
+        window: root
+        parent: root.contentItem.parent
+        dragHeight: Theme.panelHeight + holder.anchors.margins + 2
+    }
 
     Settings {
         id: panelSettings
@@ -95,7 +104,9 @@ ApplicationWindow {
     Loader {
         id: holder
         anchors.fill: parent
-        anchors.margins: 8
+        // Quanto basta per prendere il bordo e ridimensionare: il resto e'
+        // spazio per il pannello.
+        anchors.margins: 3
         source: root.panelSource
         onLoaded: {
             if (item.panelKey !== undefined) {

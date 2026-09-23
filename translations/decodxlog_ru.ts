@@ -681,8 +681,8 @@ The call Decodium is working shows up here by itself.</source>
         <translation>%1/%2 на связи</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>показано %1 · %2 за последний час</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 спотов</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -1273,8 +1273,8 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Соревнование</translation>
     </message>
     <message>
-        <source>No session open</source>
-        <translation>Нет открытого сеанса</translation>
+        <source>Contest entry · no session</source>
+        <translation>Ввод контеста · нет сессии</translation>
     </message>
     <message>
         <source>Band</source>
@@ -5631,6 +5631,21 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Колёсико: цифра под указателем. Щелчок: написать частоту.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Свернуть</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Развернуть или восстановить</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Закрыть</translation>
     </message>
 </context>
 <context>
