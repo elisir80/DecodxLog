@@ -22,14 +22,15 @@ ColumnLayout {
     // che prende lo toglie alle caselle.
     readonly property int labelWidth: {
         let w = 24
-        for (let i = 0; i < rowList.length; ++i) {
-            metrics.text = rowList[i].label || ""
-            w = Math.max(w, metrics.width)
-        }
+        // FontMetrics misura senza cambiare niente: con TextMetrics si scriveva
+        // il testo dentro il calcolo stesso, e il calcolo ripartiva da capo a
+        // ogni nominativo scelto.
+        for (let i = 0; i < rowList.length; ++i)
+            w = Math.max(w, metrics.advanceWidth(rowList[i].label || ""))
         return Math.min(56, Math.ceil(w) + 3)
     }
 
-    TextMetrics {
+    FontMetrics {
         id: metrics
         font.family: Theme.monoFamily
         font.pixelSize: 9

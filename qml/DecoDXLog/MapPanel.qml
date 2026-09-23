@@ -30,6 +30,25 @@ GlassPanel {
         spots = root.showSpots ? decolog.cluster.mapSpots() : []
         canvas.requestPaint()
     }
+    // In gara gli spot arrivano a raffica, anche piu' al secondo: rifare la
+    // mappa a ognuno fermava il programma. Si aggiorna al massimo una volta
+    // ogni due secondi, che a occhio e' lo stesso.
+    function scheduleSpots() {
+        if (!spotThrottle.running)
+            spotThrottle.start()
+    }
+    Timer {
+        id: spotThrottle
+        interval: 2000
+        onTriggered: root.reloadSpots()
+    }
+    // Il fondo (notte, coste, reticolo, locatori) cambia di rado e costa: sta
+    // su una tela sua, e uno spot nuovo o un nominativo scelto ridisegnano solo
+    // quella di sopra.
+    function repaintAll() {
+        background.requestPaint()
+        canvas.requestPaint()
+    }
 
     title: qsTr("Map")
     showDot: false
@@ -66,15 +85,15 @@ GlassPanel {
         id: layerMenu
         StyledMenuItem {
             text: qsTr("Coastlines"); checkable: true; checked: root.showCoast
-            onTriggered: { root.showCoast = checked; canvas.requestPaint() }
+            onTriggered: { root.showCoast = checked; root.repaintAll() }
         }
         StyledMenuItem {
             text: qsTr("Night"); checkable: true; checked: root.showNight
-            onTriggered: { root.showNight = checked; canvas.requestPaint() }
+            onTriggered: { root.showNight = checked; root.repaintAll() }
         }
         StyledMenuItem {
             text: qsTr("Worked grids"); checkable: true; checked: root.showGrids
-            onTriggered: { root.showGrids = checked; canvas.requestPaint() }
+            onTriggered: { root.showGrids = checked; root.repaintAll() }
         }
         StyledMenuItem {
             text: qsTr("Cluster spots"); checkable: true; checked: root.showSpots
@@ -98,21 +117,21 @@ GlassPanel {
     Component.onCompleted: {
         root.coastline = decolog.coastline()
         root.reloadSpots()
-        canvas.requestPaint()
+        root.repaintAll()
     }
 
     Connections {
         target: decolog
-        function onLogChanged() { canvas.requestPaint() }
+        function onLogChanged() { root.repaintAll() }
         function onLookupChanged() { canvas.requestPaint() }
-        function onStationChanged() { canvas.requestPaint() }
+        function onStationChanged() { root.repaintAll() }
     }
     Connections {
         target: decolog.cluster.spots
-        function onCountChanged() { root.reloadSpots() }
+        function onCountChanged() { root.scheduleSpots() }
     }
     // La notte si muove: un aggiornamento ogni due minuti basta e avanza.
-    Timer { interval: 120000; running: root.showNight; repeat: true; onTriggered: canvas.requestPaint() }
+    Timer { interval: 120000; running: root.showNight; repeat: true; onTriggered: background.requestPaint() }
 
     Rectangle {
         anchors.fill: parent
@@ -123,10 +142,12 @@ GlassPanel {
         clip: true
 
         Canvas {
-            id: canvas
+            id: background
             anchors.fill: parent
             anchors.margins: 1
             renderStrategy: Canvas.Cooperative
+            onWidthChanged: requestPaint()
+            onHeightChanged: requestPaint()
 
             function px(lon) { return (lon + 180) / 360 * width }
             function py(lat) { return (90 - lat) / 180 * height }
@@ -202,6 +223,21 @@ GlassPanel {
                     for (const point of root.grids)
                         ctx.fillRect(px(point.lon) - 1, py(point.lat) - 1, 2.5, 2.5)
                 }
+            }
+        }
+
+        Canvas {
+            id: canvas
+            anchors.fill: parent
+            anchors.margins: 1
+            renderStrategy: Canvas.Cooperative
+
+            function px(lon) { return (lon + 180) / 360 * width }
+            function py(lat) { return (90 - lat) / 180 * height }
+
+            onPaint: {
+                const ctx = getContext("2d")
+                ctx.reset()
 
                 // ── Spot del cluster ────────────────────────────────────────
                 if (root.showSpots) {

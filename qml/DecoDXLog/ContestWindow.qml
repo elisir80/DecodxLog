@@ -93,6 +93,32 @@ ApplicationWindow {
 
     function openCabrillo() { cabrilloDialog.openDialog() }
 
+    // Un clic su uno spot del cluster riempie l'inserimento, come nel banco.
+    Connections {
+        target: decolog.cluster
+        function onSpotPicked(call, band, mode, freqKhz) {
+            if (!call || call.length === 0)
+                return
+            callField.text = call.toUpperCase()
+            const b = bandBox.bands.indexOf(band)
+            if (b >= 0) {
+                root.band = band
+                bandBox.currentIndex = b
+            }
+            const m = mode === "LSB" || mode === "USB" || mode === "AM" || mode === "FM" ? "SSB" : mode
+            const mi = modeBox.modes.indexOf(m)
+            if (mi >= 0 && m !== root.mode) {
+                root.mode = m
+                modeBox.currentIndex = mi
+                sentRst.text = m === "SSB" ? "59" : "599"
+                rcvdRst.text = sentRst.text
+            }
+            root.raise()
+            root.requestActivate()
+            rcvdNr.forceActiveFocus()
+        }
+    }
+
     function clearEntry() {
         callField.text = ""
         rcvdRst.text = root.mode === "SSB" ? "59" : "599"
@@ -239,6 +265,7 @@ ApplicationWindow {
                 LabeledField {
                     label: qsTr("Band")
                     StyledComboBox {
+                        id: bandBox
                         Layout.preferredWidth: 110
                         readonly property var bands: ["160m", "80m", "60m", "40m", "30m", "20m", "17m",
                                                       "15m", "12m", "10m", "6m", "2m", "70cm"]
@@ -250,6 +277,7 @@ ApplicationWindow {
                 LabeledField {
                     label: qsTr("Mode")
                     StyledComboBox {
+                        id: modeBox
                         Layout.preferredWidth: 110
                         readonly property var modes: ["CW", "SSB", "RTTY", "FT2", "FT8", "FT4", "PSK31"]
                         model: modes

@@ -33,6 +33,39 @@ GlassPanel {
         function onChanged() { root.revision++ }
     }
 
+    // Un clic su uno spot del cluster: il nominativo, la banda e il modo
+    // vengono qui, la finestra passa davanti e il cursore va sullo scambio —
+    // la stazione si chiama, si scrive quello che manda, Invio.
+    function pickSpot(call, band, mode) {
+        if (!call || call.length === 0)
+            return
+        callField.text = call.toUpperCase()
+        const b = bandBox.bands.indexOf(band)
+        if (b >= 0) {
+            root.band = band
+            bandBox.currentIndex = b
+        }
+        const m = mode === "LSB" || mode === "USB" || mode === "AM" || mode === "FM" ? "SSB" : mode
+        const mi = modeBox.modes.indexOf(m)
+        if (mi >= 0 && m !== root.mode) {
+            root.mode = m
+            modeBox.currentIndex = mi
+            sentRst.text = m === "SSB" ? "59" : "599"
+            rcvdRst.text = sentRst.text
+        }
+        message.text = ""
+        const w = root.Window.window
+        if (w) {
+            w.raise()
+            w.requestActivate()
+        }
+        rcvdNr.forceActiveFocus()
+    }
+    Connections {
+        target: decolog.cluster
+        function onSpotPicked(call, band, mode, freqKhz) { root.pickSpot(call, band, mode) }
+    }
+
     Component.onCompleted: {
         if (band.length === 0)
             band = session.band || "20m"
@@ -101,6 +134,7 @@ GlassPanel {
             LabeledField {
                 label: qsTr("Band")
                 StyledComboBox {
+                    id: bandBox
                     Layout.preferredWidth: 96
                     readonly property var bands: ["160m", "80m", "40m", "30m", "20m", "17m",
                                                   "15m", "12m", "10m", "6m", "2m"]
@@ -112,6 +146,7 @@ GlassPanel {
             LabeledField {
                 label: qsTr("Mode")
                 StyledComboBox {
+                    id: modeBox
                     Layout.preferredWidth: 96
                     readonly property var modes: ["CW", "SSB", "RTTY", "FT2", "FT8", "FT4", "PSK31"]
                     model: modes

@@ -157,7 +157,16 @@ private slots:
         const QString key = model->get(0).value("spotKey").toString();
         QCOMPARE(model->get(0).value("call").toString(), QString("VK2DEF"));
         QVERIFY(model->get(0).value("distance").toInt() > 12000);
+        // Lo spot scelto va anche all'inserimento veloce del contest: nominativo,
+        // banda e modo. Con un clic e con il doppio clic.
+        QSignalSpy picked(&cluster, &ClusterController::spotPicked);
+        cluster.lookupSpot(key);
+        QCOMPARE(picked.size(), 1);
+        QCOMPARE(picked.at(0).at(0).toString(), QString("VK2DEF"));
+        QCOMPARE(picked.at(0).at(1).toString(), QString("17m"));
+        QCOMPARE(picked.at(0).at(2).toString(), QString("FT8"));
         cluster.tune(key);
+        QCOMPARE(picked.size(), 2);
         QCOMPARE(looked, QString("VK2DEF"));
         const auto tune = decodium.waitFor("tune");
         QVERIFY(tune);

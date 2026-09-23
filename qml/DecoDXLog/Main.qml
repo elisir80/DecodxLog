@@ -643,6 +643,22 @@ ApplicationWindow {
         // Per misurare: apre il banco e registra N QSO di fila, dicendo quanto
         // ci mette ognuno. Un QSO in gara deve essere istantaneo.
         else if (what[0] === "benchswitch") { window.openContestDesk(); switchTimer.left = parseInt(what[1] || "20"); switchTimer.start() }
+        // Per misurare: il banco aperto con il cluster che corre (uno spot ogni
+        // 250 ms, come un RBN in gara) e ogni tanto un clic su uno spot.
+        else if (what[0] === "benchspots") { if (what[2] !== "nodesk") window.openContestDesk(); else window.exitContestMode(); spotBench.left = parseInt(what[1] || "40"); spotBench.start() }
+        // Per misurare: scrivere un nominativo lettera per lettera, come si fa
+        // nell'inserimento veloce. Ogni lettera deve essere istantanea.
+        else if (what[0] === "benchtype") { window.openContestDesk(); typeBench.left = parseInt(what[1] || "30"); typeBench.start() }
+        // Per le prove: il banco aperto e un clic sul primo spot del cluster; il
+        // nominativo deve finire nell'inserimento veloce.
+        else if (what[0] === "pickspot") {
+            window.openContestDesk()
+            Qt.callLater(function () {
+                const m = decolog.cluster.spots
+                if (m.count > 0)
+                    decolog.cluster.lookupSpot(m.get(0).spotKey)
+            })
+        }
         else if (what[0] === "benchqso") { window.openContestDesk(); benchTimer.left = parseInt(what[1] || "5"); benchTimer.start() }
         else if (what[0] === "new") newQsoDialog.open()
         else if (what[0] === "qso") { openQso(parseInt(what[1])); if (what[2]) qsoDialog.currentTab = parseInt(what[2]) }
@@ -845,6 +861,61 @@ ApplicationWindow {
             benchWatch.worst = 0
         }
     }
+    Timer {
+        id: typeBench
+        property int left: 0
+        property int n: 0
+        readonly property var calls: ["IK0ABC", "DL1XYZ", "JA1ZZZ", "W1AW", "PY2ABC", "VK3ABC", "G4ABC", "UA9XX"]
+        interval: 120
+        repeat: true
+        onTriggered: {
+            if (left <= 0) { stop(); return }
+            n++
+            const call = calls[Math.floor(n / 6) % calls.length]
+            const part = call.substring(0, 1 + n % 6)
+            const t0 = Date.now()
+            decolog.lookupCall = part
+            const dt = Date.now() - t0
+            if (n % 6 === 5) {
+                left--
+                console.warn("BENCH type " + part + ": " + dt + " ms | scatto piu' lungo: " + benchWatch.worst + " ms")
+                benchWatch.worst = 0
+            }
+        }
+    }
+    Timer {
+        id: spotBench
+        property int left: 0
+        property int n: 0
+        property int worstInject: 0
+        interval: 250
+        repeat: true
+        onTriggered: {
+            if (left <= 0) { stop(); return }
+            n++
+            const pre = ["K", "DL", "JA", "PY", "UA", "G", "I", "EA", "VK", "W"]
+            const call = pre[n % pre.length] + (n % 10) + "B" + String.fromCharCode(65 + n % 26)
+            const khz = (14005 + (n * 7) % 60) + ".0"
+            const t0 = Date.now()
+            decolog.cluster.injectLine("DX de TEST" + (n % 9) + ":   " + khz + "  " + call + "  CW 24 dB 28 WPM CQ  "
+                                       + decolog.utcNow().time.replace(":", "").substring(0, 4) + "Z")
+            worstInject = Math.max(worstInject, Date.now() - t0)
+            if (n % 8 === 0) {
+                const t1 = Date.now()
+                const m = decolog.cluster.spots
+                if (m.count > 0)
+                    decolog.cluster.lookupSpot(m.get(n % m.count).spotKey)
+                console.warn("BENCH click: " + (Date.now() - t1) + " ms")
+            }
+            if (n % 4 === 0) {
+                left--
+                console.warn("BENCH spots " + n + " | inserimento peggiore " + worstInject
+                             + " ms | scatto piu' lungo: " + benchWatch.worst + " ms")
+                benchWatch.worst = 0
+                worstInject = 0
+            }
+        }
+    }
     // Passa da una finestra del banco all'altra, come fa chi opera, e dice
     // quanto ci mette.
     Timer {
@@ -873,7 +944,7 @@ ApplicationWindow {
         property int worst: 0
         interval: 16
         repeat: true
-        running: benchTimer.running || switchTimer.running
+        running: benchTimer.running || switchTimer.running || spotBench.running || typeBench.running
         onTriggered: {
             const now = Date.now()
             if (last > 0)

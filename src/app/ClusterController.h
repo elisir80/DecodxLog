@@ -171,6 +171,9 @@ signals:
     void lotwUsersChanged();
     // Uno spot ha fatto scattare una regola: per il QML (lampeggio, notifica).
     void alertRaised(const QString& title, const QString& text);
+    // L'operatore ha scelto uno spot (clic o doppio clic): in gara il
+    // nominativo, la banda e il modo vanno nell'inserimento veloce.
+    void spotPicked(const QString& call, const QString& band, const QString& mode, double freqKhz);
 
 private:
     struct AlertRule {
