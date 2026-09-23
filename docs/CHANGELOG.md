@@ -3,6 +3,21 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.15.4 — 23 settembre 2026
+
+**Il cluster che corre non ferma piu' il banco, e lo spot scelto va nell'inserimento.**
+
+- **Clic su uno spot del cluster**: nominativo, banda e modo vanno nell'**inserimento veloce
+  del contest** (LSB e USB diventano SSB), la finestra passa davanti e il cursore va sullo
+  **scambio**: si chiama, si scrive quello che manda, Invio. Il doppio clic fa lo stesso e
+  sintonizza anche la radio, come prima. Vale anche per la finestra Contest singola.
+- **Niente piu' scatti con gli spot a raffica**: a ogni spot nuovo la mappa ricostruiva
+  l'elenco di tutti gli spot e ridisegnava il mondo intero, 35 ms a spot — in gara, con l'RBN,
+  vuol dire il programma fermo per buona parte del tempo. Adesso la mappa ha due livelli: il
+  fondo (coste, notte, reticolo, locatori) si ridisegna solo quando cambia, gli spot si
+  aggiornano al massimo ogni due secondi. Uno spot costa **1 ms**.
+- **Scheda nominativo**: tolto un calcolo che ripartiva piu' volte a ogni nominativo scelto.
+
 ## 1.15.3 — 23 settembre 2026
 
 **Le finestre senza la barra di Windows: il titolo sta nella testata.** Sopra ogni finestra
