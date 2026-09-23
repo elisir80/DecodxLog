@@ -52,9 +52,11 @@ ApplicationWindow {
     // finestra sparita sotto quella grande, mentre passa la stazione, e' un QSO
     // perso. Il pulsante per ridurre non c'e' proprio, cosi' non ci si casca.
     property bool contestMode: false
+    property bool pinned: true
     flags: root.contestMode
            ? (Qt.Window | Qt.WindowTitleHint | Qt.WindowSystemMenuHint
-              | Qt.WindowCloseButtonHint | Qt.WindowMaximizeButtonHint | Qt.WindowStaysOnTopHint)
+              | Qt.WindowCloseButtonHint | Qt.WindowMaximizeButtonHint
+              | (root.pinned ? Qt.WindowStaysOnTopHint : 0))
            : (Qt.Window | (root.alwaysOnTop ? Qt.WindowStaysOnTopHint : 0))
 
     OnScreen { target: root }

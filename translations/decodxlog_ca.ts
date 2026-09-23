@@ -1143,6 +1143,37 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
 </context>
 <context>
+    <name>ContestBase</name>
+    <message>
+        <source>CONTEST MODE</source>
+        <translation>MODE CONCURS</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Cap sessió oberta</translation>
+    </message>
+    <message>
+        <source>%1 QSO · %2 points · %3 mult · %4</source>
+        <translation>%1 QSO · %2 punts · %3 mult · %4</translation>
+    </message>
+    <message>
+        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
+        <translation>Les finestres del concurs queden damunt d&apos;aquesta i es minimitzen amb ella. Posa-les on vulguis: s&apos;hi queden. N&apos;has tancat una per error? Torna a obrir el lloc.</translation>
+    </message>
+    <message>
+        <source>Open the desk again</source>
+        <translation>Torna a obrir el lloc</translation>
+    </message>
+    <message>
+        <source>Arrange the windows</source>
+        <translation>Col·loca les finestres</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Surt del mode concurs</translation>
+    </message>
+</context>
+<context>
     <name>ContestDeskPanel</name>
     <message>
         <source>QSO entry</source>
@@ -1207,6 +1238,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Send the log…</source>
         <translation>Envia el registre…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Surt del mode concurs</translation>
     </message>
     <message>
         <source>%1 · %2 QSO · %3 points · %4 mult</source>

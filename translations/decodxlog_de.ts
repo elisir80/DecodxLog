@@ -1143,6 +1143,37 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     </message>
 </context>
 <context>
+    <name>ContestBase</name>
+    <message>
+        <source>CONTEST MODE</source>
+        <translation>CONTEST-MODUS</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Keine Sitzung offen</translation>
+    </message>
+    <message>
+        <source>%1 QSO · %2 points · %3 mult · %4</source>
+        <translation>%1 QSO · %2 Punkte · %3 Mult · %4</translation>
+    </message>
+    <message>
+        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
+        <translation>Die Contest-Fenster bleiben über diesem und werden mit ihm minimiert. Leg sie hin, wo du willst: dort bleiben sie. Versehentlich eins geschlossen? Öffne den Arbeitsplatz erneut.</translation>
+    </message>
+    <message>
+        <source>Open the desk again</source>
+        <translation>Arbeitsplatz wieder öffnen</translation>
+    </message>
+    <message>
+        <source>Arrange the windows</source>
+        <translation>Fenster anordnen</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Contest-Modus verlassen</translation>
+    </message>
+</context>
+<context>
     <name>ContestDeskPanel</name>
     <message>
         <source>QSO entry</source>
@@ -1207,6 +1238,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Send the log…</source>
         <translation>Log senden…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Contest-Modus verlassen</translation>
     </message>
     <message>
         <source>%1 · %2 QSO · %3 points · %4 mult</source>

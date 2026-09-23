@@ -169,6 +169,14 @@ GlassPanel {
                 onClicked: root.deskCommand("submit", "")
             }
             Item { Layout.fillWidth: true }
+            GlassButton {
+                // La finestra principale torna com'era; la sessione resta
+                // aperta, e il banco si riapre da Contest.
+                text: qsTr("Leave contest mode")
+                tone: Theme.errorColor
+                buttonHeight: 24
+                onClicked: root.deskCommand("exit", "")
+            }
         }
 
         Text {

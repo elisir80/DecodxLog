@@ -1141,6 +1141,37 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>ContestBase</name>
+    <message>
+        <source>CONTEST MODE</source>
+        <translation>コンテストモード</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>開いているセッションがありません</translation>
+    </message>
+    <message>
+        <source>%1 QSO · %2 points · %3 mult · %4</source>
+        <translation>%1 QSO · %2 点 · %3 マルチ · %4</translation>
+    </message>
+    <message>
+        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
+        <translation>コンテストのウィンドウはこのウィンドウの上にあり、一緒に最小化されます。好きな場所に置けばそこに残ります。間違えて閉じたらデスクを開き直してください。</translation>
+    </message>
+    <message>
+        <source>Open the desk again</source>
+        <translation>デスクを開き直す</translation>
+    </message>
+    <message>
+        <source>Arrange the windows</source>
+        <translation>ウィンドウを並べる</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>コンテストモードを終了</translation>
+    </message>
+</context>
+<context>
     <name>ContestDeskPanel</name>
     <message>
         <source>QSO entry</source>
@@ -1205,6 +1236,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Send the log…</source>
         <translation>ログを送る…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>コンテストモードを終了</translation>
     </message>
     <message>
         <source>%1 · %2 QSO · %3 points · %4 mult</source>

@@ -71,6 +71,13 @@ ApplicationWindow {
         // Il banco del contest si dispone da solo una volta sola: dopo comanda
         // chi ha spostato le finestre.
         property bool contestDeskArranged: false
+        // La modalita' contest, e com'era la finestra principale prima di
+        // entrarci: all'uscita si rimette tutto uguale.
+        property bool contestModeOn: false
+        property bool contestDeskPlaced: false
+        property string preContestHidden: ""
+        property string preContestDetached: ""
+        property int preContestVisibility: 2
         property string contestDeskLayout: "columns"
         // Disposizione bloccata: le maniglie non si tirano e i pannelli non si
         // spostano. Si mette e si toglie col tasto destro sulla testata di un
@@ -377,22 +384,81 @@ ApplicationWindow {
     // da spostare e basta.
     readonly property var contestDeskPanels: ["desk", "contest", "cluster", "logbook", "callinfo",
                                               "rate", "score", "map"]
-    // Acceso quando si sta lavorando in contest: le finestre del banco stanno
-    // davanti e non si riducono a icona solo allora.
-    property bool contestDeskOn: false
+    // La modalita' contest, come nei programmi da gara: la finestra principale
+    // smette di essere il log di tutti i giorni — niente pannello del nuovo QSO,
+    // niente log, niente schede di diplomi, statistiche e propagazione — e
+    // diventa la base su cui stanno le finestre della gara, tenute insieme a lei
+    // e sempre davanti. Si esce dalla pulsantiera, o chiudendo la sessione, e
+    // la finestra principale torna com'era.
+    readonly property bool contestModeOn: layout.contestModeOn
+    // Davanti a tutto: si toglie dalla pulsantiera, per chi lavora con un
+    // altro programma accanto.
+    property bool contestOnTop: true
+    function isContestDeskKey(key) {
+        return window.contestDeskPanels.indexOf(key) >= 0 || key === "cw"
+    }
 
     function openContestDesk() {
+        if (!layout.contestModeOn) {
+            // Com'era prima: la si rimette uguale quando la gara finisce.
+            layout.preContestHidden = layout.hiddenPanels
+            layout.preContestDetached = layout.detachedPanels
+            layout.preContestVisibility = window.visibility
+            layout.contestModeOn = true
+        }
         const wanted = window.contestDeskPanels.slice()
         if (decolog.activation.isCwContest())
             wanted.push("cw")
-        window.contestDeskOn = true
         for (let i = 0; i < wanted.length; ++i)
             window.detachPanel(wanted[i])
-        if (!layout.contestDeskArranged) {
-            Qt.callLater(function () { window.arrangeContestDesk(layout.contestDeskLayout || "columns") })
-            layout.contestDeskArranged = true
+        // La base occupa lo schermo: le finestre della gara ci stanno sopra.
+        if (window.visibility !== Window.Maximized && window.visibility !== Window.FullScreen)
+            window.showMaximized()
+        // La prima volta si mettono in ordine sulla base; dopo comanda chi le
+        // ha spostate.
+        if (!layout.contestDeskPlaced) {
+            deskPlaceTimer.restart()
+            layout.contestDeskPlaced = true
         }
         Qt.callLater(function () { window.raisePanel("contest") })
+    }
+
+    function exitContestMode() {
+        if (!layout.contestModeOn)
+            return
+        layout.contestModeOn = false
+        // Le finestre della gara si chiudono, e la finestra principale torna
+        // come l'operatore l'aveva lasciata.
+        layout.detachedPanels = layout.preContestDetached
+        layout.hiddenPanels = layout.preContestHidden
+        if (layout.preContestVisibility === Window.Windowed)
+            window.showNormal()
+    }
+
+    // La finestra massimizzata ci mette un attimo a prendere la misura: le
+    // finestre si dispongono dopo, sulla misura vera.
+    Timer { id: exitProbe; interval: 900; onTriggered: window.exitContestMode() }
+    Timer {
+        id: deskPlaceTimer
+        interval: 350
+        onTriggered: window.arrangeContestDesk(layout.contestDeskLayout || "columns")
+    }
+
+    // Il programma chiuso in gara si riapre in gara; ma se la sessione nel
+    // frattempo non c'e' piu', la finestra principale torna com'era.
+    Timer {
+        running: true
+        interval: 500
+        onTriggered: if (layout.contestModeOn && !decolog.activation.active) window.exitContestMode()
+    }
+
+    // Chiusa la sessione, finita la gara: si esce anche dalla modalita'.
+    Connections {
+        target: decolog.activation
+        function onChanged() {
+            if (layout.contestModeOn && !decolog.activation.active)
+                window.exitContestMode()
+        }
     }
 
     // Il comando che arriva dalla pulsantiera del banco.
@@ -406,9 +472,11 @@ ApplicationWindow {
             layout.contestDeskLayout = arg
             window.arrangeContestDesk(arg)
         } else if (what === "ontop") {
-            window.contestDeskOn = arg === "1"
-            if (window.contestDeskOn)
+            window.contestOnTop = arg === "1"
+            if (window.contestOnTop)
                 Qt.callLater(window.raiseContestDesk)
+        } else if (what === "exit") {
+            window.exitContestMode()
         } else if (what === "export") {
             window.openContest()
         } else if (what === "submit") {
@@ -433,14 +501,18 @@ ApplicationWindow {
         const screen = window.screen
         if (!screen)
             return
-        const W = screen.desktopAvailableWidth
-        const H = screen.desktopAvailableHeight
+        // La base e' la finestra principale sotto la sua barra: le finestre
+        // della gara ci stanno sopra, raggruppate, invece che sparse.
+        const X0 = window.x
+        const Y0 = window.y + topBar.height
+        const W = window.width
+        const H = window.height - topBar.height
         const place = function (key, x, y, w, h) {
             const win = window.panelWindowFor(key)
             if (!win)
                 return
-            win.x = Math.round(x)
-            win.y = Math.round(y)
+            win.x = Math.round(X0 + x)
+            win.y = Math.round(Y0 + y)
             // Sotto una certa misura una finestra non mostra piu' niente:
             // meglio che esca dal bordo che darla vuota.
             win.width = Math.round(Math.max(w, 360))
@@ -561,6 +633,9 @@ ApplicationWindow {
     Component.onCompleted: {
         const what = startupShow.split(":")
         if (what[0] === "contestdesk") window.openContestDesk()
+        // Per le prove: si entra e si esce, e la finestra principale deve
+        // tornare com'era.
+        else if (what[0] === "contestexit") { window.openContestDesk(); exitProbe.start() }
         // Per misurare: apre il banco e registra N QSO di fila, dicendo quanto
         // ci mette ognuno. Un QSO in gara deve essere istantaneo.
         else if (what[0] === "benchswitch") { window.openContestDesk(); switchTimer.left = parseInt(what[1] || "20"); switchTimer.start() }
@@ -966,7 +1041,11 @@ ApplicationWindow {
             // vorrebbe dire farli sparire, perche' nella disposizione della
             // finestra principale non hanno un posto.
             dockable: !window.isWindowOnly(key)
-            contestMode: window.contestDeskOn && window.contestDeskPanels.indexOf(key) >= 0
+            contestMode: window.contestModeOn && window.isContestDeskKey(key)
+            pinned: window.contestOnTop
+            // Tenute insieme alla finestra principale: stanno sopra di lei, si
+            // riducono con lei e non riempiono la barra delle applicazioni.
+            transientParent: window.contestModeOn && window.isContestDeskKey(key) ? window : null
             // La X di una finestra staccata riaggancia il pannello. Ma quando a
             // chiudersi e' tutto il programma, la finestra si chiude lo stesso e
             // quello non e' un riaggancio: prima tornavano dentro tutti.
@@ -988,7 +1067,7 @@ ApplicationWindow {
             onContestRequested: window.openContest()
             onDeskCommand: (what, arg) => window.deskDo(what, arg)
             deskOpenPanels: window.detachedPanels
-            deskAllOnTop: window.contestDeskOn
+            deskAllOnTop: window.contestOnTop
         }
     }
 
@@ -1394,6 +1473,22 @@ ApplicationWindow {
         }
 
         StatusRail { Layout.fillWidth: true }
+    }
+
+    // La base del banco: in modalita' contest copre la disposizione di tutti i
+    // giorni invece di nasconderla. Nasconderla faceva stringere a zero le
+    // colonne della disposizione, e all'uscita dalla gara la scheda
+    // nominativo, il rotore e la fila in basso non tornavano piu'.
+    ContestBase {
+        x: verticalSplit.x
+        y: verticalSplit.y
+        width: verticalSplit.width
+        height: verticalSplit.height
+        z: 20
+        visible: window.contestModeOn
+        onArrangeRequested: window.arrangeContestDesk(layout.contestDeskLayout || "columns")
+        onExitRequested: window.exitContestMode()
+        onDeskRequested: window.openContestDesk()
     }
 
     Component {

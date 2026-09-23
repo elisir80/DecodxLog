@@ -1141,6 +1141,37 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
 </context>
 <context>
+    <name>ContestBase</name>
+    <message>
+        <source>CONTEST MODE</source>
+        <translation>競賽模式</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>沒有開啟的會話</translation>
+    </message>
+    <message>
+        <source>%1 QSO · %2 points · %3 mult · %4</source>
+        <translation>%1 QSO · %2 分 · %3 倍增 · %4</translation>
+    </message>
+    <message>
+        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
+        <translation>競賽視窗始終在這個視窗之上，並隨它一起最小化。隨你擺放，它們會留在原處。誤關了一個？重新打開工作台。</translation>
+    </message>
+    <message>
+        <source>Open the desk again</source>
+        <translation>重新打開工作台</translation>
+    </message>
+    <message>
+        <source>Arrange the windows</source>
+        <translation>排列視窗</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>離開競賽模式</translation>
+    </message>
+</context>
+<context>
     <name>ContestDeskPanel</name>
     <message>
         <source>QSO entry</source>
@@ -1205,6 +1236,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Send the log…</source>
         <translation>傳送日誌…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>離開競賽模式</translation>
     </message>
     <message>
         <source>%1 · %2 QSO · %3 points · %4 mult</source>

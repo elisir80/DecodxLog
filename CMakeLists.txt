@@ -236,6 +236,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/UpdateDialog.qml
     qml/DecoDXLog/ActivationDialog.qml
     qml/DecoDXLog/LogsDialog.qml
+    qml/DecoDXLog/ContestBase.qml
     qml/DecoDXLog/ContestDeskPanel.qml
     qml/DecoDXLog/ContestSubmitDialog.qml
     qml/DecoDXLog/ContestEntryPanel.qml

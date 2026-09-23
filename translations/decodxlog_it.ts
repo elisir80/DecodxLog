@@ -1143,6 +1143,37 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>ContestBase</name>
+    <message>
+        <source>CONTEST MODE</source>
+        <translation>MODALITÀ CONTEST</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Nessuna sessione aperta</translation>
+    </message>
+    <message>
+        <source>%1 QSO · %2 points · %3 mult · %4</source>
+        <translation>%1 QSO · %2 punti · %3 molt · %4</translation>
+    </message>
+    <message>
+        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
+        <translation>Le finestre della gara stanno sopra questa e si riducono con lei. Mettile dove vuoi: restano lì. Ne hai chiusa una per sbaglio? Riapri il banco.</translation>
+    </message>
+    <message>
+        <source>Open the desk again</source>
+        <translation>Riapri il banco</translation>
+    </message>
+    <message>
+        <source>Arrange the windows</source>
+        <translation>Disponi le finestre</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Esci dalla modalità contest</translation>
+    </message>
+</context>
+<context>
     <name>ContestDeskPanel</name>
     <message>
         <source>QSO entry</source>
@@ -1207,6 +1238,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Send the log…</source>
         <translation>Manda il log…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Esci dalla modalità contest</translation>
     </message>
     <message>
         <source>%1 · %2 QSO · %3 points · %4 mult</source>

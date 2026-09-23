@@ -1143,6 +1143,37 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
 </context>
 <context>
+    <name>ContestBase</name>
+    <message>
+        <source>CONTEST MODE</source>
+        <translation>CONTESTMODUS</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Geen sessie open</translation>
+    </message>
+    <message>
+        <source>%1 QSO · %2 points · %3 mult · %4</source>
+        <translation>%1 QSO · %2 punten · %3 mult · %4</translation>
+    </message>
+    <message>
+        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
+        <translation>De contestvensters blijven boven dit venster en worden er samen mee geminimaliseerd. Zet ze waar je wilt: daar blijven ze. Per ongeluk een gesloten? Open de werkplek opnieuw.</translation>
+    </message>
+    <message>
+        <source>Open the desk again</source>
+        <translation>Werkplek opnieuw openen</translation>
+    </message>
+    <message>
+        <source>Arrange the windows</source>
+        <translation>Vensters schikken</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Contestmodus verlaten</translation>
+    </message>
+</context>
+<context>
     <name>ContestDeskPanel</name>
     <message>
         <source>QSO entry</source>
@@ -1207,6 +1238,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Send the log…</source>
         <translation>Log versturen…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Contestmodus verlaten</translation>
     </message>
     <message>
         <source>%1 · %2 QSO · %3 points · %4 mult</source>

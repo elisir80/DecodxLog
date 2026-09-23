@@ -1142,6 +1142,37 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>ContestBase</name>
+    <message>
+        <source>CONTEST MODE</source>
+        <translation>CONTEST MODE</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 QSO · %2 points · %3 mult · %4</source>
+        <translation>%1 QSO · %2 points · %3 mult · %4</translation>
+    </message>
+    <message>
+        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
+        <translation>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</translation>
+    </message>
+    <message>
+        <source>Open the desk again</source>
+        <translation>Open the desk again</translation>
+    </message>
+    <message>
+        <source>Arrange the windows</source>
+        <translation>Arrange the windows</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Leave contest mode</translation>
+    </message>
+</context>
+<context>
     <name>ContestDeskPanel</name>
     <message>
         <source>QSO entry</source>
@@ -1206,6 +1237,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Send the log…</source>
         <translation>Send the log…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Leave contest mode</translation>
     </message>
     <message>
         <source>%1 · %2 QSO · %3 points · %4 mult</source>

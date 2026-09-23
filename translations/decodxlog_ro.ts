@@ -1145,6 +1145,37 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
 </context>
 <context>
+    <name>ContestBase</name>
+    <message>
+        <source>CONTEST MODE</source>
+        <translation>MOD CONCURS</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Nicio sesiune deschisă</translation>
+    </message>
+    <message>
+        <source>%1 QSO · %2 points · %3 mult · %4</source>
+        <translation>%1 QSO · %2 puncte · %3 mult · %4</translation>
+    </message>
+    <message>
+        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
+        <translation>Ferestrele concursului stau deasupra acesteia și se minimizează odată cu ea. Pune-le unde vrei: rămân acolo. Ai închis una din greșeală? Redeschide postul.</translation>
+    </message>
+    <message>
+        <source>Open the desk again</source>
+        <translation>Redeschide postul</translation>
+    </message>
+    <message>
+        <source>Arrange the windows</source>
+        <translation>Aranjează ferestrele</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Ieși din modul concurs</translation>
+    </message>
+</context>
+<context>
     <name>ContestDeskPanel</name>
     <message>
         <source>QSO entry</source>
@@ -1209,6 +1240,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Send the log…</source>
         <translation>Trimite jurnalul…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Ieși din modul concurs</translation>
     </message>
     <message>
         <source>%1 · %2 QSO · %3 points · %4 mult</source>

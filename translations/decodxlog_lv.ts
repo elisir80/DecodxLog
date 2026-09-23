@@ -1145,6 +1145,37 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>ContestBase</name>
+    <message>
+        <source>CONTEST MODE</source>
+        <translation>KONKURSA REŽĪMS</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Nav atvērtas sesijas</translation>
+    </message>
+    <message>
+        <source>%1 QSO · %2 points · %3 mult · %4</source>
+        <translation>%1 QSO · %2 punkti · %3 reiz. · %4</translation>
+    </message>
+    <message>
+        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
+        <translation>Konkursa logi paliek virs šī loga un tiek samazināti kopā ar to. Noliec tos, kur vēlies: tie tur paliek. Nejauši aizvēri kādu? Atver darbavietu vēlreiz.</translation>
+    </message>
+    <message>
+        <source>Open the desk again</source>
+        <translation>Atvērt darbavietu vēlreiz</translation>
+    </message>
+    <message>
+        <source>Arrange the windows</source>
+        <translation>Sakārtot logus</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Iziet no konkursa režīma</translation>
+    </message>
+</context>
+<context>
     <name>ContestDeskPanel</name>
     <message>
         <source>QSO entry</source>
@@ -1209,6 +1240,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Send the log…</source>
         <translation>Sūtīt žurnālu…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Iziet no konkursa režīma</translation>
     </message>
     <message>
         <source>%1 · %2 QSO · %3 points · %4 mult</source>

@@ -1141,6 +1141,37 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>ContestBase</name>
+    <message>
+        <source>CONTEST MODE</source>
+        <translation>CONTEST MÓD</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Nincs nyitott munkamenet</translation>
+    </message>
+    <message>
+        <source>%1 QSO · %2 points · %3 mult · %4</source>
+        <translation>%1 QSO · %2 pont · %3 szorzó · %4</translation>
+    </message>
+    <message>
+        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
+        <translation>A verseny ablakai ezen az ablakon maradnak, és vele együtt kicsinyítik őket. Tedd őket, ahová akarod: ott maradnak. Véletlenül bezártál egyet? Nyisd meg újra a munkahelyet.</translation>
+    </message>
+    <message>
+        <source>Open the desk again</source>
+        <translation>Munkahely újranyitása</translation>
+    </message>
+    <message>
+        <source>Arrange the windows</source>
+        <translation>Ablakok elrendezése</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Kilépés a contest módból</translation>
+    </message>
+</context>
+<context>
     <name>ContestDeskPanel</name>
     <message>
         <source>QSO entry</source>
@@ -1205,6 +1236,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Send the log…</source>
         <translation>Napló küldése…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Kilépés a contest módból</translation>
     </message>
     <message>
         <source>%1 · %2 QSO · %3 points · %4 mult</source>

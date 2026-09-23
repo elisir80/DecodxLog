@@ -1145,6 +1145,37 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>ContestBase</name>
+    <message>
+        <source>CONTEST MODE</source>
+        <translation>РЕЖИМ КОНТЕСТА</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Нет открытого сеанса</translation>
+    </message>
+    <message>
+        <source>%1 QSO · %2 points · %3 mult · %4</source>
+        <translation>%1 QSO · %2 очков · %3 множ. · %4</translation>
+    </message>
+    <message>
+        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
+        <translation>Окна контеста остаются поверх этого и сворачиваются вместе с ним. Расставьте их как угодно: они там и останутся. Закрыли одно по ошибке? Откройте рабочее место снова.</translation>
+    </message>
+    <message>
+        <source>Open the desk again</source>
+        <translation>Открыть рабочее место снова</translation>
+    </message>
+    <message>
+        <source>Arrange the windows</source>
+        <translation>Расставить окна</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Выйти из режима контеста</translation>
+    </message>
+</context>
+<context>
     <name>ContestDeskPanel</name>
     <message>
         <source>QSO entry</source>
@@ -1209,6 +1240,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Send the log…</source>
         <translation>Отправить лог…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Выйти из режима контеста</translation>
     </message>
     <message>
         <source>%1 · %2 QSO · %3 points · %4 mult</source>
