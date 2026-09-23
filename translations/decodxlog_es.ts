@@ -1210,6 +1210,13 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     </message>
 </context>
 <context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>Todos los paneles del concurso están cerrados: se vuelven a abrir desde Modo concurso, en la barra de arriba.</translation>
+    </message>
+</context>
+<context>
     <name>ContestRatePanel</name>
     <message>
         <source>How it is going</source>
@@ -5435,22 +5442,6 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>CW</translation>
     </message>
     <message>
-        <source>Layout: columns</source>
-        <translation>Disposición: columnas</translation>
-    </message>
-    <message>
-        <source>Layout: centred</source>
-        <translation>Disposición: al centro</translation>
-    </message>
-    <message>
-        <source>Layout: two screens</source>
-        <translation>Disposición: dos pantallas</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>Delante también de otros programas</translation>
-    </message>
-    <message>
         <source>Cabrillo…</source>
         <translation>Cabrillo…</translation>
     </message>
@@ -5529,6 +5520,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>Logs</source>
         <translation>Logs</translation>
+    </message>
+    <message>
+        <source>Reset the layout</source>
+        <translation>Restablecer la disposición</translation>
     </message>
     <message>
         <source>syncing…</source>

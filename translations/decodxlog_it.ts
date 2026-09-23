@@ -1210,6 +1210,13 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>I pannelli della gara sono tutti chiusi: si riaprono da Contest Mode, nella barra in alto.</translation>
+    </message>
+</context>
+<context>
     <name>ContestRatePanel</name>
     <message>
         <source>How it is going</source>
@@ -5435,22 +5442,6 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>CW</translation>
     </message>
     <message>
-        <source>Layout: columns</source>
-        <translation>Disposizione: colonne</translation>
-    </message>
-    <message>
-        <source>Layout: centred</source>
-        <translation>Disposizione: al centro</translation>
-    </message>
-    <message>
-        <source>Layout: two screens</source>
-        <translation>Disposizione: due schermi</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>Davanti anche agli altri programmi</translation>
-    </message>
-    <message>
         <source>Cabrillo…</source>
         <translation>Cabrillo…</translation>
     </message>
@@ -5529,6 +5520,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Logs</source>
         <translation>Log</translation>
+    </message>
+    <message>
+        <source>Reset the layout</source>
+        <translation>Ripristina la disposizione</translation>
     </message>
     <message>
         <source>syncing…</source>

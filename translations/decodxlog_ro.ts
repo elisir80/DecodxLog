@@ -1212,6 +1212,13 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
 </context>
 <context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>Toate panourile concursului sunt închise: se redeschid din Mod concurs, în bara de sus.</translation>
+    </message>
+</context>
+<context>
     <name>ContestRatePanel</name>
     <message>
         <source>How it is going</source>
@@ -5445,22 +5452,6 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>CW</translation>
     </message>
     <message>
-        <source>Layout: columns</source>
-        <translation>Aranjare: coloane</translation>
-    </message>
-    <message>
-        <source>Layout: centred</source>
-        <translation>Aranjare: centrat</translation>
-    </message>
-    <message>
-        <source>Layout: two screens</source>
-        <translation>Aranjare: două ecrane</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>Și în fața altor programe</translation>
-    </message>
-    <message>
         <source>Cabrillo…</source>
         <translation>Cabrillo…</translation>
     </message>
@@ -5539,6 +5530,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Logs</source>
         <translation>Jurnale</translation>
+    </message>
+    <message>
+        <source>Reset the layout</source>
+        <translation>Resetează aranjarea</translation>
     </message>
     <message>
         <source>syncing…</source>

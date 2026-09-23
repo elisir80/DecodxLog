@@ -21,6 +21,9 @@ Item {
     property string panelKey: ""
     // Il pannello e' qui solo se non e' chiuso e non e' in finestra propria.
     property bool docked: true
+    // In modalita' contest la casella resta dov'e', con le sue misure, ma il
+    // pannello si scarica: in gara non si guarda, e non deve costare niente.
+    property bool suspended: false
     // Acceso mentre si trascina un pannello e questa casella e' quella sotto il
     // dito: il magnete che dice dove finirebbe.
     property bool highlighted: false
@@ -75,7 +78,7 @@ Item {
         return ""
     }
 
-    visible: holder.active
+    visible: slot.docked && slot.panelKey.length > 0
     // Chi si misura da solo (il rotore, il riquadro dei premi) detta l'altezza
     // della casella, come faceva quando stava li' scritto a mano.
     implicitWidth: holder.item ? holder.item.implicitWidth : 0
@@ -84,7 +87,7 @@ Item {
     Loader {
         id: holder
         anchors.fill: parent
-        active: slot.docked && slot.panelKey.length > 0
+        active: slot.docked && !slot.suspended && slot.panelKey.length > 0
         source: active ? slot.sourceOf(slot.panelKey) : ""
         onLoaded: {
             if (item && item.panelKey !== undefined)

@@ -1212,6 +1212,13 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>Visi konkursa paneļi ir aizvērti: atver tos no Konkursa režīma augšējā joslā.</translation>
+    </message>
+</context>
+<context>
     <name>ContestRatePanel</name>
     <message>
         <source>How it is going</source>
@@ -5445,22 +5452,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>CW</translation>
     </message>
     <message>
-        <source>Layout: columns</source>
-        <translation>Izkārtojums: kolonnas</translation>
-    </message>
-    <message>
-        <source>Layout: centred</source>
-        <translation>Izkārtojums: centrā</translation>
-    </message>
-    <message>
-        <source>Layout: two screens</source>
-        <translation>Izkārtojums: divi ekrāni</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>Arī citu programmu priekšā</translation>
-    </message>
-    <message>
         <source>Cabrillo…</source>
         <translation>Cabrillo…</translation>
     </message>
@@ -5539,6 +5530,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Logs</source>
         <translation>Žurnāli</translation>
+    </message>
+    <message>
+        <source>Reset the layout</source>
+        <translation>Atjaunot izkārtojumu</translation>
     </message>
     <message>
         <source>syncing…</source>

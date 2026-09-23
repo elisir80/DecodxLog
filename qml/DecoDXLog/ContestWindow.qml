@@ -72,11 +72,34 @@ ApplicationWindow {
         onTriggered: root.revision++
     }
 
+    // Il modo di partenza: quello della sessione, o quello che dice il nome
+    // della gara (CQ-WW-SSB e' in fonia), o quello della radio. Prima partiva
+    // sempre in CW, anche in una gara in SSB, con il 599 al posto del 59.
+    function startingMode() {
+        if (root.session.mode)
+            return root.session.mode
+        const id = String(root.session.contestId || "").toUpperCase()
+        if (id.endsWith("-SSB") || id.endsWith("-PH") || id.endsWith("-PHONE"))
+            return "SSB"
+        if (id.endsWith("-RTTY"))
+            return "RTTY"
+        if (id.endsWith("-CW"))
+            return "CW"
+        const rig = String(decolog.shownMode || "").toUpperCase()
+        if (rig === "LSB" || rig === "USB" || rig === "SSB" || rig === "AM" || rig === "FM")
+            return "SSB"
+        if (rig === "CW" || rig === "CW-R" || rig === "RTTY" || rig === "FT8" || rig === "FT4" || rig === "FT2")
+            return rig === "CW-R" ? "CW" : rig
+        return "CW"
+    }
+
     Component.onCompleted: {
         if (root.band.length === 0)
             root.band = root.session.band || "20m"
         if (root.mode.length === 0)
-            root.mode = root.session.mode || "CW"
+            root.mode = root.startingMode()
+        sentRst.text = root.mode === "SSB" ? "59" : "599"
+        rcvdRst.text = sentRst.text
         callField.forceActiveFocus()
     }
 

@@ -1208,6 +1208,13 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>コンテストのパネルはすべて閉じています。上のバーのコンテストモードから開き直してください。</translation>
+    </message>
+</context>
+<context>
     <name>ContestRatePanel</name>
     <message>
         <source>How it is going</source>
@@ -5425,22 +5432,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>CW</translation>
     </message>
     <message>
-        <source>Layout: columns</source>
-        <translation>配置: 列</translation>
-    </message>
-    <message>
-        <source>Layout: centred</source>
-        <translation>配置: 中央</translation>
-    </message>
-    <message>
-        <source>Layout: two screens</source>
-        <translation>配置: 2画面</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>他のプログラムよりも前面に表示</translation>
-    </message>
-    <message>
         <source>Cabrillo…</source>
         <translation>Cabrillo…</translation>
     </message>
@@ -5519,6 +5510,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Logs</source>
         <translation>ログ</translation>
+    </message>
+    <message>
+        <source>Reset the layout</source>
+        <translation>配置をリセット</translation>
     </message>
     <message>
         <source>syncing…</source>

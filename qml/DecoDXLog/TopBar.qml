@@ -35,7 +35,6 @@ Rectangle {
     signal contestCommand(string what, string arg)
     property bool contestModeOn: false
     property var contestOpenPanels: []
-    property bool contestOnTop: false
     function openContestMenu() { contestMenu.popup(contestButton, 0, contestButton.height + 6) }
 
     function focusSearch() {
@@ -340,26 +339,11 @@ Rectangle {
                     }
                     MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
                     StyledMenuItem {
-                        text: qsTr("Layout: columns")
+                        // I pannelli e le misure di partenza, per chi ha
+                        // trascinato troppo.
+                        text: qsTr("Reset the layout")
                         enabled: root.contestModeOn
-                        onTriggered: root.contestCommand("arrange", "columns")
-                    }
-                    StyledMenuItem {
-                        text: qsTr("Layout: centred")
-                        enabled: root.contestModeOn
-                        onTriggered: root.contestCommand("arrange", "centred")
-                    }
-                    StyledMenuItem {
-                        text: qsTr("Layout: two screens")
-                        enabled: root.contestModeOn
-                        onTriggered: root.contestCommand("arrange", "two")
-                    }
-                    StyledMenuItem {
-                        text: qsTr("In front of other programs too")
-                        checkable: true
-                        checked: root.contestOnTop
-                        enabled: root.contestModeOn
-                        onTriggered: root.contestCommand("ontop", root.contestOnTop ? "0" : "1")
+                        onTriggered: root.contestCommand("reset", "")
                     }
                     MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
                     StyledMenuItem {

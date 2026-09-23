@@ -1208,6 +1208,13 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>A verseny összes panelje zárva van: a felső sávban a Contest mód menüből nyithatók meg újra.</translation>
+    </message>
+</context>
+<context>
     <name>ContestRatePanel</name>
     <message>
         <source>How it is going</source>
@@ -5425,22 +5432,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>CW</translation>
     </message>
     <message>
-        <source>Layout: columns</source>
-        <translation>Elrendezés: oszlopok</translation>
-    </message>
-    <message>
-        <source>Layout: centred</source>
-        <translation>Elrendezés: középen</translation>
-    </message>
-    <message>
-        <source>Layout: two screens</source>
-        <translation>Elrendezés: két képernyő</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>Más programok előtt is</translation>
-    </message>
-    <message>
         <source>Cabrillo…</source>
         <translation>Cabrillo…</translation>
     </message>
@@ -5519,6 +5510,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Logs</source>
         <translation>Naplók</translation>
+    </message>
+    <message>
+        <source>Reset the layout</source>
+        <translation>Elrendezés visszaállítása</translation>
     </message>
     <message>
         <source>syncing…</source>

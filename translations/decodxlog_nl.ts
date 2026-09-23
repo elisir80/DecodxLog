@@ -1210,6 +1210,13 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
 </context>
 <context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>Alle contestpanelen zijn gesloten: open ze opnieuw via Contestmodus in de balk bovenaan.</translation>
+    </message>
+</context>
+<context>
     <name>ContestRatePanel</name>
     <message>
         <source>How it is going</source>
@@ -5435,22 +5442,6 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>CW</translation>
     </message>
     <message>
-        <source>Layout: columns</source>
-        <translation>Indeling: kolommen</translation>
-    </message>
-    <message>
-        <source>Layout: centred</source>
-        <translation>Indeling: gecentreerd</translation>
-    </message>
-    <message>
-        <source>Layout: two screens</source>
-        <translation>Indeling: twee schermen</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>Ook vóór andere programma&apos;s</translation>
-    </message>
-    <message>
         <source>Cabrillo…</source>
         <translation>Cabrillo…</translation>
     </message>
@@ -5529,6 +5520,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Logs</source>
         <translation>Logs</translation>
+    </message>
+    <message>
+        <source>Reset the layout</source>
+        <translation>Indeling herstellen</translation>
     </message>
     <message>
         <source>syncing…</source>

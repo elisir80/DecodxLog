@@ -70,17 +70,11 @@ ApplicationWindow {
         // separate da virgola. Restano da una sessione all'altra.
         property string hiddenPanels: "cw"
         property string detachedPanels: ""
-        // Il banco del contest si dispone da solo una volta sola: dopo comanda
-        // chi ha spostato le finestre.
-        property bool contestDeskArranged: false
         // La modalita' contest, e com'era la finestra principale prima di
         // entrarci: all'uscita si rimette tutto uguale.
         property bool contestModeOn: false
-        property bool contestDeskPlaced: false
-        property string preContestHidden: ""
         property string preContestDetached: ""
         property int preContestVisibility: 2
-        property string contestDeskLayout: "columns"
         // Disposizione bloccata: le maniglie non si tirano e i pannelli non si
         // spostano. Si mette e si toglie col tasto destro sulla testata di un
         // pannello qualsiasi.
@@ -375,78 +369,38 @@ ApplicationWindow {
             contestWindow.item.requestActivate()
         }
     }
-    // Il banco del contest: ogni cosa in una finestra sua, che si sposta e si
-    // ridimensiona come si vuole — anche su un altro monitor. Sono le stesse
-    // finestre dei pannelli staccati, quindi misura e posizione restano dove le
-    // si mette, e la volta dopo si riaprono li'.
-    //
-    // La CW entra solo se il contest e' in telegrafia: in SSB e' una finestra
-    // da spostare e basta.
-    // I comandi del banco stanno nella barra in alto, sotto Contest Mode: una
-    // finestra apposta per i pulsanti era una finestra in piu' da spostare.
-    readonly property var contestDeskPanels: ["contest", "cluster", "logbook", "callinfo",
-                                              "rate", "score", "map"]
     // La modalita' contest, come nei programmi da gara: la finestra principale
-    // smette di essere il log di tutti i giorni — niente pannello del nuovo QSO,
-    // niente log, niente schede di diplomi, statistiche e propagazione — e
-    // diventa la base su cui stanno le finestre della gara, tenute insieme a lei
-    // e sempre davanti. Si esce dalla pulsantiera, o chiudendo la sessione, e
-    // la finestra principale torna com'era.
+    // smette di essere il log di tutti i giorni e mostra, agganciati nel suo
+    // corpo, i pannelli della gara (ContestLayout). Si entra e si esce dal menu
+    // Contest Mode in alto, o chiudendo la sessione; all'uscita la finestra
+    // torna com'era.
     readonly property bool contestModeOn: layout.contestModeOn
-    // Davanti anche agli altri programmi: si accende dalla pulsantiera. Di
-    // solito resta spento, perche' le finestre della gara stanno gia' sopra
-    // la principale in quanto sue, e una finestra "sempre in primo piano"
-    // copre anche le finestre di Windows e le finestre di dialogo di DecoDXLog.
-    property bool contestOnTop: false
-    function isContestDeskKey(key) {
-        return window.contestDeskPanels.indexOf(key) >= 0 || key === "cw"
-    }
 
     function openContestDesk() {
         if (!layout.contestModeOn) {
-            // Com'era prima: la si rimette uguale quando la gara finisce.
-            layout.preContestHidden = layout.hiddenPanels
+            // Com'era prima: la si rimette uguale quando la gara finisce. I
+            // pannelli staccati tornano dentro, perche' in gara ci sono gia'
+            // quelli agganciati, e due log aperti confondono.
             layout.preContestDetached = layout.detachedPanels
             layout.preContestVisibility = window.visibility
+            layout.detachedPanels = ""
             layout.contestModeOn = true
         }
-        const wanted = window.contestDeskPanels.slice()
-        if (decolog.activation.isCwContest())
-            wanted.push("cw")
-        for (let i = 0; i < wanted.length; ++i)
-            window.detachPanel(wanted[i])
-        // La base occupa lo schermo: le finestre della gara ci stanno sopra.
+        contestLayout.prepare(decolog.activation.isCwContest())
         if (window.visibility !== Window.Maximized && window.visibility !== Window.FullScreen)
             window.showMaximized()
-        // La prima volta si mettono in ordine sulla base; dopo comanda chi le
-        // ha spostate.
-        if (!layout.contestDeskPlaced) {
-            deskPlaceTimer.restart()
-            layout.contestDeskPlaced = true
-        }
-        Qt.callLater(function () { window.raisePanel("contest") })
     }
 
     function exitContestMode() {
         if (!layout.contestModeOn)
             return
         layout.contestModeOn = false
-        // Le finestre della gara si chiudono, e la finestra principale torna
-        // come l'operatore l'aveva lasciata.
         layout.detachedPanels = layout.preContestDetached
-        layout.hiddenPanels = layout.preContestHidden
         if (layout.preContestVisibility === Window.Windowed)
             window.showNormal()
     }
 
-    // La finestra massimizzata ci mette un attimo a prendere la misura: le
-    // finestre si dispongono dopo, sulla misura vera.
     Timer { id: exitProbe; interval: 900; onTriggered: window.exitContestMode() }
-    Timer {
-        id: deskPlaceTimer
-        interval: 350
-        onTriggered: window.arrangeContestDesk(layout.contestDeskLayout || "columns")
-    }
 
     // Il programma chiuso in gara si riapre in gara; ma se la sessione nel
     // frattempo non c'e' piu', la finestra principale torna com'era.
@@ -465,24 +419,16 @@ ApplicationWindow {
         }
     }
 
-    // Il comando che arriva dalla pulsantiera del banco.
+    // I comandi del menu Contest Mode.
     function deskDo(what, arg) {
         if (what === "enter") {
             window.openContestDesk()
         } else if (what === "session") {
             activationDialog.openDialog()
         } else if (what === "toggle") {
-            if (window.isPanelDetached(arg))
-                window.closePanel(arg)
-            else
-                window.detachPanel(arg)
-        } else if (what === "arrange") {
-            layout.contestDeskLayout = arg
-            window.arrangeContestDesk(arg)
-        } else if (what === "ontop") {
-            window.contestOnTop = arg === "1"
-            if (window.contestOnTop)
-                Qt.callLater(window.raiseContestDesk)
+            contestLayout.toggle(arg)
+        } else if (what === "reset") {
+            contestLayout.resetLayout()
         } else if (what === "exit") {
             window.exitContestMode()
         } else if (what === "export") {
@@ -490,108 +436,6 @@ ApplicationWindow {
         } else if (what === "submit") {
             submitDialog.openDialog()
         }
-    }
-
-    function raiseContestDesk() {
-        const keys = window.contestDeskPanels.concat(["cw"])
-        for (let i = 0; i < keys.length; ++i) {
-            const win = window.panelWindowFor(keys[i])
-            if (win)
-                win.raise()
-        }
-        window.raisePanel("contest")
-    }
-
-    // Le disposizioni: tre modi di mettere le stesse finestre, presi da come si
-    // lavora davvero in gara. Nessuna e' giusta per tutti — per questo si
-    // cambia con un pulsante, e quello che si sposta a mano resta dov'e'.
-    function arrangeContestDesk(which) {
-        const screen = window.screen
-        if (!screen)
-            return
-        // La base e' la finestra principale sotto la sua barra: le finestre
-        // della gara ci stanno sopra, raggruppate, invece che sparse.
-        const X0 = window.x
-        const Y0 = window.y + topBar.height
-        const W = window.width
-        const H = window.height - topBar.height
-        const place = function (key, x, y, w, h) {
-            const win = window.panelWindowFor(key)
-            if (!win)
-                return
-            win.x = Math.round(X0 + x)
-            win.y = Math.round(Y0 + y)
-            // Sotto una certa misura una finestra non mostra piu' niente:
-            // meglio che esca dal bordo che darla vuota.
-            win.width = Math.round(Math.max(w, 360))
-            win.height = Math.round(Math.max(h, key === "contest" ? 250 : 190))
-        }
-
-        if (which === "centred") {
-            // L'inserimento largo in mezzo, con il log sotto: gli occhi stanno
-            // li' e non si spostano. Conti e cluster ai lati.
-            const side = Math.round(W * 0.24)
-            const middle = W - side * 2
-            place("cluster", 0, 0, side, H)
-            place("contest", side, 0, middle, Math.round(H * 0.34))
-            place("logbook", side, Math.round(H * 0.34), middle, Math.round(H * 0.38))
-            place("callinfo", side, Math.round(H * 0.72), Math.round(middle / 2), Math.round(H * 0.28))
-            place("cw", side + Math.round(middle / 2), Math.round(H * 0.72),
-                  Math.round(middle / 2), Math.round(H * 0.28))
-            place("score", W - side, 0, side, Math.round(H * 0.34))
-            place("rate", W - side, Math.round(H * 0.34), side, Math.round(H * 0.24))
-            place("map", W - side, Math.round(H * 0.58), side, Math.round(H * 0.42))
-            return
-        }
-
-        if (which === "two") {
-            // Due schermi: il lavoro su quello davanti, quello che si guarda di
-            // sfuggita sull'altro. Se di schermo ce n'e' uno solo, si ricade
-            // sulle colonne invece di mandare meta' banco nel nulla.
-            const screens = Qt.application.screens
-            if (!screens || screens.length < 2) {
-                window.arrangeContestDesk("columns")
-                return
-            }
-            const second = screens[0] === screen ? screens[1] : screens[0]
-            const put = function (key, x, y, w, h) {
-                const win = window.panelWindowFor(key)
-                if (!win)
-                    return
-                win.x = Math.round(x)
-                win.y = Math.round(y)
-                win.width = Math.round(Math.max(w, 360))
-                win.height = Math.round(Math.max(h, 190))
-            }
-            place("contest", 0, 0, W, Math.round(H * 0.32))
-            place("logbook", 0, Math.round(H * 0.32), Math.round(W * 0.62), Math.round(H * 0.44))
-            place("cluster", Math.round(W * 0.62), Math.round(H * 0.32), Math.round(W * 0.38),
-                  Math.round(H * 0.68))
-            place("callinfo", 0, Math.round(H * 0.76), Math.round(W * 0.62), Math.round(H * 0.24))
-            const X = second.virtualX, Y = second.virtualY
-            const SW = second.desktopAvailableWidth, SH = second.desktopAvailableHeight
-            put("score", X, Y, Math.round(SW / 2), Math.round(SH * 0.5))
-            put("rate", X + Math.round(SW / 2), Y, Math.round(SW / 2), Math.round(SH * 0.5))
-            put("map", X, Y + Math.round(SH * 0.5), Math.round(SW / 2), Math.round(SH * 0.5))
-            put("cw", X + Math.round(SW / 2), Y + Math.round(SH * 0.5), Math.round(SW / 2),
-                Math.round(SH * 0.5))
-            return
-        }
-
-        // "columns": tre colonne — cluster, lavoro, conti. Regge uno schermo
-        // solo, che e' il caso di quasi tutti.
-        const left = Math.round(W * 0.21)
-        const right = Math.round(W * 0.23)
-        const middle = W - left - right
-        place("cluster", 0, 0, left, H)
-        place("contest", left, 0, middle, Math.round(H * 0.30))
-        place("logbook", left, Math.round(H * 0.30), middle, Math.round(H * 0.42))
-        place("callinfo", left, Math.round(H * 0.72), Math.round(middle / 2), Math.round(H * 0.28))
-        place("cw", left + Math.round(middle / 2), Math.round(H * 0.72),
-              Math.round(middle / 2), Math.round(H * 0.28))
-        place("score", W - right, 0, right, Math.round(H * 0.36))
-        place("rate", W - right, Math.round(H * 0.36), right, Math.round(H * 0.26))
-        place("map", W - right, Math.round(H * 0.62), right, Math.round(H * 0.38))
     }
 
     function openRotor() {
@@ -641,7 +485,6 @@ ApplicationWindow {
         else if (what[0] === "contestexit") { window.openContestDesk(); exitProbe.start() }
         // Per misurare: apre il banco e registra N QSO di fila, dicendo quanto
         // ci mette ognuno. Un QSO in gara deve essere istantaneo.
-        else if (what[0] === "benchswitch") { window.openContestDesk(); switchTimer.left = parseInt(what[1] || "20"); switchTimer.start() }
         // Per misurare: il banco aperto con il cluster che corre (uno spot ogni
         // 250 ms, come un RBN in gara) e ogni tanto un clic su uno spot.
         else if (what[0] === "benchspots") { if (what[2] !== "nodesk") window.openContestDesk(); else window.exitContestMode(); spotBench.left = parseInt(what[1] || "40"); spotBench.start() }
@@ -734,6 +577,12 @@ ApplicationWindow {
         else if (what[0] === "updatecheck") { window.panelItem("tabs").setTab(3); decolog.updates.checkNow() }
         else if (what[0] === "updateget") { decolog.updates.checkNow(); updateGetTimer.start() }
         else if (what[0] === "mainmenu") topBar.openMainMenu()
+        // Per le prove: in gara si chiude e si riapre un pannello, come dal menu.
+        else if (what[0] === "contesttoggle") {
+            window.openContestDesk()
+            for (let i = 1; i < what.length; ++i)
+                window.deskDo("toggle", what[i])
+        }
         // Per le prove: il menu Contest Mode, dentro o fuori dalla modalita'.
         else if (what[0] === "contestmenu") {
             if (what[1] === "on")
@@ -921,26 +770,6 @@ ApplicationWindow {
             }
         }
     }
-    // Passa da una finestra del banco all'altra, come fa chi opera, e dice
-    // quanto ci mette.
-    Timer {
-        id: switchTimer
-        property int left: 0
-        property int n: 0
-        readonly property var order: ["contest", "cluster", "logbook", "callinfo", "score", "rate", "map"]
-        interval: 400
-        repeat: true
-        onTriggered: {
-            if (left <= 0) { stop(); return }
-            left--; n++
-            const key = order[n % order.length]
-            const t0 = Date.now()
-            window.raisePanel(key)
-            console.warn("BENCH switch " + key + ": " + (Date.now() - t0) + " ms | scatto piu' lungo: "
-                         + benchWatch.worst + " ms")
-            benchWatch.worst = 0
-        }
-    }
     // Misura la fluidita': un battito ogni 16 ms, e il buco piu' lungo fra due
     // battiti e' quanto il programma e' rimasto fermo.
     Timer {
@@ -949,7 +778,7 @@ ApplicationWindow {
         property int worst: 0
         interval: 16
         repeat: true
-        running: benchTimer.running || switchTimer.running || spotBench.running || typeBench.running
+        running: benchTimer.running || spotBench.running || typeBench.running
         onTriggered: {
             const now = Date.now()
             if (last > 0)
@@ -1121,11 +950,6 @@ ApplicationWindow {
             // vorrebbe dire farli sparire, perche' nella disposizione della
             // finestra principale non hanno un posto.
             dockable: !window.isWindowOnly(key)
-            contestMode: window.contestModeOn && window.isContestDeskKey(key)
-            pinned: window.contestOnTop
-            // Tenute insieme alla finestra principale: stanno sopra di lei, si
-            // riducono con lei e non riempiono la barra delle applicazioni.
-            transientParent: window.contestModeOn && window.isContestDeskKey(key) ? window : null
             // La X di una finestra staccata riaggancia il pannello. Ma quando a
             // chiudersi e' tutto il programma, la finestra si chiude lo stesso e
             // quello non e' un riaggancio: prima tornavano dentro tutti.
@@ -1315,8 +1139,7 @@ ApplicationWindow {
             onClusterRequested: window.openCluster(0)
             onActivationRequested: activationDialog.openDialog()
             contestModeOn: window.contestModeOn
-            contestOpenPanels: window.detachedPanels
-            contestOnTop: window.contestOnTop
+            contestOpenPanels: contestLayout.shownList
             onContestCommand: (what, arg) => window.deskDo(what, arg)
             onProfilesRequested: profilesDialog.open()
             closedPanels: window.hiddenPanels.length
@@ -1333,6 +1156,10 @@ ApplicationWindow {
             Layout.margins: 8
             orientation: Qt.Vertical
             handle: splitHandle
+            // In gara al suo posto ci sono i pannelli della gara: questa resta
+            // con le sue misure, ma non si vede e non si tocca.
+            opacity: window.contestModeOn ? 0 : 1
+            enabled: !window.contestModeOn
 
             SplitView {
                 SplitView.fillHeight: true
@@ -1344,6 +1171,7 @@ ApplicationWindow {
                     slotId: "left"
                     panelKey: window.panelAt("left")
                     docked: window.panelShows(panelKey)
+                    suspended: window.contestModeOn
                     highlighted: window.dragTargetSlot === "left"
                     onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
                     onMoveStarted: (key) => window.beginPanelDrag(key, "left")
@@ -1367,6 +1195,7 @@ ApplicationWindow {
                     slotId: "center"
                     panelKey: window.panelAt("center")
                     docked: window.panelShows(panelKey)
+                    suspended: window.contestModeOn
                     highlighted: window.dragTargetSlot === "center"
                     onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
                     onMoveStarted: (key) => window.beginPanelDrag(key, "center")
@@ -1405,6 +1234,7 @@ ApplicationWindow {
                         slotId: "rightA"
                         panelKey: window.panelAt("rightA")
                         docked: window.panelShows(panelKey)
+                        suspended: window.contestModeOn
                         highlighted: window.dragTargetSlot === "rightA"
                         onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
                         onMoveStarted: (key) => window.beginPanelDrag(key, "rightA")
@@ -1430,6 +1260,7 @@ ApplicationWindow {
                         slotId: "rightB"
                         panelKey: window.panelAt("rightB")
                         docked: window.panelShows(panelKey)
+                        suspended: window.contestModeOn
                         highlighted: window.dragTargetSlot === "rightB"
                         onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
                         onMoveStarted: (key) => window.beginPanelDrag(key, "rightB")
@@ -1450,6 +1281,7 @@ ApplicationWindow {
                         slotId: "rightC"
                         panelKey: window.panelAt("rightC")
                         docked: window.panelShows(panelKey)
+                        suspended: window.contestModeOn
                         highlighted: window.dragTargetSlot === "rightC"
                         onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
                         onMoveStarted: (key) => window.beginPanelDrag(key, "rightC")
@@ -1470,6 +1302,7 @@ ApplicationWindow {
                         slotId: "rightD"
                         panelKey: window.panelAt("rightD")
                         docked: window.panelShows(panelKey)
+                        suspended: window.contestModeOn
                         highlighted: window.dragTargetSlot === "rightD"
                         onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
                         onMoveStarted: (key) => window.beginPanelDrag(key, "rightD")
@@ -1515,6 +1348,7 @@ ApplicationWindow {
                     slotId: "bottomLeft"
                     panelKey: window.panelAt("bottomLeft")
                     docked: window.panelShows(panelKey)
+                    suspended: window.contestModeOn
                     highlighted: window.dragTargetSlot === "bottomLeft"
                     onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
                     onMoveStarted: (key) => window.beginPanelDrag(key, "bottomLeft")
@@ -1537,6 +1371,7 @@ ApplicationWindow {
                     slotId: "bottomRight"
                     panelKey: window.panelAt("bottomRight")
                     docked: window.panelShows(panelKey)
+                    suspended: window.contestModeOn
                     highlighted: window.dragTargetSlot === "bottomRight"
                     onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
                     onMoveStarted: (key) => window.beginPanelDrag(key, "bottomRight")
@@ -1559,17 +1394,22 @@ ApplicationWindow {
         StatusRail { Layout.fillWidth: true }
     }
 
-    // La base del banco: in modalita' contest copre la disposizione di tutti i
-    // giorni invece di nasconderla. Nasconderla faceva stringere a zero le
-    // colonne della disposizione, e all'uscita dalla gara la scheda
-    // nominativo, il rotore e la fila in basso non tornavano piu'.
-    ContestBase {
+    // La modalita' contest: i pannelli della gara, agganciati dove di solito
+    // sta la disposizione di tutti i giorni.
+    ContestLayout {
+        id: contestLayout
         x: verticalSplit.x
         y: verticalSplit.y
         width: verticalSplit.width
         height: verticalSplit.height
         z: 20
         visible: window.contestModeOn
+        onOpenQso: (id) => window.openQso(id)
+        onAwardRequested: (id) => awardsDialog.openAt(id)
+        onClusterRequested: (tab) => window.openCluster(tab)
+        onStatsRequested: window.openStats()
+        onRotorRequested: window.openRotor()
+        onContestRequested: window.openContest()
     }
 
     Component {

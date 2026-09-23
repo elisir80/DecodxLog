@@ -1209,6 +1209,13 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>All the contest panels are closed: open them again from Contest Mode, up in the bar.</translation>
+    </message>
+</context>
+<context>
     <name>ContestRatePanel</name>
     <message>
         <source>How it is going</source>
@@ -5434,22 +5441,6 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Layout: columns</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Layout: centred</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Layout: two screens</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation type="unfinished">In front of other programs too</translation>
-    </message>
-    <message>
         <source>Cabrillo…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5528,6 +5519,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Logs</source>
         <translation>Logs</translation>
+    </message>
+    <message>
+        <source>Reset the layout</source>
+        <translation>Reset the layout</translation>
     </message>
     <message>
         <source>syncing…</source>

@@ -1210,6 +1210,13 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
 </context>
 <context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>Tots els panells del concurs estan tancats: es tornen a obrir des de Mode concurs, a la barra de dalt.</translation>
+    </message>
+</context>
+<context>
     <name>ContestRatePanel</name>
     <message>
         <source>How it is going</source>
@@ -5435,22 +5442,6 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>CW</translation>
     </message>
     <message>
-        <source>Layout: columns</source>
-        <translation>Disposició: columnes</translation>
-    </message>
-    <message>
-        <source>Layout: centred</source>
-        <translation>Disposició: al centre</translation>
-    </message>
-    <message>
-        <source>Layout: two screens</source>
-        <translation>Disposició: dues pantalles</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>Davant també d&apos;altres programes</translation>
-    </message>
-    <message>
         <source>Cabrillo…</source>
         <translation>Cabrillo…</translation>
     </message>
@@ -5529,6 +5520,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Logs</source>
         <translation>Registres</translation>
+    </message>
+    <message>
+        <source>Reset the layout</source>
+        <translation>Restableix la disposició</translation>
     </message>
     <message>
         <source>syncing…</source>

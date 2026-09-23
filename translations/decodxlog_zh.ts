@@ -1208,6 +1208,13 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     </message>
 </context>
 <context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>竞赛面板都已关闭：请从顶部栏的“竞赛模式”重新打开。</translation>
+    </message>
+</context>
+<context>
     <name>ContestRatePanel</name>
     <message>
         <source>How it is going</source>
@@ -5425,22 +5432,6 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>连续波</translation>
     </message>
     <message>
-        <source>Layout: columns</source>
-        <translation>布局：分栏</translation>
-    </message>
-    <message>
-        <source>Layout: centred</source>
-        <translation>布局：居中</translation>
-    </message>
-    <message>
-        <source>Layout: two screens</source>
-        <translation>布局：双屏</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>也显示在其他程序前面</translation>
-    </message>
-    <message>
         <source>Cabrillo…</source>
         <translation>Cabrillo…</translation>
     </message>
@@ -5519,6 +5510,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Logs</source>
         <translation>日志</translation>
+    </message>
+    <message>
+        <source>Reset the layout</source>
+        <translation>重置布局</translation>
     </message>
     <message>
         <source>syncing…</source>

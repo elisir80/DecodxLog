@@ -1210,6 +1210,13 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     </message>
 </context>
 <context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>Alle Contest-Bereiche sind geschlossen: oben in der Leiste über Contest-Modus wieder öffnen.</translation>
+    </message>
+</context>
+<context>
     <name>ContestRatePanel</name>
     <message>
         <source>How it is going</source>
@@ -5435,22 +5442,6 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>CW</translation>
     </message>
     <message>
-        <source>Layout: columns</source>
-        <translation>Anordnung: Spalten</translation>
-    </message>
-    <message>
-        <source>Layout: centred</source>
-        <translation>Anordnung: zentriert</translation>
-    </message>
-    <message>
-        <source>Layout: two screens</source>
-        <translation>Anordnung: zwei Bildschirme</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>Auch vor anderen Programmen</translation>
-    </message>
-    <message>
         <source>Cabrillo…</source>
         <translation>Cabrillo…</translation>
     </message>
@@ -5529,6 +5520,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Logs</source>
         <translation>Logs</translation>
+    </message>
+    <message>
+        <source>Reset the layout</source>
+        <translation>Anordnung zurücksetzen</translation>
     </message>
     <message>
         <source>syncing…</source>
