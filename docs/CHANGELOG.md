@@ -3,6 +3,28 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.15.0 — 23 settembre 2026
+
+**La modalita' contest vera: la finestra principale diventa la base del banco.** Aprendo il
+banco la finestra principale restava quella di tutti i giorni — il pannello del nuovo QSO, il
+log, le schede di diplomi, statistiche e propagazione — e le finestre della gara stavano sparse
+per lo schermo.
+
+Adesso entrare in modalita' contest cambia la finestra principale:
+
+- al posto della disposizione di tutti i giorni c'e' la **base della gara**: il nome del
+  contest, QSO, punti, moltiplicatori e punteggio, e tre pulsanti — **Riapri il banco**,
+  **Disponi le finestre**, **Esci dalla modalita' contest**;
+- la finestra principale **si massimizza** e le finestre della gara si dispongono **sopra di
+  lei, raggruppate**, invece che su tutto lo schermo;
+- le finestre della gara sono **legate alla principale**: stanno sempre davanti, si riducono
+  con lei e non riempiono la barra delle applicazioni. Restano libere: si spostano e si
+  ridimensionano dove si vuole, e li' restano.
+
+Si esce dalla pulsantiera, dalla base, o chiudendo la sessione, e la finestra principale torna
+**esattamente com'era**: pannelli, finestre staccate, misura. Il programma chiuso in gara si
+riapre in gara.
+
 ## 1.14.1 — 23 settembre 2026
 
 **Un QSO in gara non ferma piu' il programma.** Registrare un QSO teneva il programma fermo
