@@ -139,10 +139,6 @@
         <translation>リファレンス</translation>
     </message>
     <message>
-        <source>Contest desk</source>
-        <translation>コンテストデスク</translation>
-    </message>
-    <message>
         <source>Single window (Ctrl+Shift+T)</source>
         <translation>単一ウィンドウ (Ctrl+Shift+T)</translation>
     </message>
@@ -203,6 +199,10 @@
         <translation>ADIF を書き出す (%1)</translation>
     </message>
     <message>
+        <source>Contest Mode</source>
+        <translation>コンテストモード</translation>
+    </message>
+    <message>
         <source>Close</source>
         <translation>閉じる</translation>
     </message>
@@ -234,7 +234,7 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>キャンセル</translation>
     </message>
 </context>
 <context>
@@ -1138,120 +1138,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Save rule</source>
         <translation>決まりを保存</translation>
-    </message>
-</context>
-<context>
-    <name>ContestBase</name>
-    <message>
-        <source>CONTEST MODE</source>
-        <translation>コンテストモード</translation>
-    </message>
-    <message>
-        <source>No session open</source>
-        <translation>開いているセッションがありません</translation>
-    </message>
-    <message>
-        <source>%1 QSO · %2 points · %3 mult · %4</source>
-        <translation>%1 QSO · %2 点 · %3 マルチ · %4</translation>
-    </message>
-    <message>
-        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
-        <translation>コンテストのウィンドウはこのウィンドウの上にあり、一緒に最小化されます。好きな場所に置けばそこに残ります。間違えて閉じたらデスクを開き直してください。</translation>
-    </message>
-    <message>
-        <source>Open the desk again</source>
-        <translation>デスクを開き直す</translation>
-    </message>
-    <message>
-        <source>Arrange the windows</source>
-        <translation>ウィンドウを並べる</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>コンテストモードを終了</translation>
-    </message>
-</context>
-<context>
-    <name>ContestDeskPanel</name>
-    <message>
-        <source>QSO entry</source>
-        <translation>入力</translation>
-    </message>
-    <message>
-        <source>Cluster</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Logbook</source>
-        <translation>ログ</translation>
-    </message>
-    <message>
-        <source>Callsign card</source>
-        <translation>コールサイン カード</translation>
-    </message>
-    <message>
-        <source>Rate</source>
-        <translation>ペース</translation>
-    </message>
-    <message>
-        <source>Score</source>
-        <translation>スコア</translation>
-    </message>
-    <message>
-        <source>Map</source>
-        <translation>地図</translation>
-    </message>
-    <message>
-        <source>CW</source>
-        <translation>CW</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>コンテストデスク</translation>
-    </message>
-    <message>
-        <source>Layout</source>
-        <translation>配置</translation>
-    </message>
-    <message>
-        <source>Columns</source>
-        <translation>列</translation>
-    </message>
-    <message>
-        <source>Centred</source>
-        <translation>中央寄せ</translation>
-    </message>
-    <message>
-        <source>Two screens</source>
-        <translation>画面 2 台</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>他のプログラムよりも前面に表示</translation>
-    </message>
-    <message>
-        <source>Cabrillo…</source>
-        <translation>Cabrillo…</translation>
-    </message>
-    <message>
-        <source>Send the log…</source>
-        <translation>ログを送る…</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>コンテストモードを終了</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO · %3 points · %4 mult</source>
-        <translation>%1 · %2 QSO · %3 点 · %4 マルチ</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO</source>
-        <translation>%1 · %2 QSO</translation>
-    </message>
-    <message>
-        <source>No session open: Contest → Start session.</source>
-        <translation>セッションがありません: コンテスト → セッションを開く。</translation>
     </message>
 </context>
 <context>
@@ -2458,10 +2344,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>DX Cluster</source>
         <translation>DX クラスター</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>コンテストデスク</translation>
     </message>
     <message>
         <source>closed</source>
@@ -5455,16 +5337,100 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>アワード</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>クラスター ●</translation>
     </message>
     <message>
         <source>Cluster</source>
         <translation>クラスター</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>コンテストモード ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>コンテストモード · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>コンテストモード · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 点 · %4 マルチ</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>開いているセッションがありません</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>コンテストとアクティベーション…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>コンテストモードを終了</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>コンテストモードに入る</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>入力</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>ログ</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>コールサイン カード</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>ペース</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>スコア</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>地図</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Layout: columns</source>
+        <translation>配置: 列</translation>
+    </message>
+    <message>
+        <source>Layout: centred</source>
+        <translation>配置: 中央</translation>
+    </message>
+    <message>
+        <source>Layout: two screens</source>
+        <translation>配置: 2画面</translation>
+    </message>
+    <message>
+        <source>In front of other programs too</source>
+        <translation>他のプログラムよりも前面に表示</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>ログを送る…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5537,10 +5503,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Logs</source>
         <translation>ログ</translation>
-    </message>
-    <message>
-        <source>Contest</source>
-        <translation>コンテスト</translation>
     </message>
     <message>
         <source>syncing…</source>

@@ -139,10 +139,6 @@
         <translation>Reference</translation>
     </message>
     <message>
-        <source>Contest desk</source>
-        <translation>Contest-arbejdsplads</translation>
-    </message>
-    <message>
         <source>Single window (Ctrl+Shift+T)</source>
         <translation>Enkelt vindue (Ctrl+Shift+T)</translation>
     </message>
@@ -201,6 +197,10 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>Eksportér ADIF (%1)</translation>
+    </message>
+    <message>
+        <source>Contest Mode</source>
+        <translation>Contesttilstand</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1143,120 +1143,6 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
-    <name>ContestBase</name>
-    <message>
-        <source>CONTEST MODE</source>
-        <translation>CONTESTTILSTAND</translation>
-    </message>
-    <message>
-        <source>No session open</source>
-        <translation>Ingen session åben</translation>
-    </message>
-    <message>
-        <source>%1 QSO · %2 points · %3 mult · %4</source>
-        <translation>%1 QSO · %2 point · %3 mult · %4</translation>
-    </message>
-    <message>
-        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
-        <translation>Contestvinduerne bliver over dette vindue og minimeres sammen med det. Sæt dem hvor du vil: der bliver de. Lukket et ved en fejl? Åbn arbejdspladsen igen.</translation>
-    </message>
-    <message>
-        <source>Open the desk again</source>
-        <translation>Åbn arbejdspladsen igen</translation>
-    </message>
-    <message>
-        <source>Arrange the windows</source>
-        <translation>Arranger vinduerne</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>Forlad contesttilstand</translation>
-    </message>
-</context>
-<context>
-    <name>ContestDeskPanel</name>
-    <message>
-        <source>QSO entry</source>
-        <translation>Indtastning</translation>
-    </message>
-    <message>
-        <source>Cluster</source>
-        <translation>Cluster</translation>
-    </message>
-    <message>
-        <source>Logbook</source>
-        <translation>Logbog</translation>
-    </message>
-    <message>
-        <source>Callsign card</source>
-        <translation>Kaldesignalkort</translation>
-    </message>
-    <message>
-        <source>Rate</source>
-        <translation>Tempo</translation>
-    </message>
-    <message>
-        <source>Score</source>
-        <translation>Score</translation>
-    </message>
-    <message>
-        <source>Map</source>
-        <translation>Kort</translation>
-    </message>
-    <message>
-        <source>CW</source>
-        <translation>CW</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>Contest-arbejdsplads</translation>
-    </message>
-    <message>
-        <source>Layout</source>
-        <translation>Placering</translation>
-    </message>
-    <message>
-        <source>Columns</source>
-        <translation>Kolonner</translation>
-    </message>
-    <message>
-        <source>Centred</source>
-        <translation>Centreret</translation>
-    </message>
-    <message>
-        <source>Two screens</source>
-        <translation>To skærme</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>Også foran andre programmer</translation>
-    </message>
-    <message>
-        <source>Cabrillo…</source>
-        <translation>Cabrillo…</translation>
-    </message>
-    <message>
-        <source>Send the log…</source>
-        <translation>Send loggen…</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>Forlad contesttilstand</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO · %3 points · %4 mult</source>
-        <translation>%1 · %2 QSO · %3 point · %4 mult</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO</source>
-        <translation>%1 · %2 QSO</translation>
-    </message>
-    <message>
-        <source>No session open: Contest → Start session.</source>
-        <translation>Ingen session åben: Contest → Start session.</translation>
-    </message>
-</context>
-<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1280,7 +1166,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilstand</translation>
     </message>
     <message>
         <source>already worked</source>
@@ -2463,10 +2349,6 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>DX Cluster</source>
         <translation>DX-klynge</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>Contest-arbejdsplads</translation>
     </message>
     <message>
         <source>closed</source>
@@ -5465,16 +5347,100 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Diplomer</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>Cluster ●</translation>
     </message>
     <message>
         <source>Cluster</source>
         <translation>Cluster</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>Contesttilstand ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>Contesttilstand · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>Contesttilstand · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 point · %4 mult</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Ingen session åben</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>Contests og aktiveringer…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Forlad contesttilstand</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>Start contesttilstand</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>Indtastning</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Logbog</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Kaldesignalkort</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Tempo</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Kort</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Layout: columns</source>
+        <translation>Layout: kolonner</translation>
+    </message>
+    <message>
+        <source>Layout: centred</source>
+        <translation>Layout: centreret</translation>
+    </message>
+    <message>
+        <source>Layout: two screens</source>
+        <translation>Layout: to skærme</translation>
+    </message>
+    <message>
+        <source>In front of other programs too</source>
+        <translation>Også foran andre programmer</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Send loggen…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5547,10 +5513,6 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Logs</source>
         <translation>Logs</translation>
-    </message>
-    <message>
-        <source>Contest</source>
-        <translation>Contest</translation>
     </message>
     <message>
         <source>syncing…</source>

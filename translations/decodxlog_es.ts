@@ -139,10 +139,6 @@
         <translation>Referencia</translation>
     </message>
     <message>
-        <source>Contest desk</source>
-        <translation>Puesto de concurso</translation>
-    </message>
-    <message>
         <source>Single window (Ctrl+Shift+T)</source>
         <translation>Ventana única (Ctrl+Shift+T)</translation>
     </message>
@@ -201,6 +197,10 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>Exportar ADIF (%1)</translation>
+    </message>
+    <message>
+        <source>Contest Mode</source>
+        <translation>Modo concurso</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1143,120 +1143,6 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     </message>
 </context>
 <context>
-    <name>ContestBase</name>
-    <message>
-        <source>CONTEST MODE</source>
-        <translation>MODO CONCURSO</translation>
-    </message>
-    <message>
-        <source>No session open</source>
-        <translation>Ninguna sesión abierta</translation>
-    </message>
-    <message>
-        <source>%1 QSO · %2 points · %3 mult · %4</source>
-        <translation>%1 QSO · %2 puntos · %3 mult · %4</translation>
-    </message>
-    <message>
-        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
-        <translation>Las ventanas del concurso quedan encima de esta y se minimizan con ella. Ponlas donde quieras: se quedan ahí. ¿Cerraste una por error? Vuelve a abrir el puesto.</translation>
-    </message>
-    <message>
-        <source>Open the desk again</source>
-        <translation>Volver a abrir el puesto</translation>
-    </message>
-    <message>
-        <source>Arrange the windows</source>
-        <translation>Colocar las ventanas</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>Salir del modo concurso</translation>
-    </message>
-</context>
-<context>
-    <name>ContestDeskPanel</name>
-    <message>
-        <source>QSO entry</source>
-        <translation>Entrada</translation>
-    </message>
-    <message>
-        <source>Cluster</source>
-        <translation>Clúster</translation>
-    </message>
-    <message>
-        <source>Logbook</source>
-        <translation>Registro</translation>
-    </message>
-    <message>
-        <source>Callsign card</source>
-        <translation>Ficha del indicativo</translation>
-    </message>
-    <message>
-        <source>Rate</source>
-        <translation>Ritmo</translation>
-    </message>
-    <message>
-        <source>Score</source>
-        <translation>Puntuación</translation>
-    </message>
-    <message>
-        <source>Map</source>
-        <translation>Mapa</translation>
-    </message>
-    <message>
-        <source>CW</source>
-        <translation>CW</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>Puesto de concurso</translation>
-    </message>
-    <message>
-        <source>Layout</source>
-        <translation>Disposición</translation>
-    </message>
-    <message>
-        <source>Columns</source>
-        <translation>Columnas</translation>
-    </message>
-    <message>
-        <source>Centred</source>
-        <translation>Al centro</translation>
-    </message>
-    <message>
-        <source>Two screens</source>
-        <translation>Dos pantallas</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>Delante también de otros programas</translation>
-    </message>
-    <message>
-        <source>Cabrillo…</source>
-        <translation>Cabrillo…</translation>
-    </message>
-    <message>
-        <source>Send the log…</source>
-        <translation>Enviar el log…</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>Salir del modo concurso</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO · %3 points · %4 mult</source>
-        <translation>%1 · %2 QSO · %3 puntos · %4 mult</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO</source>
-        <translation>%1 · %2 QSO</translation>
-    </message>
-    <message>
-        <source>No session open: Contest → Start session.</source>
-        <translation>Ninguna sesión abierta: Concurso → Abrir sesión.</translation>
-    </message>
-</context>
-<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1464,7 +1350,7 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     </message>
     <message>
         <source>All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos los archivos (*)</translation>
     </message>
     <message>
         <source>Cabrillo written. Now upload it on the contest page.</source>
@@ -2333,7 +2219,7 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     </message>
     <message>
         <source>All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos los archivos (*)</translation>
     </message>
     <message>
         <source>open now</source>
@@ -2463,10 +2349,6 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>DX Cluster</source>
         <translation>Clúster DX</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>Puesto de concurso</translation>
     </message>
     <message>
         <source>closed</source>
@@ -5465,16 +5347,100 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>Diplomas</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>Clúster ●</translation>
     </message>
     <message>
         <source>Cluster</source>
         <translation>Clúster</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>Modo concurso ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>Modo concurso · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>Modo concurso · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 puntos · %4 mult</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Ninguna sesión abierta</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>Concursos y activaciones…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Salir del modo concurso</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>Entrar en modo concurso</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>Entrada</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Registro</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Ficha del indicativo</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Ritmo</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Puntuación</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Mapa</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Layout: columns</source>
+        <translation>Disposición: columnas</translation>
+    </message>
+    <message>
+        <source>Layout: centred</source>
+        <translation>Disposición: al centro</translation>
+    </message>
+    <message>
+        <source>Layout: two screens</source>
+        <translation>Disposición: dos pantallas</translation>
+    </message>
+    <message>
+        <source>In front of other programs too</source>
+        <translation>Delante también de otros programas</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Enviar el log…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5547,10 +5513,6 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>Logs</source>
         <translation>Logs</translation>
-    </message>
-    <message>
-        <source>Contest</source>
-        <translation>Concurso</translation>
     </message>
     <message>
         <source>syncing…</source>

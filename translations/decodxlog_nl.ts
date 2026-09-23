@@ -139,10 +139,6 @@
         <translation>Referentie</translation>
     </message>
     <message>
-        <source>Contest desk</source>
-        <translation>Contestwerkplek</translation>
-    </message>
-    <message>
         <source>Single window (Ctrl+Shift+T)</source>
         <translation>Één venster (Ctrl+Shift+T)</translation>
     </message>
@@ -201,6 +197,10 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>ADIF exporteren (%1)</translation>
+    </message>
+    <message>
+        <source>Contest Mode</source>
+        <translation>Contestmodus</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1143,120 +1143,6 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
 </context>
 <context>
-    <name>ContestBase</name>
-    <message>
-        <source>CONTEST MODE</source>
-        <translation>CONTESTMODUS</translation>
-    </message>
-    <message>
-        <source>No session open</source>
-        <translation>Geen sessie open</translation>
-    </message>
-    <message>
-        <source>%1 QSO · %2 points · %3 mult · %4</source>
-        <translation>%1 QSO · %2 punten · %3 mult · %4</translation>
-    </message>
-    <message>
-        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
-        <translation>De contestvensters blijven boven dit venster en worden er samen mee geminimaliseerd. Zet ze waar je wilt: daar blijven ze. Per ongeluk een gesloten? Open de werkplek opnieuw.</translation>
-    </message>
-    <message>
-        <source>Open the desk again</source>
-        <translation>Werkplek opnieuw openen</translation>
-    </message>
-    <message>
-        <source>Arrange the windows</source>
-        <translation>Vensters schikken</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>Contestmodus verlaten</translation>
-    </message>
-</context>
-<context>
-    <name>ContestDeskPanel</name>
-    <message>
-        <source>QSO entry</source>
-        <translation>Invoer</translation>
-    </message>
-    <message>
-        <source>Cluster</source>
-        <translation>Cluster</translation>
-    </message>
-    <message>
-        <source>Logbook</source>
-        <translation>Logboek</translation>
-    </message>
-    <message>
-        <source>Callsign card</source>
-        <translation>Roepnaamkaart</translation>
-    </message>
-    <message>
-        <source>Rate</source>
-        <translation>Tempo</translation>
-    </message>
-    <message>
-        <source>Score</source>
-        <translation>Score</translation>
-    </message>
-    <message>
-        <source>Map</source>
-        <translation>Kaart</translation>
-    </message>
-    <message>
-        <source>CW</source>
-        <translation>CW</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>Contestwerkplek</translation>
-    </message>
-    <message>
-        <source>Layout</source>
-        <translation>Indeling</translation>
-    </message>
-    <message>
-        <source>Columns</source>
-        <translation>Kolommen</translation>
-    </message>
-    <message>
-        <source>Centred</source>
-        <translation>Gecentreerd</translation>
-    </message>
-    <message>
-        <source>Two screens</source>
-        <translation>Twee schermen</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>Ook vóór andere programma&apos;s</translation>
-    </message>
-    <message>
-        <source>Cabrillo…</source>
-        <translation>Cabrillo…</translation>
-    </message>
-    <message>
-        <source>Send the log…</source>
-        <translation>Log versturen…</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>Contestmodus verlaten</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO · %3 points · %4 mult</source>
-        <translation>%1 · %2 QSO · %3 punten · %4 mult</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO</source>
-        <translation>%1 · %2 QSO</translation>
-    </message>
-    <message>
-        <source>No session open: Contest → Start session.</source>
-        <translation>Geen sessie open: Contest → Sessie starten.</translation>
-    </message>
-</context>
-<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1280,7 +1166,7 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
     <message>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus</translation>
     </message>
     <message>
         <source>already worked</source>
@@ -1288,7 +1174,7 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
     <message>
         <source>Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Roepnaam</translation>
     </message>
     <message>
         <source>RST s</source>
@@ -2463,10 +2349,6 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>DX Cluster</source>
         <translation>DX-cluster</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>Contestwerkplek</translation>
     </message>
     <message>
         <source>closed</source>
@@ -5465,16 +5347,100 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Diploma&apos;s</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>Cluster ●</translation>
     </message>
     <message>
         <source>Cluster</source>
         <translation>Cluster</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>Contestmodus ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>Contestmodus · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>Contestmodus · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 punten · %4 mult</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Geen sessie open</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>Contests en activaties…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Contestmodus verlaten</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>Contestmodus starten</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>Invoer</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Logboek</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Roepnaamkaart</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Tempo</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Kaart</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Layout: columns</source>
+        <translation>Indeling: kolommen</translation>
+    </message>
+    <message>
+        <source>Layout: centred</source>
+        <translation>Indeling: gecentreerd</translation>
+    </message>
+    <message>
+        <source>Layout: two screens</source>
+        <translation>Indeling: twee schermen</translation>
+    </message>
+    <message>
+        <source>In front of other programs too</source>
+        <translation>Ook vóór andere programma&apos;s</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Log versturen…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5547,10 +5513,6 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Logs</source>
         <translation>Logs</translation>
-    </message>
-    <message>
-        <source>Contest</source>
-        <translation>Contest</translation>
     </message>
     <message>
         <source>syncing…</source>

@@ -139,10 +139,6 @@
         <translation>Эталон</translation>
     </message>
     <message>
-        <source>Contest desk</source>
-        <translation>Рабочее место контеста</translation>
-    </message>
-    <message>
         <source>Single window (Ctrl+Shift+T)</source>
         <translation>Одно окно (Ctrl+Shift+T)</translation>
     </message>
@@ -201,6 +197,10 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>Экспорт ADIF (%1)</translation>
+    </message>
+    <message>
+        <source>Contest Mode</source>
+        <translation>Режим контеста</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1145,120 +1145,6 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
-    <name>ContestBase</name>
-    <message>
-        <source>CONTEST MODE</source>
-        <translation>РЕЖИМ КОНТЕСТА</translation>
-    </message>
-    <message>
-        <source>No session open</source>
-        <translation>Нет открытого сеанса</translation>
-    </message>
-    <message>
-        <source>%1 QSO · %2 points · %3 mult · %4</source>
-        <translation>%1 QSO · %2 очков · %3 множ. · %4</translation>
-    </message>
-    <message>
-        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
-        <translation>Окна контеста остаются поверх этого и сворачиваются вместе с ним. Расставьте их как угодно: они там и останутся. Закрыли одно по ошибке? Откройте рабочее место снова.</translation>
-    </message>
-    <message>
-        <source>Open the desk again</source>
-        <translation>Открыть рабочее место снова</translation>
-    </message>
-    <message>
-        <source>Arrange the windows</source>
-        <translation>Расставить окна</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>Выйти из режима контеста</translation>
-    </message>
-</context>
-<context>
-    <name>ContestDeskPanel</name>
-    <message>
-        <source>QSO entry</source>
-        <translation>Ввод</translation>
-    </message>
-    <message>
-        <source>Cluster</source>
-        <translation>Кластер</translation>
-    </message>
-    <message>
-        <source>Logbook</source>
-        <translation>Аппаратный журнал</translation>
-    </message>
-    <message>
-        <source>Callsign card</source>
-        <translation>Карточка позывного</translation>
-    </message>
-    <message>
-        <source>Rate</source>
-        <translation>Темп</translation>
-    </message>
-    <message>
-        <source>Score</source>
-        <translation>Результат</translation>
-    </message>
-    <message>
-        <source>Map</source>
-        <translation>Карта</translation>
-    </message>
-    <message>
-        <source>CW</source>
-        <translation>CW</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>Рабочее место контеста</translation>
-    </message>
-    <message>
-        <source>Layout</source>
-        <translation>Расположение</translation>
-    </message>
-    <message>
-        <source>Columns</source>
-        <translation>Столбцы</translation>
-    </message>
-    <message>
-        <source>Centred</source>
-        <translation>По центру</translation>
-    </message>
-    <message>
-        <source>Two screens</source>
-        <translation>Два экрана</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>Поверх других программ тоже</translation>
-    </message>
-    <message>
-        <source>Cabrillo…</source>
-        <translation>Cabrillo…</translation>
-    </message>
-    <message>
-        <source>Send the log…</source>
-        <translation>Отправить лог…</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>Выйти из режима контеста</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO · %3 points · %4 mult</source>
-        <translation>%1 · %2 QSO · %3 очков · %4 множ.</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO</source>
-        <translation>%1 · %2 QSO</translation>
-    </message>
-    <message>
-        <source>No session open: Contest → Start session.</source>
-        <translation>Нет открытой сессии: Контест → Открыть сессию.</translation>
-    </message>
-</context>
-<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1282,7 +1168,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим</translation>
     </message>
     <message>
         <source>already worked</source>
@@ -2468,10 +2354,6 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>DX Cluster</source>
         <translation>DX-кластер</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>Рабочее место контеста</translation>
     </message>
     <message>
         <source>closed</source>
@@ -5475,16 +5357,100 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Дипломы</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>Кластер ●</translation>
     </message>
     <message>
         <source>Cluster</source>
         <translation>Кластер</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>Режим контеста ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>Режим контеста · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>Режим контеста · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 очков · %4 множ.</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Нет открытого сеанса</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>Контесты и активации…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Выйти из режима контеста</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>Войти в режим контеста</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>Ввод</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Аппаратный журнал</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Карточка позывного</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Темп</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Результат</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Карта</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Layout: columns</source>
+        <translation>Расположение: столбцы</translation>
+    </message>
+    <message>
+        <source>Layout: centred</source>
+        <translation>Расположение: по центру</translation>
+    </message>
+    <message>
+        <source>Layout: two screens</source>
+        <translation>Расположение: два экрана</translation>
+    </message>
+    <message>
+        <source>In front of other programs too</source>
+        <translation>Поверх других программ тоже</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Отправить лог…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5557,10 +5523,6 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Logs</source>
         <translation>Журналы</translation>
-    </message>
-    <message>
-        <source>Contest</source>
-        <translation>Соревнование</translation>
     </message>
     <message>
         <source>syncing…</source>

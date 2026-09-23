@@ -102,10 +102,10 @@ ApplicationWindow {
     // file nasce quando lo si stacca, e se adesso e' agganciato, in finestra o
     // chiuso. Chiuso vuol dire chiuso davvero: lo spazio non resta vuoto.
     readonly property var panelKeys: ["newqso", "logbook", "callinfo", "cw", "rotor", "ft2", "tabs", "map",
-                                      "contest", "score", "rate", "cluster", "desk"]
+                                      "contest", "score", "rate", "cluster"]
     // Gli ultimi quattro vivono solo in finestra: nel contest ognuno se li
     // mette dove vuole, e nella disposizione agganciata non hanno un posto.
-    readonly property var windowOnlyPanels: ["contest", "score", "rate", "cluster", "desk"]
+    readonly property var windowOnlyPanels: ["contest", "score", "rate", "cluster"]
     function isWindowOnly(key) { return window.windowOnlyPanels.indexOf(key) >= 0 }
 
     function panelTitle(key) {
@@ -122,7 +122,6 @@ ApplicationWindow {
         case "score":    return qsTr("Score and multipliers")
         case "rate":     return qsTr("How it is going")
         case "cluster":  return qsTr("DX Cluster")
-        case "desk":     return qsTr("Contest desk")
         }
         return key
     }
@@ -140,7 +139,6 @@ ApplicationWindow {
         case "score":    return "ContestScorePanel.qml"
         case "rate":     return "ContestRatePanel.qml"
         case "cluster":  return "ClusterPanel.qml"
-        case "desk":     return "ContestDeskPanel.qml"
         }
         return ""
     }
@@ -384,7 +382,9 @@ ApplicationWindow {
     //
     // La CW entra solo se il contest e' in telegrafia: in SSB e' una finestra
     // da spostare e basta.
-    readonly property var contestDeskPanels: ["desk", "contest", "cluster", "logbook", "callinfo",
+    // I comandi del banco stanno nella barra in alto, sotto Contest Mode: una
+    // finestra apposta per i pulsanti era una finestra in piu' da spostare.
+    readonly property var contestDeskPanels: ["contest", "cluster", "logbook", "callinfo",
                                               "rate", "score", "map"]
     // La modalita' contest, come nei programmi da gara: la finestra principale
     // smette di essere il log di tutti i giorni — niente pannello del nuovo QSO,
@@ -467,7 +467,11 @@ ApplicationWindow {
 
     // Il comando che arriva dalla pulsantiera del banco.
     function deskDo(what, arg) {
-        if (what === "toggle") {
+        if (what === "enter") {
+            window.openContestDesk()
+        } else if (what === "session") {
+            activationDialog.openDialog()
+        } else if (what === "toggle") {
             if (window.isPanelDetached(arg))
                 window.closePanel(arg)
             else
@@ -520,8 +524,7 @@ ApplicationWindow {
             // Sotto una certa misura una finestra non mostra piu' niente:
             // meglio che esca dal bordo che darla vuota.
             win.width = Math.round(Math.max(w, 360))
-            win.height = Math.round(Math.max(h, key === "contest" ? 250
-                                                : key === "desk" ? 240 : 190))
+            win.height = Math.round(Math.max(h, key === "contest" ? 250 : 190))
         }
 
         if (which === "centred") {
@@ -530,7 +533,6 @@ ApplicationWindow {
             const side = Math.round(W * 0.24)
             const middle = W - side * 2
             place("cluster", 0, 0, side, H)
-            place("desk", W - side, H - Math.round(H * 0.22), side, Math.round(H * 0.22))
             place("contest", side, 0, middle, Math.round(H * 0.34))
             place("logbook", side, Math.round(H * 0.34), middle, Math.round(H * 0.38))
             place("callinfo", side, Math.round(H * 0.72), Math.round(middle / 2), Math.round(H * 0.28))
@@ -538,7 +540,7 @@ ApplicationWindow {
                   Math.round(middle / 2), Math.round(H * 0.28))
             place("score", W - side, 0, side, Math.round(H * 0.34))
             place("rate", W - side, Math.round(H * 0.34), side, Math.round(H * 0.24))
-            place("map", W - side, Math.round(H * 0.58), side, Math.round(H * 0.20))
+            place("map", W - side, Math.round(H * 0.58), side, Math.round(H * 0.42))
             return
         }
 
@@ -572,9 +574,7 @@ ApplicationWindow {
             put("rate", X + Math.round(SW / 2), Y, Math.round(SW / 2), Math.round(SH * 0.5))
             put("map", X, Y + Math.round(SH * 0.5), Math.round(SW / 2), Math.round(SH * 0.5))
             put("cw", X + Math.round(SW / 2), Y + Math.round(SH * 0.5), Math.round(SW / 2),
-                Math.round(SH * 0.35))
-            put("desk", X + Math.round(SW / 2), Y + Math.round(SH * 0.85), Math.round(SW / 2),
-                Math.round(SH * 0.15))
+                Math.round(SH * 0.5))
             return
         }
 
@@ -591,8 +591,7 @@ ApplicationWindow {
               Math.round(middle / 2), Math.round(H * 0.28))
         place("score", W - right, 0, right, Math.round(H * 0.36))
         place("rate", W - right, Math.round(H * 0.36), right, Math.round(H * 0.26))
-        place("map", W - right, Math.round(H * 0.62), right, Math.round(H * 0.20))
-        place("desk", W - right, Math.round(H * 0.82), right, Math.round(H * 0.18))
+        place("map", W - right, Math.round(H * 0.62), right, Math.round(H * 0.38))
     }
 
     function openRotor() {
@@ -735,6 +734,12 @@ ApplicationWindow {
         else if (what[0] === "updatecheck") { window.panelItem("tabs").setTab(3); decolog.updates.checkNow() }
         else if (what[0] === "updateget") { decolog.updates.checkNow(); updateGetTimer.start() }
         else if (what[0] === "mainmenu") topBar.openMainMenu()
+        // Per le prove: il menu Contest Mode, dentro o fuori dalla modalita'.
+        else if (what[0] === "contestmenu") {
+            if (what[1] === "on")
+                window.openContestDesk()
+            Qt.callLater(topBar.openContestMenu)
+        }
         else if (what[0] === "stats") openStats()
         else if (what[0] === "cards") { openCards(what[1])
                                        if (what[2] === "menu" && cardsWindow.item)
@@ -922,7 +927,7 @@ ApplicationWindow {
         id: switchTimer
         property int left: 0
         property int n: 0
-        readonly property var order: ["contest", "cluster", "logbook", "callinfo", "score", "rate", "map", "desk"]
+        readonly property var order: ["contest", "cluster", "logbook", "callinfo", "score", "rate", "map"]
         interval: 400
         repeat: true
         onTriggered: {
@@ -1140,9 +1145,6 @@ ApplicationWindow {
             onStatsRequested: window.openStats()
             onRotorRequested: window.openRotor()
             onContestRequested: window.openContest()
-            onDeskCommand: (what, arg) => window.deskDo(what, arg)
-            deskOpenPanels: window.detachedPanels
-            deskAllOnTop: window.contestOnTop
         }
     }
 
@@ -1312,6 +1314,10 @@ ApplicationWindow {
             onAwardsRequested: awardsDialog.openAt("")
             onClusterRequested: window.openCluster(0)
             onActivationRequested: activationDialog.openDialog()
+            contestModeOn: window.contestModeOn
+            contestOpenPanels: window.detachedPanels
+            contestOnTop: window.contestOnTop
+            onContestCommand: (what, arg) => window.deskDo(what, arg)
             onProfilesRequested: profilesDialog.open()
             closedPanels: window.hiddenPanels.length
             onPanelsRequested: panelsPopup.opened ? panelsPopup.close() : panelsPopup.open()
@@ -1564,9 +1570,6 @@ ApplicationWindow {
         height: verticalSplit.height
         z: 20
         visible: window.contestModeOn
-        onArrangeRequested: window.arrangeContestDesk(layout.contestDeskLayout || "columns")
-        onExitRequested: window.exitContestMode()
-        onDeskRequested: window.openContestDesk()
     }
 
     Component {

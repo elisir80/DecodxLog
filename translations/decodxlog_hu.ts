@@ -139,10 +139,6 @@
         <translation>Referencia</translation>
     </message>
     <message>
-        <source>Contest desk</source>
-        <translation>Contest-munkahely</translation>
-    </message>
-    <message>
         <source>Single window (Ctrl+Shift+T)</source>
         <translation>Egyetlen ablak (Ctrl+Shift+T)</translation>
     </message>
@@ -201,6 +197,10 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>ADIF exportálása (%1)</translation>
+    </message>
+    <message>
+        <source>Contest Mode</source>
+        <translation>Contest mód</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1138,120 +1138,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Save rule</source>
         <translation>Szabály mentése</translation>
-    </message>
-</context>
-<context>
-    <name>ContestBase</name>
-    <message>
-        <source>CONTEST MODE</source>
-        <translation>CONTEST MÓD</translation>
-    </message>
-    <message>
-        <source>No session open</source>
-        <translation>Nincs nyitott munkamenet</translation>
-    </message>
-    <message>
-        <source>%1 QSO · %2 points · %3 mult · %4</source>
-        <translation>%1 QSO · %2 pont · %3 szorzó · %4</translation>
-    </message>
-    <message>
-        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
-        <translation>A verseny ablakai ezen az ablakon maradnak, és vele együtt kicsinyítik őket. Tedd őket, ahová akarod: ott maradnak. Véletlenül bezártál egyet? Nyisd meg újra a munkahelyet.</translation>
-    </message>
-    <message>
-        <source>Open the desk again</source>
-        <translation>Munkahely újranyitása</translation>
-    </message>
-    <message>
-        <source>Arrange the windows</source>
-        <translation>Ablakok elrendezése</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>Kilépés a contest módból</translation>
-    </message>
-</context>
-<context>
-    <name>ContestDeskPanel</name>
-    <message>
-        <source>QSO entry</source>
-        <translation>Bevitel</translation>
-    </message>
-    <message>
-        <source>Cluster</source>
-        <translation>Klaszter</translation>
-    </message>
-    <message>
-        <source>Logbook</source>
-        <translation>Napló</translation>
-    </message>
-    <message>
-        <source>Callsign card</source>
-        <translation>Hívójel-karton</translation>
-    </message>
-    <message>
-        <source>Rate</source>
-        <translation>Tempo</translation>
-    </message>
-    <message>
-        <source>Score</source>
-        <translation>Eredmény</translation>
-    </message>
-    <message>
-        <source>Map</source>
-        <translation>Térkép</translation>
-    </message>
-    <message>
-        <source>CW</source>
-        <translation>CW</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>Contest-munkahely</translation>
-    </message>
-    <message>
-        <source>Layout</source>
-        <translation>Elrendezés</translation>
-    </message>
-    <message>
-        <source>Columns</source>
-        <translation>Oszlopok</translation>
-    </message>
-    <message>
-        <source>Centred</source>
-        <translation>Középen</translation>
-    </message>
-    <message>
-        <source>Two screens</source>
-        <translation>Két képernyő</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>Más programok előtt is</translation>
-    </message>
-    <message>
-        <source>Cabrillo…</source>
-        <translation>Cabrillo…</translation>
-    </message>
-    <message>
-        <source>Send the log…</source>
-        <translation>Napló küldése…</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>Kilépés a contest módból</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO · %3 points · %4 mult</source>
-        <translation>%1 · %2 QSO · %3 pont · %4 szorzó</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO</source>
-        <translation>%1 · %2 QSO</translation>
-    </message>
-    <message>
-        <source>No session open: Contest → Start session.</source>
-        <translation>Nincs nyitott munkamenet: Contest → Munkamenet indítása.</translation>
     </message>
 </context>
 <context>
@@ -2458,10 +2344,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>DX Cluster</source>
         <translation>DX Cluster</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>Contest-munkahely</translation>
     </message>
     <message>
         <source>closed</source>
@@ -5455,16 +5337,100 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Diplomák</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>Cluster ●</translation>
     </message>
     <message>
         <source>Cluster</source>
         <translation>Klaszter</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>Contest mód ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>Contest mód · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>Contest mód · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 pont · %4 szorzó</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Nincs nyitott munkamenet</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>Versenyek és aktiválások…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Kilépés a contest módból</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>Belépés contest módba</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>Bevitel</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Napló</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Hívójel-karton</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Tempo</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Eredmény</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Térkép</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Layout: columns</source>
+        <translation>Elrendezés: oszlopok</translation>
+    </message>
+    <message>
+        <source>Layout: centred</source>
+        <translation>Elrendezés: középen</translation>
+    </message>
+    <message>
+        <source>Layout: two screens</source>
+        <translation>Elrendezés: két képernyő</translation>
+    </message>
+    <message>
+        <source>In front of other programs too</source>
+        <translation>Más programok előtt is</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Napló küldése…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5537,10 +5503,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Logs</source>
         <translation>Naplók</translation>
-    </message>
-    <message>
-        <source>Contest</source>
-        <translation>Verseny</translation>
     </message>
     <message>
         <source>syncing…</source>

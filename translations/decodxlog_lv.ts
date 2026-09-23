@@ -139,10 +139,6 @@
         <translation>Atsauce</translation>
     </message>
     <message>
-        <source>Contest desk</source>
-        <translation>Konkursa darbavieta</translation>
-    </message>
-    <message>
         <source>Single window (Ctrl+Shift+T)</source>
         <translation>Viens logs (Ctrl+Shift+T)</translation>
     </message>
@@ -201,6 +197,10 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>Eksportēt ADIF (%1)</translation>
+    </message>
+    <message>
+        <source>Contest Mode</source>
+        <translation>Konkursa režīms</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1145,120 +1145,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
-    <name>ContestBase</name>
-    <message>
-        <source>CONTEST MODE</source>
-        <translation>KONKURSA REŽĪMS</translation>
-    </message>
-    <message>
-        <source>No session open</source>
-        <translation>Nav atvērtas sesijas</translation>
-    </message>
-    <message>
-        <source>%1 QSO · %2 points · %3 mult · %4</source>
-        <translation>%1 QSO · %2 punkti · %3 reiz. · %4</translation>
-    </message>
-    <message>
-        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
-        <translation>Konkursa logi paliek virs šī loga un tiek samazināti kopā ar to. Noliec tos, kur vēlies: tie tur paliek. Nejauši aizvēri kādu? Atver darbavietu vēlreiz.</translation>
-    </message>
-    <message>
-        <source>Open the desk again</source>
-        <translation>Atvērt darbavietu vēlreiz</translation>
-    </message>
-    <message>
-        <source>Arrange the windows</source>
-        <translation>Sakārtot logus</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>Iziet no konkursa režīma</translation>
-    </message>
-</context>
-<context>
-    <name>ContestDeskPanel</name>
-    <message>
-        <source>QSO entry</source>
-        <translation>Ievade</translation>
-    </message>
-    <message>
-        <source>Cluster</source>
-        <translation>Klasteris</translation>
-    </message>
-    <message>
-        <source>Logbook</source>
-        <translation>Žurnāls</translation>
-    </message>
-    <message>
-        <source>Callsign card</source>
-        <translation>Izsaukuma karte</translation>
-    </message>
-    <message>
-        <source>Rate</source>
-        <translation>Temps</translation>
-    </message>
-    <message>
-        <source>Score</source>
-        <translation>Rezultāts</translation>
-    </message>
-    <message>
-        <source>Map</source>
-        <translation>Karte</translation>
-    </message>
-    <message>
-        <source>CW</source>
-        <translation>CW</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>Konkursa darbavieta</translation>
-    </message>
-    <message>
-        <source>Layout</source>
-        <translation>Izkārtojums</translation>
-    </message>
-    <message>
-        <source>Columns</source>
-        <translation>Kolonnas</translation>
-    </message>
-    <message>
-        <source>Centred</source>
-        <translation>Centrā</translation>
-    </message>
-    <message>
-        <source>Two screens</source>
-        <translation>Divi ekrāni</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>Arī citu programmu priekšā</translation>
-    </message>
-    <message>
-        <source>Cabrillo…</source>
-        <translation>Cabrillo…</translation>
-    </message>
-    <message>
-        <source>Send the log…</source>
-        <translation>Sūtīt žurnālu…</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>Iziet no konkursa režīma</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO · %3 points · %4 mult</source>
-        <translation>%1 · %2 QSO · %3 punkti · %4 reiz.</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO</source>
-        <translation>%1 · %2 QSO</translation>
-    </message>
-    <message>
-        <source>No session open: Contest → Start session.</source>
-        <translation>Nav atvērtas sesijas: Konkurss → Sākt sesiju.</translation>
-    </message>
-</context>
-<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1278,11 +1164,11 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>Band</source>
-        <translation type="unfinished"></translation>
+        <translation>Band</translation>
     </message>
     <message>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode</translation>
     </message>
     <message>
         <source>already worked</source>
@@ -1290,7 +1176,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Callsign</translation>
     </message>
     <message>
         <source>RST s</source>
@@ -2373,7 +2259,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name</translation>
     </message>
     <message>
         <source>CQ WW SSB 2026</source>
@@ -2468,10 +2354,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>DX Cluster</source>
         <translation>DX Cluster</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>Konkursa darbavieta</translation>
     </message>
     <message>
         <source>closed</source>
@@ -5475,16 +5357,100 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Diplomi</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>Klasteris ●</translation>
     </message>
     <message>
         <source>Cluster</source>
         <translation>Klasteris</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>Konkursa režīms ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>Konkursa režīms · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>Konkursa režīms · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 punkti · %4 reiz.</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Nav atvērtas sesijas</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>Konkursi un aktivizācijas…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Iziet no konkursa režīma</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>Ieslēgt konkursa režīmu</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>Ievade</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Žurnāls</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Izsaukuma karte</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Temps</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Rezultāts</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Karte</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Layout: columns</source>
+        <translation>Izkārtojums: kolonnas</translation>
+    </message>
+    <message>
+        <source>Layout: centred</source>
+        <translation>Izkārtojums: centrā</translation>
+    </message>
+    <message>
+        <source>Layout: two screens</source>
+        <translation>Izkārtojums: divi ekrāni</translation>
+    </message>
+    <message>
+        <source>In front of other programs too</source>
+        <translation>Arī citu programmu priekšā</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Sūtīt žurnālu…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5557,10 +5523,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Logs</source>
         <translation>Žurnāli</translation>
-    </message>
-    <message>
-        <source>Contest</source>
-        <translation>Sacensības</translation>
     </message>
     <message>
         <source>syncing…</source>

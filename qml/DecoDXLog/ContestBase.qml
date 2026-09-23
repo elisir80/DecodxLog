@@ -2,34 +2,14 @@
 //
 // In gara la finestra grande non mostra il log di tutti i giorni: niente
 // pannello del nuovo QSO, niente schede di diplomi e statistiche. Sta sotto, e
-// sopra di lei stanno le finestre della gara, raggruppate. Qui resta solo
-// quello che serve a ritrovarsi: la gara, i conti, e i tre pulsanti per
-// rimettere a posto le finestre, riaprirle se si sono chiuse, o uscire.
+// sopra di lei stanno le finestre della gara. Non ha scritte ne' pulsanti: tutto
+// quello che serve sta nella barra in alto, sotto Contest Mode, e qui resta
+// spazio libero per le finestre.
 import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
 import Decodium.UI
 
 Rectangle {
     id: root
-
-    signal arrangeRequested()
-    signal exitRequested()
-    signal deskRequested()
-
-    property int revision: 0
-    readonly property var act: decolog.activation
-    readonly property var session: { revision; return act.state }
-    readonly property var scoring: { revision; return act.score() }
-
-    Connections {
-        target: decolog.activation
-        function onChanged() { root.revision++ }
-    }
-    Connections {
-        target: decolog
-        function onLogChanged() { root.revision++ }
-    }
 
     color: Theme.bgDeep
 
@@ -60,67 +40,5 @@ Rectangle {
         }
         onWidthChanged: requestPaint()
         onHeightChanged: requestPaint()
-    }
-
-    ColumnLayout {
-        anchors.centerIn: parent
-        spacing: 10
-        width: Math.min(560, root.width - 40)
-
-        Text {
-            Layout.alignment: Qt.AlignHCenter
-            text: qsTr("CONTEST MODE")
-            color: Theme.accentColor
-            font.family: Theme.monoFamily
-            font.pixelSize: 13
-            font.bold: true
-            font.letterSpacing: 3
-        }
-        Text {
-            Layout.alignment: Qt.AlignHCenter
-            text: root.session.title || qsTr("No session open")
-            color: Theme.textPrimary
-            font.family: Theme.monoFamily
-            font.pixelSize: 26
-            font.bold: true
-        }
-        Text {
-            Layout.alignment: Qt.AlignHCenter
-            visible: root.scoring.valid
-            text: qsTr("%1 QSO · %2 points · %3 mult · %4")
-                      .arg(root.session.qsoCount || 0).arg(root.scoring.points || 0)
-                      .arg(root.scoring.multipliers || 0).arg(root.scoring.score || 0)
-            color: Theme.textSecondary
-            font.family: Theme.monoFamily
-            font.pixelSize: 14
-        }
-        Text {
-            Layout.fillWidth: true
-            horizontalAlignment: Text.AlignHCenter
-            wrapMode: Text.Wrap
-            text: qsTr("The contest windows stay on top of this one and are minimised with it. Put "
-                       + "them where you like: they stay there. Closed one by mistake? Open the desk again.")
-            color: Theme.textSecondary
-            font.pixelSize: 12
-        }
-        RowLayout {
-            Layout.alignment: Qt.AlignHCenter
-            spacing: 8
-            GlassButton {
-                text: qsTr("Open the desk again")
-                tone: Theme.accentColor
-                onClicked: root.deskRequested()
-            }
-            GlassButton {
-                text: qsTr("Arrange the windows")
-                tone: Theme.primaryColor
-                onClicked: root.arrangeRequested()
-            }
-            GlassButton {
-                text: qsTr("Leave contest mode")
-                tone: Theme.errorColor
-                onClicked: root.exitRequested()
-            }
-        }
     }
 }

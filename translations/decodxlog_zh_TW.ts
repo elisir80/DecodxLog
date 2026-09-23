@@ -139,10 +139,6 @@
         <translation>參考</translation>
     </message>
     <message>
-        <source>Contest desk</source>
-        <translation>競賽工作台</translation>
-    </message>
-    <message>
         <source>Single window (Ctrl+Shift+T)</source>
         <translation>單一視窗 (Ctrl+Shift+T)</translation>
     </message>
@@ -201,6 +197,10 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>匯出 ADIF (%1)</translation>
+    </message>
+    <message>
+        <source>Contest Mode</source>
+        <translation>競賽模式</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1141,120 +1141,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
 </context>
 <context>
-    <name>ContestBase</name>
-    <message>
-        <source>CONTEST MODE</source>
-        <translation>競賽模式</translation>
-    </message>
-    <message>
-        <source>No session open</source>
-        <translation>沒有開啟的會話</translation>
-    </message>
-    <message>
-        <source>%1 QSO · %2 points · %3 mult · %4</source>
-        <translation>%1 QSO · %2 分 · %3 倍增 · %4</translation>
-    </message>
-    <message>
-        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
-        <translation>競賽視窗始終在這個視窗之上，並隨它一起最小化。隨你擺放，它們會留在原處。誤關了一個？重新打開工作台。</translation>
-    </message>
-    <message>
-        <source>Open the desk again</source>
-        <translation>重新打開工作台</translation>
-    </message>
-    <message>
-        <source>Arrange the windows</source>
-        <translation>排列視窗</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>離開競賽模式</translation>
-    </message>
-</context>
-<context>
-    <name>ContestDeskPanel</name>
-    <message>
-        <source>QSO entry</source>
-        <translation>鍵入</translation>
-    </message>
-    <message>
-        <source>Cluster</source>
-        <translation>叢集</translation>
-    </message>
-    <message>
-        <source>Logbook</source>
-        <translation>日誌</translation>
-    </message>
-    <message>
-        <source>Callsign card</source>
-        <translation>呼號卡片</translation>
-    </message>
-    <message>
-        <source>Rate</source>
-        <translation>速度</translation>
-    </message>
-    <message>
-        <source>Score</source>
-        <translation>總分</translation>
-    </message>
-    <message>
-        <source>Map</source>
-        <translation>地圖</translation>
-    </message>
-    <message>
-        <source>CW</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>競賽工作台</translation>
-    </message>
-    <message>
-        <source>Layout</source>
-        <translation>佈局</translation>
-    </message>
-    <message>
-        <source>Columns</source>
-        <translation>欄</translation>
-    </message>
-    <message>
-        <source>Centred</source>
-        <translation>置中</translation>
-    </message>
-    <message>
-        <source>Two screens</source>
-        <translation>雙螢幕</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>也顯示在其他程式前面</translation>
-    </message>
-    <message>
-        <source>Cabrillo…</source>
-        <translation>Cabrillo…</translation>
-    </message>
-    <message>
-        <source>Send the log…</source>
-        <translation>傳送日誌…</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>離開競賽模式</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO · %3 points · %4 mult</source>
-        <translation>%1 · %2 QSO · %3 分 · %4 倍增</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO</source>
-        <translation>%1 · %2 QSO</translation>
-    </message>
-    <message>
-        <source>No session open: Contest → Start session.</source>
-        <translation>沒有打開的對話：競賽 → 開啟對話。</translation>
-    </message>
-</context>
-<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1274,7 +1160,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>Band</source>
-        <translation type="unfinished"></translation>
+        <translation>波段</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -2458,10 +2344,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>DX Cluster</source>
         <translation>DX 集群</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>競賽工作台</translation>
     </message>
     <message>
         <source>closed</source>
@@ -5455,16 +5337,100 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>獎狀</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>叢集 ●</translation>
     </message>
     <message>
         <source>Cluster</source>
         <translation>叢集</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>競賽模式 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>競賽模式 · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>競賽模式 · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 分 · %4 倍增</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>沒有開啟的會話</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>競賽與啟用…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>離開競賽模式</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>進入競賽模式</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>鍵入</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>日誌</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>呼號卡片</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>速度</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>總分</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>地圖</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>連續波</translation>
+    </message>
+    <message>
+        <source>Layout: columns</source>
+        <translation>版面：分欄</translation>
+    </message>
+    <message>
+        <source>Layout: centred</source>
+        <translation>版面：置中</translation>
+    </message>
+    <message>
+        <source>Layout: two screens</source>
+        <translation>版面：雙螢幕</translation>
+    </message>
+    <message>
+        <source>In front of other programs too</source>
+        <translation>也顯示在其他程式前面</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>傳送日誌…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5537,10 +5503,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Logs</source>
         <translation>日誌</translation>
-    </message>
-    <message>
-        <source>Contest</source>
-        <translation>比賽</translation>
     </message>
     <message>
         <source>syncing…</source>

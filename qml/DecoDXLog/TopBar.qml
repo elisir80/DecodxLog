@@ -28,6 +28,16 @@ Rectangle {
     // sparito non e' un pannello perso.
     property int closedPanels: 0
 
+    // Contest Mode: tutto quello che serve in gara sta in un menu solo, qui in
+    // alto: la sessione, entrare e uscire, le finestre, le disposizioni, il
+    // Cabrillo e l'invio del log. Il comando va alla finestra principale, che
+    // e' l'unica che sa dove sono le finestre.
+    signal contestCommand(string what, string arg)
+    property bool contestModeOn: false
+    property var contestOpenPanels: []
+    property bool contestOnTop: false
+    function openContestMenu() { contestMenu.popup(contestButton, 0, contestButton.height + 6) }
+
     function focusSearch() {
         searchField.forceActiveFocus()
         searchField.selectAll()
@@ -257,14 +267,113 @@ Rectangle {
             GlassButton { text: qsTr("Export"); onClicked: root.exportRequested() }
             GlassButton { text: qsTr("Awards"); onClicked: root.awardsRequested() }
             GlassButton {
+                id: contestButton
                 readonly property var act: decolog.activation
-                text: act.active
-                      ? qsTr("%1 · %2/%3").arg(act.state.title).arg(act.qsoCount).arg(act.requiredQsos > 0 ? act.requiredQsos : act.qsoCount)
-                      : qsTr("Contest")
-                tone: !act.active ? "transparent"
-                      : act.requiredQsos > 0 && act.qsoCount < act.requiredQsos ? Theme.warningColor : Theme.accentColor
-                filled: act.active
-                onClicked: root.activationRequested()
+                // La sessione in corto: il nome della gara senza "Contest"
+                // davanti, e i QSO — su quanti ne servono, per le attivazioni.
+                readonly property string shortTitle: String(act.state.title || "").replace(/^Contest /, "")
+                text: !act.active ? qsTr("Contest Mode ▾")
+                      : act.requiredQsos > 0
+                        ? qsTr("Contest Mode · %1 · %2/%3 ▾").arg(shortTitle).arg(act.qsoCount).arg(act.requiredQsos)
+                        : qsTr("Contest Mode · %1 · %2 QSO ▾").arg(shortTitle).arg(act.qsoCount)
+                tone: root.contestModeOn ? Theme.accentColor
+                      : !act.active ? "transparent"
+                      : act.requiredQsos > 0 && act.qsoCount < act.requiredQsos ? Theme.warningColor : Theme.primaryColor
+                filled: root.contestModeOn
+                onClicked: contestMenu.opened ? contestMenu.close() : root.openContestMenu()
+
+                StyledMenu {
+                    id: contestMenu
+                    readonly property var act: decolog.activation
+                    property var scoring: ({})
+                    // Il conto si chiede quando il menu si apre, non a ogni QSO.
+                    onAboutToShow: {
+                        contestMenu.scoring = act.active ? act.score() : ({})
+                        scoreLine.text = act.active
+                            ? (contestMenu.scoring.valid
+                               ? qsTr("%1 · %2 QSO · %3 points · %4 mult").arg(act.state.title || "")
+                                     .arg(act.qsoCount).arg(contestMenu.scoring.points || 0)
+                                     .arg(contestMenu.scoring.multipliers || 0)
+                               : qsTr("%1 · %2 QSO").arg(act.state.title || "").arg(act.qsoCount))
+                            : qsTr("No session open")
+                    }
+
+                    function isOpen(key) { return root.contestOpenPanels.indexOf(key) >= 0 }
+
+                    // Com'e' andata finora, in una riga: non si clicca.
+                    StyledMenuItem { id: scoreLine; enabled: false }
+                    StyledMenuItem {
+                        text: qsTr("Contest and activations…")
+                        onTriggered: root.contestCommand("session", "")
+                    }
+                    MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
+                    StyledMenuItem {
+                        text: root.contestModeOn ? qsTr("Leave contest mode") : qsTr("Enter contest mode")
+                        // Si entra con una sessione aperta: senza, le finestre
+                        // della gara non avrebbero niente da mostrare.
+                        enabled: root.contestModeOn || contestMenu.act.active
+                        onTriggered: root.contestCommand(root.contestModeOn ? "exit" : "enter", "")
+                    }
+                    MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
+                    // Le finestre della gara: spuntata vuol dire aperta.
+                    Instantiator {
+                        model: [
+                            { key: "contest", label: qsTr("QSO entry") },
+                            { key: "cluster", label: qsTr("Cluster") },
+                            { key: "logbook", label: qsTr("Logbook") },
+                            { key: "callinfo", label: qsTr("Callsign card") },
+                            { key: "rate", label: qsTr("Rate") },
+                            { key: "score", label: qsTr("Score") },
+                            { key: "map", label: qsTr("Map") },
+                            { key: "cw", label: qsTr("CW") }
+                        ]
+                        delegate: StyledMenuItem {
+                            required property var modelData
+                            text: modelData.label
+                            checkable: true
+                            checked: contestMenu.isOpen(modelData.key)
+                            enabled: root.contestModeOn
+                            onTriggered: root.contestCommand("toggle", modelData.key)
+                        }
+                        onObjectAdded: (index, object) => contestMenu.insertItem(5 + index, object)
+                        onObjectRemoved: (index, object) => contestMenu.removeItem(object)
+                    }
+                    MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
+                    StyledMenuItem {
+                        text: qsTr("Layout: columns")
+                        enabled: root.contestModeOn
+                        onTriggered: root.contestCommand("arrange", "columns")
+                    }
+                    StyledMenuItem {
+                        text: qsTr("Layout: centred")
+                        enabled: root.contestModeOn
+                        onTriggered: root.contestCommand("arrange", "centred")
+                    }
+                    StyledMenuItem {
+                        text: qsTr("Layout: two screens")
+                        enabled: root.contestModeOn
+                        onTriggered: root.contestCommand("arrange", "two")
+                    }
+                    StyledMenuItem {
+                        text: qsTr("In front of other programs too")
+                        checkable: true
+                        checked: root.contestOnTop
+                        enabled: root.contestModeOn
+                        onTriggered: root.contestCommand("ontop", root.contestOnTop ? "0" : "1")
+                    }
+                    MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
+                    StyledMenuItem {
+                        text: qsTr("Cabrillo…")
+                        onTriggered: root.contestCommand("export", "")
+                    }
+                    StyledMenuItem {
+                        // Ogni contest ha il suo posto dove si manda il log: il
+                        // programma ci porta, con il Cabrillo gia' scritto.
+                        text: qsTr("Send the log…")
+                        enabled: contestMenu.scoring.valid === true
+                        onTriggered: root.contestCommand("submit", "")
+                    }
+                }
             }
             GlassButton {
                 text: decolog.cluster.onlineCount > 0 ? qsTr("Cluster ●") : qsTr("Cluster")

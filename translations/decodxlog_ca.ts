@@ -139,10 +139,6 @@
         <translation>Referència</translation>
     </message>
     <message>
-        <source>Contest desk</source>
-        <translation>Lloc de concurs</translation>
-    </message>
-    <message>
         <source>Single window (Ctrl+Shift+T)</source>
         <translation>Finestra única (Ctrl+Shift+T)</translation>
     </message>
@@ -201,6 +197,10 @@
     <message>
         <source>Export ADIF (%1)</source>
         <translation>Exporta ADIF (%1)</translation>
+    </message>
+    <message>
+        <source>Contest Mode</source>
+        <translation>Mode concurs</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1140,120 +1140,6 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Save rule</source>
         <translation>Desa la regla</translation>
-    </message>
-</context>
-<context>
-    <name>ContestBase</name>
-    <message>
-        <source>CONTEST MODE</source>
-        <translation>MODE CONCURS</translation>
-    </message>
-    <message>
-        <source>No session open</source>
-        <translation>Cap sessió oberta</translation>
-    </message>
-    <message>
-        <source>%1 QSO · %2 points · %3 mult · %4</source>
-        <translation>%1 QSO · %2 punts · %3 mult · %4</translation>
-    </message>
-    <message>
-        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
-        <translation>Les finestres del concurs queden damunt d&apos;aquesta i es minimitzen amb ella. Posa-les on vulguis: s&apos;hi queden. N&apos;has tancat una per error? Torna a obrir el lloc.</translation>
-    </message>
-    <message>
-        <source>Open the desk again</source>
-        <translation>Torna a obrir el lloc</translation>
-    </message>
-    <message>
-        <source>Arrange the windows</source>
-        <translation>Col·loca les finestres</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>Surt del mode concurs</translation>
-    </message>
-</context>
-<context>
-    <name>ContestDeskPanel</name>
-    <message>
-        <source>QSO entry</source>
-        <translation>Entrada</translation>
-    </message>
-    <message>
-        <source>Cluster</source>
-        <translation>Clúster</translation>
-    </message>
-    <message>
-        <source>Logbook</source>
-        <translation>Registre</translation>
-    </message>
-    <message>
-        <source>Callsign card</source>
-        <translation>Fitxa de l&apos;indicatiu</translation>
-    </message>
-    <message>
-        <source>Rate</source>
-        <translation>Ritme</translation>
-    </message>
-    <message>
-        <source>Score</source>
-        <translation>Puntuació</translation>
-    </message>
-    <message>
-        <source>Map</source>
-        <translation>Mapa</translation>
-    </message>
-    <message>
-        <source>CW</source>
-        <translation>CW</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>Lloc de concurs</translation>
-    </message>
-    <message>
-        <source>Layout</source>
-        <translation>Disposició</translation>
-    </message>
-    <message>
-        <source>Columns</source>
-        <translation>Columnes</translation>
-    </message>
-    <message>
-        <source>Centred</source>
-        <translation>Al centre</translation>
-    </message>
-    <message>
-        <source>Two screens</source>
-        <translation>Dues pantalles</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>Davant també d&apos;altres programes</translation>
-    </message>
-    <message>
-        <source>Cabrillo…</source>
-        <translation>Cabrillo…</translation>
-    </message>
-    <message>
-        <source>Send the log…</source>
-        <translation>Envia el registre…</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>Surt del mode concurs</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO · %3 points · %4 mult</source>
-        <translation>%1 · %2 QSO · %3 punts · %4 mult</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO</source>
-        <translation>%1 · %2 QSO</translation>
-    </message>
-    <message>
-        <source>No session open: Contest → Start session.</source>
-        <translation>Cap sessió oberta: Concurs → Obre la sessió.</translation>
     </message>
 </context>
 <context>
@@ -2463,10 +2349,6 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>DX Cluster</source>
         <translation>Clúster DX</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>Lloc de concurs</translation>
     </message>
     <message>
         <source>closed</source>
@@ -5465,16 +5347,100 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Diplomes</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>Clúster ●</translation>
     </message>
     <message>
         <source>Cluster</source>
         <translation>Clúster</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>Mode concurs ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>Mode concurs · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>Mode concurs · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 punts · %4 mult</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Cap sessió oberta</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>Concursos i activacions…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Surt del mode concurs</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>Entra en mode concurs</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>Entrada</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Registre</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Fitxa de l&apos;indicatiu</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Ritme</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Puntuació</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Mapa</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Layout: columns</source>
+        <translation>Disposició: columnes</translation>
+    </message>
+    <message>
+        <source>Layout: centred</source>
+        <translation>Disposició: al centre</translation>
+    </message>
+    <message>
+        <source>Layout: two screens</source>
+        <translation>Disposició: dues pantalles</translation>
+    </message>
+    <message>
+        <source>In front of other programs too</source>
+        <translation>Davant també d&apos;altres programes</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Envia el registre…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5547,10 +5513,6 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Logs</source>
         <translation>Registres</translation>
-    </message>
-    <message>
-        <source>Contest</source>
-        <translation>Contest</translation>
     </message>
     <message>
         <source>syncing…</source>

@@ -65,7 +65,9 @@ QString Activation::defaultTag() const
 
 QString Activation::title() const
 {
-    const QString label = QLatin1String(infoFor(kind).label);
+    // In UTF-8: la lineetta di "nessuna sessione" letta come Latin-1 usciva
+    // come tre caratteri senza senso.
+    const QString label = QString::fromUtf8(infoFor(kind).label);
     if (!reference.isEmpty())
         return QStringLiteral("%1 %2").arg(label, reference);
     if (!contestId.isEmpty())

@@ -139,10 +139,6 @@
         <translation>Referință</translation>
     </message>
     <message>
-        <source>Contest desk</source>
-        <translation>Postul de concurs</translation>
-    </message>
-    <message>
         <source>Single window (Ctrl+Shift+T)</source>
         <translation>Fereastră unică (Ctrl+Shift+T)</translation>
     </message>
@@ -203,6 +199,10 @@
         <translation>Exportă ADIF (%1)</translation>
     </message>
     <message>
+        <source>Contest Mode</source>
+        <translation>Mod concurs</translation>
+    </message>
+    <message>
         <source>Close</source>
         <translation>Închide</translation>
     </message>
@@ -236,7 +236,7 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Anulează</translation>
     </message>
 </context>
 <context>
@@ -1142,120 +1142,6 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Save rule</source>
         <translation>Salvează regula</translation>
-    </message>
-</context>
-<context>
-    <name>ContestBase</name>
-    <message>
-        <source>CONTEST MODE</source>
-        <translation>MOD CONCURS</translation>
-    </message>
-    <message>
-        <source>No session open</source>
-        <translation>Nicio sesiune deschisă</translation>
-    </message>
-    <message>
-        <source>%1 QSO · %2 points · %3 mult · %4</source>
-        <translation>%1 QSO · %2 puncte · %3 mult · %4</translation>
-    </message>
-    <message>
-        <source>The contest windows stay on top of this one and are minimised with it. Put them where you like: they stay there. Closed one by mistake? Open the desk again.</source>
-        <translation>Ferestrele concursului stau deasupra acesteia și se minimizează odată cu ea. Pune-le unde vrei: rămân acolo. Ai închis una din greșeală? Redeschide postul.</translation>
-    </message>
-    <message>
-        <source>Open the desk again</source>
-        <translation>Redeschide postul</translation>
-    </message>
-    <message>
-        <source>Arrange the windows</source>
-        <translation>Aranjează ferestrele</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>Ieși din modul concurs</translation>
-    </message>
-</context>
-<context>
-    <name>ContestDeskPanel</name>
-    <message>
-        <source>QSO entry</source>
-        <translation>Introducere</translation>
-    </message>
-    <message>
-        <source>Cluster</source>
-        <translation>Cluster</translation>
-    </message>
-    <message>
-        <source>Logbook</source>
-        <translation>Jurnal</translation>
-    </message>
-    <message>
-        <source>Callsign card</source>
-        <translation>Fișa indicativului</translation>
-    </message>
-    <message>
-        <source>Rate</source>
-        <translation>Ritm</translation>
-    </message>
-    <message>
-        <source>Score</source>
-        <translation>Scor</translation>
-    </message>
-    <message>
-        <source>Map</source>
-        <translation>Hartă</translation>
-    </message>
-    <message>
-        <source>CW</source>
-        <translation>CW</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>Postul de concurs</translation>
-    </message>
-    <message>
-        <source>Layout</source>
-        <translation>Așezare</translation>
-    </message>
-    <message>
-        <source>Columns</source>
-        <translation>Coloane</translation>
-    </message>
-    <message>
-        <source>Centred</source>
-        <translation>În centru</translation>
-    </message>
-    <message>
-        <source>Two screens</source>
-        <translation>Două ecrane</translation>
-    </message>
-    <message>
-        <source>In front of other programs too</source>
-        <translation>Și în fața altor programe</translation>
-    </message>
-    <message>
-        <source>Cabrillo…</source>
-        <translation>Cabrillo…</translation>
-    </message>
-    <message>
-        <source>Send the log…</source>
-        <translation>Trimite jurnalul…</translation>
-    </message>
-    <message>
-        <source>Leave contest mode</source>
-        <translation>Ieși din modul concurs</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO · %3 points · %4 mult</source>
-        <translation>%1 · %2 QSO · %3 puncte · %4 mult</translation>
-    </message>
-    <message>
-        <source>%1 · %2 QSO</source>
-        <translation>%1 · %2 QSO</translation>
-    </message>
-    <message>
-        <source>No session open: Contest → Start session.</source>
-        <translation>Nicio sesiune deschisă: Concurs → Deschide sesiunea.</translation>
     </message>
 </context>
 <context>
@@ -2468,10 +2354,6 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>DX Cluster</source>
         <translation>Cluster DX</translation>
-    </message>
-    <message>
-        <source>Contest desk</source>
-        <translation>Postul de concurs</translation>
     </message>
     <message>
         <source>closed</source>
@@ -5475,16 +5357,100 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Diplome</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
         <source>Cluster ●</source>
         <translation>Cluster ●</translation>
     </message>
     <message>
         <source>Cluster</source>
         <translation>Cluster</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>Mod concurs ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>Mod concurs · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>Mod concurs · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 puncte · %4 mult</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Nicio sesiune deschisă</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>Concursuri și activări…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Ieși din modul concurs</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>Intră în modul concurs</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>Introducere</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Jurnal</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Fișa indicativului</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Ritm</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Scor</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Hartă</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Layout: columns</source>
+        <translation>Aranjare: coloane</translation>
+    </message>
+    <message>
+        <source>Layout: centred</source>
+        <translation>Aranjare: centrat</translation>
+    </message>
+    <message>
+        <source>Layout: two screens</source>
+        <translation>Aranjare: două ecrane</translation>
+    </message>
+    <message>
+        <source>In front of other programs too</source>
+        <translation>Și în fața altor programe</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Trimite jurnalul…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5557,10 +5523,6 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Logs</source>
         <translation>Jurnale</translation>
-    </message>
-    <message>
-        <source>Contest</source>
-        <translation>Concurs</translation>
     </message>
     <message>
         <source>syncing…</source>

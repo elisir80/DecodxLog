@@ -258,7 +258,7 @@ DialogFrame {
             GlassButton {
                 // Il banco: ogni cosa in una finestra sua, da mettere dove si
                 // vuole. E' quello che serve in gara.
-                text: qsTr("Contest desk")
+                text: qsTr("Contest Mode")
                 tone: Theme.accentColor
                 onClicked: { window.openContestDesk(); root.close() }
             }
