@@ -3,6 +3,21 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.15.5 — 23 settembre 2026
+
+**Contest Mode: tutto in un menu nella barra in alto.** La pulsantiera "Banco del contest" era
+una finestra in piu' da spostare, e lo sfondo della modalita' contest ripeteva gli stessi
+pulsanti con una scritta in mezzo.
+
+- in alto c'e' una voce sola, **Contest Mode**: mostra la gara e i QSO, ed e' verde quando si
+  e' in modalita' contest. Il menu ha la situazione della gara (QSO, punti, moltiplicatori),
+  **Contest e attivazioni…**, **entra / esci** dalla modalita' contest, le otto **finestre
+  della gara** con la spunta su quelle aperte, le tre **disposizioni**, **Davanti anche agli
+  altri programmi**, **Cabrillo…** e **Manda il log…**;
+- lo sfondo in modalita' contest resta una **griglia vuota**, tutta per le finestre;
+- la finestra delle sessioni ha il pulsante **Contest Mode** al posto di "Banco del contest";
+- il titolo di "nessuna sessione" non esce piu' come tre caratteri senza senso.
+
 ## 1.15.4 — 23 settembre 2026
 
 **Il cluster che corre non ferma piu' il banco, e lo spot scelto va nell'inserimento.**
