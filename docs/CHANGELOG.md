@@ -3,6 +3,19 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.15.1 — 23 settembre 2026
+
+**La barra in alto va a capo sugli schermi piccoli.** Su uno schermo stretto i riquadri della
+barra uscivano dalla finestra: cloud e ricerca sparivano oltre il bordo.
+
+- i riquadri della barra **scendono sulla riga sotto** quando non c'e' posto, e la barra si
+  alza da sola; su uno schermo largo resta tutto su una riga, con cloud e ricerca a destra;
+- i **pulsanti dei comandi** vanno a capo anche dentro il loro riquadro, che non esce mai
+  dalla finestra;
+- il pulsante del cloud e' diventato l'icona **⟳** (la spiegazione compare passandoci sopra),
+  e la scelta della stazione e' un po' piu' stretta;
+- la finestra principale **non chiede piu' 1100 pixel** quando lo schermo e' piu' stretto.
+
 ## 1.15.0 — 23 settembre 2026
 
 **La modalita' contest vera: la finestra principale diventa la base del banco.** Aprendo il
