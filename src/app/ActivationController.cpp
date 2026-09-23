@@ -142,6 +142,7 @@ void ActivationController::refresh()
 
 void ActivationController::recount()
 {
+    m_score.valid = false;
     m_qsoCount = 0;
     m_uniqueCalls = 0;
     m_perBand.clear();
@@ -425,6 +426,13 @@ QString ActivationController::contestName(const QString& id) const
 
 QVariantMap ActivationController::score() const
 {
+    if (!m_score.valid)
+        buildScore();
+    return m_score.score;
+}
+
+void ActivationController::buildScore() const
+{
     const core::ContestRules rules = core::contestrules::forId(m_session.contestId);
     QVariantMap out{
         {QStringLiteral("valid"), rules.valid},
@@ -438,47 +446,19 @@ QVariantMap ActivationController::score() const
         {QStringLiteral("score"), 0},
         {QStringLiteral("bands"), QVariantList{}},
     };
+    m_score.valid = true;
+    m_score.multipliers.clear();
+    m_score.score = out;
     if (!rules.valid || !m_session.active || !m_ctx.db || !m_ctx.db->isOpen())
-        return out;
+        return;
 
     const core::ContestStation me = m_ctx.station ? m_ctx.station() : core::ContestStation{};
     int points = 0;
     QSet<QString> mults;
     // Per banda: quanti QSO, quanti punti, quanti moltiplicatori nuovi.
     QMap<QString, QVariantMap> perBand;
-    QSet<QString> seenPerBand;
 
-    for (const QVariant& v : qsoIds()) {
-        const auto record = m_ctx.db->record(v.toLongLong());
-        if (!record)
-            continue;
-        core::ContestQso qso;
-        qso.call = record->value(QStringLiteral("CALL"));
-        qso.band = record->value(QStringLiteral("BAND")).toLower();
-        qso.mode = record->value(QStringLiteral("MODE")).toUpper();
-        if (qso.mode == QLatin1String("MFSK") && !record->value(QStringLiteral("SUBMODE")).isEmpty())
-            qso.mode = record->value(QStringLiteral("SUBMODE")).toUpper();
-        qso.exchange = record->value(QStringLiteral("SRX_STRING"));
-        if (qso.exchange.isEmpty())
-            qso.exchange = record->value(QStringLiteral("SRX"));
-        qso.dxcc = record->value(QStringLiteral("DXCC")).toInt();
-        qso.continent = record->value(QStringLiteral("CONT")).toUpper();
-        qso.cqZone = record->value(QStringLiteral("CQZ")).toInt();
-        qso.ituZone = record->value(QStringLiteral("ITUZ")).toInt();
-        // Un QSO scritto in fretta non ha il paese: lo si chiede al cty.csv,
-        // invece di contare zero punti per un dato che si puo' sapere.
-        if ((qso.dxcc == 0 || qso.continent.isEmpty()) && m_ctx.locate) {
-            const core::ContestStation found = m_ctx.locate(qso.call);
-            if (qso.dxcc == 0)
-                qso.dxcc = found.dxcc;
-            if (qso.continent.isEmpty())
-                qso.continent = found.continent;
-            if (qso.cqZone == 0)
-                qso.cqZone = found.cqZone;
-            if (qso.ituZone == 0)
-                qso.ituZone = found.ituZone;
-        }
-
+    for (const core::ContestQso& qso : sessionQsos()) {
         const int value = core::contestrules::points(rules, qso, me);
         points += value;
 
@@ -502,8 +482,64 @@ QVariantMap ActivationController::score() const
     out[QStringLiteral("multipliers")] = mults.size();
     out[QStringLiteral("score")] = static_cast<qint64>(points) * mults.size();
     out[QStringLiteral("bands")] = bands;
+    m_score.score = out;
+    m_score.multipliers = mults;
+}
+
+QList<core::ContestQso> ActivationController::sessionQsos() const
+{
+    QList<core::ContestQso> out;
+    if (!m_session.active || !m_ctx.db || !m_ctx.db->isOpen() || !m_session.startedAt.isValid())
+        return out;
+    // Una query sola: leggere i QSO uno per uno, con tutto il loro ADIF, costava
+    // decine di millisecondi per ogni cento QSO della gara.
+    QSqlQuery q(m_ctx.db->connection());
+    q.setForwardOnly(true);
+    q.prepare(QStringLiteral(
+        "SELECT call, band, mode, IFNULL(submode, ''), IFNULL(dxcc, 0), IFNULL(cont, ''), "
+        "IFNULL(cqz, 0), IFNULL(ituz, 0), IFNULL(adif_extra, '') "
+        "FROM qso WHERE deleted = 0 AND qso_datetime_on >= ? ORDER BY qso_datetime_on, id"));
+    q.addBindValue(m_session.startedAt.toString(Qt::ISODate));
+    if (!q.exec())
+        return out;
+    while (q.next()) {
+        core::ContestQso qso;
+        qso.call = q.value(0).toString();
+        qso.band = q.value(1).toString().toLower();
+        qso.mode = q.value(2).toString().toUpper();
+        const QString submode = q.value(3).toString().toUpper();
+        if (qso.mode == QLatin1String("MFSK") && !submode.isEmpty())
+            qso.mode = submode;
+        qso.dxcc = q.value(4).toInt();
+        qso.continent = q.value(5).toString().toUpper();
+        qso.cqZone = q.value(6).toInt();
+        qso.ituZone = q.value(7).toInt();
+        // Lo scambio ricevuto non ha una colonna: sta fra i campi ADIF in piu'.
+        const QString extra = q.value(8).toString();
+        if (!extra.isEmpty()) {
+            const QJsonObject fields = QJsonDocument::fromJson(extra.toUtf8()).object();
+            qso.exchange = fields.value(QStringLiteral("SRX_STRING")).toString();
+            if (qso.exchange.isEmpty())
+                qso.exchange = fields.value(QStringLiteral("SRX")).toString();
+        }
+        // Un QSO scritto in fretta non ha il paese: lo si chiede al cty.csv,
+        // invece di contare zero punti per un dato che si puo' sapere.
+        if ((qso.dxcc == 0 || qso.continent.isEmpty()) && m_ctx.locate) {
+            const core::ContestStation found = m_ctx.locate(qso.call);
+            if (qso.dxcc == 0)
+                qso.dxcc = found.dxcc;
+            if (qso.continent.isEmpty())
+                qso.continent = found.continent;
+            if (qso.cqZone == 0)
+                qso.cqZone = found.cqZone;
+            if (qso.ituZone == 0)
+                qso.ituZone = found.ituZone;
+        }
+        out << qso;
+    }
     return out;
 }
+
 
 QString ActivationController::checkExchange(const QString& exchange) const
 {
@@ -566,41 +602,9 @@ bool ActivationController::isCwContest() const
 
 QSet<QString> ActivationController::workedMultipliers() const
 {
-    QSet<QString> out;
-    const core::ContestRules rules = core::contestrules::forId(m_session.contestId);
-    if (!rules.valid || !m_ctx.db || !m_ctx.db->isOpen())
-        return out;
-    const core::ContestStation me = m_ctx.station ? m_ctx.station() : core::ContestStation{};
-    for (const QVariant& v : qsoIds()) {
-        const auto record = m_ctx.db->record(v.toLongLong());
-        if (!record)
-            continue;
-        core::ContestQso qso;
-        qso.call = record->value(QStringLiteral("CALL"));
-        qso.band = record->value(QStringLiteral("BAND")).toLower();
-        qso.mode = record->value(QStringLiteral("MODE")).toUpper();
-        qso.exchange = record->value(QStringLiteral("SRX_STRING"));
-        if (qso.exchange.isEmpty())
-            qso.exchange = record->value(QStringLiteral("SRX"));
-        qso.dxcc = record->value(QStringLiteral("DXCC")).toInt();
-        qso.continent = record->value(QStringLiteral("CONT")).toUpper();
-        qso.cqZone = record->value(QStringLiteral("CQZ")).toInt();
-        qso.ituZone = record->value(QStringLiteral("ITUZ")).toInt();
-        if ((qso.dxcc == 0 || qso.continent.isEmpty()) && m_ctx.locate) {
-            const core::ContestStation found = m_ctx.locate(qso.call);
-            if (qso.dxcc == 0)
-                qso.dxcc = found.dxcc;
-            if (qso.continent.isEmpty())
-                qso.continent = found.continent;
-            if (qso.cqZone == 0)
-                qso.cqZone = found.cqZone;
-            if (qso.ituZone == 0)
-                qso.ituZone = found.ituZone;
-        }
-        for (const QString& key : core::contestrules::multipliers(rules, qso, me))
-            out.insert(key);
-    }
-    return out;
+    if (!m_score.valid)
+        buildScore();
+    return m_score.multipliers;
 }
 
 } // namespace decolog::app

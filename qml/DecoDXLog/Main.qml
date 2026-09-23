@@ -561,6 +561,10 @@ ApplicationWindow {
     Component.onCompleted: {
         const what = startupShow.split(":")
         if (what[0] === "contestdesk") window.openContestDesk()
+        // Per misurare: apre il banco e registra N QSO di fila, dicendo quanto
+        // ci mette ognuno. Un QSO in gara deve essere istantaneo.
+        else if (what[0] === "benchswitch") { window.openContestDesk(); switchTimer.left = parseInt(what[1] || "20"); switchTimer.start() }
+        else if (what[0] === "benchqso") { window.openContestDesk(); benchTimer.left = parseInt(what[1] || "5"); benchTimer.start() }
         else if (what[0] === "new") newQsoDialog.open()
         else if (what[0] === "qso") { openQso(parseInt(what[1])); if (what[2]) qsoDialog.currentTab = parseInt(what[2]) }
         else if (what[0] === "profiles") profilesDialog.open()
@@ -743,6 +747,61 @@ ApplicationWindow {
     SetupDialog { id: setupDialog; onUpdateRequested: updateDialog.open() }
     ActivationDialog { id: activationDialog }
     ContestSubmitDialog { id: submitDialog }
+    Timer {
+        id: benchTimer
+        property int left: 0
+        property int n: 0
+        interval: 2500
+        repeat: true
+        onTriggered: {
+            if (left <= 0) { stop(); return }
+            left--; n++
+            const t0 = Date.now()
+            const now = decolog.utcNow()
+            const err = decolog.logManualQso({ call: "B" + (Date.now() % 100000) + "X" + n, date: now.date, time: now.time,
+                                               band: "20m", mode: "CW", rst_sent: "599", rst_rcvd: "599",
+                                               srx: String(10 + n % 30) })
+            console.warn("BENCH qso " + n + ": " + (Date.now() - t0) + " ms " + err
+                         + " | scatto piu' lungo dal QSO prima: " + benchWatch.worst + " ms")
+            benchWatch.worst = 0
+        }
+    }
+    // Passa da una finestra del banco all'altra, come fa chi opera, e dice
+    // quanto ci mette.
+    Timer {
+        id: switchTimer
+        property int left: 0
+        property int n: 0
+        readonly property var order: ["contest", "cluster", "logbook", "callinfo", "score", "rate", "map", "desk"]
+        interval: 400
+        repeat: true
+        onTriggered: {
+            if (left <= 0) { stop(); return }
+            left--; n++
+            const key = order[n % order.length]
+            const t0 = Date.now()
+            window.raisePanel(key)
+            console.warn("BENCH switch " + key + ": " + (Date.now() - t0) + " ms | scatto piu' lungo: "
+                         + benchWatch.worst + " ms")
+            benchWatch.worst = 0
+        }
+    }
+    // Misura la fluidita': un battito ogni 16 ms, e il buco piu' lungo fra due
+    // battiti e' quanto il programma e' rimasto fermo.
+    Timer {
+        id: benchWatch
+        property double last: 0
+        property int worst: 0
+        interval: 16
+        repeat: true
+        running: benchTimer.running || switchTimer.running
+        onTriggered: {
+            const now = Date.now()
+            if (last > 0)
+                worst = Math.max(worst, now - last)
+            last = now
+        }
+    }
     LogsDialog {
         id: logsDialog
         // All'avvio si chiede quale log aprire, per chi tiene un log per ogni

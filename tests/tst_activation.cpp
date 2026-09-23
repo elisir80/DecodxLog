@@ -4,6 +4,7 @@
 #include "core/Activation.h"
 #include "core/LogDatabase.h"
 
+#include <QSqlQuery>
 #include <QTest>
 
 using namespace decolog::core;
@@ -58,6 +59,65 @@ private slots:
         const Activation back = Activation::fromMap(a.toMap());
         QCOMPARE(back.contestId, a.contestId);
         QVERIFY(back.serialEnabled);
+    }
+
+    void theScoreReadsTheExchangeAndFollowsTheLog()
+    {
+        // Il punteggio adesso si calcola una volta e si tiene in memoria: la
+        // prova guarda che lo scambio ricevuto arrivi al conto (sta fra i campi
+        // ADIF in piu', non in una colonna) e che un QSO corretto fuori dalla
+        // sessione faccia rifare il conto invece di lasciarlo vecchio.
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        ActivationController::Context ctx;
+        ctx.db = &db;
+        ctx.stationCall = [] { return QStringLiteral("IU8LMC"); };
+        ctx.stationGrid = [] { return QStringLiteral("JN70"); };
+        ctx.activeProfileId = [] { return qint64(0); };
+        ctx.station = [] { return decolog::core::ContestStation{248, QStringLiteral("EU"), 15, 28}; };
+        ActivationController act(std::move(ctx));
+        act.load();
+        QVERIFY(act.start({{"kind", "contest"}, {"contestId", "IARU-HF"}}).isEmpty());
+
+        auto log = [&db, &act](const char* call, int dxcc, const char* cont, int ituz, const char* srx) {
+            AdifRecord r{{"CALL", call}, {"QSO_DATE", QDateTime::currentDateTimeUtc().toString("yyyyMMdd")},
+                         {"TIME_ON", QDateTime::currentDateTimeUtc().toString("hhmmss")},
+                         {"BAND", "20m"}, {"MODE", "CW"}, {"DXCC", QString::number(dxcc)},
+                         {"CONT", cont}, {"ITUZ", QString::number(ituz)},
+                         {"SRX", srx}, {"SRX_STRING", srx}};
+            act.applyTo(r);
+            const auto res = db.insertQso(r, "manual", {}, true);
+            if (res.status == InsertResult::Status::Inserted)
+                act.qsoLogged();
+            return res;
+        };
+
+        // Una stazione HQ: si riconosce solo dallo scambio, "DARC" al posto
+        // della zona. Se lo scambio non arrivasse al conto, varrebbe 3 punti
+        // (stesso continente, altra zona) invece di 1, e porterebbe una zona
+        // invece del moltiplicatore HQ.
+        const auto hq = log("DA0HQ", 230, "EU", 28, "DARC");
+        QCOMPARE(hq.status, InsertResult::Status::Inserted);
+        QVariantMap score = act.score();
+        QCOMPARE(score.value("points").toInt(), 1);
+        QCOMPARE(score.value("multipliers").toInt(), 1);
+
+        // Un americano: 5 punti e una zona nuova.
+        QCOMPARE(log("W1AW", 291, "NA", 8, "8").status, InsertResult::Status::Inserted);
+        score = act.score();
+        QCOMPARE(score.value("points").toInt(), 6);
+        QCOMPARE(score.value("multipliers").toInt(), 2);
+        QCOMPARE(score.value("score").toInt(), 12);
+
+        // Il QSO della HQ viene cancellato da un'altra parte del programma (la
+        // tabella del log): la sessione non ne sa niente finche' non le si
+        // dice che il log e' cambiato. Da li' il conto dev'essere quello nuovo.
+        QSqlQuery q(db.connection());
+        QVERIFY(q.exec(QStringLiteral("UPDATE qso SET deleted = 1 WHERE id = %1").arg(hq.id)));
+        act.invalidateScore();
+        score = act.score();
+        QCOMPARE(score.value("points").toInt(), 5);
+        QCOMPARE(score.value("multipliers").toInt(), 1);
     }
 
     void theContestKnowsWhatEachSpotIsWorth()

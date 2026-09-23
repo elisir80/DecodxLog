@@ -98,6 +98,9 @@ public:
     // Vero quando il contest aperto si fa in telegrafia: la finestra CW serve
     // solo allora.
     Q_INVOKABLE bool isCwContest() const;
+    // Il log e' cambiato fuori dalla sessione (un QSO corretto, cancellato,
+    // importato): il punteggio in memoria non vale piu'.
+    void invalidateScore() { m_score.valid = false; }
     // Scrive l'ADIF della sessione. Restituisce un messaggio d'errore, o "".
     Q_INVOKABLE QString exportAdif(const QUrl& file);
     // Scrive il Cabrillo del contest. `info` sono le righe della testata:
@@ -133,6 +136,19 @@ signals:
     void changed();
 
 private:
+    // Il punteggio e i moltiplicatori gia' presi, calcolati una volta per QSO
+    // e non una volta per ogni riquadro che li mostra: in gara li leggono
+    // quattro finestre e ogni riga del cluster, e ricalcolarli ogni volta
+    // voleva dire secondi di programma fermo a ogni QSO.
+    struct ScoreCache {
+        bool valid{false};
+        QVariantMap score;
+        QSet<QString> multipliers;
+    };
+    mutable ScoreCache m_score;
+    void buildScore() const;
+    // I QSO della sessione come servono al conto, letti con una query sola.
+    QList<core::ContestQso> sessionQsos() const;
     // Le chiavi dei moltiplicatori gia' in tasca, per sapere quali mancano.
     QSet<QString> workedMultipliers() const;
     void save();

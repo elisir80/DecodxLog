@@ -29,6 +29,7 @@
 #include <QDateTime>
 #include <QObject>
 #include <QElapsedTimer>
+#include <QThreadPool>
 #include <QTimer>
 #include <QUrl>
 #include <QVariantList>
@@ -88,9 +89,11 @@ class DecoLogController : public QObject {
     Q_PROPERTY(int qsoCount READ qsoCount NOTIFY logChanged)
     Q_PROPERTY(int dirtyCount READ dirtyCount NOTIFY logChanged)
     Q_PROPERTY(int conflictCount READ conflictCount NOTIFY logChanged)
-    Q_PROPERTY(QVariantMap ft2Award READ ft2Award NOTIFY logChanged)
-    Q_PROPERTY(QVariantList bandStats READ bandStats NOTIFY logChanged)
-    Q_PROPERTY(QVariantList modeStats READ modeStats NOTIFY logChanged)
+    // Le statistiche di tutto il log non cambiano con il QSO: si rifanno un
+    // momento dopo, a digitazione finita (statsChanged), e una volta sola.
+    Q_PROPERTY(QVariantMap ft2Award READ ft2Award NOTIFY statsChanged)
+    Q_PROPERTY(QVariantList bandStats READ bandStats NOTIFY statsChanged)
+    Q_PROPERTY(QVariantList modeStats READ modeStats NOTIFY statsChanged)
     Q_PROPERTY(QVariantList qslSummary READ qslSummary NOTIFY logChanged)
     Q_PROPERTY(QVariantList gridPoints READ gridPoints NOTIFY logChanged)
     Q_PROPERTY(QVariantList incoming READ incoming NOTIFY incomingChanged)
@@ -434,6 +437,9 @@ signals:
     void udpChanged();
     void clientChanged();
     void logChanged();
+    // Un momento dopo l'ultimo QSO: le statistiche di tutto il log sono
+    // da rileggere.
+    void statsChanged();
     void incomingChanged();
     void activityChanged();
     void lookupChanged();
@@ -503,6 +509,17 @@ private:
     bool      m_decoLinkEnabled{true};
     int       m_decoLinkPort{core::DecoLinkServer::kDefaultPort};
     QTimer    m_decoLinkAwardDebounce;
+    // Le statistiche di tutto il log si rifanno dopo l'ultimo QSO, non a ogni
+    // QSO: in gara ogni QSO le rifaceva decine di volte, e il programma si
+    // fermava per secondi mentre la stazione aspettava.
+    QTimer    m_statsDebounce;
+    mutable QHash<QString, QVariant> m_statsCache;
+    // Il calcolo di diplomi e statistiche gira qui, con una connessione sua al
+    // log (il log e' in WAL: si legge mentre si scrive). Un thread solo: due
+    // calcoli insieme non servono, conta l'ultimo.
+    QThreadPool m_statsPool;
+    quint64 m_statsGeneration{0};
+    void refreshStatsInBackground();
     // La spia dei blocchi.
     QTimer        m_freezeBeat;
     QElapsedTimer m_freezeClock;
