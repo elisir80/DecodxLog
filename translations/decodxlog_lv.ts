@@ -749,6 +749,18 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Slēpt %1 spotus</translation>
     </message>
     <message>
+        <source>hide filters</source>
+        <translation>aizvērt filtrus</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>filtri</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>tikai reiz.</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Decodium josla</translation>
     </message>
@@ -1133,6 +1145,85 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>ContestDeskPanel</name>
+    <message>
+        <source>QSO entry</source>
+        <translation>Ievade</translation>
+    </message>
+    <message>
+        <source>Cluster</source>
+        <translation>Klasteris</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Žurnāls</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Izsaukuma karte</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Temps</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Rezultāts</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Karte</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Konkursa darbavieta</translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation>Izkārtojums</translation>
+    </message>
+    <message>
+        <source>Columns</source>
+        <translation>Kolonnas</translation>
+    </message>
+    <message>
+        <source>Centred</source>
+        <translation>Centrā</translation>
+    </message>
+    <message>
+        <source>Two screens</source>
+        <translation>Divi ekrāni</translation>
+    </message>
+    <message>
+        <source>Always in front, never minimised</source>
+        <translation>Vienmēr priekšā, nekad nesamazināts</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Sūtīt žurnālu…</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 punkti · %4 reiz.</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open: Contest → Start session.</source>
+        <translation>Nav atvērtas sesijas: Konkurss → Sākt sesiju.</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1322,6 +1413,77 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Rules: %1</source>
         <translation>Noteikumi: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Sūtīt žurnālu</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Rakstīt Cabrillo</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Visi faili (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo uzrakstīts. Tagad augšupielādē to konkursa lapā.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Sacensības</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punkti</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Reiz.</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Rezultāts</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Žurnālu augšupielādē konkursa lapā %n dienas laikā pēc beigām. Cabrillo ierakstītais rezultāts ir šeit saskaitītais; tie, kas pārbauda žurnālus, to tik un tā pārskaita.</numerusform>
+            <numerusform>Žurnālu augšupielādē konkursa lapā %n dienu laikā pēc beigām. Cabrillo ierakstītais rezultāts ir šeit saskaitītais; tie, kas pārbauda žurnālus, to tik un tā pārskaita.</numerusform>
+            <numerusform>Žurnālu augšupielādē konkursa lapā %n dienu laikā pēc beigām. Cabrillo ierakstītais rezultāts ir šeit saskaitītais; tie, kas pārbauda žurnālus, to tik un tā pārskaita.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>Žurnālu augšupielādē konkursa lapā. Cabrillo ierakstītais rezultāts ir šeit saskaitītais; tie, kas pārbauda žurnālus, to tik un tā pārskaita.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Rakstīt Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Atvērt konkursa lapu</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>Par šo konkursu programma nezina, kur jāsūta žurnāls: uzraksti Cabrillo un nosūti to, kā nosaka noteikumi.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Aizvērt</translation>
     </message>
 </context>
 <context>
@@ -2271,6 +2433,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>DX Cluster</source>
         <translation>DX Cluster</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Konkursa darbavieta</translation>
     </message>
     <message>
         <source>closed</source>

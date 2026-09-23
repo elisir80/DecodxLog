@@ -747,6 +747,18 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Skjul spots fra %1</translation>
     </message>
     <message>
+        <source>hide filters</source>
+        <translation>luk filtre</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>filtre</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>kun mult</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Decodiums bånd</translation>
     </message>
@@ -1131,6 +1143,85 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
+    <name>ContestDeskPanel</name>
+    <message>
+        <source>QSO entry</source>
+        <translation>Indtastning</translation>
+    </message>
+    <message>
+        <source>Cluster</source>
+        <translation>Cluster</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Logbog</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Kaldesignalkort</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Tempo</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Kort</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Contest-arbejdsplads</translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation>Placering</translation>
+    </message>
+    <message>
+        <source>Columns</source>
+        <translation>Kolonner</translation>
+    </message>
+    <message>
+        <source>Centred</source>
+        <translation>Centreret</translation>
+    </message>
+    <message>
+        <source>Two screens</source>
+        <translation>To skærme</translation>
+    </message>
+    <message>
+        <source>Always in front, never minimised</source>
+        <translation>Altid forrest, aldrig minimeret</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Send loggen…</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 point · %4 mult</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open: Contest → Start session.</source>
+        <translation>Ingen session åben: Contest → Start session.</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1320,6 +1411,76 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Rules: %1</source>
         <translation>Regler: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Send loggen</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Skriv Cabrillo</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Alle filer (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo skrevet. Upload den nu på contestsiden.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Point</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Loggen uploades på contestsiden inden %n dag efter afslutningen. Scoren i Cabrillo-filen er den, der er talt her; de der tjekker loggene tæller efter alligevel.</numerusform>
+            <numerusform>Loggen uploades på contestsiden inden %n dage efter afslutningen. Scoren i Cabrillo-filen er den, der er talt her; de der tjekker loggene tæller efter alligevel.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>Loggen uploades på contestsiden. Scoren i Cabrillo-filen er den, der er talt her; de der tjekker loggene tæller efter alligevel.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Skriv Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Åbn contestsiden</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>For denne contest ved programmet ikke, hvor loggen skal hen: skriv Cabrillo-filen og send den, som reglerne siger.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Luk</translation>
     </message>
 </context>
 <context>
@@ -2267,6 +2428,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>DX Cluster</source>
         <translation>DX-klynge</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Contest-arbejdsplads</translation>
     </message>
     <message>
         <source>closed</source>

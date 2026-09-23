@@ -749,6 +749,18 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Скрыть споты от %1</translation>
     </message>
     <message>
+        <source>hide filters</source>
+        <translation>закрыть фильтры</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>фильтры</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>только множ.</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Диапазон Decodium</translation>
     </message>
@@ -1133,6 +1145,85 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>ContestDeskPanel</name>
+    <message>
+        <source>QSO entry</source>
+        <translation>Ввод</translation>
+    </message>
+    <message>
+        <source>Cluster</source>
+        <translation>Кластер</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Аппаратный журнал</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Карточка позывного</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Темп</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Результат</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Карта</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Рабочее место контеста</translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation>Расположение</translation>
+    </message>
+    <message>
+        <source>Columns</source>
+        <translation>Столбцы</translation>
+    </message>
+    <message>
+        <source>Centred</source>
+        <translation>По центру</translation>
+    </message>
+    <message>
+        <source>Two screens</source>
+        <translation>Два экрана</translation>
+    </message>
+    <message>
+        <source>Always in front, never minimised</source>
+        <translation>Всегда сверху, никогда не сворачивать</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Отправить лог…</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 очков · %4 множ.</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open: Contest → Start session.</source>
+        <translation>Нет открытой сессии: Контест → Открыть сессию.</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1322,6 +1413,77 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Rules: %1</source>
         <translation>Регламент: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Отправить лог</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Записать Cabrillo</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Все файлы (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo записан. Теперь загрузите его на странице контеста.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Соревнование</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Очки</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Множ.</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Результат</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Лог загружается на странице контеста в течение %n дня после окончания. Результат в Cabrillo — тот, что посчитан здесь.</numerusform>
+            <numerusform>Лог загружается на странице контеста в течение %n дней после окончания. Результат в Cabrillo — тот, что посчитан здесь.</numerusform>
+            <numerusform>Лог загружается на странице контеста в течение %n дней после окончания. Результат в Cabrillo — тот, что посчитан здесь.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>Лог загружается на странице контеста. Результат в Cabrillo — тот, что посчитан здесь; те, кто проверяет логи, всё равно пересчитают.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Записать Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Открыть страницу контеста</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>Про этот контест программа не знает, куда идёт лог: запишите Cabrillo и отправьте так, как говорит регламент.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Закрыть</translation>
     </message>
 </context>
 <context>
@@ -2271,6 +2433,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>DX Cluster</source>
         <translation>DX-кластер</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Рабочее место контеста</translation>
     </message>
     <message>
         <source>closed</source>

@@ -70,18 +70,24 @@ ContestRules forId(const QString& contestId)
         r.exchange = ContestRules::Exchange::CqZone;
         r.exchangeLabel = Tr::tr("CQ zone");
         r.source = QStringLiteral("cqww.com/rules");
+        r.submitUrl = QStringLiteral("https://www.cqww.com/logcheck/");
+        r.submitDays = 5;
         return r;
     }
     if (id.startsWith(QLatin1String("CQ-WPX-"))) {
         r.exchange = ContestRules::Exchange::Serial;
         r.exchangeLabel = Tr::tr("Number");
         r.source = QStringLiteral("cqwpx.com/rules");
+        r.submitUrl = QStringLiteral("https://www.cqwpx.com/logcheck/");
+        r.submitDays = 5;
         return r;
     }
     if (id == QLatin1String("IARU-HF")) {
         r.exchange = ContestRules::Exchange::ItuZone;
         r.exchangeLabel = Tr::tr("ITU zone or HQ");
         r.source = QStringLiteral("contests.arrl.org — IARU HF Rules 1.21");
+        r.submitUrl = QStringLiteral("https://contest-log-submission.arrl.org/");
+        r.submitDays = 7;
         return r;
     }
     if (id == QLatin1String("ARI-DX")) {
@@ -90,18 +96,21 @@ ContestRules forId(const QString& contestId)
         r.exchange = ContestRules::Exchange::Province;
         r.exchangeLabel = Tr::tr("Province or number");
         r.source = QStringLiteral("ARI International DX Contest");
+        r.submitUrl = QStringLiteral("https://contest.ari.it/");
         return r;
     }
     if (id == QLatin1String("ARI-SEZIONI")) {
         r.exchange = ContestRules::Exchange::AriSection;
         r.exchangeLabel = Tr::tr("ARI section (ASC)");
         r.source = QStringLiteral("ARI — Contest delle Sezioni 2026");
+        r.submitUrl = QStringLiteral("https://contest.ari.it/");
         return r;
     }
     if (id == QLatin1String("ARI-40-80")) {
         r.exchange = ContestRules::Exchange::Province;
         r.exchangeLabel = Tr::tr("Province");
         r.source = QStringLiteral("ARI — Contest 40/80");
+        r.submitUrl = QStringLiteral("https://contest.ari.it/");
         return r;
     }
 

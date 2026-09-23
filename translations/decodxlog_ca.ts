@@ -747,6 +747,18 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Amaga els spots de %1</translation>
     </message>
     <message>
+        <source>hide filters</source>
+        <translation>tanca els filtres</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>filtres</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>només mult</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Banda de Decodium</translation>
     </message>
@@ -1131,6 +1143,85 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
 </context>
 <context>
+    <name>ContestDeskPanel</name>
+    <message>
+        <source>QSO entry</source>
+        <translation>Entrada</translation>
+    </message>
+    <message>
+        <source>Cluster</source>
+        <translation>Clúster</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Registre</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Fitxa de l&apos;indicatiu</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Ritme</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Puntuació</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Mapa</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Lloc de concurs</translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation>Disposició</translation>
+    </message>
+    <message>
+        <source>Columns</source>
+        <translation>Columnes</translation>
+    </message>
+    <message>
+        <source>Centred</source>
+        <translation>Al centre</translation>
+    </message>
+    <message>
+        <source>Two screens</source>
+        <translation>Dues pantalles</translation>
+    </message>
+    <message>
+        <source>Always in front, never minimised</source>
+        <translation>Sempre al davant, mai minimitzada</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Envia el registre…</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 punts · %4 mult</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open: Contest → Start session.</source>
+        <translation>Cap sessió oberta: Concurs → Obre la sessió.</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1320,6 +1411,76 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Rules: %1</source>
         <translation>Reglament: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Envia el registre</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Escriu el Cabrillo</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Tots els fitxers (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo escrit. Ara puja&apos;l a la pàgina del concurs.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punts</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Puntuació</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>El registre es puja a la pàgina del concurs en %n dia des del final. La puntuació escrita al Cabrillo és la comptada aquí; qui revisa els registres la torna a comptar igualment.</numerusform>
+            <numerusform>El registre es puja a la pàgina del concurs en %n dies des del final. La puntuació escrita al Cabrillo és la comptada aquí; qui revisa els registres la torna a comptar igualment.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>El registre es puja a la pàgina del concurs. La puntuació escrita al Cabrillo és la comptada aquí; qui revisa els registres la torna a comptar igualment.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Escriu el Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Obre la pàgina del concurs</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>D&apos;aquest concurs el programa no sap on va el registre: escriu el Cabrillo i envia&apos;l com diu el reglament.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Tanca</translation>
     </message>
 </context>
 <context>
@@ -2267,6 +2428,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>DX Cluster</source>
         <translation>Clúster DX</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Lloc de concurs</translation>
     </message>
     <message>
         <source>closed</source>

@@ -747,6 +747,18 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Nascondi gli spot di %1</translation>
     </message>
     <message>
+        <source>hide filters</source>
+        <translation>chiudi i filtri</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>filtri</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>solo molt</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Banda di Decodium</translation>
     </message>
@@ -1131,6 +1143,85 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>ContestDeskPanel</name>
+    <message>
+        <source>QSO entry</source>
+        <translation>Inserimento</translation>
+    </message>
+    <message>
+        <source>Cluster</source>
+        <translation>Cluster</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Log</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Scheda nominativo</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Ritmo</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Punteggio</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Mappa</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Banco del contest</translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation>Disposizione</translation>
+    </message>
+    <message>
+        <source>Columns</source>
+        <translation>Colonne</translation>
+    </message>
+    <message>
+        <source>Centred</source>
+        <translation>Al centro</translation>
+    </message>
+    <message>
+        <source>Two screens</source>
+        <translation>Due schermi</translation>
+    </message>
+    <message>
+        <source>Always in front, never minimised</source>
+        <translation>Sempre davanti, mai a icona</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Manda il log…</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 punti · %4 molt</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open: Contest → Start session.</source>
+        <translation>Nessuna sessione aperta: Contest → Apri la sessione.</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1320,6 +1411,76 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Rules: %1</source>
         <translation>Regolamento: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Manda il log</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Scrivi il Cabrillo</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Tutti i file (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo scritto. Adesso caricalo sulla pagina del contest.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punti</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Molt</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Punteggio</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Il log si carica sulla pagina del contest entro %n giorno dalla fine della gara. Il punteggio scritto nel Cabrillo è quello contato qui; chi controlla i log lo ricontrolla comunque.</numerusform>
+            <numerusform>Il log si carica sulla pagina del contest entro %n giorni dalla fine della gara. Il punteggio scritto nel Cabrillo è quello contato qui; chi controlla i log lo ricontrolla comunque.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>Il log si carica sulla pagina del contest. Il punteggio scritto nel Cabrillo è quello contato qui; chi controlla i log lo ricontrolla comunque.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Scrivi il Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Apri la pagina del contest</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>Di questo contest il programma non sa dove va il log: scrivi il Cabrillo e mandalo come dice il regolamento.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Chiudi</translation>
     </message>
 </context>
 <context>
@@ -2267,6 +2428,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>DX Cluster</source>
         <translation>DX Cluster</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Banco del contest</translation>
     </message>
     <message>
         <source>closed</source>

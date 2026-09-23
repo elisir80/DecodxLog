@@ -745,6 +745,18 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>%1 からのスポットを隠す</translation>
     </message>
     <message>
+        <source>hide filters</source>
+        <translation>フィルタを閉じる</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>フィルタ</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>マルチのみ</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Decodium のバンド</translation>
     </message>
@@ -1129,6 +1141,85 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>ContestDeskPanel</name>
+    <message>
+        <source>QSO entry</source>
+        <translation>入力</translation>
+    </message>
+    <message>
+        <source>Cluster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>ログ</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>コールサイン カード</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>ペース</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>スコア</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>地図</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>コンテストデスク</translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation>配置</translation>
+    </message>
+    <message>
+        <source>Columns</source>
+        <translation>列</translation>
+    </message>
+    <message>
+        <source>Centred</source>
+        <translation>中央寄せ</translation>
+    </message>
+    <message>
+        <source>Two screens</source>
+        <translation>画面 2 台</translation>
+    </message>
+    <message>
+        <source>Always in front, never minimised</source>
+        <translation>常に手前、最小化なし</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>ログを送る…</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 点 · %4 マルチ</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open: Contest → Start session.</source>
+        <translation>セッションがありません: コンテスト → セッションを開く。</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1318,6 +1409,75 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Rules: %1</source>
         <translation>規則: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>ログを送る</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Cabrillo を書く</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>すべてのファイル (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo を書きました。コンテストのページにアップロードしてください。</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>コンテスト</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>得点</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>マルチ</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>スコア</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>ログは終了から %n 日以内にコンテストのページにアップロードします。Cabrillo の得点はここで数えたものです。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>ログはコンテストのページにアップロードします。Cabrillo に書かれた得点はここで数えたものですが、審査ではどうせ数え直されます。</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Cabrillo を書く…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>コンテストのページを開く</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>このコンテストのログの送り先は分かりません。Cabrillo を書いて、規則のとおりに送ってください。</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>閉じる</translation>
     </message>
 </context>
 <context>
@@ -2263,6 +2423,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>DX Cluster</source>
         <translation>DX クラスター</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>コンテストデスク</translation>
     </message>
     <message>
         <source>closed</source>

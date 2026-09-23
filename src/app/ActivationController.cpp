@@ -431,6 +431,8 @@ QVariantMap ActivationController::score() const
         {QStringLiteral("contestId"), m_session.contestId},
         {QStringLiteral("exchangeLabel"), rules.valid ? rules.exchangeLabel : tr("Exchange")},
         {QStringLiteral("source"), rules.source},
+        {QStringLiteral("submitUrl"), rules.submitUrl},
+        {QStringLiteral("submitDays"), rules.submitDays},
         {QStringLiteral("points"), 0},
         {QStringLiteral("multipliers"), 0},
         {QStringLiteral("score"), 0},

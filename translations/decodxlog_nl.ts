@@ -747,6 +747,18 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Spots van %1 verbergen</translation>
     </message>
     <message>
+        <source>hide filters</source>
+        <translation>filters dicht</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>filters</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>alleen mult</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Band van Decodium</translation>
     </message>
@@ -1131,6 +1143,85 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
 </context>
 <context>
+    <name>ContestDeskPanel</name>
+    <message>
+        <source>QSO entry</source>
+        <translation>Invoer</translation>
+    </message>
+    <message>
+        <source>Cluster</source>
+        <translation>Cluster</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Logboek</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Roepnaamkaart</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Tempo</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Kaart</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Contestwerkplek</translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation>Indeling</translation>
+    </message>
+    <message>
+        <source>Columns</source>
+        <translation>Kolommen</translation>
+    </message>
+    <message>
+        <source>Centred</source>
+        <translation>Gecentreerd</translation>
+    </message>
+    <message>
+        <source>Two screens</source>
+        <translation>Twee schermen</translation>
+    </message>
+    <message>
+        <source>Always in front, never minimised</source>
+        <translation>Altijd vooraan, nooit geminimaliseerd</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Log versturen…</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 punten · %4 mult</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open: Contest → Start session.</source>
+        <translation>Geen sessie open: Contest → Sessie starten.</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1320,6 +1411,76 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Rules: %1</source>
         <translation>Reglement: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Log versturen</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Cabrillo schrijven</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Alle bestanden (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo geschreven. Upload het nu op de contestpagina.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punten</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Het log wordt binnen %n dag na afloop op de contestpagina geüpload. De score in het Cabrillo is die hier geteld; wie de logs controleert telt toch na.</numerusform>
+            <numerusform>Het log wordt binnen %n dagen na afloop op de contestpagina geüpload. De score in het Cabrillo is die hier geteld; wie de logs controleert telt toch na.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>Het log wordt op de contestpagina geüpload. De score in het Cabrillo is die hier geteld; wie de logs controleert telt toch na.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Cabrillo schrijven…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Contestpagina openen</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>Van deze contest weet het programma niet waar het log heen gaat: schrijf het Cabrillo en stuur het zoals het reglement zegt.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Sluiten</translation>
     </message>
 </context>
 <context>
@@ -2267,6 +2428,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>DX Cluster</source>
         <translation>DX-cluster</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Contestwerkplek</translation>
     </message>
     <message>
         <source>closed</source>

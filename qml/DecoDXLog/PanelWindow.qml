@@ -27,6 +27,11 @@ ApplicationWindow {
     signal statsRequested()
     signal rotorRequested()
     signal contestRequested()
+    signal deskCommand(string what, string arg)
+    // Quello che la pulsantiera del banco deve sapere e che solo la finestra
+    // principale conosce: quali finestre sono aperte, e se stanno davanti.
+    property var deskOpenPanels: []
+    property bool deskAllOnTop: false
 
     // Una misura di partenza sensata per quel pannello: il log e le schede
     // vogliono spazio, la scheda nominativo no. Poi vale quella che si sceglie.
@@ -43,7 +48,14 @@ ApplicationWindow {
     // deve finire dietro a quella grande. Dalla puntina nella sua testata si
     // toglie, e resta tolta.
     property bool alwaysOnTop: false
-    flags: Qt.Window | (root.alwaysOnTop ? Qt.WindowStaysOnTopHint : 0)
+    // In contest le finestre stanno davanti e non si riducono a icona: una
+    // finestra sparita sotto quella grande, mentre passa la stazione, e' un QSO
+    // perso. Il pulsante per ridurre non c'e' proprio, cosi' non ci si casca.
+    property bool contestMode: false
+    flags: root.contestMode
+           ? (Qt.Window | Qt.WindowTitleHint | Qt.WindowSystemMenuHint
+              | Qt.WindowCloseButtonHint | Qt.WindowMaximizeButtonHint | Qt.WindowStaysOnTopHint)
+           : (Qt.Window | (root.alwaysOnTop ? Qt.WindowStaysOnTopHint : 0))
 
     OnScreen { target: root }
 
@@ -65,6 +77,19 @@ ApplicationWindow {
 
     QsoDetailDialog { id: qsoDialog }
 
+    Binding {
+        target: holder.item
+        property: "openPanels"
+        value: root.deskOpenPanels
+        when: holder.item !== null && holder.item.openPanels !== undefined
+    }
+    Binding {
+        target: holder.item
+        property: "allOnTop"
+        value: root.deskAllOnTop
+        when: holder.item !== null && holder.item.allOnTop !== undefined
+    }
+
     Loader {
         id: holder
         anchors.fill: parent
@@ -77,6 +102,8 @@ ApplicationWindow {
             }
             if (item.dockable !== undefined)
                 item.dockable = root.dockable
+            if (item.contestMode !== undefined)
+                item.contestMode = root.contestMode
             // Il logbook ha il suo pulsante "Stacca": qui non serve piu'.
             if (item.showPopButton !== undefined)
                 item.showPopButton = false
@@ -96,6 +123,7 @@ ApplicationWindow {
         function onClusterRequested(tab) { root.clusterRequested(tab) }
         function onWindowRequested() { root.rotorRequested() }
         function onContestRequested() { root.contestRequested() }
+        function onDeskCommand(what, arg) { root.deskCommand(what, arg) }
         function onPopRequested() { }
     }
 }

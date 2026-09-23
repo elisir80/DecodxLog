@@ -749,6 +749,18 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Ascunde spoturile de la %1</translation>
     </message>
     <message>
+        <source>hide filters</source>
+        <translation>închide filtrele</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>filtre</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>doar mult</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Banda Decodium</translation>
     </message>
@@ -1133,6 +1145,85 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
 </context>
 <context>
+    <name>ContestDeskPanel</name>
+    <message>
+        <source>QSO entry</source>
+        <translation>Introducere</translation>
+    </message>
+    <message>
+        <source>Cluster</source>
+        <translation>Cluster</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Jurnal</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Fișa indicativului</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Ritm</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Scor</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Hartă</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Postul de concurs</translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation>Așezare</translation>
+    </message>
+    <message>
+        <source>Columns</source>
+        <translation>Coloane</translation>
+    </message>
+    <message>
+        <source>Centred</source>
+        <translation>În centru</translation>
+    </message>
+    <message>
+        <source>Two screens</source>
+        <translation>Două ecrane</translation>
+    </message>
+    <message>
+        <source>Always in front, never minimised</source>
+        <translation>Mereu în față, niciodată minimizat</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Trimite jurnalul…</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 puncte · %4 mult</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open: Contest → Start session.</source>
+        <translation>Nicio sesiune deschisă: Concurs → Deschide sesiunea.</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1322,6 +1413,77 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Rules: %1</source>
         <translation>Regulament: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Trimite jurnalul</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Scrie Cabrillo</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Toate fișierele (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo scris. Acum încarcă-l pe pagina concursului.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Concurs</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Puncte</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Scor</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Jurnalul se încarcă pe pagina concursului în %n zi de la final. Scorul scris în Cabrillo e cel numărat aici; cine verifică jurnalele îl renumără oricum.</numerusform>
+            <numerusform>Jurnalul se încarcă pe pagina concursului în %n zile de la final. Scorul scris în Cabrillo e cel numărat aici; cine verifică jurnalele îl renumără oricum.</numerusform>
+            <numerusform>Jurnalul se încarcă pe pagina concursului în %n de zile de la final. Scorul scris în Cabrillo e cel numărat aici; cine verifică jurnalele îl renumără oricum.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>Jurnalul se încarcă pe pagina concursului. Scorul scris în Cabrillo e cel numărat aici; cine verifică jurnalele îl renumără oricum.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Scrie Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Deschide pagina concursului</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>Pentru acest concurs programul nu știe unde merge jurnalul: scrie Cabrillo și trimite-l cum spune regulamentul.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Închide</translation>
     </message>
 </context>
 <context>
@@ -2271,6 +2433,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>DX Cluster</source>
         <translation>Cluster DX</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Postul de concurs</translation>
     </message>
     <message>
         <source>closed</source>

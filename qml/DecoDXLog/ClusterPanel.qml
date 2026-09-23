@@ -14,6 +14,10 @@ GlassPanel {
     // moltiplicatore che non si ha. Via tutto il resto, e quelli che contano si
     // vedono da lontano.
     property bool contestMode: false
+    // In contest: i filtri chiusi, e la possibilita' di vedere solo gli spot
+    // che portano un moltiplicatore.
+    property bool filtersOpen: false
+    property bool onlyMultipliers: false
     signal windowRequested(int tab)
 
     readonly property var cluster: decolog.cluster
@@ -242,9 +246,38 @@ GlassPanel {
         anchors.fill: parent
         spacing: 0
 
+        // In contest la riga dei filtri si apre solo quando serve: in una
+        // colonna stretta quei pulsanti si mangiavano mezza finestra, e quello
+        // che conta sono gli spot.
+        RowLayout {
+            Layout.fillWidth: true
+            visible: root.contestMode
+            spacing: 4
+            Chip {
+                label: root.filtersOpen ? qsTr("hide filters") : qsTr("filters")
+                on: root.filtersOpen
+                onToggled: root.filtersOpen = !root.filtersOpen
+            }
+            Chip {
+                label: qsTr("mult only")
+                tone: Theme.warningColor
+                on: root.onlyMultipliers
+                onToggled: root.onlyMultipliers = !root.onlyMultipliers
+            }
+            Item { Layout.fillWidth: true }
+            Text {
+                text: root.model.count + ""
+                color: Theme.textSecondary
+                font.family: Theme.monoFamily
+                font.pixelSize: 11
+                rightPadding: 8
+            }
+        }
+
         // ── Filtri rapidi ───────────────────────────────────────────────────
         Rectangle {
             Layout.fillWidth: true
+            visible: !root.contestMode || root.filtersOpen
             implicitHeight: quick.implicitHeight + 12
             color: "transparent"
             Rectangle { anchors { left: parent.left; right: parent.right; bottom: parent.bottom } height: 1; color: Theme.borderSoft }
@@ -389,7 +422,8 @@ GlassPanel {
                 readonly property bool newMultiplier: !!contestValue.newMultiplier
 
                 width: ListView.view.width
-                height: Theme.rowHeight
+                height: visible ? Theme.rowHeight : 0
+                visible: !root.onlyMultipliers || line.newMultiplier
                 color: area.containsMouse ? Theme.glassOverlay
                      : line.newMultiplier ? Qt.rgba(Theme.warningColor.r, Theme.warningColor.g,
                                                     Theme.warningColor.b, 0.18)

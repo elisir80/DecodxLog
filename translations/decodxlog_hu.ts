@@ -745,6 +745,18 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>%1 spotjainak elrejtése</translation>
     </message>
     <message>
+        <source>hide filters</source>
+        <translation>szűrők be</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>szűrők</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>csak szorzó</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>A Decodium sávja</translation>
     </message>
@@ -1129,6 +1141,85 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>ContestDeskPanel</name>
+    <message>
+        <source>QSO entry</source>
+        <translation>Bevitel</translation>
+    </message>
+    <message>
+        <source>Cluster</source>
+        <translation>Klaszter</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Napló</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Hívójel-karton</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Tempo</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Eredmény</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Térkép</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Contest-munkahely</translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation>Elrendezés</translation>
+    </message>
+    <message>
+        <source>Columns</source>
+        <translation>Oszlopok</translation>
+    </message>
+    <message>
+        <source>Centred</source>
+        <translation>Középen</translation>
+    </message>
+    <message>
+        <source>Two screens</source>
+        <translation>Két képernyő</translation>
+    </message>
+    <message>
+        <source>Always in front, never minimised</source>
+        <translation>Mindig elöl, sosem kicsinyítve</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Napló küldése…</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 pont · %4 szorzó</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open: Contest → Start session.</source>
+        <translation>Nincs nyitott munkamenet: Contest → Munkamenet indítása.</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1318,6 +1409,75 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Rules: %1</source>
         <translation>Szabályzat: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Napló küldése</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Cabrillo írása</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Minden fájl (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo megírva. Most töltsd fel a contest oldalára.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Verseny</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Pont</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Szorzó</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Eredmény</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>A naplót a verseny vége után %n napon belül kell feltölteni a contest oldalára. A Cabrillóban szereplő eredmény az, amit itt számoltunk; aki ellenőrzi a naplókat, úgyis újraszámolja.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>A naplót a contest oldalára kell feltölteni. A Cabrillóban szereplő eredmény az, amit itt számoltunk; aki ellenőrzi a naplókat, úgyis újraszámolja.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Cabrillo írása…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Contest oldal megnyitása</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>Ehhez a contesthez a program nem tudja, hová megy a napló: írd meg a Cabrillót, és küldd el úgy, ahogy a szabályzat mondja.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Bezárás</translation>
     </message>
 </context>
 <context>
@@ -2263,6 +2423,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>DX Cluster</source>
         <translation>DX Cluster</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>Contest-munkahely</translation>
     </message>
     <message>
         <source>closed</source>

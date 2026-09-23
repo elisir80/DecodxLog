@@ -745,6 +745,18 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>隱藏來自 %1 的點報</translation>
     </message>
     <message>
+        <source>hide filters</source>
+        <translation>收起篩選</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>篩選</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>只看倍增</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Decodium 的波段</translation>
     </message>
@@ -1129,6 +1141,85 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
 </context>
 <context>
+    <name>ContestDeskPanel</name>
+    <message>
+        <source>QSO entry</source>
+        <translation>鍵入</translation>
+    </message>
+    <message>
+        <source>Cluster</source>
+        <translation>叢集</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>日誌</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>呼號卡片</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>速度</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>總分</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>地圖</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>競賽工作台</translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation>佈局</translation>
+    </message>
+    <message>
+        <source>Columns</source>
+        <translation>欄</translation>
+    </message>
+    <message>
+        <source>Centred</source>
+        <translation>置中</translation>
+    </message>
+    <message>
+        <source>Two screens</source>
+        <translation>雙螢幕</translation>
+    </message>
+    <message>
+        <source>Always in front, never minimised</source>
+        <translation>始終在前，不會最小化</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>傳送日誌…</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 分 · %4 倍增</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open: Contest → Start session.</source>
+        <translation>沒有打開的對話：競賽 → 開啟對話。</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1318,6 +1409,75 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Rules: %1</source>
         <translation>規則：%1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>傳送日誌</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>寫出 Cabrillo</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>所有檔案 (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo 已寫出。現在到競賽頁面上傳。</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>比賽</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>分數</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>倍增</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>總分</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>日誌要在競賽結束後 %n 天內上傳到競賽頁面。Cabrillo 裡寫的分數是這裡算的。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>日誌要在競賽頁面上傳。Cabrillo 裡寫的分數是這裡算的；審核日誌的人總會重算。</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>寫出 Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>打開競賽頁面</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>這個競賽的日誌往哪裡傳，程式不知道：先寫出 Cabrillo，再按規則傳送。</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>關閉</translation>
     </message>
 </context>
 <context>
@@ -2263,6 +2423,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>DX Cluster</source>
         <translation>DX 集群</translation>
+    </message>
+    <message>
+        <source>Contest desk</source>
+        <translation>競賽工作台</translation>
     </message>
     <message>
         <source>closed</source>
