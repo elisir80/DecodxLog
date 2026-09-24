@@ -139,6 +139,10 @@
         <translation>リファレンス</translation>
     </message>
     <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>単一ウィンドウ (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>コンテストとアクティベーション</translation>
     </message>
@@ -195,8 +199,8 @@
         <translation>ADIF を書き出す (%1)</translation>
     </message>
     <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>コンテスト窓 (Ctrl+Shift+T)</translation>
+        <source>Contest Mode</source>
+        <translation>コンテストモード</translation>
     </message>
     <message>
         <source>Close</source>
@@ -230,7 +234,7 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>キャンセル</translation>
     </message>
 </context>
 <context>
@@ -673,8 +677,8 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>%1/%2 オンライン</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 件表示 · 直近 1 時間で %2 件</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 スポット</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -739,6 +743,18 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Hide spots from %1</source>
         <translation>%1 からのスポットを隠す</translation>
+    </message>
+    <message>
+        <source>hide filters</source>
+        <translation>フィルタを閉じる</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>フィルタ</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>マルチのみ</translation>
     </message>
     <message>
         <source>Decodium band</source>
@@ -1125,6 +1141,119 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>コールサインが短すぎます</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · 次は %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>コンテスト</translation>
+    </message>
+    <message>
+        <source>Contest entry · no session</source>
+        <translation>コンテスト入力 · セッションなし</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>バンド</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>モード</translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>交信済み</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>コールサイン</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST 送</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Nr 送</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST 受</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Nr 受</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · ログ</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · 国</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>ログ</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>「コンテスト」でセッションを開くと、QSO がここに入ります。</translation>
+    </message>
+</context>
+<context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>コンテストのパネルはすべて閉じています。上のバーのコンテストモードから開き直してください。</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>コンテストのパネルはすべて別ウィンドウです。パネルの ↩ でここに戻せます。</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>進み具合</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>コールサイン</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>経過時間</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>直近 10 分</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/時</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>直近 1 時間</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>最近の QSO</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1181,6 +1310,114 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>JN70 のようなロケーターが必要です。</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>スコア</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>%1 の規則はこのプログラムにありません。QSO はログと Cabrillo に入りますが、得点は別で数えてください。</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>開いているコンテストセッションはありません。</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>得点</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>マルチ</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>バンドごと · QSO、得点、マルチ</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>書き出し…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>規則: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>ログを送る</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Cabrillo を書く</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>すべてのファイル (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo を書きました。コンテストのページにアップロードしてください。</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>コンテスト</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>得点</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>マルチ</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>スコア</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>ログは終了から %n 日以内にコンテストのページにアップロードします。Cabrillo の得点はここで数えたものです。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>ログはコンテストのページにアップロードします。Cabrillo に書かれた得点はここで数えたものですが、審査ではどうせ数え直されます。</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Cabrillo を書く…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>コンテストのページを開く</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>このコンテストのログの送り先は分かりません。Cabrillo を書いて、規則のとおりに送ってください。</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>閉じる</translation>
     </message>
 </context>
 <context>
@@ -1280,6 +1517,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Nr r</source>
         <translation>Nr 受</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · ログ</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · 国</translation>
     </message>
     <message>
         <source>Log</source>
@@ -2112,6 +2357,22 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>地図</translation>
     </message>
     <message>
+        <source>Contest entry</source>
+        <translation>コンテスト入力</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>得点とマルチ</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>進み具合</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX クラスター</translation>
+    </message>
+    <message>
         <source>closed</source>
         <translation>閉じています</translation>
     </message>
@@ -2683,6 +2944,30 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: サービスが応答しません (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: APIキーが受け付けられませんでした</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: 登録済み</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>予期しない応答</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: もうありました</translation>
     </message>
@@ -2717,6 +3002,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: 返事がありません</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>APIキーが受け付けられませんでした</translation>
     </message>
 </context>
 <context>
@@ -4424,6 +4713,26 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>Club Log がほしいのは三つです。アカウントのメールとパスワード (下)、局プロファイルのコールサイン、そして API キー。キーは無料で自分だけのもので、clublog.org/need_api.php でもらいます。あれはプログラムを指すもので、あなたを指すものではありません。1 件の QSO は記録したらすぐ出ていきます。たまったぶんは 1 つの ADIF ファイルで出ていきます。</translation>
     </message>
     <message>
+        <source>Logbook on CRX</source>
+        <translation>CRXのログブック</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— 一覧を読み込む —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>自分のログブックを読み込む</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>送信開始日</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook は crx.cloud のクラウドログです。アカウントのAPIキー(HAM- で始まるもの。下の他の認証情報と一緒に登録)と書き込むログブックが必要です。ログブックを選んだ日から送信が始まり、それより古いQSOは日付を戻したときだけ送られます。各QSOは日付と時刻付きで送られ、送信後に修正したものは重複せず更新されます。送信・自動送信・カウンターは下のQSLタブにあります。</translation>
+    </message>
+    <message>
         <source>QSL by email</source>
         <translation>メールで QSL</translation>
     </message>
@@ -5087,10 +5396,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>設定</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>インポート</translation>
     </message>
@@ -5103,16 +5408,92 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>アワード</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
-        <source>Cluster ●</source>
-        <translation>クラスター ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>クラスター</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>コンテストモード ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DXクラスター…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>設定 · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>設定 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>コンテストモード · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>コンテストモード · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 点 · %4 マルチ</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>開いているセッションがありません</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>コンテストとアクティベーション…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>コンテストモードを終了</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>コンテストモードに入る</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>入力</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>ログ</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>コールサイン カード</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>ペース</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>スコア</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>地図</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>ログを送る…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5125,14 +5506,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Station</source>
         <translation>局</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>プロファイルなし</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>局プロファイル</translation>
     </message>
     <message>
         <source>Cloud %1</source>
@@ -5187,8 +5560,8 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>ログ</translation>
     </message>
     <message>
-        <source>Contest</source>
-        <translation>コンテスト</translation>
+        <source>Reset the layout</source>
+        <translation>配置をリセット</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5259,6 +5632,21 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>ホイール: 指している桁が動きます。クリック: 周波数を書きます。</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>最小化</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>最大化または元に戻す</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>閉じる</translation>
     </message>
 </context>
 <context>
@@ -6110,6 +6498,20 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: このアカウントにはまだログブックがありません — crx.cloud で作成してください</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: アカウントに %n 冊のログブック</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: 止めました、%2</translation>
     </message>
@@ -6142,6 +6544,22 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>API キーがありません: 設定 → QSL のサービス</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>CRXのログブックを選択: 設定 → QSLサービス</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: ログブックを問い合わせ中…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: APIキーがありません (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>下で追加してください</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6178,6 +6596,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>
             <numerusform>Club Log: %n 件の QSO を送っています…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: 先にログブックを選択してください (設定 → QSLサービス)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -6271,6 +6693,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Tags</source>
         <translation>タグ</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>コメント</translation>
     </message>
 </context>
 <context>
@@ -6657,6 +7083,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>eQSL への送信と確認</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>CRX Logbook (crx.cloud) への送信: キーは HAM- で始まります</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

@@ -98,7 +98,7 @@ QString QsoTableModel::columnKey(int column) const
     static const QStringList keys{
         QStringLiteral("utc"), QStringLiteral("call"), QStringLiteral("band"), QStringLiteral("freq"),
         QStringLiteral("mode"), QStringLiteral("rst_sent"), QStringLiteral("rst_rcvd"),
-        QStringLiteral("grid"), QStringLiteral("name"), QStringLiteral("qth"), QStringLiteral("country"),
+        QStringLiteral("grid"), QStringLiteral("name"), QStringLiteral("comment"), QStringLiteral("qth"), QStringLiteral("country"),
         QStringLiteral("state"), QStringLiteral("county"), QStringLiteral("cqz"), QStringLiteral("ituz"),
         QStringLiteral("iota"), QStringLiteral("dxcc"), QStringLiteral("qsl"),
         QStringLiteral("source"), QStringLiteral("tags")};
@@ -128,6 +128,9 @@ QString QsoTableModel::columnTitle(int column) const
     case Qsl:     return tr("QSL");
     case Source:  return tr("Src");
     case Tags:    return tr("Tags");
+    // Il COMMENT dell'ADIF: quello che gli altri programmi chiamano commento.
+    // Le etichette sono un'altra cosa, di DecoDXLog.
+    case Comment: return tr("Comment");
     default:      return {};
     }
 }
@@ -155,6 +158,7 @@ int QsoTableModel::columnWidthHint(int column) const
     case Qsl:     return 84;
     case Source:  return 52;
     case Tags:    return 130;
+    case Comment: return 180;
     default:      return 80;
     }
 }
@@ -167,7 +171,7 @@ QString QsoTableModel::selectSql(const QString& where) const
                "(SELECT group_concat(service || ':' || sent || ':' || rcvd) FROM qsl_status s WHERE s.qso_id = qso.id), "
                "IFNULL(tags, ''), "
                "IFNULL(qth, ''), IFNULL(country, ''), IFNULL(state, ''), IFNULL(cnty, ''), "
-               "cqz, ituz, IFNULL(iota, '') "
+               "cqz, ituz, IFNULL(iota, ''), IFNULL(comment, '') "
                "FROM qso WHERE deleted = 0 %1 ORDER BY qso_datetime_on DESC, id DESC")
         .arg(where);
 }
@@ -206,6 +210,7 @@ QsoTableModel::Row QsoTableModel::rowFromQuery(const QSqlQuery& q) const
     r.values[Cqz] = q.value(19).isNull() || q.value(19).toInt() <= 0 ? QString() : q.value(19).toString();
     r.values[Ituz] = q.value(20).isNull() || q.value(20).toInt() <= 0 ? QString() : q.value(20).toString();
     r.values[Iota] = q.value(21).toString();
+    r.values[Comment] = q.value(22).toString();
     return r;
 }
 
@@ -230,10 +235,11 @@ void QsoTableModel::reload()
         QVariantList binds;
         const QString f = m_filter.trimmed().toUpper();
         if (!f.isEmpty()) {
-            // Ricerca libera: nominativo, locatore o nome.
-            where << QStringLiteral("(call LIKE ? OR UPPER(gridsquare) LIKE ? OR UPPER(name) LIKE ?)");
+            // Ricerca libera: nominativo, locatore, nome o commento.
+            where << QStringLiteral("(call LIKE ? OR UPPER(gridsquare) LIKE ? OR UPPER(name) LIKE ? "
+                                    "OR UPPER(IFNULL(comment, '')) LIKE ?)");
             const QString like = QLatin1Char('%') + f + QLatin1Char('%');
-            binds << like << like << like;
+            binds << like << like << like << like;
         }
         if (!m_bands.isEmpty()) {
             QStringList marks;

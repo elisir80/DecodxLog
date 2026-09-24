@@ -139,6 +139,10 @@
         <translation>Эталон</translation>
     </message>
     <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Одно окно (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Контесты и активации</translation>
     </message>
@@ -195,8 +199,8 @@
         <translation>Экспорт ADIF (%1)</translation>
     </message>
     <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Окно соревнования (Ctrl+Shift+T)</translation>
+        <source>Contest Mode</source>
+        <translation>Режим контеста</translation>
     </message>
     <message>
         <source>Close</source>
@@ -677,8 +681,8 @@ The call Decodium is working shows up here by itself.</source>
         <translation>%1/%2 на связи</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>показано %1 · %2 за последний час</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 спотов</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -743,6 +747,18 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Hide spots from %1</source>
         <translation>Скрыть споты от %1</translation>
+    </message>
+    <message>
+        <source>hide filters</source>
+        <translation>закрыть фильтры</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>фильтры</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>только множ.</translation>
     </message>
     <message>
         <source>Decodium band</source>
@@ -1129,6 +1145,119 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>Позывной слишком короткий</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · следующий %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Соревнование</translation>
+    </message>
+    <message>
+        <source>Contest entry · no session</source>
+        <translation>Ввод контеста · нет сессии</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Диапазон</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Режим</translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>уже работали</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Позывной</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST пер</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>№ пер</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST прин</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>№ прин</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · лог</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · страна</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Аппаратный журнал</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Открой сессию в «Контест», и QSO пойдут сюда.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>Все панели контеста закрыты: откройте их снова через Режим контеста в верхней панели.</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Все панели контеста в отдельных окнах: ↩ в панели возвращает её сюда.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Как идёт</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Позывные</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Длительность</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Последние 10 мин</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/ч</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Последний час</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Последние QSO</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1185,6 +1314,116 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>Ожидался локатор, например JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Результат</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>Правил %1 в программе нет: QSO попадут в журнал и в Cabrillo, но результат придётся считать где-то ещё.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Нет открытой сессии контеста.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Очки</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Множ.</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>По диапазонам · QSO, очки, множители</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Экспорт…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Регламент: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Отправить лог</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Записать Cabrillo</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Все файлы (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo записан. Теперь загрузите его на странице контеста.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Соревнование</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Очки</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Множ.</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Результат</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Лог загружается на странице контеста в течение %n дня после окончания. Результат в Cabrillo — тот, что посчитан здесь.</numerusform>
+            <numerusform>Лог загружается на странице контеста в течение %n дней после окончания. Результат в Cabrillo — тот, что посчитан здесь.</numerusform>
+            <numerusform>Лог загружается на странице контеста в течение %n дней после окончания. Результат в Cabrillo — тот, что посчитан здесь.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>Лог загружается на странице контеста. Результат в Cabrillo — тот, что посчитан здесь; те, кто проверяет логи, всё равно пересчитают.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Записать Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Открыть страницу контеста</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>Про этот контест программа не знает, куда идёт лог: запишите Cabrillo и отправьте так, как говорит регламент.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Закрыть</translation>
     </message>
 </context>
 <context>
@@ -1284,6 +1523,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Nr r</source>
         <translation>№ прин</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · лог</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · страна</translation>
     </message>
     <message>
         <source>Log</source>
@@ -2120,6 +2367,22 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Карта</translation>
     </message>
     <message>
+        <source>Contest entry</source>
+        <translation>Ввод контеста</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Результат и множители</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Как идёт</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX-кластер</translation>
+    </message>
+    <message>
         <source>closed</source>
         <translation>закрыта</translation>
     </message>
@@ -2693,6 +2956,30 @@ The call Decodium is working shows up here by itself.</source>
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: сервис не отвечает (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: API-ключ не принят</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: уже есть</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>неожиданный ответ</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: уже было</translation>
     </message>
@@ -2727,6 +3014,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: нет ответа</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>API-ключ не принят</translation>
     </message>
 </context>
 <context>
@@ -4442,6 +4733,26 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Club Log нужны три вещи: почта и пароль учётной записи (ниже), позывной из профиля станции и ключ API. Ключ бесплатный и личный, его просят на clublog.org/need_api.php — он указывает на программу, а не на вас. Один QSO уходит сразу, как записан; накопившееся уходит одним файлом ADIF.</translation>
     </message>
     <message>
+        <source>Logbook on CRX</source>
+        <translation>Журнал в CRX</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— загрузить список —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Загрузить мои журналы</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>Отправлять QSO с</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook — облачный журнал crx.cloud. Ему нужен API-ключ вашей учётной записи (начинается с HAM-, ниже вместе с другими учётными данными) и журнал, в который писать. Отправка начинается с дня, когда вы выбрали журнал: более старые QSO уходят, только если перенести дату назад. Каждое QSO уходит со своей датой и временем; исправленное после отправки обновляется, а не дублируется. Отправка, автоматическая отправка и счётчики — на вкладке QSL внизу.</translation>
+    </message>
+    <message>
         <source>QSL by email</source>
         <translation>QSL по почте</translation>
     </message>
@@ -5105,10 +5416,6 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>Настройки</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>Импортировать</translation>
     </message>
@@ -5121,16 +5428,92 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Дипломы</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
-        <source>Cluster ●</source>
-        <translation>Кластер ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>Кластер</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>Режим контеста ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX-кластер…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Настройки · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Настройки ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>Режим контеста · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>Режим контеста · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 очков · %4 множ.</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Нет открытого сеанса</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>Контесты и активации…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Выйти из режима контеста</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>Войти в режим контеста</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>Ввод</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Аппаратный журнал</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Карточка позывного</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Темп</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Результат</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Карта</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Отправить лог…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5143,14 +5526,6 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Station</source>
         <translation>Станция</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>Без профиля</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>Профили станции</translation>
     </message>
     <message>
         <source>Cloud %1</source>
@@ -5205,8 +5580,8 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Журналы</translation>
     </message>
     <message>
-        <source>Contest</source>
-        <translation>Соревнование</translation>
+        <source>Reset the layout</source>
+        <translation>Сбросить расположение</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5277,6 +5652,21 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Колёсико: цифра под указателем. Щелчок: написать частоту.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Свернуть</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Развернуть или восстановить</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Закрыть</translation>
     </message>
 </context>
 <context>
@@ -6176,6 +6566,22 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: у этой учётной записи ещё нет журнала — создайте его на crx.cloud</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: %n журнал в учётной записи</numerusform>
+            <numerusform>CRX: %n журнала в учётной записи</numerusform>
+            <numerusform>CRX: %n журналов в учётной записи</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: остановлено, %2</translation>
     </message>
@@ -6210,6 +6616,22 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>нет ключа API: Настройки → Службы QSL</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>выберите журнал CRX: Настройки → QSL-сервисы</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: запрашиваю журналы…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: нет API-ключа (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>добавьте его ниже</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6250,6 +6672,10 @@ The call Decodium is working shows up here by itself.</source>
             <numerusform>Club Log: отправляем %n QSO…</numerusform>
             <numerusform>Club Log: отправляем %n QSO…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: сначала выберите журнал (Настройки → QSL-сервисы)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -6345,6 +6771,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Tags</source>
         <translation>Метки</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Комментарий</translation>
     </message>
 </context>
 <context>
@@ -6733,6 +7163,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>Загрузка и подтверждения eQSL</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Отправка в CRX Logbook (crx.cloud): ключ начинается с HAM-</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

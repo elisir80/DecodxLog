@@ -18,12 +18,19 @@ ApplicationWindow {
 
     OnScreen { target: root }
 
+    // Niente barra di Windows: la testata e' la nostra, piu' bassa, con gli
+    // stessi comandi. Si sposta dalla testata e si ridimensiona dai bordi.
+    flags: Qt.Window | Qt.FramelessWindowHint | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint
+    header: WindowTitleBar { window: root }
+    WindowChrome {
+        window: root
+        parent: root.contentItem.parent
+        dragHeight: Theme.panelHeight
+    }
+
     Settings {
         id: shared
         category: "layout"
-        property string hiddenColumns: ""
-        property string columnWidths: ""
-        property var savedFilters: ({})
         property alias popWidth: root.width
         property alias popHeight: root.height
         // Anche la posizione: se la finestra sta sul secondo schermo, e' li'
@@ -38,12 +45,6 @@ ApplicationWindow {
         anchors.fill: parent
         anchors.margins: 8
         showPopButton: false
-        hiddenColumns: shared.hiddenColumns
-        columnWidths: shared.columnWidths
-        savedFilters: shared.savedFilters
-        onHiddenColumnsEdited: (value) => shared.hiddenColumns = value
-        onColumnWidthsEdited: (value) => shared.columnWidths = value
-        onSavedFiltersEdited: (value) => shared.savedFilters = value
         onOpenQso: (id) => { if (id > 0) qsoDialog.openFor(id) }
     }
 }

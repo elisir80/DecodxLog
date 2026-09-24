@@ -112,6 +112,9 @@ ComboBox {
     }
 
     popup: Popup {
+        // Una finestra vera: la tendina esce dal bordo di una finestra
+        // piccola e si apre sopra le altre finestre del programma, non sotto.
+        popupType: Popup.Window
         y: root.height + 2
         width: Math.max(root.width, 160)
         implicitHeight: Math.min(contentItem.implicitHeight + 4, 340)

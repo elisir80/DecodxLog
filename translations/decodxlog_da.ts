@@ -139,6 +139,10 @@
         <translation>Reference</translation>
     </message>
     <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Enkelt vindue (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Contests og aktiveringer</translation>
     </message>
@@ -195,8 +199,8 @@
         <translation>Eksportér ADIF (%1)</translation>
     </message>
     <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Contest-vindue (Ctrl+Shift+T)</translation>
+        <source>Contest Mode</source>
+        <translation>Contesttilstand</translation>
     </message>
     <message>
         <source>Close</source>
@@ -675,8 +679,8 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>%1/%2 online</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 vist · %2 i den sidste time</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 spots</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -741,6 +745,18 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Hide spots from %1</source>
         <translation>Skjul spots fra %1</translation>
+    </message>
+    <message>
+        <source>hide filters</source>
+        <translation>luk filtre</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>filtre</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>kun mult</translation>
     </message>
     <message>
         <source>Decodium band</source>
@@ -1127,6 +1143,119 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>Kaldesignalet er for kort</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · næste %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>Contest entry · no session</source>
+        <translation>Contestindtastning · ingen session</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Bånd</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Tilstand</translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>allerede kørt</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Kaldesignal</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST s</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Nr s</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST r</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Nr r</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · land</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Logbog</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Åbn en session under Contest, så kommer QSO&apos;erne ind her.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>Alle contestpaneler er lukket: åbn dem igen fra Contesttilstand i bjælken øverst.</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Alle contestpaneler er i deres egne vinduer: ↩ i et panel bringer det tilbage hertil.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Hvordan det går</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Kald</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Varighed</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Sidste 10 min</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/t</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Sidste time</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Sidste QSO&apos;er</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1183,6 +1312,115 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>Der blev forventet en locator, som JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>Reglerne for %1 er ikke i programmet: QSO&apos;erne kommer i loggen og i Cabrillo, men scoren skal tælles et andet sted.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Ingen contest-session åben.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Point</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Bånd for bånd · QSO, point, multiplikatorer</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Eksportér…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Regler: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Send loggen</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Skriv Cabrillo</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Alle filer (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo skrevet. Upload den nu på contestsiden.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Point</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Loggen uploades på contestsiden inden %n dag efter afslutningen. Scoren i Cabrillo-filen er den, der er talt her; de der tjekker loggene tæller efter alligevel.</numerusform>
+            <numerusform>Loggen uploades på contestsiden inden %n dage efter afslutningen. Scoren i Cabrillo-filen er den, der er talt her; de der tjekker loggene tæller efter alligevel.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>Loggen uploades på contestsiden. Scoren i Cabrillo-filen er den, der er talt her; de der tjekker loggene tæller efter alligevel.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Skriv Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Åbn contestsiden</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>For denne contest ved programmet ikke, hvor loggen skal hen: skriv Cabrillo-filen og send den, som reglerne siger.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Luk</translation>
     </message>
 </context>
 <context>
@@ -1282,6 +1520,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Nr r</source>
         <translation>Nr r</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · land</translation>
     </message>
     <message>
         <source>Log</source>
@@ -2116,6 +2362,22 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Kort</translation>
     </message>
     <message>
+        <source>Contest entry</source>
+        <translation>Contest-indtastning</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Score og multiplikatorer</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Hvordan det går</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX-klynge</translation>
+    </message>
+    <message>
         <source>closed</source>
         <translation>lukket</translation>
     </message>
@@ -2688,6 +2950,30 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: tjenesten svarer ikke (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: API-nøglen blev ikke accepteret</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: findes allerede</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>uventet svar</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: var der allerede</translation>
     </message>
@@ -2722,6 +3008,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: intet svar</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>API-nøglen blev ikke accepteret</translation>
     </message>
 </context>
 <context>
@@ -4433,6 +4723,26 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Club Log vil have tre ting: kontoens e-mail og adgangskode (nedenfor), stationsprofilens kaldesignal og en API-nøgle. Nøglen er gratis og personlig og bedes om på clublog.org/need_api.php — den peger på programmet, ikke på dig. Et enkelt QSO går af sted, så snart det er logget; en pukkel går af sted som én ADIF-fil.</translation>
     </message>
     <message>
+        <source>Logbook on CRX</source>
+        <translation>Logbog på CRX</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— hent listen —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Hent mine logbøger</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>Send QSO&apos;er fra</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook er cloud-loggen på crx.cloud. Den vil have API-nøglen til din konto (starter med HAM-, nedenfor sammen med de andre adgangsoplysninger) og logbogen, der skal skrives i. Den starter fra den dag, du vælger logbogen: ældre QSO&apos;er sendes kun, hvis du flytter datoen tilbage. Hvert QSO sendes med dato og tid; et QSO rettet efter afsendelse opdateres, det dubleres ikke. Afsendelse, automatisk afsendelse og tællerne findes i QSL-fanen nederst.</translation>
+    </message>
+    <message>
         <source>QSL by email</source>
         <translation>QSL med e-mail</translation>
     </message>
@@ -5096,10 +5406,6 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>Opsætning</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>Importér</translation>
     </message>
@@ -5112,16 +5418,92 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Diplomer</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
-        <source>Cluster ●</source>
-        <translation>Cluster ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>Cluster</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>Contesttilstand ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX-cluster…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Opsætning · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Opsætning ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>Contesttilstand · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>Contesttilstand · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 point · %4 mult</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Ingen session åben</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>Contests og aktiveringer…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Forlad contesttilstand</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>Start contesttilstand</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>Indtastning</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Logbog</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Kaldesignalkort</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Tempo</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Kort</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Send loggen…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5134,14 +5516,6 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Station</source>
         <translation>Station</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>Ingen profil</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>Stationsprofiler</translation>
     </message>
     <message>
         <source>Cloud %1</source>
@@ -5196,8 +5570,8 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Logs</translation>
     </message>
     <message>
-        <source>Contest</source>
-        <translation>Contest</translation>
+        <source>Reset the layout</source>
+        <translation>Nulstil layoutet</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5268,6 +5642,21 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Hjulet: cifret under markøren. Klik: skriv frekvensen.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Minimer</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Maksimer eller gendan</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Luk</translation>
     </message>
 </context>
 <context>
@@ -6143,6 +6532,21 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: denne konto har endnu ingen logbog — opret en på crx.cloud</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: %n logbog på kontoen</numerusform>
+            <numerusform>CRX: %n logbøger på kontoen</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: stoppet, %2</translation>
     </message>
@@ -6176,6 +6580,22 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>ingen API-nøgle: Indstillinger → QSL-tjenester</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>vælg CRX-logbogen: Opsætning → QSL-tjenester</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: henter logbøgerne…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: ingen API-nøgle (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>tilføj den nedenfor</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6214,6 +6634,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
             <numerusform>Club Log: sender %n QSO…</numerusform>
             <numerusform>Club Log: sender %n QSO…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: vælg først logbogen (Opsætning → QSL-tjenester)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -6308,6 +6732,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Tags</source>
         <translation>Mærker</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Kommentar</translation>
     </message>
 </context>
 <context>
@@ -6695,6 +7123,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>Upload og eQSL-bekræftelser</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Afsendelse til CRX Logbook (crx.cloud): nøglen starter med HAM-</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

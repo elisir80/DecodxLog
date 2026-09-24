@@ -139,6 +139,10 @@
         <translation>Referència</translation>
     </message>
     <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Finestra única (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Concursos i activacions</translation>
     </message>
@@ -195,8 +199,8 @@
         <translation>Exporta ADIF (%1)</translation>
     </message>
     <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Finestra de concurs (Ctrl+Shift+T)</translation>
+        <source>Contest Mode</source>
+        <translation>Mode concurs</translation>
     </message>
     <message>
         <source>Close</source>
@@ -675,8 +679,8 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>%1/%2 en línia</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 mostrats · %2 en l&apos;última hora</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 spots</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -741,6 +745,18 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Hide spots from %1</source>
         <translation>Amaga els spots de %1</translation>
+    </message>
+    <message>
+        <source>hide filters</source>
+        <translation>tanca els filtres</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>filtres</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>només mult</translation>
     </message>
     <message>
         <source>Decodium band</source>
@@ -1127,6 +1143,119 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>L&apos;indicatiu és massa curt</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · següent %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>Contest entry · no session</source>
+        <translation>Entrada de concurs · cap sessió</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Banda</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Mode</translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>ja treballat</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Indicatiu</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST s</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Nr s</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST r</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Nr r</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · país</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Registre</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Obre una sessió a Concurs i els QSO arriben aquí.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>Tots els panells del concurs estan tancats: es tornen a obrir des de Mode concurs, a la barra de dalt.</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Tots els panells del concurs són en finestres pròpies: ↩ en un panell el torna aquí.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Com va</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Indicatius</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Durada</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Últims 10 min</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/h</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Última hora</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Últims QSO</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1183,6 +1312,115 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>S&apos;esperava un locator, com JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Puntuació</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>Les regles de %1 no són al programa: els QSO van al registre i al Cabrillo, però la puntuació s&apos;ha de comptar en un altre lloc.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Cap sessió de concurs oberta.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punts</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Banda per banda · QSO, punts, multiplicadors</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Exporta…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Reglament: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Envia el registre</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Escriu el Cabrillo</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Tots els fitxers (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo escrit. Ara puja&apos;l a la pàgina del concurs.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punts</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Puntuació</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>El registre es puja a la pàgina del concurs en %n dia des del final. La puntuació escrita al Cabrillo és la comptada aquí; qui revisa els registres la torna a comptar igualment.</numerusform>
+            <numerusform>El registre es puja a la pàgina del concurs en %n dies des del final. La puntuació escrita al Cabrillo és la comptada aquí; qui revisa els registres la torna a comptar igualment.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>El registre es puja a la pàgina del concurs. La puntuació escrita al Cabrillo és la comptada aquí; qui revisa els registres la torna a comptar igualment.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Escriu el Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Obre la pàgina del concurs</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>D&apos;aquest concurs el programa no sap on va el registre: escriu el Cabrillo i envia&apos;l com diu el reglament.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Tanca</translation>
     </message>
 </context>
 <context>
@@ -1282,6 +1520,14 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Nr r</source>
         <translation>Nr r</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · país</translation>
     </message>
     <message>
         <source>Log</source>
@@ -2116,6 +2362,22 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Mapa</translation>
     </message>
     <message>
+        <source>Contest entry</source>
+        <translation>Entrada de concurs</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Puntuació i multiplicadors</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Com va</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>Clúster DX</translation>
+    </message>
+    <message>
         <source>closed</source>
         <translation>tancat</translation>
     </message>
@@ -2688,6 +2950,30 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: el servei no respon (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: la clau API no s&apos;ha acceptat</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: ja hi és</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>resposta inesperada</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: ja hi era</translation>
     </message>
@@ -2722,6 +3008,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: cap resposta</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>la clau API no s&apos;ha acceptat</translation>
     </message>
 </context>
 <context>
@@ -4433,6 +4723,26 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Club Log vol tres coses: el correu i la contrasenya del compte (aquí sota), l&apos;indicatiu del perfil d&apos;estació i una clau API. La clau és gratuïta i personal, i es demana a clublog.org/need_api.php — identifica el programa, no pas tu. Un QSO sol marxa tan bon punt es registra; una pila endarrerida marxa com un sol fitxer ADIF.</translation>
     </message>
     <message>
+        <source>Logbook on CRX</source>
+        <translation>Llibre a CRX</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— carrega la llista —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Carrega els meus llibres</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>Envia els QSO des del</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook és el llibre al núvol de crx.cloud. Demana la clau API del teu compte (comença per HAM-, a baix amb les altres credencials) i el llibre on escriure. Comença el dia que tries el llibre: els QSO més antics només surten si endarrereixes la data. Cada QSO va amb la seva data i hora; un de corregit després de l&apos;enviament s&apos;actualitza, no es duplica. L&apos;enviament, l&apos;enviament automàtic i els comptadors són a la pestanya QSL de baix.</translation>
+    </message>
+    <message>
         <source>QSL by email</source>
         <translation>QSL per correu</translation>
     </message>
@@ -5096,10 +5406,6 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>Configuració</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>Importa</translation>
     </message>
@@ -5112,16 +5418,92 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Diplomes</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
-        <source>Cluster ●</source>
-        <translation>Clúster ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>Clúster</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>Mode concurs ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX Cluster…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Configuració · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Configuració ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>Mode concurs · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>Mode concurs · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 punts · %4 mult</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Cap sessió oberta</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>Concursos i activacions…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Surt del mode concurs</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>Entra en mode concurs</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>Entrada</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Registre</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Fitxa de l&apos;indicatiu</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Ritme</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Puntuació</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Mapa</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Envia el registre…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5134,14 +5516,6 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Station</source>
         <translation>Estació</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>Cap perfil</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>Perfils d&apos;estació</translation>
     </message>
     <message>
         <source>Cloud %1</source>
@@ -5196,8 +5570,8 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Registres</translation>
     </message>
     <message>
-        <source>Contest</source>
-        <translation>Contest</translation>
+        <source>Reset the layout</source>
+        <translation>Restableix la disposició</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5268,6 +5642,21 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Roda: la xifra sota el punter. Clic: escriure la freqüència.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Minimitza</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Maximitza o restaura</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Tanca</translation>
     </message>
 </context>
 <context>
@@ -6143,6 +6532,21 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: aquest compte encara no té llibre — crea&apos;n un a crx.cloud</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: %n llibre al compte</numerusform>
+            <numerusform>CRX: %n llibres al compte</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: aturat, %2</translation>
     </message>
@@ -6176,6 +6580,22 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>cap clau API: Configuració → Serveis QSL</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>tria el llibre CRX: Configuració → Serveis QSL</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: demanant els llibres…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: cap clau API (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>afegeix-la a baix</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6214,6 +6634,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
             <numerusform>Club Log: enviant %n QSO…</numerusform>
             <numerusform>Club Log: enviant %n QSO…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: tria primer el llibre (Configuració → Serveis QSL)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -6308,6 +6732,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Tags</source>
         <translation>Etiquetes</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Comentari</translation>
     </message>
 </context>
 <context>
@@ -6695,6 +7123,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>Pujada i confirmacions d&apos;eQSL</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Enviament al CRX Logbook (crx.cloud): la clau comença per HAM-</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

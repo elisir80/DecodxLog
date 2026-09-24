@@ -542,6 +542,7 @@ void ClusterController::tune(const QString& spotKey)
     const EnrichedSpot* e = m_model.find(spotKey);
     if (!e)
         return;
+    emit spotPicked(e->spot.dxCall, e->spot.band, e->spot.mode, e->spot.freqKhz);
     if (m_ctx.lookup)
         m_ctx.lookup(e->spot.dxCall);
 
@@ -599,7 +600,11 @@ void ClusterController::tune(const QString& spotKey)
 
 void ClusterController::lookupSpot(const QString& spotKey)
 {
-    if (const EnrichedSpot* e = m_model.find(spotKey); e && m_ctx.lookup)
+    const EnrichedSpot* e = m_model.find(spotKey);
+    if (!e)
+        return;
+    emit spotPicked(e->spot.dxCall, e->spot.band, e->spot.mode, e->spot.freqKhz);
+    if (m_ctx.lookup)
         m_ctx.lookup(e->spot.dxCall);
 }
 

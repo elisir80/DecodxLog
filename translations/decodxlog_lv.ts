@@ -139,6 +139,10 @@
         <translation>Atsauce</translation>
     </message>
     <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Viens logs (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Konkursi un aktivizēšanas</translation>
     </message>
@@ -195,8 +199,8 @@
         <translation>Eksportēt ADIF (%1)</translation>
     </message>
     <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Sacensību logs (Ctrl+Shift+T)</translation>
+        <source>Contest Mode</source>
+        <translation>Konkursa režīms</translation>
     </message>
     <message>
         <source>Close</source>
@@ -677,8 +681,8 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>%1/%2 tiešsaistē</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 rādīti · %2 pēdējā stundā</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 spoti</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -743,6 +747,18 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Hide spots from %1</source>
         <translation>Slēpt %1 spotus</translation>
+    </message>
+    <message>
+        <source>hide filters</source>
+        <translation>aizvērt filtrus</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>filtri</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>tikai reiz.</translation>
     </message>
     <message>
         <source>Decodium band</source>
@@ -1129,6 +1145,119 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>Izsaukuma signāls ir par īsu</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · nākamais %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Sacensības</translation>
+    </message>
+    <message>
+        <source>Contest entry · no session</source>
+        <translation>Konkursa ievade · nav sesijas</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Band</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Mode</translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>jau strādāts</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Callsign</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST n</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Nr n</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST s</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Nr s</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · žurnāls</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · valsts</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Žurnāls</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Atver sesiju sadaļā Konkurss, un QSO nonāk šeit.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>Visi konkursa paneļi ir aizvērti: atver tos no Konkursa režīma augšējā joslā.</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Visi konkursa paneļi ir atsevišķos logos: ↩ panelī to atgriež šeit.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Kā iet</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Izsaukumi</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Ilgums</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Pēdējās 10 min</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/h</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Pēdējā stunda</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Pēdējie QSO</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1185,6 +1314,116 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>Bija gaidīts lokators, kā JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Rezultāts</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>%1 noteikumu programmā nav: QSO nonāk žurnālā un Cabrillo, bet rezultāts jāskaitīa citur.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Nav atvērtas konkursa sesijas.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punkti</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Reiz.</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Josla pēc joslas · QSO, punkti, reizinātāji</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Eksportēt…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Noteikumi: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Sūtīt žurnālu</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Rakstīt Cabrillo</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Visi faili (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo uzrakstīts. Tagad augšupielādē to konkursa lapā.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Sacensības</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punkti</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Reiz.</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Rezultāts</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Žurnālu augšupielādē konkursa lapā %n dienas laikā pēc beigām. Cabrillo ierakstītais rezultāts ir šeit saskaitītais; tie, kas pārbauda žurnālus, to tik un tā pārskaita.</numerusform>
+            <numerusform>Žurnālu augšupielādē konkursa lapā %n dienu laikā pēc beigām. Cabrillo ierakstītais rezultāts ir šeit saskaitītais; tie, kas pārbauda žurnālus, to tik un tā pārskaita.</numerusform>
+            <numerusform>Žurnālu augšupielādē konkursa lapā %n dienu laikā pēc beigām. Cabrillo ierakstītais rezultāts ir šeit saskaitītais; tie, kas pārbauda žurnālus, to tik un tā pārskaita.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>Žurnālu augšupielādē konkursa lapā. Cabrillo ierakstītais rezultāts ir šeit saskaitītais; tie, kas pārbauda žurnālus, to tik un tā pārskaita.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Rakstīt Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Atvērt konkursa lapu</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>Par šo konkursu programma nezina, kur jāsūta žurnāls: uzraksti Cabrillo un nosūti to, kā nosaka noteikumi.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Aizvērt</translation>
     </message>
 </context>
 <context>
@@ -1284,6 +1523,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Nr r</source>
         <translation>Nr s</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · žurnāls</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · valsts</translation>
     </message>
     <message>
         <source>Log</source>
@@ -2039,7 +2286,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name</translation>
     </message>
     <message>
         <source>CQ WW SSB 2026</source>
@@ -2118,6 +2365,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Map</source>
         <translation>Karte</translation>
+    </message>
+    <message>
+        <source>Contest entry</source>
+        <translation>Konkursa ievade</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Rezultāts un reizinātāji</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Kā iet</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX Cluster</translation>
     </message>
     <message>
         <source>closed</source>
@@ -2693,6 +2956,30 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: pakalpojums neatbild (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: API atslēga netika pieņemta</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: jau ir</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>negaidīta atbilde</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: jau bija</translation>
     </message>
@@ -2727,6 +3014,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: nav atbildes</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>API atslēga netika pieņemta</translation>
     </message>
 </context>
 <context>
@@ -4442,6 +4733,26 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Club Log vajadzīgas trīs lietas: konta e-pasts un parole (zemāk), stacijas profila izsaukuma signāls un API atslēga. Atslēga ir bez maksas un personiska, un to pieprasa clublog.org/need_api.php — tā apzīmē programmu, nevis tevi. Viens QSO aiziet uzreiz pēc ierakstīšanas, uzkrājums aiziet kā viens ADIF fails.</translation>
     </message>
     <message>
+        <source>Logbook on CRX</source>
+        <translation>Žurnāls CRX</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— ielādēt sarakstu —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Ielādēt manus žurnālus</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>Sūtīt QSO no</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook ir crx.cloud mākoņa žurnāls. Tam vajag jūsu konta API atslēgu (sākas ar HAM-, zemāk kopā ar citiem piekļuves datiem) un žurnālu, kurā rakstīt. Tas sākas no dienas, kad izvēlaties žurnālu: vecāki QSO tiek sūtīti tikai tad, ja pārceļat datumu atpakaļ. Katrs QSO tiek sūtīts ar savu datumu un laiku; pēc nosūtīšanas labots tiek atjaunināts, nevis dublēts. Sūtīšana, automātiskā sūtīšana un skaitītāji ir QSL cilnē apakšā.</translation>
+    </message>
+    <message>
         <source>QSL by email</source>
         <translation>QSL pa e-pastu</translation>
     </message>
@@ -5105,10 +5416,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>Iestatījumi</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>Importēt</translation>
     </message>
@@ -5121,16 +5428,92 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Diplomi</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
-        <source>Cluster ●</source>
-        <translation>Klasteris ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>Klasteris</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>Konkursa režīms ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX klasteris…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Iestatījumi · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Iestatījumi ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>Konkursa režīms · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>Konkursa režīms · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 punkti · %4 reiz.</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Nav atvērtas sesijas</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>Konkursi un aktivizācijas…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Iziet no konkursa režīma</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>Ieslēgt konkursa režīmu</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>Ievade</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Žurnāls</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Izsaukuma karte</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Temps</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Rezultāts</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Karte</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Sūtīt žurnālu…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5143,14 +5526,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Station</source>
         <translation>Stacija</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>Nav profila</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>Staciju profili</translation>
     </message>
     <message>
         <source>Cloud %1</source>
@@ -5205,8 +5580,8 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Žurnāli</translation>
     </message>
     <message>
-        <source>Contest</source>
-        <translation>Sacensības</translation>
+        <source>Reset the layout</source>
+        <translation>Atjaunot izkārtojumu</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5277,6 +5652,21 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Ritenītis: cipars zem rādītāja. Klikšķis: ierakstīt frekvenci.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Minimizēt</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Maksimizēt vai atjaunot</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Aizvērt</translation>
     </message>
 </context>
 <context>
@@ -6176,6 +6566,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: šim kontam vēl nav žurnāla — izveidojiet to crx.cloud</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: kontā %n žurnālu</numerusform>
+            <numerusform>CRX: kontā %n žurnāls</numerusform>
+            <numerusform>CRX: kontā %n žurnāli</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: apturēts, %2</translation>
     </message>
@@ -6210,6 +6616,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>nav API atslēgas: Iestatījumi → QSL pakalpojumi</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>izvēlieties CRX žurnālu: Iestatījumi → QSL pakalpojumi</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: pieprasa žurnālus…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: nav API atslēgas (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>pievienojiet to zemāk</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6250,6 +6672,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
             <numerusform>Club Log: sūta %n QSO…</numerusform>
             <numerusform>Club Log: sūta %n QSO…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: vispirms izvēlieties žurnālu (Iestatījumi → QSL pakalpojumi)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -6345,6 +6771,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Tags</source>
         <translation>Birkas</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Komentārs</translation>
     </message>
 </context>
 <context>
@@ -6733,6 +7163,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>Augšupielāde un eQSL apstiprinājumi</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Sūtīšana uz CRX Logbook (crx.cloud): atslēga sākas ar HAM-</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

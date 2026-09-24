@@ -14,6 +14,10 @@ GlassPanel {
     // moltiplicatore che non si ha. Via tutto il resto, e quelli che contano si
     // vedono da lontano.
     property bool contestMode: false
+    // In contest: i filtri chiusi, e la possibilita' di vedere solo gli spot
+    // che portano un moltiplicatore.
+    property bool filtersOpen: false
+    property bool onlyMultipliers: false
     signal windowRequested(int tab)
 
     readonly property var cluster: decolog.cluster
@@ -71,7 +75,9 @@ GlassPanel {
         },
         Text {
             anchors.verticalCenter: parent.verticalCenter
-            text: qsTr("%1 shown · %2 in the last hour").arg(root.model.count).arg(root.model.totalCount)
+            // Corto: la testata di una finestra stretta non ha posto per una
+            // frase, e i due numeri dicono gia' tutto.
+            text: qsTr("%1/%2 spots").arg(root.model.count).arg(root.model.totalCount)
             color: Theme.textSecondary
             font.family: Theme.monoFamily
             font.pixelSize: 11
@@ -242,9 +248,38 @@ GlassPanel {
         anchors.fill: parent
         spacing: 0
 
+        // In contest la riga dei filtri si apre solo quando serve: in una
+        // colonna stretta quei pulsanti si mangiavano mezza finestra, e quello
+        // che conta sono gli spot.
+        RowLayout {
+            Layout.fillWidth: true
+            visible: root.contestMode
+            spacing: 4
+            Chip {
+                label: root.filtersOpen ? qsTr("hide filters") : qsTr("filters")
+                on: root.filtersOpen
+                onToggled: root.filtersOpen = !root.filtersOpen
+            }
+            Chip {
+                label: qsTr("mult only")
+                tone: Theme.warningColor
+                on: root.onlyMultipliers
+                onToggled: root.onlyMultipliers = !root.onlyMultipliers
+            }
+            Item { Layout.fillWidth: true }
+            Text {
+                text: root.model.count + ""
+                color: Theme.textSecondary
+                font.family: Theme.monoFamily
+                font.pixelSize: 11
+                rightPadding: 8
+            }
+        }
+
         // ── Filtri rapidi ───────────────────────────────────────────────────
         Rectangle {
             Layout.fillWidth: true
+            visible: !root.contestMode || root.filtersOpen
             implicitHeight: quick.implicitHeight + 12
             color: "transparent"
             Rectangle { anchors { left: parent.left; right: parent.right; bottom: parent.bottom } height: 1; color: Theme.borderSoft }
@@ -389,16 +424,20 @@ GlassPanel {
                 readonly property bool newMultiplier: !!contestValue.newMultiplier
 
                 width: ListView.view.width
-                height: Theme.rowHeight
+                height: visible ? Theme.rowHeight : 0
+                visible: !root.onlyMultipliers || line.newMultiplier
+                // Le righe restano del colore del pannello: il fondo giallo dei
+                // moltiplicatori copriva tutto l'elenco in gara. Quello che conta
+                // lo dicono il filo a sinistra e la pasticca, in un colore solo.
                 color: area.containsMouse ? Theme.glassOverlay
-                     : line.newMultiplier ? Qt.rgba(Theme.warningColor.r, Theme.warningColor.g,
-                                                    Theme.warningColor.b, 0.18)
-                     : fresh && (status & 15) ? Qt.rgba(root.statusColor(status).r, root.statusColor(status).g, root.statusColor(status).b, 0.10)
+                     : !root.contestMode && fresh && (status & 15)
+                       ? Qt.rgba(root.statusColor(status).r, root.statusColor(status).g, root.statusColor(status).b, 0.10)
                      : "transparent"
                 Rectangle {
                     anchors { left: parent.left; top: parent.top; bottom: parent.bottom }
-                    width: line.newMultiplier ? 5 : 3
-                    color: line.newMultiplier ? Theme.warningColor : root.statusColor(line.status)
+                    width: line.newMultiplier ? 4 : 3
+                    color: line.newMultiplier ? Theme.accentColor
+                         : root.contestMode ? "transparent" : root.statusColor(line.status)
                 }
                 Rectangle { anchors { left: parent.left; right: parent.right; bottom: parent.bottom } height: 1; color: Theme.borderSoft }
 
@@ -438,20 +477,23 @@ GlassPanel {
                             width: parent.width
                             height: 18
                             radius: 3
-                            color: Qt.rgba(Theme.warningColor.r, Theme.warningColor.g,
-                                           Theme.warningColor.b, 0.22)
-                            border.color: Theme.warningColor
+                            color: Qt.rgba(Theme.accentColor.r, Theme.accentColor.g,
+                                           Theme.accentColor.b, 0.14)
+                            border.color: Theme.accentColor
                             Text {
                                 anchors.centerIn: parent
+                                width: parent.width - 6
+                                horizontalAlignment: Text.AlignHCenter
+                                elide: Text.ElideRight
                                 text: line.contestValue.label || qsTr("mult")
-                                color: Theme.warningColor
+                                color: Theme.accentColor
                                 font.family: Theme.monoFamily
                                 font.pixelSize: 10
                                 font.bold: true
                             }
                         }
                         Rectangle {
-                            visible: !line.newMultiplier && line.statusLabel.length > 0
+                            visible: !root.contestMode && !line.newMultiplier && line.statusLabel.length > 0
                             anchors.verticalCenter: parent.verticalCenter
                             width: badge.implicitWidth + 10
                             height: 16

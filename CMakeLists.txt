@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.12.0
+    VERSION 1.16.4
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -179,6 +179,8 @@ endif()
 qt_add_executable(decolog
     ${DECODXLOG_WIN_RESOURCES}
     src/main.cpp
+    src/CrashLog.cpp
+    src/CrashLog.h
     src/app/QsoTableModel.cpp
     src/app/QsoTableModel.h
     src/app/DecoLogController.cpp
@@ -236,6 +238,11 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/UpdateDialog.qml
     qml/DecoDXLog/ActivationDialog.qml
     qml/DecoDXLog/LogsDialog.qml
+    qml/DecoDXLog/ContestLayout.qml
+    qml/DecoDXLog/ContestSubmitDialog.qml
+    qml/DecoDXLog/ContestEntryPanel.qml
+    qml/DecoDXLog/ContestScorePanel.qml
+    qml/DecoDXLog/ContestRatePanel.qml
     qml/DecoDXLog/StatsWindow.qml
     qml/DecoDXLog/ContestWindow.qml
     qml/DecoDXLog/RotorPalette.qml

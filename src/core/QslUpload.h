@@ -12,7 +12,9 @@
 #pragma once
 
 #include <QDateTime>
+#include <QJsonObject>
 #include <QObject>
+#include <QVariantList>
 #include <QString>
 #include <QStringList>
 #include <QUrl>
@@ -33,6 +35,8 @@ struct QslUploadResult {
     QString remoteId;       // QRZ: il numero del QSO nel logbook
     bool    retryLater{false};   // problema di rete o servizio giu': si riprova
 };
+
+class AdifRecord;
 
 namespace qsl {
 
@@ -55,6 +59,15 @@ QslUploadResult parseQrzResponse(const QByteArray& body);
 QslUploadResult parseEqslResponse(const QByteArray& body);
 // La risposta di Club Log: `status` e' il codice HTTP, 0 se non e' arrivato.
 QslUploadResult parseClubLogResponse(int status, const QByteArray& body, int qsoCount);
+
+// CRX Logbook (crx.cloud): un QSO si manda come JSON, dentro {"req": {...}}.
+// `remoteId` e' il numero che CRX ha dato al QSO la prima volta: con quello si
+// corregge invece di crearne un doppione; 0 per un QSO nuovo.
+QJsonObject crxQsoData(const AdifRecord& record, qint64 logId, qint64 remoteId);
+// La risposta a edit_myqso: {"success": true, "qso_id": ...} o {"error": ...}.
+QslUploadResult parseCrxResponse(int status, const QByteArray& body);
+// I logbook dell'account: {id, name, call, description}.
+QVariantList parseCrxLogs(const QByteArray& body, QString* error);
 
 } // namespace qsl
 
@@ -102,7 +115,7 @@ class WebQslUploader : public QObject {
     Q_OBJECT
 
 public:
-    enum class Service { QrzLogbook, Eqsl, ClubLog };
+    enum class Service { QrzLogbook, Eqsl, ClubLog, Crx };
 
     explicit WebQslUploader(QObject* parent = nullptr);
 
@@ -117,9 +130,15 @@ public:
     // Club Log prende tutto il blocco in una volta: un QSO solo passa da
     // realtime.php, il resto dal caricamento normale di un file ADIF.
     void uploadClubLog(const ClubLogAuth& auth, const QByteArray& adifDocument, int qsoCount);
+    // CRX Logbook: la chiave API dell'operatore e il QSO gia' tradotto.
+    void uploadCrx(const QString& apiKey, const QJsonObject& qsoData);
+    // L'elenco dei logbook dell'account CRX, per scegliere dove scrivere.
+    void listCrxLogs(const QString& apiKey);
+    void setCrxEndpoint(const QUrl& url) { m_crxUrl = url; }
 
 signals:
     void finished(const decolog::core::QslUploadResult& result);
+    void crxLogsListed(const QVariantList& logs, const QString& error);
 
 private:
     void send(Service service, const QUrl& url, const QByteArray& body);
@@ -130,6 +149,7 @@ private:
     QUrl m_eqslUrl{QStringLiteral("https://www.eqsl.cc/qslcard/importADIF.cfm")};
     QUrl m_clubLogRealtimeUrl{QStringLiteral("https://clublog.org/realtime.php")};
     QUrl m_clubLogBatchUrl{QStringLiteral("https://clublog.org/putlogs.php")};
+    QUrl m_crxUrl{QStringLiteral("https://s.crx.cloud/api/")};
     bool m_busy{false};
 };
 

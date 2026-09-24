@@ -55,6 +55,10 @@ struct ContestRules {
     QString  exchangeLabel;
     // Da dove vengono queste regole: si scrive nell'interfaccia.
     QString  source;
+    // Dove si manda il log a gara finita. Vuoto quando non si sa.
+    QString  submitUrl;
+    // Entro quando: giorni dalla fine, 0 se il regolamento non lo dice.
+    int      submitDays{0};
     bool     valid{false};        // falso quando il contest non ha una scheda
 };
 

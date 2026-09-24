@@ -139,6 +139,10 @@
         <translation>參考</translation>
     </message>
     <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>單一視窗 (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>競賽與啟用</translation>
     </message>
@@ -195,8 +199,8 @@
         <translation>匯出 ADIF (%1)</translation>
     </message>
     <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>比賽視窗 (Ctrl+Shift+T)</translation>
+        <source>Contest Mode</source>
+        <translation>競賽模式</translation>
     </message>
     <message>
         <source>Close</source>
@@ -673,8 +677,8 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>%1/%2 上線</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>顯示 %1 筆 · 最近一小時 %2 筆</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 則報點</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -739,6 +743,18 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Hide spots from %1</source>
         <translation>隱藏來自 %1 的點報</translation>
+    </message>
+    <message>
+        <source>hide filters</source>
+        <translation>收起篩選</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>篩選</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>只看倍增</translation>
     </message>
     <message>
         <source>Decodium band</source>
@@ -1125,6 +1141,119 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>呼號太短</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · 下一個 %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>比賽</translation>
+    </message>
+    <message>
+        <source>Contest entry · no session</source>
+        <translation>競賽輸入 · 無工作階段</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>波段</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>模式</translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>已通聯</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>呼號</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST 發</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>號 發</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST 收</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>號 收</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · 日誌</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · 國家</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>日誌</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>在「競賽」裡開一個對話，QSO 就會進到這裡。</translation>
+    </message>
+</context>
+<context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>競賽面板都已關閉：請從頂部列的「競賽模式」重新開啟。</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>競賽面板都在各自的視窗中：面板裡的 ↩ 可把它放回這裡。</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>進展如何</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>呼號</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>時長</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>最近 10 分鐘</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/小時</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>最近一小時</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>最近的 QSO</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1181,6 +1310,114 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>需要一個網格，如 JN70。</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>總分</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>程式裡沒有 %1 的規則：QSO 會進日誌和 Cabrillo，但分數要在別處計算。</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>沒有打開的競賽對話。</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>分數</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>倍增</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>逐波段 · QSO、分數、倍增</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>匯出…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>規則：%1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>傳送日誌</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>寫出 Cabrillo</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>所有檔案 (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo 已寫出。現在到競賽頁面上傳。</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>比賽</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>分數</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>倍增</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>總分</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>日誌要在競賽結束後 %n 天內上傳到競賽頁面。Cabrillo 裡寫的分數是這裡算的。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>日誌要在競賽頁面上傳。Cabrillo 裡寫的分數是這裡算的；審核日誌的人總會重算。</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>寫出 Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>打開競賽頁面</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>這個競賽的日誌往哪裡傳，程式不知道：先寫出 Cabrillo，再按規則傳送。</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>關閉</translation>
     </message>
 </context>
 <context>
@@ -1280,6 +1517,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Nr r</source>
         <translation>號 收</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · 日誌</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · 國家</translation>
     </message>
     <message>
         <source>Log</source>
@@ -2112,6 +2357,22 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>地圖</translation>
     </message>
     <message>
+        <source>Contest entry</source>
+        <translation>競賽鍵入</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>分數與倍增</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>進展如何</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX 集群</translation>
+    </message>
+    <message>
         <source>closed</source>
         <translation>已關閉</translation>
     </message>
@@ -2683,6 +2944,30 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>QRZ Logbook：%1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook：QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook：服務無回應（%1）</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook：API 金鑰未被接受</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook：已存在</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook：%1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>非預期的回應</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL：已經有了</translation>
     </message>
@@ -2717,6 +3002,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log：沒有回覆</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>API 金鑰未被接受</translation>
     </message>
 </context>
 <context>
@@ -4424,6 +4713,26 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>Club Log 要三樣東西：帳號的信箱和密碼（下面）、電台設定檔裡的呼號，以及一把 API 金鑰。金鑰是免費的、屬於你個人的，在 clublog.org/need_api.php 申請 — 它標識的是程式，不是你。單一 QSO 一記錄就送走，積壓的則作為一個 ADIF 檔案送走。</translation>
     </message>
     <message>
+        <source>Logbook on CRX</source>
+        <translation>CRX 上的日誌本</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— 載入清單 —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>載入我的日誌本</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>從此日期起傳送 QSO</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook 是 crx.cloud 的雲端日誌。它需要你帳戶的 API 金鑰（以 HAM- 開頭，在下方與其他憑證一起填寫）以及要寫入的日誌本。從你選擇日誌本的那天開始傳送：更早的 QSO 只有在你把日期往前調時才會傳送。每個 QSO 都帶日期和時間傳送；傳送後修改的會被更新，而不會重複。傳送、自動傳送和計數在下方的 QSL 分頁中。</translation>
+    </message>
+    <message>
         <source>QSL by email</source>
         <translation>用郵件發 QSL</translation>
     </message>
@@ -5087,10 +5396,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>設定</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>匯入</translation>
     </message>
@@ -5103,16 +5408,92 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>獎狀</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
-        <source>Cluster ●</source>
-        <translation>叢集 ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>叢集</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>競賽模式 ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX 叢集…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>設定 · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>設定 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>競賽模式 · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>競賽模式 · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 分 · %4 倍增</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>沒有開啟的會話</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>競賽與啟用…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>離開競賽模式</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>進入競賽模式</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>鍵入</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>日誌</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>呼號卡片</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>速度</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>總分</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>地圖</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>連續波</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>傳送日誌…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5125,14 +5506,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Station</source>
         <translation>電台</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>無設定檔</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>電台設定檔</translation>
     </message>
     <message>
         <source>Cloud %1</source>
@@ -5187,8 +5560,8 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>日誌</translation>
     </message>
     <message>
-        <source>Contest</source>
-        <translation>比賽</translation>
+        <source>Reset the layout</source>
+        <translation>重設版面</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5259,6 +5632,21 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>滾輪：改動指標下的那一位。按一下：直接寫頻率。</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>最小化</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>最大化或還原</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>關閉</translation>
     </message>
 </context>
 <context>
@@ -6110,6 +6498,20 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX：%1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX：此帳戶還沒有日誌本 — 請在 crx.cloud 上建立一個</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX：帳戶中有 %n 個日誌本</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1：已停止，%2</translation>
     </message>
@@ -6142,6 +6544,22 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>沒有 API 金鑰：設定 → QSL 服務</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>選擇 CRX 日誌本：設定 → QSL 服務</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX：正在取得日誌本…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX：沒有 API 金鑰（%1）</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>請在下方新增</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6178,6 +6596,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>
             <numerusform>Club Log：正在送出 %n 個 QSO…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook：請先選擇日誌本（設定 → QSL 服務）</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -6271,6 +6693,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Tags</source>
         <translation>標籤</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>備註</translation>
     </message>
 </context>
 <context>
@@ -6657,6 +7083,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>eQSL 的上傳與確認</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>傳送到 CRX Logbook（crx.cloud）：金鑰以 HAM- 開頭</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

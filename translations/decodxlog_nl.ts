@@ -139,6 +139,10 @@
         <translation>Referentie</translation>
     </message>
     <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Één venster (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Contests en activeringen</translation>
     </message>
@@ -195,8 +199,8 @@
         <translation>ADIF exporteren (%1)</translation>
     </message>
     <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Contestvenster (Ctrl+Shift+T)</translation>
+        <source>Contest Mode</source>
+        <translation>Contestmodus</translation>
     </message>
     <message>
         <source>Close</source>
@@ -675,8 +679,8 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>%1/%2 online</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 getoond · %2 in het laatste uur</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 spots</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -741,6 +745,18 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Hide spots from %1</source>
         <translation>Spots van %1 verbergen</translation>
+    </message>
+    <message>
+        <source>hide filters</source>
+        <translation>filters dicht</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>filters</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>alleen mult</translation>
     </message>
     <message>
         <source>Decodium band</source>
@@ -1127,6 +1143,119 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>De roepletters zijn te kort</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · volgende %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>Contest entry · no session</source>
+        <translation>Contestinvoer · geen sessie</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Band</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Modus</translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>al gewerkt</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Roepnaam</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST s</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Nr s</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST r</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Nr r</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · land</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Logboek</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Open een sessie bij Contest, dan komen de QSO&apos;s hier binnen.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>Alle contestpanelen zijn gesloten: open ze opnieuw via Contestmodus in de balk bovenaan.</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Alle contestpanelen staan in een eigen venster: ↩ in een paneel haalt het hierheen terug.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Hoe het gaat</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Calls</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Duur</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Laatste 10 min</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/u</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Laatste uur</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Laatste QSO&apos;s</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1183,6 +1312,115 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>Er werd een locator verwacht, zoals JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>De regels van %1 zitten niet in het programma: de QSO&apos;s gaan naar het log en naar Cabrillo, maar de score moet elders geteld worden.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Geen contestsessie open.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punten</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Band voor band · QSO, punten, multipliers</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Exporteren…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Reglement: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Log versturen</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Cabrillo schrijven</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Alle bestanden (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo geschreven. Upload het nu op de contestpagina.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punten</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Het log wordt binnen %n dag na afloop op de contestpagina geüpload. De score in het Cabrillo is die hier geteld; wie de logs controleert telt toch na.</numerusform>
+            <numerusform>Het log wordt binnen %n dagen na afloop op de contestpagina geüpload. De score in het Cabrillo is die hier geteld; wie de logs controleert telt toch na.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>Het log wordt op de contestpagina geüpload. De score in het Cabrillo is die hier geteld; wie de logs controleert telt toch na.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Cabrillo schrijven…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Contestpagina openen</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>Van deze contest weet het programma niet waar het log heen gaat: schrijf het Cabrillo en stuur het zoals het reglement zegt.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Sluiten</translation>
     </message>
 </context>
 <context>
@@ -1282,6 +1520,14 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Nr r</source>
         <translation>Nr r</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · land</translation>
     </message>
     <message>
         <source>Log</source>
@@ -2116,6 +2362,22 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Kaart</translation>
     </message>
     <message>
+        <source>Contest entry</source>
+        <translation>Contestinvoer</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Score en multipliers</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Hoe het gaat</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX-cluster</translation>
+    </message>
+    <message>
         <source>closed</source>
         <translation>gesloten</translation>
     </message>
@@ -2688,6 +2950,30 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: de dienst antwoordt niet (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: de API-sleutel werd niet geaccepteerd</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: staat er al</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>onverwacht antwoord</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: stond er al</translation>
     </message>
@@ -2722,6 +3008,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: geen antwoord</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>de API-sleutel werd niet geaccepteerd</translation>
     </message>
 </context>
 <context>
@@ -4433,6 +4723,26 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Club Log wil drie dingen: het e-mailadres en het wachtwoord van de account (hieronder), de roepletters van het stationsprofiel, en een API-sleutel. De sleutel is gratis en persoonlijk, en wordt aangevraagd op clublog.org/need_api.php — hij wijst het programma aan, niet jou. Eén QSO gaat weg zodra het gelogd is, een achterstand gaat als één ADIF-bestand weg.</translation>
     </message>
     <message>
+        <source>Logbook on CRX</source>
+        <translation>Logboek op CRX</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— lijst laden —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Mijn logboeken laden</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>QSO&apos;s versturen vanaf</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook is het cloudlog van crx.cloud. Het vraagt de API-sleutel van je account (begint met HAM-, hieronder bij de andere inloggegevens) en het logboek om in te schrijven. Het begint op de dag dat je het logboek kiest: oudere QSO&apos;s gaan alleen als je de datum terugzet. Elk QSO gaat met datum en tijd; een QSO dat na het versturen is verbeterd wordt bijgewerkt, niet verdubbeld. Versturen, automatisch versturen en de tellers staan in het QSL-tabblad onderaan.</translation>
+    </message>
+    <message>
         <source>QSL by email</source>
         <translation>QSL per e-mail</translation>
     </message>
@@ -5096,10 +5406,6 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>Instellingen</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>Importeren</translation>
     </message>
@@ -5112,16 +5418,92 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Diploma&apos;s</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
-        <source>Cluster ●</source>
-        <translation>Cluster ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>Cluster</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>Contestmodus ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX-cluster…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Instellingen · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Instellingen ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>Contestmodus · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>Contestmodus · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 punten · %4 mult</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Geen sessie open</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>Contests en activaties…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Contestmodus verlaten</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>Contestmodus starten</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>Invoer</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Logboek</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Roepnaamkaart</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Tempo</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Kaart</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Log versturen…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5134,14 +5516,6 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Station</source>
         <translation>Station</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>Geen profiel</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>Stationsprofielen</translation>
     </message>
     <message>
         <source>Cloud %1</source>
@@ -5196,8 +5570,8 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Logs</translation>
     </message>
     <message>
-        <source>Contest</source>
-        <translation>Contest</translation>
+        <source>Reset the layout</source>
+        <translation>Indeling herstellen</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5268,6 +5642,21 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Wieltje: het cijfer onder de aanwijzer. Klik: de frequentie schrijven.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Minimaliseren</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Maximaliseren of herstellen</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Sluiten</translation>
     </message>
 </context>
 <context>
@@ -6143,6 +6532,21 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: dit account heeft nog geen logboek — maak er een op crx.cloud</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: %n logboek in het account</numerusform>
+            <numerusform>CRX: %n logboeken in het account</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: gestopt, %2</translation>
     </message>
@@ -6176,6 +6580,22 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>geen API-sleutel: Instellingen → QSL-diensten</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>kies het CRX-logboek: Instellingen → QSL-diensten</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: logboeken opvragen…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: geen API-sleutel (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>voeg hem hieronder toe</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6214,6 +6634,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
             <numerusform>Club Log: %n QSO versturen…</numerusform>
             <numerusform>Club Log: %n QSO versturen…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: kies eerst het logboek (Instellingen → QSL-diensten)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -6308,6 +6732,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Tags</source>
         <translation>Labels</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Opmerking</translation>
     </message>
 </context>
 <context>
@@ -6695,6 +7123,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>Upload en eQSL-bevestigingen</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Versturen naar het CRX Logbook (crx.cloud): de sleutel begint met HAM-</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

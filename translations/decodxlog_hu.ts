@@ -139,6 +139,10 @@
         <translation>Referencia</translation>
     </message>
     <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Egyetlen ablak (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Contestek és aktiválások</translation>
     </message>
@@ -195,8 +199,8 @@
         <translation>ADIF exportálása (%1)</translation>
     </message>
     <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Versenyablak (Ctrl+Shift+T)</translation>
+        <source>Contest Mode</source>
+        <translation>Contest mód</translation>
     </message>
     <message>
         <source>Close</source>
@@ -673,8 +677,8 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>%1/%2 online</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 látható · %2 az utolsó órában</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 spot</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -739,6 +743,18 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Hide spots from %1</source>
         <translation>%1 spotjainak elrejtése</translation>
+    </message>
+    <message>
+        <source>hide filters</source>
+        <translation>szűrők be</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>szűrők</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>csak szorzó</translation>
     </message>
     <message>
         <source>Decodium band</source>
@@ -1125,6 +1141,119 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>A hívójel túl rövid</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · következő %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Verseny</translation>
+    </message>
+    <message>
+        <source>Contest entry · no session</source>
+        <translation>Verseny bevitel · nincs munkamenet</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Sáv</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Üzemmód</translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>már megvolt</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Hívójel</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST a</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Sorsz. a</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST v</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Sorsz. v</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · napló</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · ország</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Napló</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Nyiss egy munkamenetet a Contestnél, és a QSO-k ide érkeznek.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>A verseny összes panelje zárva van: a felső sávban a Contest mód menüből nyithatók meg újra.</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>A verseny összes panelje külön ablakban van: a panel ↩ gombja visszahozza ide.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Hogy megy</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Hívójelek</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Időtartam</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Utolsó 10 perc</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/óra</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Utolsó óra</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Utolsó QSO-k</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1181,6 +1310,114 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>Locatort vártunk, mint a JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Eredmény</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>A(z) %1 szabályai nincsenek a programban: a QSO-k bekerülnek a naplóba és a Cabrillóba, de az eredményt máshol kell számolni.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Nincs nyitott contest-munkamenet.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Pont</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Szorzó</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Sávonként · QSO, pont, szorzó</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Export…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Szabályzat: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Napló küldése</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Cabrillo írása</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Minden fájl (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo megírva. Most töltsd fel a contest oldalára.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Verseny</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Pont</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Szorzó</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Eredmény</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>A naplót a verseny vége után %n napon belül kell feltölteni a contest oldalára. A Cabrillóban szereplő eredmény az, amit itt számoltunk; aki ellenőrzi a naplókat, úgyis újraszámolja.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>A naplót a contest oldalára kell feltölteni. A Cabrillóban szereplő eredmény az, amit itt számoltunk; aki ellenőrzi a naplókat, úgyis újraszámolja.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Cabrillo írása…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Contest oldal megnyitása</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>Ehhez a contesthez a program nem tudja, hová megy a napló: írd meg a Cabrillót, és küldd el úgy, ahogy a szabályzat mondja.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Bezárás</translation>
     </message>
 </context>
 <context>
@@ -1280,6 +1517,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Nr r</source>
         <translation>Sorsz. v</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · napló</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · ország</translation>
     </message>
     <message>
         <source>Log</source>
@@ -2112,6 +2357,22 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Térkép</translation>
     </message>
     <message>
+        <source>Contest entry</source>
+        <translation>Contest-bevitel</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Eredmény és szorzók</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Hogy megy</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX Cluster</translation>
+    </message>
+    <message>
         <source>closed</source>
         <translation>bezárva</translation>
     </message>
@@ -2683,6 +2944,30 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: a szolgáltatás nem válaszol (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: az API-kulcsot nem fogadta el</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: már megvan</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>váratlan válasz</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: már megvolt</translation>
     </message>
@@ -2717,6 +3002,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: nincs válasz</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>az API-kulcsot nem fogadta el</translation>
     </message>
 </context>
 <context>
@@ -4424,6 +4713,26 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>A Club Lognak három dolog kell: a fiók e-mail-címe és jelszava (lent), az állomásprofil hívójele, és egy API-kulcs. A kulcs ingyenes és személyes, a clublog.org/need_api.php oldalon lehet kérni — a programot azonosítja, nem téged. Egy QSO rögtön elmegy, ahogy naplózódik; a felhalmozódott adag egyetlen ADIF-fájlként megy el.</translation>
     </message>
     <message>
+        <source>Logbook on CRX</source>
+        <translation>Napló a CRX-en</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— lista betöltése —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Naplóim betöltése</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>QSO-k küldése ettől</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>A CRX Logbook a crx.cloud felhőnaplója. Kéri a fiókod API-kulcsát (HAM- kezdetű, lent a többi hozzáféréssel együtt) és a naplót, amelybe írni kell. Attól a naptól indul, amikor kiválasztod a naplót: a régebbi QSO-k csak akkor mennek, ha visszaállítod a dátumot. Minden QSO a dátumával és idejével megy; a küldés után javított frissül, nem duplikálódik. A küldés, az automatikus küldés és a számlálók lent a QSL fülön vannak.</translation>
+    </message>
+    <message>
         <source>QSL by email</source>
         <translation>QSL e-mailben</translation>
     </message>
@@ -5087,10 +5396,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>Beállítások</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>Importálás</translation>
     </message>
@@ -5103,16 +5408,92 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Diplomák</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
-        <source>Cluster ●</source>
-        <translation>Cluster ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>Klaszter</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>Contest mód ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX Cluster…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Beállítások · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Beállítások ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>Contest mód · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>Contest mód · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 pont · %4 szorzó</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Nincs nyitott munkamenet</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>Versenyek és aktiválások…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Kilépés a contest módból</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>Belépés contest módba</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>Bevitel</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Napló</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Hívójel-karton</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Tempo</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Eredmény</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Térkép</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Napló küldése…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5125,14 +5506,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Station</source>
         <translation>Állomás</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>Nincs profil</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>Állomásprofilok</translation>
     </message>
     <message>
         <source>Cloud %1</source>
@@ -5187,8 +5560,8 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Naplók</translation>
     </message>
     <message>
-        <source>Contest</source>
-        <translation>Verseny</translation>
+        <source>Reset the layout</source>
+        <translation>Elrendezés visszaállítása</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5259,6 +5632,21 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Görgő: a mutató alatti számjegy. Kattintás: a frekvencia beírása.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Kis méret</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Teljes méret vagy visszaállítás</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Bezárás</translation>
     </message>
 </context>
 <context>
@@ -6110,6 +6498,20 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: ennek a fióknak még nincs naplója — hozz létre egyet a crx.cloud oldalon</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: %n napló a fiókban</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: leállítva, %2</translation>
     </message>
@@ -6142,6 +6544,22 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>nincs API-kulcs: Beállítások → QSL-szolgáltatások</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>válaszd ki a CRX-naplót: Beállítások → QSL-szolgáltatások</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: naplók lekérése…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: nincs API-kulcs (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>add meg lent</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6178,6 +6596,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>
             <numerusform>Club Log: %n QSO küldése…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: előbb válaszd ki a naplót (Beállítások → QSL-szolgáltatások)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -6271,6 +6693,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Tags</source>
         <translation>Címkék</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Megjegyzés</translation>
     </message>
 </context>
 <context>
@@ -6657,6 +7083,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>Feltöltés és eQSL-igazolások</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Küldés a CRX Logbookba (crx.cloud): a kulcs HAM- kezdetű</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

@@ -745,7 +745,7 @@ DialogFrame {
                         }
                         Text {
                             visible: parent.parent.newDxcc
-                            text: qsTr("%1 DXCC worked on FT2 · %2").arg(decolog.ft2Award.dxccWorked)
+                            text: qsTr("%1 DXCC worked on FT2 · %2").arg(root.visible ? decolog.ft2Award.dxccWorked : 0)
                                   .arg(root.field("LOTW_QSL_RCVD") === "Y" ? qsTr("confirmed") : qsTr("unconfirmed"))
                             color: Theme.textSecondary
                             font.family: Theme.monoFamily

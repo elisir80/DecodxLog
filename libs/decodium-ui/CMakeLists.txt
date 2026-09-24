@@ -28,6 +28,8 @@ set(DECODIUM_UI_QML_FILES
     qml/PanelScrollBar.qml
     qml/StyledTextArea.qml
     qml/StyledMenuItem.qml
+    qml/WindowChrome.qml
+    qml/WindowTitleBar.qml
 )
 
 qt_add_qml_module(decodium_ui

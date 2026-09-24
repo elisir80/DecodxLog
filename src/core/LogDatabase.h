@@ -278,8 +278,9 @@ public:
     bool writeQslState(qint64 id, const QslState& state, bool includeReceived);
     // I QSO ancora da mandare a un servizio (nessuna riga, o "N"/"R"/"Q"), dal piu'
     // vecchio. `limit` 0 = tutti.
-    QList<qint64> qsosToUpload(const QString& service, int limit = 0) const;
-    int uploadPendingCount(const QString& service) const;
+    // `since`: solo i QSO da quel giorno in poi (UTC); non valida = tutti.
+    QList<qint64> qsosToUpload(const QString& service, int limit = 0, const QDate& since = {}) const;
+    int uploadPendingCount(const QString& service, const QDate& since = {}) const;
 
     // ── Sync con DecoDXLog Cloud ───────────────────────────────────────────────
     // I QSO ancora da mandare, dal piu' vecchio. `limit` 0 = tutti.

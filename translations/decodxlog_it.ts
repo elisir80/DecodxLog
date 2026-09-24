@@ -139,6 +139,10 @@
         <translation>Referenza</translation>
     </message>
     <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Finestra unica (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Contest e attivazioni</translation>
     </message>
@@ -195,8 +199,8 @@
         <translation>Esporta ADIF (%1)</translation>
     </message>
     <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Finestra contest (Ctrl+Shift+T)</translation>
+        <source>Contest Mode</source>
+        <translation>Contest Mode</translation>
     </message>
     <message>
         <source>Close</source>
@@ -675,8 +679,8 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>%1/%2 in linea</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 mostrati · %2 nell&apos;ultima ora</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 spot</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -741,6 +745,18 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Hide spots from %1</source>
         <translation>Nascondi gli spot di %1</translation>
+    </message>
+    <message>
+        <source>hide filters</source>
+        <translation>chiudi i filtri</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>filtri</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>solo molt</translation>
     </message>
     <message>
         <source>Decodium band</source>
@@ -1127,6 +1143,119 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>Il nominativo è troppo corto</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · prossimo %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>Contest entry · no session</source>
+        <translation>Inserimento contest · nessuna sessione</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Banda</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Modo</translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>già lavorato</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Nominativo</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST i</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Nr i</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST r</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Nr r</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · paese</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Registra</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Apri una sessione da Contest, e i QSO arrivano qui.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>I pannelli della gara sono tutti chiusi: si riaprono da Contest Mode, nella barra in alto.</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>I pannelli della gara sono tutti in finestre loro: ↩ in un pannello lo riporta qui.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Come va</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Nominativi</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Durata</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Ultimi 10 min</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/h</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Ultima ora</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Ultimi QSO</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1183,6 +1312,115 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>Ci vuole un locatore, come JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Punteggio</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>Le regole di %1 non sono nel programma: i QSO vanno nel log e nel Cabrillo, ma il punteggio va contato altrove.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Nessuna sessione di contest aperta.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punti</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Molt</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Banda per banda · QSO, punti, moltiplicatori</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Esporta…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Regolamento: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Manda il log</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Scrivi il Cabrillo</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Tutti i file (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo scritto. Adesso caricalo sulla pagina del contest.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Punti</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Molt</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Punteggio</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Il log si carica sulla pagina del contest entro %n giorno dalla fine della gara. Il punteggio scritto nel Cabrillo è quello contato qui; chi controlla i log lo ricontrolla comunque.</numerusform>
+            <numerusform>Il log si carica sulla pagina del contest entro %n giorni dalla fine della gara. Il punteggio scritto nel Cabrillo è quello contato qui; chi controlla i log lo ricontrolla comunque.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>Il log si carica sulla pagina del contest. Il punteggio scritto nel Cabrillo è quello contato qui; chi controlla i log lo ricontrolla comunque.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Scrivi il Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Apri la pagina del contest</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>Di questo contest il programma non sa dove va il log: scrivi il Cabrillo e mandalo come dice il regolamento.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Chiudi</translation>
     </message>
 </context>
 <context>
@@ -1282,6 +1520,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Nr r</source>
         <translation>Nr r</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · paese</translation>
     </message>
     <message>
         <source>Log</source>
@@ -2116,6 +2362,22 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Mappa</translation>
     </message>
     <message>
+        <source>Contest entry</source>
+        <translation>Inserimento contest</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Punteggio e moltiplicatori</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Come va</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX Cluster</translation>
+    </message>
+    <message>
         <source>closed</source>
         <translation>chiuso</translation>
     </message>
@@ -2688,6 +2950,30 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: il servizio non risponde (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: la chiave API non è stata accettata</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: c&apos;è già</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>risposta inattesa</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: c&apos;era già</translation>
     </message>
@@ -2722,6 +3008,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: nessuna risposta</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>la chiave API non è stata accettata</translation>
     </message>
 </context>
 <context>
@@ -4433,6 +4723,26 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Club Log vuole tre cose: l&apos;email e la password dell&apos;account (qui sotto), il nominativo del profilo stazione e una chiave API. La chiave è gratuita e personale, si chiede su clublog.org/need_api.php — dice quale programma sta scrivendo, non chi sei. Un QSO appena registrato parte da solo, un arretrato parte come un unico file ADIF.</translation>
     </message>
     <message>
+        <source>Logbook on CRX</source>
+        <translation>Logbook su CRX</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— carica l&apos;elenco —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Carica i miei logbook</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>Invia i QSO dal</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook è il log in cloud di crx.cloud. Vuole la chiave API del tuo account (comincia con HAM-, qui sotto con le altre credenziali) e il logbook in cui scrivere. Parte dal giorno in cui scegli il logbook: i QSO più vecchi partono solo se sposti indietro la data. Ogni QSO va con la sua data e ora; uno corretto dopo l&apos;invio si aggiorna, non si duplica. Invio, invio automatico e contatori sono nella scheda QSL in basso.</translation>
+    </message>
+    <message>
         <source>QSL by email</source>
         <translation>QSL per email</translation>
     </message>
@@ -5096,10 +5406,6 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>Impostazioni</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>Importa</translation>
     </message>
@@ -5112,16 +5418,92 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Diplomi</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
-        <source>Cluster ●</source>
-        <translation>Cluster ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>Cluster</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>Contest Mode ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX Cluster…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Impostazioni · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Impostazioni ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>Contest Mode · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>Contest Mode · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 punti · %4 molt</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Nessuna sessione aperta</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>Contest e attivazioni…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Esci dalla modalità contest</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>Entra in modalità contest</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>Inserimento</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Log</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Scheda nominativo</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Ritmo</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Punteggio</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Mappa</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Manda il log…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5134,14 +5516,6 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Station</source>
         <translation>Stazione</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>Nessun profilo</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>Profili stazione</translation>
     </message>
     <message>
         <source>Cloud %1</source>
@@ -5196,8 +5570,8 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Log</translation>
     </message>
     <message>
-        <source>Contest</source>
-        <translation>Contest</translation>
+        <source>Reset the layout</source>
+        <translation>Ripristina la disposizione</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5268,6 +5642,21 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Rotellina: la cifra sotto il puntatore. Clic: si scrive la frequenza.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Riduci a icona</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Ingrandisci o ripristina</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Chiudi</translation>
     </message>
 </context>
 <context>
@@ -6143,6 +6532,21 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: questo account non ha ancora un logbook — creane uno su crx.cloud</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: %n logbook nell&apos;account</numerusform>
+            <numerusform>CRX: %n logbook nell&apos;account</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: fermato, %2</translation>
     </message>
@@ -6176,6 +6580,22 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>nessuna chiave API: Impostazioni → Servizi QSL</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>scegli il logbook CRX: Impostazioni → Servizi QSL</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: chiedo i logbook…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: nessuna chiave API (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>aggiungila qui sotto</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6214,6 +6634,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
             <numerusform>Club Log: invio %n QSO…</numerusform>
             <numerusform>Club Log: invio %n QSO…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: scegli prima il logbook (Impostazioni → Servizi QSL)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -6308,6 +6732,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Tags</source>
         <translation>Etichette</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Commento</translation>
     </message>
 </context>
 <context>
@@ -6695,6 +7123,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>Invio e conferme eQSL</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Invio al CRX Logbook (crx.cloud): la chiave comincia con HAM-</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

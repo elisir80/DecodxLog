@@ -133,7 +133,8 @@ GlassPanel {
             width: awardsScroll.availableWidth
             spacing: 8
             Repeater {
-                model: decolog.awardSummary
+                // Solo quando la scheda si vede: nascosta non serve a nessuno.
+                model: root.currentTab === 0 ? decolog.awardSummary : []
                 Rectangle {
                     id: tile
                     required property var modelData
@@ -199,13 +200,13 @@ GlassPanel {
                 // Tutte le bande lavorate, non le prime otto: chi scende in 12,
                 // 10, 6, 2 metri o piu' in su le vuole vedere.
                 Repeater {
-                    model: decolog.bandStats
+                    model: root.currentTab === 1 ? decolog.bandStats : []
                     BarRow {
                         required property var modelData
                         Layout.fillWidth: true
                         key: modelData.key
                         count: modelData.count
-                        maximum: Math.max.apply(null, decolog.bandStats.map(r => r.count))
+                        maximum: root.currentTab === 1 ? Math.max.apply(null, decolog.bandStats.map(r => r.count)) : 1
                         barColor: Theme.primaryColor
                     }
                 }
@@ -216,13 +217,13 @@ GlassPanel {
                 spacing: 4
                 SectionTitle { text: qsTr("By mode") }
                 Repeater {
-                    model: decolog.modeStats
+                    model: root.currentTab === 1 ? decolog.modeStats : []
                     BarRow {
                         required property var modelData
                         Layout.fillWidth: true
                         key: modelData.key
                         count: modelData.count
-                        maximum: Math.max.apply(null, decolog.modeStats.map(r => r.count))
+                        maximum: root.currentTab === 1 ? Math.max.apply(null, decolog.modeStats.map(r => r.count)) : 1
                         barColor: modelData.key === "FT2" ? Theme.accentColor : Theme.secondaryColor
                     }
                 }

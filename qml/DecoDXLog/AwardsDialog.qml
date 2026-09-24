@@ -18,7 +18,8 @@ DialogFrame {
     property bool showMap: false
     // Si ricalcola quando cambiano log, filtri o selezione.
     property int revision: 0
-    readonly property var summary: decolog.awardSummary
+    // Solo a finestra aperta: chiusa, ricalcolava tutti i diplomi del log a ogni QSO.
+    readonly property var summary: visible ? decolog.awardSummary : []
     readonly property var current: summary.find(a => a.id === awardId) || ({})
     readonly property bool hasMissing: decolog.awardHasMissing(awardId)
     readonly property string effectiveView: view === "missing" && !hasMissing ? "all" : view

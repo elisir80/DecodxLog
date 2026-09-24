@@ -108,7 +108,7 @@
     </message>
     <message>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Duration</translation>
     </message>
     <message>
         <source>Last QSO</source>
@@ -137,6 +137,10 @@
     <message>
         <source>Reference</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Single window (Ctrl+Shift+T)</translation>
     </message>
     <message>
         <source>Contest and activations</source>
@@ -195,7 +199,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
+        <source>Contest Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -450,7 +454,7 @@
     </message>
     <message>
         <source>DX Cluster</source>
-        <translation type="unfinished"></translation>
+        <translation>DX Cluster</translation>
     </message>
     <message>
         <source>Propagation</source>
@@ -667,15 +671,15 @@ The call Decodium is working shows up here by itself.</source>
     <name>ClusterPanel</name>
     <message>
         <source>DX Cluster</source>
-        <translation type="unfinished"></translation>
+        <translation>DX Cluster</translation>
     </message>
     <message>
         <source>%1/%2 online</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation type="unfinished"></translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 spots</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -740,6 +744,18 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Hide spots from %1</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>hide filters</source>
+        <translation>hide filters</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>filters</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>mult only</translation>
     </message>
     <message>
         <source>Decodium band</source>
@@ -1126,6 +1142,119 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · next %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>Contest entry · no session</source>
+        <translation>Contest entry · no session</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>already worked</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · country</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Open a session from Contest, then the QSOs come in here.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>All the contest panels are closed: open them again from Contest Mode, up in the bar.</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>All the contest panels are in their own windows: ↩ in a panel brings it back here.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>How it is going</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Duration</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Last QSOs</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1182,6 +1311,115 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>A locator was expected, like JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>No contest session open.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Points</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Band by band · QSO, points, multipliers</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Export…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Rules: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Send the log</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Write the Cabrillo</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo written. Now upload it on the contest page.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Points</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>The log goes uploaded on the contest page, within %n day from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</numerusform>
+            <numerusform>The log goes uploaded on the contest page, within %n days from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Write the Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Open the contest page</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Close</translation>
     </message>
 </context>
 <context>
@@ -1281,6 +1519,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Nr r</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · country</translation>
     </message>
     <message>
         <source>Log</source>
@@ -2115,6 +2361,22 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Contest entry</source>
+        <translation>Contest entry</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Score and multipliers</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>How it is going</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>DX Cluster</translation>
+    </message>
+    <message>
         <source>closed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2687,6 +2949,30 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: no answer from the service (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: the API key was not accepted</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: already there</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>unexpected answer</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2721,6 +3007,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Club Log: no answer</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>the API key was not accepted</translation>
     </message>
 </context>
 <context>
@@ -4432,6 +4722,26 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Logbook on CRX</source>
+        <translation>Logbook on CRX</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— load the list —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Load my logbooks</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>Send QSOs from</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</translation>
+    </message>
+    <message>
         <source>QSL by email</source>
         <translation>QSL by email</translation>
     </message>
@@ -5095,10 +5405,6 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5111,16 +5417,92 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cluster ●</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX Cluster…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Setup · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Setup ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation type="unfinished">%1 · %2 QSO · %3 points · %4 mult</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation type="unfinished">%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation type="unfinished">Leave contest mode</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation type="unfinished">QSO entry</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation type="unfinished">Rate</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation type="unfinished">Score</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation type="unfinished">Send the log…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5132,14 +5514,6 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Station</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5195,8 +5569,8 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Logs</translation>
     </message>
     <message>
-        <source>Contest</source>
-        <translation>Contest</translation>
+        <source>Reset the layout</source>
+        <translation>Reset the layout</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5267,6 +5641,21 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Minimise</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Maximise or restore</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Close</translation>
     </message>
 </context>
 <context>
@@ -6142,6 +6531,21 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: this account has no logbook yet — create one on crx.cloud</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: %n logbook in the account</numerusform>
+            <numerusform>CRX: %n logbooks in the account</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6175,6 +6579,22 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>choose the CRX logbook: Setup → QSL services</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: asking for the logbooks…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: no API key (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>add it below</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6213,6 +6633,10 @@ The call Decodium is working shows up here by itself.</source>
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: choose the logbook first (Setup → QSL services)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -6306,6 +6730,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6694,6 +7122,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

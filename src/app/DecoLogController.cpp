@@ -6,10 +6,15 @@
 #include "core/Spots.h"
 #include "ThemeManager.h"
 
+#include <QMetaObject>
+#include <QPointer>
 #include <QCoreApplication>
 #include <QDesktopServices>
 #include <QDir>
 #include <QFile>
+#include <QGuiApplication>
+#include <QMouseEvent>
+#include <QWindow>
 #include <QFileInfo>
 #include <QHostAddress>
 #include <QLocale>
@@ -224,10 +229,19 @@ DecoLogController::DecoLogController(QObject* parent)
     m_awardFilter.stationProfileId = s.value(QStringLiteral("awards/profile"), 0).toLongLong();
     m_awardFilter.tag = s.value(QStringLiteral("awards/tag")).toString();
     // Gli award si ricalcolano quando il log cambia, e solo quando qualcuno li guarda.
-    connect(this, &DecoLogController::logChanged, this, [this] {
-        m_awardsDirty = m_globalAwardsDirty = true;
-        emit awardsChanged();
+    // I diplomi e le statistiche di tutto il log si rifanno quando si smette di
+    // scrivere, non a ogni QSO: rifarli subito voleva dire tenere il programma
+    // fermo proprio mentre si registra, che in gara e' il momento peggiore.
+    m_statsDebounce.setSingleShot(true);
+    m_statsDebounce.setInterval(1200);
+    m_statsPool.setMaxThreadCount(1);
+    connect(&m_statsDebounce, &QTimer::timeout, this, [this] {
+        // Lo stato dei diplomi per DecoLink resta a richiesta: lo calcola chi lo
+        // chiede, e lo chiede di rado.
+        m_globalAwardsDirty = true;
+        refreshStatsInBackground();
     });
+    connect(this, &DecoLogController::logChanged, this, [this] { m_statsDebounce.start(); });
     // DecoLink: il log verso Decodium. I dati li fornisce il controller.
     m_decoLinkEnabled = s.value(QStringLiteral("decolink/enabled"), true).toBool();
     m_decoLinkPort = s.value(QStringLiteral("decolink/port"), DecoLinkServer::kDefaultPort).toInt();
@@ -366,7 +380,118 @@ DecoLogController::DecoLogController(QObject* parent)
     connect(&m_lotwTimer, &QTimer::timeout, this, &DecoLogController::checkLotwSchedule);
 }
 
-DecoLogController::~DecoLogController() = default;
+void DecoLogController::testPointer(QObject* target, const QString& kind, qreal x, qreal y)
+{
+    auto* window = qobject_cast<QWindow*>(target);
+    if (!window)
+        return;
+    const QPointF local(x, y);
+    const QPointF global = window->mapToGlobal(local);
+    QEvent::Type type = QEvent::MouseMove;
+    Qt::MouseButton button = Qt::NoButton;
+    Qt::MouseButtons buttons = Qt::LeftButton;
+    if (kind == QLatin1String("press")) {
+        type = QEvent::MouseButtonPress;
+        button = Qt::LeftButton;
+    } else if (kind == QLatin1String("hover")) {
+        buttons = Qt::NoButton;
+    } else if (kind == QLatin1String("release")) {
+        type = QEvent::MouseButtonRelease;
+        button = Qt::LeftButton;
+        buttons = Qt::NoButton;
+    }
+    QMouseEvent event(type, local, local, global, button, buttons, Qt::NoModifier);
+    QCoreApplication::sendEvent(window, &event);
+}
+
+DecoLogController::~DecoLogController()
+{
+    // Chiudendo il programma i membri si distruggono uno per uno, e alcuni
+    // mandano ancora un segnale mentre se ne vanno: DecoLink, fermandosi,
+    // dice che i client se ne sono andati, e quel segnale scriveva nel
+    // registro attivita' — che a quel punto era gia' stato distrutto. Era la
+    // caduta "in emplace<QVariant>" del registro di Windows, dalla 1.7 in poi.
+    // Adesso DecoLink si ferma qui, con tutto ancora in piedi, e poi niente di
+    // quello che resta puo' piu' chiamare questo oggetto.
+    m_decoLink.stop();
+    QObject::disconnect(nullptr, nullptr, this, nullptr);
+}
+
+// Diplomi e statistiche di tutto il log, calcolati fuori dal thread della
+// finestra: su un log di quindicimila QSO sono un quarto di secondo abbondante,
+// e in gara un quarto di secondo fermo dopo ogni QSO si sente.
+//
+// Il thread lavora su copie (il percorso del log, il filtro, i nomi delle
+// entita') e su una connessione sua: niente di quello che tocca e' condiviso
+// con la finestra. Il risultato torna qui con un evento, e se nel frattempo e'
+// partito un calcolo piu' nuovo, o e' cambiato il filtro, si butta.
+void DecoLogController::refreshStatsInBackground()
+{
+    if (!m_db.isOpen())
+        return;
+    const QString path = m_db.path();
+    const AwardFilter filter = m_awardFilter;
+    QHash<int, QString> names;
+    for (const auto& entity : m_countries.entities())
+        names.insert(entity.dxcc, entity.name);
+    const quint64 generation = ++m_statsGeneration;
+    QPointer<DecoLogController> self(this);
+
+    m_statsPool.start([self, path, filter, names, generation] {
+        LogDatabase db;
+        if (!db.open(path))
+            return;
+        const AwardCalculator calc([&names](int dxcc) { return names.value(dxcc); });
+        const QList<AwardResult> awards = calc.compute(db, filter);
+        const Ft2Award ft2 = db.ft2Award();
+        const QList<CountRow> bands = db.countByBand();
+        const QList<CountRow> modes = db.countByMode();
+        db.close();
+
+        QMetaObject::invokeMethod(
+            self.data(),
+            [self, filter, awards, ft2, bands, modes, generation] {
+                if (!self || generation != self->m_statsGeneration)
+                    return;
+                const AwardFilter& now = self->m_awardFilter;
+                const bool sameFilter = now.band == filter.band && now.modeGroup == filter.modeGroup
+                                        && now.confirmLotw == filter.confirmLotw
+                                        && now.confirmCard == filter.confirmCard
+                                        && now.confirmEqsl == filter.confirmEqsl
+                                        && now.stationProfileId == filter.stationProfileId
+                                        && now.tag == filter.tag;
+                if (sameFilter) {
+                    self->m_awardCache = awards;
+                    self->m_awardsDirty = false;
+                }
+                QVariantList bandRows;
+                for (const auto& row : bands)
+                    bandRows << QVariantMap{{QStringLiteral("key"), row.key},
+                                            {QStringLiteral("count"), row.count}};
+                QVariantList modeRows;
+                for (const auto& row : modes)
+                    modeRows << QVariantMap{{QStringLiteral("key"), row.key},
+                                            {QStringLiteral("count"), row.count}};
+                self->m_statsCache.clear();
+                self->m_statsCache.insert(QStringLiteral("ft2"), QVariantMap{
+                    {QStringLiteral("qsos"), ft2.qsos},
+                    {QStringLiteral("dxccWorked"), ft2.dxccWorked},
+                    {QStringLiteral("dxccConfirmed"), ft2.dxccConfirmed},
+                    {QStringLiteral("gridsWorked"), ft2.gridsWorked},
+                    {QStringLiteral("gridsConfirmed"), ft2.gridsConfirmed},
+                });
+                self->m_statsCache.insert(QStringLiteral("bands"), bandRows);
+                self->m_statsCache.insert(QStringLiteral("modes"), modeRows);
+                // Se il filtro e' cambiato mentre si contava, i diplomi si
+                // rifanno alla prima lettura, con il filtro giusto.
+                if (!sameFilter)
+                    self->m_awardsDirty = true;
+                emit self->statsChanged();
+                emit self->awardsChanged();
+            },
+            Qt::QueuedConnection);
+    });
+}
 
 bool DecoLogController::openDatabase(const QString& path)
 {
@@ -579,6 +704,11 @@ bool DecoLogController::openDatabase(const QString& path)
         return out;
     };
     m_activation = new ActivationController(std::move(actCtx), this);
+    // Un QSO corretto, cancellato o importato cambia il punteggio della gara:
+    // quello in memoria non vale piu'. Collegato qui, prima delle finestre,
+    // cosi' le finestre leggono gia' il conto nuovo.
+    connect(this, &DecoLogController::logChanged, m_activation,
+            [this] { m_activation->invalidateScore(); });
     m_activation->load();
     connect(this, &DecoLogController::logChanged, m_cluster, &ClusterController::logChanged);
     connect(this, &DecoLogController::countriesChanged, m_cluster, &ClusterController::logChanged);
@@ -2363,29 +2493,42 @@ void DecoLogController::setConflictPolicy(const QString& policy)
 
 QVariantMap DecoLogController::ft2Award() const
 {
+    const auto cached = m_statsCache.constFind(QStringLiteral("ft2"));
+    if (cached != m_statsCache.constEnd())
+        return cached->toMap();
     const Ft2Award a = m_db.ft2Award();
-    return {
+    const QVariantMap out{
         {QStringLiteral("qsos"), a.qsos},
         {QStringLiteral("dxccWorked"), a.dxccWorked},
         {QStringLiteral("dxccConfirmed"), a.dxccConfirmed},
         {QStringLiteral("gridsWorked"), a.gridsWorked},
         {QStringLiteral("gridsConfirmed"), a.gridsConfirmed},
     };
+    m_statsCache.insert(QStringLiteral("ft2"), out);
+    return out;
 }
 
 QVariantList DecoLogController::bandStats() const
 {
+    const auto cached = m_statsCache.constFind(QStringLiteral("bands"));
+    if (cached != m_statsCache.constEnd())
+        return cached->toList();
     QVariantList out;
     for (const auto& row : m_db.countByBand())
         out << QVariantMap{{QStringLiteral("key"), row.key}, {QStringLiteral("count"), row.count}};
+    m_statsCache.insert(QStringLiteral("bands"), out);
     return out;
 }
 
 QVariantList DecoLogController::modeStats() const
 {
+    const auto cached = m_statsCache.constFind(QStringLiteral("modes"));
+    if (cached != m_statsCache.constEnd())
+        return cached->toList();
     QVariantList out;
     for (const auto& row : m_db.countByMode())
         out << QVariantMap{{QStringLiteral("key"), row.key}, {QStringLiteral("count"), row.count}};
+    m_statsCache.insert(QStringLiteral("modes"), out);
     return out;
 }
 

@@ -3,6 +3,354 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.4 — 24 settembre 2026
+
+**Il commento dell'ADIF ha la sua colonna nel log.**
+
+- nel log c'e' la colonna **Commento** (il COMMENT dell'ADIF), subito dopo il nome, e la
+  **ricerca** guarda anche li'. Chi arriva da Logger32 o da altri programmi cercava il
+  commento nella colonna Etichette, che e' un'altra cosa: le etichette sono di DecoDXLog;
+- l'**oggetto delle QSL per email** con accenti o faccine si scrive in pezzi da 75 caratteri
+  al massimo, come vuole la RFC 2047, senza spezzare una faccina a meta': prima era un pezzo
+  solo lungo quanto tutto l'oggetto, che i filtri antispam guardano male.
+
+## 1.16.3 — 24 settembre 2026
+
+**Connettore per CRX Logbook (crx.cloud).** Un servizio in piu' in Impostazioni → Servizi QSL
+e nella scheda QSL in basso, accanto a LoTW, QRZ Logbook, Club Log ed eQSL.
+
+- la **chiave API** dell'account (comincia con HAM-) si mette una volta sola, nel portachiavi
+  di sistema come le altre credenziali;
+- **Carica i miei logbook** mostra i logbook dell'account e si sceglie quello in cui scrivere
+  (con uno solo si sceglie da se');
+- ogni QSO parte con nominativo, banda, frequenza, modo, rapporti, nome, commento, **data e
+  ora**; un QSO corretto dopo l'invio **si aggiorna**, non si duplica;
+- si parte **dal giorno in cui si sceglie il logbook**: il log di prima parte solo spostando
+  indietro la data, non per sbaglio al primo collegamento;
+- invio a mano o automatico dopo ogni QSO, e contatori, come per gli altri servizi.
+
+E' la prima versione, fatta sulla documentazione pubblica dell'API: provata contro un CRX
+finto, in attesa della conferma dello sviluppatore di CRX su alcuni dettagli (l'ora del QSO
+all'invio, il significato dei due rapporti).
+
+## 1.16.2 — 24 settembre 2026
+
+**Nel log colonne e filtri funzionano ovunque.**
+
+- **Colonne e filtri salvati**: li ricordava solo il log nella sua casella di serie, al centro
+  della finestra principale. Sulla lavagna del contest, in un log staccato o spostato in
+  un'altra casella, scegliere una colonna o salvare un filtro non faceva niente. Adesso li
+  tiene il log stesso, dovunque sia; le scelte di prima restano.
+- **Le colonne si tirano dall'intestazione**: fra un'intestazione e l'altra c'e' una riga
+  verticale che si vede, e trascinandola la colonna si allarga o si stringe. La misura resta.
+- **Barra in alto senza fascia vuota**: cloud e ricerca stanno subito dopo i comandi, e la
+  ricerca prende lo spazio che avanza.
+
+## 1.16.1 — 24 settembre 2026
+
+**Stazione dentro Impostazioni, e Pannelli che in gara comanda davvero.**
+
+- **La stazione sta in Impostazioni**: il riquadro Stazione nella barra in alto non c'e' piu'.
+  Il pulsante dice con quale profilo si scrive ("Impostazioni · IU8LMC ▾"), e il suo menu apre
+  le impostazioni, cambia profilo con un clic (spuntato quello attivo) o apre i profili.
+- **Via il pulsante Cluster**: il cluster si apre dal menu del marchio (≡ → DX Cluster…) e con
+  Ctrl+K.
+- **Pannelli in modalita' contest**: comandava la disposizione di tutti i giorni, che in gara
+  e' spenta, e i clic non aprivano e non chiudevano niente. Adesso in gara elenca i pannelli
+  della lavagna: un clic li apre o li chiude, ⤢ li stacca, ↩ li riporta, e il conto dei
+  chiusi e' quello della lavagna.
+- **La CW si comporta come le altre**: staccata dalla lavagna non mostra piu' il pulsante
+  "Davanti", che in gara non faceva niente.
+
+## 1.16.0 — 24 settembre 2026
+
+**La modalita' contest diventa una lavagna magnetica.** In gara la finestra principale e' una
+lavagna, e i pannelli ci stanno sopra liberi:
+
+- si prendono per la **testata** e si spostano **in qualsiasi punto**, anche sovrapposti; un
+  clic sulla testata porta un pannello davanti agli altri;
+- si **ridimensionano** da tutti i bordi e da tutti gli angoli;
+- vicino al bordo della lavagna o a un altro pannello **si attaccano da soli**, come
+  calamite, a filo o con un piccolo spazio: si allineano senza fatica;
+- **⤢ stacca** un pannello in una finestra sua (anche su un altro monitor), che resta sopra
+  la principale e si riduce con lei; **↩** lo riporta sulla lavagna; **✕** lo chiude, e dal
+  menu Contest Mode si riapre;
+- posizioni e misure si ricordano **in proporzione**: allargando o stringendo la finestra la
+  disposizione la segue. **Ripristina la disposizione** torna alle tre colonne di partenza.
+
+**La ✕ delle finestre torna a chiudere.** Dalla 1.15.3, togliendo la barra di Windows, la
+testata trascinabile annullava il clic dei suoi pulsanti appena premuti: la ✕ dei pannelli
+staccati, delle finestre di dialogo e delle finestre grandi non rispondeva. Adesso la testata
+si trascina lasciando i clic ai pulsanti. Provato con clic veri del mouse.
+
+**Il cluster in gara senza il giallo, e in un colore solo.** Le righe dei moltiplicatori non
+hanno piu' il fondo giallo, che in gara copriva tutto l'elenco: il moltiplicatore lo dicono il
+filo a sinistra e la pasticca, nel colore d'accento del tema. La pasticca si legge:
+**"Z5 · DXCC"** invece di "zona 5 · paese 291". In gara le pasticche di stato (NEW CALL,
+WORKED…) non ci sono piu'.
+
+## 1.15.9 — 24 settembre 2026
+
+**I pannelli della gara si spostano.** Nella modalita' contest agganciata la maniglia ⠿ dei
+pannelli non faceva niente, e i pannelli sembravano bloccati.
+
+- si prende un pannello per la **maniglia ⠿** e lo si lascia sopra un altro: la casella di
+  arrivo si accende con **"qui"** e i due **si scambiano di posto**, come nella finestra di
+  tutti i giorni. Le posizioni restano da una gara all'altra; **Ripristina la disposizione**
+  le rimette come all'inizio;
+- i **bordi fra i pannelli** hanno un segno sempre visibile e si accendono passandoci sopra:
+  si trascinano per allargare e stringere. Prima erano trasparenti e non si trovavano.
+
+## 1.15.8 — 24 settembre 2026
+
+**La modalita' contest agganciata, sistemata per chi arriva dalle versioni prima.**
+
+- **Chi aveva chiuso il programma in gara con la 1.15.6 o prima** si ritrovava la finestra
+  dell'inserimento ancora staccata sopra i pannelli agganciati, e i pannelli chiusi con la ✕
+  del vecchio banco (log, scheda nominativo, mappa…) restavano chiusi anche nella finestra di
+  tutti i giorni. Adesso all'avvio in gara le finestre staccate rientrano, e all'uscita
+  tornano i pannelli chiusi e staccati di prima della gara.
+- **Chiudere l'ultimo pannello della gara non li riapre piu' tutti**: restano chiusi, con la
+  scritta che dice come riaprirli dal menu Contest Mode. La CW si apre da sola solo entrando
+  in una gara in telegrafia; chiusa, resta chiusa.
+
+## 1.15.7 — 24 settembre 2026
+
+**La modalita' contest agganciata nella finestra principale.** Le finestre separate del banco
+davano guai: la ✕ che non chiudeva, le spunte del menu che non rispondevano, finestre che
+finivano sotto o sopra le altre. Adesso non ci sono piu' finestre separate:
+
+- i pannelli della gara stanno **agganciati nel corpo del programma**, in tre colonne: il
+  cluster a sinistra; in mezzo l'inserimento veloce, il log, la scheda nominativo e la CW; a
+  destra punteggio, ritmo e mappa;
+- i **bordi fra i pannelli si trascinano** e le misure restano da una gara all'altra; la
+  disposizione **segue la finestra** quando la si allarga o la si stringe;
+- ogni pannello ha la sua **✕**, e dal menu **Contest Mode** le spunte chiudono e riaprono;
+  **Ripristina la disposizione** rimette pannelli e misure come all'inizio;
+- all'uscita la finestra di tutti i giorni torna esattamente com'era; in gara i suoi pannelli
+  si scaricano e non costano niente;
+- l'**inserimento veloce parte nel modo della gara** (CQ-WW-SSB in fonia, con il 59) e non si
+  stringe mai sotto quanto serve a vedere lo scambio e Registra, anche su uno schermo piccolo.
+
+**Trovata e corretta la caduta alla chiusura.** Il biglietto della 1.15.4 l'ha presa al primo
+colpo: chiudendo DecoDXLog con Decodium collegato, DecoLink salutava il client mentre si
+spegneva e scriveva nel registro attivita' che era gia' stato distrutto. E' la chiusura
+improvvisa che il registro di Windows segnava dalla 1.7 in poi, sempre nello stesso punto.
+Adesso DecoLink si ferma prima, con tutto ancora in piedi.
+
+## 1.15.6 — 24 settembre 2026
+
+**Lo scambio si scrive da solo mentre si batte il nominativo.** Nell'inserimento veloce del
+contest (e nella finestra Contest) il campo dello scambio si riempie con quello che la
+stazione probabilmente mandera':
+
+- **CQ WW**: la zona CQ, da un QSO gia' fatto con lei o dal paese;
+- **IARU HF**: la zona ITU, o la sigla della societa' (DARC, ARI…) se era una stazione HQ in
+  una IARU precedente;
+- **ARI DX e 40/80**: la provincia delle stazioni italiane, dall'ultima gara o dalla provincia
+  salvata nel QSO;
+- **Sezioni ARI**: la sezione mandata l'ultima volta;
+- **CQ WPX e i contest a progressivo**: niente, il numero ricevuto non si puo' sapere prima.
+  Il proprio progressivo resta, come sempre, in "Nr i".
+
+Il nome del campo dice da dove viene ("Zona CQ · paese", "Provincia · log") e il valore
+suggerito e' colorato. Con la barra spaziatrice o con un clic su uno spot del cluster si
+arriva allo scambio gia' selezionato: **Invio** se va bene, si scrive sopra se no. Quello
+scritto a mano non si tocca mai.
+
+## 1.15.5 — 23 settembre 2026
+
+**Contest Mode: tutto in un menu nella barra in alto.** La pulsantiera "Banco del contest" era
+una finestra in piu' da spostare, e lo sfondo della modalita' contest ripeteva gli stessi
+pulsanti con una scritta in mezzo.
+
+- in alto c'e' una voce sola, **Contest Mode**: mostra la gara e i QSO, ed e' verde quando si
+  e' in modalita' contest. Il menu ha la situazione della gara (QSO, punti, moltiplicatori),
+  **Contest e attivazioni…**, **entra / esci** dalla modalita' contest, le otto **finestre
+  della gara** con la spunta su quelle aperte, le tre **disposizioni**, **Davanti anche agli
+  altri programmi**, **Cabrillo…** e **Manda il log…**;
+- lo sfondo in modalita' contest resta una **griglia vuota**, tutta per le finestre;
+- la finestra delle sessioni ha il pulsante **Contest Mode** al posto di "Banco del contest";
+- il titolo di "nessuna sessione" non esce piu' come tre caratteri senza senso.
+
+## 1.15.4 — 23 settembre 2026
+
+**Il cluster che corre non ferma piu' il banco, e lo spot scelto va nell'inserimento.**
+
+- **Clic su uno spot del cluster**: nominativo, banda e modo vanno nell'**inserimento veloce
+  del contest** (LSB e USB diventano SSB), la finestra passa davanti e il cursore va sullo
+  **scambio**: si chiama, si scrive quello che manda, Invio. Il doppio clic fa lo stesso e
+  sintonizza anche la radio, come prima. Vale anche per la finestra Contest singola.
+- **Niente piu' scatti con gli spot a raffica**: a ogni spot nuovo la mappa ricostruiva
+  l'elenco di tutti gli spot e ridisegnava il mondo intero, 35 ms a spot — in gara, con l'RBN,
+  vuol dire il programma fermo per buona parte del tempo. Adesso la mappa ha due livelli: il
+  fondo (coste, notte, reticolo, locatori) si ridisegna solo quando cambia, gli spot si
+  aggiornano al massimo ogni due secondi. Uno spot costa **1 ms**.
+- **Scheda nominativo**: tolto un calcolo che ripartiva piu' volte a ogni nominativo scelto.
+- **Se il programma cade, lascia un biglietto.** Nel registro di Windows c'erano chiusure
+  improvvise di DecoDXLog, sempre nello stesso punto (mentre si aggiunge un elemento a un
+  elenco), ma il registro tiene solo l'ultimo passo e non dice chi ce l'ha portato. Adesso,
+  se succede, in `%LOCALAPPDATA%\Decodium\DecoDXLog\crash` resta un file `crash-….txt`
+  con la strada intera e cosa stava facendo il programma: basta mandarlo per trovare la
+  causa.
+
+## 1.15.3 — 23 settembre 2026
+
+**Le finestre senza la barra di Windows: il titolo sta nella testata.** Sopra ogni finestra
+staccata e ogni finestra di dialogo c'erano due barre — quella di Windows e la testata del
+pannello — con lo stesso titolo. Spazio perso, soprattutto in gara con tante finestre aperte.
+
+- **finestre staccate e del banco contest**: resta solo la testata del pannello. Si
+  **spostano dalla testata** (portandole al bordo dello schermo Windows le aggancia), il
+  **doppio clic** le ingrandisce o le rimette com'erano, dai **bordi e dagli angoli** si
+  ridimensionano; il margine attorno al pannello scende da 8 a 3 pixel, e un filo colorato
+  segna la finestra attiva;
+- **finestre di dialogo** (Impostazioni, Log, Contest, Informazioni…): lo stesso, con la
+  testata e la ✕;
+- **finestre grandi** (cluster, contest, log, QSL cartacee, statistiche, rotore): una testata
+  bassa con il titolo, senza "DecoDXLog —" davanti, e i comandi riduci, ingrandisci, chiudi;
+- **scritte piu' corte**: nel cluster "1718/3000 spot" al posto della frase intera;
+  l'inserimento contest senza sessione dice "Inserimento contest · nessuna sessione".
+
+## 1.15.2 — 23 settembre 2026
+
+**Le finestre di Windows e le tendine non finiscono piu' sotto il banco.** In modalita' contest
+le finestre della gara erano "sempre in primo piano" per tutto il sistema: coprivano le
+finestre di dialogo di DecoDXLog (Impostazioni, Log, Contest…), quelle di Windows (apri,
+salva, avvisi) e le tendine.
+
+- le finestre della gara stanno **sopra la finestra principale perche' sono sue** — si
+  riducono a icona con lei — ma non piu' sopra a tutto: le finestre di dialogo di DecoDXLog e
+  di Windows si aprono davanti;
+- nella pulsantiera del banco c'e' **Davanti anche agli altri programmi**, spento di
+  partenza, per chi vuole le finestre della gara sopra Decodium o altri programmi;
+- **le tendine** si aprono in una finestra loro: stanno sopra tutto ed escono dal bordo delle
+  finestre piccole invece di restare tagliate; lo stesso per il menu **Pannelli**.
+
+## 1.15.1 — 23 settembre 2026
+
+**La barra in alto va a capo sugli schermi piccoli.** Su uno schermo stretto i riquadri della
+barra uscivano dalla finestra: cloud e ricerca sparivano oltre il bordo.
+
+- i riquadri della barra **scendono sulla riga sotto** quando non c'e' posto, e la barra si
+  alza da sola; su uno schermo largo resta tutto su una riga, con cloud e ricerca a destra;
+- i **pulsanti dei comandi** vanno a capo anche dentro il loro riquadro, che non esce mai
+  dalla finestra;
+- il pulsante del cloud e' diventato l'icona **⟳** (la spiegazione compare passandoci sopra),
+  e la scelta della stazione e' un po' piu' stretta;
+- la finestra principale **non chiede piu' 1100 pixel** quando lo schermo e' piu' stretto.
+
+## 1.15.0 — 23 settembre 2026
+
+**La modalita' contest vera: la finestra principale diventa la base del banco.** Aprendo il
+banco la finestra principale restava quella di tutti i giorni — il pannello del nuovo QSO, il
+log, le schede di diplomi, statistiche e propagazione — e le finestre della gara stavano sparse
+per lo schermo.
+
+Adesso entrare in modalita' contest cambia la finestra principale:
+
+- al posto della disposizione di tutti i giorni c'e' la **base della gara**: il nome del
+  contest, QSO, punti, moltiplicatori e punteggio, e tre pulsanti — **Riapri il banco**,
+  **Disponi le finestre**, **Esci dalla modalita' contest**;
+- la finestra principale **si massimizza** e le finestre della gara si dispongono **sopra di
+  lei, raggruppate**, invece che su tutto lo schermo;
+- le finestre della gara sono **legate alla principale**: stanno sempre davanti, si riducono
+  con lei e non riempiono la barra delle applicazioni. Restano libere: si spostano e si
+  ridimensionano dove si vuole, e li' restano.
+
+Si esce dalla pulsantiera, dalla base, o chiudendo la sessione, e la finestra principale torna
+**esattamente com'era**: pannelli, finestre staccate, misura. Il programma chiuso in gara si
+riapre in gara.
+
+## 1.14.1 — 23 settembre 2026
+
+**Un QSO in gara non ferma piu' il programma.** Registrare un QSO teneva il programma fermo
+per secondi — quattro, su una stazione vera — proprio nel momento in cui la stazione dall'altra
+parte aspetta. Adesso un QSO si registra in circa **70 millisecondi**.
+
+Misurato su un log da stazione vera (15.400 QSO, una gara in corso da 400), prima e dopo:
+**2,4 secondi per QSO prima, 70 millisecondi dopo**, e il blocco piu' lungo fra un QSO e
+l'altro sotto i 115 ms.
+
+Non era una cosa sola. Il diploma FT2 si ricalcolava 22 volte per ogni QSO, una per ogni
+riquadro che lo mostra; le statistiche per banda 28 volte; il punteggio del contest 5 volte,
+ogni volta rileggendo i QSO della gara uno per uno; e il riepilogo dei diplomi anche con la
+finestra dei diplomi chiusa. Adesso:
+
+- il punteggio della gara si calcola **una volta per QSO**, con una sola lettura del log, e lo
+  leggono tutte le finestre — cluster, punteggio, inserimento, pulsantiera — dallo stesso conto;
+- diplomi e statistiche di tutto il log si aggiornano **un attimo dopo**, quando si smette di
+  scrivere, e **in un thread a parte**: la finestra non si ferma mai;
+- quello che non si vede non si calcola piu'.
+
+## 1.14.0 — 23 settembre 2026
+
+**Il pieno controllo del banco: pulsantiera, tre disposizioni, finestre che restano davanti.**
+
+Mancavano tre cose per lavorarci davvero in gara.
+
+**Le finestre non spariscono piu'.** Sotto quella grande, o ridotte a icona: una finestra
+sparita mentre passa la stazione e' un QSO perso. In contest stanno davanti e il pulsante per
+ridurle non c'e' proprio, cosi' non ci si casca. Si spegne dall'interruttore della pulsantiera,
+per chi preferisce.
+
+**La pulsantiera.** E' una finestra piccola come le altre, e da li' si comanda tutto: si
+accendono e si spengono le otto finestre una per una, si sceglie la disposizione, e si arriva
+al Cabrillo e all'invio del log. In fondo si legge a che punto sta la gara, cosi' anche con
+tutto il resto chiuso si sa come va.
+
+**Le disposizioni sono tre**, e si cambiano con un pulsante: **Colonne** (cluster, lavoro,
+conti — quella che regge uno schermo solo), **Al centro** (tutto attorno all'inserimento) e
+**Due schermi**, che se di schermo ce n'e' uno solo ricade sulle colonne invece di mandare
+meta' banco nel nulla. La scelta si ricorda, e le finestre spostate a mano restano dove sono.
+
+**Il cluster in gara era ancora troppo pieno.** Adesso la fila dei filtri si apre solo quando
+serve, e c'e' «solo molt», che nasconde tutto quello che non porta un moltiplicatore: in una
+colonna stretta e' la differenza fra guardare e cercare.
+
+**E il log si manda.** Ogni contest con la scheda sa dove va — CQ WW e WPX al loro logcheck,
+IARU al submission ARRL, i tre ARI a contest.ari.it — ed entro quanti giorni. Il programma
+scrive il Cabrillo con il punteggio contato e apre la pagina. A caricarlo e' l'operatore: un
+log spedito per sbaglio non si richiama indietro.
+
+## 1.13.0 — 23 settembre 2026
+
+**Il banco del contest e' fatto di finestre vere, ognuna dove si vuole.** La finestra unica
+metteva tutto insieme e non si poteva spostare niente: in gara serve il contrario, ogni cosa
+in una finestra sua, grande quanto si vuole e dove si vuole — anche su un altro monitor.
+
+Il banco apre otto finestre, che sono le stesse dei pannelli staccati, quindi **misura e
+posizione si ricordano**: la volta dopo si riaprono dove le si e' lasciate.
+
+| Finestra | Cosa c'e' dentro |
+| --- | --- |
+| Inserimento contest | nominativo grande, RST, progressivo, scambio col nome del contest, Invio registra |
+| Cluster in colonna | verticale, filtri e spot, con i moltiplicatori che mancano in evidenza |
+| Log | il registro della stazione |
+| Scheda nominativo | quello che il log e il callbook sanno di chi si sta lavorando |
+| Come va | QSO, nominativi, durata, ultimi 10 minuti, QSO/h, ultima ora, ultimi collegati |
+| Punteggio | punti, moltiplicatori, totale, e la lista banda per banda |
+| Mappa | i QSO con locatore |
+| CW | solo quando il contest e' in telegrafia |
+
+**La prima volta si dispongono da sole** — cluster in colonna a sinistra, inserimento in mezzo
+in alto, log sotto, punteggio e ritmo a destra, mappa e CW in basso — e da li' in poi comanda
+chi le sposta: le posizioni scelte non si toccano piu'.
+
+Tre pannelli sono nuovi (inserimento, punteggio, ritmo) e il **cluster e' diventato un pannello
+come gli altri**, quindi si stacca in finestra e in colonna stretta tiene solo le colonne che
+servono.
+
+Quando la finestra dell'inserimento e' stretta **i campi vanno a capo** invece di schiacciare il
+nominativo fino a farlo sparire: in una finestra che si ridimensiona a piacere «stretta»
+succede, e succedeva. I quattro pannelli del contest vivono solo in finestra: la ✕ li chiude
+invece di riagganciarli, perche' nella disposizione della finestra principale non hanno un
+posto e riagganciarli voleva dire perderli.
+
+Nel dialogo Contest ci sono due pulsanti: **Banco del contest** (le finestre) e **Finestra
+unica** (quella di prima, che tiene Cabrillo ed export — dal pannello del punteggio ci si arriva
+con «Esporta…»).
+
 ## 1.12.0 — 22 settembre 2026
 
 **Il banco del contest si apre da solo.** Aprire una sessione di contest voleva dire aprire a

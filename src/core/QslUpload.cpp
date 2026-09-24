@@ -1,5 +1,6 @@
 #include "core/QslUpload.h"
 
+#include "core/Adif.h"
 #include "core/NetworkError.h"
 
 #include <QCoreApplication>
@@ -7,6 +8,9 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QHttpMultiPart>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QTimeZone>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
@@ -14,6 +18,7 @@
 #include <QRegularExpression>
 #include <QStandardPaths>
 
+#include <cmath>
 #include <utility>
 #include <QUrlQuery>
 #include <QXmlStreamReader>
@@ -220,6 +225,112 @@ QslUploadResult parseQrzResponse(const QByteArray& body)
     r.rejected = 1;
     r.message = QCoreApplication::translate("Qsl", "QRZ Logbook: %1").arg(reason.isEmpty() ? result : reason);
     return r;
+}
+
+QJsonObject crxQsoData(const AdifRecord& record, qint64 logId, qint64 remoteId)
+{
+    // La frequenza in kHz, come nell'esempio della documentazione ("7025").
+    const double mhz = record.value(QStringLiteral("FREQ")).toDouble();
+    const QString khz = mhz > 0 ? QString::number(mhz * 1000.0, 'f', mhz * 1000.0 == std::floor(mhz * 1000.0) ? 0 : 1)
+                                : QString();
+    // Il modo come lo scrivono gli operatori: FT8 e non MFSK.
+    QString mode = record.value(QStringLiteral("MODE")).toUpper();
+    const QString submode = record.value(QStringLiteral("SUBMODE")).toUpper();
+    if (!submode.isEmpty() && mode != QLatin1String("SSB"))
+        mode = submode;
+    // L'ora del QSO, in secondi Unix come la restituisce get_myqsos. La
+    // documentazione di edit_myqso non la elenca: senza, CRX metterebbe l'ora
+    // dell'invio, e un QSO mandato dopo avrebbe l'ora sbagliata.
+    const QString date = record.value(QStringLiteral("QSO_DATE"));
+    QString time = record.value(QStringLiteral("TIME_ON"));
+    if (time.size() == 4)
+        time += QStringLiteral("00");
+    const QDateTime when = QDateTime::fromString(date + time, QStringLiteral("yyyyMMddHHmmss"));
+    QJsonObject out{
+        {QStringLiteral("qso_id"), remoteId},
+        {QStringLiteral("f_log_id"), logId},
+        {QStringLiteral("logentry_his_call"), record.value(QStringLiteral("CALL")).toUpper()},
+        {QStringLiteral("logentry_band"), record.value(QStringLiteral("BAND")).toLower()},
+        {QStringLiteral("logentry_frequency"), khz},
+        {QStringLiteral("logentry_mode"), mode},
+        // "his report" e' il rapporto dato a lui, "my report" quello ricevuto.
+        {QStringLiteral("logentry_his_report"), record.value(QStringLiteral("RST_SENT"))},
+        {QStringLiteral("logentry_my_report"), record.value(QStringLiteral("RST_RCVD"))},
+    };
+    if (when.isValid()) {
+        QDateTime utc = when;
+        utc.setTimeZone(QTimeZone::UTC);
+        out.insert(QStringLiteral("logentry_date"), utc.toSecsSinceEpoch());
+    }
+    const QString name = record.value(QStringLiteral("NAME"));
+    if (!name.isEmpty())
+        out.insert(QStringLiteral("logentry_his_name"), name);
+    const QString comment = record.value(QStringLiteral("COMMENT"));
+    if (!comment.isEmpty())
+        out.insert(QStringLiteral("logentry_comment"), comment);
+    return out;
+}
+
+QslUploadResult parseCrxResponse(int status, const QByteArray& body)
+{
+    QslUploadResult r;
+    const QJsonObject o = QJsonDocument::fromJson(body).object();
+    if (o.value(QStringLiteral("success")).toBool()) {
+        r.ok = true;
+        r.accepted = 1;
+        const QJsonValue id = o.value(QStringLiteral("qso_id"));
+        r.remoteId = id.isString() ? id.toString() : QString::number(id.toVariant().toLongLong());
+        r.message = QCoreApplication::translate("Qsl", "CRX Logbook: QSO %1").arg(r.remoteId);
+        return r;
+    }
+    const QString error = o.value(QStringLiteral("error")).toString(o.value(QStringLiteral("message")).toString());
+    if (status == 0 || status >= 500 || (status == 200 && o.isEmpty())) {
+        // Il servizio non ha risposto, o ha risposto con qualcosa che non e'
+        // JSON: si riprova dopo, il QSO resta in coda.
+        r.retryLater = true;
+        r.message = QCoreApplication::translate("Qsl", "CRX Logbook: no answer from the service (%1)")
+                        .arg(status > 0 ? QString::number(status) : QStringLiteral("—"));
+        return r;
+    }
+    if (status == 401) {
+        // Una chiave sbagliata vale per tutti i QSO: ci si ferma qui.
+        r.retryLater = true;
+        r.message = QCoreApplication::translate("Qsl", "CRX Logbook: the API key was not accepted");
+        return r;
+    }
+    if (error.contains(QLatin1String("duplicate"), Qt::CaseInsensitive)) {
+        r.ok = true;
+        r.duplicates = 1;
+        r.message = QCoreApplication::translate("Qsl", "CRX Logbook: already there");
+        return r;
+    }
+    r.rejected = 1;
+    r.message = QCoreApplication::translate("Qsl", "CRX Logbook: %1")
+                    .arg(error.isEmpty() ? QString::number(status) : error);
+    return r;
+}
+
+QVariantList parseCrxLogs(const QByteArray& body, QString* error)
+{
+    QVariantList out;
+    const QJsonObject o = QJsonDocument::fromJson(body).object();
+    if (o.contains(QStringLiteral("error"))) {
+        if (error)
+            *error = o.value(QStringLiteral("error")).toString();
+        return out;
+    }
+    for (const QJsonValue& v : o.value(QStringLiteral("logs")).toArray()) {
+        const QJsonObject log = v.toObject();
+        out << QVariantMap{
+            {QStringLiteral("id"), log.value(QStringLiteral("log_id")).toVariant().toLongLong()},
+            {QStringLiteral("name"), log.value(QStringLiteral("log_name")).toString()},
+            {QStringLiteral("call"), log.value(QStringLiteral("log_activation_call")).toString()},
+            {QStringLiteral("description"), log.value(QStringLiteral("log_desc")).toString()},
+        };
+    }
+    if (out.isEmpty() && error && !o.contains(QStringLiteral("logs")))
+        *error = QCoreApplication::translate("Qsl", "unexpected answer");
+    return out;
 }
 
 QslUploadResult parseEqslResponse(const QByteArray& body)
@@ -475,6 +586,59 @@ void WebQslUploader::uploadClubLog(const ClubLogAuth& auth, const QByteArray& ad
     watch(reply, Service::ClubLog, qsoCount);
 }
 
+namespace {
+// Tutte le chiamate a CRX hanno la stessa busta: {"req": {type, query, apikey, ...}}.
+QByteArray crxRequest(const QString& query, const QString& apiKey, const QJsonObject& extra)
+{
+    QJsonObject req{{QStringLiteral("type"), QStringLiteral("radio")},
+                    {QStringLiteral("query"), query},
+                    {QStringLiteral("apikey"), apiKey}};
+    for (auto it = extra.begin(); it != extra.end(); ++it)
+        req.insert(it.key(), it.value());
+    return QJsonDocument(QJsonObject{{QStringLiteral("req"), req}}).toJson(QJsonDocument::Compact);
+}
+
+QNetworkRequest crxHttpRequest(const QUrl& url)
+{
+    QNetworkRequest request(url);
+    network::useHttp11(request);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/json"));
+    request.setHeader(QNetworkRequest::UserAgentHeader,
+                      QStringLiteral("DecoDXLog/%1").arg(QCoreApplication::applicationVersion()));
+    request.setTransferTimeout(30'000);
+    return request;
+}
+} // namespace
+
+void WebQslUploader::uploadCrx(const QString& apiKey, const QJsonObject& qsoData)
+{
+    if (m_busy)
+        return;
+    m_busy = true;
+    const QByteArray body = crxRequest(QStringLiteral("edit_myqso"), apiKey,
+                                       QJsonObject{{QStringLiteral("qsoData"), qsoData}});
+    watch(m_net->post(crxHttpRequest(m_crxUrl), body), Service::Crx, 1);
+}
+
+void WebQslUploader::listCrxLogs(const QString& apiKey)
+{
+    QNetworkReply* reply = m_net->post(crxHttpRequest(m_crxUrl), crxRequest(QStringLiteral("get_mylogs"), apiKey, {}));
+    connect(reply, &QNetworkReply::finished, this, [this, reply] {
+        reply->deleteLater();
+        const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        const QByteArray answer = reply->readAll();
+        QString error;
+        QVariantList logs;
+        if (reply->error() != QNetworkReply::NoError && status == 0)
+            error = network::safeErrorString(reply);
+        else if (status == 401)
+            error = QCoreApplication::translate("Qsl", "the API key was not accepted");
+        else
+            logs = qsl::parseCrxLogs(answer, &error);
+        emit crxLogsListed(logs, error);
+    });
+}
+
 void WebQslUploader::send(Service service, const QUrl& url, const QByteArray& body)
 {
     if (m_busy)
@@ -496,6 +660,18 @@ void WebQslUploader::watch(QNetworkReply* reply, Service service, int qsoCount)
         m_busy = false;
         const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         const QByteArray answer = reply->readAll();
+        if (service == Service::Crx) {
+            // CRX dice il motivo nel corpo JSON anche con 400 o 401.
+            if (reply->error() != QNetworkReply::NoError && status == 0) {
+                QslUploadResult failed;
+                failed.retryLater = true;
+                failed.message = network::safeErrorString(reply);
+                emit finished(failed);
+                return;
+            }
+            emit finished(qsl::parseCrxResponse(status, answer));
+            return;
+        }
         if (service == Service::ClubLog) {
             // Club Log dice il motivo nel corpo anche quando risponde 403, e
             // quel motivo serve all'operatore piu' del codice.

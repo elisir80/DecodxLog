@@ -35,6 +35,16 @@ ApplicationWindow {
 
     OnScreen { target: root }
 
+    // Niente barra di Windows: la testata e' la nostra, piu' bassa, con gli
+    // stessi comandi. Si sposta dalla testata e si ridimensiona dai bordi.
+    flags: Qt.Window | Qt.FramelessWindowHint | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint
+    header: WindowTitleBar { window: root }
+    WindowChrome {
+        window: root
+        parent: root.contentItem.parent
+        dragHeight: Theme.panelHeight
+    }
+
     Settings {
         category: "contestWindow"
         property alias width: root.width
@@ -62,11 +72,34 @@ ApplicationWindow {
         onTriggered: root.revision++
     }
 
+    // Il modo di partenza: quello della sessione, o quello che dice il nome
+    // della gara (CQ-WW-SSB e' in fonia), o quello della radio. Prima partiva
+    // sempre in CW, anche in una gara in SSB, con il 599 al posto del 59.
+    function startingMode() {
+        if (root.session.mode)
+            return root.session.mode
+        const id = String(root.session.contestId || "").toUpperCase()
+        if (id.endsWith("-SSB") || id.endsWith("-PH") || id.endsWith("-PHONE"))
+            return "SSB"
+        if (id.endsWith("-RTTY"))
+            return "RTTY"
+        if (id.endsWith("-CW"))
+            return "CW"
+        const rig = String(decolog.shownMode || "").toUpperCase()
+        if (rig === "LSB" || rig === "USB" || rig === "SSB" || rig === "AM" || rig === "FM")
+            return "SSB"
+        if (rig === "CW" || rig === "CW-R" || rig === "RTTY" || rig === "FT8" || rig === "FT4" || rig === "FT2")
+            return rig === "CW-R" ? "CW" : rig
+        return "CW"
+    }
+
     Component.onCompleted: {
         if (root.band.length === 0)
             root.band = root.session.band || "20m"
         if (root.mode.length === 0)
-            root.mode = root.session.mode || "CW"
+            root.mode = root.startingMode()
+        sentRst.text = root.mode === "SSB" ? "59" : "599"
+        rcvdRst.text = sentRst.text
         callField.forceActiveFocus()
     }
 
@@ -82,6 +115,67 @@ ApplicationWindow {
                                       && decolog.activation.wouldDuplicate(callField.text, root.band, root.mode)
 
     function openCabrillo() { cabrilloDialog.openDialog() }
+
+    // Un clic su uno spot del cluster riempie l'inserimento, come nel banco.
+    Connections {
+        target: decolog.cluster
+        function onSpotPicked(call, band, mode, freqKhz) {
+            if (!call || call.length === 0)
+                return
+            callField.text = call.toUpperCase()
+            const b = bandBox.bands.indexOf(band)
+            if (b >= 0) {
+                root.band = band
+                bandBox.currentIndex = b
+            }
+            const m = mode === "LSB" || mode === "USB" || mode === "AM" || mode === "FM" ? "SSB" : mode
+            const mi = modeBox.modes.indexOf(m)
+            if (mi >= 0 && m !== root.mode) {
+                root.mode = m
+                modeBox.currentIndex = mi
+                sentRst.text = m === "SSB" ? "59" : "599"
+                rcvdRst.text = sentRst.text
+            }
+            root.raise()
+            root.requestActivate()
+            root.goToExchange()
+        }
+    }
+
+    // Lo scambio che la stazione mandera', scritto da solo mentre si batte il
+    // nominativo: la zona dal paese, o quello che ha mandato l'ultima volta
+    // (la provincia, la sezione, la zona di una HQ). Si sostituisce solo un
+    // campo vuoto o gia' riempito da qui: quello scritto a mano non si tocca.
+    // Il progressivo non si puo' sapere prima, e resta da scrivere.
+    property string autoFrom: ""
+    property bool settingAuto: false
+    function suggestExchange() {
+        if (!root.running)
+            return
+        if (rcvdNr.text.length > 0 && root.autoFrom === "")
+            return
+        const s = decolog.activation.suggestExchange(callField.text.trim())
+        root.settingAuto = true
+        rcvdNr.text = s.value || ""
+        root.settingAuto = false
+        root.autoFrom = rcvdNr.text.length > 0 ? s.from : ""
+    }
+    Timer { id: suggestTimer; interval: 200; onTriggered: root.suggestExchange() }
+    // Il nome del campo dice da dove viene quello che c'e' dentro.
+    function exchangeLabelText() {
+        const base = root.scoring.exchangeLabel || qsTr("Nr r")
+        return root.autoFrom === "log" ? qsTr("%1 · log").arg(base)
+             : root.autoFrom === "cty" ? qsTr("%1 · country").arg(base)
+             : base
+    }
+    // Si passa allo scambio con tutto selezionato: se il suggerimento va bene
+    // si preme Invio, se no si scrive sopra.
+    function goToExchange() {
+        suggestTimer.stop()
+        root.suggestExchange()
+        rcvdNr.forceActiveFocus()
+        rcvdNr.selectAll()
+    }
 
     function clearEntry() {
         callField.text = ""
@@ -229,6 +323,7 @@ ApplicationWindow {
                 LabeledField {
                     label: qsTr("Band")
                     StyledComboBox {
+                        id: bandBox
                         Layout.preferredWidth: 110
                         readonly property var bands: ["160m", "80m", "60m", "40m", "30m", "20m", "17m",
                                                       "15m", "12m", "10m", "6m", "2m", "70cm"]
@@ -240,6 +335,7 @@ ApplicationWindow {
                 LabeledField {
                     label: qsTr("Mode")
                     StyledComboBox {
+                        id: modeBox
                         Layout.preferredWidth: 110
                         readonly property var modes: ["CW", "SSB", "RTTY", "FT2", "FT8", "FT4", "PSK31"]
                         model: modes
@@ -260,7 +356,10 @@ ApplicationWindow {
                         fieldHeight: 38
                         font.pixelSize: 20
                         accentBorder: root.duplicate ? Theme.errorColor : Theme.primaryColor
-                        onTextChanged: decolog.lookupCall = text
+                        onTextChanged: {
+                            decolog.lookupCall = text
+                            suggestTimer.restart()
+                        }
                         Keys.onSpacePressed: rcvdRst.forceActiveFocus()
                     }
                 }
@@ -295,10 +394,12 @@ ApplicationWindow {
                     // Il nome del campo lo decide il contest: zona, provincia,
                     // sezione o numero. Scrivere "59 14" dove ci vuole una
                     // provincia e' l'errore che si scopre a spoglio fatto.
-                    label: root.scoring.exchangeLabel || qsTr("Nr r")
+                    label: root.exchangeLabelText()
                     StyledTextField {
                         id: rcvdNr
                         Layout.preferredWidth: 130
+                        onTextChanged: if (!root.settingAuto) root.autoFrom = ""
+                        color: root.autoFrom.length > 0 ? Theme.accentColor : Theme.textPrimary
                         fieldHeight: 38
                         uppercase: true
                         accentBorder: root.exchangeProblem.length > 0 ? Theme.warningColor

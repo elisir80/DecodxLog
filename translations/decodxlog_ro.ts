@@ -139,6 +139,10 @@
         <translation>Referință</translation>
     </message>
     <message>
+        <source>Single window (Ctrl+Shift+T)</source>
+        <translation>Fereastră unică (Ctrl+Shift+T)</translation>
+    </message>
+    <message>
         <source>Contest and activations</source>
         <translation>Concursuri și activări</translation>
     </message>
@@ -195,8 +199,8 @@
         <translation>Exportă ADIF (%1)</translation>
     </message>
     <message>
-        <source>Contest window (Ctrl+Shift+T)</source>
-        <translation>Fereastra de concurs (Ctrl+Shift+T)</translation>
+        <source>Contest Mode</source>
+        <translation>Mod concurs</translation>
     </message>
     <message>
         <source>Close</source>
@@ -232,7 +236,7 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Anulează</translation>
     </message>
 </context>
 <context>
@@ -677,8 +681,8 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>%1/%2 online</translation>
     </message>
     <message>
-        <source>%1 shown · %2 in the last hour</source>
-        <translation>%1 afișate · %2 în ultima oră</translation>
+        <source>%1/%2 spots</source>
+        <translation>%1/%2 spoturi</translation>
     </message>
     <message>
         <source>→ Decodium</source>
@@ -743,6 +747,18 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Hide spots from %1</source>
         <translation>Ascunde spoturile de la %1</translation>
+    </message>
+    <message>
+        <source>hide filters</source>
+        <translation>închide filtrele</translation>
+    </message>
+    <message>
+        <source>filters</source>
+        <translation>filtre</translation>
+    </message>
+    <message>
+        <source>mult only</source>
+        <translation>doar mult</translation>
     </message>
     <message>
         <source>Decodium band</source>
@@ -1129,6 +1145,119 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
 </context>
 <context>
+    <name>ContestEntryPanel</name>
+    <message>
+        <source>The callsign is too short</source>
+        <translation>Indicativul este prea scurt</translation>
+    </message>
+    <message>
+        <source>%1 · next %2</source>
+        <translation>%1 · următorul %2</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Concurs</translation>
+    </message>
+    <message>
+        <source>Contest entry · no session</source>
+        <translation>Introducere concurs · nicio sesiune</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Bandă</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Mod</translation>
+    </message>
+    <message>
+        <source>already worked</source>
+        <translation>deja lucrat</translation>
+    </message>
+    <message>
+        <source>Callsign</source>
+        <translation>Indicativ</translation>
+    </message>
+    <message>
+        <source>RST s</source>
+        <translation>RST t</translation>
+    </message>
+    <message>
+        <source>Nr s</source>
+        <translation>Nr t</translation>
+    </message>
+    <message>
+        <source>RST r</source>
+        <translation>RST p</translation>
+    </message>
+    <message>
+        <source>Nr r</source>
+        <translation>Nr p</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · țară</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Jurnal</translation>
+    </message>
+    <message>
+        <source>Open a session from Contest, then the QSOs come in here.</source>
+        <translation>Deschide o sesiune la Concurs și QSO-urile ajung aici.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestLayout</name>
+    <message>
+        <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
+        <translation>Toate panourile concursului sunt închise: se redeschid din Mod concurs, în bara de sus.</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Toate panourile concursului sunt în ferestre proprii: ↩ dintr-un panou îl aduce înapoi aici.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestRatePanel</name>
+    <message>
+        <source>How it is going</source>
+        <translation>Cum merge</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation>Indicative</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Durată</translation>
+    </message>
+    <message>
+        <source>Last 10 min</source>
+        <translation>Ultimele 10 min</translation>
+    </message>
+    <message>
+        <source>QSO/h</source>
+        <translation>QSO/h</translation>
+    </message>
+    <message>
+        <source>Last hour</source>
+        <translation>Ultima oră</translation>
+    </message>
+    <message>
+        <source>Last QSOs</source>
+        <translation>Ultimele QSO</translation>
+    </message>
+</context>
+<context>
     <name>ContestRules</name>
     <message>
         <source>CQ zone</source>
@@ -1185,6 +1314,116 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>A locator was expected, like JN70.</source>
         <translation>Se aștepta un locator, ca JN70.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestScorePanel</name>
+    <message>
+        <source>Score</source>
+        <translation>Scor</translation>
+    </message>
+    <message>
+        <source>The rules of %1 are not in the program: the QSOs go in the log and in the Cabrillo, but the score has to be counted elsewhere.</source>
+        <translation>Regulile de la %1 nu sunt în program: QSO-urile intră în jurnal și în Cabrillo, dar scorul trebuie numărat altundeva.</translation>
+    </message>
+    <message>
+        <source>No contest session open.</source>
+        <translation>Nicio sesiune de concurs deschisă.</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Puncte</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Band by band · QSO, points, multipliers</source>
+        <translation>Bandă cu bandă · QSO, puncte, multiplicatori</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Exportă…</translation>
+    </message>
+    <message>
+        <source>Rules: %1</source>
+        <translation>Regulament: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ContestSubmitDialog</name>
+    <message>
+        <source>Send the log</source>
+        <translation>Trimite jurnalul</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo</source>
+        <translation>Scrie Cabrillo</translation>
+    </message>
+    <message>
+        <source>Cabrillo (*.cbr *.log)</source>
+        <translation>Cabrillo (*.cbr *.log)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Toate fișierele (*)</translation>
+    </message>
+    <message>
+        <source>Cabrillo written. Now upload it on the contest page.</source>
+        <translation>Cabrillo scris. Acum încarcă-l pe pagina concursului.</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Concurs</translation>
+    </message>
+    <message>
+        <source>QSO</source>
+        <translation>QSO</translation>
+    </message>
+    <message>
+        <source>Points</source>
+        <translation>Puncte</translation>
+    </message>
+    <message>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Scor</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Jurnalul se încarcă pe pagina concursului în %n zi de la final. Scorul scris în Cabrillo e cel numărat aici; cine verifică jurnalele îl renumără oricum.</numerusform>
+            <numerusform>Jurnalul se încarcă pe pagina concursului în %n zile de la final. Scorul scris în Cabrillo e cel numărat aici; cine verifică jurnalele îl renumără oricum.</numerusform>
+            <numerusform>Jurnalul se încarcă pe pagina concursului în %n de zile de la final. Scorul scris în Cabrillo e cel numărat aici; cine verifică jurnalele îl renumără oricum.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The log goes uploaded on the contest page. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>Jurnalul se încarcă pe pagina concursului. Scorul scris în Cabrillo e cel numărat aici; cine verifică jurnalele îl renumără oricum.</translation>
+    </message>
+    <message>
+        <source>Write the Cabrillo…</source>
+        <translation>Scrie Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Open the contest page</source>
+        <translation>Deschide pagina concursului</translation>
+    </message>
+    <message>
+        <source>For this contest the program does not know where the log goes: write the Cabrillo and send it the way the rules say.</source>
+        <translation>Pentru acest concurs programul nu știe unde merge jurnalul: scrie Cabrillo și trimite-l cum spune regulamentul.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Închide</translation>
     </message>
 </context>
 <context>
@@ -1284,6 +1523,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Nr r</source>
         <translation>Nr p</translation>
+    </message>
+    <message>
+        <source>%1 · log</source>
+        <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · country</source>
+        <translation>%1 · țară</translation>
     </message>
     <message>
         <source>Log</source>
@@ -2120,6 +2367,22 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Hartă</translation>
     </message>
     <message>
+        <source>Contest entry</source>
+        <translation>Introducere concurs</translation>
+    </message>
+    <message>
+        <source>Score and multipliers</source>
+        <translation>Scor și multiplicatori</translation>
+    </message>
+    <message>
+        <source>How it is going</source>
+        <translation>Cum merge</translation>
+    </message>
+    <message>
+        <source>DX Cluster</source>
+        <translation>Cluster DX</translation>
+    </message>
+    <message>
         <source>closed</source>
         <translation>închis</translation>
     </message>
@@ -2693,6 +2956,30 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: serviciul nu răspunde (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: cheia API nu a fost acceptată</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: există deja</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>răspuns neașteptat</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: era deja acolo</translation>
     </message>
@@ -2727,6 +3014,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: niciun răspuns</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>cheia API nu a fost acceptată</translation>
     </message>
 </context>
 <context>
@@ -4442,6 +4733,26 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Club Log vrea trei lucruri: adresa de e-mail și parola contului (mai jos), indicativul profilului de stație și o cheie API. Cheia este gratuită și personală și se cere la clublog.org/need_api.php — identifică programul, nu pe tine. Un singur QSO pleacă imediat ce este înregistrat, o restanță pleacă într-un singur fișier ADIF.</translation>
     </message>
     <message>
+        <source>Logbook on CRX</source>
+        <translation>Jurnal pe CRX</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— încarcă lista —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Încarcă jurnalele mele</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>Trimite QSO-urile de la</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook este jurnalul în cloud al crx.cloud. Vrea cheia API a contului tău (începe cu HAM-, mai jos cu celelalte date de acces) și jurnalul în care să scrie. Pornește din ziua în care alegi jurnalul: QSO-urile mai vechi pleacă doar dacă muți data înapoi. Fiecare QSO pleacă cu data și ora lui; unul corectat după trimitere se actualizează, nu se dublează. Trimiterea, trimiterea automată și contoarele sunt în fila QSL de jos.</translation>
+    </message>
+    <message>
         <source>QSL by email</source>
         <translation>QSL prin email</translation>
     </message>
@@ -5105,10 +5416,6 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>Setări</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>Importă</translation>
     </message>
@@ -5121,16 +5428,92 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Diplome</translation>
     </message>
     <message>
-        <source>%1 · %2/%3</source>
-        <translation>%1 · %2/%3</translation>
-    </message>
-    <message>
-        <source>Cluster ●</source>
-        <translation>Cluster ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>Cluster</translation>
+    </message>
+    <message>
+        <source>Contest Mode ▾</source>
+        <translation>Mod concurs ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX Cluster…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Setări · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Setări ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2/%3 ▾</source>
+        <translation>Mod concurs · %1 · %2/%3 ▾</translation>
+    </message>
+    <message>
+        <source>Contest Mode · %1 · %2 QSO ▾</source>
+        <translation>Mod concurs · %1 · %2 QSO ▾</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO · %3 points · %4 mult</source>
+        <translation>%1 · %2 QSO · %3 puncte · %4 mult</translation>
+    </message>
+    <message>
+        <source>%1 · %2 QSO</source>
+        <translation>%1 · %2 QSO</translation>
+    </message>
+    <message>
+        <source>No session open</source>
+        <translation>Nicio sesiune deschisă</translation>
+    </message>
+    <message>
+        <source>Contest and activations…</source>
+        <translation>Concursuri și activări…</translation>
+    </message>
+    <message>
+        <source>Leave contest mode</source>
+        <translation>Ieși din modul concurs</translation>
+    </message>
+    <message>
+        <source>Enter contest mode</source>
+        <translation>Intră în modul concurs</translation>
+    </message>
+    <message>
+        <source>QSO entry</source>
+        <translation>Introducere</translation>
+    </message>
+    <message>
+        <source>Logbook</source>
+        <translation>Jurnal</translation>
+    </message>
+    <message>
+        <source>Callsign card</source>
+        <translation>Fișa indicativului</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation>Ritm</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation>Scor</translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation>Hartă</translation>
+    </message>
+    <message>
+        <source>CW</source>
+        <translation>CW</translation>
+    </message>
+    <message>
+        <source>Cabrillo…</source>
+        <translation>Cabrillo…</translation>
+    </message>
+    <message>
+        <source>Send the log…</source>
+        <translation>Trimite jurnalul…</translation>
     </message>
     <message>
         <source>Panels (%1 closed)</source>
@@ -5143,14 +5526,6 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Station</source>
         <translation>Stație</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>Niciun profil</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>Profiluri de stație</translation>
     </message>
     <message>
         <source>Cloud %1</source>
@@ -5205,8 +5580,8 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Jurnale</translation>
     </message>
     <message>
-        <source>Contest</source>
-        <translation>Concurs</translation>
+        <source>Reset the layout</source>
+        <translation>Resetează aranjarea</translation>
     </message>
     <message>
         <source>syncing…</source>
@@ -5277,6 +5652,21 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Rotița: cifra de sub cursor. Clic: scrie frecvența.</translation>
+    </message>
+</context>
+<context>
+    <name>WindowTitleBar</name>
+    <message>
+        <source>Minimise</source>
+        <translation>Minimizează</translation>
+    </message>
+    <message>
+        <source>Maximise or restore</source>
+        <translation>Maximizează sau restaurează</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Închide</translation>
     </message>
 </context>
 <context>
@@ -6176,6 +6566,22 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: acest cont nu are încă un jurnal — creează unul pe crx.cloud</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: %n jurnal în cont</numerusform>
+            <numerusform>CRX: %n jurnale în cont</numerusform>
+            <numerusform>CRX: %n de jurnale în cont</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: oprit, %2</translation>
     </message>
@@ -6210,6 +6616,22 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>fără cheie API: Setări → Servicii QSL</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>alege jurnalul CRX: Setări → Servicii QSL</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: cer jurnalele…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: nicio cheie API (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>adaug-o mai jos</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6250,6 +6672,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
             <numerusform>Club Log: se trimit %n QSO…</numerusform>
             <numerusform>Club Log: se trimit %n de QSO…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: alege întâi jurnalul (Setări → Servicii QSL)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -6345,6 +6771,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Tags</source>
         <translation>Etichete</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Comentariu</translation>
     </message>
 </context>
 <context>
@@ -6733,6 +7163,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>Încărcare și confirmări eQSL</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Trimitere în CRX Logbook (crx.cloud): cheia începe cu HAM-</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

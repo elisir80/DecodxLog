@@ -15,7 +15,9 @@ ApplicationWindow {
 
     width: 1440
     height: 900
-    minimumWidth: 1100
+    // Su uno schermo piccolo la finestra non puo' chiedere piu' di quello che c'e':
+    // la barra in alto va a capo, e il resto si stringe.
+    minimumWidth: Math.min(1100, Screen.desktopAvailableWidth > 0 ? Screen.desktopAvailableWidth : 1100)
     minimumHeight: 640
     visible: true
     title: "DecoDXLog " + decolog.version
@@ -61,13 +63,16 @@ ApplicationWindow {
         // rifarla ogni volta che cambia scheda.
         property real clusterBottomHeight: 340
         property real mapWidth: 308
-        property string hiddenColumns: ""
-        property string columnWidths: ""
-        property var savedFilters: ({})
         // I pannelli chiusi e quelli in finestra propria, come liste di chiavi
         // separate da virgola. Restano da una sessione all'altra.
         property string hiddenPanels: "cw"
         property string detachedPanels: ""
+        // La modalita' contest, e com'era la finestra principale prima di
+        // entrarci: all'uscita si rimette tutto uguale.
+        property bool contestModeOn: false
+        property string preContestHidden: ""
+        property string preContestDetached: ""
+        property int preContestVisibility: 2
         // Disposizione bloccata: le maniglie non si tirano e i pannelli non si
         // spostano. Si mette e si toglie col tasto destro sulla testata di un
         // pannello qualsiasi.
@@ -88,7 +93,12 @@ ApplicationWindow {
     // Ogni pannello ha una chiave. Con quella si sa come si chiama, da quale
     // file nasce quando lo si stacca, e se adesso e' agganciato, in finestra o
     // chiuso. Chiuso vuol dire chiuso davvero: lo spazio non resta vuoto.
-    readonly property var panelKeys: ["newqso", "logbook", "callinfo", "cw", "rotor", "ft2", "tabs", "map"]
+    readonly property var panelKeys: ["newqso", "logbook", "callinfo", "cw", "rotor", "ft2", "tabs", "map",
+                                      "contest", "score", "rate", "cluster"]
+    // Gli ultimi quattro vivono solo in finestra: nel contest ognuno se li
+    // mette dove vuole, e nella disposizione agganciata non hanno un posto.
+    readonly property var windowOnlyPanels: ["contest", "score", "rate", "cluster"]
+    function isWindowOnly(key) { return window.windowOnlyPanels.indexOf(key) >= 0 }
 
     function panelTitle(key) {
         switch (key) {
@@ -100,6 +110,10 @@ ApplicationWindow {
         case "ft2":      return qsTr("FT2 Award")
         case "tabs":     return qsTr("Awards, statistics, QSL, activity")
         case "map":      return qsTr("Map")
+        case "contest":  return qsTr("Contest entry")
+        case "score":    return qsTr("Score and multipliers")
+        case "rate":     return qsTr("How it is going")
+        case "cluster":  return qsTr("DX Cluster")
         }
         return key
     }
@@ -113,6 +127,10 @@ ApplicationWindow {
         case "ft2":      return "Ft2AwardPanel.qml"
         case "tabs":     return "BottomTabs.qml"
         case "map":      return "MapPanel.qml"
+        case "contest":  return "ContestEntryPanel.qml"
+        case "score":    return "ContestScorePanel.qml"
+        case "rate":     return "ContestRatePanel.qml"
+        case "cluster":  return "ClusterPanel.qml"
         }
         return ""
     }
@@ -349,26 +367,260 @@ ApplicationWindow {
             contestWindow.item.requestActivate()
         }
     }
-    // Il banco del contest: quello che serve durante una gara, aperto insieme.
-    // La finestra dell'inserimento veloce con punteggio e statistiche, il
-    // cluster ridotto ai filtri e ai moltiplicatori che mancano, e la finestra
-    // CW quando il contest e' in telegrafia. Niente altro: durante una gara
-    // ogni finestra in piu' e' una finestra da spostare.
-    function openContestDesk() {
-        window.openContest()
-        clusterWindow.contestMode = true
-        clusterWindow.tab = 0
-        clusterWindow.active = true
-        if (clusterWindow.item)
-            clusterWindow.item.raise()
-        if (decolog.activation.isCwContest() && !window.isPanelDetached("cw")) {
-            window.showPanel("cw")
-            window.detachPanel("cw")
-        }
-        // La finestra dell'inserimento resta davanti: e' quella dove si scrive.
-        if (contestWindow.item)
-            contestWindow.item.requestActivate()
+    // La modalita' contest, come nei programmi da gara: la finestra principale
+    // smette di essere il log di tutti i giorni e mostra, agganciati nel suo
+    // corpo, i pannelli della gara (ContestLayout). Si entra e si esce dal menu
+    // Contest Mode in alto, o chiudendo la sessione; all'uscita la finestra
+    // torna com'era.
+    readonly property bool contestModeOn: layout.contestModeOn
+
+    // Una lista di pannelli senza quelli che vivevano solo nelle finestre del
+    // banco di prima (inserimento, punteggio, ritmo, cluster): adesso stanno
+    // agganciati in gara, e fuori dalla gara non devono tornare a galla.
+    function withoutContestWindows(text) {
+        return window.panelListOf(text).filter(k => !window.isWindowOnly(k)).join(",")
     }
+
+    // In gara non ci sono finestre staccate: tutto sta nella disposizione
+    // della gara. Serve anche all'avvio, per chi arriva dalla 1.15.6 o prima
+    // con il programma chiuso in gara: le finestre del banco di allora
+    // restavano aperte sopra i pannelli agganciati, e i pannelli chiusi con la
+    // loro X risultavano chiusi anche nella finestra di tutti i giorni.
+    function settleContestMode() {
+        if (!layout.contestModeOn)
+            return
+        if (layout.detachedPanels.length > 0)
+            layout.detachedPanels = ""
+        layout.preContestDetached = window.withoutContestWindows(layout.preContestDetached)
+        layout.preContestHidden = window.withoutContestWindows(layout.preContestHidden)
+    }
+
+    function openContestDesk() {
+        if (!layout.contestModeOn) {
+            // Com'era prima: la si rimette uguale quando la gara finisce. I
+            // pannelli staccati tornano dentro, perche' in gara ci sono gia'
+            // quelli agganciati, e due log aperti confondono.
+            layout.preContestDetached = window.withoutContestWindows(layout.detachedPanels)
+            layout.preContestHidden = window.withoutContestWindows(layout.hiddenPanels)
+            layout.preContestVisibility = window.visibility
+            layout.detachedPanels = ""
+            layout.contestModeOn = true
+            // Solo entrando: chi poi chiude la CW la trova chiusa.
+            contestLayout.prepare(decolog.activation.isCwContest())
+        }
+        if (window.visibility !== Window.Maximized && window.visibility !== Window.FullScreen)
+            window.showMaximized()
+    }
+
+    function exitContestMode() {
+        if (!layout.contestModeOn)
+            return
+        layout.contestModeOn = false
+        layout.detachedPanels = window.withoutContestWindows(layout.preContestDetached)
+        layout.hiddenPanels = window.withoutContestWindows(layout.preContestHidden)
+        if (layout.preContestVisibility === Window.Windowed)
+            window.showNormal()
+    }
+
+    Timer { id: exitProbe; interval: 900; onTriggered: window.exitContestMode() }
+    Timer {
+        id: pointerProbe
+        property var args: []
+        property int step: 0
+        property var start0: null
+        interval: 60
+        repeat: true
+        function send(win, kind, pt) { decolog.testPointer(win, kind, pt.x, pt.y) }
+        // Il comando della testata con questo simbolo, cercato fra i figli.
+        function findGlyph(item, glyph) {
+            if (!item)
+                return null
+            if ((item.glyph === glyph || (item.text === glyph && item.glyph === undefined)) && item.visible)
+                return item
+            for (let i = 0; i < item.children.length; ++i) {
+                const found = findGlyph(item.children[i], glyph)
+                if (found)
+                    return found
+            }
+            return null
+        }
+        onTriggered: {
+            const kind = args[0]
+            const key = args[1]
+            // Si aspetta che la lavagna abbia preso le misure.
+            if (step++ < 10)
+                return
+            if (kind === "headerresize") {
+                const lp = window.panelItem("logbook").item
+                const col = 2
+                if (step === 11) {
+                    const cell = args[1] === "table" ? lp.tableCell(col) : lp.headerCell(col)
+                    start0 = cell.mapToItem(null, cell.width - 2, cell.height / 2)
+                    pointerProbe.args = args.concat([String(lp.columnWidthOf(col))])
+                    // Prima ci si passa sopra, come il mouse: la maniglia del
+                    // bordo si accende col passaggio, non con la pressione.
+                    send(window, "hover", Qt.point(start0.x - 20, start0.y))
+                    send(window, "hover", start0)
+                    return
+                }
+                if (step === 12) {
+                    send(window, "press", start0)
+                    return
+                }
+                const n = step - 12
+                if (n <= 8) {
+                    send(window, "move", Qt.point(start0.x + 10 * n, start0.y))
+                    return
+                }
+                send(window, "release", Qt.point(start0.x + 80, start0.y))
+                stop()
+                Qt.callLater(function () {
+                    console.warn("PROBE header column " + col + " width " + args[args.length - 1] + " -> " + lp.columnWidthOf(col))
+                })
+            } else if (kind === "logprobe") {
+                const lp = key === "board" ? contestLayout.panelFor("logbook").item : window.panelItem("logbook").item
+                if (step === 11) {
+                    lp.showMenu(args[2] === "band" ? "filters" : "columns")
+                    return
+                }
+                if (step < 18)
+                    return
+                const label = args[2] === "band" ? "20m" : lp.model.columnTitle(2)
+                const c = findGlyph(lp.menuFor(args[2]).contentItem, label)
+                if (!c) { console.warn("PROBE log: no item " + label); stop(); return }
+                const at = c.mapToItem(null, c.width / 2, c.height / 2)
+                send(c.Window.window, "press", at)
+                send(c.Window.window, "release", at)
+                stop()
+                Qt.callLater(function () {
+                    console.warn("PROBE log " + key + " " + args[2] + ": bands=" + JSON.stringify(lp.model.bandFilter)
+                                 + " hidden=" + lp.hiddenColumns)
+                })
+            } else if (kind === "panelsclick") {
+                const c = findGlyph(panelsPopup.contentItem, window.panelTitle(key))
+                if (!c) { console.warn("PROBE no row"); stop(); return }
+                const w = c.Window.window
+                const at = c.mapToItem(null, c.width / 2, c.height / 2)
+                const before = contestLayout.isShown(key)
+                send(w, "press", at)
+                send(w, "release", at)
+                stop()
+                Qt.callLater(function () {
+                    console.warn("PROBE panels row " + key + ": shown " + before + " -> " + contestLayout.isShown(key))
+                })
+            } else if (kind === "dialogclose") {
+                const w = aboutDialog
+                const c = findGlyph(w.header, "✕")
+                if (!c) { console.warn("PROBE no close glyph"); stop(); return }
+                const at = c.mapToItem(null, c.width / 2, c.height / 2)
+                send(w, "press", at)
+                send(w, "release", at)
+                stop()
+                Qt.callLater(function () { console.warn("PROBE dialog visible after ✕: " + aboutDialog.visible) })
+            } else if (kind === "mainclick") {
+                const c = findGlyph(verticalSplit, "✕")
+                const at = c.mapToItem(null, c.width / 2, c.height / 2)
+                console.warn("PROBE main glyph at " + Math.round(at.x) + "," + Math.round(at.y) + " hidden before: " + layout.hiddenPanels)
+                send(window, "press", at)
+                send(window, "release", at)
+                stop()
+                Qt.callLater(function () { console.warn("PROBE main hidden after: " + layout.hiddenPanels) })
+            } else if (kind === "boardclick") {
+                const p = contestLayout.panelFor(key)
+                const c = findGlyph(p, args[2] === "detach" ? "⤢" : "✕")
+                const at = c.mapToItem(null, c.width / 2, c.height / 2)
+                console.warn("PROBE glyph at " + Math.round(at.x) + "," + Math.round(at.y)
+                             + " panel " + Math.round(p.x) + "," + Math.round(p.y) + " " + Math.round(p.width))
+                send(window, "press", at)
+                send(window, "release", at)
+                stop()
+                Qt.callLater(function () {
+                    console.warn("PROBE " + args[2] + " " + key + ": shown=" + contestLayout.isShown(key)
+                                 + " floating=" + contestLayout.isFloating(key))
+                })
+            } else if (kind === "boarddrag" || kind === "boardresize") {
+                const p = contestLayout.panelFor(key)
+                if (step === 11) {
+                    start0 = kind === "boardresize" ? p.mapToItem(null, p.width - 1, p.height - 1)
+                                                    : p.mapToItem(null, 90, Theme.panelHeight / 2)
+                    console.warn("PROBE " + kind + " " + key + " size " + Math.round(p.width) + "x" + Math.round(p.height))
+                    console.warn("PROBE drag " + key + " from " + Math.round(p.x) + "," + Math.round(p.y))
+                    send(window, "press", start0)
+                    return
+                }
+                const n = step - 11
+                const dx = parseInt(args[2]), dy = parseInt(args[3])
+                if (n <= 10) {
+                    send(window, "move", Qt.point(start0.x + dx * n / 10, start0.y + dy * n / 10))
+                    return
+                }
+                send(window, "release", Qt.point(start0.x + dx, start0.y + dy))
+                stop()
+                Qt.callLater(function () {
+                    console.warn("PROBE drag " + key + " to " + Math.round(p.x) + "," + Math.round(p.y)
+                                 + " size " + Math.round(p.width) + "x" + Math.round(p.height))
+                })
+            } else if (kind === "floatclose") {
+                const w = contestLayout.floatingWindowFor(key)
+                if (!w)
+                    return
+                const c = findGlyph(w.contentItem, "✕")
+                if (!c)
+                    return
+                const at = c.mapToItem(null, c.width / 2, c.height / 2)
+                send(w, "press", at)
+                send(w, "release", at)
+                stop()
+                Qt.callLater(function () {
+                    console.warn("PROBE floatclose " + key + ": shown=" + contestLayout.isShown(key)
+                                 + " floating=" + contestLayout.isFloating(key))
+                })
+            }
+        }
+    }
+    Timer {
+        id: boardProbe
+        property var args: []
+        interval: 600
+        onTriggered: contestLayout.testMove(args[1], parseInt(args[2]), parseInt(args[3]))
+    }
+
+    // Il programma chiuso in gara si riapre in gara; ma se la sessione nel
+    // frattempo non c'e' piu', la finestra principale torna com'era.
+    Timer {
+        running: true
+        interval: 500
+        onTriggered: if (layout.contestModeOn && !decolog.activation.active) window.exitContestMode()
+    }
+
+    // Chiusa la sessione, finita la gara: si esce anche dalla modalita'.
+    Connections {
+        target: decolog.activation
+        function onChanged() {
+            if (layout.contestModeOn && !decolog.activation.active)
+                window.exitContestMode()
+        }
+    }
+
+    // I comandi del menu Contest Mode.
+    function deskDo(what, arg) {
+        if (what === "enter") {
+            window.openContestDesk()
+        } else if (what === "session") {
+            activationDialog.openDialog()
+        } else if (what === "toggle") {
+            contestLayout.toggle(arg)
+        } else if (what === "reset") {
+            contestLayout.resetLayout()
+        } else if (what === "exit") {
+            window.exitContestMode()
+        } else if (what === "export") {
+            window.openContest()
+        } else if (what === "submit") {
+            submitDialog.openDialog()
+        }
+    }
+
     function openRotor() {
         rotorWindow.active = true
         if (rotorWindow.item) {
@@ -411,6 +663,28 @@ ApplicationWindow {
     Component.onCompleted: {
         const what = startupShow.split(":")
         if (what[0] === "contestdesk") window.openContestDesk()
+        // Per le prove: si entra e si esce, e la finestra principale deve
+        // tornare com'era.
+        else if (what[0] === "contestexit") { window.openContestDesk(); exitProbe.start() }
+        // Per misurare: apre il banco e registra N QSO di fila, dicendo quanto
+        // ci mette ognuno. Un QSO in gara deve essere istantaneo.
+        // Per misurare: il banco aperto con il cluster che corre (uno spot ogni
+        // 250 ms, come un RBN in gara) e ogni tanto un clic su uno spot.
+        else if (what[0] === "benchspots") { if (what[2] !== "nodesk") window.openContestDesk(); else window.exitContestMode(); spotBench.left = parseInt(what[1] || "40"); spotBench.start() }
+        // Per misurare: scrivere un nominativo lettera per lettera, come si fa
+        // nell'inserimento veloce. Ogni lettera deve essere istantanea.
+        else if (what[0] === "benchtype") { window.openContestDesk(); typeBench.left = parseInt(what[1] || "30"); typeBench.start() }
+        // Per le prove: il banco aperto e un clic sul primo spot del cluster; il
+        // nominativo deve finire nell'inserimento veloce.
+        else if (what[0] === "pickspot") {
+            window.openContestDesk()
+            Qt.callLater(function () {
+                const m = decolog.cluster.spots
+                if (m.count > 0)
+                    decolog.cluster.lookupSpot(m.get(0).spotKey)
+            })
+        }
+        else if (what[0] === "benchqso") { window.openContestDesk(); benchTimer.left = parseInt(what[1] || "5"); benchTimer.start() }
         else if (what[0] === "new") newQsoDialog.open()
         else if (what[0] === "qso") { openQso(parseInt(what[1])); if (what[2]) qsoDialog.currentTab = parseInt(what[2]) }
         else if (what[0] === "profiles") profilesDialog.open()
@@ -486,6 +760,75 @@ ApplicationWindow {
         else if (what[0] === "updatecheck") { window.panelItem("tabs").setTab(3); decolog.updates.checkNow() }
         else if (what[0] === "updateget") { decolog.updates.checkNow(); updateGetTimer.start() }
         else if (what[0] === "mainmenu") topBar.openMainMenu()
+        // Per le prove: in gara un pannello spostato sulla lavagna di dx, dy.
+        else if (what[0] === "contestmove") {
+            window.openContestDesk()
+            boardProbe.args = what
+            boardProbe.start()
+        }
+        // Per le prove, col mouse vero: un clic sulla ✕ o su ⤢ di un pannello
+        // della lavagna, un trascinamento per la testata, o la ✕ di un pannello
+        // staccato. Dice poi cosa e' successo.
+        else if (what[0] === "dialogclose") {
+            aboutDialog.open()
+            pointerProbe.args = what
+            pointerProbe.step = 0
+            pointerProbe.start()
+        }
+        else if (what[0] === "setupmenu") Qt.callLater(topBar.openSetupMenu)
+        // Per le prove, col mouse vero: in gara, un clic su una riga di Pannelli.
+        else if (what[0] === "panelsclick") {
+            window.openContestDesk()
+            panelsPopup.open()
+            pointerProbe.args = what
+            pointerProbe.step = 0
+            pointerProbe.start()
+        }
+        // Per le prove col mouse vero: nel log (normal o in gara) un clic su
+        // una banda nei filtri, o su una colonna nel menu Colonne.
+        else if (what[0] === "headerresize") {
+            pointerProbe.args = what
+            pointerProbe.step = 0
+            pointerProbe.start()
+        }
+        else if (what[0] === "logprobe") {
+            if (what[1] === "board")
+                window.openContestDesk()
+            pointerProbe.args = what
+            pointerProbe.step = 0
+            pointerProbe.start()
+        }
+        else if (what[0] === "mainclick") {
+            pointerProbe.args = what
+            pointerProbe.step = 0
+            pointerProbe.start()
+        }
+        else if (what[0] === "boardclick" || what[0] === "boarddrag" || what[0] === "boardresize" || what[0] === "floatclose") {
+            window.openContestDesk()
+            if (what[0] === "floatclose")
+                contestLayout.setFloating(what[1], true)
+            pointerProbe.args = what
+            pointerProbe.step = 0
+            pointerProbe.start()
+        }
+        // Per le prove: in gara un pannello staccato in una finestra sua.
+        else if (what[0] === "contestfloat") {
+            window.openContestDesk()
+            for (let i = 1; i < what.length; ++i)
+                contestLayout.setFloating(what[i], true)
+        }
+        // Per le prove: in gara si chiude e si riapre un pannello, come dal menu.
+        else if (what[0] === "contesttoggle") {
+            window.openContestDesk()
+            for (let i = 1; i < what.length; ++i)
+                window.deskDo("toggle", what[i])
+        }
+        // Per le prove: il menu Contest Mode, dentro o fuori dalla modalita'.
+        else if (what[0] === "contestmenu") {
+            if (what[1] === "on")
+                window.openContestDesk()
+            Qt.callLater(topBar.openContestMenu)
+        }
         else if (what[0] === "stats") openStats()
         else if (what[0] === "cards") { openCards(what[1])
                                        if (what[2] === "menu" && cardsWindow.item)
@@ -592,6 +935,97 @@ ApplicationWindow {
 
     SetupDialog { id: setupDialog; onUpdateRequested: updateDialog.open() }
     ActivationDialog { id: activationDialog }
+    ContestSubmitDialog { id: submitDialog }
+    Timer {
+        id: benchTimer
+        property int left: 0
+        property int n: 0
+        interval: 2500
+        repeat: true
+        onTriggered: {
+            if (left <= 0) { stop(); return }
+            left--; n++
+            const t0 = Date.now()
+            const now = decolog.utcNow()
+            const err = decolog.logManualQso({ call: "B" + (Date.now() % 100000) + "X" + n, date: now.date, time: now.time,
+                                               band: "20m", mode: "CW", rst_sent: "599", rst_rcvd: "599",
+                                               srx: String(10 + n % 30) })
+            console.warn("BENCH qso " + n + ": " + (Date.now() - t0) + " ms " + err
+                         + " | scatto piu' lungo dal QSO prima: " + benchWatch.worst + " ms")
+            benchWatch.worst = 0
+        }
+    }
+    Timer {
+        id: typeBench
+        property int left: 0
+        property int n: 0
+        readonly property var calls: ["IK0ABC", "DL1XYZ", "JA1ZZZ", "W1AW", "PY2ABC", "VK3ABC", "G4ABC", "UA9XX"]
+        interval: 120
+        repeat: true
+        onTriggered: {
+            if (left <= 0) { stop(); return }
+            n++
+            const call = calls[Math.floor(n / 6) % calls.length]
+            const part = call.substring(0, 1 + n % 6)
+            const t0 = Date.now()
+            decolog.lookupCall = part
+            const dt = Date.now() - t0
+            if (n % 6 === 5) {
+                left--
+                console.warn("BENCH type " + part + ": " + dt + " ms | scatto piu' lungo: " + benchWatch.worst + " ms")
+                benchWatch.worst = 0
+            }
+        }
+    }
+    Timer {
+        id: spotBench
+        property int left: 0
+        property int n: 0
+        property int worstInject: 0
+        interval: 250
+        repeat: true
+        onTriggered: {
+            if (left <= 0) { stop(); return }
+            n++
+            const pre = ["K", "DL", "JA", "PY", "UA", "G", "I", "EA", "VK", "W"]
+            const call = pre[n % pre.length] + (n % 10) + "B" + String.fromCharCode(65 + n % 26)
+            const khz = (14005 + (n * 7) % 60) + ".0"
+            const t0 = Date.now()
+            decolog.cluster.injectLine("DX de TEST" + (n % 9) + ":   " + khz + "  " + call + "  CW 24 dB 28 WPM CQ  "
+                                       + decolog.utcNow().time.replace(":", "").substring(0, 4) + "Z")
+            worstInject = Math.max(worstInject, Date.now() - t0)
+            if (n % 8 === 0) {
+                const t1 = Date.now()
+                const m = decolog.cluster.spots
+                if (m.count > 0)
+                    decolog.cluster.lookupSpot(m.get(n % m.count).spotKey)
+                console.warn("BENCH click: " + (Date.now() - t1) + " ms")
+            }
+            if (n % 4 === 0) {
+                left--
+                console.warn("BENCH spots " + n + " | inserimento peggiore " + worstInject
+                             + " ms | scatto piu' lungo: " + benchWatch.worst + " ms")
+                benchWatch.worst = 0
+                worstInject = 0
+            }
+        }
+    }
+    // Misura la fluidita': un battito ogni 16 ms, e il buco piu' lungo fra due
+    // battiti e' quanto il programma e' rimasto fermo.
+    Timer {
+        id: benchWatch
+        property double last: 0
+        property int worst: 0
+        interval: 16
+        repeat: true
+        running: benchTimer.running || spotBench.running || typeBench.running
+        onTriggered: {
+            const now = Date.now()
+            if (last > 0)
+                worst = Math.max(worst, now - last)
+            last = now
+        }
+    }
     LogsDialog {
         id: logsDialog
         // All'avvio si chiede quale log aprire, per chi tiene un log per ogni
@@ -728,17 +1162,45 @@ ApplicationWindow {
         function onDetachedPanelsChanged() { window.syncDetachedWindows() }
     }
 
+    // La finestra di un pannello staccato, per spostarla o portarla davanti.
+    function panelWindowFor(key) {
+        for (let i = 0; i < detachedModel.count; ++i) {
+            if (detachedModel.get(i).key === key)
+                return detachedWindows.objectAt(i)
+        }
+        return null
+    }
+    function raisePanel(key) {
+        const win = window.panelWindowFor(key)
+        if (win) {
+            win.raise()
+            win.requestActivate()
+        }
+    }
+
     Instantiator {
+        id: detachedWindows
         model: detachedModel
         delegate: PanelWindow {
             required property string key
             panelKey: key
             panelTitle: window.panelTitle(key)
             panelSource: window.panelSource(key)
+            // Quelli del contest vivono solo in finestra: riagganciarli
+            // vorrebbe dire farli sparire, perche' nella disposizione della
+            // finestra principale non hanno un posto.
+            dockable: !window.isWindowOnly(key)
             // La X di una finestra staccata riaggancia il pannello. Ma quando a
             // chiudersi e' tutto il programma, la finestra si chiude lo stesso e
             // quello non e' un riaggancio: prima tornavano dentro tutti.
-            onClosing: if (!window.quitting) window.attachPanel(panelKey)
+            onClosing: {
+                if (window.quitting)
+                    return
+                if (window.isWindowOnly(panelKey))
+                    window.closePanel(panelKey)
+                else
+                    window.attachPanel(panelKey)
+            }
             onAttachRequested: window.attachPanel(panelKey)
             onCloseRequested: window.closePanel(panelKey)
             onOpenQsoRequested: (id) => window.openQso(id)
@@ -746,12 +1208,16 @@ ApplicationWindow {
             onClusterRequested: (tab) => window.openCluster(tab)
             onStatsRequested: window.openStats()
             onRotorRequested: window.openRotor()
+            onContestRequested: window.openContest()
         }
     }
 
     // ── Il menu dei pannelli ────────────────────────────────────────────────
     Popup {
         id: panelsPopup
+        // Una finestra sua: in modalita' contest resta sopra le finestre della
+        // gara invece di aprirsi sotto.
+        popupType: Popup.Window
         parent: Overlay.overlay
         x: window.width - width - 16
         y: 72
@@ -782,12 +1248,20 @@ ApplicationWindow {
                 wrapMode: Text.Wrap
             }
 
+            // In gara l'elenco e' quello della lavagna: prima comandava la
+            // disposizione di tutti i giorni, che in gara e' spenta, e i clic
+            // non facevano niente.
             Repeater {
-                model: window.panelKeys
+                model: window.contestModeOn ? contestLayout.allKeys : window.panelKeys
                 delegate: Rectangle {
                     id: panelRow
                     required property string modelData
-                    readonly property bool closed: window.isPanelHidden(panelRow.modelData)
+                    readonly property bool closed: window.contestModeOn
+                                                   ? !contestLayout.isShown(panelRow.modelData)
+                                                   : window.isPanelHidden(panelRow.modelData)
+                    readonly property bool floating: window.contestModeOn
+                                                     ? contestLayout.isFloating(panelRow.modelData)
+                                                     : window.isPanelDetached(panelRow.modelData)
                     Layout.fillWidth: true
                     implicitHeight: 26
                     radius: 4
@@ -813,19 +1287,29 @@ ApplicationWindow {
                             elide: Text.ElideRight
                         }
                         Text {
-                            text: window.panelState(panelRow.modelData)
+                            text: !window.contestModeOn ? window.panelState(panelRow.modelData)
+                                  : panelRow.closed ? qsTr("closed")
+                                  : panelRow.floating ? qsTr("window") : qsTr("docked")
                             color: Theme.textSecondary
                             font.family: Theme.monoFamily
                             font.pixelSize: 10
                         }
                         PanelControl {
-                            glyph: window.isPanelDetached(panelRow.modelData) ? "↩" : "⤢"
-                            hint: window.isPanelDetached(panelRow.modelData)
+                            glyph: panelRow.floating ? "↩" : "⤢"
+                            hint: panelRow.floating
                                   ? qsTr("Put it back in the main window")
                                   : qsTr("Detach it into its own window")
-                            onClicked: window.isPanelDetached(panelRow.modelData)
-                                       ? window.attachPanel(panelRow.modelData)
-                                       : window.detachPanel(panelRow.modelData)
+                            onClicked: {
+                                if (window.contestModeOn) {
+                                    if (panelRow.closed)
+                                        contestLayout.setShown(panelRow.modelData, true)
+                                    contestLayout.setFloating(panelRow.modelData, !panelRow.floating)
+                                } else if (panelRow.floating) {
+                                    window.attachPanel(panelRow.modelData)
+                                } else {
+                                    window.detachPanel(panelRow.modelData)
+                                }
+                            }
                         }
                     }
 
@@ -835,7 +1319,8 @@ ApplicationWindow {
                         anchors.rightMargin: 24
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
-                        onClicked: window.togglePanel(panelRow.modelData)
+                        onClicked: window.contestModeOn ? contestLayout.toggle(panelRow.modelData)
+                                                        : window.togglePanel(panelRow.modelData)
                     }
                 }
             }
@@ -846,7 +1331,13 @@ ApplicationWindow {
                 text: qsTr("Restore the default layout")
                 buttonHeight: 24
                 fontPixelSize: 11
-                onClicked: { window.resetPanels(); panelsPopup.close() }
+                onClicked: {
+                    if (window.contestModeOn)
+                        contestLayout.resetLayout()
+                    else
+                        window.resetPanels()
+                    panelsPopup.close()
+                }
             }
         }
     }
@@ -912,8 +1403,13 @@ ApplicationWindow {
             onAwardsRequested: awardsDialog.openAt("")
             onClusterRequested: window.openCluster(0)
             onActivationRequested: activationDialog.openDialog()
+            contestModeOn: window.contestModeOn
+            contestOpenPanels: contestLayout.shownList
+            onContestCommand: (what, arg) => window.deskDo(what, arg)
             onProfilesRequested: profilesDialog.open()
-            closedPanels: window.hiddenPanels.length
+            closedPanels: window.contestModeOn
+                          ? contestLayout.allKeys.filter(k => !contestLayout.isShown(k)).length
+                          : window.hiddenPanels.length
             onPanelsRequested: panelsPopup.opened ? panelsPopup.close() : panelsPopup.open()
             onAboutRequested: aboutDialog.open()
             onLogFolderRequested: decolog.openDatabaseFolder()
@@ -927,6 +1423,10 @@ ApplicationWindow {
             Layout.margins: 8
             orientation: Qt.Vertical
             handle: splitHandle
+            // In gara al suo posto ci sono i pannelli della gara: questa resta
+            // con le sue misure, ma non si vede e non si tocca.
+            opacity: window.contestModeOn ? 0 : 1
+            enabled: !window.contestModeOn
 
             SplitView {
                 SplitView.fillHeight: true
@@ -938,6 +1438,7 @@ ApplicationWindow {
                     slotId: "left"
                     panelKey: window.panelAt("left")
                     docked: window.panelShows(panelKey)
+                    suspended: window.contestModeOn
                     highlighted: window.dragTargetSlot === "left"
                     onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
                     onMoveStarted: (key) => window.beginPanelDrag(key, "left")
@@ -961,6 +1462,7 @@ ApplicationWindow {
                     slotId: "center"
                     panelKey: window.panelAt("center")
                     docked: window.panelShows(panelKey)
+                    suspended: window.contestModeOn
                     highlighted: window.dragTargetSlot === "center"
                     onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
                     onMoveStarted: (key) => window.beginPanelDrag(key, "center")
@@ -975,12 +1477,6 @@ ApplicationWindow {
                     onRotorRequested: window.openRotor()
                     SplitView.fillWidth: true
                     SplitView.minimumWidth: 480
-                    hiddenColumns: layout.hiddenColumns
-                    columnWidths: layout.columnWidths
-                    savedFilters: layout.savedFilters
-                    onHiddenColumnsEdited: (value) => layout.hiddenColumns = value
-                    onColumnWidthsEdited: (value) => layout.columnWidths = value
-                    onSavedFiltersEdited: (value) => layout.savedFilters = value
                     onPopRequested: (key) => window.detachPanel(key)
                 }
 
@@ -999,6 +1495,7 @@ ApplicationWindow {
                         slotId: "rightA"
                         panelKey: window.panelAt("rightA")
                         docked: window.panelShows(panelKey)
+                        suspended: window.contestModeOn
                         highlighted: window.dragTargetSlot === "rightA"
                         onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
                         onMoveStarted: (key) => window.beginPanelDrag(key, "rightA")
@@ -1024,6 +1521,7 @@ ApplicationWindow {
                         slotId: "rightB"
                         panelKey: window.panelAt("rightB")
                         docked: window.panelShows(panelKey)
+                        suspended: window.contestModeOn
                         highlighted: window.dragTargetSlot === "rightB"
                         onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
                         onMoveStarted: (key) => window.beginPanelDrag(key, "rightB")
@@ -1044,6 +1542,7 @@ ApplicationWindow {
                         slotId: "rightC"
                         panelKey: window.panelAt("rightC")
                         docked: window.panelShows(panelKey)
+                        suspended: window.contestModeOn
                         highlighted: window.dragTargetSlot === "rightC"
                         onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
                         onMoveStarted: (key) => window.beginPanelDrag(key, "rightC")
@@ -1064,6 +1563,7 @@ ApplicationWindow {
                         slotId: "rightD"
                         panelKey: window.panelAt("rightD")
                         docked: window.panelShows(panelKey)
+                        suspended: window.contestModeOn
                         highlighted: window.dragTargetSlot === "rightD"
                         onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
                         onMoveStarted: (key) => window.beginPanelDrag(key, "rightD")
@@ -1109,6 +1609,7 @@ ApplicationWindow {
                     slotId: "bottomLeft"
                     panelKey: window.panelAt("bottomLeft")
                     docked: window.panelShows(panelKey)
+                    suspended: window.contestModeOn
                     highlighted: window.dragTargetSlot === "bottomLeft"
                     onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
                     onMoveStarted: (key) => window.beginPanelDrag(key, "bottomLeft")
@@ -1131,6 +1632,7 @@ ApplicationWindow {
                     slotId: "bottomRight"
                     panelKey: window.panelAt("bottomRight")
                     docked: window.panelShows(panelKey)
+                    suspended: window.contestModeOn
                     highlighted: window.dragTargetSlot === "bottomRight"
                     onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
                     onMoveStarted: (key) => window.beginPanelDrag(key, "bottomRight")
@@ -1151,6 +1653,26 @@ ApplicationWindow {
         }
 
         StatusRail { Layout.fillWidth: true }
+    }
+
+    // La modalita' contest: i pannelli della gara, agganciati dove di solito
+    // sta la disposizione di tutti i giorni.
+    ContestLayout {
+        id: contestLayout
+        titleOf: (key) => window.panelTitle(key)
+        Component.onCompleted: window.settleContestMode()
+        x: verticalSplit.x
+        y: verticalSplit.y
+        width: verticalSplit.width
+        height: verticalSplit.height
+        z: 20
+        visible: window.contestModeOn
+        onOpenQso: (id) => window.openQso(id)
+        onAwardRequested: (id) => awardsDialog.openAt(id)
+        onClusterRequested: (tab) => window.openCluster(tab)
+        onStatsRequested: window.openStats()
+        onRotorRequested: window.openRotor()
+        onContestRequested: window.openContest()
     }
 
     Component {

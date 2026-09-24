@@ -1,5 +1,6 @@
 // DecoDXLog — il log di stazione della famiglia Decodium.
 
+#include "CrashLog.h"
 #include "app/DecoLogController.h"
 #include "ThemeManager.h"
 
@@ -141,6 +142,15 @@ int main(int argc, char* argv[])
     // Prima di leggere qualsiasi cosa: se qui c'e' ancora la roba di quando il
     // programma si chiamava DecoLog, ce la si porta dietro.
     bringForwardTheOldName();
+
+    // Se il programma cade, un file con la strada che l'ha portato li': il
+    // registro di Windows tiene solo l'ultimo passo, e non basta per trovarlo.
+    // Nelle prove sta nella cartella delle impostazioni di prova.
+    decolog::crashlog::install(
+        settingsAt >= 0 && settingsAt + 1 < rawArguments.size()
+            ? rawArguments.at(settingsAt + 1)
+            : QDir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation)).filePath(QStringLiteral("crash")),
+        QStringLiteral(DECODXLOG_VERSION));
 
     // Lingua dell'interfaccia: quella scelta, o quella del sistema. L'inglese e'
     // la lingua dei sorgenti, quindi non ha un file da caricare.
@@ -345,5 +355,16 @@ int main(int argc, char* argv[])
         });
     }
 
-    return app.exec();
+    decolog::crashlog::setStage("running");
+    // Per provare il biglietto: DECODXLOG_CRASH_TEST=1 fa cadere il programma
+    // di proposito, un attimo dopo l'avvio.
+    if (qEnvironmentVariableIntValue("DECODXLOG_CRASH_TEST") == 1) {
+        QTimer::singleShot(1500, &app, [] {
+            volatile int* nowhere = nullptr;
+            *nowhere = 1;
+        });
+    }
+    const int code = app.exec();
+    decolog::crashlog::setStage("quitting");
+    return code;
 }

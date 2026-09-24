@@ -762,7 +762,7 @@ DialogFrame {
                         }
                         CredentialsList {
                             Layout.fillWidth: true
-                            serviceIds: ["cloud", "qrz", "qrzlogbook", "lotw", "clublog", "eqsl", "hamqth"]
+                            serviceIds: ["cloud", "qrz", "qrzlogbook", "lotw", "clublog", "eqsl", "crx", "hamqth"]
                         }
                     }
 
@@ -908,9 +908,62 @@ DialogFrame {
                                    + "clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as "
                                    + "it is logged, a backlog leaves as one ADIF file.")
                     }
+                    // ── CRX Logbook (crx.cloud) ─────────────────────────────
+                    SectionTitle { text: "CRX Logbook" }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 12
+                        LabeledField {
+                            label: qsTr("Logbook on CRX")
+                            StyledComboBox {
+                                id: crxLogBox
+                                Layout.preferredWidth: 280
+                                readonly property var logs: decolog.qsl.crxLogs
+                                model: logs.length > 0 ? logs.map(l => l.name + (l.call ? " · " + l.call : ""))
+                                     : [decolog.qsl.crxLogName.length > 0 ? decolog.qsl.crxLogName : qsTr("— load the list —")]
+                                currentIndex: {
+                                    for (let i = 0; i < logs.length; ++i)
+                                        if (logs[i].id === decolog.qsl.crxLogId)
+                                            return i
+                                    return logs.length > 0 ? -1 : 0
+                                }
+                                onActivated: if (logs.length > 0) decolog.qsl.crxLogId = logs[currentIndex].id
+                            }
+                        }
+                        GlassButton {
+                            Layout.alignment: Qt.AlignBottom
+                            text: qsTr("Load my logbooks")
+                            onClicked: decolog.qsl.fetchCrxLogs()
+                        }
+                        LabeledField {
+                            label: qsTr("Send QSOs from")
+                            StyledTextField {
+                                Layout.preferredWidth: 130
+                                text: decolog.qsl.crxSince
+                                placeholderText: "yyyy-mm-dd"
+                                onEditingFinished: decolog.qsl.crxSince = text
+                            }
+                        }
+                    }
+                    Text {
+                        Layout.fillWidth: true
+                        visible: decolog.qsl.crxStatus.length > 0
+                        text: decolog.qsl.crxStatus
+                        color: Theme.textSecondary
+                        font.family: Theme.monoFamily
+                        font.pixelSize: 11
+                        wrapMode: Text.Wrap
+                    }
+                    Note {
+                        text: qsTr("CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts "
+                                   + "with HAM-, below with the other credentials) and the logbook to write in. It starts from "
+                                   + "the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO "
+                                   + "goes with its date and time; one corrected after sending is updated, not duplicated. "
+                                   + "Sending, automatic sending and the counters are in the QSL tab at the bottom.")
+                    }
                     CredentialsList {
                         Layout.fillWidth: true
-                        serviceIds: ["lotw", "qrzlogbook", "clublog", "eqsl"]
+                        serviceIds: ["lotw", "qrzlogbook", "clublog", "eqsl", "crx"]
                     }
 
                     // ── La casella da cui partono le cartoline ─────────────
