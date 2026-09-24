@@ -3,6 +3,19 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.15.8 — 24 settembre 2026
+
+**La modalita' contest agganciata, sistemata per chi arriva dalle versioni prima.**
+
+- **Chi aveva chiuso il programma in gara con la 1.15.6 o prima** si ritrovava la finestra
+  dell'inserimento ancora staccata sopra i pannelli agganciati, e i pannelli chiusi con la ✕
+  del vecchio banco (log, scheda nominativo, mappa…) restavano chiusi anche nella finestra di
+  tutti i giorni. Adesso all'avvio in gara le finestre staccate rientrano, e all'uscita
+  tornano i pannelli chiusi e staccati di prima della gara.
+- **Chiudere l'ultimo pannello della gara non li riapre piu' tutti**: restano chiusi, con la
+  scritta che dice come riaprirli dal menu Contest Mode. La CW si apre da sola solo entrando
+  in una gara in telegrafia; chiusa, resta chiusa.
+
 ## 1.15.7 — 24 settembre 2026
 
 **La modalita' contest agganciata nella finestra principale.** Le finestre separate del banco
