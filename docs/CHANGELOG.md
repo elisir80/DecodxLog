@@ -3,6 +3,17 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.4 — 24 settembre 2026
+
+**Il commento dell'ADIF ha la sua colonna nel log.**
+
+- nel log c'e' la colonna **Commento** (il COMMENT dell'ADIF), subito dopo il nome, e la
+  **ricerca** guarda anche li'. Chi arriva da Logger32 o da altri programmi cercava il
+  commento nella colonna Etichette, che e' un'altra cosa: le etichette sono di DecoDXLog;
+- l'**oggetto delle QSL per email** con accenti o faccine si scrive in pezzi da 75 caratteri
+  al massimo, come vuole la RFC 2047, senza spezzare una faccina a meta': prima era un pezzo
+  solo lungo quanto tutto l'oggetto, che i filtri antispam guardano male.
+
 ## 1.16.3 — 24 settembre 2026
 
 **Connettore per CRX Logbook (crx.cloud).** Un servizio in piu' in Impostazioni → Servizi QSL
