@@ -17,11 +17,32 @@ constexpr int kTimeoutMs = 30'000;
 // non ci stanno, e si scrivono come dice la RFC 2047.
 QByteArray encodedWord(const QString& text)
 {
+    bool plain = true;
     for (const QChar c : text) {
         if (c.unicode() > 127)
-            return "=?UTF-8?B?" + text.toUtf8().toBase64() + "?=";
+            plain = false;
     }
-    return text.toUtf8();
+    if (plain)
+        return text.toUtf8();
+    // La RFC 2047 vuole pezzi da 75 caratteri al massimo, e i filtri antispam
+    // guardano male un oggetto fatto di un pezzo solo lunghissimo — con una
+    // faccina dentro capitava subito. Si spezza fra un carattere e l'altro,
+    // mai a meta' di una lettera (o di una faccina, che sono due QChar).
+    QList<QByteArray> words;
+    QString chunk;
+    for (qsizetype i = 0; i < text.size(); ++i) {
+        QString piece(text.at(i));
+        if (text.at(i).isHighSurrogate() && i + 1 < text.size())
+            piece += text.at(++i);
+        if (!chunk.isEmpty() && (chunk + piece).toUtf8().size() > 45) {
+            words << "=?UTF-8?B?" + chunk.toUtf8().toBase64() + "?=";
+            chunk.clear();
+        }
+        chunk += piece;
+    }
+    if (!chunk.isEmpty())
+        words << "=?UTF-8?B?" + chunk.toUtf8().toBase64() + "?=";
+    return words.join("\r\n ");
 }
 
 // Un indirizzo con il nome davanti: Martino Merola <iu8lmc@gmail.com>.

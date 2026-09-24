@@ -6733,6 +6733,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <source>Tags</source>
         <translation>Mærker</translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation>Kommentar</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::RigController</name>

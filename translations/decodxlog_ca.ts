@@ -6733,6 +6733,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <source>Tags</source>
         <translation>Etiquetes</translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation>Comentari</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::RigController</name>

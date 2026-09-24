@@ -6694,6 +6694,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <source>Tags</source>
         <translation>タグ</translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation>コメント</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::RigController</name>

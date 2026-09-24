@@ -6772,6 +6772,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <source>Tags</source>
         <translation>Etichete</translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation>Comentariu</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::RigController</name>

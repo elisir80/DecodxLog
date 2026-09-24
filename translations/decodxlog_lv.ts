@@ -6772,6 +6772,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <source>Tags</source>
         <translation>Birkas</translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation>Komentārs</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::RigController</name>

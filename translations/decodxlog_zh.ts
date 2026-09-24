@@ -6694,6 +6694,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <source>Tags</source>
         <translation>标签</translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation>备注</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::RigController</name>

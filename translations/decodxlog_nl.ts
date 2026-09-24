@@ -6733,6 +6733,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <source>Tags</source>
         <translation>Labels</translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation>Opmerking</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::RigController</name>

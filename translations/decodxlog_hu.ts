@@ -6694,6 +6694,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>Tags</source>
         <translation>Címkék</translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation>Megjegyzés</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::RigController</name>

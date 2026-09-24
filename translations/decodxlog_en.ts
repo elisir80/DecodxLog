@@ -6732,6 +6732,10 @@ The call Decodium is working shows up here by itself.</source>
         <source>Tags</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::RigController</name>

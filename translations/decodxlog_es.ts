@@ -6733,6 +6733,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <source>Tags</source>
         <translation>Etiquetas</translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation>Comentario</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::RigController</name>

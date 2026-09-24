@@ -6733,6 +6733,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <source>Tags</source>
         <translation>Etiketten</translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation>Kommentar</translation>
+    </message>
 </context>
 <context>
     <name>decolog::app::RigController</name>

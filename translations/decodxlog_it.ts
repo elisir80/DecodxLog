@@ -6542,8 +6542,8 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message numerus="yes">
         <source>CRX: %n logbook(s) in the account</source>
         <translation>
-            <numerusform>CRX: %n logbook nell'account</numerusform>
-            <numerusform>CRX: %n logbook nell'account</numerusform>
+            <numerusform>CRX: %n logbook nell&apos;account</numerusform>
+            <numerusform>CRX: %n logbook nell&apos;account</numerusform>
         </translation>
     </message>
     <message>
@@ -6732,6 +6732,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Tags</source>
         <translation>Etichette</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Commento</translation>
     </message>
 </context>
 <context>

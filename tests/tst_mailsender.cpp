@@ -68,6 +68,27 @@ private slots:
                  QStringLiteral("La tua QSL è partita"));
     }
 
+    void aLongSubjectWithASmileIsFolded()
+    {
+        // Un oggetto lungo con una faccina: pezzi da 75 caratteri al massimo,
+        // come vuole la RFC 2047, e la faccina intera dentro un pezzo solo.
+        MailMessage m;
+        m.to = QStringLiteral("ik4idf@example.it");
+        m.subject = QStringLiteral("Grazie per il bel QSO di stamattina in 20 metri, a presto 😊 73 de IU8LMC");
+        const QByteArray mime = buildMime(account(), m);
+        const int start = mime.indexOf("Subject: ");
+        const int end = mime.indexOf("\r\nDate: ", start);
+        const QByteArray header = mime.mid(start + 9, end - start - 9);
+        QString decoded;
+        for (QByteArray word : header.split('\n')) {
+            word = word.trimmed();
+            QVERIFY2(word.size() <= 75, word.constData());
+            QVERIFY(word.startsWith("=?UTF-8?B?") && word.endsWith("?="));
+            decoded += QString::fromUtf8(QByteArray::fromBase64(word.mid(10, word.size() - 12)));
+        }
+        QCOMPARE(decoded, m.subject);
+    }
+
     void theCardTravelsAsAnAttachment()
     {
         MailMessage m;

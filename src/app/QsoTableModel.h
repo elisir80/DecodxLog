@@ -43,7 +43,9 @@ public:
     // Le colonne del log. Dopo le solite ci sono quelle che il callbook
     // riempie — citta', nazione, stato, contea, zone, IOTA — che si
     // nascondono dal menu Colonne come tutte le altre.
-    enum Column { Utc, Call, Band, Freq, Mode, RstSent, RstRcvd, Grid, Name, Qth, Country,
+    // Il commento subito dopo il nome: e' li' che lo cerca chi arriva da un
+    // altro programma, non in fondo dopo venti colonne.
+    enum Column { Utc, Call, Band, Freq, Mode, RstSent, RstRcvd, Grid, Name, Comment, Qth, Country,
                   State, County, Cqz, Ituz, Iota, Dxcc, Qsl, Source, Tags, ColumnCount };
     enum Roles { IdRole = Qt::UserRole + 1, ColumnKeyRole, IsNewRole, ModeRole };
 
