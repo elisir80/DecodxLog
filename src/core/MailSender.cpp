@@ -159,12 +159,22 @@ void MailSender::startNext()
     }
 
     if (m_socket) {
-        m_socket->abort();
-        m_socket->deleteLater();
+        QSslSocket* oldSocket = m_socket;
+        m_socket = nullptr;
+        oldSocket->disconnect(this);
+        oldSocket->abort();
+        oldSocket->deleteLater();
     }
     m_socket = new QSslSocket(this);
-    connect(m_socket, &QSslSocket::readyRead, this, [this] {
-        m_buffer += m_socket->readAll();
+    QSslSocket* socket = m_socket;
+    connect(socket, &QSslSocket::readyRead, this, [this, socket] {
+        // abort()/deleteLater() puo' lasciare un readyRead gia' accodato.
+        // Non leggere da un socket sostituito o gia' chiuso.
+        if (m_socket != socket || !socket->isOpen() || !socket->isReadable()
+            || socket->state() == QAbstractSocket::UnconnectedState
+            || socket->bytesAvailable() <= 0)
+            return;
+        m_buffer += socket->readAll();
         while (true) {
             const int end = m_buffer.indexOf("\r\n");
             if (end < 0)
@@ -289,8 +299,13 @@ void MailSender::fail(const QString& error)
     m_timeout->stop();
     const State was = m_state;
     m_state = Idle;
-    if (m_socket)
-        m_socket->abort();
+    if (m_socket) {
+        QSslSocket* socket = m_socket;
+        m_socket = nullptr;
+        socket->disconnect(this);
+        socket->abort();
+        socket->deleteLater();
+    }
     // Dopo il punto finale il messaggio e' partito: un errore nel saluto di
     // congedo non lo annulla, e dirlo fallito farebbe mandare la stessa QSL due
     // volte.
@@ -307,8 +322,13 @@ void MailSender::fail(const QString& error)
 void MailSender::done()
 {
     m_timeout->stop();
-    if (m_socket)
-        m_socket->disconnectFromHost();
+    if (m_socket) {
+        QSslSocket* socket = m_socket;
+        m_socket = nullptr;
+        socket->disconnect(this);
+        socket->disconnectFromHost();
+        socket->deleteLater();
+    }
     m_state = Idle;
     startNext();
 }

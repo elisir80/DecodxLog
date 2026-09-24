@@ -414,7 +414,6 @@ DecoLogController::~DecoLogController()
     // Adesso DecoLink si ferma qui, con tutto ancora in piedi, e poi niente di
     // quello che resta puo' piu' chiamare questo oggetto.
     m_decoLink.stop();
-    QObject::disconnect(nullptr, nullptr, this, nullptr);
 }
 
 // Diplomi e statistiche di tutto il log, calcolati fuori dal thread della

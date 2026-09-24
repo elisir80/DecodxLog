@@ -3,6 +3,12 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.6 — 24 settembre 2026
+
+**Connessioni di rete piu' robuste.** Le richieste automatiche per aggiornamenti e servizi
+usano HTTP/1.1 quando necessario, e la posta non legge piu' socket TLS gia' chiusi durante
+la riconnessione o la chiusura dell'applicazione.
+
 ## 1.16.5 — 24 settembre 2026
 
 **Le colonne del log si scelgono fra tutti i campi ADIF e si mettono in ordine**, come nei log
