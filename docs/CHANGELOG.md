@@ -3,6 +3,24 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.15.7 — 24 settembre 2026
+
+**La modalita' contest agganciata nella finestra principale.** Le finestre separate del banco
+davano guai: la ✕ che non chiudeva, le spunte del menu che non rispondevano, finestre che
+finivano sotto o sopra le altre. Adesso non ci sono piu' finestre separate:
+
+- i pannelli della gara stanno **agganciati nel corpo del programma**, in tre colonne: il
+  cluster a sinistra; in mezzo l'inserimento veloce, il log, la scheda nominativo e la CW; a
+  destra punteggio, ritmo e mappa;
+- i **bordi fra i pannelli si trascinano** e le misure restano da una gara all'altra; la
+  disposizione **segue la finestra** quando la si allarga o la si stringe;
+- ogni pannello ha la sua **✕**, e dal menu **Contest Mode** le spunte chiudono e riaprono;
+  **Ripristina la disposizione** rimette pannelli e misure come all'inizio;
+- all'uscita la finestra di tutti i giorni torna esattamente com'era; in gara i suoi pannelli
+  si scaricano e non costano niente;
+- l'**inserimento veloce parte nel modo della gara** (CQ-WW-SSB in fonia, con il 59) e non si
+  stringe mai sotto quanto serve a vedere lo scambio e Registra, anche su uno schermo piccolo.
+
 ## 1.15.6 — 24 settembre 2026
 
 **Lo scambio si scrive da solo mentre si batte il nominativo.** Nell'inserimento veloce del
