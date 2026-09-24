@@ -1,15 +1,18 @@
-// DecoDXLog — la modalita' contest dentro la finestra principale.
+// DecoDXLog — la modalita' contest: la lavagna magnetica.
 //
-// In gara le finestre sono tante e devono stare tutte in vista: qui stanno
-// agganciate nel corpo del programma, in tre colonne come nei programmi da gara
-// — il cluster a sinistra, in mezzo l'inserimento, il log e la scheda del
-// nominativo, a destra i conti e la mappa. Niente finestre che vanno sotto,
-// che si perdono dietro a un'altra o che non si chiudono: i bordi fra un
-// pannello e l'altro si trascinano, e la disposizione segue la finestra quando
-// la si allarga o la si stringe.
+// In gara la finestra principale diventa una lavagna: i pannelli della gara ci
+// stanno sopra liberi, e ognuno si mette dove serve a chi opera. Si prendono
+// per la testata e si spostano in qualsiasi punto; si ridimensionano dai bordi
+// e dagli angoli; vicino al bordo della lavagna o a un altro pannello si
+// attaccano da soli, come calamite, cosi' si allineano senza fatica. Un clic
+// porta un pannello davanti agli altri.
 //
-// Ogni pannello ha la sua ✕, e dal menu Contest Mode in alto si riapre. Preso
-// per la maniglia ⠿ e lasciato sopra un altro, i due si scambiano di posto.
+// Ogni pannello si stacca anche dalla lavagna (⤢) e diventa una finestra sua,
+// da mettere su un altro monitor; con ↩ torna dove era. La ✕ lo chiude, e dal
+// menu Contest Mode in alto si riapre.
+//
+// Posizioni e misure si ricordano in proporzione alla lavagna: allargando o
+// stringendo la finestra, la disposizione la segue.
 import QtQuick
 import QtQuick.Controls
 import QtCore
@@ -25,33 +28,45 @@ Item {
     signal statsRequested()
     signal rotorRequested()
     signal contestRequested()
+    // Il titolo di un pannello, per la finestra quando lo si stacca.
+    property var titleOf: function (key) { return key }
 
     // I pannelli della gara, nell'ordine del menu.
     readonly property var allKeys: ["contest", "cluster", "logbook", "callinfo", "rate", "score", "map", "cw"]
     readonly property var defaultKeys: ["contest", "cluster", "logbook", "callinfo", "rate", "score", "map"]
+    // Dove stanno all'inizio, in proporzione alla lavagna: tre colonne, come
+    // nei programmi da gara.
+    readonly property var defaultGeometry: ({
+        cluster:  { x: 0.00, y: 0.00, w: 0.24, h: 1.00 },
+        contest:  { x: 0.24, y: 0.00, w: 0.52, h: 0.30 },
+        logbook:  { x: 0.24, y: 0.30, w: 0.52, h: 0.40 },
+        callinfo: { x: 0.24, y: 0.70, w: 0.29, h: 0.30 },
+        cw:       { x: 0.53, y: 0.70, w: 0.23, h: 0.30 },
+        score:    { x: 0.76, y: 0.00, w: 0.24, h: 0.30 },
+        rate:     { x: 0.76, y: 0.30, w: 0.24, h: 0.34 },
+        map:      { x: 0.76, y: 0.64, w: 0.24, h: 0.36 }
+    })
+    // Quanto vicino deve arrivare un bordo per attaccarsi, e lo spazio che
+    // resta fra due pannelli attaccati.
+    readonly property real magnet: 12
+    readonly property real gap: 4
 
-    // Quali pannelli sono aperti, e le misure: restano da una gara all'altra.
     Settings {
         id: saved
-        category: "layout/contest"
+        category: "layout/board"
+        // Vuoto: mai scelto, si parte con quelli di serie. "-": tutti chiusi.
         property string shown: ""
-        // Chi sta in quale casella: "casella:pannello", separati da virgola.
-        property string places: ""
-        property real leftWidth: 0
-        property real rightWidth: 0
-        property real entryHeight: 0
-        property real bottomHeight: 0
-        property real cwWidth: 0
-        property real scoreHeight: 0
-        property real rateHeight: 0
+        // Quelli staccati in una finestra loro.
+        property string floating: ""
+        // {chiave: {x, y, w, h}} in proporzione alla lavagna.
+        property string geometry: ""
+        // Chi sta davanti: l'ultimo della lista.
+        property string order: ""
     }
 
-    // Vuoto vuol dire "mai scelto": si parte con i pannelli di serie. Tutti
-    // chiusi si scrive "-", se no chiudere l'ultimo li riapriva tutti.
-    readonly property var shownList: {
+    function listOf(text, fallback) {
         const out = []
-        const parts = saved.shown === "-" ? []
-                    : saved.shown.length > 0 ? saved.shown.split(",") : root.defaultKeys
+        const parts = text === "-" ? [] : text.length > 0 ? text.split(",") : fallback
         for (let i = 0; i < parts.length; ++i) {
             const k = String(parts[i]).trim()
             if (root.allKeys.indexOf(k) >= 0 && out.indexOf(k) < 0)
@@ -59,86 +74,29 @@ Item {
         }
         return out
     }
-    function isShown(key) { return root.shownList.indexOf(key) >= 0 }
-
-    // Le caselle stanno ferme; quello che cambia e' il pannello dentro.
-    readonly property var slotIds: ["left", "entry", "log", "bottomA", "bottomB", "rightA", "rightB", "rightC"]
-    readonly property var defaultPlaces: ({ left: "cluster", entry: "contest", log: "logbook",
-                                            bottomA: "callinfo", bottomB: "cw",
-                                            rightA: "score", rightB: "rate", rightC: "map" })
-    readonly property var places: {
-        const out = Object.assign({}, root.defaultPlaces)
-        const used = {}
-        for (const part of saved.places.split(",")) {
-            const slotId = part.split(":")[0]
-            const key = part.split(":")[1]
-            if (out[slotId] !== undefined && root.allKeys.indexOf(key) >= 0 && !used[key]) {
-                out[slotId] = key
-                used[key] = true
-            }
-        }
-        // Un pannello rimasto fuori (un salvataggio a meta') torna dove c'e'
-        // un doppione: ogni pannello deve avere la sua casella.
-        const seen = {}
-        const missing = root.allKeys.filter(k => !Object.values(out).includes(k))
-        for (const id of root.slotIds) {
-            if (seen[out[id]] && missing.length > 0)
-                out[id] = missing.shift()
-            seen[out[id]] = true
+    readonly property var shownList: root.listOf(saved.shown, root.defaultKeys)
+    readonly property var floatingList: root.listOf(saved.floating, []).filter(k => root.shownList.indexOf(k) >= 0)
+    readonly property var orderList: {
+        const out = root.listOf(saved.order, [])
+        for (const k of root.allKeys) {
+            if (out.indexOf(k) < 0)
+                out.unshift(k)
         }
         return out
     }
-    function keyAt(slotId) { return root.places[slotId] || "" }
-    function slotShown(slotId) { return root.isShown(root.keyAt(slotId)) }
-    function swapSlots(a, b) {
-        if (a === b || !a || !b)
-            return
-        const out = Object.assign({}, root.places)
-        const k = out[a]
-        out[a] = out[b]
-        out[b] = k
-        saved.places = root.slotIds.map(id => id + ":" + out[id]).join(",")
-    }
-
-    // Per le prove: il pannello della casella `from` preso per la maniglia e
-    // lasciato in mezzo alla casella `to`, come farebbe il mouse.
-    function testDrag(from, to) {
-        // La disposizione prende le misure un attimo dopo essere comparsa.
-        testDragTimer.from = from
-        testDragTimer.to = to
-        testDragTimer.restart()
-    }
-    Timer {
-        id: testDragTimer
-        property string from
-        property string to
-        interval: 500
-        onTriggered: root.doTestDrag(from, to)
-    }
-    function doTestDrag(from, to) {
-        const all = { left: leftSlot, entry: entrySlot, log: logSlot, bottomA: callinfoSlot,
-                      bottomB: cwSlot, rightA: scoreSlot, rightB: rateSlot, rightC: mapSlot }
-        const target = all[to]
-        const p = target.mapToGlobal(target.width / 2, target.height / 2)
-        root.dragFrom = from
-        root.swapSlots(root.dragFrom, root.slotUnder(p.x, p.y))
-        root.dragFrom = ""
-    }
-
-    // Il trascinamento: da quale casella parte e su quale sta per cadere.
-    property string dragFrom: ""
-    property string dragTarget: ""
-    function slotUnder(screenX, screenY) {
-        const all = [leftSlot, entrySlot, logSlot, callinfoSlot, cwSlot, scoreSlot, rateSlot, mapSlot]
-        for (const s of all) {
-            if (!s.visible)
-                continue
-            const p = s.mapFromGlobal(screenX, screenY)
-            if (p.x >= 0 && p.y >= 0 && p.x < s.width && p.y < s.height)
-                return s.slotId
+    readonly property var geometry: {
+        let stored = {}
+        try { stored = saved.geometry.length > 0 ? JSON.parse(saved.geometry) : {} } catch (e) { stored = {} }
+        const out = {}
+        for (const k of root.allKeys) {
+            const g = stored[k]
+            out[k] = g && g.w > 0 && g.h > 0 ? g : root.defaultGeometry[k]
         }
-        return ""
+        return out
     }
+
+    function isShown(key) { return root.shownList.indexOf(key) >= 0 }
+    function isFloating(key) { return root.floatingList.indexOf(key) >= 0 }
     function setShown(key, on) {
         const list = root.shownList.slice()
         const i = list.indexOf(key)
@@ -147,48 +105,221 @@ Item {
         else if (!on && i >= 0)
             list.splice(i, 1)
         saved.shown = list.length > 0 ? list.join(",") : "-"
+        if (!on)
+            root.setFloating(key, false)
+        else
+            root.raiseKey(key)
     }
     function toggle(key) { root.setShown(key, !root.isShown(key)) }
+    function setFloating(key, on) {
+        const list = root.listOf(saved.floating, [])
+        const i = list.indexOf(key)
+        if (on && i < 0)
+            list.push(key)
+        else if (!on && i >= 0)
+            list.splice(i, 1)
+        saved.floating = list.join(",")
+    }
+    function raiseKey(key) {
+        const list = root.orderList.filter(k => k !== key)
+        list.push(key)
+        saved.order = list.join(",")
+    }
+    function saveGeometry(key, px) {
+        const all = Object.assign({}, root.geometry)
+        all[key] = {
+            x: Math.max(0, px.x / root.width),
+            y: Math.max(0, px.y / root.height),
+            w: Math.max(0.05, px.w / root.width),
+            h: Math.max(0.05, px.h / root.height)
+        }
+        saved.geometry = JSON.stringify(all)
+    }
     // All'ingresso in una gara in telegrafia la CW si apre da sola.
     function prepare(cw) {
-        if (cw)
+        if (cw && !root.isShown("cw"))
             root.setShown("cw", true)
     }
-    // Le misure di partenza, sulla finestra di adesso.
+    // Pannelli, posizioni e misure di partenza; quelli staccati rientrano.
     function resetLayout() {
         saved.shown = root.defaultKeys.concat(decolog.activation.isCwContest() ? ["cw"] : []).join(",")
-        saved.places = ""
-        saved.leftWidth = 0
-        saved.rightWidth = 0
-        saved.entryHeight = 0
-        saved.bottomHeight = 0
-        saved.cwWidth = 0
-        saved.scoreHeight = 0
-        saved.rateHeight = 0
+        saved.floating = ""
+        saved.geometry = ""
+        saved.order = ""
     }
-    // Le misure scelte trascinando i bordi si ricordano a bordo lasciato.
-    function remember() {
-        if (leftSlot.visible) saved.leftWidth = leftSlot.width
-        if (rightColumn.visible) saved.rightWidth = rightColumn.width
-        if (entrySlot.visible) saved.entryHeight = entrySlot.height
-        if (bottomRow.visible) saved.bottomHeight = bottomRow.height
-        if (cwSlot.visible && root.slotShown("bottomA")) saved.cwWidth = cwSlot.width
-        if (scoreSlot.visible) saved.scoreHeight = scoreSlot.height
-        if (rateSlot.visible) saved.rateHeight = rateSlot.height
+    function panelFor(key) {
+        for (let i = 0; i < boardPanels.count; ++i) {
+            const p = boardPanels.itemAt(i)
+            if (p && p.key === key)
+                return p
+        }
+        return null
     }
 
-    // Una casella: il pannello, agganciato, con la sua ✕.
-    component Slot: Item {
-        id: slot
-        property string slotId: ""
-        readonly property string key: root.keyAt(slotId)
+    // ── Le calamite ─────────────────────────────────────────────────────────
+    // I bordi della lavagna e degli altri pannelli, in pixel: quelli a filo e
+    // quelli a un passo di distanza, per affiancare senza sovrapporre.
+    function edgesExcept(key) {
+        const xs = [0, root.width]
+        const ys = [0, root.height]
+        for (let i = 0; i < boardPanels.count; ++i) {
+            const p = boardPanels.itemAt(i)
+            if (!p || p.key === key || !p.visible)
+                continue
+            xs.push(p.x - root.gap, p.x + p.width + root.gap, p.x, p.x + p.width)
+            ys.push(p.y - root.gap, p.y + p.height + root.gap, p.y, p.y + p.height)
+        }
+        return { xs: xs, ys: ys }
+    }
+    // Il valore piu' vicino fra i candidati, se abbastanza vicino.
+    function nearest(value, candidates) {
+        let best = value
+        let dist = root.magnet
+        for (const c of candidates) {
+            const d = Math.abs(c - value)
+            if (d < dist) {
+                dist = d
+                best = c
+            }
+        }
+        return best
+    }
+    // Spostando: il bordo sinistro o il destro si attacca, e cosi' sopra o sotto.
+    function snapMove(key, r) {
+        const e = root.edgesExcept(key)
+        const left = root.nearest(r.x, e.xs)
+        const right = root.nearest(r.x + r.w, e.xs)
+        let x = r.x
+        if (left !== r.x) x = left
+        else if (right !== r.x + r.w) x = right - r.w
+        const top = root.nearest(r.y, e.ys)
+        const bottom = root.nearest(r.y + r.h, e.ys)
+        let y = r.y
+        if (top !== r.y) y = top
+        else if (bottom !== r.y + r.h) y = bottom - r.h
+        // Sulla lavagna: un pannello non si perde fuori dal bordo.
+        x = Math.max(0, Math.min(x, root.width - Math.min(r.w, root.width)))
+        y = Math.max(0, Math.min(y, root.height - Math.min(r.h, root.height)))
+        return { x: x, y: y, w: r.w, h: r.h }
+    }
+
+    // Per le prove: un pannello spostato come col mouse, di dx e dy pixel.
+    function testMove(key, dx, dy) {
+        const p = root.panelFor(key)
+        if (!p)
+            return
+        p.begin()
+        const r = root.snapMove(key, { x: p.liveX + dx, y: p.liveY + dy, w: p.liveW, h: p.liveH })
+        p.liveX = r.x
+        p.liveY = r.y
+        p.finish()
+    }
+
+    // Una griglia leggera: e' una lavagna, non una finestra vuota.
+    Canvas {
+        anchors.fill: parent
+        opacity: 0.25
+        onPaint: {
+            const ctx = getContext("2d")
+            ctx.reset()
+            ctx.strokeStyle = Theme.borderSoft
+            ctx.lineWidth = 1
+            for (let x = 0; x < width; x += 48) {
+                ctx.beginPath(); ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, height); ctx.stroke()
+            }
+            for (let y = 0; y < height; y += 48) {
+                ctx.beginPath(); ctx.moveTo(0, y + 0.5); ctx.lineTo(width, y + 0.5); ctx.stroke()
+            }
+        }
+        onWidthChanged: requestPaint()
+        onHeightChanged: requestPaint()
+    }
+
+    // Una scritta quando sulla lavagna non c'e' niente.
+    Text {
+        anchors.centerIn: parent
+        visible: root.shownList.filter(k => !root.isFloating(k)).length === 0
+        text: root.shownList.length === 0
+              ? qsTr("All the contest panels are closed: open them again from Contest Mode, up in the bar.")
+              : qsTr("All the contest panels are in their own windows: ↩ in a panel brings it back here.")
+        color: Theme.textSecondary
+        font.pixelSize: 13
+    }
+
+    // I bordi e gli angoli: si tirano per ridimensionare, e anche loro si
+    // attaccano ai bordi vicini.
+    component Edge: MouseArea {
+        // Il pannello di cui e' il bordo.
+        required property Item panel
+        property bool l: false
+        property bool r: false
+        property bool t: false
+        property bool b: false
+        property point press
+        property rect start
+        hoverEnabled: true
+        preventStealing: true
+        z: 1000
+        onPressed: (mouse) => {
+            panel.begin()
+            press = mapToItem(root, mouse.x, mouse.y)
+            start = Qt.rect(panel.liveX, panel.liveY, panel.liveW, panel.liveH)
+        }
+        onPositionChanged: (mouse) => {
+            if (!pressed)
+                return
+            const p = mapToItem(root, mouse.x, mouse.y)
+            const dx = p.x - press.x
+            const dy = p.y - press.y
+            const e = root.edgesExcept(panel.key)
+            let x1 = start.x, y1 = start.y, x2 = start.x + start.width, y2 = start.y + start.height
+            if (l) x1 = Math.min(root.nearest(start.x + dx, e.xs), x2 - panel.minW)
+            if (r) x2 = Math.max(root.nearest(x2 + dx, e.xs), x1 + panel.minW)
+            if (t) y1 = Math.min(root.nearest(start.y + dy, e.ys), y2 - panel.minH)
+            if (b) y2 = Math.max(root.nearest(y2 + dy, e.ys), y1 + panel.minH)
+            panel.liveX = Math.max(0, x1)
+            panel.liveY = Math.max(0, y1)
+            panel.liveW = Math.min(root.width, x2) - panel.liveX
+            panel.liveH = Math.min(root.height, y2) - panel.liveY
+        }
+        onReleased: panel.finish()
+    }
+
+    // ── Un pannello sulla lavagna ───────────────────────────────────────────
+    component BoardPanel: Item {
+        id: panel
+        required property string key
         readonly property Item item: loader.item
+        readonly property var g: root.geometry[key]
+        // Mentre lo si sposta o lo si ridimensiona comanda il mouse; a mano
+        // lasciata si salva in proporzione e torna a seguire la lavagna.
+        property bool live: false
+        property real liveX: 0
+        property real liveY: 0
+        property real liveW: 0
+        property real liveH: 0
         // L'inserimento non si stringe mai sotto quanto serve a vedere lo
-        // scambio e Registra, in qualunque casella stia.
-        readonly property real needed: key === "contest" && item ? item.implicitHeight : 110
-        visible: root.isShown(key)
-        SplitView.minimumWidth: 220
-        SplitView.minimumHeight: needed
+        // scambio e Registra.
+        readonly property real minH: key === "contest" && item ? item.implicitHeight : 110
+        readonly property real minW: 220
+        readonly property int grip: 6
+
+        visible: root.isShown(key) && !root.isFloating(key)
+        x: live ? liveX : g.x * root.width
+        y: live ? liveY : g.y * root.height
+        width: live ? liveW : Math.max(minW, g.w * root.width - root.gap)
+        height: live ? liveH : Math.max(minH, g.h * root.height - root.gap)
+        z: root.orderList.indexOf(key)
+
+        function begin() {
+            liveX = x; liveY = y; liveW = width; liveH = height
+            live = true
+            root.raiseKey(key)
+        }
+        function finish() {
+            root.saveGeometry(key, { x: liveX, y: liveY, w: liveW + root.gap, h: liveH + root.gap })
+            live = false
+        }
 
         function sourceOf(k) {
             switch (k) {
@@ -204,20 +335,54 @@ Item {
             return ""
         }
 
+        // La testata: si prende e si sposta. Sta *sotto* il pannello: il clic
+        // su un pulsante della testata (✕, ⤢, i menu) lo prende il pulsante, e
+        // qui arriva solo quello che cade sul vuoto. Sopra, rubava anche i clic
+        // dei pulsanti, e la ✕ non chiudeva.
+        Item {
+            anchors { left: parent.left; right: parent.right; top: parent.top }
+            height: Theme.panelHeight
+            // Un MouseArea e non un DragHandler: il DragHandler, anche sotto,
+            // annullava il clic dei pulsanti della testata appena premuti.
+            MouseArea {
+                anchors.fill: parent
+                acceptedButtons: Qt.LeftButton
+                cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
+                property point press
+                property real sx0: 0
+                property real sy0: 0
+                onPressed: (mouse) => {
+                    panel.begin()
+                    press = mapToItem(root, mouse.x, mouse.y)
+                    sx0 = panel.liveX
+                    sy0 = panel.liveY
+                }
+                onPositionChanged: (mouse) => {
+                    if (!pressed)
+                        return
+                    const p = mapToItem(root, mouse.x, mouse.y)
+                    const r = root.snapMove(panel.key, { x: sx0 + p.x - press.x, y: sy0 + p.y - press.y,
+                                                         w: panel.liveW, h: panel.liveH })
+                    panel.liveX = r.x
+                    panel.liveY = r.y
+                }
+                onReleased: panel.finish()
+                onCanceled: panel.finish()
+            }
+        }
+
         Loader {
             id: loader
             anchors.fill: parent
-            active: slot.visible
-            source: active ? slot.sourceOf(slot.key) : ""
+            active: panel.visible
+            source: active ? panel.sourceOf(panel.key) : ""
             onLoaded: {
-                // La chiave fa comparire la ✕; staccare qui non serve, e il
-                // cluster in gara si fa essenziale.
                 if (item.panelKey !== undefined)
-                    item.panelKey = slot.key
+                    item.panelKey = panel.key
+                if (item.detached !== undefined)
+                    item.detached = false
                 if (item.detachable !== undefined)
-                    item.detachable = false
-                if (item.dockable !== undefined)
-                    item.dockable = false
+                    item.detachable = true
                 if (item.contestMode !== undefined)
                     item.contestMode = true
                 if (item.showPopButton !== undefined)
@@ -227,7 +392,8 @@ Item {
         Connections {
             target: loader.item
             ignoreUnknownSignals: true
-            function onCloseRequested() { root.setShown(slot.key, false) }
+            function onCloseRequested() { root.setShown(panel.key, false) }
+            function onDetachRequested() { root.setFloating(panel.key, true) }
             function onOpenQso(id) { if (id > 0) root.openQso(id) }
             function onAwardRequested(id) { root.awardRequested(id) }
             function onDetailsRequested(id) { root.awardRequested(id) }
@@ -235,154 +401,94 @@ Item {
             function onClusterRequested(tab) { root.clusterRequested(tab) }
             function onWindowRequested() { root.rotorRequested() }
             function onContestRequested() { root.contestRequested() }
-            // La maniglia ⠿: si prende e si lascia sopra un'altra casella.
-            function onMoveStarted() { root.dragFrom = slot.slotId; root.dragTarget = "" }
-            function onMoveMoved(x, y) {
-                const under = root.slotUnder(x, y)
-                root.dragTarget = under !== root.dragFrom ? under : ""
-            }
-            function onMoveEnded(x, y) {
-                const under = root.slotUnder(x, y)
-                root.swapSlots(root.dragFrom, under)
-                root.dragFrom = ""
-                root.dragTarget = ""
-            }
-        }
-
-        // Il magnete: dove il pannello atterra.
-        Rectangle {
-            anchors.fill: parent
-            visible: root.dragTarget === slot.slotId
-            color: Qt.rgba(Theme.primaryColor.r, Theme.primaryColor.g, Theme.primaryColor.b, 0.20)
-            border.color: Theme.primaryColor
-            border.width: 3
-            radius: 6
-            z: 100
-            Text {
-                anchors.centerIn: parent
-                text: qsTr("here")
-                color: Theme.primaryColor
-                font.family: Theme.monoFamily
-                font.pixelSize: Theme.fontSize + 2
-                font.bold: true
-            }
-        }
-    }
-
-    // I bordi fra i pannelli si vedono sempre, un filo: un bordo invisibile
-    // non si trova, e i pannelli sembrano bloccati.
-    component Handle: Rectangle {
-        implicitWidth: 6
-        implicitHeight: 6
-        color: SplitHandle.pressed ? Theme.primaryColor
-             : SplitHandle.hovered ? Theme.accentColor : "transparent"
-        Rectangle {
-            anchors.centerIn: parent
-            width: parent.width > parent.height ? Math.min(40, parent.width) : 2
-            height: parent.width > parent.height ? 2 : Math.min(40, parent.height)
-            radius: 1
-            color: Theme.glassBorder
-            visible: !parent.SplitHandle.pressed && !parent.SplitHandle.hovered
-        }
-    }
-
-    SplitView {
-        id: columns
-        anchors.fill: parent
-        anchors.margins: 6
-        orientation: Qt.Horizontal
-        handle: Handle {}
-        // Su uno schermo basso quello che non ci sta si taglia al bordo,
-        // invece di finire sopra la barra di stato.
-        clip: true
-        onResizingChanged: if (!resizing) root.remember()
-
-        // A sinistra il cluster, alto quanto la finestra.
-        Slot {
-            id: leftSlot
-            slotId: "left"
-            SplitView.preferredWidth: saved.leftWidth > 0 ? saved.leftWidth : root.width * 0.24
-        }
-
-        // In mezzo il lavoro: l'inserimento, il log, e sotto la scheda del
-        // nominativo e la CW.
-        SplitView {
-            id: middleColumn
-            orientation: Qt.Vertical
-            SplitView.fillWidth: true
-            SplitView.minimumWidth: 320
-            // Si guarda la lista, non il visible dei figli: quello di un figlio e'
-            // falso anche solo perche' e' falso quello del padre, e la colonna
-            // restava spenta per sempre.
-            visible: root.slotShown("entry") || root.slotShown("log") || root.slotShown("bottomA") || root.slotShown("bottomB")
-            handle: Handle {}
-            onResizingChanged: if (!resizing) root.remember()
-
-            Slot {
-                id: entrySlot
-                slotId: "entry"
-                SplitView.preferredHeight: Math.max(needed, saved.entryHeight > 0 ? saved.entryHeight : root.height * 0.28)
-            }
-            Slot {
-                id: logSlot
-                slotId: "log"
-                SplitView.fillHeight: true
-            }
-            SplitView {
-                id: bottomRow
-                orientation: Qt.Horizontal
-                visible: root.slotShown("bottomA") || root.slotShown("bottomB")
-                SplitView.preferredHeight: saved.bottomHeight > 0 ? saved.bottomHeight : root.height * 0.30
-                SplitView.minimumHeight: 80
-                handle: Handle {}
-                onResizingChanged: if (!resizing) root.remember()
-                Slot {
-                    id: callinfoSlot
-                    slotId: "bottomA"
-                    SplitView.fillWidth: true
+            // La maniglia ⠿ sposta anche lei.
+            function onMoveStarted() { handleDrag.grabbing = false; panel.begin() }
+            function onMoveMoved(sx, sy) {
+                const p = root.mapFromGlobal(sx, sy)
+                if (!handleDrag.grabbing) {
+                    handleDrag.grabAt = Qt.point(p.x - panel.liveX, p.y - panel.liveY)
+                    handleDrag.grabbing = true
+                    return
                 }
-                Slot {
-                    id: cwSlot
-                    slotId: "bottomB"
-                    SplitView.preferredWidth: saved.cwWidth > 0 ? saved.cwWidth : bottomRow.width * 0.45
-                }
+                const r = root.snapMove(panel.key, { x: p.x - handleDrag.grabAt.x, y: p.y - handleDrag.grabAt.y,
+                                                     w: panel.liveW, h: panel.liveH })
+                panel.liveX = r.x
+                panel.liveY = r.y
             }
+            function onMoveEnded(sx, sy) { handleDrag.grabbing = false; panel.finish() }
+        }
+        QtObject {
+            id: handleDrag
+            property point grabAt
+            property bool grabbing: false
         }
 
-        // A destra i conti: punteggio, ritmo, mappa.
-        SplitView {
-            id: rightColumn
-            orientation: Qt.Vertical
-            visible: root.slotShown("rightA") || root.slotShown("rightB") || root.slotShown("rightC")
-            SplitView.preferredWidth: saved.rightWidth > 0 ? saved.rightWidth : root.width * 0.24
-            SplitView.minimumWidth: 220
-            handle: Handle {}
-            onResizingChanged: if (!resizing) root.remember()
+        // Un clic in qualsiasi punto porta il pannello davanti.
 
-            Slot {
-                id: scoreSlot
-                slotId: "rightA"
-                SplitView.preferredHeight: saved.scoreHeight > 0 ? saved.scoreHeight : root.height * 0.30
-            }
-            Slot {
-                id: rateSlot
-                slotId: "rightB"
-                SplitView.preferredHeight: saved.rateHeight > 0 ? saved.rateHeight : root.height * 0.34
-            }
-            Slot {
-                id: mapSlot
-                slotId: "rightC"
-                SplitView.fillHeight: true
-            }
+
+        Edge { panel: panel; l: true; cursorShape: Qt.SizeHorCursor; x: -3; y: panel.grip; width: panel.grip; height: panel.height - 2 * panel.grip }
+        Edge { panel: panel; r: true; cursorShape: Qt.SizeHorCursor; x: panel.width - 3; y: panel.grip; width: panel.grip; height: panel.height - 2 * panel.grip }
+        Edge { panel: panel; t: true; cursorShape: Qt.SizeVerCursor; x: panel.grip; y: -3; width: panel.width - 2 * panel.grip; height: panel.grip }
+        Edge { panel: panel; b: true; cursorShape: Qt.SizeVerCursor; x: panel.grip; y: panel.height - 3; width: panel.width - 2 * panel.grip; height: panel.grip }
+        Edge { panel: panel; l: true; t: true; cursorShape: Qt.SizeFDiagCursor; x: -3; y: -3; width: panel.grip * 2; height: panel.grip * 2 }
+        Edge { panel: panel; r: true; b: true; cursorShape: Qt.SizeFDiagCursor; x: panel.width - panel.grip - 3; y: panel.height - panel.grip - 3; width: panel.grip * 2; height: panel.grip * 2 }
+        Edge { panel: panel; r: true; t: true; cursorShape: Qt.SizeBDiagCursor; x: panel.width - panel.grip - 3; y: -3; width: panel.grip * 2; height: panel.grip * 2 }
+        Edge { panel: panel; l: true; b: true; cursorShape: Qt.SizeBDiagCursor; x: -3; y: panel.height - panel.grip - 3; width: panel.grip * 2; height: panel.grip * 2 }
+    }
+
+    Repeater {
+        id: boardPanels
+        model: root.allKeys
+        delegate: BoardPanel {
+            required property string modelData
+            key: modelData
         }
     }
 
-    // Tutto chiuso: si dice come riaprire, invece di lasciare un vuoto.
-    Text {
-        anchors.centerIn: parent
-        visible: root.shownList.length === 0
-        text: qsTr("All the contest panels are closed: open them again from Contest Mode, up in the bar.")
-        color: Theme.textSecondary
-        font.pixelSize: 13
+    // ── I pannelli staccati: finestre loro, sopra la principale ──────────────
+    function floatingWindowFor(key) {
+        for (let i = 0; i < floatingWindows.count; ++i) {
+            const w = floatingWindows.objectAt(i)
+            if (w && w.panelKey === key)
+                return w
+        }
+        return null
+    }
+    Instantiator {
+        id: floatingWindows
+        // Fuori dalla gara non ci sono: la lavagna e' spenta.
+        model: root.visible ? root.floatingList : []
+        delegate: PanelWindow {
+            required property string modelData
+            panelKey: modelData
+            panelTitle: root.titleOf(modelData)
+            panelSource: {
+                switch (modelData) {
+                case "contest":  return "ContestEntryPanel.qml"
+                case "cluster":  return "ClusterPanel.qml"
+                case "logbook":  return "LogbookPanel.qml"
+                case "callinfo": return "CallInfoPanel.qml"
+                case "rate":     return "ContestRatePanel.qml"
+                case "score":    return "ContestScorePanel.qml"
+                case "map":      return "MapPanel.qml"
+                case "cw":       return "CwPanel.qml"
+                }
+                return ""
+            }
+            dockable: true
+            contestMode: true
+            pinned: false
+            // Tenute con la finestra principale: le stanno sopra e si
+            // riducono con lei.
+            transientParent: root.Window.window
+            onAttachRequested: root.setFloating(modelData, false)
+            onCloseRequested: root.setShown(modelData, false)
+            onOpenQsoRequested: (id) => root.openQso(id)
+            onAwardRequested: (id) => root.awardRequested(id)
+            onClusterRequested: (tab) => root.clusterRequested(tab)
+            onStatsRequested: root.statsRequested()
+            onRotorRequested: root.rotorRequested()
+            onContestRequested: root.contestRequested()
+        }
     }
 }

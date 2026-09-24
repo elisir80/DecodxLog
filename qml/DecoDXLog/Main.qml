@@ -426,6 +426,109 @@ ApplicationWindow {
     }
 
     Timer { id: exitProbe; interval: 900; onTriggered: window.exitContestMode() }
+    Timer {
+        id: pointerProbe
+        property var args: []
+        property int step: 0
+        property var start0: null
+        interval: 60
+        repeat: true
+        function send(win, kind, pt) { decolog.testPointer(win, kind, pt.x, pt.y) }
+        // Il comando della testata con questo simbolo, cercato fra i figli.
+        function findGlyph(item, glyph) {
+            if (!item)
+                return null
+            if ((item.glyph === glyph || (item.text === glyph && item.glyph === undefined)) && item.visible)
+                return item
+            for (let i = 0; i < item.children.length; ++i) {
+                const found = findGlyph(item.children[i], glyph)
+                if (found)
+                    return found
+            }
+            return null
+        }
+        onTriggered: {
+            const kind = args[0]
+            const key = args[1]
+            // Si aspetta che la lavagna abbia preso le misure.
+            if (step++ < 10)
+                return
+            if (kind === "dialogclose") {
+                const w = aboutDialog
+                const c = findGlyph(w.header, "✕")
+                if (!c) { console.warn("PROBE no close glyph"); stop(); return }
+                const at = c.mapToItem(null, c.width / 2, c.height / 2)
+                send(w, "press", at)
+                send(w, "release", at)
+                stop()
+                Qt.callLater(function () { console.warn("PROBE dialog visible after ✕: " + aboutDialog.visible) })
+            } else if (kind === "mainclick") {
+                const c = findGlyph(verticalSplit, "✕")
+                const at = c.mapToItem(null, c.width / 2, c.height / 2)
+                console.warn("PROBE main glyph at " + Math.round(at.x) + "," + Math.round(at.y) + " hidden before: " + layout.hiddenPanels)
+                send(window, "press", at)
+                send(window, "release", at)
+                stop()
+                Qt.callLater(function () { console.warn("PROBE main hidden after: " + layout.hiddenPanels) })
+            } else if (kind === "boardclick") {
+                const p = contestLayout.panelFor(key)
+                const c = findGlyph(p, args[2] === "detach" ? "⤢" : "✕")
+                const at = c.mapToItem(null, c.width / 2, c.height / 2)
+                console.warn("PROBE glyph at " + Math.round(at.x) + "," + Math.round(at.y)
+                             + " panel " + Math.round(p.x) + "," + Math.round(p.y) + " " + Math.round(p.width))
+                send(window, "press", at)
+                send(window, "release", at)
+                stop()
+                Qt.callLater(function () {
+                    console.warn("PROBE " + args[2] + " " + key + ": shown=" + contestLayout.isShown(key)
+                                 + " floating=" + contestLayout.isFloating(key))
+                })
+            } else if (kind === "boarddrag" || kind === "boardresize") {
+                const p = contestLayout.panelFor(key)
+                if (step === 11) {
+                    start0 = kind === "boardresize" ? p.mapToItem(null, p.width - 1, p.height - 1)
+                                                    : p.mapToItem(null, 90, Theme.panelHeight / 2)
+                    console.warn("PROBE " + kind + " " + key + " size " + Math.round(p.width) + "x" + Math.round(p.height))
+                    console.warn("PROBE drag " + key + " from " + Math.round(p.x) + "," + Math.round(p.y))
+                    send(window, "press", start0)
+                    return
+                }
+                const n = step - 11
+                const dx = parseInt(args[2]), dy = parseInt(args[3])
+                if (n <= 10) {
+                    send(window, "move", Qt.point(start0.x + dx * n / 10, start0.y + dy * n / 10))
+                    return
+                }
+                send(window, "release", Qt.point(start0.x + dx, start0.y + dy))
+                stop()
+                Qt.callLater(function () {
+                    console.warn("PROBE drag " + key + " to " + Math.round(p.x) + "," + Math.round(p.y)
+                                 + " size " + Math.round(p.width) + "x" + Math.round(p.height))
+                })
+            } else if (kind === "floatclose") {
+                const w = contestLayout.floatingWindowFor(key)
+                if (!w)
+                    return
+                const c = findGlyph(w.contentItem, "✕")
+                if (!c)
+                    return
+                const at = c.mapToItem(null, c.width / 2, c.height / 2)
+                send(w, "press", at)
+                send(w, "release", at)
+                stop()
+                Qt.callLater(function () {
+                    console.warn("PROBE floatclose " + key + ": shown=" + contestLayout.isShown(key)
+                                 + " floating=" + contestLayout.isFloating(key))
+                })
+            }
+        }
+    }
+    Timer {
+        id: boardProbe
+        property var args: []
+        interval: 600
+        onTriggered: contestLayout.testMove(args[1], parseInt(args[2]), parseInt(args[3]))
+    }
 
     // Il programma chiuso in gara si riapre in gara; ma se la sessione nel
     // frattempo non c'e' piu', la finestra principale torna com'era.
@@ -602,10 +705,39 @@ ApplicationWindow {
         else if (what[0] === "updatecheck") { window.panelItem("tabs").setTab(3); decolog.updates.checkNow() }
         else if (what[0] === "updateget") { decolog.updates.checkNow(); updateGetTimer.start() }
         else if (what[0] === "mainmenu") topBar.openMainMenu()
-        // Per le prove: in gara un pannello trascinato sopra un altro.
-        else if (what[0] === "contestdrag") {
+        // Per le prove: in gara un pannello spostato sulla lavagna di dx, dy.
+        else if (what[0] === "contestmove") {
             window.openContestDesk()
-            Qt.callLater(function () { contestLayout.testDrag(what[1], what[2]) })
+            boardProbe.args = what
+            boardProbe.start()
+        }
+        // Per le prove, col mouse vero: un clic sulla ✕ o su ⤢ di un pannello
+        // della lavagna, un trascinamento per la testata, o la ✕ di un pannello
+        // staccato. Dice poi cosa e' successo.
+        else if (what[0] === "dialogclose") {
+            aboutDialog.open()
+            pointerProbe.args = what
+            pointerProbe.step = 0
+            pointerProbe.start()
+        }
+        else if (what[0] === "mainclick") {
+            pointerProbe.args = what
+            pointerProbe.step = 0
+            pointerProbe.start()
+        }
+        else if (what[0] === "boardclick" || what[0] === "boarddrag" || what[0] === "boardresize" || what[0] === "floatclose") {
+            window.openContestDesk()
+            if (what[0] === "floatclose")
+                contestLayout.setFloating(what[1], true)
+            pointerProbe.args = what
+            pointerProbe.step = 0
+            pointerProbe.start()
+        }
+        // Per le prove: in gara un pannello staccato in una finestra sua.
+        else if (what[0] === "contestfloat") {
+            window.openContestDesk()
+            for (let i = 1; i < what.length; ++i)
+                contestLayout.setFloating(what[i], true)
         }
         // Per le prove: in gara si chiude e si riapre un pannello, come dal menu.
         else if (what[0] === "contesttoggle") {
@@ -1428,6 +1560,7 @@ ApplicationWindow {
     // sta la disposizione di tutti i giorni.
     ContestLayout {
         id: contestLayout
+        titleOf: (key) => window.panelTitle(key)
         Component.onCompleted: window.settleContestMode()
         x: verticalSplit.x
         y: verticalSplit.y

@@ -1214,12 +1214,12 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
 <context>
     <name>ContestLayout</name>
     <message>
-        <source>here</source>
-        <translation>aici</translation>
-    </message>
-    <message>
         <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
         <translation>Toate panourile concursului sunt închise: se redeschid din Mod concurs, în bara de sus.</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Toate panourile concursului sunt în ferestre proprii: ↩ dintr-un panou îl aduce înapoi aici.</translation>
     </message>
 </context>
 <context>

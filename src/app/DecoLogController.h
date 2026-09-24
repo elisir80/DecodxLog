@@ -432,6 +432,10 @@ public:
     Q_INVOKABLE void clearActivity();
     Q_INVOKABLE void openDatabaseFolder() const;
     Q_INVOKABLE QString localPath(const QUrl& url) const { return url.toLocalFile(); }
+    // Per le prove: un evento del mouse vero ("press", "move", "release") nel
+    // punto x, y della finestra, come se l'avesse fatto l'operatore. Serve a
+    // provare che un clic arrivi davvero al pulsante giusto.
+    Q_INVOKABLE void testPointer(QObject* window, const QString& kind, qreal x, qreal y);
 
 signals:
     void udpChanged();

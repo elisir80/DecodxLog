@@ -39,17 +39,24 @@ Item {
         border.color: root.window && root.window.active ? Theme.primaryColor : Theme.glassBorder
     }
 
-    // La testata: i pulsanti che ci stanno dentro funzionano come prima, perche'
-    // queste maniglie non si prendono il clic, solo il trascinamento.
+    // La testata: sta *sotto* il contenuto della finestra, cosi' il clic su un
+    // pulsante della testata (✕, riduci, i menu) lo prende il pulsante e qui
+    // arriva solo quello che cade sul vuoto. Stava sopra, e anche senza
+    // trascinare rubava il clic: la ✕ delle finestre non chiudeva.
     Item {
-        anchors { left: parent.left; right: parent.right; top: parent.top }
+        parent: root.parent
+        z: -1
+        x: 0
+        y: 0
+        width: root.width
         height: root.dragHeight
-        DragHandler {
-            target: null
-            onActiveChanged: if (active && root.window) root.window.startSystemMove()
-        }
-        TapHandler {
-            onDoubleTapped: root.toggleMaximized()
+        // Un MouseArea e non un DragHandler: il DragHandler annullava il clic
+        // dei pulsanti della testata appena premuti.
+        MouseArea {
+            anchors.fill: parent
+            acceptedButtons: Qt.LeftButton
+            onPressed: if (root.window) root.window.startSystemMove()
+            onDoubleClicked: root.toggleMaximized()
         }
     }
 

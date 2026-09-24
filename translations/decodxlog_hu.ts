@@ -1210,12 +1210,12 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
 <context>
     <name>ContestLayout</name>
     <message>
-        <source>here</source>
-        <translation>itt</translation>
-    </message>
-    <message>
         <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
         <translation>A verseny összes panelje zárva van: a felső sávban a Contest mód menüből nyithatók meg újra.</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>A verseny összes panelje külön ablakban van: a panel ↩ gombja visszahozza ide.</translation>
     </message>
 </context>
 <context>

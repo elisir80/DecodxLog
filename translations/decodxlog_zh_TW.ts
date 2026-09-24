@@ -1210,12 +1210,12 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
 <context>
     <name>ContestLayout</name>
     <message>
-        <source>here</source>
-        <translation>這裡</translation>
-    </message>
-    <message>
         <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
         <translation>競賽面板都已關閉：請從頂部列的「競賽模式」重新開啟。</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>競賽面板都在各自的視窗中：面板裡的 ↩ 可把它放回這裡。</translation>
     </message>
 </context>
 <context>

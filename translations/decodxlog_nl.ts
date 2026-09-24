@@ -1212,12 +1212,12 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
 <context>
     <name>ContestLayout</name>
     <message>
-        <source>here</source>
-        <translation>hier</translation>
-    </message>
-    <message>
         <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
         <translation>Alle contestpanelen zijn gesloten: open ze opnieuw via Contestmodus in de balk bovenaan.</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Alle contestpanelen staan in een eigen venster: ↩ in een paneel haalt het hierheen terug.</translation>
     </message>
 </context>
 <context>

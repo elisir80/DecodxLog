@@ -1214,12 +1214,12 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
 <context>
     <name>ContestLayout</name>
     <message>
-        <source>here</source>
-        <translation>šeit</translation>
-    </message>
-    <message>
         <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
         <translation>Visi konkursa paneļi ir aizvērti: atver tos no Konkursa režīma augšējā joslā.</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Visi konkursa paneļi ir atsevišķos logos: ↩ panelī to atgriež šeit.</translation>
     </message>
 </context>
 <context>

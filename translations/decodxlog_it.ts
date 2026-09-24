@@ -1212,12 +1212,12 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
 <context>
     <name>ContestLayout</name>
     <message>
-        <source>here</source>
-        <translation>qui</translation>
-    </message>
-    <message>
         <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
         <translation>I pannelli della gara sono tutti chiusi: si riaprono da Contest Mode, nella barra in alto.</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>I pannelli della gara sono tutti in finestre loro: ↩ in un pannello lo riporta qui.</translation>
     </message>
 </context>
 <context>

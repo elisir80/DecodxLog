@@ -1210,12 +1210,12 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 <context>
     <name>ContestLayout</name>
     <message>
-        <source>here</source>
-        <translation>ここ</translation>
-    </message>
-    <message>
         <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
         <translation>コンテストのパネルはすべて閉じています。上のバーのコンテストモードから開き直してください。</translation>
+    </message>
+    <message>
+        <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>コンテストのパネルはすべて別ウィンドウです。パネルの ↩ でここに戻せます。</translation>
     </message>
 </context>
 <context>

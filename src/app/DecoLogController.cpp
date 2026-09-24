@@ -12,6 +12,9 @@
 #include <QDesktopServices>
 #include <QDir>
 #include <QFile>
+#include <QGuiApplication>
+#include <QMouseEvent>
+#include <QWindow>
 #include <QFileInfo>
 #include <QHostAddress>
 #include <QLocale>
@@ -375,6 +378,28 @@ DecoLogController::DecoLogController(QObject* parent)
     // l'avvio, quando la finestra e' gia' su.
     m_lotwTimer.setInterval(10 * 60'000);
     connect(&m_lotwTimer, &QTimer::timeout, this, &DecoLogController::checkLotwSchedule);
+}
+
+void DecoLogController::testPointer(QObject* target, const QString& kind, qreal x, qreal y)
+{
+    auto* window = qobject_cast<QWindow*>(target);
+    if (!window)
+        return;
+    const QPointF local(x, y);
+    const QPointF global = window->mapToGlobal(local);
+    QEvent::Type type = QEvent::MouseMove;
+    Qt::MouseButton button = Qt::NoButton;
+    Qt::MouseButtons buttons = Qt::LeftButton;
+    if (kind == QLatin1String("press")) {
+        type = QEvent::MouseButtonPress;
+        button = Qt::LeftButton;
+    } else if (kind == QLatin1String("release")) {
+        type = QEvent::MouseButtonRelease;
+        button = Qt::LeftButton;
+        buttons = Qt::NoButton;
+    }
+    QMouseEvent event(type, local, local, global, button, buttons, Qt::NoModifier);
+    QCoreApplication::sendEvent(window, &event);
 }
 
 DecoLogController::~DecoLogController()
