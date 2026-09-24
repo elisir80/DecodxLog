@@ -602,6 +602,11 @@ ApplicationWindow {
         else if (what[0] === "updatecheck") { window.panelItem("tabs").setTab(3); decolog.updates.checkNow() }
         else if (what[0] === "updateget") { decolog.updates.checkNow(); updateGetTimer.start() }
         else if (what[0] === "mainmenu") topBar.openMainMenu()
+        // Per le prove: in gara un pannello trascinato sopra un altro.
+        else if (what[0] === "contestdrag") {
+            window.openContestDesk()
+            Qt.callLater(function () { contestLayout.testDrag(what[1], what[2]) })
+        }
         // Per le prove: in gara si chiude e si riapre un pannello, come dal menu.
         else if (what[0] === "contesttoggle") {
             window.openContestDesk()

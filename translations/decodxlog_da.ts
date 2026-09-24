@@ -1212,6 +1212,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
 <context>
     <name>ContestLayout</name>
     <message>
+        <source>here</source>
+        <translation>her</translation>
+    </message>
+    <message>
         <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
         <translation>Alle contestpaneler er lukket: åbn dem igen fra Contesttilstand i bjælken øverst.</translation>
     </message>

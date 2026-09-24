@@ -1212,6 +1212,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
 <context>
     <name>ContestLayout</name>
     <message>
+        <source>here</source>
+        <translation>aquí</translation>
+    </message>
+    <message>
         <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
         <translation>Tots els panells del concurs estan tancats: es tornen a obrir des de Mode concurs, a la barra de dalt.</translation>
     </message>

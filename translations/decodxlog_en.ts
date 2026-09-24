@@ -1211,6 +1211,10 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>ContestLayout</name>
     <message>
+        <source>here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
         <translation>All the contest panels are closed: open them again from Contest Mode, up in the bar.</translation>
     </message>

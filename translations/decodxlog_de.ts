@@ -1212,6 +1212,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
 <context>
     <name>ContestLayout</name>
     <message>
+        <source>here</source>
+        <translation>hierher</translation>
+    </message>
+    <message>
         <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
         <translation>Alle Contest-Bereiche sind geschlossen: oben in der Leiste über Contest-Modus wieder öffnen.</translation>
     </message>

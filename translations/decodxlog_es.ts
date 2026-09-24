@@ -1212,6 +1212,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
 <context>
     <name>ContestLayout</name>
     <message>
+        <source>here</source>
+        <translation>aquí</translation>
+    </message>
+    <message>
         <source>All the contest panels are closed: open them again from Contest Mode, up in the bar.</source>
         <translation>Todos los paneles del concurso están cerrados: se vuelven a abrir desde Modo concurso, en la barra de arriba.</translation>
     </message>
