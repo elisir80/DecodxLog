@@ -3,6 +3,26 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.5 — 24 settembre 2026
+
+**Le colonne del log si scelgono fra tutti i campi ADIF e si mettono in ordine**, come nei log
+di stazione di sempre (Logger32 e gli altri), nel log normale e in modalita' contest.
+
+- **si spostano trascinando l'intestazione** sopra un'altra: un segno verde dice dove cade;
+- la finestra **Colonne** ha a sinistra quelle che si vedono, nell'ordine, con **▲▼** e **✕**,
+  e a destra tutte le altre: un clic e si aggiungono in fondo;
+- oltre alle colonne di prima, una cinquantina di **campi ADIF**: data, ora inizio e fine,
+  prefisso, submodo, banda e frequenza RX, continente, SOTA/POTA/WWFF, programma e referenza,
+  note, propagazione, satellite, potenze, stazione, operatore, il mio locatore, contest,
+  numeri e scambi inviati e ricevuti, sezione ARRL, Ten-Ten, QSL via e messaggio, indirizzo,
+  email, distanza, eta', radio, SFI/K/A, e gli stati QSL di cartolina, LoTW, eQSL, Club Log e
+  QRZ;
+- in fondo si scrive il nome di **un campo ADIF qualsiasi**, anche quelli di altri programmi
+  (per esempio APP_LOGGER32_QSO_NUMBER);
+- la disposizione e' **una sola, in gara e fuori**, e le larghezze restano attaccate alla
+  colonna quando cambia posto. Chi aggiorna ritrova le colonne di prima, meno quelle che
+  aveva nascosto.
+
 ## 1.16.4 — 24 settembre 2026
 
 **Il commento dell'ADIF ha la sua colonna nel log.**
