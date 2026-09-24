@@ -73,6 +73,7 @@ ApplicationWindow {
         // La modalita' contest, e com'era la finestra principale prima di
         // entrarci: all'uscita si rimette tutto uguale.
         property bool contestModeOn: false
+        property string preContestHidden: ""
         property string preContestDetached: ""
         property int preContestVisibility: 2
         // Disposizione bloccata: le maniglie non si tirano e i pannelli non si
@@ -376,12 +377,34 @@ ApplicationWindow {
     // torna com'era.
     readonly property bool contestModeOn: layout.contestModeOn
 
+    // Una lista di pannelli senza quelli che vivevano solo nelle finestre del
+    // banco di prima (inserimento, punteggio, ritmo, cluster): adesso stanno
+    // agganciati in gara, e fuori dalla gara non devono tornare a galla.
+    function withoutContestWindows(text) {
+        return window.panelListOf(text).filter(k => !window.isWindowOnly(k)).join(",")
+    }
+
+    // In gara non ci sono finestre staccate: tutto sta nella disposizione
+    // della gara. Serve anche all'avvio, per chi arriva dalla 1.15.6 o prima
+    // con il programma chiuso in gara: le finestre del banco di allora
+    // restavano aperte sopra i pannelli agganciati, e i pannelli chiusi con la
+    // loro X risultavano chiusi anche nella finestra di tutti i giorni.
+    function settleContestMode() {
+        if (!layout.contestModeOn)
+            return
+        if (layout.detachedPanels.length > 0)
+            layout.detachedPanels = ""
+        layout.preContestDetached = window.withoutContestWindows(layout.preContestDetached)
+        layout.preContestHidden = window.withoutContestWindows(layout.preContestHidden)
+    }
+
     function openContestDesk() {
         if (!layout.contestModeOn) {
             // Com'era prima: la si rimette uguale quando la gara finisce. I
             // pannelli staccati tornano dentro, perche' in gara ci sono gia'
             // quelli agganciati, e due log aperti confondono.
-            layout.preContestDetached = layout.detachedPanels
+            layout.preContestDetached = window.withoutContestWindows(layout.detachedPanels)
+            layout.preContestHidden = window.withoutContestWindows(layout.hiddenPanels)
             layout.preContestVisibility = window.visibility
             layout.detachedPanels = ""
             layout.contestModeOn = true
@@ -395,7 +418,8 @@ ApplicationWindow {
         if (!layout.contestModeOn)
             return
         layout.contestModeOn = false
-        layout.detachedPanels = layout.preContestDetached
+        layout.detachedPanels = window.withoutContestWindows(layout.preContestDetached)
+        layout.hiddenPanels = window.withoutContestWindows(layout.preContestHidden)
         if (layout.preContestVisibility === Window.Windowed)
             window.showNormal()
     }
@@ -1398,6 +1422,7 @@ ApplicationWindow {
     // sta la disposizione di tutti i giorni.
     ContestLayout {
         id: contestLayout
+        Component.onCompleted: window.settleContestMode()
         x: verticalSplit.x
         y: verticalSplit.y
         width: verticalSplit.width
