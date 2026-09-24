@@ -1141,6 +1141,53 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     </message>
 </context>
 <context>
+    <name>ColumnsDialog</name>
+    <message>
+        <source>COLUMNS</source>
+        <translation>列</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
+        <translation>左边是显示的列，按顺序：▲▼ 移动，✕ 移除。右边是其余所有列，点击即添加到末尾。在日志中拖动列标题也能移动列。竞赛模式使用同样的布局。</translation>
+    </message>
+    <message>
+        <source>Move left</source>
+        <translation>左移</translation>
+    </message>
+    <message>
+        <source>Move right</source>
+        <translation>右移</translation>
+    </message>
+    <message>
+        <source>Hide this column</source>
+        <translation>隐藏此列</translation>
+    </message>
+    <message>
+        <source>Add a column</source>
+        <translation>添加列</translation>
+    </message>
+    <message>
+        <source>Any ADIF field, e.g. APP_LOGGER32_QSO_NUMBER</source>
+        <translation>任意 ADIF 字段，例如 APP_LOGGER32_QSO_NUMBER</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>添加</translation>
+    </message>
+    <message>
+        <source>Default columns</source>
+        <translation>默认列</translation>
+    </message>
+    <message>
+        <source>Default widths</source>
+        <translation>默认列宽</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>关闭</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1907,10 +1954,6 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Pop</source>
         <translation>分离</translation>
-    </message>
-    <message>
-        <source>Default widths</source>
-        <translation>默认列宽</translation>
     </message>
     <message>
         <source>Band</source>
@@ -3692,6 +3735,205 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Save · rev %1</source>
         <translation>保存 · rev %1</translation>
+    </message>
+</context>
+<context>
+    <name>QsoTableModel</name>
+    <message>
+        <source>Date</source>
+        <translation>日期</translation>
+    </message>
+    <message>
+        <source>Time on</source>
+        <translation>开始时间</translation>
+    </message>
+    <message>
+        <source>Time off</source>
+        <translation>结束时间</translation>
+    </message>
+    <message>
+        <source>Prefix</source>
+        <translation>前缀</translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation>子模式</translation>
+    </message>
+    <message>
+        <source>Band RX</source>
+        <translation>接收波段</translation>
+    </message>
+    <message>
+        <source>Freq RX</source>
+        <translation>接收频率</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>大洲</translation>
+    </message>
+    <message>
+        <source>SOTA</source>
+        <translation>SOTA</translation>
+    </message>
+    <message>
+        <source>POTA</source>
+        <translation>POTA</translation>
+    </message>
+    <message>
+        <source>WWFF</source>
+        <translation>WWFF</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>计划</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>参考</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>备注</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation>传播</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>卫星</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>卫星模式</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation>发射功率</translation>
+    </message>
+    <message>
+        <source>RX power</source>
+        <translation>接收功率</translation>
+    </message>
+    <message>
+        <source>Station</source>
+        <translation>电台</translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation>操作员</translation>
+    </message>
+    <message>
+        <source>My grid</source>
+        <translation>我的网格</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>竞赛</translation>
+    </message>
+    <message>
+        <source>Nr sent</source>
+        <translation>发出的号</translation>
+    </message>
+    <message>
+        <source>Nr rcvd</source>
+        <translation>收到的号</translation>
+    </message>
+    <message>
+        <source>Exch sent</source>
+        <translation>发出的交换</translation>
+    </message>
+    <message>
+        <source>Exch rcvd</source>
+        <translation>收到的交换</translation>
+    </message>
+    <message>
+        <source>ARRL section</source>
+        <translation>ARRL 分区</translation>
+    </message>
+    <message>
+        <source>Ten-Ten</source>
+        <translation>Ten-Ten</translation>
+    </message>
+    <message>
+        <source>QSL via</source>
+        <translation>QSL 经由</translation>
+    </message>
+    <message>
+        <source>QSL message</source>
+        <translation>QSL 留言</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>地址</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>电子邮件</translation>
+    </message>
+    <message>
+        <source>Distance</source>
+        <translation>距离</translation>
+    </message>
+    <message>
+        <source>Age</source>
+        <translation>年龄</translation>
+    </message>
+    <message>
+        <source>His rig</source>
+        <translation>对方设备</translation>
+    </message>
+    <message>
+        <source>SFI</source>
+        <translation>SFI</translation>
+    </message>
+    <message>
+        <source>K</source>
+        <translation>K</translation>
+    </message>
+    <message>
+        <source>A</source>
+        <translation>A</translation>
+    </message>
+    <message>
+        <source>Card sent</source>
+        <translation>卡片已寄</translation>
+    </message>
+    <message>
+        <source>Card rcvd</source>
+        <translation>卡片已收</translation>
+    </message>
+    <message>
+        <source>Card sent on</source>
+        <translation>卡片寄出日期</translation>
+    </message>
+    <message>
+        <source>Card rcvd on</source>
+        <translation>卡片收到日期</translation>
+    </message>
+    <message>
+        <source>LoTW sent</source>
+        <translation>LoTW 已发</translation>
+    </message>
+    <message>
+        <source>LoTW rcvd</source>
+        <translation>LoTW 已收</translation>
+    </message>
+    <message>
+        <source>eQSL sent</source>
+        <translation>eQSL 已发</translation>
+    </message>
+    <message>
+        <source>eQSL rcvd</source>
+        <translation>eQSL 已收</translation>
+    </message>
+    <message>
+        <source>Club Log</source>
+        <translation>Club Log</translation>
+    </message>
+    <message>
+        <source>QRZ</source>
+        <translation>QRZ</translation>
     </message>
 </context>
 <context>

@@ -124,6 +124,47 @@ private slots:
         QCOMPARE(bare.valueAt(bare.rowForId(2), column("cqz")), QString());
         QCOMPARE(bare.valueAt(bare.rowForId(2), column("qth")), QString());
     }
+
+    void columnsChosenAndOrdered()
+    {
+        // Le colonne si scelgono e si mettono nell'ordine che si vuole, anche
+        // campi ADIF che il log non ha come colonna (sono nei campi in piu') e
+        // campi di altri programmi, per nome.
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        db.insertQso({{"CALL", "M9PAB"}, {"QSO_DATE", "20260923"}, {"TIME_ON", "071917"}, {"TIME_OFF", "072230"},
+                      {"BAND", "20m"}, {"MODE", "SSB"}, {"COMMENT", "7267"}, {"QSL_VIA", "BURO"},
+                      {"OPERATOR", "IK4IDF"}, {"FREQ_RX", "14.263"}, {"CONT", "EU"}, {"EQSL_QSL_RCVD", "Y"},
+                      {"APP_LOGGER32_QSO_NUMBER", "123796"}},
+                     "import");
+        QsoTableModel m(&db);
+        QCOMPARE(m.columnLayout(), QsoTableModel::defaultLayout());
+
+        m.setColumnLayout({"comment", "call", "time_on", "time_off", "qsl_via", "operator", "freq_rx", "cont",
+                           "eqsl_qsl_rcvd", "pfx", "x:APP_LOGGER32_QSO_NUMBER", "non_esiste"});
+        // Quello che non si conosce non entra; il nominativo resta.
+        QCOMPARE(m.columns(), 11);
+        QCOMPARE(m.columnKey(0), QString("comment"));
+        QCOMPARE(m.valueAt(0, 0), QString("7267"));
+        QCOMPARE(m.valueAt(0, 1), QString("M9PAB"));
+        QCOMPARE(m.valueAt(0, 2), QString("07:19"));
+        QCOMPARE(m.valueAt(0, 3), QString("07:22"));
+        QCOMPARE(m.valueAt(0, 4), QString("BURO"));
+        QCOMPARE(m.valueAt(0, 5), QString("IK4IDF"));
+        QCOMPARE(m.valueAt(0, 6), QString("14.263000"));
+        QCOMPARE(m.valueAt(0, 7), QString("EU"));
+        QCOMPARE(m.valueAt(0, 8), QString("Y"));
+        QCOMPARE(m.valueAt(0, 9), QString("M9"));
+        QCOMPARE(m.valueAt(0, 10), QString("123796"));
+        QCOMPARE(m.columnTitle(10), QString("APP_LOGGER32_QSO_NUMBER"));
+        QCOMPARE(m.data(m.index(0, 1)).toString(), QString("M9PAB"));
+        // Per chiave si legge anche quello che non si vede.
+        QCOMPARE(m.valueFor(0, "band"), QString("20m"));
+
+        // Senza il nominativo non si resta: torna da solo.
+        m.setColumnLayout({"band"});
+        QCOMPARE(m.columnLayout(), QStringList({"call", "band"}));
+    }
 };
 
 QTEST_GUILESS_MAIN(TestQsoModel)

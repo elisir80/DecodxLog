@@ -1145,6 +1145,53 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
 </context>
 <context>
+    <name>ColumnsDialog</name>
+    <message>
+        <source>COLUMNS</source>
+        <translation>COLOANE</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
+        <translation>În stânga coloanele pe care le vezi, în ordine: ▲▼ le mută, ✕ scoate una. În dreapta toate celelalte, un clic o adaugă la sfârșit. Coloanele se mută și trăgând de antetul lor în jurnal. Aceeași aranjare este valabilă și în modul concurs.</translation>
+    </message>
+    <message>
+        <source>Move left</source>
+        <translation>Mută la stânga</translation>
+    </message>
+    <message>
+        <source>Move right</source>
+        <translation>Mută la dreapta</translation>
+    </message>
+    <message>
+        <source>Hide this column</source>
+        <translation>Ascunde această coloană</translation>
+    </message>
+    <message>
+        <source>Add a column</source>
+        <translation>Adaugă o coloană</translation>
+    </message>
+    <message>
+        <source>Any ADIF field, e.g. APP_LOGGER32_QSO_NUMBER</source>
+        <translation>Orice câmp ADIF, ex. APP_LOGGER32_QSO_NUMBER</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Adaugă</translation>
+    </message>
+    <message>
+        <source>Default columns</source>
+        <translation>Coloane implicite</translation>
+    </message>
+    <message>
+        <source>Default widths</source>
+        <translation>Lățimi implicite</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Închide</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1913,10 +1960,6 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Pop</source>
         <translation>Desprinde</translation>
-    </message>
-    <message>
-        <source>Default widths</source>
-        <translation>Lățimi implicite</translation>
     </message>
     <message>
         <source>Band</source>
@@ -3706,6 +3749,205 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Save · rev %1</source>
         <translation>Salvează · rev %1</translation>
+    </message>
+</context>
+<context>
+    <name>QsoTableModel</name>
+    <message>
+        <source>Date</source>
+        <translation>Data</translation>
+    </message>
+    <message>
+        <source>Time on</source>
+        <translation>Ora de început</translation>
+    </message>
+    <message>
+        <source>Time off</source>
+        <translation>Ora de sfârșit</translation>
+    </message>
+    <message>
+        <source>Prefix</source>
+        <translation>Prefix</translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation>Submod</translation>
+    </message>
+    <message>
+        <source>Band RX</source>
+        <translation>Bandă RX</translation>
+    </message>
+    <message>
+        <source>Freq RX</source>
+        <translation>Frecv RX</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>Continent</translation>
+    </message>
+    <message>
+        <source>SOTA</source>
+        <translation>SOTA</translation>
+    </message>
+    <message>
+        <source>POTA</source>
+        <translation>POTA</translation>
+    </message>
+    <message>
+        <source>WWFF</source>
+        <translation>WWFF</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>Program</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>Referință</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Note</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation>Propagare</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Satelit</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Mod sat</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation>Putere TX</translation>
+    </message>
+    <message>
+        <source>RX power</source>
+        <translation>Putere RX</translation>
+    </message>
+    <message>
+        <source>Station</source>
+        <translation>Stație</translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation>Operator</translation>
+    </message>
+    <message>
+        <source>My grid</source>
+        <translation>Locatorul meu</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Concurs</translation>
+    </message>
+    <message>
+        <source>Nr sent</source>
+        <translation>Nr trimis</translation>
+    </message>
+    <message>
+        <source>Nr rcvd</source>
+        <translation>Nr primit</translation>
+    </message>
+    <message>
+        <source>Exch sent</source>
+        <translation>Schimb trimis</translation>
+    </message>
+    <message>
+        <source>Exch rcvd</source>
+        <translation>Schimb primit</translation>
+    </message>
+    <message>
+        <source>ARRL section</source>
+        <translation>Secțiune ARRL</translation>
+    </message>
+    <message>
+        <source>Ten-Ten</source>
+        <translation>Ten-Ten</translation>
+    </message>
+    <message>
+        <source>QSL via</source>
+        <translation>QSL via</translation>
+    </message>
+    <message>
+        <source>QSL message</source>
+        <translation>Mesaj QSL</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Adresă</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>E-mail</translation>
+    </message>
+    <message>
+        <source>Distance</source>
+        <translation>Distanță</translation>
+    </message>
+    <message>
+        <source>Age</source>
+        <translation>Vârstă</translation>
+    </message>
+    <message>
+        <source>His rig</source>
+        <translation>Stația lui</translation>
+    </message>
+    <message>
+        <source>SFI</source>
+        <translation>SFI</translation>
+    </message>
+    <message>
+        <source>K</source>
+        <translation>K</translation>
+    </message>
+    <message>
+        <source>A</source>
+        <translation>A</translation>
+    </message>
+    <message>
+        <source>Card sent</source>
+        <translation>Carte trimisă</translation>
+    </message>
+    <message>
+        <source>Card rcvd</source>
+        <translation>Carte primită</translation>
+    </message>
+    <message>
+        <source>Card sent on</source>
+        <translation>Carte trimisă la</translation>
+    </message>
+    <message>
+        <source>Card rcvd on</source>
+        <translation>Carte primită la</translation>
+    </message>
+    <message>
+        <source>LoTW sent</source>
+        <translation>LoTW trimis</translation>
+    </message>
+    <message>
+        <source>LoTW rcvd</source>
+        <translation>LoTW primit</translation>
+    </message>
+    <message>
+        <source>eQSL sent</source>
+        <translation>eQSL trimisă</translation>
+    </message>
+    <message>
+        <source>eQSL rcvd</source>
+        <translation>eQSL primită</translation>
+    </message>
+    <message>
+        <source>Club Log</source>
+        <translation>Club Log</translation>
+    </message>
+    <message>
+        <source>QRZ</source>
+        <translation>QRZ</translation>
     </message>
 </context>
 <context>

@@ -1145,6 +1145,53 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>ColumnsDialog</name>
+    <message>
+        <source>COLUMNS</source>
+        <translation>СТОЛБЦЫ</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
+        <translation>Слева видимые столбцы, по порядку: ▲▼ перемещают их, ✕ убирает. Справа все остальные, щелчок добавляет столбец в конец. Столбцы можно также перемещать, перетаскивая их заголовок в журнале. То же расположение действует и в режиме контеста.</translation>
+    </message>
+    <message>
+        <source>Move left</source>
+        <translation>Влево</translation>
+    </message>
+    <message>
+        <source>Move right</source>
+        <translation>Вправо</translation>
+    </message>
+    <message>
+        <source>Hide this column</source>
+        <translation>Скрыть этот столбец</translation>
+    </message>
+    <message>
+        <source>Add a column</source>
+        <translation>Добавить столбец</translation>
+    </message>
+    <message>
+        <source>Any ADIF field, e.g. APP_LOGGER32_QSO_NUMBER</source>
+        <translation>Любое поле ADIF, напр. APP_LOGGER32_QSO_NUMBER</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Добавить</translation>
+    </message>
+    <message>
+        <source>Default columns</source>
+        <translation>Столбцы по умолчанию</translation>
+    </message>
+    <message>
+        <source>Default widths</source>
+        <translation>Ширина по умолчанию</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Закрыть</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1913,10 +1960,6 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Pop</source>
         <translation>Открепить</translation>
-    </message>
-    <message>
-        <source>Default widths</source>
-        <translation>Ширина по умолчанию</translation>
     </message>
     <message>
         <source>Band</source>
@@ -3706,6 +3749,205 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Save · rev %1</source>
         <translation>Сохранить · ред. %1</translation>
+    </message>
+</context>
+<context>
+    <name>QsoTableModel</name>
+    <message>
+        <source>Date</source>
+        <translation>Дата</translation>
+    </message>
+    <message>
+        <source>Time on</source>
+        <translation>Начало</translation>
+    </message>
+    <message>
+        <source>Time off</source>
+        <translation>Конец</translation>
+    </message>
+    <message>
+        <source>Prefix</source>
+        <translation>Префикс</translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation>Подрежим</translation>
+    </message>
+    <message>
+        <source>Band RX</source>
+        <translation>Диапазон приёма</translation>
+    </message>
+    <message>
+        <source>Freq RX</source>
+        <translation>Част. RX</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>Континент</translation>
+    </message>
+    <message>
+        <source>SOTA</source>
+        <translation>SOTA</translation>
+    </message>
+    <message>
+        <source>POTA</source>
+        <translation>POTA</translation>
+    </message>
+    <message>
+        <source>WWFF</source>
+        <translation>WWFF</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>Программа</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>Эталон</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Заметки</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation>Прохождение</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Спутник</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Режим спутн.</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation>Мощность TX</translation>
+    </message>
+    <message>
+        <source>RX power</source>
+        <translation>Мощность RX</translation>
+    </message>
+    <message>
+        <source>Station</source>
+        <translation>Станция</translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation>Оператор</translation>
+    </message>
+    <message>
+        <source>My grid</source>
+        <translation>Мой локатор</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Соревнование</translation>
+    </message>
+    <message>
+        <source>Nr sent</source>
+        <translation>№ передан</translation>
+    </message>
+    <message>
+        <source>Nr rcvd</source>
+        <translation>№ принят</translation>
+    </message>
+    <message>
+        <source>Exch sent</source>
+        <translation>Обмен отправлен</translation>
+    </message>
+    <message>
+        <source>Exch rcvd</source>
+        <translation>Обмен получен</translation>
+    </message>
+    <message>
+        <source>ARRL section</source>
+        <translation>Секция ARRL</translation>
+    </message>
+    <message>
+        <source>Ten-Ten</source>
+        <translation>Ten-Ten</translation>
+    </message>
+    <message>
+        <source>QSL via</source>
+        <translation>QSL через</translation>
+    </message>
+    <message>
+        <source>QSL message</source>
+        <translation>Сообщение QSL</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Адрес</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>Эл. почта</translation>
+    </message>
+    <message>
+        <source>Distance</source>
+        <translation>Расстояние</translation>
+    </message>
+    <message>
+        <source>Age</source>
+        <translation>Возраст</translation>
+    </message>
+    <message>
+        <source>His rig</source>
+        <translation>Его трансивер</translation>
+    </message>
+    <message>
+        <source>SFI</source>
+        <translation>SFI</translation>
+    </message>
+    <message>
+        <source>K</source>
+        <translation>K</translation>
+    </message>
+    <message>
+        <source>A</source>
+        <translation>A</translation>
+    </message>
+    <message>
+        <source>Card sent</source>
+        <translation>Карточка отправлена</translation>
+    </message>
+    <message>
+        <source>Card rcvd</source>
+        <translation>Карточка получена</translation>
+    </message>
+    <message>
+        <source>Card sent on</source>
+        <translation>Карточка отправлена</translation>
+    </message>
+    <message>
+        <source>Card rcvd on</source>
+        <translation>Карточка получена</translation>
+    </message>
+    <message>
+        <source>LoTW sent</source>
+        <translation>LoTW отправлено</translation>
+    </message>
+    <message>
+        <source>LoTW rcvd</source>
+        <translation>LoTW получено</translation>
+    </message>
+    <message>
+        <source>eQSL sent</source>
+        <translation>eQSL отправлена</translation>
+    </message>
+    <message>
+        <source>eQSL rcvd</source>
+        <translation>eQSL получена</translation>
+    </message>
+    <message>
+        <source>Club Log</source>
+        <translation>Club Log</translation>
+    </message>
+    <message>
+        <source>QRZ</source>
+        <translation>QRZ</translation>
     </message>
 </context>
 <context>

@@ -17,8 +17,11 @@ GlassPanel {
     Settings {
         id: logStore
         category: "layout"
-        // Colonne nascoste, come chiavi separate da virgola ("dxcc,source").
+        // Colonne nascoste, come chiavi separate da virgola ("dxcc,source"):
+        // e' com'era prima, e serve solo a partire dalle stesse colonne.
         property string hiddenColumns: ""
+        // Le colonne mostrate, nell'ordine in cui si vedono.
+        property string columnLayout: ""
         // Le larghezze scelte a mano, come {"call": 120, "name": 260}.
         property string columnWidths: ""
         property var savedFilters: ({})
@@ -41,7 +44,47 @@ GlassPanel {
     // prende tutto quello che sta in mezzo, Esc lascia andare tutto.
     property var selectedIds: []
     readonly property var model: decolog.qsoModel
-    readonly property var hidden: hiddenColumns.length ? hiddenColumns.split(",") : []
+
+    // ── Quali colonne, e in che ordine ──────────────────────────────────────
+    // Tutte quelle del log e i campi ADIF (anche quelli che altri programmi
+    // scrivono, come Logger32): si scelgono, si tolgono e si spostano, e la
+    // disposizione e' la stessa in gara e fuori.
+    function storedLayout() {
+        if (logStore.columnLayout.length > 0)
+            return logStore.columnLayout.split(",")
+        // Chi arriva da prima: le colonne di sempre, meno quelle che aveva nascosto.
+        const hidden = logStore.hiddenColumns.length ? logStore.hiddenColumns.split(",") : []
+        return root.defaultLayout.filter(k => hidden.indexOf(k) < 0)
+    }
+    readonly property var defaultLayout: ["utc", "call", "band", "freq", "mode", "rst_sent", "rst_rcvd",
+                                          "grid", "name", "comment", "qth", "country", "state", "county",
+                                          "cqz", "ituz", "iota", "dxcc", "qsl", "source", "tags"]
+    function setLayout(list) {
+        logStore.columnLayout = list.join(",")
+        root.model.columnLayout = list
+    }
+    Component.onCompleted: root.model.columnLayout = root.storedLayout()
+    function isHidden(key) { return root.model.columnLayout.indexOf(key) < 0 }
+    function toggleColumn(key) {
+        const list = root.model.columnLayout.slice()
+        const i = list.indexOf(key)
+        if (i >= 0) {
+            if (key === "call")
+                return
+            list.splice(i, 1)
+        } else {
+            list.push(key)
+        }
+        root.setLayout(list)
+    }
+    function moveColumn(from, to) {
+        const list = root.model.columnLayout.slice()
+        if (from < 0 || from >= list.length || to < 0 || to >= list.length || from === to)
+            return
+        const key = list.splice(from, 1)[0]
+        list.splice(to, 0, key)
+        root.setLayout(list)
+    }
 
     function isSelected(id) { return root.selectedIds.indexOf(id) >= 0 }
     function clearSelection() { root.selectedIds = [] }
@@ -119,14 +162,6 @@ GlassPanel {
         return -1
     }
 
-    function isHidden(key) { return hidden.indexOf(key) >= 0 }
-    function toggleColumn(key) {
-        const list = hidden.slice()
-        const i = list.indexOf(key)
-        if (i >= 0) list.splice(i, 1)
-        else list.push(key)
-        hiddenColumnsEdited(list.join(","))
-    }
     function modeColor(mode) {
         if (mode === "FT2") return Theme.accentColor
         if (mode === "FT8" || mode === "FT4") return Theme.primaryColor
@@ -151,7 +186,7 @@ GlassPanel {
     }
     // Per le schermate di prova (--show menu:<nome>).
     function showMenu(name) {
-        if (name === "columns") columnsMenu.popup(root.width - 260, Theme.panelHeight)
+        if (name === "columns") columnsDialog.open()
         else if (name === "filters") { addFilterMenu.popup(60, Theme.panelHeight + 30); bandMenu.open() }
         else if (name === "saved") savedMenu.popup(root.width - 200, Theme.panelHeight + 30)
         else if (name === "row") rowMenu.popupFor(root.model.idAt(0))
@@ -162,7 +197,19 @@ GlassPanel {
         else if (name === "sub") { addFilterMenu.popup(60, Theme.panelHeight + 30); subTimer.start() }
     }
     // Per le prove col mouse vero: il menu aperto da showMenu.
-    function menuFor(name) { return name === "band" ? bandMenu : columnsMenu }
+    function menuFor(name) { return name === "band" ? bandMenu : columnsDialog }
+    // La colonna sotto quel punto dell'intestazione (in coordinate del suo
+    // contenuto): serve a spostarle trascinando.
+    property int headerDropTarget: -1
+    function columnAtHeaderX(x) {
+        let edge = 0
+        for (let c = 0; c < root.model.columns; ++c) {
+            edge += table.columnWidth(c)
+            if (x < edge)
+                return c
+        }
+        return root.model.columns - 1
+    }
     function headerCell(col) { return header.itemAtCell(Qt.point(col, 0)) }
     function tableCell(col) { return table.itemAtCell(Qt.point(col, 0)) }
     function columnWidthOf(col) { return table.columnWidth(col) }
@@ -237,7 +284,7 @@ GlassPanel {
             text: qsTr("Columns")
             buttonHeight: 24
             fontPixelSize: 11
-            onClicked: columnsMenu.popup()
+            onClicked: columnsDialog.open()
         },
         GlassButton {
             anchors.verticalCenter: parent.verticalCenter
@@ -250,25 +297,9 @@ GlassPanel {
         }
     ]
 
-    StyledMenu {
-        id: columnsMenu
-        StyledMenuItem {
-            text: qsTr("Default widths")
-            onTriggered: root.resetWidths()
-        }
-        MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
-        Repeater {
-            model: root.model.columns
-            StyledMenuItem {
-                required property int index
-                // Nominativo e ora non si nascondono: senza, la riga non dice niente.
-                enabled: index > 1
-                checkable: true
-                checked: !root.isHidden(root.model.columnKey(index))
-                text: root.model.columnTitle(index)
-                onTriggered: root.toggleColumn(root.model.columnKey(index))
-            }
-        }
+    ColumnsDialog {
+        id: columnsDialog
+        panel: root
     }
 
     // Per le prove: apre il sottomenu quando il menu padre e' gia' in piedi.
@@ -453,7 +484,7 @@ GlassPanel {
         property int step: 1
         function openFor(list) {
             ids = list
-            call = list.length === 1 ? root.model.valueAt(root.model.rowForId(list[0]), root.columnOf("call")) : ""
+            call = list.length === 1 ? root.model.valueFor(root.model.rowForId(list[0]), "call") : ""
             step = 1
             open()
         }
@@ -543,8 +574,7 @@ GlassPanel {
         function openFor(list) {
             exportChosen.ids = list
             const today = new Date().toISOString().slice(0, 10)
-            const one = list.length === 1 ? root.model.valueAt(root.model.rowForId(list[0]),
-                                                               root.columnOf("call")) : ""
+            const one = list.length === 1 ? root.model.valueFor(root.model.rowForId(list[0]), "call") : ""
             currentFile = "file:///" + (one ? one.replace("/", "-") : "decolog-" + list.length + "-qso")
                           + "-" + today + ".adi"
             open()
@@ -917,6 +947,36 @@ GlassPanel {
                 ToolTip.delay: 400
                 ToolTip.text: qsTr("L LoTW · Q QRZ Logbook · C Club Log · E eQSL")
 
+                // Presa e portata sopra un'altra intestazione, la colonna si
+                // sposta li'. Il bordo a destra resta libero: quello allarga.
+                MouseArea {
+                    id: headDrag
+                    anchors { left: parent.left; top: parent.top; bottom: parent.bottom }
+                    width: Math.max(0, parent.width - 8)
+                    cursorShape: pressed ? Qt.ClosedHandCursor : Qt.PointingHandCursor
+                    property real pressX: 0
+                    onPressed: (mouse) => pressX = mouse.x
+                    onPositionChanged: (mouse) => {
+                        if (pressed)
+                            root.headerDropTarget = Math.abs(mouse.x - pressX) > 8
+                                ? root.columnAtHeaderX(mapToItem(header.contentItem, mouse.x, 0).x) : -1
+                    }
+                    onReleased: (mouse) => {
+                        const target = root.columnAtHeaderX(mapToItem(header.contentItem, mouse.x, 0).x)
+                        root.headerDropTarget = -1
+                        if (Math.abs(mouse.x - pressX) > 8)
+                            root.moveColumn(index, target)
+                    }
+                    onCanceled: root.headerDropTarget = -1
+                }
+                // Dove cade la colonna trascinata.
+                Rectangle {
+                    anchors { left: parent.left; top: parent.top; bottom: parent.bottom }
+                    width: 3
+                    color: Theme.accentColor
+                    visible: root.headerDropTarget === index
+                }
+
                 // Il bordo da prendere: una riga verticale fra un'intestazione e
                 // la successiva.
                 Rectangle {
@@ -949,8 +1009,6 @@ GlassPanel {
             boundsBehavior: Flickable.StopAtBounds
             resizableColumns: true
             columnWidthProvider: function (column) {
-                if (root.isHidden(root.model.columnKey(column)))
-                    return 0
                 // Se il bordo l'ha tirato l'operatore, comanda lui.
                 const chosen = table.explicitColumnWidth(column)
                 if (chosen >= 0)
@@ -960,7 +1018,7 @@ GlassPanel {
                 if (column === root.columnOf("name")) {
                     let used = 0
                     for (let c = 0; c < root.model.columns; ++c)
-                        if (c !== column && !root.isHidden(root.model.columnKey(c)))
+                        if (c !== column)
                             used += root.model.columnWidthHint(c)
                     return Math.max(root.model.columnWidthHint(column), table.width - used)
                 }
@@ -983,6 +1041,13 @@ GlassPanel {
             Connections {
                 target: root
                 function onColumnWidthsChanged() { root.applyStoredWidths() }
+            }
+            Connections {
+                target: root.model
+                function onLayoutChanged() {
+                    table.clearColumnWidths()
+                    root.applyStoredWidths()
+                }
             }
 
             Connections {
@@ -1120,8 +1185,7 @@ GlassPanel {
         }
         StyledMenuItem { text: qsTr("Filter by this call"); onTriggered: root.model.filterText = decolog.lookupCall }
         StyledMenuItem {
-            readonly property int dxcc: parseInt(root.model.valueAt(root.model.rowForId(rowMenu.qsoId),
-                                                                    root.columnOf("dxcc"))) || 0
+            readonly property int dxcc: parseInt(root.model.valueFor(root.model.rowForId(rowMenu.qsoId), "dxcc")) || 0
             enabled: dxcc > 0
             text: dxcc > 0 ? qsTr("Filter by entity: %1").arg(decolog.dxccName(dxcc) || dxcc) : qsTr("Filter by entity")
             onTriggered: root.model.dxccFilter = dxcc
@@ -1176,7 +1240,7 @@ GlassPanel {
         StyledMenu {
             id: removeTagMenu
             readonly property var tags: {
-                const v = root.model.valueAt(root.model.rowForId(rowMenu.qsoId), root.columnOf("tags"))
+                const v = root.model.valueFor(root.model.rowForId(rowMenu.qsoId), "tags")
                 return v.length ? v.split(", ") : []
             }
             title: qsTr("Remove tag")

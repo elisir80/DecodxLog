@@ -1141,6 +1141,53 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>ColumnsDialog</name>
+    <message>
+        <source>COLUMNS</source>
+        <translation>列</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
+        <translation>左は表示中の列(順番どおり):▲▼で移動、✕で外します。右はそれ以外のすべてで、クリックすると最後に追加されます。ログの見出しをドラッグしても列を移動できます。同じ配置がコンテストモードでも使われます。</translation>
+    </message>
+    <message>
+        <source>Move left</source>
+        <translation>左へ移動</translation>
+    </message>
+    <message>
+        <source>Move right</source>
+        <translation>右へ移動</translation>
+    </message>
+    <message>
+        <source>Hide this column</source>
+        <translation>この列を隠す</translation>
+    </message>
+    <message>
+        <source>Add a column</source>
+        <translation>列を追加</translation>
+    </message>
+    <message>
+        <source>Any ADIF field, e.g. APP_LOGGER32_QSO_NUMBER</source>
+        <translation>任意のADIFフィールド(例: APP_LOGGER32_QSO_NUMBER)</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>追加</translation>
+    </message>
+    <message>
+        <source>Default columns</source>
+        <translation>標準の列</translation>
+    </message>
+    <message>
+        <source>Default widths</source>
+        <translation>はじめの幅</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>閉じる</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1907,10 +1954,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Pop</source>
         <translation>切り離す</translation>
-    </message>
-    <message>
-        <source>Default widths</source>
-        <translation>はじめの幅</translation>
     </message>
     <message>
         <source>Band</source>
@@ -3692,6 +3735,205 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Save · rev %1</source>
         <translation>保存 · rev %1</translation>
+    </message>
+</context>
+<context>
+    <name>QsoTableModel</name>
+    <message>
+        <source>Date</source>
+        <translation>日付</translation>
+    </message>
+    <message>
+        <source>Time on</source>
+        <translation>始めの時刻</translation>
+    </message>
+    <message>
+        <source>Time off</source>
+        <translation>終わりの時刻</translation>
+    </message>
+    <message>
+        <source>Prefix</source>
+        <translation>プリフィックス</translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation>サブモード</translation>
+    </message>
+    <message>
+        <source>Band RX</source>
+        <translation>受信バンド</translation>
+    </message>
+    <message>
+        <source>Freq RX</source>
+        <translation>受信周波数</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>大陸</translation>
+    </message>
+    <message>
+        <source>SOTA</source>
+        <translation>SOTA</translation>
+    </message>
+    <message>
+        <source>POTA</source>
+        <translation>POTA</translation>
+    </message>
+    <message>
+        <source>WWFF</source>
+        <translation>WWFF</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>プログラム</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>リファレンス</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>メモ</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation>伝播</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>衛星</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>サテライトのモード</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation>送信出力</translation>
+    </message>
+    <message>
+        <source>RX power</source>
+        <translation>受信出力</translation>
+    </message>
+    <message>
+        <source>Station</source>
+        <translation>局</translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation>オペレーター</translation>
+    </message>
+    <message>
+        <source>My grid</source>
+        <translation>自分のグリッド</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>コンテスト</translation>
+    </message>
+    <message>
+        <source>Nr sent</source>
+        <translation>送った Nr</translation>
+    </message>
+    <message>
+        <source>Nr rcvd</source>
+        <translation>受けた Nr</translation>
+    </message>
+    <message>
+        <source>Exch sent</source>
+        <translation>送ったナンバー</translation>
+    </message>
+    <message>
+        <source>Exch rcvd</source>
+        <translation>受けたナンバー</translation>
+    </message>
+    <message>
+        <source>ARRL section</source>
+        <translation>ARRLセクション</translation>
+    </message>
+    <message>
+        <source>Ten-Ten</source>
+        <translation>Ten-Ten</translation>
+    </message>
+    <message>
+        <source>QSL via</source>
+        <translation>QSL 経由</translation>
+    </message>
+    <message>
+        <source>QSL message</source>
+        <translation>QSLメッセージ</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>住所</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>メール</translation>
+    </message>
+    <message>
+        <source>Distance</source>
+        <translation>距離</translation>
+    </message>
+    <message>
+        <source>Age</source>
+        <translation>年齢</translation>
+    </message>
+    <message>
+        <source>His rig</source>
+        <translation>相手の無線機</translation>
+    </message>
+    <message>
+        <source>SFI</source>
+        <translation>SFI</translation>
+    </message>
+    <message>
+        <source>K</source>
+        <translation>K</translation>
+    </message>
+    <message>
+        <source>A</source>
+        <translation>A</translation>
+    </message>
+    <message>
+        <source>Card sent</source>
+        <translation>カード送付</translation>
+    </message>
+    <message>
+        <source>Card rcvd</source>
+        <translation>カード受領</translation>
+    </message>
+    <message>
+        <source>Card sent on</source>
+        <translation>カード送付日</translation>
+    </message>
+    <message>
+        <source>Card rcvd on</source>
+        <translation>カード受領日</translation>
+    </message>
+    <message>
+        <source>LoTW sent</source>
+        <translation>LoTW送信</translation>
+    </message>
+    <message>
+        <source>LoTW rcvd</source>
+        <translation>LoTW受領</translation>
+    </message>
+    <message>
+        <source>eQSL sent</source>
+        <translation>eQSL送信</translation>
+    </message>
+    <message>
+        <source>eQSL rcvd</source>
+        <translation>eQSL受領</translation>
+    </message>
+    <message>
+        <source>Club Log</source>
+        <translation>Club Log</translation>
+    </message>
+    <message>
+        <source>QRZ</source>
+        <translation>QRZ</translation>
     </message>
 </context>
 <context>

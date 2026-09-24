@@ -450,7 +450,31 @@ ApplicationWindow {
             // Si aspetta che la lavagna abbia preso le misure.
             if (step++ < 10)
                 return
-            if (kind === "headerresize") {
+            if (kind === "headermove") {
+                const lp = args[1] === "board" ? contestLayout.panelFor("logbook").item : window.panelItem("logbook").item
+                const from = parseInt(args[2]), to = parseInt(args[3])
+                if (step === 11) {
+                    const cell = lp.headerCell(from)
+                    start0 = cell.mapToItem(null, 20, cell.height / 2)
+                    pointerProbe.args = args.concat([JSON.stringify(lp.model.columnLayout)])
+                    send(window, "hover", start0)
+                    send(window, "press", start0)
+                    return
+                }
+                const target = lp.headerCell(to)
+                const end = target.mapToItem(null, target.width / 2, target.height / 2)
+                const n = step - 11
+                if (n <= 8) {
+                    send(window, "move", Qt.point(start0.x + (end.x - start0.x) * n / 8, start0.y))
+                    return
+                }
+                send(window, "release", end)
+                stop()
+                Qt.callLater(function () {
+                    console.warn("PROBE headermove " + args[1] + " " + from + "->" + to + ": "
+                                 + args[args.length - 1] + " => " + JSON.stringify(lp.model.columnLayout))
+                })
+            } else if (kind === "headerresize") {
                 const lp = window.panelItem("logbook").item
                 const col = 2
                 if (step === 11) {
@@ -485,7 +509,8 @@ ApplicationWindow {
                 }
                 if (step < 18)
                     return
-                const label = args[2] === "band" ? "20m" : lp.model.columnTitle(2)
+                // Filtri: una banda; colonne: il pulsante che aggiunge "Ora inizio".
+                const label = args[2] === "band" ? "20m" : lp.model.titleOf("time_on") + "  ·  TIME_ON"
                 const c = findGlyph(lp.menuFor(args[2]).contentItem, label)
                 if (!c) { console.warn("PROBE log: no item " + label); stop(); return }
                 const at = c.mapToItem(null, c.width / 2, c.height / 2)
@@ -494,7 +519,7 @@ ApplicationWindow {
                 stop()
                 Qt.callLater(function () {
                     console.warn("PROBE log " + key + " " + args[2] + ": bands=" + JSON.stringify(lp.model.bandFilter)
-                                 + " hidden=" + lp.hiddenColumns)
+                                 + " time_on shown=" + (lp.model.columnLayout.indexOf("time_on") >= 0))
                 })
             } else if (kind === "panelsclick") {
                 const c = findGlyph(panelsPopup.contentItem, window.panelTitle(key))
@@ -786,6 +811,13 @@ ApplicationWindow {
         }
         // Per le prove col mouse vero: nel log (normal o in gara) un clic su
         // una banda nei filtri, o su una colonna nel menu Colonne.
+        else if (what[0] === "headermove") {
+            if (what[1] === "board")
+                window.openContestDesk()
+            pointerProbe.args = what
+            pointerProbe.step = 0
+            pointerProbe.start()
+        }
         else if (what[0] === "headerresize") {
             pointerProbe.args = what
             pointerProbe.step = 0

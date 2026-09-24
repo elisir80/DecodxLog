@@ -36,15 +36,15 @@ class QsoTableModel : public QAbstractTableModel {
     // "yyyy-MM-dd", estremi compresi; vuoti = senza limite.
     Q_PROPERTY(QString dateFrom READ dateFrom WRITE setDateFrom NOTIFY filtersChanged)
     Q_PROPERTY(QString dateTo READ dateTo WRITE setDateTo NOTIFY filtersChanged)
-    Q_PROPERTY(int columns READ columns CONSTANT)
+    Q_PROPERTY(int columns READ columns NOTIFY layoutChanged)
+    // Le colonne mostrate, nell'ordine in cui si vedono: chiavi del catalogo
+    // (vedi availableColumns) o "x:CAMPO" per un campo ADIF qualsiasi.
+    Q_PROPERTY(QStringList columnLayout READ columnLayout WRITE setColumnLayout NOTIFY layoutChanged)
     Q_PROPERTY(bool filtered READ filtered NOTIFY filtersChanged)
 
 public:
-    // Le colonne del log. Dopo le solite ci sono quelle che il callbook
-    // riempie — citta', nazione, stato, contea, zone, IOTA — che si
-    // nascondono dal menu Colonne come tutte le altre.
-    // Il commento subito dopo il nome: e' li' che lo cerca chi arriva da un
-    // altro programma, non in fondo dopo venti colonne.
+    // I valori che ogni riga tiene sempre, qualunque colonna si veda: servono
+    // ai menu (nominativo, DXCC, etichette) anche quando la colonna e' nascosta.
     enum Column { Utc, Call, Band, Freq, Mode, RstSent, RstRcvd, Grid, Name, Comment, Qth, Country,
                   State, County, Cqz, Ituz, Iota, Dxcc, Qsl, Source, Tags, ColumnCount };
     enum Roles { IdRole = Qt::UserRole + 1, ColumnKeyRole, IsNewRole, ModeRole };
@@ -79,7 +79,17 @@ public:
     void setDateFrom(const QString& date);
     QString dateTo() const { return m_dateTo; }
     void setDateTo(const QString& date);
-    int columns() const { return ColumnCount; }
+    int columns() const { return static_cast<int>(m_layout.size()); }
+    QStringList columnLayout() const { return m_layout; }
+    void setColumnLayout(const QStringList& keys);
+    // Le colonne di sempre, nell'ordine di sempre.
+    static QStringList defaultLayout();
+    // Tutte le colonne che si possono mostrare: [{key, title, field}].
+    Q_INVOKABLE QVariantList availableColumns() const;
+    // Il titolo di una colonna dalla sua chiave, anche se non e' mostrata.
+    Q_INVOKABLE QString titleOf(const QString& key) const;
+    // Il valore di una riga per chiave, anche se la colonna e' nascosta.
+    Q_INVOKABLE QString valueFor(int row, const QString& key) const;
     bool filtered() const;
 
     Q_INVOKABLE void reload();
@@ -111,12 +121,16 @@ public:
 signals:
     void countChanged();
     void filtersChanged();
+    void layoutChanged();
 
 private:
     struct Row {
         qint64  id{0};
         QString sortKey;
         QString values[ColumnCount];
+        // Le colonne mostrate che non sono fra quelle di sempre, nell'ordine
+        // di m_extra.
+        QStringList extra;
         bool    fresh{false};
     };
 
@@ -124,8 +138,19 @@ private:
     Row rowFromQuery(const QSqlQuery& q) const;
     void refreshTotal();
 
+    // La colonna mostrata in quella posizione, come valore: fra quelle di
+    // sempre (core >= 0) o fra le altre (extra >= 0).
+    struct Slot {
+        int core{-1};
+        int extra{-1};
+    };
+    void rebuildSlots();
+
     decolog::core::LogDatabase* m_db;
     QVector<Row> m_rows;
+    QStringList m_layout;
+    QStringList m_extra;        // le chiavi mostrate che non sono di sempre
+    QVector<Slot> m_slots;
     QString m_filter;
     QStringList m_bands;
     QStringList m_modes;

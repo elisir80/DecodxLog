@@ -1145,6 +1145,53 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>ColumnsDialog</name>
+    <message>
+        <source>COLUMNS</source>
+        <translation>KOLONNAS</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
+        <translation>Pa kreisi redzamās kolonnas, secībā: ▲▼ tās pārvieto, ✕ vienu noņem. Pa labi visas pārējās, klikšķis to pievieno beigās. Kolonnas var pārvietot arī, velkot to virsrakstu žurnālā. Tas pats izkārtojums der arī konkursa režīmā.</translation>
+    </message>
+    <message>
+        <source>Move left</source>
+        <translation>Pa kreisi</translation>
+    </message>
+    <message>
+        <source>Move right</source>
+        <translation>Pa labi</translation>
+    </message>
+    <message>
+        <source>Hide this column</source>
+        <translation>Paslēpt šo kolonnu</translation>
+    </message>
+    <message>
+        <source>Add a column</source>
+        <translation>Pievienot kolonnu</translation>
+    </message>
+    <message>
+        <source>Any ADIF field, e.g. APP_LOGGER32_QSO_NUMBER</source>
+        <translation>Jebkurš ADIF lauks, piem. APP_LOGGER32_QSO_NUMBER</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Pievienot</translation>
+    </message>
+    <message>
+        <source>Default columns</source>
+        <translation>Noklusējuma kolonnas</translation>
+    </message>
+    <message>
+        <source>Default widths</source>
+        <translation>Noklusētie platumi</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Aizvērt</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1913,10 +1960,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Pop</source>
         <translation>Atdalīt</translation>
-    </message>
-    <message>
-        <source>Default widths</source>
-        <translation>Noklusētie platumi</translation>
     </message>
     <message>
         <source>Band</source>
@@ -3706,6 +3749,205 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Save · rev %1</source>
         <translation>Saglabāt · rev %1</translation>
+    </message>
+</context>
+<context>
+    <name>QsoTableModel</name>
+    <message>
+        <source>Date</source>
+        <translation>Datums</translation>
+    </message>
+    <message>
+        <source>Time on</source>
+        <translation>Sākuma laiks</translation>
+    </message>
+    <message>
+        <source>Time off</source>
+        <translation>Beigu laiks</translation>
+    </message>
+    <message>
+        <source>Prefix</source>
+        <translation>Prefikss</translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation>Apakšrežīms</translation>
+    </message>
+    <message>
+        <source>Band RX</source>
+        <translation>RX josla</translation>
+    </message>
+    <message>
+        <source>Freq RX</source>
+        <translation>Frekv RX</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>Kontinents</translation>
+    </message>
+    <message>
+        <source>SOTA</source>
+        <translation>SOTA</translation>
+    </message>
+    <message>
+        <source>POTA</source>
+        <translation>POTA</translation>
+    </message>
+    <message>
+        <source>WWFF</source>
+        <translation>WWFF</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>Programma</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>Atsauce</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Piezīmes</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation>Izplatīšanās</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Satelīts</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat veids</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation>TX jauda</translation>
+    </message>
+    <message>
+        <source>RX power</source>
+        <translation>RX jauda</translation>
+    </message>
+    <message>
+        <source>Station</source>
+        <translation>Stacija</translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation>Operators</translation>
+    </message>
+    <message>
+        <source>My grid</source>
+        <translation>Mans lokators</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Sacensības</translation>
+    </message>
+    <message>
+        <source>Nr sent</source>
+        <translation>Nosūtītais nr</translation>
+    </message>
+    <message>
+        <source>Nr rcvd</source>
+        <translation>Saņemtais nr</translation>
+    </message>
+    <message>
+        <source>Exch sent</source>
+        <translation>Nosūtītā apmaiņa</translation>
+    </message>
+    <message>
+        <source>Exch rcvd</source>
+        <translation>Saņemtā apmaiņa</translation>
+    </message>
+    <message>
+        <source>ARRL section</source>
+        <translation>ARRL sekcija</translation>
+    </message>
+    <message>
+        <source>Ten-Ten</source>
+        <translation>Ten-Ten</translation>
+    </message>
+    <message>
+        <source>QSL via</source>
+        <translation>QSL via</translation>
+    </message>
+    <message>
+        <source>QSL message</source>
+        <translation>QSL ziņa</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Adrese</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>E-pasts</translation>
+    </message>
+    <message>
+        <source>Distance</source>
+        <translation>Attālums</translation>
+    </message>
+    <message>
+        <source>Age</source>
+        <translation>Vecums</translation>
+    </message>
+    <message>
+        <source>His rig</source>
+        <translation>Viņa iekārta</translation>
+    </message>
+    <message>
+        <source>SFI</source>
+        <translation>SFI</translation>
+    </message>
+    <message>
+        <source>K</source>
+        <translation>K</translation>
+    </message>
+    <message>
+        <source>A</source>
+        <translation>A</translation>
+    </message>
+    <message>
+        <source>Card sent</source>
+        <translation>Kartīte nosūtīta</translation>
+    </message>
+    <message>
+        <source>Card rcvd</source>
+        <translation>Kartīte saņemta</translation>
+    </message>
+    <message>
+        <source>Card sent on</source>
+        <translation>Kartīte nosūtīta</translation>
+    </message>
+    <message>
+        <source>Card rcvd on</source>
+        <translation>Kartīte saņemta</translation>
+    </message>
+    <message>
+        <source>LoTW sent</source>
+        <translation>LoTW nosūtīts</translation>
+    </message>
+    <message>
+        <source>LoTW rcvd</source>
+        <translation>LoTW saņemts</translation>
+    </message>
+    <message>
+        <source>eQSL sent</source>
+        <translation>eQSL nosūtīta</translation>
+    </message>
+    <message>
+        <source>eQSL rcvd</source>
+        <translation>eQSL saņemta</translation>
+    </message>
+    <message>
+        <source>Club Log</source>
+        <translation>Club Log</translation>
+    </message>
+    <message>
+        <source>QRZ</source>
+        <translation>QRZ</translation>
     </message>
 </context>
 <context>

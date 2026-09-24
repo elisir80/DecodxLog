@@ -1143,6 +1143,53 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
 </context>
 <context>
+    <name>ColumnsDialog</name>
+    <message>
+        <source>COLUMNS</source>
+        <translation>KOLOMMEN</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
+        <translation>Links de kolommen die je ziet, in volgorde: ▲▼ verplaatsen ze, ✕ haalt er een weg. Rechts alle andere, een klik voegt hem achteraan toe. Kolommen verplaats je ook door hun kop in het logboek te slepen. Dezelfde indeling geldt ook in contestmodus.</translation>
+    </message>
+    <message>
+        <source>Move left</source>
+        <translation>Naar links</translation>
+    </message>
+    <message>
+        <source>Move right</source>
+        <translation>Naar rechts</translation>
+    </message>
+    <message>
+        <source>Hide this column</source>
+        <translation>Deze kolom verbergen</translation>
+    </message>
+    <message>
+        <source>Add a column</source>
+        <translation>Kolom toevoegen</translation>
+    </message>
+    <message>
+        <source>Any ADIF field, e.g. APP_LOGGER32_QSO_NUMBER</source>
+        <translation>Elk ADIF-veld, bijv. APP_LOGGER32_QSO_NUMBER</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Toevoegen</translation>
+    </message>
+    <message>
+        <source>Default columns</source>
+        <translation>Standaardkolommen</translation>
+    </message>
+    <message>
+        <source>Default widths</source>
+        <translation>Standaardbreedtes</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Sluiten</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1910,10 +1957,6 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Pop</source>
         <translation>Losmaken</translation>
-    </message>
-    <message>
-        <source>Default widths</source>
-        <translation>Standaardbreedtes</translation>
     </message>
     <message>
         <source>Band</source>
@@ -3699,6 +3742,205 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Save · rev %1</source>
         <translation>Opslaan · rev %1</translation>
+    </message>
+</context>
+<context>
+    <name>QsoTableModel</name>
+    <message>
+        <source>Date</source>
+        <translation>Datum</translation>
+    </message>
+    <message>
+        <source>Time on</source>
+        <translation>Begintijd</translation>
+    </message>
+    <message>
+        <source>Time off</source>
+        <translation>Eindtijd</translation>
+    </message>
+    <message>
+        <source>Prefix</source>
+        <translation>Prefix</translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation>Submode</translation>
+    </message>
+    <message>
+        <source>Band RX</source>
+        <translation>Band RX</translation>
+    </message>
+    <message>
+        <source>Freq RX</source>
+        <translation>Freq RX</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>Continent</translation>
+    </message>
+    <message>
+        <source>SOTA</source>
+        <translation>SOTA</translation>
+    </message>
+    <message>
+        <source>POTA</source>
+        <translation>POTA</translation>
+    </message>
+    <message>
+        <source>WWFF</source>
+        <translation>WWFF</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>Programma</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>Referentie</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Notities</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation>Propagatie</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Satelliet</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat-mode</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation>TX-vermogen</translation>
+    </message>
+    <message>
+        <source>RX power</source>
+        <translation>RX-vermogen</translation>
+    </message>
+    <message>
+        <source>Station</source>
+        <translation>Station</translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation>Operator</translation>
+    </message>
+    <message>
+        <source>My grid</source>
+        <translation>Mijn locator</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>Nr sent</source>
+        <translation>Nr uit</translation>
+    </message>
+    <message>
+        <source>Nr rcvd</source>
+        <translation>Nr in</translation>
+    </message>
+    <message>
+        <source>Exch sent</source>
+        <translation>Uitwisseling verstuurd</translation>
+    </message>
+    <message>
+        <source>Exch rcvd</source>
+        <translation>Uitwisseling ontvangen</translation>
+    </message>
+    <message>
+        <source>ARRL section</source>
+        <translation>ARRL-sectie</translation>
+    </message>
+    <message>
+        <source>Ten-Ten</source>
+        <translation>Ten-Ten</translation>
+    </message>
+    <message>
+        <source>QSL via</source>
+        <translation>QSL via</translation>
+    </message>
+    <message>
+        <source>QSL message</source>
+        <translation>QSL-bericht</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Adres</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>E-mail</translation>
+    </message>
+    <message>
+        <source>Distance</source>
+        <translation>Afstand</translation>
+    </message>
+    <message>
+        <source>Age</source>
+        <translation>Leeftijd</translation>
+    </message>
+    <message>
+        <source>His rig</source>
+        <translation>Zijn set</translation>
+    </message>
+    <message>
+        <source>SFI</source>
+        <translation>SFI</translation>
+    </message>
+    <message>
+        <source>K</source>
+        <translation>K</translation>
+    </message>
+    <message>
+        <source>A</source>
+        <translation>A</translation>
+    </message>
+    <message>
+        <source>Card sent</source>
+        <translation>Kaart verstuurd</translation>
+    </message>
+    <message>
+        <source>Card rcvd</source>
+        <translation>Kaart ontvangen</translation>
+    </message>
+    <message>
+        <source>Card sent on</source>
+        <translation>Kaart verstuurd op</translation>
+    </message>
+    <message>
+        <source>Card rcvd on</source>
+        <translation>Kaart ontvangen op</translation>
+    </message>
+    <message>
+        <source>LoTW sent</source>
+        <translation>LoTW verstuurd</translation>
+    </message>
+    <message>
+        <source>LoTW rcvd</source>
+        <translation>LoTW ontvangen</translation>
+    </message>
+    <message>
+        <source>eQSL sent</source>
+        <translation>eQSL verstuurd</translation>
+    </message>
+    <message>
+        <source>eQSL rcvd</source>
+        <translation>eQSL ontvangen</translation>
+    </message>
+    <message>
+        <source>Club Log</source>
+        <translation>Club Log</translation>
+    </message>
+    <message>
+        <source>QRZ</source>
+        <translation>QRZ</translation>
     </message>
 </context>
 <context>

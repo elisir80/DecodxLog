@@ -1,8 +1,10 @@
 #include "app/QsoTableModel.h"
 
+#include "core/Awards.h"
 #include "core/Bands.h"
 #include "core/LogDatabase.h"
 
+#include <QCoreApplication>
 #include <QDateTime>
 #include <QSqlQuery>
 #include <QVariantMap>
@@ -12,6 +14,142 @@ namespace decolog::app {
 using core::LogDatabase;
 
 namespace {
+
+// Le chiavi delle colonne di sempre, nell'ordine dell'enum Column.
+const QStringList& coreKeys()
+{
+    static const QStringList keys{
+        QStringLiteral("utc"), QStringLiteral("call"), QStringLiteral("band"), QStringLiteral("freq"),
+        QStringLiteral("mode"), QStringLiteral("rst_sent"), QStringLiteral("rst_rcvd"),
+        QStringLiteral("grid"), QStringLiteral("name"), QStringLiteral("comment"), QStringLiteral("qth"),
+        QStringLiteral("country"), QStringLiteral("state"), QStringLiteral("county"), QStringLiteral("cqz"),
+        QStringLiteral("ituz"), QStringLiteral("iota"), QStringLiteral("dxcc"), QStringLiteral("qsl"),
+        QStringLiteral("source"), QStringLiteral("tags")};
+    return keys;
+}
+
+// Le altre colonne: il campo ADIF che mostrano e come si legge dal database.
+// Quello che ha una colonna sua si legge da li'; il resto sta nei campi ADIF
+// in piu' (adif_extra, in JSON); gli stati QSL nella tabella qsl_status.
+struct ExtraColumn {
+    const char* key;
+    const char* field;      // il nome ADIF, come lo mostra Logger32 e gli altri
+    const char* title;      // da tradurre
+    int width;
+    const char* sql;        // vuoto: json_extract(adif_extra, '$.CAMPO')
+};
+
+QString qslSql(const char* what, const char* service)
+{
+    return QStringLiteral("(SELECT IFNULL(%1, '') FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = '%2')")
+        .arg(QLatin1String(what), QLatin1String(service));
+}
+
+const QList<ExtraColumn>& extraColumns()
+{
+    static const QList<ExtraColumn> list{
+        {"qso_date", "QSO_DATE", QT_TRANSLATE_NOOP("QsoTableModel", "Date"), 92, "substr(qso_datetime_on, 1, 10)"},
+        {"time_on", "TIME_ON", QT_TRANSLATE_NOOP("QsoTableModel", "Time on"), 70, "substr(qso_datetime_on, 12, 5)"},
+        {"time_off", "TIME_OFF", QT_TRANSLATE_NOOP("QsoTableModel", "Time off"), 70, "CASE WHEN IFNULL(qso_datetime_off, '') <> '' THEN substr(qso_datetime_off, 12, 5) "
+         "WHEN json_extract(adif_extra, '$.TIME_OFF') IS NOT NULL "
+         "THEN substr(json_extract(adif_extra, '$.TIME_OFF'), 1, 2) || ':' || substr(json_extract(adif_extra, '$.TIME_OFF'), 3, 2) "
+         "ELSE '' END"},
+        {"pfx", "PFX", QT_TRANSLATE_NOOP("QsoTableModel", "Prefix"), 60, ""},
+        {"submode", "SUBMODE", QT_TRANSLATE_NOOP("QsoTableModel", "Submode"), 70, "IFNULL(submode, '')"},
+        {"band_rx", "BAND_RX", QT_TRANSLATE_NOOP("QsoTableModel", "Band RX"), 60, "IFNULL(band_rx, '')"},
+        {"freq_rx", "FREQ_RX", QT_TRANSLATE_NOOP("QsoTableModel", "Freq RX"), 96,
+         "CASE WHEN freq_rx IS NULL THEN '' ELSE printf('%.6f', freq_rx) END"},
+        {"cont", "CONT", QT_TRANSLATE_NOOP("QsoTableModel", "Continent"), 60, "IFNULL(cont, '')"},
+        {"sota_ref", "SOTA_REF", QT_TRANSLATE_NOOP("QsoTableModel", "SOTA"), 90, "IFNULL(sota_ref, '')"},
+        {"pota_ref", "POTA_REF", QT_TRANSLATE_NOOP("QsoTableModel", "POTA"), 80, "IFNULL(pota_ref, '')"},
+        {"wwff_ref", "WWFF_REF", QT_TRANSLATE_NOOP("QsoTableModel", "WWFF"), 90, "IFNULL(wwff_ref, '')"},
+        {"sig", "SIG", QT_TRANSLATE_NOOP("QsoTableModel", "Program"), 70, "IFNULL(sig, '')"},
+        {"sig_info", "SIG_INFO", QT_TRANSLATE_NOOP("QsoTableModel", "Reference"), 90, "IFNULL(sig_info, '')"},
+        {"notes", "NOTES", QT_TRANSLATE_NOOP("QsoTableModel", "Notes"), 180, "IFNULL(notes, '')"},
+        {"prop_mode", "PROP_MODE", QT_TRANSLATE_NOOP("QsoTableModel", "Propagation"), 80, "IFNULL(prop_mode, '')"},
+        {"sat_name", "SAT_NAME", QT_TRANSLATE_NOOP("QsoTableModel", "Satellite"), 80, "IFNULL(sat_name, '')"},
+        {"sat_mode", "SAT_MODE", QT_TRANSLATE_NOOP("QsoTableModel", "Sat mode"), 70, "IFNULL(sat_mode, '')"},
+        {"tx_pwr", "TX_PWR", QT_TRANSLATE_NOOP("QsoTableModel", "TX power"), 70,
+         "CASE WHEN tx_pwr IS NULL THEN '' ELSE CAST(tx_pwr AS TEXT) END"},
+        {"rx_pwr", "RX_PWR", QT_TRANSLATE_NOOP("QsoTableModel", "RX power"), 70, ""},
+        {"station_callsign", "STATION_CALLSIGN", QT_TRANSLATE_NOOP("QsoTableModel", "Station"), 100,
+         "COALESCE(json_extract(adif_extra, '$.STATION_CALLSIGN'), "
+         "(SELECT station_callsign FROM station_profile p WHERE p.id = qso.station_profile_id), '')"},
+        {"operator", "OPERATOR", QT_TRANSLATE_NOOP("QsoTableModel", "Operator"), 90,
+         "COALESCE(json_extract(adif_extra, '$.OPERATOR'), "
+         "(SELECT operator FROM station_profile p WHERE p.id = qso.station_profile_id), '')"},
+        {"my_gridsquare", "MY_GRIDSQUARE", QT_TRANSLATE_NOOP("QsoTableModel", "My grid"), 74,
+         "COALESCE(json_extract(adif_extra, '$.MY_GRIDSQUARE'), "
+         "(SELECT my_gridsquare FROM station_profile p WHERE p.id = qso.station_profile_id), '')"},
+        {"contest_id", "CONTEST_ID", QT_TRANSLATE_NOOP("QsoTableModel", "Contest"), 110, ""},
+        {"stx", "STX", QT_TRANSLATE_NOOP("QsoTableModel", "Nr sent"), 60, ""},
+        {"srx", "SRX", QT_TRANSLATE_NOOP("QsoTableModel", "Nr rcvd"), 60, ""},
+        {"stx_string", "STX_STRING", QT_TRANSLATE_NOOP("QsoTableModel", "Exch sent"), 80, ""},
+        {"srx_string", "SRX_STRING", QT_TRANSLATE_NOOP("QsoTableModel", "Exch rcvd"), 80, ""},
+        {"arrl_sect", "ARRL_SECT", QT_TRANSLATE_NOOP("QsoTableModel", "ARRL section"), 70, ""},
+        {"ten_ten", "TEN_TEN", QT_TRANSLATE_NOOP("QsoTableModel", "Ten-Ten"), 60, ""},
+        {"qsl_via", "QSL_VIA", QT_TRANSLATE_NOOP("QsoTableModel", "QSL via"), 100, ""},
+        {"qslmsg", "QSLMSG", QT_TRANSLATE_NOOP("QsoTableModel", "QSL message"), 160, ""},
+        {"address", "ADDRESS", QT_TRANSLATE_NOOP("QsoTableModel", "Address"), 180, ""},
+        {"email", "EMAIL", QT_TRANSLATE_NOOP("QsoTableModel", "Email"), 160, ""},
+        {"distance", "DISTANCE", QT_TRANSLATE_NOOP("QsoTableModel", "Distance"), 70, ""},
+        {"age", "AGE", QT_TRANSLATE_NOOP("QsoTableModel", "Age"), 50, ""},
+        {"rig", "RIG", QT_TRANSLATE_NOOP("QsoTableModel", "His rig"), 120, ""},
+        {"sfi", "SFI", QT_TRANSLATE_NOOP("QsoTableModel", "SFI"), 50, ""},
+        {"k_index", "K_INDEX", QT_TRANSLATE_NOOP("QsoTableModel", "K"), 40, ""},
+        {"a_index", "A_INDEX", QT_TRANSLATE_NOOP("QsoTableModel", "A"), 40, ""},
+        {"qsl_sent", "QSL_SENT", QT_TRANSLATE_NOOP("QsoTableModel", "Card sent"), 60, nullptr},
+        {"qsl_rcvd", "QSL_RCVD", QT_TRANSLATE_NOOP("QsoTableModel", "Card rcvd"), 60, nullptr},
+        {"qslsdate", "QSLSDATE", QT_TRANSLATE_NOOP("QsoTableModel", "Card sent on"), 90, nullptr},
+        {"qslrdate", "QSLRDATE", QT_TRANSLATE_NOOP("QsoTableModel", "Card rcvd on"), 90, nullptr},
+        {"lotw_qsl_sent", "LOTW_QSL_SENT", QT_TRANSLATE_NOOP("QsoTableModel", "LoTW sent"), 60, nullptr},
+        {"lotw_qsl_rcvd", "LOTW_QSL_RCVD", QT_TRANSLATE_NOOP("QsoTableModel", "LoTW rcvd"), 60, nullptr},
+        {"eqsl_qsl_sent", "EQSL_QSL_SENT", QT_TRANSLATE_NOOP("QsoTableModel", "eQSL sent"), 60, nullptr},
+        {"eqsl_qsl_rcvd", "EQSL_QSL_RCVD", QT_TRANSLATE_NOOP("QsoTableModel", "eQSL rcvd"), 60, nullptr},
+        {"clublog_status", "CLUBLOG_QSO_UPLOAD_STATUS", QT_TRANSLATE_NOOP("QsoTableModel", "Club Log"), 60, nullptr},
+        {"qrz_status", "QRZCOM_QSO_UPLOAD_STATUS", QT_TRANSLATE_NOOP("QsoTableModel", "QRZ"), 60, nullptr},
+    };
+    return list;
+}
+
+const ExtraColumn* extraColumn(const QString& key)
+{
+    for (const auto& c : extraColumns()) {
+        if (key == QLatin1String(c.key))
+            return &c;
+    }
+    return nullptr;
+}
+
+// L'espressione SQL di una colonna non di sempre. "x:CAMPO" e' un campo ADIF
+// qualsiasi, quelli che il catalogo non conosce (i campi APP_ di un altro
+// programma, per esempio).
+QString extraSql(const QString& key)
+{
+    auto json = [](const QString& field) {
+        QString safe = field;
+        safe.remove(QLatin1Char('\''));
+        return QStringLiteral("IFNULL(CAST(json_extract(adif_extra, '$.%1') AS TEXT), '')").arg(safe);
+    };
+    if (key.startsWith(QLatin1String("x:")))
+        return json(key.mid(2).toUpper());
+    const ExtraColumn* c = extraColumn(key);
+    if (!c)
+        return QStringLiteral("''");
+    if (key == QLatin1String("qsl_sent")) return qslSql("sent", "card");
+    if (key == QLatin1String("qsl_rcvd")) return qslSql("rcvd", "card");
+    if (key == QLatin1String("qslsdate")) return qslSql("sent_date", "card");
+    if (key == QLatin1String("qslrdate")) return qslSql("rcvd_date", "card");
+    if (key == QLatin1String("lotw_qsl_sent")) return qslSql("sent", "lotw");
+    if (key == QLatin1String("lotw_qsl_rcvd")) return qslSql("rcvd", "lotw");
+    if (key == QLatin1String("eqsl_qsl_sent")) return qslSql("sent", "eqsl");
+    if (key == QLatin1String("eqsl_qsl_rcvd")) return qslSql("rcvd", "eqsl");
+    if (key == QLatin1String("clublog_status")) return qslSql("sent", "clublog");
+    if (key == QLatin1String("qrz_status")) return qslSql("sent", "qrz");
+    if (key == QLatin1String("pfx"))
+        return json(QStringLiteral("PFX"));   // se manca, lo calcola rowFromQuery
+    return c->sql && *c->sql ? QString::fromLatin1(c->sql) : json(QLatin1String(c->field));
+}
 
 // Una lettera per servizio, nell'ordine delle colonne L Q C E: 'c' confermato,
 // 's' inviato o in coda, '-' niente.
@@ -40,7 +178,9 @@ QString qslCodes(const QString& summary)
 QsoTableModel::QsoTableModel(LogDatabase* db, QObject* parent)
     : QAbstractTableModel(parent)
     , m_db(db)
+    , m_layout(coreKeys())
 {
+    rebuildSlots();
     reload();
 }
 
@@ -51,7 +191,7 @@ int QsoTableModel::rowCount(const QModelIndex& parent) const
 
 int QsoTableModel::columnCount(const QModelIndex& parent) const
 {
-    return parent.isValid() ? 0 : ColumnCount;
+    return parent.isValid() ? 0 : static_cast<int>(m_layout.size());
 }
 
 QVariant QsoTableModel::data(const QModelIndex& index, int role) const
@@ -60,8 +200,12 @@ QVariant QsoTableModel::data(const QModelIndex& index, int role) const
         return {};
     const Row& row = m_rows.at(index.row());
     switch (role) {
-    case Qt::DisplayRole:
-        return row.values[index.column()];
+    case Qt::DisplayRole: {
+        const Slot s = m_slots.value(index.column());
+        if (s.core >= 0)
+            return row.values[s.core];
+        return s.extra >= 0 ? row.extra.value(s.extra) : QString();
+    }
     case IdRole:
         return row.id;
     case ColumnKeyRole:
@@ -95,85 +239,203 @@ QHash<int, QByteArray> QsoTableModel::roleNames() const
 
 QString QsoTableModel::columnKey(int column) const
 {
-    static const QStringList keys{
-        QStringLiteral("utc"), QStringLiteral("call"), QStringLiteral("band"), QStringLiteral("freq"),
-        QStringLiteral("mode"), QStringLiteral("rst_sent"), QStringLiteral("rst_rcvd"),
-        QStringLiteral("grid"), QStringLiteral("name"), QStringLiteral("comment"), QStringLiteral("qth"), QStringLiteral("country"),
-        QStringLiteral("state"), QStringLiteral("county"), QStringLiteral("cqz"), QStringLiteral("ituz"),
-        QStringLiteral("iota"), QStringLiteral("dxcc"), QStringLiteral("qsl"),
-        QStringLiteral("source"), QStringLiteral("tags")};
-    return keys.value(column);
+    return m_layout.value(column);
+}
+
+namespace {
+QString coreTitle(int column)
+{
+    switch (column) {
+    case QsoTableModel::Utc:     return QsoTableModel::tr("UTC");
+    case QsoTableModel::Call:    return QsoTableModel::tr("Call");
+    case QsoTableModel::Band:    return QsoTableModel::tr("Band");
+    case QsoTableModel::Freq:    return QsoTableModel::tr("Freq");
+    case QsoTableModel::Mode:    return QsoTableModel::tr("Mode");
+    case QsoTableModel::RstSent: return QsoTableModel::tr("S");
+    case QsoTableModel::RstRcvd: return QsoTableModel::tr("R");
+    case QsoTableModel::Grid:    return QsoTableModel::tr("Grid");
+    case QsoTableModel::Name:    return QsoTableModel::tr("Name");
+    case QsoTableModel::Qth:     return QsoTableModel::tr("City / QTH");
+    case QsoTableModel::Country: return QsoTableModel::tr("Country");
+    case QsoTableModel::State:   return QsoTableModel::tr("State");
+    case QsoTableModel::County:  return QsoTableModel::tr("County");
+    case QsoTableModel::Cqz:     return QsoTableModel::tr("CQ");
+    case QsoTableModel::Ituz:    return QsoTableModel::tr("ITU");
+    case QsoTableModel::Iota:    return QsoTableModel::tr("IOTA");
+    case QsoTableModel::Dxcc:    return QsoTableModel::tr("DXCC");
+    case QsoTableModel::Qsl:     return QsoTableModel::tr("QSL");
+    case QsoTableModel::Source:  return QsoTableModel::tr("Src");
+    case QsoTableModel::Tags:    return QsoTableModel::tr("Tags");
+    // Il COMMENT dell'ADIF: quello che gli altri programmi chiamano commento.
+    // Le etichette sono un'altra cosa, di DecoDXLog.
+    case QsoTableModel::Comment: return QsoTableModel::tr("Comment");
+    default:                     return {};
+    }
+}
+
+int coreWidth(int column)
+{
+    switch (column) {
+    case QsoTableModel::Utc:     return 132;
+    case QsoTableModel::Call:    return 118;
+    case QsoTableModel::Band:    return 56;
+    case QsoTableModel::Freq:    return 96;
+    case QsoTableModel::Mode:    return 60;
+    case QsoTableModel::RstSent:
+    case QsoTableModel::RstRcvd: return 46;
+    case QsoTableModel::Grid:    return 74;
+    case QsoTableModel::Name:    return 140;
+    case QsoTableModel::Comment: return 180;
+    case QsoTableModel::Qth:     return 140;
+    case QsoTableModel::Country: return 130;
+    case QsoTableModel::State:   return 52;
+    case QsoTableModel::County:  return 110;
+    case QsoTableModel::Cqz:
+    case QsoTableModel::Ituz:    return 44;
+    case QsoTableModel::Iota:    return 64;
+    case QsoTableModel::Dxcc:    return 56;
+    case QsoTableModel::Qsl:     return 84;
+    case QsoTableModel::Source:  return 52;
+    case QsoTableModel::Tags:    return 130;
+    default:                     return 80;
+    }
+}
+} // namespace
+
+QString QsoTableModel::titleOf(const QString& key) const
+{
+    const qsizetype core = coreKeys().indexOf(key);
+    if (core >= 0)
+        return coreTitle(static_cast<int>(core));
+    if (key.startsWith(QLatin1String("x:")))
+        return key.mid(2).toUpper();
+    if (const ExtraColumn* c = extraColumn(key))
+        return QCoreApplication::translate("QsoTableModel", c->title);
+    return key;
 }
 
 QString QsoTableModel::columnTitle(int column) const
 {
-    switch (column) {
-    case Utc:     return tr("UTC");
-    case Call:    return tr("Call");
-    case Band:    return tr("Band");
-    case Freq:    return tr("Freq");
-    case Mode:    return tr("Mode");
-    case RstSent: return tr("S");
-    case RstRcvd: return tr("R");
-    case Grid:    return tr("Grid");
-    case Name:    return tr("Name");
-    case Qth:     return tr("City / QTH");
-    case Country: return tr("Country");
-    case State:   return tr("State");
-    case County:  return tr("County");
-    case Cqz:     return tr("CQ");
-    case Ituz:    return tr("ITU");
-    case Iota:    return tr("IOTA");
-    case Dxcc:    return tr("DXCC");
-    case Qsl:     return tr("QSL");
-    case Source:  return tr("Src");
-    case Tags:    return tr("Tags");
-    // Il COMMENT dell'ADIF: quello che gli altri programmi chiamano commento.
-    // Le etichette sono un'altra cosa, di DecoDXLog.
-    case Comment: return tr("Comment");
-    default:      return {};
-    }
+    return titleOf(m_layout.value(column));
 }
 
 int QsoTableModel::columnWidthHint(int column) const
 {
-    switch (column) {
-    case Utc:     return 132;
-    case Call:    return 118;
-    case Band:    return 56;
-    case Freq:    return 96;
-    case Mode:    return 60;
-    case RstSent:
-    case RstRcvd: return 46;
-    case Grid:    return 74;
-    case Name:    return 140;
-    case Qth:     return 140;
-    case Country: return 130;
-    case State:   return 52;
-    case County:  return 110;
-    case Cqz:
-    case Ituz:    return 44;
-    case Iota:    return 64;
-    case Dxcc:    return 56;
-    case Qsl:     return 84;
-    case Source:  return 52;
-    case Tags:    return 130;
-    case Comment: return 180;
-    default:      return 80;
+    const QString key = m_layout.value(column);
+    const qsizetype core = coreKeys().indexOf(key);
+    if (core >= 0)
+        return coreWidth(static_cast<int>(core));
+    if (const ExtraColumn* c = extraColumn(key))
+        return c->width;
+    return 100;
+}
+
+QStringList QsoTableModel::defaultLayout()
+{
+    return coreKeys();
+}
+
+QVariantList QsoTableModel::availableColumns() const
+{
+    QVariantList out;
+    static const QStringList coreFields{
+        QStringLiteral("QSO_DATE+TIME_ON"), QStringLiteral("CALL"), QStringLiteral("BAND"), QStringLiteral("FREQ"),
+        QStringLiteral("MODE"), QStringLiteral("RST_SENT"), QStringLiteral("RST_RCVD"), QStringLiteral("GRIDSQUARE"),
+        QStringLiteral("NAME"), QStringLiteral("COMMENT"), QStringLiteral("QTH"), QStringLiteral("COUNTRY"),
+        QStringLiteral("STATE"), QStringLiteral("CNTY"), QStringLiteral("CQZ"), QStringLiteral("ITUZ"),
+        QStringLiteral("IOTA"), QStringLiteral("DXCC"), QStringLiteral("L Q C E"), QString(),
+        QStringLiteral("APP_DECOLOG_TAGS")};
+    for (qsizetype i = 0; i < coreKeys().size(); ++i) {
+        out << QVariantMap{{QStringLiteral("key"), coreKeys().at(i)},
+                           {QStringLiteral("title"), coreTitle(static_cast<int>(i))},
+                           {QStringLiteral("field"), coreFields.value(i)}};
     }
+    for (const auto& c : extraColumns()) {
+        out << QVariantMap{{QStringLiteral("key"), QLatin1String(c.key)},
+                           {QStringLiteral("title"), QCoreApplication::translate("QsoTableModel", c.title)},
+                           {QStringLiteral("field"), QLatin1String(c.field)}};
+    }
+    // I campi ADIF qualsiasi che l'operatore ha aggiunto.
+    for (const QString& key : m_layout) {
+        if (key.startsWith(QLatin1String("x:")))
+            out << QVariantMap{{QStringLiteral("key"), key},
+                               {QStringLiteral("title"), key.mid(2).toUpper()},
+                               {QStringLiteral("field"), key.mid(2).toUpper()}};
+    }
+    return out;
+}
+
+void QsoTableModel::setColumnLayout(const QStringList& keys)
+{
+    QStringList clean;
+    for (const QString& raw : keys) {
+        const QString key = raw.trimmed();
+        const bool known = coreKeys().contains(key) || extraColumn(key)
+                           || (key.startsWith(QLatin1String("x:")) && key.size() > 2);
+        if (known && !clean.contains(key))
+            clean << key;
+    }
+    // Il nominativo non si toglie: senza, una riga non dice niente.
+    if (!clean.contains(QStringLiteral("call")))
+        clean.prepend(QStringLiteral("call"));
+    if (clean == m_layout)
+        return;
+    const QStringList oldExtra = m_extra;
+    m_layout = clean;
+    m_extra.clear();
+    for (const QString& key : m_layout) {
+        if (!coreKeys().contains(key))
+            m_extra << key;
+    }
+    rebuildSlots();
+    if (m_extra != oldExtra) {
+        // Colonne nuove da leggere: si rilegge il log.
+        reload();
+    } else {
+        beginResetModel();
+        endResetModel();
+    }
+    emit layoutChanged();
+}
+
+void QsoTableModel::rebuildSlots()
+{
+    m_slots.clear();
+    for (const QString& key : m_layout) {
+        Slot s;
+        s.core = static_cast<int>(coreKeys().indexOf(key));
+        if (s.core < 0)
+            s.extra = static_cast<int>(m_extra.indexOf(key));
+        m_slots << s;
+    }
+}
+
+QString QsoTableModel::valueFor(int row, const QString& key) const
+{
+    if (row < 0 || row >= m_rows.size())
+        return {};
+    const Row& r = m_rows.at(row);
+    const qsizetype core = coreKeys().indexOf(key);
+    if (core >= 0)
+        return r.values[core];
+    const qsizetype extra = m_extra.indexOf(key);
+    return extra >= 0 ? r.extra.value(extra) : QString();
 }
 
 QString QsoTableModel::selectSql(const QString& where) const
 {
+    QString extras;
+    for (const QString& key : m_extra)
+        extras += QStringLiteral(", ") + extraSql(key);
     return QStringLiteral(
                "SELECT id, qso_datetime_on, call, band, mode, submode, freq, rst_sent, rst_rcvd, "
                "gridsquare, name, dxcc, source, "
                "(SELECT group_concat(service || ':' || sent || ':' || rcvd) FROM qsl_status s WHERE s.qso_id = qso.id), "
                "IFNULL(tags, ''), "
                "IFNULL(qth, ''), IFNULL(country, ''), IFNULL(state, ''), IFNULL(cnty, ''), "
-               "cqz, ituz, IFNULL(iota, ''), IFNULL(comment, '') "
+               "cqz, ituz, IFNULL(iota, ''), IFNULL(comment, '')%2 "
                "FROM qso WHERE deleted = 0 %1 ORDER BY qso_datetime_on DESC, id DESC")
-        .arg(where);
+        .arg(where, extras);
 }
 
 QsoTableModel::Row QsoTableModel::rowFromQuery(const QSqlQuery& q) const
@@ -211,6 +473,13 @@ QsoTableModel::Row QsoTableModel::rowFromQuery(const QSqlQuery& q) const
     r.values[Ituz] = q.value(20).isNull() || q.value(20).toInt() <= 0 ? QString() : q.value(20).toString();
     r.values[Iota] = q.value(21).toString();
     r.values[Comment] = q.value(22).toString();
+    for (qsizetype i = 0; i < m_extra.size(); ++i) {
+        QString v = q.value(23 + static_cast<int>(i)).toString();
+        // Il prefisso WPX: chi non l'ha scritto nel file lo trova lo stesso.
+        if (v.isEmpty() && m_extra.at(i) == QLatin1String("pfx"))
+            v = core::awards::wpxPrefix(r.values[Call]);
+        r.extra << v;
+    }
     return r;
 }
 
@@ -330,7 +599,7 @@ void QsoTableModel::refreshQso(qint64 id)
         const bool wasFresh = m_rows.at(i).fresh;
         m_rows[i] = rowFromQuery(q);
         m_rows[i].fresh = wasFresh;
-        emit dataChanged(index(static_cast<int>(i), 0), index(static_cast<int>(i), ColumnCount - 1));
+        emit dataChanged(index(static_cast<int>(i), 0), index(static_cast<int>(i), columns() - 1));
         return;
     }
 }
@@ -362,7 +631,7 @@ void QsoTableModel::insertQso(qint64 id)
     for (qsizetype i = 0; i < m_rows.size(); ++i) {
         if (m_rows[i].fresh) {
             m_rows[i].fresh = false;
-            emit dataChanged(index(static_cast<int>(i), 0), index(static_cast<int>(i), ColumnCount - 1), {IsNewRole});
+            emit dataChanged(index(static_cast<int>(i), 0), index(static_cast<int>(i), columns() - 1), {IsNewRole});
         }
     }
 
@@ -433,9 +702,7 @@ QString QsoTableModel::callAt(int row) const
 
 QString QsoTableModel::valueAt(int row, int column) const
 {
-    if (row < 0 || row >= m_rows.size() || column < 0 || column >= ColumnCount)
-        return {};
-    return m_rows.at(row).values[column];
+    return valueFor(row, m_layout.value(column));
 }
 
 int QsoTableModel::rowForId(qint64 id) const

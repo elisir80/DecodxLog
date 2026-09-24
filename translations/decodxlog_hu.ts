@@ -1141,6 +1141,53 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>ColumnsDialog</name>
+    <message>
+        <source>COLUMNS</source>
+        <translation>OSZLOPOK</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
+        <translation>Balra a látható oszlopok, sorrendben: ▲▼ mozgatja őket, ✕ elvesz egyet. Jobbra az összes többi, egy kattintás a végére teszi. Az oszlopok a naplóban a fejlécük húzásával is mozgathatók. Ugyanez az elrendezés érvényes contest módban is.</translation>
+    </message>
+    <message>
+        <source>Move left</source>
+        <translation>Balra</translation>
+    </message>
+    <message>
+        <source>Move right</source>
+        <translation>Jobbra</translation>
+    </message>
+    <message>
+        <source>Hide this column</source>
+        <translation>Oszlop elrejtése</translation>
+    </message>
+    <message>
+        <source>Add a column</source>
+        <translation>Oszlop hozzáadása</translation>
+    </message>
+    <message>
+        <source>Any ADIF field, e.g. APP_LOGGER32_QSO_NUMBER</source>
+        <translation>Bármely ADIF-mező, pl. APP_LOGGER32_QSO_NUMBER</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Hozzaadas</translation>
+    </message>
+    <message>
+        <source>Default columns</source>
+        <translation>Alapértelmezett oszlopok</translation>
+    </message>
+    <message>
+        <source>Default widths</source>
+        <translation>Alapértelmezett szélességek</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Bezárás</translation>
+    </message>
+</context>
+<context>
     <name>ContestEntryPanel</name>
     <message>
         <source>The callsign is too short</source>
@@ -1907,10 +1954,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Pop</source>
         <translation>Leválasztás</translation>
-    </message>
-    <message>
-        <source>Default widths</source>
-        <translation>Alapértelmezett szélességek</translation>
     </message>
     <message>
         <source>Band</source>
@@ -3692,6 +3735,205 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Save · rev %1</source>
         <translation>Mentés · rev %1</translation>
+    </message>
+</context>
+<context>
+    <name>QsoTableModel</name>
+    <message>
+        <source>Date</source>
+        <translation>Dátum</translation>
+    </message>
+    <message>
+        <source>Time on</source>
+        <translation>Kezdés</translation>
+    </message>
+    <message>
+        <source>Time off</source>
+        <translation>Vége</translation>
+    </message>
+    <message>
+        <source>Prefix</source>
+        <translation>Prefix</translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation>Almód</translation>
+    </message>
+    <message>
+        <source>Band RX</source>
+        <translation>RX-sáv</translation>
+    </message>
+    <message>
+        <source>Freq RX</source>
+        <translation>Frek RX</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>Kontinens</translation>
+    </message>
+    <message>
+        <source>SOTA</source>
+        <translation>SOTA</translation>
+    </message>
+    <message>
+        <source>POTA</source>
+        <translation>POTA</translation>
+    </message>
+    <message>
+        <source>WWFF</source>
+        <translation>WWFF</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>Program</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>Referencia</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Jegyzetek</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation>Terjedés</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Műhold</translation>
+    </message>
+    <message>
+        <source>Sat mode</source>
+        <translation>Sat mód</translation>
+    </message>
+    <message>
+        <source>TX power</source>
+        <translation>TX teljesítmény</translation>
+    </message>
+    <message>
+        <source>RX power</source>
+        <translation>RX teljesítmény</translation>
+    </message>
+    <message>
+        <source>Station</source>
+        <translation>Állomás</translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation>Operátor</translation>
+    </message>
+    <message>
+        <source>My grid</source>
+        <translation>Az én lokátorom</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Verseny</translation>
+    </message>
+    <message>
+        <source>Nr sent</source>
+        <translation>Adott sorsz.</translation>
+    </message>
+    <message>
+        <source>Nr rcvd</source>
+        <translation>Kapott sorsz.</translation>
+    </message>
+    <message>
+        <source>Exch sent</source>
+        <translation>Küldött csere</translation>
+    </message>
+    <message>
+        <source>Exch rcvd</source>
+        <translation>Kapott csere</translation>
+    </message>
+    <message>
+        <source>ARRL section</source>
+        <translation>ARRL szekció</translation>
+    </message>
+    <message>
+        <source>Ten-Ten</source>
+        <translation>Ten-Ten</translation>
+    </message>
+    <message>
+        <source>QSL via</source>
+        <translation>QSL via</translation>
+    </message>
+    <message>
+        <source>QSL message</source>
+        <translation>QSL üzenet</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Cím</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>E-mail</translation>
+    </message>
+    <message>
+        <source>Distance</source>
+        <translation>Távolság</translation>
+    </message>
+    <message>
+        <source>Age</source>
+        <translation>Kor</translation>
+    </message>
+    <message>
+        <source>His rig</source>
+        <translation>Az ő rádiója</translation>
+    </message>
+    <message>
+        <source>SFI</source>
+        <translation>SFI</translation>
+    </message>
+    <message>
+        <source>K</source>
+        <translation>K</translation>
+    </message>
+    <message>
+        <source>A</source>
+        <translation>A</translation>
+    </message>
+    <message>
+        <source>Card sent</source>
+        <translation>Lap elküldve</translation>
+    </message>
+    <message>
+        <source>Card rcvd</source>
+        <translation>Lap megérkezett</translation>
+    </message>
+    <message>
+        <source>Card sent on</source>
+        <translation>Lap elküldve ekkor</translation>
+    </message>
+    <message>
+        <source>Card rcvd on</source>
+        <translation>Lap megérkezett ekkor</translation>
+    </message>
+    <message>
+        <source>LoTW sent</source>
+        <translation>LoTW elküldve</translation>
+    </message>
+    <message>
+        <source>LoTW rcvd</source>
+        <translation>LoTW megérkezett</translation>
+    </message>
+    <message>
+        <source>eQSL sent</source>
+        <translation>eQSL elküldve</translation>
+    </message>
+    <message>
+        <source>eQSL rcvd</source>
+        <translation>eQSL megérkezett</translation>
+    </message>
+    <message>
+        <source>Club Log</source>
+        <translation>Club Log</translation>
+    </message>
+    <message>
+        <source>QRZ</source>
+        <translation>QRZ</translation>
     </message>
 </context>
 <context>
