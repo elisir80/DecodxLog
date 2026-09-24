@@ -11,7 +11,7 @@ on:
       tag:
         description: Release tag
         required: true
-        default: v1.7.2
+        default: v1.12.0
 
 permissions:
   contents: write
@@ -28,7 +28,7 @@ jobs:
             runner: macos-14
             arch: arm64
           - name: intel
-            runner: macos-13
+            runner: macos-15-intel
             arch: x86_64
 
     steps:
@@ -47,13 +47,24 @@ jobs:
       - name: Deploy app bundle
         run: |
           export PATH="$(brew --prefix qt)/bin:$PATH"
-          macdeployqt build/DecoDXLog.app -qmldir=qml -qmldir=libs/decodium-ui/qml -verbose=1
+          macdeployqt build/DecoDXLog.app \
+            -qmldir=qml \
+            -qmldir=libs/decodium-ui/qml \
+            -libpath="$(brew --prefix brotli)/lib" \
+            -libpath="$(brew --prefix webp)/lib" \
+            -no-codesign \
+            -verbose=1
           version="${GITHUB_REF_NAME#v}"
           mkdir -p release-assets
 
-          while IFS= read -r -d '' item; do
-            codesign --force --sign - --timestamp=none "$item"
-          done < <(find build/DecoDXLog.app/Contents -type f \( -perm -111 -o -name "*.dylib" -o -name "*.so" \) -print0)
+          find -L build/DecoDXLog.app/Contents -type f -print0 \
+            | xargs -0 file \
+            | awk -F: '/Mach-O/ { print length($1) "\t" $1 }' \
+            | sort -rn \
+            | cut -f2- \
+            | while IFS= read -r item; do
+                codesign --force --sign - --timestamp=none "$item"
+              done
 
           codesign --force --deep --sign - --timestamp=none build/DecoDXLog.app
           codesign --verify --deep --strict --verbose=2 build/DecoDXLog.app

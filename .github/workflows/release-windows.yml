@@ -24,7 +24,7 @@ on:
       tag:
         description: Release tag
         required: true
-        default: v1.7.2
+        default: v1.12.0
 
 permissions:
   contents: write
@@ -73,10 +73,25 @@ jobs:
             --qmldir qml `
             --qmldir libs\decodium-ui\qml `
             --release `
+            --force-openssl `
             --no-translations `
             --no-system-d3d-compiler `
             --no-opengl-sw `
             dist\DecoDXLog.exe
+          $opensslDlls = @("libcrypto-3-x64.dll", "libssl-3-x64.dll")
+          foreach ($dll in $opensslDlls) {
+            if (-not (Test-Path "dist\$dll")) {
+              $candidate = Join-Path "$env:QT_ROOT_DIR\bin" $dll
+              if (Test-Path $candidate) {
+                Copy-Item $candidate dist\
+              }
+            }
+          }
+          foreach ($dll in $opensslDlls) {
+            if (-not (Test-Path "dist\$dll")) {
+              throw "Missing required OpenSSL runtime DLL: $dll"
+            }
+          }
           Copy-Item LICENSE dist\LICENSE.txt
           Copy-Item resources\cty\COPYRIGHT.txt dist\cty.csv-COPYRIGHT.txt
           Copy-Item libs\ggmorse\LICENSE dist\ggmorse-LICENSE.txt
