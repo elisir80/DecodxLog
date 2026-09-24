@@ -3,6 +3,22 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.1 — 24 settembre 2026
+
+**Stazione dentro Impostazioni, e Pannelli che in gara comanda davvero.**
+
+- **La stazione sta in Impostazioni**: il riquadro Stazione nella barra in alto non c'e' piu'.
+  Il pulsante dice con quale profilo si scrive ("Impostazioni · IU8LMC ▾"), e il suo menu apre
+  le impostazioni, cambia profilo con un clic (spuntato quello attivo) o apre i profili.
+- **Via il pulsante Cluster**: il cluster si apre dal menu del marchio (≡ → DX Cluster…) e con
+  Ctrl+K.
+- **Pannelli in modalita' contest**: comandava la disposizione di tutti i giorni, che in gara
+  e' spenta, e i clic non aprivano e non chiudevano niente. Adesso in gara elenca i pannelli
+  della lavagna: un clic li apre o li chiude, ⤢ li stacca, ↩ li riporta, e il conto dei
+  chiusi e' quello della lavagna.
+- **La CW si comporta come le altre**: staccata dalla lavagna non mostra piu' il pulsante
+  "Davanti", che in gara non faceva niente.
+
 ## 1.16.0 — 24 settembre 2026
 
 **La modalita' contest diventa una lavagna magnetica.** In gara la finestra principale e' una
