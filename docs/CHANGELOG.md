@@ -3,6 +3,19 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.2 — 24 settembre 2026
+
+**Nel log colonne e filtri funzionano ovunque.**
+
+- **Colonne e filtri salvati**: li ricordava solo il log nella sua casella di serie, al centro
+  della finestra principale. Sulla lavagna del contest, in un log staccato o spostato in
+  un'altra casella, scegliere una colonna o salvare un filtro non faceva niente. Adesso li
+  tiene il log stesso, dovunque sia; le scelte di prima restano.
+- **Le colonne si tirano dall'intestazione**: fra un'intestazione e l'altra c'e' una riga
+  verticale che si vede, e trascinandola la colonna si allarga o si stringe. La misura resta.
+- **Barra in alto senza fascia vuota**: cloud e ricerca stanno subito dopo i comandi, e la
+  ricerca prende lo spazio che avanza.
+
 ## 1.16.1 — 24 settembre 2026
 
 **Stazione dentro Impostazioni, e Pannelli che in gara comanda davvero.**
