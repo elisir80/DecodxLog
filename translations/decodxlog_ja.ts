@@ -2944,6 +2944,30 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: サービスが応答しません (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: APIキーが受け付けられませんでした</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: 登録済み</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>予期しない応答</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: もうありました</translation>
     </message>
@@ -2978,6 +3002,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: 返事がありません</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>APIキーが受け付けられませんでした</translation>
     </message>
 </context>
 <context>
@@ -4683,6 +4711,26 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
         <translation>Club Log がほしいのは三つです。アカウントのメールとパスワード (下)、局プロファイルのコールサイン、そして API キー。キーは無料で自分だけのもので、clublog.org/need_api.php でもらいます。あれはプログラムを指すもので、あなたを指すものではありません。1 件の QSO は記録したらすぐ出ていきます。たまったぶんは 1 つの ADIF ファイルで出ていきます。</translation>
+    </message>
+    <message>
+        <source>Logbook on CRX</source>
+        <translation>CRXのログブック</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— 一覧を読み込む —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>自分のログブックを読み込む</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>送信開始日</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook は crx.cloud のクラウドログです。アカウントのAPIキー(HAM- で始まるもの。下の他の認証情報と一緒に登録)と書き込むログブックが必要です。ログブックを選んだ日から送信が始まり、それより古いQSOは日付を戻したときだけ送られます。各QSOは日付と時刻付きで送られ、送信後に修正したものは重複せず更新されます。送信・自動送信・カウンターは下のQSLタブにあります。</translation>
     </message>
     <message>
         <source>QSL by email</source>
@@ -6450,6 +6498,20 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: このアカウントにはまだログブックがありません — crx.cloud で作成してください</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: アカウントに %n 冊のログブック</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: 止めました、%2</translation>
     </message>
@@ -6482,6 +6544,22 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>API キーがありません: 設定 → QSL のサービス</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>CRXのログブックを選択: 設定 → QSLサービス</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: ログブックを問い合わせ中…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: APIキーがありません (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>下で追加してください</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6518,6 +6596,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>
             <numerusform>Club Log: %n 件の QSO を送っています…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: 先にログブックを選択してください (設定 → QSLサービス)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -6997,6 +7079,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>eQSL への送信と確認</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>CRX Logbook (crx.cloud) への送信: キーは HAM- で始まります</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

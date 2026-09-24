@@ -2949,6 +2949,30 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: no answer from the service (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: the API key was not accepted</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: already there</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>unexpected answer</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2983,6 +3007,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Club Log: no answer</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>the API key was not accepted</translation>
     </message>
 </context>
 <context>
@@ -4692,6 +4720,26 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Logbook on CRX</source>
+        <translation>Logbook on CRX</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— load the list —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Load my logbooks</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>Send QSOs from</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</translation>
     </message>
     <message>
         <source>QSL by email</source>
@@ -6483,6 +6531,21 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: this account has no logbook yet — create one on crx.cloud</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: %n logbook in the account</numerusform>
+            <numerusform>CRX: %n logbooks in the account</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6516,6 +6579,22 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>choose the CRX logbook: Setup → QSL services</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: asking for the logbooks…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: no API key (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>add it below</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6554,6 +6633,10 @@ The call Decodium is working shows up here by itself.</source>
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: choose the logbook first (Setup → QSL services)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -7035,6 +7118,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

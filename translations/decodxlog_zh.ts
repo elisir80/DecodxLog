@@ -2944,6 +2944,30 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>QRZ Logbook：%1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook：QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook：服务无响应（%1）</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook：API 密钥未被接受</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook：已存在</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook：%1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>意外的响应</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL：已经有了</translation>
     </message>
@@ -2978,6 +3002,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log：没有回复</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>API 密钥未被接受</translation>
     </message>
 </context>
 <context>
@@ -4683,6 +4711,26 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
         <translation>Club Log 要三样东西：账户的邮箱和密码（下面）、电台配置里的呼号，以及一个 API 密钥。密钥是免费的、属于你个人的，在 clublog.org/need_api.php 申请 — 它标识的是程序，不是你。单个 QSO 一记录就发走，积压的则作为一个 ADIF 文件发走。</translation>
+    </message>
+    <message>
+        <source>Logbook on CRX</source>
+        <translation>CRX 上的日志本</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— 加载列表 —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>加载我的日志本</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>从此日期起发送 QSO</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook 是 crx.cloud 的云端日志。它需要你账户的 API 密钥（以 HAM- 开头，在下方与其他凭据一起填写）以及要写入的日志本。从你选择日志本的那天开始发送：更早的 QSO 只有在你把日期往前调时才会发送。每个 QSO 都带日期和时间发送；发送后修改的会被更新，而不会重复。发送、自动发送和计数在下方的 QSL 标签页中。</translation>
     </message>
     <message>
         <source>QSL by email</source>
@@ -6450,6 +6498,20 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX：%1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX：此账户还没有日志本 — 请在 crx.cloud 上创建一个</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX：账户中有 %n 个日志本</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1：已停止，%2</translation>
     </message>
@@ -6482,6 +6544,22 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>没有 API 密钥：设置 → QSL 服务</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>选择 CRX 日志本：设置 → QSL 服务</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX：正在获取日志本…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX：没有 API 密钥（%1）</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>请在下方添加</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6518,6 +6596,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>
             <numerusform>Club Log：正在发送 %n 个 QSO…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook：请先选择日志本（设置 → QSL 服务）</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -6997,6 +7079,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>eQSL 的上传与确认</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>发送到 CRX Logbook（crx.cloud）：密钥以 HAM- 开头</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

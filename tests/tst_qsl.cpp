@@ -1,14 +1,59 @@
 // Invio QSL: codici d'uscita di TQSL, risposte di QRZ Logbook ed eQSL, coda e
 // stato per servizio nel database.
+#include "core/Adif.h"
 #include "core/LogDatabase.h"
 #include "core/QslUpload.h"
 
 #include <QDir>
 #include <QFile>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QSignalSpy>
+#include <QTcpServer>
+#include <QTcpSocket>
 #include <QTemporaryDir>
 #include <QTest>
 
 using namespace decolog::core;
+
+namespace {
+
+// Un CRX finto: risponde sempre con `answer`, e si tiene la richiesta.
+class FakeCrx : public QTcpServer {
+public:
+    QByteArray request;
+    QByteArray body;
+    QByteArray answer;
+    int status{200};
+
+    FakeCrx()
+    {
+        connect(this, &QTcpServer::newConnection, this, [this] {
+            QTcpSocket* socket = nextPendingConnection();
+            connect(socket, &QTcpSocket::readyRead, socket, [this, socket] {
+                request += socket->readAll();
+                const int head = request.indexOf("\r\n\r\n");
+                if (head < 0)
+                    return;
+                body = request.mid(head + 4);
+                QByteArray length;
+                for (const QByteArray& line : request.left(head).split('\n')) {
+                    if (line.toLower().startsWith("content-length:"))
+                        length = line.mid(15).trimmed();
+                }
+                if (body.size() < length.toInt())
+                    return;
+                socket->write("HTTP/1.1 " + QByteArray::number(status) + " X\r\nContent-Type: application/json\r\n"
+                              "Content-Length: " + QByteArray::number(answer.size()) + "\r\n\r\n" + answer);
+                socket->disconnectFromHost();
+            });
+        });
+    }
+    QUrl url() const { return QUrl(QStringLiteral("http://127.0.0.1:%1/api/").arg(serverPort())); }
+};
+
+} // namespace
 
 class TestQsl : public QObject {
     Q_OBJECT
@@ -108,6 +153,108 @@ private slots:
         r = qsl::parseClubLogResponse(0, "", 1);
         QVERIFY(!r.ok);
         QVERIFY(r.retryLater);
+    }
+
+    void crxQsoFromTheLog()
+    {
+        // Il QSO come lo vuole CRX: campi logentry_*, frequenza in kHz, il modo
+        // vero (FT8, non MFSK) e l'ora in secondi Unix, come in get_myqsos.
+        AdifRecord r{{"CALL", "w1aw"}, {"QSO_DATE", "20241020"}, {"TIME_ON", "1248"}, {"BAND", "40M"},
+                     {"FREQ", "7.025"}, {"MODE", "MFSK"}, {"SUBMODE", "FT4"}, {"RST_SENT", "-05"},
+                     {"RST_RCVD", "-12"}, {"NAME", "John"}, {"COMMENT", "Good signal"}};
+        const QJsonObject o = qsl::crxQsoData(r, 123, 0);
+        QCOMPARE(o.value("qso_id").toInteger(), 0);
+        QCOMPARE(o.value("f_log_id").toInteger(), 123);
+        QCOMPARE(o.value("logentry_his_call").toString(), QString("W1AW"));
+        QCOMPARE(o.value("logentry_band").toString(), QString("40m"));
+        QCOMPARE(o.value("logentry_frequency").toString(), QString("7025"));
+        QCOMPARE(o.value("logentry_mode").toString(), QString("FT4"));
+        QCOMPARE(o.value("logentry_his_report").toString(), QString("-05"));
+        QCOMPARE(o.value("logentry_my_report").toString(), QString("-12"));
+        QCOMPARE(o.value("logentry_his_name").toString(), QString("John"));
+        QCOMPARE(o.value("logentry_comment").toString(), QString("Good signal"));
+        // 2024-10-20 12:48 UTC
+        QCOMPARE(o.value("logentry_date").toInteger(), 1729428480);
+
+        // Un QSO gia' mandato si corregge con il suo numero, e l'SSB resta SSB.
+        AdifRecord ssb{{"CALL", "IK0ABC"}, {"QSO_DATE", "20260924"}, {"TIME_ON", "101530"}, {"BAND", "20m"},
+                       {"FREQ", "14.2745"}, {"MODE", "SSB"}, {"SUBMODE", "USB"}};
+        const QJsonObject again = qsl::crxQsoData(ssb, 123, 456);
+        QCOMPARE(again.value("qso_id").toInteger(), 456);
+        QCOMPARE(again.value("logentry_mode").toString(), QString("SSB"));
+        QCOMPARE(again.value("logentry_frequency").toString(), QString("14274.5"));
+        QVERIFY(!again.contains("logentry_his_name"));
+    }
+
+    void crxAnswers()
+    {
+        auto r = qsl::parseCrxResponse(200, R"({"success": true, "message": "QSO created successfully", "qso_id": 457})");
+        QVERIFY(r.ok);
+        QCOMPARE(r.accepted, 1);
+        QCOMPARE(r.remoteId, QString("457"));
+
+        // Chiave sbagliata: vale per tutti, ci si ferma.
+        r = qsl::parseCrxResponse(401, R"({"error": "Invalid API key"})");
+        QVERIFY(!r.ok);
+        QVERIFY(r.retryLater);
+
+        // Un QSO rifiutato: il motivo resta scritto, gli altri partono.
+        r = qsl::parseCrxResponse(400, R"({"error": "Missing logentry_his_call"})");
+        QVERIFY(!r.ok);
+        QVERIFY(!r.retryLater);
+        QCOMPARE(r.rejected, 1);
+        QVERIFY(r.message.contains(QLatin1String("Missing logentry_his_call")));
+
+        r = qsl::parseCrxResponse(500, "<html>oops</html>");
+        QVERIFY(r.retryLater);
+
+        QString error;
+        const QVariantList logs = qsl::parseCrxLogs(
+            R"({"logs": [{"log_id": 123, "log_name": "IOTA Contest 2023", "log_activation_call": "F/K1ABC", "log_desc": "EU-048"}]})",
+            &error);
+        QVERIFY(error.isEmpty());
+        QCOMPARE(logs.size(), 1);
+        QCOMPARE(logs.first().toMap().value("id").toLongLong(), 123);
+        QCOMPARE(logs.first().toMap().value("name").toString(), QString("IOTA Contest 2023"));
+    }
+
+    void crxOverTheWire()
+    {
+        // La busta vera: POST JSON {"req": {type, query, apikey, qsoData}}.
+        FakeCrx crx;
+        QVERIFY(crx.listen(QHostAddress::LocalHost));
+        crx.answer = R"({"success": true, "qso_id": 457})";
+        WebQslUploader web;
+        web.setCrxEndpoint(crx.url());
+        QSignalSpy done(&web, &WebQslUploader::finished);
+        AdifRecord r{{"CALL", "W1AW"}, {"QSO_DATE", "20241020"}, {"TIME_ON", "1248"}, {"BAND", "40m"},
+                     {"FREQ", "7.025"}, {"MODE", "CW"}};
+        web.uploadCrx("HAM-XX-12345678-12345678", qsl::crxQsoData(r, 123, 0));
+        QVERIFY(done.wait(5000));
+        const auto result = done.first().first().value<QslUploadResult>();
+        QVERIFY(result.ok);
+        QCOMPARE(result.remoteId, QString("457"));
+
+        QVERIFY(crx.request.startsWith("POST /api/ "));
+        QVERIFY(crx.request.toLower().contains("content-type: application/json"));
+        const QJsonObject req = QJsonDocument::fromJson(crx.body).object().value("req").toObject();
+        QCOMPARE(req.value("type").toString(), QString("radio"));
+        QCOMPARE(req.value("query").toString(), QString("edit_myqso"));
+        QCOMPARE(req.value("apikey").toString(), QString("HAM-XX-12345678-12345678"));
+        QCOMPARE(req.value("qsoData").toObject().value("logentry_his_call").toString(), QString("W1AW"));
+
+        // L'elenco dei logbook.
+        FakeCrx logs;
+        QVERIFY(logs.listen(QHostAddress::LocalHost));
+        logs.answer = R"({"logs": [{"log_id": 7, "log_name": "Station", "log_activation_call": "", "log_desc": ""}]})";
+        web.setCrxEndpoint(logs.url());
+        QSignalSpy listed(&web, &WebQslUploader::crxLogsListed);
+        web.listCrxLogs("HAM-XX-12345678-12345678");
+        QVERIFY(listed.wait(5000));
+        QCOMPARE(listed.first().at(0).toList().size(), 1);
+        QVERIFY(listed.first().at(1).toString().isEmpty());
+        QCOMPARE(QJsonDocument::fromJson(logs.body).object().value("req").toObject().value("query").toString(),
+                 QString("get_mylogs"));
     }
 
     void clubLogNeedsEverything()

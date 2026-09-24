@@ -2950,6 +2950,30 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: keine Antwort vom Dienst (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: der API-Schlüssel wurde nicht akzeptiert</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: schon vorhanden</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>unerwartete Antwort</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: war schon da</translation>
     </message>
@@ -2984,6 +3008,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: keine Antwort</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>der API-Schlüssel wurde nicht akzeptiert</translation>
     </message>
 </context>
 <context>
@@ -4693,6 +4721,26 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
         <translation>Club Log will drei Dinge: E-Mail und Passwort des Kontos (unten), das Rufzeichen des Stationsprofils und einen API-Schlüssel. Der Schlüssel ist kostenlos und persönlich und wird auf clublog.org/need_api.php angefragt — er weist das Programm aus, nicht dich. Ein einzelnes QSO geht sofort nach dem Eintragen hinaus, ein Rückstand als eine ADIF-Datei.</translation>
+    </message>
+    <message>
+        <source>Logbook on CRX</source>
+        <translation>Logbuch bei CRX</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— Liste laden —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Meine Logbücher laden</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>QSOs senden ab</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook ist das Cloud-Log von crx.cloud. Es braucht den API-Schlüssel deines Kontos (beginnt mit HAM-, unten bei den anderen Zugangsdaten) und das Logbuch, in das geschrieben wird. Es beginnt an dem Tag, an dem du das Logbuch wählst: ältere QSOs gehen nur, wenn du das Datum zurücksetzt. Jedes QSO geht mit Datum und Uhrzeit; ein nach dem Senden korrigiertes wird aktualisiert, nicht verdoppelt. Senden, automatisches Senden und die Zähler sind im QSL-Reiter unten.</translation>
     </message>
     <message>
         <source>QSL by email</source>
@@ -6484,6 +6532,21 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: dieses Konto hat noch kein Logbuch — lege eines auf crx.cloud an</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: %n Logbuch im Konto</numerusform>
+            <numerusform>CRX: %n Logbücher im Konto</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: angehalten, %2</translation>
     </message>
@@ -6517,6 +6580,22 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>kein API-Schlüssel: Einrichtung → QSL-Dienste</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>CRX-Logbuch wählen: Einstellungen → QSL-Dienste</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: frage die Logbücher ab…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: kein API-Schlüssel (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>unten hinzufügen</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6555,6 +6634,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
             <numerusform>Club Log: %n QSO wird gesendet…</numerusform>
             <numerusform>Club Log: %n QSO werden gesendet…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: zuerst das Logbuch wählen (Einstellungen → QSL-Dienste)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -7036,6 +7119,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>Hochladen und eQSL-Bestätigungen</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Senden an das CRX Logbook (crx.cloud): der Schlüssel beginnt mit HAM-</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

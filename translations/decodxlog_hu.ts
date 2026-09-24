@@ -2944,6 +2944,30 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: a szolgáltatás nem válaszol (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: az API-kulcsot nem fogadta el</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: már megvan</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>váratlan válasz</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: már megvolt</translation>
     </message>
@@ -2978,6 +3002,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: nincs válasz</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>az API-kulcsot nem fogadta el</translation>
     </message>
 </context>
 <context>
@@ -4683,6 +4711,26 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
         <translation>A Club Lognak három dolog kell: a fiók e-mail-címe és jelszava (lent), az állomásprofil hívójele, és egy API-kulcs. A kulcs ingyenes és személyes, a clublog.org/need_api.php oldalon lehet kérni — a programot azonosítja, nem téged. Egy QSO rögtön elmegy, ahogy naplózódik; a felhalmozódott adag egyetlen ADIF-fájlként megy el.</translation>
+    </message>
+    <message>
+        <source>Logbook on CRX</source>
+        <translation>Napló a CRX-en</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— lista betöltése —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Naplóim betöltése</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>QSO-k küldése ettől</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>A CRX Logbook a crx.cloud felhőnaplója. Kéri a fiókod API-kulcsát (HAM- kezdetű, lent a többi hozzáféréssel együtt) és a naplót, amelybe írni kell. Attól a naptól indul, amikor kiválasztod a naplót: a régebbi QSO-k csak akkor mennek, ha visszaállítod a dátumot. Minden QSO a dátumával és idejével megy; a küldés után javított frissül, nem duplikálódik. A küldés, az automatikus küldés és a számlálók lent a QSL fülön vannak.</translation>
     </message>
     <message>
         <source>QSL by email</source>
@@ -6450,6 +6498,20 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: ennek a fióknak még nincs naplója — hozz létre egyet a crx.cloud oldalon</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: %n napló a fiókban</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: leállítva, %2</translation>
     </message>
@@ -6482,6 +6544,22 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>nincs API-kulcs: Beállítások → QSL-szolgáltatások</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>válaszd ki a CRX-naplót: Beállítások → QSL-szolgáltatások</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: naplók lekérése…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: nincs API-kulcs (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>add meg lent</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6518,6 +6596,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>
             <numerusform>Club Log: %n QSO küldése…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: előbb válaszd ki a naplót (Beállítások → QSL-szolgáltatások)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -6997,6 +7079,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>Feltöltés és eQSL-igazolások</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Küldés a CRX Logbookba (crx.cloud): a kulcs HAM- kezdetű</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

@@ -23,11 +23,12 @@ struct ServiceInfo {
     const char* credential;     // il servizio nel portachiavi
 };
 
-constexpr std::array<ServiceInfo, 4> kServices{{
+constexpr std::array<ServiceInfo, 5> kServices{{
     {"lotw", "LoTW", "lotw"},
     {"qrz", "QRZ Logbook", "qrzlogbook"},
     {"clublog", "Club Log", "clublog"},
     {"eqsl", "eQSL", "eqsl"},
+    {"crx", "CRX Logbook", "crx"},
 }};
 
 // LoTW accetta file grandi, ma un invio troppo lungo blocca tutto il resto.
@@ -58,6 +59,27 @@ QslController::QslController(Context context, QObject* parent)
         m_tqslPath = qsl::findTqsl();
     m_tqslLocation = s.value(QStringLiteral("qsl/tqslLocation")).toString();
     m_clubLogApiKey = s.value(QStringLiteral("qsl/clubLogApiKey")).toString();
+    m_crxLogId = s.value(QStringLiteral("qsl/crxLogId"), 0).toLongLong();
+    m_crxLogName = s.value(QStringLiteral("qsl/crxLogName")).toString();
+    m_crxSince = QDate::fromString(s.value(QStringLiteral("qsl/crxSince")).toString(), Qt::ISODate);
+    connect(&m_web, &WebQslUploader::crxLogsListed, this, [this](const QVariantList& logs, const QString& error) {
+        m_crxLogs = logs;
+        m_crxStatus = !error.isEmpty() ? tr("CRX: %1").arg(error)
+                    : logs.isEmpty()   ? tr("CRX: this account has no logbook yet — create one on crx.cloud")
+                                       : tr("CRX: %n logbook(s) in the account", nullptr, static_cast<int>(logs.size()));
+        // Uno solo: si sceglie da se'.
+        if (m_crxLogId == 0 && logs.size() == 1)
+            setCrxLogId(logs.first().toMap().value(QStringLiteral("id")).toLongLong());
+        // Il nome aggiornato di quello gia' scelto.
+        for (const QVariant& v : logs) {
+            const QVariantMap log = v.toMap();
+            if (log.value(QStringLiteral("id")).toLongLong() == m_crxLogId && m_crxLogName != log.value(QStringLiteral("name")).toString()) {
+                m_crxLogName = log.value(QStringLiteral("name")).toString();
+                QSettings().setValue(QStringLiteral("qsl/crxLogName"), m_crxLogName);
+            }
+        }
+        emit changed();
+    });
     for (const auto& info : kServices)
         m_auto.insert(QLatin1String(info.id), s.value(QStringLiteral("qsl/auto/") + QLatin1String(info.id), false).toBool());
     m_tqsl.setProgram(m_tqslPath);
@@ -131,7 +153,7 @@ QVariantList QslController::services() const
         const QString id = QLatin1String(info.id);
         QVariantMap row{{QStringLiteral("id"), id},
                         {QStringLiteral("label"), QLatin1String(info.label)},
-                        {QStringLiteral("pending"), m_ctx.db->uploadPendingCount(id)},
+                        {QStringLiteral("pending"), m_ctx.db->uploadPendingCount(id, sinceFor(id))},
                         {QStringLiteral("auto"), m_auto.value(id)},
                         {QStringLiteral("busy"), m_busyService == id},
                         {QStringLiteral("lastResult"), m_lastResult.value(id)}};
@@ -154,6 +176,11 @@ QVariantList QslController::services() const
             hint = !hasSecret      ? tr("no credentials: Setup \u2192 QSL services")
                  : m_clubLogApiKey.isEmpty() ? tr("no API key: Setup \u2192 QSL services")
                                              : QString();
+        } else if (id == QLatin1String("crx")) {
+            ready = hasSecret && m_crxLogId > 0;
+            hint = !hasSecret        ? tr("no API key: Setup \u2192 QSL services")
+                 : m_crxLogId == 0   ? tr("choose the CRX logbook: Setup \u2192 QSL services")
+                                     : QString();
         } else if (!hasSecret) {
             hint = tr("no credentials: Setup \u2192 QSL services");
         }
@@ -182,6 +209,56 @@ void QslController::setClubLogApiKey(const QString& key)
     m_clubLogApiKey = key.trimmed();
     QSettings().setValue(QStringLiteral("qsl/clubLogApiKey"), m_clubLogApiKey);
     emit changed();
+}
+
+void QslController::setCrxLogId(qint64 id)
+{
+    if (id == m_crxLogId)
+        return;
+    m_crxLogId = id;
+    m_crxLogName.clear();
+    for (const QVariant& v : m_crxLogs) {
+        const QVariantMap log = v.toMap();
+        if (log.value(QStringLiteral("id")).toLongLong() == id)
+            m_crxLogName = log.value(QStringLiteral("name")).toString();
+    }
+    QSettings s;
+    s.setValue(QStringLiteral("qsl/crxLogId"), m_crxLogId);
+    s.setValue(QStringLiteral("qsl/crxLogName"), m_crxLogName);
+    // Scegliendo il logbook per la prima volta si parte da oggi: il log di
+    // prima si manda solo se lo si chiede, cambiando la data.
+    if (!m_crxSince.isValid() && id > 0)
+        setCrxSince(QDate::currentDate().toString(Qt::ISODate));
+    emit changed();
+}
+
+void QslController::setCrxSince(const QString& date)
+{
+    const QDate d = QDate::fromString(date.trimmed(), Qt::ISODate);
+    if (d == m_crxSince)
+        return;
+    m_crxSince = d;
+    QSettings().setValue(QStringLiteral("qsl/crxSince"), d.isValid() ? d.toString(Qt::ISODate) : QString());
+    emit changed();
+}
+
+QDate QslController::sinceFor(const QString& service) const
+{
+    return service == QLatin1String("crx") ? m_crxSince : QDate();
+}
+
+void QslController::fetchCrxLogs()
+{
+    m_crxStatus = tr("CRX: asking for the logbooks…");
+    emit changed();
+    readSecret(QStringLiteral("crx"), [this](const QString& secret, const QString& error) {
+        if (secret.isEmpty()) {
+            m_crxStatus = tr("CRX: no API key (%1)").arg(error.isEmpty() ? tr("add it below") : error);
+            emit changed();
+            return;
+        }
+        m_web.listCrxLogs(secret);
+    });
 }
 
 void QslController::setTqslLocation(const QString& location)
@@ -277,7 +354,7 @@ void QslController::uploadPending(const QString& service, int limit)
         cap = limit > 0 ? qMin(limit, kLotwBatch) : kLotwBatch;
     else if (service == QLatin1String("clublog"))
         cap = limit > 0 ? qMin(limit, kClubLogBatch) : kClubLogBatch;
-    m_batch = m_ctx.db->qsosToUpload(service, cap);
+    m_batch = m_ctx.db->qsosToUpload(service, cap, sinceFor(service));
     if (m_batch.isEmpty()) {
         m_lastResult.insert(service, tr("nothing to send"));
         emit changed();
@@ -340,8 +417,17 @@ void QslController::startNext()
         return;
     }
 
-    // QRZ ed eQSL: prima la credenziale, poi un QSO alla volta.
-    const QString credential = m_busyService == QLatin1String("qrz") ? QStringLiteral("qrzlogbook") : QStringLiteral("eqsl");
+    if (m_busyService == QLatin1String("crx") && m_crxLogId <= 0) {
+        QslUploadResult failed;
+        failed.message = tr("CRX Logbook: choose the logbook first (Setup \u2192 QSL services)");
+        finishBatch(failed);
+        return;
+    }
+
+    // QRZ, eQSL e CRX: prima la credenziale, poi un QSO alla volta.
+    const QString credential = m_busyService == QLatin1String("qrz")   ? QStringLiteral("qrzlogbook")
+                             : m_busyService == QLatin1String("crx")   ? QStringLiteral("crx")
+                                                                       : QStringLiteral("eqsl");
     m_account = m_ctx.credentials ? m_ctx.credentials->account(credential) : QString();
     readSecret(credential, [this](const QString& secret, const QString& error) {
         if (secret.isEmpty()) {
@@ -368,6 +454,17 @@ void QslController::uploadNextWeb()
     if (!record) {
         m_batch.removeFirst();
         uploadNextWeb();
+        return;
+    }
+    if (m_busyService == QLatin1String("crx")) {
+        // Un QSO gia' mandato e poi corretto si aggiorna con il suo numero CRX,
+        // invece di crearne un secondo.
+        qint64 remote = 0;
+        for (const QslState& existing : m_ctx.db->qslStatus(m_batch.first())) {
+            if (existing.service == QLatin1String("crx"))
+                remote = existing.remoteId.toLongLong();
+        }
+        m_web.uploadCrx(m_secret, qsl::crxQsoData(*record, m_crxLogId, remote));
         return;
     }
     const QString adif = adif::writeRecord(*record);

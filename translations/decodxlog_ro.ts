@@ -2956,6 +2956,30 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: serviciul nu răspunde (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: cheia API nu a fost acceptată</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: există deja</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>răspuns neașteptat</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: era deja acolo</translation>
     </message>
@@ -2990,6 +3014,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: niciun răspuns</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>cheia API nu a fost acceptată</translation>
     </message>
 </context>
 <context>
@@ -4703,6 +4731,26 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
         <translation>Club Log vrea trei lucruri: adresa de e-mail și parola contului (mai jos), indicativul profilului de stație și o cheie API. Cheia este gratuită și personală și se cere la clublog.org/need_api.php — identifică programul, nu pe tine. Un singur QSO pleacă imediat ce este înregistrat, o restanță pleacă într-un singur fișier ADIF.</translation>
+    </message>
+    <message>
+        <source>Logbook on CRX</source>
+        <translation>Jurnal pe CRX</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— încarcă lista —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Încarcă jurnalele mele</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>Trimite QSO-urile de la</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook este jurnalul în cloud al crx.cloud. Vrea cheia API a contului tău (începe cu HAM-, mai jos cu celelalte date de acces) și jurnalul în care să scrie. Pornește din ziua în care alegi jurnalul: QSO-urile mai vechi pleacă doar dacă muți data înapoi. Fiecare QSO pleacă cu data și ora lui; unul corectat după trimitere se actualizează, nu se dublează. Trimiterea, trimiterea automată și contoarele sunt în fila QSL de jos.</translation>
     </message>
     <message>
         <source>QSL by email</source>
@@ -6518,6 +6566,22 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: acest cont nu are încă un jurnal — creează unul pe crx.cloud</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: %n jurnal în cont</numerusform>
+            <numerusform>CRX: %n jurnale în cont</numerusform>
+            <numerusform>CRX: %n de jurnale în cont</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: oprit, %2</translation>
     </message>
@@ -6552,6 +6616,22 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>fără cheie API: Setări → Servicii QSL</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>alege jurnalul CRX: Setări → Servicii QSL</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: cer jurnalele…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: nicio cheie API (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>adaug-o mai jos</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6592,6 +6672,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
             <numerusform>Club Log: se trimit %n QSO…</numerusform>
             <numerusform>Club Log: se trimit %n de QSO…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: alege întâi jurnalul (Setări → Servicii QSL)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -7075,6 +7159,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>Încărcare și confirmări eQSL</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Trimitere în CRX Logbook (crx.cloud): cheia începe cu HAM-</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

@@ -2950,6 +2950,30 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: tjenesten svarer ikke (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: API-nøglen blev ikke accepteret</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: findes allerede</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>uventet svar</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: var der allerede</translation>
     </message>
@@ -2984,6 +3008,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: intet svar</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>API-nøglen blev ikke accepteret</translation>
     </message>
 </context>
 <context>
@@ -4693,6 +4721,26 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
         <translation>Club Log vil have tre ting: kontoens e-mail og adgangskode (nedenfor), stationsprofilens kaldesignal og en API-nøgle. Nøglen er gratis og personlig og bedes om på clublog.org/need_api.php — den peger på programmet, ikke på dig. Et enkelt QSO går af sted, så snart det er logget; en pukkel går af sted som én ADIF-fil.</translation>
+    </message>
+    <message>
+        <source>Logbook on CRX</source>
+        <translation>Logbog på CRX</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— hent listen —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Hent mine logbøger</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>Send QSO&apos;er fra</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook er cloud-loggen på crx.cloud. Den vil have API-nøglen til din konto (starter med HAM-, nedenfor sammen med de andre adgangsoplysninger) og logbogen, der skal skrives i. Den starter fra den dag, du vælger logbogen: ældre QSO&apos;er sendes kun, hvis du flytter datoen tilbage. Hvert QSO sendes med dato og tid; et QSO rettet efter afsendelse opdateres, det dubleres ikke. Afsendelse, automatisk afsendelse og tællerne findes i QSL-fanen nederst.</translation>
     </message>
     <message>
         <source>QSL by email</source>
@@ -6484,6 +6532,21 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: denne konto har endnu ingen logbog — opret en på crx.cloud</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: %n logbog på kontoen</numerusform>
+            <numerusform>CRX: %n logbøger på kontoen</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: stoppet, %2</translation>
     </message>
@@ -6517,6 +6580,22 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>ingen API-nøgle: Indstillinger → QSL-tjenester</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>vælg CRX-logbogen: Opsætning → QSL-tjenester</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: henter logbøgerne…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: ingen API-nøgle (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>tilføj den nedenfor</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6555,6 +6634,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
             <numerusform>Club Log: sender %n QSO…</numerusform>
             <numerusform>Club Log: sender %n QSO…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: vælg først logbogen (Opsætning → QSL-tjenester)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -7036,6 +7119,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>Upload og eQSL-bekræftelser</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Afsendelse til CRX Logbook (crx.cloud): nøglen starter med HAM-</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

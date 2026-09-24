@@ -51,6 +51,8 @@ QList<CredentialService> CredentialStore::knownServices()
          tr("Real-time upload and OQRS")},
         {QStringLiteral("eqsl"), QStringLiteral("eQSL"), tr("Username"), tr("Password"),
          tr("Upload and eQSL confirmations")},
+        {QStringLiteral("crx"), QStringLiteral("CRX Logbook"), tr("Callsign"), tr("API key"),
+         tr("Upload to the CRX Logbook (crx.cloud): the key starts with HAM-")},
         {QStringLiteral("hamqth"), QStringLiteral("HamQTH"), tr("Username"), tr("Password"),
          tr("Free callbook lookups")},
         {QStringLiteral("hamalert"), QStringLiteral("HamAlert"), tr("Username"), tr("Password"),

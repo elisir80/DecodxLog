@@ -2950,6 +2950,30 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: de dienst antwoordt niet (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: de API-sleutel werd niet geaccepteerd</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: staat er al</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>onverwacht antwoord</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: stond er al</translation>
     </message>
@@ -2984,6 +3008,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: geen antwoord</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>de API-sleutel werd niet geaccepteerd</translation>
     </message>
 </context>
 <context>
@@ -4693,6 +4721,26 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
         <translation>Club Log wil drie dingen: het e-mailadres en het wachtwoord van de account (hieronder), de roepletters van het stationsprofiel, en een API-sleutel. De sleutel is gratis en persoonlijk, en wordt aangevraagd op clublog.org/need_api.php — hij wijst het programma aan, niet jou. Eén QSO gaat weg zodra het gelogd is, een achterstand gaat als één ADIF-bestand weg.</translation>
+    </message>
+    <message>
+        <source>Logbook on CRX</source>
+        <translation>Logboek op CRX</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— lijst laden —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Mijn logboeken laden</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>QSO&apos;s versturen vanaf</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook is het cloudlog van crx.cloud. Het vraagt de API-sleutel van je account (begint met HAM-, hieronder bij de andere inloggegevens) en het logboek om in te schrijven. Het begint op de dag dat je het logboek kiest: oudere QSO&apos;s gaan alleen als je de datum terugzet. Elk QSO gaat met datum en tijd; een QSO dat na het versturen is verbeterd wordt bijgewerkt, niet verdubbeld. Versturen, automatisch versturen en de tellers staan in het QSL-tabblad onderaan.</translation>
     </message>
     <message>
         <source>QSL by email</source>
@@ -6484,6 +6532,21 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: dit account heeft nog geen logboek — maak er een op crx.cloud</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: %n logboek in het account</numerusform>
+            <numerusform>CRX: %n logboeken in het account</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: gestopt, %2</translation>
     </message>
@@ -6517,6 +6580,22 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>geen API-sleutel: Instellingen → QSL-diensten</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>kies het CRX-logboek: Instellingen → QSL-diensten</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: logboeken opvragen…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: geen API-sleutel (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>voeg hem hieronder toe</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6555,6 +6634,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
             <numerusform>Club Log: %n QSO versturen…</numerusform>
             <numerusform>Club Log: %n QSO versturen…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: kies eerst het logboek (Instellingen → QSL-diensten)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -7036,6 +7119,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>Upload en eQSL-bevestigingen</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Versturen naar het CRX Logbook (crx.cloud): de sleutel begint met HAM-</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

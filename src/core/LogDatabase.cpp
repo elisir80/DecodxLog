@@ -1615,16 +1615,19 @@ bool LogDatabase::writeQslState(qint64 id, const QslState& st, bool includeRecei
     return true;
 }
 
-QList<qint64> LogDatabase::qsosToUpload(const QString& service, int limit) const
+QList<qint64> LogDatabase::qsosToUpload(const QString& service, int limit, const QDate& since) const
 {
     QList<qint64> ids;
     QSqlQuery q(connection());
     q.setForwardOnly(true);
     q.prepare(QStringLiteral(
         "SELECT qso.id FROM qso LEFT JOIN qsl_status s ON s.qso_id = qso.id AND s.service = ? "
-        "WHERE qso.deleted = 0 AND (s.sent IS NULL OR s.sent IN ('N', 'R', 'Q')) "
-        "ORDER BY qso.qso_datetime_on, qso.id") + (limit > 0 ? QStringLiteral(" LIMIT ?") : QString()));
+        "WHERE qso.deleted = 0 AND (s.sent IS NULL OR s.sent IN ('N', 'R', 'Q')) ")
+        + (since.isValid() ? QStringLiteral("AND qso.qso_datetime_on >= ? ") : QString())
+        + QStringLiteral("ORDER BY qso.qso_datetime_on, qso.id") + (limit > 0 ? QStringLiteral(" LIMIT ?") : QString()));
     q.addBindValue(service);
+    if (since.isValid())
+        q.addBindValue(since.toString(Qt::ISODate));
     if (limit > 0)
         q.addBindValue(limit);
     if (!q.exec())
@@ -1634,13 +1637,16 @@ QList<qint64> LogDatabase::qsosToUpload(const QString& service, int limit) const
     return ids;
 }
 
-int LogDatabase::uploadPendingCount(const QString& service) const
+int LogDatabase::uploadPendingCount(const QString& service, const QDate& since) const
 {
     QSqlQuery q(connection());
     q.prepare(QStringLiteral(
         "SELECT COUNT(*) FROM qso LEFT JOIN qsl_status s ON s.qso_id = qso.id AND s.service = ? "
-        "WHERE qso.deleted = 0 AND (s.sent IS NULL OR s.sent IN ('N', 'R', 'Q'))"));
+        "WHERE qso.deleted = 0 AND (s.sent IS NULL OR s.sent IN ('N', 'R', 'Q'))")
+        + (since.isValid() ? QStringLiteral(" AND qso.qso_datetime_on >= ?") : QString()));
     q.addBindValue(service);
+    if (since.isValid())
+        q.addBindValue(since.toString(Qt::ISODate));
     return q.exec() && q.next() ? q.value(0).toInt() : 0;
 }
 

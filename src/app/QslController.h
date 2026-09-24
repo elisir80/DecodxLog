@@ -33,6 +33,12 @@ class QslController : public QObject {
     Q_PROPERTY(QString tqslLocation READ tqslLocation WRITE setTqslLocation NOTIFY changed)
     Q_PROPERTY(bool tqslReady READ tqslReady NOTIFY changed)
     Q_PROPERTY(QString clubLogApiKey READ clubLogApiKey WRITE setClubLogApiKey NOTIFY changed)
+    // CRX Logbook: in quale logbook dell'account si scrive, e da che giorno.
+    Q_PROPERTY(qint64 crxLogId READ crxLogId WRITE setCrxLogId NOTIFY changed)
+    Q_PROPERTY(QString crxLogName READ crxLogName NOTIFY changed)
+    Q_PROPERTY(QVariantList crxLogs READ crxLogs NOTIFY changed)
+    Q_PROPERTY(QString crxStatus READ crxStatus NOTIFY changed)
+    Q_PROPERTY(QString crxSince READ crxSince WRITE setCrxSince NOTIFY changed)
     Q_PROPERTY(QString tqslStatus READ tqslStatus NOTIFY changed)
     Q_PROPERTY(bool busy READ busy NOTIFY changed)
     Q_PROPERTY(QString busyService READ busyService NOTIFY changed)
@@ -61,6 +67,15 @@ public:
     QString clubLogApiKey() const { return m_clubLogApiKey; }
     void setClubLogApiKey(const QString& key);
     QString tqslStatus() const;
+    qint64 crxLogId() const { return m_crxLogId; }
+    void setCrxLogId(qint64 id);
+    QString crxLogName() const { return m_crxLogName; }
+    QVariantList crxLogs() const { return m_crxLogs; }
+    QString crxStatus() const { return m_crxStatus; }
+    QString crxSince() const { return m_crxSince.toString(Qt::ISODate); }
+    void setCrxSince(const QString& date);
+    // Chiede a CRX l'elenco dei logbook dell'account (serve la chiave API).
+    Q_INVOKABLE void fetchCrxLogs();
     // Dove TQSL tiene certificati e station location: serve per capirci qualcosa
     // quando qualcosa non torna.
     Q_INVOKABLE QString tqslDataDirectory() const { return QDir::toNativeSeparators(core::qsl::tqslDataDirectory()); }
@@ -98,6 +113,14 @@ private:
     core::WebQslUploader m_web;
     QString m_tqslPath;
     QString m_clubLogApiKey;
+    qint64 m_crxLogId{0};
+    QString m_crxLogName;
+    QVariantList m_crxLogs;
+    QString m_crxStatus;
+    QDate m_crxSince;
+    // Per CRX si parte da un giorno: senza, al primo collegamento partirebbe
+    // tutto il log di una vita.
+    QDate sinceFor(const QString& service) const;
     QString m_tqslLocation;
     QString m_busyService;
     QList<qint64> m_batch;          // i QSO dell'invio in corso

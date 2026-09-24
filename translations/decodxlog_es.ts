@@ -2950,6 +2950,30 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: el servicio no responde (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: la clave API no fue aceptada</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: ya está</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>respuesta inesperada</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: ya estaba</translation>
     </message>
@@ -2984,6 +3008,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: sin respuesta</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>la clave API no fue aceptada</translation>
     </message>
 </context>
 <context>
@@ -4693,6 +4721,26 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
         <translation>Club Log quiere tres cosas: el correo y la contraseña de la cuenta (abajo), el indicativo del perfil de estación, y una clave API. La clave es gratis y personal, y se pide en clublog.org/need_api.php — identifica al programa, no a ti. Un QSO suelto sale en cuanto se registra; el atraso sale como un solo fichero ADIF.</translation>
+    </message>
+    <message>
+        <source>Logbook on CRX</source>
+        <translation>Libro en CRX</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— cargar la lista —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Cargar mis libros</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>Enviar los QSO desde</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook es el libro en la nube de crx.cloud. Pide la clave API de tu cuenta (empieza por HAM-, abajo con las otras credenciales) y el libro donde escribir. Empieza el día en que eliges el libro: los QSO más antiguos solo salen si retrasas la fecha. Cada QSO va con su fecha y hora; uno corregido después del envío se actualiza, no se duplica. El envío, el envío automático y los contadores están en la pestaña QSL de abajo.</translation>
     </message>
     <message>
         <source>QSL by email</source>
@@ -6484,6 +6532,21 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: esta cuenta aún no tiene libro — crea uno en crx.cloud</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: %n libro en la cuenta</numerusform>
+            <numerusform>CRX: %n libros en la cuenta</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: parado, %2</translation>
     </message>
@@ -6517,6 +6580,22 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>sin clave API: Ajustes → Servicios QSL</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>elige el libro CRX: Ajustes → Servicios QSL</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: pidiendo los libros…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: sin clave API (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>añádela abajo</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6555,6 +6634,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
             <numerusform>Club Log: enviando %n QSO…</numerusform>
             <numerusform>Club Log: enviando %n QSO…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: elige primero el libro (Ajustes → Servicios QSL)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -7036,6 +7119,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>Subida y confirmaciones de eQSL</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Envío al CRX Logbook (crx.cloud): la clave empieza por HAM-</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

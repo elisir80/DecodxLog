@@ -2956,6 +2956,30 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: pakalpojums neatbild (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: API atslēga netika pieņemta</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: jau ir</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>negaidīta atbilde</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: jau bija</translation>
     </message>
@@ -2990,6 +3014,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: nav atbildes</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>API atslēga netika pieņemta</translation>
     </message>
 </context>
 <context>
@@ -4703,6 +4731,26 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
         <translation>Club Log vajadzīgas trīs lietas: konta e-pasts un parole (zemāk), stacijas profila izsaukuma signāls un API atslēga. Atslēga ir bez maksas un personiska, un to pieprasa clublog.org/need_api.php — tā apzīmē programmu, nevis tevi. Viens QSO aiziet uzreiz pēc ierakstīšanas, uzkrājums aiziet kā viens ADIF fails.</translation>
+    </message>
+    <message>
+        <source>Logbook on CRX</source>
+        <translation>Žurnāls CRX</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— ielādēt sarakstu —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Ielādēt manus žurnālus</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>Sūtīt QSO no</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook ir crx.cloud mākoņa žurnāls. Tam vajag jūsu konta API atslēgu (sākas ar HAM-, zemāk kopā ar citiem piekļuves datiem) un žurnālu, kurā rakstīt. Tas sākas no dienas, kad izvēlaties žurnālu: vecāki QSO tiek sūtīti tikai tad, ja pārceļat datumu atpakaļ. Katrs QSO tiek sūtīts ar savu datumu un laiku; pēc nosūtīšanas labots tiek atjaunināts, nevis dublēts. Sūtīšana, automātiskā sūtīšana un skaitītāji ir QSL cilnē apakšā.</translation>
     </message>
     <message>
         <source>QSL by email</source>
@@ -6518,6 +6566,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: šim kontam vēl nav žurnāla — izveidojiet to crx.cloud</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: kontā %n žurnālu</numerusform>
+            <numerusform>CRX: kontā %n žurnāls</numerusform>
+            <numerusform>CRX: kontā %n žurnāli</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: apturēts, %2</translation>
     </message>
@@ -6552,6 +6616,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>nav API atslēgas: Iestatījumi → QSL pakalpojumi</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>izvēlieties CRX žurnālu: Iestatījumi → QSL pakalpojumi</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: pieprasa žurnālus…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: nav API atslēgas (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>pievienojiet to zemāk</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6592,6 +6672,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
             <numerusform>Club Log: sūta %n QSO…</numerusform>
             <numerusform>Club Log: sūta %n QSO…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: vispirms izvēlieties žurnālu (Iestatījumi → QSL pakalpojumi)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -7075,6 +7159,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>Augšupielāde un eQSL apstiprinājumi</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Sūtīšana uz CRX Logbook (crx.cloud): atslēga sākas ar HAM-</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

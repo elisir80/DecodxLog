@@ -2950,6 +2950,30 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>QRZ Logbook: %1</translation>
     </message>
     <message>
+        <source>CRX Logbook: QSO %1</source>
+        <translation>CRX Logbook: QSO %1</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: no answer from the service (%1)</source>
+        <translation>CRX Logbook: el servei no respon (%1)</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: the API key was not accepted</source>
+        <translation>CRX Logbook: la clau API no s&apos;ha acceptat</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: already there</source>
+        <translation>CRX Logbook: ja hi és</translation>
+    </message>
+    <message>
+        <source>CRX Logbook: %1</source>
+        <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>unexpected answer</source>
+        <translation>resposta inesperada</translation>
+    </message>
+    <message>
         <source>eQSL: already there</source>
         <translation>eQSL: ja hi era</translation>
     </message>
@@ -2984,6 +3008,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: cap resposta</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted</source>
+        <translation>la clau API no s&apos;ha acceptat</translation>
     </message>
 </context>
 <context>
@@ -4693,6 +4721,26 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Club Log wants three things: the email and password of the account (below), the callsign of the station profile, and an API key. The key is free and personal, and is asked for at clublog.org/need_api.php — it identifies the program, not you. A single QSO leaves as soon as it is logged, a backlog leaves as one ADIF file.</source>
         <translation>Club Log vol tres coses: el correu i la contrasenya del compte (aquí sota), l&apos;indicatiu del perfil d&apos;estació i una clau API. La clau és gratuïta i personal, i es demana a clublog.org/need_api.php — identifica el programa, no pas tu. Un QSO sol marxa tan bon punt es registra; una pila endarrerida marxa com un sol fitxer ADIF.</translation>
+    </message>
+    <message>
+        <source>Logbook on CRX</source>
+        <translation>Llibre a CRX</translation>
+    </message>
+    <message>
+        <source>— load the list —</source>
+        <translation>— carrega la llista —</translation>
+    </message>
+    <message>
+        <source>Load my logbooks</source>
+        <translation>Carrega els meus llibres</translation>
+    </message>
+    <message>
+        <source>Send QSOs from</source>
+        <translation>Envia els QSO des del</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook és el llibre al núvol de crx.cloud. Demana la clau API del teu compte (comença per HAM-, a baix amb les altres credencials) i el llibre on escriure. Comença el dia que tries el llibre: els QSO més antics només surten si endarrereixes la data. Cada QSO va amb la seva data i hora; un de corregit després de l&apos;enviament s&apos;actualitza, no es duplica. L&apos;enviament, l&apos;enviament automàtic i els comptadors són a la pestanya QSL de baix.</translation>
     </message>
     <message>
         <source>QSL by email</source>
@@ -6484,6 +6532,21 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>CRX: %1</source>
+        <translation>CRX: %1</translation>
+    </message>
+    <message>
+        <source>CRX: this account has no logbook yet — create one on crx.cloud</source>
+        <translation>CRX: aquest compte encara no té llibre — crea&apos;n un a crx.cloud</translation>
+    </message>
+    <message numerus="yes">
+        <source>CRX: %n logbook(s) in the account</source>
+        <translation>
+            <numerusform>CRX: %n llibre al compte</numerusform>
+            <numerusform>CRX: %n llibres al compte</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>%1: stopped, %2</source>
         <translation>%1: aturat, %2</translation>
     </message>
@@ -6517,6 +6580,22 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>no API key: Setup → QSL services</source>
         <translation>cap clau API: Configuració → Serveis QSL</translation>
+    </message>
+    <message>
+        <source>choose the CRX logbook: Setup → QSL services</source>
+        <translation>tria el llibre CRX: Configuració → Serveis QSL</translation>
+    </message>
+    <message>
+        <source>CRX: asking for the logbooks…</source>
+        <translation>CRX: demanant els llibres…</translation>
+    </message>
+    <message>
+        <source>CRX: no API key (%1)</source>
+        <translation>CRX: cap clau API (%1)</translation>
+    </message>
+    <message>
+        <source>add it below</source>
+        <translation>afegeix-la a baix</translation>
     </message>
     <message>
         <source>no keystore</source>
@@ -6555,6 +6634,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
             <numerusform>Club Log: enviant %n QSO…</numerusform>
             <numerusform>Club Log: enviant %n QSO…</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>CRX Logbook: choose the logbook first (Setup → QSL services)</source>
+        <translation>CRX Logbook: tria primer el llibre (Configuració → Serveis QSL)</translation>
     </message>
     <message numerus="yes">
         <source>%1: sending %n QSO…</source>
@@ -7036,6 +7119,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Upload and eQSL confirmations</source>
         <translation>Pujada i confirmacions d&apos;eQSL</translation>
+    </message>
+    <message>
+        <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
+        <translation>Enviament al CRX Logbook (crx.cloud): la clau comença per HAM-</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>
