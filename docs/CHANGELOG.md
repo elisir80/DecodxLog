@@ -3,6 +3,25 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.3 — 24 settembre 2026
+
+**Connettore per CRX Logbook (crx.cloud).** Un servizio in piu' in Impostazioni → Servizi QSL
+e nella scheda QSL in basso, accanto a LoTW, QRZ Logbook, Club Log ed eQSL.
+
+- la **chiave API** dell'account (comincia con HAM-) si mette una volta sola, nel portachiavi
+  di sistema come le altre credenziali;
+- **Carica i miei logbook** mostra i logbook dell'account e si sceglie quello in cui scrivere
+  (con uno solo si sceglie da se');
+- ogni QSO parte con nominativo, banda, frequenza, modo, rapporti, nome, commento, **data e
+  ora**; un QSO corretto dopo l'invio **si aggiorna**, non si duplica;
+- si parte **dal giorno in cui si sceglie il logbook**: il log di prima parte solo spostando
+  indietro la data, non per sbaglio al primo collegamento;
+- invio a mano o automatico dopo ogni QSO, e contatori, come per gli altri servizi.
+
+E' la prima versione, fatta sulla documentazione pubblica dell'API: provata contro un CRX
+finto, in attesa della conferma dello sviluppatore di CRX su alcuni dettagli (l'ora del QSO
+all'invio, il significato dei due rapporti).
+
 ## 1.16.2 — 24 settembre 2026
 
 **Nel log colonne e filtri funzionano ovunque.**
