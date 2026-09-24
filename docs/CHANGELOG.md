@@ -20,6 +20,12 @@ finivano sotto o sopra le altre. Adesso non ci sono piu' finestre separate:
   si scaricano e non costano niente;
 - l'**inserimento veloce parte nel modo della gara** (CQ-WW-SSB in fonia, con il 59) e non si
   stringe mai sotto quanto serve a vedere lo scambio e Registra, anche su uno schermo piccolo.
+
+**Trovata e corretta la caduta alla chiusura.** Il biglietto della 1.15.4 l'ha presa al primo
+colpo: chiudendo DecoDXLog con Decodium collegato, DecoLink salutava il client mentre si
+spegneva e scriveva nel registro attivita' che era gia' stato distrutto. E' la chiusura
+improvvisa che il registro di Windows segnava dalla 1.7 in poi, sempre nello stesso punto.
+Adesso DecoLink si ferma prima, con tutto ancora in piedi.
 
 ## 1.15.6 — 24 settembre 2026
 

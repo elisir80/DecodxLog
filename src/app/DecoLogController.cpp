@@ -377,7 +377,18 @@ DecoLogController::DecoLogController(QObject* parent)
     connect(&m_lotwTimer, &QTimer::timeout, this, &DecoLogController::checkLotwSchedule);
 }
 
-DecoLogController::~DecoLogController() = default;
+DecoLogController::~DecoLogController()
+{
+    // Chiudendo il programma i membri si distruggono uno per uno, e alcuni
+    // mandano ancora un segnale mentre se ne vanno: DecoLink, fermandosi,
+    // dice che i client se ne sono andati, e quel segnale scriveva nel
+    // registro attivita' — che a quel punto era gia' stato distrutto. Era la
+    // caduta "in emplace<QVariant>" del registro di Windows, dalla 1.7 in poi.
+    // Adesso DecoLink si ferma qui, con tutto ancora in piedi, e poi niente di
+    // quello che resta puo' piu' chiamare questo oggetto.
+    m_decoLink.stop();
+    QObject::disconnect(nullptr, nullptr, this, nullptr);
+}
 
 // Diplomi e statistiche di tutto il log, calcolati fuori dal thread della
 // finestra: su un log di quindicimila QSO sono un quarto di secondo abbondante,
