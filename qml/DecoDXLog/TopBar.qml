@@ -104,22 +104,6 @@ Rectangle {
         anchors.topMargin: 8
         spacing: 10
 
-        // Quanto occupa tutto in fila: se ci sta su una riga, il cloud e la
-        // ricerca restano spinti a destra come prima; se non ci sta, si va a
-        // capo e il vuoto sparisce.
-        readonly property real rowWidth: {
-            let w = 0
-            let n = 0
-            for (let i = 0; i < children.length; ++i) {
-                const c = children[i]
-                if (c === spacer || !c.visible)
-                    continue
-                w += c.width
-                ++n
-            }
-            return w + spacing * n
-        }
-
         // Marchio e versione.
         FixedBlock {
             id: brandBlock
@@ -407,12 +391,8 @@ Rectangle {
             }
         }
 
-        Item {
-            id: spacer
-            width: Math.max(0, bar.width - bar.rowWidth)
-            height: 1
-        }
-
+        // Niente vuoto in mezzo: cloud e ricerca stanno subito dopo i comandi.
+        // Spinti a destra lasciavano una fascia nera fra un riquadro e l'altro.
         // DecoDXLog Cloud: come sta il collegamento e cosa aspetta di partire.
         FixedBlock {
             Led {
@@ -456,12 +436,28 @@ Rectangle {
             }
         }
 
-        FixedBlock {
+        // La ricerca prende lo spazio che avanza sulla sua riga: niente fascia
+        // vuota a destra. Se la riga e' piena va a capo e la prende tutta.
+        Block {
+            id: searchBlock
             hPadding: 10
             spacing: 6
+            readonly property real others: {
+                let w = 0
+                for (let i = 0; i < bar.children.length; ++i) {
+                    const c = bar.children[i]
+                    if (c !== searchBlock && c.visible)
+                        w += c.width + bar.spacing
+                }
+                return w
+            }
+            readonly property real spare: bar.width - others
+            width: spare >= 220 ? spare : bar.width
+            height: implicitHeight
             StyledTextField {
                 id: searchField
-                Layout.preferredWidth: 140
+                Layout.fillWidth: true
+                Layout.minimumWidth: 140
                 placeholderText: qsTr("Search…")
                 text: decolog.qsoModel.filterText
                 onTextEdited: decolog.qsoModel.filterText = text
