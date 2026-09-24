@@ -5358,10 +5358,6 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>Impostazioni</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>Importa</translation>
     </message>
@@ -5374,16 +5370,24 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Diplomi</translation>
     </message>
     <message>
-        <source>Cluster ●</source>
-        <translation>Cluster ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>Cluster</translation>
     </message>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Contest Mode ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX Cluster…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Impostazioni · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Impostazioni ▾</translation>
     </message>
     <message>
         <source>Contest Mode · %1 · %2/%3 ▾</source>
@@ -5464,14 +5468,6 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Station</source>
         <translation>Stazione</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>Nessun profilo</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>Profili stazione</translation>
     </message>
     <message>
         <source>Cloud %1</source>

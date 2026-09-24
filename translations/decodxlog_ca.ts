@@ -5358,10 +5358,6 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>Configuració</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>Importa</translation>
     </message>
@@ -5374,16 +5370,24 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Diplomes</translation>
     </message>
     <message>
-        <source>Cluster ●</source>
-        <translation>Clúster ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>Clúster</translation>
     </message>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Mode concurs ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX Cluster…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Configuració · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Configuració ▾</translation>
     </message>
     <message>
         <source>Contest Mode · %1 · %2/%3 ▾</source>
@@ -5464,14 +5468,6 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Station</source>
         <translation>Estació</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>Cap perfil</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>Perfils d&apos;estació</translation>
     </message>
     <message>
         <source>Cloud %1</source>

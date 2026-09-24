@@ -5368,10 +5368,6 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>Setări</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>Importă</translation>
     </message>
@@ -5384,16 +5380,24 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Diplome</translation>
     </message>
     <message>
-        <source>Cluster ●</source>
-        <translation>Cluster ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>Cluster</translation>
     </message>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Mod concurs ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX Cluster…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Setări · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Setări ▾</translation>
     </message>
     <message>
         <source>Contest Mode · %1 · %2/%3 ▾</source>
@@ -5474,14 +5478,6 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Station</source>
         <translation>Stație</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>Niciun profil</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>Profiluri de stație</translation>
     </message>
     <message>
         <source>Cloud %1</source>

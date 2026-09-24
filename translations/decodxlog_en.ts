@@ -5357,10 +5357,6 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5373,16 +5369,24 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cluster ●</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Contest Mode ▾</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX Cluster…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Setup · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Setup ▾</translation>
     </message>
     <message>
         <source>Contest Mode · %1 · %2/%3 ▾</source>
@@ -5462,14 +5466,6 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Station</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

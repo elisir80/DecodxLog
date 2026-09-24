@@ -5348,10 +5348,6 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>设置</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>导入</translation>
     </message>
@@ -5364,16 +5360,24 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>奖状</translation>
     </message>
     <message>
-        <source>Cluster ●</source>
-        <translation>集群 ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>集群</translation>
     </message>
     <message>
         <source>Contest Mode ▾</source>
         <translation>竞赛模式 ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX 集群…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>设置 · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>设置 ▾</translation>
     </message>
     <message>
         <source>Contest Mode · %1 · %2/%3 ▾</source>
@@ -5454,14 +5458,6 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Station</source>
         <translation>电台</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>无配置文件</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>电台配置</translation>
     </message>
     <message>
         <source>Cloud %1</source>

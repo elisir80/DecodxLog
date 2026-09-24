@@ -5368,10 +5368,6 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>Настройки</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>Импортировать</translation>
     </message>
@@ -5384,16 +5380,24 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Дипломы</translation>
     </message>
     <message>
-        <source>Cluster ●</source>
-        <translation>Кластер ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>Кластер</translation>
     </message>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Режим контеста ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX-кластер…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Настройки · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Настройки ▾</translation>
     </message>
     <message>
         <source>Contest Mode · %1 · %2/%3 ▾</source>
@@ -5474,14 +5478,6 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Station</source>
         <translation>Станция</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>Без профиля</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>Профили станции</translation>
     </message>
     <message>
         <source>Cloud %1</source>

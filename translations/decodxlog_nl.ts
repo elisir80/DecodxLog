@@ -5358,10 +5358,6 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>Instellingen</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>Importeren</translation>
     </message>
@@ -5374,16 +5370,24 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Diploma&apos;s</translation>
     </message>
     <message>
-        <source>Cluster ●</source>
-        <translation>Cluster ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>Cluster</translation>
     </message>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Contestmodus ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX-cluster…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Instellingen · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Instellingen ▾</translation>
     </message>
     <message>
         <source>Contest Mode · %1 · %2/%3 ▾</source>
@@ -5464,14 +5468,6 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Station</source>
         <translation>Station</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>Geen profiel</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>Stationsprofielen</translation>
     </message>
     <message>
         <source>Cloud %1</source>

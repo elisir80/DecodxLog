@@ -453,7 +453,19 @@ ApplicationWindow {
             // Si aspetta che la lavagna abbia preso le misure.
             if (step++ < 10)
                 return
-            if (kind === "dialogclose") {
+            if (kind === "panelsclick") {
+                const c = findGlyph(panelsPopup.contentItem, window.panelTitle(key))
+                if (!c) { console.warn("PROBE no row"); stop(); return }
+                const w = c.Window.window
+                const at = c.mapToItem(null, c.width / 2, c.height / 2)
+                const before = contestLayout.isShown(key)
+                send(w, "press", at)
+                send(w, "release", at)
+                stop()
+                Qt.callLater(function () {
+                    console.warn("PROBE panels row " + key + ": shown " + before + " -> " + contestLayout.isShown(key))
+                })
+            } else if (kind === "dialogclose") {
                 const w = aboutDialog
                 const c = findGlyph(w.header, "✕")
                 if (!c) { console.warn("PROBE no close glyph"); stop(); return }
@@ -716,6 +728,15 @@ ApplicationWindow {
         // staccato. Dice poi cosa e' successo.
         else if (what[0] === "dialogclose") {
             aboutDialog.open()
+            pointerProbe.args = what
+            pointerProbe.step = 0
+            pointerProbe.start()
+        }
+        else if (what[0] === "setupmenu") Qt.callLater(topBar.openSetupMenu)
+        // Per le prove, col mouse vero: in gara, un clic su una riga di Pannelli.
+        else if (what[0] === "panelsclick") {
+            window.openContestDesk()
+            panelsPopup.open()
             pointerProbe.args = what
             pointerProbe.step = 0
             pointerProbe.start()
@@ -1170,12 +1191,20 @@ ApplicationWindow {
                 wrapMode: Text.Wrap
             }
 
+            // In gara l'elenco e' quello della lavagna: prima comandava la
+            // disposizione di tutti i giorni, che in gara e' spenta, e i clic
+            // non facevano niente.
             Repeater {
-                model: window.panelKeys
+                model: window.contestModeOn ? contestLayout.allKeys : window.panelKeys
                 delegate: Rectangle {
                     id: panelRow
                     required property string modelData
-                    readonly property bool closed: window.isPanelHidden(panelRow.modelData)
+                    readonly property bool closed: window.contestModeOn
+                                                   ? !contestLayout.isShown(panelRow.modelData)
+                                                   : window.isPanelHidden(panelRow.modelData)
+                    readonly property bool floating: window.contestModeOn
+                                                     ? contestLayout.isFloating(panelRow.modelData)
+                                                     : window.isPanelDetached(panelRow.modelData)
                     Layout.fillWidth: true
                     implicitHeight: 26
                     radius: 4
@@ -1201,19 +1230,29 @@ ApplicationWindow {
                             elide: Text.ElideRight
                         }
                         Text {
-                            text: window.panelState(panelRow.modelData)
+                            text: !window.contestModeOn ? window.panelState(panelRow.modelData)
+                                  : panelRow.closed ? qsTr("closed")
+                                  : panelRow.floating ? qsTr("window") : qsTr("docked")
                             color: Theme.textSecondary
                             font.family: Theme.monoFamily
                             font.pixelSize: 10
                         }
                         PanelControl {
-                            glyph: window.isPanelDetached(panelRow.modelData) ? "↩" : "⤢"
-                            hint: window.isPanelDetached(panelRow.modelData)
+                            glyph: panelRow.floating ? "↩" : "⤢"
+                            hint: panelRow.floating
                                   ? qsTr("Put it back in the main window")
                                   : qsTr("Detach it into its own window")
-                            onClicked: window.isPanelDetached(panelRow.modelData)
-                                       ? window.attachPanel(panelRow.modelData)
-                                       : window.detachPanel(panelRow.modelData)
+                            onClicked: {
+                                if (window.contestModeOn) {
+                                    if (panelRow.closed)
+                                        contestLayout.setShown(panelRow.modelData, true)
+                                    contestLayout.setFloating(panelRow.modelData, !panelRow.floating)
+                                } else if (panelRow.floating) {
+                                    window.attachPanel(panelRow.modelData)
+                                } else {
+                                    window.detachPanel(panelRow.modelData)
+                                }
+                            }
                         }
                     }
 
@@ -1223,7 +1262,8 @@ ApplicationWindow {
                         anchors.rightMargin: 24
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
-                        onClicked: window.togglePanel(panelRow.modelData)
+                        onClicked: window.contestModeOn ? contestLayout.toggle(panelRow.modelData)
+                                                        : window.togglePanel(panelRow.modelData)
                     }
                 }
             }
@@ -1234,7 +1274,13 @@ ApplicationWindow {
                 text: qsTr("Restore the default layout")
                 buttonHeight: 24
                 fontPixelSize: 11
-                onClicked: { window.resetPanels(); panelsPopup.close() }
+                onClicked: {
+                    if (window.contestModeOn)
+                        contestLayout.resetLayout()
+                    else
+                        window.resetPanels()
+                    panelsPopup.close()
+                }
             }
         }
     }
@@ -1304,7 +1350,9 @@ ApplicationWindow {
             contestOpenPanels: contestLayout.shownList
             onContestCommand: (what, arg) => window.deskDo(what, arg)
             onProfilesRequested: profilesDialog.open()
-            closedPanels: window.hiddenPanels.length
+            closedPanels: window.contestModeOn
+                          ? contestLayout.allKeys.filter(k => !contestLayout.isShown(k)).length
+                          : window.hiddenPanels.length
             onPanelsRequested: panelsPopup.opened ? panelsPopup.close() : panelsPopup.open()
             onAboutRequested: aboutDialog.open()
             onLogFolderRequested: decolog.openDatabaseFolder()

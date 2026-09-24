@@ -63,8 +63,10 @@ GlassPanel {
             id: onTopButton
             readonly property var hostWindow: root.Window.window
             anchors.verticalCenter: parent.verticalCenter
+            // In gara no: le finestre staccate dalla lavagna stanno gia' sopra
+            // la principale, come tutte le altre, e la CW non fa eccezione.
             visible: root.detached && hostWindow !== null
-                     && hostWindow.alwaysOnTop !== undefined
+                     && hostWindow.alwaysOnTop !== undefined && !hostWindow.contestMode
             text: qsTr("On top")
             tone: Theme.primaryColor
             filled: visible && hostWindow.alwaysOnTop

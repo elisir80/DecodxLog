@@ -5348,10 +5348,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>Beállítások</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>Importálás</translation>
     </message>
@@ -5364,16 +5360,24 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Diplomák</translation>
     </message>
     <message>
-        <source>Cluster ●</source>
-        <translation>Cluster ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>Klaszter</translation>
     </message>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Contest mód ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX Cluster…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Beállítások · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Beállítások ▾</translation>
     </message>
     <message>
         <source>Contest Mode · %1 · %2/%3 ▾</source>
@@ -5454,14 +5458,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Station</source>
         <translation>Állomás</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>Nincs profil</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>Állomásprofilok</translation>
     </message>
     <message>
         <source>Cloud %1</source>

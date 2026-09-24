@@ -35,6 +35,7 @@ Rectangle {
     signal contestCommand(string what, string arg)
     property bool contestModeOn: false
     property var contestOpenPanels: []
+    function openSetupMenu() { setupMenu.popup(setupButton, 0, setupButton.height + 6) }
     function openContestMenu() { contestMenu.popup(contestButton, 0, contestButton.height + 6) }
 
     function focusSearch() {
@@ -137,6 +138,7 @@ Rectangle {
                 StyledMenuItem { text: qsTr("Settings…"); onTriggered: root.setupRequested() }
                 StyledMenuItem { text: qsTr("Station profiles…"); onTriggered: root.profilesRequested() }
                 StyledMenuItem { text: qsTr("Panels…"); onTriggered: root.panelsRequested() }
+                StyledMenuItem { text: qsTr("DX Cluster…"); onTriggered: root.clusterRequested() }
                 MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
                 StyledMenuItem { text: qsTr("Import ADIF…"); onTriggered: root.importRequested() }
                 StyledMenuItem { text: qsTr("Export ADIF…"); onTriggered: root.exportRequested() }
@@ -259,7 +261,45 @@ Rectangle {
                 anchors.margins: 10
                 anchors.topMargin: 9
                 spacing: 6
-            GlassButton { text: qsTr("Setup"); tone: Theme.primaryColor; filled: true; onClicked: root.setupRequested() }
+            // Impostazioni e stazione insieme: il pulsante dice con quale
+            // profilo si scrivono i QSO, e il menu apre le impostazioni o
+            // cambia profilo. Prima la stazione aveva un riquadro suo.
+            GlassButton {
+                id: setupButton
+                readonly property string station: root.profiles.activeProfile.name || ""
+                text: station.length > 0 ? qsTr("Setup · %1 ▾").arg(station) : qsTr("Setup ▾")
+                tone: Theme.primaryColor
+                filled: true
+                onClicked: setupMenu.opened ? setupMenu.close()
+                                            : setupMenu.popup(setupButton, 0, setupButton.height + 6)
+
+                StyledMenu {
+                    id: setupMenu
+                    StyledMenuItem { text: qsTr("Settings…"); onTriggered: root.setupRequested() }
+                    MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
+                    StyledMenuItem { text: qsTr("Station"); enabled: false }
+                    // I profili: spuntato quello con cui si scrive adesso.
+                    Instantiator {
+                        model: root.profiles
+                        delegate: StyledMenuItem {
+                            required property int index
+                            required property string name
+                            required property var profileId
+                            required property bool deleted
+                            text: name
+                            visible: !deleted
+                            height: deleted ? 0 : implicitHeight
+                            checkable: true
+                            checked: root.profiles.activeProfileId === profileId
+                            onTriggered: root.profiles.activeProfileId = profileId
+                        }
+                        onObjectAdded: (index, object) => setupMenu.insertItem(3 + index, object)
+                        onObjectRemoved: (index, object) => setupMenu.removeItem(object)
+                    }
+                    MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
+                    StyledMenuItem { text: qsTr("Station profiles…"); onTriggered: root.profilesRequested() }
+                }
+            }
             // I log della stazione: quello di sempre e quelli dei contest.
             GlassButton { text: qsTr("Logs"); onClicked: root.logsRequested() }
             GlassButton { text: qsTr("Import"); onClicked: root.importRequested() }
@@ -360,52 +400,10 @@ Rectangle {
                 }
             }
             GlassButton {
-                text: decolog.cluster.onlineCount > 0 ? qsTr("Cluster ●") : qsTr("Cluster")
-                tone: decolog.cluster.onlineCount > 0 ? Theme.accentColor : "transparent"
-                onClicked: root.clusterRequested()
-            }
-            GlassButton {
                 text: root.closedPanels > 0 ? qsTr("Panels (%1 closed)").arg(root.closedPanels) : qsTr("Panels")
                 tone: root.closedPanels > 0 ? Theme.warningColor : "transparent"
                 onClicked: root.panelsRequested()
             }
-            }
-        }
-
-        // Il profilo con cui si scrivono i QSO nuovi.
-        FixedBlock {
-            Text {
-                text: qsTr("Station")
-                color: Theme.textSecondary
-                font.pixelSize: 11
-            }
-            StyledComboBox {
-                id: stationBox
-                Layout.preferredWidth: 160
-                model: root.profiles
-                textRole: "name"
-                valueRole: "profileId"
-                displayText: root.profiles.activeProfile.name ? root.profiles.activeProfile.name : qsTr("No profile")
-                currentIndex: root.profiles.rowForId(root.profiles.activeProfileId)
-                onActivated: (index) => {
-                    const p = root.profiles.get(index)
-                    if (p.deleted)
-                        root.profilesRequested()
-                    else
-                        root.profiles.activeProfileId = p.id
-                }
-                Connections {
-                    target: root.profiles
-                    function onActiveChanged() { stationBox.currentIndex = root.profiles.rowForId(root.profiles.activeProfileId) }
-                }
-            }
-            GlassButton {
-                text: "✎"
-                minimumWidth: 30
-                implicitWidth: 30
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Station profiles")
-                onClicked: root.profilesRequested()
             }
         }
 

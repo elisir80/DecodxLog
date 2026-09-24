@@ -5348,10 +5348,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>設定</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>インポート</translation>
     </message>
@@ -5364,16 +5360,24 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>アワード</translation>
     </message>
     <message>
-        <source>Cluster ●</source>
-        <translation>クラスター ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>クラスター</translation>
     </message>
     <message>
         <source>Contest Mode ▾</source>
         <translation>コンテストモード ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DXクラスター…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>設定 · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>設定 ▾</translation>
     </message>
     <message>
         <source>Contest Mode · %1 · %2/%3 ▾</source>
@@ -5454,14 +5458,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Station</source>
         <translation>局</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>プロファイルなし</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>局プロファイル</translation>
     </message>
     <message>
         <source>Cloud %1</source>

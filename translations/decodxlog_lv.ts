@@ -5368,10 +5368,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>Iestatījumi</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>Importēt</translation>
     </message>
@@ -5384,16 +5380,24 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Diplomi</translation>
     </message>
     <message>
-        <source>Cluster ●</source>
-        <translation>Klasteris ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>Klasteris</translation>
     </message>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Konkursa režīms ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX klasteris…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Iestatījumi · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Iestatījumi ▾</translation>
     </message>
     <message>
         <source>Contest Mode · %1 · %2/%3 ▾</source>
@@ -5474,14 +5478,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Station</source>
         <translation>Stacija</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>Nav profila</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>Staciju profili</translation>
     </message>
     <message>
         <source>Cloud %1</source>

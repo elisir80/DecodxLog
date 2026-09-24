@@ -5358,10 +5358,6 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
 <context>
     <name>TopBar</name>
     <message>
-        <source>Setup</source>
-        <translation>Ajustes</translation>
-    </message>
-    <message>
         <source>Import</source>
         <translation>Importar</translation>
     </message>
@@ -5374,16 +5370,24 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>Diplomas</translation>
     </message>
     <message>
-        <source>Cluster ●</source>
-        <translation>Clúster ●</translation>
-    </message>
-    <message>
         <source>Cluster</source>
         <translation>Clúster</translation>
     </message>
     <message>
         <source>Contest Mode ▾</source>
         <translation>Modo concurso ▾</translation>
+    </message>
+    <message>
+        <source>DX Cluster…</source>
+        <translation>DX Cluster…</translation>
+    </message>
+    <message>
+        <source>Setup · %1 ▾</source>
+        <translation>Ajustes · %1 ▾</translation>
+    </message>
+    <message>
+        <source>Setup ▾</source>
+        <translation>Ajustes ▾</translation>
     </message>
     <message>
         <source>Contest Mode · %1 · %2/%3 ▾</source>
@@ -5464,14 +5468,6 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>Station</source>
         <translation>Estación</translation>
-    </message>
-    <message>
-        <source>No profile</source>
-        <translation>Sin perfil</translation>
-    </message>
-    <message>
-        <source>Station profiles</source>
-        <translation>Perfiles de estación</translation>
     </message>
     <message>
         <source>Cloud %1</source>
