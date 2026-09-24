@@ -1,4 +1,5 @@
 #include "core/Updates.h"
+#include "core/NetworkError.h"
 
 #include <QFile>
 #include <QFileInfo>
@@ -107,6 +108,7 @@ void UpdateFetcher::fetch()
         return;
     m_busy = true;
     QNetworkRequest request(m_url);
+    network::useHttp11(request);
     request.setRawHeader("Accept", "application/vnd.github+json");
     request.setRawHeader("User-Agent", "DecoDXLog");
     request.setAttribute(QNetworkRequest::RedirectPolicyAttribute,
@@ -134,6 +136,7 @@ void UpdateFetcher::download(const QUrl& url, const QString& path)
         return;
     m_downloadPath = path;
     QNetworkRequest request(url);
+    network::useHttp11(request);
     request.setRawHeader("User-Agent", "DecoDXLog");
     request.setAttribute(QNetworkRequest::RedirectPolicyAttribute,
                          QNetworkRequest::NoLessSafeRedirectPolicy);
