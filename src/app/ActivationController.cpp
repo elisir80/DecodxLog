@@ -674,6 +674,24 @@ QString ActivationController::checkExchange(const QString& exchange) const
     return core::contestrules::checkExchange(core::contestrules::forId(m_session.contestId), exchange);
 }
 
+namespace {
+// Il moltiplicatore come si legge in una colonna stretta del cluster: "Z5"
+// per una zona, "DXCC" per un paese nuovo, la sigla per il resto. Le chiavi
+// interne ("zona 5", "paese 291") non dicevano niente a chi le leggeva.
+QString shortMultiplier(const QString& key)
+{
+    const QString kind = key.section(QLatin1Char(' '), 0, 0);
+    const QString value = key.section(QLatin1Char(' '), 1);
+    if (kind == QLatin1String("zona"))
+        return QStringLiteral("Z") + value;
+    if (kind == QLatin1String("paese"))
+        return QStringLiteral("DXCC");
+    if (kind == QLatin1String("hq") || kind == QLatin1String("prov") || kind == QLatin1String("sez"))
+        return value;
+    return key;
+}
+} // namespace
+
 QVariantMap ActivationController::spotValue(const QString& call, const QString& band,
                                             const QString& mode) const
 {
@@ -710,7 +728,7 @@ QVariantMap ActivationController::spotValue(const QString& call, const QString& 
     QStringList missing;
     for (const QString& key : keys) {
         if (!already.contains(key))
-            missing << key.section(QLatin1Char('|'), 0, 0);
+            missing << shortMultiplier(key.section(QLatin1Char('|'), 0, 0));
     }
     out[QStringLiteral("newMultiplier")] = !missing.isEmpty();
     out[QStringLiteral("label")] = missing.join(QStringLiteral(" · "));

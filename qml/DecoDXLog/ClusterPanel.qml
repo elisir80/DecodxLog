@@ -426,15 +426,18 @@ GlassPanel {
                 width: ListView.view.width
                 height: visible ? Theme.rowHeight : 0
                 visible: !root.onlyMultipliers || line.newMultiplier
+                // Le righe restano del colore del pannello: il fondo giallo dei
+                // moltiplicatori copriva tutto l'elenco in gara. Quello che conta
+                // lo dicono il filo a sinistra e la pasticca, in un colore solo.
                 color: area.containsMouse ? Theme.glassOverlay
-                     : line.newMultiplier ? Qt.rgba(Theme.warningColor.r, Theme.warningColor.g,
-                                                    Theme.warningColor.b, 0.18)
-                     : fresh && (status & 15) ? Qt.rgba(root.statusColor(status).r, root.statusColor(status).g, root.statusColor(status).b, 0.10)
+                     : !root.contestMode && fresh && (status & 15)
+                       ? Qt.rgba(root.statusColor(status).r, root.statusColor(status).g, root.statusColor(status).b, 0.10)
                      : "transparent"
                 Rectangle {
                     anchors { left: parent.left; top: parent.top; bottom: parent.bottom }
-                    width: line.newMultiplier ? 5 : 3
-                    color: line.newMultiplier ? Theme.warningColor : root.statusColor(line.status)
+                    width: line.newMultiplier ? 4 : 3
+                    color: line.newMultiplier ? Theme.accentColor
+                         : root.contestMode ? "transparent" : root.statusColor(line.status)
                 }
                 Rectangle { anchors { left: parent.left; right: parent.right; bottom: parent.bottom } height: 1; color: Theme.borderSoft }
 
@@ -474,20 +477,23 @@ GlassPanel {
                             width: parent.width
                             height: 18
                             radius: 3
-                            color: Qt.rgba(Theme.warningColor.r, Theme.warningColor.g,
-                                           Theme.warningColor.b, 0.22)
-                            border.color: Theme.warningColor
+                            color: Qt.rgba(Theme.accentColor.r, Theme.accentColor.g,
+                                           Theme.accentColor.b, 0.14)
+                            border.color: Theme.accentColor
                             Text {
                                 anchors.centerIn: parent
+                                width: parent.width - 6
+                                horizontalAlignment: Text.AlignHCenter
+                                elide: Text.ElideRight
                                 text: line.contestValue.label || qsTr("mult")
-                                color: Theme.warningColor
+                                color: Theme.accentColor
                                 font.family: Theme.monoFamily
                                 font.pixelSize: 10
                                 font.bold: true
                             }
                         }
                         Rectangle {
-                            visible: !line.newMultiplier && line.statusLabel.length > 0
+                            visible: !root.contestMode && !line.newMultiplier && line.statusLabel.length > 0
                             anchors.verticalCenter: parent.verticalCenter
                             width: badge.implicitWidth + 10
                             height: 16
