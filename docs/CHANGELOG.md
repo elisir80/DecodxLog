@@ -3,6 +3,33 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.0 — 24 settembre 2026
+
+**La modalita' contest diventa una lavagna magnetica.** In gara la finestra principale e' una
+lavagna, e i pannelli ci stanno sopra liberi:
+
+- si prendono per la **testata** e si spostano **in qualsiasi punto**, anche sovrapposti; un
+  clic sulla testata porta un pannello davanti agli altri;
+- si **ridimensionano** da tutti i bordi e da tutti gli angoli;
+- vicino al bordo della lavagna o a un altro pannello **si attaccano da soli**, come
+  calamite, a filo o con un piccolo spazio: si allineano senza fatica;
+- **⤢ stacca** un pannello in una finestra sua (anche su un altro monitor), che resta sopra
+  la principale e si riduce con lei; **↩** lo riporta sulla lavagna; **✕** lo chiude, e dal
+  menu Contest Mode si riapre;
+- posizioni e misure si ricordano **in proporzione**: allargando o stringendo la finestra la
+  disposizione la segue. **Ripristina la disposizione** torna alle tre colonne di partenza.
+
+**La ✕ delle finestre torna a chiudere.** Dalla 1.15.3, togliendo la barra di Windows, la
+testata trascinabile annullava il clic dei suoi pulsanti appena premuti: la ✕ dei pannelli
+staccati, delle finestre di dialogo e delle finestre grandi non rispondeva. Adesso la testata
+si trascina lasciando i clic ai pulsanti. Provato con clic veri del mouse.
+
+**Il cluster in gara senza il giallo, e in un colore solo.** Le righe dei moltiplicatori non
+hanno piu' il fondo giallo, che in gara copriva tutto l'elenco: il moltiplicatore lo dicono il
+filo a sinistra e la pasticca, nel colore d'accento del tema. La pasticca si legge:
+**"Z5 · DXCC"** invece di "zona 5 · paese 291". In gara le pasticche di stato (NEW CALL,
+WORKED…) non ci sono piu'.
+
 ## 1.15.9 — 24 settembre 2026
 
 **I pannelli della gara si spostano.** Nella modalita' contest agganciata la maniglia ⠿ dei
