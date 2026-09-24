@@ -393,6 +393,8 @@ void DecoLogController::testPointer(QObject* target, const QString& kind, qreal 
     if (kind == QLatin1String("press")) {
         type = QEvent::MouseButtonPress;
         button = Qt::LeftButton;
+    } else if (kind == QLatin1String("hover")) {
+        buttons = Qt::NoButton;
     } else if (kind == QLatin1String("release")) {
         type = QEvent::MouseButtonRelease;
         button = Qt::LeftButton;

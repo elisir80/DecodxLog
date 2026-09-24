@@ -63,9 +63,6 @@ ApplicationWindow {
         // rifarla ogni volta che cambia scheda.
         property real clusterBottomHeight: 340
         property real mapWidth: 308
-        property string hiddenColumns: ""
-        property string columnWidths: ""
-        property var savedFilters: ({})
         // I pannelli chiusi e quelli in finestra propria, come liste di chiavi
         // separate da virgola. Restano da una sessione all'altra.
         property string hiddenPanels: "cw"
@@ -453,7 +450,53 @@ ApplicationWindow {
             // Si aspetta che la lavagna abbia preso le misure.
             if (step++ < 10)
                 return
-            if (kind === "panelsclick") {
+            if (kind === "headerresize") {
+                const lp = window.panelItem("logbook").item
+                const col = 2
+                if (step === 11) {
+                    const cell = args[1] === "table" ? lp.tableCell(col) : lp.headerCell(col)
+                    start0 = cell.mapToItem(null, cell.width - 2, cell.height / 2)
+                    pointerProbe.args = args.concat([String(lp.columnWidthOf(col))])
+                    // Prima ci si passa sopra, come il mouse: la maniglia del
+                    // bordo si accende col passaggio, non con la pressione.
+                    send(window, "hover", Qt.point(start0.x - 20, start0.y))
+                    send(window, "hover", start0)
+                    return
+                }
+                if (step === 12) {
+                    send(window, "press", start0)
+                    return
+                }
+                const n = step - 12
+                if (n <= 8) {
+                    send(window, "move", Qt.point(start0.x + 10 * n, start0.y))
+                    return
+                }
+                send(window, "release", Qt.point(start0.x + 80, start0.y))
+                stop()
+                Qt.callLater(function () {
+                    console.warn("PROBE header column " + col + " width " + args[args.length - 1] + " -> " + lp.columnWidthOf(col))
+                })
+            } else if (kind === "logprobe") {
+                const lp = key === "board" ? contestLayout.panelFor("logbook").item : window.panelItem("logbook").item
+                if (step === 11) {
+                    lp.showMenu(args[2] === "band" ? "filters" : "columns")
+                    return
+                }
+                if (step < 18)
+                    return
+                const label = args[2] === "band" ? "20m" : lp.model.columnTitle(2)
+                const c = findGlyph(lp.menuFor(args[2]).contentItem, label)
+                if (!c) { console.warn("PROBE log: no item " + label); stop(); return }
+                const at = c.mapToItem(null, c.width / 2, c.height / 2)
+                send(c.Window.window, "press", at)
+                send(c.Window.window, "release", at)
+                stop()
+                Qt.callLater(function () {
+                    console.warn("PROBE log " + key + " " + args[2] + ": bands=" + JSON.stringify(lp.model.bandFilter)
+                                 + " hidden=" + lp.hiddenColumns)
+                })
+            } else if (kind === "panelsclick") {
                 const c = findGlyph(panelsPopup.contentItem, window.panelTitle(key))
                 if (!c) { console.warn("PROBE no row"); stop(); return }
                 const w = c.Window.window
@@ -737,6 +780,20 @@ ApplicationWindow {
         else if (what[0] === "panelsclick") {
             window.openContestDesk()
             panelsPopup.open()
+            pointerProbe.args = what
+            pointerProbe.step = 0
+            pointerProbe.start()
+        }
+        // Per le prove col mouse vero: nel log (normal o in gara) un clic su
+        // una banda nei filtri, o su una colonna nel menu Colonne.
+        else if (what[0] === "headerresize") {
+            pointerProbe.args = what
+            pointerProbe.step = 0
+            pointerProbe.start()
+        }
+        else if (what[0] === "logprobe") {
+            if (what[1] === "board")
+                window.openContestDesk()
             pointerProbe.args = what
             pointerProbe.step = 0
             pointerProbe.start()
@@ -1420,12 +1477,6 @@ ApplicationWindow {
                     onRotorRequested: window.openRotor()
                     SplitView.fillWidth: true
                     SplitView.minimumWidth: 480
-                    hiddenColumns: layout.hiddenColumns
-                    columnWidths: layout.columnWidths
-                    savedFilters: layout.savedFilters
-                    onHiddenColumnsEdited: (value) => layout.hiddenColumns = value
-                    onColumnWidthsEdited: (value) => layout.columnWidths = value
-                    onSavedFiltersEdited: (value) => layout.savedFilters = value
                     onPopRequested: (key) => window.detachPanel(key)
                 }
 

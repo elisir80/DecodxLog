@@ -4,16 +4,31 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Dialogs
+import QtCore
 import Decodium.UI
 
 GlassPanel {
     id: root
 
-    // Colonne nascoste, come chiavi separate da virgola ("dxcc,source").
-    property string hiddenColumns: ""
-    // Le larghezze scelte a mano, come {"call": 120, "name": 260}.
-    property string columnWidths: ""
-    property var savedFilters: ({})
+    // Colonne, larghezze e filtri salvati li tiene il log stesso, nelle
+    // impostazioni: prima li teneva chi lo ospitava, e dove nessuno lo faceva
+    // (la lavagna del contest, un log staccato, il log spostato in un'altra
+    // casella) scegliere una colonna o salvare un filtro non faceva niente.
+    Settings {
+        id: logStore
+        category: "layout"
+        // Colonne nascoste, come chiavi separate da virgola ("dxcc,source").
+        property string hiddenColumns: ""
+        // Le larghezze scelte a mano, come {"call": 120, "name": 260}.
+        property string columnWidths: ""
+        property var savedFilters: ({})
+    }
+    readonly property string hiddenColumns: logStore.hiddenColumns
+    readonly property string columnWidths: logStore.columnWidths
+    readonly property var savedFilters: logStore.savedFilters
+    onHiddenColumnsEdited: (value) => logStore.hiddenColumns = value
+    onColumnWidthsEdited: (value) => logStore.columnWidths = value
+    onSavedFiltersEdited: (value) => logStore.savedFilters = value
     property bool showPopButton: true
     signal hiddenColumnsEdited(string value)
     signal columnWidthsEdited(string value)
@@ -146,6 +161,11 @@ GlassPanel {
         else if (name === "wide") { table.setColumnWidth(1, 260); table.forceLayout(); root.storeWidths() }
         else if (name === "sub") { addFilterMenu.popup(60, Theme.panelHeight + 30); subTimer.start() }
     }
+    // Per le prove col mouse vero: il menu aperto da showMenu.
+    function menuFor(name) { return name === "band" ? bandMenu : columnsMenu }
+    function headerCell(col) { return header.itemAtCell(Qt.point(col, 0)) }
+    function tableCell(col) { return table.itemAtCell(Qt.point(col, 0)) }
+    function columnWidthOf(col) { return table.columnWidth(col) }
     // Per le schermate di prova (--show select:<righe separate da virgola>:<cosa>).
     function showSelection(rows, what) {
         const list = []
@@ -880,6 +900,10 @@ GlassPanel {
             syncView: table
             clip: true
             boundsBehavior: Flickable.StopAtBounds
+            // Le colonne si allargano e si stringono tirando la riga verticale
+            // fra due intestazioni: prima si poteva solo dentro la tabella, dove
+            // il bordo non si vede.
+            resizableColumns: true
             delegate: Rectangle {
                 required property var display
                 required property int index
@@ -892,6 +916,14 @@ GlassPanel {
                 ToolTip.visible: headHover.hovered
                 ToolTip.delay: 400
                 ToolTip.text: qsTr("L LoTW · Q QRZ Logbook · C Club Log · E eQSL")
+
+                // Il bordo da prendere: una riga verticale fra un'intestazione e
+                // la successiva.
+                Rectangle {
+                    anchors { right: parent.right; top: parent.top; bottom: parent.bottom; topMargin: 4; bottomMargin: 4 }
+                    width: 1
+                    color: Theme.glassBorder
+                }
 
                 Text {
                     anchors.fill: parent

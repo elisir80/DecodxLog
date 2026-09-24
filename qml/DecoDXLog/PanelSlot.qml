@@ -44,15 +44,8 @@ Item {
     signal expandRequested()
     signal popRequested(string key)
 
-    // Quello che serve solo a qualche pannello: le colonne e i filtri del log,
-    // la scheda aperta nelle linguette in basso. Passano di qui perche' la
+    // La scheda aperta nelle linguette in basso: passa di qui perche' la
     // casella non sa in anticipo chi ci finira' dentro.
-    property string hiddenColumns: ""
-    property string columnWidths: ""
-    property var savedFilters: ({})
-    signal hiddenColumnsEdited(string value)
-    signal columnWidthsEdited(string value)
-    signal savedFiltersEdited(var value)
 
     property int currentTab: -1
     function setTab(n) { if (holder.item && holder.item.currentTab !== undefined) holder.item.currentTab = n }
@@ -97,29 +90,6 @@ Item {
         }
     }
 
-    // Le proprieta' che solo certi pannelli hanno: si legano quando ci sono.
-    Binding {
-        target: holder.item
-        property: "hiddenColumns"
-        value: slot.hiddenColumns
-        when: holder.item !== null && holder.item.hiddenColumns !== undefined
-        restoreMode: Binding.RestoreNone
-    }
-    Binding {
-        target: holder.item
-        property: "columnWidths"
-        value: slot.columnWidths
-        when: holder.item !== null && holder.item.columnWidths !== undefined
-        restoreMode: Binding.RestoreNone
-    }
-    Binding {
-        target: holder.item
-        property: "savedFilters"
-        value: slot.savedFilters
-        when: holder.item !== null && holder.item.savedFilters !== undefined
-        restoreMode: Binding.RestoreNone
-    }
-
     // Il magnete: il riquadro acceso sulla casella dove il pannello atterra.
     Rectangle {
         anchors.fill: parent
@@ -159,9 +129,6 @@ Item {
         function onWindowRequested() { slot.rotorRequested() }
         function onExpandRequested() { slot.expandRequested() }
         function onPopRequested() { slot.popRequested(slot.panelKey) }
-        function onHiddenColumnsEdited(value) { slot.hiddenColumnsEdited(value) }
-        function onColumnWidthsEdited(value) { slot.columnWidthsEdited(value) }
-        function onSavedFiltersEdited(value) { slot.savedFiltersEdited(value) }
         function onCurrentTabChanged() { slot.currentTab = holder.item.currentTab }
     }
 }
