@@ -43,9 +43,12 @@ Item {
         property real rateHeight: 0
     }
 
+    // Vuoto vuol dire "mai scelto": si parte con i pannelli di serie. Tutti
+    // chiusi si scrive "-", se no chiudere l'ultimo li riapriva tutti.
     readonly property var shownList: {
         const out = []
-        const parts = saved.shown.length > 0 ? saved.shown.split(",") : root.defaultKeys
+        const parts = saved.shown === "-" ? []
+                    : saved.shown.length > 0 ? saved.shown.split(",") : root.defaultKeys
         for (let i = 0; i < parts.length; ++i) {
             const k = String(parts[i]).trim()
             if (root.allKeys.indexOf(k) >= 0 && out.indexOf(k) < 0)
@@ -61,7 +64,7 @@ Item {
             list.push(key)
         else if (!on && i >= 0)
             list.splice(i, 1)
-        saved.shown = list.join(",")
+        saved.shown = list.length > 0 ? list.join(",") : "-"
     }
     function toggle(key) { root.setShown(key, !root.isShown(key)) }
     // All'ingresso in una gara in telegrafia la CW si apre da sola.

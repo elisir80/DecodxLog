@@ -408,8 +408,9 @@ ApplicationWindow {
             layout.preContestVisibility = window.visibility
             layout.detachedPanels = ""
             layout.contestModeOn = true
+            // Solo entrando: chi poi chiude la CW la trova chiusa.
+            contestLayout.prepare(decolog.activation.isCwContest())
         }
-        contestLayout.prepare(decolog.activation.isCwContest())
         if (window.visibility !== Window.Maximized && window.visibility !== Window.FullScreen)
             window.showMaximized()
     }
