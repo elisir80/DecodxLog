@@ -3,6 +3,18 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.15.9 — 24 settembre 2026
+
+**I pannelli della gara si spostano.** Nella modalita' contest agganciata la maniglia ⠿ dei
+pannelli non faceva niente, e i pannelli sembravano bloccati.
+
+- si prende un pannello per la **maniglia ⠿** e lo si lascia sopra un altro: la casella di
+  arrivo si accende con **"qui"** e i due **si scambiano di posto**, come nella finestra di
+  tutti i giorni. Le posizioni restano da una gara all'altra; **Ripristina la disposizione**
+  le rimette come all'inizio;
+- i **bordi fra i pannelli** hanno un segno sempre visibile e si accendono passandoci sopra:
+  si trascinano per allargare e stringere. Prima erano trasparenti e non si trovavano.
+
 ## 1.15.8 — 24 settembre 2026
 
 **La modalita' contest agganciata, sistemata per chi arriva dalle versioni prima.**
