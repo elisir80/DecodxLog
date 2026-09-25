@@ -2537,6 +2537,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <source>Panels…</source>
         <translation>Paneļi…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>Visi paneļi ir aizvērti: atver tos vēlreiz no Paneļi augšējā joslā.</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Visi paneļi ir savos logos: ↩ panelī to atgriež šeit.</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2869,13 +2877,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>CLEAR</source>
         <translation>NOTĪRĪT</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>šeit</translation>
     </message>
 </context>
 <context>
@@ -5031,10 +5032,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Sūtīt QSO no</translation>
     </message>
     <message>
-        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
-        <translation>CRX Logbook ir crx.cloud mākoņa žurnāls. Tam vajag jūsu konta API atslēgu (sākas ar HAM-, zemāk kopā ar citiem piekļuves datiem) un žurnālu, kurā rakstīt. Tas sākas no dienas, kad izvēlaties žurnālu: vecāki QSO tiek sūtīti tikai tad, ja pārceļat datumu atpakaļ. Katrs QSO tiek sūtīts ar savu datumu un laiku; pēc nosūtīšanas labots tiek atjaunināts, nevis dublēts. Sūtīšana, automātiskā sūtīšana un skaitītāji ir QSL cilnē apakšā.</translation>
-    </message>
-    <message>
         <source>QSL by email</source>
         <translation>QSL pa e-pastu</translation>
     </message>
@@ -5151,6 +5148,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Radio caur Hamlib (rigctld)</translation>
     </message>
     <message>
+        <source>Radio via TCI</source>
+        <translation>Radio caur TCI</translation>
+    </message>
+    <message>
         <source>Talk to the radio</source>
         <translation>Runāt ar radio</translation>
     </message>
@@ -5165,6 +5166,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Serial cable to the radio</source>
         <translation>Seriālais kabelis uz radio</translation>
+    </message>
+    <message>
+        <source>TCI (SDR, as in Decodium)</source>
+        <translation>TCI (SDR, kā Decodium)</translation>
     </message>
     <message>
         <source>Radio (Hamlib)</source>
@@ -5295,8 +5300,24 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Pārlūkot…</translation>
     </message>
     <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time and with its DecoDXLog number (custom field 38). CRX keeps it in step: a QSO corrected here is corrected there, one deleted here is deleted there, and with the network down they wait in the queue and leave at the next sending. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook ir crx.cloud mākoņa žurnāls. Tam vajag tava konta API atslēgu (sākas ar HAM-, zemāk kopā ar citiem piekļuves datiem) un žurnālu, kurā rakstīt. Tas sākas no dienas, kad izvēlies žurnālu: vecāki QSO tiek sūtīti tikai tad, ja pārceļ datumu atpakaļ. Katrs QSO tiek sūtīts ar datumu un laiku un ar savu DecoDXLog numuru (pielāgotais lauks 38). CRX paliek saskaņots: šeit labots QSO tiek labots arī tur, šeit dzēsts tiek dzēsts arī tur, un bez tīkla tie gaida rindā un tiek sūtīti nākamajā sūtīšanā. Sūtīšana, automātiskā sūtīšana un skaitītāji ir QSL cilnē apakšā.</translation>
+    </message>
+    <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
         <translation>Ar katru radio runā Hamlib, nevis DecoDXLog. Ar seriālo kabeli izvēlies modeli un portu, un DecoDXLog pats palaiž rigctld; ja rigctld jau darbojas (sacensību programmai vai citā datorā), pietiek norādīt saimniekdatoru un portu. No turienes DecoDXLog nolasa frekvenci un režīmu, var noskaņot radio un nodod CW makro pašas radio taustiņam.</translation>
+    </message>
+    <message>
+        <source>TCI server</source>
+        <translation>TCI serveris</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>Uztvērējs</translation>
+    </message>
+    <message>
+        <source>TCI is the protocol of Expert Electronics SDRs (SunSDR, ColibriNANO with ExpertSDR) and of the programs that speak it: turn TCI on in the SDR program (usually port 40001). DecoDXLog reads frequency and mode as soon as they change, tunes the radio, uses its PTT and sends the CW macros with the SDR&apos;s own keyer. Decodium can be connected at the same time: TCI accepts more than one program.</source>
+        <translation>TCI ir Expert Electronics SDR (SunSDR, ColibriNANO ar ExpertSDR) un to programmu protokols, kas to runā: ieslēdz TCI SDR programmā (parasti ports 40001). DecoDXLog nolasa frekvenci un modu, tiklīdz tie mainās, noskaņo radio, izmanto tā PTT un sūta CW makro ar SDR telegrāfa atslēgu. Decodium var būt pieslēgts vienlaikus: TCI pieņem vairākas programmas.</translation>
     </message>
     <message>
         <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
@@ -6877,6 +6898,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>%1: apturēts, %2</translation>
     </message>
     <message>
+        <source>CRX Logbook: deleting QSO %1: %2</source>
+        <translation>CRX Logbook: dzēš QSO %1: %2</translation>
+    </message>
+    <message>
         <source>TQSL not found: install Trusted QSL or set its path here</source>
         <translation>TQSL nav atrasts: uzstādi Trusted QSL vai norādi šeit tā ceļu</translation>
     </message>
@@ -6979,6 +7004,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>%1: %2 sent, %3 already there, %4 rejected</source>
         <translation>%1: %2 nosūtīti, %3 jau bija, %4 noraidīti</translation>
+    </message>
+    <message numerus="yes">
+        <source>, %n deleted</source>
+        <translation>
+            <numerusform>, %n dzēsts</numerusform>
+            <numerusform>, %n dzēsts</numerusform>
+            <numerusform>, %n dzēsti</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -7615,6 +7648,37 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>The solar data cannot be read</source>
         <translation>Saules datus nevar nolasīt</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::TciControl</name>
+    <message>
+        <source>Radio connected (TCI %1), waiting for it to be ready…</source>
+        <translation>Radio pieslēgts (TCI %1), gaida, kamēr būs gatavs…</translation>
+    </message>
+    <message>
+        <source>Radio not reachable via TCI: %1</source>
+        <translation>Radio nav sasniedzams caur TCI: %1</translation>
+    </message>
+    <message>
+        <source>Radio connected (TCI %1)</source>
+        <translation>Radio pieslēgts (TCI %1)</translation>
+    </message>
+    <message>
+        <source>Looking for the radio via TCI on %1…</source>
+        <translation>Meklē radio caur TCI uz %1…</translation>
+    </message>
+    <message>
+        <source>Radio off</source>
+        <translation>Radio izslēgta</translation>
+    </message>
+    <message>
+        <source>The radio is not connected: nothing sent in CW</source>
+        <translation>Radio nav pieslēgta: CW nekas netika nosūtīts</translation>
+    </message>
+    <message>
+        <source>Radio connected: %1 (TCI %2)</source>
+        <translation>Radio pieslēgts: %1 (TCI %2)</translation>
     </message>
 </context>
 <context>

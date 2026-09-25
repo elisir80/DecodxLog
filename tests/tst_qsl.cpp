@@ -184,6 +184,17 @@ private slots:
         QCOMPARE(again.value("logentry_mode").toString(), QString("SSB"));
         QCOMPARE(again.value("logentry_frequency").toString(), QString("14274.5"));
         QVERIFY(!again.contains("logentry_his_name"));
+        QVERIFY(!again.contains("logentry_custom_field38"));
+
+        // Il numero del QSO qui va nel campo personalizzato 38.
+        QCOMPARE(qsl::crxQsoData(ssb, 123, 0, 116).value("logentry_custom_field38").toString(), QString("116"));
+
+        // La mappa: il numero CRX vale nel suo log; i vecchi, senza log, valgono.
+        QCOMPARE(qsl::crxRemoteKey(123, "111354"), QString("123:111354"));
+        QCOMPARE(qsl::crxRemoteQso("123:111354", 123), 111354);
+        QCOMPARE(qsl::crxRemoteQso("123:111354", 7), 0);
+        QCOMPARE(qsl::crxRemoteQso("456", 7), 456);
+        QCOMPARE(qsl::crxRemoteQso("", 7), 0);
     }
 
     void crxAnswers()
@@ -207,6 +218,18 @@ private slots:
 
         r = qsl::parseCrxResponse(500, "<html>oops</html>");
         QVERIFY(r.retryLater);
+
+        // Risposte vere di CRX (prova del 25/09/2026): il numero arriva come
+        // testo, la modifica non lo ripete, la cancellazione di un QSO che non
+        // c'e' piu' e' un 404 che non va ripetuto.
+        r = qsl::parseCrxResponse(200, R"({"success":true,"message":"QSO created successfully","qso_id":"1"})");
+        QCOMPARE(r.remoteId, QString("1"));
+        r = qsl::parseCrxResponse(200, R"({"success":true,"message":"QSO updated successfully"})");
+        QVERIFY(r.ok);
+        QCOMPARE(r.remoteId, QString("0"));
+        r = qsl::parseCrxResponse(404, R"({"error":"QSO not found or already deleted"})");
+        QVERIFY(!r.ok);
+        QVERIFY(!r.retryLater);
 
         QString error;
         const QVariantList logs = qsl::parseCrxLogs(
@@ -242,6 +265,20 @@ private slots:
         QCOMPARE(req.value("query").toString(), QString("edit_myqso"));
         QCOMPARE(req.value("apikey").toString(), QString("HAM-XX-12345678-12345678"));
         QCOMPARE(req.value("qsoData").toObject().value("logentry_his_call").toString(), QString("W1AW"));
+
+        // La cancellazione: edit_myqso con qso_id e action "delete", come HAMPI.
+        FakeCrx del;
+        QVERIFY(del.listen(QHostAddress::LocalHost));
+        del.answer = R"({"success": true})";
+        web.setCrxEndpoint(del.url());
+        QSignalSpy deleted(&web, &WebQslUploader::finished);
+        web.deleteCrx("HAM-XX-12345678-12345678", 457);
+        QVERIFY(deleted.wait(5000));
+        QVERIFY(deleted.first().first().value<QslUploadResult>().ok);
+        const QJsonObject delReq = QJsonDocument::fromJson(del.body).object().value("req").toObject();
+        QCOMPARE(delReq.value("query").toString(), QString("edit_myqso"));
+        QCOMPARE(delReq.value("action").toString(), QString("delete"));
+        QCOMPARE(delReq.value("qso_id").toInteger(), 457);
 
         // L'elenco dei logbook.
         FakeCrx logs;

@@ -156,8 +156,8 @@ ApplicationWindow {
             Text { text: qsTr("Mode"); color: Theme.textSecondary; font.pixelSize: 12 }
             StyledComboBox {
                 Layout.preferredWidth: 160
-                readonly property var values: ["", "FT2", "FT8", "FT4", "CW", "SSB", "RTTY"]
-                model: [qsTr("All modes"), "FT2", "FT8", "FT4", "CW", "SSB", "RTTY"]
+                readonly property var values: ["", "FT2", "FT8", "FT4", "CW", "SSB", "RTTY", "JTTY"]
+                model: [qsTr("All modes"), "FT2", "FT8", "FT4", "CW", "SSB", "RTTY", "JTTY"]
                 currentIndex: Math.max(0, values.indexOf(root.mode))
                 onActivated: root.mode = values[currentIndex]
             }

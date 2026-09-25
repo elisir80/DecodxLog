@@ -280,7 +280,18 @@ public:
     // vecchio. `limit` 0 = tutti.
     // `since`: solo i QSO da quel giorno in poi (UTC); non valida = tutti.
     QList<qint64> qsosToUpload(const QString& service, int limit = 0, const QDate& since = {}) const;
+    // Conta anche le cancellazioni da mandare (CRX).
     int uploadPendingCount(const QString& service, const QDate& since = {}) const;
+    // I servizi dove un QSO si corregge e si cancella, non solo si aggiunge:
+    // oggi CRX Logbook.
+    static QStringList editableServices();
+    // Un QSO gia' su quei servizi e poi corretto qui torna in coda ("R"), e
+    // partira' come modifica del QSO che hanno gia'.
+    void queueRemoteEdit(qint64 id);
+    // I QSO cancellati qui che il servizio ha ancora ("D"): {id, remote_id}.
+    QList<QPair<qint64, QString>> remoteDeletions(const QString& service) const;
+    // Il servizio non ha piu' il QSO: si dimentica il suo numero.
+    bool forgetRemote(qint64 id, const QString& service);
 
     // ── Sync con DecoDXLog Cloud ───────────────────────────────────────────────
     // I QSO ancora da mandare, dal piu' vecchio. `limit` 0 = tutti.

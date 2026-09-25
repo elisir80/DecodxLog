@@ -22,6 +22,7 @@ const QVector<Entry>& table()
         {QStringLiteral("FT8"),     QStringLiteral("PKTUSB"), QStringLiteral("data")},
         {QStringLiteral("FT4"),     QStringLiteral("PKTUSB"), QStringLiteral("data")},
         {QStringLiteral("FT2"),     QStringLiteral("PKTUSB"), QStringLiteral("data")},
+        {QStringLiteral("JTTY"),    QStringLiteral("PKTUSB"), QStringLiteral("data")},
         {QStringLiteral("JS8"),     QStringLiteral("PKTUSB"), QStringLiteral("data")},
         {QStringLiteral("JT65"),    QStringLiteral("PKTUSB"), QStringLiteral("data")},
         {QStringLiteral("JT9"),     QStringLiteral("PKTUSB"), QStringLiteral("data")},

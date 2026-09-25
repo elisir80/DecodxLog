@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.16.9
+    VERSION 1.16.13
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -80,6 +80,9 @@ add_library(decolog_core STATIC
     src/core/CwKeyer.cpp
     src/core/CwKeyer.h
     src/core/RigControl.cpp
+    src/core/RigLink.h
+    src/core/TciControl.cpp
+    src/core/TciControl.h
     src/core/Maidenhead.h
     src/core/LogDatabase.cpp
     src/core/LogDatabase.h
@@ -231,7 +234,6 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/LogbookWindow.qml
     qml/DecoDXLog/CwPanel.qml
     qml/DecoDXLog/OnScreen.qml
-    qml/DecoDXLog/PanelSlot.qml
     qml/DecoDXLog/PanelWindow.qml
     qml/DecoDXLog/CredentialsList.qml
     qml/DecoDXLog/AwardsDialog.qml
@@ -366,7 +368,7 @@ set_target_properties(decolog PROPERTIES
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

@@ -2527,6 +2527,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <source>Panels…</source>
         <translation>面板…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>所有面板都已關閉：可在頂部列的「面板」中重新開啟。</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>所有面板都在各自的視窗中：面板中的 ↩ 可將其放回這裡。</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2859,13 +2867,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>CLEAR</source>
         <translation>清空</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>這裡</translation>
     </message>
 </context>
 <context>
@@ -5011,10 +5012,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>從此日期起傳送 QSO</translation>
     </message>
     <message>
-        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
-        <translation>CRX Logbook 是 crx.cloud 的雲端日誌。它需要你帳戶的 API 金鑰（以 HAM- 開頭，在下方與其他憑證一起填寫）以及要寫入的日誌本。從你選擇日誌本的那天開始傳送：更早的 QSO 只有在你把日期往前調時才會傳送。每個 QSO 都帶日期和時間傳送；傳送後修改的會被更新，而不會重複。傳送、自動傳送和計數在下方的 QSL 分頁中。</translation>
-    </message>
-    <message>
         <source>QSL by email</source>
         <translation>用郵件發 QSL</translation>
     </message>
@@ -5131,6 +5128,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>透過 Hamlib 連電台 (rigctld)</translation>
     </message>
     <message>
+        <source>Radio via TCI</source>
+        <translation>透過 TCI 連接電台</translation>
+    </message>
+    <message>
         <source>Talk to the radio</source>
         <translation>和電台對話</translation>
     </message>
@@ -5145,6 +5146,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Serial cable to the radio</source>
         <translation>接到電台的序列埠線</translation>
+    </message>
+    <message>
+        <source>TCI (SDR, as in Decodium)</source>
+        <translation>TCI（SDR，與 Decodium 相同）</translation>
     </message>
     <message>
         <source>Radio (Hamlib)</source>
@@ -5275,8 +5280,24 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>瀏覽…</translation>
     </message>
     <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time and with its DecoDXLog number (custom field 38). CRX keeps it in step: a QSO corrected here is corrected there, one deleted here is deleted there, and with the network down they wait in the queue and leave at the next sending. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook 是 crx.cloud 的雲端日誌。需要你帳戶的 API 金鑰（以 HAM- 開頭，在下方與其他憑證一起）以及要寫入的日誌本。從你選擇日誌本的那天開始傳送：更早的 QSO 只有在把日期往前調時才會傳送。每個 QSO 都帶著日期、時間和它在 DecoDXLog 中的編號（自訂欄位 38）。CRX 保持同步：在這裡修改的 QSO 在那裡也會修改，在這裡刪除的在那裡也會刪除，沒有網路時它們在佇列中等待，下次傳送時送出。傳送、自動傳送和計數器都在底部的 QSL 分頁中。</translation>
+    </message>
+    <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
         <translation>和每一台電台說話的是 Hamlib，不是 DecoDXLog。用序列埠線的話，選好型號和連接埠，DecoDXLog 會自己啟動 rigctld；如果 rigctld 已經在跑（為了比賽程式，或者在另一台電腦上），只要給出主機和連接埠就行。從那裡 DecoDXLog 讀頻率和模式，可以給電台調頻，並把 CW 巨集交給電台自己的電鍵。</translation>
+    </message>
+    <message>
+        <source>TCI server</source>
+        <translation>TCI 伺服器</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>接收機</translation>
+    </message>
+    <message>
+        <source>TCI is the protocol of Expert Electronics SDRs (SunSDR, ColibriNANO with ExpertSDR) and of the programs that speak it: turn TCI on in the SDR program (usually port 40001). DecoDXLog reads frequency and mode as soon as they change, tunes the radio, uses its PTT and sends the CW macros with the SDR&apos;s own keyer. Decodium can be connected at the same time: TCI accepts more than one program.</source>
+        <translation>TCI 是 Expert Electronics SDR（SunSDR、搭配 ExpertSDR 的 ColibriNANO）以及支援它的程式所用的協定：請在 SDR 程式中啟用 TCI（通常連接埠 40001）。DecoDXLog 在頻率與模式變化時立即讀取，調諧電台，使用其 PTT，並以 SDR 自帶的電鍵送出 CW 巨集。Decodium 可以同時連接：TCI 接受多個程式。</translation>
     </message>
     <message>
         <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
@@ -6807,6 +6828,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>%1：已停止，%2</translation>
     </message>
     <message>
+        <source>CRX Logbook: deleting QSO %1: %2</source>
+        <translation>CRX Logbook：刪除 QSO %1：%2</translation>
+    </message>
+    <message>
         <source>TQSL not found: install Trusted QSL or set its path here</source>
         <translation>沒找到 TQSL：請安裝 Trusted QSL，或者在這裡填上它的路徑</translation>
     </message>
@@ -6901,6 +6926,12 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>%1: %2 sent, %3 already there, %4 rejected</source>
         <translation>%1：送出 %2 筆，已有 %3 筆，拒絕 %4 筆</translation>
+    </message>
+    <message numerus="yes">
+        <source>, %n deleted</source>
+        <translation>
+            <numerusform>, 已刪除 %n 個</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -7535,6 +7566,37 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>The solar data cannot be read</source>
         <translation>太陽資料讀不出來</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::TciControl</name>
+    <message>
+        <source>Radio connected (TCI %1), waiting for it to be ready…</source>
+        <translation>電台已連接（TCI %1），等待就緒…</translation>
+    </message>
+    <message>
+        <source>Radio not reachable via TCI: %1</source>
+        <translation>無法透過 TCI 連接電台：%1</translation>
+    </message>
+    <message>
+        <source>Radio connected (TCI %1)</source>
+        <translation>電台已連接（TCI %1）</translation>
+    </message>
+    <message>
+        <source>Looking for the radio via TCI on %1…</source>
+        <translation>正在透過 TCI 在 %1 上尋找電台…</translation>
+    </message>
+    <message>
+        <source>Radio off</source>
+        <translation>電台已關閉</translation>
+    </message>
+    <message>
+        <source>The radio is not connected: nothing sent in CW</source>
+        <translation>電台沒有連接：CW 什麼都沒發出去</translation>
+    </message>
+    <message>
+        <source>Radio connected: %1 (TCI %2)</source>
+        <translation>電台已連接：%1（TCI %2）</translation>
     </message>
 </context>
 <context>

@@ -83,6 +83,12 @@ private slots:
         QCOMPARE(legacy.value("MODE"), QString("MFSK"));
         QCOMPARE(legacy.value("SUBMODE"), QString("FT2"));
 
+        // JTTY (WSJT-X 3.2.0) come gli altri modi nuovi di WSJT-X.
+        AdifRecord jtty{{"CALL", "K1JT"}, {"MODE", "JTTY"}};
+        adif::normalizeMode(jtty);
+        QCOMPARE(jtty.value("MODE"), QString("MFSK"));
+        QCOMPARE(jtty.value("SUBMODE"), QString("JTTY"));
+
         AdifRecord ft8{{"MODE", "FT8"}};
         adif::normalizeMode(ft8);
         QCOMPARE(ft8.value("MODE"), QString("FT8"));

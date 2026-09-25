@@ -82,7 +82,7 @@ GlassPanel {
         const rig = String(decolog.shownMode || "").toUpperCase()
         if (rig === "LSB" || rig === "USB" || rig === "SSB" || rig === "AM" || rig === "FM")
             return "SSB"
-        if (rig === "CW" || rig === "CW-R" || rig === "RTTY" || rig === "FT8" || rig === "FT4" || rig === "FT2")
+        if (rig === "CW" || rig === "CW-R" || rig === "RTTY" || rig === "JTTY" || rig === "FT8" || rig === "FT4" || rig === "FT2")
             return rig === "CW-R" ? "CW" : rig
         return "CW"
     }
@@ -265,7 +265,7 @@ GlassPanel {
                 StyledComboBox {
                     id: modeBox
                     Layout.preferredWidth: 96
-                    readonly property var modes: ["CW", "SSB", "RTTY", "FT2", "FT8", "FT4", "PSK31"]
+                    readonly property var modes: ["CW", "SSB", "RTTY", "JTTY", "FT2", "FT8", "FT4", "PSK31"]
                     model: modes
                     currentIndex: Math.max(0, modes.indexOf(root.mode))
                     onActivated: {

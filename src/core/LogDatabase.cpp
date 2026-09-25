@@ -755,7 +755,13 @@ bool LogDatabase::softDeleteQso(qint64 id)
         "UPDATE qso SET deleted = 1, dirty = 1, revision = revision + 1, updated_at = ? WHERE id = ?"));
     u.addBindValue(nowIso());
     u.addBindValue(id);
-    if (!h.exec() || !u.exec()) {
+    // Sui servizi che sanno cancellare, il QSO che hanno va tolto anche li':
+    // resta in coda ("D") finche' non si riesce a dirglielo.
+    QSqlQuery d(db);
+    d.prepare(QStringLiteral("UPDATE qsl_status SET sent = 'D' WHERE qso_id = ? AND IFNULL(remote_id, '') <> '' "
+                             "AND service IN ('%1')").arg(editableServices().join(QStringLiteral("','"))));
+    d.addBindValue(id);
+    if (!h.exec() || !u.exec() || !d.exec()) {
         db.rollback();
         return false;
     }
@@ -1622,8 +1628,9 @@ QList<qint64> LogDatabase::qsosToUpload(const QString& service, int limit, const
     q.setForwardOnly(true);
     q.prepare(QStringLiteral(
         "SELECT qso.id FROM qso LEFT JOIN qsl_status s ON s.qso_id = qso.id AND s.service = ? "
-        "WHERE qso.deleted = 0 AND (s.sent IS NULL OR s.sent IN ('N', 'R', 'Q')) ")
-        + (since.isValid() ? QStringLiteral("AND qso.qso_datetime_on >= ? ") : QString())
+        "WHERE qso.deleted = 0 AND (s.sent IS NULL OR s.sent IN ('N', 'R', 'Q', 'D')) ")
+        + (since.isValid() ? QStringLiteral("AND (qso.qso_datetime_on >= ? OR IFNULL(s.remote_id, '') <> '') ")
+                           : QString())
         + QStringLiteral("ORDER BY qso.qso_datetime_on, qso.id") + (limit > 0 ? QStringLiteral(" LIMIT ?") : QString()));
     q.addBindValue(service);
     if (since.isValid())
@@ -1642,12 +1649,55 @@ int LogDatabase::uploadPendingCount(const QString& service, const QDate& since) 
     QSqlQuery q(connection());
     q.prepare(QStringLiteral(
         "SELECT COUNT(*) FROM qso LEFT JOIN qsl_status s ON s.qso_id = qso.id AND s.service = ? "
-        "WHERE qso.deleted = 0 AND (s.sent IS NULL OR s.sent IN ('N', 'R', 'Q'))")
-        + (since.isValid() ? QStringLiteral(" AND qso.qso_datetime_on >= ?") : QString()));
+        "WHERE qso.deleted = 0 AND (s.sent IS NULL OR s.sent IN ('N', 'R', 'Q', 'D'))")
+        + (since.isValid() ? QStringLiteral(" AND (qso.qso_datetime_on >= ? OR IFNULL(s.remote_id, '') <> '')")
+                           : QString()));
     q.addBindValue(service);
     if (since.isValid())
         q.addBindValue(since.toString(Qt::ISODate));
-    return q.exec() && q.next() ? q.value(0).toInt() : 0;
+    const int toSend = q.exec() && q.next() ? q.value(0).toInt() : 0;
+    return toSend + static_cast<int>(remoteDeletions(service).size());
+}
+
+QStringList LogDatabase::editableServices()
+{
+    return {QStringLiteral("crx")};
+}
+
+void LogDatabase::queueRemoteEdit(qint64 id)
+{
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("UPDATE qsl_status SET sent = 'R' WHERE qso_id = ? AND sent = 'Y' "
+                             "AND IFNULL(remote_id, '') <> '' AND service IN ('%1')").arg(editableServices().join(QStringLiteral("','"))));
+    q.addBindValue(id);
+    q.exec();
+}
+
+QList<QPair<qint64, QString>> LogDatabase::remoteDeletions(const QString& service) const
+{
+    QList<QPair<qint64, QString>> out;
+    QSqlQuery q(connection());
+    q.setForwardOnly(true);
+    q.prepare(QStringLiteral(
+        "SELECT s.qso_id, s.remote_id FROM qsl_status s JOIN qso ON qso.id = s.qso_id "
+        "WHERE s.service = ? AND s.sent = 'D' AND qso.deleted = 1 AND IFNULL(s.remote_id, '') <> '' "
+        "ORDER BY s.qso_id"));
+    q.addBindValue(service);
+    if (!q.exec())
+        return out;
+    while (q.next())
+        out.append({q.value(0).toLongLong(), q.value(1).toString()});
+    return out;
+}
+
+bool LogDatabase::forgetRemote(qint64 id, const QString& service)
+{
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("UPDATE qsl_status SET sent = 'N', sent_date = NULL, remote_id = NULL, "
+                             "last_error = NULL WHERE qso_id = ? AND service = ?"));
+    q.addBindValue(id);
+    q.addBindValue(service);
+    return q.exec();
 }
 
 // ── Sync con DecoDXLog Cloud ────────────────────────────────────────────────────

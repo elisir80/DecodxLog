@@ -2532,6 +2532,14 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <source>Panels…</source>
         <translation>Paneles…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>Todos los paneles están cerrados: vuelve a abrirlos desde Paneles, en la barra de arriba.</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Todos los paneles están en su propia ventana: ↩ en un panel lo trae de vuelta aquí.</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2864,13 +2872,6 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>CLEAR</source>
         <translation>LIMPIAR</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>aquí</translation>
     </message>
 </context>
 <context>
@@ -5021,10 +5022,6 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>Enviar los QSO desde</translation>
     </message>
     <message>
-        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
-        <translation>CRX Logbook es el libro en la nube de crx.cloud. Pide la clave API de tu cuenta (empieza por HAM-, abajo con las otras credenciales) y el libro donde escribir. Empieza el día en que eliges el libro: los QSO más antiguos solo salen si retrasas la fecha. Cada QSO va con su fecha y hora; uno corregido después del envío se actualiza, no se duplica. El envío, el envío automático y los contadores están en la pestaña QSL de abajo.</translation>
-    </message>
-    <message>
         <source>QSL by email</source>
         <translation>QSL por correo</translation>
     </message>
@@ -5141,6 +5138,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>Radio con Hamlib (rigctld)</translation>
     </message>
     <message>
+        <source>Radio via TCI</source>
+        <translation>Radio por TCI</translation>
+    </message>
+    <message>
         <source>Talk to the radio</source>
         <translation>Hablar con la radio</translation>
     </message>
@@ -5155,6 +5156,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>Serial cable to the radio</source>
         <translation>Cable serie a la radio</translation>
+    </message>
+    <message>
+        <source>TCI (SDR, as in Decodium)</source>
+        <translation>TCI (SDR, como en Decodium)</translation>
     </message>
     <message>
         <source>Radio (Hamlib)</source>
@@ -5285,8 +5290,24 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>Examinar…</translation>
     </message>
     <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time and with its DecoDXLog number (custom field 38). CRX keeps it in step: a QSO corrected here is corrected there, one deleted here is deleted there, and with the network down they wait in the queue and leave at the next sending. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook es el log en la nube de crx.cloud. Necesita la clave API de tu cuenta (empieza por HAM-, abajo con las demás credenciales) y el logbook donde escribir. Empieza el día en que eliges el logbook: los QSO más antiguos solo salen si retrasas la fecha. Cada QSO va con su fecha y hora y con su número de DecoDXLog (campo personalizado 38). CRX se mantiene al día: un QSO corregido aquí se corrige allí, uno borrado aquí se borra allí, y sin red esperan en la cola y salen en el siguiente envío. El envío, el envío automático y los contadores están en la pestaña QSL de abajo.</translation>
+    </message>
+    <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
         <translation>Con cada radio habla Hamlib, no DecoDXLog. Con el cable serie elige el modelo y el puerto y DecoDXLog arranca rigctld solo; si ya tienes rigctld en marcha (para un programa de concurso, o en otro ordenador) basta con el host y el puerto. Desde ahí DecoDXLog lee la frecuencia y el modo, puede sintonizar la radio, y pasa las macros de CW al manipulador de la radio.</translation>
+    </message>
+    <message>
+        <source>TCI server</source>
+        <translation>Servidor TCI</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>Receptor</translation>
+    </message>
+    <message>
+        <source>TCI is the protocol of Expert Electronics SDRs (SunSDR, ColibriNANO with ExpertSDR) and of the programs that speak it: turn TCI on in the SDR program (usually port 40001). DecoDXLog reads frequency and mode as soon as they change, tunes the radio, uses its PTT and sends the CW macros with the SDR&apos;s own keyer. Decodium can be connected at the same time: TCI accepts more than one program.</source>
+        <translation>TCI es el protocolo de los SDR de Expert Electronics (SunSDR, ColibriNANO con ExpertSDR) y de los programas que lo hablan: activa TCI en el programa del SDR (normalmente puerto 40001). DecoDXLog lee la frecuencia y el modo en cuanto cambian, sintoniza la radio, usa su PTT y envía las macros CW con el manipulador del SDR. Decodium puede seguir conectado a la vez: TCI acepta varios programas.</translation>
     </message>
     <message>
         <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
@@ -6842,6 +6863,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>%1: parado, %2</translation>
     </message>
     <message>
+        <source>CRX Logbook: deleting QSO %1: %2</source>
+        <translation>CRX Logbook: borrando el QSO %1: %2</translation>
+    </message>
+    <message>
         <source>TQSL not found: install Trusted QSL or set its path here</source>
         <translation>No se encuentra TQSL: instala Trusted QSL o pon aquí su ruta</translation>
     </message>
@@ -6940,6 +6965,13 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>%1: %2 sent, %3 already there, %4 rejected</source>
         <translation>%1: %2 enviados, %3 ya estaban, %4 rechazados</translation>
+    </message>
+    <message numerus="yes">
+        <source>, %n deleted</source>
+        <translation>
+            <numerusform>, %n borrado</numerusform>
+            <numerusform>, %n borrados</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -7575,6 +7607,37 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>The solar data cannot be read</source>
         <translation>Los datos solares no se pueden leer</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::TciControl</name>
+    <message>
+        <source>Radio connected (TCI %1), waiting for it to be ready…</source>
+        <translation>Radio conectada (TCI %1), esperando a que esté lista…</translation>
+    </message>
+    <message>
+        <source>Radio not reachable via TCI: %1</source>
+        <translation>Radio no accesible por TCI: %1</translation>
+    </message>
+    <message>
+        <source>Radio connected (TCI %1)</source>
+        <translation>Radio conectada (TCI %1)</translation>
+    </message>
+    <message>
+        <source>Looking for the radio via TCI on %1…</source>
+        <translation>Buscando la radio por TCI en %1…</translation>
+    </message>
+    <message>
+        <source>Radio off</source>
+        <translation>Radio apagada</translation>
+    </message>
+    <message>
+        <source>The radio is not connected: nothing sent in CW</source>
+        <translation>La radio no está conectada: no ha salido nada en CW</translation>
+    </message>
+    <message>
+        <source>Radio connected: %1 (TCI %2)</source>
+        <translation>Radio conectada: %1 (TCI %2)</translation>
     </message>
 </context>
 <context>

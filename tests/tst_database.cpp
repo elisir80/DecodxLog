@@ -175,6 +175,51 @@ private slots:
         QCOMPARE(fieldMap(after.records.first()), fieldMap(adif::parse(original).records.first()));
     }
 
+    void crxFollowsEditsAndDeletions()
+    {
+        // CRX corregge e cancella: un QSO gia' li' e poi corretto torna in
+        // coda, uno cancellato qui resta da togliere anche li'.
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        QCOMPARE(db.importAdif("<CALL:4>K1AB<QSO_DATE:8>20260101<TIME_ON:4>1000<BAND:3>20m<MODE:3>FT8<EOR>"
+                               "<CALL:4>K2CD<QSO_DATE:8>20260101<TIME_ON:4>1100<BAND:3>20m<MODE:3>FT8<EOR>")
+                     .inserted, 2);
+        const QList<qint64> ids = db.qsosToUpload("crx");
+        QCOMPARE(ids.size(), 2);
+        for (const qint64 id : ids) {
+            QslState st;
+            st.service = "crx";
+            st.sent = "Y";
+            st.remoteId = QString("1:%1").arg(100 + id);
+            QVERIFY(db.setQslState(id, st));
+        }
+        QCOMPARE(db.uploadPendingCount("crx"), 0);
+
+        db.queueRemoteEdit(ids.at(0));
+        QCOMPARE(db.qsosToUpload("crx"), QList<qint64>{ids.at(0)});
+        // Anche se e' piu' vecchio del "da quel giorno": CRX ce l'ha gia'.
+        QCOMPARE(db.qsosToUpload("crx", 0, QDate(2026, 6, 1)), QList<qint64>{ids.at(0)});
+
+        QVERIFY(db.softDeleteQso(ids.at(1)));
+        const auto gone = db.remoteDeletions("crx");
+        QCOMPARE(gone.size(), 1);
+        QCOMPARE(gone.first().first, ids.at(1));
+        QCOMPARE(gone.first().second, QString("1:%1").arg(100 + ids.at(1)));
+        QCOMPARE(db.uploadPendingCount("crx"), 2);
+
+        QVERIFY(db.forgetRemote(ids.at(1), "crx"));
+        QVERIFY(db.remoteDeletions("crx").isEmpty());
+        QCOMPARE(db.uploadPendingCount("crx"), 1);
+        // Gli altri servizi non si toccano: LoTW non sa correggere.
+        QslState lotw;
+        lotw.service = "lotw";
+        lotw.sent = "Y";
+        lotw.remoteId = "x";
+        QVERIFY(db.setQslState(ids.at(0), lotw));
+        db.queueRemoteEdit(ids.at(0));
+        QVERIFY(db.qsosToUpload("lotw").isEmpty());
+    }
+
     void editKeepsHistoryAndRestores()
     {
         LogDatabase db;

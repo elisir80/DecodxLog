@@ -939,9 +939,9 @@ DialogFrame {
                             label: qsTr("Send QSOs from")
                             StyledTextField {
                                 Layout.preferredWidth: 130
-                                text: decolog.qsl.crxSince
-                                placeholderText: "yyyy-mm-dd"
-                                onEditingFinished: decolog.qsl.crxSince = text
+                                text: decolog.showDate(decolog.qsl.crxSince)
+                                placeholderText: decolog.dateHint
+                                onEditingFinished: decolog.qsl.crxSince = decolog.readDate(text)
                             }
                         }
                     }
@@ -958,8 +958,10 @@ DialogFrame {
                         text: qsTr("CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts "
                                    + "with HAM-, below with the other credentials) and the logbook to write in. It starts from "
                                    + "the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO "
-                                   + "goes with its date and time; one corrected after sending is updated, not duplicated. "
-                                   + "Sending, automatic sending and the counters are in the QSL tab at the bottom.")
+                                   + "goes with its date and time and with its DecoDXLog number (custom field 38). CRX "
+                                   + "keeps it in step: a QSO corrected here is corrected there, one deleted here is "
+                                   + "deleted there, and with the network down they wait in the queue and leave at the "
+                                   + "next sending. Sending, automatic sending and the counters are in the QSL tab at the bottom.")
                     }
                     CredentialsList {
                         Layout.fillWidth: true
@@ -1186,8 +1188,9 @@ DialogFrame {
                 ColumnLayout {
                     spacing: 10
 
-                    SectionTitle { text: qsTr("Radio via Hamlib (rigctld)") }
+                    SectionTitle { text: decolog.rig.link === "tci" ? qsTr("Radio via TCI") : qsTr("Radio via Hamlib (rigctld)") }
                     Note {
+                        visible: decolog.rig.link !== "tci"
                         text: qsTr("Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable "
                                    + "pick the model and the port and DecoDXLog starts rigctld by itself; if you "
                                    + "already run rigctld (for a contest program, or on another computer) just "
@@ -1204,9 +1207,10 @@ DialogFrame {
                         LabeledField {
                             label: qsTr("How")
                             StyledComboBox {
-                                Layout.preferredWidth: 220
-                                readonly property var ids: ["network", "serial"]
-                                model: [qsTr("rigctld already running"), qsTr("Serial cable to the radio")]
+                                Layout.preferredWidth: 270
+                                readonly property var ids: ["network", "serial", "tci"]
+                                model: [qsTr("rigctld already running"), qsTr("Serial cable to the radio"),
+                                        qsTr("TCI (SDR, as in Decodium)")]
                                 currentIndex: Math.max(0, ids.indexOf(decolog.rig.link))
                                 onActivated: decolog.rig.link = ids[currentIndex]
                             }
@@ -1361,6 +1365,47 @@ DialogFrame {
                             onClicked: decolog.rig.probeRadio()
                         }
                     }
+                    // TCI: il WebSocket del programma della radio (ExpertSDR,
+                    // Thetis, SDR Console…), come in Decodium.
+                    RowLayout {
+                        spacing: 12
+                        visible: decolog.rig.link === "tci"
+                        LabeledField {
+                            label: qsTr("TCI server")
+                            StyledTextField {
+                                Layout.preferredWidth: 200
+                                text: decolog.rig.tciAddress
+                                placeholderText: "127.0.0.1:40001"
+                                onEditingFinished: decolog.rig.tciAddress = text
+                            }
+                        }
+                        LabeledField {
+                            label: qsTr("Receiver")
+                            StyledComboBox {
+                                Layout.preferredWidth: 110
+                                model: ["RX1", "RX2"]
+                                currentIndex: Math.min(1, decolog.rig.tciTrx)
+                                onActivated: decolog.rig.tciTrx = currentIndex
+                            }
+                        }
+                        GlassButton {
+                            Layout.alignment: Qt.AlignBottom
+                            Layout.bottomMargin: 2
+                            text: qsTr("Connect now")
+                            tone: Theme.primaryColor
+                            onClicked: decolog.rig.connectNow()
+                        }
+                    }
+                    Note {
+                        visible: decolog.rig.link === "tci"
+                        text: qsTr("TCI is the protocol of Expert Electronics SDRs (SunSDR, ColibriNANO with "
+                                   + "ExpertSDR) and of the programs that speak it: turn TCI on in the SDR "
+                                   + "program (usually port 40001). DecoDXLog reads frequency and mode as soon as "
+                                   + "they change, tunes the radio, uses its PTT and sends the CW macros with the "
+                                   + "SDR's own keyer. Decodium can be connected at the same time: TCI accepts "
+                                   + "more than one program.")
+                    }
+
                     RowLayout {
                         spacing: 10
                         Pill {

@@ -134,6 +134,11 @@ private:
     int m_accepted{0};
     int m_duplicates{0};
     int m_rejected{0};
+    int m_removed{0};
+    // CRX: i QSO cancellati qui da togliere anche li' ({id, "log:qso"}), e
+    // quello per cui si aspetta la risposta.
+    QList<QPair<qint64, QString>> m_deletions;
+    qint64 m_deletingId{0};
     QTimer m_autoDelay;
     QList<qint64> m_autoQueue;
 };

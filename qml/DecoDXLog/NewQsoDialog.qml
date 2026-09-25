@@ -23,7 +23,7 @@ DialogFrame {
     function submodesFor(mode) {
         switch (mode) {
         case "SSB": return ["", "USB", "LSB"]
-        case "MFSK": return ["", "FT2", "FT4", "FST4", "Q65", "JS8"]
+        case "MFSK": return ["", "FT2", "FT4", "JTTY", "FST4", "Q65", "JS8"]
         case "PSK": return ["", "PSK31", "PSK63", "PSK125"]
         case "RTTY": return ["", "ASCI"]
         default: return [""]

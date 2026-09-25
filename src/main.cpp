@@ -238,6 +238,10 @@ int main(int argc, char* argv[])
     QCommandLineOption rigOption(QStringLiteral("rig"), QStringLiteral("Use this rigctld (Hamlib)."),
                                  QStringLiteral("host:port"));
     parser.addOption(rigOption);
+    // Radio per una prova via TCI: "host:porta", e "/1" per il secondo ricevitore.
+    QCommandLineOption tciOption(QStringLiteral("tci"), QStringLiteral("Use this TCI server."),
+                                 QStringLiteral("host:port[/trx]"));
+    parser.addOption(tciOption);
     // Il decoder CW che ascolta un file invece della scheda audio (WAV mono a
     // 16 bit), per provarlo senza radio.
     QCommandLineOption cwAudioOption(QStringLiteral("cw-audio"), QStringLiteral("Feed this WAV file to the CW decoder."),
@@ -301,6 +305,11 @@ int main(int argc, char* argv[])
             rig->overrideConnection(value.section(QLatin1Char(':'), 0, 0),
                                     value.section(QLatin1Char(':'), 1).toInt());
         }
+    }
+    if (parser.isSet(tciOption)) {
+        const QString value = parser.value(tciOption);
+        if (auto* rig = qobject_cast<decolog::app::RigController*>(controller.rig()))
+            rig->overrideTci(value.section(QLatin1Char('/'), 0, 0), value.section(QLatin1Char('/'), 1).toInt());
     }
     if (parser.isSet(cwAudioOption)) {
         QFile wav(parser.value(cwAudioOption));

@@ -3,6 +3,57 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.13 — 25 settembre 2026
+
+**La radio anche via TCI, come in Decodium.**
+
+- In Impostazioni → Radio (CAT), "Come" ha una terza strada: TCI, il protocollo delle SDR
+  Expert Electronics (SunSDR, ColibriNANO con ExpertSDR) e dei programmi che lo parlano.
+  Basta l'indirizzo del server (di serie 127.0.0.1:40001) e il ricevitore (RX1 o RX2).
+- Frequenza e modo arrivano appena cambiano, senza interrogare la radio; DecoDXLog la
+  sintonizza (cluster, inserimento veloce, banda e modo), usa il suo PTT e manda le macro CW
+  con il manipolatore della SDR (cw_macros). Decodium puo' restare collegato insieme.
+
+## 1.16.12 — 25 settembre 2026
+
+**JTTY, il modo nuovo di Joe Taylor K1JT (WSJT-X 3.2.0-rc1).**
+
+- JTTY e' il modo per gli scambi veloci da contest e le conversazioni in tastiera, simile al
+  RTTY ma molto piu' robusto (4 toni GFSK, circa 127 Hz). Si sceglie nell'inserimento, nella
+  finestra del nuovo QSO (MFSK → JTTY), nell'inserimento della gara e nelle statistiche.
+- Nel log va come gli altri modi nuovi di WSJT-X: MODE MFSK, SUBMODE JTTY, e si legge JTTY.
+  Chi lo manda o lo importa scritto JTTY lo ritrova cosi'. La radio va in PKTUSB, nel segmento
+  dei digitali a banda stretta; gli spot con "JTTY" nel commento sono JTTY.
+
+## 1.16.11 — 25 settembre 2026
+
+**La finestra principale e' una lavagna magnetica, come quella della gara.**
+
+- Fuori dalla gara i pannelli (nuovo QSO, log, scheda nominativo, CW, rotore, FT2 Award,
+  schede in basso, mappa) si comportano esattamente come in modalita' contest: si prendono
+  per la testata e si mettono dove si vuole, si ridimensionano da bordi e angoli, vicino ai
+  bordi della finestra o di un altro pannello si attaccano da soli, un clic porta un
+  pannello davanti. ⤢ lo stacca in una finestra sua, ✕ lo chiude, Pannelli lo riapre.
+- La disposizione di tutti i giorni e quella della gara sono separate e si ricordano da
+  sole, in proporzione alla finestra. "Blocca la disposizione" (tasto destro su una
+  testata) ferma spostamenti e misure; "Ripristina la disposizione" rimette quella di
+  partenza.
+- Un pannello che non ci sta nel suo riquadro resta dentro, invece di coprire i vicini.
+
+## 1.16.10 — 25 settembre 2026
+
+**CRX Logbook resta allineato al log: correzioni e cancellazioni vanno anche li'.**
+
+- Come suggerito da CRX: ogni QSO porta il suo numero DecoDXLog nel campo personalizzato 38,
+  e DecoDXLog tiene la mappa numero locale ↔ numero CRX ↔ logbook CRX. Un QSO corretto qui
+  torna in coda e parte come modifica dello stesso QSO su CRX; uno cancellato qui viene
+  cancellato anche su CRX. Senza rete restano in coda e partono all'invio successivo
+  (automatico o dal pulsante nella scheda QSL), che conta anche le cancellazioni.
+- Cambiando logbook CRX i QSO gia' mandati all'altro partono come nuovi, non come modifiche.
+- Le correzioni di QSO gia' su CRX partono anche se sono piu' vecchi della data "Invia i QSO
+  dal".
+- La data "Invia i QSO dal" di CRX si scrive nella forma della lingua, come le altre.
+
 ## 1.16.9 — 25 settembre 2026
 
 **Le date nella forma della lingua scelta: in italiano giorno/mese/anno.**

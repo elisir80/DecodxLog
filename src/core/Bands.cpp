@@ -90,7 +90,8 @@ double defaultFrequency(const QString& band, const QString& mode)
         double khz = p.ssb;
         if (m == QLatin1String("CW"))
             khz = p.cw;
-        else if (m == QLatin1String("RTTY") || m == QLatin1String("PSK31") || m == QLatin1String("PSK"))
+        else if (m == QLatin1String("RTTY") || m == QLatin1String("PSK31") || m == QLatin1String("PSK")
+                 || m == QLatin1String("JTTY"))
             khz = p.rtty;
         else if (m == QLatin1String("FT8") || m == QLatin1String("FT2"))
             khz = p.ft8;

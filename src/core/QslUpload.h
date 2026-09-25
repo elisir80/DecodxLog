@@ -62,8 +62,15 @@ QslUploadResult parseClubLogResponse(int status, const QByteArray& body, int qso
 
 // CRX Logbook (crx.cloud): un QSO si manda come JSON, dentro {"req": {...}}.
 // `remoteId` e' il numero che CRX ha dato al QSO la prima volta: con quello si
-// corregge invece di crearne un doppione; 0 per un QSO nuovo.
-QJsonObject crxQsoData(const AdifRecord& record, qint64 logId, qint64 remoteId);
+// corregge invece di crearne un doppione; 0 per un QSO nuovo. `localId` e' il
+// numero del QSO qui: va nel campo personalizzato 38 di CRX, come suggerito da
+// CRX stesso, cosi' dal sito si risale al QSO di DecoDXLog.
+QJsonObject crxQsoData(const AdifRecord& record, qint64 logId, qint64 remoteId, qint64 localId = 0);
+// Dove sta un QSO su CRX, come lo tiene qsl_status: "log:qso" ("123:111354").
+QString crxRemoteKey(qint64 logId, const QString& qsoId);
+// Il numero CRX del QSO se sta in quel log, 0 altrimenti (in un altro log e'
+// un QSO nuovo). I numeri vecchi, senza log, erano del log scelto allora.
+qint64 crxRemoteQso(const QString& remoteKey, qint64 logId);
 // La risposta a edit_myqso: {"success": true, "qso_id": ...} o {"error": ...}.
 QslUploadResult parseCrxResponse(int status, const QByteArray& body);
 // I logbook dell'account: {id, name, call, description}.
@@ -132,6 +139,8 @@ public:
     void uploadClubLog(const ClubLogAuth& auth, const QByteArray& adifDocument, int qsoCount);
     // CRX Logbook: la chiave API dell'operatore e il QSO gia' tradotto.
     void uploadCrx(const QString& apiKey, const QJsonObject& qsoData);
+    // Toglie un QSO da CRX: edit_myqso con action "delete", come fa HAMPI.
+    void deleteCrx(const QString& apiKey, qint64 remoteQsoId);
     // L'elenco dei logbook dell'account CRX, per scegliere dove scrivere.
     void listCrxLogs(const QString& apiKey);
     void setCrxEndpoint(const QUrl& url) { m_crxUrl = url; }

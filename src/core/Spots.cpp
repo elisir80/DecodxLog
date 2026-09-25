@@ -124,8 +124,9 @@ QString modeFor(double freqKhz, const QString& comment)
     const QString c = comment.toUpper();
     // Le espressioni si compilano una volta: l'RBN manda centinaia di spot al minuto.
     static const QList<QPair<QRegularExpression, QString>> keywords = [] {
-        const std::array<std::pair<const char*, const char*>, 15> list{{
+        const std::array<std::pair<const char*, const char*>, 16> list{{
             {"\\bFT-?8\\b", "FT8"},   {"\\bFT-?4\\b", "FT4"},     {"\\bFT-?2\\b", "FT2"},
+            {"\\bJTTY\\b", "JTTY"},
             {"\\bJS8", "JS8"},         {"\\bQ65", "Q65"},           {"\\bJT65", "JT65"},
             {"\\bJT9\\b", "JT9"},     {"\\bMSK144\\b", "MSK144"}, {"\\bFST4W?\\b", "FST4"},
             {"\\bRTTY\\b", "RTTY"},   {"\\bPSK(31|63|125)?\\b", "PSK"},

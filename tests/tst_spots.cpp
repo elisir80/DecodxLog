@@ -88,6 +88,7 @@ private slots:
         QCOMPARE(spots::modeFor(14020.0, ""), QString("CW"));
         QCOMPARE(spots::modeFor(14200.0, ""), QString("SSB"));
         QCOMPARE(spots::modeFor(7090.0, "FT8 dx"), QString("FT8"));   // il commento vince
+        QCOMPARE(spots::modeFor(14083.0, "JTTY test"), QString("JTTY"));
         QCOMPARE(spots::modeFor(21300.0, "pse QSL"), QString("SSB"));
         QCOMPARE(spots::modeKey("USB"), QString("PHONE"));
         QCOMPARE(spots::modeKey("DIGI"), QString());

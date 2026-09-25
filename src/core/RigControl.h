@@ -10,6 +10,8 @@
 // RPRT, e li' si sa se e' andata bene.
 #pragma once
 
+#include "core/RigLink.h"
+
 #include <QObject>
 #include <QQueue>
 #include <QString>
@@ -18,42 +20,33 @@
 
 namespace decolog::core {
 
-class RigControl : public QObject {
+class RigControl : public RigLink {
     Q_OBJECT
 
 public:
     explicit RigControl(QObject* parent = nullptr);
 
     void connectTo(const QString& host, quint16 port);
-    void disconnectFromRig();
+    void disconnectFromRig() override;
 
-    bool connected() const;
+    bool connected() const override;
     QString host() const { return m_host; }
     quint16 port() const { return m_port; }
-    qint64 frequencyHz() const { return m_frequencyHz; }
-    QString mode() const { return m_mode; }
-    int speedWpm() const { return m_wpm; }
-    // Cosa sta succedendo, in una riga da mostrare a chi guarda.
-    QString status() const { return m_status; }
+    qint64 frequencyHz() const override { return m_frequencyHz; }
+    QString mode() const override { return m_mode; }
+    int speedWpm() const override { return m_wpm; }
+    QString status() const override { return m_status; }
 
     // Chiede alla radio dove sta: frequenza, modo e velocita' del manipolatore.
-    void refresh();
-    void setFrequency(qint64 hz);
-    void setMode(const QString& mode);
-    void setPtt(bool on);
+    void refresh() override;
+    void setFrequency(qint64 hz) override;
+    void setMode(const QString& mode) override;
+    void setPtt(bool on) override;
     // La velocita' del manipolatore della radio, in parole al minuto.
-    void setSpeedWpm(int wpm);
+    void setSpeedWpm(int wpm) override;
     // Manda il testo in CW con il manipolatore della radio, e lo ferma.
-    void sendMorse(const QString& text);
-    void stopMorse();
-
-signals:
-    void changed();
-    void failed(const QString& message);
-    // Il testo e' stato preso dalla radio: e' partito in aria.
-    void morseSent(const QString& text);
-    // Questa radio (o questo ponte CAT) il CW non lo sa mandare.
-    void morseUnsupported();
+    void sendMorse(const QString& text) override;
+    void stopMorse() override;
 
 private:
     struct Pending {

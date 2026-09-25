@@ -2532,6 +2532,14 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <source>Panels…</source>
         <translation>Plafons…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>Tots els panells estan tancats: torna&apos;ls a obrir des de Panells, a la barra de dalt.</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Tots els panells són en una finestra pròpia: ↩ en un panell el torna aquí.</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2864,13 +2872,6 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>CLEAR</source>
         <translation>NETEJA</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>aquí</translation>
     </message>
 </context>
 <context>
@@ -5021,10 +5022,6 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Envia els QSO des del</translation>
     </message>
     <message>
-        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
-        <translation>CRX Logbook és el llibre al núvol de crx.cloud. Demana la clau API del teu compte (comença per HAM-, a baix amb les altres credencials) i el llibre on escriure. Comença el dia que tries el llibre: els QSO més antics només surten si endarrereixes la data. Cada QSO va amb la seva data i hora; un de corregit després de l&apos;enviament s&apos;actualitza, no es duplica. L&apos;enviament, l&apos;enviament automàtic i els comptadors són a la pestanya QSL de baix.</translation>
-    </message>
-    <message>
         <source>QSL by email</source>
         <translation>QSL per correu</translation>
     </message>
@@ -5141,6 +5138,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Ràdio via Hamlib (rigctld)</translation>
     </message>
     <message>
+        <source>Radio via TCI</source>
+        <translation>Ràdio per TCI</translation>
+    </message>
+    <message>
         <source>Talk to the radio</source>
         <translation>Parla amb la ràdio</translation>
     </message>
@@ -5155,6 +5156,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Serial cable to the radio</source>
         <translation>Cable sèrie cap a la ràdio</translation>
+    </message>
+    <message>
+        <source>TCI (SDR, as in Decodium)</source>
+        <translation>TCI (SDR, com a Decodium)</translation>
     </message>
     <message>
         <source>Radio (Hamlib)</source>
@@ -5285,8 +5290,24 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Explora…</translation>
     </message>
     <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time and with its DecoDXLog number (custom field 38). CRX keeps it in step: a QSO corrected here is corrected there, one deleted here is deleted there, and with the network down they wait in the queue and leave at the next sending. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook és el log al núvol de crx.cloud. Necessita la clau API del teu compte (comença per HAM-, a sota amb les altres credencials) i el logbook on escriure. Comença el dia que tries el logbook: els QSO més antics només surten si endarrereixes la data. Cada QSO va amb la data i l&apos;hora i amb el seu número de DecoDXLog (camp personalitzat 38). CRX es manté al dia: un QSO corregit aquí es corregeix allà, un d&apos;esborrat aquí s&apos;esborra allà, i sense xarxa esperen a la cua i surten al següent enviament. L&apos;enviament, l&apos;enviament automàtic i els comptadors són a la pestanya QSL de baix.</translation>
+    </message>
+    <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
         <translation>Amb cada ràdio hi parla l&apos;Hamlib, no pas DecoDXLog. Amb el cable sèrie tria el model i el port i DecoDXLog arrenca el rigctld tot sol; si ja tens el rigctld en marxa (per a un programa de concurs, o en un altre ordinador), només cal l&apos;amfitrió i el port. Des d&apos;allà DecoDXLog llegeix la freqüència i el mode, pot sintonitzar la ràdio, i passa les macros de CW al manipulador de la ràdio.</translation>
+    </message>
+    <message>
+        <source>TCI server</source>
+        <translation>Servidor TCI</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>Receptor</translation>
+    </message>
+    <message>
+        <source>TCI is the protocol of Expert Electronics SDRs (SunSDR, ColibriNANO with ExpertSDR) and of the programs that speak it: turn TCI on in the SDR program (usually port 40001). DecoDXLog reads frequency and mode as soon as they change, tunes the radio, uses its PTT and sends the CW macros with the SDR&apos;s own keyer. Decodium can be connected at the same time: TCI accepts more than one program.</source>
+        <translation>TCI és el protocol dels SDR d&apos;Expert Electronics (SunSDR, ColibriNANO amb ExpertSDR) i dels programes que el parlen: activa TCI al programa de l&apos;SDR (normalment port 40001). DecoDXLog llegeix la freqüència i el mode tan bon punt canvien, sintonitza la ràdio, fa servir el seu PTT i envia les macros CW amb el manipulador de l&apos;SDR. Decodium pot quedar connectat alhora: TCI accepta diversos programes.</translation>
     </message>
     <message>
         <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
@@ -6842,6 +6863,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>%1: aturat, %2</translation>
     </message>
     <message>
+        <source>CRX Logbook: deleting QSO %1: %2</source>
+        <translation>CRX Logbook: esborrant el QSO %1: %2</translation>
+    </message>
+    <message>
         <source>TQSL not found: install Trusted QSL or set its path here</source>
         <translation>No s&apos;ha trobat el TQSL: instal·la Trusted QSL o posa-hi el camí aquí</translation>
     </message>
@@ -6940,6 +6965,13 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>%1: %2 sent, %3 already there, %4 rejected</source>
         <translation>%1: %2 enviats, %3 ja hi eren, %4 rebutjats</translation>
+    </message>
+    <message numerus="yes">
+        <source>, %n deleted</source>
+        <translation>
+            <numerusform>, %n esborrat</numerusform>
+            <numerusform>, %n esborrats</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -7575,6 +7607,37 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>The solar data cannot be read</source>
         <translation>Les dades solars no es poden llegir</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::TciControl</name>
+    <message>
+        <source>Radio connected (TCI %1), waiting for it to be ready…</source>
+        <translation>Ràdio connectada (TCI %1), esperant que estigui a punt…</translation>
+    </message>
+    <message>
+        <source>Radio not reachable via TCI: %1</source>
+        <translation>Ràdio no accessible per TCI: %1</translation>
+    </message>
+    <message>
+        <source>Radio connected (TCI %1)</source>
+        <translation>Ràdio connectada (TCI %1)</translation>
+    </message>
+    <message>
+        <source>Looking for the radio via TCI on %1…</source>
+        <translation>Cercant la ràdio per TCI a %1…</translation>
+    </message>
+    <message>
+        <source>Radio off</source>
+        <translation>Ràdio apagada</translation>
+    </message>
+    <message>
+        <source>The radio is not connected: nothing sent in CW</source>
+        <translation>La ràdio no està connectada: no s&apos;ha enviat res en CW</translation>
+    </message>
+    <message>
+        <source>Radio connected: %1 (TCI %2)</source>
+        <translation>Ràdio connectada: %1 (TCI %2)</translation>
     </message>
 </context>
 <context>

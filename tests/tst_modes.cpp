@@ -22,7 +22,7 @@ private slots:
 
     void everyDigitalModeIsDataOnUpperSideband()
     {
-        for (const auto* name : {"FT8", "FT4", "FT2", "JS8", "JT65", "Q65", "MSK144", "PSK31", "OLIVIA"})
+        for (const auto* name : {"FT8", "FT4", "FT2", "JTTY", "JS8", "JT65", "Q65", "MSK144", "PSK31", "OLIVIA"})
             QCOMPARE(modes::catFor(QLatin1String(name)), QStringLiteral("PKTUSB"));
     }
 

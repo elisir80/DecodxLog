@@ -287,7 +287,7 @@ GlassPanel {
                             id: modeBox
                             Layout.fillWidth: true
                             editable: true
-                            model: ["SSB", "CW", "FM", "AM", "RTTY", "FT8", "FT4", "FT2", "PSK31"]
+                            model: ["SSB", "CW", "FM", "AM", "RTTY", "JTTY", "FT8", "FT4", "FT2", "PSK31"]
                         }
                     }
                     LabeledField {

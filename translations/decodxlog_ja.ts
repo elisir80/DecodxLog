@@ -2527,6 +2527,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <source>Panels…</source>
         <translation>パネル…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>すべてのパネルが閉じています：上部バーの「パネル」から再び開けます。</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>すべてのパネルが別ウィンドウにあります：パネルの ↩ でここに戻せます。</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2859,13 +2867,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>CLEAR</source>
         <translation>消す</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>ここ</translation>
     </message>
 </context>
 <context>
@@ -5011,10 +5012,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>送信開始日</translation>
     </message>
     <message>
-        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
-        <translation>CRX Logbook は crx.cloud のクラウドログです。アカウントのAPIキー(HAM- で始まるもの。下の他の認証情報と一緒に登録)と書き込むログブックが必要です。ログブックを選んだ日から送信が始まり、それより古いQSOは日付を戻したときだけ送られます。各QSOは日付と時刻付きで送られ、送信後に修正したものは重複せず更新されます。送信・自動送信・カウンターは下のQSLタブにあります。</translation>
-    </message>
-    <message>
         <source>QSL by email</source>
         <translation>メールで QSL</translation>
     </message>
@@ -5131,6 +5128,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>Hamlib 経由の無線機 (rigctld)</translation>
     </message>
     <message>
+        <source>Radio via TCI</source>
+        <translation>TCI 経由の無線機</translation>
+    </message>
+    <message>
         <source>Talk to the radio</source>
         <translation>無線機と話す</translation>
     </message>
@@ -5145,6 +5146,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Serial cable to the radio</source>
         <translation>無線機への シリアルケーブル</translation>
+    </message>
+    <message>
+        <source>TCI (SDR, as in Decodium)</source>
+        <translation>TCI（SDR、Decodium と同じ）</translation>
     </message>
     <message>
         <source>Radio (Hamlib)</source>
@@ -5275,8 +5280,24 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>選ぶ…</translation>
     </message>
     <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time and with its DecoDXLog number (custom field 38). CRX keeps it in step: a QSO corrected here is corrected there, one deleted here is deleted there, and with the network down they wait in the queue and leave at the next sending. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook は crx.cloud のクラウドログです。アカウントの API キー（HAM- で始まる、下のほかの認証情報と一緒に）と書き込む先のログブックが必要です。ログブックを選んだ日から送信を始めます。それより古い QSO は日付を戻したときだけ送られます。各 QSO は日時と DecoDXLog の番号（カスタムフィールド 38）付きで送られます。CRX は同期されます：ここで修正した QSO は向こうでも修正され、ここで削除した QSO は向こうでも削除され、ネットワークがないときはキューで待ち、次の送信で送られます。送信、自動送信、カウンターは下の QSL タブにあります。</translation>
+    </message>
+    <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
         <translation>どの無線機とも話すのは Hamlib で、DecoDXLog ではありません。シリアルケーブルなら機種とポートを選べば、DecoDXLog がひとりでに rigctld を立ち上げます。rigctld がもう動いているなら (コンテストのプログラムのためや、別のコンピューターで)、ホストとポートを教えるだけです。そこから DecoDXLog は周波数とモードを読み、無線機を合わせることもでき、CW のマクロは無線機のキーヤーに渡します。</translation>
+    </message>
+    <message>
+        <source>TCI server</source>
+        <translation>TCI サーバー</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>受信機</translation>
+    </message>
+    <message>
+        <source>TCI is the protocol of Expert Electronics SDRs (SunSDR, ColibriNANO with ExpertSDR) and of the programs that speak it: turn TCI on in the SDR program (usually port 40001). DecoDXLog reads frequency and mode as soon as they change, tunes the radio, uses its PTT and sends the CW macros with the SDR&apos;s own keyer. Decodium can be connected at the same time: TCI accepts more than one program.</source>
+        <translation>TCI は Expert Electronics の SDR（SunSDR、ExpertSDR の ColibriNANO）と、それに対応するプログラムのプロトコルです。SDR のプログラムで TCI を有効にしてください（通常ポート 40001）。DecoDXLog は周波数とモードの変化をすぐに読み取り、無線機を同調し、その PTT を使い、SDR 自身のキーヤーで CW マクロを送ります。Decodium と同時に接続できます：TCI は複数のプログラムを受け付けます。</translation>
     </message>
     <message>
         <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
@@ -6807,6 +6828,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>%1: 止めました、%2</translation>
     </message>
     <message>
+        <source>CRX Logbook: deleting QSO %1: %2</source>
+        <translation>CRX Logbook: QSO %1 の削除: %2</translation>
+    </message>
+    <message>
         <source>TQSL not found: install Trusted QSL or set its path here</source>
         <translation>TQSL が見つかりません。Trusted QSL を入れるか、ここに場所を書いてください</translation>
     </message>
@@ -6901,6 +6926,12 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>%1: %2 sent, %3 already there, %4 rejected</source>
         <translation>%1: %2 件送信、%3 件はもうあった、%4 件は受け付けられず</translation>
+    </message>
+    <message numerus="yes">
+        <source>, %n deleted</source>
+        <translation>
+            <numerusform>, %n 件削除</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -7535,6 +7566,37 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>The solar data cannot be read</source>
         <translation>太陽のデータが読めません</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::TciControl</name>
+    <message>
+        <source>Radio connected (TCI %1), waiting for it to be ready…</source>
+        <translation>無線機に接続しました（TCI %1）、準備完了を待っています…</translation>
+    </message>
+    <message>
+        <source>Radio not reachable via TCI: %1</source>
+        <translation>TCI で無線機に接続できません：%1</translation>
+    </message>
+    <message>
+        <source>Radio connected (TCI %1)</source>
+        <translation>無線機に接続しました（TCI %1）</translation>
+    </message>
+    <message>
+        <source>Looking for the radio via TCI on %1…</source>
+        <translation>TCI で %1 の無線機を探しています…</translation>
+    </message>
+    <message>
+        <source>Radio off</source>
+        <translation>無線機は切ってあります</translation>
+    </message>
+    <message>
+        <source>The radio is not connected: nothing sent in CW</source>
+        <translation>無線機がつながっていません。CW では何も出ませんでした</translation>
+    </message>
+    <message>
+        <source>Radio connected: %1 (TCI %2)</source>
+        <translation>無線機に接続しました：%1（TCI %2）</translation>
     </message>
 </context>
 <context>

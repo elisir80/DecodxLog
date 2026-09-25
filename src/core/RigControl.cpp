@@ -15,7 +15,7 @@ constexpr int kRetryMs = 5000;
 } // namespace
 
 RigControl::RigControl(QObject* parent)
-    : QObject(parent)
+    : RigLink(parent)
     , m_socket(new QTcpSocket(this))
 {
     connect(m_socket, &QTcpSocket::connected, this, [this] {

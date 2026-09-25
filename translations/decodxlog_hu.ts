@@ -2527,6 +2527,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>Panels…</source>
         <translation>Panelek…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>Minden panel zárva: nyisd meg újra őket a Panelek menüből a felső sávban.</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Minden panel saját ablakban van: a panelen a ↩ visszahozza ide.</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2859,13 +2867,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>CLEAR</source>
         <translation>TÖRLÉS</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>itt</translation>
     </message>
 </context>
 <context>
@@ -5011,10 +5012,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>QSO-k küldése ettől</translation>
     </message>
     <message>
-        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
-        <translation>A CRX Logbook a crx.cloud felhőnaplója. Kéri a fiókod API-kulcsát (HAM- kezdetű, lent a többi hozzáféréssel együtt) és a naplót, amelybe írni kell. Attól a naptól indul, amikor kiválasztod a naplót: a régebbi QSO-k csak akkor mennek, ha visszaállítod a dátumot. Minden QSO a dátumával és idejével megy; a küldés után javított frissül, nem duplikálódik. A küldés, az automatikus küldés és a számlálók lent a QSL fülön vannak.</translation>
-    </message>
-    <message>
         <source>QSL by email</source>
         <translation>QSL e-mailben</translation>
     </message>
@@ -5131,6 +5128,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Rádió Hamlibon át (rigctld)</translation>
     </message>
     <message>
+        <source>Radio via TCI</source>
+        <translation>Rádió TCI-n</translation>
+    </message>
+    <message>
         <source>Talk to the radio</source>
         <translation>Beszélj a rádióval</translation>
     </message>
@@ -5145,6 +5146,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Serial cable to the radio</source>
         <translation>Soros kábel a rádióhoz</translation>
+    </message>
+    <message>
+        <source>TCI (SDR, as in Decodium)</source>
+        <translation>TCI (SDR, mint a Decodiumban)</translation>
     </message>
     <message>
         <source>Radio (Hamlib)</source>
@@ -5275,8 +5280,24 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Tallózás…</translation>
     </message>
     <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time and with its DecoDXLog number (custom field 38). CRX keeps it in step: a QSO corrected here is corrected there, one deleted here is deleted there, and with the network down they wait in the queue and leave at the next sending. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>A CRX Logbook a crx.cloud felhős naplója. Kéri a fiókod API-kulcsát (HAM- kezdetű, lent a többi hitelesítő adattal) és a naplót, amelybe írni kell. Attól a naptól indul, amikor kiválasztod a naplót: a régebbi QSO-k csak akkor mennek, ha visszaállítod a dátumot. Minden QSO a dátumával, idejével és DecoDXLog-számával (38-as egyéni mező) megy. A CRX lépést tart: az itt javított QSO ott is javul, az itt törölt ott is törlődik, hálózat nélkül pedig sorban várnak, és a következő küldéskor mennek. A küldés, az automatikus küldés és a számlálók lent, a QSL fülön vannak.</translation>
+    </message>
+    <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
         <translation>Minden rádióval a Hamlib beszél, nem a DecoDXLog. Soros kábel esetén válaszd ki a modellt és a portot, és a DecoDXLog magától elindítja a rigctld-t; ha a rigctld már fut (egy versenyprogram miatt vagy egy másik gépen), elég megadni a gépet és a portot. Innen a DecoDXLog olvassa a frekvenciát és a módot, hangolni tudja a rádiót, a CW-makrókat pedig átadja a rádió saját manipulátorának.</translation>
+    </message>
+    <message>
+        <source>TCI server</source>
+        <translation>TCI-szerver</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>Vevő</translation>
+    </message>
+    <message>
+        <source>TCI is the protocol of Expert Electronics SDRs (SunSDR, ColibriNANO with ExpertSDR) and of the programs that speak it: turn TCI on in the SDR program (usually port 40001). DecoDXLog reads frequency and mode as soon as they change, tunes the radio, uses its PTT and sends the CW macros with the SDR&apos;s own keyer. Decodium can be connected at the same time: TCI accepts more than one program.</source>
+        <translation>A TCI az Expert Electronics SDR-ek (SunSDR, ColibriNANO ExpertSDR-rel) és az azt beszélő programok protokollja: kapcsold be a TCI-t az SDR programjában (általában 40001-es port). A DecoDXLog azonnal olvassa a frekvenciát és az üzemmódot, hangolja a rádiót, használja a PTT-jét, és az SDR saját billentyűjével küldi a CW makrókat. A Decodium egyszerre is csatlakozhat: a TCI több programot is elfogad.</translation>
     </message>
     <message>
         <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
@@ -6807,6 +6828,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>%1: leállítva, %2</translation>
     </message>
     <message>
+        <source>CRX Logbook: deleting QSO %1: %2</source>
+        <translation>CRX Logbook: %1. QSO törlése: %2</translation>
+    </message>
+    <message>
         <source>TQSL not found: install Trusted QSL or set its path here</source>
         <translation>A TQSL nincs meg: telepítsd a Trusted QSL-t, vagy add meg itt az útvonalát</translation>
     </message>
@@ -6901,6 +6926,12 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>%1: %2 sent, %3 already there, %4 rejected</source>
         <translation>%1: %2 elküldve, %3 már megvolt, %4 elutasítva</translation>
+    </message>
+    <message numerus="yes">
+        <source>, %n deleted</source>
+        <translation>
+            <numerusform>, %n törölve</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -7535,6 +7566,37 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>The solar data cannot be read</source>
         <translation>A napadatok nem olvashatók</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::TciControl</name>
+    <message>
+        <source>Radio connected (TCI %1), waiting for it to be ready…</source>
+        <translation>Rádió csatlakoztatva (TCI %1), várakozás, hogy kész legyen…</translation>
+    </message>
+    <message>
+        <source>Radio not reachable via TCI: %1</source>
+        <translation>A rádió TCI-n nem érhető el: %1</translation>
+    </message>
+    <message>
+        <source>Radio connected (TCI %1)</source>
+        <translation>Rádió csatlakoztatva (TCI %1)</translation>
+    </message>
+    <message>
+        <source>Looking for the radio via TCI on %1…</source>
+        <translation>Rádió keresése TCI-n itt: %1…</translation>
+    </message>
+    <message>
+        <source>Radio off</source>
+        <translation>A rádió ki van kapcsolva</translation>
+    </message>
+    <message>
+        <source>The radio is not connected: nothing sent in CW</source>
+        <translation>A rádió nincs csatlakoztatva: semmi sem ment ki CW-ben</translation>
+    </message>
+    <message>
+        <source>Radio connected: %1 (TCI %2)</source>
+        <translation>Rádió csatlakoztatva: %1 (TCI %2)</translation>
     </message>
 </context>
 <context>
