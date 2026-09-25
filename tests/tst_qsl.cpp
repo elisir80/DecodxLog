@@ -219,6 +219,18 @@ private slots:
         r = qsl::parseCrxResponse(500, "<html>oops</html>");
         QVERIFY(r.retryLater);
 
+        // Risposte vere di CRX (prova del 25/09/2026): il numero arriva come
+        // testo, la modifica non lo ripete, la cancellazione di un QSO che non
+        // c'e' piu' e' un 404 che non va ripetuto.
+        r = qsl::parseCrxResponse(200, R"({"success":true,"message":"QSO created successfully","qso_id":"1"})");
+        QCOMPARE(r.remoteId, QString("1"));
+        r = qsl::parseCrxResponse(200, R"({"success":true,"message":"QSO updated successfully"})");
+        QVERIFY(r.ok);
+        QCOMPARE(r.remoteId, QString("0"));
+        r = qsl::parseCrxResponse(404, R"({"error":"QSO not found or already deleted"})");
+        QVERIFY(!r.ok);
+        QVERIFY(!r.retryLater);
+
         QString error;
         const QVariantList logs = qsl::parseCrxLogs(
             R"({"logs": [{"log_id": 123, "log_name": "IOTA Contest 2023", "log_activation_call": "F/K1ABC", "log_desc": "EU-048"}]})",
