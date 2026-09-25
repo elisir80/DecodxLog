@@ -759,6 +759,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>alleen mult</translation>
     </message>
     <message>
+        <source>columns</source>
+        <translation>kolommen</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Band van Decodium</translation>
     </message>
@@ -821,6 +825,22 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Source</source>
         <translation>Bron</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>Continent</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>Referentie</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Opmerking</translation>
     </message>
     <message>
         <source>mult</source>
@@ -1151,6 +1171,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
         <translation>Links de kolommen die je ziet, in volgorde: ▲▼ verplaatsen ze, ✕ haalt er een weg. Rechts alle andere, een klik voegt hem achteraan toe. Kolommen verplaats je ook door hun kop in het logboek te slepen. Dezelfde indeling geldt ook in contestmodus.</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
+        <translation>Links de kolommen die je ziet, in volgorde: ▲▼ verplaatsen ze, ✕ haalt er een weg. Rechts alle andere, een klik voegt hem achteraan toe. Kolommen verplaats je ook door hun kop te slepen.</translation>
     </message>
     <message>
         <source>Move left</source>

@@ -4,6 +4,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtCore
 import Decodium.UI
 
 GlassPanel {
@@ -24,6 +25,84 @@ GlassPanel {
     readonly property var model: cluster.spots
     readonly property var quickBands: ["160m", "80m", "40m", "30m", "20m", "17m", "15m", "12m", "10m", "6m"]
     readonly property var quickModes: ["FT2", "FT8", "FT4", "CW", "SSB"]
+
+    // ── Le colonne ──────────────────────────────────────────────────────────
+    // Si scelgono e si mettono in ordine come nel log: dal chip "colonne" o
+    // trascinando l'intestazione. In gara la disposizione e' una a parte, di
+    // solito piu' stretta.
+    readonly property var columnCatalog: [
+        { key: "utc", title: "UTC", field: "", width: 44 },
+        { key: "freq", title: qsTr("kHz"), field: "", width: 76 },
+        { key: "call", title: qsTr("DX"), field: "", width: 110 },
+        { key: "status", title: qsTr("Status"), field: "", width: 86 },
+        { key: "entity", title: qsTr("Entity"), field: "", width: 1, stretch: 3 },
+        { key: "mode", title: qsTr("Mode"), field: "", width: 46 },
+        { key: "band", title: qsTr("Band"), field: "", width: 44 },
+        { key: "spotter", title: qsTr("Spotter"), field: "", width: 96 },
+        { key: "info", title: qsTr("Info"), field: "", width: 1, stretch: 4 },
+        { key: "distance", title: qsTr("km · az"), field: "", width: 86 },
+        { key: "source", title: qsTr("Source"), field: "", width: 70 },
+        { key: "cont", title: qsTr("Continent"), field: "", width: 40 },
+        { key: "dxcc", title: "DXCC", field: "", width: 48 },
+        { key: "grid", title: qsTr("Grid"), field: "", width: 60 },
+        { key: "snr", title: "dB", field: "", width: 40 },
+        { key: "refs", title: qsTr("Reference"), field: "", width: 90 },
+        { key: "comment", title: qsTr("Comment"), field: "", width: 1, stretch: 3 }
+    ]
+    readonly property var defaultLayout: root.contestMode
+        ? ["utc", "freq", "call", "status", "mode", "band", "spotter", "info"]
+        : ["utc", "freq", "call", "status", "entity", "mode", "band", "spotter", "info", "distance", "source"]
+    Settings {
+        id: columnStore
+        category: "layout"
+        property string clusterColumns: ""
+        property string clusterColumnsContest: ""
+    }
+    readonly property var columns: {
+        const stored = root.contestMode ? columnStore.clusterColumnsContest : columnStore.clusterColumns
+        const keys = stored.length > 0 ? stored.split(",") : root.defaultLayout
+        const known = root.columnCatalog.map(c => c.key)
+        let out = keys.filter(k => known.indexOf(k) >= 0)
+        // La scheda stretta in basso mostra l'essenziale.
+        if (root.compact)
+            out = out.filter(k => ["band", "spotter", "distance", "source"].indexOf(k) < 0)
+        if (out.indexOf("call") < 0)
+            out.unshift("call")
+        return out
+    }
+    function columnDef(key) {
+        for (const c of root.columnCatalog)
+            if (c.key === key)
+                return c
+        return { key: key, title: key, width: 60 }
+    }
+    function setLayout(list) {
+        const text = list.join(",")
+        if (root.contestMode)
+            columnStore.clusterColumnsContest = text
+        else
+            columnStore.clusterColumns = text
+    }
+    function moveColumn(from, to) {
+        const list = root.columns.slice()
+        if (from < 0 || from >= list.length || to < 0 || to >= list.length || from === to)
+            return
+        const key = list.splice(from, 1)[0]
+        list.splice(to, 0, key)
+        root.setLayout(list)
+    }
+    // Per le prove col mouse vero.
+    function headerItem(i) { return headRepeater.itemAt(i) }
+    function openColumns() { clusterColumnsDialog.open() }
+    property int headerDropTarget: -1
+    function headerIndexAt(x) {
+        for (let i = 0; i < headRepeater.count; ++i) {
+            const h = headRepeater.itemAt(i)
+            if (h && x < h.x + h.width + 4)
+                return i
+        }
+        return headRepeater.count - 1
+    }
 
     function has(key, value) { return (cluster.filter[key] || []).indexOf(value) >= 0 }
     function toggle(key, value) {
@@ -143,6 +222,15 @@ GlassPanel {
         font.pixelSize: Theme.fontSize
         font.bold: true
         elide: Text.ElideRight
+    }
+
+    ColumnsDialog {
+        id: clusterColumnsDialog
+        panel: root
+        shown: root.columns
+        all: root.columnCatalog
+        allowCustom: false
+        allowWidths: false
     }
 
     Popup {
@@ -266,6 +354,11 @@ GlassPanel {
                 on: root.onlyMultipliers
                 onToggled: root.onlyMultipliers = !root.onlyMultipliers
             }
+            Chip {
+                label: qsTr("columns")
+                on: false
+                onToggled: clusterColumnsDialog.open()
+            }
             Item { Layout.fillWidth: true }
             Text {
                 text: root.model.count + ""
@@ -350,6 +443,7 @@ GlassPanel {
                 }
                 Chip { label: qsTr("More filters…"); tone: Theme.primaryColor; on: false; onToggled: filterPopup.open() }
                 Chip { label: qsTr("Saved ▾"); tone: Theme.primaryColor; on: false; onToggled: savedMenu.popup() }
+                Chip { visible: !root.contestMode; label: qsTr("columns"); tone: Theme.primaryColor; on: false; onToggled: clusterColumnsDialog.open() }
             }
         }
 
@@ -359,21 +453,54 @@ GlassPanel {
             implicitHeight: Theme.rowHeight
             color: Theme.panelHeader
             RowLayout {
+                id: headRow
                 anchors.fill: parent
                 anchors.leftMargin: 14
                 anchors.rightMargin: 10
                 spacing: 8
-                Head { Layout.preferredWidth: 44; text: "UTC" }
-                Head { Layout.preferredWidth: 76; text: qsTr("kHz"); horizontalAlignment: Text.AlignRight }
-                Head { Layout.preferredWidth: 110; text: qsTr("DX") }
-                Head { Layout.preferredWidth: 86; text: qsTr("Status") }
-                Head { Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 3; Layout.fillWidth: true; text: qsTr("Entity") }
-                Head { Layout.preferredWidth: 46; text: qsTr("Mode") }
-                Head { visible: !root.compact; Layout.preferredWidth: 44; text: qsTr("Band") }
-                Head { visible: !root.compact; Layout.preferredWidth: 96; text: qsTr("Spotter") }
-                Head { Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 4; Layout.fillWidth: true; text: qsTr("Info") }
-                Head { visible: !root.compact; Layout.preferredWidth: 86; text: qsTr("km · az"); horizontalAlignment: Text.AlignRight }
-                Head { visible: !root.compact; Layout.preferredWidth: 70; text: qsTr("Source") }
+                Repeater {
+                    id: headRepeater
+                    model: root.columns
+                    delegate: Head {
+                        id: head
+                        required property string modelData
+                        required property int index
+                        readonly property var def: root.columnDef(modelData)
+                        Layout.preferredWidth: def.width
+                        Layout.fillWidth: !!def.stretch
+                        Layout.horizontalStretchFactor: def.stretch ? def.stretch : -1
+                        text: def.title
+                        horizontalAlignment: modelData === "freq" || modelData === "distance" ? Text.AlignRight : Text.AlignLeft
+                        // Presa e portata su un'altra intestazione, la colonna si
+                        // sposta li'.
+                        Rectangle {
+                            anchors { left: parent.left; top: parent.top; bottom: parent.bottom; leftMargin: -5 }
+                            width: 3
+                            color: Theme.accentColor
+                            visible: root.headerDropTarget === head.index
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            anchors.leftMargin: -4
+                            anchors.rightMargin: -4
+                            cursorShape: pressed ? Qt.ClosedHandCursor : Qt.PointingHandCursor
+                            property real pressX: 0
+                            onPressed: (mouse) => pressX = mouse.x
+                            onPositionChanged: (mouse) => {
+                                if (pressed)
+                                    root.headerDropTarget = Math.abs(mouse.x - pressX) > 8
+                                        ? root.headerIndexAt(mapToItem(headRow, mouse.x, 0).x) : -1
+                            }
+                            onReleased: (mouse) => {
+                                const target = root.headerIndexAt(mapToItem(headRow, mouse.x, 0).x)
+                                root.headerDropTarget = -1
+                                if (Math.abs(mouse.x - pressX) > 8)
+                                    root.moveColumn(head.index, target)
+                            }
+                            onCanceled: root.headerDropTarget = -1
+                        }
+                    }
+                }
             }
         }
 
@@ -446,10 +573,64 @@ GlassPanel {
                     anchors.leftMargin: 14
                     anchors.rightMargin: 10
                     spacing: 8
-                    Text { Layout.preferredWidth: 44; text: line.time; color: Theme.textSecondary; font.family: Theme.monoFamily; font.pixelSize: Theme.fontSize }
-                    Text { Layout.preferredWidth: 76; text: line.freq; horizontalAlignment: Text.AlignRight; color: Theme.textPrimary; font.family: Theme.monoFamily; font.pixelSize: Theme.fontSize }
+                    Repeater {
+                        model: root.columns
+                        delegate: Loader {
+                            required property string modelData
+                            readonly property var def: root.columnDef(modelData)
+                            Layout.preferredWidth: def.width
+                            Layout.fillWidth: !!def.stretch
+                            Layout.horizontalStretchFactor: def.stretch ? def.stretch : -1
+                            Layout.preferredHeight: 18
+                            sourceComponent: modelData === "call" ? callCell
+                                           : modelData === "status" ? statusCell
+                                           : modelData === "entity" ? entityCell
+                                           : modelData === "info" ? infoCell
+                                           : textCell
+                            property string cellKey: modelData
+                        }
+                    }
+                }
+
+                // Le celle. Il testo semplice e' una sola, che guarda la chiave.
+                Component {
+                    id: textCell
+                    Text {
+                        readonly property string key: parent ? parent.cellKey : ""
+                        verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideRight
+                        horizontalAlignment: key === "freq" || key === "distance" ? Text.AlignRight : Text.AlignLeft
+                        font.family: key === "comment" ? Theme.uiFamily : Theme.monoFamily
+                        font.pixelSize: key === "source" ? 10 : Theme.fontSize
+                        font.bold: key === "mode"
+                        text: key === "utc" ? line.time
+                            : key === "freq" ? line.freq
+                            : key === "mode" ? line.mode
+                            : key === "band" ? line.band
+                            : key === "spotter" ? line.spotter
+                            : key === "distance" ? (line.distance !== undefined && line.distance !== null
+                                                    ? line.distance + " · " + line.azimuth + "°" : "")
+                            : key === "source" ? (line.source === "rbn" ? "RBN" : line.source === "hamalert" ? "HamAlert"
+                                                  : line.source === "pota" ? "POTA" : line.sourceName)
+                            : key === "cont" ? line.continent
+                            : key === "dxcc" ? (line.dxcc > 0 ? String(line.dxcc) : "")
+                            : key === "grid" ? line.grid
+                            : key === "snr" ? (line.snr !== undefined && line.snr !== null ? String(line.snr) : "")
+                            : key === "refs" ? line.refs
+                            : key === "comment" ? line.comment
+                            : ""
+                        color: key === "freq" ? Theme.textPrimary
+                             : key === "mode" ? root.modeColor(line.mode)
+                             : key === "source" ? (line.source === "hamalert" ? Theme.warningColor : Theme.textSecondary)
+                             : key === "refs" ? Theme.accentColor
+                             : key === "snr" ? Theme.secondaryColor
+                             : key === "comment" ? Theme.textPrimary
+                             : Theme.textSecondary
+                    }
+                }
+                Component {
+                    id: callCell
                     RowLayout {
-                        Layout.preferredWidth: 110
                         spacing: 4
                         Text {
                             text: line.call
@@ -467,8 +648,10 @@ GlassPanel {
                         }
                         Item { Layout.fillWidth: true }
                     }
+                }
+                Component {
+                    id: statusCell
                     Item {
-                        Layout.preferredWidth: 86
                         implicitHeight: 18
                         // Nel contest conta il moltiplicatore, non il DXCC nuovo.
                         Rectangle {
@@ -513,10 +696,11 @@ GlassPanel {
                             }
                         }
                     }
+                }
+                Component {
+                    id: entityCell
                     Text {
-                        Layout.preferredWidth: 1
-                        Layout.horizontalStretchFactor: 3
-                        Layout.fillWidth: true
+                        verticalAlignment: Text.AlignVCenter
                         elide: Text.ElideRight
                         textFormat: Text.StyledText
                         text: (line.entity || "—") + " <font color=\"" + Theme.textSecondary + "\">" + line.continent
@@ -524,21 +708,11 @@ GlassPanel {
                         color: Theme.textPrimary
                         font.pixelSize: Theme.fontSize
                     }
-                    Text { Layout.preferredWidth: 46; text: line.mode; color: root.modeColor(line.mode); font.family: Theme.monoFamily; font.pixelSize: Theme.fontSize; font.bold: true }
-                    Text { visible: !root.compact; Layout.preferredWidth: 44; text: line.band; color: Theme.textSecondary; font.family: Theme.monoFamily; font.pixelSize: Theme.fontSize }
+                }
+                Component {
+                    id: infoCell
                     Text {
-                        visible: !root.compact
-                        Layout.preferredWidth: 96
-                        elide: Text.ElideRight
-                        text: line.spotter
-                        color: Theme.textSecondary
-                        font.family: Theme.monoFamily
-                        font.pixelSize: Theme.fontSize
-                    }
-                    Text {
-                        Layout.preferredWidth: 1
-                        Layout.horizontalStretchFactor: 4
-                        Layout.fillWidth: true
+                        verticalAlignment: Text.AlignVCenter
                         elide: Text.ElideRight
                         textFormat: Text.StyledText
                         text: (line.refs.length ? "<font color=\"" + Theme.accentColor + "\">" + line.refs + "</font> " : "")
@@ -546,23 +720,6 @@ GlassPanel {
                               + line.comment.replace(/&/g, "&amp;").replace(/</g, "&lt;")
                         color: Theme.textPrimary
                         font.pixelSize: Theme.fontSize
-                    }
-                    Text {
-                        visible: !root.compact
-                        Layout.preferredWidth: 86
-                        horizontalAlignment: Text.AlignRight
-                        text: line.distance !== undefined && line.distance !== null ? line.distance + " · " + line.azimuth + "°" : ""
-                        color: Theme.textSecondary
-                        font.family: Theme.monoFamily
-                        font.pixelSize: Theme.fontSize
-                    }
-                    Text {
-                        visible: !root.compact
-                        Layout.preferredWidth: 70
-                        elide: Text.ElideRight
-                        text: line.source === "rbn" ? "RBN" : line.source === "hamalert" ? "HamAlert" : line.source === "pota" ? "POTA" : line.sourceName
-                        color: line.source === "hamalert" ? Theme.warningColor : Theme.textSecondary
-                        font.pixelSize: 10
                     }
                 }
 

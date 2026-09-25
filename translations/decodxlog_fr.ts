@@ -759,6 +759,10 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
         <translation>mult seulement</translation>
     </message>
     <message>
+        <source>columns</source>
+        <translation>colonnes</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Bande de Decodium</translation>
     </message>
@@ -821,6 +825,22 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
     <message>
         <source>Source</source>
         <translation>Source</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>Continent</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>Référence</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Commentaire</translation>
     </message>
     <message>
         <source>mult</source>
@@ -1151,6 +1171,10 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
     <message>
         <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
         <translation>À gauche les colonnes visibles, dans l&apos;ordre : ▲▼ les déplacent, ✕ en retire une. À droite toutes les autres, un clic l&apos;ajoute à la fin. Les colonnes se déplacent aussi en faisant glisser leur en-tête dans le carnet. La même disposition vaut aussi en mode contest.</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
+        <translation>À gauche les colonnes visibles, dans l&apos;ordre : ▲▼ les déplacent, ✕ en retire une. À droite toutes les autres, un clic l&apos;ajoute à la fin. Les colonnes se déplacent aussi en faisant glisser leur en-tête.</translation>
     </message>
     <message>
         <source>Move left</source>

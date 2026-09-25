@@ -757,6 +757,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>csak szorzó</translation>
     </message>
     <message>
+        <source>columns</source>
+        <translation>oszlopok</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>A Decodium sávja</translation>
     </message>
@@ -819,6 +823,22 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Source</source>
         <translation>Forrás</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>Kontinens</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>Lokátor</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>Referencia</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Megjegyzés</translation>
     </message>
     <message>
         <source>mult</source>
@@ -1149,6 +1169,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
         <translation>Balra a látható oszlopok, sorrendben: ▲▼ mozgatja őket, ✕ elvesz egyet. Jobbra az összes többi, egy kattintás a végére teszi. Az oszlopok a naplóban a fejlécük húzásával is mozgathatók. Ugyanez az elrendezés érvényes contest módban is.</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
+        <translation>Balra a látható oszlopok, sorrendben: ▲▼ mozgatja őket, ✕ elvesz egyet. Jobbra az összes többi, egy kattintás a végére teszi. Az oszlopok a fejlécük húzásával is mozgathatók.</translation>
     </message>
     <message>
         <source>Move left</source>

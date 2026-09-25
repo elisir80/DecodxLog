@@ -300,6 +300,8 @@ GlassPanel {
     ColumnsDialog {
         id: columnsDialog
         panel: root
+        shown: root.model.columnLayout
+        all: { root.model.columnLayout; return root.model.availableColumns() }
     }
 
     // Per le prove: apre il sottomenu quando il menu padre e' gia' in piedi.

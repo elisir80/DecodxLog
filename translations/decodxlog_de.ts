@@ -759,6 +759,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>nur Mult</translation>
     </message>
     <message>
+        <source>columns</source>
+        <translation>Spalten</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Band von Decodium</translation>
     </message>
@@ -821,6 +825,22 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Source</source>
         <translation>Quelle</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>Kontinent</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>Referenz</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Kommentar</translation>
     </message>
     <message>
         <source>mult</source>
@@ -1151,6 +1171,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
         <translation>Links die sichtbaren Spalten, in ihrer Reihenfolge: ▲▼ verschieben sie, ✕ entfernt eine. Rechts alle anderen, ein Klick fügt sie am Ende an. Spalten lassen sich auch durch Ziehen ihrer Überschrift im Log verschieben. Dieselbe Anordnung gilt auch im Contest-Modus.</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
+        <translation>Links die sichtbaren Spalten, in ihrer Reihenfolge: ▲▼ verschieben sie, ✕ entfernt eine. Rechts alle anderen, ein Klick fügt sie am Ende an. Spalten lassen sich auch durch Ziehen ihrer Überschrift verschieben.</translation>
     </message>
     <message>
         <source>Move left</source>

@@ -757,6 +757,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>只看倍增</translation>
     </message>
     <message>
+        <source>columns</source>
+        <translation>列</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Decodium 的波段</translation>
     </message>
@@ -819,6 +823,22 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Source</source>
         <translation>来源</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>大洲</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>网格</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>参考</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>备注</translation>
     </message>
     <message>
         <source>mult</source>
@@ -1149,6 +1169,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
         <translation>左边是显示的列，按顺序：▲▼ 移动，✕ 移除。右边是其余所有列，点击即添加到末尾。在日志中拖动列标题也能移动列。竞赛模式使用同样的布局。</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
+        <translation>左边是显示的列，按顺序：▲▼ 移动，✕ 移除。右边是其余所有列，点击即添加到末尾。拖动列标题也能移动列。</translation>
     </message>
     <message>
         <source>Move left</source>

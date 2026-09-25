@@ -1,4 +1,5 @@
-// DecoDXLog — le colonne del log: quali, e in che ordine.
+// DecoDXLog — le colonne di una tabella (il log, il cluster): quali, e in
+// che ordine.
 //
 // Come nei log di stazione di una volta (Logger32 e gli altri): a sinistra le
 // colonne che si vedono, nell'ordine, con le frecce per spostarle e la ✕ per
@@ -15,11 +16,16 @@ import Decodium.UI
 Popup {
     id: root
 
-    // Il pannello del log: tiene la disposizione e la salva.
+    // Chi tiene la disposizione e la salva: ha setLayout(lista),
+    // moveColumn(da, a) e defaultLayout; il log anche resetWidths().
     property var panel: null
-    readonly property var model: panel ? panel.model : null
-    readonly property var shown: model ? model.columnLayout : []
-    readonly property var all: { root.shown; return model ? model.availableColumns() : [] }
+    // Le colonne mostrate, nell'ordine, e tutte quelle possibili
+    // ([{key, title, field}]).
+    property var shown: []
+    property var all: []
+    // Il log accetta un campo ADIF qualsiasi e ha le larghezze; il cluster no.
+    property bool allowCustom: true
+    property bool allowWidths: true
 
     // Una finestra sua: il log puo' essere un pannello stretto della lavagna.
     popupType: Popup.Window
@@ -35,7 +41,12 @@ Popup {
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
     background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 6 }
 
-    function titleOf(key) { return root.model ? root.model.titleOf(key) : key }
+    function titleOf(key) {
+        for (const c of root.all)
+            if (c.key === key)
+                return c.title
+        return key.startsWith("x:") ? key.slice(2) : key
+    }
     function fieldOf(key) {
         for (const c of root.all)
             if (c.key === key)
@@ -67,9 +78,13 @@ Popup {
             wrapMode: Text.Wrap
             color: Theme.textSecondary
             font.pixelSize: 11
-            text: qsTr("On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right "
-                       + "all the others, a click adds it at the end. Columns also move by dragging their "
-                       + "header in the log. The same layout is used in contest mode.")
+            text: root.allowCustom
+                  ? qsTr("On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right "
+                         + "all the others, a click adds it at the end. Columns also move by dragging their "
+                         + "header in the log. The same layout is used in contest mode.")
+                  : qsTr("On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the "
+                         + "right all the others, a click adds it at the end. Columns also move by dragging "
+                         + "their header.")
         }
 
         RowLayout {
@@ -180,6 +195,7 @@ Popup {
                 // Un campo ADIF qualsiasi, per nome.
                 RowLayout {
                     Layout.fillWidth: true
+                    visible: root.allowCustom
                     spacing: 6
                     StyledTextField {
                         id: customField
@@ -211,6 +227,7 @@ Popup {
                 onClicked: root.panel.setLayout(root.panel.defaultLayout)
             }
             GlassButton {
+                visible: root.allowWidths
                 text: qsTr("Default widths")
                 onClicked: root.panel.resetWidths()
             }

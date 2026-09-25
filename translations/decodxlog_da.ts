@@ -759,6 +759,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>kun mult</translation>
     </message>
     <message>
+        <source>columns</source>
+        <translation>kolonner</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Decodiums bånd</translation>
     </message>
@@ -821,6 +825,22 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Source</source>
         <translation>Kilde</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>Kontinent</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>Lokator</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>Reference</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Kommentar</translation>
     </message>
     <message>
         <source>mult</source>
@@ -1151,6 +1171,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
         <translation>Til venstre de kolonner, du ser, i rækkefølge: ▲▼ flytter dem, ✕ fjerner en. Til højre alle de andre, et klik tilføjer den til sidst. Kolonner flyttes også ved at trække deres overskrift i loggen. Samme layout gælder også i contesttilstand.</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
+        <translation>Til venstre de kolonner, du ser, i rækkefølge: ▲▼ flytter dem, ✕ fjerner en. Til højre alle de andre, et klik tilføjer den til sidst. Kolonner flyttes også ved at trække deres overskrift.</translation>
     </message>
     <message>
         <source>Move left</source>

@@ -761,6 +761,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>tikai reiz.</translation>
     </message>
     <message>
+        <source>columns</source>
+        <translation>kolonnas</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Decodium josla</translation>
     </message>
@@ -823,6 +827,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Source</source>
         <translation>Avots</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>Kontinents</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>Lokators</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>Atsauce</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Komentārs</translation>
     </message>
     <message>
         <source>mult</source>
@@ -1153,6 +1173,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
         <translation>Pa kreisi redzamās kolonnas, secībā: ▲▼ tās pārvieto, ✕ vienu noņem. Pa labi visas pārējās, klikšķis to pievieno beigās. Kolonnas var pārvietot arī, velkot to virsrakstu žurnālā. Tas pats izkārtojums der arī konkursa režīmā.</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
+        <translation>Pa kreisi redzamās kolonnas, secībā: ▲▼ tās pārvieto, ✕ vienu noņem. Pa labi visas pārējās, klikšķis to pievieno beigās. Kolonnas var pārvietot arī, velkot to virsrakstu.</translation>
     </message>
     <message>
         <source>Move left</source>

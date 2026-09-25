@@ -761,6 +761,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>только множ.</translation>
     </message>
     <message>
+        <source>columns</source>
+        <translation>столбцы</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Диапазон Decodium</translation>
     </message>
@@ -823,6 +827,22 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Source</source>
         <translation>Источник</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>Континент</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>Локатор</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>Эталон</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Комментарий</translation>
     </message>
     <message>
         <source>mult</source>
@@ -1153,6 +1173,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
         <translation>Слева видимые столбцы, по порядку: ▲▼ перемещают их, ✕ убирает. Справа все остальные, щелчок добавляет столбец в конец. Столбцы можно также перемещать, перетаскивая их заголовок в журнале. То же расположение действует и в режиме контеста.</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
+        <translation>Слева видимые столбцы, по порядку: ▲▼ перемещают их, ✕ убирает. Справа все остальные, щелчок добавляет столбец в конец. Столбцы можно также перемещать, перетаскивая их заголовок.</translation>
     </message>
     <message>
         <source>Move left</source>

@@ -759,6 +759,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>solo mult</translation>
     </message>
     <message>
+        <source>columns</source>
+        <translation>columnas</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Banda de Decodium</translation>
     </message>
@@ -821,6 +825,22 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>Source</source>
         <translation>Fuente</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>Continente</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>Referencia</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Comentario</translation>
     </message>
     <message>
         <source>mult</source>
@@ -1151,6 +1171,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
         <translation>A la izquierda las columnas que ves, en orden: ▲▼ las mueven, ✕ quita una. A la derecha todas las demás, un clic la añade al final. Las columnas también se mueven arrastrando su encabezado en el libro. La misma disposición vale también en modo concurso.</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
+        <translation>A la izquierda las columnas que ves, en orden: ▲▼ las mueven, ✕ quita una. A la derecha todas las demás, un clic la añade al final. Las columnas también se mueven arrastrando su encabezado.</translation>
     </message>
     <message>
         <source>Move left</source>

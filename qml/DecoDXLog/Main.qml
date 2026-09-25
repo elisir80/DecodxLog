@@ -474,7 +474,34 @@ ApplicationWindow {
             // Si aspetta che la lavagna abbia preso le misure.
             if (step++ < 10)
                 return
-            if (kind === "headermove") {
+            if (kind === "clustercols") {
+                contestLayout.panelFor("cluster").item.openColumns()
+                stop()
+            } else if (kind === "clustermove") {
+                const cp = contestLayout.panelFor("cluster").item
+                const from = parseInt(args[1]), to = parseInt(args[2])
+                if (step === 11) {
+                    const h = cp.headerItem(from)
+                    start0 = h.mapToItem(null, h.width / 2, h.height / 2)
+                    pointerProbe.args = args.concat([JSON.stringify(cp.columns)])
+                    send(window, "hover", start0)
+                    send(window, "press", start0)
+                    return
+                }
+                const target = cp.headerItem(to)
+                const end = target.mapToItem(null, target.width / 2, target.height / 2)
+                const n = step - 11
+                if (n <= 8) {
+                    send(window, "move", Qt.point(start0.x + (end.x - start0.x) * n / 8, start0.y))
+                    return
+                }
+                send(window, "release", end)
+                stop()
+                Qt.callLater(function () {
+                    console.warn("PROBE clustermove " + from + "->" + to + ": " + args[args.length - 1]
+                                 + " => " + JSON.stringify(cp.columns))
+                })
+            } else if (kind === "headermove") {
                 const lp = args[1] === "board" ? contestLayout.panelFor("logbook").item : window.panelItem("logbook").item
                 const from = parseInt(args[2]), to = parseInt(args[3])
                 if (step === 11) {
@@ -840,6 +867,12 @@ ApplicationWindow {
         else if (what[0] === "qsyprobe") {
             window.openContestDesk()
             qsyProbe.start()
+        }
+        else if (what[0] === "clustermove" || what[0] === "clustercols") {
+            window.openContestDesk()
+            pointerProbe.args = what
+            pointerProbe.step = 0
+            pointerProbe.start()
         }
         else if (what[0] === "headermove") {
             if (what[1] === "board")

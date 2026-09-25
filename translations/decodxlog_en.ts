@@ -758,6 +758,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>mult only</translation>
     </message>
     <message>
+        <source>columns</source>
+        <translation>columns</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation type="unfinished"></translation>
     </message>
@@ -819,6 +823,22 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation type="unfinished">Continent</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1150,6 +1170,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
         <translation>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
+        <translation>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</translation>
     </message>
     <message>
         <source>Move left</source>

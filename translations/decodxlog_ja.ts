@@ -757,6 +757,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>マルチのみ</translation>
     </message>
     <message>
+        <source>columns</source>
+        <translation>列</translation>
+    </message>
+    <message>
         <source>Decodium band</source>
         <translation>Decodium のバンド</translation>
     </message>
@@ -819,6 +823,22 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Source</source>
         <translation>ソース</translation>
+    </message>
+    <message>
+        <source>Continent</source>
+        <translation>大陸</translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>グリッド</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>リファレンス</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>コメント</translation>
     </message>
     <message>
         <source>mult</source>
@@ -1149,6 +1169,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</source>
         <translation>左は表示中の列(順番どおり):▲▼で移動、✕で外します。右はそれ以外のすべてで、クリックすると最後に追加されます。ログの見出しをドラッグしても列を移動できます。同じ配置がコンテストモードでも使われます。</translation>
+    </message>
+    <message>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
+        <translation>左は表示中の列(順番どおり):▲▼で移動、✕で外します。右はそれ以外のすべてで、クリックすると最後に追加されます。見出しをドラッグしても列を移動できます。</translation>
     </message>
     <message>
         <source>Move left</source>
