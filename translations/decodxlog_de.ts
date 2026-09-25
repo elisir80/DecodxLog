@@ -1173,8 +1173,8 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Links die sichtbaren Spalten, in ihrer Reihenfolge: ▲▼ verschieben sie, ✕ entfernt eine. Rechts alle anderen, ein Klick fügt sie am Ende an. Spalten lassen sich auch durch Ziehen ihrer Überschrift im Log verschieben. Dieselbe Anordnung gilt auch im Contest-Modus.</translation>
     </message>
     <message>
-        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
-        <translation>Links die sichtbaren Spalten, in ihrer Reihenfolge: ▲▼ verschieben sie, ✕ entfernt eine. Rechts alle anderen, ein Klick fügt sie am Ende an. Spalten lassen sich auch durch Ziehen ihrer Überschrift verschieben.</translation>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header, and get wider or narrower by dragging its right edge (a double click on the edge gives back the usual width).</source>
+        <translation>Links die sichtbaren Spalten, in ihrer Reihenfolge: ▲▼ verschieben sie, ✕ entfernt eine. Rechts alle anderen, ein Klick fügt sie am Ende an. Spalten lassen sich auch durch Ziehen ihrer Überschrift verschieben und durch Ziehen ihres rechten Randes breiter oder schmaler machen (ein Doppelklick auf den Rand stellt die übliche Breite wieder her).</translation>
     </message>
     <message>
         <source>Move left</source>

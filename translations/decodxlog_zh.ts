@@ -1171,8 +1171,8 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>左边是显示的列，按顺序：▲▼ 移动，✕ 移除。右边是其余所有列，点击即添加到末尾。在日志中拖动列标题也能移动列。竞赛模式使用同样的布局。</translation>
     </message>
     <message>
-        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
-        <translation>左边是显示的列，按顺序：▲▼ 移动，✕ 移除。右边是其余所有列，点击即添加到末尾。拖动列标题也能移动列。</translation>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header, and get wider or narrower by dragging its right edge (a double click on the edge gives back the usual width).</source>
+        <translation>左边是显示的列，按顺序：▲▼ 移动，✕ 移除。右边是其余所有列，点击即加到最后。拖动列标题也能移动列，拖动其右边缘可加宽或变窄（双击边缘恢复默认宽度）。</translation>
     </message>
     <message>
         <source>Move left</source>

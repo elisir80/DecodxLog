@@ -1172,8 +1172,8 @@ The call Decodium is working shows up here by itself.</source>
         <translation>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header in the log. The same layout is used in contest mode.</translation>
     </message>
     <message>
-        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
-        <translation>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</translation>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header, and get wider or narrower by dragging its right edge (a double click on the edge gives back the usual width).</source>
+        <translation>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header, and get wider or narrower by dragging its right edge (a double click on the edge gives back the usual width).</translation>
     </message>
     <message>
         <source>Move left</source>

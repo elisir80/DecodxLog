@@ -1175,8 +1175,8 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>În stânga coloanele pe care le vezi, în ordine: ▲▼ le mută, ✕ scoate una. În dreapta toate celelalte, un clic o adaugă la sfârșit. Coloanele se mută și trăgând de antetul lor în jurnal. Aceeași aranjare este valabilă și în modul concurs.</translation>
     </message>
     <message>
-        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
-        <translation>În stânga coloanele pe care le vezi, în ordine: ▲▼ le mută, ✕ scoate una. În dreapta toate celelalte, un clic o adaugă la sfârșit. Coloanele se mută și trăgând de antetul lor.</translation>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header, and get wider or narrower by dragging its right edge (a double click on the edge gives back the usual width).</source>
+        <translation>În stânga coloanele pe care le vezi, în ordine: ▲▼ le mută, ✕ scoate una. În dreapta toate celelalte, un clic o adaugă la sfârșit. Coloanele se mută și trăgând de antet, și se lărgesc sau se îngustează trăgând de marginea dreaptă (un dublu clic pe margine readuce lățimea obișnuită).</translation>
     </message>
     <message>
         <source>Move left</source>

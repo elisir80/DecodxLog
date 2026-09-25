@@ -1173,8 +1173,8 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
         <translation>À gauche les colonnes visibles, dans l&apos;ordre : ▲▼ les déplacent, ✕ en retire une. À droite toutes les autres, un clic l&apos;ajoute à la fin. Les colonnes se déplacent aussi en faisant glisser leur en-tête dans le carnet. La même disposition vaut aussi en mode contest.</translation>
     </message>
     <message>
-        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
-        <translation>À gauche les colonnes visibles, dans l&apos;ordre : ▲▼ les déplacent, ✕ en retire une. À droite toutes les autres, un clic l&apos;ajoute à la fin. Les colonnes se déplacent aussi en faisant glisser leur en-tête.</translation>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header, and get wider or narrower by dragging its right edge (a double click on the edge gives back the usual width).</source>
+        <translation>À gauche les colonnes affichées, dans l&apos;ordre : ▲▼ les déplacent, ✕ en retire une. À droite toutes les autres, un clic l&apos;ajoute à la fin. Les colonnes se déplacent aussi en faisant glisser leur en-tête, et s&apos;élargissent ou se rétrécissent en tirant leur bord droit (un double-clic sur le bord rend la largeur habituelle).</translation>
     </message>
     <message>
         <source>Move left</source>

@@ -57,6 +57,55 @@ GlassPanel {
         category: "layout"
         property string clusterColumns: ""
         property string clusterColumnsContest: ""
+        // Le larghezze scelte a mano, {chiave: pixel}: in gara sono a parte,
+        // come le colonne.
+        property string clusterWidths: ""
+        property string clusterWidthsContest: ""
+    }
+    // Le larghezze salvate, e quella che si sta tirando adesso col mouse (si
+    // salva quando si lascia: non a ogni pixel).
+    readonly property var storedWidths: {
+        const text = root.contestMode ? columnStore.clusterWidthsContest : columnStore.clusterWidths
+        try { return text.length > 0 ? JSON.parse(text) : ({}) } catch (e) { return ({}) }
+    }
+    property string resizingKey: ""
+    property real resizingWidth: 0
+    function widthOf(key) {
+        if (key === root.resizingKey)
+            return root.resizingWidth
+        const w = root.storedWidths[key]
+        return w > 0 ? w : root.columnDef(key).width
+    }
+    // Una colonna che si allarga da sola (entita', info, commento) smette di
+    // farlo quando le si da' una misura a mano.
+    function stretchOf(key) {
+        const def = root.columnDef(key)
+        return def.stretch && !(root.storedWidths[key] > 0) && key !== root.resizingKey ? def.stretch : 0
+    }
+    // Quanto e' larga la tabella: le colonne che si allargano da sole hanno
+    // almeno 70 px. Se il pannello e' piu' stretto la tabella scorre di lato,
+    // invece di tagliare le ultime colonne.
+    readonly property real tableWidth: {
+        let w = 24 + 8 * Math.max(0, root.columns.length - 1)
+        for (const key of root.columns)
+            w += root.stretchOf(key) > 0 ? 70 : root.widthOf(key)
+        return w
+    }
+    readonly property real rowWidth: Math.max(list.width, root.tableWidth)
+    function setWidth(key, width) {
+        const map = Object.assign({}, root.storedWidths)
+        map[key] = Math.max(24, Math.round(width))
+        const text = JSON.stringify(map)
+        if (root.contestMode)
+            columnStore.clusterWidthsContest = text
+        else
+            columnStore.clusterWidths = text
+    }
+    function resetWidths() {
+        if (root.contestMode)
+            columnStore.clusterWidthsContest = ""
+        else
+            columnStore.clusterWidths = ""
     }
     readonly property var columns: {
         const stored = root.contestMode ? columnStore.clusterColumnsContest : columnStore.clusterColumns
@@ -230,7 +279,7 @@ GlassPanel {
         shown: root.columns
         all: root.columnCatalog
         allowCustom: false
-        allowWidths: false
+        allowWidths: true
     }
 
     Popup {
@@ -443,7 +492,7 @@ GlassPanel {
                 }
                 Chip { label: qsTr("More filters…"); tone: Theme.primaryColor; on: false; onToggled: filterPopup.open() }
                 Chip { label: qsTr("Saved ▾"); tone: Theme.primaryColor; on: false; onToggled: savedMenu.popup() }
-                Chip { visible: !root.contestMode; label: qsTr("columns"); tone: Theme.primaryColor; on: false; onToggled: clusterColumnsDialog.open() }
+                Chip { label: qsTr("columns"); tone: Theme.primaryColor; on: false; onToggled: clusterColumnsDialog.open() }
             }
         }
 
@@ -452,11 +501,14 @@ GlassPanel {
             Layout.fillWidth: true
             implicitHeight: Theme.rowHeight
             color: Theme.panelHeader
+            clip: true
             RowLayout {
                 id: headRow
-                anchors.fill: parent
-                anchors.leftMargin: 14
-                anchors.rightMargin: 10
+                // Scorre di lato insieme alle righe.
+                x: 14 - list.contentX
+                y: 0
+                width: root.rowWidth - 24
+                height: parent.height
                 spacing: 8
                 Repeater {
                     id: headRepeater
@@ -466,9 +518,10 @@ GlassPanel {
                         required property string modelData
                         required property int index
                         readonly property var def: root.columnDef(modelData)
-                        Layout.preferredWidth: def.width
-                        Layout.fillWidth: !!def.stretch
-                        Layout.horizontalStretchFactor: def.stretch ? def.stretch : -1
+                        Layout.preferredWidth: root.widthOf(modelData)
+                        Layout.fillWidth: root.stretchOf(modelData) > 0
+                        Layout.horizontalStretchFactor: root.stretchOf(modelData) > 0 ? root.stretchOf(modelData) : -1
+                        Layout.minimumWidth: root.stretchOf(modelData) > 0 ? 70 : root.widthOf(modelData)
                         text: def.title
                         horizontalAlignment: modelData === "freq" || modelData === "distance" ? Text.AlignRight : Text.AlignLeft
                         // Presa e portata su un'altra intestazione, la colonna si
@@ -481,8 +534,6 @@ GlassPanel {
                         }
                         MouseArea {
                             anchors.fill: parent
-                            anchors.leftMargin: -4
-                            anchors.rightMargin: -4
                             cursorShape: pressed ? Qt.ClosedHandCursor : Qt.PointingHandCursor
                             property real pressX: 0
                             onPressed: (mouse) => pressX = mouse.x
@@ -499,6 +550,53 @@ GlassPanel {
                             }
                             onCanceled: root.headerDropTarget = -1
                         }
+                        // Il bordo destro dell'intestazione: tirato, allarga o
+                        // stringe la colonna, come nel log.
+                        Rectangle {
+                            anchors { right: parent.right; rightMargin: -5; top: parent.top; bottom: parent.bottom; topMargin: 4; bottomMargin: 4 }
+                            width: 1
+                            color: resizer.containsMouse || resizer.pressed ? Theme.accentColor : Theme.borderSoft
+                        }
+                        MouseArea {
+                            id: resizer
+                            // Fra la fine di questa e l'inizio della successiva
+                            // (8 px): la presa per spostare non ci arriva.
+                            anchors { right: parent.right; rightMargin: -8; top: parent.top; bottom: parent.bottom }
+                            width: 11
+                            z: 2
+                            hoverEnabled: true
+                            cursorShape: Qt.SplitHCursor
+                            property real startX: 0
+                            property real startWidth: 0
+                            onPressed: (mouse) => {
+                                startX = mapToItem(headRow, mouse.x, 0).x
+                                startWidth = head.width
+                                root.resizingWidth = startWidth
+                                root.resizingKey = head.modelData
+                            }
+                            onPositionChanged: (mouse) => {
+                                if (pressed)
+                                    root.resizingWidth = Math.max(24, startWidth + mapToItem(headRow, mouse.x, 0).x - startX)
+                            }
+                            onReleased: {
+                                const key = root.resizingKey
+                                const w = root.resizingWidth
+                                root.resizingKey = ""
+                                if (key.length > 0)
+                                    root.setWidth(key, w)
+                            }
+                            onCanceled: root.resizingKey = ""
+                            onDoubleClicked: {
+                                // Doppio clic: torna alla sua misura.
+                                const map = Object.assign({}, root.storedWidths)
+                                delete map[head.modelData]
+                                const text = Object.keys(map).length > 0 ? JSON.stringify(map) : ""
+                                if (root.contestMode)
+                                    columnStore.clusterWidthsContest = text
+                                else
+                                    columnStore.clusterWidths = text
+                            }
+                        }
                     }
                 }
             }
@@ -512,7 +610,10 @@ GlassPanel {
             clip: true
             model: root.model
             boundsBehavior: Flickable.StopAtBounds
+            contentWidth: root.rowWidth
+            flickableDirection: Flickable.AutoFlickIfNeeded
             ScrollBar.vertical: ScrollBar {}
+            ScrollBar.horizontal: ScrollBar { policy: root.tableWidth > list.width ? ScrollBar.AsNeeded : ScrollBar.AlwaysOff }
             // Chi sta leggendo in basso non viene riportato in cima da ogni spot.
             onCountChanged: if (atYBeginning) positionViewAtBeginning()
 
@@ -550,7 +651,7 @@ GlassPanel {
                     ? decolog.activation.spotValue(call, band, mode) : ({})
                 readonly property bool newMultiplier: !!contestValue.newMultiplier
 
-                width: ListView.view.width
+                width: root.rowWidth
                 height: visible ? Theme.rowHeight : 0
                 visible: !root.onlyMultipliers || line.newMultiplier
                 // Le righe restano del colore del pannello: il fondo giallo dei
@@ -577,10 +678,10 @@ GlassPanel {
                         model: root.columns
                         delegate: Loader {
                             required property string modelData
-                            readonly property var def: root.columnDef(modelData)
-                            Layout.preferredWidth: def.width
-                            Layout.fillWidth: !!def.stretch
-                            Layout.horizontalStretchFactor: def.stretch ? def.stretch : -1
+                            Layout.preferredWidth: root.widthOf(modelData)
+                            Layout.fillWidth: root.stretchOf(modelData) > 0
+                            Layout.horizontalStretchFactor: root.stretchOf(modelData) > 0 ? root.stretchOf(modelData) : -1
+                            Layout.minimumWidth: root.stretchOf(modelData) > 0 ? 70 : root.widthOf(modelData)
                             Layout.preferredHeight: 18
                             sourceComponent: modelData === "call" ? callCell
                                            : modelData === "status" ? statusCell

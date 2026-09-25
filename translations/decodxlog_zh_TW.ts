@@ -1171,8 +1171,8 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>左邊是顯示的欄，按順序：▲▼ 移動，✕ 移除。右邊是其餘所有欄，點擊即加到最後。在日誌中拖曳欄標題也能移動欄。競賽模式使用同樣的版面。</translation>
     </message>
     <message>
-        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
-        <translation>左邊是顯示的欄，按順序：▲▼ 移動，✕ 移除。右邊是其餘所有欄，點擊即加到最後。拖曳欄標題也能移動欄。</translation>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header, and get wider or narrower by dragging its right edge (a double click on the edge gives back the usual width).</source>
+        <translation>左邊是顯示的欄，按順序：▲▼ 移動，✕ 移除。右邊是其餘所有欄，點擊即加到最後。拖曳欄標題也能移動欄，拖曳其右邊緣可加寬或變窄（雙擊邊緣恢復預設寬度）。</translation>
     </message>
     <message>
         <source>Move left</source>

@@ -1171,8 +1171,8 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>左は表示中の列(順番どおり):▲▼で移動、✕で外します。右はそれ以外のすべてで、クリックすると最後に追加されます。ログの見出しをドラッグしても列を移動できます。同じ配置がコンテストモードでも使われます。</translation>
     </message>
     <message>
-        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
-        <translation>左は表示中の列(順番どおり):▲▼で移動、✕で外します。右はそれ以外のすべてで、クリックすると最後に追加されます。見出しをドラッグしても列を移動できます。</translation>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header, and get wider or narrower by dragging its right edge (a double click on the edge gives back the usual width).</source>
+        <translation>左は表示中の列（順番どおり）：▲▼で移動、✕で削除。右はその他すべての列で、クリックすると末尾に追加されます。列は見出しをドラッグしても移動でき、右端をドラッグすると幅を広げたり狭めたりできます（端をダブルクリックすると通常の幅に戻ります）。</translation>
     </message>
     <message>
         <source>Move left</source>

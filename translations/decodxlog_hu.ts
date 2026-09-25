@@ -1171,8 +1171,8 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Balra a látható oszlopok, sorrendben: ▲▼ mozgatja őket, ✕ elvesz egyet. Jobbra az összes többi, egy kattintás a végére teszi. Az oszlopok a naplóban a fejlécük húzásával is mozgathatók. Ugyanez az elrendezés érvényes contest módban is.</translation>
     </message>
     <message>
-        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
-        <translation>Balra a látható oszlopok, sorrendben: ▲▼ mozgatja őket, ✕ elvesz egyet. Jobbra az összes többi, egy kattintás a végére teszi. Az oszlopok a fejlécük húzásával is mozgathatók.</translation>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header, and get wider or narrower by dragging its right edge (a double click on the edge gives back the usual width).</source>
+        <translation>Balra a látható oszlopok, sorrendben: ▲▼ mozgatja őket, ✕ eltávolít egyet. Jobbra az összes többi, egy kattintás a végére teszi. Az oszlopok a fejlécük húzásával is mozgathatók, a jobb szélük húzásával pedig szélesíthetők vagy keskeníthetők (dupla kattintás a szélen visszaadja a szokásos szélességet).</translation>
     </message>
     <message>
         <source>Move left</source>

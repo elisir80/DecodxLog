@@ -17,7 +17,7 @@ Popup {
     id: root
 
     // Chi tiene la disposizione e la salva: ha setLayout(lista),
-    // moveColumn(da, a) e defaultLayout; il log anche resetWidths().
+    // moveColumn(da, a), defaultLayout e resetWidths().
     property var panel: null
     // Le colonne mostrate, nell'ordine, e tutte quelle possibili
     // ([{key, title, field}]).
@@ -84,7 +84,8 @@ Popup {
                          + "header in the log. The same layout is used in contest mode.")
                   : qsTr("On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the "
                          + "right all the others, a click adds it at the end. Columns also move by dragging "
-                         + "their header.")
+                         + "their header, and get wider or narrower by dragging its right edge (a double click "
+                         + "on the edge gives back the usual width).")
         }
 
         RowLayout {

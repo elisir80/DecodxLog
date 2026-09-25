@@ -1173,8 +1173,8 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>A sinistra le colonne che vedi, nell&apos;ordine: ▲▼ le spostano, ✕ ne toglie una. A destra tutte le altre, un clic la aggiunge in fondo. Le colonne si spostano anche trascinando la loro intestazione nel log. La stessa disposizione vale anche in modalità contest.</translation>
     </message>
     <message>
-        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
-        <translation>A sinistra le colonne che vedi, nell&apos;ordine: ▲▼ le spostano, ✕ ne toglie una. A destra tutte le altre, un clic la aggiunge in fondo. Le colonne si spostano anche trascinando la loro intestazione.</translation>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header, and get wider or narrower by dragging its right edge (a double click on the edge gives back the usual width).</source>
+        <translation>A sinistra le colonne che vedi, nell&apos;ordine: ▲▼ le spostano, ✕ ne toglie una. A destra tutte le altre, un clic la aggiunge in fondo. Le colonne si spostano anche trascinando la loro intestazione, e si allargano o si stringono tirandone il bordo destro (un doppio clic sul bordo le riporta alla misura di sempre).</translation>
     </message>
     <message>
         <source>Move left</source>

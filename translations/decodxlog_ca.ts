@@ -1173,8 +1173,8 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>A l&apos;esquerra les columnes que veus, en ordre: ▲▼ les mouen, ✕ en treu una. A la dreta totes les altres, un clic l&apos;afegeix al final. Les columnes també es mouen arrossegant-ne la capçalera al llibre. La mateixa disposició val també en mode concurs.</translation>
     </message>
     <message>
-        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
-        <translation>A l&apos;esquerra les columnes que veus, en ordre: ▲▼ les mouen, ✕ en treu una. A la dreta totes les altres, un clic l&apos;afegeix al final. Les columnes també es mouen arrossegant-ne la capçalera.</translation>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header, and get wider or narrower by dragging its right edge (a double click on the edge gives back the usual width).</source>
+        <translation>A l&apos;esquerra les columnes que veus, en ordre: ▲▼ les mouen, ✕ en treu una. A la dreta totes les altres, un clic l&apos;afegeix al final. Les columnes també es mouen arrossegant-ne la capçalera, i s&apos;eixamplen o s&apos;estrenyen estirant-ne la vora dreta (un doble clic a la vora torna l&apos;amplada habitual).</translation>
     </message>
     <message>
         <source>Move left</source>

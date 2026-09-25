@@ -1175,8 +1175,8 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Pa kreisi redzamās kolonnas, secībā: ▲▼ tās pārvieto, ✕ vienu noņem. Pa labi visas pārējās, klikšķis to pievieno beigās. Kolonnas var pārvietot arī, velkot to virsrakstu žurnālā. Tas pats izkārtojums der arī konkursa režīmā.</translation>
     </message>
     <message>
-        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header.</source>
-        <translation>Pa kreisi redzamās kolonnas, secībā: ▲▼ tās pārvieto, ✕ vienu noņem. Pa labi visas pārējās, klikšķis to pievieno beigās. Kolonnas var pārvietot arī, velkot to virsrakstu.</translation>
+        <source>On the left the columns you see, in order: ▲▼ move them, ✕ takes one away. On the right all the others, a click adds it at the end. Columns also move by dragging their header, and get wider or narrower by dragging its right edge (a double click on the edge gives back the usual width).</source>
+        <translation>Pa kreisi redzamās kolonnas secībā: ▲▼ tās pārvieto, ✕ vienu noņem. Pa labi visas pārējās, klikšķis to pievieno beigās. Kolonnas var pārvietot arī, velkot to virsrakstu, un paplašināt vai sašaurināt, velkot labo malu (dubultklikšķis uz malas atjauno parasto platumu).</translation>
     </message>
     <message>
         <source>Move left</source>

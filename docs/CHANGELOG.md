@@ -12,6 +12,11 @@ in stazione.
   le linee come li sta leggendo. Scorre da destra a sinistra. Sotto, tono, velocita' e costo
   (F · V · C): quando il costo e' basso sta leggendo, quando sale e' solo rumore e le barre
   si sbiadiscono.
+- **Le colonne del cluster si allargano e si stringono**, anche in modalita' contest, tirando
+  il bordo destro dell'intestazione come nel log; un doppio clic sul bordo riporta la misura
+  di sempre, e **Larghezze predefinite** nella finestra delle colonne le rimette tutte. Le
+  misure si ricordano, in gara a parte. Se il pannello e' stretto la tabella scorre di lato
+  invece di tagliare le ultime colonne. Il chip **colonne** c'e' anche in gara.
 
 ## 1.16.7 — 25 settembre 2026
 
