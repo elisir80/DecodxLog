@@ -5,7 +5,8 @@ in stazione.
 
 ## 1.16.8 — 25 settembre 2026
 
-**Il decoder CW fa vedere quello che sente, come ggmorse.**
+**Il decoder CW fa vedere quello che sente, come ggmorse, e le colonne del cluster si
+allargano e si stringono.**
 
 - Sotto i comandi del decoder c'e' il **grafico di ggmorse**: in arancio il segnale filtrato
   sul tono negli ultimi tre secondi, con la soglia tratteggiata; sopra, in verde, i punti e
