@@ -10,6 +10,7 @@
 #pragma once
 
 #include "core/CloudSync.h"
+#include "core/Dates.h"
 
 #include <QByteArray>
 #include <QObject>
@@ -74,7 +75,8 @@ public:
     QString token() const { return m_token; }
     bool busy() const { return m_busy; }
     QString status() const { return m_status; }
-    QString lastSync() const { return m_lastSync; }
+    // Salvata ISO, mostrata nella forma della lingua.
+    QString lastSync() const { return core::dates::show(m_lastSync); }
     int queued() const;
     QVariantMap remote() const { return m_remote; }
     QString autoMode() const { return m_autoMode; }

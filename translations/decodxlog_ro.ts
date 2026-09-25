@@ -6431,6 +6431,15 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Mod %1 (%2)</translation>
     </message>
     <message>
+        <source>yyyy-mm-dd</source>
+        <translation>aaaa-ll-zz</translation>
+    </message>
+    <message>
+        <source>dd/mm/yyyy</source>
+        <extracomment>How a date is typed, day first; the separator is replaced by the language&apos;s own.</extracomment>
+        <translation>zz/ll/aaaa</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>Deja lucrat în această activare</translation>
     </message>

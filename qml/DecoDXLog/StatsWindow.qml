@@ -180,8 +180,8 @@ ApplicationWindow {
             StatTile { Layout.fillWidth: true; label: qsTr("Different calls"); value: root.summary.calls || 0 }
             StatTile { Layout.fillWidth: true; label: qsTr("DXCC entities"); value: root.summary.dxcc || 0 }
             StatTile { Layout.fillWidth: true; label: qsTr("Grids"); value: root.summary.grids || 0 }
-            StatTile { Layout.fillWidth: true; label: qsTr("First QSO"); value: root.summary.first || "—" }
-            StatTile { Layout.fillWidth: true; label: qsTr("Last QSO"); value: root.summary.last || "—" }
+            StatTile { Layout.fillWidth: true; label: qsTr("First QSO"); value: decolog.showDate(root.summary.first || "") || "—" }
+            StatTile { Layout.fillWidth: true; label: qsTr("Last QSO"); value: decolog.showDate(root.summary.last || "") || "—" }
             StatTile {
                 Layout.fillWidth: true
                 label: qsTr("Best day")

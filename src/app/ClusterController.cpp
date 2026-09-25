@@ -3,6 +3,7 @@
 #include <QElapsedTimer>
 
 #include "core/CredentialStore.h"
+#include "core/Dates.h"
 #include "core/DecoLinkServer.h"
 #include "core/LogDatabase.h"
 #include "core/Maidenhead.h"
@@ -867,7 +868,7 @@ void ClusterController::loadLotwUsers()
     const QFileInfo info(file);
     if (file.open(QIODevice::ReadOnly)) {
         m_lotwUsers.load(file.readAll());
-        m_lotwUsersInfo = tr("%1 LoTW users · list of %2").arg(m_lotwUsers.size()).arg(info.lastModified().toString(QStringLiteral("yyyy-MM-dd")));
+        m_lotwUsersInfo = tr("%1 LoTW users · list of %2").arg(m_lotwUsers.size()).arg(info.lastModified().toString(core::dates::format()));
         emit lotwUsersChanged();
     }
     // La lista ARRL cambia piano: una volta alla settimana basta.

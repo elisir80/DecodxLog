@@ -238,7 +238,7 @@ ApplicationWindow {
                             }
                             Repeater {
                                 model: [{ v: modelData.call, w: 110, bold: true },
-                                        { v: modelData.date, w: 100 },
+                                        { v: decolog.showDate(modelData.date), w: 100 },
                                         { v: modelData.time, w: 60 },
                                         { v: modelData.band, w: 70 },
                                         { v: modelData.mode, w: 70 },

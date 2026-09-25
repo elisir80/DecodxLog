@@ -2,6 +2,7 @@
 
 #include "core/Awards.h"
 #include "core/Bands.h"
+#include "core/Dates.h"
 #include "core/LogDatabase.h"
 
 #include <QCoreApplication>
@@ -444,7 +445,8 @@ QsoTableModel::Row QsoTableModel::rowFromQuery(const QSqlQuery& q) const
     r.id = q.value(0).toLongLong();
     r.sortKey = q.value(1).toString();
     const QDateTime on = QDateTime::fromString(r.sortKey, Qt::ISODate);
-    r.values[Utc] = on.toUTC().toString(QStringLiteral("yy-MM-dd HH:mm"));
+    // Nella forma della lingua: in italiano 25/09/26 12:18.
+    r.values[Utc] = on.toUTC().toString(core::dates::shortFormat() + QStringLiteral(" HH:mm"));
     r.values[Call] = q.value(2).toString();
     r.values[Band] = q.value(3).toString();
     const QString submode = q.value(5).toString();
@@ -478,6 +480,10 @@ QsoTableModel::Row QsoTableModel::rowFromQuery(const QSqlQuery& q) const
         // Il prefisso WPX: chi non l'ha scritto nel file lo trova lo stesso.
         if (v.isEmpty() && m_extra.at(i) == QLatin1String("pfx"))
             v = core::awards::wpxPrefix(r.values[Call]);
+        // Le date (del QSO, delle cartoline, di LoTW, dei campi ADIF a scelta)
+        // si leggono come le altre.
+        else if (m_extra.at(i).contains(QLatin1String("date"), Qt::CaseInsensitive))
+            v = core::dates::show(v);
         r.extra << v;
     }
     return r;

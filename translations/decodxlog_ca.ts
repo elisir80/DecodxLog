@@ -6410,6 +6410,15 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Mode %1 (%2)</translation>
     </message>
     <message>
+        <source>yyyy-mm-dd</source>
+        <translation>aaaa-mm-dd</translation>
+    </message>
+    <message>
+        <source>dd/mm/yyyy</source>
+        <extracomment>How a date is typed, day first; the separator is replaced by the language&apos;s own.</extracomment>
+        <translation>dd/mm/aaaa</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>Ja treballat en aquesta activació</translation>
     </message>

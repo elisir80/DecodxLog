@@ -1,6 +1,7 @@
 #include "app/DecoLogController.h"
 
 #include "core/Bands.h"
+#include "core/Dates.h"
 #include "core/Maidenhead.h"
 #include "core/Modes.h"
 #include "core/Spots.h"
@@ -1559,8 +1560,8 @@ QVariantList DecoLogController::awardItems(const QString& awardId, const QString
                 {QStringLiteral("bandsWorked"), QStringList(i.bandsWorked.cbegin(), i.bandsWorked.cend())},
                 {QStringLiteral("bandsConfirmed"), QStringList(i.bandsConfirmed.cbegin(), i.bandsConfirmed.cend())},
                 {QStringLiteral("qsoCount"), i.qsoCount},
-                {QStringLiteral("first"), i.first.toString(QStringLiteral("yyyy-MM-dd"))},
-                {QStringLiteral("last"), i.last.toString(QStringLiteral("yyyy-MM-dd"))},
+                {QStringLiteral("first"), i.first.isValid() ? i.first.toString(dates::format()) : QString()},
+                {QStringLiteral("last"), i.last.isValid() ? i.last.toString(dates::format()) : QString()},
                 {QStringLiteral("firstQsoId"), i.firstQsoId},
                 {QStringLiteral("firstCall"), i.firstCall},
                 {QStringLiteral("confirmed"), i.confirmed()},
@@ -1868,13 +1869,31 @@ QVariantMap DecoLogController::utcNow() const
             {QStringLiteral("time"), now.toString(QStringLiteral("HH:mm"))}};
 }
 
+QString DecoLogController::showDate(const QString& isoOrAdif) const
+{
+    return dates::show(isoOrAdif);
+}
+
+QString DecoLogController::readDate(const QString& text) const
+{
+    return dates::read(text);
+}
+
+QString DecoLogController::dateHint() const
+{
+    if (!dates::dayFirst())
+        return tr("yyyy-mm-dd");
+    //: How a date is typed, day first; the separator is replaced by the language's own.
+    return tr("dd/mm/yyyy").replace(QLatin1Char('/'), dates::format().mid(2, 1));
+}
+
 QString DecoLogController::logManualQso(const QVariantMap& fields)
 {
     auto text = [&fields](const char* key) { return fields.value(QLatin1String(key)).toString().trimmed(); };
 
     AdifRecord r;
     r.set(QStringLiteral("CALL"), text("call").toUpper());
-    const QDate date = QDate::fromString(text("date"), QStringLiteral("yyyy-MM-dd"));
+    const QDate date = QDate::fromString(dates::read(text("date")), QStringLiteral("yyyy-MM-dd"));
     QTime time = QTime::fromString(text("time"), QStringLiteral("HH:mm"));
     if (!time.isValid())
         time = QTime::fromString(text("time"), QStringLiteral("HH:mm:ss"));
@@ -2021,7 +2040,7 @@ QVariantMap DecoLogController::qsoDetail(qint64 id) const
             {QStringLiteral("id"), h.id},
             {QStringLiteral("revision"), h.revision},
             {QStringLiteral("reason"), h.reason},
-            {QStringLiteral("recordedAt"), h.recordedAt.toString(QStringLiteral("yyyy-MM-dd HH:mm:ss"))},
+            {QStringLiteral("recordedAt"), h.recordedAt.toString(dates::format() + QStringLiteral(" HH:mm:ss"))},
             {QStringLiteral("summary"), QStringLiteral("%1 %2 %3 %4")
                                             .arg(h.record.value(QStringLiteral("CALL")),
                                                  h.record.value(QStringLiteral("BAND")),
@@ -2316,7 +2335,7 @@ QString DecoLogController::lotwLastSync() const
     const QDateTime at = QDateTime::fromString(m_db.setting(QStringLiteral("lotw.last_sync_at")), Qt::ISODate);
     if (!at.isValid())
         return {};
-    return at.toUTC().toString(QStringLiteral("yyyy-MM-dd HH:mm")) + QStringLiteral("Z");
+    return at.toUTC().toString(dates::format() + QStringLiteral(" HH:mm")) + QStringLiteral("Z");
 }
 
 void DecoLogController::setLotwAutoHours(int hours)
@@ -2917,7 +2936,7 @@ void DecoLogController::refreshCallInfo()
     QVariantList recent;
     for (const WorkedEntry& e : wb.recent) {
         recent << QVariantMap{
-            {QStringLiteral("date"), e.on.toString(QStringLiteral("yyyy-MM-dd"))},
+            {QStringLiteral("date"), e.on.toString(dates::format())},
             {QStringLiteral("band"), e.band},
             {QStringLiteral("mode"), e.mode},
             {QStringLiteral("lotw"), e.lotwRcvd == QLatin1String("Y")},
@@ -2929,7 +2948,7 @@ void DecoLogController::refreshCallInfo()
         {QStringLiteral("count"), wb.count},
         {QStringLiteral("bands"), wb.bands},
         {QStringLiteral("modes"), wb.modes},
-        {QStringLiteral("last"), wb.last.isValid() ? wb.last.toString(QStringLiteral("yyyy-MM-dd HH:mm")) : QString()},
+        {QStringLiteral("last"), wb.last.isValid() ? wb.last.toString(dates::format() + QStringLiteral(" HH:mm")) : QString()},
         {QStringLiteral("lastBand"), wb.lastBand},
         {QStringLiteral("lastMode"), wb.lastMode},
         {QStringLiteral("lastId"), wb.lastId},

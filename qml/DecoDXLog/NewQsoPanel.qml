@@ -46,7 +46,7 @@ GlassPanel {
 
     function resetTime() {
         const now = decolog.utcNow()
-        dateField.text = now.date
+        dateField.text = decolog.showDate(now.date)
         timeField.text = now.time
     }
 
@@ -233,7 +233,7 @@ GlassPanel {
                         Layout.horizontalStretchFactor: 3
                         Layout.fillWidth: true
                         label: qsTr("Date UTC")
-                        StyledTextField { id: dateField; Layout.fillWidth: true; placeholderText: "yyyy-mm-dd" }
+                        StyledTextField { id: dateField; Layout.fillWidth: true; placeholderText: decolog.dateHint }
                     }
                     LabeledField {
                         Layout.preferredWidth: 1

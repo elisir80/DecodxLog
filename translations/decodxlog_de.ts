@@ -6410,6 +6410,15 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Sendeart %1 (%2)</translation>
     </message>
     <message>
+        <source>yyyy-mm-dd</source>
+        <translation>JJJJ-MM-TT</translation>
+    </message>
+    <message>
+        <source>dd/mm/yyyy</source>
+        <extracomment>How a date is typed, day first; the separator is replaced by the language&apos;s own.</extracomment>
+        <translation>TT/MM/JJJJ</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>In dieser Aktivierung schon gearbeitet</translation>
     </message>

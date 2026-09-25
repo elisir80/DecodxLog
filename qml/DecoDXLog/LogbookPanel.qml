@@ -673,18 +673,18 @@ GlassPanel {
         modal: true
         padding: 14
         background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 6 }
-        onOpened: { fromField.text = root.model.dateFrom; toField.text = root.model.dateTo; fromField.forceActiveFocus() }
+        onOpened: { fromField.text = decolog.showDate(root.model.dateFrom); toField.text = decolog.showDate(root.model.dateTo); fromField.forceActiveFocus() }
         ColumnLayout {
             spacing: 8
             RowLayout {
                 spacing: 10
                 LabeledField {
                     label: qsTr("From (UTC)")
-                    StyledTextField { id: fromField; Layout.preferredWidth: 130; placeholderText: "2026-01-01" }
+                    StyledTextField { id: fromField; Layout.preferredWidth: 130; placeholderText: decolog.showDate("2026-01-01") }
                 }
                 LabeledField {
                     label: qsTr("To (included)")
-                    StyledTextField { id: toField; Layout.preferredWidth: 130; placeholderText: "2026-12-31"; Keys.onReturnPressed: dateApply.clicked() }
+                    StyledTextField { id: toField; Layout.preferredWidth: 130; placeholderText: decolog.showDate("2026-12-31"); Keys.onReturnPressed: dateApply.clicked() }
                 }
             }
             RowLayout {
@@ -698,8 +698,9 @@ GlassPanel {
                     filled: true
                     onClicked: {
                         root.model.monthFilter = ""
-                        root.model.dateFrom = fromField.text
-                        root.model.dateTo = toField.text
+                        // Scritte come vuole la lingua, tenute ISO.
+                        root.model.dateFrom = decolog.readDate(fromField.text)
+                        root.model.dateTo = decolog.readDate(toField.text)
                         datePopup.close()
                     }
                 }
@@ -879,7 +880,7 @@ GlassPanel {
                     }
                     Pill {
                         visible: root.model.dateFrom.length > 0 || root.model.dateTo.length > 0
-                        text: "%1 → %2 ✕".arg(root.model.dateFrom || "…").arg(root.model.dateTo || "…")
+                        text: "%1 → %2 ✕".arg(decolog.showDate(root.model.dateFrom) || "…").arg(decolog.showDate(root.model.dateTo) || "…")
                         tone: Theme.secondaryColor
                         rounded: false
                         interactive: true

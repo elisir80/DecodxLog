@@ -390,6 +390,15 @@ public:
     // se il QSO e' stato scritto.
     Q_INVOKABLE QString logManualQso(const QVariantMap& fields);
     Q_INVOKABLE QVariantMap utcNow() const;
+    // Le date davanti all'operatore, nella forma della sua lingua (in
+    // italiano 25/09/2026); dentro restano ISO. readDate capisce quello che
+    // scrive, in quella forma o in ISO, e lo torna ISO (vuoto se non e' una
+    // data).
+    Q_INVOKABLE QString showDate(const QString& isoOrAdif) const;
+    Q_INVOKABLE QString readDate(const QString& text) const;
+    // Come si scrive una data, per il suggerimento nei campi ("gg/mm/aaaa").
+    Q_PROPERTY(QString dateHint READ dateHint CONSTANT)
+    QString dateHint() const;
 
     // ── Il VFO della barra in alto ───────────────────────────────────────────
     //

@@ -6431,6 +6431,15 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Režīms %1 (%2)</translation>
     </message>
     <message>
+        <source>yyyy-mm-dd</source>
+        <translation>gggg-mm-dd</translation>
+    </message>
+    <message>
+        <source>dd/mm/yyyy</source>
+        <extracomment>How a date is typed, day first; the separator is replaced by the language&apos;s own.</extracomment>
+        <translation>dd/mm/gggg</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>Šajā aktivizēšanā jau nostrādāts</translation>
     </message>

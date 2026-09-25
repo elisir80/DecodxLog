@@ -3,6 +3,20 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.9 — 25 settembre 2026
+
+**Le date nella forma della lingua scelta: in italiano giorno/mese/anno.**
+
+- Con l'interfaccia in italiano le date si leggono **25/09/2026** (nel log **25/09/26 12:18**):
+  nel log e nelle sue colonne (data, cartoline, LoTW, campi ADIF), nella scheda del QSO,
+  nell'inserimento, nella scheda nominativo, nei diplomi, nelle statistiche, nel filtro per
+  date, nelle ultime sincronizzazioni. Tedesco, russo, danese, lettone e rumeno con i punti
+  (25.09.2026), francese, spagnolo e catalano con le barre, olandese coi trattini; inglese,
+  ungherese, giapponese e cinese restano anno-mese-giorno. Nei campi si scrive nella stessa
+  forma (anche 5/9/26), o in ISO. Dentro, database e ADIF, non cambia niente.
+- Nel cluster della finestra principale le colonne aggiunte a mano (banda, spotter, km ·
+  azimut, fonte) adesso si vedono: la scheda stretta le toglieva sempre.
+
 ## 1.16.8 — 25 settembre 2026
 
 **Il decoder CW fa vedere quello che sente, come ggmorse, e le colonne del cluster si
@@ -189,7 +203,7 @@ finivano sotto o sopra le altre. Adesso non ci sono piu' finestre separate:
   si scaricano e non costano niente;
 - l'**inserimento veloce parte nel modo della gara** (CQ-WW-SSB in fonia, con il 59) e non si
   stringe mai sotto quanto serve a vedere lo scambio e Registra, anche su uno schermo piccolo.
-
+
 **Trovata e corretta la caduta alla chiusura.** Il biglietto della 1.15.4 l'ha presa al primo
 colpo: chiudendo DecoDXLog con Decodium collegato, DecoLink salutava il client mentre si
 spegneva e scriveva nel registro attivita' che era gia' stato distrutto. E' la chiusura

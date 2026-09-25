@@ -6410,6 +6410,15 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Mode %1 (%2)</translation>
     </message>
     <message>
+        <source>yyyy-mm-dd</source>
+        <translation>jjjj-mm-dd</translation>
+    </message>
+    <message>
+        <source>dd/mm/yyyy</source>
+        <extracomment>How a date is typed, day first; the separator is replaced by the language&apos;s own.</extracomment>
+        <translation>dd/mm/jjjj</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>Al gewerkt in deze activatie</translation>
     </message>

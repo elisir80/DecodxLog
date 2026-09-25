@@ -6410,6 +6410,15 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Modo %1 (%2)</translation>
     </message>
     <message>
+        <source>yyyy-mm-dd</source>
+        <translation>aaaa-mm-gg</translation>
+    </message>
+    <message>
+        <source>dd/mm/yyyy</source>
+        <extracomment>How a date is typed, day first; the separator is replaced by the language&apos;s own.</extracomment>
+        <translation>gg/mm/aaaa</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>Già lavorato in questa attivazione</translation>
     </message>

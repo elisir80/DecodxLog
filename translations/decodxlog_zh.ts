@@ -6389,6 +6389,15 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>模式 %1（%2）</translation>
     </message>
     <message>
+        <source>yyyy-mm-dd</source>
+        <translation>yyyy-mm-dd</translation>
+    </message>
+    <message>
+        <source>dd/mm/yyyy</source>
+        <extracomment>How a date is typed, day first; the separator is replaced by the language&apos;s own.</extracomment>
+        <translation>dd/mm/yyyy</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>这次激活里已经通联过</translation>
     </message>

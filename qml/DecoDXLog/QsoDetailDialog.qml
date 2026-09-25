@@ -63,9 +63,14 @@ DialogFrame {
         edited = true
     }
 
-    function adifDate(d) { return d && d.length === 8 ? d.substring(0, 4) + "-" + d.substring(4, 6) + "-" + d.substring(6, 8) : d }
+    // Le date si leggono e si scrivono nella forma della lingua (in italiano
+    // 25/09/2026); nel QSO restano ADIF, 20260925.
+    function adifDate(d) { return d && d.length === 8 ? decolog.showDate(d) : d }
     function adifTime(t) { return t && t.length >= 4 ? t.substring(0, 2) + ":" + t.substring(2, 4) + (t.length === 6 ? ":" + t.substring(4, 6) : "") : t }
-    function toAdifDate(s) { return s.replace(/-/g, "").trim() }
+    function toAdifDate(s) {
+        const iso = decolog.readDate(s)
+        return iso.length > 0 ? iso.replace(/-/g, "") : s.replace(/[^0-9]/g, "")
+    }
     function toAdifTime(s) { return s.replace(/:/g, "").trim() }
 
     function modeLabel() {
@@ -332,8 +337,8 @@ DialogFrame {
                                 textFormat: Text.StyledText
                                 text: "<b><font color=\"" + Theme.secondaryColor + "\">ORIGIN</font></b>  "
                                 + "source_app = " + (root.detail.sourceApp || "—")
-                                + " · created_at " + (root.detail.createdAt || "")
-                                + " · updated_at " + (root.detail.updatedAt || "")
+                                + " · created_at " + decolog.showDate(root.detail.createdAt || "")
+                                + " · updated_at " + decolog.showDate(root.detail.updatedAt || "")
                                 color: Theme.textSecondary
                                 font.family: Theme.monoFamily
                                 font.pixelSize: 11
@@ -473,7 +478,7 @@ DialogFrame {
                             }
                             StyledTextField {
                                 Layout.preferredWidth: 120
-                                placeholderText: "yyyy-mm-dd"
+                                placeholderText: decolog.dateHint
                                 text: { root.formRev; return root.adifDate(root.field(qslRow.keys[1])) }
                                 onTextEdited: root.setField(qslRow.keys[1], root.toAdifDate(text))
                             }
@@ -487,7 +492,7 @@ DialogFrame {
                             StyledTextField {
                                 Layout.preferredWidth: 120
                                 enabled: qslRow.keys[3].length > 0
-                                placeholderText: enabled ? "yyyy-mm-dd" : ""
+                                placeholderText: enabled ? decolog.dateHint : ""
                                 text: { root.formRev; return root.adifDate(root.field(qslRow.keys[3])) }
                                 onTextEdited: root.setField(qslRow.keys[3], root.toAdifDate(text))
                             }
@@ -654,7 +659,7 @@ DialogFrame {
                         function stateText(flag, date) {
                             if (flag === "N" || !flag) return "N"
                             if (flag === "R" || flag === "Q") return flag + " queued"
-                            return flag + (date ? " · " + date.substring(4, 6) + "-" + date.substring(6, 8) : "")
+                            return flag + (date ? " · " + decolog.showDate(date) : "")
                         }
                         function stateColor(flag) {
                             return flag === "Y" ? Theme.accentColor : (flag === "R" || flag === "Q") ? Theme.warningColor : Theme.textSecondary

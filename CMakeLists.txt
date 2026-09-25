@@ -54,6 +54,8 @@ add_library(decolog_core STATIC
     src/core/Bands.cpp
     src/core/Bands.h
     src/core/Cabrillo.cpp
+    src/core/Dates.cpp
+    src/core/Dates.h
     src/core/Cabrillo.h
     src/core/Callbook.cpp
     src/core/Callbook.h
@@ -364,7 +366,7 @@ set_target_properties(decolog PROPERTIES
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

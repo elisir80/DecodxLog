@@ -32,7 +32,7 @@ DialogFrame {
 
     function resetTime() {
         const now = decolog.utcNow()
-        dateField.text = now.date
+        dateField.text = decolog.showDate(now.date)
         timeField.text = now.time
     }
 
@@ -150,7 +150,7 @@ DialogFrame {
                 Layout.preferredWidth: 150
                 Layout.fillWidth: false
                 label: qsTr("Date UTC")
-                StyledTextField { id: dateField; Layout.fillWidth: true; fieldHeight: 44; font.pixelSize: 15 }
+                StyledTextField { id: dateField; Layout.fillWidth: true; fieldHeight: 44; font.pixelSize: 15; placeholderText: decolog.dateHint }
             }
             LabeledField {
                 Layout.preferredWidth: 120

@@ -112,8 +112,9 @@ GlassPanel {
         const keys = stored.length > 0 ? stored.split(",") : root.defaultLayout
         const known = root.columnCatalog.map(c => c.key)
         let out = keys.filter(k => known.indexOf(k) >= 0)
-        // La scheda stretta in basso mostra l'essenziale.
-        if (root.compact)
+        // La scheda stretta in basso mostra l'essenziale, ma solo finche'
+        // l'operatore non ha scelto lui: le colonne che aggiunge si vedono.
+        if (root.compact && stored.length === 0)
             out = out.filter(k => ["band", "spotter", "distance", "source"].indexOf(k) < 0)
         if (out.indexOf("call") < 0)
             out.unshift("call")
