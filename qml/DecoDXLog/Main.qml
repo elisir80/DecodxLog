@@ -424,6 +424,30 @@ ApplicationWindow {
 
     Timer { id: exitProbe; interval: 900; onTriggered: window.exitContestMode() }
     Timer {
+        id: qsyProbe
+        property int step: 0
+        interval: 1500
+        repeat: true
+        onTriggered: {
+            const entry = contestLayout.panelFor("contest").item
+            ++step
+            if (step === 1) {
+                entry.band = "40m"
+                entry.qsyTo("40m", entry.mode)
+            } else if (step === 2) {
+                entry.mode = "SSB"
+                entry.qsyTo(entry.band, "SSB")
+            } else if (step === 3) {
+                entry.band = "20m"
+                entry.qsyTo("20m", entry.mode)
+            } else {
+                console.warn("PROBE qsy radio=" + decolog.shownFrequency + " " + decolog.shownMode
+                             + " entry=" + entry.band + " " + entry.mode)
+                stop()
+            }
+        }
+    }
+    Timer {
         id: pointerProbe
         property var args: []
         property int step: 0
@@ -811,6 +835,12 @@ ApplicationWindow {
         }
         // Per le prove col mouse vero: nel log (normal o in gara) un clic su
         // una banda nei filtri, o su una colonna nel menu Colonne.
+        // Per le prove: in gara, l'inserimento veloce cambia banda e poi modo,
+        // come dal menu; la radio deve andare dove si e' scelto.
+        else if (what[0] === "qsyprobe") {
+            window.openContestDesk()
+            qsyProbe.start()
+        }
         else if (what[0] === "headermove") {
             if (what[1] === "board")
                 window.openContestDesk()

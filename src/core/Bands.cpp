@@ -60,6 +60,47 @@ QString fromMhz(double mhz)
     return {};
 }
 
+double defaultFrequency(const QString& band, const QString& mode)
+{
+    struct Plan {
+        const char* band;
+        double cw, ssb, rtty, ft8, ft4;
+    };
+    // kHz. In fonia sotto i 10 MHz si lavora in LSB, sopra in USB: la radio
+    // lo sceglie da se' quando il modo e' SSB.
+    static const Plan plans[] = {
+        {"160m", 1830, 1850, 1838, 1840, 1840},
+        {"80m", 3530, 3700, 3580, 3573, 3575},
+        {"60m", 5354, 5360, 5357, 5357, 5357},
+        {"40m", 7030, 7150, 7040, 7074, 7047.5},
+        {"30m", 10120, 10120, 10140, 10136, 10140},
+        {"20m", 14030, 14200, 14080, 14074, 14080},
+        {"17m", 18080, 18130, 18100, 18100, 18104},
+        {"15m", 21030, 21250, 21080, 21074, 21140},
+        {"12m", 24900, 24940, 24920, 24915, 24919},
+        {"10m", 28030, 28500, 28080, 28074, 28180},
+        {"6m", 50090, 50150, 50300, 50313, 50318},
+        {"2m", 144050, 144300, 144600, 144174, 144170},
+    };
+    const QString b = band.trimmed().toLower();
+    const QString m = mode.trimmed().toUpper();
+    for (const Plan& p : plans) {
+        if (b != QLatin1String(p.band))
+            continue;
+        double khz = p.ssb;
+        if (m == QLatin1String("CW"))
+            khz = p.cw;
+        else if (m == QLatin1String("RTTY") || m == QLatin1String("PSK31") || m == QLatin1String("PSK"))
+            khz = p.rtty;
+        else if (m == QLatin1String("FT8") || m == QLatin1String("FT2"))
+            khz = p.ft8;
+        else if (m == QLatin1String("FT4"))
+            khz = p.ft4;
+        return khz / 1000.0;
+    }
+    return 0.0;
+}
+
 QStringList all()
 {
     QStringList names;

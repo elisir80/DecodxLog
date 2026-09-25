@@ -1236,6 +1236,11 @@ void DecoLogController::setUiLanguage(const QString& language)
     emit uiLanguageChanged();
 }
 
+double DecoLogController::bandFrequency(const QString& band, const QString& mode) const
+{
+    return core::bands::defaultFrequency(band, mode);
+}
+
 QString DecoLogController::bandForFrequency(const QString& mhz) const
 {
     bool ok = false;

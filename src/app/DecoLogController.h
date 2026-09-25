@@ -423,6 +423,8 @@ public:
     Q_INVOKABLE void exportAdif(const QUrl& file);
     Q_INVOKABLE void exportQsos(const QVariantList& ids, const QUrl& file);
     Q_INVOKABLE QString bandForFrequency(const QString& mhz) const;
+    // Dove portare la radio quando si sceglie banda e modo (MHz), 0 se non si sa.
+    Q_INVOKABLE double bandFrequency(const QString& band, const QString& mode) const;
     Q_INVOKABLE void backupNow();
     // Completa DXCC, paese, zone e continente dei QSO che non li hanno. Ogni QSO
     // modificato diventa una nuova revisione. Restituisce quanti ne ha completati.

@@ -143,6 +143,57 @@ GlassPanel {
         rcvdNr.selectAll()
     }
 
+    // La radio va dove si sceglie: cambiando banda, sulla frequenza di quella
+    // banda (l'ultima usata li', o l'inizio del segmento del modo); cambiando
+    // modo, il modo — e per i digitali anche la frequenza di chiamata. E al
+    // contrario, se si gira la manopola della radio l'inserimento la segue.
+    property var bandMemory: ({})
+    // Subito dopo un cambio chiesto da qui la radio ci mette un attimo: nel
+    // frattempo non si segue quello che dice, se no il menu tornerebbe indietro.
+    property double lastQsy: 0
+    // La memoria e' per banda e modo, come il tasto band stack delle radio:
+    // tornando sui 20 metri in SSB si ritrova la frequenza lasciata li' in
+    // SSB, non quella del CW.
+    function memoryKey(band, mode) {
+        const m = ["LSB", "USB", "AM", "FM"].indexOf(mode) >= 0 ? "SSB" : mode
+        return band + "|" + m
+    }
+    function qsyTo(band, mode) {
+        root.lastQsy = Date.now()
+        const here = parseFloat(decolog.shownFrequency || "0")
+        const hereBand = here > 0 ? decolog.bandForFrequency(String(here)) : ""
+        const hereMode = String(decolog.shownMode || "").toUpperCase()
+        if (hereBand.length > 0 && hereMode.length > 0)
+            root.bandMemory[root.memoryKey(hereBand, hereMode)] = here
+        let mhz = root.bandMemory[root.memoryKey(band, mode)] || decolog.bandFrequency(band, mode)
+        if (mhz <= 0)
+            mhz = here
+        decolog.tuneTo(mhz, mode)
+    }
+    Connections {
+        target: decolog
+        function onTuningChanged() {
+            if (Date.now() - root.lastQsy < 2500)
+                return
+            const f = parseFloat(decolog.shownFrequency || "0")
+            const b = f > 0 ? decolog.bandForFrequency(String(f)) : ""
+            if (b.length > 0 && b !== root.band && bandBox.bands.indexOf(b) >= 0) {
+                root.band = b
+                bandBox.currentIndex = bandBox.bands.indexOf(b)
+            }
+            const raw = String(decolog.shownMode || "").toUpperCase()
+            const m = raw === "LSB" || raw === "USB" || raw === "AM" || raw === "FM" ? "SSB"
+                    : raw === "CW-R" ? "CW" : raw
+            const i = modeBox.modes.indexOf(m)
+            if (i >= 0 && m !== root.mode) {
+                root.mode = m
+                modeBox.currentIndex = i
+                sentRst.text = m === "SSB" ? "59" : "599"
+                rcvdRst.text = sentRst.text
+            }
+        }
+    }
+
     function clearEntry() {
         callField.text = ""
         rcvdRst.text = root.mode === "SSB" ? "59" : "599"
@@ -203,7 +254,10 @@ GlassPanel {
                                                   "15m", "12m", "10m", "6m", "2m"]
                     model: bands
                     currentIndex: Math.max(0, bands.indexOf(root.band))
-                    onActivated: root.band = bands[currentIndex]
+                    onActivated: {
+                        root.band = bands[currentIndex]
+                        root.qsyTo(root.band, root.mode)
+                    }
                 }
             }
             LabeledField {
@@ -218,6 +272,7 @@ GlassPanel {
                         root.mode = modes[currentIndex]
                         sentRst.text = root.mode === "SSB" ? "59" : "599"
                         rcvdRst.text = sentRst.text
+                        root.qsyTo(root.band, root.mode)
                     }
                 }
             }
