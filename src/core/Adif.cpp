@@ -231,9 +231,11 @@ QByteArray writeDocument(const AdifDocument& document)
 void normalizeMode(AdifRecord& record)
 {
     const QString mode = record.value(QStringLiteral("MODE")).trimmed().toUpper();
+    // JTTY (WSJT-X 3.2.0, K1JT) come gli altri modi nuovi di WSJT-X: finche'
+    // ADIF non gli da' un nome suo, e' un sottomodo di MFSK.
     static const QStringList mfskSubmodes{
         QStringLiteral("FT2"), QStringLiteral("FT4"), QStringLiteral("FST4"),
-        QStringLiteral("FST4W"), QStringLiteral("Q65")};
+        QStringLiteral("FST4W"), QStringLiteral("Q65"), QStringLiteral("JTTY")};
     if (mfskSubmodes.contains(mode)) {
         record.set(QStringLiteral("MODE"), QStringLiteral("MFSK"));
         if (record.value(QStringLiteral("SUBMODE")).isEmpty())

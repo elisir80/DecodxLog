@@ -3,6 +3,17 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.12 — 25 settembre 2026
+
+**JTTY, il modo nuovo di Joe Taylor K1JT (WSJT-X 3.2.0-rc1).**
+
+- JTTY e' il modo per gli scambi veloci da contest e le conversazioni in tastiera, simile al
+  RTTY ma molto piu' robusto (4 toni GFSK, circa 127 Hz). Si sceglie nell'inserimento, nella
+  finestra del nuovo QSO (MFSK → JTTY), nell'inserimento della gara e nelle statistiche.
+- Nel log va come gli altri modi nuovi di WSJT-X: MODE MFSK, SUBMODE JTTY, e si legge JTTY.
+  Chi lo manda o lo importa scritto JTTY lo ritrova cosi'. La radio va in PKTUSB, nel segmento
+  dei digitali a banda stretta; gli spot con "JTTY" nel commento sono JTTY.
+
 ## 1.16.11 — 25 settembre 2026
 
 **La finestra principale e' una lavagna magnetica, come quella della gara.**
