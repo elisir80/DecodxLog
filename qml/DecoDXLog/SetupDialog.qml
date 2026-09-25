@@ -939,9 +939,9 @@ DialogFrame {
                             label: qsTr("Send QSOs from")
                             StyledTextField {
                                 Layout.preferredWidth: 130
-                                text: decolog.qsl.crxSince
-                                placeholderText: "yyyy-mm-dd"
-                                onEditingFinished: decolog.qsl.crxSince = text
+                                text: decolog.showDate(decolog.qsl.crxSince)
+                                placeholderText: decolog.dateHint
+                                onEditingFinished: decolog.qsl.crxSince = decolog.readDate(text)
                             }
                         }
                     }
@@ -958,8 +958,10 @@ DialogFrame {
                         text: qsTr("CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts "
                                    + "with HAM-, below with the other credentials) and the logbook to write in. It starts from "
                                    + "the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO "
-                                   + "goes with its date and time; one corrected after sending is updated, not duplicated. "
-                                   + "Sending, automatic sending and the counters are in the QSL tab at the bottom.")
+                                   + "goes with its date and time and with its DecoDXLog number (custom field 38). CRX "
+                                   + "keeps it in step: a QSO corrected here is corrected there, one deleted here is "
+                                   + "deleted there, and with the network down they wait in the queue and leave at the "
+                                   + "next sending. Sending, automatic sending and the counters are in the QSL tab at the bottom.")
                     }
                     CredentialsList {
                         Layout.fillWidth: true

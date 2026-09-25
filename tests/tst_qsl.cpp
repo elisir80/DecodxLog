@@ -184,6 +184,17 @@ private slots:
         QCOMPARE(again.value("logentry_mode").toString(), QString("SSB"));
         QCOMPARE(again.value("logentry_frequency").toString(), QString("14274.5"));
         QVERIFY(!again.contains("logentry_his_name"));
+        QVERIFY(!again.contains("logentry_custom_field38"));
+
+        // Il numero del QSO qui va nel campo personalizzato 38.
+        QCOMPARE(qsl::crxQsoData(ssb, 123, 0, 116).value("logentry_custom_field38").toString(), QString("116"));
+
+        // La mappa: il numero CRX vale nel suo log; i vecchi, senza log, valgono.
+        QCOMPARE(qsl::crxRemoteKey(123, "111354"), QString("123:111354"));
+        QCOMPARE(qsl::crxRemoteQso("123:111354", 123), 111354);
+        QCOMPARE(qsl::crxRemoteQso("123:111354", 7), 0);
+        QCOMPARE(qsl::crxRemoteQso("456", 7), 456);
+        QCOMPARE(qsl::crxRemoteQso("", 7), 0);
     }
 
     void crxAnswers()
@@ -242,6 +253,20 @@ private slots:
         QCOMPARE(req.value("query").toString(), QString("edit_myqso"));
         QCOMPARE(req.value("apikey").toString(), QString("HAM-XX-12345678-12345678"));
         QCOMPARE(req.value("qsoData").toObject().value("logentry_his_call").toString(), QString("W1AW"));
+
+        // La cancellazione: edit_myqso con qso_id e action "delete", come HAMPI.
+        FakeCrx del;
+        QVERIFY(del.listen(QHostAddress::LocalHost));
+        del.answer = R"({"success": true})";
+        web.setCrxEndpoint(del.url());
+        QSignalSpy deleted(&web, &WebQslUploader::finished);
+        web.deleteCrx("HAM-XX-12345678-12345678", 457);
+        QVERIFY(deleted.wait(5000));
+        QVERIFY(deleted.first().first().value<QslUploadResult>().ok);
+        const QJsonObject delReq = QJsonDocument::fromJson(del.body).object().value("req").toObject();
+        QCOMPARE(delReq.value("query").toString(), QString("edit_myqso"));
+        QCOMPARE(delReq.value("action").toString(), QString("delete"));
+        QCOMPARE(delReq.value("qso_id").toInteger(), 457);
 
         // L'elenco dei logbook.
         FakeCrx logs;

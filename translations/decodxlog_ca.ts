@@ -5021,10 +5021,6 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Envia els QSO des del</translation>
     </message>
     <message>
-        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
-        <translation>CRX Logbook és el llibre al núvol de crx.cloud. Demana la clau API del teu compte (comença per HAM-, a baix amb les altres credencials) i el llibre on escriure. Comença el dia que tries el llibre: els QSO més antics només surten si endarrereixes la data. Cada QSO va amb la seva data i hora; un de corregit després de l&apos;enviament s&apos;actualitza, no es duplica. L&apos;enviament, l&apos;enviament automàtic i els comptadors són a la pestanya QSL de baix.</translation>
-    </message>
-    <message>
         <source>QSL by email</source>
         <translation>QSL per correu</translation>
     </message>
@@ -5283,6 +5279,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Browse…</source>
         <translation>Explora…</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time and with its DecoDXLog number (custom field 38). CRX keeps it in step: a QSO corrected here is corrected there, one deleted here is deleted there, and with the network down they wait in the queue and leave at the next sending. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook és el log al núvol de crx.cloud. Necessita la clau API del teu compte (comença per HAM-, a sota amb les altres credencials) i el logbook on escriure. Comença el dia que tries el logbook: els QSO més antics només surten si endarrereixes la data. Cada QSO va amb la data i l&apos;hora i amb el seu número de DecoDXLog (camp personalitzat 38). CRX es manté al dia: un QSO corregit aquí es corregeix allà, un d&apos;esborrat aquí s&apos;esborra allà, i sense xarxa esperen a la cua i surten al següent enviament. L&apos;enviament, l&apos;enviament automàtic i els comptadors són a la pestanya QSL de baix.</translation>
     </message>
     <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
@@ -6842,6 +6842,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>%1: aturat, %2</translation>
     </message>
     <message>
+        <source>CRX Logbook: deleting QSO %1: %2</source>
+        <translation>CRX Logbook: esborrant el QSO %1: %2</translation>
+    </message>
+    <message>
         <source>TQSL not found: install Trusted QSL or set its path here</source>
         <translation>No s&apos;ha trobat el TQSL: instal·la Trusted QSL o posa-hi el camí aquí</translation>
     </message>
@@ -6940,6 +6944,13 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>%1: %2 sent, %3 already there, %4 rejected</source>
         <translation>%1: %2 enviats, %3 ja hi eren, %4 rebutjats</translation>
+    </message>
+    <message numerus="yes">
+        <source>, %n deleted</source>
+        <translation>
+            <numerusform>, %n esborrat</numerusform>
+            <numerusform>, %n esborrats</numerusform>
+        </translation>
     </message>
 </context>
 <context>

@@ -5011,10 +5011,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>從此日期起傳送 QSO</translation>
     </message>
     <message>
-        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
-        <translation>CRX Logbook 是 crx.cloud 的雲端日誌。它需要你帳戶的 API 金鑰（以 HAM- 開頭，在下方與其他憑證一起填寫）以及要寫入的日誌本。從你選擇日誌本的那天開始傳送：更早的 QSO 只有在你把日期往前調時才會傳送。每個 QSO 都帶日期和時間傳送；傳送後修改的會被更新，而不會重複。傳送、自動傳送和計數在下方的 QSL 分頁中。</translation>
-    </message>
-    <message>
         <source>QSL by email</source>
         <translation>用郵件發 QSL</translation>
     </message>
@@ -5273,6 +5269,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Browse…</source>
         <translation>瀏覽…</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time and with its DecoDXLog number (custom field 38). CRX keeps it in step: a QSO corrected here is corrected there, one deleted here is deleted there, and with the network down they wait in the queue and leave at the next sending. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook 是 crx.cloud 的雲端日誌。需要你帳戶的 API 金鑰（以 HAM- 開頭，在下方與其他憑證一起）以及要寫入的日誌本。從你選擇日誌本的那天開始傳送：更早的 QSO 只有在把日期往前調時才會傳送。每個 QSO 都帶著日期、時間和它在 DecoDXLog 中的編號（自訂欄位 38）。CRX 保持同步：在這裡修改的 QSO 在那裡也會修改，在這裡刪除的在那裡也會刪除，沒有網路時它們在佇列中等待，下次傳送時送出。傳送、自動傳送和計數器都在底部的 QSL 分頁中。</translation>
     </message>
     <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
@@ -6807,6 +6807,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>%1：已停止，%2</translation>
     </message>
     <message>
+        <source>CRX Logbook: deleting QSO %1: %2</source>
+        <translation>CRX Logbook：刪除 QSO %1：%2</translation>
+    </message>
+    <message>
         <source>TQSL not found: install Trusted QSL or set its path here</source>
         <translation>沒找到 TQSL：請安裝 Trusted QSL，或者在這裡填上它的路徑</translation>
     </message>
@@ -6901,6 +6905,12 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>%1: %2 sent, %3 already there, %4 rejected</source>
         <translation>%1：送出 %2 筆，已有 %3 筆，拒絕 %4 筆</translation>
+    </message>
+    <message numerus="yes">
+        <source>, %n deleted</source>
+        <translation>
+            <numerusform>, 已刪除 %n 個</numerusform>
+        </translation>
     </message>
 </context>
 <context>

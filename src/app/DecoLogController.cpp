@@ -2091,6 +2091,9 @@ QString DecoLogController::saveQso(qint64 id, const QVariantMap& fields, qint64 
     const InsertResult res = m_db.updateQso(id, r, stationProfileId);
     if (res.status != InsertResult::Status::Inserted)
         return res.message.isEmpty() ? tr("Cannot save the QSO") : res.message;
+    // Dove il QSO si puo' correggere (CRX), la correzione va anche li'.
+    m_db.queueRemoteEdit(id);
+    m_qsl->qsoLogged(id);
     const auto meta = m_db.meta(id);
     addActivity(QStringLiteral("LOG"), tr("Edited %1 · revision %2").arg(r.value(QStringLiteral("CALL"))).arg(meta ? meta->revision : 0),
                 QStringLiteral("success"));
@@ -2117,6 +2120,8 @@ int DecoLogController::deleteQsos(const QVariantList& ids)
         if (!m_db.softDeleteQso(id))
             continue;
         ++done;
+        // Anche la cancellazione, dove si puo' (CRX), parte da sola.
+        m_qsl->qsoLogged(id);
         if (record)
             lastCall = record->value(QStringLiteral("CALL"));
     }
@@ -2138,6 +2143,8 @@ QString DecoLogController::restoreRevision(qint64 id, qint64 historyId)
     const InsertResult res = m_db.restoreRevision(id, historyId);
     if (res.status != InsertResult::Status::Inserted)
         return res.message;
+    m_db.queueRemoteEdit(id);
+    m_qsl->qsoLogged(id);
     addActivity(QStringLiteral("LOG"), tr("Restored an earlier revision of QSO #%1").arg(id), QStringLiteral("success"));
     timed(tr("reloading the log table"), [this] { m_model->reload(); });
     emit logChanged();

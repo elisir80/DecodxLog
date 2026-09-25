@@ -5031,10 +5031,6 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Отправлять QSO с</translation>
     </message>
     <message>
-        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
-        <translation>CRX Logbook — облачный журнал crx.cloud. Ему нужен API-ключ вашей учётной записи (начинается с HAM-, ниже вместе с другими учётными данными) и журнал, в который писать. Отправка начинается с дня, когда вы выбрали журнал: более старые QSO уходят, только если перенести дату назад. Каждое QSO уходит со своей датой и временем; исправленное после отправки обновляется, а не дублируется. Отправка, автоматическая отправка и счётчики — на вкладке QSL внизу.</translation>
-    </message>
-    <message>
         <source>QSL by email</source>
         <translation>QSL по почте</translation>
     </message>
@@ -5293,6 +5289,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Browse…</source>
         <translation>Обзор…</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time and with its DecoDXLog number (custom field 38). CRX keeps it in step: a QSO corrected here is corrected there, one deleted here is deleted there, and with the network down they wait in the queue and leave at the next sending. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook — облачный журнал crx.cloud. Ему нужен API-ключ вашей учётной записи (начинается с HAM-, ниже вместе с другими учётными данными) и журнал, в который писать. Отправка начинается с дня, когда выбран журнал: более старые QSO уходят, только если перенести дату назад. Каждое QSO уходит с датой, временем и своим номером DecoDXLog (пользовательское поле 38). CRX остаётся согласованным: QSO, исправленное здесь, исправляется и там, удалённое здесь — удаляется там, а без сети они ждут в очереди и уходят при следующей отправке. Отправка, автоматическая отправка и счётчики — на вкладке QSL внизу.</translation>
     </message>
     <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
@@ -6877,6 +6877,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>%1: остановлено, %2</translation>
     </message>
     <message>
+        <source>CRX Logbook: deleting QSO %1: %2</source>
+        <translation>CRX Logbook: удаление QSO %1: %2</translation>
+    </message>
+    <message>
         <source>TQSL not found: install Trusted QSL or set its path here</source>
         <translation>TQSL не найден: поставьте Trusted QSL или укажите здесь путь к нему</translation>
     </message>
@@ -6979,6 +6983,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>%1: %2 sent, %3 already there, %4 rejected</source>
         <translation>%1: отправлено %2, уже было %3, отклонено %4</translation>
+    </message>
+    <message numerus="yes">
+        <source>, %n deleted</source>
+        <translation>
+            <numerusform>, %n удалён</numerusform>
+            <numerusform>, %n удалено</numerusform>
+            <numerusform>, %n удалено</numerusform>
+        </translation>
     </message>
 </context>
 <context>

@@ -5021,10 +5021,6 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Send QSO&apos;er fra</translation>
     </message>
     <message>
-        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
-        <translation>CRX Logbook er cloud-loggen på crx.cloud. Den vil have API-nøglen til din konto (starter med HAM-, nedenfor sammen med de andre adgangsoplysninger) og logbogen, der skal skrives i. Den starter fra den dag, du vælger logbogen: ældre QSO&apos;er sendes kun, hvis du flytter datoen tilbage. Hvert QSO sendes med dato og tid; et QSO rettet efter afsendelse opdateres, det dubleres ikke. Afsendelse, automatisk afsendelse og tællerne findes i QSL-fanen nederst.</translation>
-    </message>
-    <message>
         <source>QSL by email</source>
         <translation>QSL med e-mail</translation>
     </message>
@@ -5283,6 +5279,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Browse…</source>
         <translation>Gennemse…</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time and with its DecoDXLog number (custom field 38). CRX keeps it in step: a QSO corrected here is corrected there, one deleted here is deleted there, and with the network down they wait in the queue and leave at the next sending. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook er crx.clouds log i skyen. Den skal bruge API-nøglen til din konto (starter med HAM-, nedenfor sammen med de andre legitimationsoplysninger) og den logbog, der skal skrives i. Den starter fra den dag, du vælger logbogen: ældre QSO&apos;er sendes kun, hvis du flytter datoen tilbage. Hver QSO sendes med dato og tid og med sit DecoDXLog-nummer (brugerdefineret felt 38). CRX holdes ajour: en QSO rettet her rettes der, en slettet her slettes der, og uden netværk venter de i køen og sendes ved næste afsendelse. Afsendelse, automatisk afsendelse og tællerne findes i QSL-fanen nederst.</translation>
     </message>
     <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
@@ -6842,6 +6842,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>%1: stoppet, %2</translation>
     </message>
     <message>
+        <source>CRX Logbook: deleting QSO %1: %2</source>
+        <translation>CRX Logbook: sletter QSO %1: %2</translation>
+    </message>
+    <message>
         <source>TQSL not found: install Trusted QSL or set its path here</source>
         <translation>TQSL blev ikke fundet: installér Trusted QSL, eller angiv stien her</translation>
     </message>
@@ -6940,6 +6944,13 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>%1: %2 sent, %3 already there, %4 rejected</source>
         <translation>%1: %2 sendt, %3 var der allerede, %4 afvist</translation>
+    </message>
+    <message numerus="yes">
+        <source>, %n deleted</source>
+        <translation>
+            <numerusform>, %n slettet</numerusform>
+            <numerusform>, %n slettet</numerusform>
+        </translation>
     </message>
 </context>
 <context>

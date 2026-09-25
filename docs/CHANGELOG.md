@@ -3,6 +3,20 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.10 — 25 settembre 2026
+
+**CRX Logbook resta allineato al log: correzioni e cancellazioni vanno anche li'.**
+
+- Come suggerito da CRX: ogni QSO porta il suo numero DecoDXLog nel campo personalizzato 38,
+  e DecoDXLog tiene la mappa numero locale ↔ numero CRX ↔ logbook CRX. Un QSO corretto qui
+  torna in coda e parte come modifica dello stesso QSO su CRX; uno cancellato qui viene
+  cancellato anche su CRX. Senza rete restano in coda e partono all'invio successivo
+  (automatico o dal pulsante nella scheda QSL), che conta anche le cancellazioni.
+- Cambiando logbook CRX i QSO gia' mandati all'altro partono come nuovi, non come modifiche.
+- Le correzioni di QSO gia' su CRX partono anche se sono piu' vecchi della data "Invia i QSO
+  dal".
+- La data "Invia i QSO dal" di CRX si scrive nella forma della lingua, come le altre.
+
 ## 1.16.9 — 25 settembre 2026
 
 **Le date nella forma della lingua scelta: in italiano giorno/mese/anno.**

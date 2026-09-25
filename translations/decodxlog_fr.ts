@@ -5021,10 +5021,6 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
         <translation>Envoyer les QSO depuis le</translation>
     </message>
     <message>
-        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time; one corrected after sending is updated, not duplicated. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
-        <translation>CRX Logbook est le carnet en ligne de crx.cloud. Il demande la clé API de ton compte (elle commence par HAM-, plus bas avec les autres identifiants) et le carnet où écrire. Il part du jour où tu choisis le carnet : les QSO plus anciens ne partent que si tu recules la date. Chaque QSO part avec sa date et son heure ; un QSO corrigé après l&apos;envoi est mis à jour, pas dupliqué. L&apos;envoi, l&apos;envoi automatique et les compteurs sont dans l&apos;onglet QSL en bas.</translation>
-    </message>
-    <message>
         <source>QSL by email</source>
         <translation>QSL par courriel</translation>
     </message>
@@ -5283,6 +5279,10 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
     <message>
         <source>Browse…</source>
         <translation>Parcourir…</translation>
+    </message>
+    <message>
+        <source>CRX Logbook is the cloud log of crx.cloud. It wants the API key of your account (it starts with HAM-, below with the other credentials) and the logbook to write in. It starts from the day you choose the logbook: older QSOs leave only if you move the date back. Each QSO goes with its date and time and with its DecoDXLog number (custom field 38). CRX keeps it in step: a QSO corrected here is corrected there, one deleted here is deleted there, and with the network down they wait in the queue and leave at the next sending. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>CRX Logbook est le log en ligne de crx.cloud. Il demande la clé API de votre compte (elle commence par HAM-, plus bas avec les autres identifiants) et le logbook où écrire. Il part du jour où vous choisissez le logbook : les QSO plus anciens ne partent que si vous reculez la date. Chaque QSO part avec sa date, son heure et son numéro DecoDXLog (champ personnalisé 38). CRX reste synchronisé : un QSO corrigé ici est corrigé là-bas, un QSO supprimé ici y est supprimé, et sans réseau ils attendent dans la file et partent au prochain envoi. L&apos;envoi, l&apos;envoi automatique et les compteurs sont dans l&apos;onglet QSL en bas.</translation>
     </message>
     <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
@@ -6842,6 +6842,10 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
         <translation>%1 : arrêté, %2</translation>
     </message>
     <message>
+        <source>CRX Logbook: deleting QSO %1: %2</source>
+        <translation>CRX Logbook : suppression du QSO %1 : %2</translation>
+    </message>
+    <message>
         <source>TQSL not found: install Trusted QSL or set its path here</source>
         <translation>TQSL introuvable : installez Trusted QSL ou indiquez son chemin ici</translation>
     </message>
@@ -6940,6 +6944,13 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
     <message>
         <source>%1: %2 sent, %3 already there, %4 rejected</source>
         <translation>%1 : %2 envoyés, %3 déjà présents, %4 refusés</translation>
+    </message>
+    <message numerus="yes">
+        <source>, %n deleted</source>
+        <translation>
+            <numerusform>, %n supprimé</numerusform>
+            <numerusform>, %n supprimés</numerusform>
+        </translation>
     </message>
 </context>
 <context>

@@ -227,7 +227,23 @@ QslUploadResult parseQrzResponse(const QByteArray& body)
     return r;
 }
 
-QJsonObject crxQsoData(const AdifRecord& record, qint64 logId, qint64 remoteId)
+QString crxRemoteKey(qint64 logId, const QString& qsoId)
+{
+    return qsoId.isEmpty() ? QString() : QStringLiteral("%1:%2").arg(logId).arg(qsoId);
+}
+
+qint64 crxRemoteQso(const QString& remoteKey, qint64 logId)
+{
+    if (remoteKey.isEmpty())
+        return 0;
+    if (!remoteKey.contains(QLatin1Char(':')))
+        return remoteKey.toLongLong();
+    if (remoteKey.section(QLatin1Char(':'), 0, 0).toLongLong() != logId)
+        return 0;
+    return remoteKey.section(QLatin1Char(':'), 1).toLongLong();
+}
+
+QJsonObject crxQsoData(const AdifRecord& record, qint64 logId, qint64 remoteId, qint64 localId)
 {
     // La frequenza in kHz, come nell'esempio della documentazione ("7025").
     const double mhz = record.value(QStringLiteral("FREQ")).toDouble();
@@ -268,6 +284,8 @@ QJsonObject crxQsoData(const AdifRecord& record, qint64 logId, qint64 remoteId)
     const QString comment = record.value(QStringLiteral("COMMENT"));
     if (!comment.isEmpty())
         out.insert(QStringLiteral("logentry_comment"), comment);
+    if (localId > 0)
+        out.insert(QStringLiteral("logentry_custom_field38"), QString::number(localId));
     return out;
 }
 
@@ -617,6 +635,17 @@ void WebQslUploader::uploadCrx(const QString& apiKey, const QJsonObject& qsoData
     m_busy = true;
     const QByteArray body = crxRequest(QStringLiteral("edit_myqso"), apiKey,
                                        QJsonObject{{QStringLiteral("qsoData"), qsoData}});
+    watch(m_net->post(crxHttpRequest(m_crxUrl), body), Service::Crx, 1);
+}
+
+void WebQslUploader::deleteCrx(const QString& apiKey, qint64 remoteQsoId)
+{
+    if (m_busy)
+        return;
+    m_busy = true;
+    const QByteArray body = crxRequest(QStringLiteral("edit_myqso"), apiKey,
+                                       QJsonObject{{QStringLiteral("qso_id"), remoteQsoId},
+                                                   {QStringLiteral("action"), QStringLiteral("delete")}});
     watch(m_net->post(crxHttpRequest(m_crxUrl), body), Service::Crx, 1);
 }
 

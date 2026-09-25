@@ -86,6 +86,23 @@ QslController::QslController(Context context, QObject* parent)
 
     connect(&m_tqsl, &TqslUploader::finished, this, &QslController::finishBatch);
     connect(&m_web, &WebQslUploader::finished, this, [this](const QslUploadResult& result) {
+        if (m_deletingId > 0) {
+            // Una cancellazione su CRX.
+            const qint64 id = m_deletingId;
+            m_deletingId = 0;
+            if (result.retryLater) {
+                note(tr("%1: stopped, %2").arg(m_busyService, result.message), QStringLiteral("warning"));
+                finishBatch(result);
+                return;
+            }
+            // Tolto, o CRX non l'aveva piu': in tutti e due i casi li' non c'e'.
+            if (!result.ok)
+                note(tr("CRX Logbook: deleting QSO %1: %2").arg(id).arg(result.message), QStringLiteral("warning"));
+            m_ctx.db->forgetRemote(id, m_busyService);
+            ++m_removed;
+            uploadNextWeb();
+            return;
+        }
         if (m_batch.isEmpty())
             return;
         if (m_batchMode) {
@@ -355,7 +372,10 @@ void QslController::uploadPending(const QString& service, int limit)
     else if (service == QLatin1String("clublog"))
         cap = limit > 0 ? qMin(limit, kClubLogBatch) : kClubLogBatch;
     m_batch = m_ctx.db->qsosToUpload(service, cap, sinceFor(service));
-    if (m_batch.isEmpty()) {
+    m_deletions.clear();
+    if (LogDatabase::editableServices().contains(service))
+        m_deletions = m_ctx.db->remoteDeletions(service);
+    if (m_batch.isEmpty() && m_deletions.isEmpty()) {
         m_lastResult.insert(service, tr("nothing to send"));
         emit changed();
         return;
@@ -366,7 +386,7 @@ void QslController::uploadPending(const QString& service, int limit)
 
 void QslController::startNext()
 {
-    m_accepted = m_duplicates = m_rejected = 0;
+    m_accepted = m_duplicates = m_rejected = m_removed = 0;
     m_batchMode = isBatchService(m_busyService);
     emit changed();
 
@@ -444,6 +464,19 @@ void QslController::startNext()
 
 void QslController::uploadNextWeb()
 {
+    if (m_busyService == QLatin1String("crx") && !m_deletions.isEmpty()) {
+        // Prima le cancellazioni: il numero CRX vale in qualunque log.
+        const auto [id, key] = m_deletions.takeFirst();
+        const qint64 remote = key.section(QLatin1Char(':'), -1).toLongLong();
+        if (remote <= 0) {
+            m_ctx.db->forgetRemote(id, m_busyService);
+            uploadNextWeb();
+            return;
+        }
+        m_deletingId = id;
+        m_web.deleteCrx(m_secret, remote);
+        return;
+    }
     if (m_batch.isEmpty()) {
         QslUploadResult done;
         done.ok = true;
@@ -459,12 +492,14 @@ void QslController::uploadNextWeb()
     if (m_busyService == QLatin1String("crx")) {
         // Un QSO gia' mandato e poi corretto si aggiorna con il suo numero CRX,
         // invece di crearne un secondo.
+        // Il numero vale solo nel log dove e' stato dato: in un altro log
+        // scelto dopo, il QSO e' nuovo.
         qint64 remote = 0;
         for (const QslState& existing : m_ctx.db->qslStatus(m_batch.first())) {
             if (existing.service == QLatin1String("crx"))
-                remote = existing.remoteId.toLongLong();
+                remote = qsl::crxRemoteQso(existing.remoteId, m_crxLogId);
         }
-        m_web.uploadCrx(m_secret, qsl::crxQsoData(*record, m_crxLogId, remote));
+        m_web.uploadCrx(m_secret, qsl::crxQsoData(*record, m_crxLogId, remote, m_batch.first()));
         return;
     }
     const QString adif = adif::writeRecord(*record);
@@ -482,7 +517,12 @@ void QslController::markSent(qint64 id, const QString& service, const QslUploadR
     state.sent = result.accepted > 0 || result.duplicates > 0 ? QStringLiteral("Y") : QStringLiteral("N");
     if (state.sent == QLatin1String("Y"))
         state.sentDate = QDateTime::currentDateTimeUtc().toString(QStringLiteral("yyyyMMdd"));
-    state.remoteId = result.remoteId;
+    // Il numero che il servizio ha dato al QSO; se non lo ripete (una
+    // correzione, un errore) resta quello di prima. Per CRX con il suo log.
+    const bool newId = !result.remoteId.isEmpty() && result.remoteId != QLatin1String("0");
+    state.remoteId = !newId ? QString()
+                   : service == QLatin1String("crx") ? qsl::crxRemoteKey(m_crxLogId, result.remoteId)
+                                                     : result.remoteId;
     state.lastError = result.ok ? QString() : result.message;
     // La conferma ricevuta non si tocca: la scrive il download delle conferme.
     for (const QslState& existing : m_ctx.db->qslStatus(id)) {
@@ -524,9 +564,11 @@ void QslController::finishBatch(const QslUploadResult& result)
     m_busyService.clear();
     m_batchMode = false;
 
-    const QString summary = result.ok
+    QString summary = result.ok
         ? tr("%1: %2 sent, %3 already there, %4 rejected").arg(service).arg(m_accepted).arg(m_duplicates).arg(m_rejected)
         : result.message;
+    if (result.ok && m_removed > 0)
+        summary += tr(", %n deleted", nullptr, m_removed);
     m_lastResult.insert(service, summary);
     note(summary, result.ok ? QStringLiteral("success") : QStringLiteral("error"));
     if (!result.ok && !result.message.isEmpty() && result.message != summary)
@@ -540,6 +582,8 @@ void QslController::cancel()
 {
     m_tqsl.cancel();
     m_batch.clear();
+    m_deletions.clear();
+    m_deletingId = 0;
     m_busyService.clear();
     m_batchMode = false;
     m_secret.clear();
