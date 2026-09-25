@@ -1870,6 +1870,22 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <source>Clear</source>
         <translation>Leeren</translation>
     </message>
+    <message>
+        <source>waiting for audio…</source>
+        <translation>warte auf Audio…</translation>
+    </message>
+    <message>
+        <source>F: %1 Hz · S: %2 WPM · C: %3</source>
+        <translation>F: %1 Hz · G: %2 WPM · K: %3</translation>
+    </message>
+    <message>
+        <source>reading</source>
+        <translation>liest</translation>
+    </message>
+    <message>
+        <source>noise</source>
+        <translation>Rauschen</translation>
+    </message>
 </context>
 <context>
     <name>Ft2AwardPanel</name>

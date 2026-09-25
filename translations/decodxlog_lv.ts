@@ -1873,6 +1873,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <source>Clear</source>
         <translation>Notīrīt</translation>
     </message>
+    <message>
+        <source>waiting for audio…</source>
+        <translation>gaida audio…</translation>
+    </message>
+    <message>
+        <source>F: %1 Hz · S: %2 WPM · C: %3</source>
+        <translation>F: %1 Hz · Ā: %2 WPM · I: %3</translation>
+    </message>
+    <message>
+        <source>reading</source>
+        <translation>lasa</translation>
+    </message>
+    <message>
+        <source>noise</source>
+        <translation>troksnis</translation>
+    </message>
 </context>
 <context>
     <name>Ft2AwardPanel</name>

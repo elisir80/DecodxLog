@@ -4,6 +4,7 @@
 
 #include <QHash>
 
+#include <algorithm>
 #include <cmath>
 #include <cstring>
 
@@ -94,6 +95,7 @@ void CwDecoder::rebuild()
     m_taken = 0;
     m_toneHz = 0;
     m_wpm = 0;
+    m_scope = Scope();
     m_last = QChar();
     setTone(m_tone);
 }
@@ -121,11 +123,20 @@ QString CwDecoder::drain()
         return maxBytes;
     };
 
+    // Il segnale lo rifa' a ogni fotogramma sull'intera finestra: basta
+    // l'ultimo. La soglia invece la accoda, e se non la si prende cresce.
+    GGMorse::SignalF signal;
+    GGMorse::ThresholdF thresholds;
+    bool fresh = false;
+
     for (;;) {
         served = false;
         m_morse->decode(feeder);
         if (!served)
             break;   // l'audio in mano e' finito: il resto arriva dopo
+        if (m_morse->takeSignalF(signal) > 0)
+            fresh = true;
+        m_morse->takeThresholdF(thresholds);
 
         // Il costo dice quanto i tempi misurati somigliano a del Morse vero.
         // Su un segnale, anche brutto, sta sotto il centesimo; sul solo rumore
@@ -154,6 +165,9 @@ QString CwDecoder::drain()
         }
     }
 
+    if (fresh)
+        updateScope(signal);
+
     // Quello che e' stato consumato non serve piu'; il resto aspetta il pezzo
     // successivo di audio.
     if (m_taken > 0) {
@@ -161,6 +175,29 @@ QString CwDecoder::drain()
         m_taken = 0;
     }
     return out;
+}
+
+void CwDecoder::updateScope(const std::vector<float>& signal)
+{
+    const GGMorse::Statistics& stats = m_morse->getStatistics();
+    // ggmorse decide acceso/spento con la media del segnale per la soglia: la
+    // stessa riga, riportata sulla scala del disegno.
+    double mean = 0;
+    float peak = 0;
+    for (const float v : signal) {
+        mean += v;
+        peak = std::max(peak, v);
+    }
+    mean = signal.empty() ? 0 : mean / static_cast<double>(signal.size());
+
+    m_scope.signal.resize(static_cast<qsizetype>(signal.size()));
+    for (std::size_t i = 0; i < signal.size(); ++i)
+        m_scope.signal[static_cast<qsizetype>(i)] = peak > 0 ? signal[i] / peak : 0.0f;
+    m_scope.level = peak > 0 ? std::min(1.0f, static_cast<float>(mean * stats.signalThreshold) / peak) : 0.0f;
+    m_scope.pitch = stats.estimatedPitch_Hz;
+    m_scope.speed = stats.estimatedSpeed_wpm;
+    m_scope.cost = stats.costFunction;
+    m_scope.reading = stats.costFunction < kMaxCost && stats.estimatedPitch_Hz > 0;
 }
 
 QString CwDecoder::feed(const qint16* samples, int count)

@@ -3,6 +3,16 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.8 — 25 settembre 2026
+
+**Il decoder CW fa vedere quello che sente, come ggmorse.**
+
+- Sotto i comandi del decoder c'e' il **grafico di ggmorse**: in arancio il segnale filtrato
+  sul tono negli ultimi tre secondi, con la soglia tratteggiata; sopra, in verde, i punti e
+  le linee come li sta leggendo. Scorre da destra a sinistra. Sotto, tono, velocita' e costo
+  (F · V · C): quando il costo e' basso sta leggendo, quando sale e' solo rumore e le barre
+  si sbiadiscono.
+
 ## 1.16.7 — 25 settembre 2026
 
 **L'inserimento veloce porta la radio sulla banda e sul modo scelti, e il cluster ha le colonne

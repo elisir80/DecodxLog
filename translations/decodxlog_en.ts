@@ -1869,6 +1869,22 @@ The call Decodium is working shows up here by itself.</source>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>waiting for audio…</source>
+        <translation>waiting for audio…</translation>
+    </message>
+    <message>
+        <source>F: %1 Hz · S: %2 WPM · C: %3</source>
+        <translation>F: %1 Hz · S: %2 WPM · C: %3</translation>
+    </message>
+    <message>
+        <source>reading</source>
+        <translation>reading</translation>
+    </message>
+    <message>
+        <source>noise</source>
+        <translation>noise</translation>
+    </message>
 </context>
 <context>
     <name>Ft2AwardPanel</name>

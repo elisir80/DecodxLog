@@ -136,6 +136,32 @@ private slots:
         QVERIFY2(qAbs(decoder.toneHz() - 550) < 20, qPrintable(QString::number(decoder.toneHz())));
     }
 
+    void showsWhatItHears()
+    {
+        // Il grafico: a meta' del messaggio c'e' il segnale degli ultimi tre
+        // secondi, fra 0 e 1, con dei toni sopra la soglia e dei vuoti sotto.
+        CwDecoder decoder(8000);
+        const QVector<qint16> audio = morseAudio(QStringLiteral("CQ CQ DE IU8LMC IU8LMC K"), 22);
+        const int half = audio.size() / 2;
+        for (int i = 0; i < half; i += 512)
+            decoder.feed(audio.constData() + i, qMin(512, half - i));
+        const CwDecoder::Scope& scope = decoder.scope();
+        QVERIFY(scope.signal.size() > 100);
+        QVERIFY(scope.reading);
+        QVERIFY(scope.level > 0.0f && scope.level < 1.0f);
+        QVERIFY2(qAbs(scope.pitch - 700) < 20, qPrintable(QString::number(scope.pitch)));
+        int above = 0;
+        for (const float v : scope.signal) {
+            QVERIFY(v >= 0.0f && v <= 1.0f);
+            if (v > scope.level)
+                ++above;
+        }
+        QVERIFY(above > 0 && above < scope.signal.size());
+
+        decoder.reset();
+        QVERIFY(decoder.scope().signal.isEmpty());
+    }
+
     void staysQuietOnAnEmptyBand()
     {
         // Mezzo minuto di solo rumore, come quando la radio e' accesa e non

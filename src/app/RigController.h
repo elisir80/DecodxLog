@@ -11,6 +11,8 @@
 #include "core/RigControl.h"
 
 #include <QAudioSource>
+#include <QElapsedTimer>
+#include <QTimer>
 #include <QProcess>
 #include <memory>
 
@@ -50,6 +52,10 @@ class RigController : public QObject {
     Q_PROPERTY(QString decoderText READ decoderText NOTIFY decoderChanged)
     Q_PROPERTY(int decoderWpm READ decoderWpm NOTIFY decoderChanged)
     Q_PROPERTY(int decoderTone READ decoderTone NOTIFY decoderChanged)
+    // Il grafico del decoder, come quello di ggmorse: {signal: [0..1],
+    // level, pitch, wpm, cost, reading}. Si aggiorna una quindicina di volte
+    // al secondo, non a ogni pezzetto di audio.
+    Q_PROPERTY(QVariantMap decoderScope READ decoderScope NOTIFY decoderScopeChanged)
     Q_PROPERTY(QStringList audioInputs READ audioInputs NOTIFY decoderChanged)
     Q_PROPERTY(QString audioInput READ audioInput WRITE setAudioInput NOTIFY decoderChanged)
     // Come si arriva alla radio: "network" (un rigctld gia' acceso) oppure
@@ -128,6 +134,10 @@ public:
     QString decoderText() const { return m_decoderText; }
     int decoderWpm() const { return m_decoder.wpm(); }
     int decoderTone() const { return static_cast<int>(m_decoder.toneHz()); }
+    QVariantMap decoderScope() const { return m_scope; }
+    // Per le prove: fa ascoltare al decoder un file audio (WAV o PCM a 16 bit,
+    // mono) al passo del tempo vero, come se arrivasse dalla scheda audio.
+    void playTestAudio(const QByteArray& pcm, int sampleRate);
     QStringList audioInputs() const;
     QString audioInput() const { return m_audioInput; }
     void setAudioInput(const QString& name);
@@ -158,6 +168,7 @@ signals:
     void stateChanged();
     void macrosChanged();
     void decoderChanged();
+    void decoderScopeChanged();
 
 private:
     void loadMacros();
@@ -166,6 +177,8 @@ private:
 
     void startAudio();
     void stopAudio();
+    void consumeAudio(const QByteArray& chunk);
+    void publishScope(bool force = false);
     void startLocalRigctld();
 
     Context m_ctx;
@@ -175,6 +188,9 @@ private:
     QIODevice* m_audioDevice{nullptr};
     QByteArray m_audioBuffer;
     QString m_decoderText;
+    QVariantMap m_scope;
+    QElapsedTimer m_scopeClock;
+    std::unique_ptr<QTimer> m_testAudio;
     QString m_audioInput;
     bool m_decoderOn{false};
     // rigctld avviato da noi quando la radio sta su una seriale.

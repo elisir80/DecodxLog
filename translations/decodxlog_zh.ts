@@ -1867,6 +1867,22 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
+    <message>
+        <source>waiting for audio…</source>
+        <translation>等待音频…</translation>
+    </message>
+    <message>
+        <source>F: %1 Hz · S: %2 WPM · C: %3</source>
+        <translation>F: %1 Hz · S: %2 WPM · C: %3</translation>
+    </message>
+    <message>
+        <source>reading</source>
+        <translation>解码中</translation>
+    </message>
+    <message>
+        <source>noise</source>
+        <translation>噪声</translation>
+    </message>
 </context>
 <context>
     <name>Ft2AwardPanel</name>

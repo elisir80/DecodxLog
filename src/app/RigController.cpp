@@ -13,6 +13,9 @@
 #include <QTcpSocket>
 #include <QTimer>
 #include <QVarLengthArray>
+
+#include <algorithm>
+#include <memory>
 #include <QThread>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -570,6 +573,7 @@ void RigController::clearDecoder()
     m_decoderText.clear();
     m_decoder.reset();
     emit decoderChanged();
+    publishScope(true);
 }
 
 void RigController::startAudio()
@@ -604,35 +608,102 @@ void RigController::startAudio()
             m_ctx.activity(QStringLiteral("CW"), tr("The audio input did not open"), QStringLiteral("warning"));
         return;
     }
-    connect(m_audioDevice, &QIODevice::readyRead, this, [this, format] {
-        const QByteArray chunk = m_audioDevice->readAll();
-        if (chunk.isEmpty())
-            return;
-        m_audioBuffer += chunk;
-        const int samples = static_cast<int>(m_audioBuffer.size() / sizeof(qint16));
-        if (samples <= 0)
-            return;
-        const QString text = m_decoder.feed(reinterpret_cast<const qint16*>(m_audioBuffer.constData()), samples);
-        m_audioBuffer.remove(0, samples * sizeof(qint16));
-        if (!text.isEmpty()) {
-            m_decoderText += text;
-            // Non si tiene una giornata di CW in memoria: gli ultimi 4000
-            // caratteri bastano e avanzano.
-            if (m_decoderText.size() > 4000)
-                m_decoderText = m_decoderText.right(3000);
-        }
-        emit decoderChanged();
+    connect(m_audioDevice, &QIODevice::readyRead, this, [this] {
+        consumeAudio(m_audioDevice->readAll());
     });
     if (m_ctx.activity)
         m_ctx.activity(QStringLiteral("CW"), tr("CW decoder listening to %1").arg(chosen.description()),
                        QStringLiteral("info"));
 }
 
+void RigController::consumeAudio(const QByteArray& chunk)
+{
+    if (chunk.isEmpty())
+        return;
+    m_audioBuffer += chunk;
+    const int samples = static_cast<int>(m_audioBuffer.size() / sizeof(qint16));
+    if (samples <= 0)
+        return;
+    const QString text = m_decoder.feed(reinterpret_cast<const qint16*>(m_audioBuffer.constData()), samples);
+    m_audioBuffer.remove(0, samples * sizeof(qint16));
+    if (!text.isEmpty()) {
+        m_decoderText += text;
+        // Non si tiene una giornata di CW in memoria: gli ultimi 4000
+        // caratteri bastano e avanzano.
+        if (m_decoderText.size() > 4000)
+            m_decoderText = m_decoderText.right(3000);
+    }
+    emit decoderChanged();
+    publishScope();
+}
+
+void RigController::publishScope(bool force)
+{
+    // Il disegno non ha bisogno di tutti i fotogrammi: a 15 al secondo scorre
+    // gia' liscio, e l'interfaccia non si carica per niente.
+    if (!force && m_scopeClock.isValid() && m_scopeClock.elapsed() < 66)
+        return;
+    m_scopeClock.restart();
+
+    const core::CwDecoder::Scope& scope = m_decoder.scope();
+    // Una colonna per punto del grafico basta e avanza: si tiene il massimo di
+    // ogni gruppo, cosi' anche il punto piu' corto resta visibile.
+    constexpr int kPoints = 300;
+    QVariantList signal;
+    const qsizetype n = scope.signal.size();
+    if (n > 0) {
+        const int points = static_cast<int>(std::min<qsizetype>(n, kPoints));
+        signal.reserve(points);
+        for (int i = 0; i < points; ++i) {
+            const qsizetype from = n * i / points;
+            const qsizetype to = std::max(from + 1, n * (i + 1) / points);
+            float peak = 0;
+            for (qsizetype j = from; j < to; ++j)
+                peak = std::max(peak, scope.signal.at(j));
+            signal.append(peak);
+        }
+    }
+    m_scope = QVariantMap{
+        {QStringLiteral("signal"), signal},
+        {QStringLiteral("level"), scope.level},
+        {QStringLiteral("pitch"), scope.pitch},
+        {QStringLiteral("wpm"), scope.speed},
+        {QStringLiteral("cost"), scope.cost},
+        {QStringLiteral("reading"), scope.reading},
+    };
+    emit decoderScopeChanged();
+}
+
+void RigController::playTestAudio(const QByteArray& pcm, int sampleRate)
+{
+    stopAudio();
+    sampleRate = sampleRate > 0 ? sampleRate : 8000;
+    m_decoder.setSampleRate(sampleRate);
+    m_decoder.reset();
+    m_decoderOn = true;
+    emit decoderChanged();
+
+    // Venti millisecondi alla volta, al passo del tempo vero.
+    auto offset = std::make_shared<qsizetype>(0);
+    const qsizetype step = static_cast<qsizetype>(sampleRate / 50) * static_cast<qsizetype>(sizeof(qint16));
+    m_testAudio = std::make_unique<QTimer>();
+    m_testAudio->setInterval(20);
+    connect(m_testAudio.get(), &QTimer::timeout, this, [this, pcm, offset, step] {
+        if (*offset >= pcm.size()) {
+            m_testAudio->stop();
+            return;
+        }
+        consumeAudio(pcm.mid(*offset, step));
+        *offset += step;
+    });
+    m_testAudio->start();
+}
+
 void RigController::stopAudio()
 {
     // L'ultima lettera sta ancora nel decodificatore: la finestra di analisi e'
     // lunga tre secondi, e spegnendo si chiuderebbe con una lettera in meno.
-    if (m_audio) {
+    if (m_audio || m_testAudio) {
         const QString last = m_decoder.flush();
         if (!last.isEmpty())
             m_decoderText += last;
@@ -640,8 +711,11 @@ void RigController::stopAudio()
     if (m_audio)
         m_audio->stop();
     m_audio.reset();
+    m_testAudio.reset();
     m_audioDevice = nullptr;
     m_audioBuffer.clear();
+    m_scope.clear();
+    emit decoderScopeChanged();
 }
 
 

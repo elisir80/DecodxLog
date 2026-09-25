@@ -1867,6 +1867,22 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <source>Clear</source>
         <translation>消去</translation>
     </message>
+    <message>
+        <source>waiting for audio…</source>
+        <translation>音声を待っています…</translation>
+    </message>
+    <message>
+        <source>F: %1 Hz · S: %2 WPM · C: %3</source>
+        <translation>F: %1 Hz · S: %2 WPM · C: %3</translation>
+    </message>
+    <message>
+        <source>reading</source>
+        <translation>解読中</translation>
+    </message>
+    <message>
+        <source>noise</source>
+        <translation>ノイズ</translation>
+    </message>
 </context>
 <context>
     <name>Ft2AwardPanel</name>

@@ -216,6 +216,126 @@ GlassPanel {
             }
         }
 
+        // ── Il grafico, come quello di ggmorse ────────────────────────────
+        // Sopra, in verde, i segni come li sta leggendo: una barra per ogni
+        // tono sopra la soglia. Sotto, in arancio, il segnale filtrato sul
+        // tono negli ultimi tre secondi, con la soglia tratteggiata. Scorre da
+        // destra a sinistra: a destra c'e' quello che si sente adesso.
+        Rectangle {
+            id: scope
+            Layout.fillWidth: true
+            Layout.preferredHeight: 92
+            visible: root.rig.decoderOn
+            color: Theme.bgDeep
+            border.color: Theme.borderSoft
+            radius: 4
+            clip: true
+
+            readonly property var info: root.rig.decoderScope
+            readonly property var trace: info && info.signal ? info.signal : []
+            readonly property real level: info && info.level !== undefined ? info.level : 0
+            readonly property bool reading: info ? info.reading === true : false
+            readonly property color keyColor: Theme.successColor
+            readonly property color traceColor: "#f28c28"
+            onInfoChanged: plot.requestPaint()
+
+            Canvas {
+                id: plot
+                anchors.fill: parent
+                anchors.margins: 4
+                anchors.bottomMargin: 18
+                renderStrategy: Canvas.Cooperative
+                onWidthChanged: requestPaint()
+                onHeightChanged: requestPaint()
+                onPaint: {
+                    const ctx = getContext("2d")
+                    ctx.reset()
+                    const sig = scope.trace
+                    const n = sig.length
+                    if (n < 2 || width <= 0)
+                        return
+                    const keyH = 12
+                    const top = keyH + 6
+                    const h = height - top
+                    const dx = width / (n - 1)
+
+                    // I segni: acceso dove il segnale passa la soglia. Pieno
+                    // quando sta leggendo, sbiadito quando e' solo rumore.
+                    ctx.fillStyle = scope.keyColor
+                    ctx.globalAlpha = scope.reading ? 0.9 : 0.25
+                    let start = -1
+                    for (let i = 0; i <= n; ++i) {
+                        const on = i < n && sig[i] > scope.level
+                        if (on && start < 0)
+                            start = i
+                        else if (!on && start >= 0) {
+                            ctx.fillRect(start * dx, 1, Math.max(1.5, (i - start) * dx), keyH - 2)
+                            start = -1
+                        }
+                    }
+                    ctx.globalAlpha = 1
+
+                    // Il segnale, pieno sotto la linea.
+                    ctx.beginPath()
+                    ctx.moveTo(0, top + h)
+                    for (let i = 0; i < n; ++i)
+                        ctx.lineTo(i * dx, top + h - sig[i] * h)
+                    ctx.lineTo(width, top + h)
+                    ctx.closePath()
+                    ctx.fillStyle = Qt.alpha(scope.traceColor, 0.25)
+                    ctx.fill()
+                    ctx.beginPath()
+                    for (let i = 0; i < n; ++i) {
+                        const y = top + h - sig[i] * h
+                        if (i === 0)
+                            ctx.moveTo(0, y)
+                        else
+                            ctx.lineTo(i * dx, y)
+                    }
+                    ctx.strokeStyle = scope.traceColor
+                    ctx.lineWidth = 1.2
+                    ctx.stroke()
+
+                    // La soglia.
+                    const ly = Math.round(top + h - scope.level * h) + 0.5
+                    ctx.setLineDash([4, 3])
+                    ctx.strokeStyle = Theme.textSecondary
+                    ctx.lineWidth = 1
+                    ctx.beginPath()
+                    ctx.moveTo(0, ly)
+                    ctx.lineTo(width, ly)
+                    ctx.stroke()
+                }
+            }
+
+            Text {
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
+                anchors.leftMargin: 6
+                anchors.bottomMargin: 3
+                text: scope.trace.length === 0
+                      ? qsTr("waiting for audio…")
+                      : qsTr("F: %1 Hz · S: %2 WPM · C: %3")
+                        .arg(Number(scope.info.pitch || 0).toFixed(1))
+                        .arg(Math.round(scope.info.wpm || 0))
+                        .arg(Number(scope.info.cost || 0).toFixed(3))
+                color: scope.reading ? Theme.textPrimary : Theme.textSecondary
+                font.family: Theme.monoFamily
+                font.pixelSize: 10
+            }
+            Text {
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                anchors.rightMargin: 6
+                anchors.bottomMargin: 3
+                visible: scope.trace.length > 0
+                text: scope.reading ? qsTr("reading") : qsTr("noise")
+                color: scope.reading ? scope.keyColor : Theme.textSecondary
+                font.pixelSize: 10
+                font.bold: scope.reading
+            }
+        }
+
         ScrollView {
             id: decodedScroll
             Layout.fillWidth: true

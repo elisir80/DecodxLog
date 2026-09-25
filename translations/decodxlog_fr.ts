@@ -1870,6 +1870,22 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
+    <message>
+        <source>waiting for audio…</source>
+        <translation>en attente de l&apos;audio…</translation>
+    </message>
+    <message>
+        <source>F: %1 Hz · S: %2 WPM · C: %3</source>
+        <translation>F : %1 Hz · V : %2 WPM · C : %3</translation>
+    </message>
+    <message>
+        <source>reading</source>
+        <translation>lecture</translation>
+    </message>
+    <message>
+        <source>noise</source>
+        <translation>bruit</translation>
+    </message>
 </context>
 <context>
     <name>Ft2AwardPanel</name>

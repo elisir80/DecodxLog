@@ -1870,6 +1870,22 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <source>Clear</source>
         <translation>Ryd</translation>
     </message>
+    <message>
+        <source>waiting for audio…</source>
+        <translation>venter på lyd…</translation>
+    </message>
+    <message>
+        <source>F: %1 Hz · S: %2 WPM · C: %3</source>
+        <translation>F: %1 Hz · H: %2 WPM · K: %3</translation>
+    </message>
+    <message>
+        <source>reading</source>
+        <translation>læser</translation>
+    </message>
+    <message>
+        <source>noise</source>
+        <translation>støj</translation>
+    </message>
 </context>
 <context>
     <name>Ft2AwardPanel</name>

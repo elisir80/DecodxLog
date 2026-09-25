@@ -1867,6 +1867,22 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>Clear</source>
         <translation>Törlés</translation>
     </message>
+    <message>
+        <source>waiting for audio…</source>
+        <translation>várakozás a hangra…</translation>
+    </message>
+    <message>
+        <source>F: %1 Hz · S: %2 WPM · C: %3</source>
+        <translation>F: %1 Hz · S: %2 WPM · K: %3</translation>
+    </message>
+    <message>
+        <source>reading</source>
+        <translation>olvas</translation>
+    </message>
+    <message>
+        <source>noise</source>
+        <translation>zaj</translation>
+    </message>
 </context>
 <context>
     <name>Ft2AwardPanel</name>

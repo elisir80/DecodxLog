@@ -1870,6 +1870,22 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <source>Clear</source>
         <translation>Pulisci</translation>
     </message>
+    <message>
+        <source>waiting for audio…</source>
+        <translation>in attesa dell&apos;audio…</translation>
+    </message>
+    <message>
+        <source>F: %1 Hz · S: %2 WPM · C: %3</source>
+        <translation>F: %1 Hz · V: %2 WPM · C: %3</translation>
+    </message>
+    <message>
+        <source>reading</source>
+        <translation>legge</translation>
+    </message>
+    <message>
+        <source>noise</source>
+        <translation>rumore</translation>
+    </message>
 </context>
 <context>
     <name>Ft2AwardPanel</name>

@@ -1873,6 +1873,22 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <source>Clear</source>
         <translation>Golește</translation>
     </message>
+    <message>
+        <source>waiting for audio…</source>
+        <translation>se așteaptă sunetul…</translation>
+    </message>
+    <message>
+        <source>F: %1 Hz · S: %2 WPM · C: %3</source>
+        <translation>F: %1 Hz · V: %2 WPM · C: %3</translation>
+    </message>
+    <message>
+        <source>reading</source>
+        <translation>citește</translation>
+    </message>
+    <message>
+        <source>noise</source>
+        <translation>zgomot</translation>
+    </message>
 </context>
 <context>
     <name>Ft2AwardPanel</name>

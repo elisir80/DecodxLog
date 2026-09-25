@@ -1870,6 +1870,22 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <source>Clear</source>
         <translation>Neteja</translation>
     </message>
+    <message>
+        <source>waiting for audio…</source>
+        <translation>esperant l&apos;àudio…</translation>
+    </message>
+    <message>
+        <source>F: %1 Hz · S: %2 WPM · C: %3</source>
+        <translation>F: %1 Hz · V: %2 WPM · C: %3</translation>
+    </message>
+    <message>
+        <source>reading</source>
+        <translation>llegint</translation>
+    </message>
+    <message>
+        <source>noise</source>
+        <translation>soroll</translation>
+    </message>
 </context>
 <context>
     <name>Ft2AwardPanel</name>

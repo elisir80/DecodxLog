@@ -1870,6 +1870,22 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <source>Clear</source>
         <translation>Wissen</translation>
     </message>
+    <message>
+        <source>waiting for audio…</source>
+        <translation>wacht op audio…</translation>
+    </message>
+    <message>
+        <source>F: %1 Hz · S: %2 WPM · C: %3</source>
+        <translation>F: %1 Hz · S: %2 WPM · K: %3</translation>
+    </message>
+    <message>
+        <source>reading</source>
+        <translation>leest</translation>
+    </message>
+    <message>
+        <source>noise</source>
+        <translation>ruis</translation>
+    </message>
 </context>
 <context>
     <name>Ft2AwardPanel</name>

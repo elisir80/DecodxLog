@@ -12,8 +12,10 @@
 
 #include <QByteArray>
 #include <QString>
+#include <QVector>
 
 #include <memory>
+#include <vector>
 
 class GGMorse;
 
@@ -39,6 +41,21 @@ public:
     // La velocita' che ha imparato, in parole al minuto.
     int wpm() const { return m_wpm; }
 
+    // Quello che il decodificatore sta guardando, come nella finestra di
+    // ggmorse: il segnale filtrato sul tono negli ultimi tre secondi (da 0 a
+    // 1, il piu' vecchio per primo), la soglia sopra la quale conta come tono
+    // acceso, e le stime del momento — anche quando non sta leggendo niente,
+    // che e' proprio quello che si vuole vedere.
+    struct Scope {
+        QVector<float> signal;
+        float level{0};
+        float pitch{0};
+        float speed{0};
+        float cost{1};
+        bool reading{false};
+    };
+    const Scope& scope() const { return m_scope; }
+
     // Manda dentro l'audio (mono, 16 bit) e torna il testo nuovo, se ne e'
     // uscito. Si puo' chiamare a pezzi piccoli: lo stato resta.
     QString feed(const qint16* samples, int count);
@@ -50,6 +67,7 @@ public:
 private:
     void rebuild();
     QString drain();
+    void updateScope(const std::vector<float>& signal);
 
     int m_sampleRate{8000};
     int m_tone{0};
@@ -64,6 +82,7 @@ private:
     // nel pannello si vedrebbe la velocita' crollare a ogni pausa.
     double m_toneHz{0};
     int m_wpm{0};
+    Scope m_scope;
     // L'ultima lettera uscita: serve a non mettere due righe vuote di fila
     // quando il tono cambia fra una chiamata e l'altra.
     QChar m_last;
