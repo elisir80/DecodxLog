@@ -5138,6 +5138,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Ràdio via Hamlib (rigctld)</translation>
     </message>
     <message>
+        <source>Radio via TCI</source>
+        <translation>Ràdio per TCI</translation>
+    </message>
+    <message>
         <source>Talk to the radio</source>
         <translation>Parla amb la ràdio</translation>
     </message>
@@ -5152,6 +5156,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Serial cable to the radio</source>
         <translation>Cable sèrie cap a la ràdio</translation>
+    </message>
+    <message>
+        <source>TCI (SDR, as in Decodium)</source>
+        <translation>TCI (SDR, com a Decodium)</translation>
     </message>
     <message>
         <source>Radio (Hamlib)</source>
@@ -5288,6 +5296,18 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
         <translation>Amb cada ràdio hi parla l&apos;Hamlib, no pas DecoDXLog. Amb el cable sèrie tria el model i el port i DecoDXLog arrenca el rigctld tot sol; si ja tens el rigctld en marxa (per a un programa de concurs, o en un altre ordinador), només cal l&apos;amfitrió i el port. Des d&apos;allà DecoDXLog llegeix la freqüència i el mode, pot sintonitzar la ràdio, i passa les macros de CW al manipulador de la ràdio.</translation>
+    </message>
+    <message>
+        <source>TCI server</source>
+        <translation>Servidor TCI</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>Receptor</translation>
+    </message>
+    <message>
+        <source>TCI is the protocol of Expert Electronics SDRs (SunSDR, ColibriNANO with ExpertSDR) and of the programs that speak it: turn TCI on in the SDR program (usually port 40001). DecoDXLog reads frequency and mode as soon as they change, tunes the radio, uses its PTT and sends the CW macros with the SDR&apos;s own keyer. Decodium can be connected at the same time: TCI accepts more than one program.</source>
+        <translation>TCI és el protocol dels SDR d&apos;Expert Electronics (SunSDR, ColibriNANO amb ExpertSDR) i dels programes que el parlen: activa TCI al programa de l&apos;SDR (normalment port 40001). DecoDXLog llegeix la freqüència i el mode tan bon punt canvien, sintonitza la ràdio, fa servir el seu PTT i envia les macros CW amb el manipulador de l&apos;SDR. Decodium pot quedar connectat alhora: TCI accepta diversos programes.</translation>
     </message>
     <message>
         <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
@@ -7587,6 +7607,37 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>The solar data cannot be read</source>
         <translation>Les dades solars no es poden llegir</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::TciControl</name>
+    <message>
+        <source>Radio connected (TCI %1), waiting for it to be ready…</source>
+        <translation>Ràdio connectada (TCI %1), esperant que estigui a punt…</translation>
+    </message>
+    <message>
+        <source>Radio not reachable via TCI: %1</source>
+        <translation>Ràdio no accessible per TCI: %1</translation>
+    </message>
+    <message>
+        <source>Radio connected (TCI %1)</source>
+        <translation>Ràdio connectada (TCI %1)</translation>
+    </message>
+    <message>
+        <source>Looking for the radio via TCI on %1…</source>
+        <translation>Cercant la ràdio per TCI a %1…</translation>
+    </message>
+    <message>
+        <source>Radio off</source>
+        <translation>Ràdio apagada</translation>
+    </message>
+    <message>
+        <source>The radio is not connected: nothing sent in CW</source>
+        <translation>La ràdio no està connectada: no s&apos;ha enviat res en CW</translation>
+    </message>
+    <message>
+        <source>Radio connected: %1 (TCI %2)</source>
+        <translation>Ràdio connectada: %1 (TCI %2)</translation>
     </message>
 </context>
 <context>

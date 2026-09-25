@@ -41,6 +41,8 @@ RigController::RigController(Context context, QObject* parent)
     m_port = s.value(QStringLiteral("rig/port"), 4532).toInt();
     m_wpm = s.value(QStringLiteral("cw/wpm"), 24).toInt();
     m_link = s.value(QStringLiteral("rig/link"), QStringLiteral("network")).toString();
+    m_tciAddress = s.value(QStringLiteral("rig/tciAddress"), m_tciAddress).toString();
+    m_tciTrx = s.value(QStringLiteral("rig/tciTrx"), 0).toInt();
     m_serialPort = s.value(QStringLiteral("rig/serialPort")).toString();
     m_rigModel = s.value(QStringLiteral("rig/model"), 0).toInt();
     m_baud = s.value(QStringLiteral("rig/baud"), 38400).toInt();
@@ -58,21 +60,23 @@ RigController::RigController(Context context, QObject* parent)
     m_audioInput = s.value(QStringLiteral("cw/audioInput")).toString();
     loadMacros();
 
-    connect(&m_rig, &RigControl::changed, this, &RigController::stateChanged);
-    connect(&m_rig, &RigControl::failed, this, [this](const QString& message) {
-        if (m_ctx.activity)
-            m_ctx.activity(QStringLiteral("CAT"), message, QStringLiteral("warning"));
-        emit stateChanged();
-    });
-    connect(&m_rig, &RigControl::morseUnsupported, this, [this] {
-        m_canKeyCw = false;
-        emit stateChanged();
-    });
-    connect(&m_rig, &RigControl::morseSent, this, [this](const QString& text) {
-        m_canKeyCw = true;
-        if (m_ctx.activity)
-            m_ctx.activity(QStringLiteral("CW"), tr("Sent: %1").arg(text), QStringLiteral("info"));
-    });
+    for (core::RigLink* link : {static_cast<core::RigLink*>(&m_hamlib), static_cast<core::RigLink*>(&m_tci)}) {
+        connect(link, &core::RigLink::changed, this, &RigController::stateChanged);
+        connect(link, &core::RigLink::failed, this, [this](const QString& message) {
+            if (m_ctx.activity)
+                m_ctx.activity(QStringLiteral("CAT"), message, QStringLiteral("warning"));
+            emit stateChanged();
+        });
+        connect(link, &core::RigLink::morseUnsupported, this, [this] {
+            m_canKeyCw = false;
+            emit stateChanged();
+        });
+        connect(link, &core::RigLink::morseSent, this, [this](const QString& text) {
+            m_canKeyCw = true;
+            if (m_ctx.activity)
+                m_ctx.activity(QStringLiteral("CW"), tr("Sent: %1").arg(text), QStringLiteral("info"));
+        });
+    }
 }
 
 void RigController::start()
@@ -83,7 +87,7 @@ void RigController::start()
 
 QString RigController::frequencyLabel() const
 {
-    const qint64 hz = m_rig.frequencyHz();
+    const qint64 hz = m_rig->frequencyHz();
     if (hz <= 0)
         return QStringLiteral("—");
     return QLocale().toString(hz / 1000000.0, 'f', 6) + QStringLiteral(" MHz");
@@ -98,7 +102,7 @@ void RigController::setEnabled(bool on)
     if (on)
         connectNow();
     else
-        m_rig.disconnectFromRig();
+        m_rig->disconnectFromRig();
     emit changed();
     emit stateChanged();
 }
@@ -185,7 +189,7 @@ void RigController::probeRadio()
         return;
     }
 
-    m_rig.disconnectFromRig();
+    m_rig->disconnectFromRig();
     m_probeIndex = 0;
     if (m_ctx.activity) {
         m_ctx.activity(QStringLiteral("CAT"),
@@ -324,17 +328,17 @@ void RigController::setPttPort(const QString& port)
 
 void RigController::testPtt(int milliseconds)
 {
-    if (!m_rig.connected()) {
+    if (!m_rig->connected()) {
         if (m_ctx.activity)
             m_ctx.activity(QStringLiteral("CAT"), tr("The radio is not connected: no PTT"),
                            QStringLiteral("warning"));
         return;
     }
-    m_rig.setPtt(true);
+    m_rig->setPtt(true);
     if (m_ctx.activity)
         m_ctx.activity(QStringLiteral("CAT"), tr("PTT on for a moment: the radio should transmit"),
                        QStringLiteral("info"));
-    QTimer::singleShot(qBound(100, milliseconds, 5000), this, [this] { m_rig.setPtt(false); });
+    QTimer::singleShot(qBound(100, milliseconds, 5000), this, [this] { m_rig->setPtt(false); });
 }
 
 void RigController::setWpm(int wpm)
@@ -342,7 +346,7 @@ void RigController::setWpm(int wpm)
     const int clamped = qBound(5, wpm, 60);
     m_wpm = clamped;
     QSettings().setValue(QStringLiteral("cw/wpm"), clamped);
-    m_rig.setSpeedWpm(clamped);
+    m_rig->setSpeedWpm(clamped);
     emit stateChanged();
 }
 
@@ -350,6 +354,18 @@ void RigController::overrideConnection(const QString& host, int port)
 {
     m_host = host.trimmed().isEmpty() ? QStringLiteral("127.0.0.1") : host.trimmed();
     m_port = port > 0 ? port : 4532;
+    m_enabled = true;
+    // --rig e' un rigctld: per questa volta, anche se nelle impostazioni c'e' TCI.
+    m_link = QStringLiteral("network");
+    connectNow();
+    emit changed();
+}
+
+void RigController::overrideTci(const QString& address, int trx)
+{
+    m_tciAddress = address.trimmed().isEmpty() ? QStringLiteral("127.0.0.1:40001") : address.trimmed();
+    m_tciTrx = qMax(0, trx);
+    m_link = QStringLiteral("tci");
     m_enabled = true;
     connectNow();
     emit changed();
@@ -359,9 +375,20 @@ void RigController::connectNow()
 {
     // Radio nuova, speranza nuova: finche' non dice di no, si prova.
     m_canKeyCw = true;
+    if (m_link == QLatin1String("tci")) {
+        // TCI: niente rigctld, si parla al programma della radio.
+        m_hamlib.disconnectFromRig();
+        m_rig = &m_tci;
+        m_tci.connectTo(m_tciAddress, m_tciTrx);
+        m_tci.setSpeedWpm(m_wpm);
+        emit stateChanged();
+        return;
+    }
+    m_tci.disconnectFromRig();
+    m_rig = &m_hamlib;
     if (m_link == QLatin1String("serial"))
         startLocalRigctld();
-    m_rig.connectTo(m_host, static_cast<quint16>(m_port));
+    m_hamlib.connectTo(m_host, static_cast<quint16>(m_port));
     emit stateChanged();
 }
 
@@ -441,12 +468,37 @@ void RigController::startLocalRigctld()
 
 void RigController::setLink(const QString& link)
 {
-    const QString clean = link == QLatin1String("serial") ? link : QStringLiteral("network");
+    const QString clean = link == QLatin1String("serial") || link == QLatin1String("tci")
+                              ? link : QStringLiteral("network");
     if (clean == m_link)
         return;
     m_link = clean;
     QSettings().setValue(QStringLiteral("rig/link"), clean);
     if (m_enabled)
+        connectNow();
+    emit changed();
+}
+
+void RigController::setTciAddress(const QString& address)
+{
+    const QString clean = address.trimmed().isEmpty() ? QStringLiteral("127.0.0.1:40001") : address.trimmed();
+    if (clean == m_tciAddress)
+        return;
+    m_tciAddress = clean;
+    QSettings().setValue(QStringLiteral("rig/tciAddress"), clean);
+    if (m_enabled && m_link == QLatin1String("tci"))
+        connectNow();
+    emit changed();
+}
+
+void RigController::setTciTrx(int trx)
+{
+    const int clean = qBound(0, trx, 7);
+    if (clean == m_tciTrx)
+        return;
+    m_tciTrx = clean;
+    QSettings().setValue(QStringLiteral("rig/tciTrx"), clean);
+    if (m_enabled && m_link == QLatin1String("tci"))
         connectNow();
     emit changed();
 }
@@ -721,16 +773,16 @@ void RigController::stopAudio()
 
 void RigController::disconnectNow()
 {
-    m_rig.disconnectFromRig();
+    m_rig->disconnectFromRig();
     emit stateChanged();
 }
 
 void RigController::tuneTo(qint64 hz, const QString& mode)
 {
     if (hz > 0)
-        m_rig.setFrequency(hz);
+        m_rig->setFrequency(hz);
     if (!mode.isEmpty())
-        m_rig.setMode(mode);
+        m_rig->setMode(mode);
 }
 
 QString RigController::expand(const QString& text, const QVariantMap& context) const
@@ -771,13 +823,13 @@ void RigController::sendText(const QString& text, const QVariantMap& context)
         m_keyer.send(ready, wpm());
         return;
     }
-    m_rig.sendMorse(ready);
+    m_rig->sendMorse(ready);
 }
 
 void RigController::stop()
 {
     m_keyer.stop();
-    m_rig.stopMorse();
+    m_rig->stopMorse();
 }
 
 // ── Il manipolatore sulla seriale ───────────────────────────────────────────

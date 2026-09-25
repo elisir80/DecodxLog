@@ -5148,6 +5148,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Radio caur Hamlib (rigctld)</translation>
     </message>
     <message>
+        <source>Radio via TCI</source>
+        <translation>Radio caur TCI</translation>
+    </message>
+    <message>
         <source>Talk to the radio</source>
         <translation>Runāt ar radio</translation>
     </message>
@@ -5162,6 +5166,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Serial cable to the radio</source>
         <translation>Seriālais kabelis uz radio</translation>
+    </message>
+    <message>
+        <source>TCI (SDR, as in Decodium)</source>
+        <translation>TCI (SDR, kā Decodium)</translation>
     </message>
     <message>
         <source>Radio (Hamlib)</source>
@@ -5298,6 +5306,18 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
         <translation>Ar katru radio runā Hamlib, nevis DecoDXLog. Ar seriālo kabeli izvēlies modeli un portu, un DecoDXLog pats palaiž rigctld; ja rigctld jau darbojas (sacensību programmai vai citā datorā), pietiek norādīt saimniekdatoru un portu. No turienes DecoDXLog nolasa frekvenci un režīmu, var noskaņot radio un nodod CW makro pašas radio taustiņam.</translation>
+    </message>
+    <message>
+        <source>TCI server</source>
+        <translation>TCI serveris</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>Uztvērējs</translation>
+    </message>
+    <message>
+        <source>TCI is the protocol of Expert Electronics SDRs (SunSDR, ColibriNANO with ExpertSDR) and of the programs that speak it: turn TCI on in the SDR program (usually port 40001). DecoDXLog reads frequency and mode as soon as they change, tunes the radio, uses its PTT and sends the CW macros with the SDR&apos;s own keyer. Decodium can be connected at the same time: TCI accepts more than one program.</source>
+        <translation>TCI ir Expert Electronics SDR (SunSDR, ColibriNANO ar ExpertSDR) un to programmu protokols, kas to runā: ieslēdz TCI SDR programmā (parasti ports 40001). DecoDXLog nolasa frekvenci un modu, tiklīdz tie mainās, noskaņo radio, izmanto tā PTT un sūta CW makro ar SDR telegrāfa atslēgu. Decodium var būt pieslēgts vienlaikus: TCI pieņem vairākas programmas.</translation>
     </message>
     <message>
         <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
@@ -7628,6 +7648,37 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>The solar data cannot be read</source>
         <translation>Saules datus nevar nolasīt</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::TciControl</name>
+    <message>
+        <source>Radio connected (TCI %1), waiting for it to be ready…</source>
+        <translation>Radio pieslēgts (TCI %1), gaida, kamēr būs gatavs…</translation>
+    </message>
+    <message>
+        <source>Radio not reachable via TCI: %1</source>
+        <translation>Radio nav sasniedzams caur TCI: %1</translation>
+    </message>
+    <message>
+        <source>Radio connected (TCI %1)</source>
+        <translation>Radio pieslēgts (TCI %1)</translation>
+    </message>
+    <message>
+        <source>Looking for the radio via TCI on %1…</source>
+        <translation>Meklē radio caur TCI uz %1…</translation>
+    </message>
+    <message>
+        <source>Radio off</source>
+        <translation>Radio izslēgta</translation>
+    </message>
+    <message>
+        <source>The radio is not connected: nothing sent in CW</source>
+        <translation>Radio nav pieslēgta: CW nekas netika nosūtīts</translation>
+    </message>
+    <message>
+        <source>Radio connected: %1 (TCI %2)</source>
+        <translation>Radio pieslēgts: %1 (TCI %2)</translation>
     </message>
 </context>
 <context>

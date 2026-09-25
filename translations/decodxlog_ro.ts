@@ -5148,6 +5148,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Radio prin Hamlib (rigctld)</translation>
     </message>
     <message>
+        <source>Radio via TCI</source>
+        <translation>Radio prin TCI</translation>
+    </message>
+    <message>
         <source>Talk to the radio</source>
         <translation>Vorbește cu stația</translation>
     </message>
@@ -5162,6 +5166,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Serial cable to the radio</source>
         <translation>Cablu serial spre stație</translation>
+    </message>
+    <message>
+        <source>TCI (SDR, as in Decodium)</source>
+        <translation>TCI (SDR, ca în Decodium)</translation>
     </message>
     <message>
         <source>Radio (Hamlib)</source>
@@ -5298,6 +5306,18 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
         <translation>Cu fiecare stație vorbește Hamlib, nu DecoDXLog. Cu cablul serial alege modelul și portul, iar DecoDXLog pornește singur rigctld; dacă rigctld merge deja (pentru un program de concurs sau pe alt calculator), dă doar gazda și portul. De acolo DecoDXLog citește frecvența și modul, poate acorda stația și dă macrourile CW manipulatorului stației.</translation>
+    </message>
+    <message>
+        <source>TCI server</source>
+        <translation>Server TCI</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>Receptor</translation>
+    </message>
+    <message>
+        <source>TCI is the protocol of Expert Electronics SDRs (SunSDR, ColibriNANO with ExpertSDR) and of the programs that speak it: turn TCI on in the SDR program (usually port 40001). DecoDXLog reads frequency and mode as soon as they change, tunes the radio, uses its PTT and sends the CW macros with the SDR&apos;s own keyer. Decodium can be connected at the same time: TCI accepts more than one program.</source>
+        <translation>TCI este protocolul SDR-urilor Expert Electronics (SunSDR, ColibriNANO cu ExpertSDR) și al programelor care îl vorbesc: activează TCI în programul SDR-ului (de obicei portul 40001). DecoDXLog citește frecvența și modul imediat ce se schimbă, acordează stația, folosește PTT-ul ei și trimite macrourile CW cu manipulatorul SDR-ului. Decodium poate rămâne conectat în același timp: TCI acceptă mai multe programe.</translation>
     </message>
     <message>
         <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
@@ -7628,6 +7648,37 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>The solar data cannot be read</source>
         <translation>Datele solare nu pot fi citite</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::TciControl</name>
+    <message>
+        <source>Radio connected (TCI %1), waiting for it to be ready…</source>
+        <translation>Radio conectat (TCI %1), se așteaptă să fie gata…</translation>
+    </message>
+    <message>
+        <source>Radio not reachable via TCI: %1</source>
+        <translation>Radioul nu poate fi accesat prin TCI: %1</translation>
+    </message>
+    <message>
+        <source>Radio connected (TCI %1)</source>
+        <translation>Radio conectat (TCI %1)</translation>
+    </message>
+    <message>
+        <source>Looking for the radio via TCI on %1…</source>
+        <translation>Se caută radioul prin TCI pe %1…</translation>
+    </message>
+    <message>
+        <source>Radio off</source>
+        <translation>Stație oprită</translation>
+    </message>
+    <message>
+        <source>The radio is not connected: nothing sent in CW</source>
+        <translation>Stația nu este conectată: nu s-a trimis nimic în CW</translation>
+    </message>
+    <message>
+        <source>Radio connected: %1 (TCI %2)</source>
+        <translation>Radio conectat: %1 (TCI %2)</translation>
     </message>
 </context>
 <context>

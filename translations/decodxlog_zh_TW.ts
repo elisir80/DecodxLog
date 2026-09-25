@@ -5128,6 +5128,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>透過 Hamlib 連電台 (rigctld)</translation>
     </message>
     <message>
+        <source>Radio via TCI</source>
+        <translation>透過 TCI 連接電台</translation>
+    </message>
+    <message>
         <source>Talk to the radio</source>
         <translation>和電台對話</translation>
     </message>
@@ -5142,6 +5146,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Serial cable to the radio</source>
         <translation>接到電台的序列埠線</translation>
+    </message>
+    <message>
+        <source>TCI (SDR, as in Decodium)</source>
+        <translation>TCI（SDR，與 Decodium 相同）</translation>
     </message>
     <message>
         <source>Radio (Hamlib)</source>
@@ -5278,6 +5286,18 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
         <translation>和每一台電台說話的是 Hamlib，不是 DecoDXLog。用序列埠線的話，選好型號和連接埠，DecoDXLog 會自己啟動 rigctld；如果 rigctld 已經在跑（為了比賽程式，或者在另一台電腦上），只要給出主機和連接埠就行。從那裡 DecoDXLog 讀頻率和模式，可以給電台調頻，並把 CW 巨集交給電台自己的電鍵。</translation>
+    </message>
+    <message>
+        <source>TCI server</source>
+        <translation>TCI 伺服器</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>接收機</translation>
+    </message>
+    <message>
+        <source>TCI is the protocol of Expert Electronics SDRs (SunSDR, ColibriNANO with ExpertSDR) and of the programs that speak it: turn TCI on in the SDR program (usually port 40001). DecoDXLog reads frequency and mode as soon as they change, tunes the radio, uses its PTT and sends the CW macros with the SDR&apos;s own keyer. Decodium can be connected at the same time: TCI accepts more than one program.</source>
+        <translation>TCI 是 Expert Electronics SDR（SunSDR、搭配 ExpertSDR 的 ColibriNANO）以及支援它的程式所用的協定：請在 SDR 程式中啟用 TCI（通常連接埠 40001）。DecoDXLog 在頻率與模式變化時立即讀取，調諧電台，使用其 PTT，並以 SDR 自帶的電鍵送出 CW 巨集。Decodium 可以同時連接：TCI 接受多個程式。</translation>
     </message>
     <message>
         <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
@@ -7546,6 +7566,37 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>The solar data cannot be read</source>
         <translation>太陽資料讀不出來</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::TciControl</name>
+    <message>
+        <source>Radio connected (TCI %1), waiting for it to be ready…</source>
+        <translation>電台已連接（TCI %1），等待就緒…</translation>
+    </message>
+    <message>
+        <source>Radio not reachable via TCI: %1</source>
+        <translation>無法透過 TCI 連接電台：%1</translation>
+    </message>
+    <message>
+        <source>Radio connected (TCI %1)</source>
+        <translation>電台已連接（TCI %1）</translation>
+    </message>
+    <message>
+        <source>Looking for the radio via TCI on %1…</source>
+        <translation>正在透過 TCI 在 %1 上尋找電台…</translation>
+    </message>
+    <message>
+        <source>Radio off</source>
+        <translation>電台已關閉</translation>
+    </message>
+    <message>
+        <source>The radio is not connected: nothing sent in CW</source>
+        <translation>電台沒有連接：CW 什麼都沒發出去</translation>
+    </message>
+    <message>
+        <source>Radio connected: %1 (TCI %2)</source>
+        <translation>電台已連接：%1（TCI %2）</translation>
     </message>
 </context>
 <context>

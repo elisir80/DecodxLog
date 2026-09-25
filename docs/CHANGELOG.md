@@ -3,6 +3,17 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.13 — 25 settembre 2026
+
+**La radio anche via TCI, come in Decodium.**
+
+- In Impostazioni → Radio (CAT), "Come" ha una terza strada: TCI, il protocollo delle SDR
+  Expert Electronics (SunSDR, ColibriNANO con ExpertSDR) e dei programmi che lo parlano.
+  Basta l'indirizzo del server (di serie 127.0.0.1:40001) e il ricevitore (RX1 o RX2).
+- Frequenza e modo arrivano appena cambiano, senza interrogare la radio; DecoDXLog la
+  sintonizza (cluster, inserimento veloce, banda e modo), usa il suo PTT e manda le macro CW
+  con il manipolatore della SDR (cw_macros). Decodium puo' restare collegato insieme.
+
 ## 1.16.12 — 25 settembre 2026
 
 **JTTY, il modo nuovo di Joe Taylor K1JT (WSJT-X 3.2.0-rc1).**

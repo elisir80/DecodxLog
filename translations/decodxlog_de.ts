@@ -5138,6 +5138,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Funkgerät über Hamlib (rigctld)</translation>
     </message>
     <message>
+        <source>Radio via TCI</source>
+        <translation>Funkgerät über TCI</translation>
+    </message>
+    <message>
         <source>Talk to the radio</source>
         <translation>Mit dem Funkgerät sprechen</translation>
     </message>
@@ -5152,6 +5156,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Serial cable to the radio</source>
         <translation>Serielles Kabel zum Funkgerät</translation>
+    </message>
+    <message>
+        <source>TCI (SDR, as in Decodium)</source>
+        <translation>TCI (SDR, wie in Decodium)</translation>
     </message>
     <message>
         <source>Radio (Hamlib)</source>
@@ -5288,6 +5296,18 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
         <translation>Mit jedem Funkgerät spricht Hamlib, nicht DecoDXLog. Beim seriellen Kabel Modell und Schnittstelle wählen, und DecoDXLog startet rigctld von selbst; läuft rigctld schon (für ein Contest-Programm oder auf einem anderen Rechner), genügen Host und Port. Von dort liest DecoDXLog Frequenz und Sendeart, kann das Funkgerät abstimmen und reicht die CW-Makros an den Geber des Funkgeräts weiter.</translation>
+    </message>
+    <message>
+        <source>TCI server</source>
+        <translation>TCI-Server</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>Empfänger</translation>
+    </message>
+    <message>
+        <source>TCI is the protocol of Expert Electronics SDRs (SunSDR, ColibriNANO with ExpertSDR) and of the programs that speak it: turn TCI on in the SDR program (usually port 40001). DecoDXLog reads frequency and mode as soon as they change, tunes the radio, uses its PTT and sends the CW macros with the SDR&apos;s own keyer. Decodium can be connected at the same time: TCI accepts more than one program.</source>
+        <translation>TCI ist das Protokoll der SDRs von Expert Electronics (SunSDR, ColibriNANO mit ExpertSDR) und der Programme, die es sprechen: TCI im SDR-Programm einschalten (meist Port 40001). DecoDXLog liest Frequenz und Betriebsart, sobald sie sich ändern, stimmt das Gerät ab, nutzt seine PTT und sendet die CW-Makros mit dem Keyer des SDR. Decodium kann gleichzeitig verbunden sein: TCI nimmt mehrere Programme an.</translation>
     </message>
     <message>
         <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
@@ -7587,6 +7607,37 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>The solar data cannot be read</source>
         <translation>Die Sonnendaten lassen sich nicht lesen</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::TciControl</name>
+    <message>
+        <source>Radio connected (TCI %1), waiting for it to be ready…</source>
+        <translation>Funkgerät verbunden (TCI %1), warte auf Bereitschaft…</translation>
+    </message>
+    <message>
+        <source>Radio not reachable via TCI: %1</source>
+        <translation>Funkgerät über TCI nicht erreichbar: %1</translation>
+    </message>
+    <message>
+        <source>Radio connected (TCI %1)</source>
+        <translation>Funkgerät verbunden (TCI %1)</translation>
+    </message>
+    <message>
+        <source>Looking for the radio via TCI on %1…</source>
+        <translation>Suche das Funkgerät über TCI auf %1…</translation>
+    </message>
+    <message>
+        <source>Radio off</source>
+        <translation>Funkgerät aus</translation>
+    </message>
+    <message>
+        <source>The radio is not connected: nothing sent in CW</source>
+        <translation>Das Funkgerät ist nicht verbunden: nichts in CW gesendet</translation>
+    </message>
+    <message>
+        <source>Radio connected: %1 (TCI %2)</source>
+        <translation>Funkgerät verbunden: %1 (TCI %2)</translation>
     </message>
 </context>
 <context>

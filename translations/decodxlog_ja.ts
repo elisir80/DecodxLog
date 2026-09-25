@@ -5128,6 +5128,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>Hamlib 経由の無線機 (rigctld)</translation>
     </message>
     <message>
+        <source>Radio via TCI</source>
+        <translation>TCI 経由の無線機</translation>
+    </message>
+    <message>
         <source>Talk to the radio</source>
         <translation>無線機と話す</translation>
     </message>
@@ -5142,6 +5146,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Serial cable to the radio</source>
         <translation>無線機への シリアルケーブル</translation>
+    </message>
+    <message>
+        <source>TCI (SDR, as in Decodium)</source>
+        <translation>TCI（SDR、Decodium と同じ）</translation>
     </message>
     <message>
         <source>Radio (Hamlib)</source>
@@ -5278,6 +5286,18 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable pick the model and the port and DecoDXLog starts rigctld by itself; if you already run rigctld (for a contest program, or on another computer) just give host and port. From there DecoDXLog reads frequency and mode, can tune the radio, and hands the CW macros to the rig&apos;s own keyer.</source>
         <translation>どの無線機とも話すのは Hamlib で、DecoDXLog ではありません。シリアルケーブルなら機種とポートを選べば、DecoDXLog がひとりでに rigctld を立ち上げます。rigctld がもう動いているなら (コンテストのプログラムのためや、別のコンピューターで)、ホストとポートを教えるだけです。そこから DecoDXLog は周波数とモードを読み、無線機を合わせることもでき、CW のマクロは無線機のキーヤーに渡します。</translation>
+    </message>
+    <message>
+        <source>TCI server</source>
+        <translation>TCI サーバー</translation>
+    </message>
+    <message>
+        <source>Receiver</source>
+        <translation>受信機</translation>
+    </message>
+    <message>
+        <source>TCI is the protocol of Expert Electronics SDRs (SunSDR, ColibriNANO with ExpertSDR) and of the programs that speak it: turn TCI on in the SDR program (usually port 40001). DecoDXLog reads frequency and mode as soon as they change, tunes the radio, uses its PTT and sends the CW macros with the SDR&apos;s own keyer. Decodium can be connected at the same time: TCI accepts more than one program.</source>
+        <translation>TCI は Expert Electronics の SDR（SunSDR、ExpertSDR の ColibriNANO）と、それに対応するプログラムのプロトコルです。SDR のプログラムで TCI を有効にしてください（通常ポート 40001）。DecoDXLog は周波数とモードの変化をすぐに読み取り、無線機を同調し、その PTT を使い、SDR 自身のキーヤーで CW マクロを送ります。Decodium と同時に接続できます：TCI は複数のプログラムを受け付けます。</translation>
     </message>
     <message>
         <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
@@ -7546,6 +7566,37 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>The solar data cannot be read</source>
         <translation>太陽のデータが読めません</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::TciControl</name>
+    <message>
+        <source>Radio connected (TCI %1), waiting for it to be ready…</source>
+        <translation>無線機に接続しました（TCI %1）、準備完了を待っています…</translation>
+    </message>
+    <message>
+        <source>Radio not reachable via TCI: %1</source>
+        <translation>TCI で無線機に接続できません：%1</translation>
+    </message>
+    <message>
+        <source>Radio connected (TCI %1)</source>
+        <translation>無線機に接続しました（TCI %1）</translation>
+    </message>
+    <message>
+        <source>Looking for the radio via TCI on %1…</source>
+        <translation>TCI で %1 の無線機を探しています…</translation>
+    </message>
+    <message>
+        <source>Radio off</source>
+        <translation>無線機は切ってあります</translation>
+    </message>
+    <message>
+        <source>The radio is not connected: nothing sent in CW</source>
+        <translation>無線機がつながっていません。CW では何も出ませんでした</translation>
+    </message>
+    <message>
+        <source>Radio connected: %1 (TCI %2)</source>
+        <translation>無線機に接続しました：%1（TCI %2）</translation>
     </message>
 </context>
 <context>

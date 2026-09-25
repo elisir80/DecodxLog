@@ -1,7 +1,8 @@
 // DecoDXLog — la radio e le macro in CW.
 //
-// Il collegamento lo fa Hamlib: DecoDXLog parla a rigctld, che sta gia' sul
-// computer di chi opera. Qui sopra ci sono le macro del contest — otto tasti
+// Il collegamento lo fa Hamlib — DecoDXLog parla a rigctld, che sta gia' sul
+// computer di chi opera — oppure TCI, il WebSocket delle SDR, come in
+// Decodium. Qui sopra ci sono le macro del contest — otto tasti
 // con dentro il testo che si manda, con i buchi da riempire ({CALL}, {NR},
 // {MYCALL}) — e la velocita' del manipolatore.
 #pragma once
@@ -9,6 +10,7 @@
 #include "core/CwDecoder.h"
 #include "core/CwKeyer.h"
 #include "core/RigControl.h"
+#include "core/TciControl.h"
 
 #include <QAudioSource>
 #include <QElapsedTimer>
@@ -58,9 +60,14 @@ class RigController : public QObject {
     Q_PROPERTY(QVariantMap decoderScope READ decoderScope NOTIFY decoderScopeChanged)
     Q_PROPERTY(QStringList audioInputs READ audioInputs NOTIFY decoderChanged)
     Q_PROPERTY(QString audioInput READ audioInput WRITE setAudioInput NOTIFY decoderChanged)
-    // Come si arriva alla radio: "network" (un rigctld gia' acceso) oppure
-    // "serial" (la porta della radio, e rigctld lo avvia DecoDXLog).
+    // Come si arriva alla radio: "network" (un rigctld gia' acceso),
+    // "serial" (la porta della radio, e rigctld lo avvia DecoDXLog) oppure
+    // "tci" (il WebSocket TCI delle SDR, come in Decodium).
     Q_PROPERTY(QString link READ link WRITE setLink NOTIFY changed)
+    // TCI: dove sta il server ("127.0.0.1:40001") e quale ricevitore (0, 1).
+    Q_PROPERTY(QString tciAddress READ tciAddress WRITE setTciAddress NOTIFY changed)
+    Q_PROPERTY(int tciTrx READ tciTrx WRITE setTciTrx NOTIFY changed)
+    Q_PROPERTY(QString tciDevice READ tciDevice NOTIFY stateChanged)
     Q_PROPERTY(QString serialPort READ serialPort WRITE setSerialPort NOTIFY changed)
     Q_PROPERTY(int rigModel READ rigModel WRITE setRigModel NOTIFY changed)
     Q_PROPERTY(int baud READ baud WRITE setBaud NOTIFY changed)
@@ -82,6 +89,8 @@ public:
     // Per le prove da riga di comando: si collega a quel rigctld solo per
     // questa volta, senza scrivere niente nelle impostazioni dell'operatore.
     void overrideConnection(const QString& host, int port);
+    // Lo stesso, per un server TCI ("host:porta", ricevitore).
+    void overrideTci(const QString& address, int trx);
 
     bool enabled() const { return m_enabled; }
     void setEnabled(bool on);
@@ -89,12 +98,12 @@ public:
     void setHost(const QString& host);
     int port() const { return m_port; }
     void setPort(int port);
-    bool connected() const { return m_rig.connected(); }
-    QString status() const { return m_rig.status(); }
-    qint64 frequencyHz() const { return m_rig.frequencyHz(); }
+    bool connected() const { return m_rig->connected(); }
+    QString status() const { return m_rig->status(); }
+    qint64 frequencyHz() const { return m_rig->frequencyHz(); }
     QString frequencyLabel() const;
-    QString mode() const { return m_rig.mode(); }
-    int wpm() const { return m_rig.speedWpm() > 0 ? m_rig.speedWpm() : m_wpm; }
+    QString mode() const { return m_rig->mode(); }
+    int wpm() const { return m_rig->speedWpm() > 0 ? m_rig->speedWpm() : m_wpm; }
     // Il CW parte se sa manipolarlo il CAT oppure se c'e' il manipolatore
     // sulla seriale: basta uno dei due.
     bool canKeyCw() const { return m_canKeyCw || m_keyer.isOpen(); }
@@ -145,6 +154,11 @@ public:
 
     QString link() const { return m_link; }
     void setLink(const QString& link);
+    QString tciAddress() const { return m_tciAddress; }
+    void setTciAddress(const QString& address);
+    int tciTrx() const { return m_tciTrx; }
+    void setTciTrx(int trx);
+    QString tciDevice() const { return m_tci.device(); }
     QString serialPort() const { return m_serialPort; }
     void setSerialPort(const QString& port);
     int rigModel() const { return m_rigModel; }
@@ -182,7 +196,12 @@ private:
     void startLocalRigctld();
 
     Context m_ctx;
-    core::RigControl m_rig;
+    // Le due strade per la radio; m_rig e' quella in uso.
+    core::RigControl m_hamlib;
+    core::TciControl m_tci;
+    core::RigLink* m_rig{&m_hamlib};
+    QString m_tciAddress{QStringLiteral("127.0.0.1:40001")};
+    int m_tciTrx{0};
     core::CwDecoder m_decoder{8000};
     std::unique_ptr<QAudioSource> m_audio;
     QIODevice* m_audioDevice{nullptr};
