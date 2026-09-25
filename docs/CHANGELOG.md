@@ -3,6 +3,22 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.7 — 25 settembre 2026
+
+**L'inserimento veloce porta la radio sulla banda e sul modo scelti, e il cluster ha le colonne
+a scelta.**
+
+- **Banda e modo nell'inserimento veloce** (e nella finestra Contest) adesso muovono la
+  radio: cambiando banda si va sulla frequenza lasciata li' in quel modo, o all'inizio del
+  segmento giusto (piano IARU Regione 1: 7.030 CW, 7.150 SSB, 14.074 FT8…); cambiando modo la
+  radio cambia modo e va nel segmento del modo, LSB sotto i 10 MHz e USB sopra. La memoria e'
+  per banda e modo, come il band stack delle radio. Al contrario, girando la manopola o
+  cambiando modo sulla radio, l'inserimento segue.
+- **Le colonne del cluster si scelgono e si spostano**, come quelle del log: trascinando
+  l'intestazione, o dal chip **colonne** (a sinistra quelle che si vedono con ▲▼ e ✕, a destra
+  le altre: entita', km/azimut, fonte, continente, DXCC, locatore, dB, referenza, commento).
+  In gara la disposizione e' una a parte, di serie piu' stretta.
+
 ## 1.16.6 — 24 settembre 2026
 
 **Connessioni di rete piu' robuste.** Le richieste automatiche per aggiornamenti e servizi
