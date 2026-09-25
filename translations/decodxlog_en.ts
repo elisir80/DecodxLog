@@ -2531,6 +2531,14 @@ The call Decodium is working shows up here by itself.</source>
         <source>Panels…</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>All the panels are closed: open them again from Panels, up in the bar.</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>All the panels are in their own windows: ↩ in a panel brings it back here.</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2862,13 +2870,6 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>CLEAR</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

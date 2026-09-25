@@ -2532,6 +2532,14 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <source>Panels…</source>
         <translation>Bedienfelder…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>Alle Bereiche sind geschlossen: öffne sie wieder über Bereiche oben in der Leiste.</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Alle Bereiche sind in eigenen Fenstern: ↩ in einem Bereich holt ihn hierher zurück.</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2864,13 +2872,6 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>CLEAR</source>
         <translation>LEEREN</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>hierher</translation>
     </message>
 </context>
 <context>

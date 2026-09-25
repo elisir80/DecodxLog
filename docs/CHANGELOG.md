@@ -3,6 +3,21 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.11 — 25 settembre 2026
+
+**La finestra principale e' una lavagna magnetica, come quella della gara.**
+
+- Fuori dalla gara i pannelli (nuovo QSO, log, scheda nominativo, CW, rotore, FT2 Award,
+  schede in basso, mappa) si comportano esattamente come in modalita' contest: si prendono
+  per la testata e si mettono dove si vuole, si ridimensionano da bordi e angoli, vicino ai
+  bordi della finestra o di un altro pannello si attaccano da soli, un clic porta un
+  pannello davanti. ⤢ lo stacca in una finestra sua, ✕ lo chiude, Pannelli lo riapre.
+- La disposizione di tutti i giorni e quella della gara sono separate e si ricordano da
+  sole, in proporzione alla finestra. "Blocca la disposizione" (tasto destro su una
+  testata) ferma spostamenti e misure; "Ripristina la disposizione" rimette quella di
+  partenza.
+- Un pannello che non ci sta nel suo riquadro resta dentro, invece di coprire i vicini.
+
 ## 1.16.10 — 25 settembre 2026
 
 **CRX Logbook resta allineato al log: correzioni e cancellazioni vanno anche li'.**

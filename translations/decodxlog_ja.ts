@@ -2527,6 +2527,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <source>Panels…</source>
         <translation>パネル…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>すべてのパネルが閉じています：上部バーの「パネル」から再び開けます。</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>すべてのパネルが別ウィンドウにあります：パネルの ↩ でここに戻せます。</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2859,13 +2867,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>CLEAR</source>
         <translation>消す</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>ここ</translation>
     </message>
 </context>
 <context>

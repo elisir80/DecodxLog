@@ -135,131 +135,21 @@ ApplicationWindow {
         return ""
     }
 
-    // ── Le caselle della disposizione ───────────────────────────────────────
+    // ── La lavagna ──────────────────────────────────────────────────────────
     //
-    // Otto posti fissi; quale pannello ci stia dentro lo dice questa mappa, e
-    // si cambia trascinando un pannello per la maniglia sopra un altro.
-    readonly property var slotIds: ["left", "center", "rightA", "rightB", "rightC", "rightD",
-                                    "bottomLeft", "bottomRight"]
-    readonly property var defaultSlots: ({"left": "newqso", "center": "logbook",
-                                          "rightA": "callinfo", "rightB": "cw",
-                                          "rightC": "rotor", "rightD": "ft2",
-                                          "bottomLeft": "tabs", "bottomRight": "map"})
+    // Fuori dalla gara la finestra e' una lavagna magnetica come quella della
+    // gara (mainBoard): ogni pannello si sposta per la testata, si
+    // ridimensiona dai bordi, si attacca ai bordi vicini, si stacca e si
+    // chiude. Chi e' chiuso o staccato lo tengono hiddenPanels e
+    // detachedPanels, come prima; posizioni e misure la lavagna.
+    readonly property var boardKeys: ["newqso", "logbook", "callinfo", "cw", "rotor", "ft2", "tabs", "map"]
 
-    function slotMap() {
-        const map = {}
-        for (let i = 0; i < window.slotIds.length; ++i)
-            map[window.slotIds[i]] = window.defaultSlots[window.slotIds[i]]
-        const parts = String(layout.panelSlots || "").split(",")
-        const seen = []
-        for (let j = 0; j < parts.length; ++j) {
-            const pair = parts[j].split("=")
-            const slotId = String(pair[0] || "").trim()
-            const key = String(pair[1] || "").trim()
-            // Solo caselle e pannelli che esistono, e ogni pannello una volta
-            // sola: una mappa storta lascerebbe un pannello in due posti.
-            if (window.slotIds.indexOf(slotId) >= 0 && window.panelKeys.indexOf(key) >= 0
-                && seen.indexOf(key) < 0) {
-                map[slotId] = key
-                seen.push(key)
-            }
-        }
-        // Quello che nella mappa non c'e' finisce nella prima casella libera.
-        const used = []
-        for (let s = 0; s < window.slotIds.length; ++s)
-            used.push(map[window.slotIds[s]])
-        for (let k = 0; k < window.panelKeys.length; ++k) {
-            const key = window.panelKeys[k]
-            if (used.indexOf(key) >= 0)
-                continue
-            for (let s2 = 0; s2 < window.slotIds.length; ++s2) {
-                if (used.indexOf(map[window.slotIds[s2]]) !== s2) {
-                    map[window.slotIds[s2]] = key
-                    used[s2] = key
-                    break
-                }
-            }
-        }
-        return map
-    }
-
-    readonly property var slotsNow: window.slotMap()
-    function panelAt(slotId) { return window.slotsNow[slotId] || "" }
-    function slotOf(key) {
-        for (let i = 0; i < window.slotIds.length; ++i) {
-            if (window.slotsNow[window.slotIds[i]] === key)
-                return window.slotIds[i]
-        }
-        return ""
-    }
-
-    function swapSlots(slotA, slotB) {
-        if (!slotA || !slotB || slotA === slotB)
-            return
-        const map = window.slotMap()
-        const keep = map[slotA]
-        map[slotA] = map[slotB]
-        map[slotB] = keep
-        const out = []
-        for (let i = 0; i < window.slotIds.length; ++i)
-            out.push(window.slotIds[i] + "=" + map[window.slotIds[i]])
-        layout.panelSlots = out.join(",")
-    }
-
-    // ── Il trascinamento: si prende un pannello e si vede dove finisce ──────
-    property string draggingKey: ""
-    property string draggingFrom: ""
-    property string dragTargetSlot: ""
-    readonly property var slotItems: [slotLeft, slotCenter, slotRightA, slotRightB,
-                                      slotRightC, slotRightD, slotBottomLeft, slotBottomRight]
-
-    function panelItem(key) {
-        for (let i = 0; i < window.slotItems.length; ++i) {
-            if (window.slotItems[i].panelKey === key)
-                return window.slotItems[i]
-        }
-        return null
-    }
+    // Il pannello sulla lavagna, con la stessa faccia delle caselle di prima
+    // (item, currentTab, setTab, showMenu…).
+    function panelItem(key) { return mainBoard.panelFor(key) }
     readonly property int tabsTab: {
         const it = window.panelItem("tabs")
         return it ? it.currentTab : -1
-    }
-
-    function slotUnder(screenX, screenY) {
-        for (let i = 0; i < window.slotItems.length; ++i) {
-            const s = window.slotItems[i]
-            if (!s.visible || s.width <= 0 || s.height <= 0)
-                continue
-            const at = s.mapToGlobal(0, 0)
-            if (screenX >= at.x && screenX <= at.x + s.width
-                && screenY >= at.y && screenY <= at.y + s.height)
-                return s.slotId
-        }
-        return ""
-    }
-
-    function beginPanelDrag(key, slotId) {
-        if (layout.layoutLocked)
-            return
-        window.draggingKey = key
-        window.draggingFrom = slotId
-        window.dragTargetSlot = ""
-    }
-    function updatePanelDrag(screenX, screenY) {
-        if (!window.draggingKey)
-            return
-        const over = window.slotUnder(screenX, screenY)
-        window.dragTargetSlot = over === window.draggingFrom ? "" : over
-    }
-    function endPanelDrag(screenX, screenY) {
-        if (!window.draggingKey)
-            return
-        const over = window.slotUnder(screenX, screenY)
-        if (over && over !== window.draggingFrom)
-            window.swapSlots(window.draggingFrom, over)
-        window.draggingKey = ""
-        window.draggingFrom = ""
-        window.dragTargetSlot = ""
     }
 
     function panelListOf(text) {
@@ -274,11 +164,6 @@ ApplicationWindow {
     }
     readonly property var hiddenPanels: window.panelListOf(layout.hiddenPanels)
     readonly property var detachedPanels: window.panelListOf(layout.detachedPanels)
-
-    // Le misure si ricordano solo quando la disposizione e' intera: se un
-    // pannello e' chiuso o in finestra, gli altri si allargano per riempire il
-    // vuoto, e quella non e' una misura scelta da nessuno.
-    readonly property bool layoutIsWhole: window.hiddenPanels.length === 0 && window.detachedPanels.length === 0
 
     function isPanelHidden(key) { return window.hiddenPanels.indexOf(key) >= 0 }
     function isPanelDetached(key) { return window.detachedPanels.indexOf(key) >= 0 }
@@ -298,6 +183,9 @@ ApplicationWindow {
     // Il pannello staccato per primo spariva dall'elenco con la finestra
     // ancora aperta, e da li' venivano le finestre orfane.
     function showPanel(key) {
+        // Riaperto, sta davanti agli altri.
+        if (window.boardKeys.indexOf(key) >= 0)
+            mainBoard.raiseKey(key)
         layout.hiddenPanels = window.panelListOf(layout.hiddenPanels)
                                     .filter(function (k) { return k !== key }).join(",")
     }
@@ -331,18 +219,10 @@ ApplicationWindow {
         else window.closePanel(key)
     }
     function resetPanels() {
-        layout.panelSlots = ""
         layout.hiddenPanels = ""
         layout.detachedPanels = ""
         layout.layoutLocked = false
-        layout.leftWidth = window.defaultLeftWidth
-        layout.rightWidth = window.defaultRightWidth
-        layout.bottomHeight = window.defaultBottomHeight
-        layout.clusterBottomHeight = window.defaultClusterBottomHeight
-        layout.mapWidth = window.defaultMapWidth
-        window.draggingKey = ""
-        window.draggingFrom = ""
-        window.dragTargetSlot = ""
+        mainBoard.resetLayout()
         window.syncDetachedWindows()
     }
 
@@ -452,6 +332,8 @@ ApplicationWindow {
         property var args: []
         property int step: 0
         property var start0: null
+        // Le prove "mboard…" lavorano sulla lavagna di tutti i giorni.
+        property bool useMain: false
         interval: 60
         repeat: true
         function send(win, kind, pt) { decolog.testPointer(win, kind, pt.x, pt.y) }
@@ -617,7 +499,7 @@ ApplicationWindow {
                 stop()
                 Qt.callLater(function () { console.warn("PROBE dialog visible after ✕: " + aboutDialog.visible) })
             } else if (kind === "mainclick") {
-                const c = findGlyph(verticalSplit, "✕")
+                const c = findGlyph(mainBoard, "✕")
                 const at = c.mapToItem(null, c.width / 2, c.height / 2)
                 console.warn("PROBE main glyph at " + Math.round(at.x) + "," + Math.round(at.y) + " hidden before: " + layout.hiddenPanels)
                 send(window, "press", at)
@@ -625,7 +507,8 @@ ApplicationWindow {
                 stop()
                 Qt.callLater(function () { console.warn("PROBE main hidden after: " + layout.hiddenPanels) })
             } else if (kind === "boardclick") {
-                const p = contestLayout.panelFor(key)
+                const board = pointerProbe.useMain ? mainBoard : contestLayout
+                const p = board.panelFor(key)
                 const c = findGlyph(p, args[2] === "detach" ? "⤢" : "✕")
                 const at = c.mapToItem(null, c.width / 2, c.height / 2)
                 console.warn("PROBE glyph at " + Math.round(at.x) + "," + Math.round(at.y)
@@ -634,11 +517,12 @@ ApplicationWindow {
                 send(window, "release", at)
                 stop()
                 Qt.callLater(function () {
-                    console.warn("PROBE " + args[2] + " " + key + ": shown=" + contestLayout.isShown(key)
-                                 + " floating=" + contestLayout.isFloating(key))
+                    console.warn("PROBE " + args[2] + " " + key + ": shown=" + board.isShown(key)
+                                 + " floating=" + board.isFloating(key))
                 })
             } else if (kind === "boarddrag" || kind === "boardresize") {
-                const p = contestLayout.panelFor(key)
+                const board = pointerProbe.useMain ? mainBoard : contestLayout
+                const p = board.panelFor(key)
                 if (step === 11) {
                     start0 = kind === "boardresize" ? p.mapToItem(null, p.width - 1, p.height - 1)
                                                     : p.mapToItem(null, 90, Theme.panelHeight / 2)
@@ -836,20 +720,6 @@ ApplicationWindow {
                 window.detachPanel("map")
             }
         }
-        else if (what[0] === "swap") window.swapSlots(what[1], what[2])
-        else if (what[0] === "dragging") {
-            dragDropTimer.holdOn = true
-            dragDropTimer.from = what[1]
-            dragDropTimer.to = what[2]
-            dragDropTimer.start()
-        }
-        else if (what[0] === "drag") {
-            // Le misure delle caselle arrivano quando la disposizione e' fatta:
-            // prima di allora mapToGlobal risponde a caso.
-            dragDropTimer.from = what[1]
-            dragDropTimer.to = what[2]
-            dragDropTimer.start()
-        }
         else if (what[0] === "lock") layout.layoutLocked = what[1] !== "off"
         else if (what[0] === "layoutmenu") layoutMenu.openAt(what[1] || "logbook", 420, 300)
         // "lookup:JA1ZZZ": la scheda del nominativo, con la griglia banda x modo.
@@ -921,6 +791,13 @@ ApplicationWindow {
             pointerProbe.step = 0
             pointerProbe.start()
         }
+        else if (what[0] === "mboardclick" || what[0] === "mboarddrag" || what[0] === "mboardresize") {
+            window.exitContestMode()
+            pointerProbe.useMain = true
+            pointerProbe.args = [what[0].slice(1)].concat(what.slice(1))
+            pointerProbe.step = 0
+            pointerProbe.start()
+        }
         else if (what[0] === "boardclick" || what[0] === "boarddrag" || what[0] === "boardresize" || what[0] === "floatclose") {
             window.openContestDesk()
             if (what[0] === "floatclose")
@@ -987,44 +864,6 @@ ApplicationWindow {
 
     // Per le prove: svuota il Cloud appena entrato.
     Timer { id: purgeAfterLogin; interval: 4000; onTriggered: decolog.cloud.purgeCloud("DELETE") }
-
-    // Il rilascio arriva dopo, cosi' nella schermata si vede il magnete acceso
-    // sulla casella dove il pannello sta per atterrare.
-    Timer {
-        id: dragDropTimer
-        property string from: ""
-        property string to: ""
-        property bool holdOn: false
-        property bool released: false
-        interval: released ? 1400 : 700
-        repeat: true
-        onTriggered: {
-            const a = window.slotItems.find(s => s.slotId === dragDropTimer.from)
-            const b = window.slotItems.find(s => s.slotId === dragDropTimer.to)
-            if (!a || !b) {
-                stop()
-                return
-            }
-            const end = b.mapToGlobal(b.width / 2, b.height / 2)
-            if (!released) {
-                // "dragging" tiene il pannello in mano: serve per fotografare
-                // il magnete acceso sulla casella di arrivo.
-                if (dragDropTimer.holdOn) {
-                    window.beginPanelDrag(a.panelKey, a.slotId)
-                    window.updatePanelDrag(end.x, end.y)
-                    stop()
-                    return
-                }
-                window.beginPanelDrag(a.panelKey, a.slotId)
-                window.updatePanelDrag(end.x, end.y)
-                released = true
-                restart()
-                return
-            }
-            window.endPanelDrag(end.x, end.y)
-            stop()
-        }
-    }
 
     Timer { id: comboTimer; interval: 800
            onTriggered: { const it = window.panelItem("cw"); if (it) it.showCombo() } }
@@ -1534,257 +1373,55 @@ ApplicationWindow {
             onQuitRequested: { window.quitting = true; Qt.quit() }
         }
 
-        SplitView {
-            id: verticalSplit
+        // Lo spazio delle lavagne: quella di tutti i giorni e quella della
+        // gara ci stanno sopra, una alla volta.
+        Item {
+            id: boardArea
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.margins: 8
-            orientation: Qt.Vertical
-            handle: splitHandle
-            // In gara al suo posto ci sono i pannelli della gara: questa resta
-            // con le sue misure, ma non si vede e non si tocca.
-            opacity: window.contestModeOn ? 0 : 1
-            enabled: !window.contestModeOn
-
-            SplitView {
-                SplitView.fillHeight: true
-                orientation: Qt.Horizontal
-                handle: splitHandle
-
-                PanelSlot {
-                    id: slotLeft
-                    slotId: "left"
-                    panelKey: window.panelAt("left")
-                    docked: window.panelShows(panelKey)
-                    suspended: window.contestModeOn
-                    highlighted: window.dragTargetSlot === "left"
-                    onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
-                    onMoveStarted: (key) => window.beginPanelDrag(key, "left")
-                    onMoveMoved: (key, x, y) => window.updatePanelDrag(x, y)
-                    onMoveEnded: (key, x, y) => window.endPanelDrag(x, y)
-                    onDetachRequested: (key) => window.detachPanel(key)
-                    onCloseRequested: (key) => window.closePanel(key)
-                    onOpenQsoRequested: (id) => window.openQso(id)
-                    onAwardRequested: (id) => awardsDialog.openAt(id)
-                    onClusterRequested: (tab) => window.openCluster(tab)
-                    onStatsRequested: window.openStats()
-                    onRotorRequested: window.openRotor()
-                    SplitView.preferredWidth: layout.leftWidth
-                    SplitView.minimumWidth: 260
-                    onWidthChanged: if (width > 0 && window.layoutIsWhole) layout.leftWidth = width
-                    onExpandRequested: newQsoDialog.open()
-                }
-
-                PanelSlot {
-                    id: slotCenter
-                    slotId: "center"
-                    panelKey: window.panelAt("center")
-                    docked: window.panelShows(panelKey)
-                    suspended: window.contestModeOn
-                    highlighted: window.dragTargetSlot === "center"
-                    onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
-                    onMoveStarted: (key) => window.beginPanelDrag(key, "center")
-                    onMoveMoved: (key, x, y) => window.updatePanelDrag(x, y)
-                    onMoveEnded: (key, x, y) => window.endPanelDrag(x, y)
-                    onDetachRequested: (key) => window.detachPanel(key)
-                    onCloseRequested: (key) => window.closePanel(key)
-                    onOpenQsoRequested: (id) => window.openQso(id)
-                    onAwardRequested: (id) => awardsDialog.openAt(id)
-                    onClusterRequested: (tab) => window.openCluster(tab)
-                    onStatsRequested: window.openStats()
-                    onRotorRequested: window.openRotor()
-                    SplitView.fillWidth: true
-                    SplitView.minimumWidth: 480
-                    onPopRequested: (key) => window.detachPanel(key)
-                }
-
-                SplitView {
-                    id: rightColumn
-                    SplitView.preferredWidth: layout.rightWidth
-                    SplitView.minimumWidth: 260
-                    visible: slotRightA.visible || slotRightB.visible
-                             || slotRightC.visible || slotRightD.visible
-                    onWidthChanged: if (width > 0 && window.layoutIsWhole) layout.rightWidth = width
-                    orientation: Qt.Vertical
-                    handle: splitHandle
-
-                    PanelSlot {
-                        id: slotRightA
-                        slotId: "rightA"
-                        panelKey: window.panelAt("rightA")
-                        docked: window.panelShows(panelKey)
-                        suspended: window.contestModeOn
-                        highlighted: window.dragTargetSlot === "rightA"
-                        onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
-                        onMoveStarted: (key) => window.beginPanelDrag(key, "rightA")
-                        onMoveMoved: (key, x, y) => window.updatePanelDrag(x, y)
-                        onMoveEnded: (key, x, y) => window.endPanelDrag(x, y)
-                        onDetachRequested: (key) => window.detachPanel(key)
-                        onCloseRequested: (key) => window.closePanel(key)
-                        onOpenQsoRequested: (id) => window.openQso(id)
-                        onAwardRequested: (id) => awardsDialog.openAt(id)
-                        onClusterRequested: (tab) => window.openCluster(tab)
-                        onStatsRequested: window.openStats()
-                        onRotorRequested: window.openRotor()
-                        SplitView.fillHeight: true
-                        // La scheda del nominativo e' quella che si guarda di
-                        // piu': schiacciata a una riga non serve a niente, e
-                        // gli altri pannelli della colonna, con le loro misure
-                        // preferite, la riducevano proprio a quello.
-                        SplitView.minimumHeight: panelKey === "rotor" ? 220
-                                               : panelKey === "callinfo" ? 200 : 80
-                    }
-                    PanelSlot {
-                        id: slotRightB
-                        slotId: "rightB"
-                        panelKey: window.panelAt("rightB")
-                        docked: window.panelShows(panelKey)
-                        suspended: window.contestModeOn
-                        highlighted: window.dragTargetSlot === "rightB"
-                        onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
-                        onMoveStarted: (key) => window.beginPanelDrag(key, "rightB")
-                        onMoveMoved: (key, x, y) => window.updatePanelDrag(x, y)
-                        onMoveEnded: (key, x, y) => window.endPanelDrag(x, y)
-                        onDetachRequested: (key) => window.detachPanel(key)
-                        onCloseRequested: (key) => window.closePanel(key)
-                        onOpenQsoRequested: (id) => window.openQso(id)
-                        onAwardRequested: (id) => awardsDialog.openAt(id)
-                        onClusterRequested: (tab) => window.openCluster(tab)
-                        onStatsRequested: window.openStats()
-                        onRotorRequested: window.openRotor()
-                        SplitView.preferredHeight: panelKey === "rotor" ? Math.max(implicitHeight, 220) : 260
-                        SplitView.minimumHeight: panelKey === "rotor" ? 220 : 120
-                    }
-                    PanelSlot {
-                        id: slotRightC
-                        slotId: "rightC"
-                        panelKey: window.panelAt("rightC")
-                        docked: window.panelShows(panelKey)
-                        suspended: window.contestModeOn
-                        highlighted: window.dragTargetSlot === "rightC"
-                        onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
-                        onMoveStarted: (key) => window.beginPanelDrag(key, "rightC")
-                        onMoveMoved: (key, x, y) => window.updatePanelDrag(x, y)
-                        onMoveEnded: (key, x, y) => window.endPanelDrag(x, y)
-                        onDetachRequested: (key) => window.detachPanel(key)
-                        onCloseRequested: (key) => window.closePanel(key)
-                        onOpenQsoRequested: (id) => window.openQso(id)
-                        onAwardRequested: (id) => awardsDialog.openAt(id)
-                        onClusterRequested: (tab) => window.openCluster(tab)
-                        onStatsRequested: window.openStats()
-                        onRotorRequested: window.openRotor()
-                        SplitView.preferredHeight: panelKey === "rotor" ? Math.max(implicitHeight, 220) : implicitHeight
-                        SplitView.minimumHeight: panelKey === "rotor" ? 220 : 60
-                    }
-                    PanelSlot {
-                        id: slotRightD
-                        slotId: "rightD"
-                        panelKey: window.panelAt("rightD")
-                        docked: window.panelShows(panelKey)
-                        suspended: window.contestModeOn
-                        highlighted: window.dragTargetSlot === "rightD"
-                        onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
-                        onMoveStarted: (key) => window.beginPanelDrag(key, "rightD")
-                        onMoveMoved: (key, x, y) => window.updatePanelDrag(x, y)
-                        onMoveEnded: (key, x, y) => window.endPanelDrag(x, y)
-                        onDetachRequested: (key) => window.detachPanel(key)
-                        onCloseRequested: (key) => window.closePanel(key)
-                        onOpenQsoRequested: (id) => window.openQso(id)
-                        onAwardRequested: (id) => awardsDialog.openAt(id)
-                        onClusterRequested: (tab) => window.openCluster(tab)
-                        onStatsRequested: window.openStats()
-                        onRotorRequested: window.openRotor()
-                        SplitView.preferredHeight: panelKey === "rotor" ? Math.max(implicitHeight, 220) : implicitHeight
-                        SplitView.minimumHeight: panelKey === "rotor" ? 220 : 60
-                    }
-                }
-            }
-
-            SplitView {
-                // Sul DX Cluster la fascia si alza da sola, perche' cinque righe
-                // di spot non sono un cluster, sono un assaggio — ma si alza e
-                // basta: da li' si tira dove si vuole, anche piu' in basso, e
-                // l'altezza scelta resta quella del cluster. Prima il minimo
-                // stesso diventava 340 e la fascia non si poteva piu' abbassare
-                // finche' si stava sugli spot.
-                SplitView.preferredHeight: window.tabsTab === 4 ? layout.clusterBottomHeight
-                                                                       : layout.bottomHeight
-                SplitView.minimumHeight: 130
-                visible: slotBottomLeft.visible || slotBottomRight.visible
-                onHeightChanged: {
-                    if (height > 0 && window.layoutIsWhole) {
-                        if (window.tabsTab === 4)
-                            layout.clusterBottomHeight = height
-                        else
-                            layout.bottomHeight = height
-                    }
-                }
-                orientation: Qt.Horizontal
-                handle: splitHandle
-
-                PanelSlot {
-                    id: slotBottomLeft
-                    slotId: "bottomLeft"
-                    panelKey: window.panelAt("bottomLeft")
-                    docked: window.panelShows(panelKey)
-                    suspended: window.contestModeOn
-                    highlighted: window.dragTargetSlot === "bottomLeft"
-                    onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
-                    onMoveStarted: (key) => window.beginPanelDrag(key, "bottomLeft")
-                    onMoveMoved: (key, x, y) => window.updatePanelDrag(x, y)
-                    onMoveEnded: (key, x, y) => window.endPanelDrag(x, y)
-                    onDetachRequested: (key) => window.detachPanel(key)
-                    onCloseRequested: (key) => window.closePanel(key)
-                    onOpenQsoRequested: (id) => window.openQso(id)
-                    onAwardRequested: (id) => awardsDialog.openAt(id)
-                    onClusterRequested: (tab) => window.openCluster(tab)
-                    onStatsRequested: window.openStats()
-                    onRotorRequested: window.openRotor()
-                    SplitView.fillWidth: true
-                    SplitView.minimumWidth: 320
-                }
-                // Allineata alla colonna di destra, come nel mockup, finche' non
-                // la si tira da un'altra parte.
-                PanelSlot {
-                    id: slotBottomRight
-                    slotId: "bottomRight"
-                    panelKey: window.panelAt("bottomRight")
-                    docked: window.panelShows(panelKey)
-                    suspended: window.contestModeOn
-                    highlighted: window.dragTargetSlot === "bottomRight"
-                    onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
-                    onMoveStarted: (key) => window.beginPanelDrag(key, "bottomRight")
-                    onMoveMoved: (key, x, y) => window.updatePanelDrag(x, y)
-                    onMoveEnded: (key, x, y) => window.endPanelDrag(x, y)
-                    onDetachRequested: (key) => window.detachPanel(key)
-                    onCloseRequested: (key) => window.closePanel(key)
-                    onOpenQsoRequested: (id) => window.openQso(id)
-                    onAwardRequested: (id) => awardsDialog.openAt(id)
-                    onClusterRequested: (tab) => window.openCluster(tab)
-                    onStatsRequested: window.openStats()
-                    onRotorRequested: window.openRotor()
-                    SplitView.preferredWidth: layout.mapWidth
-                    SplitView.minimumWidth: 180
-                    onWidthChanged: if (width > 0 && window.layoutIsWhole) layout.mapWidth = width
-                }
-            }
         }
 
         StatusRail { Layout.fillWidth: true }
     }
 
-    // La modalita' contest: i pannelli della gara, agganciati dove di solito
-    // sta la disposizione di tutti i giorni.
+    // La lavagna di tutti i giorni.
     ContestLayout {
-        id: contestLayout
+        id: mainBoard
+        contestMode: false
+        external: true
+        settingsCategory: "layout/mainboard"
+        allKeys: window.boardKeys
+        defaultKeys: window.boardKeys.filter(k => k !== "cw")
+        // Come la disposizione di prima: l'inserimento a sinistra, il log al
+        // centro, la colonna di destra, la fascia delle schede in basso.
+        defaultGeometry: ({
+            newqso:   { x: 0.00, y: 0.00, w: 0.21, h: 0.68 },
+            logbook:  { x: 0.21, y: 0.00, w: 0.57, h: 0.68 },
+            callinfo: { x: 0.78, y: 0.00, w: 0.22, h: 0.30 },
+            rotor:    { x: 0.78, y: 0.30, w: 0.22, h: 0.36 },
+            map:      { x: 0.78, y: 0.66, w: 0.22, h: 0.34 },
+            cw:       { x: 0.50, y: 0.30, w: 0.28, h: 0.38 },
+            tabs:     { x: 0.00, y: 0.68, w: 0.60, h: 0.32 },
+            ft2:      { x: 0.60, y: 0.68, w: 0.18, h: 0.32 }
+        })
+        externalShown: window.boardKeys.filter(k => !window.isPanelHidden(k))
+        externalFloating: window.detachedPanels
+        locked: layout.layoutLocked
+        emptyText: qsTr("All the panels are closed: open them again from Panels, up in the bar.")
+        floatingText: qsTr("All the panels are in their own windows: ↩ in a panel brings it back here.")
         titleOf: (key) => window.panelTitle(key)
-        Component.onCompleted: window.settleContestMode()
-        x: verticalSplit.x
-        y: verticalSplit.y
-        width: verticalSplit.width
-        height: verticalSplit.height
-        z: 20
-        visible: window.contestModeOn
+        // boardArea sta nella colonna, che copre tutta la finestra: le sue
+        // coordinate sono quelle della finestra.
+        x: boardArea.x
+        y: boardArea.y
+        width: boardArea.width
+        height: boardArea.height
+        visible: !window.contestModeOn
+        onCloseRequested: (key) => window.closePanel(key)
+        onDetachRequested: (key) => window.detachPanel(key)
+        onMenuRequested: (key, x, y) => layoutMenu.openAt(key, x, y)
+        onExpandRequested: newQsoDialog.open()
         onOpenQso: (id) => window.openQso(id)
         onAwardRequested: (id) => awardsDialog.openAt(id)
         onClusterRequested: (tab) => window.openCluster(tab)
@@ -1793,24 +1430,25 @@ ApplicationWindow {
         onContestRequested: window.openContest()
     }
 
-    Component {
-        id: splitHandle
-        Rectangle {
-            id: handleRoot
-            implicitWidth: 8
-            implicitHeight: 8
-            color: "transparent"
-            // Disposizione bloccata: la maniglia resta disegnata ma non si tira.
-            enabled: !layout.layoutLocked
-            Rectangle {
-                anchors.centerIn: parent
-                width: handleRoot.width > handleRoot.height ? 40 : 2
-                height: handleRoot.width > handleRoot.height ? 2 : 40
-                radius: 1
-                opacity: layout.layoutLocked ? 0.4 : 1
-                color: handleRoot.SplitHandle.pressed ? Theme.primaryColor
-                     : handleRoot.SplitHandle.hovered ? Theme.textSecondary : Theme.borderSoft
-            }
-        }
+    // La modalita' contest: la lavagna dei pannelli della gara, al posto di
+    // quella di tutti i giorni.
+    ContestLayout {
+        id: contestLayout
+        titleOf: (key) => window.panelTitle(key)
+        Component.onCompleted: window.settleContestMode()
+        // boardArea sta nella colonna, che copre tutta la finestra: le sue
+        // coordinate sono quelle della finestra.
+        x: boardArea.x
+        y: boardArea.y
+        width: boardArea.width
+        height: boardArea.height
+        z: 20
+        visible: window.contestModeOn
+        onOpenQso: (id) => window.openQso(id)
+        onAwardRequested: (id) => awardsDialog.openAt(id)
+        onClusterRequested: (tab) => window.openCluster(tab)
+        onStatsRequested: window.openStats()
+        onRotorRequested: window.openRotor()
+        onContestRequested: window.openContest()
     }
 }

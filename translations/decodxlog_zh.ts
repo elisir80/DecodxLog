@@ -2527,6 +2527,14 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <source>Panels…</source>
         <translation>面板…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>所有面板都已关闭：可在顶部栏的“面板”中重新打开。</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>所有面板都在各自的窗口中：面板中的 ↩ 可将其放回这里。</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2859,13 +2867,6 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>CLEAR</source>
         <translation>清空</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>这里</translation>
     </message>
 </context>
 <context>

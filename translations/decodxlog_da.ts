@@ -2532,6 +2532,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <source>Panels…</source>
         <translation>Paneler…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>Alle paneler er lukket: åbn dem igen fra Paneler i bjælken foroven.</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Alle paneler er i deres egne vinduer: ↩ i et panel bringer det tilbage hertil.</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2864,13 +2872,6 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>CLEAR</source>
         <translation>RYD</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>her</translation>
     </message>
 </context>
 <context>

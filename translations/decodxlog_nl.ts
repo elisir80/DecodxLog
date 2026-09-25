@@ -2532,6 +2532,14 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <source>Panels…</source>
         <translation>Panelen…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>Alle panelen zijn gesloten: open ze opnieuw via Panelen, bovenin de balk.</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Alle panelen staan in een eigen venster: ↩ in een paneel haalt het hierheen terug.</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2864,13 +2872,6 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>CLEAR</source>
         <translation>WISSEN</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>hier</translation>
     </message>
 </context>
 <context>

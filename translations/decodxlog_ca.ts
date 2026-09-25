@@ -2532,6 +2532,14 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <source>Panels…</source>
         <translation>Plafons…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>Tots els panells estan tancats: torna&apos;ls a obrir des de Panells, a la barra de dalt.</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Tots els panells són en una finestra pròpia: ↩ en un panell el torna aquí.</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2864,13 +2872,6 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>CLEAR</source>
         <translation>NETEJA</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>aquí</translation>
     </message>
 </context>
 <context>

@@ -2532,6 +2532,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <source>Panels…</source>
         <translation>Pannelli…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>Tutti i pannelli sono chiusi: riaprili da Pannelli, nella barra in alto.</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Tutti i pannelli sono in una finestra loro: ↩ in un pannello lo riporta qui.</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2864,13 +2872,6 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>CLEAR</source>
         <translation>PULISCI</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>qui</translation>
     </message>
 </context>
 <context>

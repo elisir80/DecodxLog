@@ -2537,6 +2537,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <source>Panels…</source>
         <translation>Paneļi…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>Visi paneļi ir aizvērti: atver tos vēlreiz no Paneļi augšējā joslā.</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Visi paneļi ir savos logos: ↩ panelī to atgriež šeit.</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2869,13 +2877,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>CLEAR</source>
         <translation>NOTĪRĪT</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>šeit</translation>
     </message>
 </context>
 <context>

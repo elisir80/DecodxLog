@@ -2532,6 +2532,14 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <source>Panels…</source>
         <translation>Paneles…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>Todos los paneles están cerrados: vuelve a abrirlos desde Paneles, en la barra de arriba.</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Todos los paneles están en su propia ventana: ↩ en un panel lo trae de vuelta aquí.</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2864,13 +2872,6 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>CLEAR</source>
         <translation>LIMPIAR</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>aquí</translation>
     </message>
 </context>
 <context>

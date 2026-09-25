@@ -231,7 +231,6 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/LogbookWindow.qml
     qml/DecoDXLog/CwPanel.qml
     qml/DecoDXLog/OnScreen.qml
-    qml/DecoDXLog/PanelSlot.qml
     qml/DecoDXLog/PanelWindow.qml
     qml/DecoDXLog/CredentialsList.qml
     qml/DecoDXLog/AwardsDialog.qml

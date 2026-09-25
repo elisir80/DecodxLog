@@ -2527,6 +2527,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>Panels…</source>
         <translation>Panelek…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>Minden panel zárva: nyisd meg újra őket a Panelek menüből a felső sávban.</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Minden panel saját ablakban van: a panelen a ↩ visszahozza ide.</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2859,13 +2867,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>CLEAR</source>
         <translation>TÖRLÉS</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>itt</translation>
     </message>
 </context>
 <context>

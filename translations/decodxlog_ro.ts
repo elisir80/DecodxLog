@@ -2537,6 +2537,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <source>Panels…</source>
         <translation>Panouri…</translation>
     </message>
+    <message>
+        <source>All the panels are closed: open them again from Panels, up in the bar.</source>
+        <translation>Toate panourile sunt închise: redeschide-le din Panouri, în bara de sus.</translation>
+    </message>
+    <message>
+        <source>All the panels are in their own windows: ↩ in a panel brings it back here.</source>
+        <translation>Toate panourile sunt în ferestre proprii: ↩ într-un panou îl aduce înapoi aici.</translation>
+    </message>
 </context>
 <context>
     <name>MapPanel</name>
@@ -2869,13 +2877,6 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>CLEAR</source>
         <translation>GOLEȘTE</translation>
-    </message>
-</context>
-<context>
-    <name>PanelSlot</name>
-    <message>
-        <source>here</source>
-        <translation>aici</translation>
     </message>
 </context>
 <context>
