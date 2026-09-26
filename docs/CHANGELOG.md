@@ -3,6 +3,17 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.21 — 27 settembre 2026
+
+**La foto grande del callbook non lampeggia piu'.**
+
+- Col mouse sopra la foto della scheda nominativo, la foto grande (640x480) compare di fianco
+  alla miniatura, dal lato dove c'e' posto, invece che sotto il mouse: prima copriva la
+  miniatura, la faceva sparire e ricomparire di continuo. Si chiude un attimo dopo che il
+  mouse se ne va, e si puo' passare dalla miniatura alla foto grande senza perderla.
+- "Punta il DX" prende la rotta del nominativo della scheda anche quando il profilo della
+  stazione non ha il locatore: la conta dal QTH del gateway del rotore, come gia' per gli spot.
+
 ## 1.16.20 — 26 settembre 2026
 
 **Aggiornamenti giusti per ogni computer, senza avvisi per pacchetti di altri sistemi.**

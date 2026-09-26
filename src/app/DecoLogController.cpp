@@ -3212,6 +3212,10 @@ void DecoLogController::refreshCallInfo()
     if (m_rotor && info.contains(QStringLiteral("azimuth"))) {
         m_rotor->dxBearing(info.value(QStringLiteral("call")).toString(),
                            info.value(QStringLiteral("azimuth")).toDouble());
+    } else if (m_rotor && dx) {
+        // Senza il QTH della stazione, la rotta si conta da quello del
+        // gateway del rotore: "Punta il DX" funziona lo stesso.
+        m_rotor->dxBearing(info.value(QStringLiteral("call")).toString(), m_rotor->bearingTo(dx->lat, dx->lon));
     }
     emit lookupChanged();
 }

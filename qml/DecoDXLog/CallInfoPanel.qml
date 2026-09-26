@@ -102,13 +102,47 @@ GlassPanel {
                 }
 
                 // Col mouse sopra, la foto grande: 640x480, in una finestrella
-                // sua che puo' uscire dal pannello.
-                HoverHandler { id: photoHover; cursorShape: Qt.PointingHandCursor }
-                ToolTip {
-                    visible: photoHover.hovered && photo.status === Image.Ready
-                    delay: 250
+                // sua che puo' uscire dal pannello. Sta DI FIANCO alla
+                // miniatura, mai sotto il mouse: se il mouse ci finisce sopra,
+                // la miniatura perde l'hover, la foto sparisce, l'hover torna e
+                // la foto ricompare — era il lampeggio. E si chiude con un
+                // attimo di ritardo, cosi' passare dalla miniatura alla foto
+                // grande non la fa sparire.
+                HoverHandler {
+                    id: photoHover
+                    cursorShape: Qt.PointingHandCursor
+                    onHoveredChanged: {
+                        if (hovered) {
+                            bigPhotoHide.stop()
+                            if (photo.status === Image.Ready && !bigPhoto.opened)
+                                bigPhotoShow.start()
+                        } else {
+                            bigPhotoShow.stop()
+                            bigPhotoHide.start()
+                        }
+                    }
+                }
+                Timer { id: bigPhotoShow; interval: 250; onTriggered: bigPhoto.open() }
+                Timer {
+                    id: bigPhotoHide
+                    interval: 180
+                    onTriggered: if (!photoHover.hovered && !bigPhotoHover.hovered) bigPhoto.close()
+                }
+                Popup {
+                    id: bigPhoto
+                    // A sinistra se la miniatura sta nella meta' destra dello
+                    // schermo, a destra altrimenti: dove c'e' posto.
+                    readonly property bool onLeft: {
+                        const at = parent.mapToGlobal(0, 0)
+                        const screen = parent.Window.window ? parent.Window.window.screen : null
+                        const middle = screen ? screen.virtualX + screen.width / 2 : 960
+                        return at.x > middle
+                    }
+                    x: onLeft ? -width - 10 : parent.width + 10
+                    y: -40
                     padding: 4
                     popupType: Popup.Window
+                    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
                     background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 6 }
                     contentItem: Item {
                         implicitWidth: 640
@@ -120,6 +154,10 @@ GlassPanel {
                             asynchronous: true
                             sourceSize.width: 640
                             sourceSize.height: 480
+                        }
+                        HoverHandler {
+                            id: bigPhotoHover
+                            onHoveredChanged: if (!hovered) bigPhotoHide.start()
                         }
                     }
                 }
