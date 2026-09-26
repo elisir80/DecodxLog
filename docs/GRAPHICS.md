@@ -55,8 +55,9 @@ su macOS `Metal → software`.
 Su Linux la mappa predefinita non istanzia `Canvas` di Qt Quick: alcuni driver
 Mesa/KWin possono continuare a disegnare la normale interfaccia OpenGL, ma
 perdere il compositing quando una Canvas diventa visibile. La mappa compatibile
-mostra reticolo, locatori lavorati, spot, stazione e direzione del rotore con
-normali item Qt Quick, senza FBO o texture Canvas.
+mostra terre emerse vettoriali statiche, reticolo, locatori lavorati, spot,
+stazione e direzione del rotore con normali item Qt Quick, senza FBO o texture
+Canvas.
 
 Per provare volontariamente la cartografia completa con coste e fascia notte:
 

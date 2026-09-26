@@ -20,6 +20,7 @@ GlassPanel {
     readonly property var grids: decolog.gridPoints
     property var spots: []
     property var coastline: []
+    property var land: []
 
     // Impostato dal C++ prima del caricamento QML. Su Linux e con il renderer
     // software e' vero per impostazione predefinita; --map-renderer canvas lo
@@ -87,10 +88,10 @@ GlassPanel {
 
     StyledMenu {
         id: layerMenu
-        // Questi due livelli appartengono al renderer Canvas. Nella mappa
-        // compatibile non li mostriamo come attivi se non possono essere resi.
+        // La carta compatibile rende le terre emerse come geometria vettoriale
+        // statica: non richiede Canvas, ma puo' comunque mostrare o nascondere
+        // i contorni della costa.
         StyledMenuItem {
-            visible: !root.useSafeMap
             text: qsTr("Coastlines"); checkable: true; checked: root.showCoast
             onTriggered: { root.showCoast = checked; root.repaintBackground() }
         }
@@ -139,8 +140,11 @@ GlassPanel {
     }
 
     Component.onCompleted: {
-        // La JSON delle coste non viene neppure letta in modalita' sicura.
-        if (!root.useSafeMap)
+        // Sul renderer sicuro usiamo le terre emerse vettoriali. Niente Canvas
+        // o FBO: la mappa resta compatibile con Mesa/KWin ma non sembra vuota.
+        if (root.useSafeMap)
+            root.land = decolog.landmasses()
+        else
             root.coastline = decolog.coastline()
         root.reloadSpots()
         Qt.callLater(root.repaintAll)
@@ -156,6 +160,7 @@ GlassPanel {
     Component {
         id: safeMapComponent
         MapSafeView {
+            showCoast: root.showCoast
             showGrids: root.showGrids
             showSpots: root.showSpots
             showRotor: root.showRotor
@@ -163,6 +168,7 @@ GlassPanel {
             home: root.home
             grids: root.grids
             spots: root.spots
+            land: root.land
         }
     }
     Component {

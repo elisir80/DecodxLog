@@ -1,12 +1,16 @@
-// Mappa compatibile: non usa Canvas, FBO, shader o Qt Location. Serve quando
-// il driver puo' disegnare l'interfaccia normale ma perde il compositing appena
-// una Canvas Qt Quick viene resa visibile (caso osservato con KDE/Mesa vecchio).
+// Mappa compatibile: non usa Canvas, FBO o Qt Location. Serve quando il driver
+// puo' disegnare l'interfaccia normale ma perde il compositing appena una Canvas
+// Qt Quick viene resa visibile (caso osservato con KDE/Mesa vecchio). Le terre
+// emerse sono una Shape vettoriale statica: resta una mappa leggibile senza
+// riaprire il percorso grafico fragile.
 import QtQuick
+import QtQuick.Shapes
 import Decodium.UI
 
 Rectangle {
     id: root
 
+    property bool showCoast: true
     property bool showGrids: true
     property bool showSpots: true
     property bool showRotor: true
@@ -14,6 +18,7 @@ Rectangle {
     property var home: null
     property var grids: []
     property var spots: []
+    property var land: []
 
     readonly property int markerLimit: 1500
     readonly property var visibleGrids: limited(grids)
@@ -24,6 +29,7 @@ Rectangle {
     readonly property real homeY: hasHome ? py(home.lat) : 0
     readonly property real targetX: hasTarget ? px(target.lon) : 0
     readonly property real targetY: hasTarget ? py(target.lat) : 0
+    readonly property string landPath: makeLandPath(land, plot.width, plot.height)
 
     radius: 4
     color: Theme.bgMedium
@@ -43,6 +49,28 @@ Rectangle {
         // il limite mantiene la modalita' di recupero sempre reattiva.
         return points.slice(points.length - markerLimit)
     }
+    function makeLandPath(rings, targetWidth, targetHeight) {
+        if (!rings || rings.length === 0 || targetWidth <= 0 || targetHeight <= 0)
+            return ""
+
+        const commands = []
+        for (let ringIndex = 0; ringIndex < rings.length; ++ringIndex) {
+            const ring = rings[ringIndex]
+            if (!ring || ring.length < 4)
+                continue
+
+            const firstX = (Number(ring[0]) + 180) / 360 * targetWidth
+            const firstY = (90 - Number(ring[1])) / 180 * targetHeight
+            commands.push("M " + firstX.toFixed(2) + " " + firstY.toFixed(2))
+            for (let pointIndex = 2; pointIndex + 1 < ring.length; pointIndex += 2) {
+                const x = (Number(ring[pointIndex]) + 180) / 360 * targetWidth
+                const y = (90 - Number(ring[pointIndex + 1])) / 180 * targetHeight
+                commands.push("L " + x.toFixed(2) + " " + y.toFixed(2))
+            }
+            commands.push("Z")
+        }
+        return commands.join(" ")
+    }
 
     // Stessa interfaccia del renderer Canvas: MapPanel puo' chiedere un
     // aggiornamento senza sapere quale dei due renderer e' caricato.
@@ -56,6 +84,29 @@ Rectangle {
         anchors.margins: 1
         clip: true
 
+        // La Shape e' elaborata una sola volta quando arriva land.json o
+        // cambia la dimensione. A differenza di Canvas non crea una texture
+        // dinamica e non passa dal render thread di Qt Quick.
+        Shape {
+            id: landShape
+            anchors.fill: parent
+            visible: root.showCoast && root.landPath.length > 0
+            z: 0
+
+            ShapePath {
+                strokeColor: Qt.rgba(Theme.textSecondary.r, Theme.textSecondary.g,
+                                     Theme.textSecondary.b, 0.78)
+                fillColor: Qt.rgba(Theme.primaryColor.r, Theme.primaryColor.g,
+                                   Theme.primaryColor.b, 0.16)
+                strokeWidth: 1
+                fillRule: ShapePath.OddEvenFill
+
+                PathSvg {
+                    path: root.landPath
+                }
+            }
+        }
+
         // Reticolo leggero, utile anche senza la cartografia dettagliata.
         Repeater {
             model: 11
@@ -65,6 +116,7 @@ Rectangle {
                 height: plot.height
                 color: Theme.borderSoft
                 opacity: 0.55
+                z: 1
             }
         }
         Repeater {
@@ -75,6 +127,7 @@ Rectangle {
                 height: 1
                 color: Theme.borderSoft
                 opacity: index === 2 ? 0.82 : 0.55
+                z: 1
             }
         }
 

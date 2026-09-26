@@ -54,9 +54,16 @@ jobs:
           version="${version#v}"
           mkdir -p release-assets
 
+          # Homebrew also ships versioned dynamic libraries such as
+          # libbrotlicommon.1.dylib.  Matching only "*.dylib" misses them,
+          # leaving an unsigned nested code object which makes the final app
+          # signature fail on Intel runners.  Sign every Mach-O payload before
+          # sealing the bundle, regardless of its filename suffix.
           while IFS= read -r -d '' item; do
-            codesign --force --sign - --timestamp=none "$item"
-          done < <(find build/DecoDXLog.app/Contents -type f \( -perm -111 -o -name "*.dylib" -o -name "*.so" \) -print0)
+            if file -b "$item" | grep -q 'Mach-O'; then
+              codesign --force --sign - --timestamp=none "$item"
+            fi
+          done < <(find build/DecoDXLog.app/Contents -type f -print0)
 
           codesign --force --deep --sign - --timestamp=none build/DecoDXLog.app
           codesign --verify --deep --strict --verbose=2 build/DecoDXLog.app
