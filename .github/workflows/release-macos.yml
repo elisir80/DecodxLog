@@ -49,22 +49,21 @@ jobs:
       - name: Deploy app bundle
         run: |
           export PATH="$(brew --prefix qt)/bin:$PATH"
-          macdeployqt build/DecoDXLog.app -qmldir=qml -qmldir=libs/decodium-ui/qml -verbose=1
+          # macdeployqt signs bundles ad-hoc by default.  Its internal signer
+          # only sees ordinary *.dylib names and stops on Homebrew's versioned
+          # dylibs (for example libbrotlicommon.1.dylib) before our complete
+          # signing pass below can run.  Deploy first, then sign the fully
+          # assembled bundle ourselves.
+          macdeployqt build/DecoDXLog.app -qmldir=qml -qmldir=libs/decodium-ui/qml -no-codesign -verbose=1
           version="${{ github.event.inputs.tag || github.ref_name }}"
           version="${version#v}"
           mkdir -p release-assets
 
-          # Homebrew also ships versioned dynamic libraries such as
-          # libbrotlicommon.1.dylib.  Matching only "*.dylib" misses them,
-          # leaving an unsigned nested code object which makes the final app
-          # signature fail on Intel runners.  Sign every Mach-O payload before
-          # sealing the bundle, regardless of its filename suffix.
-          while IFS= read -r -d '' item; do
-            if file -b "$item" | grep -q 'Mach-O'; then
-              codesign --force --sign - --timestamp=none "$item"
-            fi
-          done < <(find build/DecoDXLog.app/Contents -type f -print0)
-
+          # Sign the fully assembled tree in one pass.  Unlike macdeployqt's
+          # filename-based signer, codesign discovers nested code by Mach-O
+          # type, so versioned Homebrew dylibs are included.  Signing files
+          # individually first is unsafe: the later recursive sealing step can
+          # invalidate nested framework signatures.
           codesign --force --deep --sign - --timestamp=none build/DecoDXLog.app
           codesign --verify --deep --strict --verbose=2 build/DecoDXLog.app
 
