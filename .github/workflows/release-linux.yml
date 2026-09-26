@@ -130,7 +130,8 @@ jobs:
         run: |
           wget -O linuxdeploy "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-${{ matrix.linuxdeploy_arch }}.AppImage"
           wget -O linuxdeploy-plugin-qt "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-${{ matrix.linuxdeploy_arch }}.AppImage"
-          chmod +x linuxdeploy linuxdeploy-plugin-qt
+          wget -O appimagetool "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-${{ matrix.linuxdeploy_arch }}.AppImage"
+          chmod +x linuxdeploy linuxdeploy-plugin-qt appimagetool
 
       - name: Remove optional Mimer SQL driver
         if: matrix.arch == 'x86_64'
@@ -146,10 +147,16 @@ jobs:
           QML_SOURCES_PATHS: qml:libs/decodium-ui/qml
           VERSION: ${{ github.event.inputs.tag || github.ref_name }}
         run: |
-          # Do not ship only one half of OpenSSL. linuxdeploy may copy
-          # libcrypto.so.3 while Qt's TLS backend resolves libssl.so.3 from
-          # the host. Remove both before linuxdeploy creates the AppImage so
-          # Ubuntu loads a matching pair from the target system.
+          ./linuxdeploy \
+            --appdir AppDir \
+            --executable AppDir/usr/bin/DecoDXLog \
+            --desktop-file AppDir/usr/share/applications/decodxlog.desktop \
+            --icon-file AppDir/usr/share/icons/hicolor/256x256/apps/decodxlog.png \
+            --plugin qt
+
+          # linuxdeploy-plugin-qt can add OpenSSL after dependency discovery.
+          # Remove both halves after linuxdeploy and before appimagetool so an
+          # AppImage never mixes its libcrypto with the host libssl.
           find AppDir/usr -type f \( -name 'libssl.so*' -o -name 'libcrypto.so*' \) -delete
           find AppDir/usr -type l \( -name 'libssl.so*' -o -name 'libcrypto.so*' \) -delete
 
@@ -158,18 +165,11 @@ jobs:
             exit 1
           fi
 
-          ./linuxdeploy \
-            --appdir AppDir \
-            --executable AppDir/usr/bin/DecoDXLog \
-            --desktop-file AppDir/usr/share/applications/decodxlog.desktop \
-            --icon-file AppDir/usr/share/icons/hicolor/256x256/apps/decodxlog.png \
-            --plugin qt \
-            --output appimage
-
           version="${{ github.event.inputs.tag || github.ref_name }}"
           version="${version#v}"
           mkdir -p release-assets
-          mv DecoDXLog-*.AppImage "release-assets/DecoDXLog-$version-linux-${{ matrix.arch }}.AppImage"
+          ARCH="${{ matrix.linuxdeploy_arch }}" ./appimagetool AppDir \
+            "release-assets/DecoDXLog-$version-linux-${{ matrix.arch }}.AppImage"
 
       - name: Ensure release exists
         env:
