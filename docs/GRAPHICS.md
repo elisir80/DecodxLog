@@ -48,5 +48,24 @@ QSG_RHI_BACKEND=vulkan DECODXLOG_ALLOW_VULKAN=1 ./DecoDXLog
 Il programma scrive nel terminale l'API realmente attivata. Se il scene graph
 non riesce a inizializzarsi, riapre automaticamente il programma con il backend
 successivo: su Windows `D3D12 → D3D11 → software`, su Linux `OpenGL → software`,
-su macOS `Metal → software`. La mappa usa inoltre un Canvas CPU-safe su Linux,
-cosi' l'apertura non dipende dal percorso Vulkan/FBO della GPU.
+su macOS `Metal → software`.
+
+## Mappa compatibile Linux
+
+Su Linux la mappa predefinita non istanzia `Canvas` di Qt Quick: alcuni driver
+Mesa/KWin possono continuare a disegnare la normale interfaccia OpenGL, ma
+perdere il compositing quando una Canvas diventa visibile. La mappa compatibile
+mostra reticolo, locatori lavorati, spot, stazione e direzione del rotore con
+normali item Qt Quick, senza FBO o texture Canvas.
+
+Per provare volontariamente la cartografia completa con coste e fascia notte:
+
+```sh
+./DecoDXLog-<version>-linux-x86_64.AppImage --map-renderer canvas
+# equivalente per gli script:
+DECODXLOG_MAP_RENDERER=canvas ./DecoDXLog-<version>-linux-x86_64.AppImage
+```
+
+`--map-renderer safe` (oppure `DECODXLOG_MAP_RENDERER=safe`) forza la mappa
+compatibile su qualunque sistema operativo, ed e' scelta automaticamente anche
+quando Qt Quick gira in modalita' software.

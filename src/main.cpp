@@ -55,6 +55,16 @@ QByteArray normalizedGraphicsBackend(QByteArray value)
     return value;
 }
 
+QByteArray normalizedMapRenderer(QByteArray value)
+{
+    value = value.trimmed().toLower();
+    if (value == "safe" || value == "basic" || value == "cpu")
+        return QByteArrayLiteral("safe");
+    if (value == "canvas" || value == "full")
+        return QByteArrayLiteral("canvas");
+    return value;
+}
+
 QByteArray commandLineGraphicsBackend(int argc, char* argv[], bool* explicitSelection)
 {
     QByteArray result;
@@ -509,6 +519,10 @@ int main(int argc, char* argv[])
     QCommandLineOption softwareGraphicsOption(
         QStringList {QStringLiteral("disable-gpu"), QStringLiteral("software-renderer")},
         QStringLiteral("Use the GPU-independent Qt Quick software renderer."));
+    QCommandLineOption mapRendererOption(
+        QStringLiteral("map-renderer"),
+        QStringLiteral("Map renderer: safe (no Canvas) or canvas (full map)."),
+        QStringLiteral("renderer"));
     QCommandLineOption openglOption(QStringLiteral("opengl"), QStringLiteral("Use the Qt Quick OpenGL backend."));
     QCommandLineOption vulkanOption(QStringLiteral("vulkan"), QStringLiteral("Use the Qt Quick Vulkan backend."));
     QCommandLineOption metalOption(QStringLiteral("metal"), QStringLiteral("Use the Qt Quick Metal backend (macOS)."));
@@ -517,6 +531,7 @@ int main(int argc, char* argv[])
     parser.addOption(graphicsOption);
     parser.addOption(safeGraphicsOption);
     parser.addOption(softwareGraphicsOption);
+    parser.addOption(mapRendererOption);
     parser.addOption(openglOption);
     parser.addOption(vulkanOption);
     parser.addOption(metalOption);
@@ -693,6 +708,32 @@ int main(int argc, char* argv[])
 #endif
     }
 
+    // La Canvas di Qt Quick apre una strada aggiuntiva verso la GPU: anche con
+    // RHI OpenGL stabile, alcuni driver Mesa/KWin smettono di presentare la
+    // finestra non appena la Canvas viene resa visibile. Su Linux usiamo
+    // percio' la mappa composta da item Quick semplici; non viene istanziato
+    // nessun Canvas. Il disegno ricco resta disponibile esplicitamente per chi
+    // ha gia' verificato il proprio driver. La stessa mappa sicura e' scelta
+    // se l'interfaccia intera gira con il renderer software.
+    QByteArray mapRenderer = normalizedMapRenderer(qgetenv("DECODXLOG_MAP_RENDERER"));
+    if (parser.isSet(mapRendererOption))
+        mapRenderer = normalizedMapRenderer(parser.value(mapRendererOption).toLatin1());
+    if (!mapRenderer.isEmpty() && mapRenderer != "safe" && mapRenderer != "canvas") {
+        graphicsStartupLog("renderer mappa non riconosciuto: " + mapRenderer + "; uso automatico");
+        mapRenderer.clear();
+    }
+    bool useSafeMapRenderer = activeGraphicsBackend == "software" || activeGraphicsBackend == "warp";
+#if defined(Q_OS_LINUX)
+    useSafeMapRenderer = true;
+#endif
+    if (mapRenderer == "safe")
+        useSafeMapRenderer = true;
+    else if (mapRenderer == "canvas")
+        useSafeMapRenderer = false;
+    graphicsStartupLog(useSafeMapRenderer
+                           ? "mappa -> compatibile (senza Canvas Qt Quick)"
+                           : "mappa -> Canvas completa");
+
     const QString pipelineBackend = QString::fromLatin1(
         activeGraphicsBackend.isEmpty() ? QByteArrayLiteral("auto") : activeGraphicsBackend);
     const QString pipelineCacheDirectory = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
@@ -742,6 +783,7 @@ int main(int argc, char* argv[])
         });
     });
     engine.rootContext()->setContextProperty(QStringLiteral("decolog"), &controller);
+    engine.rootContext()->setContextProperty(QStringLiteral("mapUsesSafeRenderer"), useSafeMapRenderer);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed, &app,
                      [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
     engine.rootContext()->setContextProperty(QStringLiteral("startupShow"), parser.value(showOption));

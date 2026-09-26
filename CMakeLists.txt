@@ -234,6 +234,8 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/Ft2AwardPanel.qml
     qml/DecoDXLog/BottomTabs.qml
     qml/DecoDXLog/MapPanel.qml
+    qml/DecoDXLog/MapCanvas.qml
+    qml/DecoDXLog/MapSafeView.qml
     qml/DecoDXLog/StatusRail.qml
     qml/DecoDXLog/NewQsoDialog.qml
     qml/DecoDXLog/QslCardDesign.qml
