@@ -28,9 +28,10 @@ class UpdateController : public QObject {
     Q_PROPERTY(QString currentVersion READ currentVersion CONSTANT)
     Q_PROPERTY(QString notes READ notes NOTIFY changed)
     Q_PROPERTY(QString page READ page NOTIFY changed)
+    Q_PROPERTY(QString releaseRepository READ releaseRepository NOTIFY changed)
     Q_PROPERTY(QString status READ status NOTIFY changed)
     Q_PROPERTY(QString lastCheck READ lastCheck NOTIFY changed)
-    Q_PROPERTY(bool hasInstaller READ hasInstaller NOTIFY changed)
+    Q_PROPERTY(bool hasPackage READ hasPackage NOTIFY changed)
     Q_PROPERTY(bool downloading READ downloading NOTIFY progressChanged)
     // Da 0 a 1 mentre scarica; -1 se non si sa quanto e' grande.
     Q_PROPERTY(double progress READ progress NOTIFY progressChanged)
@@ -59,17 +60,18 @@ public:
     QString currentVersion() const;
     QString notes() const { return m_info.notes; }
     QString page() const { return m_info.page; }
+    QString releaseRepository() const { return m_info.repository; }
     QString status() const { return m_status; }
     QString lastCheck() const;
-    bool hasInstaller() const { return !m_info.installer.isEmpty(); }
+    bool hasPackage() const { return m_info.valid && !m_info.package.isEmpty(); }
     bool downloading() const { return m_fetcher.downloading(); }
     double progress() const { return m_progress; }
     QString downloadSize() const;
 
     // Cerca adesso, che l'automatico sia acceso o spento.
     Q_INVOKABLE void checkNow();
-    // Scarica l'installatore e lo lancia, poi chiude DecoDXLog: l'installatore
-    // non puo' sostituire i file di un programma aperto.
+    // Scarica solo il pacchetto adatto a questa macchina. Windows lancia il
+    // setup, macOS apre il DMG e Linux aggiorna l'AppImage se e' possibile.
     Q_INVOKABLE void downloadAndInstall();
     Q_INVOKABLE void cancelDownload();
     // Questa versione non la voglio: non me la riproporre.
@@ -96,7 +98,7 @@ private:
     QString m_status;
     QString m_skip;
     double m_progress{-1};
-    QString m_installerPath;
+    bool m_replaceRunningAppImage{false};
 };
 
 } // namespace decolog::app

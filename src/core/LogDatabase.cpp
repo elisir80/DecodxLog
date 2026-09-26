@@ -236,10 +236,12 @@ bool LogDatabase::open(const QString& path)
     }
     m_path = path;
 
-    QSqlQuery q(db);
-    // Per connessione, non per file: vanno ripetute a ogni apertura.
-    q.exec(QStringLiteral("PRAGMA foreign_keys = ON"));
-    q.exec(QStringLiteral("PRAGMA busy_timeout = 3000"));
+    {
+        QSqlQuery q(db);
+        // Per connessione, non per file: vanno ripetute a ogni apertura.
+        q.exec(QStringLiteral("PRAGMA foreign_keys = ON"));
+        q.exec(QStringLiteral("PRAGMA busy_timeout = 3000"));
+    }
 
     if (!applySchema()) {
         close();

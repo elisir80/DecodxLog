@@ -498,19 +498,6 @@ Item {
             property bool grabbing: false
         }
 
-        // Un clic in qualsiasi punto porta il pannello davanti: il clic poi
-        // prosegue verso quello che c'e' sotto (un pulsante, una riga).
-        MouseArea {
-            anchors.fill: parent
-            z: 999
-            acceptedButtons: Qt.LeftButton | Qt.RightButton
-            onPressed: (mouse) => {
-                if (root.orderList[root.orderList.length - 1] !== panel.key)
-                    root.raiseKey(panel.key)
-                mouse.accepted = false
-            }
-        }
-
         Edge { panel: panel; l: true; cursorShape: Qt.SizeHorCursor; x: -3; y: panel.grip; width: panel.grip; height: panel.height - 2 * panel.grip }
         Edge { panel: panel; r: true; cursorShape: Qt.SizeHorCursor; x: panel.width - 3; y: panel.grip; width: panel.grip; height: panel.height - 2 * panel.grip }
         Edge { panel: panel; t: true; cursorShape: Qt.SizeVerCursor; x: panel.grip; y: -3; width: panel.width - 2 * panel.grip; height: panel.grip }
@@ -567,6 +554,10 @@ Item {
             // Tenute con la finestra principale: le stanno sopra e si
             // riducono con lei.
             transientParent: root.Window.window
+            // Anche la chiusura nativa deve compiere la stessa transizione del
+            // pulsante ↩: altrimenti la finestra sparisce ma floating resta
+            // salvato, e il pannello non torna piu' selezionabile dal menu.
+            onClosing: root.setFloating(modelData, false)
             onAttachRequested: root.setFloating(modelData, false)
             onCloseRequested: root.setShown(modelData, false)
             onOpenQsoRequested: (id) => root.openQso(id)

@@ -3,6 +3,26 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.20 — 26 settembre 2026
+
+**Aggiornamenti giusti per ogni computer, senza avvisi per pacchetti di altri sistemi.**
+
+- Il controllo aggiornamenti cerca prima le release pubblicate su `elisir80/DecodxLog` e usa
+  `iu8lmc/DecoDXLog` solo come riserva. Guarda l'elenco delle release, non soltanto l'ultima:
+  se per esempio esce prima Windows, macOS e Linux non ricevono un avviso falso.
+- Si sceglie esclusivamente il pacchetto installabile della macchina che sta usando il log:
+  setup `.exe` su Windows, DMG Apple Silicon o Intel su macOS, AppImage x86_64 o aarch64 su
+  Linux. ZIP portabili, sorgenti e binari dell'architettura sbagliata non vengono proposti.
+- Il download viene scritto in modo atomico e confrontato con la dimensione dichiarata da
+  GitHub. Su Linux l'AppImage in uso viene sostituita in sicurezza e riavviata quando la sua
+  cartella e' scrivibile; altrimenti quella nuova resta in Download. Su macOS si apre il DMG.
+- La finestra di aggiornamento dice anche da quale repository arriva il pacchetto scelto.
+- La mappa compatibile Linux non appare piu' come un reticolo vuoto: usa le terre emerse
+  vettoriali di Natural Earth insieme a locator, spot, stazione e rotore, senza istanziare
+  `Canvas` o una texture FBO che potrebbe bloccare KWin/Mesa.
+- Il packaging macOS firma anche le librerie Homebrew con un suffisso di versione (per esempio
+  `libbrotlicommon.1.dylib`), cosi' il DMG Intel non fallisce durante la verifica della firma.
+
 ## 1.16.19 — 26 settembre 2026
 
 **Le righe del log colorate come i decode di Decodium 4, e la foto del callbook in grande.**

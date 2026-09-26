@@ -15,17 +15,325 @@
 #include <QIcon>
 #include <QLibraryInfo>
 #include <QLocale>
+#include <QProcess>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QQuickGraphicsConfiguration>
 #include <QQuickStyle>
 #include <QQuickWindow>
+#include <QSGRendererInterface>
 #include <QTimer>
 #include <QTranslator>
 #include <QSettings>
 #include <QStandardPaths>
 #include <QUrl>
 
+#include <atomic>
+#include <cstdio>
+#include <memory>
+
 namespace {
+
+// La pipeline Qt Quick viene scelta prima di costruire QGuiApplication, come in
+// Decodium 4. In questo modo QSG_RHI_BACKEND e QT_QUICK_BACKEND sono gia' visibili
+// quando Qt crea il scene graph e non solo quando la prima finestra e' mostrata.
+struct GraphicsSelection
+{
+    QByteArray backend;
+    bool explicitSelection = false;
+};
+
+QByteArray normalizedGraphicsBackend(QByteArray value)
+{
+    value = value.trimmed().toLower();
+    if (value == "safe" || value == "warp")
+        return QByteArrayLiteral("warp");
+    if (value == "cpu" || value == "software" || value == "software-renderer")
+        return QByteArrayLiteral("software");
+    if (value == "auto" || value == "default")
+        return QByteArrayLiteral("auto");
+    return value;
+}
+
+QByteArray normalizedMapRenderer(QByteArray value)
+{
+    value = value.trimmed().toLower();
+    if (value == "safe" || value == "basic" || value == "cpu")
+        return QByteArrayLiteral("safe");
+    if (value == "canvas" || value == "full")
+        return QByteArrayLiteral("canvas");
+    return value;
+}
+
+QByteArray commandLineGraphicsBackend(int argc, char* argv[], bool* explicitSelection)
+{
+    QByteArray result;
+    bool selected = false;
+    for (int i = 1; i < argc; ++i) {
+        const QByteArray argument = QByteArray(argv[i]);
+        if (argument == "--disable-gpu" || argument == "--software-renderer") {
+            result = QByteArrayLiteral("software");
+            selected = true;
+        } else if (argument == "--safe-graphics") {
+            result = QByteArrayLiteral("warp");
+            selected = true;
+        } else if (argument == "--opengl" || argument == "--vulkan"
+                   || argument == "--metal" || argument == "--d3d11"
+                   || argument == "--d3d12") {
+            result = normalizedGraphicsBackend(argument.mid(2));
+            selected = true;
+        } else if (argument == "--graphics" || argument == "--render-mode") {
+            if (i + 1 < argc) {
+                result = normalizedGraphicsBackend(QByteArray(argv[++i]));
+                selected = true;
+            }
+        } else if (argument.startsWith("--graphics=")
+                   || argument.startsWith("--render-mode=")) {
+            const int separator = argument.indexOf('=');
+            result = normalizedGraphicsBackend(argument.mid(separator + 1));
+            selected = true;
+        }
+    }
+    if (explicitSelection)
+        *explicitSelection = selected;
+    return result;
+}
+
+bool isSupportedGraphicsBackend(const QByteArray& backend)
+{
+    return backend == "auto" || backend == "opengl" || backend == "vulkan"
+        || backend == "metal" || backend == "d3d11" || backend == "d3d12"
+        || backend == "software" || backend == "warp";
+}
+
+void graphicsStartupLog(const QByteArray& message)
+{
+    std::fprintf(stderr, "[Graphics] %s\n", message.constData());
+}
+
+GraphicsSelection configureGraphicsEnvironment(int argc, char* argv[])
+{
+    bool commandLineSelection = false;
+    QByteArray backend = commandLineGraphicsBackend(argc, argv, &commandLineSelection);
+    if (!commandLineSelection && qEnvironmentVariableIsSet("DECODXLOG_SAFE_GRAPHICS"))
+        backend = QByteArrayLiteral("warp");
+    if (!commandLineSelection && backend.isEmpty()
+        && qEnvironmentVariableIsSet("DECODXLOG_GRAPHICS_BACKEND")) {
+        backend = normalizedGraphicsBackend(qgetenv("DECODXLOG_GRAPHICS_BACKEND"));
+        commandLineSelection = true;
+    }
+
+    if (!backend.isEmpty() && !isSupportedGraphicsBackend(backend)) {
+        graphicsStartupLog("backend non riconosciuto: " + backend + "; uso auto");
+        backend = QByteArrayLiteral("auto");
+        commandLineSelection = true;
+    }
+
+    // Un ambiente Qt gia' impostato dall'utente ha precedenza quando non e'
+    // stata chiesta una modalita' DecoDXLog esplicita. Su Linux, pero', non
+    // lasciamo passare Vulkan alla cieca: alcune GPU Mesa vecchie (in
+    // particolare Ivy Bridge) pubblicizzano Vulkan ma il percorso Qt Quick
+    // puo' bloccare la GUI quando viene aperta la mappa. Vulkan resta opt-in
+    // con DECODXLOG_ALLOW_VULKAN=1 oppure con --graphics vulkan.
+    const bool externalQtBackend = qEnvironmentVariableIsSet("QSG_RHI_BACKEND")
+        || qEnvironmentVariableIsSet("QT_QUICK_BACKEND");
+#if defined(Q_OS_LINUX)
+    const bool allowLinuxVulkan = qEnvironmentVariableIntValue("DECODXLOG_ALLOW_VULKAN") != 0;
+    const QByteArray externalRhiBackend = normalizedGraphicsBackend(qgetenv("QSG_RHI_BACKEND"));
+    if (!commandLineSelection && backend.isEmpty() && externalRhiBackend == "vulkan"
+        && !allowLinuxVulkan) {
+        qputenv("QSG_RHI_BACKEND", "opengl");
+        qunsetenv("QT_QUICK_BACKEND");
+        graphicsStartupLog("Vulkan esterno ignorato su Linux; uso OpenGL (per abilitarlo: DECODXLOG_ALLOW_VULKAN=1)");
+        return {QByteArrayLiteral("opengl"), false};
+    }
+#endif
+    if (!commandLineSelection && backend.isEmpty() && externalQtBackend) {
+        graphicsStartupLog("backend Qt preso dall'ambiente del processo");
+        return {};
+    }
+
+    if (backend.isEmpty() || backend == "auto") {
+#if defined(Q_OS_MACOS)
+        // Come Decodium: Metal e' il percorso GPU nativo su macOS.
+        if (!externalQtBackend) {
+            qputenv("QSG_RHI_BACKEND", "metal");
+            graphicsStartupLog("auto -> Metal");
+        }
+#elif defined(Q_OS_WIN)
+        // D3D12 e' il default moderno; --graphics d3d11 resta disponibile
+        // come fallback hardware per driver Windows piu' vecchi.
+        if (!externalQtBackend) {
+            qputenv("QSG_RHI_BACKEND", "d3d12");
+            graphicsStartupLog("auto -> D3D12");
+        }
+#else
+        // OpenGL e' il percorso piu' compatibile per Qt Quick su Linux. Il
+        // chiamante puo' chiedere esplicitamente Vulkan con --graphics vulkan
+        // oppure DECODXLOG_ALLOW_VULKAN=1 nell'ambiente di Qt.
+        qunsetenv("QT_QUICK_BACKEND");
+        qputenv("QSG_RHI_BACKEND", "opengl");
+        graphicsStartupLog("auto -> OpenGL su Linux (Vulkan solo con opt-in esplicito)");
+        return {QByteArrayLiteral("opengl"), commandLineSelection};
+#endif
+        return {QByteArrayLiteral("auto"), commandLineSelection};
+    }
+
+    if (backend == "software") {
+        qputenv("QT_QUICK_BACKEND", "software");
+        qunsetenv("QSG_RHI_BACKEND");
+        qunsetenv("QSG_RHI_PREFER_SOFTWARE_RENDERER");
+        qputenv("QT_OPENGL", "software");
+        graphicsStartupLog("software -> renderer CPU Qt Quick");
+        return {backend, true};
+    }
+
+    if (backend == "warp") {
+#if defined(Q_OS_WIN)
+        qunsetenv("QT_QUICK_BACKEND");
+        qputenv("QSG_RHI_BACKEND", "d3d11");
+        qputenv("QSG_RHI_PREFER_SOFTWARE_RENDERER", "1");
+        qputenv("QT_OPENGL", "software");
+        graphicsStartupLog("safe -> D3D11 WARP software rasterizer");
+        return {backend, true};
+#else
+        qputenv("QT_QUICK_BACKEND", "software");
+        qunsetenv("QSG_RHI_BACKEND");
+        qunsetenv("QSG_RHI_PREFER_SOFTWARE_RENDERER");
+        qputenv("QT_OPENGL", "software");
+        graphicsStartupLog("safe -> renderer CPU Qt Quick");
+        return {backend, true};
+#endif
+    }
+
+    qunsetenv("QT_QUICK_BACKEND");
+    qputenv("QSG_RHI_BACKEND", backend);
+    qunsetenv("QSG_RHI_PREFER_SOFTWARE_RENDERER");
+    if (qgetenv("QT_OPENGL").trimmed().toLower() == "software")
+        qunsetenv("QT_OPENGL");
+    graphicsStartupLog("backend Qt Quick: " + backend);
+    return {backend, true};
+}
+
+const char* graphicsApiName(QSGRendererInterface::GraphicsApi api)
+{
+    switch (api) {
+    case QSGRendererInterface::Unknown: return "Unknown";
+    case QSGRendererInterface::Software: return "Software";
+    case QSGRendererInterface::OpenVG: return "OpenVG";
+    case QSGRendererInterface::OpenGL: return "OpenGL";
+    case QSGRendererInterface::Direct3D11: return "Direct3D11";
+    case QSGRendererInterface::Vulkan: return "Vulkan";
+    case QSGRendererInterface::Metal: return "Metal";
+    case QSGRendererInterface::Null: return "Null";
+#if QT_VERSION >= QT_VERSION_CHECK(6, 11, 0)
+    case QSGRendererInterface::Direct3D12: return "Direct3D12";
+#endif
+    default: return "Unrecognized";
+    }
+}
+
+QList<QQuickWindow*> quickWindows(QQmlApplicationEngine& engine)
+{
+    QList<QQuickWindow*> windows;
+    for (QObject* root : engine.rootObjects()) {
+        if (auto* window = qobject_cast<QQuickWindow*>(root))
+            windows.append(window);
+        for (QObject* child : root->findChildren<QObject*>()) {
+            if (auto* window = qobject_cast<QQuickWindow*>(child))
+                windows.append(window);
+        }
+    }
+    return windows;
+}
+
+void logQuickWindowGraphics(QQuickWindow* window, const char* context)
+{
+    QByteArray message("Qt Quick graphics API");
+    if (context && *context)
+        message += QByteArray(" (") + context + ')';
+    message += ": ";
+    if (!window || !window->rendererInterface()) {
+        message += "<non disponibile>";
+    } else {
+        const auto api = window->rendererInterface()->graphicsApi();
+        message += graphicsApiName(api);
+        if (QSGRendererInterface::isApiRhiBased(api))
+            message += " / RHI";
+    }
+    graphicsStartupLog(message);
+}
+
+QByteArray nextGraphicsFallback(const QByteArray& activeBackend)
+{
+#if defined(Q_OS_WIN)
+    if (activeBackend == "d3d12" || activeBackend == "auto")
+        return QByteArrayLiteral("d3d11");
+    if (activeBackend == "d3d11" || activeBackend == "warp")
+        return QByteArrayLiteral("software");
+#elif defined(Q_OS_LINUX)
+    if (activeBackend == "vulkan" || activeBackend == "auto")
+        return QByteArrayLiteral("opengl");
+    if (activeBackend == "opengl")
+        return QByteArrayLiteral("software");
+#else
+    if (activeBackend == "metal" || activeBackend == "auto")
+        return QByteArrayLiteral("software");
+#endif
+    if (activeBackend != "software")
+        return QByteArrayLiteral("software");
+    return {};
+}
+
+QStringList argumentsWithoutGraphicsOptions(const QStringList& arguments)
+{
+    QStringList filtered;
+    for (int i = 1; i < arguments.size(); ++i) {
+        const QString argument = arguments.at(i);
+        if (argument == QStringLiteral("--graphics")
+            || argument == QStringLiteral("--render-mode")) {
+            ++i;
+            continue;
+        }
+        if (argument.startsWith(QStringLiteral("--graphics="))
+            || argument.startsWith(QStringLiteral("--render-mode="))
+            || argument == QStringLiteral("--disable-gpu")
+            || argument == QStringLiteral("--software-renderer")
+            || argument == QStringLiteral("--safe-graphics")
+            || argument == QStringLiteral("--opengl")
+            || argument == QStringLiteral("--vulkan")
+            || argument == QStringLiteral("--metal")
+            || argument == QStringLiteral("--d3d11")
+            || argument == QStringLiteral("--d3d12")) {
+            continue;
+        }
+        filtered.append(argument);
+    }
+    return filtered;
+}
+
+bool restartWithGraphicsFallback(const QByteArray& fallback, const QString& reason)
+{
+    if (fallback.isEmpty())
+        return false;
+
+    QByteArray chain = qgetenv("DECODXLOG_GRAPHICS_FALLBACK_CHAIN").trimmed();
+    const QList<QByteArray> attempted = chain.isEmpty() ? QList<QByteArray> {} : chain.split(',');
+    if (attempted.contains(fallback))
+        return false;
+    if (!chain.isEmpty())
+        chain += ',';
+    chain += fallback;
+
+    const QStringList arguments = argumentsWithoutGraphicsOptions(QCoreApplication::arguments());
+    qputenv("DECODXLOG_GRAPHICS_BACKEND", fallback);
+    qputenv("DECODXLOG_GRAPHICS_FALLBACK_CHAIN", chain);
+    graphicsStartupLog(QStringLiteral("scene graph error: %1; riavvio con %2")
+                           .arg(reason, QString::fromLatin1(fallback)).toLocal8Bit());
+    return QProcess::startDetached(QCoreApplication::applicationFilePath(),
+                                   arguments,
+                                   QDir::currentPath());
+}
 
 // Copia una cartella intera, senza toccare quello che c'e' gia' di la'.
 void copyTree(const QString& from, const QString& to)
@@ -103,6 +411,7 @@ int main(int argc, char* argv[])
     // uno sfondo scuro scrivono nero su nero — sottomenu, tendine e il menu del
     // tasto destro dentro i campi di testo diventavano illeggibili.
     QCoreApplication::setAttribute(Qt::AA_DontUseNativeMenuWindows);
+    const GraphicsSelection graphicsSelection = configureGraphicsEnvironment(argc, argv);
     QGuiApplication app(argc, argv);
 #if defined(Q_OS_MACOS)
     const QStringList uiFontCandidates = {QStringLiteral("SF Pro Text"), QStringLiteral("Helvetica Neue"), QStringLiteral("Arial")};
@@ -200,6 +509,34 @@ int main(int argc, char* argv[])
     parser.setApplicationDescription(QStringLiteral("DecoDXLog station logbook"));
     parser.addHelpOption();
     parser.addVersionOption();
+    QCommandLineOption graphicsOption(
+        QStringList {QStringLiteral("graphics"), QStringLiteral("render-mode")},
+        QStringLiteral("Qt Quick graphics backend: auto, opengl, vulkan, metal, d3d11, d3d12 or software."),
+        QStringLiteral("backend"));
+    QCommandLineOption safeGraphicsOption(
+        QStringLiteral("safe-graphics"),
+        QStringLiteral("Use the safest available software graphics path (D3D11 WARP on Windows)."));
+    QCommandLineOption softwareGraphicsOption(
+        QStringList {QStringLiteral("disable-gpu"), QStringLiteral("software-renderer")},
+        QStringLiteral("Use the GPU-independent Qt Quick software renderer."));
+    QCommandLineOption mapRendererOption(
+        QStringLiteral("map-renderer"),
+        QStringLiteral("Map renderer: safe (no Canvas) or canvas (full map)."),
+        QStringLiteral("renderer"));
+    QCommandLineOption openglOption(QStringLiteral("opengl"), QStringLiteral("Use the Qt Quick OpenGL backend."));
+    QCommandLineOption vulkanOption(QStringLiteral("vulkan"), QStringLiteral("Use the Qt Quick Vulkan backend."));
+    QCommandLineOption metalOption(QStringLiteral("metal"), QStringLiteral("Use the Qt Quick Metal backend (macOS)."));
+    QCommandLineOption d3d11Option(QStringLiteral("d3d11"), QStringLiteral("Use the Qt Quick D3D11 backend (Windows)."));
+    QCommandLineOption d3d12Option(QStringLiteral("d3d12"), QStringLiteral("Use the Qt Quick D3D12 backend (Windows)."));
+    parser.addOption(graphicsOption);
+    parser.addOption(safeGraphicsOption);
+    parser.addOption(softwareGraphicsOption);
+    parser.addOption(mapRendererOption);
+    parser.addOption(openglOption);
+    parser.addOption(vulkanOption);
+    parser.addOption(metalOption);
+    parser.addOption(d3d11Option);
+    parser.addOption(d3d12Option);
     QCommandLineOption dbOption(QStringLiteral("db"), QStringLiteral("Log database file."), QStringLiteral("path"));
     QCommandLineOption portOption(QStringLiteral("port"), QStringLiteral("UDP port (overrides settings)."),
                                   QStringLiteral("port"));
@@ -351,11 +688,114 @@ int main(int argc, char* argv[])
         controller.importAdif(QUrl::fromLocalFile(parser.value(importOption)));
 
     QQmlApplicationEngine engine;
+
+    QByteArray activeGraphicsBackend = graphicsSelection.backend;
+    if (activeGraphicsBackend.isEmpty()) {
+        if (qEnvironmentVariableIsSet("QT_QUICK_BACKEND")
+            && qgetenv("QT_QUICK_BACKEND").trimmed().toLower() == "software") {
+            activeGraphicsBackend = QByteArrayLiteral("software");
+        } else if (qEnvironmentVariableIsSet("QSG_RHI_BACKEND")) {
+            activeGraphicsBackend = normalizedGraphicsBackend(qgetenv("QSG_RHI_BACKEND"));
+        } else {
+            activeGraphicsBackend = QByteArrayLiteral("auto");
+        }
+    }
+    if (activeGraphicsBackend == "auto") {
+#if defined(Q_OS_MACOS)
+        activeGraphicsBackend = QByteArrayLiteral("metal");
+#elif defined(Q_OS_WIN)
+        activeGraphicsBackend = QByteArrayLiteral("d3d12");
+#endif
+    }
+
+    // La Canvas di Qt Quick apre una strada aggiuntiva verso la GPU: anche con
+    // RHI OpenGL stabile, alcuni driver Mesa/KWin smettono di presentare la
+    // finestra non appena la Canvas viene resa visibile. Su Linux usiamo
+    // percio' la mappa composta da item Quick semplici; non viene istanziato
+    // nessun Canvas. Il disegno ricco resta disponibile esplicitamente per chi
+    // ha gia' verificato il proprio driver. La stessa mappa sicura e' scelta
+    // se l'interfaccia intera gira con il renderer software.
+    QByteArray mapRenderer = normalizedMapRenderer(qgetenv("DECODXLOG_MAP_RENDERER"));
+    if (parser.isSet(mapRendererOption))
+        mapRenderer = normalizedMapRenderer(parser.value(mapRendererOption).toLatin1());
+    if (!mapRenderer.isEmpty() && mapRenderer != "safe" && mapRenderer != "canvas") {
+        graphicsStartupLog("renderer mappa non riconosciuto: " + mapRenderer + "; uso automatico");
+        mapRenderer.clear();
+    }
+    bool useSafeMapRenderer = activeGraphicsBackend == "software" || activeGraphicsBackend == "warp";
+#if defined(Q_OS_LINUX)
+    useSafeMapRenderer = true;
+#endif
+    if (mapRenderer == "safe")
+        useSafeMapRenderer = true;
+    else if (mapRenderer == "canvas")
+        useSafeMapRenderer = false;
+    graphicsStartupLog(useSafeMapRenderer
+                           ? "mappa -> compatibile (senza Canvas Qt Quick)"
+                           : "mappa -> Canvas completa");
+
+    const QString pipelineBackend = QString::fromLatin1(
+        activeGraphicsBackend.isEmpty() ? QByteArrayLiteral("auto") : activeGraphicsBackend);
+    const QString pipelineCacheDirectory = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    QDir().mkpath(pipelineCacheDirectory);
+    const QString pipelineCacheFile = QDir(pipelineCacheDirectory).filePath(
+        QStringLiteral("qsg_pipeline_cache_%1.bin").arg(pipelineBackend));
+
+    // Decodium applica la cache della pipeline prima dell'inizializzazione del
+    // scene graph. Il nome contiene il backend, cosi' un passaggio Vulkan ->
+    // OpenGL/software non riusa una cache incompatibile.
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app,
+                     [pipelineCacheFile](QObject* object, const QUrl&) {
+        if (auto* window = qobject_cast<QQuickWindow*>(object)) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+            QQuickGraphicsConfiguration configuration;
+            configuration.setPipelineCacheSaveFile(pipelineCacheFile);
+            const bool canLoad = QFileInfo::exists(pipelineCacheFile);
+            if (canLoad)
+                configuration.setPipelineCacheLoadFile(pipelineCacheFile);
+            window->setGraphicsConfiguration(configuration);
+            qInfo() << "[Graphics] pipeline cache:" << pipelineCacheFile << "load=" << canLoad;
+#else
+            Q_UNUSED(pipelineCacheFile)
+#endif
+        }
+    });
+
+    // Un errore del scene graph non deve lasciare l'utente a cambiare variabili
+    // a mano: il processo viene riaperto con il backend successivo della catena.
+    // Il nuovo processo eredita la scelta tramite DECODXLOG_GRAPHICS_BACKEND.
+    const QByteArray fallbackBackend = nextGraphicsFallback(activeGraphicsBackend);
+    const auto graphicsRecoveryStarted = std::make_shared<std::atomic_bool>(false);
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app,
+                     [fallbackBackend, graphicsRecoveryStarted](QObject* object, const QUrl&) {
+        auto* window = qobject_cast<QQuickWindow*>(object);
+        if (!window)
+            return;
+        QObject::connect(window, &QQuickWindow::sceneGraphError, window,
+                         [fallbackBackend, graphicsRecoveryStarted](QQuickWindow::SceneGraphError,
+                                                                      const QString& message) {
+            if (graphicsRecoveryStarted->exchange(true))
+                return;
+            const bool restarted = restartWithGraphicsFallback(fallbackBackend, message);
+            if (!restarted)
+                graphicsStartupLog("scene graph non inizializzato; nessun fallback ulteriore disponibile");
+            QCoreApplication::exit(restarted ? 0 : -1);
+        });
+    });
     engine.rootContext()->setContextProperty(QStringLiteral("decolog"), &controller);
+    engine.rootContext()->setContextProperty(QStringLiteral("mapUsesSafeRenderer"), useSafeMapRenderer);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed, &app,
                      [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
     engine.rootContext()->setContextProperty(QStringLiteral("startupShow"), parser.value(showOption));
     engine.loadFromModule(QStringLiteral("DecoDXLog"), QStringLiteral("Main"));
+    const QList<QQuickWindow*> windows = quickWindows(engine);
+    if (!windows.isEmpty())
+        logQuickWindowGraphics(windows.constFirst(), "dopo engine.load");
+    QTimer::singleShot(0, &app, [&engine] {
+        const QList<QQuickWindow*> currentWindows = quickWindows(engine);
+        if (!currentWindows.isEmpty())
+            logQuickWindowGraphics(currentWindows.constFirst(), "event loop start");
+    });
     // La spia dei blocchi si accende a interfaccia in piedi: i secondi
     // dell'avvio sono avvio, non un blocco, e segnalarli sarebbe gridare al
     // lupo alla prima riga del registro.

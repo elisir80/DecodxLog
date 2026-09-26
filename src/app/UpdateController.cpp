@@ -4,6 +4,7 @@
 #include <QDateTime>
 #include <QDesktopServices>
 #include <QDir>
+#include <QFileDevice>
 #include <QFileInfo>
 #include <QLocale>
 #include <QProcess>
@@ -20,6 +21,22 @@ namespace {
 constexpr int kDayMs = 24 * 60 * 60 * 1000;
 // Il primo controllo non all'avvio ma poco dopo: prima si apre il log.
 constexpr int kFirstMs = 8000;
+
+QFileDevice::Permissions executableAppImagePermissions()
+{
+    return QFileDevice::ReadOwner | QFileDevice::WriteOwner | QFileDevice::ExeOwner
+           | QFileDevice::ReadUser | QFileDevice::WriteUser | QFileDevice::ExeUser
+           | QFileDevice::ReadGroup | QFileDevice::ExeGroup
+           | QFileDevice::ReadOther | QFileDevice::ExeOther;
+}
+
+QString downloadsDirectory()
+{
+    QString directory = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
+    if (directory.isEmpty())
+        directory = QDir::home().filePath(QStringLiteral("Downloads"));
+    return directory;
+}
 
 } // namespace
 
@@ -43,7 +60,9 @@ UpdateController::UpdateController(Context context, QObject* parent)
             }
             emit updateFound(info.version);
         } else {
-            setStatus(tr("this is the latest version"));
+            setStatus(info.valid
+                          ? tr("this is the latest version")
+                          : tr("no newer package is available for this computer"));
         }
         emit changed();
     });
@@ -71,20 +90,61 @@ UpdateController::UpdateController(Context context, QObject* parent)
 
     connect(&m_fetcher, &UpdateFetcher::downloaded, this, [this](const QString& path) {
         m_progress = 1;
-        m_installerPath = path;
         emit progressChanged();
+#if defined(Q_OS_WIN)
+        setStatus(tr("starting the installer…"));
+        if (!QProcess::startDetached(path, {})) {
+            setStatus(tr("cannot start the installer"));
+            emit changed();
+            return;
+        }
         if (m_ctx.activity) {
             m_ctx.activity(QStringLiteral("UPDATE"),
                            tr("Installer ready: %1 — DecoDXLog closes and the installer opens").arg(path),
                            QStringLiteral("info"));
         }
-        setStatus(tr("starting the installer…"));
         emit changed();
-        // L'installatore non puo' sostituire i file di un programma aperto:
-        // prima si lancia, poi si chiude DecoDXLog.
-        QProcess::startDetached(path, {});
         if (m_ctx.quit)
             m_ctx.quit();
+#elif defined(Q_OS_MACOS)
+        setStatus(tr("the disk image is ready in Downloads"));
+        if (!QDesktopServices::openUrl(QUrl::fromLocalFile(path)))
+            setStatus(tr("the disk image was saved to %1").arg(QDir::toNativeSeparators(path)));
+        if (m_ctx.activity) {
+            m_ctx.activity(QStringLiteral("UPDATE"),
+                           tr("macOS update package ready: %1").arg(path),
+                           QStringLiteral("info"));
+        }
+        emit changed();
+#else
+        if (m_replaceRunningAppImage) {
+            QStringList arguments = QCoreApplication::arguments();
+            if (!arguments.isEmpty())
+                arguments.removeFirst();
+            if (QProcess::startDetached(path, arguments, QFileInfo(path).absolutePath())) {
+                setStatus(tr("the AppImage was updated and DecoDXLog is restarting…"));
+                if (m_ctx.activity) {
+                    m_ctx.activity(QStringLiteral("UPDATE"),
+                                   tr("AppImage updated: %1").arg(path),
+                                   QStringLiteral("info"));
+                }
+                emit changed();
+                if (m_ctx.quit)
+                    m_ctx.quit();
+                return;
+            }
+            setStatus(tr("the AppImage was updated; restart it manually"));
+        } else {
+            setStatus(tr("the AppImage was saved to Downloads; launch it manually"));
+        }
+        QDesktopServices::openUrl(QUrl::fromLocalFile(QFileInfo(path).absolutePath()));
+        if (m_ctx.activity) {
+            m_ctx.activity(QStringLiteral("UPDATE"),
+                           tr("Linux update package ready: %1").arg(path),
+                           QStringLiteral("info"));
+        }
+        emit changed();
+#endif
     });
 
     m_daily.setInterval(kDayMs);
@@ -109,7 +169,7 @@ QString UpdateController::currentVersion() const
 
 bool UpdateController::available() const
 {
-    if (!m_info.valid)
+    if (!hasPackage())
         return false;
     if (!m_skip.isEmpty() && updates::compareVersions(m_info.version, m_skip) <= 0)
         return false;
@@ -126,9 +186,9 @@ QString UpdateController::lastCheck() const
 
 QString UpdateController::downloadSize() const
 {
-    if (m_info.installerBytes <= 0)
+    if (m_info.packageBytes <= 0)
         return {};
-    return QLocale().formattedDataSize(m_info.installerBytes);
+    return QLocale().formattedDataSize(m_info.packageBytes);
 }
 
 void UpdateController::setAutomatic(bool on)
@@ -158,24 +218,65 @@ void UpdateController::runCheck(bool announce)
         return;
     if (announce)
         setStatus(tr("asking GitHub…"));
-    m_fetcher.fetch();
+    m_fetcher.fetch(currentVersion());
     emit changed();
 }
 
 void UpdateController::downloadAndInstall()
 {
-    if (m_info.installer.isEmpty() || m_fetcher.downloading())
+    if (!hasPackage() || m_fetcher.downloading())
         return;
-    QString dir = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
-    if (dir.isEmpty())
-        dir = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
-    const QString path = QDir(dir).filePath(
-        QStringLiteral("DecoDXLog-%1-setup.exe").arg(m_info.version));
+
+    // Un nome viene dalla release GitHub, ma non gli permettiamo di scegliere
+    // directory locali: si salva sempre come semplice basename.
+    const QString packageName = QFileInfo(m_info.packageName).fileName();
+    if (packageName.isEmpty()) {
+        setStatus(tr("the update package has no file name"));
+        emit changed();
+        return;
+    }
+
+    QString directory;
+    QString path;
+    QFileDevice::Permissions permissions;
+    m_replaceRunningAppImage = false;
+
+#if defined(Q_OS_LINUX)
+    const QString runningPath = qEnvironmentVariable("APPIMAGE").trimmed();
+    const QFileInfo runningInfo(runningPath);
+    const QFileInfo runningDirectory(runningInfo.absoluteDir().absolutePath());
+    if (runningInfo.isFile() && runningDirectory.isWritable()) {
+        path = runningInfo.absoluteFilePath();
+        permissions = runningInfo.permissions() | executableAppImagePermissions();
+        m_replaceRunningAppImage = true;
+    } else {
+        directory = downloadsDirectory();
+        permissions = executableAppImagePermissions();
+    }
+#elif defined(Q_OS_MACOS)
+    directory = downloadsDirectory();
+#else
+    directory = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+#endif
+
+    if (!path.isEmpty()) {
+        // APPIMAGE e' gia' un path assoluto da sostituire in modo atomico.
+    } else {
+        if (directory.isEmpty() || !QDir().mkpath(directory)) {
+            setStatus(tr("cannot create the download folder"));
+            emit changed();
+            return;
+        }
+        path = QDir(directory).filePath(packageName);
+    }
+
     m_progress = 0;
-    setStatus(tr("downloading %1…").arg(downloadSize()));
+    setStatus(downloadSize().isEmpty()
+                  ? tr("downloading the update…")
+                  : tr("downloading %1…").arg(downloadSize()));
     emit progressChanged();
     emit changed();
-    m_fetcher.download(m_info.installer, path);
+    m_fetcher.download(m_info.package, path, m_info.packageBytes, permissions);
 }
 
 void UpdateController::cancelDownload()
