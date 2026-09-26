@@ -144,21 +144,12 @@ jobs:
         env:
           APPIMAGE_EXTRACT_AND_RUN: "1"
           QML_SOURCES_PATHS: qml:libs/decodium-ui/qml
-          VERSION: ${{ github.ref_name }}
+          VERSION: ${{ github.event.inputs.tag || github.ref_name }}
         run: |
-          ./linuxdeploy \
-            --appdir AppDir \
-            --executable AppDir/usr/bin/DecoDXLog \
-            --desktop-file AppDir/usr/share/applications/decodxlog.desktop \
-            --icon-file AppDir/usr/share/icons/hicolor/256x256/apps/decodxlog.png \
-            --plugin qt \
-            --output appimage
-
-          # Do not ship only one half of OpenSSL.  linuxdeploy may copy
+          # Do not ship only one half of OpenSSL. linuxdeploy may copy
           # libcrypto.so.3 while Qt's TLS backend resolves libssl.so.3 from
-          # the host.  That combination fails on Ubuntu with errors such as
-          # "OPENSSL_3.x.0 not found".  Let both libraries come from the
-          # target system instead of mixing incompatible builds.
+          # the host. Remove both before linuxdeploy creates the AppImage so
+          # Ubuntu loads a matching pair from the target system.
           find AppDir/usr -type f \( -name 'libssl.so*' -o -name 'libcrypto.so*' \) -delete
           find AppDir/usr -type l \( -name 'libssl.so*' -o -name 'libcrypto.so*' \) -delete
 
@@ -167,7 +158,16 @@ jobs:
             exit 1
           fi
 
-          version="${GITHUB_REF_NAME#v}"
+          ./linuxdeploy \
+            --appdir AppDir \
+            --executable AppDir/usr/bin/DecoDXLog \
+            --desktop-file AppDir/usr/share/applications/decodxlog.desktop \
+            --icon-file AppDir/usr/share/icons/hicolor/256x256/apps/decodxlog.png \
+            --plugin qt \
+            --output appimage
+
+          version="${{ github.event.inputs.tag || github.ref_name }}"
+          version="${version#v}"
           mkdir -p release-assets
           mv DecoDXLog-*.AppImage "release-assets/DecoDXLog-$version-linux-${{ matrix.arch }}.AppImage"
 
