@@ -154,14 +154,26 @@ jobs:
             --icon-file AppDir/usr/share/icons/hicolor/256x256/apps/decodxlog.png \
             --plugin qt
 
-          # linuxdeploy-plugin-qt can add OpenSSL after dependency discovery.
-          # Remove both halves after linuxdeploy and before appimagetool so an
-          # AppImage never mixes its libcrypto with the host libssl.
-          find AppDir/usr -type f \( -name 'libssl.so*' -o -name 'libcrypto.so*' \) -delete
-          find AppDir/usr -type l \( -name 'libssl.so*' -o -name 'libcrypto.so*' \) -delete
+          # linuxdeploy-plugin-qt can add system libraries after dependency
+          # discovery. Remove libraries that must stay a coherent host set:
+          # OpenSSL and GLib. Otherwise the AppImage can combine a system
+          # libgobject with an older bundled libglib (or libssl with a
+          # different libcrypto).
+          find AppDir/usr -type f \( \
+            -name 'libssl.so*' -o -name 'libcrypto.so*' \
+            -o -name 'libglib-2.0.so*' -o -name 'libgobject-2.0.so*' \
+            -o -name 'libgio-2.0.so*' -o -name 'libgmodule-2.0.so*' \
+            -o -name 'libgthread-2.0.so*' \
+          \) -delete
+          find AppDir/usr -type l \( \
+            -name 'libssl.so*' -o -name 'libcrypto.so*' \
+            -o -name 'libglib-2.0.so*' -o -name 'libgobject-2.0.so*' \
+            -o -name 'libgio-2.0.so*' -o -name 'libgmodule-2.0.so*' \
+            -o -name 'libgthread-2.0.so*' \
+          \) -delete
 
-          if find AppDir/usr -type f -o -type l | grep -Eq '/lib(ssl|crypto)\.so'; then
-            echo 'Inconsistent OpenSSL libraries remain in AppDir' >&2
+          if find AppDir/usr -type f -o -type l | grep -Eq '/lib(ssl|crypto|glib|gobject|gio|gmodule|gthread)'; then
+            echo 'Inconsistent system libraries remain in AppDir' >&2
             exit 1
           fi
 
