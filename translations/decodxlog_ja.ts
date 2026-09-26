@@ -1169,6 +1169,13 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+</context>
+<context>
     <name>ColumnsDialog</name>
     <message>
         <source>COLUMNS</source>
@@ -1951,6 +1958,65 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>not worked</source>
         <translation>未交信</translation>
+    </message>
+</context>
+<context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>新DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>バンドの新DXCC</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>新しい大陸</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>バンドの新しい大陸</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>新CQゾーン</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>バンドの新CQゾーン</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>新ITUゾーン</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>バンドで新ITUゾーン</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>新グリッド</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>バンドの新グリッド</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>新規 callsign</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>バンドで新規 callsign</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>LoTW でコンファーム済み</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (交信済み)</translation>
     </message>
 </context>
 <context>
@@ -4711,6 +4777,22 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Decodium と同じテーマ・アクセント・詰め具合です: 行 %1 px · 文字 %2 px · 見出し %3 px。</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>ログ行の色</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>その QSO がもたらしたもの</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Decodium の色</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>各 QSO は、もたらした最初のカテゴリーをこの順で受け取ります：新 DXCC は新ゾーンより、新ゾーンは新グリッドより優先されます。1 つ目のスイッチで文字、2 つ目で行の背景に色を付けます。</translation>
     </message>
     <message>
         <source>%1 · connected</source>

@@ -255,6 +255,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/LogsDialog.qml
     qml/DecoDXLog/ContestLayout.qml
     qml/DecoDXLog/ColumnsDialog.qml
+    qml/DecoDXLog/ColorSwatch.qml
     qml/DecoDXLog/ContestSubmitDialog.qml
     qml/DecoDXLog/ContestEntryPanel.qml
     qml/DecoDXLog/ContestScorePanel.qml

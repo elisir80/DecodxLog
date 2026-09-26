@@ -1169,6 +1169,13 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+</context>
+<context>
     <name>ColumnsDialog</name>
     <message>
         <source>COLUMNS</source>
@@ -1951,6 +1958,65 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>not worked</source>
         <translation>nincs meg</translation>
+    </message>
+</context>
+<context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>Új DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>Új DXCC a Sávban</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>Új Kontinens</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>Új Kontinens a Sávban</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>Új CQ Zóna</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>Új CQ Zóna a Sávban</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>Új ITU Zóna</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>Új ITU Zóna a Sávban</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>Új QRA</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>Új QRA a Sávban</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>Új hívójel</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>Új hívójel sávon</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>LoTW-n visszaigazolva</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (Dolgozva)</translation>
     </message>
 </context>
 <context>
@@ -4711,6 +4777,22 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Ugyanazok a témák, kiemelőszínek és sűrűségek, mint a Decodiumban: sor %1 px · betű %2 px · fejléc %3 px.</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>A napló sorainak színei</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>Amit a QSO hozott</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Decodium színek</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Minden QSO az első kategóriát kapja, amit hozott, ebben a sorrendben: az új DXCC megelőzi az új zónát, az új zóna az új lokátort. Az első kapcsoló a szöveget színezi, a második a sor hátterét.</translation>
     </message>
     <message>
         <source>%1 · connected</source>

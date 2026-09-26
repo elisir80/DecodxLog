@@ -1171,6 +1171,13 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     </message>
 </context>
 <context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+</context>
+<context>
     <name>ColumnsDialog</name>
     <message>
         <source>COLUMNS</source>
@@ -1954,6 +1961,65 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>not worked</source>
         <translation>nicht gearbeitet</translation>
+    </message>
+</context>
+<context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>Neu DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>Neues DXCC am Band</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>Neuer Kontinent</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>Neuer Kontinent auf Band</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>Neue CQ-Zone</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>Neue CQ Zone auf Band</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>Neue ITU-Zone</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>Neue ITU Zone auf Band</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>Neues Raster</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>Neues Raster auf Band</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>Neues Rufzeichen</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>Neues Rufzeichen auf Band</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>Auf LoTW bestätigt</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (gearbeitet)</translation>
     </message>
 </context>
 <context>
@@ -4720,6 +4786,22 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Dieselben Themen, Akzente und Dichten wie bei Decodium: Zeile %1 px · Schrift %2 px · Kopf %3 px.</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>Farben der Logzeilen</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>Was das QSO gebracht hat</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Decodium-Farben</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Jedes QSO bekommt die erste Kategorie, die es gebracht hat, in dieser Reihenfolge: ein neues DXCC schlägt eine neue Zone, eine neue Zone ein neues Locatorfeld. Der erste Schalter färbt den Text, der zweite den Hintergrund der Zeile.</translation>
     </message>
     <message>
         <source>%1 · connected</source>

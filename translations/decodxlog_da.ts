@@ -1171,6 +1171,13 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+</context>
+<context>
     <name>ColumnsDialog</name>
     <message>
         <source>COLUMNS</source>
@@ -1954,6 +1961,65 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>not worked</source>
         <translation>ikke kørt</translation>
+    </message>
+</context>
+<context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>Nyt DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>Nyt DXCC på bånd</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>Nyt kontinent</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>Nyt kontinent på bånd</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>Ny CQ Zone</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>Ny CQ Zone på bånd</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>Ny ITU Zone</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>Ny ITU Zone på bånd</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>Ny Grid Lokator</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>Ny Grid lokator på bånd</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>Nyt callsign</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>Nyt callsign på bånd</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>Bekræftet på LoTW</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (Worked)</translation>
     </message>
 </context>
 <context>
@@ -4720,6 +4786,22 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Samme temaer, accenter og tætheder som Decodium: række %1 px · skrift %2 px · overskrift %3 px.</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>Farver på logrækker</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>Hvad QSO&apos;en bragte</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Decodium-farver</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Hver QSO får den første kategori, den bragte, i denne rækkefølge: en ny DXCC går forud for en ny zone, en ny zone for en ny lokator. Den første kontakt farver teksten, den anden rækkens baggrund.</translation>
     </message>
     <message>
         <source>%1 · connected</source>

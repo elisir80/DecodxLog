@@ -1171,6 +1171,13 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
 </context>
 <context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>D&apos;acord</translation>
+    </message>
+</context>
+<context>
     <name>ColumnsDialog</name>
     <message>
         <source>COLUMNS</source>
@@ -1954,6 +1961,65 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>not worked</source>
         <translation>no treballat</translation>
+    </message>
+</context>
+<context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>Nou DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>Nou DXCC en banda</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>Nou Continent</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>Nou Continent en banda</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>Nova Zona CQ</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>Nova Zona CQ en banda</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>Nova Zona ITU</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>Nova Zona ITU en banda</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>Nou Locator</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>Nou Locator en banda</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>Nou callsign</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>Nou callsign a la banda</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>Confirmat a LoTW</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (Treballat)</translation>
     </message>
 </context>
 <context>
@@ -4720,6 +4786,22 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Els mateixos temes, accents i densitats que Decodium: fila %1 px · lletra %2 px · capçalera %3 px.</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>Colors de les files del log</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>El que va aportar el QSO</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Colors de Decodium</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Cada QSO pren la primera categoria que va aportar, en aquest ordre: un DXCC nou guanya una zona nova, una zona nova un locator nou. El primer interruptor acoloreix el text, el segon el fons de la fila.</translation>
     </message>
     <message>
         <source>%1 · connected</source>

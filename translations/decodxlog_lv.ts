@@ -1173,6 +1173,13 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>Labi</translation>
+    </message>
+</context>
+<context>
     <name>ColumnsDialog</name>
     <message>
         <source>COLUMNS</source>
@@ -1957,6 +1964,65 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>not worked</source>
         <translation>nav nostrādāts</translation>
+    </message>
+</context>
+<context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>Jauns DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>New DXCC on Band</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>New Continent</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>New Continent on Band</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>New CQ Zone</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>New CQ Zone on Band</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>New ITU Zone</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>New ITU Zone on Band</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>New Grid</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>New Grid on Band</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>Jauns izsaukums</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>Jauns izsaukums joslā</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>Apstiprināts LoTW</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (Strādāts)</translation>
     </message>
 </context>
 <context>
@@ -4729,6 +4795,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Tās pašas tēmas, akcenti un blīvumi kā Decodium: rinda %1 px · burts %2 px · galvene %3 px.</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>Žurnāla rindu krāsas</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>Ko QSO atnesa</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Decodium krāsas</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Katrs QSO saņem pirmo kategoriju, ko tas atnesa, šādā secībā: jauns DXCC ir svarīgāks par jaunu zonu, jauna zona par jaunu lokatoru. Pirmais slēdzis iekrāso tekstu, otrais rindas fonu.</translation>
     </message>
     <message>
         <source>%1 · connected</source>

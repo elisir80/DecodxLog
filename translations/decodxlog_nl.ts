@@ -1171,6 +1171,13 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
 </context>
 <context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+</context>
+<context>
     <name>ColumnsDialog</name>
     <message>
         <source>COLUMNS</source>
@@ -1954,6 +1961,65 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>not worked</source>
         <translation>niet gewerkt</translation>
+    </message>
+</context>
+<context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>Nieuwe DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>Nieuwe DXCC op band</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>Nieuw continent</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>Nieuw continent op band</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>Nieuwe CQ-zone</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>Nieuwe CQ-zone op band</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>Nieuwe ITU-zone</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>Nieuwe ITU-zone op band</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>Nieuwe locator</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>Nieuwe locator op band</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>Nieuwe roepnaam</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>Nieuwe roepnaam op band</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>Bevestigd op LoTW</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (gewerkt)</translation>
     </message>
 </context>
 <context>
@@ -4720,6 +4786,22 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Dezelfde thema&apos;s, accenten en dichtheden als Decodium: regel %1 px · letter %2 px · kop %3 px.</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>Kleuren van de logregels</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>Wat het QSO opleverde</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Kleuren van Decodium</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Elk QSO krijgt de eerste categorie die het opleverde, in deze volgorde: een nieuwe DXCC wint van een nieuwe zone, een nieuwe zone van een nieuw locatorvak. De eerste schakelaar kleurt de tekst, de tweede de achtergrond van de regel.</translation>
     </message>
     <message>
         <source>%1 · connected</source>

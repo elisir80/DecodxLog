@@ -1173,6 +1173,13 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+</context>
+<context>
     <name>ColumnsDialog</name>
     <message>
         <source>COLUMNS</source>
@@ -1957,6 +1964,65 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>not worked</source>
         <translation>не проведён</translation>
+    </message>
+</context>
+<context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>Новая DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>Новая DXCC на диапазоне</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>Новый континент</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>Новый континет на диапазоне</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>Новая CQ зона</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>Новая CQ зона на диапазоне</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>Новая ITU зона</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>Новая ITU зона на диапазоне</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>Новый локатор</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>Новый локатор на диапазоне</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>Новый callsign</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>Новый callsign на диапазоне</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>Подтверждено в LoTW</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (Проведено)</translation>
     </message>
 </context>
 <context>
@@ -4729,6 +4795,22 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Те же темы, акценты и плотности, что в Decodium: строка %1 px · шрифт %2 px · заголовок %3 px.</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>Цвета строк журнала</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>Что принесла связь</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Цвета Decodium</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Каждая связь получает первую категорию, которую принесла, в таком порядке: новая страна DXCC важнее новой зоны, новая зона важнее нового локатора. Первый переключатель окрашивает текст, второй — фон строки.</translation>
     </message>
     <message>
         <source>%1 · connected</source>

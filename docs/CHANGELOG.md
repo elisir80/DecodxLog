@@ -3,6 +3,20 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.19 — 26 settembre 2026
+
+**Le righe del log colorate come i decode di Decodium 4, e la foto del callbook in grande.**
+
+- Ogni QSO del log prende la prima cosa nuova che ha portato quando e' stato fatto: nuova
+  entita' DXCC (o sulla banda), nuovo continente, nuova zona CQ, nuova zona ITU, nuovo locatore,
+  nuovo nominativo (in assoluto o sulla banda), confermato su LoTW, oppure gia' lavorato (B4).
+  Come in Decodium 4, ogni categoria ha il colore del testo e, se si vuole, il fondo della riga:
+  si scelgono in Impostazioni → Tema e densita' → Colori delle righe del log, dalla tavolozza o
+  scrivendo il codice (#RRGGBB, o #AARRGGBB per un fondo trasparente). "Colori di Decodium"
+  rimette quelli di serie. Accesi di serie entita', continenti e zone; locatore, nominativo,
+  LoTW e B4 si accendono se li si vuole.
+- Nella scheda nominativo, col mouse sopra la foto del callbook compare la foto grande, 640x480.
+
 ## 1.16.18 — 26 settembre 2026
 
 **Il pannello del rotore: quadrante grande al centro, i gradi e "Punta il DX".**

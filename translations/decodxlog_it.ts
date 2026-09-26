@@ -1171,6 +1171,13 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+</context>
+<context>
     <name>ColumnsDialog</name>
     <message>
         <source>COLUMNS</source>
@@ -1954,6 +1961,65 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>not worked</source>
         <translation>non lavorato</translation>
+    </message>
+</context>
+<context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>Nuovo DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>Nuovo DXCC sulla Banda</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>Nuovo Continente</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>Nuovo Continente sulla Banda</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>Nuova Zona CQ</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>Nuovo Zona CQ sulla Banda</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>Nuova Zona ITU</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>Nuovo Zona ITU sulla Banda</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>Nuova Griglia</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>Nuova Griglia su Banda</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>Nuovo Nominativo</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>Nuovo Nominativo su Banda</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>Confermato su LoTW</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (Lavorato)</translation>
     </message>
 </context>
 <context>
@@ -4720,6 +4786,22 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Stessi temi, accenti e densità di Decodium: riga %1 px · carattere %2 px · intestazione %3 px.</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>Colori delle righe del log</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>Cosa ha portato il QSO</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Colori di Decodium</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Ogni QSO prende la prima categoria che ha portato, in quest&apos;ordine: una nuova entità DXCC vince su una nuova zona, una nuova zona su un nuovo locatore. Il primo interruttore colora il testo, il secondo il fondo della riga.</translation>
     </message>
     <message>
         <source>%1 · connected</source>

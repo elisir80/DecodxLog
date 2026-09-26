@@ -404,6 +404,69 @@ DialogFrame {
                         }
                     }
                     Note { text: qsTr("Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.").arg(Theme.rowHeight).arg(Theme.fontSize).arg(Theme.panelHeight) }
+
+                    // I colori delle righe del log, come quelli dei decode di
+                    // Decodium 4: il testo e, se si vuole, il fondo.
+                    SectionTitle { text: qsTr("Log row colors") }
+                    RowLayout {
+                        spacing: 12
+                        Text { Layout.preferredWidth: 190; text: qsTr("What the QSO brought"); color: Theme.textSecondary; font.pixelSize: 11 }
+                        Text { Layout.preferredWidth: 88; text: qsTr("Text"); color: Theme.textSecondary; font.pixelSize: 11 }
+                        Text { text: qsTr("Background"); color: Theme.textSecondary; font.pixelSize: 11 }
+                    }
+                    Repeater {
+                        model: decolog.logColorCategories
+                        delegate: RowLayout {
+                            required property var modelData
+                            spacing: 12
+                            Text {
+                                Layout.preferredWidth: 190
+                                text: modelData.label
+                                color: modelData.fgOn ? modelData.fg : Theme.textPrimary
+                                font.family: Theme.monoFamily
+                                font.pixelSize: 12
+                                font.bold: modelData.fgOn
+                                Rectangle {
+                                    z: -1
+                                    anchors.fill: parent
+                                    anchors.margins: -2
+                                    radius: 3
+                                    visible: modelData.bgOn
+                                    color: modelData.bg
+                                }
+                            }
+                            ToggleSwitch {
+                                checked: modelData.fgOn
+                                onToggled: decolog.setLogColor(modelData.key, "fgOn", checked)
+                            }
+                            ColorSwatch {
+                                value: modelData.fg
+                                onPicked: (v) => decolog.setLogColor(modelData.key, "fg", v)
+                            }
+                            ToggleSwitch {
+                                checked: modelData.bgOn
+                                onToggled: decolog.setLogColor(modelData.key, "bgOn", checked)
+                            }
+                            ColorSwatch {
+                                value: modelData.bg
+                                withAlpha: true
+                                onPicked: (v) => decolog.setLogColor(modelData.key, "bg", v)
+                            }
+                        }
+                    }
+                    RowLayout {
+                        spacing: 10
+                        GlassButton {
+                            text: qsTr("Decodium colors")
+                            onClicked: decolog.resetLogColors()
+                        }
+                        Note {
+                            Layout.fillWidth: true
+                            text: qsTr("Each QSO takes the first category it brought, in this order: a new DXCC wins "
+                                       + "over a new zone, a new zone over a new grid. The first check colors the "
+                                       + "text, the second the background of the row.")
+                        }
+                    }
                     Item { Layout.fillHeight: true }
                 }
 

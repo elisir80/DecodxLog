@@ -1170,6 +1170,13 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+</context>
+<context>
     <name>ColumnsDialog</name>
     <message>
         <source>COLUMNS</source>
@@ -1953,6 +1960,65 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>not worked</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>New DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>New DXCC on Band</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>New Continent</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>New Continent on Band</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>New CQ Zone</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>New CQ Zone on Band</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>New ITU Zone</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>New ITU Zone on Band</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>New Grid</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>New Grid on Band</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>New Callsign</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>New Callsign on Band</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>Confirmed on LoTW</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (Worked)</translation>
     </message>
 </context>
 <context>
@@ -4721,6 +4787,22 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Log row colors</source>
+        <translation>Log row colors</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>What the QSO brought</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Decodium colors</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</translation>
+    </message>
+    <message>
         <source>%1 · connected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6233,7 +6315,7 @@ The call Decodium is working shows up here by itself.</source>
     <name>decolog::app::ClusterController</name>
     <message>
         <source>New DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>New DXCC</translation>
     </message>
     <message>
         <source>New band or mode</source>

@@ -2399,6 +2399,98 @@ void DecoLogController::checkLotwSchedule()
     syncLotw(false);
 }
 
+// ── I colori delle righe del log ──────────────────────────────────────────────
+
+namespace {
+
+struct LogColorDefault {
+    const char* key;
+    const char* label;
+    const char* fg;      // quelli di Decodium 4
+    bool fgOn;
+    const char* bg;      // un fondo leggero dello stesso colore
+};
+
+// Acceso di serie quello che fa notizia (entita', continente, zone); nuovo
+// locatore e nuovo nominativo sono quasi tutte le righe di un log, e si
+// accendono se li si vuole.
+const LogColorDefault kLogColors[] = {
+    {"colorNewDxcc", QT_TRANSLATE_NOOP("LogColors", "New DXCC"), "#FF00FF", true, "#55FF00FF"},
+    {"colorNewDxccBand", QT_TRANSLATE_NOOP("LogColors", "New DXCC on Band"), "#F8AAD0", true, "#40F8AAD0"},
+    {"colorNewContinent", QT_TRANSLATE_NOOP("LogColors", "New Continent"), "#E91E63", true, "#55E91E63"},
+    {"colorNewContinentBand", QT_TRANSLATE_NOOP("LogColors", "New Continent on Band"), "#F5B7C7", true, "#40F5B7C7"},
+    {"colorNewCqZone", QT_TRANSLATE_NOOP("LogColors", "New CQ Zone"), "#F0A030", true, "#55F0A030"},
+    {"colorNewCqZoneBand", QT_TRANSLATE_NOOP("LogColors", "New CQ Zone on Band"), "#F5DDA0", true, "#40F5DDA0"},
+    {"colorNewItuZone", QT_TRANSLATE_NOOP("LogColors", "New ITU Zone"), "#9ACD32", true, "#559ACD32"},
+    {"colorNewItuZoneBand", QT_TRANSLATE_NOOP("LogColors", "New ITU Zone on Band"), "#D4E89F", true, "#40D4E89F"},
+    {"colorNewGrid", QT_TRANSLATE_NOOP("LogColors", "New Grid"), "#FF8C00", false, "#55FF8C00"},
+    {"colorNewGridBand", QT_TRANSLATE_NOOP("LogColors", "New Grid on Band"), "#FFCAA0", false, "#40FFCAA0"},
+    {"colorNewCall", QT_TRANSLATE_NOOP("LogColors", "New Callsign"), "#00E0E0", false, "#4000E0E0"},
+    {"colorNewCallBand", QT_TRANSLATE_NOOP("LogColors", "New Callsign on Band"), "#B5E8E8", false, "#40B5E8E8"},
+    {"colorLotwConfirmed", QT_TRANSLATE_NOOP("LogColors", "Confirmed on LoTW"), "#33FF33", false, "#4033FF33"},
+    {"colorB4", QT_TRANSLATE_NOOP("LogColors", "B4 (Worked)"), "#888888", false, "#40888888"},
+};
+
+} // namespace
+
+QVariantList DecoLogController::logColorCategories() const
+{
+    QSettings s;
+    QVariantList out;
+    for (const LogColorDefault& d : kLogColors) {
+        const QString key = QLatin1String(d.key);
+        out << QVariantMap{
+            {QStringLiteral("key"), key},
+            {QStringLiteral("label"), QCoreApplication::translate("LogColors", d.label)},
+            {QStringLiteral("fg"), s.value(QStringLiteral("logColors/%1").arg(key), QLatin1String(d.fg)).toString()},
+            {QStringLiteral("fgOn"), s.value(QStringLiteral("logColors/%1_on").arg(key), d.fgOn).toBool()},
+            {QStringLiteral("bg"), s.value(QStringLiteral("logColors/bg_%1").arg(key), QLatin1String(d.bg)).toString()},
+            {QStringLiteral("bgOn"), s.value(QStringLiteral("logColors/bgOn_%1").arg(key), false).toBool()},
+            {QStringLiteral("defaultFg"), QLatin1String(d.fg)},
+        };
+    }
+    return out;
+}
+
+QVariantMap DecoLogController::logColors() const
+{
+    QVariantMap out;
+    for (const QVariant& v : logColorCategories()) {
+        const QVariantMap c = v.toMap();
+        const bool fg = c.value(QStringLiteral("fgOn")).toBool();
+        const bool bg = c.value(QStringLiteral("bgOn")).toBool();
+        if (!fg && !bg)
+            continue;
+        out.insert(c.value(QStringLiteral("key")).toString(),
+                   QVariantMap{{QStringLiteral("fg"), fg ? c.value(QStringLiteral("fg")) : QVariant(QString())},
+                               {QStringLiteral("bg"), bg ? c.value(QStringLiteral("bg")) : QVariant(QString())}});
+    }
+    return out;
+}
+
+void DecoLogController::setLogColor(const QString& category, const QString& what, const QVariant& value)
+{
+    QSettings s;
+    if (what == QLatin1String("fg"))
+        s.setValue(QStringLiteral("logColors/%1").arg(category), value.toString());
+    else if (what == QLatin1String("fgOn"))
+        s.setValue(QStringLiteral("logColors/%1_on").arg(category), value.toBool());
+    else if (what == QLatin1String("bg"))
+        s.setValue(QStringLiteral("logColors/bg_%1").arg(category), value.toString());
+    else if (what == QLatin1String("bgOn"))
+        s.setValue(QStringLiteral("logColors/bgOn_%1").arg(category), value.toBool());
+    else
+        return;
+    emit logColorsChanged();
+}
+
+void DecoLogController::resetLogColors()
+{
+    QSettings s;
+    s.remove(QStringLiteral("logColors"));
+    emit logColorsChanged();
+}
+
 void DecoLogController::syncLotwRange(const QString& fromIso, const QString& toIso)
 {
     const QDate from = QDate::fromString(fromIso.trimmed(), Qt::ISODate);

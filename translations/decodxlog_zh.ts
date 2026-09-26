@@ -1169,6 +1169,13 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     </message>
 </context>
 <context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>确定</translation>
+    </message>
+</context>
+<context>
     <name>ColumnsDialog</name>
     <message>
         <source>COLUMNS</source>
@@ -1951,6 +1958,65 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>not worked</source>
         <translation>未通联</translation>
+    </message>
+</context>
+<context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>新DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>新DXCC 波段</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>新大洲</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>新大洲 波段</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>新 CQ区</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>新CQ区 波段</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>新 ITU区</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>新ITU区 波段</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>新网格</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>新网格 波段</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>新 callsign</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>波段上的新 callsign</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>已在 LoTW 确认</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4（已通联）</translation>
     </message>
 </context>
 <context>
@@ -4711,6 +4777,22 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>和 Decodium 一样的主题、强调色和密度：行 %1 px · 字体 %2 px · 表头 %3 px。</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>日志行颜色</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>该 QSO 带来的</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Decodium 颜色</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>每个 QSO 取其带来的第一个类别，按此顺序：新 DXCC 优先于新分区，新分区优先于新网格。第一个开关为文字着色，第二个为行背景着色。</translation>
     </message>
     <message>
         <source>%1 · connected</source>

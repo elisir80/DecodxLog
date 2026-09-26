@@ -364,6 +364,18 @@ public:
     void setLotwAutoHours(int hours);
     // Scarica le conferme nuove (o tutte, `full`) e le segna sui QSO.
     Q_INVOKABLE void syncLotw(bool full = false);
+
+    // I colori delle righe del log, come quelli dei decode di Decodium 4: per
+    // ogni categoria (nuova entita', nuova zona, gia' lavorato…) il colore del
+    // testo e, se si vuole, il fondo. logColorCategories per le impostazioni,
+    // logColors per la tabella: {categoria: {fg, bg}} con solo quelli accesi.
+    Q_PROPERTY(QVariantList logColorCategories READ logColorCategories NOTIFY logColorsChanged)
+    Q_PROPERTY(QVariantMap logColors READ logColors NOTIFY logColorsChanged)
+    QVariantList logColorCategories() const;
+    QVariantMap logColors() const;
+    // `what` e' "fg", "fgOn", "bg" o "bgOn".
+    Q_INVOKABLE void setLogColor(const QString& category, const QString& what, const QVariant& value);
+    Q_INVOKABLE void resetLogColors();
     // Le conferme dei QSO fatti dal … al … (ISO, "yyyy-MM-dd"; uno dei due puo'
     // mancare). Non sposta il segno dell'ultimo scarico: il prossimo "solo le
     // nuove" riparte da dove era.
@@ -475,6 +487,7 @@ signals:
     void awardsChanged();
     void decoLinkChanged();
     void uiLanguageChanged();
+    void logColorsChanged();
     void lotwChanged();
 
 private:

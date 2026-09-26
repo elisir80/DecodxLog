@@ -7,6 +7,7 @@
 #pragma once
 
 #include <QAbstractTableModel>
+#include <QHash>
 #include <QString>
 #include <QStringList>
 #include <QVariantList>
@@ -47,7 +48,13 @@ public:
     // ai menu (nominativo, DXCC, etichette) anche quando la colonna e' nascosta.
     enum Column { Utc, Call, Band, Freq, Mode, RstSent, RstRcvd, Grid, Name, Comment, Qth, Country,
                   State, County, Cqz, Ituz, Iota, Dxcc, Qsl, Source, Tags, ColumnCount };
-    enum Roles { IdRole = Qt::UserRole + 1, ColumnKeyRole, IsNewRole, ModeRole };
+    enum Roles { IdRole = Qt::UserRole + 1, ColumnKeyRole, IsNewRole, ModeRole, CategoryRole };
+
+    // Che cosa ha portato un QSO quando e' stato fatto, come Decodium 4 lo
+    // dice dei decode: il primo con quell'entita' (in assoluto o sulla
+    // banda), con quel continente, zona CQ, zona ITU, locatore, nominativo;
+    // oppure un gia' lavorato. Il nome e' la chiave del colore (colorNewDxcc…).
+    static QStringList categoryKeys();
 
     explicit QsoTableModel(decolog::core::LogDatabase* db, QObject* parent = nullptr);
 
@@ -124,6 +131,9 @@ signals:
     void layoutChanged();
 
 private:
+    QHash<qint64, QString> m_category;
+    QString m_categorySignature;   // il log com'era quando si sono contate
+
     struct Row {
         qint64  id{0};
         QString sortKey;
@@ -135,6 +145,9 @@ private:
     };
 
     QString selectSql(const QString& where) const;
+    // Le categorie di tutto il log in una volta (reload), o di un QSO solo.
+    void computeCategories();
+    QString categoryOf(qint64 id) const;
     Row rowFromQuery(const QSqlQuery& q) const;
     void refreshTotal();
 

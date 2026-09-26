@@ -1173,6 +1173,13 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
 </context>
 <context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+</context>
+<context>
     <name>ColumnsDialog</name>
     <message>
         <source>COLUMNS</source>
@@ -1957,6 +1964,65 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>not worked</source>
         <translation>nelucrat</translation>
+    </message>
+</context>
+<context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>DXCC nou</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>DXCC nou în bandă</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>Continent nou</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>Continent nou în bandă</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>Zonă CQ nouă</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>Zonă CQ nouă în bandă</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>Zonă ITU nouă</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>Zonă ITU nouă în bandă</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>Locator nou</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>Locator nou în bandă</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>Indicativ nou</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>Indicativ nou în bandă</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>Confirmat pe LoTW</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (lucrat)</translation>
     </message>
 </context>
 <context>
@@ -4729,6 +4795,22 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Aceleași teme, accente și densități ca în Decodium: rând %1 px · literă %2 px · antet %3 px.</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>Culorile rândurilor din log</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>Ce a adus QSO-ul</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Culorile Decodium</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Fiecare QSO primește prima categorie pe care a adus-o, în această ordine: un DXCC nou câștigă în fața unei zone noi, o zonă nouă în fața unui locator nou. Primul comutator colorează textul, al doilea fundalul rândului.</translation>
     </message>
     <message>
         <source>%1 · connected</source>
