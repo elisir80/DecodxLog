@@ -48,6 +48,15 @@ DialogFrame {
                     font.family: Theme.monoFamily
                     font.pixelSize: 12
                 }
+                Text {
+                    visible: root.updates.releaseRepository.length > 0
+                    text: qsTr("Source: %1").arg(root.updates.releaseRepository)
+                    color: Theme.textSecondary
+                    font.family: Theme.monoFamily
+                    font.pixelSize: 11
+                    elide: Text.ElideMiddle
+                    Layout.fillWidth: true
+                }
             }
         }
 
@@ -100,7 +109,7 @@ DialogFrame {
                       : qsTr("Update now")
                 tone: Theme.accentColor
                 filled: true
-                visible: root.updates.hasInstaller
+                visible: root.updates.hasPackage
                 enabled: !root.updates.downloading
                 onClicked: root.updates.downloadAndInstall()
             }
@@ -126,9 +135,9 @@ DialogFrame {
 
         Text {
             Layout.fillWidth: true
-            text: qsTr("«Update now» downloads the installer and opens it: DecoDXLog closes, because "
-                       + "an installer cannot replace the files of a program that is running. The log "
-                       + "and the settings stay where they are.")
+            text: qsTr("«Update now» downloads only the package compatible with this computer. On "
+                       + "Windows the installer starts, on macOS the disk image opens, and on Linux "
+                       + "the AppImage is updated when possible. The log and settings stay where they are.")
             color: Theme.textSecondary
             font.pixelSize: 11
             wrapMode: Text.Wrap

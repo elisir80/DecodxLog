@@ -11,7 +11,7 @@ on:
       tag:
         description: Release tag
         required: true
-        default: v1.7.2
+        default: v1.16.20
 
 permissions:
   contents: write
@@ -28,12 +28,14 @@ jobs:
             runner: macos-14
             arch: arm64
           - name: intel
-            runner: macos-13
+            runner: macos-15-intel
             arch: x86_64
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag }}
 
       - name: Install dependencies
         run: brew install cmake ninja qt qtkeychain openssl@3
@@ -48,7 +50,8 @@ jobs:
         run: |
           export PATH="$(brew --prefix qt)/bin:$PATH"
           macdeployqt build/DecoDXLog.app -qmldir=qml -qmldir=libs/decodium-ui/qml -verbose=1
-          version="${GITHUB_REF_NAME#v}"
+          version="${{ github.event.inputs.tag || github.ref_name }}"
+          version="${version#v}"
           mkdir -p release-assets
 
           while IFS= read -r -d '' item; do
