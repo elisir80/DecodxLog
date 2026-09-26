@@ -145,6 +145,21 @@ Richiede Qt ≥ 6.5 con Quick, QuickControls2, Sql (driver QSQLITE), Network, Te
 Per le credenziali: `pacman -S mingw-w64-x86_64-qtkeychain` (facoltativo: senza, DecoDXLog
 si compila ma non salva password). Nella distribuzione va incluso `libqt6keychain.dll`.
 
+## Rendering GPU/CPU
+
+Il rendering Qt Quick segue la stessa selezione di Decodium 4. `auto` usa Metal su macOS,
+D3D12 su Windows e lascia la scelta a Qt su Linux. Se una GPU Linux datata sceglie Vulkan
+con driver incompleti, si può forzare OpenGL oppure il renderer CPU:
+
+```sh
+./build/DecoDXLog.app/Contents/MacOS/DecoDXLog --graphics auto
+./build/DecoDXLog.app/Contents/MacOS/DecoDXLog --graphics opengl
+./build/DecoDXLog.app/Contents/MacOS/DecoDXLog --graphics software
+```
+
+Sono disponibili anche `--disable-gpu`, `--software-renderer` e `--safe-graphics`.
+La modalità completa e il fallback automatico sono descritti in [docs/GRAPHICS.md](docs/GRAPHICS.md).
+
 ## Cartella distribuibile (Windows)
 
 ```sh
