@@ -190,6 +190,9 @@ ApplicationWindow {
                                     .filter(function (k) { return k !== key }).join(",")
     }
     function closePanel(key) {
+        if (window.panelStateTransition)
+            return
+        window.panelStateTransition = true
         // Chiuso e' chiuso: se era in finestra, la finestra sparisce.
         layout.detachedPanels = window.panelListOf(layout.detachedPanels)
                                       .filter(function (k) { return k !== key }).join(",")
@@ -198,32 +201,45 @@ ApplicationWindow {
         const hidden = window.panelListOf(layout.hiddenPanels)
         if (hidden.indexOf(key) < 0)
             layout.hiddenPanels = hidden.concat([key]).join(",")
+        window.finishPanelStateTransition()
     }
     function detachPanel(key) {
+        if (window.panelStateTransition)
+            return
+        window.panelStateTransition = true
         window.showPanel(key)
         const detached = window.panelListOf(layout.detachedPanels)
         if (detached.indexOf(key) < 0)
             layout.detachedPanels = detached.concat([key]).join(",")
         if (key === "rotor")
             window.openRotor()
+        window.finishPanelStateTransition()
     }
     function attachPanel(key) {
+        if (window.panelStateTransition)
+            return
+        window.panelStateTransition = true
         layout.detachedPanels = window.panelListOf(layout.detachedPanels)
                                       .filter(function (k) { return k !== key }).join(",")
         if (key === "rotor")
             rotorWindow.active = false
         window.showPanel(key)
+        window.finishPanelStateTransition()
     }
     function togglePanel(key) {
         if (window.isPanelHidden(key)) window.showPanel(key)
         else window.closePanel(key)
     }
     function resetPanels() {
+        if (window.panelStateTransition)
+            return
+        window.panelStateTransition = true
         layout.hiddenPanels = ""
         layout.detachedPanels = ""
         layout.layoutLocked = false
         mainBoard.resetLayout()
         window.syncDetachedWindows()
+        window.finishPanelStateTransition()
     }
 
     // ── Azioni comuni a barra, scorciatoie e pannelli ───────────────────────
@@ -1079,6 +1095,17 @@ ApplicationWindow {
     // da DecoDXLog riportava dentro tutti i pannelli e la volta dopo li si
     // ritrovava nella finestra principale.
     property bool quitting: false
+    // Cambiare detachedPanels distrugge/crea delegate di Instantiator. Durante
+    // quella transizione onClosing della finestra nativa puo' arrivare di
+    // nuovo e riagganciare subito il pannello appena staccato (o viceversa).
+    // Il guard evita che una singola azione venga applicata due volte.
+    property bool panelStateTransition: false
+    property bool syncingDetachedWindows: false
+
+    function finishPanelStateTransition() {
+        Qt.callLater(function () { window.panelStateTransition = false })
+    }
+
     Connections {
         target: Qt.application
         function onAboutToQuit() { window.quitting = true }
@@ -1091,6 +1118,7 @@ ApplicationWindow {
     }
 
     function syncDetachedWindows() {
+        window.syncingDetachedWindows = true
         const wanted = window.panelListOf(layout.detachedPanels)
                              .filter(function (key) { return key !== "rotor" })
         if (window.isPanelDetached("rotor"))
@@ -1112,6 +1140,7 @@ ApplicationWindow {
             if (!there)
                 detachedModel.append({key: wanted[j]})
         }
+        Qt.callLater(function () { window.syncingDetachedWindows = false })
     }
 
     Connections {
@@ -1151,7 +1180,7 @@ ApplicationWindow {
             // chiudersi e' tutto il programma, la finestra si chiude lo stesso e
             // quello non e' un riaggancio: prima tornavano dentro tutti.
             onClosing: {
-                if (window.quitting)
+                if (window.quitting || window.panelStateTransition || window.syncingDetachedWindows)
                     return
                 if (window.isWindowOnly(panelKey))
                     window.closePanel(panelKey)

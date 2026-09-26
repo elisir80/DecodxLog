@@ -25,6 +25,11 @@ GlassPanel {
     property var spots: []
     property var coastline: []
     property int revision: 0
+    // Canvas su Vulkan/Mesa vecchio puo' lasciare il render thread in attesa
+    // indefinita, soprattutto dentro KDE. Su Linux usiamo una tela immagine
+    // renderizzata nel thread GUI e poi caricata nella scena: il resto
+    // dell'interfaccia continua a usare il backend Qt Quick selezionato.
+    readonly property bool linuxSafeCanvas: Qt.platform.os === "linux"
 
     function reloadSpots() {
         spots = root.showSpots ? decolog.cluster.mapSpots() : []
@@ -46,8 +51,17 @@ GlassPanel {
     // su una tela sua, e uno spot nuovo o un nominativo scelto ridisegnano solo
     // quella di sopra.
     function repaintAll() {
-        background.requestPaint()
-        canvas.requestPaint()
+        if (!repaintThrottle.running)
+            repaintThrottle.start()
+    }
+
+    Timer {
+        id: repaintThrottle
+        interval: 0
+        onTriggered: {
+            background.requestPaint()
+            canvas.requestPaint()
+        }
     }
 
     title: qsTr("Map")
@@ -145,7 +159,8 @@ GlassPanel {
             id: background
             anchors.fill: parent
             anchors.margins: 1
-            renderStrategy: Canvas.Cooperative
+            renderTarget: root.linuxSafeCanvas ? Canvas.Image : Canvas.FramebufferObject
+            renderStrategy: root.linuxSafeCanvas ? Canvas.Immediate : Canvas.Cooperative
             onWidthChanged: requestPaint()
             onHeightChanged: requestPaint()
 
@@ -230,7 +245,8 @@ GlassPanel {
             id: canvas
             anchors.fill: parent
             anchors.margins: 1
-            renderStrategy: Canvas.Cooperative
+            renderTarget: root.linuxSafeCanvas ? Canvas.Image : Canvas.FramebufferObject
+            renderStrategy: root.linuxSafeCanvas ? Canvas.Immediate : Canvas.Cooperative
 
             function px(lon) { return (lon + 180) / 360 * width }
             function py(lat) { return (90 - lat) / 180 * height }

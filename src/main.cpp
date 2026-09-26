@@ -120,9 +120,24 @@ GraphicsSelection configureGraphicsEnvironment(int argc, char* argv[])
     }
 
     // Un ambiente Qt gia' impostato dall'utente ha precedenza quando non e'
-    // stata chiesta una modalita' DecoDXLog esplicita.
+    // stata chiesta una modalita' DecoDXLog esplicita. Su Linux, pero', non
+    // lasciamo passare Vulkan alla cieca: alcune GPU Mesa vecchie (in
+    // particolare Ivy Bridge) pubblicizzano Vulkan ma il percorso Qt Quick
+    // puo' bloccare la GUI quando viene aperta la mappa. Vulkan resta opt-in
+    // con DECODXLOG_ALLOW_VULKAN=1 oppure con --graphics vulkan.
     const bool externalQtBackend = qEnvironmentVariableIsSet("QSG_RHI_BACKEND")
         || qEnvironmentVariableIsSet("QT_QUICK_BACKEND");
+#if defined(Q_OS_LINUX)
+    const bool allowLinuxVulkan = qEnvironmentVariableIntValue("DECODXLOG_ALLOW_VULKAN") != 0;
+    const QByteArray externalRhiBackend = normalizedGraphicsBackend(qgetenv("QSG_RHI_BACKEND"));
+    if (!commandLineSelection && backend.isEmpty() && externalRhiBackend == "vulkan"
+        && !allowLinuxVulkan) {
+        qputenv("QSG_RHI_BACKEND", "opengl");
+        qunsetenv("QT_QUICK_BACKEND");
+        graphicsStartupLog("Vulkan esterno ignorato su Linux; uso OpenGL (per abilitarlo: DECODXLOG_ALLOW_VULKAN=1)");
+        return {QByteArrayLiteral("opengl"), false};
+    }
+#endif
     if (!commandLineSelection && backend.isEmpty() && externalQtBackend) {
         graphicsStartupLog("backend Qt preso dall'ambiente del processo");
         return {};
@@ -143,15 +158,13 @@ GraphicsSelection configureGraphicsEnvironment(int argc, char* argv[])
             graphicsStartupLog("auto -> D3D12");
         }
 #else
-        // Su Linux lasciamo scegliere Qt: su una macchina problematica si puo'
-        // evitare Vulkan con --graphics opengl, senza penalizzare le GPU sane.
-        if (commandLineSelection) {
-            qunsetenv("QSG_RHI_BACKEND");
-            qunsetenv("QT_QUICK_BACKEND");
-            graphicsStartupLog("auto -> selezione Qt su Linux");
-        } else {
-            graphicsStartupLog("auto -> selezione Qt su Linux");
-        }
+        // OpenGL e' il percorso piu' compatibile per Qt Quick su Linux. Il
+        // chiamante puo' chiedere esplicitamente Vulkan con --graphics vulkan
+        // oppure DECODXLOG_ALLOW_VULKAN=1 nell'ambiente di Qt.
+        qunsetenv("QT_QUICK_BACKEND");
+        qputenv("QSG_RHI_BACKEND", "opengl");
+        graphicsStartupLog("auto -> OpenGL su Linux (Vulkan solo con opt-in esplicito)");
+        return {QByteArrayLiteral("opengl"), commandLineSelection};
 #endif
         return {QByteArrayLiteral("auto"), commandLineSelection};
     }

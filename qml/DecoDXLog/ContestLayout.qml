@@ -501,7 +501,12 @@ Item {
         // Un clic in qualsiasi punto porta il pannello davanti: il clic poi
         // prosegue verso quello che c'e' sotto (un pulsante, una riga).
         MouseArea {
-            anchors.fill: parent
+            // L'overlay serve solo a portare avanti il pannello quando si
+            // clicca nel corpo. Se copre anche la testata, su alcune versioni
+            // di Qt il click viene propagato in modo non deterministico ai
+            // pulsanti aggancia/chiudi: escludiamo esplicitamente la testata.
+            anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+            y: Theme.panelHeight
             z: 999
             acceptedButtons: Qt.LeftButton | Qt.RightButton
             onPressed: (mouse) => {

@@ -148,8 +148,9 @@ si compila ma non salva password). Nella distribuzione va incluso `libqt6keychai
 ## Rendering GPU/CPU
 
 Il rendering Qt Quick segue la stessa selezione di Decodium 4. `auto` usa Metal su macOS,
-D3D12 su Windows e lascia la scelta a Qt su Linux. Se una GPU Linux datata sceglie Vulkan
-con driver incompleti, si può forzare OpenGL oppure il renderer CPU:
+D3D12 su Windows e OpenGL su Linux: su GPU Linux datate è il percorso più compatibile con
+Qt Quick e con la mappa. Vulkan resta disponibile come scelta esplicita quando il driver è
+stabile. Se serve, si può usare anche il renderer CPU:
 
 ```sh
 ./build/DecoDXLog.app/Contents/MacOS/DecoDXLog --graphics auto

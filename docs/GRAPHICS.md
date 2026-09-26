@@ -8,7 +8,7 @@ per tutte le finestre QML.
 
 | Modalità | Backend | Uso |
 | --- | --- | --- |
-| `auto` | Metal su macOS, D3D12 su Windows, scelta Qt su Linux | avvio normale |
+| `auto` | Metal su macOS, D3D12 su Windows, OpenGL su Linux | avvio normale e compatibile |
 | `opengl` | OpenGL / RHI | fallback consigliato su Linux con Vulkan/Mesa problematico |
 | `vulkan` | Vulkan / RHI | solo con driver Vulkan stabili |
 | `metal` | Metal / RHI | macOS |
@@ -39,9 +39,14 @@ Sono disponibili anche gli alias `--disable-gpu`, `--software-renderer` e
 ```sh
 DECODXLOG_GRAPHICS_BACKEND=opengl ./DecoDXLog
 DECODXLOG_GRAPHICS_BACKEND=software ./DecoDXLog
+# Linux: Vulkan solo se il driver e' verificato
+./DecoDXLog --graphics vulkan
+# In alternativa, conserva un QSG_RHI_BACKEND=vulkan gia' impostato
+QSG_RHI_BACKEND=vulkan DECODXLOG_ALLOW_VULKAN=1 ./DecoDXLog
 ```
 
 Il programma scrive nel terminale l'API realmente attivata. Se il scene graph
 non riesce a inizializzarsi, riapre automaticamente il programma con il backend
-successivo: su Windows `D3D12 → D3D11 → software`, su Linux `Vulkan/auto →
-OpenGL → software`, su macOS `Metal → software`.
+successivo: su Windows `D3D12 → D3D11 → software`, su Linux `OpenGL → software`,
+su macOS `Metal → software`. La mappa usa inoltre un Canvas CPU-safe su Linux,
+cosi' l'apertura non dipende dal percorso Vulkan/FBO della GPU.
