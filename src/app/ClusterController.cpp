@@ -1,4 +1,5 @@
 #include "app/ClusterController.h"
+#include "../StartupTrace.h"
 
 #include <QElapsedTimer>
 
@@ -344,6 +345,7 @@ QString ClusterController::postSpot(const QString& call, const QString& freqKhz,
 
 void ClusterController::rebuildIndex()
 {
+    decolog::StartupSpan trace("ClusterController::rebuildIndex");
     if (!m_ctx.db || !m_ctx.db->isOpen())
         return;
     bool lotw = true, card = true, eqsl = false;

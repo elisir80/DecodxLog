@@ -1,4 +1,5 @@
 #include "app/ActivationController.h"
+#include "../StartupTrace.h"
 
 #include "core/Awards.h"
 #include "core/Cabrillo.h"
@@ -554,6 +555,7 @@ QString ActivationController::contestName(const QString& id) const
 
 QVariantMap ActivationController::score() const
 {
+    decolog::StartupSpan trace("ActivationController::score");
     if (!m_score.valid)
         buildScore();
     return m_score.score;

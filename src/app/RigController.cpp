@@ -1,4 +1,5 @@
 #include "app/RigController.h"
+#include "../StartupTrace.h"
 
 #include "core/QslUpload.h"
 
@@ -532,6 +533,7 @@ void RigController::setBaud(int baud)
 
 QVariantList RigController::rigModels()
 {
+    decolog::StartupSpan trace("Hamlib rigModels");
     if (!m_models.isEmpty())
         return m_models;
     const QString exe = core::qsl::findRigctld();
@@ -589,6 +591,7 @@ QStringList RigController::serialPorts() const
 
 QStringList RigController::audioInputs() const
 {
+    decolog::StartupSpan trace("QMediaDevices::audioInputs");
     QStringList out;
     for (const QAudioDevice& device : QMediaDevices::audioInputs())
         out << device.description();

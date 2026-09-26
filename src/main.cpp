@@ -1,6 +1,7 @@
 // DecoDXLog — il log di stazione della famiglia Decodium.
 
 #include "CrashLog.h"
+#include "StartupTrace.h"
 #include "app/DecoLogController.h"
 #include "core/Dates.h"
 #include "ThemeManager.h"
@@ -406,13 +407,16 @@ void bringForwardTheOldName()
 
 int main(int argc, char* argv[])
 {
+    decolog::startupTrace("main entered");
     // I menu li disegna DecoDXLog, non Windows. Da Qt 6.8 i menu di QML possono
     // diventare menu nativi del sistema: quelli non sanno niente del tema e su
     // uno sfondo scuro scrivono nero su nero — sottomenu, tendine e il menu del
     // tasto destro dentro i campi di testo diventavano illeggibili.
     QCoreApplication::setAttribute(Qt::AA_DontUseNativeMenuWindows);
     const GraphicsSelection graphicsSelection = configureGraphicsEnvironment(argc, argv);
+    decolog::startupTrace("QGuiApplication begin");
     QGuiApplication app(argc, argv);
+    decolog::startupTrace("QGuiApplication ready; fonts begin");
 #if defined(Q_OS_MACOS)
     const QStringList uiFontCandidates = {QStringLiteral("SF Pro Text"), QStringLiteral("Helvetica Neue"), QStringLiteral("Arial")};
 #elif defined(Q_OS_WIN)
@@ -421,6 +425,7 @@ int main(int argc, char* argv[])
     const QStringList uiFontCandidates = {QStringLiteral("Noto Sans"), QStringLiteral("DejaVu Sans"), QStringLiteral("Liberation Sans")};
 #endif
     const QStringList installedFonts = QFontDatabase::families();
+    decolog::startupTrace("fonts ready");
     for (const QString& family : uiFontCandidates) {
         if (installedFonts.contains(family)) {
             app.setFont(QFont(family));
@@ -608,8 +613,11 @@ int main(int argc, char* argv[])
         dbPath = QDir(dir).filePath(QStringLiteral("decodxlog.sqlite"));
     }
 
+    decolog::startupTrace("controller begin");
     decolog::app::DecoLogController controller;
+    decolog::startupTrace("controller ready; database begin");
     controller.openDatabase(dbPath);
+    decolog::startupTrace("database ready; services begin");
     if (parser.isSet(portOption))
         controller.overrideUdpPort(parser.value(portOption).toInt());
     controller.startListening();
@@ -687,7 +695,9 @@ int main(int argc, char* argv[])
     if (parser.isSet(importOption))
         controller.importAdif(QUrl::fromLocalFile(parser.value(importOption)));
 
+    decolog::startupTrace("services ready; QML engine begin");
     QQmlApplicationEngine engine;
+    decolog::startupTrace("QML engine ready");
 
     QByteArray activeGraphicsBackend = graphicsSelection.backend;
     if (activeGraphicsBackend.isEmpty()) {
@@ -787,11 +797,14 @@ int main(int argc, char* argv[])
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed, &app,
                      [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
     engine.rootContext()->setContextProperty(QStringLiteral("startupShow"), parser.value(showOption));
+    decolog::startupTrace("QML load begin");
     engine.loadFromModule(QStringLiteral("DecoDXLog"), QStringLiteral("Main"));
+    decolog::startupTrace("QML load done");
     const QList<QQuickWindow*> windows = quickWindows(engine);
     if (!windows.isEmpty())
         logQuickWindowGraphics(windows.constFirst(), "dopo engine.load");
     QTimer::singleShot(0, &app, [&engine] {
+        decolog::startupTrace("event loop responding");
         const QList<QQuickWindow*> currentWindows = quickWindows(engine);
         if (!currentWindows.isEmpty())
             logQuickWindowGraphics(currentWindows.constFirst(), "event loop start");
