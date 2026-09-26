@@ -172,6 +172,8 @@ ApplicationWindow {
         return window.isPanelDocked(key)
     }
     function panelState(key) {
+        if (key === "cluster")
+            return clusterWindow.active ? qsTr("window") : qsTr("closed")
         return window.isPanelHidden(key) ? qsTr("closed")
              : window.isPanelDetached(key) ? qsTr("window") : qsTr("docked")
     }
@@ -183,6 +185,10 @@ ApplicationWindow {
     // Il pannello staccato per primo spariva dall'elenco con la finestra
     // ancora aperta, e da li' venivano le finestre orfane.
     function showPanel(key) {
+        if (key === "cluster") {
+            window.openCluster(0)
+            return
+        }
         // Riaperto, sta davanti agli altri.
         if (window.boardKeys.indexOf(key) >= 0)
             mainBoard.raiseKey(key)
@@ -198,6 +204,8 @@ ApplicationWindow {
                                       .filter(function (k) { return k !== key }).join(",")
         if (key === "rotor")
             rotorWindow.active = false
+        if (key === "cluster")
+            clusterWindow.active = false
         const hidden = window.panelListOf(layout.hiddenPanels)
         if (hidden.indexOf(key) < 0)
             layout.hiddenPanels = hidden.concat([key]).join(",")
@@ -227,6 +235,11 @@ ApplicationWindow {
         window.finishPanelStateTransition()
     }
     function togglePanel(key) {
+        if (key === "cluster") {
+            if (clusterWindow.active) window.closePanel(key)
+            else window.showPanel(key)
+            return
+        }
         if (window.isPanelHidden(key)) window.showPanel(key)
         else window.closePanel(key)
     }
@@ -637,6 +650,10 @@ ApplicationWindow {
         }
     }
     function openCluster(tab) {
+        // Il cluster e' una finestra, ma deve comunque avere uno stato unico
+        // nel menu Pannelli: dopo una chiusura la voce deve poterla riaprire.
+        layout.hiddenPanels = window.panelListOf(layout.hiddenPanels)
+                                    .filter(function (k) { return k !== "cluster" }).join(",")
         clusterWindow.tab = tab
         clusterWindow.active = true
         if (clusterWindow.item) {
@@ -1201,9 +1218,12 @@ ApplicationWindow {
     // ── Il menu dei pannelli ────────────────────────────────────────────────
     Popup {
         id: panelsPopup
-        // Una finestra sua: in modalita' contest resta sopra le finestre della
-        // gara invece di aprirsi sotto.
-        popupType: Popup.Window
+        // Deve restare nell'overlay della finestra principale. Popup.Window
+        // crea una QWindow separata che su alcune combinazioni Qt/KDE finisce
+        // dietro la finestra principale: il menu sembra aperto, ma i suoi
+        // comandi non sono raggiungibili. Item mantiene coordinate e input
+        // nello stesso scene graph dei pannelli.
+        popupType: Popup.Item
         parent: Overlay.overlay
         x: window.width - width - 16
         y: 72
@@ -1238,16 +1258,24 @@ ApplicationWindow {
             // disposizione di tutti i giorni, che in gara e' spenta, e i clic
             // non facevano niente.
             Repeater {
-                model: window.contestModeOn ? contestLayout.allKeys : window.panelKeys
+                // Fuori dalla gara score/rate/contest sono pannelli contest-only
+                // e non hanno una casella nella lavagna. Il cluster e' invece
+                // una finestra propria, ma resta qui con lo stesso stato del
+                // comando Cluster in alto, cosi' si puo' riaprire dopo una X.
+                model: window.contestModeOn ? contestLayout.allKeys
+                                             : window.boardKeys.concat(["cluster"])
                 delegate: Rectangle {
                     id: panelRow
                     required property string modelData
                     readonly property bool closed: window.contestModeOn
                                                    ? !contestLayout.isShown(panelRow.modelData)
-                                                   : window.isPanelHidden(panelRow.modelData)
+                                                   : panelRow.modelData === "cluster"
+                                                     ? !clusterWindow.active
+                                                     : window.isPanelHidden(panelRow.modelData)
                     readonly property bool floating: window.contestModeOn
                                                      ? contestLayout.isFloating(panelRow.modelData)
-                                                     : window.isPanelDetached(panelRow.modelData)
+                                                     : panelRow.modelData === "cluster"
+                                                       ? false : window.isPanelDetached(panelRow.modelData)
                     Layout.fillWidth: true
                     implicitHeight: 26
                     radius: 4
@@ -1290,11 +1318,14 @@ ApplicationWindow {
                                     if (panelRow.closed)
                                         contestLayout.setShown(panelRow.modelData, true)
                                     contestLayout.setFloating(panelRow.modelData, !panelRow.floating)
+                                } else if (panelRow.modelData === "cluster") {
+                                    window.togglePanel(panelRow.modelData)
                                 } else if (panelRow.floating) {
                                     window.attachPanel(panelRow.modelData)
                                 } else {
                                     window.detachPanel(panelRow.modelData)
                                 }
+                                panelsPopup.close()
                             }
                         }
                     }
@@ -1305,8 +1336,13 @@ ApplicationWindow {
                         anchors.rightMargin: 24
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
-                        onClicked: window.contestModeOn ? contestLayout.toggle(panelRow.modelData)
-                                                        : window.togglePanel(panelRow.modelData)
+                        onClicked: {
+                            if (window.contestModeOn)
+                                contestLayout.toggle(panelRow.modelData)
+                            else
+                                window.togglePanel(panelRow.modelData)
+                            panelsPopup.close()
+                        }
                     }
                 }
             }
