@@ -104,7 +104,13 @@ void LogLibrary::setCurrent(const QString& path)
 QVariantList LogLibrary::logs() const
 {
     QList<Entry> sorted = m_entries;
-    std::sort(sorted.begin(), sorted.end(), [](const Entry& a, const Entry& b) {
+    std::sort(sorted.begin(), sorted.end(), [this](const Entry& a, const Entry& b) {
+        // Il log corrente deve sempre stare in cima. lastUsed puo' coincidere
+        // su Windows quando due operazioni avvengono nello stesso tick.
+        const bool aCurrent = canonical(a.path) == m_current;
+        const bool bCurrent = canonical(b.path) == m_current;
+        if (aCurrent != bCurrent)
+            return aCurrent;
         return a.lastUsed > b.lastUsed;
     });
     QVariantList out;
