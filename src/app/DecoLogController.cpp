@@ -154,6 +154,10 @@ QVariantMap positionMap(const std::optional<maidenhead::LatLon>& p)
 DecoLogController::DecoLogController(QObject* parent)
     : QObject(parent)
 {
+    // Register before QML observers: a notification must expose fresh data.
+    connect(this, &DecoLogController::logChanged, this, [this] {
+        m_gridPointsValid = false;
+    });
     QSettings s;
     m_udpPort = s.value(QStringLiteral("udp/port"), 2237).toInt();
     m_multicast = s.value(QStringLiteral("udp/multicastGroup")).toString();
@@ -495,6 +499,8 @@ void DecoLogController::refreshStatsInBackground()
 
 bool DecoLogController::openDatabase(const QString& path)
 {
+    m_gridPointsValid = false;
+    m_gridPointsCache.clear();
     const bool ok = m_db.open(path);
     // L'elenco dei log si tiene aggiornato da solo: quello che si apre entra
     // nell'elenco e diventa il piu' recente.
@@ -2843,12 +2849,18 @@ QVariantList DecoLogController::statsBandHour(const QString& mode, int year) con
 
 QVariantList DecoLogController::gridPoints() const
 {
+    // QML sequence access can call this getter for each marker/element.
+    // Never run a full SQLite scan on each property read, including empty logs.
+    if (m_gridPointsValid)
+        return m_gridPointsCache;
     QVariantList out;
     for (const QString& grid : m_db.workedGrids()) {
         if (const auto p = maidenhead::toLatLon(grid))
             out << positionMap(p);
     }
-    return out;
+    m_gridPointsCache = out;
+    m_gridPointsValid = true;
+    return m_gridPointsCache;
 }
 
 void DecoLogController::setLookupCall(const QString& call)
