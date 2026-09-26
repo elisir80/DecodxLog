@@ -495,6 +495,14 @@
         <translation>Descarcă confirmările LoTW</translation>
     </message>
     <message>
+        <source>LoTW from… to…</source>
+        <translation>LoTW de la… la…</translation>
+    </message>
+    <message>
+        <source>Confirmations of the QSOs made in this period</source>
+        <translation>Confirmările QSO-urilor făcute în această perioadă</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>QSL pe hârtie (%1)</translation>
     </message>
@@ -1162,6 +1170,13 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Save rule</source>
         <translation>Salvează regula</translation>
+    </message>
+</context>
+<context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -1952,6 +1967,65 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
 </context>
 <context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>DXCC nou</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>DXCC nou în bandă</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>Continent nou</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>Continent nou în bandă</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>Zonă CQ nouă</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>Zonă CQ nouă în bandă</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>Zonă ITU nouă</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>Zonă ITU nouă în bandă</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>Locator nou</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>Locator nou în bandă</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>Indicativ nou</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>Indicativ nou în bandă</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>Confirmat pe LoTW</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (lucrat)</translation>
+    </message>
+</context>
+<context>
     <name>LogbookPanel</name>
     <message>
         <source>confirmed</source>
@@ -2413,6 +2487,21 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>LoTW: unexpected answer</source>
         <translation>LoTW: răspuns neașteptat</translation>
+    </message>
+</context>
+<context>
+    <name>LotwRangeRow</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSO de la</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>la</translation>
+    </message>
+    <message>
+        <source>Download this period</source>
+        <translation>Descarcă această perioadă</translation>
     </message>
 </context>
 <context>
@@ -4178,16 +4267,16 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Deschide ▾</translation>
     </message>
     <message>
-        <source>STOP</source>
-        <translation>OPREȘTE</translation>
+        <source>Point to the DX · %1 %2°</source>
+        <translation>Spre DX · %1 %2°</translation>
     </message>
     <message>
-        <source>Park</source>
-        <translation>Park</translation>
+        <source>Point to the DX</source>
+        <translation>Spre DX</translation>
     </message>
     <message>
-        <source>On the DX</source>
-        <translation>Pe DX</translation>
+        <source>Pick a spot in the cluster, or a call: its bearing comes here by itself</source>
+        <translation>Alege un spot din cluster sau un indicativ: direcția lui apare aici singură</translation>
     </message>
 </context>
 <context>
@@ -4706,6 +4795,22 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Aceleași teme, accente și densități ca în Decodium: rând %1 px · literă %2 px · antet %3 px.</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>Culorile rândurilor din log</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>Ce a adus QSO-ul</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Culorile Decodium</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Fiecare QSO primește prima categorie pe care a adus-o, în această ordine: un DXCC nou câștigă în fața unei zone noi, o zonă nouă în fața unui locator nou. Primul comutator colorează textul, al doilea fundalul rândului.</translation>
     </message>
     <message>
         <source>%1 · connected</source>
@@ -5354,6 +5459,46 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Cu Decodium deschis, portul CAT al stației este deja ocupat, iar o punte CAT nu poate manipula. Aici DecoDXLog manipulează singur: ridică DTR sau RTS pe un port al lui — cel legat la circuitul de manipulare — așa că Decodium păstrează CAT-ul, iar macrourile pleacă oricum în eter. Lasă portul pe „niciunul” ca să manipulezi prin CAT ca înainte.</translation>
+    </message>
+    <message>
+        <source>The control box, directly (built-in gateway)</source>
+        <translation>Cutia de comandă, direct (gateway integrat)</translation>
+    </message>
+    <message>
+        <source>Control box port</source>
+        <translation>Portul cutiei de comandă</translation>
+    </message>
+    <message>
+        <source>Control box</source>
+        <translation>Control box</translation>
+    </message>
+    <message>
+        <source>Simulated</source>
+        <translation>Simulat</translation>
+    </message>
+    <message>
+        <source>App port (WebSocket)</source>
+        <translation>Portul aplicației (WebSocket)</translation>
+    </message>
+    <message>
+        <source>Web page port</source>
+        <translation>Portul paginii web</translation>
+    </message>
+    <message>
+        <source>rotctld port</source>
+        <translation>Port rotctld</translation>
+    </message>
+    <message>
+        <source>Take them from DecoRotor</source>
+        <translation>Preia-le din DecoRotor</translation>
+    </message>
+    <message>
+        <source>Ports in use by another program (is DecoRotor still running?): %1</source>
+        <translation>Porturi ocupate de alt program (mai rulează DecoRotor?): %1</translation>
+    </message>
+    <message>
+        <source>DecoDXLog itself opens the serial port of the PRO.SIS.TEL control box and does what DecoRotor did: the phone app, the web page and the station programs (rotctld: N1MM+, Log4OM, PstRotator…) connect to this computer on the same ports as before. Close DecoRotor first: the serial port and the ports can have only one owner. The stations on the app map come from Decodium and the cluster, through DecoDXLog.</source>
+        <translation>DecoDXLog deschide singur portul serial al cutiei de comandă PRO.SIS.TEL și face ce făcea DecoRotor: aplicația de pe telefon, pagina web și programele de stație (rotctld: N1MM+, Log4OM, PstRotator…) se conectează la acest calculator pe aceleași porturi ca înainte. Închide mai întâi DecoRotor: portul serial și porturile pot avea un singur stăpân. Stațiile de pe harta aplicației vin din Decodium și din cluster, prin DecoDXLog.</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -6537,8 +6682,16 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>%1 → %2 (%3 MB)</translation>
     </message>
     <message>
+        <source>LoTW: the period starts after it ends</source>
+        <translation>LoTW: perioada începe după ce se termină</translation>
+    </message>
+    <message>
         <source>LoTW: add username and password in Setup → QSL services</source>
         <translation>LoTW: pune numele de utilizator și parola la Setări → Servicii QSL</translation>
+    </message>
+    <message>
+        <source>LoTW: downloading the confirmations of the QSOs from %1 to %2…</source>
+        <translation>LoTW: descarc confirmările QSO-urilor de la %1 la %2…</translation>
     </message>
     <message>
         <source>LoTW: downloading all confirmations…</source>
@@ -7223,6 +7376,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Rotor spre %1</translation>
     </message>
     <message>
+        <source>Rotor: %1</source>
+        <translation>Rotor: %1</translation>
+    </message>
+    <message>
         <source>%1 s</source>
         <translation>%1 s</translation>
     </message>
@@ -7255,6 +7412,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Rotor: memoria „%1” la %2°</translation>
     </message>
     <message>
+        <source>Simulated control box, starting…</source>
+        <translation>Cutie simulată, pornire…</translation>
+    </message>
+    <message>
+        <source>Opening the control box on %1…</source>
+        <translation>Deschid cutia de comandă pe %1…</translation>
+    </message>
+    <message>
         <source>rotctld does not do locators: point in degrees</source>
         <translation>rotctld nu știe locatoare: arată în grade</translation>
     </message>
@@ -7269,6 +7434,18 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Rotor: park</source>
         <translation>Rotor: park</translation>
+    </message>
+    <message>
+        <source>Rotor: settings taken from DecoRotor (%1)</source>
+        <translation>Rotor: setări preluate din DecoRotor (%1)</translation>
+    </message>
+    <message>
+        <source>Rotor: DecoRotor&apos;s config.json not found</source>
+        <translation>Rotor: config.json al DecoRotor nu a fost găsit</translation>
+    </message>
+    <message>
+        <source>Detect by itself</source>
+        <translation>Detectează singur</translation>
     </message>
 </context>
 <context>

@@ -430,6 +430,8 @@ void ClusterController::onSpot(const Spot& spot)
     bool isNew = false;
     const EnrichedSpot& stored = m_model.add(enrich(spot), &isNew);
     const EnrichedSpot e = stored;   // copia: le regole possono toccare il modello
+    if (m_ctx.spotSeen)
+        m_ctx.spotSeen(e);
     checkRules(e, isNew);
 }
 
@@ -544,6 +546,7 @@ void ClusterController::tune(const QString& spotKey)
     if (!e)
         return;
     emit spotPicked(e->spot.dxCall, e->spot.band, e->spot.mode, e->spot.freqKhz);
+    emit spotAimed(e->spot.dxCall, e->hasPosition, e->lat, e->lon, e->azimuth);
     if (m_ctx.lookup)
         m_ctx.lookup(e->spot.dxCall);
 
@@ -605,6 +608,7 @@ void ClusterController::lookupSpot(const QString& spotKey)
     if (!e)
         return;
     emit spotPicked(e->spot.dxCall, e->spot.band, e->spot.mode, e->spot.freqKhz);
+    emit spotAimed(e->spot.dxCall, e->hasPosition, e->lat, e->lon, e->azimuth);
     if (m_ctx.lookup)
         m_ctx.lookup(e->spot.dxCall);
 }

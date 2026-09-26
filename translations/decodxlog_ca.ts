@@ -493,6 +493,14 @@
         <translation>Baixa les confirmacions de LoTW</translation>
     </message>
     <message>
+        <source>LoTW from… to…</source>
+        <translation>LoTW del… al…</translation>
+    </message>
+    <message>
+        <source>Confirmations of the QSOs made in this period</source>
+        <translation>Confirmacions dels QSO fets en aquest període</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>QSL de paper (%1)</translation>
     </message>
@@ -1160,6 +1168,13 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Save rule</source>
         <translation>Desa la regla</translation>
+    </message>
+</context>
+<context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>D&apos;acord</translation>
     </message>
 </context>
 <context>
@@ -1949,6 +1964,65 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
 </context>
 <context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>Nou DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>Nou DXCC en banda</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>Nou Continent</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>Nou Continent en banda</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>Nova Zona CQ</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>Nova Zona CQ en banda</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>Nova Zona ITU</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>Nova Zona ITU en banda</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>Nou Locator</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>Nou Locator en banda</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>Nou callsign</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>Nou callsign a la banda</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>Confirmat a LoTW</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (Treballat)</translation>
+    </message>
+</context>
+<context>
     <name>LogbookPanel</name>
     <message>
         <source>confirmed</source>
@@ -2408,6 +2482,21 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>LoTW: unexpected answer</source>
         <translation>LoTW: resposta inesperada</translation>
+    </message>
+</context>
+<context>
+    <name>LotwRangeRow</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSO del</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>al</translation>
+    </message>
+    <message>
+        <source>Download this period</source>
+        <translation>Descarrega aquest període</translation>
     </message>
 </context>
 <context>
@@ -4170,16 +4259,16 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Obre ▾</translation>
     </message>
     <message>
-        <source>STOP</source>
-        <translation>STOP</translation>
+        <source>Point to the DX · %1 %2°</source>
+        <translation>Apunta al DX · %1 %2°</translation>
     </message>
     <message>
-        <source>Park</source>
-        <translation>Aparca</translation>
+        <source>Point to the DX</source>
+        <translation>Apunta al DX</translation>
     </message>
     <message>
-        <source>On the DX</source>
-        <translation>Cap al DX</translation>
+        <source>Pick a spot in the cluster, or a call: its bearing comes here by itself</source>
+        <translation>Tria un spot del clúster o un indicatiu: el seu rumb arriba aquí sol</translation>
     </message>
 </context>
 <context>
@@ -4697,6 +4786,22 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Els mateixos temes, accents i densitats que Decodium: fila %1 px · lletra %2 px · capçalera %3 px.</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>Colors de les files del log</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>El que va aportar el QSO</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Colors de Decodium</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Cada QSO pren la primera categoria que va aportar, en aquest ordre: un DXCC nou guanya una zona nova, una zona nova un locator nou. El primer interruptor acoloreix el text, el segon el fons de la fila.</translation>
     </message>
     <message>
         <source>%1 · connected</source>
@@ -5344,6 +5449,46 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Amb Decodium obert, el port CAT de la ràdio ja està ocupat, i un pont CAT no pot manipular. Aquí DecoDXLog manipula ell mateix: aixeca DTR o RTS en un port propi — el que va cablejat al circuit de manipulació — així Decodium es queda el CAT i les macros surten igualment. Deixa el port a «cap» per manipular pel CAT com abans.</translation>
+    </message>
+    <message>
+        <source>The control box, directly (built-in gateway)</source>
+        <translation>La caixa de control, directament (passarel·la integrada)</translation>
+    </message>
+    <message>
+        <source>Control box port</source>
+        <translation>Port de la caixa</translation>
+    </message>
+    <message>
+        <source>Control box</source>
+        <translation>Control box</translation>
+    </message>
+    <message>
+        <source>Simulated</source>
+        <translation>Simulat</translation>
+    </message>
+    <message>
+        <source>App port (WebSocket)</source>
+        <translation>Port de l&apos;app (WebSocket)</translation>
+    </message>
+    <message>
+        <source>Web page port</source>
+        <translation>Port de la pàgina web</translation>
+    </message>
+    <message>
+        <source>rotctld port</source>
+        <translation>Port rotctld</translation>
+    </message>
+    <message>
+        <source>Take them from DecoRotor</source>
+        <translation>Agafa&apos;ls de DecoRotor</translation>
+    </message>
+    <message>
+        <source>Ports in use by another program (is DecoRotor still running?): %1</source>
+        <translation>Ports ocupats per un altre programa (DecoRotor encara funciona?): %1</translation>
+    </message>
+    <message>
+        <source>DecoDXLog itself opens the serial port of the PRO.SIS.TEL control box and does what DecoRotor did: the phone app, the web page and the station programs (rotctld: N1MM+, Log4OM, PstRotator…) connect to this computer on the same ports as before. Close DecoRotor first: the serial port and the ports can have only one owner. The stations on the app map come from Decodium and the cluster, through DecoDXLog.</source>
+        <translation>DecoDXLog obre ell mateix el port sèrie de la caixa PRO.SIS.TEL i fa el que feia DecoRotor: l&apos;app del mòbil, la pàgina web i els programes d&apos;estació (rotctld: N1MM+, Log4OM, PstRotator…) es connecten a aquest ordinador als mateixos ports que abans. Tanca abans DecoRotor: el port sèrie i els ports només poden tenir un amo. Les estacions del mapa de l&apos;app arriben de Decodium i del clúster, a través de DecoDXLog.</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -6514,8 +6659,16 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>%1 → %2 (%3 MB)</translation>
     </message>
     <message>
+        <source>LoTW: the period starts after it ends</source>
+        <translation>LoTW: el període comença després d&apos;acabar</translation>
+    </message>
+    <message>
         <source>LoTW: add username and password in Setup → QSL services</source>
         <translation>LoTW: posa el nom d&apos;usuari i la contrasenya a Configuració → Serveis QSL</translation>
+    </message>
+    <message>
+        <source>LoTW: downloading the confirmations of the QSOs from %1 to %2…</source>
+        <translation>LoTW: descarregant les confirmacions dels QSO del %1 al %2…</translation>
     </message>
     <message>
         <source>LoTW: downloading all confirmations…</source>
@@ -7182,6 +7335,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Rotor cap a %1</translation>
     </message>
     <message>
+        <source>Rotor: %1</source>
+        <translation>Rotor: %1</translation>
+    </message>
+    <message>
         <source>%1 s</source>
         <translation>%1 s</translation>
     </message>
@@ -7214,6 +7371,14 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Rotor: memòria &quot;%1&quot; a %2°</translation>
     </message>
     <message>
+        <source>Simulated control box, starting…</source>
+        <translation>Caixa simulada, engegant…</translation>
+    </message>
+    <message>
+        <source>Opening the control box on %1…</source>
+        <translation>Obrint la caixa a %1…</translation>
+    </message>
+    <message>
         <source>rotctld does not do locators: point in degrees</source>
         <translation>el rotctld no entén els locators: apunta en graus</translation>
     </message>
@@ -7228,6 +7393,18 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Rotor: park</source>
         <translation>Rotor: aparca</translation>
+    </message>
+    <message>
+        <source>Rotor: settings taken from DecoRotor (%1)</source>
+        <translation>Rotor: configuració presa de DecoRotor (%1)</translation>
+    </message>
+    <message>
+        <source>Rotor: DecoRotor&apos;s config.json not found</source>
+        <translation>Rotor: no s&apos;ha trobat el config.json de DecoRotor</translation>
+    </message>
+    <message>
+        <source>Detect by itself</source>
+        <translation>Detecta-ho sol</translation>
     </message>
 </context>
 <context>

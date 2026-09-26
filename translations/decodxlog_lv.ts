@@ -495,6 +495,14 @@
         <translation>Lejupielādēt LoTW apstiprinājumus</translation>
     </message>
     <message>
+        <source>LoTW from… to…</source>
+        <translation>LoTW no… līdz…</translation>
+    </message>
+    <message>
+        <source>Confirmations of the QSOs made in this period</source>
+        <translation>Šajā periodā veikto QSO apstiprinājumi</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Papīra QSL (%1)</translation>
     </message>
@@ -1162,6 +1170,13 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Save rule</source>
         <translation>Saglabāt noteikumu</translation>
+    </message>
+</context>
+<context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>Labi</translation>
     </message>
 </context>
 <context>
@@ -1952,6 +1967,65 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>Jauns DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>New DXCC on Band</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>New Continent</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>New Continent on Band</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>New CQ Zone</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>New CQ Zone on Band</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>New ITU Zone</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>New ITU Zone on Band</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>New Grid</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>New Grid on Band</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>Jauns izsaukums</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>Jauns izsaukums joslā</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>Apstiprināts LoTW</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (Strādāts)</translation>
+    </message>
+</context>
+<context>
     <name>LogbookPanel</name>
     <message>
         <source>confirmed</source>
@@ -2413,6 +2487,21 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>LoTW: unexpected answer</source>
         <translation>LoTW: negaidīta atbilde</translation>
+    </message>
+</context>
+<context>
+    <name>LotwRangeRow</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSO no</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>līdz</translation>
+    </message>
+    <message>
+        <source>Download this period</source>
+        <translation>Lejupielādēt šo periodu</translation>
     </message>
 </context>
 <context>
@@ -4178,16 +4267,16 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Atvērt ▾</translation>
     </message>
     <message>
-        <source>STOP</source>
-        <translation>STOP</translation>
+        <source>Point to the DX · %1 %2°</source>
+        <translation>Pagriezt uz DX · %1 %2°</translation>
     </message>
     <message>
-        <source>Park</source>
-        <translation>Novietot</translation>
+        <source>Point to the DX</source>
+        <translation>Pagriezt uz DX</translation>
     </message>
     <message>
-        <source>On the DX</source>
-        <translation>Uz DX</translation>
+        <source>Pick a spot in the cluster, or a call: its bearing comes here by itself</source>
+        <translation>Izvēlies spotu klasterī vai izsaukuma signālu: tā virziens parādīsies šeit pats</translation>
     </message>
 </context>
 <context>
@@ -4706,6 +4795,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Tās pašas tēmas, akcenti un blīvumi kā Decodium: rinda %1 px · burts %2 px · galvene %3 px.</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>Žurnāla rindu krāsas</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>Ko QSO atnesa</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Decodium krāsas</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Katrs QSO saņem pirmo kategoriju, ko tas atnesa, šādā secībā: jauns DXCC ir svarīgāks par jaunu zonu, jauna zona par jaunu lokatoru. Pirmais slēdzis iekrāso tekstu, otrais rindas fonu.</translation>
     </message>
     <message>
         <source>%1 · connected</source>
@@ -5354,6 +5459,46 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Kad Decodium ir atvērts, radio CAT ports jau ir aizņemts, un CAT tilts manipulēt nevar. Šeit DecoDXLog manipulē pats: tas savā portā — tajā, kas pievienots manipulēšanas ķēdei — paceļ DTR vai RTS, tāpēc CAT paliek Decodium, un makro tik un tā aiziet ēterā. Atstāj portu uz „nav”, lai manipulētu caur CAT kā agrāk.</translation>
+    </message>
+    <message>
+        <source>The control box, directly (built-in gateway)</source>
+        <translation>Vadības kārba, tieši (iebūvētā vārteja)</translation>
+    </message>
+    <message>
+        <source>Control box port</source>
+        <translation>Vadības kārbas ports</translation>
+    </message>
+    <message>
+        <source>Control box</source>
+        <translation>Control box</translation>
+    </message>
+    <message>
+        <source>Simulated</source>
+        <translation>Simulēts</translation>
+    </message>
+    <message>
+        <source>App port (WebSocket)</source>
+        <translation>Lietotnes ports (WebSocket)</translation>
+    </message>
+    <message>
+        <source>Web page port</source>
+        <translation>Tīmekļa lapas ports</translation>
+    </message>
+    <message>
+        <source>rotctld port</source>
+        <translation>rotctld ports</translation>
+    </message>
+    <message>
+        <source>Take them from DecoRotor</source>
+        <translation>Paņemt no DecoRotor</translation>
+    </message>
+    <message>
+        <source>Ports in use by another program (is DecoRotor still running?): %1</source>
+        <translation>Portus aizņem cita programma (vai DecoRotor vēl darbojas?): %1</translation>
+    </message>
+    <message>
+        <source>DecoDXLog itself opens the serial port of the PRO.SIS.TEL control box and does what DecoRotor did: the phone app, the web page and the station programs (rotctld: N1MM+, Log4OM, PstRotator…) connect to this computer on the same ports as before. Close DecoRotor first: the serial port and the ports can have only one owner. The stations on the app map come from Decodium and the cluster, through DecoDXLog.</source>
+        <translation>DecoDXLog pats atver PRO.SIS.TEL vadības kārbas seriālo portu un dara to, ko darīja DecoRotor: tālruņa lietotne, tīmekļa lapa un stacijas programmas (rotctld: N1MM+, Log4OM, PstRotator…) pieslēdzas šim datoram tajos pašos portos kā iepriekš. Vispirms aizver DecoRotor: seriālajam portam un portiem var būt tikai viens saimnieks. Stacijas lietotnes kartē nāk no Decodium un klastera caur DecoDXLog.</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -6537,8 +6682,16 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>%1 → %2 (%3 MB)</translation>
     </message>
     <message>
+        <source>LoTW: the period starts after it ends</source>
+        <translation>LoTW: periods sākas pēc beigām</translation>
+    </message>
+    <message>
         <source>LoTW: add username and password in Setup → QSL services</source>
         <translation>LoTW: ieraksti lietotājvārdu un paroli sadaļā Iestatījumi → QSL pakalpojumi</translation>
+    </message>
+    <message>
+        <source>LoTW: downloading the confirmations of the QSOs from %1 to %2…</source>
+        <translation>LoTW: lejupielādē QSO apstiprinājumus no %1 līdz %2…</translation>
     </message>
     <message>
         <source>LoTW: downloading all confirmations…</source>
@@ -7223,6 +7376,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Rotors uz %1</translation>
     </message>
     <message>
+        <source>Rotor: %1</source>
+        <translation>Rotors: %1</translation>
+    </message>
+    <message>
         <source>%1 s</source>
         <translation>%1 s</translation>
     </message>
@@ -7255,6 +7412,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Rotors: atmiņa „%1” uz %2°</translation>
     </message>
     <message>
+        <source>Simulated control box, starting…</source>
+        <translation>Simulēta vadības kārba startē…</translation>
+    </message>
+    <message>
+        <source>Opening the control box on %1…</source>
+        <translation>Atveru vadības kārbu uz %1…</translation>
+    </message>
+    <message>
         <source>rotctld does not do locators: point in degrees</source>
         <translation>rotctld lokatorus neprot: norādi grādos</translation>
     </message>
@@ -7269,6 +7434,18 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Rotor: park</source>
         <translation>Rotors: novietot</translation>
+    </message>
+    <message>
+        <source>Rotor: settings taken from DecoRotor (%1)</source>
+        <translation>Rotors: iestatījumi ņemti no DecoRotor (%1)</translation>
+    </message>
+    <message>
+        <source>Rotor: DecoRotor&apos;s config.json not found</source>
+        <translation>Rotors: DecoRotor config.json nav atrasts</translation>
+    </message>
+    <message>
+        <source>Detect by itself</source>
+        <translation>Noteikt pašam</translation>
     </message>
 </context>
 <context>

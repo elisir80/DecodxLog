@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.16.14
+    VERSION 1.16.19
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -79,7 +79,11 @@ add_library(decolog_core STATIC
     src/core/CwDecoder.cpp
     src/core/CwKeyer.cpp
     src/core/CwKeyer.h
+    src/core/Prosistel.cpp
+    src/core/Prosistel.h
     src/core/RigControl.cpp
+    src/core/RotorGateway.cpp
+    src/core/RotorGateway.h
     src/core/RigLink.h
     src/core/TciControl.cpp
     src/core/TciControl.h
@@ -128,6 +132,12 @@ qt_add_resources(decolog_core "cty"
     PREFIX "/decolog"
     BASE resources/cty
     FILES resources/cty/cty.csv
+)
+# La pagina web del gateway del rotore (quella di DecoRotor), servita sulla 8080.
+qt_add_resources(decolog_core "decorotor"
+    PREFIX "/decorotor"
+    BASE resources/decorotor
+    FILES resources/decorotor/index.html
 )
 target_include_directories(decolog_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 # Qt6::Gui serve alle etichette QSL: QPdfWriter e QPainter stanno li' dentro, e
@@ -232,6 +242,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/StationProfilesDialog.qml
     qml/DecoDXLog/SetupDialog.qml
     qml/DecoDXLog/LogbookWindow.qml
+    qml/DecoDXLog/LotwRangeRow.qml
     qml/DecoDXLog/CwPanel.qml
     qml/DecoDXLog/OnScreen.qml
     qml/DecoDXLog/PanelWindow.qml
@@ -244,6 +255,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/LogsDialog.qml
     qml/DecoDXLog/ContestLayout.qml
     qml/DecoDXLog/ColumnsDialog.qml
+    qml/DecoDXLog/ColorSwatch.qml
     qml/DecoDXLog/ContestSubmitDialog.qml
     qml/DecoDXLog/ContestEntryPanel.qml
     qml/DecoDXLog/ContestScorePanel.qml
@@ -368,7 +380,7 @@ set_target_properties(decolog PROPERTIES
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

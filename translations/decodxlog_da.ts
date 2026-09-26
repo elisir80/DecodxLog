@@ -493,6 +493,14 @@
         <translation>Hent LoTW-bekræftelser</translation>
     </message>
     <message>
+        <source>LoTW from… to…</source>
+        <translation>LoTW fra… til…</translation>
+    </message>
+    <message>
+        <source>Confirmations of the QSOs made in this period</source>
+        <translation>Bekræftelser af QSO&apos;er fra denne periode</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Papir-QSL (%1)</translation>
     </message>
@@ -1160,6 +1168,13 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Save rule</source>
         <translation>Gem regel</translation>
+    </message>
+</context>
+<context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -1949,6 +1964,65 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>Nyt DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>Nyt DXCC på bånd</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>Nyt kontinent</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>Nyt kontinent på bånd</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>Ny CQ Zone</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>Ny CQ Zone på bånd</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>Ny ITU Zone</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>Ny ITU Zone på bånd</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>Ny Grid Lokator</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>Ny Grid lokator på bånd</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>Nyt callsign</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>Nyt callsign på bånd</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>Bekræftet på LoTW</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (Worked)</translation>
+    </message>
+</context>
+<context>
     <name>LogbookPanel</name>
     <message>
         <source>confirmed</source>
@@ -2408,6 +2482,21 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>LoTW: unexpected answer</source>
         <translation>LoTW: uventet svar</translation>
+    </message>
+</context>
+<context>
+    <name>LotwRangeRow</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSO&apos;er fra</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>til</translation>
+    </message>
+    <message>
+        <source>Download this period</source>
+        <translation>Hent denne periode</translation>
     </message>
 </context>
 <context>
@@ -4170,16 +4259,16 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Åbn ▾</translation>
     </message>
     <message>
-        <source>STOP</source>
-        <translation>STOP</translation>
+        <source>Point to the DX · %1 %2°</source>
+        <translation>Peg på DX · %1 %2°</translation>
     </message>
     <message>
-        <source>Park</source>
-        <translation>Park</translation>
+        <source>Point to the DX</source>
+        <translation>Peg på DX</translation>
     </message>
     <message>
-        <source>On the DX</source>
-        <translation>Mod DX&apos;en</translation>
+        <source>Pick a spot in the cluster, or a call: its bearing comes here by itself</source>
+        <translation>Vælg et spot i clusteret eller et kaldesignal: retningen kommer her af sig selv</translation>
     </message>
 </context>
 <context>
@@ -4697,6 +4786,22 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Samme temaer, accenter og tætheder som Decodium: række %1 px · skrift %2 px · overskrift %3 px.</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>Farver på logrækker</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>Hvad QSO&apos;en bragte</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Decodium-farver</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Hver QSO får den første kategori, den bragte, i denne rækkefølge: en ny DXCC går forud for en ny zone, en ny zone for en ny lokator. Den første kontakt farver teksten, den anden rækkens baggrund.</translation>
     </message>
     <message>
         <source>%1 · connected</source>
@@ -5344,6 +5449,46 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Med Decodium åben er radioens CAT-port allerede optaget, og en CAT-bro kan ikke nøgle. Her nøgler DecoDXLog selv: den hæver DTR eller RTS på sin egen port — den, der er trukket til nøglekredsen — så Decodium beholder CAT&apos;en, og makroerne går i luften alligevel. Lad porten stå på &quot;ingen&quot; for at nøgle gennem CAT&apos;en som før.</translation>
+    </message>
+    <message>
+        <source>The control box, directly (built-in gateway)</source>
+        <translation>Styreboksen, direkte (indbygget gateway)</translation>
+    </message>
+    <message>
+        <source>Control box port</source>
+        <translation>Styreboksens port</translation>
+    </message>
+    <message>
+        <source>Control box</source>
+        <translation>Control box</translation>
+    </message>
+    <message>
+        <source>Simulated</source>
+        <translation>Simuleret</translation>
+    </message>
+    <message>
+        <source>App port (WebSocket)</source>
+        <translation>App-port (WebSocket)</translation>
+    </message>
+    <message>
+        <source>Web page port</source>
+        <translation>Websidens port</translation>
+    </message>
+    <message>
+        <source>rotctld port</source>
+        <translation>rotctld-port</translation>
+    </message>
+    <message>
+        <source>Take them from DecoRotor</source>
+        <translation>Hent dem fra DecoRotor</translation>
+    </message>
+    <message>
+        <source>Ports in use by another program (is DecoRotor still running?): %1</source>
+        <translation>Porte optaget af et andet program (kører DecoRotor stadig?): %1</translation>
+    </message>
+    <message>
+        <source>DecoDXLog itself opens the serial port of the PRO.SIS.TEL control box and does what DecoRotor did: the phone app, the web page and the station programs (rotctld: N1MM+, Log4OM, PstRotator…) connect to this computer on the same ports as before. Close DecoRotor first: the serial port and the ports can have only one owner. The stations on the app map come from Decodium and the cluster, through DecoDXLog.</source>
+        <translation>DecoDXLog åbner selv den serielle port på PRO.SIS.TEL-styreboksen og gør det, DecoRotor gjorde: telefon-appen, websiden og stationsprogrammerne (rotctld: N1MM+, Log4OM, PstRotator…) forbinder til denne computer på de samme porte som før. Luk først DecoRotor: den serielle port og portene kan kun have én ejer. Stationerne på appens kort kommer fra Decodium og clusteret, gennem DecoDXLog.</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -6514,8 +6659,16 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>%1 → %2 (%3 MB)</translation>
     </message>
     <message>
+        <source>LoTW: the period starts after it ends</source>
+        <translation>LoTW: perioden starter efter den slutter</translation>
+    </message>
+    <message>
         <source>LoTW: add username and password in Setup → QSL services</source>
         <translation>LoTW: skriv brugernavn og adgangskode under Indstillinger → QSL-tjenester</translation>
+    </message>
+    <message>
+        <source>LoTW: downloading the confirmations of the QSOs from %1 to %2…</source>
+        <translation>LoTW: henter bekræftelserne af QSO&apos;erne fra %1 til %2…</translation>
     </message>
     <message>
         <source>LoTW: downloading all confirmations…</source>
@@ -7182,6 +7335,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Rotor til %1</translation>
     </message>
     <message>
+        <source>Rotor: %1</source>
+        <translation>Rotor: %1</translation>
+    </message>
+    <message>
         <source>%1 s</source>
         <translation>%1 s</translation>
     </message>
@@ -7214,6 +7371,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Rotor: hukommelsen &quot;%1&quot; på %2°</translation>
     </message>
     <message>
+        <source>Simulated control box, starting…</source>
+        <translation>Simuleret styreboks starter…</translation>
+    </message>
+    <message>
+        <source>Opening the control box on %1…</source>
+        <translation>Åbner styreboksen på %1…</translation>
+    </message>
+    <message>
         <source>rotctld does not do locators: point in degrees</source>
         <translation>rotctld kan ikke locatorer: peg i grader</translation>
     </message>
@@ -7228,6 +7393,18 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Rotor: park</source>
         <translation>Rotor: park</translation>
+    </message>
+    <message>
+        <source>Rotor: settings taken from DecoRotor (%1)</source>
+        <translation>Rotor: indstillinger hentet fra DecoRotor (%1)</translation>
+    </message>
+    <message>
+        <source>Rotor: DecoRotor&apos;s config.json not found</source>
+        <translation>Rotor: DecoRotors config.json blev ikke fundet</translation>
+    </message>
+    <message>
+        <source>Detect by itself</source>
+        <translation>Genkend selv</translation>
     </message>
 </context>
 <context>

@@ -37,6 +37,50 @@ class TestQsoModel : public QObject {
     Q_OBJECT
 
 private slots:
+    // Le categorie delle righe, come i colori di Decodium 4.
+    void rowCategories()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        auto add = [&db](const char* call, const char* date, const char* band, const char* dxcc,
+                         const char* grid = "", bool lotw = false) {
+            AdifRecord r{{"CALL", call}, {"QSO_DATE", date}, {"TIME_ON", "1200"}, {"BAND", band}, {"MODE", "FT8"},
+                         {"DXCC", dxcc}};
+            if (*grid)
+                r.set("GRIDSQUARE", grid);
+            if (lotw)
+                r.set("LOTW_QSL_RCVD", "Y");
+            return db.insertQso(r, "import").id;
+        };
+        const qint64 first = add("K1ABC", "20260101", "20m", "291", "FN42");
+        const qint64 sameBand = add("W1AW", "20260102", "20m", "291", "FN42");
+        const qint64 newBand = add("W1AW", "20260103", "40m", "291", "FN42");
+        const qint64 again = add("W1AW", "20260104", "40m", "291", "FN42", true);
+        const qint64 repeat = add("W1AW", "20260105", "40m", "291", "FN42");
+        QsoTableModel m(&db);
+        auto category = [&m](qint64 id) {
+            for (int r = 0; r < m.count(); ++r) {
+                const QModelIndex i = m.index(r, 0);
+                if (m.data(i, QsoTableModel::IdRole).toLongLong() == id)
+                    return m.data(i, QsoTableModel::CategoryRole).toString();
+            }
+            return QString();
+        };
+        QCOMPARE(category(first), QString("colorNewDxcc"));
+        QCOMPARE(category(sameBand), QString("colorNewCall"));
+        QCOMPARE(category(newBand), QString("colorNewDxccBand"));
+        QCOMPARE(category(again), QString("colorLotwConfirmed"));
+        QCOMPARE(category(repeat), QString("colorB4"));
+
+        // Un QSO nuovo in fondo: la sua categoria si conta da sola.
+        const qint64 fresh = add("JA1XX", "20260106", "15m", "339", "PM95");
+        m.insertQso(fresh);
+        QCOMPARE(category(fresh), QString("colorNewDxcc"));
+        const qint64 fresh2 = add("JA1YY", "20260107", "15m", "339", "PM96");
+        m.insertQso(fresh2);
+        QCOMPARE(category(fresh2), QString("colorNewGrid"));
+    }
+
     void filters()
     {
         LogDatabase db;

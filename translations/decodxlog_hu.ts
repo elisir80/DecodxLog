@@ -491,6 +491,14 @@
         <translation>LoTW-igazolások letöltése</translation>
     </message>
     <message>
+        <source>LoTW from… to…</source>
+        <translation>LoTW ettől… eddig…</translation>
+    </message>
+    <message>
+        <source>Confirmations of the QSOs made in this period</source>
+        <translation>Az ebben az időszakban készült QSO-k visszaigazolásai</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Papír QSL (%1)</translation>
     </message>
@@ -1158,6 +1166,13 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Save rule</source>
         <translation>Szabály mentése</translation>
+    </message>
+</context>
+<context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -1946,6 +1961,65 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>Új DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>Új DXCC a Sávban</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>Új Kontinens</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>Új Kontinens a Sávban</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>Új CQ Zóna</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>Új CQ Zóna a Sávban</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>Új ITU Zóna</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>Új ITU Zóna a Sávban</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>Új QRA</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>Új QRA a Sávban</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>Új hívójel</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>Új hívójel sávon</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>LoTW-n visszaigazolva</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (Dolgozva)</translation>
+    </message>
+</context>
+<context>
     <name>LogbookPanel</name>
     <message>
         <source>confirmed</source>
@@ -2403,6 +2477,21 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>LoTW: unexpected answer</source>
         <translation>LoTW: váratlan válasz</translation>
+    </message>
+</context>
+<context>
+    <name>LotwRangeRow</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSO-k ettől</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>eddig</translation>
+    </message>
+    <message>
+        <source>Download this period</source>
+        <translation>Időszak letöltése</translation>
     </message>
 </context>
 <context>
@@ -4162,16 +4251,16 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Megnyitás ▾</translation>
     </message>
     <message>
-        <source>STOP</source>
-        <translation>STOP</translation>
+        <source>Point to the DX · %1 %2°</source>
+        <translation>Irány a DX · %1 %2°</translation>
     </message>
     <message>
-        <source>Park</source>
-        <translation>Parkolás</translation>
+        <source>Point to the DX</source>
+        <translation>Irány a DX</translation>
     </message>
     <message>
-        <source>On the DX</source>
-        <translation>A DX-re</translation>
+        <source>Pick a spot in the cluster, or a call: its bearing comes here by itself</source>
+        <translation>Válassz egy spotot a clusterben vagy egy hívójelet: az iránya magától ide kerül</translation>
     </message>
 </context>
 <context>
@@ -4688,6 +4777,22 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Ugyanazok a témák, kiemelőszínek és sűrűségek, mint a Decodiumban: sor %1 px · betű %2 px · fejléc %3 px.</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>A napló sorainak színei</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>Amit a QSO hozott</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Decodium színek</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Minden QSO az első kategóriát kapja, amit hozott, ebben a sorrendben: az új DXCC megelőzi az új zónát, az új zóna az új lokátort. Az első kapcsoló a szöveget színezi, a második a sor hátterét.</translation>
     </message>
     <message>
         <source>%1 · connected</source>
@@ -5334,6 +5439,46 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Ha a Decodium nyitva van, a rádió CAT-portja már foglalt, és egy CAT-híd nem tud manipulálni. Itt a DecoDXLog maga manipulál: a saját portján húzza a DTR-t vagy az RTS-t — azon, amelyik a manipuláló áramkörre van kötve —, így a CAT a Decodiumé marad, a makrók mégis adásba mennek. Hagyd a portot „nincs” állapotban, ha a CAT-on át akarsz manipulálni, mint eddig.</translation>
+    </message>
+    <message>
+        <source>The control box, directly (built-in gateway)</source>
+        <translation>A vezérlődoboz, közvetlenül (beépített átjáró)</translation>
+    </message>
+    <message>
+        <source>Control box port</source>
+        <translation>A vezérlődoboz portja</translation>
+    </message>
+    <message>
+        <source>Control box</source>
+        <translation>Control box</translation>
+    </message>
+    <message>
+        <source>Simulated</source>
+        <translation>Szimulált</translation>
+    </message>
+    <message>
+        <source>App port (WebSocket)</source>
+        <translation>Az app portja (WebSocket)</translation>
+    </message>
+    <message>
+        <source>Web page port</source>
+        <translation>A weboldal portja</translation>
+    </message>
+    <message>
+        <source>rotctld port</source>
+        <translation>rotctld port</translation>
+    </message>
+    <message>
+        <source>Take them from DecoRotor</source>
+        <translation>Átvétel a DecoRotorból</translation>
+    </message>
+    <message>
+        <source>Ports in use by another program (is DecoRotor still running?): %1</source>
+        <translation>Más program által foglalt portok (fut még a DecoRotor?): %1</translation>
+    </message>
+    <message>
+        <source>DecoDXLog itself opens the serial port of the PRO.SIS.TEL control box and does what DecoRotor did: the phone app, the web page and the station programs (rotctld: N1MM+, Log4OM, PstRotator…) connect to this computer on the same ports as before. Close DecoRotor first: the serial port and the ports can have only one owner. The stations on the app map come from Decodium and the cluster, through DecoDXLog.</source>
+        <translation>A DecoDXLog maga nyitja meg a PRO.SIS.TEL vezérlődoboz soros portját, és azt teszi, amit a DecoRotor tett: a telefonos app, a weboldal és az állomásprogramok (rotctld: N1MM+, Log4OM, PstRotator…) ugyanazokon a portokon csatlakoznak ehhez a géphez, mint eddig. Előbb zárd be a DecoRotort: a soros portnak és a portoknak csak egy gazdája lehet. Az app térképén az állomások a Decodiumból és a clusterből jönnek, a DecoDXLogon keresztül.</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -6491,8 +6636,16 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>%1 → %2 (%3 MB)</translation>
     </message>
     <message>
+        <source>LoTW: the period starts after it ends</source>
+        <translation>LoTW: az időszak a vége után kezdődik</translation>
+    </message>
+    <message>
         <source>LoTW: add username and password in Setup → QSL services</source>
         <translation>LoTW: add meg a felhasználónevet és a jelszót a Beállítások → QSL-szolgáltatások alatt</translation>
+    </message>
+    <message>
+        <source>LoTW: downloading the confirmations of the QSOs from %1 to %2…</source>
+        <translation>LoTW: a QSO-k visszaigazolásainak letöltése %1 és %2 között…</translation>
     </message>
     <message>
         <source>LoTW: downloading all confirmations…</source>
@@ -7141,6 +7294,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Forgató ide: %1</translation>
     </message>
     <message>
+        <source>Rotor: %1</source>
+        <translation>Forgató: %1</translation>
+    </message>
+    <message>
         <source>%1 s</source>
         <translation>%1 s</translation>
     </message>
@@ -7173,6 +7330,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Forgató: „%1” memória %2°-on</translation>
     </message>
     <message>
+        <source>Simulated control box, starting…</source>
+        <translation>Szimulált vezérlődoboz indul…</translation>
+    </message>
+    <message>
+        <source>Opening the control box on %1…</source>
+        <translation>A vezérlődoboz megnyitása itt: %1…</translation>
+    </message>
+    <message>
         <source>rotctld does not do locators: point in degrees</source>
         <translation>a rotctld nem ismeri a lokátorokat: fokban adj irányt</translation>
     </message>
@@ -7187,6 +7352,18 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Rotor: park</source>
         <translation>Forgató: parkolás</translation>
+    </message>
+    <message>
+        <source>Rotor: settings taken from DecoRotor (%1)</source>
+        <translation>Rotor: beállítások átvéve a DecoRotorból (%1)</translation>
+    </message>
+    <message>
+        <source>Rotor: DecoRotor&apos;s config.json not found</source>
+        <translation>Rotor: a DecoRotor config.json fájlja nem található</translation>
+    </message>
+    <message>
+        <source>Detect by itself</source>
+        <translation>Felismerés magától</translation>
     </message>
 </context>
 <context>

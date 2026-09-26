@@ -3,6 +3,72 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.19 — 26 settembre 2026
+
+**Le righe del log colorate come i decode di Decodium 4, e la foto del callbook in grande.**
+
+- Ogni QSO del log prende la prima cosa nuova che ha portato quando e' stato fatto: nuova
+  entita' DXCC (o sulla banda), nuovo continente, nuova zona CQ, nuova zona ITU, nuovo locatore,
+  nuovo nominativo (in assoluto o sulla banda), confermato su LoTW, oppure gia' lavorato (B4).
+  Come in Decodium 4, ogni categoria ha il colore del testo e, se si vuole, il fondo della riga:
+  si scelgono in Impostazioni → Tema e densita' → Colori delle righe del log, dalla tavolozza o
+  scrivendo il codice (#RRGGBB, o #AARRGGBB per un fondo trasparente). "Colori di Decodium"
+  rimette quelli di serie. Accesi di serie entita', continenti e zone; locatore, nominativo,
+  LoTW e B4 si accendono se li si vuole.
+- Nella scheda nominativo, col mouse sopra la foto del callbook compare la foto grande, 640x480.
+
+## 1.16.18 — 26 settembre 2026
+
+**Il pannello del rotore: quadrante grande al centro, i gradi e "Punta il DX".**
+
+- Nella finestra principale il pannello Rotore ha solo il quadrante, grande e centrato, i gradi
+  (e dove sta andando) e il pulsante "Punta il DX". Passi, STOP, park e il resto stanno nella
+  finestra del rotore (Apri ▾, Ctrl+R).
+- Scegliendo uno spot nel cluster (clic o doppio clic) il rotore ne prende subito la rotta, e il
+  pulsante la dice: "Punta il DX · VK9XX 98°". Vale anche per il nominativo nella scheda. Se il
+  QTH della stazione non c'e', la rotta si conta da quello del gateway del rotore.
+
+## 1.16.17 — 26 settembre 2026
+
+**Lo scarico da LoTW anche per un periodo: dal … al ….**
+
+- Accanto a "Scarica le conferme LoTW" (scheda Invio QSL) c'e' "LoTW dal… al…", e in
+  Impostazioni → Servizi QSL una riga con le due date: si scaricano le conferme dei QSO fatti
+  in quel periodo, estremi compresi. Una delle due date si puo' lasciare vuota (dal primo QSO,
+  o fino a oggi); si scrivono come nel resto del programma (in italiano gg/mm/aaaa).
+- Lo scarico per periodo non sposta il segno dell'ultimo scarico: "Sincronizza adesso"
+  riparte da dove era e non perde le conferme arrivate nel frattempo per gli altri QSO.
+
+## 1.16.16 — 26 settembre 2026
+
+**Il gateway del rotore e' dentro DecoDXLog: DecoRotor non serve piu'.**
+
+- In Impostazioni → Rotore, "Parla con" ha di serie "il control box, direttamente": DecoDXLog
+  apre da se' la seriale del control box PRO.SIS.TEL (control box D, azimut e/o elevazione, o
+  Combi-Track, anche riconosciuto da solo) e fa tutto quello che faceva DecoRotor: interroga
+  la posizione cinque volte al secondo, applica finecorsa, riposo, tolleranza, stop se il
+  rotore non si muove e stop se sparisce l'ultimo client durante un movimento.
+- Per il telefono e gli altri programmi non cambia niente: WebSocket 8765 per l'app (stesso
+  protocollo, memorie e configurazione a caldo comprese), pagina web e API REST sulla 8080,
+  riquadri della mappa satellitare in cache, rotctld di Hamlib sulla 4532 per N1MM+, Log4OM,
+  PstRotator e gli altri. Le stazioni sulla mappa dell'app arrivano da Decodium (decode e QSO
+  in corso) e dal cluster, attraverso DecoDXLog.
+- "Prendile da DecoRotor" legge il config.json di DecoRotor: porta, modello, porte, finecorsa
+  e memorie passano in DecoDXLog. C'e' anche il control box simulato, per provare senza rotore.
+- DecoRotor va chiuso: la seriale e le porte possono avere un solo padrone; se sono occupate,
+  DecoDXLog dice quali. Restano possibili anche DecoRotor a parte e un rotctld qualsiasi.
+
+## 1.16.15 — 25 settembre 2026
+
+**Il Nuovo QSO muove la radio.**
+
+- Come l'inserimento della gara: scegliendo la banda la radio
+  va li' (dove la si era lasciata in quel modo, o all'inizio del segmento del modo, piano IARU
+  Regione 1), scegliendo il modo cambia modo; la frequenza si scrive anche nel campo. Vale nel
+  pannello e nella finestra del nuovo QSO, con la radio (Hamlib o TCI) o con Decodium.
+- Al contrario, girando la manopola il pannello Nuovo QSO segue frequenza, banda e modo della
+  radio, e non solo quelli di Decodium.
+
 ## 1.16.14 — 25 settembre 2026
 
 Release di manutenzione con il codebase aggiornato e i pacchetti multipiattaforma.

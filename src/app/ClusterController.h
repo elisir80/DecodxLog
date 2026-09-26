@@ -78,6 +78,9 @@ public:
         // Mette il DX nel riquadro del QSO nuovo: nominativo, banda, modo,
         // frequenza. Da li' il callbook riempie nome, QTH e locatore.
         std::function<void(const QVariantMap& fields)> prepareQso;
+        // Ogni spot arrivato, gia' con entita' e posizione: il gateway del
+        // rotore lo mette sulla mappa dell'app.
+        std::function<void(const core::EnrichedSpot& spot)> spotSeen;
     };
 
     explicit ClusterController(Context context, QObject* parent = nullptr);
@@ -174,6 +177,8 @@ signals:
     // L'operatore ha scelto uno spot (clic o doppio clic): in gara il
     // nominativo, la banda e il modo vanno nell'inserimento veloce.
     void spotPicked(const QString& call, const QString& band, const QString& mode, double freqKhz);
+    // Lo stesso spot, con dove sta: il rotore ne prende la rotta.
+    void spotAimed(const QString& call, bool hasPosition, double lat, double lon, int azimuth);
 
 private:
     struct AlertRule {

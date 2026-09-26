@@ -491,6 +491,14 @@
         <translation>LoTW の確認を取り込む</translation>
     </message>
     <message>
+        <source>LoTW from… to…</source>
+        <translation>LoTW 期間指定…</translation>
+    </message>
+    <message>
+        <source>Confirmations of the QSOs made in this period</source>
+        <translation>この期間に行った QSO のコンファメーション</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>紙の QSL (%1)</translation>
     </message>
@@ -1158,6 +1166,13 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Save rule</source>
         <translation>決まりを保存</translation>
+    </message>
+</context>
+<context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -1946,6 +1961,65 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>新DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>バンドの新DXCC</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>新しい大陸</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>バンドの新しい大陸</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>新CQゾーン</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>バンドの新CQゾーン</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>新ITUゾーン</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>バンドで新ITUゾーン</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>新グリッド</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>バンドの新グリッド</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>新規 callsign</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>バンドで新規 callsign</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>LoTW でコンファーム済み</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (交信済み)</translation>
+    </message>
+</context>
+<context>
     <name>LogbookPanel</name>
     <message>
         <source>confirmed</source>
@@ -2403,6 +2477,21 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>LoTW: unexpected answer</source>
         <translation>LoTW: 思いがけない返事</translation>
+    </message>
+</context>
+<context>
+    <name>LotwRangeRow</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSO 開始日</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>終了日</translation>
+    </message>
+    <message>
+        <source>Download this period</source>
+        <translation>この期間をダウンロード</translation>
     </message>
 </context>
 <context>
@@ -4162,16 +4251,16 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>開く ▾</translation>
     </message>
     <message>
-        <source>STOP</source>
-        <translation>STOP</translation>
+        <source>Point to the DX · %1 %2°</source>
+        <translation>DX へ向ける · %1 %2°</translation>
     </message>
     <message>
-        <source>Park</source>
-        <translation>停める</translation>
+        <source>Point to the DX</source>
+        <translation>DX へ向ける</translation>
     </message>
     <message>
-        <source>On the DX</source>
-        <translation>DX に向ける</translation>
+        <source>Pick a spot in the cluster, or a call: its bearing comes here by itself</source>
+        <translation>クラスターのスポットかコールサインを選ぶと、その方位が自動でここに入ります</translation>
     </message>
 </context>
 <context>
@@ -4688,6 +4777,22 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Decodium と同じテーマ・アクセント・詰め具合です: 行 %1 px · 文字 %2 px · 見出し %3 px。</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>ログ行の色</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>その QSO がもたらしたもの</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Decodium の色</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>各 QSO は、もたらした最初のカテゴリーをこの順で受け取ります：新 DXCC は新ゾーンより、新ゾーンは新グリッドより優先されます。1 つ目のスイッチで文字、2 つ目で行の背景に色を付けます。</translation>
     </message>
     <message>
         <source>%1 · connected</source>
@@ -5334,6 +5439,46 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Decodium が開いていると、無線機の CAT ポートはもうふさがっていて、CAT の橋渡しでは電鍵を打てません。ここでは DecoDXLog 自身が打ちます。自分のポート — 電鍵の回路につないだほう — で DTR か RTS を上げるので、CAT は Decodium が持ったまま、マクロはちゃんと電波に乗ります。前と同じように CAT 越しに打つなら、ポートは「なし」のままに。</translation>
+    </message>
+    <message>
+        <source>The control box, directly (built-in gateway)</source>
+        <translation>コントロールボックスに直接（内蔵ゲートウェイ）</translation>
+    </message>
+    <message>
+        <source>Control box port</source>
+        <translation>コントロールボックスのポート</translation>
+    </message>
+    <message>
+        <source>Control box</source>
+        <translation>コントロールボックス</translation>
+    </message>
+    <message>
+        <source>Simulated</source>
+        <translation>シミュレーション</translation>
+    </message>
+    <message>
+        <source>App port (WebSocket)</source>
+        <translation>アプリのポート（WebSocket）</translation>
+    </message>
+    <message>
+        <source>Web page port</source>
+        <translation>Webページのポート</translation>
+    </message>
+    <message>
+        <source>rotctld port</source>
+        <translation>rotctld ポート</translation>
+    </message>
+    <message>
+        <source>Take them from DecoRotor</source>
+        <translation>DecoRotor から取り込む</translation>
+    </message>
+    <message>
+        <source>Ports in use by another program (is DecoRotor still running?): %1</source>
+        <translation>ほかのプログラムが使用中のポート（DecoRotor がまだ動いていませんか？）：%1</translation>
+    </message>
+    <message>
+        <source>DecoDXLog itself opens the serial port of the PRO.SIS.TEL control box and does what DecoRotor did: the phone app, the web page and the station programs (rotctld: N1MM+, Log4OM, PstRotator…) connect to this computer on the same ports as before. Close DecoRotor first: the serial port and the ports can have only one owner. The stations on the app map come from Decodium and the cluster, through DecoDXLog.</source>
+        <translation>DecoDXLog が自分で PRO.SIS.TEL コントロールボックスのシリアルポートを開き、DecoRotor がしていたことを行います。スマートフォンのアプリ、Webページ、局のプログラム（rotctld：N1MM+、Log4OM、PstRotator…）は、これまでと同じポートでこのコンピューターに接続します。先に DecoRotor を終了してください：シリアルポートと各ポートの持ち主は一つだけです。アプリの地図の局は、DecoDXLog を通じて Decodium とクラスターから届きます。</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -6491,8 +6636,16 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>%1 → %2 (%3 MB)</translation>
     </message>
     <message>
+        <source>LoTW: the period starts after it ends</source>
+        <translation>LoTW：期間の開始が終了より後です</translation>
+    </message>
+    <message>
         <source>LoTW: add username and password in Setup → QSL services</source>
         <translation>LoTW: 設定 → QSL のサービス に、ユーザー名とパスワードを入れてください</translation>
+    </message>
+    <message>
+        <source>LoTW: downloading the confirmations of the QSOs from %1 to %2…</source>
+        <translation>LoTW：%1 から %2 までの QSO のコンファメーションをダウンロード中…</translation>
     </message>
     <message>
         <source>LoTW: downloading all confirmations…</source>
@@ -7141,6 +7294,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>ローテーターを %1 へ</translation>
     </message>
     <message>
+        <source>Rotor: %1</source>
+        <translation>ローテーター: %1</translation>
+    </message>
+    <message>
         <source>%1 s</source>
         <translation>%1 秒</translation>
     </message>
@@ -7173,6 +7330,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>ローテーター: メモリー「%1」は %2°</translation>
     </message>
     <message>
+        <source>Simulated control box, starting…</source>
+        <translation>シミュレーションのコントロールボックスを起動中…</translation>
+    </message>
+    <message>
+        <source>Opening the control box on %1…</source>
+        <translation>%1 でコントロールボックスを開いています…</translation>
+    </message>
+    <message>
         <source>rotctld does not do locators: point in degrees</source>
         <translation>rotctld はグリッドを知りません。度で向けてください</translation>
     </message>
@@ -7187,6 +7352,18 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Rotor: park</source>
         <translation>ローテーター: 停める</translation>
+    </message>
+    <message>
+        <source>Rotor: settings taken from DecoRotor (%1)</source>
+        <translation>ローテーター：DecoRotor から設定を取り込みました（%1）</translation>
+    </message>
+    <message>
+        <source>Rotor: DecoRotor&apos;s config.json not found</source>
+        <translation>ローテーター：DecoRotor の config.json が見つかりません</translation>
+    </message>
+    <message>
+        <source>Detect by itself</source>
+        <translation>自動検出</translation>
     </message>
 </context>
 <context>

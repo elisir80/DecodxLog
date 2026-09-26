@@ -100,6 +100,29 @@ GlassPanel {
                     font.family: Theme.monoFamily
                     font.pixelSize: 10
                 }
+
+                // Col mouse sopra, la foto grande: 640x480, in una finestrella
+                // sua che puo' uscire dal pannello.
+                HoverHandler { id: photoHover; cursorShape: Qt.PointingHandCursor }
+                ToolTip {
+                    visible: photoHover.hovered && photo.status === Image.Ready
+                    delay: 250
+                    padding: 4
+                    popupType: Popup.Window
+                    background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 6 }
+                    contentItem: Item {
+                        implicitWidth: 640
+                        implicitHeight: 480
+                        Image {
+                            anchors.fill: parent
+                            source: photo.source
+                            fillMode: Image.PreserveAspectFit
+                            asynchronous: true
+                            sourceSize.width: 640
+                            sourceSize.height: 480
+                        }
+                    }
+                }
             }
 
             ColumnLayout {

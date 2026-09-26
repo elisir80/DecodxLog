@@ -7,6 +7,7 @@
 
 #include <QCoreApplication>
 #include <QDateTime>
+#include <QSet>
 #include <QSqlQuery>
 #include <QVariantMap>
 
@@ -215,6 +216,8 @@ QVariant QsoTableModel::data(const QModelIndex& index, int role) const
         return row.fresh;
     case ModeRole:
         return row.values[Mode];
+    case CategoryRole:
+        return m_category.value(row.id);
     default:
         return {};
     }
@@ -235,6 +238,7 @@ QHash<int, QByteArray> QsoTableModel::roleNames() const
         {ColumnKeyRole, "columnKey"},
         {IsNewRole, "isNew"},
         {ModeRole, "modeName"},
+        {CategoryRole, "rowCategory"},
     };
 }
 
@@ -423,6 +427,148 @@ QString QsoTableModel::valueFor(int row, const QString& key) const
     return extra >= 0 ? r.extra.value(extra) : QString();
 }
 
+QStringList QsoTableModel::categoryKeys()
+{
+    // In ordine di importanza: vince la prima che vale.
+    return {QStringLiteral("colorNewDxcc"), QStringLiteral("colorNewDxccBand"),
+            QStringLiteral("colorNewContinent"), QStringLiteral("colorNewContinentBand"),
+            QStringLiteral("colorNewCqZone"), QStringLiteral("colorNewCqZoneBand"),
+            QStringLiteral("colorNewItuZone"), QStringLiteral("colorNewItuZoneBand"),
+            QStringLiteral("colorNewGrid"), QStringLiteral("colorNewGridBand"),
+            QStringLiteral("colorNewCall"), QStringLiteral("colorNewCallBand"),
+            QStringLiteral("colorLotwConfirmed"), QStringLiteral("colorB4")};
+}
+
+namespace {
+
+// Una categoria per QSO, in un giro solo del log in ordine di tempo: il primo
+// che porta una cosa mai vista (entita', entita' sulla banda, continente…) la
+// prende. Su un log di quindicimila QSO sono qualche decina di millisecondi.
+QString categoryFrom(const QSqlQuery& q)
+{
+    const QStringList keys = QsoTableModel::categoryKeys();
+    // Le colonne 1..12 sono i "primi"; 13 la conferma LoTW; niente = gia' lavorato.
+    for (int i = 0; i < 12; ++i) {
+        if (!q.value(1 + i).isNull() && q.value(1 + i).toLongLong() == 1)
+            return keys.at(i);
+    }
+    if (q.value(13).toBool())
+        return keys.at(12);
+    return keys.at(13);
+}
+
+} // namespace
+
+void QsoTableModel::computeCategories()
+{
+    if (!m_db || !m_db->isOpen()) {
+        m_category.clear();
+        m_categorySignature.clear();
+        return;
+    }
+    // I filtri ricaricano la tabella spesso; le categorie cambiano solo se
+    // cambia il log. Si contano di nuovo solo allora.
+    QSqlQuery sig(m_db->connection());
+    QString signature;
+    if (sig.exec(QStringLiteral("SELECT COUNT(*), IFNULL(MAX(updated_at), ''), "
+                                "(SELECT COUNT(*) FROM qsl_status WHERE service = 'lotw' AND rcvd = 'Y') "
+                                "FROM qso WHERE deleted = 0"))
+        && sig.next())
+        signature = sig.value(0).toString() + QLatin1Char('|') + sig.value(1).toString() + QLatin1Char('|')
+                  + sig.value(2).toString();
+    if (!signature.isEmpty() && signature == m_categorySignature)
+        return;
+    m_categorySignature = signature;
+    m_category.clear();
+
+    QSet<qint64> lotw;
+    QSqlQuery l(m_db->connection());
+    l.setForwardOnly(true);
+    if (l.exec(QStringLiteral("SELECT qso_id FROM qsl_status WHERE service = 'lotw' AND rcvd = 'Y'"))) {
+        while (l.next())
+            lotw.insert(l.value(0).toLongLong());
+    }
+
+    QSqlQuery q(m_db->connection());
+    q.setForwardOnly(true);
+    if (!q.exec(QStringLiteral("SELECT id, IFNULL(dxcc, 0), band, IFNULL(cont, ''), IFNULL(cqz, 0), IFNULL(ituz, 0), "
+                               "UPPER(SUBSTR(IFNULL(gridsquare, ''), 1, 4)), call FROM qso WHERE deleted = 0 "
+                               "ORDER BY qso_datetime_on, id")))
+        return;
+    const QStringList keys = categoryKeys();
+    QSet<QString> seen[12];
+    while (q.next()) {
+        const qint64 id = q.value(0).toLongLong();
+        const int dxcc = q.value(1).toInt();
+        const QString band = q.value(2).toString();
+        const QString cont = q.value(3).toString();
+        const int cqz = q.value(4).toInt();
+        const int ituz = q.value(5).toInt();
+        const QString grid = q.value(6).toString();
+        const QString call = q.value(7).toString();
+        const QString slot = QLatin1Char('|') + band;
+        // La chiave vuota vuol dire "non si sa": non conta.
+        const QString parts[12] = {
+            dxcc > 0 ? QString::number(dxcc) : QString(), dxcc > 0 ? QString::number(dxcc) + slot : QString(),
+            cont, cont.isEmpty() ? QString() : cont + slot,
+            cqz > 0 ? QString::number(cqz) : QString(), cqz > 0 ? QString::number(cqz) + slot : QString(),
+            ituz > 0 ? QString::number(ituz) : QString(), ituz > 0 ? QString::number(ituz) + slot : QString(),
+            grid.size() == 4 ? grid : QString(), grid.size() == 4 ? grid + slot : QString(),
+            call, call + slot,
+        };
+        QString category;
+        for (int i = 0; i < 12; ++i) {
+            if (parts[i].isEmpty() || seen[i].contains(parts[i]))
+                continue;
+            seen[i].insert(parts[i]);
+            if (category.isEmpty())
+                category = keys.at(i);
+        }
+        if (category.isEmpty())
+            category = lotw.contains(id) ? keys.at(12) : keys.at(13);
+        m_category.insert(id, category);
+    }
+}
+
+QString QsoTableModel::categoryOf(qint64 id) const
+{
+    // Un QSO solo: si contano quelli fatti prima con la stessa cosa. Con gli
+    // indici su entita', locatore e nominativo e' immediato anche su un log
+    // grande — il conto di tutto il log si rifa' solo al ricarico.
+    if (!m_db || !m_db->isOpen())
+        return {};
+    QSqlQuery q(m_db->connection());
+    auto before = [](const char* condition) {
+        return QStringLiteral("(SELECT CASE WHEN %1 THEN (SELECT COUNT(*) FROM qso o WHERE o.deleted = 0 AND %2 "
+                              "AND (o.qso_datetime_on < t.qso_datetime_on OR (o.qso_datetime_on = t.qso_datetime_on "
+                              "AND o.id < t.id))) + 1 END)")
+            .arg(QString::fromLatin1(condition).section(QLatin1Char('|'), 0, 0),
+                 QString::fromLatin1(condition).section(QLatin1Char('|'), 1, 1));
+    };
+    const QStringList parts{
+        before("IFNULL(t.dxcc, 0) > 0|o.dxcc = t.dxcc"),
+        before("IFNULL(t.dxcc, 0) > 0|o.dxcc = t.dxcc AND o.band = t.band"),
+        before("IFNULL(t.cont, '') <> ''|o.cont = t.cont"),
+        before("IFNULL(t.cont, '') <> ''|o.cont = t.cont AND o.band = t.band"),
+        before("IFNULL(t.cqz, 0) > 0|o.cqz = t.cqz"),
+        before("IFNULL(t.cqz, 0) > 0|o.cqz = t.cqz AND o.band = t.band"),
+        before("IFNULL(t.ituz, 0) > 0|o.ituz = t.ituz"),
+        before("IFNULL(t.ituz, 0) > 0|o.ituz = t.ituz AND o.band = t.band"),
+        before("LENGTH(IFNULL(t.gridsquare, '')) >= 4|UPPER(SUBSTR(o.gridsquare, 1, 4)) = UPPER(SUBSTR(t.gridsquare, 1, 4))"),
+        before("LENGTH(IFNULL(t.gridsquare, '')) >= 4|UPPER(SUBSTR(o.gridsquare, 1, 4)) = UPPER(SUBSTR(t.gridsquare, 1, 4)) "
+               "AND o.band = t.band"),
+        before("1|o.call = t.call"),
+        before("1|o.call = t.call AND o.band = t.band"),
+    };
+    q.prepare(QStringLiteral("SELECT t.id, %1, EXISTS (SELECT 1 FROM qsl_status s WHERE s.qso_id = t.id "
+                             "AND s.service = 'lotw' AND s.rcvd = 'Y') FROM qso t WHERE t.id = ?")
+                  .arg(parts.join(QStringLiteral(", "))));
+    q.addBindValue(id);
+    if (!q.exec() || !q.next())
+        return {};
+    return categoryFrom(q);
+}
+
 QString QsoTableModel::selectSql(const QString& where) const
 {
     QString extras;
@@ -584,6 +730,7 @@ void QsoTableModel::reload()
             while (q.next())
                 m_rows.append(rowFromQuery(q));
         }
+        computeCategories();
     }
     refreshTotal();
     endResetModel();
@@ -605,6 +752,7 @@ void QsoTableModel::refreshQso(qint64 id)
         const bool wasFresh = m_rows.at(i).fresh;
         m_rows[i] = rowFromQuery(q);
         m_rows[i].fresh = wasFresh;
+        m_category.insert(id, categoryOf(id));
         emit dataChanged(index(static_cast<int>(i), 0), index(static_cast<int>(i), columns() - 1));
         return;
     }
@@ -625,6 +773,7 @@ void QsoTableModel::insertQso(qint64 id)
         return;
     Row r = rowFromQuery(q);
     r.fresh = true;
+    m_category.insert(id, categoryOf(id));
 
     // Di solito il QSO appena fatto e' il piu' recente; uno scritto a mano con
     // l'ora di prima no.

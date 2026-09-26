@@ -1070,6 +1070,11 @@ GlassPanel {
                 required property bool isNew
                 required property int row
                 required property var qsoId
+                required property string rowCategory
+                // I colori della categoria, come in Decodium 4: vuoti se spenti.
+                readonly property var paint: decolog.logColors[rowCategory] || ({})
+                readonly property string paintFg: paint.fg || ""
+                readonly property string paintBg: paint.bg || ""
 
                 readonly property bool selected: root.isSelected(qsoId)
                 readonly property bool current: row === root.selectedRow
@@ -1079,6 +1084,7 @@ GlassPanel {
                 color: selected ? Qt.rgba(Theme.primaryColor.r, Theme.primaryColor.g, Theme.primaryColor.b, 0.24)
                      : current ? Qt.rgba(Theme.primaryColor.r, Theme.primaryColor.g, Theme.primaryColor.b, 0.10)
                      : isNew ? Theme.rowMatchBg
+                     : paintBg.length > 0 ? paintBg
                      : "transparent"
 
                 Rectangle {
@@ -1098,7 +1104,8 @@ GlassPanel {
                     font.pixelSize: cell.columnKey === "source" ? 10 : Theme.fontSize
                     font.family: cell.columnKey === "name" || cell.columnKey === "tags" ? Theme.uiFamily : Theme.monoFamily
                     font.bold: cell.columnKey === "call"
-                    color: cell.columnKey === "utc" || cell.columnKey === "dxcc" ? Theme.textSecondary
+                    color: cell.paintFg.length > 0 ? cell.paintFg
+                         : cell.columnKey === "utc" || cell.columnKey === "dxcc" ? Theme.textSecondary
                          : cell.columnKey === "mode" ? root.modeColor(cell.display)
                          : cell.columnKey === "source" ? root.sourceColor(cell.display)
                          : cell.columnKey === "tags" ? Theme.accentColor

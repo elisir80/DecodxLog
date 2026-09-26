@@ -491,6 +491,14 @@
         <translation>下載 LoTW 確認</translation>
     </message>
     <message>
+        <source>LoTW from… to…</source>
+        <translation>LoTW 從…到…</translation>
+    </message>
+    <message>
+        <source>Confirmations of the QSOs made in this period</source>
+        <translation>此期間所做 QSO 的確認</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>紙本 QSL (%1)</translation>
     </message>
@@ -1158,6 +1166,13 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Save rule</source>
         <translation>儲存規則</translation>
+    </message>
+</context>
+<context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>確定</translation>
     </message>
 </context>
 <context>
@@ -1946,6 +1961,65 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
 </context>
 <context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>新DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>新DXCC 波段</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>新大洲</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>新大洲 波段</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>新 CQ區</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>新CQ區 波段</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>新 ITU區</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>新ITU區 波段</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>新網格</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>新網格 波段</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>新 callsign</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>波段上的新 callsign</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>已在 LoTW 確認</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4（已通聯）</translation>
+    </message>
+</context>
+<context>
     <name>LogbookPanel</name>
     <message>
         <source>confirmed</source>
@@ -2403,6 +2477,21 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>LoTW: unexpected answer</source>
         <translation>LoTW：回覆出乎意料</translation>
+    </message>
+</context>
+<context>
+    <name>LotwRangeRow</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSO 從</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>到</translation>
+    </message>
+    <message>
+        <source>Download this period</source>
+        <translation>下載此期間</translation>
     </message>
 </context>
 <context>
@@ -4162,16 +4251,16 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>開啟 ▾</translation>
     </message>
     <message>
-        <source>STOP</source>
-        <translation>停</translation>
+        <source>Point to the DX · %1 %2°</source>
+        <translation>指向 DX · %1 %2°</translation>
     </message>
     <message>
-        <source>Park</source>
-        <translation>停放</translation>
+        <source>Point to the DX</source>
+        <translation>指向 DX</translation>
     </message>
     <message>
-        <source>On the DX</source>
-        <translation>對準 DX</translation>
+        <source>Pick a spot in the cluster, or a call: its bearing comes here by itself</source>
+        <translation>在叢集中選擇一個 spot 或一個呼號：其方位會自動顯示在這裡</translation>
     </message>
 </context>
 <context>
@@ -4688,6 +4777,22 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>和 Decodium 一樣的主題、強調色和密度：列 %1 px · 字體 %2 px · 表頭 %3 px。</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>日誌列顏色</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>該 QSO 帶來的</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Decodium 顏色</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>每個 QSO 取其帶來的第一個類別，依此順序：新 DXCC 優先於新分區，新分區優先於新網格。第一個開關為文字上色，第二個為列背景上色。</translation>
     </message>
     <message>
         <source>%1 · connected</source>
@@ -5334,6 +5439,46 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Decodium 開著的時候，電台的 CAT 埠已經被佔住了，而 CAT 橋接是打不了電鍵的。這裡 DecoDXLog 自己來打：它在自己的連接埠上 — 就是接到電鍵電路的那個 — 拉起 DTR 或 RTS，於是 CAT 留給 Decodium，巨集照樣上天。想像以前那樣透過 CAT 打鍵，就把連接埠留在「無」。</translation>
+    </message>
+    <message>
+        <source>The control box, directly (built-in gateway)</source>
+        <translation>直接連接控制盒（內建閘道）</translation>
+    </message>
+    <message>
+        <source>Control box port</source>
+        <translation>控制盒連接埠</translation>
+    </message>
+    <message>
+        <source>Control box</source>
+        <translation>控制盒</translation>
+    </message>
+    <message>
+        <source>Simulated</source>
+        <translation>模擬</translation>
+    </message>
+    <message>
+        <source>App port (WebSocket)</source>
+        <translation>應用程式連接埠（WebSocket）</translation>
+    </message>
+    <message>
+        <source>Web page port</source>
+        <translation>網頁連接埠</translation>
+    </message>
+    <message>
+        <source>rotctld port</source>
+        <translation>rotctld 連接埠</translation>
+    </message>
+    <message>
+        <source>Take them from DecoRotor</source>
+        <translation>從 DecoRotor 匯入</translation>
+    </message>
+    <message>
+        <source>Ports in use by another program (is DecoRotor still running?): %1</source>
+        <translation>連接埠被其他程式佔用（DecoRotor 還在執行嗎？）：%1</translation>
+    </message>
+    <message>
+        <source>DecoDXLog itself opens the serial port of the PRO.SIS.TEL control box and does what DecoRotor did: the phone app, the web page and the station programs (rotctld: N1MM+, Log4OM, PstRotator…) connect to this computer on the same ports as before. Close DecoRotor first: the serial port and the ports can have only one owner. The stations on the app map come from Decodium and the cluster, through DecoDXLog.</source>
+        <translation>DecoDXLog 自己開啟 PRO.SIS.TEL 控制盒的序列埠，完成原先 DecoRotor 的工作：手機應用程式、網頁和電台程式（rotctld：N1MM+、Log4OM、PstRotator…）仍依原來的連接埠連到這台電腦。請先關閉 DecoRotor：序列埠和各連接埠只能有一個使用者。應用程式地圖上的電台來自 Decodium 和叢集，經由 DecoDXLog 提供。</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -6491,8 +6636,16 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>%1 → %2 (%3 MB)</translation>
     </message>
     <message>
+        <source>LoTW: the period starts after it ends</source>
+        <translation>LoTW：期間的開始晚於結束</translation>
+    </message>
+    <message>
         <source>LoTW: add username and password in Setup → QSL services</source>
         <translation>LoTW：請在 設定 → QSL 服務 裡填上使用者名稱和密碼</translation>
+    </message>
+    <message>
+        <source>LoTW: downloading the confirmations of the QSOs from %1 to %2…</source>
+        <translation>LoTW：正在下載 %1 到 %2 的 QSO 確認…</translation>
     </message>
     <message>
         <source>LoTW: downloading all confirmations…</source>
@@ -7141,6 +7294,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>旋轉器轉向 %1</translation>
     </message>
     <message>
+        <source>Rotor: %1</source>
+        <translation>旋轉器：%1</translation>
+    </message>
+    <message>
         <source>%1 s</source>
         <translation>%1 秒</translation>
     </message>
@@ -7173,6 +7330,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>旋轉器：記憶位「%1」在 %2°</translation>
     </message>
     <message>
+        <source>Simulated control box, starting…</source>
+        <translation>模擬控制盒，正在啟動…</translation>
+    </message>
+    <message>
+        <source>Opening the control box on %1…</source>
+        <translation>正在開啟 %1 上的控制盒…</translation>
+    </message>
+    <message>
         <source>rotctld does not do locators: point in degrees</source>
         <translation>rotctld 不認網格：請用度數指向</translation>
     </message>
@@ -7187,6 +7352,18 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Rotor: park</source>
         <translation>旋轉器：停放</translation>
+    </message>
+    <message>
+        <source>Rotor: settings taken from DecoRotor (%1)</source>
+        <translation>旋轉器：已從 DecoRotor 匯入設定（%1）</translation>
+    </message>
+    <message>
+        <source>Rotor: DecoRotor&apos;s config.json not found</source>
+        <translation>旋轉器：找不到 DecoRotor 的 config.json</translation>
+    </message>
+    <message>
+        <source>Detect by itself</source>
+        <translation>自動辨識</translation>
     </message>
 </context>
 <context>

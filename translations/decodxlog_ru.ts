@@ -495,6 +495,14 @@
         <translation>Скачать подтверждения LoTW</translation>
     </message>
     <message>
+        <source>LoTW from… to…</source>
+        <translation>LoTW с… по…</translation>
+    </message>
+    <message>
+        <source>Confirmations of the QSOs made in this period</source>
+        <translation>Подтверждения QSO за этот период</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Бумажные QSL (%1)</translation>
     </message>
@@ -1162,6 +1170,13 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Save rule</source>
         <translation>Сохранить правило</translation>
+    </message>
+</context>
+<context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -1952,6 +1967,65 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>Новая DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>Новая DXCC на диапазоне</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>Новый континент</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>Новый континет на диапазоне</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>Новая CQ зона</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>Новая CQ зона на диапазоне</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>Новая ITU зона</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>Новая ITU зона на диапазоне</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>Новый локатор</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>Новый локатор на диапазоне</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>Новый callsign</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>Новый callsign на диапазоне</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>Подтверждено в LoTW</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (Проведено)</translation>
+    </message>
+</context>
+<context>
     <name>LogbookPanel</name>
     <message>
         <source>confirmed</source>
@@ -2413,6 +2487,21 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>LoTW: unexpected answer</source>
         <translation>LoTW: неожиданный ответ</translation>
+    </message>
+</context>
+<context>
+    <name>LotwRangeRow</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSO с</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>по</translation>
+    </message>
+    <message>
+        <source>Download this period</source>
+        <translation>Загрузить этот период</translation>
     </message>
 </context>
 <context>
@@ -4178,16 +4267,16 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Открыть ▾</translation>
     </message>
     <message>
-        <source>STOP</source>
-        <translation>СТОП</translation>
+        <source>Point to the DX · %1 %2°</source>
+        <translation>На DX · %1 %2°</translation>
     </message>
     <message>
-        <source>Park</source>
-        <translation>Парковка</translation>
-    </message>
-    <message>
-        <source>On the DX</source>
+        <source>Point to the DX</source>
         <translation>На DX</translation>
+    </message>
+    <message>
+        <source>Pick a spot in the cluster, or a call: its bearing comes here by itself</source>
+        <translation>Выберите спот в кластере или позывной: азимут появится здесь сам</translation>
     </message>
 </context>
 <context>
@@ -4706,6 +4795,22 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Те же темы, акценты и плотности, что в Decodium: строка %1 px · шрифт %2 px · заголовок %3 px.</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>Цвета строк журнала</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>Что принесла связь</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Цвета Decodium</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Каждая связь получает первую категорию, которую принесла, в таком порядке: новая страна DXCC важнее новой зоны, новая зона важнее нового локатора. Первый переключатель окрашивает текст, второй — фон строки.</translation>
     </message>
     <message>
         <source>%1 · connected</source>
@@ -5354,6 +5459,46 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Когда открыт Decodium, порт CAT трансивера уже занят, а мост CAT манипулировать не умеет. Здесь DecoDXLog манипулирует сам: он поднимает DTR или RTS на своём порту — том, что идёт на схему манипуляции, — так что CAT остаётся у Decodium, а макросы всё равно уходят в эфир. Оставьте порт на «нет», чтобы манипулировать через CAT, как раньше.</translation>
+    </message>
+    <message>
+        <source>The control box, directly (built-in gateway)</source>
+        <translation>Блок управления напрямую (встроенный шлюз)</translation>
+    </message>
+    <message>
+        <source>Control box port</source>
+        <translation>Порт блока управления</translation>
+    </message>
+    <message>
+        <source>Control box</source>
+        <translation>Блок управления</translation>
+    </message>
+    <message>
+        <source>Simulated</source>
+        <translation>Симуляция</translation>
+    </message>
+    <message>
+        <source>App port (WebSocket)</source>
+        <translation>Порт приложения (WebSocket)</translation>
+    </message>
+    <message>
+        <source>Web page port</source>
+        <translation>Порт веб-страницы</translation>
+    </message>
+    <message>
+        <source>rotctld port</source>
+        <translation>Порт rotctld</translation>
+    </message>
+    <message>
+        <source>Take them from DecoRotor</source>
+        <translation>Взять из DecoRotor</translation>
+    </message>
+    <message>
+        <source>Ports in use by another program (is DecoRotor still running?): %1</source>
+        <translation>Порты заняты другой программой (DecoRotor ещё запущен?): %1</translation>
+    </message>
+    <message>
+        <source>DecoDXLog itself opens the serial port of the PRO.SIS.TEL control box and does what DecoRotor did: the phone app, the web page and the station programs (rotctld: N1MM+, Log4OM, PstRotator…) connect to this computer on the same ports as before. Close DecoRotor first: the serial port and the ports can have only one owner. The stations on the app map come from Decodium and the cluster, through DecoDXLog.</source>
+        <translation>DecoDXLog сам открывает последовательный порт блока управления PRO.SIS.TEL и делает то, что делал DecoRotor: приложение на телефоне, веб-страница и программы станции (rotctld: N1MM+, Log4OM, PstRotator…) подключаются к этому компьютеру на тех же портах, что и раньше. Сначала закройте DecoRotor: у последовательного порта и портов может быть только один владелец. Станции на карте приложения приходят из Decodium и кластера через DecoDXLog.</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -6537,8 +6682,16 @@ The call Decodium is working shows up here by itself.</source>
         <translation>%1 → %2 (%3 МБ)</translation>
     </message>
     <message>
+        <source>LoTW: the period starts after it ends</source>
+        <translation>LoTW: период начинается после окончания</translation>
+    </message>
+    <message>
         <source>LoTW: add username and password in Setup → QSL services</source>
         <translation>LoTW: укажите имя пользователя и пароль в «Настройки → Службы QSL»</translation>
+    </message>
+    <message>
+        <source>LoTW: downloading the confirmations of the QSOs from %1 to %2…</source>
+        <translation>LoTW: загрузка подтверждений QSO с %1 по %2…</translation>
     </message>
     <message>
         <source>LoTW: downloading all confirmations…</source>
@@ -7223,6 +7376,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Поворотное устройство на %1</translation>
     </message>
     <message>
+        <source>Rotor: %1</source>
+        <translation>Поворот: %1</translation>
+    </message>
+    <message>
         <source>%1 s</source>
         <translation>%1 с</translation>
     </message>
@@ -7255,6 +7412,14 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Поворот: ячейка «%1» на %2°</translation>
     </message>
     <message>
+        <source>Simulated control box, starting…</source>
+        <translation>Симулированный блок управления запускается…</translation>
+    </message>
+    <message>
+        <source>Opening the control box on %1…</source>
+        <translation>Открываю блок управления на %1…</translation>
+    </message>
+    <message>
         <source>rotctld does not do locators: point in degrees</source>
         <translation>rotctld не понимает локаторы: направляйте в градусах</translation>
     </message>
@@ -7269,6 +7434,18 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Rotor: park</source>
         <translation>Поворот: парковка</translation>
+    </message>
+    <message>
+        <source>Rotor: settings taken from DecoRotor (%1)</source>
+        <translation>Ротатор: настройки взяты из DecoRotor (%1)</translation>
+    </message>
+    <message>
+        <source>Rotor: DecoRotor&apos;s config.json not found</source>
+        <translation>Ротатор: config.json DecoRotor не найден</translation>
+    </message>
+    <message>
+        <source>Detect by itself</source>
+        <translation>Определить самому</translation>
     </message>
 </context>
 <context>

@@ -493,6 +493,14 @@
         <translation>LoTW-Bestätigungen holen</translation>
     </message>
     <message>
+        <source>LoTW from… to…</source>
+        <translation>LoTW von… bis…</translation>
+    </message>
+    <message>
+        <source>Confirmations of the QSOs made in this period</source>
+        <translation>Bestätigungen der QSOs aus diesem Zeitraum</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Papier-QSL (%1)</translation>
     </message>
@@ -1160,6 +1168,13 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Save rule</source>
         <translation>Regel speichern</translation>
+    </message>
+</context>
+<context>
+    <name>ColorSwatch</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -1949,6 +1964,65 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     </message>
 </context>
 <context>
+    <name>LogColors</name>
+    <message>
+        <source>New DXCC</source>
+        <translation>Neu DXCC</translation>
+    </message>
+    <message>
+        <source>New DXCC on Band</source>
+        <translation>Neues DXCC am Band</translation>
+    </message>
+    <message>
+        <source>New Continent</source>
+        <translation>Neuer Kontinent</translation>
+    </message>
+    <message>
+        <source>New Continent on Band</source>
+        <translation>Neuer Kontinent auf Band</translation>
+    </message>
+    <message>
+        <source>New CQ Zone</source>
+        <translation>Neue CQ-Zone</translation>
+    </message>
+    <message>
+        <source>New CQ Zone on Band</source>
+        <translation>Neue CQ Zone auf Band</translation>
+    </message>
+    <message>
+        <source>New ITU Zone</source>
+        <translation>Neue ITU-Zone</translation>
+    </message>
+    <message>
+        <source>New ITU Zone on Band</source>
+        <translation>Neue ITU Zone auf Band</translation>
+    </message>
+    <message>
+        <source>New Grid</source>
+        <translation>Neues Raster</translation>
+    </message>
+    <message>
+        <source>New Grid on Band</source>
+        <translation>Neues Raster auf Band</translation>
+    </message>
+    <message>
+        <source>New Callsign</source>
+        <translation>Neues Rufzeichen</translation>
+    </message>
+    <message>
+        <source>New Callsign on Band</source>
+        <translation>Neues Rufzeichen auf Band</translation>
+    </message>
+    <message>
+        <source>Confirmed on LoTW</source>
+        <translation>Auf LoTW bestätigt</translation>
+    </message>
+    <message>
+        <source>B4 (Worked)</source>
+        <translation>B4 (gearbeitet)</translation>
+    </message>
+</context>
+<context>
     <name>LogbookPanel</name>
     <message>
         <source>confirmed</source>
@@ -2408,6 +2482,21 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>LoTW: unexpected answer</source>
         <translation>LoTW: unerwartete Antwort</translation>
+    </message>
+</context>
+<context>
+    <name>LotwRangeRow</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSOs vom</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>bis</translation>
+    </message>
+    <message>
+        <source>Download this period</source>
+        <translation>Diesen Zeitraum laden</translation>
     </message>
 </context>
 <context>
@@ -4170,16 +4259,16 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Öffnen ▾</translation>
     </message>
     <message>
-        <source>STOP</source>
-        <translation>STOP</translation>
+        <source>Point to the DX · %1 %2°</source>
+        <translation>Auf den DX drehen · %1 %2°</translation>
     </message>
     <message>
-        <source>Park</source>
-        <translation>Park</translation>
+        <source>Point to the DX</source>
+        <translation>Auf den DX drehen</translation>
     </message>
     <message>
-        <source>On the DX</source>
-        <translation>Auf den DX</translation>
+        <source>Pick a spot in the cluster, or a call: its bearing comes here by itself</source>
+        <translation>Wähle einen Spot im Cluster oder ein Rufzeichen: die Richtung kommt von selbst hierher</translation>
     </message>
 </context>
 <context>
@@ -4697,6 +4786,22 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Same themes, accents and densities as Decodium: row %1 px · font %2 px · header %3 px.</source>
         <translation>Dieselben Themen, Akzente und Dichten wie bei Decodium: Zeile %1 px · Schrift %2 px · Kopf %3 px.</translation>
+    </message>
+    <message>
+        <source>Log row colors</source>
+        <translation>Farben der Logzeilen</translation>
+    </message>
+    <message>
+        <source>What the QSO brought</source>
+        <translation>Was das QSO gebracht hat</translation>
+    </message>
+    <message>
+        <source>Decodium colors</source>
+        <translation>Decodium-Farben</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
+        <translation>Jedes QSO bekommt die erste Kategorie, die es gebracht hat, in dieser Reihenfolge: ein neues DXCC schlägt eine neue Zone, eine neue Zone ein neues Locatorfeld. Der erste Schalter färbt den Text, der zweite den Hintergrund der Zeile.</translation>
     </message>
     <message>
         <source>%1 · connected</source>
@@ -5344,6 +5449,46 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Mit offenem Decodium ist die CAT-Schnittstelle des Funkgeräts schon belegt, und eine CAT-Brücke kann nicht tasten. Hier tastet DecoDXLog selbst: es hebt DTR oder RTS an einer eigenen Schnittstelle — der, die am Tastkreis hängt — so behält Decodium das CAT und die Makros gehen trotzdem hinaus. Die Schnittstelle auf „keine“ lassen, um wie bisher über das CAT zu tasten.</translation>
+    </message>
+    <message>
+        <source>The control box, directly (built-in gateway)</source>
+        <translation>Das Steuergerät, direkt (eingebautes Gateway)</translation>
+    </message>
+    <message>
+        <source>Control box port</source>
+        <translation>Port des Steuergeräts</translation>
+    </message>
+    <message>
+        <source>Control box</source>
+        <translation>Steuergerät</translation>
+    </message>
+    <message>
+        <source>Simulated</source>
+        <translation>Simuliert</translation>
+    </message>
+    <message>
+        <source>App port (WebSocket)</source>
+        <translation>App-Port (WebSocket)</translation>
+    </message>
+    <message>
+        <source>Web page port</source>
+        <translation>Port der Webseite</translation>
+    </message>
+    <message>
+        <source>rotctld port</source>
+        <translation>rotctld-Port</translation>
+    </message>
+    <message>
+        <source>Take them from DecoRotor</source>
+        <translation>Von DecoRotor übernehmen</translation>
+    </message>
+    <message>
+        <source>Ports in use by another program (is DecoRotor still running?): %1</source>
+        <translation>Ports von einem anderen Programm belegt (läuft DecoRotor noch?): %1</translation>
+    </message>
+    <message>
+        <source>DecoDXLog itself opens the serial port of the PRO.SIS.TEL control box and does what DecoRotor did: the phone app, the web page and the station programs (rotctld: N1MM+, Log4OM, PstRotator…) connect to this computer on the same ports as before. Close DecoRotor first: the serial port and the ports can have only one owner. The stations on the app map come from Decodium and the cluster, through DecoDXLog.</source>
+        <translation>DecoDXLog öffnet selbst den seriellen Port des PRO.SIS.TEL-Steuergeräts und macht, was DecoRotor gemacht hat: die Handy-App, die Webseite und die Stationsprogramme (rotctld: N1MM+, Log4OM, PstRotator…) verbinden sich mit diesem Computer auf denselben Ports wie vorher. Schließe zuerst DecoRotor: serieller Port und Ports können nur einen Besitzer haben. Die Stationen auf der Karte der App kommen über DecoDXLog von Decodium und vom Cluster.</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -6514,8 +6659,16 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>%1 → %2 (%3 MB)</translation>
     </message>
     <message>
+        <source>LoTW: the period starts after it ends</source>
+        <translation>LoTW: der Zeitraum beginnt nach seinem Ende</translation>
+    </message>
+    <message>
         <source>LoTW: add username and password in Setup → QSL services</source>
         <translation>LoTW: Benutzername und Passwort in Einrichtung → QSL-Dienste eintragen</translation>
+    </message>
+    <message>
+        <source>LoTW: downloading the confirmations of the QSOs from %1 to %2…</source>
+        <translation>LoTW: lade die Bestätigungen der QSOs vom %1 bis %2…</translation>
     </message>
     <message>
         <source>LoTW: downloading all confirmations…</source>
@@ -7182,6 +7335,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Rotor auf %1</translation>
     </message>
     <message>
+        <source>Rotor: %1</source>
+        <translation>Rotor: %1</translation>
+    </message>
+    <message>
         <source>%1 s</source>
         <translation>%1 s</translation>
     </message>
@@ -7214,6 +7371,14 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Rotor: Speicher „%1“ bei %2°</translation>
     </message>
     <message>
+        <source>Simulated control box, starting…</source>
+        <translation>Simuliertes Steuergerät startet…</translation>
+    </message>
+    <message>
+        <source>Opening the control box on %1…</source>
+        <translation>Öffne das Steuergerät auf %1…</translation>
+    </message>
+    <message>
         <source>rotctld does not do locators: point in degrees</source>
         <translation>rotctld kann keine Locatoren: in Grad zielen</translation>
     </message>
@@ -7228,6 +7393,18 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Rotor: park</source>
         <translation>Rotor: Parkstellung</translation>
+    </message>
+    <message>
+        <source>Rotor: settings taken from DecoRotor (%1)</source>
+        <translation>Rotor: Einstellungen von DecoRotor übernommen (%1)</translation>
+    </message>
+    <message>
+        <source>Rotor: DecoRotor&apos;s config.json not found</source>
+        <translation>Rotor: config.json von DecoRotor nicht gefunden</translation>
+    </message>
+    <message>
+        <source>Detect by itself</source>
+        <translation>Selbst erkennen</translation>
     </message>
 </context>
 <context>
