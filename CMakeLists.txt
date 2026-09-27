@@ -257,6 +257,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/BandMapPanel.qml
     qml/DecoDXLog/PathForecastView.qml
     qml/DecoDXLog/ChatWindow.qml
+    qml/DecoDXLog/StatsAwardsPage.qml
     qml/DecoDXLog/WorldClockButton.qml
     qml/DecoDXLog/WorldClockIcon.qml
     qml/DecoDXLog/WorldClockWindow.qml

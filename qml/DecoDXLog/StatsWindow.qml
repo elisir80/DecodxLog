@@ -15,6 +15,8 @@ ApplicationWindow {
     property string mode: ""
     property int year: 0
     property int revision: 0
+    // 0 = l'andamento del log, 1 = diplomi e classifiche.
+    property int page: 0
 
     readonly property var summary: { revision; return decolog.statsSummary(mode, year) }
     readonly property var years: { revision; return decolog.statsYears() }
@@ -170,6 +172,18 @@ ApplicationWindow {
                 onActivated: root.year = currentIndex === 0 ? 0 : parseInt(currentText)
             }
             Item { Layout.fillWidth: true }
+            GlassButton {
+                text: qsTr("Activity")
+                tone: Theme.primaryColor
+                filled: root.page === 0
+                onClicked: root.page = 0
+            }
+            GlassButton {
+                text: qsTr("Awards and rankings")
+                tone: Theme.primaryColor
+                filled: root.page === 1
+                onClicked: root.page = 1
+            }
             GlassButton { text: qsTr("Refresh"); onClicked: root.revision++ }
         }
 
@@ -198,6 +212,7 @@ ApplicationWindow {
         // Altezze esplicite: un pannello di grafico non ha una sua altezza
         // naturale, e lasciata al caso si schiaccia sull'intestazione.
         GridLayout {
+            visible: root.page === 0
             Layout.fillWidth: true
             Layout.fillHeight: true
             columns: 2
@@ -333,6 +348,7 @@ ApplicationWindow {
 
         // ── Modi e continenti ───────────────────────────────────────────────
         RowLayout {
+            visible: root.page === 0
             Layout.fillWidth: true
             Layout.preferredHeight: 96
             Layout.maximumHeight: 96
@@ -382,6 +398,15 @@ ApplicationWindow {
                     }
                 }
             }
+        }
+
+        StatsAwardsPage {
+            visible: root.page === 1
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            mode: root.mode
+            year: root.year
+            revision: root.revision
         }
     }
 }

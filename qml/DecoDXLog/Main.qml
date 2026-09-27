@@ -922,7 +922,7 @@ ApplicationWindow {
                 window.openContestDesk()
             Qt.callLater(topBar.openContestMenu)
         }
-        else if (what[0] === "stats") openStats()
+        else if (what[0] === "stats") { openStats(); if (what[1] === "awards" && statsWindow.item) statsWindow.item.page = 1 }
         else if (what[0] === "cards") { openCards(what[1])
                                        if (what[2] === "menu" && cardsWindow.item)
                                            cardsWindow.item.showCardMenu()

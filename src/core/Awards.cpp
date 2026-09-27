@@ -212,6 +212,36 @@ QString dciReference(const QString& sig, const QString& sigInfo,
     return {};
 }
 
+QString sigReference(const QString& award, const QString& sig, const QString& sigInfo,
+                     const QString& comment, const QString& notes)
+{
+    static const QRegularExpression bare(QStringLiteral("^([A-Z0-9]{1,4})[ /-]?(\\d{1,4})$"));
+    if (sig.trimmed().compare(award, Qt::CaseInsensitive) == 0) {
+        const QRegularExpressionMatch m = bare.match(sigInfo.trimmed().toUpper());
+        if (m.hasMatch())
+            return m.captured(1) + QLatin1Char('-') + m.captured(2);
+    }
+    // Nel testo libero ci vuole il nome del diploma davanti.
+    const QRegularExpression tagged(QStringLiteral("\\b%1[ :-]*([A-Z0-9]{1,4})[ /-]?(\\d{1,4})\\b")
+                                        .arg(QRegularExpression::escape(award.toUpper())));
+    for (const QString& text : {sigInfo, comment, notes}) {
+        const QRegularExpressionMatch m = tagged.match(text.toUpper());
+        if (m.hasMatch())
+            return m.captured(1) + QLatin1Char('-') + m.captured(2);
+    }
+    return {};
+}
+
+QStringList italianRegionNames()
+{
+    QStringList out;
+    for (const QString& r : italianRegions())
+        if (!out.contains(r))
+            out << r;
+    out.sort();
+    return out;
+}
+
 const QMap<QString, QString>& continents()
 {
     static const QMap<QString, QString> list{
@@ -347,7 +377,8 @@ QStringList AwardCalculator::awardIds()
             QStringLiteral("waja"), QStringLiteral("ajd"),
             QStringLiteral("jcc"), QStringLiteral("jcg"), QStringLiteral("wpx"),
             QStringLiteral("grids"), QStringLiteral("iota"), QStringLiteral("pota"), QStringLiteral("sota"),
-            QStringLiteral("wwff"), QStringLiteral("dci"), QStringLiteral("dcpc")};
+            QStringLiteral("wwff"), QStringLiteral("dci"), QStringLiteral("dcpc"),
+            QStringLiteral("wair"), QStringLiteral("iia"), QStringLiteral("difi"), QStringLiteral("dai")};
 }
 
 namespace {
@@ -457,6 +488,15 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
     // DCPC, i castelli della sola provincia di Cuneo (punto 7): dieci, e si
     // chiede dopo aver preso il DCI.
     define("dcpc", QStringLiteral("DCPC"), 10, 0);
+    // WAIR: le venti regioni italiane, dalle province del WAIP.
+    define("wair", QStringLiteral("WAIR"), 20, 20);
+    // I diplomi a riferimento che si segnano con SIG/SIG_INFO: isole
+    // italiane (IIA), fari (DIFI), abbazie (DAI). Quanti riferimenti esistano
+    // lo decide chi tiene l'elenco: niente totale, traguardo base di chi li
+    // rilascia.
+    define("iia", QStringLiteral("IIA"), 20, 0);
+    define("difi", QStringLiteral("DIFI"), 25, 0);
+    define("dai", QStringLiteral("DAI"), 25, 0);
 
     QSqlQuery q(db.connection());
     q.setForwardOnly(true);
@@ -559,8 +599,19 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         // il WAIP conta le province di tutte e due.
         if (dxcc == 248 || dxcc == 225) {
             const QString province = awards::italianProvince(state);
-            if (!province.isEmpty())
+            if (!province.isEmpty()) {
                 add("waip", province, awards::italianProvinces().value(province));
+                const QString region = awards::italianRegions().value(province);
+                if (!region.isEmpty())
+                    add("wair", region, region);
+            }
+        }
+        for (const char* sigAward : {"iia", "difi", "dai"}) {
+            const QString ref = awards::sigReference(QLatin1String(sigAward), q.value(18).toString(),
+                                                     q.value(19).toString(), q.value(20).toString(),
+                                                     q.value(21).toString());
+            if (!ref.isEmpty())
+                add(sigAward, ref, awards::italianProvinces().value(ref.section(QLatin1Char('-'), 0, 0)));
         }
         // Il castello: il riferimento sta in SIG_INFO quando il log e' fatto
         // bene, nel commento o nelle note quando e' fatto come capita.
@@ -615,6 +666,17 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         } else if (id == QLatin1String("dcpc")) {
             b.result.requirement = QCoreApplication::translate(
                 "Awards", "Ten different castles in the province of Cuneo, once you hold the DCI.");
+        } else if (id == QLatin1String("wair")) {
+            QStringList missing = awards::italianRegionNames();
+            for (const AwardItem& item : std::as_const(b.result.items))
+                missing.removeAll(item.key);
+            b.result.requirement = missing.isEmpty()
+                ? QCoreApplication::translate("Awards", "All twenty regions worked.")
+                : QCoreApplication::translate("Awards", "Missing: %1.").arg(missing.join(QStringLiteral(", ")));
+        } else if (id == QLatin1String("iia") || id == QLatin1String("difi") || id == QLatin1String("dai")) {
+            b.result.requirement = QCoreApplication::translate(
+                "Awards", "The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like \"%1 LI-001\".")
+                                       .arg(b.result.title);
         } else if (id == QLatin1String("waip")) {
             b.result.requirement = QCoreApplication::translate(
                 "Awards", "Diploma: 75 provinces for Italian stations, 60 for the others.");

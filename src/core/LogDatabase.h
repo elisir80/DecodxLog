@@ -262,6 +262,14 @@ public:
     QList<CountRow> countByMode(const StatsFilter& filter) const;
     // Banda per ora UTC, per la mappa di calore: [{band, hour, count}].
     QList<QVariantMap> bandByHour(const StatsFilter& filter = {}) const;
+    // Le entita' e i nominativi piu' lavorati.
+    QList<CountRow> countByEntity(const StatsFilter& filter, int limit) const;
+    QList<CountRow> countByCall(const StatsFilter& filter, int limit) const;
+    // Banda per modo: [{band, mode, count}].
+    QList<QVariantMap> bandByMode(const StatsFilter& filter = {}) const;
+    // Come sono cresciuti i diplomi, anno per anno (cumulativo): [{year, dxcc,
+    // dxccConfirmed, zones, grids, qsos}]. Confermato = LoTW o cartolina.
+    QList<QVariantMap> awardProgress(const StatsFilter& filter = {}) const;
     // Totali: QSO, nominativi, entita', primo e ultimo QSO, giorno e ora migliori.
     QVariantMap statsSummary(const StatsFilter& filter = {}) const;
     // Gli anni presenti nel log, dal piu' recente.

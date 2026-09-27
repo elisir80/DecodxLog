@@ -2852,6 +2852,32 @@ QVariantList DecoLogController::statsByContinent(const QString& mode, int year) 
     return rowsToList(m_db.countByContinent(statsFilterFor(mode, year)));
 }
 
+QVariantList DecoLogController::statsTopEntities(const QString& mode, int year, int limit) const
+{
+    return rowsToList(m_db.countByEntity(statsFilterFor(mode, year), limit));
+}
+
+QVariantList DecoLogController::statsTopCalls(const QString& mode, int year, int limit) const
+{
+    return rowsToList(m_db.countByCall(statsFilterFor(mode, year), limit));
+}
+
+QVariantList DecoLogController::statsBandMode(int year) const
+{
+    QVariantList out;
+    for (const QVariantMap& row : m_db.bandByMode(statsFilterFor(QString(), year)))
+        out << row;
+    return out;
+}
+
+QVariantList DecoLogController::statsAwardProgress(const QString& mode) const
+{
+    QVariantList out;
+    for (const QVariantMap& row : m_db.awardProgress(statsFilterFor(mode, 0)))
+        out << row;
+    return out;
+}
+
 QVariantList DecoLogController::statsBandHour(const QString& mode, int year) const
 {
     QVariantList out;

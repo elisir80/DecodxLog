@@ -440,6 +440,45 @@ private slots:
         QCOMPARE(totals.at(1).worked, 1);
     }
 
+    void italianRegionsAndSigAwards()
+    {
+        QCOMPARE(awards::italianRegionNames().size(), 20);
+        const QString none;
+        QCOMPARE(awards::sigReference("IIA", "IIA", "li-001", none, none), QStringLiteral("LI-001"));
+        QCOMPARE(awards::sigReference("DIFI", none, none, "difi: SA 12 tnx", none), QStringLiteral("SA-12"));
+        QVERIFY(awards::sigReference("IIA", "DCI", "PR001", none, none).isEmpty());
+        QVERIFY(awards::sigReference("DAI", none, none, "TNX 001", none).isEmpty());
+
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        auto qso = [&db](const char* call, const char* state, int dxcc, std::initializer_list<AdifField> extra) {
+            AdifRecord r{{"CALL", call}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1200"}, {"BAND", "40m"},
+                         {"MODE", "SSB"}, {"DXCC", QString::number(dxcc)}, {"STATE", state}};
+            for (const auto& f : extra)
+                r.set(f.name, f.value);
+            QCOMPARE(db.insertQso(r, "import").status, InsertResult::Status::Inserted);
+        };
+        qso("IK8ABC", "NA", 248, {{"SIG", "IIA"}, {"SIG_INFO", "NA-004"}});
+        qso("IK8XYZ", "SA", 248, {{"COMMENT", "DIFI SA-12"}});
+        qso("IS0AAA", "CA", 225, {});
+        qso("IK1AAA", "TO", 248, {});
+        const AwardCalculator calc;
+        const auto results = calc.compute(db, AwardFilter{});
+        auto find = [&results](const QString& id) {
+            for (const auto& r : results)
+                if (r.id == id) return r;
+            return AwardResult{};
+        };
+        const AwardResult wair = find("wair");
+        QCOMPARE(wair.worked(), 3);       // Campania, Sardegna, Piemonte
+        QVERIFY(wair.requirement.contains("Lazio"));
+        QCOMPARE(find("iia").worked(), 1);
+        QCOMPARE(find("iia").items.first().key, QStringLiteral("NA-004"));
+        QCOMPARE(find("iia").items.first().name, QStringLiteral("Napoli"));
+        QCOMPARE(find("difi").worked(), 1);
+        QCOMPARE(find("dai").worked(), 0);
+    }
+
     void theCastleReferenceIsReadHoweverItIsWritten()
     {
         const QString none;

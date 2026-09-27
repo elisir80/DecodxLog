@@ -52,6 +52,16 @@ const QMap<QString, QString>& italianRegions();
 QString dciReference(const QString& sig, const QString& sigInfo,
                      const QString& comment, const QString& notes);
 
+// Il riferimento di un diploma a "special interest group" (IIA, DIFI, DAI...):
+// in SIG/SIG_INFO quando il log e' fatto bene ("SIG=IIA, SIG_INFO=LI-001"), o
+// nel testo con il nome del diploma davanti ("IIA LI-001"). Torna "LI-001", o
+// vuoto se non c'e'.
+QString sigReference(const QString& award, const QString& sig, const QString& sigInfo,
+                     const QString& comment, const QString& notes);
+
+// Le 20 regioni italiane, per il WAIR.
+QStringList italianRegionNames();
+
 // I continenti dell'IARU con il nome, per il WAC. L'Antartide c'e' — chi l'ha
 // lavorata vuole vederla — ma il traguardo del diploma resta sei.
 const QMap<QString, QString>& continents();

@@ -336,6 +336,10 @@ public:
     Q_INVOKABLE QVariantList statsByMode(int year = 0) const;
     Q_INVOKABLE QVariantList statsByContinent(const QString& mode = {}, int year = 0) const;
     Q_INVOKABLE QVariantList statsBandHour(const QString& mode = {}, int year = 0) const;
+    Q_INVOKABLE QVariantList statsTopEntities(const QString& mode = {}, int year = 0, int limit = 15) const;
+    Q_INVOKABLE QVariantList statsTopCalls(const QString& mode = {}, int year = 0, int limit = 15) const;
+    Q_INVOKABLE QVariantList statsBandMode(int year = 0) const;
+    Q_INVOKABLE QVariantList statsAwardProgress(const QString& mode = {}) const;
     // DXCC, FT2, WAZ e WAS hanno un elenco completo: si puo' dire cosa manca.
     Q_INVOKABLE bool awardHasMissing(const QString& awardId) const;
     // I locatori dell'award "grids" per la mappa: [{grid, confirmed}].

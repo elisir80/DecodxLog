@@ -1427,6 +1427,92 @@ QList<CountRow> groupedCount(const QSqlDatabase& db, const QString& expression, 
 
 } // namespace
 
+QList<CountRow> LogDatabase::countByEntity(const StatsFilter& filter, int limit) const
+{
+    return groupedCount(connection(), QStringLiteral("country"), filter, QStringLiteral("n DESC, k"), limit);
+}
+
+QList<CountRow> LogDatabase::countByCall(const StatsFilter& filter, int limit) const
+{
+    return groupedCount(connection(), QStringLiteral("call"), filter, QStringLiteral("n DESC, k"), limit);
+}
+
+QList<QVariantMap> LogDatabase::bandByMode(const StatsFilter& filter) const
+{
+    QList<QVariantMap> out;
+    QVariantList binds;
+    const QString where = statsWhere(filter, binds);
+    QSqlQuery q(connection());
+    q.setForwardOnly(true);
+    q.prepare(QStringLiteral("SELECT band, CASE WHEN IFNULL(submode, '') = '' OR mode = 'SSB' THEN mode ELSE submode END AS m, "
+                             "COUNT(*) FROM qso WHERE %1 AND band <> '' GROUP BY band, m").arg(where));
+    for (const QVariant& b : binds)
+        q.addBindValue(b);
+    if (!q.exec())
+        return out;
+    while (q.next())
+        out << QVariantMap{{QStringLiteral("band"), q.value(0).toString()},
+                           {QStringLiteral("mode"), q.value(1).toString()},
+                           {QStringLiteral("count"), q.value(2).toInt()}};
+    return out;
+}
+
+QList<QVariantMap> LogDatabase::awardProgress(const StatsFilter& filter) const
+{
+    QList<QVariantMap> out;
+    StatsFilter all = filter;
+    all.year = 0;       // la crescita si vede su tutti gli anni
+    QVariantList binds;
+    const QString where = statsWhere(all, binds);
+    QSqlQuery q(connection());
+    q.setForwardOnly(true);
+    q.prepare(QStringLiteral(
+        "SELECT SUBSTR(qso_datetime_on, 1, 4), IFNULL(dxcc, 0), IFNULL(cqz, 0), UPPER(SUBSTR(IFNULL(gridsquare, ''), 1, 4)), "
+        "EXISTS (SELECT 1 FROM qsl_status s WHERE s.qso_id = qso.id AND s.rcvd = 'Y' AND s.service IN ('lotw', 'card')) "
+        "FROM qso WHERE %1 ORDER BY qso_datetime_on").arg(where));
+    for (const QVariant& b : binds)
+        q.addBindValue(b);
+    if (!q.exec())
+        return out;
+    QSet<int> dxcc;
+    QSet<int> confirmed;
+    QSet<int> zones;
+    QSet<QString> grids;
+    QString year;
+    int qsos = 0;
+    auto flush = [&] {
+        if (year.isEmpty())
+            return;
+        out << QVariantMap{{QStringLiteral("year"), year},
+                           {QStringLiteral("dxcc"), int(dxcc.size())},
+                           {QStringLiteral("dxccConfirmed"), int(confirmed.size())},
+                           {QStringLiteral("zones"), int(zones.size())},
+                           {QStringLiteral("grids"), int(grids.size())},
+                           {QStringLiteral("qsos"), qsos}};
+    };
+    static const QRegularExpression gridRe(QStringLiteral("^[A-R]{2}[0-9]{2}$"));
+    while (q.next()) {
+        const QString y = q.value(0).toString();
+        if (y != year) {
+            flush();
+            year = y;
+        }
+        ++qsos;
+        if (const int d = q.value(1).toInt(); d > 0) {
+            dxcc.insert(d);
+            if (q.value(4).toBool())
+                confirmed.insert(d);
+        }
+        if (const int z = q.value(2).toInt(); z > 0 && z <= 40)
+            zones.insert(z);
+        const QString g = q.value(3).toString();
+        if (gridRe.match(g).hasMatch())
+            grids.insert(g);
+    }
+    flush();
+    return out;
+}
+
 QList<CountRow> LogDatabase::countByYear(const StatsFilter& filter) const
 {
     return groupedCount(connection(), QStringLiteral("SUBSTR(qso_datetime_on, 1, 4)"), filter, QStringLiteral("k"));
