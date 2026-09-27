@@ -28,18 +28,15 @@ permissions:
 jobs:
   macos:
     name: macOS ${{ matrix.name }}
-    if: inputs.arch == 'all' || inputs.arch == matrix.arch
     runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - name: apple-silicon
-            runner: macos-14
-            arch: arm64
-          - name: intel
-            runner: macos-15-intel
-            arch: x86_64
+        # `jobs.<id>.if` viene valutato prima della matrice: scegliere qui la
+        # lista evita di mettere in coda l'altra architettura quando si deve
+        # riparare o rifare un solo pacchetto.
+        include: >-
+          ${{ fromJSON(inputs.arch == 'arm64' && '[{"name":"apple-silicon","runner":"macos-14","arch":"arm64"}]' || inputs.arch == 'x86_64' && '[{"name":"intel","runner":"macos-15-intel","arch":"x86_64"}]' || '[{"name":"apple-silicon","runner":"macos-14","arch":"arm64"},{"name":"intel","runner":"macos-15-intel","arch":"x86_64"}]') }}
 
     steps:
       - name: Checkout
