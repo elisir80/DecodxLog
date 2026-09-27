@@ -3,7 +3,7 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
-## 1.16.21 — 27 settembre 2026
+## 1.16.22 — 27 settembre 2026
 
 **La foto grande del callbook non lampeggia piu'.**
 
@@ -13,6 +13,16 @@ in stazione.
   mouse se ne va, e si puo' passare dalla miniatura alla foto grande senza perderla.
 - "Punta il DX" prende la rotta del nominativo della scheda anche quando il profilo della
   stazione non ha il locatore: la conta dal QTH del gateway del rotore, come gia' per gli spot.
+
+## 1.16.21 — 27 settembre 2026
+
+- La mappa riutilizza i locatori calcolati invece di rileggere il database a ogni
+  accesso QML. La cache si invalida quando cambia il log o si apre un altro database.
+  Corretto il percorso che nella traccia KDE eseguiva 1.510 scansioni, per 287,9 secondi.
+- Diagnostica di avvio facoltativa con `DECODXLOG_TRACE_STARTUP=1`: tempi di
+  database, pannelli, diplomi e dispositivi audio, senza registrare i QSO.
+- Verificata localmente la mappa compatibile su una copia del log di 6.547 QSO:
+  una sola chiamata a `workedGrids`. La verifica sul computer KDE resta necessaria.
 
 ## 1.16.20 — 26 settembre 2026
 

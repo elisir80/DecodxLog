@@ -590,6 +590,8 @@ private:
     QString           m_countriesSource;
     mutable QVariantList m_coastline;
     mutable QVariantList m_land;
+    mutable QVariantList m_gridPointsCache;
+    mutable bool m_gridPointsValid{false};
     core::UdpReceiver m_udp;
     QsoTableModel*    m_model{nullptr};
     StationProfileModel* m_profiles{nullptr};

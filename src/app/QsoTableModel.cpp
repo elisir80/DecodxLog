@@ -1,4 +1,5 @@
 #include "app/QsoTableModel.h"
+#include "../StartupTrace.h"
 
 #include "core/Awards.h"
 #include "core/Bands.h"
@@ -461,6 +462,7 @@ QString categoryFrom(const QSqlQuery& q)
 
 void QsoTableModel::computeCategories()
 {
+    decolog::StartupSpan trace("QsoTableModel::computeCategories");
     if (!m_db || !m_db->isOpen()) {
         m_category.clear();
         m_categorySignature.clear();
@@ -649,6 +651,7 @@ void QsoTableModel::refreshTotal()
 
 void QsoTableModel::reload()
 {
+    decolog::StartupSpan trace("QsoTableModel::reload");
     beginResetModel();
     m_rows.clear();
     if (m_db && m_db->isOpen()) {

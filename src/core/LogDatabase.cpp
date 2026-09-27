@@ -1,4 +1,5 @@
 #include "core/LogDatabase.h"
+#include "../StartupTrace.h"
 
 #include "core/Modes.h"
 
@@ -227,6 +228,7 @@ bool LogDatabase::isOpen() const
 
 bool LogDatabase::open(const QString& path)
 {
+    decolog::StartupSpan trace("LogDatabase::open");
     close();
     QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), m_connectionName);
     db.setDatabaseName(path);
@@ -1320,6 +1322,7 @@ bool LogDatabase::isFirstFt2Dxcc(qint64 id) const
 
 Ft2Award LogDatabase::ft2Award() const
 {
+    decolog::StartupSpan trace("LogDatabase::ft2Award");
     Ft2Award a;
     QSqlQuery q(connection());
     const QString ft2 = QStringLiteral("FROM qso WHERE deleted = 0 AND submode = 'FT2'");
@@ -1486,6 +1489,7 @@ QList<QVariantMap> LogDatabase::bandByHour(const StatsFilter& filter) const
 
 QVariantMap LogDatabase::statsSummary(const StatsFilter& filter) const
 {
+    decolog::StartupSpan trace("LogDatabase::statsSummary");
     QVariantMap out;
     QVariantList binds;
     const QString where = statsWhere(filter, binds);
@@ -1556,6 +1560,7 @@ QList<QVariantMap> LogDatabase::qslSummary() const
 
 QStringList LogDatabase::workedGrids(int limit) const
 {
+    decolog::StartupSpan trace("LogDatabase::workedGrids");
     QStringList out;
     QSqlQuery q(connection());
     q.prepare(QStringLiteral(

@@ -1,4 +1,5 @@
 #include "core/Awards.h"
+#include "../StartupTrace.h"
 
 #include "core/LogDatabase.h"
 
@@ -404,6 +405,7 @@ bool keyLess(const AwardItem& a, const AwardItem& b)
 
 QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFilter& filter) const
 {
+    decolog::StartupSpan trace("AwardCalculator::compute");
     struct Builder {
         AwardResult result;
         QHash<QString, AwardItem> items;
