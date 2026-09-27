@@ -73,6 +73,33 @@
     </message>
 </context>
 <context>
+    <name>ActivationController</name>
+    <message>
+        <source>Zones</source>
+        <translation>Зоны</translation>
+    </message>
+    <message>
+        <source>Countries</source>
+        <translation>Страны</translation>
+    </message>
+    <message>
+        <source>Prefixes</source>
+        <translation>Префиксы</translation>
+    </message>
+    <message>
+        <source>HQ stations</source>
+        <translation>Станции HQ</translation>
+    </message>
+    <message>
+        <source>Provinces</source>
+        <translation>Провинции</translation>
+    </message>
+    <message>
+        <source>Sections</source>
+        <translation>Секции</translation>
+    </message>
+</context>
+<context>
     <name>ActivationDialog</name>
     <message>
         <source>Contest</source>
@@ -262,6 +289,18 @@
         <translation>Десять разных замков провинции Кунео, когда DCI уже получен.</translation>
     </message>
     <message>
+        <source>All twenty regions worked.</source>
+        <translation>Все двадцать регионов проведены.</translation>
+    </message>
+    <message>
+        <source>Missing: %1.</source>
+        <translation>Не хватает: %1.</translation>
+    </message>
+    <message>
+        <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
+        <translation>Референс берётся из SIG/SIG_INFO (SIG = %1) или из комментария вида «%1 LI-001».</translation>
+    </message>
+    <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
         <translation>Диплом: 75 провинций для итальянских станций, 60 для остальных.</translation>
     </message>
@@ -419,6 +458,53 @@
     <message>
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● подтверждён  ○ проведён  ·  двойной щелчок открывает первый QSO. DXCC считает территории с номером DXCC; для старых QSO используйте Настройки → Общие → Дополнить недостающие DXCC.</translation>
+    </message>
+</context>
+<context>
+    <name>BandMapPanel</name>
+    <message>
+        <source>Band map</source>
+        <translation>Карта диапазона</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n spot(s)</source>
+        <translation>
+            <numerusform>%n спот</numerusform>
+            <numerusform>%n спота</numerusform>
+            <numerusform>%n спотов</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Auto · %1</source>
+        <translation>Авто · %1</translation>
+    </message>
+    <message>
+        <source>Follow the radio</source>
+        <translation>Следовать за радио</translation>
+    </message>
+    <message>
+        <source>Only spots that pass the cluster filter</source>
+        <translation>Только споты, прошедшие фильтр кластера</translation>
+    </message>
+    <message>
+        <source>Keep the radio in view</source>
+        <translation>Держать радио в поле зрения</translation>
+    </message>
+    <message>
+        <source>Go to the radio</source>
+        <translation>К радио</translation>
+    </message>
+    <message>
+        <source>%1 min ago</source>
+        <translation>%1 мин назад</translation>
+    </message>
+    <message>
+        <source>No spots on %1 right now.</source>
+        <translation>Сейчас нет спотов на %1.</translation>
+    </message>
+    <message>
+        <source>No cluster connected: open the DX Cluster and connect a source.</source>
+        <translation>Кластер не подключён: откройте DX-кластер и подключите источник.</translation>
     </message>
 </context>
 <context>
@@ -676,6 +762,49 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Unexpected answer from HamQTH</source>
         <translation>Неожиданный ответ от HamQTH</translation>
+    </message>
+</context>
+<context>
+    <name>ChatWindow</name>
+    <message>
+        <source>DecoDXLog — ON4KST chat</source>
+        <translation>DecoDXLog — чат ON4KST</translation>
+    </message>
+    <message>
+        <source>Room</source>
+        <translation>Комната</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>Подключиться</translation>
+    </message>
+    <message>
+        <source>Disconnect</source>
+        <translation>Отключиться</translation>
+    </message>
+    <message>
+        <source>Put your ON4KST callsign and password in Settings → Sync &amp; Cloud, in the list of services (ON4KST Chat). They are kept in the system keychain.</source>
+        <translation>Укажите позывной и пароль ON4KST в Настройки → Sync и Cloud, в списке сервисов (ON4KST Chat). Они хранятся в системной связке ключей.</translation>
+    </message>
+    <message>
+        <source>Heard (%1)</source>
+        <translation>Слышны (%1)</translation>
+    </message>
+    <message>
+        <source>to %1 ✕</source>
+        <translation>для %1 ✕</translation>
+    </message>
+    <message>
+        <source>Private message to %1</source>
+        <translation>Личное сообщение для %1</translation>
+    </message>
+    <message>
+        <source>Message to the whole room</source>
+        <translation>Сообщение всей комнате</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">Отправить</translation>
     </message>
 </context>
 <context>
@@ -960,8 +1089,8 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Новое правило</translation>
     </message>
     <message>
-        <source>A spot that matches a rule is written in the activity log, highlighted, sent to Decodium and, if the rule says so, announced by voice. The same DX on the same band and mode is announced at most once every %1 minutes.</source>
-        <translation>Спот, подошедший под правило, попадает в журнал событий, выделяется, уходит в Decodium и, если так сказано в правиле, объявляется голосом. Один и тот же DX на том же диапазоне и в том же режиме объявляется не чаще одного раза в %1 минут.</translation>
+        <source>A spot that matches a rule is written in the activity log and highlighted; if the rule says so it is sent to Decodium, announced by voice, shown in a popup (click it to tune the radio) and played as a sound. The same DX on the same band and mode alerts at most once every %1 minutes.</source>
+        <translation>Спот, подходящий под правило, записывается в журнал активности и выделяется; если правило требует, он отправляется в Decodium, объявляется голосом, показывается во всплывающем окне (щелчок настраивает радио) и сопровождается звуком. Один и тот же DX на том же диапазоне и виде предупреждает не чаще раза в %1 минут.</translation>
     </message>
     <message>
         <source>DX in %1</source>
@@ -982,6 +1111,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>voice</source>
         <translation>голос</translation>
+    </message>
+    <message>
+        <source>popup</source>
+        <translation>окно</translation>
+    </message>
+    <message>
+        <source>sound</source>
+        <translation>звук</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -1168,6 +1305,14 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Отправлять в Decodium</translation>
     </message>
     <message>
+        <source>Show a popup</source>
+        <translation>Показать окно</translation>
+    </message>
+    <message>
+        <source>Play a sound</source>
+        <translation>Воспроизвести звук</translation>
+    </message>
+    <message>
         <source>Save rule</source>
         <translation>Сохранить правило</translation>
     </message>
@@ -1237,6 +1382,22 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Позывной слишком короткий</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation type="unfinished">Макросы CW</translation>
+    </message>
+    <message>
+        <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
+        <translation>{CALL} проводимая станция, {MYCALL} ваш позывной, {RST} рапорт, {NR} ваш номер, {EXCH} принятое. С ESM в Run: Enter при пустом позывном шлёт F1, с позывным F3, с обменом F4 и записывает. В S&amp;P: с позывным F9, с обменом F10 и записывает. В телефонии клавиши воспроизводят голосовой манипулятор.</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation type="unfinished">Макросы по умолчанию</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Закрыть</translation>
+    </message>
+    <message>
         <source>%1 · next %2</source>
         <translation>%1 · следующий %2</translation>
     </message>
@@ -1255,6 +1416,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Mode</source>
         <translation>Режим</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>Макросы…</translation>
+    </message>
+    <message>
+        <source>stereo</source>
+        <translation>стерео</translation>
     </message>
     <message>
         <source>already worked</source>
@@ -1293,6 +1462,26 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Аппаратный журнал</translation>
     </message>
     <message>
+        <source>no known call</source>
+        <translation>нет известных позывных</translation>
+    </message>
+    <message>
+        <source>Downloading…</source>
+        <translation type="unfinished">Скачиваем…</translation>
+    </message>
+    <message>
+        <source>Download MASTER.SCP</source>
+        <translation>Скачать MASTER.SCP</translation>
+    </message>
+    <message>
+        <source>needed</source>
+        <translation>нужно</translation>
+    </message>
+    <message>
+        <source>new</source>
+        <translation>новый</translation>
+    </message>
+    <message>
         <source>Open a session from Contest, then the QSOs come in here.</source>
         <translation>Открой сессию в «Контест», и QSO пойдут сюда.</translation>
     </message>
@@ -1306,6 +1495,76 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
         <translation>Все панели контеста в отдельных окнах: ↩ в панели возвращает её сюда.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestMultipliersPanel</name>
+    <message>
+        <source>Multipliers</source>
+        <translation>Множители</translation>
+    </message>
+    <message>
+        <source>Open a contest session to see the multipliers.</source>
+        <translation>Откройте сессию соревнования, чтобы увидеть множители.</translation>
+    </message>
+    <message>
+        <source>Only missing</source>
+        <translation>Только недостающие</translation>
+    </message>
+</context>
+<context>
+    <name>ContestNetPanel</name>
+    <message>
+        <source>Station network</source>
+        <translation>Сеть станции</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>Вкл.</translation>
+    </message>
+    <message>
+        <source>Network</source>
+        <translation>Сеть</translation>
+    </message>
+    <message>
+        <source>This station</source>
+        <translation>Это место</translation>
+    </message>
+    <message>
+        <source>UDP port</source>
+        <translation>UDP-порт</translation>
+    </message>
+    <message>
+        <source>Sync</source>
+        <translation>Синхр.</translation>
+    </message>
+    <message>
+        <source> · sent %1 · received %2</source>
+        <translation> · отправлено %1 · получено %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO</source>
+        <translation>
+            <numerusform>%n QSO</numerusform>
+            <numerusform>%n QSO</numerusform>
+            <numerusform>%n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Nobody else on the network yet.</source>
+        <translation>В сети пока никого нет.</translation>
+    </message>
+    <message>
+        <source>Message to the other operators</source>
+        <translation>Сообщение другим операторам</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">Отправить</translation>
+    </message>
+    <message>
+        <source>Spot %1</source>
+        <translation>Спот %1</translation>
     </message>
 </context>
 <context>
@@ -1906,6 +2165,83 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>DvkPanel</name>
+    <message>
+        <source>Voice keyer</source>
+        <translation>Голосовой манипулятор</translation>
+    </message>
+    <message>
+        <source>A WAV message</source>
+        <translation>Сообщение WAV</translation>
+    </message>
+    <message>
+        <source>WAV audio (*.wav)</source>
+        <translation>Аудио WAV (*.wav)</translation>
+    </message>
+    <message>
+        <source>stop</source>
+        <translation>стоп</translation>
+    </message>
+    <message>
+        <source>Audio to the radio</source>
+        <translation>Звук на радио</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>По умолчанию</translation>
+    </message>
+    <message>
+        <source>Microphone</source>
+        <translation>Микрофон</translation>
+    </message>
+    <message>
+        <source>PTT from the radio</source>
+        <translation>PTT через радио</translation>
+    </message>
+    <message>
+        <source>Repeat CQ every</source>
+        <translation>Повтор CQ каждые</translation>
+    </message>
+    <message>
+        <source>never</source>
+        <translation type="unfinished">никогда</translation>
+    </message>
+    <message>
+        <source>CQ loop</source>
+        <translation>CQ по кругу</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished">Стоп</translation>
+    </message>
+</context>
+<context>
+    <name>DxAlertToast</name>
+    <message>
+        <source>Click to tune the radio</source>
+        <translation>Щёлкните, чтобы настроить радио</translation>
+    </message>
+</context>
+<context>
+    <name>FlrigControl</name>
+    <message>
+        <source>connecting to flrig at %1…</source>
+        <translation>подключение к flrig на %1…</translation>
+    </message>
+    <message>
+        <source>not connected</source>
+        <translation>не подключено</translation>
+    </message>
+    <message>
+        <source>flrig does not answer: %1</source>
+        <translation>flrig не отвечает: %1</translation>
+    </message>
+    <message>
+        <source>flrig at %1</source>
+        <translation>flrig на %1</translation>
+    </message>
+</context>
+<context>
     <name>Ft2AwardPanel</name>
     <message>
         <source>FT2 Award</source>
@@ -1964,6 +2300,13 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>not worked</source>
         <translation>не проведён</translation>
+    </message>
+</context>
+<context>
+    <name>KstChat</name>
+    <message>
+        <source>the server closed the connection</source>
+        <translation>сервер закрыл соединение</translation>
     </message>
 </context>
 <context>
@@ -2539,6 +2882,22 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Карта</translation>
     </message>
     <message>
+        <source>Band map</source>
+        <translation>Карта диапазона</translation>
+    </message>
+    <message>
+        <source>Station network</source>
+        <translation>Сеть станции</translation>
+    </message>
+    <message>
+        <source>Voice keyer</source>
+        <translation>Голосовой манипулятор</translation>
+    </message>
+    <message>
+        <source>Multipliers</source>
+        <translation>Множители</translation>
+    </message>
+    <message>
         <source>Contest entry</source>
         <translation>Ввод контеста</translation>
     </message>
@@ -2969,10 +3328,116 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>OmniRigControl</name>
+    <message>
+        <source>not connected</source>
+        <translation>не подключено</translation>
+    </message>
+    <message>
+        <source>OmniRig is not installed</source>
+        <translation>OmniRig не установлен</translation>
+    </message>
+    <message>
+        <source>cannot start OmniRig</source>
+        <translation>не удаётся запустить OmniRig</translation>
+    </message>
+    <message>
+        <source>OmniRig has no Rig%1</source>
+        <translation>В OmniRig нет Rig%1</translation>
+    </message>
+    <message>
+        <source>OmniRig Rig%1…</source>
+        <translation>OmniRig Rig%1…</translation>
+    </message>
+    <message>
+        <source>OmniRig exists only on Windows</source>
+        <translation>OmniRig есть только в Windows</translation>
+    </message>
+    <message>
+        <source>Rig%1 not configured in OmniRig</source>
+        <translation>Rig%1 не настроен в OmniRig</translation>
+    </message>
+    <message>
+        <source>Rig%1 disabled in OmniRig</source>
+        <translation>Rig%1 отключён в OmniRig</translation>
+    </message>
+    <message>
+        <source>Rig%1: the port is busy</source>
+        <translation>Rig%1: порт занят</translation>
+    </message>
+    <message>
+        <source>Rig%1 does not answer</source>
+        <translation>Rig%1 не отвечает</translation>
+    </message>
+    <message>
+        <source>OmniRig Rig%1</source>
+        <translation>OmniRig Rig%1</translation>
+    </message>
+</context>
+<context>
     <name>PanelWindow</name>
     <message>
         <source>DecoDXLog — %1</source>
         <translation>DecoDXLog — %1</translation>
+    </message>
+</context>
+<context>
+    <name>PathForecastView</name>
+    <message>
+        <source>Path forecast</source>
+        <translation>Прогноз трассы</translation>
+    </message>
+    <message>
+        <source>%1 km</source>
+        <translation>%1 км</translation>
+    </message>
+    <message>
+        <source>%1°</source>
+        <translation type="unfinished">%1°</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n hop(s)</source>
+        <translation>
+            <numerusform>%n скачок</numerusform>
+            <numerusform>%n скачка</numerusform>
+            <numerusform>%n скачков</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>SFI %1 (estimated)</source>
+        <translation>SFI %1 (оценка)</translation>
+    </message>
+    <message>
+        <source>SFI %1</source>
+        <translation>SFI %1</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>Локатор</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
+        <translation>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</translation>
+    </message>
+    <message>
+        <source>good</source>
+        <translation type="unfinished">хорошее</translation>
+    </message>
+    <message>
+        <source>fair</source>
+        <translation type="unfinished">среднее</translation>
+    </message>
+    <message>
+        <source>marginal</source>
+        <translation>на грани</translation>
+    </message>
+    <message>
+        <source>closed</source>
+        <translation type="unfinished">закрыта</translation>
+    </message>
+    <message>
+        <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
+        <translation>Упрощённая модель F2 (MUF/LUF), не VOACAP: ориентир, когда откроется диапазон, а не обещание.</translation>
     </message>
 </context>
 <context>
@@ -3151,6 +3616,22 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>unexpected answer</source>
         <translation>неожиданный ответ</translation>
+    </message>
+    <message>
+        <source>HRDLog: sent</source>
+        <translation>HRDLog: отправлено</translation>
+    </message>
+    <message>
+        <source>HRDLog: already there</source>
+        <translation>HRDLog: уже есть</translation>
+    </message>
+    <message>
+        <source>HRDLog: %1</source>
+        <translation>HRDLog: %1</translation>
+    </message>
+    <message>
+        <source>HRDLog: unexpected answer</source>
+        <translation>HRDLog: неожиданный ответ</translation>
     </message>
     <message>
         <source>eQSL: already there</source>
@@ -5249,6 +5730,14 @@ The call Decodium is working shows up here by itself.</source>
         <translation>QRZ.com требует подписки на XML-данные; HamQTH бесплатен. Ответы держатся в памяти сутки, поэтому хождение по журналу не тратит запросы.</translation>
     </message>
     <message>
+        <source>Radio via flrig</source>
+        <translation>Радио через flrig</translation>
+    </message>
+    <message>
+        <source>Radio via OmniRig</source>
+        <translation>Радио через OmniRig</translation>
+    </message>
+    <message>
         <source>Radio via Hamlib (rigctld)</source>
         <translation>Трансивер через Hamlib (rigctld)</translation>
     </message>
@@ -5441,10 +5930,6 @@ The call Decodium is working shows up here by itself.</source>
         <translation>нет</translation>
     </message>
     <message>
-        <source>Pin</source>
-        <translation>Вывод</translation>
-    </message>
-    <message>
         <source>Send VVV</source>
         <translation>Передать VVV</translation>
     </message>
@@ -5457,8 +5942,108 @@ The call Decodium is working shows up here by itself.</source>
         <translation>порт не открыт</translation>
     </message>
     <message>
+        <source>flrig (XML-RPC)</source>
+        <translation>flrig (XML-RPC)</translation>
+    </message>
+    <message>
+        <source>OmniRig</source>
+        <translation>OmniRig</translation>
+    </message>
+    <message>
+        <source>flrig server</source>
+        <translation>Сервер flrig</translation>
+    </message>
+    <message>
+        <source>flrig keeps the radio and shares it over XML-RPC (in flrig: Config → Setup → Server, usually port 12345). DecoDXLog reads frequency and mode every second, tunes the radio, uses its PTT and sends CW with flrig&apos;s keyer when the radio has one. fldigi can stay connected to flrig at the same time.</source>
+        <translation>flrig держит радио и делится им по XML-RPC (в flrig: Config → Setup → Server, обычно порт 12345). DecoDXLog каждую секунду читает частоту и вид излучения, настраивает радио, использует его PTT и передаёт CW ключом flrig, если он есть у радио. fldigi может одновременно оставаться подключённым к flrig.</translation>
+    </message>
+    <message>
+        <source>OmniRig radio</source>
+        <translation>Радио OmniRig</translation>
+    </message>
+    <message>
+        <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
+        <translation>OmniRig (VE3NEA) держит последовательный порт и делит радио со всеми программами: радио настраивается в самом OmniRig (Rig 1 или Rig 2). DecoDXLog читает частоту и вид излучения, настраивает радио и использует его PTT. OmniRig не передаёт CW: для этого используйте последовательный ключ ниже или другое подключение.</translation>
+    </message>
+    <message>
+        <source>Keyer</source>
+        <translation>Ключ</translation>
+    </message>
+    <message>
+        <source>DTR pin</source>
+        <translation>Линия DTR</translation>
+    </message>
+    <message>
+        <source>RTS pin</source>
+        <translation>Линия RTS</translation>
+    </message>
+    <message>
+        <source>K1EL WinKeyer</source>
+        <translation>K1EL WinKeyer</translation>
+    </message>
+    <message>
+        <source>WinKeyer v%1 ready</source>
+        <translation>WinKeyer v%1 готов</translation>
+    </message>
+    <message>
+        <source>WinKeyer does not answer</source>
+        <translation>WinKeyer не отвечает</translation>
+    </message>
+    <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Когда открыт Decodium, порт CAT трансивера уже занят, а мост CAT манипулировать не умеет. Здесь DecoDXLog манипулирует сам: он поднимает DTR или RTS на своём порту — том, что идёт на схему манипуляции, — так что CAT остаётся у Decodium, а макросы всё равно уходят в эфир. Оставьте порт на «нет», чтобы манипулировать через CAT, как раньше.</translation>
+    </message>
+    <message>
+        <source>SO2R · two radios</source>
+        <translation>SO2R · два радио</translation>
+    </message>
+    <message>
+        <source>Second radio</source>
+        <translation>Второе радио</translation>
+    </message>
+    <message>
+        <source>rigctld (host:port)</source>
+        <translation>rigctld (хост:порт)</translation>
+    </message>
+    <message>
+        <source>TCI (RX2)</source>
+        <translation>TCI (RX2)</translation>
+    </message>
+    <message>
+        <source>flrig</source>
+        <translation>flrig</translation>
+    </message>
+    <message>
+        <source>OmniRig radio (1 or 2)</source>
+        <translation>Радио OmniRig (1 или 2)</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished">Адрес</translation>
+    </message>
+    <message>
+        <source>SO2R box (OTRSP)</source>
+        <translation>Коробка SO2R (OTRSP)</translation>
+    </message>
+    <message>
+        <source>radio 2 connected</source>
+        <translation>радио 2 подключено</translation>
+    </message>
+    <message>
+        <source>radio 2 not connected</source>
+        <translation>радио 2 не подключено</translation>
+    </message>
+    <message>
+        <source>SO2R box ready</source>
+        <translation>Коробка SO2R готова</translation>
+    </message>
+    <message>
+        <source>SO2R box port not open</source>
+        <translation>Порт коробки SO2R не открыт</translation>
+    </message>
+    <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
+        <translation>Радио 1 — то, что выше; радио 2 подключается здесь. Во вводе соревнования радио с фокусом получает диапазон, настройку и CW: Ctrl+← и Ctrl+→ выбирают радио 1 или 2, Pause меняет их, ` (обратный апостроф) переключает стерео-прослушивание. Коробка SO2R (MK2R, SO2RDuino, YCCC…) следует по OTRSP: TX1/TX2 для передатчика, RX1/RX2 или RX1S/RX2S для наушников.</translation>
     </message>
     <message>
         <source>The control box, directly (built-in gateway)</source>
@@ -5732,6 +6317,45 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>StatsAwardsPage</name>
+    <message>
+        <source>DXCC worked</source>
+        <translation>DXCC проведено</translation>
+    </message>
+    <message>
+        <source>DXCC confirmed</source>
+        <translation>DXCC подтверждено</translation>
+    </message>
+    <message>
+        <source>CQ zones</source>
+        <translation>Зоны CQ</translation>
+    </message>
+    <message>
+        <source>Grids</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Awards over the years · cumulative</source>
+        <translation>Дипломы по годам · нарастающим итогом</translation>
+    </message>
+    <message>
+        <source>no QSO</source>
+        <translation type="unfinished">нет QSO</translation>
+    </message>
+    <message>
+        <source>Most worked entities</source>
+        <translation>Чаще всего проведённые страны</translation>
+    </message>
+    <message>
+        <source>Most worked callsigns</source>
+        <translation>Чаще всего проведённые позывные</translation>
+    </message>
+    <message>
+        <source>Band by mode</source>
+        <translation>Диапазон по виду</translation>
+    </message>
+</context>
+<context>
     <name>StatsWindow</name>
     <message>
         <source>DecoDXLog — Statistics</source>
@@ -5756,6 +6380,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>All years</source>
         <translation>Все годы</translation>
+    </message>
+    <message>
+        <source>Activity</source>
+        <translation>Активность</translation>
+    </message>
+    <message>
+        <source>Awards and rankings</source>
+        <translation>Дипломы и рейтинги</translation>
     </message>
     <message>
         <source>Refresh</source>
@@ -5886,6 +6518,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>DX Cluster…</source>
         <translation>DX-кластер…</translation>
+    </message>
+    <message>
+        <source>ON4KST chat (%1)…</source>
+        <translation>Чат ON4KST (%1)…</translation>
+    </message>
+    <message>
+        <source>ON4KST chat…</source>
+        <translation>Чат ON4KST…</translation>
     </message>
     <message>
         <source>Setup · %1 ▾</source>
@@ -6104,6 +6744,13 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Колёсико: цифра под указателем. Щелчок: написать частоту.</translation>
+    </message>
+</context>
+<context>
+    <name>WinKeyer</name>
+    <message>
+        <source>WinKeyer: cannot open %1: %2</source>
+        <translation>WinKeyer: не удаётся открыть %1: %2</translation>
     </message>
 </context>
 <context>
@@ -6442,6 +7089,41 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>decolog::app::ChatController</name>
+    <message>
+        <source>ON4KST: in the %1 room</source>
+        <translation>ON4KST: в комнате %1</translation>
+    </message>
+    <message>
+        <source>not connected</source>
+        <translation>не подключено</translation>
+    </message>
+    <message>
+        <source>not connected: %1</source>
+        <translation>не подключено: %1</translation>
+    </message>
+    <message>
+        <source>connecting…</source>
+        <translation>подключение…</translation>
+    </message>
+    <message>
+        <source>logging in…</source>
+        <translation>вход…</translation>
+    </message>
+    <message>
+        <source>online as %1</source>
+        <translation>в сети как %1</translation>
+    </message>
+    <message>
+        <source>ON4KST: no credentials (%1)</source>
+        <translation>ON4KST: нет учётных данных (%1)</translation>
+    </message>
+    <message>
+        <source>Settings → Sync &amp; Cloud</source>
+        <translation>Настройки → Sync и Cloud</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::CloudController</name>
     <message>
         <source>Cloud: %1 connected</source>
@@ -6740,6 +7422,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>reloading the log table</source>
         <translation>перезагружаем таблицу журнала</translation>
+    </message>
+    <message>
+        <source>%1 %2 %3 from %4</source>
+        <translation>%1 %2 %3 от %4</translation>
     </message>
     <message>
         <source>DecoLink listening on 127.0.0.1:%1</source>
@@ -7060,6 +7746,33 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>Программа не смогла перезапуститься на %1.</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::NetController</name>
+    <message>
+        <source>off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>on the network %1 (UDP %2) as %3</source>
+        <translation>в сети %1 (UDP %2) как %3</translation>
+    </message>
+    <message>
+        <source>cannot open UDP %1: %2</source>
+        <translation>не удаётся открыть UDP %1: %2</translation>
+    </message>
+    <message>
+        <source>%1 left the network</source>
+        <translation>%1 покинул сеть</translation>
+    </message>
+    <message>
+        <source>spot %1 %2 %3</source>
+        <translation>спот %1 %2 %3</translation>
+    </message>
+    <message>
+        <source>%1 joined the network</source>
+        <translation>%1 подключился к сети</translation>
     </message>
 </context>
 <context>
@@ -7522,6 +8235,10 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>decolog::app::RigController</name>
     <message>
+        <source>WinKeyer answers: firmware %1</source>
+        <translation>WinKeyer отвечает: прошивка %1</translation>
+    </message>
+    <message>
         <source>Sent: %1</source>
         <translation>Отправлено: %1</translation>
     </message>
@@ -7592,6 +8309,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>CW decoder listening to %1</source>
         <translation>Декодер CW слушает %1</translation>
+    </message>
+    <message>
+        <source>WinKeyer on %1</source>
+        <translation>WinKeyer на %1</translation>
     </message>
     <message>
         <source>CW keyer on %1 (%2): it works with the CAT busy elsewhere</source>
@@ -7714,7 +8435,26 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>decolog::app::So2rController</name>
+    <message>
+        <source>Radio 2: %1</source>
+        <translation>Радио 2: %1</translation>
+    </message>
+    <message>
+        <source>Cannot open the SO2R box on %1: %2</source>
+        <translation>Не удаётся открыть коробку SO2R на %1: %2</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::SolarController</name>
+    <message>
+        <source>Set your locator in the station profile.</source>
+        <translation>Укажите свой локатор в профиле станции.</translation>
+    </message>
+    <message>
+        <source>No position for the DX: type a locator or look up a callsign.</source>
+        <translation>Нет позиции DX: введите локатор или найдите позывной.</translation>
+    </message>
     <message>
         <source>Solar data of %1</source>
         <translation>Данные о Солнце от %1</translation>
@@ -7726,6 +8466,33 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>The solar data cannot be read</source>
         <translation>Данные о Солнце не прочитать</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::SuperCheckController</name>
+    <message>
+        <source>%1 calls from MASTER.SCP (%2) and the log</source>
+        <translation>%1 позывных из MASTER.SCP (%2) и журнала</translation>
+    </message>
+    <message>
+        <source>only the calls of the log: download MASTER.SCP for the full list</source>
+        <translation>только позывные журнала: скачайте MASTER.SCP для полного списка</translation>
+    </message>
+    <message>
+        <source>downloading MASTER.SCP…</source>
+        <translation>загрузка MASTER.SCP…</translation>
+    </message>
+    <message>
+        <source>MASTER.SCP not downloaded: %1</source>
+        <translation>MASTER.SCP не загружен: %1</translation>
+    </message>
+    <message>
+        <source>empty answer</source>
+        <translation>пустой ответ</translation>
+    </message>
+    <message>
+        <source>MASTER.SCP: %1 calls</source>
+        <translation>MASTER.SCP: %1 позывных</translation>
     </message>
 </context>
 <context>
@@ -7829,6 +8596,37 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>version %1 set aside</source>
         <translation>версия %1 отложена</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::VoiceKeyerController</name>
+    <message>
+        <source>F%1 has no recorded message</source>
+        <translation>На F%1 нет записанного сообщения</translation>
+    </message>
+    <message>
+        <source>The microphone does not record 16 kHz mono</source>
+        <translation>Микрофон не пишет 16 кГц моно</translation>
+    </message>
+    <message>
+        <source>F%1 recorded: %2 s</source>
+        <translation>F%1 записан: %2 с</translation>
+    </message>
+    <message>
+        <source>No such key</source>
+        <translation>Нет такой клавиши</translation>
+    </message>
+    <message>
+        <source>Cannot read %1</source>
+        <translation>Не удаётся прочитать %1</translation>
+    </message>
+    <message>
+        <source>Not a WAV file</source>
+        <translation>Это не файл WAV</translation>
+    </message>
+    <message>
+        <source>Cannot copy the file</source>
+        <translation>Не удаётся скопировать файл</translation>
     </message>
 </context>
 <context>
@@ -7985,6 +8783,18 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
         <translation>Отправка в CRX Logbook (crx.cloud): ключ начинается с HAM-</translation>
+    </message>
+    <message>
+        <source>Upload code</source>
+        <translation>Код загрузки</translation>
+    </message>
+    <message>
+        <source>Upload to HRDLog.net: the upload code is in your HRDLog profile, it is not the password</source>
+        <translation>Загрузка на HRDLog.net: код загрузки есть в профиле HRDLog, это не пароль</translation>
+    </message>
+    <message>
+        <source>The VHF, EME and low band chat (www.on4kst.info)</source>
+        <translation>Чат для УКВ, EME и нижних диапазонов (www.on4kst.info)</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

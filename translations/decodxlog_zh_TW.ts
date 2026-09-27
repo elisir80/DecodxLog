@@ -73,6 +73,33 @@
     </message>
 </context>
 <context>
+    <name>ActivationController</name>
+    <message>
+        <source>Zones</source>
+        <translation>分區</translation>
+    </message>
+    <message>
+        <source>Countries</source>
+        <translation>國家</translation>
+    </message>
+    <message>
+        <source>Prefixes</source>
+        <translation>字首</translation>
+    </message>
+    <message>
+        <source>HQ stations</source>
+        <translation>HQ電台</translation>
+    </message>
+    <message>
+        <source>Provinces</source>
+        <translation>省份</translation>
+    </message>
+    <message>
+        <source>Sections</source>
+        <translation>分區</translation>
+    </message>
+</context>
+<context>
     <name>ActivationDialog</name>
     <message>
         <source>Contest</source>
@@ -260,6 +287,18 @@
         <translation>庫內奧省的十座不同城堡，需先取得 DCI。</translation>
     </message>
     <message>
+        <source>All twenty regions worked.</source>
+        <translation>二十個大區全部通聯。</translation>
+    </message>
+    <message>
+        <source>Missing: %1.</source>
+        <translation>缺少：%1。</translation>
+    </message>
+    <message>
+        <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
+        <translation>參考編號取自 SIG/SIG_INFO（SIG = %1）或類似「%1 LI-001」的備註。</translation>
+    </message>
+    <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
         <translation>證書：義大利電台 75 個省，其他電台 60 個。</translation>
     </message>
@@ -417,6 +456,51 @@
     <message>
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● 已確認  ○ 已通聯  ·  按兩下開啟第一個 QSO。DXCC 統計帶 DXCC 號碼的實體；較早的 QSO 請用 設定 → 一般 → 補上缺少的 DXCC。</translation>
+    </message>
+</context>
+<context>
+    <name>BandMapPanel</name>
+    <message>
+        <source>Band map</source>
+        <translation>波段圖</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n spot(s)</source>
+        <translation>
+            <numerusform>%n 個 spot</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Auto · %1</source>
+        <translation>自動 · %1</translation>
+    </message>
+    <message>
+        <source>Follow the radio</source>
+        <translation>跟隨電台</translation>
+    </message>
+    <message>
+        <source>Only spots that pass the cluster filter</source>
+        <translation>僅顯示通過叢集過濾的 spot</translation>
+    </message>
+    <message>
+        <source>Keep the radio in view</source>
+        <translation>保持電台可見</translation>
+    </message>
+    <message>
+        <source>Go to the radio</source>
+        <translation>轉到電台</translation>
+    </message>
+    <message>
+        <source>%1 min ago</source>
+        <translation>%1 分鐘前</translation>
+    </message>
+    <message>
+        <source>No spots on %1 right now.</source>
+        <translation>%1 目前沒有 spot。</translation>
+    </message>
+    <message>
+        <source>No cluster connected: open the DX Cluster and connect a source.</source>
+        <translation>未連接叢集：開啟 DX 叢集並連接一個來源。</translation>
     </message>
 </context>
 <context>
@@ -672,6 +756,49 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Unexpected answer from HamQTH</source>
         <translation>HamQTH 的回覆出乎意料</translation>
+    </message>
+</context>
+<context>
+    <name>ChatWindow</name>
+    <message>
+        <source>DecoDXLog — ON4KST chat</source>
+        <translation>DecoDXLog — ON4KST 聊天</translation>
+    </message>
+    <message>
+        <source>Room</source>
+        <translation>房間</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>連接</translation>
+    </message>
+    <message>
+        <source>Disconnect</source>
+        <translation>斷開</translation>
+    </message>
+    <message>
+        <source>Put your ON4KST callsign and password in Settings → Sync &amp; Cloud, in the list of services (ON4KST Chat). They are kept in the system keychain.</source>
+        <translation>在 設定 → 同步與雲端 的服務清單（ON4KST Chat）中填入 ON4KST 呼號和密碼，它們保存在系統鑰匙圈中。</translation>
+    </message>
+    <message>
+        <source>Heard (%1)</source>
+        <translation>已聽到（%1）</translation>
+    </message>
+    <message>
+        <source>to %1 ✕</source>
+        <translation>給 %1 ✕</translation>
+    </message>
+    <message>
+        <source>Private message to %1</source>
+        <translation>給 %1 的私訊</translation>
+    </message>
+    <message>
+        <source>Message to the whole room</source>
+        <translation>發給整個房間的訊息</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">送出</translation>
     </message>
 </context>
 <context>
@@ -956,8 +1083,8 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>新增規則</translation>
     </message>
     <message>
-        <source>A spot that matches a rule is written in the activity log, highlighted, sent to Decodium and, if the rule says so, announced by voice. The same DX on the same band and mode is announced at most once every %1 minutes.</source>
-        <translation>符合規則的點報會寫進活動日誌、標示出來、送到 Decodium，如果規則這麼說，還會用語音播報。同一個 DX 在同一波段、同一模式下，最多每 %1 分鐘播報一次。</translation>
+        <source>A spot that matches a rule is written in the activity log and highlighted; if the rule says so it is sent to Decodium, announced by voice, shown in a popup (click it to tune the radio) and played as a sound. The same DX on the same band and mode alerts at most once every %1 minutes.</source>
+        <translation>符合規則的 spot 會寫入活動日誌並醒目標示；依規則設定可傳送到 Decodium、語音播報、彈窗顯示（點擊調諧電台）並播放聲音。同一 DX 在同一波段和模式最多每 %1 分鐘提醒一次。</translation>
     </message>
     <message>
         <source>DX in %1</source>
@@ -978,6 +1105,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>voice</source>
         <translation>語音</translation>
+    </message>
+    <message>
+        <source>popup</source>
+        <translation>彈窗</translation>
+    </message>
+    <message>
+        <source>sound</source>
+        <translation>聲音</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -1164,6 +1299,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>送到 Decodium</translation>
     </message>
     <message>
+        <source>Show a popup</source>
+        <translation>顯示彈窗</translation>
+    </message>
+    <message>
+        <source>Play a sound</source>
+        <translation>播放聲音</translation>
+    </message>
+    <message>
         <source>Save rule</source>
         <translation>儲存規則</translation>
     </message>
@@ -1233,6 +1376,22 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>呼號太短</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation type="unfinished">CW 巨集</translation>
+    </message>
+    <message>
+        <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
+        <translation>{CALL} 對方電台，{MYCALL} 你的呼號，{RST} 報告，{NR} 你的序號，{EXCH} 收到的交換。ESM 在 Run 模式：呼號為空時 Enter 發 F1，有呼號發 F3，有交換發 F4 並記錄。S&amp;P 模式：有呼號發 F9，有交換發 F10 並記錄。話音模式下按鍵播放語音鍵控。</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation type="unfinished">預設巨集</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">關閉</translation>
+    </message>
+    <message>
         <source>%1 · next %2</source>
         <translation>%1 · 下一個 %2</translation>
     </message>
@@ -1251,6 +1410,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Mode</source>
         <translation>模式</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>巨集…</translation>
+    </message>
+    <message>
+        <source>stereo</source>
+        <translation>立體聲</translation>
     </message>
     <message>
         <source>already worked</source>
@@ -1289,6 +1456,26 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>日誌</translation>
     </message>
     <message>
+        <source>no known call</source>
+        <translation>無已知呼號</translation>
+    </message>
+    <message>
+        <source>Downloading…</source>
+        <translation type="unfinished">正在下載…</translation>
+    </message>
+    <message>
+        <source>Download MASTER.SCP</source>
+        <translation>下載 MASTER.SCP</translation>
+    </message>
+    <message>
+        <source>needed</source>
+        <translation>需要</translation>
+    </message>
+    <message>
+        <source>new</source>
+        <translation>新</translation>
+    </message>
+    <message>
         <source>Open a session from Contest, then the QSOs come in here.</source>
         <translation>在「競賽」裡開一個對話，QSO 就會進到這裡。</translation>
     </message>
@@ -1302,6 +1489,74 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
         <translation>競賽面板都在各自的視窗中：面板裡的 ↩ 可把它放回這裡。</translation>
+    </message>
+</context>
+<context>
+    <name>ContestMultipliersPanel</name>
+    <message>
+        <source>Multipliers</source>
+        <translation>倍增</translation>
+    </message>
+    <message>
+        <source>Open a contest session to see the multipliers.</source>
+        <translation>開啟一個比賽工作階段以檢視倍增。</translation>
+    </message>
+    <message>
+        <source>Only missing</source>
+        <translation>僅缺少的</translation>
+    </message>
+</context>
+<context>
+    <name>ContestNetPanel</name>
+    <message>
+        <source>Station network</source>
+        <translation>電台網路</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>開啟</translation>
+    </message>
+    <message>
+        <source>Network</source>
+        <translation>網路</translation>
+    </message>
+    <message>
+        <source>This station</source>
+        <translation>本機位</translation>
+    </message>
+    <message>
+        <source>UDP port</source>
+        <translation>UDP 連接埠</translation>
+    </message>
+    <message>
+        <source>Sync</source>
+        <translation>同步</translation>
+    </message>
+    <message>
+        <source> · sent %1 · received %2</source>
+        <translation> · 已發 %1 · 已收 %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO</source>
+        <translation>
+            <numerusform>%n 個 QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Nobody else on the network yet.</source>
+        <translation>網路上還沒有其他人。</translation>
+    </message>
+    <message>
+        <source>Message to the other operators</source>
+        <translation>發給其他操作員的訊息</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">送出</translation>
+    </message>
+    <message>
+        <source>Spot %1</source>
+        <translation>Spot %1</translation>
     </message>
 </context>
 <context>
@@ -1900,6 +2155,83 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
 </context>
 <context>
+    <name>DvkPanel</name>
+    <message>
+        <source>Voice keyer</source>
+        <translation>語音鍵控</translation>
+    </message>
+    <message>
+        <source>A WAV message</source>
+        <translation>WAV 訊息</translation>
+    </message>
+    <message>
+        <source>WAV audio (*.wav)</source>
+        <translation>WAV 音訊 (*.wav)</translation>
+    </message>
+    <message>
+        <source>stop</source>
+        <translation>停止</translation>
+    </message>
+    <message>
+        <source>Audio to the radio</source>
+        <translation>送往電台的音訊</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>系統預設</translation>
+    </message>
+    <message>
+        <source>Microphone</source>
+        <translation>麥克風</translation>
+    </message>
+    <message>
+        <source>PTT from the radio</source>
+        <translation>透過電台 PTT</translation>
+    </message>
+    <message>
+        <source>Repeat CQ every</source>
+        <translation>CQ 重複間隔</translation>
+    </message>
+    <message>
+        <source>never</source>
+        <translation type="unfinished">從未</translation>
+    </message>
+    <message>
+        <source>CQ loop</source>
+        <translation>CQ 循環</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DxAlertToast</name>
+    <message>
+        <source>Click to tune the radio</source>
+        <translation>點擊調諧電台</translation>
+    </message>
+</context>
+<context>
+    <name>FlrigControl</name>
+    <message>
+        <source>connecting to flrig at %1…</source>
+        <translation>正在連接 flrig %1…</translation>
+    </message>
+    <message>
+        <source>not connected</source>
+        <translation>未連接</translation>
+    </message>
+    <message>
+        <source>flrig does not answer: %1</source>
+        <translation>flrig 無回應：%1</translation>
+    </message>
+    <message>
+        <source>flrig at %1</source>
+        <translation>flrig %1</translation>
+    </message>
+</context>
+<context>
     <name>Ft2AwardPanel</name>
     <message>
         <source>FT2 Award</source>
@@ -1958,6 +2290,13 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>not worked</source>
         <translation>未通聯</translation>
+    </message>
+</context>
+<context>
+    <name>KstChat</name>
+    <message>
+        <source>the server closed the connection</source>
+        <translation>伺服器關閉了連線</translation>
     </message>
 </context>
 <context>
@@ -2529,6 +2868,22 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>地圖</translation>
     </message>
     <message>
+        <source>Band map</source>
+        <translation>波段圖</translation>
+    </message>
+    <message>
+        <source>Station network</source>
+        <translation>電台網路</translation>
+    </message>
+    <message>
+        <source>Voice keyer</source>
+        <translation>語音鍵控</translation>
+    </message>
+    <message>
+        <source>Multipliers</source>
+        <translation>倍增</translation>
+    </message>
+    <message>
         <source>Contest entry</source>
         <translation>競賽鍵入</translation>
     </message>
@@ -2959,10 +3314,114 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
 </context>
 <context>
+    <name>OmniRigControl</name>
+    <message>
+        <source>not connected</source>
+        <translation>未連接</translation>
+    </message>
+    <message>
+        <source>OmniRig is not installed</source>
+        <translation>未安裝 OmniRig</translation>
+    </message>
+    <message>
+        <source>cannot start OmniRig</source>
+        <translation>無法啟動 OmniRig</translation>
+    </message>
+    <message>
+        <source>OmniRig has no Rig%1</source>
+        <translation>OmniRig 沒有 Rig%1</translation>
+    </message>
+    <message>
+        <source>OmniRig Rig%1…</source>
+        <translation>OmniRig Rig%1…</translation>
+    </message>
+    <message>
+        <source>OmniRig exists only on Windows</source>
+        <translation>OmniRig 僅適用於 Windows</translation>
+    </message>
+    <message>
+        <source>Rig%1 not configured in OmniRig</source>
+        <translation>OmniRig 中未設定 Rig%1</translation>
+    </message>
+    <message>
+        <source>Rig%1 disabled in OmniRig</source>
+        <translation>OmniRig 中 Rig%1 已停用</translation>
+    </message>
+    <message>
+        <source>Rig%1: the port is busy</source>
+        <translation>Rig%1：連接埠被占用</translation>
+    </message>
+    <message>
+        <source>Rig%1 does not answer</source>
+        <translation>Rig%1 無回應</translation>
+    </message>
+    <message>
+        <source>OmniRig Rig%1</source>
+        <translation>OmniRig Rig%1</translation>
+    </message>
+</context>
+<context>
     <name>PanelWindow</name>
     <message>
         <source>DecoDXLog — %1</source>
         <translation>DecoDXLog — %1</translation>
+    </message>
+</context>
+<context>
+    <name>PathForecastView</name>
+    <message>
+        <source>Path forecast</source>
+        <translation>路徑預報</translation>
+    </message>
+    <message>
+        <source>%1 km</source>
+        <translation>%1 公里</translation>
+    </message>
+    <message>
+        <source>%1°</source>
+        <translation type="unfinished">%1°</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n hop(s)</source>
+        <translation>
+            <numerusform>%n 跳</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>SFI %1 (estimated)</source>
+        <translation>SFI %1（估計）</translation>
+    </message>
+    <message>
+        <source>SFI %1</source>
+        <translation>SFI %1</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>網格</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
+        <translation>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</translation>
+    </message>
+    <message>
+        <source>good</source>
+        <translation type="unfinished">好</translation>
+    </message>
+    <message>
+        <source>fair</source>
+        <translation type="unfinished">一般</translation>
+    </message>
+    <message>
+        <source>marginal</source>
+        <translation>勉強</translation>
+    </message>
+    <message>
+        <source>closed</source>
+        <translation type="unfinished">已關閉</translation>
+    </message>
+    <message>
+        <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
+        <translation>簡化的 F2 模型（MUF/LUF），不是 VOACAP：只是波段何時開通的參考，不是保證。</translation>
     </message>
 </context>
 <context>
@@ -3139,6 +3598,22 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>unexpected answer</source>
         <translation>非預期的回應</translation>
+    </message>
+    <message>
+        <source>HRDLog: sent</source>
+        <translation>HRDLog：已傳送</translation>
+    </message>
+    <message>
+        <source>HRDLog: already there</source>
+        <translation>HRDLog：已存在</translation>
+    </message>
+    <message>
+        <source>HRDLog: %1</source>
+        <translation>HRDLog：%1</translation>
+    </message>
+    <message>
+        <source>HRDLog: unexpected answer</source>
+        <translation>HRDLog：非預期的回應</translation>
     </message>
     <message>
         <source>eQSL: already there</source>
@@ -5229,6 +5704,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>QRZ.com 需要 XML 資料訂閱；HamQTH 是免費的。結果會在記憶體裡留一天，所以在日誌裡來回翻看不會消耗查詢次數。</translation>
     </message>
     <message>
+        <source>Radio via flrig</source>
+        <translation>透過 flrig 的電台</translation>
+    </message>
+    <message>
+        <source>Radio via OmniRig</source>
+        <translation>透過 OmniRig 的電台</translation>
+    </message>
+    <message>
         <source>Radio via Hamlib (rigctld)</source>
         <translation>透過 Hamlib 連電台 (rigctld)</translation>
     </message>
@@ -5421,10 +5904,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>無</translation>
     </message>
     <message>
-        <source>Pin</source>
-        <translation>接腳</translation>
-    </message>
-    <message>
         <source>Send VVV</source>
         <translation>送出 VVV</translation>
     </message>
@@ -5437,8 +5916,108 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>連接埠沒有打開</translation>
     </message>
     <message>
+        <source>flrig (XML-RPC)</source>
+        <translation>flrig (XML-RPC)</translation>
+    </message>
+    <message>
+        <source>OmniRig</source>
+        <translation>OmniRig</translation>
+    </message>
+    <message>
+        <source>flrig server</source>
+        <translation>flrig 伺服器</translation>
+    </message>
+    <message>
+        <source>flrig keeps the radio and shares it over XML-RPC (in flrig: Config → Setup → Server, usually port 12345). DecoDXLog reads frequency and mode every second, tunes the radio, uses its PTT and sends CW with flrig&apos;s keyer when the radio has one. fldigi can stay connected to flrig at the same time.</source>
+        <translation>flrig 掌管電台並透過 XML-RPC 共享（flrig：Config → Setup → Server，通常連接埠 12345）。DecoDXLog 每秒讀取頻率和模式，調諧電台，使用其 PTT，並在電台有鍵控器時用 flrig 發送 CW。fldigi 可以同時連接 flrig。</translation>
+    </message>
+    <message>
+        <source>OmniRig radio</source>
+        <translation>OmniRig 電台</translation>
+    </message>
+    <message>
+        <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
+        <translation>OmniRig（VE3NEA 開發）占用序列埠並與所有請求的程式共享電台：電台在 OmniRig 中設定（Rig 1 或 Rig 2）。DecoDXLog 讀取頻率和模式、調諧電台並使用其 PTT。OmniRig 不發送 CW：請使用下面的序列鍵控器或其他連接。</translation>
+    </message>
+    <message>
+        <source>Keyer</source>
+        <translation>鍵控器</translation>
+    </message>
+    <message>
+        <source>DTR pin</source>
+        <translation>DTR 腳位</translation>
+    </message>
+    <message>
+        <source>RTS pin</source>
+        <translation>RTS 腳位</translation>
+    </message>
+    <message>
+        <source>K1EL WinKeyer</source>
+        <translation>K1EL WinKeyer</translation>
+    </message>
+    <message>
+        <source>WinKeyer v%1 ready</source>
+        <translation>WinKeyer v%1 就緒</translation>
+    </message>
+    <message>
+        <source>WinKeyer does not answer</source>
+        <translation>WinKeyer 無回應</translation>
+    </message>
+    <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Decodium 開著的時候，電台的 CAT 埠已經被佔住了，而 CAT 橋接是打不了電鍵的。這裡 DecoDXLog 自己來打：它在自己的連接埠上 — 就是接到電鍵電路的那個 — 拉起 DTR 或 RTS，於是 CAT 留給 Decodium，巨集照樣上天。想像以前那樣透過 CAT 打鍵，就把連接埠留在「無」。</translation>
+    </message>
+    <message>
+        <source>SO2R · two radios</source>
+        <translation>SO2R · 兩部電台</translation>
+    </message>
+    <message>
+        <source>Second radio</source>
+        <translation>第二部電台</translation>
+    </message>
+    <message>
+        <source>rigctld (host:port)</source>
+        <translation>rigctld（主機:連接埠）</translation>
+    </message>
+    <message>
+        <source>TCI (RX2)</source>
+        <translation>TCI (RX2)</translation>
+    </message>
+    <message>
+        <source>flrig</source>
+        <translation>flrig</translation>
+    </message>
+    <message>
+        <source>OmniRig radio (1 or 2)</source>
+        <translation>OmniRig 電台（1 或 2）</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished">地址</translation>
+    </message>
+    <message>
+        <source>SO2R box (OTRSP)</source>
+        <translation>SO2R 控制盒（OTRSP）</translation>
+    </message>
+    <message>
+        <source>radio 2 connected</source>
+        <translation>電台 2 已連接</translation>
+    </message>
+    <message>
+        <source>radio 2 not connected</source>
+        <translation>電台 2 未連接</translation>
+    </message>
+    <message>
+        <source>SO2R box ready</source>
+        <translation>SO2R 控制盒就緒</translation>
+    </message>
+    <message>
+        <source>SO2R box port not open</source>
+        <translation>SO2R 控制盒連接埠未開啟</translation>
+    </message>
+    <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
+        <translation>電台 1 是上面設定的那部；電台 2 在此連接。在比賽輸入中，擁有焦點的電台接收波段、調諧和 CW：Ctrl+← 和 Ctrl+→ 選擇電台 1 或 2，Pause 交換，`（反引號）切換立體聲收聽。SO2R 控制盒（MK2R、SO2RDuino、YCCC…）透過 OTRSP 跟隨：TX1/TX2 控制發射機，RX1/RX2 或 RX1S/RX2S 控制耳機。</translation>
     </message>
     <message>
         <source>The control box, directly (built-in gateway)</source>
@@ -5712,6 +6291,45 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
 </context>
 <context>
+    <name>StatsAwardsPage</name>
+    <message>
+        <source>DXCC worked</source>
+        <translation>DXCC 已通聯</translation>
+    </message>
+    <message>
+        <source>DXCC confirmed</source>
+        <translation>DXCC 已確認</translation>
+    </message>
+    <message>
+        <source>CQ zones</source>
+        <translation>CQ 分區</translation>
+    </message>
+    <message>
+        <source>Grids</source>
+        <translation type="unfinished">網格</translation>
+    </message>
+    <message>
+        <source>Awards over the years · cumulative</source>
+        <translation>歷年獎項 · 累計</translation>
+    </message>
+    <message>
+        <source>no QSO</source>
+        <translation type="unfinished">沒有 QSO</translation>
+    </message>
+    <message>
+        <source>Most worked entities</source>
+        <translation>通聯最多的實體</translation>
+    </message>
+    <message>
+        <source>Most worked callsigns</source>
+        <translation>通聯最多的呼號</translation>
+    </message>
+    <message>
+        <source>Band by mode</source>
+        <translation>波段 × 模式</translation>
+    </message>
+</context>
+<context>
     <name>StatsWindow</name>
     <message>
         <source>DecoDXLog — Statistics</source>
@@ -5736,6 +6354,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>All years</source>
         <translation>所有年份</translation>
+    </message>
+    <message>
+        <source>Activity</source>
+        <translation>活動</translation>
+    </message>
+    <message>
+        <source>Awards and rankings</source>
+        <translation>獎項與排行</translation>
     </message>
     <message>
         <source>Refresh</source>
@@ -5866,6 +6492,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>DX Cluster…</source>
         <translation>DX 叢集…</translation>
+    </message>
+    <message>
+        <source>ON4KST chat (%1)…</source>
+        <translation>ON4KST 聊天（%1）…</translation>
+    </message>
+    <message>
+        <source>ON4KST chat…</source>
+        <translation>ON4KST 聊天…</translation>
     </message>
     <message>
         <source>Setup · %1 ▾</source>
@@ -6084,6 +6718,13 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>滾輪：改動指標下的那一位。按一下：直接寫頻率。</translation>
+    </message>
+</context>
+<context>
+    <name>WinKeyer</name>
+    <message>
+        <source>WinKeyer: cannot open %1: %2</source>
+        <translation>WinKeyer：無法開啟 %1：%2</translation>
     </message>
 </context>
 <context>
@@ -6416,6 +7057,41 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::ChatController</name>
+    <message>
+        <source>ON4KST: in the %1 room</source>
+        <translation>ON4KST：在 %1 房間</translation>
+    </message>
+    <message>
+        <source>not connected</source>
+        <translation>未連接</translation>
+    </message>
+    <message>
+        <source>not connected: %1</source>
+        <translation>未連接：%1</translation>
+    </message>
+    <message>
+        <source>connecting…</source>
+        <translation>正在連接…</translation>
+    </message>
+    <message>
+        <source>logging in…</source>
+        <translation>正在登入…</translation>
+    </message>
+    <message>
+        <source>online as %1</source>
+        <translation>以 %1 上線</translation>
+    </message>
+    <message>
+        <source>ON4KST: no credentials (%1)</source>
+        <translation>ON4KST：沒有憑證（%1）</translation>
+    </message>
+    <message>
+        <source>Settings → Sync &amp; Cloud</source>
+        <translation>設定 → 同步與雲端</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::CloudController</name>
     <message>
         <source>Cloud: %1 connected</source>
@@ -6700,6 +7376,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>reloading the log table</source>
         <translation>正在重新載入日誌表格</translation>
+    </message>
+    <message>
+        <source>%1 %2 %3 from %4</source>
+        <translation>%1 %2 %3 來自 %4</translation>
     </message>
     <message>
         <source>DecoLink listening on 127.0.0.1:%1</source>
@@ -7008,6 +7688,33 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>程式無法在 %1 上重新啟動。</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::NetController</name>
+    <message>
+        <source>off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>on the network %1 (UDP %2) as %3</source>
+        <translation>在網路 %1（UDP %2）中，身分 %3</translation>
+    </message>
+    <message>
+        <source>cannot open UDP %1: %2</source>
+        <translation>無法開啟 UDP %1：%2</translation>
+    </message>
+    <message>
+        <source>%1 left the network</source>
+        <translation>%1 離開了網路</translation>
+    </message>
+    <message>
+        <source>spot %1 %2 %3</source>
+        <translation>spot %1 %2 %3</translation>
+    </message>
+    <message>
+        <source>%1 joined the network</source>
+        <translation>%1 加入了網路</translation>
     </message>
 </context>
 <context>
@@ -7442,6 +8149,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
 <context>
     <name>decolog::app::RigController</name>
     <message>
+        <source>WinKeyer answers: firmware %1</source>
+        <translation>WinKeyer 回應：韌體 %1</translation>
+    </message>
+    <message>
         <source>Sent: %1</source>
         <translation>已送出：%1</translation>
     </message>
@@ -7510,6 +8221,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>CW decoder listening to %1</source>
         <translation>CW 解碼器正在聽 %1</translation>
+    </message>
+    <message>
+        <source>WinKeyer on %1</source>
+        <translation>WinKeyer 位於 %1</translation>
     </message>
     <message>
         <source>CW keyer on %1 (%2): it works with the CAT busy elsewhere</source>
@@ -7632,7 +8347,26 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::So2rController</name>
+    <message>
+        <source>Radio 2: %1</source>
+        <translation>電台 2：%1</translation>
+    </message>
+    <message>
+        <source>Cannot open the SO2R box on %1: %2</source>
+        <translation>無法開啟 %1 上的 SO2R 控制盒：%2</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::SolarController</name>
+    <message>
+        <source>Set your locator in the station profile.</source>
+        <translation>請在電台設定檔中設定你的網格。</translation>
+    </message>
+    <message>
+        <source>No position for the DX: type a locator or look up a callsign.</source>
+        <translation>DX 沒有位置：請輸入網格或查詢呼號。</translation>
+    </message>
     <message>
         <source>Solar data of %1</source>
         <translation>%1 的太陽資料</translation>
@@ -7644,6 +8378,33 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>The solar data cannot be read</source>
         <translation>太陽資料讀不出來</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::SuperCheckController</name>
+    <message>
+        <source>%1 calls from MASTER.SCP (%2) and the log</source>
+        <translation>來自 MASTER.SCP（%2）和日誌的 %1 個呼號</translation>
+    </message>
+    <message>
+        <source>only the calls of the log: download MASTER.SCP for the full list</source>
+        <translation>僅日誌中的呼號：下載 MASTER.SCP 取得完整清單</translation>
+    </message>
+    <message>
+        <source>downloading MASTER.SCP…</source>
+        <translation>正在下載 MASTER.SCP…</translation>
+    </message>
+    <message>
+        <source>MASTER.SCP not downloaded: %1</source>
+        <translation>MASTER.SCP 未下載：%1</translation>
+    </message>
+    <message>
+        <source>empty answer</source>
+        <translation>空回應</translation>
+    </message>
+    <message>
+        <source>MASTER.SCP: %1 calls</source>
+        <translation>MASTER.SCP：%1 個呼號</translation>
     </message>
 </context>
 <context>
@@ -7747,6 +8508,37 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>version %1 set aside</source>
         <translation>%1 版本先放一邊</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::VoiceKeyerController</name>
+    <message>
+        <source>F%1 has no recorded message</source>
+        <translation>F%1 沒有錄製的訊息</translation>
+    </message>
+    <message>
+        <source>The microphone does not record 16 kHz mono</source>
+        <translation>麥克風無法以 16 kHz 單聲道錄音</translation>
+    </message>
+    <message>
+        <source>F%1 recorded: %2 s</source>
+        <translation>F%1 已錄製：%2 秒</translation>
+    </message>
+    <message>
+        <source>No such key</source>
+        <translation>沒有這個按鍵</translation>
+    </message>
+    <message>
+        <source>Cannot read %1</source>
+        <translation>無法讀取 %1</translation>
+    </message>
+    <message>
+        <source>Not a WAV file</source>
+        <translation>不是 WAV 檔案</translation>
+    </message>
+    <message>
+        <source>Cannot copy the file</source>
+        <translation>無法複製檔案</translation>
     </message>
 </context>
 <context>
@@ -7903,6 +8695,18 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
         <translation>傳送到 CRX Logbook（crx.cloud）：金鑰以 HAM- 開頭</translation>
+    </message>
+    <message>
+        <source>Upload code</source>
+        <translation>上傳代碼</translation>
+    </message>
+    <message>
+        <source>Upload to HRDLog.net: the upload code is in your HRDLog profile, it is not the password</source>
+        <translation>上傳到 HRDLog.net：上傳代碼在你的 HRDLog 個人資料中，不是密碼</translation>
+    </message>
+    <message>
+        <source>The VHF, EME and low band chat (www.on4kst.info)</source>
+        <translation>VHF、EME 和低波段聊天（www.on4kst.info）</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

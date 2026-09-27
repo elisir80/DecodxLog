@@ -73,6 +73,33 @@
     </message>
 </context>
 <context>
+    <name>ActivationController</name>
+    <message>
+        <source>Zones</source>
+        <translation>ゾーン</translation>
+    </message>
+    <message>
+        <source>Countries</source>
+        <translation>国</translation>
+    </message>
+    <message>
+        <source>Prefixes</source>
+        <translation>プリフィックス</translation>
+    </message>
+    <message>
+        <source>HQ stations</source>
+        <translation>HQ局</translation>
+    </message>
+    <message>
+        <source>Provinces</source>
+        <translation>県</translation>
+    </message>
+    <message>
+        <source>Sections</source>
+        <translation>セクション</translation>
+    </message>
+</context>
+<context>
     <name>ActivationDialog</name>
     <message>
         <source>Contest</source>
@@ -260,6 +287,18 @@
         <translation>クネオ県の異なる 10 の城。DCI を取得してから申請できます。</translation>
     </message>
     <message>
+        <source>All twenty regions worked.</source>
+        <translation>20地域すべて交信済み。</translation>
+    </message>
+    <message>
+        <source>Missing: %1.</source>
+        <translation>未交信: %1。</translation>
+    </message>
+    <message>
+        <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
+        <translation>リファレンスは SIG/SIG_INFO (SIG = %1) か「%1 LI-001」のようなコメントから読み取ります。</translation>
+    </message>
+    <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
         <translation>ディプロマ: イタリアの局は 75 県、それ以外は 60 県。</translation>
     </message>
@@ -417,6 +456,51 @@
     <message>
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● 確認済み  ○ 交信済み  ·  ダブルクリックで最初の QSO が開きます。DXCC は DXCC 番号を持つエンティティを数えます。古い QSO には 設定 → 全般 → 足りない DXCC を補う を使ってください。</translation>
+    </message>
+</context>
+<context>
+    <name>BandMapPanel</name>
+    <message>
+        <source>Band map</source>
+        <translation>バンドマップ</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n spot(s)</source>
+        <translation>
+            <numerusform>%n スポット</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Auto · %1</source>
+        <translation>自動 · %1</translation>
+    </message>
+    <message>
+        <source>Follow the radio</source>
+        <translation>無線機に追従</translation>
+    </message>
+    <message>
+        <source>Only spots that pass the cluster filter</source>
+        <translation>クラスターのフィルターを通るスポットのみ</translation>
+    </message>
+    <message>
+        <source>Keep the radio in view</source>
+        <translation>無線機の位置を常に表示</translation>
+    </message>
+    <message>
+        <source>Go to the radio</source>
+        <translation>無線機の位置へ</translation>
+    </message>
+    <message>
+        <source>%1 min ago</source>
+        <translation>%1 分前</translation>
+    </message>
+    <message>
+        <source>No spots on %1 right now.</source>
+        <translation>現在 %1 にスポットはありません。</translation>
+    </message>
+    <message>
+        <source>No cluster connected: open the DX Cluster and connect a source.</source>
+        <translation>クラスター未接続: DX クラスターを開いてソースを接続してください。</translation>
     </message>
 </context>
 <context>
@@ -672,6 +756,49 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Unexpected answer from HamQTH</source>
         <translation>HamQTH から思いがけない返事</translation>
+    </message>
+</context>
+<context>
+    <name>ChatWindow</name>
+    <message>
+        <source>DecoDXLog — ON4KST chat</source>
+        <translation>DecoDXLog — ON4KST チャット</translation>
+    </message>
+    <message>
+        <source>Room</source>
+        <translation>ルーム</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>接続</translation>
+    </message>
+    <message>
+        <source>Disconnect</source>
+        <translation>切断</translation>
+    </message>
+    <message>
+        <source>Put your ON4KST callsign and password in Settings → Sync &amp; Cloud, in the list of services (ON4KST Chat). They are kept in the system keychain.</source>
+        <translation>ON4KST のコールサインとパスワードを 設定 → Sync とクラウド のサービス一覧 (ON4KST Chat) に入力してください。システムのキーチェーンに保存されます。</translation>
+    </message>
+    <message>
+        <source>Heard (%1)</source>
+        <translation>受信 (%1)</translation>
+    </message>
+    <message>
+        <source>to %1 ✕</source>
+        <translation>%1 宛 ✕</translation>
+    </message>
+    <message>
+        <source>Private message to %1</source>
+        <translation>%1 へのプライベートメッセージ</translation>
+    </message>
+    <message>
+        <source>Message to the whole room</source>
+        <translation>ルーム全体へのメッセージ</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">送る</translation>
     </message>
 </context>
 <context>
@@ -956,8 +1083,8 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>新しい決まり</translation>
     </message>
     <message>
-        <source>A spot that matches a rule is written in the activity log, highlighted, sent to Decodium and, if the rule says so, announced by voice. The same DX on the same band and mode is announced at most once every %1 minutes.</source>
-        <translation>決まりに合ったスポットは、活動ログに書かれ、色が付き、Decodium に送られ、決まりがそう言えば声でも知らせます。同じ DX の同じバンド・同じモードは、%1 分に一度までしか読み上げません。</translation>
+        <source>A spot that matches a rule is written in the activity log and highlighted; if the rule says so it is sent to Decodium, announced by voice, shown in a popup (click it to tune the radio) and played as a sound. The same DX on the same band and mode alerts at most once every %1 minutes.</source>
+        <translation>ルールに合ったスポットはアクティビティログに書かれ強調されます。ルールの指定により Decodium に送り、音声で読み上げ、ポップアップ表示（クリックで無線機を同調）し、サウンドを鳴らします。同じ DX・同じバンドとモードの通知は最大 %1 分に1回です。</translation>
     </message>
     <message>
         <source>DX in %1</source>
@@ -978,6 +1105,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>voice</source>
         <translation>音声</translation>
+    </message>
+    <message>
+        <source>popup</source>
+        <translation>ポップアップ</translation>
+    </message>
+    <message>
+        <source>sound</source>
+        <translation>サウンド</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -1164,6 +1299,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>Decodium に送る</translation>
     </message>
     <message>
+        <source>Show a popup</source>
+        <translation>ポップアップを表示</translation>
+    </message>
+    <message>
+        <source>Play a sound</source>
+        <translation>サウンドを鳴らす</translation>
+    </message>
+    <message>
         <source>Save rule</source>
         <translation>決まりを保存</translation>
     </message>
@@ -1233,6 +1376,22 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>コールサインが短すぎます</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation type="unfinished">CW マクロ</translation>
+    </message>
+    <message>
+        <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
+        <translation>{CALL} 交信相手、{MYCALL} 自局、{RST} レポート、{NR} 自局のシリアル、{EXCH} 受信したナンバー。ESM の Run: コール空欄で Enter は F1、コールありで F3、ナンバーありで F4 を送ってログ。S&amp;P: コールありで F9、ナンバーありで F10 を送ってログ。電話ではキーがボイスキーヤーを再生します。</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation type="unfinished">はじめのマクロ</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">閉じる</translation>
+    </message>
+    <message>
         <source>%1 · next %2</source>
         <translation>%1 · 次は %2</translation>
     </message>
@@ -1251,6 +1410,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Mode</source>
         <translation>モード</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>マクロ…</translation>
+    </message>
+    <message>
+        <source>stereo</source>
+        <translation>ステレオ</translation>
     </message>
     <message>
         <source>already worked</source>
@@ -1289,6 +1456,26 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>ログ</translation>
     </message>
     <message>
+        <source>no known call</source>
+        <translation>既知のコールなし</translation>
+    </message>
+    <message>
+        <source>Downloading…</source>
+        <translation type="unfinished">取り込んでいます…</translation>
+    </message>
+    <message>
+        <source>Download MASTER.SCP</source>
+        <translation>MASTER.SCP をダウンロード</translation>
+    </message>
+    <message>
+        <source>needed</source>
+        <translation>未取得</translation>
+    </message>
+    <message>
+        <source>new</source>
+        <translation>新</translation>
+    </message>
+    <message>
         <source>Open a session from Contest, then the QSOs come in here.</source>
         <translation>「コンテスト」でセッションを開くと、QSO がここに入ります。</translation>
     </message>
@@ -1302,6 +1489,74 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
         <translation>コンテストのパネルはすべて別ウィンドウです。パネルの ↩ でここに戻せます。</translation>
+    </message>
+</context>
+<context>
+    <name>ContestMultipliersPanel</name>
+    <message>
+        <source>Multipliers</source>
+        <translation>マルチ</translation>
+    </message>
+    <message>
+        <source>Open a contest session to see the multipliers.</source>
+        <translation>マルチを見るにはコンテストセッションを開いてください。</translation>
+    </message>
+    <message>
+        <source>Only missing</source>
+        <translation>未取得のみ</translation>
+    </message>
+</context>
+<context>
+    <name>ContestNetPanel</name>
+    <message>
+        <source>Station network</source>
+        <translation>局内ネットワーク</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>オン</translation>
+    </message>
+    <message>
+        <source>Network</source>
+        <translation>ネットワーク</translation>
+    </message>
+    <message>
+        <source>This station</source>
+        <translation>この局</translation>
+    </message>
+    <message>
+        <source>UDP port</source>
+        <translation>UDP ポート</translation>
+    </message>
+    <message>
+        <source>Sync</source>
+        <translation>同期</translation>
+    </message>
+    <message>
+        <source> · sent %1 · received %2</source>
+        <translation> · 送信 %1 · 受信 %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO</source>
+        <translation>
+            <numerusform>%n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Nobody else on the network yet.</source>
+        <translation>ネットワークにはまだ誰もいません。</translation>
+    </message>
+    <message>
+        <source>Message to the other operators</source>
+        <translation>他のオペレーターへのメッセージ</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">送る</translation>
+    </message>
+    <message>
+        <source>Spot %1</source>
+        <translation>スポット %1</translation>
     </message>
 </context>
 <context>
@@ -1900,6 +2155,83 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>DvkPanel</name>
+    <message>
+        <source>Voice keyer</source>
+        <translation>ボイスキーヤー</translation>
+    </message>
+    <message>
+        <source>A WAV message</source>
+        <translation>WAV メッセージ</translation>
+    </message>
+    <message>
+        <source>WAV audio (*.wav)</source>
+        <translation>WAV 音声 (*.wav)</translation>
+    </message>
+    <message>
+        <source>stop</source>
+        <translation>停止</translation>
+    </message>
+    <message>
+        <source>Audio to the radio</source>
+        <translation>無線機への音声</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>システムの既定</translation>
+    </message>
+    <message>
+        <source>Microphone</source>
+        <translation>マイク</translation>
+    </message>
+    <message>
+        <source>PTT from the radio</source>
+        <translation>無線機で PTT</translation>
+    </message>
+    <message>
+        <source>Repeat CQ every</source>
+        <translation>CQ の繰り返し間隔</translation>
+    </message>
+    <message>
+        <source>never</source>
+        <translation type="unfinished">まだ一度も</translation>
+    </message>
+    <message>
+        <source>CQ loop</source>
+        <translation>CQ ループ</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DxAlertToast</name>
+    <message>
+        <source>Click to tune the radio</source>
+        <translation>クリックで無線機を同調</translation>
+    </message>
+</context>
+<context>
+    <name>FlrigControl</name>
+    <message>
+        <source>connecting to flrig at %1…</source>
+        <translation>flrig (%1) に接続中…</translation>
+    </message>
+    <message>
+        <source>not connected</source>
+        <translation>未接続</translation>
+    </message>
+    <message>
+        <source>flrig does not answer: %1</source>
+        <translation>flrig が応答しません: %1</translation>
+    </message>
+    <message>
+        <source>flrig at %1</source>
+        <translation>flrig (%1)</translation>
+    </message>
+</context>
+<context>
     <name>Ft2AwardPanel</name>
     <message>
         <source>FT2 Award</source>
@@ -1958,6 +2290,13 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>not worked</source>
         <translation>未交信</translation>
+    </message>
+</context>
+<context>
+    <name>KstChat</name>
+    <message>
+        <source>the server closed the connection</source>
+        <translation>サーバーが接続を閉じました</translation>
     </message>
 </context>
 <context>
@@ -2529,6 +2868,22 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>地図</translation>
     </message>
     <message>
+        <source>Band map</source>
+        <translation>バンドマップ</translation>
+    </message>
+    <message>
+        <source>Station network</source>
+        <translation>局内ネットワーク</translation>
+    </message>
+    <message>
+        <source>Voice keyer</source>
+        <translation>ボイスキーヤー</translation>
+    </message>
+    <message>
+        <source>Multipliers</source>
+        <translation>マルチ</translation>
+    </message>
+    <message>
         <source>Contest entry</source>
         <translation>コンテスト入力</translation>
     </message>
@@ -2959,10 +3314,114 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>OmniRigControl</name>
+    <message>
+        <source>not connected</source>
+        <translation>未接続</translation>
+    </message>
+    <message>
+        <source>OmniRig is not installed</source>
+        <translation>OmniRig がインストールされていません</translation>
+    </message>
+    <message>
+        <source>cannot start OmniRig</source>
+        <translation>OmniRig を起動できません</translation>
+    </message>
+    <message>
+        <source>OmniRig has no Rig%1</source>
+        <translation>OmniRig に Rig%1 がありません</translation>
+    </message>
+    <message>
+        <source>OmniRig Rig%1…</source>
+        <translation>OmniRig Rig%1…</translation>
+    </message>
+    <message>
+        <source>OmniRig exists only on Windows</source>
+        <translation>OmniRig は Windows 専用です</translation>
+    </message>
+    <message>
+        <source>Rig%1 not configured in OmniRig</source>
+        <translation>OmniRig で Rig%1 が未設定です</translation>
+    </message>
+    <message>
+        <source>Rig%1 disabled in OmniRig</source>
+        <translation>OmniRig で Rig%1 が無効です</translation>
+    </message>
+    <message>
+        <source>Rig%1: the port is busy</source>
+        <translation>Rig%1: ポートが使用中です</translation>
+    </message>
+    <message>
+        <source>Rig%1 does not answer</source>
+        <translation>Rig%1 が応答しません</translation>
+    </message>
+    <message>
+        <source>OmniRig Rig%1</source>
+        <translation>OmniRig Rig%1</translation>
+    </message>
+</context>
+<context>
     <name>PanelWindow</name>
     <message>
         <source>DecoDXLog — %1</source>
         <translation>DecoDXLog — %1</translation>
+    </message>
+</context>
+<context>
+    <name>PathForecastView</name>
+    <message>
+        <source>Path forecast</source>
+        <translation>パス予報</translation>
+    </message>
+    <message>
+        <source>%1 km</source>
+        <translation>%1 km</translation>
+    </message>
+    <message>
+        <source>%1°</source>
+        <translation type="unfinished">%1°</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n hop(s)</source>
+        <translation>
+            <numerusform>%n ホップ</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>SFI %1 (estimated)</source>
+        <translation>SFI %1 (推定)</translation>
+    </message>
+    <message>
+        <source>SFI %1</source>
+        <translation>SFI %1</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>ロケーター</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
+        <translation>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</translation>
+    </message>
+    <message>
+        <source>good</source>
+        <translation type="unfinished">よい</translation>
+    </message>
+    <message>
+        <source>fair</source>
+        <translation type="unfinished">まあまあ</translation>
+    </message>
+    <message>
+        <source>marginal</source>
+        <translation>わずか</translation>
+    </message>
+    <message>
+        <source>closed</source>
+        <translation type="unfinished">閉じています</translation>
+    </message>
+    <message>
+        <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
+        <translation>簡易 F2 モデル (MUF/LUF)、VOACAP ではありません: バンドが開く目安であり保証ではありません。</translation>
     </message>
 </context>
 <context>
@@ -3139,6 +3598,22 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>unexpected answer</source>
         <translation>予期しない応答</translation>
+    </message>
+    <message>
+        <source>HRDLog: sent</source>
+        <translation>HRDLog: 送信済み</translation>
+    </message>
+    <message>
+        <source>HRDLog: already there</source>
+        <translation>HRDLog: 登録済み</translation>
+    </message>
+    <message>
+        <source>HRDLog: %1</source>
+        <translation>HRDLog: %1</translation>
+    </message>
+    <message>
+        <source>HRDLog: unexpected answer</source>
+        <translation>HRDLog: 予期しない応答</translation>
     </message>
     <message>
         <source>eQSL: already there</source>
@@ -5229,6 +5704,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>QRZ.com は XML データの契約が要ります。HamQTH はただです。答えは一日ぶん覚えておくので、ログの中を歩き回っても回数は減りません。</translation>
     </message>
     <message>
+        <source>Radio via flrig</source>
+        <translation>flrig 経由の無線機</translation>
+    </message>
+    <message>
+        <source>Radio via OmniRig</source>
+        <translation>OmniRig 経由の無線機</translation>
+    </message>
+    <message>
         <source>Radio via Hamlib (rigctld)</source>
         <translation>Hamlib 経由の無線機 (rigctld)</translation>
     </message>
@@ -5421,10 +5904,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>なし</translation>
     </message>
     <message>
-        <source>Pin</source>
-        <translation>ピン</translation>
-    </message>
-    <message>
         <source>Send VVV</source>
         <translation>VVV を送る</translation>
     </message>
@@ -5437,8 +5916,108 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>ポートが開いていません</translation>
     </message>
     <message>
+        <source>flrig (XML-RPC)</source>
+        <translation>flrig (XML-RPC)</translation>
+    </message>
+    <message>
+        <source>OmniRig</source>
+        <translation>OmniRig</translation>
+    </message>
+    <message>
+        <source>flrig server</source>
+        <translation>flrig サーバー</translation>
+    </message>
+    <message>
+        <source>flrig keeps the radio and shares it over XML-RPC (in flrig: Config → Setup → Server, usually port 12345). DecoDXLog reads frequency and mode every second, tunes the radio, uses its PTT and sends CW with flrig&apos;s keyer when the radio has one. fldigi can stay connected to flrig at the same time.</source>
+        <translation>flrig が無線機を持ち、XML-RPC で共有します（flrig: Config → Setup → Server、通常ポート 12345）。DecoDXLog は毎秒周波数とモードを読み、同調し、PTT を使い、無線機にキーヤーがあれば flrig 経由で CW を送ります。fldigi も同時に flrig に接続できます。</translation>
+    </message>
+    <message>
+        <source>OmniRig radio</source>
+        <translation>OmniRig の無線機</translation>
+    </message>
+    <message>
+        <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
+        <translation>OmniRig（VE3NEA 作）はシリアルポートを持ち、求めるすべてのプログラムと無線機を共有します。無線機は OmniRig 側で設定します（Rig 1 または Rig 2）。DecoDXLog は周波数とモードを読み、同調し、PTT を使います。OmniRig は CW を送りません。CW には下のシリアルキーヤーか別の接続を使ってください。</translation>
+    </message>
+    <message>
+        <source>Keyer</source>
+        <translation>キーヤー</translation>
+    </message>
+    <message>
+        <source>DTR pin</source>
+        <translation>DTR ピン</translation>
+    </message>
+    <message>
+        <source>RTS pin</source>
+        <translation>RTS ピン</translation>
+    </message>
+    <message>
+        <source>K1EL WinKeyer</source>
+        <translation>K1EL WinKeyer</translation>
+    </message>
+    <message>
+        <source>WinKeyer v%1 ready</source>
+        <translation>WinKeyer v%1 準備完了</translation>
+    </message>
+    <message>
+        <source>WinKeyer does not answer</source>
+        <translation>WinKeyer が応答しません</translation>
+    </message>
+    <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Decodium が開いていると、無線機の CAT ポートはもうふさがっていて、CAT の橋渡しでは電鍵を打てません。ここでは DecoDXLog 自身が打ちます。自分のポート — 電鍵の回路につないだほう — で DTR か RTS を上げるので、CAT は Decodium が持ったまま、マクロはちゃんと電波に乗ります。前と同じように CAT 越しに打つなら、ポートは「なし」のままに。</translation>
+    </message>
+    <message>
+        <source>SO2R · two radios</source>
+        <translation>SO2R · 無線機2台</translation>
+    </message>
+    <message>
+        <source>Second radio</source>
+        <translation>2台目の無線機</translation>
+    </message>
+    <message>
+        <source>rigctld (host:port)</source>
+        <translation>rigctld (ホスト:ポート)</translation>
+    </message>
+    <message>
+        <source>TCI (RX2)</source>
+        <translation>TCI (RX2)</translation>
+    </message>
+    <message>
+        <source>flrig</source>
+        <translation>flrig</translation>
+    </message>
+    <message>
+        <source>OmniRig radio (1 or 2)</source>
+        <translation>OmniRig の無線機 (1 または 2)</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished">住所</translation>
+    </message>
+    <message>
+        <source>SO2R box (OTRSP)</source>
+        <translation>SO2R ボックス (OTRSP)</translation>
+    </message>
+    <message>
+        <source>radio 2 connected</source>
+        <translation>無線機2 接続済み</translation>
+    </message>
+    <message>
+        <source>radio 2 not connected</source>
+        <translation>無線機2 未接続</translation>
+    </message>
+    <message>
+        <source>SO2R box ready</source>
+        <translation>SO2R ボックス準備完了</translation>
+    </message>
+    <message>
+        <source>SO2R box port not open</source>
+        <translation>SO2R ボックスのポートが開いていません</translation>
+    </message>
+    <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
+        <translation>無線機1は上の設定、無線機2はここで接続します。コンテスト入力ではフォーカスのある無線機にバンド・同調・CW が行きます。Ctrl+← と Ctrl+→ で無線機1/2を選び、Pause で入れ替え、`（バッククォート）でステレオ受信を切り替えます。SO2R ボックス（MK2R、SO2RDuino、YCCC…）は OTRSP で追従します: 送信機は TX1/TX2、ヘッドホンは RX1/RX2 または RX1S/RX2S。</translation>
     </message>
     <message>
         <source>The control box, directly (built-in gateway)</source>
@@ -5712,6 +6291,45 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>StatsAwardsPage</name>
+    <message>
+        <source>DXCC worked</source>
+        <translation>DXCC 交信</translation>
+    </message>
+    <message>
+        <source>DXCC confirmed</source>
+        <translation>DXCC 確認</translation>
+    </message>
+    <message>
+        <source>CQ zones</source>
+        <translation>CQ ゾーン</translation>
+    </message>
+    <message>
+        <source>Grids</source>
+        <translation type="unfinished">グリッド</translation>
+    </message>
+    <message>
+        <source>Awards over the years · cumulative</source>
+        <translation>年ごとのアワード · 累計</translation>
+    </message>
+    <message>
+        <source>no QSO</source>
+        <translation type="unfinished">QSO がありません</translation>
+    </message>
+    <message>
+        <source>Most worked entities</source>
+        <translation>最も交信したエンティティ</translation>
+    </message>
+    <message>
+        <source>Most worked callsigns</source>
+        <translation>最も交信したコールサイン</translation>
+    </message>
+    <message>
+        <source>Band by mode</source>
+        <translation>バンド × モード</translation>
+    </message>
+</context>
+<context>
     <name>StatsWindow</name>
     <message>
         <source>DecoDXLog — Statistics</source>
@@ -5736,6 +6354,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>All years</source>
         <translation>すべての年</translation>
+    </message>
+    <message>
+        <source>Activity</source>
+        <translation>アクティビティ</translation>
+    </message>
+    <message>
+        <source>Awards and rankings</source>
+        <translation>アワードとランキング</translation>
     </message>
     <message>
         <source>Refresh</source>
@@ -5866,6 +6492,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>DX Cluster…</source>
         <translation>DXクラスター…</translation>
+    </message>
+    <message>
+        <source>ON4KST chat (%1)…</source>
+        <translation>ON4KST チャット (%1)…</translation>
+    </message>
+    <message>
+        <source>ON4KST chat…</source>
+        <translation>ON4KST チャット…</translation>
     </message>
     <message>
         <source>Setup · %1 ▾</source>
@@ -6084,6 +6718,13 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>ホイール: 指している桁が動きます。クリック: 周波数を書きます。</translation>
+    </message>
+</context>
+<context>
+    <name>WinKeyer</name>
+    <message>
+        <source>WinKeyer: cannot open %1: %2</source>
+        <translation>WinKeyer: %1 を開けません: %2</translation>
     </message>
 </context>
 <context>
@@ -6416,6 +7057,41 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>decolog::app::ChatController</name>
+    <message>
+        <source>ON4KST: in the %1 room</source>
+        <translation>ON4KST: %1 ルームに入室</translation>
+    </message>
+    <message>
+        <source>not connected</source>
+        <translation>未接続</translation>
+    </message>
+    <message>
+        <source>not connected: %1</source>
+        <translation>未接続: %1</translation>
+    </message>
+    <message>
+        <source>connecting…</source>
+        <translation>接続中…</translation>
+    </message>
+    <message>
+        <source>logging in…</source>
+        <translation>ログイン中…</translation>
+    </message>
+    <message>
+        <source>online as %1</source>
+        <translation>%1 としてオンライン</translation>
+    </message>
+    <message>
+        <source>ON4KST: no credentials (%1)</source>
+        <translation>ON4KST: 認証情報がありません (%1)</translation>
+    </message>
+    <message>
+        <source>Settings → Sync &amp; Cloud</source>
+        <translation>設定 → Sync とクラウド</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::CloudController</name>
     <message>
         <source>Cloud: %1 connected</source>
@@ -6700,6 +7376,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>reloading the log table</source>
         <translation>ログの表を読み直しています</translation>
+    </message>
+    <message>
+        <source>%1 %2 %3 from %4</source>
+        <translation>%1 %2 %3（%4 から）</translation>
     </message>
     <message>
         <source>DecoLink listening on 127.0.0.1:%1</source>
@@ -7008,6 +7688,33 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>%1 でプログラムを再起動できませんでした。</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::NetController</name>
+    <message>
+        <source>off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>on the network %1 (UDP %2) as %3</source>
+        <translation>ネットワーク %1 (UDP %2) に %3 として参加</translation>
+    </message>
+    <message>
+        <source>cannot open UDP %1: %2</source>
+        <translation>UDP %1 を開けません: %2</translation>
+    </message>
+    <message>
+        <source>%1 left the network</source>
+        <translation>%1 がネットワークを離れました</translation>
+    </message>
+    <message>
+        <source>spot %1 %2 %3</source>
+        <translation>スポット %1 %2 %3</translation>
+    </message>
+    <message>
+        <source>%1 joined the network</source>
+        <translation>%1 がネットワークに参加しました</translation>
     </message>
 </context>
 <context>
@@ -7442,6 +8149,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 <context>
     <name>decolog::app::RigController</name>
     <message>
+        <source>WinKeyer answers: firmware %1</source>
+        <translation>WinKeyer 応答: ファームウェア %1</translation>
+    </message>
+    <message>
         <source>Sent: %1</source>
         <translation>送信: %1</translation>
     </message>
@@ -7510,6 +8221,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>CW decoder listening to %1</source>
         <translation>CW のデコーダーが %1 を聞いています</translation>
+    </message>
+    <message>
+        <source>WinKeyer on %1</source>
+        <translation>WinKeyer (%1)</translation>
     </message>
     <message>
         <source>CW keyer on %1 (%2): it works with the CAT busy elsewhere</source>
@@ -7632,7 +8347,26 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>decolog::app::So2rController</name>
+    <message>
+        <source>Radio 2: %1</source>
+        <translation>無線機2: %1</translation>
+    </message>
+    <message>
+        <source>Cannot open the SO2R box on %1: %2</source>
+        <translation>%1 の SO2R ボックスを開けません: %2</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::SolarController</name>
+    <message>
+        <source>Set your locator in the station profile.</source>
+        <translation>局プロファイルでロケーターを設定してください。</translation>
+    </message>
+    <message>
+        <source>No position for the DX: type a locator or look up a callsign.</source>
+        <translation>DX の位置がありません: ロケーターを入力するかコールサインを検索してください。</translation>
+    </message>
     <message>
         <source>Solar data of %1</source>
         <translation>%1 の太陽のデータ</translation>
@@ -7644,6 +8378,33 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>The solar data cannot be read</source>
         <translation>太陽のデータが読めません</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::SuperCheckController</name>
+    <message>
+        <source>%1 calls from MASTER.SCP (%2) and the log</source>
+        <translation>MASTER.SCP (%2) とログから %1 コール</translation>
+    </message>
+    <message>
+        <source>only the calls of the log: download MASTER.SCP for the full list</source>
+        <translation>ログのコールのみ: 全リストには MASTER.SCP をダウンロード</translation>
+    </message>
+    <message>
+        <source>downloading MASTER.SCP…</source>
+        <translation>MASTER.SCP をダウンロード中…</translation>
+    </message>
+    <message>
+        <source>MASTER.SCP not downloaded: %1</source>
+        <translation>MASTER.SCP をダウンロードできません: %1</translation>
+    </message>
+    <message>
+        <source>empty answer</source>
+        <translation>空の応答</translation>
+    </message>
+    <message>
+        <source>MASTER.SCP: %1 calls</source>
+        <translation>MASTER.SCP: %1 コール</translation>
     </message>
 </context>
 <context>
@@ -7747,6 +8508,37 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>version %1 set aside</source>
         <translation>%1 の版は見送りました</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::VoiceKeyerController</name>
+    <message>
+        <source>F%1 has no recorded message</source>
+        <translation>F%1 に録音メッセージがありません</translation>
+    </message>
+    <message>
+        <source>The microphone does not record 16 kHz mono</source>
+        <translation>マイクが 16 kHz モノラルで録音できません</translation>
+    </message>
+    <message>
+        <source>F%1 recorded: %2 s</source>
+        <translation>F%1 録音: %2 秒</translation>
+    </message>
+    <message>
+        <source>No such key</source>
+        <translation>そのキーはありません</translation>
+    </message>
+    <message>
+        <source>Cannot read %1</source>
+        <translation>%1 を読めません</translation>
+    </message>
+    <message>
+        <source>Not a WAV file</source>
+        <translation>WAV ファイルではありません</translation>
+    </message>
+    <message>
+        <source>Cannot copy the file</source>
+        <translation>ファイルをコピーできません</translation>
     </message>
 </context>
 <context>
@@ -7903,6 +8695,18 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
         <translation>CRX Logbook (crx.cloud) への送信: キーは HAM- で始まります</translation>
+    </message>
+    <message>
+        <source>Upload code</source>
+        <translation>アップロードコード</translation>
+    </message>
+    <message>
+        <source>Upload to HRDLog.net: the upload code is in your HRDLog profile, it is not the password</source>
+        <translation>HRDLog.net へのアップロード: アップロードコードは HRDLog のプロフィールにあります。パスワードではありません</translation>
+    </message>
+    <message>
+        <source>The VHF, EME and low band chat (www.on4kst.info)</source>
+        <translation>VHF・EME・ローバンドのチャット (www.on4kst.info)</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

@@ -73,6 +73,33 @@
     </message>
 </context>
 <context>
+    <name>ActivationController</name>
+    <message>
+        <source>Zones</source>
+        <translation>Zones</translation>
+    </message>
+    <message>
+        <source>Countries</source>
+        <translation>Landen</translation>
+    </message>
+    <message>
+        <source>Prefixes</source>
+        <translation>Prefixen</translation>
+    </message>
+    <message>
+        <source>HQ stations</source>
+        <translation>HQ-stations</translation>
+    </message>
+    <message>
+        <source>Provinces</source>
+        <translation>Provincies</translation>
+    </message>
+    <message>
+        <source>Sections</source>
+        <translation>Secties</translation>
+    </message>
+</context>
+<context>
     <name>ActivationDialog</name>
     <message>
         <source>Contest</source>
@@ -261,6 +288,18 @@
         <translation>Tien verschillende kastelen in de provincie Cuneo, zodra je het DCI hebt.</translation>
     </message>
     <message>
+        <source>All twenty regions worked.</source>
+        <translation>Alle twintig regio&apos;s gewerkt.</translation>
+    </message>
+    <message>
+        <source>Missing: %1.</source>
+        <translation>Ontbrekend: %1.</translation>
+    </message>
+    <message>
+        <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
+        <translation>De referentie wordt gelezen uit SIG/SIG_INFO (SIG = %1) of uit een opmerking als &quot;%1 LI-001&quot;.</translation>
+    </message>
+    <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
         <translation>Diploma: 75 provincies voor Italiaanse stations, 60 voor de andere.</translation>
     </message>
@@ -418,6 +457,52 @@
     <message>
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● bevestigd  ○ gewerkt  ·  dubbelklik opent het eerste QSO. DXCC telt entiteiten met een DXCC-nummer; gebruik Instellingen → Algemeen → Ontbrekende DXCC aanvullen voor oudere QSO&apos;s.</translation>
+    </message>
+</context>
+<context>
+    <name>BandMapPanel</name>
+    <message>
+        <source>Band map</source>
+        <translation>Bandkaart</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n spot(s)</source>
+        <translation>
+            <numerusform>%n spot</numerusform>
+            <numerusform>%n spots</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Auto · %1</source>
+        <translation>Auto · %1</translation>
+    </message>
+    <message>
+        <source>Follow the radio</source>
+        <translation>Radio volgen</translation>
+    </message>
+    <message>
+        <source>Only spots that pass the cluster filter</source>
+        <translation>Alleen spots die het clusterfilter passeren</translation>
+    </message>
+    <message>
+        <source>Keep the radio in view</source>
+        <translation>Radio in beeld houden</translation>
+    </message>
+    <message>
+        <source>Go to the radio</source>
+        <translation>Naar de radio</translation>
+    </message>
+    <message>
+        <source>%1 min ago</source>
+        <translation>%1 min geleden</translation>
+    </message>
+    <message>
+        <source>No spots on %1 right now.</source>
+        <translation>Nu geen spots op %1.</translation>
+    </message>
+    <message>
+        <source>No cluster connected: open the DX Cluster and connect a source.</source>
+        <translation>Geen cluster verbonden: open het DX-cluster en verbind een bron.</translation>
     </message>
 </context>
 <context>
@@ -674,6 +759,49 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Unexpected answer from HamQTH</source>
         <translation>Onverwacht antwoord van HamQTH</translation>
+    </message>
+</context>
+<context>
+    <name>ChatWindow</name>
+    <message>
+        <source>DecoDXLog — ON4KST chat</source>
+        <translation>DecoDXLog — ON4KST-chat</translation>
+    </message>
+    <message>
+        <source>Room</source>
+        <translation>Kamer</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>Verbinden</translation>
+    </message>
+    <message>
+        <source>Disconnect</source>
+        <translation>Verbreken</translation>
+    </message>
+    <message>
+        <source>Put your ON4KST callsign and password in Settings → Sync &amp; Cloud, in the list of services (ON4KST Chat). They are kept in the system keychain.</source>
+        <translation>Zet je ON4KST-roepnaam en wachtwoord in Instellingen → Sync &amp; Cloud, in de lijst met diensten (ON4KST Chat). Ze blijven in de sleutelhanger van het systeem.</translation>
+    </message>
+    <message>
+        <source>Heard (%1)</source>
+        <translation>Gehoord (%1)</translation>
+    </message>
+    <message>
+        <source>to %1 ✕</source>
+        <translation>aan %1 ✕</translation>
+    </message>
+    <message>
+        <source>Private message to %1</source>
+        <translation>Privébericht aan %1</translation>
+    </message>
+    <message>
+        <source>Message to the whole room</source>
+        <translation>Bericht aan de hele kamer</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">Versturen</translation>
     </message>
 </context>
 <context>
@@ -958,8 +1086,8 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Nieuwe regel</translation>
     </message>
     <message>
-        <source>A spot that matches a rule is written in the activity log, highlighted, sent to Decodium and, if the rule says so, announced by voice. The same DX on the same band and mode is announced at most once every %1 minutes.</source>
-        <translation>Een spot die bij een regel past, wordt in het activiteitenlogboek geschreven, licht op, gaat naar Decodium en wordt, als de regel dat zegt, met de stem omgeroepen. Dezelfde DX op dezelfde band en mode wordt hooguit één keer per %1 minuten omgeroepen.</translation>
+        <source>A spot that matches a rule is written in the activity log and highlighted; if the rule says so it is sent to Decodium, announced by voice, shown in a popup (click it to tune the radio) and played as a sound. The same DX on the same band and mode alerts at most once every %1 minutes.</source>
+        <translation>Een spot die aan een regel voldoet komt in het activiteitenlog en wordt gemarkeerd; als de regel het zegt gaat hij naar Decodium, wordt hij omgeroepen, in een pop-up getoond (klik om de radio af te stemmen) en klinkt er een geluid. Dezelfde DX op dezelfde band en mode waarschuwt hoogstens eens per %1 minuten.</translation>
     </message>
     <message>
         <source>DX in %1</source>
@@ -980,6 +1108,14 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>voice</source>
         <translation>stem</translation>
+    </message>
+    <message>
+        <source>popup</source>
+        <translation>pop-up</translation>
+    </message>
+    <message>
+        <source>sound</source>
+        <translation>geluid</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -1166,6 +1302,14 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Naar Decodium sturen</translation>
     </message>
     <message>
+        <source>Show a popup</source>
+        <translation>Pop-up tonen</translation>
+    </message>
+    <message>
+        <source>Play a sound</source>
+        <translation>Geluid afspelen</translation>
+    </message>
+    <message>
         <source>Save rule</source>
         <translation>Regel opslaan</translation>
     </message>
@@ -1235,6 +1379,22 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>De roepletters zijn te kort</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation type="unfinished">CW-macro&apos;s</translation>
+    </message>
+    <message>
+        <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
+        <translation>{CALL} het gewerkte station, {MYCALL} je eigen roepnaam, {RST} het rapport, {NR} je volgnummer, {EXCH} wat je ontving. Met ESM in Run: Enter stuurt F1 bij een lege roepnaam, F3 met roepnaam, F4 en logt met de uitwisseling. In S&amp;P: F9 met roepnaam, F10 en logt met de uitwisseling. In fonie spelen de toetsen het spraakgeheugen.</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation type="unfinished">Standaardmacro&apos;s</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Sluiten</translation>
+    </message>
+    <message>
         <source>%1 · next %2</source>
         <translation>%1 · volgende %2</translation>
     </message>
@@ -1253,6 +1413,14 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Mode</source>
         <translation>Modus</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>Macro&apos;s…</translation>
+    </message>
+    <message>
+        <source>stereo</source>
+        <translation>stereo</translation>
     </message>
     <message>
         <source>already worked</source>
@@ -1291,6 +1459,26 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Logboek</translation>
     </message>
     <message>
+        <source>no known call</source>
+        <translation>geen bekende roepnaam</translation>
+    </message>
+    <message>
+        <source>Downloading…</source>
+        <translation type="unfinished">Ophalen…</translation>
+    </message>
+    <message>
+        <source>Download MASTER.SCP</source>
+        <translation>MASTER.SCP downloaden</translation>
+    </message>
+    <message>
+        <source>needed</source>
+        <translation>nodig</translation>
+    </message>
+    <message>
+        <source>new</source>
+        <translation>nieuw</translation>
+    </message>
+    <message>
         <source>Open a session from Contest, then the QSOs come in here.</source>
         <translation>Open een sessie bij Contest, dan komen de QSO&apos;s hier binnen.</translation>
     </message>
@@ -1304,6 +1492,75 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
         <translation>Alle contestpanelen staan in een eigen venster: ↩ in een paneel haalt het hierheen terug.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestMultipliersPanel</name>
+    <message>
+        <source>Multipliers</source>
+        <translation>Multipliers</translation>
+    </message>
+    <message>
+        <source>Open a contest session to see the multipliers.</source>
+        <translation>Open een contestsessie om de multipliers te zien.</translation>
+    </message>
+    <message>
+        <source>Only missing</source>
+        <translation>Alleen ontbrekende</translation>
+    </message>
+</context>
+<context>
+    <name>ContestNetPanel</name>
+    <message>
+        <source>Station network</source>
+        <translation>Stationsnetwerk</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>Aan</translation>
+    </message>
+    <message>
+        <source>Network</source>
+        <translation>Netwerk</translation>
+    </message>
+    <message>
+        <source>This station</source>
+        <translation>Deze post</translation>
+    </message>
+    <message>
+        <source>UDP port</source>
+        <translation>UDP-poort</translation>
+    </message>
+    <message>
+        <source>Sync</source>
+        <translation>Synchroniseren</translation>
+    </message>
+    <message>
+        <source> · sent %1 · received %2</source>
+        <translation> · verzonden %1 · ontvangen %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO</source>
+        <translation>
+            <numerusform>%n QSO</numerusform>
+            <numerusform>%n QSO's</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Nobody else on the network yet.</source>
+        <translation>Nog niemand anders op het netwerk.</translation>
+    </message>
+    <message>
+        <source>Message to the other operators</source>
+        <translation>Bericht aan de andere operators</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">Versturen</translation>
+    </message>
+    <message>
+        <source>Spot %1</source>
+        <translation>Spot %1</translation>
     </message>
 </context>
 <context>
@@ -1903,6 +2160,83 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
 </context>
 <context>
+    <name>DvkPanel</name>
+    <message>
+        <source>Voice keyer</source>
+        <translation>Spraakgeheugen</translation>
+    </message>
+    <message>
+        <source>A WAV message</source>
+        <translation>Een WAV-bericht</translation>
+    </message>
+    <message>
+        <source>WAV audio (*.wav)</source>
+        <translation>WAV-audio (*.wav)</translation>
+    </message>
+    <message>
+        <source>stop</source>
+        <translation>stop</translation>
+    </message>
+    <message>
+        <source>Audio to the radio</source>
+        <translation>Audio naar de radio</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Systeemstandaard</translation>
+    </message>
+    <message>
+        <source>Microphone</source>
+        <translation>Microfoon</translation>
+    </message>
+    <message>
+        <source>PTT from the radio</source>
+        <translation>PTT via de radio</translation>
+    </message>
+    <message>
+        <source>Repeat CQ every</source>
+        <translation>CQ herhalen elke</translation>
+    </message>
+    <message>
+        <source>never</source>
+        <translation type="unfinished">nooit</translation>
+    </message>
+    <message>
+        <source>CQ loop</source>
+        <translation>CQ-lus</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DxAlertToast</name>
+    <message>
+        <source>Click to tune the radio</source>
+        <translation>Klik om de radio af te stemmen</translation>
+    </message>
+</context>
+<context>
+    <name>FlrigControl</name>
+    <message>
+        <source>connecting to flrig at %1…</source>
+        <translation>verbinden met flrig op %1…</translation>
+    </message>
+    <message>
+        <source>not connected</source>
+        <translation>niet verbonden</translation>
+    </message>
+    <message>
+        <source>flrig does not answer: %1</source>
+        <translation>flrig antwoordt niet: %1</translation>
+    </message>
+    <message>
+        <source>flrig at %1</source>
+        <translation>flrig op %1</translation>
+    </message>
+</context>
+<context>
     <name>Ft2AwardPanel</name>
     <message>
         <source>FT2 Award</source>
@@ -1961,6 +2295,13 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>not worked</source>
         <translation>niet gewerkt</translation>
+    </message>
+</context>
+<context>
+    <name>KstChat</name>
+    <message>
+        <source>the server closed the connection</source>
+        <translation>de server heeft de verbinding gesloten</translation>
     </message>
 </context>
 <context>
@@ -2534,6 +2875,22 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Kaart</translation>
     </message>
     <message>
+        <source>Band map</source>
+        <translation>Bandkaart</translation>
+    </message>
+    <message>
+        <source>Station network</source>
+        <translation>Stationsnetwerk</translation>
+    </message>
+    <message>
+        <source>Voice keyer</source>
+        <translation>Spraakgeheugen</translation>
+    </message>
+    <message>
+        <source>Multipliers</source>
+        <translation>Multipliers</translation>
+    </message>
+    <message>
         <source>Contest entry</source>
         <translation>Contestinvoer</translation>
     </message>
@@ -2964,10 +3321,115 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
 </context>
 <context>
+    <name>OmniRigControl</name>
+    <message>
+        <source>not connected</source>
+        <translation>niet verbonden</translation>
+    </message>
+    <message>
+        <source>OmniRig is not installed</source>
+        <translation>OmniRig is niet geïnstalleerd</translation>
+    </message>
+    <message>
+        <source>cannot start OmniRig</source>
+        <translation>kan OmniRig niet starten</translation>
+    </message>
+    <message>
+        <source>OmniRig has no Rig%1</source>
+        <translation>OmniRig heeft geen Rig%1</translation>
+    </message>
+    <message>
+        <source>OmniRig Rig%1…</source>
+        <translation>OmniRig Rig%1…</translation>
+    </message>
+    <message>
+        <source>OmniRig exists only on Windows</source>
+        <translation>OmniRig bestaat alleen op Windows</translation>
+    </message>
+    <message>
+        <source>Rig%1 not configured in OmniRig</source>
+        <translation>Rig%1 niet ingesteld in OmniRig</translation>
+    </message>
+    <message>
+        <source>Rig%1 disabled in OmniRig</source>
+        <translation>Rig%1 uitgeschakeld in OmniRig</translation>
+    </message>
+    <message>
+        <source>Rig%1: the port is busy</source>
+        <translation>Rig%1: de poort is bezet</translation>
+    </message>
+    <message>
+        <source>Rig%1 does not answer</source>
+        <translation>Rig%1 antwoordt niet</translation>
+    </message>
+    <message>
+        <source>OmniRig Rig%1</source>
+        <translation>OmniRig Rig%1</translation>
+    </message>
+</context>
+<context>
     <name>PanelWindow</name>
     <message>
         <source>DecoDXLog — %1</source>
         <translation>DecoDXLog — %1</translation>
+    </message>
+</context>
+<context>
+    <name>PathForecastView</name>
+    <message>
+        <source>Path forecast</source>
+        <translation>Padvoorspelling</translation>
+    </message>
+    <message>
+        <source>%1 km</source>
+        <translation>%1 km</translation>
+    </message>
+    <message>
+        <source>%1°</source>
+        <translation type="unfinished">%1°</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n hop(s)</source>
+        <translation>
+            <numerusform>%n hop</numerusform>
+            <numerusform>%n hops</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>SFI %1 (estimated)</source>
+        <translation>SFI %1 (geschat)</translation>
+    </message>
+    <message>
+        <source>SFI %1</source>
+        <translation>SFI %1</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
+        <translation>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</translation>
+    </message>
+    <message>
+        <source>good</source>
+        <translation type="unfinished">goed</translation>
+    </message>
+    <message>
+        <source>fair</source>
+        <translation type="unfinished">matig</translation>
+    </message>
+    <message>
+        <source>marginal</source>
+        <translation>marginaal</translation>
+    </message>
+    <message>
+        <source>closed</source>
+        <translation type="unfinished">gesloten</translation>
+    </message>
+    <message>
+        <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
+        <translation>Vereenvoudigd F2-model (MUF/LUF), geen VOACAP: een richtlijn voor wanneer een band opengaat, geen belofte.</translation>
     </message>
 </context>
 <context>
@@ -3145,6 +3607,22 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>unexpected answer</source>
         <translation>onverwacht antwoord</translation>
+    </message>
+    <message>
+        <source>HRDLog: sent</source>
+        <translation>HRDLog: verzonden</translation>
+    </message>
+    <message>
+        <source>HRDLog: already there</source>
+        <translation>HRDLog: al aanwezig</translation>
+    </message>
+    <message>
+        <source>HRDLog: %1</source>
+        <translation>HRDLog: %1</translation>
+    </message>
+    <message>
+        <source>HRDLog: unexpected answer</source>
+        <translation>HRDLog: onverwacht antwoord</translation>
     </message>
     <message>
         <source>eQSL: already there</source>
@@ -5239,6 +5717,14 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>QRZ.com heeft een XML-abonnement nodig; HamQTH is gratis. Resultaten blijven een dag in het geheugen, zodat door het logboek bladeren geen opzoekingen opmaakt.</translation>
     </message>
     <message>
+        <source>Radio via flrig</source>
+        <translation>Radio via flrig</translation>
+    </message>
+    <message>
+        <source>Radio via OmniRig</source>
+        <translation>Radio via OmniRig</translation>
+    </message>
+    <message>
         <source>Radio via Hamlib (rigctld)</source>
         <translation>Radio via Hamlib (rigctld)</translation>
     </message>
@@ -5431,10 +5917,6 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>geen</translation>
     </message>
     <message>
-        <source>Pin</source>
-        <translation>Pin</translation>
-    </message>
-    <message>
         <source>Send VVV</source>
         <translation>VVV sturen</translation>
     </message>
@@ -5447,8 +5929,108 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>poort niet open</translation>
     </message>
     <message>
+        <source>flrig (XML-RPC)</source>
+        <translation>flrig (XML-RPC)</translation>
+    </message>
+    <message>
+        <source>OmniRig</source>
+        <translation>OmniRig</translation>
+    </message>
+    <message>
+        <source>flrig server</source>
+        <translation>flrig-server</translation>
+    </message>
+    <message>
+        <source>flrig keeps the radio and shares it over XML-RPC (in flrig: Config → Setup → Server, usually port 12345). DecoDXLog reads frequency and mode every second, tunes the radio, uses its PTT and sends CW with flrig&apos;s keyer when the radio has one. fldigi can stay connected to flrig at the same time.</source>
+        <translation>flrig beheert de radio en deelt hem via XML-RPC (in flrig: Config → Setup → Server, meestal poort 12345). DecoDXLog leest elke seconde frequentie en mode, stemt de radio af, gebruikt de PTT en stuurt CW met de keyer van flrig als de radio er een heeft. fldigi kan tegelijk met flrig verbonden blijven.</translation>
+    </message>
+    <message>
+        <source>OmniRig radio</source>
+        <translation>OmniRig-radio</translation>
+    </message>
+    <message>
+        <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
+        <translation>OmniRig (van VE3NEA) beheert de seriële poort en deelt de radio met elk programma: stel de radio in OmniRig zelf in (Rig 1 of Rig 2). DecoDXLog leest frequentie en mode, stemt af en gebruikt de PTT. OmniRig stuurt geen CW: gebruik daarvoor de seriële keyer hieronder of een andere koppeling.</translation>
+    </message>
+    <message>
+        <source>Keyer</source>
+        <translation>Keyer</translation>
+    </message>
+    <message>
+        <source>DTR pin</source>
+        <translation>DTR-pin</translation>
+    </message>
+    <message>
+        <source>RTS pin</source>
+        <translation>RTS-pin</translation>
+    </message>
+    <message>
+        <source>K1EL WinKeyer</source>
+        <translation>K1EL WinKeyer</translation>
+    </message>
+    <message>
+        <source>WinKeyer v%1 ready</source>
+        <translation>WinKeyer v%1 klaar</translation>
+    </message>
+    <message>
+        <source>WinKeyer does not answer</source>
+        <translation>WinKeyer antwoordt niet</translation>
+    </message>
+    <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Met Decodium open is de CAT-poort van de radio al bezet, en een CAT-brug kan niet seinen. Hier seint DecoDXLog zelf: hij trekt DTR of RTS op een eigen poort — die aan het seincircuit vastzit — zodat Decodium het CAT houdt en de macro&apos;s toch de lucht in gaan. Laat de poort op &quot;geen&quot; staan om zoals eerder via het CAT te seinen.</translation>
+    </message>
+    <message>
+        <source>SO2R · two radios</source>
+        <translation>SO2R · twee radio&apos;s</translation>
+    </message>
+    <message>
+        <source>Second radio</source>
+        <translation>Tweede radio</translation>
+    </message>
+    <message>
+        <source>rigctld (host:port)</source>
+        <translation>rigctld (host:poort)</translation>
+    </message>
+    <message>
+        <source>TCI (RX2)</source>
+        <translation>TCI (RX2)</translation>
+    </message>
+    <message>
+        <source>flrig</source>
+        <translation>flrig</translation>
+    </message>
+    <message>
+        <source>OmniRig radio (1 or 2)</source>
+        <translation>OmniRig-radio (1 of 2)</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished">Adres</translation>
+    </message>
+    <message>
+        <source>SO2R box (OTRSP)</source>
+        <translation>SO2R-kastje (OTRSP)</translation>
+    </message>
+    <message>
+        <source>radio 2 connected</source>
+        <translation>radio 2 verbonden</translation>
+    </message>
+    <message>
+        <source>radio 2 not connected</source>
+        <translation>radio 2 niet verbonden</translation>
+    </message>
+    <message>
+        <source>SO2R box ready</source>
+        <translation>SO2R-kastje klaar</translation>
+    </message>
+    <message>
+        <source>SO2R box port not open</source>
+        <translation>Poort van het SO2R-kastje niet open</translation>
+    </message>
+    <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
+        <translation>Radio 1 is die hierboven; radio 2 wordt hier gekoppeld. In de contestinvoer krijgt de radio met de focus de band, de afstemming en de CW: Ctrl+← en Ctrl+→ kiezen radio 1 of 2, Pause wisselt ze, ` (accent grave) schakelt stereoluisteren. Het SO2R-kastje (MK2R, SO2RDuino, YCCC…) volgt via OTRSP: TX1/TX2 voor de zender, RX1/RX2 of RX1S/RX2S voor de koptelefoon.</translation>
     </message>
     <message>
         <source>The control box, directly (built-in gateway)</source>
@@ -5722,6 +6304,45 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
 </context>
 <context>
+    <name>StatsAwardsPage</name>
+    <message>
+        <source>DXCC worked</source>
+        <translation>DXCC gewerkt</translation>
+    </message>
+    <message>
+        <source>DXCC confirmed</source>
+        <translation>DXCC bevestigd</translation>
+    </message>
+    <message>
+        <source>CQ zones</source>
+        <translation>CQ-zones</translation>
+    </message>
+    <message>
+        <source>Grids</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Awards over the years · cumulative</source>
+        <translation>Awards door de jaren · cumulatief</translation>
+    </message>
+    <message>
+        <source>no QSO</source>
+        <translation type="unfinished">geen QSO</translation>
+    </message>
+    <message>
+        <source>Most worked entities</source>
+        <translation>Meest gewerkte entiteiten</translation>
+    </message>
+    <message>
+        <source>Most worked callsigns</source>
+        <translation>Meest gewerkte roepnamen</translation>
+    </message>
+    <message>
+        <source>Band by mode</source>
+        <translation>Band per mode</translation>
+    </message>
+</context>
+<context>
     <name>StatsWindow</name>
     <message>
         <source>DecoDXLog — Statistics</source>
@@ -5746,6 +6367,14 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>All years</source>
         <translation>Alle jaren</translation>
+    </message>
+    <message>
+        <source>Activity</source>
+        <translation>Activiteit</translation>
+    </message>
+    <message>
+        <source>Awards and rankings</source>
+        <translation>Awards en ranglijsten</translation>
     </message>
     <message>
         <source>Refresh</source>
@@ -5876,6 +6505,14 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>DX Cluster…</source>
         <translation>DX-cluster…</translation>
+    </message>
+    <message>
+        <source>ON4KST chat (%1)…</source>
+        <translation>ON4KST-chat (%1)…</translation>
+    </message>
+    <message>
+        <source>ON4KST chat…</source>
+        <translation>ON4KST-chat…</translation>
     </message>
     <message>
         <source>Setup · %1 ▾</source>
@@ -6094,6 +6731,13 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Wieltje: het cijfer onder de aanwijzer. Klik: de frequentie schrijven.</translation>
+    </message>
+</context>
+<context>
+    <name>WinKeyer</name>
+    <message>
+        <source>WinKeyer: cannot open %1: %2</source>
+        <translation>WinKeyer: kan %1 niet openen: %2</translation>
     </message>
 </context>
 <context>
@@ -6429,6 +7073,41 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
 </context>
 <context>
+    <name>decolog::app::ChatController</name>
+    <message>
+        <source>ON4KST: in the %1 room</source>
+        <translation>ON4KST: in de kamer %1</translation>
+    </message>
+    <message>
+        <source>not connected</source>
+        <translation>niet verbonden</translation>
+    </message>
+    <message>
+        <source>not connected: %1</source>
+        <translation>niet verbonden: %1</translation>
+    </message>
+    <message>
+        <source>connecting…</source>
+        <translation>verbinden…</translation>
+    </message>
+    <message>
+        <source>logging in…</source>
+        <translation>aanmelden…</translation>
+    </message>
+    <message>
+        <source>online as %1</source>
+        <translation>online als %1</translation>
+    </message>
+    <message>
+        <source>ON4KST: no credentials (%1)</source>
+        <translation>ON4KST: geen inloggegevens (%1)</translation>
+    </message>
+    <message>
+        <source>Settings → Sync &amp; Cloud</source>
+        <translation>Instellingen → Sync &amp; Cloud</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::CloudController</name>
     <message>
         <source>Cloud: %1 connected</source>
@@ -6720,6 +7399,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>reloading the log table</source>
         <translation>de logboektabel opnieuw laden</translation>
+    </message>
+    <message>
+        <source>%1 %2 %3 from %4</source>
+        <translation>%1 %2 %3 van %4</translation>
     </message>
     <message>
         <source>DecoLink listening on 127.0.0.1:%1</source>
@@ -7034,6 +7717,33 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>Het programma kon niet opnieuw starten op %1.</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::NetController</name>
+    <message>
+        <source>off</source>
+        <translation type="unfinished">uit</translation>
+    </message>
+    <message>
+        <source>on the network %1 (UDP %2) as %3</source>
+        <translation>op het netwerk %1 (UDP %2) als %3</translation>
+    </message>
+    <message>
+        <source>cannot open UDP %1: %2</source>
+        <translation>kan UDP %1 niet openen: %2</translation>
+    </message>
+    <message>
+        <source>%1 left the network</source>
+        <translation>%1 heeft het netwerk verlaten</translation>
+    </message>
+    <message>
+        <source>spot %1 %2 %3</source>
+        <translation>spot %1 %2 %3</translation>
+    </message>
+    <message>
+        <source>%1 joined the network</source>
+        <translation>%1 kwam op het netwerk</translation>
     </message>
 </context>
 <context>
@@ -7482,6 +8192,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
 <context>
     <name>decolog::app::RigController</name>
     <message>
+        <source>WinKeyer answers: firmware %1</source>
+        <translation>WinKeyer antwoordt: firmware %1</translation>
+    </message>
+    <message>
         <source>Sent: %1</source>
         <translation>Verzonden: %1</translation>
     </message>
@@ -7551,6 +8265,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>CW decoder listening to %1</source>
         <translation>CW-decoder luistert naar %1</translation>
+    </message>
+    <message>
+        <source>WinKeyer on %1</source>
+        <translation>WinKeyer op %1</translation>
     </message>
     <message>
         <source>CW keyer on %1 (%2): it works with the CAT busy elsewhere</source>
@@ -7673,7 +8391,26 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
 </context>
 <context>
+    <name>decolog::app::So2rController</name>
+    <message>
+        <source>Radio 2: %1</source>
+        <translation>Radio 2: %1</translation>
+    </message>
+    <message>
+        <source>Cannot open the SO2R box on %1: %2</source>
+        <translation>Kan het SO2R-kastje op %1 niet openen: %2</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::SolarController</name>
+    <message>
+        <source>Set your locator in the station profile.</source>
+        <translation>Stel je locator in het stationsprofiel in.</translation>
+    </message>
+    <message>
+        <source>No position for the DX: type a locator or look up a callsign.</source>
+        <translation>Geen positie voor de DX: typ een locator of zoek een roepnaam op.</translation>
+    </message>
     <message>
         <source>Solar data of %1</source>
         <translation>Zonnegegevens van %1</translation>
@@ -7685,6 +8422,33 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>The solar data cannot be read</source>
         <translation>De zonnegegevens zijn niet te lezen</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::SuperCheckController</name>
+    <message>
+        <source>%1 calls from MASTER.SCP (%2) and the log</source>
+        <translation>%1 roepnamen uit MASTER.SCP (%2) en het log</translation>
+    </message>
+    <message>
+        <source>only the calls of the log: download MASTER.SCP for the full list</source>
+        <translation>alleen de roepnamen uit het log: download MASTER.SCP voor de volledige lijst</translation>
+    </message>
+    <message>
+        <source>downloading MASTER.SCP…</source>
+        <translation>MASTER.SCP wordt gedownload…</translation>
+    </message>
+    <message>
+        <source>MASTER.SCP not downloaded: %1</source>
+        <translation>MASTER.SCP niet gedownload: %1</translation>
+    </message>
+    <message>
+        <source>empty answer</source>
+        <translation>leeg antwoord</translation>
+    </message>
+    <message>
+        <source>MASTER.SCP: %1 calls</source>
+        <translation>MASTER.SCP: %1 roepnamen</translation>
     </message>
 </context>
 <context>
@@ -7788,6 +8552,37 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>version %1 set aside</source>
         <translation>versie %1 opzijgezet</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::VoiceKeyerController</name>
+    <message>
+        <source>F%1 has no recorded message</source>
+        <translation>F%1 heeft geen opgenomen bericht</translation>
+    </message>
+    <message>
+        <source>The microphone does not record 16 kHz mono</source>
+        <translation>De microfoon neemt niet op in 16 kHz mono</translation>
+    </message>
+    <message>
+        <source>F%1 recorded: %2 s</source>
+        <translation>F%1 opgenomen: %2 s</translation>
+    </message>
+    <message>
+        <source>No such key</source>
+        <translation>Die toets bestaat niet</translation>
+    </message>
+    <message>
+        <source>Cannot read %1</source>
+        <translation>Kan %1 niet lezen</translation>
+    </message>
+    <message>
+        <source>Not a WAV file</source>
+        <translation>Geen WAV-bestand</translation>
+    </message>
+    <message>
+        <source>Cannot copy the file</source>
+        <translation>Kan het bestand niet kopiëren</translation>
     </message>
 </context>
 <context>
@@ -7944,6 +8739,18 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
         <translation>Versturen naar het CRX Logbook (crx.cloud): de sleutel begint met HAM-</translation>
+    </message>
+    <message>
+        <source>Upload code</source>
+        <translation>Uploadcode</translation>
+    </message>
+    <message>
+        <source>Upload to HRDLog.net: the upload code is in your HRDLog profile, it is not the password</source>
+        <translation>Upload naar HRDLog.net: de uploadcode staat in je HRDLog-profiel, het is niet het wachtwoord</translation>
+    </message>
+    <message>
+        <source>The VHF, EME and low band chat (www.on4kst.info)</source>
+        <translation>De chat voor VHF, EME en lage banden (www.on4kst.info)</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

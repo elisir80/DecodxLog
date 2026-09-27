@@ -3,6 +3,46 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.24 — in preparazione
+
+**Quello che mancava rispetto ai log blasonati: band map, avvisi, propagazione, rete, SO2R, WinKeyer, DVK.**
+
+Per il DX di tutti i giorni:
+- **Band map**: un pannello nuovo (Pannelli → Band map) con la banda in verticale, gli spot
+  posati sulla loro frequenza e colorati per stato (nuovo DXCC, nuova banda...), la riga
+  rossa della radio. Un clic su uno spot porta li' la radio e prepara il QSO, un clic sulla
+  scala sposta la radio, Ctrl+rotella cambia lo zoom. Segue la banda della radio o una scelta.
+- **Avvisi DX con regole**: oltre a voce e Decodium, una regola puo' mostrare un riquadro
+  (un clic sintonizza) e suonare. Stati nuovi nei filtri: NEW ZONE, NEW IOTA, IOTA non
+  confermata, NEW REF (POTA/SOTA/WWFF mai lavorata).
+- **Previsione di propagazione sul percorso**: in Propagazione, verso il DX della scheda o un
+  locatore scritto a mano, le 24 ore per le bande dal 160 al 6 m (buona, discreta, marginale,
+  chiusa), con MUF e LUF ora per ora. Un modello F2 semplificato, non VOACAP.
+- **HRDLog.net** fra i servizi di invio (nominativo e codice di upload nel portachiavi) e la
+  **chat ON4KST** (menu → ON4KST chat) con stanze, messaggi privati e chi c'e'.
+- **CAT anche via flrig e OmniRig**, oltre a Hamlib e TCI.
+- **Statistiche**: pagina "Diplomi e classifiche" con la curva dei diplomi anno per anno
+  (DXCC lavorati e confermati, zone CQ, locatori), entita' e nominativi piu' lavorati, banda
+  per modo.
+- **Diplomi italiani**: WAIR (le venti regioni, con quelle che mancano), IIA, DIFI e DAI dai
+  campi SIG/SIG_INFO o dal commento.
+
+Per i contest:
+- **Super Check Partial e N+1** nell'inserimento: MASTER.SCP (si scarica con un clic) piu' i
+  nominativi del log; un clic mette il nominativo nel campo.
+- **Rete multi-operatore sulla LAN** (pannello Rete di stazione): i QSO di ogni PC arrivano
+  negli altri log, doppi e moltiplicatori sono di tutti, messaggi fra operatori, spot interni,
+  sincronia per chi arriva dopo.
+- **SO2R**: seconda radio (rigctld, TCI, flrig, OmniRig), fuoco con Ctrl+←/→ e Pausa, stereo
+  con `, scatola SO2R via OTRSP.
+- **WinKeyer K1EL** come manipolatore, accanto al piedino DTR/RTS.
+- **Keyer vocale (DVK)**: otto messaggi registrati dal microfono o da WAV, PTT della radio,
+  CQ a ripetizione; in fonia i tasti funzione suonano i messaggi.
+- **ESM (Enter Sends Message)** in Run e S&P, dodici tasti funzione e l'editor delle macro
+  nell'inserimento del contest.
+- **Moltiplicatori per banda** (pannello Moltiplicatori), con zone e province che mancano, e
+  sotto il nominativo il controllo: dove il suo moltiplicatore e' gia' preso e dove manca.
+
 ## 1.16.23 — 27 settembre 2026
 
 **L'orologio mondiale, e il log si ordina cliccando le intestazioni delle colonne.**

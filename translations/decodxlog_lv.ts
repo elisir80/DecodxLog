@@ -73,6 +73,33 @@
     </message>
 </context>
 <context>
+    <name>ActivationController</name>
+    <message>
+        <source>Zones</source>
+        <translation>Zonas</translation>
+    </message>
+    <message>
+        <source>Countries</source>
+        <translation>Valstis</translation>
+    </message>
+    <message>
+        <source>Prefixes</source>
+        <translation>Prefiksi</translation>
+    </message>
+    <message>
+        <source>HQ stations</source>
+        <translation>HQ stacijas</translation>
+    </message>
+    <message>
+        <source>Provinces</source>
+        <translation>Provinces</translation>
+    </message>
+    <message>
+        <source>Sections</source>
+        <translation>Sekcijas</translation>
+    </message>
+</context>
+<context>
     <name>ActivationDialog</name>
     <message>
         <source>Contest</source>
@@ -262,6 +289,18 @@
         <translation>Desmit dažādas pilis Kuneo provincē, kad jau ir DCI.</translation>
     </message>
     <message>
+        <source>All twenty regions worked.</source>
+        <translation>Visi divdesmit reģioni noturēti.</translation>
+    </message>
+    <message>
+        <source>Missing: %1.</source>
+        <translation>Trūkst: %1.</translation>
+    </message>
+    <message>
+        <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
+        <translation>Atsauce tiek nolasīta no SIG/SIG_INFO (SIG = %1) vai no komentāra kā &quot;%1 LI-001&quot;.</translation>
+    </message>
+    <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
         <translation>Diploms: 75 provinces itāļu stacijām, 60 pārējām.</translation>
     </message>
@@ -419,6 +458,53 @@
     <message>
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● apstiprināts  ○ nostrādāts  ·  dubultklikšķis atver pirmo QSO. DXCC skaita vienības ar DXCC numuru; vecākiem QSO izmanto Iestatījumi → Vispārīgi → Aizpildīt trūkstošos DXCC.</translation>
+    </message>
+</context>
+<context>
+    <name>BandMapPanel</name>
+    <message>
+        <source>Band map</source>
+        <translation>Joslas karte</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n spot(s)</source>
+        <translation>
+            <numerusform>%n spots</numerusform>
+            <numerusform>%n spoti</numerusform>
+            <numerusform>%n spotu</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Auto · %1</source>
+        <translation>Auto · %1</translation>
+    </message>
+    <message>
+        <source>Follow the radio</source>
+        <translation>Sekot radio</translation>
+    </message>
+    <message>
+        <source>Only spots that pass the cluster filter</source>
+        <translation>Tikai spoti, kas iziet klastera filtru</translation>
+    </message>
+    <message>
+        <source>Keep the radio in view</source>
+        <translation>Turēt radio redzeslokā</translation>
+    </message>
+    <message>
+        <source>Go to the radio</source>
+        <translation>Uz radio</translation>
+    </message>
+    <message>
+        <source>%1 min ago</source>
+        <translation>pirms %1 min</translation>
+    </message>
+    <message>
+        <source>No spots on %1 right now.</source>
+        <translation>Pašlaik nav spotu uz %1.</translation>
+    </message>
+    <message>
+        <source>No cluster connected: open the DX Cluster and connect a source.</source>
+        <translation>Nav pieslēgta klastera: atver DX Cluster un pieslēdz avotu.</translation>
     </message>
 </context>
 <context>
@@ -676,6 +762,49 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Unexpected answer from HamQTH</source>
         <translation>Negaidīta atbilde no HamQTH</translation>
+    </message>
+</context>
+<context>
+    <name>ChatWindow</name>
+    <message>
+        <source>DecoDXLog — ON4KST chat</source>
+        <translation>DecoDXLog — ON4KST tērzētava</translation>
+    </message>
+    <message>
+        <source>Room</source>
+        <translation>Istaba</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>Pieslēgties</translation>
+    </message>
+    <message>
+        <source>Disconnect</source>
+        <translation>Atslēgties</translation>
+    </message>
+    <message>
+        <source>Put your ON4KST callsign and password in Settings → Sync &amp; Cloud, in the list of services (ON4KST Chat). They are kept in the system keychain.</source>
+        <translation>Ievadi ON4KST izsaukuma signālu un paroli sadaļā Iestatījumi → Sync un Cloud, pakalpojumu sarakstā (ON4KST Chat). Tās glabājas sistēmas atslēgu saišķī.</translation>
+    </message>
+    <message>
+        <source>Heard (%1)</source>
+        <translation>Dzirdēti (%1)</translation>
+    </message>
+    <message>
+        <source>to %1 ✕</source>
+        <translation>uz %1 ✕</translation>
+    </message>
+    <message>
+        <source>Private message to %1</source>
+        <translation>Privāta ziņa %1</translation>
+    </message>
+    <message>
+        <source>Message to the whole room</source>
+        <translation>Ziņa visai istabai</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">Sūtīt</translation>
     </message>
 </context>
 <context>
@@ -960,8 +1089,8 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Jauns noteikums</translation>
     </message>
     <message>
-        <source>A spot that matches a rule is written in the activity log, highlighted, sent to Decodium and, if the rule says so, announced by voice. The same DX on the same band and mode is announced at most once every %1 minutes.</source>
-        <translation>Spots, kas atbilst noteikumam, tiek ierakstīts darbību žurnālā, izcelts, nosūtīts Decodium un, ja noteikums tā saka, nosaukts ar balsi. To pašu DX tajā pašā joslā un režīmā nosauc ne biežāk kā reizi %1 minūtēs.</translation>
+        <source>A spot that matches a rule is written in the activity log and highlighted; if the rule says so it is sent to Decodium, announced by voice, shown in a popup (click it to tune the radio) and played as a sound. The same DX on the same band and mode alerts at most once every %1 minutes.</source>
+        <translation>Spots, kas atbilst noteikumam, tiek ierakstīts darbību žurnālā un izcelts; ja noteikums to paredz, tas tiek nosūtīts uz Decodium, paziņots balsī, parādīts uznirstošā logā (klikšķis noskaņo radio) un atskaņots skaņas signāls. Tas pats DX tajā pašā joslā un modā brīdina ne biežāk kā reizi %1 minūtēs.</translation>
     </message>
     <message>
         <source>DX in %1</source>
@@ -982,6 +1111,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>voice</source>
         <translation>balss</translation>
+    </message>
+    <message>
+        <source>popup</source>
+        <translation>uznirstošs</translation>
+    </message>
+    <message>
+        <source>sound</source>
+        <translation>skaņa</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -1168,6 +1305,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Sūtīt uz Decodium</translation>
     </message>
     <message>
+        <source>Show a popup</source>
+        <translation>Rādīt uznirstošo logu</translation>
+    </message>
+    <message>
+        <source>Play a sound</source>
+        <translation>Atskaņot skaņu</translation>
+    </message>
+    <message>
         <source>Save rule</source>
         <translation>Saglabāt noteikumu</translation>
     </message>
@@ -1237,6 +1382,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Izsaukuma signāls ir par īsu</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation type="unfinished">CW makro</translation>
+    </message>
+    <message>
+        <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
+        <translation>{CALL} noturētā stacija, {MYCALL} tavs izsaukums, {RST} atskaite, {NR} tavs numurs, {EXCH} saņemtais. Ar ESM Run režīmā: Enter sūta F1 tukšam izsaukumam, F3 ar izsaukumu, F4 un reģistrē ar apmaiņu. S&amp;P: F9 ar izsaukumu, F10 un reģistrē ar apmaiņu. Telefonijā taustiņi atskaņo balss keyer.</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation type="unfinished">Noklusētie makro</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Aizvērt</translation>
+    </message>
+    <message>
         <source>%1 · next %2</source>
         <translation>%1 · nākamais %2</translation>
     </message>
@@ -1255,6 +1416,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Mode</source>
         <translation>Mode</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>Makro…</translation>
+    </message>
+    <message>
+        <source>stereo</source>
+        <translation>stereo</translation>
     </message>
     <message>
         <source>already worked</source>
@@ -1293,6 +1462,26 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Žurnāls</translation>
     </message>
     <message>
+        <source>no known call</source>
+        <translation>nav zināma izsaukuma</translation>
+    </message>
+    <message>
+        <source>Downloading…</source>
+        <translation type="unfinished">Lejupielādē…</translation>
+    </message>
+    <message>
+        <source>Download MASTER.SCP</source>
+        <translation>Lejupielādēt MASTER.SCP</translation>
+    </message>
+    <message>
+        <source>needed</source>
+        <translation>vajag</translation>
+    </message>
+    <message>
+        <source>new</source>
+        <translation>jauns</translation>
+    </message>
+    <message>
         <source>Open a session from Contest, then the QSOs come in here.</source>
         <translation>Atver sesiju sadaļā Konkurss, un QSO nonāk šeit.</translation>
     </message>
@@ -1306,6 +1495,76 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
         <translation>Visi konkursa paneļi ir atsevišķos logos: ↩ panelī to atgriež šeit.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestMultipliersPanel</name>
+    <message>
+        <source>Multipliers</source>
+        <translation>Reizinātāji</translation>
+    </message>
+    <message>
+        <source>Open a contest session to see the multipliers.</source>
+        <translation>Atver sacensību sesiju, lai redzētu reizinātājus.</translation>
+    </message>
+    <message>
+        <source>Only missing</source>
+        <translation>Tikai trūkstošie</translation>
+    </message>
+</context>
+<context>
+    <name>ContestNetPanel</name>
+    <message>
+        <source>Station network</source>
+        <translation>Stacijas tīkls</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>Ieslēgts</translation>
+    </message>
+    <message>
+        <source>Network</source>
+        <translation>Tīkls</translation>
+    </message>
+    <message>
+        <source>This station</source>
+        <translation>Šī stacija</translation>
+    </message>
+    <message>
+        <source>UDP port</source>
+        <translation>UDP ports</translation>
+    </message>
+    <message>
+        <source>Sync</source>
+        <translation>Sinhronizēt</translation>
+    </message>
+    <message>
+        <source> · sent %1 · received %2</source>
+        <translation> · nosūtīti %1 · saņemti %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO</source>
+        <translation>
+            <numerusform>%n QSO</numerusform>
+            <numerusform>%n QSO</numerusform>
+            <numerusform>%n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Nobody else on the network yet.</source>
+        <translation>Tīklā vēl neviena cita nav.</translation>
+    </message>
+    <message>
+        <source>Message to the other operators</source>
+        <translation>Ziņa citiem operatoriem</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">Sūtīt</translation>
+    </message>
+    <message>
+        <source>Spot %1</source>
+        <translation>Spots %1</translation>
     </message>
 </context>
 <context>
@@ -1906,6 +2165,83 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>DvkPanel</name>
+    <message>
+        <source>Voice keyer</source>
+        <translation>Balss keyer</translation>
+    </message>
+    <message>
+        <source>A WAV message</source>
+        <translation>WAV ziņa</translation>
+    </message>
+    <message>
+        <source>WAV audio (*.wav)</source>
+        <translation>WAV audio (*.wav)</translation>
+    </message>
+    <message>
+        <source>stop</source>
+        <translation>stop</translation>
+    </message>
+    <message>
+        <source>Audio to the radio</source>
+        <translation>Audio uz radio</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Sistēmas noklusējums</translation>
+    </message>
+    <message>
+        <source>Microphone</source>
+        <translation>Mikrofons</translation>
+    </message>
+    <message>
+        <source>PTT from the radio</source>
+        <translation>PTT caur radio</translation>
+    </message>
+    <message>
+        <source>Repeat CQ every</source>
+        <translation>Atkārtot CQ ik pēc</translation>
+    </message>
+    <message>
+        <source>never</source>
+        <translation type="unfinished">nekad</translation>
+    </message>
+    <message>
+        <source>CQ loop</source>
+        <translation>CQ cikls</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DxAlertToast</name>
+    <message>
+        <source>Click to tune the radio</source>
+        <translation>Klikšķini, lai noskaņotu radio</translation>
+    </message>
+</context>
+<context>
+    <name>FlrigControl</name>
+    <message>
+        <source>connecting to flrig at %1…</source>
+        <translation>savienojas ar flrig %1…</translation>
+    </message>
+    <message>
+        <source>not connected</source>
+        <translation>nav savienots</translation>
+    </message>
+    <message>
+        <source>flrig does not answer: %1</source>
+        <translation>flrig neatbild: %1</translation>
+    </message>
+    <message>
+        <source>flrig at %1</source>
+        <translation>flrig %1</translation>
+    </message>
+</context>
+<context>
     <name>Ft2AwardPanel</name>
     <message>
         <source>FT2 Award</source>
@@ -1964,6 +2300,13 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>not worked</source>
         <translation>nav nostrādāts</translation>
+    </message>
+</context>
+<context>
+    <name>KstChat</name>
+    <message>
+        <source>the server closed the connection</source>
+        <translation>serveris aizvēra savienojumu</translation>
     </message>
 </context>
 <context>
@@ -2539,6 +2882,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Karte</translation>
     </message>
     <message>
+        <source>Band map</source>
+        <translation>Joslas karte</translation>
+    </message>
+    <message>
+        <source>Station network</source>
+        <translation>Stacijas tīkls</translation>
+    </message>
+    <message>
+        <source>Voice keyer</source>
+        <translation>Balss keyer</translation>
+    </message>
+    <message>
+        <source>Multipliers</source>
+        <translation>Reizinātāji</translation>
+    </message>
+    <message>
         <source>Contest entry</source>
         <translation>Konkursa ievade</translation>
     </message>
@@ -2969,10 +3328,116 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>OmniRigControl</name>
+    <message>
+        <source>not connected</source>
+        <translation>nav savienots</translation>
+    </message>
+    <message>
+        <source>OmniRig is not installed</source>
+        <translation>OmniRig nav instalēts</translation>
+    </message>
+    <message>
+        <source>cannot start OmniRig</source>
+        <translation>nevar palaist OmniRig</translation>
+    </message>
+    <message>
+        <source>OmniRig has no Rig%1</source>
+        <translation>OmniRig nav Rig%1</translation>
+    </message>
+    <message>
+        <source>OmniRig Rig%1…</source>
+        <translation>OmniRig Rig%1…</translation>
+    </message>
+    <message>
+        <source>OmniRig exists only on Windows</source>
+        <translation>OmniRig ir tikai Windows</translation>
+    </message>
+    <message>
+        <source>Rig%1 not configured in OmniRig</source>
+        <translation>Rig%1 nav iestatīts OmniRig</translation>
+    </message>
+    <message>
+        <source>Rig%1 disabled in OmniRig</source>
+        <translation>Rig%1 atspējots OmniRig</translation>
+    </message>
+    <message>
+        <source>Rig%1: the port is busy</source>
+        <translation>Rig%1: ports ir aizņemts</translation>
+    </message>
+    <message>
+        <source>Rig%1 does not answer</source>
+        <translation>Rig%1 neatbild</translation>
+    </message>
+    <message>
+        <source>OmniRig Rig%1</source>
+        <translation>OmniRig Rig%1</translation>
+    </message>
+</context>
+<context>
     <name>PanelWindow</name>
     <message>
         <source>DecoDXLog — %1</source>
         <translation>DecoDXLog — %1</translation>
+    </message>
+</context>
+<context>
+    <name>PathForecastView</name>
+    <message>
+        <source>Path forecast</source>
+        <translation>Ceļa prognoze</translation>
+    </message>
+    <message>
+        <source>%1 km</source>
+        <translation>%1 km</translation>
+    </message>
+    <message>
+        <source>%1°</source>
+        <translation type="unfinished">%1°</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n hop(s)</source>
+        <translation>
+            <numerusform>%n lēciens</numerusform>
+            <numerusform>%n lēcieni</numerusform>
+            <numerusform>%n lēcienu</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>SFI %1 (estimated)</source>
+        <translation>SFI %1 (novērtēts)</translation>
+    </message>
+    <message>
+        <source>SFI %1</source>
+        <translation>SFI %1</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>Lokators</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
+        <translation>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</translation>
+    </message>
+    <message>
+        <source>good</source>
+        <translation type="unfinished">laba</translation>
+    </message>
+    <message>
+        <source>fair</source>
+        <translation type="unfinished">viduvēja</translation>
+    </message>
+    <message>
+        <source>marginal</source>
+        <translation>robežās</translation>
+    </message>
+    <message>
+        <source>closed</source>
+        <translation type="unfinished">aizvērts</translation>
+    </message>
+    <message>
+        <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
+        <translation>Vienkāršots F2 modelis (MUF/LUF), nevis VOACAP: norāde, kad josla atveras, nevis solījums.</translation>
     </message>
 </context>
 <context>
@@ -3151,6 +3616,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>unexpected answer</source>
         <translation>negaidīta atbilde</translation>
+    </message>
+    <message>
+        <source>HRDLog: sent</source>
+        <translation>HRDLog: nosūtīts</translation>
+    </message>
+    <message>
+        <source>HRDLog: already there</source>
+        <translation>HRDLog: jau ir</translation>
+    </message>
+    <message>
+        <source>HRDLog: %1</source>
+        <translation>HRDLog: %1</translation>
+    </message>
+    <message>
+        <source>HRDLog: unexpected answer</source>
+        <translation>HRDLog: negaidīta atbilde</translation>
     </message>
     <message>
         <source>eQSL: already there</source>
@@ -5249,6 +5730,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>QRZ.com prasa XML datu abonementu; HamQTH ir bez maksas. Rezultāti paliek atmiņā vienu dienu, tāpēc staigāšana pa žurnālu uzziņas netērē.</translation>
     </message>
     <message>
+        <source>Radio via flrig</source>
+        <translation>Radio caur flrig</translation>
+    </message>
+    <message>
+        <source>Radio via OmniRig</source>
+        <translation>Radio caur OmniRig</translation>
+    </message>
+    <message>
         <source>Radio via Hamlib (rigctld)</source>
         <translation>Radio caur Hamlib (rigctld)</translation>
     </message>
@@ -5441,10 +5930,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>nav</translation>
     </message>
     <message>
-        <source>Pin</source>
-        <translation>Kontakts</translation>
-    </message>
-    <message>
         <source>Send VVV</source>
         <translation>Sūtīt VVV</translation>
     </message>
@@ -5457,8 +5942,108 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>ports nav atvērts</translation>
     </message>
     <message>
+        <source>flrig (XML-RPC)</source>
+        <translation>flrig (XML-RPC)</translation>
+    </message>
+    <message>
+        <source>OmniRig</source>
+        <translation>OmniRig</translation>
+    </message>
+    <message>
+        <source>flrig server</source>
+        <translation>flrig serveris</translation>
+    </message>
+    <message>
+        <source>flrig keeps the radio and shares it over XML-RPC (in flrig: Config → Setup → Server, usually port 12345). DecoDXLog reads frequency and mode every second, tunes the radio, uses its PTT and sends CW with flrig&apos;s keyer when the radio has one. fldigi can stay connected to flrig at the same time.</source>
+        <translation>flrig tur radio un koplieto to caur XML-RPC (flrig: Config → Setup → Server, parasti ports 12345). DecoDXLog katru sekundi nolasa frekvenci un modu, noskaņo radio, izmanto PTT un sūta CW ar flrig keyer, ja radio tāds ir. fldigi var vienlaikus palikt pieslēgts flrig.</translation>
+    </message>
+    <message>
+        <source>OmniRig radio</source>
+        <translation>OmniRig radio</translation>
+    </message>
+    <message>
+        <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
+        <translation>OmniRig (VE3NEA) tur seriālo portu un koplieto radio ar visām programmām: radio iestata pašā OmniRig (Rig 1 vai Rig 2). DecoDXLog nolasa frekvenci un modu, noskaņo radio un izmanto PTT. OmniRig nesūta CW: tam izmanto zemāk esošo seriālo keyer vai citu savienojumu.</translation>
+    </message>
+    <message>
+        <source>Keyer</source>
+        <translation>Keyer</translation>
+    </message>
+    <message>
+        <source>DTR pin</source>
+        <translation>DTR kontakts</translation>
+    </message>
+    <message>
+        <source>RTS pin</source>
+        <translation>RTS kontakts</translation>
+    </message>
+    <message>
+        <source>K1EL WinKeyer</source>
+        <translation>K1EL WinKeyer</translation>
+    </message>
+    <message>
+        <source>WinKeyer v%1 ready</source>
+        <translation>WinKeyer v%1 gatavs</translation>
+    </message>
+    <message>
+        <source>WinKeyer does not answer</source>
+        <translation>WinKeyer neatbild</translation>
+    </message>
+    <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Kad Decodium ir atvērts, radio CAT ports jau ir aizņemts, un CAT tilts manipulēt nevar. Šeit DecoDXLog manipulē pats: tas savā portā — tajā, kas pievienots manipulēšanas ķēdei — paceļ DTR vai RTS, tāpēc CAT paliek Decodium, un makro tik un tā aiziet ēterā. Atstāj portu uz „nav”, lai manipulētu caur CAT kā agrāk.</translation>
+    </message>
+    <message>
+        <source>SO2R · two radios</source>
+        <translation>SO2R · divi radio</translation>
+    </message>
+    <message>
+        <source>Second radio</source>
+        <translation>Otrais radio</translation>
+    </message>
+    <message>
+        <source>rigctld (host:port)</source>
+        <translation>rigctld (resursdators:ports)</translation>
+    </message>
+    <message>
+        <source>TCI (RX2)</source>
+        <translation>TCI (RX2)</translation>
+    </message>
+    <message>
+        <source>flrig</source>
+        <translation>flrig</translation>
+    </message>
+    <message>
+        <source>OmniRig radio (1 or 2)</source>
+        <translation>OmniRig radio (1 vai 2)</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished">Adrese</translation>
+    </message>
+    <message>
+        <source>SO2R box (OTRSP)</source>
+        <translation>SO2R kaste (OTRSP)</translation>
+    </message>
+    <message>
+        <source>radio 2 connected</source>
+        <translation>2. radio pieslēgts</translation>
+    </message>
+    <message>
+        <source>radio 2 not connected</source>
+        <translation>2. radio nav pieslēgts</translation>
+    </message>
+    <message>
+        <source>SO2R box ready</source>
+        <translation>SO2R kaste gatava</translation>
+    </message>
+    <message>
+        <source>SO2R box port not open</source>
+        <translation>SO2R kastes ports nav atvērts</translation>
+    </message>
+    <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
+        <translation>1. radio ir augstāk; 2. radio pieslēdz šeit. Sacensību ievadē radio ar fokusu saņem joslu, noskaņošanu un CW: Ctrl+← un Ctrl+→ izvēlas 1. vai 2. radio, Pause tos samaina, ` (gravis) pārslēdz stereo klausīšanos. SO2R kaste (MK2R, SO2RDuino, YCCC…) seko caur OTRSP: TX1/TX2 raidītājam, RX1/RX2 vai RX1S/RX2S austiņām.</translation>
     </message>
     <message>
         <source>The control box, directly (built-in gateway)</source>
@@ -5732,6 +6317,45 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>StatsAwardsPage</name>
+    <message>
+        <source>DXCC worked</source>
+        <translation>DXCC noturēti</translation>
+    </message>
+    <message>
+        <source>DXCC confirmed</source>
+        <translation>DXCC apstiprināti</translation>
+    </message>
+    <message>
+        <source>CQ zones</source>
+        <translation>CQ zonas</translation>
+    </message>
+    <message>
+        <source>Grids</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Awards over the years · cumulative</source>
+        <translation>Diplomi pa gadiem · kumulatīvi</translation>
+    </message>
+    <message>
+        <source>no QSO</source>
+        <translation type="unfinished">nav QSO</translation>
+    </message>
+    <message>
+        <source>Most worked entities</source>
+        <translation>Visbiežāk noturētās entītijas</translation>
+    </message>
+    <message>
+        <source>Most worked callsigns</source>
+        <translation>Visbiežāk noturētie izsaukumi</translation>
+    </message>
+    <message>
+        <source>Band by mode</source>
+        <translation>Josla pēc moda</translation>
+    </message>
+</context>
+<context>
     <name>StatsWindow</name>
     <message>
         <source>DecoDXLog — Statistics</source>
@@ -5756,6 +6380,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>All years</source>
         <translation>Visi gadi</translation>
+    </message>
+    <message>
+        <source>Activity</source>
+        <translation>Aktivitāte</translation>
+    </message>
+    <message>
+        <source>Awards and rankings</source>
+        <translation>Diplomi un reitingi</translation>
     </message>
     <message>
         <source>Refresh</source>
@@ -5886,6 +6518,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>DX Cluster…</source>
         <translation>DX klasteris…</translation>
+    </message>
+    <message>
+        <source>ON4KST chat (%1)…</source>
+        <translation>ON4KST tērzētava (%1)…</translation>
+    </message>
+    <message>
+        <source>ON4KST chat…</source>
+        <translation>ON4KST tērzētava…</translation>
     </message>
     <message>
         <source>Setup · %1 ▾</source>
@@ -6104,6 +6744,13 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Ritenītis: cipars zem rādītāja. Klikšķis: ierakstīt frekvenci.</translation>
+    </message>
+</context>
+<context>
+    <name>WinKeyer</name>
+    <message>
+        <source>WinKeyer: cannot open %1: %2</source>
+        <translation>WinKeyer: nevar atvērt %1: %2</translation>
     </message>
 </context>
 <context>
@@ -6442,6 +7089,41 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>decolog::app::ChatController</name>
+    <message>
+        <source>ON4KST: in the %1 room</source>
+        <translation>ON4KST: istabā %1</translation>
+    </message>
+    <message>
+        <source>not connected</source>
+        <translation>nav savienots</translation>
+    </message>
+    <message>
+        <source>not connected: %1</source>
+        <translation>nav savienots: %1</translation>
+    </message>
+    <message>
+        <source>connecting…</source>
+        <translation>savienojas…</translation>
+    </message>
+    <message>
+        <source>logging in…</source>
+        <translation>piesakās…</translation>
+    </message>
+    <message>
+        <source>online as %1</source>
+        <translation>tiešsaistē kā %1</translation>
+    </message>
+    <message>
+        <source>ON4KST: no credentials (%1)</source>
+        <translation>ON4KST: nav akreditācijas datu (%1)</translation>
+    </message>
+    <message>
+        <source>Settings → Sync &amp; Cloud</source>
+        <translation>Iestatījumi → Sync un Cloud</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::CloudController</name>
     <message>
         <source>Cloud: %1 connected</source>
@@ -6740,6 +7422,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>reloading the log table</source>
         <translation>pārlādē žurnāla tabulu</translation>
+    </message>
+    <message>
+        <source>%1 %2 %3 from %4</source>
+        <translation>%1 %2 %3 no %4</translation>
     </message>
     <message>
         <source>DecoLink listening on 127.0.0.1:%1</source>
@@ -7060,6 +7746,33 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>Programma nespēja restartēties uz %1.</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::NetController</name>
+    <message>
+        <source>off</source>
+        <translation type="unfinished">izslēgts</translation>
+    </message>
+    <message>
+        <source>on the network %1 (UDP %2) as %3</source>
+        <translation>tīklā %1 (UDP %2) kā %3</translation>
+    </message>
+    <message>
+        <source>cannot open UDP %1: %2</source>
+        <translation>nevar atvērt UDP %1: %2</translation>
+    </message>
+    <message>
+        <source>%1 left the network</source>
+        <translation>%1 pameta tīklu</translation>
+    </message>
+    <message>
+        <source>spot %1 %2 %3</source>
+        <translation>spots %1 %2 %3</translation>
+    </message>
+    <message>
+        <source>%1 joined the network</source>
+        <translation>%1 pievienojās tīklam</translation>
     </message>
 </context>
 <context>
@@ -7522,6 +8235,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
 <context>
     <name>decolog::app::RigController</name>
     <message>
+        <source>WinKeyer answers: firmware %1</source>
+        <translation>WinKeyer atbild: aparātprogrammatūra %1</translation>
+    </message>
+    <message>
         <source>Sent: %1</source>
         <translation>Nosūtīti: %1</translation>
     </message>
@@ -7592,6 +8309,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>CW decoder listening to %1</source>
         <translation>CW dekoders klausās %1</translation>
+    </message>
+    <message>
+        <source>WinKeyer on %1</source>
+        <translation>WinKeyer %1</translation>
     </message>
     <message>
         <source>CW keyer on %1 (%2): it works with the CAT busy elsewhere</source>
@@ -7714,7 +8435,26 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>decolog::app::So2rController</name>
+    <message>
+        <source>Radio 2: %1</source>
+        <translation>2. radio: %1</translation>
+    </message>
+    <message>
+        <source>Cannot open the SO2R box on %1: %2</source>
+        <translation>Nevar atvērt SO2R kasti %1: %2</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::SolarController</name>
+    <message>
+        <source>Set your locator in the station profile.</source>
+        <translation>Iestati savu lokatoru stacijas profilā.</translation>
+    </message>
+    <message>
+        <source>No position for the DX: type a locator or look up a callsign.</source>
+        <translation>Nav DX pozīcijas: ieraksti lokatoru vai meklē izsaukumu.</translation>
+    </message>
     <message>
         <source>Solar data of %1</source>
         <translation>%1 saules dati</translation>
@@ -7726,6 +8466,33 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>The solar data cannot be read</source>
         <translation>Saules datus nevar nolasīt</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::SuperCheckController</name>
+    <message>
+        <source>%1 calls from MASTER.SCP (%2) and the log</source>
+        <translation>%1 izsaukumi no MASTER.SCP (%2) un žurnāla</translation>
+    </message>
+    <message>
+        <source>only the calls of the log: download MASTER.SCP for the full list</source>
+        <translation>tikai žurnāla izsaukumi: lejupielādē MASTER.SCP pilnam sarakstam</translation>
+    </message>
+    <message>
+        <source>downloading MASTER.SCP…</source>
+        <translation>lejupielādē MASTER.SCP…</translation>
+    </message>
+    <message>
+        <source>MASTER.SCP not downloaded: %1</source>
+        <translation>MASTER.SCP nav lejupielādēts: %1</translation>
+    </message>
+    <message>
+        <source>empty answer</source>
+        <translation>tukša atbilde</translation>
+    </message>
+    <message>
+        <source>MASTER.SCP: %1 calls</source>
+        <translation>MASTER.SCP: %1 izsaukumi</translation>
     </message>
 </context>
 <context>
@@ -7829,6 +8596,37 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>version %1 set aside</source>
         <translation>versija %1 nolikta malā</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::VoiceKeyerController</name>
+    <message>
+        <source>F%1 has no recorded message</source>
+        <translation>F%1 nav ierakstītas ziņas</translation>
+    </message>
+    <message>
+        <source>The microphone does not record 16 kHz mono</source>
+        <translation>Mikrofons neieraksta 16 kHz mono</translation>
+    </message>
+    <message>
+        <source>F%1 recorded: %2 s</source>
+        <translation>F%1 ierakstīts: %2 s</translation>
+    </message>
+    <message>
+        <source>No such key</source>
+        <translation>Tāda taustiņa nav</translation>
+    </message>
+    <message>
+        <source>Cannot read %1</source>
+        <translation>Nevar nolasīt %1</translation>
+    </message>
+    <message>
+        <source>Not a WAV file</source>
+        <translation>Tas nav WAV fails</translation>
+    </message>
+    <message>
+        <source>Cannot copy the file</source>
+        <translation>Nevar nokopēt failu</translation>
     </message>
 </context>
 <context>
@@ -7985,6 +8783,18 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
         <translation>Sūtīšana uz CRX Logbook (crx.cloud): atslēga sākas ar HAM-</translation>
+    </message>
+    <message>
+        <source>Upload code</source>
+        <translation>Augšupielādes kods</translation>
+    </message>
+    <message>
+        <source>Upload to HRDLog.net: the upload code is in your HRDLog profile, it is not the password</source>
+        <translation>Augšupielāde uz HRDLog.net: augšupielādes kods ir tavā HRDLog profilā, tā nav parole</translation>
+    </message>
+    <message>
+        <source>The VHF, EME and low band chat (www.on4kst.info)</source>
+        <translation>VHF, EME un zemo joslu tērzētava (www.on4kst.info)</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

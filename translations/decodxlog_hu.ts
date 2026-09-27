@@ -73,6 +73,33 @@
     </message>
 </context>
 <context>
+    <name>ActivationController</name>
+    <message>
+        <source>Zones</source>
+        <translation>Zónák</translation>
+    </message>
+    <message>
+        <source>Countries</source>
+        <translation>Országok</translation>
+    </message>
+    <message>
+        <source>Prefixes</source>
+        <translation>Prefixek</translation>
+    </message>
+    <message>
+        <source>HQ stations</source>
+        <translation>HQ állomások</translation>
+    </message>
+    <message>
+        <source>Provinces</source>
+        <translation>Megyék</translation>
+    </message>
+    <message>
+        <source>Sections</source>
+        <translation>Szekciók</translation>
+    </message>
+</context>
+<context>
     <name>ActivationDialog</name>
     <message>
         <source>Contest</source>
@@ -260,6 +287,18 @@
         <translation>Tíz különböző vár Cuneo tartományból, ha már megvan a DCI.</translation>
     </message>
     <message>
+        <source>All twenty regions worked.</source>
+        <translation>Mind a húsz régió megvan.</translation>
+    </message>
+    <message>
+        <source>Missing: %1.</source>
+        <translation>Hiányzik: %1.</translation>
+    </message>
+    <message>
+        <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
+        <translation>A hivatkozás a SIG/SIG_INFO mezőből (SIG = %1) vagy egy &quot;%1 LI-001&quot; formájú megjegyzésből jön.</translation>
+    </message>
+    <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
         <translation>Oklevél: 75 tartomány az olasz állomásoknak, 60 a többinek.</translation>
     </message>
@@ -417,6 +456,51 @@
     <message>
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● igazolt  ○ meglévő  ·  a dupla kattintás megnyitja az első QSO-t. A DXCC a DXCC-számmal rendelkező entitásokat számolja; régebbi QSO-khoz használd a Beállítások → Általános → Hiányzó DXCC pótlása pontot.</translation>
+    </message>
+</context>
+<context>
+    <name>BandMapPanel</name>
+    <message>
+        <source>Band map</source>
+        <translation>Sávtérkép</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n spot(s)</source>
+        <translation>
+            <numerusform>%n spot</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Auto · %1</source>
+        <translation>Auto · %1</translation>
+    </message>
+    <message>
+        <source>Follow the radio</source>
+        <translation>Kövesse a rádiót</translation>
+    </message>
+    <message>
+        <source>Only spots that pass the cluster filter</source>
+        <translation>Csak a klaszterszűrőn átmenő spotok</translation>
+    </message>
+    <message>
+        <source>Keep the radio in view</source>
+        <translation>A rádió maradjon látható</translation>
+    </message>
+    <message>
+        <source>Go to the radio</source>
+        <translation>Ugrás a rádióhoz</translation>
+    </message>
+    <message>
+        <source>%1 min ago</source>
+        <translation>%1 perce</translation>
+    </message>
+    <message>
+        <source>No spots on %1 right now.</source>
+        <translation>Most nincs spot a %1 sávon.</translation>
+    </message>
+    <message>
+        <source>No cluster connected: open the DX Cluster and connect a source.</source>
+        <translation>Nincs klaszter: nyisd meg a DX Clustert és kapcsolj egy forrást.</translation>
     </message>
 </context>
 <context>
@@ -672,6 +756,49 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Unexpected answer from HamQTH</source>
         <translation>Váratlan válasz a HamQTH-tól</translation>
+    </message>
+</context>
+<context>
+    <name>ChatWindow</name>
+    <message>
+        <source>DecoDXLog — ON4KST chat</source>
+        <translation>DecoDXLog — ON4KST chat</translation>
+    </message>
+    <message>
+        <source>Room</source>
+        <translation>Szoba</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>Csatlakozás</translation>
+    </message>
+    <message>
+        <source>Disconnect</source>
+        <translation>Bontás</translation>
+    </message>
+    <message>
+        <source>Put your ON4KST callsign and password in Settings → Sync &amp; Cloud, in the list of services (ON4KST Chat). They are kept in the system keychain.</source>
+        <translation>Az ON4KST hívójelet és jelszót a Beállítások → Sync és Cloud szolgáltatáslistájában (ON4KST Chat) add meg. A rendszer kulcstartójában maradnak.</translation>
+    </message>
+    <message>
+        <source>Heard (%1)</source>
+        <translation>Hallott (%1)</translation>
+    </message>
+    <message>
+        <source>to %1 ✕</source>
+        <translation>neki: %1 ✕</translation>
+    </message>
+    <message>
+        <source>Private message to %1</source>
+        <translation>Privát üzenet neki: %1</translation>
+    </message>
+    <message>
+        <source>Message to the whole room</source>
+        <translation>Üzenet az egész szobának</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">Küldés</translation>
     </message>
 </context>
 <context>
@@ -956,8 +1083,8 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Új szabály</translation>
     </message>
     <message>
-        <source>A spot that matches a rule is written in the activity log, highlighted, sent to Decodium and, if the rule says so, announced by voice. The same DX on the same band and mode is announced at most once every %1 minutes.</source>
-        <translation>Az a spot, amelyik illik egy szabályra, bekerül a tevékenységnaplóba, kiemelést kap, elmegy a Decodiumnak, és ha a szabály úgy szól, hangon is bemondódik. Ugyanaz a DX ugyanazon a sávon és módban legfeljebb %1 percenként hangzik el.</translation>
+        <source>A spot that matches a rule is written in the activity log and highlighted; if the rule says so it is sent to Decodium, announced by voice, shown in a popup (click it to tune the radio) and played as a sound. The same DX on the same band and mode alerts at most once every %1 minutes.</source>
+        <translation>A szabálynak megfelelő spot bekerül a tevékenységnaplóba és kiemelve jelenik meg; ha a szabály kéri, megy a Decodiumnak, hangosan bemondja, felugró ablakban mutatja (kattintásra hangol a rádió) és hangot ad. Ugyanaz a DX ugyanazon a sávon és módban legfeljebb %1 percenként jelez.</translation>
     </message>
     <message>
         <source>DX in %1</source>
@@ -977,6 +1104,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>voice</source>
+        <translation>hang</translation>
+    </message>
+    <message>
+        <source>popup</source>
+        <translation>felugró</translation>
+    </message>
+    <message>
+        <source>sound</source>
         <translation>hang</translation>
     </message>
     <message>
@@ -1164,6 +1299,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Küldés a Decodiumnak</translation>
     </message>
     <message>
+        <source>Show a popup</source>
+        <translation>Felugró ablak</translation>
+    </message>
+    <message>
+        <source>Play a sound</source>
+        <translation>Hang lejátszása</translation>
+    </message>
+    <message>
         <source>Save rule</source>
         <translation>Szabály mentése</translation>
     </message>
@@ -1233,6 +1376,22 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>A hívójel túl rövid</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation type="unfinished">CW-makrók</translation>
+    </message>
+    <message>
+        <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
+        <translation>{CALL} a forgalmazott állomás, {MYCALL} a saját hívójel, {RST} a riport, {NR} a sorszám, {EXCH} a kapott adat. ESM-mel Run módban: az Enter üres hívójelnél F1-et küld, hívójellel F3-at, a csereadattal F4-et és naplóz. S&amp;P-ben: hívójellel F9, csereadattal F10 és naplóz. Fónián a gombok a hangüzeneteket játsszák.</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation type="unfinished">Alapértelmezett makrók</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Bezárás</translation>
+    </message>
+    <message>
         <source>%1 · next %2</source>
         <translation>%1 · következő %2</translation>
     </message>
@@ -1251,6 +1410,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Mode</source>
         <translation>Üzemmód</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>Makrók…</translation>
+    </message>
+    <message>
+        <source>stereo</source>
+        <translation>sztereó</translation>
     </message>
     <message>
         <source>already worked</source>
@@ -1289,6 +1456,26 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Napló</translation>
     </message>
     <message>
+        <source>no known call</source>
+        <translation>nincs ismert hívójel</translation>
+    </message>
+    <message>
+        <source>Downloading…</source>
+        <translation type="unfinished">Letöltés…</translation>
+    </message>
+    <message>
+        <source>Download MASTER.SCP</source>
+        <translation>MASTER.SCP letöltése</translation>
+    </message>
+    <message>
+        <source>needed</source>
+        <translation>hiányzik</translation>
+    </message>
+    <message>
+        <source>new</source>
+        <translation>új</translation>
+    </message>
+    <message>
         <source>Open a session from Contest, then the QSOs come in here.</source>
         <translation>Nyiss egy munkamenetet a Contestnél, és a QSO-k ide érkeznek.</translation>
     </message>
@@ -1302,6 +1489,74 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
         <translation>A verseny összes panelje külön ablakban van: a panel ↩ gombja visszahozza ide.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestMultipliersPanel</name>
+    <message>
+        <source>Multipliers</source>
+        <translation>Szorzók</translation>
+    </message>
+    <message>
+        <source>Open a contest session to see the multipliers.</source>
+        <translation>Nyiss egy versenyt a szorzók megtekintéséhez.</translation>
+    </message>
+    <message>
+        <source>Only missing</source>
+        <translation>Csak hiányzók</translation>
+    </message>
+</context>
+<context>
+    <name>ContestNetPanel</name>
+    <message>
+        <source>Station network</source>
+        <translation>Állomáshálózat</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>Be</translation>
+    </message>
+    <message>
+        <source>Network</source>
+        <translation>Hálózat</translation>
+    </message>
+    <message>
+        <source>This station</source>
+        <translation>Ez az állomás</translation>
+    </message>
+    <message>
+        <source>UDP port</source>
+        <translation>UDP port</translation>
+    </message>
+    <message>
+        <source>Sync</source>
+        <translation>Szinkron</translation>
+    </message>
+    <message>
+        <source> · sent %1 · received %2</source>
+        <translation> · küldve %1 · fogadva %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO</source>
+        <translation>
+            <numerusform>%n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Nobody else on the network yet.</source>
+        <translation>Még senki más nincs a hálózaton.</translation>
+    </message>
+    <message>
+        <source>Message to the other operators</source>
+        <translation>Üzenet a többi operátornak</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">Küldés</translation>
+    </message>
+    <message>
+        <source>Spot %1</source>
+        <translation>Spot %1</translation>
     </message>
 </context>
 <context>
@@ -1900,6 +2155,83 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>DvkPanel</name>
+    <message>
+        <source>Voice keyer</source>
+        <translation>Hangüzenet-kulcs</translation>
+    </message>
+    <message>
+        <source>A WAV message</source>
+        <translation>WAV üzenet</translation>
+    </message>
+    <message>
+        <source>WAV audio (*.wav)</source>
+        <translation>WAV hang (*.wav)</translation>
+    </message>
+    <message>
+        <source>stop</source>
+        <translation>állj</translation>
+    </message>
+    <message>
+        <source>Audio to the radio</source>
+        <translation>Hang a rádióra</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Rendszer alapértelmezett</translation>
+    </message>
+    <message>
+        <source>Microphone</source>
+        <translation>Mikrofon</translation>
+    </message>
+    <message>
+        <source>PTT from the radio</source>
+        <translation>PTT a rádión át</translation>
+    </message>
+    <message>
+        <source>Repeat CQ every</source>
+        <translation>CQ ismétlése</translation>
+    </message>
+    <message>
+        <source>never</source>
+        <translation type="unfinished">soha</translation>
+    </message>
+    <message>
+        <source>CQ loop</source>
+        <translation>CQ ismétlés</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DxAlertToast</name>
+    <message>
+        <source>Click to tune the radio</source>
+        <translation>Kattints a rádió hangolásához</translation>
+    </message>
+</context>
+<context>
+    <name>FlrigControl</name>
+    <message>
+        <source>connecting to flrig at %1…</source>
+        <translation>csatlakozás a flrig-hez: %1…</translation>
+    </message>
+    <message>
+        <source>not connected</source>
+        <translation>nincs csatlakozva</translation>
+    </message>
+    <message>
+        <source>flrig does not answer: %1</source>
+        <translation>a flrig nem válaszol: %1</translation>
+    </message>
+    <message>
+        <source>flrig at %1</source>
+        <translation>flrig: %1</translation>
+    </message>
+</context>
+<context>
     <name>Ft2AwardPanel</name>
     <message>
         <source>FT2 Award</source>
@@ -1958,6 +2290,13 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>not worked</source>
         <translation>nincs meg</translation>
+    </message>
+</context>
+<context>
+    <name>KstChat</name>
+    <message>
+        <source>the server closed the connection</source>
+        <translation>a szerver bontotta a kapcsolatot</translation>
     </message>
 </context>
 <context>
@@ -2529,6 +2868,22 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Térkép</translation>
     </message>
     <message>
+        <source>Band map</source>
+        <translation>Sávtérkép</translation>
+    </message>
+    <message>
+        <source>Station network</source>
+        <translation>Állomáshálózat</translation>
+    </message>
+    <message>
+        <source>Voice keyer</source>
+        <translation>Hangüzenet-kulcs</translation>
+    </message>
+    <message>
+        <source>Multipliers</source>
+        <translation>Szorzók</translation>
+    </message>
+    <message>
         <source>Contest entry</source>
         <translation>Contest-bevitel</translation>
     </message>
@@ -2959,10 +3314,114 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>OmniRigControl</name>
+    <message>
+        <source>not connected</source>
+        <translation>nincs csatlakozva</translation>
+    </message>
+    <message>
+        <source>OmniRig is not installed</source>
+        <translation>Az OmniRig nincs telepítve</translation>
+    </message>
+    <message>
+        <source>cannot start OmniRig</source>
+        <translation>az OmniRig nem indítható</translation>
+    </message>
+    <message>
+        <source>OmniRig has no Rig%1</source>
+        <translation>Az OmniRig-ben nincs Rig%1</translation>
+    </message>
+    <message>
+        <source>OmniRig Rig%1…</source>
+        <translation>OmniRig Rig%1…</translation>
+    </message>
+    <message>
+        <source>OmniRig exists only on Windows</source>
+        <translation>OmniRig csak Windowson van</translation>
+    </message>
+    <message>
+        <source>Rig%1 not configured in OmniRig</source>
+        <translation>Rig%1 nincs beállítva az OmniRigben</translation>
+    </message>
+    <message>
+        <source>Rig%1 disabled in OmniRig</source>
+        <translation>Rig%1 le van tiltva az OmniRigben</translation>
+    </message>
+    <message>
+        <source>Rig%1: the port is busy</source>
+        <translation>Rig%1: a port foglalt</translation>
+    </message>
+    <message>
+        <source>Rig%1 does not answer</source>
+        <translation>Rig%1 nem válaszol</translation>
+    </message>
+    <message>
+        <source>OmniRig Rig%1</source>
+        <translation>OmniRig Rig%1</translation>
+    </message>
+</context>
+<context>
     <name>PanelWindow</name>
     <message>
         <source>DecoDXLog — %1</source>
         <translation>DecoDXLog — %1</translation>
+    </message>
+</context>
+<context>
+    <name>PathForecastView</name>
+    <message>
+        <source>Path forecast</source>
+        <translation>Útvonal-előrejelzés</translation>
+    </message>
+    <message>
+        <source>%1 km</source>
+        <translation>%1 km</translation>
+    </message>
+    <message>
+        <source>%1°</source>
+        <translation type="unfinished">%1°</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n hop(s)</source>
+        <translation>
+            <numerusform>%n ugrás</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>SFI %1 (estimated)</source>
+        <translation>SFI %1 (becsült)</translation>
+    </message>
+    <message>
+        <source>SFI %1</source>
+        <translation>SFI %1</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>Lokátor</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
+        <translation>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</translation>
+    </message>
+    <message>
+        <source>good</source>
+        <translation type="unfinished">jó</translation>
+    </message>
+    <message>
+        <source>fair</source>
+        <translation type="unfinished">közepes</translation>
+    </message>
+    <message>
+        <source>marginal</source>
+        <translation>határeset</translation>
+    </message>
+    <message>
+        <source>closed</source>
+        <translation type="unfinished">bezárva</translation>
+    </message>
+    <message>
+        <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
+        <translation>Egyszerűsített F2 modell (MUF/LUF), nem VOACAP: támpont, mikor nyílik egy sáv, nem ígéret.</translation>
     </message>
 </context>
 <context>
@@ -3139,6 +3598,22 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>unexpected answer</source>
         <translation>váratlan válasz</translation>
+    </message>
+    <message>
+        <source>HRDLog: sent</source>
+        <translation>HRDLog: elküldve</translation>
+    </message>
+    <message>
+        <source>HRDLog: already there</source>
+        <translation>HRDLog: már megvan</translation>
+    </message>
+    <message>
+        <source>HRDLog: %1</source>
+        <translation>HRDLog: %1</translation>
+    </message>
+    <message>
+        <source>HRDLog: unexpected answer</source>
+        <translation>HRDLog: váratlan válasz</translation>
     </message>
     <message>
         <source>eQSL: already there</source>
@@ -5229,6 +5704,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>A QRZ.com XML-előfizetést kíván; a HamQTH ingyenes. Az eredmények egy napig a memóriában maradnak, így a naplóban lapozgatás nem fogyasztja a lekérdezéseket.</translation>
     </message>
     <message>
+        <source>Radio via flrig</source>
+        <translation>Rádió flrig-en át</translation>
+    </message>
+    <message>
+        <source>Radio via OmniRig</source>
+        <translation>Rádió OmniRig-en át</translation>
+    </message>
+    <message>
         <source>Radio via Hamlib (rigctld)</source>
         <translation>Rádió Hamlibon át (rigctld)</translation>
     </message>
@@ -5421,10 +5904,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>nincs</translation>
     </message>
     <message>
-        <source>Pin</source>
-        <translation>Láb</translation>
-    </message>
-    <message>
         <source>Send VVV</source>
         <translation>VVV küldése</translation>
     </message>
@@ -5437,8 +5916,108 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>a port nincs nyitva</translation>
     </message>
     <message>
+        <source>flrig (XML-RPC)</source>
+        <translation>flrig (XML-RPC)</translation>
+    </message>
+    <message>
+        <source>OmniRig</source>
+        <translation>OmniRig</translation>
+    </message>
+    <message>
+        <source>flrig server</source>
+        <translation>flrig szerver</translation>
+    </message>
+    <message>
+        <source>flrig keeps the radio and shares it over XML-RPC (in flrig: Config → Setup → Server, usually port 12345). DecoDXLog reads frequency and mode every second, tunes the radio, uses its PTT and sends CW with flrig&apos;s keyer when the radio has one. fldigi can stay connected to flrig at the same time.</source>
+        <translation>A flrig kezeli a rádiót és XML-RPC-n osztja meg (flrig: Config → Setup → Server, általában 12345-ös port). A DecoDXLog másodpercenként olvassa a frekvenciát és módot, hangol, használja a PTT-t és a flrig kulcsolójával küld CW-t, ha a rádiónak van. Az fldigi egyszerre is kapcsolódhat a flrig-hez.</translation>
+    </message>
+    <message>
+        <source>OmniRig radio</source>
+        <translation>OmniRig rádió</translation>
+    </message>
+    <message>
+        <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
+        <translation>Az OmniRig (VE3NEA) kezeli a soros portot és megosztja a rádiót minden programmal: a rádiót magában az OmniRigben kell beállítani (Rig 1 vagy Rig 2). A DecoDXLog olvassa a frekvenciát és módot, hangol és használja a PTT-t. Az OmniRig nem küld CW-t: ahhoz az alábbi soros kulcsolót vagy más kapcsolatot használj.</translation>
+    </message>
+    <message>
+        <source>Keyer</source>
+        <translation>Kulcsoló</translation>
+    </message>
+    <message>
+        <source>DTR pin</source>
+        <translation>DTR láb</translation>
+    </message>
+    <message>
+        <source>RTS pin</source>
+        <translation>RTS láb</translation>
+    </message>
+    <message>
+        <source>K1EL WinKeyer</source>
+        <translation>K1EL WinKeyer</translation>
+    </message>
+    <message>
+        <source>WinKeyer v%1 ready</source>
+        <translation>WinKeyer v%1 kész</translation>
+    </message>
+    <message>
+        <source>WinKeyer does not answer</source>
+        <translation>A WinKeyer nem válaszol</translation>
+    </message>
+    <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Ha a Decodium nyitva van, a rádió CAT-portja már foglalt, és egy CAT-híd nem tud manipulálni. Itt a DecoDXLog maga manipulál: a saját portján húzza a DTR-t vagy az RTS-t — azon, amelyik a manipuláló áramkörre van kötve —, így a CAT a Decodiumé marad, a makrók mégis adásba mennek. Hagyd a portot „nincs” állapotban, ha a CAT-on át akarsz manipulálni, mint eddig.</translation>
+    </message>
+    <message>
+        <source>SO2R · two radios</source>
+        <translation>SO2R · két rádió</translation>
+    </message>
+    <message>
+        <source>Second radio</source>
+        <translation>Második rádió</translation>
+    </message>
+    <message>
+        <source>rigctld (host:port)</source>
+        <translation>rigctld (gép:port)</translation>
+    </message>
+    <message>
+        <source>TCI (RX2)</source>
+        <translation>TCI (RX2)</translation>
+    </message>
+    <message>
+        <source>flrig</source>
+        <translation>flrig</translation>
+    </message>
+    <message>
+        <source>OmniRig radio (1 or 2)</source>
+        <translation>OmniRig rádió (1 vagy 2)</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished">Cím</translation>
+    </message>
+    <message>
+        <source>SO2R box (OTRSP)</source>
+        <translation>SO2R doboz (OTRSP)</translation>
+    </message>
+    <message>
+        <source>radio 2 connected</source>
+        <translation>2. rádió csatlakozva</translation>
+    </message>
+    <message>
+        <source>radio 2 not connected</source>
+        <translation>2. rádió nincs csatlakozva</translation>
+    </message>
+    <message>
+        <source>SO2R box ready</source>
+        <translation>SO2R doboz kész</translation>
+    </message>
+    <message>
+        <source>SO2R box port not open</source>
+        <translation>Az SO2R doboz portja nincs nyitva</translation>
+    </message>
+    <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
+        <translation>Az 1. rádió a fenti; a 2. rádiót itt kell csatlakoztatni. A verseny-bevitelben a fókuszban lévő rádió kapja a sávot, a hangolást és a CW-t: Ctrl+← és Ctrl+→ választja az 1. vagy 2. rádiót, a Pause felcseréli, a ` (tompa ékezet) kapcsolja a sztereó hallgatást. Az SO2R doboz (MK2R, SO2RDuino, YCCC…) OTRSP-vel követi: TX1/TX2 az adónak, RX1/RX2 vagy RX1S/RX2S a fejhallgatónak.</translation>
     </message>
     <message>
         <source>The control box, directly (built-in gateway)</source>
@@ -5712,6 +6291,45 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>StatsAwardsPage</name>
+    <message>
+        <source>DXCC worked</source>
+        <translation>DXCC forgalmazva</translation>
+    </message>
+    <message>
+        <source>DXCC confirmed</source>
+        <translation>DXCC visszaigazolva</translation>
+    </message>
+    <message>
+        <source>CQ zones</source>
+        <translation>CQ zónák</translation>
+    </message>
+    <message>
+        <source>Grids</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Awards over the years · cumulative</source>
+        <translation>Diplomok az évek során · halmozott</translation>
+    </message>
+    <message>
+        <source>no QSO</source>
+        <translation type="unfinished">nincs QSO</translation>
+    </message>
+    <message>
+        <source>Most worked entities</source>
+        <translation>Leggyakoribb entitások</translation>
+    </message>
+    <message>
+        <source>Most worked callsigns</source>
+        <translation>Leggyakoribb hívójelek</translation>
+    </message>
+    <message>
+        <source>Band by mode</source>
+        <translation>Sáv módonként</translation>
+    </message>
+</context>
+<context>
     <name>StatsWindow</name>
     <message>
         <source>DecoDXLog — Statistics</source>
@@ -5736,6 +6354,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>All years</source>
         <translation>Minden év</translation>
+    </message>
+    <message>
+        <source>Activity</source>
+        <translation>Tevékenység</translation>
+    </message>
+    <message>
+        <source>Awards and rankings</source>
+        <translation>Diplomok és rangsorok</translation>
     </message>
     <message>
         <source>Refresh</source>
@@ -5866,6 +6492,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>DX Cluster…</source>
         <translation>DX Cluster…</translation>
+    </message>
+    <message>
+        <source>ON4KST chat (%1)…</source>
+        <translation>ON4KST chat (%1)…</translation>
+    </message>
+    <message>
+        <source>ON4KST chat…</source>
+        <translation>ON4KST chat…</translation>
     </message>
     <message>
         <source>Setup · %1 ▾</source>
@@ -6084,6 +6718,13 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Görgő: a mutató alatti számjegy. Kattintás: a frekvencia beírása.</translation>
+    </message>
+</context>
+<context>
+    <name>WinKeyer</name>
+    <message>
+        <source>WinKeyer: cannot open %1: %2</source>
+        <translation>WinKeyer: %1 nem nyitható meg: %2</translation>
     </message>
 </context>
 <context>
@@ -6416,6 +7057,41 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>decolog::app::ChatController</name>
+    <message>
+        <source>ON4KST: in the %1 room</source>
+        <translation>ON4KST: a(z) %1 szobában</translation>
+    </message>
+    <message>
+        <source>not connected</source>
+        <translation>nincs csatlakozva</translation>
+    </message>
+    <message>
+        <source>not connected: %1</source>
+        <translation>nincs csatlakozva: %1</translation>
+    </message>
+    <message>
+        <source>connecting…</source>
+        <translation>csatlakozás…</translation>
+    </message>
+    <message>
+        <source>logging in…</source>
+        <translation>bejelentkezés…</translation>
+    </message>
+    <message>
+        <source>online as %1</source>
+        <translation>online mint %1</translation>
+    </message>
+    <message>
+        <source>ON4KST: no credentials (%1)</source>
+        <translation>ON4KST: nincs hitelesítő adat (%1)</translation>
+    </message>
+    <message>
+        <source>Settings → Sync &amp; Cloud</source>
+        <translation>Beállítások → Sync és Cloud</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::CloudController</name>
     <message>
         <source>Cloud: %1 connected</source>
@@ -6700,6 +7376,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>reloading the log table</source>
         <translation>a naplótáblázat újratöltése</translation>
+    </message>
+    <message>
+        <source>%1 %2 %3 from %4</source>
+        <translation>%1 %2 %3 innen: %4</translation>
     </message>
     <message>
         <source>DecoLink listening on 127.0.0.1:%1</source>
@@ -7008,6 +7688,33 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>A program nem tudott újraindulni ezen: %1.</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::NetController</name>
+    <message>
+        <source>off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>on the network %1 (UDP %2) as %3</source>
+        <translation>a(z) %1 hálózaton (UDP %2) mint %3</translation>
+    </message>
+    <message>
+        <source>cannot open UDP %1: %2</source>
+        <translation>UDP %1 nem nyitható meg: %2</translation>
+    </message>
+    <message>
+        <source>%1 left the network</source>
+        <translation>%1 kilépett a hálózatból</translation>
+    </message>
+    <message>
+        <source>spot %1 %2 %3</source>
+        <translation>spot %1 %2 %3</translation>
+    </message>
+    <message>
+        <source>%1 joined the network</source>
+        <translation>%1 csatlakozott a hálózathoz</translation>
     </message>
 </context>
 <context>
@@ -7442,6 +8149,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
 <context>
     <name>decolog::app::RigController</name>
     <message>
+        <source>WinKeyer answers: firmware %1</source>
+        <translation>A WinKeyer válaszol: firmware %1</translation>
+    </message>
+    <message>
         <source>Sent: %1</source>
         <translation>Elküldve: %1</translation>
     </message>
@@ -7510,6 +8221,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>CW decoder listening to %1</source>
         <translation>A CW-dekóder ezt hallgatja: %1</translation>
+    </message>
+    <message>
+        <source>WinKeyer on %1</source>
+        <translation>WinKeyer: %1</translation>
     </message>
     <message>
         <source>CW keyer on %1 (%2): it works with the CAT busy elsewhere</source>
@@ -7632,7 +8347,26 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>decolog::app::So2rController</name>
+    <message>
+        <source>Radio 2: %1</source>
+        <translation>2. rádió: %1</translation>
+    </message>
+    <message>
+        <source>Cannot open the SO2R box on %1: %2</source>
+        <translation>Az SO2R doboz nem nyitható meg: %1: %2</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::SolarController</name>
+    <message>
+        <source>Set your locator in the station profile.</source>
+        <translation>Add meg a lokátorod az állomásprofilban.</translation>
+    </message>
+    <message>
+        <source>No position for the DX: type a locator or look up a callsign.</source>
+        <translation>Nincs pozíció a DX-hez: írj lokátort vagy keress hívójelet.</translation>
+    </message>
     <message>
         <source>Solar data of %1</source>
         <translation>%1 napadatai</translation>
@@ -7644,6 +8378,33 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>The solar data cannot be read</source>
         <translation>A napadatok nem olvashatók</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::SuperCheckController</name>
+    <message>
+        <source>%1 calls from MASTER.SCP (%2) and the log</source>
+        <translation>%1 hívójel a MASTER.SCP-ből (%2) és a naplóból</translation>
+    </message>
+    <message>
+        <source>only the calls of the log: download MASTER.SCP for the full list</source>
+        <translation>csak a napló hívójelei: a teljes listához töltsd le a MASTER.SCP-t</translation>
+    </message>
+    <message>
+        <source>downloading MASTER.SCP…</source>
+        <translation>MASTER.SCP letöltése…</translation>
+    </message>
+    <message>
+        <source>MASTER.SCP not downloaded: %1</source>
+        <translation>MASTER.SCP nincs letöltve: %1</translation>
+    </message>
+    <message>
+        <source>empty answer</source>
+        <translation>üres válasz</translation>
+    </message>
+    <message>
+        <source>MASTER.SCP: %1 calls</source>
+        <translation>MASTER.SCP: %1 hívójel</translation>
     </message>
 </context>
 <context>
@@ -7747,6 +8508,37 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>version %1 set aside</source>
         <translation>a %1 változat félretéve</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::VoiceKeyerController</name>
+    <message>
+        <source>F%1 has no recorded message</source>
+        <translation>F%1-hez nincs felvett üzenet</translation>
+    </message>
+    <message>
+        <source>The microphone does not record 16 kHz mono</source>
+        <translation>A mikrofon nem rögzít 16 kHz monóban</translation>
+    </message>
+    <message>
+        <source>F%1 recorded: %2 s</source>
+        <translation>F%1 felvéve: %2 s</translation>
+    </message>
+    <message>
+        <source>No such key</source>
+        <translation>Nincs ilyen gomb</translation>
+    </message>
+    <message>
+        <source>Cannot read %1</source>
+        <translation>%1 nem olvasható</translation>
+    </message>
+    <message>
+        <source>Not a WAV file</source>
+        <translation>Nem WAV fájl</translation>
+    </message>
+    <message>
+        <source>Cannot copy the file</source>
+        <translation>A fájl nem másolható</translation>
     </message>
 </context>
 <context>
@@ -7903,6 +8695,18 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
         <translation>Küldés a CRX Logbookba (crx.cloud): a kulcs HAM- kezdetű</translation>
+    </message>
+    <message>
+        <source>Upload code</source>
+        <translation>Feltöltési kód</translation>
+    </message>
+    <message>
+        <source>Upload to HRDLog.net: the upload code is in your HRDLog profile, it is not the password</source>
+        <translation>Feltöltés a HRDLog.net-re: a feltöltési kód a HRDLog profilodban van, nem a jelszó</translation>
+    </message>
+    <message>
+        <source>The VHF, EME and low band chat (www.on4kst.info)</source>
+        <translation>A VHF, EME és alsó sávos chat (www.on4kst.info)</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

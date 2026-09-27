@@ -73,6 +73,33 @@
     </message>
 </context>
 <context>
+    <name>ActivationController</name>
+    <message>
+        <source>Zones</source>
+        <translation>Zonas</translation>
+    </message>
+    <message>
+        <source>Countries</source>
+        <translation>Países</translation>
+    </message>
+    <message>
+        <source>Prefixes</source>
+        <translation>Prefijos</translation>
+    </message>
+    <message>
+        <source>HQ stations</source>
+        <translation>Estaciones HQ</translation>
+    </message>
+    <message>
+        <source>Provinces</source>
+        <translation>Provincias</translation>
+    </message>
+    <message>
+        <source>Sections</source>
+        <translation>Secciones</translation>
+    </message>
+</context>
+<context>
     <name>ActivationDialog</name>
     <message>
         <source>Contest</source>
@@ -261,6 +288,18 @@
         <translation>Diez castillos distintos de la provincia de Cuneo, una vez que tengas el DCI.</translation>
     </message>
     <message>
+        <source>All twenty regions worked.</source>
+        <translation>Las veinte regiones trabajadas.</translation>
+    </message>
+    <message>
+        <source>Missing: %1.</source>
+        <translation>Faltan: %1.</translation>
+    </message>
+    <message>
+        <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
+        <translation>La referencia se lee de SIG/SIG_INFO (SIG = %1) o de un comentario como &quot;%1 LI-001&quot;.</translation>
+    </message>
+    <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
         <translation>Diploma: 75 provincias para las estaciones italianas, 60 para las demás.</translation>
     </message>
@@ -418,6 +457,52 @@
     <message>
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● confirmado  ○ trabajado  ·  doble clic abre el primer QSO. DXCC cuenta las entidades con número DXCC; para los QSO antiguos, Ajustes → General → Completar los DXCC que faltan.</translation>
+    </message>
+</context>
+<context>
+    <name>BandMapPanel</name>
+    <message>
+        <source>Band map</source>
+        <translation>Mapa de banda</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n spot(s)</source>
+        <translation>
+            <numerusform>%n spot</numerusform>
+            <numerusform>%n spots</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Auto · %1</source>
+        <translation>Auto · %1</translation>
+    </message>
+    <message>
+        <source>Follow the radio</source>
+        <translation>Seguir la radio</translation>
+    </message>
+    <message>
+        <source>Only spots that pass the cluster filter</source>
+        <translation>Solo los spots que pasan el filtro del clúster</translation>
+    </message>
+    <message>
+        <source>Keep the radio in view</source>
+        <translation>Mantener la radio a la vista</translation>
+    </message>
+    <message>
+        <source>Go to the radio</source>
+        <translation>Ir a la radio</translation>
+    </message>
+    <message>
+        <source>%1 min ago</source>
+        <translation>hace %1 min</translation>
+    </message>
+    <message>
+        <source>No spots on %1 right now.</source>
+        <translation>Ningún spot en %1 ahora.</translation>
+    </message>
+    <message>
+        <source>No cluster connected: open the DX Cluster and connect a source.</source>
+        <translation>Ningún clúster conectado: abre el DX Cluster y conecta una fuente.</translation>
     </message>
 </context>
 <context>
@@ -674,6 +759,49 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>Unexpected answer from HamQTH</source>
         <translation>Respuesta inesperada de HamQTH</translation>
+    </message>
+</context>
+<context>
+    <name>ChatWindow</name>
+    <message>
+        <source>DecoDXLog — ON4KST chat</source>
+        <translation>DecoDXLog — chat ON4KST</translation>
+    </message>
+    <message>
+        <source>Room</source>
+        <translation>Sala</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>Conectar</translation>
+    </message>
+    <message>
+        <source>Disconnect</source>
+        <translation>Desconectar</translation>
+    </message>
+    <message>
+        <source>Put your ON4KST callsign and password in Settings → Sync &amp; Cloud, in the list of services (ON4KST Chat). They are kept in the system keychain.</source>
+        <translation>Pon tu indicativo y contraseña de ON4KST en Ajustes → Sync y Cloud, en la lista de servicios (ON4KST Chat). Se guardan en el llavero del sistema.</translation>
+    </message>
+    <message>
+        <source>Heard (%1)</source>
+        <translation>Escuchados (%1)</translation>
+    </message>
+    <message>
+        <source>to %1 ✕</source>
+        <translation>a %1 ✕</translation>
+    </message>
+    <message>
+        <source>Private message to %1</source>
+        <translation>Mensaje privado a %1</translation>
+    </message>
+    <message>
+        <source>Message to the whole room</source>
+        <translation>Mensaje a toda la sala</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">Enviar</translation>
     </message>
 </context>
 <context>
@@ -958,8 +1086,8 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>Regla nueva</translation>
     </message>
     <message>
-        <source>A spot that matches a rule is written in the activity log, highlighted, sent to Decodium and, if the rule says so, announced by voice. The same DX on the same band and mode is announced at most once every %1 minutes.</source>
-        <translation>Un spot que cumple una regla se escribe en el registro de actividad, se resalta, se envía a Decodium y, si la regla lo dice, se anuncia por voz. El mismo DX en la misma banda y modo se anuncia como mucho cada %1 minutos.</translation>
+        <source>A spot that matches a rule is written in the activity log and highlighted; if the rule says so it is sent to Decodium, announced by voice, shown in a popup (click it to tune the radio) and played as a sound. The same DX on the same band and mode alerts at most once every %1 minutes.</source>
+        <translation>Un spot que cumple una regla se escribe en el registro de actividad y se resalta; si la regla lo pide se envía a Decodium, se anuncia por voz, se muestra en una ventana (un clic sintoniza la radio) y suena. El mismo DX en la misma banda y modo avisa como mucho una vez cada %1 minutos.</translation>
     </message>
     <message>
         <source>DX in %1</source>
@@ -980,6 +1108,14 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>voice</source>
         <translation>voz</translation>
+    </message>
+    <message>
+        <source>popup</source>
+        <translation>ventana</translation>
+    </message>
+    <message>
+        <source>sound</source>
+        <translation>sonido</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -1166,6 +1302,14 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>Enviar a Decodium</translation>
     </message>
     <message>
+        <source>Show a popup</source>
+        <translation>Mostrar una ventana</translation>
+    </message>
+    <message>
+        <source>Play a sound</source>
+        <translation>Reproducir un sonido</translation>
+    </message>
+    <message>
         <source>Save rule</source>
         <translation>Guardar la regla</translation>
     </message>
@@ -1235,6 +1379,22 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>El indicativo es demasiado corto</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation type="unfinished">Macros de CW</translation>
+    </message>
+    <message>
+        <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
+        <translation>{CALL} la estación trabajada, {MYCALL} tu indicativo, {RST} el reporte, {NR} tu número, {EXCH} lo recibido. Con ESM en Run: Intro envía F1 sin indicativo, F3 con el indicativo, F4 y registra con el intercambio. En S&amp;P: F9 con el indicativo, F10 y registra con el intercambio. En fonía las teclas reproducen el keyer de voz.</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation type="unfinished">Macros por defecto</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Cerrar</translation>
+    </message>
+    <message>
         <source>%1 · next %2</source>
         <translation>%1 · siguiente %2</translation>
     </message>
@@ -1253,6 +1413,14 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>Mode</source>
         <translation>Modo</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>Macros…</translation>
+    </message>
+    <message>
+        <source>stereo</source>
+        <translation>estéreo</translation>
     </message>
     <message>
         <source>already worked</source>
@@ -1291,6 +1459,26 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>Registro</translation>
     </message>
     <message>
+        <source>no known call</source>
+        <translation>ningún indicativo conocido</translation>
+    </message>
+    <message>
+        <source>Downloading…</source>
+        <translation type="unfinished">descargando…</translation>
+    </message>
+    <message>
+        <source>Download MASTER.SCP</source>
+        <translation>Descargar MASTER.SCP</translation>
+    </message>
+    <message>
+        <source>needed</source>
+        <translation>falta</translation>
+    </message>
+    <message>
+        <source>new</source>
+        <translation>nuevo</translation>
+    </message>
+    <message>
         <source>Open a session from Contest, then the QSOs come in here.</source>
         <translation>Abre una sesión en Concurso y los QSO llegan aquí.</translation>
     </message>
@@ -1304,6 +1492,75 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
         <translation>Todos los paneles del concurso están en ventanas propias: ↩ en un panel lo trae de vuelta aquí.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestMultipliersPanel</name>
+    <message>
+        <source>Multipliers</source>
+        <translation>Multiplicadores</translation>
+    </message>
+    <message>
+        <source>Open a contest session to see the multipliers.</source>
+        <translation>Abre una sesión de concurso para ver los multiplicadores.</translation>
+    </message>
+    <message>
+        <source>Only missing</source>
+        <translation>Solo los que faltan</translation>
+    </message>
+</context>
+<context>
+    <name>ContestNetPanel</name>
+    <message>
+        <source>Station network</source>
+        <translation>Red de estación</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>Activado</translation>
+    </message>
+    <message>
+        <source>Network</source>
+        <translation>Red</translation>
+    </message>
+    <message>
+        <source>This station</source>
+        <translation>Este puesto</translation>
+    </message>
+    <message>
+        <source>UDP port</source>
+        <translation>Puerto UDP</translation>
+    </message>
+    <message>
+        <source>Sync</source>
+        <translation>Sincronizar</translation>
+    </message>
+    <message>
+        <source> · sent %1 · received %2</source>
+        <translation> · enviados %1 · recibidos %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO</source>
+        <translation>
+            <numerusform>%n QSO</numerusform>
+            <numerusform>%n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Nobody else on the network yet.</source>
+        <translation>Todavía nadie más en la red.</translation>
+    </message>
+    <message>
+        <source>Message to the other operators</source>
+        <translation>Mensaje a los otros operadores</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">Enviar</translation>
+    </message>
+    <message>
+        <source>Spot %1</source>
+        <translation>Spot %1</translation>
     </message>
 </context>
 <context>
@@ -1903,6 +2160,83 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     </message>
 </context>
 <context>
+    <name>DvkPanel</name>
+    <message>
+        <source>Voice keyer</source>
+        <translation>Keyer de voz</translation>
+    </message>
+    <message>
+        <source>A WAV message</source>
+        <translation>Un mensaje WAV</translation>
+    </message>
+    <message>
+        <source>WAV audio (*.wav)</source>
+        <translation>Audio WAV (*.wav)</translation>
+    </message>
+    <message>
+        <source>stop</source>
+        <translation>parar</translation>
+    </message>
+    <message>
+        <source>Audio to the radio</source>
+        <translation>Audio hacia la radio</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Predeterminado del sistema</translation>
+    </message>
+    <message>
+        <source>Microphone</source>
+        <translation>Micrófono</translation>
+    </message>
+    <message>
+        <source>PTT from the radio</source>
+        <translation>PTT por la radio</translation>
+    </message>
+    <message>
+        <source>Repeat CQ every</source>
+        <translation>Repetir el CQ cada</translation>
+    </message>
+    <message>
+        <source>never</source>
+        <translation type="unfinished">nunca</translation>
+    </message>
+    <message>
+        <source>CQ loop</source>
+        <translation>CQ en bucle</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DxAlertToast</name>
+    <message>
+        <source>Click to tune the radio</source>
+        <translation>Clic para sintonizar la radio</translation>
+    </message>
+</context>
+<context>
+    <name>FlrigControl</name>
+    <message>
+        <source>connecting to flrig at %1…</source>
+        <translation>conectando con flrig en %1…</translation>
+    </message>
+    <message>
+        <source>not connected</source>
+        <translation>no conectado</translation>
+    </message>
+    <message>
+        <source>flrig does not answer: %1</source>
+        <translation>flrig no responde: %1</translation>
+    </message>
+    <message>
+        <source>flrig at %1</source>
+        <translation>flrig en %1</translation>
+    </message>
+</context>
+<context>
     <name>Ft2AwardPanel</name>
     <message>
         <source>FT2 Award</source>
@@ -1961,6 +2295,13 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>not worked</source>
         <translation>sin trabajar</translation>
+    </message>
+</context>
+<context>
+    <name>KstChat</name>
+    <message>
+        <source>the server closed the connection</source>
+        <translation>el servidor cerró la conexión</translation>
     </message>
 </context>
 <context>
@@ -2534,6 +2875,22 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>Mapa</translation>
     </message>
     <message>
+        <source>Band map</source>
+        <translation>Mapa de banda</translation>
+    </message>
+    <message>
+        <source>Station network</source>
+        <translation>Red de estación</translation>
+    </message>
+    <message>
+        <source>Voice keyer</source>
+        <translation>Keyer de voz</translation>
+    </message>
+    <message>
+        <source>Multipliers</source>
+        <translation>Multiplicadores</translation>
+    </message>
+    <message>
         <source>Contest entry</source>
         <translation>Entrada de concurso</translation>
     </message>
@@ -2964,10 +3321,115 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     </message>
 </context>
 <context>
+    <name>OmniRigControl</name>
+    <message>
+        <source>not connected</source>
+        <translation>no conectado</translation>
+    </message>
+    <message>
+        <source>OmniRig is not installed</source>
+        <translation>OmniRig no está instalado</translation>
+    </message>
+    <message>
+        <source>cannot start OmniRig</source>
+        <translation>no se puede iniciar OmniRig</translation>
+    </message>
+    <message>
+        <source>OmniRig has no Rig%1</source>
+        <translation>OmniRig no tiene Rig%1</translation>
+    </message>
+    <message>
+        <source>OmniRig Rig%1…</source>
+        <translation>OmniRig Rig%1…</translation>
+    </message>
+    <message>
+        <source>OmniRig exists only on Windows</source>
+        <translation>OmniRig solo existe en Windows</translation>
+    </message>
+    <message>
+        <source>Rig%1 not configured in OmniRig</source>
+        <translation>Rig%1 no configurado en OmniRig</translation>
+    </message>
+    <message>
+        <source>Rig%1 disabled in OmniRig</source>
+        <translation>Rig%1 desactivado en OmniRig</translation>
+    </message>
+    <message>
+        <source>Rig%1: the port is busy</source>
+        <translation>Rig%1: el puerto está ocupado</translation>
+    </message>
+    <message>
+        <source>Rig%1 does not answer</source>
+        <translation>Rig%1 no responde</translation>
+    </message>
+    <message>
+        <source>OmniRig Rig%1</source>
+        <translation>OmniRig Rig%1</translation>
+    </message>
+</context>
+<context>
     <name>PanelWindow</name>
     <message>
         <source>DecoDXLog — %1</source>
         <translation>DecoDXLog — %1</translation>
+    </message>
+</context>
+<context>
+    <name>PathForecastView</name>
+    <message>
+        <source>Path forecast</source>
+        <translation>Previsión del trayecto</translation>
+    </message>
+    <message>
+        <source>%1 km</source>
+        <translation>%1 km</translation>
+    </message>
+    <message>
+        <source>%1°</source>
+        <translation type="unfinished">%1°</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n hop(s)</source>
+        <translation>
+            <numerusform>%n salto</numerusform>
+            <numerusform>%n saltos</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>SFI %1 (estimated)</source>
+        <translation>SFI %1 (estimado)</translation>
+    </message>
+    <message>
+        <source>SFI %1</source>
+        <translation>SFI %1</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
+        <translation>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</translation>
+    </message>
+    <message>
+        <source>good</source>
+        <translation type="unfinished">buena</translation>
+    </message>
+    <message>
+        <source>fair</source>
+        <translation type="unfinished">regular</translation>
+    </message>
+    <message>
+        <source>marginal</source>
+        <translation>marginal</translation>
+    </message>
+    <message>
+        <source>closed</source>
+        <translation type="unfinished">cerrado</translation>
+    </message>
+    <message>
+        <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
+        <translation>Modelo F2 simplificado (MUF/LUF), no VOACAP: una guía de cuándo se abre una banda, no una promesa.</translation>
     </message>
 </context>
 <context>
@@ -3145,6 +3607,22 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>unexpected answer</source>
         <translation>respuesta inesperada</translation>
+    </message>
+    <message>
+        <source>HRDLog: sent</source>
+        <translation>HRDLog: enviado</translation>
+    </message>
+    <message>
+        <source>HRDLog: already there</source>
+        <translation>HRDLog: ya estaba</translation>
+    </message>
+    <message>
+        <source>HRDLog: %1</source>
+        <translation>HRDLog: %1</translation>
+    </message>
+    <message>
+        <source>HRDLog: unexpected answer</source>
+        <translation>HRDLog: respuesta inesperada</translation>
     </message>
     <message>
         <source>eQSL: already there</source>
@@ -5239,6 +5717,14 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>QRZ.com necesita una suscripción XML; HamQTH es gratis. Los resultados se guardan en memoria un día, así recorrer el registro no gasta consultas.</translation>
     </message>
     <message>
+        <source>Radio via flrig</source>
+        <translation>Radio mediante flrig</translation>
+    </message>
+    <message>
+        <source>Radio via OmniRig</source>
+        <translation>Radio mediante OmniRig</translation>
+    </message>
+    <message>
         <source>Radio via Hamlib (rigctld)</source>
         <translation>Radio con Hamlib (rigctld)</translation>
     </message>
@@ -5431,10 +5917,6 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>ninguna</translation>
     </message>
     <message>
-        <source>Pin</source>
-        <translation>Pin</translation>
-    </message>
-    <message>
         <source>Send VVV</source>
         <translation>Enviar VVV</translation>
     </message>
@@ -5447,8 +5929,108 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>puerto sin abrir</translation>
     </message>
     <message>
+        <source>flrig (XML-RPC)</source>
+        <translation>flrig (XML-RPC)</translation>
+    </message>
+    <message>
+        <source>OmniRig</source>
+        <translation>OmniRig</translation>
+    </message>
+    <message>
+        <source>flrig server</source>
+        <translation>Servidor flrig</translation>
+    </message>
+    <message>
+        <source>flrig keeps the radio and shares it over XML-RPC (in flrig: Config → Setup → Server, usually port 12345). DecoDXLog reads frequency and mode every second, tunes the radio, uses its PTT and sends CW with flrig&apos;s keyer when the radio has one. fldigi can stay connected to flrig at the same time.</source>
+        <translation>flrig mantiene la radio y la comparte por XML-RPC (en flrig: Config → Setup → Server, normalmente puerto 12345). DecoDXLog lee frecuencia y modo cada segundo, sintoniza la radio, usa su PTT y envía CW con el keyer de flrig si la radio lo tiene. fldigi puede seguir conectado a flrig a la vez.</translation>
+    </message>
+    <message>
+        <source>OmniRig radio</source>
+        <translation>Radio OmniRig</translation>
+    </message>
+    <message>
+        <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
+        <translation>OmniRig (de VE3NEA) mantiene el puerto serie y comparte la radio con todos los programas: configura la radio en el propio OmniRig (Rig 1 o Rig 2). DecoDXLog lee frecuencia y modo, sintoniza la radio y usa su PTT. OmniRig no envía CW: para eso usa el manipulador serie de abajo u otro enlace.</translation>
+    </message>
+    <message>
+        <source>Keyer</source>
+        <translation>Manipulador</translation>
+    </message>
+    <message>
+        <source>DTR pin</source>
+        <translation>Pin DTR</translation>
+    </message>
+    <message>
+        <source>RTS pin</source>
+        <translation>Pin RTS</translation>
+    </message>
+    <message>
+        <source>K1EL WinKeyer</source>
+        <translation>K1EL WinKeyer</translation>
+    </message>
+    <message>
+        <source>WinKeyer v%1 ready</source>
+        <translation>WinKeyer v%1 listo</translation>
+    </message>
+    <message>
+        <source>WinKeyer does not answer</source>
+        <translation>El WinKeyer no responde</translation>
+    </message>
+    <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Con Decodium abierto el puerto CAT de la radio ya está ocupado, y un puente CAT no sabe manipular. Aquí DecoDXLog manipula por su cuenta: levanta DTR o RTS en un puerto propio — el que está cableado al circuito de manipulación — así Decodium se queda con el CAT y las macros salen igual. Deja el puerto en «ninguna» para manipular por el CAT como antes.</translation>
+    </message>
+    <message>
+        <source>SO2R · two radios</source>
+        <translation>SO2R · dos radios</translation>
+    </message>
+    <message>
+        <source>Second radio</source>
+        <translation>Segunda radio</translation>
+    </message>
+    <message>
+        <source>rigctld (host:port)</source>
+        <translation>rigctld (host:puerto)</translation>
+    </message>
+    <message>
+        <source>TCI (RX2)</source>
+        <translation>TCI (RX2)</translation>
+    </message>
+    <message>
+        <source>flrig</source>
+        <translation>flrig</translation>
+    </message>
+    <message>
+        <source>OmniRig radio (1 or 2)</source>
+        <translation>Radio OmniRig (1 o 2)</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished">Dirección</translation>
+    </message>
+    <message>
+        <source>SO2R box (OTRSP)</source>
+        <translation>Caja SO2R (OTRSP)</translation>
+    </message>
+    <message>
+        <source>radio 2 connected</source>
+        <translation>radio 2 conectada</translation>
+    </message>
+    <message>
+        <source>radio 2 not connected</source>
+        <translation>radio 2 no conectada</translation>
+    </message>
+    <message>
+        <source>SO2R box ready</source>
+        <translation>Caja SO2R lista</translation>
+    </message>
+    <message>
+        <source>SO2R box port not open</source>
+        <translation>Puerto de la caja SO2R no abierto</translation>
+    </message>
+    <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
+        <translation>La radio 1 es la de arriba; la radio 2 se conecta aquí. En la entrada del concurso la radio con el foco recibe la banda, la sintonía y el CW: Ctrl+← y Ctrl+→ eligen la radio 1 o 2, Pausa las intercambia, ` (acento grave) activa la escucha estéreo. La caja SO2R (MK2R, SO2RDuino, YCCC…) sigue por OTRSP: TX1/TX2 para el transmisor, RX1/RX2 o RX1S/RX2S para los auriculares.</translation>
     </message>
     <message>
         <source>The control box, directly (built-in gateway)</source>
@@ -5722,6 +6304,45 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     </message>
 </context>
 <context>
+    <name>StatsAwardsPage</name>
+    <message>
+        <source>DXCC worked</source>
+        <translation>DXCC trabajados</translation>
+    </message>
+    <message>
+        <source>DXCC confirmed</source>
+        <translation>DXCC confirmados</translation>
+    </message>
+    <message>
+        <source>CQ zones</source>
+        <translation>Zonas CQ</translation>
+    </message>
+    <message>
+        <source>Grids</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Awards over the years · cumulative</source>
+        <translation>Diplomas a lo largo de los años · acumulado</translation>
+    </message>
+    <message>
+        <source>no QSO</source>
+        <translation type="unfinished">ningún QSO</translation>
+    </message>
+    <message>
+        <source>Most worked entities</source>
+        <translation>Entidades más trabajadas</translation>
+    </message>
+    <message>
+        <source>Most worked callsigns</source>
+        <translation>Indicativos más trabajados</translation>
+    </message>
+    <message>
+        <source>Band by mode</source>
+        <translation>Banda por modo</translation>
+    </message>
+</context>
+<context>
     <name>StatsWindow</name>
     <message>
         <source>DecoDXLog — Statistics</source>
@@ -5746,6 +6367,14 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>All years</source>
         <translation>Todos los años</translation>
+    </message>
+    <message>
+        <source>Activity</source>
+        <translation>Actividad</translation>
+    </message>
+    <message>
+        <source>Awards and rankings</source>
+        <translation>Diplomas y clasificaciones</translation>
     </message>
     <message>
         <source>Refresh</source>
@@ -5876,6 +6505,14 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>DX Cluster…</source>
         <translation>DX Cluster…</translation>
+    </message>
+    <message>
+        <source>ON4KST chat (%1)…</source>
+        <translation>Chat ON4KST (%1)…</translation>
+    </message>
+    <message>
+        <source>ON4KST chat…</source>
+        <translation>Chat ON4KST…</translation>
     </message>
     <message>
         <source>Setup · %1 ▾</source>
@@ -6094,6 +6731,13 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Rueda: la cifra bajo el puntero. Clic: escribir la frecuencia.</translation>
+    </message>
+</context>
+<context>
+    <name>WinKeyer</name>
+    <message>
+        <source>WinKeyer: cannot open %1: %2</source>
+        <translation>WinKeyer: no se puede abrir %1: %2</translation>
     </message>
 </context>
 <context>
@@ -6429,6 +7073,41 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::ChatController</name>
+    <message>
+        <source>ON4KST: in the %1 room</source>
+        <translation>ON4KST: en la sala %1</translation>
+    </message>
+    <message>
+        <source>not connected</source>
+        <translation>no conectado</translation>
+    </message>
+    <message>
+        <source>not connected: %1</source>
+        <translation>no conectado: %1</translation>
+    </message>
+    <message>
+        <source>connecting…</source>
+        <translation>conectando…</translation>
+    </message>
+    <message>
+        <source>logging in…</source>
+        <translation>iniciando sesión…</translation>
+    </message>
+    <message>
+        <source>online as %1</source>
+        <translation>conectado como %1</translation>
+    </message>
+    <message>
+        <source>ON4KST: no credentials (%1)</source>
+        <translation>ON4KST: sin credenciales (%1)</translation>
+    </message>
+    <message>
+        <source>Settings → Sync &amp; Cloud</source>
+        <translation>Ajustes → Sync y Cloud</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::CloudController</name>
     <message>
         <source>Cloud: %1 connected</source>
@@ -6720,6 +7399,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>reloading the log table</source>
         <translation>recargando la tabla del registro</translation>
+    </message>
+    <message>
+        <source>%1 %2 %3 from %4</source>
+        <translation>%1 %2 %3 de %4</translation>
     </message>
     <message>
         <source>DecoLink listening on 127.0.0.1:%1</source>
@@ -7034,6 +7717,33 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>El programa no ha podido reiniciarse en %1.</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::NetController</name>
+    <message>
+        <source>off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>on the network %1 (UDP %2) as %3</source>
+        <translation>en la red %1 (UDP %2) como %3</translation>
+    </message>
+    <message>
+        <source>cannot open UDP %1: %2</source>
+        <translation>no se puede abrir UDP %1: %2</translation>
+    </message>
+    <message>
+        <source>%1 left the network</source>
+        <translation>%1 dejó la red</translation>
+    </message>
+    <message>
+        <source>spot %1 %2 %3</source>
+        <translation>spot %1 %2 %3</translation>
+    </message>
+    <message>
+        <source>%1 joined the network</source>
+        <translation>%1 se unió a la red</translation>
     </message>
 </context>
 <context>
@@ -7482,6 +8192,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
 <context>
     <name>decolog::app::RigController</name>
     <message>
+        <source>WinKeyer answers: firmware %1</source>
+        <translation>El WinKeyer responde: firmware %1</translation>
+    </message>
+    <message>
         <source>Sent: %1</source>
         <translation>Enviado: %1</translation>
     </message>
@@ -7551,6 +8265,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>CW decoder listening to %1</source>
         <translation>Decodificador de CW escuchando %1</translation>
+    </message>
+    <message>
+        <source>WinKeyer on %1</source>
+        <translation>WinKeyer en %1</translation>
     </message>
     <message>
         <source>CW keyer on %1 (%2): it works with the CAT busy elsewhere</source>
@@ -7673,7 +8391,26 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::So2rController</name>
+    <message>
+        <source>Radio 2: %1</source>
+        <translation>Radio 2: %1</translation>
+    </message>
+    <message>
+        <source>Cannot open the SO2R box on %1: %2</source>
+        <translation>No se puede abrir la caja SO2R en %1: %2</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::SolarController</name>
+    <message>
+        <source>Set your locator in the station profile.</source>
+        <translation>Pon tu locator en el perfil de estación.</translation>
+    </message>
+    <message>
+        <source>No position for the DX: type a locator or look up a callsign.</source>
+        <translation>Sin posición para el DX: escribe un locator o busca un indicativo.</translation>
+    </message>
     <message>
         <source>Solar data of %1</source>
         <translation>Datos solares del %1</translation>
@@ -7685,6 +8422,33 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>The solar data cannot be read</source>
         <translation>Los datos solares no se pueden leer</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::SuperCheckController</name>
+    <message>
+        <source>%1 calls from MASTER.SCP (%2) and the log</source>
+        <translation>%1 indicativos de MASTER.SCP (%2) y del log</translation>
+    </message>
+    <message>
+        <source>only the calls of the log: download MASTER.SCP for the full list</source>
+        <translation>solo los indicativos del log: descarga MASTER.SCP para la lista completa</translation>
+    </message>
+    <message>
+        <source>downloading MASTER.SCP…</source>
+        <translation>descargando MASTER.SCP…</translation>
+    </message>
+    <message>
+        <source>MASTER.SCP not downloaded: %1</source>
+        <translation>MASTER.SCP no descargado: %1</translation>
+    </message>
+    <message>
+        <source>empty answer</source>
+        <translation>respuesta vacía</translation>
+    </message>
+    <message>
+        <source>MASTER.SCP: %1 calls</source>
+        <translation>MASTER.SCP: %1 indicativos</translation>
     </message>
 </context>
 <context>
@@ -7788,6 +8552,37 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>version %1 set aside</source>
         <translation>versión %1 apartada</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::VoiceKeyerController</name>
+    <message>
+        <source>F%1 has no recorded message</source>
+        <translation>F%1 no tiene mensaje grabado</translation>
+    </message>
+    <message>
+        <source>The microphone does not record 16 kHz mono</source>
+        <translation>El micrófono no graba a 16 kHz mono</translation>
+    </message>
+    <message>
+        <source>F%1 recorded: %2 s</source>
+        <translation>F%1 grabado: %2 s</translation>
+    </message>
+    <message>
+        <source>No such key</source>
+        <translation>Tecla inexistente</translation>
+    </message>
+    <message>
+        <source>Cannot read %1</source>
+        <translation>No se puede leer %1</translation>
+    </message>
+    <message>
+        <source>Not a WAV file</source>
+        <translation>No es un archivo WAV</translation>
+    </message>
+    <message>
+        <source>Cannot copy the file</source>
+        <translation>No se puede copiar el archivo</translation>
     </message>
 </context>
 <context>
@@ -7944,6 +8739,18 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
         <translation>Envío al CRX Logbook (crx.cloud): la clave empieza por HAM-</translation>
+    </message>
+    <message>
+        <source>Upload code</source>
+        <translation>Código de subida</translation>
+    </message>
+    <message>
+        <source>Upload to HRDLog.net: the upload code is in your HRDLog profile, it is not the password</source>
+        <translation>Subida a HRDLog.net: el código de subida está en tu perfil de HRDLog, no es la contraseña</translation>
+    </message>
+    <message>
+        <source>The VHF, EME and low band chat (www.on4kst.info)</source>
+        <translation>El chat de VHF, EME y bandas bajas (www.on4kst.info)</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>

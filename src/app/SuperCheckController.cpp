@@ -19,6 +19,7 @@ SuperCheckController::SuperCheckController(Context context, QObject* parent)
     : QObject(parent)
     , m_ctx(std::move(context))
 {
+    m_status = tr("only the calls of the log: download MASTER.SCP for the full list");
     m_reload.setSingleShot(true);
     m_reload.setInterval(5000);
     connect(&m_reload, &QTimer::timeout, this, &SuperCheckController::rebuild);

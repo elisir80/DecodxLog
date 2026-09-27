@@ -73,6 +73,33 @@
     </message>
 </context>
 <context>
+    <name>ActivationController</name>
+    <message>
+        <source>Zones</source>
+        <translation>Zoner</translation>
+    </message>
+    <message>
+        <source>Countries</source>
+        <translation>Lande</translation>
+    </message>
+    <message>
+        <source>Prefixes</source>
+        <translation>Præfikser</translation>
+    </message>
+    <message>
+        <source>HQ stations</source>
+        <translation>HQ-stationer</translation>
+    </message>
+    <message>
+        <source>Provinces</source>
+        <translation>Provinser</translation>
+    </message>
+    <message>
+        <source>Sections</source>
+        <translation>Sektioner</translation>
+    </message>
+</context>
+<context>
     <name>ActivationDialog</name>
     <message>
         <source>Contest</source>
@@ -261,6 +288,18 @@
         <translation>Ti forskellige borge i provinsen Cuneo, når du har DCI&apos;et.</translation>
     </message>
     <message>
+        <source>All twenty regions worked.</source>
+        <translation>Alle tyve regioner kørt.</translation>
+    </message>
+    <message>
+        <source>Missing: %1.</source>
+        <translation>Mangler: %1.</translation>
+    </message>
+    <message>
+        <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
+        <translation>Referencen læses fra SIG/SIG_INFO (SIG = %1) eller fra en kommentar som &quot;%1 LI-001&quot;.</translation>
+    </message>
+    <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
         <translation>Diplom: 75 provinser for italienske stationer, 60 for de andre.</translation>
     </message>
@@ -418,6 +457,52 @@
     <message>
         <source>● confirmed  ○ worked  ·  double-click opens the first QSO. DXCC counts entities with a DXCC number; use Setup → General → Fill missing DXCC for older QSOs.</source>
         <translation>● bekræftet  ○ kørt  ·  dobbeltklik åbner det første QSO. DXCC tæller entiteter med et DXCC-nummer; brug Indstillinger → Generelt → Udfyld manglende DXCC til ældre QSO&apos;er.</translation>
+    </message>
+</context>
+<context>
+    <name>BandMapPanel</name>
+    <message>
+        <source>Band map</source>
+        <translation>Båndkort</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n spot(s)</source>
+        <translation>
+            <numerusform>%n spot</numerusform>
+            <numerusform>%n spots</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Auto · %1</source>
+        <translation>Auto · %1</translation>
+    </message>
+    <message>
+        <source>Follow the radio</source>
+        <translation>Følg radioen</translation>
+    </message>
+    <message>
+        <source>Only spots that pass the cluster filter</source>
+        <translation>Kun spots der passerer clusterfilteret</translation>
+    </message>
+    <message>
+        <source>Keep the radio in view</source>
+        <translation>Hold radioen i syne</translation>
+    </message>
+    <message>
+        <source>Go to the radio</source>
+        <translation>Gå til radioen</translation>
+    </message>
+    <message>
+        <source>%1 min ago</source>
+        <translation>%1 min siden</translation>
+    </message>
+    <message>
+        <source>No spots on %1 right now.</source>
+        <translation>Ingen spots på %1 lige nu.</translation>
+    </message>
+    <message>
+        <source>No cluster connected: open the DX Cluster and connect a source.</source>
+        <translation>Intet cluster forbundet: åbn DX Cluster og forbind en kilde.</translation>
     </message>
 </context>
 <context>
@@ -674,6 +759,49 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Unexpected answer from HamQTH</source>
         <translation>Uventet svar fra HamQTH</translation>
+    </message>
+</context>
+<context>
+    <name>ChatWindow</name>
+    <message>
+        <source>DecoDXLog — ON4KST chat</source>
+        <translation>DecoDXLog — ON4KST-chat</translation>
+    </message>
+    <message>
+        <source>Room</source>
+        <translation>Rum</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>Forbind</translation>
+    </message>
+    <message>
+        <source>Disconnect</source>
+        <translation>Afbryd</translation>
+    </message>
+    <message>
+        <source>Put your ON4KST callsign and password in Settings → Sync &amp; Cloud, in the list of services (ON4KST Chat). They are kept in the system keychain.</source>
+        <translation>Skriv dit ON4KST-kaldesignal og din adgangskode i Indstillinger → Sync &amp; Cloud, i listen over tjenester (ON4KST Chat). De gemmes i systemets nøglering.</translation>
+    </message>
+    <message>
+        <source>Heard (%1)</source>
+        <translation>Hørt (%1)</translation>
+    </message>
+    <message>
+        <source>to %1 ✕</source>
+        <translation>til %1 ✕</translation>
+    </message>
+    <message>
+        <source>Private message to %1</source>
+        <translation>Privat besked til %1</translation>
+    </message>
+    <message>
+        <source>Message to the whole room</source>
+        <translation>Besked til hele rummet</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">Send</translation>
     </message>
 </context>
 <context>
@@ -958,8 +1086,8 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Ny regel</translation>
     </message>
     <message>
-        <source>A spot that matches a rule is written in the activity log, highlighted, sent to Decodium and, if the rule says so, announced by voice. The same DX on the same band and mode is announced at most once every %1 minutes.</source>
-        <translation>En spot, der passer til en regel, skrives i aktivitetsloggen, fremhæves, sendes til Decodium og bliver, hvis reglen siger det, sagt højt. Den samme DX på samme bånd og mode siges højst én gang hvert %1 minut.</translation>
+        <source>A spot that matches a rule is written in the activity log and highlighted; if the rule says so it is sent to Decodium, announced by voice, shown in a popup (click it to tune the radio) and played as a sound. The same DX on the same band and mode alerts at most once every %1 minutes.</source>
+        <translation>Et spot der matcher en regel skrives i aktivitetsloggen og fremhæves; hvis reglen siger det, sendes det til Decodium, annonceres med stemme, vises i en popup (klik for at indstille radioen) og afspilles som lyd. Samme DX på samme bånd og mode advarer højst én gang hver %1 minutter.</translation>
     </message>
     <message>
         <source>DX in %1</source>
@@ -980,6 +1108,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>voice</source>
         <translation>stemme</translation>
+    </message>
+    <message>
+        <source>popup</source>
+        <translation>popup</translation>
+    </message>
+    <message>
+        <source>sound</source>
+        <translation>lyd</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -1166,6 +1302,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Send til Decodium</translation>
     </message>
     <message>
+        <source>Show a popup</source>
+        <translation>Vis en popup</translation>
+    </message>
+    <message>
+        <source>Play a sound</source>
+        <translation>Afspil en lyd</translation>
+    </message>
+    <message>
         <source>Save rule</source>
         <translation>Gem regel</translation>
     </message>
@@ -1235,6 +1379,22 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Kaldesignalet er for kort</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation type="unfinished">CW-makroer</translation>
+    </message>
+    <message>
+        <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
+        <translation>{CALL} stationen du kører, {MYCALL} dit eget, {RST} rapporten, {NR} dit løbenummer, {EXCH} det modtagne. Med ESM i Run: Enter sender F1 ved tomt kaldesignal, F3 med kaldesignal, F4 og logger med udvekslingen. I S&amp;P: F9 med kaldesignal, F10 og logger med udvekslingen. I fonie afspiller tasterne stemmekeyeren.</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation type="unfinished">Standardmakroer</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Luk</translation>
+    </message>
+    <message>
         <source>%1 · next %2</source>
         <translation>%1 · næste %2</translation>
     </message>
@@ -1253,6 +1413,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Mode</source>
         <translation>Tilstand</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>Makroer…</translation>
+    </message>
+    <message>
+        <source>stereo</source>
+        <translation>stereo</translation>
     </message>
     <message>
         <source>already worked</source>
@@ -1291,6 +1459,26 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Logbog</translation>
     </message>
     <message>
+        <source>no known call</source>
+        <translation>intet kendt kaldesignal</translation>
+    </message>
+    <message>
+        <source>Downloading…</source>
+        <translation type="unfinished">Henter…</translation>
+    </message>
+    <message>
+        <source>Download MASTER.SCP</source>
+        <translation>Hent MASTER.SCP</translation>
+    </message>
+    <message>
+        <source>needed</source>
+        <translation>mangler</translation>
+    </message>
+    <message>
+        <source>new</source>
+        <translation>ny</translation>
+    </message>
+    <message>
         <source>Open a session from Contest, then the QSOs come in here.</source>
         <translation>Åbn en session under Contest, så kommer QSO&apos;erne ind her.</translation>
     </message>
@@ -1304,6 +1492,75 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>All the contest panels are in their own windows: ↩ in a panel brings it back here.</source>
         <translation>Alle contestpaneler er i deres egne vinduer: ↩ i et panel bringer det tilbage hertil.</translation>
+    </message>
+</context>
+<context>
+    <name>ContestMultipliersPanel</name>
+    <message>
+        <source>Multipliers</source>
+        <translation>Multiplikatorer</translation>
+    </message>
+    <message>
+        <source>Open a contest session to see the multipliers.</source>
+        <translation>Åbn en contest-session for at se multiplikatorerne.</translation>
+    </message>
+    <message>
+        <source>Only missing</source>
+        <translation>Kun manglende</translation>
+    </message>
+</context>
+<context>
+    <name>ContestNetPanel</name>
+    <message>
+        <source>Station network</source>
+        <translation>Stationsnetværk</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>Til</translation>
+    </message>
+    <message>
+        <source>Network</source>
+        <translation>Netværk</translation>
+    </message>
+    <message>
+        <source>This station</source>
+        <translation>Denne station</translation>
+    </message>
+    <message>
+        <source>UDP port</source>
+        <translation>UDP-port</translation>
+    </message>
+    <message>
+        <source>Sync</source>
+        <translation>Synkroniser</translation>
+    </message>
+    <message>
+        <source> · sent %1 · received %2</source>
+        <translation> · sendt %1 · modtaget %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO</source>
+        <translation>
+            <numerusform>%n QSO</numerusform>
+            <numerusform>%n QSO'er</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Nobody else on the network yet.</source>
+        <translation>Ingen andre på netværket endnu.</translation>
+    </message>
+    <message>
+        <source>Message to the other operators</source>
+        <translation>Besked til de andre operatører</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">Send</translation>
+    </message>
+    <message>
+        <source>Spot %1</source>
+        <translation>Spot %1</translation>
     </message>
 </context>
 <context>
@@ -1903,6 +2160,83 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
+    <name>DvkPanel</name>
+    <message>
+        <source>Voice keyer</source>
+        <translation>Stemmekeyer</translation>
+    </message>
+    <message>
+        <source>A WAV message</source>
+        <translation>En WAV-besked</translation>
+    </message>
+    <message>
+        <source>WAV audio (*.wav)</source>
+        <translation>WAV-lyd (*.wav)</translation>
+    </message>
+    <message>
+        <source>stop</source>
+        <translation>stop</translation>
+    </message>
+    <message>
+        <source>Audio to the radio</source>
+        <translation>Lyd til radioen</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Systemstandard</translation>
+    </message>
+    <message>
+        <source>Microphone</source>
+        <translation>Mikrofon</translation>
+    </message>
+    <message>
+        <source>PTT from the radio</source>
+        <translation>PTT via radioen</translation>
+    </message>
+    <message>
+        <source>Repeat CQ every</source>
+        <translation>Gentag CQ hver</translation>
+    </message>
+    <message>
+        <source>never</source>
+        <translation type="unfinished">aldrig</translation>
+    </message>
+    <message>
+        <source>CQ loop</source>
+        <translation>CQ-løkke</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished">Stop</translation>
+    </message>
+</context>
+<context>
+    <name>DxAlertToast</name>
+    <message>
+        <source>Click to tune the radio</source>
+        <translation>Klik for at indstille radioen</translation>
+    </message>
+</context>
+<context>
+    <name>FlrigControl</name>
+    <message>
+        <source>connecting to flrig at %1…</source>
+        <translation>forbinder til flrig på %1…</translation>
+    </message>
+    <message>
+        <source>not connected</source>
+        <translation>ikke forbundet</translation>
+    </message>
+    <message>
+        <source>flrig does not answer: %1</source>
+        <translation>flrig svarer ikke: %1</translation>
+    </message>
+    <message>
+        <source>flrig at %1</source>
+        <translation>flrig på %1</translation>
+    </message>
+</context>
+<context>
     <name>Ft2AwardPanel</name>
     <message>
         <source>FT2 Award</source>
@@ -1961,6 +2295,13 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>not worked</source>
         <translation>ikke kørt</translation>
+    </message>
+</context>
+<context>
+    <name>KstChat</name>
+    <message>
+        <source>the server closed the connection</source>
+        <translation>serveren lukkede forbindelsen</translation>
     </message>
 </context>
 <context>
@@ -2534,6 +2875,22 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Kort</translation>
     </message>
     <message>
+        <source>Band map</source>
+        <translation>Båndkort</translation>
+    </message>
+    <message>
+        <source>Station network</source>
+        <translation>Stationsnetværk</translation>
+    </message>
+    <message>
+        <source>Voice keyer</source>
+        <translation>Stemmekeyer</translation>
+    </message>
+    <message>
+        <source>Multipliers</source>
+        <translation>Multiplikatorer</translation>
+    </message>
+    <message>
         <source>Contest entry</source>
         <translation>Contest-indtastning</translation>
     </message>
@@ -2964,10 +3321,115 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
+    <name>OmniRigControl</name>
+    <message>
+        <source>not connected</source>
+        <translation>ikke forbundet</translation>
+    </message>
+    <message>
+        <source>OmniRig is not installed</source>
+        <translation>OmniRig er ikke installeret</translation>
+    </message>
+    <message>
+        <source>cannot start OmniRig</source>
+        <translation>kan ikke starte OmniRig</translation>
+    </message>
+    <message>
+        <source>OmniRig has no Rig%1</source>
+        <translation>OmniRig har ingen Rig%1</translation>
+    </message>
+    <message>
+        <source>OmniRig Rig%1…</source>
+        <translation>OmniRig Rig%1…</translation>
+    </message>
+    <message>
+        <source>OmniRig exists only on Windows</source>
+        <translation>OmniRig findes kun på Windows</translation>
+    </message>
+    <message>
+        <source>Rig%1 not configured in OmniRig</source>
+        <translation>Rig%1 ikke konfigureret i OmniRig</translation>
+    </message>
+    <message>
+        <source>Rig%1 disabled in OmniRig</source>
+        <translation>Rig%1 deaktiveret i OmniRig</translation>
+    </message>
+    <message>
+        <source>Rig%1: the port is busy</source>
+        <translation>Rig%1: porten er optaget</translation>
+    </message>
+    <message>
+        <source>Rig%1 does not answer</source>
+        <translation>Rig%1 svarer ikke</translation>
+    </message>
+    <message>
+        <source>OmniRig Rig%1</source>
+        <translation>OmniRig Rig%1</translation>
+    </message>
+</context>
+<context>
     <name>PanelWindow</name>
     <message>
         <source>DecoDXLog — %1</source>
         <translation>DecoDXLog — %1</translation>
+    </message>
+</context>
+<context>
+    <name>PathForecastView</name>
+    <message>
+        <source>Path forecast</source>
+        <translation>Stiprognose</translation>
+    </message>
+    <message>
+        <source>%1 km</source>
+        <translation>%1 km</translation>
+    </message>
+    <message>
+        <source>%1°</source>
+        <translation type="unfinished">%1°</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n hop(s)</source>
+        <translation>
+            <numerusform>%n hop</numerusform>
+            <numerusform>%n hop</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>SFI %1 (estimated)</source>
+        <translation>SFI %1 (anslået)</translation>
+    </message>
+    <message>
+        <source>SFI %1</source>
+        <translation>SFI %1</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>Lokator</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
+        <translation>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</translation>
+    </message>
+    <message>
+        <source>good</source>
+        <translation type="unfinished">god</translation>
+    </message>
+    <message>
+        <source>fair</source>
+        <translation type="unfinished">jævn</translation>
+    </message>
+    <message>
+        <source>marginal</source>
+        <translation>marginal</translation>
+    </message>
+    <message>
+        <source>closed</source>
+        <translation type="unfinished">lukket</translation>
+    </message>
+    <message>
+        <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
+        <translation>Forenklet F2-model (MUF/LUF), ikke VOACAP: en vejledning om hvornår et bånd åbner, ikke et løfte.</translation>
     </message>
 </context>
 <context>
@@ -3145,6 +3607,22 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>unexpected answer</source>
         <translation>uventet svar</translation>
+    </message>
+    <message>
+        <source>HRDLog: sent</source>
+        <translation>HRDLog: sendt</translation>
+    </message>
+    <message>
+        <source>HRDLog: already there</source>
+        <translation>HRDLog: findes allerede</translation>
+    </message>
+    <message>
+        <source>HRDLog: %1</source>
+        <translation>HRDLog: %1</translation>
+    </message>
+    <message>
+        <source>HRDLog: unexpected answer</source>
+        <translation>HRDLog: uventet svar</translation>
     </message>
     <message>
         <source>eQSL: already there</source>
@@ -5239,6 +5717,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>QRZ.com kræver et XML-abonnement; HamQTH er gratis. Resultaterne bliver i hukommelsen en dag, så det ikke bruger opslag at bladre gennem loggen.</translation>
     </message>
     <message>
+        <source>Radio via flrig</source>
+        <translation>Radio via flrig</translation>
+    </message>
+    <message>
+        <source>Radio via OmniRig</source>
+        <translation>Radio via OmniRig</translation>
+    </message>
+    <message>
         <source>Radio via Hamlib (rigctld)</source>
         <translation>Radio via Hamlib (rigctld)</translation>
     </message>
@@ -5431,10 +5917,6 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>ingen</translation>
     </message>
     <message>
-        <source>Pin</source>
-        <translation>Ben</translation>
-    </message>
-    <message>
         <source>Send VVV</source>
         <translation>Send VVV</translation>
     </message>
@@ -5447,8 +5929,108 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>porten er ikke åben</translation>
     </message>
     <message>
+        <source>flrig (XML-RPC)</source>
+        <translation>flrig (XML-RPC)</translation>
+    </message>
+    <message>
+        <source>OmniRig</source>
+        <translation>OmniRig</translation>
+    </message>
+    <message>
+        <source>flrig server</source>
+        <translation>flrig-server</translation>
+    </message>
+    <message>
+        <source>flrig keeps the radio and shares it over XML-RPC (in flrig: Config → Setup → Server, usually port 12345). DecoDXLog reads frequency and mode every second, tunes the radio, uses its PTT and sends CW with flrig&apos;s keyer when the radio has one. fldigi can stay connected to flrig at the same time.</source>
+        <translation>flrig holder radioen og deler den via XML-RPC (i flrig: Config → Setup → Server, normalt port 12345). DecoDXLog læser frekvens og mode hvert sekund, indstiller radioen, bruger dens PTT og sender CW med flrigs keyer, når radioen har en. fldigi kan være forbundet til flrig samtidig.</translation>
+    </message>
+    <message>
+        <source>OmniRig radio</source>
+        <translation>OmniRig-radio</translation>
+    </message>
+    <message>
+        <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
+        <translation>OmniRig (af VE3NEA) holder den serielle port og deler radioen med alle programmer: konfigurer radioen i selve OmniRig (Rig 1 eller Rig 2). DecoDXLog læser frekvens og mode, indstiller radioen og bruger dens PTT. OmniRig sender ikke CW: brug den serielle keyer nedenfor eller en anden forbindelse til det.</translation>
+    </message>
+    <message>
+        <source>Keyer</source>
+        <translation>Keyer</translation>
+    </message>
+    <message>
+        <source>DTR pin</source>
+        <translation>DTR-ben</translation>
+    </message>
+    <message>
+        <source>RTS pin</source>
+        <translation>RTS-ben</translation>
+    </message>
+    <message>
+        <source>K1EL WinKeyer</source>
+        <translation>K1EL WinKeyer</translation>
+    </message>
+    <message>
+        <source>WinKeyer v%1 ready</source>
+        <translation>WinKeyer v%1 klar</translation>
+    </message>
+    <message>
+        <source>WinKeyer does not answer</source>
+        <translation>WinKeyer svarer ikke</translation>
+    </message>
+    <message>
         <source>With Decodium open the radio&apos;s CAT port is already taken, and a CAT bridge cannot key. Here DecoDXLog keys by itself: it raises DTR or RTS on a port of its own — the one wired to the keying circuit — so Decodium keeps the CAT and the macros go on air anyway. Leave the port on &quot;none&quot; to key through the CAT as before.</source>
         <translation>Med Decodium åben er radioens CAT-port allerede optaget, og en CAT-bro kan ikke nøgle. Her nøgler DecoDXLog selv: den hæver DTR eller RTS på sin egen port — den, der er trukket til nøglekredsen — så Decodium beholder CAT&apos;en, og makroerne går i luften alligevel. Lad porten stå på &quot;ingen&quot; for at nøgle gennem CAT&apos;en som før.</translation>
+    </message>
+    <message>
+        <source>SO2R · two radios</source>
+        <translation>SO2R · to radioer</translation>
+    </message>
+    <message>
+        <source>Second radio</source>
+        <translation>Anden radio</translation>
+    </message>
+    <message>
+        <source>rigctld (host:port)</source>
+        <translation>rigctld (vært:port)</translation>
+    </message>
+    <message>
+        <source>TCI (RX2)</source>
+        <translation>TCI (RX2)</translation>
+    </message>
+    <message>
+        <source>flrig</source>
+        <translation>flrig</translation>
+    </message>
+    <message>
+        <source>OmniRig radio (1 or 2)</source>
+        <translation>OmniRig-radio (1 eller 2)</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished">Adresse</translation>
+    </message>
+    <message>
+        <source>SO2R box (OTRSP)</source>
+        <translation>SO2R-boks (OTRSP)</translation>
+    </message>
+    <message>
+        <source>radio 2 connected</source>
+        <translation>radio 2 forbundet</translation>
+    </message>
+    <message>
+        <source>radio 2 not connected</source>
+        <translation>radio 2 ikke forbundet</translation>
+    </message>
+    <message>
+        <source>SO2R box ready</source>
+        <translation>SO2R-boks klar</translation>
+    </message>
+    <message>
+        <source>SO2R box port not open</source>
+        <translation>SO2R-boksens port er ikke åben</translation>
+    </message>
+    <message>
+        <source>Radio 1 is the one above; radio 2 is connected here. In the contest entry the radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the transmitter, RX1/RX2 or RX1S/RX2S for the headphones.</source>
+        <translation>Radio 1 er den ovenfor; radio 2 forbindes her. I contest-indtastningen får radioen med fokus båndet, indstillingen og CW: Ctrl+← og Ctrl+→ vælger radio 1 eller 2, Pause bytter dem, ` (accent grave) slår stereolytning til og fra. SO2R-boksen (MK2R, SO2RDuino, YCCC…) følger via OTRSP: TX1/TX2 for senderen, RX1/RX2 eller RX1S/RX2S for hovedtelefonerne.</translation>
     </message>
     <message>
         <source>The control box, directly (built-in gateway)</source>
@@ -5722,6 +6304,45 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
+    <name>StatsAwardsPage</name>
+    <message>
+        <source>DXCC worked</source>
+        <translation>DXCC kørt</translation>
+    </message>
+    <message>
+        <source>DXCC confirmed</source>
+        <translation>DXCC bekræftet</translation>
+    </message>
+    <message>
+        <source>CQ zones</source>
+        <translation>CQ-zoner</translation>
+    </message>
+    <message>
+        <source>Grids</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Awards over the years · cumulative</source>
+        <translation>Diplomer gennem årene · akkumuleret</translation>
+    </message>
+    <message>
+        <source>no QSO</source>
+        <translation type="unfinished">ingen QSO</translation>
+    </message>
+    <message>
+        <source>Most worked entities</source>
+        <translation>Mest kørte entiteter</translation>
+    </message>
+    <message>
+        <source>Most worked callsigns</source>
+        <translation>Mest kørte kaldesignaler</translation>
+    </message>
+    <message>
+        <source>Band by mode</source>
+        <translation>Bånd efter mode</translation>
+    </message>
+</context>
+<context>
     <name>StatsWindow</name>
     <message>
         <source>DecoDXLog — Statistics</source>
@@ -5746,6 +6367,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>All years</source>
         <translation>Alle år</translation>
+    </message>
+    <message>
+        <source>Activity</source>
+        <translation>Aktivitet</translation>
+    </message>
+    <message>
+        <source>Awards and rankings</source>
+        <translation>Diplomer og ranglister</translation>
     </message>
     <message>
         <source>Refresh</source>
@@ -5876,6 +6505,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>DX Cluster…</source>
         <translation>DX-cluster…</translation>
+    </message>
+    <message>
+        <source>ON4KST chat (%1)…</source>
+        <translation>ON4KST-chat (%1)…</translation>
+    </message>
+    <message>
+        <source>ON4KST chat…</source>
+        <translation>ON4KST-chat…</translation>
     </message>
     <message>
         <source>Setup · %1 ▾</source>
@@ -6094,6 +6731,13 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Wheel: the digit under the pointer. Click: write the frequency.</source>
         <translation>Hjulet: cifret under markøren. Klik: skriv frekvensen.</translation>
+    </message>
+</context>
+<context>
+    <name>WinKeyer</name>
+    <message>
+        <source>WinKeyer: cannot open %1: %2</source>
+        <translation>WinKeyer: kan ikke åbne %1: %2</translation>
     </message>
 </context>
 <context>
@@ -6429,6 +7073,41 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::ChatController</name>
+    <message>
+        <source>ON4KST: in the %1 room</source>
+        <translation>ON4KST: i rummet %1</translation>
+    </message>
+    <message>
+        <source>not connected</source>
+        <translation>ikke forbundet</translation>
+    </message>
+    <message>
+        <source>not connected: %1</source>
+        <translation>ikke forbundet: %1</translation>
+    </message>
+    <message>
+        <source>connecting…</source>
+        <translation>forbinder…</translation>
+    </message>
+    <message>
+        <source>logging in…</source>
+        <translation>logger ind…</translation>
+    </message>
+    <message>
+        <source>online as %1</source>
+        <translation>online som %1</translation>
+    </message>
+    <message>
+        <source>ON4KST: no credentials (%1)</source>
+        <translation>ON4KST: ingen legitimationsoplysninger (%1)</translation>
+    </message>
+    <message>
+        <source>Settings → Sync &amp; Cloud</source>
+        <translation>Indstillinger → Sync &amp; Cloud</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::CloudController</name>
     <message>
         <source>Cloud: %1 connected</source>
@@ -6720,6 +7399,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>reloading the log table</source>
         <translation>genindlæser logtabellen</translation>
+    </message>
+    <message>
+        <source>%1 %2 %3 from %4</source>
+        <translation>%1 %2 %3 fra %4</translation>
     </message>
     <message>
         <source>DecoLink listening on 127.0.0.1:%1</source>
@@ -7034,6 +7717,33 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>The program could not be restarted on %1.</source>
         <translation>Programmet kunne ikke starte igen på %1.</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::NetController</name>
+    <message>
+        <source>off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>on the network %1 (UDP %2) as %3</source>
+        <translation>på netværket %1 (UDP %2) som %3</translation>
+    </message>
+    <message>
+        <source>cannot open UDP %1: %2</source>
+        <translation>kan ikke åbne UDP %1: %2</translation>
+    </message>
+    <message>
+        <source>%1 left the network</source>
+        <translation>%1 forlod netværket</translation>
+    </message>
+    <message>
+        <source>spot %1 %2 %3</source>
+        <translation>spot %1 %2 %3</translation>
+    </message>
+    <message>
+        <source>%1 joined the network</source>
+        <translation>%1 kom på netværket</translation>
     </message>
 </context>
 <context>
@@ -7482,6 +8192,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
 <context>
     <name>decolog::app::RigController</name>
     <message>
+        <source>WinKeyer answers: firmware %1</source>
+        <translation>WinKeyer svarer: firmware %1</translation>
+    </message>
+    <message>
         <source>Sent: %1</source>
         <translation>Sendt: %1</translation>
     </message>
@@ -7551,6 +8265,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>CW decoder listening to %1</source>
         <translation>CW-dekoderen lytter til %1</translation>
+    </message>
+    <message>
+        <source>WinKeyer on %1</source>
+        <translation>WinKeyer på %1</translation>
     </message>
     <message>
         <source>CW keyer on %1 (%2): it works with the CAT busy elsewhere</source>
@@ -7673,7 +8391,26 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::So2rController</name>
+    <message>
+        <source>Radio 2: %1</source>
+        <translation>Radio 2: %1</translation>
+    </message>
+    <message>
+        <source>Cannot open the SO2R box on %1: %2</source>
+        <translation>Kan ikke åbne SO2R-boksen på %1: %2</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::SolarController</name>
+    <message>
+        <source>Set your locator in the station profile.</source>
+        <translation>Angiv din lokator i stationsprofilen.</translation>
+    </message>
+    <message>
+        <source>No position for the DX: type a locator or look up a callsign.</source>
+        <translation>Ingen position for DX: skriv en lokator eller slå et kaldesignal op.</translation>
+    </message>
     <message>
         <source>Solar data of %1</source>
         <translation>Soldata fra %1</translation>
@@ -7685,6 +8422,33 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>The solar data cannot be read</source>
         <translation>Soldataene kan ikke læses</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::SuperCheckController</name>
+    <message>
+        <source>%1 calls from MASTER.SCP (%2) and the log</source>
+        <translation>%1 kaldesignaler fra MASTER.SCP (%2) og loggen</translation>
+    </message>
+    <message>
+        <source>only the calls of the log: download MASTER.SCP for the full list</source>
+        <translation>kun loggens kaldesignaler: hent MASTER.SCP for hele listen</translation>
+    </message>
+    <message>
+        <source>downloading MASTER.SCP…</source>
+        <translation>henter MASTER.SCP…</translation>
+    </message>
+    <message>
+        <source>MASTER.SCP not downloaded: %1</source>
+        <translation>MASTER.SCP ikke hentet: %1</translation>
+    </message>
+    <message>
+        <source>empty answer</source>
+        <translation>tomt svar</translation>
+    </message>
+    <message>
+        <source>MASTER.SCP: %1 calls</source>
+        <translation>MASTER.SCP: %1 kaldesignaler</translation>
     </message>
 </context>
 <context>
@@ -7788,6 +8552,37 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>version %1 set aside</source>
         <translation>udgave %1 lagt til side</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::VoiceKeyerController</name>
+    <message>
+        <source>F%1 has no recorded message</source>
+        <translation>F%1 har ingen optaget besked</translation>
+    </message>
+    <message>
+        <source>The microphone does not record 16 kHz mono</source>
+        <translation>Mikrofonen optager ikke 16 kHz mono</translation>
+    </message>
+    <message>
+        <source>F%1 recorded: %2 s</source>
+        <translation>F%1 optaget: %2 s</translation>
+    </message>
+    <message>
+        <source>No such key</source>
+        <translation>Tasten findes ikke</translation>
+    </message>
+    <message>
+        <source>Cannot read %1</source>
+        <translation>Kan ikke læse %1</translation>
+    </message>
+    <message>
+        <source>Not a WAV file</source>
+        <translation>Ikke en WAV-fil</translation>
+    </message>
+    <message>
+        <source>Cannot copy the file</source>
+        <translation>Kan ikke kopiere filen</translation>
     </message>
 </context>
 <context>
@@ -7944,6 +8739,18 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Upload to the CRX Logbook (crx.cloud): the key starts with HAM-</source>
         <translation>Afsendelse til CRX Logbook (crx.cloud): nøglen starter med HAM-</translation>
+    </message>
+    <message>
+        <source>Upload code</source>
+        <translation>Uploadkode</translation>
+    </message>
+    <message>
+        <source>Upload to HRDLog.net: the upload code is in your HRDLog profile, it is not the password</source>
+        <translation>Upload til HRDLog.net: uploadkoden står i din HRDLog-profil, det er ikke adgangskoden</translation>
+    </message>
+    <message>
+        <source>The VHF, EME and low band chat (www.on4kst.info)</source>
+        <translation>Chatten for VHF, EME og lave bånd (www.on4kst.info)</translation>
     </message>
     <message>
         <source>Free callbook lookups</source>
