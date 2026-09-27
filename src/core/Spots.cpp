@@ -373,6 +373,10 @@ void LogIndex::clear()
     m_dxccMode.clear();
     m_dxccSlot.clear();
     m_dxccConfirmed.clear();
+    m_cqZones.clear();
+    m_iota.clear();
+    m_iotaConfirmed.clear();
+    m_references.clear();
     m_qsos = 0;
 }
 
@@ -385,7 +389,8 @@ void LogIndex::rebuild(const LogDatabase& db, bool confirmLotw, bool confirmCard
         "SELECT call, band, CASE WHEN IFNULL(submode, '') = '' OR mode = 'SSB' THEN mode ELSE submode END, "
         "IFNULL(dxcc, 0), "
         "EXISTS (SELECT 1 FROM qsl_status s WHERE s.qso_id = qso.id AND s.rcvd = 'Y' AND ("
-        "  (s.service = 'lotw' AND ?) OR (s.service = 'card' AND ?) OR (s.service = 'eqsl' AND ?))) "
+        "  (s.service = 'lotw' AND ?) OR (s.service = 'card' AND ?) OR (s.service = 'eqsl' AND ?))), "
+        "IFNULL(cqz, 0), IFNULL(iota, ''), IFNULL(pota_ref, ''), IFNULL(sota_ref, ''), IFNULL(wwff_ref, '') "
         "FROM qso WHERE deleted = 0"));
     q.addBindValue(confirmLotw ? 1 : 0);
     q.addBindValue(confirmCard ? 1 : 0);
@@ -410,11 +415,26 @@ void LogIndex::rebuild(const LogDatabase& db, bool confirmLotw, bool confirmCard
             if (q.value(4).toBool())
                 m_dxccConfirmed.insert(dxcc);
         }
+        if (const int zone = q.value(5).toInt(); zone > 0)
+            m_cqZones.insert(zone);
+        const QString iota = q.value(6).toString().trimmed().toUpper();
+        if (!iota.isEmpty()) {
+            m_iota.insert(iota);
+            if (q.value(4).toBool())
+                m_iotaConfirmed.insert(iota);
+        }
+        // POTA puo' avere piu' parchi in una volta: "IT-0001,IT-0002".
+        for (int col = 7; col <= 9; ++col) {
+            const QStringList refs = q.value(col).toString().toUpper().split(QRegularExpression(QStringLiteral("[,;\\s]+")),
+                                                                               Qt::SkipEmptyParts);
+            for (const QString& r : refs)
+                m_references.insert(r.section(QLatin1Char('@'), 0, 0));
+        }
         ++m_qsos;
     }
 }
 
-int LogIndex::status(const Spot& spot, int dxcc) const
+int LogIndex::status(const Spot& spot, int dxcc, int cqZone) const
 {
     int st = 0;
     const QLatin1Char sep('|');
@@ -440,6 +460,20 @@ int LogIndex::status(const Spot& spot, int dxcc) const
             if (!m_dxccConfirmed.contains(dxcc))
                 st |= StatusUnconfirmed;
         }
+    }
+    if (cqZone > 0 && m_qsos > 0 && !m_cqZones.contains(cqZone))
+        st |= StatusNewZone;
+    const QString iota = spot.iotaRef.trimmed().toUpper();
+    if (!iota.isEmpty()) {
+        if (!m_iota.contains(iota))
+            st |= StatusNewIota;
+        else if (!m_iotaConfirmed.contains(iota))
+            st |= StatusIotaUnconfirmed;
+    }
+    for (const QString& ref : {spot.potaRef, spot.sotaRef, spot.wwffRef}) {
+        const QString r = ref.trimmed().toUpper();
+        if (!r.isEmpty() && !m_references.contains(r))
+            st |= StatusNewReference;
     }
     return st;
 }

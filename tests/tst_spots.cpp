@@ -179,6 +179,42 @@ private slots:
         QCOMPARE(index.status(s, 291), StatusWorkedBand | StatusUnconfirmed);
     }
 
+    void statusZoneIotaReference()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        AdifRecord a{{"CALL", "IH9R"}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1200"}, {"BAND", "20m"}, {"MODE", "CW"},
+                     {"DXCC", "248"}, {"CQZ", "33"}, {"IOTA", "AF-018"}, {"POTA_REF", "IT-0001,IT-0002"}};
+        QCOMPARE(db.insertQso(a, "import").status, InsertResult::Status::Inserted);
+        AdifRecord b{{"CALL", "IS0XX"}, {"QSO_DATE", "20260102"}, {"TIME_ON", "1200"}, {"BAND", "20m"}, {"MODE", "CW"},
+                     {"DXCC", "225"}, {"CQZ", "15"}, {"IOTA", "EU-024"}, {"SOTA_REF", "IS0/SS-001"}, {"LOTW_QSL_RCVD", "Y"}};
+        QCOMPARE(db.insertQso(b, "import").status, InsertResult::Status::Inserted);
+        LogIndex index;
+        index.rebuild(db, true, true, false);
+
+        Spot s;
+        s.dxCall = "IH9R";
+        s.band = "20m";
+        s.mode = "CW";
+        QVERIFY(!(index.status(s, 248, 33) & StatusNewZone));
+        QVERIFY(index.status(s, 248, 3) & StatusNewZone);
+        s.iotaRef = "AF-018";
+        QVERIFY(index.status(s, 248, 33) & StatusIotaUnconfirmed);
+        s.iotaRef = "EU-024";
+        const int confirmed = index.status(s, 225, 15);
+        QVERIFY(!(confirmed & StatusIotaUnconfirmed) && !(confirmed & StatusNewIota));
+        s.iotaRef = "OC-001";
+        QVERIFY(index.status(s, 248, 33) & StatusNewIota);
+        s.iotaRef.clear();
+        s.potaRef = "IT-0002";
+        QVERIFY(!(index.status(s, 248, 33) & StatusNewReference));
+        s.potaRef = "IT-0003";
+        QVERIFY(index.status(s, 248, 33) & StatusNewReference);
+        s.potaRef.clear();
+        s.sotaRef = "IS0/SS-001";
+        QVERIFY(!(index.status(s, 248, 33) & StatusNewReference));
+    }
+
     void filter()
     {
         Spot s;

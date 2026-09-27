@@ -631,6 +631,7 @@ bool DecoLogController::openDatabase(const QString& path)
     solarCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
         addActivity(category, text, level);
     };
+    solarCtx.stationPosition = [this] { return myPosition(); };
     m_solar = new SolarController(std::move(solarCtx), this);
 
     // Gli aggiornamenti: una volta al giorno si guarda se e' uscita una

@@ -39,6 +39,9 @@ QString SpotModel::statusLabel(int status)
     if (status & StatusNewMode) return QStringLiteral("NEW MODE");
     if (status & StatusNewSlot) return QStringLiteral("NEW SLOT");
     if (status & StatusWorkedBand) return QStringLiteral("WORKED");
+    if (status & StatusNewZone) return QStringLiteral("NEW ZONE");
+    if (status & StatusNewIota) return QStringLiteral("NEW IOTA");
+    if (status & StatusNewReference) return QStringLiteral("NEW REF");
     if (status & StatusNewCall) return QStringLiteral("NEW CALL");
     return {};
 }
@@ -236,6 +239,14 @@ const EnrichedSpot* SpotModel::find(const QString& key) const
 {
     const Entry e = m_byKey.value(key);
     return e ? e.get() : nullptr;
+}
+
+QList<EnrichedSpot> SpotModel::all() const
+{
+    QList<EnrichedSpot> out;
+    for (const Entry& e : m_all)
+        out << *e;
+    return out;
 }
 
 QList<EnrichedSpot> SpotModel::visible() const

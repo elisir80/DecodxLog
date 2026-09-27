@@ -1,4 +1,6 @@
 #include "app/ClusterController.h"
+
+#include "core/Bands.h"
 #include "../StartupTrace.h"
 
 #include <QElapsedTimer>
@@ -66,7 +68,8 @@ QVariantMap ClusterController::AlertRule::toMap() const
 {
     return {{QStringLiteral("id"), id},           {QStringLiteral("name"), name},
             {QStringLiteral("enabled"), enabled}, {QStringLiteral("voice"), voice},
-            {QStringLiteral("decodium"), decodium}, {QStringLiteral("filter"), filter.toMap()}};
+            {QStringLiteral("decodium"), decodium}, {QStringLiteral("popup"), popup},
+            {QStringLiteral("sound"), sound},       {QStringLiteral("filter"), filter.toMap()}};
 }
 
 ClusterController::AlertRule ClusterController::AlertRule::fromMap(const QVariantMap& m)
@@ -79,6 +82,8 @@ ClusterController::AlertRule ClusterController::AlertRule::fromMap(const QVarian
     r.enabled = m.value(QStringLiteral("enabled"), true).toBool();
     r.voice = m.value(QStringLiteral("voice"), true).toBool();
     r.decodium = m.value(QStringLiteral("decodium"), true).toBool();
+    r.popup = m.value(QStringLiteral("popup"), false).toBool();
+    r.sound = m.value(QStringLiteral("sound"), false).toBool();
     r.filter = SpotFilter::fromMap(m.value(QStringLiteral("filter")).toMap());
     return r;
 }
@@ -133,6 +138,8 @@ ClusterController::ClusterController(Context context, QObject* parent)
     connect(&m_indexDebounce, &QTimer::timeout, this, [this] {
         rebuildIndex();
         m_model.restatus([this](const EnrichedSpot& e) { return statusOf(e); });
+        ++m_spotRevision;
+        emit spotsUpdated();
     });
     applyFilterToModel();
 }
@@ -389,7 +396,7 @@ void ClusterController::logChanged()
 
 int ClusterController::statusOf(const EnrichedSpot& e) const
 {
-    int st = m_index.status(e.spot, e.dxcc);
+    int st = m_index.status(e.spot, e.dxcc, e.cqZone);
     if (m_lotwUsers.isActive(e.spot.dxCall))
         st |= StatusLotwUser;
     return st;
@@ -434,6 +441,8 @@ void ClusterController::onSpot(const Spot& spot)
     const EnrichedSpot e = stored;   // copia: le regole possono toccare il modello
     if (m_ctx.spotSeen)
         m_ctx.spotSeen(e);
+    ++m_spotRevision;
+    emit spotsUpdated();
     checkRules(e, isNew);
 }
 
@@ -443,12 +452,16 @@ void ClusterController::checkRules(const EnrichedSpot& e, bool isNew)
     bool alerted = false;
     bool speak = false;
     bool toDecodium = false;
+    bool popup = false;
+    bool sound = false;
     QStringList names;
     for (const AlertRule& r : m_rules) {
         if (!r.enabled || !r.filter.matches(e, now))
             continue;
         alerted = true;
         speak = speak || r.voice;
+        popup = popup || r.popup;
+        sound = sound || r.sound;
         toDecodium = toDecodium || r.decodium;
         names << r.name;
     }
@@ -477,6 +490,16 @@ void ClusterController::checkRules(const EnrichedSpot& e, bool isNew)
     if (m_ctx.activity)
         m_ctx.activity(QStringLiteral("CLUSTER"), QStringLiteral("%1: %2").arg(title, text), QStringLiteral("highlight"));
     emit alertRaised(title, text);
+    if ((popup || sound) && !m_muted) {
+        if (sound) {
+            if (m_alertSound.source().isEmpty()) {
+                m_alertSound.setSource(QUrl(QStringLiteral("qrc:/decolog/sounds/alert.wav")));
+                m_alertSound.setVolume(0.8f);
+            }
+            m_alertSound.play();
+        }
+        emit alertNotify(title, text, e.key(), popup, sound);
+    }
     if (speak && m_voiceEnabled && !m_muted)
         m_voice.say(announcement(e));
 }
@@ -648,6 +671,51 @@ QVariantList ClusterController::mapSpots() const
 void ClusterController::clearSpots()
 {
     m_model.clear();
+    ++m_spotRevision;
+    emit spotsUpdated();
+}
+
+QString ClusterController::bandOf(double khz) const
+{
+    return core::bands::fromMhz(khz / 1000.0);
+}
+
+QVariantMap ClusterController::bandMap(const QString& band, bool useFilter) const
+{
+    double low = 0.0;
+    double high = 0.0;
+    QVariantMap out;
+    out.insert(QStringLiteral("band"), band);
+    if (!core::bands::edges(band, &low, &high))
+        return out;
+    out.insert(QStringLiteral("lowKhz"), low * 1000.0);
+    out.insert(QStringLiteral("highKhz"), high * 1000.0);
+
+    const QDateTime now = QDateTime::currentDateTimeUtc();
+    SpotFilter filter = m_filter;
+    filter.bands.clear();
+    QVariantList list;
+    for (const EnrichedSpot& e : m_model.all()) {
+        if (e.spot.band != band)
+            continue;
+        if (useFilter ? !filter.matches(e, now)
+                      : (e.spot.time.isValid() && e.spot.time.secsTo(now) > qMax(10, m_filter.maxAgeMinutes) * 60))
+            continue;
+        list << QVariantMap{
+            {QStringLiteral("key"), e.key()},
+            {QStringLiteral("call"), e.spot.dxCall},
+            {QStringLiteral("freqKhz"), e.spot.freqKhz},
+            {QStringLiteral("mode"), e.spot.mode},
+            {QStringLiteral("status"), e.status},
+            {QStringLiteral("statusLabel"), SpotModel::statusLabel(e.status)},
+            {QStringLiteral("ageMinutes"), e.spot.time.isValid() ? int(e.spot.time.secsTo(now) / 60) : 0},
+            {QStringLiteral("count"), e.count},
+            {QStringLiteral("entity"), e.entity},
+            {QStringLiteral("comment"), e.spot.comment},
+        };
+    }
+    out.insert(QStringLiteral("spots"), list);
+    return out;
 }
 
 void ClusterController::addConsole(const QString& source, const QString& line)
@@ -713,6 +781,10 @@ QVariantList ClusterController::statusNames() const
         QVariantMap{{QStringLiteral("bit"), int(StatusNewCall)}, {QStringLiteral("label"), QStringLiteral("NEW CALL")}},
         QVariantMap{{QStringLiteral("bit"), int(StatusUnconfirmed)}, {QStringLiteral("label"), QStringLiteral("UNCONFIRMED")}},
         QVariantMap{{QStringLiteral("bit"), int(StatusLotwUser)}, {QStringLiteral("label"), QStringLiteral("LoTW")}},
+        QVariantMap{{QStringLiteral("bit"), int(StatusNewZone)}, {QStringLiteral("label"), QStringLiteral("NEW ZONE")}},
+        QVariantMap{{QStringLiteral("bit"), int(StatusNewIota)}, {QStringLiteral("label"), QStringLiteral("NEW IOTA")}},
+        QVariantMap{{QStringLiteral("bit"), int(StatusIotaUnconfirmed)}, {QStringLiteral("label"), QStringLiteral("IOTA UNCONF.")}},
+        QVariantMap{{QStringLiteral("bit"), int(StatusNewReference)}, {QStringLiteral("label"), QStringLiteral("NEW REF")}},
     };
 }
 

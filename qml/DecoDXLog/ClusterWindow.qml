@@ -223,8 +223,9 @@ ApplicationWindow {
                         }
                     }
                     Note {
-                        text: qsTr("A spot that matches a rule is written in the activity log, highlighted, sent to Decodium and, if the rule says so, "
-                                   + "announced by voice. The same DX on the same band and mode is announced at most once every %1 minutes.")
+                        text: qsTr("A spot that matches a rule is written in the activity log and highlighted; if the rule says so it is sent to Decodium, "
+                                   + "announced by voice, shown in a popup (click it to tune the radio) and played as a sound. "
+                                   + "The same DX on the same band and mode alerts at most once every %1 minutes.")
                               .arg(root.cluster.voiceCooldownMinutes)
                     }
                     Repeater {
@@ -271,6 +272,8 @@ ApplicationWindow {
                                 }
                                 Pill { visible: ruleCard.modelData.voice; text: qsTr("voice"); tone: Theme.accentColor }
                                 Pill { visible: ruleCard.modelData.decodium; text: "Decodium"; tone: Theme.primaryColor }
+                                Pill { visible: ruleCard.modelData.popup === true; text: qsTr("popup"); tone: Theme.warningColor }
+                                Pill { visible: ruleCard.modelData.sound === true; text: qsTr("sound"); tone: Theme.secondaryColor }
                                 GlassButton { text: qsTr("Edit"); onClicked: ruleEditor.openFor(ruleCard.modelData) }
                                 GlassButton { text: qsTr("Delete"); tone: Theme.errorColor; onClicked: root.cluster.removeAlertRule(ruleCard.modelData.id) }
                             }
@@ -546,6 +549,8 @@ ApplicationWindow {
             ruleName.text = r.name || ""
             ruleVoice.checked = r.voice !== false
             ruleDecodium.checked = r.decodium !== false
+            rulePopup.checked = r.popup === true
+            ruleSound.checked = r.sound === true
             open()
         }
         anchors.centerIn: Overlay.overlay
@@ -562,6 +567,8 @@ ApplicationWindow {
                 LabeledField { Layout.preferredWidth: 280; label: qsTr("Name"); StyledTextField { id: ruleName; Layout.fillWidth: true; mono: false; placeholderText: qsTr("e.g. 3Y0J on any band") } }
                 ToggleSwitch { id: ruleVoice; Layout.alignment: Qt.AlignBottom; text: qsTr("Announce by voice") }
                 ToggleSwitch { id: ruleDecodium; Layout.alignment: Qt.AlignBottom; text: qsTr("Send to Decodium") }
+                ToggleSwitch { id: rulePopup; Layout.alignment: Qt.AlignBottom; text: qsTr("Show a popup") }
+                ToggleSwitch { id: ruleSound; Layout.alignment: Qt.AlignBottom; text: qsTr("Play a sound") }
             }
             SpotFilterEditor {
                 Layout.fillWidth: true
@@ -578,7 +585,8 @@ ApplicationWindow {
                     filled: true
                     onClicked: {
                         root.cluster.saveAlertRule({ id: ruleEditor.rule.id || "", name: ruleName.text, enabled: ruleEditor.rule.enabled !== false,
-                                                     voice: ruleVoice.checked, decodium: ruleDecodium.checked, filter: ruleEditor.editedFilter })
+                                                     voice: ruleVoice.checked, decodium: ruleDecodium.checked,
+                                                     popup: rulePopup.checked, sound: ruleSound.checked, filter: ruleEditor.editedFilter })
                         ruleEditor.close()
                     }
                 }

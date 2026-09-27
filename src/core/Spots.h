@@ -54,6 +54,10 @@ enum SpotStatus : int {
     StatusWorkedBand = 1 << 5,  // nominativo gia' lavorato su questa banda (e modo, se noto)
     StatusUnconfirmed = 1 << 6, // entita' lavorata ma non ancora confermata
     StatusLotwUser   = 1 << 7,  // carica su LoTW
+    StatusNewZone    = 1 << 8,  // zona CQ mai lavorata
+    StatusNewIota    = 1 << 9,  // isola IOTA (dal commento) mai lavorata
+    StatusIotaUnconfirmed = 1 << 10, // isola IOTA lavorata ma non confermata
+    StatusNewReference = 1 << 11, // referenza POTA, SOTA o WWFF mai lavorata
 };
 
 struct EnrichedSpot {
@@ -114,8 +118,9 @@ class LogIndex {
 public:
     void rebuild(const LogDatabase& db, bool confirmLotw, bool confirmCard, bool confirmEqsl);
     void clear();
-    // Stato di uno spot la cui entita' e' `dxcc` (0 se sconosciuta).
-    int status(const Spot& spot, int dxcc) const;
+    // Stato di uno spot la cui entita' e' `dxcc` (0 se sconosciuta), nella zona
+    // CQ `cqZone` (0 se non si sa).
+    int status(const Spot& spot, int dxcc, int cqZone = 0) const;
     int qsoCount() const { return m_qsos; }
 
 private:
@@ -127,6 +132,10 @@ private:
     QSet<QString> m_dxccMode;       // dxcc|modeKey
     QSet<QString> m_dxccSlot;       // dxcc|band|modeKey
     QSet<int>     m_dxccConfirmed;
+    QSet<int>     m_cqZones;
+    QSet<QString> m_iota;           // "EU-130"
+    QSet<QString> m_iotaConfirmed;
+    QSet<QString> m_references;     // POTA, SOTA e WWFF, maiuscole
     int m_qsos{0};
 };
 

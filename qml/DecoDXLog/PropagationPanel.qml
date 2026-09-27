@@ -131,6 +131,12 @@ Item {
                 Number { label: qsTr("Sol. wind"); value: root.solar.solarWind || "—" }
             }
 
+            // ── Verso il DX, ora per ora ────────────────────────────────────
+            PathForecastView {
+                id: pathView
+                Layout.fillWidth: true
+            }
+
             // ── Bande ───────────────────────────────────────────────────────
             RowLayout {
                 Layout.fillWidth: true

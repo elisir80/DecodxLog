@@ -29,6 +29,8 @@ public:
     struct Context {
         core::LogDatabase* db{nullptr};
         std::function<void(const QString& category, const QString& text, const QString& level)> activity;
+        // Dove sta la stazione: {lat, lon}, vuota se il locatore non c'e'.
+        std::function<QVariantMap()> stationPosition;
     };
 
     explicit SolarController(Context context, QObject* parent = nullptr);
@@ -51,6 +53,10 @@ public:
     Q_INVOKABLE QVariantList history(int days = 14) const;
     // Giorno per giorno: QSO fatti e SFI medio, per vedere se vanno insieme.
     Q_INVOKABLE QVariantList qsoAgainstFlux(int days = 14) const;
+    // La previsione di oggi verso un punto: `target` e' un locatore o {lat, lon}.
+    // {valid, distanceKm, azimuth, hops, bands: [nomi], hours: [{hour, muf, luf,
+    // quality: [0..3 per banda]}], currentHour, reason}.
+    Q_INVOKABLE QVariantMap pathForecast(const QVariant& target) const;
 
 signals:
     void changed();

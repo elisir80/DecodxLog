@@ -15,6 +15,7 @@
 
 #include <QHash>
 #include <QObject>
+#include <QSoundEffect>
 #include <QStringList>
 #include <QTimer>
 #include <QVariantList>
@@ -59,6 +60,8 @@ class ClusterController : public QObject {
     Q_PROPERTY(int lotwUsers READ lotwUsers NOTIFY lotwUsersChanged)
     Q_PROPERTY(QString lotwUsersInfo READ lotwUsersInfo NOTIFY lotwUsersChanged)
     Q_PROPERTY(int lastAlertCount READ lastAlertCount NOTIFY alertRaised)
+    // Cresce a ogni spot arrivato o ricalcolato: la band map si rinfresca.
+    Q_PROPERTY(int spotRevision READ spotRevision NOTIFY spotsUpdated)
 
 public:
     struct Context {
@@ -132,6 +135,7 @@ public:
     int lotwUsers() const { return m_lotwUsers.size(); }
     QString lotwUsersInfo() const { return m_lotwUsersInfo; }
     int lastAlertCount() const { return m_alertCount; }
+    int spotRevision() const { return m_spotRevision; }
 
     // Fonti.
     Q_INVOKABLE QString addSource(const QVariantMap& source);
@@ -150,6 +154,13 @@ public:
     Q_INVOKABLE void clearSpots();
     // Gli spot mostrati, con la posizione, per la mappa.
     Q_INVOKABLE QVariantList mapSpots() const;
+    // La band map di una banda: {band, lowKhz, highKhz, spots: [{key, call, freqKhz,
+    // mode, status, statusLabel, ageMinutes, count, entity, comment}]}. Con
+    // `useFilter` passano solo gli spot che il filtro del cluster lascia vedere
+    // (bande a parte: la banda e' quella chiesta).
+    Q_INVOKABLE QVariantMap bandMap(const QString& band, bool useFilter) const;
+    // La banda di una frequenza (kHz), per la band map che segue la radio.
+    Q_INVOKABLE QString bandOf(double khz) const;
     Q_INVOKABLE void clearConsole();
 
     // Filtri salvati.
@@ -172,8 +183,11 @@ signals:
     void consoleChanged();
     void settingsChanged();
     void lotwUsersChanged();
+    void spotsUpdated();
     // Uno spot ha fatto scattare una regola: per il QML (lampeggio, notifica).
     void alertRaised(const QString& title, const QString& text);
+    // Lo stesso, quando la regola chiede il riquadro o il suono.
+    void alertNotify(const QString& title, const QString& text, const QString& spotKey, bool popup, bool sound);
     // L'operatore ha scelto uno spot (clic o doppio clic): in gara il
     // nominativo, la banda e il modo vanno nell'inserimento veloce.
     void spotPicked(const QString& call, const QString& band, const QString& mode, double freqKhz);
@@ -187,6 +201,8 @@ private:
         bool enabled{true};
         bool voice{true};
         bool decodium{true};
+        bool popup{false};              // un riquadro sullo schermo
+        bool sound{false};              // un suono
         core::SpotFilter filter;
         QVariantMap toMap() const;
         static AlertRule fromMap(const QVariantMap& map);
@@ -213,6 +229,8 @@ private:
     core::LotwUsers m_lotwUsers;
     QString m_lotwUsersInfo;
     core::VoiceAnnouncer m_voice;
+    QSoundEffect m_alertSound;
+    int m_spotRevision{0};
     QList<core::ClusterConnection*> m_connections;
     core::SpotFilter m_filter;
     bool m_followBand{false};

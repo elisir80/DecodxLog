@@ -51,6 +51,8 @@ public:
     Q_INVOKABLE QVariantMap get(int row) const;
     const core::EnrichedSpot* find(const QString& key) const;
     QList<core::EnrichedSpot> visible() const;
+    // Tutti, filtro o no: la band map sceglie da se'.
+    QList<core::EnrichedSpot> all() const;
 
     static QString statusLabel(int status);
 

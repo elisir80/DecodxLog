@@ -60,6 +60,21 @@ QString fromMhz(double mhz)
     return {};
 }
 
+bool edges(const QString& band, double* lowMhz, double* highMhz)
+{
+    const QString b = band.trimmed().toLower();
+    for (const auto& x : kBands) {
+        if (b == QLatin1String(x.name)) {
+            if (lowMhz)
+                *lowMhz = x.lowMhz;
+            if (highMhz)
+                *highMhz = x.highMhz;
+            return true;
+        }
+    }
+    return false;
+}
+
 double defaultFrequency(const QString& band, const QString& mode)
 {
     struct Plan {

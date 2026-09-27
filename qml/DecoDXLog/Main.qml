@@ -65,8 +65,11 @@ ApplicationWindow {
         property real mapWidth: 308
         // I pannelli chiusi e quelli in finestra propria, come liste di chiavi
         // separate da virgola. Restano da una sessione all'altra.
-        property string hiddenPanels: "cw"
+        property string hiddenPanels: "cw,bandmap"
         property string detachedPanels: ""
+        // La band map e' arrivata dopo: a chi aveva gia' la sua lavagna si
+        // presenta chiusa, la apre da Pannelli quando vuole.
+        property bool bandMapIntroduced: false
         // La modalita' contest, e com'era la finestra principale prima di
         // entrarci: all'uscita si rimette tutto uguale.
         property bool contestModeOn: false
@@ -93,7 +96,7 @@ ApplicationWindow {
     // Ogni pannello ha una chiave. Con quella si sa come si chiama, da quale
     // file nasce quando lo si stacca, e se adesso e' agganciato, in finestra o
     // chiuso. Chiuso vuol dire chiuso davvero: lo spazio non resta vuoto.
-    readonly property var panelKeys: ["newqso", "logbook", "callinfo", "cw", "rotor", "ft2", "tabs", "map",
+    readonly property var panelKeys: ["newqso", "logbook", "callinfo", "cw", "rotor", "ft2", "tabs", "map", "bandmap",
                                       "contest", "score", "rate", "cluster"]
     // Gli ultimi quattro vivono solo in finestra: nel contest ognuno se li
     // mette dove vuole, e nella disposizione agganciata non hanno un posto.
@@ -110,6 +113,7 @@ ApplicationWindow {
         case "ft2":      return qsTr("FT2 Award")
         case "tabs":     return qsTr("Awards, statistics, QSL, activity")
         case "map":      return qsTr("Map")
+        case "bandmap":  return qsTr("Band map")
         case "contest":  return qsTr("Contest entry")
         case "score":    return qsTr("Score and multipliers")
         case "rate":     return qsTr("How it is going")
@@ -127,6 +131,7 @@ ApplicationWindow {
         case "ft2":      return "Ft2AwardPanel.qml"
         case "tabs":     return "BottomTabs.qml"
         case "map":      return "MapPanel.qml"
+        case "bandmap":  return "BandMapPanel.qml"
         case "contest":  return "ContestEntryPanel.qml"
         case "score":    return "ContestScorePanel.qml"
         case "rate":     return "ContestRatePanel.qml"
@@ -142,7 +147,7 @@ ApplicationWindow {
     // ridimensiona dai bordi, si attacca ai bordi vicini, si stacca e si
     // chiude. Chi e' chiuso o staccato lo tengono hiddenPanels e
     // detachedPanels, come prima; posizioni e misure la lavagna.
-    readonly property var boardKeys: ["newqso", "logbook", "callinfo", "cw", "rotor", "ft2", "tabs", "map"]
+    readonly property var boardKeys: ["newqso", "logbook", "callinfo", "cw", "rotor", "ft2", "tabs", "map", "bandmap"]
 
     // Il pannello sulla lavagna, con la stessa faccia delle caselle di prima
     // (item, currentTab, setTab, showMenu…).
@@ -695,6 +700,12 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
+        if (!layout.bandMapIntroduced) {
+            const hidden = window.panelListOf(layout.hiddenPanels)
+            if (hidden.indexOf("bandmap") < 0)
+                layout.hiddenPanels = hidden.concat(["bandmap"]).join(",")
+            layout.bandMapIntroduced = true
+        }
         const what = startupShow.split(":")
         if (what[0] === "contestdesk") window.openContestDesk()
         // Per le prove: si entra e si esce, e la finestra principale deve
@@ -746,11 +757,27 @@ ApplicationWindow {
         // La scelta del periodo per lo scarico LoTW, aperta per guardarla.
         else if (what[0] === "lotwperiod") { window.panelItem("tabs").setTab(2); lotwPeriodTimer.start() }
         else if (what[0] === "pop") popWindow.active = true
+        // Un riquadro d'avviso DX, per vederlo.
+        else if (what[0] === "toast") { dxToast.show("NEW DXCC", "3Y0J 14025.0 CW Bouvet · New DXCC", "3Y0J|20m|CW"); dxToast.show("NEW IOTA", "IH9R 7012.0 CW Italy · IOTA AF-018", "IH9R|40m|CW") }
         // L'orologio mondiale aperto, con la citta' scelta se c'e'.
         else if (what[0] === "worldclock") { if (what[1]) decolog.worldClock.selected = what[1]; worldClockWindow.open() }
         else if (what[0] === "panels") { if (what[1]) { const how = what.slice(2); for (let i = 0; i < how.length; ++i) { if (what[1] === "close") window.closePanel(how[i]); else if (what[1] === "detach") window.detachPanel(how[i]); else if (what[1] === "show") window.showPanel(how[i]); else if (what[1] === "attach") window.attachPanel(how[i]) } } else panelsPopup.open() }
         // "cluster:spot:14025.1:3Y0J:CW" mette una riga come se venisse da un
         // nodo e ci fa sopra il doppio clic: serve a guardare se la radio ci va.
+        // La previsione verso un locatore, nella scheda Propagazione.
+        else if (what[0] === "pathforecast") { if (what[2] === "detach") window.detachPanel("tabs"); window.panelItem("tabs").setTab(5); decolog.lookupCall = what[1] || "JA1ABC" }
+        // La band map aperta, con una manciata di spot su 20 m.
+        else if (what[0] === "bandmap") {
+            window.showPanel("bandmap")
+            const now = new Date()
+            const hhmm = ("0" + now.getUTCHours()).slice(-2) + ("0" + now.getUTCMinutes()).slice(-2)
+            const lines = [["14005.0", "3Y0J", "CW"], ["14012.5", "JA1ABC", "CW"], ["14013.1", "VK9XX", "CW"],
+                           ["14013.4", "K1ABC", "CW"], ["14025.0", "ZL1AA", "CW"], ["14074.0", "FT8WW", "FT8"],
+                           ["14195.0", "VP8ABC", "SSB"], ["14205.0", "IH9R", "SSB IOTA AF-018"], ["14244.0", "W1AW", "SSB"],
+                           ["14290.0", "PY2XX", "SSB"]]
+            for (let i = 0; i < lines.length; ++i)
+                decolog.cluster.injectLine("DX de IK0TEST:  " + lines[i][0] + "  " + lines[i][1] + "  " + lines[i][2] + "  " + hhmm + "Z")
+        }
         else if (what[0] === "cluster" && what[1] === "spot") {
             const now = new Date()
             const hhmm = ("0" + now.getUTCHours()).slice(-2) + ("0" + now.getUTCMinutes()).slice(-2)
@@ -965,6 +992,21 @@ ApplicationWindow {
     }
 
     SetupDialog { id: setupDialog; onUpdateRequested: updateDialog.open() }
+
+    // Gli avvisi DX che chiedono il riquadro: sopra a tutto, in alto a destra.
+    DxAlertToast {
+        id: dxToast
+        anchors.fill: parent
+        anchors.topMargin: 48
+        z: 1000
+    }
+    Connections {
+        target: decolog.cluster
+        function onAlertNotify(title, text, spotKey, popup, sound) {
+            if (popup)
+                dxToast.show(title, text, spotKey)
+        }
+    }
     ActivationDialog { id: activationDialog }
     ContestSubmitDialog { id: submitDialog }
     Timer {
@@ -1514,7 +1556,7 @@ ApplicationWindow {
         external: true
         settingsCategory: "layout/mainboard"
         allKeys: window.boardKeys
-        defaultKeys: window.boardKeys.filter(k => k !== "cw")
+        defaultKeys: window.boardKeys.filter(k => k !== "cw" && k !== "bandmap")
         // Come la disposizione di prima: l'inserimento a sinistra, il log al
         // centro, la colonna di destra, la fascia delle schede in basso.
         defaultGeometry: ({
@@ -1525,7 +1567,8 @@ ApplicationWindow {
             map:      { x: 0.78, y: 0.66, w: 0.22, h: 0.34 },
             cw:       { x: 0.50, y: 0.30, w: 0.28, h: 0.38 },
             tabs:     { x: 0.00, y: 0.68, w: 0.60, h: 0.32 },
-            ft2:      { x: 0.60, y: 0.68, w: 0.18, h: 0.32 }
+            ft2:      { x: 0.60, y: 0.68, w: 0.18, h: 0.32 },
+            bandmap:  { x: 0.60, y: 0.00, w: 0.18, h: 0.68 }
         })
         externalShown: window.boardKeys.filter(k => !window.isPanelHidden(k))
         externalFloating: window.detachedPanels

@@ -8,6 +8,8 @@ namespace decolog::core::bands {
 
 // Nome ADIF in minuscolo ("40m", "70cm"), o stringa vuota fuori banda.
 QString fromMhz(double mhz);
+// I bordi della banda in MHz: false se la banda non si conosce.
+bool edges(const QString& band, double* lowMhz, double* highMhz);
 
 // Le bande nell'ordine in cui le vuole leggere un operatore: dalla piu' bassa.
 QStringList all();

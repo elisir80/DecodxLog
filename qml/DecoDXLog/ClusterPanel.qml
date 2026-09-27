@@ -173,6 +173,8 @@ GlassPanel {
         if (status & 2) return Theme.warningColor
         if (status & 4) return Theme.secondaryColor
         if (status & 8) return Theme.primaryColor
+        // Zona, IOTA, referenza nuove.
+        if (status & (256 | 512 | 2048)) return Theme.warningColor
         if (status & 32) return Theme.textSecondary
         if (status & 16) return Theme.accentColor
         return Theme.borderSoft

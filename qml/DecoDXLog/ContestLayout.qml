@@ -56,7 +56,7 @@ Item {
     property string floatingText: qsTr("All the contest panels are in their own windows: ↩ in a panel brings it back here.")
 
     // I pannelli, nell'ordine del menu.
-    property var allKeys: ["contest", "cluster", "logbook", "callinfo", "rate", "score", "map", "cw"]
+    property var allKeys: ["contest", "cluster", "logbook", "callinfo", "rate", "score", "map", "cw", "bandmap"]
     property var defaultKeys: ["contest", "cluster", "logbook", "callinfo", "rate", "score", "map"]
     // Dove stanno all'inizio, in proporzione alla lavagna: in gara tre
     // colonne, come nei programmi da gara.
@@ -68,7 +68,8 @@ Item {
         cw:       { x: 0.53, y: 0.70, w: 0.23, h: 0.30 },
         score:    { x: 0.76, y: 0.00, w: 0.24, h: 0.30 },
         rate:     { x: 0.76, y: 0.30, w: 0.24, h: 0.34 },
-        map:      { x: 0.76, y: 0.64, w: 0.24, h: 0.36 }
+        map:      { x: 0.76, y: 0.64, w: 0.24, h: 0.36 },
+        bandmap:  { x: 0.00, y: 0.00, w: 0.16, h: 1.00 }
     })
     // Quanto vicino deve arrivare un bordo per attaccarsi, e lo spazio che
     // resta fra due pannelli attaccati.
@@ -387,6 +388,7 @@ Item {
             case "score":    return "ContestScorePanel.qml"
             case "map":      return "MapPanel.qml"
             case "cw":       return "CwPanel.qml"
+            case "bandmap":  return "BandMapPanel.qml"
             }
             return ""
         }
@@ -545,6 +547,7 @@ Item {
                 case "score":    return "ContestScorePanel.qml"
                 case "map":      return "MapPanel.qml"
                 case "cw":       return "CwPanel.qml"
+                case "bandmap":  return "BandMapPanel.qml"
                 }
                 return ""
             }

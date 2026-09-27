@@ -123,6 +123,8 @@ add_library(decolog_core STATIC
     src/core/VoiceAnnouncer.h
     src/core/WorldClock.cpp
     src/core/WorldClock.h
+    src/core/Propagation.cpp
+    src/core/Propagation.h
 )
 qt_add_resources(decolog_core "schema"
     PREFIX "/decolog"
@@ -243,6 +245,9 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/MapCanvas.qml
     qml/DecoDXLog/MapSafeView.qml
     qml/DecoDXLog/StatusRail.qml
+    qml/DecoDXLog/DxAlertToast.qml
+    qml/DecoDXLog/BandMapPanel.qml
+    qml/DecoDXLog/PathForecastView.qml
     qml/DecoDXLog/WorldClockButton.qml
     qml/DecoDXLog/WorldClockIcon.qml
     qml/DecoDXLog/WorldClockWindow.qml
@@ -355,6 +360,13 @@ qt_add_resources(decolog "map"
           resources/map/land50.json resources/map/borders50.json
 )
 
+# Il suono degli avvisi DX.
+qt_add_resources(decolog "sounds"
+    PREFIX "/decolog"
+    BASE resources
+    FILES resources/sounds/alert.wav
+)
+
 qt_add_resources(decolog "icon"
     PREFIX "/decolog"
     BASE resources
@@ -392,7 +404,7 @@ set_target_properties(decolog PROPERTIES
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)
@@ -429,7 +441,7 @@ if(DECODXLOG_BUILD_TESTS)
     qt_add_executable(tst_clustercontroller tests/tst_clustercontroller.cpp
         src/app/ClusterController.cpp src/app/ClusterController.h src/app/SpotModel.cpp src/app/SpotModel.h)
     target_include_directories(tst_clustercontroller PRIVATE src)
-    target_link_libraries(tst_clustercontroller PRIVATE decolog_core Qt6::Test)
+    target_link_libraries(tst_clustercontroller PRIVATE decolog_core Qt6::Multimedia Qt6::Test)
     set_target_properties(tst_clustercontroller PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME clustercontroller COMMAND tst_clustercontroller)
     qt_add_executable(tst_activation tests/tst_activation.cpp

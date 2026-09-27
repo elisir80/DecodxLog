@@ -1,6 +1,8 @@
 #include "app/SolarController.h"
 
 #include "core/LogDatabase.h"
+#include "core/Maidenhead.h"
+#include "core/Propagation.h"
 
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -11,6 +13,72 @@
 namespace decolog::app {
 
 using namespace decolog::core;
+
+QVariantMap SolarController::pathForecast(const QVariant& target) const
+{
+    QVariantMap out;
+    double lat = 0.0;
+    double lon = 0.0;
+    bool have = false;
+    if (target.metaType().id() == QMetaType::QString) {
+        if (const auto p = maidenhead::toLatLon(target.toString().trimmed())) {
+            lat = p->lat;
+            lon = p->lon;
+            have = true;
+        }
+    } else {
+        const QVariantMap m = target.toMap();
+        if (m.contains(QStringLiteral("lat")) && m.contains(QStringLiteral("lon"))) {
+            lat = m.value(QStringLiteral("lat")).toDouble();
+            lon = m.value(QStringLiteral("lon")).toDouble();
+            have = true;
+        }
+    }
+    const QVariantMap home = m_ctx.stationPosition ? m_ctx.stationPosition() : QVariantMap();
+    if (!home.contains(QStringLiteral("lat"))) {
+        out.insert(QStringLiteral("reason"), tr("Set your locator in the station profile."));
+        return out;
+    }
+    if (!have) {
+        out.insert(QStringLiteral("reason"), tr("No position for the DX: type a locator or look up a callsign."));
+        return out;
+    }
+    propagation::Input in;
+    in.fromLat = home.value(QStringLiteral("lat")).toDouble();
+    in.fromLon = home.value(QStringLiteral("lon")).toDouble();
+    in.toLat = lat;
+    in.toLon = lon;
+    const QDateTime now = QDateTime::currentDateTimeUtc();
+    in.date = now.date();
+    // Senza dati del Sole si usa un valore medio: meglio una stima che niente.
+    in.solarFlux = m_data.valid && m_data.solarFlux > 0 ? m_data.solarFlux : 120;
+    in.sunspots = m_data.valid && m_data.sunspots > 0 ? m_data.sunspots : -1;
+    in.kIndex = m_data.valid ? m_data.kIndex : 2;
+    const propagation::Forecast f = propagation::forecast(in);
+    out.insert(QStringLiteral("valid"), f.valid);
+    out.insert(QStringLiteral("distanceKm"), qRound(f.distanceKm));
+    out.insert(QStringLiteral("azimuth"), f.azimuth);
+    out.insert(QStringLiteral("hops"), f.hops);
+    out.insert(QStringLiteral("solarFlux"), in.solarFlux);
+    out.insert(QStringLiteral("estimatedSun"), !m_data.valid);
+    out.insert(QStringLiteral("currentHour"), now.time().hour());
+    QStringList names;
+    for (const auto& b : propagation::bands())
+        names << b.name;
+    out.insert(QStringLiteral("bands"), names);
+    QVariantList hours;
+    for (const auto& h : f.hours) {
+        QVariantList q;
+        for (int v : h.quality)
+            q << v;
+        hours << QVariantMap{{QStringLiteral("hour"), h.hourUtc},
+                             {QStringLiteral("muf"), qRound(h.mufMhz * 10.0) / 10.0},
+                             {QStringLiteral("luf"), qRound(h.lufMhz * 10.0) / 10.0},
+                             {QStringLiteral("quality"), q}};
+    }
+    out.insert(QStringLiteral("hours"), hours);
+    return out;
+}
 
 namespace {
 
