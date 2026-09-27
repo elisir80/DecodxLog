@@ -769,6 +769,54 @@ bool DecoLogController::openDatabase(const QString& path)
     m_activation->load();
     connect(this, &DecoLogController::logChanged, m_cluster, &ClusterController::logChanged);
     connect(this, &DecoLogController::logChanged, m_scp, &SuperCheckController::logChanged);
+
+    // La rete multi-operatore: nasce qui perche' vuole il cluster e la gara.
+    NetController::Context netCtx;
+    netCtx.db = &m_db;
+    netCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
+        addActivity(category, text, level);
+    };
+    netCtx.insertRemote = [this](const AdifRecord& record, const QString& station) {
+        const InsertResult res = m_db.insertQso(record, QStringLiteral("network"),
+                                                QStringLiteral("DecoDXLog net %1").arg(station), false,
+                                                m_activation->active() && m_activation->session().stationProfileId > 0
+                                                    ? m_activation->session().stationProfileId
+                                                    : (m_profiles ? m_profiles->activeProfileId() : 0));
+        if (res.status != InsertResult::Status::Inserted)
+            return false;
+        m_model->insertQso(res.id);
+        m_activation->qsoLogged();
+        addActivity(QStringLiteral("NET"), tr("%1 %2 %3 from %4").arg(record.value(QStringLiteral("CALL")),
+                                                                      record.value(QStringLiteral("BAND")),
+                                                                      record.value(QStringLiteral("MODE")), station),
+                    QStringLiteral("success"));
+        emit logChanged();
+        return true;
+    };
+    netCtx.spot = [this](const QString& call, double khz, const QString& comment, const QString& station) {
+        if (!m_cluster)
+            return;
+        QString spotter = station.toUpper();
+        spotter.remove(QRegularExpression(QStringLiteral("[^A-Z0-9/-]")));
+        m_cluster->injectLine(QStringLiteral("DX de %1: %2 %3 %4 %5Z")
+                                  .arg(spotter.isEmpty() ? QStringLiteral("NET") : spotter)
+                                  .arg(khz, 0, 'f', 1)
+                                  .arg(call, comment.isEmpty() ? QStringLiteral("NET") : comment,
+                                       QDateTime::currentDateTimeUtc().toString(QStringLiteral("HHmm"))));
+    };
+    netCtx.here = [this] {
+        const double mhz = shownFrequency().toDouble();
+        const QString call = m_profiles ? m_profiles->activeProfile().value(QStringLiteral("stationCallsign")).toString()
+                                        : QString();
+        return QVariantMap{{QStringLiteral("band"), mhz > 0 ? bandForFrequency(shownFrequency()) : QString()},
+                           {QStringLiteral("mode"), shownMode()},
+                           {QStringLiteral("freqKhz"), mhz * 1000.0},
+                           {QStringLiteral("op"), call}};
+    };
+    netCtx.sessionStart = [this] {
+        return m_activation->active() ? m_activation->session().startedAt : QDateTime();
+    };
+    m_net = new NetController(std::move(netCtx), this);
     connect(this, &DecoLogController::countriesChanged, m_cluster, &ClusterController::logChanged);
     connect(this, &DecoLogController::clientChanged, m_cluster, &ClusterController::decodiumBandChanged);
 
@@ -1808,6 +1856,8 @@ void DecoLogController::onQsoReceived(const AdifRecord& input, const QString& so
         decoLinkQso(enriched, QStringLiteral("logged"), r.id, source, sourceApp);
         m_qsl->qsoLogged(r.id);
         m_activation->qsoLogged();
+        if (m_net)
+            m_net->qsoLogged(r.id);
         m_cloud->qsoLogged();
         m_model->insertQso(r.id);
         const auto meta = m_db.meta(r.id);
@@ -2038,6 +2088,8 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
         m_qsl->qsoLogged(res.id);
         m_cloud->qsoLogged();
         m_activation->qsoLogged();
+        if (m_net)
+            m_net->qsoLogged(res.id);
         addActivity(QStringLiteral("LOG"), tr("Logged %1 %2 %3 (manual)")
                                                .arg(r.value(QStringLiteral("CALL")), r.value(QStringLiteral("BAND")),
                                                     r.value(QStringLiteral("MODE"))),

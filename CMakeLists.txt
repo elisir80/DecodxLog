@@ -127,6 +127,8 @@ add_library(decolog_core STATIC
     src/core/Propagation.h
     src/core/KstChat.cpp
     src/core/KstChat.h
+    src/core/ContestNet.cpp
+    src/core/ContestNet.h
     src/core/SuperCheck.cpp
     src/core/SuperCheck.h
     src/core/FlrigControl.cpp
@@ -219,6 +221,8 @@ qt_add_executable(decolog
     src/app/CloudController.cpp
     src/app/CloudController.h
     src/app/RigController.cpp
+    src/app/NetController.cpp
+    src/app/NetController.h
     src/app/SuperCheckController.cpp
     src/app/SuperCheckController.h
     src/app/ChatController.cpp
@@ -262,6 +266,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/PathForecastView.qml
     qml/DecoDXLog/ChatWindow.qml
     qml/DecoDXLog/StatsAwardsPage.qml
+    qml/DecoDXLog/ContestNetPanel.qml
     qml/DecoDXLog/WorldClockButton.qml
     qml/DecoDXLog/WorldClockIcon.qml
     qml/DecoDXLog/WorldClockWindow.qml
@@ -418,7 +423,7 @@ set_target_properties(decolog PROPERTIES
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)
