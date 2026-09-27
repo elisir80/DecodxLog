@@ -97,10 +97,10 @@ ApplicationWindow {
     // file nasce quando lo si stacca, e se adesso e' agganciato, in finestra o
     // chiuso. Chiuso vuol dire chiuso davvero: lo spazio non resta vuoto.
     readonly property var panelKeys: ["newqso", "logbook", "callinfo", "cw", "rotor", "ft2", "tabs", "map", "bandmap",
-                                      "contest", "score", "rate", "cluster", "net", "dvk"]
+                                      "contest", "score", "rate", "cluster", "net", "dvk", "mults"]
     // Gli ultimi quattro vivono solo in finestra: nel contest ognuno se li
     // mette dove vuole, e nella disposizione agganciata non hanno un posto.
-    readonly property var windowOnlyPanels: ["contest", "score", "rate", "cluster", "net", "dvk"]
+    readonly property var windowOnlyPanels: ["contest", "score", "rate", "cluster", "net", "dvk", "mults"]
     function isWindowOnly(key) { return window.windowOnlyPanels.indexOf(key) >= 0 }
 
     function panelTitle(key) {
@@ -116,6 +116,7 @@ ApplicationWindow {
         case "bandmap":  return qsTr("Band map")
         case "net":      return qsTr("Station network")
         case "dvk":      return qsTr("Voice keyer")
+        case "mults":    return qsTr("Multipliers")
         case "contest":  return qsTr("Contest entry")
         case "score":    return qsTr("Score and multipliers")
         case "rate":     return qsTr("How it is going")
@@ -136,6 +137,7 @@ ApplicationWindow {
         case "bandmap":  return "BandMapPanel.qml"
         case "net":      return "ContestNetPanel.qml"
         case "dvk":      return "DvkPanel.qml"
+        case "mults":    return "ContestMultipliersPanel.qml"
         case "contest":  return "ContestEntryPanel.qml"
         case "score":    return "ContestScorePanel.qml"
         case "rate":     return "ContestRatePanel.qml"
@@ -712,6 +714,13 @@ ApplicationWindow {
         }
         const what = startupShow.split(":")
         if (what[0] === "contestdesk") window.openContestDesk()
+        // Il banco della gara con la finestra dei moltiplicatori.
+        else if (what[0] === "mults") {
+            window.openContestDesk()
+            contestLayout.setShown("mults", true)
+            scpProbe.call = what[1] || "JA1ABC"
+            scpProbe.start()
+        }
         // Il banco della gara con la rete accesa.
         else if (what[0] === "net") {
             window.openContestDesk()

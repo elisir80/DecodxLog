@@ -48,6 +48,8 @@ public:
         std::function<core::ContestStation()> station;
         // Il paese e le zone di un nominativo, secondo il cty.csv.
         std::function<core::ContestStation(const QString& call)> locate;
+        // Il nome di un'entita' DXCC, per le finestre dei moltiplicatori.
+        std::function<QString(int dxcc)> dxccName;
     };
 
     explicit ActivationController(Context context, QObject* parent = nullptr);
@@ -93,6 +95,13 @@ public:
     // Quanto vale questo spot per il contest aperto: {points, newMultiplier,
     // duplicate, label}. Serve al cluster, per far vedere subito quali spot
     // portano un moltiplicatore che non si ha ancora.
+    // I moltiplicatori della gara, banda per banda: {bands: [...], kinds: [{kind,
+    // label, perBand, rows: [{value, name, worked: {banda: true}, any}]}]}. Per le
+    // zone e le province ci sono anche quelle che mancano, per vederle.
+    Q_INVOKABLE QVariantMap multiplierMatrix() const;
+    // Per un nominativo: i suoi moltiplicatori, dove sono gia' lavorati e dove
+    // mancano. [{label, worked: [bande], needed: [bande], newHere}].
+    Q_INVOKABLE QVariantList multiplierCheck(const QString& call, const QString& band) const;
     Q_INVOKABLE QVariantMap spotValue(const QString& call, const QString& band,
                                       const QString& mode) const;
     // Vero quando il contest aperto si fa in telegrafia: la finestra CW serve

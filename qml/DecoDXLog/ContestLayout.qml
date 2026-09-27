@@ -56,7 +56,7 @@ Item {
     property string floatingText: qsTr("All the contest panels are in their own windows: ↩ in a panel brings it back here.")
 
     // I pannelli, nell'ordine del menu.
-    property var allKeys: ["contest", "cluster", "logbook", "callinfo", "rate", "score", "map", "cw", "bandmap", "net", "dvk"]
+    property var allKeys: ["contest", "cluster", "logbook", "callinfo", "rate", "score", "map", "cw", "bandmap", "net", "dvk", "mults"]
     property var defaultKeys: ["contest", "cluster", "logbook", "callinfo", "rate", "score", "map"]
     // Dove stanno all'inizio, in proporzione alla lavagna: in gara tre
     // colonne, come nei programmi da gara.
@@ -71,7 +71,8 @@ Item {
         map:      { x: 0.76, y: 0.64, w: 0.24, h: 0.36 },
         bandmap:  { x: 0.00, y: 0.00, w: 0.16, h: 1.00 },
         net:      { x: 0.53, y: 0.40, w: 0.30, h: 0.40 },
-        dvk:      { x: 0.53, y: 0.60, w: 0.30, h: 0.40 }
+        dvk:      { x: 0.53, y: 0.60, w: 0.30, h: 0.40 },
+        mults:    { x: 0.76, y: 0.00, w: 0.24, h: 0.64 }
     })
     // Quanto vicino deve arrivare un bordo per attaccarsi, e lo spazio che
     // resta fra due pannelli attaccati.
@@ -393,6 +394,7 @@ Item {
             case "bandmap":  return "BandMapPanel.qml"
             case "net":      return "ContestNetPanel.qml"
             case "dvk":      return "DvkPanel.qml"
+            case "mults":    return "ContestMultipliersPanel.qml"
             }
             return ""
         }
@@ -554,6 +556,7 @@ Item {
                 case "bandmap":  return "BandMapPanel.qml"
                 case "net":      return "ContestNetPanel.qml"
                 case "dvk":      return "DvkPanel.qml"
+                case "mults":    return "ContestMultipliersPanel.qml"
                 }
                 return ""
             }

@@ -624,6 +624,40 @@ GlassPanel {
                     onClicked: decolog.scp.download()
                 }
             }
+            // I moltiplicatori del nominativo: dove sono gia' presi e dove mancano.
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 6
+                readonly property var check: { root.revision; return scpBox.typed.length >= 3 ? decolog.activation.multiplierCheck(scpBox.typed, root.band) : [] }
+                visible: check.length > 0
+                Text {
+                    text: "MULT"
+                    color: Theme.accentColor
+                    font.family: Theme.monoFamily
+                    font.pixelSize: 11
+                    font.bold: true
+                }
+                Repeater {
+                    model: parent.check
+                    Text {
+                        required property var modelData
+                        textFormat: Text.StyledText
+                        text: {
+                            let t = "<b>" + modelData.label + "</b>"
+                            if (modelData.perBand) {
+                                if (modelData.worked.length) t += " ✓" + modelData.worked.join(" ")
+                                if (modelData.needed.length) t += " <font color='" + Theme.warningColor + "'>" + qsTr("needed") + " " + modelData.needed.join(" ") + "</font>"
+                            } else {
+                                t += modelData.newHere ? " <font color='" + Theme.warningColor + "'>" + qsTr("new") + "</font>" : " ✓"
+                            }
+                            return t
+                        }
+                        color: modelData.newHere ? Theme.warningColor : Theme.textSecondary
+                        font.family: Theme.monoFamily
+                        font.pixelSize: 11
+                    }
+                }
+            }
             RowLayout {
                 Layout.fillWidth: true
                 spacing: 6

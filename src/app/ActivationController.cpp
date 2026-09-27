@@ -694,6 +694,165 @@ QString shortMultiplier(const QString& key)
 }
 } // namespace
 
+namespace {
+
+// Le bande dei contest HF, nell'ordine dell'operatore.
+const QStringList& contestBands()
+{
+    static const QStringList list{QStringLiteral("160m"), QStringLiteral("80m"), QStringLiteral("40m"),
+                                  QStringLiteral("20m"), QStringLiteral("15m"), QStringLiteral("10m")};
+    return list;
+}
+
+QString kindLabel(const QString& kind)
+{
+    if (kind == QLatin1String("zona")) return QCoreApplication::translate("ActivationController", "Zones");
+    if (kind == QLatin1String("paese")) return QCoreApplication::translate("ActivationController", "Countries");
+    if (kind == QLatin1String("prefisso")) return QCoreApplication::translate("ActivationController", "Prefixes");
+    if (kind == QLatin1String("hq")) return QCoreApplication::translate("ActivationController", "HQ stations");
+    if (kind == QLatin1String("prov")) return QCoreApplication::translate("ActivationController", "Provinces");
+    if (kind == QLatin1String("sez")) return QCoreApplication::translate("ActivationController", "Sections");
+    return kind;
+}
+
+} // namespace
+
+QVariantMap ActivationController::multiplierMatrix() const
+{
+    if (!m_score.valid)
+        buildScore();
+    const core::ContestRules rules = core::contestrules::forId(m_session.contestId);
+    QStringList bands = contestBands();
+    // kind → value → bande (vuota la stringa per i moltiplicatori una volta sola)
+    QMap<QString, QMap<QString, QSet<QString>>> worked;
+    QSet<QString> perBandKinds;
+    for (const QString& key : std::as_const(m_score.multipliers)) {
+        const QString head = key.section(QLatin1Char('|'), 0, 0);
+        const QString band = key.section(QLatin1Char('|'), 1, 1);
+        const QString kind = head.section(QLatin1Char(' '), 0, 0);
+        const QString value = head.section(QLatin1Char(' '), 1);
+        worked[kind][value].insert(band);
+        if (!band.isEmpty()) {
+            perBandKinds.insert(kind);
+            if (!bands.contains(band))
+                bands << band;
+        }
+    }
+    // Le zone e le province si mostrano tutte, anche quelle che mancano.
+    if (rules.valid && m_session.active) {
+        if (rules.id.startsWith(QLatin1String("CQ-WW-"))) {
+            for (int z = 1; z <= 40; ++z)
+                worked[QStringLiteral("zona")][QString::number(z)];
+            perBandKinds << QStringLiteral("zona") << QStringLiteral("paese");
+        } else if (rules.id == QLatin1String("IARU-HF")) {
+            for (int z = 1; z <= 90; ++z)
+                worked[QStringLiteral("zona")][QString::number(z)];
+            perBandKinds << QStringLiteral("zona");
+        } else if (rules.id == QLatin1String("ARI-DX")) {
+            for (const QString& p : core::awards::italianProvinces().keys())
+                worked[QStringLiteral("prov")][p];
+            perBandKinds << QStringLiteral("prov");
+        }
+    }
+    QVariantList kinds;
+    for (auto k = worked.cbegin(); k != worked.cend(); ++k) {
+        const bool perBand = perBandKinds.contains(k.key());
+        QList<QPair<QString, QSet<QString>>> rows;
+        for (auto v = k.value().cbegin(); v != k.value().cend(); ++v)
+            rows << qMakePair(v.key(), v.value());
+        // Numeri come numeri.
+        std::sort(rows.begin(), rows.end(), [](const auto& a, const auto& b) {
+            bool okA = false, okB = false;
+            const int na = a.first.toInt(&okA), nb = b.first.toInt(&okB);
+            return okA && okB ? na < nb : a.first < b.first;
+        });
+        QVariantList out;
+        int count = 0;
+        for (const auto& r : rows) {
+            QVariantMap bandsWorked;
+            for (const QString& b : r.second)
+                if (!b.isEmpty())
+                    bandsWorked.insert(b, true);
+            const bool any = !r.second.isEmpty();
+            if (any)
+                ++count;
+            QString name;
+            if (k.key() == QLatin1String("paese") && m_ctx.dxccName)
+                name = m_ctx.dxccName(r.first.toInt());
+            else if (k.key() == QLatin1String("prov"))
+                name = core::awards::italianProvinces().value(r.first);
+            out << QVariantMap{{QStringLiteral("value"), r.first},
+                               {QStringLiteral("name"), name},
+                               {QStringLiteral("worked"), bandsWorked},
+                               {QStringLiteral("any"), any}};
+        }
+        kinds << QVariantMap{{QStringLiteral("kind"), k.key()},
+                             {QStringLiteral("label"), kindLabel(k.key())},
+                             {QStringLiteral("perBand"), perBand},
+                             {QStringLiteral("count"), count},
+                             {QStringLiteral("rows"), out}};
+    }
+    return QVariantMap{{QStringLiteral("bands"), bands}, {QStringLiteral("kinds"), kinds}};
+}
+
+QVariantList ActivationController::multiplierCheck(const QString& call, const QString& band) const
+{
+    QVariantList out;
+    const core::ContestRules rules = core::contestrules::forId(m_session.contestId);
+    if (!rules.valid || !m_session.active || call.trimmed().size() < 3)
+        return out;
+    if (!m_score.valid)
+        buildScore();
+    const core::ContestStation me = m_ctx.station ? m_ctx.station() : core::ContestStation{};
+    core::ContestQso qso;
+    qso.call = call.trimmed().toUpper();
+    if (m_ctx.locate) {
+        const core::ContestStation where = m_ctx.locate(qso.call);
+        qso.dxcc = where.dxcc;
+        qso.continent = where.continent;
+        qso.cqZone = where.cqZone;
+        qso.ituZone = where.ituZone;
+    }
+    struct Row {
+        QString key;
+        QString label;
+        bool perBand{false};
+        QStringList worked;
+        QStringList needed;
+    };
+    QList<Row> rows;
+    for (const QString& b : contestBands()) {
+        qso.band = b;
+        for (const QString& key : core::contestrules::multipliers(rules, qso, me)) {
+            const QString head = key.section(QLatin1Char('|'), 0, 0);
+            const bool perBand = key.contains(QLatin1Char('|'));
+            auto it = std::find_if(rows.begin(), rows.end(), [&head](const Row& r) { return r.key == head; });
+            if (it == rows.end()) {
+                Row r;
+                r.key = head;
+                r.perBand = perBand;
+                r.label = shortMultiplier(head);
+                if (head.startsWith(QLatin1String("paese")) && m_ctx.dxccName)
+                    r.label = m_ctx.dxccName(head.section(QLatin1Char(' '), 1).toInt());
+                rows << r;
+                it = rows.end() - 1;
+            }
+            QStringList& list = m_score.multipliers.contains(key) ? it->worked : it->needed;
+            const QString where = perBand ? b : QString();
+            if (!list.contains(where))
+                list << where;
+        }
+    }
+    for (const Row& r : std::as_const(rows)) {
+        out << QVariantMap{{QStringLiteral("label"), r.label},
+                           {QStringLiteral("perBand"), r.perBand},
+                           {QStringLiteral("worked"), r.perBand ? r.worked : QStringList()},
+                           {QStringLiteral("needed"), r.perBand ? r.needed : QStringList()},
+                           {QStringLiteral("newHere"), r.perBand ? r.needed.contains(band.toLower()) : r.worked.isEmpty()}};
+    }
+    return out;
+}
+
 QVariantMap ActivationController::spotValue(const QString& call, const QString& band,
                                             const QString& mode) const
 {

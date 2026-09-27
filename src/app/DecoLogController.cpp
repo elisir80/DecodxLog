@@ -761,6 +761,7 @@ bool DecoLogController::openDatabase(const QString& path)
     actCtx.logChanged = [this] { emit logChanged(); };
     // Dove sta la propria stazione e dove stanno gli altri: nei contest il
     // valore di un QSO dipende da questo, e il cty.csv lo sa gia'.
+    actCtx.dxccName = [this](int dxcc) { return m_countries.nameFor(dxcc); };
     actCtx.locate = [this](const QString& call) {
         core::ContestStation out;
         if (const auto e = m_countries.lookup(call)) {
