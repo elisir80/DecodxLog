@@ -3,7 +3,7 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
-## 1.16.25 — in preparazione
+## 1.16.25 — 27 settembre 2026
 
 **Molto piu' svelto con un log grande: niente piu' finestra ferma fra un pannello e l'altro e dopo ogni QSO.**
 
