@@ -3,6 +3,16 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.29 — 28 settembre 2026
+
+**Allineata alla 1.16.28 di elisir80: il Nuovo QSO piu' affidabile, con la CAT condivisa.**
+
+- Porta dentro le correzioni della 1.16.28 di elisir80 (qui sotto): nel Nuovo QSO le tendine
+  Modo e Prop non cercano piu' di scrivere una proprieta' in sola lettura, la data UTC non
+  torna al giorno corrente quando si rientra nel nominativo, e una data impossibile si vede
+  in rosso e non entra nel log ("Inserisci una data UTC valida", tradotto in 15 lingue).
+- Con tutto quello della 1.16.27: la CAT condivisa come in Decodium 4.
+
 ## 1.16.28 — 27 settembre 2026
 
 **Nuovo QSO piu' affidabile.** Le tendine Modo e Prop non cercano piu' di
