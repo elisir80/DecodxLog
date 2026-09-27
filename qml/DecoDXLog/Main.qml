@@ -708,6 +708,13 @@ ApplicationWindow {
         }
         const what = startupShow.split(":")
         if (what[0] === "contestdesk") window.openContestDesk()
+        // Il banco della gara con un pezzo di nominativo scritto: SCP e N+1.
+        else if (what[0] === "scp") {
+            window.openContestDesk()
+            decolog.scp.loadTestCalls(["DL1ABC", "DL1ABD", "DL1AB", "K1ABC", "OH2ABC", "JA1ABC", "VK2ABC", "DL1XYZ"])
+            scpProbe.call = what[1] || "DL1ABC"
+            scpProbe.start()
+        }
         // Per le prove: si entra e si esce, e la finestra principale deve
         // tornare com'era.
         else if (what[0] === "contestexit") { window.openContestDesk(); exitProbe.start() }
@@ -1182,6 +1189,17 @@ ApplicationWindow {
             tab: clusterWindow.tab
             contestMode: clusterWindow.contestMode
             onClosing: Qt.callLater(function () { clusterWindow.active = false })
+        }
+    }
+
+    Timer {
+        id: scpProbe
+        property string call: ""
+        interval: 1500
+        onTriggered: {
+            const p = contestLayout.panelFor("contest")
+            if (p && p.item)
+                p.item.pickSpot(call, "", "")
         }
     }
 

@@ -644,6 +644,13 @@ bool DecoLogController::openDatabase(const QString& path)
     updCtx.quit = [] { QCoreApplication::quit(); };
     m_updates = new UpdateController(std::move(updCtx), this);
 
+    SuperCheckController::Context scpCtx;
+    scpCtx.db = &m_db;
+    scpCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
+        addActivity(category, text, level);
+    };
+    m_scp = new SuperCheckController(std::move(scpCtx), this);
+
     ChatController::Context chatCtx;
     chatCtx.credentials = m_credentials;
     chatCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
@@ -761,6 +768,7 @@ bool DecoLogController::openDatabase(const QString& path)
             [this] { m_activation->invalidateScore(); });
     m_activation->load();
     connect(this, &DecoLogController::logChanged, m_cluster, &ClusterController::logChanged);
+    connect(this, &DecoLogController::logChanged, m_scp, &SuperCheckController::logChanged);
     connect(this, &DecoLogController::countriesChanged, m_cluster, &ClusterController::logChanged);
     connect(this, &DecoLogController::clientChanged, m_cluster, &ClusterController::decodiumBandChanged);
 
@@ -774,6 +782,8 @@ void DecoLogController::startCluster()
 {
     if (m_cluster)
         m_cluster->start();
+    if (m_scp)
+        m_scp->start();
     // La propagazione parte insieme al cluster: sono due cose che si guardano
     // mentre si opera, e nessuna delle due serve prima che il log sia aperto.
     if (m_solar)

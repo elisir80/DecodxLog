@@ -17,6 +17,7 @@
 #include "app/UpdateController.h"
 #include "app/WorldClockController.h"
 #include "app/ChatController.h"
+#include "app/SuperCheckController.h"
 #include "app/QsoTableModel.h"
 #include "app/StationProfileModel.h"
 #include "core/Awards.h"
@@ -64,6 +65,8 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QObject* worldClock READ worldClock CONSTANT)
     // La chat ON4KST.
     Q_PROPERTY(QObject* chat READ chat CONSTANT)
+    // Super Check Partial e N+1 per i contest.
+    Q_PROPERTY(QObject* scp READ scp CONSTANT)
     // La radio via Hamlib, con le macro in CW per i contest.
     Q_PROPERTY(QObject* rig READ rig CONSTANT)
     Q_PROPERTY(QObject* cloud READ cloud CONSTANT)
@@ -200,6 +203,7 @@ public:
     QObject* rotor() const { return m_rotor; }
     QObject* worldClock() const { return m_worldClock; }
     QObject* chat() const { return m_chat; }
+    QObject* scp() const { return m_scp; }
     QObject* rig() const { return m_rig; }
     QObject* cloud() const { return m_cloud; }
     QObject* activation() const { return m_activation; }
@@ -615,6 +619,7 @@ private:
     RotorController*     m_rotor{nullptr};
     WorldClockController* m_worldClock{nullptr};
     ChatController*      m_chat{nullptr};
+    SuperCheckController* m_scp{nullptr};
     RigController*       m_rig{nullptr};
     CloudController*     m_cloud{nullptr};
     ActivationController* m_activation{nullptr};

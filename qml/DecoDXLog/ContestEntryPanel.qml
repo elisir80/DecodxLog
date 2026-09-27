@@ -227,6 +227,42 @@ GlassPanel {
             message.text = problem
     }
 
+    // Un nominativo proposto dal Super Check Partial: un clic lo mette nel campo.
+    component CallChip: Rectangle {
+        id: chip
+        property string call: ""
+        property string typed: ""
+        property color tone: Theme.textPrimary
+        implicitWidth: chipText.implicitWidth + 10
+        implicitHeight: 20
+        radius: 3
+        color: chipHover.hovered ? Theme.bgMedium : "transparent"
+        border.width: 1
+        border.color: Theme.borderSoft
+        Text {
+            id: chipText
+            anchors.centerIn: parent
+            textFormat: Text.StyledText
+            // Il pezzo scritto si vede in evidenza.
+            text: {
+                const i = chip.typed.length > 0 && chip.typed.indexOf("?") < 0 ? chip.call.indexOf(chip.typed) : -1
+                if (i < 0)
+                    return chip.call
+                return chip.call.substring(0, i) + "<b><font color='" + Theme.accentColor + "'>"
+                     + chip.call.substr(i, chip.typed.length) + "</font></b>" + chip.call.substring(i + chip.typed.length)
+            }
+            color: chip.tone
+            font.family: Theme.monoFamily
+            font.pixelSize: 12
+        }
+        HoverHandler { id: chipHover; cursorShape: Qt.PointingHandCursor }
+        TapHandler {
+            onTapped: {
+                callField.text = chip.call
+                callField.forceActiveFocus()
+            }
+        }
+    }
     title: root.running ? qsTr("%1 · next %2").arg(root.session.title || qsTr("Contest"))
                                               .arg(root.session.nextSerial || 1)
                         : qsTr("Contest entry · no session")
@@ -360,6 +396,79 @@ GlassPanel {
                 buttonHeight: 40
                 enabled: root.running && callField.text.trim().length > 0
                 onClicked: root.logQso()
+            }
+        }
+
+        // ── Super Check Partial e N+1 ──────────────────────────────────────
+        // Mentre si scrive: i nominativi veri che contengono quello che c'e'
+        // nel campo, e quelli a un carattere di distanza. Un clic lo mette nel
+        // campo.
+        ColumnLayout {
+            id: scpBox
+            Layout.fillWidth: true
+            spacing: 3
+            visible: root.running
+            readonly property string typed: callField.text.trim().toUpperCase()
+            readonly property var partial: { decolog.scp.count; return typed.length >= 2 ? decolog.scp.partial(typed, 30) : [] }
+            readonly property var neighbours: { decolog.scp.count; return typed.length >= 3 ? decolog.scp.nPlusOne(typed, 10) : [] }
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 6
+                Text {
+                    Layout.alignment: Qt.AlignTop
+                    Layout.topMargin: 2
+                    text: "SCP"
+                    color: Theme.textSecondary
+                    font.family: Theme.monoFamily
+                    font.pixelSize: 11
+                    font.bold: true
+                }
+                Flow {
+                    Layout.fillWidth: true
+                    spacing: 4
+                    Repeater {
+                        model: scpBox.partial
+                        CallChip { required property string modelData; call: modelData; typed: scpBox.typed }
+                    }
+                    Text {
+                        visible: scpBox.partial.length === 0
+                        text: scpBox.typed.length >= 2 ? (decolog.scp.known(scpBox.typed) ? "" : qsTr("no known call"))
+                                                       : decolog.scp.status
+                        color: Theme.textSecondary
+                        font.pixelSize: 11
+                    }
+                }
+                GlassButton {
+                    Layout.alignment: Qt.AlignTop
+                    visible: decolog.scp.fileCount === 0 || decolog.scp.busy
+                    text: decolog.scp.busy ? qsTr("Downloading…") : qsTr("Download MASTER.SCP")
+                    buttonHeight: 20
+                    fontPixelSize: 10
+                    enabled: !decolog.scp.busy
+                    onClicked: decolog.scp.download()
+                }
+            }
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 6
+                visible: scpBox.neighbours.length > 0
+                Text {
+                    Layout.alignment: Qt.AlignTop
+                    Layout.topMargin: 2
+                    text: "N+1"
+                    color: Theme.warningColor
+                    font.family: Theme.monoFamily
+                    font.pixelSize: 11
+                    font.bold: true
+                }
+                Flow {
+                    Layout.fillWidth: true
+                    spacing: 4
+                    Repeater {
+                        model: scpBox.neighbours
+                        CallChip { required property string modelData; call: modelData; tone: Theme.warningColor }
+                    }
+                }
             }
         }
 

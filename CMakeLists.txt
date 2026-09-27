@@ -127,6 +127,8 @@ add_library(decolog_core STATIC
     src/core/Propagation.h
     src/core/KstChat.cpp
     src/core/KstChat.h
+    src/core/SuperCheck.cpp
+    src/core/SuperCheck.h
     src/core/FlrigControl.cpp
     src/core/FlrigControl.h
     src/core/OmniRigControl.cpp
@@ -217,6 +219,8 @@ qt_add_executable(decolog
     src/app/CloudController.cpp
     src/app/CloudController.h
     src/app/RigController.cpp
+    src/app/SuperCheckController.cpp
+    src/app/SuperCheckController.h
     src/app/ChatController.cpp
     src/app/ChatController.h
     src/app/WorldClockController.cpp
@@ -414,7 +418,7 @@ set_target_properties(decolog PROPERTIES
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)
