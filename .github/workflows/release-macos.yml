@@ -12,6 +12,15 @@ on:
         description: Release tag
         required: true
         default: v1.7.2
+      arch:
+        description: Architecture to package
+        required: true
+        type: choice
+        default: all
+        options:
+          - all
+          - arm64
+          - x86_64
 
 permissions:
   contents: write
@@ -19,6 +28,7 @@ permissions:
 jobs:
   macos:
     name: macOS ${{ matrix.name }}
+    if: inputs.arch == 'all' || inputs.arch == matrix.arch
     runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
@@ -55,12 +65,24 @@ jobs:
           version="${TAG_NAME#v}"
           mkdir -p release-assets
 
-          while IFS= read -r -d '' item; do
-            codesign --force --sign - --timestamp=none "$item"
-          done < <(find build/DecoDXLog.app/Contents -type f \( -perm -111 -o -name "*.dylib" -o -name "*.so" \) -print0)
+          # Homebrew Intel installa anche dylib versionate (per esempio
+          # libbrotlicommon.1.dylib), che non sono necessariamente eseguibili.
+          # Firmiamo ogni Mach-O e poi framework/bundle dall'interno verso
+          # l'esterno: --deep da solo li lascia facilmente senza firma valida.
+          while IFS= read -r item; do
+            if file "$item" | grep -q 'Mach-O'; then
+              codesign --force --sign - --timestamp=none "$item"
+            fi
+          done < <(find build/DecoDXLog.app/Contents -type f | sort)
 
-          codesign --force --deep --sign - --timestamp=none build/DecoDXLog.app
-          codesign --verify --deep --strict --verbose=2 build/DecoDXLog.app
+          while IFS= read -r bundle; do
+            codesign --force --sign - --timestamp=none "$bundle"
+          done < <(find build/DecoDXLog.app/Contents -type d \
+            \( -name "*.framework" -o -name "*.bundle" -o -name "*.xpc" -o -name "*.appex" \) \
+            | awk '{print length($0) " " $0}' | sort -rn | cut -d' ' -f2-)
+
+          codesign --force --sign - --timestamp=none build/DecoDXLog.app
+          codesign --verify --strict --verbose=2 build/DecoDXLog.app
 
           hdiutil create -volname "DecoDXLog $version" \
             -srcfolder build/DecoDXLog.app \
