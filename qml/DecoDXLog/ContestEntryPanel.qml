@@ -227,6 +227,13 @@ GlassPanel {
             message.text = problem
     }
 
+    // SO2R dalla tastiera: Ctrl+freccia sceglie la radio, Pausa le scambia,
+    // l'accento grave accende e spegne l'ascolto stereo.
+    Shortcut { sequence: "Ctrl+Left"; enabled: root.visible && decolog.so2r.enabled; onActivated: decolog.so2r.focus = 1 }
+    Shortcut { sequence: "Ctrl+Right"; enabled: root.visible && decolog.so2r.enabled; onActivated: decolog.so2r.focus = 2 }
+    Shortcut { sequence: "Pause"; enabled: root.visible && decolog.so2r.enabled; onActivated: decolog.so2r.toggleFocus() }
+    Shortcut { sequence: "`"; enabled: root.visible && decolog.so2r.enabled; onActivated: decolog.so2r.toggleStereo() }
+
     // Un nominativo proposto dal Super Check Partial: un clic lo mette nel campo.
     component CallChip: Rectangle {
         id: chip
@@ -313,6 +320,25 @@ GlassPanel {
                 }
             }
             Item { Layout.fillWidth: true }
+            // SO2R: le due radio, quella col fuoco evidenziata. Un clic la sceglie.
+            Repeater {
+                model: decolog.so2r.enabled ? [1, 2] : []
+                GlassButton {
+                    required property int modelData
+                    Layout.alignment: Qt.AlignBottom
+                    readonly property bool focused: decolog.so2r.focus === modelData
+                    readonly property real hz: modelData === 1 ? decolog.rig.frequencyHz : decolog.so2r.radio2Hz
+                    text: "R" + modelData + " " + (hz > 0 ? (hz / 1000).toFixed(1) : "—")
+                    tone: focused ? Theme.accentColor : Theme.textSecondary
+                    filled: focused
+                    onClicked: decolog.so2r.focus = modelData
+                }
+            }
+            Pill {
+                visible: decolog.so2r.enabled && decolog.so2r.stereo
+                text: qsTr("stereo")
+                tone: Theme.secondaryColor
+            }
             Pill {
                 visible: root.duplicate
                 text: qsTr("already worked")

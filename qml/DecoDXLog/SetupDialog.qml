@@ -1637,6 +1637,81 @@ DialogFrame {
                                    + "Decodium keeps the CAT and the macros go on air anyway. Leave the "
                                    + "port on \"none\" to key through the CAT as before.")
                     }
+
+                    //  SO2R: la seconda radio e la scatola OTRSP.
+                    SectionTitle { text: qsTr("SO2R · two radios") }
+                    RowLayout {
+                        spacing: 12
+                        ToggleSwitch {
+                            Layout.alignment: Qt.AlignBottom
+                            text: qsTr("Second radio")
+                            checked: decolog.so2r.enabled
+                            onToggled: decolog.so2r.enabled = checked
+                        }
+                        LabeledField {
+                            label: qsTr("How")
+                            StyledComboBox {
+                                Layout.preferredWidth: 190
+                                readonly property var ids: decolog.rig.omniRigAvailable ? ["network", "tci", "flrig", "omnirig"]
+                                                                                        : ["network", "tci", "flrig"]
+                                model: [qsTr("rigctld (host:port)"), qsTr("TCI (RX2)"), qsTr("flrig")]
+                                       .concat(decolog.rig.omniRigAvailable ? [qsTr("OmniRig")] : [])
+                                currentIndex: Math.max(0, ids.indexOf(decolog.so2r.link))
+                                onActivated: decolog.so2r.link = ids[currentIndex]
+                            }
+                        }
+                        LabeledField {
+                            label: decolog.so2r.link === "omnirig" ? qsTr("OmniRig radio (1 or 2)") : qsTr("Address")
+                            StyledTextField {
+                                Layout.preferredWidth: 170
+                                text: decolog.so2r.address
+                                placeholderText: "127.0.0.1:4533"
+                                onEditingFinished: decolog.so2r.address = text
+                            }
+                        }
+                        LabeledField {
+                            label: qsTr("SO2R box (OTRSP)")
+                            StyledComboBox {
+                                Layout.preferredWidth: 130
+                                model: [qsTr("none")].concat(decolog.so2r.serialPorts())
+                                currentIndex: Math.max(0, model.indexOf(decolog.so2r.otrspPort))
+                                onActivated: decolog.so2r.otrspPort = currentIndex === 0 ? "" : currentText
+                            }
+                        }
+                        GlassButton {
+                            Layout.alignment: Qt.AlignBottom
+                            Layout.bottomMargin: 2
+                            text: qsTr("Connect now")
+                            enabled: decolog.so2r.enabled
+                            onClicked: decolog.so2r.connectRadio2()
+                        }
+                    }
+                    RowLayout {
+                        visible: decolog.so2r.enabled
+                        spacing: 10
+                        Pill {
+                            text: decolog.so2r.radio2Connected ? qsTr("radio 2 connected") : qsTr("radio 2 not connected")
+                            tone: decolog.so2r.radio2Connected ? Theme.accentColor : Theme.warningColor
+                        }
+                        Pill {
+                            visible: decolog.so2r.otrspPort.length > 0
+                            text: decolog.so2r.otrspOpen ? qsTr("SO2R box ready") : qsTr("SO2R box port not open")
+                            tone: decolog.so2r.otrspOpen ? Theme.accentColor : Theme.errorColor
+                        }
+                        Text {
+                            text: decolog.so2r.radio2Status
+                            color: Theme.textSecondary
+                            font.family: Theme.monoFamily
+                            font.pixelSize: 11
+                        }
+                    }
+                    Note {
+                        text: qsTr("Radio 1 is the one above; radio 2 is connected here. In the contest entry the "
+                                   + "radio with the focus gets the band, the tuning and the CW: Ctrl+← and Ctrl+→ "
+                                   + "choose radio 1 or 2, Pause swaps them, ` (backquote) toggles stereo listening. "
+                                   + "The SO2R box (MK2R, SO2RDuino, YCCC…) follows through OTRSP: TX1/TX2 for the "
+                                   + "transmitter, RX1/RX2 or RX1S/RX2S for the headphones.")
+                    }
                     Item { Layout.fillHeight: true }
                 }
 

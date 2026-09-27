@@ -221,6 +221,8 @@ qt_add_executable(decolog
     src/app/CloudController.cpp
     src/app/CloudController.h
     src/app/RigController.cpp
+    src/app/So2rController.cpp
+    src/app/So2rController.h
     src/app/NetController.cpp
     src/app/NetController.h
     src/app/SuperCheckController.cpp
@@ -463,6 +465,11 @@ if(DECODXLOG_BUILD_TESTS)
     target_link_libraries(tst_clustercontroller PRIVATE decolog_core Qt6::Multimedia Qt6::Test)
     set_target_properties(tst_clustercontroller PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME clustercontroller COMMAND tst_clustercontroller)
+    qt_add_executable(tst_so2r tests/tst_so2r.cpp src/app/So2rController.cpp src/app/So2rController.h)
+    target_include_directories(tst_so2r PRIVATE src)
+    target_link_libraries(tst_so2r PRIVATE decolog_core Qt6::Test)
+    set_target_properties(tst_so2r PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME so2r COMMAND tst_so2r)
     qt_add_executable(tst_activation tests/tst_activation.cpp
         src/app/ActivationController.cpp src/app/ActivationController.h)
     target_include_directories(tst_activation PRIVATE src)

@@ -87,6 +87,9 @@ public:
         std::function<void(const QString& category, const QString& text, const QString& level)> activity;
         // Il nominativo con cui si sta operando, per {MYCALL}.
         std::function<QString()> stationCallsign;
+        // SO2R: la radio 2, quando ha lei il fuoco. Il CW va li' se non c'e'
+        // un manipolatore seriale (che la scatola SO2R gira da sola).
+        std::function<core::RigLink*()> alternateRig;
     };
 
     explicit RigController(Context context, QObject* parent = nullptr);

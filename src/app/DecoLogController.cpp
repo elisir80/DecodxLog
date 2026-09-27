@@ -693,7 +693,16 @@ bool DecoLogController::openDatabase(const QString& path)
             gw->noteStatus(st.dxCall, st.dxGrid, st.mode, st.dialFrequencyHz);
     });
 
+    So2rController::Context so2rCtx;
+    so2rCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
+        addActivity(category, text, level);
+    };
+    m_so2r = new So2rController(std::move(so2rCtx), this);
+
     RigController::Context rigCtx;
+    rigCtx.alternateRig = [this]() -> core::RigLink* {
+        return m_so2r && m_so2r->radio2HasFocus() ? m_so2r->radio2() : nullptr;
+    };
     rigCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
         addActivity(category, text, level);
     };
@@ -708,6 +717,8 @@ bool DecoLogController::openDatabase(const QString& path)
     connect(m_rig, SIGNAL(stateChanged()), this, SLOT(reportPresenceToCloud()));
     // La barra in cima mostra la radio: quando la radio si muove, si rifa'.
     connect(m_rig, SIGNAL(stateChanged()), this, SIGNAL(tuningChanged()));
+    connect(m_so2r, &So2rController::stateChanged, this, &DecoLogController::tuningChanged);
+    connect(m_so2r, &So2rController::focusChanged, this, &DecoLogController::tuningChanged);
     connect(this, &DecoLogController::clientChanged, this, &DecoLogController::tuningChanged);
 
     CloudController::Context cloudCtx;
@@ -852,6 +863,8 @@ void DecoLogController::startRotor()
         m_rotor->start();
     if (m_rig)
         m_rig->start();
+    if (m_so2r)
+        m_so2r->start();
 }
 
 void DecoLogController::startDecoLink()
@@ -1172,6 +1185,9 @@ void DecoLogController::emailFor(const QString& call,
 
 QString DecoLogController::shownFrequency() const
 {
+    // SO2R: si vede la radio che ha il fuoco.
+    if (m_so2r && m_so2r->radio2HasFocus())
+        return m_so2r->radio2Hz() > 0 ? QString::number(static_cast<double>(m_so2r->radio2Hz()) / 1e6, 'f', 6) : QString();
     auto* rig = qobject_cast<RigController*>(m_rig);
     if (rig && rig->connected() && rig->frequencyHz() > 0)
         return QString::number(static_cast<double>(rig->frequencyHz()) / 1e6, 'f', 6);
@@ -1180,6 +1196,8 @@ QString DecoLogController::shownFrequency() const
 
 QString DecoLogController::shownMode() const
 {
+    if (m_so2r && m_so2r->radio2HasFocus())
+        return m_so2r->radio2Mode();
     auto* rig = qobject_cast<RigController*>(m_rig);
     const QString fromDecodium = currentMode();
     if (!rig || !rig->connected() || rig->mode().isEmpty())
@@ -1912,6 +1930,14 @@ void DecoLogController::tuneTo(double mhz, const QString& mode)
     if (mhz <= 0 && mode.isEmpty())
         return;
     const double khz = mhz * 1000.0;
+    // SO2R: la sintonia va alla radio che ha il fuoco.
+    if (m_so2r && m_so2r->radio2HasFocus() && m_so2r->radio2Connected()) {
+        if (mhz > 0)
+            m_so2r->radio2()->setFrequency(static_cast<qint64>(std::llround(mhz * 1e6)));
+        if (!mode.isEmpty())
+            m_so2r->radio2()->setMode(modes::catFor(mode, mhz));
+        return;
+    }
     auto* rig = qobject_cast<RigController*>(m_rig);
     const bool toRadio = rig && rig->connected();
     // A Decodium si manda solo quando c'e' una frequenza: un "vai" senza dire

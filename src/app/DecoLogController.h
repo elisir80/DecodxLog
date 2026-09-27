@@ -19,6 +19,7 @@
 #include "app/ChatController.h"
 #include "app/SuperCheckController.h"
 #include "app/NetController.h"
+#include "app/So2rController.h"
 #include "app/QsoTableModel.h"
 #include "app/StationProfileModel.h"
 #include "core/Awards.h"
@@ -70,6 +71,8 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QObject* scp READ scp CONSTANT)
     // La rete della stazione multi-operatore.
     Q_PROPERTY(QObject* net READ net CONSTANT)
+    // SO2R: la seconda radio e la scatola OTRSP.
+    Q_PROPERTY(QObject* so2r READ so2r CONSTANT)
     // La radio via Hamlib, con le macro in CW per i contest.
     Q_PROPERTY(QObject* rig READ rig CONSTANT)
     Q_PROPERTY(QObject* cloud READ cloud CONSTANT)
@@ -208,6 +211,7 @@ public:
     QObject* chat() const { return m_chat; }
     QObject* scp() const { return m_scp; }
     QObject* net() const { return m_net; }
+    QObject* so2r() const { return m_so2r; }
     QObject* rig() const { return m_rig; }
     QObject* cloud() const { return m_cloud; }
     QObject* activation() const { return m_activation; }
@@ -625,6 +629,7 @@ private:
     ChatController*      m_chat{nullptr};
     SuperCheckController* m_scp{nullptr};
     NetController*       m_net{nullptr};
+    So2rController*      m_so2r{nullptr};
     RigController*       m_rig{nullptr};
     CloudController*     m_cloud{nullptr};
     ActivationController* m_activation{nullptr};

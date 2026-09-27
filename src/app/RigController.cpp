@@ -882,6 +882,11 @@ void RigController::sendText(const QString& text, const QVariantMap& context)
         m_keyer.send(ready, wpm());
         return;
     }
+    if (core::RigLink* alt = m_ctx.alternateRig ? m_ctx.alternateRig() : nullptr) {
+        alt->setSpeedWpm(wpm());
+        alt->sendMorse(ready);
+        return;
+    }
     m_rig->sendMorse(ready);
 }
 
