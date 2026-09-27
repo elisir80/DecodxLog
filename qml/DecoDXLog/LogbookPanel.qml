@@ -25,6 +25,16 @@ GlassPanel {
         // Le larghezze scelte a mano, come {"call": 120, "name": 260}.
         property string columnWidths: ""
         property var savedFilters: ({})
+        // L'ordine delle righe: la colonna e il verso, come lo si e' lasciato.
+        property string sortKey: "utc"
+        property bool sortAscending: false
+    }
+    Connections {
+        target: root.model
+        function onSortChanged() {
+            logStore.sortKey = root.model.sortKey
+            logStore.sortAscending = root.model.sortAscending
+        }
     }
     readonly property string hiddenColumns: logStore.hiddenColumns
     readonly property string columnWidths: logStore.columnWidths
@@ -63,7 +73,10 @@ GlassPanel {
         logStore.columnLayout = list.join(",")
         root.model.columnLayout = list
     }
-    Component.onCompleted: root.model.columnLayout = root.storedLayout()
+    Component.onCompleted: {
+        root.model.columnLayout = root.storedLayout()
+        root.model.setSort(logStore.sortKey, logStore.sortAscending)
+    }
     function isHidden(key) { return root.model.columnLayout.indexOf(key) < 0 }
     function toggleColumn(key) {
         const list = root.model.columnLayout.slice()
@@ -969,6 +982,10 @@ GlassPanel {
                         root.headerDropTarget = -1
                         if (Math.abs(mouse.x - pressX) > 8)
                             root.moveColumn(index, target)
+                        else
+                            // Un clic, non un trascinamento: si ordina per questa
+                            // colonna, e di nuovo al contrario.
+                            root.model.sortBy(root.model.columnKey(index))
                     }
                     onCanceled: root.headerDropTarget = -1
                 }
@@ -988,12 +1005,24 @@ GlassPanel {
                     color: Theme.glassBorder
                 }
 
+                // La freccia dice per quale colonna e in che verso si ordina:
+                // sta a destra, fuori dal titolo, cosi' si vede anche se la
+                // colonna e' stretta.
+                readonly property bool sorted: root.model.sortKey === root.model.columnKey(index)
+                Text {
+                    anchors { right: parent.right; rightMargin: 8; verticalCenter: parent.verticalCenter }
+                    visible: parent.sorted
+                    text: root.model.sortAscending ? "▲" : "▼"
+                    color: Theme.textPrimary
+                    font.pixelSize: Theme.fontSize - 2
+                }
                 Text {
                     anchors.fill: parent
                     anchors.leftMargin: 10
+                    anchors.rightMargin: parent.sorted ? 22 : 8
                     verticalAlignment: Text.AlignVCenter
                     text: parent.display
-                    color: Theme.secondaryColor
+                    color: parent.sorted ? Theme.textPrimary : Theme.secondaryColor
                     font.family: Theme.monoFamily
                     font.pixelSize: Theme.fontSize
                     font.bold: true

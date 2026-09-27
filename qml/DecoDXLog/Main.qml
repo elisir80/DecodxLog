@@ -459,6 +459,24 @@ ApplicationWindow {
                     console.warn("PROBE headermove " + args[1] + " " + from + "->" + to + ": "
                                  + args[args.length - 1] + " => " + JSON.stringify(lp.model.columnLayout))
                 })
+            } else if (kind === "headerclick") {
+                // Uno o piu' clic veri sull'intestazione della colonna: il log si ordina.
+                const lp = window.panelItem("logbook").item
+                const col = parseInt(args[1])
+                const times = parseInt(args[2] || "1")
+                const cell = lp.headerCell(col)
+                const at = cell.mapToItem(null, 20, cell.height / 2)
+                if (step - 11 < times) {
+                    send(window, "hover", at)
+                    send(window, "press", at)
+                    send(window, "release", at)
+                    return
+                }
+                stop()
+                const calls = []
+                for (let r = 0; r < Math.min(7, lp.model.count); ++r)
+                    calls.push(lp.model.callAt(r))
+                console.warn("PROBE headerclick " + lp.model.sortKey + " asc=" + lp.model.sortAscending + " " + calls.join(","))
             } else if (kind === "headerresize") {
                 const lp = window.panelItem("logbook").item
                 const col = 2
@@ -801,6 +819,11 @@ ApplicationWindow {
         }
         else if (what[0] === "clustermove" || what[0] === "clustercols" || what[0] === "clusterresize") {
             window.openContestDesk()
+            pointerProbe.args = what
+            pointerProbe.step = 0
+            pointerProbe.start()
+        }
+        else if (what[0] === "headerclick") {
             pointerProbe.args = what
             pointerProbe.step = 0
             pointerProbe.start()

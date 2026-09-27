@@ -81,6 +81,32 @@ private slots:
         QCOMPARE(category(fresh2), QString("colorNewGrid"));
     }
 
+    // Un clic sull'intestazione: si ordina per quella colonna, e di nuovo al contrario.
+    void sortsByColumn()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        fill(db);
+        QsoTableModel m(&db);
+        QCOMPARE(calls(m), QStringList({"W6XYZ", "EA8ABC", "JA1XX", "K1ABC"}));   // di serie: dal piu' recente
+        m.sortBy("call");
+        QVERIFY(m.sortAscending());
+        QCOMPARE(calls(m), QStringList({"EA8ABC", "JA1XX", "K1ABC", "W6XYZ"}));
+        m.sortBy("call");
+        QCOMPARE(calls(m), QStringList({"W6XYZ", "K1ABC", "JA1XX", "EA8ABC"}));
+        // Le bande nell'ordine delle frequenze, non dell'alfabeto.
+        m.sortBy("band");
+        QCOMPARE(calls(m), QStringList({"JA1XX", "W6XYZ", "K1ABC", "EA8ABC"}));
+        m.sortBy("utc");
+        QVERIFY(!m.sortAscending());
+        QCOMPARE(calls(m), QStringList({"W6XYZ", "EA8ABC", "JA1XX", "K1ABC"}));
+        m.sortBy("utc");
+        QCOMPARE(calls(m), QStringList({"K1ABC", "JA1XX", "EA8ABC", "W6XYZ"}));
+        // L'ordine resta anche ricaricando (un filtro, un QSO nuovo).
+        m.setFilterText("A");
+        QCOMPARE(calls(m).first(), QString("K1ABC"));
+    }
+
     void filters()
     {
         LogDatabase db;

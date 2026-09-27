@@ -8,6 +8,8 @@
 
 #include <QCoreApplication>
 #include <QDateTime>
+
+#include <algorithm>
 #include <QSet>
 #include <QSqlQuery>
 #include <QVariantMap>
@@ -416,6 +418,114 @@ void QsoTableModel::rebuildSlots()
     }
 }
 
+void QsoTableModel::sortBy(const QString& key)
+{
+    if (key.isEmpty() || key == QLatin1String("qsl"))
+        return;
+    // Stessa colonna: si gira. Colonna nuova: l'ora dal piu' recente, il resto
+    // dalla A alla Z (o dal piu' piccolo).
+    const bool ascending = key == m_sortKey ? !m_sortAscending : key != QLatin1String("utc");
+    setSort(key, ascending);
+}
+
+void QsoTableModel::setSort(const QString& key, bool ascending)
+{
+    const QString clean = key.isEmpty() ? QStringLiteral("utc") : key;
+    if (clean == m_sortKey && ascending == m_sortAscending)
+        return;
+    m_sortKey = clean;
+    m_sortAscending = ascending;
+    beginResetModel();
+    applySort();
+    endResetModel();
+    emit sortChanged();
+}
+
+void QsoTableModel::applySort()
+{
+    if (defaultSort()) {
+        // L'ordine della query: dal piu' recente.
+        std::stable_sort(m_rows.begin(), m_rows.end(), [](const Row& a, const Row& b) {
+            return a.sortKey != b.sortKey ? a.sortKey > b.sortKey : a.id > b.id;
+        });
+        return;
+    }
+    const qsizetype core = coreKeys().indexOf(m_sortKey);
+    const qsizetype extra = m_extra.indexOf(m_sortKey);
+    const QStringList bandOrder = core::bands::all();
+    const bool isUtc = m_sortKey == QLatin1String("utc");
+    const bool isBand = m_sortKey == QLatin1String("band");
+    const bool isDate = m_sortKey.contains(QLatin1String("date"), Qt::CaseInsensitive);
+    auto value = [&](const Row& r) {
+        return core >= 0 ? r.values[core] : extra >= 0 ? r.extra.value(extra) : QString();
+    };
+    // Una chiave che si confronta bene: numeri come numeri, date come date,
+    // bande nell'ordine delle frequenze, il resto senza badare alle maiuscole.
+    struct Key {
+        bool empty{true};
+        bool numeric{false};
+        double number{0};
+        QString text;
+    };
+    auto keyOf = [&](const Row& r) {
+        Key k;
+        if (isUtc) {
+            k.empty = r.sortKey.isEmpty();
+            k.text = r.sortKey;
+            return k;
+        }
+        const QString v = value(r).trimmed();
+        k.empty = v.isEmpty();
+        if (k.empty)
+            return k;
+        if (isBand) {
+            const qsizetype i = bandOrder.indexOf(v.toLower());
+            k.numeric = true;
+            k.number = i >= 0 ? static_cast<double>(i) : 1e9;
+            return k;
+        }
+        if (isDate) {
+            const QString iso = core::dates::read(v);
+            k.text = iso.isEmpty() ? v : iso;
+            return k;
+        }
+        bool ok = false;
+        const double d = v.toDouble(&ok);
+        if (ok) {
+            k.numeric = true;
+            k.number = d;
+            return k;
+        }
+        k.text = v.toUpper();
+        return k;
+    };
+    QHash<qint64, Key> keys;
+    keys.reserve(m_rows.size());
+    for (const Row& r : std::as_const(m_rows))
+        keys.insert(r.id, keyOf(r));
+    const bool asc = m_sortAscending;
+    std::stable_sort(m_rows.begin(), m_rows.end(), [&](const Row& a, const Row& b) {
+        const Key& ka = keys[a.id];
+        const Key& kb = keys[b.id];
+        // I vuoti in fondo, in tutti e due i versi.
+        if (ka.empty != kb.empty)
+            return !ka.empty;
+        if (!ka.empty) {
+            int cmp = 0;
+            if (ka.numeric && kb.numeric)
+                cmp = ka.number < kb.number ? -1 : ka.number > kb.number ? 1 : 0;
+            else if (ka.numeric != kb.numeric)
+                cmp = ka.numeric ? -1 : 1;
+            else
+                cmp = QString::compare(ka.text, kb.text);
+            if (cmp != 0)
+                return asc ? cmp < 0 : cmp > 0;
+        }
+        // A pari merito, il piu' recente prima.
+        return a.sortKey != b.sortKey ? a.sortKey > b.sortKey : a.id > b.id;
+    });
+}
+
 QString QsoTableModel::valueFor(int row, const QString& key) const
 {
     if (row < 0 || row >= m_rows.size())
@@ -734,6 +844,8 @@ void QsoTableModel::reload()
                 m_rows.append(rowFromQuery(q));
         }
         computeCategories();
+        if (!defaultSort())
+            applySort();
     }
     refreshTotal();
     endResetModel();
@@ -765,7 +877,8 @@ void QsoTableModel::insertQso(qint64 id)
 {
     if (!m_db || !m_db->isOpen())
         return;
-    if (filtered()) {
+    // Con un filtro o un ordine scelto, il posto giusto lo trova il ricarico.
+    if (filtered() || !defaultSort()) {
         reload();
         return;
     }

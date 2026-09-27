@@ -42,6 +42,10 @@ class QsoTableModel : public QAbstractTableModel {
     // (vedi availableColumns) o "x:CAMPO" per un campo ADIF qualsiasi.
     Q_PROPERTY(QStringList columnLayout READ columnLayout WRITE setColumnLayout NOTIFY layoutChanged)
     Q_PROPERTY(bool filtered READ filtered NOTIFY filtersChanged)
+    // L'ordine delle righe: la colonna (chiave) e il verso. Di serie l'ora del
+    // QSO, dal piu' recente. Un clic sull'intestazione lo cambia.
+    Q_PROPERTY(QString sortKey READ sortKey NOTIFY sortChanged)
+    Q_PROPERTY(bool sortAscending READ sortAscending NOTIFY sortChanged)
 
 public:
     // I valori che ogni riga tiene sempre, qualunque colonna si veda: servono
@@ -100,6 +104,12 @@ public:
     bool filtered() const;
 
     Q_INVOKABLE void reload();
+    QString sortKey() const { return m_sortKey; }
+    bool sortAscending() const { return m_sortAscending; }
+    // Ordina per quella colonna; di nuovo sulla stessa, al contrario.
+    Q_INVOKABLE void sortBy(const QString& key);
+    // L'ordine esatto (per ripristinare quello salvato).
+    Q_INVOKABLE void setSort(const QString& key, bool ascending);
     Q_INVOKABLE void clearFilters();
     // Filtri come mappa, per salvarli con un nome e riapplicarli.
     Q_INVOKABLE QVariantMap filterState() const;
@@ -129,9 +139,14 @@ signals:
     void countChanged();
     void filtersChanged();
     void layoutChanged();
+    void sortChanged();
 
 private:
     QHash<qint64, QString> m_category;
+    QString m_sortKey{QStringLiteral("utc")};
+    bool m_sortAscending{false};
+    bool defaultSort() const { return m_sortKey == QLatin1String("utc") && !m_sortAscending; }
+    void applySort();
     QString m_categorySignature;   // il log com'era quando si sono contate
 
     struct Row {

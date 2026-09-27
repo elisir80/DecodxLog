@@ -3,6 +3,17 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.23 — 27 settembre 2026
+
+**Il log si ordina cliccando le intestazioni delle colonne.**
+
+- Un clic sull'intestazione ordina il log per quella colonna: ora, nominativo, banda (nell'ordine
+  delle frequenze, non dell'alfabeto), frequenza, modo, nome, paese, date, qualsiasi colonna
+  scelta. Un altro clic sulla stessa colonna la gira al contrario. La freccia ▲▼ dice come e'
+  ordinato. I numeri si ordinano come numeri, le date come date, le righe vuote vanno in fondo.
+- L'ordine scelto resta: con i filtri, con i QSO nuovi e alla prossima apertura. Trascinare
+  l'intestazione continua a spostare la colonna, tirarne il bordo ad allargarla.
+
 ## 1.16.22 — 27 settembre 2026
 
 **La foto grande del callbook non lampeggia piu'.**
