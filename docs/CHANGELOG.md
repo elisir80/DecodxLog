@@ -3,7 +3,7 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
-## 1.16.24 — in preparazione
+## 1.16.24 — 27 settembre 2026
 
 **Quello che mancava rispetto ai log blasonati: band map, avvisi, propagazione, rete, SO2R, WinKeyer, DVK.**
 
