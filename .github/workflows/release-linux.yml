@@ -35,6 +35,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
 
       - name: Install Qt x86_64
         if: matrix.arch == 'x86_64'
@@ -144,7 +146,7 @@ jobs:
         env:
           APPIMAGE_EXTRACT_AND_RUN: "1"
           QML_SOURCES_PATHS: qml:libs/decodium-ui/qml
-          VERSION: ${{ github.ref_name }}
+          TAG_NAME: ${{ inputs.tag }}
         run: |
           ./linuxdeploy \
             --appdir AppDir \
@@ -153,7 +155,7 @@ jobs:
             --icon-file AppDir/usr/share/icons/hicolor/256x256/apps/decodxlog.png \
             --plugin qt \
             --output appimage
-          version="${GITHUB_REF_NAME#v}"
+          version="${TAG_NAME#v}"
           mkdir -p release-assets
           mv DecoDXLog-*.AppImage "release-assets/DecoDXLog-$version-linux-${{ matrix.arch }}.AppImage"
 

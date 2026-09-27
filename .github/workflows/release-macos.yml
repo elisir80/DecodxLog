@@ -28,12 +28,14 @@ jobs:
             runner: macos-14
             arch: arm64
           - name: intel
-            runner: macos-13
+            runner: macos-15-intel
             arch: x86_64
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
 
       - name: Install dependencies
         run: brew install cmake ninja qt qtkeychain openssl@3
@@ -45,10 +47,12 @@ jobs:
         run: cmake --build build --parallel 3 --target decolog
 
       - name: Deploy app bundle
+        env:
+          TAG_NAME: ${{ inputs.tag }}
         run: |
           export PATH="$(brew --prefix qt)/bin:$PATH"
           macdeployqt build/DecoDXLog.app -qmldir=qml -qmldir=libs/decodium-ui/qml -verbose=1
-          version="${GITHUB_REF_NAME#v}"
+          version="${TAG_NAME#v}"
           mkdir -p release-assets
 
           while IFS= read -r -d '' item; do

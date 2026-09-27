@@ -3,6 +3,17 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.28 — 27 settembre 2026
+
+**Nuovo QSO piu' affidabile.** Le tendine Modo e Prop non cercano piu' di
+scrivere una proprieta' Qt in sola lettura. La data UTC non torna al giorno
+corrente quando si rientra nel nominativo, una data impossibile viene mostrata
+in rosso e non puo' essere salvata nel log.
+
+**Pacchetti coerenti con la release.** I runner macOS e Linux costruiscono
+esattamente il tag richiesto e nominano DMG e AppImage con quel numero di
+versione; l'Intel macOS usa il runner `macos-15-intel`.
+
 ## 1.16.27 — 27 settembre 2026
 
 **La CAT condivisa, come in Decodium 4.**
