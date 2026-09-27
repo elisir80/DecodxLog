@@ -109,6 +109,22 @@ private slots:
         QVERIFY(r.retryLater);
     }
 
+    void hrdLogAnswers()
+    {
+        auto r = qsl::parseHrdLogResponse(R"(<?xml version="1.0"?><RobotRequest><insert>1</insert></RobotRequest>)");
+        QVERIFY(r.ok);
+        QCOMPARE(r.accepted, 1);
+        r = qsl::parseHrdLogResponse("<RobotRequest><insert>0</insert><error>Duplicate QSO</error></RobotRequest>");
+        QVERIFY(r.ok);
+        QCOMPARE(r.duplicates, 1);
+        r = qsl::parseHrdLogResponse("<RobotRequest><error>Invalid upload code</error></RobotRequest>");
+        QVERIFY(!r.ok);
+        QCOMPARE(r.rejected, 1);
+        QVERIFY(r.message.contains("Invalid upload code"));
+        r = qsl::parseHrdLogResponse("");
+        QVERIFY(r.retryLater);
+    }
+
     void eqslAnswers()
     {
         auto r = qsl::parseEqslResponse("<html><body>Result: 1 out of 1 records added</body></html>");

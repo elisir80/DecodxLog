@@ -825,7 +825,7 @@ DialogFrame {
                         }
                         CredentialsList {
                             Layout.fillWidth: true
-                            serviceIds: ["cloud", "qrz", "qrzlogbook", "lotw", "clublog", "eqsl", "crx", "hamqth"]
+                            serviceIds: ["cloud", "qrz", "qrzlogbook", "lotw", "clublog", "eqsl", "crx", "hrdlog", "hamqth", "on4kst"]
                         }
                     }
 
@@ -1030,7 +1030,7 @@ DialogFrame {
                     }
                     CredentialsList {
                         Layout.fillWidth: true
-                        serviceIds: ["lotw", "qrzlogbook", "clublog", "eqsl", "crx"]
+                        serviceIds: ["lotw", "qrzlogbook", "clublog", "eqsl", "crx", "hrdlog"]
                     }
 
                     // ── La casella da cui partono le cartoline ─────────────

@@ -23,12 +23,13 @@ struct ServiceInfo {
     const char* credential;     // il servizio nel portachiavi
 };
 
-constexpr std::array<ServiceInfo, 5> kServices{{
+constexpr std::array<ServiceInfo, 6> kServices{{
     {"lotw", "LoTW", "lotw"},
     {"qrz", "QRZ Logbook", "qrzlogbook"},
     {"clublog", "Club Log", "clublog"},
     {"eqsl", "eQSL", "eqsl"},
     {"crx", "CRX Logbook", "crx"},
+    {"hrdlog", "HRDLog.net", "hrdlog"},
 }};
 
 // LoTW accetta file grandi, ma un invio troppo lungo blocca tutto il resto.
@@ -445,9 +446,10 @@ void QslController::startNext()
     }
 
     // QRZ, eQSL e CRX: prima la credenziale, poi un QSO alla volta.
-    const QString credential = m_busyService == QLatin1String("qrz")   ? QStringLiteral("qrzlogbook")
-                             : m_busyService == QLatin1String("crx")   ? QStringLiteral("crx")
-                                                                       : QStringLiteral("eqsl");
+    const QString credential = m_busyService == QLatin1String("qrz")    ? QStringLiteral("qrzlogbook")
+                             : m_busyService == QLatin1String("crx")    ? QStringLiteral("crx")
+                             : m_busyService == QLatin1String("hrdlog") ? QStringLiteral("hrdlog")
+                                                                        : QStringLiteral("eqsl");
     m_account = m_ctx.credentials ? m_ctx.credentials->account(credential) : QString();
     readSecret(credential, [this](const QString& secret, const QString& error) {
         if (secret.isEmpty()) {
@@ -505,6 +507,9 @@ void QslController::uploadNextWeb()
     const QString adif = adif::writeRecord(*record);
     if (m_busyService == QLatin1String("qrz"))
         m_web.uploadQrz(m_secret, adif);
+    else if (m_busyService == QLatin1String("hrdlog"))
+        m_web.uploadHrdLog(m_account.isEmpty() && m_ctx.stationCallsign ? m_ctx.stationCallsign() : m_account,
+                           m_secret, adif);
     else
         m_web.uploadEqsl(m_account, m_secret, adif);
 }

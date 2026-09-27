@@ -57,6 +57,8 @@ QslUploadResult resultFromTqslExit(int exitCode, const QString& output, int qsoC
 QslUploadResult parseQrzResponse(const QByteArray& body);
 // La pagina di eQSL dopo importADIF.cfm.
 QslUploadResult parseEqslResponse(const QByteArray& body);
+// La risposta di HRDLog.net (NewEntry.aspx): XML con <insert> o <error>.
+QslUploadResult parseHrdLogResponse(const QByteArray& body);
 // La risposta di Club Log: `status` e' il codice HTTP, 0 se non e' arrivato.
 QslUploadResult parseClubLogResponse(int status, const QByteArray& body, int qsoCount);
 
@@ -122,7 +124,7 @@ class WebQslUploader : public QObject {
     Q_OBJECT
 
 public:
-    enum class Service { QrzLogbook, Eqsl, ClubLog, Crx };
+    enum class Service { QrzLogbook, Eqsl, ClubLog, Crx, HrdLog };
 
     explicit WebQslUploader(QObject* parent = nullptr);
 
@@ -134,6 +136,9 @@ public:
     // `credentials`: per QRZ la chiave API; per eQSL utente e password.
     void uploadQrz(const QString& apiKey, const QString& adifRecord);
     void uploadEqsl(const QString& user, const QString& password, const QString& adifRecord);
+    // HRDLog.net: il nominativo, il codice di upload del profilo e un QSO.
+    void uploadHrdLog(const QString& callsign, const QString& uploadCode, const QString& adifRecord);
+    void setHrdLogEndpoint(const QUrl& url) { m_hrdLogUrl = url; }
     // Club Log prende tutto il blocco in una volta: un QSO solo passa da
     // realtime.php, il resto dal caricamento normale di un file ADIF.
     void uploadClubLog(const ClubLogAuth& auth, const QByteArray& adifDocument, int qsoCount);
@@ -159,6 +164,7 @@ private:
     QUrl m_clubLogRealtimeUrl{QStringLiteral("https://clublog.org/realtime.php")};
     QUrl m_clubLogBatchUrl{QStringLiteral("https://clublog.org/putlogs.php")};
     QUrl m_crxUrl{QStringLiteral("https://s.crx.cloud/api/")};
+    QUrl m_hrdLogUrl{QStringLiteral("https://robot.hrdlog.net/NewEntry.aspx")};
     bool m_busy{false};
 };
 

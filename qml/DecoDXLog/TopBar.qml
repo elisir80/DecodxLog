@@ -14,6 +14,7 @@ Rectangle {
     signal exportRequested()
     signal awardsRequested()
     signal clusterRequested()
+    signal chatRequested()
     signal activationRequested()
     signal profilesRequested()
     signal panelsRequested()
@@ -123,6 +124,10 @@ Rectangle {
                 StyledMenuItem { text: qsTr("Station profiles…"); onTriggered: root.profilesRequested() }
                 StyledMenuItem { text: qsTr("Panels…"); onTriggered: root.panelsRequested() }
                 StyledMenuItem { text: qsTr("DX Cluster…"); onTriggered: root.clusterRequested() }
+                StyledMenuItem {
+                    text: decolog.chat.unread > 0 ? qsTr("ON4KST chat (%1)…").arg(decolog.chat.unread) : qsTr("ON4KST chat…")
+                    onTriggered: root.chatRequested()
+                }
                 MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
                 StyledMenuItem { text: qsTr("Import ADIF…"); onTriggered: root.importRequested() }
                 StyledMenuItem { text: qsTr("Export ADIF…"); onTriggered: root.exportRequested() }

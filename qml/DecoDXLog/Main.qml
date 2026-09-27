@@ -766,6 +766,14 @@ ApplicationWindow {
         // nodo e ci fa sopra il doppio clic: serve a guardare se la radio ci va.
         // La previsione verso un locatore, nella scheda Propagazione.
         else if (what[0] === "pathforecast") { if (what[2] === "detach") window.detachPanel("tabs"); window.panelItem("tabs").setTab(5); decolog.lookupCall = what[1] || "JA1ABC" }
+        // La chat, con qualche messaggio finto.
+        else if (what[0] === "chat") {
+            decolog.chat.injectLine("Welcome to the ON4KST chat")
+            decolog.chat.injectLine("1230Z IK1ABC Mario> QRV 144.300 JN45 any sked?")
+            decolog.chat.injectLine("1231Z DL1XX Hans> (IU8LMC) pse 144.310 in 5 min")
+            decolog.chat.injectLine("1232Z OK1YY Jan> EME tonight 432.050")
+            window.openChat()
+        }
         // La band map aperta, con una manciata di spot su 20 m.
         else if (what[0] === "bandmap") {
             window.showPanel("bandmap")
@@ -1177,6 +1185,22 @@ ApplicationWindow {
         }
     }
 
+    // La chat ON4KST, in una finestra sua.
+    Loader {
+        id: chatWindow
+        active: false
+        sourceComponent: ChatWindow {
+            onClosing: Qt.callLater(function () { chatWindow.active = false })
+        }
+    }
+    function openChat() {
+        chatWindow.active = true
+        if (chatWindow.item) {
+            chatWindow.item.raise()
+            chatWindow.item.requestActivate()
+        }
+    }
+
     Loader {
         id: popWindow
         active: false
@@ -1517,6 +1541,7 @@ ApplicationWindow {
                           : window.hiddenPanels.length
             onPanelsRequested: panelsPopup.opened ? panelsPopup.close() : panelsPopup.open()
             onAboutRequested: aboutDialog.open()
+            onChatRequested: window.openChat()
             onLogFolderRequested: decolog.openDatabaseFolder()
             onQuitRequested: { window.quitting = true; Qt.quit() }
         }

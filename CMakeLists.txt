@@ -125,6 +125,8 @@ add_library(decolog_core STATIC
     src/core/WorldClock.h
     src/core/Propagation.cpp
     src/core/Propagation.h
+    src/core/KstChat.cpp
+    src/core/KstChat.h
 )
 qt_add_resources(decolog_core "schema"
     PREFIX "/decolog"
@@ -211,6 +213,8 @@ qt_add_executable(decolog
     src/app/CloudController.cpp
     src/app/CloudController.h
     src/app/RigController.cpp
+    src/app/ChatController.cpp
+    src/app/ChatController.h
     src/app/WorldClockController.cpp
     src/app/WorldClockController.h
     src/app/WorldMapItem.cpp
@@ -248,6 +252,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/DxAlertToast.qml
     qml/DecoDXLog/BandMapPanel.qml
     qml/DecoDXLog/PathForecastView.qml
+    qml/DecoDXLog/ChatWindow.qml
     qml/DecoDXLog/WorldClockButton.qml
     qml/DecoDXLog/WorldClockIcon.qml
     qml/DecoDXLog/WorldClockWindow.qml
@@ -404,7 +409,7 @@ set_target_properties(decolog PROPERTIES
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

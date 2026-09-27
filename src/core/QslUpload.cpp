@@ -351,6 +351,39 @@ QVariantList parseCrxLogs(const QByteArray& body, QString* error)
     return out;
 }
 
+QslUploadResult parseHrdLogResponse(const QByteArray& body)
+{
+    QslUploadResult r;
+    const QString text = QString::fromUtf8(body);
+    static const QRegularExpression insert(QStringLiteral("<insert>\\s*(\\d+)\\s*</insert>"),
+                                           QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression error(QStringLiteral("<error>(.*?)</error>"),
+                                          QRegularExpression::CaseInsensitiveOption | QRegularExpression::DotMatchesEverythingOption);
+    const auto e = error.match(text);
+    const QString why = e.hasMatch() ? e.captured(1).simplified() : QString();
+    if (const auto m = insert.match(text); m.hasMatch() && m.captured(1).toInt() > 0) {
+        r.ok = true;
+        r.accepted = m.captured(1).toInt();
+        r.message = QCoreApplication::translate("Qsl", "HRDLog: sent");
+        return r;
+    }
+    if (why.contains(QLatin1String("duplicate"), Qt::CaseInsensitive)
+        || why.contains(QLatin1String("already"), Qt::CaseInsensitive)) {
+        r.ok = true;
+        r.duplicates = 1;
+        r.message = QCoreApplication::translate("Qsl", "HRDLog: already there");
+        return r;
+    }
+    if (!why.isEmpty()) {
+        r.rejected = 1;
+        r.message = QCoreApplication::translate("Qsl", "HRDLog: %1").arg(why.left(160));
+        return r;
+    }
+    r.retryLater = true;
+    r.message = QCoreApplication::translate("Qsl", "HRDLog: unexpected answer");
+    return r;
+}
+
 QslUploadResult parseEqslResponse(const QByteArray& body)
 {
     QslUploadResult r;
@@ -533,6 +566,19 @@ void WebQslUploader::uploadEqsl(const QString& user, const QString& password, co
     QUrlQuery form;
     form.addQueryItem(QStringLiteral("ADIFData"), document);
     send(Service::Eqsl, m_eqslUrl, form.toString(QUrl::FullyEncoded).toUtf8());
+}
+
+void WebQslUploader::uploadHrdLog(const QString& callsign, const QString& uploadCode, const QString& adifRecord)
+{
+    QUrlQuery form;
+    form.addQueryItem(QStringLiteral("Callsign"), callsign);
+    form.addQueryItem(QStringLiteral("Code"), uploadCode);
+    form.addQueryItem(QStringLiteral("App"), QStringLiteral("DecoDXLog"));
+    form.addQueryItem(QStringLiteral("ADIFData"), adifRecord);
+    // QUrlQuery non codifica il '+': in un modulo sarebbe uno spazio.
+    QByteArray body = form.toString(QUrl::FullyEncoded).toUtf8();
+    body.replace('+', "%2B");
+    send(Service::HrdLog, m_hrdLogUrl, body);
 }
 
 void WebQslUploader::setClubLogEndpoints(const QUrl& realtime, const QUrl& batch)
@@ -722,6 +768,7 @@ void WebQslUploader::watch(QNetworkReply* reply, Service service, int qsoCount)
             return;
         }
         emit finished(service == Service::QrzLogbook ? qsl::parseQrzResponse(answer)
+                      : service == Service::HrdLog   ? qsl::parseHrdLogResponse(answer)
                                                      : qsl::parseEqslResponse(answer));
     });
 }
