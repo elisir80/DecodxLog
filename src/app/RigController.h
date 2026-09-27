@@ -9,6 +9,7 @@
 
 #include "core/CwDecoder.h"
 #include "core/CwKeyer.h"
+#include "core/WinKeyer.h"
 #include "core/RigControl.h"
 #include "core/TciControl.h"
 #include "core/FlrigControl.h"
@@ -115,12 +116,15 @@ public:
     int wpm() const { return m_rig->speedWpm() > 0 ? m_rig->speedWpm() : m_wpm; }
     // Il CW parte se sa manipolarlo il CAT oppure se c'e' il manipolatore
     // sulla seriale: basta uno dei due.
-    bool canKeyCw() const { return m_canKeyCw || m_keyer.isOpen(); }
+    bool canKeyCw() const { return m_canKeyCw || keyerOn(); }
     QString keyerPort() const { return m_keyerPort; }
     void setKeyerPort(const QString& port);
     QString keyerLine() const { return m_keyerLine; }
     void setKeyerLine(const QString& line);
-    bool keyerOn() const { return m_keyer.isOpen(); }
+    bool keyerOn() const { return m_keyer.isOpen() || m_winKeyer.isOpen(); }
+    // Il WinKeyer, se e' quello scelto: la versione del firmware (0 = non risponde).
+    Q_PROPERTY(int winKeyerVersion READ winKeyerVersion NOTIFY stateChanged)
+    int winKeyerVersion() const { return m_winKeyer.version(); }
     // Manda "VVV" per sentire se la radio va in aria davvero.
     Q_INVOKABLE void testKeyer();
     void setWpm(int wpm);
@@ -252,6 +256,7 @@ private:
     int m_wpm{24};
     bool m_canKeyCw{true};
     core::CwKeyer m_keyer;
+    core::WinKeyer m_winKeyer;
     QString m_keyerPort;
     QString m_keyerLine{QStringLiteral("DTR")};
     void openKeyer();

@@ -1606,11 +1606,11 @@ DialogFrame {
                             }
                         }
                         LabeledField {
-                            label: qsTr("Pin")
+                            label: qsTr("Keyer")
                             StyledComboBox {
-                                Layout.preferredWidth: 110
-                                readonly property var lines: ["DTR", "RTS"]
-                                model: lines
+                                Layout.preferredWidth: 170
+                                readonly property var lines: ["DTR", "RTS", "WINKEYER"]
+                                model: [qsTr("DTR pin"), qsTr("RTS pin"), qsTr("K1EL WinKeyer")]
                                 currentIndex: Math.max(0, lines.indexOf(decolog.rig.keyerLine))
                                 onActivated: decolog.rig.keyerLine = lines[currentIndex]
                             }
@@ -1626,7 +1626,11 @@ DialogFrame {
                             Layout.alignment: Qt.AlignBottom
                             Layout.bottomMargin: 6
                             visible: decolog.rig.keyerPort.length > 0
-                            text: decolog.rig.keyerOn ? qsTr("keyer ready") : qsTr("port not open")
+                            text: !decolog.rig.keyerOn ? qsTr("port not open")
+                                  : decolog.rig.keyerLine === "WINKEYER"
+                                    ? (decolog.rig.winKeyerVersion > 0 ? qsTr("WinKeyer v%1 ready").arg(decolog.rig.winKeyerVersion)
+                                                                       : qsTr("WinKeyer does not answer"))
+                                    : qsTr("keyer ready")
                             tone: decolog.rig.keyerOn ? Theme.accentColor : Theme.errorColor
                         }
                     }

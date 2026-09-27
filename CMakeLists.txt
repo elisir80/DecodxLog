@@ -127,6 +127,8 @@ add_library(decolog_core STATIC
     src/core/Propagation.h
     src/core/KstChat.cpp
     src/core/KstChat.h
+    src/core/WinKeyer.cpp
+    src/core/WinKeyer.h
     src/core/ContestNet.cpp
     src/core/ContestNet.h
     src/core/SuperCheck.cpp
@@ -425,7 +427,7 @@ set_target_properties(decolog PROPERTIES
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet winkeyer)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

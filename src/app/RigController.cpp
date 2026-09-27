@@ -52,6 +52,16 @@ RigController::RigController(Context context, QObject* parent)
     m_pttType = s.value(QStringLiteral("rig/pttType"), QStringLiteral("RIG")).toString();
     m_keyerPort = s.value(QStringLiteral("rig/keyerPort")).toString();
     m_keyerLine = s.value(QStringLiteral("rig/keyerLine"), QStringLiteral("DTR")).toString();
+    connect(&m_winKeyer, &core::WinKeyer::failed, this, [this](const QString& why) {
+        if (m_ctx.activity)
+            m_ctx.activity(QStringLiteral("CW"), why, QStringLiteral("warning"));
+        emit stateChanged();
+    });
+    connect(&m_winKeyer, &core::WinKeyer::versionReceived, this, [this](int v) {
+        if (m_ctx.activity)
+            m_ctx.activity(QStringLiteral("CW"), tr("WinKeyer answers: firmware %1").arg(v), QStringLiteral("info"));
+        emit stateChanged();
+    });
     connect(&m_keyer, &core::CwKeyer::failed, this, [this](const QString& why) {
         if (m_ctx.activity)
             m_ctx.activity(QStringLiteral("CW"), why, QStringLiteral("warning"));
@@ -351,6 +361,7 @@ void RigController::setWpm(int wpm)
     m_wpm = clamped;
     QSettings().setValue(QStringLiteral("cw/wpm"), clamped);
     m_rig->setSpeedWpm(clamped);
+    m_winKeyer.setSpeed(clamped);
     emit stateChanged();
 }
 
@@ -878,6 +889,12 @@ void RigController::sendText(const QString& text, const QVariantMap& context)
         return;
     // Il manipolatore sulla seriale ha la precedenza: se c'e', e' quello che
     // l'operatore ha attaccato alla radio apposta.
+    if (m_winKeyer.isOpen()) {
+        m_winKeyer.send(ready, wpm());
+        if (m_ctx.activity)
+            m_ctx.activity(QStringLiteral("CW"), tr("Sent: %1").arg(ready), QStringLiteral("info"));
+        return;
+    }
     if (m_keyer.isOpen()) {
         m_keyer.send(ready, wpm());
         return;
@@ -893,6 +910,7 @@ void RigController::sendText(const QString& text, const QVariantMap& context)
 void RigController::stop()
 {
     m_keyer.stop();
+    m_winKeyer.stop();
     m_rig->stopMorse();
 }
 
@@ -901,7 +919,16 @@ void RigController::stop()
 void RigController::openKeyer()
 {
     m_keyer.close();
+    m_winKeyer.close();
     if (m_keyerPort.isEmpty()) {
+        emit stateChanged();
+        return;
+    }
+    // Il WinKeyer fa da se' i tempi: gli si manda il testo e basta.
+    if (m_keyerLine == QLatin1String("WINKEYER")) {
+        m_winKeyer.setSpeed(m_wpm);
+        if (m_winKeyer.open(m_keyerPort) && m_ctx.activity)
+            m_ctx.activity(QStringLiteral("CW"), tr("WinKeyer on %1").arg(m_keyerPort), QStringLiteral("success"));
         emit stateChanged();
         return;
     }
@@ -927,8 +954,10 @@ void RigController::setKeyerPort(const QString& port)
 
 void RigController::setKeyerLine(const QString& line)
 {
-    const QString clean = line.trimmed().toUpper() == QLatin1String("RTS") ? QStringLiteral("RTS")
-                                                                           : QStringLiteral("DTR");
+    const QString up = line.trimmed().toUpper();
+    const QString clean = up == QLatin1String("RTS")      ? QStringLiteral("RTS")
+                        : up == QLatin1String("WINKEYER") ? QStringLiteral("WINKEYER")
+                                                          : QStringLiteral("DTR");
     if (clean == m_keyerLine)
         return;
     m_keyerLine = clean;
@@ -939,6 +968,10 @@ void RigController::setKeyerLine(const QString& line)
 
 void RigController::testKeyer()
 {
+    if (m_winKeyer.isOpen()) {
+        m_winKeyer.send(QStringLiteral("VVV"), wpm());
+        return;
+    }
     if (!m_keyer.isOpen()) {
         if (m_ctx.activity)
             m_ctx.activity(QStringLiteral("CW"), tr("No CW keyer: pick a port first"),
