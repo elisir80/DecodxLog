@@ -5888,10 +5888,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>TCI 是 Expert Electronics SDR（SunSDR、搭配 ExpertSDR 的 ColibriNANO）以及支援它的程式所用的協定：請在 SDR 程式中啟用 TCI（通常連接埠 40001）。DecoDXLog 在頻率與模式變化時立即讀取，調諧電台，使用其 PTT，並以 SDR 自帶的電鍵送出 CW 巨集。Decodium 可以同時連接：TCI 接受多個程式。</translation>
     </message>
     <message>
-        <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
-        <translation>八個巨集在比賽視窗 (Ctrl+Shift+T) 和 CW 面板裡，放在 F1-F8 鍵上，用 Esc 停止。</translation>
-    </message>
-    <message>
         <source>Keying on a serial port</source>
         <translation>序列埠電鍵</translation>
     </message>
@@ -5938,6 +5934,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
         <translation>OmniRig（VE3NEA 開發）占用序列埠並與所有請求的程式共享電台：電台在 OmniRig 中設定（Rig 1 或 Rig 2）。DecoDXLog 讀取頻率和模式、調諧電台並使用其 PTT。OmniRig 不發送 CW：請使用下面的序列鍵控器或其他連接。</translation>
+    </message>
+    <message>
+        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
+        <translation>十二個巨集在比賽輸入的「巨集…」或比賽視窗（Ctrl+Shift+T）的「編輯巨集」中編寫，對應 F1-F12 鍵，按 Esc 停止。</translation>
     </message>
     <message>
         <source>Keyer</source>

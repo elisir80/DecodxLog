@@ -48,6 +48,16 @@ GlassPanel {
     // sua frequenza e' troppo vicina, e una linea la lega al suo punto.
     readonly property int rowH: 18
     property var placed: []
+    // Si creano le etichette solo attorno a quello che si vede: con l'RBN su
+    // una banda piena erano centinaia, rifatte tutte a ogni aggiornamento, e
+    // la finestra si fermava un attimo ogni secondo. La finestra di lavoro
+    // si sposta a passi di 300 pixel, non a ogni pixel di scorrimento.
+    readonly property int viewStep: Math.floor(scroller.contentY / 300)
+    readonly property var shown: {
+        const from = (viewStep - 1) * 300
+        const to = (viewStep + 1) * 300 + scroller.height + 300
+        return placed.filter(s => s.top + rowH >= from && s.top <= to)
+    }
     function relayout() {
         const m = cluster.bandMap(root.band, store.useFilter)
         root.map = m
@@ -81,16 +91,18 @@ GlassPanel {
     // Gli spot arrivano a raffiche: la mappa si rifa' al massimo una volta al secondo.
     Timer {
         id: relayoutTimer
-        interval: 800
+        interval: 1500
         onTriggered: root.relayout()
     }
     Connections {
         target: root.cluster
-        function onSpotsUpdated() { if (!relayoutTimer.running) relayoutTimer.start() }
+        // Nascosta (pannello chiuso, o l'altra lavagna davanti) non si rifa'.
+        function onSpotsUpdated() { if (root.visible && !relayoutTimer.running) relayoutTimer.start() }
     }
     // Anche l'eta' degli spot cambia: ogni mezzo minuto si rifa' comunque.
-    Timer { interval: 30000; repeat: true; running: true; onTriggered: root.relayout() }
+    Timer { interval: 30000; repeat: true; running: root.visible; onTriggered: root.relayout() }
     onBandChanged: { relayout(); Qt.callLater(centerOnRadio) }
+    onVisibleChanged: if (visible) relayout()
     onKppChanged: { relayout(); Qt.callLater(centerOnRadio) }
     onRadioKhzChanged: {
         if (!store.follow || radioKhz <= 0)
@@ -268,7 +280,7 @@ GlassPanel {
 
             // Le etichette degli spot, con la linea fino alla frequenza.
             Repeater {
-                model: root.placed
+                model: root.shown
                 Item {
                     id: spotItem
                     required property var modelData

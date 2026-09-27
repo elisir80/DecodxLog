@@ -5901,10 +5901,6 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>TCI è il protocollo delle SDR Expert Electronics (SunSDR, ColibriNANO con ExpertSDR) e dei programmi che lo parlano: attiva TCI nel programma della SDR (di solito porta 40001). DecoDXLog legge frequenza e modo appena cambiano, sintonizza la radio, usa il suo PTT e manda le macro CW con il manipolatore della SDR. Decodium può restare collegato insieme: TCI accetta più programmi.</translation>
     </message>
     <message>
-        <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
-        <translation>Le otto macro stanno nella finestra contest (Ctrl+Shift+T) e nel pannello CW, sui tasti F1-F8, con Esc per fermare.</translation>
-    </message>
-    <message>
         <source>Keying on a serial port</source>
         <translation>Manipolazione su porta seriale</translation>
     </message>
@@ -5951,6 +5947,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
         <translation>OmniRig (di VE3NEA) tiene la porta seriale e divide la radio con tutti i programmi che la chiedono: la radio si configura in OmniRig stesso (Rig 1 o Rig 2). DecoDXLog legge frequenza e modo, sintonizza la radio e usa il suo PTT. OmniRig non manda il CW: per quello usa il manipolatore seriale qui sotto o un altro collegamento.</translation>
+    </message>
+    <message>
+        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
+        <translation>Le dodici macro si scrivono con Macro… nell&apos;inserimento del contest, o con Scrivi le macro nella finestra contest (Ctrl+Shift+T), e vanno sui tasti F1-F12; Esc ferma.</translation>
     </message>
     <message>
         <source>Keyer</source>

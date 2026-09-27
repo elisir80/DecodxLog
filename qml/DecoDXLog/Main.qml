@@ -343,6 +343,66 @@ ApplicationWindow {
     }
 
     Timer { id: exitProbe; interval: 900; onTriggered: window.exitContestMode() }
+    // Il tempo fra due fotogrammi disegnati, mentre si trascina.
+    QtObject {
+        id: frameGap
+        property double last: 0
+        property int worst: 0
+        property int frames: 0
+    }
+    Connections {
+        target: dragBench.running && dragBench.n > 0 ? window : null
+        function onFrameSwapped() {
+            const now = Date.now()
+            if (frameGap.last > 0)
+                frameGap.worst = Math.max(frameGap.worst, now - frameGap.last)
+            frameGap.last = now
+            frameGap.frames++
+        }
+    }
+    Timer {
+        id: dragBench
+        property string key: ""
+        property var board: null
+        property string mode: "move"
+        property int n: 0
+        property var p0: null
+        property int worst: 0
+        property int total: 0
+        interval: 16
+        repeat: true
+        onTriggered: {
+            // Un secondo di attesa perche' tutto sia disegnato.
+            if (n < 0) { n++; return }
+            const p = board.panelFor(key)
+            if (!p) { stop(); return }
+            const t0 = Date.now()
+            if (n === 45)
+                console.warn("DRAG a meta': " + Math.round(p.x) + "," + Math.round(p.y) + " " + Math.round(p.width) + "x" + Math.round(p.height) + " live=" + p.live)
+            if (n === 0) {
+                console.warn("DRAG prima: " + Math.round(p.x) + "," + Math.round(p.y) + " " + Math.round(p.width) + "x" + Math.round(p.height))
+                p0 = mode === "resize" ? p.mapToItem(null, p.width - 1, p.height - 1)
+                                       : p.mapToItem(null, 90, Theme.panelHeight / 2)
+                benchWatch.worst = 0
+                decolog.testPointer(window, "press", p0.x, p0.y)
+            } else if (n <= 90) {
+                const k = n <= 45 ? n : 90 - n
+                decolog.testPointer(window, "move", p0.x + k * 4, p0.y + k * 2)
+            } else {
+                decolog.testPointer(window, "release", p0.x, p0.y)
+                console.warn("DRAG " + mode + " " + key + ": movimento peggiore " + worst + " ms, medio "
+                             + (total / 90).toFixed(1) + " ms, scatto piu' lungo " + benchWatch.worst + " ms"
+                             + " | pannello " + Math.round(p.x) + "," + Math.round(p.y) + " " + Math.round(p.width) + "x" + Math.round(p.height)
+                             + " live=" + p.live + " | fotogrammi " + frameGap.frames + ", buco piu' lungo fra due " + frameGap.worst + " ms")
+                stop()
+                return
+            }
+            const dt = Date.now() - t0
+            worst = Math.max(worst, dt)
+            total += dt
+            n++
+        }
+    }
     Timer {
         id: idleWatch
         property int left: 0
@@ -820,6 +880,25 @@ ApplicationWindow {
         // tornare com'era.
         else if (what[0] === "contestexit") { window.openContestDesk(); exitProbe.start() }
         else if (what[0] === "switchbench") switchBench.start()
+        // Il trascinamento mentre il cluster manda spot a raffica.
+        else if (what[0] === "dragflood") {
+            spotFlood.rate = 60; spotFlood.left = 300; spotFlood.oneBand = true; spotFlood.start()
+            dragBench.key = what[1] || "logbook"
+            dragBench.board = mainBoard
+            dragBench.mode = "move"
+            dragBench.n = -600
+            dragBench.start()
+        }
+        // Trascina un pannello come farebbe la mano: 90 movimenti a 60 al secondo,
+        // e dice quanto costa ogni movimento e lo scatto piu' lungo.
+        else if (what[0] === "dragbench") {
+            if (what[2] === "contest") window.openContestDesk()
+            dragBench.key = what[1] || "logbook"
+            dragBench.board = what[2] === "contest" ? contestLayout : mainBoard
+            dragBench.mode = what[3] || "move"
+            dragBench.n = -60
+            dragBench.start()
+        }
         // Fermo, a guardare: ogni secondo lo scatto piu' lungo (per misurare con
         // un Decodium finto che manda Status e decodifiche).
         else if (what[0] === "idlewatch") { if (what[1] === "contest") window.openContestDesk(); idleWatch.left = parseInt(what[2] || "20"); idleWatch.start() }
@@ -830,7 +909,7 @@ ApplicationWindow {
         // Per misurare: il banco aperto con il cluster che corre (uno spot ogni
         // 250 ms, come un RBN in gara) e ogni tanto un clic su uno spot.
         // Una valanga di spot come quella dell'RBN: `rate` al secondo per `secs` secondi.
-        else if (what[0] === "spotflood") { spotFlood.rate = parseInt(what[1] || "40"); spotFlood.left = parseInt(what[2] || "20") * 10; spotFlood.start() }
+        else if (what[0] === "spotflood") { spotFlood.rate = parseInt(what[1] || "40"); spotFlood.left = parseInt(what[2] || "20") * 10; spotFlood.oneBand = what[3] === "one"; spotFlood.start() }
         else if (what[0] === "benchspots") { if (what[2] !== "nodesk") window.openContestDesk(); else window.exitContestMode(); spotBench.left = parseInt(what[1] || "40"); spotBench.start() }
         // Per misurare: scrivere un nominativo lettera per lettera, come si fa
         // nell'inserimento veloce. Ogni lettera deve essere istantanea.
@@ -1180,6 +1259,7 @@ ApplicationWindow {
         property int left: 0
         property int n: 0
         property int spent: 0
+        property bool oneBand: false
         interval: 100
         repeat: true
         onTriggered: {
@@ -1193,7 +1273,7 @@ ApplicationWindow {
             for (let i = 0; i < per; ++i) {
                 n++
                 const call = pre[n % pre.length] + (n % 10) + String.fromCharCode(65 + (n * 7) % 26) + String.fromCharCode(65 + (n * 3) % 26) + String.fromCharCode(65 + n % 26)
-                const khz = (bands[n % bands.length] + (n % 3) * 0.1).toFixed(1)
+                const khz = oneBand ? (14074 + (n * 37) % 3000 / 1000).toFixed(1) : (bands[n % bands.length] + (n % 3) * 0.1).toFixed(1)
                 decolog.cluster.injectLine("DX de " + pre[(n * 5) % pre.length] + (n % 9) + "ABC-#:   " + khz + "  " + call
                                            + "  FT8 -" + (n % 20) + " dB " + hhmm + "Z")
             }
@@ -1247,7 +1327,7 @@ ApplicationWindow {
         interval: 16
         repeat: true
         running: benchTimer.running || spotBench.running || typeBench.running || switchBench.running || spotFlood.running
-                 || idleWatch.running
+                 || idleWatch.running || dragBench.running
         onTriggered: {
             const now = Date.now()
             if (last > 0)

@@ -3,6 +3,21 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.26 — in preparazione
+
+**La band map non ferma piu' la finestra quando il cluster manda spot a raffica.**
+
+- Con l'RBN acceso e una banda piena di spot, la band map rifaceva tutte le sue etichette
+  (centinaia) a ogni aggiornamento: ogni secondo la finestra si fermava per un sesto di
+  secondo, e spostando o ridimensionando i pannelli si sentiva a scatti. Adesso crea solo
+  le etichette attorno a quello che si vede, si aggiorna ogni secondo e mezzo e, quando e'
+  chiusa o nascosta, non si aggiorna affatto. Misurato con 60 spot al secondo sulla stessa
+  banda: da 150 ms di fermo al secondo a nessun fermo avvertibile.
+- All'avvio l'elenco degli utenti LoTW (centinaia di migliaia di righe) e l'elenco di chi e'
+  gia' stato lavorato si leggono su un altro filo: niente piu' mezzo secondo di finestra
+  ferma appena aperto il programma.
+- La nota delle impostazioni sulle macro dice dove si scrivono le dodici macro.
+
 ## 1.16.25 — 27 settembre 2026
 
 **Molto piu' svelto con un log grande: niente piu' finestra ferma fra un pannello e l'altro e dopo ogni QSO.**

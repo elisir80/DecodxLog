@@ -1577,8 +1577,8 @@ DialogFrame {
                         }
                     }
                     Note {
-                        text: qsTr("The eight macros are in the contest window (Ctrl+Shift+T) and in the CW "
-                                   + "panel, on the F1-F8 keys, with Esc to stop.")
+                        text: qsTr("The twelve macros are written with Macros… in the contest entry, or Edit macros "
+                                   + "in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.")
                     }
 
                     //  Il manipolatore su una porta tutta sua: e' la via per

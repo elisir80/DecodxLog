@@ -1543,7 +1543,7 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <source>%n QSO</source>
         <translation>
             <numerusform>%n QSO</numerusform>
-            <numerusform>%n QSO's</numerusform>
+            <numerusform>%n QSO&apos;s</numerusform>
         </translation>
     </message>
     <message>
@@ -5901,10 +5901,6 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>TCI is het protocol van de SDR&apos;s van Expert Electronics (SunSDR, ColibriNANO met ExpertSDR) en van de programma&apos;s die het spreken: zet TCI aan in het SDR-programma (meestal poort 40001). DecoDXLog leest frequentie en mode zodra ze veranderen, stemt de radio af, gebruikt zijn PTT en stuurt de CW-macro&apos;s met de seinsleutel van de SDR. Decodium kan tegelijk verbonden zijn: TCI accepteert meerdere programma&apos;s.</translation>
     </message>
     <message>
-        <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
-        <translation>De acht macro&apos;s staan in het contestvenster (Ctrl+Shift+T) en in het CW-paneel, op de toetsen F1-F8, met Esc om te stoppen.</translation>
-    </message>
-    <message>
         <source>Keying on a serial port</source>
         <translation>Seinen op een seriële poort</translation>
     </message>
@@ -5951,6 +5947,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
         <translation>OmniRig (van VE3NEA) beheert de seriële poort en deelt de radio met elk programma: stel de radio in OmniRig zelf in (Rig 1 of Rig 2). DecoDXLog leest frequentie en mode, stemt af en gebruikt de PTT. OmniRig stuurt geen CW: gebruik daarvoor de seriële keyer hieronder of een andere koppeling.</translation>
+    </message>
+    <message>
+        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
+        <translation>De twaalf macro&apos;s schrijf je met Macro&apos;s… in de contestinvoer, of Macro&apos;s bewerken in het contestvenster (Ctrl+Shift+T); ze zitten op F1-F12, Esc stopt.</translation>
     </message>
     <message>
         <source>Keyer</source>

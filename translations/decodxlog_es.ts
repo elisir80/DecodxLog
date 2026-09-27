@@ -5901,10 +5901,6 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>TCI es el protocolo de los SDR de Expert Electronics (SunSDR, ColibriNANO con ExpertSDR) y de los programas que lo hablan: activa TCI en el programa del SDR (normalmente puerto 40001). DecoDXLog lee la frecuencia y el modo en cuanto cambian, sintoniza la radio, usa su PTT y envía las macros CW con el manipulador del SDR. Decodium puede seguir conectado a la vez: TCI acepta varios programas.</translation>
     </message>
     <message>
-        <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
-        <translation>Las ocho macros están en la ventana de concurso (Ctrl+Mayús+T) y en el panel de CW, en las teclas F1-F8, con Esc para parar.</translation>
-    </message>
-    <message>
         <source>Keying on a serial port</source>
         <translation>Manipulación por puerto serie</translation>
     </message>
@@ -5951,6 +5947,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
         <translation>OmniRig (de VE3NEA) mantiene el puerto serie y comparte la radio con todos los programas: configura la radio en el propio OmniRig (Rig 1 o Rig 2). DecoDXLog lee frecuencia y modo, sintoniza la radio y usa su PTT. OmniRig no envía CW: para eso usa el manipulador serie de abajo u otro enlace.</translation>
+    </message>
+    <message>
+        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
+        <translation>Las doce macros se escriben con Macros… en la entrada del concurso, o Editar macros en la ventana del concurso (Ctrl+Mayús+T), y van en las teclas F1-F12; Esc detiene.</translation>
     </message>
     <message>
         <source>Keyer</source>

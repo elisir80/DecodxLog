@@ -5888,10 +5888,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>TCI は Expert Electronics の SDR（SunSDR、ExpertSDR の ColibriNANO）と、それに対応するプログラムのプロトコルです。SDR のプログラムで TCI を有効にしてください（通常ポート 40001）。DecoDXLog は周波数とモードの変化をすぐに読み取り、無線機を同調し、その PTT を使い、SDR 自身のキーヤーで CW マクロを送ります。Decodium と同時に接続できます：TCI は複数のプログラムを受け付けます。</translation>
     </message>
     <message>
-        <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
-        <translation>八つのマクロは、コンテストの窓 (Ctrl+Shift+T) と CW パネルの F1-F8 にあります。止めるのは Esc です。</translation>
-    </message>
-    <message>
         <source>Keying on a serial port</source>
         <translation>シリアルポートでの電鍵</translation>
     </message>
@@ -5938,6 +5934,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
         <translation>OmniRig（VE3NEA 作）はシリアルポートを持ち、求めるすべてのプログラムと無線機を共有します。無線機は OmniRig 側で設定します（Rig 1 または Rig 2）。DecoDXLog は周波数とモードを読み、同調し、PTT を使います。OmniRig は CW を送りません。CW には下のシリアルキーヤーか別の接続を使ってください。</translation>
+    </message>
+    <message>
+        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
+        <translation>12 個のマクロはコンテスト入力の「マクロ…」、またはコンテストウィンドウ（Ctrl+Shift+T）の「マクロを編集」で書き、F1〜F12 キーに割り当てられます。Esc で停止します。</translation>
     </message>
     <message>
         <source>Keyer</source>

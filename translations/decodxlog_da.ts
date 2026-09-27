@@ -1543,7 +1543,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <source>%n QSO</source>
         <translation>
             <numerusform>%n QSO</numerusform>
-            <numerusform>%n QSO'er</numerusform>
+            <numerusform>%n QSO&apos;er</numerusform>
         </translation>
     </message>
     <message>
@@ -5901,10 +5901,6 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>TCI er protokollen for Expert Electronics&apos; SDR&apos;er (SunSDR, ColibriNANO med ExpertSDR) og for de programmer, der taler den: slå TCI til i SDR-programmet (normalt port 40001). DecoDXLog læser frekvens og mode, så snart de ændres, tuner radioen, bruger dens PTT og sender CW-makroerne med SDR&apos;ens egen nøgle. Decodium kan være tilsluttet samtidig: TCI tager imod flere programmer.</translation>
     </message>
     <message>
-        <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
-        <translation>De otte makroer findes i contest-vinduet (Ctrl+Shift+T) og i CW-panelet, på tasterne F1-F8, med Esc for at stoppe.</translation>
-    </message>
-    <message>
         <source>Keying on a serial port</source>
         <translation>Nøgling på en serieport</translation>
     </message>
@@ -5951,6 +5947,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
         <translation>OmniRig (af VE3NEA) holder den serielle port og deler radioen med alle programmer: konfigurer radioen i selve OmniRig (Rig 1 eller Rig 2). DecoDXLog læser frekvens og mode, indstiller radioen og bruger dens PTT. OmniRig sender ikke CW: brug den serielle keyer nedenfor eller en anden forbindelse til det.</translation>
+    </message>
+    <message>
+        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
+        <translation>De tolv makroer skrives med Makroer… i contest-indtastningen eller Rediger makroer i contest-vinduet (Ctrl+Shift+T) og ligger på F1-F12; Esc stopper.</translation>
     </message>
     <message>
         <source>Keyer</source>

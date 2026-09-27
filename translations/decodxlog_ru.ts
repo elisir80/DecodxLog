@@ -5914,10 +5914,6 @@ The call Decodium is working shows up here by itself.</source>
         <translation>TCI — протокол SDR Expert Electronics (SunSDR, ColibriNANO с ExpertSDR) и программ, которые его поддерживают: включите TCI в программе SDR (обычно порт 40001). DecoDXLog сразу видит смену частоты и вида работы, перестраивает трансивер, использует его PTT и передаёт CW-макросы ключом SDR. Decodium может быть подключён одновременно: TCI принимает несколько программ.</translation>
     </message>
     <message>
-        <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
-        <translation>Восемь макросов — в окне соревнования (Ctrl+Shift+T) и в панели CW, на клавишах F1-F8; Esc останавливает.</translation>
-    </message>
-    <message>
         <source>Keying on a serial port</source>
         <translation>Манипуляция на последовательном порту</translation>
     </message>
@@ -5964,6 +5960,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
         <translation>OmniRig (VE3NEA) держит последовательный порт и делит радио со всеми программами: радио настраивается в самом OmniRig (Rig 1 или Rig 2). DecoDXLog читает частоту и вид излучения, настраивает радио и использует его PTT. OmniRig не передаёт CW: для этого используйте последовательный ключ ниже или другое подключение.</translation>
+    </message>
+    <message>
+        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
+        <translation>Двенадцать макросов задаются кнопкой Макросы… во вводе соревнования или Изменить макросы в окне соревнования (Ctrl+Shift+T); они на клавишах F1-F12, Esc останавливает.</translation>
     </message>
     <message>
         <source>Keyer</source>

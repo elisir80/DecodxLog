@@ -191,7 +191,7 @@ void ClusterController::start()
     if (m_started)
         return;
     m_started = true;
-    rebuildIndex();
+    rebuildIndexInBackground();
     loadLotwUsers();
 
     QSettings s;
@@ -1006,12 +1006,33 @@ void ClusterController::testVoice()
 
 void ClusterController::loadLotwUsers()
 {
-    QFile file(lotwUsersPath());
-    const QFileInfo info(file);
-    if (file.open(QIODevice::ReadOnly)) {
-        m_lotwUsers.load(file.readAll());
-        m_lotwUsersInfo = tr("%1 LoTW users · list of %2").arg(m_lotwUsers.size()).arg(info.lastModified().toString(core::dates::format()));
-        emit lotwUsersChanged();
+    const QString path = lotwUsersPath();
+    const QFileInfo info(path);
+    if (info.exists()) {
+        // Il file dell'ARRL ha centinaia di migliaia di righe: si legge su un
+        // altro filo, cosi' l'avvio non resta fermo mezzo secondo ad aspettarlo.
+        QPointer<ClusterController> self(this);
+        const QDateTime modified = info.lastModified();
+        m_indexPool.start([self, path, modified] {
+            QFile file(path);
+            if (!file.open(QIODevice::ReadOnly))
+                return;
+            LotwUsers users;
+            users.load(file.readAll());
+            QMetaObject::invokeMethod(
+                self.data(),
+                [self, users, modified] {
+                    if (!self)
+                        return;
+                    self->m_lotwUsers = users;
+                    self->m_lotwUsersInfo = tr("%1 LoTW users · list of %2").arg(self->m_lotwUsers.size())
+                                                .arg(modified.toString(core::dates::format()));
+                    emit self->lotwUsersChanged();
+                    // Chi carica su LoTW si segna sugli spot che ci sono gia'.
+                    self->m_model.restatus([s = self.data()](const EnrichedSpot& e) { return s->statusOf(e); });
+                },
+                Qt::QueuedConnection);
+        });
     }
     // La lista ARRL cambia piano: una volta alla settimana basta.
     if (!info.exists() || info.lastModified().daysTo(QDateTime::currentDateTime()) >= 7)

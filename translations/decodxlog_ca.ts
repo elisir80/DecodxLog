@@ -5901,10 +5901,6 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>TCI és el protocol dels SDR d&apos;Expert Electronics (SunSDR, ColibriNANO amb ExpertSDR) i dels programes que el parlen: activa TCI al programa de l&apos;SDR (normalment port 40001). DecoDXLog llegeix la freqüència i el mode tan bon punt canvien, sintonitza la ràdio, fa servir el seu PTT i envia les macros CW amb el manipulador de l&apos;SDR. Decodium pot quedar connectat alhora: TCI accepta diversos programes.</translation>
     </message>
     <message>
-        <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
-        <translation>Les vuit macros són a la finestra de concurs (Ctrl+Shift+T) i al plafó de CW, a les tecles F1-F8, amb Esc per aturar.</translation>
-    </message>
-    <message>
         <source>Keying on a serial port</source>
         <translation>Manipulació en un port sèrie</translation>
     </message>
@@ -5951,6 +5947,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
         <translation>OmniRig (de VE3NEA) té el port sèrie i comparteix la ràdio amb tots els programes: configura la ràdio al mateix OmniRig (Rig 1 o Rig 2). DecoDXLog llegeix freqüència i mode, sintonitza la ràdio i fa servir el seu PTT. OmniRig no envia CW: per això fes servir el manipulador sèrie de sota o un altre enllaç.</translation>
+    </message>
+    <message>
+        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
+        <translation>Les dotze macros s&apos;escriuen amb Macros… a l&apos;entrada del concurs, o Edita les macros a la finestra del concurs (Ctrl+Maj+T), i van a les tecles F1-F12; Esc atura.</translation>
     </message>
     <message>
         <source>Keyer</source>

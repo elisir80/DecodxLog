@@ -5888,10 +5888,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>A TCI az Expert Electronics SDR-ek (SunSDR, ColibriNANO ExpertSDR-rel) és az azt beszélő programok protokollja: kapcsold be a TCI-t az SDR programjában (általában 40001-es port). A DecoDXLog azonnal olvassa a frekvenciát és az üzemmódot, hangolja a rádiót, használja a PTT-jét, és az SDR saját billentyűjével küldi a CW makrókat. A Decodium egyszerre is csatlakozhat: a TCI több programot is elfogad.</translation>
     </message>
     <message>
-        <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
-        <translation>A nyolc makró a versenyablakban (Ctrl+Shift+T) és a CW-panelen van, az F1-F8 billentyűkön; az Esc állítja le.</translation>
-    </message>
-    <message>
         <source>Keying on a serial port</source>
         <translation>Manipulálás soros porton</translation>
     </message>
@@ -5938,6 +5934,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
         <translation>Az OmniRig (VE3NEA) kezeli a soros portot és megosztja a rádiót minden programmal: a rádiót magában az OmniRigben kell beállítani (Rig 1 vagy Rig 2). A DecoDXLog olvassa a frekvenciát és módot, hangol és használja a PTT-t. Az OmniRig nem küld CW-t: ahhoz az alábbi soros kulcsolót vagy más kapcsolatot használj.</translation>
+    </message>
+    <message>
+        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
+        <translation>A tizenkét makrót a verseny-bevitel Makrók… gombjával vagy a versenyablak Makrók szerkesztése gombjával (Ctrl+Shift+T) lehet megírni; az F1-F12 gombokon vannak, az Esc leállít.</translation>
     </message>
     <message>
         <source>Keyer</source>

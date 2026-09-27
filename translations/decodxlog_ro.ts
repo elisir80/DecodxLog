@@ -5914,10 +5914,6 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>TCI este protocolul SDR-urilor Expert Electronics (SunSDR, ColibriNANO cu ExpertSDR) și al programelor care îl vorbesc: activează TCI în programul SDR-ului (de obicei portul 40001). DecoDXLog citește frecvența și modul imediat ce se schimbă, acordează stația, folosește PTT-ul ei și trimite macrourile CW cu manipulatorul SDR-ului. Decodium poate rămâne conectat în același timp: TCI acceptă mai multe programe.</translation>
     </message>
     <message>
-        <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
-        <translation>Cele opt macrouri sunt în fereastra de concurs (Ctrl+Shift+T) și în panoul CW, pe tastele F1-F8, cu Esc pentru oprire.</translation>
-    </message>
-    <message>
         <source>Keying on a serial port</source>
         <translation>Manipulare pe un port serial</translation>
     </message>
@@ -5964,6 +5960,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
         <translation>OmniRig (de VE3NEA) ține portul serial și partajează stația cu toate programele: configurează stația în OmniRig (Rig 1 sau Rig 2). DecoDXLog citește frecvența și modul, acordă stația și folosește PTT-ul. OmniRig nu trimite CW: pentru asta folosește keyerul serial de mai jos sau altă legătură.</translation>
+    </message>
+    <message>
+        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
+        <translation>Cele douăsprezece macrouri se scriu cu Macrouri… în introducerea concursului sau Editează macrourile în fereastra concursului (Ctrl+Shift+T) și sunt pe tastele F1-F12; Esc oprește.</translation>
     </message>
     <message>
         <source>Keyer</source>

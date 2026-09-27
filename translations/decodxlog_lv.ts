@@ -5914,10 +5914,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>TCI ir Expert Electronics SDR (SunSDR, ColibriNANO ar ExpertSDR) un to programmu protokols, kas to runā: ieslēdz TCI SDR programmā (parasti ports 40001). DecoDXLog nolasa frekvenci un modu, tiklīdz tie mainās, noskaņo radio, izmanto tā PTT un sūta CW makro ar SDR telegrāfa atslēgu. Decodium var būt pieslēgts vienlaikus: TCI pieņem vairākas programmas.</translation>
     </message>
     <message>
-        <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
-        <translation>Astoņi makro ir sacensību logā (Ctrl+Shift+T) un CW panelī, uz taustiņiem F1-F8; Esc aptur.</translation>
-    </message>
-    <message>
         <source>Keying on a serial port</source>
         <translation>Manipulēšana seriālajā portā</translation>
     </message>
@@ -5964,6 +5960,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
         <translation>OmniRig (VE3NEA) tur seriālo portu un koplieto radio ar visām programmām: radio iestata pašā OmniRig (Rig 1 vai Rig 2). DecoDXLog nolasa frekvenci un modu, noskaņo radio un izmanto PTT. OmniRig nesūta CW: tam izmanto zemāk esošo seriālo keyer vai citu savienojumu.</translation>
+    </message>
+    <message>
+        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
+        <translation>Divpadsmit makro raksta ar Makro… sacensību ievadē vai Rediģēt makro sacensību logā (Ctrl+Shift+T); tie ir uz F1-F12, Esc aptur.</translation>
     </message>
     <message>
         <source>Keyer</source>

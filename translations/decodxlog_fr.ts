@@ -5901,10 +5901,6 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
         <translation>TCI est le protocole des SDR Expert Electronics (SunSDR, ColibriNANO avec ExpertSDR) et des programmes qui le parlent : activez TCI dans le programme de la SDR (en général port 40001). DecoDXLog lit la fréquence et le mode dès qu&apos;ils changent, règle la radio, utilise son PTT et envoie les macros CW avec le manipulateur de la SDR. Decodium peut rester connecté en même temps : TCI accepte plusieurs programmes.</translation>
     </message>
     <message>
-        <source>The eight macros are in the contest window (Ctrl+Shift+T) and in the CW panel, on the F1-F8 keys, with Esc to stop.</source>
-        <translation>Les huit macros sont dans la fenêtre concours (Ctrl+Maj+T) et dans le panneau CW, sur les touches F1-F8, avec Échap pour arrêter.</translation>
-    </message>
-    <message>
         <source>Keying on a serial port</source>
         <translation>Manipulation sur un port série</translation>
     </message>
@@ -5951,6 +5947,10 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
     <message>
         <source>OmniRig (by VE3NEA) keeps the serial port and shares the radio with every program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig does not send CW: use the serial keyer below or another link for that.</source>
         <translation>OmniRig (de VE3NEA) tient le port série et partage la radio avec tous les programmes : configurez la radio dans OmniRig lui-même (Rig 1 ou Rig 2). DecoDXLog lit la fréquence et le mode, accorde la radio et utilise son PTT. OmniRig n&apos;envoie pas de CW : utilisez pour cela le manipulateur série ci-dessous ou un autre lien.</translation>
+    </message>
+    <message>
+        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
+        <translation>Les douze macros s&apos;écrivent avec Macros… dans la saisie du concours, ou Modifier les macros dans la fenêtre concours (Ctrl+Maj+T), et vont sur les touches F1-F12 ; Échap arrête.</translation>
     </message>
     <message>
         <source>Keyer</source>
