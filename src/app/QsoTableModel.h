@@ -8,6 +8,7 @@
 
 #include <QAbstractTableModel>
 #include <QHash>
+#include <QSet>
 #include <QString>
 #include <QStringList>
 #include <QVariantList>
@@ -148,6 +149,13 @@ private:
     bool defaultSort() const { return m_sortKey == QLatin1String("utc") && !m_sortAscending; }
     void applySort();
     QString m_categorySignature;   // il log com'era quando si sono contate
+    // Quello che si e' gia' visto, per le categorie di un QSO nuovo senza
+    // ricontare il log: entita', continente, zone, locatore, nominativo, da
+    // soli e per banda. Valgono per i QSO piu' recenti dell'ultimo contato.
+    mutable QSet<QString> m_seen[12];
+    mutable QString m_seenLastOn;
+    mutable qint64 m_seenLastId{0};
+    mutable bool m_seenValid{false};
 
     struct Row {
         qint64  id{0};

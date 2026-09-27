@@ -7,6 +7,8 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QLocale>
+#include <QHash>
+#include <QMutex>
 #include <QRegularExpression>
 #include <QSqlQuery>
 #include <QTimeZone>
@@ -425,8 +427,11 @@ void LogIndex::rebuild(const LogDatabase& db, bool confirmLotw, bool confirmCard
         }
         // POTA puo' avere piu' parchi in una volta: "IT-0001,IT-0002".
         for (int col = 7; col <= 9; ++col) {
-            const QStringList refs = q.value(col).toString().toUpper().split(QRegularExpression(QStringLiteral("[,;\\s]+")),
-                                                                               Qt::SkipEmptyParts);
+            static const QRegularExpression separators(QStringLiteral("[,;\\s]+"));
+            const QString raw = q.value(col).toString();
+            if (raw.isEmpty())
+                continue;
+            const QStringList refs = raw.toUpper().split(separators, Qt::SkipEmptyParts);
             for (const QString& r : refs)
                 m_references.insert(r.section(QLatin1Char('@'), 0, 0));
         }
@@ -548,10 +553,38 @@ bool SpotFilter::matches(const EnrichedSpot& e, const QDateTime& now) const
         return false;
 
     if (!calls.trimmed().isEmpty()) {
+        // Le espressioni si fanno una volta per elenco, non a ogni spot: con
+        // l'RBN che ne manda decine al secondo, rifarle ogni volta pesava.
+        struct Pattern {
+            QString exact;              // senza * e ?: basta il confronto
+            QRegularExpression wild;
+        };
+        static QMutex cacheLock;
+        static QHash<QString, QList<Pattern>> cache;
+        QList<Pattern> patterns;
+        {
+            QMutexLocker lock(&cacheLock);
+            auto it = cache.constFind(calls);
+            if (it == cache.constEnd()) {
+                static const QRegularExpression separators(QStringLiteral("[,;\\s]+"));
+                QList<Pattern> built;
+                for (const QString& p : calls.split(separators, Qt::SkipEmptyParts)) {
+                    const QString up = p.toUpper();
+                    if (up.contains(QLatin1Char('*')) || up.contains(QLatin1Char('?')))
+                        built.append({QString(), QRegularExpression(QRegularExpression::wildcardToRegularExpression(up))});
+                    else
+                        built.append({up, QRegularExpression()});
+                }
+                if (cache.size() > 200)
+                    cache.clear();
+                it = cache.insert(calls, built);
+            }
+            patterns = it.value();
+        }
         bool any = false;
-        for (const QString& p : calls.split(QRegularExpression(QStringLiteral("[,;\\s]+")), Qt::SkipEmptyParts)) {
-            const QRegularExpression re(QRegularExpression::wildcardToRegularExpression(p.toUpper()));
-            if (re.match(s.dxCall).hasMatch()) {
+        const QString dx = s.dxCall.toUpper();
+        for (const Pattern& p : std::as_const(patterns)) {
+            if (p.exact.isEmpty() ? p.wild.match(dx).hasMatch() : p.exact == dx) {
                 any = true;
                 break;
             }

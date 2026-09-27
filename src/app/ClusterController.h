@@ -17,6 +17,7 @@
 #include <QObject>
 #include <QSoundEffect>
 #include <QStringList>
+#include <QThreadPool>
 #include <QTimer>
 #include <QVariantList>
 #include <QVariantMap>
@@ -226,6 +227,9 @@ private:
     Context m_ctx;
     SpotModel m_model;
     core::LogIndex m_index;
+    QThreadPool m_indexPool;
+    quint64 m_indexGeneration{0};
+    void rebuildIndexInBackground();
     core::LotwUsers m_lotwUsers;
     QString m_lotwUsersInfo;
     core::VoiceAnnouncer m_voice;

@@ -1,4 +1,5 @@
 #include "app/DecoLogController.h"
+#include "../StartupTrace.h"
 
 #include "core/Bands.h"
 #include "core/Dates.h"
@@ -154,6 +155,49 @@ QVariantMap positionMap(const std::optional<maidenhead::LatLon>& p)
 DecoLogController::DecoLogController(QObject* parent)
     : QObject(parent)
 {
+    m_activityModel = new ActivityModel(kMaxActivity, this);
+    // I conteggi si rifanno un attimo dopo che il log e' cambiato, non mentre
+    // si registra: una raffica di QSO costa un conteggio solo.
+    m_countsTimer.setSingleShot(true);
+    m_countsTimer.setInterval(400);
+    connect(&m_countsTimer, &QTimer::timeout, this, [this] {
+        // Si contano su un altro filo, con una connessione propria al log.
+        if (!m_db.isOpen() || m_db.path().isEmpty() || m_db.path() == QLatin1String(":memory:")) {
+            m_counts.valid = false;
+            emit countsChanged();
+            return;
+        }
+        const QString path = m_db.path();
+        QPointer<DecoLogController> self(this);
+        m_countsPool.start([self, path] {
+            LogDatabase db;
+            if (!db.open(path))
+                return;
+            Counts c;
+            c.qsos = db.qsoCount();
+            c.dirty = db.dirtyCount();
+            c.conflicts = db.conflictCount();
+            c.missingDxcc = static_cast<int>(db.idsWithoutDxcc().size());
+            const QList<QVariantMap> summary = db.qslSummary();
+            db.close();
+            QMetaObject::invokeMethod(
+                self.data(),
+                [self, c, summary]() mutable {
+                    if (!self)
+                        return;
+                    for (QVariantMap row : summary) {
+                        row[QStringLiteral("label")] = serviceLabel(row.value(QStringLiteral("service")).toString());
+                        c.qslSummary << row;
+                    }
+                    c.valid = true;
+                    self->m_counts = c;
+                    emit self->countsChanged();
+                },
+                Qt::QueuedConnection);
+        });
+    });
+    m_countsPool.setMaxThreadCount(1);
+    connect(this, &DecoLogController::logChanged, this, [this] { m_countsTimer.start(); });
     // Register before QML observers: a notification must expose fresh data.
     connect(this, &DecoLogController::logChanged, this, [this] {
         m_gridPointsValid = false;
@@ -241,9 +285,8 @@ DecoLogController::DecoLogController(QObject* parent)
     m_statsDebounce.setInterval(1200);
     m_statsPool.setMaxThreadCount(1);
     connect(&m_statsDebounce, &QTimer::timeout, this, [this] {
-        // Lo stato dei diplomi per DecoLink resta a richiesta: lo calcola chi lo
-        // chiede, e lo chiede di rado.
-        m_globalAwardsDirty = true;
+        // Diplomi, FT2 e conti si rifanno tutti in secondo piano; fino al
+        // risultato vale quello di prima, senza fermare la finestra.
         refreshStatsInBackground();
     });
     connect(this, &DecoLogController::logChanged, this, [this] { m_statsDebounce.start(); });
@@ -274,10 +317,7 @@ DecoLogController::DecoLogController(QObject* parent)
     m_decoLinkAwardDebounce.setSingleShot(true);
     m_decoLinkAwardDebounce.setInterval(1000);
     connect(&m_decoLinkAwardDebounce, &QTimer::timeout, this, [this] { m_decoLink.broadcastAward(); });
-    connect(this, &DecoLogController::logChanged, this, [this] {
-        if (m_decoLink.clientCount() > 0)
-            m_decoLinkAwardDebounce.start();
-    });
+    // Il broadcast dei diplomi lo fa il conto in secondo piano, quando ha finito.
 
     // Un cty.csv nuovo cambia i nomi delle entita'.
     connect(this, &DecoLogController::countriesChanged, this, [this] {
@@ -447,6 +487,13 @@ void DecoLogController::refreshStatsInBackground()
             return;
         const AwardCalculator calc([&names](int dxcc) { return names.value(dxcc); });
         const QList<AwardResult> awards = calc.compute(db, filter);
+        // Quelli di tutto il log, per Decodium: prima si rifacevano sul filo
+        // dell'interfaccia alla prima domanda di DecoLink dopo ogni QSO.
+        AwardFilter all;
+        all.confirmLotw = filter.confirmLotw;
+        all.confirmCard = filter.confirmCard;
+        all.confirmEqsl = filter.confirmEqsl;
+        const QList<AwardResult> global = calc.compute(db, all);
         const Ft2Award ft2 = db.ft2Award();
         const QList<CountRow> bands = db.countByBand();
         const QList<CountRow> modes = db.countByMode();
@@ -454,9 +501,11 @@ void DecoLogController::refreshStatsInBackground()
 
         QMetaObject::invokeMethod(
             self.data(),
-            [self, filter, awards, ft2, bands, modes, generation] {
+            [self, filter, awards, global, ft2, bands, modes, generation] {
                 if (!self || generation != self->m_statsGeneration)
                     return;
+                self->m_globalAwardCache = global;
+                self->m_globalAwardsDirty = false;
                 const AwardFilter& now = self->m_awardFilter;
                 const bool sameFilter = now.band == filter.band && now.modeGroup == filter.modeGroup
                                         && now.confirmLotw == filter.confirmLotw
@@ -492,6 +541,9 @@ void DecoLogController::refreshStatsInBackground()
                     self->m_awardsDirty = true;
                 emit self->statsChanged();
                 emit self->awardsChanged();
+                // Decodium sente i diplomi nuovi adesso che sono pronti.
+                if (self->m_decoLink.clientCount() > 0)
+                    self->m_decoLink.broadcastAward();
             },
             Qt::QueuedConnection);
     });
@@ -932,7 +984,16 @@ QVariantList DecoLogController::decoLinkClients() const
 
 QJsonObject DecoLogController::decoLinkAward() const
 {
-    const Ft2Award ft2 = m_db.ft2Award();
+    Ft2Award ft2;
+    const auto cached = m_statsCache.constFind(QStringLiteral("ft2"));
+    if (cached != m_statsCache.constEnd()) {
+        const QVariantMap m = cached->toMap();
+        ft2.qsos = m.value(QStringLiteral("qsos")).toInt();
+        ft2.gridsWorked = m.value(QStringLiteral("gridsWorked")).toInt();
+        ft2.gridsConfirmed = m.value(QStringLiteral("gridsConfirmed")).toInt();
+    } else {
+        ft2 = m_db.ft2Award();
+    }
     int ft2Worked = 0, ft2Confirmed = 0, dxccWorked = 0, dxccConfirmed = 0;
     for (const AwardResult& r : globalAwardResults()) {
         if (r.id == QLatin1String("ft2")) {
@@ -2152,8 +2213,12 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
     const InsertResult res = m_db.insertQso(r, QStringLiteral("manual"), QStringLiteral("DecoDXLog ") + version(),
                                             true, profileId);
     switch (res.status) {
-    case InsertResult::Status::Inserted:
+    case InsertResult::Status::Inserted: {
+        decolog::StartupSpan t1("logManual: model insert");
         m_model->insertQso(res.id);
+        }
+        {
+        decolog::StartupSpan t2("logManual: decolink+qsl+cloud+activation");
         decoLinkQso(r, QStringLiteral("logged"), res.id, QStringLiteral("manual"), QStringLiteral("DecoDXLog"));
         m_qsl->qsoLogged(res.id);
         m_cloud->qsoLogged();
@@ -2164,9 +2229,16 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
                                                .arg(r.value(QStringLiteral("CALL")), r.value(QStringLiteral("BAND")),
                                                     r.value(QStringLiteral("MODE"))),
                     QStringLiteral("success"));
+        }
+        {
+        decolog::StartupSpan t3("logManual: logChanged");
         emit logChanged();
+        }
+        {
+        decolog::StartupSpan t4("logManual: lookup+callinfo");
         setLookupCall(r.value(QStringLiteral("CALL")));
         refreshCallInfo();
+        }
         // Anche quello scritto a mano si completa: chi lo scrive di fretta,
         // fra un QSO e l'altro, non ha tempo di cercare il locatore.
         completeFromCallbook(res.id, r.value(QStringLiteral("CALL")).toUpper());
@@ -2872,12 +2944,24 @@ QVariantList DecoLogController::modeStats() const
 
 QVariantList DecoLogController::qslSummary() const
 {
-    QVariantList out;
+    ensureCounts();
+    return m_counts.qslSummary;
+}
+
+void DecoLogController::ensureCounts() const
+{
+    if (m_counts.valid || !m_db.isOpen())
+        return;
+    m_counts.qsos = m_db.qsoCount();
+    m_counts.dirty = m_db.dirtyCount();
+    m_counts.conflicts = m_db.conflictCount();
+    m_counts.missingDxcc = static_cast<int>(m_db.idsWithoutDxcc().size());
+    m_counts.qslSummary.clear();
     for (QVariantMap row : m_db.qslSummary()) {
         row[QStringLiteral("label")] = serviceLabel(row.value(QStringLiteral("service")).toString());
-        out << row;
+        m_counts.qslSummary << row;
     }
-    return out;
+    m_counts.valid = true;
 }
 
 namespace {
@@ -3405,21 +3489,15 @@ void DecoLogController::refreshCallInfo()
 
 void DecoLogController::addActivity(const QString& category, const QString& text, const QString& level)
 {
-    m_activity.prepend(QVariantMap{
-        {QStringLiteral("time"), nowUtcLabel()},
-        {QStringLiteral("category"), category},
-        {QStringLiteral("text"), text},
-        {QStringLiteral("level"), level},
-    });
-    while (m_activity.size() > kMaxActivity)
-        m_activity.removeLast();
-    emit activityChanged();
+    if (!m_activityModel)
+        m_activityModel = new ActivityModel(kMaxActivity, this);
+    m_activityModel->add(nowUtcLabel(), category, text, level);
 }
 
 void DecoLogController::clearActivity()
 {
-    m_activity.clear();
-    emit activityChanged();
+    if (m_activityModel)
+        m_activityModel->clear();
 }
 
 } // namespace decolog::app

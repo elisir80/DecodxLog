@@ -4,6 +4,7 @@
 #include "../StartupTrace.h"
 
 #include <QElapsedTimer>
+#include <QPointer>
 
 #include "core/CredentialStore.h"
 #include "core/Dates.h"
@@ -135,13 +136,48 @@ ClusterController::ClusterController(Context context, QObject* parent)
 
     m_indexDebounce.setSingleShot(true);
     m_indexDebounce.setInterval(1500);
-    connect(&m_indexDebounce, &QTimer::timeout, this, [this] {
+    connect(&m_indexDebounce, &QTimer::timeout, this, [this] { rebuildIndexInBackground(); });
+    m_indexPool.setMaxThreadCount(1);
+    applyFilterToModel();
+}
+
+void ClusterController::rebuildIndexInBackground()
+{
+    // L'elenco di chi e' gia' stato lavorato si rifa' su un altro filo, con una
+    // connessione sua al log: su un log grande costa un decimo di secondo, e
+    // dopo ogni QSO era un decimo di secondo di finestra ferma.
+    if (!m_ctx.db || !m_ctx.db->isOpen() || m_ctx.db->path().isEmpty() || m_ctx.db->path() == QLatin1String(":memory:")) {
         rebuildIndex();
         m_model.restatus([this](const EnrichedSpot& e) { return statusOf(e); });
         ++m_spotRevision;
         emit spotsUpdated();
+        return;
+    }
+    bool lotw = true, card = true, eqsl = false;
+    if (m_ctx.confirmations)
+        m_ctx.confirmations(lotw, card, eqsl);
+    const QString path = m_ctx.db->path();
+    const quint64 generation = ++m_indexGeneration;
+    QPointer<ClusterController> self(this);
+    m_indexPool.start([self, path, lotw, card, eqsl, generation] {
+        LogDatabase db;
+        if (!db.open(path))
+            return;
+        LogIndex index;
+        index.rebuild(db, lotw, card, eqsl);
+        db.close();
+        QMetaObject::invokeMethod(
+            self.data(),
+            [self, index, generation] {
+                if (!self || generation != self->m_indexGeneration)
+                    return;
+                self->m_index = index;
+                self->m_model.restatus([s = self.data()](const EnrichedSpot& e) { return s->statusOf(e); });
+                ++self->m_spotRevision;
+                emit self->spotsUpdated();
+            },
+            Qt::QueuedConnection);
     });
-    applyFilterToModel();
 }
 
 ClusterController::~ClusterController()
@@ -436,14 +472,31 @@ EnrichedSpot ClusterController::enrich(const Spot& spot) const
 
 void ClusterController::onSpot(const Spot& spot)
 {
+    static const bool trace = qEnvironmentVariableIntValue("DECODXLOG_TRACE_SPOTS") != 0;
+    static qint64 t[6] = {0, 0, 0, 0, 0, 0};
+    static int n = 0;
+    QElapsedTimer clock;
+    clock.start();
     bool isNew = false;
-    const EnrichedSpot& stored = m_model.add(enrich(spot), &isNew);
+    const EnrichedSpot enriched = enrich(spot);
+    t[0] += clock.nsecsElapsed(); clock.restart();
+    const EnrichedSpot& stored = m_model.add(enriched, &isNew);
     const EnrichedSpot e = stored;   // copia: le regole possono toccare il modello
+    t[1] += clock.nsecsElapsed(); clock.restart();
     if (m_ctx.spotSeen)
         m_ctx.spotSeen(e);
+    t[2] += clock.nsecsElapsed(); clock.restart();
     ++m_spotRevision;
     emit spotsUpdated();
+    t[3] += clock.nsecsElapsed(); clock.restart();
     checkRules(e, isNew);
+    t[4] += clock.nsecsElapsed();
+    if (trace && ++n % 200 == 0) {
+        qWarning("SPOTS %d: enrich %.2f ms, model %.2f ms, seen %.2f ms, updated %.2f ms, rules %.2f ms (media per spot)", n,
+                 t[0] / 200e6, t[1] / 200e6, t[2] / 200e6, t[3] / 200e6, t[4] / 200e6);
+        for (qint64& x : t)
+            x = 0;
+    }
 }
 
 void ClusterController::checkRules(const EnrichedSpot& e, bool isNew)
@@ -487,9 +540,16 @@ void ClusterController::checkRules(const EnrichedSpot& e, bool isNew)
                              .arg(e.spot.dxCall, QString::number(e.spot.freqKhz, 'f', 1), e.spot.mode,
                                   e.entity.isEmpty() ? QStringLiteral("?") : e.entity, names.join(QStringLiteral(", ")),
                                   e.spot.potaRef.isEmpty() ? QString() : QStringLiteral(" · POTA ") + e.spot.potaRef);
+    static const bool trace = qEnvironmentVariableIntValue("DECODXLOG_TRACE_SPOTS") != 0;
+    QElapsedTimer clock;
+    clock.start();
     if (m_ctx.activity)
         m_ctx.activity(QStringLiteral("CLUSTER"), QStringLiteral("%1: %2").arg(title, text), QStringLiteral("highlight"));
+    const qint64 tActivity = clock.nsecsElapsed();
     emit alertRaised(title, text);
+    const qint64 tRaised = clock.nsecsElapsed();
+    if (trace && m_alertCount % 50 == 0)
+        qWarning("ALERT %d: activity %.2f ms, alertRaised %.2f ms", m_alertCount, tActivity / 1e6, (tRaised - tActivity) / 1e6);
     if ((popup || sound) && !m_muted) {
         if (sound) {
             if (m_alertSound.source().isEmpty()) {
@@ -500,8 +560,12 @@ void ClusterController::checkRules(const EnrichedSpot& e, bool isNew)
         }
         emit alertNotify(title, text, e.key(), popup, sound);
     }
-    if (speak && m_voiceEnabled && !m_muted)
+    if (speak && m_voiceEnabled && !m_muted) {
+        clock.restart();
         m_voice.say(announcement(e));
+        if (trace && m_alertCount % 50 == 0)
+            qWarning("ALERT voice %.2f ms", clock.nsecsElapsed() / 1e6);
+    }
 }
 
 QString ClusterController::announcement(const EnrichedSpot& e) const

@@ -4,6 +4,7 @@
 #include "core/Spots.h"
 #include "core/VoiceAnnouncer.h"
 
+#include <QElapsedTimer>
 #include <QTest>
 #include <QTimeZone>
 
@@ -177,6 +178,30 @@ private slots:
         s.dxCall = "K1ABC";
         s.mode = "DIGI";
         QCOMPARE(index.status(s, 291), StatusWorkedBand | StatusUnconfirmed);
+    }
+
+    // Con DECODXLOG_BENCH_DB=<un log vero>: quanto ci mette l'indice degli spot.
+    void benchRealLogIndex()
+    {
+        const QString path = qEnvironmentVariable("DECODXLOG_BENCH_DB");
+        if (path.isEmpty())
+            QSKIP("DECODXLOG_BENCH_DB not set");
+        LogDatabase db;
+        QVERIFY(db.open(path));
+        QElapsedTimer t;
+        t.start();
+        LogIndex index;
+        index.rebuild(db, true, true, false);
+        qInfo() << "LogIndex::rebuild:" << t.elapsed() << "ms," << index.qsoCount() << "QSO";
+        SpotFilter f;
+        f.calls = QStringLiteral("SV9QWC, WA4VLC, VP8*");
+        EnrichedSpot e;
+        e.spot.dxCall = QStringLiteral("K1ABC");
+        e.spot.time = QDateTime::currentDateTimeUtc();
+        t.restart();
+        for (int i = 0; i < 10000; ++i)
+            f.matches(e, e.spot.time);
+        qInfo() << "10000 SpotFilter::matches with calls:" << t.elapsed() << "ms";
     }
 
     void statusZoneIotaReference()

@@ -16,6 +16,7 @@
 #include "app/SolarController.h"
 #include "app/UpdateController.h"
 #include "app/WorldClockController.h"
+#include "app/ActivityModel.h"
 #include "app/ChatController.h"
 #include "app/SuperCheckController.h"
 #include "app/NetController.h"
@@ -104,18 +105,22 @@ class DecoLogController : public QObject {
     Q_PROPERTY(bool transmitting READ transmitting NOTIFY clientChanged)
 
     // ── Log ────────────────────────────────────────────────────────────────
-    Q_PROPERTY(int qsoCount READ qsoCount NOTIFY logChanged)
-    Q_PROPERTY(int dirtyCount READ dirtyCount NOTIFY logChanged)
-    Q_PROPERTY(int conflictCount READ conflictCount NOTIFY logChanged)
+    // I conteggi del log si rifanno poco dopo un cambiamento, una volta sola,
+    // e si tengono: prima ogni lettura dal QML era una query su tutto il log, e
+    // dopo ogni QSO la finestra restava ferma mezzo secondo a ricontare.
+    Q_PROPERTY(int qsoCount READ qsoCount NOTIFY countsChanged)
+    Q_PROPERTY(int dirtyCount READ dirtyCount NOTIFY countsChanged)
+    Q_PROPERTY(int conflictCount READ conflictCount NOTIFY countsChanged)
     // Le statistiche di tutto il log non cambiano con il QSO: si rifanno un
     // momento dopo, a digitazione finita (statsChanged), e una volta sola.
     Q_PROPERTY(QVariantMap ft2Award READ ft2Award NOTIFY statsChanged)
     Q_PROPERTY(QVariantList bandStats READ bandStats NOTIFY statsChanged)
     Q_PROPERTY(QVariantList modeStats READ modeStats NOTIFY statsChanged)
-    Q_PROPERTY(QVariantList qslSummary READ qslSummary NOTIFY logChanged)
+    Q_PROPERTY(QVariantList qslSummary READ qslSummary NOTIFY countsChanged)
     Q_PROPERTY(QVariantList gridPoints READ gridPoints NOTIFY logChanged)
     Q_PROPERTY(QVariantList incoming READ incoming NOTIFY incomingChanged)
-    Q_PROPERTY(QVariantList activity READ activity NOTIFY activityChanged)
+    // Il registro attivita': un modello a righe, cosi' una riga nuova non rifa' la vista.
+    Q_PROPERTY(QObject* activity READ activity CONSTANT)
 
     Q_PROPERTY(QString lookupCall READ lookupCall WRITE setLookupCall NOTIFY lookupChanged)
     Q_PROPERTY(QVariantMap callInfo READ callInfo NOTIFY lookupChanged)
@@ -133,7 +138,7 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QString countriesVersion READ countriesVersion NOTIFY countriesChanged)
     Q_PROPERTY(int countriesEntities READ countriesEntities NOTIFY countriesChanged)
     Q_PROPERTY(QString countriesSource READ countriesSource NOTIFY countriesChanged)
-    Q_PROPERTY(int missingDxccCount READ missingDxccCount NOTIFY logChanged)
+    Q_PROPERTY(int missingDxccCount READ missingDxccCount NOTIFY countsChanged)
 
     // ── DecoLink (canale locale con Decodium) ──────────────────────────────
     Q_PROPERTY(bool decoLinkEnabled READ decoLinkEnabled WRITE setDecoLinkEnabled NOTIFY decoLinkChanged)
@@ -271,16 +276,16 @@ public:
     QString deCall() const { return m_status.deCall; }
     bool transmitting() const { return m_status.transmitting; }
 
-    int qsoCount() const { return m_db.qsoCount(); }
-    int dirtyCount() const { return m_db.dirtyCount(); }
-    int conflictCount() const { return m_db.conflictCount(); }
+    int qsoCount() const { ensureCounts(); return m_counts.qsos; }
+    int dirtyCount() const { ensureCounts(); return m_counts.dirty; }
+    int conflictCount() const { ensureCounts(); return m_counts.conflicts; }
     QVariantMap ft2Award() const;
     QVariantList bandStats() const;
     QVariantList modeStats() const;
     QVariantList qslSummary() const;
     QVariantList gridPoints() const;
     QVariantList incoming() const { return m_incoming; }
-    QVariantList activity() const { return m_activity; }
+    QObject* activity() const { return m_activityModel; }
 
     QString lookupCall() const { return m_lookupCall; }
     void setLookupCall(const QString& call);
@@ -295,7 +300,7 @@ public:
     QString countriesVersion() const { return m_countries.version(); }
     int countriesEntities() const { return m_countries.entityCount(); }
     QString countriesSource() const { return m_countriesSource; }
-    int missingDxccCount() const { return static_cast<int>(m_db.idsWithoutDxcc().size()); }
+    int missingDxccCount() const { ensureCounts(); return m_counts.missingDxcc; }
 
     bool decoLinkEnabled() const { return m_decoLinkEnabled; }
     void setDecoLinkEnabled(bool enabled);
@@ -507,6 +512,7 @@ signals:
     void statsChanged();
     void incomingChanged();
     void activityChanged();
+    void countsChanged();
     void lookupChanged();
     // Un DX scelto altrove — per ora dal cluster — da mettere nel riquadro del
     // QSO nuovo: call, mhz, mode, grid.
@@ -656,7 +662,20 @@ private:
     QTimer    m_clientWatch;
 
     QVariantList m_incoming;
-    QVariantList m_activity;
+    ActivityModel* m_activityModel{nullptr};
+    // I conteggi del log, rifatti una volta dopo ogni cambiamento.
+    struct Counts {
+        bool valid{false};
+        int qsos{0};
+        int dirty{0};
+        int conflicts{0};
+        int missingDxcc{0};
+        QVariantList qslSummary;
+    };
+    mutable Counts m_counts;
+    QTimer m_countsTimer;
+    QThreadPool m_countsPool;
+    void ensureCounts() const;
     QString      m_lookupCall;
     QVariantMap  m_callInfo;
 

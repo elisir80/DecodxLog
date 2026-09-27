@@ -3,6 +3,28 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.25 — in preparazione
+
+**Molto piu' svelto con un log grande: niente piu' finestra ferma fra un pannello e l'altro e dopo ogni QSO.**
+
+Misurato con un log vero di 24.000 QSO:
+- Dopo ogni QSO la finestra restava ferma circa un secondo e mezzo; adesso un decimo di
+  secondo. Il conto delle categorie del log (nuovo DXCC, nuova zona...) non rilegge piu'
+  tutto il log per un QSO nuovo; i conteggi della barra in basso (QSO, coda, QSL) si fanno
+  una volta sola, su un altro filo, invece che a ogni lettura; l'elenco di chi e' gia'
+  stato lavorato per il cluster si rifa' anch'esso su un altro filo.
+- Passare dalla gara alla finestra di tutti i giorni costava quasi un secondo di finestra
+  ferma, perche' tutti i pannelli venivano distrutti e rifatti: adesso restano pronti, e il
+  passaggio e' immediato (la prima volta che si entra in gara si preparano i suoi).
+- I diplomi si contano in un quindicesimo del tempo (da 3,3 s a 0,2 s): un'espressione
+  regolare veniva ricostruita per ogni QSO italiano. Anche quelli che servono a Decodium
+  (DecoLink) si contano in secondo piano e gli arrivano quando sono pronti, invece di
+  fermare la finestra alla prima domanda dopo ogni QSO.
+- L'avvio e' due volte piu' rapido (il caricamento dell'interfaccia da 7,5 a 3,7 s).
+- Il registro attivita' aggiunge le righe una alla volta invece di rifare tutta la lista a
+  ogni messaggio; le regole d'avviso con i nominativi non ricostruiscono piu' le loro
+  espressioni a ogni spot.
+
 ## 1.16.24 — 27 settembre 2026
 
 **Quello che mancava rispetto ai log blasonati: band map, avvisi, propagazione, rete, SO2R, WinKeyer, DVK.**

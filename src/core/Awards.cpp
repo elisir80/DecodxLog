@@ -4,6 +4,7 @@
 #include "core/LogDatabase.h"
 
 #include <QCoreApplication>
+#include <QHash>
 #include <QRegularExpression>
 #include <QSqlQuery>
 #include <QTimeZone>
@@ -142,8 +143,12 @@ QString italianProvince(const QString& state)
     // gruppi di lettere e si tiene il primo che e' una sigla vera. Piu' di cosi'
     // non si indovina, e indovinare qui vorrebbe dire contare una provincia che
     // nessuno ha lavorato.
-    for (const QString& group : state.toUpper().split(QRegularExpression(QStringLiteral("[^A-Z]+")),
-                                                      Qt::SkipEmptyParts)) {
+    // Un'espressione sola per tutto il programma: costruirla a ogni QSO costava
+    // piu' del resto del conto dei diplomi.
+    static const QRegularExpression separators(QStringLiteral("[^A-Z]+"));
+    if (state.isEmpty())
+        return {};
+    for (const QString& group : state.toUpper().split(separators, Qt::SkipEmptyParts)) {
         if (group.size() != 2)
             continue;
         // Carbonia-Iglesias non esiste piu': il suo territorio e' Sud Sardegna,
@@ -205,6 +210,9 @@ QString dciReference(const QString& sig, const QString& sigInfo,
             return m.captured(1) + m.captured(2);
     }
     for (const QString& text : {sigInfo, comment, notes}) {
+        // Senza la parola DCI l'espressione non serve: si guarda prima quella.
+        if (!text.contains(QLatin1String("DCI"), Qt::CaseInsensitive))
+            continue;
         const QRegularExpressionMatch m = tagged.match(text.toUpper());
         if (m.hasMatch() && italianProvinces().contains(m.captured(1)))
             return m.captured(1) + m.captured(2);
@@ -221,10 +229,19 @@ QString sigReference(const QString& award, const QString& sig, const QString& si
         if (m.hasMatch())
             return m.captured(1) + QLatin1Char('-') + m.captured(2);
     }
-    // Nel testo libero ci vuole il nome del diploma davanti.
-    const QRegularExpression tagged(QStringLiteral("\\b%1[ :-]*([A-Z0-9]{1,4})[ /-]?(\\d{1,4})\\b")
-                                        .arg(QRegularExpression::escape(award.toUpper())));
+    // Nel testo libero ci vuole il nome del diploma davanti. L'espressione si
+    // costruisce una volta per diploma, e si usa solo se il nome c'e': farla a
+    // ogni QSO costava secondi su un log grande.
+    static QHash<QString, QRegularExpression> taggedByAward;
+    const QString name = award.toUpper();
+    auto found = taggedByAward.constFind(name);
+    if (found == taggedByAward.constEnd())
+        found = taggedByAward.insert(name, QRegularExpression(QStringLiteral("\\b%1[ :-]*([A-Z0-9]{1,4})[ /-]?(\\d{1,4})\\b")
+                                                                   .arg(QRegularExpression::escape(name))));
+    const QRegularExpression tagged = found.value();
     for (const QString& text : {sigInfo, comment, notes}) {
+        if (!text.contains(name, Qt::CaseInsensitive))
+            continue;
         const QRegularExpressionMatch m = tagged.match(text.toUpper());
         if (m.hasMatch())
             return m.captured(1) + QLatin1Char('-') + m.captured(2);

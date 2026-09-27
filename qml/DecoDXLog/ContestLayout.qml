@@ -351,6 +351,10 @@ Item {
         readonly property int grip: 6
 
         visible: root.isShown(key) && !root.isFloating(key)
+        // Vero dalla prima volta che il pannello e' comparso davvero.
+        property bool seen: false
+        onVisibleChanged: if (visible) seen = true
+        Component.onCompleted: if (visible) seen = true
         x: live ? liveX : g.x * root.width
         y: live ? liveY : g.y * root.height
         width: live ? liveW : Math.max(minW, g.w * root.width - root.gap)
@@ -441,7 +445,14 @@ Item {
             anchors.fill: parent
             // Quello che non ci sta resta dentro il pannello, non sopra i vicini.
             clip: true
-            active: panel.visible
+            // Il pannello resta caricato anche quando la lavagna intera e'
+            // nascosta (si passa dalla gara alla finestra di tutti i giorni):
+            // prima lo si distruggeva e rifaceva a ogni passaggio, e con un
+            // log grande il cambio costava quasi un secondo di finestra ferma.
+            // Si scarica solo se il pannello si chiude o va in una finestra sua.
+            // Si carica la prima volta che si vede, non prima: la lavagna della
+            // gara non pesa su chi il contest non lo apre.
+            active: root.isShown(panel.key) && !root.isFloating(panel.key) && (panel.visible || panel.seen)
             source: active ? panel.sourceOf(panel.key) : ""
             onLoaded: {
                 if (item.panelKey !== undefined)

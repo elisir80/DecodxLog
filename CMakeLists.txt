@@ -229,6 +229,8 @@ qt_add_executable(decolog
     src/app/So2rController.h
     src/app/NetController.cpp
     src/app/NetController.h
+    src/app/ActivityModel.cpp
+    src/app/ActivityModel.h
     src/app/SuperCheckController.cpp
     src/app/SuperCheckController.h
     src/app/ChatController.cpp

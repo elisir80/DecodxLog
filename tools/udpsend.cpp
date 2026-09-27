@@ -9,6 +9,7 @@
 #include "core/WsjtxProtocol.h"
 
 #include <QCommandLineParser>
+#include <QElapsedTimer>
 #include <QCoreApplication>
 #include <QHostAddress>
 #include <QTextStream>
@@ -31,7 +32,10 @@ int main(int argc, char* argv[])
     QCommandLineOption client("client", "Client id.", "id", "Decodium");
     QCommandLineOption onlyQsoLogged("only-qsologged", "Send only QSOLogged, no LoggedADIF.");
     QCommandLineOption statusOnly("status", "Send a Status message only.");
-    p.addOptions({host, port, call, mode, freq, myCall, client, onlyQsoLogged, statusOnly});
+    QCommandLineOption stream("stream", "Behave like a running Decodium for N seconds: Status several times a second, "
+                                        "a burst of decodes every 15 s, the DX call changing.", "secs");
+    QCommandLineOption statusRate("status-rate", "Status messages per second with --stream.", "n", "5");
+    p.addOptions({host, port, call, mode, freq, myCall, client, onlyQsoLogged, statusOnly, stream, statusRate});
     p.process(app);
 
     const QHostAddress to(p.value(host));
@@ -49,6 +53,45 @@ int main(int argc, char* argv[])
 
     const QDateTime now = QDateTime::currentDateTimeUtc();
     const quint64 hz = p.value(freq).toULongLong();
+
+    if (p.isSet(stream)) {
+        const int secs = p.value(stream).toInt();
+        const int rate = qMax(1, p.value(statusRate).toInt());
+        const QStringList dx{"JA1ABC", "K1XYZ", "PY2AA", "VK3BB", "DL1CC", "ZS6DD", "UA9EE", "W1AW", "LU1FF", "OH2GG"};
+        QElapsedTimer clock;
+        clock.start();
+        int tick = 0;
+        int lastCycle = -1;
+        while (clock.elapsed() < secs * 1000) {
+            wsjtx::Status st;
+            st.dialFrequencyHz = hz;
+            st.mode = p.value(mode);
+            st.dxCall = dx.at((tick / (rate * 7)) % dx.size());
+            st.deCall = p.value(myCall);
+            st.deGrid = "JN71DC";
+            st.transmitting = (tick / (rate * 15)) % 2 == 1;
+            socket.writeDatagram(wsjtx::buildStatus(id, st), to, toPort);
+            const int cycle = static_cast<int>(clock.elapsed() / 15000);
+            if (cycle != lastCycle) {
+                lastCycle = cycle;
+                // Una tornata di decodifiche, come alla fine di un periodo FT8.
+                for (int i = 0; i < 40; ++i) {
+                    wsjtx::Decode d;
+                    d.time = QTime::currentTime();
+                    d.snr = -20 + i % 25;
+                    d.deltaFrequency = 300 + i * 60;
+                    d.mode = "~";
+                    d.message = QString("CQ %1%2 JN%3").arg(dx.at(i % dx.size())).arg(i).arg(10 + i % 80);
+                    socket.writeDatagram(wsjtx::buildDecode(id, d), to, toPort);
+                }
+                socket.writeDatagram(wsjtx::buildHeartbeat(id, {3, "1.0.637", "udpsend"}), to, toPort);
+            }
+            ++tick;
+            QThread::msleep(1000 / rate);
+        }
+        out << "stream: " << tick << " Status sent" << Qt::endl;
+        return 0;
+    }
 
     wsjtx::Status st;
     st.dialFrequencyHz = hz;

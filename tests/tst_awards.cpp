@@ -2,6 +2,7 @@
 #include "core/Awards.h"
 #include "core/LogDatabase.h"
 
+#include <QElapsedTimer>
 #include <QTest>
 
 #include <algorithm>
@@ -438,6 +439,21 @@ private slots:
         const auto totals = dci->bandTotals({QStringLiteral("20m"), QStringLiteral("40m")});
         QCOMPARE(totals.at(0).worked, 2);
         QCOMPARE(totals.at(1).worked, 1);
+    }
+
+    // Con DECODXLOG_BENCH_DB=<un log vero>: quanto ci mette a contare tutti i diplomi.
+    void benchRealLog()
+    {
+        const QString path = qEnvironmentVariable("DECODXLOG_BENCH_DB");
+        if (path.isEmpty())
+            QSKIP("DECODXLOG_BENCH_DB not set");
+        LogDatabase db;
+        QVERIFY(db.open(path));
+        const AwardCalculator calc;
+        QElapsedTimer t;
+        t.start();
+        const auto results = calc.compute(db, AwardFilter{});
+        qInfo() << "compute:" << t.elapsed() << "ms," << results.size() << "awards";
     }
 
     void italianRegionsAndSigAwards()

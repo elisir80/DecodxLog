@@ -378,7 +378,10 @@ GlassPanel {
             model: decolog.activity
             ScrollBar.vertical: PanelScrollBar {}
             delegate: Text {
-                required property var modelData
+                required property string time
+                required property string category
+                required property string message
+                required property string level
                 width: ListView.view.width
                 height: 22
                 elide: Text.ElideRight
@@ -386,14 +389,14 @@ GlassPanel {
                 font.family: Theme.monoFamily
                 font.pixelSize: 12
                 verticalAlignment: Text.AlignVCenter
-                color: modelData.level === "error" ? Theme.errorColor
-                     : modelData.level === "warning" ? Theme.warningColor
-                     : modelData.level === "highlight" && modelData.category === "LOTW" ? Theme.accentColor
-                     : modelData.level === "highlight" && modelData.category === "CLUSTER" ? Theme.warningColor
+                color: level === "error" ? Theme.errorColor
+                     : level === "warning" ? Theme.warningColor
+                     : level === "highlight" && category === "LOTW" ? Theme.accentColor
+                     : level === "highlight" && category === "CLUSTER" ? Theme.warningColor
                      : Theme.textPrimary
-                text: "<font color=\"" + Theme.textSecondary + "\">" + modelData.time + "</font> "
-                      + "<font color=\"" + root.categoryColor(modelData.category) + "\">" + modelData.category + "</font> "
-                      + modelData.text.replace(/&/g, "&amp;").replace(/</g, "&lt;")
+                text: "<font color=\"" + Theme.textSecondary + "\">" + time + "</font> "
+                      + "<font color=\"" + root.categoryColor(category) + "\">" + category + "</font> "
+                      + message.replace(/&/g, "&amp;").replace(/</g, "&lt;")
                           .replace(/( · new DXCC on FT2: .*)$/, "<font color=\"" + Theme.warningColor + "\">$1</font>")
             }
         }

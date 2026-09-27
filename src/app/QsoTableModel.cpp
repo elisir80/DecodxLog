@@ -592,6 +592,7 @@ void QsoTableModel::computeCategories()
         return;
     m_categorySignature = signature;
     m_category.clear();
+    m_seenValid = false;
 
     QSet<qint64> lotw;
     QSqlQuery l(m_db->connection());
@@ -604,11 +605,15 @@ void QsoTableModel::computeCategories()
     QSqlQuery q(m_db->connection());
     q.setForwardOnly(true);
     if (!q.exec(QStringLiteral("SELECT id, IFNULL(dxcc, 0), band, IFNULL(cont, ''), IFNULL(cqz, 0), IFNULL(ituz, 0), "
-                               "UPPER(SUBSTR(IFNULL(gridsquare, ''), 1, 4)), call FROM qso WHERE deleted = 0 "
+                               "UPPER(SUBSTR(IFNULL(gridsquare, ''), 1, 4)), call, qso_datetime_on FROM qso WHERE deleted = 0 "
                                "ORDER BY qso_datetime_on, id")))
         return;
     const QStringList keys = categoryKeys();
-    QSet<QString> seen[12];
+    QSet<QString>* seen = m_seen;
+    for (int i = 0; i < 12; ++i)
+        seen[i].clear();
+    m_seenLastOn.clear();
+    m_seenLastId = 0;
     while (q.next()) {
         const qint64 id = q.value(0).toLongLong();
         const int dxcc = q.value(1).toInt();
@@ -639,16 +644,65 @@ void QsoTableModel::computeCategories()
         if (category.isEmpty())
             category = lotw.contains(id) ? keys.at(12) : keys.at(13);
         m_category.insert(id, category);
+        m_seenLastOn = q.value(8).toString();
+        m_seenLastId = id;
     }
+    m_seenValid = true;
 }
 
 QString QsoTableModel::categoryOf(qint64 id) const
 {
-    // Un QSO solo: si contano quelli fatti prima con la stessa cosa. Con gli
-    // indici su entita', locatore e nominativo e' immediato anche su un log
-    // grande — il conto di tutto il log si rifa' solo al ricarico.
     if (!m_db || !m_db->isOpen())
         return {};
+    // Il QSO appena fatto e' quasi sempre il piu' recente: allora basta
+    // guardare cosa si e' gia' visto, senza contare di nuovo il log (le zone e
+    // i continenti non hanno indici, e su un log grande il conto costava un
+    // quinto di secondo a ogni QSO).
+    if (m_seenValid) {
+        QSqlQuery one(m_db->connection());
+        one.prepare(QStringLiteral("SELECT IFNULL(dxcc, 0), band, IFNULL(cont, ''), IFNULL(cqz, 0), IFNULL(ituz, 0), "
+                                   "UPPER(SUBSTR(IFNULL(gridsquare, ''), 1, 4)), call, qso_datetime_on, "
+                                   "EXISTS (SELECT 1 FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'lotw' "
+                                   "AND s.rcvd = 'Y') FROM qso WHERE id = ?"));
+        one.addBindValue(id);
+        if (one.exec() && one.next()) {
+            const QString on = one.value(7).toString();
+            if (on > m_seenLastOn || (on == m_seenLastOn && id > m_seenLastId)) {
+                const QStringList keys = categoryKeys();
+                const int dxcc = one.value(0).toInt();
+                const QString band = one.value(1).toString();
+                const QString cont = one.value(2).toString();
+                const int cqz = one.value(3).toInt();
+                const int ituz = one.value(4).toInt();
+                const QString grid = one.value(5).toString();
+                const QString call = one.value(6).toString();
+                const QString slot = QLatin1Char('|') + band;
+                const QString parts[12] = {
+                    dxcc > 0 ? QString::number(dxcc) : QString(), dxcc > 0 ? QString::number(dxcc) + slot : QString(),
+                    cont, cont.isEmpty() ? QString() : cont + slot,
+                    cqz > 0 ? QString::number(cqz) : QString(), cqz > 0 ? QString::number(cqz) + slot : QString(),
+                    ituz > 0 ? QString::number(ituz) : QString(), ituz > 0 ? QString::number(ituz) + slot : QString(),
+                    grid.size() == 4 ? grid : QString(), grid.size() == 4 ? grid + slot : QString(),
+                    call, call + slot,
+                };
+                QString category;
+                for (int i = 0; i < 12; ++i) {
+                    if (parts[i].isEmpty() || m_seen[i].contains(parts[i]))
+                        continue;
+                    m_seen[i].insert(parts[i]);
+                    if (category.isEmpty())
+                        category = keys.at(i);
+                }
+                m_seenLastOn = on;
+                m_seenLastId = id;
+                if (category.isEmpty())
+                    category = one.value(8).toBool() ? keys.at(12) : keys.at(13);
+                return category;
+            }
+        }
+    }
+    // Un QSO piu' vecchio (scritto a mano dopo): si contano quelli fatti prima
+    // con la stessa cosa.
     QSqlQuery q(m_db->connection());
     auto before = [](const char* condition) {
         return QStringLiteral("(SELECT CASE WHEN %1 THEN (SELECT COUNT(*) FROM qso o WHERE o.deleted = 0 AND %2 "
@@ -909,7 +963,8 @@ void QsoTableModel::insertQso(qint64 id)
     beginInsertRows({}, static_cast<int>(pos), static_cast<int>(pos));
     m_rows.insert(pos, r);
     endInsertRows();
-    refreshTotal();
+    // Senza filtri il totale e' uno in piu': niente conteggio del log.
+    ++m_total;
     emit countChanged();
 }
 

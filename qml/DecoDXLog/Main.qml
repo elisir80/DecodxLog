@@ -344,6 +344,85 @@ ApplicationWindow {
 
     Timer { id: exitProbe; interval: 900; onTriggered: window.exitContestMode() }
     Timer {
+        id: idleWatch
+        property int left: 0
+        interval: 1000
+        repeat: true
+        onTriggered: {
+            console.warn("IDLE scatto piu' lungo: " + benchWatch.worst + " ms")
+            benchWatch.worst = 0
+            if (--left <= 0) stop()
+        }
+    }
+    Timer {
+        id: frameCounter
+        property int frames: 0
+        property int round: 0
+        interval: 5000
+        repeat: true
+        onTriggered: {
+            if (round > 0)
+                console.warn("FRAMES in 5 s: " + frames)
+            frames = 0
+            if (++round > 3) stop()
+        }
+    }
+    Connections {
+        target: frameCounter.running ? window : null
+        function onFrameSwapped() { frameCounter.frames++ }
+    }
+    // Per misurare i passaggi fra finestre e pannelli: ogni passo si cronometra
+    // (quanto blocca subito) e si guarda lo scatto piu' lungo che segue.
+    Timer {
+        id: switchBench
+        property int step: 0
+        property string pending: ""
+        readonly property var steps: [
+            ["tab awards", () => window.panelItem("tabs").setTab(0)],
+            ["tab stats", () => window.panelItem("tabs").setTab(1)],
+            ["tab qsl", () => window.panelItem("tabs").setTab(2)],
+            ["tab activity", () => window.panelItem("tabs").setTab(3)],
+            ["tab cluster", () => window.panelItem("tabs").setTab(4)],
+            ["tab propagation", () => window.panelItem("tabs").setTab(5)],
+            ["raise logbook", () => mainBoard.raiseKey("logbook")],
+            ["raise map", () => mainBoard.raiseKey("map")],
+            ["raise newqso", () => mainBoard.raiseKey("newqso")],
+            ["open cluster window", () => window.openCluster(0)],
+            ["activate main", () => { window.raise(); window.requestActivate() }],
+            ["activate cluster", () => { clusterWindow.item.raise(); clusterWindow.item.requestActivate() }],
+            ["activate main 2", () => { window.raise(); window.requestActivate() }],
+            ["activate cluster 2", () => { clusterWindow.item.raise(); clusterWindow.item.requestActivate() }],
+            ["activate main 3", () => { window.raise(); window.requestActivate() }],
+            ["close cluster window", () => { clusterWindow.active = false }],
+            ["open stats window", () => window.openStats()],
+            ["close stats window", () => { statsWindow.active = false }],
+            ["open awards", () => awardsDialog.openAt("dxcc")],
+            ["close awards", () => awardsDialog.close()],
+            ["open setup", () => setupDialog.open()],
+            ["close setup", () => setupDialog.close()],
+            ["open world clock", () => worldClockWindow.open()],
+            ["close world clock", () => worldClockWindow.close()],
+            ["detach callinfo", () => window.detachPanel("callinfo")],
+            ["attach callinfo", () => window.attachPanel("callinfo")],
+            ["enter contest", () => window.openContestDesk()],
+            ["exit contest", () => window.exitContestMode()],
+            ["enter contest 2", () => window.openContestDesk()],
+            ["exit contest 2", () => window.exitContestMode()]
+        ]
+        interval: 1800
+        repeat: true
+        onTriggered: {
+            if (pending.length)
+                console.warn("SWITCH " + pending + " | scatto piu' lungo dopo: " + benchWatch.worst + " ms")
+            if (step >= steps.length) { stop(); console.warn("SWITCH fine"); return }
+            const s = steps[step++]
+            benchWatch.worst = 0
+            const t0 = Date.now()
+            s[1]()
+            pending = s[0] + ": " + (Date.now() - t0) + " ms subito"
+        }
+    }
+    Timer {
         id: qsyProbe
         property int step: 0
         interval: 1500
@@ -740,10 +819,18 @@ ApplicationWindow {
         // Per le prove: si entra e si esce, e la finestra principale deve
         // tornare com'era.
         else if (what[0] === "contestexit") { window.openContestDesk(); exitProbe.start() }
+        else if (what[0] === "switchbench") switchBench.start()
+        // Fermo, a guardare: ogni secondo lo scatto piu' lungo (per misurare con
+        // un Decodium finto che manda Status e decodifiche).
+        else if (what[0] === "idlewatch") { if (what[1] === "contest") window.openContestDesk(); idleWatch.left = parseInt(what[2] || "20"); idleWatch.start() }
+        // Quanti fotogrammi disegna la finestra da ferma: dovrebbero essere pochi.
+        else if (what[0] === "framecount") { if (what[1] === "contest") window.openContestDesk(); frameCounter.start() }
         // Per misurare: apre il banco e registra N QSO di fila, dicendo quanto
         // ci mette ognuno. Un QSO in gara deve essere istantaneo.
         // Per misurare: il banco aperto con il cluster che corre (uno spot ogni
         // 250 ms, come un RBN in gara) e ogni tanto un clic su uno spot.
+        // Una valanga di spot come quella dell'RBN: `rate` al secondo per `secs` secondi.
+        else if (what[0] === "spotflood") { spotFlood.rate = parseInt(what[1] || "40"); spotFlood.left = parseInt(what[2] || "20") * 10; spotFlood.start() }
         else if (what[0] === "benchspots") { if (what[2] !== "nodesk") window.openContestDesk(); else window.exitContestMode(); spotBench.left = parseInt(what[1] || "40"); spotBench.start() }
         // Per misurare: scrivere un nominativo lettera per lettera, come si fa
         // nell'inserimento veloce. Ogni lettera deve essere istantanea.
@@ -1088,6 +1175,37 @@ ApplicationWindow {
         }
     }
     Timer {
+        id: spotFlood
+        property int rate: 40
+        property int left: 0
+        property int n: 0
+        property int spent: 0
+        interval: 100
+        repeat: true
+        onTriggered: {
+            if (left <= 0) { stop(); console.warn("FLOOD fine"); return }
+            left--
+            const per = Math.max(1, Math.round(rate / 10))
+            const t0 = Date.now()
+            const hhmm = decolog.utcNow().time.replace(":", "").substring(0, 4)
+            const bands = [7074, 10136, 14074, 18100, 21074, 24915, 28074, 14025, 7025, 3573]
+            const pre = ["K", "DL", "JA", "PY", "UA", "G", "I", "EA", "VK", "W", "LU", "ZS", "OH", "SM", "VE"]
+            for (let i = 0; i < per; ++i) {
+                n++
+                const call = pre[n % pre.length] + (n % 10) + String.fromCharCode(65 + (n * 7) % 26) + String.fromCharCode(65 + (n * 3) % 26) + String.fromCharCode(65 + n % 26)
+                const khz = (bands[n % bands.length] + (n % 3) * 0.1).toFixed(1)
+                decolog.cluster.injectLine("DX de " + pre[(n * 5) % pre.length] + (n % 9) + "ABC-#:   " + khz + "  " + call
+                                           + "  FT8 -" + (n % 20) + " dB " + hhmm + "Z")
+            }
+            spent += Date.now() - t0
+            if (left % 10 === 0) {
+                console.warn("FLOOD " + rate + "/s | ms spesi nell'ultimo secondo: " + spent + " | scatto piu' lungo: " + benchWatch.worst + " ms")
+                spent = 0
+                benchWatch.worst = 0
+            }
+        }
+    }
+    Timer {
         id: spotBench
         property int left: 0
         property int n: 0
@@ -1128,7 +1246,8 @@ ApplicationWindow {
         property int worst: 0
         interval: 16
         repeat: true
-        running: benchTimer.running || spotBench.running || typeBench.running
+        running: benchTimer.running || spotBench.running || typeBench.running || switchBench.running || spotFlood.running
+                 || idleWatch.running
         onTriggered: {
             const now = Date.now()
             if (last > 0)
