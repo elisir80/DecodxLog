@@ -7581,6 +7581,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>gg/mm/aaaa</translation>
     </message>
     <message>
+        <source>Enter a valid UTC date</source>
+        <translation>Inserisci una data UTC valida</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>Già lavorato in questa attivazione</translation>
     </message>

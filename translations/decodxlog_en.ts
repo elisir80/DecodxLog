@@ -7580,6 +7580,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>dd/mm/yyyy</translation>
     </message>
     <message>
+        <source>Enter a valid UTC date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation type="unfinished"></translation>
     </message>

@@ -7581,6 +7581,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>dd/mm/åååå</translation>
     </message>
     <message>
+        <source>Enter a valid UTC date</source>
+        <translation>Skriv en gyldig UTC-dato</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>Allerede kørt i denne aktivering</translation>
     </message>

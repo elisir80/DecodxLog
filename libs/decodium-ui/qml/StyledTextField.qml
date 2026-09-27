@@ -8,6 +8,9 @@ TextField {
 
     property bool mono: true
     property bool uppercase: false
+    // Chi usa il campo puo' segnalare un valore formalmente errato senza
+    // dover ridisegnare il controllo (date, orari, riferimenti ADIF...).
+    property bool invalid: false
     property int fieldHeight: 30
     property color accentBorder: Theme.primaryColor
 
@@ -31,6 +34,7 @@ TextField {
         radius: 4
         color: Theme.bgMedium
         border.width: 1
-        border.color: root.activeFocus ? root.accentBorder : Theme.glassBorder
+        border.color: root.invalid ? Theme.errorColor
+                      : root.activeFocus ? root.accentBorder : Theme.glassBorder
     }
 }

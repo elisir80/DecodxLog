@@ -7557,6 +7557,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>dd/mm/yyyy</translation>
     </message>
     <message>
+        <source>Enter a valid UTC date</source>
+        <translation>正しい UTC 日付を入力してください</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>このアクティベーションではもう交信済み</translation>
     </message>

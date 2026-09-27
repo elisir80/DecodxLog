@@ -2135,6 +2135,8 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
     AdifRecord r;
     r.set(QStringLiteral("CALL"), text("call").toUpper());
     const QDate date = QDate::fromString(dates::read(text("date")), QStringLiteral("yyyy-MM-dd"));
+    if (!date.isValid())
+        return tr("Enter a valid UTC date");
     QTime time = QTime::fromString(text("time"), QStringLiteral("HH:mm"));
     if (!time.isValid())
         time = QTime::fromString(text("time"), QStringLiteral("HH:mm:ss"));

@@ -7605,6 +7605,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>zz/ll/aaaa</translation>
     </message>
     <message>
+        <source>Enter a valid UTC date</source>
+        <translation>Introdu o dată UTC validă</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>Deja lucrat în această activare</translation>
     </message>

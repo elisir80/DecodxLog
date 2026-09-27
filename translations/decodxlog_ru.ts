@@ -7605,6 +7605,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>дд/мм/гггг</translation>
     </message>
     <message>
+        <source>Enter a valid UTC date</source>
+        <translation>Введите правильную дату UTC</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>В этой активации уже был</translation>
     </message>

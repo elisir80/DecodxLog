@@ -7581,6 +7581,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>dd/mm/jjjj</translation>
     </message>
     <message>
+        <source>Enter a valid UTC date</source>
+        <translation>Voer een geldige UTC-datum in</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>Al gewerkt in deze activatie</translation>
     </message>

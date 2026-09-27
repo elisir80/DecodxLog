@@ -190,7 +190,19 @@ DialogFrame {
                 Layout.preferredWidth: 150
                 Layout.fillWidth: false
                 label: qsTr("Date UTC")
-                StyledTextField { id: dateField; Layout.fillWidth: true; fieldHeight: 44; font.pixelSize: 15; placeholderText: decolog.dateHint }
+                StyledTextField {
+                    id: dateField
+                    Layout.fillWidth: true
+                    fieldHeight: 44
+                    font.pixelSize: 15
+                    placeholderText: decolog.dateHint
+                    invalid: text.length > 0 && decolog.readDate(text).length === 0
+                    onEditingFinished: {
+                        const iso = decolog.readDate(text)
+                        if (iso.length > 0)
+                            text = decolog.showDate(iso)
+                    }
+                }
             }
             LabeledField {
                 Layout.preferredWidth: 120

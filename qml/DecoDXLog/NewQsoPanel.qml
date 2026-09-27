@@ -270,9 +270,6 @@ GlassPanel {
                             font.bold: true
                             font.letterSpacing: 1
                             onTextChanged: decolog.lookupCall = text
-                            // L'ora si prende quando si comincia a scrivere il nominativo,
-                            // non quando la finestra e' stata aperta.
-                            onActiveFocusChanged: if (activeFocus && text.length === 0) root.resetTime()
                             Keys.onReturnPressed: root.submit()
                             Keys.onEnterPressed: root.submit()
                         }
@@ -286,7 +283,17 @@ GlassPanel {
                         Layout.horizontalStretchFactor: 3
                         Layout.fillWidth: true
                         label: qsTr("Date UTC")
-                        StyledTextField { id: dateField; Layout.fillWidth: true; placeholderText: decolog.dateHint }
+                        StyledTextField {
+                            id: dateField
+                            Layout.fillWidth: true
+                            placeholderText: decolog.dateHint
+                            invalid: text.length > 0 && decolog.readDate(text).length === 0
+                            onEditingFinished: {
+                                const iso = decolog.readDate(text)
+                                if (iso.length > 0)
+                                    text = decolog.showDate(iso)
+                            }
+                        }
                     }
                     LabeledField {
                         Layout.preferredWidth: 1

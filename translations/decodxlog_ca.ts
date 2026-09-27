@@ -7581,6 +7581,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>dd/mm/aaaa</translation>
     </message>
     <message>
+        <source>Enter a valid UTC date</source>
+        <translation>Escriu una data UTC vàlida</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>Ja treballat en aquesta activació</translation>
     </message>

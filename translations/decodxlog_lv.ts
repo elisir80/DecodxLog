@@ -7605,6 +7605,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>dd/mm/gggg</translation>
     </message>
     <message>
+        <source>Enter a valid UTC date</source>
+        <translation>Ievadi derīgu UTC datumu</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>Šajā aktivizēšanā jau nostrādāts</translation>
     </message>

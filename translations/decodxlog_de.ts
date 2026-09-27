@@ -7581,6 +7581,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>TT/MM/JJJJ</translation>
     </message>
     <message>
+        <source>Enter a valid UTC date</source>
+        <translation>Ein gültiges UTC-Datum eingeben</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>In dieser Aktivierung schon gearbeitet</translation>
     </message>

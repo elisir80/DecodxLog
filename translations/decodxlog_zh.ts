@@ -7557,6 +7557,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>dd/mm/yyyy</translation>
     </message>
     <message>
+        <source>Enter a valid UTC date</source>
+        <translation>请输入有效的 UTC 日期</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>这次激活里已经通联过</translation>
     </message>

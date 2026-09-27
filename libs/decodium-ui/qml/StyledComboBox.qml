@@ -102,7 +102,6 @@ ComboBox {
             anchors.fill: parent
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
-            onEntered: root.highlightedIndex = option.rowIndex
             onClicked: {
                 root.currentIndex = option.rowIndex
                 root.activated(option.rowIndex)

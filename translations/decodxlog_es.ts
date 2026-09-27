@@ -7581,6 +7581,10 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
         <translation>dd/mm/aaaa</translation>
     </message>
     <message>
+        <source>Enter a valid UTC date</source>
+        <translation>Escribe una fecha UTC válida</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>Ya trabajado en esta activación</translation>
     </message>

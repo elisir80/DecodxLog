@@ -7557,6 +7557,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>nn/hh/éééé</translation>
     </message>
     <message>
+        <source>Enter a valid UTC date</source>
+        <translation>Adj meg érvényes UTC dátumot</translation>
+    </message>
+    <message>
         <source>Already worked in this activation</source>
         <translation>Ebben az aktiválásban már megvolt</translation>
     </message>
