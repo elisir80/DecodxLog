@@ -1253,9 +1253,14 @@ DialogFrame {
                 ColumnLayout {
                     spacing: 10
 
-                    SectionTitle { text: decolog.rig.link === "tci" ? qsTr("Radio via TCI") : qsTr("Radio via Hamlib (rigctld)") }
+                    SectionTitle {
+                        text: decolog.rig.link === "tci" ? qsTr("Radio via TCI")
+                            : decolog.rig.link === "flrig" ? qsTr("Radio via flrig")
+                            : decolog.rig.link === "omnirig" ? qsTr("Radio via OmniRig")
+                            : qsTr("Radio via Hamlib (rigctld)")
+                    }
                     Note {
-                        visible: decolog.rig.link !== "tci"
+                        visible: decolog.rig.link === "network" || decolog.rig.link === "serial"
                         text: qsTr("Every radio is spoken to by Hamlib, not by DecoDXLog. With the serial cable "
                                    + "pick the model and the port and DecoDXLog starts rigctld by itself; if you "
                                    + "already run rigctld (for a contest program, or on another computer) just "
@@ -1273,9 +1278,11 @@ DialogFrame {
                             label: qsTr("How")
                             StyledComboBox {
                                 Layout.preferredWidth: 270
-                                readonly property var ids: ["network", "serial", "tci"]
+                                readonly property var ids: decolog.rig.omniRigAvailable ? ["network", "serial", "tci", "flrig", "omnirig"]
+                                                                                        : ["network", "serial", "tci", "flrig"]
                                 model: [qsTr("rigctld already running"), qsTr("Serial cable to the radio"),
-                                        qsTr("TCI (SDR, as in Decodium)")]
+                                        qsTr("TCI (SDR, as in Decodium)"), qsTr("flrig (XML-RPC)")]
+                                       .concat(decolog.rig.omniRigAvailable ? [qsTr("OmniRig")] : [])
                                 currentIndex: Math.max(0, ids.indexOf(decolog.rig.link))
                                 onActivated: decolog.rig.link = ids[currentIndex]
                             }
@@ -1460,6 +1467,62 @@ DialogFrame {
                             tone: Theme.primaryColor
                             onClicked: decolog.rig.connectNow()
                         }
+                    }
+                    // flrig: il suo server XML-RPC.
+                    RowLayout {
+                        spacing: 12
+                        visible: decolog.rig.link === "flrig"
+                        LabeledField {
+                            label: qsTr("flrig server")
+                            StyledTextField {
+                                Layout.preferredWidth: 200
+                                text: decolog.rig.flrigAddress
+                                placeholderText: "127.0.0.1:12345"
+                                onEditingFinished: decolog.rig.flrigAddress = text
+                            }
+                        }
+                        GlassButton {
+                            Layout.alignment: Qt.AlignBottom
+                            Layout.bottomMargin: 2
+                            text: qsTr("Connect now")
+                            tone: Theme.primaryColor
+                            onClicked: decolog.rig.connectNow()
+                        }
+                    }
+                    Note {
+                        visible: decolog.rig.link === "flrig"
+                        text: qsTr("flrig keeps the radio and shares it over XML-RPC (in flrig: Config → Setup → "
+                                   + "Server, usually port 12345). DecoDXLog reads frequency and mode every second, "
+                                   + "tunes the radio, uses its PTT and sends CW with flrig's keyer when the radio "
+                                   + "has one. fldigi can stay connected to flrig at the same time.")
+                    }
+                    // OmniRig: Rig1 o Rig2.
+                    RowLayout {
+                        spacing: 12
+                        visible: decolog.rig.link === "omnirig"
+                        LabeledField {
+                            label: qsTr("OmniRig radio")
+                            StyledComboBox {
+                                Layout.preferredWidth: 110
+                                model: ["Rig 1", "Rig 2"]
+                                currentIndex: decolog.rig.omniRigNumber === 2 ? 1 : 0
+                                onActivated: decolog.rig.omniRigNumber = currentIndex + 1
+                            }
+                        }
+                        GlassButton {
+                            Layout.alignment: Qt.AlignBottom
+                            Layout.bottomMargin: 2
+                            text: qsTr("Connect now")
+                            tone: Theme.primaryColor
+                            onClicked: decolog.rig.connectNow()
+                        }
+                    }
+                    Note {
+                        visible: decolog.rig.link === "omnirig"
+                        text: qsTr("OmniRig (by VE3NEA) keeps the serial port and shares the radio with every "
+                                   + "program that asks: configure the radio in OmniRig itself (Rig 1 or Rig 2). "
+                                   + "DecoDXLog reads frequency and mode, tunes the radio and uses its PTT. OmniRig "
+                                   + "does not send CW: use the serial keyer below or another link for that.")
                     }
                     Note {
                         visible: decolog.rig.link === "tci"

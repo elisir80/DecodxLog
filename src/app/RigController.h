@@ -11,6 +11,8 @@
 #include "core/CwKeyer.h"
 #include "core/RigControl.h"
 #include "core/TciControl.h"
+#include "core/FlrigControl.h"
+#include "core/OmniRigControl.h"
 
 #include <QAudioSource>
 #include <QElapsedTimer>
@@ -66,6 +68,10 @@ class RigController : public QObject {
     Q_PROPERTY(QString link READ link WRITE setLink NOTIFY changed)
     // TCI: dove sta il server ("127.0.0.1:40001") e quale ricevitore (0, 1).
     Q_PROPERTY(QString tciAddress READ tciAddress WRITE setTciAddress NOTIFY changed)
+    // "flrig": XML-RPC di flrig; "omnirig": il server COM OmniRig (Windows).
+    Q_PROPERTY(QString flrigAddress READ flrigAddress WRITE setFlrigAddress NOTIFY changed)
+    Q_PROPERTY(int omniRigNumber READ omniRigNumber WRITE setOmniRigNumber NOTIFY changed)
+    Q_PROPERTY(bool omniRigAvailable READ omniRigAvailable CONSTANT)
     Q_PROPERTY(int tciTrx READ tciTrx WRITE setTciTrx NOTIFY changed)
     Q_PROPERTY(QString tciDevice READ tciDevice NOTIFY stateChanged)
     Q_PROPERTY(QString serialPort READ serialPort WRITE setSerialPort NOTIFY changed)
@@ -159,6 +165,11 @@ public:
     int tciTrx() const { return m_tciTrx; }
     void setTciTrx(int trx);
     QString tciDevice() const { return m_tci.device(); }
+    QString flrigAddress() const { return m_flrigAddress; }
+    void setFlrigAddress(const QString& address);
+    int omniRigNumber() const { return m_omniRigNumber; }
+    void setOmniRigNumber(int number);
+    bool omniRigAvailable() const;
     QString serialPort() const { return m_serialPort; }
     void setSerialPort(const QString& port);
     int rigModel() const { return m_rigModel; }
@@ -199,6 +210,10 @@ private:
     // Le due strade per la radio; m_rig e' quella in uso.
     core::RigControl m_hamlib;
     core::TciControl m_tci;
+    core::FlrigControl m_flrig;
+    core::OmniRigControl m_omniRig;
+    QString m_flrigAddress{QStringLiteral("127.0.0.1:12345")};
+    int m_omniRigNumber{1};
     core::RigLink* m_rig{&m_hamlib};
     QString m_tciAddress{QStringLiteral("127.0.0.1:40001")};
     int m_tciTrx{0};

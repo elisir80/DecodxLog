@@ -127,6 +127,10 @@ add_library(decolog_core STATIC
     src/core/Propagation.h
     src/core/KstChat.cpp
     src/core/KstChat.h
+    src/core/FlrigControl.cpp
+    src/core/FlrigControl.h
+    src/core/OmniRigControl.cpp
+    src/core/OmniRigControl.h
 )
 qt_add_resources(decolog_core "schema"
     PREFIX "/decolog"
@@ -156,7 +160,7 @@ target_link_libraries(decolog_core PUBLIC Qt6::Core Qt6::Network Qt6::Sql Qt6::G
 target_link_libraries(decolog_core PRIVATE ggmorse)
 # Annunci vocali: su Windows la sintesi del sistema (SAPI).
 if(WIN32)
-    target_link_libraries(decolog_core PRIVATE sapi ole32)
+    target_link_libraries(decolog_core PRIVATE sapi ole32 oleaut32)
 endif()
 
 # Portachiavi di sistema per password e chiavi API. Senza qtkeychain DecoDXLog si
@@ -409,7 +413,7 @@ set_target_properties(decolog PROPERTIES
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

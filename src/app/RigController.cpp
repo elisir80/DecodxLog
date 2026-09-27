@@ -44,6 +44,8 @@ RigController::RigController(Context context, QObject* parent)
     m_link = s.value(QStringLiteral("rig/link"), QStringLiteral("network")).toString();
     m_tciAddress = s.value(QStringLiteral("rig/tciAddress"), m_tciAddress).toString();
     m_tciTrx = s.value(QStringLiteral("rig/tciTrx"), 0).toInt();
+    m_flrigAddress = s.value(QStringLiteral("rig/flrigAddress"), m_flrigAddress).toString();
+    m_omniRigNumber = s.value(QStringLiteral("rig/omniRigNumber"), 1).toInt();
     m_serialPort = s.value(QStringLiteral("rig/serialPort")).toString();
     m_rigModel = s.value(QStringLiteral("rig/model"), 0).toInt();
     m_baud = s.value(QStringLiteral("rig/baud"), 38400).toInt();
@@ -61,7 +63,8 @@ RigController::RigController(Context context, QObject* parent)
     m_audioInput = s.value(QStringLiteral("cw/audioInput")).toString();
     loadMacros();
 
-    for (core::RigLink* link : {static_cast<core::RigLink*>(&m_hamlib), static_cast<core::RigLink*>(&m_tci)}) {
+    for (core::RigLink* link : {static_cast<core::RigLink*>(&m_hamlib), static_cast<core::RigLink*>(&m_tci),
+                                static_cast<core::RigLink*>(&m_flrig), static_cast<core::RigLink*>(&m_omniRig)}) {
         connect(link, &core::RigLink::changed, this, &RigController::stateChanged);
         connect(link, &core::RigLink::failed, this, [this](const QString& message) {
             if (m_ctx.activity)
@@ -376,6 +379,25 @@ void RigController::connectNow()
 {
     // Radio nuova, speranza nuova: finche' non dice di no, si prova.
     m_canKeyCw = true;
+    if (m_link == QLatin1String("flrig") || m_link == QLatin1String("omnirig")) {
+        // flrig o OmniRig: la radio la tiene un altro programma, noi chiediamo a lui.
+        m_hamlib.disconnectFromRig();
+        m_tci.disconnectFromRig();
+        if (m_link == QLatin1String("flrig")) {
+            m_omniRig.disconnectFromRig();
+            m_rig = &m_flrig;
+            m_flrig.connectTo(m_flrigAddress);
+        } else {
+            m_flrig.disconnectFromRig();
+            m_rig = &m_omniRig;
+            m_omniRig.connectTo(m_omniRigNumber);
+        }
+        m_rig->setSpeedWpm(m_wpm);
+        emit stateChanged();
+        return;
+    }
+    m_flrig.disconnectFromRig();
+    m_omniRig.disconnectFromRig();
     if (m_link == QLatin1String("tci")) {
         // TCI: niente rigctld, si parla al programma della radio.
         m_hamlib.disconnectFromRig();
@@ -470,6 +492,7 @@ void RigController::startLocalRigctld()
 void RigController::setLink(const QString& link)
 {
     const QString clean = link == QLatin1String("serial") || link == QLatin1String("tci")
+                                  || link == QLatin1String("flrig") || link == QLatin1String("omnirig")
                               ? link : QStringLiteral("network");
     if (clean == m_link)
         return;
@@ -490,6 +513,39 @@ void RigController::setTciAddress(const QString& address)
     if (m_enabled && m_link == QLatin1String("tci"))
         connectNow();
     emit changed();
+}
+
+void RigController::setFlrigAddress(const QString& address)
+{
+    const QString clean = address.trimmed().isEmpty() ? QStringLiteral("127.0.0.1:12345") : address.trimmed();
+    if (clean == m_flrigAddress)
+        return;
+    m_flrigAddress = clean;
+    QSettings().setValue(QStringLiteral("rig/flrigAddress"), clean);
+    if (m_enabled && m_link == QLatin1String("flrig"))
+        connectNow();
+    emit changed();
+}
+
+void RigController::setOmniRigNumber(int number)
+{
+    const int clean = number == 2 ? 2 : 1;
+    if (clean == m_omniRigNumber)
+        return;
+    m_omniRigNumber = clean;
+    QSettings().setValue(QStringLiteral("rig/omniRigNumber"), clean);
+    if (m_enabled && m_link == QLatin1String("omnirig"))
+        connectNow();
+    emit changed();
+}
+
+bool RigController::omniRigAvailable() const
+{
+#ifdef Q_OS_WIN
+    return true;
+#else
+    return false;
+#endif
 }
 
 void RigController::setTciTrx(int trx)
