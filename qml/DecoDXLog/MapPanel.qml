@@ -28,15 +28,15 @@ GlassPanel {
     readonly property bool useSafeMap: mapUsesSafeRenderer === true
 
     function repaintAll() {
-        if (mapRenderer.item)
+        if (mapRenderer.item && typeof mapRenderer.item.repaintAll === "function")
             mapRenderer.item.repaintAll()
     }
     function repaintBackground() {
-        if (mapRenderer.item)
+        if (mapRenderer.item && typeof mapRenderer.item.repaintAll === "function")
             mapRenderer.item.repaintBackground()
     }
     function repaintOverlay() {
-        if (mapRenderer.item)
+        if (mapRenderer.item && typeof mapRenderer.item.repaintAll === "function")
             mapRenderer.item.repaintOverlay()
     }
     function reloadSpots() {

@@ -1020,6 +1020,15 @@ QVariantList RigController::defaultMacros()
                     {QStringLiteral("text"), QStringLiteral("NR?")}},
         QVariantMap{{QStringLiteral("label"), QStringLiteral("73")},
                     {QStringLiteral("text"), QStringLiteral("73 GL")}},
+        // F9-F12: quelle che servono in S&P e con l'ESM.
+        QVariantMap{{QStringLiteral("label"), QStringLiteral("My call")},
+                    {QStringLiteral("text"), QStringLiteral("{MYCALL}")}},
+        QVariantMap{{QStringLiteral("label"), QStringLiteral("S&P Exch")},
+                    {QStringLiteral("text"), QStringLiteral("5NN {NR}")}},
+        QVariantMap{{QStringLiteral("label"), QStringLiteral("QRZ?")},
+                    {QStringLiteral("text"), QStringLiteral("QRZ?")}},
+        QVariantMap{{QStringLiteral("label"), QStringLiteral("QRL?")},
+                    {QStringLiteral("text"), QStringLiteral("QRL?")}},
     };
 }
 
@@ -1033,7 +1042,11 @@ void RigController::loadMacros()
         out << QVariantMap{{QStringLiteral("label"), object.value(QStringLiteral("label")).toString()},
                            {QStringLiteral("text"), object.value(QStringLiteral("text")).toString()}};
     }
-    m_macros = out.size() == 8 ? out : defaultMacros();
+    // Chi aveva le otto di prima le tiene, e trova le quattro nuove in fondo.
+    const QVariantList defaults = defaultMacros();
+    if (out.size() == 8)
+        out += defaults.mid(8);
+    m_macros = out.size() == defaults.size() ? out : defaults;
 }
 
 void RigController::saveMacros()

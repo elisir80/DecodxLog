@@ -583,7 +583,7 @@ ApplicationWindow {
                 Shortcut {
                     sequence: "F" + (index + 1)
                     enabled: decolog.rig.enabled && decolog.rig.connected
-                    onActivated: decolog.rig.sendMacro(index, cwPanel.cwContext())
+                    onActivated: decolog.functionKey(index, cwPanel.cwContext())
                 }
             }
         }

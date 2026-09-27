@@ -127,6 +127,8 @@ public:
     int winKeyerVersion() const { return m_winKeyer.version(); }
     // Manda "VVV" per sentire se la radio va in aria davvero.
     Q_INVOKABLE void testKeyer();
+    // Il PTT, per il keyer vocale.
+    Q_INVOKABLE void ptt(bool on) { m_rig->setPtt(on); }
     void setWpm(int wpm);
     QVariantList macros() const { return m_macros; }
 

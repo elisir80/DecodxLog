@@ -223,6 +223,8 @@ qt_add_executable(decolog
     src/app/CloudController.cpp
     src/app/CloudController.h
     src/app/RigController.cpp
+    src/app/VoiceKeyerController.cpp
+    src/app/VoiceKeyerController.h
     src/app/So2rController.cpp
     src/app/So2rController.h
     src/app/NetController.cpp
@@ -271,6 +273,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/ChatWindow.qml
     qml/DecoDXLog/StatsAwardsPage.qml
     qml/DecoDXLog/ContestNetPanel.qml
+    qml/DecoDXLog/DvkPanel.qml
     qml/DecoDXLog/WorldClockButton.qml
     qml/DecoDXLog/WorldClockIcon.qml
     qml/DecoDXLog/WorldClockWindow.qml

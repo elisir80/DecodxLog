@@ -10,6 +10,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtCore
 import Decodium.UI
 
 GlassPanel {
@@ -23,6 +24,73 @@ GlassPanel {
 
     property string band: ""
     property string mode: ""
+
+    // ── ESM e tasti funzione ────────────────────────────────────────────────
+    // Enter Sends Message, come nei log da contest: in Run, Invio a campo vuoto
+    // chiama CQ, con il nominativo manda nominativo e scambio, con lo scambio
+    // manda il grazie e registra. In S&P, Invio col nominativo manda il proprio,
+    // con lo scambio manda il proprio scambio e registra.
+    Settings {
+        id: esmStore
+        category: "contest"
+        property bool esm: true
+        property bool run: true
+    }
+    readonly property bool phone: root.mode === "SSB"
+    function macroContext() {
+        return {
+            call: callField.text.trim(),
+            rst: sentRst.text.trim(),
+            nr: root.session.serialEnabled ? String(root.session.nextSerial || 1) : "",
+            exch: rcvdNr.text.trim(),
+            mode: root.mode
+        }
+    }
+    function sendKey(index) {
+        decolog.functionKey(index, root.macroContext())
+    }
+    function enterPressed(field) {
+        if (!esmStore.esm) {
+            root.logQso()
+            return
+        }
+        const hasCall = callField.text.trim().length > 0
+        const hasExch = rcvdNr.text.trim().length > 0
+        if (esmStore.run) {
+            if (!hasCall) { root.sendKey(0); return }                       // F1 CQ
+            if (field === "call" || !hasExch) {
+                root.sendKey(2)                                             // F3 nominativo + scambio
+                root.goToExchange()
+                return
+            }
+            root.sendKey(3)                                                 // F4 grazie
+            root.logQso()
+        } else {
+            if (!hasCall)
+                return
+            if (field === "call" || !hasExch) {
+                root.sendKey(8)                                             // F9 il proprio nominativo
+                root.goToExchange()
+                return
+            }
+            root.sendKey(9)                                                 // F10 il proprio scambio
+            root.logQso()
+        }
+    }
+    Repeater {
+        model: 12
+        Item {
+            required property int index
+            Shortcut {
+                sequence: "F" + (index + 1)
+                enabled: root.visible && root.running
+                onActivated: root.sendKey(index)
+            }
+        }
+    }
+    // Ctrl+W pulisce l'inserimento; Ctrl+R passa fra Run e S&P.
+    Shortcut { sequence: "Ctrl+W"; enabled: root.visible; onActivated: root.clearEntry() }
+    Shortcut { sequence: "Ctrl+R"; enabled: root.visible && root.running; onActivated: esmStore.run = !esmStore.run }
 
     Connections {
         target: decolog
@@ -227,6 +295,68 @@ GlassPanel {
             message.text = problem
     }
 
+    // Le dodici macro CW, da scrivere come servono.
+    Popup {
+        id: macroPopup
+        parent: Overlay.overlay
+        anchors.centerIn: parent
+        modal: true
+        width: Math.min(760, (parent ? parent.width : 800) - 40)
+        padding: 14
+        background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 8 }
+        ColumnLayout {
+            anchors.fill: parent
+            spacing: 6
+            Text { text: qsTr("CW macros"); color: Theme.textPrimary; font.pixelSize: 15; font.bold: true }
+            Text {
+                Layout.fillWidth: true
+                wrapMode: Text.Wrap
+                color: Theme.textSecondary
+                font.pixelSize: 11
+                text: qsTr("{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. "
+                           + "With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. "
+                           + "In S&P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.")
+            }
+            Repeater {
+                model: decolog.rig.macros
+                RowLayout {
+                    id: macroRow
+                    required property var modelData
+                    required property int index
+                    Layout.fillWidth: true
+                    spacing: 8
+                    Text {
+                        Layout.preferredWidth: 34
+                        text: "F" + (macroRow.index + 1)
+                        color: Theme.secondaryColor
+                        font.family: Theme.monoFamily
+                        font.pixelSize: 12
+                        font.bold: true
+                    }
+                    StyledTextField {
+                        id: macroLabel
+                        Layout.preferredWidth: 110
+                        text: macroRow.modelData.label
+                        onEditingFinished: decolog.rig.setMacro(macroRow.index, text, macroText.text)
+                    }
+                    StyledTextField {
+                        id: macroText
+                        Layout.fillWidth: true
+                        text: macroRow.modelData.text
+                        uppercase: true
+                        onEditingFinished: decolog.rig.setMacro(macroRow.index, macroLabel.text, text)
+                    }
+                }
+            }
+            RowLayout {
+                Layout.fillWidth: true
+                GlassButton { text: qsTr("Default macros"); onClicked: decolog.rig.resetMacros() }
+                Item { Layout.fillWidth: true }
+                GlassButton { text: qsTr("Close"); tone: Theme.primaryColor; onClicked: macroPopup.close() }
+            }
+        }
+    }
+
     // SO2R dalla tastiera: Ctrl+freccia sceglie la radio, Pausa le scambia,
     // l'accento grave accende e spegne l'ascolto stereo.
     Shortcut { sequence: "Ctrl+Left"; enabled: root.visible && decolog.so2r.enabled; onActivated: decolog.so2r.focus = 1 }
@@ -319,6 +449,26 @@ GlassPanel {
                     }
                 }
             }
+            // Run o S&P, e l'ESM acceso o spento.
+            GlassButton {
+                Layout.alignment: Qt.AlignBottom
+                text: esmStore.run ? "RUN" : "S&P"
+                tone: esmStore.run ? Theme.accentColor : Theme.secondaryColor
+                filled: true
+                onClicked: esmStore.run = !esmStore.run
+            }
+            GlassButton {
+                Layout.alignment: Qt.AlignBottom
+                text: "ESM"
+                tone: Theme.primaryColor
+                filled: esmStore.esm
+                onClicked: esmStore.esm = !esmStore.esm
+            }
+            GlassButton {
+                Layout.alignment: Qt.AlignBottom
+                text: qsTr("Macros…")
+                onClicked: macroPopup.open()
+            }
             Item { Layout.fillWidth: true }
             // SO2R: le due radio, quella col fuoco evidenziata. Un clic la sceglie.
             Repeater {
@@ -371,9 +521,9 @@ GlassPanel {
                         suggestTimer.restart()
                     }
                     Keys.onSpacePressed: root.goToExchange()
-                    Keys.onReturnPressed: root.logQso()
-                    Keys.onEnterPressed: root.logQso()
-                    Keys.onEscapePressed: root.clearEntry()
+                    Keys.onReturnPressed: root.enterPressed("call")
+                    Keys.onEnterPressed: root.enterPressed("call")
+                    Keys.onEscapePressed: { decolog.stopSending(); root.clearEntry() }
                 }
             }
             LabeledField {
@@ -406,9 +556,9 @@ GlassPanel {
                     uppercase: true
                     accentBorder: root.exchangeProblem.length > 0 ? Theme.warningColor
                                                                   : Theme.primaryColor
-                    Keys.onReturnPressed: root.logQso()
-                    Keys.onEnterPressed: root.logQso()
-                    Keys.onEscapePressed: root.clearEntry()
+                    Keys.onReturnPressed: root.enterPressed("exch")
+                    Keys.onEnterPressed: root.enterPressed("exch")
+                    Keys.onEscapePressed: { decolog.stopSending(); root.clearEntry() }
                 }
             }
             GlassButton {
@@ -494,6 +644,31 @@ GlassPanel {
                         model: scpBox.neighbours
                         CallChip { required property string modelData; call: modelData; tone: Theme.warningColor }
                     }
+                }
+            }
+        }
+
+        // I dodici tasti: in CW le macro, in fonia i messaggi registrati.
+        GridLayout {
+            Layout.fillWidth: true
+            visible: root.running
+            columns: root.width > 760 ? 12 : 6
+            columnSpacing: 4
+            rowSpacing: 4
+            Repeater {
+                model: 12
+                GlassButton {
+                    required property int index
+                    Layout.fillWidth: true
+                    buttonHeight: 24
+                    fontPixelSize: 10
+                    readonly property var macro: decolog.rig.macros[index] || ({})
+                    readonly property var voice: decolog.dvk.messages[index] || null
+                    text: "F" + (index + 1) + " " + (root.phone ? (voice ? voice.label : "—") : (macro.label || ""))
+                    enabled: root.phone ? (voice !== null && voice.present) : true
+                    tone: (esmStore.run && (index === 0 || index === 2 || index === 3))
+                          || (!esmStore.run && (index === 8 || index === 9)) ? Theme.accentColor : Theme.primaryColor
+                    onClicked: root.sendKey(index)
                 }
             }
         }

@@ -20,6 +20,7 @@
 #include "app/SuperCheckController.h"
 #include "app/NetController.h"
 #include "app/So2rController.h"
+#include "app/VoiceKeyerController.h"
 #include "app/QsoTableModel.h"
 #include "app/StationProfileModel.h"
 #include "core/Awards.h"
@@ -73,6 +74,8 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QObject* net READ net CONSTANT)
     // SO2R: la seconda radio e la scatola OTRSP.
     Q_PROPERTY(QObject* so2r READ so2r CONSTANT)
+    // Il keyer vocale (DVK) per la fonia.
+    Q_PROPERTY(QObject* dvk READ dvk CONSTANT)
     // La radio via Hamlib, con le macro in CW per i contest.
     Q_PROPERTY(QObject* rig READ rig CONSTANT)
     Q_PROPERTY(QObject* cloud READ cloud CONSTANT)
@@ -212,6 +215,13 @@ public:
     QObject* scp() const { return m_scp; }
     QObject* net() const { return m_net; }
     QObject* so2r() const { return m_so2r; }
+    QObject* dvk() const { return m_dvk; }
+    // Si opera in fonia (SSB, AM, FM)? Allora i tasti funzione sono il DVK.
+    Q_INVOKABLE bool phoneMode() const;
+    // Un tasto funzione: in fonia il messaggio registrato, altrimenti la macro CW.
+    Q_INVOKABLE void functionKey(int index, const QVariantMap& context);
+    // Esc: ferma CW e voce.
+    Q_INVOKABLE void stopSending();
     QObject* rig() const { return m_rig; }
     QObject* cloud() const { return m_cloud; }
     QObject* activation() const { return m_activation; }
@@ -630,6 +640,7 @@ private:
     SuperCheckController* m_scp{nullptr};
     NetController*       m_net{nullptr};
     So2rController*      m_so2r{nullptr};
+    VoiceKeyerController* m_dvk{nullptr};
     RigController*       m_rig{nullptr};
     CloudController*     m_cloud{nullptr};
     ActivationController* m_activation{nullptr};

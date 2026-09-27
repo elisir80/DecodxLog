@@ -368,8 +368,9 @@ GlassPanel {
             required property int index
             Shortcut {
                 sequence: "F" + (index + 1)
-                enabled: root.visible && root.rig.connected
-                onActivated: root.rig.sendMacro(index, root.cwContext())
+                // In gara i tasti funzione li tiene l'inserimento del contest (ESM).
+                enabled: root.visible && root.rig.connected && !decolog.activation.active
+                onActivated: decolog.functionKey(index, root.cwContext())
             }
         }
     }

@@ -699,6 +699,19 @@ bool DecoLogController::openDatabase(const QString& path)
     };
     m_so2r = new So2rController(std::move(so2rCtx), this);
 
+    VoiceKeyerController::Context dvkCtx;
+    dvkCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
+        addActivity(category, text, level);
+    };
+    // Il PTT della radio che ha il fuoco.
+    dvkCtx.ptt = [this](bool on) {
+        if (m_so2r && m_so2r->radio2HasFocus() && m_so2r->radio2Connected())
+            m_so2r->radio2()->setPtt(on);
+        else if (auto* rig = qobject_cast<RigController*>(m_rig))
+            rig->ptt(on);
+    };
+    m_dvk = new VoiceKeyerController(std::move(dvkCtx), this);
+
     RigController::Context rigCtx;
     rigCtx.alternateRig = [this]() -> core::RigLink* {
         return m_so2r && m_so2r->radio2HasFocus() ? m_so2r->radio2() : nullptr;
@@ -1192,6 +1205,36 @@ QString DecoLogController::shownFrequency() const
     if (rig && rig->connected() && rig->frequencyHz() > 0)
         return QString::number(static_cast<double>(rig->frequencyHz()) / 1e6, 'f', 6);
     return dialFrequency();
+}
+
+bool DecoLogController::phoneMode() const
+{
+    const QString m = shownMode().toUpper();
+    return m == QLatin1String("USB") || m == QLatin1String("LSB") || m == QLatin1String("SSB")
+        || m == QLatin1String("AM") || m == QLatin1String("FM") || m == QLatin1String("PKTFM");
+}
+
+void DecoLogController::functionKey(int index, const QVariantMap& context)
+{
+    const QString asked = context.value(QStringLiteral("mode")).toString().toUpper();
+    const bool phone = asked.isEmpty() ? phoneMode()
+                                       : (asked == QLatin1String("SSB") || asked == QLatin1String("USB")
+                                          || asked == QLatin1String("LSB") || asked == QLatin1String("AM")
+                                          || asked == QLatin1String("FM"));
+    if (phone && m_dvk) {
+        m_dvk->play(index);
+        return;
+    }
+    if (auto* rig = qobject_cast<RigController*>(m_rig))
+        rig->sendMacro(index, context);
+}
+
+void DecoLogController::stopSending()
+{
+    if (m_dvk)
+        m_dvk->stop();
+    if (auto* rig = qobject_cast<RigController*>(m_rig))
+        rig->stop();
 }
 
 QString DecoLogController::shownMode() const
