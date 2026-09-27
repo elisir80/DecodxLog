@@ -5962,6 +5962,54 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>OmniRig (VE3NEA) tur seriālo portu un koplieto radio ar visām programmām: radio iestata pašā OmniRig (Rig 1 vai Rig 2). DecoDXLog nolasa frekvenci un modu, noskaņo radio un izmanto PTT. OmniRig nesūta CW: tam izmanto zemāk esošo seriālo keyer vai citu savienojumu.</translation>
     </message>
     <message>
+        <source>Shared CAT</source>
+        <translation>Koplietota CAT</translation>
+    </message>
+    <message>
+        <source>Share the CAT</source>
+        <translation>Koplietot CAT</translation>
+    </message>
+    <message>
+        <source>Shared port</source>
+        <translation>Koplietotais ports</translation>
+    </message>
+    <message>
+        <source>Allow control</source>
+        <translation>Atļaut vadību</translation>
+    </message>
+    <message>
+        <source>Allow transmit</source>
+        <translation>Atļaut raidīšanu</translation>
+    </message>
+    <message>
+        <source>Listening on 127.0.0.1:%1 · connected programs: %2 · in the other programs choose &quot;Hamlib NET rigctl&quot; with 127.0.0.1:%1</source>
+        <translation>Klausās 127.0.0.1:%1 · pieslēgtās programmas: %2 · citās programmās izvēlies &quot;Hamlib NET rigctl&quot; ar 127.0.0.1:%1</translation>
+    </message>
+    <message>
+        <source>Sharing not started: %1</source>
+        <translation>Koplietošana nav sākta: %1</translation>
+    </message>
+    <message>
+        <source>Not shared: while DecoDXLog holds the radio, the other programs cannot use it.</source>
+        <translation>Nav koplietots: kamēr radio tur DecoDXLog, citas programmas to nevar izmantot.</translation>
+    </message>
+    <message>
+        <source>As in Decodium 4: the radio DecoDXLog holds (serial, TCI, flrig, OmniRig) is offered to the other programs on this computer with the rigctld protocol. By default they only read frequency and mode; changing them needs &quot;Allow control&quot;, transmitting also needs &quot;Allow transmit&quot;. If Decodium already shares its CAT on the same port, give DecoDXLog another one.</source>
+        <translation>Kā Decodium 4: radio, ko tur DecoDXLog (seriālais, TCI, flrig, OmniRig), tiek piedāvāts citām šī datora programmām ar rigctld protokolu. Pēc noklusējuma tās tikai nolasa frekvenci un modu; lai mainītu, vajag &quot;Atļaut vadību&quot;, lai raidītu, vajag arī &quot;Atļaut raidīšanu&quot;. Ja Decodium jau koplieto savu CAT tajā pašā portā, dod DecoDXLog citu.</translation>
+    </message>
+    <message>
+        <source>Use a shared CAT</source>
+        <translation>Izmantot koplietotu CAT</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>Pieslēgties</translation>
+    </message>
+    <message>
+        <source>When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), DecoDXLog connects to it here: the link becomes &quot;rigctld already running&quot; on that address.</source>
+        <translation>Kad radio tur Decodium un to koplieto (Iestatījumi → CAT → Koplietota CAT), DecoDXLog pieslēdzas šeit: savienojums kļūst &quot;rigctld jau darbojas&quot; uz šo adresi.</translation>
+    </message>
+    <message>
         <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
         <translation>Divpadsmit makro raksta ar Makro… sacensību ievadē vai Rediģēt makro sacensību logā (Ctrl+Shift+T); tie ir uz F1-F12, Esc aptur.</translation>
     </message>
@@ -8235,6 +8283,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
 <context>
     <name>decolog::app::RigController</name>
     <message>
+        <source>A program on the shared CAT asked for %1: refused (enable control in Settings → Radio)</source>
+        <translation>Programma koplietotajā CAT pieprasīja %1: noraidīts (atļauj vadību sadaļā Iestatījumi → Radio)</translation>
+    </message>
+    <message>
+        <source>Shared CAT not started on port %1: %2</source>
+        <translation>Koplietotā CAT nav sākta portā %1: %2</translation>
+    </message>
+    <message>
         <source>WinKeyer answers: firmware %1</source>
         <translation>WinKeyer atbild: aparātprogrammatūra %1</translation>
     </message>
@@ -8297,6 +8353,18 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Hamlib started on %1 (model %2, %3 baud)</source>
         <translation>Hamlib palaists uz %1 (modelis %2, %3 bodi)</translation>
+    </message>
+    <message>
+        <source>Shared CAT off</source>
+        <translation>Koplietotā CAT izslēgta</translation>
+    </message>
+    <message>
+        <source>Shared CAT on 127.0.0.1:%1: other programs connect as &quot;Hamlib NET rigctl&quot;</source>
+        <translation>Koplietotā CAT uz 127.0.0.1:%1: citas programmas pieslēdzas kā &quot;Hamlib NET rigctl&quot;</translation>
+    </message>
+    <message>
+        <source>Port %1 is DecoDXLog&apos;s own shared CAT: choose the port of the program that holds the radio</source>
+        <translation>Ports %1 ir paša DecoDXLog koplietotā CAT: izvēlies programmas portu, kas tur radio</translation>
     </message>
     <message>
         <source>No audio input to listen to</source>

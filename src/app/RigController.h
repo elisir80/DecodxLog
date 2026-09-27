@@ -14,6 +14,7 @@
 #include "core/TciControl.h"
 #include "core/FlrigControl.h"
 #include "core/OmniRigControl.h"
+#include "core/CatShare.h"
 
 #include <QAudioSource>
 #include <QElapsedTimer>
@@ -72,6 +73,15 @@ class RigController : public QObject {
     // "flrig": XML-RPC di flrig; "omnirig": il server COM OmniRig (Windows).
     Q_PROPERTY(QString flrigAddress READ flrigAddress WRITE setFlrigAddress NOTIFY changed)
     Q_PROPERTY(int omniRigNumber READ omniRigNumber WRITE setOmniRigNumber NOTIFY changed)
+    // La CAT condivisa, come in Decodium 4: la radio che tiene DecoDXLog si
+    // rivende su 127.0.0.1 con il protocollo di rigctld ("Hamlib NET rigctl").
+    Q_PROPERTY(bool shareEnabled READ shareEnabled NOTIFY shareChanged)
+    Q_PROPERTY(int sharePort READ sharePort NOTIFY shareChanged)
+    Q_PROPERTY(bool shareControl READ shareControl NOTIFY shareChanged)
+    Q_PROPERTY(bool sharePtt READ sharePtt NOTIFY shareChanged)
+    Q_PROPERTY(bool shareListening READ shareListening NOTIFY shareChanged)
+    Q_PROPERTY(int shareClients READ shareClients NOTIFY shareChanged)
+    Q_PROPERTY(QString shareError READ shareError NOTIFY shareChanged)
     Q_PROPERTY(bool omniRigAvailable READ omniRigAvailable CONSTANT)
     Q_PROPERTY(int tciTrx READ tciTrx WRITE setTciTrx NOTIFY changed)
     Q_PROPERTY(QString tciDevice READ tciDevice NOTIFY stateChanged)
@@ -179,6 +189,18 @@ public:
     int omniRigNumber() const { return m_omniRigNumber; }
     void setOmniRigNumber(int number);
     bool omniRigAvailable() const;
+    bool shareEnabled() const { return m_share.enabled(); }
+    int sharePort() const { return m_share.port(); }
+    bool shareControl() const { return m_share.allowControl(); }
+    bool sharePtt() const { return m_share.allowPtt(); }
+    bool shareListening() const { return m_share.listening(); }
+    int shareClients() const { return m_share.clientCount(); }
+    QString shareError() const { return m_share.lastError(); }
+    // Accende, spegne o cambia la condivisione, e la ricorda.
+    Q_INVOKABLE void configureShare(bool enabled, int port, bool allowControl, bool allowPtt);
+    // Usa la CAT che condivide un altro programma (Decodium): rigctld di rete
+    // su host:porta, collegato subito.
+    Q_INVOKABLE void useSharedCat(const QString& host, int port);
     QString serialPort() const { return m_serialPort; }
     void setSerialPort(const QString& port);
     int rigModel() const { return m_rigModel; }
@@ -200,6 +222,7 @@ public:
 signals:
     void changed();
     void stateChanged();
+    void shareChanged();
     void macrosChanged();
     void decoderChanged();
     void decoderScopeChanged();
@@ -221,6 +244,7 @@ private:
     core::TciControl m_tci;
     core::FlrigControl m_flrig;
     core::OmniRigControl m_omniRig;
+    core::CatShare m_share;
     QString m_flrigAddress{QStringLiteral("127.0.0.1:12345")};
     int m_omniRigNumber{1};
     core::RigLink* m_rig{&m_hamlib};

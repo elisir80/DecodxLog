@@ -928,7 +928,7 @@ ApplicationWindow {
         else if (what[0] === "new") newQsoDialog.open()
         else if (what[0] === "qso") { openQso(parseInt(what[1])); if (what[2]) qsoDialog.currentTab = parseInt(what[2]) }
         else if (what[0] === "profiles") profilesDialog.open()
-        else if (what[0] === "setup") { setupDialog.page = parseInt(what[1] || "3"); setupDialog.open(); if (what[2] === "end") Qt.callLater(setupDialog.scrollToBottom) }
+        else if (what[0] === "setup") { setupDialog.page = parseInt(what[1] || "3"); setupDialog.open(); if (what[2] === "end") Qt.callLater(setupDialog.scrollToBottom); else if (what[2]) { const y = parseInt(what[2]); Qt.callLater(() => setupDialog.scrollTo(y)) } }
         else if (what[0] === "menu") window.panelItem("logbook").showMenu(what[1])
         else if (what[0] === "select") window.panelItem("logbook").showSelection(what[1], what[2])
         // Lavori di manutenzione, utili anche da riga di comando.

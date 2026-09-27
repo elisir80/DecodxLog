@@ -5948,6 +5948,54 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Shared CAT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Share the CAT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shared port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow transmit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listening on 127.0.0.1:%1 · connected programs: %2 · in the other programs choose &quot;Hamlib NET rigctl&quot; with 127.0.0.1:%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sharing not started: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not shared: while DecoDXLog holds the radio, the other programs cannot use it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>As in Decodium 4: the radio DecoDXLog holds (serial, TCI, flrig, OmniRig) is offered to the other programs on this computer with the rigctld protocol. By default they only read frequency and mode; changing them needs &quot;Allow control&quot;, transmitting also needs &quot;Allow transmit&quot;. If Decodium already shares its CAT on the same port, give DecoDXLog another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a shared CAT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), DecoDXLog connects to it here: the link becomes &quot;rigctld already running&quot; on that address.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8191,6 +8239,14 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>decolog::app::RigController</name>
     <message>
+        <source>A program on the shared CAT asked for %1: refused (enable control in Settings → Radio)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shared CAT not started on port %1: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>WinKeyer answers: firmware %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8251,6 +8307,18 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Hamlib started on %1 (model %2, %3 baud)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shared CAT off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shared CAT on 127.0.0.1:%1: other programs connect as &quot;Hamlib NET rigctl&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port %1 is DecoDXLog&apos;s own shared CAT: choose the port of the program that holds the radio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

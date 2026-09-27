@@ -5962,6 +5962,54 @@ The call Decodium is working shows up here by itself.</source>
         <translation>OmniRig (VE3NEA) держит последовательный порт и делит радио со всеми программами: радио настраивается в самом OmniRig (Rig 1 или Rig 2). DecoDXLog читает частоту и вид излучения, настраивает радио и использует его PTT. OmniRig не передаёт CW: для этого используйте последовательный ключ ниже или другое подключение.</translation>
     </message>
     <message>
+        <source>Shared CAT</source>
+        <translation>Общий CAT</translation>
+    </message>
+    <message>
+        <source>Share the CAT</source>
+        <translation>Делиться CAT</translation>
+    </message>
+    <message>
+        <source>Shared port</source>
+        <translation>Общий порт</translation>
+    </message>
+    <message>
+        <source>Allow control</source>
+        <translation>Разрешить управление</translation>
+    </message>
+    <message>
+        <source>Allow transmit</source>
+        <translation>Разрешить передачу</translation>
+    </message>
+    <message>
+        <source>Listening on 127.0.0.1:%1 · connected programs: %2 · in the other programs choose &quot;Hamlib NET rigctl&quot; with 127.0.0.1:%1</source>
+        <translation>Слушает 127.0.0.1:%1 · подключено программ: %2 · в других программах выберите «Hamlib NET rigctl» с 127.0.0.1:%1</translation>
+    </message>
+    <message>
+        <source>Sharing not started: %1</source>
+        <translation>Общий доступ не запущен: %1</translation>
+    </message>
+    <message>
+        <source>Not shared: while DecoDXLog holds the radio, the other programs cannot use it.</source>
+        <translation>Нет общего доступа: пока радио держит DecoDXLog, другие программы не могут его использовать.</translation>
+    </message>
+    <message>
+        <source>As in Decodium 4: the radio DecoDXLog holds (serial, TCI, flrig, OmniRig) is offered to the other programs on this computer with the rigctld protocol. By default they only read frequency and mode; changing them needs &quot;Allow control&quot;, transmitting also needs &quot;Allow transmit&quot;. If Decodium already shares its CAT on the same port, give DecoDXLog another one.</source>
+        <translation>Как в Decodium 4: радио, которое держит DecoDXLog (COM-порт, TCI, flrig, OmniRig), предоставляется другим программам этого компьютера по протоколу rigctld. По умолчанию они только читают частоту и вид излучения; для изменения нужно «Разрешить управление», для передачи — ещё и «Разрешить передачу». Если Decodium уже делится своим CAT на том же порту, дайте DecoDXLog другой.</translation>
+    </message>
+    <message>
+        <source>Use a shared CAT</source>
+        <translation>Использовать общий CAT</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>Подключиться</translation>
+    </message>
+    <message>
+        <source>When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), DecoDXLog connects to it here: the link becomes &quot;rigctld already running&quot; on that address.</source>
+        <translation>Когда радио держит Decodium и делится им (Настройки → CAT → Общий CAT), DecoDXLog подключается здесь: связь становится «rigctld уже запущен» по этому адресу.</translation>
+    </message>
+    <message>
         <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
         <translation>Двенадцать макросов задаются кнопкой Макросы… во вводе соревнования или Изменить макросы в окне соревнования (Ctrl+Shift+T); они на клавишах F1-F12, Esc останавливает.</translation>
     </message>
@@ -8235,6 +8283,14 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>decolog::app::RigController</name>
     <message>
+        <source>A program on the shared CAT asked for %1: refused (enable control in Settings → Radio)</source>
+        <translation>Программа на общем CAT запросила %1: отказано (разрешите управление в Настройки → Радио)</translation>
+    </message>
+    <message>
+        <source>Shared CAT not started on port %1: %2</source>
+        <translation>Общий CAT не запущен на порту %1: %2</translation>
+    </message>
+    <message>
         <source>WinKeyer answers: firmware %1</source>
         <translation>WinKeyer отвечает: прошивка %1</translation>
     </message>
@@ -8297,6 +8353,18 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Hamlib started on %1 (model %2, %3 baud)</source>
         <translation>Hamlib запущен на %1 (модель %2, %3 бод)</translation>
+    </message>
+    <message>
+        <source>Shared CAT off</source>
+        <translation>Общий CAT выключен</translation>
+    </message>
+    <message>
+        <source>Shared CAT on 127.0.0.1:%1: other programs connect as &quot;Hamlib NET rigctl&quot;</source>
+        <translation>Общий CAT на 127.0.0.1:%1: другие программы подключаются как «Hamlib NET rigctl»</translation>
+    </message>
+    <message>
+        <source>Port %1 is DecoDXLog&apos;s own shared CAT: choose the port of the program that holds the radio</source>
+        <translation>Порт %1 — это общий CAT самого DecoDXLog: выберите порт программы, которая держит радио</translation>
     </message>
     <message>
         <source>No audio input to listen to</source>

@@ -3,6 +3,22 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.27 — in preparazione
+
+**La CAT condivisa, come in Decodium 4.**
+
+- Quando la radio la tiene DecoDXLog (cavo seriale con il suo rigctld, TCI, flrig o
+  OmniRig), gli altri programmi di questo computer la possono usare lo stesso: DecoDXLog
+  la rivende su 127.0.0.1 con il protocollo di rigctld, e Decodium, WSJT-X o un altro log
+  si collegano come "Hamlib NET rigctl" (porta 4533 di serie). Impostazioni → Radio (CAT)
+  → CAT condivisa.
+- Lo stesso dialogo di Decodium 4, verificato con il vero client Hamlib (`rigctl -m 2`):
+  frequenza, modo, VFO in lettura; cambiare frequenza e modo solo con "Consenti il
+  controllo", trasmettere solo con "Consenti la trasmissione". Se la porta e' gia' presa
+  (Decodium che condivide sulla stessa), lo dice.
+- Il contrario, quando la radio la tiene Decodium: "Usa una CAT condivisa" con
+  127.0.0.1:4533 e Collegati, e DecoDXLog comanda la radio attraverso Decodium.
+
 ## 1.16.26 — 27 settembre 2026
 
 **La band map non ferma piu' la finestra quando il cluster manda spot a raffica.**

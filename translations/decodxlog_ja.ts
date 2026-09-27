@@ -5936,6 +5936,54 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>OmniRig（VE3NEA 作）はシリアルポートを持ち、求めるすべてのプログラムと無線機を共有します。無線機は OmniRig 側で設定します（Rig 1 または Rig 2）。DecoDXLog は周波数とモードを読み、同調し、PTT を使います。OmniRig は CW を送りません。CW には下のシリアルキーヤーか別の接続を使ってください。</translation>
     </message>
     <message>
+        <source>Shared CAT</source>
+        <translation>共有 CAT</translation>
+    </message>
+    <message>
+        <source>Share the CAT</source>
+        <translation>CAT を共有</translation>
+    </message>
+    <message>
+        <source>Shared port</source>
+        <translation>共有ポート</translation>
+    </message>
+    <message>
+        <source>Allow control</source>
+        <translation>制御を許可</translation>
+    </message>
+    <message>
+        <source>Allow transmit</source>
+        <translation>送信を許可</translation>
+    </message>
+    <message>
+        <source>Listening on 127.0.0.1:%1 · connected programs: %2 · in the other programs choose &quot;Hamlib NET rigctl&quot; with 127.0.0.1:%1</source>
+        <translation>127.0.0.1:%1 で待機中 · 接続中のプログラム: %2 · 他のプログラムでは &quot;Hamlib NET rigctl&quot; と 127.0.0.1:%1 を選択</translation>
+    </message>
+    <message>
+        <source>Sharing not started: %1</source>
+        <translation>共有を開始できません: %1</translation>
+    </message>
+    <message>
+        <source>Not shared: while DecoDXLog holds the radio, the other programs cannot use it.</source>
+        <translation>共有していません: DecoDXLog が無線機を使っている間、他のプログラムは使えません。</translation>
+    </message>
+    <message>
+        <source>As in Decodium 4: the radio DecoDXLog holds (serial, TCI, flrig, OmniRig) is offered to the other programs on this computer with the rigctld protocol. By default they only read frequency and mode; changing them needs &quot;Allow control&quot;, transmitting also needs &quot;Allow transmit&quot;. If Decodium already shares its CAT on the same port, give DecoDXLog another one.</source>
+        <translation>Decodium 4 と同じ: DecoDXLog が使っている無線機（シリアル、TCI、flrig、OmniRig）を rigctld プロトコルでこのコンピューターの他のプログラムに提供します。既定では周波数とモードの読み取りのみです。変更には「制御を許可」、送信にはさらに「送信を許可」が必要です。Decodium が同じポートで CAT を共有している場合は、DecoDXLog に別のポートを指定してください。</translation>
+    </message>
+    <message>
+        <source>Use a shared CAT</source>
+        <translation>共有 CAT を使う</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>接続</translation>
+    </message>
+    <message>
+        <source>When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), DecoDXLog connects to it here: the link becomes &quot;rigctld already running&quot; on that address.</source>
+        <translation>Decodium が無線機を持って共有している場合（設定 → CAT → 共有 CAT）、DecoDXLog はここから接続します。接続方法はそのアドレスの「起動済みの rigctld」になります。</translation>
+    </message>
+    <message>
         <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
         <translation>12 個のマクロはコンテスト入力の「マクロ…」、またはコンテストウィンドウ（Ctrl+Shift+T）の「マクロを編集」で書き、F1〜F12 キーに割り当てられます。Esc で停止します。</translation>
     </message>
@@ -8149,6 +8197,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 <context>
     <name>decolog::app::RigController</name>
     <message>
+        <source>A program on the shared CAT asked for %1: refused (enable control in Settings → Radio)</source>
+        <translation>共有 CAT のプログラムが %1 を要求: 拒否しました（設定 → 無線機 で制御を許可）</translation>
+    </message>
+    <message>
+        <source>Shared CAT not started on port %1: %2</source>
+        <translation>ポート %1 で共有 CAT を開始できません: %2</translation>
+    </message>
+    <message>
         <source>WinKeyer answers: firmware %1</source>
         <translation>WinKeyer 応答: ファームウェア %1</translation>
     </message>
@@ -8209,6 +8265,18 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Hamlib started on %1 (model %2, %3 baud)</source>
         <translation>%1 で Hamlib が立ち上がりました (機種 %2、%3 baud)</translation>
+    </message>
+    <message>
+        <source>Shared CAT off</source>
+        <translation>共有 CAT をオフにしました</translation>
+    </message>
+    <message>
+        <source>Shared CAT on 127.0.0.1:%1: other programs connect as &quot;Hamlib NET rigctl&quot;</source>
+        <translation>共有 CAT: 127.0.0.1:%1 — 他のプログラムは &quot;Hamlib NET rigctl&quot; として接続します</translation>
+    </message>
+    <message>
+        <source>Port %1 is DecoDXLog&apos;s own shared CAT: choose the port of the program that holds the radio</source>
+        <translation>ポート %1 は DecoDXLog 自身の共有 CAT です: 無線機を持っているプログラムのポートを選んでください</translation>
     </message>
     <message>
         <source>No audio input to listen to</source>

@@ -5962,6 +5962,54 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>OmniRig (de VE3NEA) ține portul serial și partajează stația cu toate programele: configurează stația în OmniRig (Rig 1 sau Rig 2). DecoDXLog citește frecvența și modul, acordă stația și folosește PTT-ul. OmniRig nu trimite CW: pentru asta folosește keyerul serial de mai jos sau altă legătură.</translation>
     </message>
     <message>
+        <source>Shared CAT</source>
+        <translation>CAT partajată</translation>
+    </message>
+    <message>
+        <source>Share the CAT</source>
+        <translation>Partajează CAT</translation>
+    </message>
+    <message>
+        <source>Shared port</source>
+        <translation>Port partajat</translation>
+    </message>
+    <message>
+        <source>Allow control</source>
+        <translation>Permite controlul</translation>
+    </message>
+    <message>
+        <source>Allow transmit</source>
+        <translation>Permite emisia</translation>
+    </message>
+    <message>
+        <source>Listening on 127.0.0.1:%1 · connected programs: %2 · in the other programs choose &quot;Hamlib NET rigctl&quot; with 127.0.0.1:%1</source>
+        <translation>Ascultă pe 127.0.0.1:%1 · programe conectate: %2 · în celelalte programe alege &quot;Hamlib NET rigctl&quot; cu 127.0.0.1:%1</translation>
+    </message>
+    <message>
+        <source>Sharing not started: %1</source>
+        <translation>Partajarea nu a pornit: %1</translation>
+    </message>
+    <message>
+        <source>Not shared: while DecoDXLog holds the radio, the other programs cannot use it.</source>
+        <translation>Nepartajată: cât timp DecoDXLog ține stația, celelalte programe nu o pot folosi.</translation>
+    </message>
+    <message>
+        <source>As in Decodium 4: the radio DecoDXLog holds (serial, TCI, flrig, OmniRig) is offered to the other programs on this computer with the rigctld protocol. By default they only read frequency and mode; changing them needs &quot;Allow control&quot;, transmitting also needs &quot;Allow transmit&quot;. If Decodium already shares its CAT on the same port, give DecoDXLog another one.</source>
+        <translation>Ca în Decodium 4: stația ținută de DecoDXLog (serial, TCI, flrig, OmniRig) este oferită celorlalte programe de pe acest calculator cu protocolul rigctld. Implicit citesc doar frecvența și modul; pentru a le schimba trebuie &quot;Permite controlul&quot;, pentru emisie și &quot;Permite emisia&quot;. Dacă Decodium își partajează deja CAT-ul pe același port, dă-i lui DecoDXLog alt port.</translation>
+    </message>
+    <message>
+        <source>Use a shared CAT</source>
+        <translation>Folosește o CAT partajată</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>Conectare</translation>
+    </message>
+    <message>
+        <source>When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), DecoDXLog connects to it here: the link becomes &quot;rigctld already running&quot; on that address.</source>
+        <translation>Când stația o ține Decodium și o partajează (Setări → CAT → CAT partajată), DecoDXLog se conectează aici: legătura devine &quot;rigctld deja pornit&quot; la acea adresă.</translation>
+    </message>
+    <message>
         <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
         <translation>Cele douăsprezece macrouri se scriu cu Macrouri… în introducerea concursului sau Editează macrourile în fereastra concursului (Ctrl+Shift+T) și sunt pe tastele F1-F12; Esc oprește.</translation>
     </message>
@@ -8235,6 +8283,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
 <context>
     <name>decolog::app::RigController</name>
     <message>
+        <source>A program on the shared CAT asked for %1: refused (enable control in Settings → Radio)</source>
+        <translation>Un program de pe CAT-ul partajat a cerut %1: refuzat (permite controlul în Setări → Stație)</translation>
+    </message>
+    <message>
+        <source>Shared CAT not started on port %1: %2</source>
+        <translation>CAT partajată nepornită pe portul %1: %2</translation>
+    </message>
+    <message>
         <source>WinKeyer answers: firmware %1</source>
         <translation>WinKeyer răspunde: firmware %1</translation>
     </message>
@@ -8297,6 +8353,18 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Hamlib started on %1 (model %2, %3 baud)</source>
         <translation>Hamlib pornit pe %1 (model %2, %3 baud)</translation>
+    </message>
+    <message>
+        <source>Shared CAT off</source>
+        <translation>CAT partajată oprită</translation>
+    </message>
+    <message>
+        <source>Shared CAT on 127.0.0.1:%1: other programs connect as &quot;Hamlib NET rigctl&quot;</source>
+        <translation>CAT partajată pe 127.0.0.1:%1: celelalte programe se conectează ca &quot;Hamlib NET rigctl&quot;</translation>
+    </message>
+    <message>
+        <source>Port %1 is DecoDXLog&apos;s own shared CAT: choose the port of the program that holds the radio</source>
+        <translation>Portul %1 este CAT-ul partajat al lui DecoDXLog însuși: alege portul programului care ține stația</translation>
     </message>
     <message>
         <source>No audio input to listen to</source>

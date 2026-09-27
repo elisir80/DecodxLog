@@ -5936,6 +5936,54 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>OmniRig（VE3NEA 开发）占用串口并与所有请求的程序共享电台：电台在 OmniRig 中配置（Rig 1 或 Rig 2）。DecoDXLog 读取频率和模式、调谐电台并使用其 PTT。OmniRig 不发送 CW：请使用下面的串口键控器或其他连接。</translation>
     </message>
     <message>
+        <source>Shared CAT</source>
+        <translation>共享 CAT</translation>
+    </message>
+    <message>
+        <source>Share the CAT</source>
+        <translation>共享 CAT</translation>
+    </message>
+    <message>
+        <source>Shared port</source>
+        <translation>共享端口</translation>
+    </message>
+    <message>
+        <source>Allow control</source>
+        <translation>允许控制</translation>
+    </message>
+    <message>
+        <source>Allow transmit</source>
+        <translation>允许发射</translation>
+    </message>
+    <message>
+        <source>Listening on 127.0.0.1:%1 · connected programs: %2 · in the other programs choose &quot;Hamlib NET rigctl&quot; with 127.0.0.1:%1</source>
+        <translation>正在监听 127.0.0.1:%1 · 已连接程序：%2 · 在其他程序中选择“Hamlib NET rigctl”并填 127.0.0.1:%1</translation>
+    </message>
+    <message>
+        <source>Sharing not started: %1</source>
+        <translation>共享未启动：%1</translation>
+    </message>
+    <message>
+        <source>Not shared: while DecoDXLog holds the radio, the other programs cannot use it.</source>
+        <translation>未共享：DecoDXLog 占用电台时，其他程序无法使用。</translation>
+    </message>
+    <message>
+        <source>As in Decodium 4: the radio DecoDXLog holds (serial, TCI, flrig, OmniRig) is offered to the other programs on this computer with the rigctld protocol. By default they only read frequency and mode; changing them needs &quot;Allow control&quot;, transmitting also needs &quot;Allow transmit&quot;. If Decodium already shares its CAT on the same port, give DecoDXLog another one.</source>
+        <translation>与 Decodium 4 相同：DecoDXLog 占用的电台（串口、TCI、flrig、OmniRig）通过 rigctld 协议提供给本机其他程序。默认只能读取频率和模式；修改需要“允许控制”，发射还需要“允许发射”。如果 Decodium 已在同一端口共享其 CAT，请给 DecoDXLog 换一个端口。</translation>
+    </message>
+    <message>
+        <source>Use a shared CAT</source>
+        <translation>使用共享 CAT</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>连接</translation>
+    </message>
+    <message>
+        <source>When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), DecoDXLog connects to it here: the link becomes &quot;rigctld already running&quot; on that address.</source>
+        <translation>当 Decodium 占用电台并共享（设置 → CAT → 共享 CAT）时，DecoDXLog 在此连接：连接方式变为该地址上的“已运行的 rigctld”。</translation>
+    </message>
+    <message>
         <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
         <translation>十二个宏在比赛录入的“宏…”或比赛窗口（Ctrl+Shift+T）的“编辑宏”中编写，对应 F1-F12 键，按 Esc 停止。</translation>
     </message>
@@ -8149,6 +8197,14 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
 <context>
     <name>decolog::app::RigController</name>
     <message>
+        <source>A program on the shared CAT asked for %1: refused (enable control in Settings → Radio)</source>
+        <translation>共享 CAT 上的程序请求 %1：已拒绝（在 设置 → 电台 中允许控制）</translation>
+    </message>
+    <message>
+        <source>Shared CAT not started on port %1: %2</source>
+        <translation>共享 CAT 未能在端口 %1 启动：%2</translation>
+    </message>
+    <message>
         <source>WinKeyer answers: firmware %1</source>
         <translation>WinKeyer 响应：固件 %1</translation>
     </message>
@@ -8209,6 +8265,18 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Hamlib started on %1 (model %2, %3 baud)</source>
         <translation>Hamlib 已在 %1 上启动（型号 %2，%3 波特）</translation>
+    </message>
+    <message>
+        <source>Shared CAT off</source>
+        <translation>共享 CAT 已关闭</translation>
+    </message>
+    <message>
+        <source>Shared CAT on 127.0.0.1:%1: other programs connect as &quot;Hamlib NET rigctl&quot;</source>
+        <translation>共享 CAT 位于 127.0.0.1:%1：其他程序以“Hamlib NET rigctl”连接</translation>
+    </message>
+    <message>
+        <source>Port %1 is DecoDXLog&apos;s own shared CAT: choose the port of the program that holds the radio</source>
+        <translation>端口 %1 是 DecoDXLog 自己的共享 CAT：请选择占用电台的程序的端口</translation>
     </message>
     <message>
         <source>No audio input to listen to</source>

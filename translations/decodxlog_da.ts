@@ -5949,6 +5949,54 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>OmniRig (af VE3NEA) holder den serielle port og deler radioen med alle programmer: konfigurer radioen i selve OmniRig (Rig 1 eller Rig 2). DecoDXLog læser frekvens og mode, indstiller radioen og bruger dens PTT. OmniRig sender ikke CW: brug den serielle keyer nedenfor eller en anden forbindelse til det.</translation>
     </message>
     <message>
+        <source>Shared CAT</source>
+        <translation>Delt CAT</translation>
+    </message>
+    <message>
+        <source>Share the CAT</source>
+        <translation>Del CAT</translation>
+    </message>
+    <message>
+        <source>Shared port</source>
+        <translation>Delt port</translation>
+    </message>
+    <message>
+        <source>Allow control</source>
+        <translation>Tillad styring</translation>
+    </message>
+    <message>
+        <source>Allow transmit</source>
+        <translation>Tillad sending</translation>
+    </message>
+    <message>
+        <source>Listening on 127.0.0.1:%1 · connected programs: %2 · in the other programs choose &quot;Hamlib NET rigctl&quot; with 127.0.0.1:%1</source>
+        <translation>Lytter på 127.0.0.1:%1 · forbundne programmer: %2 · vælg &quot;Hamlib NET rigctl&quot; med 127.0.0.1:%1 i de andre programmer</translation>
+    </message>
+    <message>
+        <source>Sharing not started: %1</source>
+        <translation>Deling ikke startet: %1</translation>
+    </message>
+    <message>
+        <source>Not shared: while DecoDXLog holds the radio, the other programs cannot use it.</source>
+        <translation>Ikke delt: så længe DecoDXLog har radioen, kan andre programmer ikke bruge den.</translation>
+    </message>
+    <message>
+        <source>As in Decodium 4: the radio DecoDXLog holds (serial, TCI, flrig, OmniRig) is offered to the other programs on this computer with the rigctld protocol. By default they only read frequency and mode; changing them needs &quot;Allow control&quot;, transmitting also needs &quot;Allow transmit&quot;. If Decodium already shares its CAT on the same port, give DecoDXLog another one.</source>
+        <translation>Som i Decodium 4: radioen, som DecoDXLog har (seriel, TCI, flrig, OmniRig), tilbydes de andre programmer på denne computer med rigctld-protokollet. Som standard læser de kun frekvens og mode; at ændre dem kræver &quot;Tillad styring&quot;, at sende kræver også &quot;Tillad sending&quot;. Deler Decodium allerede sin CAT på samme port, så giv DecoDXLog en anden.</translation>
+    </message>
+    <message>
+        <source>Use a shared CAT</source>
+        <translation>Brug en delt CAT</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>Forbind</translation>
+    </message>
+    <message>
+        <source>When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), DecoDXLog connects to it here: the link becomes &quot;rigctld already running&quot; on that address.</source>
+        <translation>Når Decodium har radioen og deler den (Indstillinger → CAT → Delt CAT), forbinder DecoDXLog sig her: forbindelsen bliver &quot;rigctld kører allerede&quot; på den adresse.</translation>
+    </message>
+    <message>
         <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
         <translation>De tolv makroer skrives med Makroer… i contest-indtastningen eller Rediger makroer i contest-vinduet (Ctrl+Shift+T) og ligger på F1-F12; Esc stopper.</translation>
     </message>
@@ -8192,6 +8240,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
 <context>
     <name>decolog::app::RigController</name>
     <message>
+        <source>A program on the shared CAT asked for %1: refused (enable control in Settings → Radio)</source>
+        <translation>Et program på den delte CAT bad om %1: afvist (tillad styring i Indstillinger → Radio)</translation>
+    </message>
+    <message>
+        <source>Shared CAT not started on port %1: %2</source>
+        <translation>Delt CAT ikke startet på port %1: %2</translation>
+    </message>
+    <message>
         <source>WinKeyer answers: firmware %1</source>
         <translation>WinKeyer svarer: firmware %1</translation>
     </message>
@@ -8253,6 +8309,18 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Hamlib started on %1 (model %2, %3 baud)</source>
         <translation>Hamlib startet på %1 (model %2, %3 baud)</translation>
+    </message>
+    <message>
+        <source>Shared CAT off</source>
+        <translation>Delt CAT slået fra</translation>
+    </message>
+    <message>
+        <source>Shared CAT on 127.0.0.1:%1: other programs connect as &quot;Hamlib NET rigctl&quot;</source>
+        <translation>Delt CAT på 127.0.0.1:%1: andre programmer forbinder som &quot;Hamlib NET rigctl&quot;</translation>
+    </message>
+    <message>
+        <source>Port %1 is DecoDXLog&apos;s own shared CAT: choose the port of the program that holds the radio</source>
+        <translation>Port %1 er DecoDXLogs egen delte CAT: vælg porten for det program, der har radioen</translation>
     </message>
     <message>
         <source>No audio input to listen to</source>

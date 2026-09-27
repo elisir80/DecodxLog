@@ -36,6 +36,11 @@ DialogFrame {
         const flick = pageScroll.contentItem
         flick.contentY = Math.max(0, flick.contentHeight - flick.height)
     }
+    // Per le prove: la pagina scorsa di `y` pixel.
+    function scrollTo(y) {
+        const flick = pageScroll.contentItem
+        flick.contentY = Math.max(0, Math.min(y, flick.contentHeight - flick.height))
+    }
 
     onOpened: {
         portField.text = decolog.udpPort
@@ -1549,6 +1554,99 @@ DialogFrame {
                             font.family: Theme.monoFamily
                             font.pixelSize: 12
                             elide: Text.ElideRight
+                        }
+                    }
+
+                    //  La CAT condivisa, come in Decodium 4: la radio che tiene
+                    //  DecoDXLog la usano anche gli altri programmi.
+                    SectionTitle { text: qsTr("Shared CAT") }
+                    RowLayout {
+                        spacing: 12
+                        ToggleSwitch {
+                            id: shareOn
+                            Layout.alignment: Qt.AlignBottom
+                            text: qsTr("Share the CAT")
+                            checked: decolog.rig.shareEnabled
+                            onToggled: decolog.rig.configureShare(checked, parseInt(sharePortField.text) || 4533,
+                                                                  shareControl.checked, sharePtt.checked)
+                        }
+                        LabeledField {
+                            label: qsTr("Shared port")
+                            StyledTextField {
+                                id: sharePortField
+                                Layout.preferredWidth: 90
+                                text: String(decolog.rig.sharePort)
+                                onEditingFinished: decolog.rig.configureShare(shareOn.checked, parseInt(text) || 4533,
+                                                                              shareControl.checked, sharePtt.checked)
+                            }
+                        }
+                        ToggleSwitch {
+                            id: shareControl
+                            Layout.alignment: Qt.AlignBottom
+                            text: qsTr("Allow control")
+                            enabled: shareOn.checked
+                            checked: decolog.rig.shareControl
+                            onToggled: decolog.rig.configureShare(shareOn.checked, parseInt(sharePortField.text) || 4533,
+                                                                  checked, sharePtt.checked)
+                        }
+                        ToggleSwitch {
+                            id: sharePtt
+                            Layout.alignment: Qt.AlignBottom
+                            text: qsTr("Allow transmit")
+                            enabled: shareOn.checked && shareControl.checked
+                            checked: decolog.rig.sharePtt
+                            onToggled: decolog.rig.configureShare(shareOn.checked, parseInt(sharePortField.text) || 4533,
+                                                                  shareControl.checked, checked)
+                        }
+                    }
+                    Text {
+                        Layout.fillWidth: true
+                        wrapMode: Text.Wrap
+                        font.pixelSize: 12
+                        color: decolog.rig.shareListening ? Theme.accentColor
+                             : decolog.rig.shareEnabled ? Theme.errorColor : Theme.textSecondary
+                        text: decolog.rig.shareListening
+                              ? qsTr("Listening on 127.0.0.1:%1 · connected programs: %2 · in the other programs choose \"Hamlib NET rigctl\" with 127.0.0.1:%1")
+                                    .arg(decolog.rig.sharePort).arg(decolog.rig.shareClients)
+                              : decolog.rig.shareEnabled
+                                ? qsTr("Sharing not started: %1").arg(decolog.rig.shareError)
+                                : qsTr("Not shared: while DecoDXLog holds the radio, the other programs cannot use it.")
+                    }
+                    Note {
+                        text: qsTr("As in Decodium 4: the radio DecoDXLog holds (serial, TCI, flrig, OmniRig) is offered "
+                                   + "to the other programs on this computer with the rigctld protocol. By default they "
+                                   + "only read frequency and mode; changing them needs \"Allow control\", transmitting "
+                                   + "also needs \"Allow transmit\". If Decodium already shares its CAT on the same "
+                                   + "port, give DecoDXLog another one.")
+                    }
+                    // Il contrario: la radio la tiene Decodium, e la condivide.
+                    RowLayout {
+                        spacing: 12
+                        LabeledField {
+                            label: qsTr("Use a shared CAT")
+                            StyledTextField {
+                                id: sharedAddress
+                                Layout.preferredWidth: 160
+                                text: "127.0.0.1:4533"
+                            }
+                        }
+                        GlassButton {
+                            Layout.alignment: Qt.AlignBottom
+                            Layout.bottomMargin: 2
+                            text: qsTr("Connect")
+                            tone: Theme.primaryColor
+                            onClicked: {
+                                const parts = sharedAddress.text.trim().split(":")
+                                decolog.rig.useSharedCat(parts[0] || "127.0.0.1", parseInt(parts[1]) || 4533)
+                            }
+                        }
+                        Text {
+                            Layout.fillWidth: true
+                            wrapMode: Text.Wrap
+                            text: qsTr("When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), "
+                                       + "DecoDXLog connects to it here: the link becomes \"rigctld already running\" on that address.")
+                            color: Theme.textSecondary
+                            font.pixelSize: 11
                         }
                     }
 

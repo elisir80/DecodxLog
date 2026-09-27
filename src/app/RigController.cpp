@@ -45,6 +45,27 @@ RigController::RigController(Context context, QObject* parent)
     m_tciAddress = s.value(QStringLiteral("rig/tciAddress"), m_tciAddress).toString();
     m_tciTrx = s.value(QStringLiteral("rig/tciTrx"), 0).toInt();
     m_flrigAddress = s.value(QStringLiteral("rig/flrigAddress"), m_flrigAddress).toString();
+    // La CAT condivisa: la radio di adesso, qualunque sia il collegamento.
+    m_share.setRigProvider([this]() -> core::RigLink* { return m_rig; });
+    connect(&m_share, &core::CatShare::stateChanged, this, &RigController::shareChanged);
+    connect(&m_share, &core::CatShare::controlAttempt, this, [this](const QString& command, bool accepted) {
+        if (!accepted && m_ctx.activity)
+            m_ctx.activity(QStringLiteral("CAT"),
+                           tr("A program on the shared CAT asked for %1: refused (enable control in Settings → Radio)")
+                               .arg(command),
+                           QStringLiteral("warning"));
+    });
+    {
+        const bool on = s.value(QStringLiteral("rig/share/enabled"), false).toBool();
+        const int port = s.value(QStringLiteral("rig/share/port"), 4533).toInt();
+        const bool control = s.value(QStringLiteral("rig/share/control"), false).toBool();
+        const bool ptt = s.value(QStringLiteral("rig/share/ptt"), false).toBool();
+        QTimer::singleShot(0, this, [this, on, port, control, ptt] {
+            if (!m_share.configure(on, port, control, ptt) && m_ctx.activity)
+                m_ctx.activity(QStringLiteral("CAT"), tr("Shared CAT not started on port %1: %2").arg(port).arg(m_share.lastError()),
+                               QStringLiteral("warning"));
+        });
+    }
     m_omniRigNumber = s.value(QStringLiteral("rig/omniRigNumber"), 1).toInt();
     m_serialPort = s.value(QStringLiteral("rig/serialPort")).toString();
     m_rigModel = s.value(QStringLiteral("rig/model"), 0).toInt();
@@ -548,6 +569,55 @@ void RigController::setOmniRigNumber(int number)
     if (m_enabled && m_link == QLatin1String("omnirig"))
         connectNow();
     emit changed();
+}
+
+void RigController::configureShare(bool enabled, int port, bool allowControl, bool allowPtt)
+{
+    const int clean = port > 1024 && port <= 65535 ? port : 4533;
+    QSettings s;
+    s.setValue(QStringLiteral("rig/share/enabled"), enabled);
+    s.setValue(QStringLiteral("rig/share/port"), clean);
+    s.setValue(QStringLiteral("rig/share/control"), allowControl);
+    s.setValue(QStringLiteral("rig/share/ptt"), allowPtt && allowControl);
+    const bool ok = m_share.configure(enabled, clean, allowControl, allowPtt);
+    if (m_ctx.activity) {
+        if (!enabled)
+            m_ctx.activity(QStringLiteral("CAT"), tr("Shared CAT off"), QStringLiteral("info"));
+        else if (ok)
+            m_ctx.activity(QStringLiteral("CAT"), tr("Shared CAT on 127.0.0.1:%1: other programs connect as \"Hamlib NET rigctl\"")
+                                                      .arg(clean), QStringLiteral("success"));
+        else
+            m_ctx.activity(QStringLiteral("CAT"), tr("Shared CAT not started on port %1: %2").arg(clean).arg(m_share.lastError()),
+                           QStringLiteral("warning"));
+    }
+}
+
+void RigController::useSharedCat(const QString& host, int port)
+{
+    // La propria condivisione non si usa da qui: sarebbe DecoDXLog che parla
+    // con se stesso, e la radio non ci sarebbe da nessuna parte.
+    const QString h = host.trimmed();
+    const bool local = h.isEmpty() || h == QLatin1String("127.0.0.1") || h.compare(QLatin1String("localhost"), Qt::CaseInsensitive) == 0;
+    if (local && m_share.listening() && port == m_share.port()) {
+        if (m_ctx.activity)
+            m_ctx.activity(QStringLiteral("CAT"),
+                           tr("Port %1 is DecoDXLog's own shared CAT: choose the port of the program that holds the radio")
+                               .arg(port),
+                           QStringLiteral("warning"));
+        return;
+    }
+    m_host = host.trimmed().isEmpty() ? QStringLiteral("127.0.0.1") : host.trimmed();
+    m_port = port > 0 ? port : 4533;
+    m_link = QStringLiteral("network");
+    m_enabled = true;
+    QSettings s;
+    s.setValue(QStringLiteral("rig/host"), m_host);
+    s.setValue(QStringLiteral("rig/port"), m_port);
+    s.setValue(QStringLiteral("rig/link"), m_link);
+    s.setValue(QStringLiteral("rig/enabled"), true);
+    connectNow();
+    emit changed();
+    emit stateChanged();
 }
 
 bool RigController::omniRigAvailable() const

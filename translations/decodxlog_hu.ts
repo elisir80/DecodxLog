@@ -5936,6 +5936,54 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Az OmniRig (VE3NEA) kezeli a soros portot és megosztja a rádiót minden programmal: a rádiót magában az OmniRigben kell beállítani (Rig 1 vagy Rig 2). A DecoDXLog olvassa a frekvenciát és módot, hangol és használja a PTT-t. Az OmniRig nem küld CW-t: ahhoz az alábbi soros kulcsolót vagy más kapcsolatot használj.</translation>
     </message>
     <message>
+        <source>Shared CAT</source>
+        <translation>Megosztott CAT</translation>
+    </message>
+    <message>
+        <source>Share the CAT</source>
+        <translation>CAT megosztása</translation>
+    </message>
+    <message>
+        <source>Shared port</source>
+        <translation>Megosztott port</translation>
+    </message>
+    <message>
+        <source>Allow control</source>
+        <translation>Vezérlés engedélyezése</translation>
+    </message>
+    <message>
+        <source>Allow transmit</source>
+        <translation>Adás engedélyezése</translation>
+    </message>
+    <message>
+        <source>Listening on 127.0.0.1:%1 · connected programs: %2 · in the other programs choose &quot;Hamlib NET rigctl&quot; with 127.0.0.1:%1</source>
+        <translation>Figyel: 127.0.0.1:%1 · csatlakozott programok: %2 · a többi programban válaszd a &quot;Hamlib NET rigctl&quot;-t, 127.0.0.1:%1</translation>
+    </message>
+    <message>
+        <source>Sharing not started: %1</source>
+        <translation>A megosztás nem indult el: %1</translation>
+    </message>
+    <message>
+        <source>Not shared: while DecoDXLog holds the radio, the other programs cannot use it.</source>
+        <translation>Nincs megosztva: amíg a DecoDXLog tartja a rádiót, más programok nem használhatják.</translation>
+    </message>
+    <message>
+        <source>As in Decodium 4: the radio DecoDXLog holds (serial, TCI, flrig, OmniRig) is offered to the other programs on this computer with the rigctld protocol. By default they only read frequency and mode; changing them needs &quot;Allow control&quot;, transmitting also needs &quot;Allow transmit&quot;. If Decodium already shares its CAT on the same port, give DecoDXLog another one.</source>
+        <translation>Mint a Decodium 4-ben: a DecoDXLog által tartott rádiót (soros, TCI, flrig, OmniRig) a számítógép többi programja rigctld protokollal éri el. Alapból csak olvassák a frekvenciát és módot; a módosításhoz &quot;Vezérlés engedélyezése&quot; kell, az adáshoz az &quot;Adás engedélyezése&quot; is. Ha a Decodium már megosztja a CAT-ot ugyanazon a porton, adj a DecoDXLog-nak másikat.</translation>
+    </message>
+    <message>
+        <source>Use a shared CAT</source>
+        <translation>Megosztott CAT használata</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>Csatlakozás</translation>
+    </message>
+    <message>
+        <source>When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), DecoDXLog connects to it here: the link becomes &quot;rigctld already running&quot; on that address.</source>
+        <translation>Ha a rádiót a Decodium tartja és megosztja (Beállítások → CAT → Megosztott CAT), a DecoDXLog itt csatlakozik: a kapcsolat &quot;már futó rigctld&quot; lesz ezen a címen.</translation>
+    </message>
+    <message>
         <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
         <translation>A tizenkét makrót a verseny-bevitel Makrók… gombjával vagy a versenyablak Makrók szerkesztése gombjával (Ctrl+Shift+T) lehet megírni; az F1-F12 gombokon vannak, az Esc leállít.</translation>
     </message>
@@ -8149,6 +8197,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
 <context>
     <name>decolog::app::RigController</name>
     <message>
+        <source>A program on the shared CAT asked for %1: refused (enable control in Settings → Radio)</source>
+        <translation>Egy program a megosztott CAT-on ezt kérte: %1 — elutasítva (engedélyezd a vezérlést: Beállítások → Rádió)</translation>
+    </message>
+    <message>
+        <source>Shared CAT not started on port %1: %2</source>
+        <translation>A megosztott CAT nem indult el a(z) %1 porton: %2</translation>
+    </message>
+    <message>
         <source>WinKeyer answers: firmware %1</source>
         <translation>A WinKeyer válaszol: firmware %1</translation>
     </message>
@@ -8209,6 +8265,18 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Hamlib started on %1 (model %2, %3 baud)</source>
         <translation>A Hamlib elindult itt: %1 (modell %2, %3 baud)</translation>
+    </message>
+    <message>
+        <source>Shared CAT off</source>
+        <translation>Megosztott CAT kikapcsolva</translation>
+    </message>
+    <message>
+        <source>Shared CAT on 127.0.0.1:%1: other programs connect as &quot;Hamlib NET rigctl&quot;</source>
+        <translation>Megosztott CAT: 127.0.0.1:%1 — a többi program &quot;Hamlib NET rigctl&quot;-ként csatlakozik</translation>
+    </message>
+    <message>
+        <source>Port %1 is DecoDXLog&apos;s own shared CAT: choose the port of the program that holds the radio</source>
+        <translation>A(z) %1 port a DecoDXLog saját megosztott CAT-ja: a rádiót tartó program portját válaszd</translation>
     </message>
     <message>
         <source>No audio input to listen to</source>
