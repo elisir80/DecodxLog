@@ -6043,6 +6043,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>neked a %1 van</translation>
     </message>
     <message>
+        <source>Source: %1</source>
+        <translation>Forrás: %1</translation>
+    </message>
+    <message>
         <source>What is new</source>
         <translation>Mi az újdonság</translation>
     </message>
@@ -6071,8 +6075,8 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Ezt a változatot kihagyom</translation>
     </message>
     <message>
-        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
-        <translation>A «Frissítés most» letölti a telepítőt és megnyitja: a DecoDXLog bezárul, mert a telepítő nem tudja lecserélni egy futó program fájljait. A napló és a beállítások ott maradnak, ahol vannak.</translation>
+        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>A «Frissítés most» csak az ehhez a számítógéphez illő csomagot tölti le. Windowson elindul a telepítő, macOS-en megnyílik a lemezkép, Linuxon pedig lehetőség szerint frissül az AppImage. A napló és a beállítások a helyükön maradnak.</translation>
     </message>
 </context>
 <context>
@@ -6095,6 +6099,267 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Close</source>
         <translation>Bezárás</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClock</name>
+    <message>
+        <source>New York</source>
+        <translation>New York</translation>
+    </message>
+    <message>
+        <source>Los Angeles</source>
+        <translation>Los Angeles</translation>
+    </message>
+    <message>
+        <source>Rio de Janeiro</source>
+        <translation>Rio de Janeiro</translation>
+    </message>
+    <message>
+        <source>Johannesburg</source>
+        <translation>Johannesburg</translation>
+    </message>
+    <message>
+        <source>Moscow</source>
+        <translation>Moszkva</translation>
+    </message>
+    <message>
+        <source>Tokyo</source>
+        <translation>Tokió</translation>
+    </message>
+    <message>
+        <source>Sydney</source>
+        <translation>Sydney</translation>
+    </message>
+    <message>
+        <source>Honolulu</source>
+        <translation>Honolulu</translation>
+    </message>
+    <message>
+        <source>Anchorage</source>
+        <translation>Anchorage</translation>
+    </message>
+    <message>
+        <source>Vancouver</source>
+        <translation>Vancouver</translation>
+    </message>
+    <message>
+        <source>Chicago</source>
+        <translation>Chicago</translation>
+    </message>
+    <message>
+        <source>Mexico City</source>
+        <translation>Mexikóváros</translation>
+    </message>
+    <message>
+        <source>Lima</source>
+        <translation>Lima</translation>
+    </message>
+    <message>
+        <source>Buenos Aires</source>
+        <translation>Buenos Aires</translation>
+    </message>
+    <message>
+        <source>Reykjavik</source>
+        <translation>Reykjavík</translation>
+    </message>
+    <message>
+        <source>London</source>
+        <translation>London</translation>
+    </message>
+    <message>
+        <source>Lisbon</source>
+        <translation>Lisszabon</translation>
+    </message>
+    <message>
+        <source>Cairo</source>
+        <translation>Kairó</translation>
+    </message>
+    <message>
+        <source>Nairobi</source>
+        <translation>Nairobi</translation>
+    </message>
+    <message>
+        <source>Dubai</source>
+        <translation>Dubaj</translation>
+    </message>
+    <message>
+        <source>New Delhi</source>
+        <translation>Újdelhi</translation>
+    </message>
+    <message>
+        <source>Bangkok</source>
+        <translation>Bangkok</translation>
+    </message>
+    <message>
+        <source>Singapore</source>
+        <translation>Szingapúr</translation>
+    </message>
+    <message>
+        <source>Beijing</source>
+        <translation>Peking</translation>
+    </message>
+    <message>
+        <source>Seoul</source>
+        <translation>Szöul</translation>
+    </message>
+    <message>
+        <source>Perth</source>
+        <translation>Perth</translation>
+    </message>
+    <message>
+        <source>Auckland</source>
+        <translation>Auckland</translation>
+    </message>
+    <message>
+        <source>Papeete</source>
+        <translation>Papeete</translation>
+    </message>
+    <message>
+        <source>%1 h %2 min</source>
+        <translation>%1 óra %2 perc</translation>
+    </message>
+    <message>
+        <source>Station QTH</source>
+        <translation>Állomás QTH</translation>
+    </message>
+    <message>
+        <source>(%1%2 d)</source>
+        <translation>(%1%2 n)</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation type="unfinished">Nap</translation>
+    </message>
+    <message>
+        <source>Grayline</source>
+        <translation>Grayline</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>Éjszaka</translation>
+    </message>
+    <message>
+        <source>sun 24 h</source>
+        <translation>nap 24 óra</translation>
+    </message>
+    <message>
+        <source>polar night</source>
+        <translation>sarki éjszaka</translation>
+    </message>
+    <message>
+        <source>Morning grayline</source>
+        <translation>Reggeli grayline</translation>
+    </message>
+    <message>
+        <source>Evening grayline</source>
+        <translation>Esti grayline</translation>
+    </message>
+    <message>
+        <source>Sunrise</source>
+        <translation>Napkelte</translation>
+    </message>
+    <message>
+        <source>Sunset</source>
+        <translation>Napnyugta</translation>
+    </message>
+    <message>
+        <source>Solar noon</source>
+        <translation>Csillagászati dél</translation>
+    </message>
+    <message>
+        <source>Day length</source>
+        <translation>Nappal hossza</translation>
+    </message>
+    <message>
+        <source>Sun altitude</source>
+        <translation>Napmagasság</translation>
+    </message>
+    <message>
+        <source>above the horizon</source>
+        <translation>a horizont felett</translation>
+    </message>
+    <message>
+        <source>below the horizon</source>
+        <translation>a horizont alatt</translation>
+    </message>
+    <message>
+        <source>Local time</source>
+        <translation>Helyi idő</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClockButton</name>
+    <message>
+        <source>Open the world clock</source>
+        <translation>Világóra megnyitása</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClockWindow</name>
+    <message>
+        <source>World clock</source>
+        <translation>Világóra</translation>
+    </message>
+    <message>
+        <source>Time zones, sunrise, sunset and grayline in real time</source>
+        <translation>Időzónák, napkelte, napnyugta és grayline valós időben</translation>
+    </message>
+    <message>
+        <source>Sun overhead: %1</source>
+        <translation>Nap a zenitben: %1</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Bezárás</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation type="unfinished">Nap</translation>
+    </message>
+    <message>
+        <source>Civil twilight</source>
+        <translation>Polgári szürkület</translation>
+    </message>
+    <message>
+        <source>Nautical</source>
+        <translation>Navigációs</translation>
+    </message>
+    <message>
+        <source>Astronomical</source>
+        <translation>Csillagászati</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>Éjszaka</translation>
+    </message>
+    <message>
+        <source>Grayline</source>
+        <translation>Grayline</translation>
+    </message>
+    <message>
+        <source>Equirectangular map · updated every minute</source>
+        <translation>Egyenközű hengervetület · percenként frissül</translation>
+    </message>
+    <message>
+        <source>Time zones</source>
+        <translation>Időzónák</translation>
+    </message>
+    <message>
+        <source>Add a city…</source>
+        <translation>Város hozzáadása…</translation>
+    </message>
+    <message>
+        <source>in the bar</source>
+        <translation>a sávban</translation>
+    </message>
+    <message>
+        <source>put in the bar</source>
+        <translation>a sávba</translation>
+    </message>
+    <message>
+        <source>remove</source>
+        <translation>eltávolítás</translation>
     </message>
 </context>
 <context>
@@ -7396,6 +7661,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>ez a legújabb változat</translation>
     </message>
     <message>
+        <source>no newer package is available for this computer</source>
+        <translation>ehhez a számítógéphez nincs újabb csomag</translation>
+    </message>
+    <message>
         <source>cannot ask GitHub: %1</source>
         <translation>nem lehet megkérdezni a GitHubot: %1</translation>
     </message>
@@ -7408,6 +7677,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>A frissítés nem töltődött le: %1</translation>
     </message>
     <message>
+        <source>cannot start the installer</source>
+        <translation>nem indítható el a telepítő</translation>
+    </message>
+    <message>
         <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
         <translation>A telepítő kész: %1 — a DecoDXLog bezárul, és a telepítő megnyílik</translation>
     </message>
@@ -7416,8 +7689,52 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>a telepítő indul…</translation>
     </message>
     <message>
+        <source>the disk image is ready in Downloads</source>
+        <translation>a lemezkép a Letöltések mappában van</translation>
+    </message>
+    <message>
+        <source>the disk image was saved to %1</source>
+        <translation>a lemezkép mentve ide: %1</translation>
+    </message>
+    <message>
+        <source>macOS update package ready: %1</source>
+        <translation>macOS frissítőcsomag kész: %1</translation>
+    </message>
+    <message>
+        <source>the AppImage was updated and DecoDXLog is restarting…</source>
+        <translation>az AppImage frissült, a DecoDXLog újraindul…</translation>
+    </message>
+    <message>
+        <source>AppImage updated: %1</source>
+        <translation>AppImage frissítve: %1</translation>
+    </message>
+    <message>
+        <source>the AppImage was updated; restart it manually</source>
+        <translation>az AppImage frissült; indítsd újra kézzel</translation>
+    </message>
+    <message>
+        <source>the AppImage was saved to Downloads; launch it manually</source>
+        <translation>az AppImage a Letöltések mappába került; indítsd el kézzel</translation>
+    </message>
+    <message>
+        <source>Linux update package ready: %1</source>
+        <translation>Linux frissítőcsomag kész: %1</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>kérdezem a GitHubot…</translation>
+    </message>
+    <message>
+        <source>the update package has no file name</source>
+        <translation>a frissítőcsomagnak nincs fájlneve</translation>
+    </message>
+    <message>
+        <source>cannot create the download folder</source>
+        <translation>nem hozható létre a letöltési mappa</translation>
+    </message>
+    <message>
+        <source>downloading the update…</source>
+        <translation>a frissítés letöltése…</translation>
     </message>
     <message>
         <source>downloading %1…</source>
@@ -7804,6 +8121,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>cannot write %1</source>
         <translation>nem lehet írni: %1</translation>
+    </message>
+    <message>
+        <source>the downloaded file is incomplete</source>
+        <translation>a letöltött fájl hiányos</translation>
     </message>
 </context>
 <context>

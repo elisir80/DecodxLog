@@ -6063,6 +6063,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>у вас %1</translation>
     </message>
     <message>
+        <source>Source: %1</source>
+        <translation>Источник: %1</translation>
+    </message>
+    <message>
         <source>What is new</source>
         <translation>Что нового</translation>
     </message>
@@ -6091,8 +6095,8 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Пропустить эту версию</translation>
     </message>
     <message>
-        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
-        <translation>«Обновить сейчас» скачивает установщик и открывает его: DecoDXLog закрывается, потому что установщик не может заменить файлы работающей программы. Журнал и настройки остаются там, где были.</translation>
+        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>«Обновить сейчас» скачивает только пакет, подходящий для этого компьютера. В Windows запускается установщик, в macOS открывается образ диска, а в Linux по возможности обновляется AppImage. Журнал и настройки остаются на месте.</translation>
     </message>
 </context>
 <context>
@@ -6115,6 +6119,267 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Close</source>
         <translation>Закрыть</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClock</name>
+    <message>
+        <source>New York</source>
+        <translation>Нью-Йорк</translation>
+    </message>
+    <message>
+        <source>Los Angeles</source>
+        <translation>Лос-Анджелес</translation>
+    </message>
+    <message>
+        <source>Rio de Janeiro</source>
+        <translation>Рио-де-Жанейро</translation>
+    </message>
+    <message>
+        <source>Johannesburg</source>
+        <translation>Йоханнесбург</translation>
+    </message>
+    <message>
+        <source>Moscow</source>
+        <translation>Москва</translation>
+    </message>
+    <message>
+        <source>Tokyo</source>
+        <translation>Токио</translation>
+    </message>
+    <message>
+        <source>Sydney</source>
+        <translation>Сидней</translation>
+    </message>
+    <message>
+        <source>Honolulu</source>
+        <translation>Гонолулу</translation>
+    </message>
+    <message>
+        <source>Anchorage</source>
+        <translation>Анкоридж</translation>
+    </message>
+    <message>
+        <source>Vancouver</source>
+        <translation>Ванкувер</translation>
+    </message>
+    <message>
+        <source>Chicago</source>
+        <translation>Чикаго</translation>
+    </message>
+    <message>
+        <source>Mexico City</source>
+        <translation>Мехико</translation>
+    </message>
+    <message>
+        <source>Lima</source>
+        <translation>Лима</translation>
+    </message>
+    <message>
+        <source>Buenos Aires</source>
+        <translation>Буэнос-Айрес</translation>
+    </message>
+    <message>
+        <source>Reykjavik</source>
+        <translation>Рейкьявик</translation>
+    </message>
+    <message>
+        <source>London</source>
+        <translation>Лондон</translation>
+    </message>
+    <message>
+        <source>Lisbon</source>
+        <translation>Лиссабон</translation>
+    </message>
+    <message>
+        <source>Cairo</source>
+        <translation>Каир</translation>
+    </message>
+    <message>
+        <source>Nairobi</source>
+        <translation>Найроби</translation>
+    </message>
+    <message>
+        <source>Dubai</source>
+        <translation>Дубай</translation>
+    </message>
+    <message>
+        <source>New Delhi</source>
+        <translation>Нью-Дели</translation>
+    </message>
+    <message>
+        <source>Bangkok</source>
+        <translation>Бангкок</translation>
+    </message>
+    <message>
+        <source>Singapore</source>
+        <translation>Сингапур</translation>
+    </message>
+    <message>
+        <source>Beijing</source>
+        <translation>Пекин</translation>
+    </message>
+    <message>
+        <source>Seoul</source>
+        <translation>Сеул</translation>
+    </message>
+    <message>
+        <source>Perth</source>
+        <translation>Перт</translation>
+    </message>
+    <message>
+        <source>Auckland</source>
+        <translation>Окленд</translation>
+    </message>
+    <message>
+        <source>Papeete</source>
+        <translation>Папеэте</translation>
+    </message>
+    <message>
+        <source>%1 h %2 min</source>
+        <translation>%1 ч %2 мин</translation>
+    </message>
+    <message>
+        <source>Station QTH</source>
+        <translation>QTH станции</translation>
+    </message>
+    <message>
+        <source>(%1%2 d)</source>
+        <translation>(%1%2 д)</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation type="unfinished">День</translation>
+    </message>
+    <message>
+        <source>Grayline</source>
+        <translation>Грейлайн</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>Ночь</translation>
+    </message>
+    <message>
+        <source>sun 24 h</source>
+        <translation>солнце 24 ч</translation>
+    </message>
+    <message>
+        <source>polar night</source>
+        <translation>полярная ночь</translation>
+    </message>
+    <message>
+        <source>Morning grayline</source>
+        <translation>Утренний грейлайн</translation>
+    </message>
+    <message>
+        <source>Evening grayline</source>
+        <translation>Вечерний грейлайн</translation>
+    </message>
+    <message>
+        <source>Sunrise</source>
+        <translation>Восход</translation>
+    </message>
+    <message>
+        <source>Sunset</source>
+        <translation>Закат</translation>
+    </message>
+    <message>
+        <source>Solar noon</source>
+        <translation>Солнечный полдень</translation>
+    </message>
+    <message>
+        <source>Day length</source>
+        <translation>Долгота дня</translation>
+    </message>
+    <message>
+        <source>Sun altitude</source>
+        <translation>Высота солнца</translation>
+    </message>
+    <message>
+        <source>above the horizon</source>
+        <translation>над горизонтом</translation>
+    </message>
+    <message>
+        <source>below the horizon</source>
+        <translation>под горизонтом</translation>
+    </message>
+    <message>
+        <source>Local time</source>
+        <translation>Местное время</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClockButton</name>
+    <message>
+        <source>Open the world clock</source>
+        <translation>Открыть мировые часы</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClockWindow</name>
+    <message>
+        <source>World clock</source>
+        <translation>Мировые часы</translation>
+    </message>
+    <message>
+        <source>Time zones, sunrise, sunset and grayline in real time</source>
+        <translation>Часовые пояса, восход, закат и грейлайн в реальном времени</translation>
+    </message>
+    <message>
+        <source>Sun overhead: %1</source>
+        <translation>Солнце в зените: %1</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Закрыть</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation type="unfinished">День</translation>
+    </message>
+    <message>
+        <source>Civil twilight</source>
+        <translation>Гражданские сумерки</translation>
+    </message>
+    <message>
+        <source>Nautical</source>
+        <translation>Навигационные</translation>
+    </message>
+    <message>
+        <source>Astronomical</source>
+        <translation>Астрономические</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>Ночь</translation>
+    </message>
+    <message>
+        <source>Grayline</source>
+        <translation>Грейлайн</translation>
+    </message>
+    <message>
+        <source>Equirectangular map · updated every minute</source>
+        <translation>Равнопромежуточная карта · обновляется каждую минуту</translation>
+    </message>
+    <message>
+        <source>Time zones</source>
+        <translation>Часовые пояса</translation>
+    </message>
+    <message>
+        <source>Add a city…</source>
+        <translation>Добавить город…</translation>
+    </message>
+    <message>
+        <source>in the bar</source>
+        <translation>на панели</translation>
+    </message>
+    <message>
+        <source>put in the bar</source>
+        <translation>на панель</translation>
+    </message>
+    <message>
+        <source>remove</source>
+        <translation>убрать</translation>
     </message>
 </context>
 <context>
@@ -7478,6 +7743,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>это самая свежая версия</translation>
     </message>
     <message>
+        <source>no newer package is available for this computer</source>
+        <translation>для этого компьютера нет более нового пакета</translation>
+    </message>
+    <message>
         <source>cannot ask GitHub: %1</source>
         <translation>не получается спросить GitHub: %1</translation>
     </message>
@@ -7490,6 +7759,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Обновление не скачано: %1</translation>
     </message>
     <message>
+        <source>cannot start the installer</source>
+        <translation>не удаётся запустить установщик</translation>
+    </message>
+    <message>
         <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
         <translation>Установщик готов: %1 — DecoDXLog закрывается, установщик открывается</translation>
     </message>
@@ -7498,8 +7771,52 @@ The call Decodium is working shows up here by itself.</source>
         <translation>запускаю установщик…</translation>
     </message>
     <message>
+        <source>the disk image is ready in Downloads</source>
+        <translation>образ диска готов в «Загрузках»</translation>
+    </message>
+    <message>
+        <source>the disk image was saved to %1</source>
+        <translation>образ диска сохранён в %1</translation>
+    </message>
+    <message>
+        <source>macOS update package ready: %1</source>
+        <translation>пакет обновления для macOS готов: %1</translation>
+    </message>
+    <message>
+        <source>the AppImage was updated and DecoDXLog is restarting…</source>
+        <translation>AppImage обновлён, DecoDXLog перезапускается…</translation>
+    </message>
+    <message>
+        <source>AppImage updated: %1</source>
+        <translation>AppImage обновлён: %1</translation>
+    </message>
+    <message>
+        <source>the AppImage was updated; restart it manually</source>
+        <translation>AppImage обновлён; перезапустите его вручную</translation>
+    </message>
+    <message>
+        <source>the AppImage was saved to Downloads; launch it manually</source>
+        <translation>AppImage сохранён в «Загрузки»; запустите его вручную</translation>
+    </message>
+    <message>
+        <source>Linux update package ready: %1</source>
+        <translation>пакет обновления для Linux готов: %1</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>спрашиваем GitHub…</translation>
+    </message>
+    <message>
+        <source>the update package has no file name</source>
+        <translation>у пакета обновления нет имени файла</translation>
+    </message>
+    <message>
+        <source>cannot create the download folder</source>
+        <translation>не удаётся создать папку загрузки</translation>
+    </message>
+    <message>
+        <source>downloading the update…</source>
+        <translation>загрузка обновления…</translation>
     </message>
     <message>
         <source>downloading %1…</source>
@@ -7886,6 +8203,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>cannot write %1</source>
         <translation>не записать %1</translation>
+    </message>
+    <message>
+        <source>the downloaded file is incomplete</source>
+        <translation>загруженный файл неполный</translation>
     </message>
 </context>
 <context>

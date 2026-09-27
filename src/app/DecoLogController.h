@@ -15,6 +15,7 @@
 #include "app/RotorController.h"
 #include "app/SolarController.h"
 #include "app/UpdateController.h"
+#include "app/WorldClockController.h"
 #include "app/QsoTableModel.h"
 #include "app/StationProfileModel.h"
 #include "core/Awards.h"
@@ -58,6 +59,8 @@ class DecoLogController : public QObject {
     // Gli aggiornamenti: guarda da solo se e' uscita una versione nuova.
     Q_PROPERTY(QObject* updates READ updates CONSTANT)
     Q_PROPERTY(QObject* rotor READ rotor CONSTANT)
+    // L'orologio mondiale: UTC, QTH, citta', alba, tramonto e grayline.
+    Q_PROPERTY(QObject* worldClock READ worldClock CONSTANT)
     // La radio via Hamlib, con le macro in CW per i contest.
     Q_PROPERTY(QObject* rig READ rig CONSTANT)
     Q_PROPERTY(QObject* cloud READ cloud CONSTANT)
@@ -192,6 +195,7 @@ public:
     QObject* solar() const { return m_solar; }
     QObject* updates() const { return m_updates; }
     QObject* rotor() const { return m_rotor; }
+    QObject* worldClock() const { return m_worldClock; }
     QObject* rig() const { return m_rig; }
     QObject* cloud() const { return m_cloud; }
     QObject* activation() const { return m_activation; }
@@ -601,6 +605,7 @@ private:
     SolarController*     m_solar{nullptr};
     UpdateController*    m_updates{nullptr};
     RotorController*     m_rotor{nullptr};
+    WorldClockController* m_worldClock{nullptr};
     RigController*       m_rig{nullptr};
     CloudController*     m_cloud{nullptr};
     ActivationController* m_activation{nullptr};

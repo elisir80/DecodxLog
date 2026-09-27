@@ -6063,6 +6063,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>tev ir %1</translation>
     </message>
     <message>
+        <source>Source: %1</source>
+        <translation>Avots: %1</translation>
+    </message>
+    <message>
         <source>What is new</source>
         <translation>Kas jauns</translation>
     </message>
@@ -6091,8 +6095,8 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Izlaist šo versiju</translation>
     </message>
     <message>
-        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
-        <translation>«Atjaunināt tagad» lejupielādē uzstādīšanas programmu un atver to: DecoDXLog aizveras, jo uzstādīšanas programma nevar aizstāt strādājošas programmas failus. Žurnāls un iestatījumi paliek, kur bijuši.</translation>
+        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>«Atjaunināt tagad» lejupielādē tikai šim datoram piemēroto pakotni. Windows sistēmā palaižas instalētājs, macOS atveras diska attēls, bet Linux, ja iespējams, tiek atjaunināts AppImage. Žurnāls un iestatījumi paliek savās vietās.</translation>
     </message>
 </context>
 <context>
@@ -6115,6 +6119,267 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Close</source>
         <translation>Aizvērt</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClock</name>
+    <message>
+        <source>New York</source>
+        <translation>Ņujorka</translation>
+    </message>
+    <message>
+        <source>Los Angeles</source>
+        <translation>Losandželosa</translation>
+    </message>
+    <message>
+        <source>Rio de Janeiro</source>
+        <translation>Riodežaneiro</translation>
+    </message>
+    <message>
+        <source>Johannesburg</source>
+        <translation>Johannesburga</translation>
+    </message>
+    <message>
+        <source>Moscow</source>
+        <translation>Maskava</translation>
+    </message>
+    <message>
+        <source>Tokyo</source>
+        <translation>Tokija</translation>
+    </message>
+    <message>
+        <source>Sydney</source>
+        <translation>Sidneja</translation>
+    </message>
+    <message>
+        <source>Honolulu</source>
+        <translation>Honolulu</translation>
+    </message>
+    <message>
+        <source>Anchorage</source>
+        <translation>Ankoridža</translation>
+    </message>
+    <message>
+        <source>Vancouver</source>
+        <translation>Vankūvera</translation>
+    </message>
+    <message>
+        <source>Chicago</source>
+        <translation>Čikāga</translation>
+    </message>
+    <message>
+        <source>Mexico City</source>
+        <translation>Mehiko</translation>
+    </message>
+    <message>
+        <source>Lima</source>
+        <translation>Lima</translation>
+    </message>
+    <message>
+        <source>Buenos Aires</source>
+        <translation>Buenosairesa</translation>
+    </message>
+    <message>
+        <source>Reykjavik</source>
+        <translation>Reikjavīka</translation>
+    </message>
+    <message>
+        <source>London</source>
+        <translation>Londona</translation>
+    </message>
+    <message>
+        <source>Lisbon</source>
+        <translation>Lisabona</translation>
+    </message>
+    <message>
+        <source>Cairo</source>
+        <translation>Kaira</translation>
+    </message>
+    <message>
+        <source>Nairobi</source>
+        <translation>Nairobi</translation>
+    </message>
+    <message>
+        <source>Dubai</source>
+        <translation>Dubaija</translation>
+    </message>
+    <message>
+        <source>New Delhi</source>
+        <translation>Ņūdeli</translation>
+    </message>
+    <message>
+        <source>Bangkok</source>
+        <translation>Bangkoka</translation>
+    </message>
+    <message>
+        <source>Singapore</source>
+        <translation>Singapūra</translation>
+    </message>
+    <message>
+        <source>Beijing</source>
+        <translation>Pekina</translation>
+    </message>
+    <message>
+        <source>Seoul</source>
+        <translation>Seula</translation>
+    </message>
+    <message>
+        <source>Perth</source>
+        <translation>Pērta</translation>
+    </message>
+    <message>
+        <source>Auckland</source>
+        <translation>Oklenda</translation>
+    </message>
+    <message>
+        <source>Papeete</source>
+        <translation>Papeete</translation>
+    </message>
+    <message>
+        <source>%1 h %2 min</source>
+        <translation>%1 h %2 min</translation>
+    </message>
+    <message>
+        <source>Station QTH</source>
+        <translation>Stacijas QTH</translation>
+    </message>
+    <message>
+        <source>(%1%2 d)</source>
+        <translation>(%1%2 d)</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation type="unfinished">Diena</translation>
+    </message>
+    <message>
+        <source>Grayline</source>
+        <translation>Grayline</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>Nakts</translation>
+    </message>
+    <message>
+        <source>sun 24 h</source>
+        <translation>saule 24 h</translation>
+    </message>
+    <message>
+        <source>polar night</source>
+        <translation>polārā nakts</translation>
+    </message>
+    <message>
+        <source>Morning grayline</source>
+        <translation>Rīta grayline</translation>
+    </message>
+    <message>
+        <source>Evening grayline</source>
+        <translation>Vakara grayline</translation>
+    </message>
+    <message>
+        <source>Sunrise</source>
+        <translation>Saullēkts</translation>
+    </message>
+    <message>
+        <source>Sunset</source>
+        <translation>Saulriets</translation>
+    </message>
+    <message>
+        <source>Solar noon</source>
+        <translation>Saules pusdienlaiks</translation>
+    </message>
+    <message>
+        <source>Day length</source>
+        <translation>Dienas garums</translation>
+    </message>
+    <message>
+        <source>Sun altitude</source>
+        <translation>Saules augstums</translation>
+    </message>
+    <message>
+        <source>above the horizon</source>
+        <translation>virs horizonta</translation>
+    </message>
+    <message>
+        <source>below the horizon</source>
+        <translation>zem horizonta</translation>
+    </message>
+    <message>
+        <source>Local time</source>
+        <translation>Vietējais laiks</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClockButton</name>
+    <message>
+        <source>Open the world clock</source>
+        <translation>Atvērt pasaules pulksteni</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClockWindow</name>
+    <message>
+        <source>World clock</source>
+        <translation>Pasaules pulkstenis</translation>
+    </message>
+    <message>
+        <source>Time zones, sunrise, sunset and grayline in real time</source>
+        <translation>Laika joslas, saullēkts, saulriets un grayline reāllaikā</translation>
+    </message>
+    <message>
+        <source>Sun overhead: %1</source>
+        <translation>Saule zenītā: %1</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Aizvērt</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation type="unfinished">Diena</translation>
+    </message>
+    <message>
+        <source>Civil twilight</source>
+        <translation>Pilsoniskā krēsla</translation>
+    </message>
+    <message>
+        <source>Nautical</source>
+        <translation>Navigācijas</translation>
+    </message>
+    <message>
+        <source>Astronomical</source>
+        <translation>Astronomiskā</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>Nakts</translation>
+    </message>
+    <message>
+        <source>Grayline</source>
+        <translation>Grayline</translation>
+    </message>
+    <message>
+        <source>Equirectangular map · updated every minute</source>
+        <translation>Ekvirektangulāra karte · atjaunina katru minūti</translation>
+    </message>
+    <message>
+        <source>Time zones</source>
+        <translation>Laika joslas</translation>
+    </message>
+    <message>
+        <source>Add a city…</source>
+        <translation>Pievienot pilsētu…</translation>
+    </message>
+    <message>
+        <source>in the bar</source>
+        <translation>joslā</translation>
+    </message>
+    <message>
+        <source>put in the bar</source>
+        <translation>likt joslā</translation>
+    </message>
+    <message>
+        <source>remove</source>
+        <translation>noņemt</translation>
     </message>
 </context>
 <context>
@@ -7478,6 +7743,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>šī ir jaunākā versija</translation>
     </message>
     <message>
+        <source>no newer package is available for this computer</source>
+        <translation>šim datoram nav jaunākas pakotnes</translation>
+    </message>
+    <message>
         <source>cannot ask GitHub: %1</source>
         <translation>nevar pajautāt GitHub: %1</translation>
     </message>
@@ -7490,6 +7759,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Atjauninājums nav lejupielādēts: %1</translation>
     </message>
     <message>
+        <source>cannot start the installer</source>
+        <translation>nevar palaist instalētāju</translation>
+    </message>
+    <message>
         <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
         <translation>Uzstādīšanas programma gatava: %1 — DecoDXLog aizveras un uzstādīšana atveras</translation>
     </message>
@@ -7498,8 +7771,52 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>startē uzstādīšanas programmu…</translation>
     </message>
     <message>
+        <source>the disk image is ready in Downloads</source>
+        <translation>diska attēls ir gatavs mapē Lejupielādes</translation>
+    </message>
+    <message>
+        <source>the disk image was saved to %1</source>
+        <translation>diska attēls saglabāts: %1</translation>
+    </message>
+    <message>
+        <source>macOS update package ready: %1</source>
+        <translation>macOS atjauninājuma pakotne gatava: %1</translation>
+    </message>
+    <message>
+        <source>the AppImage was updated and DecoDXLog is restarting…</source>
+        <translation>AppImage ir atjaunināts, DecoDXLog tiek restartēts…</translation>
+    </message>
+    <message>
+        <source>AppImage updated: %1</source>
+        <translation>AppImage atjaunināts: %1</translation>
+    </message>
+    <message>
+        <source>the AppImage was updated; restart it manually</source>
+        <translation>AppImage ir atjaunināts; restartējiet to manuāli</translation>
+    </message>
+    <message>
+        <source>the AppImage was saved to Downloads; launch it manually</source>
+        <translation>AppImage saglabāts mapē Lejupielādes; palaidiet to manuāli</translation>
+    </message>
+    <message>
+        <source>Linux update package ready: %1</source>
+        <translation>Linux atjauninājuma pakotne gatava: %1</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>jautā GitHub…</translation>
+    </message>
+    <message>
+        <source>the update package has no file name</source>
+        <translation>atjauninājuma pakotnei nav faila nosaukuma</translation>
+    </message>
+    <message>
+        <source>cannot create the download folder</source>
+        <translation>nevar izveidot lejupielādes mapi</translation>
+    </message>
+    <message>
+        <source>downloading the update…</source>
+        <translation>lejupielādē atjauninājumu…</translation>
     </message>
     <message>
         <source>downloading %1…</source>
@@ -7886,6 +8203,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>cannot write %1</source>
         <translation>nevar ierakstīt %1</translation>
+    </message>
+    <message>
+        <source>the downloaded file is incomplete</source>
+        <translation>lejupielādētais fails ir nepilnīgs</translation>
     </message>
 </context>
 <context>

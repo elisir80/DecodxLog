@@ -4,6 +4,7 @@
 #include "StartupTrace.h"
 #include "app/DecoLogController.h"
 #include "core/Dates.h"
+#include "app/WorldMapItem.h"
 #include "ThemeManager.h"
 
 #include <QCommandLineParser>
@@ -793,6 +794,8 @@ int main(int argc, char* argv[])
         });
     });
     engine.rootContext()->setContextProperty(QStringLiteral("decolog"), &controller);
+    // La mappa dell'orologio mondiale: disegnata in C++, nitida a ogni scala.
+    qmlRegisterType<decolog::app::WorldMapItem>("DecoDXLog.Native", 1, 0, "WorldMapItem");
     engine.rootContext()->setContextProperty(QStringLiteral("mapUsesSafeRenderer"), useSafeMapRenderer);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed, &app,
                      [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);

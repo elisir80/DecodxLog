@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.16.22
+    VERSION 1.16.23
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES CXX)
 
@@ -121,6 +121,8 @@ add_library(decolog_core STATIC
     src/core/Updates.h
     src/core/VoiceAnnouncer.cpp
     src/core/VoiceAnnouncer.h
+    src/core/WorldClock.cpp
+    src/core/WorldClock.h
 )
 qt_add_resources(decolog_core "schema"
     PREFIX "/decolog"
@@ -207,6 +209,10 @@ qt_add_executable(decolog
     src/app/CloudController.cpp
     src/app/CloudController.h
     src/app/RigController.cpp
+    src/app/WorldClockController.cpp
+    src/app/WorldClockController.h
+    src/app/WorldMapItem.cpp
+    src/app/WorldMapItem.h
     src/app/RotorController.cpp
     src/app/RotorController.h
     src/app/SolarController.cpp
@@ -237,6 +243,9 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/MapCanvas.qml
     qml/DecoDXLog/MapSafeView.qml
     qml/DecoDXLog/StatusRail.qml
+    qml/DecoDXLog/WorldClockButton.qml
+    qml/DecoDXLog/WorldClockIcon.qml
+    qml/DecoDXLog/WorldClockWindow.qml
     qml/DecoDXLog/NewQsoDialog.qml
     qml/DecoDXLog/QslCardDesign.qml
     qml/DecoDXLog/QslCardsWindow.qml
@@ -343,6 +352,7 @@ qt_add_resources(decolog "map"
     PREFIX "/decolog"
     BASE resources
     FILES resources/map/coastline.json resources/map/land.json
+          resources/map/land50.json resources/map/borders50.json
 )
 
 qt_add_resources(decolog "icon"
@@ -382,7 +392,7 @@ set_target_properties(decolog PROPERTIES
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)

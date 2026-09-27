@@ -6063,6 +6063,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>tu ai %1</translation>
     </message>
     <message>
+        <source>Source: %1</source>
+        <translation>Sursă: %1</translation>
+    </message>
+    <message>
         <source>What is new</source>
         <translation>Ce este nou</translation>
     </message>
@@ -6091,8 +6095,8 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Sari peste această versiune</translation>
     </message>
     <message>
-        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
-        <translation>«Actualizează acum» descarcă programul de instalare și îl deschide: DecoDXLog se închide, pentru că un program de instalare nu poate înlocui fișierele unui program care rulează. Jurnalul și setările rămân unde sunt.</translation>
+        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>«Actualizează acum» descarcă doar pachetul compatibil cu acest calculator. Pe Windows pornește programul de instalare, pe macOS se deschide imaginea de disc, iar pe Linux AppImage-ul se actualizează când este posibil. Logul și setările rămân la locul lor.</translation>
     </message>
 </context>
 <context>
@@ -6115,6 +6119,267 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Close</source>
         <translation>Închide</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClock</name>
+    <message>
+        <source>New York</source>
+        <translation>New York</translation>
+    </message>
+    <message>
+        <source>Los Angeles</source>
+        <translation>Los Angeles</translation>
+    </message>
+    <message>
+        <source>Rio de Janeiro</source>
+        <translation>Rio de Janeiro</translation>
+    </message>
+    <message>
+        <source>Johannesburg</source>
+        <translation>Johannesburg</translation>
+    </message>
+    <message>
+        <source>Moscow</source>
+        <translation>Moscova</translation>
+    </message>
+    <message>
+        <source>Tokyo</source>
+        <translation>Tokyo</translation>
+    </message>
+    <message>
+        <source>Sydney</source>
+        <translation>Sydney</translation>
+    </message>
+    <message>
+        <source>Honolulu</source>
+        <translation>Honolulu</translation>
+    </message>
+    <message>
+        <source>Anchorage</source>
+        <translation>Anchorage</translation>
+    </message>
+    <message>
+        <source>Vancouver</source>
+        <translation>Vancouver</translation>
+    </message>
+    <message>
+        <source>Chicago</source>
+        <translation>Chicago</translation>
+    </message>
+    <message>
+        <source>Mexico City</source>
+        <translation>Ciudad de México</translation>
+    </message>
+    <message>
+        <source>Lima</source>
+        <translation>Lima</translation>
+    </message>
+    <message>
+        <source>Buenos Aires</source>
+        <translation>Buenos Aires</translation>
+    </message>
+    <message>
+        <source>Reykjavik</source>
+        <translation>Reykjavík</translation>
+    </message>
+    <message>
+        <source>London</source>
+        <translation>Londra</translation>
+    </message>
+    <message>
+        <source>Lisbon</source>
+        <translation>Lisabona</translation>
+    </message>
+    <message>
+        <source>Cairo</source>
+        <translation>Cairo</translation>
+    </message>
+    <message>
+        <source>Nairobi</source>
+        <translation>Nairobi</translation>
+    </message>
+    <message>
+        <source>Dubai</source>
+        <translation>Dubai</translation>
+    </message>
+    <message>
+        <source>New Delhi</source>
+        <translation>New Delhi</translation>
+    </message>
+    <message>
+        <source>Bangkok</source>
+        <translation>Bangkok</translation>
+    </message>
+    <message>
+        <source>Singapore</source>
+        <translation>Singapore</translation>
+    </message>
+    <message>
+        <source>Beijing</source>
+        <translation>Beijing</translation>
+    </message>
+    <message>
+        <source>Seoul</source>
+        <translation>Seul</translation>
+    </message>
+    <message>
+        <source>Perth</source>
+        <translation>Perth</translation>
+    </message>
+    <message>
+        <source>Auckland</source>
+        <translation>Auckland</translation>
+    </message>
+    <message>
+        <source>Papeete</source>
+        <translation>Papeete</translation>
+    </message>
+    <message>
+        <source>%1 h %2 min</source>
+        <translation>%1 h %2 min</translation>
+    </message>
+    <message>
+        <source>Station QTH</source>
+        <translation>QTH-ul stației</translation>
+    </message>
+    <message>
+        <source>(%1%2 d)</source>
+        <translation>(%1%2 z)</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation type="unfinished">Zi</translation>
+    </message>
+    <message>
+        <source>Grayline</source>
+        <translation>Grayline</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>Noapte</translation>
+    </message>
+    <message>
+        <source>sun 24 h</source>
+        <translation>soare 24 h</translation>
+    </message>
+    <message>
+        <source>polar night</source>
+        <translation>noapte polară</translation>
+    </message>
+    <message>
+        <source>Morning grayline</source>
+        <translation>Grayline dimineața</translation>
+    </message>
+    <message>
+        <source>Evening grayline</source>
+        <translation>Grayline seara</translation>
+    </message>
+    <message>
+        <source>Sunrise</source>
+        <translation>Răsărit</translation>
+    </message>
+    <message>
+        <source>Sunset</source>
+        <translation>Apus</translation>
+    </message>
+    <message>
+        <source>Solar noon</source>
+        <translation>Amiaza solară</translation>
+    </message>
+    <message>
+        <source>Day length</source>
+        <translation>Durata zilei</translation>
+    </message>
+    <message>
+        <source>Sun altitude</source>
+        <translation>Înălțimea soarelui</translation>
+    </message>
+    <message>
+        <source>above the horizon</source>
+        <translation>deasupra orizontului</translation>
+    </message>
+    <message>
+        <source>below the horizon</source>
+        <translation>sub orizont</translation>
+    </message>
+    <message>
+        <source>Local time</source>
+        <translation>Ora locală</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClockButton</name>
+    <message>
+        <source>Open the world clock</source>
+        <translation>Deschide ceasul mondial</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClockWindow</name>
+    <message>
+        <source>World clock</source>
+        <translation>Ceas mondial</translation>
+    </message>
+    <message>
+        <source>Time zones, sunrise, sunset and grayline in real time</source>
+        <translation>Fusuri orare, răsărit, apus și grayline în timp real</translation>
+    </message>
+    <message>
+        <source>Sun overhead: %1</source>
+        <translation>Soarele la zenit: %1</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Închide</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation type="unfinished">Zi</translation>
+    </message>
+    <message>
+        <source>Civil twilight</source>
+        <translation>Crepuscul civil</translation>
+    </message>
+    <message>
+        <source>Nautical</source>
+        <translation>Nautic</translation>
+    </message>
+    <message>
+        <source>Astronomical</source>
+        <translation>Astronomic</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>Noapte</translation>
+    </message>
+    <message>
+        <source>Grayline</source>
+        <translation>Grayline</translation>
+    </message>
+    <message>
+        <source>Equirectangular map · updated every minute</source>
+        <translation>Hartă echirectangulară · actualizată în fiecare minut</translation>
+    </message>
+    <message>
+        <source>Time zones</source>
+        <translation>Fusuri orare</translation>
+    </message>
+    <message>
+        <source>Add a city…</source>
+        <translation>Adaugă un oraș…</translation>
+    </message>
+    <message>
+        <source>in the bar</source>
+        <translation>în bară</translation>
+    </message>
+    <message>
+        <source>put in the bar</source>
+        <translation>pune în bară</translation>
+    </message>
+    <message>
+        <source>remove</source>
+        <translation>elimină</translation>
     </message>
 </context>
 <context>
@@ -7478,6 +7743,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>aceasta este ultima versiune</translation>
     </message>
     <message>
+        <source>no newer package is available for this computer</source>
+        <translation>nu există un pachet mai nou pentru acest calculator</translation>
+    </message>
+    <message>
         <source>cannot ask GitHub: %1</source>
         <translation>nu se poate întreba GitHub: %1</translation>
     </message>
@@ -7490,6 +7759,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Actualizarea nu a fost descărcată: %1</translation>
     </message>
     <message>
+        <source>cannot start the installer</source>
+        <translation>nu pot porni programul de instalare</translation>
+    </message>
+    <message>
         <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
         <translation>Programul de instalare este gata: %1 — DecoDXLog se închide și instalarea se deschide</translation>
     </message>
@@ -7498,8 +7771,52 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>pornește programul de instalare…</translation>
     </message>
     <message>
+        <source>the disk image is ready in Downloads</source>
+        <translation>imaginea de disc este gata în Descărcări</translation>
+    </message>
+    <message>
+        <source>the disk image was saved to %1</source>
+        <translation>imaginea de disc a fost salvată în %1</translation>
+    </message>
+    <message>
+        <source>macOS update package ready: %1</source>
+        <translation>pachet de actualizare macOS pregătit: %1</translation>
+    </message>
+    <message>
+        <source>the AppImage was updated and DecoDXLog is restarting…</source>
+        <translation>AppImage-ul a fost actualizat și DecoDXLog repornește…</translation>
+    </message>
+    <message>
+        <source>AppImage updated: %1</source>
+        <translation>AppImage actualizat: %1</translation>
+    </message>
+    <message>
+        <source>the AppImage was updated; restart it manually</source>
+        <translation>AppImage-ul a fost actualizat; repornește-l manual</translation>
+    </message>
+    <message>
+        <source>the AppImage was saved to Downloads; launch it manually</source>
+        <translation>AppImage-ul a fost salvat în Descărcări; pornește-l manual</translation>
+    </message>
+    <message>
+        <source>Linux update package ready: %1</source>
+        <translation>pachet de actualizare Linux pregătit: %1</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>se întreabă GitHub…</translation>
+    </message>
+    <message>
+        <source>the update package has no file name</source>
+        <translation>pachetul de actualizare nu are nume de fișier</translation>
+    </message>
+    <message>
+        <source>cannot create the download folder</source>
+        <translation>nu pot crea dosarul de descărcare</translation>
+    </message>
+    <message>
+        <source>downloading the update…</source>
+        <translation>se descarcă actualizarea…</translation>
     </message>
     <message>
         <source>downloading %1…</source>
@@ -7886,6 +8203,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>cannot write %1</source>
         <translation>nu se poate scrie %1</translation>
+    </message>
+    <message>
+        <source>the downloaded file is incomplete</source>
+        <translation>fișierul descărcat este incomplet</translation>
     </message>
 </context>
 <context>

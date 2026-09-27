@@ -643,6 +643,11 @@ bool DecoLogController::openDatabase(const QString& path)
     updCtx.quit = [] { QCoreApplication::quit(); };
     m_updates = new UpdateController(std::move(updCtx), this);
 
+    WorldClockController::Context clockCtx;
+    clockCtx.stationGrid = [this] { return myGrid(); };
+    clockCtx.stationPosition = [this] { return myPosition(); };
+    m_worldClock = new WorldClockController(std::move(clockCtx), this);
+
     RotorController::Context rotorCtx;
     rotorCtx.activity = [this](const QString& category, const QString& text, const QString& level) {
         addActivity(category, text, level);

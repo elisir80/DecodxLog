@@ -6043,6 +6043,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>你现在用的是 %1</translation>
     </message>
     <message>
+        <source>Source: %1</source>
+        <translation>来源：%1</translation>
+    </message>
+    <message>
         <source>What is new</source>
         <translation>有什么新东西</translation>
     </message>
@@ -6071,8 +6075,8 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>跳过这个版本</translation>
     </message>
     <message>
-        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
-        <translation>「立即更新」会下载安装程序并打开它：DecoDXLog 会关闭，因为安装程序没法替换正在运行的程序的文件。日志和设置留在原处。</translation>
+        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>“立即更新”只下载适合这台电脑的安装包。在 Windows 上会启动安装程序，在 macOS 上会打开磁盘映像，在 Linux 上会尽可能更新 AppImage。日志和设置保持不变。</translation>
     </message>
 </context>
 <context>
@@ -6095,6 +6099,267 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Close</source>
         <translation>关闭</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClock</name>
+    <message>
+        <source>New York</source>
+        <translation>纽约</translation>
+    </message>
+    <message>
+        <source>Los Angeles</source>
+        <translation>洛杉矶</translation>
+    </message>
+    <message>
+        <source>Rio de Janeiro</source>
+        <translation>里约热内卢</translation>
+    </message>
+    <message>
+        <source>Johannesburg</source>
+        <translation>约翰内斯堡</translation>
+    </message>
+    <message>
+        <source>Moscow</source>
+        <translation>莫斯科</translation>
+    </message>
+    <message>
+        <source>Tokyo</source>
+        <translation>东京</translation>
+    </message>
+    <message>
+        <source>Sydney</source>
+        <translation>悉尼</translation>
+    </message>
+    <message>
+        <source>Honolulu</source>
+        <translation>檀香山</translation>
+    </message>
+    <message>
+        <source>Anchorage</source>
+        <translation>安克雷奇</translation>
+    </message>
+    <message>
+        <source>Vancouver</source>
+        <translation>温哥华</translation>
+    </message>
+    <message>
+        <source>Chicago</source>
+        <translation>芝加哥</translation>
+    </message>
+    <message>
+        <source>Mexico City</source>
+        <translation>墨西哥城</translation>
+    </message>
+    <message>
+        <source>Lima</source>
+        <translation>利马</translation>
+    </message>
+    <message>
+        <source>Buenos Aires</source>
+        <translation>布宜诺斯艾利斯</translation>
+    </message>
+    <message>
+        <source>Reykjavik</source>
+        <translation>雷克雅未克</translation>
+    </message>
+    <message>
+        <source>London</source>
+        <translation>伦敦</translation>
+    </message>
+    <message>
+        <source>Lisbon</source>
+        <translation>里斯本</translation>
+    </message>
+    <message>
+        <source>Cairo</source>
+        <translation>开罗</translation>
+    </message>
+    <message>
+        <source>Nairobi</source>
+        <translation>内罗毕</translation>
+    </message>
+    <message>
+        <source>Dubai</source>
+        <translation>迪拜</translation>
+    </message>
+    <message>
+        <source>New Delhi</source>
+        <translation>新德里</translation>
+    </message>
+    <message>
+        <source>Bangkok</source>
+        <translation>曼谷</translation>
+    </message>
+    <message>
+        <source>Singapore</source>
+        <translation>新加坡</translation>
+    </message>
+    <message>
+        <source>Beijing</source>
+        <translation>北京</translation>
+    </message>
+    <message>
+        <source>Seoul</source>
+        <translation>首尔</translation>
+    </message>
+    <message>
+        <source>Perth</source>
+        <translation>珀斯</translation>
+    </message>
+    <message>
+        <source>Auckland</source>
+        <translation>奥克兰</translation>
+    </message>
+    <message>
+        <source>Papeete</source>
+        <translation>帕皮提</translation>
+    </message>
+    <message>
+        <source>%1 h %2 min</source>
+        <translation>%1小时%2分</translation>
+    </message>
+    <message>
+        <source>Station QTH</source>
+        <translation>电台 QTH</translation>
+    </message>
+    <message>
+        <source>(%1%2 d)</source>
+        <translation>(%1%2天)</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation type="unfinished">日</translation>
+    </message>
+    <message>
+        <source>Grayline</source>
+        <translation>灰线</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>夜间</translation>
+    </message>
+    <message>
+        <source>sun 24 h</source>
+        <translation>极昼 24 小时</translation>
+    </message>
+    <message>
+        <source>polar night</source>
+        <translation>极夜</translation>
+    </message>
+    <message>
+        <source>Morning grayline</source>
+        <translation>早晨灰线</translation>
+    </message>
+    <message>
+        <source>Evening grayline</source>
+        <translation>傍晚灰线</translation>
+    </message>
+    <message>
+        <source>Sunrise</source>
+        <translation>日出</translation>
+    </message>
+    <message>
+        <source>Sunset</source>
+        <translation>日落</translation>
+    </message>
+    <message>
+        <source>Solar noon</source>
+        <translation>太阳正午</translation>
+    </message>
+    <message>
+        <source>Day length</source>
+        <translation>白昼时长</translation>
+    </message>
+    <message>
+        <source>Sun altitude</source>
+        <translation>太阳高度</translation>
+    </message>
+    <message>
+        <source>above the horizon</source>
+        <translation>地平线以上</translation>
+    </message>
+    <message>
+        <source>below the horizon</source>
+        <translation>地平线以下</translation>
+    </message>
+    <message>
+        <source>Local time</source>
+        <translation>当地时间</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClockButton</name>
+    <message>
+        <source>Open the world clock</source>
+        <translation>打开世界时钟</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClockWindow</name>
+    <message>
+        <source>World clock</source>
+        <translation>世界时钟</translation>
+    </message>
+    <message>
+        <source>Time zones, sunrise, sunset and grayline in real time</source>
+        <translation>实时显示时区、日出、日落和灰线</translation>
+    </message>
+    <message>
+        <source>Sun overhead: %1</source>
+        <translation>太阳直射点：%1</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>关闭</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation type="unfinished">日</translation>
+    </message>
+    <message>
+        <source>Civil twilight</source>
+        <translation>民用晨昏</translation>
+    </message>
+    <message>
+        <source>Nautical</source>
+        <translation>航海晨昏</translation>
+    </message>
+    <message>
+        <source>Astronomical</source>
+        <translation>天文晨昏</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>夜间</translation>
+    </message>
+    <message>
+        <source>Grayline</source>
+        <translation>灰线</translation>
+    </message>
+    <message>
+        <source>Equirectangular map · updated every minute</source>
+        <translation>等距圆柱投影地图 · 每分钟更新</translation>
+    </message>
+    <message>
+        <source>Time zones</source>
+        <translation>时区</translation>
+    </message>
+    <message>
+        <source>Add a city…</source>
+        <translation>添加城市…</translation>
+    </message>
+    <message>
+        <source>in the bar</source>
+        <translation>已在状态栏</translation>
+    </message>
+    <message>
+        <source>put in the bar</source>
+        <translation>放入状态栏</translation>
+    </message>
+    <message>
+        <source>remove</source>
+        <translation>移除</translation>
     </message>
 </context>
 <context>
@@ -7396,6 +7661,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>这已经是最新版本</translation>
     </message>
     <message>
+        <source>no newer package is available for this computer</source>
+        <translation>没有适合这台电脑的新安装包</translation>
+    </message>
+    <message>
         <source>cannot ask GitHub: %1</source>
         <translation>问不到 GitHub：%1</translation>
     </message>
@@ -7408,6 +7677,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>更新没有下载下来：%1</translation>
     </message>
     <message>
+        <source>cannot start the installer</source>
+        <translation>无法启动安装程序</translation>
+    </message>
+    <message>
         <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
         <translation>安装程序已就绪：%1 — DecoDXLog 关闭，安装程序打开</translation>
     </message>
@@ -7416,8 +7689,52 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>正在启动安装程序…</translation>
     </message>
     <message>
+        <source>the disk image is ready in Downloads</source>
+        <translation>磁盘映像已在“下载”中准备好</translation>
+    </message>
+    <message>
+        <source>the disk image was saved to %1</source>
+        <translation>磁盘映像已保存到 %1</translation>
+    </message>
+    <message>
+        <source>macOS update package ready: %1</source>
+        <translation>macOS 更新包已就绪：%1</translation>
+    </message>
+    <message>
+        <source>the AppImage was updated and DecoDXLog is restarting…</source>
+        <translation>AppImage 已更新，DecoDXLog 正在重新启动…</translation>
+    </message>
+    <message>
+        <source>AppImage updated: %1</source>
+        <translation>AppImage 已更新：%1</translation>
+    </message>
+    <message>
+        <source>the AppImage was updated; restart it manually</source>
+        <translation>AppImage 已更新，请手动重新启动</translation>
+    </message>
+    <message>
+        <source>the AppImage was saved to Downloads; launch it manually</source>
+        <translation>AppImage 已保存到“下载”，请手动启动</translation>
+    </message>
+    <message>
+        <source>Linux update package ready: %1</source>
+        <translation>Linux 更新包已就绪：%1</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>正在问 GitHub…</translation>
+    </message>
+    <message>
+        <source>the update package has no file name</source>
+        <translation>更新包没有文件名</translation>
+    </message>
+    <message>
+        <source>cannot create the download folder</source>
+        <translation>无法创建下载文件夹</translation>
+    </message>
+    <message>
+        <source>downloading the update…</source>
+        <translation>正在下载更新…</translation>
     </message>
     <message>
         <source>downloading %1…</source>
@@ -7804,6 +8121,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>cannot write %1</source>
         <translation>写不了 %1</translation>
+    </message>
+    <message>
+        <source>the downloaded file is incomplete</source>
+        <translation>下载的文件不完整</translation>
     </message>
 </context>
 <context>

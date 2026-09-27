@@ -746,6 +746,8 @@ ApplicationWindow {
         // La scelta del periodo per lo scarico LoTW, aperta per guardarla.
         else if (what[0] === "lotwperiod") { window.panelItem("tabs").setTab(2); lotwPeriodTimer.start() }
         else if (what[0] === "pop") popWindow.active = true
+        // L'orologio mondiale aperto, con la citta' scelta se c'e'.
+        else if (what[0] === "worldclock") { if (what[1]) decolog.worldClock.selected = what[1]; worldClockWindow.open() }
         else if (what[0] === "panels") { if (what[1]) { const how = what.slice(2); for (let i = 0; i < how.length; ++i) { if (what[1] === "close") window.closePanel(how[i]); else if (what[1] === "detach") window.detachPanel(how[i]); else if (what[1] === "show") window.showPanel(how[i]); else if (what[1] === "attach") window.attachPanel(how[i]) } } else panelsPopup.open() }
         // "cluster:spot:14025.1:3Y0J:CW" mette una riga come se venisse da un
         // nodo e ci fa sopra il doppio clic: serve a guardare se la radio ci va.
@@ -1486,7 +1488,23 @@ ApplicationWindow {
             Layout.margins: 8
         }
 
-        StatusRail { Layout.fillWidth: true }
+        StatusRail {
+            id: statusRail
+            Layout.fillWidth: true
+            onWorldClockRequested: worldClockWindow.opened ? worldClockWindow.close() : worldClockWindow.open()
+        }
+    }
+
+    // L'orologio mondiale in grande, sopra a tutto.
+    WorldClockWindow {
+        id: worldClockWindow
+        opener: statusRail.clockButton
+    }
+    // A finestra ridotta a icona l'orologio si ferma: nessuno lo guarda.
+    Binding {
+        target: decolog.worldClock
+        property: "active"
+        value: window.visibility !== Window.Minimized && window.visibility !== Window.Hidden
     }
 
     // La lavagna di tutti i giorni.

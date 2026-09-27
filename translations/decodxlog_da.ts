@@ -6053,6 +6053,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>du har %1</translation>
     </message>
     <message>
+        <source>Source: %1</source>
+        <translation>Kilde: %1</translation>
+    </message>
+    <message>
         <source>What is new</source>
         <translation>Hvad der er nyt</translation>
     </message>
@@ -6081,8 +6085,8 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Spring denne udgave over</translation>
     </message>
     <message>
-        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
-        <translation>«Opdatér nu» henter installationsprogrammet og åbner det: DecoDXLog lukker, for et installationsprogram kan ikke erstatte filerne i et program, der kører. Loggen og indstillingerne bliver, hvor de er.</translation>
+        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>«Opdater nu» henter kun den pakke, der passer til denne computer. På Windows starter installationsprogrammet, på macOS åbnes diskbilledet, og på Linux opdateres AppImage-filen når det er muligt. Loggen og indstillingerne bliver, hvor de er.</translation>
     </message>
 </context>
 <context>
@@ -6105,6 +6109,267 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Close</source>
         <translation>Luk</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClock</name>
+    <message>
+        <source>New York</source>
+        <translation>New York</translation>
+    </message>
+    <message>
+        <source>Los Angeles</source>
+        <translation>Los Angeles</translation>
+    </message>
+    <message>
+        <source>Rio de Janeiro</source>
+        <translation>Rio de Janeiro</translation>
+    </message>
+    <message>
+        <source>Johannesburg</source>
+        <translation>Johannesburg</translation>
+    </message>
+    <message>
+        <source>Moscow</source>
+        <translation>Moskva</translation>
+    </message>
+    <message>
+        <source>Tokyo</source>
+        <translation>Tokyo</translation>
+    </message>
+    <message>
+        <source>Sydney</source>
+        <translation>Sydney</translation>
+    </message>
+    <message>
+        <source>Honolulu</source>
+        <translation>Honolulu</translation>
+    </message>
+    <message>
+        <source>Anchorage</source>
+        <translation>Anchorage</translation>
+    </message>
+    <message>
+        <source>Vancouver</source>
+        <translation>Vancouver</translation>
+    </message>
+    <message>
+        <source>Chicago</source>
+        <translation>Chicago</translation>
+    </message>
+    <message>
+        <source>Mexico City</source>
+        <translation>Mexico City</translation>
+    </message>
+    <message>
+        <source>Lima</source>
+        <translation>Lima</translation>
+    </message>
+    <message>
+        <source>Buenos Aires</source>
+        <translation>Buenos Aires</translation>
+    </message>
+    <message>
+        <source>Reykjavik</source>
+        <translation>Reykjavik</translation>
+    </message>
+    <message>
+        <source>London</source>
+        <translation>London</translation>
+    </message>
+    <message>
+        <source>Lisbon</source>
+        <translation>Lissabon</translation>
+    </message>
+    <message>
+        <source>Cairo</source>
+        <translation>Kairo</translation>
+    </message>
+    <message>
+        <source>Nairobi</source>
+        <translation>Nairobi</translation>
+    </message>
+    <message>
+        <source>Dubai</source>
+        <translation>Dubai</translation>
+    </message>
+    <message>
+        <source>New Delhi</source>
+        <translation>New Delhi</translation>
+    </message>
+    <message>
+        <source>Bangkok</source>
+        <translation>Bangkok</translation>
+    </message>
+    <message>
+        <source>Singapore</source>
+        <translation>Singapore</translation>
+    </message>
+    <message>
+        <source>Beijing</source>
+        <translation>Beijing</translation>
+    </message>
+    <message>
+        <source>Seoul</source>
+        <translation>Seoul</translation>
+    </message>
+    <message>
+        <source>Perth</source>
+        <translation>Perth</translation>
+    </message>
+    <message>
+        <source>Auckland</source>
+        <translation>Auckland</translation>
+    </message>
+    <message>
+        <source>Papeete</source>
+        <translation>Papeete</translation>
+    </message>
+    <message>
+        <source>%1 h %2 min</source>
+        <translation>%1 t %2 min</translation>
+    </message>
+    <message>
+        <source>Station QTH</source>
+        <translation>Stationens QTH</translation>
+    </message>
+    <message>
+        <source>(%1%2 d)</source>
+        <translation>(%1%2 d)</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation type="unfinished">Dag</translation>
+    </message>
+    <message>
+        <source>Grayline</source>
+        <translation>Grayline</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>Nat</translation>
+    </message>
+    <message>
+        <source>sun 24 h</source>
+        <translation>sol 24 t</translation>
+    </message>
+    <message>
+        <source>polar night</source>
+        <translation>polarnat</translation>
+    </message>
+    <message>
+        <source>Morning grayline</source>
+        <translation>Grayline morgen</translation>
+    </message>
+    <message>
+        <source>Evening grayline</source>
+        <translation>Grayline aften</translation>
+    </message>
+    <message>
+        <source>Sunrise</source>
+        <translation>Solopgang</translation>
+    </message>
+    <message>
+        <source>Sunset</source>
+        <translation>Solnedgang</translation>
+    </message>
+    <message>
+        <source>Solar noon</source>
+        <translation>Solmiddag</translation>
+    </message>
+    <message>
+        <source>Day length</source>
+        <translation>Dagens længde</translation>
+    </message>
+    <message>
+        <source>Sun altitude</source>
+        <translation>Solhøjde</translation>
+    </message>
+    <message>
+        <source>above the horizon</source>
+        <translation>over horisonten</translation>
+    </message>
+    <message>
+        <source>below the horizon</source>
+        <translation>under horisonten</translation>
+    </message>
+    <message>
+        <source>Local time</source>
+        <translation>Lokal tid</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClockButton</name>
+    <message>
+        <source>Open the world clock</source>
+        <translation>Åbn verdensuret</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClockWindow</name>
+    <message>
+        <source>World clock</source>
+        <translation>Verdensur</translation>
+    </message>
+    <message>
+        <source>Time zones, sunrise, sunset and grayline in real time</source>
+        <translation>Tidszoner, solopgang, solnedgang og grayline i realtid</translation>
+    </message>
+    <message>
+        <source>Sun overhead: %1</source>
+        <translation>Sol i zenit: %1</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Luk</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation type="unfinished">Dag</translation>
+    </message>
+    <message>
+        <source>Civil twilight</source>
+        <translation>Borgerlig tusmørke</translation>
+    </message>
+    <message>
+        <source>Nautical</source>
+        <translation>Nautisk</translation>
+    </message>
+    <message>
+        <source>Astronomical</source>
+        <translation>Astronomisk</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>Nat</translation>
+    </message>
+    <message>
+        <source>Grayline</source>
+        <translation>Grayline</translation>
+    </message>
+    <message>
+        <source>Equirectangular map · updated every minute</source>
+        <translation>Ækvirektangulært kort · opdateres hvert minut</translation>
+    </message>
+    <message>
+        <source>Time zones</source>
+        <translation>Tidszoner</translation>
+    </message>
+    <message>
+        <source>Add a city…</source>
+        <translation>Tilføj en by…</translation>
+    </message>
+    <message>
+        <source>in the bar</source>
+        <translation>i bjælken</translation>
+    </message>
+    <message>
+        <source>put in the bar</source>
+        <translation>sæt i bjælken</translation>
+    </message>
+    <message>
+        <source>remove</source>
+        <translation>fjern</translation>
     </message>
 </context>
 <context>
@@ -7437,6 +7702,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>det er den nyeste udgave</translation>
     </message>
     <message>
+        <source>no newer package is available for this computer</source>
+        <translation>der er ingen nyere pakke til denne computer</translation>
+    </message>
+    <message>
         <source>cannot ask GitHub: %1</source>
         <translation>kan ikke spørge GitHub: %1</translation>
     </message>
@@ -7449,6 +7718,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Opdateringen blev ikke hentet: %1</translation>
     </message>
     <message>
+        <source>cannot start the installer</source>
+        <translation>kan ikke starte installationsprogrammet</translation>
+    </message>
+    <message>
         <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
         <translation>Installationsprogrammet er klar: %1 — DecoDXLog lukker, og installationsprogrammet åbner</translation>
     </message>
@@ -7457,8 +7730,52 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>starter installationsprogrammet…</translation>
     </message>
     <message>
+        <source>the disk image is ready in Downloads</source>
+        <translation>diskbilledet ligger klar i Overførsler</translation>
+    </message>
+    <message>
+        <source>the disk image was saved to %1</source>
+        <translation>diskbilledet blev gemt i %1</translation>
+    </message>
+    <message>
+        <source>macOS update package ready: %1</source>
+        <translation>macOS-opdateringspakke klar: %1</translation>
+    </message>
+    <message>
+        <source>the AppImage was updated and DecoDXLog is restarting…</source>
+        <translation>AppImage-filen er opdateret, og DecoDXLog genstarter…</translation>
+    </message>
+    <message>
+        <source>AppImage updated: %1</source>
+        <translation>AppImage opdateret: %1</translation>
+    </message>
+    <message>
+        <source>the AppImage was updated; restart it manually</source>
+        <translation>AppImage-filen er opdateret; genstart den manuelt</translation>
+    </message>
+    <message>
+        <source>the AppImage was saved to Downloads; launch it manually</source>
+        <translation>AppImage-filen blev gemt i Overførsler; start den manuelt</translation>
+    </message>
+    <message>
+        <source>Linux update package ready: %1</source>
+        <translation>Linux-opdateringspakke klar: %1</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>spørger GitHub…</translation>
+    </message>
+    <message>
+        <source>the update package has no file name</source>
+        <translation>opdateringspakken har intet filnavn</translation>
+    </message>
+    <message>
+        <source>cannot create the download folder</source>
+        <translation>kan ikke oprette downloadmappen</translation>
+    </message>
+    <message>
+        <source>downloading the update…</source>
+        <translation>henter opdateringen…</translation>
     </message>
     <message>
         <source>downloading %1…</source>
@@ -7845,6 +8162,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>cannot write %1</source>
         <translation>kan ikke skrive %1</translation>
+    </message>
+    <message>
+        <source>the downloaded file is incomplete</source>
+        <translation>den hentede fil er ufuldstændig</translation>
     </message>
 </context>
 <context>

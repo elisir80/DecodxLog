@@ -6043,6 +6043,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>お使いのものは %1</translation>
     </message>
     <message>
+        <source>Source: %1</source>
+        <translation>ソース: %1</translation>
+    </message>
+    <message>
         <source>What is new</source>
         <translation>新しいところ</translation>
     </message>
@@ -6071,8 +6075,8 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>この版は見送る</translation>
     </message>
     <message>
-        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
-        <translation>「今すぐ更新」はインストーラーを取り込んで開きます。動いているプログラムのファイルはインストーラーでは置き換えられないので、DecoDXLog は閉じます。ログと設定はそのままです。</translation>
+        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>「今すぐ更新」はこのコンピューターに合うパッケージだけをダウンロードします。Windows ではインストーラーが起動し、macOS ではディスクイメージが開き、Linux では可能なら AppImage が更新されます。ログと設定はそのまま残ります。</translation>
     </message>
 </context>
 <context>
@@ -6095,6 +6099,267 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Close</source>
         <translation>閉じる</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClock</name>
+    <message>
+        <source>New York</source>
+        <translation>ニューヨーク</translation>
+    </message>
+    <message>
+        <source>Los Angeles</source>
+        <translation>ロサンゼルス</translation>
+    </message>
+    <message>
+        <source>Rio de Janeiro</source>
+        <translation>リオデジャネイロ</translation>
+    </message>
+    <message>
+        <source>Johannesburg</source>
+        <translation>ヨハネスブルグ</translation>
+    </message>
+    <message>
+        <source>Moscow</source>
+        <translation>モスクワ</translation>
+    </message>
+    <message>
+        <source>Tokyo</source>
+        <translation>東京</translation>
+    </message>
+    <message>
+        <source>Sydney</source>
+        <translation>シドニー</translation>
+    </message>
+    <message>
+        <source>Honolulu</source>
+        <translation>ホノルル</translation>
+    </message>
+    <message>
+        <source>Anchorage</source>
+        <translation>アンカレッジ</translation>
+    </message>
+    <message>
+        <source>Vancouver</source>
+        <translation>バンクーバー</translation>
+    </message>
+    <message>
+        <source>Chicago</source>
+        <translation>シカゴ</translation>
+    </message>
+    <message>
+        <source>Mexico City</source>
+        <translation>メキシコシティ</translation>
+    </message>
+    <message>
+        <source>Lima</source>
+        <translation>リマ</translation>
+    </message>
+    <message>
+        <source>Buenos Aires</source>
+        <translation>ブエノスアイレス</translation>
+    </message>
+    <message>
+        <source>Reykjavik</source>
+        <translation>レイキャビク</translation>
+    </message>
+    <message>
+        <source>London</source>
+        <translation>ロンドン</translation>
+    </message>
+    <message>
+        <source>Lisbon</source>
+        <translation>リスボン</translation>
+    </message>
+    <message>
+        <source>Cairo</source>
+        <translation>カイロ</translation>
+    </message>
+    <message>
+        <source>Nairobi</source>
+        <translation>ナイロビ</translation>
+    </message>
+    <message>
+        <source>Dubai</source>
+        <translation>ドバイ</translation>
+    </message>
+    <message>
+        <source>New Delhi</source>
+        <translation>ニューデリー</translation>
+    </message>
+    <message>
+        <source>Bangkok</source>
+        <translation>バンコク</translation>
+    </message>
+    <message>
+        <source>Singapore</source>
+        <translation>シンガポール</translation>
+    </message>
+    <message>
+        <source>Beijing</source>
+        <translation>北京</translation>
+    </message>
+    <message>
+        <source>Seoul</source>
+        <translation>ソウル</translation>
+    </message>
+    <message>
+        <source>Perth</source>
+        <translation>パース</translation>
+    </message>
+    <message>
+        <source>Auckland</source>
+        <translation>オークランド</translation>
+    </message>
+    <message>
+        <source>Papeete</source>
+        <translation>パペーテ</translation>
+    </message>
+    <message>
+        <source>%1 h %2 min</source>
+        <translation>%1時間%2分</translation>
+    </message>
+    <message>
+        <source>Station QTH</source>
+        <translation>局の QTH</translation>
+    </message>
+    <message>
+        <source>(%1%2 d)</source>
+        <translation>(%1%2日)</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation type="unfinished">日</translation>
+    </message>
+    <message>
+        <source>Grayline</source>
+        <translation>グレイライン</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>夜</translation>
+    </message>
+    <message>
+        <source>sun 24 h</source>
+        <translation>白夜 24 時間</translation>
+    </message>
+    <message>
+        <source>polar night</source>
+        <translation>極夜</translation>
+    </message>
+    <message>
+        <source>Morning grayline</source>
+        <translation>朝のグレイライン</translation>
+    </message>
+    <message>
+        <source>Evening grayline</source>
+        <translation>夕方のグレイライン</translation>
+    </message>
+    <message>
+        <source>Sunrise</source>
+        <translation>日の出</translation>
+    </message>
+    <message>
+        <source>Sunset</source>
+        <translation>日の入り</translation>
+    </message>
+    <message>
+        <source>Solar noon</source>
+        <translation>南中時刻</translation>
+    </message>
+    <message>
+        <source>Day length</source>
+        <translation>昼の長さ</translation>
+    </message>
+    <message>
+        <source>Sun altitude</source>
+        <translation>太陽高度</translation>
+    </message>
+    <message>
+        <source>above the horizon</source>
+        <translation>地平線の上</translation>
+    </message>
+    <message>
+        <source>below the horizon</source>
+        <translation>地平線の下</translation>
+    </message>
+    <message>
+        <source>Local time</source>
+        <translation>現地時刻</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClockButton</name>
+    <message>
+        <source>Open the world clock</source>
+        <translation>世界時計を開く</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClockWindow</name>
+    <message>
+        <source>World clock</source>
+        <translation>世界時計</translation>
+    </message>
+    <message>
+        <source>Time zones, sunrise, sunset and grayline in real time</source>
+        <translation>タイムゾーン、日の出・日の入り、グレイラインをリアルタイムで</translation>
+    </message>
+    <message>
+        <source>Sun overhead: %1</source>
+        <translation>太陽直下点: %1</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>閉じる</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation type="unfinished">日</translation>
+    </message>
+    <message>
+        <source>Civil twilight</source>
+        <translation>常用薄明</translation>
+    </message>
+    <message>
+        <source>Nautical</source>
+        <translation>航海薄明</translation>
+    </message>
+    <message>
+        <source>Astronomical</source>
+        <translation>天文薄明</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>夜</translation>
+    </message>
+    <message>
+        <source>Grayline</source>
+        <translation>グレイライン</translation>
+    </message>
+    <message>
+        <source>Equirectangular map · updated every minute</source>
+        <translation>正距円筒図法 · 毎分更新</translation>
+    </message>
+    <message>
+        <source>Time zones</source>
+        <translation>タイムゾーン</translation>
+    </message>
+    <message>
+        <source>Add a city…</source>
+        <translation>都市を追加…</translation>
+    </message>
+    <message>
+        <source>in the bar</source>
+        <translation>バーに表示中</translation>
+    </message>
+    <message>
+        <source>put in the bar</source>
+        <translation>バーに表示</translation>
+    </message>
+    <message>
+        <source>remove</source>
+        <translation>削除</translation>
     </message>
 </context>
 <context>
@@ -7396,6 +7661,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>これが最新の版です</translation>
     </message>
     <message>
+        <source>no newer package is available for this computer</source>
+        <translation>このコンピューター用の新しいパッケージはありません</translation>
+    </message>
+    <message>
         <source>cannot ask GitHub: %1</source>
         <translation>GitHub に聞けません: %1</translation>
     </message>
@@ -7408,6 +7677,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>更新を取り込めませんでした: %1</translation>
     </message>
     <message>
+        <source>cannot start the installer</source>
+        <translation>インストーラーを起動できません</translation>
+    </message>
+    <message>
         <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
         <translation>インストーラーの用意ができました: %1 — DecoDXLog が閉じ、インストーラーが開きます</translation>
     </message>
@@ -7416,8 +7689,52 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>インストーラーを始めます…</translation>
     </message>
     <message>
+        <source>the disk image is ready in Downloads</source>
+        <translation>ディスクイメージはダウンロードフォルダーにあります</translation>
+    </message>
+    <message>
+        <source>the disk image was saved to %1</source>
+        <translation>ディスクイメージを %1 に保存しました</translation>
+    </message>
+    <message>
+        <source>macOS update package ready: %1</source>
+        <translation>macOS 更新パッケージの準備完了: %1</translation>
+    </message>
+    <message>
+        <source>the AppImage was updated and DecoDXLog is restarting…</source>
+        <translation>AppImage を更新しました。DecoDXLog を再起動しています…</translation>
+    </message>
+    <message>
+        <source>AppImage updated: %1</source>
+        <translation>AppImage を更新しました: %1</translation>
+    </message>
+    <message>
+        <source>the AppImage was updated; restart it manually</source>
+        <translation>AppImage を更新しました。手動で再起動してください</translation>
+    </message>
+    <message>
+        <source>the AppImage was saved to Downloads; launch it manually</source>
+        <translation>AppImage をダウンロードフォルダーに保存しました。手動で起動してください</translation>
+    </message>
+    <message>
+        <source>Linux update package ready: %1</source>
+        <translation>Linux 更新パッケージの準備完了: %1</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>GitHub に聞いています…</translation>
+    </message>
+    <message>
+        <source>the update package has no file name</source>
+        <translation>更新パッケージにファイル名がありません</translation>
+    </message>
+    <message>
+        <source>cannot create the download folder</source>
+        <translation>ダウンロードフォルダーを作成できません</translation>
+    </message>
+    <message>
+        <source>downloading the update…</source>
+        <translation>更新をダウンロード中…</translation>
     </message>
     <message>
         <source>downloading %1…</source>
@@ -7804,6 +8121,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>cannot write %1</source>
         <translation>%1 を書けません</translation>
+    </message>
+    <message>
+        <source>the downloaded file is incomplete</source>
+        <translation>ダウンロードしたファイルが不完全です</translation>
     </message>
 </context>
 <context>

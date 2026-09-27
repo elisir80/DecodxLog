@@ -6053,6 +6053,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>tu tens la %1</translation>
     </message>
     <message>
+        <source>Source: %1</source>
+        <translation>Font: %1</translation>
+    </message>
+    <message>
         <source>What is new</source>
         <translation>Què hi ha de nou</translation>
     </message>
@@ -6081,8 +6085,8 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Salta&apos;t aquesta versió</translation>
     </message>
     <message>
-        <source>«Update now» downloads the installer and opens it: DecoDXLog closes, because an installer cannot replace the files of a program that is running. The log and the settings stay where they are.</source>
-        <translation>«Actualitza ara» baixa l&apos;instal·lador i l&apos;obre: DecoDXLog es tanca, perquè un instal·lador no pot substituir els fitxers d&apos;un programa que està en marxa. El quadern i la configuració es queden on són.</translation>
+        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>«Actualitza ara» baixa només el paquet compatible amb aquest ordinador. A Windows s&apos;inicia l&apos;instal·lador, a macOS s&apos;obre la imatge de disc i a Linux s&apos;actualitza l&apos;AppImage quan és possible. El log i la configuració es queden on són.</translation>
     </message>
 </context>
 <context>
@@ -6105,6 +6109,267 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Close</source>
         <translation>Tanca</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClock</name>
+    <message>
+        <source>New York</source>
+        <translation>Nova York</translation>
+    </message>
+    <message>
+        <source>Los Angeles</source>
+        <translation>Los Angeles</translation>
+    </message>
+    <message>
+        <source>Rio de Janeiro</source>
+        <translation>Rio de Janeiro</translation>
+    </message>
+    <message>
+        <source>Johannesburg</source>
+        <translation>Johannesburg</translation>
+    </message>
+    <message>
+        <source>Moscow</source>
+        <translation>Moscou</translation>
+    </message>
+    <message>
+        <source>Tokyo</source>
+        <translation>Tòquio</translation>
+    </message>
+    <message>
+        <source>Sydney</source>
+        <translation>Sydney</translation>
+    </message>
+    <message>
+        <source>Honolulu</source>
+        <translation>Honolulu</translation>
+    </message>
+    <message>
+        <source>Anchorage</source>
+        <translation>Anchorage</translation>
+    </message>
+    <message>
+        <source>Vancouver</source>
+        <translation>Vancouver</translation>
+    </message>
+    <message>
+        <source>Chicago</source>
+        <translation>Chicago</translation>
+    </message>
+    <message>
+        <source>Mexico City</source>
+        <translation>Ciutat de Mèxic</translation>
+    </message>
+    <message>
+        <source>Lima</source>
+        <translation>Lima</translation>
+    </message>
+    <message>
+        <source>Buenos Aires</source>
+        <translation>Buenos Aires</translation>
+    </message>
+    <message>
+        <source>Reykjavik</source>
+        <translation>Reykjavík</translation>
+    </message>
+    <message>
+        <source>London</source>
+        <translation>Londres</translation>
+    </message>
+    <message>
+        <source>Lisbon</source>
+        <translation>Lisboa</translation>
+    </message>
+    <message>
+        <source>Cairo</source>
+        <translation>El Caire</translation>
+    </message>
+    <message>
+        <source>Nairobi</source>
+        <translation>Nairobi</translation>
+    </message>
+    <message>
+        <source>Dubai</source>
+        <translation>Dubai</translation>
+    </message>
+    <message>
+        <source>New Delhi</source>
+        <translation>Nova Delhi</translation>
+    </message>
+    <message>
+        <source>Bangkok</source>
+        <translation>Bangkok</translation>
+    </message>
+    <message>
+        <source>Singapore</source>
+        <translation>Singapur</translation>
+    </message>
+    <message>
+        <source>Beijing</source>
+        <translation>Pequín</translation>
+    </message>
+    <message>
+        <source>Seoul</source>
+        <translation>Seül</translation>
+    </message>
+    <message>
+        <source>Perth</source>
+        <translation>Perth</translation>
+    </message>
+    <message>
+        <source>Auckland</source>
+        <translation>Auckland</translation>
+    </message>
+    <message>
+        <source>Papeete</source>
+        <translation>Papeete</translation>
+    </message>
+    <message>
+        <source>%1 h %2 min</source>
+        <translation>%1 h %2 min</translation>
+    </message>
+    <message>
+        <source>Station QTH</source>
+        <translation>QTH de l&apos;estació</translation>
+    </message>
+    <message>
+        <source>(%1%2 d)</source>
+        <translation>(%1%2 d)</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation type="unfinished">Dia</translation>
+    </message>
+    <message>
+        <source>Grayline</source>
+        <translation>Grayline</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>Nit</translation>
+    </message>
+    <message>
+        <source>sun 24 h</source>
+        <translation>sol 24 h</translation>
+    </message>
+    <message>
+        <source>polar night</source>
+        <translation>nit polar</translation>
+    </message>
+    <message>
+        <source>Morning grayline</source>
+        <translation>Grayline del matí</translation>
+    </message>
+    <message>
+        <source>Evening grayline</source>
+        <translation>Grayline del vespre</translation>
+    </message>
+    <message>
+        <source>Sunrise</source>
+        <translation>Sortida del sol</translation>
+    </message>
+    <message>
+        <source>Sunset</source>
+        <translation>Posta del sol</translation>
+    </message>
+    <message>
+        <source>Solar noon</source>
+        <translation>Migdia solar</translation>
+    </message>
+    <message>
+        <source>Day length</source>
+        <translation>Durada del dia</translation>
+    </message>
+    <message>
+        <source>Sun altitude</source>
+        <translation>Altura del sol</translation>
+    </message>
+    <message>
+        <source>above the horizon</source>
+        <translation>sobre l&apos;horitzó</translation>
+    </message>
+    <message>
+        <source>below the horizon</source>
+        <translation>sota l&apos;horitzó</translation>
+    </message>
+    <message>
+        <source>Local time</source>
+        <translation>Hora local</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClockButton</name>
+    <message>
+        <source>Open the world clock</source>
+        <translation>Obre el rellotge mundial</translation>
+    </message>
+</context>
+<context>
+    <name>WorldClockWindow</name>
+    <message>
+        <source>World clock</source>
+        <translation>Rellotge mundial</translation>
+    </message>
+    <message>
+        <source>Time zones, sunrise, sunset and grayline in real time</source>
+        <translation>Fusos horaris, sortida i posta del sol i grayline en temps real</translation>
+    </message>
+    <message>
+        <source>Sun overhead: %1</source>
+        <translation>Sol al zenit: %1</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Tanca</translation>
+    </message>
+    <message>
+        <source>Day</source>
+        <translation type="unfinished">Dia</translation>
+    </message>
+    <message>
+        <source>Civil twilight</source>
+        <translation>Crepuscle civil</translation>
+    </message>
+    <message>
+        <source>Nautical</source>
+        <translation>Nàutic</translation>
+    </message>
+    <message>
+        <source>Astronomical</source>
+        <translation>Astronòmic</translation>
+    </message>
+    <message>
+        <source>Night</source>
+        <translation>Nit</translation>
+    </message>
+    <message>
+        <source>Grayline</source>
+        <translation>Grayline</translation>
+    </message>
+    <message>
+        <source>Equirectangular map · updated every minute</source>
+        <translation>Mapa equirectangular · s&apos;actualitza cada minut</translation>
+    </message>
+    <message>
+        <source>Time zones</source>
+        <translation>Fusos horaris</translation>
+    </message>
+    <message>
+        <source>Add a city…</source>
+        <translation>Afegeix una ciutat…</translation>
+    </message>
+    <message>
+        <source>in the bar</source>
+        <translation>a la barra</translation>
+    </message>
+    <message>
+        <source>put in the bar</source>
+        <translation>posa a la barra</translation>
+    </message>
+    <message>
+        <source>remove</source>
+        <translation>treu</translation>
     </message>
 </context>
 <context>
@@ -7437,6 +7702,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>aquesta és l&apos;última versió</translation>
     </message>
     <message>
+        <source>no newer package is available for this computer</source>
+        <translation>no hi ha cap paquet més recent per a aquest ordinador</translation>
+    </message>
+    <message>
         <source>cannot ask GitHub: %1</source>
         <translation>no es pot preguntar a GitHub: %1</translation>
     </message>
@@ -7449,6 +7718,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Actualització no baixada: %1</translation>
     </message>
     <message>
+        <source>cannot start the installer</source>
+        <translation>no es pot iniciar l&apos;instal·lador</translation>
+    </message>
+    <message>
         <source>Installer ready: %1 — DecoDXLog closes and the installer opens</source>
         <translation>Instal·lador a punt: %1 — DecoDXLog es tanca i l&apos;instal·lador s&apos;obre</translation>
     </message>
@@ -7457,8 +7730,52 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>engegant l&apos;instal·lador…</translation>
     </message>
     <message>
+        <source>the disk image is ready in Downloads</source>
+        <translation>la imatge de disc és a Baixades</translation>
+    </message>
+    <message>
+        <source>the disk image was saved to %1</source>
+        <translation>la imatge de disc s&apos;ha desat a %1</translation>
+    </message>
+    <message>
+        <source>macOS update package ready: %1</source>
+        <translation>paquet d&apos;actualització de macOS a punt: %1</translation>
+    </message>
+    <message>
+        <source>the AppImage was updated and DecoDXLog is restarting…</source>
+        <translation>l&apos;AppImage s&apos;ha actualitzat i DecoDXLog s&apos;està reiniciant…</translation>
+    </message>
+    <message>
+        <source>AppImage updated: %1</source>
+        <translation>AppImage actualitzada: %1</translation>
+    </message>
+    <message>
+        <source>the AppImage was updated; restart it manually</source>
+        <translation>l&apos;AppImage s&apos;ha actualitzat; reinicia-la manualment</translation>
+    </message>
+    <message>
+        <source>the AppImage was saved to Downloads; launch it manually</source>
+        <translation>l&apos;AppImage s&apos;ha desat a Baixades; inicia-la manualment</translation>
+    </message>
+    <message>
+        <source>Linux update package ready: %1</source>
+        <translation>paquet d&apos;actualització de Linux a punt: %1</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>preguntant a GitHub…</translation>
+    </message>
+    <message>
+        <source>the update package has no file name</source>
+        <translation>el paquet d&apos;actualització no té nom de fitxer</translation>
+    </message>
+    <message>
+        <source>cannot create the download folder</source>
+        <translation>no es pot crear la carpeta de baixada</translation>
+    </message>
+    <message>
+        <source>downloading the update…</source>
+        <translation>s&apos;està baixant l&apos;actualització…</translation>
     </message>
     <message>
         <source>downloading %1…</source>
@@ -7845,6 +8162,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>cannot write %1</source>
         <translation>no es pot escriure %1</translation>
+    </message>
+    <message>
+        <source>the downloaded file is incomplete</source>
+        <translation>el fitxer baixat és incomplet</translation>
     </message>
 </context>
 <context>

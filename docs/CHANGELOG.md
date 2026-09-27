@@ -5,7 +5,23 @@ in stazione.
 
 ## 1.16.23 — 27 settembre 2026
 
-**Il log si ordina cliccando le intestazioni delle colonne.**
+**L'orologio mondiale, e il log si ordina cliccando le intestazioni delle colonne.**
+
+- Nella barra in basso, a destra, l'orologio mondiale: una mini-mappa con la notte e la
+  grayline, l'ora UTC coi secondi, il locatore del QTH con l'ora locale, l'alba e il tramonto,
+  e due citta' DX a scelta. Si apre con un clic, con Invio o con lo Spazio.
+- Aperto in grande: la mappa del mondo (Natural Earth, con i confini) con il giorno, i tre
+  crepuscoli (civile, nautico, astronomico) e la notte in fasce, la grayline, il Sole a picco
+  e le citta' con la loro ora. A destra i fusi orari: per ogni citta' l'ora coi secondi, lo
+  scarto da UTC, il locatore, la data (con "+1 g" / "−1 g" quando e' gia' domani o ancora
+  ieri), se e' giorno, grayline o notte, l'alba e il tramonto. Sotto la mappa i dettagli
+  della citta' scelta: alba, tramonto, mezzogiorno solare, durata del giorno, grayline del
+  mattino e della sera (in ora locale e UTC), altezza del Sole, ora locale.
+- Le citta' si aggiungono dalla tendina (28 capitali e citta' DX), si tolgono, e si sceglie
+  quali due mostrare nella barra; tutto resta alla prossima apertura. Il QTH della stazione
+  c'e' sempre, dal locatore del profilo. Ora legale e poli (sole di mezzanotte, notte polare)
+  compresi. Niente rete: e' tutto calcolato sul computer, e l'orologio si ferma quando la
+  finestra e' ridotta a icona. Si chiude con la ✕, con Esc o con un clic fuori.
 
 - Un clic sull'intestazione ordina il log per quella colonna: ora, nominativo, banda (nell'ordine
   delle frequenze, non dell'alfabeto), frequenza, modo, nome, paese, date, qualsiasi colonna

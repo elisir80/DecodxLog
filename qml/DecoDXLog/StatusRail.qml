@@ -4,7 +4,11 @@ import QtQuick.Layouts
 import Decodium.UI
 
 Rectangle {
-    implicitHeight: 34
+    id: rail
+    implicitHeight: 46
+    // Il pulsante dell'orologio mondiale, per ridargli il focus.
+    readonly property alias clockButton: clockButton
+    signal worldClockRequested()
     color: Theme.bgMedium
 
     Rectangle {
@@ -91,6 +95,10 @@ Rectangle {
             color: Theme.textSecondary
             font.family: Theme.monoFamily
             font.pixelSize: 12
+        }
+        WorldClockButton {
+            id: clockButton
+            onClicked: rail.worldClockRequested()
         }
     }
 }
