@@ -352,15 +352,21 @@ private slots:
         // firma si scaricano e si controllano, e il pacchetto risulta firmato.
         const QByteArray package("installer 2.0.0");
         TinyHttp server(package);
+        // Il pacchetto del sistema dove gira la prova: su Linux un AppImage, su
+        // macOS un dmg. Con il solo setup.exe fuori da Windows non c'era niente
+        // da proporre, e la prova falliva.
+        const QString platform = updates::currentTarget().platform;
+        const QString packageName = platform == QLatin1String("windows") ? QStringLiteral("DecoDXLog-2.0.0-setup.exe")
+                                    : platform == QLatin1String("macos") ? QStringLiteral("DecoDXLog-2.0.0.dmg")
+                                                                         : QStringLiteral("DecoDXLog-2.0.0.AppImage");
         QByteArray secret, pub;
         QVERIFY(releasesig::generateKeyPair(&secret, &pub));
         const QString repo = QStringLiteral("test endpoint");
         const QByteArray manifest = releasesig::buildManifest(
             repo, QStringLiteral("2.0.0"),
-            {{QStringLiteral("DecoDXLog-2.0.0-setup.exe"), package.size(),
-              QCryptographicHash::hash(package, QCryptographicHash::Sha256)}});
-        const auto release = [&server](bool withSignature) {
-            QByteArray assets = "{'name': 'DecoDXLog-2.0.0-setup.exe', 'size': 15, 'browser_download_url': '"
+            {{packageName, package.size(), QCryptographicHash::hash(package, QCryptographicHash::Sha256)}});
+        const auto release = [&server, &packageName](bool withSignature) {
+            QByteArray assets = "{'name': '" + packageName.toLatin1() + "', 'size': 15, 'browser_download_url': '"
                                 + server.url("/pkg").toString().toLatin1() + "'}";
             if (withSignature)
                 assets += ",{'name': 'decodxlog-release.json', 'browser_download_url': '"

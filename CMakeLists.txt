@@ -472,9 +472,22 @@ set_target_properties(decolog PROPERTIES
 )
 
 # ── Propagazione ──────────────────────────────────────────────────────────────
-# DecoDXLog e' costruito interamente in C++. Il modello di propagazione C++
-# interno e' disponibile su ogni piattaforma e non richiede compilatori o
-# binari Fortran esterni.
+# Su macOS e Linux DecoDXLog e' costruito interamente in C++: la previsione sul
+# percorso usa il modello interno, senza compilatori o binari Fortran. Su
+# Windows, se MSYS2 ha gfortran (mingw-w64-x86_64-gcc-fortran), si costruisce
+# anche VOACAP (ITS, dominio pubblico; voacapl, CC0), che va nel pacchetto in
+# voacap\ e che il programma usa quando c'e'. Senza, resta il modello interno.
+if(WIN32 AND NOT MSVC)
+    include(CheckLanguage)
+    check_language(Fortran)
+    if(CMAKE_Fortran_COMPILER)
+        enable_language(Fortran)
+        include(third_party/voacapl/voacap.cmake)
+        add_dependencies(decolog voacapl voacap_data)
+    else()
+        message(STATUS "No Fortran compiler: VOACAP is not built (install mingw-w64-x86_64-gcc-fortran)")
+    endif()
+endif()
 
 # ── Tests ─────────────────────────────────────────────────────────────────────
 if(DECODXLOG_BUILD_TESTS)
@@ -486,8 +499,8 @@ if(DECODXLOG_BUILD_TESTS)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)
         add_test(NAME ${name} COMMAND tst_${name})
     endforeach()
-    # Il parser della previsione legge i suoi esempi di riferimento; i test
-    # restano C++ e non costruiscono o avviano alcun motore esterno.
+    # Il lettore della previsione legge gli esempi di voacapl; la previsione
+    # vera si prova solo dove VOACAP e' stato costruito (Windows con gfortran).
     target_compile_definitions(tst_voacap PRIVATE
         VOACAPL_SAMPLE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/third_party/voacapl/sample"
         VOACAP_BUILD_DIR="${CMAKE_BINARY_DIR}/voacap")

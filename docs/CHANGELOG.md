@@ -3,6 +3,25 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.36 — 29 settembre 2026
+
+**Split, VFO, RIT e XIT non tornano indietro.** Con rigctld, subito dopo aver acceso lo
+split (o cambiato VFO, RIT, XIT) la barra in alto poteva mostrarlo spento per un giro: la
+risposta a una domanda partita prima del comando arrivava dopo e rimetteva lo stato vecchio.
+Adesso le risposte piu' vecchie dell'ultimo comando non contano.
+
+**VOACAP su Windows, C++ altrove** (con elisir80). Su macOS e Linux DecoDXLog si costruisce
+solo in C++ e la previsione sul percorso usa il modello interno; su Windows VOACAP resta nel
+pacchetto come nella 1.16.35.
+
+- Nella scheda Propagazione le tendine del rumore e delle antenne non tagliano piu' la
+  scritta.
+- Log vuoto: la frase al centro della tabella sta al suo posto e non da' piu' avvisi QML
+  (elisir80).
+- Rilascio per macOS: runner Intel aggiornato e librerie di Homebrew indicate a mano
+  (elisir80).
+- Le prove degli aggiornamenti firmati e della radio passano anche su Linux.
+
 ## 1.16.35 — 28 settembre 2026
 
 **VOACAP nel programma.** La previsione sul percorso (scheda Propagazione) usa adesso VOACAP,

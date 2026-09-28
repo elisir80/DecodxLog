@@ -197,7 +197,7 @@ ColumnLayout {
             onActivated: decolog.solar.voacapPower = watts[currentIndex]
         }
         StyledComboBox {
-            Layout.preferredWidth: 150
+            Layout.preferredWidth: 180
             enabled: decolog.solar.voacapEnabled
             readonly property var gains: [0, 2, 5, 8, 11]
             model: [qsTr("0 dBi (vertical)"), qsTr("2 dBi (dipole)"), qsTr("5 dBi (2-el beam)"),
@@ -206,7 +206,7 @@ ColumnLayout {
             onActivated: decolog.solar.voacapGain = gains[currentIndex]
         }
         StyledComboBox {
-            Layout.preferredWidth: 150
+            Layout.preferredWidth: 200
             enabled: decolog.solar.voacapEnabled
             readonly property var levels: [140, 145, 150, 155]
             model: [qsTr("noise: city"), qsTr("noise: residential"), qsTr("noise: rural"), qsTr("noise: quiet")]

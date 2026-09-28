@@ -13,6 +13,7 @@
 #include "core/RigLink.h"
 
 #include <QObject>
+#include <QHash>
 #include <QQueue>
 #include <QString>
 #include <QTcpSocket>
@@ -64,6 +65,7 @@ private:
         QString kind;    // "freq", "mode", "speed", "morse", "set"
         QString text;    // per il CW: quello che si e' mandato
         int values{0};   // quante righe di valore ci si aspetta, se non arriva RPRT
+        quint64 seq{0};  // l'ordine in cui e' partita
     };
 
     void send(const QString& kind, const QString& command, int values, const QString& text = {});
@@ -93,6 +95,11 @@ private:
     int m_rit{0};
     int m_xit{0};
     int m_extraPoll{0};
+    // Una domanda partita prima di un comando risponde con lo stato di prima:
+    // per split, frequenza TX, VFO, RIT e XIT si ricorda quando e' partito
+    // l'ultimo comando, e le risposte piu' vecchie non lo disfano.
+    quint64 m_seq{0};
+    QHash<QString, quint64> m_lastSet;
 };
 
 } // namespace decolog::core

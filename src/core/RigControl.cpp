@@ -94,7 +94,7 @@ void RigControl::send(const QString& kind, const QString& command, int values, c
 {
     if (!connected())
         return;
-    m_pending.enqueue({kind, text, values});
+    m_pending.enqueue({kind, text, values, ++m_seq});
     m_socket->write(QStringLiteral("+%1\n").arg(command).toUtf8());
 }
 
@@ -129,8 +129,10 @@ void RigControl::setSplit(bool on, qint64 txHz)
     // Con lo split si trasmette sul VFO B.
     send(QStringLiteral("setsplit"), QStringLiteral("S %1 %2").arg(on ? 1 : 0).arg(on ? QStringLiteral("VFOB")
                                                                                      : QStringLiteral("VFOA")), 0);
+    m_lastSet.insert(QStringLiteral("split"), m_seq);
     if (on && txHz > 0) {
         send(QStringLiteral("setsplit"), QStringLiteral("I %1").arg(txHz), 0);
+        m_lastSet.insert(QStringLiteral("txfreq"), m_seq);
         m_txHz = txHz;
     }
     m_split = on;
@@ -143,6 +145,7 @@ void RigControl::setVfo(const QString& vfo)
     if (v != QLatin1String("VFOA") && v != QLatin1String("VFOB"))
         return;
     send(QStringLiteral("setvfo"), QStringLiteral("V %1").arg(v), 0);
+    m_lastSet.insert(QStringLiteral("vfo"), m_seq);
     m_vfo = v;
     emit changed();
 }
@@ -150,6 +153,7 @@ void RigControl::setVfo(const QString& vfo)
 void RigControl::setRit(int hz)
 {
     send(QStringLiteral("setrit"), QStringLiteral("J %1").arg(hz), 0);
+    m_lastSet.insert(QStringLiteral("rit"), m_seq);
     m_rit = hz;
     emit changed();
 }
@@ -157,6 +161,7 @@ void RigControl::setRit(int hz)
 void RigControl::setXit(int hz)
 {
     send(QStringLiteral("setxit"), QStringLiteral("Z %1").arg(hz), 0);
+    m_lastSet.insert(QStringLiteral("xit"), m_seq);
     m_xit = hz;
     emit changed();
 }
@@ -319,6 +324,11 @@ void RigControl::handleReply(const QStringList& lines)
             continue;
         plain << line;
     }
+
+    // Una risposta a una domanda partita prima dell'ultimo comando dice lo
+    // stato di prima: si aspetta il giro dopo.
+    if (what.seq < m_lastSet.value(what.kind, 0))
+        return;
 
     bool moved = false;
     auto first = [&](const QString& label) {
