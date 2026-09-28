@@ -3,6 +3,34 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.32 — 28 settembre 2026
+
+**Conferme da eQSL e da QRZ Logbook.** Nella scheda «Invio QSL», accanto a LoTW, i pulsanti
+«Conferme eQSL» e «Conferme QRZ».
+
+- eQSL: si scaricano le eQSL arrivate nella casella (DownloadInBox), con utente e password
+  gia' messi in Impostazioni → Servizi QSL. Le segnalazioni d'ascolto (SWL) restano fuori.
+- QRZ Logbook: con la chiave API del logbook si leggono i QSO che l'altra stazione ha
+  confermato, a pagine da 250 finche' ce ne sono.
+- Solo quello che e' arrivato dopo l'ultimo scarico (con un giorno di margine); la prima
+  volta tutto. Le conferme si abbinano ai QSO come quelle di LoTW (nominativo, banda, gruppo
+  di modi, entro mezz'ora) e segnano EQSL_QSL_RCVD o QRZCOM_QSO_DOWNLOAD_STATUS con la data;
+  la cartolina resta com'era. Nel registro attivita': quante nuove, quante gia' segnate,
+  quali non sono nel log, e i DXCC confermati per la prima volta.
+- La password di eQSL viaggia nell'indirizzo, come vuole eQSL: nei messaggi d'errore non
+  compare, e nemmeno la chiave di QRZ.
+
+**Meno memoria su Windows.** La grafica in automatico usa Direct3D 11 invece di Direct3D 12:
+sullo stesso log da 24.000 QSO 480 MB invece di 845. `--d3d12` resta per chi la vuole.
+
+**Date impossibili nell'importazione.** Un QSO con una data prima del 1930 (tipicamente il
+30/12/1899, lo «zero» delle date di Excel e di alcuni programmi quando la data manca) non
+entra piu': l'importazione lo scarta dicendo quale. Quelli gia' nel log restano, da
+correggere a mano.
+
+**Log vuoto.** La frase «Il log e' vuoto…» finiva mezza nascosta sotto le intestazioni della
+tabella; adesso si legge.
+
 ## 1.16.31 — 28 settembre 2026
 
 **Ripristinare un backup.** Impostazioni → Backup → «Ripristina un backup…».

@@ -598,6 +598,10 @@
         <translation>Le conferme dei QSO fatti in questo periodo</translation>
     </message>
     <message>
+        <source>%1 confirmations</source>
+        <translation>Conferme %1</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>QSL cartacee (%1)</translation>
     </message>
@@ -4145,6 +4149,41 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>PDF files (*.pdf)</source>
         <translation>File PDF (*.pdf)</translation>
+    </message>
+</context>
+<context>
+    <name>QslDownload</name>
+    <message>
+        <source>QRZ: unexpected answer</source>
+        <translation>QRZ: risposta inattesa</translation>
+    </message>
+    <message>
+        <source>QRZ: the logbook API key is not valid (%1)</source>
+        <translation>QRZ: la chiave API del logbook non è valida (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: %1</source>
+        <translation>QRZ: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: download stopped</source>
+        <translation>eQSL: scarico interrotto</translation>
+    </message>
+    <message>
+        <source>eQSL: %1</source>
+        <translation>eQSL: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: username or password incorrect (%1)</source>
+        <translation>eQSL: nome utente o password sbagliati (%1)</translation>
+    </message>
+    <message>
+        <source>eQSL: the file was not prepared (%1)</source>
+        <translation>eQSL: il file non è stato preparato (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: download stopped</source>
+        <translation>QRZ: scarico interrotto</translation>
     </message>
 </context>
 <context>
@@ -7941,6 +7980,30 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
         <translation>Nuova entità dell&apos;FT2 Award confermata: %1</translation>
+    </message>
+    <message>
+        <source>QRZ: add the logbook API key in Setup → QSL services</source>
+        <translation>QRZ: metti la chiave API del logbook in Impostazioni → Servizi QSL</translation>
+    </message>
+    <message>
+        <source>eQSL: add username and password in Setup → QSL services</source>
+        <translation>eQSL: metti nome utente e password in Impostazioni → Servizi QSL</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations since %2…</source>
+        <translation>%1: scarico le conferme dal %2…</translation>
+    </message>
+    <message>
+        <source>%1: downloading all the confirmations…</source>
+        <translation>%1: scarico tutte le conferme…</translation>
+    </message>
+    <message>
+        <source>%1: password or key not available (%2)</source>
+        <translation>%1: password o chiave non disponibile (%2)</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
+        <translation>%1: %2 conferme nuove, %3 già segnate, %4 non nel log</translation>
     </message>
     <message numerus="yes">
         <source>Completing %n QSO from the callbook…</source>

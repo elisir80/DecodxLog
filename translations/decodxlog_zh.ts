@@ -595,6 +595,10 @@
         <translation>此期间所做 QSO 的确认</translation>
     </message>
     <message>
+        <source>%1 confirmations</source>
+        <translation>%1 确认</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>纸质 QSL (%1)</translation>
     </message>
@@ -4134,6 +4138,41 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>PDF files (*.pdf)</source>
         <translation>PDF 文件 (*.pdf)</translation>
+    </message>
+</context>
+<context>
+    <name>QslDownload</name>
+    <message>
+        <source>QRZ: unexpected answer</source>
+        <translation>QRZ：意外的回应</translation>
+    </message>
+    <message>
+        <source>QRZ: the logbook API key is not valid (%1)</source>
+        <translation>QRZ：日志本的 API 密钥无效（%1）</translation>
+    </message>
+    <message>
+        <source>QRZ: %1</source>
+        <translation>QRZ：%1</translation>
+    </message>
+    <message>
+        <source>eQSL: download stopped</source>
+        <translation>eQSL：下载已停止</translation>
+    </message>
+    <message>
+        <source>eQSL: %1</source>
+        <translation>eQSL：%1</translation>
+    </message>
+    <message>
+        <source>eQSL: username or password incorrect (%1)</source>
+        <translation>eQSL：用户名或密码不对（%1）</translation>
+    </message>
+    <message>
+        <source>eQSL: the file was not prepared (%1)</source>
+        <translation>eQSL：文件没有生成（%1）</translation>
+    </message>
+    <message>
+        <source>QRZ: download stopped</source>
+        <translation>QRZ：下载已停止</translation>
     </message>
 </context>
 <context>
@@ -7909,6 +7948,30 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
         <translation>确认了 FT2 Award 的一个新实体：%1</translation>
+    </message>
+    <message>
+        <source>QRZ: add the logbook API key in Setup → QSL services</source>
+        <translation>QRZ：请在 设置 → QSL 服务 里填上日志本的 API 密钥</translation>
+    </message>
+    <message>
+        <source>eQSL: add username and password in Setup → QSL services</source>
+        <translation>eQSL：请在 设置 → QSL 服务 里填上用户名和密码</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations since %2…</source>
+        <translation>%1：正在下载 %2 以来的确认…</translation>
+    </message>
+    <message>
+        <source>%1: downloading all the confirmations…</source>
+        <translation>%1：正在下载全部确认…</translation>
+    </message>
+    <message>
+        <source>%1: password or key not available (%2)</source>
+        <translation>%1：密码或密钥不可用（%2）</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
+        <translation>%1：新确认 %2 条，本来就标好的 %3 条，日志里没有的 %4 条</translation>
     </message>
     <message numerus="yes">
         <source>Completing %n QSO from the callbook…</source>

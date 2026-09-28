@@ -1211,8 +1211,11 @@ GlassPanel {
             }
 
             Text {
-                anchors.centerIn: parent
-                width: parent.width - 40
+                // Sulla tabella, non sul suo contenuto: senza righe il
+                // contenuto e' alto zero e la frase finiva sotto le intestazioni.
+                parent: table
+                anchors.centerIn: table
+                width: table.width - 40
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.Wrap
                 visible: root.model.count === 0

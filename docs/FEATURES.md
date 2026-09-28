@@ -242,6 +242,12 @@ Quello che manca è in fondo.
 - **Conferme LoTW scaricate** da `lotwreport.adi`, solo le nuove dall'ultimo sync, a mano o
   ogni 6/12/24 ore. / **LoTW confirmations downloaded** from `lotwreport.adi`, only the new
   ones, manually or every 6/12/24 hours.
+- **Conferme eQSL e QRZ Logbook scaricate** a mano dalla scheda "Invio QSL": da eQSL le
+  eQSL arrivate nella casella (senza le segnalazioni SWL), da QRZ i QSO del proprio logbook
+  che l'altro ha confermato; solo le nuove dall'ultimo scarico. / **eQSL and QRZ Logbook
+  confirmations downloaded** by hand from the "QSL Upload" tab: the eQSLs in the inbox
+  (without SWL reports) and the QSOs of one's QRZ logbook confirmed by the other station;
+  only the new ones since the last download.
 - **Abbinamento** per nominativo, banda, gruppo di modi e ora entro mezz'ora, come fa LoTW;
   i dettagli riempiono solo i campi vuoti. / **Matching** by call, band, mode group and time
   within 30 minutes, as LoTW does; details fill only empty fields.

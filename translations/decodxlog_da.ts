@@ -598,6 +598,10 @@
         <translation>Bekræftelser af QSO&apos;er fra denne periode</translation>
     </message>
     <message>
+        <source>%1 confirmations</source>
+        <translation>%1-bekræftelser</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Papir-QSL (%1)</translation>
     </message>
@@ -4145,6 +4149,41 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>PDF files (*.pdf)</source>
         <translation>PDF-filer (*.pdf)</translation>
+    </message>
+</context>
+<context>
+    <name>QslDownload</name>
+    <message>
+        <source>QRZ: unexpected answer</source>
+        <translation>QRZ: uventet svar</translation>
+    </message>
+    <message>
+        <source>QRZ: the logbook API key is not valid (%1)</source>
+        <translation>QRZ: API-nøglen til logbogen er ugyldig (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: %1</source>
+        <translation>QRZ: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: download stopped</source>
+        <translation>eQSL: hentning stoppet</translation>
+    </message>
+    <message>
+        <source>eQSL: %1</source>
+        <translation>eQSL: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: username or password incorrect (%1)</source>
+        <translation>eQSL: forkert brugernavn eller adgangskode (%1)</translation>
+    </message>
+    <message>
+        <source>eQSL: the file was not prepared (%1)</source>
+        <translation>eQSL: filen blev ikke lavet (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: download stopped</source>
+        <translation>QRZ: hentning stoppet</translation>
     </message>
 </context>
 <context>
@@ -7941,6 +7980,30 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
         <translation>Ny FT2 Award-entitet bekræftet: %1</translation>
+    </message>
+    <message>
+        <source>QRZ: add the logbook API key in Setup → QSL services</source>
+        <translation>QRZ: skriv logbogens API-nøgle under Indstillinger → QSL-tjenester</translation>
+    </message>
+    <message>
+        <source>eQSL: add username and password in Setup → QSL services</source>
+        <translation>eQSL: skriv brugernavn og adgangskode under Indstillinger → QSL-tjenester</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations since %2…</source>
+        <translation>%1: henter bekræftelser siden %2…</translation>
+    </message>
+    <message>
+        <source>%1: downloading all the confirmations…</source>
+        <translation>%1: henter alle bekræftelser…</translation>
+    </message>
+    <message>
+        <source>%1: password or key not available (%2)</source>
+        <translation>%1: adgangskode eller nøgle ikke tilgængelig (%2)</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
+        <translation>%1: %2 nye bekræftelser, %3 allerede markeret, %4 ikke i loggen</translation>
     </message>
     <message numerus="yes">
         <source>Completing %n QSO from the callbook…</source>

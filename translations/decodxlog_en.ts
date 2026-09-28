@@ -598,6 +598,10 @@
         <translation>Confirmations of the QSOs made in this period</translation>
     </message>
     <message>
+        <source>%1 confirmations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4143,6 +4147,41 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>PDF files (*.pdf)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QslDownload</name>
+    <message>
+        <source>QRZ: unexpected answer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QRZ: the logbook API key is not valid (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QRZ: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>eQSL: download stopped</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>eQSL: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>eQSL: username or password incorrect (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>eQSL: the file was not prepared (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QRZ: download stopped</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7939,6 +7978,30 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QRZ: add the logbook API key in Setup → QSL services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>eQSL: add username and password in Setup → QSL services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations since %2…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1: downloading all the confirmations…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1: password or key not available (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">

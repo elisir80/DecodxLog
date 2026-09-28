@@ -601,6 +601,10 @@
         <translation>Подтверждения QSO за этот период</translation>
     </message>
     <message>
+        <source>%1 confirmations</source>
+        <translation>Подтверждения %1</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Бумажные QSL (%1)</translation>
     </message>
@@ -4156,6 +4160,41 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>PDF files (*.pdf)</source>
         <translation>Файлы PDF (*.pdf)</translation>
+    </message>
+</context>
+<context>
+    <name>QslDownload</name>
+    <message>
+        <source>QRZ: unexpected answer</source>
+        <translation>QRZ: неожиданный ответ</translation>
+    </message>
+    <message>
+        <source>QRZ: the logbook API key is not valid (%1)</source>
+        <translation>QRZ: ключ API журнала недействителен (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: %1</source>
+        <translation>QRZ: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: download stopped</source>
+        <translation>eQSL: загрузка остановлена</translation>
+    </message>
+    <message>
+        <source>eQSL: %1</source>
+        <translation>eQSL: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: username or password incorrect (%1)</source>
+        <translation>eQSL: неверное имя пользователя или пароль (%1)</translation>
+    </message>
+    <message>
+        <source>eQSL: the file was not prepared (%1)</source>
+        <translation>eQSL: файл не был подготовлен (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: download stopped</source>
+        <translation>QRZ: загрузка остановлена</translation>
     </message>
 </context>
 <context>
@@ -7973,6 +8012,30 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
         <translation>Подтверждена новая территория FT2 Award: %1</translation>
+    </message>
+    <message>
+        <source>QRZ: add the logbook API key in Setup → QSL services</source>
+        <translation>QRZ: укажите ключ API журнала в «Настройки → Службы QSL»</translation>
+    </message>
+    <message>
+        <source>eQSL: add username and password in Setup → QSL services</source>
+        <translation>eQSL: укажите имя пользователя и пароль в «Настройки → Службы QSL»</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations since %2…</source>
+        <translation>%1: загрузка подтверждений с %2…</translation>
+    </message>
+    <message>
+        <source>%1: downloading all the confirmations…</source>
+        <translation>%1: загрузка всех подтверждений…</translation>
+    </message>
+    <message>
+        <source>%1: password or key not available (%2)</source>
+        <translation>%1: пароль или ключ недоступен (%2)</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
+        <translation>%1: новых подтверждений %2, уже отмечено %3, нет в журнале %4</translation>
     </message>
     <message numerus="yes">
         <source>Completing %n QSO from the callbook…</source>

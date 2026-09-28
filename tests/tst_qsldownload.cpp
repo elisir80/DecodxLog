@@ -1,0 +1,310 @@
+// Le conferme di eQSL e di QRZ Logbook: le risposte dei due servizi lette
+// bene, i QSO confermati segnati nel log, e lo scarico vero e proprio contro
+// server finti (le pagine di QRZ una dopo l'altra, la password mai negli errori).
+#include "core/LogDatabase.h"
+#include "core/QslDownload.h"
+
+#include <QSignalSpy>
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <QTest>
+#include <QUrlQuery>
+
+using namespace decolog::core;
+
+namespace {
+
+// La pagina che eQSL risponde quando il file e' pronto: il link e' relativo.
+const QByteArray kEqslPage = "<HTML><HEAD><TITLE>eQSL.cc DownloadInBox</TITLE></HEAD><BODY>\n"
+                             "<H2>Your ADIF log file has been built</H2>\n"
+                             "<LI><A HREF=\"../downloadedfiles/iu8lmc7f3a.adi\">.ADI file</A>\n"
+                             "</BODY></HTML>";
+
+const QByteArray kEqslAdif = "eQSL.cc DownloadInBox\n"
+                             "<PROGRAMID:21>eQSL.cc DownloadInBox\n<ADIF_Ver:1>1\n<EOH>\n"
+                             "<CALL:5>K1ABC<QSO_DATE:8>20260910<TIME_ON:4>1205<BAND:3>20M<MODE:4>MFSK"
+                             "<SUBMODE:3>FT4<RST_SENT:3>-05<QSL_SENT:1>Y<QSL_SENT_VIA:1>E"
+                             "<GRIDSQUARE:6>FN42AB<EQSL_QSLRDATE:8>20260915<EOR>\n"
+                             // Una segnalazione d'ascolto: non e' un QSO.
+                             "<CALL:5>K1ABC<QSO_DATE:8>20260910<TIME_ON:4>1205<BAND:3>20M<MODE:3>FT8"
+                             "<APP_EQSL_SWL:1>Y<EOR>\n"
+                             "<CALL:5>JA1XX<QSO_DATE:8>20260911<TIME_ON:4>0715<BAND:3>40M<MODE:3>FT8<EOR>\n"
+                             // Non mandata: non e' una conferma.
+                             "<CALL:5>W1AW<QSO_DATE:8>20260911<TIME_ON:4>0800<BAND:3>40M<MODE:3>FT8"
+                             "<QSL_SENT:1>N<EOR>\n";
+
+// Un QSO del logbook di QRZ, come lo manda l'API: l'ADIF scritto con &lt; e &gt;.
+QByteArray qrzRecord(qint64 logId, const QByteArray& call, const QByteArray& status)
+{
+    auto field = [](const QByteArray& name, const QByteArray& value) {
+        return "&lt;" + name + ":" + QByteArray::number(value.size()) + "&gt;" + value;
+    };
+    return field("app_qrzlog_logid", QByteArray::number(logId)) + field("call", call) + field("band", "20m")
+           + field("mode", "FT8") + field("qso_date", "20260910") + field("time_on", "1203")
+           + field("app_qrzlog_status", status) + field("app_qrzlog_qsldate", "20260920")
+           + field("gridsquare", "FN42") + "&lt;eor&gt;\n";
+}
+
+// Un server HTTP finto: risponde secondo il percorso, e tiene le richieste
+// (con il corpo delle POST, che puo' arrivare in un secondo pezzo).
+class FakeServer : public QTcpServer {
+public:
+    struct Request {
+        QByteArray method;
+        QByteArray path;
+        QUrlQuery query;
+        QUrlQuery form;
+    };
+    QList<Request> requests;
+    std::function<QByteArray(const Request&)> answer;
+    int status{200};
+
+    FakeServer()
+    {
+        connect(this, &QTcpServer::newConnection, this, [this] {
+            while (QTcpSocket* s = nextPendingConnection()) {
+                auto buffer = std::make_shared<QByteArray>();
+                connect(s, &QTcpSocket::readyRead, s, [this, s, buffer] {
+                    *buffer += s->readAll();
+                    const qsizetype end = buffer->indexOf("\r\n\r\n");
+                    if (end < 0)
+                        return;
+                    const QByteArray head = buffer->left(end);
+                    qsizetype length = 0;
+                    for (const QByteArray& line : head.split('\n')) {
+                        if (line.toLower().startsWith("content-length:"))
+                            length = line.mid(15).trimmed().toLongLong();
+                    }
+                    if (buffer->size() < end + 4 + length)
+                        return;
+                    const QList<QByteArray> first = head.left(head.indexOf("\r\n")).split(' ');
+                    const QUrl url(QString::fromLatin1(first.value(1)));
+                    Request r{first.value(0), url.path().toLatin1(), QUrlQuery(url),
+                              QUrlQuery(QString::fromUtf8(buffer->mid(end + 4, length)))};
+                    requests << r;
+                    const QByteArray body = answer ? answer(r) : QByteArray();
+                    s->write("HTTP/1.1 " + QByteArray::number(status) + (status == 200 ? " OK" : " Error")
+                             + "\r\nContent-Type: text/html\r\nConnection: close\r\nContent-Length: "
+                             + QByteArray::number(body.size()) + "\r\n\r\n" + body);
+                    s->disconnectFromHost();
+                });
+                connect(s, &QTcpSocket::disconnected, s, &QObject::deleteLater);
+            }
+        });
+        listen(QHostAddress::LocalHost);
+    }
+    QUrl url(const char* path) const
+    {
+        return QUrl(QStringLiteral("http://127.0.0.1:%1%2").arg(serverPort()).arg(QLatin1String(path)));
+    }
+};
+
+AdifRecord qso(const char* call, const char* band, const char* mode, const char* submode, const char* date,
+               const char* time)
+{
+    return AdifRecord{{"CALL", call}, {"BAND", band}, {"MODE", mode}, {"SUBMODE", submode},
+                      {"QSO_DATE", date}, {"TIME_ON", time}};
+}
+
+} // namespace
+
+class TestQslDownload : public QObject {
+    Q_OBJECT
+
+private slots:
+    void eqslLinkFromThePage()
+    {
+        const QUrl page("https://www.eqsl.cc/qslcard/DownloadInBox.cfm?UserName=X");
+        QString error;
+        QCOMPARE(confirmations::eqslFileLink(kEqslPage, page, &error),
+                 QUrl("https://www.eqsl.cc/downloadedfiles/iu8lmc7f3a.adi"));
+
+        const QUrl none = confirmations::eqslFileLink(
+            "<html><body><b>Error: No such Username/Password found</b></body></html>", page, &error);
+        QVERIFY(none.isEmpty());
+        QVERIFY2(error.contains("Username/Password"), qPrintable(error));
+    }
+
+    void eqslConfirmationsSkipSwl()
+    {
+        const QList<AdifRecord> list = confirmations::eqslConfirmations(kEqslAdif);
+        QCOMPARE(list.size(), 2);
+        QCOMPARE(list.at(0).value("CALL"), QString("K1ABC"));
+        QCOMPARE(list.at(0).value("QSLRDATE"), QString("20260915"));
+        QCOMPARE(list.at(1).value("CALL"), QString("JA1XX"));
+    }
+
+    void qrzPage()
+    {
+        const QByteArray body = "RESULT=OK&COUNT=2&LOGIDS=101,102&ADIF=" + qrzRecord(101, "K1ABC", "C")
+                                + qrzRecord(102, "W1AW", "N");
+        const confirmations::QrzPage page = confirmations::parseQrzFetch(body);
+        QVERIFY2(page.ok, qPrintable(page.error));
+        QCOMPARE(page.count, 2);
+        QCOMPARE(page.records.size(), 2);
+        QCOMPARE(page.lastLogId, 102);
+        const QList<AdifRecord> confirmed = confirmations::qrzConfirmations(page.records);
+        QCOMPARE(confirmed.size(), 1);
+        QCOMPARE(confirmed.at(0).value("CALL"), QString("K1ABC"));
+        QCOMPARE(confirmed.at(0).value("QSLRDATE"), QString("20260920"));
+    }
+
+    void qrzEmptyAndErrors()
+    {
+        // Niente da scaricare non e' un errore.
+        confirmations::QrzPage page =
+            confirmations::parseQrzFetch("RESULT=FAIL&REASON=no log entries found&COUNT=0");
+        QVERIFY(page.ok);
+        QVERIFY(page.records.isEmpty());
+
+        page = confirmations::parseQrzFetch("RESULT=AUTH&REASON=invalid api key 1234-ABCD&EXTENDED=");
+        QVERIFY(!page.ok);
+        QVERIFY2(page.error.contains("API key"), qPrintable(page.error));
+
+        page = confirmations::parseQrzFetch("<html>502 Bad Gateway</html>");
+        QVERIFY(!page.ok);
+    }
+
+    void confirmationsMarkTheLog()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        const qint64 k1 = db.insertQso(qso("K1ABC", "20m", "MFSK", "FT4", "20260910", "120300"), "import").id;
+        QVERIFY(k1 > 0);
+
+        const QList<AdifRecord> eqsl = confirmations::eqslConfirmations(kEqslAdif);
+        QCOMPARE(db.applyConfirmation("eqsl", eqsl.at(0)).status, ConfirmationResult::Status::Confirmed);
+        QCOMPARE(db.applyConfirmation("eqsl", eqsl.at(1)).status, ConfirmationResult::Status::NotFound);
+        auto rec = db.record(k1);
+        QCOMPARE(rec->value("EQSL_QSL_RCVD"), QString("Y"));
+        QCOMPARE(rec->value("EQSL_QSLRDATE"), QString("20260915"));
+        QCOMPARE(rec->value("GRIDSQUARE"), QString("FN42AB"));
+        QCOMPARE(db.applyConfirmation("eqsl", eqsl.at(0)).status, ConfirmationResult::Status::AlreadyConfirmed);
+
+        const auto qrz = confirmations::qrzConfirmations(
+            confirmations::parseQrzFetch("RESULT=OK&COUNT=1&ADIF=" + qrzRecord(7, "K1ABC", "C")).records);
+        QCOMPARE(db.applyConfirmation("qrz", qrz.at(0)).status, ConfirmationResult::Status::Confirmed);
+        rec = db.record(k1);
+        QCOMPARE(rec->value("QRZCOM_QSO_DOWNLOAD_STATUS"), QString("Y"));
+        QCOMPARE(rec->value("QRZCOM_QSO_DOWNLOAD_DATE"), QString("20260920"));
+        // La cartolina resta com'era: queste non sono cartoline.
+        QVERIFY(rec->value("QSL_RCVD").isEmpty());
+    }
+
+    void downloadEqsl()
+    {
+        FakeServer server;
+        server.answer = [](const FakeServer::Request& r) {
+            return r.path.endsWith(".adi") ? kEqslAdif : kEqslPage;
+        };
+        ConfirmationDownloader d;
+        d.setEndpoints(server.url("/qslcard/DownloadInBox.cfm"), server.url("/api"));
+        QSignalSpy done(&d, &ConfirmationDownloader::finished);
+        d.downloadEqsl("IU8LMC", "pw&x=1", QDateTime(QDate(2026, 9, 1), QTime(6, 30), QTimeZone::UTC));
+        QVERIFY(d.busy());
+        QVERIFY(done.wait(5000));
+        QVERIFY(!d.busy());
+        const auto report = done.at(0).at(0).value<confirmations::Report>();
+        QVERIFY2(report.ok, qPrintable(report.error));
+        QCOMPARE(report.service, QString("eqsl"));
+        QCOMPARE(report.confirmations.size(), 2);
+        QCOMPARE(server.requests.size(), 2);
+        const QUrlQuery q = server.requests.at(0).query;
+        QCOMPARE(q.queryItemValue("UserName"), QString("IU8LMC"));
+        QCOMPARE(q.queryItemValue("Password", QUrl::FullyDecoded), QString("pw&x=1"));
+        QCOMPARE(q.queryItemValue("RcvdSince"), QString("202609010630"));
+        QCOMPARE(server.requests.at(1).path, QByteArray("/downloadedfiles/iu8lmc7f3a.adi"));
+    }
+
+    void eqslNothingNewAndWrongPassword()
+    {
+        FakeServer server;
+        QByteArray page = "<html><body>You have no log entries</body></html>";
+        server.answer = [&page](const FakeServer::Request&) { return page; };
+        ConfirmationDownloader d;
+        d.setEndpoints(server.url("/qslcard/DownloadInBox.cfm"), server.url("/api"));
+        QSignalSpy done(&d, &ConfirmationDownloader::finished);
+        d.downloadEqsl("IU8LMC", "secretpw");
+        QVERIFY(done.wait(5000));
+        auto report = done.at(0).at(0).value<confirmations::Report>();
+        QVERIFY2(report.ok, qPrintable(report.error));
+        QVERIFY(report.confirmations.isEmpty());
+        QVERIFY(!server.requests.at(0).query.hasQueryItem("RcvdSince"));
+
+        // Una pagina d'errore che ripete la password: nel messaggio non c'e'.
+        page = "<html><body>Error: No such Username/Password found (secretpw)</body></html>";
+        d.downloadEqsl("IU8LMC", "secretpw");
+        QVERIFY(done.wait(5000));
+        report = done.at(1).at(0).value<confirmations::Report>();
+        QVERIFY(!report.ok);
+        QVERIFY2(!report.error.contains("secretpw"), qPrintable(report.error));
+
+        // Un errore HTTP: l'URL con la password non arriva nel messaggio.
+        server.status = 503;
+        d.downloadEqsl("IU8LMC", "secretpw");
+        QVERIFY(done.wait(5000));
+        report = done.at(2).at(0).value<confirmations::Report>();
+        QVERIFY(!report.ok);
+        QVERIFY(!report.error.isEmpty());
+        QVERIFY2(!report.error.contains("secretpw"), qPrintable(report.error));
+    }
+
+    void downloadQrzPageByPage()
+    {
+        // Una pagina piena (250), poi una da tre: due richieste, la seconda
+        // dal logid successivo all'ultimo della prima.
+        FakeServer server;
+        server.answer = [](const FakeServer::Request& r) {
+            const QString option = r.form.queryItemValue("OPTION", QUrl::FullyDecoded);
+            const bool second = option.contains("AFTERLOGID:");
+            const int n = second ? 3 : ConfirmationDownloader::kQrzPage;
+            const qint64 start = second ? 1000 + ConfirmationDownloader::kQrzPage : 1000;
+            QByteArray body = "RESULT=OK&COUNT=" + QByteArray::number(n) + "&ADIF=";
+            for (int i = 0; i < n; ++i)
+                body += qrzRecord(start + i, "K" + QByteArray::number(i) + "AA", i % 2 ? "N" : "C");
+            return body;
+        };
+        ConfirmationDownloader d;
+        d.setEndpoints(server.url("/qslcard/DownloadInBox.cfm"), server.url("/api"));
+        QSignalSpy done(&d, &ConfirmationDownloader::finished);
+        d.downloadQrz("ABCD-1234", QDate(2026, 9, 1));
+        QVERIFY(done.wait(5000));
+        const auto report = done.at(0).at(0).value<confirmations::Report>();
+        QVERIFY2(report.ok, qPrintable(report.error));
+        QCOMPARE(report.service, QString("qrz"));
+        QCOMPARE(server.requests.size(), 2);
+        QCOMPARE(server.requests.at(0).method, QByteArray("POST"));
+        QCOMPARE(server.requests.at(0).form.queryItemValue("KEY"), QString("ABCD-1234"));
+        QCOMPARE(server.requests.at(0).form.queryItemValue("ACTION"), QString("FETCH"));
+        const QString first = server.requests.at(0).form.queryItemValue("OPTION", QUrl::FullyDecoded);
+        QVERIFY2(first.contains("STATUS:CONFIRMED"), qPrintable(first));
+        QVERIFY2(first.contains("MODSINCE:2026-09-01"), qPrintable(first));
+        QVERIFY2(!first.contains("AFTERLOGID"), qPrintable(first));
+        const QString second = server.requests.at(1).form.queryItemValue("OPTION", QUrl::FullyDecoded);
+        QVERIFY2(second.contains(QStringLiteral("AFTERLOGID:%1").arg(1000 + ConfirmationDownloader::kQrzPage)),
+                 qPrintable(second));
+        // Solo quelle con stato C: meta' della prima pagina, due della seconda.
+        QCOMPARE(report.confirmations.size(), ConfirmationDownloader::kQrzPage / 2 + 2);
+    }
+
+    void qrzWrongKey()
+    {
+        FakeServer server;
+        server.answer = [](const FakeServer::Request&) {
+            return QByteArray("RESULT=AUTH&REASON=invalid api key ZZZZ-9999&EXTENDED=");
+        };
+        ConfirmationDownloader d;
+        d.setEndpoints(server.url("/qslcard/DownloadInBox.cfm"), server.url("/api"));
+        QSignalSpy done(&d, &ConfirmationDownloader::finished);
+        d.downloadQrz("ZZZZ-9999");
+        QVERIFY(done.wait(5000));
+        const auto report = done.at(0).at(0).value<confirmations::Report>();
+        QVERIFY(!report.ok);
+        QVERIFY2(report.error.contains("API key"), qPrintable(report.error));
+        QVERIFY2(!report.error.contains("ZZZZ-9999"), qPrintable(report.error));
+        QVERIFY(!server.requests.at(0).form.queryItemValue("OPTION", QUrl::FullyDecoded).contains("MODSINCE"));
+    }
+};
+
+QTEST_GUILESS_MAIN(TestQslDownload)
+#include "tst_qsldownload.moc"

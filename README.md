@@ -92,6 +92,8 @@ Funziona:
   a mano o ogni 6/12/24 ore) e abbinate ai QSO per nominativo, banda, gruppo di modi e
   ora entro 30 minuti; i dettagli LoTW riempiono i campi vuoti, i nuovi DXCC confermati
   finiscono nel registro attività.
+- **Conferme eQSL e QRZ Logbook** scaricate a mano dalla scheda "Invio QSL" (le eQSL
+  ricevute nella casella, i QSO confermati del logbook QRZ), abbinate come quelle LoTW.
 - **DX Cluster** in una finestra propria (Ctrl+K) e nella scheda in basso: nodi DX Spider/
   CC Cluster via telnet (DecoDXLog entra come CALL-2), Reverse Beacon Network (CW/RTTY e
   FT8/FT4), HamAlert (password nel portachiavi) e attivazioni POTA, tutto in una lista.
@@ -148,7 +150,7 @@ si compila ma non salva password). Nella distribuzione va incluso `libqt6keychai
 ## Rendering GPU/CPU
 
 Il rendering Qt Quick segue la stessa selezione di Decodium 4. `auto` usa Metal su macOS,
-D3D12 su Windows e OpenGL su Linux: su GPU Linux datate è il percorso più compatibile con
+D3D11 su Windows (dalla 1.16.32; D3D12 si chiede con `--graphics d3d12`) e OpenGL su Linux: su GPU Linux datate è il percorso più compatibile con
 Qt Quick e con la mappa. Vulkan resta disponibile come scelta esplicita quando il driver è
 stabile. Se serve, si può usare anche il renderer CPU:
 

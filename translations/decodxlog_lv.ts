@@ -601,6 +601,10 @@
         <translation>Šajā periodā veikto QSO apstiprinājumi</translation>
     </message>
     <message>
+        <source>%1 confirmations</source>
+        <translation>%1 apstiprinājumi</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Papīra QSL (%1)</translation>
     </message>
@@ -4156,6 +4160,41 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>PDF files (*.pdf)</source>
         <translation>PDF faili (*.pdf)</translation>
+    </message>
+</context>
+<context>
+    <name>QslDownload</name>
+    <message>
+        <source>QRZ: unexpected answer</source>
+        <translation>QRZ: negaidīta atbilde</translation>
+    </message>
+    <message>
+        <source>QRZ: the logbook API key is not valid (%1)</source>
+        <translation>QRZ: žurnāla API atslēga nav derīga (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: %1</source>
+        <translation>QRZ: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: download stopped</source>
+        <translation>eQSL: lejupielāde apturēta</translation>
+    </message>
+    <message>
+        <source>eQSL: %1</source>
+        <translation>eQSL: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: username or password incorrect (%1)</source>
+        <translation>eQSL: nepareizs lietotājvārds vai parole (%1)</translation>
+    </message>
+    <message>
+        <source>eQSL: the file was not prepared (%1)</source>
+        <translation>eQSL: fails netika sagatavots (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: download stopped</source>
+        <translation>QRZ: lejupielāde apturēta</translation>
     </message>
 </context>
 <context>
@@ -7973,6 +8012,30 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
         <translation>Apstiprināta jauna FT2 Award vienība: %1</translation>
+    </message>
+    <message>
+        <source>QRZ: add the logbook API key in Setup → QSL services</source>
+        <translation>QRZ: ieraksti žurnāla API atslēgu sadaļā Iestatījumi → QSL pakalpojumi</translation>
+    </message>
+    <message>
+        <source>eQSL: add username and password in Setup → QSL services</source>
+        <translation>eQSL: ieraksti lietotājvārdu un paroli sadaļā Iestatījumi → QSL pakalpojumi</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations since %2…</source>
+        <translation>%1: lejupielādē apstiprinājumus kopš %2…</translation>
+    </message>
+    <message>
+        <source>%1: downloading all the confirmations…</source>
+        <translation>%1: lejupielādē visus apstiprinājumus…</translation>
+    </message>
+    <message>
+        <source>%1: password or key not available (%2)</source>
+        <translation>%1: parole vai atslēga nav pieejama (%2)</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
+        <translation>%1: %2 jauni apstiprinājumi, %3 jau atzīmēti, %4 nav žurnālā</translation>
     </message>
     <message numerus="yes">
         <source>Completing %n QSO from the callbook…</source>

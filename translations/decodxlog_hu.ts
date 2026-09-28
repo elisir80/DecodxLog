@@ -595,6 +595,10 @@
         <translation>Az ebben az időszakban készült QSO-k visszaigazolásai</translation>
     </message>
     <message>
+        <source>%1 confirmations</source>
+        <translation>%1-igazolások</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Papír QSL (%1)</translation>
     </message>
@@ -4134,6 +4138,41 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>PDF files (*.pdf)</source>
         <translation>PDF-fájlok (*.pdf)</translation>
+    </message>
+</context>
+<context>
+    <name>QslDownload</name>
+    <message>
+        <source>QRZ: unexpected answer</source>
+        <translation>QRZ: váratlan válasz</translation>
+    </message>
+    <message>
+        <source>QRZ: the logbook API key is not valid (%1)</source>
+        <translation>QRZ: a napló API-kulcsa nem érvényes (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: %1</source>
+        <translation>QRZ: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: download stopped</source>
+        <translation>eQSL: a letöltés leállítva</translation>
+    </message>
+    <message>
+        <source>eQSL: %1</source>
+        <translation>eQSL: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: username or password incorrect (%1)</source>
+        <translation>eQSL: hibás felhasználónév vagy jelszó (%1)</translation>
+    </message>
+    <message>
+        <source>eQSL: the file was not prepared (%1)</source>
+        <translation>eQSL: a fájl nem készült el (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: download stopped</source>
+        <translation>QRZ: a letöltés leállítva</translation>
     </message>
 </context>
 <context>
@@ -7909,6 +7948,30 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
         <translation>Új FT2 Award-entitás igazolva: %1</translation>
+    </message>
+    <message>
+        <source>QRZ: add the logbook API key in Setup → QSL services</source>
+        <translation>QRZ: add meg a napló API-kulcsát a Beállítások → QSL-szolgáltatások alatt</translation>
+    </message>
+    <message>
+        <source>eQSL: add username and password in Setup → QSL services</source>
+        <translation>eQSL: add meg a felhasználónevet és a jelszót a Beállítások → QSL-szolgáltatások alatt</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations since %2…</source>
+        <translation>%1: igazolások letöltése %2 óta…</translation>
+    </message>
+    <message>
+        <source>%1: downloading all the confirmations…</source>
+        <translation>%1: az összes igazolás letöltése…</translation>
+    </message>
+    <message>
+        <source>%1: password or key not available (%2)</source>
+        <translation>%1: a jelszó vagy a kulcs nem érhető el (%2)</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
+        <translation>%1: %2 új igazolás, %3 már meg volt jelölve, %4 nincs a naplóban</translation>
     </message>
     <message numerus="yes">
         <source>Completing %n QSO from the callbook…</source>

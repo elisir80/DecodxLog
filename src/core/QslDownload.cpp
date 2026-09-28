@@ -1,0 +1,303 @@
+#include "core/QslDownload.h"
+
+#include "core/NetworkError.h"
+
+#include <QCoreApplication>
+#include <QHash>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QNetworkRequest>
+#include <QRegularExpression>
+#include <QUrlQuery>
+
+namespace decolog::core {
+
+namespace confirmations {
+
+namespace {
+
+struct Tr {
+    Q_DECLARE_TR_FUNCTIONS(QslDownload)
+};
+
+// Il testo di una pagina HTML, senza tag e spazi doppi: per dire cosa ha
+// risposto il servizio quando non ha dato quello che si chiedeva.
+QString pageText(const QByteArray& html)
+{
+    QString text = QString::fromUtf8(html);
+    static const QRegularExpression scripts(QStringLiteral("<(script|style)[^>]*>.*?</\\1>"),
+                                            QRegularExpression::CaseInsensitiveOption
+                                                | QRegularExpression::DotMatchesEverythingOption);
+    static const QRegularExpression tags(QStringLiteral("<[^>]*>"));
+    text.remove(scripts);
+    text.replace(tags, QStringLiteral(" "));
+    text.replace(QStringLiteral("&nbsp;"), QStringLiteral(" "));
+    return text.simplified();
+}
+
+} // namespace
+
+QUrl eqslFileLink(const QByteArray& html, const QUrl& page, QString* error)
+{
+    static const QRegularExpression link(QStringLiteral("href\\s*=\\s*[\"']?([^\"'\\s>]+\\.adi)"),
+                                         QRegularExpression::CaseInsensitiveOption);
+    const QRegularExpressionMatch m = link.match(QString::fromUtf8(html));
+    if (m.hasMatch())
+        return page.resolved(QUrl(m.captured(1)));
+    if (error) {
+        const QString text = pageText(html);
+        static const QRegularExpression said(QStringLiteral("(Error[^.]*\\.?)"), QRegularExpression::CaseInsensitiveOption);
+        const QRegularExpressionMatch e = said.match(text);
+        *error = e.hasMatch() ? e.captured(1).left(200) : text.left(200);
+    }
+    return {};
+}
+
+QList<AdifRecord> eqslConfirmations(const QByteArray& adif)
+{
+    QList<AdifRecord> out;
+    for (AdifRecord r : adif::parse(adif).records) {
+        if (r.value(QStringLiteral("APP_EQSL_SWL")).trimmed().toUpper() == QLatin1String("Y"))
+            continue;
+        // Nella casella: QSL_SENT = Y e' l'eQSL che l'altro ha mandato.
+        const QString sent = r.value(QStringLiteral("QSL_SENT")).trimmed().toUpper();
+        const QString rcvd = r.value(QStringLiteral("EQSL_QSL_RCVD")).trimmed().toUpper();
+        if ((!sent.isEmpty() && sent != QLatin1String("Y")) || (!rcvd.isEmpty() && rcvd != QLatin1String("Y")))
+            continue;
+        r.set(QStringLiteral("QSLRDATE"), r.value(QStringLiteral("EQSL_QSLRDATE")));
+        out << r;
+    }
+    return out;
+}
+
+QrzPage parseQrzFetch(const QByteArray& body)
+{
+    QrzPage page;
+    // Coppie nome=valore separate da &; l'ADIF sta in ADIF= e si scrive con
+    // &lt; e &gt;, quindi le & dentro l'ADIF non sono separatori: si prende
+    // tutto quello che viene dopo ADIF= fino all'ultimo <eor>.
+    const qsizetype at = body.indexOf("ADIF=");
+    const QByteArray head = at >= 0 ? body.left(at) : body;
+    QHash<QString, QString> fields;
+    for (const QByteArray& pair : head.split('&')) {
+        const qsizetype eq = pair.indexOf('=');
+        if (eq > 0)
+            fields.insert(QString::fromUtf8(pair.left(eq)).trimmed().toUpper(), QString::fromUtf8(pair.mid(eq + 1)).trimmed());
+    }
+    page.count = fields.value(QStringLiteral("COUNT")).toInt();
+    const QString result = fields.value(QStringLiteral("RESULT")).toUpper();
+    const QString reason = fields.value(QStringLiteral("REASON"));
+    if (result != QLatin1String("OK")) {
+        // Nessun QSO che risponda alla richiesta non e' un errore: e' zero.
+        if (page.count == 0 && reason.contains(QLatin1String("no log entries"), Qt::CaseInsensitive)) {
+            page.ok = true;
+            return page;
+        }
+        page.error = reason.isEmpty()
+                         ? Tr::tr("QRZ: unexpected answer")
+                         : reason.contains(QLatin1String("invalid api key"), Qt::CaseInsensitive)
+                               || reason.contains(QLatin1String("auth"), Qt::CaseInsensitive)
+                               ? Tr::tr("QRZ: the logbook API key is not valid (%1)").arg(reason)
+                               : Tr::tr("QRZ: %1").arg(reason);
+        return page;
+    }
+    if (at >= 0) {
+        QByteArray adif = body.mid(at + 5);
+        adif.replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&");
+        const qsizetype end = adif.toLower().lastIndexOf("<eor>");
+        if (end >= 0)
+            adif.truncate(end + 5);
+        page.records = adif::parse(adif).records;
+    }
+    for (const AdifRecord& r : std::as_const(page.records))
+        page.lastLogId = qMax(page.lastLogId, r.value(QStringLiteral("APP_QRZLOG_LOGID")).toLongLong());
+    page.ok = true;
+    return page;
+}
+
+QList<AdifRecord> qrzConfirmations(const QList<AdifRecord>& records)
+{
+    QList<AdifRecord> out;
+    for (AdifRecord r : records) {
+        if (r.value(QStringLiteral("APP_QRZLOG_STATUS")).trimmed().toUpper() != QLatin1String("C"))
+            continue;
+        r.set(QStringLiteral("QSLRDATE"), r.value(QStringLiteral("APP_QRZLOG_QSLDATE")));
+        out << r;
+    }
+    return out;
+}
+
+} // namespace confirmations
+
+namespace {
+struct Tr {
+    Q_DECLARE_TR_FUNCTIONS(QslDownload)
+};
+} // namespace
+
+ConfirmationDownloader::ConfirmationDownloader(QObject* parent)
+    : QObject(parent)
+    , m_net(new QNetworkAccessManager(this))
+{
+}
+
+void ConfirmationDownloader::setEndpoints(const QUrl& eqslInbox, const QUrl& qrzApi)
+{
+    m_eqslUrl = eqslInbox;
+    m_qrzUrl = qrzApi;
+}
+
+void ConfirmationDownloader::finish(confirmations::Report report)
+{
+    m_reply = nullptr;
+    m_qrzKey.clear();
+    m_qrzConfirmations.clear();
+    emit finished(report);
+}
+
+void ConfirmationDownloader::cancel()
+{
+    if (m_reply)
+        m_reply->abort();
+}
+
+void ConfirmationDownloader::downloadEqsl(const QString& user, const QString& password, const QDateTime& since)
+{
+    if (m_reply)
+        return;
+    QUrl url = m_eqslUrl;
+    QUrlQuery q;
+    q.addQueryItem(QStringLiteral("UserName"), user);
+    q.addQueryItem(QStringLiteral("Password"), password);
+    // Le segnalazioni degli SWL non sono QSO.
+    q.addQueryItem(QStringLiteral("HamOnly"), QStringLiteral("1"));
+    if (since.isValid())
+        q.addQueryItem(QStringLiteral("RcvdSince"), since.toUTC().toString(QStringLiteral("yyyyMMddHHmm")));
+    url.setQuery(q);
+    QNetworkRequest request(url);
+    network::useHttp11(request);
+    request.setRawHeader("User-Agent", "DecoDXLog");
+    request.setTransferTimeout(120000);
+    m_reply = m_net->get(request);
+    QNetworkReply* page = m_reply;
+    connect(page, &QNetworkReply::finished, this, [this, page, url, password] {
+        page->deleteLater();
+        confirmations::Report report;
+        report.service = QStringLiteral("eqsl");
+        if (page->error() != QNetworkReply::NoError) {
+            report.error = page->error() == QNetworkReply::OperationCanceledError
+                               ? Tr::tr("eQSL: download stopped")
+                               : Tr::tr("eQSL: %1").arg(network::safeErrorString(page));
+            finish(report);
+            return;
+        }
+        const QByteArray html = page->readAll();
+        QString said;
+        const QUrl file = confirmations::eqslFileLink(html, url, &said);
+        // La pagina non dovrebbe ripetere la password; se lo fa, non va avanti.
+        if (!password.isEmpty())
+            said.replace(password, QStringLiteral("***"));
+        if (file.isEmpty()) {
+            // Niente di nuovo arrivato: eQSL lo dice con una pagina senza file.
+            if (said.contains(QLatin1String("no entries"), Qt::CaseInsensitive)
+                || said.contains(QLatin1String("You have no"), Qt::CaseInsensitive)) {
+                report.ok = true;
+                finish(report);
+                return;
+            }
+            report.error = said.contains(QLatin1String("password"), Qt::CaseInsensitive)
+                                   || said.contains(QLatin1String("username"), Qt::CaseInsensitive)
+                               ? Tr::tr("eQSL: username or password incorrect (%1)").arg(said)
+                               : Tr::tr("eQSL: the file was not prepared (%1)").arg(said);
+            finish(report);
+            return;
+        }
+        QNetworkRequest request(file);
+        network::useHttp11(request);
+        request.setRawHeader("User-Agent", "DecoDXLog");
+        request.setTransferTimeout(120000);
+        m_reply = m_net->get(request);
+        QNetworkReply* adi = m_reply;
+        connect(adi, &QNetworkReply::finished, this, [this, adi] {
+            adi->deleteLater();
+            confirmations::Report report;
+            report.service = QStringLiteral("eqsl");
+            if (adi->error() != QNetworkReply::NoError) {
+                report.error = Tr::tr("eQSL: %1").arg(network::safeErrorString(adi));
+                finish(report);
+                return;
+            }
+            report.confirmations = confirmations::eqslConfirmations(adi->readAll());
+            report.ok = true;
+            finish(report);
+        });
+    });
+}
+
+void ConfirmationDownloader::downloadQrz(const QString& apiKey, const QDate& since)
+{
+    if (m_reply)
+        return;
+    m_qrzKey = apiKey;
+    m_qrzSince = since;
+    m_qrzAfter = 0;
+    m_qrzPages = 0;
+    m_qrzConfirmations.clear();
+    fetchQrzPage();
+}
+
+void ConfirmationDownloader::fetchQrzPage()
+{
+    QStringList options{QStringLiteral("STATUS:CONFIRMED"), QStringLiteral("MAX:%1").arg(kQrzPage)};
+    if (m_qrzSince.isValid())
+        options << QStringLiteral("MODSINCE:%1").arg(m_qrzSince.toString(Qt::ISODate));
+    if (m_qrzAfter > 0)
+        options << QStringLiteral("AFTERLOGID:%1").arg(m_qrzAfter);
+    QUrlQuery form;
+    form.addQueryItem(QStringLiteral("KEY"), m_qrzKey);
+    form.addQueryItem(QStringLiteral("ACTION"), QStringLiteral("FETCH"));
+    form.addQueryItem(QStringLiteral("OPTION"), options.join(QLatin1Char(',')));
+    QNetworkRequest request(m_qrzUrl);
+    network::useHttp11(request);
+    request.setRawHeader("User-Agent", "DecoDXLog");
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
+    request.setTransferTimeout(120000);
+    m_reply = m_net->post(request, form.toString(QUrl::FullyEncoded).toUtf8());
+    QNetworkReply* reply = m_reply;
+    connect(reply, &QNetworkReply::finished, this, [this, reply] {
+        reply->deleteLater();
+        confirmations::Report report;
+        report.service = QStringLiteral("qrz");
+        if (reply->error() != QNetworkReply::NoError) {
+            report.error = reply->error() == QNetworkReply::OperationCanceledError
+                               ? Tr::tr("QRZ: download stopped")
+                               : Tr::tr("QRZ: %1").arg(network::safeErrorString(reply));
+            finish(report);
+            return;
+        }
+        const confirmations::QrzPage page = confirmations::parseQrzFetch(reply->readAll());
+        if (!page.ok) {
+            report.error = page.error;
+            if (!m_qrzKey.isEmpty())
+                report.error.replace(m_qrzKey, QStringLiteral("***"));
+            finish(report);
+            return;
+        }
+        m_qrzConfirmations << confirmations::qrzConfirmations(page.records);
+        ++m_qrzPages;
+        // Un'altra pagina se questa era piena, e se ci si puo' spostare avanti
+        // (AFTERLOGID vale "da questo in poi": si parte dal successivo). Un
+        // limite, per non girare per sempre se il server risponde strano.
+        if (page.records.size() >= kQrzPage && page.lastLogId >= m_qrzAfter && m_qrzPages < 2000) {
+            m_qrzAfter = page.lastLogId + 1;
+            fetchQrzPage();
+            return;
+        }
+        report.confirmations = m_qrzConfirmations;
+        m_qrzConfirmations.clear();
+        report.ok = true;
+        finish(report);
+    });
+}
+
+} // namespace decolog::core

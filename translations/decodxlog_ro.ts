@@ -601,6 +601,10 @@
         <translation>Confirmările QSO-urilor făcute în această perioadă</translation>
     </message>
     <message>
+        <source>%1 confirmations</source>
+        <translation>Confirmări %1</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>QSL pe hârtie (%1)</translation>
     </message>
@@ -4156,6 +4160,41 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>PDF files (*.pdf)</source>
         <translation>Fișiere PDF (*.pdf)</translation>
+    </message>
+</context>
+<context>
+    <name>QslDownload</name>
+    <message>
+        <source>QRZ: unexpected answer</source>
+        <translation>QRZ: răspuns neașteptat</translation>
+    </message>
+    <message>
+        <source>QRZ: the logbook API key is not valid (%1)</source>
+        <translation>QRZ: cheia API a jurnalului nu este validă (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: %1</source>
+        <translation>QRZ: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: download stopped</source>
+        <translation>eQSL: descărcare oprită</translation>
+    </message>
+    <message>
+        <source>eQSL: %1</source>
+        <translation>eQSL: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: username or password incorrect (%1)</source>
+        <translation>eQSL: nume de utilizator sau parolă greșite (%1)</translation>
+    </message>
+    <message>
+        <source>eQSL: the file was not prepared (%1)</source>
+        <translation>eQSL: fișierul nu a fost pregătit (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: download stopped</source>
+        <translation>QRZ: descărcare oprită</translation>
     </message>
 </context>
 <context>
@@ -7973,6 +8012,30 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
         <translation>Entitate nouă FT2 Award confirmată: %1</translation>
+    </message>
+    <message>
+        <source>QRZ: add the logbook API key in Setup → QSL services</source>
+        <translation>QRZ: pune cheia API a jurnalului la Setări → Servicii QSL</translation>
+    </message>
+    <message>
+        <source>eQSL: add username and password in Setup → QSL services</source>
+        <translation>eQSL: pune numele de utilizator și parola la Setări → Servicii QSL</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations since %2…</source>
+        <translation>%1: se descarcă confirmările de la %2…</translation>
+    </message>
+    <message>
+        <source>%1: downloading all the confirmations…</source>
+        <translation>%1: se descarcă toate confirmările…</translation>
+    </message>
+    <message>
+        <source>%1: password or key not available (%2)</source>
+        <translation>%1: parola sau cheia nu este disponibilă (%2)</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
+        <translation>%1: %2 confirmări noi, %3 deja marcate, %4 care nu sunt în jurnal</translation>
     </message>
     <message numerus="yes">
         <source>Completing %n QSO from the callbook…</source>

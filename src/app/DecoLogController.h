@@ -32,6 +32,7 @@
 #include "core/LogBackup.h"
 #include "core/LogDatabase.h"
 #include "core/Lotw.h"
+#include "core/QslDownload.h"
 #include "core/UdpReceiver.h"
 
 #include <QDateTime>
@@ -180,6 +181,10 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QString lotwLastSync READ lotwLastSync NOTIFY lotwChanged)
     Q_PROPERTY(QString lotwCursor READ lotwCursor NOTIFY lotwChanged)
     Q_PROPERTY(int lotwAutoHours READ lotwAutoHours WRITE setLotwAutoHours NOTIFY lotwChanged)
+    // Le conferme di eQSL e di QRZ Logbook: una alla volta, con il loro stato.
+    Q_PROPERTY(bool confirmBusy READ confirmBusy NOTIFY confirmChanged)
+    Q_PROPERTY(QString confirmBusyService READ confirmBusyService NOTIFY confirmChanged)
+    Q_PROPERTY(QString confirmStatus READ confirmStatus NOTIFY confirmChanged)
 
     // L'importazione ADIF gira su un altro filo: da 0 a 1 mentre va, -1 ferma.
     Q_PROPERTY(double importProgress READ importProgress NOTIFY importChanged)
@@ -406,6 +411,13 @@ public:
     bool callbookBusy() const { return !m_callbookPending.isEmpty(); }
 
     bool lotwBusy() const { return m_lotw.busy() || m_lotwStarting; }
+    bool confirmBusy() const { return m_confirmDownloader.busy() || !m_confirmStarting.isEmpty(); }
+    QString confirmBusyService() const { return m_confirmService; }
+    QString confirmStatus() const { return m_confirmStatus; }
+    // Scarica le conferme di "eqsl" o "qrz": solo le nuove dall'ultimo scarico,
+    // o tutte con `full`.
+    Q_INVOKABLE void syncConfirmations(const QString& service, bool full = false);
+    Q_INVOKABLE void cancelConfirmations() { m_confirmDownloader.cancel(); }
     QString lotwStatus() const { return m_lotwStatus; }
     QString lotwLastSync() const;
     QString lotwCursor() const { return m_db.setting(QStringLiteral("lotw.last_qsl")); }
@@ -556,6 +568,7 @@ signals:
     void uiLanguageChanged();
     void logColorsChanged();
     void lotwChanged();
+    void confirmChanged();
 
 private:
     void onQsoReceived(const core::AdifRecord& record, const QString& source, const QString& sourceApp);
@@ -580,6 +593,20 @@ private:
     bool applyEntity(core::AdifRecord& record) const;
     void loadCountries();
     void onLotwReport(const core::lotw::Report& report);
+    void onConfirmationReport(const core::confirmations::Report& report);
+    // Le conferme di un servizio segnate sul log, in una transazione: quante
+    // nuove, gia' segnate, non trovate (le prime dieci), senza dati.
+    struct ConfirmTally {
+        int confirmed{0};
+        int already{0};
+        int notFound{0};
+        int invalid{0};
+        QStringList missing;
+    };
+    ConfirmTally applyConfirmations(const QString& service, const QList<core::AdifRecord>& list);
+    // Dopo: la tabella, i diplomi, Decodium, e i DXCC confermati nuovi.
+    void confirmationsApplied(const QString& category, const QSet<QString>& dxccBefore,
+                              const QSet<QString>& ft2Before);
     void checkLotwSchedule();
     QSet<QString> confirmedAwardKeys(const QString& awardId) const;
     void requestCallbook();
@@ -605,6 +632,10 @@ private:
     QDate m_lotwTo;
     bool m_lotwRange{false};
     bool      m_lotwStarting{false};
+    core::ConfirmationDownloader m_confirmDownloader;
+    QString m_confirmStarting;     // il servizio mentre si legge la password
+    QString m_confirmService;      // quello che sta scaricando
+    QString m_confirmStatus;
     bool      m_lotwAuto{false};
     QString   m_lotwStatus;
     int       m_lotwAutoHours{12};

@@ -8,12 +8,12 @@ per tutte le finestre QML.
 
 | Modalità | Backend | Uso |
 | --- | --- | --- |
-| `auto` | Metal su macOS, D3D12 su Windows, OpenGL su Linux | avvio normale e compatibile |
+| `auto` | Metal su macOS, D3D11 su Windows, OpenGL su Linux | avvio normale e compatibile |
 | `opengl` | OpenGL / RHI | fallback consigliato su Linux con Vulkan/Mesa problematico |
 | `vulkan` | Vulkan / RHI | solo con driver Vulkan stabili |
 | `metal` | Metal / RHI | macOS |
-| `d3d12` | Direct3D 12 / RHI | Windows moderno |
-| `d3d11` | Direct3D 11 / RHI | fallback hardware Windows |
+| `d3d11` | Direct3D 11 / RHI | Windows, il default (quello di Qt Quick) |
+| `d3d12` | Direct3D 12 / RHI | Windows, su richiesta: circa 360 MB di memoria in piu' |
 | `software` | Qt Quick software renderer | fallback CPU, senza GPU |
 
 Esempi:
@@ -47,7 +47,8 @@ QSG_RHI_BACKEND=vulkan DECODXLOG_ALLOW_VULKAN=1 ./DecoDXLog
 
 Il programma scrive nel terminale l'API realmente attivata. Se il scene graph
 non riesce a inizializzarsi, riapre automaticamente il programma con il backend
-successivo: su Windows `D3D12 → D3D11 → software`, su Linux `OpenGL → software`,
+successivo: su Windows `D3D11 → software` (con `--graphics d3d12`: `D3D12 → D3D11 → software`),
+su Linux `OpenGL → software`,
 su macOS `Metal → software`.
 
 ## Mappa compatibile Linux

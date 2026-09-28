@@ -598,6 +598,10 @@
         <translation>Bevestigingen van de QSO&apos;s uit deze periode</translation>
     </message>
     <message>
+        <source>%1 confirmations</source>
+        <translation>%1-bevestigingen</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Papieren QSL (%1)</translation>
     </message>
@@ -4145,6 +4149,41 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>PDF files (*.pdf)</source>
         <translation>PDF-bestanden (*.pdf)</translation>
+    </message>
+</context>
+<context>
+    <name>QslDownload</name>
+    <message>
+        <source>QRZ: unexpected answer</source>
+        <translation>QRZ: onverwacht antwoord</translation>
+    </message>
+    <message>
+        <source>QRZ: the logbook API key is not valid (%1)</source>
+        <translation>QRZ: de API-sleutel van het logboek is ongeldig (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: %1</source>
+        <translation>QRZ: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: download stopped</source>
+        <translation>eQSL: ophalen gestopt</translation>
+    </message>
+    <message>
+        <source>eQSL: %1</source>
+        <translation>eQSL: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: username or password incorrect (%1)</source>
+        <translation>eQSL: gebruikersnaam of wachtwoord onjuist (%1)</translation>
+    </message>
+    <message>
+        <source>eQSL: the file was not prepared (%1)</source>
+        <translation>eQSL: het bestand is niet aangemaakt (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: download stopped</source>
+        <translation>QRZ: ophalen gestopt</translation>
     </message>
 </context>
 <context>
@@ -7941,6 +7980,30 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
         <translation>Nieuwe FT2 Award-entiteit bevestigd: %1</translation>
+    </message>
+    <message>
+        <source>QRZ: add the logbook API key in Setup → QSL services</source>
+        <translation>QRZ: vul de API-sleutel van het logboek in bij Instellingen → QSL-diensten</translation>
+    </message>
+    <message>
+        <source>eQSL: add username and password in Setup → QSL services</source>
+        <translation>eQSL: vul gebruikersnaam en wachtwoord in bij Instellingen → QSL-diensten</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations since %2…</source>
+        <translation>%1: bevestigingen sinds %2 ophalen…</translation>
+    </message>
+    <message>
+        <source>%1: downloading all the confirmations…</source>
+        <translation>%1: alle bevestigingen ophalen…</translation>
+    </message>
+    <message>
+        <source>%1: password or key not available (%2)</source>
+        <translation>%1: wachtwoord of sleutel niet beschikbaar (%2)</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
+        <translation>%1: %2 nieuwe bevestigingen, %3 al gemarkeerd, %4 niet in het logboek</translation>
     </message>
     <message numerus="yes">
         <source>Completing %n QSO from the callbook…</source>

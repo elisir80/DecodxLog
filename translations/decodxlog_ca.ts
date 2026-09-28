@@ -598,6 +598,10 @@
         <translation>Confirmacions dels QSO fets en aquest període</translation>
     </message>
     <message>
+        <source>%1 confirmations</source>
+        <translation>Confirmacions de %1</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>QSL de paper (%1)</translation>
     </message>
@@ -4145,6 +4149,41 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>PDF files (*.pdf)</source>
         <translation>Fitxers PDF (*.pdf)</translation>
+    </message>
+</context>
+<context>
+    <name>QslDownload</name>
+    <message>
+        <source>QRZ: unexpected answer</source>
+        <translation>QRZ: resposta inesperada</translation>
+    </message>
+    <message>
+        <source>QRZ: the logbook API key is not valid (%1)</source>
+        <translation>QRZ: la clau API del logbook no és vàlida (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: %1</source>
+        <translation>QRZ: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: download stopped</source>
+        <translation>eQSL: baixada aturada</translation>
+    </message>
+    <message>
+        <source>eQSL: %1</source>
+        <translation>eQSL: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: username or password incorrect (%1)</source>
+        <translation>eQSL: nom d'usuari o contrasenya incorrectes (%1)</translation>
+    </message>
+    <message>
+        <source>eQSL: the file was not prepared (%1)</source>
+        <translation>eQSL: no s'ha preparat el fitxer (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: download stopped</source>
+        <translation>QRZ: baixada aturada</translation>
     </message>
 </context>
 <context>
@@ -7941,6 +7980,30 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
         <translation>Entitat nova del FT2 Award confirmada: %1</translation>
+    </message>
+    <message>
+        <source>QRZ: add the logbook API key in Setup → QSL services</source>
+        <translation>QRZ: posa la clau API del logbook a Configuració → Serveis QSL</translation>
+    </message>
+    <message>
+        <source>eQSL: add username and password in Setup → QSL services</source>
+        <translation>eQSL: posa el nom d'usuari i la contrasenya a Configuració → Serveis QSL</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations since %2…</source>
+        <translation>%1: baixant les confirmacions des del %2…</translation>
+    </message>
+    <message>
+        <source>%1: downloading all the confirmations…</source>
+        <translation>%1: baixant totes les confirmacions…</translation>
+    </message>
+    <message>
+        <source>%1: password or key not available (%2)</source>
+        <translation>%1: contrasenya o clau no disponible (%2)</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
+        <translation>%1: %2 confirmacions noves, %3 ja marcades, %4 que no són al quadern</translation>
     </message>
     <message numerus="yes">
         <source>Completing %n QSO from the callbook…</source>

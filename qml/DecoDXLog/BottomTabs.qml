@@ -64,7 +64,9 @@ GlassPanel {
         switch (category) {
         case "UDP": return Theme.accentColor
         case "SYNC": return Theme.secondaryColor
-        case "LOTW": return Theme.primaryColor
+        case "LOTW":
+        case "EQSL":
+        case "QRZ": return Theme.primaryColor
         case "CLUSTER": return Theme.warningColor
         case "LOG": return Theme.primaryColor
         case "IMPORT":
@@ -337,6 +339,23 @@ GlassPanel {
                         }
                     }
                 }
+                // Le conferme degli altri due servizi: solo le nuove dall'ultimo scarico.
+                Repeater {
+                    model: [{ id: "eqsl", label: "eQSL" }, { id: "qrz", label: "QRZ" }]
+                    GlassButton {
+                        required property var modelData
+                        text: decolog.confirmBusyService === modelData.id ? modelData.label + "…"
+                              : qsTr("%1 confirmations").arg(modelData.label)
+                        tone: Theme.primaryColor
+                        buttonHeight: 24
+                        fontPixelSize: 11
+                        enabled: !decolog.confirmBusy
+                        onClicked: {
+                            confirmRow.last = "confirm"
+                            decolog.syncConfirmations(modelData.id, false)
+                        }
+                    }
+                }
                 GlassButton {
                     text: qsTr("Paper QSL (%1)").arg(decolog.cards.counts.queue || 0)
                     buttonHeight: 24
@@ -352,16 +371,29 @@ GlassPanel {
                     onClicked: window.openCards("card")
                 }
                 GlassButton {
-                    visible: decolog.qsl.busy
+                    visible: decolog.qsl.busy || decolog.confirmBusy
                     text: qsTr("Stop")
                     buttonHeight: 24
                     fontPixelSize: 11
-                    onClicked: decolog.qsl.cancel()
+                    onClicked: {
+                        if (decolog.qsl.busy)
+                            decolog.qsl.cancel()
+                        if (decolog.confirmBusy)
+                            decolog.cancelConfirmations()
+                    }
                 }
                 Text {
+                    id: confirmRow
+                    // Lo stato dell'ultimo scarico partito: LoTW, o eQSL/QRZ.
+                    property string last: "lotw"
+                    Connections {
+                        target: decolog
+                        function onLotwChanged() { if (decolog.lotwBusy) confirmRow.last = "lotw" }
+                    }
                     Layout.fillWidth: true
                     elide: Text.ElideRight
-                    text: decolog.lotwStatus.length ? decolog.lotwStatus
+                    text: last === "confirm" && decolog.confirmStatus.length ? decolog.confirmStatus
+                          : decolog.lotwStatus.length ? decolog.lotwStatus
                           : decolog.lotwLastSync.length ? qsTr("LoTW last sync %1").arg(decolog.lotwLastSync)
                           : qsTr("LoTW: TQSL signs and sends, and the confirmations come back here.")
                     color: Theme.textSecondary
@@ -391,7 +423,7 @@ GlassPanel {
                 verticalAlignment: Text.AlignVCenter
                 color: level === "error" ? Theme.errorColor
                      : level === "warning" ? Theme.warningColor
-                     : level === "highlight" && category === "LOTW" ? Theme.accentColor
+                     : level === "highlight" && (category === "LOTW" || category === "EQSL" || category === "QRZ") ? Theme.accentColor
                      : level === "highlight" && category === "CLUSTER" ? Theme.warningColor
                      : Theme.textPrimary
                 text: "<font color=\"" + Theme.textSecondary + "\">" + time + "</font> "

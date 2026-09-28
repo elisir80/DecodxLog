@@ -598,6 +598,10 @@
         <translation>Confirmaciones de los QSO hechos en este periodo</translation>
     </message>
     <message>
+        <source>%1 confirmations</source>
+        <translation>Confirmaciones de %1</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>QSL de papel (%1)</translation>
     </message>
@@ -4145,6 +4149,41 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>PDF files (*.pdf)</source>
         <translation>Ficheros PDF (*.pdf)</translation>
+    </message>
+</context>
+<context>
+    <name>QslDownload</name>
+    <message>
+        <source>QRZ: unexpected answer</source>
+        <translation>QRZ: respuesta inesperada</translation>
+    </message>
+    <message>
+        <source>QRZ: the logbook API key is not valid (%1)</source>
+        <translation>QRZ: la clave API del logbook no es válida (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: %1</source>
+        <translation>QRZ: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: download stopped</source>
+        <translation>eQSL: descarga detenida</translation>
+    </message>
+    <message>
+        <source>eQSL: %1</source>
+        <translation>eQSL: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: username or password incorrect (%1)</source>
+        <translation>eQSL: usuario o contraseña incorrectos (%1)</translation>
+    </message>
+    <message>
+        <source>eQSL: the file was not prepared (%1)</source>
+        <translation>eQSL: no se preparó el archivo (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: download stopped</source>
+        <translation>QRZ: descarga detenida</translation>
     </message>
 </context>
 <context>
@@ -7941,6 +7980,30 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
         <translation>Nueva entidad del diploma FT2 confirmada: %1</translation>
+    </message>
+    <message>
+        <source>QRZ: add the logbook API key in Setup → QSL services</source>
+        <translation>QRZ: pon la clave API del logbook en Ajustes → Servicios QSL</translation>
+    </message>
+    <message>
+        <source>eQSL: add username and password in Setup → QSL services</source>
+        <translation>eQSL: pon usuario y contraseña en Ajustes → Servicios QSL</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations since %2…</source>
+        <translation>%1: descargando las confirmaciones desde el %2…</translation>
+    </message>
+    <message>
+        <source>%1: downloading all the confirmations…</source>
+        <translation>%1: descargando todas las confirmaciones…</translation>
+    </message>
+    <message>
+        <source>%1: password or key not available (%2)</source>
+        <translation>%1: contraseña o clave no disponible (%2)</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
+        <translation>%1: %2 confirmaciones nuevas, %3 ya marcadas, %4 que no están en el registro</translation>
     </message>
     <message numerus="yes">
         <source>Completing %n QSO from the callbook…</source>

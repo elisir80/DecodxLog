@@ -595,6 +595,10 @@
         <translation>この期間に行った QSO のコンファメーション</translation>
     </message>
     <message>
+        <source>%1 confirmations</source>
+        <translation>%1 の確認</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>紙の QSL (%1)</translation>
     </message>
@@ -4134,6 +4138,41 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>PDF files (*.pdf)</source>
         <translation>PDF ファイル (*.pdf)</translation>
+    </message>
+</context>
+<context>
+    <name>QslDownload</name>
+    <message>
+        <source>QRZ: unexpected answer</source>
+        <translation>QRZ: 思いがけない応答です</translation>
+    </message>
+    <message>
+        <source>QRZ: the logbook API key is not valid (%1)</source>
+        <translation>QRZ: ログブックの API キーが正しくありません (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: %1</source>
+        <translation>QRZ: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: download stopped</source>
+        <translation>eQSL: 取り込みを止めました</translation>
+    </message>
+    <message>
+        <source>eQSL: %1</source>
+        <translation>eQSL: %1</translation>
+    </message>
+    <message>
+        <source>eQSL: username or password incorrect (%1)</source>
+        <translation>eQSL: ユーザー名かパスワードが違います (%1)</translation>
+    </message>
+    <message>
+        <source>eQSL: the file was not prepared (%1)</source>
+        <translation>eQSL: ファイルが用意されませんでした (%1)</translation>
+    </message>
+    <message>
+        <source>QRZ: download stopped</source>
+        <translation>QRZ: 取り込みを止めました</translation>
     </message>
 </context>
 <context>
@@ -7909,6 +7948,30 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>New FT2 Award entity confirmed: %1</source>
         <translation>FT2 Award の新しいエンティティが確認されました: %1</translation>
+    </message>
+    <message>
+        <source>QRZ: add the logbook API key in Setup → QSL services</source>
+        <translation>QRZ: 設定 → QSL のサービス に、ログブックの API キーを入れてください</translation>
+    </message>
+    <message>
+        <source>eQSL: add username and password in Setup → QSL services</source>
+        <translation>eQSL: 設定 → QSL のサービス に、ユーザー名とパスワードを入れてください</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations since %2…</source>
+        <translation>%1: %2 以降の確認を取り込んでいます…</translation>
+    </message>
+    <message>
+        <source>%1: downloading all the confirmations…</source>
+        <translation>%1: すべての確認を取り込んでいます…</translation>
+    </message>
+    <message>
+        <source>%1: password or key not available (%2)</source>
+        <translation>%1: パスワードかキーが使えません (%2)</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
+        <translation>%1: 新しい確認 %2 件、すでに印の付いていたもの %3 件、ログにないもの %4 件</translation>
     </message>
     <message numerus="yes">
         <source>Completing %n QSO from the callbook…</source>

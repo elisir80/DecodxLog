@@ -450,6 +450,7 @@ DecoLogController::DecoLogController(QObject* parent)
 
     m_lotwAutoHours = s.value(QStringLiteral("lotw/autoSyncHours"), 12).toInt();
     connect(&m_lotw, &LotwClient::finished, this, &DecoLogController::onLotwReport);
+    connect(&m_confirmDownloader, &ConfirmationDownloader::finished, this, &DecoLogController::onConfirmationReport);
     connect(&m_lotw, &LotwClient::progress, this, [this](qint64 bytes) {
         m_lotwStatus = tr("LoTW: downloading… %1 kB").arg(bytes / 1024);
         emit lotwChanged();
@@ -3114,28 +3115,12 @@ void DecoLogController::onLotwReport(const lotw::Report& report)
     const QSet<QString> dxccBefore = confirmedAwardKeys(QStringLiteral("dxcc"));
     const QSet<QString> ft2Before = confirmedAwardKeys(QStringLiteral("ft2"));
 
-    int confirmed = 0, already = 0, notFound = 0, invalid = 0;
-    QStringList missing;
-    QSqlDatabase db = m_db.connection();
-    const bool transaction = db.transaction();
-    for (const AdifRecord& c : report.confirmations) {
-        const ConfirmationResult r = m_db.applyConfirmation(QStringLiteral("lotw"), c);
-        switch (r.status) {
-        case ConfirmationResult::Status::Confirmed:        ++confirmed; break;
-        case ConfirmationResult::Status::AlreadyConfirmed: ++already; break;
-        case ConfirmationResult::Status::NotFound:
-            ++notFound;
-            if (missing.size() < 10)
-                missing << r.message;
-            break;
-        case ConfirmationResult::Status::Invalid:
-        case ConfirmationResult::Status::Error:
-            ++invalid;
-            break;
-        }
-    }
-    if (transaction)
-        db.commit();
+    const ConfirmTally tally = applyConfirmations(QStringLiteral("lotw"), report.confirmations);
+    const int confirmed = tally.confirmed;
+    const int already = tally.already;
+    const int notFound = tally.notFound;
+    const int invalid = tally.invalid;
+    const QStringList& missing = tally.missing;
 
     // Il segno dell'ultimo scarico si sposta solo con lo scarico di tutto: uno
     // scarico per periodo lo porterebbe avanti e il prossimo "solo le nuove"
@@ -3153,21 +3138,139 @@ void DecoLogController::onLotwReport(const lotw::Report& report)
     if (invalid > 0)
         addActivity(QStringLiteral("LOTW"), tr("  %1 records without call, band or date").arg(invalid), QStringLiteral("warning"));
 
-    if (confirmed > 0) {
-        timed(tr("reloading the log table"), [this] { m_model->reload(); });
-        m_awardsDirty = m_globalAwardsDirty = true;
-        emit logChanged();
-        m_decoLink.resendSnapshot();
-        refreshCallInfo();
-        // I nuovi DXCC confermati meritano una riga a parte.
-        for (const QString& key : confirmedAwardKeys(QStringLiteral("dxcc")) - dxccBefore)
-            addActivity(QStringLiteral("LOTW"), tr("New DXCC confirmed: %1").arg(m_countries.nameFor(key.toInt())),
-                        QStringLiteral("highlight"));
-        for (const QString& key : confirmedAwardKeys(QStringLiteral("ft2")) - ft2Before)
-            addActivity(QStringLiteral("LOTW"), tr("New FT2 Award entity confirmed: %1").arg(m_countries.nameFor(key.toInt())),
-                        QStringLiteral("highlight"));
-    }
+    if (confirmed > 0)
+        confirmationsApplied(QStringLiteral("LOTW"), dxccBefore, ft2Before);
     emit lotwChanged();
+}
+
+DecoLogController::ConfirmTally DecoLogController::applyConfirmations(const QString& service,
+                                                                      const QList<AdifRecord>& list)
+{
+    ConfirmTally t;
+    QSqlDatabase db = m_db.connection();
+    const bool transaction = db.transaction();
+    for (const AdifRecord& c : list) {
+        const ConfirmationResult r = m_db.applyConfirmation(service, c);
+        switch (r.status) {
+        case ConfirmationResult::Status::Confirmed:        ++t.confirmed; break;
+        case ConfirmationResult::Status::AlreadyConfirmed: ++t.already; break;
+        case ConfirmationResult::Status::NotFound:
+            ++t.notFound;
+            if (t.missing.size() < 10)
+                t.missing << r.message;
+            break;
+        case ConfirmationResult::Status::Invalid:
+        case ConfirmationResult::Status::Error:
+            ++t.invalid;
+            break;
+        }
+    }
+    if (transaction)
+        db.commit();
+    return t;
+}
+
+void DecoLogController::confirmationsApplied(const QString& category, const QSet<QString>& dxccBefore,
+                                             const QSet<QString>& ft2Before)
+{
+    timed(tr("reloading the log table"), [this] { m_model->reload(); });
+    m_awardsDirty = m_globalAwardsDirty = true;
+    emit logChanged();
+    m_decoLink.resendSnapshot();
+    refreshCallInfo();
+    // I nuovi DXCC confermati meritano una riga a parte.
+    for (const QString& key : confirmedAwardKeys(QStringLiteral("dxcc")) - dxccBefore)
+        addActivity(category, tr("New DXCC confirmed: %1").arg(m_countries.nameFor(key.toInt())),
+                    QStringLiteral("highlight"));
+    for (const QString& key : confirmedAwardKeys(QStringLiteral("ft2")) - ft2Before)
+        addActivity(category, tr("New FT2 Award entity confirmed: %1").arg(m_countries.nameFor(key.toInt())),
+                    QStringLiteral("highlight"));
+}
+
+namespace {
+
+QString confirmLabel(const QString& service)
+{
+    return service == QLatin1String("qrz") ? QStringLiteral("QRZ") : QStringLiteral("eQSL");
+}
+
+} // namespace
+
+void DecoLogController::syncConfirmations(const QString& service, bool full)
+{
+    if (confirmBusy() || !m_db.isOpen())
+        return;
+    if (service != QLatin1String("eqsl") && service != QLatin1String("qrz"))
+        return;
+    // La chiave di QRZ Logbook sta sotto "qrzlogbook"; eQSL vuole anche il nome.
+    const QString credential = service == QLatin1String("qrz") ? QStringLiteral("qrzlogbook") : service;
+    const QString account = m_credentials->account(credential);
+    if (!m_credentials->hasSecret(credential) || (service == QLatin1String("eqsl") && account.isEmpty())) {
+        m_confirmStatus = service == QLatin1String("qrz")
+                              ? tr("QRZ: add the logbook API key in Setup → QSL services")
+                              : tr("eQSL: add username and password in Setup → QSL services");
+        addActivity(confirmLabel(service).toUpper(), m_confirmStatus, QStringLiteral("warning"));
+        emit confirmChanged();
+        return;
+    }
+    // Solo quello arrivato dopo l'ultimo scarico, con un giorno di margine per
+    // quello che arrivava mentre si scaricava.
+    const QDateTime last =
+        QDateTime::fromString(m_db.setting(service + QStringLiteral(".last_sync_at")), Qt::ISODate);
+    const QDateTime since = full || !last.isValid() ? QDateTime() : last.addDays(-1);
+    m_confirmStarting = service;
+    m_confirmService = service;
+    m_confirmStatus = since.isValid()
+                          ? tr("%1: downloading the confirmations since %2…")
+                                .arg(confirmLabel(service), dates::show(since.date().toString(Qt::ISODate)))
+                          : tr("%1: downloading all the confirmations…").arg(confirmLabel(service));
+    addActivity(confirmLabel(service).toUpper(), m_confirmStatus);
+    emit confirmChanged();
+    m_credentials->readSecret(credential, [this, service, account, since](const QString& secret, const QString& error) {
+        m_confirmStarting.clear();
+        if (!error.isEmpty() || secret.isEmpty()) {
+            confirmations::Report failed;
+            failed.service = service;
+            failed.error = tr("%1: password or key not available (%2)").arg(confirmLabel(service), error);
+            onConfirmationReport(failed);
+            return;
+        }
+        if (service == QLatin1String("qrz"))
+            m_confirmDownloader.downloadQrz(secret, since.isValid() ? since.date() : QDate());
+        else
+            m_confirmDownloader.downloadEqsl(account, secret, since);
+        emit confirmChanged();
+    });
+}
+
+void DecoLogController::onConfirmationReport(const confirmations::Report& report)
+{
+    const QString category = confirmLabel(report.service).toUpper();
+    m_confirmService.clear();
+    if (!report.ok) {
+        m_confirmStatus = report.error;
+        addActivity(category, report.error, QStringLiteral("error"));
+        emit confirmChanged();
+        return;
+    }
+    const QSet<QString> dxccBefore = confirmedAwardKeys(QStringLiteral("dxcc"));
+    const QSet<QString> ft2Before = confirmedAwardKeys(QStringLiteral("ft2"));
+    const ConfirmTally t = applyConfirmations(report.service, report.confirmations);
+    m_db.setSetting(report.service + QStringLiteral(".last_sync_at"),
+                    QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
+    m_confirmStatus = tr("%1: %2 new confirmations, %3 already marked, %4 not in the log")
+                          .arg(confirmLabel(report.service))
+                          .arg(t.confirmed)
+                          .arg(t.already)
+                          .arg(t.notFound);
+    addActivity(category, m_confirmStatus, t.confirmed > 0 ? QStringLiteral("success") : QStringLiteral("info"));
+    for (const QString& m : t.missing)
+        addActivity(category, tr("  not in the log: %1").arg(m), QStringLiteral("warning"));
+    if (t.invalid > 0)
+        addActivity(category, tr("  %1 records without call, band or date").arg(t.invalid), QStringLiteral("warning"));
+    if (t.confirmed > 0)
+        confirmationsApplied(category, dxccBefore, ft2Before);
+    emit confirmChanged();
 }
 
 void DecoLogController::openDatabaseFolder() const

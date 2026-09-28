@@ -405,7 +405,11 @@ bool LogDatabase::migrate()
 QString LogDatabase::isoFromAdif(const QString& date, const QString& time)
 {
     const QDate d = QDate::fromString(date.trimmed(), QStringLiteral("yyyyMMdd"));
-    if (!d.isValid())
+    // L'ADIF vuole date dal 1930 in poi. Il 30/12/1899 in particolare e' lo
+    // "zero" delle date di Excel e di certi log: un programma che lo scrive ha
+    // perso la data vera, e un QSO con quella data non e' un QSO del 1899.
+    static const QDate first(1930, 1, 1);
+    if (!d.isValid() || d < first)
         return {};
     const QString t = time.trimmed();
     QTime tm;
@@ -468,7 +472,12 @@ std::optional<LogDatabase::Prepared> LogDatabase::prepare(const AdifRecord& inpu
 
     QStringList missing;
     if (p.call.isEmpty()) missing << QStringLiteral("CALL");
-    if (p.on.isEmpty())   missing << QStringLiteral("QSO_DATE/TIME_ON");
+    if (p.on.isEmpty()) {
+        const QString date = record.value(QStringLiteral("QSO_DATE")).trimmed();
+        missing << (date.isEmpty() ? QStringLiteral("QSO_DATE/TIME_ON")
+                                   : QStringLiteral("a valid QSO_DATE/TIME_ON (%1 %2)")
+                                         .arg(date, record.value(QStringLiteral("TIME_ON")).trimmed()));
+    }
     if (p.band.isEmpty()) missing << QStringLiteral("BAND/FREQ");
     if (p.mode.isEmpty()) missing << QStringLiteral("MODE");
     if (!missing.isEmpty()) {

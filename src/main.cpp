@@ -165,11 +165,13 @@ GraphicsSelection configureGraphicsEnvironment(int argc, char* argv[])
             graphicsStartupLog("auto -> Metal");
         }
 #elif defined(Q_OS_WIN)
-        // D3D12 e' il default moderno; --graphics d3d11 resta disponibile
-        // come fallback hardware per driver Windows piu' vecchi.
+        // D3D11, il default di Qt Quick su Windows: con lo stesso log e le
+        // stesse finestre D3D12 occupava 845 MB contro 481 (misurato sulla
+        // 1.16.31), senza niente in piu' da vedere. --graphics d3d12 resta
+        // disponibile per chi lo vuole.
         if (!externalQtBackend) {
-            qputenv("QSG_RHI_BACKEND", "d3d12");
-            graphicsStartupLog("auto -> D3D12");
+            qputenv("QSG_RHI_BACKEND", "d3d11");
+            graphicsStartupLog("auto -> D3D11");
         }
 #else
         // OpenGL e' il percorso piu' compatibile per Qt Quick su Linux. Il
@@ -736,7 +738,7 @@ int main(int argc, char* argv[])
 #if defined(Q_OS_MACOS)
         activeGraphicsBackend = QByteArrayLiteral("metal");
 #elif defined(Q_OS_WIN)
-        activeGraphicsBackend = QByteArrayLiteral("d3d12");
+        activeGraphicsBackend = QByteArrayLiteral("d3d11");
 #endif
     }
 

@@ -186,6 +186,23 @@ private slots:
         QCOMPARE(fieldMap(after.records.first()), fieldMap(adif::parse(original).records.first()));
     }
 
+    void aDateBefore1930IsNotADate()
+    {
+        // Il 30/12/1899 e' lo zero delle date di Excel: chi lo scrive nell'ADIF
+        // ha perso la data vera. L'ADIF vuole date dal 1930: il QSO si rifiuta
+        // e si dice perche', invece di entrare nel log con una data finta.
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        const ImportResult r = db.importAdif(
+            "<CALL:6>SP5SMY<QSO_DATE:8>18991230<TIME_ON:4>0840<BAND:3>20m<MODE:3>FT8<EOR>"
+            "<CALL:5>F4FSY<QSO_DATE:8>19300101<TIME_ON:4>0841<BAND:3>40m<MODE:3>FT8<EOR>");
+        QCOMPARE(r.inserted, 1);
+        QCOMPARE(r.invalid, 1);
+        QVERIFY(r.errors.first().contains("18991230"));
+        QVERIFY(LogDatabase::isoFromAdif("18991230", "0840").isEmpty());
+        QCOMPARE(LogDatabase::isoFromAdif("19300101", "0841"), QString("1930-01-01T08:41:00Z"));
+    }
+
     void aBigImportGoesInBlocks()
     {
         // A blocchi: dopo ogni blocco si sa a che punto si e', e un doppione
