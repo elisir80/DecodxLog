@@ -178,6 +178,18 @@
         <translation>Contest e attivazioni</translation>
     </message>
     <message>
+        <source>Call history file (N1MM format)</source>
+        <translation>File call history (formato N1MM)</translation>
+    </message>
+    <message>
+        <source>Call history (*.txt *.csv)</source>
+        <translation>Call history (*.txt *.csv)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Tutti i file (*)</translation>
+    </message>
+    <message>
         <source>pick it from the list</source>
         <translation>scegli dall&apos;elenco</translation>
     </message>
@@ -216,6 +228,50 @@
     <message>
         <source>Next</source>
         <translation>Prossimo</translation>
+    </message>
+    <message>
+        <source>Shared on the network</source>
+        <translation>Condiviso in rete</translation>
+    </message>
+    <message>
+        <source>Bands of this edition</source>
+        <translation>Bande di questa edizione</translation>
+    </message>
+    <message>
+        <source>Operating hours</source>
+        <translation>Ore di attività</translation>
+    </message>
+    <message>
+        <source>no limit</source>
+        <translation>nessun limite</translation>
+    </message>
+    <message>
+        <source>Off-time from (min)</source>
+        <translation>Pausa da (min)</translation>
+    </message>
+    <message>
+        <source>Log within (h)</source>
+        <translation>Log entro (h)</translation>
+    </message>
+    <message>
+        <source>Call history</source>
+        <translation>Call history</translation>
+    </message>
+    <message>
+        <source>%1 · %2 calls</source>
+        <translation>%1 · %2 nominativi</translation>
+    </message>
+    <message>
+        <source>none: the exchange is suggested from the log and the country</source>
+        <translation>nessuno: lo scambio si suggerisce dal log e dal paese</translation>
+    </message>
+    <message>
+        <source>Load…</source>
+        <translation>Carica…</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Togli</translation>
     </message>
     <message>
         <source>The QSOs get CONTEST_ID and the serial number sent (STX). The number received goes in the New QSO panel.</source>
@@ -302,6 +358,13 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>Il riferimento si legge da SIG/SIG_INFO (SIG = %1) o da un commento come &quot;%1 LI-001&quot;.</translation>
+    </message>
+    <message numerus="yes">
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC. %n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.</source>
+        <translation>
+            <numerusform>Regole ARRL: i QSO sui 60 m non contano, ed eQSL non è una conferma per il DXCC. %n QSO con entità cancellate o operazioni non accettate dall&apos;ARRL (Club Log) resta fuori.</numerusform>
+            <numerusform>Regole ARRL: i QSO sui 60 m non contano, ed eQSL non è una conferma per il DXCC. %n QSO con entità cancellate o operazioni non accettate dall&apos;ARRL (Club Log) restano fuori.</numerusform>
+        </translation>
     </message>
     <message>
         <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
@@ -409,6 +472,26 @@
     <message>
         <source>All tags</source>
         <translation>Tutte le etichette</translation>
+    </message>
+    <message>
+        <source>Valid for %1</source>
+        <translation>Valide per %1</translation>
+    </message>
+    <message>
+        <source>chosen by you</source>
+        <translation>scelte da te</translation>
+    </message>
+    <message>
+        <source>the rules of the award</source>
+        <translation>le regole del diploma</translation>
+    </message>
+    <message>
+        <source>the general choice above</source>
+        <translation>la scelta generale qui sopra</translation>
+    </message>
+    <message>
+        <source>Back to the rules</source>
+        <translation>Torna alle regole</translation>
     </message>
     <message>
         <source>State</source>
@@ -655,6 +738,41 @@
     </message>
 </context>
 <context>
+    <name>BulkEditDialog</name>
+    <message>
+        <source>CHANGE A FIELD ON %1 QSO</source>
+        <translation>CAMBIA UN CAMPO SU %1 QSO</translation>
+    </message>
+    <message>
+        <source>The same value on every QSO chosen. Each QSO keeps the old value in its history, so the change can be undone QSO by QSO from its card. Leave the value empty to clear the field.</source>
+        <translation>Lo stesso valore su tutti i QSO scelti. Ogni QSO tiene il valore di prima nel suo storico: la modifica si disfa QSO per QSO dalla sua scheda. Lascia il valore vuoto per svuotare il campo.</translation>
+    </message>
+    <message>
+        <source>Field</source>
+        <translation>Campo</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>Valore</translation>
+    </message>
+    <message>
+        <source>Only where the field is empty</source>
+        <translation>Solo dove il campo è vuoto</translation>
+    </message>
+    <message>
+        <source>With this many QSO the change runs in the background: the log stays usable and the progress shows in its header.</source>
+        <translation>Con tanti QSO la modifica gira in secondo piano: il log resta usabile e l&apos;avanzamento si vede nella sua intestazione.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annulla</translation>
+    </message>
+    <message>
+        <source>Change %1 QSO</source>
+        <translation>Cambia %1 QSO</translation>
+    </message>
+</context>
+<context>
     <name>Cabrillo</name>
     <message>
         <source>The station callsign is missing</source>
@@ -817,7 +935,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">Manda</translation>
+        <translation>Manda</translation>
     </message>
 </context>
 <context>
@@ -1396,7 +1514,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>CW macros</source>
-        <translation type="unfinished">Macro CW</translation>
+        <translation>Macro CW</translation>
     </message>
     <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
@@ -1404,11 +1522,11 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Default macros</source>
-        <translation type="unfinished">Macro di partenza</translation>
+        <translation>Macro di partenza</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Chiudi</translation>
+        <translation>Chiudi</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -1467,6 +1585,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>%1 · log</translation>
     </message>
     <message>
+        <source>%1 · history</source>
+        <translation>%1 · storico</translation>
+    </message>
+    <message>
         <source>%1 · country</source>
         <translation>%1 · paese</translation>
     </message>
@@ -1480,7 +1602,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Downloading…</source>
-        <translation type="unfinished">Scarico…</translation>
+        <translation>Scarico…</translation>
     </message>
     <message>
         <source>Download MASTER.SCP</source>
@@ -1572,7 +1694,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">Manda</translation>
+        <translation>Manda</translation>
     </message>
     <message>
         <source>Spot %1</source>
@@ -1710,6 +1832,20 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>%1 QSO</source>
         <translation>%1 QSO</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 of %2 · %n break(s)</source>
+        <translation>
+            <numerusform>In aria %1 su %2 · %n pausa</numerusform>
+            <numerusform>In aria %1 su %2 · %n pause</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 · %n break(s)</source>
+        <translation>
+            <numerusform>In aria %1 · %n pausa</numerusform>
+            <numerusform>In aria %1 · %n pause</numerusform>
+        </translation>
     </message>
     <message>
         <source>Export…</source>
@@ -1898,6 +2034,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>%1 · log</source>
         <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · history</source>
+        <translation>%1 · storico</translation>
     </message>
     <message>
         <source>%1 · country</source>
@@ -2191,6 +2331,89 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>DuplicatesDialog</name>
+    <message>
+        <source>DUPLICATE QSO</source>
+        <translation>QSO DOPPI</translation>
+    </message>
+    <message>
+        <source>Same call, band, kind of mode (CW, phone, digital) and station profile, within the minutes chosen. Of each group one QSO is kept — a click on a row chooses which — and it takes from the others what it is missing: fields, confirmations, tags. The others are deleted; they stay in the history and can be recovered.</source>
+        <translation>Stesso nominativo, banda, genere di modo (CW, fonia, digitali) e profilo di stazione, entro i minuti scelti. Di ogni gruppo si tiene un QSO — un clic su una riga sceglie quale — e prende dagli altri quello che gli manca: campi, conferme, etichette. Gli altri si cancellano; restano nello storico e si recuperano.</translation>
+    </message>
+    <message>
+        <source>Within</source>
+        <translation>Entro</translation>
+    </message>
+    <message>
+        <source>minutes</source>
+        <translation>minuti</translation>
+    </message>
+    <message>
+        <source>Searching…</source>
+        <translation>Cerco…</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>Cerca</translation>
+    </message>
+    <message>
+        <source>No duplicates within %1 minutes</source>
+        <translation>Nessun doppione entro %1 minuti</translation>
+    </message>
+    <message>
+        <source>The first %1 groups: merge them and search again for the rest</source>
+        <translation>I primi %1 gruppi: uniscili e cerca di nuovo per il resto</translation>
+    </message>
+    <message>
+        <source>%1 groups found, %2 ticked</source>
+        <translation>%1 gruppi trovati, %2 spuntati</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>KEEP</source>
+        <translation>TIENI</translation>
+    </message>
+    <message>
+        <source>merge</source>
+        <translation>unisci</translation>
+    </message>
+    <message>
+        <source>confirmed: %1</source>
+        <translation>confermato: %1</translation>
+    </message>
+    <message>
+        <source>%1 fields</source>
+        <translation>%1 campi</translation>
+    </message>
+    <message>
+        <source>Reading the whole log…</source>
+        <translation>Leggo tutto il log…</translation>
+    </message>
+    <message>
+        <source>Nothing to merge.</source>
+        <translation>Niente da unire.</translation>
+    </message>
+    <message>
+        <source>Choose the minutes and press Search.</source>
+        <translation>Scegli i minuti e premi Cerca.</translation>
+    </message>
+    <message>
+        <source>A double click opens the QSO.</source>
+        <translation>Un doppio clic apre il QSO.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Chiudi</translation>
+    </message>
+    <message>
+        <source>Merge %1 groups</source>
+        <translation>Unisci %1 gruppi</translation>
+    </message>
+</context>
+<context>
     <name>DvkPanel</name>
     <message>
         <source>Voice keyer</source>
@@ -2230,7 +2453,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>never</source>
-        <translation type="unfinished">mai</translation>
+        <translation>mai</translation>
     </message>
     <message>
         <source>CQ loop</source>
@@ -2238,7 +2461,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished">Ferma</translation>
+        <translation>Ferma</translation>
     </message>
 </context>
 <context>
@@ -2488,6 +2711,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Importo %1%</translation>
     </message>
     <message>
+        <source>Sorting…</source>
+        <translation>Ordino…</translation>
+    </message>
+    <message>
+        <source>Changing %1%</source>
+        <translation>Modifica %1%</translation>
+    </message>
+    <message>
         <source>%1 QSO · %2 shown</source>
         <translation>%1 QSO · %2 mostrati</translation>
     </message>
@@ -2554,6 +2785,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>Esporta i %1 QSO mostrati in ADIF…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO shown…</source>
+        <translation>Cambia un campo sui %1 QSO mostrati…</translation>
+    </message>
+    <message>
+        <source>Find duplicate QSO…</source>
+        <translation>Trova i QSO doppi…</translation>
     </message>
     <message>
         <source>Complete the QSO shown from the callbook…</source>
@@ -2754,6 +2993,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Delete the %1 QSO selected…</source>
         <translation>Cancella i %1 QSO scelti…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO selected…</source>
+        <translation>Cambia un campo sui %1 QSO selezionati…</translation>
+    </message>
+    <message>
+        <source>Change a field…</source>
+        <translation>Cambia un campo…</translation>
     </message>
     <message>
         <source>Complete from the callbook</source>
@@ -3013,12 +3260,24 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>agganciato</translation>
     </message>
     <message>
-        <source>Import ADIF</source>
-        <translation>Importa ADIF</translation>
+        <source>Import a log</source>
+        <translation>Importa un log</translation>
     </message>
     <message>
         <source>ADIF files (*.adi *.adif)</source>
         <translation>File ADIF (*.adi *.adif)</translation>
+    </message>
+    <message>
+        <source>Logs (*.adi *.adif *.csv *.tsv *.s3db)</source>
+        <translation>Log (*.adi *.adif *.csv *.tsv *.s3db)</translation>
+    </message>
+    <message>
+        <source>Spreadsheets (*.csv *.tsv)</source>
+        <translation>Fogli di calcolo (*.csv *.tsv)</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ databases (*.s3db)</source>
+        <translation>Database di N1MM Logger+ (*.s3db)</translation>
     </message>
     <message>
         <source>All files (*)</source>
@@ -3480,7 +3739,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>%1°</source>
-        <translation type="unfinished">%1°</translation>
+        <translation>%1°</translation>
     </message>
     <message numerus="yes">
         <source>%n hop(s)</source>
@@ -3498,8 +3757,16 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>SFI %1</translation>
     </message>
     <message>
+        <source>VOACAP computing…</source>
+        <translation>VOACAP sta calcolando…</translation>
+    </message>
+    <message>
         <source>Locator</source>
         <translation>Locatore</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · reliability %4% · SNR %5 dB</source>
+        <translation>%1 · %2 UTC · MUF %3 MHz · affidabilità %4% · SNR %5 dB</translation>
     </message>
     <message>
         <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
@@ -3507,11 +3774,11 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>good</source>
-        <translation type="unfinished">buona</translation>
+        <translation>buona</translation>
     </message>
     <message>
         <source>fair</source>
-        <translation type="unfinished">discreta</translation>
+        <translation>discreta</translation>
     </message>
     <message>
         <source>marginal</source>
@@ -3519,11 +3786,59 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>closed</source>
-        <translation type="unfinished"></translation>
+        <translation>chiusa</translation>
+    </message>
+    <message>
+        <source>VOACAP (ITS): the chance of a %1 QSO with %2 W and %3 dBi antennas; 160 and 6 m from the simple model.</source>
+        <translation>VOACAP (ITS): la probabilità di un QSO in %1 con %2 W e antenne da %3 dBi; 160 e 6 m dal modello semplice.</translation>
+    </message>
+    <message>
+        <source>VOACAP failed (%1): simplified F2 model.</source>
+        <translation>VOACAP non riuscito (%1): modello F2 semplificato.</translation>
     </message>
     <message>
         <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
         <translation>Modello F2 semplificato (MUF/LUF), non VOACAP: un&apos;indicazione di quando si apre una banda, non una promessa.</translation>
+    </message>
+    <message>
+        <source>%1 W</source>
+        <translation>%1 W</translation>
+    </message>
+    <message>
+        <source>0 dBi (vertical)</source>
+        <translation>0 dBi (verticale)</translation>
+    </message>
+    <message>
+        <source>2 dBi (dipole)</source>
+        <translation>2 dBi (dipolo)</translation>
+    </message>
+    <message>
+        <source>5 dBi (2-el beam)</source>
+        <translation>5 dBi (direttiva 2 el.)</translation>
+    </message>
+    <message>
+        <source>8 dBi (3-el beam)</source>
+        <translation>8 dBi (direttiva 3 el.)</translation>
+    </message>
+    <message>
+        <source>11 dBi (big beam)</source>
+        <translation>11 dBi (grande direttiva)</translation>
+    </message>
+    <message>
+        <source>noise: city</source>
+        <translation>rumore: città</translation>
+    </message>
+    <message>
+        <source>noise: residential</source>
+        <translation>rumore: residenziale</translation>
+    </message>
+    <message>
+        <source>noise: rural</source>
+        <translation>rumore: campagna</translation>
+    </message>
+    <message>
+        <source>noise: quiet</source>
+        <translation>rumore: silenzioso</translation>
     </message>
 </context>
 <context>
@@ -3701,6 +4016,22 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>unexpected answer</source>
         <translation>risposta inattesa</translation>
+    </message>
+    <message>
+        <source>Wavelog: already there</source>
+        <translation>Wavelog: c&apos;era già</translation>
+    </message>
+    <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog: %1</translation>
+    </message>
+    <message>
+        <source>Wavelog: sent</source>
+        <translation>Wavelog: inviato</translation>
+    </message>
+    <message>
+        <source>Wavelog: the API key is not valid or cannot write (%1)</source>
+        <translation>Wavelog: la chiave API non è valida o non può scrivere (%1)</translation>
     </message>
     <message>
         <source>HRDLog: sent</source>
@@ -4703,7 +5034,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>All files (*)</source>
-        <translation type="unfinished">Tutti i file (*)</translation>
+        <translation>Tutti i file (*)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -4779,7 +5110,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Chiudi</translation>
+        <translation>Chiudi</translation>
     </message>
 </context>
 <context>
@@ -6184,8 +6515,200 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>porta non aperta</translation>
     </message>
     <message>
+        <source>An ADIF log to keep an eye on</source>
+        <translation>Un log ADIF da tenere d&apos;occhio</translation>
+    </message>
+    <message>
+        <source>Club Log cty.xml</source>
+        <translation>cty.xml di Club Log</translation>
+    </message>
+    <message>
+        <source>QSOs of another entity on that date</source>
+        <translation>QSO di un&apos;altra entità in quella data</translation>
+    </message>
+    <message>
+        <source>Working…</source>
+        <translation>Lavoro…</translation>
+    </message>
+    <message>
+        <source>Update cty.xml</source>
+        <translation>Aggiorna cty.xml</translation>
+    </message>
+    <message>
+        <source>Check the entities with the dates</source>
+        <translation>Controlla le entità con le date</translation>
+    </message>
+    <message>
+        <source>Correct %1 QSO</source>
+        <translation>Correggi %1 QSO</translation>
+    </message>
+    <message>
+        <source>%1 QSO corrected, each kept as a new revision.</source>
+        <translation>%1 QSO corretti, ognuno tenuto come nuova revisione.</translation>
+    </message>
+    <message>
+        <source>deleted</source>
+        <translation>cancellata</translation>
+    </message>
+    <message>
+        <source>With the Club Log API key (QSL services) DecoDXLog downloads Club Log&apos;s cty.xml every week: the entities with their dates, so a QSO of 2005 with PJ2 is the Netherlands Antilles and not Curacao, operations the ARRL did not accept do not count for DXCC, and deleted entities are shown but not counted.</source>
+        <translation>Con la chiave API di Club Log (Servizi QSL) DecoDXLog scarica ogni settimana il cty.xml di Club Log: le entità con le loro date, così un QSO del 2005 con PJ2 è Antille Olandesi e non Curaçao, le operazioni non accettate dall&apos;ARRL non contano per il DXCC, e le entità cancellate si vedono ma non contano.</translation>
+    </message>
+    <message>
+        <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
+        <translation>Ogni settimana da Club Log. I QSO nuovi prendono l&apos;entità della loro data; il controllo confronta il log con le date e corregge solo il DXCC vuoto o messo dal cty.csv di oggi — quello scritto da LoTW o da te resta.</translation>
+    </message>
+    <message>
+        <source>Forward to other programs</source>
+        <translation>Inoltra ad altri programmi</translation>
+    </message>
+    <message>
+        <source>e.g. 127.0.0.1:2238, 127.0.0.1:2333 — empty = off</source>
+        <translation>es. 127.0.0.1:2238, 127.0.0.1:2333 — vuoto = spento</translation>
+    </message>
+    <message>
+        <source>Every packet from Decodium also goes to these programs (JTAlert, GridTracker, HamLog…), and their answers (reply to a caller, halt TX) go back to Decodium. So Decodium sends to one port only and everybody gets it.</source>
+        <translation>Ogni pacchetto di Decodium va anche a questi programmi (JTAlert, GridTracker, HamLog…), e le loro risposte (rispondere a chi chiama, fermare la TX) tornano a Decodium. Così Decodium manda a una porta sola e tutti ricevono.</translation>
+    </message>
+    <message>
         <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
-        <translation>Decodium scrive ogni QSO anche nel suo log ADIF. Se DecoDXLog era chiuso o non riceveva (porta sbagliata, rete giù), il QSO resta solo lì: ogni 5 minuti DecoDXLog legge i QSO registrati dopo l'ultimo controllo e salva quelli che mancano qui e negli altri log dell'elenco. I QSO corretti o cancellati qui non tornano. La prima volta guarda indietro una settimana, i pulsanti più indietro. Campo vuoto = il log che Decodium sta usando.</translation>
+        <translation>Decodium scrive ogni QSO anche nel suo log ADIF. Se DecoDXLog era chiuso o non riceveva (porta sbagliata, rete giù), il QSO resta solo lì: ogni 5 minuti DecoDXLog legge i QSO registrati dopo l&apos;ultimo controllo e salva quelli che mancano qui e negli altri log dell&apos;elenco. I QSO corretti o cancellati qui non tornano. La prima volta guarda indietro una settimana, i pulsanti più indietro. Campo vuoto = il log che Decodium sta usando.</translation>
+    </message>
+    <message>
+        <source>Other ADIF logs to keep an eye on</source>
+        <translation>Altri log ADIF da tenere d&apos;occhio</translation>
+    </message>
+    <message>
+        <source>not found: %1</source>
+        <translation>non trovato: %1</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Togli</translation>
+    </message>
+    <message>
+        <source>Add a file…</source>
+        <translation>Aggiungi un file…</translation>
+    </message>
+    <message>
+        <source>Add %1</source>
+        <translation>Aggiungi %1</translation>
+    </message>
+    <message>
+        <source>The QSOs that other programs (fldigi, WSJT-X, JTDX…) write in these logs and that are missing here are saved every 5 minutes, from the moment the file is added. For the older ones, “Check the whole file”.</source>
+        <translation>I QSO che altri programmi (fldigi, WSJT-X, JTDX…) scrivono in questi log e che qui mancano si salvano ogni 5 minuti, dal momento in cui il file si aggiunge. Per quelli di prima, «Controlla tutto il file».</translation>
+    </message>
+    <message>
+        <source>UDP port (0 = off)</source>
+        <translation>Porta UDP (0 = spento)</translation>
+    </message>
+    <message>
+        <source>listening</source>
+        <translation>in ascolto</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ sends every contact on this port (Config → Configure Ports → Broadcast Data → Contacts, usually 12060). A contact corrected or deleted in N1MM is corrected or deleted here too.</source>
+        <translation>N1MM Logger+ manda ogni contatto su questa porta (Config → Configure Ports → Broadcast Data → Contacts, di solito 12060). Un contatto corretto o cancellato in N1MM si corregge o si cancella anche qui.</translation>
+    </message>
+    <message>
+        <source>Local interface for other programs</source>
+        <translation>Interfaccia locale per altri programmi</translation>
+    </message>
+    <message>
+        <source>Port on 127.0.0.1 (0 = off)</source>
+        <translation>Porta su 127.0.0.1 (0 = spenta)</translation>
+    </message>
+    <message>
+        <source>Key (X-DecoDXLog-Token)</source>
+        <translation>Chiave (X-DecoDXLog-Token)</translation>
+    </message>
+    <message>
+        <source>New key</source>
+        <translation>Nuova chiave</translation>
+    </message>
+    <message>
+        <source>For programs next to DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, and POST /api/v1/qso with an ADIF record to log it. Only from this computer, and always with the key. Details: docs/API.md.</source>
+        <translation>Per i programmi accanto a DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, e POST /api/v1/qso con un record ADIF per registrarlo. Solo da questo computer, e sempre con la chiave. Dettagli: docs/API.md.</translation>
+    </message>
+    <message>
+        <source>Shared log</source>
+        <translation>Log condiviso</translation>
+    </message>
+    <message>
+        <source>A club station, a multi-operator contest: one log, several operators, each with their own Cloud account — nobody lends a password. The owner of the log creates an invite, whoever gets the code joins with it. Only QSOs travel: profiles, settings and service passwords stay with the owner.</source>
+        <translation>Una stazione di club, un contest multi-operatore: un log, più operatori, ognuno con il suo account Cloud — nessuno presta una password. Chi tiene il log crea un invito, chi riceve il codice entra con quello. Viaggiano solo i QSO: profili, impostazioni e password dei servizi restano a chi tiene il log.</translation>
+    </message>
+    <message>
+        <source>This log syncs with</source>
+        <translation>Questo log si sincronizza con</translation>
+    </message>
+    <message>
+        <source>my own log (%1)</source>
+        <translation>il mio log (%1)</translation>
+    </message>
+    <message>
+        <source>the shared log of %1</source>
+        <translation>il log condiviso di %1</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Aggiorna</translation>
+    </message>
+    <message>
+        <source>The QSOs of this log go to the log of %1, and its QSOs come here: keep a log just for it (Log → New log).</source>
+        <translation>I QSO di questo log vanno nel log di %1, e i suoi QSO arrivano qui: tieni un log solo per lui (Log → Nuovo log).</translation>
+    </message>
+    <message>
+        <source>Invite code, e.g. K7Q2-9XMP-D4TA</source>
+        <translation>Codice d&apos;invito, es. K7Q2-9XMP-D4TA</translation>
+    </message>
+    <message>
+        <source>Join with the code</source>
+        <translation>Entra con il codice</translation>
+    </message>
+    <message>
+        <source>operator: sends and gets the QSOs</source>
+        <translation>operatore: manda e prende i QSO</translation>
+    </message>
+    <message>
+        <source>viewer: only looks</source>
+        <translation>osservatore: guarda soltanto</translation>
+    </message>
+    <message>
+        <source>Invite into the log of %1</source>
+        <translation>Invita nel log di %1</translation>
+    </message>
+    <message>
+        <source>Code %1 — %2, valid until %3</source>
+        <translation>Codice %1 — %2, valido fino al %3</translation>
+    </message>
+    <message>
+        <source>viewer</source>
+        <translation>osservatore</translation>
+    </message>
+    <message>
+        <source>operator</source>
+        <translation>operatore</translation>
+    </message>
+    <message>
+        <source>viewer in your log</source>
+        <translation>osservatore nel tuo log</translation>
+    </message>
+    <message>
+        <source>operator in your log</source>
+        <translation>operatore nel tuo log</translation>
+    </message>
+    <message>
+        <source>you look at its log</source>
+        <translation>guardi il suo log</translation>
+    </message>
+    <message>
+        <source>you write in its log</source>
+        <translation>scrivi nel suo log</translation>
+    </message>
+    <message>
+        <source>Leave</source>
+        <translation>Esci</translation>
     </message>
     <message>
         <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
@@ -6214,6 +6737,22 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
         <translation>eQSL: le eQSL arrivate nella casella, senza le segnalazioni SWL. QRZ Logbook: i QSO del tuo logbook su QRZ che l&apos;altra stazione ha confermato. Solo quello arrivato dopo l&apos;ultimo scarico; lo scarico automatico parte solo per i servizi con le loro credenziali (qui sotto, le stesse dell&apos;invio). Abbinate come le conferme LoTW; i campi della cartolina non si toccano.</translation>
+    </message>
+    <message>
+        <source>Station on Wavelog</source>
+        <translation>Stazione su Wavelog</translation>
+    </message>
+    <message>
+        <source>station %1</source>
+        <translation>stazione %1</translation>
+    </message>
+    <message>
+        <source>Load my stations</source>
+        <translation>Carica le mie stazioni</translation>
+    </message>
+    <message>
+        <source>Wavelog (and Cloudlog) is the web log on your own site. Below it wants the address of the site (for example log.mysite.org) and an API key with read and write rights, made in Wavelog under Account → API keys; then the station to write in. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>Wavelog (e Cloudlog) è il log web sul tuo sito. Qui sotto vuole l&apos;indirizzo del sito (per esempio log.miosito.it) e una chiave API con diritti di lettura e scrittura, fatta in Wavelog in Account → API keys; poi la stazione in cui scrivere. Invio, invio automatico e conteggi stanno nella scheda QSL in basso.</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -6345,7 +6884,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished">Indirizzo</translation>
+        <translation>Indirizzo</translation>
     </message>
     <message>
         <source>SO2R box (OTRSP)</source>
@@ -6614,6 +7153,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Station location LoTW (TQSL)</translation>
     </message>
     <message>
+        <source>QSL accounts of this profile</source>
+        <translation>Account QSL di questo profilo</translation>
+    </message>
+    <message>
+        <source>Save the profile first: then it can have its own QRZ Logbook and eQSL accounts.</source>
+        <translation>Salva prima il profilo: poi potrà avere i suoi account QRZ Logbook ed eQSL.</translation>
+    </message>
+    <message>
         <source>Used by &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</source>
         <translation>Usato da &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</translation>
     </message>
@@ -6662,7 +7209,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Grids</source>
-        <translation type="unfinished">Locatori</translation>
+        <translation>Locatori</translation>
     </message>
     <message>
         <source>Awards over the years · cumulative</source>
@@ -6670,7 +7217,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>no QSO</source>
-        <translation type="unfinished">nessun QSO</translation>
+        <translation>nessun QSO</translation>
     </message>
     <message>
         <source>Most worked entities</source>
@@ -6862,6 +7409,26 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Chat ON4KST…</translation>
     </message>
     <message>
+        <source>Import a log (ADIF, CSV, N1MM)…</source>
+        <translation>Importa un log (ADIF, CSV, N1MM)…</translation>
+    </message>
+    <message>
+        <source>Split off</source>
+        <translation>Split spento</translation>
+    </message>
+    <message>
+        <source>TX up %1 kHz</source>
+        <translation>TX su di %1 kHz</translation>
+    </message>
+    <message>
+        <source>TX down %1 kHz</source>
+        <translation>TX giù di %1 kHz</translation>
+    </message>
+    <message>
+        <source>RIT and XIT off</source>
+        <translation>RIT e XIT spenti</translation>
+    </message>
+    <message>
         <source>Setup · %1 ▾</source>
         <translation>Impostazioni · %1 ▾</translation>
     </message>
@@ -6980,10 +7547,6 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Panels…</source>
         <translation>Pannelli…</translation>
-    </message>
-    <message>
-        <source>Import ADIF…</source>
-        <translation>Importa ADIF…</translation>
     </message>
     <message>
         <source>Export ADIF…</source>
@@ -7230,7 +7793,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">Giorno</translation>
+        <translation>Giorno</translation>
     </message>
     <message>
         <source>Grayline</source>
@@ -7316,7 +7879,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">Giorno</translation>
+        <translation>Giorno</translation>
     </message>
     <message>
         <source>Civil twilight</source>
@@ -7386,6 +7949,21 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>
             <numerusform>Sessione chiusa: %1 · %n QSO</numerusform>
             <numerusform>Sessione chiusa: %1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Call history not readable: %1</source>
+        <translation>Call history illeggibile: %1</translation>
+    </message>
+    <message>
+        <source>Open the contest first</source>
+        <translation>Apri prima il contest</translation>
+    </message>
+    <message numerus="yes">
+        <source>Call history: %n call(s) from %1</source>
+        <translation>
+            <numerusform>Call history: %n nominativo da %1</numerusform>
+            <numerusform>Call history: %n nominativi da %1</numerusform>
         </translation>
     </message>
     <message>
@@ -7506,8 +8084,36 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Cloud: %1</translation>
     </message>
     <message>
+        <source>Invite created: give the code to the operator. It is shown only now.</source>
+        <translation>Invito creato: dai il codice all&apos;operatore. Si vede solo adesso.</translation>
+    </message>
+    <message>
+        <source>You are in the log of %1. Choose it for a log of yours below — better a new log (Log → New log), so the club log and yours do not mix.</source>
+        <translation>Sei nel log di %1. Sceglilo qui sotto per un tuo log — meglio un log nuovo (Log → Nuovo log), così il log del club e il tuo non si mescolano.</translation>
+    </message>
+    <message>
+        <source>Cloud: you joined the shared log of %1</source>
+        <translation>Cloud: sei entrato nel log condiviso di %1</translation>
+    </message>
+    <message>
         <source>Cloud: linked — sync will unlock it when needed</source>
         <translation>Cloud: collegato — il sync lo sblocca quando serve</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with your own log again</source>
+        <translation>Cloud: questo log si sincronizza di nuovo con il tuo</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with the shared log of %1</source>
+        <translation>Cloud: questo log si sincronizza con il log condiviso di %1</translation>
+    </message>
+    <message>
+        <source>Sync once to open the keystore, then the team shows here.</source>
+        <translation>Sincronizza una volta per aprire il portachiavi, poi la squadra compare qui.</translation>
+    </message>
+    <message>
+        <source>Sign in to the Cloud first.</source>
+        <translation>Prima entra nel Cloud.</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>
@@ -7787,8 +8393,32 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Non riesco ad ascoltare su UDP %1: %2</translation>
     </message>
     <message>
+        <source>Listening for N1MM Logger+ on UDP %1</source>
+        <translation>In ascolto di N1MM Logger+ su UDP %1</translation>
+    </message>
+    <message>
+        <source>Correction not saved: %1</source>
+        <translation>Correzione non salvata: %1</translation>
+    </message>
+    <message>
+        <source>Corrected by N1MM: %1</source>
+        <translation>Corretto da N1MM: %1</translation>
+    </message>
+    <message>
         <source>built on %1</source>
         <translation>compilato il %1</translation>
+    </message>
+    <message>
+        <source>Not understood: %1 (write address:port)</source>
+        <translation>Non capito: %1 (scrivi indirizzo:porta)</translation>
+    </message>
+    <message>
+        <source>UDP forwarding off</source>
+        <translation>Inoltro UDP spento</translation>
+    </message>
+    <message>
+        <source>UDP forwarded to %1</source>
+        <translation>UDP inoltrato a %1</translation>
     </message>
     <message>
         <source>no callsign</source>
@@ -7823,6 +8453,37 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>cty.csv %1 installato: %2 entità DXCC</translation>
     </message>
     <message>
+        <source>Club Log cty.xml not readable: %1</source>
+        <translation>cty.xml di Club Log illeggibile: %1</translation>
+    </message>
+    <message>
+        <source>The Club Log API key is needed (Setup → QSL services → Club Log)</source>
+        <translation>Serve la chiave API di Club Log (Impostazioni → Servizi QSL → Club Log)</translation>
+    </message>
+    <message>
+        <source>Downloading cty.xml from Club Log…</source>
+        <translation>Scarico il cty.xml da Club Log…</translation>
+    </message>
+    <message>
+        <source>Club Log: %1</source>
+        <translation>Club Log: %1</translation>
+    </message>
+    <message>
+        <source>Club Log: the file is not a cty.xml (%1)</source>
+        <translation>Club Log: il file non è un cty.xml (%1)</translation>
+    </message>
+    <message>
+        <source>cty.xml of %1: %2 entities</source>
+        <translation>cty.xml del %1: %2 entità</translation>
+    </message>
+    <message numerus="yes">
+        <source>Entity of %n QSO(s) corrected with the date of the QSO (Club Log)</source>
+        <translation>
+            <numerusform>Entità di %n QSO corretta con la data del QSO (Club Log)</numerusform>
+            <numerusform>Entità di %n QSO corrette con la data del QSO (Club Log)</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>DXCC filled on %1 of %2 QSO (cty.csv %3)</source>
         <translation>DXCC completato su %1 QSO di %2 (cty.csv %3)</translation>
     </message>
@@ -7849,6 +8510,18 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>QSO not logged: %1</source>
         <translation>QSO non registrato: %1</translation>
+    </message>
+    <message>
+        <source>New key for the local interface: the programs using the old one must be updated</source>
+        <translation>Nuova chiave per l&apos;interfaccia locale: i programmi che usavano la vecchia vanno aggiornati</translation>
+    </message>
+    <message>
+        <source>Local interface on http://127.0.0.1:%1/api/v1/</source>
+        <translation>Interfaccia locale su http://127.0.0.1:%1/api/v1/</translation>
+    </message>
+    <message>
+        <source>Cannot open the local interface on port %1: %2</source>
+        <translation>Non riesco ad aprire l&apos;interfaccia locale sulla porta %1: %2</translation>
     </message>
     <message>
         <source>Nowhere to send the frequency: the radio is not connected and Decodium is not there either.</source>
@@ -7927,6 +8600,214 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Etichetta &quot;%1&quot; tolta a %2 QSO</translation>
     </message>
     <message>
+        <source>Y · yes</source>
+        <translation>Y · sì</translation>
+    </message>
+    <message>
+        <source>N · no</source>
+        <translation>N · no</translation>
+    </message>
+    <message>
+        <source>R · requested</source>
+        <translation>R · richiesta</translation>
+    </message>
+    <message>
+        <source>Q · queued</source>
+        <translation>Q · in coda</translation>
+    </message>
+    <message>
+        <source>I · ignore</source>
+        <translation>I · ignora</translation>
+    </message>
+    <message>
+        <source>Y · uploaded</source>
+        <translation>Y · caricato</translation>
+    </message>
+    <message>
+        <source>N · not uploaded</source>
+        <translation>N · non caricato</translation>
+    </message>
+    <message>
+        <source>M · changed, upload again</source>
+        <translation>M · cambiato, da ricaricare</translation>
+    </message>
+    <message>
+        <source>B · bureau</source>
+        <translation>B · bureau</translation>
+    </message>
+    <message>
+        <source>D · direct</source>
+        <translation>D · diretta</translation>
+    </message>
+    <message>
+        <source>E · electronic</source>
+        <translation>E · elettronica</translation>
+    </message>
+    <message>
+        <source>No profile</source>
+        <translation>Nessun profilo</translation>
+    </message>
+    <message>
+        <source>My locator</source>
+        <translation>Il mio locatore</translation>
+    </message>
+    <message>
+        <source>Station callsign</source>
+        <translation>Nominativo di stazione</translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation>Operatore</translation>
+    </message>
+    <message>
+        <source>Station profile</source>
+        <translation>Profilo stazione</translation>
+    </message>
+    <message>
+        <source>My rig</source>
+        <translation>La mia radio</translation>
+    </message>
+    <message>
+        <source>My antenna</source>
+        <translation>La mia antenna</translation>
+    </message>
+    <message>
+        <source>Power (W)</source>
+        <translation>Potenza (W)</translation>
+    </message>
+    <message>
+        <source>My POTA reference</source>
+        <translation>Il mio riferimento POTA</translation>
+    </message>
+    <message>
+        <source>My SOTA reference</source>
+        <translation>Il mio riferimento SOTA</translation>
+    </message>
+    <message>
+        <source>My WWFF reference</source>
+        <translation>Il mio riferimento WWFF</translation>
+    </message>
+    <message>
+        <source>My special activity (MY_SIG)</source>
+        <translation>La mia attività speciale (MY_SIG)</translation>
+    </message>
+    <message>
+        <source>My special activity reference (MY_SIG_INFO)</source>
+        <translation>Il riferimento della mia attività speciale (MY_SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>POTA reference</source>
+        <translation>Riferimento POTA</translation>
+    </message>
+    <message>
+        <source>SOTA reference</source>
+        <translation>Riferimento SOTA</translation>
+    </message>
+    <message>
+        <source>WWFF reference</source>
+        <translation>Riferimento WWFF</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Special activity (SIG)</source>
+        <translation>Attività speciale (SIG)</translation>
+    </message>
+    <message>
+        <source>Special activity reference (SIG_INFO)</source>
+        <translation>Riferimento dell&apos;attività speciale (SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation>Propagazione</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Satellite</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Modo</translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation>Sottomodo</translation>
+    </message>
+    <message>
+        <source>RST sent</source>
+        <translation>RST inviato</translation>
+    </message>
+    <message>
+        <source>RST received</source>
+        <translation>RST ricevuto</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Commento</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Note</translation>
+    </message>
+    <message>
+        <source>Paper QSL sent</source>
+        <translation>QSL cartacea mandata</translation>
+    </message>
+    <message>
+        <source>Paper QSL received</source>
+        <translation>QSL cartacea ricevuta</translation>
+    </message>
+    <message>
+        <source>Paper QSL via</source>
+        <translation>QSL cartacea via</translation>
+    </message>
+    <message>
+        <source>LoTW: sent</source>
+        <translation>LoTW: mandato</translation>
+    </message>
+    <message>
+        <source>eQSL: sent</source>
+        <translation>eQSL: mandato</translation>
+    </message>
+    <message>
+        <source>QRZ.com: uploaded</source>
+        <translation>QRZ.com: caricato</translation>
+    </message>
+    <message>
+        <source>Club Log: uploaded</source>
+        <translation>Club Log: caricato</translation>
+    </message>
+    <message>
+        <source>HRDLog: uploaded</source>
+        <translation>HRDLog: caricato</translation>
+    </message>
+    <message>
+        <source>A change on many QSO is already running: wait for it to finish.</source>
+        <translation>Una modifica su molti QSO sta già girando: aspetta che finisca.</translation>
+    </message>
+    <message>
+        <source>(empty)</source>
+        <translation>(vuoto)</translation>
+    </message>
+    <message>
+        <source>%1 → %2 on %3 QSO (%4 unchanged, %5 failed)</source>
+        <translation>%1 → %2 su %3 QSO (%4 invariati, %5 non riusciti)</translation>
+    </message>
+    <message>
+        <source>QSO #%1: %2</source>
+        <translation>QSO n. %1: %2</translation>
+    </message>
+    <message>
+        <source>Merged %1 group(s) of duplicates: %2 QSO deleted (kept in history)</source>
+        <translation>Uniti %1 gruppi di doppioni: %2 QSO cancellati (restano nello storico)</translation>
+    </message>
+    <message>
         <source>An import is already running: wait for it to finish.</source>
         <translation>C&apos;è già un&apos;importazione in corso: aspetta che finisca.</translation>
     </message>
@@ -7971,7 +8852,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
     <message>
         <source>%1 is not there.</source>
-        <translation type="unfinished">%1 non c&apos;è.</translation>
+        <translation>%1 non c&apos;è.</translation>
     </message>
     <message>
         <source>There is no log file to restore over.</source>
@@ -8062,6 +8943,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>%1: password o chiave non disponibile (%2)</translation>
     </message>
     <message>
+        <source>Keeping an eye on %1 (%2)</source>
+        <translation>Tengo d&apos;occhio %1 (%2)</translation>
+    </message>
+    <message>
         <source>Decodium log not found</source>
         <translation>Log di Decodium non trovato</translation>
     </message>
@@ -8072,6 +8957,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>%1 · Decodium log not readable: %2</source>
         <translation>%1 · log di Decodium non leggibile: %2</translation>
+    </message>
+    <message>
+        <source>%1 · %2 not readable: %3</source>
+        <translation>%1 · %2 non leggibile: %3</translation>
     </message>
     <message numerus="yes">
         <source>%1 · %n QSO(s) recovered from the Decodium log</source>
@@ -8088,10 +8977,17 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         </translation>
     </message>
     <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from %2</source>
+        <translation>
+            <numerusform>%1 · %n QSO recuperato da %2</numerusform>
+            <numerusform>%1 · %n QSO recuperati da %2</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source> · %n skipped as duplicates of the open activation “%1”</source>
         <translation>
-            <numerusform> · %n scartato come doppione dell'attivazione aperta “%1”</numerusform>
-            <numerusform> · %n scartati come doppioni dell'attivazione aperta “%1”</numerusform>
+            <numerusform> · %n scartato come doppione dell&apos;attivazione aperta “%1”</numerusform>
+            <numerusform> · %n scartati come doppioni dell&apos;attivazione aperta “%1”</numerusform>
         </translation>
     </message>
     <message>
@@ -8101,6 +8997,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
         <translation>Recuperato dal log di Decodium → %1 %2 %3 %4</translation>
+    </message>
+    <message>
+        <source>Recovered from %1 → %2 %3 %4 %5</source>
+        <translation>Recuperato da %1 → %2 %3 %4 %5</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
@@ -8179,7 +9079,7 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <name>decolog::app::NetController</name>
     <message>
         <source>off</source>
-        <translation type="unfinished"></translation>
+        <translation>spento</translation>
     </message>
     <message>
         <source>on the network %1 (UDP %2) as %3</source>
@@ -8428,6 +9328,21 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog: %1</translation>
+    </message>
+    <message>
+        <source>Wavelog: no station on the site yet</source>
+        <translation>Wavelog: sul sito non c&apos;è ancora nessuna stazione</translation>
+    </message>
+    <message numerus="yes">
+        <source>Wavelog: %n station(s) on the site</source>
+        <translation>
+            <numerusform>Wavelog: %n stazione sul sito</numerusform>
+            <numerusform>Wavelog: %n stazioni sul sito</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>CRX: %1</source>
         <translation>CRX: %1</translation>
     </message>
@@ -8482,8 +9397,28 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>nessuna chiave API: Impostazioni → Servizi QSL</translation>
     </message>
     <message>
+        <source>no address or API key: Setup → QSL services</source>
+        <translation>manca indirizzo o chiave API: Impostazioni → Servizi QSL</translation>
+    </message>
+    <message>
+        <source>choose the Wavelog station: Setup → QSL services</source>
+        <translation>scegli la stazione Wavelog: Impostazioni → Servizi QSL</translation>
+    </message>
+    <message>
         <source>choose the CRX logbook: Setup → QSL services</source>
         <translation>scegli il logbook CRX: Impostazioni → Servizi QSL</translation>
+    </message>
+    <message>
+        <source>Wavelog: asking for the stations…</source>
+        <translation>Wavelog: chiedo le stazioni…</translation>
+    </message>
+    <message>
+        <source>Wavelog: address and API key are needed (%1)</source>
+        <translation>Wavelog: servono indirizzo e chiave API (%1)</translation>
+    </message>
+    <message>
+        <source>add them below</source>
+        <translation>aggiungili qui sotto</translation>
     </message>
     <message>
         <source>CRX: asking for the logbooks…</source>
@@ -8888,6 +9823,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Nessuna posizione per il DX: scrivi un locatore o cerca un nominativo.</translation>
     </message>
     <message>
+        <source>VOACAP: %1</source>
+        <translation>VOACAP: %1</translation>
+    </message>
+    <message>
         <source>Solar data of %1</source>
         <translation>Dati solari del %1</translation>
     </message>
@@ -9103,6 +10042,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
 <context>
     <name>decolog::core::CloudSync</name>
     <message>
+        <source>This Cloud server does not know shared logs yet: it has to be updated.</source>
+        <translation>Questo server Cloud non conosce ancora i log condivisi: va aggiornato.</translation>
+    </message>
+    <message>
         <source>This Cloud server does not know this request (%1): it is older than your DecoDXLog and has to be updated.</source>
         <translation>Questo server Cloud non conosce questa richiesta (%1): e&apos; piu&apos; vecchio del tuo DecoDXLog e va aggiornato.</translation>
     </message>
@@ -9241,6 +10184,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Invio a HRDLog.net: il codice di upload sta nel tuo profilo HRDLog, non è la password</translation>
     </message>
     <message>
+        <source>Site address</source>
+        <translation>Indirizzo del sito</translation>
+    </message>
+    <message>
+        <source>Upload to your Wavelog (or Cloudlog): the address of the site and a read/write API key</source>
+        <translation>Invio al tuo Wavelog (o Cloudlog): l&apos;indirizzo del sito e una chiave API di lettura e scrittura</translation>
+    </message>
+    <message>
         <source>The VHF, EME and low band chat (www.on4kst.info)</source>
         <translation>La chat di VHF, EME e bande basse (www.on4kst.info)</translation>
     </message>
@@ -9263,6 +10214,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
         <translation>Manda le QSL per email. Con Gmail ci vuole una password per le app, non quella dell&apos;account.</translation>
+    </message>
+    <message>
+        <source>Only for the QSOs of this profile; empty = the general account</source>
+        <translation>Solo per i QSO di questo profilo; vuoto = l&apos;account generale</translation>
     </message>
     <message>
         <source>Account saved</source>
@@ -9372,8 +10327,43 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>La radio non ha preso il testo in CW (rigctld: %1). Non tutte le radio — e non tutti i ponti CAT — sanno manipolare: per le macro serve rigctld collegato alla radio stessa.</translation>
     </message>
     <message>
+        <source>The radio does not take split from here (rigctld: %1)</source>
+        <translation>La radio non prende lo split da qui (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not change VFO from here (rigctld: %1)</source>
+        <translation>La radio non cambia VFO da qui (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not take RIT from here (rigctld: %1)</source>
+        <translation>La radio non prende il RIT da qui (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not take XIT from here (rigctld: %1)</source>
+        <translation>La radio non prende l&apos;XIT da qui (rigctld: %1)</translation>
+    </message>
+    <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>La radio ha risposto con un errore (rigctld: %1)</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::RigLink</name>
+    <message>
+        <source>This radio link does not do split</source>
+        <translation>Questo collegamento con la radio non fa lo split</translation>
+    </message>
+    <message>
+        <source>This radio link cannot choose the VFO</source>
+        <translation>Questo collegamento con la radio non sceglie il VFO</translation>
+    </message>
+    <message>
+        <source>This radio link does not do RIT</source>
+        <translation>Questo collegamento con la radio non fa il RIT</translation>
+    </message>
+    <message>
+        <source>This radio link does not do XIT</source>
+        <translation>Questo collegamento con la radio non fa l&apos;XIT</translation>
     </message>
 </context>
 <context>
@@ -9477,6 +10467,14 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
 </context>
 <context>
     <name>decolog::core::WebQslUploader</name>
+    <message>
+        <source>Wavelog: write the address of your Wavelog (Setup → QSL services)</source>
+        <translation>Wavelog: scrivi l&apos;indirizzo del tuo Wavelog (Impostazioni → Servizi QSL)</translation>
+    </message>
+    <message>
+        <source>write the address of your Wavelog</source>
+        <translation>scrivi l&apos;indirizzo del tuo Wavelog</translation>
+    </message>
     <message>
         <source>Club Log: email, password, callsign and API key are all needed</source>
         <translation>Club Log: servono email, password, nominativo e chiave API</translation>

@@ -1,0 +1,146 @@
+// L'interfaccia HTTP locale: solo con la chiave, la chiave in tre modi, il
+// corpo delle POST anche se arriva a pezzi, e mai su un indirizzo di rete.
+#include "core/LocalApi.h"
+
+#include <QJsonDocument>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QSignalSpy>
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <QTest>
+
+using namespace decolog::core;
+
+namespace {
+
+struct Answer {
+    int status{0};
+    QJsonObject json;
+};
+
+Answer call(QNetworkAccessManager& net, const QByteArray& method, const QUrl& url, const QByteArray& body = {},
+            const QList<QPair<QByteArray, QByteArray>>& headers = {})
+{
+    QNetworkRequest request(url);
+    for (const auto& [name, value] : headers)
+        request.setRawHeader(name, value);
+    QNetworkReply* reply = net.sendCustomRequest(request, method, body);
+    QSignalSpy done(reply, &QNetworkReply::finished);
+    done.wait(5000);
+    Answer a;
+    a.status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    a.json = QJsonDocument::fromJson(reply->readAll()).object();
+    reply->deleteLater();
+    return a;
+}
+
+quint16 freePort()
+{
+    QTcpServer probe;
+    probe.listen(QHostAddress::LocalHost, 0);
+    return probe.serverPort();
+}
+
+} // namespace
+
+class TestLocalApi : public QObject {
+    Q_OBJECT
+
+    LocalApiServer m_server;
+    QNetworkAccessManager m_net;
+    QString m_token;
+    QUrl base(const QString& path) const
+    {
+        return QUrl(QStringLiteral("http://127.0.0.1:%1%2").arg(m_server.port()).arg(path));
+    }
+
+private slots:
+    void initTestCase()
+    {
+        m_token = LocalApiServer::newToken();
+        QCOMPARE(m_token.size(), 32);
+        QVERIFY(m_token != LocalApiServer::newToken());
+        m_server.setToken(m_token);
+        m_server.setHandler([](const HttpRequest& r) {
+            return HttpResponse::json(200, QJsonObject{{"method", QString::fromLatin1(r.method)},
+                                                       {"path", r.path},
+                                                       {"call", r.query.queryItemValue("call")},
+                                                       {"body", QString::fromUtf8(r.body)}});
+        });
+        QVERIFY(m_server.start(freePort()));
+        QVERIFY(m_server.isListening());
+    }
+
+    void withoutTheKeyNothing()
+    {
+        const Answer a = call(m_net, "GET", base("/api/v1/status"));
+        QCOMPARE(a.status, 401);
+        QVERIFY(a.json.value("error").toString().contains("token"));
+        const Answer wrong = call(m_net, "GET", base("/api/v1/status"), {}, {{"X-DecoDXLog-Token", "0000"}});
+        QCOMPARE(wrong.status, 401);
+    }
+
+    void theKeyThreeWays()
+    {
+        Answer a = call(m_net, "GET", base("/api/v1/worked?call=K1ABC"), {}, {{"X-DecoDXLog-Token", m_token.toLatin1()}});
+        QCOMPARE(a.status, 200);
+        QCOMPARE(a.json.value("path").toString(), QString("/api/v1/worked"));
+        QCOMPARE(a.json.value("call").toString(), QString("K1ABC"));
+        a = call(m_net, "GET", base("/api/v1/status"), {}, {{"Authorization", "Bearer " + m_token.toLatin1()}});
+        QCOMPARE(a.status, 200);
+        a = call(m_net, "GET", base("/api/v1/status?token=" + m_token));
+        QCOMPARE(a.status, 200);
+    }
+
+    void postBody()
+    {
+        const QByteArray adif = "<CALL:5>K1ABC<QSO_DATE:8>20260928<TIME_ON:4>1200<BAND:3>20m<MODE:3>FT8<EOR>";
+        const Answer a = call(m_net, "POST", base("/api/v1/qso"), adif, {{"X-DecoDXLog-Token", m_token.toLatin1()},
+                                                                        {"Content-Type", "text/plain"}});
+        QCOMPARE(a.status, 200);
+        QCOMPARE(a.json.value("method").toString(), QString("POST"));
+        QCOMPARE(a.json.value("body").toString(), QString::fromLatin1(adif));
+    }
+
+    void bodyInPieces()
+    {
+        // Intestazione e corpo in due pacchetti separati.
+        QTcpSocket s;
+        s.connectToHost(QHostAddress::LocalHost, m_server.port());
+        QVERIFY(s.waitForConnected(3000));
+        s.write("POST /api/v1/qso HTTP/1.1\r\nHost: x\r\nX-DecoDXLog-Token: " + m_token.toLatin1()
+                + "\r\nContent-Length: 10\r\n\r\n01234");
+        s.flush();
+        QTest::qWait(150);
+        s.write("56789");
+        QTRY_VERIFY_WITH_TIMEOUT(s.bytesAvailable() > 0 || s.waitForReadyRead(100), 3000);
+        QTRY_VERIFY_WITH_TIMEOUT(s.state() == QAbstractSocket::UnconnectedState || s.waitForDisconnected(100), 3000);
+        const QByteArray answer = s.readAll();
+        QVERIFY2(answer.startsWith("HTTP/1.1 200"), answer.constData());
+        QVERIFY(answer.contains("0123456789"));
+    }
+
+    void noKeyNoServer()
+    {
+        // Senza chiave anche con la chiave vuota si risponde 401.
+        LocalApiServer open;
+        QVERIFY(open.start(freePort()));
+        HttpRequest r;
+        QVERIFY(!open.authorized(r));
+        r.headers.insert("x-decodxlog-token", "");
+        QVERIFY(!open.authorized(r));
+    }
+
+    void aBusyPortIsAnError()
+    {
+        // La stessa porta non si apre due volte, e l'errore si dice.
+        LocalApiServer busy;
+        QVERIFY(!busy.start(m_server.port()));
+        QVERIFY(!busy.lastError().isEmpty());
+        QVERIFY(!busy.isListening());
+    }
+};
+
+QTEST_GUILESS_MAIN(TestLocalApi)
+#include "tst_localapi.moc"

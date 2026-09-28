@@ -12,8 +12,12 @@ ColumnLayout {
 
     // Gli id dei servizi da mostrare, in quest'ordine; vuoto = tutti.
     property var serviceIds: []
+    // Righe gia' fatte al posto dell'elenco dei servizi: gli account di un
+    // profilo di stazione (store.profileServices).
+    property var customRows: null
     readonly property var store: decolog.credentials
-    readonly property var rows: store.services.filter(s => serviceIds.length === 0 || serviceIds.indexOf(s.id) >= 0)
+    readonly property var rows: customRows !== null ? customRows
+                              : store.services.filter(s => serviceIds.length === 0 || serviceIds.indexOf(s.id) >= 0)
                                               .sort((a, b) => serviceIds.indexOf(a.id) - serviceIds.indexOf(b.id))
     property string message: ""
     property bool messageOk: true

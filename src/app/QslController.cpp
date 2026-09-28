@@ -26,13 +26,14 @@ struct ServiceInfo {
     const char* credential;     // il servizio nel portachiavi
 };
 
-constexpr std::array<ServiceInfo, 6> kServices{{
+constexpr std::array<ServiceInfo, 7> kServices{{
     {"lotw", "LoTW", "lotw"},
     {"qrz", "QRZ Logbook", "qrzlogbook"},
     {"clublog", "Club Log", "clublog"},
     {"eqsl", "eQSL", "eqsl"},
     {"crx", "CRX Logbook", "crx"},
     {"hrdlog", "HRDLog.net", "hrdlog"},
+    {"wavelog", "Wavelog", "wavelog"},
 }};
 
 // LoTW accetta file grandi, ma un invio troppo lungo blocca tutto il resto.
@@ -66,6 +67,23 @@ QslController::QslController(Context context, QObject* parent)
     m_crxLogId = s.value(QStringLiteral("qsl/crxLogId"), 0).toLongLong();
     m_crxLogName = s.value(QStringLiteral("qsl/crxLogName")).toString();
     m_crxSince = QDate::fromString(s.value(QStringLiteral("qsl/crxSince")).toString(), Qt::ISODate);
+    m_wavelogStationId = s.value(QStringLiteral("qsl/wavelogStationId")).toString();
+    connect(&m_web, &WebQslUploader::wavelogStationsListed, this, [this](const QVariantList& stations, const QString& error) {
+        m_wavelogStations = stations;
+        m_wavelogStatus = !error.isEmpty()     ? tr("Wavelog: %1").arg(error)
+                        : stations.isEmpty()   ? tr("Wavelog: no station on the site yet")
+                                               : tr("Wavelog: %n station(s) on the site", nullptr, static_cast<int>(stations.size()));
+        // Una sola, o quella attiva: si sceglie da se'.
+        if (m_wavelogStationId.isEmpty()) {
+            for (const QVariant& v : stations) {
+                if (stations.size() == 1 || v.toMap().value(QStringLiteral("active")).toBool()) {
+                    setWavelogStationId(v.toMap().value(QStringLiteral("id")).toString());
+                    break;
+                }
+            }
+        }
+        emit changed();
+    });
     connect(&m_web, &WebQslUploader::crxLogsListed, this, [this](const QVariantList& logs, const QString& error) {
         m_crxLogs = logs;
         m_crxStatus = !error.isEmpty() ? tr("CRX: %1").arg(error)
@@ -242,7 +260,15 @@ QVariantList QslController::services() const
             }
         }
         const QString credential = QLatin1String(info.credential);
-        const bool hasSecret = m_ctx.credentials && m_ctx.credentials->hasSecret(credential);
+        bool hasSecret = m_ctx.credentials && m_ctx.credentials->hasSecret(credential);
+        // QRZ ed eQSL: basta anche l'account di un solo profilo.
+        if (!hasSecret && m_ctx.credentials && m_ctx.db && m_ctx.db->isOpen()
+            && CredentialStore::profileServiceBases().contains(credential)) {
+            for (const StationProfile& p : m_ctx.db->stationProfiles(false)) {
+                if (m_ctx.credentials->hasSecret(CredentialStore::profileService(credential, p.id)))
+                    hasSecret = true;
+            }
+        }
         bool ready = hasSecret;
         QString hint;
         if (id == QLatin1String("lotw")) {
@@ -253,6 +279,12 @@ QVariantList QslController::services() const
             hint = !hasSecret      ? tr("no credentials: Setup \u2192 QSL services")
                  : m_clubLogApiKey.isEmpty() ? tr("no API key: Setup \u2192 QSL services")
                                              : QString();
+        } else if (id == QLatin1String("wavelog")) {
+            const bool hasServer = m_ctx.credentials && !m_ctx.credentials->account(credential).isEmpty();
+            ready = hasSecret && hasServer && !m_wavelogStationId.isEmpty();
+            hint = !hasSecret || !hasServer    ? tr("no address or API key: Setup \u2192 QSL services")
+                 : m_wavelogStationId.isEmpty() ? tr("choose the Wavelog station: Setup \u2192 QSL services")
+                                                : QString();
         } else if (id == QLatin1String("crx")) {
             ready = hasSecret && m_crxLogId > 0;
             hint = !hasSecret        ? tr("no API key: Setup \u2192 QSL services")
@@ -323,6 +355,31 @@ void QslController::setCrxSince(const QString& date)
 QDate QslController::sinceFor(const QString& service) const
 {
     return service == QLatin1String("crx") ? m_crxSince : QDate();
+}
+
+void QslController::setWavelogStationId(const QString& id)
+{
+    if (id == m_wavelogStationId)
+        return;
+    m_wavelogStationId = id;
+    QSettings().setValue(QStringLiteral("qsl/wavelogStationId"), id);
+    emit changed();
+}
+
+void QslController::fetchWavelogStations()
+{
+    m_wavelogStatus = tr("Wavelog: asking for the stations…");
+    emit changed();
+    const QString server = m_ctx.credentials ? m_ctx.credentials->account(QStringLiteral("wavelog")) : QString();
+    readSecret(QStringLiteral("wavelog"), [this, server](const QString& secret, const QString& error) {
+        if (secret.isEmpty() || server.isEmpty()) {
+            m_wavelogStatus = tr("Wavelog: address and API key are needed (%1)")
+                                  .arg(error.isEmpty() ? tr("add them below") : error);
+            emit changed();
+            return;
+        }
+        m_web.listWavelogStations(server, secret);
+    });
 }
 
 void QslController::fetchCrxLogs()
@@ -505,11 +562,21 @@ void QslController::startNext()
         return;
     }
 
-    // QRZ, eQSL e CRX: prima la credenziale, poi un QSO alla volta.
-    const QString credential = m_busyService == QLatin1String("qrz")    ? QStringLiteral("qrzlogbook")
-                             : m_busyService == QLatin1String("crx")    ? QStringLiteral("crx")
-                             : m_busyService == QLatin1String("hrdlog") ? QStringLiteral("hrdlog")
-                                                                        : QStringLiteral("eqsl");
+    // QRZ ed eQSL: l'account dipende dal profilo del QSO, e si legge QSO per QSO.
+    if (m_busyService == QLatin1String("qrz") || m_busyService == QLatin1String("eqsl")) {
+        m_credential.clear();
+        m_secret.clear();
+        note(tr("%1: sending %n QSO…", nullptr, static_cast<int>(m_batch.size())).arg(m_busyService), QStringLiteral("info"));
+        uploadNextWeb();
+        return;
+    }
+
+    // CRX e HRDLog: prima la credenziale, poi un QSO alla volta.
+    const QString credential = m_busyService == QLatin1String("qrz")     ? QStringLiteral("qrzlogbook")
+                             : m_busyService == QLatin1String("crx")     ? QStringLiteral("crx")
+                             : m_busyService == QLatin1String("hrdlog")  ? QStringLiteral("hrdlog")
+                             : m_busyService == QLatin1String("wavelog") ? QStringLiteral("wavelog")
+                                                                         : QStringLiteral("eqsl");
     m_account = m_ctx.credentials ? m_ctx.credentials->account(credential) : QString();
     readSecret(credential, [this](const QString& secret, const QString& error) {
         if (secret.isEmpty()) {
@@ -564,9 +631,40 @@ void QslController::uploadNextWeb()
         m_web.uploadCrx(m_secret, qsl::crxQsoData(*record, m_crxLogId, remote, m_batch.first()));
         return;
     }
+    if (m_busyService == QLatin1String("qrz") || m_busyService == QLatin1String("eqsl")) {
+        const QString base = m_busyService == QLatin1String("qrz") ? QStringLiteral("qrzlogbook") : QStringLiteral("eqsl");
+        const auto meta = m_ctx.db->meta(m_batch.first());
+        const QString credential = m_ctx.credentials
+                                       ? m_ctx.credentials->serviceFor(base, meta ? meta->stationProfileId : 0)
+                                       : base;
+        if (credential != m_credential || m_secret.isEmpty()) {
+            m_credential = credential;
+            m_account = m_ctx.credentials ? m_ctx.credentials->account(credential) : QString();
+            m_secret.clear();
+            readSecret(credential, [this](const QString& secret, const QString& error) {
+                if (m_batch.isEmpty())
+                    return;
+                if (secret.isEmpty()) {
+                    // Questo QSO resta da mandare, con il motivo; si va avanti.
+                    QslUploadResult failed;
+                    failed.message = tr("%1: no credentials (%2)").arg(m_busyService, error);
+                    markSent(m_batch.first(), m_busyService, failed);
+                    m_batch.removeFirst();
+                    m_credential.clear();
+                    uploadNextWeb();
+                    return;
+                }
+                m_secret = secret;
+                uploadNextWeb();
+            });
+            return;
+        }
+    }
     const QString adif = adif::writeRecord(*record);
     if (m_busyService == QLatin1String("qrz"))
         m_web.uploadQrz(m_secret, adif);
+    else if (m_busyService == QLatin1String("wavelog"))
+        m_web.uploadWavelog(m_account, m_secret, m_wavelogStationId, adif);
     else if (m_busyService == QLatin1String("hrdlog"))
         m_web.uploadHrdLog(m_account.isEmpty() && m_ctx.stationCallsign ? m_ctx.stationCallsign() : m_account,
                            m_secret, adif);
@@ -627,6 +725,7 @@ void QslController::finishBatch(const QslUploadResult& result)
     }
 
     m_secret.clear();
+    m_credential.clear();
     m_batch.clear();
     m_busyService.clear();
     m_batchMode = false;

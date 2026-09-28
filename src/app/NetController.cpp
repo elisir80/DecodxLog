@@ -202,11 +202,62 @@ QJsonObject NetController::qsoMessage(qint64 id) const
 
 void NetController::qsoLogged(qint64 id)
 {
+    if (m_ctx.db) {
+        if (const auto r = m_ctx.db->record(id))
+            noteSerial(r->value(QStringLiteral("STX")));
+    }
     if (!m_net.running())
         return;
     const QJsonObject qso = qsoMessage(id);
     if (!qso.isEmpty())
         send(QStringLiteral("qso"), qso);
+}
+
+void NetController::noteSerial(const QString& stx)
+{
+    bool ok = false;
+    const int n = stx.trimmed().toInt(&ok);
+    if (ok)
+        m_serials.note(n);
+}
+
+bool NetController::isSerialServer() const
+{
+    // Il piu' piccolo fra quelli sentiti nell'ultimo minuto.
+    const QDateTime now = QDateTime::currentDateTimeUtc();
+    QStringList present;
+    for (const Peer& p : m_peers) {
+        if (p.seen.secsTo(now) < 60)
+            present << p.id;
+    }
+    return core::SharedSerials::isServer(m_id, present);
+}
+
+void NetController::requestSerial()
+{
+    if (!m_serialSharing || !m_net.running() || isSerialServer())
+        return;
+    send(QStringLiteral("serialreq"), QJsonObject{});
+}
+
+void NetController::setSerialSharing(bool on)
+{
+    if (on == m_serialSharing)
+        return;
+    m_serialSharing = on;
+    if (on)
+        requestSerial();
+}
+
+int NetController::takeSerial(int localNext)
+{
+    const bool online = m_serialSharing && m_net.running();
+    const bool server = online && isSerialServer();
+    const int n = m_serials.take(localNext, server, online);
+    // Il prossimo si chiede adesso, per averlo pronto al QSO dopo.
+    if (online && !server)
+        requestSerial();
+    return n;
 }
 
 void NetController::sendGab(const QString& text, const QString& to)
@@ -281,9 +332,21 @@ void NetController::onReceived(const QString& from, const QString& type, const Q
     } else if (type == QLatin1String("qso")) {
         const AdifDocument doc = adif::parse(body.value(QStringLiteral("adif")).toString().toUtf8());
         for (const AdifRecord& r : doc.records) {
+            noteSerial(r.value(QStringLiteral("STX")));
             if (m_ctx.insertRemote && m_ctx.insertRemote(r, name))
                 ++p.qsos;
         }
+    } else if (type == QLatin1String("serialreq")) {
+        if (m_serialSharing && isSerialServer())
+            send(QStringLiteral("serialgrant"), QJsonObject{{QStringLiteral("to"), from},
+                                                            {QStringLiteral("n"), m_serials.serve()}});
+    } else if (type == QLatin1String("serialgrant")) {
+        const int n = body.value(QStringLiteral("n")).toInt();
+        // Anche quelli dati agli altri sono gia' presi.
+        if (body.value(QStringLiteral("to")).toString() == m_id)
+            m_serials.reserve(n);
+        else
+            m_serials.note(n);
     } else if (type == QLatin1String("gab")) {
         const QString to = body.value(QStringLiteral("to")).toString();
         if (to.isEmpty() || to.compare(m_name, Qt::CaseInsensitive) == 0) {

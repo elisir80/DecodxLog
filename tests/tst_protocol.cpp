@@ -2,9 +2,11 @@
 #include "core/UdpReceiver.h"
 #include "core/WsjtxProtocol.h"
 
+#include <QNetworkDatagram>
 #include <QSignalSpy>
 #include <QTest>
 #include <QTimeZone>
+#include <QUdpSocket>
 
 using namespace decolog::core;
 
@@ -143,6 +145,56 @@ private slots:
         QCOMPARE(record.value("BAND"), QString("20m"));
         QCOMPARE(record.value("TIME_ON"), QString("101500"));
         QCOMPARE(spy.at(0).at(1).toString(), QString("udp_wsjtx"));
+    }
+
+    void forwardTargetsAreParsed()
+    {
+        QStringList rejected;
+        const auto targets = UdpReceiver::parseTargets("127.0.0.1:2238, localhost:2333;192.168.1.20:2237 junk 1.2.3.4:0",
+                                                       &rejected);
+        QCOMPARE(targets.size(), 3);
+        QCOMPARE(targets.at(1).address, QHostAddress(QHostAddress::LocalHost));
+        QCOMPARE(targets.at(1).port, quint16(2333));
+        QCOMPARE(targets.at(2).address, QHostAddress("192.168.1.20"));
+        QCOMPARE(rejected, QStringList({"junk", "1.2.3.4:0"}));
+        QVERIFY(UdpReceiver::parseTargets("").isEmpty());
+    }
+
+    // Il ripetitore: Decodium manda a DecoDXLog, GridTracker riceve lo stesso
+    // pacchetto, e la sua risposta torna a Decodium.
+    void packetsAreRelayedBothWays()
+    {
+        QUdpSocket decodium;
+        QVERIFY(decodium.bind(QHostAddress::LocalHost, 0));
+        QUdpSocket gridTracker;
+        QVERIFY(gridTracker.bind(QHostAddress::LocalHost, 0));
+
+        UdpReceiver rx;
+        rx.setForwardTargets({{QHostAddress(QHostAddress::LocalHost), gridTracker.localPort()}});
+        QVERIFY(rx.start(0) == false);   // porta 0 = spento
+        // Una porta libera per DecoDXLog.
+        QUdpSocket probe;
+        QVERIFY(probe.bind(QHostAddress::LocalHost, 0));
+        const quint16 port = probe.localPort();
+        probe.close();
+        QVERIFY(rx.start(port));
+        QSignalSpy seen(&rx, &UdpReceiver::clientSeen);
+
+        const QByteArray heartbeat = wsjtx::buildHeartbeat("Decodium", {});
+        decodium.writeDatagram(heartbeat, QHostAddress::LocalHost, port);
+        QTRY_VERIFY_WITH_TIMEOUT(gridTracker.hasPendingDatagrams(), 3000);
+        QCOMPARE(gridTracker.receiveDatagram().data(), heartbeat);
+        // DecoDXLog lo ha anche letto per se'.
+        QTRY_VERIFY_WITH_TIMEOUT(seen.count() > 0, 3000);
+
+        // GridTracker risponde al mittente (DecoDXLog): la risposta va a Decodium.
+        const QByteArray reply = wsjtx::buildHeartbeat("Decodium", {});
+        gridTracker.writeDatagram(reply, QHostAddress::LocalHost, port);
+        QTRY_VERIFY_WITH_TIMEOUT(decodium.hasPendingDatagrams(), 3000);
+        QCOMPARE(decodium.receiveDatagram().data(), reply);
+        // E non torna a GridTracker ne' si conta come client.
+        QTest::qWait(200);
+        QVERIFY(!gridTracker.hasPendingDatagrams());
     }
 };
 

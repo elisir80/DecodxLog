@@ -150,6 +150,8 @@ cd build && ctest --output-on-failure
 Richiede Qt ≥ 6.5 con Quick, QuickControls2, Sql (driver QSQLITE), Network, Test.
 Per le credenziali: `pacman -S mingw-w64-x86_64-qtkeychain` (facoltativo: senza, DecoDXLog
 si compila ma non salva password). Nella distribuzione va incluso `libqt6keychain.dll`.
+Per VOACAP: `pacman -S mingw-w64-x86_64-gcc-fortran` (facoltativo: senza, la previsione sul
+percorso resta quella semplificata); il sorgente e' in `third_party/voacapl`.
 
 ## Rendering GPU/CPU
 

@@ -40,6 +40,15 @@ class RigController : public QObject {
     Q_PROPERTY(qint64 frequencyHz READ frequencyHz NOTIFY stateChanged)
     Q_PROPERTY(QString frequencyLabel READ frequencyLabel NOTIFY stateChanged)
     Q_PROPERTY(QString mode READ mode NOTIFY stateChanged)
+    // Split, VFO, RIT e XIT: features dice cosa sa fare il collegamento
+    // (1 split, 2 scelta del VFO, 4 RIT, 8 XIT).
+    Q_PROPERTY(int features READ features NOTIFY stateChanged)
+    Q_PROPERTY(bool split READ split NOTIFY stateChanged)
+    Q_PROPERTY(qint64 txFrequencyHz READ txFrequencyHz NOTIFY stateChanged)
+    Q_PROPERTY(QString txFrequencyLabel READ txFrequencyLabel NOTIFY stateChanged)
+    Q_PROPERTY(QString vfo READ vfo NOTIFY stateChanged)
+    Q_PROPERTY(int ritHz READ ritHz NOTIFY stateChanged)
+    Q_PROPERTY(int xitHz READ xitHz NOTIFY stateChanged)
     Q_PROPERTY(int wpm READ wpm WRITE setWpm NOTIFY stateChanged)
     // Questo collegamento il CW non lo sa mandare (per esempio il ponte CAT
     // di Decodium): le macro restano spente e si dice perche'.
@@ -122,6 +131,20 @@ public:
     QString status() const { return m_rig->status(); }
     qint64 frequencyHz() const { return m_rig->frequencyHz(); }
     QString frequencyLabel() const;
+    int features() const { return connected() ? m_rig->features() : 0; }
+    bool split() const { return m_rig->split(); }
+    qint64 txFrequencyHz() const { return m_rig->txFrequencyHz(); }
+    QString txFrequencyLabel() const;
+    QString vfo() const { return m_rig->vfo(); }
+    int ritHz() const { return m_rig->ritHz(); }
+    int xitHz() const { return m_rig->xitHz(); }
+    Q_INVOKABLE void setSplit(bool on, qint64 txHz = 0) { m_rig->setSplit(on, txHz); }
+    // Split acceso, trasmissione `hz` sopra (o sotto) la ricezione: "UP 1".
+    Q_INVOKABLE void splitUp(int hz);
+    // Il VFO dall'altra parte: A → B, B → A.
+    Q_INVOKABLE void swapVfo();
+    Q_INVOKABLE void setRit(int hz) { m_rig->setRit(hz); }
+    Q_INVOKABLE void setXit(int hz) { m_rig->setXit(hz); }
     QString mode() const { return m_rig->mode(); }
     int wpm() const { return m_rig->speedWpm() > 0 ? m_rig->speedWpm() : m_wpm; }
     // Il CW parte se sa manipolarlo il CAT oppure se c'e' il manipolatore

@@ -7,6 +7,7 @@ esca com'e' entrato.
 
 from __future__ import annotations
 
+import datetime as dt
 import os
 import tempfile
 
@@ -529,9 +530,14 @@ def test_the_station_page_offers_the_choices(client):
 
 def test_the_contest_page_counts_the_score(client):
     headers = account(client)
+    # Le ultime ore davvero: con una data fissa la prova smetteva di passare
+    # una settimana dopo.
+    now = dt.datetime.now(dt.UTC).replace(microsecond=0)
+    first = (now - dt.timedelta(hours=2)).isoformat().replace("+00:00", "Z")
+    second = (now - dt.timedelta(hours=1, minutes=50)).isoformat().replace("+00:00", "Z")
     client.post("/v1/sync/push", headers=headers, json={"qsos": [
-        qso("c-1", call="DL9ZZT", DXCC="230", CQZ="14", MODE="CW"),
-        qso("c-2", call="EA5XYZ", when="2026-09-18T07:10:00Z", DXCC="281", CQZ="14", MODE="CW"),
+        qso("c-1", call="DL9ZZT", when=first, DXCC="230", CQZ="14", MODE="CW"),
+        qso("c-2", call="EA5XYZ", when=second, DXCC="281", CQZ="14", MODE="CW"),
     ]})
     sign_in(client)
 

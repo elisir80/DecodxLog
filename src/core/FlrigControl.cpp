@@ -230,6 +230,56 @@ void FlrigControl::refresh()
             emit changed();
         }
     });
+    // Split, VFO B e A/B una volta ogni tre giri.
+    if (m_extraPoll++ % 3 != 0)
+        return;
+    call(QStringLiteral("rig.get_split"), {}, [this](const QVariant& v, const QString& fault) {
+        if (!fault.isEmpty())
+            return;
+        const bool on = v.toInt() != 0;
+        if (on != m_split) {
+            m_split = on;
+            emit changed();
+        }
+    });
+    call(QStringLiteral("rig.get_vfoB"), {}, [this](const QVariant& v, const QString& fault) {
+        if (!fault.isEmpty())
+            return;
+        const qint64 hz = v.toString().toLongLong();
+        if (hz > 0 && hz != m_vfoB) {
+            m_vfoB = hz;
+            emit changed();
+        }
+    });
+    call(QStringLiteral("rig.get_AB"), {}, [this](const QVariant& v, const QString& fault) {
+        if (!fault.isEmpty())
+            return;
+        const QString ab = v.toString().trimmed().toUpper() == QLatin1String("B") ? QStringLiteral("VFOB")
+                                                                                   : QStringLiteral("VFOA");
+        if (ab != m_ab) {
+            m_ab = ab;
+            emit changed();
+        }
+    });
+}
+
+void FlrigControl::setSplit(bool on, qint64 txHz)
+{
+    if (on && txHz > 0) {
+        call(QStringLiteral("rig.set_vfoB"), {double(txHz)});
+        m_vfoB = txHz;
+    }
+    call(QStringLiteral("rig.set_split"), {on ? 1 : 0});
+    m_split = on;
+    emit changed();
+}
+
+void FlrigControl::setVfo(const QString& vfo)
+{
+    const bool b = vfo.trimmed().toUpper() == QLatin1String("VFOB");
+    call(QStringLiteral("rig.set_AB"), {b ? QStringLiteral("B") : QStringLiteral("A")});
+    m_ab = b ? QStringLiteral("VFOB") : QStringLiteral("VFOA");
+    emit changed();
 }
 
 void FlrigControl::setFrequency(qint64 hz)

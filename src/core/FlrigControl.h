@@ -48,6 +48,12 @@ public:
     bool connected() const override { return m_connected; }
     qint64 frequencyHz() const override { return m_hz; }
     QString mode() const override { return m_mode; }
+    int features() const override { return Split | VfoSelect; }
+    bool split() const override { return m_split; }
+    qint64 txFrequencyHz() const override { return m_vfoB; }
+    QString vfo() const override { return m_ab; }
+    void setSplit(bool on, qint64 txHz = 0) override;
+    void setVfo(const QString& vfo) override;
     int speedWpm() const override { return m_wpm; }
     QString status() const override { return m_status; }
 
@@ -77,6 +83,10 @@ private:
     bool m_connected{false};
     qint64 m_hz{0};
     QString m_mode;
+    bool m_split{false};
+    qint64 m_vfoB{0};
+    QString m_ab;
+    int m_extraPoll{0};
     int m_wpm{24};
     QString m_status;
     QStringList m_modes;

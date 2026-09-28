@@ -45,6 +45,30 @@ CloudController::CloudController(Context context, QObject* parent)
     // Il nome del dispositivo serve solo a riconoscerlo nella diagnostica.
     m_sync.setDevice(QSysInfo::machineHostName());
 
+    connect(&m_sync, &CloudSync::teamReply, this, [this](const QString& what, const QVariantMap& answer) {
+        if (what == QLatin1String("team")) {
+            m_team = answer;
+            m_teamStatus.clear();
+        } else if (what == QLatin1String("invite")) {
+            m_lastInvite = answer;
+            m_teamStatus = tr("Invite created: give the code to the operator. It is shown only now.");
+            refreshTeam();
+        } else if (what == QLatin1String("join")) {
+            const QString log = answer.value(QStringLiteral("log")).toString();
+            m_teamStatus = tr("You are in the log of %1. Choose it for a log of yours below — better a new "
+                              "log (Log → New log), so the club log and yours do not mix.").arg(log);
+            note(tr("Cloud: you joined the shared log of %1").arg(log), QStringLiteral("success"));
+            refreshTeam();
+        } else {
+            refreshTeam();
+        }
+        emit teamChanged();
+    });
+    connect(&m_sync, &CloudSync::teamFailed, this, [this](const QString&, const QString& message) {
+        m_teamStatus = message;
+        emit teamChanged();
+    });
+
     connect(&m_sync, &CloudSync::loggedIn, this, [this](const QString& token, const QString& callsign) {
         saveToken(token, callsign);
         m_busy = false;
@@ -230,6 +254,9 @@ void CloudController::start(bool automatic)
     if (!m_ctx.db || !m_ctx.db->isOpen())
         return;
     m_automatic = automatic;
+    // Il log che questo file sincronizza: il proprio, o uno condiviso.
+    m_sharedLog = m_ctx.db->syncState(QStringLiteral("cloud-target")).value(QStringLiteral("log")).toString();
+    m_sync.setSharedLog(m_sharedLog);
     m_cursor = m_ctx.db->syncState(accountKey()).value(QStringLiteral("cursor")).toLongLong();
     m_storedCloudToken = !m_ephemeral
         && m_ctx.credentials
@@ -243,7 +270,74 @@ void CloudController::start(bool automatic)
 
 QString CloudController::accountKey() const
 {
+    // Un cursore per log: quello condiviso ha il suo.
+    if (!m_sharedLog.isEmpty())
+        return QStringLiteral("log:") + m_sharedLog;
     return m_callsign.isEmpty() ? QStringLiteral("cloud") : m_callsign;
+}
+
+void CloudController::setSharedLog(const QString& callsign)
+{
+    const QString clean = callsign.trimmed().toUpper() == m_callsign.toUpper() ? QString()
+                                                                             : callsign.trimmed().toUpper();
+    if (clean == m_sharedLog || !m_ctx.db || !m_ctx.db->isOpen())
+        return;
+    m_sharedLog = clean;
+    m_ctx.db->setSyncState(QStringLiteral("cloud-target"), {{QStringLiteral("log"), clean}});
+    m_sync.setSharedLog(clean);
+    m_cursor = m_ctx.db->syncState(accountKey()).value(QStringLiteral("cursor")).toLongLong();
+    m_remote.clear();
+    note(clean.isEmpty() ? tr("Cloud: this log syncs with your own log again")
+                         : tr("Cloud: this log syncs with the shared log of %1").arg(clean),
+         QStringLiteral("info"));
+    emit changed();
+    if (!m_token.isEmpty() && m_automatic)
+        syncNow();
+}
+
+void CloudController::refreshTeam()
+{
+    if (m_token.isEmpty()) {
+        m_teamStatus = linked() ? tr("Sync once to open the keystore, then the team shows here.")
+                                : tr("Sign in to the Cloud first.");
+        emit teamChanged();
+        return;
+    }
+    m_sync.team();
+}
+
+void CloudController::createInvite(const QString& role)
+{
+    if (m_token.isEmpty()) {
+        refreshTeam();
+        return;
+    }
+    m_lastInvite.clear();
+    m_sync.teamInvite(role == QLatin1String("viewer") ? QStringLiteral("viewer") : QStringLiteral("operator"));
+}
+
+void CloudController::joinWithCode(const QString& code)
+{
+    if (m_token.isEmpty()) {
+        refreshTeam();
+        return;
+    }
+    m_sync.teamJoin(code);
+}
+
+void CloudController::removeMember(const QString& callsign)
+{
+    if (!m_token.isEmpty())
+        m_sync.teamRemoveMember(callsign);
+}
+
+void CloudController::leaveLog(const QString& log)
+{
+    if (m_token.isEmpty())
+        return;
+    if (log.compare(m_sharedLog, Qt::CaseInsensitive) == 0)
+        setSharedLog(QString());
+    m_sync.teamLeave(log);
 }
 
 int CloudController::queued() const
@@ -578,7 +672,9 @@ void CloudController::applyPushResults(const QVariantList& results)
 QVariantList CloudController::pendingDocs()
 {
     QVariantList docs;
-    if (!m_ctx.db || !m_ctx.db->isOpen())
+    // In un log condiviso viaggiano solo i QSO: profili, impostazioni e
+    // credenziali restano di chi lo tiene (e il server li ignorerebbe).
+    if (!m_ctx.db || !m_ctx.db->isOpen() || !m_sharedLog.isEmpty())
         return docs;
 
     // I profili stazione con una modifica ancora da mandare.

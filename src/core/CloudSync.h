@@ -16,6 +16,7 @@
 
 class QNetworkAccessManager;
 class QNetworkReply;
+class QNetworkRequest;
 
 namespace decolog::core {
 
@@ -55,6 +56,10 @@ public:
     QString token() const { return m_token; }
     void setDevice(const QString& device) { m_device = device; }
     QString device() const { return m_device; }
+    // Il log condiviso (un club, una gara multi-operatore) su cui lavora il
+    // sync: va al server in X-DecoLog-Log. Vuoto: il log dell'account.
+    void setSharedLog(const QString& callsign) { m_sharedLog = callsign.trimmed().toUpper(); }
+    QString sharedLog() const { return m_sharedLog; }
     bool busy() const { return m_busy; }
 
     // Nominativo e password -> token. `signup` crea l'account, `login` no.
@@ -75,6 +80,16 @@ public:
     void purge(const QString& confirm);
     void cancel();
 
+    // Il log per piu' operatori (server/decolog_cloud/team.py): chi scrive nel
+    // proprio log e in quali si scrive, un invito (operator o viewer),
+    // entrare con un codice, togliere un operatore, uscire da un log. Non
+    // toccano lo stato del sync: rispondono con teamReply o teamFailed.
+    void team();
+    void teamInvite(const QString& role, int days = 7);
+    void teamJoin(const QString& code);
+    void teamRemoveMember(const QString& callsign);
+    void teamLeave(const QString& log);
+
 signals:
     void loggedIn(const QString& token, const QString& callsign);
     // Un esito per QSO: {uuid, status, revision, seq, serverUuid}; e uno per
@@ -85,16 +100,23 @@ signals:
     // Il Cloud e' stato svuotato: quanti QSO, documenti e storie se ne sono andati.
     void purged(const QVariantMap& deleted);
     void failed(const decolog::core::CloudError& error);
+    // `what`: team, invite, join, remove, leave.
+    void teamReply(const QString& what, const QVariantMap& answer);
+    void teamFailed(const QString& what, const QString& message);
 
 private:
     QNetworkReply* send(const QString& path, const QVariantMap& body, bool authenticated);
     QNetworkReply* get(const QString& path, const QVariantMap& query);
     void watch(QNetworkReply* reply, const QString& what);
+    void watchTeam(QNetworkReply* reply, const QString& what);
+    QNetworkReply* remove(const QString& path);
+    void addHeaders(QNetworkRequest& request) const;
 
     QNetworkAccessManager* m_net;
     QUrl    m_base;
     QString m_token;
     QString m_device;
+    QString m_sharedLog;
     bool    m_busy{false};
 };
 

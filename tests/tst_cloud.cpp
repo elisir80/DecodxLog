@@ -43,7 +43,7 @@ public:
         connect(&m_server, &QTcpServer::newConnection, this, [this] {
             QTcpSocket* client = m_server.nextPendingConnection();
             connect(client, &QTcpSocket::readyRead, client, [this, client] {
-                client->readAll();
+                m_request += client->readAll();
                 client->write(m_response);
                 client->disconnectFromHost();
             });
@@ -51,11 +51,20 @@ public:
     }
 
     QUrl url() const { return QUrl(QStringLiteral("http://127.0.0.1:%1").arg(m_server.serverPort())); }
+    // Quello che il programma ha mandato: intestazioni e corpo.
+    QByteArray request() const { return m_request; }
 
 private:
     QTcpServer m_server;
     QByteArray m_response;
+    QByteArray m_request;
 };
+
+QByteArray okJson(const QByteArray& body)
+{
+    return "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: "
+           + QByteArray::number(body.size()) + "\r\nConnection: close\r\n\r\n" + body;
+}
 
 } // namespace
 
@@ -351,6 +360,74 @@ private slots:
         QVERIFY(!error.retryLater);
         QVERIFY2(error.message.contains(QStringLiteral("attesa di approvazione")),
                  qPrintable(error.message));
+    }
+
+    // Il log di un club: il sync dice al server quale log vuole, e le
+    // richieste del log condiviso non toccano lo stato del sync.
+    void aSharedLogIsNamedInEveryRequest()
+    {
+        FakeServer club(okJson("{\"qsos\":[],\"docs\":[],\"cursor\":0,\"more\":false}"));
+        CloudSync sync;
+        sync.setServer(club.url());
+        sync.setToken(QStringLiteral("un-token"));
+        sync.setSharedLog(QStringLiteral(" iq8xx "));
+        QSignalSpy pulled(&sync, &CloudSync::pulled);
+        sync.pull(0);
+        QVERIFY(pulled.wait(5000));
+        QVERIFY2(club.request().toLower().contains("x-decolog-log: iq8xx"), club.request().constData());
+
+        // Senza, il log dell'account: l'intestazione non c'e'.
+        FakeServer own(okJson("{\"qsos\":[],\"docs\":[],\"cursor\":0,\"more\":false}"));
+        sync.setServer(own.url());
+        sync.setSharedLog({});
+        sync.pull(0);
+        QVERIFY(pulled.wait(5000));
+        QVERIFY(!own.request().toLower().contains("x-decolog-log"));
+    }
+
+    void joiningWithACode()
+    {
+        FakeServer server(okJson("{\"log\":\"IQ8XX\",\"role\":\"operator\"}"));
+        CloudSync sync;
+        sync.setServer(server.url());
+        sync.setToken(QStringLiteral("un-token"));
+        QSignalSpy replies(&sync, &CloudSync::teamReply);
+        QSignalSpy failures(&sync, &CloudSync::failed);
+        sync.teamJoin(QStringLiteral(" K7Q2-9XMP-D4TA "));
+        QVERIFY(replies.wait(5000));
+        QCOMPARE(replies.first().at(0).toString(), QString("join"));
+        QCOMPARE(replies.first().at(1).toMap().value("log").toString(), QString("IQ8XX"));
+        QVERIFY(server.request().startsWith("POST /v1/team/join"));
+        QVERIFY(server.request().contains("\"code\":\"K7Q2-9XMP-D4TA\""));
+        QVERIFY(failures.isEmpty());
+        QVERIFY(!sync.busy());              // non e' un giro di sync
+    }
+
+    void aServerWithoutTeamsSaysSo()
+    {
+        FakeServer old("HTTP/1.1 404 Not Found\r\n"
+                       "Content-Type: application/json\r\n"
+                       "Connection: close\r\n\r\n"
+                       "{\"detail\":\"Not Found\"}");
+        CloudSync sync;
+        sync.setServer(old.url());
+        sync.setToken(QStringLiteral("un-token"));
+        QSignalSpy failures(&sync, &CloudSync::teamFailed);
+        QSignalSpy syncFailures(&sync, &CloudSync::failed);
+        sync.team();
+        QVERIFY(failures.wait(5000));
+        QCOMPARE(failures.first().at(0).toString(), QString("team"));
+        QVERIFY(failures.first().at(1).toString().contains("shared logs"));
+        QVERIFY(syncFailures.isEmpty());    // il sync non ne sa niente
+        // Un codice sbagliato: la frase del server.
+        FakeServer wrong("HTTP/1.1 404 Not Found\r\n"
+                         "Content-Type: application/json\r\n"
+                         "Connection: close\r\n\r\n"
+                         "{\"detail\":\"codice d'invito non valido o scaduto\"}");
+        sync.setServer(wrong.url());
+        sync.teamJoin(QStringLiteral("AAAA-BBBB-CCCC"));
+        QVERIFY(failures.wait(5000));
+        QVERIFY(failures.last().at(1).toString().contains("non valido"));
     }
 
     void anExpiredTokenStillAsksToSignInAgain()

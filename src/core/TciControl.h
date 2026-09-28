@@ -35,6 +35,16 @@ public:
 
     bool connected() const override;
     qint64 frequencyHz() const override { return m_frequencyHz; }
+    // TCI: lo split trasmette sul canale 1 (VFO B); RIT e XIT hanno acceso/spento
+    // e l'offset.
+    int features() const override { return Split | Rit | Xit; }
+    bool split() const override { return m_split; }
+    qint64 txFrequencyHz() const override { return m_vfoB; }
+    int ritHz() const override { return m_ritOn ? m_rit : 0; }
+    int xitHz() const override { return m_xitOn ? m_xit : 0; }
+    void setSplit(bool on, qint64 txHz = 0) override;
+    void setRit(int hz) override;
+    void setXit(int hz) override;
     QString mode() const override { return m_mode; }
     int speedWpm() const override { return m_wpm; }
     QString status() const override { return m_status; }
@@ -73,6 +83,12 @@ private:
     bool m_ready{false};
     qint64 m_frequencyHz{0};
     QString m_mode;
+    bool m_split{false};
+    qint64 m_vfoB{0};
+    bool m_ritOn{false};
+    bool m_xitOn{false};
+    int m_rit{0};
+    int m_xit{0};
     int m_wpm{0};
     bool m_transmitting{false};
     QString m_device;

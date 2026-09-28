@@ -3,6 +3,75 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.35 — 28 settembre 2026
+
+**VOACAP nel programma.** La previsione sul percorso (scheda Propagazione) usa adesso VOACAP,
+il motore di propagazione dell'ITS: per ogni ora e banda la probabilita' di fare il QSO
+(affidabilita') e l'SNR, calcolati con le mappe CCIR, l'assorbimento, il rumore e il guadagno
+delle antenne. Sotto la griglia si sceglie il modo (FT8, FT4, FT2, CW, RTTY, SSB: decide l'SNR
+che serve), la potenza, le antenne e il rumore del posto. VOACAP e' nel pacchetto
+(`voacap\`, voacapl di J. A. Watson: dominio pubblico e CC0); il 160 e il 6 m, fuori dalla sua
+gamma, restano al modello semplice, che torna anche se VOACAP non c'e' o non risponde.
+
+**Un log per piu' operatori.** Una stazione di club, un contest multi-operatore: un log sul
+Cloud, piu' operatori, ognuno con il suo account — nessuno presta una password. Chi tiene il
+log crea un invito (Impostazioni → Sync e Cloud → Log condiviso, o dalla pagina Stazione del
+Cloud), chi riceve il codice entra, e sceglie quale suo file di log va con quello condiviso.
+Operatore: manda e prende i QSO; osservatore: guarda soltanto. Viaggiano solo i QSO: profili,
+impostazioni e password restano di chi tiene il log. **Serve il server aggiornato**
+(`server/deploy/update.sh`): finche' non lo e', il programma lo dice.
+
+**Venire da un altro programma.** Importa log (Ctrl+I) legge, oltre all'ADIF, i fogli di
+calcolo (CSV, con le colonne riconosciute in italiano, in inglese o col nome ADIF; separatore,
+date e kHz capiti da soli) e il database di N1MM Logger+ (`.s3db`) direttamente. Le conferme
+che il logbook di QRZ scrive nei campi suoi diventano conferme vere.
+
+**Un campo su molti QSO, e i doppioni.**
+
+- Dal menu della riga (sui QSO selezionati) o da Azioni (su quelli mostrati): lo stesso valore
+  in un campo — il locatore di casa, un riferimento POTA, le QSL spedite, il profilo di
+  stazione. Ogni QSO tiene il valore di prima nel suo storico; con molti QSO lavora da parte.
+- Azioni → Trova i QSO doppi: stesso nominativo, banda, genere di modo e profilo entro i
+  minuti scelti. Di ogni gruppo se ne tiene uno (il piu' confermato, o quello che scegli), che
+  prende dagli altri campi, conferme ed etichette; gli altri si cancellano e restano nello
+  storico.
+
+**Account eQSL e QRZ per profilo.** Nei profili stazione ogni profilo puo' avere i suoi
+account eQSL e QRZ Logbook: l'invio usa quelli del profilo del QSO, lo scarico delle conferme
+li prova tutti.
+
+**Collegamenti con altri programmi.**
+
+- Ripetitore UDP: quello che arriva da Decodium va anche ad altri programmi (GridTracker,
+  JTAlert…), e le loro risposte tornano a Decodium.
+- N1MM Logger+: i QSO arrivano dal suo pacchetto UDP (ContactInfo), anche corretti o
+  cancellati.
+- Log ADIF tenuti d'occhio: fldigi, WSJT-X, JTDX o un altro programma che scrive un ADIF; i
+  QSO nuovi entrano da soli, come quelli ripresi da Decodium.
+- Interfaccia HTTP locale (`docs/API.md`), solo su 127.0.0.1 e con una chiave: gia' lavorato,
+  ultimi QSO, registrare un QSO.
+- Wavelog tra i servizi QSL, con la scelta della stazione.
+
+**Diplomi.** Ogni diploma puo' avere le sue conferme valide (LoTW, eQSL, cartolina, QRZ…).
+Con la chiave API di Club Log, ogni settimana arriva il suo `cty.xml`: le entita' con le
+date, cosi' un QSO del 2005 con PJ2 e' Antille Olandesi, le operazioni non accettate
+dall'ARRL non contano per il DXCC e le entita' cancellate si vedono ma non contano. Un
+controllo confronta il log con le date e corregge solo il DXCC vuoto o messo dal cty.csv.
+
+**Radio: split, VFO B, RIT, XIT.** Con rigctld, TCI e flrig, nella barra in alto: split
+acceso o spento, VFO A/B, RIT e XIT, e la frequenza di trasmissione in split.
+
+**Contest.** Le regole si adattano all'edizione (bande, ore di attivita', pause, termine per
+il log), il tempo in aria e le pause si contano come vuole il regolamento (WPX: 36 ore su 48,
+pause di un'ora), il file call history (formato N1MM) suggerisce lo scambio, e in rete un PC
+distribuisce i numeri progressivi a tutti.
+
+**Log grandi.** Su un log da un milione di QSO: ordinare per colonna e cercare non fermano
+piu' la finestra (si preparano da parte, prima 2 secondi fermi), un QSO scritto a mano con
+un'ora vecchia entra in 0,35 secondi invece di 4,3, la tabella si ricarica in 0,18 secondi
+invece di 0,5, e la scheda del nominativo per le entita' piu' comuni conta da parte invece
+di fermarsi mezzo secondo.
+
 ## 1.16.34 — 28 settembre 2026
 
 **I QSO rimasti in Decodium si recuperano da soli.** Decodium scrive ogni QSO anche nel suo

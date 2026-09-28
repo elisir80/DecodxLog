@@ -36,6 +36,14 @@ struct ImportResult {
     QStringList errors;     // i primi problemi, per mostrarli all'operatore
 };
 
+struct BulkEditResult {
+    int changed{0};
+    int unchanged{0};       // avevano gia' quel valore, o il campo pieno con "solo dove e' vuoto"
+    int failed{0};
+    QStringList errors;     // i primi, con il nominativo
+    QList<qint64> changedIds;
+};
+
 struct ConfirmationResult {
     enum class Status { Confirmed, AlreadyConfirmed, NotFound, Invalid, Error };
     Status  status{Status::NotFound};
@@ -181,11 +189,38 @@ public:
     // conserva.
     bool softDeleteQso(qint64 id);
 
+    // Lo stesso valore in un campo di molti QSO, ognuno con la sua revisione
+    // nello storico ("bulk"): una correzione in blocco si disfa QSO per QSO.
+    // `onlyEmpty`: solo dove il campo e' vuoto. Un valore vuoto svuota il campo.
+    // Uno stato QSL messo a Y prende la data di oggi, se non ne ha una. Il campo
+    // "@profile" e' il profilo di stazione (il valore e' il suo id). A blocchi
+    // di 500 QSO, ognuno nella sua transazione, e dopo ogni blocco `progress`.
+    BulkEditResult bulkEdit(const QList<qint64>& ids, const QString& field, const QString& value, bool onlyEmpty,
+                            const std::function<void(int done, int total)>& progress = {});
+
+    // I doppioni: stesso nominativo, banda, gruppo di modo (CW, fonia, digitali)
+    // e profilo di stazione, e ognuno entro `windowSeconds` dal QSO prima. Un
+    // gruppo per lista, gli id in ordine di tempo; al massimo `limit` gruppi.
+    QList<QList<qint64>> duplicateGroups(int windowSeconds, int limit = 5000) const;
+
+    // Unisce dei doppioni in `keep`: prende dagli altri i campi che gli mancano,
+    // le conferme (una Y vince), le etichette e il riferimento remoto dove lui
+    // non ne ha; gli altri si cancellano (morbido, restano nello storico).
+    InsertResult mergeQsos(qint64 keep, const QList<qint64>& others);
+
     // Il log conosce gia' questo QSO? Stessa banda, ora entro la finestra dei
     // doppioni digitali, e lo stesso nominativo: adesso o in una versione
     // precedente, anche se poi e' stato cancellato. Per chi recupera QSO da un
     // altro log: un QSO corretto o cancellato qui non deve tornare.
     bool knowsQso(const AdifRecord& record) const;
+
+    // Gli ultimi QSO (non cancellati), del nominativo se c'e', dal piu' recente.
+    QList<qint64> latestIds(const QString& call, int limit) const;
+
+    // Il QSO (non cancellato) che ha `value` nel campo ADIF senza colonna
+    // `field` (in adif_extra), cercato vicino a `near` (un giorno prima e dopo)
+    // se l'ora e' valida: l'ID di N1MM, il numero di un altro log.
+    std::optional<qint64> findByExtra(const QString& field, const QString& value, const QDateTime& near = {}) const;
 
     // Il record ADIF completo di un QSO: colonne, stati QSL e adif_extra.
     std::optional<AdifRecord> record(qint64 id) const;
@@ -201,8 +236,12 @@ public:
     // IOTA). Il QSO si cerca per nominativo, banda, gruppo di modi e ora entro
     // `windowSeconds` (LoTW tollera mezz'ora); diventa confermato con una nuova
     // revisione, e i dettagli riempiono solo i campi vuoti.
+    // `onlyProfiles` e `exceptProfiles` limitano i QSO a quelli di alcuni profili
+    // di stazione (0 = senza profilo): un account di un profilo conferma solo i
+    // suoi QSO, quello generale tutti gli altri.
     ConfirmationResult applyConfirmation(const QString& service, const AdifRecord& confirmation,
-                                         int windowSeconds = 1800);
+                                         int windowSeconds = 1800, const QList<qint64>& onlyProfiles = {},
+                                         const QList<qint64>& exceptProfiles = {});
 
     ImportResult importAdif(const QByteArray& data, const QString& source = QStringLiteral("import"),
                             qint64 stationProfileId = 0);
@@ -217,6 +256,10 @@ public:
     QByteArray   exportAdif(const QList<qint64>& ids, const QString& programVersion = {}) const;
 
     int qsoCount() const;
+    // Cambia ogni volta che il log cambia, da questa connessione o da un'altra
+    // (un import o una modifica in blocco su un altro filo), e costa niente:
+    // per sapere se vale la pena ricontare qualcosa.
+    QString changeStamp() const;
     int dirtyCount() const;
     int conflictCount() const;
     WorkedBefore workedBefore(const QString& call) const;

@@ -199,6 +199,38 @@ class Presence(Base):
     client: Mapped[str] = mapped_column(String(64), default="")
 
 
+class Member(Base):
+    """Un operatore che scrive nel log di un altro account (vedi team.py).
+
+    `log_id` e' l'account che tiene il log — il nominativo del club —,
+    `member_id` chi ci entra con il proprio. `role`: operator o viewer.
+    """
+
+    __tablename__ = "team_member"
+    __table_args__ = (UniqueConstraint("log_id", "member_id", name="uq_team_member"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    log_id: Mapped[int] = mapped_column(ForeignKey("account.id", ondelete="CASCADE"), index=True)
+    member_id: Mapped[int] = mapped_column(ForeignKey("account.id", ondelete="CASCADE"), index=True)
+    role: Mapped[str] = mapped_column(String(16), default="operator")
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+
+class Invite(Base):
+    """Un codice per entrare in un log condiviso: se ne tiene l'impronta, vale una volta."""
+
+    __tablename__ = "team_invite"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    log_id: Mapped[int] = mapped_column(ForeignKey("account.id", ondelete="CASCADE"), index=True)
+    code_hash: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    role: Mapped[str] = mapped_column(String(16), default="operator")
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    expires_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True))
+    used_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    used_by: Mapped[int | None] = mapped_column(Integer, nullable=True)
+
+
 class Counter(Base):
     """Il contatore delle modifiche, uno per account: e' il cursore del pull."""
 

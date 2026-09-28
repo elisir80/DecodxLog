@@ -46,6 +46,9 @@ DialogFrame {
     onOpened: {
         portField.text = decolog.udpPort
         groupField.text = decolog.multicastGroup
+        forwardField.text = decolog.udpForward
+        n1mmField.text = decolog.n1mmPort
+        apiField.text = decolog.apiPort
         serverField.text = decolog.cloud.server
         backupDirField.text = decolog.backupDir
         backupTimeField.text = decolog.backupTime
@@ -57,6 +60,11 @@ DialogFrame {
         if (!isNaN(port))
             decolog.udpPort = port
         decolog.multicastGroup = groupField.text.trim()
+        decolog.udpForward = forwardField.text.trim()
+        const n1mm = parseInt(n1mmField.text)
+        decolog.n1mmPort = isNaN(n1mm) ? 0 : n1mm
+        const api = parseInt(apiField.text)
+        decolog.apiPort = isNaN(api) ? 0 : api
         decolog.cloud.server = serverField.text.trim()
         decolog.backupDir = backupDirField.text.trim()
         decolog.backupTime = backupTimeField.text.trim()
@@ -133,6 +141,13 @@ DialogFrame {
         title: qsTr("TQSL program")
         nameFilters: [qsTr("Programs (*.exe)"), qsTr("All files (*)")]
         onAccepted: decolog.qsl.tqslPath = decolog.localPath(selectedFile)
+    }
+
+    FileDialog {
+        id: watchDialog
+        title: qsTr("An ADIF log to keep an eye on")
+        nameFilters: [qsTr("ADIF logs (*.adi *.adif)"), qsTr("All files (*)")]
+        onAccepted: decolog.addAdifWatch(decolog.localPath(selectedFile), "")
     }
 
     FileDialog {
@@ -270,6 +285,58 @@ DialogFrame {
                     Note {
                         id: ctyNote
                         text: qsTr("Source: %1. Updated files: country-files.com (AD1C). New QSOs from Decodium and manual entries get DXCC, country, zones and continent automatically; imported ADIF is kept as it is.").arg(decolog.countriesSource)
+                    }
+                    // Le entita' con le date: il cty.xml di Club Log.
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 8
+                        Tile {
+                            label: qsTr("Club Log cty.xml")
+                            value: decolog.clublogCty.loaded ? decolog.clublogCty.date : "—"
+                        }
+                        Tile {
+                            label: qsTr("QSOs of another entity on that date")
+                            value: decolog.entityFixes.count !== undefined ? decolog.entityFixes.count : "—"
+                            valueColor: decolog.entityFixes.count > 0 ? Theme.warningColor : Theme.textPrimary
+                        }
+                    }
+                    RowLayout {
+                        spacing: 8
+                        GlassButton {
+                            text: decolog.clublogCty.busy ? qsTr("Working…") : qsTr("Update cty.xml")
+                            enabled: !decolog.clublogCty.busy && decolog.clublogCty.hasKey
+                            onClicked: decolog.updateClubLogCty()
+                        }
+                        GlassButton {
+                            text: qsTr("Check the entities with the dates")
+                            enabled: decolog.clublogCty.loaded && !decolog.clublogCty.busy
+                            onClicked: decolog.checkEntitiesByDate()
+                        }
+                        GlassButton {
+                            visible: decolog.entityFixes.count > 0
+                            text: qsTr("Correct %1 QSO").arg(decolog.entityFixes.count || 0)
+                            tone: Theme.warningColor
+                            filled: true
+                            onClicked: ctyNote.text = qsTr("%1 QSO corrected, each kept as a new revision.").arg(decolog.applyEntityFixes())
+                        }
+                    }
+                    Repeater {
+                        model: decolog.entityFixes.examples || []
+                        Text {
+                            required property var modelData
+                            text: "%1 · %2 · %3 → %4 %5%6".arg(modelData.call).arg(decolog.showDate(modelData.date))
+                                  .arg(modelData.from || "—").arg(modelData.to).arg(modelData.name)
+                                  .arg(modelData.deleted ? " (" + qsTr("deleted") + ")" : "")
+                            color: Theme.textSecondary
+                            font.family: Theme.monoFamily
+                            font.pixelSize: 11
+                        }
+                    }
+                    Note {
+                        text: decolog.clublogCty.status.length ? decolog.clublogCty.status
+                              : !decolog.clublogCty.hasKey
+                                ? qsTr("With the Club Log API key (QSL services) DecoDXLog downloads Club Log's cty.xml every week: the entities with their dates, so a QSO of 2005 with PJ2 is the Netherlands Antilles and not Curacao, operations the ARRL did not accept do not count for DXCC, and deleted entities are shown but not counted.")
+                                : qsTr("Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today's cty.csv — the one written by LoTW or by you stays.")
                     }
                     SectionTitle { text: qsTr("Language") }
                     RowLayout {
@@ -549,6 +616,21 @@ DialogFrame {
                         }
                     }
                     Note { text: qsTr("In Decodium set the UDP server to this address and port. A multicast group (e.g. 239.255.0.1) shares the stream with GridTracker or JTAlert. Duplicate windows are in General.") }
+                    // Il ripetitore: Decodium manda qui, e DecoDXLog passa a chi serve.
+                    LabeledField {
+                        Layout.fillWidth: true
+                        label: qsTr("Forward to other programs")
+                        StyledTextField {
+                            id: forwardField
+                            Layout.fillWidth: true
+                            placeholderText: qsTr("e.g. 127.0.0.1:2238, 127.0.0.1:2333 — empty = off")
+                        }
+                    }
+                    Note {
+                        text: decolog.udpForwardError.length ? decolog.udpForwardError
+                              : qsTr("Every packet from Decodium also goes to these programs (JTAlert, GridTracker, HamLog…), and their answers (reply to a caller, halt TX) go back to Decodium. So Decodium sends to one port only and everybody gets it.")
+                        color: decolog.udpForwardError.length ? Theme.errorColor : Theme.textSecondary
+                    }
 
                     // ── I QSO rimasti nel log di Decodium ───────────────────
                     SectionTitle { text: qsTr("QSOs left in the Decodium log") }
@@ -602,6 +684,137 @@ DialogFrame {
                                    + "reads the QSOs logged since the last check and saves the ones missing here and in the "
                                    + "other logs of the list. QSOs corrected or deleted here do not come back. The first time "
                                    + "it looks back one week, the buttons further. Empty field = the log Decodium is using.")
+                    }
+
+                    // ── Gli altri log ADIF: fldigi, WSJT-X, JTDX... ─────────
+                    SectionTitle { text: qsTr("Other ADIF logs to keep an eye on") }
+                    Repeater {
+                        model: decolog.adifWatches
+                        RowLayout {
+                            required property var modelData
+                            Layout.fillWidth: true
+                            spacing: 10
+                            ToggleSwitch {
+                                checked: modelData.enabled
+                                onToggled: decolog.setAdifWatchEnabled(modelData.path, checked)
+                            }
+                            ColumnLayout {
+                                Layout.fillWidth: true
+                                spacing: 0
+                                Text { text: modelData.label; color: Theme.textPrimary; font.bold: true; font.pixelSize: 12 }
+                                Text {
+                                    Layout.fillWidth: true
+                                    elide: Text.ElideMiddle
+                                    text: !modelData.exists ? qsTr("not found: %1").arg(modelData.nativePath)
+                                          : modelData.status.length ? modelData.status : modelData.nativePath
+                                    color: modelData.exists ? Theme.textSecondary : Theme.warningColor
+                                    font.pixelSize: 11
+                                }
+                            }
+                            GlassButton {
+                                text: qsTr("Check the whole file")
+                                enabled: !decolog.recoveryBusy && modelData.exists
+                                onClicked: decolog.checkAdifWatch(modelData.path, 0)
+                            }
+                            GlassButton {
+                                text: qsTr("Remove")
+                                tone: Theme.errorColor
+                                onClicked: decolog.removeAdifWatch(modelData.path)
+                            }
+                        }
+                    }
+                    RowLayout {
+                        spacing: 8
+                        GlassButton { text: qsTr("Add a file…"); onClicked: watchDialog.open() }
+                        // I programmi trovati al loro posto: un clic e basta.
+                        Repeater {
+                            model: decolog.adifWatchSuggestions
+                            GlassButton {
+                                required property var modelData
+                                text: qsTr("Add %1").arg(modelData.label)
+                                onClicked: decolog.addAdifWatch(modelData.path, modelData.label)
+                            }
+                        }
+                    }
+                    Note {
+                        text: qsTr("The QSOs that other programs (fldigi, WSJT-X, JTDX…) write in these logs and that are missing "
+                                   + "here are saved every 5 minutes, from the moment the file is added. For the older ones, "
+                                   + "“Check the whole file”.")
+                    }
+
+                    // ── N1MM Logger+ ────────────────────────────────────────
+                    SectionTitle { text: "N1MM Logger+" }
+                    RowLayout {
+                        spacing: 12
+                        LabeledField {
+                            label: qsTr("UDP port (0 = off)")
+                            StyledTextField {
+                                id: n1mmField
+                                Layout.preferredWidth: 100
+                                validator: IntValidator { bottom: 0; top: 65535 }
+                            }
+                        }
+                        Item { Layout.fillWidth: true }
+                        Pill {
+                            Layout.alignment: Qt.AlignBottom
+                            text: decolog.n1mmPort <= 0 ? qsTr("off")
+                                : decolog.n1mmListening ? qsTr("listening") : qsTr("error")
+                            tone: decolog.n1mmPort <= 0 ? Theme.textSecondary
+                                : decolog.n1mmListening ? Theme.accentColor : Theme.errorColor
+                        }
+                    }
+                    Note {
+                        text: decolog.n1mmError.length && decolog.n1mmPort > 0 ? decolog.n1mmError
+                              : qsTr("N1MM Logger+ sends every contact on this port (Config → Configure Ports → Broadcast Data → "
+                                     + "Contacts, usually 12060). A contact corrected or deleted in N1MM is corrected or deleted "
+                                     + "here too.")
+                        color: decolog.n1mmError.length && decolog.n1mmPort > 0 ? Theme.errorColor : Theme.textSecondary
+                    }
+
+                    // ── L'interfaccia HTTP locale ───────────────────────────
+                    SectionTitle { text: qsTr("Local interface for other programs") }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 12
+                        LabeledField {
+                            label: qsTr("Port on 127.0.0.1 (0 = off)")
+                            StyledTextField {
+                                id: apiField
+                                Layout.preferredWidth: 100
+                                validator: IntValidator { bottom: 0; top: 65535 }
+                            }
+                        }
+                        LabeledField {
+                            Layout.fillWidth: true
+                            visible: decolog.apiToken.length > 0
+                            label: qsTr("Key (X-DecoDXLog-Token)")
+                            StyledTextField {
+                                Layout.fillWidth: true
+                                readOnly: true
+                                selectByMouse: true
+                                text: decolog.apiToken
+                            }
+                        }
+                        GlassButton {
+                            Layout.alignment: Qt.AlignBottom
+                            visible: decolog.apiToken.length > 0
+                            text: qsTr("New key")
+                            onClicked: decolog.newApiToken()
+                        }
+                        Pill {
+                            Layout.alignment: Qt.AlignBottom
+                            text: decolog.apiPort <= 0 ? qsTr("off")
+                                : decolog.apiListening ? qsTr("listening") : qsTr("error")
+                            tone: decolog.apiPort <= 0 ? Theme.textSecondary
+                                : decolog.apiListening ? Theme.accentColor : Theme.errorColor
+                        }
+                    }
+                    Note {
+                        text: decolog.apiError.length && decolog.apiPort > 0 ? decolog.apiError
+                              : qsTr("For programs next to DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&band=…&mode=…, "
+                                     + "/api/v1/qsos?call=…&limit=…, and POST /api/v1/qso with an ADIF record to log it. "
+                                     + "Only from this computer, and always with the key. Details: docs/API.md.")
+                        color: decolog.apiError.length && decolog.apiPort > 0 ? Theme.errorColor : Theme.textSecondary
                     }
 
                     SectionTitle { text: qsTr("DecoLink · log towards Decodium") }
@@ -896,6 +1109,163 @@ DialogFrame {
                         }
                     }
 
+                    // ── Log condiviso ────────────────────────────────────
+                    // Un club, una gara multi-operatore: un log, piu' operatori,
+                    // ognuno con il suo account. Chi tiene il log invita, chi
+                    // riceve il codice entra; poi sceglie quale suo file di log
+                    // va con quello condiviso.
+                    ColumnLayout {
+                        id: teamSection
+                        Layout.fillWidth: true
+                        Layout.topMargin: 10
+                        spacing: 6
+                        onVisibleChanged: if (visible && decolog.cloud.linked) decolog.cloud.refreshTeam()
+                        readonly property var team: decolog.cloud.team
+                        SectionTitle { text: qsTr("Shared log") }
+                        Note {
+                            text: qsTr("A club station, a multi-operator contest: one log, several operators, each "
+                                       + "with their own Cloud account — nobody lends a password. The owner of the "
+                                       + "log creates an invite, whoever gets the code joins with it. Only QSOs "
+                                       + "travel: profiles, settings and service passwords stay with the owner.")
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+                            spacing: 8
+                            Text {
+                                text: qsTr("This log syncs with")
+                                color: Theme.textSecondary
+                                font.pixelSize: 12
+                            }
+                            StyledComboBox {
+                                id: sharedBox
+                                Layout.preferredWidth: 280
+                                readonly property var logs: {
+                                    const list = [""].concat((teamSection.team.memberships || []).map(m => m.log))
+                                    // Quello scelto resta in lista anche prima che il server risponda.
+                                    if (decolog.cloud.sharedLog.length && list.indexOf(decolog.cloud.sharedLog) < 0)
+                                        list.push(decolog.cloud.sharedLog)
+                                    return list
+                                }
+                                model: logs.map(l => l === "" ? qsTr("my own log (%1)").arg(decolog.cloud.callsign || "—")
+                                                              : qsTr("the shared log of %1").arg(l))
+                                currentIndex: Math.max(0, logs.indexOf(decolog.cloud.sharedLog))
+                                enabled: decolog.cloud.linked
+                                onActivated: decolog.cloud.sharedLog = logs[currentIndex]
+                            }
+                            GlassButton {
+                                text: qsTr("Refresh")
+                                enabled: decolog.cloud.linked
+                                onClicked: decolog.cloud.refreshTeam()
+                            }
+                        }
+                        Note {
+                            visible: decolog.cloud.sharedLog.length > 0
+                            text: qsTr("The QSOs of this log go to the log of %1, and its QSOs come here: keep a log "
+                                       + "just for it (Log → New log).").arg(decolog.cloud.sharedLog)
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+                            spacing: 8
+                            StyledTextField {
+                                id: joinCode
+                                Layout.preferredWidth: 280
+                                placeholderText: qsTr("Invite code, e.g. K7Q2-9XMP-D4TA")
+                            }
+                            GlassButton {
+                                text: qsTr("Join with the code")
+                                enabled: decolog.cloud.linked && joinCode.text.trim().length >= 6
+                                onClicked: {
+                                    decolog.cloud.joinWithCode(joinCode.text)
+                                    joinCode.text = ""
+                                }
+                            }
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+                            spacing: 8
+                            StyledComboBox {
+                                id: inviteRole
+                                Layout.preferredWidth: 280
+                                model: [qsTr("operator: sends and gets the QSOs"), qsTr("viewer: only looks")]
+                            }
+                            GlassButton {
+                                text: qsTr("Invite into the log of %1").arg(decolog.cloud.callsign || "—")
+                                enabled: decolog.cloud.linked
+                                onClicked: decolog.cloud.createInvite(inviteRole.currentIndex === 1 ? "viewer" : "operator")
+                            }
+                        }
+                        TextEdit {
+                            visible: !!decolog.cloud.lastInvite.code
+                            readOnly: true
+                            selectByMouse: true
+                            text: decolog.cloud.lastInvite.code
+                                  ? qsTr("Code %1 — %2, valid until %3").arg(decolog.cloud.lastInvite.code)
+                                    .arg(decolog.cloud.lastInvite.role === "viewer" ? qsTr("viewer") : qsTr("operator"))
+                                    .arg(String(decolog.cloud.lastInvite.expiresAt).slice(0, 10))
+                                  : ""
+                            color: Theme.accentColor
+                            font.family: Theme.monoFamily
+                            font.pixelSize: 14
+                            font.bold: true
+                        }
+                        Repeater {
+                            model: teamSection.team.members || []
+                            RowLayout {
+                                required property var modelData
+                                spacing: 8
+                                Text {
+                                    Layout.preferredWidth: 110
+                                    text: modelData.callsign
+                                    color: Theme.textPrimary
+                                    font.family: Theme.monoFamily
+                                    font.pixelSize: 12
+                                }
+                                Text {
+                                    Layout.preferredWidth: 160
+                                    text: modelData.role === "viewer" ? qsTr("viewer in your log") : qsTr("operator in your log")
+                                    color: Theme.textSecondary
+                                    font.pixelSize: 12
+                                }
+                                GlassButton {
+                                    text: qsTr("Remove")
+                                    buttonHeight: 22
+                                    fontPixelSize: 11
+                                    onClicked: decolog.cloud.removeMember(modelData.callsign)
+                                }
+                            }
+                        }
+                        Repeater {
+                            model: teamSection.team.memberships || []
+                            RowLayout {
+                                required property var modelData
+                                spacing: 8
+                                Text {
+                                    Layout.preferredWidth: 110
+                                    text: modelData.log
+                                    color: Theme.textPrimary
+                                    font.family: Theme.monoFamily
+                                    font.pixelSize: 12
+                                }
+                                Text {
+                                    Layout.preferredWidth: 160
+                                    text: modelData.role === "viewer" ? qsTr("you look at its log") : qsTr("you write in its log")
+                                    color: Theme.textSecondary
+                                    font.pixelSize: 12
+                                }
+                                GlassButton {
+                                    text: qsTr("Leave")
+                                    buttonHeight: 22
+                                    fontPixelSize: 11
+                                    onClicked: decolog.cloud.leaveLog(modelData.log)
+                                }
+                            }
+                        }
+                        Note {
+                            visible: decolog.cloud.teamStatus.length > 0
+                            text: decolog.cloud.teamStatus
+                        }
+                    }
+
                     // ── Zona pericolosa ──────────────────────────────────
                     // Si vede sempre, anche scollegati: una funzione che sparisce
                     // e' una funzione che non c'e', e chi la cerca non la trova.
@@ -1157,9 +1527,53 @@ DialogFrame {
                                    + "deleted there, and with the network down they wait in the queue and leave at the "
                                    + "next sending. Sending, automatic sending and the counters are in the QSL tab at the bottom.")
                     }
+                    // ── Wavelog (o Cloudlog) ────────────────────────────────
+                    SectionTitle { text: "Wavelog" }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 12
+                        LabeledField {
+                            label: qsTr("Station on Wavelog")
+                            StyledComboBox {
+                                Layout.preferredWidth: 280
+                                readonly property var stations: decolog.qsl.wavelogStations
+                                model: stations.length > 0
+                                       ? stations.map(s => s.name + (s.call ? " · " + s.call : "") + (s.active ? " ✓" : ""))
+                                       : [decolog.qsl.wavelogStationId.length > 0
+                                          ? qsTr("station %1").arg(decolog.qsl.wavelogStationId) : qsTr("— load the list —")]
+                                currentIndex: {
+                                    for (let i = 0; i < stations.length; ++i)
+                                        if (stations[i].id === decolog.qsl.wavelogStationId)
+                                            return i
+                                    return stations.length > 0 ? -1 : 0
+                                }
+                                onActivated: if (stations.length > 0) decolog.qsl.wavelogStationId = stations[currentIndex].id
+                            }
+                        }
+                        GlassButton {
+                            Layout.alignment: Qt.AlignBottom
+                            text: qsTr("Load my stations")
+                            onClicked: decolog.qsl.fetchWavelogStations()
+                        }
+                    }
+                    Text {
+                        Layout.fillWidth: true
+                        visible: decolog.qsl.wavelogStatus.length > 0
+                        text: decolog.qsl.wavelogStatus
+                        color: Theme.textSecondary
+                        font.family: Theme.monoFamily
+                        font.pixelSize: 11
+                        wrapMode: Text.Wrap
+                    }
+                    Note {
+                        text: qsTr("Wavelog (and Cloudlog) is the web log on your own site. Below it wants the address of the "
+                                   + "site (for example log.mysite.org) and an API key with read and write rights, made in "
+                                   + "Wavelog under Account → API keys; then the station to write in. Sending, automatic "
+                                   + "sending and the counters are in the QSL tab at the bottom.")
+                    }
                     CredentialsList {
                         Layout.fillWidth: true
-                        serviceIds: ["lotw", "qrzlogbook", "clublog", "eqsl", "crx", "hrdlog"]
+                        serviceIds: ["lotw", "qrzlogbook", "clublog", "eqsl", "crx", "hrdlog", "wavelog"]
                     }
 
                     // ── La casella da cui partono le cartoline ─────────────

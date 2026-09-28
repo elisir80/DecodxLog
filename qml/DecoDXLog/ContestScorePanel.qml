@@ -157,6 +157,23 @@ GlassPanel {
             }
         }
 
+        // Il tempo in aria: il WPX da singolo ne concede 36 ore su 48, e una
+        // pausa conta solo se dura almeno un'ora.
+        Text {
+            Layout.fillWidth: true
+            visible: root.scoring.valid && (root.scoring.onMinutes || 0) > 0
+            readonly property string on: Math.floor((root.scoring.onMinutes || 0) / 60) + ":"
+                                         + String((root.scoring.onMinutes || 0) % 60).padStart(2, "0")
+            readonly property string max: Math.floor((root.scoring.maxMinutes || 0) / 60) + ":00"
+            text: (root.scoring.maxMinutes || 0) > 0
+                  ? qsTr("On the air %1 of %2 · %n break(s)", "", root.scoring.breaks || 0).arg(on).arg(max)
+                  : qsTr("On the air %1 · %n break(s)", "", root.scoring.breaks || 0).arg(on)
+            color: root.scoring.overTime ? Theme.errorColor : Theme.textSecondary
+            font.family: Theme.monoFamily
+            font.pixelSize: 11
+            wrapMode: Text.Wrap
+        }
+
         RowLayout {
             Layout.fillWidth: true
             spacing: 6

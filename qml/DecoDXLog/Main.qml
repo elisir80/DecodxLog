@@ -951,6 +951,8 @@ ApplicationWindow {
         else if (what[0] === "tab") window.panelItem("tabs").setTab(parseInt(what[1]))
         // La scelta del periodo per lo scarico LoTW, aperta per guardarla.
         else if (what[0] === "lotwperiod") { window.panelItem("tabs").setTab(2); lotwPeriodTimer.start() }
+        // La previsione verso un locatore, con VOACAP se c'e'.
+        else if (what[0] === "forecast") forecastTimer.start()
         // Per le prove: il recupero dal log di Decodium, degli ultimi N giorni (0 = tutto).
         else if (what[0] === "recover") decolog.recoverFromDecodium(parseInt(what[1] || "0"))
         else if (what[0] === "pop") popWindow.active = true
@@ -1177,6 +1179,8 @@ ApplicationWindow {
         }
     }
     Timer { id: lotwPeriodTimer; interval: 1200; onTriggered: window.panelItem("tabs").item.openLotwPeriod() }
+    Timer { id: forecastTimer; interval: 1200
+           onTriggered: window.panelItem("tabs").item.showForecast(startupShow.split(":")[1] || "PM95") }
     Timer { id: comboTimer; interval: 800
            onTriggered: { const it = window.panelItem("cw"); if (it) it.showCombo() } }
     Timer { id: combo2Timer; interval: 900; onTriggered: newQsoDialog.showBandCombo() }
@@ -1361,8 +1365,11 @@ ApplicationWindow {
 
     FileDialog {
         id: importDialog
-        title: qsTr("Import ADIF")
-        nameFilters: [qsTr("ADIF files (*.adi *.adif)"), qsTr("All files (*)")]
+        title: qsTr("Import a log")
+        // L'ADIF di qualunque programma, un foglio di calcolo, il database di N1MM.
+        nameFilters: [qsTr("Logs (*.adi *.adif *.csv *.tsv *.s3db)"), qsTr("ADIF files (*.adi *.adif)"),
+                      qsTr("Spreadsheets (*.csv *.tsv)"), qsTr("N1MM Logger+ databases (*.s3db)"),
+                      qsTr("All files (*)")]
         onAccepted: decolog.importAdif(selectedFile)
     }
     FileDialog {

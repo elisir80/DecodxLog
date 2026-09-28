@@ -9,6 +9,10 @@ client Qt di DecoDXLog implementa.
     GET  /v1/sync/pull     quello che e' cambiato dopo un cursore
     GET  /v1/sync/status   quanti QSO ci sono e a che punto e' il contatore
     GET  /v1/health        per il monitoraggio
+    /v1/team/...           un log per piu' operatori (team.py)
+
+Il sync lavora sul log dell'account, o su quello scritto in X-DecoLog-Log se
+l'account ne fa parte.
 """
 
 from __future__ import annotations
@@ -28,7 +32,7 @@ from pathlib import Path
 
 from fastapi.staticfiles import StaticFiles
 
-from . import approval, auth, mailer, qslmail, sync, web
+from . import approval, auth, mailer, qslmail, sync, team, web
 from .models import Account, Counter, Doc, Qso, QsoHistory, create_all
 from .settings import settings
 
@@ -209,13 +213,27 @@ def token(body: Credentials, db: Session = Depends(auth.session)) -> TokenOut:
 @app.post("/v1/sync/push", response_model=PushOut)
 def push(
     body: PushIn,
-    account: Account = Depends(auth.current_account),
+    access: auth.LogAccess = Depends(auth.current_log),
     db: Session = Depends(auth.session),
 ) -> PushOut:
     if len(body.qsos) + len(body.docs) > settings.max_batch:
         raise HTTPException(status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, "troppa roba in una volta")
-    results = [sync.apply_push(db, account, record.model_dump(), body.device) for record in body.qsos]
-    docs = [sync.apply_doc(db, account, record.model_dump(), body.device) for record in body.docs]
+    if not access.can_write:
+        raise HTTPException(status.HTTP_403_FORBIDDEN,
+                            f"nel log di {access.log.callsign} puoi solo guardare")
+    account = access.log
+    device = body.device
+    if access.shared:
+        # Nel registro del log condiviso si vede chi ha scritto.
+        device = f"{access.user.callsign} · {body.device}"[:120]
+    results = [sync.apply_push(db, account, record.model_dump(), device) for record in body.qsos]
+    # In un log condiviso viaggiano solo i QSO: profili, impostazioni e
+    # credenziali restano di chi lo tiene.
+    if access.shared:
+        docs = [{"kind": record.kind, "key": record.key, "status": "ignored", "revision": record.revision}
+                for record in body.docs]
+    else:
+        docs = [sync.apply_doc(db, account, record.model_dump(), device) for record in body.docs]
     db.commit()
     counter = db.get(Counter, account.id)
     return PushOut(results=results, docResults=docs, cursor=counter.value if counter else 0)
@@ -225,11 +243,14 @@ def push(
 def pull(
     since: int = Query(default=0, ge=0),
     limit: int = Query(default=0, ge=0),
-    account: Account = Depends(auth.current_account),
+    access: auth.LogAccess = Depends(auth.current_log),
     db: Session = Depends(auth.session),
 ) -> PullOut:
+    account = access.log
     size = min(limit or settings.page_size, settings.page_size)
     records, cursor, more = sync.pull(db, account, since, size)
+    if access.shared:
+        return PullOut(qsos=records, docs=[], cursor=cursor, more=more)
     # I documenti sono pochi e cambiano di rado: stanno nella stessa pagina,
     # fino al punto dove sono arrivati i QSO.
     docs = sync.pull_docs(db, account, since, size + 1)
@@ -248,9 +269,10 @@ def pull(
 
 @app.get("/v1/sync/status", response_model=StatusOut)
 def sync_status(
-    account: Account = Depends(auth.current_account),
+    access: auth.LogAccess = Depends(auth.current_log),
     db: Session = Depends(auth.session),
 ) -> StatusOut:
+    account = access.log
     total = db.scalar(
         select(func.count()).select_from(Qso).where(Qso.account_id == account.id, Qso.deleted.is_(False))
     )
@@ -321,7 +343,7 @@ class PresenceIn(BaseModel):
 @app.post("/v1/presence")
 def presence(
     body: PresenceIn,
-    account: Account = Depends(auth.current_account),
+    access: auth.LogAccess = Depends(auth.current_log),
     db: Session = Depends(auth.session),
 ) -> dict:
     """La frequenza di adesso, non un pezzo di log.
@@ -332,11 +354,15 @@ def presence(
     """
     from .models import Presence
 
+    account = access.log
+    # In un log condiviso ogni operatore e' una stazione a se': il suo
+    # nominativo davanti al nome del dispositivo.
+    device = f"{access.user.callsign} · {body.device}"[:120] if access.shared else body.device
     row = db.scalar(
-        select(Presence).where(Presence.account_id == account.id, Presence.device == body.device)
+        select(Presence).where(Presence.account_id == account.id, Presence.device == device)
     )
     if row is None:
-        row = Presence(account_id=account.id, device=body.device)
+        row = Presence(account_id=account.id, device=device)
         db.add(row)
 
     row.frequency_hz = body.frequencyHz
@@ -362,7 +388,8 @@ def health() -> dict:
     #   contest — punteggio del contest, nel log dal browser
     #   purge   — svuotare il Cloud di un nominativo (/v1/account/purge)
     #   approval— chi si registra aspetta il via libera di una persona
-    features = ["qso", "docs", "web", "stats", "contest", "purge"]
+    #   team    — un log per piu' operatori, con gli inviti (/v1/team)
+    features = ["qso", "docs", "web", "stats", "contest", "purge", "team"]
     if settings.approval_required:
         features.append("approval")
     # Il programma guarda qui per sapere se puo' mandare le QSL da questo Cloud
@@ -380,5 +407,6 @@ app.mount("/static", StaticFiles(directory=str(Path(__file__).parent / "static")
 # La pagina che decide chi entra sta prima del sito: e' un collegamento che
 # arriva per email, non una cosa che si naviga.
 app.include_router(qslmail.router)
+app.include_router(team.router)
 app.include_router(approval.router)
 app.include_router(web.router)

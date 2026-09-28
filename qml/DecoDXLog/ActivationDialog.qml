@@ -37,9 +37,27 @@ DialogFrame {
     dotColor: act.active ? Theme.accentColor : Theme.secondaryColor
     dialogKey: "activation"
     width: 760
-    height: 600
+    height: 700
     info: act.active ? qsTr("open since %1 UTC · %2").arg(String(root.state.startedAt).substring(11, 16)).arg(root.state.elapsed)
                      : ""
+
+    FileDialog {
+        id: historyDialog
+        title: qsTr("Call history file (N1MM format)")
+        nameFilters: [qsTr("Call history (*.txt *.csv)"), qsTr("All files (*)")]
+        onAccepted: errorText.text = root.act.loadCallHistory(selectedFile)
+    }
+
+    // Le regole di questa edizione nel draft: solo quello che si cambia.
+    function setRule(key, value) {
+        const rules = Object.assign({}, root.draft.rules || {})
+        if (value === undefined || value === null || value === "")
+            delete rules[key]
+        else
+            rules[key] = value
+        root.set("rules", rules)
+    }
+    readonly property var edition: { root.draft; root.state; return root.act.editionRules() }
 
     FileDialog {
         id: exportDialog
@@ -229,6 +247,87 @@ DialogFrame {
                     validator: IntValidator { bottom: 1; top: 99999 }
                     onEditingFinished: root.set("nextSerial", parseInt(text) || 1)
                 }
+            }
+            // Multi-operatore: una sequenza sola per tutti i PC della rete.
+            ToggleSwitch {
+                Layout.alignment: Qt.AlignBottom
+                Layout.bottomMargin: 4
+                visible: !!root.draft.serialEnabled
+                text: qsTr("Shared on the network")
+                checked: !!root.draft.sharedSerial
+                onToggled: root.set("sharedSerial", checked)
+            }
+        }
+
+        // ── Le regole di questa edizione e il call history (contest) ────────
+        RowLayout {
+            Layout.fillWidth: true
+            visible: root.draft.kind === "contest" && root.act.active && root.edition.valid
+            spacing: 10
+            LabeledField {
+                Layout.fillWidth: true
+                label: qsTr("Bands of this edition")
+                StyledTextField {
+                    Layout.fillWidth: true
+                    text: (root.draft.rules && root.draft.rules.bands ? root.draft.rules.bands : root.edition.bands || []).join(", ")
+                    placeholderText: (root.edition.baseBands || []).join(", ")
+                    onEditingFinished: root.setRule("bands", text.trim().length
+                                                    ? text.split(/[ ,;]+/).filter(b => b.length) : undefined)
+                }
+            }
+            LabeledField {
+                label: qsTr("Operating hours")
+                StyledTextField {
+                    Layout.preferredWidth: 70
+                    text: root.edition.maxOperatingHours || ""
+                    placeholderText: qsTr("no limit")
+                    validator: IntValidator { bottom: 0; top: 96 }
+                    onEditingFinished: root.setRule("maxOperatingHours", text.length ? parseInt(text) : undefined)
+                }
+            }
+            LabeledField {
+                label: qsTr("Off-time from (min)")
+                StyledTextField {
+                    Layout.preferredWidth: 70
+                    text: root.edition.minOffMinutes || ""
+                    placeholderText: "30"
+                    validator: IntValidator { bottom: 0; top: 600 }
+                    onEditingFinished: root.setRule("minOffMinutes", text.length ? parseInt(text) : undefined)
+                }
+            }
+            LabeledField {
+                label: qsTr("Log within (h)")
+                StyledTextField {
+                    Layout.preferredWidth: 70
+                    text: root.edition.submitHours || ""
+                    validator: IntValidator { bottom: 0; top: 720 }
+                    onEditingFinished: root.setRule("submitHours", text.length ? parseInt(text) : undefined)
+                }
+            }
+        }
+        RowLayout {
+            Layout.fillWidth: true
+            visible: root.draft.kind === "contest" && root.act.active
+            spacing: 10
+            Text {
+                text: qsTr("Call history")
+                color: Theme.textSecondary
+                font.pixelSize: 12
+            }
+            Text {
+                Layout.fillWidth: true
+                elide: Text.ElideMiddle
+                text: root.state.callHistoryCount > 0
+                      ? qsTr("%1 · %2 calls").arg(root.state.callHistoryName).arg(root.state.callHistoryCount)
+                      : qsTr("none: the exchange is suggested from the log and the country")
+                color: root.state.callHistoryCount > 0 ? Theme.textPrimary : Theme.textSecondary
+                font.pixelSize: 12
+            }
+            GlassButton { text: qsTr("Load…"); onClicked: historyDialog.open() }
+            GlassButton {
+                visible: root.state.callHistoryCount > 0
+                text: qsTr("Remove")
+                onClicked: root.act.clearCallHistory()
             }
         }
 

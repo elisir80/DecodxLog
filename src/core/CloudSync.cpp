@@ -67,14 +67,22 @@ CloudSync::CloudSync(QObject* parent)
 {
 }
 
-QNetworkReply* CloudSync::send(const QString& path, const QVariantMap& body, bool authenticated)
+void CloudSync::addHeaders(QNetworkRequest& request) const
 {
-    QNetworkRequest request(endpoint(m_base, path));
     network::useHttp11(request);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/json"));
     request.setHeader(QNetworkRequest::UserAgentHeader,
                       QStringLiteral("DecoDXLog/%1").arg(QCoreApplication::applicationVersion()));
     request.setTransferTimeout(60'000);
+    // Il log su cui si lavora, se non e' quello dell'account.
+    if (!m_sharedLog.isEmpty())
+        request.setRawHeader("X-DecoLog-Log", m_sharedLog.toUtf8());
+}
+
+QNetworkReply* CloudSync::send(const QString& path, const QVariantMap& body, bool authenticated)
+{
+    QNetworkRequest request(endpoint(m_base, path));
+    addHeaders(request);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/json"));
     if (authenticated && !m_token.isEmpty())
         request.setRawHeader("Authorization", "Bearer " + m_token.toUtf8());
     const QByteArray payload = QJsonDocument(QJsonObject::fromVariantMap(body)).toJson(QJsonDocument::Compact);
@@ -90,13 +98,67 @@ QNetworkReply* CloudSync::get(const QString& path, const QVariantMap& query)
     url.setQuery(q);
 
     QNetworkRequest request(url);
-    network::useHttp11(request);
-    request.setHeader(QNetworkRequest::UserAgentHeader,
-                      QStringLiteral("DecoDXLog/%1").arg(QCoreApplication::applicationVersion()));
-    request.setTransferTimeout(60'000);
+    addHeaders(request);
     if (!m_token.isEmpty())
         request.setRawHeader("Authorization", "Bearer " + m_token.toUtf8());
     return m_net->get(request);
+}
+
+QNetworkReply* CloudSync::remove(const QString& path)
+{
+    QNetworkRequest request(endpoint(m_base, path));
+    addHeaders(request);
+    if (!m_token.isEmpty())
+        request.setRawHeader("Authorization", "Bearer " + m_token.toUtf8());
+    return m_net->deleteResource(request);
+}
+
+void CloudSync::watchTeam(QNetworkReply* reply, const QString& what)
+{
+    connect(reply, &QNetworkReply::finished, this, [this, reply, what] {
+        reply->deleteLater();
+        const int code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        const QJsonObject answer = QJsonDocument::fromJson(reply->readAll()).object();
+        if (reply->error() != QNetworkReply::NoError || code >= 400) {
+            QString message = cloudsync::detailOf(answer.value(QStringLiteral("detail")));
+            // Un server che non sa dei log condivisi risponde 404 a tutto /v1/team.
+            if (code == 404 && what == QLatin1String("team"))
+                message = tr("This Cloud server does not know shared logs yet: it has to be updated.");
+            emit teamFailed(what, message.isEmpty() ? network::safeErrorString(reply) : message);
+            return;
+        }
+        emit teamReply(what, answer.toVariantMap());
+    });
+}
+
+void CloudSync::team()
+{
+    watchTeam(get(QStringLiteral("/v1/team"), {}), QStringLiteral("team"));
+}
+
+void CloudSync::teamInvite(const QString& role, int days)
+{
+    watchTeam(send(QStringLiteral("/v1/team/invite"),
+                   {{QStringLiteral("role"), role}, {QStringLiteral("days"), days}}, true),
+              QStringLiteral("invite"));
+}
+
+void CloudSync::teamJoin(const QString& code)
+{
+    watchTeam(send(QStringLiteral("/v1/team/join"), {{QStringLiteral("code"), code.trimmed()}}, true),
+              QStringLiteral("join"));
+}
+
+void CloudSync::teamRemoveMember(const QString& callsign)
+{
+    watchTeam(remove(QStringLiteral("/v1/team/members/") + QString::fromLatin1(QUrl::toPercentEncoding(callsign))),
+              QStringLiteral("remove"));
+}
+
+void CloudSync::teamLeave(const QString& log)
+{
+    watchTeam(remove(QStringLiteral("/v1/team/memberships/") + QString::fromLatin1(QUrl::toPercentEncoding(log))),
+              QStringLiteral("leave"));
 }
 
 void CloudSync::watch(QNetworkReply* reply, const QString& what)

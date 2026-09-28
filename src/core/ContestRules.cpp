@@ -126,6 +126,9 @@ ContestRules forId(const QString& contestId)
         r.submitUrl = QStringLiteral("https://www.cqwpxrtty.com/logcheck/");
         r.submitHours = 48;
         r.bands = fiveBands();
+        // Regolamento: i singoli operatori 30 ore su 48, pause di almeno 60 minuti.
+        r.maxOperatingHours = 30;
+        r.minOffMinutes = 60;
         return r;
     }
     if (id.startsWith(QLatin1String("CQ-WPX-"))) {
@@ -135,6 +138,9 @@ ContestRules forId(const QString& contestId)
         r.submitUrl = QStringLiteral("https://www.cqwpx.com/logcheck/");
         r.submitHours = 48;
         r.bands = sixBands();
+        // Regolamento: i singoli operatori 36 ore su 48, pause di almeno 60 minuti.
+        r.maxOperatingHours = 36;
+        r.minOffMinutes = 60;
         return r;
     }
     if (id == QLatin1String("IARU-HF")) {
@@ -172,6 +178,54 @@ ContestRules forId(const QString& contestId)
 
     r.valid = false;
     return r;
+}
+
+ContestRules withOverrides(ContestRules rules, const QVariantMap& o)
+{
+    if (!rules.valid)
+        return rules;
+    if (o.contains(QStringLiteral("bands"))) {
+        QStringList bands;
+        for (const QString& b : o.value(QStringLiteral("bands")).toStringList()) {
+            const QString clean = b.trimmed().toLower();
+            if (!clean.isEmpty())
+                bands << clean;
+        }
+        rules.bands = bands;
+    }
+    auto number = [&o](const char* key, int& target) {
+        const QString k = QLatin1String(key);
+        if (o.contains(k))
+            target = qMax(0, o.value(k).toInt());
+    };
+    number("submitHours", rules.submitHours);
+    number("submitDays", rules.submitDays);
+    number("maxOperatingHours", rules.maxOperatingHours);
+    number("minOffMinutes", rules.minOffMinutes);
+    return rules;
+}
+
+OperatingTime operatingTime(const ContestRules& rules, const QList<QDateTime>& times)
+{
+    OperatingTime t;
+    t.maxMinutes = rules.maxOperatingHours * 60;
+    if (times.size() < 2)
+        return t;
+    // Una pausa piu' corta del minimo e' tempo in aria; senza minimo nel
+    // regolamento si contano come pause quelle di mezz'ora.
+    const qint64 minimum = qint64(rules.minOffMinutes > 0 ? rules.minOffMinutes : 30) * 60;
+    qint64 off = 0;
+    for (qsizetype i = 1; i < times.size(); ++i) {
+        const qint64 gap = times.at(i - 1).secsTo(times.at(i));
+        if (gap >= minimum) {
+            off += gap;
+            ++t.breaks;
+        }
+    }
+    const qint64 span = times.first().secsTo(times.last());
+    t.offMinutes = static_cast<int>(off / 60);
+    t.onMinutes = static_cast<int>(qMax<qint64>(0, span - off) / 60);
+    return t;
 }
 
 QStringList known()

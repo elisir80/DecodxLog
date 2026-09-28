@@ -48,6 +48,17 @@ public:
     void sendMorse(const QString& text) override;
     void stopMorse() override;
 
+    int features() const override { return m_features; }
+    bool split() const override { return m_split; }
+    qint64 txFrequencyHz() const override { return m_txHz; }
+    QString vfo() const override { return m_vfo; }
+    int ritHz() const override { return m_rit; }
+    int xitHz() const override { return m_xit; }
+    void setSplit(bool on, qint64 txHz = 0) override;
+    void setVfo(const QString& vfo) override;
+    void setRit(int hz) override;
+    void setXit(int hz) override;
+
 private:
     struct Pending {
         QString kind;    // "freq", "mode", "speed", "morse", "set"
@@ -74,6 +85,14 @@ private:
     QString m_mode;
     int m_wpm{0};
     QString m_status;
+    // Quello che la radio sa fare: si parte da tutto, e un errore toglie.
+    int m_features{Split | VfoSelect | Rit | Xit};
+    bool m_split{false};
+    qint64 m_txHz{0};
+    QString m_vfo;
+    int m_rit{0};
+    int m_xit{0};
+    int m_extraPoll{0};
 };
 
 } // namespace decolog::core

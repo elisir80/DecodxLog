@@ -655,6 +655,8 @@ int main(int argc, char* argv[])
     if (parser.isSet(portOption))
         controller.overrideUdpPort(parser.value(portOption).toInt());
     controller.startListening();
+    controller.startN1mm();
+    controller.startApi();
     controller.startDecoLink();
     // Una schermata di prova non si collega ai nodi veri.
     if (!parser.isSet(grabOption) && !parser.isSet(spotsOption))

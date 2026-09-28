@@ -40,6 +40,17 @@ for extra in decodxlog_udpsend.exe decodxlog_clusterprobe.exe; do
     [ -f "$BUILD/$extra" ] && cp "$BUILD/$extra" "$DIST"/
 done
 
+# VOACAP: il motore (collegato statico, niente DLL Fortran) e i suoi dati, se
+# la compilazione li ha fatti — servono gfortran e i coefficienti convertiti.
+if [ -f "$BUILD/voacap/voacapl.exe" ] && [ -f "$BUILD/voacap/itshfbc/coeffs/coeff01w.bin" ]; then
+    echo "== VOACAP =="
+    mkdir -p "$DIST/voacap"
+    cp "$BUILD/voacap/voacapl.exe" "$BUILD/voacap/LICENSE.txt" "$DIST/voacap/"
+    cp -r "$BUILD/voacap/itshfbc" "$DIST/voacap/"
+else
+    echo "attenzione: VOACAP non compilato (manca gfortran): la previsione restera' quella semplice" >&2
+fi
+
 echo "== librerie Qt =="
 ( cd "$DIST" && windeployqt --qmldir "$ROOT/qml" --qmldir "$ROOT/libs/decodium-ui/qml" --release \
     --no-translations --no-system-d3d-compiler --no-opengl-sw \
@@ -153,11 +164,13 @@ Cosa c'e' dentro
   decodxlog_udpsend.exe       finge di essere Decodium e manda un QSO di prova
   decodxlog_clusterprobe.exe  prova una fonte di spot da riga di comando
   decodxlog.ico               l'icona, per crearsi un collegamento
+  voacap\                     VOACAP, il motore di propagazione dell'ITS
 
 Licenza
   GPL-3.0 (LICENSE.txt). L'elenco delle entita' DXCC e' il cty.csv di AD1C
   (cty.csv-COPYRIGHT.txt). Il decodificatore CW e' ggmorse di Georgi Gerganov,
-  licenza MIT (ggmorse-LICENSE.txt).
+  licenza MIT (ggmorse-LICENSE.txt). VOACAP e' dell'NTIA/ITS, dominio
+  pubblico; la versione voacapl di J. A. Watson e' CC0 (voacap\LICENSE.txt).
 EOF
 
 if [ -z "${NO_ZIP:-}" ]; then

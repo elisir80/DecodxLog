@@ -10,6 +10,7 @@
 
 #include <QCoreApplication>
 #include <QFile>
+#include <QFileInfo>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QSqlQuery>
@@ -38,6 +39,9 @@ void ActivationController::load()
     const QString json = m_ctx.db->setting(QLatin1String(kSetting));
     if (!json.isEmpty())
         m_session = Activation::fromMap(QJsonDocument::fromJson(json.toUtf8()).object().toVariantMap());
+    loadHistoryOfSession();
+    if (m_ctx.shareSerials)
+        m_ctx.shareSerials(m_session.active && m_session.serialEnabled && m_session.sharedSerial);
     recount();
     emit changed();
 }
@@ -66,6 +70,8 @@ QVariantMap ActivationController::state() const
     map.insert(QStringLiteral("lastQso"), m_lastQso);
     map.insert(QStringLiteral("elapsed"), elapsed());
     map.insert(QStringLiteral("fileName"), suggestedFileName());
+    map.insert(QStringLiteral("callHistoryName"), QFileInfo(m_session.callHistory).fileName());
+    map.insert(QStringLiteral("callHistoryCount"), m_history.size());
     return map;
 }
 
@@ -99,6 +105,9 @@ QString ActivationController::start(const QVariantMap& map)
     session.startedAt = QDateTime::currentDateTimeUtc();
     m_session = session;
     save();
+    loadHistoryOfSession();
+    if (m_ctx.shareSerials)
+        m_ctx.shareSerials(m_session.serialEnabled && m_session.sharedSerial);
     recount();
     if (m_ctx.activity)
         m_ctx.activity(QStringLiteral("ACT"), tr("Session open: %1 · grid %2").arg(m_session.title(), m_session.myGrid),
@@ -117,6 +126,10 @@ void ActivationController::update(const QVariantMap& map)
     session.startedAt = started.isValid() ? started : QDateTime::currentDateTimeUtc();
     m_session = session;
     save();
+    loadHistoryOfSession();
+    if (m_ctx.shareSerials)
+        m_ctx.shareSerials(m_session.serialEnabled && m_session.sharedSerial);
+    m_score.valid = false;
     recount();
     emit changed();
 }
@@ -131,6 +144,9 @@ void ActivationController::stop()
                        m_qsoCount >= m_session.requiredQsos() ? QStringLiteral("success") : QStringLiteral("warning"));
     }
     m_session = Activation{};
+    m_history.clear();
+    if (m_ctx.shareSerials)
+        m_ctx.shareSerials(false);
     save();
     recount();
     emit changed();
@@ -194,11 +210,109 @@ bool ActivationController::isDuplicate(const QString& call, const QString& band,
     return q.exec() && q.next() && q.value(0).toInt() > 0;
 }
 
+core::ContestRules ActivationController::currentRules() const
+{
+    return core::contestrules::withOverrides(core::contestrules::forId(m_session.contestId), m_session.rules);
+}
+
+QVariantMap ActivationController::editionRules() const
+{
+    const core::ContestRules r = currentRules();
+    const core::ContestRules base = core::contestrules::forId(m_session.contestId);
+    return QVariantMap{
+        {QStringLiteral("valid"), r.valid},
+        {QStringLiteral("bands"), r.bands},
+        {QStringLiteral("submitHours"), r.submitHours},
+        {QStringLiteral("submitDays"), r.submitDays},
+        {QStringLiteral("maxOperatingHours"), r.maxOperatingHours},
+        {QStringLiteral("minOffMinutes"), r.minOffMinutes},
+        {QStringLiteral("changed"), !m_session.rules.isEmpty()},
+        {QStringLiteral("baseBands"), base.bands},
+    };
+}
+
+void ActivationController::loadHistoryOfSession()
+{
+    m_history.clear();
+    if (!m_session.active || m_session.callHistory.isEmpty())
+        return;
+    QString error;
+    if (!m_history.load(m_session.callHistory, &error) && m_ctx.activity)
+        m_ctx.activity(QStringLiteral("ACT"), tr("Call history not readable: %1").arg(error), QStringLiteral("warning"));
+}
+
+QString ActivationController::loadCallHistory(const QUrl& file)
+{
+    if (!m_session.active)
+        return tr("Open the contest first");
+    const QString path = file.isLocalFile() ? file.toLocalFile() : file.toString();
+    core::CallHistory history;
+    QString error;
+    if (!history.load(path, &error))
+        return tr("Call history not readable: %1").arg(error);
+    m_history = history;
+    m_session.callHistory = path;
+    save();
+    if (m_ctx.activity)
+        m_ctx.activity(QStringLiteral("ACT"), tr("Call history: %n call(s) from %1", nullptr, history.size())
+                                                  .arg(QFileInfo(path).fileName()),
+                       QStringLiteral("success"));
+    emit changed();
+    return {};
+}
+
+void ActivationController::clearCallHistory()
+{
+    m_history.clear();
+    m_session.callHistory.clear();
+    save();
+    emit changed();
+}
+
 QVariantMap ActivationController::suggestExchange(const QString& rawCall) const
+{
+    // Prima il log (quello che la stazione ha mandato a noi), poi il call
+    // history (quello che ha mandato a tutti l'anno scorso), poi il paese.
+    const QVariantMap fromLog = suggestFromLog(rawCall);
+    if (fromLog.value(QStringLiteral("from")).toString() == QLatin1String("log") || m_history.size() == 0)
+        return fromLog;
+    const QString call = rawCall.trimmed().toUpper();
+    const core::ContestRules rules = currentRules();
+    QString value;
+    switch (rules.exchange) {
+    case core::ContestRules::Exchange::CqZone:
+        value = m_history.value(call, {QStringLiteral("CQZONE"), QStringLiteral("CQZ"), QStringLiteral("EXCH1")});
+        break;
+    case core::ContestRules::Exchange::CqZoneQth: {
+        const QString zone = m_history.value(call, {QStringLiteral("CQZONE"), QStringLiteral("CQZ")});
+        const QString state = m_history.value(call, {QStringLiteral("STATE"), QStringLiteral("SECT")});
+        value = zone.isEmpty() ? QString() : state.isEmpty() ? zone : zone + QLatin1Char(' ') + state;
+        break;
+    }
+    case core::ContestRules::Exchange::ItuZone:
+        value = m_history.value(call, {QStringLiteral("ITUZONE"), QStringLiteral("ITUZ"), QStringLiteral("EXCH1")});
+        break;
+    case core::ContestRules::Exchange::Province:
+    case core::ContestRules::Exchange::AriSection:
+        value = m_history.value(call, {QStringLiteral("EXCH1"), QStringLiteral("STATE")});
+        break;
+    case core::ContestRules::Exchange::Grid:
+        value = m_history.value(call, {QStringLiteral("LOC1"), QStringLiteral("GRID"), QStringLiteral("EXCH1")});
+        break;
+    case core::ContestRules::Exchange::Serial:
+    case core::ContestRules::Exchange::None:
+        break;
+    }
+    if (value.isEmpty())
+        return fromLog;
+    return QVariantMap{{QStringLiteral("value"), value.toUpper()}, {QStringLiteral("from"), QStringLiteral("history")}};
+}
+
+QVariantMap ActivationController::suggestFromLog(const QString& rawCall) const
 {
     QVariantMap out{{QStringLiteral("value"), QString()}, {QStringLiteral("from"), QString()}};
     const QString call = rawCall.trimmed().toUpper();
-    const core::ContestRules rules = core::contestrules::forId(m_session.contestId);
+    const core::ContestRules rules = currentRules();
     if (!rules.valid || !m_session.active || call.size() < 3)
         return out;
     auto answer = [&out](const QString& value, const char* from) {
@@ -346,7 +460,12 @@ QVariantMap ActivationController::suggestExchange(const QString& rawCall) const
 
 void ActivationController::applyTo(AdifRecord& record) const
 {
-    m_session.applyTo(record, m_session.nextSerial);
+    int serial = m_session.nextSerial;
+    // In rete il numero lo da' chi distribuisce: una sequenza sola per tutti.
+    if (m_session.serialEnabled && m_session.sharedSerial && m_ctx.takeSerial)
+        serial = m_ctx.takeSerial(m_session.nextSerial);
+    m_lastSerial = serial;
+    m_session.applyTo(record, serial);
 }
 
 void ActivationController::qsoLogged()
@@ -354,7 +473,7 @@ void ActivationController::qsoLogged()
     if (!m_session.active)
         return;
     if (m_session.serialEnabled) {
-        ++m_session.nextSerial;
+        m_session.nextSerial = qMax(m_session.nextSerial, m_lastSerial) + 1;
         save();
     }
     recount();
@@ -586,7 +705,7 @@ QVariantMap ActivationController::score() const
 
 void ActivationController::buildScore() const
 {
-    const core::ContestRules rules = core::contestrules::forId(m_session.contestId);
+    const core::ContestRules rules = currentRules();
     QVariantMap out{
         {QStringLiteral("valid"), rules.valid},
         {QStringLiteral("contestId"), m_session.contestId},
@@ -632,6 +751,19 @@ void ActivationController::buildScore() const
     QVariantList bands;
     for (const QVariantMap& band : std::as_const(perBand))
         bands << band;
+    // Il tempo in aria: il WPX da singolo operatore ne concede 36 ore su 48.
+    QList<QDateTime> times;
+    for (const core::ContestQso& qso : sessionQsos()) {
+        if (qso.when.isValid())
+            times << qso.when;
+    }
+    const core::OperatingTime onAir = core::contestrules::operatingTime(rules, times);
+    out[QStringLiteral("onMinutes")] = onAir.onMinutes;
+    out[QStringLiteral("offMinutes")] = onAir.offMinutes;
+    out[QStringLiteral("breaks")] = onAir.breaks;
+    out[QStringLiteral("maxMinutes")] = onAir.maxMinutes;
+    out[QStringLiteral("minOffMinutes")] = rules.minOffMinutes;
+    out[QStringLiteral("overTime")] = onAir.over();
     out[QStringLiteral("points")] = points;
     out[QStringLiteral("multipliers")] = mults.size();
     out[QStringLiteral("score")] = static_cast<qint64>(points) * mults.size();
@@ -651,7 +783,7 @@ QList<core::ContestQso> ActivationController::sessionQsos() const
     q.setForwardOnly(true);
     q.prepare(QStringLiteral(
         "SELECT call, band, mode, IFNULL(submode, ''), IFNULL(dxcc, 0), IFNULL(cont, ''), "
-        "IFNULL(cqz, 0), IFNULL(ituz, 0), IFNULL(adif_extra, ''), IFNULL(state, '') "
+        "IFNULL(cqz, 0), IFNULL(ituz, 0), IFNULL(adif_extra, ''), IFNULL(state, ''), qso_datetime_on "
         "FROM qso WHERE deleted = 0 AND qso_datetime_on >= ? ORDER BY qso_datetime_on, id"));
     q.addBindValue(m_session.startedAt.toString(Qt::ISODate));
     if (!q.exec())
@@ -669,6 +801,7 @@ QList<core::ContestQso> ActivationController::sessionQsos() const
         qso.cqZone = q.value(6).toInt();
         qso.ituZone = q.value(7).toInt();
         qso.state = q.value(9).toString();
+        qso.when = QDateTime::fromString(q.value(10).toString(), Qt::ISODate);
         // Lo scambio ricevuto non ha una colonna: sta fra i campi ADIF in piu'.
         const QString extra = q.value(8).toString();
         if (!extra.isEmpty()) {
@@ -698,7 +831,7 @@ QList<core::ContestQso> ActivationController::sessionQsos() const
 
 QString ActivationController::checkExchange(const QString& exchange) const
 {
-    return core::contestrules::checkExchange(core::contestrules::forId(m_session.contestId), exchange);
+    return core::contestrules::checkExchange(currentRules(), exchange);
 }
 
 namespace {
@@ -750,7 +883,7 @@ QVariantMap ActivationController::multiplierMatrix() const
 {
     if (!m_score.valid)
         buildScore();
-    const core::ContestRules rules = core::contestrules::forId(m_session.contestId);
+    const core::ContestRules rules = currentRules();
     QStringList bands = contestBands(rules);
     // kind → value → bande (vuota la stringa per i moltiplicatori una volta sola)
     QMap<QString, QMap<QString, QSet<QString>>> worked;
@@ -834,7 +967,7 @@ QVariantMap ActivationController::multiplierMatrix() const
 QVariantList ActivationController::multiplierCheck(const QString& call, const QString& band) const
 {
     QVariantList out;
-    const core::ContestRules rules = core::contestrules::forId(m_session.contestId);
+    const core::ContestRules rules = currentRules();
     if (!rules.valid || !m_session.active || call.trimmed().size() < 3)
         return out;
     if (!m_score.valid)
@@ -896,7 +1029,7 @@ QVariantMap ActivationController::spotValue(const QString& call, const QString& 
                     {QStringLiteral("newMultiplier"), false},
                     {QStringLiteral("duplicate"), false},
                     {QStringLiteral("label"), QString()}};
-    const core::ContestRules rules = core::contestrules::forId(m_session.contestId);
+    const core::ContestRules rules = currentRules();
     if (!rules.valid || !m_session.active || call.trimmed().isEmpty())
         return out;
 

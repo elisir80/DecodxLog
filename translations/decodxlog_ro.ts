@@ -178,6 +178,18 @@
         <translation>Concursuri și activări</translation>
     </message>
     <message>
+        <source>Call history file (N1MM format)</source>
+        <translation>Fișier call history (format N1MM)</translation>
+    </message>
+    <message>
+        <source>Call history (*.txt *.csv)</source>
+        <translation>Call history (*.txt *.csv)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Toate fișierele (*)</translation>
+    </message>
+    <message>
         <source>pick it from the list</source>
         <translation>alege-l din listă</translation>
     </message>
@@ -216,6 +228,50 @@
     <message>
         <source>Next</source>
         <translation>Următorul</translation>
+    </message>
+    <message>
+        <source>Shared on the network</source>
+        <translation>Partajat în rețea</translation>
+    </message>
+    <message>
+        <source>Bands of this edition</source>
+        <translation>Benzile acestei ediții</translation>
+    </message>
+    <message>
+        <source>Operating hours</source>
+        <translation>Ore de activitate</translation>
+    </message>
+    <message>
+        <source>no limit</source>
+        <translation>fără limită</translation>
+    </message>
+    <message>
+        <source>Off-time from (min)</source>
+        <translation>Pauză de la (min)</translation>
+    </message>
+    <message>
+        <source>Log within (h)</source>
+        <translation>Log în (h)</translation>
+    </message>
+    <message>
+        <source>Call history</source>
+        <translation>Call history</translation>
+    </message>
+    <message>
+        <source>%1 · %2 calls</source>
+        <translation>%1 · %2 indicative</translation>
+    </message>
+    <message>
+        <source>none: the exchange is suggested from the log and the country</source>
+        <translation>niciunul: schimbul se sugerează din log și din țară</translation>
+    </message>
+    <message>
+        <source>Load…</source>
+        <translation>Încarcă…</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Elimină</translation>
     </message>
     <message>
         <source>The QSOs get CONTEST_ID and the serial number sent (STX). The number received goes in the New QSO panel.</source>
@@ -303,6 +359,14 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>Referința se citește din SIG/SIG_INFO (SIG = %1) sau dintr-un comentariu ca &quot;%1 LI-001&quot;.</translation>
+    </message>
+    <message numerus="yes">
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC. %n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.</source>
+        <translation>
+            <numerusform>Reguli ARRL: QSO-urile pe 60 m nu contează, iar eQSL nu e o confirmare pentru DXCC. %n QSO cu entități șterse sau operațiuni neacceptate de ARRL (Club Log) rămâne pe dinafară.</numerusform>
+            <numerusform>Reguli ARRL: QSO-urile pe 60 m nu contează, iar eQSL nu e o confirmare pentru DXCC. %n QSO-uri cu entități șterse sau operațiuni neacceptate de ARRL (Club Log) rămân pe dinafară.</numerusform>
+            <numerusform>Reguli ARRL: QSO-urile pe 60 m nu contează, iar eQSL nu e o confirmare pentru DXCC. %n de QSO-uri cu entități șterse sau operațiuni neacceptate de ARRL (Club Log) rămân pe dinafară.</numerusform>
+        </translation>
     </message>
     <message>
         <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
@@ -410,6 +474,26 @@
     <message>
         <source>All tags</source>
         <translation>Toate etichetele</translation>
+    </message>
+    <message>
+        <source>Valid for %1</source>
+        <translation>Valabile pentru %1</translation>
+    </message>
+    <message>
+        <source>chosen by you</source>
+        <translation>alese de tine</translation>
+    </message>
+    <message>
+        <source>the rules of the award</source>
+        <translation>regulile diplomei</translation>
+    </message>
+    <message>
+        <source>the general choice above</source>
+        <translation>alegerea generală de mai sus</translation>
+    </message>
+    <message>
+        <source>Back to the rules</source>
+        <translation>Înapoi la reguli</translation>
     </message>
     <message>
         <source>State</source>
@@ -658,6 +742,41 @@
     </message>
 </context>
 <context>
+    <name>BulkEditDialog</name>
+    <message>
+        <source>CHANGE A FIELD ON %1 QSO</source>
+        <translation>SCHIMBĂ UN CÂMP ÎN %1 QSO</translation>
+    </message>
+    <message>
+        <source>The same value on every QSO chosen. Each QSO keeps the old value in its history, so the change can be undone QSO by QSO from its card. Leave the value empty to clear the field.</source>
+        <translation>Aceeași valoare în toate QSO-urile alese. Fiecare QSO păstrează valoarea veche în istoricul său, deci schimbarea se anulează QSO cu QSO din fișa lui. Lasă valoarea goală ca să golești câmpul.</translation>
+    </message>
+    <message>
+        <source>Field</source>
+        <translation>Câmp</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>Valoare</translation>
+    </message>
+    <message>
+        <source>Only where the field is empty</source>
+        <translation>Doar unde câmpul e gol</translation>
+    </message>
+    <message>
+        <source>With this many QSO the change runs in the background: the log stays usable and the progress shows in its header.</source>
+        <translation>Cu atâtea QSO-uri schimbarea rulează în fundal: logul rămâne utilizabil, iar progresul se vede în antetul lui.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Renunță</translation>
+    </message>
+    <message>
+        <source>Change %1 QSO</source>
+        <translation>Schimbă %1 QSO</translation>
+    </message>
+</context>
+<context>
     <name>Cabrillo</name>
     <message>
         <source>The station callsign is missing</source>
@@ -820,7 +939,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">Trimite</translation>
+        <translation>Trimite</translation>
     </message>
 </context>
 <context>
@@ -1399,7 +1518,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>CW macros</source>
-        <translation type="unfinished">Macrouri CW</translation>
+        <translation>Macrouri CW</translation>
     </message>
     <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
@@ -1407,11 +1526,11 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>Default macros</source>
-        <translation type="unfinished">Macrouri implicite</translation>
+        <translation>Macrouri implicite</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Închide</translation>
+        <translation>Închide</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -1470,6 +1589,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>%1 · log</translation>
     </message>
     <message>
+        <source>%1 · history</source>
+        <translation>%1 · istoric</translation>
+    </message>
+    <message>
         <source>%1 · country</source>
         <translation>%1 · țară</translation>
     </message>
@@ -1483,7 +1606,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>Downloading…</source>
-        <translation type="unfinished">Se descarcă…</translation>
+        <translation>Se descarcă…</translation>
     </message>
     <message>
         <source>Download MASTER.SCP</source>
@@ -1576,7 +1699,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">Trimite</translation>
+        <translation>Trimite</translation>
     </message>
     <message>
         <source>Spot %1</source>
@@ -1714,6 +1837,22 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>%1 QSO</source>
         <translation>%1 QSO</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 of %2 · %n break(s)</source>
+        <translation>
+            <numerusform>În aer %1 din %2 · %n pauză</numerusform>
+            <numerusform>În aer %1 din %2 · %n pauze</numerusform>
+            <numerusform>În aer %1 din %2 · %n de pauze</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 · %n break(s)</source>
+        <translation>
+            <numerusform>În aer %1 · %n pauză</numerusform>
+            <numerusform>În aer %1 · %n pauze</numerusform>
+            <numerusform>În aer %1 · %n de pauze</numerusform>
+        </translation>
     </message>
     <message>
         <source>Export…</source>
@@ -1904,6 +2043,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>%1 · log</source>
         <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · history</source>
+        <translation>%1 · istoric</translation>
     </message>
     <message>
         <source>%1 · country</source>
@@ -2197,6 +2340,89 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
 </context>
 <context>
+    <name>DuplicatesDialog</name>
+    <message>
+        <source>DUPLICATE QSO</source>
+        <translation>QSO-URI DUBLE</translation>
+    </message>
+    <message>
+        <source>Same call, band, kind of mode (CW, phone, digital) and station profile, within the minutes chosen. Of each group one QSO is kept — a click on a row chooses which — and it takes from the others what it is missing: fields, confirmations, tags. The others are deleted; they stay in the history and can be recovered.</source>
+        <translation>Același indicativ, bandă, tip de mod (CW, fonie, digital) și profil de stație, în minutele alese. Din fiecare grup se păstrează un QSO — un clic pe un rând alege care — și ia de la celelalte ce îi lipsește: câmpuri, confirmări, etichete. Celelalte se șterg; rămân în istoric și se pot recupera.</translation>
+    </message>
+    <message>
+        <source>Within</source>
+        <translation>În</translation>
+    </message>
+    <message>
+        <source>minutes</source>
+        <translation>minute</translation>
+    </message>
+    <message>
+        <source>Searching…</source>
+        <translation>Caut…</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>Caută</translation>
+    </message>
+    <message>
+        <source>No duplicates within %1 minutes</source>
+        <translation>Niciun dublu în %1 minute</translation>
+    </message>
+    <message>
+        <source>The first %1 groups: merge them and search again for the rest</source>
+        <translation>Primele %1 grupuri: unește-le și caută din nou pentru rest</translation>
+    </message>
+    <message>
+        <source>%1 groups found, %2 ticked</source>
+        <translation>%1 grupuri găsite, %2 bifate</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>KEEP</source>
+        <translation>PĂSTREAZĂ</translation>
+    </message>
+    <message>
+        <source>merge</source>
+        <translation>unește</translation>
+    </message>
+    <message>
+        <source>confirmed: %1</source>
+        <translation>confirmat: %1</translation>
+    </message>
+    <message>
+        <source>%1 fields</source>
+        <translation>%1 câmpuri</translation>
+    </message>
+    <message>
+        <source>Reading the whole log…</source>
+        <translation>Citesc tot logul…</translation>
+    </message>
+    <message>
+        <source>Nothing to merge.</source>
+        <translation>Nimic de unit.</translation>
+    </message>
+    <message>
+        <source>Choose the minutes and press Search.</source>
+        <translation>Alege minutele și apasă Caută.</translation>
+    </message>
+    <message>
+        <source>A double click opens the QSO.</source>
+        <translation>Un dublu clic deschide QSO-ul.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Închide</translation>
+    </message>
+    <message>
+        <source>Merge %1 groups</source>
+        <translation>Unește %1 grupuri</translation>
+    </message>
+</context>
+<context>
     <name>DvkPanel</name>
     <message>
         <source>Voice keyer</source>
@@ -2236,7 +2462,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>never</source>
-        <translation type="unfinished">niciodată</translation>
+        <translation>niciodată</translation>
     </message>
     <message>
         <source>CQ loop</source>
@@ -2244,7 +2470,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Oprește</translation>
     </message>
 </context>
 <context>
@@ -2494,6 +2720,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Import %1%</translation>
     </message>
     <message>
+        <source>Sorting…</source>
+        <translation>Sortez…</translation>
+    </message>
+    <message>
+        <source>Changing %1%</source>
+        <translation>Schimb %1%</translation>
+    </message>
+    <message>
         <source>%1 QSO · %2 shown</source>
         <translation>%1 QSO · %2 afișate</translation>
     </message>
@@ -2560,6 +2794,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>Exportă cele %1 QSO afișate în ADIF…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO shown…</source>
+        <translation>Schimbă un câmp în cele %1 QSO afișate…</translation>
+    </message>
+    <message>
+        <source>Find duplicate QSO…</source>
+        <translation>Găsește QSO-urile duble…</translation>
     </message>
     <message>
         <source>Complete the QSO shown from the callbook…</source>
@@ -2760,6 +3002,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Delete the %1 QSO selected…</source>
         <translation>Șterge cele %1 QSO selectate…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO selected…</source>
+        <translation>Schimbă un câmp în cele %1 QSO selectate…</translation>
+    </message>
+    <message>
+        <source>Change a field…</source>
+        <translation>Schimbă un câmp…</translation>
     </message>
     <message>
         <source>Complete from the callbook</source>
@@ -3021,12 +3271,24 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>andocat</translation>
     </message>
     <message>
-        <source>Import ADIF</source>
-        <translation>Importă ADIF</translation>
+        <source>Import a log</source>
+        <translation>Importă un log</translation>
     </message>
     <message>
         <source>ADIF files (*.adi *.adif)</source>
         <translation>Fișiere ADIF (*.adi *.adif)</translation>
+    </message>
+    <message>
+        <source>Logs (*.adi *.adif *.csv *.tsv *.s3db)</source>
+        <translation>Loguri (*.adi *.adif *.csv *.tsv *.s3db)</translation>
+    </message>
+    <message>
+        <source>Spreadsheets (*.csv *.tsv)</source>
+        <translation>Foi de calcul (*.csv *.tsv)</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ databases (*.s3db)</source>
+        <translation>Baze de date N1MM Logger+ (*.s3db)</translation>
     </message>
     <message>
         <source>All files (*)</source>
@@ -3488,7 +3750,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>%1°</source>
-        <translation type="unfinished">%1°</translation>
+        <translation>%1°</translation>
     </message>
     <message numerus="yes">
         <source>%n hop(s)</source>
@@ -3507,8 +3769,16 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>SFI %1</translation>
     </message>
     <message>
+        <source>VOACAP computing…</source>
+        <translation>VOACAP calculează…</translation>
+    </message>
+    <message>
         <source>Locator</source>
         <translation>Locator</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · reliability %4% · SNR %5 dB</source>
+        <translation>%1 · %2 UTC · MUF %3 MHz · fiabilitate %4% · SNR %5 dB</translation>
     </message>
     <message>
         <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
@@ -3516,11 +3786,11 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>good</source>
-        <translation type="unfinished">bună</translation>
+        <translation>bună</translation>
     </message>
     <message>
         <source>fair</source>
-        <translation type="unfinished">medie</translation>
+        <translation>medie</translation>
     </message>
     <message>
         <source>marginal</source>
@@ -3528,11 +3798,59 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>closed</source>
-        <translation type="unfinished">închis</translation>
+        <translation>închis</translation>
+    </message>
+    <message>
+        <source>VOACAP (ITS): the chance of a %1 QSO with %2 W and %3 dBi antennas; 160 and 6 m from the simple model.</source>
+        <translation>VOACAP (ITS): șansa unui QSO în %1 cu %2 W și antene de %3 dBi; 160 și 6 m din modelul simplu.</translation>
+    </message>
+    <message>
+        <source>VOACAP failed (%1): simplified F2 model.</source>
+        <translation>VOACAP a eșuat (%1): model F2 simplificat.</translation>
     </message>
     <message>
         <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
         <translation>Model F2 simplificat (MUF/LUF), nu VOACAP: un ghid pentru când se deschide o bandă, nu o promisiune.</translation>
+    </message>
+    <message>
+        <source>%1 W</source>
+        <translation>%1 W</translation>
+    </message>
+    <message>
+        <source>0 dBi (vertical)</source>
+        <translation>0 dBi (verticală)</translation>
+    </message>
+    <message>
+        <source>2 dBi (dipole)</source>
+        <translation>2 dBi (dipol)</translation>
+    </message>
+    <message>
+        <source>5 dBi (2-el beam)</source>
+        <translation>5 dBi (beam 2 el.)</translation>
+    </message>
+    <message>
+        <source>8 dBi (3-el beam)</source>
+        <translation>8 dBi (beam 3 el.)</translation>
+    </message>
+    <message>
+        <source>11 dBi (big beam)</source>
+        <translation>11 dBi (beam mare)</translation>
+    </message>
+    <message>
+        <source>noise: city</source>
+        <translation>zgomot: oraș</translation>
+    </message>
+    <message>
+        <source>noise: residential</source>
+        <translation>zgomot: rezidențial</translation>
+    </message>
+    <message>
+        <source>noise: rural</source>
+        <translation>zgomot: rural</translation>
+    </message>
+    <message>
+        <source>noise: quiet</source>
+        <translation>zgomot: liniștit</translation>
     </message>
 </context>
 <context>
@@ -3711,6 +4029,22 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>unexpected answer</source>
         <translation>răspuns neașteptat</translation>
+    </message>
+    <message>
+        <source>Wavelog: already there</source>
+        <translation>Wavelog: exista deja</translation>
+    </message>
+    <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog: %1</translation>
+    </message>
+    <message>
+        <source>Wavelog: sent</source>
+        <translation>Wavelog: trimis</translation>
+    </message>
+    <message>
+        <source>Wavelog: the API key is not valid or cannot write (%1)</source>
+        <translation>Wavelog: cheia API nu este validă sau nu poate scrie (%1)</translation>
     </message>
     <message>
         <source>HRDLog: sent</source>
@@ -4715,7 +5049,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>All files (*)</source>
-        <translation type="unfinished">Toate fișierele (*)</translation>
+        <translation>Toate fișierele (*)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -4795,7 +5129,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Închide</translation>
+        <translation>Închide</translation>
     </message>
 </context>
 <context>
@@ -6203,8 +6537,200 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>portul nu este deschis</translation>
     </message>
     <message>
+        <source>An ADIF log to keep an eye on</source>
+        <translation>Un jurnal ADIF de urmărit</translation>
+    </message>
+    <message>
+        <source>Club Log cty.xml</source>
+        <translation>cty.xml de la Club Log</translation>
+    </message>
+    <message>
+        <source>QSOs of another entity on that date</source>
+        <translation>QSO-uri ale altei entități la acea dată</translation>
+    </message>
+    <message>
+        <source>Working…</source>
+        <translation>Lucrez…</translation>
+    </message>
+    <message>
+        <source>Update cty.xml</source>
+        <translation>Actualizează cty.xml</translation>
+    </message>
+    <message>
+        <source>Check the entities with the dates</source>
+        <translation>Verifică entitățile cu datele</translation>
+    </message>
+    <message>
+        <source>Correct %1 QSO</source>
+        <translation>Corectează %1 QSO</translation>
+    </message>
+    <message>
+        <source>%1 QSO corrected, each kept as a new revision.</source>
+        <translation>%1 QSO corectate, fiecare păstrat ca revizie nouă.</translation>
+    </message>
+    <message>
+        <source>deleted</source>
+        <translation>ștearsă</translation>
+    </message>
+    <message>
+        <source>With the Club Log API key (QSL services) DecoDXLog downloads Club Log&apos;s cty.xml every week: the entities with their dates, so a QSO of 2005 with PJ2 is the Netherlands Antilles and not Curacao, operations the ARRL did not accept do not count for DXCC, and deleted entities are shown but not counted.</source>
+        <translation>Cu cheia API Club Log (Servicii QSL) DecoDXLog descarcă săptămânal cty.xml de la Club Log: entitățile cu datele lor, astfel un QSO din 2005 cu PJ2 e Antilele Olandeze și nu Curaçao, operațiunile neacceptate de ARRL nu contează pentru DXCC, iar entitățile șterse se arată dar nu se numără.</translation>
+    </message>
+    <message>
+        <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
+        <translation>Săptămânal de la Club Log. QSO-urile noi primesc entitatea datei lor; verificarea compară logul cu datele și corectează doar DXCC-ul gol sau pus de cty.csv de azi — cel scris de LoTW sau de tine rămâne.</translation>
+    </message>
+    <message>
+        <source>Forward to other programs</source>
+        <translation>Retransmite către alte programe</translation>
+    </message>
+    <message>
+        <source>e.g. 127.0.0.1:2238, 127.0.0.1:2333 — empty = off</source>
+        <translation>ex. 127.0.0.1:2238, 127.0.0.1:2333 — gol = oprit</translation>
+    </message>
+    <message>
+        <source>Every packet from Decodium also goes to these programs (JTAlert, GridTracker, HamLog…), and their answers (reply to a caller, halt TX) go back to Decodium. So Decodium sends to one port only and everybody gets it.</source>
+        <translation>Fiecare pachet de la Decodium merge și la aceste programe (JTAlert, GridTracker, HamLog…), iar răspunsurile lor (răspuns la cine cheamă, oprirea TX) se întorc la Decodium. Astfel Decodium trimite la un singur port și toată lumea primește.</translation>
+    </message>
+    <message>
         <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
         <translation>Decodium scrie fiecare QSO și în propriul jurnal ADIF. Dacă DecoDXLog era închis sau nu primea (port greșit, rețea căzută), QSO-ul rămâne doar acolo: la fiecare 5 minute DecoDXLog citește QSO-urile înregistrate de la ultima verificare și le salvează pe cele care lipsesc aici și în celelalte jurnale din listă. QSO-urile corectate sau șterse aici nu revin. Prima dată se uită o săptămână înapoi, butoanele mai departe. Câmp gol = jurnalul pe care îl folosește Decodium.</translation>
+    </message>
+    <message>
+        <source>Other ADIF logs to keep an eye on</source>
+        <translation>Alte jurnale ADIF de urmărit</translation>
+    </message>
+    <message>
+        <source>not found: %1</source>
+        <translation>negăsit: %1</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Elimină</translation>
+    </message>
+    <message>
+        <source>Add a file…</source>
+        <translation>Adaugă un fișier…</translation>
+    </message>
+    <message>
+        <source>Add %1</source>
+        <translation>Adaugă %1</translation>
+    </message>
+    <message>
+        <source>The QSOs that other programs (fldigi, WSJT-X, JTDX…) write in these logs and that are missing here are saved every 5 minutes, from the moment the file is added. For the older ones, “Check the whole file”.</source>
+        <translation>QSO-urile pe care alte programe (fldigi, WSJT-X, JTDX…) le scriu în aceste jurnale și care lipsesc aici se salvează la fiecare 5 minute, din momentul în care fișierul este adăugat. Pentru cele mai vechi, „Verifică tot fișierul”.</translation>
+    </message>
+    <message>
+        <source>UDP port (0 = off)</source>
+        <translation>Port UDP (0 = oprit)</translation>
+    </message>
+    <message>
+        <source>listening</source>
+        <translation>ascultă</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ sends every contact on this port (Config → Configure Ports → Broadcast Data → Contacts, usually 12060). A contact corrected or deleted in N1MM is corrected or deleted here too.</source>
+        <translation>N1MM Logger+ trimite fiecare contact pe acest port (Config → Configure Ports → Broadcast Data → Contacts, de obicei 12060). Un contact corectat sau șters în N1MM se corectează sau se șterge și aici.</translation>
+    </message>
+    <message>
+        <source>Local interface for other programs</source>
+        <translation>Interfață locală pentru alte programe</translation>
+    </message>
+    <message>
+        <source>Port on 127.0.0.1 (0 = off)</source>
+        <translation>Port pe 127.0.0.1 (0 = oprită)</translation>
+    </message>
+    <message>
+        <source>Key (X-DecoDXLog-Token)</source>
+        <translation>Cheie (X-DecoDXLog-Token)</translation>
+    </message>
+    <message>
+        <source>New key</source>
+        <translation>Cheie nouă</translation>
+    </message>
+    <message>
+        <source>For programs next to DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, and POST /api/v1/qso with an ADIF record to log it. Only from this computer, and always with the key. Details: docs/API.md.</source>
+        <translation>Pentru programele de lângă DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, și POST /api/v1/qso cu o înregistrare ADIF pentru a o salva. Doar de pe acest calculator și întotdeauna cu cheia. Detalii: docs/API.md.</translation>
+    </message>
+    <message>
+        <source>Shared log</source>
+        <translation>Log partajat</translation>
+    </message>
+    <message>
+        <source>A club station, a multi-operator contest: one log, several operators, each with their own Cloud account — nobody lends a password. The owner of the log creates an invite, whoever gets the code joins with it. Only QSOs travel: profiles, settings and service passwords stay with the owner.</source>
+        <translation>O stație de club, un concurs multi-operator: un log, mai mulți operatori, fiecare cu contul său Cloud — nimeni nu împrumută o parolă. Titularul logului creează o invitație, cine primește codul intră cu el. Călătoresc doar QSO-urile: profilurile, setările și parolele serviciilor rămân la titular.</translation>
+    </message>
+    <message>
+        <source>This log syncs with</source>
+        <translation>Acest log se sincronizează cu</translation>
+    </message>
+    <message>
+        <source>my own log (%1)</source>
+        <translation>logul meu (%1)</translation>
+    </message>
+    <message>
+        <source>the shared log of %1</source>
+        <translation>logul partajat al lui %1</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Reîmprospătează</translation>
+    </message>
+    <message>
+        <source>The QSOs of this log go to the log of %1, and its QSOs come here: keep a log just for it (Log → New log).</source>
+        <translation>QSO-urile acestui log merg în logul lui %1, iar QSO-urile lui vin aici: ține un log doar pentru el (Log → Log nou).</translation>
+    </message>
+    <message>
+        <source>Invite code, e.g. K7Q2-9XMP-D4TA</source>
+        <translation>Cod de invitație, de ex. K7Q2-9XMP-D4TA</translation>
+    </message>
+    <message>
+        <source>Join with the code</source>
+        <translation>Intră cu codul</translation>
+    </message>
+    <message>
+        <source>operator: sends and gets the QSOs</source>
+        <translation>operator: trimite și primește QSO-urile</translation>
+    </message>
+    <message>
+        <source>viewer: only looks</source>
+        <translation>observator: doar privește</translation>
+    </message>
+    <message>
+        <source>Invite into the log of %1</source>
+        <translation>Invită în logul lui %1</translation>
+    </message>
+    <message>
+        <source>Code %1 — %2, valid until %3</source>
+        <translation>Cod %1 — %2, valabil până la %3</translation>
+    </message>
+    <message>
+        <source>viewer</source>
+        <translation>observator</translation>
+    </message>
+    <message>
+        <source>operator</source>
+        <translation>operator</translation>
+    </message>
+    <message>
+        <source>viewer in your log</source>
+        <translation>observator în logul tău</translation>
+    </message>
+    <message>
+        <source>operator in your log</source>
+        <translation>operator în logul tău</translation>
+    </message>
+    <message>
+        <source>you look at its log</source>
+        <translation>îi privești logul</translation>
+    </message>
+    <message>
+        <source>you write in its log</source>
+        <translation>scrii în logul lui</translation>
+    </message>
+    <message>
+        <source>Leave</source>
+        <translation>Ieși</translation>
     </message>
     <message>
         <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
@@ -6233,6 +6759,22 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
         <translation>eQSL: eQSL-urile sosite în Inbox, fără rapoartele SWL. QRZ Logbook: QSO-urile din jurnalul tău de pe QRZ pe care celălalt post le-a confirmat. Doar ce a sosit după ultima descărcare; descărcarea automată pornește doar pentru serviciile care au datele de acces (mai jos, aceleași ca la trimitere). Potrivite ca și confirmările LoTW; câmpurile cărții QSL de hârtie nu se ating.</translation>
+    </message>
+    <message>
+        <source>Station on Wavelog</source>
+        <translation>Stație pe Wavelog</translation>
+    </message>
+    <message>
+        <source>station %1</source>
+        <translation>stația %1</translation>
+    </message>
+    <message>
+        <source>Load my stations</source>
+        <translation>Încarcă stațiile mele</translation>
+    </message>
+    <message>
+        <source>Wavelog (and Cloudlog) is the web log on your own site. Below it wants the address of the site (for example log.mysite.org) and an API key with read and write rights, made in Wavelog under Account → API keys; then the station to write in. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>Wavelog (și Cloudlog) este jurnalul web de pe site-ul tău. Mai jos vrea adresa site-ului (de exemplu log.siteulmeu.ro) și o cheie API cu drepturi de citire și scriere, făcută în Wavelog la Account → API keys; apoi stația în care să scrie. Trimiterea, trimiterea automată și contoarele sunt în fila QSL de jos.</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -6364,7 +6906,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished">Adresă</translation>
+        <translation>Adresă</translation>
     </message>
     <message>
         <source>SO2R box (OTRSP)</source>
@@ -6633,6 +7175,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>LoTW station location (TQSL)</translation>
     </message>
     <message>
+        <source>QSL accounts of this profile</source>
+        <translation>Conturile QSL ale acestui profil</translation>
+    </message>
+    <message>
+        <source>Save the profile first: then it can have its own QRZ Logbook and eQSL accounts.</source>
+        <translation>Salvează mai întâi profilul: apoi va putea avea propriile conturi QRZ Logbook și eQSL.</translation>
+    </message>
+    <message>
         <source>Used by &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</source>
         <translation>Folosit de &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</translation>
     </message>
@@ -6681,7 +7231,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>Grids</source>
-        <translation type="unfinished">Locatoare</translation>
+        <translation>Locatoare</translation>
     </message>
     <message>
         <source>Awards over the years · cumulative</source>
@@ -6689,7 +7239,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>no QSO</source>
-        <translation type="unfinished">niciun QSO</translation>
+        <translation>niciun QSO</translation>
     </message>
     <message>
         <source>Most worked entities</source>
@@ -6881,6 +7431,26 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Chat ON4KST…</translation>
     </message>
     <message>
+        <source>Import a log (ADIF, CSV, N1MM)…</source>
+        <translation>Importă un log (ADIF, CSV, N1MM)…</translation>
+    </message>
+    <message>
+        <source>Split off</source>
+        <translation>Split oprit</translation>
+    </message>
+    <message>
+        <source>TX up %1 kHz</source>
+        <translation>TX cu %1 kHz mai sus</translation>
+    </message>
+    <message>
+        <source>TX down %1 kHz</source>
+        <translation>TX cu %1 kHz mai jos</translation>
+    </message>
+    <message>
+        <source>RIT and XIT off</source>
+        <translation>RIT și XIT oprite</translation>
+    </message>
+    <message>
         <source>Setup · %1 ▾</source>
         <translation>Setări · %1 ▾</translation>
     </message>
@@ -6999,10 +7569,6 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Panels…</source>
         <translation>Panouri…</translation>
-    </message>
-    <message>
-        <source>Import ADIF…</source>
-        <translation>Importă ADIF…</translation>
     </message>
     <message>
         <source>Export ADIF…</source>
@@ -7249,7 +7815,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">Zi</translation>
+        <translation>Zi</translation>
     </message>
     <message>
         <source>Grayline</source>
@@ -7335,7 +7901,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">Zi</translation>
+        <translation>Zi</translation>
     </message>
     <message>
         <source>Civil twilight</source>
@@ -7406,6 +7972,22 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
             <numerusform>Sesiune închisă: %1 · %n QSO</numerusform>
             <numerusform>Sesiune închisă: %1 · %n QSO</numerusform>
             <numerusform>Sesiune închisă: %1 · %n de QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Call history not readable: %1</source>
+        <translation>Call history ilizibil: %1</translation>
+    </message>
+    <message>
+        <source>Open the contest first</source>
+        <translation>Deschide întâi concursul</translation>
+    </message>
+    <message numerus="yes">
+        <source>Call history: %n call(s) from %1</source>
+        <translation>
+            <numerusform>Call history: %n indicativ din %1</numerusform>
+            <numerusform>Call history: %n indicative din %1</numerusform>
+            <numerusform>Call history: %n de indicative din %1</numerusform>
         </translation>
     </message>
     <message>
@@ -7531,8 +8113,36 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Cloud: %1</translation>
     </message>
     <message>
+        <source>Invite created: give the code to the operator. It is shown only now.</source>
+        <translation>Invitație creată: dă codul operatorului. Se vede doar acum.</translation>
+    </message>
+    <message>
+        <source>You are in the log of %1. Choose it for a log of yours below — better a new log (Log → New log), so the club log and yours do not mix.</source>
+        <translation>Ești în logul lui %1. Alege-l mai jos pentru un log al tău — mai bine unul nou (Log → Log nou), ca logul clubului și al tău să nu se amestece.</translation>
+    </message>
+    <message>
+        <source>Cloud: you joined the shared log of %1</source>
+        <translation>Cloud: ai intrat în logul partajat al lui %1</translation>
+    </message>
+    <message>
         <source>Cloud: linked — sync will unlock it when needed</source>
         <translation>Cloud: legat — sincronizarea îl deblochează când e nevoie</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with your own log again</source>
+        <translation>Cloud: acest log se sincronizează din nou cu al tău</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with the shared log of %1</source>
+        <translation>Cloud: acest log se sincronizează cu logul partajat al lui %1</translation>
+    </message>
+    <message>
+        <source>Sync once to open the keystore, then the team shows here.</source>
+        <translation>Sincronizează o dată ca să deschizi portcheiul, apoi echipa apare aici.</translation>
+    </message>
+    <message>
+        <source>Sign in to the Cloud first.</source>
+        <translation>Intră întâi în Cloud.</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>
@@ -7817,8 +8427,32 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Nu poate asculta pe UDP %1: %2</translation>
     </message>
     <message>
+        <source>Listening for N1MM Logger+ on UDP %1</source>
+        <translation>Ascult N1MM Logger+ pe UDP %1</translation>
+    </message>
+    <message>
+        <source>Correction not saved: %1</source>
+        <translation>Corectură nesalvată: %1</translation>
+    </message>
+    <message>
+        <source>Corrected by N1MM: %1</source>
+        <translation>Corectat de N1MM: %1</translation>
+    </message>
+    <message>
         <source>built on %1</source>
         <translation>compilat pe %1</translation>
+    </message>
+    <message>
+        <source>Not understood: %1 (write address:port)</source>
+        <translation>Neînțeles: %1 (scrie adresă:port)</translation>
+    </message>
+    <message>
+        <source>UDP forwarding off</source>
+        <translation>Retransmiterea UDP oprită</translation>
+    </message>
+    <message>
+        <source>UDP forwarded to %1</source>
+        <translation>UDP retransmis către %1</translation>
     </message>
     <message>
         <source>no callsign</source>
@@ -7853,6 +8487,38 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>cty.csv %1 instalat: %2 entități DXCC</translation>
     </message>
     <message>
+        <source>Club Log cty.xml not readable: %1</source>
+        <translation>cty.xml de la Club Log ilizibil: %1</translation>
+    </message>
+    <message>
+        <source>The Club Log API key is needed (Setup → QSL services → Club Log)</source>
+        <translation>E nevoie de cheia API Club Log (Setări → Servicii QSL → Club Log)</translation>
+    </message>
+    <message>
+        <source>Downloading cty.xml from Club Log…</source>
+        <translation>Descarc cty.xml de la Club Log…</translation>
+    </message>
+    <message>
+        <source>Club Log: %1</source>
+        <translation>Club Log: %1</translation>
+    </message>
+    <message>
+        <source>Club Log: the file is not a cty.xml (%1)</source>
+        <translation>Club Log: fișierul nu e un cty.xml (%1)</translation>
+    </message>
+    <message>
+        <source>cty.xml of %1: %2 entities</source>
+        <translation>cty.xml din %1: %2 entități</translation>
+    </message>
+    <message numerus="yes">
+        <source>Entity of %n QSO(s) corrected with the date of the QSO (Club Log)</source>
+        <translation>
+            <numerusform>Entitatea a %n QSO corectată cu data QSO-ului (Club Log)</numerusform>
+            <numerusform>Entitățile a %n QSO-uri corectate cu data QSO-ului (Club Log)</numerusform>
+            <numerusform>Entitățile a %n de QSO-uri corectate cu data QSO-ului (Club Log)</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>DXCC filled on %1 of %2 QSO (cty.csv %3)</source>
         <translation>DXCC completat la %1 din %2 QSO (cty.csv %3)</translation>
     </message>
@@ -7879,6 +8545,18 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>QSO not logged: %1</source>
         <translation>QSO neînregistrat: %1</translation>
+    </message>
+    <message>
+        <source>New key for the local interface: the programs using the old one must be updated</source>
+        <translation>Cheie nouă pentru interfața locală: programele care o foloseau pe cea veche trebuie actualizate</translation>
+    </message>
+    <message>
+        <source>Local interface on http://127.0.0.1:%1/api/v1/</source>
+        <translation>Interfață locală pe http://127.0.0.1:%1/api/v1/</translation>
+    </message>
+    <message>
+        <source>Cannot open the local interface on port %1: %2</source>
+        <translation>Nu pot deschide interfața locală pe portul %1: %2</translation>
     </message>
     <message>
         <source>Nowhere to send the frequency: the radio is not connected and Decodium is not there either.</source>
@@ -7958,6 +8636,214 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Eticheta „%1” înlăturată de la %2 QSO</translation>
     </message>
     <message>
+        <source>Y · yes</source>
+        <translation>Y · da</translation>
+    </message>
+    <message>
+        <source>N · no</source>
+        <translation>N · nu</translation>
+    </message>
+    <message>
+        <source>R · requested</source>
+        <translation>R · cerută</translation>
+    </message>
+    <message>
+        <source>Q · queued</source>
+        <translation>Q · în coadă</translation>
+    </message>
+    <message>
+        <source>I · ignore</source>
+        <translation>I · ignoră</translation>
+    </message>
+    <message>
+        <source>Y · uploaded</source>
+        <translation>Y · încărcat</translation>
+    </message>
+    <message>
+        <source>N · not uploaded</source>
+        <translation>N · neîncărcat</translation>
+    </message>
+    <message>
+        <source>M · changed, upload again</source>
+        <translation>M · schimbat, de reîncărcat</translation>
+    </message>
+    <message>
+        <source>B · bureau</source>
+        <translation>B · birou</translation>
+    </message>
+    <message>
+        <source>D · direct</source>
+        <translation>D · directă</translation>
+    </message>
+    <message>
+        <source>E · electronic</source>
+        <translation>E · electronică</translation>
+    </message>
+    <message>
+        <source>No profile</source>
+        <translation>Fără profil</translation>
+    </message>
+    <message>
+        <source>My locator</source>
+        <translation>Locatorul meu</translation>
+    </message>
+    <message>
+        <source>Station callsign</source>
+        <translation>Indicativul stației</translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation>Operator</translation>
+    </message>
+    <message>
+        <source>Station profile</source>
+        <translation>Profil de stație</translation>
+    </message>
+    <message>
+        <source>My rig</source>
+        <translation>Stația mea</translation>
+    </message>
+    <message>
+        <source>My antenna</source>
+        <translation>Antena mea</translation>
+    </message>
+    <message>
+        <source>Power (W)</source>
+        <translation>Putere (W)</translation>
+    </message>
+    <message>
+        <source>My POTA reference</source>
+        <translation>Referința mea POTA</translation>
+    </message>
+    <message>
+        <source>My SOTA reference</source>
+        <translation>Referința mea SOTA</translation>
+    </message>
+    <message>
+        <source>My WWFF reference</source>
+        <translation>Referința mea WWFF</translation>
+    </message>
+    <message>
+        <source>My special activity (MY_SIG)</source>
+        <translation>Activitatea mea specială (MY_SIG)</translation>
+    </message>
+    <message>
+        <source>My special activity reference (MY_SIG_INFO)</source>
+        <translation>Referința activității mele speciale (MY_SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>POTA reference</source>
+        <translation>Referință POTA</translation>
+    </message>
+    <message>
+        <source>SOTA reference</source>
+        <translation>Referință SOTA</translation>
+    </message>
+    <message>
+        <source>WWFF reference</source>
+        <translation>Referință WWFF</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Special activity (SIG)</source>
+        <translation>Activitate specială (SIG)</translation>
+    </message>
+    <message>
+        <source>Special activity reference (SIG_INFO)</source>
+        <translation>Referința activității speciale (SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Concurs</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation>Propagare</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Satelit</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Mod</translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation>Submod</translation>
+    </message>
+    <message>
+        <source>RST sent</source>
+        <translation>RST trimis</translation>
+    </message>
+    <message>
+        <source>RST received</source>
+        <translation>RST primit</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Comentariu</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Note</translation>
+    </message>
+    <message>
+        <source>Paper QSL sent</source>
+        <translation>QSL de hârtie trimisă</translation>
+    </message>
+    <message>
+        <source>Paper QSL received</source>
+        <translation>QSL de hârtie primită</translation>
+    </message>
+    <message>
+        <source>Paper QSL via</source>
+        <translation>QSL de hârtie via</translation>
+    </message>
+    <message>
+        <source>LoTW: sent</source>
+        <translation>LoTW: trimis</translation>
+    </message>
+    <message>
+        <source>eQSL: sent</source>
+        <translation>eQSL: trimis</translation>
+    </message>
+    <message>
+        <source>QRZ.com: uploaded</source>
+        <translation>QRZ.com: încărcat</translation>
+    </message>
+    <message>
+        <source>Club Log: uploaded</source>
+        <translation>Club Log: încărcat</translation>
+    </message>
+    <message>
+        <source>HRDLog: uploaded</source>
+        <translation>HRDLog: încărcat</translation>
+    </message>
+    <message>
+        <source>A change on many QSO is already running: wait for it to finish.</source>
+        <translation>O schimbare pe multe QSO-uri rulează deja: așteaptă să se termine.</translation>
+    </message>
+    <message>
+        <source>(empty)</source>
+        <translation>(gol)</translation>
+    </message>
+    <message>
+        <source>%1 → %2 on %3 QSO (%4 unchanged, %5 failed)</source>
+        <translation>%1 → %2 în %3 QSO (%4 neschimbate, %5 eșuate)</translation>
+    </message>
+    <message>
+        <source>QSO #%1: %2</source>
+        <translation>QSO nr. %1: %2</translation>
+    </message>
+    <message>
+        <source>Merged %1 group(s) of duplicates: %2 QSO deleted (kept in history)</source>
+        <translation>Unite %1 grupuri de duble: %2 QSO șterse (rămân în istoric)</translation>
+    </message>
+    <message>
         <source>An import is already running: wait for it to finish.</source>
         <translation>Un import rulează deja: așteaptă să se termine.</translation>
     </message>
@@ -8003,7 +8889,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>%1 is not there.</source>
-        <translation type="unfinished">%1 nu e acolo.</translation>
+        <translation>%1 nu e acolo.</translation>
     </message>
     <message>
         <source>There is no log file to restore over.</source>
@@ -8094,6 +8980,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>%1: parola sau cheia nu este disponibilă (%2)</translation>
     </message>
     <message>
+        <source>Keeping an eye on %1 (%2)</source>
+        <translation>Urmăresc %1 (%2)</translation>
+    </message>
+    <message>
         <source>Decodium log not found</source>
         <translation>Jurnalul Decodium negăsit</translation>
     </message>
@@ -8104,6 +8994,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>%1 · Decodium log not readable: %2</source>
         <translation>%1 · jurnalul Decodium nu poate fi citit: %2</translation>
+    </message>
+    <message>
+        <source>%1 · %2 not readable: %3</source>
+        <translation>%1 · %2 nu poate fi citit: %3</translation>
     </message>
     <message numerus="yes">
         <source>%1 · %n QSO(s) recovered from the Decodium log</source>
@@ -8122,6 +9016,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         </translation>
     </message>
     <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from %2</source>
+        <translation>
+            <numerusform>%1 · %n QSO recuperat din %2</numerusform>
+            <numerusform>%1 · %n QSO-uri recuperate din %2</numerusform>
+            <numerusform>%1 · %n de QSO-uri recuperate din %2</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source> · %n skipped as duplicates of the open activation “%1”</source>
         <translation>
             <numerusform> · %n omis ca duplicat al activării deschise „%1”</numerusform>
@@ -8136,6 +9038,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
         <translation>Recuperat din jurnalul Decodium → %1 %2 %3 %4</translation>
+    </message>
+    <message>
+        <source>Recovered from %1 → %2 %3 %4 %5</source>
+        <translation>Recuperat din %1 → %2 %3 %4 %5</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
@@ -8217,7 +9123,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <name>decolog::app::NetController</name>
     <message>
         <source>off</source>
-        <translation type="unfinished"></translation>
+        <translation>oprit</translation>
     </message>
     <message>
         <source>on the network %1 (UDP %2) as %3</source>
@@ -8474,6 +9380,22 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog: %1</translation>
+    </message>
+    <message>
+        <source>Wavelog: no station on the site yet</source>
+        <translation>Wavelog: pe site nu există încă nicio stație</translation>
+    </message>
+    <message numerus="yes">
+        <source>Wavelog: %n station(s) on the site</source>
+        <translation>
+            <numerusform>Wavelog: %n stație pe site</numerusform>
+            <numerusform>Wavelog: %n stații pe site</numerusform>
+            <numerusform>Wavelog: %n de stații pe site</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>CRX: %1</source>
         <translation>CRX: %1</translation>
     </message>
@@ -8530,8 +9452,28 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>fără cheie API: Setări → Servicii QSL</translation>
     </message>
     <message>
+        <source>no address or API key: Setup → QSL services</source>
+        <translation>lipsește adresa sau cheia API: Setări → Servicii QSL</translation>
+    </message>
+    <message>
+        <source>choose the Wavelog station: Setup → QSL services</source>
+        <translation>alege stația Wavelog: Setări → Servicii QSL</translation>
+    </message>
+    <message>
         <source>choose the CRX logbook: Setup → QSL services</source>
         <translation>alege jurnalul CRX: Setări → Servicii QSL</translation>
+    </message>
+    <message>
+        <source>Wavelog: asking for the stations…</source>
+        <translation>Wavelog: cer stațiile…</translation>
+    </message>
+    <message>
+        <source>Wavelog: address and API key are needed (%1)</source>
+        <translation>Wavelog: sunt necesare adresa și cheia API (%1)</translation>
+    </message>
+    <message>
+        <source>add them below</source>
+        <translation>adaugă-le mai jos</translation>
     </message>
     <message>
         <source>CRX: asking for the logbooks…</source>
@@ -8941,6 +9883,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Nicio poziție pentru DX: scrie un locator sau caută un indicativ.</translation>
     </message>
     <message>
+        <source>VOACAP: %1</source>
+        <translation>VOACAP: %1</translation>
+    </message>
+    <message>
         <source>Solar data of %1</source>
         <translation>Date solare de la %1</translation>
     </message>
@@ -9156,6 +10102,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
 <context>
     <name>decolog::core::CloudSync</name>
     <message>
+        <source>This Cloud server does not know shared logs yet: it has to be updated.</source>
+        <translation>Acest server Cloud nu cunoaște încă logurile partajate: trebuie actualizat.</translation>
+    </message>
+    <message>
         <source>This Cloud server does not know this request (%1): it is older than your DecoDXLog and has to be updated.</source>
         <translation>Acest server Cloud nu cunoaște această cerere (%1): este mai vechi decât DecoDXLog-ul tău și trebuie actualizat.</translation>
     </message>
@@ -9294,6 +10244,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Încărcare pe HRDLog.net: codul de încărcare e în profilul HRDLog, nu e parola</translation>
     </message>
     <message>
+        <source>Site address</source>
+        <translation>Adresa site-ului</translation>
+    </message>
+    <message>
+        <source>Upload to your Wavelog (or Cloudlog): the address of the site and a read/write API key</source>
+        <translation>Trimitere către Wavelog-ul tău (sau Cloudlog): adresa site-ului și o cheie API de citire/scriere</translation>
+    </message>
+    <message>
         <source>The VHF, EME and low band chat (www.on4kst.info)</source>
         <translation>Chatul pentru VHF, EME și benzi joase (www.on4kst.info)</translation>
     </message>
@@ -9316,6 +10274,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
         <translation>Trimite cărțile QSL prin email. Gmail cere o parolă de aplicație, nu pe cea a contului.</translation>
+    </message>
+    <message>
+        <source>Only for the QSOs of this profile; empty = the general account</source>
+        <translation>Doar pentru QSO-urile acestui profil; gol = contul general</translation>
     </message>
     <message>
         <source>Account saved</source>
@@ -9425,8 +10387,43 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Stația nu a luat textul CW (rigctld: %1). Nu orice stație — și nu orice punte CAT — poate manipula CW: pentru macrouri ai nevoie de rigctld care vorbește direct cu stația.</translation>
     </message>
     <message>
+        <source>The radio does not take split from here (rigctld: %1)</source>
+        <translation>Stația nu acceptă split de aici (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not change VFO from here (rigctld: %1)</source>
+        <translation>Stația nu schimbă VFO de aici (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not take RIT from here (rigctld: %1)</source>
+        <translation>Stația nu acceptă RIT de aici (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not take XIT from here (rigctld: %1)</source>
+        <translation>Stația nu acceptă XIT de aici (rigctld: %1)</translation>
+    </message>
+    <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>Stația a răspuns cu o eroare (rigctld: %1)</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::RigLink</name>
+    <message>
+        <source>This radio link does not do split</source>
+        <translation>Această legătură cu stația nu face split</translation>
+    </message>
+    <message>
+        <source>This radio link cannot choose the VFO</source>
+        <translation>Această legătură cu stația nu poate alege VFO-ul</translation>
+    </message>
+    <message>
+        <source>This radio link does not do RIT</source>
+        <translation>Această legătură cu stația nu face RIT</translation>
+    </message>
+    <message>
+        <source>This radio link does not do XIT</source>
+        <translation>Această legătură cu stația nu face XIT</translation>
     </message>
 </context>
 <context>
@@ -9530,6 +10527,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
 </context>
 <context>
     <name>decolog::core::WebQslUploader</name>
+    <message>
+        <source>Wavelog: write the address of your Wavelog (Setup → QSL services)</source>
+        <translation>Wavelog: scrie adresa Wavelog-ului tău (Setări → Servicii QSL)</translation>
+    </message>
+    <message>
+        <source>write the address of your Wavelog</source>
+        <translation>scrie adresa Wavelog-ului tău</translation>
+    </message>
     <message>
         <source>Club Log: email, password, callsign and API key are all needed</source>
         <translation>Club Log: sunt necesare e-mailul, parola, indicativul și cheia API</translation>

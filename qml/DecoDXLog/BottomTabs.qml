@@ -8,6 +8,8 @@ GlassPanel {
     id: root
     // Per le prove: la scelta del periodo LoTW aperta.
     function openLotwPeriod() { lotwPeriod.open() }
+    // Per le prove: la previsione verso un locatore.
+    function showForecast(grid) { currentTab = 5; propagationPanel.showForecast(grid) }
 
     // 0 Awards · 1 Statistics · 2 QSL Upload · 3 Activity log · 4 DX Cluster · 5 Propagation
     property int currentTab: 3
@@ -442,6 +444,6 @@ GlassPanel {
         }
 
         // ── Propagazione ────────────────────────────────────────────────────
-        PropagationPanel {}
+        PropagationPanel { id: propagationPanel }
     }
 }

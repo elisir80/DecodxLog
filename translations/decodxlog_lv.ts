@@ -178,6 +178,18 @@
         <translation>Konkursi un aktivizēšanas</translation>
     </message>
     <message>
+        <source>Call history file (N1MM format)</source>
+        <translation>Call history fails (N1MM formāts)</translation>
+    </message>
+    <message>
+        <source>Call history (*.txt *.csv)</source>
+        <translation>Call history (*.txt *.csv)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Visi faili (*)</translation>
+    </message>
+    <message>
         <source>pick it from the list</source>
         <translation>izvēlies no saraksta</translation>
     </message>
@@ -216,6 +228,50 @@
     <message>
         <source>Next</source>
         <translation>Nākamais</translation>
+    </message>
+    <message>
+        <source>Shared on the network</source>
+        <translation>Koplietots tīklā</translation>
+    </message>
+    <message>
+        <source>Bands of this edition</source>
+        <translation>Šī izdevuma joslas</translation>
+    </message>
+    <message>
+        <source>Operating hours</source>
+        <translation>Darba stundas</translation>
+    </message>
+    <message>
+        <source>no limit</source>
+        <translation>bez ierobežojuma</translation>
+    </message>
+    <message>
+        <source>Off-time from (min)</source>
+        <translation>Pauze no (min)</translation>
+    </message>
+    <message>
+        <source>Log within (h)</source>
+        <translation>Žurnāls līdz (h)</translation>
+    </message>
+    <message>
+        <source>Call history</source>
+        <translation>Call history</translation>
+    </message>
+    <message>
+        <source>%1 · %2 calls</source>
+        <translation>%1 · %2 izsaukuma signāli</translation>
+    </message>
+    <message>
+        <source>none: the exchange is suggested from the log and the country</source>
+        <translation>nav: apmaiņu iesaka no žurnāla un valsts</translation>
+    </message>
+    <message>
+        <source>Load…</source>
+        <translation>Ielādēt…</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Noņemt</translation>
     </message>
     <message>
         <source>The QSOs get CONTEST_ID and the serial number sent (STX). The number received goes in the New QSO panel.</source>
@@ -303,6 +359,14 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>Atsauce tiek nolasīta no SIG/SIG_INFO (SIG = %1) vai no komentāra kā &quot;%1 LI-001&quot;.</translation>
+    </message>
+    <message numerus="yes">
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC. %n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.</source>
+        <translation>
+            <numerusform>ARRL noteikumi: QSO 60 m joslā neskaitās, un eQSL nav DXCC apstiprinājums. %n QSO ar dzēstām teritorijām vai ARRL neatzītām operācijām (Club Log) netiek ieskaitīts.</numerusform>
+            <numerusform>ARRL noteikumi: QSO 60 m joslā neskaitās, un eQSL nav DXCC apstiprinājums. %n QSO ar dzēstām teritorijām vai ARRL neatzītām operācijām (Club Log) netiek ieskaitīti.</numerusform>
+            <numerusform>ARRL noteikumi: QSO 60 m joslā neskaitās, un eQSL nav DXCC apstiprinājums. %n QSO ar dzēstām teritorijām vai ARRL neatzītām operācijām (Club Log) netiek ieskaitīti.</numerusform>
+        </translation>
     </message>
     <message>
         <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
@@ -410,6 +474,26 @@
     <message>
         <source>All tags</source>
         <translation>Visas birkas</translation>
+    </message>
+    <message>
+        <source>Valid for %1</source>
+        <translation>Derīgi: %1</translation>
+    </message>
+    <message>
+        <source>chosen by you</source>
+        <translation>tevis izvēlēti</translation>
+    </message>
+    <message>
+        <source>the rules of the award</source>
+        <translation>diploma noteikumi</translation>
+    </message>
+    <message>
+        <source>the general choice above</source>
+        <translation>vispārējā izvēle augstāk</translation>
+    </message>
+    <message>
+        <source>Back to the rules</source>
+        <translation>Atpakaļ pie noteikumiem</translation>
     </message>
     <message>
         <source>State</source>
@@ -658,6 +742,41 @@
     </message>
 </context>
 <context>
+    <name>BulkEditDialog</name>
+    <message>
+        <source>CHANGE A FIELD ON %1 QSO</source>
+        <translation>MAINĪT LAUKU %1 QSO</translation>
+    </message>
+    <message>
+        <source>The same value on every QSO chosen. Each QSO keeps the old value in its history, so the change can be undone QSO by QSO from its card. Leave the value empty to clear the field.</source>
+        <translation>Viena un tā pati vērtība visos izvēlētajos QSO. Katrs QSO saglabā veco vērtību savā vēsturē, tāpēc izmaiņu var atsaukt pa vienam QSO no tā kartītes. Atstāj vērtību tukšu, lai iztukšotu lauku.</translation>
+    </message>
+    <message>
+        <source>Field</source>
+        <translation>Lauks</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>Vērtība</translation>
+    </message>
+    <message>
+        <source>Only where the field is empty</source>
+        <translation>Tikai tur, kur lauks ir tukšs</translation>
+    </message>
+    <message>
+        <source>With this many QSO the change runs in the background: the log stays usable and the progress shows in its header.</source>
+        <translation>Ar tik daudz QSO izmaiņa notiek fonā: žurnāls paliek lietojams, un progress redzams tā galvenē.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Atcelt</translation>
+    </message>
+    <message>
+        <source>Change %1 QSO</source>
+        <translation>Mainīt %1 QSO</translation>
+    </message>
+</context>
+<context>
     <name>Cabrillo</name>
     <message>
         <source>The station callsign is missing</source>
@@ -820,7 +939,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">Sūtīt</translation>
+        <translation>Sūtīt</translation>
     </message>
 </context>
 <context>
@@ -1399,7 +1518,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>CW macros</source>
-        <translation type="unfinished">CW makro</translation>
+        <translation>CW makro</translation>
     </message>
     <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
@@ -1407,11 +1526,11 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>Default macros</source>
-        <translation type="unfinished">Noklusētie makro</translation>
+        <translation>Noklusētie makro</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Aizvērt</translation>
+        <translation>Aizvērt</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -1470,6 +1589,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>%1 · žurnāls</translation>
     </message>
     <message>
+        <source>%1 · history</source>
+        <translation>%1 · vēsture</translation>
+    </message>
+    <message>
         <source>%1 · country</source>
         <translation>%1 · valsts</translation>
     </message>
@@ -1483,7 +1606,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>Downloading…</source>
-        <translation type="unfinished">Lejupielādē…</translation>
+        <translation>Lejupielādē…</translation>
     </message>
     <message>
         <source>Download MASTER.SCP</source>
@@ -1576,7 +1699,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">Sūtīt</translation>
+        <translation>Sūtīt</translation>
     </message>
     <message>
         <source>Spot %1</source>
@@ -1714,6 +1837,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>%1 QSO</source>
         <translation>%1 QSO</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 of %2 · %n break(s)</source>
+        <translation>
+            <numerusform>Ēterā %1 no %2 · %n pauze</numerusform>
+            <numerusform>Ēterā %1 no %2 · %n pauzes</numerusform>
+            <numerusform>Ēterā %1 no %2 · %n pauzes</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 · %n break(s)</source>
+        <translation>
+            <numerusform>Ēterā %1 · %n pauze</numerusform>
+            <numerusform>Ēterā %1 · %n pauzes</numerusform>
+            <numerusform>Ēterā %1 · %n pauzes</numerusform>
+        </translation>
     </message>
     <message>
         <source>Export…</source>
@@ -1904,6 +2043,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>%1 · log</source>
         <translation>%1 · žurnāls</translation>
+    </message>
+    <message>
+        <source>%1 · history</source>
+        <translation>%1 · vēsture</translation>
     </message>
     <message>
         <source>%1 · country</source>
@@ -2197,6 +2340,89 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>DuplicatesDialog</name>
+    <message>
+        <source>DUPLICATE QSO</source>
+        <translation>DUBULTIE QSO</translation>
+    </message>
+    <message>
+        <source>Same call, band, kind of mode (CW, phone, digital) and station profile, within the minutes chosen. Of each group one QSO is kept — a click on a row chooses which — and it takes from the others what it is missing: fields, confirmations, tags. The others are deleted; they stay in the history and can be recovered.</source>
+        <translation>Tas pats izsaukuma signāls, josla, režīma veids (CW, telefonija, digitālais) un stacijas profils izvēlēto minūšu robežās. No katras grupas paliek viens QSO — klikšķis uz rindas izvēlas, kurš — un tas pārņem no pārējiem to, kas tam trūkst: laukus, apstiprinājumus, birkas. Pārējie tiek dzēsti; tie paliek vēsturē un ir atgūstami.</translation>
+    </message>
+    <message>
+        <source>Within</source>
+        <translation>Robežās</translation>
+    </message>
+    <message>
+        <source>minutes</source>
+        <translation>minūtes</translation>
+    </message>
+    <message>
+        <source>Searching…</source>
+        <translation>Meklē…</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>Meklēt</translation>
+    </message>
+    <message>
+        <source>No duplicates within %1 minutes</source>
+        <translation>Nav dubultu %1 minūšu robežās</translation>
+    </message>
+    <message>
+        <source>The first %1 groups: merge them and search again for the rest</source>
+        <translation>Pirmās %1 grupas: apvieno tās un meklē vēlreiz pārējās</translation>
+    </message>
+    <message>
+        <source>%1 groups found, %2 ticked</source>
+        <translation>Atrastas %1 grupas, atzīmētas %2</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>KEEP</source>
+        <translation>PATURĒT</translation>
+    </message>
+    <message>
+        <source>merge</source>
+        <translation>apvienot</translation>
+    </message>
+    <message>
+        <source>confirmed: %1</source>
+        <translation>apstiprināts: %1</translation>
+    </message>
+    <message>
+        <source>%1 fields</source>
+        <translation>%1 lauki</translation>
+    </message>
+    <message>
+        <source>Reading the whole log…</source>
+        <translation>Lasa visu žurnālu…</translation>
+    </message>
+    <message>
+        <source>Nothing to merge.</source>
+        <translation>Nav ko apvienot.</translation>
+    </message>
+    <message>
+        <source>Choose the minutes and press Search.</source>
+        <translation>Izvēlies minūtes un nospied Meklēt.</translation>
+    </message>
+    <message>
+        <source>A double click opens the QSO.</source>
+        <translation>Dubultklikšķis atver QSO.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Aizvērt</translation>
+    </message>
+    <message>
+        <source>Merge %1 groups</source>
+        <translation>Apvienot %1 grupas</translation>
+    </message>
+</context>
+<context>
     <name>DvkPanel</name>
     <message>
         <source>Voice keyer</source>
@@ -2236,7 +2462,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>never</source>
-        <translation type="unfinished">nekad</translation>
+        <translation>nekad</translation>
     </message>
     <message>
         <source>CQ loop</source>
@@ -2244,7 +2470,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Apturēt</translation>
     </message>
 </context>
 <context>
@@ -2494,6 +2720,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Importē %1%</translation>
     </message>
     <message>
+        <source>Sorting…</source>
+        <translation>Kārto…</translation>
+    </message>
+    <message>
+        <source>Changing %1%</source>
+        <translation>Maina %1%</translation>
+    </message>
+    <message>
         <source>%1 QSO · %2 shown</source>
         <translation>%1 QSO · %2 rādīti</translation>
     </message>
@@ -2560,6 +2794,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>Eksportēt %1 rādītos QSO uz ADIF…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO shown…</source>
+        <translation>Mainīt lauku %1 parādītajos QSO…</translation>
+    </message>
+    <message>
+        <source>Find duplicate QSO…</source>
+        <translation>Atrast dubultos QSO…</translation>
     </message>
     <message>
         <source>Complete the QSO shown from the callbook…</source>
@@ -2760,6 +3002,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Delete the %1 QSO selected…</source>
         <translation>Dzēst %1 atlasītos QSO…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO selected…</source>
+        <translation>Mainīt lauku %1 atlasītajos QSO…</translation>
+    </message>
+    <message>
+        <source>Change a field…</source>
+        <translation>Mainīt lauku…</translation>
     </message>
     <message>
         <source>Complete from the callbook</source>
@@ -3021,12 +3271,24 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>iedokots</translation>
     </message>
     <message>
-        <source>Import ADIF</source>
-        <translation>Importēt ADIF</translation>
+        <source>Import a log</source>
+        <translation>Importēt žurnālu</translation>
     </message>
     <message>
         <source>ADIF files (*.adi *.adif)</source>
         <translation>ADIF faili (*.adi *.adif)</translation>
+    </message>
+    <message>
+        <source>Logs (*.adi *.adif *.csv *.tsv *.s3db)</source>
+        <translation>Žurnāli (*.adi *.adif *.csv *.tsv *.s3db)</translation>
+    </message>
+    <message>
+        <source>Spreadsheets (*.csv *.tsv)</source>
+        <translation>Izklājlapas (*.csv *.tsv)</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ databases (*.s3db)</source>
+        <translation>N1MM Logger+ datubāzes (*.s3db)</translation>
     </message>
     <message>
         <source>All files (*)</source>
@@ -3488,7 +3750,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>%1°</source>
-        <translation type="unfinished">%1°</translation>
+        <translation>%1°</translation>
     </message>
     <message numerus="yes">
         <source>%n hop(s)</source>
@@ -3507,8 +3769,16 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>SFI %1</translation>
     </message>
     <message>
+        <source>VOACAP computing…</source>
+        <translation>VOACAP rēķina…</translation>
+    </message>
+    <message>
         <source>Locator</source>
         <translation>Lokators</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · reliability %4% · SNR %5 dB</source>
+        <translation>%1 · %2 UTC · MUF %3 MHz · uzticamība %4% · SNR %5 dB</translation>
     </message>
     <message>
         <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
@@ -3516,11 +3786,11 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>good</source>
-        <translation type="unfinished">laba</translation>
+        <translation>laba</translation>
     </message>
     <message>
         <source>fair</source>
-        <translation type="unfinished">viduvēja</translation>
+        <translation>viduvēja</translation>
     </message>
     <message>
         <source>marginal</source>
@@ -3528,11 +3798,59 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>closed</source>
-        <translation type="unfinished">aizvērts</translation>
+        <translation>aizvērts</translation>
+    </message>
+    <message>
+        <source>VOACAP (ITS): the chance of a %1 QSO with %2 W and %3 dBi antennas; 160 and 6 m from the simple model.</source>
+        <translation>VOACAP (ITS): %1 QSO iespēja ar %2 W un %3 dBi antenām; 160 un 6 m no vienkāršā modeļa.</translation>
+    </message>
+    <message>
+        <source>VOACAP failed (%1): simplified F2 model.</source>
+        <translation>VOACAP neizdevās (%1): vienkāršots F2 modelis.</translation>
     </message>
     <message>
         <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
         <translation>Vienkāršots F2 modelis (MUF/LUF), nevis VOACAP: norāde, kad josla atveras, nevis solījums.</translation>
+    </message>
+    <message>
+        <source>%1 W</source>
+        <translation>%1 W</translation>
+    </message>
+    <message>
+        <source>0 dBi (vertical)</source>
+        <translation>0 dBi (vertikālā)</translation>
+    </message>
+    <message>
+        <source>2 dBi (dipole)</source>
+        <translation>2 dBi (dipols)</translation>
+    </message>
+    <message>
+        <source>5 dBi (2-el beam)</source>
+        <translation>5 dBi (2 el. virziena)</translation>
+    </message>
+    <message>
+        <source>8 dBi (3-el beam)</source>
+        <translation>8 dBi (3 el. virziena)</translation>
+    </message>
+    <message>
+        <source>11 dBi (big beam)</source>
+        <translation>11 dBi (liela virziena)</translation>
+    </message>
+    <message>
+        <source>noise: city</source>
+        <translation>troksnis: pilsēta</translation>
+    </message>
+    <message>
+        <source>noise: residential</source>
+        <translation>troksnis: dzīvojamais rajons</translation>
+    </message>
+    <message>
+        <source>noise: rural</source>
+        <translation>troksnis: lauki</translation>
+    </message>
+    <message>
+        <source>noise: quiet</source>
+        <translation>troksnis: kluss</translation>
     </message>
 </context>
 <context>
@@ -3711,6 +4029,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>unexpected answer</source>
         <translation>negaidīta atbilde</translation>
+    </message>
+    <message>
+        <source>Wavelog: already there</source>
+        <translation>Wavelog: jau bija</translation>
+    </message>
+    <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog: %1</translation>
+    </message>
+    <message>
+        <source>Wavelog: sent</source>
+        <translation>Wavelog: nosūtīts</translation>
+    </message>
+    <message>
+        <source>Wavelog: the API key is not valid or cannot write (%1)</source>
+        <translation>Wavelog: API atslēga nav derīga vai nevar rakstīt (%1)</translation>
     </message>
     <message>
         <source>HRDLog: sent</source>
@@ -4715,7 +5049,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>All files (*)</source>
-        <translation type="unfinished">Visi faili (*)</translation>
+        <translation>Visi faili (*)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -4795,7 +5129,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Aizvērt</translation>
+        <translation>Aizvērt</translation>
     </message>
 </context>
 <context>
@@ -6203,8 +6537,200 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>ports nav atvērts</translation>
     </message>
     <message>
+        <source>An ADIF log to keep an eye on</source>
+        <translation>ADIF žurnāls, kam sekot</translation>
+    </message>
+    <message>
+        <source>Club Log cty.xml</source>
+        <translation>Club Log cty.xml</translation>
+    </message>
+    <message>
+        <source>QSOs of another entity on that date</source>
+        <translation>Citas teritorijas QSO tajā datumā</translation>
+    </message>
+    <message>
+        <source>Working…</source>
+        <translation>Strādā…</translation>
+    </message>
+    <message>
+        <source>Update cty.xml</source>
+        <translation>Atjaunināt cty.xml</translation>
+    </message>
+    <message>
+        <source>Check the entities with the dates</source>
+        <translation>Pārbaudīt teritorijas ar datumiem</translation>
+    </message>
+    <message>
+        <source>Correct %1 QSO</source>
+        <translation>Labot %1 QSO</translation>
+    </message>
+    <message>
+        <source>%1 QSO corrected, each kept as a new revision.</source>
+        <translation>Laboti %1 QSO, katrs saglabāts kā jauna redakcija.</translation>
+    </message>
+    <message>
+        <source>deleted</source>
+        <translation>dzēsta</translation>
+    </message>
+    <message>
+        <source>With the Club Log API key (QSL services) DecoDXLog downloads Club Log&apos;s cty.xml every week: the entities with their dates, so a QSO of 2005 with PJ2 is the Netherlands Antilles and not Curacao, operations the ARRL did not accept do not count for DXCC, and deleted entities are shown but not counted.</source>
+        <translation>Ar Club Log API atslēgu (QSL pakalpojumi) DecoDXLog katru nedēļu lejupielādē Club Log cty.xml: teritorijas ar to datumiem, lai 2005. gada QSO ar PJ2 būtu Nīderlandes Antiļas, nevis Kirasao, ARRL neatzītas operācijas neskaitītos DXCC, un dzēstās teritorijas tiktu parādītas, bet neskaitītas.</translation>
+    </message>
+    <message>
+        <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
+        <translation>Katru nedēļu no Club Log. Jaunie QSO saņem sava datuma teritoriju; pārbaude salīdzina žurnālu ar datumiem un labo tikai DXCC, kas bija tukšs vai ielikts ar šodienas cty.csv — LoTW vai tevis ierakstītais paliek.</translation>
+    </message>
+    <message>
+        <source>Forward to other programs</source>
+        <translation>Pārsūtīt citām programmām</translation>
+    </message>
+    <message>
+        <source>e.g. 127.0.0.1:2238, 127.0.0.1:2333 — empty = off</source>
+        <translation>piem. 127.0.0.1:2238, 127.0.0.1:2333 — tukšs = izslēgts</translation>
+    </message>
+    <message>
+        <source>Every packet from Decodium also goes to these programs (JTAlert, GridTracker, HamLog…), and their answers (reply to a caller, halt TX) go back to Decodium. So Decodium sends to one port only and everybody gets it.</source>
+        <translation>Katra Decodium pakete aiziet arī šīm programmām (JTAlert, GridTracker, HamLog…), un to atbildes (atbildēt izsaucējam, apturēt TX) atgriežas Decodium. Tā Decodium sūta tikai uz vienu portu, un visi saņem.</translation>
+    </message>
+    <message>
         <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
         <translation>Decodium katru QSO ieraksta arī savā ADIF žurnālā. Ja DecoDXLog bija aizvērts vai nesaņēma (nepareizs ports, nav tīkla), QSO paliek tikai tur: ik pēc 5 minūtēm DecoDXLog nolasa kopš pēdējās pārbaudes ierakstītos QSO un saglabā tos, kuru trūkst šeit un citos saraksta žurnālos. Šeit labotie vai dzēstie QSO neatgriežas. Pirmajā reizē tiek skatīta viena nedēļa atpakaļ, ar pogām tālāk. Tukšs lauks = žurnāls, ko izmanto Decodium.</translation>
+    </message>
+    <message>
+        <source>Other ADIF logs to keep an eye on</source>
+        <translation>Citi ADIF žurnāli, kam sekot</translation>
+    </message>
+    <message>
+        <source>not found: %1</source>
+        <translation>nav atrasts: %1</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Noņemt</translation>
+    </message>
+    <message>
+        <source>Add a file…</source>
+        <translation>Pievienot failu…</translation>
+    </message>
+    <message>
+        <source>Add %1</source>
+        <translation>Pievienot %1</translation>
+    </message>
+    <message>
+        <source>The QSOs that other programs (fldigi, WSJT-X, JTDX…) write in these logs and that are missing here are saved every 5 minutes, from the moment the file is added. For the older ones, “Check the whole file”.</source>
+        <translation>QSO, ko citas programmas (fldigi, WSJT-X, JTDX…) ieraksta šajos žurnālos un kuru šeit trūkst, tiek saglabāti ik pēc 5 minūtēm, sākot no brīža, kad fails pievienots. Vecākajiem — “Pārbaudīt visu failu”.</translation>
+    </message>
+    <message>
+        <source>UDP port (0 = off)</source>
+        <translation>UDP ports (0 = izslēgts)</translation>
+    </message>
+    <message>
+        <source>listening</source>
+        <translation>klausās</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ sends every contact on this port (Config → Configure Ports → Broadcast Data → Contacts, usually 12060). A contact corrected or deleted in N1MM is corrected or deleted here too.</source>
+        <translation>N1MM Logger+ sūta katru kontaktu uz šo portu (Config → Configure Ports → Broadcast Data → Contacts, parasti 12060). N1MM labots vai dzēsts kontakts tiek labots vai dzēsts arī šeit.</translation>
+    </message>
+    <message>
+        <source>Local interface for other programs</source>
+        <translation>Lokālā saskarne citām programmām</translation>
+    </message>
+    <message>
+        <source>Port on 127.0.0.1 (0 = off)</source>
+        <translation>Ports uz 127.0.0.1 (0 = izslēgta)</translation>
+    </message>
+    <message>
+        <source>Key (X-DecoDXLog-Token)</source>
+        <translation>Atslēga (X-DecoDXLog-Token)</translation>
+    </message>
+    <message>
+        <source>New key</source>
+        <translation>Jauna atslēga</translation>
+    </message>
+    <message>
+        <source>For programs next to DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, and POST /api/v1/qso with an ADIF record to log it. Only from this computer, and always with the key. Details: docs/API.md.</source>
+        <translation>Programmām blakus DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, un POST /api/v1/qso ar ADIF ierakstu, lai to reģistrētu. Tikai no šī datora un vienmēr ar atslēgu. Sīkāk: docs/API.md.</translation>
+    </message>
+    <message>
+        <source>Shared log</source>
+        <translation>Koplietots žurnāls</translation>
+    </message>
+    <message>
+        <source>A club station, a multi-operator contest: one log, several operators, each with their own Cloud account — nobody lends a password. The owner of the log creates an invite, whoever gets the code joins with it. Only QSOs travel: profiles, settings and service passwords stay with the owner.</source>
+        <translation>Kluba stacija, vairāku operatoru sacensības: viens žurnāls, vairāki operatori, katrs ar savu Cloud kontu — neviens neaizdod paroli. Žurnāla īpašnieks izveido ielūgumu, kas saņem kodu, ar to ienāk. Ceļo tikai QSO: profili, iestatījumi un pakalpojumu paroles paliek īpašniekam.</translation>
+    </message>
+    <message>
+        <source>This log syncs with</source>
+        <translation>Šis žurnāls sinhronizējas ar</translation>
+    </message>
+    <message>
+        <source>my own log (%1)</source>
+        <translation>manu žurnālu (%1)</translation>
+    </message>
+    <message>
+        <source>the shared log of %1</source>
+        <translation>%1 koplietoto žurnālu</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Atjaunināt</translation>
+    </message>
+    <message>
+        <source>The QSOs of this log go to the log of %1, and its QSOs come here: keep a log just for it (Log → New log).</source>
+        <translation>Šī žurnāla QSO nonāk %1 žurnālā, un tā QSO nāk šeit: turi tam atsevišķu žurnālu (Žurnāls → Jauns žurnāls).</translation>
+    </message>
+    <message>
+        <source>Invite code, e.g. K7Q2-9XMP-D4TA</source>
+        <translation>Ielūguma kods, piem. K7Q2-9XMP-D4TA</translation>
+    </message>
+    <message>
+        <source>Join with the code</source>
+        <translation>Ienākt ar kodu</translation>
+    </message>
+    <message>
+        <source>operator: sends and gets the QSOs</source>
+        <translation>operators: sūta un saņem QSO</translation>
+    </message>
+    <message>
+        <source>viewer: only looks</source>
+        <translation>skatītājs: tikai skatās</translation>
+    </message>
+    <message>
+        <source>Invite into the log of %1</source>
+        <translation>Ielūgt %1 žurnālā</translation>
+    </message>
+    <message>
+        <source>Code %1 — %2, valid until %3</source>
+        <translation>Kods %1 — %2, derīgs līdz %3</translation>
+    </message>
+    <message>
+        <source>viewer</source>
+        <translation>skatītājs</translation>
+    </message>
+    <message>
+        <source>operator</source>
+        <translation>operators</translation>
+    </message>
+    <message>
+        <source>viewer in your log</source>
+        <translation>skatītājs tavā žurnālā</translation>
+    </message>
+    <message>
+        <source>operator in your log</source>
+        <translation>operators tavā žurnālā</translation>
+    </message>
+    <message>
+        <source>you look at its log</source>
+        <translation>tu skaties tā žurnālu</translation>
+    </message>
+    <message>
+        <source>you write in its log</source>
+        <translation>tu raksti tā žurnālā</translation>
+    </message>
+    <message>
+        <source>Leave</source>
+        <translation>Iziet</translation>
     </message>
     <message>
         <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
@@ -6233,6 +6759,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
         <translation>eQSL: iesūtnē saņemtās eQSL, bez SWL ziņojumiem. QRZ Logbook: tava QRZ žurnāla QSO, ko otra stacija ir apstiprinājusi. Tikai tas, kas pienācis pēc pēdējās lejupielādes; automātiskā lejupielāde notiek tikai pakalpojumiem ar to piekļuves datiem (zemāk, tie paši, kas sūtīšanai). Sasaistīti kā LoTW apstiprinājumi; papīra QSL lauki netiek aiztikti.</translation>
+    </message>
+    <message>
+        <source>Station on Wavelog</source>
+        <translation>Stacija Wavelog</translation>
+    </message>
+    <message>
+        <source>station %1</source>
+        <translation>stacija %1</translation>
+    </message>
+    <message>
+        <source>Load my stations</source>
+        <translation>Ielādēt manas stacijas</translation>
+    </message>
+    <message>
+        <source>Wavelog (and Cloudlog) is the web log on your own site. Below it wants the address of the site (for example log.mysite.org) and an API key with read and write rights, made in Wavelog under Account → API keys; then the station to write in. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>Wavelog (un Cloudlog) ir tīmekļa žurnāls tavā vietnē. Zemāk vajag vietnes adresi (piemēram, log.manavietne.lv) un API atslēgu ar lasīšanas un rakstīšanas tiesībām, izveidotu Wavelog sadaļā Account → API keys; pēc tam staciju, kurā rakstīt. Sūtīšana, automātiskā sūtīšana un skaitītāji ir QSL cilnē apakšā.</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -6364,7 +6906,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished">Adrese</translation>
+        <translation>Adrese</translation>
     </message>
     <message>
         <source>SO2R box (OTRSP)</source>
@@ -6633,6 +7175,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>LoTW station location (TQSL)</translation>
     </message>
     <message>
+        <source>QSL accounts of this profile</source>
+        <translation>Šī profila QSL konti</translation>
+    </message>
+    <message>
+        <source>Save the profile first: then it can have its own QRZ Logbook and eQSL accounts.</source>
+        <translation>Vispirms saglabā profilu: tad tam var būt savi QRZ Logbook un eQSL konti.</translation>
+    </message>
+    <message>
         <source>Used by &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</source>
         <translation>Izmanto &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</translation>
     </message>
@@ -6681,7 +7231,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>Grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokatori</translation>
     </message>
     <message>
         <source>Awards over the years · cumulative</source>
@@ -6689,7 +7239,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>no QSO</source>
-        <translation type="unfinished">nav QSO</translation>
+        <translation>nav QSO</translation>
     </message>
     <message>
         <source>Most worked entities</source>
@@ -6881,6 +7431,26 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>ON4KST tērzētava…</translation>
     </message>
     <message>
+        <source>Import a log (ADIF, CSV, N1MM)…</source>
+        <translation>Importēt žurnālu (ADIF, CSV, N1MM)…</translation>
+    </message>
+    <message>
+        <source>Split off</source>
+        <translation>Split izslēgts</translation>
+    </message>
+    <message>
+        <source>TX up %1 kHz</source>
+        <translation>TX par %1 kHz augstāk</translation>
+    </message>
+    <message>
+        <source>TX down %1 kHz</source>
+        <translation>TX par %1 kHz zemāk</translation>
+    </message>
+    <message>
+        <source>RIT and XIT off</source>
+        <translation>RIT un XIT izslēgti</translation>
+    </message>
+    <message>
         <source>Setup · %1 ▾</source>
         <translation>Iestatījumi · %1 ▾</translation>
     </message>
@@ -6999,10 +7569,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Panels…</source>
         <translation>Paneļi…</translation>
-    </message>
-    <message>
-        <source>Import ADIF…</source>
-        <translation>Importēt ADIF…</translation>
     </message>
     <message>
         <source>Export ADIF…</source>
@@ -7249,7 +7815,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">Diena</translation>
+        <translation>Diena</translation>
     </message>
     <message>
         <source>Grayline</source>
@@ -7335,7 +7901,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">Diena</translation>
+        <translation>Diena</translation>
     </message>
     <message>
         <source>Civil twilight</source>
@@ -7406,6 +7972,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
             <numerusform>Sesija aizvērta: %1 · %n QSO</numerusform>
             <numerusform>Sesija aizvērta: %1 · %n QSO</numerusform>
             <numerusform>Sesija aizvērta: %1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Call history not readable: %1</source>
+        <translation>Call history nav nolasāms: %1</translation>
+    </message>
+    <message>
+        <source>Open the contest first</source>
+        <translation>Vispirms atver sacensības</translation>
+    </message>
+    <message numerus="yes">
+        <source>Call history: %n call(s) from %1</source>
+        <translation>
+            <numerusform>Call history: %n izsaukuma signāls no %1</numerusform>
+            <numerusform>Call history: %n izsaukuma signāli no %1</numerusform>
+            <numerusform>Call history: %n izsaukuma signālu no %1</numerusform>
         </translation>
     </message>
     <message>
@@ -7531,8 +8113,36 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Cloud: %1</translation>
     </message>
     <message>
+        <source>Invite created: give the code to the operator. It is shown only now.</source>
+        <translation>Ielūgums izveidots: iedod kodu operatoram. Tas redzams tikai tagad.</translation>
+    </message>
+    <message>
+        <source>You are in the log of %1. Choose it for a log of yours below — better a new log (Log → New log), so the club log and yours do not mix.</source>
+        <translation>Tu esi %1 žurnālā. Izvēlies to zemāk kādam savam žurnālam — labāk jaunam (Žurnāls → Jauns žurnāls), lai kluba un tavs žurnāls nesajauktos.</translation>
+    </message>
+    <message>
+        <source>Cloud: you joined the shared log of %1</source>
+        <translation>Cloud: tu pievienojies %1 koplietotajam žurnālam</translation>
+    </message>
+    <message>
         <source>Cloud: linked — sync will unlock it when needed</source>
         <translation>Cloud: saistīts — sinhronizācija to atslēdz, kad vajag</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with your own log again</source>
+        <translation>Cloud: šis žurnāls atkal sinhronizējas ar tavu</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with the shared log of %1</source>
+        <translation>Cloud: šis žurnāls sinhronizējas ar %1 koplietoto žurnālu</translation>
+    </message>
+    <message>
+        <source>Sync once to open the keystore, then the team shows here.</source>
+        <translation>Sinhronizē vienreiz, lai atvērtu atslēgu glabātuvi, tad komanda parādīsies šeit.</translation>
+    </message>
+    <message>
+        <source>Sign in to the Cloud first.</source>
+        <translation>Vispirms ieej Cloud.</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>
@@ -7817,8 +8427,32 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Nevar klausīties uz UDP %1: %2</translation>
     </message>
     <message>
+        <source>Listening for N1MM Logger+ on UDP %1</source>
+        <translation>Klausos N1MM Logger+ uz UDP %1</translation>
+    </message>
+    <message>
+        <source>Correction not saved: %1</source>
+        <translation>Labojums nav saglabāts: %1</translation>
+    </message>
+    <message>
+        <source>Corrected by N1MM: %1</source>
+        <translation>N1MM laboja: %1</translation>
+    </message>
+    <message>
         <source>built on %1</source>
         <translation>būvēts %1</translation>
+    </message>
+    <message>
+        <source>Not understood: %1 (write address:port)</source>
+        <translation>Nav saprasts: %1 (raksti adrese:ports)</translation>
+    </message>
+    <message>
+        <source>UDP forwarding off</source>
+        <translation>UDP pārsūtīšana izslēgta</translation>
+    </message>
+    <message>
+        <source>UDP forwarded to %1</source>
+        <translation>UDP pārsūtīts uz %1</translation>
     </message>
     <message>
         <source>no callsign</source>
@@ -7853,6 +8487,38 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>cty.csv %1 uzstādīts: %2 DXCC vienības</translation>
     </message>
     <message>
+        <source>Club Log cty.xml not readable: %1</source>
+        <translation>Club Log cty.xml nav nolasāms: %1</translation>
+    </message>
+    <message>
+        <source>The Club Log API key is needed (Setup → QSL services → Club Log)</source>
+        <translation>Vajag Club Log API atslēgu (Iestatījumi → QSL pakalpojumi → Club Log)</translation>
+    </message>
+    <message>
+        <source>Downloading cty.xml from Club Log…</source>
+        <translation>Lejupielādē cty.xml no Club Log…</translation>
+    </message>
+    <message>
+        <source>Club Log: %1</source>
+        <translation>Club Log: %1</translation>
+    </message>
+    <message>
+        <source>Club Log: the file is not a cty.xml (%1)</source>
+        <translation>Club Log: fails nav cty.xml (%1)</translation>
+    </message>
+    <message>
+        <source>cty.xml of %1: %2 entities</source>
+        <translation>%1 cty.xml: %2 teritorijas</translation>
+    </message>
+    <message numerus="yes">
+        <source>Entity of %n QSO(s) corrected with the date of the QSO (Club Log)</source>
+        <translation>
+            <numerusform>%n QSO teritorija labota pēc QSO datuma (Club Log)</numerusform>
+            <numerusform>%n QSO teritorijas labotas pēc QSO datuma (Club Log)</numerusform>
+            <numerusform>%n QSO teritorijas labotas pēc QSO datuma (Club Log)</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>DXCC filled on %1 of %2 QSO (cty.csv %3)</source>
         <translation>DXCC aizpildīts %1 no %2 QSO (cty.csv %3)</translation>
     </message>
@@ -7879,6 +8545,18 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>QSO not logged: %1</source>
         <translation>QSO nav ierakstīts: %1</translation>
+    </message>
+    <message>
+        <source>New key for the local interface: the programs using the old one must be updated</source>
+        <translation>Jauna atslēga lokālajai saskarnei: programmas, kas lietoja veco, jāatjaunina</translation>
+    </message>
+    <message>
+        <source>Local interface on http://127.0.0.1:%1/api/v1/</source>
+        <translation>Lokālā saskarne http://127.0.0.1:%1/api/v1/</translation>
+    </message>
+    <message>
+        <source>Cannot open the local interface on port %1: %2</source>
+        <translation>Nevar atvērt lokālo saskarni portā %1: %2</translation>
     </message>
     <message>
         <source>Nowhere to send the frequency: the radio is not connected and Decodium is not there either.</source>
@@ -7958,6 +8636,214 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Birka „%1” noņemta %2 QSO</translation>
     </message>
     <message>
+        <source>Y · yes</source>
+        <translation>Y · jā</translation>
+    </message>
+    <message>
+        <source>N · no</source>
+        <translation>N · nē</translation>
+    </message>
+    <message>
+        <source>R · requested</source>
+        <translation>R · pieprasīts</translation>
+    </message>
+    <message>
+        <source>Q · queued</source>
+        <translation>Q · rindā</translation>
+    </message>
+    <message>
+        <source>I · ignore</source>
+        <translation>I · ignorēt</translation>
+    </message>
+    <message>
+        <source>Y · uploaded</source>
+        <translation>Y · augšupielādēts</translation>
+    </message>
+    <message>
+        <source>N · not uploaded</source>
+        <translation>N · nav augšupielādēts</translation>
+    </message>
+    <message>
+        <source>M · changed, upload again</source>
+        <translation>M · mainīts, augšupielādēt vēlreiz</translation>
+    </message>
+    <message>
+        <source>B · bureau</source>
+        <translation>B · birojs</translation>
+    </message>
+    <message>
+        <source>D · direct</source>
+        <translation>D · tieši</translation>
+    </message>
+    <message>
+        <source>E · electronic</source>
+        <translation>E · elektroniski</translation>
+    </message>
+    <message>
+        <source>No profile</source>
+        <translation>Nav profila</translation>
+    </message>
+    <message>
+        <source>My locator</source>
+        <translation>Mans lokators</translation>
+    </message>
+    <message>
+        <source>Station callsign</source>
+        <translation>Stacijas izsaukuma signāls</translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation>Operators</translation>
+    </message>
+    <message>
+        <source>Station profile</source>
+        <translation>Stacijas profils</translation>
+    </message>
+    <message>
+        <source>My rig</source>
+        <translation>Mana iekārta</translation>
+    </message>
+    <message>
+        <source>My antenna</source>
+        <translation>Mana antena</translation>
+    </message>
+    <message>
+        <source>Power (W)</source>
+        <translation>Jauda (W)</translation>
+    </message>
+    <message>
+        <source>My POTA reference</source>
+        <translation>Mana POTA atsauce</translation>
+    </message>
+    <message>
+        <source>My SOTA reference</source>
+        <translation>Mana SOTA atsauce</translation>
+    </message>
+    <message>
+        <source>My WWFF reference</source>
+        <translation>Mana WWFF atsauce</translation>
+    </message>
+    <message>
+        <source>My special activity (MY_SIG)</source>
+        <translation>Mana īpašā darbība (MY_SIG)</translation>
+    </message>
+    <message>
+        <source>My special activity reference (MY_SIG_INFO)</source>
+        <translation>Manas īpašās darbības atsauce (MY_SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>POTA reference</source>
+        <translation>POTA atsauce</translation>
+    </message>
+    <message>
+        <source>SOTA reference</source>
+        <translation>SOTA atsauce</translation>
+    </message>
+    <message>
+        <source>WWFF reference</source>
+        <translation>WWFF atsauce</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Special activity (SIG)</source>
+        <translation>Īpašā darbība (SIG)</translation>
+    </message>
+    <message>
+        <source>Special activity reference (SIG_INFO)</source>
+        <translation>Īpašās darbības atsauce (SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Sacensības</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation>Izplatīšanās</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Satelīts</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Režīms</translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation>Apakšrežīms</translation>
+    </message>
+    <message>
+        <source>RST sent</source>
+        <translation>Nosūtītais RST</translation>
+    </message>
+    <message>
+        <source>RST received</source>
+        <translation>Saņemtais RST</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Komentārs</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Piezīmes</translation>
+    </message>
+    <message>
+        <source>Paper QSL sent</source>
+        <translation>Papīra QSL nosūtīta</translation>
+    </message>
+    <message>
+        <source>Paper QSL received</source>
+        <translation>Papīra QSL saņemta</translation>
+    </message>
+    <message>
+        <source>Paper QSL via</source>
+        <translation>Papīra QSL ceļš</translation>
+    </message>
+    <message>
+        <source>LoTW: sent</source>
+        <translation>LoTW: nosūtīts</translation>
+    </message>
+    <message>
+        <source>eQSL: sent</source>
+        <translation>eQSL: nosūtīts</translation>
+    </message>
+    <message>
+        <source>QRZ.com: uploaded</source>
+        <translation>QRZ.com: augšupielādēts</translation>
+    </message>
+    <message>
+        <source>Club Log: uploaded</source>
+        <translation>Club Log: augšupielādēts</translation>
+    </message>
+    <message>
+        <source>HRDLog: uploaded</source>
+        <translation>HRDLog: augšupielādēts</translation>
+    </message>
+    <message>
+        <source>A change on many QSO is already running: wait for it to finish.</source>
+        <translation>Izmaiņa daudzos QSO jau notiek: pagaidi, līdz tā beidzas.</translation>
+    </message>
+    <message>
+        <source>(empty)</source>
+        <translation>(tukšs)</translation>
+    </message>
+    <message>
+        <source>%1 → %2 on %3 QSO (%4 unchanged, %5 failed)</source>
+        <translation>%1 → %2 %3 QSO (%4 nemainīti, %5 neizdevās)</translation>
+    </message>
+    <message>
+        <source>QSO #%1: %2</source>
+        <translation>QSO nr. %1: %2</translation>
+    </message>
+    <message>
+        <source>Merged %1 group(s) of duplicates: %2 QSO deleted (kept in history)</source>
+        <translation>Apvienotas %1 dubulto grupas: %2 QSO dzēsti (paliek vēsturē)</translation>
+    </message>
+    <message>
         <source>An import is already running: wait for it to finish.</source>
         <translation>Jau notiek importēšana: pagaidiet, līdz tā beigsies.</translation>
     </message>
@@ -8003,7 +8889,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>%1 is not there.</source>
-        <translation type="unfinished">%1 nav atrodams.</translation>
+        <translation>%1 nav atrodams.</translation>
     </message>
     <message>
         <source>There is no log file to restore over.</source>
@@ -8094,6 +8980,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>%1: parole vai atslēga nav pieejama (%2)</translation>
     </message>
     <message>
+        <source>Keeping an eye on %1 (%2)</source>
+        <translation>Sekoju %1 (%2)</translation>
+    </message>
+    <message>
         <source>Decodium log not found</source>
         <translation>Decodium žurnāls nav atrasts</translation>
     </message>
@@ -8104,6 +8994,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>%1 · Decodium log not readable: %2</source>
         <translation>%1 · Decodium žurnālu nevar nolasīt: %2</translation>
+    </message>
+    <message>
+        <source>%1 · %2 not readable: %3</source>
+        <translation>%1 · %2 nav nolasāms: %3</translation>
     </message>
     <message numerus="yes">
         <source>%1 · %n QSO(s) recovered from the Decodium log</source>
@@ -8122,6 +9016,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         </translation>
     </message>
     <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from %2</source>
+        <translation>
+            <numerusform>%1 · %n QSO atgūts no %2</numerusform>
+            <numerusform>%1 · %n QSO atgūti no %2</numerusform>
+            <numerusform>%1 · %n QSO atgūti no %2</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source> · %n skipped as duplicates of the open activation “%1”</source>
         <translation>
             <numerusform> · %n izlaists kā atvērtās aktivācijas “%1” dublikāts</numerusform>
@@ -8136,6 +9038,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
         <translation>Atgūts no Decodium žurnāla → %1 %2 %3 %4</translation>
+    </message>
+    <message>
+        <source>Recovered from %1 → %2 %3 %4 %5</source>
+        <translation>Atgūts no %1 → %2 %3 %4 %5</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
@@ -8217,7 +9123,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <name>decolog::app::NetController</name>
     <message>
         <source>off</source>
-        <translation type="unfinished">izslēgts</translation>
+        <translation>izslēgts</translation>
     </message>
     <message>
         <source>on the network %1 (UDP %2) as %3</source>
@@ -8474,6 +9380,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog: %1</translation>
+    </message>
+    <message>
+        <source>Wavelog: no station on the site yet</source>
+        <translation>Wavelog: vietnē vēl nav nevienas stacijas</translation>
+    </message>
+    <message numerus="yes">
+        <source>Wavelog: %n station(s) on the site</source>
+        <translation>
+            <numerusform>Wavelog: %n stacija vietnē</numerusform>
+            <numerusform>Wavelog: %n stacijas vietnē</numerusform>
+            <numerusform>Wavelog: %n staciju vietnē</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>CRX: %1</source>
         <translation>CRX: %1</translation>
     </message>
@@ -8530,8 +9452,28 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>nav API atslēgas: Iestatījumi → QSL pakalpojumi</translation>
     </message>
     <message>
+        <source>no address or API key: Setup → QSL services</source>
+        <translation>nav adreses vai API atslēgas: Iestatījumi → QSL pakalpojumi</translation>
+    </message>
+    <message>
+        <source>choose the Wavelog station: Setup → QSL services</source>
+        <translation>izvēlies Wavelog staciju: Iestatījumi → QSL pakalpojumi</translation>
+    </message>
+    <message>
         <source>choose the CRX logbook: Setup → QSL services</source>
         <translation>izvēlieties CRX žurnālu: Iestatījumi → QSL pakalpojumi</translation>
+    </message>
+    <message>
+        <source>Wavelog: asking for the stations…</source>
+        <translation>Wavelog: prasu stacijas…</translation>
+    </message>
+    <message>
+        <source>Wavelog: address and API key are needed (%1)</source>
+        <translation>Wavelog: vajag adresi un API atslēgu (%1)</translation>
+    </message>
+    <message>
+        <source>add them below</source>
+        <translation>pievieno tās zemāk</translation>
     </message>
     <message>
         <source>CRX: asking for the logbooks…</source>
@@ -8941,6 +9883,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Nav DX pozīcijas: ieraksti lokatoru vai meklē izsaukumu.</translation>
     </message>
     <message>
+        <source>VOACAP: %1</source>
+        <translation>VOACAP: %1</translation>
+    </message>
+    <message>
         <source>Solar data of %1</source>
         <translation>%1 saules dati</translation>
     </message>
@@ -9156,6 +10102,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
 <context>
     <name>decolog::core::CloudSync</name>
     <message>
+        <source>This Cloud server does not know shared logs yet: it has to be updated.</source>
+        <translation>Šis Cloud serveris vēl nepazīst koplietotos žurnālus: tas jāatjaunina.</translation>
+    </message>
+    <message>
         <source>This Cloud server does not know this request (%1): it is older than your DecoDXLog and has to be updated.</source>
         <translation>Šis Cloud serveris šo pieprasījumu nepazīst (%1): tas ir vecāks par tavu DecoDXLog un ir jāatjaunina.</translation>
     </message>
@@ -9294,6 +10244,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Augšupielāde uz HRDLog.net: augšupielādes kods ir tavā HRDLog profilā, tā nav parole</translation>
     </message>
     <message>
+        <source>Site address</source>
+        <translation>Vietnes adrese</translation>
+    </message>
+    <message>
+        <source>Upload to your Wavelog (or Cloudlog): the address of the site and a read/write API key</source>
+        <translation>Sūtīšana uz tavu Wavelog (vai Cloudlog): vietnes adrese un lasīšanas/rakstīšanas API atslēga</translation>
+    </message>
+    <message>
         <source>The VHF, EME and low band chat (www.on4kst.info)</source>
         <translation>VHF, EME un zemo joslu tērzētava (www.on4kst.info)</translation>
     </message>
@@ -9316,6 +10274,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
         <translation>Sūtīt QSL kartītes pa e-pastu. Gmail prasa lietotnes paroli, nevis konta paroli.</translation>
+    </message>
+    <message>
+        <source>Only for the QSOs of this profile; empty = the general account</source>
+        <translation>Tikai šī profila QSO; tukšs = vispārējais konts</translation>
     </message>
     <message>
         <source>Account saved</source>
@@ -9425,8 +10387,43 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Radio CW tekstu nepieņēma (rigctld: %1). Ne katra radio — un ne katrs CAT tilts — spēj manipulēt CW: makro vajag rigctld, kas runā ar pašu radio.</translation>
     </message>
     <message>
+        <source>The radio does not take split from here (rigctld: %1)</source>
+        <translation>Iekārta no šejienes nepieņem split (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not change VFO from here (rigctld: %1)</source>
+        <translation>Iekārta no šejienes nemaina VFO (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not take RIT from here (rigctld: %1)</source>
+        <translation>Iekārta no šejienes nepieņem RIT (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not take XIT from here (rigctld: %1)</source>
+        <translation>Iekārta no šejienes nepieņem XIT (rigctld: %1)</translation>
+    </message>
+    <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>Radio atbildēja ar kļūdu (rigctld: %1)</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::RigLink</name>
+    <message>
+        <source>This radio link does not do split</source>
+        <translation>Šis savienojums ar iekārtu neprot split</translation>
+    </message>
+    <message>
+        <source>This radio link cannot choose the VFO</source>
+        <translation>Šis savienojums ar iekārtu nevar izvēlēties VFO</translation>
+    </message>
+    <message>
+        <source>This radio link does not do RIT</source>
+        <translation>Šis savienojums ar iekārtu neprot RIT</translation>
+    </message>
+    <message>
+        <source>This radio link does not do XIT</source>
+        <translation>Šis savienojums ar iekārtu neprot XIT</translation>
     </message>
 </context>
 <context>
@@ -9530,6 +10527,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
 </context>
 <context>
     <name>decolog::core::WebQslUploader</name>
+    <message>
+        <source>Wavelog: write the address of your Wavelog (Setup → QSL services)</source>
+        <translation>Wavelog: ieraksti sava Wavelog adresi (Iestatījumi → QSL pakalpojumi)</translation>
+    </message>
+    <message>
+        <source>write the address of your Wavelog</source>
+        <translation>ieraksti sava Wavelog adresi</translation>
+    </message>
     <message>
         <source>Club Log: email, password, callsign and API key are all needed</source>
         <translation>Club Log: vajadzīgs gan e-pasts, gan parole, gan izsaukuma signāls, gan API atslēga</translation>

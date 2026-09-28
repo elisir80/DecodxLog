@@ -29,7 +29,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from . import analytics, auth, solar as solar_source, sync, theme as theming
+from . import analytics, auth, solar as solar_source, sync, team as teams, theme as theming
 from .models import Account, Doc, Qso
 from .settings import settings
 
@@ -38,6 +38,8 @@ templates = Jinja2Templates(directory=str(HERE / "templates"))
 router = APIRouter()
 
 COOKIE = "decolog_session"
+# Il log che si guarda, se non e' il proprio: il nominativo di un log condiviso.
+LOG_COOKIE = "decolog_log"
 PAGE = 50
 
 # Quanto dura la sessione del browser: meno di un token di dispositivo, perche'
@@ -46,6 +48,23 @@ SESSION_DAYS = 30
 
 
 def _account_from_cookie(request: Request, db: Session) -> Account | None:
+    """Il log che si sta guardando: il proprio, o quello condiviso scelto.
+
+    Un log condiviso vale finche' si e' dentro: tolto l'operatore, si torna al
+    proprio senza dire niente.
+    """
+    user = _user_from_cookie(request, db)
+    wanted = request.cookies.get(LOG_COOKIE, "")
+    if user is None or not wanted:
+        return user
+    try:
+        return auth.resolve_log(db, user, wanted).log
+    except Exception:  # noqa: BLE001 - fuori dal log condiviso: si guarda il proprio
+        return user
+
+
+def _user_from_cookie(request: Request, db: Session) -> Account | None:
+    """Chi e' entrato con la password."""
     raw = request.cookies.get(COOKIE)
     if not raw:
         return None
@@ -785,7 +804,11 @@ def station(request: Request, db: Session = Depends(auth.session)):
     account = _account_from_cookie(request, db)
     if account is None:
         return RedirectResponse("/", status_code=303)
+    return _station_page(request, db, account)
 
+
+def _station_page(request: Request, db: Session, account: Account, new_invite: dict | None = None):
+    user = _user_from_cookie(request, db) or account
     profiles = db.scalars(
         select(Doc)
         .where(Doc.account_id == account.id, Doc.kind == "profile", Doc.deleted.is_(False))
@@ -801,6 +824,12 @@ def station(request: Request, db: Session = Depends(auth.session)):
 
     return _page(
         request, db, account, "stazione",
+        # Il log condiviso: chi scrive nel mio, in quali scrivo io, e se quello
+        # che si guarda adesso e' di un altro.
+        team=teams.team_of(db, user),
+        user_callsign=user.callsign,
+        viewing_shared=account.id != user.id,
+        new_invite=new_invite,
         profiles=[{"key": row.key, "revision": row.revision,
                    "updated": row.updated_at.strftime("%Y-%m-%d %H:%M") if row.updated_at else "",
                    "device": row.device, "data": row.data or {}}
@@ -869,6 +898,10 @@ async def save_settings(request: Request, db: Session = Depends(auth.session)):
     account = _account_from_cookie(request, db)
     if account is None:
         return RedirectResponse("/", status_code=303)
+    # Le impostazioni di un log condiviso sono di chi lo tiene.
+    user = _user_from_cookie(request, db)
+    if user is None or user.id != account.id:
+        return RedirectResponse("/station", status_code=303)
 
     form = await request.form()
     row = db.scalar(
@@ -939,3 +972,51 @@ def export_adif(request: Request, db: Session = Depends(auth.session)) -> Respon
         headers={"Content-Disposition": f'attachment; filename="{account.callsign}-cloud.adi"'},
         media_type="text/plain; charset=utf-8",
     )
+
+
+# ── Il log condiviso ──────────────────────────────────────────────────────────
+
+
+@router.get("/team/open/{callsign}")
+def open_log(callsign: str, request: Request, db: Session = Depends(auth.session)):
+    """Guarda un log condiviso (o torna al proprio con "-")."""
+    user = _user_from_cookie(request, db)
+    if user is None:
+        return RedirectResponse("/", status_code=303)
+    reply = RedirectResponse("/log", status_code=303)
+    wanted = callsign.strip().upper()
+    if wanted in ("-", user.callsign):
+        reply.delete_cookie(LOG_COOKIE, path="/")
+        return reply
+    try:
+        auth.resolve_log(db, user, wanted)
+    except Exception:  # noqa: BLE001 - non si entra in un log dove non si e' invitati
+        return RedirectResponse("/station", status_code=303)
+    reply.set_cookie(LOG_COOKIE, wanted, max_age=SESSION_DAYS * 86400, httponly=True, samesite="lax",
+                     secure=request.url.scheme == "https", path="/")
+    return reply
+
+
+@router.post("/team/invite", response_class=HTMLResponse)
+def web_invite(request: Request, role: str = Form("operator"), db: Session = Depends(auth.session)):
+    """Un invito al proprio log, fatto dal browser: il codice si vede una volta."""
+    user = _user_from_cookie(request, db)
+    if user is None:
+        return RedirectResponse("/", status_code=303)
+    made = teams.create_invite(db, user, role if role in teams.ROLES else "operator", 7)
+    return _station_page(request, db, user, new_invite=made)
+
+
+@router.post("/team/remove")
+def web_remove(request: Request, callsign: str = Form(...), db: Session = Depends(auth.session)):
+    user = _user_from_cookie(request, db)
+    if user is None:
+        return RedirectResponse("/", status_code=303)
+    from .models import Member
+
+    who = db.scalar(select(Account).where(Account.callsign == callsign.strip().upper()))
+    row = who and db.scalar(select(Member).where(Member.log_id == user.id, Member.member_id == who.id))
+    if row is not None:
+        db.delete(row)
+        db.commit()
+    return RedirectResponse("/station", status_code=303)

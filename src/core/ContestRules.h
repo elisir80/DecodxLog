@@ -11,8 +11,10 @@
 // e il programma lo dice, invece di dare un numero che non vuol dire niente.
 #pragma once
 
+#include <QDateTime>
 #include <QList>
 #include <QMap>
+#include <QVariantMap>
 #include <QString>
 #include <QStringList>
 
@@ -29,6 +31,7 @@ struct ContestQso {
     int     ituZone{0};
     QString exchange;    // lo scambio ricevuto: "14", "NA", "L01", "059", "05 MA"
     QString state;       // STATE del log, quando c'e': lo stato o la provincia
+    QDateTime when;      // l'ora del QSO, per il tempo in aria
 };
 
 // La propria stazione: serve per sapere se un QSO e' nel proprio paese, nel
@@ -68,13 +71,36 @@ struct ContestRules {
     // Le bande della gara, nell'ordine dell'operatore. Un QSO fuori di qui non
     // porta ne' punti ne' moltiplicatori. Vuota quando la scheda non lo dice.
     QStringList bands;
+    // Quanto si puo' operare da singolo operatore, e quanto deve durare una
+    // pausa per contare come pausa (il WPX: 36 ore su 48, pause di almeno 60
+    // minuti). 0 = nessun limite.
+    int      maxOperatingHours{0};
+    int      minOffMinutes{0};
     bool     valid{false};        // falso quando il contest non ha una scheda
+};
+
+// Il tempo in aria di una gara, dai QSO: dal primo all'ultimo, meno le pause
+// lunghe almeno quanto dice il regolamento.
+struct OperatingTime {
+    int onMinutes{0};
+    int offMinutes{0};
+    int breaks{0};               // le pause che contano come pause
+    int maxMinutes{0};           // il limite, 0 = nessuno
+    bool over() const { return maxMinutes > 0 && onMinutes > maxMinutes; }
 };
 
 namespace contestrules {
 
 // La scheda di un contest, o una scheda vuota (valid = false) se non c'e'.
 ContestRules forId(const QString& contestId);
+
+// La scheda con quello che l'operatore ha cambiato per questa edizione (i
+// regolamenti cambiano da un anno all'altro): bands, submitHours, submitDays,
+// maxOperatingHours, minOffMinutes. Quello che non c'e' resta come prima.
+ContestRules withOverrides(ContestRules rules, const QVariantMap& overrides);
+
+// Il tempo in aria dai momenti dei QSO, in ordine.
+OperatingTime operatingTime(const ContestRules& rules, const QList<QDateTime>& qsoTimes);
 
 // Gli identificativi dei contest che hanno una scheda.
 QStringList known();

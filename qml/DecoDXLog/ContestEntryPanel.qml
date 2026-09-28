@@ -199,6 +199,7 @@ GlassPanel {
     function exchangeLabelText() {
         const base = root.scoring.exchangeLabel || qsTr("Nr r")
         return root.autoFrom === "log" ? qsTr("%1 · log").arg(base)
+             : root.autoFrom === "history" ? qsTr("%1 · history").arg(base)
              : root.autoFrom === "cty" ? qsTr("%1 · country").arg(base)
              : base
     }

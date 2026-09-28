@@ -184,7 +184,7 @@ GlassPanel {
                     }
                     // L'entita' conta piu' del nominativo: e' quella che fa l'award.
                     Pill {
-                        readonly property bool hasEntity: root.info.entityDxcc !== undefined
+                        readonly property bool hasEntity: root.info.entityDxcc !== undefined && !root.info.entityCounting
                         readonly property bool newDxcc: hasEntity && root.info.entityWorked === 0
                         readonly property bool newOnBand: hasEntity && !newDxcc && decolog.dialBand.length > 0
                                                           && (root.info.entityBands || []).indexOf(decolog.dialBand) < 0

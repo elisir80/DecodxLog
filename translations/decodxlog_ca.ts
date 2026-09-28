@@ -178,6 +178,18 @@
         <translation>Concursos i activacions</translation>
     </message>
     <message>
+        <source>Call history file (N1MM format)</source>
+        <translation>Fitxer call history (format N1MM)</translation>
+    </message>
+    <message>
+        <source>Call history (*.txt *.csv)</source>
+        <translation>Call history (*.txt *.csv)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Tots els fitxers (*)</translation>
+    </message>
+    <message>
         <source>pick it from the list</source>
         <translation>tria&apos;l de la llista</translation>
     </message>
@@ -216,6 +228,50 @@
     <message>
         <source>Next</source>
         <translation>Pròxim</translation>
+    </message>
+    <message>
+        <source>Shared on the network</source>
+        <translation>Compartit a la xarxa</translation>
+    </message>
+    <message>
+        <source>Bands of this edition</source>
+        <translation>Bandes d&apos;aquesta edició</translation>
+    </message>
+    <message>
+        <source>Operating hours</source>
+        <translation>Hores d&apos;activitat</translation>
+    </message>
+    <message>
+        <source>no limit</source>
+        <translation>sense límit</translation>
+    </message>
+    <message>
+        <source>Off-time from (min)</source>
+        <translation>Pausa a partir de (min)</translation>
+    </message>
+    <message>
+        <source>Log within (h)</source>
+        <translation>Log dins de (h)</translation>
+    </message>
+    <message>
+        <source>Call history</source>
+        <translation>Call history</translation>
+    </message>
+    <message>
+        <source>%1 · %2 calls</source>
+        <translation>%1 · %2 indicatius</translation>
+    </message>
+    <message>
+        <source>none: the exchange is suggested from the log and the country</source>
+        <translation>cap: l&apos;intercanvi es suggereix del log i del país</translation>
+    </message>
+    <message>
+        <source>Load…</source>
+        <translation>Carrega…</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Treu</translation>
     </message>
     <message>
         <source>The QSOs get CONTEST_ID and the serial number sent (STX). The number received goes in the New QSO panel.</source>
@@ -302,6 +358,13 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>La referència es llegeix de SIG/SIG_INFO (SIG = %1) o d&apos;un comentari com &quot;%1 LI-001&quot;.</translation>
+    </message>
+    <message numerus="yes">
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC. %n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.</source>
+        <translation>
+            <numerusform>Regles ARRL: els QSO a 60 m no compten, i eQSL no és una confirmació per al DXCC. %n QSO amb entitats esborrades o operacions no acceptades per l&apos;ARRL (Club Log) queda fora.</numerusform>
+            <numerusform>Regles ARRL: els QSO a 60 m no compten, i eQSL no és una confirmació per al DXCC. %n QSO amb entitats esborrades o operacions no acceptades per l&apos;ARRL (Club Log) queden fora.</numerusform>
+        </translation>
     </message>
     <message>
         <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
@@ -409,6 +472,26 @@
     <message>
         <source>All tags</source>
         <translation>Totes les etiquetes</translation>
+    </message>
+    <message>
+        <source>Valid for %1</source>
+        <translation>Vàlides per a %1</translation>
+    </message>
+    <message>
+        <source>chosen by you</source>
+        <translation>triades per tu</translation>
+    </message>
+    <message>
+        <source>the rules of the award</source>
+        <translation>les regles del diploma</translation>
+    </message>
+    <message>
+        <source>the general choice above</source>
+        <translation>l&apos;elecció general de dalt</translation>
+    </message>
+    <message>
+        <source>Back to the rules</source>
+        <translation>Torna a les regles</translation>
     </message>
     <message>
         <source>State</source>
@@ -655,6 +738,41 @@
     </message>
 </context>
 <context>
+    <name>BulkEditDialog</name>
+    <message>
+        <source>CHANGE A FIELD ON %1 QSO</source>
+        <translation>CANVIA UN CAMP EN %1 QSO</translation>
+    </message>
+    <message>
+        <source>The same value on every QSO chosen. Each QSO keeps the old value in its history, so the change can be undone QSO by QSO from its card. Leave the value empty to clear the field.</source>
+        <translation>El mateix valor en tots els QSO triats. Cada QSO guarda el valor anterior al seu historial, així el canvi es desfà QSO a QSO des de la seva fitxa. Deixa el valor buit per buidar el camp.</translation>
+    </message>
+    <message>
+        <source>Field</source>
+        <translation>Camp</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>Valor</translation>
+    </message>
+    <message>
+        <source>Only where the field is empty</source>
+        <translation>Només on el camp és buit</translation>
+    </message>
+    <message>
+        <source>With this many QSO the change runs in the background: the log stays usable and the progress shows in its header.</source>
+        <translation>Amb tants QSO el canvi es fa en segon pla: el log continua usable i l&apos;avanç es veu a la seva capçalera.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancel·la</translation>
+    </message>
+    <message>
+        <source>Change %1 QSO</source>
+        <translation>Canvia %1 QSO</translation>
+    </message>
+</context>
+<context>
     <name>Cabrillo</name>
     <message>
         <source>The station callsign is missing</source>
@@ -817,7 +935,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">Envia</translation>
+        <translation>Envia</translation>
     </message>
 </context>
 <context>
@@ -1396,7 +1514,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>CW macros</source>
-        <translation type="unfinished">Macros de CW</translation>
+        <translation>Macros de CW</translation>
     </message>
     <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
@@ -1404,11 +1522,11 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>Default macros</source>
-        <translation type="unfinished">Macros per defecte</translation>
+        <translation>Macros per defecte</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Tanca</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -1467,6 +1585,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>%1 · log</translation>
     </message>
     <message>
+        <source>%1 · history</source>
+        <translation>%1 · historial</translation>
+    </message>
+    <message>
         <source>%1 · country</source>
         <translation>%1 · país</translation>
     </message>
@@ -1480,7 +1602,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>Downloading…</source>
-        <translation type="unfinished">Baixant…</translation>
+        <translation>Baixant…</translation>
     </message>
     <message>
         <source>Download MASTER.SCP</source>
@@ -1572,7 +1694,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">Envia</translation>
+        <translation>Envia</translation>
     </message>
     <message>
         <source>Spot %1</source>
@@ -1710,6 +1832,20 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>%1 QSO</source>
         <translation>%1 QSO</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 of %2 · %n break(s)</source>
+        <translation>
+            <numerusform>A l&apos;aire %1 de %2 · %n pausa</numerusform>
+            <numerusform>A l&apos;aire %1 de %2 · %n pauses</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 · %n break(s)</source>
+        <translation>
+            <numerusform>A l&apos;aire %1 · %n pausa</numerusform>
+            <numerusform>A l&apos;aire %1 · %n pauses</numerusform>
+        </translation>
     </message>
     <message>
         <source>Export…</source>
@@ -1898,6 +2034,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>%1 · log</source>
         <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · history</source>
+        <translation>%1 · historial</translation>
     </message>
     <message>
         <source>%1 · country</source>
@@ -2191,6 +2331,89 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
 </context>
 <context>
+    <name>DuplicatesDialog</name>
+    <message>
+        <source>DUPLICATE QSO</source>
+        <translation>QSO DUPLICATS</translation>
+    </message>
+    <message>
+        <source>Same call, band, kind of mode (CW, phone, digital) and station profile, within the minutes chosen. Of each group one QSO is kept — a click on a row chooses which — and it takes from the others what it is missing: fields, confirmations, tags. The others are deleted; they stay in the history and can be recovered.</source>
+        <translation>Mateix indicatiu, banda, tipus de mode (CW, fonia, digital) i perfil d&apos;estació, dins dels minuts triats. De cada grup es queda un QSO — un clic en una fila tria quin — que pren dels altres el que li falta: camps, confirmacions, etiquetes. Els altres s&apos;esborren; queden a l&apos;historial i es recuperen.</translation>
+    </message>
+    <message>
+        <source>Within</source>
+        <translation>Dins de</translation>
+    </message>
+    <message>
+        <source>minutes</source>
+        <translation>minuts</translation>
+    </message>
+    <message>
+        <source>Searching…</source>
+        <translation>Cercant…</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>Cerca</translation>
+    </message>
+    <message>
+        <source>No duplicates within %1 minutes</source>
+        <translation>Cap duplicat dins de %1 minuts</translation>
+    </message>
+    <message>
+        <source>The first %1 groups: merge them and search again for the rest</source>
+        <translation>Els primers %1 grups: uneix-los i cerca de nou per a la resta</translation>
+    </message>
+    <message>
+        <source>%1 groups found, %2 ticked</source>
+        <translation>%1 grups trobats, %2 marcats</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>KEEP</source>
+        <translation>QUEDA</translation>
+    </message>
+    <message>
+        <source>merge</source>
+        <translation>uneix</translation>
+    </message>
+    <message>
+        <source>confirmed: %1</source>
+        <translation>confirmat: %1</translation>
+    </message>
+    <message>
+        <source>%1 fields</source>
+        <translation>%1 camps</translation>
+    </message>
+    <message>
+        <source>Reading the whole log…</source>
+        <translation>Llegint tot el log…</translation>
+    </message>
+    <message>
+        <source>Nothing to merge.</source>
+        <translation>Res a unir.</translation>
+    </message>
+    <message>
+        <source>Choose the minutes and press Search.</source>
+        <translation>Tria els minuts i prem Cerca.</translation>
+    </message>
+    <message>
+        <source>A double click opens the QSO.</source>
+        <translation>Un doble clic obre el QSO.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Tanca</translation>
+    </message>
+    <message>
+        <source>Merge %1 groups</source>
+        <translation>Uneix %1 grups</translation>
+    </message>
+</context>
+<context>
     <name>DvkPanel</name>
     <message>
         <source>Voice keyer</source>
@@ -2230,7 +2453,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>never</source>
-        <translation type="unfinished">mai</translation>
+        <translation>mai</translation>
     </message>
     <message>
         <source>CQ loop</source>
@@ -2238,7 +2461,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Atura</translation>
     </message>
 </context>
 <context>
@@ -2488,6 +2711,14 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Important %1%</translation>
     </message>
     <message>
+        <source>Sorting…</source>
+        <translation>Ordenant…</translation>
+    </message>
+    <message>
+        <source>Changing %1%</source>
+        <translation>Canviant %1%</translation>
+    </message>
+    <message>
         <source>%1 QSO · %2 shown</source>
         <translation>%1 QSO · %2 mostrats</translation>
     </message>
@@ -2554,6 +2785,14 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>Exporta a ADIF els %1 QSO mostrats…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO shown…</source>
+        <translation>Canvia un camp en els %1 QSO mostrats…</translation>
+    </message>
+    <message>
+        <source>Find duplicate QSO…</source>
+        <translation>Cerca QSO duplicats…</translation>
     </message>
     <message>
         <source>Complete the QSO shown from the callbook…</source>
@@ -2754,6 +2993,14 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Delete the %1 QSO selected…</source>
         <translation>Esborra els %1 QSO seleccionats…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO selected…</source>
+        <translation>Canvia un camp en els %1 QSO seleccionats…</translation>
+    </message>
+    <message>
+        <source>Change a field…</source>
+        <translation>Canvia un camp…</translation>
     </message>
     <message>
         <source>Complete from the callbook</source>
@@ -3013,12 +3260,24 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>encaixat</translation>
     </message>
     <message>
-        <source>Import ADIF</source>
-        <translation>Importa ADIF</translation>
+        <source>Import a log</source>
+        <translation>Importa un log</translation>
     </message>
     <message>
         <source>ADIF files (*.adi *.adif)</source>
         <translation>Fitxers ADIF (*.adi *.adif)</translation>
+    </message>
+    <message>
+        <source>Logs (*.adi *.adif *.csv *.tsv *.s3db)</source>
+        <translation>Logs (*.adi *.adif *.csv *.tsv *.s3db)</translation>
+    </message>
+    <message>
+        <source>Spreadsheets (*.csv *.tsv)</source>
+        <translation>Fulls de càlcul (*.csv *.tsv)</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ databases (*.s3db)</source>
+        <translation>Bases de dades de N1MM Logger+ (*.s3db)</translation>
     </message>
     <message>
         <source>All files (*)</source>
@@ -3480,7 +3739,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>%1°</source>
-        <translation type="unfinished">%1°</translation>
+        <translation>%1°</translation>
     </message>
     <message numerus="yes">
         <source>%n hop(s)</source>
@@ -3498,8 +3757,16 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>SFI %1</translation>
     </message>
     <message>
+        <source>VOACAP computing…</source>
+        <translation>VOACAP calculant…</translation>
+    </message>
+    <message>
         <source>Locator</source>
         <translation>Locator</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · reliability %4% · SNR %5 dB</source>
+        <translation>%1 · %2 UTC · MUF %3 MHz · fiabilitat %4% · SNR %5 dB</translation>
     </message>
     <message>
         <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
@@ -3507,11 +3774,11 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>good</source>
-        <translation type="unfinished">bona</translation>
+        <translation>bona</translation>
     </message>
     <message>
         <source>fair</source>
-        <translation type="unfinished">regular</translation>
+        <translation>regular</translation>
     </message>
     <message>
         <source>marginal</source>
@@ -3519,11 +3786,59 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>closed</source>
-        <translation type="unfinished">tancat</translation>
+        <translation>tancat</translation>
+    </message>
+    <message>
+        <source>VOACAP (ITS): the chance of a %1 QSO with %2 W and %3 dBi antennas; 160 and 6 m from the simple model.</source>
+        <translation>VOACAP (ITS): la probabilitat d&apos;un QSO en %1 amb %2 W i antenes de %3 dBi; 160 i 6 m del model simple.</translation>
+    </message>
+    <message>
+        <source>VOACAP failed (%1): simplified F2 model.</source>
+        <translation>VOACAP ha fallat (%1): model F2 simplificat.</translation>
     </message>
     <message>
         <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
         <translation>Model F2 simplificat (MUF/LUF), no VOACAP: una guia de quan s&apos;obre una banda, no una promesa.</translation>
+    </message>
+    <message>
+        <source>%1 W</source>
+        <translation>%1 W</translation>
+    </message>
+    <message>
+        <source>0 dBi (vertical)</source>
+        <translation>0 dBi (vertical)</translation>
+    </message>
+    <message>
+        <source>2 dBi (dipole)</source>
+        <translation>2 dBi (dipol)</translation>
+    </message>
+    <message>
+        <source>5 dBi (2-el beam)</source>
+        <translation>5 dBi (directiva 2 el.)</translation>
+    </message>
+    <message>
+        <source>8 dBi (3-el beam)</source>
+        <translation>8 dBi (directiva 3 el.)</translation>
+    </message>
+    <message>
+        <source>11 dBi (big beam)</source>
+        <translation>11 dBi (directiva gran)</translation>
+    </message>
+    <message>
+        <source>noise: city</source>
+        <translation>soroll: ciutat</translation>
+    </message>
+    <message>
+        <source>noise: residential</source>
+        <translation>soroll: residencial</translation>
+    </message>
+    <message>
+        <source>noise: rural</source>
+        <translation>soroll: rural</translation>
+    </message>
+    <message>
+        <source>noise: quiet</source>
+        <translation>soroll: tranquil</translation>
     </message>
 </context>
 <context>
@@ -3701,6 +4016,22 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>unexpected answer</source>
         <translation>resposta inesperada</translation>
+    </message>
+    <message>
+        <source>Wavelog: already there</source>
+        <translation>Wavelog: ja hi era</translation>
+    </message>
+    <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog: %1</translation>
+    </message>
+    <message>
+        <source>Wavelog: sent</source>
+        <translation>Wavelog: enviat</translation>
+    </message>
+    <message>
+        <source>Wavelog: the API key is not valid or cannot write (%1)</source>
+        <translation>Wavelog: la clau API no és vàlida o no pot escriure (%1)</translation>
     </message>
     <message>
         <source>HRDLog: sent</source>
@@ -4703,7 +5034,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>All files (*)</source>
-        <translation type="unfinished">Tots els fitxers (*)</translation>
+        <translation>Tots els fitxers (*)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -4779,7 +5110,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Tanca</translation>
     </message>
 </context>
 <context>
@@ -5574,7 +5905,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>Recover them every 5 minutes</source>
-        <translation>Recupera'ls cada 5 minuts</translation>
+        <translation>Recupera&apos;ls cada 5 minuts</translation>
     </message>
     <message>
         <source>Checking…</source>
@@ -5590,7 +5921,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>not found: choose it</source>
-        <translation>no trobat: tria'l</translation>
+        <translation>no trobat: tria&apos;l</translation>
     </message>
     <message>
         <source>DecoLink · log towards Decodium</source>
@@ -6184,8 +6515,200 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>port no obert</translation>
     </message>
     <message>
+        <source>An ADIF log to keep an eye on</source>
+        <translation>Un quadern ADIF a vigilar</translation>
+    </message>
+    <message>
+        <source>Club Log cty.xml</source>
+        <translation>cty.xml de Club Log</translation>
+    </message>
+    <message>
+        <source>QSOs of another entity on that date</source>
+        <translation>QSO d&apos;una altra entitat en aquella data</translation>
+    </message>
+    <message>
+        <source>Working…</source>
+        <translation>Treballant…</translation>
+    </message>
+    <message>
+        <source>Update cty.xml</source>
+        <translation>Actualitza cty.xml</translation>
+    </message>
+    <message>
+        <source>Check the entities with the dates</source>
+        <translation>Comprova les entitats amb les dates</translation>
+    </message>
+    <message>
+        <source>Correct %1 QSO</source>
+        <translation>Corregeix %1 QSO</translation>
+    </message>
+    <message>
+        <source>%1 QSO corrected, each kept as a new revision.</source>
+        <translation>%1 QSO corregits, cadascun guardat com a revisió nova.</translation>
+    </message>
+    <message>
+        <source>deleted</source>
+        <translation>esborrada</translation>
+    </message>
+    <message>
+        <source>With the Club Log API key (QSL services) DecoDXLog downloads Club Log&apos;s cty.xml every week: the entities with their dates, so a QSO of 2005 with PJ2 is the Netherlands Antilles and not Curacao, operations the ARRL did not accept do not count for DXCC, and deleted entities are shown but not counted.</source>
+        <translation>Amb la clau API de Club Log (Serveis QSL) DecoDXLog baixa cada setmana el cty.xml de Club Log: les entitats amb les seves dates, així un QSO del 2005 amb PJ2 és les Antilles Neerlandeses i no Curaçao, les operacions que l&apos;ARRL no va acceptar no compten per al DXCC, i les entitats esborrades es mostren però no compten.</translation>
+    </message>
+    <message>
+        <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
+        <translation>Cada setmana des de Club Log. Els QSO nous prenen l&apos;entitat de la seva data; la comprovació compara el log amb les dates i corregeix només el DXCC buit o posat pel cty.csv d&apos;avui — el que va escriure LoTW o tu es queda.</translation>
+    </message>
+    <message>
+        <source>Forward to other programs</source>
+        <translation>Reenvia a altres programes</translation>
+    </message>
+    <message>
+        <source>e.g. 127.0.0.1:2238, 127.0.0.1:2333 — empty = off</source>
+        <translation>p. ex. 127.0.0.1:2238, 127.0.0.1:2333 — buit = apagat</translation>
+    </message>
+    <message>
+        <source>Every packet from Decodium also goes to these programs (JTAlert, GridTracker, HamLog…), and their answers (reply to a caller, halt TX) go back to Decodium. So Decodium sends to one port only and everybody gets it.</source>
+        <translation>Cada paquet de Decodium va també a aquests programes (JTAlert, GridTracker, HamLog…), i les seves respostes (respondre a qui crida, aturar la TX) tornen a Decodium. Així Decodium envia a un sol port i tothom ho rep.</translation>
+    </message>
+    <message>
         <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
         <translation>Decodium també escriu cada QSO al seu propi quadern ADIF. Si DecoDXLog estava tancat o no rebia (port equivocat, xarxa caiguda), el QSO només queda allà: cada 5 minuts DecoDXLog llegeix els QSO registrats des de la darrera comprovació i desa els que falten aquí i als altres quaderns de la llista. Els QSO corregits o esborrats aquí no tornen. La primera vegada mira una setmana enrere, els botons més enrere. Camp buit = el quadern que fa servir Decodium.</translation>
+    </message>
+    <message>
+        <source>Other ADIF logs to keep an eye on</source>
+        <translation>Altres quaderns ADIF a vigilar</translation>
+    </message>
+    <message>
+        <source>not found: %1</source>
+        <translation>no trobat: %1</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Treu</translation>
+    </message>
+    <message>
+        <source>Add a file…</source>
+        <translation>Afegeix un fitxer…</translation>
+    </message>
+    <message>
+        <source>Add %1</source>
+        <translation>Afegeix %1</translation>
+    </message>
+    <message>
+        <source>The QSOs that other programs (fldigi, WSJT-X, JTDX…) write in these logs and that are missing here are saved every 5 minutes, from the moment the file is added. For the older ones, “Check the whole file”.</source>
+        <translation>Els QSO que altres programes (fldigi, WSJT-X, JTDX…) escriuen en aquests quaderns i que aquí falten es desen cada 5 minuts, des del moment en què s&apos;afegeix el fitxer. Per als anteriors, «Comprova tot el fitxer».</translation>
+    </message>
+    <message>
+        <source>UDP port (0 = off)</source>
+        <translation>Port UDP (0 = apagat)</translation>
+    </message>
+    <message>
+        <source>listening</source>
+        <translation>escoltant</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ sends every contact on this port (Config → Configure Ports → Broadcast Data → Contacts, usually 12060). A contact corrected or deleted in N1MM is corrected or deleted here too.</source>
+        <translation>N1MM Logger+ envia cada contacte per aquest port (Config → Configure Ports → Broadcast Data → Contacts, normalment 12060). Un contacte corregit o esborrat a N1MM es corregeix o s&apos;esborra també aquí.</translation>
+    </message>
+    <message>
+        <source>Local interface for other programs</source>
+        <translation>Interfície local per a altres programes</translation>
+    </message>
+    <message>
+        <source>Port on 127.0.0.1 (0 = off)</source>
+        <translation>Port a 127.0.0.1 (0 = apagada)</translation>
+    </message>
+    <message>
+        <source>Key (X-DecoDXLog-Token)</source>
+        <translation>Clau (X-DecoDXLog-Token)</translation>
+    </message>
+    <message>
+        <source>New key</source>
+        <translation>Clau nova</translation>
+    </message>
+    <message>
+        <source>For programs next to DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, and POST /api/v1/qso with an ADIF record to log it. Only from this computer, and always with the key. Details: docs/API.md.</source>
+        <translation>Per als programes al costat de DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, i POST /api/v1/qso amb un registre ADIF per desar-lo. Només des d&apos;aquest ordinador, i sempre amb la clau. Detalls: docs/API.md.</translation>
+    </message>
+    <message>
+        <source>Shared log</source>
+        <translation>Log compartit</translation>
+    </message>
+    <message>
+        <source>A club station, a multi-operator contest: one log, several operators, each with their own Cloud account — nobody lends a password. The owner of the log creates an invite, whoever gets the code joins with it. Only QSOs travel: profiles, settings and service passwords stay with the owner.</source>
+        <translation>Una estació de club, un concurs multioperador: un log, diversos operadors, cadascun amb el seu compte Cloud — ningú no deixa una contrasenya. El titular del log crea una invitació, qui rep el codi hi entra. Només viatgen els QSO: perfils, ajustos i contrasenyes dels serveis es queden amb el titular.</translation>
+    </message>
+    <message>
+        <source>This log syncs with</source>
+        <translation>Aquest log se sincronitza amb</translation>
+    </message>
+    <message>
+        <source>my own log (%1)</source>
+        <translation>el meu log (%1)</translation>
+    </message>
+    <message>
+        <source>the shared log of %1</source>
+        <translation>el log compartit de %1</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Actualitza</translation>
+    </message>
+    <message>
+        <source>The QSOs of this log go to the log of %1, and its QSOs come here: keep a log just for it (Log → New log).</source>
+        <translation>Els QSO d&apos;aquest log van al log de %1, i els seus QSO arriben aquí: tingues un log només per a ell (Log → Log nou).</translation>
+    </message>
+    <message>
+        <source>Invite code, e.g. K7Q2-9XMP-D4TA</source>
+        <translation>Codi d&apos;invitació, p. ex. K7Q2-9XMP-D4TA</translation>
+    </message>
+    <message>
+        <source>Join with the code</source>
+        <translation>Entra amb el codi</translation>
+    </message>
+    <message>
+        <source>operator: sends and gets the QSOs</source>
+        <translation>operador: envia i rep els QSO</translation>
+    </message>
+    <message>
+        <source>viewer: only looks</source>
+        <translation>observador: només mira</translation>
+    </message>
+    <message>
+        <source>Invite into the log of %1</source>
+        <translation>Convida al log de %1</translation>
+    </message>
+    <message>
+        <source>Code %1 — %2, valid until %3</source>
+        <translation>Codi %1 — %2, vàlid fins al %3</translation>
+    </message>
+    <message>
+        <source>viewer</source>
+        <translation>observador</translation>
+    </message>
+    <message>
+        <source>operator</source>
+        <translation>operador</translation>
+    </message>
+    <message>
+        <source>viewer in your log</source>
+        <translation>observador al teu log</translation>
+    </message>
+    <message>
+        <source>operator in your log</source>
+        <translation>operador al teu log</translation>
+    </message>
+    <message>
+        <source>you look at its log</source>
+        <translation>mires el seu log</translation>
+    </message>
+    <message>
+        <source>you write in its log</source>
+        <translation>escrius al seu log</translation>
+    </message>
+    <message>
+        <source>Leave</source>
+        <translation>Surt</translation>
     </message>
     <message>
         <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
@@ -6214,6 +6737,22 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
         <translation>eQSL: les eQSL rebudes a la safata d&apos;entrada, sense els informes SWL. QRZ Logbook: els QSO del teu logbook a QRZ que l&apos;altra estació ha confirmat. Només el que ha arribat després de la darrera baixada; la baixada automàtica només es fa per als serveis amb les seves credencials (a sota, les mateixes de l&apos;enviament). Aparellades com les confirmacions de LoTW; els camps de la targeta QSL de paper no es toquen.</translation>
+    </message>
+    <message>
+        <source>Station on Wavelog</source>
+        <translation>Estació a Wavelog</translation>
+    </message>
+    <message>
+        <source>station %1</source>
+        <translation>estació %1</translation>
+    </message>
+    <message>
+        <source>Load my stations</source>
+        <translation>Carrega les meves estacions</translation>
+    </message>
+    <message>
+        <source>Wavelog (and Cloudlog) is the web log on your own site. Below it wants the address of the site (for example log.mysite.org) and an API key with read and write rights, made in Wavelog under Account → API keys; then the station to write in. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>Wavelog (i Cloudlog) és el quadern web al teu propi lloc. A sota vol l&apos;adreça del lloc (per exemple log.elmeulloc.cat) i una clau API amb drets de lectura i escriptura, feta a Wavelog a Account → API keys; després l&apos;estació on escriure. L&apos;enviament, l&apos;enviament automàtic i els comptadors són a la pestanya QSL de baix.</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -6345,7 +6884,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished">Adreça</translation>
+        <translation>Adreça</translation>
     </message>
     <message>
         <source>SO2R box (OTRSP)</source>
@@ -6614,6 +7153,14 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>LoTW station location (TQSL)</translation>
     </message>
     <message>
+        <source>QSL accounts of this profile</source>
+        <translation>Comptes QSL d&apos;aquest perfil</translation>
+    </message>
+    <message>
+        <source>Save the profile first: then it can have its own QRZ Logbook and eQSL accounts.</source>
+        <translation>Desa primer el perfil: després podrà tenir els seus comptes de QRZ Logbook i eQSL.</translation>
+    </message>
+    <message>
         <source>Used by &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</source>
         <translation>Usat per &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</translation>
     </message>
@@ -6662,7 +7209,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>Grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Locators</translation>
     </message>
     <message>
         <source>Awards over the years · cumulative</source>
@@ -6670,7 +7217,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>no QSO</source>
-        <translation type="unfinished">cap QSO</translation>
+        <translation>cap QSO</translation>
     </message>
     <message>
         <source>Most worked entities</source>
@@ -6862,6 +7409,26 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Xat ON4KST…</translation>
     </message>
     <message>
+        <source>Import a log (ADIF, CSV, N1MM)…</source>
+        <translation>Importa un log (ADIF, CSV, N1MM)…</translation>
+    </message>
+    <message>
+        <source>Split off</source>
+        <translation>Split apagat</translation>
+    </message>
+    <message>
+        <source>TX up %1 kHz</source>
+        <translation>TX %1 kHz amunt</translation>
+    </message>
+    <message>
+        <source>TX down %1 kHz</source>
+        <translation>TX %1 kHz avall</translation>
+    </message>
+    <message>
+        <source>RIT and XIT off</source>
+        <translation>RIT i XIT apagats</translation>
+    </message>
+    <message>
         <source>Setup · %1 ▾</source>
         <translation>Configuració · %1 ▾</translation>
     </message>
@@ -6980,10 +7547,6 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Panels…</source>
         <translation>Plafons…</translation>
-    </message>
-    <message>
-        <source>Import ADIF…</source>
-        <translation>Importa un ADIF…</translation>
     </message>
     <message>
         <source>Export ADIF…</source>
@@ -7230,7 +7793,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">Dia</translation>
+        <translation>Dia</translation>
     </message>
     <message>
         <source>Grayline</source>
@@ -7316,7 +7879,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">Dia</translation>
+        <translation>Dia</translation>
     </message>
     <message>
         <source>Civil twilight</source>
@@ -7386,6 +7949,21 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>
             <numerusform>Sessió tancada: %1 · %n QSO</numerusform>
             <numerusform>Sessió tancada: %1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Call history not readable: %1</source>
+        <translation>Call history il·legible: %1</translation>
+    </message>
+    <message>
+        <source>Open the contest first</source>
+        <translation>Obre primer el concurs</translation>
+    </message>
+    <message numerus="yes">
+        <source>Call history: %n call(s) from %1</source>
+        <translation>
+            <numerusform>Call history: %n indicatiu de %1</numerusform>
+            <numerusform>Call history: %n indicatius de %1</numerusform>
         </translation>
     </message>
     <message>
@@ -7506,8 +8084,36 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Cloud: %1</translation>
     </message>
     <message>
+        <source>Invite created: give the code to the operator. It is shown only now.</source>
+        <translation>Invitació creada: dona el codi a l&apos;operador. Només es mostra ara.</translation>
+    </message>
+    <message>
+        <source>You are in the log of %1. Choose it for a log of yours below — better a new log (Log → New log), so the club log and yours do not mix.</source>
+        <translation>Ets al log de %1. Tria&apos;l a sota per a un log teu — millor un log nou (Log → Log nou), així el del club i el teu no es barregen.</translation>
+    </message>
+    <message>
+        <source>Cloud: you joined the shared log of %1</source>
+        <translation>Cloud: has entrat al log compartit de %1</translation>
+    </message>
+    <message>
         <source>Cloud: linked — sync will unlock it when needed</source>
         <translation>Cloud: enllaçat — la sincronització el desbloqueja quan cal</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with your own log again</source>
+        <translation>Cloud: aquest log torna a sincronitzar-se amb el teu</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with the shared log of %1</source>
+        <translation>Cloud: aquest log se sincronitza amb el log compartit de %1</translation>
+    </message>
+    <message>
+        <source>Sync once to open the keystore, then the team shows here.</source>
+        <translation>Sincronitza un cop per obrir el clauer, després l&apos;equip apareix aquí.</translation>
+    </message>
+    <message>
+        <source>Sign in to the Cloud first.</source>
+        <translation>Primer entra al Cloud.</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>
@@ -7787,8 +8393,32 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>No es pot escoltar a UDP %1: %2</translation>
     </message>
     <message>
+        <source>Listening for N1MM Logger+ on UDP %1</source>
+        <translation>Escoltant N1MM Logger+ a UDP %1</translation>
+    </message>
+    <message>
+        <source>Correction not saved: %1</source>
+        <translation>Correcció no desada: %1</translation>
+    </message>
+    <message>
+        <source>Corrected by N1MM: %1</source>
+        <translation>Corregit per N1MM: %1</translation>
+    </message>
+    <message>
         <source>built on %1</source>
         <translation>compilat el %1</translation>
+    </message>
+    <message>
+        <source>Not understood: %1 (write address:port)</source>
+        <translation>No entès: %1 (escriu adreça:port)</translation>
+    </message>
+    <message>
+        <source>UDP forwarding off</source>
+        <translation>Reenviament UDP apagat</translation>
+    </message>
+    <message>
+        <source>UDP forwarded to %1</source>
+        <translation>UDP reenviat a %1</translation>
     </message>
     <message>
         <source>no callsign</source>
@@ -7823,6 +8453,37 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>cty.csv %1 instal·lat: %2 entitats DXCC</translation>
     </message>
     <message>
+        <source>Club Log cty.xml not readable: %1</source>
+        <translation>cty.xml de Club Log il·legible: %1</translation>
+    </message>
+    <message>
+        <source>The Club Log API key is needed (Setup → QSL services → Club Log)</source>
+        <translation>Cal la clau API de Club Log (Configuració → Serveis QSL → Club Log)</translation>
+    </message>
+    <message>
+        <source>Downloading cty.xml from Club Log…</source>
+        <translation>Baixant cty.xml de Club Log…</translation>
+    </message>
+    <message>
+        <source>Club Log: %1</source>
+        <translation>Club Log: %1</translation>
+    </message>
+    <message>
+        <source>Club Log: the file is not a cty.xml (%1)</source>
+        <translation>Club Log: el fitxer no és un cty.xml (%1)</translation>
+    </message>
+    <message>
+        <source>cty.xml of %1: %2 entities</source>
+        <translation>cty.xml del %1: %2 entitats</translation>
+    </message>
+    <message numerus="yes">
+        <source>Entity of %n QSO(s) corrected with the date of the QSO (Club Log)</source>
+        <translation>
+            <numerusform>Entitat de %n QSO corregida amb la data del QSO (Club Log)</numerusform>
+            <numerusform>Entitats de %n QSO corregides amb la data del QSO (Club Log)</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>DXCC filled on %1 of %2 QSO (cty.csv %3)</source>
         <translation>DXCC completat en %1 de %2 QSO (cty.csv %3)</translation>
     </message>
@@ -7849,6 +8510,18 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>QSO not logged: %1</source>
         <translation>QSO no registrat: %1</translation>
+    </message>
+    <message>
+        <source>New key for the local interface: the programs using the old one must be updated</source>
+        <translation>Clau nova per a la interfície local: cal actualitzar els programes que feien servir l&apos;antiga</translation>
+    </message>
+    <message>
+        <source>Local interface on http://127.0.0.1:%1/api/v1/</source>
+        <translation>Interfície local a http://127.0.0.1:%1/api/v1/</translation>
+    </message>
+    <message>
+        <source>Cannot open the local interface on port %1: %2</source>
+        <translation>No es pot obrir la interfície local al port %1: %2</translation>
     </message>
     <message>
         <source>Nowhere to send the frequency: the radio is not connected and Decodium is not there either.</source>
@@ -7927,6 +8600,214 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Etiqueta &quot;%1&quot; treta de %2 QSO</translation>
     </message>
     <message>
+        <source>Y · yes</source>
+        <translation>Y · sí</translation>
+    </message>
+    <message>
+        <source>N · no</source>
+        <translation>N · no</translation>
+    </message>
+    <message>
+        <source>R · requested</source>
+        <translation>R · demanada</translation>
+    </message>
+    <message>
+        <source>Q · queued</source>
+        <translation>Q · a la cua</translation>
+    </message>
+    <message>
+        <source>I · ignore</source>
+        <translation>I · ignora</translation>
+    </message>
+    <message>
+        <source>Y · uploaded</source>
+        <translation>Y · pujat</translation>
+    </message>
+    <message>
+        <source>N · not uploaded</source>
+        <translation>N · no pujat</translation>
+    </message>
+    <message>
+        <source>M · changed, upload again</source>
+        <translation>M · canviat, cal tornar a pujar</translation>
+    </message>
+    <message>
+        <source>B · bureau</source>
+        <translation>B · buró</translation>
+    </message>
+    <message>
+        <source>D · direct</source>
+        <translation>D · directa</translation>
+    </message>
+    <message>
+        <source>E · electronic</source>
+        <translation>E · electrònica</translation>
+    </message>
+    <message>
+        <source>No profile</source>
+        <translation>Sense perfil</translation>
+    </message>
+    <message>
+        <source>My locator</source>
+        <translation>El meu locator</translation>
+    </message>
+    <message>
+        <source>Station callsign</source>
+        <translation>Indicatiu de l&apos;estació</translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation>Operador</translation>
+    </message>
+    <message>
+        <source>Station profile</source>
+        <translation>Perfil d&apos;estació</translation>
+    </message>
+    <message>
+        <source>My rig</source>
+        <translation>El meu equip</translation>
+    </message>
+    <message>
+        <source>My antenna</source>
+        <translation>La meva antena</translation>
+    </message>
+    <message>
+        <source>Power (W)</source>
+        <translation>Potència (W)</translation>
+    </message>
+    <message>
+        <source>My POTA reference</source>
+        <translation>La meva referència POTA</translation>
+    </message>
+    <message>
+        <source>My SOTA reference</source>
+        <translation>La meva referència SOTA</translation>
+    </message>
+    <message>
+        <source>My WWFF reference</source>
+        <translation>La meva referència WWFF</translation>
+    </message>
+    <message>
+        <source>My special activity (MY_SIG)</source>
+        <translation>La meva activitat especial (MY_SIG)</translation>
+    </message>
+    <message>
+        <source>My special activity reference (MY_SIG_INFO)</source>
+        <translation>Referència de la meva activitat especial (MY_SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>POTA reference</source>
+        <translation>Referència POTA</translation>
+    </message>
+    <message>
+        <source>SOTA reference</source>
+        <translation>Referència SOTA</translation>
+    </message>
+    <message>
+        <source>WWFF reference</source>
+        <translation>Referència WWFF</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Special activity (SIG)</source>
+        <translation>Activitat especial (SIG)</translation>
+    </message>
+    <message>
+        <source>Special activity reference (SIG_INFO)</source>
+        <translation>Referència de l&apos;activitat especial (SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation>Propagació</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Satèl·lit</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Mode</translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation>Submode</translation>
+    </message>
+    <message>
+        <source>RST sent</source>
+        <translation>RST enviat</translation>
+    </message>
+    <message>
+        <source>RST received</source>
+        <translation>RST rebut</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Comentari</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Notes</translation>
+    </message>
+    <message>
+        <source>Paper QSL sent</source>
+        <translation>QSL de paper enviada</translation>
+    </message>
+    <message>
+        <source>Paper QSL received</source>
+        <translation>QSL de paper rebuda</translation>
+    </message>
+    <message>
+        <source>Paper QSL via</source>
+        <translation>QSL de paper via</translation>
+    </message>
+    <message>
+        <source>LoTW: sent</source>
+        <translation>LoTW: enviat</translation>
+    </message>
+    <message>
+        <source>eQSL: sent</source>
+        <translation>eQSL: enviat</translation>
+    </message>
+    <message>
+        <source>QRZ.com: uploaded</source>
+        <translation>QRZ.com: pujat</translation>
+    </message>
+    <message>
+        <source>Club Log: uploaded</source>
+        <translation>Club Log: pujat</translation>
+    </message>
+    <message>
+        <source>HRDLog: uploaded</source>
+        <translation>HRDLog: pujat</translation>
+    </message>
+    <message>
+        <source>A change on many QSO is already running: wait for it to finish.</source>
+        <translation>Ja hi ha un canvi en molts QSO en marxa: espera que acabi.</translation>
+    </message>
+    <message>
+        <source>(empty)</source>
+        <translation>(buit)</translation>
+    </message>
+    <message>
+        <source>%1 → %2 on %3 QSO (%4 unchanged, %5 failed)</source>
+        <translation>%1 → %2 en %3 QSO (%4 sense canvis, %5 fallits)</translation>
+    </message>
+    <message>
+        <source>QSO #%1: %2</source>
+        <translation>QSO núm. %1: %2</translation>
+    </message>
+    <message>
+        <source>Merged %1 group(s) of duplicates: %2 QSO deleted (kept in history)</source>
+        <translation>Units %1 grups de duplicats: %2 QSO esborrats (queden a l&apos;historial)</translation>
+    </message>
+    <message>
         <source>An import is already running: wait for it to finish.</source>
         <translation>Ja hi ha una importació en marxa: espera que acabi.</translation>
     </message>
@@ -7971,7 +8852,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>%1 is not there.</source>
-        <translation type="unfinished">%1 no hi és.</translation>
+        <translation>%1 no hi és.</translation>
     </message>
     <message>
         <source>There is no log file to restore over.</source>
@@ -8062,6 +8943,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>%1: contrasenya o clau no disponible (%2)</translation>
     </message>
     <message>
+        <source>Keeping an eye on %1 (%2)</source>
+        <translation>Vigilant %1 (%2)</translation>
+    </message>
+    <message>
         <source>Decodium log not found</source>
         <translation>Quadern de Decodium no trobat</translation>
     </message>
@@ -8072,6 +8957,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>%1 · Decodium log not readable: %2</source>
         <translation>%1 · quadern de Decodium illegible: %2</translation>
+    </message>
+    <message>
+        <source>%1 · %2 not readable: %3</source>
+        <translation>%1 · %2 no es pot llegir: %3</translation>
     </message>
     <message numerus="yes">
         <source>%1 · %n QSO(s) recovered from the Decodium log</source>
@@ -8088,10 +8977,17 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         </translation>
     </message>
     <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from %2</source>
+        <translation>
+            <numerusform>%1 · %n QSO recuperat de %2</numerusform>
+            <numerusform>%1 · %n QSO recuperats de %2</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source> · %n skipped as duplicates of the open activation “%1”</source>
         <translation>
-            <numerusform> · %n omès com a duplicat de l'activació oberta «%1»</numerusform>
-            <numerusform> · %n omesos com a duplicats de l'activació oberta «%1»</numerusform>
+            <numerusform> · %n omès com a duplicat de l&apos;activació oberta «%1»</numerusform>
+            <numerusform> · %n omesos com a duplicats de l&apos;activació oberta «%1»</numerusform>
         </translation>
     </message>
     <message>
@@ -8101,6 +8997,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
         <translation>Recuperat del quadern de Decodium → %1 %2 %3 %4</translation>
+    </message>
+    <message>
+        <source>Recovered from %1 → %2 %3 %4 %5</source>
+        <translation>Recuperat de %1 → %2 %3 %4 %5</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
@@ -8179,7 +9079,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <name>decolog::app::NetController</name>
     <message>
         <source>off</source>
-        <translation type="unfinished"></translation>
+        <translation>apagat</translation>
     </message>
     <message>
         <source>on the network %1 (UDP %2) as %3</source>
@@ -8428,6 +9328,21 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog: %1</translation>
+    </message>
+    <message>
+        <source>Wavelog: no station on the site yet</source>
+        <translation>Wavelog: encara no hi ha cap estació al lloc</translation>
+    </message>
+    <message numerus="yes">
+        <source>Wavelog: %n station(s) on the site</source>
+        <translation>
+            <numerusform>Wavelog: %n estació al lloc</numerusform>
+            <numerusform>Wavelog: %n estacions al lloc</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>CRX: %1</source>
         <translation>CRX: %1</translation>
     </message>
@@ -8482,8 +9397,28 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>cap clau API: Configuració → Serveis QSL</translation>
     </message>
     <message>
+        <source>no address or API key: Setup → QSL services</source>
+        <translation>falta adreça o clau API: Configuració → Serveis QSL</translation>
+    </message>
+    <message>
+        <source>choose the Wavelog station: Setup → QSL services</source>
+        <translation>tria l&apos;estació de Wavelog: Configuració → Serveis QSL</translation>
+    </message>
+    <message>
         <source>choose the CRX logbook: Setup → QSL services</source>
         <translation>tria el llibre CRX: Configuració → Serveis QSL</translation>
+    </message>
+    <message>
+        <source>Wavelog: asking for the stations…</source>
+        <translation>Wavelog: demanant les estacions…</translation>
+    </message>
+    <message>
+        <source>Wavelog: address and API key are needed (%1)</source>
+        <translation>Wavelog: calen adreça i clau API (%1)</translation>
+    </message>
+    <message>
+        <source>add them below</source>
+        <translation>afegeix-les a sota</translation>
     </message>
     <message>
         <source>CRX: asking for the logbooks…</source>
@@ -8888,6 +9823,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Sense posició per al DX: escriu un locator o cerca un indicatiu.</translation>
     </message>
     <message>
+        <source>VOACAP: %1</source>
+        <translation>VOACAP: %1</translation>
+    </message>
+    <message>
         <source>Solar data of %1</source>
         <translation>Dades solars de %1</translation>
     </message>
@@ -9103,6 +10042,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
 <context>
     <name>decolog::core::CloudSync</name>
     <message>
+        <source>This Cloud server does not know shared logs yet: it has to be updated.</source>
+        <translation>Aquest servidor Cloud encara no coneix els logs compartits: cal actualitzar-lo.</translation>
+    </message>
+    <message>
         <source>This Cloud server does not know this request (%1): it is older than your DecoDXLog and has to be updated.</source>
         <translation>Aquest servidor Cloud no coneix aquesta petició (%1): és més vell que el teu DecoDXLog i s&apos;ha d&apos;actualitzar.</translation>
     </message>
@@ -9241,6 +10184,14 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Pujada a HRDLog.net: el codi de pujada és al teu perfil d&apos;HRDLog, no és la contrasenya</translation>
     </message>
     <message>
+        <source>Site address</source>
+        <translation>Adreça del lloc</translation>
+    </message>
+    <message>
+        <source>Upload to your Wavelog (or Cloudlog): the address of the site and a read/write API key</source>
+        <translation>Enviament al teu Wavelog (o Cloudlog): l&apos;adreça del lloc i una clau API de lectura i escriptura</translation>
+    </message>
+    <message>
         <source>The VHF, EME and low band chat (www.on4kst.info)</source>
         <translation>El xat de VHF, EME i bandes baixes (www.on4kst.info)</translation>
     </message>
@@ -9263,6 +10214,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
         <translation>Envia les QSL per correu. Gmail demana una contrasenya d&apos;aplicació, no la del compte.</translation>
+    </message>
+    <message>
+        <source>Only for the QSOs of this profile; empty = the general account</source>
+        <translation>Només per als QSO d&apos;aquest perfil; buit = el compte general</translation>
     </message>
     <message>
         <source>Account saved</source>
@@ -9372,8 +10327,43 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>La ràdio no ha acceptat el text en CW (rigctld: %1). No totes les ràdios — ni tots els ponts CAT — poden manipular CW: per a les macros cal el rigctld parlant amb la ràdio mateixa.</translation>
     </message>
     <message>
+        <source>The radio does not take split from here (rigctld: %1)</source>
+        <translation>La ràdio no accepta el split des d&apos;aquí (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not change VFO from here (rigctld: %1)</source>
+        <translation>La ràdio no canvia de VFO des d&apos;aquí (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not take RIT from here (rigctld: %1)</source>
+        <translation>La ràdio no accepta el RIT des d&apos;aquí (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not take XIT from here (rigctld: %1)</source>
+        <translation>La ràdio no accepta el XIT des d&apos;aquí (rigctld: %1)</translation>
+    </message>
+    <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>La ràdio ha respost amb un error (rigctld: %1)</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::RigLink</name>
+    <message>
+        <source>This radio link does not do split</source>
+        <translation>Aquesta connexió amb la ràdio no fa split</translation>
+    </message>
+    <message>
+        <source>This radio link cannot choose the VFO</source>
+        <translation>Aquesta connexió amb la ràdio no tria el VFO</translation>
+    </message>
+    <message>
+        <source>This radio link does not do RIT</source>
+        <translation>Aquesta connexió amb la ràdio no fa RIT</translation>
+    </message>
+    <message>
+        <source>This radio link does not do XIT</source>
+        <translation>Aquesta connexió amb la ràdio no fa XIT</translation>
     </message>
 </context>
 <context>
@@ -9477,6 +10467,14 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
 </context>
 <context>
     <name>decolog::core::WebQslUploader</name>
+    <message>
+        <source>Wavelog: write the address of your Wavelog (Setup → QSL services)</source>
+        <translation>Wavelog: escriu l&apos;adreça del teu Wavelog (Configuració → Serveis QSL)</translation>
+    </message>
+    <message>
+        <source>write the address of your Wavelog</source>
+        <translation>escriu l&apos;adreça del teu Wavelog</translation>
+    </message>
     <message>
         <source>Club Log: email, password, callsign and API key are all needed</source>
         <translation>Club Log: calen el correu, la contrasenya, l&apos;indicatiu i la clau API</translation>

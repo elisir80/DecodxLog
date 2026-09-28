@@ -438,6 +438,51 @@ bool dciCounts(const QDateTime& when, const QString& band, const QString& mode)
     return mode != QLatin1String("FM") && mode != QLatin1String("AM");
 }
 
+} // namespace
+
+namespace awards {
+
+QStringList creditServices()
+{
+    return {QStringLiteral("lotw"), QStringLiteral("card"), QStringLiteral("eqsl"), QStringLiteral("qrz")};
+}
+
+QStringList officialCredits(const QString& awardId)
+{
+    // ARRL: per il DXCC e il WAS valgono LoTW e la cartolina, non eQSL ne' QRZ.
+    if (awardId == QLatin1String("dxcc") || awardId == QLatin1String("was"))
+        return {QStringLiteral("lotw"), QStringLiteral("card")};
+    return {};
+}
+
+QStringList creditsFor(const QString& awardId, const AwardFilter& filter)
+{
+    if (filter.credits.contains(awardId))
+        return filter.credits.value(awardId);
+    const QStringList official = officialCredits(awardId);
+    QStringList general;
+    if (filter.confirmLotw)
+        general << QStringLiteral("lotw");
+    if (filter.confirmCard)
+        general << QStringLiteral("card");
+    if (filter.confirmEqsl)
+        general << QStringLiteral("eqsl");
+    if (official.isEmpty())
+        return general;
+    // Le regole del diploma, dentro quello che l'operatore accetta in generale:
+    // chi spegne LoTW lo spegne anche per il DXCC.
+    QStringList out;
+    for (const QString& s : official) {
+        if (general.contains(s))
+            out << s;
+    }
+    return out;
+}
+
+} // namespace awards
+
+namespace {
+
 // Chiave di ordinamento: numeri come numeri, il resto come testo.
 bool keyLess(const AwardItem& a, const AwardItem& b)
 {
@@ -523,13 +568,33 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         "IFNULL(cont, ''), IFNULL(cnty, ''), "
         "IFNULL(sig, ''), IFNULL(sig_info, ''), IFNULL(comment, ''), IFNULL(notes, '') "
         "FROM qso NOT INDEXED WHERE deleted = 0 ORDER BY qso_datetime_on"));
-    // Le conferme in tre insiemi, non tre sottoquery per ogni QSO: su un log
-    // da un milione era la meta' del tempo.
-    const QSet<qint64> lotwConfirmed = filter.confirmLotw ? db.confirmedIds(QStringLiteral("lotw")) : QSet<qint64>{};
-    const QSet<qint64> cardConfirmed = filter.confirmCard ? db.confirmedIds(QStringLiteral("card")) : QSet<qint64>{};
-    const QSet<qint64> eqslConfirmed = filter.confirmEqsl ? db.confirmedIds(QStringLiteral("eqsl")) : QSet<qint64>{};
+    // Le conferme in un insieme per servizio, non una sottoquery per ogni QSO:
+    // su un log da un milione era la meta' del tempo. Solo i servizi che
+    // qualche diploma accetta.
+    QHash<QString, QSet<qint64>> confirmedBy;
+    QHash<QString, QList<const QSet<qint64>*>> creditSets;
+    for (const QString& award : awardIds()) {
+        for (const QString& service : awards::creditsFor(award, filter)) {
+            if (!confirmedBy.contains(service))
+                confirmedBy.insert(service, db.confirmedIds(service));
+        }
+    }
+    for (const QString& award : awardIds()) {
+        QList<const QSet<qint64>*> sets;
+        for (const QString& service : awards::creditsFor(award, filter))
+            sets << &confirmedBy[service];
+        creditSets.insert(award, sets);
+    }
+    auto confirmedFor = [&creditSets](const QString& award, qint64 id) {
+        for (const QSet<qint64>* set : creditSets.value(award)) {
+            if (set->contains(id))
+                return true;
+        }
+        return false;
+    };
 
     const QSet<int> usaEntities{291, 6, 110};   // USA, Alaska, Hawaii
+    int dxccSkipped = 0;   // QSO fuori dal DXCC di adesso (cty.xml)
     static const QRegularExpression iotaRef(QStringLiteral("^(AF|AN|AS|EU|NA|OC|SA)-\\d{3}$"));
 
     while (q.next()) {
@@ -554,10 +619,8 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         const QString call = q.value(1).toString();
         const int dxcc = q.value(5).toInt();
         const QDateTime on = QDateTime::fromString(q.value(13).toString(), Qt::ISODate).toUTC();
-        const bool byLotwOrCard = lotwConfirmed.contains(id) || cardConfirmed.contains(id);
-        const bool confirmed = byLotwOrCard || eqslConfirmed.contains(id);
         // Le regole dell'ARRL: i QSO sui 60 metri non valgono per nessun suo
-        // diploma, DXCC compreso, e per il DXCC l'eQSL non e' una conferma.
+        // diploma, DXCC compreso (le conferme valide le dice creditsFor).
         const bool arrlBand = band.compare(QLatin1String("60m"), Qt::CaseInsensitive) != 0;
 
         auto addAs = [&](const char* award, const QString& key, const QString& name, bool isConfirmed) {
@@ -579,13 +642,17 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
                 item.bandsConfirmed.insert(band);
         };
         auto add = [&](const char* award, const QString& key, const QString& name) {
-            addAs(award, key, name, confirmed);
+            addAs(award, key, name, confirmedFor(QLatin1String(award), id));
         };
 
         if (dxcc > 0) {
             const QString name = m_dxccName ? m_dxccName(dxcc) : QString();
-            if (arrlBand)
-                addAs("dxcc", QString::number(dxcc), name, byLotwOrCard);
+            const bool dxccValid = !(m_rules.invalid && m_rules.invalid(call, on))
+                                   && !(m_rules.deleted && m_rules.deleted(dxcc));
+            if (!dxccValid)
+                ++dxccSkipped;
+            if (arrlBand && dxccValid)
+                add("dxcc", QString::number(dxcc), name);
             if (submode == QLatin1String("FT2"))
                 add("ft2", QString::number(dxcc), name);
         }
@@ -702,6 +769,11 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
             b.result.requirement = QCoreApplication::translate(
                 "Awards", "The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like \"%1 LI-001\".")
                                        .arg(b.result.title);
+        } else if (id == QLatin1String("dxcc") && dxccSkipped > 0) {
+            b.result.requirement = QCoreApplication::translate(
+                "Awards", "ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC. "
+                          "%n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.",
+                nullptr, dxccSkipped);
         } else if (id == QLatin1String("dxcc")) {
             b.result.requirement = QCoreApplication::translate(
                 "Awards", "ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.");

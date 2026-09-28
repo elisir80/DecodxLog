@@ -9,6 +9,9 @@
 #include <QJsonObject>
 #include <QSettings>
 #include <QSqlQuery>
+#include <QStandardPaths>
+
+#include <algorithm>
 
 namespace decolog::app {
 
@@ -56,6 +59,7 @@ QVariantMap SolarController::pathForecast(const QVariant& target) const
     in.kIndex = m_data.valid ? m_data.kIndex : 2;
     const propagation::Forecast f = propagation::forecast(in);
     out.insert(QStringLiteral("valid"), f.valid);
+    out.insert(QStringLiteral("engine"), QStringLiteral("model"));
     out.insert(QStringLiteral("distanceKm"), qRound(f.distanceKm));
     out.insert(QStringLiteral("azimuth"), f.azimuth);
     out.insert(QStringLiteral("hops"), f.hops);
@@ -66,18 +70,130 @@ QVariantMap SolarController::pathForecast(const QVariant& target) const
     for (const auto& b : propagation::bands())
         names << b.name;
     out.insert(QStringLiteral("bands"), names);
+    // VOACAP, se c'e' e si vuole: le bande fra 2 e 30 MHz (il 160 e il 6 m
+    // restano al modello semplice), con la stazione delle impostazioni.
+    const voacap::Result* v = nullptr;
+    QList<int> voacapBands;
+    if (f.valid && m_voacapEnabled && voacapAvailable()) {
+        voacap::Request req;
+        req.fromLat = in.fromLat;
+        req.fromLon = in.fromLon;
+        req.toLat = in.toLat;
+        req.toLon = in.toLon;
+        req.fromLabel = QStringLiteral("DECODXLOG");
+        req.toLabel = QStringLiteral("DX");
+        req.year = in.date.year();
+        req.month = in.date.month();
+        // Le macchie: quelle del giorno, o ricavate dal flusso come fa il modello.
+        req.ssn = in.sunspots > 0 ? in.sunspots : std::max(0.0, (in.solarFlux - 67.0) * 1.2);
+        req.powerWatts = m_voacapPower;
+        req.txGainDbi = m_voacapGain;
+        req.rxGainDbi = m_voacapGain;
+        req.noise = m_voacapNoise;
+        req.requiredSnr = voacap::requiredSnrFor(m_voacapMode);
+        const auto& all = propagation::bands();
+        for (int i = 0; i < all.size(); ++i) {
+            if (all.at(i).mhz >= 2.0 && all.at(i).mhz <= 30.0 && req.mhz.size() < 11) {
+                req.mhz << all.at(i).mhz;
+                voacapBands << i;
+            }
+        }
+        const QString key = req.key();
+        const auto it = m_voacapResults.constFind(key);
+        if (it == m_voacapResults.constEnd()) {
+            if (!m_voacapAsked.contains(key)) {
+                m_voacapAsked.insert(key);
+                m_voacap->run(req);
+            }
+            out.insert(QStringLiteral("voacapPending"), true);
+        } else if (!it->valid) {
+            out.insert(QStringLiteral("voacapError"), it->error);
+        } else {
+            v = &*it;
+            out.insert(QStringLiteral("engine"), QStringLiteral("voacap"));
+        }
+    }
     QVariantList hours;
-    for (const auto& h : f.hours) {
+    for (int hi = 0; hi < f.hours.size(); ++hi) {
+        const auto& h = f.hours.at(hi);
         QVariantList q;
-        for (int v : h.quality)
-            q << v;
+        QVariantList rel;
+        QVariantList snr;
+        for (int v2 : h.quality) {
+            q << v2;
+            rel << QVariant();
+            snr << QVariant();
+        }
+        double muf = h.mufMhz;
+        if (v && hi < v->hours.size()) {
+            const voacap::HourResult& vh = v->hours.at(hi);
+            muf = vh.muf;
+            for (int k = 0; k < voacapBands.size() && k < vh.cells.size(); ++k) {
+                const voacap::Cell& c = vh.cells.at(k);
+                q[voacapBands.at(k)] = voacap::qualityOf(c);
+                rel[voacapBands.at(k)] = qRound(c.rel * 100.0);
+                snr[voacapBands.at(k)] = qRound(c.snr);
+            }
+        }
         hours << QVariantMap{{QStringLiteral("hour"), h.hourUtc},
-                             {QStringLiteral("muf"), qRound(h.mufMhz * 10.0) / 10.0},
+                             {QStringLiteral("muf"), qRound(muf * 10.0) / 10.0},
                              {QStringLiteral("luf"), qRound(h.lufMhz * 10.0) / 10.0},
-                             {QStringLiteral("quality"), q}};
+                             {QStringLiteral("quality"), q},
+                             {QStringLiteral("rel"), rel},
+                             {QStringLiteral("snr"), snr}};
     }
     out.insert(QStringLiteral("hours"), hours);
     return out;
+}
+
+void SolarController::saveVoacap(const char* key, const QVariant& value)
+{
+    QSettings().setValue(QStringLiteral("solar/voacap%1").arg(QLatin1String(key)), value);
+    emit changed();
+}
+
+void SolarController::setVoacapEnabled(bool on)
+{
+    if (on == m_voacapEnabled)
+        return;
+    m_voacapEnabled = on;
+    saveVoacap("Enabled", on);
+}
+
+void SolarController::setVoacapMode(const QString& mode)
+{
+    const QString clean = mode.trimmed().toUpper();
+    if (clean.isEmpty() || clean == m_voacapMode)
+        return;
+    m_voacapMode = clean;
+    saveVoacap("Mode", clean);
+}
+
+void SolarController::setVoacapPower(int watts)
+{
+    const int clean = std::clamp(watts, 1, 2000);
+    if (clean == m_voacapPower)
+        return;
+    m_voacapPower = clean;
+    saveVoacap("Power", clean);
+}
+
+void SolarController::setVoacapGain(double dbi)
+{
+    const double clean = std::clamp(dbi, -10.0, 25.0);
+    if (qFuzzyCompare(clean, m_voacapGain))
+        return;
+    m_voacapGain = clean;
+    saveVoacap("Gain", clean);
+}
+
+void SolarController::setVoacapNoise(int noise)
+{
+    const int clean = std::clamp(noise, 130, 165);
+    if (clean == m_voacapNoise)
+        return;
+    m_voacapNoise = clean;
+    saveVoacap("Noise", clean);
 }
 
 namespace {
@@ -95,6 +211,27 @@ SolarController::SolarController(Context context, QObject* parent)
     QSettings s;
     m_automatic = s.value(QStringLiteral("solar/automatic"), true).toBool();
     m_interval = qBound(15, s.value(QStringLiteral("solar/intervalMinutes"), 60).toInt(), 360);
+    m_voacapEnabled = s.value(QStringLiteral("solar/voacapEnabled"), true).toBool();
+    m_voacapMode = s.value(QStringLiteral("solar/voacapMode"), QStringLiteral("FT8")).toString();
+    m_voacapPower = std::clamp(s.value(QStringLiteral("solar/voacapPower"), 100).toInt(), 1, 2000);
+    m_voacapGain = std::clamp(s.value(QStringLiteral("solar/voacapGain"), 2.0).toDouble(), -10.0, 25.0);
+    m_voacapNoise = std::clamp(s.value(QStringLiteral("solar/voacapNoise"), 145).toInt(), 130, 165);
+
+    // VOACAP lavora in una cartella sua, dove puo' scrivere: i dati del
+    // pacchetto si copiano li' la prima volta.
+    m_voacap = new voacap::Engine(this);
+    m_voacap->setWorkDir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation)
+                         + QStringLiteral("/voacap"));
+    connect(m_voacap, &voacap::Engine::finished, this, [this](const QString& key, const voacap::Result& result) {
+        m_voacapAsked.remove(key);
+        // Poche decine di percorsi al massimo: i vecchi si lasciano andare.
+        if (m_voacapResults.size() > 60)
+            m_voacapResults.clear();
+        m_voacapResults.insert(key, result);
+        if (!result.valid && m_ctx.activity)
+            m_ctx.activity(QStringLiteral("PROP"), tr("VOACAP: %1").arg(result.error), QStringLiteral("warning"));
+        emit changed();
+    });
 
     connect(&m_fetcher, &SolarFetcher::finished, this, [this](const SolarData& data) {
         m_data = data;

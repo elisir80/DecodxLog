@@ -57,6 +57,15 @@ QslUploadResult resultFromTqslExit(int exitCode, const QString& output, int qsoC
 QslUploadResult parseQrzResponse(const QByteArray& body);
 // La pagina di eQSL dopo importADIF.cfm.
 QslUploadResult parseEqslResponse(const QByteArray& body);
+// Wavelog (e Cloudlog, da cui viene): l'indirizzo dell'API a partire da quello
+// del sito scritto dall'operatore ("log.example.org", "https://x.org/wavelog/").
+QUrl wavelogApiUrl(const QString& server, const QString& endpoint);
+// Un testo senza la chiave (Wavelog la vuole anche nell'indirizzo).
+QString withoutKey(QString text, const QString& key);
+// La risposta di api/qso: JSON {"status":"created"...} o {"status":"failed","reason":...}.
+QslUploadResult parseWavelogResponse(int status, const QByteArray& body);
+// L'elenco delle stazioni di api/station_info: id, nome, nominativo, attiva.
+QVariantList parseWavelogStations(const QByteArray& body, QString* error);
 // La risposta di HRDLog.net (NewEntry.aspx): XML con <insert> o <error>.
 QslUploadResult parseHrdLogResponse(const QByteArray& body);
 // La risposta di Club Log: `status` e' il codice HTTP, 0 se non e' arrivato.
@@ -124,7 +133,7 @@ class WebQslUploader : public QObject {
     Q_OBJECT
 
 public:
-    enum class Service { QrzLogbook, Eqsl, ClubLog, Crx, HrdLog };
+    enum class Service { QrzLogbook, Eqsl, ClubLog, Crx, HrdLog, Wavelog };
 
     explicit WebQslUploader(QObject* parent = nullptr);
 
@@ -149,10 +158,15 @@ public:
     // L'elenco dei logbook dell'account CRX, per scegliere dove scrivere.
     void listCrxLogs(const QString& apiKey);
     void setCrxEndpoint(const QUrl& url) { m_crxUrl = url; }
+    // Wavelog: il sito dell'operatore, la chiave API, la stazione e un QSO.
+    void uploadWavelog(const QString& server, const QString& apiKey, const QString& stationId,
+                       const QString& adifRecord);
+    void listWavelogStations(const QString& server, const QString& apiKey);
 
 signals:
     void finished(const decolog::core::QslUploadResult& result);
     void crxLogsListed(const QVariantList& logs, const QString& error);
+    void wavelogStationsListed(const QVariantList& stations, const QString& error);
 
 private:
     void send(Service service, const QUrl& url, const QByteArray& body);

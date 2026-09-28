@@ -54,6 +54,35 @@ private slots:
             QVERIFY2(ids.contains(QLatin1String(id)), id);
     }
 
+    void profileAccounts()
+    {
+        // Un profilo con il suo account QRZ Logbook: i suoi QSO usano quello,
+        // gli altri profili quello generale.
+        QCOMPARE(CredentialStore::profileService(QStringLiteral("qrzlogbook"), 3), QString("qrzlogbook@3"));
+        QCOMPARE(CredentialStore::profileService(QStringLiteral("qrzlogbook"), 0), QString("qrzlogbook"));
+        QCOMPARE(CredentialStore::profileOf(QStringLiteral("eqsl@12")), qint64(12));
+        QCOMPARE(CredentialStore::profileOf(QStringLiteral("eqsl")), qint64(0));
+        QVERIFY(CredentialStore::profileServiceBases().contains(QStringLiteral("eqsl")));
+
+        // "stored" e' quello che dice il file delle impostazioni: qui lo si scrive
+        // a mano, senza passare dal portachiavi.
+        QSettings().setValue(QStringLiteral("credentials/qrzlogbook@3/stored"), true);
+        QSettings().setValue(QStringLiteral("credentials/qrzlogbook@3/account"), QStringLiteral("II8XYZ"));
+        QCOMPARE(m_store->serviceFor(QStringLiteral("qrzlogbook"), 3), QString("qrzlogbook@3"));
+        QCOMPARE(m_store->serviceFor(QStringLiteral("qrzlogbook"), 4), QString("qrzlogbook"));
+        QCOMPARE(m_store->serviceFor(QStringLiteral("qrzlogbook"), 0), QString("qrzlogbook"));
+
+        const QVariantList rows = m_store->profileServices(3);
+        QCOMPARE(rows.size(), 2);
+        QCOMPARE(rows.at(0).toMap().value("id").toString(), QString("qrzlogbook@3"));
+        QCOMPARE(rows.at(0).toMap().value("account").toString(), QString("II8XYZ"));
+        QVERIFY(rows.at(0).toMap().value("stored").toBool());
+        QCOMPARE(rows.at(1).toMap().value("id").toString(), QString("eqsl@3"));
+        QVERIFY(!rows.at(1).toMap().value("stored").toBool());
+        QVERIFY(m_store->profileServices(0).isEmpty());
+        QSettings().remove(QStringLiteral("credentials/qrzlogbook@3"));
+    }
+
     void saveReadRemove()
     {
         if (!m_store->available())

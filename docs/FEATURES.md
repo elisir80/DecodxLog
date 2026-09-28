@@ -31,6 +31,13 @@ Quello che manca è in fondo.
   Decodium is working** follows in the call info panel.
 - **Stato del client**: chi è collegato, frequenza, modo, TX, e l'avviso se tace. / **Client
   state**: who is connected, frequency, mode, TX, and a warning when it goes quiet.
+- **Ripetitore UDP**: quello che arriva da Decodium va anche ad altri programmi, e le loro
+  risposte tornano a Decodium. / **UDP relay**: what comes from Decodium also goes to other
+  programs, and their answers go back to Decodium.
+- **N1MM Logger+** (ContactInfo via UDP), **log ADIF tenuti d'occhio** (fldigi, WSJT-X,
+  JTDX) e un'**interfaccia HTTP locale** con chiave (`docs/API.md`). / **N1MM Logger+**
+  (ContactInfo over UDP), **watched ADIF logs** (fldigi, WSJT-X, JTDX) and a **local HTTP
+  interface** with a key (`docs/API.md`).
 
 ## 2. Il log / The log
 
@@ -93,6 +100,11 @@ Quello che manca è in fondo.
   Ctrl+E export, Ctrl+K cluster, Ctrl+T attivazione. / **Keyboard**: arrows, Enter to open,
   Ctrl+N new QSO, Ctrl+F search, Ctrl+I import, Ctrl+E export, Ctrl+K cluster, Ctrl+T
   activation.
+- **Importa da altri programmi**: ADIF, fogli di calcolo CSV (colonne riconosciute da sole)
+  e il database di N1MM Logger+. / **Import from other programs**: ADIF, CSV spreadsheets
+  (columns recognised by themselves) and the N1MM Logger+ database.
+- **Un campo su molti QSO**, con lo storico di ognuno, e **i doppioni** trovati e uniti. /
+  **One field on many QSOs**, with each one's history, and **duplicates** found and merged.
 
 ## 4. Nuovo QSO / New QSO
 
@@ -209,6 +221,8 @@ Quello che manca è in fondo.
   radio. / **Eight CW macros** on F1-F8 in the contest window, with the text you write and
   the gaps filled in at the moment; the speed in words per minute changes while you operate,
   **Esc** stops. The keyer is the radio's own.
+- **Split, VFO A/B, RIT e XIT** con rigctld, TCI e flrig, dalla barra in alto. / **Split,
+  VFO A/B, RIT and XIT** with rigctld, TCI and flrig, from the top bar.
 
 ## 9. Diplomi / Awards
 
@@ -244,6 +258,10 @@ Quello che manca è in fondo.
   (LoTW, cartolina, eQSL). / **Filters**: band, mode group, station profile, tag; which
   confirmations count (LoTW, card, eQSL).
 - **Pannello FT2 Award** sempre in vista. / **FT2 Award panel** always in sight.
+- **Conferme valide per diploma** e **entita' con le date** dal cty.xml di Club Log
+  (operazioni non accettate, entita' cancellate). / **Valid confirmations per award** and
+  **entities with their dates** from Club Log's cty.xml (operations not accepted, deleted
+  entities).
 
 ## 10. QSL
 
@@ -272,6 +290,8 @@ Quello che manca è in fondo.
   automatic** after each QSO, with a queue and per-service counters.
 - **Duplicato = inviato**, rifiuto scritto sul QSO con il motivo. / **A duplicate counts as
   sent**, a rejection is written on the QSO with its reason.
+- **Account eQSL e QRZ per profilo stazione**, e **Wavelog** fra i servizi. / **eQSL and QRZ
+  accounts per station profile**, and **Wavelog** among the services.
 
 ## 10b. QSL di carta / Paper QSL
 
@@ -326,6 +346,10 @@ Quello che manca è in fondo.
   colonne fisse, frequenze in kHz (numero di banda dai 6 metri in su), modi CW/PH/RY/DG/FM. /
   **Cabrillo 3.0 export**: header with categories, grid, score and soapbox, fixed-column QSO
   lines, frequencies in kHz (band number from 6 m up), modes CW/PH/RY/DG/FM.
+- **Regole per edizione**, tempo in aria e pause come da regolamento, **call history** in
+  formato N1MM e **progressivi distribuiti** in rete. / **Per-edition rules**, time on the
+  air and breaks as the rules say, **call history** in N1MM format and **serial numbers
+  shared** on the network.
 
 ## 10d. Propagazione / Propagation
 
@@ -341,6 +365,10 @@ Quello che manca è in fondo.
   average flux.
 - **SFI e K in testa alla mappa**, dove si guarda la propagazione. / **SFI and K on the map
   header**, where propagation is looked at.
+- **VOACAP** (ITS) nella previsione sul percorso: per ogni ora e banda la probabilita' del QSO
+  nel modo scelto, con potenza, antenne e rumore del posto. / **VOACAP** (ITS) in the path
+  forecast: for each hour and band the chance of the QSO in the chosen mode, with power,
+  antennas and local noise.
 
 ## 10e. Rotore / Rotor
 
@@ -436,6 +464,10 @@ Quello che manca è in fondo.
   riepilogo: una correzione a un QSO si vede subito da tutte e due le facce del log. /
   **The same figures on both sides**: they are recomputed from the QSOs with the program's
   own rules, never from summary tables.
+- **Log condiviso**: un club o una gara multi-operatore, piu' operatori con il proprio
+  account, inviti con codice, operatore o osservatore. / **Shared log**: a club or a
+  multi-operator contest, several operators with their own account, invites by code,
+  operator or viewer.
 
 ## 11. DX cluster
 
@@ -581,8 +613,8 @@ Quello che manca è in fondo.
   **`scripts/deploy.sh`**: a stand-alone folder and `DecoDXLog-<version>-win64.zip`.
 - **CI su GitHub** (Windows MSYS2 e Linux) con l'artefatto pronto. / **GitHub CI** (Windows
   MSYS2 and Linux) with the artifact ready.
-- **22 gruppi di test** automatici nel programma e **73 prove** del servizio Cloud
-  (`server/tests`). / **22 automated test suites** in the program and **73 checks** for the
+- **53 gruppi di test** automatici nel programma e **131 prove** del servizio Cloud
+  (`server/tests`). / **53 automated test suites** in the program and **131 checks** for the
   Cloud service (`server/tests`).
 
 ## Non ancora / Not yet

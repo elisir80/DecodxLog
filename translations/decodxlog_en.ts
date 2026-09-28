@@ -178,6 +178,18 @@
         <translation>Contest and activations</translation>
     </message>
     <message>
+        <source>Call history file (N1MM format)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Call history (*.txt *.csv)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>pick it from the list</source>
         <translation>pick it from the list</translation>
     </message>
@@ -215,6 +227,50 @@
     </message>
     <message>
         <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shared on the network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bands of this edition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operating hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>no limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Off-time from (min)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log within (h)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Call history</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 · %2 calls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>none: the exchange is suggested from the log and the country</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -302,6 +358,13 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC. %n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
@@ -408,6 +471,26 @@
     </message>
     <message>
         <source>All tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>chosen by you</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the rules of the award</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the general choice above</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back to the rules</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -651,6 +734,41 @@
     </message>
     <message>
         <source>LoTW last sync %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BulkEditDialog</name>
+    <message>
+        <source>CHANGE A FIELD ON %1 QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The same value on every QSO chosen. Each QSO keeps the old value in its history, so the change can be undone QSO by QSO from its card. Leave the value empty to clear the field.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only where the field is empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>With this many QSO the change runs in the background: the log stays usable and the progress shows in its header.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change %1 QSO</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1466,6 +1584,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>%1 · log</translation>
     </message>
     <message>
+        <source>%1 · history</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>%1 · country</source>
         <translation>%1 · country</translation>
     </message>
@@ -1710,6 +1832,20 @@ The call Decodium is working shows up here by itself.</source>
         <source>%1 QSO</source>
         <translation type="unfinished"></translation>
     </message>
+    <message numerus="yes">
+        <source>On the air %1 of %2 · %n break(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 · %n break(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
         <source>Export…</source>
         <translation>Export…</translation>
@@ -1897,6 +2033,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>%1 · log</source>
         <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · history</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>%1 · country</source>
@@ -2187,6 +2327,89 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>noise</source>
         <translation>noise</translation>
+    </message>
+</context>
+<context>
+    <name>DuplicatesDialog</name>
+    <message>
+        <source>DUPLICATE QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Same call, band, kind of mode (CW, phone, digital) and station profile, within the minutes chosen. Of each group one QSO is kept — a click on a row chooses which — and it takes from the others what it is missing: fields, confirmations, tags. The others are deleted; they stay in the history and can be recovered.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Within</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>minutes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No duplicates within %1 minutes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The first %1 groups: merge them and search again for the rest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 groups found, %2 ticked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>KEEP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>confirmed: %1</source>
+        <translation type="unfinished">confirmed: %1</translation>
+    </message>
+    <message>
+        <source>%1 fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reading the whole log…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nothing to merge.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the minutes and press Search.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A double click opens the QSO.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Close</translation>
+    </message>
+    <message>
+        <source>Merge %1 groups</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2487,6 +2710,14 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Sorting…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Changing %1%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>%1 QSO · %2 shown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2552,6 +2783,14 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO shown…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find duplicate QSO…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2752,6 +2991,14 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Delete the %1 QSO selected…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO selected…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change a field…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3012,11 +3259,23 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import ADIF</source>
+        <source>Import a log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>ADIF files (*.adi *.adif)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Logs (*.adi *.adif *.csv *.tsv *.s3db)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spreadsheets (*.csv *.tsv)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ databases (*.s3db)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3497,7 +3756,15 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>VOACAP computing…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Locator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · reliability %4% · SNR %5 dB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3521,7 +3788,55 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>VOACAP (ITS): the chance of a %1 QSO with %2 W and %3 dBi antennas; 160 and 6 m from the simple model.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VOACAP failed (%1): simplified F2 model.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>0 dBi (vertical)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2 dBi (dipole)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>5 dBi (2-el beam)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>8 dBi (3-el beam)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>11 dBi (big beam)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>noise: city</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>noise: residential</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>noise: rural</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>noise: quiet</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3700,6 +4015,22 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>unexpected answer</source>
         <translation>unexpected answer</translation>
+    </message>
+    <message>
+        <source>Wavelog: already there</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wavelog: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wavelog: sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wavelog: the API key is not valid or cannot write (%1)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>HRDLog: sent</source>
@@ -6183,7 +6514,199 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>An ADIF log to keep an eye on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Club Log cty.xml</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QSOs of another entity on that date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Working…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update cty.xml</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check the entities with the dates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Correct %1 QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 QSO corrected, each kept as a new revision.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>With the Club Log API key (QSL services) DecoDXLog downloads Club Log&apos;s cty.xml every week: the entities with their dates, so a QSO of 2005 with PJ2 is the Netherlands Antilles and not Curacao, operations the ARRL did not accept do not count for DXCC, and deleted entities are shown but not counted.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Forward to other programs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>e.g. 127.0.0.1:2238, 127.0.0.1:2333 — empty = off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Every packet from Decodium also goes to these programs (JTAlert, GridTracker, HamLog…), and their answers (reply to a caller, halt TX) go back to Decodium. So Decodium sends to one port only and everybody gets it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other ADIF logs to keep an eye on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>not found: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a file…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The QSOs that other programs (fldigi, WSJT-X, JTDX…) write in these logs and that are missing here are saved every 5 minutes, from the moment the file is added. For the older ones, “Check the whole file”.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UDP port (0 = off)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>listening</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ sends every contact on this port (Config → Configure Ports → Broadcast Data → Contacts, usually 12060). A contact corrected or deleted in N1MM is corrected or deleted here too.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local interface for other programs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port on 127.0.0.1 (0 = off)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Key (X-DecoDXLog-Token)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>For programs next to DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, and POST /api/v1/qso with an ADIF record to log it. Only from this computer, and always with the key. Details: docs/API.md.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shared log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A club station, a multi-operator contest: one log, several operators, each with their own Cloud account — nobody lends a password. The owner of the log creates an invite, whoever gets the code joins with it. Only QSOs travel: profiles, settings and service passwords stay with the owner.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This log syncs with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>my own log (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the shared log of %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The QSOs of this log go to the log of %1, and its QSOs come here: keep a log just for it (Log → New log).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invite code, e.g. K7Q2-9XMP-D4TA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Join with the code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>operator: sends and gets the QSOs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>viewer: only looks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invite into the log of %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code %1 — %2, valid until %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>viewer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>operator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>viewer in your log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>operator in your log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>you look at its log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>you write in its log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6212,6 +6735,22 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Station on Wavelog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>station %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load my stations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wavelog (and Cloudlog) is the web log on your own site. Below it wants the address of the site (for example log.mysite.org) and an API key with read and write rights, made in Wavelog under Account → API keys; then the station to write in. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6613,6 +7152,14 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>QSL accounts of this profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the profile first: then it can have its own QRZ Logbook and eQSL accounts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Used by &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6861,6 +7408,26 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Import a log (ADIF, CSV, N1MM)…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Split off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TX up %1 kHz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TX down %1 kHz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RIT and XIT off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Setup · %1 ▾</source>
         <translation>Setup · %1 ▾</translation>
     </message>
@@ -6978,10 +7545,6 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Panels…</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import ADIF…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7388,6 +7951,21 @@ The call Decodium is working shows up here by itself.</source>
         </translation>
     </message>
     <message>
+        <source>Call history not readable: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open the contest first</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Call history: %n call(s) from %1</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
         <source>No QSO in this session yet</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7505,8 +8083,36 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Invite created: give the code to the operator. It is shown only now.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are in the log of %1. Choose it for a log of yours below — better a new log (Log → New log), so the club log and yours do not mix.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cloud: you joined the shared log of %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Cloud: linked — sync will unlock it when needed</source>
         <translation>Cloud: linked — sync will unlock it when needed</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with your own log again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with the shared log of %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sync once to open the keystore, then the team shows here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sign in to the Cloud first.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>
@@ -7786,7 +8392,31 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Listening for N1MM Logger+ on UDP %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Correction not saved: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Corrected by N1MM: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>built on %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not understood: %1 (write address:port)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UDP forwarding off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UDP forwarded to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7822,6 +8452,37 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Club Log cty.xml not readable: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Club Log API key is needed (Setup → QSL services → Club Log)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downloading cty.xml from Club Log…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Club Log: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Club Log: the file is not a cty.xml (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cty.xml of %1: %2 entities</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Entity of %n QSO(s) corrected with the date of the QSO (Club Log)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
         <source>DXCC filled on %1 of %2 QSO (cty.csv %3)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7847,6 +8508,18 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>QSO not logged: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New key for the local interface: the programs using the old one must be updated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local interface on http://127.0.0.1:%1/api/v1/</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot open the local interface on port %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7923,6 +8596,214 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Tag &quot;%1&quot; removed from %2 QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y · yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N · no</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>R · requested</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Q · queued</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I · ignore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y · uploaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N · not uploaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M · changed, upload again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>B · bureau</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D · direct</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E · electronic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My locator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Station callsign</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Station profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My rig</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My antenna</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Power (W)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My POTA reference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My SOTA reference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My WWFF reference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My special activity (MY_SIG)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My special activity reference (MY_SIG_INFO)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>POTA reference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SOTA reference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WWFF reference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Special activity (SIG)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Special activity reference (SIG_INFO)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation type="unfinished">Contest</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RST sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RST received</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paper QSL sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paper QSL received</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paper QSL via</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>LoTW: sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>eQSL: sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QRZ.com: uploaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Club Log: uploaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>HRDLog: uploaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A change on many QSO is already running: wait for it to finish.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(empty)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 → %2 on %3 QSO (%4 unchanged, %5 failed)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QSO #%1: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merged %1 group(s) of duplicates: %2 QSO deleted (kept in history)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8061,6 +8942,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Keeping an eye on %1 (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Decodium log not found</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8072,6 +8957,10 @@ The call Decodium is working shows up here by itself.</source>
         <source>%1 · Decodium log not readable: %2</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>%1 · %2 not readable: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message numerus="yes">
         <source>%1 · %n QSO(s) recovered from the Decodium log</source>
         <translation type="unfinished">
@@ -8081,6 +8970,13 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message numerus="yes">
         <source>%1 · nothing missing (%n QSO(s) checked)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from %2</source>
         <translation type="unfinished">
             <numerusform></numerusform>
             <numerusform></numerusform>
@@ -8099,6 +8995,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recovered from %1 → %2 %3 %4 %5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8427,6 +9327,21 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>Wavelog: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wavelog: no station on the site yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Wavelog: %n station(s) on the site</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
         <source>CRX: %1</source>
         <translation>CRX: %1</translation>
     </message>
@@ -8481,8 +9396,28 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>no address or API key: Setup → QSL services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>choose the Wavelog station: Setup → QSL services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>choose the CRX logbook: Setup → QSL services</source>
         <translation>choose the CRX logbook: Setup → QSL services</translation>
+    </message>
+    <message>
+        <source>Wavelog: asking for the stations…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wavelog: address and API key are needed (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>add them below</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>CRX: asking for the logbooks…</source>
@@ -8887,6 +9822,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>VOACAP: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Solar data of %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9102,6 +10041,10 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>decolog::core::CloudSync</name>
     <message>
+        <source>This Cloud server does not know shared logs yet: it has to be updated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This Cloud server does not know this request (%1): it is older than your DecoDXLog and has to be updated.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9240,6 +10183,14 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Site address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Upload to your Wavelog (or Cloudlog): the address of the site and a read/write API key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>The VHF, EME and low band chat (www.on4kst.info)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9262,6 +10213,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
         <translation>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</translation>
+    </message>
+    <message>
+        <source>Only for the QSOs of this profile; empty = the general account</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Account saved</source>
@@ -9371,7 +10326,42 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>The radio does not take split from here (rigctld: %1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The radio does not change VFO from here (rigctld: %1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The radio does not take RIT from here (rigctld: %1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The radio does not take XIT from here (rigctld: %1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>The radio answered with an error (rigctld: %1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::RigLink</name>
+    <message>
+        <source>This radio link does not do split</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This radio link cannot choose the VFO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This radio link does not do RIT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This radio link does not do XIT</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9476,6 +10466,14 @@ The call Decodium is working shows up here by itself.</source>
 </context>
 <context>
     <name>decolog::core::WebQslUploader</name>
+    <message>
+        <source>Wavelog: write the address of your Wavelog (Setup → QSL services)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>write the address of your Wavelog</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <source>Club Log: email, password, callsign and API key are all needed</source>
         <translation type="unfinished"></translation>

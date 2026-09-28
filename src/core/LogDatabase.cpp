@@ -4,6 +4,7 @@
 #include "core/Modes.h"
 
 #include "core/Bands.h"
+#include "core/LogMigration.h"
 
 #include <QFile>
 #include <QJsonArray>
@@ -446,6 +447,49 @@ std::optional<qint64> LogDatabase::findDuplicate(const QString& call, const QStr
     return std::nullopt;
 }
 
+std::optional<qint64> LogDatabase::findByExtra(const QString& field, const QString& value, const QDateTime& near) const
+{
+    if (field.isEmpty() || value.isEmpty())
+        return std::nullopt;
+    QString sql = QStringLiteral("SELECT id, adif_extra FROM qso WHERE deleted = 0 AND adif_extra LIKE ?");
+    if (near.isValid())
+        sql += QStringLiteral(" AND qso_datetime_on BETWEEN ? AND ?");
+    QSqlQuery q(connection());
+    q.prepare(sql);
+    q.addBindValue(QStringLiteral("%") + value + QStringLiteral("%"));
+    if (near.isValid()) {
+        q.addBindValue(near.toUTC().addDays(-1).toString(Qt::ISODate));
+        q.addBindValue(near.toUTC().addDays(1).toString(Qt::ISODate));
+    }
+    if (!q.exec())
+        return std::nullopt;
+    while (q.next()) {
+        const QJsonObject extra = QJsonDocument::fromJson(q.value(1).toString().toUtf8()).object();
+        if (extra.value(field).toString() == value)
+            return q.value(0).toLongLong();
+    }
+    return std::nullopt;
+}
+
+QList<qint64> LogDatabase::latestIds(const QString& call, int limit) const
+{
+    QList<qint64> out;
+    const QString c = call.trimmed().toUpper();
+    QSqlQuery q(connection());
+    q.prepare(c.isEmpty()
+                  ? QStringLiteral("SELECT id FROM qso WHERE deleted = 0 ORDER BY qso_datetime_on DESC LIMIT ?")
+                  : QStringLiteral("SELECT id FROM qso WHERE deleted = 0 AND call = ? "
+                                   "ORDER BY qso_datetime_on DESC LIMIT ?"));
+    if (!c.isEmpty())
+        q.addBindValue(c);
+    q.addBindValue(qBound(1, limit, 500));
+    if (q.exec()) {
+        while (q.next())
+            out << q.value(0).toLongLong();
+    }
+    return out;
+}
+
 bool LogDatabase::knowsQso(const AdifRecord& input) const
 {
     AdifRecord record = input;
@@ -829,8 +873,10 @@ bool LogDatabase::softDeleteQso(qint64 id)
     const auto m = meta(id);
     if (!m || m->deleted)
         return false;
+    // Dentro una transazione gia' aperta (l'unione dei doppioni) si lavora in
+    // quella: chiuderla qui chiuderebbe anche la sua.
     QSqlDatabase db = connection();
-    db.transaction();
+    const bool ownTransaction = db.transaction();
     QSqlQuery h(db);
     h.prepare(QStringLiteral(
         "INSERT INTO qso_history (qso_uuid, revision, snapshot, reason, recorded_at) VALUES (?, ?, ?, 'delete', ?)"));
@@ -850,10 +896,273 @@ bool LogDatabase::softDeleteQso(qint64 id)
                              "AND service IN ('%1')").arg(editableServices().join(QStringLiteral("','"))));
     d.addBindValue(id);
     if (!h.exec() || !u.exec() || !d.exec()) {
-        db.rollback();
+        if (ownTransaction)
+            db.rollback();
         return false;
     }
-    return db.commit();
+    return !ownTransaction || db.commit();
+}
+
+// Il campo della data che va con uno stato QSL ("LOTW_QSL_RCVD" →
+// "LOTW_QSLRDATE"); vuoto se il campo non e' uno stato QSL.
+static QString qslDateFieldFor(const QString& status)
+{
+    for (const auto& f : kQslFields) {
+        if (status == QLatin1String(f.sent))
+            return QLatin1String(f.sentDate);
+        if (*f.rcvd && status == QLatin1String(f.rcvd))
+            return QLatin1String(f.rcvdDate);
+    }
+    return {};
+}
+
+static bool isQslDateField(const QString& name)
+{
+    for (const auto& f : kQslFields) {
+        if (name == QLatin1String(f.sentDate) || (*f.rcvd && name == QLatin1String(f.rcvdDate)))
+            return true;
+    }
+    return false;
+}
+
+BulkEditResult LogDatabase::bulkEdit(const QList<qint64>& ids, const QString& field, const QString& value,
+                                     bool onlyEmpty, const std::function<void(int, int)>& progress)
+{
+    BulkEditResult out;
+    const bool profile = field == QLatin1String("@profile");
+    const QString name = field.trimmed().toUpper();
+    const QString clean = value.trimmed();
+    const QString dateField = qslDateFieldFor(name);
+    const QString today = QDateTime::currentDateTimeUtc().date().toString(QStringLiteral("yyyyMMdd"));
+    QSqlDatabase db = connection();
+    bool open = db.transaction();
+    int done = 0;
+    for (const qint64 id : ids) {
+        ++done;
+        auto r = record(id);
+        const auto m = meta(id);
+        if (!r || !m || m->deleted) {
+            ++out.failed;
+            continue;
+        }
+        InsertResult res;
+        if (profile) {
+            const qint64 target = clean.toLongLong();
+            if (m->stationProfileId == target || (onlyEmpty && m->stationProfileId > 0)) {
+                ++out.unchanged;
+                continue;
+            }
+            res = updateQso(id, *r, target, QStringLiteral("bulk"));
+        } else {
+            const QString current = r->value(name);
+            // Uno stato QSL a N e' vuoto: non e' ne' mandato ne' ricevuto.
+            const bool empty = current.isEmpty() || (!dateField.isEmpty() && current == QLatin1String("N"));
+            if ((onlyEmpty && !empty) || current.compare(clean, Qt::CaseInsensitive) == 0) {
+                ++out.unchanged;
+                continue;
+            }
+            r->set(name, clean);
+            if (!dateField.isEmpty() && clean.compare(QLatin1String("Y"), Qt::CaseInsensitive) == 0
+                && r->value(dateField).isEmpty())
+                r->set(dateField, today);
+            res = updateQso(id, *r, -1, QStringLiteral("bulk"));
+        }
+        if (res.status == InsertResult::Status::Inserted) {
+            ++out.changed;
+            out.changedIds << id;
+        } else {
+            ++out.failed;
+            if (out.errors.size() < 5)
+                out.errors << QStringLiteral("%1: %2").arg(r->value(QStringLiteral("CALL")), res.message);
+        }
+        // Un blocco per volta: chi scrive un QSO dalla radio intanto passa.
+        if (done % 500 == 0) {
+            if (open)
+                db.commit();
+            if (progress)
+                progress(done, int(ids.size()));
+            open = db.transaction();
+        }
+    }
+    if (open)
+        db.commit();
+    if (progress)
+        progress(int(ids.size()), int(ids.size()));
+    return out;
+}
+
+// I secondi dal 1970 di un'ora ISO ("2026-09-28T12:03:00Z") senza passare da
+// QDateTime: su un milione di righe e' la differenza fra un secondo e cinque.
+// I giorni dal calendario come in days_from_civil di Howard Hinnant.
+static std::optional<qint64> isoSeconds(const QString& s)
+{
+    if (s.size() < 19)
+        return std::nullopt;
+    auto num = [&s](int from, int len) {
+        int v = 0;
+        for (int i = from; i < from + len; ++i) {
+            const QChar c = s.at(i);
+            if (c < QLatin1Char('0') || c > QLatin1Char('9'))
+                return -1;
+            v = v * 10 + (c.unicode() - '0');
+        }
+        return v;
+    };
+    const int y = num(0, 4), mo = num(5, 2), d = num(8, 2), h = num(11, 2), mi = num(14, 2), se = num(17, 2);
+    if (y < 0 || mo < 1 || mo > 12 || d < 1 || h < 0 || mi < 0 || se < 0)
+        return std::nullopt;
+    const int yy = y - (mo <= 2 ? 1 : 0);
+    const int era = (yy >= 0 ? yy : yy - 399) / 400;
+    const int yoe = yy - era * 400;
+    const int doy = (153 * (mo + (mo > 2 ? -3 : 9)) + 2) / 5 + d - 1;
+    const int doe = yoe * 365 + yoe / 4 - yoe / 100 + doy;
+    const qint64 days = qint64(era) * 146097 + doe - 719468;
+    return days * 86400 + h * 3600 + mi * 60 + se;
+}
+
+QList<QList<qint64>> LogDatabase::duplicateGroups(int windowSeconds, int limit) const
+{
+    QList<QList<qint64>> out;
+    QSqlQuery q(connection());
+    q.setForwardOnly(true);
+    if (!q.exec(QStringLiteral("SELECT id, call, band, mode, submode, qso_datetime_on, IFNULL(station_profile_id, 0) "
+                               "FROM qso NOT INDEXED WHERE deleted = 0 ORDER BY call, band, qso_datetime_on")))
+        return out;
+    // Per nominativo e banda, un gruppo che si forma per ogni gruppo di modo
+    // e profilo: un FT8 e un CW nella stessa ora non sono doppioni.
+    struct Forming {
+        QList<qint64> ids;
+        qint64 last{0};
+    };
+    QHash<QString, Forming> forming;
+    QString current;
+    auto flush = [&out](Forming& g) {
+        if (g.ids.size() > 1)
+            out << g.ids;
+        g.ids.clear();
+    };
+    while (q.next() && (limit <= 0 || out.size() < limit)) {
+        const QString call = q.value(1).toString();
+        if (call.isEmpty())
+            continue;
+        const QString key = call + QLatin1Char('|') + q.value(2).toString();
+        if (key != current) {
+            for (Forming& g : forming)
+                flush(g);
+            forming.clear();
+            current = key;
+        }
+        const auto when = isoSeconds(q.value(5).toString());
+        if (!when)
+            continue;
+        Forming& g = forming[adif::modeGroup(q.value(3).toString(), q.value(4).toString()) + QLatin1Char('|')
+                             + q.value(6).toString()];
+        if (!g.ids.isEmpty() && *when - g.last > windowSeconds)
+            flush(g);
+        g.ids << q.value(0).toLongLong();
+        g.last = *when;
+    }
+    for (Forming& g : forming)
+        flush(g);
+    if (limit > 0 && out.size() > limit)
+        out.resize(limit);
+    return out;
+}
+
+InsertResult LogDatabase::mergeQsos(qint64 keep, const QList<qint64>& others)
+{
+    InsertResult result;
+    result.id = keep;
+    auto base = record(keep);
+    const auto baseMeta = meta(keep);
+    if (!base || !baseMeta || baseMeta->deleted) {
+        result.message = QStringLiteral("QSO %1 not found").arg(keep);
+        return result;
+    }
+    qint64 profile = -1;
+    QList<qint64> merged;
+    for (const qint64 id : others) {
+        if (id == keep)
+            continue;
+        const auto other = record(id);
+        const auto otherMeta = meta(id);
+        if (!other || !otherMeta || otherMeta->deleted)
+            continue;
+        merged << id;
+        for (const AdifField& f : other->fields()) {
+            const QString dateField = qslDateFieldFor(f.name);
+            if (!dateField.isEmpty()) {
+                // Una conferma vince sempre; altrimenti si riempie solo il vuoto.
+                const QString mine = base->value(f.name);
+                if ((f.value == QLatin1String("Y") && mine != QLatin1String("Y")) || mine.isEmpty()) {
+                    base->set(f.name, f.value);
+                    base->set(dateField, other->value(dateField));
+                }
+                continue;
+            }
+            if (isQslDateField(f.name))
+                continue;
+            if (f.name == QLatin1String("APP_DECOLOG_TAGS")) {
+                QStringList tags = base->value(f.name).split(QLatin1Char(','), Qt::SkipEmptyParts);
+                for (QString& t : tags)
+                    t = t.trimmed();
+                for (const QString& t : f.value.split(QLatin1Char(','), Qt::SkipEmptyParts)) {
+                    if (!tags.contains(t.trimmed(), Qt::CaseInsensitive))
+                        tags << t.trimmed();
+                }
+                base->set(f.name, tags.join(QLatin1Char(',')));
+                continue;
+            }
+            if (base->value(f.name).isEmpty())
+                base->set(f.name, f.value);
+        }
+        if (baseMeta->stationProfileId <= 0 && otherMeta->stationProfileId > 0 && profile < 0)
+            profile = otherMeta->stationProfileId;
+    }
+    if (merged.isEmpty()) {
+        result.message = QStringLiteral("nothing to merge");
+        return result;
+    }
+
+    QSqlDatabase db = connection();
+    const bool ownTransaction = db.transaction();
+    result = updateQso(keep, *base, profile, QStringLiteral("merge"));
+    if (result.status != InsertResult::Status::Inserted) {
+        if (ownTransaction)
+            db.rollback();
+        return result;
+    }
+    for (const qint64 id : std::as_const(merged)) {
+        // Il riferimento remoto (il QSO che un servizio ha gia') passa a chi
+        // resta, se lui non ne ha: altrimenti il servizio cancellerebbe l'unica
+        // copia che ha.
+        QSqlQuery move(db);
+        move.prepare(QStringLiteral(
+            "INSERT INTO qsl_status (qso_id, service, sent, rcvd, remote_id) "
+            "SELECT ?, service, sent, 'N', remote_id FROM qsl_status WHERE qso_id = ? AND IFNULL(remote_id, '') <> '' "
+            "ON CONFLICT(qso_id, service) DO UPDATE SET remote_id = excluded.remote_id, sent = excluded.sent "
+            "WHERE IFNULL(qsl_status.remote_id, '') = ''"));
+        move.addBindValue(keep);
+        move.addBindValue(id);
+        QSqlQuery clear(db);
+        clear.prepare(QStringLiteral(
+            "UPDATE qsl_status SET remote_id = NULL WHERE qso_id = ? AND remote_id IS NOT NULL AND remote_id = "
+            "(SELECT k.remote_id FROM qsl_status k WHERE k.qso_id = ? AND k.service = qsl_status.service)"));
+        clear.addBindValue(id);
+        clear.addBindValue(keep);
+        if (!move.exec() || !clear.exec() || !softDeleteQso(id)) {
+            result.status = InsertResult::Status::Error;
+            result.message = move.lastError().isValid() ? move.lastError().text() : clear.lastError().text();
+            if (ownTransaction)
+                db.rollback();
+            return result;
+        }
+    }
+    if (ownTransaction && !db.commit()) {
+        result.status = InsertResult::Status::Error;
+        result.message = db.lastError().text();
+    }
+    return result;
 }
 
 namespace {
@@ -1020,7 +1329,9 @@ InsertResult LogDatabase::restoreRevision(qint64 id, qint64 historyId)
     return r;
 }
 
-ConfirmationResult LogDatabase::applyConfirmation(const QString& service, const AdifRecord& c, int windowSeconds)
+ConfirmationResult LogDatabase::applyConfirmation(const QString& service, const AdifRecord& c, int windowSeconds,
+                                                  const QList<qint64>& onlyProfiles,
+                                                  const QList<qint64>& exceptProfiles)
 {
     ConfirmationResult res;
     const QslFields* fields = nullptr;
@@ -1051,11 +1362,24 @@ ConfirmationResult LogDatabase::applyConfirmation(const QString& service, const 
     }
 
     const QDateTime on = parseIso(iso);
+    // I profili sono numeri: si scrivono nella query cosi' come sono.
+    auto idList = [](const QList<qint64>& ids) {
+        QStringList out;
+        for (const qint64 id : ids)
+            out << QString::number(id);
+        return out.join(QLatin1Char(','));
+    };
+    QString profiles;
+    if (!onlyProfiles.isEmpty())
+        profiles += QStringLiteral(" AND IFNULL(station_profile_id, 0) IN (%1)").arg(idList(onlyProfiles));
+    if (!exceptProfiles.isEmpty())
+        profiles += QStringLiteral(" AND IFNULL(station_profile_id, 0) NOT IN (%1)").arg(idList(exceptProfiles));
     QSqlQuery q(connection());
     q.prepare(QStringLiteral(
         "SELECT id, mode, IFNULL(submode, ''), qso_datetime_on, "
         "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = ?) "
-        "FROM qso WHERE deleted = 0 AND call = ? AND band = ? AND qso_datetime_on BETWEEN ? AND ?"));
+        "FROM qso WHERE deleted = 0 AND call = ? AND band = ? AND qso_datetime_on BETWEEN ? AND ?")
+              + profiles);
     q.addBindValue(service);
     q.addBindValue(call);
     q.addBindValue(band);
@@ -1147,7 +1471,11 @@ ImportResult LogDatabase::importAdif(const QByteArray& data, const QString& sour
         const int end = total - done > batch ? done + batch : total;
         const bool ownTransaction = db.transaction();
         for (; done < end; ++done) {
-            const InsertResult r = insertQso(doc.records.at(done), source, programId, false, stationProfileId);
+            // Le conferme scritte nei campi di un altro programma (QRZ) diventano
+            // quelle ADIF.
+            AdifRecord record = doc.records.at(done);
+            migration::mapProgramFields(record);
+            const InsertResult r = insertQso(record, source, programId, false, stationProfileId);
             switch (r.status) {
             case InsertResult::Status::Inserted:  ++result.inserted; break;
             case InsertResult::Status::Duplicate: ++result.duplicates; break;
@@ -1248,6 +1576,19 @@ QByteArray LogDatabase::exportAdif(const QList<qint64>& ids, const QString& prog
             doc.records.append(*it);
     }
     return adif::writeDocument(doc);
+}
+
+QString LogDatabase::changeStamp() const
+{
+    // data_version sale quando scrive un'altra connessione, total_changes()
+    // conta quello che ha scritto questa.
+    QSqlQuery q(connection());
+    QString stamp;
+    if (q.exec(QStringLiteral("PRAGMA data_version")) && q.next())
+        stamp = q.value(0).toString();
+    if (q.exec(QStringLiteral("SELECT total_changes()")) && q.next())
+        stamp += QLatin1Char('|') + q.value(0).toString();
+    return stamp;
 }
 
 int LogDatabase::qsoCount() const

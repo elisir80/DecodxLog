@@ -158,6 +158,9 @@ QVariantMap Activation::toMap() const
         {QStringLiteral("mode"), mode},
         {QStringLiteral("nextSerial"), nextSerial},
         {QStringLiteral("serialEnabled"), serialEnabled},
+        {QStringLiteral("sharedSerial"), sharedSerial},
+        {QStringLiteral("rules"), rules},
+        {QStringLiteral("callHistory"), callHistory},
         {QStringLiteral("startedAt"), startedAt.isValid() ? startedAt.toString(Qt::ISODate) : QString()},
         {QStringLiteral("requiredQsos"), requiredQsos()},
         {QStringLiteral("title"), title()},
@@ -179,6 +182,9 @@ Activation Activation::fromMap(const QVariantMap& m)
     a.mode = m.value(QStringLiteral("mode")).toString().trimmed().toUpper();
     a.nextSerial = qMax(1, m.value(QStringLiteral("nextSerial"), 1).toInt());
     a.serialEnabled = m.value(QStringLiteral("serialEnabled"), a.kind == Kind::Contest).toBool();
+    a.sharedSerial = m.value(QStringLiteral("sharedSerial"), false).toBool();
+    a.rules = m.value(QStringLiteral("rules")).toMap();
+    a.callHistory = m.value(QStringLiteral("callHistory")).toString();
     a.startedAt = QDateTime::fromString(m.value(QStringLiteral("startedAt")).toString(), Qt::ISODate);
     if (a.startedAt.isValid())
         a.startedAt.setTimeZone(QTimeZone::UTC);

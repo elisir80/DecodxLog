@@ -22,6 +22,13 @@ public:
     // Il ponte CAT di Decodium risponde col valore e basta: niente eco del
     // comando, niente RPRT. DecoDXLog deve capire anche quello.
     bool plainAnswers{false};
+    // Split, VFO, RIT e XIT; una radio senza RIT risponde -11.
+    bool split{false};
+    qint64 txFrequency{0};
+    QString vfo{"VFOA"};
+    int rit{0};
+    int xit{0};
+    bool hasRit{true};
 
     FakeRigctld()
     {
@@ -72,6 +79,37 @@ public:
             keyspd = cmd.section(QLatin1Char(' '), 2, 2).toInt();
             return QStringLiteral("set_level: KEYSPD %1\nRPRT 0\n").arg(keyspd);
         }
+        if (cmd == QLatin1String("s"))
+            return QStringLiteral("get_split_vfo:\nSplit: %1\nTX VFO: VFOB\nRPRT 0\n").arg(split ? 1 : 0);
+        if (cmd.startsWith(QLatin1String("S "))) {
+            split = cmd.section(QLatin1Char(' '), 1, 1) == QLatin1String("1");
+            return QStringLiteral("set_split_vfo:\nRPRT 0\n");
+        }
+        if (cmd == QLatin1String("i"))
+            return QStringLiteral("get_split_freq:\nTX Frequency: %1\nRPRT 0\n").arg(txFrequency);
+        if (cmd.startsWith(QLatin1String("I "))) {
+            txFrequency = cmd.mid(2).toLongLong();
+            return QStringLiteral("set_split_freq:\nRPRT 0\n");
+        }
+        if (cmd == QLatin1String("v"))
+            return QStringLiteral("get_vfo:\nVFO: %1\nRPRT 0\n").arg(vfo);
+        if (cmd.startsWith(QLatin1String("V "))) {
+            vfo = cmd.mid(2);
+            return QStringLiteral("set_vfo:\nRPRT 0\n");
+        }
+        if (cmd == QLatin1String("j") || cmd.startsWith(QLatin1String("J "))) {
+            if (!hasRit)
+                return QStringLiteral("RPRT -11\n");
+            if (cmd.startsWith(QLatin1String("J ")))
+                rit = cmd.mid(2).toInt();
+            return QStringLiteral("get_rit:\nRIT: %1\nRPRT 0\n").arg(rit);
+        }
+        if (cmd == QLatin1String("z"))
+            return QStringLiteral("get_xit:\nXIT: %1\nRPRT 0\n").arg(xit);
+        if (cmd.startsWith(QLatin1String("Z "))) {
+            xit = cmd.mid(2).toInt();
+            return QStringLiteral("set_xit:\nRPRT 0\n");
+        }
         if (cmd.startsWith(QLatin1String("b ")))
             return QStringLiteral("send_morse: %1\nRPRT %2\n").arg(cmd.mid(2)).arg(morseWorks ? 0 : -1);
         if (cmd.contains(QLatin1String("stop_morse")))
@@ -109,6 +147,53 @@ private slots:
 
         control.disconnectFromRig();
         QVERIFY(!control.connected());
+    }
+
+    void splitVfoRitAndXit()
+    {
+        FakeRigctld rig;
+        RigControl control;
+        control.connectTo(QStringLiteral("127.0.0.1"), rig.serverPort());
+        QTRY_VERIFY_WITH_TIMEOUT(control.connected(), 5000);
+        QCOMPARE(control.features(), int(RigLink::Split | RigLink::VfoSelect | RigLink::Rit | RigLink::Xit));
+
+        // Split: in su di 1 kHz, sul VFO B.
+        control.setSplit(true, 14075000);
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+S 1 VFOB")), 5000);
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+I 14075000")), 5000);
+        QVERIFY(control.split());
+        // Quello che dice la radio si legge al giro dopo.
+        rig.txFrequency = 14076000;
+        QTRY_COMPARE_WITH_TIMEOUT(control.txFrequencyHz(), 14076000LL, 8000);
+        control.setSplit(false);
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+S 0 VFOA")), 5000);
+        QTRY_VERIFY_WITH_TIMEOUT(!control.split(), 8000);
+
+        control.setVfo(QStringLiteral("VFOB"));
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+V VFOB")), 5000);
+        QCOMPARE(control.vfo(), QString("VFOB"));
+
+        control.setRit(150);
+        control.setXit(-200);
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+J 150")), 5000);
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+Z -200")), 5000);
+        QTRY_COMPARE_WITH_TIMEOUT(control.ritHz(), 150, 8000);
+        QCOMPARE(control.xitHz(), -200);
+    }
+
+    void aRadioWithoutRitStopsBeingAsked()
+    {
+        FakeRigctld rig;
+        rig.hasRit = false;
+        RigControl control;
+        control.connectTo(QStringLiteral("127.0.0.1"), rig.serverPort());
+        QTRY_VERIFY_WITH_TIMEOUT(control.connected(), 5000);
+        // Al primo "j" risponde -11: il RIT sparisce, il resto resta.
+        QTRY_VERIFY_WITH_TIMEOUT(!(control.features() & RigLink::Rit), 8000);
+        QVERIFY(control.features() & RigLink::Split);
+        QSignalSpy failed(&control, &RigControl::failed);
+        control.setRit(100);
+        QTRY_VERIFY_WITH_TIMEOUT(failed.count() > 0, 5000);
     }
 
     void keysTheTextInCw()

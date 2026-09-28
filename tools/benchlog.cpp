@@ -302,11 +302,26 @@ int main(int argc, char** argv)
         return n;
     });
     measure("table jump to the middle", [&] { return model.callAt(model.rowCount() / 2).size(); });
+    // Su un log grande ordini e filtri si preparano su un altro filo: il
+    // primo numero e' quanto resta ferma la finestra, il secondo quando la
+    // tabella e' pronta.
+    auto ready = [&model] {
+        QElapsedTimer t;
+        t.start();
+        while (model.busy() && t.elapsed() < 600000)
+            QCoreApplication::processEvents(QEventLoop::AllEvents, 20);
+        return model.rowCount();
+    };
     measure("table reload (all rows)", [&] { model.reload(); return model.rowCount(); });
-    measure("table sort by call", [&] { model.sortBy(QStringLiteral("call")); return 0; });
-    measure("table sort back by time", [&] { model.setSort(QStringLiteral("utc"), false); return 0; });
-    measure("table search 'DL1'", [&] { model.setFilterText(QStringLiteral("DL1")); return model.rowCount(); });
-    measure("table search cleared", [&] { model.setFilterText(QString()); return model.rowCount(); });
+    measure("table sort by call (window blocked)", [&] { model.sortBy(QStringLiteral("call")); return 0; });
+    measure("table sort by call (ready)", ready);
+    out() << "   first rows by call: " << model.callAt(0) << " " << model.callAt(1) << " ... last: "
+          << model.callAt(model.rowCount() - 1) << " (" << model.rowCount() << " rows)" << Qt::endl;
+    measure("table sort back by time", [&] { model.setSort(QStringLiteral("utc"), false); return ready(); });
+    measure("table search 'DL1' (window blocked)", [&] { model.setFilterText(QStringLiteral("DL1")); return 0; });
+    measure("table search 'DL1' (ready)", ready);
+    out() << "   first row found: " << model.callAt(0) << " (" << model.rowCount() << " rows)" << Qt::endl;
+    measure("table search cleared", [&] { model.setFilterText(QString()); return ready(); });
     measure("table bands/modes in log", [&] { return model.bandsInLog().size() + model.modesInLog().size(); });
 
     // Il cluster: l'indice di tutto il log, per colorare gli spot.
@@ -328,6 +343,12 @@ int main(int argc, char** argv)
     measure("awardProgress", [&] { return db.awardProgress().size(); });
     measure("yearsInLog", [&] { return db.yearsInLog().size(); });
     measure("workedGrids", [&] { return db.workedGrids().size(); });
+    // La scheda del nominativo per l'entita' piu' comune (la Germania): nel
+    // programma gira su un altro filo, qui si misura quanto ci mette.
+    measure("entity counts for DL (call info, background)", [&] {
+        return db.dxccWorked(230).count + int(db.bandModeSlotsForDxcc(230).size());
+    });
+    measure("duplicateGroups (2 minutes)", [&] { return db.duplicateGroups(120).size(); });
 
     // A ogni QSO: il "gia' lavorato" mentre si scrive, poi il salvataggio.
     measure("workedBefore x20", [&] {
@@ -365,6 +386,13 @@ int main(int argc, char** argv)
                                               QStringLiteral("manual"), {}, true);
         model.insertQso(old.id);
         return model.rowCount();
+    });
+
+    measure("bulkEdit MY_RIG on 1000 QSO", [&] {
+        QList<qint64> ids;
+        for (int i = 0; i < 1000 && i < model.rowCount(); ++i)
+            ids << model.idAt(i);
+        return db.bulkEdit(ids, QStringLiteral("MY_RIG"), QStringLiteral("IC-7300"), false).changed;
     });
 
     // Uscire e mettere al sicuro.

@@ -17,7 +17,15 @@
 #include <QSqlQuery>
 #include <QTemporaryDir>
 #include <QTest>
+#include <QSettings>
 #include <QTimeZone>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QSignalSpy>
+#include <QTcpServer>
 #include <QUdpSocket>
 
 #include <functional>
@@ -83,6 +91,7 @@ class TestUdpPipeline : public QObject {
     Q_OBJECT
 
     QTemporaryDir m_dir;
+    quint16 m_apiPort{0};
     QProcess m_app;
     QByteArray m_output;
     quint16 m_port{0};
@@ -172,6 +181,29 @@ private slots:
         QVERIFY(decodiumIni.open(QIODevice::WriteOnly));
         decodiumIni.write("[Logbooks]\nActivePath=" + QDir::fromNativeSeparators(decodiumLog).toUtf8() + "\n");
         decodiumIni.close();
+
+        // Un altro log ADIF tenuto d'occhio, come quello di fldigi: un QSO di
+        // cinque minuti fa che DecoDXLog non ha.
+        const QString fldigiLog = m_dir.filePath(QStringLiteral("logbook.adif"));
+        QFile fldigi(fldigiLog);
+        QVERIFY(fldigi.open(QIODevice::WriteOnly));
+        fldigi.write("fldigi ADIF\n<EOH>\n");
+        fldigi.write(decodiumRecord(QStringLiteral("HB9FLD"), now.addSecs(-300)));
+        fldigi.close();
+        {
+            QSettings ini(m_dir.filePath(QStringLiteral("Decodium/DecoDXLog.ini")), QSettings::IniFormat);
+            // L'interfaccia HTTP locale, con la sua chiave.
+            QTcpServer probe;
+            probe.listen(QHostAddress::LocalHost, 0);
+            m_apiPort = probe.serverPort();
+            probe.close();
+            ini.setValue(QStringLiteral("api/port"), m_apiPort);
+            ini.setValue(QStringLiteral("api/token"), QStringLiteral("0123456789abcdef0123456789abcdef"));
+            ini.setValue(QStringLiteral("watch/files"),
+                         QVariantList{QVariantMap{{QStringLiteral("path"), QDir::fromNativeSeparators(fldigiLog)},
+                                                  {QStringLiteral("label"), QStringLiteral("fldigi")},
+                                                  {QStringLiteral("enabled"), true}}});
+        }
 
         QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
         env.insert(QStringLiteral("QT_QPA_PLATFORM"), QStringLiteral("offscreen"));
@@ -317,6 +349,59 @@ private slots:
         QVERIFY(waitFor([&] { return m_output.contains("[activity] DECODIUM|") && m_output.contains("EA3RR"); }, 5000));
         QCOMPARE(countCall(QStringLiteral("OK1TOO")), 0);
         QCOMPARE(countCall(QStringLiteral("SP9OLD")), 0);
+
+        // E dal log di fldigi, con il suo nome.
+        QVERIFY2(waitFor([&] { return countCall(QStringLiteral("HB9FLD")) > 0; }, 30000),
+                 m_output.right(2000).constData());
+        QCOMPARE(field(QStringLiteral("HB9FLD"), "source"), QStringLiteral("adif_watch"));
+        QCOMPARE(field(QStringLiteral("HB9FLD"), "source_app"), QStringLiteral("fldigi"));
+    }
+
+    void theLocalInterfaceLogsAndAnswers()
+    {
+        QNetworkAccessManager net;
+        auto request = [&](const QByteArray& method, const QString& path, const QByteArray& body = {}) {
+            QNetworkRequest r(QUrl(QStringLiteral("http://127.0.0.1:%1%2").arg(m_apiPort).arg(path)));
+            r.setRawHeader("X-DecoDXLog-Token", "0123456789abcdef0123456789abcdef");
+            r.setRawHeader("X-App", "tester");
+            r.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("text/plain"));
+            QNetworkReply* reply = net.sendCustomRequest(r, method, body);
+            QSignalSpy done(reply, &QNetworkReply::finished);
+            done.wait(5000);
+            const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+            const QJsonObject json = QJsonDocument::fromJson(reply->readAll()).object();
+            reply->deleteLater();
+            return std::pair{status, json};
+        };
+        // Un QSO scritto da un altro programma.
+        const auto [posted, result] = request("POST", QStringLiteral("/api/v1/qso"),
+                                              "<CALL:5>VK2AB<QSO_DATE:8>20260917<TIME_ON:4>0900<BAND:3>20m"
+                                              "<MODE:3>FT8<RST_SENT:3>-10<RST_RCVD:3>-12<EOR>");
+        QCOMPARE(posted, 201);
+        QCOMPARE(result.value("results").toArray().at(0).toObject().value("status").toString(), QString("logged"));
+        QCOMPARE(countCall(QStringLiteral("VK2AB")), 1);
+        QCOMPARE(field(QStringLiteral("VK2AB"), "source"), QStringLiteral("api"));
+        QCOMPARE(field(QStringLiteral("VK2AB"), "source_app"), QStringLiteral("tester"));
+        // Lo stesso di nuovo: doppione.
+        QCOMPARE(request("POST", QStringLiteral("/api/v1/qso"),
+                         "<CALL:5>VK2AB<QSO_DATE:8>20260917<TIME_ON:4>0900<BAND:3>20m<MODE:3>FT8<EOR>").first, 409);
+        // Gia' lavorato? Si', in 20 m, non in 40 m.
+        const auto [status, worked] = request("GET", QStringLiteral("/api/v1/worked?call=vk2ab&band=20m&mode=FT8"));
+        QCOMPARE(status, 200);
+        QCOMPARE(worked.value("count").toInt(), 1);
+        QCOMPARE(worked.value("workedBand").toBool(), true);
+        QCOMPARE(request("GET", QStringLiteral("/api/v1/worked?call=VK2AB&band=40m")).second.value("workedBand").toBool(), false);
+        // Gli ultimi QSO e lo stato.
+        const auto qsos = request("GET", QStringLiteral("/api/v1/qsos?call=VK2AB")).second.value("qsos").toArray();
+        QCOMPARE(qsos.size(), 1);
+        QCOMPARE(qsos.at(0).toObject().value("call").toString(), QString("VK2AB"));
+        QVERIFY(request("GET", QStringLiteral("/api/v1/status")).second.value("qsos").toInt() > 0);
+        // Senza chiave, niente.
+        QNetworkReply* anonymous = net.get(QNetworkRequest(QUrl(QStringLiteral("http://127.0.0.1:%1/api/v1/status").arg(m_apiPort))));
+        QSignalSpy done(anonymous, &QNetworkReply::finished);
+        done.wait(5000);
+        QCOMPARE(anonymous->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(), 401);
+        anonymous->deleteLater();
     }
 
     void aBurstIsAllLogged()

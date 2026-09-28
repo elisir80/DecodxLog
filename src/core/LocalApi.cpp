@@ -1,0 +1,192 @@
+#include "core/LocalApi.h"
+
+#include <QJsonDocument>
+#include <QRandomGenerator>
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <QTimer>
+#include <QUrl>
+
+namespace decolog::core {
+
+namespace {
+
+constexpr qsizetype kMaxHeader = 16 * 1024;
+constexpr qsizetype kMaxBody = 1024 * 1024;
+
+QByteArray reason(int status)
+{
+    switch (status) {
+    case 200: return "OK";
+    case 201: return "Created";
+    case 400: return "Bad Request";
+    case 401: return "Unauthorized";
+    case 404: return "Not Found";
+    case 405: return "Method Not Allowed";
+    case 409: return "Conflict";
+    case 413: return "Payload Too Large";
+    case 503: return "Service Unavailable";
+    default: return "Error";
+    }
+}
+
+// Confronto che non si ferma al primo carattere diverso.
+bool sameSecret(const QByteArray& a, const QByteArray& b)
+{
+    if (a.size() != b.size())
+        return false;
+    char diff = 0;
+    for (qsizetype i = 0; i < a.size(); ++i)
+        diff |= char(a.at(i) ^ b.at(i));
+    return diff == 0;
+}
+
+} // namespace
+
+HttpResponse HttpResponse::json(int status, const QJsonObject& object)
+{
+    HttpResponse r;
+    r.status = status;
+    r.body = QJsonDocument(object).toJson(QJsonDocument::Compact);
+    return r;
+}
+
+HttpResponse HttpResponse::error(int status, const QString& message)
+{
+    return json(status, QJsonObject{{QStringLiteral("error"), message}});
+}
+
+LocalApiServer::LocalApiServer(QObject* parent)
+    : QObject(parent)
+{
+}
+
+LocalApiServer::~LocalApiServer() = default;
+
+QString LocalApiServer::newToken()
+{
+    QByteArray bytes(16, Qt::Uninitialized);
+    for (char& c : bytes)
+        c = char(QRandomGenerator::system()->bounded(256));
+    return QString::fromLatin1(bytes.toHex());
+}
+
+bool LocalApiServer::start(quint16 port)
+{
+    stop();
+    if (port == 0)
+        return false;
+    m_server = new QTcpServer(this);
+    if (!m_server->listen(QHostAddress::LocalHost, port)) {
+        m_lastError = m_server->errorString();
+        delete m_server;
+        m_server = nullptr;
+        emit listeningChanged();
+        return false;
+    }
+    m_lastError.clear();
+    connect(m_server, &QTcpServer::newConnection, this, [this] {
+        while (QTcpSocket* s = m_server->nextPendingConnection()) {
+            m_buffers.insert(s, {});
+            connect(s, &QTcpSocket::readyRead, this, [this, s] { readFrom(s); });
+            connect(s, &QTcpSocket::disconnected, this, [this, s] {
+                m_buffers.remove(s);
+                s->deleteLater();
+            });
+            // Una connessione che non finisce la richiesta non resta aperta.
+            QTimer::singleShot(10'000, s, [s] { s->abort(); });
+        }
+    });
+    emit listeningChanged();
+    return true;
+}
+
+void LocalApiServer::stop()
+{
+    if (!m_server)
+        return;
+    m_server->close();
+    delete m_server;
+    m_server = nullptr;
+    emit listeningChanged();
+}
+
+bool LocalApiServer::isListening() const
+{
+    return m_server && m_server->isListening();
+}
+
+quint16 LocalApiServer::port() const
+{
+    return m_server ? m_server->serverPort() : 0;
+}
+
+bool LocalApiServer::authorized(const HttpRequest& request) const
+{
+    if (m_token.isEmpty())
+        return false;
+    QByteArray given = request.headers.value("x-decodxlog-token");
+    const QByteArray auth = request.headers.value("authorization");
+    if (given.isEmpty() && auth.startsWith("Bearer "))
+        given = auth.mid(7).trimmed();
+    if (given.isEmpty())
+        given = request.query.queryItemValue(QStringLiteral("token")).toLatin1();
+    return sameSecret(given, m_token.toLatin1());
+}
+
+void LocalApiServer::readFrom(QTcpSocket* socket)
+{
+    QByteArray& buffer = m_buffers[socket];
+    buffer += socket->readAll();
+    const qsizetype end = buffer.indexOf("\r\n\r\n");
+    if (end < 0) {
+        if (buffer.size() > kMaxHeader)
+            answer(socket, HttpResponse::error(400, QStringLiteral("header too long")));
+        return;
+    }
+    HttpRequest request;
+    const QList<QByteArray> lines = buffer.left(end).split('\n');
+    const QList<QByteArray> first = lines.value(0).trimmed().split(' ');
+    if (first.size() < 2) {
+        answer(socket, HttpResponse::error(400, QStringLiteral("bad request line")));
+        return;
+    }
+    request.method = first.at(0).toUpper();
+    const QUrl url(QString::fromUtf8(first.at(1)));
+    request.path = url.path();
+    request.query = QUrlQuery(url);
+    for (qsizetype i = 1; i < lines.size(); ++i) {
+        const QByteArray line = lines.at(i).trimmed();
+        const qsizetype colon = line.indexOf(':');
+        if (colon > 0)
+            request.headers.insert(line.left(colon).trimmed().toLower(), line.mid(colon + 1).trimmed());
+    }
+    const qsizetype length = request.headers.value("content-length").toLongLong();
+    if (length > kMaxBody) {
+        answer(socket, HttpResponse::error(413, QStringLiteral("body too large")));
+        return;
+    }
+    if (buffer.size() < end + 4 + length)
+        return;   // il resto del corpo arriva dopo
+    request.body = buffer.mid(end + 4, length);
+
+    if (!authorized(request)) {
+        answer(socket, HttpResponse::error(401, QStringLiteral("missing or wrong token")));
+        return;
+    }
+    answer(socket, m_handler ? m_handler(request) : HttpResponse::error(503, QStringLiteral("not ready")));
+}
+
+void LocalApiServer::answer(QTcpSocket* socket, const HttpResponse& response)
+{
+    QByteArray out = "HTTP/1.1 " + QByteArray::number(response.status) + ' ' + reason(response.status) + "\r\n";
+    out += "Content-Type: " + response.contentType + "\r\n";
+    out += "Content-Length: " + QByteArray::number(response.body.size()) + "\r\n";
+    out += "Cache-Control: no-store\r\nConnection: close\r\n\r\n";
+    out += response.body;
+    socket->write(out);
+    socket->disconnectFromHost();
+    m_buffers.remove(socket);
+}
+
+} // namespace decolog::core

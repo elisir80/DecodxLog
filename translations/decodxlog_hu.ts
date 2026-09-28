@@ -178,6 +178,18 @@
         <translation>Contestek és aktiválások</translation>
     </message>
     <message>
+        <source>Call history file (N1MM format)</source>
+        <translation>Call history fájl (N1MM formátum)</translation>
+    </message>
+    <message>
+        <source>Call history (*.txt *.csv)</source>
+        <translation>Call history (*.txt *.csv)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Minden fájl (*)</translation>
+    </message>
+    <message>
         <source>pick it from the list</source>
         <translation>válaszd a listából</translation>
     </message>
@@ -216,6 +228,50 @@
     <message>
         <source>Next</source>
         <translation>Következő</translation>
+    </message>
+    <message>
+        <source>Shared on the network</source>
+        <translation>Megosztva a hálózaton</translation>
+    </message>
+    <message>
+        <source>Bands of this edition</source>
+        <translation>Ennek a kiírásnak a sávjai</translation>
+    </message>
+    <message>
+        <source>Operating hours</source>
+        <translation>Üzemórák</translation>
+    </message>
+    <message>
+        <source>no limit</source>
+        <translation>nincs korlát</translation>
+    </message>
+    <message>
+        <source>Off-time from (min)</source>
+        <translation>Szünet ettől (perc)</translation>
+    </message>
+    <message>
+        <source>Log within (h)</source>
+        <translation>Napló beküldése (óra)</translation>
+    </message>
+    <message>
+        <source>Call history</source>
+        <translation>Call history</translation>
+    </message>
+    <message>
+        <source>%1 · %2 calls</source>
+        <translation>%1 · %2 hívójel</translation>
+    </message>
+    <message>
+        <source>none: the exchange is suggested from the log and the country</source>
+        <translation>nincs: a csereadatot a napló és az ország alapján javasolja</translation>
+    </message>
+    <message>
+        <source>Load…</source>
+        <translation>Betöltés…</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Eltávolítás</translation>
     </message>
     <message>
         <source>The QSOs get CONTEST_ID and the serial number sent (STX). The number received goes in the New QSO panel.</source>
@@ -301,6 +357,12 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>A hivatkozás a SIG/SIG_INFO mezőből (SIG = %1) vagy egy &quot;%1 LI-001&quot; formájú megjegyzésből jön.</translation>
+    </message>
+    <message numerus="yes">
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC. %n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.</source>
+        <translation>
+            <numerusform>ARRL-szabályok: a 60 m-es QSO-k nem számítanak, és az eQSL nem visszaigazolás a DXCC-hez. %n QSO törölt entitással vagy az ARRL által el nem fogadott művelettel (Club Log) kimarad.</numerusform>
+        </translation>
     </message>
     <message>
         <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
@@ -408,6 +470,26 @@
     <message>
         <source>All tags</source>
         <translation>Minden címke</translation>
+    </message>
+    <message>
+        <source>Valid for %1</source>
+        <translation>Érvényes: %1</translation>
+    </message>
+    <message>
+        <source>chosen by you</source>
+        <translation>általad választva</translation>
+    </message>
+    <message>
+        <source>the rules of the award</source>
+        <translation>a diploma szabályai</translation>
+    </message>
+    <message>
+        <source>the general choice above</source>
+        <translation>a fenti általános választás</translation>
+    </message>
+    <message>
+        <source>Back to the rules</source>
+        <translation>Vissza a szabályokhoz</translation>
     </message>
     <message>
         <source>State</source>
@@ -652,6 +734,41 @@
     </message>
 </context>
 <context>
+    <name>BulkEditDialog</name>
+    <message>
+        <source>CHANGE A FIELD ON %1 QSO</source>
+        <translation>EGY MEZŐ MÓDOSÍTÁSA %1 QSO-BAN</translation>
+    </message>
+    <message>
+        <source>The same value on every QSO chosen. Each QSO keeps the old value in its history, so the change can be undone QSO by QSO from its card. Leave the value empty to clear the field.</source>
+        <translation>Ugyanaz az érték minden kiválasztott QSO-ban. Minden QSO megőrzi a régi értéket az előzményeiben, így a módosítás QSO-nként visszavonható a lapjáról. Üres érték kiüríti a mezőt.</translation>
+    </message>
+    <message>
+        <source>Field</source>
+        <translation>Mező</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>Érték</translation>
+    </message>
+    <message>
+        <source>Only where the field is empty</source>
+        <translation>Csak ahol a mező üres</translation>
+    </message>
+    <message>
+        <source>With this many QSO the change runs in the background: the log stays usable and the progress shows in its header.</source>
+        <translation>Ennyi QSO-nál a módosítás a háttérben fut: a napló használható marad, a haladás a fejlécében látszik.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Mégse</translation>
+    </message>
+    <message>
+        <source>Change %1 QSO</source>
+        <translation>%1 QSO módosítása</translation>
+    </message>
+</context>
+<context>
     <name>Cabrillo</name>
     <message>
         <source>The station callsign is missing</source>
@@ -814,7 +931,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">Küldés</translation>
+        <translation>Küldés</translation>
     </message>
 </context>
 <context>
@@ -1393,7 +1510,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>CW macros</source>
-        <translation type="unfinished">CW-makrók</translation>
+        <translation>CW-makrók</translation>
     </message>
     <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
@@ -1401,11 +1518,11 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>Default macros</source>
-        <translation type="unfinished">Alapértelmezett makrók</translation>
+        <translation>Alapértelmezett makrók</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Bezárás</translation>
+        <translation>Bezárás</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -1464,6 +1581,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>%1 · napló</translation>
     </message>
     <message>
+        <source>%1 · history</source>
+        <translation>%1 · előzmények</translation>
+    </message>
+    <message>
         <source>%1 · country</source>
         <translation>%1 · ország</translation>
     </message>
@@ -1477,7 +1598,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>Downloading…</source>
-        <translation type="unfinished">Letöltés…</translation>
+        <translation>Letöltés…</translation>
     </message>
     <message>
         <source>Download MASTER.SCP</source>
@@ -1568,7 +1689,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">Küldés</translation>
+        <translation>Küldés</translation>
     </message>
     <message>
         <source>Spot %1</source>
@@ -1706,6 +1827,18 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>%1 QSO</source>
         <translation>%1 QSO</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 of %2 · %n break(s)</source>
+        <translation>
+            <numerusform>Adásban %1 / %2 · %n szünet</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 · %n break(s)</source>
+        <translation>
+            <numerusform>Adásban %1 · %n szünet</numerusform>
+        </translation>
     </message>
     <message>
         <source>Export…</source>
@@ -1892,6 +2025,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>%1 · log</source>
         <translation>%1 · napló</translation>
+    </message>
+    <message>
+        <source>%1 · history</source>
+        <translation>%1 · előzmények</translation>
     </message>
     <message>
         <source>%1 · country</source>
@@ -2185,6 +2322,89 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>DuplicatesDialog</name>
+    <message>
+        <source>DUPLICATE QSO</source>
+        <translation>DUPLIKÁLT QSO-K</translation>
+    </message>
+    <message>
+        <source>Same call, band, kind of mode (CW, phone, digital) and station profile, within the minutes chosen. Of each group one QSO is kept — a click on a row chooses which — and it takes from the others what it is missing: fields, confirmations, tags. The others are deleted; they stay in the history and can be recovered.</source>
+        <translation>Ugyanaz a hívójel, sáv, üzemmódfajta (CW, fónia, digitális) és állomásprofil a választott perceken belül. Minden csoportból egy QSO marad — egy kattintás egy soron kiválasztja, melyik —, és átveszi a többiektől, ami hiányzik neki: mezőket, visszaigazolásokat, címkéket. A többi törlődik; az előzményekben megmaradnak és visszaállíthatók.</translation>
+    </message>
+    <message>
+        <source>Within</source>
+        <translation>Ezen belül</translation>
+    </message>
+    <message>
+        <source>minutes</source>
+        <translation>perc</translation>
+    </message>
+    <message>
+        <source>Searching…</source>
+        <translation>Keresés…</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>Keresés</translation>
+    </message>
+    <message>
+        <source>No duplicates within %1 minutes</source>
+        <translation>Nincs duplikátum %1 percen belül</translation>
+    </message>
+    <message>
+        <source>The first %1 groups: merge them and search again for the rest</source>
+        <translation>Az első %1 csoport: egyesítsd őket, és keress újra a többiért</translation>
+    </message>
+    <message>
+        <source>%1 groups found, %2 ticked</source>
+        <translation>%1 csoport található, %2 bejelölve</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>KEEP</source>
+        <translation>MARAD</translation>
+    </message>
+    <message>
+        <source>merge</source>
+        <translation>egyesít</translation>
+    </message>
+    <message>
+        <source>confirmed: %1</source>
+        <translation>megerősítve: %1</translation>
+    </message>
+    <message>
+        <source>%1 fields</source>
+        <translation>%1 mező</translation>
+    </message>
+    <message>
+        <source>Reading the whole log…</source>
+        <translation>Az egész napló olvasása…</translation>
+    </message>
+    <message>
+        <source>Nothing to merge.</source>
+        <translation>Nincs mit egyesíteni.</translation>
+    </message>
+    <message>
+        <source>Choose the minutes and press Search.</source>
+        <translation>Válaszd ki a perceket, és nyomd meg a Keresést.</translation>
+    </message>
+    <message>
+        <source>A double click opens the QSO.</source>
+        <translation>Dupla kattintás megnyitja a QSO-t.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Bezárás</translation>
+    </message>
+    <message>
+        <source>Merge %1 groups</source>
+        <translation>%1 csoport egyesítése</translation>
+    </message>
+</context>
+<context>
     <name>DvkPanel</name>
     <message>
         <source>Voice keyer</source>
@@ -2224,7 +2444,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>never</source>
-        <translation type="unfinished">soha</translation>
+        <translation>soha</translation>
     </message>
     <message>
         <source>CQ loop</source>
@@ -2232,7 +2452,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Állj</translation>
     </message>
 </context>
 <context>
@@ -2482,6 +2702,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Importálás %1%</translation>
     </message>
     <message>
+        <source>Sorting…</source>
+        <translation>Rendezés…</translation>
+    </message>
+    <message>
+        <source>Changing %1%</source>
+        <translation>Módosítás %1%</translation>
+    </message>
+    <message>
         <source>%1 QSO · %2 shown</source>
         <translation>%1 QSO · %2 látható</translation>
     </message>
@@ -2548,6 +2776,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>A %1 látható QSO exportálása ADIF-be…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO shown…</source>
+        <translation>Egy mező módosítása a %1 megjelenített QSO-ban…</translation>
+    </message>
+    <message>
+        <source>Find duplicate QSO…</source>
+        <translation>Duplikált QSO-k keresése…</translation>
     </message>
     <message>
         <source>Complete the QSO shown from the callbook…</source>
@@ -2748,6 +2984,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Delete the %1 QSO selected…</source>
         <translation>A kijelölt %1 QSO törlése…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO selected…</source>
+        <translation>Egy mező módosítása a %1 kiválasztott QSO-ban…</translation>
+    </message>
+    <message>
+        <source>Change a field…</source>
+        <translation>Egy mező módosítása…</translation>
     </message>
     <message>
         <source>Complete from the callbook</source>
@@ -3005,12 +3249,24 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>beépítve</translation>
     </message>
     <message>
-        <source>Import ADIF</source>
-        <translation>ADIF importálása</translation>
+        <source>Import a log</source>
+        <translation>Napló importálása</translation>
     </message>
     <message>
         <source>ADIF files (*.adi *.adif)</source>
         <translation>ADIF fájlok (*.adi *.adif)</translation>
+    </message>
+    <message>
+        <source>Logs (*.adi *.adif *.csv *.tsv *.s3db)</source>
+        <translation>Naplók (*.adi *.adif *.csv *.tsv *.s3db)</translation>
+    </message>
+    <message>
+        <source>Spreadsheets (*.csv *.tsv)</source>
+        <translation>Táblázatok (*.csv *.tsv)</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ databases (*.s3db)</source>
+        <translation>N1MM Logger+ adatbázisok (*.s3db)</translation>
     </message>
     <message>
         <source>All files (*)</source>
@@ -3472,7 +3728,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>%1°</source>
-        <translation type="unfinished">%1°</translation>
+        <translation>%1°</translation>
     </message>
     <message numerus="yes">
         <source>%n hop(s)</source>
@@ -3489,8 +3745,16 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>SFI %1</translation>
     </message>
     <message>
+        <source>VOACAP computing…</source>
+        <translation>A VOACAP számol…</translation>
+    </message>
+    <message>
         <source>Locator</source>
         <translation>Lokátor</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · reliability %4% · SNR %5 dB</source>
+        <translation>%1 · %2 UTC · MUF %3 MHz · megbízhatóság %4% · SNR %5 dB</translation>
     </message>
     <message>
         <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
@@ -3498,11 +3762,11 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>good</source>
-        <translation type="unfinished">jó</translation>
+        <translation>jó</translation>
     </message>
     <message>
         <source>fair</source>
-        <translation type="unfinished">közepes</translation>
+        <translation>közepes</translation>
     </message>
     <message>
         <source>marginal</source>
@@ -3510,11 +3774,59 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>closed</source>
-        <translation type="unfinished">bezárva</translation>
+        <translation>bezárva</translation>
+    </message>
+    <message>
+        <source>VOACAP (ITS): the chance of a %1 QSO with %2 W and %3 dBi antennas; 160 and 6 m from the simple model.</source>
+        <translation>VOACAP (ITS): egy %1 QSO esélye %2 W-tal és %3 dBi-s antennákkal; a 160 és 6 m az egyszerű modellből.</translation>
+    </message>
+    <message>
+        <source>VOACAP failed (%1): simplified F2 model.</source>
+        <translation>A VOACAP nem sikerült (%1): egyszerűsített F2 modell.</translation>
     </message>
     <message>
         <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
         <translation>Egyszerűsített F2 modell (MUF/LUF), nem VOACAP: támpont, mikor nyílik egy sáv, nem ígéret.</translation>
+    </message>
+    <message>
+        <source>%1 W</source>
+        <translation>%1 W</translation>
+    </message>
+    <message>
+        <source>0 dBi (vertical)</source>
+        <translation>0 dBi (vertikál)</translation>
+    </message>
+    <message>
+        <source>2 dBi (dipole)</source>
+        <translation>2 dBi (dipól)</translation>
+    </message>
+    <message>
+        <source>5 dBi (2-el beam)</source>
+        <translation>5 dBi (2 elemes beam)</translation>
+    </message>
+    <message>
+        <source>8 dBi (3-el beam)</source>
+        <translation>8 dBi (3 elemes beam)</translation>
+    </message>
+    <message>
+        <source>11 dBi (big beam)</source>
+        <translation>11 dBi (nagy beam)</translation>
+    </message>
+    <message>
+        <source>noise: city</source>
+        <translation>zaj: város</translation>
+    </message>
+    <message>
+        <source>noise: residential</source>
+        <translation>zaj: lakóövezet</translation>
+    </message>
+    <message>
+        <source>noise: rural</source>
+        <translation>zaj: vidék</translation>
+    </message>
+    <message>
+        <source>noise: quiet</source>
+        <translation>zaj: csendes</translation>
     </message>
 </context>
 <context>
@@ -3691,6 +4003,22 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>unexpected answer</source>
         <translation>váratlan válasz</translation>
+    </message>
+    <message>
+        <source>Wavelog: already there</source>
+        <translation>Wavelog: már megvolt</translation>
+    </message>
+    <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog: %1</translation>
+    </message>
+    <message>
+        <source>Wavelog: sent</source>
+        <translation>Wavelog: elküldve</translation>
+    </message>
+    <message>
+        <source>Wavelog: the API key is not valid or cannot write (%1)</source>
+        <translation>Wavelog: az API-kulcs érvénytelen vagy nem írhat (%1)</translation>
     </message>
     <message>
         <source>HRDLog: sent</source>
@@ -4691,7 +5019,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>All files (*)</source>
-        <translation type="unfinished">Minden fájl (*)</translation>
+        <translation>Minden fájl (*)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -4763,7 +5091,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Bezárás</translation>
+        <translation>Bezárás</translation>
     </message>
 </context>
 <context>
@@ -6165,8 +6493,200 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>a port nincs nyitva</translation>
     </message>
     <message>
+        <source>An ADIF log to keep an eye on</source>
+        <translation>Figyelendő ADIF-napló</translation>
+    </message>
+    <message>
+        <source>Club Log cty.xml</source>
+        <translation>Club Log cty.xml</translation>
+    </message>
+    <message>
+        <source>QSOs of another entity on that date</source>
+        <translation>Más entitás QSO-i azon a napon</translation>
+    </message>
+    <message>
+        <source>Working…</source>
+        <translation>Dolgozom…</translation>
+    </message>
+    <message>
+        <source>Update cty.xml</source>
+        <translation>cty.xml frissítése</translation>
+    </message>
+    <message>
+        <source>Check the entities with the dates</source>
+        <translation>Az entitások ellenőrzése a dátumokkal</translation>
+    </message>
+    <message>
+        <source>Correct %1 QSO</source>
+        <translation>%1 QSO javítása</translation>
+    </message>
+    <message>
+        <source>%1 QSO corrected, each kept as a new revision.</source>
+        <translation>%1 QSO javítva, mindegyik új revízióként megőrizve.</translation>
+    </message>
+    <message>
+        <source>deleted</source>
+        <translation>törölt</translation>
+    </message>
+    <message>
+        <source>With the Club Log API key (QSL services) DecoDXLog downloads Club Log&apos;s cty.xml every week: the entities with their dates, so a QSO of 2005 with PJ2 is the Netherlands Antilles and not Curacao, operations the ARRL did not accept do not count for DXCC, and deleted entities are shown but not counted.</source>
+        <translation>A Club Log API-kulccsal (QSL-szolgáltatások) a DecoDXLog hetente letölti a Club Log cty.xml fájlját: az entitásokat a dátumaikkal, így egy 2005-ös PJ2 QSO Holland Antillák és nem Curaçao, az ARRL által el nem fogadott műveletek nem számítanak a DXCC-be, a törölt entitások pedig látszanak, de nem számítanak.</translation>
+    </message>
+    <message>
+        <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
+        <translation>Hetente a Club Logból. Az új QSO-k a dátumuk entitását kapják; az ellenőrzés összeveti a naplót a dátumokkal, és csak az üres vagy a mai cty.csv által beírt DXCC-t javítja — amit a LoTW vagy te írtál, az marad.</translation>
+    </message>
+    <message>
+        <source>Forward to other programs</source>
+        <translation>Továbbítás más programoknak</translation>
+    </message>
+    <message>
+        <source>e.g. 127.0.0.1:2238, 127.0.0.1:2333 — empty = off</source>
+        <translation>pl. 127.0.0.1:2238, 127.0.0.1:2333 — üres = kikapcsolva</translation>
+    </message>
+    <message>
+        <source>Every packet from Decodium also goes to these programs (JTAlert, GridTracker, HamLog…), and their answers (reply to a caller, halt TX) go back to Decodium. So Decodium sends to one port only and everybody gets it.</source>
+        <translation>A Decodium minden csomagja ezekhez a programokhoz is eljut (JTAlert, GridTracker, HamLog…), és a válaszaik (válasz egy hívónak, TX leállítása) visszajutnak a Decodiumhoz. Így a Decodium csak egy portra küld, és mindenki megkapja.</translation>
+    </message>
+    <message>
         <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
         <translation>A Decodium minden QSO-t a saját ADIF-naplójába is beír. Ha a DecoDXLog be volt zárva vagy nem fogadott (rossz port, nincs hálózat), a QSO csak ott marad: 5 percenként a DecoDXLog beolvassa az utolsó ellenőrzés óta naplózott QSO-kat, és elmenti azokat, amelyek itt és a lista többi naplójában hiányoznak. Az itt javított vagy törölt QSO-k nem jönnek vissza. Első alkalommal egy hetet néz vissza, a gombokkal többet. Üres mező = a napló, amelyet a Decodium használ.</translation>
+    </message>
+    <message>
+        <source>Other ADIF logs to keep an eye on</source>
+        <translation>Más figyelendő ADIF-naplók</translation>
+    </message>
+    <message>
+        <source>not found: %1</source>
+        <translation>nem található: %1</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Eltávolítás</translation>
+    </message>
+    <message>
+        <source>Add a file…</source>
+        <translation>Fájl hozzáadása…</translation>
+    </message>
+    <message>
+        <source>Add %1</source>
+        <translation>%1 hozzáadása</translation>
+    </message>
+    <message>
+        <source>The QSOs that other programs (fldigi, WSJT-X, JTDX…) write in these logs and that are missing here are saved every 5 minutes, from the moment the file is added. For the older ones, “Check the whole file”.</source>
+        <translation>A más programok (fldigi, WSJT-X, JTDX…) által ezekbe a naplókba írt és itt hiányzó QSO-k 5 percenként mentődnek, attól a pillanattól, hogy a fájlt hozzáadod. A régebbiekhez: „Az egész fájl ellenőrzése”.</translation>
+    </message>
+    <message>
+        <source>UDP port (0 = off)</source>
+        <translation>UDP-port (0 = kikapcsolva)</translation>
+    </message>
+    <message>
+        <source>listening</source>
+        <translation>figyel</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ sends every contact on this port (Config → Configure Ports → Broadcast Data → Contacts, usually 12060). A contact corrected or deleted in N1MM is corrected or deleted here too.</source>
+        <translation>Az N1MM Logger+ minden kapcsolatot erre a portra küld (Config → Configure Ports → Broadcast Data → Contacts, általában 12060). Az N1MM-ben javított vagy törölt kapcsolat itt is javítódik vagy törlődik.</translation>
+    </message>
+    <message>
+        <source>Local interface for other programs</source>
+        <translation>Helyi felület más programoknak</translation>
+    </message>
+    <message>
+        <source>Port on 127.0.0.1 (0 = off)</source>
+        <translation>Port a 127.0.0.1-en (0 = kikapcsolva)</translation>
+    </message>
+    <message>
+        <source>Key (X-DecoDXLog-Token)</source>
+        <translation>Kulcs (X-DecoDXLog-Token)</translation>
+    </message>
+    <message>
+        <source>New key</source>
+        <translation>Új kulcs</translation>
+    </message>
+    <message>
+        <source>For programs next to DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, and POST /api/v1/qso with an ADIF record to log it. Only from this computer, and always with the key. Details: docs/API.md.</source>
+        <translation>A DecoDXLog mellett futó programoknak: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, és POST /api/v1/qso egy ADIF-rekorddal a naplózáshoz. Csak erről a gépről, és mindig a kulccsal. Részletek: docs/API.md.</translation>
+    </message>
+    <message>
+        <source>Shared log</source>
+        <translation>Megosztott napló</translation>
+    </message>
+    <message>
+        <source>A club station, a multi-operator contest: one log, several operators, each with their own Cloud account — nobody lends a password. The owner of the log creates an invite, whoever gets the code joins with it. Only QSOs travel: profiles, settings and service passwords stay with the owner.</source>
+        <translation>Klubállomás, többoperátoros verseny: egy napló, több operátor, mindegyik a saját Cloud-fiókjával — senki nem ad kölcsön jelszót. A napló gazdája meghívót készít, aki megkapja a kódot, azzal lép be. Csak a QSO-k utaznak: a profilok, beállítások és szolgáltatás-jelszavak a gazdánál maradnak.</translation>
+    </message>
+    <message>
+        <source>This log syncs with</source>
+        <translation>Ez a napló ezzel szinkronizál:</translation>
+    </message>
+    <message>
+        <source>my own log (%1)</source>
+        <translation>a saját naplóm (%1)</translation>
+    </message>
+    <message>
+        <source>the shared log of %1</source>
+        <translation>%1 megosztott naplója</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Frissítés</translation>
+    </message>
+    <message>
+        <source>The QSOs of this log go to the log of %1, and its QSOs come here: keep a log just for it (Log → New log).</source>
+        <translation>Ennek a naplónak a QSO-i %1 naplójába kerülnek, és az ő QSO-i ide jönnek: tarts neki külön naplót (Napló → Új napló).</translation>
+    </message>
+    <message>
+        <source>Invite code, e.g. K7Q2-9XMP-D4TA</source>
+        <translation>Meghívókód, pl. K7Q2-9XMP-D4TA</translation>
+    </message>
+    <message>
+        <source>Join with the code</source>
+        <translation>Belépés a kóddal</translation>
+    </message>
+    <message>
+        <source>operator: sends and gets the QSOs</source>
+        <translation>operátor: küldi és fogadja a QSO-kat</translation>
+    </message>
+    <message>
+        <source>viewer: only looks</source>
+        <translation>néző: csak nézi</translation>
+    </message>
+    <message>
+        <source>Invite into the log of %1</source>
+        <translation>Meghívás %1 naplójába</translation>
+    </message>
+    <message>
+        <source>Code %1 — %2, valid until %3</source>
+        <translation>Kód: %1 — %2, érvényes eddig: %3</translation>
+    </message>
+    <message>
+        <source>viewer</source>
+        <translation>néző</translation>
+    </message>
+    <message>
+        <source>operator</source>
+        <translation>operátor</translation>
+    </message>
+    <message>
+        <source>viewer in your log</source>
+        <translation>néző a naplódban</translation>
+    </message>
+    <message>
+        <source>operator in your log</source>
+        <translation>operátor a naplódban</translation>
+    </message>
+    <message>
+        <source>you look at its log</source>
+        <translation>nézed a naplóját</translation>
+    </message>
+    <message>
+        <source>you write in its log</source>
+        <translation>írsz a naplójába</translation>
+    </message>
+    <message>
+        <source>Leave</source>
+        <translation>Kilépés</translation>
     </message>
     <message>
         <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
@@ -6195,6 +6715,22 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
         <translation>eQSL: a postafiókba érkezett eQSL-ek, az SWL-jelentések nélkül. QRZ Logbook: a QRZ-n lévő naplód azon QSO-i, amelyeket a másik állomás igazolt. Csak ami az utolsó letöltés után érkezett; az automatikus letöltés csak azoknál a szolgáltatásoknál fut, amelyeknek megvannak az adatai (lent, ugyanazok, mint a küldésnél). A LoTW-igazolásokhoz hasonlóan párosítva; a papír QSL mezőihez nem nyúl.</translation>
+    </message>
+    <message>
+        <source>Station on Wavelog</source>
+        <translation>Állomás a Wavelogban</translation>
+    </message>
+    <message>
+        <source>station %1</source>
+        <translation>%1. állomás</translation>
+    </message>
+    <message>
+        <source>Load my stations</source>
+        <translation>Állomásaim betöltése</translation>
+    </message>
+    <message>
+        <source>Wavelog (and Cloudlog) is the web log on your own site. Below it wants the address of the site (for example log.mysite.org) and an API key with read and write rights, made in Wavelog under Account → API keys; then the station to write in. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>A Wavelog (és a Cloudlog) a saját oldaladon futó webes napló. Lent az oldal címét kéri (például log.oldalam.hu) és egy olvasási és írási jogú API-kulcsot, amelyet a Wavelogban az Account → API keys alatt készítesz; utána az állomást, amelybe írni kell. A küldés, az automatikus küldés és a számlálók lent a QSL fülön vannak.</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -6326,7 +6862,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished">Cím</translation>
+        <translation>Cím</translation>
     </message>
     <message>
         <source>SO2R box (OTRSP)</source>
@@ -6595,6 +7131,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>LoTW station location (TQSL)</translation>
     </message>
     <message>
+        <source>QSL accounts of this profile</source>
+        <translation>E profil QSL-fiókjai</translation>
+    </message>
+    <message>
+        <source>Save the profile first: then it can have its own QRZ Logbook and eQSL accounts.</source>
+        <translation>Előbb mentsd a profilt: utána saját QRZ Logbook- és eQSL-fiókjai lehetnek.</translation>
+    </message>
+    <message>
         <source>Used by &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</source>
         <translation>&lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO használja · uuid %3 · rev %4 · %5</translation>
     </message>
@@ -6643,7 +7187,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>Grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokátorok</translation>
     </message>
     <message>
         <source>Awards over the years · cumulative</source>
@@ -6651,7 +7195,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>no QSO</source>
-        <translation type="unfinished">nincs QSO</translation>
+        <translation>nincs QSO</translation>
     </message>
     <message>
         <source>Most worked entities</source>
@@ -6843,6 +7387,26 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>ON4KST chat…</translation>
     </message>
     <message>
+        <source>Import a log (ADIF, CSV, N1MM)…</source>
+        <translation>Napló importálása (ADIF, CSV, N1MM)…</translation>
+    </message>
+    <message>
+        <source>Split off</source>
+        <translation>Split ki</translation>
+    </message>
+    <message>
+        <source>TX up %1 kHz</source>
+        <translation>TX %1 kHz-cel feljebb</translation>
+    </message>
+    <message>
+        <source>TX down %1 kHz</source>
+        <translation>TX %1 kHz-cel lejjebb</translation>
+    </message>
+    <message>
+        <source>RIT and XIT off</source>
+        <translation>RIT és XIT ki</translation>
+    </message>
+    <message>
         <source>Setup · %1 ▾</source>
         <translation>Beállítások · %1 ▾</translation>
     </message>
@@ -6961,10 +7525,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Panels…</source>
         <translation>Panelek…</translation>
-    </message>
-    <message>
-        <source>Import ADIF…</source>
-        <translation>ADIF beolvasása…</translation>
     </message>
     <message>
         <source>Export ADIF…</source>
@@ -7211,7 +7771,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">Nap</translation>
+        <translation>Nap</translation>
     </message>
     <message>
         <source>Grayline</source>
@@ -7297,7 +7857,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">Nap</translation>
+        <translation>Nap</translation>
     </message>
     <message>
         <source>Civil twilight</source>
@@ -7366,6 +7926,20 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>Session closed: %1 · %n QSO</source>
         <translation>
             <numerusform>Munkamenet lezárva: %1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Call history not readable: %1</source>
+        <translation>A call history nem olvasható: %1</translation>
+    </message>
+    <message>
+        <source>Open the contest first</source>
+        <translation>Először nyisd meg a versenyt</translation>
+    </message>
+    <message numerus="yes">
+        <source>Call history: %n call(s) from %1</source>
+        <translation>
+            <numerusform>Call history: %n hívójel innen: %1</numerusform>
         </translation>
     </message>
     <message>
@@ -7481,8 +8055,36 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Cloud: %1</translation>
     </message>
     <message>
+        <source>Invite created: give the code to the operator. It is shown only now.</source>
+        <translation>Meghívó létrehozva: add oda a kódot az operátornak. Csak most látszik.</translation>
+    </message>
+    <message>
+        <source>You are in the log of %1. Choose it for a log of yours below — better a new log (Log → New log), so the club log and yours do not mix.</source>
+        <translation>Bent vagy %1 naplójában. Válaszd ki lent egy saját naplódhoz — inkább egy újhoz (Napló → Új napló), hogy a klub naplója és a tiéd ne keveredjen.</translation>
+    </message>
+    <message>
+        <source>Cloud: you joined the shared log of %1</source>
+        <translation>Cloud: beléptél %1 megosztott naplójába</translation>
+    </message>
+    <message>
         <source>Cloud: linked — sync will unlock it when needed</source>
         <translation>Cloud: összekötve — a szinkron akkor nyitja fel, amikor kell</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with your own log again</source>
+        <translation>Cloud: ez a napló ismét a sajátoddal szinkronizál</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with the shared log of %1</source>
+        <translation>Cloud: ez a napló %1 megosztott naplójával szinkronizál</translation>
+    </message>
+    <message>
+        <source>Sync once to open the keystore, then the team shows here.</source>
+        <translation>Szinkronizálj egyszer a kulcstartó megnyitásához, utána itt megjelenik a csapat.</translation>
+    </message>
+    <message>
+        <source>Sign in to the Cloud first.</source>
+        <translation>Először lépj be a Cloudba.</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>
@@ -7757,8 +8359,32 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Nem tud figyelni az UDP %1 porton: %2</translation>
     </message>
     <message>
+        <source>Listening for N1MM Logger+ on UDP %1</source>
+        <translation>N1MM Logger+ figyelése az UDP %1 porton</translation>
+    </message>
+    <message>
+        <source>Correction not saved: %1</source>
+        <translation>A javítás nincs mentve: %1</translation>
+    </message>
+    <message>
+        <source>Corrected by N1MM: %1</source>
+        <translation>N1MM javította: %1</translation>
+    </message>
+    <message>
         <source>built on %1</source>
         <translation>fordítva ekkor: %1</translation>
+    </message>
+    <message>
+        <source>Not understood: %1 (write address:port)</source>
+        <translation>Nem érthető: %1 (írj cím:port formát)</translation>
+    </message>
+    <message>
+        <source>UDP forwarding off</source>
+        <translation>UDP-továbbítás kikapcsolva</translation>
+    </message>
+    <message>
+        <source>UDP forwarded to %1</source>
+        <translation>UDP továbbítva ide: %1</translation>
     </message>
     <message>
         <source>no callsign</source>
@@ -7793,6 +8419,36 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>cty.csv %1 telepítve: %2 DXCC-entitás</translation>
     </message>
     <message>
+        <source>Club Log cty.xml not readable: %1</source>
+        <translation>A Club Log cty.xml nem olvasható: %1</translation>
+    </message>
+    <message>
+        <source>The Club Log API key is needed (Setup → QSL services → Club Log)</source>
+        <translation>Kell a Club Log API-kulcs (Beállítások → QSL-szolgáltatások → Club Log)</translation>
+    </message>
+    <message>
+        <source>Downloading cty.xml from Club Log…</source>
+        <translation>A cty.xml letöltése a Club Logból…</translation>
+    </message>
+    <message>
+        <source>Club Log: %1</source>
+        <translation>Club Log: %1</translation>
+    </message>
+    <message>
+        <source>Club Log: the file is not a cty.xml (%1)</source>
+        <translation>Club Log: a fájl nem cty.xml (%1)</translation>
+    </message>
+    <message>
+        <source>cty.xml of %1: %2 entities</source>
+        <translation>%1 cty.xml: %2 entitás</translation>
+    </message>
+    <message numerus="yes">
+        <source>Entity of %n QSO(s) corrected with the date of the QSO (Club Log)</source>
+        <translation>
+            <numerusform>%n QSO entitása javítva a QSO dátumával (Club Log)</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>DXCC filled on %1 of %2 QSO (cty.csv %3)</source>
         <translation>DXCC pótolva %2 QSO közül %1-en (cty.csv %3)</translation>
     </message>
@@ -7819,6 +8475,18 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>QSO not logged: %1</source>
         <translation>A QSO nem lett naplózva: %1</translation>
+    </message>
+    <message>
+        <source>New key for the local interface: the programs using the old one must be updated</source>
+        <translation>Új kulcs a helyi felülethez: a régit használó programokat frissíteni kell</translation>
+    </message>
+    <message>
+        <source>Local interface on http://127.0.0.1:%1/api/v1/</source>
+        <translation>Helyi felület: http://127.0.0.1:%1/api/v1/</translation>
+    </message>
+    <message>
+        <source>Cannot open the local interface on port %1: %2</source>
+        <translation>A helyi felület nem nyitható meg a %1 porton: %2</translation>
     </message>
     <message>
         <source>Nowhere to send the frequency: the radio is not connected and Decodium is not there either.</source>
@@ -7896,6 +8564,214 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>A(z) „%1” címke eltávolítva %2 QSO-ról</translation>
     </message>
     <message>
+        <source>Y · yes</source>
+        <translation>Y · igen</translation>
+    </message>
+    <message>
+        <source>N · no</source>
+        <translation>N · nem</translation>
+    </message>
+    <message>
+        <source>R · requested</source>
+        <translation>R · kérve</translation>
+    </message>
+    <message>
+        <source>Q · queued</source>
+        <translation>Q · sorban</translation>
+    </message>
+    <message>
+        <source>I · ignore</source>
+        <translation>I · figyelmen kívül</translation>
+    </message>
+    <message>
+        <source>Y · uploaded</source>
+        <translation>Y · feltöltve</translation>
+    </message>
+    <message>
+        <source>N · not uploaded</source>
+        <translation>N · nincs feltöltve</translation>
+    </message>
+    <message>
+        <source>M · changed, upload again</source>
+        <translation>M · módosult, újra feltölteni</translation>
+    </message>
+    <message>
+        <source>B · bureau</source>
+        <translation>B · iroda</translation>
+    </message>
+    <message>
+        <source>D · direct</source>
+        <translation>D · közvetlen</translation>
+    </message>
+    <message>
+        <source>E · electronic</source>
+        <translation>E · elektronikus</translation>
+    </message>
+    <message>
+        <source>No profile</source>
+        <translation>Nincs profil</translation>
+    </message>
+    <message>
+        <source>My locator</source>
+        <translation>Saját lokátor</translation>
+    </message>
+    <message>
+        <source>Station callsign</source>
+        <translation>Az állomás hívójele</translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation>Operátor</translation>
+    </message>
+    <message>
+        <source>Station profile</source>
+        <translation>Állomásprofil</translation>
+    </message>
+    <message>
+        <source>My rig</source>
+        <translation>Saját rádió</translation>
+    </message>
+    <message>
+        <source>My antenna</source>
+        <translation>Saját antenna</translation>
+    </message>
+    <message>
+        <source>Power (W)</source>
+        <translation>Teljesítmény (W)</translation>
+    </message>
+    <message>
+        <source>My POTA reference</source>
+        <translation>Saját POTA hivatkozás</translation>
+    </message>
+    <message>
+        <source>My SOTA reference</source>
+        <translation>Saját SOTA hivatkozás</translation>
+    </message>
+    <message>
+        <source>My WWFF reference</source>
+        <translation>Saját WWFF hivatkozás</translation>
+    </message>
+    <message>
+        <source>My special activity (MY_SIG)</source>
+        <translation>Saját különleges tevékenység (MY_SIG)</translation>
+    </message>
+    <message>
+        <source>My special activity reference (MY_SIG_INFO)</source>
+        <translation>Saját különleges tevékenység hivatkozása (MY_SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>POTA reference</source>
+        <translation>POTA hivatkozás</translation>
+    </message>
+    <message>
+        <source>SOTA reference</source>
+        <translation>SOTA hivatkozás</translation>
+    </message>
+    <message>
+        <source>WWFF reference</source>
+        <translation>WWFF hivatkozás</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Special activity (SIG)</source>
+        <translation>Különleges tevékenység (SIG)</translation>
+    </message>
+    <message>
+        <source>Special activity reference (SIG_INFO)</source>
+        <translation>A különleges tevékenység hivatkozása (SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Verseny</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation>Terjedés</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Műhold</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Üzemmód</translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation>Almód</translation>
+    </message>
+    <message>
+        <source>RST sent</source>
+        <translation>Adott RST</translation>
+    </message>
+    <message>
+        <source>RST received</source>
+        <translation>Vett RST</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Megjegyzés</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Jegyzetek</translation>
+    </message>
+    <message>
+        <source>Paper QSL sent</source>
+        <translation>Papír QSL elküldve</translation>
+    </message>
+    <message>
+        <source>Paper QSL received</source>
+        <translation>Papír QSL megérkezett</translation>
+    </message>
+    <message>
+        <source>Paper QSL via</source>
+        <translation>Papír QSL útja</translation>
+    </message>
+    <message>
+        <source>LoTW: sent</source>
+        <translation>LoTW: elküldve</translation>
+    </message>
+    <message>
+        <source>eQSL: sent</source>
+        <translation>eQSL: elküldve</translation>
+    </message>
+    <message>
+        <source>QRZ.com: uploaded</source>
+        <translation>QRZ.com: feltöltve</translation>
+    </message>
+    <message>
+        <source>Club Log: uploaded</source>
+        <translation>Club Log: feltöltve</translation>
+    </message>
+    <message>
+        <source>HRDLog: uploaded</source>
+        <translation>HRDLog: feltöltve</translation>
+    </message>
+    <message>
+        <source>A change on many QSO is already running: wait for it to finish.</source>
+        <translation>Már fut egy módosítás sok QSO-n: várd meg, amíg befejeződik.</translation>
+    </message>
+    <message>
+        <source>(empty)</source>
+        <translation>(üres)</translation>
+    </message>
+    <message>
+        <source>%1 → %2 on %3 QSO (%4 unchanged, %5 failed)</source>
+        <translation>%1 → %2 %3 QSO-ban (%4 változatlan, %5 sikertelen)</translation>
+    </message>
+    <message>
+        <source>QSO #%1: %2</source>
+        <translation>%1. QSO: %2</translation>
+    </message>
+    <message>
+        <source>Merged %1 group(s) of duplicates: %2 QSO deleted (kept in history)</source>
+        <translation>%1 duplikátumcsoport egyesítve: %2 QSO törölve (az előzményekben megmaradnak)</translation>
+    </message>
+    <message>
         <source>An import is already running: wait for it to finish.</source>
         <translation>Már fut egy importálás: várd meg, amíg befejeződik.</translation>
     </message>
@@ -7939,7 +8815,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>%1 is not there.</source>
-        <translation type="unfinished">%1 nincs meg.</translation>
+        <translation>%1 nincs meg.</translation>
     </message>
     <message>
         <source>There is no log file to restore over.</source>
@@ -8030,6 +8906,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>%1: a jelszó vagy a kulcs nem érhető el (%2)</translation>
     </message>
     <message>
+        <source>Keeping an eye on %1 (%2)</source>
+        <translation>Figyelem: %1 (%2)</translation>
+    </message>
+    <message>
         <source>Decodium log not found</source>
         <translation>A Decodium naplója nem található</translation>
     </message>
@@ -8041,6 +8921,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>%1 · Decodium log not readable: %2</source>
         <translation>%1 · a Decodium naplója nem olvasható: %2</translation>
     </message>
+    <message>
+        <source>%1 · %2 not readable: %3</source>
+        <translation>%1 · %2 nem olvasható: %3</translation>
+    </message>
     <message numerus="yes">
         <source>%1 · %n QSO(s) recovered from the Decodium log</source>
         <translation>
@@ -8051,6 +8935,12 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <source>%1 · nothing missing (%n QSO(s) checked)</source>
         <translation>
             <numerusform>%1 · semmi sem hiányzik (%n QSO ellenőrizve)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from %2</source>
+        <translation>
+            <numerusform>%1 · %n QSO visszahozva innen: %2</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -8066,6 +8956,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
         <translation>Visszahozva a Decodium naplójából → %1 %2 %3 %4</translation>
+    </message>
+    <message>
+        <source>Recovered from %1 → %2 %3 %4 %5</source>
+        <translation>Visszahozva innen: %1 → %2 %3 %4 %5</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
@@ -8141,7 +9035,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <name>decolog::app::NetController</name>
     <message>
         <source>off</source>
-        <translation type="unfinished"></translation>
+        <translation>ki</translation>
     </message>
     <message>
         <source>on the network %1 (UDP %2) as %3</source>
@@ -8382,6 +9276,20 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog: %1</translation>
+    </message>
+    <message>
+        <source>Wavelog: no station on the site yet</source>
+        <translation>Wavelog: az oldalon még nincs állomás</translation>
+    </message>
+    <message numerus="yes">
+        <source>Wavelog: %n station(s) on the site</source>
+        <translation>
+            <numerusform>Wavelog: %n állomás az oldalon</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>CRX: %1</source>
         <translation>CRX: %1</translation>
     </message>
@@ -8434,8 +9342,28 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>nincs API-kulcs: Beállítások → QSL-szolgáltatások</translation>
     </message>
     <message>
+        <source>no address or API key: Setup → QSL services</source>
+        <translation>nincs cím vagy API-kulcs: Beállítások → QSL-szolgáltatások</translation>
+    </message>
+    <message>
+        <source>choose the Wavelog station: Setup → QSL services</source>
+        <translation>válaszd ki a Wavelog-állomást: Beállítások → QSL-szolgáltatások</translation>
+    </message>
+    <message>
         <source>choose the CRX logbook: Setup → QSL services</source>
         <translation>válaszd ki a CRX-naplót: Beállítások → QSL-szolgáltatások</translation>
+    </message>
+    <message>
+        <source>Wavelog: asking for the stations…</source>
+        <translation>Wavelog: az állomások lekérése…</translation>
+    </message>
+    <message>
+        <source>Wavelog: address and API key are needed (%1)</source>
+        <translation>Wavelog: cím és API-kulcs kell (%1)</translation>
+    </message>
+    <message>
+        <source>add them below</source>
+        <translation>add meg lent</translation>
     </message>
     <message>
         <source>CRX: asking for the logbooks…</source>
@@ -8835,6 +9763,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Nincs pozíció a DX-hez: írj lokátort vagy keress hívójelet.</translation>
     </message>
     <message>
+        <source>VOACAP: %1</source>
+        <translation>VOACAP: %1</translation>
+    </message>
+    <message>
         <source>Solar data of %1</source>
         <translation>%1 napadatai</translation>
     </message>
@@ -9050,6 +9982,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
 <context>
     <name>decolog::core::CloudSync</name>
     <message>
+        <source>This Cloud server does not know shared logs yet: it has to be updated.</source>
+        <translation>Ez a Cloud-szerver még nem ismeri a megosztott naplókat: frissíteni kell.</translation>
+    </message>
+    <message>
         <source>This Cloud server does not know this request (%1): it is older than your DecoDXLog and has to be updated.</source>
         <translation>Ez a Cloud-szerver nem ismeri ezt a kérést (%1): régebbi, mint a te DecoDXLogod, és frissíteni kell.</translation>
     </message>
@@ -9188,6 +10124,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Feltöltés a HRDLog.net-re: a feltöltési kód a HRDLog profilodban van, nem a jelszó</translation>
     </message>
     <message>
+        <source>Site address</source>
+        <translation>Az oldal címe</translation>
+    </message>
+    <message>
+        <source>Upload to your Wavelog (or Cloudlog): the address of the site and a read/write API key</source>
+        <translation>Küldés a saját Wavelogodba (vagy Cloudlogodba): az oldal címe és egy olvasási/írási API-kulcs</translation>
+    </message>
+    <message>
         <source>The VHF, EME and low band chat (www.on4kst.info)</source>
         <translation>A VHF, EME és alsó sávos chat (www.on4kst.info)</translation>
     </message>
@@ -9210,6 +10154,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
         <translation>QSL-lapok küldése e-mailben. A Gmail alkalmazásjelszót kér, nem a fiókét.</translation>
+    </message>
+    <message>
+        <source>Only for the QSOs of this profile; empty = the general account</source>
+        <translation>Csak e profil QSO-ihoz; üres = az általános fiók</translation>
     </message>
     <message>
         <source>Account saved</source>
@@ -9319,8 +10267,43 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>A rádió nem vette át a CW-szöveget (rigctld: %1). Nem minden rádió — és nem minden CAT-híd — tud CW-t adni: a makrókhoz olyan rigctld kell, amelyik magával a rádióval beszél.</translation>
     </message>
     <message>
+        <source>The radio does not take split from here (rigctld: %1)</source>
+        <translation>A rádió innen nem fogadja a splitet (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not change VFO from here (rigctld: %1)</source>
+        <translation>A rádió innen nem vált VFO-t (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not take RIT from here (rigctld: %1)</source>
+        <translation>A rádió innen nem fogadja a RIT-et (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not take XIT from here (rigctld: %1)</source>
+        <translation>A rádió innen nem fogadja az XIT-et (rigctld: %1)</translation>
+    </message>
+    <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>A rádió hibával válaszolt (rigctld: %1)</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::RigLink</name>
+    <message>
+        <source>This radio link does not do split</source>
+        <translation>Ez a rádiókapcsolat nem tud splitet</translation>
+    </message>
+    <message>
+        <source>This radio link cannot choose the VFO</source>
+        <translation>Ez a rádiókapcsolat nem tud VFO-t választani</translation>
+    </message>
+    <message>
+        <source>This radio link does not do RIT</source>
+        <translation>Ez a rádiókapcsolat nem tud RIT-et</translation>
+    </message>
+    <message>
+        <source>This radio link does not do XIT</source>
+        <translation>Ez a rádiókapcsolat nem tud XIT-et</translation>
     </message>
 </context>
 <context>
@@ -9424,6 +10407,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
 </context>
 <context>
     <name>decolog::core::WebQslUploader</name>
+    <message>
+        <source>Wavelog: write the address of your Wavelog (Setup → QSL services)</source>
+        <translation>Wavelog: add meg a Wavelogod címét (Beállítások → QSL-szolgáltatások)</translation>
+    </message>
+    <message>
+        <source>write the address of your Wavelog</source>
+        <translation>add meg a Wavelogod címét</translation>
+    </message>
     <message>
         <source>Club Log: email, password, callsign and API key are all needed</source>
         <translation>Club Log: kell az e-mail-cím, a jelszó, a hívójel és az API-kulcs is</translation>

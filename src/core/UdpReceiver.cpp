@@ -3,6 +3,7 @@
 #include "core/Bands.h"
 
 #include <QNetworkDatagram>
+#include <QRegularExpression>
 #include <QUdpSocket>
 
 namespace decolog::core {
@@ -65,11 +66,90 @@ bool UdpReceiver::isListening() const
     return m_socket && m_socket->state() == QAbstractSocket::BoundState;
 }
 
+namespace {
+
+// Il socket e' in doppio stack: 127.0.0.1 arriva come ::ffff:127.0.0.1.
+QHostAddress plain(const QHostAddress& address)
+{
+    bool isV4 = false;
+    const quint32 v4 = address.toIPv4Address(&isV4);
+    return isV4 ? QHostAddress(v4) : address;
+}
+
+} // namespace
+
+QList<UdpReceiver::Target> UdpReceiver::parseTargets(const QString& text, QStringList* rejected)
+{
+    QList<Target> out;
+    for (QString item : text.split(QRegularExpression(QStringLiteral("[,;\\s]+")), Qt::SkipEmptyParts)) {
+        item = item.trimmed();
+        const qsizetype colon = item.lastIndexOf(QLatin1Char(':'));
+        bool ok = false;
+        const int port = colon > 0 ? item.mid(colon + 1).toInt(&ok) : 0;
+        QString host = colon > 0 ? item.left(colon) : QString();
+        if (host.compare(QLatin1String("localhost"), Qt::CaseInsensitive) == 0)
+            host = QStringLiteral("127.0.0.1");
+        host.remove(QLatin1Char('[')).remove(QLatin1Char(']'));
+        const QHostAddress address(host);
+        if (!ok || port <= 0 || port > 65535 || address.isNull()) {
+            if (rejected)
+                *rejected << item;
+            continue;
+        }
+        out << Target{address, static_cast<quint16>(port)};
+    }
+    return out;
+}
+
+bool UdpReceiver::isForwardTarget(const QHostAddress& address, quint16 port) const
+{
+    const QHostAddress from = plain(address);
+    for (const Target& t : m_forward) {
+        if (t.port != port)
+            continue;
+        const QHostAddress to = plain(t.address);
+        // Un programma sulla stessa macchina puo' rispondere da 127.0.0.1 anche
+        // se lo si e' scritto con l'indirizzo della rete.
+        if (to == from || (to.isLoopback() && from.isLoopback()))
+            return true;
+    }
+    return false;
+}
+
+void UdpReceiver::relayBack(const QByteArray& data)
+{
+    const auto msg = wsjtx::parse(data);
+    const Target to = msg && m_endpoints.contains(msg->clientId) ? m_endpoints.value(msg->clientId) : m_lastEndpoint;
+    if (m_socket && to.port != 0)
+        m_socket->writeDatagram(data, to.address, to.port);
+}
+
 void UdpReceiver::readPending()
 {
     while (m_socket && m_socket->hasPendingDatagrams()) {
         const QNetworkDatagram datagram = m_socket->receiveDatagram();
-        handleDatagram(datagram.data(), datagram.senderAddress());
+        const QByteArray data = datagram.data();
+        const QHostAddress from = datagram.senderAddress();
+        const quint16 fromPort = static_cast<quint16>(datagram.senderPort());
+        if (!m_forward.isEmpty()) {
+            // Da uno dei programmi a cui si inoltra: e' una risposta per il
+            // client (Reply, Halt TX...), non un QSO per il log.
+            if (isForwardTarget(from, fromPort)) {
+                relayBack(data);
+                continue;
+            }
+            if (const auto msg = wsjtx::parse(data)) {
+                m_lastEndpoint = Target{plain(from), fromPort};
+                m_endpoints.insert(msg->clientId, m_lastEndpoint);
+            }
+            for (const Target& t : std::as_const(m_forward)) {
+                // Mai a se stessi: sarebbe un giro senza fine.
+                if (t.port == m_port && (plain(t.address).isLoopback() || t.address.isNull()))
+                    continue;
+                m_socket->writeDatagram(data, t.address, t.port);
+            }
+        }
+        handleDatagram(data, from);
     }
 }
 

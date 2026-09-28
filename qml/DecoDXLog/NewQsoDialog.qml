@@ -274,7 +274,7 @@ DialogFrame {
                 // banda), poi il nominativo.
                 Pill {
                     readonly property string band: bandBox.currentIndex > 0 ? bandBox.currentText : ""
-                    readonly property bool hasEntity: root.lookup.entityDxcc !== undefined
+                    readonly property bool hasEntity: root.lookup.entityDxcc !== undefined && !root.lookup.entityCounting
                     readonly property bool newDxcc: hasEntity && root.lookup.entityWorked === 0
                     readonly property bool newDxccOnBand: hasEntity && !newDxcc && band.length > 0
                                                           && (root.lookup.entityBands || []).indexOf(band) < 0

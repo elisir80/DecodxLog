@@ -128,6 +128,27 @@ QString RigController::frequencyLabel() const
     return QLocale().toString(hz / 1000000.0, 'f', 6) + QStringLiteral(" MHz");
 }
 
+QString RigController::txFrequencyLabel() const
+{
+    const qint64 hz = m_rig->txFrequencyHz();
+    if (hz <= 0)
+        return QString();
+    return QLocale().toString(hz / 1000000.0, 'f', 6) + QStringLiteral(" MHz");
+}
+
+void RigController::splitUp(int hz)
+{
+    const qint64 rx = m_rig->frequencyHz();
+    if (rx <= 0)
+        return;
+    m_rig->setSplit(true, rx + hz);
+}
+
+void RigController::swapVfo()
+{
+    m_rig->setVfo(m_rig->vfo() == QLatin1String("VFOB") ? QStringLiteral("VFOA") : QStringLiteral("VFOB"));
+}
+
 void RigController::setEnabled(bool on)
 {
     if (on == m_enabled)

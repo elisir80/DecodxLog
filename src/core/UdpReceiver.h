@@ -54,6 +54,20 @@ public:
     void setPreferLoggedAdif(bool prefer) { m_preferAdif = prefer; }
     bool prefersLoggedAdif() const { return m_preferAdif; }
 
+    // Ripetitore: ogni pacchetto dei client si inoltra anche a questi programmi
+    // (JTAlert, GridTracker...), e le loro risposte (Reply, Halt TX, testo
+    // libero) tornano al client che le aspetta. Cosi' Decodium manda a una porta
+    // sola e tutti ricevono. Solo indirizzi IP, "localhost" compreso.
+    struct Target {
+        QHostAddress address;
+        quint16 port{0};
+    };
+    // "127.0.0.1:2238, 192.168.1.20:2237": quelli che non si capiscono restano
+    // fuori, e anche la porta su cui ascolta DecoDXLog stesso.
+    static QList<Target> parseTargets(const QString& text, QStringList* rejected = nullptr);
+    void setForwardTargets(const QList<Target>& targets) { m_forward = targets; }
+    QList<Target> forwardTargets() const { return m_forward; }
+
     // Per i test: tratta un datagramma come se fosse arrivato dalla rete.
     void handleDatagram(const QByteArray& data, const QHostAddress& from = QHostAddress::LocalHost);
 
@@ -80,6 +94,8 @@ private:
     };
 
     void readPending();
+    bool isForwardTarget(const QHostAddress& address, quint16 port) const;
+    void relayBack(const QByteArray& data);
     void touchClient(const QString& id, const QHostAddress& from, const QString& version = {});
     void flushPending(quint64 key);
     static QString sourceFor(const QString& clientId, const QString& programId);
@@ -92,6 +108,10 @@ private:
     quint64     m_nextPendingKey{1};
     QHash<quint64, Pending> m_pending;
     QHash<QString, UdpClientInfo> m_clients;
+    QList<Target> m_forward;
+    // Da dove scrive ogni client: le risposte dei programmi inoltrati vanno li'.
+    QHash<QString, Target> m_endpoints;
+    Target m_lastEndpoint;
 };
 
 } // namespace decolog::core

@@ -46,6 +46,17 @@ class CloudController : public QObject {
     // password del Cloud: chi si e' collegato prima che la cassaforte esistesse
     // ce l'ha chiusa, e basta dire la password una volta.
     Q_PROPERTY(bool vaultReady READ vaultReady NOTIFY changed)
+    // Il log condiviso (un club, una gara multi-operatore) con cui si
+    // sincronizza *questo* file di log; vuoto: il log dell'account. Si tiene
+    // nel log stesso, cosi' quello del club e quello di casa non si mescolano.
+    Q_PROPERTY(QString sharedLog READ sharedLog WRITE setSharedLog NOTIFY changed)
+    // {callsign, members: [{callsign, role, since}], memberships: [{log, role,
+    // since}], invites: [{id, role, expiresAt}]}, e l'ultima risposta.
+    Q_PROPERTY(QVariantMap team READ team NOTIFY teamChanged)
+    Q_PROPERTY(QString teamStatus READ teamStatus NOTIFY teamChanged)
+    // L'ultimo invito fatto: {code, role, log, expiresAt}. Il codice si vede
+    // solo adesso: il server ne tiene l'impronta.
+    Q_PROPERTY(QVariantMap lastInvite READ lastInvite NOTIFY teamChanged)
 
 public:
     struct Context {
@@ -89,6 +100,18 @@ public:
     // password serve a fare la chiave e non viene tenuta.
     Q_INVOKABLE void unlockVault(const QString& password);
 
+    QString sharedLog() const { return m_sharedLog; }
+    void setSharedLog(const QString& callsign);
+    QVariantMap team() const { return m_team; }
+    QString teamStatus() const { return m_teamStatus; }
+    QVariantMap lastInvite() const { return m_lastInvite; }
+    Q_INVOKABLE void refreshTeam();
+    // Un invito al proprio log: "operator" manda e prende i QSO, "viewer" li guarda.
+    Q_INVOKABLE void createInvite(const QString& role);
+    Q_INVOKABLE void joinWithCode(const QString& code);
+    Q_INVOKABLE void removeMember(const QString& callsign);
+    Q_INVOKABLE void leaveLog(const QString& log);
+
     // Crea l'account sul server e si collega.
     Q_INVOKABLE void signup(const QString& callsign, const QString& password);
     // Si collega a un account che c'e' gia'.
@@ -115,6 +138,7 @@ signals:
     // Le impostazioni sono arrivate da un altro dispositivo: chi le mostra
     // (tema, colonne, filtri) si rilegge senza aspettare il riavvio.
     void settingsApplied();
+    void teamChanged();
 
 private:
     void note(const QString& text, const QString& level);
@@ -154,6 +178,10 @@ private:
     QString m_lastSync;
     QString m_autoMode{QStringLiteral("qso")};
     QVariantMap m_remote;
+    QString m_sharedLog;
+    QVariantMap m_team;
+    QString m_teamStatus;
+    QVariantMap m_lastInvite;
     // L'impronta delle impostazioni gia' mandate in questo giro.
     QString m_settingsSent;
     // La chiave della cassaforte: si fa dalla password quando si entra, e poi

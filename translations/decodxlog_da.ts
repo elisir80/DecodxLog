@@ -178,6 +178,18 @@
         <translation>Contests og aktiveringer</translation>
     </message>
     <message>
+        <source>Call history file (N1MM format)</source>
+        <translation>Call history-fil (N1MM-format)</translation>
+    </message>
+    <message>
+        <source>Call history (*.txt *.csv)</source>
+        <translation>Call history (*.txt *.csv)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Alle filer (*)</translation>
+    </message>
+    <message>
         <source>pick it from the list</source>
         <translation>vælg fra listen</translation>
     </message>
@@ -216,6 +228,50 @@
     <message>
         <source>Next</source>
         <translation>Næste</translation>
+    </message>
+    <message>
+        <source>Shared on the network</source>
+        <translation>Delt på netværket</translation>
+    </message>
+    <message>
+        <source>Bands of this edition</source>
+        <translation>Bånd i denne udgave</translation>
+    </message>
+    <message>
+        <source>Operating hours</source>
+        <translation>Timer i luften</translation>
+    </message>
+    <message>
+        <source>no limit</source>
+        <translation>ingen grænse</translation>
+    </message>
+    <message>
+        <source>Off-time from (min)</source>
+        <translation>Pause fra (min)</translation>
+    </message>
+    <message>
+        <source>Log within (h)</source>
+        <translation>Log inden (t)</translation>
+    </message>
+    <message>
+        <source>Call history</source>
+        <translation>Call history</translation>
+    </message>
+    <message>
+        <source>%1 · %2 calls</source>
+        <translation>%1 · %2 kaldesignaler</translation>
+    </message>
+    <message>
+        <source>none: the exchange is suggested from the log and the country</source>
+        <translation>ingen: udvekslingen foreslås ud fra loggen og landet</translation>
+    </message>
+    <message>
+        <source>Load…</source>
+        <translation>Indlæs…</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Fjern</translation>
     </message>
     <message>
         <source>The QSOs get CONTEST_ID and the serial number sent (STX). The number received goes in the New QSO panel.</source>
@@ -302,6 +358,13 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>Referencen læses fra SIG/SIG_INFO (SIG = %1) eller fra en kommentar som &quot;%1 LI-001&quot;.</translation>
+    </message>
+    <message numerus="yes">
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC. %n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.</source>
+        <translation>
+            <numerusform>ARRL-regler: QSO&apos;er på 60 m tæller ikke, og eQSL er ikke en bekræftelse til DXCC. %n QSO med slettede entiteter eller operationer, ARRL ikke har godkendt (Club Log), holdes udenfor.</numerusform>
+            <numerusform>ARRL-regler: QSO&apos;er på 60 m tæller ikke, og eQSL er ikke en bekræftelse til DXCC. %n QSO&apos;er med slettede entiteter eller operationer, ARRL ikke har godkendt (Club Log), holdes udenfor.</numerusform>
+        </translation>
     </message>
     <message>
         <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
@@ -409,6 +472,26 @@
     <message>
         <source>All tags</source>
         <translation>Alle mærkater</translation>
+    </message>
+    <message>
+        <source>Valid for %1</source>
+        <translation>Gælder for %1</translation>
+    </message>
+    <message>
+        <source>chosen by you</source>
+        <translation>valgt af dig</translation>
+    </message>
+    <message>
+        <source>the rules of the award</source>
+        <translation>diplomets regler</translation>
+    </message>
+    <message>
+        <source>the general choice above</source>
+        <translation>det generelle valg ovenfor</translation>
+    </message>
+    <message>
+        <source>Back to the rules</source>
+        <translation>Tilbage til reglerne</translation>
     </message>
     <message>
         <source>State</source>
@@ -655,6 +738,41 @@
     </message>
 </context>
 <context>
+    <name>BulkEditDialog</name>
+    <message>
+        <source>CHANGE A FIELD ON %1 QSO</source>
+        <translation>ÆNDR ET FELT I %1 QSO</translation>
+    </message>
+    <message>
+        <source>The same value on every QSO chosen. Each QSO keeps the old value in its history, so the change can be undone QSO by QSO from its card. Leave the value empty to clear the field.</source>
+        <translation>Den samme værdi i alle valgte QSO&apos;er. Hver QSO beholder den gamle værdi i sin historik, så ændringen kan fortrydes QSO for QSO fra dens kort. Lad værdien være tom for at tømme feltet.</translation>
+    </message>
+    <message>
+        <source>Field</source>
+        <translation>Felt</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>Værdi</translation>
+    </message>
+    <message>
+        <source>Only where the field is empty</source>
+        <translation>Kun hvor feltet er tomt</translation>
+    </message>
+    <message>
+        <source>With this many QSO the change runs in the background: the log stays usable and the progress shows in its header.</source>
+        <translation>Med så mange QSO&apos;er kører ændringen i baggrunden: loggen kan stadig bruges, og fremskridtet vises i dens overskrift.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annullér</translation>
+    </message>
+    <message>
+        <source>Change %1 QSO</source>
+        <translation>Ændr %1 QSO</translation>
+    </message>
+</context>
+<context>
     <name>Cabrillo</name>
     <message>
         <source>The station callsign is missing</source>
@@ -817,7 +935,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">Send</translation>
+        <translation>Send</translation>
     </message>
 </context>
 <context>
@@ -1396,7 +1514,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>CW macros</source>
-        <translation type="unfinished">CW-makroer</translation>
+        <translation>CW-makroer</translation>
     </message>
     <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
@@ -1404,11 +1522,11 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>Default macros</source>
-        <translation type="unfinished">Standardmakroer</translation>
+        <translation>Standardmakroer</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Luk</translation>
+        <translation>Luk</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -1467,6 +1585,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>%1 · log</translation>
     </message>
     <message>
+        <source>%1 · history</source>
+        <translation>%1 · historik</translation>
+    </message>
+    <message>
         <source>%1 · country</source>
         <translation>%1 · land</translation>
     </message>
@@ -1480,7 +1602,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>Downloading…</source>
-        <translation type="unfinished">Henter…</translation>
+        <translation>Henter…</translation>
     </message>
     <message>
         <source>Download MASTER.SCP</source>
@@ -1572,7 +1694,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">Send</translation>
+        <translation>Send</translation>
     </message>
     <message>
         <source>Spot %1</source>
@@ -1710,6 +1832,20 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>%1 QSO</source>
         <translation>%1 QSO</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 of %2 · %n break(s)</source>
+        <translation>
+            <numerusform>I luften %1 af %2 · %n pause</numerusform>
+            <numerusform>I luften %1 af %2 · %n pauser</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 · %n break(s)</source>
+        <translation>
+            <numerusform>I luften %1 · %n pause</numerusform>
+            <numerusform>I luften %1 · %n pauser</numerusform>
+        </translation>
     </message>
     <message>
         <source>Export…</source>
@@ -1898,6 +2034,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>%1 · log</source>
         <translation>%1 · log</translation>
+    </message>
+    <message>
+        <source>%1 · history</source>
+        <translation>%1 · historik</translation>
     </message>
     <message>
         <source>%1 · country</source>
@@ -2191,6 +2331,89 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
+    <name>DuplicatesDialog</name>
+    <message>
+        <source>DUPLICATE QSO</source>
+        <translation>DOBBELTE QSO&apos;ER</translation>
+    </message>
+    <message>
+        <source>Same call, band, kind of mode (CW, phone, digital) and station profile, within the minutes chosen. Of each group one QSO is kept — a click on a row chooses which — and it takes from the others what it is missing: fields, confirmations, tags. The others are deleted; they stay in the history and can be recovered.</source>
+        <translation>Samme kaldesignal, bånd, slags mode (CW, fone, digital) og stationsprofil inden for de valgte minutter. Af hver gruppe beholdes én QSO — et klik på en række vælger hvilken — og den tager fra de andre det, den mangler: felter, bekræftelser, mærker. De andre slettes; de bliver i historikken og kan hentes tilbage.</translation>
+    </message>
+    <message>
+        <source>Within</source>
+        <translation>Inden for</translation>
+    </message>
+    <message>
+        <source>minutes</source>
+        <translation>minutter</translation>
+    </message>
+    <message>
+        <source>Searching…</source>
+        <translation>Søger…</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>Søg</translation>
+    </message>
+    <message>
+        <source>No duplicates within %1 minutes</source>
+        <translation>Ingen dubletter inden for %1 minutter</translation>
+    </message>
+    <message>
+        <source>The first %1 groups: merge them and search again for the rest</source>
+        <translation>De første %1 grupper: flet dem og søg igen efter resten</translation>
+    </message>
+    <message>
+        <source>%1 groups found, %2 ticked</source>
+        <translation>%1 grupper fundet, %2 markeret</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>KEEP</source>
+        <translation>BEHOLD</translation>
+    </message>
+    <message>
+        <source>merge</source>
+        <translation>flet</translation>
+    </message>
+    <message>
+        <source>confirmed: %1</source>
+        <translation>bekræftet: %1</translation>
+    </message>
+    <message>
+        <source>%1 fields</source>
+        <translation>%1 felter</translation>
+    </message>
+    <message>
+        <source>Reading the whole log…</source>
+        <translation>Læser hele loggen…</translation>
+    </message>
+    <message>
+        <source>Nothing to merge.</source>
+        <translation>Intet at flette.</translation>
+    </message>
+    <message>
+        <source>Choose the minutes and press Search.</source>
+        <translation>Vælg minutterne og tryk Søg.</translation>
+    </message>
+    <message>
+        <source>A double click opens the QSO.</source>
+        <translation>Et dobbeltklik åbner QSO&apos;en.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Luk</translation>
+    </message>
+    <message>
+        <source>Merge %1 groups</source>
+        <translation>Flet %1 grupper</translation>
+    </message>
+</context>
+<context>
     <name>DvkPanel</name>
     <message>
         <source>Voice keyer</source>
@@ -2230,7 +2453,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>never</source>
-        <translation type="unfinished">aldrig</translation>
+        <translation>aldrig</translation>
     </message>
     <message>
         <source>CQ loop</source>
@@ -2238,7 +2461,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished">Stop</translation>
+        <translation>Stop</translation>
     </message>
 </context>
 <context>
@@ -2488,6 +2711,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Importerer %1%</translation>
     </message>
     <message>
+        <source>Sorting…</source>
+        <translation>Sorterer…</translation>
+    </message>
+    <message>
+        <source>Changing %1%</source>
+        <translation>Ændrer %1%</translation>
+    </message>
+    <message>
         <source>%1 QSO · %2 shown</source>
         <translation>%1 QSO · %2 vist</translation>
     </message>
@@ -2554,6 +2785,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>Eksportér de %1 viste QSO til ADIF…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO shown…</source>
+        <translation>Ændr et felt i de %1 viste QSO&apos;er…</translation>
+    </message>
+    <message>
+        <source>Find duplicate QSO…</source>
+        <translation>Find dobbelte QSO&apos;er…</translation>
     </message>
     <message>
         <source>Complete the QSO shown from the callbook…</source>
@@ -2754,6 +2993,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Delete the %1 QSO selected…</source>
         <translation>Slet de %1 valgte QSO…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO selected…</source>
+        <translation>Ændr et felt i de %1 valgte QSO&apos;er…</translation>
+    </message>
+    <message>
+        <source>Change a field…</source>
+        <translation>Ændr et felt…</translation>
     </message>
     <message>
         <source>Complete from the callbook</source>
@@ -3013,12 +3260,24 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>sat fast</translation>
     </message>
     <message>
-        <source>Import ADIF</source>
-        <translation>Importér ADIF</translation>
+        <source>Import a log</source>
+        <translation>Importér en log</translation>
     </message>
     <message>
         <source>ADIF files (*.adi *.adif)</source>
         <translation>ADIF-filer (*.adi *.adif)</translation>
+    </message>
+    <message>
+        <source>Logs (*.adi *.adif *.csv *.tsv *.s3db)</source>
+        <translation>Logge (*.adi *.adif *.csv *.tsv *.s3db)</translation>
+    </message>
+    <message>
+        <source>Spreadsheets (*.csv *.tsv)</source>
+        <translation>Regneark (*.csv *.tsv)</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ databases (*.s3db)</source>
+        <translation>N1MM Logger+-databaser (*.s3db)</translation>
     </message>
     <message>
         <source>All files (*)</source>
@@ -3480,7 +3739,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>%1°</source>
-        <translation type="unfinished">%1°</translation>
+        <translation>%1°</translation>
     </message>
     <message numerus="yes">
         <source>%n hop(s)</source>
@@ -3498,8 +3757,16 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>SFI %1</translation>
     </message>
     <message>
+        <source>VOACAP computing…</source>
+        <translation>VOACAP regner…</translation>
+    </message>
+    <message>
         <source>Locator</source>
         <translation>Lokator</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · reliability %4% · SNR %5 dB</source>
+        <translation>%1 · %2 UTC · MUF %3 MHz · pålidelighed %4% · SNR %5 dB</translation>
     </message>
     <message>
         <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
@@ -3507,11 +3774,11 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>good</source>
-        <translation type="unfinished">god</translation>
+        <translation>god</translation>
     </message>
     <message>
         <source>fair</source>
-        <translation type="unfinished">jævn</translation>
+        <translation>jævn</translation>
     </message>
     <message>
         <source>marginal</source>
@@ -3519,11 +3786,59 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>closed</source>
-        <translation type="unfinished">lukket</translation>
+        <translation>lukket</translation>
+    </message>
+    <message>
+        <source>VOACAP (ITS): the chance of a %1 QSO with %2 W and %3 dBi antennas; 160 and 6 m from the simple model.</source>
+        <translation>VOACAP (ITS): chancen for en %1-QSO med %2 W og antenner på %3 dBi; 160 og 6 m fra den enkle model.</translation>
+    </message>
+    <message>
+        <source>VOACAP failed (%1): simplified F2 model.</source>
+        <translation>VOACAP fejlede (%1): forenklet F2-model.</translation>
     </message>
     <message>
         <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
         <translation>Forenklet F2-model (MUF/LUF), ikke VOACAP: en vejledning om hvornår et bånd åbner, ikke et løfte.</translation>
+    </message>
+    <message>
+        <source>%1 W</source>
+        <translation>%1 W</translation>
+    </message>
+    <message>
+        <source>0 dBi (vertical)</source>
+        <translation>0 dBi (vertikal)</translation>
+    </message>
+    <message>
+        <source>2 dBi (dipole)</source>
+        <translation>2 dBi (dipol)</translation>
+    </message>
+    <message>
+        <source>5 dBi (2-el beam)</source>
+        <translation>5 dBi (2-el. beam)</translation>
+    </message>
+    <message>
+        <source>8 dBi (3-el beam)</source>
+        <translation>8 dBi (3-el. beam)</translation>
+    </message>
+    <message>
+        <source>11 dBi (big beam)</source>
+        <translation>11 dBi (stor beam)</translation>
+    </message>
+    <message>
+        <source>noise: city</source>
+        <translation>støj: by</translation>
+    </message>
+    <message>
+        <source>noise: residential</source>
+        <translation>støj: boligområde</translation>
+    </message>
+    <message>
+        <source>noise: rural</source>
+        <translation>støj: land</translation>
+    </message>
+    <message>
+        <source>noise: quiet</source>
+        <translation>støj: stille</translation>
     </message>
 </context>
 <context>
@@ -3701,6 +4016,22 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>unexpected answer</source>
         <translation>uventet svar</translation>
+    </message>
+    <message>
+        <source>Wavelog: already there</source>
+        <translation>Wavelog: fandtes allerede</translation>
+    </message>
+    <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog: %1</translation>
+    </message>
+    <message>
+        <source>Wavelog: sent</source>
+        <translation>Wavelog: sendt</translation>
+    </message>
+    <message>
+        <source>Wavelog: the API key is not valid or cannot write (%1)</source>
+        <translation>Wavelog: API-nøglen er ugyldig eller må ikke skrive (%1)</translation>
     </message>
     <message>
         <source>HRDLog: sent</source>
@@ -4703,7 +5034,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>All files (*)</source>
-        <translation type="unfinished">Alle filer (*)</translation>
+        <translation>Alle filer (*)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -4779,7 +5110,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Luk</translation>
+        <translation>Luk</translation>
     </message>
 </context>
 <context>
@@ -5570,7 +5901,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>QSOs left in the Decodium log</source>
-        <translation>QSO'er, der er blevet i Decodiums log</translation>
+        <translation>QSO&apos;er, der er blevet i Decodiums log</translation>
     </message>
     <message>
         <source>Recover them every 5 minutes</source>
@@ -6184,8 +6515,200 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>porten er ikke åben</translation>
     </message>
     <message>
+        <source>An ADIF log to keep an eye on</source>
+        <translation>En ADIF-log at holde øje med</translation>
+    </message>
+    <message>
+        <source>Club Log cty.xml</source>
+        <translation>Club Log cty.xml</translation>
+    </message>
+    <message>
+        <source>QSOs of another entity on that date</source>
+        <translation>QSO&apos;er fra en anden entitet på den dato</translation>
+    </message>
+    <message>
+        <source>Working…</source>
+        <translation>Arbejder…</translation>
+    </message>
+    <message>
+        <source>Update cty.xml</source>
+        <translation>Opdatér cty.xml</translation>
+    </message>
+    <message>
+        <source>Check the entities with the dates</source>
+        <translation>Kontrollér entiteterne med datoerne</translation>
+    </message>
+    <message>
+        <source>Correct %1 QSO</source>
+        <translation>Ret %1 QSO</translation>
+    </message>
+    <message>
+        <source>%1 QSO corrected, each kept as a new revision.</source>
+        <translation>%1 QSO rettet, hver gemt som en ny revision.</translation>
+    </message>
+    <message>
+        <source>deleted</source>
+        <translation>slettet</translation>
+    </message>
+    <message>
+        <source>With the Club Log API key (QSL services) DecoDXLog downloads Club Log&apos;s cty.xml every week: the entities with their dates, so a QSO of 2005 with PJ2 is the Netherlands Antilles and not Curacao, operations the ARRL did not accept do not count for DXCC, and deleted entities are shown but not counted.</source>
+        <translation>Med Club Log-API-nøglen (QSL-tjenester) henter DecoDXLog hver uge Club Logs cty.xml: entiteterne med deres datoer, så en QSO fra 2005 med PJ2 er De Nederlandske Antiller og ikke Curaçao, operationer ARRL ikke godkendte ikke tæller til DXCC, og slettede entiteter vises men tælles ikke.</translation>
+    </message>
+    <message>
+        <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
+        <translation>Hver uge fra Club Log. Nye QSO&apos;er får entiteten for deres dato; kontrollen sammenligner loggen med datoerne og retter kun DXCC, der var tom eller sat af dagens cty.csv — den, LoTW eller du har skrevet, bliver.</translation>
+    </message>
+    <message>
+        <source>Forward to other programs</source>
+        <translation>Send videre til andre programmer</translation>
+    </message>
+    <message>
+        <source>e.g. 127.0.0.1:2238, 127.0.0.1:2333 — empty = off</source>
+        <translation>f.eks. 127.0.0.1:2238, 127.0.0.1:2333 — tom = slukket</translation>
+    </message>
+    <message>
+        <source>Every packet from Decodium also goes to these programs (JTAlert, GridTracker, HamLog…), and their answers (reply to a caller, halt TX) go back to Decodium. So Decodium sends to one port only and everybody gets it.</source>
+        <translation>Hver pakke fra Decodium går også til disse programmer (JTAlert, GridTracker, HamLog…), og deres svar (svare en, der kalder, stoppe TX) går tilbage til Decodium. Så sender Decodium kun til én port, og alle får det.</translation>
+    </message>
+    <message>
         <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
-        <translation>Decodium skriver også hver QSO i sin egen ADIF-log. Hvis DecoDXLog var lukket eller ikke modtog (forkert port, netværk nede), står QSO'en kun der: hvert 5. minut læser DecoDXLog de QSO'er, der er logget siden sidste tjek, og gemmer dem, der mangler her og i de andre logge på listen. QSO'er rettet eller slettet her kommer ikke tilbage. Første gang kigges en uge tilbage, med knapperne længere. Tomt felt = den log, Decodium bruger.</translation>
+        <translation>Decodium skriver også hver QSO i sin egen ADIF-log. Hvis DecoDXLog var lukket eller ikke modtog (forkert port, netværk nede), står QSO&apos;en kun der: hvert 5. minut læser DecoDXLog de QSO&apos;er, der er logget siden sidste tjek, og gemmer dem, der mangler her og i de andre logge på listen. QSO&apos;er rettet eller slettet her kommer ikke tilbage. Første gang kigges en uge tilbage, med knapperne længere. Tomt felt = den log, Decodium bruger.</translation>
+    </message>
+    <message>
+        <source>Other ADIF logs to keep an eye on</source>
+        <translation>Andre ADIF-logge at holde øje med</translation>
+    </message>
+    <message>
+        <source>not found: %1</source>
+        <translation>ikke fundet: %1</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Fjern</translation>
+    </message>
+    <message>
+        <source>Add a file…</source>
+        <translation>Tilføj en fil…</translation>
+    </message>
+    <message>
+        <source>Add %1</source>
+        <translation>Tilføj %1</translation>
+    </message>
+    <message>
+        <source>The QSOs that other programs (fldigi, WSJT-X, JTDX…) write in these logs and that are missing here are saved every 5 minutes, from the moment the file is added. For the older ones, “Check the whole file”.</source>
+        <translation>De QSO&apos;er, som andre programmer (fldigi, WSJT-X, JTDX…) skriver i disse logge, og som mangler her, gemmes hvert 5. minut, fra det øjeblik filen tilføjes. For de ældre: »Tjek hele filen«.</translation>
+    </message>
+    <message>
+        <source>UDP port (0 = off)</source>
+        <translation>UDP-port (0 = slukket)</translation>
+    </message>
+    <message>
+        <source>listening</source>
+        <translation>lytter</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ sends every contact on this port (Config → Configure Ports → Broadcast Data → Contacts, usually 12060). A contact corrected or deleted in N1MM is corrected or deleted here too.</source>
+        <translation>N1MM Logger+ sender hver kontakt på denne port (Config → Configure Ports → Broadcast Data → Contacts, som regel 12060). En kontakt, der rettes eller slettes i N1MM, rettes eller slettes også her.</translation>
+    </message>
+    <message>
+        <source>Local interface for other programs</source>
+        <translation>Lokal grænseflade til andre programmer</translation>
+    </message>
+    <message>
+        <source>Port on 127.0.0.1 (0 = off)</source>
+        <translation>Port på 127.0.0.1 (0 = slukket)</translation>
+    </message>
+    <message>
+        <source>Key (X-DecoDXLog-Token)</source>
+        <translation>Nøgle (X-DecoDXLog-Token)</translation>
+    </message>
+    <message>
+        <source>New key</source>
+        <translation>Ny nøgle</translation>
+    </message>
+    <message>
+        <source>For programs next to DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, and POST /api/v1/qso with an ADIF record to log it. Only from this computer, and always with the key. Details: docs/API.md.</source>
+        <translation>Til programmer ved siden af DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, og POST /api/v1/qso med en ADIF-post for at logge den. Kun fra denne computer og altid med nøglen. Detaljer: docs/API.md.</translation>
+    </message>
+    <message>
+        <source>Shared log</source>
+        <translation>Delt log</translation>
+    </message>
+    <message>
+        <source>A club station, a multi-operator contest: one log, several operators, each with their own Cloud account — nobody lends a password. The owner of the log creates an invite, whoever gets the code joins with it. Only QSOs travel: profiles, settings and service passwords stay with the owner.</source>
+        <translation>En klubstation, en multi-operatørtest: én log, flere operatører, hver med sin egen Cloud-konto — ingen låner en adgangskode ud. Den, der har loggen, laver en invitation; den, der får koden, går ind med den. Kun QSO&apos;er rejser: profiler, indstillinger og tjenesternes adgangskoder bliver hos ejeren.</translation>
+    </message>
+    <message>
+        <source>This log syncs with</source>
+        <translation>Denne log synkroniserer med</translation>
+    </message>
+    <message>
+        <source>my own log (%1)</source>
+        <translation>min egen log (%1)</translation>
+    </message>
+    <message>
+        <source>the shared log of %1</source>
+        <translation>den delte log for %1</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Opdater</translation>
+    </message>
+    <message>
+        <source>The QSOs of this log go to the log of %1, and its QSOs come here: keep a log just for it (Log → New log).</source>
+        <translation>QSO&apos;erne i denne log går til loggen for %1, og dens QSO&apos;er kommer hertil: hav en log kun til den (Log → Ny log).</translation>
+    </message>
+    <message>
+        <source>Invite code, e.g. K7Q2-9XMP-D4TA</source>
+        <translation>Invitationskode, f.eks. K7Q2-9XMP-D4TA</translation>
+    </message>
+    <message>
+        <source>Join with the code</source>
+        <translation>Gå ind med koden</translation>
+    </message>
+    <message>
+        <source>operator: sends and gets the QSOs</source>
+        <translation>operatør: sender og henter QSO&apos;erne</translation>
+    </message>
+    <message>
+        <source>viewer: only looks</source>
+        <translation>tilskuer: ser kun</translation>
+    </message>
+    <message>
+        <source>Invite into the log of %1</source>
+        <translation>Invitér til loggen for %1</translation>
+    </message>
+    <message>
+        <source>Code %1 — %2, valid until %3</source>
+        <translation>Kode %1 — %2, gælder til %3</translation>
+    </message>
+    <message>
+        <source>viewer</source>
+        <translation>tilskuer</translation>
+    </message>
+    <message>
+        <source>operator</source>
+        <translation>operatør</translation>
+    </message>
+    <message>
+        <source>viewer in your log</source>
+        <translation>tilskuer i din log</translation>
+    </message>
+    <message>
+        <source>operator in your log</source>
+        <translation>operatør i din log</translation>
+    </message>
+    <message>
+        <source>you look at its log</source>
+        <translation>du ser dens log</translation>
+    </message>
+    <message>
+        <source>you write in its log</source>
+        <translation>du skriver i dens log</translation>
+    </message>
+    <message>
+        <source>Leave</source>
+        <translation>Forlad</translation>
     </message>
     <message>
         <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
@@ -6214,6 +6737,22 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
         <translation>eQSL: de eQSL&apos;er, der er kommet i indbakken, uden SWL-rapporter. QRZ Logbook: QSO&apos;erne i din logbog på QRZ, som modstationen har bekræftet. Kun det, der er kommet efter sidste hentning; den automatiske hentning kører kun for tjenester med deres login (nedenfor, de samme som ved afsendelse). Matchet som LoTW-bekræftelser; felterne for papir-QSL røres ikke.</translation>
+    </message>
+    <message>
+        <source>Station on Wavelog</source>
+        <translation>Station i Wavelog</translation>
+    </message>
+    <message>
+        <source>station %1</source>
+        <translation>station %1</translation>
+    </message>
+    <message>
+        <source>Load my stations</source>
+        <translation>Hent mine stationer</translation>
+    </message>
+    <message>
+        <source>Wavelog (and Cloudlog) is the web log on your own site. Below it wants the address of the site (for example log.mysite.org) and an API key with read and write rights, made in Wavelog under Account → API keys; then the station to write in. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>Wavelog (og Cloudlog) er weblogbogen på dit eget websted. Nedenfor skal den have adressen på webstedet (for eksempel log.mitsted.dk) og en API-nøgle med læse- og skriverettigheder, lavet i Wavelog under Account → API keys; derefter stationen, der skal skrives i. Afsendelse, automatisk afsendelse og tællerne er på QSL-fanen nederst.</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -6345,7 +6884,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished">Adresse</translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <source>SO2R box (OTRSP)</source>
@@ -6614,6 +7153,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>LoTW station location (TQSL)</translation>
     </message>
     <message>
+        <source>QSL accounts of this profile</source>
+        <translation>QSL-konti for denne profil</translation>
+    </message>
+    <message>
+        <source>Save the profile first: then it can have its own QRZ Logbook and eQSL accounts.</source>
+        <translation>Gem først profilen: så kan den få sine egne QRZ Logbook- og eQSL-konti.</translation>
+    </message>
+    <message>
         <source>Used by &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</source>
         <translation>Brugt af &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</translation>
     </message>
@@ -6662,7 +7209,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>Grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Locatorer</translation>
     </message>
     <message>
         <source>Awards over the years · cumulative</source>
@@ -6670,7 +7217,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>no QSO</source>
-        <translation type="unfinished">ingen QSO</translation>
+        <translation>ingen QSO</translation>
     </message>
     <message>
         <source>Most worked entities</source>
@@ -6862,6 +7409,26 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>ON4KST-chat…</translation>
     </message>
     <message>
+        <source>Import a log (ADIF, CSV, N1MM)…</source>
+        <translation>Importér en log (ADIF, CSV, N1MM)…</translation>
+    </message>
+    <message>
+        <source>Split off</source>
+        <translation>Split slået fra</translation>
+    </message>
+    <message>
+        <source>TX up %1 kHz</source>
+        <translation>TX %1 kHz op</translation>
+    </message>
+    <message>
+        <source>TX down %1 kHz</source>
+        <translation>TX %1 kHz ned</translation>
+    </message>
+    <message>
+        <source>RIT and XIT off</source>
+        <translation>RIT og XIT slået fra</translation>
+    </message>
+    <message>
         <source>Setup · %1 ▾</source>
         <translation>Opsætning · %1 ▾</translation>
     </message>
@@ -6980,10 +7547,6 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Panels…</source>
         <translation>Paneler…</translation>
-    </message>
-    <message>
-        <source>Import ADIF…</source>
-        <translation>Importér ADIF…</translation>
     </message>
     <message>
         <source>Export ADIF…</source>
@@ -7230,7 +7793,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">Dag</translation>
+        <translation>Dag</translation>
     </message>
     <message>
         <source>Grayline</source>
@@ -7316,7 +7879,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">Dag</translation>
+        <translation>Dag</translation>
     </message>
     <message>
         <source>Civil twilight</source>
@@ -7386,6 +7949,21 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>
             <numerusform>Session lukket: %1 · %n QSO</numerusform>
             <numerusform>Session lukket: %1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Call history not readable: %1</source>
+        <translation>Call history kan ikke læses: %1</translation>
+    </message>
+    <message>
+        <source>Open the contest first</source>
+        <translation>Åbn testen først</translation>
+    </message>
+    <message numerus="yes">
+        <source>Call history: %n call(s) from %1</source>
+        <translation>
+            <numerusform>Call history: %n kaldesignal fra %1</numerusform>
+            <numerusform>Call history: %n kaldesignaler fra %1</numerusform>
         </translation>
     </message>
     <message>
@@ -7506,8 +8084,36 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Cloud: %1</translation>
     </message>
     <message>
+        <source>Invite created: give the code to the operator. It is shown only now.</source>
+        <translation>Invitation oprettet: giv koden til operatøren. Den vises kun nu.</translation>
+    </message>
+    <message>
+        <source>You are in the log of %1. Choose it for a log of yours below — better a new log (Log → New log), so the club log and yours do not mix.</source>
+        <translation>Du er i loggen for %1. Vælg den nedenfor til en af dine logge — helst en ny log (Log → Ny log), så klubbens log og din ikke blandes.</translation>
+    </message>
+    <message>
+        <source>Cloud: you joined the shared log of %1</source>
+        <translation>Cloud: du er gået ind i den delte log for %1</translation>
+    </message>
+    <message>
         <source>Cloud: linked — sync will unlock it when needed</source>
         <translation>Cloud: forbundet — synkroniseringen låser den op, når der er brug for det</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with your own log again</source>
+        <translation>Cloud: denne log synkroniserer igen med din egen</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with the shared log of %1</source>
+        <translation>Cloud: denne log synkroniserer med den delte log for %1</translation>
+    </message>
+    <message>
+        <source>Sync once to open the keystore, then the team shows here.</source>
+        <translation>Synkronisér én gang for at åbne nøgleringen, så vises holdet her.</translation>
+    </message>
+    <message>
+        <source>Sign in to the Cloud first.</source>
+        <translation>Log først ind i Cloud.</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>
@@ -7787,8 +8393,32 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Kan ikke lytte på UDP %1: %2</translation>
     </message>
     <message>
+        <source>Listening for N1MM Logger+ on UDP %1</source>
+        <translation>Lytter efter N1MM Logger+ på UDP %1</translation>
+    </message>
+    <message>
+        <source>Correction not saved: %1</source>
+        <translation>Rettelse ikke gemt: %1</translation>
+    </message>
+    <message>
+        <source>Corrected by N1MM: %1</source>
+        <translation>Rettet af N1MM: %1</translation>
+    </message>
+    <message>
         <source>built on %1</source>
         <translation>bygget den %1</translation>
+    </message>
+    <message>
+        <source>Not understood: %1 (write address:port)</source>
+        <translation>Ikke forstået: %1 (skriv adresse:port)</translation>
+    </message>
+    <message>
+        <source>UDP forwarding off</source>
+        <translation>UDP-videresendelse slukket</translation>
+    </message>
+    <message>
+        <source>UDP forwarded to %1</source>
+        <translation>UDP sendt videre til %1</translation>
     </message>
     <message>
         <source>no callsign</source>
@@ -7823,6 +8453,37 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>cty.csv %1 installeret: %2 DXCC-entiteter</translation>
     </message>
     <message>
+        <source>Club Log cty.xml not readable: %1</source>
+        <translation>Club Log cty.xml kan ikke læses: %1</translation>
+    </message>
+    <message>
+        <source>The Club Log API key is needed (Setup → QSL services → Club Log)</source>
+        <translation>Club Log-API-nøglen skal bruges (Indstillinger → QSL-tjenester → Club Log)</translation>
+    </message>
+    <message>
+        <source>Downloading cty.xml from Club Log…</source>
+        <translation>Henter cty.xml fra Club Log…</translation>
+    </message>
+    <message>
+        <source>Club Log: %1</source>
+        <translation>Club Log: %1</translation>
+    </message>
+    <message>
+        <source>Club Log: the file is not a cty.xml (%1)</source>
+        <translation>Club Log: filen er ikke en cty.xml (%1)</translation>
+    </message>
+    <message>
+        <source>cty.xml of %1: %2 entities</source>
+        <translation>cty.xml fra %1: %2 entiteter</translation>
+    </message>
+    <message numerus="yes">
+        <source>Entity of %n QSO(s) corrected with the date of the QSO (Club Log)</source>
+        <translation>
+            <numerusform>Entitet for %n QSO rettet med QSO&apos;ens dato (Club Log)</numerusform>
+            <numerusform>Entitet for %n QSO&apos;er rettet med QSO&apos;ens dato (Club Log)</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>DXCC filled on %1 of %2 QSO (cty.csv %3)</source>
         <translation>DXCC udfyldt på %1 af %2 QSO (cty.csv %3)</translation>
     </message>
@@ -7849,6 +8510,18 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>QSO not logged: %1</source>
         <translation>QSO ikke logget: %1</translation>
+    </message>
+    <message>
+        <source>New key for the local interface: the programs using the old one must be updated</source>
+        <translation>Ny nøgle til den lokale grænseflade: programmer, der brugte den gamle, skal opdateres</translation>
+    </message>
+    <message>
+        <source>Local interface on http://127.0.0.1:%1/api/v1/</source>
+        <translation>Lokal grænseflade på http://127.0.0.1:%1/api/v1/</translation>
+    </message>
+    <message>
+        <source>Cannot open the local interface on port %1: %2</source>
+        <translation>Kan ikke åbne den lokale grænseflade på port %1: %2</translation>
     </message>
     <message>
         <source>Nowhere to send the frequency: the radio is not connected and Decodium is not there either.</source>
@@ -7927,6 +8600,214 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Mærkatet &quot;%1&quot; fjernet fra %2 QSO</translation>
     </message>
     <message>
+        <source>Y · yes</source>
+        <translation>Y · ja</translation>
+    </message>
+    <message>
+        <source>N · no</source>
+        <translation>N · nej</translation>
+    </message>
+    <message>
+        <source>R · requested</source>
+        <translation>R · anmodet</translation>
+    </message>
+    <message>
+        <source>Q · queued</source>
+        <translation>Q · i kø</translation>
+    </message>
+    <message>
+        <source>I · ignore</source>
+        <translation>I · ignorér</translation>
+    </message>
+    <message>
+        <source>Y · uploaded</source>
+        <translation>Y · uploadet</translation>
+    </message>
+    <message>
+        <source>N · not uploaded</source>
+        <translation>N · ikke uploadet</translation>
+    </message>
+    <message>
+        <source>M · changed, upload again</source>
+        <translation>M · ændret, upload igen</translation>
+    </message>
+    <message>
+        <source>B · bureau</source>
+        <translation>B · bureau</translation>
+    </message>
+    <message>
+        <source>D · direct</source>
+        <translation>D · direkte</translation>
+    </message>
+    <message>
+        <source>E · electronic</source>
+        <translation>E · elektronisk</translation>
+    </message>
+    <message>
+        <source>No profile</source>
+        <translation>Ingen profil</translation>
+    </message>
+    <message>
+        <source>My locator</source>
+        <translation>Min locator</translation>
+    </message>
+    <message>
+        <source>Station callsign</source>
+        <translation>Stationens kaldesignal</translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation>Operatør</translation>
+    </message>
+    <message>
+        <source>Station profile</source>
+        <translation>Stationsprofil</translation>
+    </message>
+    <message>
+        <source>My rig</source>
+        <translation>Min radio</translation>
+    </message>
+    <message>
+        <source>My antenna</source>
+        <translation>Min antenne</translation>
+    </message>
+    <message>
+        <source>Power (W)</source>
+        <translation>Effekt (W)</translation>
+    </message>
+    <message>
+        <source>My POTA reference</source>
+        <translation>Min POTA-reference</translation>
+    </message>
+    <message>
+        <source>My SOTA reference</source>
+        <translation>Min SOTA-reference</translation>
+    </message>
+    <message>
+        <source>My WWFF reference</source>
+        <translation>Min WWFF-reference</translation>
+    </message>
+    <message>
+        <source>My special activity (MY_SIG)</source>
+        <translation>Min særlige aktivitet (MY_SIG)</translation>
+    </message>
+    <message>
+        <source>My special activity reference (MY_SIG_INFO)</source>
+        <translation>Reference for min særlige aktivitet (MY_SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>POTA reference</source>
+        <translation>POTA-reference</translation>
+    </message>
+    <message>
+        <source>SOTA reference</source>
+        <translation>SOTA-reference</translation>
+    </message>
+    <message>
+        <source>WWFF reference</source>
+        <translation>WWFF-reference</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Special activity (SIG)</source>
+        <translation>Særlig aktivitet (SIG)</translation>
+    </message>
+    <message>
+        <source>Special activity reference (SIG_INFO)</source>
+        <translation>Reference for den særlige aktivitet (SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Contest</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation>Propagation</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Satelit</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Modulation</translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation>Submode</translation>
+    </message>
+    <message>
+        <source>RST sent</source>
+        <translation>RST sendt</translation>
+    </message>
+    <message>
+        <source>RST received</source>
+        <translation>RST modtaget</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Kommentar</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Noter</translation>
+    </message>
+    <message>
+        <source>Paper QSL sent</source>
+        <translation>Papir-QSL sendt</translation>
+    </message>
+    <message>
+        <source>Paper QSL received</source>
+        <translation>Papir-QSL modtaget</translation>
+    </message>
+    <message>
+        <source>Paper QSL via</source>
+        <translation>Papir-QSL via</translation>
+    </message>
+    <message>
+        <source>LoTW: sent</source>
+        <translation>LoTW: sendt</translation>
+    </message>
+    <message>
+        <source>eQSL: sent</source>
+        <translation>eQSL: sendt</translation>
+    </message>
+    <message>
+        <source>QRZ.com: uploaded</source>
+        <translation>QRZ.com: uploadet</translation>
+    </message>
+    <message>
+        <source>Club Log: uploaded</source>
+        <translation>Club Log: uploadet</translation>
+    </message>
+    <message>
+        <source>HRDLog: uploaded</source>
+        <translation>HRDLog: uploadet</translation>
+    </message>
+    <message>
+        <source>A change on many QSO is already running: wait for it to finish.</source>
+        <translation>En ændring på mange QSO&apos;er kører allerede: vent, til den er færdig.</translation>
+    </message>
+    <message>
+        <source>(empty)</source>
+        <translation>(tom)</translation>
+    </message>
+    <message>
+        <source>%1 → %2 on %3 QSO (%4 unchanged, %5 failed)</source>
+        <translation>%1 → %2 i %3 QSO (%4 uændret, %5 fejlede)</translation>
+    </message>
+    <message>
+        <source>QSO #%1: %2</source>
+        <translation>QSO nr. %1: %2</translation>
+    </message>
+    <message>
+        <source>Merged %1 group(s) of duplicates: %2 QSO deleted (kept in history)</source>
+        <translation>%1 grupper af dubletter flettet: %2 QSO slettet (bliver i historikken)</translation>
+    </message>
+    <message>
         <source>An import is already running: wait for it to finish.</source>
         <translation>Der kører allerede en import: vent, til den er færdig.</translation>
     </message>
@@ -7971,7 +8852,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>%1 is not there.</source>
-        <translation type="unfinished">%1 er der ikke.</translation>
+        <translation>%1 er der ikke.</translation>
     </message>
     <message>
         <source>There is no log file to restore over.</source>
@@ -8062,6 +8943,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>%1: adgangskode eller nøgle ikke tilgængelig (%2)</translation>
     </message>
     <message>
+        <source>Keeping an eye on %1 (%2)</source>
+        <translation>Holder øje med %1 (%2)</translation>
+    </message>
+    <message>
         <source>Decodium log not found</source>
         <translation>Decodiums log ikke fundet</translation>
     </message>
@@ -8073,18 +8958,29 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <source>%1 · Decodium log not readable: %2</source>
         <translation>%1 · Decodiums log kan ikke læses: %2</translation>
     </message>
+    <message>
+        <source>%1 · %2 not readable: %3</source>
+        <translation>%1 · %2 kan ikke læses: %3</translation>
+    </message>
     <message numerus="yes">
         <source>%1 · %n QSO(s) recovered from the Decodium log</source>
         <translation>
             <numerusform>%1 · %n QSO hentet fra Decodiums log</numerusform>
-            <numerusform>%1 · %n QSO'er hentet fra Decodiums log</numerusform>
+            <numerusform>%1 · %n QSO&apos;er hentet fra Decodiums log</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%1 · nothing missing (%n QSO(s) checked)</source>
         <translation>
             <numerusform>%1 · intet mangler (%n QSO tjekket)</numerusform>
-            <numerusform>%1 · intet mangler (%n QSO'er tjekket)</numerusform>
+            <numerusform>%1 · intet mangler (%n QSO&apos;er tjekket)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from %2</source>
+        <translation>
+            <numerusform>%1 · %n QSO hentet fra %2</numerusform>
+            <numerusform>%1 · %n QSO&apos;er hentet fra %2</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -8101,6 +8997,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
         <translation>Hentet fra Decodiums log → %1 %2 %3 %4</translation>
+    </message>
+    <message>
+        <source>Recovered from %1 → %2 %3 %4 %5</source>
+        <translation>Hentet fra %1 → %2 %3 %4 %5</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
@@ -8179,7 +9079,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <name>decolog::app::NetController</name>
     <message>
         <source>off</source>
-        <translation type="unfinished"></translation>
+        <translation>fra</translation>
     </message>
     <message>
         <source>on the network %1 (UDP %2) as %3</source>
@@ -8428,6 +9328,21 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog: %1</translation>
+    </message>
+    <message>
+        <source>Wavelog: no station on the site yet</source>
+        <translation>Wavelog: der er endnu ingen station på webstedet</translation>
+    </message>
+    <message numerus="yes">
+        <source>Wavelog: %n station(s) on the site</source>
+        <translation>
+            <numerusform>Wavelog: %n station på webstedet</numerusform>
+            <numerusform>Wavelog: %n stationer på webstedet</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>CRX: %1</source>
         <translation>CRX: %1</translation>
     </message>
@@ -8482,8 +9397,28 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>ingen API-nøgle: Indstillinger → QSL-tjenester</translation>
     </message>
     <message>
+        <source>no address or API key: Setup → QSL services</source>
+        <translation>ingen adresse eller API-nøgle: Indstillinger → QSL-tjenester</translation>
+    </message>
+    <message>
+        <source>choose the Wavelog station: Setup → QSL services</source>
+        <translation>vælg Wavelog-stationen: Indstillinger → QSL-tjenester</translation>
+    </message>
+    <message>
         <source>choose the CRX logbook: Setup → QSL services</source>
         <translation>vælg CRX-logbogen: Opsætning → QSL-tjenester</translation>
+    </message>
+    <message>
+        <source>Wavelog: asking for the stations…</source>
+        <translation>Wavelog: spørger efter stationerne…</translation>
+    </message>
+    <message>
+        <source>Wavelog: address and API key are needed (%1)</source>
+        <translation>Wavelog: adresse og API-nøgle er nødvendige (%1)</translation>
+    </message>
+    <message>
+        <source>add them below</source>
+        <translation>tilføj dem nedenfor</translation>
     </message>
     <message>
         <source>CRX: asking for the logbooks…</source>
@@ -8888,6 +9823,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Ingen position for DX: skriv en lokator eller slå et kaldesignal op.</translation>
     </message>
     <message>
+        <source>VOACAP: %1</source>
+        <translation>VOACAP: %1</translation>
+    </message>
+    <message>
         <source>Solar data of %1</source>
         <translation>Soldata fra %1</translation>
     </message>
@@ -9103,6 +10042,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
 <context>
     <name>decolog::core::CloudSync</name>
     <message>
+        <source>This Cloud server does not know shared logs yet: it has to be updated.</source>
+        <translation>Denne Cloud-server kender endnu ikke delte logge: den skal opdateres.</translation>
+    </message>
+    <message>
         <source>This Cloud server does not know this request (%1): it is older than your DecoDXLog and has to be updated.</source>
         <translation>Denne Cloud-server kender ikke denne forespørgsel (%1): den er ældre end din DecoDXLog og skal opdateres.</translation>
     </message>
@@ -9241,6 +10184,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Upload til HRDLog.net: uploadkoden står i din HRDLog-profil, det er ikke adgangskoden</translation>
     </message>
     <message>
+        <source>Site address</source>
+        <translation>Webstedets adresse</translation>
+    </message>
+    <message>
+        <source>Upload to your Wavelog (or Cloudlog): the address of the site and a read/write API key</source>
+        <translation>Afsendelse til dit Wavelog (eller Cloudlog): webstedets adresse og en API-nøgle med læse/skrive-ret</translation>
+    </message>
+    <message>
         <source>The VHF, EME and low band chat (www.on4kst.info)</source>
         <translation>Chatten for VHF, EME og lave bånd (www.on4kst.info)</translation>
     </message>
@@ -9263,6 +10214,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
         <translation>Send QSL-kort med e-mail. Gmail vil have en app-adgangskode, ikke kontoens.</translation>
+    </message>
+    <message>
+        <source>Only for the QSOs of this profile; empty = the general account</source>
+        <translation>Kun til denne profils QSO&apos;er; tom = den generelle konto</translation>
     </message>
     <message>
         <source>Account saved</source>
@@ -9372,8 +10327,43 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Radioen tog ikke imod CW-teksten (rigctld: %1). Ikke enhver radio — og ikke enhver CAT-bro — kan nøgle CW: til makroerne skal rigctld tale med selve radioen.</translation>
     </message>
     <message>
+        <source>The radio does not take split from here (rigctld: %1)</source>
+        <translation>Radioen tager ikke imod split herfra (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not change VFO from here (rigctld: %1)</source>
+        <translation>Radioen skifter ikke VFO herfra (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not take RIT from here (rigctld: %1)</source>
+        <translation>Radioen tager ikke imod RIT herfra (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not take XIT from here (rigctld: %1)</source>
+        <translation>Radioen tager ikke imod XIT herfra (rigctld: %1)</translation>
+    </message>
+    <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>Radioen svarede med en fejl (rigctld: %1)</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::RigLink</name>
+    <message>
+        <source>This radio link does not do split</source>
+        <translation>Denne radioforbindelse kan ikke split</translation>
+    </message>
+    <message>
+        <source>This radio link cannot choose the VFO</source>
+        <translation>Denne radioforbindelse kan ikke vælge VFO</translation>
+    </message>
+    <message>
+        <source>This radio link does not do RIT</source>
+        <translation>Denne radioforbindelse kan ikke RIT</translation>
+    </message>
+    <message>
+        <source>This radio link does not do XIT</source>
+        <translation>Denne radioforbindelse kan ikke XIT</translation>
     </message>
 </context>
 <context>
@@ -9477,6 +10467,14 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
 </context>
 <context>
     <name>decolog::core::WebQslUploader</name>
+    <message>
+        <source>Wavelog: write the address of your Wavelog (Setup → QSL services)</source>
+        <translation>Wavelog: skriv adressen på dit Wavelog (Indstillinger → QSL-tjenester)</translation>
+    </message>
+    <message>
+        <source>write the address of your Wavelog</source>
+        <translation>skriv adressen på dit Wavelog</translation>
+    </message>
     <message>
         <source>Club Log: email, password, callsign and API key are all needed</source>
         <translation>Club Log: der skal bruges både e-mail, adgangskode, kaldesignal og API-nøgle</translation>

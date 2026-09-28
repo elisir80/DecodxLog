@@ -122,6 +122,70 @@
   </div>
 </form>
 
+{# Il log condiviso: un club, una gara multi-operatore. Fuori dal modulo delle
+   impostazioni, perche' ha i suoi pulsanti. #}
+<section class="panel team" style="margin-top:14px">
+  <h3 class="setup-title">Log condiviso</h3>
+  {% if viewing_shared %}
+  <p class="warn">Stai guardando il log di <b class="mono">{{ callsign }}</b> con l'account
+    <b class="mono">{{ user_callsign }}</b>: le impostazioni qui sopra sono di chi lo tiene e non si cambiano.
+    <a class="btn" href="/team/open/-">Torna al mio log</a></p>
+  {% endif %}
+
+  {% if new_invite %}
+  <p class="ok">Codice d'invito ({{ "operatore" if new_invite.role == "operator" else "osservatore" }}, vale fino al
+    {{ new_invite.expiresAt[:10] }}): <b class="mono big">{{ new_invite.code }}</b><br>
+    <span class="muted small">Si vede adesso e poi mai piu'. Chi lo riceve lo scrive in DecoDXLog:
+    Impostazioni → Sync e Cloud → Log condiviso → Entra con un codice.</span></p>
+  {% endif %}
+
+  <div class="tiles">
+    <div class="tile" style="min-width:260px">
+      <span>Chi scrive nel log di {{ user_callsign }}</span>
+      {% if team.members %}
+      <table class="rows">
+        {% for m in team.members %}
+        <tr>
+          <td class="mono">{{ m.callsign }}</td>
+          <td>{{ "operatore" if m.role == "operator" else "osservatore" }}</td>
+          <td class="dim small">dal {{ m.since[:10] }}</td>
+          <td><form method="post" action="/team/remove" style="display:inline">
+            <input type="hidden" name="callsign" value="{{ m.callsign }}">
+            <button type="submit" class="small">Togli</button></form></td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% else %}
+      <p class="dim">Solo tu.</p>
+      {% endif %}
+      {% if team.invites %}<p class="dim small">{{ team.invites|length }} inviti non ancora usati.</p>{% endif %}
+      <form method="post" action="/team/invite">
+        <select name="role">
+          <option value="operator">operatore: manda e prende i QSO</option>
+          <option value="viewer">osservatore: li guarda soltanto</option>
+        </select>
+        <button type="submit">Crea un invito</button>
+      </form>
+    </div>
+    <div class="tile" style="min-width:260px">
+      <span>I log dove scrivi tu</span>
+      {% if team.memberships %}
+      <table class="rows">
+        {% for m in team.memberships %}
+        <tr>
+          <td class="mono">{{ m.log }}</td>
+          <td>{{ "operatore" if m.role == "operator" else "osservatore" }}</td>
+          <td><a class="btn" href="/team/open/{{ m.log }}">Apri</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% else %}
+      <p class="dim">Nessuno: un club ti manda un codice, e il suo log compare qui.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
 <p class="muted small" style="margin-top:10px">
   Quello che si cambia qui finisce nel documento che DecoDXLog sincronizza, con una
   revisione in piu': al giro dopo il programma se lo riprende e si adegua da solo — il

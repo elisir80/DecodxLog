@@ -351,6 +351,101 @@ QVariantList parseCrxLogs(const QByteArray& body, QString* error)
     return out;
 }
 
+QString withoutKey(QString text, const QString& key)
+{
+    if (key.size() >= 4)
+        text.replace(key, QStringLiteral("***"), Qt::CaseInsensitive);
+    return text;
+}
+
+QUrl wavelogApiUrl(const QString& server, const QString& endpoint)
+{
+    QString base = server.trimmed();
+    if (base.isEmpty())
+        return {};
+    if (!base.contains(QLatin1String("://")))
+        base.prepend(QStringLiteral("https://"));
+    while (base.endsWith(QLatin1Char('/')))
+        base.chop(1);
+    // Chi incolla l'indirizzo dell'API intero non deve vederselo raddoppiato.
+    const qsizetype api = base.indexOf(QLatin1String("/index.php"));
+    if (api >= 0)
+        base.truncate(api);
+    return QUrl(base + QStringLiteral("/index.php/api/") + endpoint);
+}
+
+QslUploadResult parseWavelogResponse(int status, const QByteArray& body)
+{
+    QslUploadResult r;
+    const QJsonObject o = QJsonDocument::fromJson(body).object();
+    const QString state = o.value(QStringLiteral("status")).toString().toLower();
+    QStringList messages;
+    for (const QJsonValue& m : o.value(QStringLiteral("messages")).toArray())
+        messages << m.toString();
+    const QString reason = o.value(QStringLiteral("reason")).toString();
+    const QString said = !reason.isEmpty() ? reason : messages.join(QStringLiteral("; "));
+    if (state == QLatin1String("created") || ((status == 200 || status == 201) && state.isEmpty() && !body.isEmpty())) {
+        r.ok = true;
+        // Il doppione Wavelog lo dice nei messaggi, con la risposta "created".
+        const int errors = o.value(QStringLiteral("adif_errors")).toInt();
+        if (said.contains(QLatin1String("duplicate"), Qt::CaseInsensitive)) {
+            r.duplicates = 1;
+            r.message = QCoreApplication::translate("Qsl", "Wavelog: already there");
+        } else if (errors > 0) {
+            r.rejected = 1;
+            r.message = QCoreApplication::translate("Qsl", "Wavelog: %1").arg(said.left(160));
+        } else {
+            r.accepted = 1;
+            r.message = QCoreApplication::translate("Qsl", "Wavelog: sent");
+        }
+        return r;
+    }
+    // La chiave sbagliata o senza diritti di scrittura; "la stazione non e'
+    // della chiave" invece e' un problema della stazione scelta.
+    const bool keyProblem = status == 401 || status == 403
+                            || reason.contains(QLatin1String("missing api key"), Qt::CaseInsensitive)
+                            || reason.contains(QLatin1String("invalid api key"), Qt::CaseInsensitive)
+                            || reason.contains(QLatin1String("no rights"), Qt::CaseInsensitive);
+    if (keyProblem) {
+        r.message = QCoreApplication::translate("Qsl", "Wavelog: the API key is not valid or cannot write (%1)")
+                        .arg(said.isEmpty() ? QString::number(status) : said.left(120));
+        return r;
+    }
+    if (said.contains(QLatin1String("duplicate"), Qt::CaseInsensitive)) {
+        r.ok = true;
+        r.duplicates = 1;
+        r.message = QCoreApplication::translate("Qsl", "Wavelog: already there");
+        return r;
+    }
+    r.rejected = 1;
+    r.message = QCoreApplication::translate("Qsl", "Wavelog: %1")
+                    .arg(said.isEmpty() ? QStringLiteral("HTTP %1").arg(status) : said.left(160));
+    return r;
+}
+
+QVariantList parseWavelogStations(const QByteArray& body, QString* error)
+{
+    QVariantList out;
+    const QJsonDocument doc = QJsonDocument::fromJson(body);
+    if (!doc.isArray()) {
+        const QString reason = doc.object().value(QStringLiteral("reason")).toString();
+        if (error)
+            *error = reason.isEmpty() ? QCoreApplication::translate("Qsl", "unexpected answer") : reason;
+        return out;
+    }
+    for (const QJsonValue& v : doc.array()) {
+        const QJsonObject s = v.toObject();
+        out << QVariantMap{
+            {QStringLiteral("id"), s.value(QStringLiteral("station_id")).toVariant().toString()},
+            {QStringLiteral("name"), s.value(QStringLiteral("station_profile_name")).toString()},
+            {QStringLiteral("call"), s.value(QStringLiteral("station_callsign")).toString()},
+            {QStringLiteral("grid"), s.value(QStringLiteral("station_gridsquare")).toString()},
+            {QStringLiteral("active"), s.value(QStringLiteral("station_active")).toVariant().toString() == QLatin1String("1")},
+        };
+    }
+    return out;
+}
+
 QslUploadResult parseHrdLogResponse(const QByteArray& body)
 {
     QslUploadResult r;
@@ -581,6 +676,63 @@ void WebQslUploader::uploadHrdLog(const QString& callsign, const QString& upload
     send(Service::HrdLog, m_hrdLogUrl, body);
 }
 
+void WebQslUploader::uploadWavelog(const QString& server, const QString& apiKey, const QString& stationId,
+                                   const QString& adifRecord)
+{
+    if (m_busy)
+        return;
+    const QUrl url = qsl::wavelogApiUrl(server, QStringLiteral("qso"));
+    if (!url.isValid() || url.host().isEmpty()) {
+        QslUploadResult failed;
+        failed.message = tr("Wavelog: write the address of your Wavelog (Setup → QSL services)");
+        emit finished(failed);
+        return;
+    }
+    const QJsonObject body{{QStringLiteral("key"), apiKey},
+                           {QStringLiteral("station_profile_id"), stationId},
+                           {QStringLiteral("type"), QStringLiteral("adif")},
+                           {QStringLiteral("string"), adifRecord}};
+    m_busy = true;
+    QNetworkRequest request(url);
+    network::useHttp11(request);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/json"));
+    request.setHeader(QNetworkRequest::UserAgentHeader,
+                      QStringLiteral("DecoDXLog/%1").arg(QCoreApplication::applicationVersion()));
+    request.setTransferTimeout(30'000);
+    watch(m_net->post(request, QJsonDocument(body).toJson(QJsonDocument::Compact)), Service::Wavelog, 1);
+}
+
+void WebQslUploader::listWavelogStations(const QString& server, const QString& apiKey)
+{
+    const QUrl url = qsl::wavelogApiUrl(server, QStringLiteral("station_info/") + apiKey);
+    if (!url.isValid() || url.host().isEmpty()) {
+        emit wavelogStationsListed({}, tr("write the address of your Wavelog"));
+        return;
+    }
+    QNetworkRequest request(url);
+    network::useHttp11(request);
+    request.setHeader(QNetworkRequest::UserAgentHeader,
+                      QStringLiteral("DecoDXLog/%1").arg(QCoreApplication::applicationVersion()));
+    request.setTransferTimeout(30'000);
+    QNetworkReply* reply = m_net->get(request);
+    connect(reply, &QNetworkReply::finished, this, [this, reply, apiKey] {
+        reply->deleteLater();
+        const QByteArray body = reply->readAll();
+        const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        QString error;
+        QVariantList stations;
+        if (reply->error() != QNetworkReply::NoError && body.isEmpty()) {
+            // La chiave sta nell'indirizzo: non deve finire nel messaggio.
+            error = qsl::withoutKey(network::safeErrorString(reply), apiKey);
+        } else {
+            stations = qsl::parseWavelogStations(body, &error);
+            if (stations.isEmpty() && error.isEmpty() && status >= 400)
+                error = QStringLiteral("HTTP %1").arg(status);
+        }
+        emit wavelogStationsListed(stations, error);
+    });
+}
+
 void WebQslUploader::setClubLogEndpoints(const QUrl& realtime, const QUrl& batch)
 {
     m_clubLogRealtimeUrl = realtime;
@@ -760,11 +912,16 @@ void WebQslUploader::watch(QNetworkReply* reply, Service service, int qsoCount)
             emit finished(qsl::parseClubLogResponse(status, answer, qsoCount));
             return;
         }
-        if (reply->error() != QNetworkReply::NoError) {
+        // Wavelog dice il motivo nel corpo JSON anche con 400.
+        if (reply->error() != QNetworkReply::NoError && !(service == Service::Wavelog && status >= 400)) {
             QslUploadResult failed;
             failed.retryLater = true;
             failed.message = network::safeErrorString(reply);
             emit finished(failed);
+            return;
+        }
+        if (service == Service::Wavelog) {
+            emit finished(qsl::parseWavelogResponse(status, answer));
             return;
         }
         emit finished(service == Service::QrzLogbook ? qsl::parseQrzResponse(answer)

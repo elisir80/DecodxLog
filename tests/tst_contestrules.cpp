@@ -3,9 +3,12 @@
 // Ogni numero qui dentro viene dal regolamento, e il commento dice da quale
 // punto: un punteggio sbagliato non si vede guardando lo schermo, si vede
 // quando arriva la classifica, e allora e' tardi.
+#include "core/CallHistory.h"
 #include "core/ContestRules.h"
+#include "core/SharedSerials.h"
 
 #include <QTest>
+#include <QTimeZone>
 
 using namespace decolog::core;
 using namespace decolog::core::contestrules;
@@ -315,6 +318,103 @@ private slots:
         QVERIFY(checkExchange(sez, QStringLiteral("r 01")).isEmpty());
         QVERIFY(!checkExchange(sez, QStringLiteral("L1")).isEmpty());
         QVERIFY(!checkExchange(sez, QStringLiteral("123")).isEmpty());
+    }
+
+    void theEditionChangesTheRules()
+    {
+        // Il WPX: 36 ore su 48 da singolo, pause di almeno un'ora.
+        const ContestRules wpx = forId(QStringLiteral("CQ-WPX-CW"));
+        QCOMPARE(wpx.maxOperatingHours, 36);
+        QCOMPARE(wpx.minOffMinutes, 60);
+        QCOMPARE(forId(QStringLiteral("CQ-WPX-RTTY")).maxOperatingHours, 30);
+        QCOMPARE(forId(QStringLiteral("CQ-WW-CW")).maxOperatingHours, 0);
+        // Quest'anno: senza i 160 metri e il log entro tre giorni.
+        const ContestRules changed = withOverrides(forId(QStringLiteral("CQ-WW-CW")),
+                                                   {{"bands", QStringList{"80M", " 40m", "20m", "15m", "10m"}},
+                                                    {"submitHours", 72}, {"maxOperatingHours", 30}});
+        QCOMPARE(changed.bands, QStringList({"80m", "40m", "20m", "15m", "10m"}));
+        QCOMPARE(changed.submitHours, 72);
+        QCOMPARE(changed.maxOperatingHours, 30);
+        QCOMPARE(changed.exchange, ContestRules::Exchange::CqZone);   // il resto com'era
+        // Una gara senza scheda resta senza scheda.
+        QVERIFY(!withOverrides(forId(QStringLiteral("NOPE")), {{"submitHours", 5}}).valid);
+    }
+
+    void theTimeOnTheAir()
+    {
+        const ContestRules wpx = forId(QStringLiteral("CQ-WPX-SSB"));
+        const QDateTime t0(QDate(2026, 3, 28), QTime(0, 0), QTimeZone::UTC);
+        // Tre ore di fila (un QSO ogni 10 minuti), una pausa di 50 minuti (non
+        // conta: sotto l'ora), un'ora, una pausa di due ore (conta), un'altra ora.
+        QList<QDateTime> times;
+        QDateTime at = t0;
+        auto run = [&](int minutes) {
+            for (int m = 0; m <= minutes; m += 10)
+                times << at.addSecs(m * 60);
+            at = times.last();
+        };
+        run(180);
+        at = at.addSecs(50 * 60);
+        run(60);
+        at = at.addSecs(120 * 60);
+        run(60);
+        const OperatingTime t = operatingTime(wpx, times);
+        QCOMPARE(t.breaks, 1);
+        QCOMPARE(t.offMinutes, 120);
+        QCOMPARE(t.onMinutes, 180 + 50 + 60 + 60);
+        QCOMPARE(t.maxMinutes, 36 * 60);
+        QVERIFY(!t.over());
+        // Con un limite di quattro ore si e' fuori.
+        ContestRules tight = wpx;
+        tight.maxOperatingHours = 4;
+        QVERIFY(operatingTime(tight, times).over());
+        QCOMPARE(operatingTime(wpx, {t0}).onMinutes, 0);
+    }
+
+    void callHistoryFiles()
+    {
+        CallHistory h;
+        QVERIFY(h.loadText(QStringLiteral(
+            "# CQ WW call history, esempio\n"
+            "!!Order!!,Call,Name,Loc1,CQZone,ITUZone,Exch1,State,\n"
+            "W1AW,HIRAM,FN31,5,8,,CT,\n"
+            "iu8lmc,MARCO,JN71,15,28,NA,,\n"
+            "# a meta' file cambia l'ordine\n"
+            "!!Order!!,Call,Exch1\n"
+            "DA0HQ,DARC\n")));
+        QCOMPARE(h.size(), 3);
+        QCOMPARE(h.find(QStringLiteral("w1aw")).value(QStringLiteral("NAME")), QString("HIRAM"));
+        QCOMPARE(h.value(QStringLiteral("IU8LMC"), {QStringLiteral("CQZONE")}), QString("15"));
+        QCOMPARE(h.value(QStringLiteral("IU8LMC"), {QStringLiteral("STATE"), QStringLiteral("EXCH1")}), QString("NA"));
+        QCOMPARE(h.value(QStringLiteral("DA0HQ"), {QStringLiteral("EXCH1")}), QString("DARC"));
+        QVERIFY(h.find(QStringLiteral("K1ZZ")).isEmpty());
+        // Senza !!Order!! non si capisce niente.
+        CallHistory none;
+        QVERIFY(!none.loadText(QStringLiteral("W1AW,HIRAM\n")));
+    }
+
+    void oneSerialForTheWholeNetwork()
+    {
+        // Il distributore: il PC con l'identita' piu' piccola fra i presenti.
+        QVERIFY(SharedSerials::isServer(QStringLiteral("a1"), {QStringLiteral("b2"), QStringLiteral("c3")}));
+        QVERIFY(!SharedSerials::isServer(QStringLiteral("b2"), {QStringLiteral("a1")}));
+        QVERIFY(SharedSerials::isServer(QStringLiteral("b2"), {}));
+
+        SharedSerials server;
+        SharedSerials runner;
+        // Il distributore da' 1 al secondo PC, poi usa 2 per se'.
+        runner.reserve(server.serve());
+        QCOMPARE(server.take(1, true, true), 2);
+        // Il secondo PC usa quello che ha avuto, anche se il suo contatore dice 1.
+        QCOMPARE(runner.take(1, false, true), 1);
+        // Un QSO della rete con il 7: il prossimo del distributore e' 8.
+        server.note(7);
+        QCOMPARE(server.serve(), 8);
+        // Senza numero in tasca e senza rete: il piu' alto visto piu' uno.
+        runner.note(8);
+        QVERIFY(!runner.hasReserved());
+        QCOMPARE(runner.take(3, false, false), 9);
+        QCOMPARE(runner.highest(), 9);
     }
 };
 

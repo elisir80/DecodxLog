@@ -213,6 +213,31 @@ private slots:
         QVERIFY(rec->value("QSL_RCVD").isEmpty());
     }
 
+    void anAccountConfirmsOnlyItsProfiles()
+    {
+        // Due profili: IU8LMC (1) e un nominativo speciale (2) con il suo
+        // account. La conferma dell'account speciale tocca solo i QSO del 2.
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        StationProfile home;
+        home.name = "Casa";
+        home.stationCallsign = "IU8LMC";
+        const qint64 p1 = db.saveStationProfile(home);
+        StationProfile special;
+        special.name = "Speciale";
+        special.stationCallsign = "II8XYZ";
+        const qint64 p2 = db.saveStationProfile(special);
+        QVERIFY(p1 > 0 && p2 > 0);
+        const qint64 fromHome = db.insertQso(qso("K1ABC", "20m", "FT8", "", "20260910", "120300"), "import", {}, false, p1).id;
+
+        const auto eqsl = confirmations::eqslConfirmations(kEqslAdif);
+        // Solo il profilo 2: il QSO di casa non si tocca.
+        QCOMPARE(db.applyConfirmation("eqsl", eqsl.at(0), 1800, {p2}).status, ConfirmationResult::Status::NotFound);
+        // L'account generale, esclusi i profili con un account loro: si'.
+        QCOMPARE(db.applyConfirmation("eqsl", eqsl.at(0), 1800, {}, {p2}).status, ConfirmationResult::Status::Confirmed);
+        QCOMPARE(db.record(fromHome)->value("EQSL_QSL_RCVD"), QString("Y"));
+    }
+
     void downloadEqsl()
     {
         FakeServer server;
@@ -312,8 +337,9 @@ private slots:
     void qrzWrongKey()
     {
         FakeServer server;
+        // Come risponde logbook.qrz.com a una chiave sbagliata.
         server.answer = [](const FakeServer::Request&) {
-            return QByteArray("RESULT=AUTH&REASON=invalid api key ZZZZ-9999&EXTENDED=");
+            return QByteArray("STATUS=AUTH&RESULT=AUTH&REASON=invalid api key zzzz9999\n&EXTENDED=");
         };
         ConfirmationDownloader d;
         d.setEndpoints(server.url("/qslcard/DownloadInBox.cfm"), server.url("/api"));
@@ -324,6 +350,8 @@ private slots:
         QVERIFY(!report.ok);
         QVERIFY2(report.error.contains("API key"), qPrintable(report.error));
         QVERIFY2(!report.error.contains("ZZZZ-9999"), qPrintable(report.error));
+        // QRZ vero la ripete in minuscolo e senza trattini.
+        QVERIFY2(!report.error.contains("zzzz9999", Qt::CaseInsensitive), qPrintable(report.error));
         QVERIFY(!server.requests.at(0).form.queryItemValue("OPTION", QUrl::FullyDecoded).contains("MODSINCE"));
     }
 };

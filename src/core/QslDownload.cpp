@@ -115,6 +115,16 @@ QrzPage parseQrzFetch(const QByteArray& body)
     return page;
 }
 
+QString withoutSecret(QString text, const QString& secret)
+{
+    const QString bare = QString(secret).remove(QLatin1Char('-')).trimmed();
+    for (const QString& form : {secret.trimmed(), bare}) {
+        if (form.size() >= 4)
+            text.replace(form, QStringLiteral("***"), Qt::CaseInsensitive);
+    }
+    return text;
+}
+
 QList<AdifRecord> qrzConfirmations(const QList<AdifRecord>& records)
 {
     QList<AdifRecord> out;
@@ -222,8 +232,10 @@ void ConfirmationDownloader::downloadEqsl(const QString& user, const QString& pa
                 finish(report);
                 return;
             }
+            // "Error: No such Callsign found", o la password sbagliata.
             report.error = said.contains(QLatin1String("password"), Qt::CaseInsensitive)
                                    || said.contains(QLatin1String("username"), Qt::CaseInsensitive)
+                                   || said.contains(QLatin1String("callsign"), Qt::CaseInsensitive)
                                ? Tr::tr("eQSL: username or password incorrect (%1)").arg(said)
                                : Tr::tr("eQSL: the file was not prepared (%1)").arg(said);
             finish(report);
@@ -295,8 +307,7 @@ void ConfirmationDownloader::fetchQrzPage()
         const confirmations::QrzPage page = confirmations::parseQrzFetch(reply->readAll());
         if (!page.ok) {
             report.error = page.error;
-            if (!m_qrzKey.isEmpty())
-                report.error.replace(m_qrzKey, QStringLiteral("***"));
+            report.error = confirmations::withoutSecret(report.error, m_qrzKey);
             finish(report);
             return;
         }

@@ -129,7 +129,7 @@ Rectangle {
                     onTriggered: root.chatRequested()
                 }
                 MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
-                StyledMenuItem { text: qsTr("Import ADIF…"); onTriggered: root.importRequested() }
+                StyledMenuItem { text: qsTr("Import a log (ADIF, CSV, N1MM)…"); onTriggered: root.importRequested() }
                 StyledMenuItem { text: qsTr("Export ADIF…"); onTriggered: root.exportRequested() }
                 StyledMenuItem { text: qsTr("Open the log folder"); onTriggered: root.logFolderRequested() }
                 MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
@@ -222,6 +222,85 @@ Rectangle {
                         }
                         onObjectAdded: (index, object) => modeMenu.insertItem(index, object)
                         onObjectRemoved: (index, object) => modeMenu.removeItem(object)
+                    }
+                }
+            }
+            // Split, VFO, RIT e XIT della radio: solo quello che il
+            // collegamento sa fare (features: 1 split, 2 VFO, 4 RIT, 8 XIT).
+            Pill {
+                id: splitPill
+                visible: decolog.rig.connected && (decolog.rig.features & 1)
+                text: decolog.rig.split
+                      ? "SPLIT " + (decolog.rig.txFrequencyHz > 0 ? (decolog.rig.txFrequencyHz / 1e6).toFixed(3) : "")
+                      : "SPLIT"
+                tone: decolog.rig.split ? Theme.warningColor : Theme.textSecondary
+                rounded: false
+                pillHeight: 26
+                fontPixelSize: 11
+                interactive: true
+                onClicked: splitMenu.opened ? splitMenu.close() : splitMenu.popup(splitPill, 0, splitPill.height + 6)
+                StyledMenu {
+                    id: splitMenu
+                    StyledMenuItem { text: qsTr("Split off"); enabled: decolog.rig.split; onTriggered: decolog.rig.setSplit(false, 0) }
+                    Repeater {
+                        model: [1000, 2000, 5000, 10000, -1000, -5000]
+                        delegate: StyledMenuItem {
+                            required property int modelData
+                            text: modelData > 0 ? qsTr("TX up %1 kHz").arg(modelData / 1000)
+                                                : qsTr("TX down %1 kHz").arg(-modelData / 1000)
+                            onTriggered: decolog.rig.splitUp(modelData)
+                        }
+                    }
+                }
+            }
+            Pill {
+                visible: decolog.rig.connected && (decolog.rig.features & 2)
+                text: decolog.rig.vfo === "VFOB" ? "VFO B" : "VFO A"
+                tone: decolog.rig.vfo === "VFOB" ? Theme.warningColor : Theme.textSecondary
+                rounded: false
+                pillHeight: 26
+                fontPixelSize: 11
+                interactive: true
+                onClicked: decolog.rig.swapVfo()
+            }
+            Pill {
+                id: ritPill
+                readonly property bool hasRit: (decolog.rig.features & 4) !== 0
+                readonly property bool hasXit: (decolog.rig.features & 8) !== 0
+                visible: decolog.rig.connected && (hasRit || hasXit)
+                text: decolog.rig.ritHz !== 0 ? "RIT " + (decolog.rig.ritHz > 0 ? "+" : "") + decolog.rig.ritHz
+                    : decolog.rig.xitHz !== 0 ? "XIT " + (decolog.rig.xitHz > 0 ? "+" : "") + decolog.rig.xitHz
+                    : (hasRit ? "RIT" : "XIT")
+                tone: decolog.rig.ritHz !== 0 || decolog.rig.xitHz !== 0 ? Theme.warningColor : Theme.textSecondary
+                rounded: false
+                pillHeight: 26
+                fontPixelSize: 11
+                interactive: true
+                onClicked: ritMenu.opened ? ritMenu.close() : ritMenu.popup(ritPill, 0, ritPill.height + 6)
+                StyledMenu {
+                    id: ritMenu
+                    StyledMenuItem {
+                        text: qsTr("RIT and XIT off")
+                        onTriggered: {
+                            if (ritPill.hasRit) decolog.rig.setRit(0)
+                            if (ritPill.hasXit) decolog.rig.setXit(0)
+                        }
+                    }
+                    Repeater {
+                        model: ritPill.hasRit ? [500, 200, 100, -100, -200, -500] : []
+                        delegate: StyledMenuItem {
+                            required property int modelData
+                            text: "RIT " + (modelData > 0 ? "+" : "") + modelData + " Hz"
+                            onTriggered: decolog.rig.setRit(decolog.rig.ritHz + modelData)
+                        }
+                    }
+                    Repeater {
+                        model: ritPill.hasXit ? [500, 200, 100, -100, -200, -500] : []
+                        delegate: StyledMenuItem {
+                            required property int modelData
+                            text: "XIT " + (modelData > 0 ? "+" : "") + modelData + " Hz"
+                            onTriggered: decolog.rig.setXit(decolog.rig.xitHz + modelData)
+                        }
                     }
                 }
             }

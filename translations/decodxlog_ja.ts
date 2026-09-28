@@ -178,6 +178,18 @@
         <translation>コンテストとアクティベーション</translation>
     </message>
     <message>
+        <source>Call history file (N1MM format)</source>
+        <translation>コールヒストリーファイル（N1MM 形式）</translation>
+    </message>
+    <message>
+        <source>Call history (*.txt *.csv)</source>
+        <translation>コールヒストリー (*.txt *.csv)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>すべてのファイル (*)</translation>
+    </message>
+    <message>
         <source>pick it from the list</source>
         <translation>一覧から選んでください</translation>
     </message>
@@ -216,6 +228,50 @@
     <message>
         <source>Next</source>
         <translation>次</translation>
+    </message>
+    <message>
+        <source>Shared on the network</source>
+        <translation>ネットワークで共有</translation>
+    </message>
+    <message>
+        <source>Bands of this edition</source>
+        <translation>この回のバンド</translation>
+    </message>
+    <message>
+        <source>Operating hours</source>
+        <translation>運用時間</translation>
+    </message>
+    <message>
+        <source>no limit</source>
+        <translation>制限なし</translation>
+    </message>
+    <message>
+        <source>Off-time from (min)</source>
+        <translation>休止とみなす時間（分）</translation>
+    </message>
+    <message>
+        <source>Log within (h)</source>
+        <translation>ログ提出期限（時間）</translation>
+    </message>
+    <message>
+        <source>Call history</source>
+        <translation>コールヒストリー</translation>
+    </message>
+    <message>
+        <source>%1 · %2 calls</source>
+        <translation>%1 · %2 局</translation>
+    </message>
+    <message>
+        <source>none: the exchange is suggested from the log and the country</source>
+        <translation>なし: 交換はログと国から提案</translation>
+    </message>
+    <message>
+        <source>Load…</source>
+        <translation>読み込み…</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>外す</translation>
     </message>
     <message>
         <source>The QSOs get CONTEST_ID and the serial number sent (STX). The number received goes in the New QSO panel.</source>
@@ -301,6 +357,12 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>リファレンスは SIG/SIG_INFO (SIG = %1) か「%1 LI-001」のようなコメントから読み取ります。</translation>
+    </message>
+    <message numerus="yes">
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC. %n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.</source>
+        <translation>
+            <numerusform>ARRL ルール: 60 m の QSO は数えず、eQSL は DXCC の確認になりません。削除エンティティや ARRL が認めていない運用（Club Log）の QSO %n 件は除外されます。</numerusform>
+        </translation>
     </message>
     <message>
         <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
@@ -408,6 +470,26 @@
     <message>
         <source>All tags</source>
         <translation>すべてのタグ</translation>
+    </message>
+    <message>
+        <source>Valid for %1</source>
+        <translation>%1 に有効</translation>
+    </message>
+    <message>
+        <source>chosen by you</source>
+        <translation>あなたが選択</translation>
+    </message>
+    <message>
+        <source>the rules of the award</source>
+        <translation>アワードのルール</translation>
+    </message>
+    <message>
+        <source>the general choice above</source>
+        <translation>上の全体設定</translation>
+    </message>
+    <message>
+        <source>Back to the rules</source>
+        <translation>ルールに戻す</translation>
     </message>
     <message>
         <source>State</source>
@@ -652,6 +734,41 @@
     </message>
 </context>
 <context>
+    <name>BulkEditDialog</name>
+    <message>
+        <source>CHANGE A FIELD ON %1 QSO</source>
+        <translation>%1 件の QSO のフィールドを変更</translation>
+    </message>
+    <message>
+        <source>The same value on every QSO chosen. Each QSO keeps the old value in its history, so the change can be undone QSO by QSO from its card. Leave the value empty to clear the field.</source>
+        <translation>選んだすべての QSO に同じ値を入れます。各 QSO は以前の値を履歴に残すので、変更は QSO ごとにカードから元に戻せます。値を空にするとフィールドを空にします。</translation>
+    </message>
+    <message>
+        <source>Field</source>
+        <translation>フィールド</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>値</translation>
+    </message>
+    <message>
+        <source>Only where the field is empty</source>
+        <translation>フィールドが空のところだけ</translation>
+    </message>
+    <message>
+        <source>With this many QSO the change runs in the background: the log stays usable and the progress shows in its header.</source>
+        <translation>これだけ多い QSO では変更はバックグラウンドで行われます。ログはそのまま使え、進み具合はヘッダーに表示されます。</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>やめる</translation>
+    </message>
+    <message>
+        <source>Change %1 QSO</source>
+        <translation>%1 件の QSO を変更</translation>
+    </message>
+</context>
+<context>
     <name>Cabrillo</name>
     <message>
         <source>The station callsign is missing</source>
@@ -814,7 +931,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">送る</translation>
+        <translation>送る</translation>
     </message>
 </context>
 <context>
@@ -1393,7 +1510,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>CW macros</source>
-        <translation type="unfinished">CW マクロ</translation>
+        <translation>CW マクロ</translation>
     </message>
     <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
@@ -1401,11 +1518,11 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>Default macros</source>
-        <translation type="unfinished">はじめのマクロ</translation>
+        <translation>はじめのマクロ</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">閉じる</translation>
+        <translation>閉じる</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -1464,6 +1581,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>%1 · ログ</translation>
     </message>
     <message>
+        <source>%1 · history</source>
+        <translation>%1 · 履歴</translation>
+    </message>
+    <message>
         <source>%1 · country</source>
         <translation>%1 · 国</translation>
     </message>
@@ -1477,7 +1598,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>Downloading…</source>
-        <translation type="unfinished">取り込んでいます…</translation>
+        <translation>取り込んでいます…</translation>
     </message>
     <message>
         <source>Download MASTER.SCP</source>
@@ -1568,7 +1689,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">送る</translation>
+        <translation>送る</translation>
     </message>
     <message>
         <source>Spot %1</source>
@@ -1706,6 +1827,18 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>%1 QSO</source>
         <translation>%1 QSO</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 of %2 · %n break(s)</source>
+        <translation>
+            <numerusform>運用 %1 / %2 · 休止 %n 回</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 · %n break(s)</source>
+        <translation>
+            <numerusform>運用 %1 · 休止 %n 回</numerusform>
+        </translation>
     </message>
     <message>
         <source>Export…</source>
@@ -1892,6 +2025,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>%1 · log</source>
         <translation>%1 · ログ</translation>
+    </message>
+    <message>
+        <source>%1 · history</source>
+        <translation>%1 · 履歴</translation>
     </message>
     <message>
         <source>%1 · country</source>
@@ -2185,6 +2322,89 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>DuplicatesDialog</name>
+    <message>
+        <source>DUPLICATE QSO</source>
+        <translation>重複 QSO</translation>
+    </message>
+    <message>
+        <source>Same call, band, kind of mode (CW, phone, digital) and station profile, within the minutes chosen. Of each group one QSO is kept — a click on a row chooses which — and it takes from the others what it is missing: fields, confirmations, tags. The others are deleted; they stay in the history and can be recovered.</source>
+        <translation>同じコール、バンド、モードの種類（CW、フォーン、デジタル）、局プロファイルで、選んだ分数以内のもの。各グループで 1 件の QSO を残し（行をクリックして選択）、足りないもの（フィールド、確認、タグ）を他から受け取ります。他は削除されますが、履歴に残り復元できます。</translation>
+    </message>
+    <message>
+        <source>Within</source>
+        <translation>範囲</translation>
+    </message>
+    <message>
+        <source>minutes</source>
+        <translation>分</translation>
+    </message>
+    <message>
+        <source>Searching…</source>
+        <translation>検索中…</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>検索</translation>
+    </message>
+    <message>
+        <source>No duplicates within %1 minutes</source>
+        <translation>%1 分以内に重複はありません</translation>
+    </message>
+    <message>
+        <source>The first %1 groups: merge them and search again for the rest</source>
+        <translation>最初の %1 グループ: 統合してから残りをもう一度検索してください</translation>
+    </message>
+    <message>
+        <source>%1 groups found, %2 ticked</source>
+        <translation>%1 グループ発見、%2 件にチェック</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>KEEP</source>
+        <translation>残す</translation>
+    </message>
+    <message>
+        <source>merge</source>
+        <translation>統合</translation>
+    </message>
+    <message>
+        <source>confirmed: %1</source>
+        <translation>確認済み: %1</translation>
+    </message>
+    <message>
+        <source>%1 fields</source>
+        <translation>%1 フィールド</translation>
+    </message>
+    <message>
+        <source>Reading the whole log…</source>
+        <translation>ログ全体を読み込み中…</translation>
+    </message>
+    <message>
+        <source>Nothing to merge.</source>
+        <translation>統合するものはありません。</translation>
+    </message>
+    <message>
+        <source>Choose the minutes and press Search.</source>
+        <translation>分数を選んで検索を押してください。</translation>
+    </message>
+    <message>
+        <source>A double click opens the QSO.</source>
+        <translation>ダブルクリックで QSO を開きます。</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>閉じる</translation>
+    </message>
+    <message>
+        <source>Merge %1 groups</source>
+        <translation>%1 グループを統合</translation>
+    </message>
+</context>
+<context>
     <name>DvkPanel</name>
     <message>
         <source>Voice keyer</source>
@@ -2224,7 +2444,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>never</source>
-        <translation type="unfinished">まだ一度も</translation>
+        <translation>まだ一度も</translation>
     </message>
     <message>
         <source>CQ loop</source>
@@ -2232,7 +2452,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>停止</translation>
     </message>
 </context>
 <context>
@@ -2482,6 +2702,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>インポート中 %1%</translation>
     </message>
     <message>
+        <source>Sorting…</source>
+        <translation>並べ替え中…</translation>
+    </message>
+    <message>
+        <source>Changing %1%</source>
+        <translation>変更中 %1%</translation>
+    </message>
+    <message>
         <source>%1 QSO · %2 shown</source>
         <translation>%1 QSO · %2 件表示</translation>
     </message>
@@ -2548,6 +2776,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>表示中の %1 件の QSO を ADIF に書き出す…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO shown…</source>
+        <translation>表示中の %1 件の QSO のフィールドを変更…</translation>
+    </message>
+    <message>
+        <source>Find duplicate QSO…</source>
+        <translation>重複 QSO を探す…</translation>
     </message>
     <message>
         <source>Complete the QSO shown from the callbook…</source>
@@ -2748,6 +2984,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Delete the %1 QSO selected…</source>
         <translation>選んだ %1 件の QSO を削除…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO selected…</source>
+        <translation>選択した %1 件の QSO のフィールドを変更…</translation>
+    </message>
+    <message>
+        <source>Change a field…</source>
+        <translation>フィールドを変更…</translation>
     </message>
     <message>
         <source>Complete from the callbook</source>
@@ -3005,12 +3249,24 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>はめ込み</translation>
     </message>
     <message>
-        <source>Import ADIF</source>
-        <translation>ADIFを取り込む</translation>
+        <source>Import a log</source>
+        <translation>ログをインポート</translation>
     </message>
     <message>
         <source>ADIF files (*.adi *.adif)</source>
         <translation>ADIF ファイル (*.adi *.adif)</translation>
+    </message>
+    <message>
+        <source>Logs (*.adi *.adif *.csv *.tsv *.s3db)</source>
+        <translation>ログ (*.adi *.adif *.csv *.tsv *.s3db)</translation>
+    </message>
+    <message>
+        <source>Spreadsheets (*.csv *.tsv)</source>
+        <translation>表計算 (*.csv *.tsv)</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ databases (*.s3db)</source>
+        <translation>N1MM Logger+ データベース (*.s3db)</translation>
     </message>
     <message>
         <source>All files (*)</source>
@@ -3472,7 +3728,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>%1°</source>
-        <translation type="unfinished">%1°</translation>
+        <translation>%1°</translation>
     </message>
     <message numerus="yes">
         <source>%n hop(s)</source>
@@ -3489,8 +3745,16 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>SFI %1</translation>
     </message>
     <message>
+        <source>VOACAP computing…</source>
+        <translation>VOACAP 計算中…</translation>
+    </message>
+    <message>
         <source>Locator</source>
         <translation>ロケーター</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · reliability %4% · SNR %5 dB</source>
+        <translation>%1 · %2 UTC · MUF %3 MHz · 信頼度 %4% · SNR %5 dB</translation>
     </message>
     <message>
         <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
@@ -3498,11 +3762,11 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>good</source>
-        <translation type="unfinished">よい</translation>
+        <translation>よい</translation>
     </message>
     <message>
         <source>fair</source>
-        <translation type="unfinished">まあまあ</translation>
+        <translation>まあまあ</translation>
     </message>
     <message>
         <source>marginal</source>
@@ -3510,11 +3774,59 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>closed</source>
-        <translation type="unfinished">閉じています</translation>
+        <translation>閉じています</translation>
+    </message>
+    <message>
+        <source>VOACAP (ITS): the chance of a %1 QSO with %2 W and %3 dBi antennas; 160 and 6 m from the simple model.</source>
+        <translation>VOACAP (ITS): %2 W、%3 dBi のアンテナで %1 の QSO ができる確率。160 m と 6 m は簡易モデル。</translation>
+    </message>
+    <message>
+        <source>VOACAP failed (%1): simplified F2 model.</source>
+        <translation>VOACAP 失敗 (%1): 簡易 F2 モデル。</translation>
     </message>
     <message>
         <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
         <translation>簡易 F2 モデル (MUF/LUF)、VOACAP ではありません: バンドが開く目安であり保証ではありません。</translation>
+    </message>
+    <message>
+        <source>%1 W</source>
+        <translation>%1 W</translation>
+    </message>
+    <message>
+        <source>0 dBi (vertical)</source>
+        <translation>0 dBi（バーチカル）</translation>
+    </message>
+    <message>
+        <source>2 dBi (dipole)</source>
+        <translation>2 dBi（ダイポール）</translation>
+    </message>
+    <message>
+        <source>5 dBi (2-el beam)</source>
+        <translation>5 dBi（2 エレ ビーム）</translation>
+    </message>
+    <message>
+        <source>8 dBi (3-el beam)</source>
+        <translation>8 dBi（3 エレ ビーム）</translation>
+    </message>
+    <message>
+        <source>11 dBi (big beam)</source>
+        <translation>11 dBi（大型ビーム）</translation>
+    </message>
+    <message>
+        <source>noise: city</source>
+        <translation>ノイズ: 都市</translation>
+    </message>
+    <message>
+        <source>noise: residential</source>
+        <translation>ノイズ: 住宅地</translation>
+    </message>
+    <message>
+        <source>noise: rural</source>
+        <translation>ノイズ: 郊外</translation>
+    </message>
+    <message>
+        <source>noise: quiet</source>
+        <translation>ノイズ: 静か</translation>
     </message>
 </context>
 <context>
@@ -3691,6 +4003,22 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>unexpected answer</source>
         <translation>予期しない応答</translation>
+    </message>
+    <message>
+        <source>Wavelog: already there</source>
+        <translation>Wavelog: すでにあります</translation>
+    </message>
+    <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog: %1</translation>
+    </message>
+    <message>
+        <source>Wavelog: sent</source>
+        <translation>Wavelog: 送りました</translation>
+    </message>
+    <message>
+        <source>Wavelog: the API key is not valid or cannot write (%1)</source>
+        <translation>Wavelog: API キーが正しくないか、書き込めません (%1)</translation>
     </message>
     <message>
         <source>HRDLog: sent</source>
@@ -4691,7 +5019,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>All files (*)</source>
-        <translation type="unfinished">すべてのファイル (*)</translation>
+        <translation>すべてのファイル (*)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -4763,7 +5091,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">閉じる</translation>
+        <translation>閉じる</translation>
     </message>
 </context>
 <context>
@@ -6165,8 +6493,200 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>ポートが開いていません</translation>
     </message>
     <message>
+        <source>An ADIF log to keep an eye on</source>
+        <translation>見張る ADIF ログ</translation>
+    </message>
+    <message>
+        <source>Club Log cty.xml</source>
+        <translation>Club Log の cty.xml</translation>
+    </message>
+    <message>
+        <source>QSOs of another entity on that date</source>
+        <translation>その日付では別エンティティの QSO</translation>
+    </message>
+    <message>
+        <source>Working…</source>
+        <translation>処理中…</translation>
+    </message>
+    <message>
+        <source>Update cty.xml</source>
+        <translation>cty.xml を更新</translation>
+    </message>
+    <message>
+        <source>Check the entities with the dates</source>
+        <translation>日付でエンティティを確認</translation>
+    </message>
+    <message>
+        <source>Correct %1 QSO</source>
+        <translation>%1 件の QSO を修正</translation>
+    </message>
+    <message>
+        <source>%1 QSO corrected, each kept as a new revision.</source>
+        <translation>%1 件の QSO を修正し、それぞれ新しいリビジョンとして保存しました。</translation>
+    </message>
+    <message>
+        <source>deleted</source>
+        <translation>削除済み</translation>
+    </message>
+    <message>
+        <source>With the Club Log API key (QSL services) DecoDXLog downloads Club Log&apos;s cty.xml every week: the entities with their dates, so a QSO of 2005 with PJ2 is the Netherlands Antilles and not Curacao, operations the ARRL did not accept do not count for DXCC, and deleted entities are shown but not counted.</source>
+        <translation>Club Log の API キー（QSL サービス）があれば、DecoDXLog は毎週 Club Log の cty.xml をダウンロードします。エンティティとその日付により、2005 年の PJ2 との QSO はキュラソーではなくオランダ領アンティルとなり、ARRL が認めなかった運用は DXCC に数えず、削除エンティティは表示しても数えません。</translation>
+    </message>
+    <message>
+        <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
+        <translation>毎週 Club Log から。新しい QSO はその日付のエンティティになります。確認ではログと日付を比べ、空だったか今日の cty.csv が入れた DXCC だけを修正します。LoTW やあなたが書いたものはそのままです。</translation>
+    </message>
+    <message>
+        <source>Forward to other programs</source>
+        <translation>ほかのプログラムへ転送</translation>
+    </message>
+    <message>
+        <source>e.g. 127.0.0.1:2238, 127.0.0.1:2333 — empty = off</source>
+        <translation>例: 127.0.0.1:2238, 127.0.0.1:2333 — 空欄 = 切</translation>
+    </message>
+    <message>
+        <source>Every packet from Decodium also goes to these programs (JTAlert, GridTracker, HamLog…), and their answers (reply to a caller, halt TX) go back to Decodium. So Decodium sends to one port only and everybody gets it.</source>
+        <translation>Decodium の各パケットはこれらのプログラム (JTAlert、GridTracker、HamLog…) にも届き、その返事 (呼んでいる局への応答、TX 停止) は Decodium に戻ります。こうして Decodium は一つのポートに送るだけで、全員が受け取ります。</translation>
+    </message>
+    <message>
         <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
         <translation>Decodium はすべての QSO を自分の ADIF ログにも書きます。DecoDXLog が閉じていたり受信できていなかったり(ポート違い、ネットワーク断)した場合、その QSO はそこにしか残りません。5 分ごとに DecoDXLog は前回の確認以降に記録された QSO を読み、ここにもリストのほかのログにもないものを保存します。ここで直したり消したりした QSO は戻りません。初回は 1 週間前までさかのぼり、ボタンでさらに前まで見ます。空欄 = Decodium が使っているログ。</translation>
+    </message>
+    <message>
+        <source>Other ADIF logs to keep an eye on</source>
+        <translation>ほかに見張る ADIF ログ</translation>
+    </message>
+    <message>
+        <source>not found: %1</source>
+        <translation>見つかりません: %1</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>外す</translation>
+    </message>
+    <message>
+        <source>Add a file…</source>
+        <translation>ファイルを追加…</translation>
+    </message>
+    <message>
+        <source>Add %1</source>
+        <translation>%1 を追加</translation>
+    </message>
+    <message>
+        <source>The QSOs that other programs (fldigi, WSJT-X, JTDX…) write in these logs and that are missing here are saved every 5 minutes, from the moment the file is added. For the older ones, “Check the whole file”.</source>
+        <translation>ほかのプログラム (fldigi、WSJT-X、JTDX…) がこれらのログに書き、ここにない QSO は、ファイルを追加したときから 5 分ごとに保存されます。それより前のものは「ファイル全体を確認」で。</translation>
+    </message>
+    <message>
+        <source>UDP port (0 = off)</source>
+        <translation>UDP ポート (0 = 切)</translation>
+    </message>
+    <message>
+        <source>listening</source>
+        <translation>待ち受け中</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ sends every contact on this port (Config → Configure Ports → Broadcast Data → Contacts, usually 12060). A contact corrected or deleted in N1MM is corrected or deleted here too.</source>
+        <translation>N1MM Logger+ はすべての交信をこのポートに送ります (Config → Configure Ports → Broadcast Data → Contacts、ふつうは 12060)。N1MM で直したり消したりした交信は、ここでも直るか消えます。</translation>
+    </message>
+    <message>
+        <source>Local interface for other programs</source>
+        <translation>ほかのプログラム向けのローカル窓口</translation>
+    </message>
+    <message>
+        <source>Port on 127.0.0.1 (0 = off)</source>
+        <translation>127.0.0.1 のポート (0 = 切)</translation>
+    </message>
+    <message>
+        <source>Key (X-DecoDXLog-Token)</source>
+        <translation>キー (X-DecoDXLog-Token)</translation>
+    </message>
+    <message>
+        <source>New key</source>
+        <translation>新しいキー</translation>
+    </message>
+    <message>
+        <source>For programs next to DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, and POST /api/v1/qso with an ADIF record to log it. Only from this computer, and always with the key. Details: docs/API.md.</source>
+        <translation>DecoDXLog のそばで動くプログラム向け: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…、それに記録するための ADIF レコード付きの POST /api/v1/qso。このコンピューターからだけ、いつもキー付きで。詳しくは docs/API.md。</translation>
+    </message>
+    <message>
+        <source>Shared log</source>
+        <translation>共有ログ</translation>
+    </message>
+    <message>
+        <source>A club station, a multi-operator contest: one log, several operators, each with their own Cloud account — nobody lends a password. The owner of the log creates an invite, whoever gets the code joins with it. Only QSOs travel: profiles, settings and service passwords stay with the owner.</source>
+        <translation>クラブ局、マルチオペのコンテスト: 1 つのログを複数のオペレーターが、それぞれ自分の Cloud アカウントで使います。パスワードを貸す必要はありません。ログの持ち主が招待を作り、コードを受け取った人がそれで参加します。送られるのは QSO だけで、プロファイル、設定、サービスのパスワードは持ち主のところに残ります。</translation>
+    </message>
+    <message>
+        <source>This log syncs with</source>
+        <translation>このログの同期先</translation>
+    </message>
+    <message>
+        <source>my own log (%1)</source>
+        <translation>自分のログ（%1）</translation>
+    </message>
+    <message>
+        <source>the shared log of %1</source>
+        <translation>%1 の共有ログ</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>更新</translation>
+    </message>
+    <message>
+        <source>The QSOs of this log go to the log of %1, and its QSOs come here: keep a log just for it (Log → New log).</source>
+        <translation>このログの QSO は %1 のログへ行き、そちらの QSO がここへ来ます。専用のログを用意してください（ログ → 新しいログ）。</translation>
+    </message>
+    <message>
+        <source>Invite code, e.g. K7Q2-9XMP-D4TA</source>
+        <translation>招待コード（例: K7Q2-9XMP-D4TA）</translation>
+    </message>
+    <message>
+        <source>Join with the code</source>
+        <translation>コードで参加</translation>
+    </message>
+    <message>
+        <source>operator: sends and gets the QSOs</source>
+        <translation>オペレーター: QSO を送受信</translation>
+    </message>
+    <message>
+        <source>viewer: only looks</source>
+        <translation>閲覧者: 見るだけ</translation>
+    </message>
+    <message>
+        <source>Invite into the log of %1</source>
+        <translation>%1 のログに招待</translation>
+    </message>
+    <message>
+        <source>Code %1 — %2, valid until %3</source>
+        <translation>コード %1 — %2、%3 まで有効</translation>
+    </message>
+    <message>
+        <source>viewer</source>
+        <translation>閲覧者</translation>
+    </message>
+    <message>
+        <source>operator</source>
+        <translation>オペレーター</translation>
+    </message>
+    <message>
+        <source>viewer in your log</source>
+        <translation>あなたのログの閲覧者</translation>
+    </message>
+    <message>
+        <source>operator in your log</source>
+        <translation>あなたのログのオペレーター</translation>
+    </message>
+    <message>
+        <source>you look at its log</source>
+        <translation>そのログを見ています</translation>
+    </message>
+    <message>
+        <source>you write in its log</source>
+        <translation>そのログに書いています</translation>
+    </message>
+    <message>
+        <source>Leave</source>
+        <translation>脱退</translation>
     </message>
     <message>
         <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
@@ -6195,6 +6715,22 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
         <translation>eQSL: 受信箱に届いた eQSL です。SWL の受信報告は除きます。QRZ Logbook: QRZ 上のあなたのログブックのうち、相手局が確認した QSO です。前回の取り込みの後に届いたものだけです。自動の取り込みは、資格情報がそろっているサービスだけで動きます(下にあるもので、送信と同じです)。LoTW の確認と同じやり方で突き合わせます。紙の QSL の項目には触れません。</translation>
+    </message>
+    <message>
+        <source>Station on Wavelog</source>
+        <translation>Wavelog のステーション</translation>
+    </message>
+    <message>
+        <source>station %1</source>
+        <translation>ステーション %1</translation>
+    </message>
+    <message>
+        <source>Load my stations</source>
+        <translation>自分のステーションを読み込む</translation>
+    </message>
+    <message>
+        <source>Wavelog (and Cloudlog) is the web log on your own site. Below it wants the address of the site (for example log.mysite.org) and an API key with read and write rights, made in Wavelog under Account → API keys; then the station to write in. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>Wavelog (と Cloudlog) は自分のサイトで動くウェブのログです。下にサイトのアドレス (例: log.mysite.jp) と、Wavelog の Account → API keys で作った読み書きできる API キーを入れ、次に書き込むステーションを選びます。送信、自動送信、件数は下の QSL タブにあります。</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -6326,7 +6862,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished">住所</translation>
+        <translation>住所</translation>
     </message>
     <message>
         <source>SO2R box (OTRSP)</source>
@@ -6595,6 +7131,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>LoTW station location (TQSL)</translation>
     </message>
     <message>
+        <source>QSL accounts of this profile</source>
+        <translation>このプロファイルの QSL アカウント</translation>
+    </message>
+    <message>
+        <source>Save the profile first: then it can have its own QRZ Logbook and eQSL accounts.</source>
+        <translation>まずプロファイルを保存してください。そのあと専用の QRZ Logbook と eQSL のアカウントを持てます。</translation>
+    </message>
+    <message>
         <source>Used by &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</source>
         <translation>&lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; 件の QSO が使っています · uuid %3 · rev %4 · %5</translation>
     </message>
@@ -6643,7 +7187,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>Grids</source>
-        <translation type="unfinished">グリッド</translation>
+        <translation>グリッド</translation>
     </message>
     <message>
         <source>Awards over the years · cumulative</source>
@@ -6651,7 +7195,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>no QSO</source>
-        <translation type="unfinished">QSO がありません</translation>
+        <translation>QSO がありません</translation>
     </message>
     <message>
         <source>Most worked entities</source>
@@ -6843,6 +7387,26 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>ON4KST チャット…</translation>
     </message>
     <message>
+        <source>Import a log (ADIF, CSV, N1MM)…</source>
+        <translation>ログをインポート（ADIF、CSV、N1MM）…</translation>
+    </message>
+    <message>
+        <source>Split off</source>
+        <translation>スプリット オフ</translation>
+    </message>
+    <message>
+        <source>TX up %1 kHz</source>
+        <translation>TX %1 kHz アップ</translation>
+    </message>
+    <message>
+        <source>TX down %1 kHz</source>
+        <translation>TX %1 kHz ダウン</translation>
+    </message>
+    <message>
+        <source>RIT and XIT off</source>
+        <translation>RIT と XIT オフ</translation>
+    </message>
+    <message>
         <source>Setup · %1 ▾</source>
         <translation>設定 · %1 ▾</translation>
     </message>
@@ -6961,10 +7525,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Panels…</source>
         <translation>パネル…</translation>
-    </message>
-    <message>
-        <source>Import ADIF…</source>
-        <translation>ADIF を取り込む…</translation>
     </message>
     <message>
         <source>Export ADIF…</source>
@@ -7211,7 +7771,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">日</translation>
+        <translation>日</translation>
     </message>
     <message>
         <source>Grayline</source>
@@ -7297,7 +7857,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">日</translation>
+        <translation>日</translation>
     </message>
     <message>
         <source>Civil twilight</source>
@@ -7366,6 +7926,20 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <source>Session closed: %1 · %n QSO</source>
         <translation>
             <numerusform>セッションを閉じました: %1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Call history not readable: %1</source>
+        <translation>コールヒストリーを読めません: %1</translation>
+    </message>
+    <message>
+        <source>Open the contest first</source>
+        <translation>先にコンテストを開いてください</translation>
+    </message>
+    <message numerus="yes">
+        <source>Call history: %n call(s) from %1</source>
+        <translation>
+            <numerusform>コールヒストリー: %1 から %n 局</numerusform>
         </translation>
     </message>
     <message>
@@ -7481,8 +8055,36 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>Cloud: %1</translation>
     </message>
     <message>
+        <source>Invite created: give the code to the operator. It is shown only now.</source>
+        <translation>招待を作成しました: コードをオペレーターに渡してください。表示されるのは今だけです。</translation>
+    </message>
+    <message>
+        <source>You are in the log of %1. Choose it for a log of yours below — better a new log (Log → New log), so the club log and yours do not mix.</source>
+        <translation>%1 のログに参加しました。下で自分のログのどれかと結び付けてください。クラブのログと自分のログが混ざらないよう、新しいログがおすすめです（ログ → 新しいログ）。</translation>
+    </message>
+    <message>
+        <source>Cloud: you joined the shared log of %1</source>
+        <translation>Cloud: %1 の共有ログに参加しました</translation>
+    </message>
+    <message>
         <source>Cloud: linked — sync will unlock it when needed</source>
         <translation>Cloud: つながっています。必要になったら同期が鍵を開けます</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with your own log again</source>
+        <translation>Cloud: このログは再び自分のログと同期します</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with the shared log of %1</source>
+        <translation>Cloud: このログは %1 の共有ログと同期します</translation>
+    </message>
+    <message>
+        <source>Sync once to open the keystore, then the team shows here.</source>
+        <translation>一度同期してキーストアを開くと、ここにチームが表示されます。</translation>
+    </message>
+    <message>
+        <source>Sign in to the Cloud first.</source>
+        <translation>先に Cloud にサインインしてください。</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>
@@ -7757,8 +8359,32 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>UDP %1 で聞けません: %2</translation>
     </message>
     <message>
+        <source>Listening for N1MM Logger+ on UDP %1</source>
+        <translation>UDP %1 で N1MM Logger+ を待ち受け中</translation>
+    </message>
+    <message>
+        <source>Correction not saved: %1</source>
+        <translation>訂正を保存できませんでした: %1</translation>
+    </message>
+    <message>
+        <source>Corrected by N1MM: %1</source>
+        <translation>N1MM による訂正: %1</translation>
+    </message>
+    <message>
         <source>built on %1</source>
         <translation>%1 にビルド</translation>
+    </message>
+    <message>
+        <source>Not understood: %1 (write address:port)</source>
+        <translation>わかりません: %1 (アドレス:ポートの形で)</translation>
+    </message>
+    <message>
+        <source>UDP forwarding off</source>
+        <translation>UDP の転送は切</translation>
+    </message>
+    <message>
+        <source>UDP forwarded to %1</source>
+        <translation>UDP を %1 へ転送</translation>
     </message>
     <message>
         <source>no callsign</source>
@@ -7793,6 +8419,36 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>cty.csv %1 を入れました: DXCC エンティティ %2</translation>
     </message>
     <message>
+        <source>Club Log cty.xml not readable: %1</source>
+        <translation>Club Log の cty.xml を読めません: %1</translation>
+    </message>
+    <message>
+        <source>The Club Log API key is needed (Setup → QSL services → Club Log)</source>
+        <translation>Club Log の API キーが必要です（設定 → QSL サービス → Club Log）</translation>
+    </message>
+    <message>
+        <source>Downloading cty.xml from Club Log…</source>
+        <translation>Club Log から cty.xml をダウンロード中…</translation>
+    </message>
+    <message>
+        <source>Club Log: %1</source>
+        <translation>Club Log: %1</translation>
+    </message>
+    <message>
+        <source>Club Log: the file is not a cty.xml (%1)</source>
+        <translation>Club Log: ファイルが cty.xml ではありません (%1)</translation>
+    </message>
+    <message>
+        <source>cty.xml of %1: %2 entities</source>
+        <translation>%1 の cty.xml: %2 エンティティ</translation>
+    </message>
+    <message numerus="yes">
+        <source>Entity of %n QSO(s) corrected with the date of the QSO (Club Log)</source>
+        <translation>
+            <numerusform>%n 件の QSO のエンティティを QSO の日付で修正しました（Club Log）</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>DXCC filled on %1 of %2 QSO (cty.csv %3)</source>
         <translation>%2 件中 %1 件の QSO に DXCC を入れました (cty.csv %3)</translation>
     </message>
@@ -7819,6 +8475,18 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>QSO not logged: %1</source>
         <translation>QSO を記録しませんでした: %1</translation>
+    </message>
+    <message>
+        <source>New key for the local interface: the programs using the old one must be updated</source>
+        <translation>ローカル窓口の新しいキー: 古いキーを使っていたプログラムは直す必要があります</translation>
+    </message>
+    <message>
+        <source>Local interface on http://127.0.0.1:%1/api/v1/</source>
+        <translation>ローカル窓口は http://127.0.0.1:%1/api/v1/</translation>
+    </message>
+    <message>
+        <source>Cannot open the local interface on port %1: %2</source>
+        <translation>ポート %1 でローカル窓口を開けません: %2</translation>
     </message>
     <message>
         <source>Nowhere to send the frequency: the radio is not connected and Decodium is not there either.</source>
@@ -7896,6 +8564,214 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>タグ「%1」を %2 件の QSO から外しました</translation>
     </message>
     <message>
+        <source>Y · yes</source>
+        <translation>Y · はい</translation>
+    </message>
+    <message>
+        <source>N · no</source>
+        <translation>N · いいえ</translation>
+    </message>
+    <message>
+        <source>R · requested</source>
+        <translation>R · 請求済み</translation>
+    </message>
+    <message>
+        <source>Q · queued</source>
+        <translation>Q · 待機中</translation>
+    </message>
+    <message>
+        <source>I · ignore</source>
+        <translation>I · 無視</translation>
+    </message>
+    <message>
+        <source>Y · uploaded</source>
+        <translation>Y · アップロード済み</translation>
+    </message>
+    <message>
+        <source>N · not uploaded</source>
+        <translation>N · 未アップロード</translation>
+    </message>
+    <message>
+        <source>M · changed, upload again</source>
+        <translation>M · 変更あり、再アップロード</translation>
+    </message>
+    <message>
+        <source>B · bureau</source>
+        <translation>B · ビューロー</translation>
+    </message>
+    <message>
+        <source>D · direct</source>
+        <translation>D · ダイレクト</translation>
+    </message>
+    <message>
+        <source>E · electronic</source>
+        <translation>E · 電子</translation>
+    </message>
+    <message>
+        <source>No profile</source>
+        <translation>プロファイルなし</translation>
+    </message>
+    <message>
+        <source>My locator</source>
+        <translation>自局ロケーター</translation>
+    </message>
+    <message>
+        <source>Station callsign</source>
+        <translation>局のコールサイン</translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation>オペレーター</translation>
+    </message>
+    <message>
+        <source>Station profile</source>
+        <translation>局プロファイル</translation>
+    </message>
+    <message>
+        <source>My rig</source>
+        <translation>自局の無線機</translation>
+    </message>
+    <message>
+        <source>My antenna</source>
+        <translation>自局のアンテナ</translation>
+    </message>
+    <message>
+        <source>Power (W)</source>
+        <translation>出力 (W)</translation>
+    </message>
+    <message>
+        <source>My POTA reference</source>
+        <translation>自局の POTA リファレンス</translation>
+    </message>
+    <message>
+        <source>My SOTA reference</source>
+        <translation>自局の SOTA リファレンス</translation>
+    </message>
+    <message>
+        <source>My WWFF reference</source>
+        <translation>自局の WWFF リファレンス</translation>
+    </message>
+    <message>
+        <source>My special activity (MY_SIG)</source>
+        <translation>自局の特別運用 (MY_SIG)</translation>
+    </message>
+    <message>
+        <source>My special activity reference (MY_SIG_INFO)</source>
+        <translation>自局の特別運用リファレンス (MY_SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>POTA reference</source>
+        <translation>POTA リファレンス</translation>
+    </message>
+    <message>
+        <source>SOTA reference</source>
+        <translation>SOTA リファレンス</translation>
+    </message>
+    <message>
+        <source>WWFF reference</source>
+        <translation>WWFF リファレンス</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Special activity (SIG)</source>
+        <translation>特別運用 (SIG)</translation>
+    </message>
+    <message>
+        <source>Special activity reference (SIG_INFO)</source>
+        <translation>特別運用リファレンス (SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>コンテスト</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation>伝播</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>衛星</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>モード</translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation>サブモード</translation>
+    </message>
+    <message>
+        <source>RST sent</source>
+        <translation>送った RST</translation>
+    </message>
+    <message>
+        <source>RST received</source>
+        <translation>受信 RST</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>コメント</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>メモ</translation>
+    </message>
+    <message>
+        <source>Paper QSL sent</source>
+        <translation>紙 QSL 送付済み</translation>
+    </message>
+    <message>
+        <source>Paper QSL received</source>
+        <translation>紙 QSL 受領</translation>
+    </message>
+    <message>
+        <source>Paper QSL via</source>
+        <translation>紙 QSL 経路</translation>
+    </message>
+    <message>
+        <source>LoTW: sent</source>
+        <translation>LoTW: 送信済み</translation>
+    </message>
+    <message>
+        <source>eQSL: sent</source>
+        <translation>eQSL: 送信済み</translation>
+    </message>
+    <message>
+        <source>QRZ.com: uploaded</source>
+        <translation>QRZ.com: アップロード済み</translation>
+    </message>
+    <message>
+        <source>Club Log: uploaded</source>
+        <translation>Club Log: アップロード済み</translation>
+    </message>
+    <message>
+        <source>HRDLog: uploaded</source>
+        <translation>HRDLog: アップロード済み</translation>
+    </message>
+    <message>
+        <source>A change on many QSO is already running: wait for it to finish.</source>
+        <translation>多くの QSO の変更がすでに実行中です。終わるまでお待ちください。</translation>
+    </message>
+    <message>
+        <source>(empty)</source>
+        <translation>（空）</translation>
+    </message>
+    <message>
+        <source>%1 → %2 on %3 QSO (%4 unchanged, %5 failed)</source>
+        <translation>%1 → %2（%3 件の QSO、%4 件変更なし、%5 件失敗）</translation>
+    </message>
+    <message>
+        <source>QSO #%1: %2</source>
+        <translation>QSO #%1: %2</translation>
+    </message>
+    <message>
+        <source>Merged %1 group(s) of duplicates: %2 QSO deleted (kept in history)</source>
+        <translation>重複 %1 グループを統合: %2 件の QSO を削除（履歴に残ります）</translation>
+    </message>
+    <message>
         <source>An import is already running: wait for it to finish.</source>
         <translation>インポートはすでに実行中です。終わるまでお待ちください。</translation>
     </message>
@@ -7939,7 +8815,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>%1 is not there.</source>
-        <translation type="unfinished">%1 がありません。</translation>
+        <translation>%1 がありません。</translation>
     </message>
     <message>
         <source>There is no log file to restore over.</source>
@@ -8030,6 +8906,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>%1: パスワードかキーが使えません (%2)</translation>
     </message>
     <message>
+        <source>Keeping an eye on %1 (%2)</source>
+        <translation>%1 を見張ります (%2)</translation>
+    </message>
+    <message>
         <source>Decodium log not found</source>
         <translation>Decodium のログが見つかりません</translation>
     </message>
@@ -8041,6 +8921,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <source>%1 · Decodium log not readable: %2</source>
         <translation>%1 · Decodium のログが読めません: %2</translation>
     </message>
+    <message>
+        <source>%1 · %2 not readable: %3</source>
+        <translation>%1 · %2 が読めません: %3</translation>
+    </message>
     <message numerus="yes">
         <source>%1 · %n QSO(s) recovered from the Decodium log</source>
         <translation>
@@ -8051,6 +8935,12 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <source>%1 · nothing missing (%n QSO(s) checked)</source>
         <translation>
             <numerusform>%1 · 抜けはありません (%n 件の QSO を確認)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from %2</source>
+        <translation>
+            <numerusform>%1 · %2 から %n 件の QSO を取り戻しました</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -8066,6 +8956,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
         <translation>Decodium のログから取り戻しました → %1 %2 %3 %4</translation>
+    </message>
+    <message>
+        <source>Recovered from %1 → %2 %3 %4 %5</source>
+        <translation>%1 から取り戻しました → %2 %3 %4 %5</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
@@ -8141,7 +9035,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <name>decolog::app::NetController</name>
     <message>
         <source>off</source>
-        <translation type="unfinished"></translation>
+        <translation>切</translation>
     </message>
     <message>
         <source>on the network %1 (UDP %2) as %3</source>
@@ -8382,6 +9276,20 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog: %1</translation>
+    </message>
+    <message>
+        <source>Wavelog: no station on the site yet</source>
+        <translation>Wavelog: サイトにはまだステーションがありません</translation>
+    </message>
+    <message numerus="yes">
+        <source>Wavelog: %n station(s) on the site</source>
+        <translation>
+            <numerusform>Wavelog: サイトに %n 件のステーション</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>CRX: %1</source>
         <translation>CRX: %1</translation>
     </message>
@@ -8434,8 +9342,28 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>API キーがありません: 設定 → QSL のサービス</translation>
     </message>
     <message>
+        <source>no address or API key: Setup → QSL services</source>
+        <translation>アドレスか API キーがありません: 設定 → QSL のサービス</translation>
+    </message>
+    <message>
+        <source>choose the Wavelog station: Setup → QSL services</source>
+        <translation>Wavelog のステーションを選んでください: 設定 → QSL のサービス</translation>
+    </message>
+    <message>
         <source>choose the CRX logbook: Setup → QSL services</source>
         <translation>CRXのログブックを選択: 設定 → QSLサービス</translation>
+    </message>
+    <message>
+        <source>Wavelog: asking for the stations…</source>
+        <translation>Wavelog: ステーションを問い合わせ中…</translation>
+    </message>
+    <message>
+        <source>Wavelog: address and API key are needed (%1)</source>
+        <translation>Wavelog: アドレスと API キーが必要です (%1)</translation>
+    </message>
+    <message>
+        <source>add them below</source>
+        <translation>下で追加してください</translation>
     </message>
     <message>
         <source>CRX: asking for the logbooks…</source>
@@ -8835,6 +9763,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>DX の位置がありません: ロケーターを入力するかコールサインを検索してください。</translation>
     </message>
     <message>
+        <source>VOACAP: %1</source>
+        <translation>VOACAP: %1</translation>
+    </message>
+    <message>
         <source>Solar data of %1</source>
         <translation>%1 の太陽のデータ</translation>
     </message>
@@ -9050,6 +9982,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 <context>
     <name>decolog::core::CloudSync</name>
     <message>
+        <source>This Cloud server does not know shared logs yet: it has to be updated.</source>
+        <translation>この Cloud サーバーはまだ共有ログに対応していません。更新が必要です。</translation>
+    </message>
+    <message>
         <source>This Cloud server does not know this request (%1): it is older than your DecoDXLog and has to be updated.</source>
         <translation>この Cloud のサーバーは、この頼み方 (%1) を知りません。あなたの DecoDXLog より古いので、新しくする必要があります。</translation>
     </message>
@@ -9188,6 +10124,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>HRDLog.net へのアップロード: アップロードコードは HRDLog のプロフィールにあります。パスワードではありません</translation>
     </message>
     <message>
+        <source>Site address</source>
+        <translation>サイトのアドレス</translation>
+    </message>
+    <message>
+        <source>Upload to your Wavelog (or Cloudlog): the address of the site and a read/write API key</source>
+        <translation>自分の Wavelog (または Cloudlog) への送信: サイトのアドレスと読み書きできる API キー</translation>
+    </message>
+    <message>
         <source>The VHF, EME and low band chat (www.on4kst.info)</source>
         <translation>VHF・EME・ローバンドのチャット (www.on4kst.info)</translation>
     </message>
@@ -9210,6 +10154,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
         <translation>QSL カードをメールで送ります。Gmail ではアカウントのパスワードではなくアプリパスワードが要ります。</translation>
+    </message>
+    <message>
+        <source>Only for the QSOs of this profile; empty = the general account</source>
+        <translation>このプロファイルの QSO だけ。空欄 = 共通のアカウント</translation>
     </message>
     <message>
         <source>Account saved</source>
@@ -9319,8 +10267,43 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>無線機が CW の文を受け取りませんでした (rigctld: %1)。どの無線機でも — どの CAT の橋渡しでも — CW を打てるわけではありません。マクロには、無線機そのものと話す rigctld が要ります。</translation>
     </message>
     <message>
+        <source>The radio does not take split from here (rigctld: %1)</source>
+        <translation>無線機はここからのスプリットを受け付けません (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not change VFO from here (rigctld: %1)</source>
+        <translation>無線機はここから VFO を切り替えません (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not take RIT from here (rigctld: %1)</source>
+        <translation>無線機はここからの RIT を受け付けません (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not take XIT from here (rigctld: %1)</source>
+        <translation>無線機はここからの XIT を受け付けません (rigctld: %1)</translation>
+    </message>
+    <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>無線機がエラーを返しました (rigctld: %1)</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::RigLink</name>
+    <message>
+        <source>This radio link does not do split</source>
+        <translation>この無線機接続はスプリットに対応していません</translation>
+    </message>
+    <message>
+        <source>This radio link cannot choose the VFO</source>
+        <translation>この無線機接続は VFO を選べません</translation>
+    </message>
+    <message>
+        <source>This radio link does not do RIT</source>
+        <translation>この無線機接続は RIT に対応していません</translation>
+    </message>
+    <message>
+        <source>This radio link does not do XIT</source>
+        <translation>この無線機接続は XIT に対応していません</translation>
     </message>
 </context>
 <context>
@@ -9424,6 +10407,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 </context>
 <context>
     <name>decolog::core::WebQslUploader</name>
+    <message>
+        <source>Wavelog: write the address of your Wavelog (Setup → QSL services)</source>
+        <translation>Wavelog: 自分の Wavelog のアドレスを入れてください (設定 → QSL のサービス)</translation>
+    </message>
+    <message>
+        <source>write the address of your Wavelog</source>
+        <translation>自分の Wavelog のアドレスを入れてください</translation>
+    </message>
     <message>
         <source>Club Log: email, password, callsign and API key are all needed</source>
         <translation>Club Log: メール、パスワード、コールサイン、API キーのどれも要ります</translation>

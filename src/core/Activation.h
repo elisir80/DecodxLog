@@ -34,6 +34,14 @@ struct Activation {
     QString   mode;             // modo fisso (FT2, CW...), vuoto = libero
     int       nextSerial{1};    // numero progressivo da mandare (contest)
     bool      serialEnabled{false};
+    // Multi-operatore: i progressivi sono una sequenza sola per tutti i PC
+    // della rete, e li distribuisce uno di loro.
+    bool      sharedSerial{false};
+    // Quello che per questa edizione della gara e' cambiato rispetto alla
+    // scheda (vedi contestrules::withOverrides).
+    QVariantMap rules;
+    // Il file "call history" per suggerire lo scambio.
+    QString   callHistory;
     QDateTime startedAt;
 
     static QString kindId(Kind kind);

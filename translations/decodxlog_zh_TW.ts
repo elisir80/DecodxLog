@@ -178,6 +178,18 @@
         <translation>競賽與啟用</translation>
     </message>
     <message>
+        <source>Call history file (N1MM format)</source>
+        <translation>呼號歷史檔案（N1MM 格式）</translation>
+    </message>
+    <message>
+        <source>Call history (*.txt *.csv)</source>
+        <translation>呼號歷史 (*.txt *.csv)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>所有檔案 (*)</translation>
+    </message>
+    <message>
         <source>pick it from the list</source>
         <translation>從清單中選</translation>
     </message>
@@ -216,6 +228,50 @@
     <message>
         <source>Next</source>
         <translation>下一個</translation>
+    </message>
+    <message>
+        <source>Shared on the network</source>
+        <translation>在網路中共享</translation>
+    </message>
+    <message>
+        <source>Bands of this edition</source>
+        <translation>本屆的波段</translation>
+    </message>
+    <message>
+        <source>Operating hours</source>
+        <translation>工作時數</translation>
+    </message>
+    <message>
+        <source>no limit</source>
+        <translation>不限</translation>
+    </message>
+    <message>
+        <source>Off-time from (min)</source>
+        <translation>休息起算（分鐘）</translation>
+    </message>
+    <message>
+        <source>Log within (h)</source>
+        <translation>提交日誌期限（小時）</translation>
+    </message>
+    <message>
+        <source>Call history</source>
+        <translation>呼號歷史</translation>
+    </message>
+    <message>
+        <source>%1 · %2 calls</source>
+        <translation>%1 · %2 個呼號</translation>
+    </message>
+    <message>
+        <source>none: the exchange is suggested from the log and the country</source>
+        <translation>無：交換資訊依日誌與國家建議</translation>
+    </message>
+    <message>
+        <source>Load…</source>
+        <translation>載入…</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>移除</translation>
     </message>
     <message>
         <source>The QSOs get CONTEST_ID and the serial number sent (STX). The number received goes in the New QSO panel.</source>
@@ -301,6 +357,12 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>參考編號取自 SIG/SIG_INFO（SIG = %1）或類似「%1 LI-001」的備註。</translation>
+    </message>
+    <message numerus="yes">
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC. %n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.</source>
+        <translation>
+            <numerusform>ARRL 規則：60 公尺的 QSO 不計，eQSL 不算 DXCC 確認。%n 筆涉及已刪除實體或 ARRL 未認可運作（Club Log）的 QSO 不計入。</numerusform>
+        </translation>
     </message>
     <message>
         <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
@@ -408,6 +470,26 @@
     <message>
         <source>All tags</source>
         <translation>所有標籤</translation>
+    </message>
+    <message>
+        <source>Valid for %1</source>
+        <translation>適用於 %1</translation>
+    </message>
+    <message>
+        <source>chosen by you</source>
+        <translation>由你選擇</translation>
+    </message>
+    <message>
+        <source>the rules of the award</source>
+        <translation>獎狀規則</translation>
+    </message>
+    <message>
+        <source>the general choice above</source>
+        <translation>上方的通用選擇</translation>
+    </message>
+    <message>
+        <source>Back to the rules</source>
+        <translation>還原規則</translation>
     </message>
     <message>
         <source>State</source>
@@ -652,6 +734,41 @@
     </message>
 </context>
 <context>
+    <name>BulkEditDialog</name>
+    <message>
+        <source>CHANGE A FIELD ON %1 QSO</source>
+        <translation>修改 %1 筆 QSO 的欄位</translation>
+    </message>
+    <message>
+        <source>The same value on every QSO chosen. Each QSO keeps the old value in its history, so the change can be undone QSO by QSO from its card. Leave the value empty to clear the field.</source>
+        <translation>所有選取的 QSO 使用同一個值。每筆 QSO 在歷史中保留舊值，因此可以在其卡片上逐筆復原。值留空即清空該欄位。</translation>
+    </message>
+    <message>
+        <source>Field</source>
+        <translation>欄位</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>值</translation>
+    </message>
+    <message>
+        <source>Only where the field is empty</source>
+        <translation>僅在欄位為空時</translation>
+    </message>
+    <message>
+        <source>With this many QSO the change runs in the background: the log stays usable and the progress shows in its header.</source>
+        <translation>QSO 這麼多時修改在背景進行：日誌仍可使用，進度顯示在其標題列。</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <source>Change %1 QSO</source>
+        <translation>修改 %1 筆 QSO</translation>
+    </message>
+</context>
+<context>
     <name>Cabrillo</name>
     <message>
         <source>The station callsign is missing</source>
@@ -814,7 +931,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">送出</translation>
+        <translation>送出</translation>
     </message>
 </context>
 <context>
@@ -1393,7 +1510,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>CW macros</source>
-        <translation type="unfinished">CW 巨集</translation>
+        <translation>CW 巨集</translation>
     </message>
     <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
@@ -1401,11 +1518,11 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>Default macros</source>
-        <translation type="unfinished">預設巨集</translation>
+        <translation>預設巨集</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">關閉</translation>
+        <translation>關閉</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -1464,6 +1581,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>%1 · 日誌</translation>
     </message>
     <message>
+        <source>%1 · history</source>
+        <translation>%1 · 歷史</translation>
+    </message>
+    <message>
         <source>%1 · country</source>
         <translation>%1 · 國家</translation>
     </message>
@@ -1477,7 +1598,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>Downloading…</source>
-        <translation type="unfinished">正在下載…</translation>
+        <translation>正在下載…</translation>
     </message>
     <message>
         <source>Download MASTER.SCP</source>
@@ -1568,7 +1689,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">送出</translation>
+        <translation>送出</translation>
     </message>
     <message>
         <source>Spot %1</source>
@@ -1706,6 +1827,18 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>%1 QSO</source>
         <translation>%1 QSO</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 of %2 · %n break(s)</source>
+        <translation>
+            <numerusform>上線 %1 / %2 · 休息 %n 次</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 · %n break(s)</source>
+        <translation>
+            <numerusform>上線 %1 · 休息 %n 次</numerusform>
+        </translation>
     </message>
     <message>
         <source>Export…</source>
@@ -1892,6 +2025,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>%1 · log</source>
         <translation>%1 · 日誌</translation>
+    </message>
+    <message>
+        <source>%1 · history</source>
+        <translation>%1 · 歷史</translation>
     </message>
     <message>
         <source>%1 · country</source>
@@ -2185,6 +2322,89 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
 </context>
 <context>
+    <name>DuplicatesDialog</name>
+    <message>
+        <source>DUPLICATE QSO</source>
+        <translation>重複 QSO</translation>
+    </message>
+    <message>
+        <source>Same call, band, kind of mode (CW, phone, digital) and station profile, within the minutes chosen. Of each group one QSO is kept — a click on a row chooses which — and it takes from the others what it is missing: fields, confirmations, tags. The others are deleted; they stay in the history and can be recovered.</source>
+        <translation>同一呼號、波段、模式類別（CW、語音、數位）與電台設定檔，且在所選分鐘內。每組保留一筆 QSO（點一列選擇哪一筆），它從其他紀錄補齊缺少的內容：欄位、確認、標籤。其他紀錄會被刪除，但保留在歷史中，可以復原。</translation>
+    </message>
+    <message>
+        <source>Within</source>
+        <translation>範圍</translation>
+    </message>
+    <message>
+        <source>minutes</source>
+        <translation>分鐘</translation>
+    </message>
+    <message>
+        <source>Searching…</source>
+        <translation>搜尋中…</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>搜尋</translation>
+    </message>
+    <message>
+        <source>No duplicates within %1 minutes</source>
+        <translation>%1 分鐘內沒有重複</translation>
+    </message>
+    <message>
+        <source>The first %1 groups: merge them and search again for the rest</source>
+        <translation>前 %1 組：合併後再搜尋其餘的</translation>
+    </message>
+    <message>
+        <source>%1 groups found, %2 ticked</source>
+        <translation>找到 %1 組，已勾選 %2 組</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>KEEP</source>
+        <translation>保留</translation>
+    </message>
+    <message>
+        <source>merge</source>
+        <translation>合併</translation>
+    </message>
+    <message>
+        <source>confirmed: %1</source>
+        <translation>已確認：%1</translation>
+    </message>
+    <message>
+        <source>%1 fields</source>
+        <translation>%1 個欄位</translation>
+    </message>
+    <message>
+        <source>Reading the whole log…</source>
+        <translation>正在讀取整個日誌…</translation>
+    </message>
+    <message>
+        <source>Nothing to merge.</source>
+        <translation>沒有可合併的。</translation>
+    </message>
+    <message>
+        <source>Choose the minutes and press Search.</source>
+        <translation>選擇分鐘數後按搜尋。</translation>
+    </message>
+    <message>
+        <source>A double click opens the QSO.</source>
+        <translation>按兩下開啟 QSO。</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>關閉</translation>
+    </message>
+    <message>
+        <source>Merge %1 groups</source>
+        <translation>合併 %1 組</translation>
+    </message>
+</context>
+<context>
     <name>DvkPanel</name>
     <message>
         <source>Voice keyer</source>
@@ -2224,7 +2444,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>never</source>
-        <translation type="unfinished">從未</translation>
+        <translation>從未</translation>
     </message>
     <message>
         <source>CQ loop</source>
@@ -2232,7 +2452,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>停止</translation>
     </message>
 </context>
 <context>
@@ -2482,6 +2702,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>正在匯入 %1%</translation>
     </message>
     <message>
+        <source>Sorting…</source>
+        <translation>排序中…</translation>
+    </message>
+    <message>
+        <source>Changing %1%</source>
+        <translation>修改中 %1%</translation>
+    </message>
+    <message>
         <source>%1 QSO · %2 shown</source>
         <translation>%1 個 QSO · 顯示 %2 筆</translation>
     </message>
@@ -2548,6 +2776,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>把顯示的 %1 個 QSO 匯出為 ADIF…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO shown…</source>
+        <translation>修改顯示的 %1 筆 QSO 的欄位…</translation>
+    </message>
+    <message>
+        <source>Find duplicate QSO…</source>
+        <translation>尋找重複 QSO…</translation>
     </message>
     <message>
         <source>Complete the QSO shown from the callbook…</source>
@@ -2748,6 +2984,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Delete the %1 QSO selected…</source>
         <translation>刪除選中的 %1 個 QSO…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO selected…</source>
+        <translation>修改選取的 %1 筆 QSO 的欄位…</translation>
+    </message>
+    <message>
+        <source>Change a field…</source>
+        <translation>修改欄位…</translation>
     </message>
     <message>
         <source>Complete from the callbook</source>
@@ -3005,12 +3249,24 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>已嵌入</translation>
     </message>
     <message>
-        <source>Import ADIF</source>
-        <translation>匯入 ADIF</translation>
+        <source>Import a log</source>
+        <translation>匯入日誌</translation>
     </message>
     <message>
         <source>ADIF files (*.adi *.adif)</source>
         <translation>ADIF 檔案 (*.adi *.adif)</translation>
+    </message>
+    <message>
+        <source>Logs (*.adi *.adif *.csv *.tsv *.s3db)</source>
+        <translation>日誌 (*.adi *.adif *.csv *.tsv *.s3db)</translation>
+    </message>
+    <message>
+        <source>Spreadsheets (*.csv *.tsv)</source>
+        <translation>試算表 (*.csv *.tsv)</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ databases (*.s3db)</source>
+        <translation>N1MM Logger+ 資料庫 (*.s3db)</translation>
     </message>
     <message>
         <source>All files (*)</source>
@@ -3472,7 +3728,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>%1°</source>
-        <translation type="unfinished">%1°</translation>
+        <translation>%1°</translation>
     </message>
     <message numerus="yes">
         <source>%n hop(s)</source>
@@ -3489,8 +3745,16 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>SFI %1</translation>
     </message>
     <message>
+        <source>VOACAP computing…</source>
+        <translation>VOACAP 計算中…</translation>
+    </message>
+    <message>
         <source>Locator</source>
         <translation>網格</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · reliability %4% · SNR %5 dB</source>
+        <translation>%1 · %2 UTC · MUF %3 MHz · 可靠度 %4% · SNR %5 dB</translation>
     </message>
     <message>
         <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
@@ -3498,11 +3762,11 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>good</source>
-        <translation type="unfinished">好</translation>
+        <translation>好</translation>
     </message>
     <message>
         <source>fair</source>
-        <translation type="unfinished">一般</translation>
+        <translation>一般</translation>
     </message>
     <message>
         <source>marginal</source>
@@ -3510,11 +3774,59 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>closed</source>
-        <translation type="unfinished">已關閉</translation>
+        <translation>已關閉</translation>
+    </message>
+    <message>
+        <source>VOACAP (ITS): the chance of a %1 QSO with %2 W and %3 dBi antennas; 160 and 6 m from the simple model.</source>
+        <translation>VOACAP (ITS)：以 %2 W 與 %3 dBi 天線完成 %1 QSO 的機率；160 與 6 公尺來自簡易模型。</translation>
+    </message>
+    <message>
+        <source>VOACAP failed (%1): simplified F2 model.</source>
+        <translation>VOACAP 失敗（%1）：使用簡化 F2 模型。</translation>
     </message>
     <message>
         <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
         <translation>簡化的 F2 模型（MUF/LUF），不是 VOACAP：只是波段何時開通的參考，不是保證。</translation>
+    </message>
+    <message>
+        <source>%1 W</source>
+        <translation>%1 W</translation>
+    </message>
+    <message>
+        <source>0 dBi (vertical)</source>
+        <translation>0 dBi（垂直）</translation>
+    </message>
+    <message>
+        <source>2 dBi (dipole)</source>
+        <translation>2 dBi（偶極）</translation>
+    </message>
+    <message>
+        <source>5 dBi (2-el beam)</source>
+        <translation>5 dBi（2 單元八木）</translation>
+    </message>
+    <message>
+        <source>8 dBi (3-el beam)</source>
+        <translation>8 dBi（3 單元八木）</translation>
+    </message>
+    <message>
+        <source>11 dBi (big beam)</source>
+        <translation>11 dBi（大型八木）</translation>
+    </message>
+    <message>
+        <source>noise: city</source>
+        <translation>雜訊：城市</translation>
+    </message>
+    <message>
+        <source>noise: residential</source>
+        <translation>雜訊：住宅區</translation>
+    </message>
+    <message>
+        <source>noise: rural</source>
+        <translation>雜訊：鄉村</translation>
+    </message>
+    <message>
+        <source>noise: quiet</source>
+        <translation>雜訊：安靜</translation>
     </message>
 </context>
 <context>
@@ -3691,6 +4003,22 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>unexpected answer</source>
         <translation>非預期的回應</translation>
+    </message>
+    <message>
+        <source>Wavelog: already there</source>
+        <translation>Wavelog：已經有了</translation>
+    </message>
+    <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog：%1</translation>
+    </message>
+    <message>
+        <source>Wavelog: sent</source>
+        <translation>Wavelog：已傳送</translation>
+    </message>
+    <message>
+        <source>Wavelog: the API key is not valid or cannot write (%1)</source>
+        <translation>Wavelog：API 金鑰無效或不能寫入（%1）</translation>
     </message>
     <message>
         <source>HRDLog: sent</source>
@@ -4691,7 +5019,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>All files (*)</source>
-        <translation type="unfinished">所有檔案 (*)</translation>
+        <translation>所有檔案 (*)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -4763,7 +5091,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">關閉</translation>
+        <translation>關閉</translation>
     </message>
 </context>
 <context>
@@ -6165,8 +6493,200 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>連接埠沒有打開</translation>
     </message>
     <message>
+        <source>An ADIF log to keep an eye on</source>
+        <translation>要盯著的 ADIF 日誌</translation>
+    </message>
+    <message>
+        <source>Club Log cty.xml</source>
+        <translation>Club Log 的 cty.xml</translation>
+    </message>
+    <message>
+        <source>QSOs of another entity on that date</source>
+        <translation>該日期屬於另一實體的 QSO</translation>
+    </message>
+    <message>
+        <source>Working…</source>
+        <translation>處理中…</translation>
+    </message>
+    <message>
+        <source>Update cty.xml</source>
+        <translation>更新 cty.xml</translation>
+    </message>
+    <message>
+        <source>Check the entities with the dates</source>
+        <translation>依日期檢查實體</translation>
+    </message>
+    <message>
+        <source>Correct %1 QSO</source>
+        <translation>修正 %1 筆 QSO</translation>
+    </message>
+    <message>
+        <source>%1 QSO corrected, each kept as a new revision.</source>
+        <translation>已修正 %1 筆 QSO，每筆都存為新的修訂。</translation>
+    </message>
+    <message>
+        <source>deleted</source>
+        <translation>已刪除</translation>
+    </message>
+    <message>
+        <source>With the Club Log API key (QSL services) DecoDXLog downloads Club Log&apos;s cty.xml every week: the entities with their dates, so a QSO of 2005 with PJ2 is the Netherlands Antilles and not Curacao, operations the ARRL did not accept do not count for DXCC, and deleted entities are shown but not counted.</source>
+        <translation>有了 Club Log 的 API 金鑰（QSL 服務），DecoDXLog 每週下載 Club Log 的 cty.xml：帶日期的實體，因此 2005 年與 PJ2 的 QSO 屬於荷屬安地列斯而非庫拉索，ARRL 未認可的運作不計入 DXCC，已刪除的實體會顯示但不計數。</translation>
+    </message>
+    <message>
+        <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
+        <translation>每週從 Club Log 取得。新 QSO 使用其日期對應的實體；檢查會把日誌與日期比對，只修正空白或由今天的 cty.csv 填入的 DXCC——LoTW 或你寫入的維持不變。</translation>
+    </message>
+    <message>
+        <source>Forward to other programs</source>
+        <translation>轉發給其他程式</translation>
+    </message>
+    <message>
+        <source>e.g. 127.0.0.1:2238, 127.0.0.1:2333 — empty = off</source>
+        <translation>例如 127.0.0.1:2238, 127.0.0.1:2333 — 留空 = 關閉</translation>
+    </message>
+    <message>
+        <source>Every packet from Decodium also goes to these programs (JTAlert, GridTracker, HamLog…), and their answers (reply to a caller, halt TX) go back to Decodium. So Decodium sends to one port only and everybody gets it.</source>
+        <translation>Decodium 的每個封包也會送給這些程式（JTAlert、GridTracker、HamLog…），它們的回應（回覆呼叫的電台、停止發射）會回到 Decodium。這樣 Decodium 只送到一個連接埠，大家都能收到。</translation>
+    </message>
+    <message>
         <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
         <translation>Decodium 也會把每個 QSO 寫進它自己的 ADIF 日誌。如果 DecoDXLog 當時關著或沒收到（連接埠不對、網路斷了），這個 QSO 就只留在那裡：DecoDXLog 每 5 分鐘讀取上次檢查以後記錄的 QSO，把這裡和清單裡其他日誌都沒有的儲存下來。在這裡改過或刪掉的 QSO 不會回來。第一次往前看一週，用按鈕可以看得更遠。留空 = Decodium 正在用的日誌。</translation>
+    </message>
+    <message>
+        <source>Other ADIF logs to keep an eye on</source>
+        <translation>其他要盯著的 ADIF 日誌</translation>
+    </message>
+    <message>
+        <source>not found: %1</source>
+        <translation>沒找到：%1</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>移除</translation>
+    </message>
+    <message>
+        <source>Add a file…</source>
+        <translation>新增檔案…</translation>
+    </message>
+    <message>
+        <source>Add %1</source>
+        <translation>新增 %1</translation>
+    </message>
+    <message>
+        <source>The QSOs that other programs (fldigi, WSJT-X, JTDX…) write in these logs and that are missing here are saved every 5 minutes, from the moment the file is added. For the older ones, “Check the whole file”.</source>
+        <translation>其他程式（fldigi、WSJT-X、JTDX…）寫進這些日誌、而這裡沒有的 QSO，從新增檔案的那一刻起每 5 分鐘儲存一次。更早的請用「檢查整個檔案」。</translation>
+    </message>
+    <message>
+        <source>UDP port (0 = off)</source>
+        <translation>UDP 連接埠（0 = 關閉）</translation>
+    </message>
+    <message>
+        <source>listening</source>
+        <translation>正在監聽</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ sends every contact on this port (Config → Configure Ports → Broadcast Data → Contacts, usually 12060). A contact corrected or deleted in N1MM is corrected or deleted here too.</source>
+        <translation>N1MM Logger+ 會把每個聯絡送到這個連接埠（Config → Configure Ports → Broadcast Data → Contacts，通常是 12060）。在 N1MM 裡改過或刪掉的聯絡，這裡也會跟著改或刪。</translation>
+    </message>
+    <message>
+        <source>Local interface for other programs</source>
+        <translation>給其他程式用的本機介面</translation>
+    </message>
+    <message>
+        <source>Port on 127.0.0.1 (0 = off)</source>
+        <translation>127.0.0.1 上的連接埠（0 = 關閉）</translation>
+    </message>
+    <message>
+        <source>Key (X-DecoDXLog-Token)</source>
+        <translation>金鑰（X-DecoDXLog-Token）</translation>
+    </message>
+    <message>
+        <source>New key</source>
+        <translation>新金鑰</translation>
+    </message>
+    <message>
+        <source>For programs next to DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, and POST /api/v1/qso with an ADIF record to log it. Only from this computer, and always with the key. Details: docs/API.md.</source>
+        <translation>給在 DecoDXLog 旁邊執行的程式用：GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…，以及帶 ADIF 記錄的 POST /api/v1/qso 來記錄它。只能從這台電腦存取，而且總要帶金鑰。詳情見 docs/API.md。</translation>
+    </message>
+    <message>
+        <source>Shared log</source>
+        <translation>共享日誌</translation>
+    </message>
+    <message>
+        <source>A club station, a multi-operator contest: one log, several operators, each with their own Cloud account — nobody lends a password. The owner of the log creates an invite, whoever gets the code joins with it. Only QSOs travel: profiles, settings and service passwords stay with the owner.</source>
+        <translation>社團電台、多人比賽：一個日誌，多位操作員，每人用自己的 Cloud 帳號——不必借用密碼。日誌擁有者建立邀請，收到代碼的人用它加入。只同步 QSO：設定檔、設定與服務密碼留在擁有者那裡。</translation>
+    </message>
+    <message>
+        <source>This log syncs with</source>
+        <translation>此日誌同步到</translation>
+    </message>
+    <message>
+        <source>my own log (%1)</source>
+        <translation>我自己的日誌（%1）</translation>
+    </message>
+    <message>
+        <source>the shared log of %1</source>
+        <translation>%1 的共享日誌</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>重新整理</translation>
+    </message>
+    <message>
+        <source>The QSOs of this log go to the log of %1, and its QSOs come here: keep a log just for it (Log → New log).</source>
+        <translation>此日誌的 QSO 會進入 %1 的日誌，其 QSO 也會來到這裡：請為它另建一個日誌（日誌 → 新增日誌）。</translation>
+    </message>
+    <message>
+        <source>Invite code, e.g. K7Q2-9XMP-D4TA</source>
+        <translation>邀請碼，例如 K7Q2-9XMP-D4TA</translation>
+    </message>
+    <message>
+        <source>Join with the code</source>
+        <translation>用邀請碼加入</translation>
+    </message>
+    <message>
+        <source>operator: sends and gets the QSOs</source>
+        <translation>操作員：傳送與接收 QSO</translation>
+    </message>
+    <message>
+        <source>viewer: only looks</source>
+        <translation>觀察者：只檢視</translation>
+    </message>
+    <message>
+        <source>Invite into the log of %1</source>
+        <translation>邀請加入 %1 的日誌</translation>
+    </message>
+    <message>
+        <source>Code %1 — %2, valid until %3</source>
+        <translation>代碼 %1 — %2，有效至 %3</translation>
+    </message>
+    <message>
+        <source>viewer</source>
+        <translation>觀察者</translation>
+    </message>
+    <message>
+        <source>operator</source>
+        <translation>操作員</translation>
+    </message>
+    <message>
+        <source>viewer in your log</source>
+        <translation>你日誌中的觀察者</translation>
+    </message>
+    <message>
+        <source>operator in your log</source>
+        <translation>你日誌中的操作員</translation>
+    </message>
+    <message>
+        <source>you look at its log</source>
+        <translation>你檢視其日誌</translation>
+    </message>
+    <message>
+        <source>you write in its log</source>
+        <translation>你寫入其日誌</translation>
+    </message>
+    <message>
+        <source>Leave</source>
+        <translation>退出</translation>
     </message>
     <message>
         <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
@@ -6195,6 +6715,22 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
         <translation>eQSL：收件匣裡收到的 eQSL，不含 SWL 報告。QRZ Logbook：你在 QRZ 上的日誌本裡、對方電台已經確認的 QSO。只取上次下載之後來的；自動下載只對填好了憑據的服務執行（在下面，和傳送用的一樣）。配對方式和 LoTW 確認相同；紙本 QSL 的欄位不會被改動。</translation>
+    </message>
+    <message>
+        <source>Station on Wavelog</source>
+        <translation>Wavelog 上的電台</translation>
+    </message>
+    <message>
+        <source>station %1</source>
+        <translation>電台 %1</translation>
+    </message>
+    <message>
+        <source>Load my stations</source>
+        <translation>載入我的電台</translation>
+    </message>
+    <message>
+        <source>Wavelog (and Cloudlog) is the web log on your own site. Below it wants the address of the site (for example log.mysite.org) and an API key with read and write rights, made in Wavelog under Account → API keys; then the station to write in. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>Wavelog（和 Cloudlog）是你自己網站上的網頁日誌。下面需要網站位址（例如 log.mysite.tw）和一個有讀寫權限的 API 金鑰（在 Wavelog 的 Account → API keys 裡建立），然後選要寫入的電台。傳送、自動傳送和計數在下方的 QSL 分頁裡。</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -6326,7 +6862,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished">地址</translation>
+        <translation>地址</translation>
     </message>
     <message>
         <source>SO2R box (OTRSP)</source>
@@ -6595,6 +7131,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>LoTW station location (TQSL)</translation>
     </message>
     <message>
+        <source>QSL accounts of this profile</source>
+        <translation>這個設定檔的 QSL 帳戶</translation>
+    </message>
+    <message>
+        <source>Save the profile first: then it can have its own QRZ Logbook and eQSL accounts.</source>
+        <translation>請先儲存設定檔：之後它就能有自己的 QRZ Logbook 和 eQSL 帳戶。</translation>
+    </message>
+    <message>
         <source>Used by &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</source>
         <translation>有 &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; 個 QSO 在用 · uuid %3 · rev %4 · %5</translation>
     </message>
@@ -6643,7 +7187,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>Grids</source>
-        <translation type="unfinished">網格</translation>
+        <translation>網格</translation>
     </message>
     <message>
         <source>Awards over the years · cumulative</source>
@@ -6651,7 +7195,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>no QSO</source>
-        <translation type="unfinished">沒有 QSO</translation>
+        <translation>沒有 QSO</translation>
     </message>
     <message>
         <source>Most worked entities</source>
@@ -6843,6 +7387,26 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>ON4KST 聊天…</translation>
     </message>
     <message>
+        <source>Import a log (ADIF, CSV, N1MM)…</source>
+        <translation>匯入日誌（ADIF、CSV、N1MM）…</translation>
+    </message>
+    <message>
+        <source>Split off</source>
+        <translation>異頻關閉</translation>
+    </message>
+    <message>
+        <source>TX up %1 kHz</source>
+        <translation>TX 高 %1 kHz</translation>
+    </message>
+    <message>
+        <source>TX down %1 kHz</source>
+        <translation>TX 低 %1 kHz</translation>
+    </message>
+    <message>
+        <source>RIT and XIT off</source>
+        <translation>RIT 與 XIT 關閉</translation>
+    </message>
+    <message>
         <source>Setup · %1 ▾</source>
         <translation>設定 · %1 ▾</translation>
     </message>
@@ -6961,10 +7525,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Panels…</source>
         <translation>面板…</translation>
-    </message>
-    <message>
-        <source>Import ADIF…</source>
-        <translation>匯入 ADIF…</translation>
     </message>
     <message>
         <source>Export ADIF…</source>
@@ -7211,7 +7771,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">日</translation>
+        <translation>日</translation>
     </message>
     <message>
         <source>Grayline</source>
@@ -7297,7 +7857,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">日</translation>
+        <translation>日</translation>
     </message>
     <message>
         <source>Civil twilight</source>
@@ -7366,6 +7926,20 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <source>Session closed: %1 · %n QSO</source>
         <translation>
             <numerusform>會話已結束：%1 · %n 個 QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Call history not readable: %1</source>
+        <translation>無法讀取呼號歷史：%1</translation>
+    </message>
+    <message>
+        <source>Open the contest first</source>
+        <translation>請先開啟比賽</translation>
+    </message>
+    <message numerus="yes">
+        <source>Call history: %n call(s) from %1</source>
+        <translation>
+            <numerusform>呼號歷史：來自 %1 的 %n 個呼號</numerusform>
         </translation>
     </message>
     <message>
@@ -7481,8 +8055,36 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>Cloud：%1</translation>
     </message>
     <message>
+        <source>Invite created: give the code to the operator. It is shown only now.</source>
+        <translation>邀請已建立：把代碼交給操作員。它只顯示這一次。</translation>
+    </message>
+    <message>
+        <source>You are in the log of %1. Choose it for a log of yours below — better a new log (Log → New log), so the club log and yours do not mix.</source>
+        <translation>你已加入 %1 的日誌。請在下方為你的某個日誌選擇它——最好是新日誌（日誌 → 新增日誌），這樣社團日誌和你的日誌不會混在一起。</translation>
+    </message>
+    <message>
+        <source>Cloud: you joined the shared log of %1</source>
+        <translation>Cloud：你已加入 %1 的共享日誌</translation>
+    </message>
+    <message>
         <source>Cloud: linked — sync will unlock it when needed</source>
         <translation>Cloud：已連接 — 需要時同步會解鎖</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with your own log again</source>
+        <translation>Cloud：此日誌重新與你自己的日誌同步</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with the shared log of %1</source>
+        <translation>Cloud：此日誌與 %1 的共享日誌同步</translation>
+    </message>
+    <message>
+        <source>Sync once to open the keystore, then the team shows here.</source>
+        <translation>先同步一次以開啟金鑰庫，之後團隊會顯示在這裡。</translation>
+    </message>
+    <message>
+        <source>Sign in to the Cloud first.</source>
+        <translation>請先登入 Cloud。</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>
@@ -7757,8 +8359,32 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>無法在 UDP %1 上監聽：%2</translation>
     </message>
     <message>
+        <source>Listening for N1MM Logger+ on UDP %1</source>
+        <translation>正在 UDP %1 上監聽 N1MM Logger+</translation>
+    </message>
+    <message>
+        <source>Correction not saved: %1</source>
+        <translation>更正沒有儲存：%1</translation>
+    </message>
+    <message>
+        <source>Corrected by N1MM: %1</source>
+        <translation>N1MM 更正：%1</translation>
+    </message>
+    <message>
         <source>built on %1</source>
         <translation>建置於 %1</translation>
+    </message>
+    <message>
+        <source>Not understood: %1 (write address:port)</source>
+        <translation>看不懂：%1（請寫 位址:連接埠）</translation>
+    </message>
+    <message>
+        <source>UDP forwarding off</source>
+        <translation>UDP 轉發已關閉</translation>
+    </message>
+    <message>
+        <source>UDP forwarded to %1</source>
+        <translation>UDP 轉發到 %1</translation>
     </message>
     <message>
         <source>no callsign</source>
@@ -7793,6 +8419,36 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>已裝上 cty.csv %1：%2 個 DXCC 實體</translation>
     </message>
     <message>
+        <source>Club Log cty.xml not readable: %1</source>
+        <translation>無法讀取 Club Log 的 cty.xml：%1</translation>
+    </message>
+    <message>
+        <source>The Club Log API key is needed (Setup → QSL services → Club Log)</source>
+        <translation>需要 Club Log 的 API 金鑰（設定 → QSL 服務 → Club Log）</translation>
+    </message>
+    <message>
+        <source>Downloading cty.xml from Club Log…</source>
+        <translation>正在從 Club Log 下載 cty.xml…</translation>
+    </message>
+    <message>
+        <source>Club Log: %1</source>
+        <translation>Club Log：%1</translation>
+    </message>
+    <message>
+        <source>Club Log: the file is not a cty.xml (%1)</source>
+        <translation>Club Log：該檔案不是 cty.xml（%1）</translation>
+    </message>
+    <message>
+        <source>cty.xml of %1: %2 entities</source>
+        <translation>%1 的 cty.xml：%2 個實體</translation>
+    </message>
+    <message numerus="yes">
+        <source>Entity of %n QSO(s) corrected with the date of the QSO (Club Log)</source>
+        <translation>
+            <numerusform>已依 QSO 日期修正 %n 筆 QSO 的實體（Club Log）</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>DXCC filled on %1 of %2 QSO (cty.csv %3)</source>
         <translation>%2 個 QSO 中有 %1 個補上了 DXCC (cty.csv %3)</translation>
     </message>
@@ -7819,6 +8475,18 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>QSO not logged: %1</source>
         <translation>QSO 沒有記錄：%1</translation>
+    </message>
+    <message>
+        <source>New key for the local interface: the programs using the old one must be updated</source>
+        <translation>本機介面的新金鑰：用舊金鑰的程式需要更新</translation>
+    </message>
+    <message>
+        <source>Local interface on http://127.0.0.1:%1/api/v1/</source>
+        <translation>本機介面在 http://127.0.0.1:%1/api/v1/</translation>
+    </message>
+    <message>
+        <source>Cannot open the local interface on port %1: %2</source>
+        <translation>無法在連接埠 %1 開啟本機介面：%2</translation>
     </message>
     <message>
         <source>Nowhere to send the frequency: the radio is not connected and Decodium is not there either.</source>
@@ -7896,6 +8564,214 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>已從 %2 個 QSO 上去掉標籤「%1」</translation>
     </message>
     <message>
+        <source>Y · yes</source>
+        <translation>Y · 是</translation>
+    </message>
+    <message>
+        <source>N · no</source>
+        <translation>N · 否</translation>
+    </message>
+    <message>
+        <source>R · requested</source>
+        <translation>R · 已索取</translation>
+    </message>
+    <message>
+        <source>Q · queued</source>
+        <translation>Q · 排隊中</translation>
+    </message>
+    <message>
+        <source>I · ignore</source>
+        <translation>I · 忽略</translation>
+    </message>
+    <message>
+        <source>Y · uploaded</source>
+        <translation>Y · 已上傳</translation>
+    </message>
+    <message>
+        <source>N · not uploaded</source>
+        <translation>N · 未上傳</translation>
+    </message>
+    <message>
+        <source>M · changed, upload again</source>
+        <translation>M · 已修改，需重新上傳</translation>
+    </message>
+    <message>
+        <source>B · bureau</source>
+        <translation>B · 卡片局</translation>
+    </message>
+    <message>
+        <source>D · direct</source>
+        <translation>D · 直寄</translation>
+    </message>
+    <message>
+        <source>E · electronic</source>
+        <translation>E · 電子</translation>
+    </message>
+    <message>
+        <source>No profile</source>
+        <translation>無設定檔</translation>
+    </message>
+    <message>
+        <source>My locator</source>
+        <translation>我的網格</translation>
+    </message>
+    <message>
+        <source>Station callsign</source>
+        <translation>電台呼號</translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation>操作員</translation>
+    </message>
+    <message>
+        <source>Station profile</source>
+        <translation>電台設定檔</translation>
+    </message>
+    <message>
+        <source>My rig</source>
+        <translation>我的電台</translation>
+    </message>
+    <message>
+        <source>My antenna</source>
+        <translation>我的天線</translation>
+    </message>
+    <message>
+        <source>Power (W)</source>
+        <translation>功率 (W)</translation>
+    </message>
+    <message>
+        <source>My POTA reference</source>
+        <translation>我的 POTA 編號</translation>
+    </message>
+    <message>
+        <source>My SOTA reference</source>
+        <translation>我的 SOTA 編號</translation>
+    </message>
+    <message>
+        <source>My WWFF reference</source>
+        <translation>我的 WWFF 編號</translation>
+    </message>
+    <message>
+        <source>My special activity (MY_SIG)</source>
+        <translation>我的特別活動 (MY_SIG)</translation>
+    </message>
+    <message>
+        <source>My special activity reference (MY_SIG_INFO)</source>
+        <translation>我的特別活動編號 (MY_SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>POTA reference</source>
+        <translation>POTA 編號</translation>
+    </message>
+    <message>
+        <source>SOTA reference</source>
+        <translation>SOTA 編號</translation>
+    </message>
+    <message>
+        <source>WWFF reference</source>
+        <translation>WWFF 編號</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Special activity (SIG)</source>
+        <translation>特別活動 (SIG)</translation>
+    </message>
+    <message>
+        <source>Special activity reference (SIG_INFO)</source>
+        <translation>特別活動編號 (SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>比賽</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation>傳播</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>衛星</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>模式</translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation>子模式</translation>
+    </message>
+    <message>
+        <source>RST sent</source>
+        <translation>發出的 RST</translation>
+    </message>
+    <message>
+        <source>RST received</source>
+        <translation>收到的 RST</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>備註</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>備註</translation>
+    </message>
+    <message>
+        <source>Paper QSL sent</source>
+        <translation>紙本 QSL 已寄出</translation>
+    </message>
+    <message>
+        <source>Paper QSL received</source>
+        <translation>紙本 QSL 已收到</translation>
+    </message>
+    <message>
+        <source>Paper QSL via</source>
+        <translation>紙本 QSL 途徑</translation>
+    </message>
+    <message>
+        <source>LoTW: sent</source>
+        <translation>LoTW：已傳送</translation>
+    </message>
+    <message>
+        <source>eQSL: sent</source>
+        <translation>eQSL：已傳送</translation>
+    </message>
+    <message>
+        <source>QRZ.com: uploaded</source>
+        <translation>QRZ.com：已上傳</translation>
+    </message>
+    <message>
+        <source>Club Log: uploaded</source>
+        <translation>Club Log：已上傳</translation>
+    </message>
+    <message>
+        <source>HRDLog: uploaded</source>
+        <translation>HRDLog：已上傳</translation>
+    </message>
+    <message>
+        <source>A change on many QSO is already running: wait for it to finish.</source>
+        <translation>已有一個針對大量 QSO 的修改在進行：請等它完成。</translation>
+    </message>
+    <message>
+        <source>(empty)</source>
+        <translation>（空）</translation>
+    </message>
+    <message>
+        <source>%1 → %2 on %3 QSO (%4 unchanged, %5 failed)</source>
+        <translation>%1 → %2，%3 筆 QSO（%4 筆未變，%5 筆失敗）</translation>
+    </message>
+    <message>
+        <source>QSO #%1: %2</source>
+        <translation>QSO #%1：%2</translation>
+    </message>
+    <message>
+        <source>Merged %1 group(s) of duplicates: %2 QSO deleted (kept in history)</source>
+        <translation>已合併 %1 組重複：刪除 %2 筆 QSO（保留在歷史中）</translation>
+    </message>
+    <message>
         <source>An import is already running: wait for it to finish.</source>
         <translation>已有匯入正在進行：請等待完成。</translation>
     </message>
@@ -7939,7 +8815,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>%1 is not there.</source>
-        <translation type="unfinished">%1 不在。</translation>
+        <translation>%1 不在。</translation>
     </message>
     <message>
         <source>There is no log file to restore over.</source>
@@ -8030,6 +8906,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>%1：密碼或金鑰無法使用（%2）</translation>
     </message>
     <message>
+        <source>Keeping an eye on %1 (%2)</source>
+        <translation>正在盯著 %1（%2）</translation>
+    </message>
+    <message>
         <source>Decodium log not found</source>
         <translation>沒找到 Decodium 日誌</translation>
     </message>
@@ -8041,6 +8921,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <source>%1 · Decodium log not readable: %2</source>
         <translation>%1 · 讀不了 Decodium 日誌：%2</translation>
     </message>
+    <message>
+        <source>%1 · %2 not readable: %3</source>
+        <translation>%1 · %2 讀不了：%3</translation>
+    </message>
     <message numerus="yes">
         <source>%1 · %n QSO(s) recovered from the Decodium log</source>
         <translation>
@@ -8051,6 +8935,12 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <source>%1 · nothing missing (%n QSO(s) checked)</source>
         <translation>
             <numerusform>%1 · 沒有缺的（檢查了 %n 個 QSO）</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from %2</source>
+        <translation>
+            <numerusform>%1 · 從 %2 找回 %n 個 QSO</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -8066,6 +8956,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
         <translation>從 Decodium 日誌找回 → %1 %2 %3 %4</translation>
+    </message>
+    <message>
+        <source>Recovered from %1 → %2 %3 %4 %5</source>
+        <translation>從 %1 找回 → %2 %3 %4 %5</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
@@ -8141,7 +9035,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <name>decolog::app::NetController</name>
     <message>
         <source>off</source>
-        <translation type="unfinished"></translation>
+        <translation>關</translation>
     </message>
     <message>
         <source>on the network %1 (UDP %2) as %3</source>
@@ -8382,6 +9276,20 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog：%1</translation>
+    </message>
+    <message>
+        <source>Wavelog: no station on the site yet</source>
+        <translation>Wavelog：網站上還沒有電台</translation>
+    </message>
+    <message numerus="yes">
+        <source>Wavelog: %n station(s) on the site</source>
+        <translation>
+            <numerusform>Wavelog：網站上有 %n 個電台</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>CRX: %1</source>
         <translation>CRX：%1</translation>
     </message>
@@ -8434,8 +9342,28 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>沒有 API 金鑰：設定 → QSL 服務</translation>
     </message>
     <message>
+        <source>no address or API key: Setup → QSL services</source>
+        <translation>沒有位址或 API 金鑰：設定 → QSL 服務</translation>
+    </message>
+    <message>
+        <source>choose the Wavelog station: Setup → QSL services</source>
+        <translation>請選擇 Wavelog 電台：設定 → QSL 服務</translation>
+    </message>
+    <message>
         <source>choose the CRX logbook: Setup → QSL services</source>
         <translation>選擇 CRX 日誌本：設定 → QSL 服務</translation>
+    </message>
+    <message>
+        <source>Wavelog: asking for the stations…</source>
+        <translation>Wavelog：正在請求電台…</translation>
+    </message>
+    <message>
+        <source>Wavelog: address and API key are needed (%1)</source>
+        <translation>Wavelog：需要位址和 API 金鑰（%1）</translation>
+    </message>
+    <message>
+        <source>add them below</source>
+        <translation>請在下面新增</translation>
     </message>
     <message>
         <source>CRX: asking for the logbooks…</source>
@@ -8835,6 +9763,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>DX 沒有位置：請輸入網格或查詢呼號。</translation>
     </message>
     <message>
+        <source>VOACAP: %1</source>
+        <translation>VOACAP：%1</translation>
+    </message>
+    <message>
         <source>Solar data of %1</source>
         <translation>%1 的太陽資料</translation>
     </message>
@@ -9050,6 +9982,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
 <context>
     <name>decolog::core::CloudSync</name>
     <message>
+        <source>This Cloud server does not know shared logs yet: it has to be updated.</source>
+        <translation>此 Cloud 伺服器尚不支援共享日誌：需要更新。</translation>
+    </message>
+    <message>
         <source>This Cloud server does not know this request (%1): it is older than your DecoDXLog and has to be updated.</source>
         <translation>這台 Cloud 伺服器不認識這個請求 (%1)：它比你的 DecoDXLog 舊，需要更新。</translation>
     </message>
@@ -9188,6 +10124,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>上傳到 HRDLog.net：上傳代碼在你的 HRDLog 個人資料中，不是密碼</translation>
     </message>
     <message>
+        <source>Site address</source>
+        <translation>網站位址</translation>
+    </message>
+    <message>
+        <source>Upload to your Wavelog (or Cloudlog): the address of the site and a read/write API key</source>
+        <translation>傳送到你的 Wavelog（或 Cloudlog）：網站位址和一個可讀寫的 API 金鑰</translation>
+    </message>
+    <message>
         <source>The VHF, EME and low band chat (www.on4kst.info)</source>
         <translation>VHF、EME 和低波段聊天（www.on4kst.info）</translation>
     </message>
@@ -9210,6 +10154,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
         <translation>用郵件傳送 QSL 卡片。Gmail 要的是應用程式密碼，不是帳號密碼。</translation>
+    </message>
+    <message>
+        <source>Only for the QSOs of this profile; empty = the general account</source>
+        <translation>只用於這個設定檔的 QSO；留空 = 通用帳戶</translation>
     </message>
     <message>
         <source>Account saved</source>
@@ -9319,8 +10267,43 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>電台沒有接下這段 CW 文字 (rigctld：%1)。不是每台電台 — 也不是每個 CAT 橋接 — 都能發 CW：要用巨集，就得讓 rigctld 直接和電台說話。</translation>
     </message>
     <message>
+        <source>The radio does not take split from here (rigctld: %1)</source>
+        <translation>電台不接受從這裡設定異頻（rigctld：%1）</translation>
+    </message>
+    <message>
+        <source>The radio does not change VFO from here (rigctld: %1)</source>
+        <translation>電台不接受從這裡切換 VFO（rigctld：%1）</translation>
+    </message>
+    <message>
+        <source>The radio does not take RIT from here (rigctld: %1)</source>
+        <translation>電台不接受從這裡設定 RIT（rigctld：%1）</translation>
+    </message>
+    <message>
+        <source>The radio does not take XIT from here (rigctld: %1)</source>
+        <translation>電台不接受從這裡設定 XIT（rigctld：%1）</translation>
+    </message>
+    <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>電台回了一個錯誤 (rigctld：%1)</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::RigLink</name>
+    <message>
+        <source>This radio link does not do split</source>
+        <translation>此電台連線不支援異頻</translation>
+    </message>
+    <message>
+        <source>This radio link cannot choose the VFO</source>
+        <translation>此電台連線無法選擇 VFO</translation>
+    </message>
+    <message>
+        <source>This radio link does not do RIT</source>
+        <translation>此電台連線不支援 RIT</translation>
+    </message>
+    <message>
+        <source>This radio link does not do XIT</source>
+        <translation>此電台連線不支援 XIT</translation>
     </message>
 </context>
 <context>
@@ -9424,6 +10407,14 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
 </context>
 <context>
     <name>decolog::core::WebQslUploader</name>
+    <message>
+        <source>Wavelog: write the address of your Wavelog (Setup → QSL services)</source>
+        <translation>Wavelog：請填寫你的 Wavelog 位址（設定 → QSL 服務）</translation>
+    </message>
+    <message>
+        <source>write the address of your Wavelog</source>
+        <translation>請填寫你的 Wavelog 位址</translation>
+    </message>
     <message>
         <source>Club Log: email, password, callsign and API key are all needed</source>
         <translation>Club Log：信箱、密碼、呼號和 API 金鑰，一個都不能少</translation>

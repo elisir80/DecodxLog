@@ -106,6 +106,59 @@ void RigControl::refresh()
     send(QStringLiteral("freq"), QStringLiteral("f"), 1);
     send(QStringLiteral("mode"), QStringLiteral("m"), 2);
     send(QStringLiteral("speed"), QStringLiteral("l KEYSPD"), 1);
+    // Split, VFO, RIT e XIT solo finche' la radio li sa fare, e una volta ogni
+    // tre giri: ogni domanda e' un comando CAT sul cavo, e le radio lente non
+    // devono perdere la frequenza per saperli.
+    if (m_extraPoll++ % 3 != 0)
+        return;
+    if (m_features & Split) {
+        send(QStringLiteral("split"), QStringLiteral("s"), 2);
+        if (m_split)
+            send(QStringLiteral("txfreq"), QStringLiteral("i"), 1);
+    }
+    if (m_features & VfoSelect)
+        send(QStringLiteral("vfo"), QStringLiteral("v"), 1);
+    if (m_features & Rit)
+        send(QStringLiteral("rit"), QStringLiteral("j"), 1);
+    if (m_features & Xit)
+        send(QStringLiteral("xit"), QStringLiteral("z"), 1);
+}
+
+void RigControl::setSplit(bool on, qint64 txHz)
+{
+    // Con lo split si trasmette sul VFO B.
+    send(QStringLiteral("setsplit"), QStringLiteral("S %1 %2").arg(on ? 1 : 0).arg(on ? QStringLiteral("VFOB")
+                                                                                     : QStringLiteral("VFOA")), 0);
+    if (on && txHz > 0) {
+        send(QStringLiteral("setsplit"), QStringLiteral("I %1").arg(txHz), 0);
+        m_txHz = txHz;
+    }
+    m_split = on;
+    emit changed();
+}
+
+void RigControl::setVfo(const QString& vfo)
+{
+    const QString v = vfo.trimmed().toUpper();
+    if (v != QLatin1String("VFOA") && v != QLatin1String("VFOB"))
+        return;
+    send(QStringLiteral("setvfo"), QStringLiteral("V %1").arg(v), 0);
+    m_vfo = v;
+    emit changed();
+}
+
+void RigControl::setRit(int hz)
+{
+    send(QStringLiteral("setrit"), QStringLiteral("J %1").arg(hz), 0);
+    m_rit = hz;
+    emit changed();
+}
+
+void RigControl::setXit(int hz)
+{
+    send(QStringLiteral("setxit"), QStringLiteral("Z %1").arg(hz), 0);
+    m_xit = hz;
+    emit changed();
 }
 
 void RigControl::setFrequency(qint64 hz)
@@ -222,6 +275,28 @@ void RigControl::handleReply(const QStringList& lines)
             emit failed(tr("The radio did not take the CW text (rigctld: %1). Not every radio — and "
                            "not every CAT bridge — can key CW: for the macros you need rigctld "
                            "talking to the radio itself.").arg(result));
+        } else if (what.kind == QLatin1String("split") || what.kind == QLatin1String("txfreq")
+                   || what.kind == QLatin1String("setsplit")) {
+            // Questa radio lo split da qui non lo fa: non si chiede piu'.
+            m_features &= ~Split;
+            if (what.kind == QLatin1String("setsplit"))
+                emit failed(tr("The radio does not take split from here (rigctld: %1)").arg(result));
+            emit changed();
+        } else if (what.kind == QLatin1String("vfo") || what.kind == QLatin1String("setvfo")) {
+            m_features &= ~VfoSelect;
+            if (what.kind == QLatin1String("setvfo"))
+                emit failed(tr("The radio does not change VFO from here (rigctld: %1)").arg(result));
+            emit changed();
+        } else if (what.kind == QLatin1String("rit") || what.kind == QLatin1String("setrit")) {
+            m_features &= ~Rit;
+            if (what.kind == QLatin1String("setrit"))
+                emit failed(tr("The radio does not take RIT from here (rigctld: %1)").arg(result));
+            emit changed();
+        } else if (what.kind == QLatin1String("xit") || what.kind == QLatin1String("setxit")) {
+            m_features &= ~Xit;
+            if (what.kind == QLatin1String("setxit"))
+                emit failed(tr("The radio does not take XIT from here (rigctld: %1)").arg(result));
+            emit changed();
         } else if (what.kind != QLatin1String("speed")) {
             emit failed(tr("The radio answered with an error (rigctld: %1)").arg(result));
         }
@@ -246,7 +321,37 @@ void RigControl::handleReply(const QStringList& lines)
     }
 
     bool moved = false;
-    if (what.kind == QLatin1String("freq")) {
+    auto first = [&](const QString& label) {
+        const QString v = valueOf(label);
+        return v.isEmpty() && !plain.isEmpty() ? plain.first() : v;
+    };
+    if (what.kind == QLatin1String("split")) {
+        const bool on = first(QStringLiteral("Split")).toInt() != 0;
+        if (on != m_split) {
+            m_split = on;
+            moved = true;
+        }
+    } else if (what.kind == QLatin1String("txfreq")) {
+        const qint64 hz = first(QStringLiteral("TX Frequency")).toLongLong();
+        if (hz > 0 && hz != m_txHz) {
+            m_txHz = hz;
+            moved = true;
+        }
+    } else if (what.kind == QLatin1String("vfo")) {
+        const QString v = first(QStringLiteral("VFO")).toUpper();
+        if (!v.isEmpty() && v != m_vfo) {
+            m_vfo = v;
+            moved = true;
+        }
+    } else if (what.kind == QLatin1String("rit") || what.kind == QLatin1String("xit")) {
+        const bool rit = what.kind == QLatin1String("rit");
+        const int hz = first(rit ? QStringLiteral("RIT") : QStringLiteral("XIT")).toInt();
+        int& target = rit ? m_rit : m_xit;
+        if (hz != target) {
+            target = hz;
+            moved = true;
+        }
+    } else if (what.kind == QLatin1String("freq")) {
         const QString label = valueOf(QStringLiteral("Frequency"));
         const qint64 hz = (label.isEmpty() && !plain.isEmpty() ? plain.first() : label).toLongLong();
         if (hz > 0 && hz != m_frequencyHz) {

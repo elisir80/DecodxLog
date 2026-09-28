@@ -195,6 +195,7 @@ QsoTableModel::QsoTableModel(LogDatabase* db, QObject* parent)
     , m_db(db)
     , m_layout(coreKeys())
 {
+    m_reloadPool.setMaxThreadCount(1);
     rebuildSlots();
     reload();
 }
@@ -731,15 +732,10 @@ void QsoTableModel::computeCategories()
         return;
     }
     // I filtri ricaricano la tabella spesso; le categorie cambiano solo se
-    // cambia il log. Si contano di nuovo solo allora.
-    QSqlQuery sig(m_db->connection());
-    QString signature;
-    if (sig.exec(QStringLiteral("SELECT COUNT(*), IFNULL(MAX(updated_at), ''), "
-                                "(SELECT COUNT(*) FROM qsl_status WHERE service = 'lotw' AND rcvd = 'Y') "
-                                "FROM qso WHERE deleted = 0"))
-        && sig.next())
-        signature = sig.value(0).toString() + QLatin1Char('|') + sig.value(1).toString() + QLatin1Char('|')
-                  + sig.value(2).toString();
+    // cambia il log. Si contano di nuovo solo allora. Il segno di un cambio
+    // non si conta nel log: su un milione di QSO il MAX(updated_at) di prima
+    // costava quasi mezzo secondo a ogni filtro.
+    const QString signature = m_db->changeStamp();
     if (!signature.isEmpty() && signature == m_categorySignature)
         return;
     m_categorySignature = signature;
@@ -908,7 +904,8 @@ QsoTableModel::Row QsoTableModel::rowFromQuery(const QSqlQuery& q) const
     else if (source == QLatin1String("import"))   r.values[Source] = QStringLiteral("imp");
     else if (source == QLatin1String("cloud"))    r.values[Source] = QStringLiteral("cld");
     // Recuperato dal log di Decodium: e' arrivato da Decodium come gli udp.
-    else if (source == QLatin1String("decodium_adif")) r.values[Source] = QStringLiteral("rec");
+    else if (source == QLatin1String("decodium_adif") || source == QLatin1String("adif_watch"))
+        r.values[Source] = QStringLiteral("rec");
     else r.values[Source] = source.left(3);
     r.values[Qsl] = qslCodes(q.value(13).toString());
     r.values[Tags] = q.value(14).toString().replace(QLatin1Char(','), QStringLiteral(", "));
@@ -1019,36 +1016,105 @@ QString QsoTableModel::whereSql(QVariantList& binds) const
     return where.isEmpty() ? QString() : QStringLiteral("AND ") + where.join(QStringLiteral(" AND "));
 }
 
+bool QsoTableModel::scanWholeLog() const
+{
+    // La ricerca libera legge tutto il log: in fila (NOT INDEXED) e poi in
+    // ordine, non seguendo l'indice del tempo e saltando per il file — su un
+    // milione di QSO sono meno di un secondo invece di sette. Lo stesso per
+    // tutto il log ordinato per un'altra colonna: l'indice del tempo non serve
+    // all'ordine, e seguirlo vuol dire saltare.
+    return !m_filter.trimmed().isEmpty() || (m_sortKey != QLatin1String("utc") && !filtered());
+}
+
+// Solo gli id, filtrati e ordinati da SQLite: i valori arrivano a pagine
+// quando la tabella li mostra.
+QString QsoTableModel::idsSql(QVariantList& binds, bool scan) const
+{
+    const QString where = whereSql(binds);
+    return QStringLiteral("SELECT id FROM qso%1 WHERE deleted = 0 %2 ORDER BY %3")
+        .arg(scan ? QStringLiteral(" NOT INDEXED") : QString(), where, orderSql());
+}
+
 void QsoTableModel::reload()
 {
     decolog::StartupSpan trace("QsoTableModel::reload");
-    beginResetModel();
-    m_ids.clear();
-    dropPages();
-    if (m_db && m_db->isOpen()) {
-        // Solo gli id, filtrati e ordinati da SQLite: i valori arrivano a
-        // pagine quando la tabella li mostra.
+    const int generation = ++m_reloadGeneration;
+    m_reloadLatest->store(generation);
+    const QString path = m_db && m_db->isOpen() ? m_db->path() : QString();
+    // Su un log grande in un file, un ordine o un filtro diversi da quelli di
+    // sempre costano secondi (un milione di QSO per nominativo: due): si
+    // preparano su un altro filo, e intanto la tabella resta com'e'. Il log in
+    // ordine di tempo senza filtri legge solo il suo indice, e resta qui.
+    if (!path.isEmpty() && path != QLatin1String(":memory:") && m_total >= kBackgroundRows
+        && (filtered() || !defaultSort())) {
         QVariantList binds;
-        const QString where = whereSql(binds);
+        const QString sql = idsSql(binds, scanWholeLog());
+        if (!m_busy) {
+            m_busy = true;
+            emit busyChanged();
+        }
+        QPointer<QsoTableModel> self(this);
+        const auto latest = m_reloadLatest;
+        m_reloadPool.start([self, path, sql, binds, generation, latest] {
+            // Un altro ricarico chiesto dopo: questo non serve piu'.
+            if (latest->load() != generation)
+                return;
+            QVector<qint64> ids;
+            {
+                core::LogDatabase db;
+                if (db.open(path)) {
+                    QSqlQuery q(db.connection());
+                    q.setForwardOnly(true);
+                    q.prepare(sql);
+                    for (const auto& b : binds)
+                        q.addBindValue(b);
+                    if (q.exec()) {
+                        while (q.next())
+                            ids.append(q.value(0).toLongLong());
+                    }
+                }
+            }
+            QMetaObject::invokeMethod(
+                self.data(),
+                [self, generation, ids = std::move(ids)]() mutable {
+                    if (!self || generation != self->m_reloadGeneration)
+                        return;
+                    self->adoptIds(std::move(ids));
+                },
+                Qt::QueuedConnection);
+        });
+        return;
+    }
+    QVector<qint64> ids;
+    if (m_db && m_db->isOpen()) {
+        QVariantList binds;
         QSqlQuery q(m_db->connection());
         q.setForwardOnly(true);
-        // La ricerca libera legge tutto il log: in fila (NOT INDEXED) e poi in
-        // ordine, non seguendo l'indice del tempo e saltando per il file —
-        // su un milione di QSO sono meno di un secondo invece di sette.
-        const bool scan = !m_filter.trimmed().isEmpty();
-        q.prepare(QStringLiteral("SELECT id FROM qso%1 WHERE deleted = 0 %2 ORDER BY %3")
-                      .arg(scan ? QStringLiteral(" NOT INDEXED") : QString(), where, orderSql()));
+        q.prepare(idsSql(binds, scanWholeLog()));
         for (const auto& b : binds)
             q.addBindValue(b);
         if (q.exec()) {
             while (q.next())
-                m_ids.append(q.value(0).toLongLong());
+                ids.append(q.value(0).toLongLong());
         }
-        computeCategories();
     }
+    adoptIds(std::move(ids));
+}
+
+void QsoTableModel::adoptIds(QVector<qint64>&& ids)
+{
+    beginResetModel();
+    m_ids = std::move(ids);
+    dropPages();
+    if (m_db && m_db->isOpen())
+        computeCategories();
     refreshTotal();
     endResetModel();
     emit countChanged();
+    if (m_busy) {
+        m_busy = false;
+        emit busyChanged();
+    }
 }
 
 void QsoTableModel::refreshQso(qint64 id)
@@ -1084,15 +1150,28 @@ void QsoTableModel::insertQso(qint64 id)
     if (!q.exec() || !q.next())
         return;
     const QString on = q.value(0).toString();
-    QSqlQuery before(m_db->connection());
-    before.prepare(QStringLiteral("SELECT COUNT(*) FROM qso WHERE deleted = 0 AND id <> ? "
-                                  "AND (qso_datetime_on > ? OR (qso_datetime_on = ? AND id > ?))"));
-    before.addBindValue(id);
-    before.addBindValue(on);
-    before.addBindValue(on);
-    before.addBindValue(id);
-    const int pos = before.exec() && before.next() ? qBound(0, before.value(0).toInt(), static_cast<int>(m_ids.size()))
-                                                   : 0;
+    // Una ricerca a meta' sulle righe che la tabella ha gia', in ordine di
+    // tempo: una ventina di letture per id invece di contare nel log i QSO piu'
+    // recenti — per un QSO del 2015 su un milione erano mezzo milione di righe.
+    QSqlQuery at(m_db->connection());
+    at.prepare(QStringLiteral("SELECT qso_datetime_on FROM qso WHERE id = ?"));
+    auto comesBefore = [&at, &on, id](qint64 other) {
+        at.bindValue(0, other);
+        if (!at.exec() || !at.next())
+            return false;
+        const QString o = at.value(0).toString();
+        return o > on || (o == on && other > id);
+    };
+    int lo = 0;
+    int hi = static_cast<int>(m_ids.size());
+    while (lo < hi) {
+        const int mid = lo + (hi - lo) / 2;
+        if (m_ids.at(mid) != id && comesBefore(m_ids.at(mid)))
+            lo = mid + 1;
+        else
+            hi = mid;
+    }
+    const int pos = lo;
     const qsizetype category = categoryKeys().indexOf(categoryOf(id));
     m_category.insert(id, category >= 0 ? static_cast<quint8>(category) : kNoCategory);
 

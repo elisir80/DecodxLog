@@ -33,6 +33,9 @@
 #include "core/LogDatabase.h"
 #include "core/Lotw.h"
 #include "core/DecodiumLog.h"
+#include "core/LocalApi.h"
+#include "core/ClubLogCty.h"
+#include "core/N1mm.h"
 #include "core/QslDownload.h"
 #include "core/UdpReceiver.h"
 
@@ -93,6 +96,18 @@ class DecoLogController : public QObject {
     // ── Collegamento con Decodium ──────────────────────────────────────────
     Q_PROPERTY(int udpPort READ udpPort WRITE setUdpPort NOTIFY udpChanged)
     Q_PROPERTY(QString multicastGroup READ multicastGroup WRITE setMulticastGroup NOTIFY udpChanged)
+    // Ripetitore UDP: a chi inoltrare i pacchetti di Decodium ("host:porta, ...").
+    Q_PROPERTY(QString udpForward READ udpForward WRITE setUdpForward NOTIFY udpChanged)
+    Q_PROPERTY(QString udpForwardError READ udpForwardError NOTIFY udpChanged)
+    // I QSO di N1MM Logger+ (XML su UDP, di solito la 12060). 0 = spento.
+    Q_PROPERTY(int n1mmPort READ n1mmPort WRITE setN1mmPort NOTIFY udpChanged)
+    Q_PROPERTY(bool n1mmListening READ n1mmListening NOTIFY udpChanged)
+    Q_PROPERTY(QString n1mmError READ n1mmError NOTIFY udpChanged)
+    // L'interfaccia HTTP locale per altri programmi (solo 127.0.0.1, con chiave).
+    Q_PROPERTY(int apiPort READ apiPort WRITE setApiPort NOTIFY udpChanged)
+    Q_PROPERTY(QString apiToken READ apiToken NOTIFY udpChanged)
+    Q_PROPERTY(bool apiListening READ apiListening NOTIFY udpChanged)
+    Q_PROPERTY(QString apiError READ apiError NOTIFY udpChanged)
     Q_PROPERTY(bool preferLoggedAdif READ preferLoggedAdif WRITE setPreferLoggedAdif NOTIFY udpChanged)
     Q_PROPERTY(bool listening READ listening NOTIFY udpChanged)
     Q_PROPERTY(QString udpError READ udpError NOTIFY udpChanged)
@@ -199,9 +214,22 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QString decodiumLogInUse READ decodiumLogInUse NOTIFY recoveryChanged)
     Q_PROPERTY(QString recoveryStatus READ recoveryStatus NOTIFY recoveryChanged)
     Q_PROPERTY(bool recoveryBusy READ recoveryBusy NOTIFY recoveryChanged)
+    // Gli altri log ADIF tenuti d'occhio (fldigi, WSJT-X, JTDX...): path, label,
+    // enabled, exists, status.
+    Q_PROPERTY(QVariantList adifWatches READ adifWatches NOTIFY recoveryChanged)
+    // Il cty.xml di Club Log (entita' con le date): loaded, date, entities,
+    // status; e le correzioni trovate confrontando i QSO con le date.
+    Q_PROPERTY(QVariantMap clublogCty READ clublogCty NOTIFY ctyChanged)
+    Q_PROPERTY(QVariantMap entityFixes READ entityFixes NOTIFY ctyChanged)
+    Q_PROPERTY(QVariantList adifWatchSuggestions READ adifWatchSuggestions NOTIFY recoveryChanged)
 
     // L'importazione ADIF gira su un altro filo: da 0 a 1 mentre va, -1 ferma.
     Q_PROPERTY(double importProgress READ importProgress NOTIFY importChanged)
+    // Anche una modifica in blocco: da 0 a 1 mentre va, -1 ferma.
+    Q_PROPERTY(double bulkProgress READ bulkProgress NOTIFY bulkChanged)
+    // I doppioni trovati: {busy, windowMinutes, searched, limited, groups:
+    // [{keep, rows: [{id, call, when, band, mode, freq, source, confirmed, fields}]}]}.
+    Q_PROPERTY(QVariantMap duplicates READ duplicates NOTIFY duplicatesChanged)
     // ── Backup ─────────────────────────────────────────────────────────────
     Q_PROPERTY(bool backupEnabled READ backupEnabled WRITE setBackupEnabled NOTIFY backupChanged)
     Q_PROPERTY(QString backupDir READ backupDir WRITE setBackupDir NOTIFY backupChanged)
@@ -221,6 +249,7 @@ public:
 
     bool openDatabase(const QString& path);
     void startListening();
+    void startN1mm();
     // Porta da riga di comando: vale per questa sessione, non si salva.
     void overrideUdpPort(int port) { m_udpPort = port; }
 
@@ -267,6 +296,21 @@ public:
     int udpPort() const { return m_udpPort; }
     void setUdpPort(int port);
     QString multicastGroup() const { return m_multicast; }
+    QString udpForward() const { return m_udpForward; }
+    void setUdpForward(const QString& targets);
+    QString udpForwardError() const { return m_udpForwardError; }
+    int n1mmPort() const { return m_n1mmPort; }
+    void setN1mmPort(int port);
+    bool n1mmListening() const { return m_n1mm.isListening(); }
+    QString n1mmError() const { return m_n1mm.lastError(); }
+    int apiPort() const { return m_apiPort; }
+    void setApiPort(int port);
+    QString apiToken() const { return m_apiToken; }
+    bool apiListening() const { return m_api.isListening(); }
+    QString apiError() const { return m_api.lastError(); }
+    // Una chiave nuova: i programmi che usavano la vecchia vanno aggiornati.
+    Q_INVOKABLE void newApiToken();
+    void startApi();
     void setMulticastGroup(const QString& group);
     bool preferLoggedAdif() const { return m_udp.prefersLoggedAdif(); }
     void setPreferLoggedAdif(bool prefer);
@@ -354,6 +398,11 @@ public:
     void setAwardBand(const QString& band);
     QString awardModeGroup() const { return m_awardFilter.modeGroup; }
     void setAwardModeGroup(const QString& group);
+    // Le conferme valide per un diploma: services (quelle che contano adesso),
+    // official (quelle del regolamento, se ne ha), custom (scelte a mano).
+    Q_INVOKABLE QVariantMap awardCredits(const QString& awardId) const;
+    Q_INVOKABLE void setAwardCredit(const QString& awardId, const QString& service, bool on);
+    Q_INVOKABLE void resetAwardCredits(const QString& awardId);
     bool awardConfirmLotw() const { return m_awardFilter.confirmLotw; }
     void setAwardConfirmLotw(bool on);
     bool awardConfirmCard() const { return m_awardFilter.confirmCard; }
@@ -439,12 +488,29 @@ public:
     bool recoveryBusy() const { return m_recoveryRunning; }
     // A mano: i QSO degli ultimi `days` giorni che mancano (0 = tutto il file).
     Q_INVOKABLE void recoverFromDecodium(int days);
+    QVariantList adifWatches() const;
+    QVariantMap clublogCty() const;
+    QVariantMap entityFixes() const { return m_entityFixesInfo; }
+    // Scarica il cty.xml con la chiave API di Club Log.
+    Q_INVOKABLE void updateClubLogCty();
+    // Cerca i QSO che, con la data del QSO, sono di un'altra entita'.
+    Q_INVOKABLE void checkEntitiesByDate();
+    Q_INVOKABLE int applyEntityFixes();
+    QVariantList adifWatchSuggestions() const;
+    Q_INVOKABLE void addAdifWatch(const QString& path, const QString& label = {});
+    Q_INVOKABLE void removeAdifWatch(const QString& path);
+    Q_INVOKABLE void setAdifWatchEnabled(const QString& path, bool on);
+    Q_INVOKABLE void checkAdifWatch(const QString& path, int days);
     void setConfirmAutoHours(int hours);
     QVariantMap confirmLastSync() const;
     // Scarica le conferme di "eqsl" o "qrz": solo le nuove dall'ultimo scarico,
     // o tutte con `full`.
     Q_INVOKABLE void syncConfirmations(const QString& service, bool full = false);
-    Q_INVOKABLE void cancelConfirmations() { m_confirmDownloader.cancel(); }
+    Q_INVOKABLE void cancelConfirmations()
+    {
+        m_confirmQueue.clear();
+        m_confirmDownloader.cancel();
+    }
     QString lotwStatus() const { return m_lotwStatus; }
     QString lotwLastSync() const;
     QString lotwCursor() const { return m_db.setting(QStringLiteral("lotw.last_qsl")); }
@@ -471,6 +537,8 @@ public:
     Q_INVOKABLE void cancelLotw() { m_lotw.cancel(); }
 
     double importProgress() const { return m_importProgress; }
+    double bulkProgress() const { return m_bulkProgress; }
+    QVariantMap duplicates() const { return m_duplicates; }
     bool backupEnabled() const { return m_backupEnabled; }
     void setBackupEnabled(bool enabled);
     QString backupDir() const { return m_backupDir; }
@@ -526,6 +594,16 @@ public:
 
     // Etichette: aggiunge o toglie `tag` ai QSO indicati. Restituisce quanti sono cambiati.
     Q_INVOKABLE int tagQsos(const QVariantList& ids, const QString& tag, bool add);
+    // Lo stesso valore in un campo dei QSO indicati, ognuno con la sua revisione
+    // nello storico. I campi che si possono cambiare cosi':
+    // [{field, label, choices: [{value, label}]}] (choices vuoto: testo libero).
+    Q_INVOKABLE QVariantList bulkFields() const;
+    Q_INVOKABLE void bulkEdit(const QVariantList& ids, const QString& field, const QString& value, bool onlyEmpty);
+    // I doppioni del log, cercati su un altro filo; poi uniti gruppo per gruppo
+    // ([{keep, ids}]): chi resta prende quello che manca, gli altri si cancellano.
+    Q_INVOKABLE void findDuplicates(int windowMinutes);
+    Q_INVOKABLE int mergeDuplicates(const QVariantList& groups);
+    Q_INVOKABLE void clearDuplicates();
     // Le entita' presenti nel log per il filtro: [{dxcc, name, count}].
     Q_INVOKABLE QVariantList dxccInLog() const;
     Q_INVOKABLE QString dxccName(int dxcc) const { return m_countries.nameFor(dxcc); }
@@ -585,6 +663,8 @@ signals:
     void stationChanged();
     void backupChanged();
     void importChanged();
+    void bulkChanged();
+    void duplicatesChanged();
     void backupInspected(const QVariantMap& info);
     void statsReady(const QVariantMap& stats);
     void cloudChanged();
@@ -596,10 +676,12 @@ signals:
     void logColorsChanged();
     void lotwChanged();
     void confirmChanged();
+    void ctyChanged();
     void recoveryChanged();
 
 private:
-    void onQsoReceived(const core::AdifRecord& record, const QString& source, const QString& sourceApp);
+    core::InsertResult onQsoReceived(const core::AdifRecord& record, const QString& source, const QString& sourceApp);
+    core::HttpResponse handleApi(const core::HttpRequest& request);
     void addActivity(const QString& category, const QString& text, const QString& level = QStringLiteral("info"));
 
     // Dove si e' adesso: frequenza, banda, modo, TX. Va al Cloud perche' lo si
@@ -631,18 +713,50 @@ private:
         int invalid{0};
         QStringList missing;
     };
-    ConfirmTally applyConfirmations(const QString& service, const QList<core::AdifRecord>& list);
+    ConfirmTally applyConfirmations(const QString& service, const QList<core::AdifRecord>& list,
+                                    const QList<qint64>& onlyProfiles = {}, const QList<qint64>& exceptProfiles = {});
+    // Un account da cui scaricare le conferme: quello generale (per i QSO dei
+    // profili senza un account loro) o quello di un profilo (solo i suoi QSO).
+    struct ConfirmAccount {
+        QString service;      // "eqsl", "qrz"
+        QString credential;   // "eqsl", "eqsl@3", "qrzlogbook@3"
+        QString key;          // prefisso nelle impostazioni del log: "eqsl", "eqsl@3"
+        QString label;        // "eQSL", "eQSL IU8LMC/P"
+        QList<qint64> only;
+        QList<qint64> except;
+    };
+    QList<ConfirmAccount> confirmAccounts(const QString& service) const;
+    void startNextConfirmAccount();
     // Dopo: la tabella, i diplomi, Decodium, e i DXCC confermati nuovi.
     void confirmationsApplied(const QString& category, const QSet<QString>& dxccBefore,
                               const QSet<QString>& ft2Before);
     void checkLotwSchedule();
     void checkConfirmSchedule();
+    // Da dove si recuperano QSO: il log di Decodium o un altro log ADIF.
+    struct RecoverySource {
+        QString path;
+        QString label;        // "Decodium", "fldigi"...
+        QString untilKey;     // fin dove si e' guardato, nelle impostazioni
+        QString source;       // colonna qso.source: decodium_adif, adif_watch
+        QString category;     // nel registro attivita'
+        bool decodium{false};
+    };
+    struct RecoveryJob {
+        RecoverySource source;
+        QDateTime from;
+        QDateTime to;
+        bool manual{false};
+    };
+    RecoverySource decodiumSource() const;
+    QList<RecoverySource> watchSources(bool enabledOnly) const;
+    QDateTime recoveryFrom(const RecoverySource& source, const QDateTime& to) const;
     void checkDecodiumRecovery();
-    void startRecovery(const QDateTime& from, const QDateTime& to, bool manual);
-    void finishRecovery(const core::decodiumlog::Tail& tail, const QList<core::AdifRecord>& missing,
-                        const QDateTime& to, bool manual);
+    void runNextRecovery();
+    void startRecovery(const RecoveryJob& job);
+    void finishRecovery(const RecoveryJob& job, const core::decodiumlog::Tail& tail,
+                        const QList<core::AdifRecord>& missing);
     enum class Recovered { Saved, Known, ActivationDuplicate, Failed };
-    Recovered saveRecoveredQso(const core::AdifRecord& record, bool bulk);
+    Recovered saveRecoveredQso(const core::AdifRecord& record, bool bulk, const RecoverySource& source);
     QSet<QString> confirmedAwardKeys(const QString& awardId) const;
     void requestCallbook();
     const QList<core::AwardResult>& awardResults() const;
@@ -672,11 +786,32 @@ private:
     QString m_confirmService;      // quello che sta scaricando
     QString m_confirmStatus;
     bool m_confirmAuto{false};     // lo scarico in corso l'ha fatto partire l'orario
+    QList<ConfirmAccount> m_confirmQueue;   // gli account che aspettano il loro turno
+    ConfirmAccount m_confirmAccount;        // quello che sta scaricando
+    bool m_confirmFull{false};
     bool m_confirmFailed{false};   // l'ultimo stato e' un errore
     bool m_recoveryEnabled{true};
     QString m_decodiumLogPath;     // scelto a mano; vuoto = quello di Decodium
     QString m_recoveryStatus;
     bool m_recoveryRunning{false};
+    core::ClubLogCty m_ctyXml;
+    QString m_ctyXmlStatus;
+    bool m_ctyXmlBusy{false};
+    struct EntityFix {
+        qint64 id{0};
+        int dxcc{0};
+        QString country;
+        int cqz{0};
+        QString cont;
+    };
+    QList<EntityFix> m_entityFixes;
+    QVariantMap m_entityFixesInfo;
+    QThreadPool m_ctyPool;
+    void loadClubLogCty();
+    QString clublogCtyPath() const;
+    core::AwardCalculator awardCalculator(const QHash<int, QString>& names) const;
+    QList<RecoveryJob> m_recoveryQueue;
+    QHash<QString, QString> m_recoveryStatuses;   // file tenuto d'occhio → ultimo esito
     QTimer m_recoveryTimer;
     QThreadPool m_recoveryPool;
     int m_confirmAutoHours{12};
@@ -755,6 +890,15 @@ private:
     LogLibrary* m_logs{nullptr};
 
     int       m_udpPort{2237};
+    QString   m_udpForward;
+    core::N1mmReceiver m_n1mm;
+    int       m_n1mmPort{0};
+    core::LocalApiServer m_api;
+    int       m_apiPort{0};
+    QString   m_apiToken;
+    void onN1mmReplaced(const core::AdifRecord& record, const QString& id);
+    void onN1mmDeleted(const QString& id, const core::AdifRecord& record);
+    QString   m_udpForwardError;
     QString   m_multicast;
     bool      m_followDx{true};
     QString   m_clientName;
@@ -785,6 +929,26 @@ private:
     std::shared_ptr<std::atomic<int>> m_statsLatest{std::make_shared<std::atomic<int>>(0)};
     double m_importProgress{-1};
     void finishImport(const QString& path, const core::ImportResult& result);
+    double m_bulkProgress{-1};
+    void finishBulk(const QString& field, const QString& value, const core::BulkEditResult& result);
+    QVariantMap m_duplicates;
+
+    // I conti dell'entita' per la scheda del nominativo (quante volte, bande,
+    // modi, caselle con le conferme): per un'entita' comune su un log grande
+    // sono decine di migliaia di righe — la Germania su un milione di QSO,
+    // mezzo secondo a ogni nominativo DL. Su un log in file si fanno su un
+    // altro filo; la scheda mostra l'ultimo conto, o aspetta il primo.
+    struct EntitySummary {
+        quint64 version{0};
+        core::LogDatabase::DxccWorked worked;
+        QList<core::LogDatabase::BandModeSlot> cells;
+    };
+    QHash<int, EntitySummary> m_entitySummaries;
+    QSet<int> m_entityCounting;
+    // Sale a ogni cambio del log: un conto fatto prima e' vecchio.
+    quint64 m_logVersion{1};
+    QThreadPool m_callInfoPool;
+    std::optional<EntitySummary> entitySummary(int dxcc);
     // Esportare su un altro filo: su un log da un milione sono decine di secondi.
     void exportInBackground(const QList<qint64>& ids, bool all, const QString& path);
     bool m_backupRunning{false};

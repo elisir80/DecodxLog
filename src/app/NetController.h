@@ -3,6 +3,7 @@
 #pragma once
 
 #include "core/ContestNet.h"
+#include "core/SharedSerials.h"
 
 #include <QDateTime>
 #include <QHash>
@@ -67,6 +68,15 @@ public:
     // Un QSO appena fatto qui: agli altri.
     void qsoLogged(qint64 id);
 
+    // I progressivi condivisi (multi-operatore, una sequenza sola): li
+    // distribuisce il PC con l'identita' piu' piccola fra quelli presenti; gli
+    // altri ne chiedono uno in anticipo, cosi' al momento del QSO ce l'hanno
+    // gia'. Senza rete: il piu' alto visto piu' uno.
+    void setSerialSharing(bool on);
+    int takeSerial(int localNext);
+    bool isSerialServer() const;
+    QString id() const { return m_id; }
+
     Q_INVOKABLE void sendGab(const QString& text, const QString& to = {});
     Q_INVOKABLE void sendSpot(const QString& call, double khz, const QString& comment = {});
     // Chiede agli altri i QSO della gara che qui mancano.
@@ -119,6 +129,10 @@ private:
     // I QSO da rimandare a chi ha chiesto la sincronia, a gruppi.
     QList<qint64> m_resend;
     QTimer m_resendTimer;
+    bool m_serialSharing{false};
+    core::SharedSerials m_serials;
+    void requestSerial();
+    void noteSerial(const QString& stx);
 };
 
 } // namespace decolog::app

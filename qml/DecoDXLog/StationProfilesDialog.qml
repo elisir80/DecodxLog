@@ -19,7 +19,7 @@ DialogFrame {
     info: qsTr("active: %1").arg(profiles.activeProfile.name || "—")
     dialogKey: "profiles"
     width: 800
-    height: 600
+    height: 700
 
     function select(row) {
         selectedRow = row
@@ -247,6 +247,29 @@ DialogFrame {
                 ProfileInput { key: "defaultTxPwr"; label: qsTr("Def. pwr W"); Layout.preferredWidth: 90; Layout.fillWidth: false }
             }
             ProfileInput { key: "lotwStationLocation"; label: qsTr("LoTW station location (TQSL)") }
+
+            // Un nominativo speciale ha il suo logbook QRZ e la sua casella eQSL:
+            // l'invio e le conferme dei suoi QSO passano da li'.
+            Text {
+                Layout.topMargin: 4
+                text: qsTr("QSL accounts of this profile")
+                color: Theme.textSecondary
+                font.pixelSize: 11
+                font.bold: true
+            }
+            CredentialsList {
+                Layout.fillWidth: true
+                visible: root.draft.id > 0
+                customRows: { root.formRev; decolog.credentials.services; return decolog.credentials.profileServices(root.draft.id || 0) }
+            }
+            Text {
+                Layout.fillWidth: true
+                visible: !(root.draft.id > 0)
+                wrapMode: Text.Wrap
+                text: qsTr("Save the profile first: then it can have its own QRZ Logbook and eQSL accounts.")
+                color: Theme.textSecondary
+                font.pixelSize: 11
+            }
 
             Rectangle {
                 Layout.fillWidth: true

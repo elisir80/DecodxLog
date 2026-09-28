@@ -205,6 +205,8 @@ GlassPanel {
         else if (name === "row") rowMenu.popupFor(root.model.idAt(0))
         else if (name === "actions") actionsMenu.popup(root.width - 320, Theme.panelHeight)
         else if (name === "tag") tagPopup.openFor(root.model.shownIds(), true)
+        else if (name === "bulk") bulkDialog.openFor(root.model.shownIds())
+        else if (name === "duplicates") { duplicatesDialog.open(); decolog.findDuplicates(5) }
         else if (name === "dates") datePopup.open()
         else if (name === "wide") { table.setColumnWidth(1, 260); table.forceLayout(); root.storeWidths() }
         else if (name === "sub") { addFilterMenu.popup(60, Theme.panelHeight + 30); subTimer.start() }
@@ -295,6 +297,34 @@ GlassPanel {
                 value: Math.max(0, decolog.importProgress)
             }
         },
+        // Un ordine o un filtro su un log grande si preparano da parte.
+        Text {
+            anchors.verticalCenter: parent.verticalCenter
+            visible: root.model.busy
+            text: qsTr("Sorting…")
+            color: Theme.accentColor
+            font.family: Theme.monoFamily
+            font.pixelSize: 11
+        },
+        Row {
+            anchors.verticalCenter: parent.verticalCenter
+            visible: decolog.bulkProgress >= 0
+            spacing: 6
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                text: qsTr("Changing %1%").arg(Math.round(decolog.bulkProgress * 100))
+                color: Theme.accentColor
+                font.family: Theme.monoFamily
+                font.pixelSize: 11
+            }
+            ProgressBar {
+                anchors.verticalCenter: parent.verticalCenter
+                width: 80
+                from: 0
+                to: 1
+                value: Math.max(0, decolog.bulkProgress)
+            }
+        },
         Text {
             anchors.verticalCenter: parent.verticalCenter
             text: root.model.filtered
@@ -335,6 +365,11 @@ GlassPanel {
         panel: root
         shown: root.model.columnLayout
         all: { root.model.columnLayout; return root.model.availableColumns() }
+    }
+    BulkEditDialog { id: bulkDialog }
+    DuplicatesDialog {
+        id: duplicatesDialog
+        onOpenQso: (id) => root.openQso(id)
     }
 
     // Per le prove: apre il sottomenu quando il menu padre e' gia' in piedi.
@@ -476,6 +511,15 @@ GlassPanel {
             text: qsTr("Export the %1 QSO shown to ADIF…").arg(root.model.count)
             enabled: root.model.count > 0
             onTriggered: exportShown.open()
+        }
+        StyledMenuItem {
+            text: qsTr("Change a field on the %1 QSO shown…").arg(root.model.count)
+            enabled: root.model.count > 0 && decolog.bulkProgress < 0
+            onTriggered: bulkDialog.openFor(root.model.shownIds())
+        }
+        StyledMenuItem {
+            text: qsTr("Find duplicate QSO…")
+            onTriggered: duplicatesDialog.open()
         }
         StyledMenuItem {
             text: qsTr("Complete the QSO shown from the callbook…")
@@ -1237,6 +1281,14 @@ GlassPanel {
             readonly property int chosen: root.selectedIds.length
             text: chosen > 1 ? qsTr("Delete the %1 QSO selected…").arg(chosen) : qsTr("Delete QSO…")
             onTriggered: confirmRowDelete.openFor(chosen > 1 ? root.selectedIds : [rowMenu.qsoId])
+        }
+        // Lo stesso campo su tutti quelli scelti: il locatore di casa, un
+        // riferimento POTA, le QSL spedite.
+        StyledMenuItem {
+            readonly property int chosen: root.selectedIds.length
+            text: chosen > 1 ? qsTr("Change a field on the %1 QSO selected…").arg(chosen) : qsTr("Change a field…")
+            enabled: decolog.bulkProgress < 0
+            onTriggered: bulkDialog.openFor(chosen > 1 ? root.selectedIds : [rowMenu.qsoId])
         }
         // Il callbook sa nome, locatore e indirizzo: se al QSO mancano, glieli
         // mette adesso.

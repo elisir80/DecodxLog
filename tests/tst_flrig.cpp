@@ -85,6 +85,9 @@ private slots:
                     QByteArray value = "<value>1</value>";
                     if (method == "rig.get_vfo") value = "<value>7074000</value>";
                     else if (method == "rig.get_mode") value = "<value>USB-D</value>";
+                    else if (method == "rig.get_split") value = "<value><i4>1</i4></value>";
+                    else if (method == "rig.get_vfoB") value = "<value>7076000</value>";
+                    else if (method == "rig.get_AB") value = "<value>B</value>";
                     else if (method == "rig.get_modes") value = "<value><array><data><value>USB</value><value>USB-D</value></data></array></value>";
                     const QByteArray xml = "<?xml version=\"1.0\"?><methodResponse><params><param>" + value + "</param></params></methodResponse>";
                     s->write("HTTP/1.1 200 OK\r\nContent-Type: text/xml\r\nContent-Length: " + QByteArray::number(xml.size())
@@ -102,6 +105,15 @@ private slots:
         QTRY_VERIFY(methods.contains("rig.set_vfo"));
         rig.setMode("PKTUSB");
         QTRY_VERIFY(methods.contains("rig.set_mode"));
+        // Split sul VFO B e il VFO scelto: letti e comandati.
+        QTRY_VERIFY(rig.split());
+        QTRY_COMPARE(rig.txFrequencyHz(), qint64(7076000));
+        QTRY_COMPARE(rig.vfo(), QString("VFOB"));
+        rig.setSplit(true, 7080000);
+        QTRY_VERIFY(methods.contains("rig.set_vfoB"));
+        QTRY_VERIFY(methods.contains("rig.set_split"));
+        rig.setVfo("VFOA");
+        QTRY_VERIFY(methods.contains("rig.set_AB"));
         rig.disconnectFromRig();
         QVERIFY(!rig.connected());
     }

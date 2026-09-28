@@ -121,6 +121,46 @@ private slots:
         QCOMPARE(totals.at(3).worked, 0);
     }
 
+    void eachAwardHasItsConfirmations()
+    {
+        // Le regole del diploma dentro le scelte generali: DXCC e WAS solo
+        // LoTW e cartolina; gli altri quelle generali.
+        AwardFilter general;
+        QCOMPARE(awards::creditsFor("dxcc", general), QStringList({"lotw", "card"}));
+        QCOMPARE(awards::creditsFor("waz", general), QStringList({"lotw", "card"}));
+        general.confirmEqsl = true;
+        QCOMPARE(awards::creditsFor("dxcc", general), QStringList({"lotw", "card"}));
+        QCOMPARE(awards::creditsFor("waz", general), QStringList({"lotw", "card", "eqsl"}));
+        // Chi spegne LoTW lo spegne anche per il DXCC.
+        general.confirmLotw = false;
+        QCOMPARE(awards::creditsFor("dxcc", general), QStringList({"card"}));
+        // Scelte a mano: vincono su tutto, anche la lista vuota.
+        general.credits.insert("dxcc", {"eqsl", "qrz"});
+        general.credits.insert("wpx", {});
+        QCOMPARE(awards::creditsFor("dxcc", general), QStringList({"eqsl", "qrz"}));
+        QVERIFY(awards::creditsFor("wpx", general).isEmpty());
+
+        // Nel conto: un QSO confermato solo da QRZ e uno solo da eQSL.
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        AdifRecord a{{"CALL", "JA1XX"}, {"QSO_DATE", "20260301"}, {"TIME_ON", "1200"}, {"BAND", "20m"},
+                     {"MODE", "FT8"}, {"DXCC", "339"}, {"CQZ", "25"}, {"QRZCOM_QSO_DOWNLOAD_STATUS", "Y"}};
+        AdifRecord b{{"CALL", "ZS6XX"}, {"QSO_DATE", "20260302"}, {"TIME_ON", "1200"}, {"BAND", "20m"},
+                     {"MODE", "FT8"}, {"DXCC", "462"}, {"CQZ", "38"}, {"EQSL_QSL_RCVD", "Y"}};
+        QCOMPARE(db.insertQso(a, "import").status, InsertResult::Status::Inserted);
+        QCOMPARE(db.insertQso(b, "import").status, InsertResult::Status::Inserted);
+        const AwardCalculator calc;
+        AwardFilter filter;
+        QCOMPARE(find(calc.compute(db, filter), "dxcc").confirmed(), 0);
+        QCOMPARE(find(calc.compute(db, filter), "waz").confirmed(), 0);
+        filter.credits.insert("waz", {"qrz"});
+        filter.credits.insert("dxcc", {"eqsl"});
+        const auto results = calc.compute(db, filter);
+        QCOMPARE(find(results, "waz").confirmed(), 1);    // la zona 25, da QRZ
+        QCOMPARE(find(results, "dxcc").confirmed(), 1);   // 462, da eQSL
+        QCOMPARE(find(results, "wpx").confirmed(), 0);    // le generali: LoTW e cartolina
+    }
+
     void theArrlAwardsDoNotCountSixtyMeters()
     {
         // Regole dell'ARRL: i QSO sui 60 metri non valgono per i suoi diplomi,

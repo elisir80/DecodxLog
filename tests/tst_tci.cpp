@@ -108,6 +108,25 @@ private slots:
         QVERIFY(tci.received.contains("cw_macros_speed:28;"));
         QVERIFY(tci.received.contains("cw_macros:0,CQ TEST DE IU8LMC;"));
         QCOMPARE(sent.count(), 1);
+
+        // Split sul VFO B, RIT e XIT; e quello che la radio dice di suo.
+        QCOMPARE(rig.features(), int(RigLink::Split | RigLink::Rit | RigLink::Xit));
+        rig.setSplit(true, 14027000);
+        rig.setRit(120);
+        rig.setXit(0);
+        QVERIFY(waitFor([&] { return tci.received.contains("xit_enable:0,false;"); }));
+        QVERIFY(tci.received.contains("vfo:0,1,14027000;"));
+        QVERIFY(tci.received.contains("split_enable:0,true;"));
+        QVERIFY(tci.received.contains("rit_offset:0,120;"));
+        QVERIFY(tci.received.contains("rit_enable:0,true;"));
+        QVERIFY(rig.split());
+        QCOMPARE(rig.txFrequencyHz(), 14027000);
+        const qint64 rx = rig.frequencyHz();
+        tci.say("split_enable:0,false;vfo:0,1,14030000;rit_enable:0,false;");
+        QVERIFY(waitFor([&] { return !rig.split() && rig.txFrequencyHz() == 14030000; }));
+        QCOMPARE(rig.ritHz(), 0);
+        // Il VFO B non cambia la frequenza di ricezione.
+        QCOMPARE(rig.frequencyHz(), rx);
     }
 
     void theSecondReceiver()

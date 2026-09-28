@@ -182,6 +182,41 @@ void TciControl::refresh()
     // adesso (un comando senza il valore e' una domanda).
     send(QStringLiteral("vfo:%1,0;").arg(m_trx));
     send(QStringLiteral("modulation:%1;").arg(m_trx));
+    send(QStringLiteral("split_enable:%1;").arg(m_trx));
+    send(QStringLiteral("vfo:%1,1;").arg(m_trx));
+    send(QStringLiteral("rit_enable:%1;").arg(m_trx));
+    send(QStringLiteral("xit_enable:%1;").arg(m_trx));
+}
+
+void TciControl::setSplit(bool on, qint64 txHz)
+{
+    if (on && txHz > 0) {
+        send(QStringLiteral("vfo:%1,1,%2;").arg(m_trx).arg(txHz));
+        m_vfoB = txHz;
+    }
+    send(QStringLiteral("split_enable:%1,%2;").arg(m_trx).arg(on ? QStringLiteral("true") : QStringLiteral("false")));
+    m_split = on;
+    emit changed();
+}
+
+void TciControl::setRit(int hz)
+{
+    if (hz != 0)
+        send(QStringLiteral("rit_offset:%1,%2;").arg(m_trx).arg(hz));
+    send(QStringLiteral("rit_enable:%1,%2;").arg(m_trx).arg(hz != 0 ? QStringLiteral("true") : QStringLiteral("false")));
+    m_ritOn = hz != 0;
+    m_rit = hz;
+    emit changed();
+}
+
+void TciControl::setXit(int hz)
+{
+    if (hz != 0)
+        send(QStringLiteral("xit_offset:%1,%2;").arg(m_trx).arg(hz));
+    send(QStringLiteral("xit_enable:%1,%2;").arg(m_trx).arg(hz != 0 ? QStringLiteral("true") : QStringLiteral("false")));
+    m_xitOn = hz != 0;
+    m_xit = hz;
+    emit changed();
 }
 
 void TciControl::setFrequency(qint64 hz)
@@ -268,6 +303,34 @@ void TciControl::handleCommand(const QString& name, const QStringList& args)
         if (m_ready)
             setStatus(tr("Radio connected: %1 (TCI %2)").arg(m_device, m_url.authority()));
         moved = true;
+    } else if (name == QLatin1String("vfo") && argAt(0).toInt() == m_trx && argAt(1).toInt() == 1) {
+        // Il canale 1: il VFO B, dove si trasmette in split.
+        const qint64 hz = static_cast<qint64>(argAt(2).toDouble());
+        if (hz > 0 && hz != m_vfoB) {
+            m_vfoB = hz;
+            moved = true;
+        }
+    } else if (name == QLatin1String("split_enable") || name == QLatin1String("rit_enable")
+               || name == QLatin1String("xit_enable")) {
+        if (argAt(0).toInt() == m_trx && !argAt(1).isEmpty()) {
+            const bool on = argAt(1).compare(QLatin1String("true"), Qt::CaseInsensitive) == 0;
+            bool& flag = name == QLatin1String("split_enable") ? m_split
+                       : name == QLatin1String("rit_enable")   ? m_ritOn
+                                                                : m_xitOn;
+            if (on != flag) {
+                flag = on;
+                moved = true;
+            }
+        }
+    } else if (name == QLatin1String("rit_offset") || name == QLatin1String("xit_offset")) {
+        if (argAt(0).toInt() == m_trx && !argAt(1).isEmpty()) {
+            int& value = name == QLatin1String("rit_offset") ? m_rit : m_xit;
+            const int hz = argAt(1).toInt();
+            if (hz != value) {
+                value = hz;
+                moved = true;
+            }
+        }
     } else if (name == QLatin1String("vfo")) {
         // vfo:ricevitore,canale,hz — il canale 0 e' il VFO A.
         if (argAt(0).toInt() == m_trx && argAt(1).toInt() == 0) {

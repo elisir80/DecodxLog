@@ -1,7 +1,8 @@
 // DecoDXLog — la previsione di propagazione verso un DX: le bande in riga,
 // le 24 ore UTC in colonna, ogni casella colorata da chiuso a buono. L'ora di
 // adesso e' segnata. Il DX e' quello della scheda nominativo, oppure un
-// locatore scritto a mano.
+// locatore scritto a mano. Con VOACAP (nel pacchetto) il colore e' la
+// probabilita' di fare il QSO nel modo scelto; senza, il modello semplice.
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -58,7 +59,9 @@ ColumnLayout {
                      qsTr("%1°").arg(root.forecast.azimuth),
                      qsTr("%n hop(s)", "", root.forecast.hops),
                      root.forecast.estimatedSun ? qsTr("SFI %1 (estimated)").arg(root.forecast.solarFlux)
-                                                : qsTr("SFI %1").arg(root.forecast.solarFlux)].filter(s => s).join(" · ")
+                                                : qsTr("SFI %1").arg(root.forecast.solarFlux),
+                     root.forecast.engine === "voacap" ? "VOACAP"
+                     : root.forecast.voacapPending ? qsTr("VOACAP computing…") : ""].filter(s => s).join(" · ")
                   : (root.forecast.reason || "")
         }
         StyledTextField {
@@ -125,9 +128,14 @@ ColumnLayout {
                             border.color: Theme.textPrimary
                             ToolTip.visible: cellHover.hovered
                             ToolTip.delay: 300
-                            ToolTip.text: qsTr("%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz")
-                                          .arg(root.bandNames[bandRow.band]).arg(String(modelData.hour).padStart(2, "0") + ":00")
-                                          .arg(modelData.muf).arg(modelData.luf)
+                            readonly property var rel: modelData.rel ? modelData.rel[bandRow.band] : undefined
+                            ToolTip.text: rel !== undefined && rel !== null
+                                          ? qsTr("%1 · %2 UTC · MUF %3 MHz · reliability %4% · SNR %5 dB")
+                                            .arg(root.bandNames[bandRow.band]).arg(String(modelData.hour).padStart(2, "0") + ":00")
+                                            .arg(modelData.muf).arg(rel).arg(modelData.snr[bandRow.band])
+                                          : qsTr("%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz")
+                                            .arg(root.bandNames[bandRow.band]).arg(String(modelData.hour).padStart(2, "0") + ":00")
+                                            .arg(modelData.muf).arg(modelData.luf)
                             HoverHandler { id: cellHover }
                         }
                     }
@@ -151,10 +159,59 @@ ColumnLayout {
         Text {
             Layout.fillWidth: true
             elide: Text.ElideRight
-            text: qsTr("Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.")
+            text: root.forecast.engine === "voacap"
+                  ? qsTr("VOACAP (ITS): the chance of a %1 QSO with %2 W and %3 dBi antennas; 160 and 6 m from the simple model.")
+                    .arg(decolog.solar.voacapMode).arg(decolog.solar.voacapPower).arg(decolog.solar.voacapGain)
+                  : root.forecast.voacapError
+                    ? qsTr("VOACAP failed (%1): simplified F2 model.").arg(root.forecast.voacapError)
+                    : qsTr("Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.")
             color: Theme.textSecondary
             font.pixelSize: 10
             opacity: 0.8
+        }
+    }
+
+    // La stazione per VOACAP: il modo decide l'SNR che serve, poi potenza,
+    // antenne e rumore del posto.
+    RowLayout {
+        visible: decolog.solar.voacapAvailable && root.forecast.valid === true
+        spacing: 8
+        ToggleSwitch {
+            text: "VOACAP"
+            checked: decolog.solar.voacapEnabled
+            onToggled: decolog.solar.voacapEnabled = checked
+        }
+        StyledComboBox {
+            Layout.preferredWidth: 90
+            enabled: decolog.solar.voacapEnabled
+            model: ["FT8", "FT4", "FT2", "CW", "RTTY", "SSB"]
+            currentIndex: Math.max(0, model.indexOf(decolog.solar.voacapMode))
+            onActivated: decolog.solar.voacapMode = model[currentIndex]
+        }
+        StyledComboBox {
+            Layout.preferredWidth: 90
+            enabled: decolog.solar.voacapEnabled
+            readonly property var watts: [5, 10, 50, 100, 400, 1000]
+            model: watts.map(w => qsTr("%1 W").arg(w))
+            currentIndex: Math.max(0, watts.indexOf(decolog.solar.voacapPower))
+            onActivated: decolog.solar.voacapPower = watts[currentIndex]
+        }
+        StyledComboBox {
+            Layout.preferredWidth: 150
+            enabled: decolog.solar.voacapEnabled
+            readonly property var gains: [0, 2, 5, 8, 11]
+            model: [qsTr("0 dBi (vertical)"), qsTr("2 dBi (dipole)"), qsTr("5 dBi (2-el beam)"),
+                    qsTr("8 dBi (3-el beam)"), qsTr("11 dBi (big beam)")]
+            currentIndex: Math.max(0, gains.indexOf(Math.round(decolog.solar.voacapGain)))
+            onActivated: decolog.solar.voacapGain = gains[currentIndex]
+        }
+        StyledComboBox {
+            Layout.preferredWidth: 150
+            enabled: decolog.solar.voacapEnabled
+            readonly property var levels: [140, 145, 150, 155]
+            model: [qsTr("noise: city"), qsTr("noise: residential"), qsTr("noise: rural"), qsTr("noise: quiet")]
+            currentIndex: Math.max(0, levels.indexOf(decolog.solar.voacapNoise))
+            onActivated: decolog.solar.voacapNoise = levels[currentIndex]
         }
     }
 }

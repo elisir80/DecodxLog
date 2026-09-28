@@ -8,6 +8,7 @@
 #pragma once
 
 #include "core/Activation.h"
+#include "core/CallHistory.h"
 #include "core/ContestRules.h"
 
 #include <QObject>
@@ -50,6 +51,9 @@ public:
         std::function<core::ContestStation(const QString& call)> locate;
         // Il nome di un'entita' DXCC, per le finestre dei moltiplicatori.
         std::function<QString(int dxcc)> dxccName;
+        // Il progressivo da mandare quando e' condiviso sulla rete.
+        std::function<int(int localNext)> takeSerial;
+        std::function<void(bool on)> shareSerials;
     };
 
     explicit ActivationController(Context context, QObject* parent = nullptr);
@@ -112,6 +116,11 @@ public:
     // viene da un QSO gia' fatto con lei, "cty" se dal paese (le zone), vuoto
     // se non si puo' sapere (il progressivo, una sezione mai lavorata).
     Q_INVOKABLE QVariantMap suggestExchange(const QString& call) const;
+    // Il file "call history" (formato N1MM) della gara aperta: "" se e' andata.
+    Q_INVOKABLE QString loadCallHistory(const QUrl& file);
+    Q_INVOKABLE void clearCallHistory();
+    // Le regole di questa edizione: la scheda piu' quello che si e' cambiato.
+    Q_INVOKABLE QVariantMap editionRules() const;
     // Il log e' cambiato fuori dalla sessione (un QSO corretto, cancellato,
     // importato): il punteggio in memoria non vale piu'.
     void invalidateScore() { m_score.valid = false; }
@@ -167,6 +176,13 @@ private:
     QSet<QString> workedMultipliers() const;
     void save();
     void recount();
+    // La scheda della gara aperta con le modifiche di questa edizione.
+    core::ContestRules currentRules() const;
+    // Lo scambio dal log o dal paese, senza il call history.
+    QVariantMap suggestFromLog(const QString& call) const;
+    void loadHistoryOfSession();
+    core::CallHistory m_history;
+    mutable int m_lastSerial{0};
 
     Context m_ctx;
     core::Activation m_session;

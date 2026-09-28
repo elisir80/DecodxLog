@@ -56,6 +56,11 @@ struct QrzPage {
 };
 QrzPage parseQrzFetch(const QByteArray& body);
 
+// Un testo senza il segreto: QRZ ripete la chiave nel motivo dell'errore, in
+// minuscolo e senza trattini ("invalid api key aaaabbbbccccdddd"). Si toglie in
+// tutte e due le forme.
+QString withoutSecret(QString text, const QString& secret);
+
 // Solo i QSO confermati (APP_QRZLOG_STATUS = C), come conferme
 // (QSLRDATE = APP_QRZLOG_QSLDATE).
 QList<AdifRecord> qrzConfirmations(const QList<AdifRecord>& records);

@@ -5,7 +5,10 @@
 #include "core/LogDatabase.h"
 
 #include <QSqlQuery>
+#include <QFile>
+#include <QTemporaryDir>
 #include <QTest>
+#include <QUrl>
 
 using namespace decolog::core;
 using decolog::app::ActivationController;
@@ -59,6 +62,72 @@ private slots:
         const Activation back = Activation::fromMap(a.toMap());
         QCOMPARE(back.contestId, a.contestId);
         QVERIFY(back.serialEnabled);
+        // Le regole dell'edizione, la rete e il call history restano nella sessione.
+        a.sharedSerial = true;
+        a.rules = {{"submitHours", 72}};
+        a.callHistory = "C:/x/cqww.txt";
+        const Activation again = Activation::fromMap(a.toMap());
+        QVERIFY(again.sharedSerial);
+        QCOMPARE(again.rules.value("submitHours").toInt(), 72);
+        QCOMPARE(again.callHistory, QString("C:/x/cqww.txt"));
+    }
+
+    void callHistoryAndSharedSerials()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        QTemporaryDir dir;
+        const QString file = dir.filePath("cqww.txt");
+        QFile f(file);
+        QVERIFY(f.open(QIODevice::WriteOnly));
+        f.write("!!Order!!,Call,Name,CQZone\nK9ZZZ,BOB,4\n");
+        f.close();
+
+        ActivationController::Context ctx;
+        ctx.db = &db;
+        ctx.stationCall = [] { return QStringLiteral("IU8LMC"); };
+        ctx.stationGrid = [] { return QStringLiteral("JN70"); };
+        ctx.activeProfileId = [] { return qint64(0); };
+        ctx.locate = [](const QString&) { return decolog::core::ContestStation{291, QStringLiteral("NA"), 5, 8}; };
+        // La rete che distribuisce i numeri: da' il 100.
+        int asked = 0;
+        ctx.takeSerial = [&asked](int) { ++asked; return 100; };
+        bool shared = false;
+        ctx.shareSerials = [&shared](bool on) { shared = on; };
+        ActivationController act(std::move(ctx));
+        act.load();
+
+        QVERIFY(act.start({{"kind", "contest"}, {"contestId", "CQ-WW-CW"}, {"serialEnabled", true},
+                           {"sharedSerial", true}}).isEmpty());
+        QVERIFY(shared);
+        // Senza call history: la zona dal paese.
+        QCOMPARE(act.suggestExchange("K9ZZZ").value("from").toString(), QString("cty"));
+        QVERIFY(act.loadCallHistory(QUrl::fromLocalFile(file)).isEmpty());
+        QCOMPARE(act.state().value("callHistoryCount").toInt(), 1);
+        // Con: la zona che ha mandato l'anno scorso.
+        const QVariantMap s = act.suggestExchange("K9ZZZ");
+        QCOMPARE(s.value("value").toString(), QString("4"));
+        QCOMPARE(s.value("from").toString(), QString("history"));
+
+        // Il numero lo da' la rete, e il contatore riparte da li'.
+        AdifRecord r{{"CALL", "K9ZZZ"}, {"QSO_DATE", "20261024"}, {"TIME_ON", "1200"}, {"BAND", "20m"}, {"MODE", "CW"}};
+        act.applyTo(r);
+        QCOMPARE(r.value("STX"), QString("100"));
+        QCOMPARE(asked, 1);
+        act.qsoLogged();
+        QCOMPARE(act.nextSerial(), 101);
+
+        // Le regole di questa edizione.
+        QCOMPARE(act.editionRules().value("bands").toStringList().size(), 6);
+        QVariantMap state = act.state();
+        state["rules"] = QVariantMap{{"bands", QStringList{"40m", "20m"}}};
+        act.update(state);
+        QCOMPARE(act.editionRules().value("bands").toStringList(), QStringList({"40m", "20m"}));
+        QVERIFY(act.editionRules().value("changed").toBool());
+        // Il call history resta dopo un cambio della sessione.
+        QCOMPARE(act.state().value("callHistoryCount").toInt(), 1);
+        act.stop();
+        QVERIFY(!shared);
     }
 
     void theScoreReadsTheExchangeAndFollowsTheLog()

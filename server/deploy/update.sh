@@ -32,7 +32,7 @@ sleep 2
 health=$(curl -fsS http://127.0.0.1:8788/v1/health 2>/dev/null || true)
 # Quello che deve esserci perche' il codice sia davvero quello nuovo: si alza a
 # ogni versione che aggiunge qualcosa a /v1/health.
-wanted='"approval"'
+wanted='"team"'
 
 if systemctl is-active --quiet "$SERVICE_NAME" && [[ $health == *'"status":"ok"'* ]] \
    && [[ $health == *"$wanted"* ]]; then

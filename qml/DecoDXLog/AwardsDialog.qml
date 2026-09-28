@@ -230,6 +230,45 @@ DialogFrame {
                 }
             }
 
+            // Le conferme valide per questo diploma: quelle del regolamento
+            // (il DXCC e il WAS solo LoTW e cartolina), quelle generali, o
+            // quelle scelte a mano.
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 10
+                readonly property var credits: { root.revision; return decolog.awardCredits(root.awardId) }
+                Text {
+                    text: qsTr("Valid for %1").arg(root.current.title || root.awardId)
+                    color: Theme.textSecondary
+                    font.pixelSize: 11
+                }
+                Repeater {
+                    model: [{ id: "lotw", label: "LoTW" }, { id: "card", label: qsTr("Card") },
+                            { id: "eqsl", label: "eQSL" }, { id: "qrz", label: "QRZ" }]
+                    ToggleSwitch {
+                        required property var modelData
+                        text: modelData.label
+                        checked: parent.credits.services.indexOf(modelData.id) >= 0
+                        onToggled: decolog.setAwardCredit(root.awardId, modelData.id, checked)
+                    }
+                }
+                Text {
+                    Layout.fillWidth: true
+                    elide: Text.ElideRight
+                    text: parent.credits.custom ? qsTr("chosen by you")
+                        : parent.credits.official.length ? qsTr("the rules of the award")
+                        : qsTr("the general choice above")
+                    color: Theme.textSecondary
+                    font.pixelSize: 11
+                    font.italic: true
+                }
+                GlassButton {
+                    visible: parent.credits.custom
+                    text: qsTr("Back to the rules")
+                    onClicked: decolog.resetAwardCredits(root.awardId)
+                }
+            }
+
             GridSquareMap {
                 visible: root.mapView
                 Layout.fillWidth: true

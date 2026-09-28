@@ -178,6 +178,18 @@
         <translation>Контесты и активации</translation>
     </message>
     <message>
+        <source>Call history file (N1MM format)</source>
+        <translation>Файл call history (формат N1MM)</translation>
+    </message>
+    <message>
+        <source>Call history (*.txt *.csv)</source>
+        <translation>Call history (*.txt *.csv)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation>Все файлы (*)</translation>
+    </message>
+    <message>
         <source>pick it from the list</source>
         <translation>выбери из списка</translation>
     </message>
@@ -216,6 +228,50 @@
     <message>
         <source>Next</source>
         <translation>Следующий</translation>
+    </message>
+    <message>
+        <source>Shared on the network</source>
+        <translation>Общий по сети</translation>
+    </message>
+    <message>
+        <source>Bands of this edition</source>
+        <translation>Диапазоны этого выпуска</translation>
+    </message>
+    <message>
+        <source>Operating hours</source>
+        <translation>Часы работы</translation>
+    </message>
+    <message>
+        <source>no limit</source>
+        <translation>без ограничения</translation>
+    </message>
+    <message>
+        <source>Off-time from (min)</source>
+        <translation>Перерыв от (мин)</translation>
+    </message>
+    <message>
+        <source>Log within (h)</source>
+        <translation>Отчёт в течение (ч)</translation>
+    </message>
+    <message>
+        <source>Call history</source>
+        <translation>Call history</translation>
+    </message>
+    <message>
+        <source>%1 · %2 calls</source>
+        <translation>%1 · %2 позывных</translation>
+    </message>
+    <message>
+        <source>none: the exchange is suggested from the log and the country</source>
+        <translation>нет: обмен подсказывается из журнала и страны</translation>
+    </message>
+    <message>
+        <source>Load…</source>
+        <translation>Загрузить…</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Убрать</translation>
     </message>
     <message>
         <source>The QSOs get CONTEST_ID and the serial number sent (STX). The number received goes in the New QSO panel.</source>
@@ -303,6 +359,14 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>Референс берётся из SIG/SIG_INFO (SIG = %1) или из комментария вида «%1 LI-001».</translation>
+    </message>
+    <message numerus="yes">
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC. %n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.</source>
+        <translation>
+            <numerusform>Правила ARRL: QSO на 60 м не засчитываются, и eQSL не является подтверждением для DXCC. %n QSO с удалёнными территориями или операциями, не принятыми ARRL (Club Log), не учитывается.</numerusform>
+            <numerusform>Правила ARRL: QSO на 60 м не засчитываются, и eQSL не является подтверждением для DXCC. %n QSO с удалёнными территориями или операциями, не принятыми ARRL (Club Log), не учитываются.</numerusform>
+            <numerusform>Правила ARRL: QSO на 60 м не засчитываются, и eQSL не является подтверждением для DXCC. %n QSO с удалёнными территориями или операциями, не принятыми ARRL (Club Log), не учитываются.</numerusform>
+        </translation>
     </message>
     <message>
         <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
@@ -410,6 +474,26 @@
     <message>
         <source>All tags</source>
         <translation>Все метки</translation>
+    </message>
+    <message>
+        <source>Valid for %1</source>
+        <translation>Действуют для %1</translation>
+    </message>
+    <message>
+        <source>chosen by you</source>
+        <translation>выбраны вами</translation>
+    </message>
+    <message>
+        <source>the rules of the award</source>
+        <translation>правила диплома</translation>
+    </message>
+    <message>
+        <source>the general choice above</source>
+        <translation>общий выбор выше</translation>
+    </message>
+    <message>
+        <source>Back to the rules</source>
+        <translation>Вернуться к правилам</translation>
     </message>
     <message>
         <source>State</source>
@@ -658,6 +742,41 @@
     </message>
 </context>
 <context>
+    <name>BulkEditDialog</name>
+    <message>
+        <source>CHANGE A FIELD ON %1 QSO</source>
+        <translation>ИЗМЕНИТЬ ПОЛЕ В %1 QSO</translation>
+    </message>
+    <message>
+        <source>The same value on every QSO chosen. Each QSO keeps the old value in its history, so the change can be undone QSO by QSO from its card. Leave the value empty to clear the field.</source>
+        <translation>Одно и то же значение во всех выбранных QSO. Каждое QSO хранит старое значение в своей истории, поэтому изменение можно отменить по одному QSO из его карточки. Оставьте значение пустым, чтобы очистить поле.</translation>
+    </message>
+    <message>
+        <source>Field</source>
+        <translation>Поле</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>Значение</translation>
+    </message>
+    <message>
+        <source>Only where the field is empty</source>
+        <translation>Только где поле пустое</translation>
+    </message>
+    <message>
+        <source>With this many QSO the change runs in the background: the log stays usable and the progress shows in its header.</source>
+        <translation>При таком количестве QSO изменение идёт в фоне: журналом можно пользоваться, а ход виден в его заголовке.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <source>Change %1 QSO</source>
+        <translation>Изменить %1 QSO</translation>
+    </message>
+</context>
+<context>
     <name>Cabrillo</name>
     <message>
         <source>The station callsign is missing</source>
@@ -820,7 +939,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">Отправить</translation>
+        <translation>Отправить</translation>
     </message>
 </context>
 <context>
@@ -1399,7 +1518,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>CW macros</source>
-        <translation type="unfinished">Макросы CW</translation>
+        <translation>Макросы CW</translation>
     </message>
     <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
@@ -1407,11 +1526,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Default macros</source>
-        <translation type="unfinished">Макросы по умолчанию</translation>
+        <translation>Макросы по умолчанию</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Закрыть</translation>
+        <translation>Закрыть</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -1470,6 +1589,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>%1 · лог</translation>
     </message>
     <message>
+        <source>%1 · history</source>
+        <translation>%1 · история</translation>
+    </message>
+    <message>
         <source>%1 · country</source>
         <translation>%1 · страна</translation>
     </message>
@@ -1483,7 +1606,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Downloading…</source>
-        <translation type="unfinished">Скачиваем…</translation>
+        <translation>Скачиваем…</translation>
     </message>
     <message>
         <source>Download MASTER.SCP</source>
@@ -1576,7 +1699,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished">Отправить</translation>
+        <translation>Отправить</translation>
     </message>
     <message>
         <source>Spot %1</source>
@@ -1714,6 +1837,22 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>%1 QSO</source>
         <translation>%1 QSO</translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 of %2 · %n break(s)</source>
+        <translation>
+            <numerusform>В эфире %1 из %2 · %n перерыв</numerusform>
+            <numerusform>В эфире %1 из %2 · %n перерыва</numerusform>
+            <numerusform>В эфире %1 из %2 · %n перерывов</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>On the air %1 · %n break(s)</source>
+        <translation>
+            <numerusform>В эфире %1 · %n перерыв</numerusform>
+            <numerusform>В эфире %1 · %n перерыва</numerusform>
+            <numerusform>В эфире %1 · %n перерывов</numerusform>
+        </translation>
     </message>
     <message>
         <source>Export…</source>
@@ -1904,6 +2043,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>%1 · log</source>
         <translation>%1 · лог</translation>
+    </message>
+    <message>
+        <source>%1 · history</source>
+        <translation>%1 · история</translation>
     </message>
     <message>
         <source>%1 · country</source>
@@ -2197,6 +2340,89 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>DuplicatesDialog</name>
+    <message>
+        <source>DUPLICATE QSO</source>
+        <translation>ПОВТОРНЫЕ QSO</translation>
+    </message>
+    <message>
+        <source>Same call, band, kind of mode (CW, phone, digital) and station profile, within the minutes chosen. Of each group one QSO is kept — a click on a row chooses which — and it takes from the others what it is missing: fields, confirmations, tags. The others are deleted; they stay in the history and can be recovered.</source>
+        <translation>Тот же позывной, диапазон, тип вида излучения (CW, телефон, цифра) и профиль станции в пределах выбранных минут. Из каждой группы остаётся одно QSO — щелчок по строке выбирает какое — и оно берёт у остальных то, чего ему не хватает: поля, подтверждения, метки. Остальные удаляются; они остаются в истории и восстанавливаются.</translation>
+    </message>
+    <message>
+        <source>Within</source>
+        <translation>В пределах</translation>
+    </message>
+    <message>
+        <source>minutes</source>
+        <translation>минут</translation>
+    </message>
+    <message>
+        <source>Searching…</source>
+        <translation>Поиск…</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>Искать</translation>
+    </message>
+    <message>
+        <source>No duplicates within %1 minutes</source>
+        <translation>Нет повторов в пределах %1 минут</translation>
+    </message>
+    <message>
+        <source>The first %1 groups: merge them and search again for the rest</source>
+        <translation>Первые %1 групп: объедините их и ищите снова для остальных</translation>
+    </message>
+    <message>
+        <source>%1 groups found, %2 ticked</source>
+        <translation>Найдено групп: %1, отмечено: %2</translation>
+    </message>
+    <message>
+        <source>%1 QSO</source>
+        <translation>%1 QSO</translation>
+    </message>
+    <message>
+        <source>KEEP</source>
+        <translation>ОСТАВИТЬ</translation>
+    </message>
+    <message>
+        <source>merge</source>
+        <translation>объединить</translation>
+    </message>
+    <message>
+        <source>confirmed: %1</source>
+        <translation>подтверждено: %1</translation>
+    </message>
+    <message>
+        <source>%1 fields</source>
+        <translation>полей: %1</translation>
+    </message>
+    <message>
+        <source>Reading the whole log…</source>
+        <translation>Читаю весь журнал…</translation>
+    </message>
+    <message>
+        <source>Nothing to merge.</source>
+        <translation>Нечего объединять.</translation>
+    </message>
+    <message>
+        <source>Choose the minutes and press Search.</source>
+        <translation>Выберите минуты и нажмите «Искать».</translation>
+    </message>
+    <message>
+        <source>A double click opens the QSO.</source>
+        <translation>Двойной щелчок открывает QSO.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Закрыть</translation>
+    </message>
+    <message>
+        <source>Merge %1 groups</source>
+        <translation>Объединить групп: %1</translation>
+    </message>
+</context>
+<context>
     <name>DvkPanel</name>
     <message>
         <source>Voice keyer</source>
@@ -2236,7 +2462,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>never</source>
-        <translation type="unfinished">никогда</translation>
+        <translation>никогда</translation>
     </message>
     <message>
         <source>CQ loop</source>
@@ -2244,7 +2470,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished">Стоп</translation>
+        <translation>Стоп</translation>
     </message>
 </context>
 <context>
@@ -2494,6 +2720,14 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Импорт %1%</translation>
     </message>
     <message>
+        <source>Sorting…</source>
+        <translation>Сортировка…</translation>
+    </message>
+    <message>
+        <source>Changing %1%</source>
+        <translation>Изменение %1%</translation>
+    </message>
+    <message>
         <source>%1 QSO · %2 shown</source>
         <translation>%1 QSO · показано %2</translation>
     </message>
@@ -2560,6 +2794,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>Экспортировать показанные %1 QSO в ADIF…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO shown…</source>
+        <translation>Изменить поле в %1 показанных QSO…</translation>
+    </message>
+    <message>
+        <source>Find duplicate QSO…</source>
+        <translation>Найти повторные QSO…</translation>
     </message>
     <message>
         <source>Complete the QSO shown from the callbook…</source>
@@ -2760,6 +3002,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Delete the %1 QSO selected…</source>
         <translation>Удалить выбранные %1 QSO…</translation>
+    </message>
+    <message>
+        <source>Change a field on the %1 QSO selected…</source>
+        <translation>Изменить поле в %1 выбранных QSO…</translation>
+    </message>
+    <message>
+        <source>Change a field…</source>
+        <translation>Изменить поле…</translation>
     </message>
     <message>
         <source>Complete from the callbook</source>
@@ -3021,12 +3271,24 @@ The call Decodium is working shows up here by itself.</source>
         <translation>в окне программы</translation>
     </message>
     <message>
-        <source>Import ADIF</source>
-        <translation>Импорт ADIF</translation>
+        <source>Import a log</source>
+        <translation>Импортировать журнал</translation>
     </message>
     <message>
         <source>ADIF files (*.adi *.adif)</source>
         <translation>Файлы ADIF (*.adi *.adif)</translation>
+    </message>
+    <message>
+        <source>Logs (*.adi *.adif *.csv *.tsv *.s3db)</source>
+        <translation>Журналы (*.adi *.adif *.csv *.tsv *.s3db)</translation>
+    </message>
+    <message>
+        <source>Spreadsheets (*.csv *.tsv)</source>
+        <translation>Таблицы (*.csv *.tsv)</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ databases (*.s3db)</source>
+        <translation>Базы N1MM Logger+ (*.s3db)</translation>
     </message>
     <message>
         <source>All files (*)</source>
@@ -3488,7 +3750,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1°</source>
-        <translation type="unfinished">%1°</translation>
+        <translation>%1°</translation>
     </message>
     <message numerus="yes">
         <source>%n hop(s)</source>
@@ -3507,8 +3769,16 @@ The call Decodium is working shows up here by itself.</source>
         <translation>SFI %1</translation>
     </message>
     <message>
+        <source>VOACAP computing…</source>
+        <translation>VOACAP считает…</translation>
+    </message>
+    <message>
         <source>Locator</source>
         <translation>Локатор</translation>
+    </message>
+    <message>
+        <source>%1 · %2 UTC · MUF %3 MHz · reliability %4% · SNR %5 dB</source>
+        <translation>%1 · %2 UTC · MUF %3 МГц · надёжность %4% · SNR %5 дБ</translation>
     </message>
     <message>
         <source>%1 · %2 UTC · MUF %3 MHz · LUF %4 MHz</source>
@@ -3516,11 +3786,11 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>good</source>
-        <translation type="unfinished">хорошее</translation>
+        <translation>хорошее</translation>
     </message>
     <message>
         <source>fair</source>
-        <translation type="unfinished">среднее</translation>
+        <translation>среднее</translation>
     </message>
     <message>
         <source>marginal</source>
@@ -3528,11 +3798,59 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>closed</source>
-        <translation type="unfinished">закрыта</translation>
+        <translation>закрыта</translation>
+    </message>
+    <message>
+        <source>VOACAP (ITS): the chance of a %1 QSO with %2 W and %3 dBi antennas; 160 and 6 m from the simple model.</source>
+        <translation>VOACAP (ITS): вероятность QSO в %1 при %2 Вт и антеннах %3 дБи; 160 и 6 м по простой модели.</translation>
+    </message>
+    <message>
+        <source>VOACAP failed (%1): simplified F2 model.</source>
+        <translation>VOACAP не удался (%1): упрощённая модель F2.</translation>
     </message>
     <message>
         <source>Simplified F2 model (MUF/LUF), not VOACAP: a guide to when a band opens, not a promise.</source>
         <translation>Упрощённая модель F2 (MUF/LUF), не VOACAP: ориентир, когда откроется диапазон, а не обещание.</translation>
+    </message>
+    <message>
+        <source>%1 W</source>
+        <translation>%1 Вт</translation>
+    </message>
+    <message>
+        <source>0 dBi (vertical)</source>
+        <translation>0 дБи (вертикал)</translation>
+    </message>
+    <message>
+        <source>2 dBi (dipole)</source>
+        <translation>2 дБи (диполь)</translation>
+    </message>
+    <message>
+        <source>5 dBi (2-el beam)</source>
+        <translation>5 дБи (2-эл. направленная)</translation>
+    </message>
+    <message>
+        <source>8 dBi (3-el beam)</source>
+        <translation>8 дБи (3-эл. направленная)</translation>
+    </message>
+    <message>
+        <source>11 dBi (big beam)</source>
+        <translation>11 дБи (большая направленная)</translation>
+    </message>
+    <message>
+        <source>noise: city</source>
+        <translation>шум: город</translation>
+    </message>
+    <message>
+        <source>noise: residential</source>
+        <translation>шум: жилой район</translation>
+    </message>
+    <message>
+        <source>noise: rural</source>
+        <translation>шум: село</translation>
+    </message>
+    <message>
+        <source>noise: quiet</source>
+        <translation>шум: тихо</translation>
     </message>
 </context>
 <context>
@@ -3711,6 +4029,22 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>unexpected answer</source>
         <translation>неожиданный ответ</translation>
+    </message>
+    <message>
+        <source>Wavelog: already there</source>
+        <translation>Wavelog: уже есть</translation>
+    </message>
+    <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog: %1</translation>
+    </message>
+    <message>
+        <source>Wavelog: sent</source>
+        <translation>Wavelog: отправлено</translation>
+    </message>
+    <message>
+        <source>Wavelog: the API key is not valid or cannot write (%1)</source>
+        <translation>Wavelog: ключ API недействителен или не может писать (%1)</translation>
     </message>
     <message>
         <source>HRDLog: sent</source>
@@ -4715,7 +5049,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>All files (*)</source>
-        <translation type="unfinished">Все файлы (*)</translation>
+        <translation>Все файлы (*)</translation>
     </message>
     <message numerus="yes">
         <source>Log now: %1 · %n QSO · last %2</source>
@@ -4795,7 +5129,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Закрыть</translation>
+        <translation>Закрыть</translation>
     </message>
 </context>
 <context>
@@ -6203,8 +6537,200 @@ The call Decodium is working shows up here by itself.</source>
         <translation>порт не открыт</translation>
     </message>
     <message>
+        <source>An ADIF log to keep an eye on</source>
+        <translation>Журнал ADIF для наблюдения</translation>
+    </message>
+    <message>
+        <source>Club Log cty.xml</source>
+        <translation>cty.xml от Club Log</translation>
+    </message>
+    <message>
+        <source>QSOs of another entity on that date</source>
+        <translation>QSO другой территории на эту дату</translation>
+    </message>
+    <message>
+        <source>Working…</source>
+        <translation>Работаю…</translation>
+    </message>
+    <message>
+        <source>Update cty.xml</source>
+        <translation>Обновить cty.xml</translation>
+    </message>
+    <message>
+        <source>Check the entities with the dates</source>
+        <translation>Проверить территории по датам</translation>
+    </message>
+    <message>
+        <source>Correct %1 QSO</source>
+        <translation>Исправить %1 QSO</translation>
+    </message>
+    <message>
+        <source>%1 QSO corrected, each kept as a new revision.</source>
+        <translation>Исправлено QSO: %1, каждое сохранено как новая редакция.</translation>
+    </message>
+    <message>
+        <source>deleted</source>
+        <translation>удалена</translation>
+    </message>
+    <message>
+        <source>With the Club Log API key (QSL services) DecoDXLog downloads Club Log&apos;s cty.xml every week: the entities with their dates, so a QSO of 2005 with PJ2 is the Netherlands Antilles and not Curacao, operations the ARRL did not accept do not count for DXCC, and deleted entities are shown but not counted.</source>
+        <translation>С API-ключом Club Log (сервисы QSL) DecoDXLog каждую неделю скачивает cty.xml от Club Log: территории с их датами, чтобы QSO 2005 года с PJ2 было Нидерландскими Антилами, а не Кюрасао, операции, не принятые ARRL, не засчитывались в DXCC, а удалённые территории показывались, но не считались.</translation>
+    </message>
+    <message>
+        <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
+        <translation>Каждую неделю от Club Log. Новые QSO получают территорию своей даты; проверка сравнивает журнал с датами и исправляет только DXCC, который был пуст или поставлен сегодняшним cty.csv — записанный LoTW или вами остаётся.</translation>
+    </message>
+    <message>
+        <source>Forward to other programs</source>
+        <translation>Пересылать другим программам</translation>
+    </message>
+    <message>
+        <source>e.g. 127.0.0.1:2238, 127.0.0.1:2333 — empty = off</source>
+        <translation>напр. 127.0.0.1:2238, 127.0.0.1:2333 — пусто = выключено</translation>
+    </message>
+    <message>
+        <source>Every packet from Decodium also goes to these programs (JTAlert, GridTracker, HamLog…), and their answers (reply to a caller, halt TX) go back to Decodium. So Decodium sends to one port only and everybody gets it.</source>
+        <translation>Каждый пакет Decodium идёт и этим программам (JTAlert, GridTracker, HamLog…), а их ответы (ответить вызывающему, остановить TX) возвращаются в Decodium. Так Decodium шлёт на один порт, а получают все.</translation>
+    </message>
+    <message>
         <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
         <translation>Decodium записывает каждую QSO и в свой собственный журнал ADIF. Если DecoDXLog был закрыт или не принимал (неверный порт, нет сети), QSO остаётся только там: каждые 5 минут DecoDXLog читает QSO, записанные после последней проверки, и сохраняет те, которых нет здесь и в других журналах списка. Исправленные или удалённые здесь QSO не возвращаются. В первый раз просматривается неделя назад, кнопками — дальше. Пустое поле = журнал, который использует Decodium.</translation>
+    </message>
+    <message>
+        <source>Other ADIF logs to keep an eye on</source>
+        <translation>Другие журналы ADIF для наблюдения</translation>
+    </message>
+    <message>
+        <source>not found: %1</source>
+        <translation>не найден: %1</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Убрать</translation>
+    </message>
+    <message>
+        <source>Add a file…</source>
+        <translation>Добавить файл…</translation>
+    </message>
+    <message>
+        <source>Add %1</source>
+        <translation>Добавить %1</translation>
+    </message>
+    <message>
+        <source>The QSOs that other programs (fldigi, WSJT-X, JTDX…) write in these logs and that are missing here are saved every 5 minutes, from the moment the file is added. For the older ones, “Check the whole file”.</source>
+        <translation>QSO, которые другие программы (fldigi, WSJT-X, JTDX…) пишут в эти журналы и которых здесь нет, сохраняются каждые 5 минут, с момента добавления файла. Для более старых — «Проверить весь файл».</translation>
+    </message>
+    <message>
+        <source>UDP port (0 = off)</source>
+        <translation>UDP-порт (0 = выключено)</translation>
+    </message>
+    <message>
+        <source>listening</source>
+        <translation>слушает</translation>
+    </message>
+    <message>
+        <source>N1MM Logger+ sends every contact on this port (Config → Configure Ports → Broadcast Data → Contacts, usually 12060). A contact corrected or deleted in N1MM is corrected or deleted here too.</source>
+        <translation>N1MM Logger+ шлёт каждую связь на этот порт (Config → Configure Ports → Broadcast Data → Contacts, обычно 12060). Связь, исправленная или удалённая в N1MM, исправляется или удаляется и здесь.</translation>
+    </message>
+    <message>
+        <source>Local interface for other programs</source>
+        <translation>Локальный интерфейс для других программ</translation>
+    </message>
+    <message>
+        <source>Port on 127.0.0.1 (0 = off)</source>
+        <translation>Порт на 127.0.0.1 (0 = выключен)</translation>
+    </message>
+    <message>
+        <source>Key (X-DecoDXLog-Token)</source>
+        <translation>Ключ (X-DecoDXLog-Token)</translation>
+    </message>
+    <message>
+        <source>New key</source>
+        <translation>Новый ключ</translation>
+    </message>
+    <message>
+        <source>For programs next to DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, and POST /api/v1/qso with an ADIF record to log it. Only from this computer, and always with the key. Details: docs/API.md.</source>
+        <translation>Для программ рядом с DecoDXLog: GET /api/v1/status, /api/v1/worked?call=…&amp;band=…&amp;mode=…, /api/v1/qsos?call=…&amp;limit=…, и POST /api/v1/qso с записью ADIF, чтобы её сохранить. Только с этого компьютера и всегда с ключом. Подробности: docs/API.md.</translation>
+    </message>
+    <message>
+        <source>Shared log</source>
+        <translation>Общий журнал</translation>
+    </message>
+    <message>
+        <source>A club station, a multi-operator contest: one log, several operators, each with their own Cloud account — nobody lends a password. The owner of the log creates an invite, whoever gets the code joins with it. Only QSOs travel: profiles, settings and service passwords stay with the owner.</source>
+        <translation>Клубная станция, многооператорский контест: один журнал, несколько операторов, у каждого своя учётная запись Cloud — никто не одалживает пароль. Владелец журнала создаёт приглашение, получивший код входит с ним. Передаются только QSO: профили, настройки и пароли сервисов остаются у владельца.</translation>
+    </message>
+    <message>
+        <source>This log syncs with</source>
+        <translation>Этот журнал синхронизируется с</translation>
+    </message>
+    <message>
+        <source>my own log (%1)</source>
+        <translation>моим журналом (%1)</translation>
+    </message>
+    <message>
+        <source>the shared log of %1</source>
+        <translation>общим журналом %1</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Обновить</translation>
+    </message>
+    <message>
+        <source>The QSOs of this log go to the log of %1, and its QSOs come here: keep a log just for it (Log → New log).</source>
+        <translation>QSO этого журнала идут в журнал %1, а его QSO приходят сюда: держите для него отдельный журнал (Журнал → Новый журнал).</translation>
+    </message>
+    <message>
+        <source>Invite code, e.g. K7Q2-9XMP-D4TA</source>
+        <translation>Код приглашения, напр. K7Q2-9XMP-D4TA</translation>
+    </message>
+    <message>
+        <source>Join with the code</source>
+        <translation>Войти с кодом</translation>
+    </message>
+    <message>
+        <source>operator: sends and gets the QSOs</source>
+        <translation>оператор: отправляет и получает QSO</translation>
+    </message>
+    <message>
+        <source>viewer: only looks</source>
+        <translation>наблюдатель: только смотрит</translation>
+    </message>
+    <message>
+        <source>Invite into the log of %1</source>
+        <translation>Пригласить в журнал %1</translation>
+    </message>
+    <message>
+        <source>Code %1 — %2, valid until %3</source>
+        <translation>Код %1 — %2, действует до %3</translation>
+    </message>
+    <message>
+        <source>viewer</source>
+        <translation>наблюдатель</translation>
+    </message>
+    <message>
+        <source>operator</source>
+        <translation>оператор</translation>
+    </message>
+    <message>
+        <source>viewer in your log</source>
+        <translation>наблюдатель в вашем журнале</translation>
+    </message>
+    <message>
+        <source>operator in your log</source>
+        <translation>оператор в вашем журнале</translation>
+    </message>
+    <message>
+        <source>you look at its log</source>
+        <translation>вы смотрите его журнал</translation>
+    </message>
+    <message>
+        <source>you write in its log</source>
+        <translation>вы пишете в его журнал</translation>
+    </message>
+    <message>
+        <source>Leave</source>
+        <translation>Выйти</translation>
     </message>
     <message>
         <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
@@ -6233,6 +6759,22 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
         <translation>eQSL: eQSL, пришедшие во входящие, без отчётов SWL. QRZ Logbook: QSO вашего журнала на QRZ, которые подтвердила другая станция. Только то, что пришло после последней загрузки; автоматическая загрузка идёт только для служб с учётными данными (ниже, те же, что для отправки). Сопоставляются как подтверждения LoTW; поля бумажной QSL не затрагиваются.</translation>
+    </message>
+    <message>
+        <source>Station on Wavelog</source>
+        <translation>Станция в Wavelog</translation>
+    </message>
+    <message>
+        <source>station %1</source>
+        <translation>станция %1</translation>
+    </message>
+    <message>
+        <source>Load my stations</source>
+        <translation>Загрузить мои станции</translation>
+    </message>
+    <message>
+        <source>Wavelog (and Cloudlog) is the web log on your own site. Below it wants the address of the site (for example log.mysite.org) and an API key with read and write rights, made in Wavelog under Account → API keys; then the station to write in. Sending, automatic sending and the counters are in the QSL tab at the bottom.</source>
+        <translation>Wavelog (и Cloudlog) — веб-журнал на вашем собственном сайте. Ниже нужен адрес сайта (например, log.moisite.ru) и ключ API с правами чтения и записи, созданный в Wavelog в Account → API keys; затем станция, в которую писать. Отправка, автоматическая отправка и счётчики — на вкладке QSL внизу.</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -6364,7 +6906,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished">Адрес</translation>
+        <translation>Адрес</translation>
     </message>
     <message>
         <source>SO2R box (OTRSP)</source>
@@ -6633,6 +7175,14 @@ The call Decodium is working shows up here by itself.</source>
         <translation>LoTW station location (TQSL)</translation>
     </message>
     <message>
+        <source>QSL accounts of this profile</source>
+        <translation>QSL-аккаунты этого профиля</translation>
+    </message>
+    <message>
+        <source>Save the profile first: then it can have its own QRZ Logbook and eQSL accounts.</source>
+        <translation>Сначала сохраните профиль: потом у него могут быть свои аккаунты QRZ Logbook и eQSL.</translation>
+    </message>
+    <message>
         <source>Used by &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · rev %4 · %5</source>
         <translation>Используется &lt;b&gt;&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;&lt;/b&gt; QSO · uuid %3 · ред. %4 · %5</translation>
     </message>
@@ -6681,7 +7231,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Локаторы</translation>
     </message>
     <message>
         <source>Awards over the years · cumulative</source>
@@ -6689,7 +7239,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>no QSO</source>
-        <translation type="unfinished">нет QSO</translation>
+        <translation>нет QSO</translation>
     </message>
     <message>
         <source>Most worked entities</source>
@@ -6881,6 +7431,26 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Чат ON4KST…</translation>
     </message>
     <message>
+        <source>Import a log (ADIF, CSV, N1MM)…</source>
+        <translation>Импортировать журнал (ADIF, CSV, N1MM)…</translation>
+    </message>
+    <message>
+        <source>Split off</source>
+        <translation>Сплит выключен</translation>
+    </message>
+    <message>
+        <source>TX up %1 kHz</source>
+        <translation>TX выше на %1 кГц</translation>
+    </message>
+    <message>
+        <source>TX down %1 kHz</source>
+        <translation>TX ниже на %1 кГц</translation>
+    </message>
+    <message>
+        <source>RIT and XIT off</source>
+        <translation>RIT и XIT выключены</translation>
+    </message>
+    <message>
         <source>Setup · %1 ▾</source>
         <translation>Настройки · %1 ▾</translation>
     </message>
@@ -6999,10 +7569,6 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Panels…</source>
         <translation>Панели…</translation>
-    </message>
-    <message>
-        <source>Import ADIF…</source>
-        <translation>Загрузить ADIF…</translation>
     </message>
     <message>
         <source>Export ADIF…</source>
@@ -7249,7 +7815,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">День</translation>
+        <translation>День</translation>
     </message>
     <message>
         <source>Grayline</source>
@@ -7335,7 +7901,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished">День</translation>
+        <translation>День</translation>
     </message>
     <message>
         <source>Civil twilight</source>
@@ -7406,6 +7972,22 @@ The call Decodium is working shows up here by itself.</source>
             <numerusform>Сеанс закрыт: %1 · %n QSO</numerusform>
             <numerusform>Сеанс закрыт: %1 · %n QSO</numerusform>
             <numerusform>Сеанс закрыт: %1 · %n QSO</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Call history not readable: %1</source>
+        <translation>Call history не читается: %1</translation>
+    </message>
+    <message>
+        <source>Open the contest first</source>
+        <translation>Сначала откройте контест</translation>
+    </message>
+    <message numerus="yes">
+        <source>Call history: %n call(s) from %1</source>
+        <translation>
+            <numerusform>Call history: %n позывной из %1</numerusform>
+            <numerusform>Call history: %n позывных из %1</numerusform>
+            <numerusform>Call history: %n позывных из %1</numerusform>
         </translation>
     </message>
     <message>
@@ -7531,8 +8113,36 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Cloud: %1</translation>
     </message>
     <message>
+        <source>Invite created: give the code to the operator. It is shown only now.</source>
+        <translation>Приглашение создано: передайте код оператору. Он показывается только сейчас.</translation>
+    </message>
+    <message>
+        <source>You are in the log of %1. Choose it for a log of yours below — better a new log (Log → New log), so the club log and yours do not mix.</source>
+        <translation>Вы в журнале %1. Выберите его ниже для одного из своих журналов — лучше нового (Журнал → Новый журнал), чтобы журнал клуба и ваш не смешивались.</translation>
+    </message>
+    <message>
+        <source>Cloud: you joined the shared log of %1</source>
+        <translation>Cloud: вы вошли в общий журнал %1</translation>
+    </message>
+    <message>
         <source>Cloud: linked — sync will unlock it when needed</source>
         <translation>Cloud: подключён — синхронизация откроет его, когда понадобится</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with your own log again</source>
+        <translation>Cloud: этот журнал снова синхронизируется с вашим</translation>
+    </message>
+    <message>
+        <source>Cloud: this log syncs with the shared log of %1</source>
+        <translation>Cloud: этот журнал синхронизируется с общим журналом %1</translation>
+    </message>
+    <message>
+        <source>Sync once to open the keystore, then the team shows here.</source>
+        <translation>Синхронизируйте один раз, чтобы открыть хранилище ключей, и команда появится здесь.</translation>
+    </message>
+    <message>
+        <source>Sign in to the Cloud first.</source>
+        <translation>Сначала войдите в Cloud.</translation>
     </message>
     <message>
         <source>Cloud: token not readable (%1)</source>
@@ -7817,8 +8427,32 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Не слушать UDP %1: %2</translation>
     </message>
     <message>
+        <source>Listening for N1MM Logger+ on UDP %1</source>
+        <translation>Слушаю N1MM Logger+ на UDP %1</translation>
+    </message>
+    <message>
+        <source>Correction not saved: %1</source>
+        <translation>Исправление не сохранено: %1</translation>
+    </message>
+    <message>
+        <source>Corrected by N1MM: %1</source>
+        <translation>Исправлено N1MM: %1</translation>
+    </message>
+    <message>
         <source>built on %1</source>
         <translation>собрано %1</translation>
+    </message>
+    <message>
+        <source>Not understood: %1 (write address:port)</source>
+        <translation>Не понято: %1 (пишите адрес:порт)</translation>
+    </message>
+    <message>
+        <source>UDP forwarding off</source>
+        <translation>Пересылка UDP выключена</translation>
+    </message>
+    <message>
+        <source>UDP forwarded to %1</source>
+        <translation>UDP пересылается на %1</translation>
     </message>
     <message>
         <source>no callsign</source>
@@ -7853,6 +8487,38 @@ The call Decodium is working shows up here by itself.</source>
         <translation>cty.csv %1 поставлен: территорий DXCC — %2</translation>
     </message>
     <message>
+        <source>Club Log cty.xml not readable: %1</source>
+        <translation>cty.xml от Club Log не читается: %1</translation>
+    </message>
+    <message>
+        <source>The Club Log API key is needed (Setup → QSL services → Club Log)</source>
+        <translation>Нужен API-ключ Club Log (Настройки → Сервисы QSL → Club Log)</translation>
+    </message>
+    <message>
+        <source>Downloading cty.xml from Club Log…</source>
+        <translation>Скачиваю cty.xml от Club Log…</translation>
+    </message>
+    <message>
+        <source>Club Log: %1</source>
+        <translation>Club Log: %1</translation>
+    </message>
+    <message>
+        <source>Club Log: the file is not a cty.xml (%1)</source>
+        <translation>Club Log: файл не является cty.xml (%1)</translation>
+    </message>
+    <message>
+        <source>cty.xml of %1: %2 entities</source>
+        <translation>cty.xml от %1: территорий %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>Entity of %n QSO(s) corrected with the date of the QSO (Club Log)</source>
+        <translation>
+            <numerusform>Территория %n QSO исправлена по дате QSO (Club Log)</numerusform>
+            <numerusform>Территории %n QSO исправлены по дате QSO (Club Log)</numerusform>
+            <numerusform>Территории %n QSO исправлены по дате QSO (Club Log)</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>DXCC filled on %1 of %2 QSO (cty.csv %3)</source>
         <translation>DXCC дополнен у %1 из %2 QSO (cty.csv %3)</translation>
     </message>
@@ -7879,6 +8545,18 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>QSO not logged: %1</source>
         <translation>QSO не записан: %1</translation>
+    </message>
+    <message>
+        <source>New key for the local interface: the programs using the old one must be updated</source>
+        <translation>Новый ключ локального интерфейса: программы со старым ключом нужно обновить</translation>
+    </message>
+    <message>
+        <source>Local interface on http://127.0.0.1:%1/api/v1/</source>
+        <translation>Локальный интерфейс на http://127.0.0.1:%1/api/v1/</translation>
+    </message>
+    <message>
+        <source>Cannot open the local interface on port %1: %2</source>
+        <translation>Не удаётся открыть локальный интерфейс на порту %1: %2</translation>
     </message>
     <message>
         <source>Nowhere to send the frequency: the radio is not connected and Decodium is not there either.</source>
@@ -7958,6 +8636,214 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Метка «%1» снята с %2 QSO</translation>
     </message>
     <message>
+        <source>Y · yes</source>
+        <translation>Y · да</translation>
+    </message>
+    <message>
+        <source>N · no</source>
+        <translation>N · нет</translation>
+    </message>
+    <message>
+        <source>R · requested</source>
+        <translation>R · запрошена</translation>
+    </message>
+    <message>
+        <source>Q · queued</source>
+        <translation>Q · в очереди</translation>
+    </message>
+    <message>
+        <source>I · ignore</source>
+        <translation>I · не учитывать</translation>
+    </message>
+    <message>
+        <source>Y · uploaded</source>
+        <translation>Y · загружено</translation>
+    </message>
+    <message>
+        <source>N · not uploaded</source>
+        <translation>N · не загружено</translation>
+    </message>
+    <message>
+        <source>M · changed, upload again</source>
+        <translation>M · изменено, загрузить снова</translation>
+    </message>
+    <message>
+        <source>B · bureau</source>
+        <translation>B · бюро</translation>
+    </message>
+    <message>
+        <source>D · direct</source>
+        <translation>D · напрямую</translation>
+    </message>
+    <message>
+        <source>E · electronic</source>
+        <translation>E · электронно</translation>
+    </message>
+    <message>
+        <source>No profile</source>
+        <translation>Без профиля</translation>
+    </message>
+    <message>
+        <source>My locator</source>
+        <translation>Мой локатор</translation>
+    </message>
+    <message>
+        <source>Station callsign</source>
+        <translation>Позывной станции</translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation>Оператор</translation>
+    </message>
+    <message>
+        <source>Station profile</source>
+        <translation>Профиль станции</translation>
+    </message>
+    <message>
+        <source>My rig</source>
+        <translation>Моя радиостанция</translation>
+    </message>
+    <message>
+        <source>My antenna</source>
+        <translation>Моя антенна</translation>
+    </message>
+    <message>
+        <source>Power (W)</source>
+        <translation>Мощность (Вт)</translation>
+    </message>
+    <message>
+        <source>My POTA reference</source>
+        <translation>Моя ссылка POTA</translation>
+    </message>
+    <message>
+        <source>My SOTA reference</source>
+        <translation>Моя ссылка SOTA</translation>
+    </message>
+    <message>
+        <source>My WWFF reference</source>
+        <translation>Моя ссылка WWFF</translation>
+    </message>
+    <message>
+        <source>My special activity (MY_SIG)</source>
+        <translation>Моя особая активность (MY_SIG)</translation>
+    </message>
+    <message>
+        <source>My special activity reference (MY_SIG_INFO)</source>
+        <translation>Ссылка моей особой активности (MY_SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>POTA reference</source>
+        <translation>Ссылка POTA</translation>
+    </message>
+    <message>
+        <source>SOTA reference</source>
+        <translation>Ссылка SOTA</translation>
+    </message>
+    <message>
+        <source>WWFF reference</source>
+        <translation>Ссылка WWFF</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Special activity (SIG)</source>
+        <translation>Особая активность (SIG)</translation>
+    </message>
+    <message>
+        <source>Special activity reference (SIG_INFO)</source>
+        <translation>Ссылка особой активности (SIG_INFO)</translation>
+    </message>
+    <message>
+        <source>Contest</source>
+        <translation>Соревнование</translation>
+    </message>
+    <message>
+        <source>Propagation</source>
+        <translation>Прохождение</translation>
+    </message>
+    <message>
+        <source>Satellite</source>
+        <translation>Спутник</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Вид работы</translation>
+    </message>
+    <message>
+        <source>Submode</source>
+        <translation>Подрежим</translation>
+    </message>
+    <message>
+        <source>RST sent</source>
+        <translation>RST передан</translation>
+    </message>
+    <message>
+        <source>RST received</source>
+        <translation>Принятый RST</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Комментарий</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Заметки</translation>
+    </message>
+    <message>
+        <source>Paper QSL sent</source>
+        <translation>Бумажная QSL отправлена</translation>
+    </message>
+    <message>
+        <source>Paper QSL received</source>
+        <translation>Бумажная QSL получена</translation>
+    </message>
+    <message>
+        <source>Paper QSL via</source>
+        <translation>Бумажная QSL через</translation>
+    </message>
+    <message>
+        <source>LoTW: sent</source>
+        <translation>LoTW: отправлено</translation>
+    </message>
+    <message>
+        <source>eQSL: sent</source>
+        <translation>eQSL: отправлено</translation>
+    </message>
+    <message>
+        <source>QRZ.com: uploaded</source>
+        <translation>QRZ.com: загружено</translation>
+    </message>
+    <message>
+        <source>Club Log: uploaded</source>
+        <translation>Club Log: загружено</translation>
+    </message>
+    <message>
+        <source>HRDLog: uploaded</source>
+        <translation>HRDLog: загружено</translation>
+    </message>
+    <message>
+        <source>A change on many QSO is already running: wait for it to finish.</source>
+        <translation>Изменение многих QSO уже идёт: дождитесь окончания.</translation>
+    </message>
+    <message>
+        <source>(empty)</source>
+        <translation>(пусто)</translation>
+    </message>
+    <message>
+        <source>%1 → %2 on %3 QSO (%4 unchanged, %5 failed)</source>
+        <translation>%1 → %2 в %3 QSO (%4 без изменений, %5 не удалось)</translation>
+    </message>
+    <message>
+        <source>QSO #%1: %2</source>
+        <translation>QSO № %1: %2</translation>
+    </message>
+    <message>
+        <source>Merged %1 group(s) of duplicates: %2 QSO deleted (kept in history)</source>
+        <translation>Объединено групп повторов: %1; удалено QSO: %2 (остаются в истории)</translation>
+    </message>
+    <message>
         <source>An import is already running: wait for it to finish.</source>
         <translation>Импорт уже идёт: дождитесь окончания.</translation>
     </message>
@@ -8003,7 +8889,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1 is not there.</source>
-        <translation type="unfinished">%1 нет на месте.</translation>
+        <translation>%1 нет на месте.</translation>
     </message>
     <message>
         <source>There is no log file to restore over.</source>
@@ -8094,6 +8980,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>%1: пароль или ключ недоступен (%2)</translation>
     </message>
     <message>
+        <source>Keeping an eye on %1 (%2)</source>
+        <translation>Слежу за %1 (%2)</translation>
+    </message>
+    <message>
         <source>Decodium log not found</source>
         <translation>Журнал Decodium не найден</translation>
     </message>
@@ -8104,6 +8994,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>%1 · Decodium log not readable: %2</source>
         <translation>%1 · журнал Decodium не читается: %2</translation>
+    </message>
+    <message>
+        <source>%1 · %2 not readable: %3</source>
+        <translation>%1 · %2 не читается: %3</translation>
     </message>
     <message numerus="yes">
         <source>%1 · %n QSO(s) recovered from the Decodium log</source>
@@ -8122,6 +9016,14 @@ The call Decodium is working shows up here by itself.</source>
         </translation>
     </message>
     <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from %2</source>
+        <translation>
+            <numerusform>%1 · восстановлена %n QSO из %2</numerusform>
+            <numerusform>%1 · восстановлено %n QSO из %2</numerusform>
+            <numerusform>%1 · восстановлено %n QSO из %2</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <source> · %n skipped as duplicates of the open activation “%1”</source>
         <translation>
             <numerusform> · %n пропущена как повтор в открытой активации «%1»</numerusform>
@@ -8136,6 +9038,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
         <translation>Восстановлено из журнала Decodium → %1 %2 %3 %4</translation>
+    </message>
+    <message>
+        <source>Recovered from %1 → %2 %3 %4 %5</source>
+        <translation>Восстановлено из %1 → %2 %3 %4 %5</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
@@ -8217,7 +9123,7 @@ The call Decodium is working shows up here by itself.</source>
     <name>decolog::app::NetController</name>
     <message>
         <source>off</source>
-        <translation type="unfinished"></translation>
+        <translation>выкл.</translation>
     </message>
     <message>
         <source>on the network %1 (UDP %2) as %3</source>
@@ -8474,6 +9380,22 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>decolog::app::QslController</name>
     <message>
+        <source>Wavelog: %1</source>
+        <translation>Wavelog: %1</translation>
+    </message>
+    <message>
+        <source>Wavelog: no station on the site yet</source>
+        <translation>Wavelog: на сайте пока нет ни одной станции</translation>
+    </message>
+    <message numerus="yes">
+        <source>Wavelog: %n station(s) on the site</source>
+        <translation>
+            <numerusform>Wavelog: %n станция на сайте</numerusform>
+            <numerusform>Wavelog: %n станции на сайте</numerusform>
+            <numerusform>Wavelog: %n станций на сайте</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>CRX: %1</source>
         <translation>CRX: %1</translation>
     </message>
@@ -8530,8 +9452,28 @@ The call Decodium is working shows up here by itself.</source>
         <translation>нет ключа API: Настройки → Службы QSL</translation>
     </message>
     <message>
+        <source>no address or API key: Setup → QSL services</source>
+        <translation>нет адреса или ключа API: «Настройки → Службы QSL»</translation>
+    </message>
+    <message>
+        <source>choose the Wavelog station: Setup → QSL services</source>
+        <translation>выберите станцию Wavelog: «Настройки → Службы QSL»</translation>
+    </message>
+    <message>
         <source>choose the CRX logbook: Setup → QSL services</source>
         <translation>выберите журнал CRX: Настройки → QSL-сервисы</translation>
+    </message>
+    <message>
+        <source>Wavelog: asking for the stations…</source>
+        <translation>Wavelog: запрашиваю станции…</translation>
+    </message>
+    <message>
+        <source>Wavelog: address and API key are needed (%1)</source>
+        <translation>Wavelog: нужны адрес и ключ API (%1)</translation>
+    </message>
+    <message>
+        <source>add them below</source>
+        <translation>добавьте их ниже</translation>
     </message>
     <message>
         <source>CRX: asking for the logbooks…</source>
@@ -8941,6 +9883,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Нет позиции DX: введите локатор или найдите позывной.</translation>
     </message>
     <message>
+        <source>VOACAP: %1</source>
+        <translation>VOACAP: %1</translation>
+    </message>
+    <message>
         <source>Solar data of %1</source>
         <translation>Данные о Солнце от %1</translation>
     </message>
@@ -9156,6 +10102,10 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>decolog::core::CloudSync</name>
     <message>
+        <source>This Cloud server does not know shared logs yet: it has to be updated.</source>
+        <translation>Этот сервер Cloud ещё не знает общих журналов: его нужно обновить.</translation>
+    </message>
+    <message>
         <source>This Cloud server does not know this request (%1): it is older than your DecoDXLog and has to be updated.</source>
         <translation>Этот сервер Cloud не знает такого запроса (%1): он старее вашего DecoDXLog, его надо обновить.</translation>
     </message>
@@ -9294,6 +10244,14 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Загрузка на HRDLog.net: код загрузки есть в профиле HRDLog, это не пароль</translation>
     </message>
     <message>
+        <source>Site address</source>
+        <translation>Адрес сайта</translation>
+    </message>
+    <message>
+        <source>Upload to your Wavelog (or Cloudlog): the address of the site and a read/write API key</source>
+        <translation>Отправка в ваш Wavelog (или Cloudlog): адрес сайта и ключ API с правами чтения и записи</translation>
+    </message>
+    <message>
         <source>The VHF, EME and low band chat (www.on4kst.info)</source>
         <translation>Чат для УКВ, EME и нижних диапазонов (www.on4kst.info)</translation>
     </message>
@@ -9316,6 +10274,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Sending QSL cards by email. With Gmail it wants an app password, not the account one.</source>
         <translation>Отправка QSL по почте. Gmail просит пароль приложения, а не пароль от аккаунта.</translation>
+    </message>
+    <message>
+        <source>Only for the QSOs of this profile; empty = the general account</source>
+        <translation>Только для QSO этого профиля; пусто = общий аккаунт</translation>
     </message>
     <message>
         <source>Account saved</source>
@@ -9425,8 +10387,43 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Трансивер не принял текст CW (rigctld: %1). Не всякий трансивер — и не всякий мост CAT — умеет манипулировать: для макросов нужен rigctld, говорящий с самим трансивером.</translation>
     </message>
     <message>
+        <source>The radio does not take split from here (rigctld: %1)</source>
+        <translation>Радиостанция не принимает сплит отсюда (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not change VFO from here (rigctld: %1)</source>
+        <translation>Радиостанция не переключает VFO отсюда (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not take RIT from here (rigctld: %1)</source>
+        <translation>Радиостанция не принимает RIT отсюда (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio does not take XIT from here (rigctld: %1)</source>
+        <translation>Радиостанция не принимает XIT отсюда (rigctld: %1)</translation>
+    </message>
+    <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>Трансивер ответил ошибкой (rigctld: %1)</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::RigLink</name>
+    <message>
+        <source>This radio link does not do split</source>
+        <translation>Это подключение к радиостанции не умеет сплит</translation>
+    </message>
+    <message>
+        <source>This radio link cannot choose the VFO</source>
+        <translation>Это подключение к радиостанции не выбирает VFO</translation>
+    </message>
+    <message>
+        <source>This radio link does not do RIT</source>
+        <translation>Это подключение к радиостанции не умеет RIT</translation>
+    </message>
+    <message>
+        <source>This radio link does not do XIT</source>
+        <translation>Это подключение к радиостанции не умеет XIT</translation>
     </message>
 </context>
 <context>
@@ -9530,6 +10527,14 @@ The call Decodium is working shows up here by itself.</source>
 </context>
 <context>
     <name>decolog::core::WebQslUploader</name>
+    <message>
+        <source>Wavelog: write the address of your Wavelog (Setup → QSL services)</source>
+        <translation>Wavelog: укажите адрес вашего Wavelog («Настройки → Службы QSL»)</translation>
+    </message>
+    <message>
+        <source>write the address of your Wavelog</source>
+        <translation>укажите адрес вашего Wavelog</translation>
+    </message>
     <message>
         <source>Club Log: email, password, callsign and API key are all needed</source>
         <translation>Club Log: нужны и почта, и пароль, и позывной, и ключ API</translation>

@@ -13,6 +13,8 @@
 #include <QThreadPool>
 
 #include <array>
+#include <atomic>
+#include <memory>
 #include <QString>
 #include <QStringList>
 #include <QVariantList>
@@ -51,6 +53,9 @@ class QsoTableModel : public QAbstractTableModel {
     // QSO, dal piu' recente. Un clic sull'intestazione lo cambia.
     Q_PROPERTY(QString sortKey READ sortKey NOTIFY sortChanged)
     Q_PROPERTY(bool sortAscending READ sortAscending NOTIFY sortChanged)
+    // Su un log grande un ordine o un filtro si preparano su un altro filo:
+    // intanto la tabella resta com'era, e questo e' vero.
+    Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
 
 public:
     // I valori che ogni riga tiene sempre, qualunque colonna si veda: servono
@@ -118,6 +123,7 @@ public:
     bool filtered() const;
 
     Q_INVOKABLE void reload();
+    bool busy() const { return m_busy; }
     QString sortKey() const { return m_sortKey; }
     bool sortAscending() const { return m_sortAscending; }
     // Ordina per quella colonna; di nuovo sulla stessa, al contrario.
@@ -154,6 +160,7 @@ signals:
     void filtersChanged();
     void layoutChanged();
     void sortChanged();
+    void busyChanged();
 
 private:
     // La categoria di ogni QSO, come posizione in categoryKeys(): un byte, non
@@ -165,7 +172,7 @@ private:
     // Filtri e ordine come SQL.
     QString whereSql(QVariantList& binds) const;
     QString orderSql() const;
-    QString m_categorySignature;   // il log com'era quando si sono contate
+    QString m_categorySignature;   // il log com'era quando si sono contate (changeStamp)
     // Quello che si e' gia' visto, per le categorie di un QSO nuovo senza
     // ricontare il log: entita', continente, zone, locatore, nominativo, da
     // soli e per banda, come impronte. Valgono per i QSO piu' recenti
@@ -232,6 +239,17 @@ private:
     QString m_dateFrom;
     QString m_dateTo;
     int m_total{0};
+
+    // Il ricarico su un altro filo: da quante righe in su, e l'ultimo chiesto
+    // (quelli rimasti in coda si saltano, quelli arrivati tardi si scartano).
+    static constexpr int kBackgroundRows = 50000;
+    QThreadPool m_reloadPool;
+    int m_reloadGeneration{0};
+    std::shared_ptr<std::atomic<int>> m_reloadLatest{std::make_shared<std::atomic<int>>(0)};
+    bool m_busy{false};
+    QString idsSql(QVariantList& binds, bool scan) const;
+    bool scanWholeLog() const;
+    void adoptIds(QVector<qint64>&& ids);
 };
 
 } // namespace decolog::app

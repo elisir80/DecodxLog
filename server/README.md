@@ -65,6 +65,33 @@ mostra per quello che sono, senza vomitare il blob.
 I documenti stanno nella stessa spinta dei QSO (`docs` in `/v1/sync/push`,
 `docResults` nella risposta) e nello stesso pull: un giro solo, un cursore solo.
 
+## Un log per piu' operatori
+
+Una stazione di club, un contest multi-operatore, una famiglia di radioamatori:
+un log solo, piu' persone che ci scrivono, **ognuna con il proprio account e la
+propria password** — nessuno presta la password a nessuno.
+
+Il log e' dell'account che lo tiene (il nominativo del club). Chi lo tiene crea
+un invito, dal programma o dalla pagina Stazione: un codice di dodici caratteri
+(`K7Q2-9XMP-D4TA`) che vale una volta, scade in una settimana, e di cui il server
+tiene solo l'impronta. Chi lo riceve entra con il proprio account, e da li' i
+suoi dispositivi sincronizzano quel log dicendo quale vogliono con
+l'intestazione `X-DecoLog-Log: IQ8XX`.
+
+* **operator** manda e prende i QSO del log condiviso; nel registro si vede chi
+  ha scritto (`IU8LMC · portatile`);
+* **viewer** li prende soltanto: un giudice di gara, un socio che guarda.
+
+Viaggiano solo i QSO: profili, impostazioni e credenziali sigillate restano di
+chi tiene il log — un operatore non li riceve e, se li manda, il server li
+ignora. Chi tiene il log toglie un operatore quando vuole, e un operatore esce
+da solo; i QSO gia' mandati restano nel log.
+
+Nel programma: Impostazioni → Sync e Cloud → Log condiviso. Si sceglie quale
+file di log va con quello condiviso — meglio un log a parte, cosi' quello del
+club e quello di casa non si mescolano. Dal browser, la pagina Stazione mostra
+chi scrive nel proprio log e apre quelli dove si scrive.
+
 ## Il log dal browser
 
 Non una pagina web che parla dello stesso log: **la stessa finestra**. Barra
@@ -114,6 +141,14 @@ e le coste della mappa stanno nei file del servizio.
 | GET | `/v1/sync/pull` | prende quello che e' cambiato: QSO e documenti |
 | GET | `/v1/sync/status` | quanti QSO ci sono, a che punto e' il cursore |
 | GET | `/v1/health` | per il monitoraggio, e dice cosa sa fare (`features`) |
+| GET | `/v1/team` | chi scrive nel mio log, in quali scrivo io, gli inviti aperti |
+| POST | `/v1/team/invite` | un codice per entrare nel mio log (`operator` o `viewer`) |
+| POST | `/v1/team/join` | entrare in un log condiviso con il codice |
+| DELETE | `/v1/team/members/{nominativo}` | togliere un operatore dal mio log |
+| DELETE | `/v1/team/memberships/{log}` | uscire da un log condiviso |
+
+Push, pull, status e presenza lavorano sul log scritto in `X-DecoLog-Log`, se
+l'account ne fa parte (403 altrimenti, e 403 anche al push di un `viewer`).
 
 Il token va nell'intestazione `Authorization: Bearer <token>`. La password si
 tiene con Argon2; del token il server conserva solo l'impronta SHA-256.
@@ -191,10 +226,11 @@ migrazione a mano, nemmeno su PostgreSQL.
 PYTHONPATH=. .venv/Scripts/python -m pytest tests -q
 ```
 
-Settantatre prove: registrazione, token scaduto, push e pull, cursore, conflitti
+Centotrentuno prove: registrazione, token scaduto, push e pull, cursore, conflitti
 con lo storico, revisione vecchia, duplicati, cancellazioni, pagine, documenti
 (profili e impostazioni, con il loro storico e il cursore condiviso), i conti
 del log (prefisso WPX con gli esempi di CQ, gruppi di modi, diplomi lavorati e
 confermati per banda, QSL, locatori sulla mappa), la finestra del browser (le tre colonne, le
-cinque schede, il tema che arriva dalle impostazioni), e due account che non si
-vedono fra loro.
+cinque schede, il tema che arriva dalle impostazioni), due account che non si
+vedono fra loro, e il log condiviso (inviti, operatore e osservatore, documenti
+che restano di chi tiene il log, la pagina del browser).

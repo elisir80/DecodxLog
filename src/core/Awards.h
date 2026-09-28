@@ -9,6 +9,7 @@
 #pragma once
 
 #include <QDateTime>
+#include <QHash>
 #include <QList>
 #include <QMap>
 #include <QSet>
@@ -92,12 +93,28 @@ bool isJapanGun(const QString& jarlCode);
 struct AwardFilter {
     QString band;               // vuoto = tutte
     QString modeGroup;          // "", "FT2", "FT8", "DIGITAL", "CW", "PHONE"
+    // Le conferme che valgono per i diplomi che non hanno regole proprie.
     bool confirmLotw{true};
     bool confirmCard{true};
     bool confirmEqsl{false};
     qint64 stationProfileId{0}; // 0 = tutti i profili
     QString tag;                // etichetta dei QSO che contano, vuota = tutti
+    // Le conferme scelte dall'operatore per un diploma ("dxcc" → lotw, card):
+    // vincono sulle regole del diploma e sulle scelte generali.
+    QHash<QString, QStringList> credits;
 };
+
+namespace awards {
+
+// I servizi che confermano: lotw, card, eqsl, qrz.
+QStringList creditServices();
+// Le conferme che il regolamento del diploma accetta, se ne ha di sue: il
+// DXCC e il WAS dell'ARRL solo LoTW e cartolina. Vuoto = quelle generali.
+QStringList officialCredits(const QString& awardId);
+// Quelle che valgono davvero per un diploma con quel filtro.
+QStringList creditsFor(const QString& awardId, const AwardFilter& filter);
+
+} // namespace awards
 
 struct BandTotal {
     QString band;
@@ -142,12 +159,22 @@ public:
 
     explicit AwardCalculator(DxccName dxccName = {});
 
+    // Con il cty.xml di Club Log il DXCC sa di piu': le operazioni che l'ARRL
+    // non ha accettato non contano, e le entita' cancellate non fanno numero
+    // per il diploma di adesso.
+    struct DxccRules {
+        std::function<bool(const QString& call, const QDateTime& when)> invalid;
+        std::function<bool(int dxcc)> deleted;
+    };
+    void setDxccRules(DxccRules rules) { m_rules = std::move(rules); }
+
     static QStringList awardIds();
     // Tutti gli award in una passata sul log.
     QList<AwardResult> compute(const LogDatabase& db, const AwardFilter& filter) const;
 
 private:
     DxccName m_dxccName;
+    DxccRules m_rules;
 };
 
 } // namespace decolog::core

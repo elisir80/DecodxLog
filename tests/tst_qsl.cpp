@@ -310,6 +310,90 @@ private slots:
                  QString("get_mylogs"));
     }
 
+    void wavelogAddresses()
+    {
+        // Quello che l'operatore scrive, e l'indirizzo dell'API che ne viene.
+        QCOMPARE(qsl::wavelogApiUrl("log.example.org", "qso"), QUrl("https://log.example.org/index.php/api/qso"));
+        QCOMPARE(qsl::wavelogApiUrl("https://x.org/wavelog/", "qso"), QUrl("https://x.org/wavelog/index.php/api/qso"));
+        QCOMPARE(qsl::wavelogApiUrl("http://192.168.1.5:8086/index.php/api/qso", "station_info/K"),
+                 QUrl("http://192.168.1.5:8086/index.php/api/station_info/K"));
+        QVERIFY(qsl::wavelogApiUrl("  ", "qso").isEmpty());
+    }
+
+    void wavelogAnswers()
+    {
+        QslUploadResult r = qsl::parseWavelogResponse(201, R"({"status":"created","type":"adif","adif_count":1,"adif_errors":0})");
+        QVERIFY(r.ok);
+        QCOMPARE(r.accepted, 1);
+        r = qsl::parseWavelogResponse(201, R"({"status":"created","adif_errors":1,"messages":["Duplicate for W1AW 20m FT8"]})");
+        QVERIFY(r.ok);
+        QCOMPARE(r.duplicates, 1);
+        r = qsl::parseWavelogResponse(201, R"({"status":"created","adif_errors":1,"messages":["Missing mode"]})");
+        QCOMPARE(r.rejected, 1);
+        QVERIFY(r.message.contains("Missing mode"));
+        r = qsl::parseWavelogResponse(401, R"({"status":"failed","reason":"missing api key"})");
+        QVERIFY(!r.ok);
+        QVERIFY(r.message.contains("API key"));
+        r = qsl::parseWavelogResponse(400, R"({"status":"failed","reason":"station id does not belong to the API key owner."})");
+        QVERIFY(!r.ok);
+        QCOMPARE(r.rejected, 1);
+
+        QString error;
+        const QVariantList stations = qsl::parseWavelogStations(
+            R"([{"station_id":"1","station_profile_name":"Casa","station_gridsquare":"JN71DC","station_callsign":"IU8LMC","station_active":"1"},
+                {"station_id":2,"station_profile_name":"Portatile","station_callsign":"IU8LMC/P","station_active":null}])",
+            &error);
+        QCOMPARE(stations.size(), 2);
+        QCOMPARE(stations.at(0).toMap().value("id").toString(), QString("1"));
+        QVERIFY(stations.at(0).toMap().value("active").toBool());
+        QCOMPARE(stations.at(1).toMap().value("id").toString(), QString("2"));
+        QVERIFY(!stations.at(1).toMap().value("active").toBool());
+        QVERIFY(qsl::parseWavelogStations(R"({"status":"failed","reason":"missing api key"})", &error).isEmpty());
+        QCOMPARE(error, QString("missing api key"));
+    }
+
+    void wavelogOverTheWire()
+    {
+        FakeCrx wavelog;
+        QVERIFY(wavelog.listen(QHostAddress::LocalHost));
+        wavelog.status = 201;
+        wavelog.answer = R"({"status":"created","type":"adif","adif_count":1,"adif_errors":0})";
+        WebQslUploader web;
+        QSignalSpy done(&web, &WebQslUploader::finished);
+        web.uploadWavelog(QStringLiteral("http://127.0.0.1:%1/").arg(wavelog.serverPort()), "wl64key", "3",
+                          "<CALL:4>W1AW<EOR>");
+        QVERIFY(done.wait(5000));
+        QVERIFY(done.first().first().value<QslUploadResult>().ok);
+        QVERIFY(wavelog.request.startsWith("POST /index.php/api/qso "));
+        const QJsonObject body = QJsonDocument::fromJson(wavelog.body).object();
+        QCOMPARE(body.value("key").toString(), QString("wl64key"));
+        QCOMPARE(body.value("station_profile_id").toString(), QString("3"));
+        QCOMPARE(body.value("type").toString(), QString("adif"));
+        QCOMPARE(body.value("string").toString(), QString("<CALL:4>W1AW<EOR>"));
+
+        // Un rifiuto con 400 dice il motivo, non "errore HTTP".
+        FakeCrx refusing;
+        QVERIFY(refusing.listen(QHostAddress::LocalHost));
+        refusing.status = 400;
+        refusing.answer = R"({"status":"failed","reason":"wrong station"})";
+        QSignalSpy refused(&web, &WebQslUploader::finished);
+        web.uploadWavelog(QStringLiteral("http://127.0.0.1:%1").arg(refusing.serverPort()), "wl64key", "3", "<CALL:4>W1AW<EOR>");
+        QVERIFY(refused.wait(5000));
+        const auto result = refused.first().first().value<QslUploadResult>();
+        QVERIFY(!result.retryLater);
+        QVERIFY2(result.message.contains("wrong station"), qPrintable(result.message));
+
+        // L'elenco delle stazioni: la chiave nell'indirizzo.
+        FakeCrx stations;
+        QVERIFY(stations.listen(QHostAddress::LocalHost));
+        stations.answer = R"([{"station_id":"3","station_profile_name":"Casa","station_callsign":"IU8LMC","station_active":"1"}])";
+        QSignalSpy listed(&web, &WebQslUploader::wavelogStationsListed);
+        web.listWavelogStations(QStringLiteral("127.0.0.1:%1").arg(stations.serverPort()).prepend("http://"), "wl64key");
+        QVERIFY(listed.wait(5000));
+        QCOMPARE(listed.first().at(0).toList().size(), 1);
+        QVERIFY(stations.request.startsWith("GET /index.php/api/station_info/wl64key "));
+    }
+
     void clubLogNeedsEverything()
     {
         ClubLogAuth auth;

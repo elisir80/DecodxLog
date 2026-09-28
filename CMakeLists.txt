@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.16.34
+    VERSION 1.16.35
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES C CXX)
 
@@ -123,6 +123,20 @@ add_library(decolog_core STATIC
     src/core/QslDownload.h
     src/core/DecodiumLog.cpp
     src/core/DecodiumLog.h
+    src/core/N1mm.cpp
+    src/core/N1mm.h
+    src/core/LocalApi.cpp
+    src/core/LocalApi.h
+    src/core/ClubLogCty.cpp
+    src/core/ClubLogCty.h
+    src/core/CallHistory.cpp
+    src/core/CallHistory.h
+    src/core/SharedSerials.cpp
+    src/core/SharedSerials.h
+    src/core/LogMigration.cpp
+    src/core/LogMigration.h
+    src/core/Voacap.cpp
+    src/core/Voacap.h
     src/core/RotorLink.cpp
     src/core/RotorLink.h
     src/core/SecretVault.cpp
@@ -186,6 +200,9 @@ target_link_libraries(decolog_core PUBLIC Qt6::Core Qt6::Network Qt6::Sql Qt6::G
 target_link_libraries(decolog_core PRIVATE ggmorse)
 # La firma degli aggiornamenti: Ed25519 da Monocypher.
 target_link_libraries(decolog_core PRIVATE monocypher)
+# Il cty.xml di Club Log arriva compresso con gzip.
+find_package(ZLIB REQUIRED)
+target_link_libraries(decolog_core PRIVATE ZLIB::ZLIB)
 # Annunci vocali: su Windows la sintesi del sistema (SAPI).
 if(WIN32)
     target_link_libraries(decolog_core PRIVATE sapi ole32 oleaut32)
@@ -323,6 +340,8 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/LogsDialog.qml
     qml/DecoDXLog/ContestLayout.qml
     qml/DecoDXLog/ColumnsDialog.qml
+    qml/DecoDXLog/BulkEditDialog.qml
+    qml/DecoDXLog/DuplicatesDialog.qml
     qml/DecoDXLog/ColorSwatch.qml
     qml/DecoDXLog/ContestSubmitDialog.qml
     qml/DecoDXLog/ContestEntryPanel.qml
@@ -452,16 +471,35 @@ set_target_properties(decolog PROPERTIES
     MACOSX_BUNDLE_BUNDLE_VERSION "${PROJECT_VERSION}"
 )
 
+# ── VOACAP ────────────────────────────────────────────────────────────────────
+# La previsione di propagazione vera (ITS, dominio pubblico; voacapl, CC0) si
+# costruisce se c'e' un compilatore Fortran. Senza, il programma usa il suo
+# modello semplificato e lo dice.
+include(CheckLanguage)
+check_language(Fortran)
+if(CMAKE_Fortran_COMPILER)
+    enable_language(Fortran)
+    include(third_party/voacapl/voacap.cmake)
+    add_dependencies(decolog voacapl voacap_data)
+else()
+    message(STATUS "No Fortran compiler: VOACAP is not built (install mingw-w64-x86_64-gcc-fortran)")
+endif()
+
 # ── Tests ─────────────────────────────────────────────────────────────────────
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet winkeyer catshare logbackup qsldownload decodiumlog)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet winkeyer catshare logbackup qsldownload decodiumlog n1mm localapi clublogcty migration voacap)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)
         add_test(NAME ${name} COMMAND tst_${name})
     endforeach()
+    # VOACAP: l'esempio di voacapl per la scheda e l'uscita, e il motore
+    # compilato (se c'e') per una previsione vera.
+    target_compile_definitions(tst_voacap PRIVATE
+        VOACAPL_SAMPLE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/third_party/voacapl/sample"
+        VOACAP_BUILD_DIR="${CMAKE_BINARY_DIR}/voacap")
     # Le etichette QSL disegnano davvero un PDF: serve una QGuiApplication, e
     # senza schermo va bene la piattaforma offscreen.
     qt_add_executable(tst_qslcards tests/tst_qslcards.cpp)

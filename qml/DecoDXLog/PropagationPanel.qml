@@ -12,6 +12,7 @@ Item {
     id: root
 
     property int revision: 0
+    function showForecast(grid) { pathView.manualGrid = grid }
     readonly property var solar: { revision; return decolog.solar.data }
     readonly property var days: { revision; return decolog.solar.qsoAgainstFlux(14) }
 

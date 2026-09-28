@@ -50,6 +50,19 @@ public:
     QString account(const QString& service) const;
     bool hasSecret(const QString& service) const;
 
+    // Un profilo di stazione puo' avere i suoi account per QRZ Logbook ed eQSL
+    // (un nominativo speciale ha il suo logbook e la sua casella): stanno sotto
+    // "qrzlogbook@3", "eqsl@3". Senza, vale l'account generale.
+    static QStringList profileServiceBases();
+    static QString profileService(const QString& base, qint64 profileId);
+    // Il profilo di un servizio di profilo ("eqsl@3" → 3), 0 per gli altri.
+    static qint64 profileOf(const QString& service);
+    // L'account da usare per i QSO di un profilo: il suo se ha il segreto, se no
+    // quello generale.
+    QString serviceFor(const QString& base, qint64 profileId) const;
+    // Per la scheda del profilo: le righe come services(), ma per quel profilo.
+    Q_INVOKABLE QVariantList profileServices(qint64 profileId) const;
+
     // Salva nome utente (in QSettings) e segreto (nel portachiavi). Un segreto
     // vuoto lascia quello gia' salvato. Esito con finished().
     Q_INVOKABLE void save(const QString& service, const QString& account, const QString& secret);

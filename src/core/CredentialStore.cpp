@@ -55,6 +55,8 @@ QList<CredentialService> CredentialStore::knownServices()
          tr("Upload to the CRX Logbook (crx.cloud): the key starts with HAM-")},
         {QStringLiteral("hrdlog"), QStringLiteral("HRDLog.net"), tr("Callsign"), tr("Upload code"),
          tr("Upload to HRDLog.net: the upload code is in your HRDLog profile, it is not the password")},
+        {QStringLiteral("wavelog"), QStringLiteral("Wavelog"), tr("Site address"), tr("API key"),
+         tr("Upload to your Wavelog (or Cloudlog): the address of the site and a read/write API key")},
         {QStringLiteral("on4kst"), QStringLiteral("ON4KST Chat"), tr("Callsign"), tr("Password"),
          tr("The VHF, EME and low band chat (www.on4kst.info)")},
         {QStringLiteral("hamqth"), QStringLiteral("HamQTH"), tr("Username"), tr("Password"),
@@ -79,6 +81,54 @@ QString CredentialStore::account(const QString& service) const
 bool CredentialStore::hasSecret(const QString& service) const
 {
     return QSettings().value(settingsKey(service, "stored"), false).toBool();
+}
+
+QStringList CredentialStore::profileServiceBases()
+{
+    return {QStringLiteral("qrzlogbook"), QStringLiteral("eqsl")};
+}
+
+QString CredentialStore::profileService(const QString& base, qint64 profileId)
+{
+    return profileId > 0 ? QStringLiteral("%1@%2").arg(base).arg(profileId) : base;
+}
+
+qint64 CredentialStore::profileOf(const QString& service)
+{
+    const qsizetype at = service.indexOf(QLatin1Char('@'));
+    return at > 0 ? service.mid(at + 1).toLongLong() : 0;
+}
+
+QString CredentialStore::serviceFor(const QString& base, qint64 profileId) const
+{
+    const QString own = profileService(base, profileId);
+    if (profileId > 0 && hasSecret(own))
+        return own;
+    return base;
+}
+
+QVariantList CredentialStore::profileServices(qint64 profileId) const
+{
+    QVariantList out;
+    if (profileId <= 0)
+        return out;
+    for (const CredentialService& s : knownServices()) {
+        if (!profileServiceBases().contains(s.id))
+            continue;
+        const QString id = profileService(s.id, profileId);
+        out << QVariantMap{
+            {QStringLiteral("id"), id},
+            {QStringLiteral("label"), s.label},
+            {QStringLiteral("accountLabel"), s.accountLabel},
+            {QStringLiteral("secretLabel"), s.secretLabel},
+            {QStringLiteral("hint"), tr("Only for the QSOs of this profile; empty = the general account")},
+            {QStringLiteral("account"), account(id)},
+            {QStringLiteral("stored"), hasSecret(id)},
+            {QStringLiteral("busy"), m_busy.value(id, false)},
+            {QStringLiteral("error"), m_errors.value(id)},
+        };
+    }
+    return out;
 }
 
 QVariantList CredentialStore::services() const

@@ -40,6 +40,10 @@ class QslController : public QObject {
     Q_PROPERTY(QVariantList crxLogs READ crxLogs NOTIFY changed)
     Q_PROPERTY(QString crxStatus READ crxStatus NOTIFY changed)
     Q_PROPERTY(QString crxSince READ crxSince WRITE setCrxSince NOTIFY changed)
+    // Wavelog: la stazione del sito in cui scrivere.
+    Q_PROPERTY(QString wavelogStationId READ wavelogStationId WRITE setWavelogStationId NOTIFY changed)
+    Q_PROPERTY(QVariantList wavelogStations READ wavelogStations NOTIFY changed)
+    Q_PROPERTY(QString wavelogStatus READ wavelogStatus NOTIFY changed)
     Q_PROPERTY(QString tqslStatus READ tqslStatus NOTIFY changed)
     Q_PROPERTY(bool busy READ busy NOTIFY changed)
     Q_PROPERTY(QString busyService READ busyService NOTIFY changed)
@@ -73,6 +77,11 @@ public:
     QString crxLogName() const { return m_crxLogName; }
     QVariantList crxLogs() const { return m_crxLogs; }
     QString crxStatus() const { return m_crxStatus; }
+    QString wavelogStationId() const { return m_wavelogStationId; }
+    void setWavelogStationId(const QString& id);
+    QVariantList wavelogStations() const { return m_wavelogStations; }
+    QString wavelogStatus() const { return m_wavelogStatus; }
+    Q_INVOKABLE void fetchWavelogStations();
     QString crxSince() const { return m_crxSince.toString(Qt::ISODate); }
     void setCrxSince(const QString& date);
     // Chiede a CRX l'elenco dei logbook dell'account (serve la chiave API).
@@ -121,6 +130,9 @@ private:
     QString m_crxLogName;
     QVariantList m_crxLogs;
     QString m_crxStatus;
+    QString m_wavelogStationId;
+    QVariantList m_wavelogStations;
+    QString m_wavelogStatus;
     QDate m_crxSince;
     // Per CRX si parte da un giorno: senza, al primo collegamento partirebbe
     // tutto il log di una vita.
@@ -132,6 +144,7 @@ private:
     QQueue<qint64> m_pending;       // per QRZ ed eQSL, uno alla volta
     QString m_secret;               // credenziale del servizio in corso, solo durante l'invio
     QString m_account;
+    QString m_credential;           // quale account sta usando l'invio (QRZ/eQSL: puo' essere di un profilo)
     QHash<QString, QString> m_lastResult;
     QHash<QString, bool> m_auto;
     QString m_adifFile;             // file temporaneo di TQSL
