@@ -8,7 +8,7 @@ CREATE TABLE schema_version (
     version     INTEGER NOT NULL,
     applied_at  TEXT    NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ','now'))
 );
-INSERT INTO schema_version (version) VALUES (5);
+INSERT INTO schema_version (version) VALUES (6);
 
 -- Profili stazione (portatile, casa, evento speciale...)
 CREATE TABLE station_profile (
@@ -95,6 +95,10 @@ CREATE INDEX idx_qso_dedup     ON qso(call, band, mode, submode, qso_datetime_on
 CREATE INDEX idx_qso_dirty     ON qso(dirty) WHERE dirty = 1;
 CREATE INDEX idx_qso_dxcc      ON qso(dxcc);
 CREATE INDEX idx_qso_grid      ON qso(gridsquare);
+CREATE INDEX idx_qso_submode   ON qso(submode);
+CREATE INDEX idx_qso_live_time ON qso(qso_datetime_on) WHERE deleted = 0;
+CREATE INDEX idx_qso_tags      ON qso(tags) WHERE IFNULL(tags, '') <> '';
+CREATE INDEX idx_qso_profile   ON qso(station_profile_id) WHERE deleted = 0;
 
 -- Stato QSL per servizio (una riga per QSO x servizio)
 CREATE TABLE qsl_status (

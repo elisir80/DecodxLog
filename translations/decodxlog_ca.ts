@@ -2332,6 +2332,65 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
 </context>
 <context>
+    <name>LogBackup</name>
+    <message>
+        <source>The file is not there.</source>
+        <translation>El fitxer no hi és.</translation>
+    </message>
+    <message>
+        <source>SQLite cannot open it: %1</source>
+        <translation>SQLite no el pot obrir: %1</translation>
+    </message>
+    <message>
+        <source>It is not a SQLite database: %1</source>
+        <translation>No és una base de dades SQLite: %1</translation>
+    </message>
+    <message>
+        <source>SQLite finds it damaged: %1</source>
+        <translation>SQLite la troba malmesa: %1</translation>
+    </message>
+    <message>
+        <source>It is not a DecoDXLog log.</source>
+        <translation>No és un log de DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>The QSOs cannot be read: %1</source>
+        <translation>Els QSO no es poden llegir: %1</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>La còpia és el mateix log.</translation>
+    </message>
+    <message>
+        <source>The backup cannot be used: %1</source>
+        <translation>La còpia no es pot fer servir: %1</translation>
+    </message>
+    <message>
+        <source>The log as it is now could not be saved to %1: nothing was changed.</source>
+        <translation>El log tal com és ara no s&apos;ha pogut desar a %1: no ha canviat res.</translation>
+    </message>
+    <message>
+        <source>The backup could not be copied next to the log: nothing was changed.</source>
+        <translation>La còpia no s&apos;ha pogut posar al costat del log: no ha canviat res.</translation>
+    </message>
+    <message>
+        <source>The copied backup does not read back the same: nothing was changed.</source>
+        <translation>La còpia posada al costat no es llegeix igual: no ha canviat res.</translation>
+    </message>
+    <message>
+        <source>The log is still in use by another program: nothing was changed.</source>
+        <translation>El log encara el fa servir un altre programa: no ha canviat res.</translation>
+    </message>
+    <message>
+        <source>The backup could not take the place of the log; the log as it was is back.</source>
+        <translation>La còpia no ha pogut ocupar el lloc del log; el log d&apos;abans ha tornat.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog did not close in time: the log was not touched.</source>
+        <translation>DecoDXLog no s&apos;ha tancat a temps: el log no s&apos;ha tocat.</translation>
+    </message>
+</context>
+<context>
     <name>LogColors</name>
     <message>
         <source>New DXCC</source>
@@ -2419,6 +2478,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>%1 selected</source>
         <translation>%1 seleccionats</translation>
+    </message>
+    <message>
+        <source>Importing %1%</source>
+        <translation>Important %1%</translation>
     </message>
     <message>
         <source>%1 QSO · %2 shown</source>
@@ -4579,6 +4642,108 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
 </context>
 <context>
+    <name>RestoreBackupDialog</name>
+    <message>
+        <source>Restore a backup</source>
+        <translation>Restaura una còpia</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n cop(ies) in the backup folder</source>
+        <translation>
+            <numerusform>%n còpia a la carpeta de còpies</numerusform>
+            <numerusform>%n còpies a la carpeta de còpies</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Choose a backup</source>
+        <translation>Tria una còpia</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>Logs de DecoDXLog (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">Tots els fitxers (*)</translation>
+    </message>
+    <message numerus="yes">
+        <source>Log now: %1 · %n QSO · last %2</source>
+        <translation>
+            <numerusform>Log ara: %1 · %n QSO · darrer %2</numerusform>
+            <numerusform>Log ara: %1 · %n QSO · darrer %2</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>before a restore</source>
+        <translation>abans d&apos;una restauració</translation>
+    </message>
+    <message>
+        <source>No copies in %1 yet.</source>
+        <translation>Encara no hi ha còpies a %1.</translation>
+    </message>
+    <message>
+        <source>Choose another file…</source>
+        <translation>Tria un altre fitxer…</translation>
+    </message>
+    <message>
+        <source>In this copy</source>
+        <translation>En aquesta còpia</translation>
+    </message>
+    <message>
+        <source>Choose a copy.</source>
+        <translation>Tria una còpia.</translation>
+    </message>
+    <message>
+        <source>Reading %1…</source>
+        <translation>Llegint %1…</translation>
+    </message>
+    <message>
+        <source>✗ It cannot be restored: %1</source>
+        <translation>✗ No es pot restaurar: %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>✓ SQLite finds it sound · %n QSO, from %1 to %2 · %3</source>
+        <translation>
+            <numerusform>✓ Sana per a SQLite · %n QSO, del %1 al %2 · %3</numerusform>
+            <numerusform>✓ Sana per a SQLite · %n QSO, del %1 al %2 · %3</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO fewer than the log now: the ones logged after this copy will not be in the restored log.</source>
+        <translation>
+            <numerusform>%n QSO menys que el log d&apos;ara: el fet després d&apos;aquesta còpia no serà al log restaurat.</numerusform>
+            <numerusform>%n QSO menys que el log d&apos;ara: els fets després d&apos;aquesta còpia no seran al log restaurat.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO more than the log now.</source>
+        <translation>
+            <numerusform>%n QSO més que el log d&apos;ara.</numerusform>
+            <numerusform>%n QSO més que el log d&apos;ara.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>As many QSOs as the log now.</source>
+        <translation>Tants QSO com el log d&apos;ara.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog restarts and puts the copy in place of the log before opening it. The log as it is now is saved first in the backup folder as decodxlog-before-restore-…, so nothing is lost: to go back, restore that one.</source>
+        <translation>DecoDXLog es reinicia i posa la còpia al lloc del log abans d&apos;obrir-lo. El log d&apos;ara es desa abans a la carpeta de còpies com a decodxlog-before-restore-…, així que no es perd res: per tornar enrere, restaura aquella.</translation>
+    </message>
+    <message>
+        <source>Confirm: restore and restart</source>
+        <translation>Confirma: restaura i reinicia</translation>
+    </message>
+    <message>
+        <source>Restore and restart</source>
+        <translation>Restaura i reinicia</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RotorCommandBar</name>
     <message>
         <source>STOP</source>
@@ -6168,6 +6333,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Fes-ne una còpia ara</translation>
     </message>
     <message>
+        <source>Restore a backup…</source>
+        <translation>Restaura una còpia…</translation>
+    </message>
+    <message>
         <source>A consistent copy made with SQLite VACUUM INTO, even while DecoDXLog is logging. If the PC is off at the chosen time, the copy is made as soon as DecoDXLog is open.</source>
         <translation>Una còpia coherent feta amb SQLite VACUUM INTO, fins i tot mentre DecoDXLog registra. Si el PC és apagat a l&apos;hora triada, la còpia es fa tan bon punt DecoDXLog s&apos;obre.</translation>
     </message>
@@ -6442,6 +6611,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>All years</source>
         <translation>Tots els anys</translation>
+    </message>
+    <message>
+        <source>Counting…</source>
+        <translation>Comptant…</translation>
     </message>
     <message>
         <source>Activity</source>
@@ -7655,8 +7828,16 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Etiqueta &quot;%1&quot; treta de %2 QSO</translation>
     </message>
     <message>
+        <source>An import is already running: wait for it to finish.</source>
+        <translation>Ja hi ha una importació en marxa: espera que acabi.</translation>
+    </message>
+    <message>
         <source>Cannot read %1: %2</source>
         <translation>No es pot llegir %1: %2</translation>
+    </message>
+    <message>
+        <source>Importing %1…</source>
+        <translation>Important %1…</translation>
     </message>
     <message>
         <source>%1: %2 new, %3 duplicates, %4 rejected</source>
@@ -7674,6 +7855,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         </translation>
     </message>
     <message>
+        <source>Exporting to %1…</source>
+        <translation>Exportant a %1…</translation>
+    </message>
+    <message>
         <source>%1 · %2 MB</source>
         <translation>%1 · %2 MB</translation>
     </message>
@@ -7684,6 +7869,34 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>%1 → %2 (%3 MB)</source>
         <translation>%1 → %2 (%3 MB)</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation type="unfinished">%1 no hi és.</translation>
+    </message>
+    <message>
+        <source>There is no log file to restore over.</source>
+        <translation>No hi ha cap fitxer de log on restaurar.</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>La còpia és el mateix log.</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted to restore the backup.</source>
+        <translation>El programa no s&apos;ha pogut reiniciar per restaurar la còpia.</translation>
+    </message>
+    <message>
+        <source>Log restored from %1: %2 QSO</source>
+        <translation>Log restaurat des de %1: %2 QSO</translation>
+    </message>
+    <message>
+        <source>The log as it was before is saved in %1</source>
+        <translation>El log d&apos;abans està desat a %1</translation>
+    </message>
+    <message>
+        <source>Restore not done: %1</source>
+        <translation>Restauració no feta: %1</translation>
     </message>
     <message>
         <source>LoTW: the period starts after it ends</source>

@@ -521,11 +521,13 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         "SELECT id, call, band, mode, IFNULL(submode, ''), dxcc, cqz, state, gridsquare, iota, pota_ref, sota_ref, "
         "wwff_ref, qso_datetime_on, IFNULL(station_profile_id, 0), IFNULL(tags, ''), "
         "IFNULL(cont, ''), IFNULL(cnty, ''), "
-        "IFNULL(sig, ''), IFNULL(sig_info, ''), IFNULL(comment, ''), IFNULL(notes, ''), "
-        "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'lotw'), "
-        "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'card'), "
-        "(SELECT rcvd FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'eqsl') "
-        "FROM qso WHERE deleted = 0 ORDER BY qso_datetime_on"));
+        "IFNULL(sig, ''), IFNULL(sig_info, ''), IFNULL(comment, ''), IFNULL(notes, '') "
+        "FROM qso NOT INDEXED WHERE deleted = 0 ORDER BY qso_datetime_on"));
+    // Le conferme in tre insiemi, non tre sottoquery per ogni QSO: su un log
+    // da un milione era la meta' del tempo.
+    const QSet<qint64> lotwConfirmed = filter.confirmLotw ? db.confirmedIds(QStringLiteral("lotw")) : QSet<qint64>{};
+    const QSet<qint64> cardConfirmed = filter.confirmCard ? db.confirmedIds(QStringLiteral("card")) : QSet<qint64>{};
+    const QSet<qint64> eqslConfirmed = filter.confirmEqsl ? db.confirmedIds(QStringLiteral("eqsl")) : QSet<qint64>{};
 
     const QSet<int> usaEntities{291, 6, 110};   // USA, Alaska, Hawaii
     static const QRegularExpression iotaRef(QStringLiteral("^(AF|AN|AS|EU|NA|OC|SA)-\\d{3}$"));
@@ -552,10 +554,8 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         const QString call = q.value(1).toString();
         const int dxcc = q.value(5).toInt();
         const QDateTime on = QDateTime::fromString(q.value(13).toString(), Qt::ISODate).toUTC();
-        const bool byLotwOrCard = (filter.confirmLotw && q.value(22).toString() == QLatin1String("Y"))
-                               || (filter.confirmCard && q.value(23).toString() == QLatin1String("Y"));
-        const bool confirmed = byLotwOrCard
-                            || (filter.confirmEqsl && q.value(24).toString() == QLatin1String("Y"));
+        const bool byLotwOrCard = lotwConfirmed.contains(id) || cardConfirmed.contains(id);
+        const bool confirmed = byLotwOrCard || eqslConfirmed.contains(id);
         // Le regole dell'ARRL: i QSO sui 60 metri non valgono per nessun suo
         // diploma, DXCC compreso, e per il DXCC l'eQSL non e' una conferma.
         const bool arrlBand = band.compare(QLatin1String("60m"), Qt::CaseInsensitive) != 0;

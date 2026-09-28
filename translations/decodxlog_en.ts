@@ -2331,6 +2331,65 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>LogBackup</name>
+    <message>
+        <source>The file is not there.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SQLite cannot open it: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It is not a SQLite database: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SQLite finds it damaged: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It is not a DecoDXLog log.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The QSOs cannot be read: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The backup cannot be used: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The log as it is now could not be saved to %1: nothing was changed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The backup could not be copied next to the log: nothing was changed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The copied backup does not read back the same: nothing was changed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The log is still in use by another program: nothing was changed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The backup could not take the place of the log; the log as it was is back.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DecoDXLog did not close in time: the log was not touched.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LogColors</name>
     <message>
         <source>New DXCC</source>
@@ -2417,6 +2476,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1 selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing %1%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4578,6 +4641,108 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>RestoreBackupDialog</name>
+    <message>
+        <source>Restore a backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n cop(ies) in the backup folder</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Choose a backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation type="unfinished">DecoDXLog logs (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Log now: %1 · %n QSO · last %2</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>before a restore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No copies in %1 yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose another file…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In this copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a copy.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reading %1…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>✗ It cannot be restored: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>✓ SQLite finds it sound · %n QSO, from %1 to %2 · %3</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO fewer than the log now: the ones logged after this copy will not be in the restored log.</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO more than the log now.</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>As many QSOs as the log now.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DecoDXLog restarts and puts the copy in place of the log before opening it. The log as it is now is saved first in the backup folder as decodxlog-before-restore-…, so nothing is lost: to go back, restore that one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm: restore and restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore and restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Close</translation>
+    </message>
+</context>
+<context>
     <name>RotorCommandBar</name>
     <message>
         <source>STOP</source>
@@ -6167,6 +6332,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Restore a backup…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>A consistent copy made with SQLite VACUUM INTO, even while DecoDXLog is logging. If the PC is off at the chosen time, the copy is made as soon as DecoDXLog is open.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6440,6 +6609,10 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>All years</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Counting…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7654,7 +7827,15 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>An import is already running: wait for it to finish.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Cannot read %1: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing %1…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7673,6 +7854,10 @@ The call Decodium is working shows up here by itself.</source>
         </translation>
     </message>
     <message>
+        <source>Exporting to %1…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>%1 · %2 MB</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7682,6 +7867,34 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>%1 → %2 (%3 MB)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation type="unfinished">%1 is not there.</translation>
+    </message>
+    <message>
+        <source>There is no log file to restore over.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The program could not be restarted to restore the backup.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log restored from %1: %2 QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The log as it was before is saved in %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore not done: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

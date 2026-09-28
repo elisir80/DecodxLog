@@ -2338,6 +2338,65 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
 </context>
 <context>
+    <name>LogBackup</name>
+    <message>
+        <source>The file is not there.</source>
+        <translation>Fișierul nu există.</translation>
+    </message>
+    <message>
+        <source>SQLite cannot open it: %1</source>
+        <translation>SQLite nu îl poate deschide: %1</translation>
+    </message>
+    <message>
+        <source>It is not a SQLite database: %1</source>
+        <translation>Nu este o bază de date SQLite: %1</translation>
+    </message>
+    <message>
+        <source>SQLite finds it damaged: %1</source>
+        <translation>SQLite o găsește deteriorată: %1</translation>
+    </message>
+    <message>
+        <source>It is not a DecoDXLog log.</source>
+        <translation>Nu este un log DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>The QSOs cannot be read: %1</source>
+        <translation>QSO-urile nu se pot citi: %1</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>Copia este logul însuși.</translation>
+    </message>
+    <message>
+        <source>The backup cannot be used: %1</source>
+        <translation>Copia nu se poate folosi: %1</translation>
+    </message>
+    <message>
+        <source>The log as it is now could not be saved to %1: nothing was changed.</source>
+        <translation>Logul așa cum este acum nu s-a putut salva în %1: nu s-a schimbat nimic.</translation>
+    </message>
+    <message>
+        <source>The backup could not be copied next to the log: nothing was changed.</source>
+        <translation>Copia nu s-a putut pune lângă log: nu s-a schimbat nimic.</translation>
+    </message>
+    <message>
+        <source>The copied backup does not read back the same: nothing was changed.</source>
+        <translation>Copia pusă alături nu se citește la fel: nu s-a schimbat nimic.</translation>
+    </message>
+    <message>
+        <source>The log is still in use by another program: nothing was changed.</source>
+        <translation>Logul este încă folosit de alt program: nu s-a schimbat nimic.</translation>
+    </message>
+    <message>
+        <source>The backup could not take the place of the log; the log as it was is back.</source>
+        <translation>Copia nu a putut lua locul logului; logul de dinainte a revenit.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog did not close in time: the log was not touched.</source>
+        <translation>DecoDXLog nu s-a închis la timp: logul nu a fost atins.</translation>
+    </message>
+</context>
+<context>
     <name>LogColors</name>
     <message>
         <source>New DXCC</source>
@@ -2425,6 +2484,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>%1 selected</source>
         <translation>%1 selectate</translation>
+    </message>
+    <message>
+        <source>Importing %1%</source>
+        <translation>Import %1%</translation>
     </message>
     <message>
         <source>%1 QSO · %2 shown</source>
@@ -4590,6 +4653,113 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
 </context>
 <context>
+    <name>RestoreBackupDialog</name>
+    <message>
+        <source>Restore a backup</source>
+        <translation>Restaurează o copie de siguranță</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n cop(ies) in the backup folder</source>
+        <translation>
+            <numerusform>%n copie în dosarul copiilor</numerusform>
+            <numerusform>%n copii în dosarul copiilor</numerusform>
+            <numerusform>%n de copii în dosarul copiilor</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Choose a backup</source>
+        <translation>Alege o copie de siguranță</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>Loguri DecoDXLog (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">Toate fișierele (*)</translation>
+    </message>
+    <message numerus="yes">
+        <source>Log now: %1 · %n QSO · last %2</source>
+        <translation>
+            <numerusform>Log acum: %1 · %n QSO · ultimul %2</numerusform>
+            <numerusform>Log acum: %1 · %n QSO · ultimul %2</numerusform>
+            <numerusform>Log acum: %1 · %n de QSO · ultimul %2</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>before a restore</source>
+        <translation>înainte de o restaurare</translation>
+    </message>
+    <message>
+        <source>No copies in %1 yet.</source>
+        <translation>Încă nicio copie în %1.</translation>
+    </message>
+    <message>
+        <source>Choose another file…</source>
+        <translation>Alege alt fișier…</translation>
+    </message>
+    <message>
+        <source>In this copy</source>
+        <translation>În această copie</translation>
+    </message>
+    <message>
+        <source>Choose a copy.</source>
+        <translation>Alege o copie.</translation>
+    </message>
+    <message>
+        <source>Reading %1…</source>
+        <translation>Citesc %1…</translation>
+    </message>
+    <message>
+        <source>✗ It cannot be restored: %1</source>
+        <translation>✗ Nu se poate restaura: %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>✓ SQLite finds it sound · %n QSO, from %1 to %2 · %3</source>
+        <translation>
+            <numerusform>✓ Sănătoasă pentru SQLite · %n QSO, de la %1 la %2 · %3</numerusform>
+            <numerusform>✓ Sănătoasă pentru SQLite · %n QSO, de la %1 la %2 · %3</numerusform>
+            <numerusform>✓ Sănătoasă pentru SQLite · %n de QSO, de la %1 la %2 · %3</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO fewer than the log now: the ones logged after this copy will not be in the restored log.</source>
+        <translation>
+            <numerusform>Cu %n QSO mai puțin decât logul de acum: cel făcut după această copie nu va fi în logul restaurat.</numerusform>
+            <numerusform>Cu %n QSO mai puțin decât logul de acum: cele făcute după această copie nu vor fi în logul restaurat.</numerusform>
+            <numerusform>Cu %n de QSO mai puțin decât logul de acum: cele făcute după această copie nu vor fi în logul restaurat.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO more than the log now.</source>
+        <translation>
+            <numerusform>Cu %n QSO mai mult decât logul de acum.</numerusform>
+            <numerusform>Cu %n QSO mai mult decât logul de acum.</numerusform>
+            <numerusform>Cu %n de QSO mai mult decât logul de acum.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>As many QSOs as the log now.</source>
+        <translation>Tot atâtea QSO-uri cât logul de acum.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog restarts and puts the copy in place of the log before opening it. The log as it is now is saved first in the backup folder as decodxlog-before-restore-…, so nothing is lost: to go back, restore that one.</source>
+        <translation>DecoDXLog repornește și pune copia în locul logului înainte să-l deschidă. Logul de acum se salvează mai întâi în dosarul copiilor ca decodxlog-before-restore-…, deci nu se pierde nimic: ca să revii, restaurează-l pe acela.</translation>
+    </message>
+    <message>
+        <source>Confirm: restore and restart</source>
+        <translation>Confirmă: restaurează și repornește</translation>
+    </message>
+    <message>
+        <source>Restore and restart</source>
+        <translation>Restaurează și repornește</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Închide</translation>
+    </message>
+</context>
+<context>
     <name>RotorCommandBar</name>
     <message>
         <source>STOP</source>
@@ -6182,6 +6352,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Fă o copie acum</translation>
     </message>
     <message>
+        <source>Restore a backup…</source>
+        <translation>Restaurează o copie de siguranță…</translation>
+    </message>
+    <message>
         <source>A consistent copy made with SQLite VACUUM INTO, even while DecoDXLog is logging. If the PC is off at the chosen time, the copy is made as soon as DecoDXLog is open.</source>
         <translation>O copie consistentă făcută cu SQLite VACUUM INTO, chiar și în timp ce DecoDXLog înregistrează. Dacă la ora aleasă calculatorul este oprit, copia se face de îndată ce DecoDXLog este deschis.</translation>
     </message>
@@ -6456,6 +6630,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>All years</source>
         <translation>Toți anii</translation>
+    </message>
+    <message>
+        <source>Counting…</source>
+        <translation>Număr…</translation>
     </message>
     <message>
         <source>Activity</source>
@@ -7681,8 +7859,16 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Eticheta „%1” înlăturată de la %2 QSO</translation>
     </message>
     <message>
+        <source>An import is already running: wait for it to finish.</source>
+        <translation>Un import rulează deja: așteaptă să se termine.</translation>
+    </message>
+    <message>
         <source>Cannot read %1: %2</source>
         <translation>Nu se poate citi %1: %2</translation>
+    </message>
+    <message>
+        <source>Importing %1…</source>
+        <translation>Import %1…</translation>
     </message>
     <message>
         <source>%1: %2 new, %3 duplicates, %4 rejected</source>
@@ -7701,6 +7887,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         </translation>
     </message>
     <message>
+        <source>Exporting to %1…</source>
+        <translation>Export în %1…</translation>
+    </message>
+    <message>
         <source>%1 · %2 MB</source>
         <translation>%1 · %2 MB</translation>
     </message>
@@ -7711,6 +7901,34 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>%1 → %2 (%3 MB)</source>
         <translation>%1 → %2 (%3 MB)</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation type="unfinished">%1 nu e acolo.</translation>
+    </message>
+    <message>
+        <source>There is no log file to restore over.</source>
+        <translation>Nu există un fișier de log peste care să restaurezi.</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>Copia este logul însuși.</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted to restore the backup.</source>
+        <translation>Programul nu a putut reporni pentru a restaura copia.</translation>
+    </message>
+    <message>
+        <source>Log restored from %1: %2 QSO</source>
+        <translation>Log restaurat din %1: %2 QSO</translation>
+    </message>
+    <message>
+        <source>The log as it was before is saved in %1</source>
+        <translation>Logul de dinainte este salvat în %1</translation>
+    </message>
+    <message>
+        <source>Restore not done: %1</source>
+        <translation>Restaurare nefăcută: %1</translation>
     </message>
     <message>
         <source>LoTW: the period starts after it ends</source>

@@ -17,7 +17,7 @@ namespace {
 // La versione dello schema, che sta in db/schema.sql. Sta qui una volta sola:
 // chi aggiunge una colonna cambia il file, l'ultimo passo di migrate() e questo
 // numero, e non va a caccia di tre QCOMPARE sparsi.
-constexpr int kSchemaVersion = 5;
+constexpr int kSchemaVersion = 6;
 
 // Confronto semantico: i numeri come numeri (14.074 == 14.074000), le ore a
 // quattro cifre come le stesse ore con i secondi a zero.
@@ -120,7 +120,18 @@ private slots:
 
         r.set("SUBMODE", "FT4");     // altro sottomodo: non e' un doppione
         QCOMPARE(db.insertQso(r, "udp_decodium").status, InsertResult::Status::Inserted);
-        QCOMPARE(db.qsoCount(), 3);
+
+        // Senza sottomodo (FT8, CW, SSB) il doppione si trova lo stesso.
+        AdifRecord ft8{{"CALL", "W1AW"}, {"QSO_DATE", "20260917"}, {"TIME_ON", "110000"},
+                       {"BAND", "20m"}, {"MODE", "FT8"}};
+        QCOMPARE(db.insertQso(ft8, "udp_wsjtx").status, InsertResult::Status::Inserted);
+        ft8.set("TIME_ON", "110030");
+        QCOMPARE(db.insertQso(ft8, "udp_wsjtx").status, InsertResult::Status::Duplicate);
+        AdifRecord cw{{"CALL", "W1AW"}, {"QSO_DATE", "20260917"}, {"TIME_ON", "111500"},
+                      {"BAND", "20m"}, {"MODE", "CW"}};
+        QCOMPARE(db.insertQso(cw, "manual", {}, true).status, InsertResult::Status::Inserted);
+        QCOMPARE(db.insertQso(cw, "manual", {}, true).status, InsertResult::Status::Duplicate);
+        QCOMPARE(db.qsoCount(), 5);
     }
 
     void importExportIsLossless()
@@ -173,6 +184,66 @@ private slots:
 
         const AdifDocument after = adif::parse(db.exportAdif());
         QCOMPARE(fieldMap(after.records.first()), fieldMap(adif::parse(original).records.first()));
+    }
+
+    void aBigImportGoesInBlocks()
+    {
+        // A blocchi: dopo ogni blocco si sa a che punto si e', e un doppione
+        // dentro lo stesso file si riconosce anche fra un blocco e l'altro.
+        const QByteArray adif =
+            "<CALL:4>K1AA<QSO_DATE:8>20260101<TIME_ON:4>1000<BAND:3>20m<MODE:3>FT8<EOR>"
+            "<CALL:4>K1AB<QSO_DATE:8>20260101<TIME_ON:4>1001<BAND:3>20m<MODE:3>FT8<EOR>"
+            "<CALL:4>K1AC<QSO_DATE:8>20260101<TIME_ON:4>1002<BAND:3>20m<MODE:3>FT8<EOR>"
+            "<CALL:4>K1AA<QSO_DATE:8>20260101<TIME_ON:4>1000<BAND:3>20m<MODE:3>FT8<EOR>"
+            "<CALL:4>K1AD<QSO_DATE:8>20260101<TIME_ON:4>1003<BAND:3>20m<MODE:3>FT8<EOR>";
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        QList<QPair<int, int>> steps;
+        const ImportResult r = db.importAdif(adif, "import", 0,
+                                             [&steps](int done, int total) { steps << qMakePair(done, total); }, 2);
+        QCOMPARE(r.inserted, 4);
+        QCOMPARE(r.duplicates, 1);
+        QCOMPARE(steps, (QList<QPair<int, int>>{{2, 5}, {4, 5}, {5, 5}}));
+        QCOMPARE(db.qsoCount(), 4);
+    }
+
+    void aSelectionExportsLikeTheWholeLog()
+    {
+        // L'esportazione di una selezione va a blocchi di cinquecento: con 1203
+        // QSO ci sono tre blocchi, e ogni QSO deve uscire uguale a come esce
+        // dall'esportazione di tutto il log, nell'ordine chiesto.
+        QByteArray adif;
+        for (int i = 0; i < 1203; ++i) {
+            const QByteArray call = "K" + QByteArray::number(i % 10) + "A" + QByteArray::number(i);
+            adif += "<CALL:" + QByteArray::number(call.size()) + ">" + call
+                    + "<QSO_DATE:8>" + QDate(2026, 1, 1).addDays(i % 300).toString("yyyyMMdd").toLatin1()
+                    + "<TIME_ON:4>" + QByteArray::number(i % 24).rightJustified(2, '0') + "00"
+                    + "<BAND:3>20m<MODE:3>FT8"
+                    + (i % 3 == 0 ? QByteArray("<LOTW_QSL_RCVD:1>Y") : QByteArray())
+                    + (i % 7 == 0 ? QByteArray("<QSL_SENT:1>Y<QSL_SENT_VIA:1>B") : QByteArray()) + "<EOR>\n";
+        }
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        QCOMPARE(db.importAdif(adif).inserted, 1203);
+
+        const AdifDocument all = adif::parse(db.exportAdif());
+        QCOMPARE(all.records.size(), 1203);
+        QList<qint64> ids;
+        QSqlQuery q(db.connection());
+        QVERIFY(q.exec("SELECT id FROM qso WHERE deleted = 0 ORDER BY qso_datetime_on, id"));
+        while (q.next())
+            ids << q.value(0).toLongLong();
+        const AdifDocument chosen = adif::parse(db.exportAdif(ids));
+        QCOMPARE(chosen.records.size(), 1203);
+        for (int i = 0; i < 1203; ++i)
+            QCOMPARE(fieldMap(chosen.records.at(i)), fieldMap(all.records.at(i)));
+        // All'incontrario, e l'ordine resta quello chiesto.
+        std::reverse(ids.begin(), ids.end());
+        const AdifDocument reversed = adif::parse(db.exportAdif(ids));
+        QCOMPARE(fieldMap(reversed.records.first()), fieldMap(all.records.last()));
+        QCOMPARE(fieldMap(reversed.records.last()), fieldMap(all.records.first()));
+        // Un QSO come record() lo restituisce da solo.
+        QCOMPARE(fieldMap(*db.record(ids.last())), fieldMap(all.records.first()));
     }
 
     void crxFollowsEditsAndDeletions()
@@ -424,6 +495,18 @@ private slots:
             QVERIFY(q.exec("SELECT COUNT(*) FROM pragma_table_info('qso') WHERE name = 'sig_info'") && q.next());
             QCOMPARE(q.value(0).toInt(), 1);
             db.close();
+        }
+        {
+            // Un log con il sottomodo prende anche il suo indice (v6).
+            LogDatabase fresh;
+            QVERIFY(fresh.open(":memory:"));
+            QSqlQuery q(fresh.connection());
+            QVERIFY(q.exec("SELECT COUNT(*) FROM sqlite_master WHERE type = 'index' AND name = 'idx_qso_submode'")
+                    && q.next());
+            QCOMPARE(q.value(0).toInt(), 1);
+        }
+        {
+            LogDatabase db;
             // Una seconda apertura non rifa la migrazione.
             QVERIFY(db.open(path));
             QCOMPARE(db.schemaVersion(), kSchemaVersion);

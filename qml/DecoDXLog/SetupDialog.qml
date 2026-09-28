@@ -17,6 +17,7 @@ DialogFrame {
     // La pillola «c'e' una versione nuova» apre la finestra dell'aggiornamento,
     // che sta in Main: da qui si chiede e basta.
     signal updateRequested()
+    signal restoreRequested()
 
     title: qsTr("Setup")
     dotColor: Theme.secondaryColor
@@ -2046,11 +2047,20 @@ DialogFrame {
                         Tile { label: qsTr("Last backup"); value: decolog.lastBackup.length ? decolog.lastBackup : qsTr("never") }
                         Tile { label: qsTr("File"); value: decolog.lastBackupInfo.length ? decolog.lastBackupInfo : "—" }
                     }
-                    GlassButton {
-                        text: qsTr("Back up now")
-                        tone: Theme.primaryColor
-                        filled: true
-                        onClicked: { root.apply(); decolog.backupNow() }
+                    RowLayout {
+                        spacing: 8
+                        GlassButton {
+                            text: qsTr("Back up now")
+                            tone: Theme.primaryColor
+                            filled: true
+                            onClicked: { root.apply(); decolog.backupNow() }
+                        }
+                        // Una copia che non si sa rimettere non serve a niente.
+                        GlassButton {
+                            text: qsTr("Restore a backup…")
+                            tone: Theme.warningColor
+                            onClicked: { root.apply(); root.restoreRequested() }
+                        }
                     }
                     Note { text: qsTr("A consistent copy made with SQLite VACUUM INTO, even while DecoDXLog is logging. If the PC is off at the chosen time, the copy is made as soon as DecoDXLog is open.") }
                     Item { Layout.fillHeight: true }

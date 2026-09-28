@@ -250,6 +250,16 @@ bool LogDatabase::open(const QString& path)
         close();
         return false;
     }
+    // Le statistiche per il pianificatore di SQLite: senza, un indice che
+    // copre quasi tutto il log sembra una scorciatoia e rende lente le letture
+    // di tutto il log. analysis_limit le tiene a pochi millisecondi anche su
+    // un milione di QSO, e optimize le rifa' solo quando il log e' cambiato
+    // molto.
+    {
+        QSqlQuery q(db);
+        q.exec(QStringLiteral("PRAGMA analysis_limit = 400"));
+        q.exec(QStringLiteral("PRAGMA optimize = 0x10002"));
+    }
     return true;
 }
 
@@ -339,6 +349,9 @@ bool LogDatabase::migrate()
     struct Step {
         int to;
         QStringList statements;
+        // Un indice su una colonna che un log molto vecchio non ha: se manca, il
+        // passo si segna fatto senza indice.
+        const char* needsQsoColumn{nullptr};
     };
     const QList<Step> steps{
         {2, {QStringLiteral("ALTER TABLE qso ADD COLUMN tags TEXT")}},
@@ -346,6 +359,17 @@ bool LogDatabase::migrate()
         {4, {QStringLiteral("ALTER TABLE qso ADD COLUMN sat_mode TEXT")}},
         {5, {QStringLiteral("ALTER TABLE qso ADD COLUMN sig TEXT"),
              QStringLiteral("ALTER TABLE qso ADD COLUMN sig_info TEXT")}},
+        // I conti dell'FT2 cercano per sottomodo: senza indice, su un log da
+        // un milione, erano sei secondi a ogni scheda di QSO aperta. E la
+        // tabella chiede i QSO non cancellati in ordine di tempo: con un
+        // indice solo di quelli, gli id escono senza toccare la tabella.
+        {6, {QStringLiteral("CREATE INDEX IF NOT EXISTS idx_qso_submode ON qso(submode)"),
+             QStringLiteral("CREATE INDEX IF NOT EXISTS idx_qso_live_time ON qso(qso_datetime_on) WHERE deleted = 0"),
+             // Le etichette e i QSO per profilo: indici piccoli, solo delle
+             // righe che servono, per i menu e l'elenco dei profili.
+             QStringLiteral("CREATE INDEX IF NOT EXISTS idx_qso_tags ON qso(tags) WHERE IFNULL(tags, '') <> ''"),
+             QStringLiteral("CREATE INDEX IF NOT EXISTS idx_qso_profile ON qso(station_profile_id) WHERE deleted = 0")},
+         "submode"},
     };
     for (const Step& step : steps) {
         if (version >= step.to)
@@ -355,7 +379,14 @@ bool LogDatabase::migrate()
             return false;
         }
         QSqlQuery q(db);
-        for (const QString& stmt : step.statements + QStringList{
+        QStringList statements = step.statements;
+        if (step.needsQsoColumn) {
+            q.prepare(QStringLiteral("SELECT COUNT(*) FROM pragma_table_info('qso') WHERE name = ?"));
+            q.addBindValue(QLatin1String(step.needsQsoColumn));
+            if (!q.exec() || !q.next() || q.value(0).toInt() == 0)
+                statements.clear();
+        }
+        for (const QString& stmt : statements + QStringList{
                  QStringLiteral("INSERT INTO schema_version (version) VALUES (%1)").arg(step.to)}) {
             if (!q.exec(stmt)) {
                 m_lastError = q.lastError().text() + QStringLiteral(" in migration to v%1").arg(step.to);
@@ -400,7 +431,10 @@ std::optional<qint64> LogDatabase::findDuplicate(const QString& call, const QStr
     q.addBindValue(call);
     q.addBindValue(band);
     q.addBindValue(mode);
-    q.addBindValue(submode);
+    // Un sottomodo che manca (FT8, CW, SSB) e' '' e non NULL: con NULL il
+    // confronto non e' mai vero, e un QSO senza sottomodo non trovava mai il
+    // suo doppione — ne' da WSJT-X che rimanda, ne' importando due volte.
+    q.addBindValue(submode.isEmpty() ? QStringLiteral("") : submode);
     q.addBindValue(on.addSecs(-windowSeconds).toString(Qt::ISODate));
     q.addBindValue(on.addSecs(windowSeconds).toString(Qt::ISODate));
     if (q.exec() && q.next())
@@ -773,23 +807,61 @@ bool LogDatabase::softDeleteQso(qint64 id)
     return db.commit();
 }
 
-std::optional<AdifRecord> LogDatabase::record(qint64 id) const
+namespace {
+
+// Dove sta ogni colonna in un "SELECT * FROM qso": si cerca una volta per
+// query, non una per QSO — con un milione di QSO da esportare, cercare i
+// nomi delle colonne a ogni riga costava piu' di tutto il resto.
+struct RowLayout {
+    int call{-1};
+    int on{-1};
+    int off{-1};
+    int extra{-1};
+    QList<int> columns;   // una per kColumns
+
+    static RowLayout of(const QSqlRecord& rec)
+    {
+        RowLayout l;
+        l.call = rec.indexOf(QStringLiteral("call"));
+        l.on = rec.indexOf(QStringLiteral("qso_datetime_on"));
+        l.off = rec.indexOf(QStringLiteral("qso_datetime_off"));
+        l.extra = rec.indexOf(QStringLiteral("adif_extra"));
+        for (const auto& c : kColumns)
+            l.columns << rec.indexOf(QLatin1String(c.column));
+        return l;
+    }
+};
+
+// Le colonne di qsl_status nell'ordine di qslStatus() e delle query a blocchi.
+QslState qslFromQuery(const QSqlQuery& q, int offset)
 {
-    QSqlQuery q(connection());
-    q.prepare(QStringLiteral("SELECT * FROM qso WHERE id = ?"));
-    q.addBindValue(id);
-    if (!q.exec() || !q.next())
-        return std::nullopt;
+    QslState st;
+    st.service = q.value(offset).toString();
+    st.sent = q.value(offset + 1).toString();
+    st.sentDate = q.value(offset + 2).toString();
+    st.rcvd = q.value(offset + 3).toString();
+    st.rcvdDate = q.value(offset + 4).toString();
+    st.remoteId = q.value(offset + 5).toString();
+    st.lastError = q.value(offset + 6).toString();
+    st.via = q.value(offset + 7).toString();
+    return st;
+}
 
-    const QSqlRecord row = q.record();
+const char kQslColumns[] = "service, sent, sent_date, rcvd, rcvd_date, remote_id, last_error, via";
+
+// Il QSO come record ADIF, dalla riga di un "SELECT * FROM qso" e dai suoi stati QSL.
+AdifRecord adifFromRow(const QSqlQuery& q, const RowLayout& l, const QList<QslState>& qsl)
+{
     AdifRecord r;
-    r.set(QStringLiteral("CALL"), row.value(QStringLiteral("call")).toString());
-    addDateTime(r, row.value(QStringLiteral("qso_datetime_on")).toString(), "QSO_DATE", "TIME_ON");
-    addDateTime(r, row.value(QStringLiteral("qso_datetime_off")).toString(), "QSO_DATE_OFF", "TIME_OFF");
-    for (const auto& c : kColumns)
-        r.set(QLatin1String(c.adif), fromColumnValue(c, row.value(QLatin1String(c.column))));
+    r.set(QStringLiteral("CALL"), q.value(l.call).toString());
+    addDateTime(r, q.value(l.on).toString(), "QSO_DATE", "TIME_ON");
+    addDateTime(r, q.value(l.off).toString(), "QSO_DATE_OFF", "TIME_OFF");
+    for (qsizetype i = 0; i < l.columns.size(); ++i) {
+        const auto& c = kColumns[i];
+        r.set(QLatin1String(c.adif), fromColumnValue(c, l.columns.at(i) >= 0 ? q.value(l.columns.at(i)) : QVariant()));
+    }
 
-    for (const QslState& st : qslStatus(id)) {
+    for (const QslState& st : qsl) {
         // Le cartacee portano anche la via: bureau, diretta o elettronica.
         if (st.service == QLatin1String("card") && !st.via.isEmpty())
             r.set(QStringLiteral("QSL_SENT_VIA"), st.via);
@@ -807,13 +879,25 @@ std::optional<AdifRecord> LogDatabase::record(qint64 id) const
         }
     }
 
-    const QString extra = row.value(QStringLiteral("adif_extra")).toString();
+    const QString extra = l.extra >= 0 ? q.value(l.extra).toString() : QString();
     if (!extra.isEmpty()) {
         const QJsonObject obj = QJsonDocument::fromJson(extra.toUtf8()).object();
         for (auto it = obj.begin(); it != obj.end(); ++it)
             r.set(it.key(), it.value().toString());
     }
     return r;
+}
+
+} // namespace
+
+std::optional<AdifRecord> LogDatabase::record(qint64 id) const
+{
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("SELECT * FROM qso WHERE id = ?"));
+    q.addBindValue(id);
+    if (!q.exec() || !q.next())
+        return std::nullopt;
+    return adifFromRow(q, RowLayout::of(q.record()), qslStatus(id));
 }
 
 std::optional<QsoMeta> LogDatabase::meta(qint64 id) const
@@ -842,24 +926,12 @@ QList<QslState> LogDatabase::qslStatus(qint64 id) const
 {
     QList<QslState> out;
     QSqlQuery q(connection());
-    q.prepare(QStringLiteral(
-        "SELECT service, sent, sent_date, rcvd, rcvd_date, remote_id, last_error, via "
-        "FROM qsl_status WHERE qso_id = ?"));
+    q.prepare(QStringLiteral("SELECT %1 FROM qsl_status WHERE qso_id = ?").arg(QLatin1String(kQslColumns)));
     q.addBindValue(id);
     if (!q.exec())
         return out;
-    while (q.next()) {
-        QslState st;
-        st.service = q.value(0).toString();
-        st.sent = q.value(1).toString();
-        st.sentDate = q.value(2).toString();
-        st.rcvd = q.value(3).toString();
-        st.rcvdDate = q.value(4).toString();
-        st.remoteId = q.value(5).toString();
-        st.lastError = q.value(6).toString();
-        st.via = q.value(7).toString();
-        out << st;
-    }
+    while (q.next())
+        out << qslFromQuery(q, 0);
     return out;
 }
 
@@ -1007,42 +1079,48 @@ ConfirmationResult LogDatabase::applyConfirmation(const QString& service, const 
 
 ImportResult LogDatabase::importAdif(const QByteArray& data, const QString& source, qint64 stationProfileId)
 {
+    // Una transazione sola: diecimila QSO in secondi invece che in minuti.
+    return importAdif(data, source, stationProfileId, {}, std::numeric_limits<int>::max());
+}
+
+ImportResult LogDatabase::importAdif(const QByteArray& data, const QString& source, qint64 stationProfileId,
+                                     const ImportProgress& progress, int batchSize)
+{
     ImportResult result;
     const AdifDocument doc = adif::parse(data);
     const QString programId = doc.header.value(QStringLiteral("PROGRAMID"));
+    const int total = static_cast<int>(doc.records.size());
+    const int batch = qMax(1, batchSize);
 
     QSqlDatabase db = connection();
-    // Una transazione sola: diecimila QSO in secondi invece che in minuti.
-    const bool ownTransaction = db.transaction();
-    for (const auto& rec : doc.records) {
-        const InsertResult r = insertQso(rec, source, programId, false, stationProfileId);
-        switch (r.status) {
-        case InsertResult::Status::Inserted:  ++result.inserted; break;
-        case InsertResult::Status::Duplicate: ++result.duplicates; break;
-        case InsertResult::Status::Invalid:
-        case InsertResult::Status::Error:
-            ++result.invalid;
-            if (result.errors.size() < 20)
-                result.errors << r.message;
-            break;
+    int done = 0;
+    while (done < total) {
+        const int end = total - done > batch ? done + batch : total;
+        const bool ownTransaction = db.transaction();
+        for (; done < end; ++done) {
+            const InsertResult r = insertQso(doc.records.at(done), source, programId, false, stationProfileId);
+            switch (r.status) {
+            case InsertResult::Status::Inserted:  ++result.inserted; break;
+            case InsertResult::Status::Duplicate: ++result.duplicates; break;
+            case InsertResult::Status::Invalid:
+            case InsertResult::Status::Error:
+                ++result.invalid;
+                if (result.errors.size() < 20)
+                    result.errors << r.message;
+                break;
+            }
         }
+        if (ownTransaction)
+            db.commit();
+        if (progress)
+            progress(done, total);
     }
-    if (ownTransaction)
-        db.commit();
     return result;
 }
 
-QByteArray LogDatabase::exportAdif(const QString& programVersion) const
-{
-    QList<qint64> ids;
-    QSqlQuery q(connection());
-    q.exec(QStringLiteral("SELECT id FROM qso WHERE deleted = 0 ORDER BY qso_datetime_on, id"));
-    while (q.next())
-        ids << q.value(0).toLongLong();
-    return exportAdif(ids, programVersion);
-}
+namespace {
 
-QByteArray LogDatabase::exportAdif(const QList<qint64>& ids, const QString& programVersion) const
+AdifDocument exportHeader(const QString& programVersion)
 {
     AdifDocument doc;
     doc.header.set(QStringLiteral("ADIF_VER"), QStringLiteral("3.1.5"));
@@ -1050,15 +1128,82 @@ QByteArray LogDatabase::exportAdif(const QList<qint64>& ids, const QString& prog
     doc.header.set(QStringLiteral("PROGRAMVERSION"), programVersion);
     doc.header.set(QStringLiteral("CREATED_TIMESTAMP"),
                    QDateTime::currentDateTimeUtc().toString(QStringLiteral("yyyyMMdd HHmmss")));
+    return doc;
+}
+
+} // namespace
+
+QByteArray LogDatabase::exportAdif(const QString& programVersion) const
+{
+    // Tutto il log in due passate, non due query per QSO: gli stati QSL in
+    // memoria, poi i QSO in ordine di tempo.
+    AdifDocument doc = exportHeader(programVersion);
+    QHash<qint64, QList<QslState>> qsl;
+    QSqlQuery s(connection());
+    s.setForwardOnly(true);
+    if (s.exec(QStringLiteral("SELECT qso_id, %1 FROM qsl_status").arg(QLatin1String(kQslColumns)))) {
+        while (s.next())
+            qsl[s.value(0).toLongLong()] << qslFromQuery(s, 1);
+    }
+    QSqlQuery q(connection());
+    q.setForwardOnly(true);
+    if (q.exec(QStringLiteral("SELECT * FROM qso NOT INDEXED WHERE deleted = 0 ORDER BY qso_datetime_on, id"))) {
+        const RowLayout layout = RowLayout::of(q.record());
+        const int idColumn = q.record().indexOf(QStringLiteral("id"));
+        while (q.next())
+            doc.records.append(adifFromRow(q, layout, qsl.value(q.value(idColumn).toLongLong())));
+    }
+    return adif::writeDocument(doc);
+}
+
+QByteArray LogDatabase::exportAdif(const QList<qint64>& ids, const QString& programVersion) const
+{
+    // A blocchi di cinquecento: una selezione di migliaia di QSO non fa
+    // migliaia di query, e l'ordine resta quello chiesto.
+    AdifDocument doc = exportHeader(programVersion);
+    QHash<qint64, AdifRecord> found;
+    for (qsizetype from = 0; from < ids.size(); from += 500) {
+        const QList<qint64> chunk = ids.mid(from, 500);
+        QStringList marks;
+        for (qsizetype i = 0; i < chunk.size(); ++i)
+            marks << QStringLiteral("?");
+        const QString in = marks.join(QLatin1Char(','));
+        QHash<qint64, QList<QslState>> qsl;
+        QSqlQuery s(connection());
+        s.setForwardOnly(true);
+        s.prepare(QStringLiteral("SELECT qso_id, %1 FROM qsl_status WHERE qso_id IN (%2)")
+                      .arg(QLatin1String(kQslColumns), in));
+        for (qint64 id : chunk)
+            s.addBindValue(id);
+        if (s.exec()) {
+            while (s.next())
+                qsl[s.value(0).toLongLong()] << qslFromQuery(s, 1);
+        }
+        QSqlQuery q(connection());
+        q.setForwardOnly(true);
+        q.prepare(QStringLiteral("SELECT * FROM qso WHERE id IN (%1)").arg(in));
+        for (qint64 id : chunk)
+            q.addBindValue(id);
+        if (q.exec()) {
+            const RowLayout layout = RowLayout::of(q.record());
+            const int idColumn = q.record().indexOf(QStringLiteral("id"));
+            while (q.next()) {
+                const qint64 id = q.value(idColumn).toLongLong();
+                found.insert(id, adifFromRow(q, layout, qsl.value(id)));
+            }
+        }
+    }
     for (qint64 id : ids) {
-        if (auto r = record(id))
-            doc.records.append(*r);
+        const auto it = found.constFind(id);
+        if (it != found.constEnd())
+            doc.records.append(*it);
     }
     return adif::writeDocument(doc);
 }
 
 int LogDatabase::qsoCount() const
 {
+    decolog::StartupSpan trace("LogDatabase::qsoCount");
     QSqlQuery q(connection());
     if (q.exec(QStringLiteral("SELECT COUNT(*) FROM qso WHERE deleted = 0")) && q.next())
         return q.value(0).toInt();
@@ -1067,6 +1212,7 @@ int LogDatabase::qsoCount() const
 
 int LogDatabase::dirtyCount() const
 {
+    decolog::StartupSpan trace("LogDatabase::dirtyCount");
     QSqlQuery q(connection());
     if (q.exec(QStringLiteral("SELECT COUNT(*) FROM qso WHERE dirty = 1")) && q.next())
         return q.value(0).toInt();
@@ -1083,6 +1229,7 @@ int LogDatabase::conflictCount() const
 
 WorkedBefore LogDatabase::workedBefore(const QString& call) const
 {
+    decolog::StartupSpan trace("LogDatabase::workedBefore");
     WorkedBefore wb;
     const QString c = call.trimmed().toUpper();
     if (c.isEmpty())
@@ -1228,24 +1375,63 @@ QJsonArray LogDatabase::workedRow(const QString& call, const QString& band, cons
                       isoOn.left(10).remove(QLatin1Char('-')), grid.left(4).toUpper(), confirmed ? 1 : 0};
 }
 
-QList<QJsonArray> LogDatabase::workedRows(bool confirmLotw, bool confirmCard, bool confirmEqsl) const
+// NOT INDEXED, nelle query che leggono tutto il log: SQLite prenderebbe un
+// indice per avere le righe gia' in ordine, e poi salterebbe da una pagina
+// all'altra del file per leggerle. Su un log da un milione una lettura in fila
+// piu' un ordinamento e' tre-cinque volte piu' veloce.
+
+QSet<qint64> LogDatabase::confirmedIds(bool lotw, bool card, bool eqsl) const
 {
-    QList<QJsonArray> rows;
+    QSet<qint64> out;
+    QStringList services;
+    if (lotw)
+        services << QStringLiteral("'lotw'");
+    if (card)
+        services << QStringLiteral("'card'");
+    if (eqsl)
+        services << QStringLiteral("'eqsl'");
+    if (services.isEmpty())
+        return out;
     QSqlQuery q(connection());
     q.setForwardOnly(true);
-    q.prepare(QStringLiteral(
-        "SELECT call, band, mode, IFNULL(submode, ''), qso_datetime_on, IFNULL(gridsquare, ''), "
-        "EXISTS (SELECT 1 FROM qsl_status s WHERE s.qso_id = qso.id AND s.rcvd = 'Y' AND ("
-        "  (s.service = 'lotw' AND ?) OR (s.service = 'card' AND ?) OR (s.service = 'eqsl' AND ?))) "
-        "FROM qso WHERE deleted = 0 ORDER BY qso_datetime_on"));
-    q.addBindValue(confirmLotw ? 1 : 0);
-    q.addBindValue(confirmCard ? 1 : 0);
-    q.addBindValue(confirmEqsl ? 1 : 0);
-    if (!q.exec())
+    if (q.exec(QStringLiteral("SELECT DISTINCT qso_id FROM qsl_status WHERE rcvd = 'Y' AND service IN (%1)")
+                   .arg(services.join(QLatin1Char(','))))) {
+        while (q.next())
+            out.insert(q.value(0).toLongLong());
+    }
+    return out;
+}
+
+QSet<qint64> LogDatabase::confirmedIds(const QString& service) const
+{
+    QSet<qint64> out;
+    QSqlQuery q(connection());
+    q.setForwardOnly(true);
+    q.prepare(QStringLiteral("SELECT qso_id FROM qsl_status WHERE rcvd = 'Y' AND service = ?"));
+    q.addBindValue(service);
+    if (q.exec()) {
+        while (q.next())
+            out.insert(q.value(0).toLongLong());
+    }
+    return out;
+}
+
+QList<QJsonArray> LogDatabase::workedRows(bool confirmLotw, bool confirmCard, bool confirmEqsl) const
+{
+    decolog::StartupSpan trace("LogDatabase::workedRows");
+    // Le conferme in una query sola: una sottoquery per ogni QSO, su un log da
+    // un milione, erano venti secondi.
+    QList<QJsonArray> rows;
+    const QSet<qint64> confirmed = confirmedIds(confirmLotw, confirmCard, confirmEqsl);
+    QSqlQuery q(connection());
+    q.setForwardOnly(true);
+    if (!q.exec(QStringLiteral("SELECT id, call, band, mode, IFNULL(submode, ''), qso_datetime_on, "
+                               "IFNULL(gridsquare, '') FROM qso NOT INDEXED WHERE deleted = 0 ORDER BY qso_datetime_on")))
         return rows;
     while (q.next()) {
-        rows << workedRow(q.value(0).toString(), q.value(1).toString(), q.value(2).toString(),
-                          q.value(3).toString(), q.value(4).toString(), q.value(5).toString(), q.value(6).toBool());
+        rows << workedRow(q.value(1).toString(), q.value(2).toString(), q.value(3).toString(),
+                          q.value(4).toString(), q.value(5).toString(), q.value(6).toString(),
+                          confirmed.contains(q.value(0).toLongLong()));
     }
     return rows;
 }
@@ -1276,6 +1462,7 @@ QList<qint64> LogDatabase::idsMissingCallbookData(int limit) const
 
 QList<qint64> LogDatabase::idsWithDamagedText() const
 {
+    decolog::StartupSpan trace("LogDatabase::idsWithDamagedText");
     QList<qint64> ids;
     QSqlQuery q(connection());
     // Un '<' o il carattere di sostituzione dentro nome, QTH, indirizzo o note:
@@ -1298,6 +1485,7 @@ QList<qint64> LogDatabase::idsWithDamagedText() const
 
 QList<qint64> LogDatabase::idsWithoutDxcc() const
 {
+    decolog::StartupSpan trace("LogDatabase::idsWithoutDxcc");
     QList<qint64> ids;
     QSqlQuery q(connection());
     if (q.exec(QStringLiteral("SELECT id FROM qso WHERE deleted = 0 AND (dxcc IS NULL OR dxcc = 0)"))) {
@@ -1344,9 +1532,10 @@ Ft2Award LogDatabase::ft2Award() const
 
 QList<CountRow> LogDatabase::countByBand() const
 {
+    decolog::StartupSpan trace("LogDatabase::countByBand");
     QList<CountRow> out;
     QSqlQuery q(connection());
-    if (q.exec(QStringLiteral("SELECT band, COUNT(*) FROM qso WHERE deleted = 0 GROUP BY band"))) {
+    if (q.exec(QStringLiteral("SELECT band, COUNT(*) FROM qso NOT INDEXED WHERE deleted = 0 GROUP BY band"))) {
         while (q.next())
             out << CountRow{q.value(0).toString(), q.value(1).toInt()};
     }
@@ -1357,13 +1546,59 @@ QList<CountRow> LogDatabase::countByBand() const
     return out;
 }
 
+QStringList LogDatabase::bandsInLog() const
+{
+    decolog::StartupSpan trace("LogDatabase::bandsInLog");
+    QStringList out;
+    QSqlQuery q(connection());
+    if (q.exec(QStringLiteral("SELECT DISTINCT band FROM qso WHERE IFNULL(band, '') <> ''"))) {
+        while (q.next())
+            out << q.value(0).toString();
+    }
+    const QStringList order = bands::all();
+    std::sort(out.begin(), out.end(), [&order](const QString& a, const QString& b) {
+        const qsizetype ia = order.indexOf(a), ib = order.indexOf(b);
+        if (ia != ib)
+            return (ia < 0 ? order.size() : ia) < (ib < 0 ? order.size() : ib);
+        return a < b;
+    });
+    return out;
+}
+
+QStringList LogDatabase::modesInLog() const
+{
+    decolog::StartupSpan trace("LogDatabase::modesInLog");
+    QStringList out;
+    QSqlQuery q(connection());
+    if (q.exec(QStringLiteral("SELECT DISTINCT mode, IFNULL(submode, '') FROM qso"))) {
+        while (q.next()) {
+            const QString m = displayMode(q.value(0).toString(), q.value(1).toString());
+            if (!m.isEmpty() && !out.contains(m))
+                out << m;
+        }
+    }
+    // I modi di sempre prima, nell'ordine in cui si usano; gli altri dopo.
+    static const QStringList common{QStringLiteral("FT8"), QStringLiteral("FT4"), QStringLiteral("FT2"),
+                                    QStringLiteral("CW"), QStringLiteral("SSB"), QStringLiteral("RTTY"),
+                                    QStringLiteral("FM"), QStringLiteral("AM"), QStringLiteral("JT65"),
+                                    QStringLiteral("PSK31")};
+    std::sort(out.begin(), out.end(), [](const QString& a, const QString& b) {
+        const qsizetype ia = common.indexOf(a), ib = common.indexOf(b);
+        if (ia != ib)
+            return (ia < 0 ? common.size() : ia) < (ib < 0 ? common.size() : ib);
+        return a < b;
+    });
+    return out;
+}
+
 QList<CountRow> LogDatabase::countByMode() const
 {
+    decolog::StartupSpan trace("LogDatabase::countByMode");
     QList<CountRow> out;
     QSqlQuery q(connection());
     if (q.exec(QStringLiteral(
             "SELECT CASE WHEN IFNULL(submode, '') = '' OR mode = 'SSB' THEN mode ELSE submode END AS m, COUNT(*) AS n "
-            "FROM qso WHERE deleted = 0 GROUP BY m ORDER BY n DESC"))) {
+            "FROM qso NOT INDEXED WHERE deleted = 0 GROUP BY m ORDER BY n DESC"))) {
         while (q.next())
             out << CountRow{q.value(0).toString(), q.value(1).toInt()};
     }
@@ -1375,7 +1610,7 @@ QList<CountRow> LogDatabase::countByDxcc() const
     QList<CountRow> out;
     QSqlQuery q(connection());
     if (q.exec(QStringLiteral(
-            "SELECT dxcc, COUNT(*) AS n FROM qso WHERE deleted = 0 AND dxcc > 0 GROUP BY dxcc ORDER BY n DESC, dxcc"))) {
+            "SELECT dxcc, COUNT(*) AS n FROM qso NOT INDEXED WHERE deleted = 0 AND dxcc > 0 GROUP BY dxcc ORDER BY n DESC, dxcc"))) {
         while (q.next())
             out << CountRow{q.value(0).toString(), q.value(1).toInt()};
     }
@@ -1409,7 +1644,7 @@ QList<CountRow> groupedCount(const QSqlDatabase& db, const QString& expression, 
     QList<CountRow> out;
     QVariantList binds;
     const QString where = statsWhere(filter, binds);
-    QString sql = QStringLiteral("SELECT %1 AS k, COUNT(*) AS n FROM qso WHERE %2 AND k IS NOT NULL AND k <> '' "
+    QString sql = QStringLiteral("SELECT %1 AS k, COUNT(*) AS n FROM qso NOT INDEXED WHERE %2 AND k IS NOT NULL AND k <> '' "
                                  "GROUP BY k ORDER BY %3").arg(expression, where, order);
     if (limit > 0)
         sql += QStringLiteral(" LIMIT %1").arg(limit);
@@ -1445,7 +1680,7 @@ QList<QVariantMap> LogDatabase::bandByMode(const StatsFilter& filter) const
     QSqlQuery q(connection());
     q.setForwardOnly(true);
     q.prepare(QStringLiteral("SELECT band, CASE WHEN IFNULL(submode, '') = '' OR mode = 'SSB' THEN mode ELSE submode END AS m, "
-                             "COUNT(*) FROM qso WHERE %1 AND band <> '' GROUP BY band, m").arg(where));
+                             "COUNT(*) FROM qso NOT INDEXED WHERE %1 AND band <> '' GROUP BY band, m").arg(where));
     for (const QVariant& b : binds)
         q.addBindValue(b);
     if (!q.exec())
@@ -1470,7 +1705,7 @@ QList<QVariantMap> LogDatabase::awardProgress(const StatsFilter& filter) const
         "SELECT SUBSTR(qso_datetime_on, 1, 4), IFNULL(dxcc, 0), IFNULL(cqz, 0), UPPER(SUBSTR(IFNULL(gridsquare, ''), 1, 4)), "
         "EXISTS (SELECT 1 FROM qsl_status s WHERE s.qso_id = qso.id AND s.rcvd = 'Y' AND s.service IN ('lotw', 'card')), "
         "LOWER(IFNULL(band, '')) "
-        "FROM qso WHERE %1 ORDER BY qso_datetime_on").arg(where));
+        "FROM qso NOT INDEXED WHERE %1 ORDER BY qso_datetime_on").arg(where));
     for (const QVariant& b : binds)
         q.addBindValue(b);
     if (!q.exec())
@@ -1563,7 +1798,7 @@ QList<QVariantMap> LogDatabase::bandByHour(const StatsFilter& filter) const
     QSqlQuery q(connection());
     q.setForwardOnly(true);
     q.prepare(QStringLiteral("SELECT band, CAST(SUBSTR(qso_datetime_on, 12, 2) AS INTEGER) AS h, COUNT(*) "
-                             "FROM qso WHERE %1 AND band <> '' GROUP BY band, h").arg(where));
+                             "FROM qso NOT INDEXED WHERE %1 AND band <> '' GROUP BY band, h").arg(where));
     for (const QVariant& b : binds)
         q.addBindValue(b);
     if (!q.exec())
@@ -1586,7 +1821,7 @@ QVariantMap LogDatabase::statsSummary(const StatsFilter& filter) const
     q.prepare(QStringLiteral(
         "SELECT COUNT(*), COUNT(DISTINCT call), COUNT(DISTINCT CASE WHEN dxcc > 0 THEN dxcc END), "
         "MIN(qso_datetime_on), MAX(qso_datetime_on), "
-        "COUNT(DISTINCT UPPER(SUBSTR(gridsquare, 1, 4))) FROM qso WHERE %1").arg(where));
+        "COUNT(DISTINCT UPPER(SUBSTR(gridsquare, 1, 4))) FROM qso NOT INDEXED WHERE %1").arg(where));
     for (const QVariant& b : binds)
         q.addBindValue(b);
     if (q.exec() && q.next()) {
@@ -1616,9 +1851,10 @@ QVariantMap LogDatabase::statsSummary(const StatsFilter& filter) const
 
 QStringList LogDatabase::yearsInLog() const
 {
+    decolog::StartupSpan trace("LogDatabase::yearsInLog");
     QStringList out;
     QSqlQuery q(connection());
-    if (q.exec(QStringLiteral("SELECT DISTINCT SUBSTR(qso_datetime_on, 1, 4) AS y FROM qso WHERE deleted = 0 "
+    if (q.exec(QStringLiteral("SELECT DISTINCT SUBSTR(qso_datetime_on, 1, 4) AS y FROM qso NOT INDEXED WHERE deleted = 0 "
                               "ORDER BY y DESC"))) {
         while (q.next())
             out << q.value(0).toString();
@@ -1628,6 +1864,7 @@ QStringList LogDatabase::yearsInLog() const
 
 QList<QVariantMap> LogDatabase::qslSummary() const
 {
+    decolog::StartupSpan trace("LogDatabase::qslSummary");
     QList<QVariantMap> out;
     for (const auto& f : kQslFields) {
         QSqlQuery q(connection());
@@ -1719,11 +1956,12 @@ bool LogDatabase::writeQslState(qint64 id, const QslState& st, bool includeRecei
 
 QList<qint64> LogDatabase::qsosToUpload(const QString& service, int limit, const QDate& since) const
 {
+    decolog::StartupSpan trace("LogDatabase::qsosToUpload");
     QList<qint64> ids;
     QSqlQuery q(connection());
     q.setForwardOnly(true);
     q.prepare(QStringLiteral(
-        "SELECT qso.id FROM qso LEFT JOIN qsl_status s ON s.qso_id = qso.id AND s.service = ? "
+        "SELECT qso.id FROM qso NOT INDEXED LEFT JOIN qsl_status s ON s.qso_id = qso.id AND s.service = ? "
         "WHERE qso.deleted = 0 AND (s.sent IS NULL OR s.sent IN ('N', 'R', 'Q', 'D')) ")
         + (since.isValid() ? QStringLiteral("AND (qso.qso_datetime_on >= ? OR IFNULL(s.remote_id, '') <> '') ")
                            : QString())
@@ -1742,15 +1980,25 @@ QList<qint64> LogDatabase::qsosToUpload(const QString& service, int limit, const
 
 int LogDatabase::uploadPendingCount(const QString& service, const QDate& since) const
 {
+    decolog::StartupSpan trace("LogDatabase::uploadPendingCount");
     QSqlQuery q(connection());
-    q.prepare(QStringLiteral(
-        "SELECT COUNT(*) FROM qso LEFT JOIN qsl_status s ON s.qso_id = qso.id AND s.service = ? "
-        "WHERE qso.deleted = 0 AND (s.sent IS NULL OR s.sent IN ('N', 'R', 'Q', 'D'))")
-        + (since.isValid() ? QStringLiteral(" AND (qso.qso_datetime_on >= ? OR IFNULL(s.remote_id, '') <> '')")
-                           : QString()));
-    q.addBindValue(service);
-    if (since.isValid())
+    if (!since.isValid()) {
+        // Tutti i QSO meno quelli gia' andati: si contano solo le righe del
+        // servizio, non si passa tutto il log. Su un milione di QSO, da sei
+        // secondi a un decimo — e la pagina QSL lo chiede per ogni servizio.
+        q.prepare(QStringLiteral(
+            "SELECT (SELECT COUNT(*) FROM qso WHERE deleted = 0) - "
+            "(SELECT COUNT(*) FROM qsl_status s JOIN qso ON qso.id = s.qso_id "
+            " WHERE s.service = ? AND qso.deleted = 0 AND s.sent NOT IN ('N', 'R', 'Q', 'D'))"));
+        q.addBindValue(service);
+    } else {
+        q.prepare(QStringLiteral(
+            "SELECT COUNT(*) FROM qso NOT INDEXED LEFT JOIN qsl_status s ON s.qso_id = qso.id AND s.service = ? "
+            "WHERE qso.deleted = 0 AND (s.sent IS NULL OR s.sent IN ('N', 'R', 'Q', 'D')) "
+            "AND (qso.qso_datetime_on >= ? OR IFNULL(s.remote_id, '') <> '')"));
+        q.addBindValue(service);
         q.addBindValue(since.toString(Qt::ISODate));
+    }
     const int toSend = q.exec() && q.next() ? q.value(0).toInt() : 0;
     return toSend + static_cast<int>(remoteDeletions(service).size());
 }
@@ -2135,8 +2383,28 @@ void LogDatabase::setSyncState(const QString& account, const QVariantMap& values
 
 // ── QSL di carta ──────────────────────────────────────────────────────────────
 
+QVariantMap LogDatabase::cardCounts() const
+{
+    decolog::StartupSpan trace("LogDatabase::cardCounts");
+    QVariantMap out{{QStringLiteral("queue"), 0}, {QStringLiteral("sent"), 0},
+                    {QStringLiteral("received"), 0}, {QStringLiteral("unanswered"), 0}};
+    QSqlQuery q(connection());
+    if (q.exec(QStringLiteral(
+            "SELECT IFNULL(SUM(s.sent IN ('R', 'Q')), 0), IFNULL(SUM(s.sent = 'Y'), 0), IFNULL(SUM(s.rcvd = 'Y'), 0), "
+            "IFNULL(SUM(s.rcvd = 'Y' AND s.sent <> 'Y'), 0) "
+            "FROM qsl_status s JOIN qso ON qso.id = s.qso_id WHERE s.service = 'card' AND qso.deleted = 0"))
+        && q.next()) {
+        out[QStringLiteral("queue")] = q.value(0).toInt();
+        out[QStringLiteral("sent")] = q.value(1).toInt();
+        out[QStringLiteral("received")] = q.value(2).toInt();
+        out[QStringLiteral("unanswered")] = q.value(3).toInt();
+    }
+    return out;
+}
+
 QList<QVariantMap> LogDatabase::cardRows(const QString& state, int limit) const
 {
+    decolog::StartupSpan trace("LogDatabase::cardRows");
     QString where = QStringLiteral("qso.deleted = 0");
     if (state == QLatin1String("queue"))
         where += QStringLiteral(" AND s.sent IN ('R', 'Q')");
@@ -2211,6 +2479,7 @@ QString LogDatabase::joinTags(const QStringList& tags)
 
 QList<CountRow> LogDatabase::tagCounts() const
 {
+    decolog::StartupSpan trace("LogDatabase::tagCounts");
     QHash<QString, CountRow> counts;
     QSqlQuery q(connection());
     q.setForwardOnly(true);
@@ -2301,6 +2570,7 @@ const QString kProfileSelect = QStringLiteral(
 
 QList<StationProfile> LogDatabase::stationProfiles(bool includeDeleted) const
 {
+    decolog::StartupSpan trace("LogDatabase::stationProfiles");
     QList<StationProfile> out;
     QSqlQuery q(connection());
     const QString where = includeDeleted ? QString() : QStringLiteral(" WHERE deleted = 0");

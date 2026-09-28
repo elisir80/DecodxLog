@@ -9,14 +9,13 @@ import Decodium.UI
 Item {
     id: root
 
-    property string mode: ""
-    property int year: 0
-    property int revision: 0
+    // Le statistiche della finestra, gia' contate su un altro filo.
+    property var stats: ({})
 
-    readonly property var progress: { revision; return visible ? decolog.statsAwardProgress(mode) : [] }
-    readonly property var entities: { revision; return visible ? decolog.statsTopEntities(mode, year, 15) : [] }
-    readonly property var calls: { revision; return visible ? decolog.statsTopCalls(mode, year, 15) : [] }
-    readonly property var bandMode: { revision; return visible ? decolog.statsBandMode(year) : [] }
+    readonly property var progress: stats.progress || []
+    readonly property var entities: stats.entities || []
+    readonly property var calls: stats.calls || []
+    readonly property var bandMode: stats.bandMode || []
 
     // Le serie della curva dei diplomi.
     readonly property var series: [

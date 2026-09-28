@@ -2332,6 +2332,65 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     </message>
 </context>
 <context>
+    <name>LogBackup</name>
+    <message>
+        <source>The file is not there.</source>
+        <translation>Die Datei ist nicht da.</translation>
+    </message>
+    <message>
+        <source>SQLite cannot open it: %1</source>
+        <translation>SQLite kann sie nicht öffnen: %1</translation>
+    </message>
+    <message>
+        <source>It is not a SQLite database: %1</source>
+        <translation>Das ist keine SQLite-Datenbank: %1</translation>
+    </message>
+    <message>
+        <source>SQLite finds it damaged: %1</source>
+        <translation>SQLite findet sie beschädigt: %1</translation>
+    </message>
+    <message>
+        <source>It is not a DecoDXLog log.</source>
+        <translation>Das ist kein DecoDXLog-Log.</translation>
+    </message>
+    <message>
+        <source>The QSOs cannot be read: %1</source>
+        <translation>Die QSOs lassen sich nicht lesen: %1</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>Die Sicherung ist das Log selbst.</translation>
+    </message>
+    <message>
+        <source>The backup cannot be used: %1</source>
+        <translation>Die Sicherung ist nicht verwendbar: %1</translation>
+    </message>
+    <message>
+        <source>The log as it is now could not be saved to %1: nothing was changed.</source>
+        <translation>Das Log, wie es jetzt ist, konnte nicht in %1 gesichert werden: nichts wurde geändert.</translation>
+    </message>
+    <message>
+        <source>The backup could not be copied next to the log: nothing was changed.</source>
+        <translation>Die Sicherung konnte nicht neben das Log kopiert werden: nichts wurde geändert.</translation>
+    </message>
+    <message>
+        <source>The copied backup does not read back the same: nothing was changed.</source>
+        <translation>Die kopierte Sicherung liest sich nicht gleich: nichts wurde geändert.</translation>
+    </message>
+    <message>
+        <source>The log is still in use by another program: nothing was changed.</source>
+        <translation>Das Log wird noch von einem anderen Programm benutzt: nichts wurde geändert.</translation>
+    </message>
+    <message>
+        <source>The backup could not take the place of the log; the log as it was is back.</source>
+        <translation>Die Sicherung konnte das Log nicht ersetzen; das Log ist wieder wie vorher.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog did not close in time: the log was not touched.</source>
+        <translation>DecoDXLog hat sich nicht rechtzeitig beendet: das Log wurde nicht angefasst.</translation>
+    </message>
+</context>
+<context>
     <name>LogColors</name>
     <message>
         <source>New DXCC</source>
@@ -2419,6 +2478,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>%1 selected</source>
         <translation>%1 ausgewählt</translation>
+    </message>
+    <message>
+        <source>Importing %1%</source>
+        <translation>Importiere %1%</translation>
     </message>
     <message>
         <source>%1 QSO · %2 shown</source>
@@ -4579,6 +4642,108 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     </message>
 </context>
 <context>
+    <name>RestoreBackupDialog</name>
+    <message>
+        <source>Restore a backup</source>
+        <translation>Sicherung wiederherstellen</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n cop(ies) in the backup folder</source>
+        <translation>
+            <numerusform>%n Kopie im Sicherungsordner</numerusform>
+            <numerusform>%n Kopien im Sicherungsordner</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Choose a backup</source>
+        <translation>Sicherung wählen</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>DecoDXLog-Logs (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">Alle Dateien (*)</translation>
+    </message>
+    <message numerus="yes">
+        <source>Log now: %1 · %n QSO · last %2</source>
+        <translation>
+            <numerusform>Log jetzt: %1 · %n QSO · letztes %2</numerusform>
+            <numerusform>Log jetzt: %1 · %n QSO · letztes %2</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>before a restore</source>
+        <translation>vor einer Wiederherstellung</translation>
+    </message>
+    <message>
+        <source>No copies in %1 yet.</source>
+        <translation>Noch keine Kopien in %1.</translation>
+    </message>
+    <message>
+        <source>Choose another file…</source>
+        <translation>Andere Datei wählen…</translation>
+    </message>
+    <message>
+        <source>In this copy</source>
+        <translation>In dieser Kopie</translation>
+    </message>
+    <message>
+        <source>Choose a copy.</source>
+        <translation>Wählen Sie eine Kopie.</translation>
+    </message>
+    <message>
+        <source>Reading %1…</source>
+        <translation>Lese %1…</translation>
+    </message>
+    <message>
+        <source>✗ It cannot be restored: %1</source>
+        <translation>✗ Nicht wiederherstellbar: %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>✓ SQLite finds it sound · %n QSO, from %1 to %2 · %3</source>
+        <translation>
+            <numerusform>✓ SQLite findet sie in Ordnung · %n QSO, von %1 bis %2 · %3</numerusform>
+            <numerusform>✓ SQLite findet sie in Ordnung · %n QSO, von %1 bis %2 · %3</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO fewer than the log now: the ones logged after this copy will not be in the restored log.</source>
+        <translation>
+            <numerusform>%n QSO weniger als das Log jetzt: das nach dieser Kopie geloggte fehlt im wiederhergestellten Log.</numerusform>
+            <numerusform>%n QSO weniger als das Log jetzt: die nach dieser Kopie geloggten fehlen im wiederhergestellten Log.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO more than the log now.</source>
+        <translation>
+            <numerusform>%n QSO mehr als das Log jetzt.</numerusform>
+            <numerusform>%n QSO mehr als das Log jetzt.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>As many QSOs as the log now.</source>
+        <translation>Genauso viele QSOs wie das Log jetzt.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog restarts and puts the copy in place of the log before opening it. The log as it is now is saved first in the backup folder as decodxlog-before-restore-…, so nothing is lost: to go back, restore that one.</source>
+        <translation>DecoDXLog startet neu und setzt die Kopie an die Stelle des Logs, bevor es geöffnet wird. Das Log, wie es jetzt ist, wird vorher im Sicherungsordner als decodxlog-before-restore-… gespeichert, es geht also nichts verloren: um zurückzugehen, stellen Sie diese wieder her.</translation>
+    </message>
+    <message>
+        <source>Confirm: restore and restart</source>
+        <translation>Bestätigen: wiederherstellen und neu starten</translation>
+    </message>
+    <message>
+        <source>Restore and restart</source>
+        <translation>Wiederherstellen und neu starten</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RotorCommandBar</name>
     <message>
         <source>STOP</source>
@@ -6168,6 +6333,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Jetzt sichern</translation>
     </message>
     <message>
+        <source>Restore a backup…</source>
+        <translation>Sicherung wiederherstellen…</translation>
+    </message>
+    <message>
         <source>A consistent copy made with SQLite VACUUM INTO, even while DecoDXLog is logging. If the PC is off at the chosen time, the copy is made as soon as DecoDXLog is open.</source>
         <translation>Eine in sich stimmige Kopie mit SQLite VACUUM INTO, auch während DecoDXLog einträgt. Ist der Rechner zur gewählten Zeit aus, wird die Kopie gemacht, sobald DecoDXLog offen ist.</translation>
     </message>
@@ -6442,6 +6611,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>All years</source>
         <translation>Alle Jahre</translation>
+    </message>
+    <message>
+        <source>Counting…</source>
+        <translation>Zähle…</translation>
     </message>
     <message>
         <source>Activity</source>
@@ -7655,8 +7828,16 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Etikett „%1“ von %2 QSO entfernt</translation>
     </message>
     <message>
+        <source>An import is already running: wait for it to finish.</source>
+        <translation>Es läuft bereits ein Import: warten Sie, bis er fertig ist.</translation>
+    </message>
+    <message>
         <source>Cannot read %1: %2</source>
         <translation>%1 lässt sich nicht lesen: %2</translation>
+    </message>
+    <message>
+        <source>Importing %1…</source>
+        <translation>Importiere %1…</translation>
     </message>
     <message>
         <source>%1: %2 new, %3 duplicates, %4 rejected</source>
@@ -7674,6 +7855,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         </translation>
     </message>
     <message>
+        <source>Exporting to %1…</source>
+        <translation>Exportiere nach %1…</translation>
+    </message>
+    <message>
         <source>%1 · %2 MB</source>
         <translation>%1 · %2 MB</translation>
     </message>
@@ -7684,6 +7869,34 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>%1 → %2 (%3 MB)</source>
         <translation>%1 → %2 (%3 MB)</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation type="unfinished">%1 ist nicht da.</translation>
+    </message>
+    <message>
+        <source>There is no log file to restore over.</source>
+        <translation>Es gibt keine Logdatei, über die wiederhergestellt werden kann.</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>Die Sicherung ist das Log selbst.</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted to restore the backup.</source>
+        <translation>Das Programm konnte zum Wiederherstellen nicht neu gestartet werden.</translation>
+    </message>
+    <message>
+        <source>Log restored from %1: %2 QSO</source>
+        <translation>Log wiederhergestellt aus %1: %2 QSO</translation>
+    </message>
+    <message>
+        <source>The log as it was before is saved in %1</source>
+        <translation>Das Log, wie es vorher war, ist gespeichert in %1</translation>
+    </message>
+    <message>
+        <source>Restore not done: %1</source>
+        <translation>Wiederherstellung nicht durchgeführt: %1</translation>
     </message>
     <message>
         <source>LoTW: the period starts after it ends</source>

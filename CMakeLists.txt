@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.16.30
+    VERSION 1.16.31
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES C CXX)
 
@@ -117,6 +117,8 @@ add_library(decolog_core STATIC
     src/core/QslUpload.h
     src/core/ReleaseSignature.cpp
     src/core/ReleaseSignature.h
+    src/core/LogBackup.cpp
+    src/core/LogBackup.h
     src/core/RotorLink.cpp
     src/core/RotorLink.h
     src/core/SecretVault.cpp
@@ -298,6 +300,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/WorldClockWindow.qml
     qml/DecoDXLog/NewQsoDialog.qml
     qml/DecoDXLog/QslCardDesign.qml
+    qml/DecoDXLog/RestoreBackupDialog.qml
     qml/DecoDXLog/QslCardsWindow.qml
     qml/DecoDXLog/QsoDetailDialog.qml
     qml/DecoDXLog/StationProfilesDialog.qml
@@ -449,7 +452,7 @@ set_target_properties(decolog PROPERTIES
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet winkeyer catshare)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet winkeyer catshare logbackup)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)
@@ -514,6 +517,15 @@ if(DECODXLOG_BUILD_TESTS)
     set_target_properties(tst_contestrules PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME contestrules COMMAND tst_contestrules)
     set_tests_properties(loglibrary PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+    # Dal pacchetto UDP al QSO nel log, con il programma vero avviato senza
+    # finestra: la prova sa dove sta l'eseguibile, e lo vuole compilato.
+    qt_add_executable(tst_udppipeline tests/tst_udppipeline.cpp)
+    target_link_libraries(tst_udppipeline PRIVATE decolog_core Qt6::Test)
+    target_compile_definitions(tst_udppipeline PRIVATE DECODXLOG_APP="$<TARGET_FILE:decolog>")
+    set_target_properties(tst_udppipeline PROPERTIES WIN32_EXECUTABLE OFF)
+    add_dependencies(tst_udppipeline decolog)
+    add_test(NAME udppipeline COMMAND tst_udppipeline)
+    set_tests_properties(udppipeline PROPERTIES TIMEOUT 300)
 
     # Su Windows Qt scrive i suoi messaggi nel canale del debugger quando non
     # trova una console: ctest vede la prova rossa e nessuna riga che dica
@@ -538,6 +550,15 @@ if(DECODXLOG_BUILD_TOOLS)
     qt_add_executable(decodxlog_clusterprobe tools/clusterprobe.cpp)
     target_link_libraries(decodxlog_clusterprobe PRIVATE decolog_core)
     set_target_properties(decodxlog_clusterprobe PROPERTIES WIN32_EXECUTABLE OFF)
+    # Quanto regge un log grande: crea un log finto (100.000, un milione di
+    # QSO) con l'importazione vera, e misura quello che il programma fa.
+    qt_add_executable(decodxlog_benchlog tools/benchlog.cpp src/app/QsoTableModel.cpp src/app/QsoTableModel.h)
+    target_include_directories(decodxlog_benchlog PRIVATE src)
+    target_link_libraries(decodxlog_benchlog PRIVATE decolog_core)
+    if(WIN32)
+        target_link_libraries(decodxlog_benchlog PRIVATE psapi)
+    endif()
+    set_target_properties(decodxlog_benchlog PROPERTIES WIN32_EXECUTABLE OFF)
     # Firma le release: la chiave segreta sta nel portachiavi di chi pubblica.
     qt_add_executable(decodxlog_sign tools/releasesign.cpp)
     target_link_libraries(decodxlog_sign PRIVATE decolog_core)

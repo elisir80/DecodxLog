@@ -12,10 +12,12 @@
 #include <QDateTime>
 #include <QJsonArray>
 #include <QList>
+#include <QSet>
 #include <QSqlDatabase>
 #include <QString>
 #include <QStringList>
 #include <QVariantMap>
+#include <functional>
 #include <optional>
 
 namespace decolog::core {
@@ -198,6 +200,13 @@ public:
 
     ImportResult importAdif(const QByteArray& data, const QString& source = QStringLiteral("import"),
                             qint64 stationProfileId = 0);
+    // Lo stesso, a blocchi di `batchSize` QSO, ognuno nella sua transazione, e
+    // dopo ogni blocco `progress(fatti, totale)`. Fra un blocco e l'altro chi
+    // scrive un QSO dalla radio passa: un'importazione da un milione di QSO
+    // non tiene il log chiuso per minuti.
+    using ImportProgress = std::function<void(int done, int total)>;
+    ImportResult importAdif(const QByteArray& data, const QString& source, qint64 stationProfileId,
+                            const ImportProgress& progress, int batchSize);
     QByteArray   exportAdif(const QString& programVersion = {}) const;
     QByteArray   exportAdif(const QList<qint64>& ids, const QString& programVersion = {}) const;
 
@@ -230,6 +239,11 @@ public:
     // Tutti i QSO in forma compatta per DecoLink: [call, banda, modo, data yyyyMMdd,
     // locatore a 4, confermato 0/1], con le conferme accettate indicate.
     QList<QJsonArray> workedRows(bool confirmLotw, bool confirmCard, bool confirmEqsl) const;
+    // Gli id dei QSO confermati da almeno uno dei servizi scelti, in una query:
+    // chi scorre tutto il log li guarda qui invece di chiederli QSO per QSO.
+    QSet<qint64> confirmedIds(bool lotw, bool card, bool eqsl) const;
+    // Gli id confermati da un servizio solo ("lotw", "card", "eqsl"...).
+    QSet<qint64> confirmedIds(const QString& service) const;
     static QJsonArray workedRow(const QString& call, const QString& band, const QString& mode,
                                 const QString& submode, const QString& isoOn, const QString& grid, bool confirmed);
     // QSO senza numero DXCC, per completarli dal cty.csv.
@@ -251,6 +265,11 @@ public:
     Ft2Award ft2Award() const;
     QList<CountRow> countByBand() const;
     QList<CountRow> countByMode() const;
+    // Solo quali bande e modi ci sono, senza contarli: dall'indice delle bande
+    // e dei modi, senza leggere il log. Per i menu dei filtri e le colonne dei
+    // diplomi. Anche quelli dei QSO cancellati: in un menu non fanno danno.
+    QStringList bandsInLog() const;
+    QStringList modesInLog() const;
     // QSO per numero DXCC (chiave = numero), dal piu' lavorato.
     QList<CountRow> countByDxcc() const;
     // Statistiche nel tempo: chiave "2026", "2026-09", "00".."23", continente.
@@ -334,6 +353,9 @@ public:
     // La coda delle cartacee: `state` e' "queue" (da mandare), "sent", "received"
     // o "all". Ogni riga ha quello che serve a un'etichetta e alla tabella.
     QList<QVariantMap> cardRows(const QString& state, int limit = 0) const;
+    // Quante cartoline in coda, inviate, ricevute, e ricevute senza risposta:
+    // contate da SQLite, senza leggere le righe.
+    QVariantMap cardCounts() const;
     // Lo stato di una cartacea, conferma compresa (setQslState non tocca il
     // ricevuto, perche' per gli altri servizi lo scrive il download).
     bool setCardState(qint64 id, const QslState& state);

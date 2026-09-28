@@ -13,6 +13,7 @@
 #include <QObject>
 #include <QQueue>
 #include <QStringList>
+#include <QThreadPool>
 #include <QTimer>
 #include <QVariantList>
 #include <QVariantMap>
@@ -96,6 +97,9 @@ public:
 
     // Un QSO appena scritto nel log: se il servizio e' automatico, parte da solo.
     void qsoLogged(qint64 id);
+    // Il log e' cambiato: i conti (in coda, inviati, confermati) si rifanno su
+    // un altro filo; fino ad allora valgono quelli di prima.
+    void countsDirty();
 
 signals:
     void changed();
@@ -141,6 +145,17 @@ private:
     qint64 m_deletingId{0};
     QTimer m_autoDelay;
     QList<qint64> m_autoQueue;
+    // I conti della pagina, tenuti qui: services() si legge a ogni changed(),
+    // anche durante un invio, e contarli ogni volta su un log grande fermava
+    // il programma per secondi.
+    bool backgroundReady() const;
+    void refreshCounts();
+    mutable bool m_countsValid{false};
+    mutable bool m_countsScheduled{false};
+    QHash<QString, int> m_pendingCounts;
+    QList<QVariantMap> m_summaryRows;
+    QThreadPool m_countPool;
+    int m_countGeneration{0};
 };
 
 } // namespace decolog::app

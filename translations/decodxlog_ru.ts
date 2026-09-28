@@ -2338,6 +2338,65 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>LogBackup</name>
+    <message>
+        <source>The file is not there.</source>
+        <translation>Файла нет.</translation>
+    </message>
+    <message>
+        <source>SQLite cannot open it: %1</source>
+        <translation>SQLite не может его открыть: %1</translation>
+    </message>
+    <message>
+        <source>It is not a SQLite database: %1</source>
+        <translation>Это не база данных SQLite: %1</translation>
+    </message>
+    <message>
+        <source>SQLite finds it damaged: %1</source>
+        <translation>SQLite считает её повреждённой: %1</translation>
+    </message>
+    <message>
+        <source>It is not a DecoDXLog log.</source>
+        <translation>Это не лог DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>The QSOs cannot be read: %1</source>
+        <translation>QSO не читаются: %1</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>Копия — это сам лог.</translation>
+    </message>
+    <message>
+        <source>The backup cannot be used: %1</source>
+        <translation>Копию нельзя использовать: %1</translation>
+    </message>
+    <message>
+        <source>The log as it is now could not be saved to %1: nothing was changed.</source>
+        <translation>Текущий лог не удалось сохранить в %1: ничего не изменено.</translation>
+    </message>
+    <message>
+        <source>The backup could not be copied next to the log: nothing was changed.</source>
+        <translation>Копию не удалось положить рядом с логом: ничего не изменено.</translation>
+    </message>
+    <message>
+        <source>The copied backup does not read back the same: nothing was changed.</source>
+        <translation>Положенная рядом копия читается не так же: ничего не изменено.</translation>
+    </message>
+    <message>
+        <source>The log is still in use by another program: nothing was changed.</source>
+        <translation>Лог ещё использует другая программа: ничего не изменено.</translation>
+    </message>
+    <message>
+        <source>The backup could not take the place of the log; the log as it was is back.</source>
+        <translation>Копия не смогла занять место лога; прежний лог вернулся.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog did not close in time: the log was not touched.</source>
+        <translation>DecoDXLog не закрылся вовремя: лог не тронут.</translation>
+    </message>
+</context>
+<context>
     <name>LogColors</name>
     <message>
         <source>New DXCC</source>
@@ -2425,6 +2484,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>%1 selected</source>
         <translation>выбрано %1</translation>
+    </message>
+    <message>
+        <source>Importing %1%</source>
+        <translation>Импорт %1%</translation>
     </message>
     <message>
         <source>%1 QSO · %2 shown</source>
@@ -4590,6 +4653,113 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>RestoreBackupDialog</name>
+    <message>
+        <source>Restore a backup</source>
+        <translation>Восстановить резервную копию</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n cop(ies) in the backup folder</source>
+        <translation>
+            <numerusform>%n копия в папке копий</numerusform>
+            <numerusform>%n копии в папке копий</numerusform>
+            <numerusform>%n копий в папке копий</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Choose a backup</source>
+        <translation>Выбрать резервную копию</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>Логи DecoDXLog (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">Все файлы (*)</translation>
+    </message>
+    <message numerus="yes">
+        <source>Log now: %1 · %n QSO · last %2</source>
+        <translation>
+            <numerusform>Лог сейчас: %1 · %n QSO · последний %2</numerusform>
+            <numerusform>Лог сейчас: %1 · %n QSO · последний %2</numerusform>
+            <numerusform>Лог сейчас: %1 · %n QSO · последний %2</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>before a restore</source>
+        <translation>перед восстановлением</translation>
+    </message>
+    <message>
+        <source>No copies in %1 yet.</source>
+        <translation>Пока нет копий в %1.</translation>
+    </message>
+    <message>
+        <source>Choose another file…</source>
+        <translation>Выбрать другой файл…</translation>
+    </message>
+    <message>
+        <source>In this copy</source>
+        <translation>В этой копии</translation>
+    </message>
+    <message>
+        <source>Choose a copy.</source>
+        <translation>Выберите копию.</translation>
+    </message>
+    <message>
+        <source>Reading %1…</source>
+        <translation>Читаю %1…</translation>
+    </message>
+    <message>
+        <source>✗ It cannot be restored: %1</source>
+        <translation>✗ Восстановить нельзя: %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>✓ SQLite finds it sound · %n QSO, from %1 to %2 · %3</source>
+        <translation>
+            <numerusform>✓ Для SQLite исправна · %n QSO, с %1 по %2 · %3</numerusform>
+            <numerusform>✓ Для SQLite исправна · %n QSO, с %1 по %2 · %3</numerusform>
+            <numerusform>✓ Для SQLite исправна · %n QSO, с %1 по %2 · %3</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO fewer than the log now: the ones logged after this copy will not be in the restored log.</source>
+        <translation>
+            <numerusform>На %n QSO меньше, чем в логе сейчас: сделанное после этой копии не попадёт в восстановленный лог.</numerusform>
+            <numerusform>На %n QSO меньше, чем в логе сейчас: сделанные после этой копии не попадут в восстановленный лог.</numerusform>
+            <numerusform>На %n QSO меньше, чем в логе сейчас: сделанные после этой копии не попадут в восстановленный лог.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO more than the log now.</source>
+        <translation>
+            <numerusform>На %n QSO больше, чем в логе сейчас.</numerusform>
+            <numerusform>На %n QSO больше, чем в логе сейчас.</numerusform>
+            <numerusform>На %n QSO больше, чем в логе сейчас.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>As many QSOs as the log now.</source>
+        <translation>Столько же QSO, сколько в логе сейчас.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog restarts and puts the copy in place of the log before opening it. The log as it is now is saved first in the backup folder as decodxlog-before-restore-…, so nothing is lost: to go back, restore that one.</source>
+        <translation>DecoDXLog перезапускается и ставит копию на место лога перед его открытием. Текущий лог сначала сохраняется в папке копий как decodxlog-before-restore-…, так что ничего не теряется: чтобы вернуться, восстановите его.</translation>
+    </message>
+    <message>
+        <source>Confirm: restore and restart</source>
+        <translation>Подтвердить: восстановить и перезапустить</translation>
+    </message>
+    <message>
+        <source>Restore and restart</source>
+        <translation>Восстановить и перезапустить</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Закрыть</translation>
+    </message>
+</context>
+<context>
     <name>RotorCommandBar</name>
     <message>
         <source>STOP</source>
@@ -6182,6 +6352,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Сделать копию сейчас</translation>
     </message>
     <message>
+        <source>Restore a backup…</source>
+        <translation>Восстановить резервную копию…</translation>
+    </message>
+    <message>
         <source>A consistent copy made with SQLite VACUUM INTO, even while DecoDXLog is logging. If the PC is off at the chosen time, the copy is made as soon as DecoDXLog is open.</source>
         <translation>Цельная копия, сделанная через SQLite VACUUM INTO, даже пока DecoDXLog записывает. Если в назначенный час компьютер выключен, копия делается, как только DecoDXLog открыт.</translation>
     </message>
@@ -6456,6 +6630,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>All years</source>
         <translation>Все годы</translation>
+    </message>
+    <message>
+        <source>Counting…</source>
+        <translation>Подсчёт…</translation>
     </message>
     <message>
         <source>Activity</source>
@@ -7681,8 +7859,16 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Метка «%1» снята с %2 QSO</translation>
     </message>
     <message>
+        <source>An import is already running: wait for it to finish.</source>
+        <translation>Импорт уже идёт: дождитесь окончания.</translation>
+    </message>
+    <message>
         <source>Cannot read %1: %2</source>
         <translation>Не прочитать %1: %2</translation>
+    </message>
+    <message>
+        <source>Importing %1…</source>
+        <translation>Импорт %1…</translation>
     </message>
     <message>
         <source>%1: %2 new, %3 duplicates, %4 rejected</source>
@@ -7701,6 +7887,10 @@ The call Decodium is working shows up here by itself.</source>
         </translation>
     </message>
     <message>
+        <source>Exporting to %1…</source>
+        <translation>Экспорт в %1…</translation>
+    </message>
+    <message>
         <source>%1 · %2 MB</source>
         <translation>%1 · %2 МБ</translation>
     </message>
@@ -7711,6 +7901,34 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>%1 → %2 (%3 MB)</source>
         <translation>%1 → %2 (%3 МБ)</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation type="unfinished">%1 нет на месте.</translation>
+    </message>
+    <message>
+        <source>There is no log file to restore over.</source>
+        <translation>Нет файла лога, поверх которого восстанавливать.</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>Копия — это сам лог.</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted to restore the backup.</source>
+        <translation>Не удалось перезапустить программу для восстановления копии.</translation>
+    </message>
+    <message>
+        <source>Log restored from %1: %2 QSO</source>
+        <translation>Лог восстановлен из %1: %2 QSO</translation>
+    </message>
+    <message>
+        <source>The log as it was before is saved in %1</source>
+        <translation>Прежний лог сохранён в %1</translation>
+    </message>
+    <message>
+        <source>Restore not done: %1</source>
+        <translation>Восстановление не выполнено: %1</translation>
     </message>
     <message>
         <source>LoTW: the period starts after it ends</source>

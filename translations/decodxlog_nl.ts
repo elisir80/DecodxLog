@@ -2332,6 +2332,65 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
 </context>
 <context>
+    <name>LogBackup</name>
+    <message>
+        <source>The file is not there.</source>
+        <translation>Het bestand is er niet.</translation>
+    </message>
+    <message>
+        <source>SQLite cannot open it: %1</source>
+        <translation>SQLite kan het niet openen: %1</translation>
+    </message>
+    <message>
+        <source>It is not a SQLite database: %1</source>
+        <translation>Het is geen SQLite-database: %1</translation>
+    </message>
+    <message>
+        <source>SQLite finds it damaged: %1</source>
+        <translation>SQLite vindt het beschadigd: %1</translation>
+    </message>
+    <message>
+        <source>It is not a DecoDXLog log.</source>
+        <translation>Het is geen DecoDXLog-log.</translation>
+    </message>
+    <message>
+        <source>The QSOs cannot be read: %1</source>
+        <translation>De QSO&apos;s zijn niet te lezen: %1</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>De kopie is het log zelf.</translation>
+    </message>
+    <message>
+        <source>The backup cannot be used: %1</source>
+        <translation>De kopie is niet bruikbaar: %1</translation>
+    </message>
+    <message>
+        <source>The log as it is now could not be saved to %1: nothing was changed.</source>
+        <translation>Het log zoals het nu is kon niet in %1 worden bewaard: er is niets veranderd.</translation>
+    </message>
+    <message>
+        <source>The backup could not be copied next to the log: nothing was changed.</source>
+        <translation>De kopie kon niet naast het log worden gezet: er is niets veranderd.</translation>
+    </message>
+    <message>
+        <source>The copied backup does not read back the same: nothing was changed.</source>
+        <translation>De gekopieerde kopie leest niet hetzelfde terug: er is niets veranderd.</translation>
+    </message>
+    <message>
+        <source>The log is still in use by another program: nothing was changed.</source>
+        <translation>Het log wordt nog door een ander programma gebruikt: er is niets veranderd.</translation>
+    </message>
+    <message>
+        <source>The backup could not take the place of the log; the log as it was is back.</source>
+        <translation>De kopie kon de plaats van het log niet innemen; het log van eerst is terug.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog did not close in time: the log was not touched.</source>
+        <translation>DecoDXLog sloot niet op tijd af: het log is niet aangeraakt.</translation>
+    </message>
+</context>
+<context>
     <name>LogColors</name>
     <message>
         <source>New DXCC</source>
@@ -2419,6 +2478,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>%1 selected</source>
         <translation>%1 gekozen</translation>
+    </message>
+    <message>
+        <source>Importing %1%</source>
+        <translation>Importeren %1%</translation>
     </message>
     <message>
         <source>%1 QSO · %2 shown</source>
@@ -4579,6 +4642,108 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
 </context>
 <context>
+    <name>RestoreBackupDialog</name>
+    <message>
+        <source>Restore a backup</source>
+        <translation>Een back-up terugzetten</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n cop(ies) in the backup folder</source>
+        <translation>
+            <numerusform>%n kopie in de back-upmap</numerusform>
+            <numerusform>%n kopieën in de back-upmap</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Choose a backup</source>
+        <translation>Een back-up kiezen</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>DecoDXLog-logs (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">Alle bestanden (*)</translation>
+    </message>
+    <message numerus="yes">
+        <source>Log now: %1 · %n QSO · last %2</source>
+        <translation>
+            <numerusform>Log nu: %1 · %n QSO · laatste %2</numerusform>
+            <numerusform>Log nu: %1 · %n QSO · laatste %2</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>before a restore</source>
+        <translation>vóór een terugzetting</translation>
+    </message>
+    <message>
+        <source>No copies in %1 yet.</source>
+        <translation>Nog geen kopieën in %1.</translation>
+    </message>
+    <message>
+        <source>Choose another file…</source>
+        <translation>Ander bestand kiezen…</translation>
+    </message>
+    <message>
+        <source>In this copy</source>
+        <translation>In deze kopie</translation>
+    </message>
+    <message>
+        <source>Choose a copy.</source>
+        <translation>Kies een kopie.</translation>
+    </message>
+    <message>
+        <source>Reading %1…</source>
+        <translation>%1 lezen…</translation>
+    </message>
+    <message>
+        <source>✗ It cannot be restored: %1</source>
+        <translation>✗ Kan niet worden teruggezet: %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>✓ SQLite finds it sound · %n QSO, from %1 to %2 · %3</source>
+        <translation>
+            <numerusform>✓ Voor SQLite in orde · %n QSO, van %1 tot %2 · %3</numerusform>
+            <numerusform>✓ Voor SQLite in orde · %n QSO, van %1 tot %2 · %3</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO fewer than the log now: the ones logged after this copy will not be in the restored log.</source>
+        <translation>
+            <numerusform>%n QSO minder dan het log nu: die na deze kopie gelogd is zit niet in het teruggezette log.</numerusform>
+            <numerusform>%n QSO minder dan het log nu: die na deze kopie gelogd zijn zitten niet in het teruggezette log.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO more than the log now.</source>
+        <translation>
+            <numerusform>%n QSO meer dan het log nu.</numerusform>
+            <numerusform>%n QSO meer dan het log nu.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>As many QSOs as the log now.</source>
+        <translation>Evenveel QSO&apos;s als het log nu.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog restarts and puts the copy in place of the log before opening it. The log as it is now is saved first in the backup folder as decodxlog-before-restore-…, so nothing is lost: to go back, restore that one.</source>
+        <translation>DecoDXLog start opnieuw en zet de kopie op de plaats van het log voordat het wordt geopend. Het log zoals het nu is wordt eerst in de back-upmap bewaard als decodxlog-before-restore-…, dus er gaat niets verloren: om terug te gaan zet je die terug.</translation>
+    </message>
+    <message>
+        <source>Confirm: restore and restart</source>
+        <translation>Bevestigen: terugzetten en herstarten</translation>
+    </message>
+    <message>
+        <source>Restore and restart</source>
+        <translation>Terugzetten en herstarten</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Sluiten</translation>
+    </message>
+</context>
+<context>
     <name>RotorCommandBar</name>
     <message>
         <source>STOP</source>
@@ -6168,6 +6333,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Nu een back-up maken</translation>
     </message>
     <message>
+        <source>Restore a backup…</source>
+        <translation>Een back-up terugzetten…</translation>
+    </message>
+    <message>
         <source>A consistent copy made with SQLite VACUUM INTO, even while DecoDXLog is logging. If the PC is off at the chosen time, the copy is made as soon as DecoDXLog is open.</source>
         <translation>Een sluitende kopie, gemaakt met SQLite VACUUM INTO, ook terwijl DecoDXLog aan het loggen is. Staat de pc uit op het gekozen tijdstip, dan wordt de kopie gemaakt zodra DecoDXLog open is.</translation>
     </message>
@@ -6442,6 +6611,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>All years</source>
         <translation>Alle jaren</translation>
+    </message>
+    <message>
+        <source>Counting…</source>
+        <translation>Tellen…</translation>
     </message>
     <message>
         <source>Activity</source>
@@ -7655,8 +7828,16 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Label &quot;%1&quot; weggehaald bij %2 QSO</translation>
     </message>
     <message>
+        <source>An import is already running: wait for it to finish.</source>
+        <translation>Er loopt al een import: wacht tot die klaar is.</translation>
+    </message>
+    <message>
         <source>Cannot read %1: %2</source>
         <translation>Kan %1 niet lezen: %2</translation>
+    </message>
+    <message>
+        <source>Importing %1…</source>
+        <translation>%1 importeren…</translation>
     </message>
     <message>
         <source>%1: %2 new, %3 duplicates, %4 rejected</source>
@@ -7674,6 +7855,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         </translation>
     </message>
     <message>
+        <source>Exporting to %1…</source>
+        <translation>Exporteren naar %1…</translation>
+    </message>
+    <message>
         <source>%1 · %2 MB</source>
         <translation>%1 · %2 MB</translation>
     </message>
@@ -7684,6 +7869,34 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>%1 → %2 (%3 MB)</source>
         <translation>%1 → %2 (%3 MB)</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation type="unfinished">%1 is er niet.</translation>
+    </message>
+    <message>
+        <source>There is no log file to restore over.</source>
+        <translation>Er is geen logbestand om over terug te zetten.</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>De kopie is het log zelf.</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted to restore the backup.</source>
+        <translation>Het programma kon niet herstarten om de back-up terug te zetten.</translation>
+    </message>
+    <message>
+        <source>Log restored from %1: %2 QSO</source>
+        <translation>Log teruggezet uit %1: %2 QSO</translation>
+    </message>
+    <message>
+        <source>The log as it was before is saved in %1</source>
+        <translation>Het log van eerst is bewaard in %1</translation>
+    </message>
+    <message>
+        <source>Restore not done: %1</source>
+        <translation>Terugzetten niet gedaan: %1</translation>
     </message>
     <message>
         <source>LoTW: the period starts after it ends</source>

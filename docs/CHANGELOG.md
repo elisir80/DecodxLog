@@ -3,6 +3,52 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.31 — 28 settembre 2026
+
+**Ripristinare un backup.** Impostazioni → Backup → «Ripristina un backup…».
+
+- Si sceglie una copia della cartella dei backup (o un file qualsiasi). Prima di toccare
+  niente si guarda cosa c'e' dentro: se SQLite la trova sana, quanti QSO, dal primo
+  all'ultimo, quanti in meno o in piu' del log di adesso.
+- Il ripristino riavvia il programma e rimette la copia prima di aprire il log, quando il
+  processo di prima e' uscito. Il log com'era viene salvato prima nella cartella dei backup
+  come `decodxlog-before-restore-<ora>.sqlite` (la pulizia delle copie notturne non lo
+  tocca): per tornare indietro si ripristina quello. I `-wal` e `-shm` del log di prima si
+  tolgono, perche' applicati alla copia la rovinerebbero.
+- Una copia rovinata, un file che non e' un log, o il log stesso non si rimettono, e il log
+  resta com'e'.
+
+**Log grandi: provato a 100.000 e a un milione di QSO** (strumento `decodxlog_benchlog`,
+log finti con l'importazione vera).
+
+- La tabella tiene in memoria solo gli id e legge i valori a pagine: un milione di QSO si
+  apre in mezzo secondo con 25 MB, prima erano 21 secondi e 1,3 GB. Filtri e ordine li fa
+  SQLite; la ricerca libera legge il log in fila (un secondo su un milione, prima sette). I
+  colori delle righe si contano su un altro filo.
+- Su un altro filo anche l'importazione ADIF (a blocchi di mille, con l'avanzamento
+  nell'intestazione del log, e i QSO dalla radio passano fra un blocco e l'altro),
+  l'esportazione, il backup, le statistiche, i diplomi all'avvio, i conti della pagina QSL,
+  l'elenco del SuperCheck e l'elenco dei lavorati per Decodium (DecoLink).
+- Esportare 100.000 QSO: da 21 secondi a meno di 3. Le query che leggono tutto il log vanno
+  in fila (NOT INDEXED) invece di saltare per il file seguendo un indice; nuovi indici per
+  sottomodo, QSO non cancellati in ordine di tempo, etichette e profili, e le statistiche
+  di SQLite si aggiornano da sole all'apertura.
+- Avvio su un milione di QSO: la finestra risponde in 3 secondi (prima 85). Un QSO da
+  Decodium su un log da un milione fermava la finestra fino a 28 secondi; adesso sei QSO di
+  fila le costano una sola pausa di 2 secondi. Su 100.000 QSO tutto quello che si fa a mano
+  resta sotto il mezzo secondo.
+
+**Doppioni FT8, CW e SSB.** Un QSO senza sottomodo non trovava mai il suo doppione: WSJT-X
+che rimanda lo stesso QSO, o lo stesso ADIF importato due volte, finivano nel log due volte.
+Adesso si riconoscono come quelli FT2.
+
+**Prove dal pacchetto UDP al QSO nel log.** Una prova nuova avvia DecoDXLog vero, senza
+finestra, gli manda i datagrammi di Decodium (QSOLogged e LoggedADIF), di JTDX (solo
+QSOLogged) e di WSJT-X, doppioni, datagrammi rotti e una raffica di venti QSO, e guarda nel
+database: uno per QSO, con la fonte giusta e il DXCC dal cty.csv.
+
+- Tradotto in 15 lingue.
+
 ## 1.16.30 — 28 settembre 2026
 
 **Aggiornamenti firmati.** DecoDXLog installa da solo solo quello che chi pubblica ha firmato

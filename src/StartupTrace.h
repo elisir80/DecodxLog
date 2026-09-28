@@ -1,5 +1,7 @@
 #pragma once
 
+#include <QCoreApplication>
+#include <QThread>
 #include <QtGlobal>
 #include <chrono>
 #include <cstdio>
@@ -14,7 +16,9 @@ inline void startupTrace(const char* phase)
     static const auto start = std::chrono::steady_clock::now();
     const auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(
         std::chrono::steady_clock::now() - start).count();
-    std::fprintf(stderr, "[Startup +%lld ms] %s\n", static_cast<long long>(ms), phase);
+    // [bg] quando non e' il filo della finestra: quello che blocca e' l'altro.
+    const bool ui = !QCoreApplication::instance() || QThread::currentThread() == QCoreApplication::instance()->thread();
+    std::fprintf(stderr, "[Startup +%lld ms]%s %s\n", static_cast<long long>(ms), ui ? "" : " [bg]", phase);
     std::fflush(stderr);
 }
 

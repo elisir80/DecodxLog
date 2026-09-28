@@ -7,6 +7,7 @@
 #include <QDateTime>
 #include <QObject>
 #include <QStringList>
+#include <QThreadPool>
 #include <QTimer>
 #include <functional>
 
@@ -70,6 +71,10 @@ private:
     bool m_busy{false};
     QString m_status;
     QTimer m_reload;
+    // Su un log in un file l'elenco si rifa' su un altro filo: su un milione
+    // di QSO sono secondi, e dopo ogni QSO la finestra si fermava.
+    QThreadPool m_pool;
+    int m_generation{0};
 };
 
 } // namespace decolog::app

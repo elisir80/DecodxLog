@@ -1014,6 +1014,12 @@ ApplicationWindow {
         else if (what[0] === "lookup") { if (what[2] === "detach") window.detachPanel("callinfo"); else window.showPanel("callinfo"); decolog.lookupCall = what[1] || "" }
         else if (what[0] === "about") aboutDialog.open()
         else if (what[0] === "update") updateDialog.open()
+        // Il ripristino: "restore" apre la finestra, "restore:<file>" lo fa
+        // davvero (il programma riparte), per le prove da riga di comando.
+        else if (what[0] === "restore") {
+            if (what.length > 1) decolog.restoreBackup(what.slice(1).join(":"))
+            else restoreDialog.openDialog()
+        }
         else if (what[0] === "updatecheck") { window.panelItem("tabs").setTab(3); decolog.updates.checkNow() }
         else if (what[0] === "updateget") { decolog.updates.checkNow(); updateGetTimer.start() }
         else if (what[0] === "mainmenu") topBar.openMainMenu()
@@ -1194,7 +1200,12 @@ ApplicationWindow {
         function onUpdateFound(version) { updateDialog.open() }
     }
 
-    SetupDialog { id: setupDialog; onUpdateRequested: updateDialog.open() }
+    SetupDialog {
+        id: setupDialog
+        onUpdateRequested: updateDialog.open()
+        onRestoreRequested: restoreDialog.openDialog()
+    }
+    RestoreBackupDialog { id: restoreDialog }
 
     // Gli avvisi DX che chiedono il riquadro: sopra a tutto, in alto a destra.
     DxAlertToast {

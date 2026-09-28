@@ -2326,6 +2326,65 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>LogBackup</name>
+    <message>
+        <source>The file is not there.</source>
+        <translation>A fájl nincs meg.</translation>
+    </message>
+    <message>
+        <source>SQLite cannot open it: %1</source>
+        <translation>Az SQLite nem tudja megnyitni: %1</translation>
+    </message>
+    <message>
+        <source>It is not a SQLite database: %1</source>
+        <translation>Ez nem SQLite-adatbázis: %1</translation>
+    </message>
+    <message>
+        <source>SQLite finds it damaged: %1</source>
+        <translation>Az SQLite sérültnek találja: %1</translation>
+    </message>
+    <message>
+        <source>It is not a DecoDXLog log.</source>
+        <translation>Ez nem DecoDXLog-napló.</translation>
+    </message>
+    <message>
+        <source>The QSOs cannot be read: %1</source>
+        <translation>A QSO-k nem olvashatók: %1</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>A másolat maga a napló.</translation>
+    </message>
+    <message>
+        <source>The backup cannot be used: %1</source>
+        <translation>A másolat nem használható: %1</translation>
+    </message>
+    <message>
+        <source>The log as it is now could not be saved to %1: nothing was changed.</source>
+        <translation>A napló jelenlegi állapotát nem sikerült menteni ide: %1 – semmi sem változott.</translation>
+    </message>
+    <message>
+        <source>The backup could not be copied next to the log: nothing was changed.</source>
+        <translation>A másolatot nem sikerült a napló mellé tenni: semmi sem változott.</translation>
+    </message>
+    <message>
+        <source>The copied backup does not read back the same: nothing was changed.</source>
+        <translation>A mellé tett másolat nem olvasható vissza ugyanúgy: semmi sem változott.</translation>
+    </message>
+    <message>
+        <source>The log is still in use by another program: nothing was changed.</source>
+        <translation>A naplót még egy másik program használja: semmi sem változott.</translation>
+    </message>
+    <message>
+        <source>The backup could not take the place of the log; the log as it was is back.</source>
+        <translation>A másolat nem tudta átvenni a napló helyét; a korábbi napló visszakerült.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog did not close in time: the log was not touched.</source>
+        <translation>A DecoDXLog nem zárult be időben: a naplóhoz nem nyúltunk.</translation>
+    </message>
+</context>
+<context>
     <name>LogColors</name>
     <message>
         <source>New DXCC</source>
@@ -2413,6 +2472,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>%1 selected</source>
         <translation>%1 kijelölve</translation>
+    </message>
+    <message>
+        <source>Importing %1%</source>
+        <translation>Importálás %1%</translation>
     </message>
     <message>
         <source>%1 QSO · %2 shown</source>
@@ -4568,6 +4631,103 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>RestoreBackupDialog</name>
+    <message>
+        <source>Restore a backup</source>
+        <translation>Mentés visszaállítása</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n cop(ies) in the backup folder</source>
+        <translation>
+            <numerusform>%n másolat a mentések mappájában</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Choose a backup</source>
+        <translation>Mentés kiválasztása</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>DecoDXLog naplók (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">Minden fájl (*)</translation>
+    </message>
+    <message numerus="yes">
+        <source>Log now: %1 · %n QSO · last %2</source>
+        <translation>
+            <numerusform>Napló most: %1 · %n QSO · utolsó %2</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>before a restore</source>
+        <translation>visszaállítás előtt</translation>
+    </message>
+    <message>
+        <source>No copies in %1 yet.</source>
+        <translation>Még nincs másolat itt: %1.</translation>
+    </message>
+    <message>
+        <source>Choose another file…</source>
+        <translation>Másik fájl kiválasztása…</translation>
+    </message>
+    <message>
+        <source>In this copy</source>
+        <translation>Ebben a másolatban</translation>
+    </message>
+    <message>
+        <source>Choose a copy.</source>
+        <translation>Válassz egy másolatot.</translation>
+    </message>
+    <message>
+        <source>Reading %1…</source>
+        <translation>%1 olvasása…</translation>
+    </message>
+    <message>
+        <source>✗ It cannot be restored: %1</source>
+        <translation>✗ Nem állítható vissza: %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>✓ SQLite finds it sound · %n QSO, from %1 to %2 · %3</source>
+        <translation>
+            <numerusform>✓ Az SQLite szerint ép · %n QSO, %1 és %2 között · %3</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO fewer than the log now: the ones logged after this copy will not be in the restored log.</source>
+        <translation>
+            <numerusform>%n QSO-val kevesebb, mint a jelenlegi napló: az e másolat után rögzítettek nem lesznek a visszaállított naplóban.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO more than the log now.</source>
+        <translation>
+            <numerusform>%n QSO-val több, mint a jelenlegi napló.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>As many QSOs as the log now.</source>
+        <translation>Ugyanannyi QSO, mint a jelenlegi napló.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog restarts and puts the copy in place of the log before opening it. The log as it is now is saved first in the backup folder as decodxlog-before-restore-…, so nothing is lost: to go back, restore that one.</source>
+        <translation>A DecoDXLog újraindul, és megnyitás előtt a másolatot teszi a napló helyére. A jelenlegi naplót előbb a mentések mappájába menti decodxlog-before-restore-… néven, így semmi sem vész el: a visszalépéshez azt kell visszaállítani.</translation>
+    </message>
+    <message>
+        <source>Confirm: restore and restart</source>
+        <translation>Megerősítés: visszaállítás és újraindítás</translation>
+    </message>
+    <message>
+        <source>Restore and restart</source>
+        <translation>Visszaállítás és újraindítás</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Bezárás</translation>
+    </message>
+</context>
+<context>
     <name>RotorCommandBar</name>
     <message>
         <source>STOP</source>
@@ -6154,6 +6314,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Mentés most</translation>
     </message>
     <message>
+        <source>Restore a backup…</source>
+        <translation>Mentés visszaállítása…</translation>
+    </message>
+    <message>
         <source>A consistent copy made with SQLite VACUUM INTO, even while DecoDXLog is logging. If the PC is off at the chosen time, the copy is made as soon as DecoDXLog is open.</source>
         <translation>Ép másolat, SQLite VACUUM INTO-val, még naplózás közben is. Ha a gép ki van kapcsolva a megadott időpontban, a másolat akkor készül el, amint a DecoDXLog megnyílik.</translation>
     </message>
@@ -6428,6 +6592,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>All years</source>
         <translation>Minden év</translation>
+    </message>
+    <message>
+        <source>Counting…</source>
+        <translation>Számolás…</translation>
     </message>
     <message>
         <source>Activity</source>
@@ -7629,8 +7797,16 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>A(z) „%1” címke eltávolítva %2 QSO-ról</translation>
     </message>
     <message>
+        <source>An import is already running: wait for it to finish.</source>
+        <translation>Már fut egy importálás: várd meg, amíg befejeződik.</translation>
+    </message>
+    <message>
         <source>Cannot read %1: %2</source>
         <translation>Nem olvasható: %1: %2</translation>
+    </message>
+    <message>
+        <source>Importing %1…</source>
+        <translation>%1 importálása…</translation>
     </message>
     <message>
         <source>%1: %2 new, %3 duplicates, %4 rejected</source>
@@ -7647,6 +7823,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         </translation>
     </message>
     <message>
+        <source>Exporting to %1…</source>
+        <translation>Exportálás ide: %1…</translation>
+    </message>
+    <message>
         <source>%1 · %2 MB</source>
         <translation>%1 · %2 MB</translation>
     </message>
@@ -7657,6 +7837,34 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>%1 → %2 (%3 MB)</source>
         <translation>%1 → %2 (%3 MB)</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation type="unfinished">%1 nincs meg.</translation>
+    </message>
+    <message>
+        <source>There is no log file to restore over.</source>
+        <translation>Nincs naplófájl, amire vissza lehetne állítani.</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>A másolat maga a napló.</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted to restore the backup.</source>
+        <translation>A program nem tudott újraindulni a mentés visszaállításához.</translation>
+    </message>
+    <message>
+        <source>Log restored from %1: %2 QSO</source>
+        <translation>Napló visszaállítva innen: %1 – %2 QSO</translation>
+    </message>
+    <message>
+        <source>The log as it was before is saved in %1</source>
+        <translation>A korábbi napló mentve itt: %1</translation>
+    </message>
+    <message>
+        <source>Restore not done: %1</source>
+        <translation>A visszaállítás nem történt meg: %1</translation>
     </message>
     <message>
         <source>LoTW: the period starts after it ends</source>

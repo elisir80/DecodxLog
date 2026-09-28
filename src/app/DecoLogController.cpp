@@ -10,6 +10,7 @@
 
 #include <QMetaObject>
 #include <QPointer>
+#include <QProcess>
 #include <QCoreApplication>
 #include <QDesktopServices>
 #include <QDir>
@@ -27,9 +28,11 @@
 #include <QRegularExpression>
 #include <QSettings>
 #include <QSqlDatabase>
+#include <QSqlQuery>
 #include <QStandardPaths>
 #include <algorithm>
 #include <cmath>
+#include <cstdio>
 #include <utility>
 
 namespace decolog::app {
@@ -197,6 +200,7 @@ DecoLogController::DecoLogController(QObject* parent)
         });
     });
     m_countsPool.setMaxThreadCount(1);
+    m_backupPool.setMaxThreadCount(1);
     connect(this, &DecoLogController::logChanged, this, [this] { m_countsTimer.start(); });
     // Register before QML observers: a notification must expose fresh data.
     connect(this, &DecoLogController::logChanged, this, [this] {
@@ -295,6 +299,37 @@ DecoLogController::DecoLogController(QObject* parent)
     m_decoLinkPort = s.value(QStringLiteral("decolink/port"), DecoLinkServer::kDefaultPort).toInt();
     m_decoLink.workedRows = [this] {
         return m_db.workedRows(m_awardFilter.confirmLotw, m_awardFilter.confirmCard, m_awardFilter.confirmEqsl);
+    };
+    // L'elenco per Decodium si prepara su un altro filo, con una connessione
+    // sua: su un log da un milione sono decine di secondi, e il programma non
+    // deve fermarsi quando Decodium si collega.
+    m_linkPool.setMaxThreadCount(1);
+    m_importPool.setMaxThreadCount(1);
+    m_statsViewPool.setMaxThreadCount(1);
+    m_decoLink.buildSnapshot = [this](std::function<void(const QList<QByteArray>&)> done) {
+        const bool lotw = m_awardFilter.confirmLotw;
+        const bool card = m_awardFilter.confirmCard;
+        const bool eqsl = m_awardFilter.confirmEqsl;
+        const QString path = m_db.path();
+        if (path.isEmpty() || path == QLatin1String(":memory:")) {
+            done(DecoLinkServer::snapshotLines(m_db.workedRows(lotw, card, eqsl)));
+            return;
+        }
+        QPointer<DecoLogController> self(this);
+        m_linkPool.start([self, path, lotw, card, eqsl, done] {
+            QList<QByteArray> lines;
+            {
+                LogDatabase db;
+                if (db.open(path))
+                    lines = DecoLinkServer::snapshotLines(db.workedRows(lotw, card, eqsl));
+            }
+            QMetaObject::invokeMethod(
+                self.data(), [self, done, lines] {
+                    if (self)
+                        done(lines);
+                },
+                Qt::QueuedConnection);
+        });
     };
     m_decoLink.awardState = [this] { return decoLinkAward(); };
     m_decoLink.resolveQuery = [this](const QJsonObject& q) { return decoLinkQuery(q); };
@@ -493,7 +528,11 @@ void DecoLogController::refreshStatsInBackground()
         all.confirmLotw = filter.confirmLotw;
         all.confirmCard = filter.confirmCard;
         all.confirmEqsl = filter.confirmEqsl;
-        const QList<AwardResult> global = calc.compute(db, all);
+        // Senza banda, modo, profilo o etichetta scelti sono gli stessi: un
+        // conto solo, che su un log grande sono secondi risparmiati.
+        const bool unfiltered = filter.band.isEmpty() && filter.modeGroup.isEmpty()
+                                && filter.stationProfileId == 0 && filter.tag.isEmpty();
+        const QList<AwardResult> global = unfiltered ? awards : calc.compute(db, all);
         const Ft2Award ft2 = db.ft2Award();
         const QList<CountRow> bands = db.countByBand();
         const QList<CountRow> modes = db.countByMode();
@@ -644,6 +683,8 @@ bool DecoLogController::openDatabase(const QString& path)
         emit logChanged();
     };
     m_qsl = new QslController(std::move(qslCtx), this);
+    // I conti della pagina QSL si rifanno quando cambia il log, su un altro filo.
+    connect(this, &DecoLogController::logChanged, m_qsl, &QslController::countsDirty);
 
     QslCardController::Context cardCtx;
     cardCtx.db = &m_db;
@@ -1591,7 +1632,14 @@ int DecoLogController::fillMissingDxcc()
 
 const QList<AwardResult>& DecoLogController::awardResults() const
 {
+    decolog::StartupSpan trace("DecoLogController::awardResults");
     if (m_awardsDirty && m_db.isOpen()) {
+        // Su un log in un file si contano su un altro filo: fino al risultato
+        // vale quello di prima (vuoto all'avvio), e awardsChanged() lo dice.
+        if (backgroundReady()) {
+            scheduleStatsRefresh();
+            return m_awardCache;
+        }
         const AwardCalculator calc([this](int dxcc) { return m_countries.nameFor(dxcc); });
         m_awardCache = calc.compute(m_db, m_awardFilter);
         m_awardsDirty = false;
@@ -1601,7 +1649,12 @@ const QList<AwardResult>& DecoLogController::awardResults() const
 
 const QList<AwardResult>& DecoLogController::globalAwardResults() const
 {
+    decolog::StartupSpan trace("DecoLogController::globalAwardResults");
     if (m_globalAwardsDirty && m_db.isOpen()) {
+        if (backgroundReady()) {
+            scheduleStatsRefresh();
+            return m_globalAwardCache;
+        }
         AwardFilter filter;
         filter.confirmLotw = m_awardFilter.confirmLotw;
         filter.confirmCard = m_awardFilter.confirmCard;
@@ -1615,6 +1668,7 @@ const QList<AwardResult>& DecoLogController::globalAwardResults() const
 
 QVariantList DecoLogController::awardSummary() const
 {
+    decolog::StartupSpan trace("DecoLogController::awardSummary");
     QVariantList out;
     const QStringList bands = awardBands();
     for (const AwardResult& r : awardResults()) {
@@ -1695,10 +1749,7 @@ int DecoLogController::africanEntities() const
 QStringList DecoLogController::awardBands() const
 {
     // Le colonne della tabella: le bande presenti nel log, in ordine.
-    QStringList out;
-    for (const auto& row : m_db.countByBand())
-        out << row.key;
-    return out;
+    return m_db.bandsInLog();
 }
 
 bool DecoLogController::awardHasMissing(const QString& awardId) const
@@ -2334,8 +2385,9 @@ QVariantMap DecoLogController::qsoDetail(qint64 id) const
         detail[QStringLiteral("azimuth")] = qRound(maidenhead::azimuthDeg(*me, *dx));
     }
     if (dx || me) {
-        const Ft2Award a = m_db.ft2Award();
-        detail[QStringLiteral("ft2DxccWorked")] = a.dxccWorked;
+        // Dal conto gia' fatto: rifarlo a ogni scheda aperta costava secondi
+        // sui log grandi.
+        detail[QStringLiteral("ft2DxccWorked")] = ft2Award().value(QStringLiteral("dxccWorked")).toInt();
     }
     return detail;
 }
@@ -2434,6 +2486,7 @@ int DecoLogController::tagQsos(const QVariantList& ids, const QString& tag, bool
 
 QVariantList DecoLogController::dxccInLog() const
 {
+    decolog::StartupSpan trace("DecoLogController::dxccInLog");
     QVariantList out;
     for (const auto& row : m_db.countByDxcc()) {
         const int dxcc = row.key.toInt();
@@ -2449,13 +2502,76 @@ QVariantList DecoLogController::dxccInLog() const
 void DecoLogController::importAdif(const QUrl& url)
 {
     const QString path = url.isLocalFile() ? url.toLocalFile() : url.toString();
+    if (m_importProgress >= 0) {
+        addActivity(QStringLiteral("IMPORT"), tr("An import is already running: wait for it to finish."),
+                    QStringLiteral("warning"));
+        return;
+    }
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly)) {
         addActivity(QStringLiteral("IMPORT"), tr("Cannot read %1: %2").arg(path, file.errorString()), QStringLiteral("error"));
         return;
     }
-    const ImportResult r = m_db.importAdif(file.readAll(), QStringLiteral("import"),
-                                           m_profiles ? m_profiles->activeProfileId() : 0);
+    file.close();
+    const qint64 profile = m_profiles ? m_profiles->activeProfileId() : 0;
+    const QString dbPath = m_db.path();
+    // Un log di prova in memoria non si apre da un altro filo: li' si importa qui.
+    if (dbPath.isEmpty() || dbPath == QLatin1String(":memory:")) {
+        QFile again(path);
+        again.open(QIODevice::ReadOnly);
+        finishImport(path, m_db.importAdif(again.readAll(), QStringLiteral("import"), profile));
+        return;
+    }
+
+    // Su un altro filo, con una connessione sua, a blocchi di mille QSO: il
+    // programma resta vivo, e i QSO che arrivano dalla radio passano fra un
+    // blocco e l'altro.
+    m_importProgress = 0;
+    emit importChanged();
+    addActivity(QStringLiteral("IMPORT"), tr("Importing %1…").arg(QFileInfo(path).fileName()));
+    const int digital = m_db.dedupWindowSeconds(false);
+    const int manual = m_db.dedupWindowSeconds(true);
+    QPointer<DecoLogController> self(this);
+    m_importPool.start([self, path, dbPath, profile, digital, manual] {
+        ImportResult result;
+        QFile in(path);
+        LogDatabase db;
+        if (!in.open(QIODevice::ReadOnly) || !db.open(dbPath)) {
+            result.invalid = 1;
+            result.errors << (in.isOpen() ? db.lastError() : in.errorString());
+        } else {
+            db.setDedupWindows(digital, manual);
+            int lastPercent = -1;
+            result = db.importAdif(in.readAll(), QStringLiteral("import"), profile,
+                                   [self, &lastPercent](int done, int total) {
+                                       const int percent = total > 0 ? done * 100 / total : 100;
+                                       if (percent == lastPercent)
+                                           return;
+                                       lastPercent = percent;
+                                       QMetaObject::invokeMethod(
+                                           self.data(), [self, percent] {
+                                               if (!self)
+                                                   return;
+                                               self->m_importProgress = percent / 100.0;
+                                               emit self->importChanged();
+                                           },
+                                           Qt::QueuedConnection);
+                                   },
+                                   1000);
+        }
+        QMetaObject::invokeMethod(
+            self.data(), [self, path, result] {
+                if (self)
+                    self->finishImport(path, result);
+            },
+            Qt::QueuedConnection);
+    });
+}
+
+void DecoLogController::finishImport(const QString& path, const ImportResult& r)
+{
+    m_importProgress = -1;
+    emit importChanged();
     addActivity(QStringLiteral("IMPORT"), tr("%1: %2 new, %3 duplicates, %4 rejected")
                                               .arg(QFileInfo(path).fileName()).arg(r.inserted).arg(r.duplicates).arg(r.invalid),
                 r.invalid ? QStringLiteral("warning") : QStringLiteral("success"));
@@ -2470,14 +2586,63 @@ void DecoLogController::importAdif(const QUrl& url)
 
 void DecoLogController::exportAdif(const QUrl& url)
 {
-    const QString path = url.isLocalFile() ? url.toLocalFile() : url.toString();
-    QFile file(path);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        addActivity(QStringLiteral("EXPORT"), tr("Cannot write %1: %2").arg(path, file.errorString()), QStringLiteral("error"));
+    exportInBackground({}, true, url.isLocalFile() ? url.toLocalFile() : url.toString());
+}
+
+void DecoLogController::exportInBackground(const QList<qint64>& ids, bool all, const QString& path)
+{
+    {
+        QFile probe(path);
+        if (!probe.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+            addActivity(QStringLiteral("EXPORT"), tr("Cannot write %1: %2").arg(path, probe.errorString()),
+                        QStringLiteral("error"));
+            return;
+        }
+    }
+    const QString dbPath = m_db.path();
+    const QString programVersion = version();
+    // Un log di prova in memoria non si apre da un altro filo: li' si scrive qui.
+    if (dbPath.isEmpty() || dbPath == QLatin1String(":memory:")) {
+        QFile file(path);
+        file.open(QIODevice::WriteOnly | QIODevice::Truncate);
+        file.write(all ? m_db.exportAdif(programVersion) : m_db.exportAdif(ids, programVersion));
+        addActivity(QStringLiteral("EXPORT"),
+                    tr("%n QSO → %1", nullptr, all ? m_db.qsoCount() : static_cast<int>(ids.size())).arg(path),
+                    QStringLiteral("success"));
         return;
     }
-    file.write(m_db.exportAdif(version()));
-    addActivity(QStringLiteral("EXPORT"), tr("%n QSO → %1", nullptr, m_db.qsoCount()).arg(path), QStringLiteral("success"));
+    addActivity(QStringLiteral("EXPORT"), tr("Exporting to %1…").arg(QFileInfo(path).fileName()));
+    QPointer<DecoLogController> self(this);
+    m_importPool.start([self, dbPath, programVersion, ids, all, path] {
+        QString error;
+        int count = 0;
+        {
+            LogDatabase db;
+            QFile file(path);
+            if (!db.open(dbPath)) {
+                error = db.lastError();
+            } else if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+                error = file.errorString();
+            } else {
+                count = all ? db.qsoCount() : static_cast<int>(ids.size());
+                const QByteArray data = all ? db.exportAdif(programVersion) : db.exportAdif(ids, programVersion);
+                if (file.write(data) != data.size())
+                    error = file.errorString();
+            }
+        }
+        QMetaObject::invokeMethod(
+            self.data(), [self, path, error, count] {
+                if (!self)
+                    return;
+                if (error.isEmpty())
+                    self->addActivity(QStringLiteral("EXPORT"), tr("%n QSO → %1", nullptr, count).arg(path),
+                                      QStringLiteral("success"));
+                else
+                    self->addActivity(QStringLiteral("EXPORT"), tr("Cannot write %1: %2").arg(path, error),
+                                      QStringLiteral("error"));
+            },
+            Qt::QueuedConnection);
+    });
 }
 
 void DecoLogController::exportQsos(const QVariantList& ids, const QUrl& url)
@@ -2485,15 +2650,7 @@ void DecoLogController::exportQsos(const QVariantList& ids, const QUrl& url)
     QList<qint64> list;
     for (const auto& v : ids)
         list << v.toLongLong();
-    const QString path = url.isLocalFile() ? url.toLocalFile() : url.toString();
-    QFile file(path);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        addActivity(QStringLiteral("EXPORT"), tr("Cannot write %1: %2").arg(path, file.errorString()), QStringLiteral("error"));
-        return;
-    }
-    file.write(m_db.exportAdif(list, version()));
-    addActivity(QStringLiteral("EXPORT"), tr("%n QSO → %1", nullptr, static_cast<int>(list.size())).arg(path),
-                QStringLiteral("success"));
+    exportInBackground(list, false, url.isLocalFile() ? url.toLocalFile() : url.toString());
 }
 
 void DecoLogController::setBackupEnabled(bool enabled)
@@ -2554,12 +2711,43 @@ QString DecoLogController::lastBackupInfo() const
 
 void DecoLogController::backupNow()
 {
+    if (m_backupRunning)
+        return;
     QDir().mkpath(m_backupDir);
     const QString name = QStringLiteral("decolog-%1.sqlite")
                              .arg(QDateTime::currentDateTimeUtc().toString(QStringLiteral("yyyy-MM-ddTHHmm")));
     const QString path = QDir(m_backupDir).filePath(name);
-    if (!m_db.backupTo(path)) {
-        addActivity(QStringLiteral("BACKUP"), tr("Backup failed: %1").arg(m_db.lastError()), QStringLiteral("error"));
+    const QString dbPath = m_db.path();
+    // La copia si fa su un altro filo, con una sua connessione: VACUUM INTO di
+    // un log da un milione sono secondi, e il programma non si deve fermare.
+    if (dbPath.isEmpty() || dbPath == QLatin1String(":memory:")) {
+        finishBackup(path, m_db.backupTo(path) ? QString() : m_db.lastError());
+        return;
+    }
+    m_backupRunning = true;
+    QPointer<DecoLogController> self(this);
+    m_backupPool.start([self, dbPath, path] {
+        QString error;
+        {
+            LogDatabase db;
+            if (!db.open(dbPath) || !db.backupTo(path))
+                error = db.lastError();
+        }
+        QMetaObject::invokeMethod(
+            self.data(), [self, path, error] {
+                if (!self)
+                    return;
+                self->m_backupRunning = false;
+                self->finishBackup(path, error);
+            },
+            Qt::QueuedConnection);
+    });
+}
+
+void DecoLogController::finishBackup(const QString& path, const QString& error)
+{
+    if (!error.isEmpty()) {
+        addActivity(QStringLiteral("BACKUP"), tr("Backup failed: %1").arg(error), QStringLiteral("error"));
         return;
     }
     m_db.setSetting(QStringLiteral("backup.last_at"), QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
@@ -2574,6 +2762,120 @@ void DecoLogController::backupNow()
                                               .arg(QFileInfo(m_db.path()).fileName(), path,
                                                    QString::number(QFileInfo(path).size() / 1048576.0, 'f', 1)));
     emit backupChanged();
+}
+
+namespace {
+
+QString pathFromQml(const QString& pathOrUrl)
+{
+    const QUrl url(pathOrUrl);
+    return url.isLocalFile() ? url.toLocalFile() : pathOrUrl;
+}
+
+QString qsoDate(const QDateTime& when)
+{
+    return when.isValid() ? when.toUTC().toString(dates::format() + QStringLiteral(" HH:mm")) + QStringLiteral("Z")
+                          : QString();
+}
+
+} // namespace
+
+QVariantList DecoLogController::backupFiles() const
+{
+    QVariantList out;
+    for (const QFileInfo& f : logbackup::backupsIn(m_backupDir)) {
+        out << QVariantMap{
+            {QStringLiteral("path"), f.absoluteFilePath()},
+            {QStringLiteral("name"), f.fileName()},
+            {QStringLiteral("when"), QLocale().toString(f.lastModified(), QLocale::ShortFormat)},
+            {QStringLiteral("size"), QLocale().formattedDataSize(f.size())},
+            {QStringLiteral("safety"), logbackup::isSafetyCopy(f.fileName())},
+        };
+    }
+    return out;
+}
+
+QVariantMap DecoLogController::currentLogInfo() const
+{
+    QString last;
+    QSqlQuery q(m_db.connection());
+    if (q.exec(QStringLiteral("SELECT MAX(qso_datetime_on) FROM qso WHERE deleted = 0")) && q.next())
+        last = qsoDate(QDateTime::fromString(q.value(0).toString(), Qt::ISODate));
+    return {{QStringLiteral("path"), QDir::toNativeSeparators(m_db.path())},
+            {QStringLiteral("name"), QFileInfo(m_db.path()).fileName()},
+            {QStringLiteral("qsos"), m_db.qsoCount()},
+            {QStringLiteral("last"), last}};
+}
+
+void DecoLogController::inspectBackup(const QString& pathOrUrl)
+{
+    const QString path = pathFromQml(pathOrUrl);
+    const int current = m_db.qsoCount();
+    QPointer<DecoLogController> self(this);
+    m_backupPool.start([self, path, current] {
+        const logbackup::Snapshot s = logbackup::inspect(path);
+        const QVariantMap info{
+            {QStringLiteral("path"), path},
+            {QStringLiteral("name"), QFileInfo(path).fileName()},
+            {QStringLiteral("ok"), s.readable},
+            {QStringLiteral("problem"), s.problem},
+            {QStringLiteral("qsos"), s.qsos},
+            {QStringLiteral("first"), qsoDate(s.firstQso)},
+            {QStringLiteral("last"), qsoDate(s.lastQso)},
+            {QStringLiteral("size"), QLocale().formattedDataSize(s.bytes)},
+            {QStringLiteral("diff"), s.qsos - current},
+        };
+        QMetaObject::invokeMethod(
+            self.data(), [self, info] {
+                if (self)
+                    emit self->backupInspected(info);
+            },
+            Qt::QueuedConnection);
+    });
+}
+
+QString DecoLogController::restoreBackup(const QString& pathOrUrl)
+{
+    const QString path = pathFromQml(pathOrUrl);
+    if (!QFileInfo(path).isFile())
+        return tr("%1 is not there.").arg(QDir::toNativeSeparators(path));
+    if (m_db.path().isEmpty() || m_db.path() == QLatin1String(":memory:"))
+        return tr("There is no log file to restore over.");
+    if (QFileInfo(path).canonicalFilePath() == QFileInfo(m_db.path()).canonicalFilePath())
+        return tr("The backup is the log itself.");
+
+    // Il programma riparte e rimette la copia prima di aprire il log, quando
+    // questo processo e' uscito. Le impostazioni di prova (--settings, --port)
+    // passano al programma nuovo.
+    QStringList args{QStringLiteral("--db"), m_db.path(), QStringLiteral("--restore-from"), path,
+                     QStringLiteral("--restore-wait-pid"), QString::number(QCoreApplication::applicationPid())};
+    const QStringList mine = QCoreApplication::arguments();
+    for (const char* keep : {"--settings", "--port"}) {
+        const qsizetype at = mine.indexOf(QLatin1String(keep));
+        if (at > 0 && at + 1 < mine.size())
+            args << mine.at(at)
+                 << (at == mine.indexOf(QLatin1String("--settings")) ? QFileInfo(mine.at(at + 1)).absoluteFilePath()
+                                                                     : mine.at(at + 1));
+    }
+    if (!QProcess::startDetached(QCoreApplication::applicationFilePath(), args))
+        return tr("The program could not be restarted to restore the backup.");
+    QCoreApplication::quit();
+    return {};
+}
+
+void DecoLogController::reportRestore(const logbackup::RestoreResult& result, const QString& backup)
+{
+    if (result.ok) {
+        addActivity(QStringLiteral("BACKUP"),
+                    tr("Log restored from %1: %2 QSO").arg(QDir::toNativeSeparators(backup)).arg(result.qsos),
+                    QStringLiteral("success"));
+        if (!result.safetyCopy.isEmpty())
+            addActivity(QStringLiteral("BACKUP"),
+                        tr("The log as it was before is saved in %1").arg(QDir::toNativeSeparators(result.safetyCopy)),
+                        QStringLiteral("info"));
+    } else {
+        addActivity(QStringLiteral("BACKUP"), tr("Restore not done: %1").arg(result.error), QStringLiteral("error"));
+    }
 }
 
 void DecoLogController::checkBackupSchedule()
@@ -2906,9 +3208,16 @@ void DecoLogController::setConflictPolicy(const QString& policy)
 
 QVariantMap DecoLogController::ft2Award() const
 {
+    decolog::StartupSpan trace("DecoLogController::ft2Award");
     const auto cached = m_statsCache.constFind(QStringLiteral("ft2"));
     if (cached != m_statsCache.constEnd())
         return cached->toMap();
+    if (backgroundReady()) {
+        scheduleStatsRefresh();
+        return QVariantMap{{QStringLiteral("qsos"), 0}, {QStringLiteral("dxccWorked"), 0},
+                           {QStringLiteral("dxccConfirmed"), 0}, {QStringLiteral("gridsWorked"), 0},
+                           {QStringLiteral("gridsConfirmed"), 0}};
+    }
     const Ft2Award a = m_db.ft2Award();
     const QVariantMap out{
         {QStringLiteral("qsos"), a.qsos},
@@ -2926,6 +3235,10 @@ QVariantList DecoLogController::bandStats() const
     const auto cached = m_statsCache.constFind(QStringLiteral("bands"));
     if (cached != m_statsCache.constEnd())
         return cached->toList();
+    if (backgroundReady()) {
+        scheduleStatsRefresh();
+        return {};
+    }
     QVariantList out;
     for (const auto& row : m_db.countByBand())
         out << QVariantMap{{QStringLiteral("key"), row.key}, {QStringLiteral("count"), row.count}};
@@ -2938,6 +3251,10 @@ QVariantList DecoLogController::modeStats() const
     const auto cached = m_statsCache.constFind(QStringLiteral("modes"));
     if (cached != m_statsCache.constEnd())
         return cached->toList();
+    if (backgroundReady()) {
+        scheduleStatsRefresh();
+        return {};
+    }
     QVariantList out;
     for (const auto& row : m_db.countByMode())
         out << QVariantMap{{QStringLiteral("key"), row.key}, {QStringLiteral("count"), row.count}};
@@ -2951,10 +3268,37 @@ QVariantList DecoLogController::qslSummary() const
     return m_counts.qslSummary;
 }
 
+bool DecoLogController::backgroundReady() const
+{
+    return m_db.isOpen() && !m_db.path().isEmpty() && m_db.path() != QLatin1String(":memory:");
+}
+
+void DecoLogController::scheduleStatsRefresh() const
+{
+    if (m_statsRefreshScheduled)
+        return;
+    m_statsRefreshScheduled = true;
+    auto* self = const_cast<DecoLogController*>(this);
+    QMetaObject::invokeMethod(
+        self, [self] {
+            self->m_statsRefreshScheduled = false;
+            self->refreshStatsInBackground();
+        },
+        Qt::QueuedConnection);
+}
+
 void DecoLogController::ensureCounts() const
 {
     if (m_counts.valid || !m_db.isOpen())
         return;
+    // Su un log in un file i conti si fanno su un altro filo (m_countsTimer):
+    // fino ad allora valgono zero, e countsChanged() dice quando ci sono.
+    if (backgroundReady()) {
+        if (!m_countsTimer.isActive())
+            QMetaObject::invokeMethod(const_cast<QTimer*>(&m_countsTimer), qOverload<>(&QTimer::start),
+                                      Qt::QueuedConnection);
+        return;
+    }
     m_counts.qsos = m_db.qsoCount();
     m_counts.dirty = m_db.dirtyCount();
     m_counts.conflicts = m_db.conflictCount();
@@ -3016,6 +3360,94 @@ QVariantList DecoLogController::coastline() const
         m_coastline.append(QVariant(line.toArray().toVariantList()));
     }
     return m_coastline;
+}
+
+namespace {
+
+// Le ventiquattro ore, anche quelle vuote: un buco nel grafico e' un dato.
+QVariantList allHours(const QList<CountRow>& hours)
+{
+    QVariantList out;
+    for (int h = 0; h < 24; ++h) {
+        const QString key = QStringLiteral("%1").arg(h, 2, 10, QLatin1Char('0'));
+        int count = 0;
+        for (const CountRow& r : hours) {
+            if (r.key == key)
+                count = r.count;
+        }
+        out << QVariantMap{{QStringLiteral("key"), key}, {QStringLiteral("count"), count}};
+    }
+    return out;
+}
+
+QVariantList mapsToList(const QList<QVariantMap>& rows)
+{
+    QVariantList out;
+    for (const QVariantMap& row : rows)
+        out << row;
+    return out;
+}
+
+// Tutto quello che mostra la finestra delle statistiche, dalle due pagine.
+QVariantMap computeStats(const LogDatabase& db, const QString& mode, int year)
+{
+    const StatsFilter f = statsFilterFor(mode, year);
+    return {
+        {QStringLiteral("mode"), mode},
+        {QStringLiteral("year"), year},
+        {QStringLiteral("summary"), db.statsSummary(f)},
+        {QStringLiteral("years"), db.yearsInLog()},
+        {QStringLiteral("byYear"), rowsToList(db.countByYear(statsFilterFor(mode, 0)))},
+        {QStringLiteral("byMonth"), rowsToList(db.countByMonth(24, statsFilterFor(mode, 0)))},
+        {QStringLiteral("byHour"), allHours(db.countByHour(f))},
+        {QStringLiteral("byBand"), rowsToList(db.countByBand(f))},
+        {QStringLiteral("byMode"), rowsToList(db.countByMode(statsFilterFor({}, year)))},
+        {QStringLiteral("byContinent"), rowsToList(db.countByContinent(f))},
+        {QStringLiteral("bandHour"), mapsToList(db.bandByHour(f))},
+        {QStringLiteral("progress"), mapsToList(db.awardProgress(statsFilterFor(mode, 0)))},
+        {QStringLiteral("entities"), rowsToList(db.countByEntity(f, 15))},
+        {QStringLiteral("calls"), rowsToList(db.countByCall(f, 15))},
+        {QStringLiteral("bandMode"), mapsToList(db.bandByMode(statsFilterFor(QString(), year)))},
+    };
+}
+
+} // namespace
+
+void DecoLogController::requestStats(const QString& mode, int year)
+{
+    const int request = ++(*m_statsLatest);
+    const auto latest = m_statsLatest;
+    const QString path = m_db.path();
+    QPointer<DecoLogController> self(this);
+    // Un log di prova in memoria si legge qui, ma la risposta arriva lo stesso
+    // dopo, come per quello vero.
+    if (path.isEmpty() || path == QLatin1String(":memory:")) {
+        const QVariantMap stats = computeStats(m_db, mode, year);
+        QMetaObject::invokeMethod(
+            this, [self, stats] {
+                if (self)
+                    emit self->statsReady(stats);
+            },
+            Qt::QueuedConnection);
+        return;
+    }
+    m_statsViewPool.start([self, path, mode, year, request, latest] {
+        // Chi ha cambiato filtro nel frattempo non vuole piu' questo conto.
+        if (request != latest->load())
+            return;
+        QVariantMap stats;
+        {
+            LogDatabase db;
+            if (db.open(path))
+                stats = computeStats(db, mode, year);
+        }
+        QMetaObject::invokeMethod(
+            self.data(), [self, stats, request, latest] {
+                if (self && request == latest->load())
+                    emit self->statsReady(stats);
+            },
+            Qt::QueuedConnection);
+    });
 }
 
 QStringList DecoLogController::statsYears() const
@@ -3107,6 +3539,7 @@ QVariantList DecoLogController::statsBandHour(const QString& mode, int year) con
 
 QVariantList DecoLogController::gridPoints() const
 {
+    decolog::StartupSpan trace("DecoLogController::gridPoints");
     // QML sequence access can call this getter for each marker/element.
     // Never run a full SQLite scan on each property read, including empty logs.
     if (m_gridPointsValid)
@@ -3495,6 +3928,11 @@ void DecoLogController::addActivity(const QString& category, const QString& text
     if (!m_activityModel)
         m_activityModel = new ActivityModel(kMaxActivity, this);
     m_activityModel->add(nowUtcLabel(), category, text, level);
+    // Per le prove dall'esterno (tst_udppipeline): il registro attivita' anche
+    // su stderr, una riga per voce.
+    static const bool trace = qEnvironmentVariableIntValue("DECODXLOG_TRACE_ACTIVITY") == 1;
+    if (trace)
+        fprintf(stderr, "[activity] %s|%s|%s\n", qPrintable(category), qPrintable(level), qPrintable(text));
 }
 
 void DecoLogController::clearActivity()

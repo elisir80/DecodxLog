@@ -10,6 +10,9 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QSaveFile>
+#include <QMetaObject>
+#include <QPointer>
+#include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QStandardPaths>
 
@@ -52,24 +55,62 @@ void SuperCheckController::loadData(const QByteArray& data)
     rebuild();
 }
 
+namespace {
+
+// I nominativi del log, dall'indice dei nominativi: anche quelli dei QSO
+// cancellati, che per l'SCP sono nominativi veri come gli altri.
+QStringList logCalls(const QSqlDatabase& db)
+{
+    QStringList calls;
+    QSqlQuery q(db);
+    q.setForwardOnly(true);
+    if (q.exec(QStringLiteral("SELECT DISTINCT call FROM qso"))) {
+        while (q.next())
+            calls << q.value(0).toString();
+    }
+    return calls;
+}
+
+} // namespace
+
 void SuperCheckController::rebuild()
 {
-    m_scp.clear();
-    m_fileCount = m_fileData.isEmpty() ? 0 : m_scp.load(m_fileData);
-    if (m_ctx.db) {
-        QStringList calls;
-        QSqlQuery q(m_ctx.db->connection());
-        q.setForwardOnly(true);
-        if (q.exec(QStringLiteral("SELECT DISTINCT call FROM qso WHERE deleted = 0"))) {
-            while (q.next())
-                calls << q.value(0).toString();
-        }
-        m_scp.addCalls(calls);
+    const QString path = m_ctx.db ? m_ctx.db->path() : QString();
+    auto done = [this](core::SuperCheck&& scp, int fileCount) {
+        m_scp = std::move(scp);
+        m_fileCount = fileCount;
+        if (m_status.isEmpty() || !m_busy)
+            m_status = m_fileCount > 0
+                           ? tr("%1 calls from MASTER.SCP (%2) and the log").arg(m_fileCount).arg(fileDate())
+                           : tr("only the calls of the log: download MASTER.SCP for the full list");
+        emit changed();
+    };
+    if (path.isEmpty() || path == QLatin1String(":memory:")) {
+        core::SuperCheck scp;
+        const int fileCount = m_fileData.isEmpty() ? 0 : scp.load(m_fileData);
+        if (m_ctx.db && m_ctx.db->isOpen())
+            scp.addCalls(logCalls(m_ctx.db->connection()));
+        done(std::move(scp), fileCount);
+        return;
     }
-    if (m_status.isEmpty() || !m_busy)
-        m_status = m_fileCount > 0 ? tr("%1 calls from MASTER.SCP (%2) and the log").arg(m_fileCount).arg(fileDate())
-                                   : tr("only the calls of the log: download MASTER.SCP for the full list");
-    emit changed();
+    const QByteArray fileData = m_fileData;
+    const int generation = ++m_generation;
+    QPointer<SuperCheckController> self(this);
+    m_pool.start([self, path, fileData, generation, done] {
+        core::SuperCheck scp;
+        const int fileCount = fileData.isEmpty() ? 0 : scp.load(fileData);
+        {
+            core::LogDatabase db;
+            if (db.open(path))
+                scp.addCalls(logCalls(db.connection()));
+        }
+        QMetaObject::invokeMethod(
+            self.data(), [self, generation, done, scp = std::move(scp), fileCount]() mutable {
+                if (self && generation == self->m_generation)
+                    done(std::move(scp), fileCount);
+            },
+            Qt::QueuedConnection);
+    });
 }
 
 QStringList SuperCheckController::partial(const QString& fragment, int limit) const

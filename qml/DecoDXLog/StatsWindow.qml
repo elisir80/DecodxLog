@@ -18,15 +18,28 @@ ApplicationWindow {
     // 0 = l'andamento del log, 1 = diplomi e classifiche.
     property int page: 0
 
-    readonly property var summary: { revision; return decolog.statsSummary(mode, year) }
-    readonly property var years: { revision; return decolog.statsYears() }
-    readonly property var byYear: { revision; return decolog.statsByYear(mode) }
-    readonly property var byMonth: { revision; return decolog.statsByMonth(24, mode) }
-    readonly property var byHour: { revision; return decolog.statsByHour(mode, year) }
-    readonly property var byBand: { revision; return decolog.statsByBand(mode, year) }
-    readonly property var byMode: { revision; return decolog.statsByMode(year) }
-    readonly property var byContinent: { revision; return decolog.statsByContinent(mode, year) }
-    readonly property var bandHour: { revision; return decolog.statsBandHour(mode, year) }
+    // Le statistiche si contano su un altro filo e arrivano tutte insieme: su
+    // un log grande sono secondi, e la finestra intanto resta viva.
+    property var stats: ({})
+    property bool counting: false
+    readonly property var summary: stats.summary || ({})
+    readonly property var years: stats.years || []
+    readonly property var byYear: stats.byYear || []
+    readonly property var byMonth: stats.byMonth || []
+    readonly property var byHour: stats.byHour || []
+    readonly property var byBand: stats.byBand || []
+    readonly property var byMode: stats.byMode || []
+    readonly property var byContinent: stats.byContinent || []
+    readonly property var bandHour: stats.bandHour || []
+
+    function refresh() {
+        counting = true
+        decolog.requestStats(mode, year)
+    }
+    onModeChanged: refresh()
+    onYearChanged: refresh()
+    onRevisionChanged: refresh()
+    Component.onCompleted: refresh()
 
     width: 1180
     height: 780
@@ -61,6 +74,12 @@ ApplicationWindow {
     Connections {
         target: decolog
         function onLogChanged() { root.revision++ }
+        function onStatsReady(result) {
+            if (result.mode !== root.mode || result.year !== root.year)
+                return
+            root.stats = result
+            root.counting = false
+        }
     }
 
     function maxOf(list) {
@@ -170,6 +189,12 @@ ApplicationWindow {
                 model: [qsTr("All years")].concat(root.years)
                 currentIndex: Math.max(0, values.indexOf(root.year === 0 ? "" : String(root.year)))
                 onActivated: root.year = currentIndex === 0 ? 0 : parseInt(currentText)
+            }
+            Text {
+                visible: root.counting
+                text: qsTr("Counting…")
+                color: Theme.accentColor
+                font.pixelSize: 12
             }
             Item { Layout.fillWidth: true }
             GlassButton {
@@ -404,9 +429,7 @@ ApplicationWindow {
             visible: root.page === 1
             Layout.fillWidth: true
             Layout.fillHeight: true
-            mode: root.mode
-            year: root.year
-            revision: root.revision
+            stats: root.stats
         }
     }
 }

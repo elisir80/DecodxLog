@@ -275,6 +275,26 @@ GlassPanel {
         }
     ]
     headerTools: [
+        // Un'importazione grande gira in secondo piano: qui si vede a che punto e'.
+        Row {
+            anchors.verticalCenter: parent.verticalCenter
+            visible: decolog.importProgress >= 0
+            spacing: 6
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                text: qsTr("Importing %1%").arg(Math.round(decolog.importProgress * 100))
+                color: Theme.accentColor
+                font.family: Theme.monoFamily
+                font.pixelSize: 11
+            }
+            ProgressBar {
+                anchors.verticalCenter: parent.verticalCenter
+                width: 80
+                from: 0
+                to: 1
+                value: Math.max(0, decolog.importProgress)
+            }
+        },
         Text {
             anchors.verticalCenter: parent.verticalCenter
             text: root.model.filtered

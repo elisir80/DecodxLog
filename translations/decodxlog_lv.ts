@@ -2338,6 +2338,65 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>LogBackup</name>
+    <message>
+        <source>The file is not there.</source>
+        <translation>Faila nav.</translation>
+    </message>
+    <message>
+        <source>SQLite cannot open it: %1</source>
+        <translation>SQLite to nevar atvērt: %1</translation>
+    </message>
+    <message>
+        <source>It is not a SQLite database: %1</source>
+        <translation>Tā nav SQLite datubāze: %1</translation>
+    </message>
+    <message>
+        <source>SQLite finds it damaged: %1</source>
+        <translation>SQLite to atrod bojātu: %1</translation>
+    </message>
+    <message>
+        <source>It is not a DecoDXLog log.</source>
+        <translation>Tas nav DecoDXLog žurnāls.</translation>
+    </message>
+    <message>
+        <source>The QSOs cannot be read: %1</source>
+        <translation>QSO nevar nolasīt: %1</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>Kopija ir pats žurnāls.</translation>
+    </message>
+    <message>
+        <source>The backup cannot be used: %1</source>
+        <translation>Kopiju nevar izmantot: %1</translation>
+    </message>
+    <message>
+        <source>The log as it is now could not be saved to %1: nothing was changed.</source>
+        <translation>Žurnālu, kāds tas ir tagad, nevarēja saglabāt %1: nekas netika mainīts.</translation>
+    </message>
+    <message>
+        <source>The backup could not be copied next to the log: nothing was changed.</source>
+        <translation>Kopiju nevarēja novietot blakus žurnālam: nekas netika mainīts.</translation>
+    </message>
+    <message>
+        <source>The copied backup does not read back the same: nothing was changed.</source>
+        <translation>Blakus novietotā kopija nenolasās tāpat: nekas netika mainīts.</translation>
+    </message>
+    <message>
+        <source>The log is still in use by another program: nothing was changed.</source>
+        <translation>Žurnālu joprojām izmanto cita programma: nekas netika mainīts.</translation>
+    </message>
+    <message>
+        <source>The backup could not take the place of the log; the log as it was is back.</source>
+        <translation>Kopija nevarēja ieņemt žurnāla vietu; iepriekšējais žurnāls ir atpakaļ.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog did not close in time: the log was not touched.</source>
+        <translation>DecoDXLog neaizvērās laikā: žurnāls netika aiztikts.</translation>
+    </message>
+</context>
+<context>
     <name>LogColors</name>
     <message>
         <source>New DXCC</source>
@@ -2425,6 +2484,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>%1 selected</source>
         <translation>%1 atlasīti</translation>
+    </message>
+    <message>
+        <source>Importing %1%</source>
+        <translation>Importē %1%</translation>
     </message>
     <message>
         <source>%1 QSO · %2 shown</source>
@@ -4590,6 +4653,113 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
 </context>
 <context>
+    <name>RestoreBackupDialog</name>
+    <message>
+        <source>Restore a backup</source>
+        <translation>Atjaunot rezerves kopiju</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n cop(ies) in the backup folder</source>
+        <translation>
+            <numerusform>%n kopija rezerves kopiju mapē</numerusform>
+            <numerusform>%n kopijas rezerves kopiju mapē</numerusform>
+            <numerusform>%n kopiju rezerves kopiju mapē</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Choose a backup</source>
+        <translation>Izvēlēties rezerves kopiju</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>DecoDXLog žurnāli (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">Visi faili (*)</translation>
+    </message>
+    <message numerus="yes">
+        <source>Log now: %1 · %n QSO · last %2</source>
+        <translation>
+            <numerusform>Žurnāls tagad: %1 · %n QSO · pēdējais %2</numerusform>
+            <numerusform>Žurnāls tagad: %1 · %n QSO · pēdējais %2</numerusform>
+            <numerusform>Žurnāls tagad: %1 · %n QSO · pēdējais %2</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>before a restore</source>
+        <translation>pirms atjaunošanas</translation>
+    </message>
+    <message>
+        <source>No copies in %1 yet.</source>
+        <translation>Vēl nav kopiju mapē %1.</translation>
+    </message>
+    <message>
+        <source>Choose another file…</source>
+        <translation>Izvēlēties citu failu…</translation>
+    </message>
+    <message>
+        <source>In this copy</source>
+        <translation>Šajā kopijā</translation>
+    </message>
+    <message>
+        <source>Choose a copy.</source>
+        <translation>Izvēlieties kopiju.</translation>
+    </message>
+    <message>
+        <source>Reading %1…</source>
+        <translation>Lasa %1…</translation>
+    </message>
+    <message>
+        <source>✗ It cannot be restored: %1</source>
+        <translation>✗ To nevar atjaunot: %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>✓ SQLite finds it sound · %n QSO, from %1 to %2 · %3</source>
+        <translation>
+            <numerusform>✓ SQLite to atrod veselu · %n QSO, no %1 līdz %2 · %3</numerusform>
+            <numerusform>✓ SQLite to atrod veselu · %n QSO, no %1 līdz %2 · %3</numerusform>
+            <numerusform>✓ SQLite to atrod veselu · %n QSO, no %1 līdz %2 · %3</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO fewer than the log now: the ones logged after this copy will not be in the restored log.</source>
+        <translation>
+            <numerusform>Par %n QSO mazāk nekā žurnālā tagad: pēc šīs kopijas ierakstītais nebūs atjaunotajā žurnālā.</numerusform>
+            <numerusform>Par %n QSO mazāk nekā žurnālā tagad: pēc šīs kopijas ierakstītie nebūs atjaunotajā žurnālā.</numerusform>
+            <numerusform>Par %n QSO mazāk nekā žurnālā tagad: pēc šīs kopijas ierakstītie nebūs atjaunotajā žurnālā.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO more than the log now.</source>
+        <translation>
+            <numerusform>Par %n QSO vairāk nekā žurnālā tagad.</numerusform>
+            <numerusform>Par %n QSO vairāk nekā žurnālā tagad.</numerusform>
+            <numerusform>Par %n QSO vairāk nekā žurnālā tagad.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>As many QSOs as the log now.</source>
+        <translation>Tikpat QSO, cik žurnālā tagad.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog restarts and puts the copy in place of the log before opening it. The log as it is now is saved first in the backup folder as decodxlog-before-restore-…, so nothing is lost: to go back, restore that one.</source>
+        <translation>DecoDXLog pārstartējas un pirms atvēršanas ieliek kopiju žurnāla vietā. Pašreizējais žurnāls vispirms tiek saglabāts rezerves kopiju mapē kā decodxlog-before-restore-…, tāpēc nekas netiek zaudēts: lai atgrieztos, atjaunojiet to.</translation>
+    </message>
+    <message>
+        <source>Confirm: restore and restart</source>
+        <translation>Apstiprināt: atjaunot un pārstartēt</translation>
+    </message>
+    <message>
+        <source>Restore and restart</source>
+        <translation>Atjaunot un pārstartēt</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Aizvērt</translation>
+    </message>
+</context>
+<context>
     <name>RotorCommandBar</name>
     <message>
         <source>STOP</source>
@@ -6182,6 +6352,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Izveidot kopiju tagad</translation>
     </message>
     <message>
+        <source>Restore a backup…</source>
+        <translation>Atjaunot rezerves kopiju…</translation>
+    </message>
+    <message>
         <source>A consistent copy made with SQLite VACUUM INTO, even while DecoDXLog is logging. If the PC is off at the chosen time, the copy is made as soon as DecoDXLog is open.</source>
         <translation>Vienota kopija, kas veidota ar SQLite VACUUM INTO, pat kamēr DecoDXLog ieraksta. Ja izvēlētajā laikā dators ir izslēgts, kopija tiek izveidota, tiklīdz DecoDXLog ir atvērts.</translation>
     </message>
@@ -6456,6 +6630,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>All years</source>
         <translation>Visi gadi</translation>
+    </message>
+    <message>
+        <source>Counting…</source>
+        <translation>Skaita…</translation>
     </message>
     <message>
         <source>Activity</source>
@@ -7681,8 +7859,16 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Birka „%1” noņemta %2 QSO</translation>
     </message>
     <message>
+        <source>An import is already running: wait for it to finish.</source>
+        <translation>Jau notiek importēšana: pagaidiet, līdz tā beigsies.</translation>
+    </message>
+    <message>
         <source>Cannot read %1: %2</source>
         <translation>Nevar nolasīt %1: %2</translation>
+    </message>
+    <message>
+        <source>Importing %1…</source>
+        <translation>Importē %1…</translation>
     </message>
     <message>
         <source>%1: %2 new, %3 duplicates, %4 rejected</source>
@@ -7701,6 +7887,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         </translation>
     </message>
     <message>
+        <source>Exporting to %1…</source>
+        <translation>Eksportē uz %1…</translation>
+    </message>
+    <message>
         <source>%1 · %2 MB</source>
         <translation>%1 · %2 MB</translation>
     </message>
@@ -7711,6 +7901,34 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>%1 → %2 (%3 MB)</source>
         <translation>%1 → %2 (%3 MB)</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation type="unfinished">%1 nav atrodams.</translation>
+    </message>
+    <message>
+        <source>There is no log file to restore over.</source>
+        <translation>Nav žurnāla faila, uz kuru atjaunot.</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>Kopija ir pats žurnāls.</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted to restore the backup.</source>
+        <translation>Programmu nevarēja pārstartēt, lai atjaunotu kopiju.</translation>
+    </message>
+    <message>
+        <source>Log restored from %1: %2 QSO</source>
+        <translation>Žurnāls atjaunots no %1: %2 QSO</translation>
+    </message>
+    <message>
+        <source>The log as it was before is saved in %1</source>
+        <translation>Iepriekšējais žurnāls ir saglabāts %1</translation>
+    </message>
+    <message>
+        <source>Restore not done: %1</source>
+        <translation>Atjaunošana nav veikta: %1</translation>
     </message>
     <message>
         <source>LoTW: the period starts after it ends</source>

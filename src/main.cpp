@@ -26,6 +26,8 @@
 #include <QSGRendererInterface>
 #include <QTimer>
 #include <QTranslator>
+
+#include <optional>
 #include <QSettings>
 #include <QStandardPaths>
 #include <QUrl>
@@ -544,6 +546,14 @@ int main(int argc, char* argv[])
     parser.addOption(d3d11Option);
     parser.addOption(d3d12Option);
     QCommandLineOption dbOption(QStringLiteral("db"), QStringLiteral("Log database file."), QStringLiteral("path"));
+    // Il ripristino di un backup: lo chiede la finestra "Ripristina", che
+    // riapre il programma con queste due opzioni.
+    QCommandLineOption restoreOption(QStringLiteral("restore-from"),
+                                     QStringLiteral("Put this backup in place of the log before opening it."),
+                                     QStringLiteral("file"));
+    QCommandLineOption restorePidOption(QStringLiteral("restore-wait-pid"),
+                                        QStringLiteral("Wait for this process to exit before restoring."),
+                                        QStringLiteral("pid"));
     QCommandLineOption portOption(QStringLiteral("port"), QStringLiteral("UDP port (overrides settings)."),
                                   QStringLiteral("port"));
     QCommandLineOption importOption(QStringLiteral("import"), QStringLiteral("Import an ADIF file at startup."),
@@ -603,6 +613,8 @@ int main(int argc, char* argv[])
     parser.addOption(themeOption);
     parser.addOption(showOption);
     parser.addOption(dbOption);
+    parser.addOption(restoreOption);
+    parser.addOption(restorePidOption);
     parser.addOption(importOption);
     parser.addOption(portOption);
     parser.process(app);
@@ -617,7 +629,16 @@ int main(int argc, char* argv[])
     decolog::startupTrace("controller begin");
     decolog::app::DecoLogController controller;
     decolog::startupTrace("controller ready; database begin");
+    // Un ripristino chiesto dal programma di prima: si fa qui, a log chiuso.
+    std::optional<decolog::core::logbackup::RestoreResult> restored;
+    if (parser.isSet(restoreOption)) {
+        restored = decolog::core::logbackup::restoreAfterExit(parser.value(restorePidOption).toLongLong(),
+                                                              parser.value(restoreOption), dbPath,
+                                                              controller.backupDir());
+    }
     controller.openDatabase(dbPath);
+    if (restored)
+        controller.reportRestore(*restored, parser.value(restoreOption));
     decolog::startupTrace("database ready; services begin");
     if (parser.isSet(portOption))
         controller.overrideUdpPort(parser.value(portOption).toInt());

@@ -76,6 +76,38 @@ private slots:
         QCOMPARE(db.workedRows(false, false, true).at(1).at(5).toInt(), 1);
     }
 
+    void theListIsPreparedElsewhereAndNothingOvertakesIt()
+    {
+        // Su un log grande l'elenco si prepara su un altro filo: il server
+        // aspetta, e un QSO arrivato nel frattempo parte dopo l'elenco, non
+        // prima (Decodium lo perderebbe sotto l'elenco vecchio).
+        DecoLinkServer server;
+        server.setIdentity("0.1.0", "IU8LMC");
+        std::function<void(const QList<QByteArray>&)> pending;
+        server.buildSnapshot = [&pending](std::function<void(const QList<QByteArray>&)> done) { pending = done; };
+        QVERIFY2(server.start(0), qPrintable(server.lastError()));
+        Client client;
+        QVERIFY(client.connectTo(server.port()));
+        QVERIFY(client.waitFor("hello"));
+        client.send({{"type", "hello"}, {"app", "Decodium"}, {"version", "1.0.638"}, {"protocol", 1}});
+        QTRY_VERIFY(pending);
+
+        server.broadcast(QJsonObject{{"type", "qso"}, {"call", "K1AB"}});
+        QVERIFY(!client.waitFor("qso", 300));   // trattenuto
+
+        pending(DecoLinkServer::snapshotLines({QJsonArray{"W1AW", "20m", "CW", "20260101", "FN31", 1}}));
+        const auto worked = client.waitFor("worked");
+        QVERIFY(worked);
+        QCOMPARE(worked->value("rows").toArray().size(), 1);
+        QVERIFY(worked->value("final").toBool());
+        const auto qso = client.waitFor("qso");
+        QVERIFY(qso);
+        QCOMPARE(qso->value("call").toString(), QString("K1AB"));
+        // E dopo, i messaggi passano subito.
+        server.broadcast(QJsonObject{{"type", "qso"}, {"call", "K2CD"}});
+        QVERIFY(client.waitFor("qso"));
+    }
+
     void conversation()
     {
         DecoLinkServer server;

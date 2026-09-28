@@ -1,3 +1,4 @@
+#include "../StartupTrace.h"
 #include "app/QslController.h"
 
 #include "core/CredentialStore.h"
@@ -6,6 +7,8 @@
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
+#include <QMetaObject>
+#include <QPointer>
 #include <QSettings>
 #include <QStandardPaths>
 #include <algorithm>
@@ -161,17 +164,73 @@ QString QslController::tqslStatus() const
     return tr("TQSL ready · %n station location(s)", nullptr, static_cast<int>(locations.size()));
 }
 
+bool QslController::backgroundReady() const
+{
+    return m_ctx.db && m_ctx.db->isOpen() && !m_ctx.db->path().isEmpty()
+           && m_ctx.db->path() != QLatin1String(":memory:");
+}
+
+void QslController::countsDirty()
+{
+    if (!backgroundReady() || m_countsScheduled)
+        return;
+    m_countsScheduled = true;
+    QMetaObject::invokeMethod(this, [this] { refreshCounts(); }, Qt::QueuedConnection);
+}
+
+void QslController::refreshCounts()
+{
+    m_countsScheduled = false;
+    if (!backgroundReady())
+        return;
+    const QString path = m_ctx.db->path();
+    QHash<QString, QDate> since;
+    for (const auto& info : kServices)
+        since.insert(QLatin1String(info.id), sinceFor(QLatin1String(info.id)));
+    const int generation = ++m_countGeneration;
+    QPointer<QslController> self(this);
+    m_countPool.start([self, path, since, generation] {
+        QHash<QString, int> pending;
+        QList<QVariantMap> summary;
+        {
+            LogDatabase db;
+            if (db.open(path)) {
+                summary = db.qslSummary();
+                for (auto it = since.cbegin(); it != since.cend(); ++it)
+                    pending.insert(it.key(), db.uploadPendingCount(it.key(), it.value()));
+            }
+        }
+        QMetaObject::invokeMethod(
+            self.data(), [self, pending, summary, generation] {
+                if (!self || generation != self->m_countGeneration)
+                    return;
+                self->m_pendingCounts = pending;
+                self->m_summaryRows = summary;
+                self->m_countsValid = true;
+                emit self->changed();
+            },
+            Qt::QueuedConnection);
+    });
+}
+
 QVariantList QslController::services() const
 {
+    decolog::StartupSpan trace("QslController::services");
     QVariantList out;
     if (!m_ctx.db || !m_ctx.db->isOpen())
         return out;
-    const QList<QVariantMap> summary = m_ctx.db->qslSummary();
+    // Su un log in un file i conti arrivano da un altro filo (refreshCounts):
+    // qui si leggono e basta. In memoria (le prove) si contano qui.
+    const bool cached = backgroundReady();
+    if (cached && !m_countsValid)
+        const_cast<QslController*>(this)->countsDirty();
+    const QList<QVariantMap> summary = cached ? m_summaryRows : m_ctx.db->qslSummary();
     for (const auto& info : kServices) {
         const QString id = QLatin1String(info.id);
         QVariantMap row{{QStringLiteral("id"), id},
                         {QStringLiteral("label"), QLatin1String(info.label)},
-                        {QStringLiteral("pending"), m_ctx.db->uploadPendingCount(id, sinceFor(id))},
+                        {QStringLiteral("pending"), cached ? m_pendingCounts.value(id, 0)
+                                                           : m_ctx.db->uploadPendingCount(id, sinceFor(id))},
                         {QStringLiteral("auto"), m_auto.value(id)},
                         {QStringLiteral("busy"), m_busyService == id},
                         {QStringLiteral("lastResult"), m_lastResult.value(id)}};
@@ -252,6 +311,7 @@ void QslController::setCrxLogId(qint64 id)
 
 void QslController::setCrxSince(const QString& date)
 {
+    countsDirty();
     const QDate d = QDate::fromString(date.trimmed(), Qt::ISODate);
     if (d == m_crxSince)
         return;
@@ -516,6 +576,7 @@ void QslController::uploadNextWeb()
 
 void QslController::markSent(qint64 id, const QString& service, const QslUploadResult& result)
 {
+    countsDirty();
     QslState state;
     state.service = service;
     // Anche il duplicato e' "inviato": il servizio ce l'ha.
@@ -544,6 +605,7 @@ void QslController::markSent(qint64 id, const QString& service, const QslUploadR
 
 void QslController::finishBatch(const QslUploadResult& result)
 {
+    countsDirty();
     const QString service = m_busyService;
     if (m_batchMode) {
         if (result.ok) {

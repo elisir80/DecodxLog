@@ -29,6 +29,7 @@
 #include "core/Countries.h"
 #include "core/DecoLinkServer.h"
 #include "core/CredentialStore.h"
+#include "core/LogBackup.h"
 #include "core/LogDatabase.h"
 #include "core/Lotw.h"
 #include "core/UdpReceiver.h"
@@ -41,6 +42,9 @@
 #include <QUrl>
 #include <QVariantList>
 #include <QVariantMap>
+
+#include <atomic>
+#include <memory>
 
 namespace decolog::app {
 
@@ -177,6 +181,8 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QString lotwCursor READ lotwCursor NOTIFY lotwChanged)
     Q_PROPERTY(int lotwAutoHours READ lotwAutoHours WRITE setLotwAutoHours NOTIFY lotwChanged)
 
+    // L'importazione ADIF gira su un altro filo: da 0 a 1 mentre va, -1 ferma.
+    Q_PROPERTY(double importProgress READ importProgress NOTIFY importChanged)
     // ── Backup ─────────────────────────────────────────────────────────────
     Q_PROPERTY(bool backupEnabled READ backupEnabled WRITE setBackupEnabled NOTIFY backupChanged)
     Q_PROPERTY(QString backupDir READ backupDir WRITE setBackupDir NOTIFY backupChanged)
@@ -354,6 +360,10 @@ public:
     // Gli anelli di terraferma, per la mappa azimutale del rotore.
     Q_INVOKABLE QVariantList landmasses() const;
 
+    // Tutte le statistiche della finestra in una volta, su un altro filo: su un
+    // log grande sono secondi, e la finestra non si deve fermare. Il risultato
+    // arriva con statsReady(), con mode e year di chi l'ha chiesto.
+    Q_INVOKABLE void requestStats(const QString& mode, int year);
     Q_INVOKABLE QStringList statsYears() const;
     Q_INVOKABLE QVariantMap statsSummary(const QString& mode = {}, int year = 0) const;
     Q_INVOKABLE QVariantList statsByYear(const QString& mode = {}) const;
@@ -421,6 +431,7 @@ public:
     Q_INVOKABLE void syncLotwRange(const QString& fromIso, const QString& toIso);
     Q_INVOKABLE void cancelLotw() { m_lotw.cancel(); }
 
+    double importProgress() const { return m_importProgress; }
     bool backupEnabled() const { return m_backupEnabled; }
     void setBackupEnabled(bool enabled);
     QString backupDir() const { return m_backupDir; }
@@ -490,6 +501,19 @@ public:
     // Dove portare la radio quando si sceglie banda e modo (MHz), 0 se non si sa.
     Q_INVOKABLE double bandFrequency(const QString& band, const QString& mode) const;
     Q_INVOKABLE void backupNow();
+    // Il ripristino. Le copie della cartella dei backup, dalla piu' recente:
+    // {path, name, when, size, safety}.
+    Q_INVOKABLE QVariantList backupFiles() const;
+    // Guarda dentro una copia su un altro filo; la risposta arriva con
+    // backupInspected(): {path, ok, problem, qsos, first, last, size, diff}.
+    Q_INVOKABLE void inspectBackup(const QString& pathOrUrl);
+    // Il log di adesso, per il confronto: {path, name, qsos, last}.
+    Q_INVOKABLE QVariantMap currentLogInfo() const;
+    // Riapre il programma con --restore-from: la copia si rimette all'avvio, a
+    // log chiuso. Torna un errore, o non torna.
+    Q_INVOKABLE QString restoreBackup(const QString& pathOrUrl);
+    // All'avvio, dopo un ripristino: com'e' andata, nel registro attivita'.
+    void reportRestore(const core::logbackup::RestoreResult& result, const QString& backup);
     // Completa DXCC, paese, zone e continente dei QSO che non li hanno. Ogni QSO
     // modificato diventa una nuova revisione. Restituisce quanti ne ha completati.
     Q_INVOKABLE int fillMissingDxcc();
@@ -521,6 +545,9 @@ signals:
     void tuningChanged();
     void stationChanged();
     void backupChanged();
+    void importChanged();
+    void backupInspected(const QVariantMap& info);
+    void statsReady(const QVariantMap& stats);
     void cloudChanged();
     void countriesChanged();
     void callbookChanged();
@@ -675,7 +702,25 @@ private:
     mutable Counts m_counts;
     QTimer m_countsTimer;
     QThreadPool m_countsPool;
+    QThreadPool m_backupPool;
+    QThreadPool m_linkPool;
+    QThreadPool m_importPool;
+    QThreadPool m_statsViewPool;
+    // L'ultima richiesta di statistiche: le altre, ancora in coda, si saltano.
+    std::shared_ptr<std::atomic<int>> m_statsLatest{std::make_shared<std::atomic<int>>(0)};
+    double m_importProgress{-1};
+    void finishImport(const QString& path, const core::ImportResult& result);
+    // Esportare su un altro filo: su un log da un milione sono decine di secondi.
+    void exportInBackground(const QList<qint64>& ids, bool all, const QString& path);
+    bool m_backupRunning{false};
+    void finishBackup(const QString& path, const QString& error);
     void ensureCounts() const;
+    // Il log sta in un file e si puo' leggere da un altro filo (non ":memory:").
+    bool backgroundReady() const;
+    // Diplomi, FT2, bande e modi da ricontare su un altro filo, una volta sola
+    // anche se li chiedono dieci getter di seguito.
+    void scheduleStatsRefresh() const;
+    mutable bool m_statsRefreshScheduled{false};
     QString      m_lookupCall;
     QVariantMap  m_callInfo;
 

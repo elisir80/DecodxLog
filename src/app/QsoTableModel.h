@@ -1,14 +1,18 @@
 // DecoDXLog — la tabella del log, per il TableView QML.
 //
-// Tiene in memoria solo le colonne mostrate, dalla piu' recente. Un log di
-// centomila QSO occupa qualche decina di megabyte e si scorre senza query a
-// ogni riga; quando serviranno log piu' grandi si passera' a una finestra
-// caricata a pagine, senza cambiare l'interfaccia verso il QML.
+// In memoria ci sono solo gli id delle righe, nell'ordine della tabella: filtri
+// e ordine li fa SQLite. I valori si leggono a pagine di duecento righe quando
+// la tabella li chiede, e se ne tengono poche decine: un log da un milione di
+// QSO si apre in un secondo e occupa qualche megabyte, non un gigabyte.
 #pragma once
 
 #include <QAbstractTableModel>
 #include <QHash>
+#include <QList>
 #include <QSet>
+#include <QThreadPool>
+
+#include <array>
 #include <QString>
 #include <QStringList>
 #include <QVariantList>
@@ -61,6 +65,15 @@ public:
     // oppure un gia' lavorato. Il nome e' la chiave del colore (colorNewDxcc…).
     static QStringList categoryKeys();
 
+    // Il risultato della conta delle categorie di tutto il log.
+    struct CategoryPass {
+        QHash<qint64, quint8> category;
+        QSet<quint64> seen[12];
+        QString lastOn;
+        qint64 lastId{0};
+        bool valid{false};
+    };
+
     explicit QsoTableModel(decolog::core::LogDatabase* db, QObject* parent = nullptr);
 
     int rowCount(const QModelIndex& parent = {}) const override;
@@ -69,7 +82,7 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
 
-    int count() const { return static_cast<int>(m_rows.size()); }
+    int count() const { return static_cast<int>(m_ids.size()); }
     int totalCount() const { return m_total; }
     QString filterText() const { return m_filter; }
     void setFilterText(const QString& text);
@@ -143,16 +156,28 @@ signals:
     void sortChanged();
 
 private:
-    QHash<qint64, QString> m_category;
+    // La categoria di ogni QSO, come posizione in categoryKeys(): un byte, non
+    // una stringa, per un milione di righe.
+    QHash<qint64, quint8> m_category;
     QString m_sortKey{QStringLiteral("utc")};
     bool m_sortAscending{false};
     bool defaultSort() const { return m_sortKey == QLatin1String("utc") && !m_sortAscending; }
-    void applySort();
+    // Filtri e ordine come SQL.
+    QString whereSql(QVariantList& binds) const;
+    QString orderSql() const;
     QString m_categorySignature;   // il log com'era quando si sono contate
     // Quello che si e' gia' visto, per le categorie di un QSO nuovo senza
     // ricontare il log: entita', continente, zone, locatore, nominativo, da
-    // soli e per banda. Valgono per i QSO piu' recenti dell'ultimo contato.
-    mutable QSet<QString> m_seen[12];
+    // soli e per banda, come impronte. Valgono per i QSO piu' recenti
+    // dell'ultimo contato.
+    mutable QSet<quint64> m_seen[12];
+    void adoptCategories(CategoryPass&& pass);
+    // Su un log in un file la conta gira su un altro filo; i QSO arrivati nel
+    // frattempo si guardano quando finisce.
+    QThreadPool m_categoryPool;
+    int m_categoryGeneration{0};
+    bool m_categoryRunning{false};
+    mutable QList<qint64> m_categoryLater;
     mutable QString m_seenLastOn;
     mutable qint64 m_seenLastId{0};
     mutable bool m_seenValid{false};
@@ -164,8 +189,10 @@ private:
         // Le colonne mostrate che non sono fra quelle di sempre, nell'ordine
         // di m_extra.
         QStringList extra;
-        bool    fresh{false};
     };
+    // La riga in quella posizione, letta con la sua pagina se non c'e' gia'.
+    const Row* rowAt(int row) const;
+    void dropPages();
 
     QString selectSql(const QString& where) const;
     // Le categorie di tutto il log in una volta (reload), o di un QSO solo.
@@ -183,7 +210,14 @@ private:
     void rebuildSlots();
 
     decolog::core::LogDatabase* m_db;
-    QVector<Row> m_rows;
+    // Le righe mostrate, nell'ordine della tabella.
+    QVector<qint64> m_ids;
+    // Evidenziata: l'ultima arrivata, quella che l'operatore cerca con lo sguardo.
+    qint64 m_freshId{0};
+    // Le pagine lette, e l'ordine in cui sono state usate (la prima e' la
+    // prima a uscire).
+    mutable QHash<int, QVector<Row>> m_pages;
+    mutable QList<int> m_pageUse;
     QStringList m_layout;
     QStringList m_extra;        // le chiavi mostrate che non sono di sempre
     QVector<Slot> m_slots;

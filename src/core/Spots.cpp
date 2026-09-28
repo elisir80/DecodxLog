@@ -385,19 +385,15 @@ void LogIndex::clear()
 void LogIndex::rebuild(const LogDatabase& db, bool confirmLotw, bool confirmCard, bool confirmEqsl)
 {
     clear();
+    // Le conferme in una query, non una per QSO.
+    const QSet<qint64> confirmedSet = db.confirmedIds(confirmLotw, confirmCard, confirmEqsl);
     QSqlQuery q(db.connection());
     q.setForwardOnly(true);
-    q.prepare(QStringLiteral(
-        "SELECT call, band, CASE WHEN IFNULL(submode, '') = '' OR mode = 'SSB' THEN mode ELSE submode END, "
-        "IFNULL(dxcc, 0), "
-        "EXISTS (SELECT 1 FROM qsl_status s WHERE s.qso_id = qso.id AND s.rcvd = 'Y' AND ("
-        "  (s.service = 'lotw' AND ?) OR (s.service = 'card' AND ?) OR (s.service = 'eqsl' AND ?))), "
-        "IFNULL(cqz, 0), IFNULL(iota, ''), IFNULL(pota_ref, ''), IFNULL(sota_ref, ''), IFNULL(wwff_ref, '') "
-        "FROM qso WHERE deleted = 0"));
-    q.addBindValue(confirmLotw ? 1 : 0);
-    q.addBindValue(confirmCard ? 1 : 0);
-    q.addBindValue(confirmEqsl ? 1 : 0);
-    if (!q.exec())
+    if (!q.exec(QStringLiteral(
+            "SELECT call, band, CASE WHEN IFNULL(submode, '') = '' OR mode = 'SSB' THEN mode ELSE submode END, "
+            "IFNULL(dxcc, 0), id, "
+            "IFNULL(cqz, 0), IFNULL(iota, ''), IFNULL(pota_ref, ''), IFNULL(sota_ref, ''), IFNULL(wwff_ref, '') "
+            "FROM qso NOT INDEXED WHERE deleted = 0")))
         return;
     const QLatin1Char sep('|');
     while (q.next()) {
@@ -405,6 +401,7 @@ void LogIndex::rebuild(const LogDatabase& db, bool confirmLotw, bool confirmCard
         const QString band = q.value(1).toString();
         const QString mode = spots::modeKey(q.value(2).toString());
         const int dxcc = q.value(3).toInt();
+        const bool confirmed = confirmedSet.contains(q.value(4).toLongLong());
         m_calls.insert(call);
         m_callBand.insert(call + sep + band);
         m_callBandMode.insert(call + sep + band + sep + mode);
@@ -414,7 +411,7 @@ void LogIndex::rebuild(const LogDatabase& db, bool confirmLotw, bool confirmCard
             m_dxccBand.insert(d + sep + band);
             m_dxccMode.insert(d + sep + mode);
             m_dxccSlot.insert(d + sep + band + sep + mode);
-            if (q.value(4).toBool())
+            if (confirmed)
                 m_dxccConfirmed.insert(dxcc);
         }
         if (const int zone = q.value(5).toInt(); zone > 0)
@@ -422,7 +419,7 @@ void LogIndex::rebuild(const LogDatabase& db, bool confirmLotw, bool confirmCard
         const QString iota = q.value(6).toString().trimmed().toUpper();
         if (!iota.isEmpty()) {
             m_iota.insert(iota);
-            if (q.value(4).toBool())
+            if (confirmed)
                 m_iotaConfirmed.insert(iota);
         }
         // POTA puo' avere piu' parchi in una volta: "IT-0001,IT-0002".

@@ -1,3 +1,4 @@
+#include "../StartupTrace.h"
 #include "app/QslCardController.h"
 
 #include "core/CredentialStore.h"
@@ -80,6 +81,7 @@ QslCardController::QslCardController(Context context, QObject* parent)
 
 QVariantList QslCardController::rows(const QString& state, int limit) const
 {
+    decolog::StartupSpan trace("QslCardController::rows");
     QVariantList out;
     if (!m_ctx.db || !m_ctx.db->isOpen())
         return out;
@@ -90,21 +92,13 @@ QVariantList QslCardController::rows(const QString& state, int limit) const
 
 QVariantMap QslCardController::counts() const
 {
-    QVariantMap out{{QStringLiteral("queue"), 0}, {QStringLiteral("sent"), 0},
-                    {QStringLiteral("received"), 0}, {QStringLiteral("unanswered"), 0}};
+    decolog::StartupSpan trace("QslCardController::counts");
     if (!m_ctx.db || !m_ctx.db->isOpen())
-        return out;
-    out[QStringLiteral("queue")] = static_cast<int>(m_ctx.db->cardRows(QStringLiteral("queue")).size());
-    out[QStringLiteral("sent")] = static_cast<int>(m_ctx.db->cardRows(QStringLiteral("sent")).size());
-    const QList<QVariantMap> received = m_ctx.db->cardRows(QStringLiteral("received"));
-    out[QStringLiteral("received")] = static_cast<int>(received.size());
-    int unanswered = 0;
-    for (const QVariantMap& row : received) {
-        if (row.value(QStringLiteral("sent")).toString() != QLatin1String("Y"))
-            ++unanswered;
-    }
-    out[QStringLiteral("unanswered")] = unanswered;
-    return out;
+        return QVariantMap{{QStringLiteral("queue"), 0}, {QStringLiteral("sent"), 0},
+                           {QStringLiteral("received"), 0}, {QStringLiteral("unanswered"), 0}};
+    // Contate da SQLite: leggere tutte le cartoline per contarle, su un log
+    // grande, era un secondo a ogni sguardo al pannello.
+    return m_ctx.db->cardCounts();
 }
 
 QVariantList QslCardController::sheets() const

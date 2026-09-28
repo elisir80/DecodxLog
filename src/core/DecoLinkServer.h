@@ -41,6 +41,10 @@ public:
         QString version;
         QString station;
         bool    greeted{false};
+        // L'elenco del log si sta preparando: quello che arriva nel frattempo
+        // aspetta, e parte dopo l'elenco.
+        int     snapshotsPending{0};
+        QList<QByteArray> held;
     };
 
     explicit DecoLinkServer(QObject* parent = nullptr);
@@ -48,6 +52,11 @@ public:
 
     // Chi usa il server fornisce i dati.
     std::function<QList<QJsonArray>()> workedRows;               // tutte le righe [call, band, mode, date, grid, conf]
+    // L'elenco preparato altrove (un altro filo, con una sua connessione al
+    // log): chi lo fornisce chiama `done` sul filo del server con le righe gia'
+    // pronte da scrivere (snapshotLines). Senza, si usa workedRows qui, e su un
+    // log da un milione il programma resterebbe fermo mezzo minuto.
+    std::function<void(std::function<void(const QList<QByteArray>&)> done)> buildSnapshot;
     std::function<QJsonObject()> awardState;                      // {"ft2":{...},"dxcc":{...}}
     std::function<QJsonArray(const QJsonObject& query)> resolveQuery;
 
@@ -71,6 +80,10 @@ public:
     // Il log e' cambiato in blocco (import, correzioni): elenco di nuovo a tutti.
     void resendSnapshot();
 
+    // Le righe "worked" dell'elenco, a blocchi di kChunkRows, ognuna con il suo
+    // a capo: si possono preparare su un altro filo.
+    static QList<QByteArray> snapshotLines(const QList<QJsonArray>& rows);
+
 signals:
     void clientsChanged();
     void listeningChanged();
@@ -83,6 +96,7 @@ private:
     void handleMessage(QTcpSocket* socket, const QJsonObject& message);
     void send(QTcpSocket* socket, const QJsonObject& message);
     void sendSnapshot(QTcpSocket* socket);
+    void finishSnapshot(QTcpSocket* socket, const QList<QByteArray>& lines);
 
     QTcpServer* m_server{nullptr};
     QHash<QTcpSocket*, ClientInfo> m_clients;

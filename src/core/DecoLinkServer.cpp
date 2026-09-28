@@ -1,6 +1,7 @@
 #include "core/DecoLinkServer.h"
 
 #include <QJsonDocument>
+#include <QPointer>
 #include <QTcpServer>
 #include <QTcpSocket>
 
@@ -193,27 +194,56 @@ void DecoLinkServer::handleMessage(QTcpSocket* socket, const QJsonObject& messag
     // Tipi sconosciuti: ignorati, per compatibilita' con le versioni future.
 }
 
-void DecoLinkServer::sendSnapshot(QTcpSocket* socket)
+QList<QByteArray> DecoLinkServer::snapshotLines(const QList<QJsonArray>& rows)
 {
-    QList<QJsonArray> rows = workedRows ? workedRows() : QList<QJsonArray>{};
+    QList<QByteArray> lines;
     int seq = 0;
     qsizetype i = 0;
     do {
         QJsonArray chunk;
         for (int n = 0; n < kChunkRows && i < rows.size(); ++n, ++i)
             chunk.append(rows.at(i));
-        send(socket, QJsonObject{
-            {QStringLiteral("type"), QStringLiteral("worked")},
-            {QStringLiteral("seq"), ++seq},
-            {QStringLiteral("final"), i >= rows.size()},
-            {QStringLiteral("rows"), chunk},
-        });
+        lines << QJsonDocument(QJsonObject{
+                                   {QStringLiteral("type"), QStringLiteral("worked")},
+                                   {QStringLiteral("seq"), ++seq},
+                                   {QStringLiteral("final"), i >= rows.size()},
+                                   {QStringLiteral("rows"), chunk},
+                               })
+                         .toJson(QJsonDocument::Compact)
+                     + '\n';
     } while (i < rows.size());
+    return lines;
+}
 
+void DecoLinkServer::sendSnapshot(QTcpSocket* socket)
+{
+    if (buildSnapshot) {
+        ++m_clients[socket].snapshotsPending;
+        QPointer<QTcpSocket> guard(socket);
+        buildSnapshot([this, guard](const QList<QByteArray>& lines) {
+            if (guard && m_clients.contains(guard.data()))
+                finishSnapshot(guard.data(), lines);
+        });
+        return;
+    }
+    finishSnapshot(socket, snapshotLines(workedRows ? workedRows() : QList<QJsonArray>{}));
+}
+
+void DecoLinkServer::finishSnapshot(QTcpSocket* socket, const QList<QByteArray>& lines)
+{
+    for (const QByteArray& line : lines)
+        socket->write(line);
     if (awardState) {
         QJsonObject award = awardState();
         award.insert(QStringLiteral("type"), QStringLiteral("award"));
         send(socket, award);
+    }
+    // Quello che e' arrivato mentre l'elenco si preparava, adesso, in ordine.
+    ClientInfo& info = m_clients[socket];
+    if (info.snapshotsPending > 0 && --info.snapshotsPending == 0) {
+        for (const QByteArray& line : std::as_const(info.held))
+            socket->write(line);
+        info.held.clear();
     }
 }
 
@@ -225,8 +255,12 @@ void DecoLinkServer::send(QTcpSocket* socket, const QJsonObject& message)
 void DecoLinkServer::broadcast(const QJsonObject& message)
 {
     const QByteArray line = QJsonDocument(message).toJson(QJsonDocument::Compact) + '\n';
-    for (auto it = m_clients.cbegin(); it != m_clients.cend(); ++it) {
-        if (it.value().greeted)
+    for (auto it = m_clients.begin(); it != m_clients.end(); ++it) {
+        if (!it.value().greeted)
+            continue;
+        if (it.value().snapshotsPending > 0)
+            it.value().held << line;
+        else
             it.key()->write(line);
     }
 }

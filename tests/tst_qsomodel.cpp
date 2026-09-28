@@ -3,7 +3,9 @@
 #include "app/QsoTableModel.h"
 #include "core/LogDatabase.h"
 
+#include <QTemporaryDir>
 #include <QTest>
+#include <QTimeZone>
 
 using namespace decolog::core;
 using decolog::app::QsoTableModel;
@@ -79,6 +81,46 @@ private slots:
         const qint64 fresh2 = add("JA1YY", "20260107", "15m", "339", "PM96");
         m.insertQso(fresh2);
         QCOMPARE(category(fresh2), QString("colorNewGrid"));
+
+        // Uno scritto dopo con l'ora di prima: si guarda cosa c'era prima di lui.
+        const qint64 older = add("VK2AA", "20251231", "20m", "150", "QF56");
+        m.insertQso(older);
+        QCOMPARE(category(older), QString("colorNewDxcc"));
+        const qint64 olderSame = add("W9XYZ", "20260101", "40m", "291", "FN42");
+        m.insertQso(olderSame);
+        QCOMPARE(category(olderSame), QString("colorNewDxccBand"));
+    }
+
+    // Su un log in un file le categorie si contano su un altro filo: la
+    // tabella c'e' subito, i colori arrivano poco dopo, anche per un QSO
+    // arrivato mentre si contava.
+    void categoriesOfAFileLogArriveLater()
+    {
+        QTemporaryDir dir;
+        LogDatabase db;
+        QVERIFY(db.open(dir.filePath("log.sqlite")));
+        auto add = [&db](const char* call, const char* date, const char* band, const char* dxcc) {
+            return db.insertQso({{"CALL", call}, {"QSO_DATE", date}, {"TIME_ON", "1200"}, {"BAND", band},
+                                 {"MODE", "FT8"}, {"DXCC", dxcc}, {"GRIDSQUARE", "FN42"}}, "import").id;
+        };
+        const qint64 first = add("K1ABC", "20260101", "20m", "291");
+        const qint64 sameBand = add("W1AW", "20260102", "20m", "291");
+        QsoTableModel m(&db);
+        QCOMPARE(m.count(), 2);
+        // Un QSO nuovo subito, mentre la conta gira.
+        const qint64 fresh = add("JA1XX", "20260106", "15m", "339");
+        m.insertQso(fresh);
+        auto category = [&m](qint64 id) {
+            const int r = m.rowForId(id);
+            return r < 0 ? QString() : m.data(m.index(r, 0), QsoTableModel::CategoryRole).toString();
+        };
+        QTRY_COMPARE(category(first), QString("colorNewDxcc"));
+        QCOMPARE(category(sameBand), QString("colorNewCall"));
+        QTRY_COMPARE(category(fresh), QString("colorNewDxcc"));
+        // E dopo, un QSO nuovo si conta da solo, subito.
+        const qint64 next = add("JA1YY", "20260107", "15m", "339");
+        m.insertQso(next);
+        QCOMPARE(category(next), QString("colorNewCall"));
     }
 
     // Un clic sull'intestazione: si ordina per quella colonna, e di nuovo al contrario.
@@ -234,6 +276,66 @@ private slots:
         // Senza il nominativo non si resta: torna da solo.
         m.setColumnLayout({"band"});
         QCOMPARE(m.columnLayout(), QStringList({"call", "band"}));
+    }
+
+    // Un log grande si legge a pagine: in memoria gli id, i valori quando si
+    // guardano. Dodicimila QSO sono sessanta pagine, piu' di quelle tenute:
+    // scorrendo tutta la tabella le prime escono e si rileggono.
+    void aBigLogIsReadInPages()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        QByteArray adif;
+        const QDateTime start(QDate(2020, 1, 1), QTime(0, 0), QTimeZone::UTC);
+        for (int i = 0; i < 12000; ++i) {
+            const QDateTime on = start.addSecs(i * 60LL);
+            const QByteArray call = "DL" + QByteArray::number(i).rightJustified(5, '0');
+            adif += "<CALL:" + QByteArray::number(call.size()) + ">" + call + "<QSO_DATE:8>"
+                    + on.toString("yyyyMMdd").toLatin1() + "<TIME_ON:4>" + on.toString("HHmm").toLatin1()
+                    + "<BAND:3>20m<MODE:3>FT8<EOR>";
+        }
+        QCOMPARE(db.importAdif(adif).inserted, 12000);
+
+        QsoTableModel m(&db);
+        QCOMPARE(m.count(), 12000);
+        // Dal piu' recente: l'ultimo nominativo in cima, il primo in fondo.
+        QCOMPARE(m.callAt(0), QString("DL11999"));
+        QCOMPARE(m.callAt(11999), QString("DL00000"));
+        // Tutta la tabella, in ordine, pagina dopo pagina.
+        for (int r = 0; r < m.count(); r += 37)
+            QCOMPARE(m.callAt(r), QStringLiteral("DL%1").arg(11999 - r, 5, 10, QLatin1Char('0')));
+        // E di nuovo in cima, dopo che le prime pagine sono uscite.
+        QCOMPARE(m.data(m.index(1, 1)).toString(), QString("DL11998"));
+
+        // L'ordine lo fa SQLite, anche fra una pagina e l'altra.
+        m.sortBy("call");
+        QCOMPARE(m.callAt(0), QString("DL00000"));
+        QCOMPARE(m.callAt(5000), QString("DL05000"));
+        m.setSort("utc", false);
+
+        // Un QSO nuovo va in cima ed e' l'unico evidenziato; la riga di prima si
+        // trova ancora.
+        const InsertResult r = db.insertQso({{"CALL", "ZZ9ZZ"}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1200"},
+                                             {"BAND", "20m"}, {"MODE", "FT8"}}, "manual");
+        QCOMPARE(r.status, InsertResult::Status::Inserted);
+        m.insertQso(r.id);
+        QCOMPARE(m.count(), 12001);
+        QCOMPARE(m.callAt(0), QString("ZZ9ZZ"));
+        QVERIFY(m.data(m.index(0, 0), QsoTableModel::IsNewRole).toBool());
+        QVERIFY(!m.data(m.index(1, 0), QsoTableModel::IsNewRole).toBool());
+        QCOMPARE(m.callAt(1), QString("DL11999"));
+        QCOMPARE(m.rowForId(r.id), 0);
+        // Uno scritto a mano con l'ora di prima va al suo posto.
+        const InsertResult old = db.insertQso({{"CALL", "OLD1"}, {"QSO_DATE", "20200101"}, {"TIME_ON", "0030"},
+                                               {"BAND", "20m"}, {"MODE", "CW"}}, "manual");
+        m.insertQso(old.id);
+        QCOMPARE(m.callAt(m.rowForId(old.id)), QString("OLD1"));
+        QCOMPARE(m.callAt(m.rowForId(old.id) + 1), QString("DL00030"));
+        QVERIFY(!m.data(m.index(0, 0), QsoTableModel::IsNewRole).toBool());
+        // I filtri anche.
+        m.setFilterText("DL0001");
+        QCOMPARE(m.count(), 10);
+        QCOMPARE(m.callAt(0), QString("DL00019"));
     }
 };
 

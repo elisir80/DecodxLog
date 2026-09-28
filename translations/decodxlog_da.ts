@@ -2332,6 +2332,65 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
+    <name>LogBackup</name>
+    <message>
+        <source>The file is not there.</source>
+        <translation>Filen er der ikke.</translation>
+    </message>
+    <message>
+        <source>SQLite cannot open it: %1</source>
+        <translation>SQLite kan ikke åbne den: %1</translation>
+    </message>
+    <message>
+        <source>It is not a SQLite database: %1</source>
+        <translation>Det er ikke en SQLite-database: %1</translation>
+    </message>
+    <message>
+        <source>SQLite finds it damaged: %1</source>
+        <translation>SQLite finder den beskadiget: %1</translation>
+    </message>
+    <message>
+        <source>It is not a DecoDXLog log.</source>
+        <translation>Det er ikke en DecoDXLog-log.</translation>
+    </message>
+    <message>
+        <source>The QSOs cannot be read: %1</source>
+        <translation>QSO&apos;erne kan ikke læses: %1</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>Kopien er selve loggen.</translation>
+    </message>
+    <message>
+        <source>The backup cannot be used: %1</source>
+        <translation>Kopien kan ikke bruges: %1</translation>
+    </message>
+    <message>
+        <source>The log as it is now could not be saved to %1: nothing was changed.</source>
+        <translation>Loggen, som den er nu, kunne ikke gemmes i %1: intet er ændret.</translation>
+    </message>
+    <message>
+        <source>The backup could not be copied next to the log: nothing was changed.</source>
+        <translation>Kopien kunne ikke lægges ved siden af loggen: intet er ændret.</translation>
+    </message>
+    <message>
+        <source>The copied backup does not read back the same: nothing was changed.</source>
+        <translation>Den kopierede kopi læses ikke ens igen: intet er ændret.</translation>
+    </message>
+    <message>
+        <source>The log is still in use by another program: nothing was changed.</source>
+        <translation>Loggen bruges stadig af et andet program: intet er ændret.</translation>
+    </message>
+    <message>
+        <source>The backup could not take the place of the log; the log as it was is back.</source>
+        <translation>Kopien kunne ikke tage loggens plads; loggen, som den var, er tilbage.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog did not close in time: the log was not touched.</source>
+        <translation>DecoDXLog lukkede ikke i tide: loggen er ikke rørt.</translation>
+    </message>
+</context>
+<context>
     <name>LogColors</name>
     <message>
         <source>New DXCC</source>
@@ -2419,6 +2478,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>%1 selected</source>
         <translation>%1 valgt</translation>
+    </message>
+    <message>
+        <source>Importing %1%</source>
+        <translation>Importerer %1%</translation>
     </message>
     <message>
         <source>%1 QSO · %2 shown</source>
@@ -4579,6 +4642,108 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
+    <name>RestoreBackupDialog</name>
+    <message>
+        <source>Restore a backup</source>
+        <translation>Gendan en sikkerhedskopi</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n cop(ies) in the backup folder</source>
+        <translation>
+            <numerusform>%n kopi i mappen med sikkerhedskopier</numerusform>
+            <numerusform>%n kopier i mappen med sikkerhedskopier</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Choose a backup</source>
+        <translation>Vælg en sikkerhedskopi</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>DecoDXLog-logge (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">Alle filer (*)</translation>
+    </message>
+    <message numerus="yes">
+        <source>Log now: %1 · %n QSO · last %2</source>
+        <translation>
+            <numerusform>Log nu: %1 · %n QSO · seneste %2</numerusform>
+            <numerusform>Log nu: %1 · %n QSO · seneste %2</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>before a restore</source>
+        <translation>før en gendannelse</translation>
+    </message>
+    <message>
+        <source>No copies in %1 yet.</source>
+        <translation>Endnu ingen kopier i %1.</translation>
+    </message>
+    <message>
+        <source>Choose another file…</source>
+        <translation>Vælg en anden fil…</translation>
+    </message>
+    <message>
+        <source>In this copy</source>
+        <translation>I denne kopi</translation>
+    </message>
+    <message>
+        <source>Choose a copy.</source>
+        <translation>Vælg en kopi.</translation>
+    </message>
+    <message>
+        <source>Reading %1…</source>
+        <translation>Læser %1…</translation>
+    </message>
+    <message>
+        <source>✗ It cannot be restored: %1</source>
+        <translation>✗ Kan ikke gendannes: %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>✓ SQLite finds it sound · %n QSO, from %1 to %2 · %3</source>
+        <translation>
+            <numerusform>✓ I orden for SQLite · %n QSO, fra %1 til %2 · %3</numerusform>
+            <numerusform>✓ I orden for SQLite · %n QSO, fra %1 til %2 · %3</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO fewer than the log now: the ones logged after this copy will not be in the restored log.</source>
+        <translation>
+            <numerusform>%n QSO færre end loggen nu: den, der er logget efter denne kopi, kommer ikke med i den gendannede log.</numerusform>
+            <numerusform>%n QSO færre end loggen nu: dem, der er logget efter denne kopi, kommer ikke med i den gendannede log.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO more than the log now.</source>
+        <translation>
+            <numerusform>%n QSO flere end loggen nu.</numerusform>
+            <numerusform>%n QSO flere end loggen nu.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>As many QSOs as the log now.</source>
+        <translation>Lige så mange QSO&apos;er som loggen nu.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog restarts and puts the copy in place of the log before opening it. The log as it is now is saved first in the backup folder as decodxlog-before-restore-…, so nothing is lost: to go back, restore that one.</source>
+        <translation>DecoDXLog genstarter og lægger kopien i loggens sted, før den åbnes. Loggen, som den er nu, gemmes først i mappen med sikkerhedskopier som decodxlog-before-restore-…, så intet går tabt: for at gå tilbage gendanner du den.</translation>
+    </message>
+    <message>
+        <source>Confirm: restore and restart</source>
+        <translation>Bekræft: gendan og genstart</translation>
+    </message>
+    <message>
+        <source>Restore and restart</source>
+        <translation>Gendan og genstart</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Luk</translation>
+    </message>
+</context>
+<context>
     <name>RotorCommandBar</name>
     <message>
         <source>STOP</source>
@@ -6168,6 +6333,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Lav en kopi nu</translation>
     </message>
     <message>
+        <source>Restore a backup…</source>
+        <translation>Gendan en sikkerhedskopi…</translation>
+    </message>
+    <message>
         <source>A consistent copy made with SQLite VACUUM INTO, even while DecoDXLog is logging. If the PC is off at the chosen time, the copy is made as soon as DecoDXLog is open.</source>
         <translation>En sammenhængende kopi lavet med SQLite VACUUM INTO, også mens DecoDXLog logger. Er pc&apos;en slukket på det valgte tidspunkt, laves kopien, så snart DecoDXLog er åben.</translation>
     </message>
@@ -6442,6 +6611,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>All years</source>
         <translation>Alle år</translation>
+    </message>
+    <message>
+        <source>Counting…</source>
+        <translation>Tæller…</translation>
     </message>
     <message>
         <source>Activity</source>
@@ -7655,8 +7828,16 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Mærkatet &quot;%1&quot; fjernet fra %2 QSO</translation>
     </message>
     <message>
+        <source>An import is already running: wait for it to finish.</source>
+        <translation>Der kører allerede en import: vent, til den er færdig.</translation>
+    </message>
+    <message>
         <source>Cannot read %1: %2</source>
         <translation>Kan ikke læse %1: %2</translation>
+    </message>
+    <message>
+        <source>Importing %1…</source>
+        <translation>Importerer %1…</translation>
     </message>
     <message>
         <source>%1: %2 new, %3 duplicates, %4 rejected</source>
@@ -7674,6 +7855,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         </translation>
     </message>
     <message>
+        <source>Exporting to %1…</source>
+        <translation>Eksporterer til %1…</translation>
+    </message>
+    <message>
         <source>%1 · %2 MB</source>
         <translation>%1 · %2 MB</translation>
     </message>
@@ -7684,6 +7869,34 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>%1 → %2 (%3 MB)</source>
         <translation>%1 → %2 (%3 MB)</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation type="unfinished">%1 er der ikke.</translation>
+    </message>
+    <message>
+        <source>There is no log file to restore over.</source>
+        <translation>Der er ingen logfil at gendanne over.</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>Kopien er selve loggen.</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted to restore the backup.</source>
+        <translation>Programmet kunne ikke genstarte for at gendanne kopien.</translation>
+    </message>
+    <message>
+        <source>Log restored from %1: %2 QSO</source>
+        <translation>Log gendannet fra %1: %2 QSO</translation>
+    </message>
+    <message>
+        <source>The log as it was before is saved in %1</source>
+        <translation>Loggen, som den var før, er gemt i %1</translation>
+    </message>
+    <message>
+        <source>Restore not done: %1</source>
+        <translation>Gendannelse ikke udført: %1</translation>
     </message>
     <message>
         <source>LoTW: the period starts after it ends</source>

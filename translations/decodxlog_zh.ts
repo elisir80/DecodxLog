@@ -2326,6 +2326,65 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     </message>
 </context>
 <context>
+    <name>LogBackup</name>
+    <message>
+        <source>The file is not there.</source>
+        <translation>文件不存在。</translation>
+    </message>
+    <message>
+        <source>SQLite cannot open it: %1</source>
+        <translation>SQLite 无法打开它：%1</translation>
+    </message>
+    <message>
+        <source>It is not a SQLite database: %1</source>
+        <translation>这不是 SQLite 数据库：%1</translation>
+    </message>
+    <message>
+        <source>SQLite finds it damaged: %1</source>
+        <translation>SQLite 发现它已损坏：%1</translation>
+    </message>
+    <message>
+        <source>It is not a DecoDXLog log.</source>
+        <translation>这不是 DecoDXLog 日志。</translation>
+    </message>
+    <message>
+        <source>The QSOs cannot be read: %1</source>
+        <translation>无法读取 QSO：%1</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>备份就是日志本身。</translation>
+    </message>
+    <message>
+        <source>The backup cannot be used: %1</source>
+        <translation>备份无法使用：%1</translation>
+    </message>
+    <message>
+        <source>The log as it is now could not be saved to %1: nothing was changed.</source>
+        <translation>无法把当前日志保存到 %1：没有做任何改动。</translation>
+    </message>
+    <message>
+        <source>The backup could not be copied next to the log: nothing was changed.</source>
+        <translation>无法把备份复制到日志旁边：没有做任何改动。</translation>
+    </message>
+    <message>
+        <source>The copied backup does not read back the same: nothing was changed.</source>
+        <translation>复制过去的备份读出来不一样：没有做任何改动。</translation>
+    </message>
+    <message>
+        <source>The log is still in use by another program: nothing was changed.</source>
+        <translation>日志仍被其他程序使用：没有做任何改动。</translation>
+    </message>
+    <message>
+        <source>The backup could not take the place of the log; the log as it was is back.</source>
+        <translation>备份无法替换日志；原来的日志已恢复。</translation>
+    </message>
+    <message>
+        <source>DecoDXLog did not close in time: the log was not touched.</source>
+        <translation>DecoDXLog 没有及时关闭：日志未被改动。</translation>
+    </message>
+</context>
+<context>
     <name>LogColors</name>
     <message>
         <source>New DXCC</source>
@@ -2413,6 +2472,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>%1 selected</source>
         <translation>已选 %1 条</translation>
+    </message>
+    <message>
+        <source>Importing %1%</source>
+        <translation>正在导入 %1%</translation>
     </message>
     <message>
         <source>%1 QSO · %2 shown</source>
@@ -4568,6 +4631,103 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     </message>
 </context>
 <context>
+    <name>RestoreBackupDialog</name>
+    <message>
+        <source>Restore a backup</source>
+        <translation>恢复备份</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n cop(ies) in the backup folder</source>
+        <translation>
+            <numerusform>备份文件夹中有 %n 份副本</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Choose a backup</source>
+        <translation>选择备份</translation>
+    </message>
+    <message>
+        <source>DecoDXLog logs (*.sqlite)</source>
+        <translation>DecoDXLog 日志 (*.sqlite)</translation>
+    </message>
+    <message>
+        <source>All files (*)</source>
+        <translation type="unfinished">所有文件 (*)</translation>
+    </message>
+    <message numerus="yes">
+        <source>Log now: %1 · %n QSO · last %2</source>
+        <translation>
+            <numerusform>当前日志：%1 · %n 个 QSO · 最近 %2</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>before a restore</source>
+        <translation>恢复之前</translation>
+    </message>
+    <message>
+        <source>No copies in %1 yet.</source>
+        <translation>%1 中还没有副本。</translation>
+    </message>
+    <message>
+        <source>Choose another file…</source>
+        <translation>选择其他文件…</translation>
+    </message>
+    <message>
+        <source>In this copy</source>
+        <translation>这份副本中</translation>
+    </message>
+    <message>
+        <source>Choose a copy.</source>
+        <translation>请选择一份副本。</translation>
+    </message>
+    <message>
+        <source>Reading %1…</source>
+        <translation>正在读取 %1…</translation>
+    </message>
+    <message>
+        <source>✗ It cannot be restored: %1</source>
+        <translation>✗ 无法恢复：%1</translation>
+    </message>
+    <message numerus="yes">
+        <source>✓ SQLite finds it sound · %n QSO, from %1 to %2 · %3</source>
+        <translation>
+            <numerusform>✓ SQLite 检查正常 · %n 个 QSO，从 %1 到 %2 · %3</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO fewer than the log now: the ones logged after this copy will not be in the restored log.</source>
+        <translation>
+            <numerusform>比当前日志少 %n 个 QSO：这份副本之后记录的 QSO 不会出现在恢复后的日志中。</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO more than the log now.</source>
+        <translation>
+            <numerusform>比当前日志多 %n 个 QSO。</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>As many QSOs as the log now.</source>
+        <translation>与当前日志的 QSO 数相同。</translation>
+    </message>
+    <message>
+        <source>DecoDXLog restarts and puts the copy in place of the log before opening it. The log as it is now is saved first in the backup folder as decodxlog-before-restore-…, so nothing is lost: to go back, restore that one.</source>
+        <translation>DecoDXLog 会重新启动，并在打开日志前用副本替换日志。当前日志会先保存到备份文件夹，名为 decodxlog-before-restore-…，因此不会丢失任何内容：要退回，就恢复那一份。</translation>
+    </message>
+    <message>
+        <source>Confirm: restore and restart</source>
+        <translation>确认：恢复并重启</translation>
+    </message>
+    <message>
+        <source>Restore and restart</source>
+        <translation>恢复并重启</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">关闭</translation>
+    </message>
+</context>
+<context>
     <name>RotorCommandBar</name>
     <message>
         <source>STOP</source>
@@ -6154,6 +6314,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>现在就备份</translation>
     </message>
     <message>
+        <source>Restore a backup…</source>
+        <translation>恢复备份…</translation>
+    </message>
+    <message>
         <source>A consistent copy made with SQLite VACUUM INTO, even while DecoDXLog is logging. If the PC is off at the chosen time, the copy is made as soon as DecoDXLog is open.</source>
         <translation>用 SQLite 的 VACUUM INTO 做出来的一致副本，即使 DecoDXLog 正在记录也没关系。如果到点时电脑是关着的，那就在 DecoDXLog 打开后马上做。</translation>
     </message>
@@ -6428,6 +6592,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>All years</source>
         <translation>所有年份</translation>
+    </message>
+    <message>
+        <source>Counting…</source>
+        <translation>正在统计…</translation>
     </message>
     <message>
         <source>Activity</source>
@@ -7629,8 +7797,16 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>已从 %2 个 QSO 上去掉标签「%1」</translation>
     </message>
     <message>
+        <source>An import is already running: wait for it to finish.</source>
+        <translation>已有导入正在进行：请等待完成。</translation>
+    </message>
+    <message>
         <source>Cannot read %1: %2</source>
         <translation>读不了 %1：%2</translation>
+    </message>
+    <message>
+        <source>Importing %1…</source>
+        <translation>正在导入 %1…</translation>
     </message>
     <message>
         <source>%1: %2 new, %3 duplicates, %4 rejected</source>
@@ -7647,6 +7823,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         </translation>
     </message>
     <message>
+        <source>Exporting to %1…</source>
+        <translation>正在导出到 %1…</translation>
+    </message>
+    <message>
         <source>%1 · %2 MB</source>
         <translation>%1 · %2 MB</translation>
     </message>
@@ -7657,6 +7837,34 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>%1 → %2 (%3 MB)</source>
         <translation>%1 → %2 (%3 MB)</translation>
+    </message>
+    <message>
+        <source>%1 is not there.</source>
+        <translation type="unfinished">%1 不在。</translation>
+    </message>
+    <message>
+        <source>There is no log file to restore over.</source>
+        <translation>没有可以恢复覆盖的日志文件。</translation>
+    </message>
+    <message>
+        <source>The backup is the log itself.</source>
+        <translation>备份就是日志本身。</translation>
+    </message>
+    <message>
+        <source>The program could not be restarted to restore the backup.</source>
+        <translation>无法重新启动程序来恢复备份。</translation>
+    </message>
+    <message>
+        <source>Log restored from %1: %2 QSO</source>
+        <translation>已从 %1 恢复日志：%2 个 QSO</translation>
+    </message>
+    <message>
+        <source>The log as it was before is saved in %1</source>
+        <translation>原来的日志已保存在 %1</translation>
+    </message>
+    <message>
+        <source>Restore not done: %1</source>
+        <translation>未恢复：%1</translation>
     </message>
     <message>
         <source>LoTW: the period starts after it ends</source>
