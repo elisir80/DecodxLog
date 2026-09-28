@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.16.35
+    VERSION 1.16.36
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES C CXX)
 
@@ -471,19 +471,10 @@ set_target_properties(decolog PROPERTIES
     MACOSX_BUNDLE_BUNDLE_VERSION "${PROJECT_VERSION}"
 )
 
-# ── VOACAP ────────────────────────────────────────────────────────────────────
-# La previsione di propagazione vera (ITS, dominio pubblico; voacapl, CC0) si
-# costruisce se c'e' un compilatore Fortran. Senza, il programma usa il suo
-# modello semplificato e lo dice.
-include(CheckLanguage)
-check_language(Fortran)
-if(CMAKE_Fortran_COMPILER)
-    enable_language(Fortran)
-    include(third_party/voacapl/voacap.cmake)
-    add_dependencies(decolog voacapl voacap_data)
-else()
-    message(STATUS "No Fortran compiler: VOACAP is not built (install mingw-w64-x86_64-gcc-fortran)")
-endif()
+# ── Propagazione ──────────────────────────────────────────────────────────────
+# DecoDXLog e' costruito interamente in C++. Il modello di propagazione C++
+# interno e' disponibile su ogni piattaforma e non richiede compilatori o
+# binari Fortran esterni.
 
 # ── Tests ─────────────────────────────────────────────────────────────────────
 if(DECODXLOG_BUILD_TESTS)
@@ -495,8 +486,8 @@ if(DECODXLOG_BUILD_TESTS)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)
         add_test(NAME ${name} COMMAND tst_${name})
     endforeach()
-    # VOACAP: l'esempio di voacapl per la scheda e l'uscita, e il motore
-    # compilato (se c'e') per una previsione vera.
+    # Il parser della previsione legge i suoi esempi di riferimento; i test
+    # restano C++ e non costruiscono o avviano alcun motore esterno.
     target_compile_definitions(tst_voacap PRIVATE
         VOACAPL_SAMPLE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/third_party/voacapl/sample"
         VOACAP_BUILD_DIR="${CMAKE_BINARY_DIR}/voacap")

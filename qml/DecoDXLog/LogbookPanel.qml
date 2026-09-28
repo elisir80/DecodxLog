@@ -1257,8 +1257,12 @@ GlassPanel {
             Text {
                 // Sulla tabella, non sul suo contenuto: senza righe il
                 // contenuto e' alto zero e la frase finiva sotto le intestazioni.
-                parent: table
-                anchors.centerIn: table
+                // TableView riparenta i figli nel proprio contentItem: ancorarlo
+                // al TableView esterno produceva il warning QML perche' non era
+                // piu' ne' genitore ne' fratello. Posizioniamolo nel viewport.
+                parent: table.contentItem
+                x: (table.width - width) / 2
+                y: table.contentY + (table.height - height) / 2
                 width: table.width - 40
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.Wrap
