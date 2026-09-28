@@ -418,6 +418,16 @@ int main(int argc, char* argv[])
     // uno sfondo scuro scrivono nero su nero — sottomenu, tendine e il menu del
     // tasto destro dentro i campi di testo diventavano illeggibili.
     QCoreApplication::setAttribute(Qt::AA_DontUseNativeMenuWindows);
+    // Qt Multimedia serve solo per l'audio (avviso del cluster, voice keyer,
+    // decoder CW), ma il backend FFmpeg alla prima occasione prova tutte le
+    // accelerazioni video: CUDA, Vulkan, D3D11VA, DXVA2... Ognuna apre il suo
+    // driver (su NVIDIA anche il driver Vulkan, nvoglv64.dll, e dietro gli
+    // overlay che si agganciano a Vulkan). Nessun video da decodificare:
+    // lista vuota, a meno che l'utente non l'abbia gia' impostata.
+    for (const char* name : {"QT_FFMPEG_DECODING_HW_DEVICE_TYPES", "QT_FFMPEG_ENCODING_HW_DEVICE_TYPES"}) {
+        if (!qEnvironmentVariableIsSet(name))
+            qputenv(name, ",");
+    }
     const GraphicsSelection graphicsSelection = configureGraphicsEnvironment(argc, argv);
     decolog::startupTrace("QGuiApplication begin");
     QGuiApplication app(argc, argv);

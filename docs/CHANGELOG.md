@@ -3,6 +3,16 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.33 — 28 settembre 2026
+
+**Niente piu' driver video che non servono.** L'audio (avviso del cluster, voice keyer,
+decoder CW) passa da Qt Multimedia, e il suo motore FFmpeg all'avvio provava tutte le
+accelerazioni video: CUDA, Vulkan, Direct3D 11, DXVA2. Ognuna apriva il suo driver: sulle
+schede NVIDIA anche il driver Vulkan (nvoglv64.dll), e con lui gli overlay che si agganciano
+a Vulkan, come quello di OBS. DecoDXLog non decodifica video: adesso non le prova piu'.
+L'avvio e' tre quarti di secondo piu' rapido e senza finestra il programma usa 56 MB in
+meno. Chi le vuole puo' ancora impostare `QT_FFMPEG_DECODING_HW_DEVICE_TYPES`.
+
 ## 1.16.32 — 28 settembre 2026
 
 **Conferme da eQSL e da QRZ Logbook.** Nella scheda «Invio QSL», accanto a LoTW, i pulsanti
