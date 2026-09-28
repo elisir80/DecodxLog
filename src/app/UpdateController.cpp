@@ -57,6 +57,9 @@ UpdateController::UpdateController(Context context, QObject* parent)
                 m_ctx.activity(QStringLiteral("UPDATE"),
                                tr("DecoDXLog %1 is out — you have %2").arg(info.version, currentVersion()),
                                QStringLiteral("info"));
+                // Una firma che non torna non e' una svista: lo si dice forte.
+                if (info.signatureState == releasesig::Manifest::State::Invalid)
+                    m_ctx.activity(QStringLiteral("UPDATE"), signatureText(), QStringLiteral("error"));
             }
             emit updateFound(info.version);
         } else {
@@ -184,6 +187,39 @@ QString UpdateController::lastCheck() const
     return QLocale().toString(when.toLocalTime(), QLocale::ShortFormat);
 }
 
+QString UpdateController::signatureState() const
+{
+    switch (m_info.signatureState) {
+    case releasesig::Manifest::State::Verified:
+        return m_info.verified() ? QStringLiteral("verified") : QStringLiteral("invalid");
+    case releasesig::Manifest::State::Untrusted:
+        return QStringLiteral("untrusted");
+    case releasesig::Manifest::State::Invalid:
+        return QStringLiteral("invalid");
+    case releasesig::Manifest::State::Missing:
+        break;
+    }
+    return QStringLiteral("missing");
+}
+
+QString UpdateController::signatureText() const
+{
+    if (!hasPackage())
+        return {};
+    const QString state = signatureState();
+    if (state == QLatin1String("verified"))
+        return tr("Signed by the publisher (key %1): the package is checked before it is installed.")
+            .arg(m_info.signatureKey);
+    if (state == QLatin1String("untrusted"))
+        return tr("Signed with a key DecoDXLog does not know for %1: it is not installed from here. "
+                  "Download it from the page only if you trust the source.")
+            .arg(m_info.repository);
+    if (state == QLatin1String("invalid"))
+        return tr("The signature of this release does not match: do not install it, and tell the publisher.");
+    return tr("This release is not signed: it is not installed from here. Download it from the page "
+              "only if you trust the source.");
+}
+
 QString UpdateController::downloadSize() const
 {
     if (m_info.packageBytes <= 0)
@@ -226,6 +262,12 @@ void UpdateController::downloadAndInstall()
 {
     if (!hasPackage() || m_fetcher.downloading())
         return;
+    // Solo quello che chi pubblica ha firmato: il resto si scarica a mano.
+    if (!verified()) {
+        setStatus(signatureText());
+        emit changed();
+        return;
+    }
 
     // Un nome viene dalla release GitHub, ma non gli permettiamo di scegliere
     // directory locali: si salva sempre come semplice basename.
@@ -276,7 +318,7 @@ void UpdateController::downloadAndInstall()
                   : tr("downloading %1…").arg(downloadSize()));
     emit progressChanged();
     emit changed();
-    m_fetcher.download(m_info.package, path, m_info.packageBytes, permissions);
+    m_fetcher.download(m_info.package, path, m_info.packageBytes, m_info.packageSha256, permissions);
 }
 
 void UpdateController::cancelDownload()

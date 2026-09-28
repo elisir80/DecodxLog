@@ -98,6 +98,10 @@
         <source>Sections</source>
         <translation>Sektionen</translation>
     </message>
+    <message>
+        <source>W/VE QTH</source>
+        <translation>W/VE-QTH</translation>
+    </message>
 </context>
 <context>
     <name>ActivationDialog</name>
@@ -298,6 +302,14 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>Die Referenz wird aus SIG/SIG_INFO (SIG = %1) oder aus einem Kommentar wie &quot;%1 LI-001&quot; gelesen.</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
+        <translation>ARRL-Regeln: QSOs auf 60 m zählen nicht, und eQSL ist keine Bestätigung für das DXCC.</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count.</source>
+        <translation>ARRL-Regeln: QSOs auf 60 m zählen nicht.</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -1601,6 +1613,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
 <context>
     <name>ContestRules</name>
     <message>
+        <source>CQ zone (+ W/VE QTH)</source>
+        <translation>CQ-Zone (+ W/VE-QTH)</translation>
+    </message>
+    <message>
         <source>CQ zone</source>
         <translation>CQ-Zone</translation>
     </message>
@@ -1635,6 +1651,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>A CQ zone goes from 1 to 40.</source>
         <translation>Eine CQ-Zone geht von 1 bis 40.</translation>
+    </message>
+    <message>
+        <source>%1 is not a US state or a Canadian area.</source>
+        <translation>%1 ist weder ein US-Bundesstaat noch ein kanadisches Gebiet.</translation>
     </message>
     <message>
         <source>An ITU zone or a society abbreviation.</source>
@@ -1737,6 +1757,13 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Score</source>
         <translation>Ergebnis</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n hour(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Das Log wird innerhalb von %n Stunde nach Contestende auf der Contest-Seite hochgeladen. Die im Cabrillo stehende Punktzahl ist die hier gezählte; die Logprüfer zählen ohnehin nach.</numerusform>
+            <numerusform>Das Log wird innerhalb von %n Stunden nach Contestende auf der Contest-Seite hochgeladen. Die im Cabrillo stehende Punktzahl ist die hier gezählte; die Logprüfer zählen ohnehin nach.</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
@@ -6770,8 +6797,8 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Diese Fassung überspringen</translation>
     </message>
     <message>
-        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
-        <translation>«Jetzt aktualisieren» lädt nur das Paket für diesen Computer herunter. Unter Windows startet das Installationsprogramm, unter macOS öffnet sich das Disk-Image und unter Linux wird das AppImage nach Möglichkeit aktualisiert. Log und Einstellungen bleiben, wo sie sind.</translation>
+        <source>«Update now» downloads only the package compatible with this computer, and only if it is the one signed by the publisher. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>«Jetzt aktualisieren» lädt nur das Paket für diesen Computer herunter, und nur wenn es das vom Herausgeber signierte ist. Unter Windows startet das Installationsprogramm, unter macOS öffnet sich das Disk-Image, und unter Linux wird das AppImage nach Möglichkeit aktualisiert. Log und Einstellungen bleiben, wo sie sind.</translation>
     </message>
 </context>
 <context>
@@ -8598,6 +8625,22 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Linux-Aktualisierungspaket bereit: %1</translation>
     </message>
     <message>
+        <source>Signed by the publisher (key %1): the package is checked before it is installed.</source>
+        <translation>Vom Herausgeber signiert (Schlüssel %1): Das Paket wird vor der Installation geprüft.</translation>
+    </message>
+    <message>
+        <source>Signed with a key DecoDXLog does not know for %1: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Mit einem Schlüssel signiert, den DecoDXLog für %1 nicht kennt: Von hier aus wird nicht installiert. Laden Sie es nur von der Seite herunter, wenn Sie der Quelle vertrauen.</translation>
+    </message>
+    <message>
+        <source>The signature of this release does not match: do not install it, and tell the publisher.</source>
+        <translation>Die Signatur dieser Version stimmt nicht: Nicht installieren und den Herausgeber informieren.</translation>
+    </message>
+    <message>
+        <source>This release is not signed: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Diese Version ist nicht signiert: Von hier aus wird nicht installiert. Laden Sie sie nur von der Seite herunter, wenn Sie der Quelle vertrauen.</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>GitHub wird gefragt…</translation>
     </message>
@@ -9039,12 +9082,20 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>die Antwort von GitHub wurde nicht verstanden</translation>
     </message>
     <message>
+        <source>the package is not in the signed list of the release</source>
+        <translation>das Paket steht nicht in der signierten Liste der Version</translation>
+    </message>
+    <message>
         <source>cannot write %1</source>
         <translation>%1 lässt sich nicht schreiben</translation>
     </message>
     <message>
         <source>the downloaded file is incomplete</source>
         <translation>die heruntergeladene Datei ist unvollständig</translation>
+    </message>
+    <message>
+        <source>the downloaded file is not the one signed by the publisher: it was discarded</source>
+        <translation>die heruntergeladene Datei ist nicht die vom Herausgeber signierte: sie wurde verworfen</translation>
     </message>
 </context>
 <context>

@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.16.29
+    VERSION 1.16.30
     DESCRIPTION "Station logbook for the Decodium family"
-    LANGUAGES CXX)
+    LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -40,6 +40,16 @@ add_library(ggmorse STATIC
 target_include_directories(ggmorse PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/ggmorse/include)
 target_compile_definitions(ggmorse PRIVATE GGMORSE_QUIET)
 set_target_properties(ggmorse PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
+# ── Monocypher ────────────────────────────────────────────────────────────────
+# La firma Ed25519 degli aggiornamenti (Loup Vaillant, BSD-2 o CC-0), copiata in
+# libs/monocypher: quattro file C, nessuna dipendenza, uguale su ogni sistema.
+add_library(monocypher STATIC
+    libs/monocypher/monocypher.c
+    libs/monocypher/monocypher-ed25519.c
+)
+target_include_directories(monocypher PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/monocypher)
+set_target_properties(monocypher PROPERTIES POSITION_INDEPENDENT_CODE ON C_STANDARD 99)
 
 # ── Core ──────────────────────────────────────────────────────────────────────
 # Niente GUI: ADIF, database e protocollo UDP si provano da soli e serviranno
@@ -105,6 +115,8 @@ add_library(decolog_core STATIC
     src/core/QslCards.h
     src/core/QslUpload.cpp
     src/core/QslUpload.h
+    src/core/ReleaseSignature.cpp
+    src/core/ReleaseSignature.h
     src/core/RotorLink.cpp
     src/core/RotorLink.h
     src/core/SecretVault.cpp
@@ -166,6 +178,8 @@ target_include_directories(decolog_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(decolog_core PUBLIC Qt6::Core Qt6::Network Qt6::Sql Qt6::Gui Qt6::WebSockets Qt6::SerialPort)
 # Il decodificatore CW: ggmorse fa il lavoro, CwDecoder gli porta l'audio.
 target_link_libraries(decolog_core PRIVATE ggmorse)
+# La firma degli aggiornamenti: Ed25519 da Monocypher.
+target_link_libraries(decolog_core PRIVATE monocypher)
 # Annunci vocali: su Windows la sintesi del sistema (SAPI).
 if(WIN32)
     target_link_libraries(decolog_core PRIVATE sapi ole32 oleaut32)
@@ -524,6 +538,10 @@ if(DECODXLOG_BUILD_TOOLS)
     qt_add_executable(decodxlog_clusterprobe tools/clusterprobe.cpp)
     target_link_libraries(decodxlog_clusterprobe PRIVATE decolog_core)
     set_target_properties(decodxlog_clusterprobe PROPERTIES WIN32_EXECUTABLE OFF)
+    # Firma le release: la chiave segreta sta nel portachiavi di chi pubblica.
+    qt_add_executable(decodxlog_sign tools/releasesign.cpp)
+    target_link_libraries(decodxlog_sign PRIVATE decolog_core)
+    set_target_properties(decodxlog_sign PROPERTIES WIN32_EXECUTABLE OFF)
 endif()
 
 install(TARGETS decolog

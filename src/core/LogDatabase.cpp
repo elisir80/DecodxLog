@@ -1468,7 +1468,8 @@ QList<QVariantMap> LogDatabase::awardProgress(const StatsFilter& filter) const
     q.setForwardOnly(true);
     q.prepare(QStringLiteral(
         "SELECT SUBSTR(qso_datetime_on, 1, 4), IFNULL(dxcc, 0), IFNULL(cqz, 0), UPPER(SUBSTR(IFNULL(gridsquare, ''), 1, 4)), "
-        "EXISTS (SELECT 1 FROM qsl_status s WHERE s.qso_id = qso.id AND s.rcvd = 'Y' AND s.service IN ('lotw', 'card')) "
+        "EXISTS (SELECT 1 FROM qsl_status s WHERE s.qso_id = qso.id AND s.rcvd = 'Y' AND s.service IN ('lotw', 'card')), "
+        "LOWER(IFNULL(band, '')) "
         "FROM qso WHERE %1 ORDER BY qso_datetime_on").arg(where));
     for (const QVariant& b : binds)
         q.addBindValue(b);
@@ -1498,7 +1499,8 @@ QList<QVariantMap> LogDatabase::awardProgress(const StatsFilter& filter) const
             year = y;
         }
         ++qsos;
-        if (const int d = q.value(1).toInt(); d > 0) {
+        // Il DXCC come lo conta l'ARRL: i 60 metri non valgono.
+        if (const int d = q.value(1).toInt(); d > 0 && q.value(5).toString() != QLatin1String("60m")) {
             dxcc.insert(d);
             if (q.value(4).toBool())
                 confirmed.insert(d);

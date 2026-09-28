@@ -60,6 +60,17 @@ DialogFrame {
             }
         }
 
+        // La firma: installabile solo quello che chi pubblica ha firmato.
+        Text {
+            Layout.fillWidth: true
+            visible: root.updates.signatureText.length > 0
+            text: (root.updates.verified ? "✓ " : "⚠ ") + root.updates.signatureText
+            color: root.updates.signatureState === "verified" ? Theme.accentColor
+                 : root.updates.signatureState === "invalid" ? Theme.errorColor : Theme.warningColor
+            font.pixelSize: 12
+            wrapMode: Text.Wrap
+        }
+
         Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Theme.borderSoft }
 
         SectionTitle { text: qsTr("What is new") }
@@ -109,7 +120,7 @@ DialogFrame {
                       : qsTr("Update now")
                 tone: Theme.accentColor
                 filled: true
-                visible: root.updates.hasPackage
+                visible: root.updates.hasPackage && root.updates.verified
                 enabled: !root.updates.downloading
                 onClicked: root.updates.downloadAndInstall()
             }
@@ -135,9 +146,10 @@ DialogFrame {
 
         Text {
             Layout.fillWidth: true
-            text: qsTr("«Update now» downloads only the package compatible with this computer. On "
-                       + "Windows the installer starts, on macOS the disk image opens, and on Linux "
-                       + "the AppImage is updated when possible. The log and settings stay where they are.")
+            text: qsTr("«Update now» downloads only the package compatible with this computer, and only "
+                       + "if it is the one signed by the publisher. On Windows the installer starts, on "
+                       + "macOS the disk image opens, and on Linux the AppImage is updated when possible. "
+                       + "The log and settings stay where they are.")
             color: Theme.textSecondary
             font.pixelSize: 11
             wrapMode: Text.Wrap

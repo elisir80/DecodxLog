@@ -98,6 +98,10 @@
         <source>Sections</source>
         <translation>Sekcijas</translation>
     </message>
+    <message>
+        <source>W/VE QTH</source>
+        <translation>W/VE QTH</translation>
+    </message>
 </context>
 <context>
     <name>ActivationDialog</name>
@@ -299,6 +303,14 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>Atsauce tiek nolasīta no SIG/SIG_INFO (SIG = %1) vai no komentāra kā &quot;%1 LI-001&quot;.</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
+        <translation>ARRL noteikumi: QSO 60 m joslā neskaitās, un eQSL nav DXCC apstiprinājums.</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count.</source>
+        <translation>ARRL noteikumi: QSO 60 m joslā neskaitās.</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -1605,6 +1617,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
 <context>
     <name>ContestRules</name>
     <message>
+        <source>CQ zone (+ W/VE QTH)</source>
+        <translation>CQ zona (+ W/VE QTH)</translation>
+    </message>
+    <message>
         <source>CQ zone</source>
         <translation>CQ zona</translation>
     </message>
@@ -1639,6 +1655,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>A CQ zone goes from 1 to 40.</source>
         <translation>CQ zona ir no 1 līdz 40.</translation>
+    </message>
+    <message>
+        <source>%1 is not a US state or a Canadian area.</source>
+        <translation>%1 nav ne ASV štats, ne Kanādas apgabals.</translation>
     </message>
     <message>
         <source>An ITU zone or a society abbreviation.</source>
@@ -1741,6 +1761,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Score</source>
         <translation>Rezultāts</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n hour(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Žurnālu augšupielādē konkursa lapā %n stundas laikā pēc beigām. Cabrillo ierakstītais rezultāts ir šeit saskaitītais; tie, kas pārbauda žurnālus, to tik un tā pārskaita.</numerusform>
+            <numerusform>Žurnālu augšupielādē konkursa lapā %n stundu laikā pēc beigām. Cabrillo ierakstītais rezultāts ir šeit saskaitītais; tie, kas pārbauda žurnālus, to tik un tā pārskaita.</numerusform>
+            <numerusform>Žurnālu augšupielādē konkursa lapā %n stundu laikā pēc beigām. Cabrillo ierakstītais rezultāts ir šeit saskaitītais; tie, kas pārbauda žurnālus, to tik un tā pārskaita.</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
@@ -6783,8 +6811,8 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Izlaist šo versiju</translation>
     </message>
     <message>
-        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
-        <translation>«Atjaunināt tagad» lejupielādē tikai šim datoram piemēroto pakotni. Windows sistēmā palaižas instalētājs, macOS atveras diska attēls, bet Linux, ja iespējams, tiek atjaunināts AppImage. Žurnāls un iestatījumi paliek savās vietās.</translation>
+        <source>«Update now» downloads only the package compatible with this computer, and only if it is the one signed by the publisher. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>«Atjaunināt tagad» lejupielādē tikai šim datoram piemēroto pakotni un tikai tad, ja to ir parakstījis izdevējs. Windows sistēmā sākas instalētājs, macOS atveras diska attēls, bet Linux, ja iespējams, tiek atjaunināts AppImage. Žurnāls un iestatījumi paliek savās vietās.</translation>
     </message>
 </context>
 <context>
@@ -8642,6 +8670,22 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Linux atjauninājuma pakotne gatava: %1</translation>
     </message>
     <message>
+        <source>Signed by the publisher (key %1): the package is checked before it is installed.</source>
+        <translation>Izdevēja parakstīta (atslēga %1): pakotne tiek pārbaudīta pirms instalēšanas.</translation>
+    </message>
+    <message>
+        <source>Signed with a key DecoDXLog does not know for %1: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Parakstīta ar atslēgu, ko DecoDXLog nepazīst avotam %1: no šejienes netiek instalēta. Lejupielādējiet to no lapas tikai tad, ja uzticaties avotam.</translation>
+    </message>
+    <message>
+        <source>The signature of this release does not match: do not install it, and tell the publisher.</source>
+        <translation>Šīs versijas paraksts nesakrīt: neinstalējiet to un paziņojiet izdevējam.</translation>
+    </message>
+    <message>
+        <source>This release is not signed: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Šī versija nav parakstīta: no šejienes netiek instalēta. Lejupielādējiet to no lapas tikai tad, ja uzticaties avotam.</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>jautā GitHub…</translation>
     </message>
@@ -9083,12 +9127,20 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>GitHub atbilde netika saprasta</translation>
     </message>
     <message>
+        <source>the package is not in the signed list of the release</source>
+        <translation>pakotnes nav versijas parakstītajā sarakstā</translation>
+    </message>
+    <message>
         <source>cannot write %1</source>
         <translation>nevar ierakstīt %1</translation>
     </message>
     <message>
         <source>the downloaded file is incomplete</source>
         <translation>lejupielādētais fails ir nepilnīgs</translation>
+    </message>
+    <message>
+        <source>the downloaded file is not the one signed by the publisher: it was discarded</source>
+        <translation>lejupielādētais fails nav tas, ko parakstījis izdevējs: tas tika izmests</translation>
     </message>
 </context>
 <context>

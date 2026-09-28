@@ -98,6 +98,10 @@
         <source>Sections</source>
         <translation>Secties</translation>
     </message>
+    <message>
+        <source>W/VE QTH</source>
+        <translation>W/VE-QTH</translation>
+    </message>
 </context>
 <context>
     <name>ActivationDialog</name>
@@ -298,6 +302,14 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>De referentie wordt gelezen uit SIG/SIG_INFO (SIG = %1) of uit een opmerking als &quot;%1 LI-001&quot;.</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
+        <translation>ARRL-regels: QSO&apos;s op 60 m tellen niet, en eQSL is geen bevestiging voor DXCC.</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count.</source>
+        <translation>ARRL-regels: QSO&apos;s op 60 m tellen niet.</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -1601,6 +1613,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
 <context>
     <name>ContestRules</name>
     <message>
+        <source>CQ zone (+ W/VE QTH)</source>
+        <translation>CQ-zone (+ W/VE-QTH)</translation>
+    </message>
+    <message>
         <source>CQ zone</source>
         <translation>CQ-zone</translation>
     </message>
@@ -1635,6 +1651,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>A CQ zone goes from 1 to 40.</source>
         <translation>Een CQ-zone loopt van 1 tot 40.</translation>
+    </message>
+    <message>
+        <source>%1 is not a US state or a Canadian area.</source>
+        <translation>%1 is geen Amerikaanse staat en geen Canadees gebied.</translation>
     </message>
     <message>
         <source>An ITU zone or a society abbreviation.</source>
@@ -1737,6 +1757,13 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Score</source>
         <translation>Score</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n hour(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Het log wordt binnen %n uur na het einde van de contest geüpload op de contestpagina. De score in de Cabrillo is de hier getelde; de logcontroleurs tellen hem hoe dan ook opnieuw.</numerusform>
+            <numerusform>Het log wordt binnen %n uur na het einde van de contest geüpload op de contestpagina. De score in de Cabrillo is de hier getelde; de logcontroleurs tellen hem hoe dan ook opnieuw.</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
@@ -6770,8 +6797,8 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Deze versie overslaan</translation>
     </message>
     <message>
-        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
-        <translation>«Nu bijwerken» downloadt alleen het pakket dat bij deze computer past. Op Windows start het installatieprogramma, op macOS opent de schijfkopie en op Linux wordt de AppImage indien mogelijk bijgewerkt. Het log en de instellingen blijven waar ze zijn.</translation>
+        <source>«Update now» downloads only the package compatible with this computer, and only if it is the one signed by the publisher. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>«Nu bijwerken» downloadt alleen het pakket voor deze computer, en alleen als het door de uitgever is ondertekend. Op Windows start het installatieprogramma, op macOS opent de schijfkopie en op Linux wordt de AppImage bijgewerkt als dat kan. Log en instellingen blijven waar ze zijn.</translation>
     </message>
 </context>
 <context>
@@ -8598,6 +8625,22 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Linux-updatepakket klaar: %1</translation>
     </message>
     <message>
+        <source>Signed by the publisher (key %1): the package is checked before it is installed.</source>
+        <translation>Ondertekend door de uitgever (sleutel %1): het pakket wordt vóór de installatie gecontroleerd.</translation>
+    </message>
+    <message>
+        <source>Signed with a key DecoDXLog does not know for %1: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Ondertekend met een sleutel die DecoDXLog voor %1 niet kent: vanaf hier wordt niet geïnstalleerd. Download het alleen van de pagina als je de bron vertrouwt.</translation>
+    </message>
+    <message>
+        <source>The signature of this release does not match: do not install it, and tell the publisher.</source>
+        <translation>De handtekening van deze versie klopt niet: installeer haar niet en waarschuw de uitgever.</translation>
+    </message>
+    <message>
+        <source>This release is not signed: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Deze versie is niet ondertekend: vanaf hier wordt niet geïnstalleerd. Download haar alleen van de pagina als je de bron vertrouwt.</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>GitHub wordt gevraagd…</translation>
     </message>
@@ -9039,12 +9082,20 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>het antwoord van GitHub is niet begrepen</translation>
     </message>
     <message>
+        <source>the package is not in the signed list of the release</source>
+        <translation>het pakket staat niet in de ondertekende lijst van de versie</translation>
+    </message>
+    <message>
         <source>cannot write %1</source>
         <translation>kan %1 niet schrijven</translation>
     </message>
     <message>
         <source>the downloaded file is incomplete</source>
         <translation>het gedownloade bestand is onvolledig</translation>
+    </message>
+    <message>
+        <source>the downloaded file is not the one signed by the publisher: it was discarded</source>
+        <translation>het gedownloade bestand is niet het door de uitgever ondertekende: het is weggegooid</translation>
     </message>
 </context>
 <context>

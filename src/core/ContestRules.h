@@ -12,7 +12,9 @@
 #pragma once
 
 #include <QList>
+#include <QMap>
 #include <QString>
+#include <QStringList>
 
 namespace decolog::core {
 
@@ -25,7 +27,8 @@ struct ContestQso {
     QString continent;   // "EU", "NA"...
     int     cqZone{0};
     int     ituZone{0};
-    QString exchange;    // lo scambio ricevuto: "14", "NA", "L01", "059"
+    QString exchange;    // lo scambio ricevuto: "14", "NA", "L01", "059", "05 MA"
+    QString state;       // STATE del log, quando c'e': lo stato o la provincia
 };
 
 // La propria stazione: serve per sapere se un QSO e' nel proprio paese, nel
@@ -43,6 +46,7 @@ struct ContestRules {
         None,        // solo il rapporto
         Serial,      // numero progressivo
         CqZone,      // zona CQ (1-40)
+        CqZoneQth,   // zona CQ, e per USA e Canada anche lo stato o l'area (CQ WW RTTY)
         ItuZone,     // zona ITU (1-90), o la sigla di una societa' IARU
         Province,    // sigla della provincia italiana
         AriSection,  // codice ASC della Sezione ARI: una lettera e due cifre
@@ -57,8 +61,13 @@ struct ContestRules {
     QString  source;
     // Dove si manda il log a gara finita. Vuoto quando non si sa.
     QString  submitUrl;
-    // Entro quando: giorni dalla fine, 0 se il regolamento non lo dice.
+    // Entro quando: giorni dalla fine, 0 se il regolamento non lo dice. Chi
+    // conta in ore (i CQ: 48) lo dice in submitHours, che allora vale lui.
     int      submitDays{0};
+    int      submitHours{0};
+    // Le bande della gara, nell'ordine dell'operatore. Un QSO fuori di qui non
+    // porta ne' punti ne' moltiplicatori. Vuota quando la scheda non lo dice.
+    QStringList bands;
     bool     valid{false};        // falso quando il contest non ha una scheda
 };
 
@@ -83,6 +92,17 @@ QStringList multipliers(const ContestRules& rules, const ContestQso& qso, const 
 // Lo scambio ricevuto ha la forma che il contest vuole? Torna vuoto se va bene,
 // altrimenti cosa c'e' che non va, gia' tradotto.
 QString checkExchange(const ContestRules& rules, const QString& exchange);
+
+// La zona CQ scritta in testa allo scambio ("05 MA" -> 5), 0 se non c'e'.
+int exchangeZone(const QString& exchange);
+
+// Il QTH W/VE del CQ WW RTTY: uno dei 48 stati continentali degli USA o il DC
+// (dxcc 291), una delle 14 aree canadesi (dxcc 1). Si legge dallo scambio o,
+// se li' non c'e', dallo STATE del log. Vuoto per tutti gli altri.
+QString wveQth(const QString& exchange, const QString& state, int dxcc);
+
+// Tutti i QTH W/VE, sigla -> nome: le righe della finestra dei moltiplicatori.
+const QMap<QString, QString>& wveQths();
 
 // Il prefisso WPX di un nominativo sta in Awards: qui si dice solo che il WPX
 // lo usa come moltiplicatore.

@@ -98,6 +98,10 @@
         <source>Sections</source>
         <translation>Szekciók</translation>
     </message>
+    <message>
+        <source>W/VE QTH</source>
+        <translation>W/VE QTH</translation>
+    </message>
 </context>
 <context>
     <name>ActivationDialog</name>
@@ -297,6 +301,14 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>A hivatkozás a SIG/SIG_INFO mezőből (SIG = %1) vagy egy &quot;%1 LI-001&quot; formájú megjegyzésből jön.</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
+        <translation>ARRL-szabályok: a 60 m-es QSO-k nem számítanak, és az eQSL nem visszaigazolás a DXCC-hez.</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count.</source>
+        <translation>ARRL-szabályok: a 60 m-es QSO-k nem számítanak.</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -1597,6 +1609,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
 <context>
     <name>ContestRules</name>
     <message>
+        <source>CQ zone (+ W/VE QTH)</source>
+        <translation>CQ zóna (+ W/VE QTH)</translation>
+    </message>
+    <message>
         <source>CQ zone</source>
         <translation>CQ-zóna</translation>
     </message>
@@ -1631,6 +1647,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>A CQ zone goes from 1 to 40.</source>
         <translation>A CQ-zóna 1-től 40-ig megy.</translation>
+    </message>
+    <message>
+        <source>%1 is not a US state or a Canadian area.</source>
+        <translation>%1 nem amerikai állam és nem kanadai terület.</translation>
     </message>
     <message>
         <source>An ITU zone or a society abbreviation.</source>
@@ -1733,6 +1753,12 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Score</source>
         <translation>Eredmény</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n hour(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>A naplót a verseny végétől számított %n órán belül kell feltölteni a verseny oldalára. A Cabrillóba írt pontszám az itt számolt; a naplóellenőrök úgyis újraszámolják.</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
@@ -6757,8 +6783,8 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Ezt a változatot kihagyom</translation>
     </message>
     <message>
-        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
-        <translation>A «Frissítés most» csak az ehhez a számítógéphez illő csomagot tölti le. Windowson elindul a telepítő, macOS-en megnyílik a lemezkép, Linuxon pedig lehetőség szerint frissül az AppImage. A napló és a beállítások a helyükön maradnak.</translation>
+        <source>«Update now» downloads only the package compatible with this computer, and only if it is the one signed by the publisher. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>A «Frissítés most» csak az ehhez a géphez illő csomagot tölti le, és csak akkor, ha a kiadó írta alá. Windowson elindul a telepítő, macOS-en megnyílik a lemezkép, Linuxon pedig az AppImage frissül, ha lehet. A napló és a beállítások a helyükön maradnak.</translation>
     </message>
 </context>
 <context>
@@ -8554,6 +8580,22 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Linux frissítőcsomag kész: %1</translation>
     </message>
     <message>
+        <source>Signed by the publisher (key %1): the package is checked before it is installed.</source>
+        <translation>A kiadó aláírta (%1 kulcs): a csomagot telepítés előtt ellenőrizzük.</translation>
+    </message>
+    <message>
+        <source>Signed with a key DecoDXLog does not know for %1: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Olyan kulccsal aláírva, amelyet a DecoDXLog nem ismer ehhez: %1. Innen nem települ. Csak akkor töltsd le az oldalról, ha megbízol a forrásban.</translation>
+    </message>
+    <message>
+        <source>The signature of this release does not match: do not install it, and tell the publisher.</source>
+        <translation>Ennek a verziónak az aláírása nem egyezik: ne telepítsd, és szólj a kiadónak.</translation>
+    </message>
+    <message>
+        <source>This release is not signed: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Ez a verzió nincs aláírva: innen nem települ. Csak akkor töltsd le az oldalról, ha megbízol a forrásban.</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>kérdezem a GitHubot…</translation>
     </message>
@@ -8995,12 +9037,20 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>a GitHub válaszát nem sikerült értelmezni</translation>
     </message>
     <message>
+        <source>the package is not in the signed list of the release</source>
+        <translation>a csomag nincs a verzió aláírt listájában</translation>
+    </message>
+    <message>
         <source>cannot write %1</source>
         <translation>nem lehet írni: %1</translation>
     </message>
     <message>
         <source>the downloaded file is incomplete</source>
         <translation>a letöltött fájl hiányos</translation>
+    </message>
+    <message>
+        <source>the downloaded file is not the one signed by the publisher: it was discarded</source>
+        <translation>a letöltött fájl nem az, amelyet a kiadó aláírt: eldobtuk</translation>
     </message>
 </context>
 <context>

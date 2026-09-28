@@ -103,7 +103,11 @@ DialogFrame {
         }
 
         Note {
-            text: root.scoring.submitDays > 0
+            text: root.scoring.submitHours > 0
+                  ? qsTr("The log goes uploaded on the contest page, within %n hour(s) from the end "
+                         + "of the contest. The score written in the Cabrillo is the one counted "
+                         + "here; who checks the logs recounts it anyway.", "", root.scoring.submitHours)
+                  : root.scoring.submitDays > 0
                   ? qsTr("The log goes uploaded on the contest page, within %n day(s) from the end "
                          + "of the contest. The score written in the Cabrillo is the one counted "
                          + "here; who checks the logs recounts it anyway.", "", root.scoring.submitDays)

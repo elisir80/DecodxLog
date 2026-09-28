@@ -10,6 +10,8 @@
 #include <QSaveFile>
 #include <QSysInfo>
 
+#include <algorithm>
+
 namespace decolog::core {
 
 namespace updates {
@@ -94,6 +96,15 @@ ReleaseInfo parseReleaseObject(const QJsonObject& root, const UpdateTarget& targ
         if (!url.isValid() || url.isEmpty())
             continue;
 
+        // L'elenco firmato e la sua firma non sono pacchetti: si tengono a parte.
+        if (name == QLatin1String(releasesig::kManifestName)) {
+            info.manifest = url;
+            continue;
+        }
+        if (name == QLatin1String(releasesig::kSignatureName)) {
+            info.signature = url;
+            continue;
+        }
         const int score = assetMatchScore(name, {platform, architecture});
         if (score <= bestScore)
             continue;
@@ -228,15 +239,35 @@ ReleaseInfo parseReleases(const QByteArray& json, const UpdateTarget& target)
     return best;
 }
 
-ReleaseInfo selectPreferredUpdate(const ReleaseInfo& primary,
-                                  const ReleaseInfo& fallback,
-                                  const QString& currentVersion)
+QList<ReleaseInfo> newerReleases(const QList<ReleaseInfo>& candidates, const QString& currentVersion)
 {
-    if (primary.valid && compareVersions(primary.version, currentVersion) > 0)
-        return primary;
-    if (fallback.valid && compareVersions(fallback.version, currentVersion) > 0)
-        return fallback;
-    return {};
+    QList<ReleaseInfo> out;
+    for (const ReleaseInfo& info : candidates) {
+        if (info.valid && compareVersions(info.version, currentVersion) > 0)
+            out.append(info);
+    }
+    std::stable_sort(out.begin(), out.end(), [](const ReleaseInfo& a, const ReleaseInfo& b) {
+        return compareVersions(a.version, b.version) > 0;
+    });
+    return out;
+}
+
+void applyManifest(ReleaseInfo& info, const releasesig::Manifest& manifest)
+{
+    info.signatureState = manifest.state;
+    info.signatureKey = manifest.keyId;
+    info.packageSha256.clear();
+    if (!manifest.verified())
+        return;
+    const releasesig::SignedFile file = manifest.file(info.packageName);
+    // Un pacchetto fuori dall'elenco, o piu' grande o piu' piccolo di come
+    // e' stato firmato, non e' quello che chi pubblica ha firmato.
+    if (file.sha256.size() != 32 || (info.packageBytes > 0 && file.size != info.packageBytes)) {
+        info.signatureState = releasesig::Manifest::State::Invalid;
+        return;
+    }
+    info.packageSha256 = file.sha256;
+    info.packageBytes = file.size;
 }
 
 } // namespace updates
@@ -254,22 +285,36 @@ void UpdateFetcher::fetch(const QString& currentVersion)
     m_busy = true;
     m_currentVersion = currentVersion;
     m_target = updates::currentTarget();
+    m_found.clear();
+    m_candidates.clear();
+    m_lastError.clear();
+    m_answered = 0;
 
-    // Come Decodium4, il fork con i pacchetti pubblicati e' la sorgente
-    // primaria; l'upstream serve quando il fork non ha ancora il binario per
-    // questa piattaforma.
+    // Si chiede a tutte e due le sorgenti: il fork di elisir80, che pubblica
+    // anche i pacchetti macOS e Linux, e il repository di iu8lmc. A pari
+    // versione vince il fork, ma una versione firmata vince su una che non lo e'.
     if (!m_overrideUrl.isEmpty()) {
-        requestRelease({QStringLiteral("test endpoint"), m_overrideUrl, {}}, false);
-        return;
+        m_sources = {{QStringLiteral("test endpoint"), m_overrideUrl, {}}};
+    } else {
+        m_sources = {
+            {QStringLiteral("elisir80/DecodxLog"),
+             QUrl(QStringLiteral("https://api.github.com/repos/elisir80/DecodxLog/releases?per_page=100")),
+             QUrl(QStringLiteral("https://github.com/elisir80/DecodxLog/releases/latest"))},
+            {QStringLiteral("iu8lmc/DecoDXLog"),
+             QUrl(QStringLiteral("https://api.github.com/repos/iu8lmc/DecoDXLog/releases?per_page=100")),
+             QUrl(QStringLiteral("https://github.com/iu8lmc/DecoDXLog/releases/latest"))},
+        };
     }
-    requestRelease({QStringLiteral("elisir80/DecodxLog"),
-                    QUrl(QStringLiteral("https://api.github.com/repos/elisir80/DecodxLog/releases?per_page=100")),
-                    QUrl(QStringLiteral("https://github.com/elisir80/DecodxLog/releases/latest"))},
-                   true);
+    requestSource(0);
 }
 
-void UpdateFetcher::requestRelease(const Source& source, bool allowFallback)
+void UpdateFetcher::requestSource(int index)
 {
+    if (index >= m_sources.size()) {
+        sourcesDone();
+        return;
+    }
+    const Source source = m_sources.at(index);
     QNetworkRequest request(source.api);
     network::useHttp11(request);
     request.setRawHeader("Accept", "application/vnd.github+json");
@@ -277,59 +322,105 @@ void UpdateFetcher::requestRelease(const Source& source, bool allowFallback)
     request.setAttribute(QNetworkRequest::RedirectPolicyAttribute,
                          QNetworkRequest::NoLessSafeRedirectPolicy);
     QNetworkReply* reply = m_net->get(request);
-    connect(reply, &QNetworkReply::finished, this, [this, reply, source, allowFallback] {
+    connect(reply, &QNetworkReply::finished, this, [this, reply, source, index] {
         const QNetworkReply::NetworkError error = reply->error();
-        const QString errorText = error == QNetworkReply::NoError
-                                      ? QString{}
-                                      : reply->errorString();
         const QByteArray payload = reply->readAll();
-        reply->deleteLater();
-
-        const auto tryFallback = [this, allowFallback](const QString& failure) {
-            if (allowFallback) {
-                requestRelease({QStringLiteral("iu8lmc/DecoDXLog"),
-                                QUrl(QStringLiteral("https://api.github.com/repos/iu8lmc/DecoDXLog/releases?per_page=100")),
-                                QUrl(QStringLiteral("https://github.com/iu8lmc/DecoDXLog/releases/latest"))},
-                               false);
-                return true;
-            }
-            m_busy = false;
-            emit failed(failure.isEmpty()
-                        ? tr("the answer from GitHub was not understood")
-                        : failure);
-            return false;
-        };
-
         if (error != QNetworkReply::NoError) {
-            tryFallback(errorText);
-            return;
+            m_lastError = reply->errorString();
+        } else if (!updates::isReleasePayload(payload)) {
+            m_lastError = tr("the answer from GitHub was not understood");
+        } else {
+            ++m_answered;
+            ReleaseInfo candidate = updates::parseReleases(payload, m_target);
+            if (candidate.valid) {
+                candidate.repository = source.repository;
+                if (candidate.page.isEmpty())
+                    candidate.page = source.page.toString();
+                m_found.append(candidate);
+            }
         }
+        reply->deleteLater();
+        requestSource(index + 1);
+    });
+}
 
-        if (!updates::isReleasePayload(payload)) {
-            tryFallback(tr("the answer from GitHub was not understood"));
-            return;
-        }
-
-        ReleaseInfo candidate = updates::parseReleases(payload, m_target);
-        if (candidate.valid) {
-            candidate.repository = source.repository;
-            if (candidate.page.isEmpty())
-                candidate.page = source.page.toString();
-        }
-
-        const ReleaseInfo selected = updates::selectPreferredUpdate(
-            candidate, {}, m_currentVersion);
-        if (selected.valid) {
-            m_busy = false;
-            emit finished(selected);
-            return;
-        }
-
-        if (allowFallback) {
-            tryFallback(QString{});
-            return;
-        }
+void UpdateFetcher::sourcesDone()
+{
+    if (m_answered == 0) {
+        m_busy = false;
+        emit failed(m_lastError.isEmpty() ? tr("the answer from GitHub was not understood") : m_lastError);
+        return;
+    }
+    m_candidates = updates::newerReleases(m_found, m_currentVersion);
+    if (m_candidates.isEmpty()) {
         finishWithoutUpdate();
+        return;
+    }
+    verifyCandidate(0);
+}
+
+QNetworkReply* UpdateFetcher::getSmall(const QUrl& url)
+{
+    QNetworkRequest request(url);
+    network::useHttp11(request);
+    request.setRawHeader("User-Agent", "DecoDXLog");
+    request.setAttribute(QNetworkRequest::RedirectPolicyAttribute,
+                         QNetworkRequest::NoLessSafeRedirectPolicy);
+    QNetworkReply* reply = m_net->get(request);
+    // L'elenco firmato e' di qualche centinaio di byte: uno enorme non e' il nostro.
+    connect(reply, &QNetworkReply::downloadProgress, reply, [reply](qint64 received, qint64) {
+        if (received > 256 * 1024)
+            reply->abort();
+    });
+    return reply;
+}
+
+void UpdateFetcher::verifyCandidate(int index)
+{
+    // Nessuna firmata: si propone la piu' nuova, da scaricare a mano.
+    if (index >= m_candidates.size()) {
+        m_busy = false;
+        emit finished(m_candidates.first());
+        return;
+    }
+    ReleaseInfo& candidate = m_candidates[index];
+    if (candidate.manifest.isEmpty() || candidate.signature.isEmpty()) {
+        candidate.signatureState = releasesig::Manifest::State::Missing;
+        verifyCandidate(index + 1);
+        return;
+    }
+    QNetworkReply* manifestReply = getSmall(candidate.manifest);
+    connect(manifestReply, &QNetworkReply::finished, this, [this, manifestReply, index] {
+        const bool manifestOk = manifestReply->error() == QNetworkReply::NoError;
+        const QByteArray manifest = manifestReply->readAll();
+        manifestReply->deleteLater();
+        if (!manifestOk) {
+            m_candidates[index].signatureState = releasesig::Manifest::State::Missing;
+            verifyCandidate(index + 1);
+            return;
+        }
+        QNetworkReply* signatureReply = getSmall(m_candidates.at(index).signature);
+        connect(signatureReply, &QNetworkReply::finished, this, [this, signatureReply, index, manifest] {
+            const bool signatureOk = signatureReply->error() == QNetworkReply::NoError;
+            const QByteArray signature = signatureReply->readAll();
+            signatureReply->deleteLater();
+            ReleaseInfo& info = m_candidates[index];
+            if (!signatureOk) {
+                info.signatureState = releasesig::Manifest::State::Missing;
+                verifyCandidate(index + 1);
+                return;
+            }
+            updates::applyManifest(info, m_keys.isEmpty()
+                                             ? releasesig::verify(manifest, signature, info.repository, info.version)
+                                             : releasesig::verify(manifest, signature, info.repository, info.version,
+                                                                  m_keys));
+            if (info.verified()) {
+                m_busy = false;
+                emit finished(info);
+                return;
+            }
+            verifyCandidate(index + 1);
+        });
     });
 }
 
@@ -340,10 +431,15 @@ void UpdateFetcher::finishWithoutUpdate()
 }
 
 void UpdateFetcher::download(const QUrl& url, const QString& path, qint64 expectedBytes,
-                             QFileDevice::Permissions permissions)
+                             const QByteArray& expectedSha256, QFileDevice::Permissions permissions)
 {
     if (m_download)
         return;
+    // Senza lo SHA-256 firmato non si scarica niente da installare.
+    if (expectedSha256.size() != 32 || expectedBytes <= 0) {
+        emit downloadFailed(tr("the package is not in the signed list of the release"));
+        return;
+    }
 
     auto* output = new QSaveFile(path);
     output->setDirectWriteFallback(false);
@@ -356,6 +452,8 @@ void UpdateFetcher::download(const QUrl& url, const QString& path, qint64 expect
 
     m_downloadPath = path;
     m_downloadExpectedBytes = expectedBytes;
+    m_downloadExpectedSha256 = expectedSha256;
+    m_downloadHash.reset();
     m_downloadPermissions = permissions;
     m_setDownloadPermissions = permissions != QFileDevice::Permissions{};
     m_downloadWriteFailed = false;
@@ -371,6 +469,7 @@ void UpdateFetcher::download(const QUrl& url, const QString& path, qint64 expect
         if (!m_download || !m_downloadFile)
             return;
         const QByteArray data = m_download->readAll();
+        m_downloadHash.addData(data);
         if (!data.isEmpty() && m_downloadFile->write(data) != data.size()) {
             m_downloadWriteFailed = true;
             m_download->abort();
@@ -382,6 +481,7 @@ void UpdateFetcher::download(const QUrl& url, const QString& path, qint64 expect
         QSaveFile* output = m_downloadFile;
         const QString path = m_downloadPath;
         const qint64 expectedBytes = m_downloadExpectedBytes;
+        const QByteArray expectedSha256 = m_downloadExpectedSha256;
         const QFileDevice::Permissions permissions = m_downloadPermissions;
         const bool setPermissions = m_setDownloadPermissions;
         const bool writeFailed = m_downloadWriteFailed;
@@ -389,6 +489,7 @@ void UpdateFetcher::download(const QUrl& url, const QString& path, qint64 expect
         m_downloadFile = nullptr;
         m_downloadPath.clear();
         m_downloadExpectedBytes = 0;
+        m_downloadExpectedSha256.clear();
         m_downloadPermissions = {};
         m_setDownloadPermissions = false;
         m_downloadWriteFailed = false;
@@ -397,6 +498,7 @@ void UpdateFetcher::download(const QUrl& url, const QString& path, qint64 expect
         QString error = networkError == QNetworkReply::NoError ? QString{} : reply->errorString();
         if (networkError == QNetworkReply::NoError && !writeFailed) {
             const QByteArray data = reply->readAll();
+            m_downloadHash.addData(data);
             if (!data.isEmpty() && output->write(data) != data.size())
                 error = output->errorString();
         }
@@ -418,6 +520,14 @@ void UpdateFetcher::download(const QUrl& url, const QString& path, qint64 expect
             output->cancelWriting();
             delete output;
             emit downloadFailed(tr("the downloaded file is incomplete"));
+            return;
+        }
+        // Il controllo che conta: e' proprio il file firmato da chi pubblica?
+        // Se no, non resta niente su disco e non si lancia niente.
+        if (m_downloadHash.result() != expectedSha256) {
+            output->cancelWriting();
+            delete output;
+            emit downloadFailed(tr("the downloaded file is not the one signed by the publisher: it was discarded"));
             return;
         }
 

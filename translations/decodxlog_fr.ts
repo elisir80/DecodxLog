@@ -98,6 +98,10 @@
         <source>Sections</source>
         <translation>Sections</translation>
     </message>
+    <message>
+        <source>W/VE QTH</source>
+        <translation>QTH W/VE</translation>
+    </message>
 </context>
 <context>
     <name>ActivationDialog</name>
@@ -298,6 +302,14 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>La référence est lue dans SIG/SIG_INFO (SIG = %1) ou dans un commentaire comme « %1 LI-001 ».</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
+        <translation>Règles ARRL : les QSO sur 60 m ne comptent pas, et l&apos;eQSL n&apos;est pas une confirmation pour le DXCC.</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count.</source>
+        <translation>Règles ARRL : les QSO sur 60 m ne comptent pas.</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -1601,6 +1613,10 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
 <context>
     <name>ContestRules</name>
     <message>
+        <source>CQ zone (+ W/VE QTH)</source>
+        <translation>Zone CQ (+ QTH W/VE)</translation>
+    </message>
+    <message>
         <source>CQ zone</source>
         <translation>Zone CQ</translation>
     </message>
@@ -1635,6 +1651,10 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
     <message>
         <source>A CQ zone goes from 1 to 40.</source>
         <translation>Une zone CQ va de 1 à 40.</translation>
+    </message>
+    <message>
+        <source>%1 is not a US state or a Canadian area.</source>
+        <translation>%1 n&apos;est ni un État américain ni une zone canadienne.</translation>
     </message>
     <message>
         <source>An ITU zone or a society abbreviation.</source>
@@ -1737,6 +1757,13 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
     <message>
         <source>Score</source>
         <translation>Score</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n hour(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Le log se dépose sur la page du concours dans les %n heure suivant la fin du concours. Le score écrit dans le Cabrillo est celui compté ici ; les contrôleurs le recomptent de toute façon.</numerusform>
+            <numerusform>Le log se dépose sur la page du concours dans les %n heures suivant la fin du concours. Le score écrit dans le Cabrillo est celui compté ici ; les contrôleurs le recomptent de toute façon.</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
@@ -6770,8 +6797,8 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
         <translation>Passer cette version</translation>
     </message>
     <message>
-        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
-        <translation>« Mettre à jour » télécharge uniquement le paquet compatible avec cet ordinateur. Sous Windows l&apos;installateur démarre, sous macOS l&apos;image disque s&apos;ouvre et sous Linux l&apos;AppImage est mise à jour si possible. Le journal et les réglages restent en place.</translation>
+        <source>«Update now» downloads only the package compatible with this computer, and only if it is the one signed by the publisher. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>«Mettre à jour» télécharge uniquement le paquet adapté à cet ordinateur, et seulement s&apos;il est celui signé par l&apos;éditeur. Sous Windows l&apos;installateur démarre, sous macOS l&apos;image disque s&apos;ouvre, et sous Linux l&apos;AppImage est mise à jour quand c&apos;est possible. Le log et les réglages restent où ils sont.</translation>
     </message>
 </context>
 <context>
@@ -8598,6 +8625,22 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
         <translation>paquet de mise à jour Linux prêt : %1</translation>
     </message>
     <message>
+        <source>Signed by the publisher (key %1): the package is checked before it is installed.</source>
+        <translation>Signée par l&apos;éditeur (clé %1) : le paquet est vérifié avant l&apos;installation.</translation>
+    </message>
+    <message>
+        <source>Signed with a key DecoDXLog does not know for %1: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Signée avec une clé que DecoDXLog ne connaît pas pour %1 : elle ne s&apos;installe pas d&apos;ici. Téléchargez-la depuis la page seulement si vous faites confiance à la source.</translation>
+    </message>
+    <message>
+        <source>The signature of this release does not match: do not install it, and tell the publisher.</source>
+        <translation>La signature de cette version ne correspond pas : ne l&apos;installez pas, et prévenez l&apos;éditeur.</translation>
+    </message>
+    <message>
+        <source>This release is not signed: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Cette version n&apos;est pas signée : elle ne s&apos;installe pas d&apos;ici. Téléchargez-la depuis la page seulement si vous faites confiance à la source.</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>on demande à GitHub…</translation>
     </message>
@@ -9039,12 +9082,20 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
         <translation>la réponse de GitHub n&apos;a pas été comprise</translation>
     </message>
     <message>
+        <source>the package is not in the signed list of the release</source>
+        <translation>le paquet n&apos;est pas dans la liste signée de la version</translation>
+    </message>
+    <message>
         <source>cannot write %1</source>
         <translation>impossible d&apos;écrire %1</translation>
     </message>
     <message>
         <source>the downloaded file is incomplete</source>
         <translation>le fichier téléchargé est incomplet</translation>
+    </message>
+    <message>
+        <source>the downloaded file is not the one signed by the publisher: it was discarded</source>
+        <translation>le fichier téléchargé n&apos;est pas celui signé par l&apos;éditeur : il a été écarté</translation>
     </message>
 </context>
 <context>

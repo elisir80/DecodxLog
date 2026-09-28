@@ -98,6 +98,10 @@
         <source>Sections</source>
         <translation>Sektioner</translation>
     </message>
+    <message>
+        <source>W/VE QTH</source>
+        <translation>W/VE-QTH</translation>
+    </message>
 </context>
 <context>
     <name>ActivationDialog</name>
@@ -298,6 +302,14 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>Referencen læses fra SIG/SIG_INFO (SIG = %1) eller fra en kommentar som &quot;%1 LI-001&quot;.</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
+        <translation>ARRL-regler: QSO&apos;er på 60 m tæller ikke, og eQSL er ikke en bekræftelse for DXCC.</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count.</source>
+        <translation>ARRL-regler: QSO&apos;er på 60 m tæller ikke.</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -1601,6 +1613,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
 <context>
     <name>ContestRules</name>
     <message>
+        <source>CQ zone (+ W/VE QTH)</source>
+        <translation>CQ-zone (+ W/VE-QTH)</translation>
+    </message>
+    <message>
         <source>CQ zone</source>
         <translation>CQ-zone</translation>
     </message>
@@ -1635,6 +1651,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>A CQ zone goes from 1 to 40.</source>
         <translation>En CQ-zone går fra 1 til 40.</translation>
+    </message>
+    <message>
+        <source>%1 is not a US state or a Canadian area.</source>
+        <translation>%1 er hverken en amerikansk stat eller et canadisk område.</translation>
     </message>
     <message>
         <source>An ITU zone or a society abbreviation.</source>
@@ -1737,6 +1757,13 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Score</source>
         <translation>Score</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n hour(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Loggen uploades på contestens side inden for %n time efter contestens afslutning. Pointtallet i Cabrillo er det, der er talt her; logkontrollen tæller det alligevel igen.</numerusform>
+            <numerusform>Loggen uploades på contestens side inden for %n timer efter contestens afslutning. Pointtallet i Cabrillo er det, der er talt her; logkontrollen tæller det alligevel igen.</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
@@ -6770,8 +6797,8 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Spring denne udgave over</translation>
     </message>
     <message>
-        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
-        <translation>«Opdater nu» henter kun den pakke, der passer til denne computer. På Windows starter installationsprogrammet, på macOS åbnes diskbilledet, og på Linux opdateres AppImage-filen når det er muligt. Loggen og indstillingerne bliver, hvor de er.</translation>
+        <source>«Update now» downloads only the package compatible with this computer, and only if it is the one signed by the publisher. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>«Opdater nu» henter kun pakken til denne computer, og kun hvis det er den, udgiveren har signeret. På Windows starter installationsprogrammet, på macOS åbnes diskbilledet, og på Linux opdateres AppImage, når det er muligt. Log og indstillinger bliver, hvor de er.</translation>
     </message>
 </context>
 <context>
@@ -8598,6 +8625,22 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Linux-opdateringspakke klar: %1</translation>
     </message>
     <message>
+        <source>Signed by the publisher (key %1): the package is checked before it is installed.</source>
+        <translation>Signeret af udgiveren (nøgle %1): pakken kontrolleres, før den installeres.</translation>
+    </message>
+    <message>
+        <source>Signed with a key DecoDXLog does not know for %1: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Signeret med en nøgle, DecoDXLog ikke kender for %1: den installeres ikke herfra. Hent den kun fra siden, hvis du stoler på kilden.</translation>
+    </message>
+    <message>
+        <source>The signature of this release does not match: do not install it, and tell the publisher.</source>
+        <translation>Signaturen på denne version passer ikke: installer den ikke, og giv udgiveren besked.</translation>
+    </message>
+    <message>
+        <source>This release is not signed: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Denne version er ikke signeret: den installeres ikke herfra. Hent den kun fra siden, hvis du stoler på kilden.</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>spørger GitHub…</translation>
     </message>
@@ -9039,12 +9082,20 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>svaret fra GitHub blev ikke forstået</translation>
     </message>
     <message>
+        <source>the package is not in the signed list of the release</source>
+        <translation>pakken er ikke på versionens signerede liste</translation>
+    </message>
+    <message>
         <source>cannot write %1</source>
         <translation>kan ikke skrive %1</translation>
     </message>
     <message>
         <source>the downloaded file is incomplete</source>
         <translation>den hentede fil er ufuldstændig</translation>
+    </message>
+    <message>
+        <source>the downloaded file is not the one signed by the publisher: it was discarded</source>
+        <translation>den hentede fil er ikke den, udgiveren har signeret: den er kasseret</translation>
     </message>
 </context>
 <context>

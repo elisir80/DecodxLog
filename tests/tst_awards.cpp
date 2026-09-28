@@ -89,10 +89,13 @@ private slots:
         QCOMPARE(find(results, "pota").worked(), 1);
         QCOMPARE(find(results, "wpx").worked(), 5);
 
-        // Anche eQSL come conferma.
+        // Anche eQSL come conferma: vale per gli altri diplomi, non per il
+        // DXCC, che per l'ARRL si conferma solo con LoTW o cartolina.
         AwardFilter withEqsl;
         withEqsl.confirmEqsl = true;
-        QCOMPARE(find(calc.compute(db, withEqsl), "dxcc").confirmed(), 3);
+        QCOMPARE(find(calc.compute(db, withEqsl), "dxcc").confirmed(), 2);
+        QCOMPARE(find(calc.compute(db, withEqsl), "iota").confirmed(), 1);
+        QCOMPARE(find(calc.compute(db, all), "iota").confirmed(), 0);
 
         // Solo 20m, solo FT2.
         AwardFilter band20;
@@ -116,6 +119,35 @@ private slots:
         QCOMPARE(totals.at(1).worked, 1);
         QCOMPARE(totals.at(1).confirmed, 0);
         QCOMPARE(totals.at(3).worked, 0);
+    }
+
+    void theArrlAwardsDoNotCountSixtyMeters()
+    {
+        // Regole dell'ARRL: i QSO sui 60 metri non valgono per i suoi diplomi,
+        // DXCC compreso. Per gli altri (WAZ) valgono come sempre.
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        auto qso = [&db](const char* call, const char* band, int dxcc, int cqz, const char* state) {
+            AdifRecord r{{"CALL", call}, {"QSO_DATE", "20260301"}, {"TIME_ON", "1200"}, {"BAND", band},
+                         {"MODE", "CW"}, {"DXCC", QString::number(dxcc)}, {"CQZ", QString::number(cqz)},
+                         {"LOTW_QSL_RCVD", "Y"}};
+            if (*state)
+                r.set("STATE", state);
+            QCOMPARE(db.insertQso(r, "import").status, InsertResult::Status::Inserted);
+        };
+        qso("W1AW", "20m", 291, 5, "CT");
+        qso("DL1ABC", "60m", 230, 14, "");
+        qso("K5XX", "60m", 291, 4, "TX");
+
+        const AwardCalculator calc;
+        const auto results = calc.compute(db, AwardFilter{});
+        const auto dxcc = find(results, "dxcc");
+        QCOMPARE(dxcc.worked(), 1);           // solo 291 dai 20 metri
+        QCOMPARE(dxcc.confirmed(), 1);
+        QCOMPARE(dxcc.bandTotals({"60m"}).first().worked, 0);
+        QVERIFY(!dxcc.requirement.isEmpty());
+        QCOMPARE(find(results, "was").worked(), 1);   // CT si', TX dai 60 no
+        QCOMPARE(find(results, "waz").worked(), 3);   // il WAZ non e' dell'ARRL
     }
 
     void filterByProfileAndTag()

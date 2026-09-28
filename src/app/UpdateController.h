@@ -32,6 +32,12 @@ class UpdateController : public QObject {
     Q_PROPERTY(QString status READ status NOTIFY changed)
     Q_PROPERTY(QString lastCheck READ lastCheck NOTIFY changed)
     Q_PROPERTY(bool hasPackage READ hasPackage NOTIFY changed)
+    // Il pacchetto sta nell'elenco firmato da chi pubblica: solo allora
+    // «Aggiorna ora» c'e'. Senza firma si scarica a mano dalla pagina.
+    Q_PROPERTY(bool verified READ verified NOTIFY changed)
+    // "verified", "missing", "untrusted", "invalid": per il colore della riga.
+    Q_PROPERTY(QString signatureState READ signatureState NOTIFY changed)
+    Q_PROPERTY(QString signatureText READ signatureText NOTIFY changed)
     Q_PROPERTY(bool downloading READ downloading NOTIFY progressChanged)
     // Da 0 a 1 mentre scarica; -1 se non si sa quanto e' grande.
     Q_PROPERTY(double progress READ progress NOTIFY progressChanged)
@@ -64,6 +70,9 @@ public:
     QString status() const { return m_status; }
     QString lastCheck() const;
     bool hasPackage() const { return m_info.valid && !m_info.package.isEmpty(); }
+    bool verified() const { return hasPackage() && m_info.verified(); }
+    QString signatureState() const;
+    QString signatureText() const;
     bool downloading() const { return m_fetcher.downloading(); }
     double progress() const { return m_progress; }
     QString downloadSize() const;

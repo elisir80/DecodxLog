@@ -552,11 +552,15 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         const QString call = q.value(1).toString();
         const int dxcc = q.value(5).toInt();
         const QDateTime on = QDateTime::fromString(q.value(13).toString(), Qt::ISODate).toUTC();
-        const bool confirmed = (filter.confirmLotw && q.value(22).toString() == QLatin1String("Y"))
-                            || (filter.confirmCard && q.value(23).toString() == QLatin1String("Y"))
+        const bool byLotwOrCard = (filter.confirmLotw && q.value(22).toString() == QLatin1String("Y"))
+                               || (filter.confirmCard && q.value(23).toString() == QLatin1String("Y"));
+        const bool confirmed = byLotwOrCard
                             || (filter.confirmEqsl && q.value(24).toString() == QLatin1String("Y"));
+        // Le regole dell'ARRL: i QSO sui 60 metri non valgono per nessun suo
+        // diploma, DXCC compreso, e per il DXCC l'eQSL non e' una conferma.
+        const bool arrlBand = band.compare(QLatin1String("60m"), Qt::CaseInsensitive) != 0;
 
-        auto add = [&](const char* award, const QString& key, const QString& name) {
+        auto addAs = [&](const char* award, const QString& key, const QString& name, bool isConfirmed) {
             if (key.isEmpty())
                 return;
             Builder& b = builders[QLatin1String(award)];
@@ -571,13 +575,17 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
             item.last = on;
             ++item.qsoCount;
             item.bandsWorked.insert(band);
-            if (confirmed)
+            if (isConfirmed)
                 item.bandsConfirmed.insert(band);
+        };
+        auto add = [&](const char* award, const QString& key, const QString& name) {
+            addAs(award, key, name, confirmed);
         };
 
         if (dxcc > 0) {
             const QString name = m_dxccName ? m_dxccName(dxcc) : QString();
-            add("dxcc", QString::number(dxcc), name);
+            if (arrlBand)
+                addAs("dxcc", QString::number(dxcc), name, byLotwOrCard);
             if (submode == QLatin1String("FT2"))
                 add("ft2", QString::number(dxcc), name);
         }
@@ -593,7 +601,7 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         if (cqz >= 1 && cqz <= 40)
             add("waz", QString::number(cqz), QString());
         const QString state = q.value(7).toString().trimmed().toUpper();
-        if (usaEntities.contains(dxcc) && awards::usStates().contains(state))
+        if (arrlBand && usaEntities.contains(dxcc) && awards::usStates().contains(state))
             add("was", state, awards::usStates().value(state));
         // Giappone: la prefettura sta in STATE (ADIF la scrive col numero,
         // "12" o "JA12"), il distretto e' la cifra del nominativo.
@@ -694,6 +702,11 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
             b.result.requirement = QCoreApplication::translate(
                 "Awards", "The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like \"%1 LI-001\".")
                                        .arg(b.result.title);
+        } else if (id == QLatin1String("dxcc")) {
+            b.result.requirement = QCoreApplication::translate(
+                "Awards", "ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.");
+        } else if (id == QLatin1String("was")) {
+            b.result.requirement = QCoreApplication::translate("Awards", "ARRL rules: QSOs on 60 m do not count.");
         } else if (id == QLatin1String("waip")) {
             b.result.requirement = QCoreApplication::translate(
                 "Awards", "Diploma: 75 provinces for Italian stations, 60 for the others.");

@@ -3,6 +3,51 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.30 — 28 settembre 2026
+
+**Aggiornamenti firmati.** DecoDXLog installa da solo solo quello che chi pubblica ha firmato
+(docs/firma-aggiornamenti.md).
+
+- Ogni release porta l'elenco dei suoi file con SHA-256 e dimensione (`decodxlog-release.json`)
+  e la sua firma Ed25519 (`.sig`). Il programma conosce le chiavi pubbliche di chi pubblica, una
+  lista per repository, e prima di «Aggiorna ora» controlla firma, repository e versione.
+- Il pacchetto scaricato resta solo se il suo SHA-256 e' quello firmato: altrimenti viene buttato
+  prima di scriverlo, anche sopra l'AppImage che gira su Linux. Prima si controllava solo la
+  dimensione.
+- Una release senza firma, o firmata con una chiave che non si conosce, si vede lo stesso nella
+  finestra, con un avviso: si scarica a mano dalla pagina. Una firma che non torna si segnala in
+  rosso anche nel registro attivita'.
+- Fra elisir80/DecodxLog e iu8lmc/DecoDXLog vince la versione piu' nuova che risulta firmata.
+- La firma e' di Monocypher 4.0.2 (libs/monocypher), provata con i vettori dell'RFC 8032. Lo
+  strumento `decodxlog_sign` crea le chiavi nel portachiavi di sistema e firma le release
+  (`scripts/sign-release.sh`); la chiave segreta non sta nel repository.
+
+**Contest e diplomi contati come dicono i regolamenti.** Le correzioni della revisione esterna,
+ognuna ricontrollata sul regolamento ufficiale.
+
+- **CQ WW RTTY con le sue regole** (cqwwrtty.com): stesso paese 1 punto, stesso continente 2,
+  altro continente 3, senza l'eccezione del Nord America che vale in CW e SSB. Ai moltiplicatori
+  zona e paese si aggiunge il QTH W/VE: i 48 stati continentali, il DC e le 14 aree canadesi,
+  per banda (Alaska e Hawaii solo come paese). Lo scambio accetta "05 MA" e lo controlla; il
+  suggerimento mette zona e stato da una gara gia' fatta o dallo STATE del log. Nella finestra
+  dei moltiplicatori c'e' la colonna "QTH W/VE".
+- **CQ WPX RTTY con le sue regole** (cqwpxrtty.com): 1, 2 e 3 punti, il doppio su 40 e 80 metri
+  anche nel proprio paese, niente eccezione per il Nord America.
+- **Bande della gara**: i CQ in RTTY si fanno dagli 80 ai 10 metri, quelli in CW e SSB e lo IARU
+  dai 160 ai 10. Un QSO su un'altra banda (i WARC, o i 160 in RTTY) non porta punti ne'
+  moltiplicatori, e la finestra dei moltiplicatori mostra solo le bande della gara.
+- **Scadenze e portali giusti**: tutti i CQ (WW e WPX, in CW, SSB e RTTY) vogliono il log entro
+  **48 ore**, non cinque giorni; i due RTTY vanno su cqwwrtty.com/logcheck e
+  cqwpxrtty.com/logcheck, non sui portali di CW e SSB.
+- **La zona che conta e' quella ricevuta**: nel CQ WW e nello IARU il moltiplicatore segue la zona
+  mandata dal corrispondente; quella del cty.csv si usa solo quando lo scambio non c'e' (gli
+  spot). Prima valeva quella del cty.csv, che per molte stazioni americane e canadesi non e'
+  la zona in cui stanno.
+- **DXCC come lo conta l'ARRL**: i QSO sui 60 metri non valgono per il DXCC, per il DXCC Challenge
+  (che torna a dieci bande) e per il WAS, e per il DXCC l'eQSL non e' una conferma anche con
+  "eQSL" acceso (vale ancora per gli altri diplomi). Nella scheda del diploma lo si legge.
+- Tradotto in 15 lingue.
+
 ## 1.16.29 — 28 settembre 2026
 
 **Allineata alla 1.16.28 di elisir80: il Nuovo QSO piu' affidabile, con la CAT condivisa.**

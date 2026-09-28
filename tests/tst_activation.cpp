@@ -142,6 +142,15 @@ private slots:
                               {"CONTEST_ID", "IARU-HF"}, {"SRX_STRING", "DARC"}}, "import").status
                 == InsertResult::Status::Inserted);
 
+        // W3RT nel CQ WW RTTY: zona e stato. W6XX fuori dai contest, con lo STATE.
+        QVERIFY(db.insertQso({{"CALL", "W3RT"}, {"QSO_DATE", "20250927"}, {"TIME_ON", "1000"},
+                              {"BAND", "20m"}, {"MODE", "RTTY"}, {"DXCC", "291"},
+                              {"CONTEST_ID", "CQ-WW-RTTY"}, {"SRX_STRING", "05 PA"}}, "import").status
+                == InsertResult::Status::Inserted);
+        QVERIFY(db.insertQso({{"CALL", "W6XX"}, {"QSO_DATE", "20250401"}, {"TIME_ON", "1000"},
+                              {"BAND", "20m"}, {"MODE", "FT8"}, {"DXCC", "291"}, {"STATE", "CA"}},
+                             "import").status == InsertResult::Status::Inserted);
+
         ActivationController::Context ctx;
         ctx.db = &db;
         ctx.stationCall = [] { return QStringLiteral("IU8LMC"); };
@@ -159,6 +168,18 @@ private slots:
         };
         ActivationController act(std::move(ctx));
         act.load();
+
+        // CQ WW RTTY: la zona e, per gli americani, lo stato: dalla gara
+        // dell'anno scorso o dallo STATE del log. Un europeo solo la zona.
+        QVERIFY(act.start({{"kind", "contest"}, {"contestId", "CQ-WW-RTTY"}}).isEmpty());
+        QCOMPARE(act.suggestExchange(QStringLiteral("W3RT")).value("value").toString(), QString("5 PA"));
+        QCOMPARE(act.suggestExchange(QStringLiteral("W6XX")).value("value").toString(), QString("5 CA"));
+        QCOMPARE(act.suggestExchange(QStringLiteral("DL9ZZT")).value("value").toString(), QString("14"));
+        act.stop();
+        // E lo "05 PA" del RTTY vale zona 5 anche per il CQ WW in CW.
+        QVERIFY(act.start({{"kind", "contest"}, {"contestId", "CQ-WW-CW"}}).isEmpty());
+        QCOMPARE(act.suggestExchange(QStringLiteral("W3RT")).value("value").toString(), QString("5"));
+        act.stop();
 
         // CQ WW: la zona CQ dal paese.
         QVERIFY(act.start({{"kind", "contest"}, {"contestId", "CQ-WW-CW"}}).isEmpty());

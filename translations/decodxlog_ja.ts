@@ -98,6 +98,10 @@
         <source>Sections</source>
         <translation>セクション</translation>
     </message>
+    <message>
+        <source>W/VE QTH</source>
+        <translation>W/VE QTH</translation>
+    </message>
 </context>
 <context>
     <name>ActivationDialog</name>
@@ -297,6 +301,14 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>リファレンスは SIG/SIG_INFO (SIG = %1) か「%1 LI-001」のようなコメントから読み取ります。</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
+        <translation>ARRL の規定: 60 m の QSO は数えず、DXCC では eQSL はコンファームになりません。</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count.</source>
+        <translation>ARRL の規定: 60 m の QSO は数えません。</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -1597,6 +1609,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 <context>
     <name>ContestRules</name>
     <message>
+        <source>CQ zone (+ W/VE QTH)</source>
+        <translation>CQ ゾーン (+ W/VE QTH)</translation>
+    </message>
+    <message>
         <source>CQ zone</source>
         <translation>CQ ゾーン</translation>
     </message>
@@ -1631,6 +1647,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>A CQ zone goes from 1 to 40.</source>
         <translation>CQ ゾーンは 1 から 40 までです。</translation>
+    </message>
+    <message>
+        <source>%1 is not a US state or a Canadian area.</source>
+        <translation>%1 は米国の州でもカナダのエリアでもありません。</translation>
     </message>
     <message>
         <source>An ITU zone or a society abbreviation.</source>
@@ -1733,6 +1753,12 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Score</source>
         <translation>スコア</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n hour(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>ログは終了から %n 時間以内にコンテストのページにアップロードします。Cabrillo の得点はここで数えたものです。</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
@@ -6757,8 +6783,8 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>この版は見送る</translation>
     </message>
     <message>
-        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
-        <translation>「今すぐ更新」はこのコンピューターに合うパッケージだけをダウンロードします。Windows ではインストーラーが起動し、macOS ではディスクイメージが開き、Linux では可能なら AppImage が更新されます。ログと設定はそのまま残ります。</translation>
+        <source>«Update now» downloads only the package compatible with this computer, and only if it is the one signed by the publisher. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>「今すぐ更新」はこのコンピューターに合うパッケージだけを、発行者が署名したものである場合にのみダウンロードします。Windows ではインストーラーが起動し、macOS ではディスクイメージが開き、Linux では可能なら AppImage が更新されます。ログと設定はそのまま残ります。</translation>
     </message>
 </context>
 <context>
@@ -8554,6 +8580,22 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>Linux 更新パッケージの準備完了: %1</translation>
     </message>
     <message>
+        <source>Signed by the publisher (key %1): the package is checked before it is installed.</source>
+        <translation>発行者の署名あり (鍵 %1): パッケージはインストール前に検証されます。</translation>
+    </message>
+    <message>
+        <source>Signed with a key DecoDXLog does not know for %1: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>DecoDXLog が %1 について知らない鍵で署名されています: ここからはインストールしません。提供元を信頼できる場合のみページからダウンロードしてください。</translation>
+    </message>
+    <message>
+        <source>The signature of this release does not match: do not install it, and tell the publisher.</source>
+        <translation>このバージョンの署名が一致しません: インストールせず、発行者に知らせてください。</translation>
+    </message>
+    <message>
+        <source>This release is not signed: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>このバージョンは署名されていません: ここからはインストールしません。提供元を信頼できる場合のみページからダウンロードしてください。</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>GitHub に聞いています…</translation>
     </message>
@@ -8995,12 +9037,20 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>GitHub からの返事が分かりませんでした</translation>
     </message>
     <message>
+        <source>the package is not in the signed list of the release</source>
+        <translation>パッケージがこのバージョンの署名済み一覧にありません</translation>
+    </message>
+    <message>
         <source>cannot write %1</source>
         <translation>%1 を書けません</translation>
     </message>
     <message>
         <source>the downloaded file is incomplete</source>
         <translation>ダウンロードしたファイルが不完全です</translation>
+    </message>
+    <message>
+        <source>the downloaded file is not the one signed by the publisher: it was discarded</source>
+        <translation>ダウンロードしたファイルは発行者が署名したものではありません: 破棄しました</translation>
     </message>
 </context>
 <context>

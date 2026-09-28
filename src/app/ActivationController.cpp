@@ -257,17 +257,40 @@ QVariantMap ActivationController::suggestExchange(const QString& rawCall) const
 
     switch (rules.exchange) {
     case core::ContestRules::Exchange::CqZone:
+    case core::ContestRules::Exchange::CqZoneQth: {
+        // La zona: "05 MA" di un CQ WW RTTY vale 5 anche per il CQ WW in CW.
+        int zone = 0;
+        const char* from = "log";
         for (const Past& p : past) {
-            if (sameKind(p.contestId) && !p.exchange.isEmpty())
-                return answer(QString::number(p.exchange.toInt()), "log");
+            if (sameKind(p.contestId) && (zone = core::contestrules::exchangeZone(p.exchange)) > 0)
+                break;
         }
         for (const Past& p : past) {
-            if (p.cqz > 0)
-                return answer(QString::number(p.cqz), "log");
+            if (zone > 0)
+                break;
+            zone = p.cqz;
         }
-        if (where.cqZone > 0)
-            return answer(QString::number(where.cqZone), "cty");
-        return out;
+        if (zone <= 0 && where.cqZone > 0) {
+            zone = where.cqZone;
+            from = "cty";
+        }
+        if (zone <= 0)
+            return out;
+        QString value = QString::number(zone);
+        // In RTTY chi sta negli USA o in Canada manda anche lo stato o l'area:
+        // da una gara uguale gia' fatta, o dallo STATE del log.
+        if (rules.exchange == core::ContestRules::Exchange::CqZoneQth) {
+            for (const Past& p : past) {
+                const QString qth = core::contestrules::wveQth(p.contestId == rules.id ? p.exchange : QString(),
+                                                               p.state, where.dxcc);
+                if (!qth.isEmpty()) {
+                    value += QLatin1Char(' ') + qth;
+                    break;
+                }
+            }
+        }
+        return answer(value, from);
+    }
     case core::ContestRules::Exchange::ItuZone:
         // Le stazioni HQ mandano la sigla della societa' al posto della zona:
         // si sa solo da una gara gia' fatta con loro.
@@ -571,6 +594,7 @@ void ActivationController::buildScore() const
         {QStringLiteral("source"), rules.source},
         {QStringLiteral("submitUrl"), rules.submitUrl},
         {QStringLiteral("submitDays"), rules.submitDays},
+        {QStringLiteral("submitHours"), rules.submitHours},
         {QStringLiteral("points"), 0},
         {QStringLiteral("multipliers"), 0},
         {QStringLiteral("score"), 0},
@@ -627,7 +651,7 @@ QList<core::ContestQso> ActivationController::sessionQsos() const
     q.setForwardOnly(true);
     q.prepare(QStringLiteral(
         "SELECT call, band, mode, IFNULL(submode, ''), IFNULL(dxcc, 0), IFNULL(cont, ''), "
-        "IFNULL(cqz, 0), IFNULL(ituz, 0), IFNULL(adif_extra, '') "
+        "IFNULL(cqz, 0), IFNULL(ituz, 0), IFNULL(adif_extra, ''), IFNULL(state, '') "
         "FROM qso WHERE deleted = 0 AND qso_datetime_on >= ? ORDER BY qso_datetime_on, id"));
     q.addBindValue(m_session.startedAt.toString(Qt::ISODate));
     if (!q.exec())
@@ -644,6 +668,7 @@ QList<core::ContestQso> ActivationController::sessionQsos() const
         qso.continent = q.value(5).toString().toUpper();
         qso.cqZone = q.value(6).toInt();
         qso.ituZone = q.value(7).toInt();
+        qso.state = q.value(9).toString();
         // Lo scambio ricevuto non ha una colonna: sta fra i campi ADIF in piu'.
         const QString extra = q.value(8).toString();
         if (!extra.isEmpty()) {
@@ -688,7 +713,8 @@ QString shortMultiplier(const QString& key)
         return QStringLiteral("Z") + value;
     if (kind == QLatin1String("paese"))
         return QStringLiteral("DXCC");
-    if (kind == QLatin1String("hq") || kind == QLatin1String("prov") || kind == QLatin1String("sez"))
+    if (kind == QLatin1String("hq") || kind == QLatin1String("prov") || kind == QLatin1String("sez")
+        || kind == QLatin1String("qth"))
         return value;
     return key;
 }
@@ -696,12 +722,14 @@ QString shortMultiplier(const QString& key)
 
 namespace {
 
-// Le bande dei contest HF, nell'ordine dell'operatore.
-const QStringList& contestBands()
+// Le bande della gara, nell'ordine dell'operatore: quelle della scheda, o le
+// sei dei contest HF quando la scheda non le dice.
+QStringList contestBands(const core::ContestRules& rules)
 {
-    static const QStringList list{QStringLiteral("160m"), QStringLiteral("80m"), QStringLiteral("40m"),
-                                  QStringLiteral("20m"), QStringLiteral("15m"), QStringLiteral("10m")};
-    return list;
+    if (!rules.bands.isEmpty())
+        return rules.bands;
+    return {QStringLiteral("160m"), QStringLiteral("80m"), QStringLiteral("40m"),
+            QStringLiteral("20m"), QStringLiteral("15m"), QStringLiteral("10m")};
 }
 
 QString kindLabel(const QString& kind)
@@ -712,6 +740,7 @@ QString kindLabel(const QString& kind)
     if (kind == QLatin1String("hq")) return QCoreApplication::translate("ActivationController", "HQ stations");
     if (kind == QLatin1String("prov")) return QCoreApplication::translate("ActivationController", "Provinces");
     if (kind == QLatin1String("sez")) return QCoreApplication::translate("ActivationController", "Sections");
+    if (kind == QLatin1String("qth")) return QCoreApplication::translate("ActivationController", "W/VE QTH");
     return kind;
 }
 
@@ -722,7 +751,7 @@ QVariantMap ActivationController::multiplierMatrix() const
     if (!m_score.valid)
         buildScore();
     const core::ContestRules rules = core::contestrules::forId(m_session.contestId);
-    QStringList bands = contestBands();
+    QStringList bands = contestBands(rules);
     // kind → value → bande (vuota la stringa per i moltiplicatori una volta sola)
     QMap<QString, QMap<QString, QSet<QString>>> worked;
     QSet<QString> perBandKinds;
@@ -744,6 +773,11 @@ QVariantMap ActivationController::multiplierMatrix() const
             for (int z = 1; z <= 40; ++z)
                 worked[QStringLiteral("zona")][QString::number(z)];
             perBandKinds << QStringLiteral("zona") << QStringLiteral("paese");
+            if (rules.exchange == core::ContestRules::Exchange::CqZoneQth) {
+                for (const QString& qth : core::contestrules::wveQths().keys())
+                    worked[QStringLiteral("qth")][qth];
+                perBandKinds << QStringLiteral("qth");
+            }
         } else if (rules.id == QLatin1String("IARU-HF")) {
             for (int z = 1; z <= 90; ++z)
                 worked[QStringLiteral("zona")][QString::number(z)];
@@ -781,6 +815,8 @@ QVariantMap ActivationController::multiplierMatrix() const
                 name = m_ctx.dxccName(r.first.toInt());
             else if (k.key() == QLatin1String("prov"))
                 name = core::awards::italianProvinces().value(r.first);
+            else if (k.key() == QLatin1String("qth"))
+                name = core::contestrules::wveQths().value(r.first);
             out << QVariantMap{{QStringLiteral("value"), r.first},
                                {QStringLiteral("name"), name},
                                {QStringLiteral("worked"), bandsWorked},
@@ -821,7 +857,7 @@ QVariantList ActivationController::multiplierCheck(const QString& call, const QS
         QStringList needed;
     };
     QList<Row> rows;
-    for (const QString& b : contestBands()) {
+    for (const QString& b : contestBands(rules)) {
         qso.band = b;
         for (const QString& key : core::contestrules::multipliers(rules, qso, me)) {
             const QString head = key.section(QLatin1Char('|'), 0, 0);

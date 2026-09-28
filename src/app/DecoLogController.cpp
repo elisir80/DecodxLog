@@ -1643,11 +1643,12 @@ QVariantList DecoLogController::awardSummary() const
         };
 
         // Il DXCC Challenge non e' un altro elenco di entita': sono gli stessi
-        // DXCC contati banda per banda, dai 160 ai 6 metri (undici bande, 60
-        // compresi). Mille slot e' il traguardo del primo riconoscimento.
+        // DXCC contati banda per banda, dai 160 ai 6 metri (dieci bande: i 60
+        // no, per l'ARRL non valgono). Mille slot e' il traguardo del primo
+        // riconoscimento.
         if (r.id == QLatin1String("dxcc")) {
             static const QStringList challengeBands{
-                QStringLiteral("160m"), QStringLiteral("80m"), QStringLiteral("60m"),
+                QStringLiteral("160m"), QStringLiteral("80m"),
                 QStringLiteral("40m"), QStringLiteral("30m"), QStringLiteral("20m"),
                 QStringLiteral("17m"), QStringLiteral("15m"), QStringLiteral("12m"),
                 QStringLiteral("10m"), QStringLiteral("6m")};

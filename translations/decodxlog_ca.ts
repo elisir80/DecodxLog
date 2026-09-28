@@ -98,6 +98,10 @@
         <source>Sections</source>
         <translation>Seccions</translation>
     </message>
+    <message>
+        <source>W/VE QTH</source>
+        <translation>QTH W/VE</translation>
+    </message>
 </context>
 <context>
     <name>ActivationDialog</name>
@@ -298,6 +302,14 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>La referència es llegeix de SIG/SIG_INFO (SIG = %1) o d&apos;un comentari com &quot;%1 LI-001&quot;.</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
+        <translation>Regles ARRL: els QSO a 60 m no compten, i l&apos;eQSL no és una confirmació per al DXCC.</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count.</source>
+        <translation>Regles ARRL: els QSO a 60 m no compten.</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -1601,6 +1613,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
 <context>
     <name>ContestRules</name>
     <message>
+        <source>CQ zone (+ W/VE QTH)</source>
+        <translation>Zona CQ (+ QTH W/VE)</translation>
+    </message>
+    <message>
         <source>CQ zone</source>
         <translation>Zona CQ</translation>
     </message>
@@ -1635,6 +1651,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>A CQ zone goes from 1 to 40.</source>
         <translation>Una zona CQ va d&apos;1 a 40.</translation>
+    </message>
+    <message>
+        <source>%1 is not a US state or a Canadian area.</source>
+        <translation>%1 no és un estat dels EUA ni una àrea canadenca.</translation>
     </message>
     <message>
         <source>An ITU zone or a society abbreviation.</source>
@@ -1737,6 +1757,13 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Score</source>
         <translation>Puntuació</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n hour(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>El log es puja a la pàgina del concurs dins de %n hora des del final del concurs. La puntuació escrita al Cabrillo és la comptada aquí; qui revisa els logs la torna a comptar igualment.</numerusform>
+            <numerusform>El log es puja a la pàgina del concurs dins de %n hores des del final del concurs. La puntuació escrita al Cabrillo és la comptada aquí; qui revisa els logs la torna a comptar igualment.</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
@@ -6770,8 +6797,8 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Salta&apos;t aquesta versió</translation>
     </message>
     <message>
-        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
-        <translation>«Actualitza ara» baixa només el paquet compatible amb aquest ordinador. A Windows s&apos;inicia l&apos;instal·lador, a macOS s&apos;obre la imatge de disc i a Linux s&apos;actualitza l&apos;AppImage quan és possible. El log i la configuració es queden on són.</translation>
+        <source>«Update now» downloads only the package compatible with this computer, and only if it is the one signed by the publisher. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>«Actualitza ara» descarrega només el paquet adequat per a aquest ordinador, i només si és el signat per qui publica. A Windows s&apos;inicia l&apos;instal·lador, a macOS s&apos;obre la imatge de disc i a Linux l&apos;AppImage s&apos;actualitza quan és possible. El log i la configuració es queden on són.</translation>
     </message>
 </context>
 <context>
@@ -8598,6 +8625,22 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>paquet d&apos;actualització de Linux a punt: %1</translation>
     </message>
     <message>
+        <source>Signed by the publisher (key %1): the package is checked before it is installed.</source>
+        <translation>Signada per qui publica (clau %1): el paquet es comprova abans d&apos;instal·lar-lo.</translation>
+    </message>
+    <message>
+        <source>Signed with a key DecoDXLog does not know for %1: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Signada amb una clau que DecoDXLog no coneix per a %1: no s&apos;instal·la des d&apos;aquí. Descarrega-la des de la pàgina només si confies en la font.</translation>
+    </message>
+    <message>
+        <source>The signature of this release does not match: do not install it, and tell the publisher.</source>
+        <translation>La signatura d&apos;aquesta versió no coincideix: no la instal·lis i avisa qui publica.</translation>
+    </message>
+    <message>
+        <source>This release is not signed: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Aquesta versió no està signada: no s&apos;instal·la des d&apos;aquí. Descarrega-la des de la pàgina només si confies en la font.</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>preguntant a GitHub…</translation>
     </message>
@@ -9039,12 +9082,20 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>la resposta de GitHub no s&apos;ha entès</translation>
     </message>
     <message>
+        <source>the package is not in the signed list of the release</source>
+        <translation>el paquet no és a la llista signada de la versió</translation>
+    </message>
+    <message>
         <source>cannot write %1</source>
         <translation>no es pot escriure %1</translation>
     </message>
     <message>
         <source>the downloaded file is incomplete</source>
         <translation>el fitxer baixat és incomplet</translation>
+    </message>
+    <message>
+        <source>the downloaded file is not the one signed by the publisher: it was discarded</source>
+        <translation>el fitxer descarregat no és el signat per qui publica: s&apos;ha descartat</translation>
     </message>
 </context>
 <context>

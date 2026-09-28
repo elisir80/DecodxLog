@@ -98,6 +98,10 @@
         <source>Sections</source>
         <translation>Sezioni</translation>
     </message>
+    <message>
+        <source>W/VE QTH</source>
+        <translation>QTH W/VE</translation>
+    </message>
 </context>
 <context>
     <name>ActivationDialog</name>
@@ -298,6 +302,14 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>Il riferimento si legge da SIG/SIG_INFO (SIG = %1) o da un commento come &quot;%1 LI-001&quot;.</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
+        <translation>Regole ARRL: i QSO sui 60 m non contano, e l&apos;eQSL non è una conferma per il DXCC.</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count.</source>
+        <translation>Regole ARRL: i QSO sui 60 m non contano.</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -1601,6 +1613,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
 <context>
     <name>ContestRules</name>
     <message>
+        <source>CQ zone (+ W/VE QTH)</source>
+        <translation>Zona CQ (+ QTH W/VE)</translation>
+    </message>
+    <message>
         <source>CQ zone</source>
         <translation>Zona CQ</translation>
     </message>
@@ -1635,6 +1651,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>A CQ zone goes from 1 to 40.</source>
         <translation>Una zona CQ va da 1 a 40.</translation>
+    </message>
+    <message>
+        <source>%1 is not a US state or a Canadian area.</source>
+        <translation>%1 non è uno stato USA né un&apos;area canadese.</translation>
     </message>
     <message>
         <source>An ITU zone or a society abbreviation.</source>
@@ -1737,6 +1757,13 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Score</source>
         <translation>Punteggio</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n hour(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Il log si carica sulla pagina del contest entro %n ora dalla fine della gara. Il punteggio scritto nel Cabrillo è quello contato qui; chi controlla i log lo ricontrolla comunque.</numerusform>
+            <numerusform>Il log si carica sulla pagina del contest entro %n ore dalla fine della gara. Il punteggio scritto nel Cabrillo è quello contato qui; chi controlla i log lo ricontrolla comunque.</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
@@ -6770,8 +6797,8 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>Salta questa versione</translation>
     </message>
     <message>
-        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
-        <translation>«Aggiorna ora» scarica solo il pacchetto adatto a questo computer. Su Windows parte l&apos;installatore, su macOS si apre l&apos;immagine disco e su Linux l&apos;AppImage viene aggiornata quando possibile. Il log e le impostazioni restano dove sono.</translation>
+        <source>«Update now» downloads only the package compatible with this computer, and only if it is the one signed by the publisher. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>«Aggiorna ora» scarica solo il pacchetto adatto a questo computer, e solo se è quello firmato da chi pubblica. Su Windows parte l&apos;installatore, su macOS si apre l&apos;immagine disco e su Linux l&apos;AppImage si aggiorna quando è possibile. Log e impostazioni restano dove sono.</translation>
     </message>
 </context>
 <context>
@@ -8598,6 +8625,22 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>pacchetto di aggiornamento Linux pronto: %1</translation>
     </message>
     <message>
+        <source>Signed by the publisher (key %1): the package is checked before it is installed.</source>
+        <translation>Firmata da chi pubblica (chiave %1): il pacchetto viene controllato prima di installarlo.</translation>
+    </message>
+    <message>
+        <source>Signed with a key DecoDXLog does not know for %1: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Firmata con una chiave che DecoDXLog non conosce per %1: da qui non si installa. Scaricala dalla pagina solo se ti fidi della fonte.</translation>
+    </message>
+    <message>
+        <source>The signature of this release does not match: do not install it, and tell the publisher.</source>
+        <translation>La firma di questa versione non torna: non installarla, e avvisa chi pubblica.</translation>
+    </message>
+    <message>
+        <source>This release is not signed: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Questa versione non è firmata: da qui non si installa. Scaricala dalla pagina solo se ti fidi della fonte.</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>chiedo a GitHub…</translation>
     </message>
@@ -9039,12 +9082,20 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
         <translation>la risposta di GitHub non si e&apos; capita</translation>
     </message>
     <message>
+        <source>the package is not in the signed list of the release</source>
+        <translation>il pacchetto non è nell&apos;elenco firmato della versione</translation>
+    </message>
+    <message>
         <source>cannot write %1</source>
         <translation>non riesco a scrivere %1</translation>
     </message>
     <message>
         <source>the downloaded file is incomplete</source>
         <translation>il file scaricato è incompleto</translation>
+    </message>
+    <message>
+        <source>the downloaded file is not the one signed by the publisher: it was discarded</source>
+        <translation>il file scaricato non è quello firmato da chi pubblica: è stato scartato</translation>
     </message>
 </context>
 <context>

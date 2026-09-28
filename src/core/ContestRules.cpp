@@ -24,6 +24,39 @@ bool lowBand(const QString& band)
     return b == QLatin1String("40m") || b == QLatin1String("80m") || b == QLatin1String("160m");
 }
 
+// Le sei bande dei contest HF classici, e le cinque di quelli in RTTY, che i
+// 160 metri non li usano.
+QStringList sixBands()
+{
+    return {QStringLiteral("160m"), QStringLiteral("80m"), QStringLiteral("40m"),
+            QStringLiteral("20m"), QStringLiteral("15m"), QStringLiteral("10m")};
+}
+
+QStringList fiveBands()
+{
+    return {QStringLiteral("80m"), QStringLiteral("40m"), QStringLiteral("20m"),
+            QStringLiteral("15m"), QStringLiteral("10m")};
+}
+
+// Un QSO su una banda che la gara non usa non vale niente.
+bool offContestBand(const ContestRules& rules, const QString& band)
+{
+    return !rules.bands.isEmpty() && !rules.bands.contains(band.toLower());
+}
+
+// Le aree canadesi con i nomi che si trovano nei log oltre a quelli del
+// regolamento: NT per NWT, NL per NF, PE per PEI.
+QString canadianArea(const QString& code)
+{
+    if (code == QLatin1String("NT"))
+        return QStringLiteral("NWT");
+    if (code == QLatin1String("NL"))
+        return QStringLiteral("NF");
+    if (code == QLatin1String("PE"))
+        return QStringLiteral("PEI");
+    return code;
+}
+
 bool sameCountry(const ContestQso& qso, const ContestStation& me)
 {
     return qso.dxcc > 0 && me.dxcc > 0 && qso.dxcc == me.dxcc;
@@ -66,12 +99,33 @@ ContestRules forId(const QString& contestId)
     r.id = id;
     r.valid = true;
 
+    // I CQ in RTTY hanno un regolamento loro, un sito loro e un portale loro:
+    // stessi nomi, conti diversi. Tutti i CQ vogliono il log entro 48 ore.
+    if (id == QLatin1String("CQ-WW-RTTY")) {
+        r.exchange = ContestRules::Exchange::CqZoneQth;
+        r.exchangeLabel = Tr::tr("CQ zone (+ W/VE QTH)");
+        r.source = QStringLiteral("cqwwrtty.com/rules");
+        r.submitUrl = QStringLiteral("https://www.cqwwrtty.com/logcheck/");
+        r.submitHours = 48;
+        r.bands = fiveBands();
+        return r;
+    }
     if (id.startsWith(QLatin1String("CQ-WW-"))) {
         r.exchange = ContestRules::Exchange::CqZone;
         r.exchangeLabel = Tr::tr("CQ zone");
         r.source = QStringLiteral("cqww.com/rules");
         r.submitUrl = QStringLiteral("https://www.cqww.com/logcheck/");
-        r.submitDays = 5;
+        r.submitHours = 48;
+        r.bands = sixBands();
+        return r;
+    }
+    if (id == QLatin1String("CQ-WPX-RTTY")) {
+        r.exchange = ContestRules::Exchange::Serial;
+        r.exchangeLabel = Tr::tr("Number");
+        r.source = QStringLiteral("cqwpxrtty.com/rules");
+        r.submitUrl = QStringLiteral("https://www.cqwpxrtty.com/logcheck/");
+        r.submitHours = 48;
+        r.bands = fiveBands();
         return r;
     }
     if (id.startsWith(QLatin1String("CQ-WPX-"))) {
@@ -79,7 +133,8 @@ ContestRules forId(const QString& contestId)
         r.exchangeLabel = Tr::tr("Number");
         r.source = QStringLiteral("cqwpx.com/rules");
         r.submitUrl = QStringLiteral("https://www.cqwpx.com/logcheck/");
-        r.submitDays = 5;
+        r.submitHours = 48;
+        r.bands = sixBands();
         return r;
     }
     if (id == QLatin1String("IARU-HF")) {
@@ -88,6 +143,7 @@ ContestRules forId(const QString& contestId)
         r.source = QStringLiteral("contests.arrl.org — IARU HF Rules 1.21");
         r.submitUrl = QStringLiteral("https://contest-log-submission.arrl.org/");
         r.submitDays = 7;
+        r.bands = sixBands();
         return r;
     }
     if (id == QLatin1String("ARI-DX")) {
@@ -128,9 +184,25 @@ QStringList known()
 
 int points(const ContestRules& rules, const ContestQso& qso, const ContestStation& me)
 {
-    if (!rules.valid)
+    if (!rules.valid || offContestBand(rules, qso.band))
         return 0;
     const QString id = rules.id;
+
+    // CQ WW RTTY (regolamento, QSO Points): stesso paese 1, stesso continente
+    // 2, continente diverso 3. Niente eccezione per il Nord America.
+    if (id == QLatin1String("CQ-WW-RTTY")) {
+        if (sameCountry(qso, me))
+            return 1;
+        return sameContinent(qso, me) ? 2 : 3;
+    }
+
+    // CQ WPX RTTY (regolamento, QSO Points): 1, 2 e 3 punti sulle bande alte,
+    // il doppio su 40 e 80 — anche nel proprio paese, a differenza del WPX in
+    // CW e SSB. Niente eccezione per il Nord America.
+    if (id == QLatin1String("CQ-WPX-RTTY")) {
+        const int base = sameCountry(qso, me) ? 1 : sameContinent(qso, me) ? 2 : 3;
+        return lowBand(qso.band) ? base * 2 : base;
+    }
 
     // CQ WW (regolamento VII): stesso paese 0, stesso continente 1 (2 fra
     // stazioni del Nord America), continente diverso 3.
@@ -166,7 +238,9 @@ int points(const ContestRules& rules, const ContestQso& qso, const ContestStatio
                                   && !onlyDigits.match(qso.exchange.trimmed()).hasMatch();
         if (headquarters)
             return 1;
-        const int zone = qso.ituZone > 0 ? qso.ituZone : qso.exchange.toInt();
+        // La zona che la stazione ha mandato; quella del cty.csv solo se manca.
+        const int sent = qso.exchange.trimmed().toInt();
+        const int zone = sent >= 1 && sent <= 90 ? sent : qso.ituZone;
         if (zone > 0 && me.ituZone > 0 && zone == me.ituZone)
             return 1;
         if (sameContinent(qso, me))
@@ -214,19 +288,28 @@ int points(const ContestRules& rules, const ContestQso& qso, const ContestStatio
 
 QStringList multipliers(const ContestRules& rules, const ContestQso& qso, const ContestStation& me)
 {
-    if (!rules.valid)
+    if (!rules.valid || offContestBand(rules, qso.band))
         return {};
     const QString id = rules.id;
     const QString band = qso.band.toLower();
 
-    // CQ WW: la zona e il paese, ognuno una volta per banda.
+    // CQ WW: la zona e il paese, ognuno una volta per banda. In RTTY anche il
+    // QTH delle stazioni W/VE: 48 stati, il DC e 14 aree canadesi, per banda.
     if (id.startsWith(QLatin1String("CQ-WW-"))) {
         QStringList out;
-        const int zone = qso.cqZone > 0 ? qso.cqZone : qso.exchange.toInt();
+        // Conta la zona mandata, come fa chi controlla i log: quella del
+        // cty.csv sbaglia per mezza America (un W6 sta nella 3, non nella 5).
+        const int sent = exchangeZone(qso.exchange);
+        const int zone = sent >= 1 && sent <= 40 ? sent : qso.cqZone;
         if (zone >= 1 && zone <= 40)
             out << QStringLiteral("zona %1|%2").arg(zone).arg(band);
         if (qso.dxcc > 0)
             out << QStringLiteral("paese %1|%2").arg(qso.dxcc).arg(band);
+        if (id == QLatin1String("CQ-WW-RTTY")) {
+            const QString qth = wveQth(qso.exchange, qso.state, qso.dxcc);
+            if (!qth.isEmpty())
+                out << QStringLiteral("qth %1|%2").arg(qth, band);
+        }
         return out;
     }
 
@@ -242,7 +325,8 @@ QStringList multipliers(const ContestRules& rules, const ContestQso& qso, const 
         const QString exchange = qso.exchange.trimmed().toUpper();
         if (!exchange.isEmpty() && !onlyDigits.match(exchange).hasMatch())
             return {QStringLiteral("hq %1|%2").arg(exchange, band)};
-        const int zone = qso.ituZone > 0 ? qso.ituZone : exchange.toInt();
+        const int sent = exchange.toInt();
+        const int zone = sent >= 1 && sent <= 90 ? sent : qso.ituZone;
         if (zone >= 1 && zone <= 90)
             return {QStringLiteral("zona %1|%2").arg(zone).arg(band)};
         return {};
@@ -301,6 +385,18 @@ QString checkExchange(const ContestRules& rules, const QString& exchange)
         const int zone = text.toInt(&ok);
         return ok && zone >= 1 && zone <= 40 ? QString() : Tr::tr("A CQ zone goes from 1 to 40.");
     }
+    case ContestRules::Exchange::CqZoneQth: {
+        // "05", o "05 MA" per chi sta negli USA o in Canada.
+        static const QRegularExpression form(QStringLiteral("^(\\d{1,2})(?:\\s+([A-Z]{2,3}))?$"));
+        const auto match = form.match(text);
+        const int zone = match.hasMatch() ? match.captured(1).toInt() : 0;
+        if (zone < 1 || zone > 40)
+            return Tr::tr("A CQ zone goes from 1 to 40.");
+        const QString qth = match.captured(2);
+        if (!qth.isEmpty() && !wveQths().contains(qth) && !wveQths().contains(canadianArea(qth)))
+            return Tr::tr("%1 is not a US state or a Canadian area.").arg(qth);
+        return {};
+    }
     case ContestRules::Exchange::ItuZone: {
         // Una stazione HQ manda la sigla della societa' invece della zona.
         static const QRegularExpression digits(QStringLiteral("^\\d+$"));
@@ -330,6 +426,83 @@ QString checkExchange(const ContestRules& rules, const QString& exchange)
         return {};
     }
     return {};
+}
+
+int exchangeZone(const QString& exchange)
+{
+    static const QRegularExpression head(QStringLiteral("^\\s*(\\d{1,2})\\b"));
+    const auto match = head.match(exchange);
+    return match.hasMatch() ? match.captured(1).toInt() : 0;
+}
+
+namespace {
+
+// I 48 stati continentali e il DC: l'Alaska e le Hawaii contano solo come paese.
+const QMap<QString, QString>& usaQths()
+{
+    static const QMap<QString, QString> all = [] {
+        QMap<QString, QString> m = awards::usStates();
+        m.remove(QStringLiteral("AK"));
+        m.remove(QStringLiteral("HI"));
+        m.insert(QStringLiteral("DC"), QStringLiteral("District of Columbia"));
+        return m;
+    }();
+    return all;
+}
+
+// Le 14 aree canadesi, con le sigle del regolamento.
+const QMap<QString, QString>& canadaQths()
+{
+    static const QMap<QString, QString> all{
+        {QStringLiteral("NB"), QStringLiteral("New Brunswick (VE9)")},
+        {QStringLiteral("NS"), QStringLiteral("Nova Scotia (VE1)")},
+        {QStringLiteral("QC"), QStringLiteral("Quebec (VE2)")},
+        {QStringLiteral("ON"), QStringLiteral("Ontario (VE3)")},
+        {QStringLiteral("MB"), QStringLiteral("Manitoba (VE4)")},
+        {QStringLiteral("SK"), QStringLiteral("Saskatchewan (VE5)")},
+        {QStringLiteral("AB"), QStringLiteral("Alberta (VE6)")},
+        {QStringLiteral("BC"), QStringLiteral("British Columbia (VE7)")},
+        {QStringLiteral("NWT"), QStringLiteral("Northwest Territories (VE8)")},
+        {QStringLiteral("NF"), QStringLiteral("Newfoundland (VO1)")},
+        {QStringLiteral("LB"), QStringLiteral("Labrador (VO2)")},
+        {QStringLiteral("NU"), QStringLiteral("Nunavut (VY0)")},
+        {QStringLiteral("YT"), QStringLiteral("Yukon (VY1)")},
+        {QStringLiteral("PEI"), QStringLiteral("Prince Edward Island (VY2)")},
+    };
+    return all;
+}
+
+} // namespace
+
+const QMap<QString, QString>& wveQths()
+{
+    static const QMap<QString, QString> all = [] {
+        QMap<QString, QString> m = usaQths();
+        m.insert(canadaQths());
+        return m;
+    }();
+    return all;
+}
+
+QString wveQth(const QString& exchange, const QString& state, int dxcc)
+{
+    const bool usa = dxcc == 291;
+    if (!usa && dxcc != 1)
+        return {};
+    // Una sigla canadese in un QSO americano, o il contrario, non vale.
+    auto valid = [usa](const QString& raw) -> QString {
+        const QString code = usa ? raw : canadianArea(raw);
+        return (usa ? usaQths() : canadaQths()).contains(code) ? code : QString();
+    };
+    // Nello scambio: la parola dopo la zona ("05 MA").
+    static const QRegularExpression word(QStringLiteral("\\b[A-Z]{2,3}\\b"));
+    auto it = word.globalMatch(exchange.trimmed().toUpper());
+    while (it.hasNext()) {
+        const QString code = valid(it.next().captured(0));
+        if (!code.isEmpty())
+            return code;
+    }
+    return valid(state.trimmed().toUpper());
 }
 
 } // namespace contestrules

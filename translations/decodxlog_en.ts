@@ -98,6 +98,10 @@
         <source>Sections</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>W/VE QTH</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ActivationDialog</name>
@@ -297,6 +301,14 @@
     </message>
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1600,6 +1612,10 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>ContestRules</name>
     <message>
+        <source>CQ zone (+ W/VE QTH)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>CQ zone</source>
         <translation>CQ zone</translation>
     </message>
@@ -1634,6 +1650,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>A CQ zone goes from 1 to 40.</source>
         <translation>A CQ zone goes from 1 to 40.</translation>
+    </message>
+    <message>
+        <source>%1 is not a US state or a Canadian area.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>An ITU zone or a society abbreviation.</source>
@@ -1736,6 +1756,13 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Score</source>
         <translation>Score</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n hour(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
@@ -6769,7 +6796,7 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <source>«Update now» downloads only the package compatible with this computer, and only if it is the one signed by the publisher. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8597,6 +8624,22 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Signed by the publisher (key %1): the package is checked before it is installed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Signed with a key DecoDXLog does not know for %1: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The signature of this release does not match: do not install it, and tell the publisher.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This release is not signed: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9038,11 +9081,19 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>the package is not in the signed list of the release</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>cannot write %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>the downloaded file is incomplete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the downloaded file is not the one signed by the publisher: it was discarded</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

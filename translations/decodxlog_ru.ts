@@ -98,6 +98,10 @@
         <source>Sections</source>
         <translation>Секции</translation>
     </message>
+    <message>
+        <source>W/VE QTH</source>
+        <translation>QTH W/VE</translation>
+    </message>
 </context>
 <context>
     <name>ActivationDialog</name>
@@ -299,6 +303,14 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>Референс берётся из SIG/SIG_INFO (SIG = %1) или из комментария вида «%1 LI-001».</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
+        <translation>Правила ARRL: QSO на 60 м не засчитываются, а eQSL не является подтверждением для DXCC.</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count.</source>
+        <translation>Правила ARRL: QSO на 60 м не засчитываются.</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -1605,6 +1617,10 @@ The call Decodium is working shows up here by itself.</source>
 <context>
     <name>ContestRules</name>
     <message>
+        <source>CQ zone (+ W/VE QTH)</source>
+        <translation>Зона CQ (+ QTH W/VE)</translation>
+    </message>
+    <message>
         <source>CQ zone</source>
         <translation>Зона CQ</translation>
     </message>
@@ -1639,6 +1655,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>A CQ zone goes from 1 to 40.</source>
         <translation>Зона CQ — от 1 до 40.</translation>
+    </message>
+    <message>
+        <source>%1 is not a US state or a Canadian area.</source>
+        <translation>%1 — не штат США и не канадский район.</translation>
     </message>
     <message>
         <source>An ITU zone or a society abbreviation.</source>
@@ -1741,6 +1761,14 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Score</source>
         <translation>Результат</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n hour(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>Лог загружается на страницу соревнования в течение %n часа после окончания. Счёт, записанный в Cabrillo, — тот, что посчитан здесь; судьи всё равно его пересчитают.</numerusform>
+            <numerusform>Лог загружается на страницу соревнования в течение %n часов после окончания. Счёт, записанный в Cabrillo, — тот, что посчитан здесь; судьи всё равно его пересчитают.</numerusform>
+            <numerusform>Лог загружается на страницу соревнования в течение %n часов после окончания. Счёт, записанный в Cabrillo, — тот, что посчитан здесь; судьи всё равно его пересчитают.</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
@@ -6783,8 +6811,8 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Пропустить эту версию</translation>
     </message>
     <message>
-        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
-        <translation>«Обновить сейчас» скачивает только пакет, подходящий для этого компьютера. В Windows запускается установщик, в macOS открывается образ диска, а в Linux по возможности обновляется AppImage. Журнал и настройки остаются на месте.</translation>
+        <source>«Update now» downloads only the package compatible with this computer, and only if it is the one signed by the publisher. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>«Обновить сейчас» скачивает только пакет для этого компьютера и только если он подписан издателем. В Windows запускается установщик, в macOS открывается образ диска, а в Linux AppImage обновляется, когда это возможно. Лог и настройки остаются на месте.</translation>
     </message>
 </context>
 <context>
@@ -8642,6 +8670,22 @@ The call Decodium is working shows up here by itself.</source>
         <translation>пакет обновления для Linux готов: %1</translation>
     </message>
     <message>
+        <source>Signed by the publisher (key %1): the package is checked before it is installed.</source>
+        <translation>Подписано издателем (ключ %1): пакет проверяется перед установкой.</translation>
+    </message>
+    <message>
+        <source>Signed with a key DecoDXLog does not know for %1: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Подписано ключом, который DecoDXLog не знает для %1: отсюда не устанавливается. Скачайте со страницы, только если доверяете источнику.</translation>
+    </message>
+    <message>
+        <source>The signature of this release does not match: do not install it, and tell the publisher.</source>
+        <translation>Подпись этой версии не совпадает: не устанавливайте её и сообщите издателю.</translation>
+    </message>
+    <message>
+        <source>This release is not signed: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>Эта версия не подписана: отсюда не устанавливается. Скачайте её со страницы, только если доверяете источнику.</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>спрашиваем GitHub…</translation>
     </message>
@@ -9083,12 +9127,20 @@ The call Decodium is working shows up here by itself.</source>
         <translation>ответ GitHub не удалось разобрать</translation>
     </message>
     <message>
+        <source>the package is not in the signed list of the release</source>
+        <translation>пакета нет в подписанном списке версии</translation>
+    </message>
+    <message>
         <source>cannot write %1</source>
         <translation>не записать %1</translation>
     </message>
     <message>
         <source>the downloaded file is incomplete</source>
         <translation>загруженный файл неполный</translation>
+    </message>
+    <message>
+        <source>the downloaded file is not the one signed by the publisher: it was discarded</source>
+        <translation>скачанный файл не совпадает с подписанным издателем: он удалён</translation>
     </message>
 </context>
 <context>

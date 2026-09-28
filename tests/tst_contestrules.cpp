@@ -75,6 +75,12 @@ private slots:
         // La stessa zona su un'altra banda e' un altro moltiplicatore.
         const QStringList other = multipliers(r, qso("W2XX", 291, "NA", "40m", "CW", "5", 5), me());
         QVERIFY(other.at(0) != mults.at(0));
+        // Conta la zona mandata, non quella che il cty.csv da' al prefisso.
+        QVERIFY(multipliers(r, qso("W6ABC", 291, "NA", "20m", "CW", "3", 5), me())
+                    .contains(QStringLiteral("zona 3|20m")));
+        // Senza scambio (uno spot) si usa quella del cty.csv.
+        QVERIFY(multipliers(r, qso("W6ABC", 291, "NA", "20m", "CW", "", 5), me())
+                    .contains(QStringLiteral("zona 5|20m")));
         // E il proprio paese fa moltiplicatore anche se il QSO vale zero punti.
         QCOMPARE(multipliers(r, qso("IK0ABC", 248, "EU", "20m", "CW", "15", 15), me()).size(), 2);
     }
@@ -111,6 +117,86 @@ private slots:
         QCOMPARE(first.size(), 1);
         QCOMPARE(first, again);
         QVERIFY(first.first().contains(QStringLiteral("DL9")));
+    }
+
+    void cqWorldWideRttyHasItsOwnRules()
+    {
+        // Il CQ WW RTTY non e' il CQ WW in un altro modo: punti, moltiplicatori,
+        // bande, scadenza e portale sono suoi (cqwwrtty.com/rules).
+        const ContestRules r = forId(QStringLiteral("CQ-WW-RTTY"));
+        QCOMPARE(r.exchange, ContestRules::Exchange::CqZoneQth);
+        QCOMPARE(r.submitUrl, QStringLiteral("https://www.cqwwrtty.com/logcheck/"));
+        QCOMPARE(r.submitHours, 48);
+        QVERIFY(!r.bands.contains(QStringLiteral("160m")));
+
+        // Stesso paese 1 punto, stesso continente 2, continente diverso 3.
+        QCOMPARE(points(r, qso("IK0ABC", 248, "EU", "20m", "RTTY", "15", 15), me()), 1);
+        QCOMPARE(points(r, qso("DL9ZZT", 230, "EU", "20m", "RTTY", "14", 14), me()), 2);
+        QCOMPARE(points(r, qso("W1AW", 291, "NA", "20m", "RTTY", "05 CT", 5), me()), 3);
+        // Niente eccezione per il Nord America: fra due americani 2, non 4.
+        const ContestStation american{291, QStringLiteral("NA"), 5, 8};
+        QCOMPARE(points(r, qso("VE3ABC", 1, "NA", "20m", "RTTY", "04 ON", 4), american), 2);
+        // I 160 metri non sono una banda della gara.
+        QCOMPARE(points(r, qso("W1AW", 291, "NA", "160m", "RTTY", "05 CT", 5), me()), 0);
+        QVERIFY(multipliers(r, qso("W1AW", 291, "NA", "160m", "RTTY", "05 CT", 5), me()).isEmpty());
+
+        // Tre moltiplicatori: zona, paese e il QTH delle stazioni W/VE.
+        const QStringList usa = multipliers(r, qso("W1AW", 291, "NA", "20m", "RTTY", "05 CT"), me());
+        QCOMPARE(usa.size(), 3);
+        QVERIFY(usa.at(0).startsWith(QStringLiteral("zona 5|")));
+        QVERIFY(usa.contains(QStringLiteral("qth CT|20m")));
+        // Le aree canadesi, anche scritte come nel log (NL per NF, NT per NWT).
+        QVERIFY(multipliers(r, qso("VO1AA", 1, "NA", "20m", "RTTY", "05 NL"), me())
+                    .contains(QStringLiteral("qth NF|20m")));
+        QVERIFY(multipliers(r, qso("VE8AA", 1, "NA", "20m", "RTTY", "01 NT"), me())
+                    .contains(QStringLiteral("qth NWT|20m")));
+        // Senza QTH nello scambio vale lo STATE del log.
+        ContestQso fromState = qso("K6XX", 291, "NA", "40m", "RTTY", "03", 3);
+        fromState.state = QStringLiteral("CA");
+        QVERIFY(multipliers(r, fromState, me()).contains(QStringLiteral("qth CA|40m")));
+        // Alaska e Hawaii contano solo come paese; gli altri paesi non hanno QTH.
+        QCOMPARE(multipliers(r, qso("KL7AA", 6, "NA", "20m", "RTTY", "01 AK"), me()).size(), 2);
+        QCOMPARE(multipliers(r, qso("DL9ZZT", 230, "EU", "20m", "RTTY", "14"), me()).size(), 2);
+        // Una sigla canadese da una stazione USA non e' un QTH.
+        QCOMPARE(multipliers(r, qso("W1AW", 291, "NA", "20m", "RTTY", "05 ON"), me()).size(), 2);
+        QCOMPARE(wveQths().size(), 49 + 14);
+
+        // Lo scambio: la zona, e per W/VE anche il QTH.
+        QVERIFY(checkExchange(r, QStringLiteral("15")).isEmpty());
+        QVERIFY(checkExchange(r, QStringLiteral("05 MA")).isEmpty());
+        QVERIFY(checkExchange(r, QStringLiteral("04 PEI")).isEmpty());
+        QVERIFY(!checkExchange(r, QStringLiteral("05 XX")).isEmpty());
+        QVERIFY(!checkExchange(r, QStringLiteral("55 MA")).isEmpty());
+        QCOMPARE(exchangeZone(QStringLiteral("05 MA")), 5);
+        QCOMPARE(exchangeZone(QStringLiteral("MA")), 0);
+    }
+
+    void cqWpxRttyDoublesEvenInTheOwnCountry()
+    {
+        // cqwpxrtty.com/rules: 1, 2 e 3 punti su 20, 15 e 10 metri, il doppio
+        // su 40 e 80. Niente 160, niente eccezione per il Nord America.
+        const ContestRules r = forId(QStringLiteral("CQ-WPX-RTTY"));
+        QCOMPARE(r.submitUrl, QStringLiteral("https://www.cqwpxrtty.com/logcheck/"));
+        QCOMPARE(r.submitHours, 48);
+        QCOMPARE(points(r, qso("IK0ABC", 248, "EU", "20m", "RTTY", "001"), me()), 1);
+        QCOMPARE(points(r, qso("IK0ABC", 248, "EU", "40m", "RTTY", "001"), me()), 2);
+        QCOMPARE(points(r, qso("DL9ZZT", 230, "EU", "15m", "RTTY", "001"), me()), 2);
+        QCOMPARE(points(r, qso("DL9ZZT", 230, "EU", "80m", "RTTY", "001"), me()), 4);
+        QCOMPARE(points(r, qso("W1AW", 291, "NA", "10m", "RTTY", "001"), me()), 3);
+        QCOMPARE(points(r, qso("W1AW", 291, "NA", "40m", "RTTY", "001"), me()), 6);
+        const ContestStation american{291, QStringLiteral("NA"), 5, 8};
+        QCOMPARE(points(r, qso("VE3ABC", 1, "NA", "20m", "RTTY", "001"), american), 2);
+        QCOMPARE(points(r, qso("W1AW", 291, "NA", "160m", "RTTY", "001"), me()), 0);
+    }
+
+    void allCqContestsWantTheLogWithin48Hours()
+    {
+        for (const char* id : {"CQ-WW-CW", "CQ-WW-SSB", "CQ-WW-RTTY", "CQ-WPX-CW", "CQ-WPX-SSB", "CQ-WPX-RTTY"})
+            QCOMPARE(forId(QLatin1String(id)).submitHours, 48);
+        QCOMPARE(forId(QStringLiteral("CQ-WW-CW")).submitUrl, QStringLiteral("https://www.cqww.com/logcheck/"));
+        // I WARC non sono bande da contest.
+        QCOMPARE(points(forId(QStringLiteral("CQ-WW-CW")), qso("W1AW", 291, "NA", "30m", "CW", "5", 5), me()), 0);
+        QCOMPARE(points(forId(QStringLiteral("CQ-WW-CW")), qso("W1AW", 291, "NA", "160m", "CW", "5", 5), me()), 3);
     }
 
     void iaruCountsZonesAndHeadquarters()

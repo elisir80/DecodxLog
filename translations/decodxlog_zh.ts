@@ -98,6 +98,10 @@
         <source>Sections</source>
         <translation>分区</translation>
     </message>
+    <message>
+        <source>W/VE QTH</source>
+        <translation>W/VE QTH</translation>
+    </message>
 </context>
 <context>
     <name>ActivationDialog</name>
@@ -297,6 +301,14 @@
     <message>
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>参考编号取自 SIG/SIG_INFO（SIG = %1）或类似“%1 LI-001”的备注。</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
+        <translation>ARRL 规则：60 米的 QSO 不计入，且 eQSL 不算 DXCC 的确认。</translation>
+    </message>
+    <message>
+        <source>ARRL rules: QSOs on 60 m do not count.</source>
+        <translation>ARRL 规则：60 米的 QSO 不计入。</translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -1597,6 +1609,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
 <context>
     <name>ContestRules</name>
     <message>
+        <source>CQ zone (+ W/VE QTH)</source>
+        <translation>CQ 分区 (+ W/VE QTH)</translation>
+    </message>
+    <message>
         <source>CQ zone</source>
         <translation>CQ 分区</translation>
     </message>
@@ -1631,6 +1647,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>A CQ zone goes from 1 to 40.</source>
         <translation>CQ 分区从 1 到 40。</translation>
+    </message>
+    <message>
+        <source>%1 is not a US state or a Canadian area.</source>
+        <translation>%1 既不是美国的州，也不是加拿大的区域。</translation>
     </message>
     <message>
         <source>An ITU zone or a society abbreviation.</source>
@@ -1733,6 +1753,12 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Score</source>
         <translation>总分</translation>
+    </message>
+    <message numerus="yes">
+        <source>The log goes uploaded on the contest page, within %n hour(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
+        <translation>
+            <numerusform>日志须在比赛结束后 %n 小时内上传到比赛页面。Cabrillo 中的得分就是这里计算的得分；审核日志的人无论如何都会重新计算。</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>The log goes uploaded on the contest page, within %n day(s) from the end of the contest. The score written in the Cabrillo is the one counted here; who checks the logs recounts it anyway.</source>
@@ -6757,8 +6783,8 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>跳过这个版本</translation>
     </message>
     <message>
-        <source>«Update now» downloads only the package compatible with this computer. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
-        <translation>“立即更新”只下载适合这台电脑的安装包。在 Windows 上会启动安装程序，在 macOS 上会打开磁盘映像，在 Linux 上会尽可能更新 AppImage。日志和设置保持不变。</translation>
+        <source>«Update now» downloads only the package compatible with this computer, and only if it is the one signed by the publisher. On Windows the installer starts, on macOS the disk image opens, and on Linux the AppImage is updated when possible. The log and settings stay where they are.</source>
+        <translation>“立即更新”只下载适合这台电脑的安装包，并且只有在它是发布者签名的那一个时才下载。在 Windows 上会启动安装程序，在 macOS 上会打开磁盘映像，在 Linux 上会尽可能更新 AppImage。日志和设置保持不变。</translation>
     </message>
 </context>
 <context>
@@ -8554,6 +8580,22 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>Linux 更新包已就绪：%1</translation>
     </message>
     <message>
+        <source>Signed by the publisher (key %1): the package is checked before it is installed.</source>
+        <translation>已由发布者签名（密钥 %1）：安装前会校验安装包。</translation>
+    </message>
+    <message>
+        <source>Signed with a key DecoDXLog does not know for %1: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>使用 DecoDXLog 不认识的 %1 密钥签名：不会从这里安装。只有在信任来源时才从页面下载。</translation>
+    </message>
+    <message>
+        <source>The signature of this release does not match: do not install it, and tell the publisher.</source>
+        <translation>此版本的签名不匹配：请不要安装，并告知发布者。</translation>
+    </message>
+    <message>
+        <source>This release is not signed: it is not installed from here. Download it from the page only if you trust the source.</source>
+        <translation>此版本没有签名：不会从这里安装。只有在信任来源时才从页面下载。</translation>
+    </message>
+    <message>
         <source>asking GitHub…</source>
         <translation>正在问 GitHub…</translation>
     </message>
@@ -8995,12 +9037,20 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>没看懂 GitHub 的回复</translation>
     </message>
     <message>
+        <source>the package is not in the signed list of the release</source>
+        <translation>安装包不在此版本的签名清单中</translation>
+    </message>
+    <message>
         <source>cannot write %1</source>
         <translation>写不了 %1</translation>
     </message>
     <message>
         <source>the downloaded file is incomplete</source>
         <translation>下载的文件不完整</translation>
+    </message>
+    <message>
+        <source>the downloaded file is not the one signed by the publisher: it was discarded</source>
+        <translation>下载的文件不是发布者签名的那个：已丢弃</translation>
     </message>
 </context>
 <context>
