@@ -449,6 +449,12 @@ DecoLogController::DecoLogController(QObject* parent)
     connect(&m_backupTimer, &QTimer::timeout, this, &DecoLogController::checkBackupSchedule);
 
     m_lotwAutoHours = s.value(QStringLiteral("lotw/autoSyncHours"), 12).toInt();
+    m_confirmAutoHours = s.value(QStringLiteral("confirmations/autoSyncHours"), 12).toInt();
+    m_recoveryEnabled = s.value(QStringLiteral("decodium/recoverFromLog"), true).toBool();
+    m_decodiumLogPath = s.value(QStringLiteral("decodium/logPath")).toString();
+    m_recoveryPool.setMaxThreadCount(1);
+    m_recoveryTimer.setInterval(5 * 60'000);
+    connect(&m_recoveryTimer, &QTimer::timeout, this, &DecoLogController::checkDecodiumRecovery);
     connect(&m_lotw, &LotwClient::finished, this, &DecoLogController::onLotwReport);
     connect(&m_confirmDownloader, &ConfirmationDownloader::finished, this, &DecoLogController::onConfirmationReport);
     connect(&m_lotw, &LotwClient::progress, this, [this](qint64 bytes) {
@@ -459,6 +465,7 @@ DecoLogController::DecoLogController(QObject* parent)
     // l'avvio, quando la finestra e' gia' su.
     m_lotwTimer.setInterval(10 * 60'000);
     connect(&m_lotwTimer, &QTimer::timeout, this, &DecoLogController::checkLotwSchedule);
+    connect(&m_lotwTimer, &QTimer::timeout, this, &DecoLogController::checkConfirmSchedule);
 }
 
 void DecoLogController::testPointer(QObject* target, const QString& kind, qreal x, qreal y)
@@ -942,6 +949,12 @@ bool DecoLogController::openDatabase(const QString& path)
     m_backupTimer.start();
     m_lotwTimer.start();
     QTimer::singleShot(30'000, this, &DecoLogController::checkLotwSchedule);
+    // Dopo LoTW, per non partire tutti insieme all'avvio.
+    QTimer::singleShot(60'000, this, &DecoLogController::checkConfirmSchedule);
+    // I QSO rimasti nel log di Decodium: presto, perche' sono quelli fatti
+    // mentre DecoDXLog era chiuso; poi ogni cinque minuti.
+    m_recoveryTimer.start();
+    QTimer::singleShot(20'000, this, &DecoLogController::checkDecodiumRecovery);
     return ok;
 }
 
@@ -3206,6 +3219,7 @@ void DecoLogController::syncConfirmations(const QString& service, bool full)
     const QString credential = service == QLatin1String("qrz") ? QStringLiteral("qrzlogbook") : service;
     const QString account = m_credentials->account(credential);
     if (!m_credentials->hasSecret(credential) || (service == QLatin1String("eqsl") && account.isEmpty())) {
+        m_confirmFailed = true;
         m_confirmStatus = service == QLatin1String("qrz")
                               ? tr("QRZ: add the logbook API key in Setup → QSL services")
                               : tr("eQSL: add username and password in Setup → QSL services");
@@ -3213,13 +3227,17 @@ void DecoLogController::syncConfirmations(const QString& service, bool full)
         emit confirmChanged();
         return;
     }
-    // Solo quello arrivato dopo l'ultimo scarico, con un giorno di margine per
-    // quello che arrivava mentre si scaricava.
+    // Solo quello arrivato dopo l'ultimo scarico riuscito, con un giorno di margine.
     const QDateTime last =
         QDateTime::fromString(m_db.setting(service + QStringLiteral(".last_sync_at")), Qt::ISODate);
-    const QDateTime since = full || !last.isValid() ? QDateTime() : last.addDays(-1);
+    const QDateTime since = confirmations::downloadSince(last, full);
+    // Il tentativo, riuscito o no, sposta l'orario dello scarico automatico;
+    // "da quando" lo sposta solo uno scarico riuscito.
+    m_db.setSetting(service + QStringLiteral(".last_attempt_at"),
+                    QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
     m_confirmStarting = service;
     m_confirmService = service;
+    m_confirmFailed = false;
     m_confirmStatus = since.isValid()
                           ? tr("%1: downloading the confirmations since %2…")
                                 .arg(confirmLabel(service), dates::show(since.date().toString(Qt::ISODate)))
@@ -3243,10 +3261,318 @@ void DecoLogController::syncConfirmations(const QString& service, bool full)
     });
 }
 
+// ── I QSO rimasti nel log di Decodium ─────────────────────────────────────────
+//
+// Decodium scrive ogni QSO anche in decodium_log.adi. Ogni cinque minuti si
+// guardano quelli registrati dall'ultimo controllo (con dieci minuti di
+// margine) e si salvano quelli che il log non conosce. Il segno di fin dove si
+// e' guardato e' uno solo per tutti i log: i QSO fatti mentre era aperto un
+// altro log (una gara) sono arrivati a quello, e non si tirano dentro qui.
+
+namespace {
+
+// Quelli degli ultimi tre minuti no: stanno ancora arrivando via UDP.
+constexpr int kRecoveryLagSeconds = 180;
+constexpr int kRecoveryMarginSeconds = 600;
+constexpr int kRecoveryFirstDays = 7;
+// Oltre questi, tutti insieme: una transazione, la tabella ricaricata una
+// volta, una riga sola nel registro e niente callbook per ognuno.
+constexpr int kRecoveryOneByOne = 20;
+
+} // namespace
+
+void DecoLogController::setDecodiumRecovery(bool on)
+{
+    if (on == m_recoveryEnabled)
+        return;
+    m_recoveryEnabled = on;
+    QSettings().setValue(QStringLiteral("decodium/recoverFromLog"), on);
+    emit recoveryChanged();
+    if (on)
+        QTimer::singleShot(0, this, &DecoLogController::checkDecodiumRecovery);
+}
+
+void DecoLogController::setDecodiumLogPath(const QString& path)
+{
+    const QString clean = path.trimmed();
+    if (clean == m_decodiumLogPath)
+        return;
+    m_decodiumLogPath = clean;
+    QSettings().setValue(QStringLiteral("decodium/logPath"), clean);
+    emit recoveryChanged();
+}
+
+QString DecoLogController::decodiumLogInUse() const
+{
+    if (!m_decodiumLogPath.isEmpty())
+        return QFileInfo(m_decodiumLogPath).isFile() ? m_decodiumLogPath : QString();
+    return decodiumlog::candidates().value(0);
+}
+
+void DecoLogController::checkDecodiumRecovery()
+{
+    if (!m_recoveryEnabled || m_recoveryRunning)
+        return;
+    const QDateTime to = QDateTime::currentDateTimeUtc().addSecs(-kRecoveryLagSeconds);
+    const QDateTime until =
+        QDateTime::fromString(QSettings().value(QStringLiteral("decodium/recoveredUntil")).toString(), Qt::ISODate);
+    // La prima volta si guarda indietro una settimana.
+    QDateTime from = until.isValid() ? until.addSecs(-kRecoveryMarginSeconds) : to.addDays(-kRecoveryFirstDays);
+    if (from >= to)
+        from = to.addSecs(-kRecoveryMarginSeconds);
+    startRecovery(from, to, false);
+}
+
+void DecoLogController::recoverFromDecodium(int days)
+{
+    if (m_recoveryRunning)
+        return;
+    const QDateTime to = QDateTime::currentDateTimeUtc().addSecs(-kRecoveryLagSeconds);
+    startRecovery(days > 0 ? to.addDays(-days) : QDateTime(), to, true);
+}
+
+void DecoLogController::startRecovery(const QDateTime& from, const QDateTime& to, bool manual)
+{
+    if (!m_db.isOpen() || m_db.path().isEmpty() || m_db.path() == QLatin1String(":memory:"))
+        return;
+    const QString path = decodiumLogInUse();
+    if (path.isEmpty()) {
+        m_recoveryStatus = m_decodiumLogPath.isEmpty() ? tr("Decodium log not found")
+                                                       : tr("%1 does not exist").arg(QDir::toNativeSeparators(m_decodiumLogPath));
+        if (manual)
+            addActivity(QStringLiteral("DECODIUM"), m_recoveryStatus, QStringLiteral("warning"));
+        emit recoveryChanged();
+        return;
+    }
+    m_recoveryRunning = true;
+    emit recoveryChanged();
+    // Il file e il confronto con il log su un altro filo: il file di Decodium
+    // cresce con gli anni, e il log puo' avere un milione di QSO.
+    const QString dbPath = m_db.path();
+    const int digital = m_db.dedupWindowSeconds(false);
+    const int manualWindow = m_db.dedupWindowSeconds(true);
+    // Anche gli altri log dell'elenco: un QSO fatto mentre era aperto il log di
+    // una gara e' arrivato a quello, e qui non va.
+    QStringList others;
+    if (m_logs) {
+        const QString current = QFileInfo(dbPath).canonicalFilePath();
+        for (const QString& p : m_logs->paths()) {
+            const QFileInfo info(p);
+            if (info.isFile() && info.canonicalFilePath().compare(current, Qt::CaseInsensitive) != 0)
+                others << p;
+        }
+    }
+    QPointer<DecoLogController> self(this);
+    m_recoveryPool.start([self, path, dbPath, others, digital, manualWindow, from, to, manual] {
+        decodiumlog::Tail tail = decodiumlog::recent(path, from, to);
+        QList<AdifRecord> missing;
+        if (tail.ok) {
+            LogDatabase db;
+            if (db.open(dbPath)) {
+                db.setDedupWindows(digital, manualWindow);
+                for (const AdifRecord& r : std::as_const(tail.records)) {
+                    if (!db.knowsQso(r))
+                        missing << r;
+                }
+                db.close();
+            } else {
+                tail.ok = false;
+                tail.error = QStringLiteral("cannot open the log");
+            }
+        }
+        for (const QString& other : others) {
+            if (missing.isEmpty())
+                break;
+            LogDatabase db;
+            if (!db.open(other))
+                continue;
+            db.setDedupWindows(digital, manualWindow);
+            QList<AdifRecord> still;
+            for (const AdifRecord& r : std::as_const(missing)) {
+                if (!db.knowsQso(r))
+                    still << r;
+            }
+            db.close();
+            missing = still;
+        }
+        QMetaObject::invokeMethod(
+            self.data(),
+            [self, tail, missing, to, manual] {
+                if (self)
+                    self->finishRecovery(tail, missing, to, manual);
+            },
+            Qt::QueuedConnection);
+    });
+}
+
+void DecoLogController::finishRecovery(const decodiumlog::Tail& tail, const QList<AdifRecord>& missing,
+                                       const QDateTime& to, bool manual)
+{
+    m_recoveryRunning = false;
+    const QString when = QDateTime::currentDateTimeUtc().toString(QStringLiteral("HH:mm")) + QStringLiteral("Z");
+    if (!tail.ok) {
+        // Il segno non si sposta: al prossimo giro si riguarda lo stesso tratto.
+        m_recoveryStatus = tr("%1 · Decodium log not readable: %2").arg(when, tail.error);
+        addActivity(QStringLiteral("DECODIUM"), m_recoveryStatus, QStringLiteral("warning"));
+        emit recoveryChanged();
+        return;
+    }
+    const bool bulk = missing.size() > kRecoveryOneByOne;
+    QSqlDatabase db = m_db.connection();
+    const bool transaction = bulk && db.transaction();
+    int saved = 0;
+    int activationDuplicates = 0;
+    for (const AdifRecord& r : missing) {
+        switch (saveRecoveredQso(r, bulk)) {
+        case Recovered::Saved: ++saved; break;
+        case Recovered::ActivationDuplicate: ++activationDuplicates; break;
+        case Recovered::Known:
+        case Recovered::Failed: break;
+        }
+    }
+    if (transaction)
+        db.commit();
+    if (saved > 0) {
+        if (bulk)
+            timed(tr("reloading the log table"), [this] { m_model->reload(); });
+        emit logChanged();
+        m_decoLink.resendSnapshot();
+        refreshCallInfo();
+    }
+    QSettings s;
+    const QDateTime until =
+        QDateTime::fromString(s.value(QStringLiteral("decodium/recoveredUntil")).toString(), Qt::ISODate);
+    if (!until.isValid() || to > until)
+        s.setValue(QStringLiteral("decodium/recoveredUntil"), to.toString(Qt::ISODate));
+
+    m_recoveryStatus = saved > 0 ? tr("%1 · %n QSO(s) recovered from the Decodium log", "", saved).arg(when)
+                                 : tr("%1 · nothing missing (%n QSO(s) checked)", "", int(tail.records.size())).arg(when);
+    // Quelli che l'attivazione (o la gara) aperta rifiuta come doppioni, come
+    // farebbe con quelli via UDP: si dice, perche' un'attivazione dimenticata
+    // aperta li fa sparire.
+    if (activationDuplicates > 0)
+        m_recoveryStatus += tr(" · %n skipped as duplicates of the open activation “%1”", "", activationDuplicates)
+                                .arg(m_activation->session().title());
+    if (saved > 0 || manual || activationDuplicates > 0)
+        addActivity(QStringLiteral("DECODIUM"), m_recoveryStatus,
+                    activationDuplicates > 0 ? QStringLiteral("warning")
+                    : saved > 0              ? QStringLiteral("success")
+                                             : QStringLiteral("info"));
+    emit recoveryChanged();
+}
+
+DecoLogController::Recovered DecoLogController::saveRecoveredQso(const AdifRecord& input, bool bulk)
+{
+    // Arrivato via UDP mentre si leggeva il file.
+    if (m_db.knowsQso(input))
+        return Recovered::Known;
+    qint64 profileId = m_db.profileForCallsign(input.value(QStringLiteral("STATION_CALLSIGN")));
+    if (profileId == 0 && m_profiles)
+        profileId = m_profiles->activeProfileId();
+    AdifRecord enriched = input;
+    applyEntity(enriched);
+    // In un'attivazione solo i QSO fatti dopo che e' cominciata.
+    const QDateTime at = decodiumlog::loggedAt(input);
+    const bool inActivation = m_activation->active() && at.isValid() && m_activation->session().startedAt.isValid()
+                              && at >= m_activation->session().startedAt;
+    AdifRecord normalized = enriched;
+    adif::normalizeMode(normalized);
+    const QString mode = normalized.value(QStringLiteral("SUBMODE")).isEmpty()
+                             ? normalized.value(QStringLiteral("MODE"))
+                             : normalized.value(QStringLiteral("SUBMODE"));
+    const QString call = enriched.value(QStringLiteral("CALL")).trimmed().toUpper();
+    if (inActivation) {
+        m_activation->applyTo(enriched);
+        if (m_activation->isDuplicate(call, enriched.value(QStringLiteral("BAND")), mode))
+            return Recovered::ActivationDuplicate;
+        if (m_activation->session().stationProfileId > 0)
+            profileId = m_activation->session().stationProfileId;
+    }
+    const InsertResult r = m_db.insertQso(enriched, QStringLiteral("decodium_adif"), QStringLiteral("Decodium"),
+                                          false, profileId);
+    if (r.status != InsertResult::Status::Inserted) {
+        // Un doppione e' normale (Decodium a volte scrive due volte lo stesso
+        // QSO); il resto si dice.
+        if (r.status != InsertResult::Status::Duplicate)
+            addActivity(QStringLiteral("DECODIUM"), tr("Not recovered: %1 (%2)").arg(call, r.message),
+                        QStringLiteral("warning"));
+        return r.status == InsertResult::Status::Duplicate ? Recovered::Known : Recovered::Failed;
+    }
+    m_qsl->qsoLogged(r.id);
+    if (inActivation)
+        m_activation->qsoLogged();
+    if (m_net)
+        m_net->qsoLogged(r.id);
+    m_cloud->qsoLogged();
+    if (bulk)
+        return Recovered::Saved;
+    m_model->insertQso(r.id);
+    const QString band = enriched.value(QStringLiteral("BAND")).toLower();
+    const QString time = at.isValid() ? at.toString(dates::format() + QStringLiteral(" HH:mm")) + QStringLiteral("Z")
+                                      : QString();
+    addActivity(QStringLiteral("DECODIUM"),
+                tr("Recovered from the Decodium log → %1 %2 %3 %4").arg(call, band, mode, time),
+                QStringLiteral("success"));
+    completeFromCallbook(r.id, call);
+    return Recovered::Saved;
+}
+
+void DecoLogController::setConfirmAutoHours(int hours)
+{
+    if (hours == m_confirmAutoHours || hours < 0)
+        return;
+    m_confirmAutoHours = hours;
+    QSettings().setValue(QStringLiteral("confirmations/autoSyncHours"), hours);
+    emit confirmChanged();
+}
+
+QVariantMap DecoLogController::confirmLastSync() const
+{
+    QVariantMap out;
+    for (const QString& service : {QStringLiteral("eqsl"), QStringLiteral("qrz")}) {
+        const QDateTime at =
+            QDateTime::fromString(m_db.setting(service + QStringLiteral(".last_sync_at")), Qt::ISODate);
+        out.insert(service, at.isValid() ? at.toUTC().toString(dates::format() + QStringLiteral(" HH:mm"))
+                                               + QStringLiteral("Z")
+                                         : QString());
+    }
+    return out;
+}
+
+void DecoLogController::checkConfirmSchedule()
+{
+    if (m_confirmAutoHours <= 0 || confirmBusy() || !m_db.isOpen() || m_db.qsoCount() == 0)
+        return;
+    const QDateTime now = QDateTime::currentDateTimeUtc();
+    for (const QString& service : {QStringLiteral("eqsl"), QStringLiteral("qrz")}) {
+        // Senza credenziali tace: l'operatore quel servizio non lo usa.
+        const QString credential = service == QLatin1String("qrz") ? QStringLiteral("qrzlogbook") : service;
+        if (!m_credentials->hasSecret(credential)
+            || (service == QLatin1String("eqsl") && m_credentials->account(credential).isEmpty()))
+            continue;
+        const QDateTime success =
+            QDateTime::fromString(m_db.setting(service + QStringLiteral(".last_sync_at")), Qt::ISODate);
+        const QDateTime attempt =
+            QDateTime::fromString(m_db.setting(service + QStringLiteral(".last_attempt_at")), Qt::ISODate);
+        if (!confirmations::autoDownloadDue(success, attempt, now, m_confirmAutoHours))
+            continue;
+        // Uno alla volta: l'altro al giro dopo questo (onConfirmationReport).
+        m_confirmAuto = true;
+        syncConfirmations(service, false);
+        if (!confirmBusy())
+            m_confirmAuto = false;
+        return;
+    }
+}
+
 void DecoLogController::onConfirmationReport(const confirmations::Report& report)
 {
     const QString category = confirmLabel(report.service).toUpper();
     m_confirmService.clear();
+    // Finito uno scarico automatico, tocca all'altro servizio se e' ora.
+    if (std::exchange(m_confirmAuto, false))
+        QTimer::singleShot(10'000, this, &DecoLogController::checkConfirmSchedule);
+    m_confirmFailed = !report.ok;
     if (!report.ok) {
         m_confirmStatus = report.error;
         addActivity(category, report.error, QStringLiteral("error"));

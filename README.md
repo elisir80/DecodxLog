@@ -39,6 +39,10 @@ Funziona:
 - **Ricezione da Decodium / WSJT-X / JTDX** sul protocollo UDP (porta 2237 di
   default, multicast opzionale). `LoggedADIF` è la fonte primaria; `QSOLogged`
   si usa solo se l'ADIF non arriva entro 1,5 s (oppure come fonte scelta in Setup).
+- **Recupero dal log di Decodium**: ogni 5 minuti DecoDXLog legge la coda di
+  `decodium_log.adi` e salva i QSO che non ha (DecoDXLog chiuso, porta sbagliata,
+  rete giù). Quelli corretti o cancellati qui, o finiti in un altro log dell'elenco,
+  non tornano.
 - **Log SQLite** con lo schema di `db/schema.sql`: nomi ADIF, campi di sync,
   stati QSL per servizio in `qsl_status`, campi non mappati in `adif_extra`.
 - **Modifica QSO** con storico: ogni salvataggio è una nuova revisione, la
@@ -92,8 +96,8 @@ Funziona:
   a mano o ogni 6/12/24 ore) e abbinate ai QSO per nominativo, banda, gruppo di modi e
   ora entro 30 minuti; i dettagli LoTW riempiono i campi vuoti, i nuovi DXCC confermati
   finiscono nel registro attività.
-- **Conferme eQSL e QRZ Logbook** scaricate a mano dalla scheda "Invio QSL" (le eQSL
-  ricevute nella casella, i QSO confermati del logbook QRZ), abbinate come quelle LoTW.
+- **Conferme eQSL e QRZ Logbook** (le eQSL ricevute nella casella, i QSO confermati del
+  logbook QRZ) scaricate a mano o ogni 6/12/24 ore, abbinate come quelle LoTW.
 - **DX Cluster** in una finestra propria (Ctrl+K) e nella scheda in basso: nodi DX Spider/
   CC Cluster via telnet (DecoDXLog entra come CALL-2), Reverse Beacon Network (CW/RTTY e
   FT8/FT4), HamAlert (password nel portachiavi) e attivazioni POTA, tutto in una lista.

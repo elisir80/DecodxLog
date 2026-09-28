@@ -101,6 +101,14 @@ void LogLibrary::setCurrent(const QString& path)
     save();
 }
 
+QStringList LogLibrary::paths() const
+{
+    QStringList out;
+    for (const Entry& e : m_entries)
+        out << e.path;
+    return out;
+}
+
 QVariantList LogLibrary::logs() const
 {
     QList<Entry> sorted = m_entries;

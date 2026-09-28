@@ -127,6 +127,23 @@ QList<AdifRecord> qrzConfirmations(const QList<AdifRecord>& records)
     return out;
 }
 
+QDateTime downloadSince(const QDateTime& lastSuccess, bool everything)
+{
+    if (everything || !lastSuccess.isValid())
+        return {};
+    return lastSuccess.addDays(-1);
+}
+
+bool autoDownloadDue(const QDateTime& lastSuccess, const QDateTime& lastAttempt, const QDateTime& now, int hours)
+{
+    if (hours <= 0)
+        return false;
+    QDateTime last = lastSuccess;
+    if (lastAttempt.isValid() && (!last.isValid() || lastAttempt > last))
+        last = lastAttempt;
+    return !last.isValid() || last.secsTo(now) >= qint64(hours) * 3600;
+}
+
 } // namespace confirmations
 
 namespace {

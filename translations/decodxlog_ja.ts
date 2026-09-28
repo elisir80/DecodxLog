@@ -5331,6 +5331,14 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>すべてのファイル (*)</translation>
     </message>
     <message>
+        <source>Decodium log file</source>
+        <translation>Decodium のログファイル</translation>
+    </message>
+    <message>
+        <source>ADIF logs (*.adi *.adif)</source>
+        <translation>ADIF ログ (*.adi *.adif)</translation>
+    </message>
+    <message>
         <source>Backup folder</source>
         <translation>バックアップの置き場</translation>
     </message>
@@ -5541,6 +5549,30 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>In Decodium set the UDP server to this address and port. A multicast group (e.g. 239.255.0.1) shares the stream with GridTracker or JTAlert. Duplicate windows are in General.</source>
         <translation>Decodium の UDP サーバーに、このアドレスとポートを入れてください。マルチキャストのグループ (たとえば 239.255.0.1) を使うと、GridTracker や JTAlert と流れを分け合えます。重複の窓は「全般」にあります。</translation>
+    </message>
+    <message>
+        <source>QSOs left in the Decodium log</source>
+        <translation>Decodium のログに残った QSO</translation>
+    </message>
+    <message>
+        <source>Recover them every 5 minutes</source>
+        <translation>5 分ごとに取り戻す</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>確認中…</translation>
+    </message>
+    <message>
+        <source>Check the last 30 days</source>
+        <translation>過去 30 日を確認</translation>
+    </message>
+    <message>
+        <source>Check the whole file</source>
+        <translation>ファイル全体を確認</translation>
+    </message>
+    <message>
+        <source>not found: choose it</source>
+        <translation>見つかりません: 選んでください</translation>
     </message>
     <message>
         <source>DecoLink · log towards Decodium</source>
@@ -5767,10 +5799,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Once a day</source>
         <translation>1 日に 1 回</translation>
-    </message>
-    <message>
-        <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL. QRZ Logbook, Club Log and eQSL arrive later.</source>
-        <translation>確認は、コールサイン・バンド・モードのまとまり (データ、CW、フォーン)・30 分以内の時刻で突き合わせます。LoTW と同じやり方です。確認の付いた QSO は新しい版になります。LoTW から来るグリッド、ゾーン、州、郡は、空いている項目だけを埋めます。LoTW への送信は今も TQSL を通します。QRZ Logbook、Club Log、eQSL はあとから入ります。</translation>
     </message>
     <message>
         <source>Sending to LoTW (TQSL)</source>
@@ -6135,6 +6163,38 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>port not open</source>
         <translation>ポートが開いていません</translation>
+    </message>
+    <message>
+        <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
+        <translation>Decodium はすべての QSO を自分の ADIF ログにも書きます。DecoDXLog が閉じていたり受信できていなかったり(ポート違い、ネットワーク断)した場合、その QSO はそこにしか残りません。5 分ごとに DecoDXLog は前回の確認以降に記録された QSO を読み、ここにもリストのほかのログにもないものを保存します。ここで直したり消したりした QSO は戻りません。初回は 1 週間前までさかのぼり、ボタンでさらに前まで見ます。空欄 = Decodium が使っているログ。</translation>
+    </message>
+    <message>
+        <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
+        <translation>確認は、コールサイン・バンド・モードのまとまり (データ、CW、フォーン)・30 分以内の時刻で突き合わせます。LoTW と同じやり方です。確認の付いた QSO は新しい版になります。LoTW から来るグリッド、ゾーン、州、郡は、空いている項目だけを埋めます。LoTW への送信は今も TQSL を通します。</translation>
+    </message>
+    <message>
+        <source>eQSL and QRZ Logbook confirmations</source>
+        <translation>eQSL と QRZ Logbook の確認</translation>
+    </message>
+    <message>
+        <source>eQSL last download</source>
+        <translation>eQSL の前回の取り込み</translation>
+    </message>
+    <message>
+        <source>QRZ last download</source>
+        <translation>QRZ の前回の取り込み</translation>
+    </message>
+    <message>
+        <source>%1 confirmations</source>
+        <translation>%1 の確認</translation>
+    </message>
+    <message>
+        <source>%1: everything again</source>
+        <translation>%1: 全部やり直す</translation>
+    </message>
+    <message>
+        <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
+        <translation>eQSL: 受信箱に届いた eQSL です。SWL の受信報告は除きます。QRZ Logbook: QRZ 上のあなたのログブックのうち、相手局が確認した QSO です。前回の取り込みの後に届いたものだけです。自動の取り込みは、資格情報がそろっているサービスだけで動きます(下にあるもので、送信と同じです)。LoTW の確認と同じやり方で突き合わせます。紙の QSL の項目には触れません。</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -7968,6 +8028,44 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>%1: password or key not available (%2)</source>
         <translation>%1: パスワードかキーが使えません (%2)</translation>
+    </message>
+    <message>
+        <source>Decodium log not found</source>
+        <translation>Decodium のログが見つかりません</translation>
+    </message>
+    <message>
+        <source>%1 does not exist</source>
+        <translation>%1 はありません</translation>
+    </message>
+    <message>
+        <source>%1 · Decodium log not readable: %2</source>
+        <translation>%1 · Decodium のログが読めません: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from the Decodium log</source>
+        <translation>
+            <numerusform>%1 · Decodium のログから %n 件の QSO を取り戻しました</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · nothing missing (%n QSO(s) checked)</source>
+        <translation>
+            <numerusform>%1 · 抜けはありません (%n 件の QSO を確認)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source> · %n skipped as duplicates of the open activation “%1”</source>
+        <translation>
+            <numerusform> · %n 件は開いているアクティベーション「%1」の重複としてとばしました</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Not recovered: %1 (%2)</source>
+        <translation>取り戻せませんでした: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
+        <translation>Decodium のログから取り戻しました → %1 %2 %3 %4</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>

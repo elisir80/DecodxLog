@@ -907,6 +907,8 @@ QsoTableModel::Row QsoTableModel::rowFromQuery(const QSqlQuery& q) const
     else if (source == QLatin1String("manual"))   r.values[Source] = QStringLiteral("man");
     else if (source == QLatin1String("import"))   r.values[Source] = QStringLiteral("imp");
     else if (source == QLatin1String("cloud"))    r.values[Source] = QStringLiteral("cld");
+    // Recuperato dal log di Decodium: e' arrivato da Decodium come gli udp.
+    else if (source == QLatin1String("decodium_adif")) r.values[Source] = QStringLiteral("rec");
     else r.values[Source] = source.left(3);
     r.values[Qsl] = qslCodes(q.value(13).toString());
     r.values[Tags] = q.value(14).toString().replace(QLatin1Char(','), QStringLiteral(", "));

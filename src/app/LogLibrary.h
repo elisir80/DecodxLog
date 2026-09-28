@@ -33,6 +33,8 @@ public:
     // lastUsed, missing}.
     QVariantList logs() const;
     QString current() const { return m_current; }
+    // I file di tutti i log dell'elenco, anche quelli chiusi.
+    QStringList paths() const;
     bool askAtStart() const;
     void setAskAtStart(bool ask);
 

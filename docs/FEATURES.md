@@ -11,6 +11,14 @@ Quello che manca è in fondo.
 - **LoggedADIF preferito a QSOLogged**: il messaggio completo non perde campi; se arrivano
   entrambi si usa uno solo. / **LoggedADIF preferred over QSOLogged**: the full message
   loses no field; if both arrive only one QSO is written.
+- **Recupero dal log di Decodium**: ogni 5 minuti i QSO registrati in `decodium_log.adi`
+  dall'ultimo controllo che mancano (DecoDXLog chiuso, porta sbagliata, rete giù) si
+  salvano; quelli corretti o cancellati qui, o finiti in un altro log dell'elenco, no. A
+  mano anche gli ultimi 30 giorni o tutto il file. / **Recovery from the Decodium log**:
+  every 5 minutes the QSOs written in `decodium_log.adi` since the last check that are
+  missing (DecoDXLog closed, wrong port, network down) are saved; those corrected or
+  deleted here, or that went to another log of the list, are not. By hand also the last
+  30 days or the whole file.
 - **FT2 di prima classe**: `MODE=MFSK`, `SUBMODE=FT2`, e "FT2" ovunque nell'interfaccia. /
   **FT2 as a first-class mode**: `MODE=MFSK`, `SUBMODE=FT2`, shown as "FT2" everywhere.
 - **Profilo stazione dal nominativo** del QSO, altrimenti quello attivo. / **Station profile
@@ -242,10 +250,11 @@ Quello che manca è in fondo.
 - **Conferme LoTW scaricate** da `lotwreport.adi`, solo le nuove dall'ultimo sync, a mano o
   ogni 6/12/24 ore. / **LoTW confirmations downloaded** from `lotwreport.adi`, only the new
   ones, manually or every 6/12/24 hours.
-- **Conferme eQSL e QRZ Logbook scaricate** a mano dalla scheda "Invio QSL": da eQSL le
-  eQSL arrivate nella casella (senza le segnalazioni SWL), da QRZ i QSO del proprio logbook
-  che l'altro ha confermato; solo le nuove dall'ultimo scarico. / **eQSL and QRZ Logbook
-  confirmations downloaded** by hand from the "QSL Upload" tab: the eQSLs in the inbox
+- **Conferme eQSL e QRZ Logbook scaricate** a mano (scheda "Invio QSL" o Impostazioni →
+  Servizi QSL) o ogni 6/12/24 ore: da eQSL le eQSL arrivate nella casella (senza le
+  segnalazioni SWL), da QRZ i QSO del proprio logbook che l'altro ha confermato; solo le
+  nuove dall'ultimo scarico. / **eQSL and QRZ Logbook confirmations downloaded** by hand
+  ("QSL Upload" tab or Setup → QSL services) or every 6/12/24 hours: the eQSLs in the inbox
   (without SWL reports) and the QSOs of one's QRZ logbook confirmed by the other station;
   only the new ones since the last download.
 - **Abbinamento** per nominativo, banda, gruppo di modi e ora entro mezz'ora, come fa LoTW;

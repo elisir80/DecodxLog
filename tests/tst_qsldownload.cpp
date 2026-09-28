@@ -165,6 +165,28 @@ private slots:
         QVERIFY(!page.ok);
     }
 
+    void whenToDownload()
+    {
+        const QDateTime now(QDate(2026, 9, 28), QTime(15, 0), QTimeZone::UTC);
+        const QDateTime success = now.addSecs(-5 * 3600);
+
+        // Da quando: un giorno prima dell'ultimo scarico riuscito, o tutto.
+        QCOMPARE(confirmations::downloadSince(success, false), success.addDays(-1));
+        QVERIFY(!confirmations::downloadSince(success, true).isValid());
+        QVERIFY(!confirmations::downloadSince({}, false).isValid());
+
+        // Mai provato: subito. Spento: mai.
+        QVERIFY(confirmations::autoDownloadDue({}, {}, now, 12));
+        QVERIFY(!confirmations::autoDownloadDue({}, {}, now, 0));
+        // Cinque ore fa: con 6 non ancora, con 12 no, con 4 si'.
+        QVERIFY(!confirmations::autoDownloadDue(success, {}, now, 6));
+        QVERIFY(confirmations::autoDownloadDue(success, {}, now, 4));
+        // Un tentativo fallito un'ora fa: si aspetta il giro, anche se
+        // l'ultimo riuscito e' di ieri.
+        QVERIFY(!confirmations::autoDownloadDue(now.addDays(-1), now.addSecs(-3600), now, 6));
+        QVERIFY(confirmations::autoDownloadDue(now.addDays(-1), now.addSecs(-7 * 3600), now, 6));
+    }
+
     void confirmationsMarkTheLog()
     {
         LogDatabase db;

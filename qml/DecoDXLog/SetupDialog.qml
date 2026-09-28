@@ -135,6 +135,13 @@ DialogFrame {
         onAccepted: decolog.qsl.tqslPath = decolog.localPath(selectedFile)
     }
 
+    FileDialog {
+        id: decodiumLogDialog
+        title: qsTr("Decodium log file")
+        nameFilters: [qsTr("ADIF logs (*.adi *.adif)"), qsTr("All files (*)")]
+        onAccepted: decolog.decodiumLogPath = decolog.localPath(selectedFile)
+    }
+
     FolderDialog {
         id: folderDialog
         title: qsTr("Backup folder")
@@ -543,6 +550,60 @@ DialogFrame {
                     }
                     Note { text: qsTr("In Decodium set the UDP server to this address and port. A multicast group (e.g. 239.255.0.1) shares the stream with GridTracker or JTAlert. Duplicate windows are in General.") }
 
+                    // ── I QSO rimasti nel log di Decodium ───────────────────
+                    SectionTitle { text: qsTr("QSOs left in the Decodium log") }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 12
+                        ToggleSwitch {
+                            text: qsTr("Recover them every 5 minutes")
+                            checked: decolog.decodiumRecovery
+                            onToggled: decolog.decodiumRecovery = checked
+                        }
+                        Item { Layout.fillWidth: true }
+                        GlassButton {
+                            text: decolog.recoveryBusy ? qsTr("Checking…") : qsTr("Check the last 30 days")
+                            enabled: !decolog.recoveryBusy
+                            onClicked: decolog.recoverFromDecodium(30)
+                        }
+                        // Anche i QSO di prima che DecoDXLog ci fosse.
+                        GlassButton {
+                            text: qsTr("Check the whole file")
+                            enabled: !decolog.recoveryBusy
+                            onClicked: decolog.recoverFromDecodium(0)
+                        }
+                    }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 10
+                        LabeledField {
+                            Layout.fillWidth: true
+                            label: qsTr("Decodium log file")
+                            StyledTextField {
+                                Layout.fillWidth: true
+                                mono: false
+                                text: decolog.decodiumLogPath
+                                // Vuoto: quello che Decodium sta usando, e si vede qui.
+                                placeholderText: decolog.decodiumLogInUse.length ? decolog.decodiumLogInUse
+                                                                                 : qsTr("not found: choose it")
+                                onEditingFinished: decolog.decodiumLogPath = text
+                            }
+                        }
+                        GlassButton { text: qsTr("Browse…"); Layout.alignment: Qt.AlignBottom; onClicked: decodiumLogDialog.open() }
+                    }
+                    Note {
+                        visible: decolog.recoveryStatus.length > 0
+                        text: decolog.recoveryStatus
+                        color: Theme.textPrimary
+                    }
+                    Note {
+                        text: qsTr("Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not "
+                                   + "receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog "
+                                   + "reads the QSOs logged since the last check and saves the ones missing here and in the "
+                                   + "other logs of the list. QSOs corrected or deleted here do not come back. The first time "
+                                   + "it looks back one week, the buttons further. Empty field = the log Decodium is using.")
+                    }
+
                     SectionTitle { text: qsTr("DecoLink · log towards Decodium") }
                     RowLayout {
                         Layout.fillWidth: true
@@ -923,7 +984,69 @@ DialogFrame {
                     Note {
                         text: qsTr("Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. "
                                    + "A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. "
-                                   + "Uploading to LoTW still goes through TQSL. QRZ Logbook, Club Log and eQSL arrive later.")
+                                   + "Uploading to LoTW still goes through TQSL.")
+                    }
+
+                    // ── Le conferme di eQSL e di QRZ Logbook ────────────────
+                    SectionTitle { text: qsTr("eQSL and QRZ Logbook confirmations") }
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 8
+                        Tile { label: qsTr("eQSL last download"); value: decolog.confirmLastSync.eqsl || qsTr("never") }
+                        Tile { label: qsTr("QRZ last download"); value: decolog.confirmLastSync.qrz || qsTr("never") }
+                    }
+                    RowLayout {
+                        spacing: 8
+                        Repeater {
+                            model: [{ id: "eqsl", label: "eQSL" }, { id: "qrz", label: "QRZ" }]
+                            GlassButton {
+                                required property var modelData
+                                text: decolog.confirmBusyService === modelData.id ? qsTr("Downloading…")
+                                      : qsTr("%1 confirmations").arg(modelData.label)
+                                tone: Theme.accentColor
+                                filled: true
+                                enabled: !decolog.confirmBusy
+                                onClicked: decolog.syncConfirmations(modelData.id, false)
+                            }
+                        }
+                        // Tutto da capo: anche le conferme gia' scaricate.
+                        Repeater {
+                            model: [{ id: "eqsl", label: "eQSL" }, { id: "qrz", label: "QRZ" }]
+                            GlassButton {
+                                required property var modelData
+                                text: qsTr("%1: everything again").arg(modelData.label)
+                                enabled: !decolog.confirmBusy
+                                onClicked: decolog.syncConfirmations(modelData.id, true)
+                            }
+                        }
+                        GlassButton {
+                            visible: decolog.confirmBusy
+                            text: qsTr("Cancel")
+                            onClicked: decolog.cancelConfirmations()
+                        }
+                    }
+                    RowLayout {
+                        spacing: 8
+                        Text { text: qsTr("Automatic sync"); color: Theme.textSecondary; font.pixelSize: 12 }
+                        StyledComboBox {
+                            Layout.preferredWidth: 150
+                            readonly property var hours: [0, 6, 12, 24]
+                            model: [qsTr("Off"), qsTr("Every 6 hours"), qsTr("Every 12 hours"), qsTr("Once a day")]
+                            currentIndex: Math.max(0, hours.indexOf(decolog.confirmAutoHours))
+                            onActivated: decolog.confirmAutoHours = hours[currentIndex]
+                        }
+                    }
+                    Note {
+                        visible: decolog.confirmStatus.length > 0
+                        text: decolog.confirmStatus
+                        color: decolog.confirmFailed ? Theme.errorColor : Theme.textPrimary
+                    }
+                    Note {
+                        text: qsTr("eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of "
+                                   + "your logbook on QRZ that the other station confirmed. Only what arrived after the last "
+                                   + "download; the automatic download runs only for the services with their credentials "
+                                   + "(below, the same used for sending). Matched as LoTW confirmations; the paper QSL "
+                                   + "fields are not touched.")
                     }
                     SectionTitle { text: qsTr("Sending to LoTW (TQSL)") }
                     Note { text: decolog.qsl.tqslStatus }

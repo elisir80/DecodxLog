@@ -42,6 +42,24 @@ wsjtx::QsoLogged qsoFor(const QString& call, const QString& grid, const QString&
     return q;
 }
 
+// Un QSO come lo scrive Decodium nel suo decodium_log.adi, finito a `off`.
+QByteArray decodiumRecord(const QString& call, const QDateTime& off)
+{
+    const QDateTime on = off.addSecs(-30);
+    const auto field = [](const char* name, const QString& value) {
+        return QStringLiteral("<%1:%2>%3 ").arg(QLatin1String(name)).arg(value.size()).arg(value);
+    };
+    return (field("CALL", call) + field("GRIDSQUARE", QStringLiteral("JN11")) + field("MODE", QStringLiteral("MFSK"))
+            + field("SUBMODE", QStringLiteral("FT2")) + field("RST_SENT", QStringLiteral("+00"))
+            + field("RST_RCVD", QStringLiteral("-12")) + field("QSO_DATE", on.toString(QStringLiteral("yyyyMMdd")))
+            + field("TIME_ON", on.toString(QStringLiteral("HHmmss")))
+            + field("QSO_DATE_OFF", off.toString(QStringLiteral("yyyyMMdd")))
+            + field("TIME_OFF", off.toString(QStringLiteral("HHmmss"))) + field("BAND", QStringLiteral("20M"))
+            + field("FREQ", QStringLiteral("14.084000")) + field("STATION_CALLSIGN", QStringLiteral("IU8LMC"))
+            + QStringLiteral("<EOR>\n"))
+        .toUtf8();
+}
+
 QByteArray adifFor(const QString& call, const QString& grid, const QString& time, const char* program)
 {
     const auto field = [](const char* name, const QString& value) {
@@ -137,6 +155,23 @@ private slots:
         QVERIFY(ini.open(QIODevice::WriteOnly));
         ini.write("[backup]\nenabled=false\ndir=" + m_dir.filePath(QStringLiteral("backup")).toUtf8() + "\n");
         ini.close();
+
+        // Il log di Decodium, dove Decodium dice che sta: un QSO fatto mezz'ora
+        // fa e mai arrivato via UDP, uno di un minuto fa (sta ancora arrivando)
+        // e uno di otto giorni fa (troppo vecchio per il primo controllo).
+        const QString decodiumLog = m_dir.filePath(QStringLiteral("decodium_log.adi"));
+        QFile adi(decodiumLog);
+        QVERIFY(adi.open(QIODevice::WriteOnly));
+        const QDateTime now = QDateTime::currentDateTimeUtc();
+        adi.write("Decodium3 ADIF Log\n<EOH>\n");
+        adi.write(decodiumRecord(QStringLiteral("SP9OLD"), now.addDays(-8)));
+        adi.write(decodiumRecord(QStringLiteral("EA3RR"), now.addSecs(-1800)));
+        adi.write(decodiumRecord(QStringLiteral("OK1TOO"), now.addSecs(-60)));
+        adi.close();
+        QFile decodiumIni(m_dir.filePath(QStringLiteral("Decodium/Decodium3.ini")));
+        QVERIFY(decodiumIni.open(QIODevice::WriteOnly));
+        decodiumIni.write("[Logbooks]\nActivePath=" + QDir::fromNativeSeparators(decodiumLog).toUtf8() + "\n");
+        decodiumIni.close();
 
         QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
         env.insert(QStringLiteral("QT_QPA_PLATFORM"), QStringLiteral("offscreen"));
@@ -267,6 +302,21 @@ private slots:
         // E il QSO buono, dopo, entra.
         send(valid);
         QVERIFY(waitFor([&] { return countCall(QStringLiteral("VK2ABC")) == 1; }, 15000));
+    }
+
+    void aQsoLeftInTheDecodiumLogIsRecovered()
+    {
+        // Il primo controllo e' venti secondi dopo l'avvio.
+        QVERIFY2(waitFor([&] { return countCall(QStringLiteral("EA3RR")) > 0; }, 60000),
+                 m_output.right(2000).constData());
+        QCOMPARE(countCall(QStringLiteral("EA3RR")), 1);
+        QCOMPARE(field(QStringLiteral("EA3RR"), "source"), QStringLiteral("decodium_adif"));
+        QCOMPARE(field(QStringLiteral("EA3RR"), "submode"), QStringLiteral("FT2"));
+        // Spagna dal cty.csv, come per quelli arrivati via UDP.
+        QCOMPARE(field(QStringLiteral("EA3RR"), "dxcc"), QStringLiteral("281"));
+        QVERIFY(waitFor([&] { return m_output.contains("[activity] DECODIUM|") && m_output.contains("EA3RR"); }, 5000));
+        QCOMPARE(countCall(QStringLiteral("OK1TOO")), 0);
+        QCOMPARE(countCall(QStringLiteral("SP9OLD")), 0);
     }
 
     void aBurstIsAllLogged()

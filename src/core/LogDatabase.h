@@ -181,6 +181,12 @@ public:
     // conserva.
     bool softDeleteQso(qint64 id);
 
+    // Il log conosce gia' questo QSO? Stessa banda, ora entro la finestra dei
+    // doppioni digitali, e lo stesso nominativo: adesso o in una versione
+    // precedente, anche se poi e' stato cancellato. Per chi recupera QSO da un
+    // altro log: un QSO corretto o cancellato qui non deve tornare.
+    bool knowsQso(const AdifRecord& record) const;
+
     // Il record ADIF completo di un QSO: colonne, stati QSL e adif_extra.
     std::optional<AdifRecord> record(qint64 id) const;
     std::optional<QsoMeta> meta(qint64 id) const;

@@ -389,6 +389,8 @@ GlassPanel {
                     Connections {
                         target: decolog
                         function onLotwChanged() { if (decolog.lotwBusy) confirmRow.last = "lotw" }
+                        // Anche quando parte da solo, a orario.
+                        function onConfirmChanged() { if (decolog.confirmBusy) confirmRow.last = "confirm" }
                     }
                     Layout.fillWidth: true
                     elide: Text.ElideRight

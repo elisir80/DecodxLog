@@ -3,6 +3,40 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.34 — 28 settembre 2026
+
+**I QSO rimasti in Decodium si recuperano da soli.** Decodium scrive ogni QSO anche nel suo
+`decodium_log.adi`. Se DecoDXLog era chiuso, o non riceveva (porta UDP diversa, rete giu'),
+il QSO restava solo li'. Adesso ogni 5 minuti DecoDXLog legge i QSO registrati dall'ultimo
+controllo e salva quelli che non ha.
+
+- Il file e' quello che Decodium sta usando (`Decodium3.ini`, `[Logbooks] ActivePath`), o
+  uno scelto a mano in Impostazioni → Collegamento a Decodium. Si legge solo la coda: il
+  pezzo che serve, anche con un file di anni.
+- Non tornano i QSO corretti o cancellati qui (si guarda anche lo storico delle modifiche),
+  ne' quelli finiti in un altro log dell'elenco, come il log di una gara. Quelli degli
+  ultimi tre minuti si lasciano all'UDP, che sta ancora arrivando.
+- La prima volta si guarda indietro una settimana. Due pulsanti controllano gli ultimi 30
+  giorni o tutto il file; oltre venti QSO si salvano tutti insieme, con una riga sola nel
+  registro.
+- I QSO recuperati hanno la sorgente «rec» nella tabella, prendono entita' DXCC, profilo
+  stazione, callbook e invio QSL automatico come quelli via UDP. Un'attivazione o una gara
+  aperta li tratta come fa con l'UDP, e quelli scartati come doppioni si contano nel
+  registro: un'attivazione dimenticata aperta non li fa sparire in silenzio.
+
+**Conferme eQSL e QRZ anche da sole.** In Impostazioni → Servizi QSL c'e' una sezione nuova,
+«Conferme eQSL e QRZ Logbook», con lo scarico automatico: spento, ogni 6 ore, ogni 12 (la
+scelta iniziale, come per LoTW) o una volta al giorno.
+
+- Parte solo per i servizi di cui ci sono le credenziali: chi non usa eQSL o QRZ non vede
+  niente. Un servizio alla volta, il primo un minuto dopo l'avvio e poi al controllo ogni
+  dieci minuti.
+- Un tentativo fallito (rete giu', password cambiata) si riprova al giro dopo, non a ogni
+  controllo; e non sposta il «da quando»: al primo scarico riuscito arriva tutto quello
+  che nel frattempo mancava.
+- Nella stessa sezione: ultimo scarico di ogni servizio, i pulsanti per scaricare adesso e
+  quelli per riscaricare tutto da capo.
+
 ## 1.16.33 — 28 settembre 2026
 
 **Niente piu' driver video che non servono.** L'audio (avviso del cluster, voice keyer,

@@ -5331,6 +5331,14 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Minden fájl (*)</translation>
     </message>
     <message>
+        <source>Decodium log file</source>
+        <translation>A Decodium naplófájlja</translation>
+    </message>
+    <message>
+        <source>ADIF logs (*.adi *.adif)</source>
+        <translation>ADIF-naplók (*.adi *.adif)</translation>
+    </message>
+    <message>
         <source>Backup folder</source>
         <translation>A mentések mappája</translation>
     </message>
@@ -5541,6 +5549,30 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>In Decodium set the UDP server to this address and port. A multicast group (e.g. 239.255.0.1) shares the stream with GridTracker or JTAlert. Duplicate windows are in General.</source>
         <translation>A Decodiumban állítsd az UDP-szervert erre a címre és portra. Egy multicast-csoport (pl. 239.255.0.1) megosztja a folyamot a GridTrackerrel vagy a JTAlerttel. A duplikátumablak az Általános alatt van.</translation>
+    </message>
+    <message>
+        <source>QSOs left in the Decodium log</source>
+        <translation>A Decodium naplójában maradt QSO-k</translation>
+    </message>
+    <message>
+        <source>Recover them every 5 minutes</source>
+        <translation>Visszahozás 5 percenként</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>Ellenőrzés…</translation>
+    </message>
+    <message>
+        <source>Check the last 30 days</source>
+        <translation>Az utolsó 30 nap ellenőrzése</translation>
+    </message>
+    <message>
+        <source>Check the whole file</source>
+        <translation>Az egész fájl ellenőrzése</translation>
+    </message>
+    <message>
+        <source>not found: choose it</source>
+        <translation>nem található: válaszd ki</translation>
     </message>
     <message>
         <source>DecoLink · log towards Decodium</source>
@@ -5767,10 +5799,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Once a day</source>
         <translation>Naponta egyszer</translation>
-    </message>
-    <message>
-        <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL. QRZ Logbook, Club Log and eQSL arrive later.</source>
-        <translation>Az igazolásokat hívójel, sáv, módcsoport (adat, CW, fone) és 30 percen belüli idő alapján párosítjuk, ahogy a LoTW is teszi. Az igazolt QSO új változatot kap; a LoTW-ből jövő lokátor, zónák, állam és megye csak az üres mezőket tölti ki. A LoTW-be való feltöltés továbbra is a TQSL-en át megy. A QRZ Logbook, a Club Log és az eQSL később jön.</translation>
     </message>
     <message>
         <source>Sending to LoTW (TQSL)</source>
@@ -6135,6 +6163,38 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>port not open</source>
         <translation>a port nincs nyitva</translation>
+    </message>
+    <message>
+        <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
+        <translation>A Decodium minden QSO-t a saját ADIF-naplójába is beír. Ha a DecoDXLog be volt zárva vagy nem fogadott (rossz port, nincs hálózat), a QSO csak ott marad: 5 percenként a DecoDXLog beolvassa az utolsó ellenőrzés óta naplózott QSO-kat, és elmenti azokat, amelyek itt és a lista többi naplójában hiányoznak. Az itt javított vagy törölt QSO-k nem jönnek vissza. Első alkalommal egy hetet néz vissza, a gombokkal többet. Üres mező = a napló, amelyet a Decodium használ.</translation>
+    </message>
+    <message>
+        <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
+        <translation>Az igazolásokat hívójel, sáv, módcsoport (adat, CW, fone) és 30 percen belüli idő alapján párosítjuk, ahogy a LoTW is teszi. Az igazolt QSO új változatot kap; a LoTW-ből jövő lokátor, zónák, állam és megye csak az üres mezőket tölti ki. A LoTW-be való feltöltés továbbra is a TQSL-en át megy.</translation>
+    </message>
+    <message>
+        <source>eQSL and QRZ Logbook confirmations</source>
+        <translation>eQSL- és QRZ Logbook-igazolások</translation>
+    </message>
+    <message>
+        <source>eQSL last download</source>
+        <translation>eQSL, utolsó letöltés</translation>
+    </message>
+    <message>
+        <source>QRZ last download</source>
+        <translation>QRZ, utolsó letöltés</translation>
+    </message>
+    <message>
+        <source>%1 confirmations</source>
+        <translation>%1-igazolások</translation>
+    </message>
+    <message>
+        <source>%1: everything again</source>
+        <translation>%1: minden újra</translation>
+    </message>
+    <message>
+        <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
+        <translation>eQSL: a postafiókba érkezett eQSL-ek, az SWL-jelentések nélkül. QRZ Logbook: a QRZ-n lévő naplód azon QSO-i, amelyeket a másik állomás igazolt. Csak ami az utolsó letöltés után érkezett; az automatikus letöltés csak azoknál a szolgáltatásoknál fut, amelyeknek megvannak az adatai (lent, ugyanazok, mint a küldésnél). A LoTW-igazolásokhoz hasonlóan párosítva; a papír QSL mezőihez nem nyúl.</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -7968,6 +8028,44 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>%1: password or key not available (%2)</source>
         <translation>%1: a jelszó vagy a kulcs nem érhető el (%2)</translation>
+    </message>
+    <message>
+        <source>Decodium log not found</source>
+        <translation>A Decodium naplója nem található</translation>
+    </message>
+    <message>
+        <source>%1 does not exist</source>
+        <translation>%1 nem létezik</translation>
+    </message>
+    <message>
+        <source>%1 · Decodium log not readable: %2</source>
+        <translation>%1 · a Decodium naplója nem olvasható: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from the Decodium log</source>
+        <translation>
+            <numerusform>%1 · %n QSO visszahozva a Decodium naplójából</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · nothing missing (%n QSO(s) checked)</source>
+        <translation>
+            <numerusform>%1 · semmi sem hiányzik (%n QSO ellenőrizve)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source> · %n skipped as duplicates of the open activation “%1”</source>
+        <translation>
+            <numerusform> · %n kihagyva, mert duplikátum a nyitott „%1” aktiválásban</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Not recovered: %1 (%2)</source>
+        <translation>Nincs visszahozva: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
+        <translation>Visszahozva a Decodium naplójából → %1 %2 %3 %4</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>

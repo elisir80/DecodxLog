@@ -4175,11 +4175,11 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>eQSL: username or password incorrect (%1)</source>
-        <translation>eQSL: nom d'usuari o contrasenya incorrectes (%1)</translation>
+        <translation>eQSL: nom d&apos;usuari o contrasenya incorrectes (%1)</translation>
     </message>
     <message>
         <source>eQSL: the file was not prepared (%1)</source>
-        <translation>eQSL: no s'ha preparat el fitxer (%1)</translation>
+        <translation>eQSL: no s&apos;ha preparat el fitxer (%1)</translation>
     </message>
     <message>
         <source>QRZ: download stopped</source>
@@ -5349,6 +5349,14 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
         <translation>Tots els fitxers (*)</translation>
     </message>
     <message>
+        <source>Decodium log file</source>
+        <translation>Fitxer del quadern de Decodium</translation>
+    </message>
+    <message>
+        <source>ADIF logs (*.adi *.adif)</source>
+        <translation>Quaderns ADIF (*.adi *.adif)</translation>
+    </message>
+    <message>
         <source>Backup folder</source>
         <translation>Carpeta de les còpies</translation>
     </message>
@@ -5559,6 +5567,30 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>In Decodium set the UDP server to this address and port. A multicast group (e.g. 239.255.0.1) shares the stream with GridTracker or JTAlert. Duplicate windows are in General.</source>
         <translation>A Decodium, posa el servidor UDP en aquesta adreça i aquest port. Un grup multicast (p. ex. 239.255.0.1) comparteix el flux amb GridTracker o JTAlert. Les finestres duplicades són a General.</translation>
+    </message>
+    <message>
+        <source>QSOs left in the Decodium log</source>
+        <translation>QSO que han quedat al quadern de Decodium</translation>
+    </message>
+    <message>
+        <source>Recover them every 5 minutes</source>
+        <translation>Recupera'ls cada 5 minuts</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>Comprovant…</translation>
+    </message>
+    <message>
+        <source>Check the last 30 days</source>
+        <translation>Comprova els darrers 30 dies</translation>
+    </message>
+    <message>
+        <source>Check the whole file</source>
+        <translation>Comprova tot el fitxer</translation>
+    </message>
+    <message>
+        <source>not found: choose it</source>
+        <translation>no trobat: tria'l</translation>
     </message>
     <message>
         <source>DecoLink · log towards Decodium</source>
@@ -5786,10 +5818,6 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Once a day</source>
         <translation>Un cop al dia</translation>
-    </message>
-    <message>
-        <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL. QRZ Logbook, Club Log and eQSL arrive later.</source>
-        <translation>Les confirmacions es lliguen per indicatiu, banda, grup de mode (dades, CW, fonia) i hora dins de 30 minuts, tal com fa LoTW. Un QSO confirmat es converteix en una revisió nova; el locator, les zones, l&apos;estat i el comtat de LoTW només omplen els camps buits. Pujar a LoTW continua passant pel TQSL. QRZ Logbook, Club Log i eQSL vindran més endavant.</translation>
     </message>
     <message>
         <source>Sending to LoTW (TQSL)</source>
@@ -6154,6 +6182,38 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>port not open</source>
         <translation>port no obert</translation>
+    </message>
+    <message>
+        <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
+        <translation>Decodium també escriu cada QSO al seu propi quadern ADIF. Si DecoDXLog estava tancat o no rebia (port equivocat, xarxa caiguda), el QSO només queda allà: cada 5 minuts DecoDXLog llegeix els QSO registrats des de la darrera comprovació i desa els que falten aquí i als altres quaderns de la llista. Els QSO corregits o esborrats aquí no tornen. La primera vegada mira una setmana enrere, els botons més enrere. Camp buit = el quadern que fa servir Decodium.</translation>
+    </message>
+    <message>
+        <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
+        <translation>Les confirmacions es lliguen per indicatiu, banda, grup de mode (dades, CW, fonia) i hora dins de 30 minuts, tal com fa LoTW. Un QSO confirmat es converteix en una revisió nova; el locator, les zones, l&apos;estat i el comtat de LoTW només omplen els camps buits. Pujar a LoTW continua passant pel TQSL.</translation>
+    </message>
+    <message>
+        <source>eQSL and QRZ Logbook confirmations</source>
+        <translation>Confirmacions d&apos;eQSL i QRZ Logbook</translation>
+    </message>
+    <message>
+        <source>eQSL last download</source>
+        <translation>eQSL, darrera baixada</translation>
+    </message>
+    <message>
+        <source>QRZ last download</source>
+        <translation>QRZ, darrera baixada</translation>
+    </message>
+    <message>
+        <source>%1 confirmations</source>
+        <translation>Confirmacions de %1</translation>
+    </message>
+    <message>
+        <source>%1: everything again</source>
+        <translation>%1: tot de nou</translation>
+    </message>
+    <message>
+        <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
+        <translation>eQSL: les eQSL rebudes a la safata d&apos;entrada, sense els informes SWL. QRZ Logbook: els QSO del teu logbook a QRZ que l&apos;altra estació ha confirmat. Només el que ha arribat després de la darrera baixada; la baixada automàtica només es fa per als serveis amb les seves credencials (a sota, les mateixes de l&apos;enviament). Aparellades com les confirmacions de LoTW; els camps de la targeta QSL de paper no es toquen.</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -7987,7 +8047,7 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
     <message>
         <source>eQSL: add username and password in Setup → QSL services</source>
-        <translation>eQSL: posa el nom d'usuari i la contrasenya a Configuració → Serveis QSL</translation>
+        <translation>eQSL: posa el nom d&apos;usuari i la contrasenya a Configuració → Serveis QSL</translation>
     </message>
     <message>
         <source>%1: downloading the confirmations since %2…</source>
@@ -8000,6 +8060,47 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>%1: password or key not available (%2)</source>
         <translation>%1: contrasenya o clau no disponible (%2)</translation>
+    </message>
+    <message>
+        <source>Decodium log not found</source>
+        <translation>Quadern de Decodium no trobat</translation>
+    </message>
+    <message>
+        <source>%1 does not exist</source>
+        <translation>%1 no existeix</translation>
+    </message>
+    <message>
+        <source>%1 · Decodium log not readable: %2</source>
+        <translation>%1 · quadern de Decodium illegible: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from the Decodium log</source>
+        <translation>
+            <numerusform>%1 · %n QSO recuperat del quadern de Decodium</numerusform>
+            <numerusform>%1 · %n QSO recuperats del quadern de Decodium</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · nothing missing (%n QSO(s) checked)</source>
+        <translation>
+            <numerusform>%1 · no falta res (%n QSO comprovat)</numerusform>
+            <numerusform>%1 · no falta res (%n QSO comprovats)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source> · %n skipped as duplicates of the open activation “%1”</source>
+        <translation>
+            <numerusform> · %n omès com a duplicat de l'activació oberta «%1»</numerusform>
+            <numerusform> · %n omesos com a duplicats de l'activació oberta «%1»</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Not recovered: %1 (%2)</source>
+        <translation>No recuperat: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
+        <translation>Recuperat del quadern de Decodium → %1 %2 %3 %4</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>

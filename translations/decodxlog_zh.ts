@@ -5331,6 +5331,14 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>所有文件 (*)</translation>
     </message>
     <message>
+        <source>Decodium log file</source>
+        <translation>Decodium 日志文件</translation>
+    </message>
+    <message>
+        <source>ADIF logs (*.adi *.adif)</source>
+        <translation>ADIF 日志 (*.adi *.adif)</translation>
+    </message>
+    <message>
         <source>Backup folder</source>
         <translation>备份文件夹</translation>
     </message>
@@ -5541,6 +5549,30 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>In Decodium set the UDP server to this address and port. A multicast group (e.g. 239.255.0.1) shares the stream with GridTracker or JTAlert. Duplicate windows are in General.</source>
         <translation>在 Decodium 里把 UDP 服务器设成这个地址和端口。多播组（例如 239.255.0.1）可以把数据流分给 GridTracker 或 JTAlert。重复窗口在「通用」里。</translation>
+    </message>
+    <message>
+        <source>QSOs left in the Decodium log</source>
+        <translation>留在 Decodium 日志里的 QSO</translation>
+    </message>
+    <message>
+        <source>Recover them every 5 minutes</source>
+        <translation>每 5 分钟找回</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>检查中…</translation>
+    </message>
+    <message>
+        <source>Check the last 30 days</source>
+        <translation>检查最近 30 天</translation>
+    </message>
+    <message>
+        <source>Check the whole file</source>
+        <translation>检查整个文件</translation>
+    </message>
+    <message>
+        <source>not found: choose it</source>
+        <translation>没找到：请选择</translation>
     </message>
     <message>
         <source>DecoLink · log towards Decodium</source>
@@ -5767,10 +5799,6 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Once a day</source>
         <translation>每天一次</translation>
-    </message>
-    <message>
-        <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL. QRZ Logbook, Club Log and eQSL arrive later.</source>
-        <translation>确认按呼号、波段、模式大类（数字、CW、话音）和 30 分钟以内的时间来配对，和 LoTW 的做法一样。确认过的 QSO 会成为一个新版本；来自 LoTW 的网格、分区、州和县只填空着的字段。上传到 LoTW 仍然要经过 TQSL。QRZ Logbook、Club Log 和 eQSL 以后再来。</translation>
     </message>
     <message>
         <source>Sending to LoTW (TQSL)</source>
@@ -6135,6 +6163,38 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>port not open</source>
         <translation>端口没有打开</translation>
+    </message>
+    <message>
+        <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
+        <translation>Decodium 也会把每个 QSO 写进它自己的 ADIF 日志。如果 DecoDXLog 当时关着或没收到（端口不对、网络断了），这个 QSO 就只留在那里：DecoDXLog 每 5 分钟读取上次检查以后记录的 QSO，把这里和列表里其他日志都没有的保存下来。在这里改过或删掉的 QSO 不会回来。第一次往前看一周，用按钮可以看得更远。留空 = Decodium 正在用的日志。</translation>
+    </message>
+    <message>
+        <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
+        <translation>确认按呼号、波段、模式大类（数字、CW、话音）和 30 分钟以内的时间来配对，和 LoTW 的做法一样。确认过的 QSO 会成为一个新版本；来自 LoTW 的网格、分区、州和县只填空着的字段。上传到 LoTW 仍然要经过 TQSL。</translation>
+    </message>
+    <message>
+        <source>eQSL and QRZ Logbook confirmations</source>
+        <translation>eQSL 和 QRZ Logbook 的确认</translation>
+    </message>
+    <message>
+        <source>eQSL last download</source>
+        <translation>eQSL 上次下载</translation>
+    </message>
+    <message>
+        <source>QRZ last download</source>
+        <translation>QRZ 上次下载</translation>
+    </message>
+    <message>
+        <source>%1 confirmations</source>
+        <translation>%1 确认</translation>
+    </message>
+    <message>
+        <source>%1: everything again</source>
+        <translation>%1：全部重来</translation>
+    </message>
+    <message>
+        <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
+        <translation>eQSL：收件箱里收到的 eQSL，不含 SWL 报告。QRZ Logbook：你在 QRZ 上的日志本里、对方电台已经确认的 QSO。只取上次下载之后来的；自动下载只对填好了凭据的服务运行（在下面，和发送用的一样）。配对方式和 LoTW 确认相同；纸质 QSL 的字段不会被改动。</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -7968,6 +8028,44 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>%1: password or key not available (%2)</source>
         <translation>%1：密码或密钥不可用（%2）</translation>
+    </message>
+    <message>
+        <source>Decodium log not found</source>
+        <translation>没找到 Decodium 日志</translation>
+    </message>
+    <message>
+        <source>%1 does not exist</source>
+        <translation>%1 不存在</translation>
+    </message>
+    <message>
+        <source>%1 · Decodium log not readable: %2</source>
+        <translation>%1 · 读不了 Decodium 日志：%2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from the Decodium log</source>
+        <translation>
+            <numerusform>%1 · 从 Decodium 日志找回 %n 个 QSO</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · nothing missing (%n QSO(s) checked)</source>
+        <translation>
+            <numerusform>%1 · 没有缺的（检查了 %n 个 QSO）</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source> · %n skipped as duplicates of the open activation “%1”</source>
+        <translation>
+            <numerusform> · %n 个作为打开的活动“%1”里的重复被跳过</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Not recovered: %1 (%2)</source>
+        <translation>没有找回：%1（%2）</translation>
+    </message>
+    <message>
+        <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
+        <translation>从 Decodium 日志找回 → %1 %2 %3 %4</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>

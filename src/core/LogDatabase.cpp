@@ -446,6 +446,46 @@ std::optional<qint64> LogDatabase::findDuplicate(const QString& call, const QStr
     return std::nullopt;
 }
 
+bool LogDatabase::knowsQso(const AdifRecord& input) const
+{
+    AdifRecord record = input;
+    if (record.value(QStringLiteral("BAND")).isEmpty()) {
+        bool ok = false;
+        const double mhz = record.value(QStringLiteral("FREQ")).toDouble(&ok);
+        if (ok)
+            record.set(QStringLiteral("BAND"), bands::fromMhz(mhz));
+    }
+    const QString call = record.value(QStringLiteral("CALL")).trimmed().toUpper();
+    const QString band = record.value(QStringLiteral("BAND")).trimmed().toLower();
+    const QString iso = isoFromAdif(record.value(QStringLiteral("QSO_DATE")), record.value(QStringLiteral("TIME_ON")));
+    if (call.isEmpty() || band.isEmpty() || iso.isEmpty())
+        return false;
+    const QDateTime on = parseIso(iso);
+
+    // Anche i cancellati: per questo non c'e' "deleted = 0".
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("SELECT id, call FROM qso WHERE qso_datetime_on BETWEEN ? AND ? AND band = ?"));
+    q.addBindValue(on.addSecs(-m_dedupDigital).toString(Qt::ISODate));
+    q.addBindValue(on.addSecs(m_dedupDigital).toString(Qt::ISODate));
+    q.addBindValue(band);
+    if (!q.exec())
+        return false;
+    QList<qint64> others;
+    while (q.next()) {
+        if (q.value(1).toString().trimmed().toUpper() == call)
+            return true;
+        others << q.value(0).toLongLong();
+    }
+    // Un nominativo corretto dopo: quello di prima sta nello storico.
+    for (const qint64 id : std::as_const(others)) {
+        for (const HistoryEntry& h : history(id)) {
+            if (h.record.value(QStringLiteral("CALL")).trimmed().toUpper() == call)
+                return true;
+        }
+    }
+    return false;
+}
+
 std::optional<LogDatabase::Prepared> LogDatabase::prepare(const AdifRecord& input, InsertResult& error) const
 {
     AdifRecord record = input;

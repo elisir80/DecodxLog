@@ -5367,6 +5367,14 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Toate fișierele (*)</translation>
     </message>
     <message>
+        <source>Decodium log file</source>
+        <translation>Fișierul jurnalului Decodium</translation>
+    </message>
+    <message>
+        <source>ADIF logs (*.adi *.adif)</source>
+        <translation>Jurnale ADIF (*.adi *.adif)</translation>
+    </message>
+    <message>
         <source>Backup folder</source>
         <translation>Dosarul copiilor</translation>
     </message>
@@ -5577,6 +5585,30 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>In Decodium set the UDP server to this address and port. A multicast group (e.g. 239.255.0.1) shares the stream with GridTracker or JTAlert. Duplicate windows are in General.</source>
         <translation>În Decodium pune serverul UDP pe această adresă și port. Un grup multicast (de ex. 239.255.0.1) împarte fluxul cu GridTracker sau JTAlert. Ferestrele de dubluri sunt la General.</translation>
+    </message>
+    <message>
+        <source>QSOs left in the Decodium log</source>
+        <translation>QSO-uri rămase în jurnalul Decodium</translation>
+    </message>
+    <message>
+        <source>Recover them every 5 minutes</source>
+        <translation>Recuperează-le la fiecare 5 minute</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>Verific…</translation>
+    </message>
+    <message>
+        <source>Check the last 30 days</source>
+        <translation>Verifică ultimele 30 de zile</translation>
+    </message>
+    <message>
+        <source>Check the whole file</source>
+        <translation>Verifică tot fișierul</translation>
+    </message>
+    <message>
+        <source>not found: choose it</source>
+        <translation>negăsit: alege-l</translation>
     </message>
     <message>
         <source>DecoLink · log towards Decodium</source>
@@ -5805,10 +5837,6 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Once a day</source>
         <translation>O dată pe zi</translation>
-    </message>
-    <message>
-        <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL. QRZ Logbook, Club Log and eQSL arrive later.</source>
-        <translation>Confirmările se potrivesc după indicativ, bandă, grup de mod (date, CW, fonie) și oră în 30 de minute, așa cum face LoTW. Un QSO confirmat devine o versiune nouă; locatorul, zonele, statul și comitatul de la LoTW completează doar câmpurile goale. Încărcarea în LoTW trece tot prin TQSL. QRZ Logbook, Club Log și eQSL vin mai târziu.</translation>
     </message>
     <message>
         <source>Sending to LoTW (TQSL)</source>
@@ -6173,6 +6201,38 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>port not open</source>
         <translation>portul nu este deschis</translation>
+    </message>
+    <message>
+        <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
+        <translation>Decodium scrie fiecare QSO și în propriul jurnal ADIF. Dacă DecoDXLog era închis sau nu primea (port greșit, rețea căzută), QSO-ul rămâne doar acolo: la fiecare 5 minute DecoDXLog citește QSO-urile înregistrate de la ultima verificare și le salvează pe cele care lipsesc aici și în celelalte jurnale din listă. QSO-urile corectate sau șterse aici nu revin. Prima dată se uită o săptămână înapoi, butoanele mai departe. Câmp gol = jurnalul pe care îl folosește Decodium.</translation>
+    </message>
+    <message>
+        <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
+        <translation>Confirmările se potrivesc după indicativ, bandă, grup de mod (date, CW, fonie) și oră în 30 de minute, așa cum face LoTW. Un QSO confirmat devine o versiune nouă; locatorul, zonele, statul și comitatul de la LoTW completează doar câmpurile goale. Încărcarea în LoTW trece tot prin TQSL.</translation>
+    </message>
+    <message>
+        <source>eQSL and QRZ Logbook confirmations</source>
+        <translation>Confirmări eQSL și QRZ Logbook</translation>
+    </message>
+    <message>
+        <source>eQSL last download</source>
+        <translation>eQSL, ultima descărcare</translation>
+    </message>
+    <message>
+        <source>QRZ last download</source>
+        <translation>QRZ, ultima descărcare</translation>
+    </message>
+    <message>
+        <source>%1 confirmations</source>
+        <translation>Confirmări %1</translation>
+    </message>
+    <message>
+        <source>%1: everything again</source>
+        <translation>%1: totul din nou</translation>
+    </message>
+    <message>
+        <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
+        <translation>eQSL: eQSL-urile sosite în Inbox, fără rapoartele SWL. QRZ Logbook: QSO-urile din jurnalul tău de pe QRZ pe care celălalt post le-a confirmat. Doar ce a sosit după ultima descărcare; descărcarea automată pornește doar pentru serviciile care au datele de acces (mai jos, aceleași ca la trimitere). Potrivite ca și confirmările LoTW; câmpurile cărții QSL de hârtie nu se ating.</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -8032,6 +8092,50 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>%1: password or key not available (%2)</source>
         <translation>%1: parola sau cheia nu este disponibilă (%2)</translation>
+    </message>
+    <message>
+        <source>Decodium log not found</source>
+        <translation>Jurnalul Decodium negăsit</translation>
+    </message>
+    <message>
+        <source>%1 does not exist</source>
+        <translation>%1 nu există</translation>
+    </message>
+    <message>
+        <source>%1 · Decodium log not readable: %2</source>
+        <translation>%1 · jurnalul Decodium nu poate fi citit: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from the Decodium log</source>
+        <translation>
+            <numerusform>%1 · %n QSO recuperat din jurnalul Decodium</numerusform>
+            <numerusform>%1 · %n QSO-uri recuperate din jurnalul Decodium</numerusform>
+            <numerusform>%1 · %n de QSO-uri recuperate din jurnalul Decodium</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · nothing missing (%n QSO(s) checked)</source>
+        <translation>
+            <numerusform>%1 · nu lipsește nimic (%n QSO verificat)</numerusform>
+            <numerusform>%1 · nu lipsește nimic (%n QSO-uri verificate)</numerusform>
+            <numerusform>%1 · nu lipsește nimic (%n de QSO-uri verificate)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source> · %n skipped as duplicates of the open activation “%1”</source>
+        <translation>
+            <numerusform> · %n omis ca duplicat al activării deschise „%1”</numerusform>
+            <numerusform> · %n omise ca duplicate ale activării deschise „%1”</numerusform>
+            <numerusform> · %n de omise ca duplicate ale activării deschise „%1”</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Not recovered: %1 (%2)</source>
+        <translation>Nerecuperat: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
+        <translation>Recuperat din jurnalul Decodium → %1 %2 %3 %4</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>

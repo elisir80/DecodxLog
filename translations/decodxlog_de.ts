@@ -5349,6 +5349,14 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Alle Dateien (*)</translation>
     </message>
     <message>
+        <source>Decodium log file</source>
+        <translation>Logdatei von Decodium</translation>
+    </message>
+    <message>
+        <source>ADIF logs (*.adi *.adif)</source>
+        <translation>ADIF-Logs (*.adi *.adif)</translation>
+    </message>
+    <message>
         <source>Backup folder</source>
         <translation>Ordner der Sicherungskopien</translation>
     </message>
@@ -5559,6 +5567,30 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>In Decodium set the UDP server to this address and port. A multicast group (e.g. 239.255.0.1) shares the stream with GridTracker or JTAlert. Duplicate windows are in General.</source>
         <translation>In Decodium den UDP-Server auf diese Adresse und diesen Port stellen. Eine Multicast-Gruppe (z. B. 239.255.0.1) teilt den Strom mit GridTracker oder JTAlert. Die Dupe-Fenster stehen unter Generell.</translation>
+    </message>
+    <message>
+        <source>QSOs left in the Decodium log</source>
+        <translation>QSOs, die im Decodium-Log geblieben sind</translation>
+    </message>
+    <message>
+        <source>Recover them every 5 minutes</source>
+        <translation>Alle 5 Minuten zurückholen</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>Prüfe…</translation>
+    </message>
+    <message>
+        <source>Check the last 30 days</source>
+        <translation>Letzte 30 Tage prüfen</translation>
+    </message>
+    <message>
+        <source>Check the whole file</source>
+        <translation>Ganze Datei prüfen</translation>
+    </message>
+    <message>
+        <source>not found: choose it</source>
+        <translation>nicht gefunden: bitte wählen</translation>
     </message>
     <message>
         <source>DecoLink · log towards Decodium</source>
@@ -5786,10 +5818,6 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Once a day</source>
         <translation>Einmal am Tag</translation>
-    </message>
-    <message>
-        <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL. QRZ Logbook, Club Log and eQSL arrive later.</source>
-        <translation>Bestätigungen werden über Rufzeichen, Band, Sendeartgruppe (Daten, CW, Sprechfunk) und Zeit innerhalb von 30 Minuten zugeordnet, so wie LoTW es macht. Ein bestätigtes QSO wird zu einer neuen Fassung; Locator, Zonen, Bundesstaat und County von LoTW füllen nur leere Felder. Das Hochladen zu LoTW läuft weiterhin über TQSL. QRZ Logbook, Club Log und eQSL kommen später.</translation>
     </message>
     <message>
         <source>Sending to LoTW (TQSL)</source>
@@ -6154,6 +6182,38 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>port not open</source>
         <translation>Port nicht offen</translation>
+    </message>
+    <message>
+        <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
+        <translation>Decodium schreibt jedes QSO auch in sein eigenes ADIF-Log. War DecoDXLog geschlossen oder hat nichts empfangen (falscher Port, Netz weg), steht das QSO nur dort: alle 5 Minuten liest DecoDXLog die seit der letzten Prüfung geloggten QSOs und speichert die, die hier und in den anderen Logs der Liste fehlen. Hier korrigierte oder gelöschte QSOs kommen nicht zurück. Beim ersten Mal wird eine Woche zurückgeschaut, mit den Knöpfen weiter. Leeres Feld = das Log, das Decodium benutzt.</translation>
+    </message>
+    <message>
+        <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
+        <translation>Bestätigungen werden über Rufzeichen, Band, Sendeartgruppe (Daten, CW, Sprechfunk) und Zeit innerhalb von 30 Minuten zugeordnet, so wie LoTW es macht. Ein bestätigtes QSO wird zu einer neuen Fassung; Locator, Zonen, Bundesstaat und County von LoTW füllen nur leere Felder. Das Hochladen zu LoTW läuft weiterhin über TQSL.</translation>
+    </message>
+    <message>
+        <source>eQSL and QRZ Logbook confirmations</source>
+        <translation>Bestätigungen von eQSL und QRZ Logbook</translation>
+    </message>
+    <message>
+        <source>eQSL last download</source>
+        <translation>eQSL, letzter Download</translation>
+    </message>
+    <message>
+        <source>QRZ last download</source>
+        <translation>QRZ, letzter Download</translation>
+    </message>
+    <message>
+        <source>%1 confirmations</source>
+        <translation>%1-Bestätigungen</translation>
+    </message>
+    <message>
+        <source>%1: everything again</source>
+        <translation>%1: alles neu</translation>
+    </message>
+    <message>
+        <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
+        <translation>eQSL: die im Posteingang eingegangenen eQSLs, ohne SWL-Berichte. QRZ Logbook: die QSOs deines Logbuchs bei QRZ, die die Gegenstation bestätigt hat. Nur was nach dem letzten Download gekommen ist; der automatische Download läuft nur für Dienste mit Zugangsdaten (unten, dieselben wie beim Senden). Zugeordnet wie die LoTW-Bestätigungen; die Felder der Papier-QSL bleiben unberührt.</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -8000,6 +8060,47 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>%1: password or key not available (%2)</source>
         <translation>%1: Passwort oder Schlüssel nicht verfügbar (%2)</translation>
+    </message>
+    <message>
+        <source>Decodium log not found</source>
+        <translation>Decodium-Log nicht gefunden</translation>
+    </message>
+    <message>
+        <source>%1 does not exist</source>
+        <translation>%1 existiert nicht</translation>
+    </message>
+    <message>
+        <source>%1 · Decodium log not readable: %2</source>
+        <translation>%1 · Decodium-Log nicht lesbar: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from the Decodium log</source>
+        <translation>
+            <numerusform>%1 · %n QSO aus dem Decodium-Log zurückgeholt</numerusform>
+            <numerusform>%1 · %n QSOs aus dem Decodium-Log zurückgeholt</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · nothing missing (%n QSO(s) checked)</source>
+        <translation>
+            <numerusform>%1 · nichts fehlt (%n QSO geprüft)</numerusform>
+            <numerusform>%1 · nichts fehlt (%n QSOs geprüft)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source> · %n skipped as duplicates of the open activation “%1”</source>
+        <translation>
+            <numerusform> · %n als Doppel der offenen Aktivierung „%1“ übersprungen</numerusform>
+            <numerusform> · %n als Doppel der offenen Aktivierung „%1“ übersprungen</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Not recovered: %1 (%2)</source>
+        <translation>Nicht zurückgeholt: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
+        <translation>Aus dem Decodium-Log zurückgeholt → %1 %2 %3 %4</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>

@@ -60,6 +60,16 @@ QrzPage parseQrzFetch(const QByteArray& body);
 // (QSLRDATE = APP_QRZLOG_QSLDATE).
 QList<AdifRecord> qrzConfirmations(const QList<AdifRecord>& records);
 
+// Da quando chiedere le conferme: dall'ultimo scarico riuscito meno un giorno
+// (quello che arrivava mentre si scaricava), tutto se non ce n'e' uno o se si
+// chiede tutto.
+QDateTime downloadSince(const QDateTime& lastSuccess, bool everything);
+
+// Lo scarico automatico ogni `hours` ore: tocca se non si e' mai provato, o
+// se dall'ultimo tentativo (riuscito o no) sono passate le ore. Un tentativo
+// fallito non si ripete a ogni controllo, ma al giro dopo.
+bool autoDownloadDue(const QDateTime& lastSuccess, const QDateTime& lastAttempt, const QDateTime& now, int hours);
+
 } // namespace confirmations
 
 class ConfirmationDownloader : public QObject {

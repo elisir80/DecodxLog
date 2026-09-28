@@ -5367,6 +5367,14 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Visi faili (*)</translation>
     </message>
     <message>
+        <source>Decodium log file</source>
+        <translation>Decodium žurnāla fails</translation>
+    </message>
+    <message>
+        <source>ADIF logs (*.adi *.adif)</source>
+        <translation>ADIF žurnāli (*.adi *.adif)</translation>
+    </message>
+    <message>
         <source>Backup folder</source>
         <translation>Rezerves kopiju mape</translation>
     </message>
@@ -5577,6 +5585,30 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>In Decodium set the UDP server to this address and port. A multicast group (e.g. 239.255.0.1) shares the stream with GridTracker or JTAlert. Duplicate windows are in General.</source>
         <translation>Decodium iestati UDP serveri uz šo adresi un portu. Multicast grupa (piem., 239.255.0.1) dala plūsmu ar GridTracker vai JTAlert. Dublikātu logi ir sadaļā Vispārīgi.</translation>
+    </message>
+    <message>
+        <source>QSOs left in the Decodium log</source>
+        <translation>QSO, kas palikuši Decodium žurnālā</translation>
+    </message>
+    <message>
+        <source>Recover them every 5 minutes</source>
+        <translation>Atgūt tos ik pēc 5 minūtēm</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>Pārbauda…</translation>
+    </message>
+    <message>
+        <source>Check the last 30 days</source>
+        <translation>Pārbaudīt pēdējās 30 dienas</translation>
+    </message>
+    <message>
+        <source>Check the whole file</source>
+        <translation>Pārbaudīt visu failu</translation>
+    </message>
+    <message>
+        <source>not found: choose it</source>
+        <translation>nav atrasts: izvēlies to</translation>
     </message>
     <message>
         <source>DecoLink · log towards Decodium</source>
@@ -5805,10 +5837,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>Once a day</source>
         <translation>Reizi dienā</translation>
-    </message>
-    <message>
-        <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL. QRZ Logbook, Club Log and eQSL arrive later.</source>
-        <translation>Apstiprinājumus sasaista pēc izsaukuma signāla, joslas, režīmu grupas (dati, CW, fone) un laika 30 minūšu robežās, tāpat kā to dara LoTW. Apstiprināts QSO kļūst par jaunu redakciju; lokators, zonas, štats un apgabals no LoTW aizpilda tikai tukšos laukus. Augšupielāde uz LoTW joprojām iet caur TQSL. QRZ Logbook, Club Log un eQSL nāks vēlāk.</translation>
     </message>
     <message>
         <source>Sending to LoTW (TQSL)</source>
@@ -6173,6 +6201,38 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>port not open</source>
         <translation>ports nav atvērts</translation>
+    </message>
+    <message>
+        <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
+        <translation>Decodium katru QSO ieraksta arī savā ADIF žurnālā. Ja DecoDXLog bija aizvērts vai nesaņēma (nepareizs ports, nav tīkla), QSO paliek tikai tur: ik pēc 5 minūtēm DecoDXLog nolasa kopš pēdējās pārbaudes ierakstītos QSO un saglabā tos, kuru trūkst šeit un citos saraksta žurnālos. Šeit labotie vai dzēstie QSO neatgriežas. Pirmajā reizē tiek skatīta viena nedēļa atpakaļ, ar pogām tālāk. Tukšs lauks = žurnāls, ko izmanto Decodium.</translation>
+    </message>
+    <message>
+        <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
+        <translation>Apstiprinājumus sasaista pēc izsaukuma signāla, joslas, režīmu grupas (dati, CW, fone) un laika 30 minūšu robežās, tāpat kā to dara LoTW. Apstiprināts QSO kļūst par jaunu redakciju; lokators, zonas, štats un apgabals no LoTW aizpilda tikai tukšos laukus. Augšupielāde uz LoTW joprojām iet caur TQSL.</translation>
+    </message>
+    <message>
+        <source>eQSL and QRZ Logbook confirmations</source>
+        <translation>eQSL un QRZ Logbook apstiprinājumi</translation>
+    </message>
+    <message>
+        <source>eQSL last download</source>
+        <translation>eQSL, pēdējā lejupielāde</translation>
+    </message>
+    <message>
+        <source>QRZ last download</source>
+        <translation>QRZ, pēdējā lejupielāde</translation>
+    </message>
+    <message>
+        <source>%1 confirmations</source>
+        <translation>%1 apstiprinājumi</translation>
+    </message>
+    <message>
+        <source>%1: everything again</source>
+        <translation>%1: visu no jauna</translation>
+    </message>
+    <message>
+        <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
+        <translation>eQSL: iesūtnē saņemtās eQSL, bez SWL ziņojumiem. QRZ Logbook: tava QRZ žurnāla QSO, ko otra stacija ir apstiprinājusi. Tikai tas, kas pienācis pēc pēdējās lejupielādes; automātiskā lejupielāde notiek tikai pakalpojumiem ar to piekļuves datiem (zemāk, tie paši, kas sūtīšanai). Sasaistīti kā LoTW apstiprinājumi; papīra QSL lauki netiek aiztikti.</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -8032,6 +8092,50 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     <message>
         <source>%1: password or key not available (%2)</source>
         <translation>%1: parole vai atslēga nav pieejama (%2)</translation>
+    </message>
+    <message>
+        <source>Decodium log not found</source>
+        <translation>Decodium žurnāls nav atrasts</translation>
+    </message>
+    <message>
+        <source>%1 does not exist</source>
+        <translation>%1 neeksistē</translation>
+    </message>
+    <message>
+        <source>%1 · Decodium log not readable: %2</source>
+        <translation>%1 · Decodium žurnālu nevar nolasīt: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from the Decodium log</source>
+        <translation>
+            <numerusform>%1 · %n QSO atgūts no Decodium žurnāla</numerusform>
+            <numerusform>%1 · %n QSO atgūti no Decodium žurnāla</numerusform>
+            <numerusform>%1 · %n QSO atgūti no Decodium žurnāla</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · nothing missing (%n QSO(s) checked)</source>
+        <translation>
+            <numerusform>%1 · nekā netrūkst (pārbaudīts %n QSO)</numerusform>
+            <numerusform>%1 · nekā netrūkst (pārbaudīti %n QSO)</numerusform>
+            <numerusform>%1 · nekā netrūkst (pārbaudīti %n QSO)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source> · %n skipped as duplicates of the open activation “%1”</source>
+        <translation>
+            <numerusform> · %n izlaists kā atvērtās aktivācijas “%1” dublikāts</numerusform>
+            <numerusform> · %n izlaisti kā atvērtās aktivācijas “%1” dublikāti</numerusform>
+            <numerusform> · %n izlaisti kā atvērtās aktivācijas “%1” dublikāti</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Not recovered: %1 (%2)</source>
+        <translation>Nav atgūts: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
+        <translation>Atgūts no Decodium žurnāla → %1 %2 %3 %4</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>

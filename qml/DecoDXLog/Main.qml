@@ -951,6 +951,8 @@ ApplicationWindow {
         else if (what[0] === "tab") window.panelItem("tabs").setTab(parseInt(what[1]))
         // La scelta del periodo per lo scarico LoTW, aperta per guardarla.
         else if (what[0] === "lotwperiod") { window.panelItem("tabs").setTab(2); lotwPeriodTimer.start() }
+        // Per le prove: il recupero dal log di Decodium, degli ultimi N giorni (0 = tutto).
+        else if (what[0] === "recover") decolog.recoverFromDecodium(parseInt(what[1] || "0"))
         else if (what[0] === "pop") popWindow.active = true
         // Un riquadro d'avviso DX, per vederlo.
         else if (what[0] === "toast") { dxToast.show("NEW DXCC", "3Y0J 14025.0 CW Bouvet · New DXCC", "3Y0J|20m|CW"); dxToast.show("NEW IOTA", "IH9R 7012.0 CW Italy · IOTA AF-018", "IH9R|40m|CW") }

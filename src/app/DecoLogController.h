@@ -32,6 +32,7 @@
 #include "core/LogBackup.h"
 #include "core/LogDatabase.h"
 #include "core/Lotw.h"
+#include "core/DecodiumLog.h"
 #include "core/QslDownload.h"
 #include "core/UdpReceiver.h"
 
@@ -185,6 +186,19 @@ class DecoLogController : public QObject {
     Q_PROPERTY(bool confirmBusy READ confirmBusy NOTIFY confirmChanged)
     Q_PROPERTY(QString confirmBusyService READ confirmBusyService NOTIFY confirmChanged)
     Q_PROPERTY(QString confirmStatus READ confirmStatus NOTIFY confirmChanged)
+    // Scarico automatico delle conferme di eQSL e QRZ: ore (0 = spento), e per
+    // ogni servizio l'ultimo scarico riuscito, gia' scritto per lo schermo.
+    Q_PROPERTY(int confirmAutoHours READ confirmAutoHours WRITE setConfirmAutoHours NOTIFY confirmChanged)
+    Q_PROPERTY(QVariantMap confirmLastSync READ confirmLastSync NOTIFY confirmChanged)
+    Q_PROPERTY(bool confirmFailed READ confirmFailed NOTIFY confirmChanged)
+    // Recupero dal log di Decodium: i QSO registrati la' mentre DecoDXLog era
+    // chiuso o non li riceveva. Il file si sceglie a mano o si prende quello
+    // che Decodium sta usando.
+    Q_PROPERTY(bool decodiumRecovery READ decodiumRecovery WRITE setDecodiumRecovery NOTIFY recoveryChanged)
+    Q_PROPERTY(QString decodiumLogPath READ decodiumLogPath WRITE setDecodiumLogPath NOTIFY recoveryChanged)
+    Q_PROPERTY(QString decodiumLogInUse READ decodiumLogInUse NOTIFY recoveryChanged)
+    Q_PROPERTY(QString recoveryStatus READ recoveryStatus NOTIFY recoveryChanged)
+    Q_PROPERTY(bool recoveryBusy READ recoveryBusy NOTIFY recoveryChanged)
 
     // L'importazione ADIF gira su un altro filo: da 0 a 1 mentre va, -1 ferma.
     Q_PROPERTY(double importProgress READ importProgress NOTIFY importChanged)
@@ -414,6 +428,19 @@ public:
     bool confirmBusy() const { return m_confirmDownloader.busy() || !m_confirmStarting.isEmpty(); }
     QString confirmBusyService() const { return m_confirmService; }
     QString confirmStatus() const { return m_confirmStatus; }
+    int confirmAutoHours() const { return m_confirmAutoHours; }
+    bool confirmFailed() const { return m_confirmFailed; }
+    bool decodiumRecovery() const { return m_recoveryEnabled; }
+    void setDecodiumRecovery(bool on);
+    QString decodiumLogPath() const { return m_decodiumLogPath; }
+    void setDecodiumLogPath(const QString& path);
+    QString decodiumLogInUse() const;
+    QString recoveryStatus() const { return m_recoveryStatus; }
+    bool recoveryBusy() const { return m_recoveryRunning; }
+    // A mano: i QSO degli ultimi `days` giorni che mancano (0 = tutto il file).
+    Q_INVOKABLE void recoverFromDecodium(int days);
+    void setConfirmAutoHours(int hours);
+    QVariantMap confirmLastSync() const;
     // Scarica le conferme di "eqsl" o "qrz": solo le nuove dall'ultimo scarico,
     // o tutte con `full`.
     Q_INVOKABLE void syncConfirmations(const QString& service, bool full = false);
@@ -569,6 +596,7 @@ signals:
     void logColorsChanged();
     void lotwChanged();
     void confirmChanged();
+    void recoveryChanged();
 
 private:
     void onQsoReceived(const core::AdifRecord& record, const QString& source, const QString& sourceApp);
@@ -608,6 +636,13 @@ private:
     void confirmationsApplied(const QString& category, const QSet<QString>& dxccBefore,
                               const QSet<QString>& ft2Before);
     void checkLotwSchedule();
+    void checkConfirmSchedule();
+    void checkDecodiumRecovery();
+    void startRecovery(const QDateTime& from, const QDateTime& to, bool manual);
+    void finishRecovery(const core::decodiumlog::Tail& tail, const QList<core::AdifRecord>& missing,
+                        const QDateTime& to, bool manual);
+    enum class Recovered { Saved, Known, ActivationDuplicate, Failed };
+    Recovered saveRecoveredQso(const core::AdifRecord& record, bool bulk);
     QSet<QString> confirmedAwardKeys(const QString& awardId) const;
     void requestCallbook();
     const QList<core::AwardResult>& awardResults() const;
@@ -636,6 +671,15 @@ private:
     QString m_confirmStarting;     // il servizio mentre si legge la password
     QString m_confirmService;      // quello che sta scaricando
     QString m_confirmStatus;
+    bool m_confirmAuto{false};     // lo scarico in corso l'ha fatto partire l'orario
+    bool m_confirmFailed{false};   // l'ultimo stato e' un errore
+    bool m_recoveryEnabled{true};
+    QString m_decodiumLogPath;     // scelto a mano; vuoto = quello di Decodium
+    QString m_recoveryStatus;
+    bool m_recoveryRunning{false};
+    QTimer m_recoveryTimer;
+    QThreadPool m_recoveryPool;
+    int m_confirmAutoHours{12};
     bool      m_lotwAuto{false};
     QString   m_lotwStatus;
     int       m_lotwAutoHours{12};

@@ -195,7 +195,7 @@ GlassPanel {
              : qsTr("%1: not sent").arg(name)
     }
     function sourceColor(src) {
-        return src === "udp" ? Theme.secondaryColor : src === "cld" ? Theme.warningColor : Theme.textSecondary
+        return src === "udp" || src === "rec" ? Theme.secondaryColor : src === "cld" ? Theme.warningColor : Theme.textSecondary
     }
     // Per le schermate di prova (--show menu:<nome>).
     function showMenu(name) {

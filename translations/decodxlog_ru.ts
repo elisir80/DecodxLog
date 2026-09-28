@@ -5367,6 +5367,14 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Все файлы (*)</translation>
     </message>
     <message>
+        <source>Decodium log file</source>
+        <translation>Файл журнала Decodium</translation>
+    </message>
+    <message>
+        <source>ADIF logs (*.adi *.adif)</source>
+        <translation>Журналы ADIF (*.adi *.adif)</translation>
+    </message>
+    <message>
         <source>Backup folder</source>
         <translation>Папка для копий</translation>
     </message>
@@ -5577,6 +5585,30 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>In Decodium set the UDP server to this address and port. A multicast group (e.g. 239.255.0.1) shares the stream with GridTracker or JTAlert. Duplicate windows are in General.</source>
         <translation>В Decodium укажите этот адрес и порт как UDP-сервер. Группа multicast (например, 239.255.0.1) делит поток с GridTracker или JTAlert. Окно дублей — в разделе «Общие».</translation>
+    </message>
+    <message>
+        <source>QSOs left in the Decodium log</source>
+        <translation>QSO, оставшиеся в журнале Decodium</translation>
+    </message>
+    <message>
+        <source>Recover them every 5 minutes</source>
+        <translation>Восстанавливать их каждые 5 минут</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>Проверка…</translation>
+    </message>
+    <message>
+        <source>Check the last 30 days</source>
+        <translation>Проверить последние 30 дней</translation>
+    </message>
+    <message>
+        <source>Check the whole file</source>
+        <translation>Проверить весь файл</translation>
+    </message>
+    <message>
+        <source>not found: choose it</source>
+        <translation>не найден: выберите его</translation>
     </message>
     <message>
         <source>DecoLink · log towards Decodium</source>
@@ -5805,10 +5837,6 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Once a day</source>
         <translation>Раз в сутки</translation>
-    </message>
-    <message>
-        <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL. QRZ Logbook, Club Log and eQSL arrive later.</source>
-        <translation>Подтверждения сводятся по позывному, диапазону, группе режимов (данные, CW, телефон) и времени в пределах 30 минут — как это делает LoTW. Подтверждённый QSO становится новой версией; локатор, зоны, штат и округ из LoTW заполняют только пустые поля. Загрузка в LoTW по-прежнему идёт через TQSL. QRZ Logbook, Club Log и eQSL придут позже.</translation>
     </message>
     <message>
         <source>Sending to LoTW (TQSL)</source>
@@ -6173,6 +6201,38 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>port not open</source>
         <translation>порт не открыт</translation>
+    </message>
+    <message>
+        <source>Decodium also writes every QSO in its own ADIF log. If DecoDXLog was closed or did not receive (wrong port, network down), the QSO stays only there: every 5 minutes DecoDXLog reads the QSOs logged since the last check and saves the ones missing here and in the other logs of the list. QSOs corrected or deleted here do not come back. The first time it looks back one week, the buttons further. Empty field = the log Decodium is using.</source>
+        <translation>Decodium записывает каждую QSO и в свой собственный журнал ADIF. Если DecoDXLog был закрыт или не принимал (неверный порт, нет сети), QSO остаётся только там: каждые 5 минут DecoDXLog читает QSO, записанные после последней проверки, и сохраняет те, которых нет здесь и в других журналах списка. Исправленные или удалённые здесь QSO не возвращаются. В первый раз просматривается неделя назад, кнопками — дальше. Пустое поле = журнал, который использует Decodium.</translation>
+    </message>
+    <message>
+        <source>Confirmations are matched by call, band, mode group (data, CW, phone) and time within 30 minutes, as LoTW does. A confirmed QSO becomes a new revision; grid, zones, state and county from LoTW fill only empty fields. Uploading to LoTW still goes through TQSL.</source>
+        <translation>Подтверждения сводятся по позывному, диапазону, группе режимов (данные, CW, телефон) и времени в пределах 30 минут — как это делает LoTW. Подтверждённый QSO становится новой версией; локатор, зоны, штат и округ из LoTW заполняют только пустые поля. Загрузка в LoTW по-прежнему идёт через TQSL.</translation>
+    </message>
+    <message>
+        <source>eQSL and QRZ Logbook confirmations</source>
+        <translation>Подтверждения eQSL и QRZ Logbook</translation>
+    </message>
+    <message>
+        <source>eQSL last download</source>
+        <translation>eQSL, последняя загрузка</translation>
+    </message>
+    <message>
+        <source>QRZ last download</source>
+        <translation>QRZ, последняя загрузка</translation>
+    </message>
+    <message>
+        <source>%1 confirmations</source>
+        <translation>Подтверждения %1</translation>
+    </message>
+    <message>
+        <source>%1: everything again</source>
+        <translation>%1: всё заново</translation>
+    </message>
+    <message>
+        <source>eQSL: the eQSLs received in the Inbox, without the SWL reports. QRZ Logbook: the QSOs of your logbook on QRZ that the other station confirmed. Only what arrived after the last download; the automatic download runs only for the services with their credentials (below, the same used for sending). Matched as LoTW confirmations; the paper QSL fields are not touched.</source>
+        <translation>eQSL: eQSL, пришедшие во входящие, без отчётов SWL. QRZ Logbook: QSO вашего журнала на QRZ, которые подтвердила другая станция. Только то, что пришло после последней загрузки; автоматическая загрузка идёт только для служб с учётными данными (ниже, те же, что для отправки). Сопоставляются как подтверждения LoTW; поля бумажной QSL не затрагиваются.</translation>
     </message>
     <message>
         <source>flrig (XML-RPC)</source>
@@ -8032,6 +8092,50 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>%1: password or key not available (%2)</source>
         <translation>%1: пароль или ключ недоступен (%2)</translation>
+    </message>
+    <message>
+        <source>Decodium log not found</source>
+        <translation>Журнал Decodium не найден</translation>
+    </message>
+    <message>
+        <source>%1 does not exist</source>
+        <translation>%1 не существует</translation>
+    </message>
+    <message>
+        <source>%1 · Decodium log not readable: %2</source>
+        <translation>%1 · журнал Decodium не читается: %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · %n QSO(s) recovered from the Decodium log</source>
+        <translation>
+            <numerusform>%1 · восстановлена %n QSO из журнала Decodium</numerusform>
+            <numerusform>%1 · восстановлено %n QSO из журнала Decodium</numerusform>
+            <numerusform>%1 · восстановлено %n QSO из журнала Decodium</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 · nothing missing (%n QSO(s) checked)</source>
+        <translation>
+            <numerusform>%1 · ничего не пропущено (проверена %n QSO)</numerusform>
+            <numerusform>%1 · ничего не пропущено (проверено %n QSO)</numerusform>
+            <numerusform>%1 · ничего не пропущено (проверено %n QSO)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source> · %n skipped as duplicates of the open activation “%1”</source>
+        <translation>
+            <numerusform> · %n пропущена как повтор в открытой активации «%1»</numerusform>
+            <numerusform> · %n пропущено как повторы в открытой активации «%1»</numerusform>
+            <numerusform> · %n пропущено как повторы в открытой активации «%1»</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Not recovered: %1 (%2)</source>
+        <translation>Не восстановлено: %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Recovered from the Decodium log → %1 %2 %3 %4</source>
+        <translation>Восстановлено из журнала Decodium → %1 %2 %3 %4</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>
