@@ -1093,32 +1093,33 @@ void RigController::resetMacros()
 
 QVariantList RigController::defaultMacros()
 {
-    // Quelle di sempre, nell'ordine in cui le tiene ogni log da contest.
+    // Quelle di sempre, nell'ordine in cui le tiene ogni log da contest. La
+    // scritta del tasto e' tutta qui, "F1" compreso: chi vuole la cambia.
     return {
-        QVariantMap{{QStringLiteral("label"), QStringLiteral("CQ")},
+        QVariantMap{{QStringLiteral("label"), QStringLiteral("F1 CQ")},
                     {QStringLiteral("text"), QStringLiteral("CQ TEST {MYCALL} {MYCALL} TEST")}},
-        QVariantMap{{QStringLiteral("label"), QStringLiteral("Call")},
+        QVariantMap{{QStringLiteral("label"), QStringLiteral("F2 Call")},
                     {QStringLiteral("text"), QStringLiteral("{CALL}")}},
-        QVariantMap{{QStringLiteral("label"), QStringLiteral("Exch")},
+        QVariantMap{{QStringLiteral("label"), QStringLiteral("F3 Exch")},
                     {QStringLiteral("text"), QStringLiteral("{CALL} 5NN {NR}")}},
-        QVariantMap{{QStringLiteral("label"), QStringLiteral("TU")},
+        QVariantMap{{QStringLiteral("label"), QStringLiteral("F4 TU")},
                     {QStringLiteral("text"), QStringLiteral("TU {MYCALL} TEST")}},
-        QVariantMap{{QStringLiteral("label"), QStringLiteral("?")},
+        QVariantMap{{QStringLiteral("label"), QStringLiteral("F5 ?")},
                     {QStringLiteral("text"), QStringLiteral("?")}},
-        QVariantMap{{QStringLiteral("label"), QStringLiteral("AGN")},
+        QVariantMap{{QStringLiteral("label"), QStringLiteral("F6 AGN")},
                     {QStringLiteral("text"), QStringLiteral("AGN")}},
-        QVariantMap{{QStringLiteral("label"), QStringLiteral("NR?")},
+        QVariantMap{{QStringLiteral("label"), QStringLiteral("F7 NR?")},
                     {QStringLiteral("text"), QStringLiteral("NR?")}},
-        QVariantMap{{QStringLiteral("label"), QStringLiteral("73")},
+        QVariantMap{{QStringLiteral("label"), QStringLiteral("F8 73")},
                     {QStringLiteral("text"), QStringLiteral("73 GL")}},
         // F9-F12: quelle che servono in S&P e con l'ESM.
-        QVariantMap{{QStringLiteral("label"), QStringLiteral("My call")},
+        QVariantMap{{QStringLiteral("label"), QStringLiteral("F9 My call")},
                     {QStringLiteral("text"), QStringLiteral("{MYCALL}")}},
-        QVariantMap{{QStringLiteral("label"), QStringLiteral("S&P Exch")},
+        QVariantMap{{QStringLiteral("label"), QStringLiteral("F10 S&P Exch")},
                     {QStringLiteral("text"), QStringLiteral("5NN {NR}")}},
-        QVariantMap{{QStringLiteral("label"), QStringLiteral("QRZ?")},
+        QVariantMap{{QStringLiteral("label"), QStringLiteral("F11 QRZ?")},
                     {QStringLiteral("text"), QStringLiteral("QRZ?")}},
-        QVariantMap{{QStringLiteral("label"), QStringLiteral("QRL?")},
+        QVariantMap{{QStringLiteral("label"), QStringLiteral("F12 QRL?")},
                     {QStringLiteral("text"), QStringLiteral("QRL?")}},
     };
 }
@@ -1138,6 +1139,25 @@ void RigController::loadMacros()
     if (out.size() == 8)
         out += defaults.mid(8);
     m_macros = out.size() == defaults.size() ? out : defaults;
+
+    // Fino alla 1.16.36 il tasto mostrava "F1" e poi la scritta, e "F1" non si
+    // cambiava. Adesso la scritta e' tutta della macro: a quelle salvate prima
+    // si mette davanti il tasto una volta, cosi' i tasti restano come erano.
+    QSettings s;
+    if (!s.value(QStringLiteral("cw/macroLabelsWithKey"), false).toBool()) {
+        if (!array.isEmpty()) {
+            for (int i = 0; i < m_macros.size(); ++i) {
+                QVariantMap macro = m_macros.at(i).toMap();
+                const QString key = QStringLiteral("F%1").arg(i + 1);
+                const QString label = macro.value(QStringLiteral("label")).toString().trimmed();
+                if (!label.startsWith(key + QLatin1Char(' ')) && label != key)
+                    macro.insert(QStringLiteral("label"), (key + QLatin1Char(' ') + label).trimmed());
+                m_macros[i] = macro;
+            }
+            saveMacros();
+        }
+        s.setValue(QStringLiteral("cw/macroLabelsWithKey"), true);
+    }
 }
 
 void RigController::saveMacros()

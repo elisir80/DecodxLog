@@ -2260,6 +2260,42 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
 </context>
 <context>
+    <name>CwMacroEditor</name>
+    <message>
+        <source>CW MACRO F%1</source>
+        <translation>CW-MACRO F%1</translation>
+    </message>
+    <message>
+        <source>CW MACROS</source>
+        <translation>CW-MACRO&apos;S</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows (&quot;F1 CQ&quot;, &quot;CQ&quot;, anything): it is the whole label, the key stays the same size. On the right what goes on air: {CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received.</source>
+        <translation>Links wat de toets toont (&quot;F1 CQ&quot;, &quot;CQ&quot;, wat je wilt): het is het hele label, de toets houdt dezelfde maat. Rechts wat de lucht in gaat: {CALL} het station dat je werkt, {MYCALL} jouw roepnaam, {RST} het rapport, {NR} je volgnummer, {EXCH} wat je ontvangen hebt.</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>Standaardmacro&apos;s</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>Alle macro&apos;s…</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Sluiten</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroKey</name>
+    <message>
+        <source>%1 · %2
+Right click: change it</source>
+        <translation>%1 · %2
+Rechtsklik: wijzigen</translation>
+    </message>
+</context>
+<context>
     <name>CwPanel</name>
     <message>
         <source>CW</source>
@@ -2268,6 +2304,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Stop</source>
         <translation>Stoppen</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>Macro&apos;s…</translation>
     </message>
     <message>
         <source>On top</source>

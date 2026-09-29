@@ -2251,6 +2251,42 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
 </context>
 <context>
+    <name>CwMacroEditor</name>
+    <message>
+        <source>CW MACRO F%1</source>
+        <translation>CW MAKRÓ F%1</translation>
+    </message>
+    <message>
+        <source>CW MACROS</source>
+        <translation>CW MAKRÓK</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows (&quot;F1 CQ&quot;, &quot;CQ&quot;, anything): it is the whole label, the key stays the same size. On the right what goes on air: {CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received.</source>
+        <translation>Balra az, amit a gomb mutat (&quot;F1 CQ&quot;, &quot;CQ&quot;, bármi): ez a teljes felirat, a gomb mérete nem változik. Jobbra az, ami adásba megy: {CALL} a forgalmazott állomás, {MYCALL} a te hívójeled, {RST} a riport, {NR} a sorszámod, {EXCH} amit kaptál.</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>Alapértelmezett makrók</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>Összes makró…</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Bezárás</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroKey</name>
+    <message>
+        <source>%1 · %2
+Right click: change it</source>
+        <translation>%1 · %2
+Jobb kattintás: módosítás</translation>
+    </message>
+</context>
+<context>
     <name>CwPanel</name>
     <message>
         <source>CW</source>
@@ -2259,6 +2295,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     <message>
         <source>Stop</source>
         <translation>Állj</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>Makrók…</translation>
     </message>
     <message>
         <source>On top</source>

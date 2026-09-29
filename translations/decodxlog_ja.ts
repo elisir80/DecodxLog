@@ -2251,6 +2251,42 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
 </context>
 <context>
+    <name>CwMacroEditor</name>
+    <message>
+        <source>CW MACRO F%1</source>
+        <translation>CW マクロ F%1</translation>
+    </message>
+    <message>
+        <source>CW MACROS</source>
+        <translation>CW マクロ</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows (&quot;F1 CQ&quot;, &quot;CQ&quot;, anything): it is the whole label, the key stays the same size. On the right what goes on air: {CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received.</source>
+        <translation>左はキーに表示する文字（&quot;F1 CQ&quot;、&quot;CQ&quot;、何でも）: 表示のすべてで、キーの大きさは変わりません。右は送信する内容: {CALL} 交信相手、{MYCALL} 自局、{RST} レポート、{NR} 自局のシリアル、{EXCH} 受信した内容。</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>はじめのマクロ</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>すべてのマクロ…</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">閉じる</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroKey</name>
+    <message>
+        <source>%1 · %2
+Right click: change it</source>
+        <translation>%1 · %2
+右クリック: 編集</translation>
+    </message>
+</context>
+<context>
     <name>CwPanel</name>
     <message>
         <source>CW</source>
@@ -2259,6 +2295,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Stop</source>
         <translation>停止</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>マクロ…</translation>
     </message>
     <message>
         <source>On top</source>

@@ -2260,6 +2260,42 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     </message>
 </context>
 <context>
+    <name>CwMacroEditor</name>
+    <message>
+        <source>CW MACRO F%1</source>
+        <translation>MACRO CW F%1</translation>
+    </message>
+    <message>
+        <source>CW MACROS</source>
+        <translation>MACROS CW</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows (&quot;F1 CQ&quot;, &quot;CQ&quot;, anything): it is the whole label, the key stays the same size. On the right what goes on air: {CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received.</source>
+        <translation>A l&apos;esquerra el que mostra la tecla (&quot;F1 CQ&quot;, &quot;CQ&quot;, el que vulguis): és tota l&apos;etiqueta, la tecla manté la mida. A la dreta el que surt a l&apos;aire: {CALL} l&apos;estació que treballes, {MYCALL} el teu indicatiu, {RST} el report, {NR} el teu número, {EXCH} el que has rebut.</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>Macros per defecte</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>Totes les macros…</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroKey</name>
+    <message>
+        <source>%1 · %2
+Right click: change it</source>
+        <translation>%1 · %2
+Clic dret: modificar-la</translation>
+    </message>
+</context>
+<context>
     <name>CwPanel</name>
     <message>
         <source>CW</source>
@@ -2268,6 +2304,10 @@ L&apos;indicatiu que Decodium treballa hi surt tot sol.</translation>
     <message>
         <source>Stop</source>
         <translation>Atura</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>Macros…</translation>
     </message>
     <message>
         <source>On top</source>

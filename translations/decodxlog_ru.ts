@@ -2269,6 +2269,42 @@ The call Decodium is working shows up here by itself.</source>
     </message>
 </context>
 <context>
+    <name>CwMacroEditor</name>
+    <message>
+        <source>CW MACRO F%1</source>
+        <translation>CW-МАКРОС F%1</translation>
+    </message>
+    <message>
+        <source>CW MACROS</source>
+        <translation>CW-МАКРОСЫ</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows (&quot;F1 CQ&quot;, &quot;CQ&quot;, anything): it is the whole label, the key stays the same size. On the right what goes on air: {CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received.</source>
+        <translation>Слева то, что показывает клавиша («F1 CQ», «CQ», что угодно): это вся надпись, размер клавиши не меняется. Справа то, что уходит в эфир: {CALL} станция, с которой работаете, {MYCALL} ваш позывной, {RST} рапорт, {NR} ваш номер, {EXCH} то, что вы приняли.</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>Макросы по умолчанию</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>Все макросы…</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Закрыть</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroKey</name>
+    <message>
+        <source>%1 · %2
+Right click: change it</source>
+        <translation>%1 · %2
+Правый щелчок: изменить</translation>
+    </message>
+</context>
+<context>
     <name>CwPanel</name>
     <message>
         <source>CW</source>
@@ -2277,6 +2313,10 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Stop</source>
         <translation>Стоп</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>Макросы…</translation>
     </message>
     <message>
         <source>On top</source>

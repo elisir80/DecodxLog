@@ -57,6 +57,16 @@ TciControl::TciControl(QObject* parent)
     });
 }
 
+TciControl::~TciControl()
+{
+    // Il socket e' il primo membro, quindi muore per ultimo: chiudendosi manda
+    // ancora "disconnected", e quando il suo gestore ferma i timer i timer non
+    // ci sono piu' (su Linux la prova cadeva cosi', SIGSEGV). Prima di tutto
+    // lo si stacca da qui.
+    m_socket.disconnect(this);
+    m_socket.abort();
+}
+
 QUrl TciControl::urlFor(const QString& address)
 {
     QString text = address.trimmed();

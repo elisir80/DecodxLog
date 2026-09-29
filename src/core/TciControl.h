@@ -27,6 +27,7 @@ class TciControl : public RigLink {
 
 public:
     explicit TciControl(QObject* parent = nullptr);
+    ~TciControl() override;
 
     // "127.0.0.1:40001", "ws://host:porta" o solo "host" (porta 40001).
     // `trx` e' il ricevitore della radio: 0 il primo, 1 il secondo (RX2).

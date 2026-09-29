@@ -347,6 +347,28 @@ GlassPanel {
         }
     }
 
+    // Lo spot scelto con un clic (o con le frecce): Invio lo manda a Decodium e
+    // alla radio, come il doppio clic.
+    property string selectedKey: ""
+    function indexOfKey(key) {
+        for (let i = 0; i < list.count; ++i) {
+            const s = root.model.get(i)
+            if (s && s.spotKey === key)
+                return i
+        }
+        return -1
+    }
+    function selectAt(i) {
+        if (i < 0 || i >= list.count)
+            return
+        const s = root.model.get(i)
+        if (!s || !s.spotKey)
+            return
+        root.selectedKey = s.spotKey
+        list.positionViewAtIndex(i, ListView.Contain)
+        root.cluster.lookupSpot(s.spotKey)
+    }
+
     StyledMenu {
         id: rowMenu
         property var spot: ({})
@@ -620,6 +642,29 @@ GlassPanel {
             // Chi sta leggendo in basso non viene riportato in cima da ogni spot.
             onCountChanged: if (atYBeginning) positionViewAtBeginning()
 
+            // Con uno spot scelto: Invio lo manda (sintonizza Decodium e la
+            // radio), le frecce passano al precedente e al seguente. Invio si
+            // prende qui anche dove e' la scorciatoia per registrare il QSO:
+            // chi ha appena cliccato uno spot vuole quello.
+            activeFocusOnTab: true
+            Keys.onShortcutOverride: (event) => {
+                if (root.selectedKey.length > 0
+                        && (event.key === Qt.Key_Return || event.key === Qt.Key_Enter))
+                    event.accepted = true
+            }
+            Keys.onPressed: (event) => {
+                if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                    if (root.selectedKey.length > 0) {
+                        root.cluster.tune(root.selectedKey)
+                        event.accepted = true
+                    }
+                } else if (event.key === Qt.Key_Down || event.key === Qt.Key_Up) {
+                    const at = root.indexOfKey(root.selectedKey)
+                    root.selectAt(at < 0 ? 0 : at + (event.key === Qt.Key_Down ? 1 : -1))
+                    event.accepted = true
+                }
+            }
+
             delegate: Rectangle {
                 id: line
                 required property int index
@@ -660,7 +705,10 @@ GlassPanel {
                 // Le righe restano del colore del pannello: il fondo giallo dei
                 // moltiplicatori copriva tutto l'elenco in gara. Quello che conta
                 // lo dicono il filo a sinistra e la pasticca, in un colore solo.
-                color: area.containsMouse ? Theme.glassOverlay
+                readonly property bool chosen: root.selectedKey.length > 0 && spotKey === root.selectedKey
+                color: chosen ? Qt.rgba(Theme.primaryColor.r, Theme.primaryColor.g, Theme.primaryColor.b,
+                                        list.activeFocus ? 0.22 : 0.12)
+                     : area.containsMouse ? Theme.glassOverlay
                      : !root.contestMode && fresh && (status & 15)
                        ? Qt.rgba(root.statusColor(status).r, root.statusColor(status).g, root.statusColor(status).b, 0.10)
                      : "transparent"
@@ -833,6 +881,8 @@ GlassPanel {
                     hoverEnabled: true
                     acceptedButtons: Qt.LeftButton | Qt.RightButton
                     onClicked: (mouse) => {
+                        root.selectedKey = line.spotKey
+                        list.forceActiveFocus()
                         if (mouse.button === Qt.RightButton)
                             rowMenu.popupFor(root.model.get(line.index))
                         else

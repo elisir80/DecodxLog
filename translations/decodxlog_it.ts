@@ -2260,6 +2260,42 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     </message>
 </context>
 <context>
+    <name>CwMacroEditor</name>
+    <message>
+        <source>CW MACRO F%1</source>
+        <translation>MACRO CW F%1</translation>
+    </message>
+    <message>
+        <source>CW MACROS</source>
+        <translation>MACRO CW</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows (&quot;F1 CQ&quot;, &quot;CQ&quot;, anything): it is the whole label, the key stays the same size. On the right what goes on air: {CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received.</source>
+        <translation>A sinistra quello che mostra il tasto (&quot;F1 CQ&quot;, &quot;CQ&quot;, quello che vuoi): è tutta la scritta, il tasto resta della stessa misura. A destra quello che va in aria: {CALL} la stazione che lavori, {MYCALL} il tuo, {RST} il rapporto, {NR} il tuo progressivo, {EXCH} quello che hai ricevuto.</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>Macro di partenza</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>Tutte le macro…</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Chiudi</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroKey</name>
+    <message>
+        <source>%1 · %2
+Right click: change it</source>
+        <translation>%1 · %2
+Tasto destro: modificala</translation>
+    </message>
+</context>
+<context>
     <name>CwPanel</name>
     <message>
         <source>CW</source>
@@ -2268,6 +2304,10 @@ Il nominativo che Decodium sta lavorando compare qui da solo.</translation>
     <message>
         <source>Stop</source>
         <translation>Ferma</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>Macro…</translation>
     </message>
     <message>
         <source>On top</source>

@@ -33,6 +33,14 @@ public:
             client->sendTextMessage(greeting);
         });
     }
+    // Come in TciControl: il socket si stacca prima che muoiano i membri che
+    // il suo gestore usa.
+    ~FakeTci() override
+    {
+        if (client)
+            client->disconnect(this);
+        server.close();
+    }
     QString address() const { return QStringLiteral("127.0.0.1:%1").arg(server.serverPort()); }
     void say(const QString& text) { if (client) client->sendTextMessage(text); }
 };

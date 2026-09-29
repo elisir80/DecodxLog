@@ -2260,6 +2260,42 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
 </context>
 <context>
+    <name>CwMacroEditor</name>
+    <message>
+        <source>CW MACRO F%1</source>
+        <translation>CW-MAKRO F%1</translation>
+    </message>
+    <message>
+        <source>CW MACROS</source>
+        <translation>CW-MAKROER</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows (&quot;F1 CQ&quot;, &quot;CQ&quot;, anything): it is the whole label, the key stays the same size. On the right what goes on air: {CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received.</source>
+        <translation>Til venstre hvad tasten viser (&quot;F1 CQ&quot;, &quot;CQ&quot;, hvad du vil): det er hele teksten, tasten beholder sin størrelse. Til højre hvad der sendes: {CALL} stationen du kører, {MYCALL} dit kaldesignal, {RST} rapporten, {NR} dit løbenummer, {EXCH} det du har modtaget.</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>Standardmakroer</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>Alle makroer…</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Luk</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroKey</name>
+    <message>
+        <source>%1 · %2
+Right click: change it</source>
+        <translation>%1 · %2
+Højreklik: ret den</translation>
+    </message>
+</context>
+<context>
     <name>CwPanel</name>
     <message>
         <source>CW</source>
@@ -2268,6 +2304,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     <message>
         <source>Stop</source>
         <translation>Stop</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>Makroer…</translation>
     </message>
     <message>
         <source>On top</source>

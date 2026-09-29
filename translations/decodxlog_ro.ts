@@ -2269,6 +2269,42 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
 </context>
 <context>
+    <name>CwMacroEditor</name>
+    <message>
+        <source>CW MACRO F%1</source>
+        <translation>MACRO CW F%1</translation>
+    </message>
+    <message>
+        <source>CW MACROS</source>
+        <translation>MACRO-URI CW</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows (&quot;F1 CQ&quot;, &quot;CQ&quot;, anything): it is the whole label, the key stays the same size. On the right what goes on air: {CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received.</source>
+        <translation>În stânga ce arată tasta (&quot;F1 CQ&quot;, &quot;CQ&quot;, orice): e toată eticheta, tasta își păstrează mărimea. În dreapta ce pleacă în aer: {CALL} stația lucrată, {MYCALL} indicativul tău, {RST} raportul, {NR} numărul tău, {EXCH} ce ai primit.</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>Macrouri implicite</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>Toate macro-urile…</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Închide</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroKey</name>
+    <message>
+        <source>%1 · %2
+Right click: change it</source>
+        <translation>%1 · %2
+Clic dreapta: modific-o</translation>
+    </message>
+</context>
+<context>
     <name>CwPanel</name>
     <message>
         <source>CW</source>
@@ -2277,6 +2313,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Stop</source>
         <translation>Oprește</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>Macrouri…</translation>
     </message>
     <message>
         <source>On top</source>

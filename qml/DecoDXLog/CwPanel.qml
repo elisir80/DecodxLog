@@ -25,6 +25,8 @@ GlassPanel {
 
     // Per le schermate di prova: apre la tendina dell'ingresso audio.
     function showCombo() { audioBox.popup.open() }
+    // Per le schermate di prova: le macro da scrivere, una (0-11) o tutte (-1).
+    function showMacros(index) { if (index >= 0) macroEditor.openFor(index); else macroEditor.openAll() }
 
     function cwContext() {
         return {
@@ -56,6 +58,14 @@ GlassPanel {
             fontPixelSize: 11
             enabled: root.rig.connected
             onClicked: root.rig.stop()
+        },
+        // Le macro si scrivono anche da qui, non solo dal contest.
+        GlassButton {
+            anchors.verticalCenter: parent.verticalCenter
+            text: qsTr("Macros…")
+            buttonHeight: 22
+            fontPixelSize: 11
+            onClicked: macroEditor.openAll()
         },
         // La puntina: staccato, il CW sta davanti alle altre finestre. Si vede
         // solo quando c'e' una finestra da tenere davanti.
@@ -106,6 +116,8 @@ GlassPanel {
         }
 
         // ── Le macro ────────────────────────────────────────────────────────
+        // Tasti tutti uguali: la griglia non si allarga per una scritta lunga
+        // (si accorcia coi puntini). Tasto destro su un tasto: lo si modifica.
         GridLayout {
             Layout.fillWidth: true
             columns: root.compact ? 8 : 4
@@ -113,16 +125,19 @@ GlassPanel {
             rowSpacing: 6
             Repeater {
                 model: root.rig.macros
-                GlassButton {
+                CwMacroKey {
                     required property var modelData
                     required property int index
                     Layout.fillWidth: true
-                    buttonHeight: 28
+                    Layout.preferredWidth: 1
+                    Layout.minimumWidth: 0
+                    macro: modelData
+                    keyHeight: 28
                     fontPixelSize: 12
-                    enabled: root.rig.connected && root.rig.canKeyCw
-                    text: "F%1 %2".arg(index + 1).arg(modelData.label)
+                    sendEnabled: root.rig.connected && root.rig.canKeyCw
                     tone: index === 0 ? Theme.accentColor : "transparent"
-                    onClicked: root.rig.sendMacro(index, root.cwContext())
+                    onSendRequested: (i) => root.rig.sendMacro(i, root.cwContext())
+                    onEditRequested: (i) => macroEditor.openFor(i)
                 }
             }
         }
@@ -336,11 +351,15 @@ GlassPanel {
             }
         }
 
+        // Il testo decodificato scorre dentro una misura sua: non allunga il
+        // pannello man mano che arriva (prima si allungava fino a non finire).
         ScrollView {
             id: decodedScroll
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.minimumHeight: 60
+            Layout.preferredHeight: 140
+            implicitHeight: 140
             ScrollBar.vertical: PanelScrollBar {}
             clip: true
             contentWidth: availableWidth
@@ -360,6 +379,8 @@ GlassPanel {
             }
         }
     }
+
+    CwMacroEditor { id: macroEditor }
 
     // I tasti funzione, quando il pannello ha il fuoco.
     Repeater {

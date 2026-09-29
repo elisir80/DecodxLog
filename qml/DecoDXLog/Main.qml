@@ -933,6 +933,8 @@ ApplicationWindow {
         else if (what[0] === "select") window.panelItem("logbook").showSelection(what[1], what[2])
         // Lavori di manutenzione, utili anche da riga di comando.
         else if (what[0] === "combo") { window.showPanel("cw"); comboTimer.start() }
+        // Le macro CW da scrivere: "cwmacros" tutte, "cwmacros:0" solo F1.
+        else if (what[0] === "cwmacros") { window.showPanel("cw"); cwMacrosTimer.start() }
         else if (what[0] === "combo2") { newQsoDialog.open(); combo2Timer.start() }
         else if (what[0] === "cwsend") { window.showPanel("cw"); cwSendTimer.start() }
         else if (what[0] === "radioprobe") { window.panelItem("tabs").setTab(3); decolog.rig.probeRadio() }
@@ -1183,6 +1185,8 @@ ApplicationWindow {
            onTriggered: window.panelItem("tabs").item.showForecast(startupShow.split(":")[1] || "PM95") }
     Timer { id: comboTimer; interval: 800
            onTriggered: { const it = window.panelItem("cw"); if (it) it.showCombo() } }
+    Timer { id: cwMacrosTimer; interval: 800
+           onTriggered: { const it = window.panelItem("cw"); if (it) it.showMacros(parseInt(startupShow.split(":")[1] || "-1")) } }
     Timer { id: combo2Timer; interval: 900; onTriggered: newQsoDialog.showBandCombo() }
     Timer { id: cwSendTimer; interval: 1200; onTriggered: decolog.rig.sendMacro(0, {}) }
     // Prova dell'aggiornamento: si aspetta la risposta, poi si scarica.

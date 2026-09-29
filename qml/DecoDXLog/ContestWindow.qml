@@ -533,16 +533,19 @@ ApplicationWindow {
                     spacing: 6
                     Repeater {
                         model: decolog.rig.macros
-                        GlassButton {
+                        CwMacroKey {
                             required property var modelData
                             required property int index
                             Layout.fillWidth: true
-                            buttonHeight: 30
+                            Layout.preferredWidth: 1
+                            Layout.minimumWidth: 0
+                            macro: modelData
+                            keyHeight: 30
                             fontPixelSize: 12
-                            enabled: decolog.rig.connected
-                            text: "F%1 %2".arg(index + 1).arg(modelData.label)
+                            sendEnabled: decolog.rig.connected
                             tone: index === 0 ? Theme.accentColor : "transparent"
-                            onClicked: decolog.rig.sendMacro(index, cwPanel.cwContext())
+                            onSendRequested: (i) => decolog.rig.sendMacro(i, cwPanel.cwContext())
+                            onEditRequested: (i) => oneMacroEditor.openFor(i)
                         }
                     }
                 }
@@ -790,6 +793,8 @@ ApplicationWindow {
                 cabrilloDialog.close()
         }
     }
+
+    CwMacroEditor { id: oneMacroEditor }
 
     // ── Le macro, scritte a mano ────────────────────────
     DialogFrame {

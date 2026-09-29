@@ -2251,6 +2251,42 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     </message>
 </context>
 <context>
+    <name>CwMacroEditor</name>
+    <message>
+        <source>CW MACRO F%1</source>
+        <translation>CW 宏 F%1</translation>
+    </message>
+    <message>
+        <source>CW MACROS</source>
+        <translation>CW 宏</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows (&quot;F1 CQ&quot;, &quot;CQ&quot;, anything): it is the whole label, the key stays the same size. On the right what goes on air: {CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received.</source>
+        <translation>左边是按键显示的文字（&quot;F1 CQ&quot;、&quot;CQ&quot;，任意）：这就是完整的标签，按键大小不变。右边是发送的内容：{CALL} 对方电台，{MYCALL} 你的呼号，{RST} 报告，{NR} 你的序号，{EXCH} 你收到的内容。</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>默认宏</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>全部宏…</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">关闭</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroKey</name>
+    <message>
+        <source>%1 · %2
+Right click: change it</source>
+        <translation>%1 · %2
+右键：修改</translation>
+    </message>
+</context>
+<context>
     <name>CwPanel</name>
     <message>
         <source>CW</source>
@@ -2259,6 +2295,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Stop</source>
         <translation>停止</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>宏…</translation>
     </message>
     <message>
         <source>On top</source>

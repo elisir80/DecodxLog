@@ -3,6 +3,30 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.37 — 29 settembre 2026
+
+**Macro CW: la scritta del tasto e' tutta tua.** Prima il tasto mostrava sempre «F1»
+seguito dalla scritta, e «F1» non si cambiava. Adesso la scritta e' tutta della macro: si
+puo' lasciare «F1 CQ», scrivere solo «CQ» o qualunque altra cosa (le macro salvate prima
+si ritrovano con «F1», «F2»… davanti, come si vedevano). I tasti funzione della tastiera
+restano F1–F12.
+
+- Si modificano anche dal pannello CW: «Macro…» nell'intestazione le apre tutte, il tasto
+  destro su un tasto apre solo quella, anche con la radio spenta.
+- I tasti hanno tutti la stessa misura: una scritta lunga si accorcia con i puntini (per
+  intero la si legge passandoci sopra) invece di allargare la griglia.
+- Il testo del decoder CW scorre dentro la sua misura: non allunga piu' il pannello man
+  mano che arriva.
+
+**Cluster: Invio sullo spot scelto.** Scelto uno spot con un clic, Invio lo manda a
+Decodium e alla radio come il doppio clic; le frecce su e giu' passano allo spot prima e a
+quello dopo, e la scheda del nominativo segue. Lo spot scelto resta evidenziato.
+
+**Radio TCI: niente caduta alla chiusura.** Con una radio collegata via TCI (ExpertSDR,
+SunSDR), chiudendo il collegamento — o il programma — il socket poteva avvisare di essersi
+staccato quando i suoi timer non c'erano gia' piu'. Su Linux la prova cadeva cosi'
+(SIGSEGV); adesso il socket si stacca prima.
+
 ## 1.16.36 — 29 settembre 2026
 
 **Split, VFO, RIT e XIT non tornano indietro.** Con rigctld, subito dopo aver acceso lo

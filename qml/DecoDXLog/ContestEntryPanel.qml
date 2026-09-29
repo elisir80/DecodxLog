@@ -695,11 +695,17 @@ GlassPanel {
                 GlassButton {
                     required property int index
                     Layout.fillWidth: true
+                    // Tutti uguali: una scritta lunga non allarga la griglia.
+                    Layout.preferredWidth: 1
+                    Layout.minimumWidth: 0
+                    clip: true
                     buttonHeight: 24
                     fontPixelSize: 10
                     readonly property var macro: decolog.rig.macros[index] || ({})
                     readonly property var voice: decolog.dvk.messages[index] || null
-                    text: "F" + (index + 1) + " " + (root.phone ? (voice ? voice.label : "—") : (macro.label || ""))
+                    // In CW la scritta e' tutta della macro ("F1" compreso).
+                    text: root.phone ? "F" + (index + 1) + " " + (voice ? voice.label : "—")
+                                     : (macro.label || "F" + (index + 1))
                     enabled: root.phone ? (voice !== null && voice.present) : true
                     tone: (esmStore.run && (index === 0 || index === 2 || index === 3))
                           || (!esmStore.run && (index === 8 || index === 9)) ? Theme.accentColor : Theme.primaryColor

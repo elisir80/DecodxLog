@@ -2251,6 +2251,42 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
 </context>
 <context>
+    <name>CwMacroEditor</name>
+    <message>
+        <source>CW MACRO F%1</source>
+        <translation>CW 巨集 F%1</translation>
+    </message>
+    <message>
+        <source>CW MACROS</source>
+        <translation>CW 巨集</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows (&quot;F1 CQ&quot;, &quot;CQ&quot;, anything): it is the whole label, the key stays the same size. On the right what goes on air: {CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received.</source>
+        <translation>左邊是按鍵顯示的文字（&quot;F1 CQ&quot;、&quot;CQ&quot;，任意）：這就是完整的標籤，按鍵大小不變。右邊是送出的內容：{CALL} 對方電台，{MYCALL} 你的呼號，{RST} 報告，{NR} 你的序號，{EXCH} 你收到的內容。</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>預設巨集</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>全部巨集…</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">關閉</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroKey</name>
+    <message>
+        <source>%1 · %2
+Right click: change it</source>
+        <translation>%1 · %2
+右鍵：修改</translation>
+    </message>
+</context>
+<context>
     <name>CwPanel</name>
     <message>
         <source>CW</source>
@@ -2259,6 +2295,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     <message>
         <source>Stop</source>
         <translation>停止</translation>
+    </message>
+    <message>
+        <source>Macros…</source>
+        <translation>巨集…</translation>
     </message>
     <message>
         <source>On top</source>
