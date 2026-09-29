@@ -1509,20 +1509,8 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>A hívójel túl rövid</translation>
     </message>
     <message>
-        <source>CW macros</source>
-        <translation>CW-makrók</translation>
-    </message>
-    <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
         <translation>{CALL} a forgalmazott állomás, {MYCALL} a saját hívójel, {RST} a riport, {NR} a sorszám, {EXCH} a kapott adat. ESM-mel Run módban: az Enter üres hívójelnél F1-et küld, hívójellel F3-at, a csereadattal F4-et és naplóz. S&amp;P-ben: hívójellel F9, csereadattal F10 és naplóz. Fónián a gombok a hangüzeneteket játsszák.</translation>
-    </message>
-    <message>
-        <source>Default macros</source>
-        <translation>Alapértelmezett makrók</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation>Bezárás</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -2127,14 +2115,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Minden fájl (*)</translation>
     </message>
     <message>
-        <source>The text goes on air as it is written, with the gaps filled in at the moment: {CALL} the callsign you are working, {MYCALL} yours, {RST} the report sent, {NR} the serial, {EXCH} what you received. The keyer is the radio&apos;s own: Hamlib hands it the text.</source>
-        <translation>A szöveg úgy megy adásba, ahogy le van írva, a helyek pedig abban a pillanatban töltődnek ki: {CALL} a hívójel, amivel dolgozol, {MYCALL} a tiéd, {RST} az adott riport, {NR} a sorszám, {EXCH} amit kaptál. A manipulátor a rádióé: a Hamlib adja át neki a szöveget.</translation>
-    </message>
-    <message>
-        <source>Default macros</source>
-        <translation>Alapértelmezett makrók</translation>
-    </message>
-    <message>
         <source>Cabrillo header</source>
         <translation>Cabrillo-fejléc</translation>
     </message>
@@ -2265,14 +2245,6 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Balra az, amit a gomb mutat (&quot;F1 CQ&quot;, &quot;CQ&quot;, bármi): ez a teljes felirat, a gomb mérete nem változik. Jobbra az, ami adásba megy: {CALL} a forgalmazott állomás, {MYCALL} a te hívójeled, {RST} a riport, {NR} a sorszámod, {EXCH} amit kaptál.</translation>
     </message>
     <message>
-        <source>Default macros</source>
-        <translation>Alapértelmezett makrók</translation>
-    </message>
-    <message>
-        <source>All macros…</source>
-        <translation>Összes makró…</translation>
-    </message>
-    <message>
         <source>Close</source>
         <translation type="unfinished">Bezárás</translation>
     </message>
@@ -2284,6 +2256,25 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
 Right click: change it</source>
         <translation>%1 · %2
 Jobb kattintás: módosítás</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroList</name>
+    <message>
+        <source>Remove this macro</source>
+        <translation>Makró eltávolítása</translation>
+    </message>
+    <message>
+        <source>+ Add a macro</source>
+        <translation>+ Makró hozzáadása</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>Összes makró…</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>Alapértelmezett makrók</translation>
     </message>
 </context>
 <context>
@@ -6437,6 +6428,14 @@ Jobb kattintás: módosítás</translation>
         <translation>%1 szó/perc</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation>CW-makrók</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows, on the right what goes on air ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). The first twelve go on the F1-F12 keys, Esc stops. They are also in the CW panel (Macros…, or right click on a key).</source>
+        <translation>Balra az, amit a gomb mutat, jobbra az, ami adásba megy ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). Az első tizenkettő az F1-F12 gombokon van, az Esc leállít. A CW panelen is megtalálhatók (Makrók… vagy jobb kattintás egy gombon).</translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation>Antennaforgató</translation>
     </message>
@@ -6843,10 +6842,6 @@ Jobb kattintás: módosítás</translation>
     <message>
         <source>When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), DecoDXLog connects to it here: the link becomes &quot;rigctld already running&quot; on that address.</source>
         <translation>Ha a rádiót a Decodium tartja és megosztja (Beállítások → CAT → Megosztott CAT), a DecoDXLog itt csatlakozik: a kapcsolat &quot;már futó rigctld&quot; lesz ezen a címen.</translation>
-    </message>
-    <message>
-        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
-        <translation>A tizenkét makrót a verseny-bevitel Makrók… gombjával vagy a versenyablak Makrók szerkesztése gombjával (Ctrl+Shift+T) lehet megírni; az F1-F12 gombokon vannak, az Esc leállít.</translation>
     </message>
     <message>
         <source>Keyer</source>

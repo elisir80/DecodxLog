@@ -1084,6 +1084,27 @@ void RigController::setMacro(int index, const QString& label, const QString& tex
     emit macrosChanged();
 }
 
+void RigController::addMacro()
+{
+    if (m_macros.size() >= kMaxMacros)
+        return;
+    const int n = int(m_macros.size()) + 1;
+    // Sui tasti F la scritta di partenza e' il tasto; dopo il dodicesimo, "M13".
+    m_macros << QVariantMap{{QStringLiteral("label"), QStringLiteral("%1%2").arg(n <= 12 ? QStringLiteral("F") : QStringLiteral("M")).arg(n)},
+                            {QStringLiteral("text"), QString()}};
+    saveMacros();
+    emit macrosChanged();
+}
+
+void RigController::removeMacro(int index)
+{
+    if (index < 0 || index >= m_macros.size() || m_macros.size() <= 1)
+        return;
+    m_macros.removeAt(index);
+    saveMacros();
+    emit macrosChanged();
+}
+
 void RigController::resetMacros()
 {
     m_macros = defaultMacros();
@@ -1138,7 +1159,10 @@ void RigController::loadMacros()
     const QVariantList defaults = defaultMacros();
     if (out.size() == 8)
         out += defaults.mid(8);
-    m_macros = out.size() == defaults.size() ? out : defaults;
+    // Quante ne ha scelte l'operatore, da una a kMaxMacros.
+    if (out.size() > kMaxMacros)
+        out = out.mid(0, kMaxMacros);
+    m_macros = out.isEmpty() ? defaults : out;
 
     // Fino alla 1.16.36 il tasto mostrava "F1" e poi la scritta, e "F1" non si
     // cambiava. Adesso la scritta e' tutta della macro: a quelle salvate prima

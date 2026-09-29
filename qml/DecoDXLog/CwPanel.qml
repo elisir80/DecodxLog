@@ -384,7 +384,7 @@ GlassPanel {
 
     // I tasti funzione, quando il pannello ha il fuoco.
     Repeater {
-        model: 8
+        model: Math.min(12, root.rig.macros.length)
         Item {
             required property int index
             Shortcut {

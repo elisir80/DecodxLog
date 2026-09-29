@@ -1509,20 +1509,8 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>コールサインが短すぎます</translation>
     </message>
     <message>
-        <source>CW macros</source>
-        <translation>CW マクロ</translation>
-    </message>
-    <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
         <translation>{CALL} 交信相手、{MYCALL} 自局、{RST} レポート、{NR} 自局のシリアル、{EXCH} 受信したナンバー。ESM の Run: コール空欄で Enter は F1、コールありで F3、ナンバーありで F4 を送ってログ。S&amp;P: コールありで F9、ナンバーありで F10 を送ってログ。電話ではキーがボイスキーヤーを再生します。</translation>
-    </message>
-    <message>
-        <source>Default macros</source>
-        <translation>はじめのマクロ</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation>閉じる</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -2127,14 +2115,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>すべてのファイル (*)</translation>
     </message>
     <message>
-        <source>The text goes on air as it is written, with the gaps filled in at the moment: {CALL} the callsign you are working, {MYCALL} yours, {RST} the report sent, {NR} the serial, {EXCH} what you received. The keyer is the radio&apos;s own: Hamlib hands it the text.</source>
-        <translation>文はそのまま電波に乗ります。空きはその場で埋まります。{CALL} は交信中のコールサイン、{MYCALL} は自分のもの、{RST} は送ったレポート、{NR} はシリアル、{EXCH} は受け取ったもの。キーヤーは無線機のもので、Hamlib が文を渡します。</translation>
-    </message>
-    <message>
-        <source>Default macros</source>
-        <translation>はじめのマクロ</translation>
-    </message>
-    <message>
         <source>Cabrillo header</source>
         <translation>Cabrillo のヘッダー</translation>
     </message>
@@ -2265,14 +2245,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>左はキーに表示する文字（&quot;F1 CQ&quot;、&quot;CQ&quot;、何でも）: 表示のすべてで、キーの大きさは変わりません。右は送信する内容: {CALL} 交信相手、{MYCALL} 自局、{RST} レポート、{NR} 自局のシリアル、{EXCH} 受信した内容。</translation>
     </message>
     <message>
-        <source>Default macros</source>
-        <translation>はじめのマクロ</translation>
-    </message>
-    <message>
-        <source>All macros…</source>
-        <translation>すべてのマクロ…</translation>
-    </message>
-    <message>
         <source>Close</source>
         <translation type="unfinished">閉じる</translation>
     </message>
@@ -2284,6 +2256,25 @@ Decodium が交信しているコールサインは、ここにひとりでに�
 Right click: change it</source>
         <translation>%1 · %2
 右クリック: 編集</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroList</name>
+    <message>
+        <source>Remove this macro</source>
+        <translation>このマクロを削除</translation>
+    </message>
+    <message>
+        <source>+ Add a macro</source>
+        <translation>+ マクロを追加</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>すべてのマクロ…</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>はじめのマクロ</translation>
     </message>
 </context>
 <context>
@@ -6437,6 +6428,14 @@ Right click: change it</source>
         <translation>%1 wpm</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation>CW マクロ</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows, on the right what goes on air ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). The first twelve go on the F1-F12 keys, Esc stops. They are also in the CW panel (Macros…, or right click on a key).</source>
+        <translation>左はキーの表示、右は送信する内容（{CALL}、{MYCALL}、{RST}、{NR}、{EXCH}）。最初の 12 個は F1-F12 キー、Esc で停止。CW パネルにもあります（マクロ… またはキーを右クリック）。</translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation>アンテナのローテーター</translation>
     </message>
@@ -6843,10 +6842,6 @@ Right click: change it</source>
     <message>
         <source>When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), DecoDXLog connects to it here: the link becomes &quot;rigctld already running&quot; on that address.</source>
         <translation>Decodium が無線機を持って共有している場合（設定 → CAT → 共有 CAT）、DecoDXLog はここから接続します。接続方法はそのアドレスの「起動済みの rigctld」になります。</translation>
-    </message>
-    <message>
-        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
-        <translation>12 個のマクロはコンテスト入力の「マクロ…」、またはコンテストウィンドウ（Ctrl+Shift+T）の「マクロを編集」で書き、F1〜F12 キーに割り当てられます。Esc で停止します。</translation>
     </message>
     <message>
         <source>Keyer</source>

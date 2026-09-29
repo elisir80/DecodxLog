@@ -1513,20 +1513,8 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Das Rufzeichen ist zu kurz</translation>
     </message>
     <message>
-        <source>CW macros</source>
-        <translation>CW-Makros</translation>
-    </message>
-    <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
         <translation>{CALL} die gearbeitete Station, {MYCALL} dein Rufzeichen, {RST} der Rapport, {NR} deine laufende Nummer, {EXCH} das Empfangene. Mit ESM im Run: Enter sendet F1 bei leerem Rufzeichen, F3 mit Rufzeichen, F4 und loggt mit dem Austausch. In S&amp;P: F9 mit Rufzeichen, F10 und loggt mit dem Austausch. In Fonie spielen die Tasten den Sprachspeicher.</translation>
-    </message>
-    <message>
-        <source>Default macros</source>
-        <translation>Standardmakros</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation>Schließen</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -2136,14 +2124,6 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Alle Dateien (*)</translation>
     </message>
     <message>
-        <source>The text goes on air as it is written, with the gaps filled in at the moment: {CALL} the callsign you are working, {MYCALL} yours, {RST} the report sent, {NR} the serial, {EXCH} what you received. The keyer is the radio&apos;s own: Hamlib hands it the text.</source>
-        <translation>Der Text geht so hinaus, wie er dasteht, mit den Lücken im Augenblick gefüllt: {CALL} das Rufzeichen, das du arbeitest, {MYCALL} deines, {RST} der gesendete Rapport, {NR} die laufende Nummer, {EXCH} was du empfangen hast. Der Geber ist der des Funkgeräts: Hamlib reicht ihm den Text.</translation>
-    </message>
-    <message>
-        <source>Default macros</source>
-        <translation>Standardmakros</translation>
-    </message>
-    <message>
         <source>Cabrillo header</source>
         <translation>Cabrillo-Kopf</translation>
     </message>
@@ -2274,14 +2254,6 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Links, was die Taste zeigt (&quot;F1 CQ&quot;, &quot;CQ&quot;, beliebig): es ist die ganze Beschriftung, die Taste behält ihre Größe. Rechts, was gesendet wird: {CALL} die gearbeitete Station, {MYCALL} dein Rufzeichen, {RST} der Rapport, {NR} deine laufende Nummer, {EXCH} was du empfangen hast.</translation>
     </message>
     <message>
-        <source>Default macros</source>
-        <translation>Standardmakros</translation>
-    </message>
-    <message>
-        <source>All macros…</source>
-        <translation>Alle Makros…</translation>
-    </message>
-    <message>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2293,6 +2265,25 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
 Right click: change it</source>
         <translation>%1 · %2
 Rechtsklick: ändern</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroList</name>
+    <message>
+        <source>Remove this macro</source>
+        <translation>Dieses Makro entfernen</translation>
+    </message>
+    <message>
+        <source>+ Add a macro</source>
+        <translation>+ Makro hinzufügen</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>Alle Makros…</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>Standardmakros</translation>
     </message>
 </context>
 <context>
@@ -6459,6 +6450,14 @@ Rechtsklick: ändern</translation>
         <translation>%1 WpM</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation>CW-Makros</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows, on the right what goes on air ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). The first twelve go on the F1-F12 keys, Esc stops. They are also in the CW panel (Macros…, or right click on a key).</source>
+        <translation>Links, was die Taste zeigt, rechts, was gesendet wird ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). Die ersten zwölf liegen auf F1-F12, Esc stoppt. Sie sind auch im CW-Bereich (Makros… oder Rechtsklick auf eine Taste).</translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation>Antennenrotor</translation>
     </message>
@@ -6865,10 +6864,6 @@ Rechtsklick: ändern</translation>
     <message>
         <source>When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), DecoDXLog connects to it here: the link becomes &quot;rigctld already running&quot; on that address.</source>
         <translation>Hält Decodium das Funkgerät und teilt es (Einstellungen → CAT → Geteilte CAT), verbindet sich DecoDXLog hier: die Verbindung wird &quot;rigctld läuft bereits&quot; auf dieser Adresse.</translation>
-    </message>
-    <message>
-        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
-        <translation>Die zwölf Makros schreibt man mit Makros… in der Contest-Eingabe oder mit Makros bearbeiten im Contest-Fenster (Strg+Umschalt+T); sie liegen auf F1-F12, Esc stoppt.</translation>
     </message>
     <message>
         <source>Keyer</source>

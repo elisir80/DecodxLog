@@ -2212,9 +2212,16 @@ DialogFrame {
                             font.bold: true
                         }
                     }
+                    // Le macro si scrivono qui, senza passare dal contest: "+" ne
+                    // aggiunge una, "−" la toglie.
+                    SectionTitle { text: qsTr("CW macros") }
                     Note {
-                        text: qsTr("The twelve macros are written with Macros… in the contest entry, or Edit macros "
-                                   + "in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.")
+                        text: qsTr("On the left what the key shows, on the right what goes on air ({CALL}, {MYCALL}, "
+                                   + "{RST}, {NR}, {EXCH}). The first twelve go on the F1-F12 keys, Esc stops. They are "
+                                   + "also in the CW panel (Macros…, or right click on a key).")
+                    }
+                    CwMacroList {
+                        Layout.fillWidth: true
                     }
 
                     //  Il manipolatore su una porta tutta sua: e' la via per
@@ -2309,6 +2316,11 @@ DialogFrame {
                                 onEditingFinished: decolog.so2r.address = text
                             }
                         }
+                    }
+                    // Su due righe: tutte e cinque le cose in fila erano piu' larghe
+                    // della finestra, e la pagina intera finiva tagliata a destra.
+                    RowLayout {
+                        spacing: 12
                         LabeledField {
                             label: qsTr("SO2R box (OTRSP)")
                             StyledComboBox {

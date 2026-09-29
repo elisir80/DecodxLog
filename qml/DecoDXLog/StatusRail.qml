@@ -83,19 +83,6 @@ Rectangle {
             boldValue: false
         }
         Item { Layout.fillWidth: true }
-        Text {
-            text: Theme.currentTheme + (Theme.currentTheme === "Darkcodium" ? " · " + Theme.accentVariant : "")
-                  + " · " + Theme.density + " · " + Theme.monoFamily
-            color: Theme.textSecondary
-            font.family: Theme.monoFamily
-            font.pixelSize: 12
-        }
-        Text {
-            text: "DecoDXLog " + decolog.version
-            color: Theme.textSecondary
-            font.family: Theme.monoFamily
-            font.pixelSize: 12
-        }
         WorldClockButton {
             id: clockButton
             onClicked: rail.worldClockRequested()

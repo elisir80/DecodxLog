@@ -173,6 +173,12 @@ public:
     Q_INVOKABLE void stop();
     Q_INVOKABLE void setMacro(int index, const QString& label, const QString& text);
     Q_INVOKABLE void resetMacros();
+    // Le macro non sono piu' dodici fisse: se ne aggiunge una in fondo o se ne
+    // toglie una (ne resta sempre almeno una). Le prime dodici vanno sui tasti
+    // F1-F12, le altre si mandano col clic.
+    static constexpr int kMaxMacros = 24;
+    Q_INVOKABLE void addMacro();
+    Q_INVOKABLE void removeMacro(int index);
     Q_INVOKABLE void connectNow();
     // Cerca la radio da sola: prova le porte e le velocita' una per una,
     // finche' una risponde. Quella che risponde si tiene.

@@ -3,6 +3,21 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.38 — 29 settembre 2026
+
+**Macro CW: quante ne vuoi, scritte dove vuoi.** Le macro non sono piu' dodici fisse: «+
+Aggiungi una macro» ne mette una in fondo, «−» accanto a una riga la toglie (ne resta
+almeno una), fino a 24. Le prime dodici stanno sui tasti F1–F12, le altre si mandano col
+clic. Si scrivono in Impostazioni → Radio (CAT), sotto il manipolatore — non serve piu'
+aprire la finestra del contest — oltre che dal pannello CW («Macro…» o tasto destro su un
+tasto). Una finestra sola per tutte, anche dal contest.
+
+- La ricerca in alto ha una misura sua, corta: non si allunga piu' fino a riempire la riga.
+- Nel piè di pagina non ci sono piu' tema, densita', carattere e versione (la versione resta
+  sotto il marchio, in alto a sinistra).
+- Impostazioni → Radio (CAT): la riga SO2R va su due righe; tutta in fila era piu' larga
+  della finestra e tagliava a destra l'intera pagina.
+
 ## 1.16.37 — 29 settembre 2026
 
 **Macro CW: la scritta del tasto e' tutta tua.** Prima il tasto mostrava sempre «F1»

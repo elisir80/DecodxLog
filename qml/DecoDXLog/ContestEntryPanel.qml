@@ -297,65 +297,12 @@ GlassPanel {
     }
 
     // Le dodici macro CW, da scrivere come servono.
-    Popup {
+    CwMacroEditor {
         id: macroPopup
-        parent: Overlay.overlay
-        anchors.centerIn: parent
-        modal: true
-        width: Math.min(760, (parent ? parent.width : 800) - 40)
-        padding: 14
-        background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 8 }
-        ColumnLayout {
-            anchors.fill: parent
-            spacing: 6
-            Text { text: qsTr("CW macros"); color: Theme.textPrimary; font.pixelSize: 15; font.bold: true }
-            Text {
-                Layout.fillWidth: true
-                wrapMode: Text.Wrap
-                color: Theme.textSecondary
-                font.pixelSize: 11
-                text: qsTr("{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. "
-                           + "With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. "
-                           + "In S&P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.")
-            }
-            Repeater {
-                model: decolog.rig.macros
-                RowLayout {
-                    id: macroRow
-                    required property var modelData
-                    required property int index
-                    Layout.fillWidth: true
-                    spacing: 8
-                    Text {
-                        Layout.preferredWidth: 34
-                        text: "F" + (macroRow.index + 1)
-                        color: Theme.secondaryColor
-                        font.family: Theme.monoFamily
-                        font.pixelSize: 12
-                        font.bold: true
-                    }
-                    StyledTextField {
-                        id: macroLabel
-                        Layout.preferredWidth: 110
-                        text: macroRow.modelData.label
-                        onEditingFinished: decolog.rig.setMacro(macroRow.index, text, macroText.text)
-                    }
-                    StyledTextField {
-                        id: macroText
-                        Layout.fillWidth: true
-                        text: macroRow.modelData.text
-                        uppercase: true
-                        onEditingFinished: decolog.rig.setMacro(macroRow.index, macroLabel.text, text)
-                    }
-                }
-            }
-            RowLayout {
-                Layout.fillWidth: true
-                GlassButton { text: qsTr("Default macros"); onClicked: decolog.rig.resetMacros() }
-                Item { Layout.fillWidth: true }
-                GlassButton { text: qsTr("Close"); tone: Theme.primaryColor; onClicked: macroPopup.close() }
-            }
-        }
+        // Come vanno i tasti con l'ESM, in gara.
+        note: qsTr("{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. "
+                               + "With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. "
+                               + "In S&P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.")
     }
 
     // SO2R dalla tastiera: Ctrl+freccia sceglie la radio, Pausa le scambia,
@@ -468,7 +415,7 @@ GlassPanel {
             GlassButton {
                 Layout.alignment: Qt.AlignBottom
                 text: qsTr("Macros…")
-                onClicked: macroPopup.open()
+                onClicked: macroPopup.openAll()
             }
             Item { Layout.fillWidth: true }
             // SO2R: le due radio, quella col fuoco evidenziata. Un clic la sceglie.
@@ -691,7 +638,8 @@ GlassPanel {
             columnSpacing: 4
             rowSpacing: 4
             Repeater {
-                model: 12
+                // In fonia i dodici messaggi del keyer vocale; in CW le macro che ci sono.
+                model: root.phone ? 12 : Math.min(12, decolog.rig.macros.length)
                 GlassButton {
                     required property int index
                     Layout.fillWidth: true

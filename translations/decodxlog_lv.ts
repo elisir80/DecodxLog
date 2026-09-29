@@ -1517,20 +1517,8 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Izsaukuma signāls ir par īsu</translation>
     </message>
     <message>
-        <source>CW macros</source>
-        <translation>CW makro</translation>
-    </message>
-    <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
         <translation>{CALL} noturētā stacija, {MYCALL} tavs izsaukums, {RST} atskaite, {NR} tavs numurs, {EXCH} saņemtais. Ar ESM Run režīmā: Enter sūta F1 tukšam izsaukumam, F3 ar izsaukumu, F4 un reģistrē ar apmaiņu. S&amp;P: F9 ar izsaukumu, F10 un reģistrē ar apmaiņu. Telefonijā taustiņi atskaņo balss keyer.</translation>
-    </message>
-    <message>
-        <source>Default macros</source>
-        <translation>Noklusētie makro</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation>Aizvērt</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -2145,14 +2133,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Visi faili (*)</translation>
     </message>
     <message>
-        <source>The text goes on air as it is written, with the gaps filled in at the moment: {CALL} the callsign you are working, {MYCALL} yours, {RST} the report sent, {NR} the serial, {EXCH} what you received. The keyer is the radio&apos;s own: Hamlib hands it the text.</source>
-        <translation>Teksts iet ēterā tāds, kāds uzrakstīts, un tukšumi tiek aizpildīti turpat: {CALL} izsaukuma signāls, ar ko strādā, {MYCALL} tavējais, {RST} nosūtītais raports, {NR} kārtas numurs, {EXCH} tas, ko saņēmi. Taustiņš ir pašas radio: Hamlib tai pasniedz tekstu.</translation>
-    </message>
-    <message>
-        <source>Default macros</source>
-        <translation>Noklusētie makro</translation>
-    </message>
-    <message>
         <source>Cabrillo header</source>
         <translation>Cabrillo galvene</translation>
     </message>
@@ -2283,14 +2263,6 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>Pa kreisi tas, ko rāda taustiņš (&quot;F1 CQ&quot;, &quot;CQ&quot;, jebkas): tas ir viss uzraksts, taustiņš paliek tāda paša izmēra. Pa labi tas, kas iet ēterā: {CALL} stacija, ar kuru strādā, {MYCALL} tavs izsaukuma signāls, {RST} atskaite, {NR} tavs numurs, {EXCH} tas, ko saņēmi.</translation>
     </message>
     <message>
-        <source>Default macros</source>
-        <translation>Noklusētie makro</translation>
-    </message>
-    <message>
-        <source>All macros…</source>
-        <translation>Visi makro…</translation>
-    </message>
-    <message>
         <source>Close</source>
         <translation type="unfinished">Aizvērt</translation>
     </message>
@@ -2302,6 +2274,25 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
 Right click: change it</source>
         <translation>%1 · %2
 Labais klikšķis: mainīt</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroList</name>
+    <message>
+        <source>Remove this macro</source>
+        <translation>Noņemt šo makro</translation>
+    </message>
+    <message>
+        <source>+ Add a macro</source>
+        <translation>+ Pievienot makro</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>Visi makro…</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>Noklusētie makro</translation>
     </message>
 </context>
 <context>
@@ -6481,6 +6472,14 @@ Labais klikšķis: mainīt</translation>
         <translation>%1 vārdi/min</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation>CW makro</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows, on the right what goes on air ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). The first twelve go on the F1-F12 keys, Esc stops. They are also in the CW panel (Macros…, or right click on a key).</source>
+        <translation>Pa kreisi tas, ko rāda taustiņš, pa labi tas, kas iet ēterā ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). Pirmie divpadsmit ir uz F1-F12, Esc aptur. Tie ir arī CW panelī (Makro… vai labais klikšķis uz taustiņa).</translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation>Antenas rotors</translation>
     </message>
@@ -6887,10 +6886,6 @@ Labais klikšķis: mainīt</translation>
     <message>
         <source>When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), DecoDXLog connects to it here: the link becomes &quot;rigctld already running&quot; on that address.</source>
         <translation>Kad radio tur Decodium un to koplieto (Iestatījumi → CAT → Koplietota CAT), DecoDXLog pieslēdzas šeit: savienojums kļūst &quot;rigctld jau darbojas&quot; uz šo adresi.</translation>
-    </message>
-    <message>
-        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
-        <translation>Divpadsmit makro raksta ar Makro… sacensību ievadē vai Rediģēt makro sacensību logā (Ctrl+Shift+T); tie ir uz F1-F12, Esc aptur.</translation>
     </message>
     <message>
         <source>Keyer</source>

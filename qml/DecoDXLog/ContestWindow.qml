@@ -520,7 +520,7 @@ ApplicationWindow {
                     text: qsTr("Edit macros")
                     buttonHeight: 22
                     fontPixelSize: 11
-                    onClicked: macroEditor.open()
+                    onClicked: oneMacroEditor.openAll()
                 }
             ]
 
@@ -796,78 +796,6 @@ ApplicationWindow {
 
     CwMacroEditor { id: oneMacroEditor }
 
-    // ── Le macro, scritte a mano ────────────────────────
-    DialogFrame {
-        id: macroEditor
-        dialogKey: "cwmacros"
-        width: 760
-        height: 540
-        title: qsTr("CW macros")
-        dotColor: Theme.accentColor
-        info: "{CALL} {MYCALL} {RST} {NR} {EXCH}"
-
-        body: ColumnLayout {
-            spacing: 8
-
-            Text {
-                Layout.fillWidth: true
-                Layout.margins: 14
-                Layout.bottomMargin: 0
-                wrapMode: Text.Wrap
-                color: Theme.textSecondary
-                font.pixelSize: 11
-                text: qsTr("The text goes on air as it is written, with the gaps filled in at the "
-                           + "moment: {CALL} the callsign you are working, {MYCALL} yours, {RST} the "
-                           + "report sent, {NR} the serial, {EXCH} what you received. The keyer is the "
-                           + "radio's own: Hamlib hands it the text.")
-            }
-            Repeater {
-                model: decolog.rig.macros
-                RowLayout {
-                    id: macroRow
-                    required property var modelData
-                    required property int index
-                    Layout.fillWidth: true
-                    Layout.leftMargin: 14
-                    Layout.rightMargin: 14
-                    spacing: 8
-                    Text {
-                        Layout.preferredWidth: 30
-                        text: "F" + (macroRow.index + 1)
-                        color: Theme.secondaryColor
-                        font.family: Theme.monoFamily
-                        font.pixelSize: 12
-                        font.bold: true
-                    }
-                    StyledTextField {
-                        id: macroLabel
-                        Layout.preferredWidth: 110
-                        text: macroRow.modelData.label
-                        onEditingFinished: decolog.rig.setMacro(macroRow.index, text, macroText.text)
-                    }
-                    StyledTextField {
-                        id: macroText
-                        Layout.fillWidth: true
-                        text: macroRow.modelData.text
-                        uppercase: true
-                        onEditingFinished: decolog.rig.setMacro(macroRow.index, macroLabel.text, text)
-                    }
-                }
-            }
-            Item { Layout.fillHeight: true }
-            RowLayout {
-                Layout.fillWidth: true
-                Layout.margins: 14
-                spacing: 8
-                GlassButton {
-                    text: qsTr("Default macros")
-                    onClicked: decolog.rig.resetMacros()
-                }
-                Item { Layout.fillWidth: true }
-                GlassButton { text: qsTr("Close"); tone: Theme.primaryColor; onClicked: macroEditor.close() }
-            }
-        }
-    }
 
     // ── Testata Cabrillo ────────────────────────────────────────────────────
     DialogFrame {

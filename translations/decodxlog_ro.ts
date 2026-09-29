@@ -1517,20 +1517,8 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Indicativul este prea scurt</translation>
     </message>
     <message>
-        <source>CW macros</source>
-        <translation>Macrouri CW</translation>
-    </message>
-    <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
         <translation>{CALL} stația lucrată, {MYCALL} indicativul tău, {RST} raportul, {NR} numărul tău, {EXCH} ce ai primit. Cu ESM în Run: Enter trimite F1 cu indicativ gol, F3 cu indicativul, F4 și înregistrează cu schimbul. În S&amp;P: F9 cu indicativul, F10 și înregistrează cu schimbul. În fonie tastele redau keyerul vocal.</translation>
-    </message>
-    <message>
-        <source>Default macros</source>
-        <translation>Macrouri implicite</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation>Închide</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -2145,14 +2133,6 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Toate fișierele (*)</translation>
     </message>
     <message>
-        <source>The text goes on air as it is written, with the gaps filled in at the moment: {CALL} the callsign you are working, {MYCALL} yours, {RST} the report sent, {NR} the serial, {EXCH} what you received. The keyer is the radio&apos;s own: Hamlib hands it the text.</source>
-        <translation>Textul pleacă în eter așa cum este scris, iar golurile se completează pe loc: {CALL} indicativul pe care îl lucrezi, {MYCALL} al tău, {RST} raportul dat, {NR} numărul de ordine, {EXCH} ce ai primit. Manipulatorul este al stației: Hamlib îi dă textul.</translation>
-    </message>
-    <message>
-        <source>Default macros</source>
-        <translation>Macrouri implicite</translation>
-    </message>
-    <message>
         <source>Cabrillo header</source>
         <translation>Antetul Cabrillo</translation>
     </message>
@@ -2283,14 +2263,6 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>În stânga ce arată tasta (&quot;F1 CQ&quot;, &quot;CQ&quot;, orice): e toată eticheta, tasta își păstrează mărimea. În dreapta ce pleacă în aer: {CALL} stația lucrată, {MYCALL} indicativul tău, {RST} raportul, {NR} numărul tău, {EXCH} ce ai primit.</translation>
     </message>
     <message>
-        <source>Default macros</source>
-        <translation>Macrouri implicite</translation>
-    </message>
-    <message>
-        <source>All macros…</source>
-        <translation>Toate macro-urile…</translation>
-    </message>
-    <message>
         <source>Close</source>
         <translation type="unfinished">Închide</translation>
     </message>
@@ -2302,6 +2274,25 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
 Right click: change it</source>
         <translation>%1 · %2
 Clic dreapta: modific-o</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroList</name>
+    <message>
+        <source>Remove this macro</source>
+        <translation>Scoate acest macro</translation>
+    </message>
+    <message>
+        <source>+ Add a macro</source>
+        <translation>+ Adaugă un macro</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>Toate macro-urile…</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>Macrouri implicite</translation>
     </message>
 </context>
 <context>
@@ -6481,6 +6472,14 @@ Clic dreapta: modific-o</translation>
         <translation>%1 cuv/min</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation>Macrouri CW</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows, on the right what goes on air ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). The first twelve go on the F1-F12 keys, Esc stops. They are also in the CW panel (Macros…, or right click on a key).</source>
+        <translation>În stânga ce arată tasta, în dreapta ce pleacă în aer ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). Primele douăsprezece sunt pe tastele F1-F12, Esc oprește. Sunt și în panoul CW (Macro-uri…, sau clic dreapta pe o tastă).</translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation>Rotor de antenă</translation>
     </message>
@@ -6887,10 +6886,6 @@ Clic dreapta: modific-o</translation>
     <message>
         <source>When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), DecoDXLog connects to it here: the link becomes &quot;rigctld already running&quot; on that address.</source>
         <translation>Când stația o ține Decodium și o partajează (Setări → CAT → CAT partajată), DecoDXLog se conectează aici: legătura devine &quot;rigctld deja pornit&quot; la acea adresă.</translation>
-    </message>
-    <message>
-        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
-        <translation>Cele douăsprezece macrouri se scriu cu Macrouri… în introducerea concursului sau Editează macrourile în fereastra concursului (Ctrl+Shift+T) și sunt pe tastele F1-F12; Esc oprește.</translation>
     </message>
     <message>
         <source>Keyer</source>

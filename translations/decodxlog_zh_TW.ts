@@ -1509,20 +1509,8 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>呼號太短</translation>
     </message>
     <message>
-        <source>CW macros</source>
-        <translation>CW 巨集</translation>
-    </message>
-    <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
         <translation>{CALL} 對方電台，{MYCALL} 你的呼號，{RST} 報告，{NR} 你的序號，{EXCH} 收到的交換。ESM 在 Run 模式：呼號為空時 Enter 發 F1，有呼號發 F3，有交換發 F4 並記錄。S&amp;P 模式：有呼號發 F9，有交換發 F10 並記錄。話音模式下按鍵播放語音鍵控。</translation>
-    </message>
-    <message>
-        <source>Default macros</source>
-        <translation>預設巨集</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation>關閉</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -2127,14 +2115,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>所有檔案 (*)</translation>
     </message>
     <message>
-        <source>The text goes on air as it is written, with the gaps filled in at the moment: {CALL} the callsign you are working, {MYCALL} yours, {RST} the report sent, {NR} the serial, {EXCH} what you received. The keyer is the radio&apos;s own: Hamlib hands it the text.</source>
-        <translation>文字照寫好的樣子發出去，空位在那一刻填上：{CALL} 是你正在通聯的呼號，{MYCALL} 是你自己的，{RST} 是發出的信號報告，{NR} 是流水號，{EXCH} 是你收到的。電鍵用的是電台自己的：由 Hamlib 把文字交給它。</translation>
-    </message>
-    <message>
-        <source>Default macros</source>
-        <translation>預設巨集</translation>
-    </message>
-    <message>
         <source>Cabrillo header</source>
         <translation>Cabrillo 檔頭</translation>
     </message>
@@ -2265,14 +2245,6 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>左邊是按鍵顯示的文字（&quot;F1 CQ&quot;、&quot;CQ&quot;，任意）：這就是完整的標籤，按鍵大小不變。右邊是送出的內容：{CALL} 對方電台，{MYCALL} 你的呼號，{RST} 報告，{NR} 你的序號，{EXCH} 你收到的內容。</translation>
     </message>
     <message>
-        <source>Default macros</source>
-        <translation>預設巨集</translation>
-    </message>
-    <message>
-        <source>All macros…</source>
-        <translation>全部巨集…</translation>
-    </message>
-    <message>
         <source>Close</source>
         <translation type="unfinished">關閉</translation>
     </message>
@@ -2284,6 +2256,25 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
 Right click: change it</source>
         <translation>%1 · %2
 右鍵：修改</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroList</name>
+    <message>
+        <source>Remove this macro</source>
+        <translation>移除此巨集</translation>
+    </message>
+    <message>
+        <source>+ Add a macro</source>
+        <translation>+ 新增巨集</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>全部巨集…</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>預設巨集</translation>
     </message>
 </context>
 <context>
@@ -6437,6 +6428,14 @@ Right click: change it</source>
         <translation>%1 字/分</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation>CW 巨集</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows, on the right what goes on air ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). The first twelve go on the F1-F12 keys, Esc stops. They are also in the CW panel (Macros…, or right click on a key).</source>
+        <translation>左邊是按鍵顯示的文字，右邊是送出的內容（{CALL}、{MYCALL}、{RST}、{NR}、{EXCH}）。前十二個對應 F1-F12 鍵，Esc 停止。CW 面板中也有（巨集… 或在按鍵上按右鍵）。</translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation>天線旋轉器</translation>
     </message>
@@ -6843,10 +6842,6 @@ Right click: change it</source>
     <message>
         <source>When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), DecoDXLog connects to it here: the link becomes &quot;rigctld already running&quot; on that address.</source>
         <translation>當 Decodium 占用電台並共享（設定 → CAT → 共享 CAT）時，DecoDXLog 在此連接：連接方式變為該位址上的「已執行的 rigctld」。</translation>
-    </message>
-    <message>
-        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
-        <translation>十二個巨集在比賽輸入的「巨集…」或比賽視窗（Ctrl+Shift+T）的「編輯巨集」中編寫，對應 F1-F12 鍵，按 Esc 停止。</translation>
     </message>
     <message>
         <source>Keyer</source>

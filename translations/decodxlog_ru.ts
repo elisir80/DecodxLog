@@ -1517,20 +1517,8 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Позывной слишком короткий</translation>
     </message>
     <message>
-        <source>CW macros</source>
-        <translation>Макросы CW</translation>
-    </message>
-    <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
         <translation>{CALL} проводимая станция, {MYCALL} ваш позывной, {RST} рапорт, {NR} ваш номер, {EXCH} принятое. С ESM в Run: Enter при пустом позывном шлёт F1, с позывным F3, с обменом F4 и записывает. В S&amp;P: с позывным F9, с обменом F10 и записывает. В телефонии клавиши воспроизводят голосовой манипулятор.</translation>
-    </message>
-    <message>
-        <source>Default macros</source>
-        <translation>Макросы по умолчанию</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation>Закрыть</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -2145,14 +2133,6 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Все файлы (*)</translation>
     </message>
     <message>
-        <source>The text goes on air as it is written, with the gaps filled in at the moment: {CALL} the callsign you are working, {MYCALL} yours, {RST} the report sent, {NR} the serial, {EXCH} what you received. The keyer is the radio&apos;s own: Hamlib hands it the text.</source>
-        <translation>Текст уходит в эфир как написан, а пропуски заполняются в тот же миг: {CALL} — позывной, с которым работаете, {MYCALL} — ваш, {RST} — переданный рапорт, {NR} — номер, {EXCH} — то, что приняли. Ключ — собственный ключ трансивера: Hamlib передаёт ему текст.</translation>
-    </message>
-    <message>
-        <source>Default macros</source>
-        <translation>Макросы по умолчанию</translation>
-    </message>
-    <message>
         <source>Cabrillo header</source>
         <translation>Заголовок Cabrillo</translation>
     </message>
@@ -2283,14 +2263,6 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Слева то, что показывает клавиша («F1 CQ», «CQ», что угодно): это вся надпись, размер клавиши не меняется. Справа то, что уходит в эфир: {CALL} станция, с которой работаете, {MYCALL} ваш позывной, {RST} рапорт, {NR} ваш номер, {EXCH} то, что вы приняли.</translation>
     </message>
     <message>
-        <source>Default macros</source>
-        <translation>Макросы по умолчанию</translation>
-    </message>
-    <message>
-        <source>All macros…</source>
-        <translation>Все макросы…</translation>
-    </message>
-    <message>
         <source>Close</source>
         <translation type="unfinished">Закрыть</translation>
     </message>
@@ -2302,6 +2274,25 @@ The call Decodium is working shows up here by itself.</source>
 Right click: change it</source>
         <translation>%1 · %2
 Правый щелчок: изменить</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroList</name>
+    <message>
+        <source>Remove this macro</source>
+        <translation>Удалить этот макрос</translation>
+    </message>
+    <message>
+        <source>+ Add a macro</source>
+        <translation>+ Добавить макрос</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>Все макросы…</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>Макросы по умолчанию</translation>
     </message>
 </context>
 <context>
@@ -6481,6 +6472,14 @@ Right click: change it</source>
         <translation>%1 сл/мин</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation>Макросы CW</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows, on the right what goes on air ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). The first twelve go on the F1-F12 keys, Esc stops. They are also in the CW panel (Macros…, or right click on a key).</source>
+        <translation>Слева то, что показывает клавиша, справа то, что уходит в эфир ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). Первые двенадцать на клавишах F1-F12, Esc останавливает. Они есть и в панели CW («Макросы…» или правый щелчок по клавише).</translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation>Поворотное устройство</translation>
     </message>
@@ -6887,10 +6886,6 @@ Right click: change it</source>
     <message>
         <source>When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), DecoDXLog connects to it here: the link becomes &quot;rigctld already running&quot; on that address.</source>
         <translation>Когда радио держит Decodium и делится им (Настройки → CAT → Общий CAT), DecoDXLog подключается здесь: связь становится «rigctld уже запущен» по этому адресу.</translation>
-    </message>
-    <message>
-        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
-        <translation>Двенадцать макросов задаются кнопкой Макросы… во вводе соревнования или Изменить макросы в окне соревнования (Ctrl+Shift+T); они на клавишах F1-F12, Esc останавливает.</translation>
     </message>
     <message>
         <source>Keyer</source>

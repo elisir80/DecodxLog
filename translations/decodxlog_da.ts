@@ -1513,20 +1513,8 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Kaldesignalet er for kort</translation>
     </message>
     <message>
-        <source>CW macros</source>
-        <translation>CW-makroer</translation>
-    </message>
-    <message>
         <source>{CALL} the station you work, {MYCALL} yours, {RST} the report, {NR} your serial, {EXCH} what you received. With ESM in Run: Enter sends F1 on an empty call, F3 with the call, F4 and logs with the exchange. In S&amp;P: F9 with the call, F10 and logs with the exchange. In phone the keys play the voice keyer.</source>
         <translation>{CALL} stationen du kører, {MYCALL} dit eget, {RST} rapporten, {NR} dit løbenummer, {EXCH} det modtagne. Med ESM i Run: Enter sender F1 ved tomt kaldesignal, F3 med kaldesignal, F4 og logger med udvekslingen. I S&amp;P: F9 med kaldesignal, F10 og logger med udvekslingen. I fonie afspiller tasterne stemmekeyeren.</translation>
-    </message>
-    <message>
-        <source>Default macros</source>
-        <translation>Standardmakroer</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation>Luk</translation>
     </message>
     <message>
         <source>%1 · next %2</source>
@@ -2136,14 +2124,6 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Alle filer (*)</translation>
     </message>
     <message>
-        <source>The text goes on air as it is written, with the gaps filled in at the moment: {CALL} the callsign you are working, {MYCALL} yours, {RST} the report sent, {NR} the serial, {EXCH} what you received. The keyer is the radio&apos;s own: Hamlib hands it the text.</source>
-        <translation>Teksten går i luften, som den står, med hullerne udfyldt i øjeblikket: {CALL} det kaldesignal, du kører, {MYCALL} dit eget, {RST} den sendte rapport, {NR} løbenummeret, {EXCH} det, du har modtaget. Nøglen er radioens egen: Hamlib rækker den teksten.</translation>
-    </message>
-    <message>
-        <source>Default macros</source>
-        <translation>Standardmakroer</translation>
-    </message>
-    <message>
         <source>Cabrillo header</source>
         <translation>Cabrillo-hoved</translation>
     </message>
@@ -2274,14 +2254,6 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>Til venstre hvad tasten viser (&quot;F1 CQ&quot;, &quot;CQ&quot;, hvad du vil): det er hele teksten, tasten beholder sin størrelse. Til højre hvad der sendes: {CALL} stationen du kører, {MYCALL} dit kaldesignal, {RST} rapporten, {NR} dit løbenummer, {EXCH} det du har modtaget.</translation>
     </message>
     <message>
-        <source>Default macros</source>
-        <translation>Standardmakroer</translation>
-    </message>
-    <message>
-        <source>All macros…</source>
-        <translation>Alle makroer…</translation>
-    </message>
-    <message>
         <source>Close</source>
         <translation type="unfinished">Luk</translation>
     </message>
@@ -2293,6 +2265,25 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
 Right click: change it</source>
         <translation>%1 · %2
 Højreklik: ret den</translation>
+    </message>
+</context>
+<context>
+    <name>CwMacroList</name>
+    <message>
+        <source>Remove this macro</source>
+        <translation>Fjern denne makro</translation>
+    </message>
+    <message>
+        <source>+ Add a macro</source>
+        <translation>+ Tilføj en makro</translation>
+    </message>
+    <message>
+        <source>All macros…</source>
+        <translation>Alle makroer…</translation>
+    </message>
+    <message>
+        <source>Default macros</source>
+        <translation>Standardmakroer</translation>
     </message>
 </context>
 <context>
@@ -6459,6 +6450,14 @@ Højreklik: ret den</translation>
         <translation>%1 wpm</translation>
     </message>
     <message>
+        <source>CW macros</source>
+        <translation>CW-makroer</translation>
+    </message>
+    <message>
+        <source>On the left what the key shows, on the right what goes on air ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). The first twelve go on the F1-F12 keys, Esc stops. They are also in the CW panel (Macros…, or right click on a key).</source>
+        <translation>Til venstre hvad tasten viser, til højre hvad der sendes ({CALL}, {MYCALL}, {RST}, {NR}, {EXCH}). De første tolv ligger på F1-F12, Esc stopper. De findes også i CW-panelet (Makroer… eller højreklik på en tast).</translation>
+    </message>
+    <message>
         <source>Antenna rotor</source>
         <translation>Antennerotor</translation>
     </message>
@@ -6865,10 +6864,6 @@ Højreklik: ret den</translation>
     <message>
         <source>When Decodium holds the radio and shares it (Settings → CAT → Shared CAT), DecoDXLog connects to it here: the link becomes &quot;rigctld already running&quot; on that address.</source>
         <translation>Når Decodium har radioen og deler den (Indstillinger → CAT → Delt CAT), forbinder DecoDXLog sig her: forbindelsen bliver &quot;rigctld kører allerede&quot; på den adresse.</translation>
-    </message>
-    <message>
-        <source>The twelve macros are written with Macros… in the contest entry, or Edit macros in the contest window (Ctrl+Shift+T), and go on the F1-F12 keys, with Esc to stop.</source>
-        <translation>De tolv makroer skrives med Makroer… i contest-indtastningen eller Rediger makroer i contest-vinduet (Ctrl+Shift+T) og ligger på F1-F12; Esc stopper.</translation>
     </message>
     <message>
         <source>Keyer</source>

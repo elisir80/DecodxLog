@@ -520,23 +520,13 @@ Rectangle {
             }
         }
 
-        // La ricerca prende lo spazio che avanza sulla sua riga: niente fascia
-        // vuota a destra. Se la riga e' piena va a capo e la prende tutta.
+        // La ricerca ha una misura sua, corta: non si allunga fino a riempire
+        // la riga (l'utente la vuole compatta, come un campo da barra).
         Block {
             id: searchBlock
             hPadding: 10
             spacing: 6
-            readonly property real others: {
-                let w = 0
-                for (let i = 0; i < bar.children.length; ++i) {
-                    const c = bar.children[i]
-                    if (c !== searchBlock && c.visible)
-                        w += c.width + bar.spacing
-                }
-                return w
-            }
-            readonly property real spare: bar.width - others
-            width: spare >= 220 ? spare : bar.width
+            width: 300
             height: implicitHeight
             StyledTextField {
                 id: searchField

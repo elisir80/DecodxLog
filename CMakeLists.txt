@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.16.37
+    VERSION 1.16.38
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES C CXX)
 
@@ -343,6 +343,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/BulkEditDialog.qml
     qml/DecoDXLog/CwMacroKey.qml
     qml/DecoDXLog/CwMacroEditor.qml
+    qml/DecoDXLog/CwMacroList.qml
     qml/DecoDXLog/DuplicatesDialog.qml
     qml/DecoDXLog/ColorSwatch.qml
     qml/DecoDXLog/ContestSubmitDialog.qml
