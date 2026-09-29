@@ -179,6 +179,8 @@ public:
     static constexpr int kMaxMacros = 24;
     Q_INVOKABLE void addMacro();
     Q_INVOKABLE void removeMacro(int index);
+    // Le macro rilette dalle impostazioni: quando le ha cambiate il Cloud.
+    void reloadMacros();
     Q_INVOKABLE void connectNow();
     // Cerca la radio da sola: prova le porte e le velocita' una per una,
     // finche' una risponde. Quella che risponde si tiene.

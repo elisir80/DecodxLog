@@ -20,8 +20,16 @@
         <translation>Ki készítette</translation>
     </message>
     <message>
+        <source>Author and developer</source>
+        <translation>Szerző és fejlesztő</translation>
+    </message>
+    <message>
         <source>Developer</source>
         <translation>Fejlesztő</translation>
+    </message>
+    <message>
+        <source>Support · social media</source>
+        <translation>Támogatás · közösségi média</translation>
     </message>
     <message>
         <source>Email</source>
@@ -66,6 +74,10 @@
     <message>
         <source>copied</source>
         <translation>másolva</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  Hívj meg egy kávéra</translation>
     </message>
     <message>
         <source>Close</source>
@@ -7073,6 +7085,49 @@ Jobb kattintás: módosítás</translation>
     <message>
         <source>Max age</source>
         <translation>Max. életkor</translation>
+    </message>
+</context>
+<context>
+    <name>StartupBadge</name>
+    <message>
+        <source>The station logbook of the Decodium family</source>
+        <translation>A Decodium család állomásnaplója</translation>
+    </message>
+    <message>
+        <source>language</source>
+        <translation>nyelv</translation>
+    </message>
+    <message>
+        <source>interface</source>
+        <translation>felület</translation>
+    </message>
+    <message>
+        <source>licence</source>
+        <translation>licenc</translation>
+    </message>
+    <message>
+        <source>author and developer</source>
+        <translation>szerző és fejlesztő</translation>
+    </message>
+    <message>
+        <source>developer</source>
+        <translation>fejlesztő</translation>
+    </message>
+    <message>
+        <source>support and social media manager</source>
+        <translation>támogatás és közösségimédia-menedzser</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  Hívj meg egy kávéra</translation>
+    </message>
+    <message>
+        <source>Start  ▶</source>
+        <translation>Indítás  ▶</translation>
+    </message>
+    <message>
+        <source>Free software under GPL-3.0 · sources on github.com/iu8lmc/DecoDXLog</source>
+        <translation>Szabad szoftver GPL-3.0 alatt · forráskód: github.com/iu8lmc/DecoDXLog</translation>
     </message>
 </context>
 <context>

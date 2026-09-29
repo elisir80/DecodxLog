@@ -1,5 +1,19 @@
 # DecoDXLog
 
+[![Release](https://img.shields.io/github/v/release/iu8lmc/DecoDXLog?label=release)](https://github.com/iu8lmc/DecoDXLog/releases)
+[![Licenza: GPL-3.0](https://img.shields.io/badge/licenza-GPL--3.0-blue.svg)](LICENSE)
+[![Linguaggio: C++20](https://img.shields.io/badge/linguaggio-C%2B%2B20-00599C.svg?logo=cplusplus&logoColor=white)](https://isocpp.org/)
+[![Interfaccia: Qt 6 · QML](https://img.shields.io/badge/interfaccia-Qt%206%20%C2%B7%20QML-41cd52.svg?logo=qt&logoColor=white)](https://www.qt.io/)
+[![Autore: Martino Merola IU8LMC](https://img.shields.io/badge/autore-Martino%20Merola%20IU8LMC-orange.svg)](https://github.com/iu8lmc)
+[![Sviluppatore: Salvatore Raccampo 9H1SR](https://img.shields.io/badge/sviluppatore-Salvatore%20Raccampo%209H1SR-orange.svg)](https://github.com/elisir80)
+![Supporto e social media manager: Filippo Ricci G0YCE](https://img.shields.io/badge/supporto%20%C2%B7%20social%20media-Filippo%20Ricci%20G0YCE-8a2be2.svg)
+[![Offrimi un caffè](https://img.shields.io/badge/%E2%98%95%20offrimi%20un%20caff%C3%A8-buymeacoffee.com%2Fiu8lmc-FFDD00.svg?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/iu8lmc)
+
+**Autore e sviluppatore:** Martino Merola IU8LMC · **Sviluppatore:** Salvatore Raccampo 9H1SR ·
+**Supporto e social media manager:** Filippo Ricci G0YCE.
+
+Se DecoDXLog ti è utile, [☕ offrimi un caffè](https://buymeacoffee.com/iu8lmc).
+
 Il log di stazione della famiglia Decodium. Offline-first, SQLite, stesso tema e
 stessa grammatica di finestre di Decodium e DecoRTTY. FT2 è un modo di prima
 classe (`MODE=MFSK`, `SUBMODE=FT2`).

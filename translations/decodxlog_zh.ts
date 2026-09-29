@@ -20,8 +20,16 @@
         <translation>开发者</translation>
     </message>
     <message>
+        <source>Author and developer</source>
+        <translation>作者兼开发者</translation>
+    </message>
+    <message>
         <source>Developer</source>
         <translation>开发者</translation>
+    </message>
+    <message>
+        <source>Support · social media</source>
+        <translation>支持 · 社交媒体</translation>
     </message>
     <message>
         <source>Email</source>
@@ -66,6 +74,10 @@
     <message>
         <source>copied</source>
         <translation>已复制</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  请我喝杯咖啡</translation>
     </message>
     <message>
         <source>Close</source>
@@ -7073,6 +7085,49 @@ Right click: change it</source>
     <message>
         <source>Max age</source>
         <translation>最久</translation>
+    </message>
+</context>
+<context>
+    <name>StartupBadge</name>
+    <message>
+        <source>The station logbook of the Decodium family</source>
+        <translation>Decodium 家族的电台日志</translation>
+    </message>
+    <message>
+        <source>language</source>
+        <translation>语言</translation>
+    </message>
+    <message>
+        <source>interface</source>
+        <translation>界面</translation>
+    </message>
+    <message>
+        <source>licence</source>
+        <translation>许可证</translation>
+    </message>
+    <message>
+        <source>author and developer</source>
+        <translation>作者兼开发者</translation>
+    </message>
+    <message>
+        <source>developer</source>
+        <translation>开发者</translation>
+    </message>
+    <message>
+        <source>support and social media manager</source>
+        <translation>支持与社交媒体经理</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  请我喝杯咖啡</translation>
+    </message>
+    <message>
+        <source>Start  ▶</source>
+        <translation>启动  ▶</translation>
+    </message>
+    <message>
+        <source>Free software under GPL-3.0 · sources on github.com/iu8lmc/DecoDXLog</source>
+        <translation>GPL-3.0 自由软件 · 源代码：github.com/iu8lmc/DecoDXLog</translation>
     </message>
 </context>
 <context>

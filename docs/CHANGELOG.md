@@ -3,6 +3,27 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.39 — 29 settembre 2026
+
+**Le macro CW cambiate restano cambiate.** Nella lista delle macro ogni salvataggio rifaceva
+tutte le righe: il campo dove si stava scrivendo spariva, e quello che si scriveva dopo aver
+cambiato la prima casella non arrivava ne' alla radio ne' al file. Adesso le righe restano
+quelle, ogni macro si salva uscendo dal campo e comunque quando la finestra (o le
+Impostazioni) si chiude, e il file delle impostazioni si scrive subito sul disco. Le macro
+arrivate dal Cloud da un altro computer si rileggono subito.
+
+- La ricerca in alto sta sempre sulla riga degli altri blocchi: prende lo spazio che avanza,
+  fra 140 e 300 punti, senza andare a capo.
+- **Il biglietto d'avvio**, come in Decodium 4: all'apertura il logo, la versione, con che
+  cosa e' scritto (C++20, Qt 6 · QML, GPL-3.0), chi lo fa — Martino Merola IU8LMC, autore e
+  sviluppatore; Salvatore Raccampo 9H1SR, sviluppatore; Filippo Ricci G0YCE, supporto e
+  social media manager — e il pulsante «☕ Offrimi un caffè» (buymeacoffee.com/iu8lmc).
+  Si chiude da solo dopo dieci secondi, o subito con «Avvia ▶», Esc o Invio; il programma
+  intanto si carica. Se all'avvio si chiede quale log aprire, la domanda arriva dopo.
+- Informazioni: gli stessi crediti, «Costruito con» C++20 · Qt · QML, e il caffe'.
+- README: le targhette in cima (versione, licenza, linguaggio C++20, Qt 6 · QML, autore,
+  sviluppatore, supporto e social media, offrimi un caffe') e i crediti con i nomi.
+
 ## 1.16.38 — 29 settembre 2026
 
 **Macro CW: quante ne vuoi, scritte dove vuoi.** Le macro non sono piu' dodici fisse: «+

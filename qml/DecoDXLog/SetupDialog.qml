@@ -55,7 +55,11 @@ DialogFrame {
         keepField.text = decolog.backupKeep
     }
 
+    // Una macro scritta e mai uscita dal suo campo si salva lo stesso.
+    onClosed: setupMacros.commit()
+
     function apply() {
+        setupMacros.commit()
         const port = parseInt(portField.text)
         if (!isNaN(port))
             decolog.udpPort = port
@@ -2221,6 +2225,7 @@ DialogFrame {
                                    + "also in the CW panel (Macros…, or right click on a key).")
                     }
                     CwMacroList {
+                        id: setupMacros
                         Layout.fillWidth: true
                     }
 

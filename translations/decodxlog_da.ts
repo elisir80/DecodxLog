@@ -20,8 +20,16 @@
         <translation>Hvem har lavet det</translation>
     </message>
     <message>
+        <source>Author and developer</source>
+        <translation>Forfatter og udvikler</translation>
+    </message>
+    <message>
         <source>Developer</source>
         <translation>Udvikler</translation>
+    </message>
+    <message>
+        <source>Support · social media</source>
+        <translation>Support · sociale medier</translation>
     </message>
     <message>
         <source>Email</source>
@@ -66,6 +74,10 @@
     <message>
         <source>copied</source>
         <translation>kopieret</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  Køb mig en kaffe</translation>
     </message>
     <message>
         <source>Close</source>
@@ -7095,6 +7107,49 @@ Højreklik: ret den</translation>
     <message>
         <source>Max age</source>
         <translation>Maks. alder</translation>
+    </message>
+</context>
+<context>
+    <name>StartupBadge</name>
+    <message>
+        <source>The station logbook of the Decodium family</source>
+        <translation>Stationsloggen i Decodium-familien</translation>
+    </message>
+    <message>
+        <source>language</source>
+        <translation>sprog</translation>
+    </message>
+    <message>
+        <source>interface</source>
+        <translation>brugerflade</translation>
+    </message>
+    <message>
+        <source>licence</source>
+        <translation>licens</translation>
+    </message>
+    <message>
+        <source>author and developer</source>
+        <translation>forfatter og udvikler</translation>
+    </message>
+    <message>
+        <source>developer</source>
+        <translation>udvikler</translation>
+    </message>
+    <message>
+        <source>support and social media manager</source>
+        <translation>support og social media manager</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  Køb mig en kaffe</translation>
+    </message>
+    <message>
+        <source>Start  ▶</source>
+        <translation>Start  ▶</translation>
+    </message>
+    <message>
+        <source>Free software under GPL-3.0 · sources on github.com/iu8lmc/DecoDXLog</source>
+        <translation>Fri software under GPL-3.0 · kildekode på github.com/iu8lmc/DecoDXLog</translation>
     </message>
 </context>
 <context>

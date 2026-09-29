@@ -20,8 +20,16 @@
         <translation>Chi l&apos;ha fatto</translation>
     </message>
     <message>
+        <source>Author and developer</source>
+        <translation>Autore e sviluppatore</translation>
+    </message>
+    <message>
         <source>Developer</source>
         <translation>Sviluppatore</translation>
+    </message>
+    <message>
+        <source>Support · social media</source>
+        <translation>Supporto · social media</translation>
     </message>
     <message>
         <source>Email</source>
@@ -66,6 +74,10 @@
     <message>
         <source>copied</source>
         <translation>copiato</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  Offrimi un caffè</translation>
     </message>
     <message>
         <source>Close</source>
@@ -7095,6 +7107,49 @@ Tasto destro: modificala</translation>
     <message>
         <source>Max age</source>
         <translation>Età massima</translation>
+    </message>
+</context>
+<context>
+    <name>StartupBadge</name>
+    <message>
+        <source>The station logbook of the Decodium family</source>
+        <translation>Il log di stazione della famiglia Decodium</translation>
+    </message>
+    <message>
+        <source>language</source>
+        <translation>linguaggio</translation>
+    </message>
+    <message>
+        <source>interface</source>
+        <translation>interfaccia</translation>
+    </message>
+    <message>
+        <source>licence</source>
+        <translation>licenza</translation>
+    </message>
+    <message>
+        <source>author and developer</source>
+        <translation>autore e sviluppatore</translation>
+    </message>
+    <message>
+        <source>developer</source>
+        <translation>sviluppatore</translation>
+    </message>
+    <message>
+        <source>support and social media manager</source>
+        <translation>supporto e social media manager</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  Offrimi un caffè</translation>
+    </message>
+    <message>
+        <source>Start  ▶</source>
+        <translation>Avvia  ▶</translation>
+    </message>
+    <message>
+        <source>Free software under GPL-3.0 · sources on github.com/iu8lmc/DecoDXLog</source>
+        <translation>Software libero GPL-3.0 · sorgenti su github.com/iu8lmc/DecoDXLog</translation>
     </message>
 </context>
 <context>

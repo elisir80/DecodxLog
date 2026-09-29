@@ -20,8 +20,16 @@
         <translation>Qui l&apos;ha fet</translation>
     </message>
     <message>
+        <source>Author and developer</source>
+        <translation>Autor i desenvolupador</translation>
+    </message>
+    <message>
         <source>Developer</source>
         <translation>Desenvolupador</translation>
+    </message>
+    <message>
+        <source>Support · social media</source>
+        <translation>Suport · xarxes socials</translation>
     </message>
     <message>
         <source>Email</source>
@@ -66,6 +74,10 @@
     <message>
         <source>copied</source>
         <translation>copiat</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  Convida&apos;m a un cafè</translation>
     </message>
     <message>
         <source>Close</source>
@@ -7095,6 +7107,49 @@ Clic dret: modificar-la</translation>
     <message>
         <source>Max age</source>
         <translation>Edat màxima</translation>
+    </message>
+</context>
+<context>
+    <name>StartupBadge</name>
+    <message>
+        <source>The station logbook of the Decodium family</source>
+        <translation>El quadern d&apos;estació de la família Decodium</translation>
+    </message>
+    <message>
+        <source>language</source>
+        <translation>llenguatge</translation>
+    </message>
+    <message>
+        <source>interface</source>
+        <translation>interfície</translation>
+    </message>
+    <message>
+        <source>licence</source>
+        <translation>llicència</translation>
+    </message>
+    <message>
+        <source>author and developer</source>
+        <translation>autor i desenvolupador</translation>
+    </message>
+    <message>
+        <source>developer</source>
+        <translation>desenvolupador</translation>
+    </message>
+    <message>
+        <source>support and social media manager</source>
+        <translation>suport i gestor de xarxes socials</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  Convida&apos;m a un cafè</translation>
+    </message>
+    <message>
+        <source>Start  ▶</source>
+        <translation>Inicia  ▶</translation>
+    </message>
+    <message>
+        <source>Free software under GPL-3.0 · sources on github.com/iu8lmc/DecoDXLog</source>
+        <translation>Programari lliure sota GPL-3.0 · codi a github.com/iu8lmc/DecoDXLog</translation>
     </message>
 </context>
 <context>

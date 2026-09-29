@@ -12,8 +12,16 @@ DialogFrame {
 
     title: qsTr("About DecoDXLog")
     dialogKey: "about"
-    width: 560
-    height: 540
+    width: 600
+    height: 620
+    // Con i crediti le righe sono di piu': chi l'aveva gia' aperta piu' bassa
+    // (la misura si ricorda) non deve perdere i pulsanti in fondo.
+    minimumWidth: 560
+    minimumHeight: 620
+    onVisibleChanged: if (visible) {
+        width = Math.max(width, minimumWidth)
+        height = Math.max(height, minimumHeight)
+    }
 
     // Il testo piccolo di spiegazione.
     component Note: Text {
@@ -89,13 +97,15 @@ DialogFrame {
         Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Theme.borderSoft }
 
         SectionTitle { text: qsTr("Who made it") }
-        Row_ { label: qsTr("Developer"); value: root.info.author }
+        Row_ { label: qsTr("Author and developer"); value: root.info.author }
+        Row_ { label: qsTr("Developer"); value: "Salvatore Raccampo — 9H1SR" }
+        Row_ { label: qsTr("Support · social media"); value: "Filippo Ricci — G0YCE" }
         Row_ { label: qsTr("Email"); value: root.info.email; copiable: true }
         Row_ { label: qsTr("Home"); value: root.info.home; copiable: true }
 
         SectionTitle { text: qsTr("This copy") }
         Row_ { label: qsTr("QSO in the log"); value: Number(root.info.qsoCount).toLocaleString(Qt.locale(), "f", 0) }
-        Row_ { label: qsTr("Built with"); value: "Qt " + root.info.qt }
+        Row_ { label: qsTr("Built with"); value: "C++20 · Qt " + root.info.qt + " · QML" }
         Row_ { label: qsTr("Built on"); value: root.info.built }
         Row_ { label: qsTr("Licence"); value: root.info.license }
 
@@ -139,6 +149,11 @@ DialogFrame {
                 tone: Theme.accentColor
             }
             Item { Layout.fillWidth: true }
+            GlassButton {
+                text: qsTr("☕  Buy me a coffee")
+                tone: Theme.warningColor
+                onClicked: Qt.openUrlExternally("https://buymeacoffee.com/iu8lmc")
+            }
             GlassButton { text: qsTr("Close"); onClicked: root.close() }
         }
     }

@@ -22,6 +22,8 @@ Popup {
     padding: 14
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
     background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 6 }
+    // Chiudendo si salva anche il campo dove c'e' ancora il cursore.
+    onAboutToHide: list.commit()
 
     contentItem: ColumnLayout {
         spacing: 8

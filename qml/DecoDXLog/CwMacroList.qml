@@ -4,6 +4,13 @@
 // che va in aria; "−" toglie la riga, "+ Aggiungi" ne mette una in fondo. Le
 // prime dodici stanno sui tasti F1-F12, le altre si mandano col clic. Serve
 // alla finestra delle macro (CwMacroEditor) e alle Impostazioni.
+//
+// Le righe sono tante quante le macro e restano quelle: il modello e' il
+// numero, non l'elenco. Con l'elenco come modello ogni salvataggio rifaceva
+// tutte le righe, e il campo dove si stava scrivendo spariva sotto le dita —
+// quello che si scriveva dopo il primo campo non arrivava mai alla radio ne'
+// al file. Si salva uscendo dal campo, e comunque quando la finestra si chiude
+// (commit()).
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -19,6 +26,10 @@ ColumnLayout {
     property real maxListHeight: 0
     readonly property int count: decolog.rig.macros.length
     readonly property int maxCount: 24
+
+    // Salva quello che c'e' nei campi, anche se il cursore e' ancora li'.
+    signal commitRequested()
+    function commit() { root.commitRequested() }
 
     spacing: 8
 
@@ -36,14 +47,24 @@ ColumnLayout {
             width: scroll.availableWidth
             spacing: 6
             Repeater {
-                model: decolog.rig.macros
+                model: root.count
                 RowLayout {
                     id: macroRow
-                    required property var modelData
                     required property int index
+                    readonly property var macro: decolog.rig.macros[index] || ({})
                     visible: root.only < 0 || root.only === index
                     Layout.fillWidth: true
                     spacing: 8
+
+                    function save() {
+                        if (macroLabel.text !== (macro.label || "") || macroText.text !== (macro.text || ""))
+                            decolog.rig.setMacro(macroRow.index, macroLabel.text, macroText.text)
+                    }
+                    Connections {
+                        target: root
+                        function onCommitRequested() { macroRow.save() }
+                    }
+
                     Text {
                         Layout.preferredWidth: 30
                         // Il tasto funzione: solo le prime dodici ne hanno uno.
@@ -56,16 +77,16 @@ ColumnLayout {
                         id: macroLabel
                         Layout.preferredWidth: 150
                         mono: true
-                        text: macroRow.modelData.label
+                        text: macroRow.macro.label || ""
                         placeholderText: macroRow.index < 12 ? "F" + (macroRow.index + 1) : ""
-                        onEditingFinished: decolog.rig.setMacro(macroRow.index, text, macroText.text)
+                        onEditingFinished: macroRow.save()
                     }
                     StyledTextField {
                         id: macroText
                         Layout.fillWidth: true
-                        text: macroRow.modelData.text
+                        text: macroRow.macro.text || ""
                         uppercase: true
-                        onEditingFinished: decolog.rig.setMacro(macroRow.index, macroLabel.text, text)
+                        onEditingFinished: macroRow.save()
                     }
                     GlassButton {
                         text: "−"
@@ -77,6 +98,7 @@ ColumnLayout {
                         ToolTip.visible: hovered
                         ToolTip.text: qsTr("Remove this macro")
                         onClicked: {
+                            root.commit()
                             decolog.rig.removeMacro(macroRow.index)
                             if (root.only >= root.count)
                                 root.only = -1
@@ -95,6 +117,7 @@ ColumnLayout {
             tone: Theme.accentColor
             enabled: root.count < root.maxCount
             onClicked: {
+                root.commit()
                 decolog.rig.addMacro()
                 root.only = -1
                 Qt.callLater(() => scroll.ScrollBar.vertical.position = 1.0 - scroll.ScrollBar.vertical.size)

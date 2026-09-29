@@ -835,6 +835,12 @@ int main(int argc, char* argv[])
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed, &app,
                      [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
     engine.rootContext()->setContextProperty(QStringLiteral("startupShow"), parser.value(showOption));
+    // Il biglietto d'avvio: a ogni partenza normale; nelle prove (--show,
+    // --grab) solo se chiesto con --show badge.
+    engine.rootContext()->setContextProperty(
+        QStringLiteral("startupBadge"),
+        parser.value(showOption) == QLatin1String("badge")
+            || (!parser.isSet(showOption) && !parser.isSet(grabOption)));
     decolog::startupTrace("QML load begin");
     engine.loadFromModule(QStringLiteral("DecoDXLog"), QStringLiteral("Main"));
     decolog::startupTrace("QML load done");

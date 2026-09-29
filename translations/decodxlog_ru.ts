@@ -20,8 +20,16 @@
         <translation>Кто сделал</translation>
     </message>
     <message>
+        <source>Author and developer</source>
+        <translation>Автор и разработчик</translation>
+    </message>
+    <message>
         <source>Developer</source>
         <translation>Разработчик</translation>
+    </message>
+    <message>
+        <source>Support · social media</source>
+        <translation>Поддержка · соцсети</translation>
     </message>
     <message>
         <source>Email</source>
@@ -66,6 +74,10 @@
     <message>
         <source>copied</source>
         <translation>скопировано</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  Купи мне кофе</translation>
     </message>
     <message>
         <source>Close</source>
@@ -7117,6 +7129,49 @@ Right click: change it</source>
     <message>
         <source>Max age</source>
         <translation>Не старше</translation>
+    </message>
+</context>
+<context>
+    <name>StartupBadge</name>
+    <message>
+        <source>The station logbook of the Decodium family</source>
+        <translation>Аппаратный журнал семейства Decodium</translation>
+    </message>
+    <message>
+        <source>language</source>
+        <translation>язык</translation>
+    </message>
+    <message>
+        <source>interface</source>
+        <translation>интерфейс</translation>
+    </message>
+    <message>
+        <source>licence</source>
+        <translation>лицензия</translation>
+    </message>
+    <message>
+        <source>author and developer</source>
+        <translation>автор и разработчик</translation>
+    </message>
+    <message>
+        <source>developer</source>
+        <translation>разработчик</translation>
+    </message>
+    <message>
+        <source>support and social media manager</source>
+        <translation>поддержка и SMM-менеджер</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  Купи мне кофе</translation>
+    </message>
+    <message>
+        <source>Start  ▶</source>
+        <translation>Старт  ▶</translation>
+    </message>
+    <message>
+        <source>Free software under GPL-3.0 · sources on github.com/iu8lmc/DecoDXLog</source>
+        <translation>Свободное ПО под GPL-3.0 · исходники на github.com/iu8lmc/DecoDXLog</translation>
     </message>
 </context>
 <context>

@@ -1360,7 +1360,8 @@ ApplicationWindow {
         id: logsDialog
         // All'avvio si chiede quale log aprire, per chi tiene un log per ogni
         // contest. Di serie no: chi ne ha uno solo non deve rispondere a niente.
-        Component.onCompleted: if (decolog.logs.askAtStart) Qt.callLater(logsDialog.openDialog)
+        // Col biglietto d'avvio davanti la domanda aspetta che si chiuda.
+        Component.onCompleted: if (decolog.logs.askAtStart && !startupBadge) Qt.callLater(logsDialog.openDialog)
     }
     AwardsDialog {
         id: awardsDialog
@@ -1903,5 +1904,21 @@ ApplicationWindow {
         onStatsRequested: window.openStats()
         onRotorRequested: window.openRotor()
         onContestRequested: window.openContest()
+    }
+
+    // Il biglietto d'avvio, sopra tutto: chi lo fa, con che cosa, e il caffe'.
+    Loader {
+        id: startupBadgeLoader
+        anchors.fill: parent
+        z: 10000
+        active: startupBadge
+        sourceComponent: StartupBadge {
+            onFinished: {
+                startupBadgeLoader.active = false
+                if (decolog.logs.askAtStart)
+                    logsDialog.openDialog()
+            }
+        }
+        onLoaded: item.forceActiveFocus()
     }
 }

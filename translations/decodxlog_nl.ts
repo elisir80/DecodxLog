@@ -20,8 +20,16 @@
         <translation>Wie het gemaakt heeft</translation>
     </message>
     <message>
+        <source>Author and developer</source>
+        <translation>Auteur en ontwikkelaar</translation>
+    </message>
+    <message>
         <source>Developer</source>
         <translation>Ontwikkelaar</translation>
+    </message>
+    <message>
+        <source>Support · social media</source>
+        <translation>Ondersteuning · sociale media</translation>
     </message>
     <message>
         <source>Email</source>
@@ -66,6 +74,10 @@
     <message>
         <source>copied</source>
         <translation>gekopieerd</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  Trakteer me op een koffie</translation>
     </message>
     <message>
         <source>Close</source>
@@ -7095,6 +7107,49 @@ Rechtsklik: wijzigen</translation>
     <message>
         <source>Max age</source>
         <translation>Max. leeftijd</translation>
+    </message>
+</context>
+<context>
+    <name>StartupBadge</name>
+    <message>
+        <source>The station logbook of the Decodium family</source>
+        <translation>Het stationslogboek van de Decodium-familie</translation>
+    </message>
+    <message>
+        <source>language</source>
+        <translation>taal</translation>
+    </message>
+    <message>
+        <source>interface</source>
+        <translation>interface</translation>
+    </message>
+    <message>
+        <source>licence</source>
+        <translation>licentie</translation>
+    </message>
+    <message>
+        <source>author and developer</source>
+        <translation>auteur en ontwikkelaar</translation>
+    </message>
+    <message>
+        <source>developer</source>
+        <translation>ontwikkelaar</translation>
+    </message>
+    <message>
+        <source>support and social media manager</source>
+        <translation>ondersteuning en social-media-manager</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  Trakteer me op een koffie</translation>
+    </message>
+    <message>
+        <source>Start  ▶</source>
+        <translation>Start  ▶</translation>
+    </message>
+    <message>
+        <source>Free software under GPL-3.0 · sources on github.com/iu8lmc/DecoDXLog</source>
+        <translation>Vrije software onder GPL-3.0 · broncode op github.com/iu8lmc/DecoDXLog</translation>
     </message>
 </context>
 <context>

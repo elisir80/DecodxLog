@@ -520,18 +520,29 @@ Rectangle {
             }
         }
 
-        // La ricerca ha una misura sua, corta: non si allunga fino a riempire
-        // la riga (l'utente la vuole compatta, come un campo da barra).
+        // La ricerca sta sempre sulla riga degli altri blocchi: prende lo spazio
+        // che avanza, ma al massimo 300 (non si allunga fino a riempire la riga)
+        // e al minimo 140. Solo sotto i 140 andrebbe a capo.
         Block {
             id: searchBlock
             hPadding: 10
             spacing: 6
-            width: 300
+            readonly property real others: {
+                let w = 0
+                for (let i = 0; i < bar.children.length; ++i) {
+                    const c = bar.children[i]
+                    if (c !== searchBlock && c.visible)
+                        w += c.width + bar.spacing
+                }
+                return w
+            }
+            readonly property real spare: Math.floor(bar.width - others) - 1
+            width: Math.max(140, Math.min(300, spare))
             height: implicitHeight
             StyledTextField {
                 id: searchField
                 Layout.fillWidth: true
-                Layout.minimumWidth: 140
+                Layout.minimumWidth: 60
                 placeholderText: qsTr("Search…")
                 text: decolog.qsoModel.filterText
                 onTextEdited: decolog.qsoModel.filterText = text

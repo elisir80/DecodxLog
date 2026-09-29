@@ -20,7 +20,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Author and developer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Developer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Support · social media</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -65,6 +73,10 @@
     </message>
     <message>
         <source>copied</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7092,6 +7104,49 @@ Right click: change it</source>
     </message>
     <message>
         <source>Max age</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StartupBadge</name>
+    <message>
+        <source>The station logbook of the Decodium family</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>licence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>author and developer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>developer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>support and social media manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start  ▶</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Free software under GPL-3.0 · sources on github.com/iu8lmc/DecoDXLog</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

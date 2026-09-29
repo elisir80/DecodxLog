@@ -1084,6 +1084,12 @@ void RigController::setMacro(int index, const QString& label, const QString& tex
     emit macrosChanged();
 }
 
+void RigController::reloadMacros()
+{
+    loadMacros();
+    emit macrosChanged();
+}
+
 void RigController::addMacro()
 {
     if (m_macros.size() >= kMaxMacros)
@@ -1192,8 +1198,11 @@ void RigController::saveMacros()
         array.append(QJsonObject{{QStringLiteral("label"), macro.value(QStringLiteral("label")).toString()},
                                  {QStringLiteral("text"), macro.value(QStringLiteral("text")).toString()}});
     }
-    QSettings().setValue(QStringLiteral("cw/macros"),
-                         QString::fromUtf8(QJsonDocument(array).toJson(QJsonDocument::Compact)));
+    // Scritte subito sul disco: se il programma si chiude male, la macro
+    // cambiata non deve tornare quella di prima.
+    QSettings s;
+    s.setValue(QStringLiteral("cw/macros"), QString::fromUtf8(QJsonDocument(array).toJson(QJsonDocument::Compact)));
+    s.sync();
 }
 
 } // namespace decolog::app

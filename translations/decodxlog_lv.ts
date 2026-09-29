@@ -20,8 +20,16 @@
         <translation>Kas to izveidoja</translation>
     </message>
     <message>
+        <source>Author and developer</source>
+        <translation>Autors un izstrādātājs</translation>
+    </message>
+    <message>
         <source>Developer</source>
         <translation>Izstrādātājs</translation>
+    </message>
+    <message>
+        <source>Support · social media</source>
+        <translation>Atbalsts · sociālie tīkli</translation>
     </message>
     <message>
         <source>Email</source>
@@ -66,6 +74,10 @@
     <message>
         <source>copied</source>
         <translation>nokopēts</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  Cieni mani ar kafiju</translation>
     </message>
     <message>
         <source>Close</source>
@@ -7117,6 +7129,49 @@ Labais klikšķis: mainīt</translation>
     <message>
         <source>Max age</source>
         <translation>Maks. vecums</translation>
+    </message>
+</context>
+<context>
+    <name>StartupBadge</name>
+    <message>
+        <source>The station logbook of the Decodium family</source>
+        <translation>Decodium saimes stacijas žurnāls</translation>
+    </message>
+    <message>
+        <source>language</source>
+        <translation>valoda</translation>
+    </message>
+    <message>
+        <source>interface</source>
+        <translation>saskarne</translation>
+    </message>
+    <message>
+        <source>licence</source>
+        <translation>licence</translation>
+    </message>
+    <message>
+        <source>author and developer</source>
+        <translation>autors un izstrādātājs</translation>
+    </message>
+    <message>
+        <source>developer</source>
+        <translation>izstrādātājs</translation>
+    </message>
+    <message>
+        <source>support and social media manager</source>
+        <translation>atbalsts un sociālo tīklu vadītājs</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  Cieni mani ar kafiju</translation>
+    </message>
+    <message>
+        <source>Start  ▶</source>
+        <translation>Sākt  ▶</translation>
+    </message>
+    <message>
+        <source>Free software under GPL-3.0 · sources on github.com/iu8lmc/DecoDXLog</source>
+        <translation>Brīva programmatūra ar GPL-3.0 · pirmkods github.com/iu8lmc/DecoDXLog</translation>
     </message>
 </context>
 <context>

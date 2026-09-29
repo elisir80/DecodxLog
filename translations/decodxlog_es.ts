@@ -20,8 +20,16 @@
         <translation>Quién lo ha hecho</translation>
     </message>
     <message>
+        <source>Author and developer</source>
+        <translation>Autor y desarrollador</translation>
+    </message>
+    <message>
         <source>Developer</source>
         <translation>Desarrollador</translation>
+    </message>
+    <message>
+        <source>Support · social media</source>
+        <translation>Soporte · redes sociales</translation>
     </message>
     <message>
         <source>Email</source>
@@ -66,6 +74,10 @@
     <message>
         <source>copied</source>
         <translation>copiado</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  Invítame un café</translation>
     </message>
     <message>
         <source>Close</source>
@@ -7095,6 +7107,49 @@ Clic derecho: modificarla</translation>
     <message>
         <source>Max age</source>
         <translation>Antigüedad máxima</translation>
+    </message>
+</context>
+<context>
+    <name>StartupBadge</name>
+    <message>
+        <source>The station logbook of the Decodium family</source>
+        <translation>El registro de estación de la familia Decodium</translation>
+    </message>
+    <message>
+        <source>language</source>
+        <translation>lenguaje</translation>
+    </message>
+    <message>
+        <source>interface</source>
+        <translation>interfaz</translation>
+    </message>
+    <message>
+        <source>licence</source>
+        <translation>licencia</translation>
+    </message>
+    <message>
+        <source>author and developer</source>
+        <translation>autor y desarrollador</translation>
+    </message>
+    <message>
+        <source>developer</source>
+        <translation>desarrollador</translation>
+    </message>
+    <message>
+        <source>support and social media manager</source>
+        <translation>soporte y community manager</translation>
+    </message>
+    <message>
+        <source>☕  Buy me a coffee</source>
+        <translation>☕  Invítame un café</translation>
+    </message>
+    <message>
+        <source>Start  ▶</source>
+        <translation>Iniciar  ▶</translation>
+    </message>
+    <message>
+        <source>Free software under GPL-3.0 · sources on github.com/iu8lmc/DecoDXLog</source>
+        <translation>Software libre bajo GPL-3.0 · código en github.com/iu8lmc/DecoDXLog</translation>
     </message>
 </context>
 <context>

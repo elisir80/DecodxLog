@@ -877,6 +877,12 @@ bool DecoLogController::openDatabase(const QString& path)
     m_cloud = new CloudController(std::move(cloudCtx), this);
     // I profili arrivati dal Cloud vanno riletti come quelli scritti qui.
     connect(m_cloud, &CloudController::profilesChanged, this, [this] { m_profiles->reload(); });
+    // Le macro CW arrivate da un altro computer: rilette subito, se no la
+    // prossima modifica fatta qui rimetterebbe quelle vecchie.
+    connect(m_cloud, &CloudController::settingsApplied, this, [this] {
+        if (auto* rig = qobject_cast<RigController*>(m_rig))
+            rig->reloadMacros();
+    });
 
     ActivationController::Context actCtx;
     actCtx.db = &m_db;
