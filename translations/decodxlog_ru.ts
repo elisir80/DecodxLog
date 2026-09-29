@@ -7625,6 +7625,14 @@ Right click: change it</source>
         <translation>Панели</translation>
     </message>
     <message>
+        <source>Search: %1</source>
+        <translation>Поиск: %1</translation>
+    </message>
+    <message>
+        <source>Search… (Ctrl+F)</source>
+        <translation>Поиск… (Ctrl+F)</translation>
+    </message>
+    <message>
         <source>Station</source>
         <translation>Станция</translation>
     </message>
@@ -10495,6 +10503,18 @@ Right click: change it</source>
     <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>Трансивер ответил ошибкой (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
+        <translation>Трансивер не перешёл в сплит. CAT идёт через Decodium: там сплит работает только при «Разделенная операция» = «Трансивер» или «Подделать это» (Decodium → Настройки → Радио). При «Нет» Decodium его игнорирует.</translation>
+    </message>
+    <message>
+        <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>
+        <translation>Трансивер не перешёл в сплит: rigctld принял команду, но трансивер сообщает, что сплит выключен.</translation>
+    </message>
+    <message>
+        <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
+        <translation>Трансивер всё ещё в сплите: выключите его на трансивере или в программе, которая держит CAT.</translation>
     </message>
 </context>
 <context>

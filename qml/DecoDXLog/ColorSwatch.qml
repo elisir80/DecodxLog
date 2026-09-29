@@ -50,6 +50,8 @@ Rectangle {
         y: root.height + 4
         padding: 10
         popupType: Popup.Window
+        // Il campo del colore scritto a mano: senza fuoco i tasti si perdono.
+        focus: true
         onOpened: hexField.text = root.value
         background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 6 }
         contentItem: ColumnLayout {

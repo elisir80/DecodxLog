@@ -7603,6 +7603,14 @@ Rechtsklick: ändern</translation>
         <translation>Bedienfelder</translation>
     </message>
     <message>
+        <source>Search: %1</source>
+        <translation>Suche: %1</translation>
+    </message>
+    <message>
+        <source>Search… (Ctrl+F)</source>
+        <translation>Suchen… (Strg+F)</translation>
+    </message>
+    <message>
         <source>Station</source>
         <translation>Station</translation>
     </message>
@@ -10435,6 +10443,18 @@ Rechtsklick: ändern</translation>
     <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>Das Funkgerät hat mit einem Fehler geantwortet (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
+        <translation>Das Funkgerät ist nicht in Split gegangen. Die CAT läuft über Decodium: dort geht Split nur mit Split-Betrieb auf „Rig“ oder „Fake es“ (Decodium → Einstellungen → Radio). Mit „Keine“ ignoriert Decodium ihn.</translation>
+    </message>
+    <message>
+        <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>
+        <translation>Das Funkgerät ist nicht in Split gegangen: rigctld hat den Befehl angenommen, aber das Funkgerät meldet Split aus.</translation>
+    </message>
+    <message>
+        <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
+        <translation>Das Funkgerät ist noch in Split: am Funkgerät ausschalten oder in dem Programm, das die CAT hält.</translation>
     </message>
 </context>
 <context>

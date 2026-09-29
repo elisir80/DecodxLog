@@ -7581,6 +7581,14 @@ Jobb kattintás: módosítás</translation>
         <translation>Panelek</translation>
     </message>
     <message>
+        <source>Search: %1</source>
+        <translation>Keresés: %1</translation>
+    </message>
+    <message>
+        <source>Search… (Ctrl+F)</source>
+        <translation>Keresés… (Ctrl+F)</translation>
+    </message>
+    <message>
         <source>Station</source>
         <translation>Állomás</translation>
     </message>
@@ -10375,6 +10383,18 @@ Jobb kattintás: módosítás</translation>
     <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>A rádió hibával válaszolt (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
+        <translation>A rádió nem ment split üzembe. A CAT a Decodiumon keresztül megy: ott a split csak akkor működik, ha az Osztott művelet „Rig” vagy „Szimulál” (Decodium → Beállítások → Rádió). „Nincs” esetén a Decodium figyelmen kívül hagyja.</translation>
+    </message>
+    <message>
+        <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>
+        <translation>A rádió nem ment split üzembe: a rigctld elfogadta a parancsot, de a rádió szerint a split ki van kapcsolva.</translation>
+    </message>
+    <message>
+        <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
+        <translation>A rádió még split üzemben van: kapcsold ki a rádión, vagy abban a programban, amely a CAT-et tartja.</translation>
     </message>
 </context>
 <context>

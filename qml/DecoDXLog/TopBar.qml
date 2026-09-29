@@ -40,8 +40,12 @@ Rectangle {
     function openContestMenu() { contestMenu.popup(contestButton, 0, contestButton.height + 6) }
 
     function focusSearch() {
-        searchField.forceActiveFocus()
-        searchField.selectAll()
+        if (searchField.visible) {
+            searchField.forceActiveFocus()
+            searchField.selectAll()
+        } else {
+            searchPopup.open()
+        }
     }
 
     readonly property var profiles: decolog.stationProfiles
@@ -520,29 +524,34 @@ Rectangle {
             }
         }
 
-        // La ricerca sta sempre sulla riga degli altri blocchi: prende lo spazio
-        // che avanza, ma al massimo 300 (non si allunga fino a riempire la riga)
-        // e al minimo 140. Solo sotto i 140 andrebbe a capo.
+        // La ricerca non va mai a capo: sta in fondo alla riga degli altri
+        // blocchi, lunga al massimo 220, e prende solo lo spazio che resta su
+        // quella riga. Se non ce n'e' abbastanza per il campo resta la lente,
+        // che apre il campo sotto la barra. Lo spazio si conta come fa il Flow,
+        // riga per riga, cosi' torna anche quando la barra ne ha due.
         Block {
             id: searchBlock
-            hPadding: 10
+            hPadding: 8
             spacing: 6
-            readonly property real others: {
-                let w = 0
+            readonly property real room: {
+                let x = 0
                 for (let i = 0; i < bar.children.length; ++i) {
                     const c = bar.children[i]
-                    if (c !== searchBlock && c.visible)
-                        w += c.width + bar.spacing
+                    if (c === searchBlock || !c.visible)
+                        continue
+                    if (x > 0 && x + c.width > bar.width)
+                        x = 0
+                    x += c.width + bar.spacing
                 }
-                return w
+                return Math.floor(bar.width - x) - 1
             }
-            readonly property real spare: Math.floor(bar.width - others) - 1
-            width: Math.max(140, Math.min(300, spare))
+            readonly property bool compact: room < 150
+            width: compact ? 48 : Math.min(220, room)
             height: implicitHeight
             StyledTextField {
                 id: searchField
+                visible: !searchBlock.compact
                 Layout.fillWidth: true
-                Layout.minimumWidth: 60
                 placeholderText: qsTr("Search…")
                 text: decolog.qsoModel.filterText
                 onTextEdited: decolog.qsoModel.filterText = text
@@ -550,12 +559,40 @@ Rectangle {
             }
             GlassButton {
                 text: "⌕"
-                tone: Theme.secondaryColor
+                // Con un filtro attivo e il campo nascosto la lente si accende.
+                tone: searchBlock.compact && decolog.qsoModel.filterText.length > 0 ? Theme.warningColor
+                                                                                  : Theme.secondaryColor
+                filled: searchBlock.compact && decolog.qsoModel.filterText.length > 0
                 minimumWidth: 30
                 implicitWidth: 30
                 buttonHeight: 30
                 fontPixelSize: 14
+                ToolTip.visible: hovered && searchBlock.compact
+                ToolTip.text: decolog.qsoModel.filterText.length > 0
+                              ? qsTr("Search: %1").arg(decolog.qsoModel.filterText) : qsTr("Search… (Ctrl+F)")
                 onClicked: root.focusSearch()
+            }
+
+            // Il campo quando in riga non c'e' posto: si apre sotto la lente.
+            Popup {
+                id: searchPopup
+                y: searchBlock.height + 4
+                x: parent ? parent.width - width : 0
+                width: 280
+                padding: 8
+                focus: true
+                closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+                background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 6 }
+                onOpened: { popupSearchField.forceActiveFocus(); popupSearchField.selectAll() }
+                contentItem: StyledTextField {
+                    id: popupSearchField
+                    placeholderText: qsTr("Search…")
+                    text: decolog.qsoModel.filterText
+                    onTextEdited: decolog.qsoModel.filterText = text
+                    Keys.onEscapePressed: { text = ""; decolog.qsoModel.filterText = ""; searchPopup.close() }
+                    Keys.onReturnPressed: searchPopup.close()
+                    Keys.onEnterPressed: searchPopup.close()
+                }
             }
         }
     }

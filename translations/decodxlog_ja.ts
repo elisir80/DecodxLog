@@ -7581,6 +7581,14 @@ Right click: change it</source>
         <translation>パネル</translation>
     </message>
     <message>
+        <source>Search: %1</source>
+        <translation>検索: %1</translation>
+    </message>
+    <message>
+        <source>Search… (Ctrl+F)</source>
+        <translation>検索… (Ctrl+F)</translation>
+    </message>
+    <message>
         <source>Station</source>
         <translation>局</translation>
     </message>
@@ -10375,6 +10383,18 @@ Right click: change it</source>
     <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>無線機がエラーを返しました (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
+        <translation>無線機がスプリットになりませんでした。CAT は Decodium 経由です。Decodium ではスプリットオペレーションが「無線機」または「擬似スプリット」のときだけスプリットが働きます（Decodium → 設定 → 無線機）。「なし」では無視されます。</translation>
+    </message>
+    <message>
+        <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>
+        <translation>無線機がスプリットになりませんでした。rigctld はコマンドを受け付けましたが、無線機はスプリットがオフだと答えています。</translation>
+    </message>
+    <message>
+        <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
+        <translation>無線機はまだスプリットです。無線機で、または CAT を持っているプログラムでオフにしてください。</translation>
     </message>
 </context>
 <context>

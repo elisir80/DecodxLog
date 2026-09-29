@@ -7625,6 +7625,14 @@ Labais klikšķis: mainīt</translation>
         <translation>Paneļi</translation>
     </message>
     <message>
+        <source>Search: %1</source>
+        <translation>Meklēt: %1</translation>
+    </message>
+    <message>
+        <source>Search… (Ctrl+F)</source>
+        <translation>Meklēt… (Ctrl+F)</translation>
+    </message>
+    <message>
         <source>Station</source>
         <translation>Stacija</translation>
     </message>
@@ -10495,6 +10503,18 @@ Labais klikšķis: mainīt</translation>
     <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>Radio atbildēja ar kļūdu (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
+        <translation>Radio nepārgāja split režīmā. CAT iet caur Decodium: tur split darbojas tikai ar Split operation “Rig” vai “Fake It” (Decodium → Settings → Radio). Ar “None” Decodium to ignorē.</translation>
+    </message>
+    <message>
+        <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>
+        <translation>Radio nepārgāja split režīmā: rigctld komandu pieņēma, bet radio saka, ka split ir izslēgts.</translation>
+    </message>
+    <message>
+        <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
+        <translation>Radio joprojām ir split režīmā: izslēdz to uz radio vai programmā, kas tur CAT.</translation>
     </message>
 </context>
 <context>

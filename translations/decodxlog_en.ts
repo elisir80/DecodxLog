@@ -7601,6 +7601,14 @@ Right click: change it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Search: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search… (Ctrl+F)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Station</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10432,6 +10440,18 @@ Right click: change it</source>
     </message>
     <message>
         <source>The radio answered with an error (rigctld: %1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

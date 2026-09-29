@@ -100,6 +100,14 @@ private:
     // l'ultimo comando, e le risposte piu' vecchie non lo disfano.
     quint64 m_seq{0};
     QHash<QString, quint64> m_lastSet;
+    // Dall'altra parte c'e' un ponte che risponde col valore nudo, senza RPRT:
+    // quello di Decodium. Accetta "S" ma non lo esegue; lo split lo fa solo
+    // con la frequenza TX ("I"), e solo se in Decodium lo split non e' "nessuno".
+    bool m_plainBridge{false};
+    // Dopo un comando di split si richiede alla radio se l'ha preso: se no,
+    // lo si dice, invece di lasciare la pillola che torna indietro da sola.
+    bool m_splitWanted{false};
+    quint64 m_splitCheck{0};
 };
 
 } // namespace decolog::core

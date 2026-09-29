@@ -12,6 +12,9 @@ namespace {
 // seguire il VFO, poco abbastanza da non intasare la seriale sotto rigctld.
 constexpr int kPollMs = 1500;
 constexpr int kRetryMs = 5000;
+// Quanto si aspetta prima di chiedere se lo split e' stato preso: la radio (o
+// Decodium, se il CAT passa da li') ci mette un momento a confermarlo.
+constexpr int kSplitCheckMs = 3000;
 } // namespace
 
 RigControl::RigControl(QObject* parent)
@@ -23,6 +26,7 @@ RigControl::RigControl(QObject* parent)
         m_pending.clear();
         m_lines.clear();
         m_buffer.clear();
+        m_plainBridge = false;
         refresh();
         m_poll.start();
         emit changed();
@@ -134,8 +138,20 @@ void RigControl::setSplit(bool on, qint64 txHz)
         send(QStringLiteral("setsplit"), QStringLiteral("I %1").arg(txHz), 0);
         m_lastSet.insert(QStringLiteral("txfreq"), m_seq);
         m_txHz = txHz;
+    } else if (!on && m_plainBridge) {
+        // Il ponte di Decodium lo split lo spegne con la frequenza TX a zero:
+        // "S 0" lo accetta e non fa niente. A rigctld vero non si manda.
+        send(QStringLiteral("setsplit"), QStringLiteral("I 0"), 0);
+        m_lastSet.insert(QStringLiteral("txfreq"), m_seq);
+        m_txHz = 0;
     }
     m_split = on;
+    m_splitWanted = on;
+    const quint64 check = ++m_splitCheck;
+    QTimer::singleShot(kSplitCheckMs, this, [this, check] {
+        if (check == m_splitCheck && connected())
+            send(QStringLiteral("splitcheck"), QStringLiteral("s"), 2);
+    });
     emit changed();
 }
 
@@ -256,6 +272,7 @@ void RigControl::readFromRig()
             QStringList block = m_lines;
             block << QStringLiteral("RPRT 0");
             m_lines.clear();
+            m_plainBridge = true;
             handleReply(block);
         }
     }
@@ -281,7 +298,7 @@ void RigControl::handleReply(const QStringList& lines)
                            "not every CAT bridge — can key CW: for the macros you need rigctld "
                            "talking to the radio itself.").arg(result));
         } else if (what.kind == QLatin1String("split") || what.kind == QLatin1String("txfreq")
-                   || what.kind == QLatin1String("setsplit")) {
+                   || what.kind == QLatin1String("setsplit") || what.kind == QLatin1String("splitcheck")) {
             // Questa radio lo split da qui non lo fa: non si chiede piu'.
             m_features &= ~Split;
             if (what.kind == QLatin1String("setsplit"))
@@ -327,7 +344,8 @@ void RigControl::handleReply(const QStringList& lines)
 
     // Una risposta a una domanda partita prima dell'ultimo comando dice lo
     // stato di prima: si aspetta il giro dopo.
-    if (what.seq < m_lastSet.value(what.kind, 0))
+    const QString setKind = what.kind == QLatin1String("splitcheck") ? QStringLiteral("split") : what.kind;
+    if (what.seq < m_lastSet.value(setKind, 0))
         return;
 
     bool moved = false;
@@ -335,11 +353,25 @@ void RigControl::handleReply(const QStringList& lines)
         const QString v = valueOf(label);
         return v.isEmpty() && !plain.isEmpty() ? plain.first() : v;
     };
-    if (what.kind == QLatin1String("split")) {
+    if (what.kind == QLatin1String("split") || what.kind == QLatin1String("splitcheck")) {
         const bool on = first(QStringLiteral("Split")).toInt() != 0;
         if (on != m_split) {
             m_split = on;
             moved = true;
+        }
+        // La radio non ha fatto quello che si e' chiesto: lo si dice, con
+        // la ragione piu' probabile.
+        if (what.kind == QLatin1String("splitcheck") && on != m_splitWanted) {
+            if (m_splitWanted && m_plainBridge)
+                emit failed(tr("The radio did not go split. The CAT goes through Decodium: there split works "
+                               "only with Split operation on \"Rig\" or \"Fake it\" (Decodium → Settings → "
+                               "Radio). With \"None\" Decodium ignores it."));
+            else if (m_splitWanted)
+                emit failed(tr("The radio did not go split: rigctld took the command, but the radio says "
+                               "split is off."));
+            else
+                emit failed(tr("The radio is still split: switch it off on the radio, or from the program "
+                               "that holds the CAT."));
         }
     } else if (what.kind == QLatin1String("txfreq")) {
         const qint64 hz = first(QStringLiteral("TX Frequency")).toLongLong();

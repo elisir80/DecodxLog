@@ -26,7 +26,10 @@ Popup {
         open()
     }
 
+    // In una finestra sua il popup riceve i tasti solo se ha il fuoco: senza
+    // "focus: true" il campo prende il cursore ma quello che si scrive si perde.
     popupType: Popup.Window
+    focus: true
     parent: Overlay.overlay
     anchors.centerIn: parent
     width: 520

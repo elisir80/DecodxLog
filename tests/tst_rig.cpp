@@ -29,6 +29,10 @@ public:
     int rit{0};
     int xit{0};
     bool hasRit{true};
+    // Il ponte di Decodium: "S" lo accetta e non lo fa; lo split lo accende e
+    // lo spegne la frequenza TX ("I"), ma solo se in Decodium lo split non e'
+    // "nessuno".
+    bool bridgeSplits{false};
 
     FakeRigctld()
     {
@@ -59,6 +63,14 @@ public:
                 return QStringLiteral("%1\n").arg(keyspd);
             if (cmd.startsWith(QLatin1String("b ")))
                 return QStringLiteral("RPRT -11\n");
+            if (cmd == QLatin1String("s"))
+                return QStringLiteral("%1\nVFOB\n").arg(split ? 1 : 0);
+            if (cmd == QLatin1String("i"))
+                return QStringLiteral("%1\n").arg(txFrequency);
+            if (cmd.startsWith(QLatin1String("I ")) && bridgeSplits) {
+                txFrequency = cmd.mid(2).toLongLong();
+                split = txFrequency > 0;
+            }
             return QStringLiteral("RPRT 0\n");
         }
         if (cmd == QLatin1String("f"))
@@ -179,6 +191,51 @@ private slots:
         QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+Z -200")), 5000);
         QTRY_COMPARE_WITH_TIMEOUT(control.ritHz(), 150, 8000);
         QCOMPARE(control.xitHz(), -200);
+    }
+
+    // Col CAT che passa da Decodium e lo split "nessuno" la radio non va in
+    // split: la pillola non deve tornare indietro in silenzio.
+    void splitThroughDecodiumSaysWhyItDidNotGo()
+    {
+        FakeRigctld rig;
+        rig.plainAnswers = true;
+        RigControl control;
+        QSignalSpy failed(&control, &RigControl::failed);
+        control.connectTo(QStringLiteral("127.0.0.1"), rig.serverPort());
+        QTRY_VERIFY_WITH_TIMEOUT(control.connected(), 5000);
+        QTRY_COMPARE_WITH_TIMEOUT(control.frequencyHz(), 14074000LL, 5000);
+
+        control.setSplit(true, 14075000);
+        QTRY_VERIFY_WITH_TIMEOUT(!control.split(), 8000);
+        QTRY_VERIFY_WITH_TIMEOUT(failed.count() > 0, 8000);
+        QVERIFY(failed.last().first().toString().contains(QStringLiteral("Decodium")));
+        QVERIFY(control.features() & RigLink::Split);
+    }
+
+    // Con lo split permesso in Decodium va, e si spegne con la frequenza TX a zero.
+    void splitThroughDecodiumOnAndOff()
+    {
+        FakeRigctld rig;
+        rig.plainAnswers = true;
+        rig.bridgeSplits = true;
+        RigControl control;
+        QSignalSpy failed(&control, &RigControl::failed);
+        control.connectTo(QStringLiteral("127.0.0.1"), rig.serverPort());
+        QTRY_VERIFY_WITH_TIMEOUT(control.connected(), 5000);
+        QTRY_COMPARE_WITH_TIMEOUT(control.frequencyHz(), 14074000LL, 5000);
+
+        control.setSplit(true, 14075000);
+        QTRY_VERIFY_WITH_TIMEOUT(rig.split, 5000);
+        QTest::qWait(4500);
+        QVERIFY(control.split());
+        QCOMPARE(failed.count(), 0);
+
+        control.setSplit(false);
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+I 0")), 5000);
+        QTRY_VERIFY_WITH_TIMEOUT(!rig.split, 5000);
+        QTest::qWait(4500);
+        QVERIFY(!control.split());
+        QCOMPARE(failed.count(), 0);
     }
 
     void aRadioWithoutRitStopsBeingAsked()

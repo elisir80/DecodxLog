@@ -7603,6 +7603,14 @@ Clic droit : la modifier</translation>
         <translation>Panneaux</translation>
     </message>
     <message>
+        <source>Search: %1</source>
+        <translation>Recherche : %1</translation>
+    </message>
+    <message>
+        <source>Search… (Ctrl+F)</source>
+        <translation>Rechercher… (Ctrl+F)</translation>
+    </message>
+    <message>
         <source>Station</source>
         <translation>Station</translation>
     </message>
@@ -10435,6 +10443,18 @@ Clic droit : la modifier</translation>
     <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>La radio a répondu par une erreur (rigctld : %1)</translation>
+    </message>
+    <message>
+        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
+        <translation>La radio n&apos;est pas passée en split. La CAT passe par Decodium : là, le split ne marche qu&apos;avec Opération splitée sur « Plate-forme » ou « Faire semblant » (Decodium → Paramètres → Radio). Avec « Aucun », Decodium l&apos;ignore.</translation>
+    </message>
+    <message>
+        <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>
+        <translation>La radio n&apos;est pas passée en split : rigctld a accepté la commande, mais la radio dit que le split est coupé.</translation>
+    </message>
+    <message>
+        <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
+        <translation>La radio est encore en split : coupez-le sur la radio, ou depuis le programme qui tient la CAT.</translation>
     </message>
 </context>
 <context>

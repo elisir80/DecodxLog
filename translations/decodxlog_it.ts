@@ -7603,6 +7603,14 @@ Tasto destro: modificala</translation>
         <translation>Pannelli</translation>
     </message>
     <message>
+        <source>Search: %1</source>
+        <translation>Cerca: %1</translation>
+    </message>
+    <message>
+        <source>Search… (Ctrl+F)</source>
+        <translation>Cerca… (Ctrl+F)</translation>
+    </message>
+    <message>
         <source>Station</source>
         <translation>Stazione</translation>
     </message>
@@ -10435,6 +10443,18 @@ Tasto destro: modificala</translation>
     <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>La radio ha risposto con un errore (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
+        <translation>La radio non è andata in split. Il CAT passa da Decodium: lì lo split funziona solo con Operazione split su «Impianto» o «Simula» (Decodium → Impostazioni → Radio). Con «Nessuna» Decodium lo ignora.</translation>
+    </message>
+    <message>
+        <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>
+        <translation>La radio non è andata in split: rigctld ha preso il comando, ma la radio dice che lo split è spento.</translation>
+    </message>
+    <message>
+        <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
+        <translation>La radio è ancora in split: spegnilo dalla radio, o dal programma che tiene il CAT.</translation>
     </message>
 </context>
 <context>

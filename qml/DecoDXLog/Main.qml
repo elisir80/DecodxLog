@@ -996,6 +996,11 @@ ApplicationWindow {
         }
         else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))
         else if (what[0] === "logs") logsDialog.openDialog()
+        // La ricerca in alto (Ctrl+F): con poco posto si apre sotto la lente.
+        else if (what[0] === "search") {
+            if (what[1]) decolog.qsoModel.filterText = what[1]
+            Qt.callLater(window.focusSearch)
+        }
         else if (what[0] === "activation") { activationDialog.openDialog(what[1] || ""); if (what[2] === "choose") Qt.callLater(activationDialog.chooseContest) }
         else if (what[0] === "modes") window.panelItem("newqso").showModes()
         // Per le prove: apre tutte le finestre due volte di fila. Due volte

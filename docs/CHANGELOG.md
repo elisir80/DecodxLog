@@ -3,6 +3,27 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.40 — 29 settembre 2026
+
+**Le macro CW si scrivono davvero.** Nella finestra delle macro (pannello CW → «Macro…» o
+tasto destro su un tasto) il campo prendeva il cursore ma i tasti si perdevano: la finestra
+e' un popup a se', e Qt gli consegna la tastiera solo se il popup chiede il fuoco. Adesso lo
+chiede, e quello che si scrive arriva al campo e si salva. Lo stesso guaio c'era nella
+modifica di piu' QSO insieme, nella scelta delle colonne e nel colore scritto a mano:
+corretto anche li'.
+
+**Lo split dice perche' non va.** Col CAT che passa da Decodium (porta 4533) il comando di
+split («S») il ponte di Decodium lo accetta e non lo esegue: lo split lo fa solo con la
+frequenza di trasmissione, e solo se in Decodium Operazione split e' «Impianto» o
+«Simula» — con «Nessuna» lo ignora, e la pillola SPLIT tornava spenta da sola, senza una
+parola. Adesso, tre secondi dopo il comando, DecoDXLog chiede alla radio se lo split c'e'
+e, se no, lo dice con la ragione e dove cambiarla. Con Decodium anche «Split spento»
+funziona: si manda la frequenza di trasmissione a zero, che e' quello che il ponte capisce.
+
+- La ricerca in alto non va piu' a capo e non si allunga: al massimo 220 punti, e prende
+  solo lo spazio che resta sulla riga. Se non basta per il campo resta la lente (accesa se
+  c'e' un filtro), che apre il campo sotto la barra; Ctrl+F fa lo stesso.
+
 ## 1.16.39 — 29 settembre 2026
 
 **Le macro CW cambiate restano cambiate.** Nella lista delle macro ogni salvataggio rifaceva

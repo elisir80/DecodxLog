@@ -28,7 +28,10 @@ Popup {
     property bool allowWidths: true
 
     // Una finestra sua: il log puo' essere un pannello stretto della lavagna.
+    // In una finestra sua il popup riceve i tasti solo se ha il fuoco: senza
+    // "focus: true" il campo prende il cursore ma quello che si scrive si perde.
     popupType: Popup.Window
+    focus: true
     parent: Overlay.overlay
     anchors.centerIn: parent
     // Misura fissa: la lista delle colonne e' lunga e scorre, la finestra no.

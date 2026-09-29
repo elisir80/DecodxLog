@@ -7625,6 +7625,14 @@ Clic dreapta: modific-o</translation>
         <translation>Panouri</translation>
     </message>
     <message>
+        <source>Search: %1</source>
+        <translation>Caută: %1</translation>
+    </message>
+    <message>
+        <source>Search… (Ctrl+F)</source>
+        <translation>Caută… (Ctrl+F)</translation>
+    </message>
+    <message>
         <source>Station</source>
         <translation>Stație</translation>
     </message>
@@ -10495,6 +10503,18 @@ Clic dreapta: modific-o</translation>
     <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>Stația a răspuns cu o eroare (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
+        <translation>Aparatul nu a trecut în split. CAT-ul trece prin Decodium: acolo split-ul merge doar cu Lucru în split pe „Aparat” sau „Simulează” (Decodium → Setări → Aparat). Cu „Niciunul” Decodium îl ignoră.</translation>
+    </message>
+    <message>
+        <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>
+        <translation>Aparatul nu a trecut în split: rigctld a primit comanda, dar aparatul spune că split-ul e oprit.</translation>
+    </message>
+    <message>
+        <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
+        <translation>Aparatul e încă în split: oprește-l de pe aparat sau din programul care ține CAT-ul.</translation>
     </message>
 </context>
 <context>

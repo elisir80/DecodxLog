@@ -7581,6 +7581,14 @@ Right click: change it</source>
         <translation>面板</translation>
     </message>
     <message>
+        <source>Search: %1</source>
+        <translation>搜索：%1</translation>
+    </message>
+    <message>
+        <source>Search… (Ctrl+F)</source>
+        <translation>搜索…（Ctrl+F）</translation>
+    </message>
+    <message>
         <source>Station</source>
         <translation>电台</translation>
     </message>
@@ -10375,6 +10383,18 @@ Right click: change it</source>
     <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>电台回了一个错误 (rigctld：%1)</translation>
+    </message>
+    <message>
+        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
+        <translation>电台没有进入异频（split）。CAT 经由 Decodium：在那里只有当分体操作设为“无线电设备”或“软件虚拟”时才会异频（Decodium → 设置 → 无线电）。设为“无”时 Decodium 会忽略它。</translation>
+    </message>
+    <message>
+        <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>
+        <translation>电台没有进入异频：rigctld 接受了命令，但电台报告异频已关闭。</translation>
+    </message>
+    <message>
+        <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
+        <translation>电台仍处于异频：请在电台上或在控制 CAT 的程序中关闭它。</translation>
     </message>
 </context>
 <context>

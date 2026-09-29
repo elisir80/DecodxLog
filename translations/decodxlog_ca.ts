@@ -7603,6 +7603,14 @@ Clic dret: modificar-la</translation>
         <translation>Plafons</translation>
     </message>
     <message>
+        <source>Search: %1</source>
+        <translation>Cerca: %1</translation>
+    </message>
+    <message>
+        <source>Search… (Ctrl+F)</source>
+        <translation>Cerca… (Ctrl+F)</translation>
+    </message>
+    <message>
         <source>Station</source>
         <translation>Estació</translation>
     </message>
@@ -10435,6 +10443,18 @@ Clic dret: modificar-la</translation>
     <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>La ràdio ha respost amb un error (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
+        <translation>La ràdio no ha passat a split. El CAT passa per Decodium: allà el split només funciona amb Funcionament divisió a «Equip» o «Falseja-ho» (Decodium → Configuració → Ràdio). Amb «Cap» Decodium l&apos;ignora.</translation>
+    </message>
+    <message>
+        <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>
+        <translation>La ràdio no ha passat a split: rigctld ha acceptat l&apos;ordre, però la ràdio diu que el split és apagat.</translation>
+    </message>
+    <message>
+        <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
+        <translation>La ràdio encara és en split: apaga&apos;l a la ràdio o des del programa que té el CAT.</translation>
     </message>
 </context>
 <context>

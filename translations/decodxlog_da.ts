@@ -7603,6 +7603,14 @@ Højreklik: ret den</translation>
         <translation>Paneler</translation>
     </message>
     <message>
+        <source>Search: %1</source>
+        <translation>Søg: %1</translation>
+    </message>
+    <message>
+        <source>Search… (Ctrl+F)</source>
+        <translation>Søg… (Ctrl+F)</translation>
+    </message>
+    <message>
         <source>Station</source>
         <translation>Station</translation>
     </message>
@@ -10435,6 +10443,18 @@ Højreklik: ret den</translation>
     <message>
         <source>The radio answered with an error (rigctld: %1)</source>
         <translation>Radioen svarede med en fejl (rigctld: %1)</translation>
+    </message>
+    <message>
+        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
+        <translation>Radioen gik ikke i split. CAT går gennem Decodium: der virker split kun med Opdelt drift på »Rig« eller »Falske det« (Decodium → Indstillinger → Radio). Med »Ingen« ignorerer Decodium det.</translation>
+    </message>
+    <message>
+        <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>
+        <translation>Radioen gik ikke i split: rigctld tog kommandoen, men radioen siger at split er slået fra.</translation>
+    </message>
+    <message>
+        <source>The radio is still split: switch it off on the radio, or from the program that holds the CAT.</source>
+        <translation>Radioen er stadig i split: slå det fra på radioen eller i det program, der har CAT.</translation>
     </message>
 </context>
 <context>
