@@ -129,9 +129,24 @@ ColumnLayout {
             onClicked: root.only = -1
         }
         Item { Layout.fillWidth: true }
+        // Riporta tutte le macro a quelle di partenza: al primo clic chiede
+        // conferma, al secondo (entro quattro secondi) lo fa.
         GlassButton {
-            text: qsTr("Default macros")
-            onClicked: decolog.rig.resetMacros()
+            id: resetButton
+            property bool armed: false
+            text: armed ? qsTr("Sure? Click again") : qsTr("Default macros")
+            tone: armed ? Theme.errorColor : "transparent"
+            onClicked: {
+                if (!armed) {
+                    armed = true
+                    disarm.restart()
+                    return
+                }
+                armed = false
+                disarm.stop()
+                decolog.rig.resetMacros()
+            }
+            Timer { id: disarm; interval: 4000; onTriggered: resetButton.armed = false }
         }
     }
 }

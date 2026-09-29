@@ -2295,6 +2295,10 @@ Right click: change it</source>
         <source>Default macros</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Sure? Click again</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CwPanel</name>
@@ -8259,6 +8263,13 @@ Right click: change it</source>
         <source>Cloud: sign in first</source>
         <translation type="unfinished"></translation>
     </message>
+    <message numerus="yes">
+        <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
         <source>Cloud: the vault did not open</source>
         <translation type="unfinished"></translation>
@@ -10443,7 +10454,15 @@ Right click: change it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
+        <source>The radio did not go split. The CAT goes through Decodium, and Decodium does not carry out split asked by other programs: it manages split itself, for FT8. For split from DecoDXLog, DecoDXLog must hold the CAT of the radio.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Decodium moved the transmit frequency to %1 MHz: it manages split itself, for FT8, and overrides the one from DecoDXLog. For split from DecoDXLog, DecoDXLog must hold the CAT of the radio.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The radio is transmitting on %1 MHz, not where the split put it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

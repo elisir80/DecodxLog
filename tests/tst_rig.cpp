@@ -33,6 +33,9 @@ public:
     // lo spegne la frequenza TX ("I"), ma solo se in Decodium lo split non e'
     // "nessuno".
     bool bridgeSplits{false};
+    // Decodium in split "Impianto"/"Simula": prende la frequenza TX e poi se
+    // la rifa' da se' per l'FT8 (qui: 1 kHz sotto la ricezione).
+    bool bridgeOverridesTx{false};
 
     FakeRigctld()
     {
@@ -70,6 +73,8 @@ public:
             if (cmd.startsWith(QLatin1String("I ")) && bridgeSplits) {
                 txFrequency = cmd.mid(2).toLongLong();
                 split = txFrequency > 0;
+                if (split && bridgeOverridesTx)
+                    txFrequency = frequency - 1000;
             }
             return QStringLiteral("RPRT 0\n");
         }
@@ -236,6 +241,27 @@ private slots:
         QTest::qWait(4500);
         QVERIFY(!control.split());
         QCOMPARE(failed.count(), 0);
+    }
+
+    // Decodium tiene lo split ma sposta la trasmissione dove vuole lui: si dice.
+    void splitThroughDecodiumMovedTxSaysSo()
+    {
+        FakeRigctld rig;
+        rig.plainAnswers = true;
+        rig.bridgeSplits = true;
+        rig.bridgeOverridesTx = true;
+        RigControl control;
+        QSignalSpy failed(&control, &RigControl::failed);
+        control.connectTo(QStringLiteral("127.0.0.1"), rig.serverPort());
+        QTRY_VERIFY_WITH_TIMEOUT(control.connected(), 5000);
+        QTRY_COMPARE_WITH_TIMEOUT(control.frequencyHz(), 14074000LL, 5000);
+
+        control.setSplit(true, 14075000);
+        QTRY_VERIFY_WITH_TIMEOUT(failed.count() > 0, 8000);
+        const QString message = failed.last().first().toString();
+        QVERIFY(message.contains(QStringLiteral("Decodium")));
+        QVERIFY(message.contains(QStringLiteral("14.0730")));
+        QCOMPARE(control.txFrequencyHz(), 14073000LL);
     }
 
     void aRadioWithoutRitStopsBeingAsked()

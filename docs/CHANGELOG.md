@@ -3,6 +3,32 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.41 — 30 settembre 2026
+
+**Ogni tasto macro manda la sua macro.** Nel pannello CW (e nella finestra del contest) tutti
+i tasti mandavano la prima macro, il CQ, e il tasto destro apriva sempre la prima da
+modificare: il numero della macro del tasto si chiamava come quello che il Repeater mette
+nel delegato, e quello del tasto restava 0. Adesso ha un nome suo; {CALL}, {RST}, {NR} ed
+{EXCH} si riempiono come prima. I tasti F1–F12 della tastiera andavano gia' giusti.
+
+**Le macro cambiate restano cambiate.**
+- Le macro tolte non tornano al riavvio: il passaggio da otto a dodici (per chi veniva
+  dalle versioni con otto) si faceva a ogni avvio, e chi ne teneva otto se ne ritrovava
+  dodici. Adesso si fa una volta sola.
+- Il Cloud non riporta indietro quello che si e' cambiato qui e non e' ancora partito:
+  arrivando le impostazioni da un altro computer (o da un altro log), vince la modifica
+  fatta qui, che sale al sync dopo. Il resto arriva come sempre.
+- «Macro di partenza» chiede conferma: al primo clic «Sicuro? Clicca di nuovo».
+
+**Split col CAT di Decodium: detto com'e'.** Nella 1.16.40 il consiglio era mettere in
+Decodium l'Operazione split su «Impianto» o «Simula»: non basta. Decodium lo split lo
+gestisce da se' per l'FT8 e a ogni cambio di frequenza si rifa' la frequenza di
+trasmissione, sovrascrivendo quella di DecoDXLog; con «Simula» poi la radio in split non
+ci va proprio, e il CW di DecoDXLog esce sulla frequenza di ricezione. Adesso DecoDXLog,
+tre secondi dopo lo split, controlla anche dove la radio trasmette e lo dice: per lo split
+da DecoDXLog il CAT della radio lo deve tenere DecoDXLog (e Decodium si collega alla CAT
+condivisa di DecoDXLog).
+
 ## 1.16.40 — 29 settembre 2026
 
 **Le macro CW si scrivono davvero.** Nella finestra delle macro (pannello CW → «Macro…» o

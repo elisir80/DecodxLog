@@ -2306,6 +2306,10 @@ Clic dreapta: modific-o</translation>
         <source>Default macros</source>
         <translation>Macrouri implicite</translation>
     </message>
+    <message>
+        <source>Sure? Click again</source>
+        <translation>Sigur? Mai apasă o dată</translation>
+    </message>
 </context>
 <context>
     <name>CwPanel</name>
@@ -8290,6 +8294,14 @@ Clic dreapta: modific-o</translation>
         <source>Cloud: sign in first</source>
         <translation>Cloud: intră mai întâi în cont</translation>
     </message>
+    <message numerus="yes">
+        <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
+        <translation>
+            <numerusform>Cloud: %n setare schimbată aici păstrată (pleacă la următoarea sincronizare)</numerusform>
+            <numerusform>Cloud: %n setări schimbate aici păstrate (pleacă la următoarea sincronizare)</numerusform>
+            <numerusform>Cloud: %n de setări schimbate aici păstrate (pleacă la următoarea sincronizare)</numerusform>
+        </translation>
+    </message>
     <message>
         <source>Cloud: the vault did not open</source>
         <translation>Cloud: seiful nu s-a deschis</translation>
@@ -10505,8 +10517,16 @@ Clic dreapta: modific-o</translation>
         <translation>Stația a răspuns cu o eroare (rigctld: %1)</translation>
     </message>
     <message>
-        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
-        <translation>Aparatul nu a trecut în split. CAT-ul trece prin Decodium: acolo split-ul merge doar cu Lucru în split pe „Aparat” sau „Simulează” (Decodium → Setări → Aparat). Cu „Niciunul” Decodium îl ignoră.</translation>
+        <source>The radio did not go split. The CAT goes through Decodium, and Decodium does not carry out split asked by other programs: it manages split itself, for FT8. For split from DecoDXLog, DecoDXLog must hold the CAT of the radio.</source>
+        <translation>Aparatul nu a trecut în split. CAT-ul trece prin Decodium, iar Decodium nu execută split-ul cerut de alte programe: îl gestionează singur, pentru FT8. Pentru split din DecoDXLog, CAT-ul aparatului trebuie să-l țină DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>Decodium moved the transmit frequency to %1 MHz: it manages split itself, for FT8, and overrides the one from DecoDXLog. For split from DecoDXLog, DecoDXLog must hold the CAT of the radio.</source>
+        <translation>Decodium a mutat frecvența de emisie la %1 MHz: gestionează singur split-ul, pentru FT8, și îl suprascrie pe cel din DecoDXLog. Pentru split din DecoDXLog, CAT-ul aparatului trebuie să-l țină DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>The radio is transmitting on %1 MHz, not where the split put it.</source>
+        <translation>Aparatul emite pe %1 MHz, nu unde l-a pus split-ul.</translation>
     </message>
     <message>
         <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>

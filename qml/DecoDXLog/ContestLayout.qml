@@ -381,6 +381,7 @@ Item {
         function showModes() { if (item && item.showModes !== undefined) item.showModes() }
         function showCombo() { if (item && item.showCombo !== undefined) item.showCombo() }
         function showMacros(i) { if (item && item.showMacros !== undefined) item.showMacros(i) }
+        function keyTargets() { return item && item.keyTargets !== undefined ? item.keyTargets() : [] }
 
         function sourceOf(k) {
             switch (k) {

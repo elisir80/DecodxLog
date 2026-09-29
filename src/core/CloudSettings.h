@@ -42,8 +42,19 @@ QVariantMap collect(QSettings& settings,
 // Scrive quello che e' arrivato e dice quante impostazioni sono cambiate.
 // `dryRun` conta senza scrivere: serve alle prove da riga di comando, che non
 // devono toccare la stazione vera. `profileForUuid` fa la traduzione inversa.
+//
+// `base` e' quello che c'era l'ultima volta che questo computer e il Cloud
+// erano d'accordo. Un'impostazione cambiata qui da allora (diversa da `base`)
+// e non ancora mandata non si lascia riscrivere: vince la modifica fatta qui,
+// che parte al prossimo invio. Senza `base` arriva tutto, come prima. Le
+// chiavi tenute cosi' finiscono in `keptLocal`.
 int apply(QSettings& settings, const QVariantMap& values, bool dryRun = false,
-          const std::function<qint64(const QString&)>& profileForUuid = {});
+          const std::function<qint64(const QString&)>& profileForUuid = {},
+          const QVariantMap* base = nullptr, QStringList* keptLocal = nullptr);
+
+// Vero se due valori (come li da' `collect`) dicono la stessa cosa: un numero
+// letto dal file come testo e lo stesso numero scritto come numero sono uguali.
+bool sameValue(const QVariant& a, const QVariant& b);
 
 // Una firma stabile: le chiavi in ordine, il JSON compatto, e l'impronta.
 QString fingerprint(const QVariantMap& values);

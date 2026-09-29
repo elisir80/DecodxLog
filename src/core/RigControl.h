@@ -107,6 +107,7 @@ private:
     // Dopo un comando di split si richiede alla radio se l'ha preso: se no,
     // lo si dice, invece di lasciare la pillola che torna indietro da sola.
     bool m_splitWanted{false};
+    qint64 m_splitTxWanted{0};
     quint64 m_splitCheck{0};
 };
 

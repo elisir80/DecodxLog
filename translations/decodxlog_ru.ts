@@ -2306,6 +2306,10 @@ Right click: change it</source>
         <source>Default macros</source>
         <translation>Макросы по умолчанию</translation>
     </message>
+    <message>
+        <source>Sure? Click again</source>
+        <translation>Точно? Нажмите ещё раз</translation>
+    </message>
 </context>
 <context>
     <name>CwPanel</name>
@@ -8290,6 +8294,14 @@ Right click: change it</source>
         <source>Cloud: sign in first</source>
         <translation>Cloud: сначала войдите</translation>
     </message>
+    <message numerus="yes">
+        <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
+        <translation>
+            <numerusform>Cloud: %n настройка, изменённая здесь, сохранена (уйдёт при следующей синхронизации)</numerusform>
+            <numerusform>Cloud: %n настройки, изменённые здесь, сохранены (уйдут при следующей синхронизации)</numerusform>
+            <numerusform>Cloud: %n настроек, изменённых здесь, сохранены (уйдут при следующей синхронизации)</numerusform>
+        </translation>
+    </message>
     <message>
         <source>Cloud: the vault did not open</source>
         <translation>Cloud: сейф не открылся</translation>
@@ -10505,8 +10517,16 @@ Right click: change it</source>
         <translation>Трансивер ответил ошибкой (rigctld: %1)</translation>
     </message>
     <message>
-        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
-        <translation>Трансивер не перешёл в сплит. CAT идёт через Decodium: там сплит работает только при «Разделенная операция» = «Трансивер» или «Подделать это» (Decodium → Настройки → Радио). При «Нет» Decodium его игнорирует.</translation>
+        <source>The radio did not go split. The CAT goes through Decodium, and Decodium does not carry out split asked by other programs: it manages split itself, for FT8. For split from DecoDXLog, DecoDXLog must hold the CAT of the radio.</source>
+        <translation>Трансивер не перешёл в сплит. CAT идёт через Decodium, а Decodium не выполняет сплит, запрошенный другими программами: он управляет сплитом сам, для FT8. Для сплита из DecoDXLog CAT трансивера должен держать DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>Decodium moved the transmit frequency to %1 MHz: it manages split itself, for FT8, and overrides the one from DecoDXLog. For split from DecoDXLog, DecoDXLog must hold the CAT of the radio.</source>
+        <translation>Decodium перенёс частоту передачи на %1 МГц: он управляет сплитом сам, для FT8, и перезаписывает сплит DecoDXLog. Для сплита из DecoDXLog CAT трансивера должен держать DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>The radio is transmitting on %1 MHz, not where the split put it.</source>
+        <translation>Трансивер передаёт на %1 МГц, а не там, где его поставил сплит.</translation>
     </message>
     <message>
         <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>

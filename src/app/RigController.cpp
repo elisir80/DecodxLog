@@ -1161,14 +1161,26 @@ void RigController::loadMacros()
         out << QVariantMap{{QStringLiteral("label"), object.value(QStringLiteral("label")).toString()},
                            {QStringLiteral("text"), object.value(QStringLiteral("text")).toString()}};
     }
-    // Chi aveva le otto di prima le tiene, e trova le quattro nuove in fondo.
+    // Chi aveva le otto di prima le tiene, e trova le quattro nuove in fondo —
+    // una volta sola. Prima succedeva a ogni avvio: chi ne toglieva quattro
+    // e restava con otto se le ritrovava tutte al riavvio.
     const QVariantList defaults = defaultMacros();
-    if (out.size() == 8)
-        out += defaults.mid(8);
+    QSettings grown;
+    bool grewNow = false;
+    if (!grown.value(QStringLiteral("cw/macrosGrownTo12"), false).toBool()) {
+        if (out.size() == 8) {
+            out += defaults.mid(8);
+            grewNow = true;
+        }
+        grown.setValue(QStringLiteral("cw/macrosGrownTo12"), true);
+    }
     // Quante ne ha scelte l'operatore, da una a kMaxMacros.
     if (out.size() > kMaxMacros)
         out = out.mid(0, kMaxMacros);
     m_macros = out.isEmpty() ? defaults : out;
+    // Le quattro aggiunte si scrivono subito: il segno "fatto" c'e' gia'.
+    if (grewNow)
+        saveMacros();
 
     // Fino alla 1.16.36 il tasto mostrava "F1" e poi la scritta, e "F1" non si
     // cambiava. Adesso la scritta e' tutta della macro: a quelle salvate prima

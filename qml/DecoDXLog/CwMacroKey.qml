@@ -12,7 +12,11 @@ import Decodium.UI
 Item {
     id: root
 
-    property int index: 0
+    // Quale macro manda il tasto. Non si chiama "index" apposta: il Repeater
+    // mette nel delegato un suo "index", e un secondo "index" dichiarato li'
+    // copriva questo — che restava 0 per tutti i tasti, e ogni tasto mandava
+    // la prima macro (il CQ) e apriva la prima da modificare.
+    property int macroIndex: 0
     property var macro: ({})
     property color tone: "transparent"
     property int keyHeight: 28
@@ -23,7 +27,7 @@ Item {
     signal editRequested(int index)
 
     readonly property string caption: (root.macro.label || "").trim().length > 0
-                                      ? root.macro.label : "F" + (root.index + 1)
+                                      ? root.macro.label : "F" + (root.macroIndex + 1)
     readonly property bool toned: tone.a > 0
 
     implicitWidth: 60
@@ -35,7 +39,7 @@ Item {
         enabled: root.sendEnabled
         focusPolicy: Qt.TabFocus
         opacity: enabled ? 1.0 : 0.45
-        onClicked: root.sendRequested(root.index)
+        onClicked: root.sendRequested(root.macroIndex)
         contentItem: Text {
             text: root.caption
             elide: Text.ElideRight
@@ -67,7 +71,7 @@ Item {
         anchors.fill: parent
         acceptedButtons: Qt.RightButton
         hoverEnabled: true
-        onClicked: root.editRequested(root.index)
+        onClicked: root.editRequested(root.macroIndex)
     }
 
     ToolTip.visible: area.containsMouse

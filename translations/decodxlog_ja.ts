@@ -2288,6 +2288,10 @@ Right click: change it</source>
         <source>Default macros</source>
         <translation>はじめのマクロ</translation>
     </message>
+    <message>
+        <source>Sure? Click again</source>
+        <translation>本当に？もう一度クリック</translation>
+    </message>
 </context>
 <context>
     <name>CwPanel</name>
@@ -8232,6 +8236,12 @@ Right click: change it</source>
         <source>Cloud: sign in first</source>
         <translation>Cloud: 先にログインしてください</translation>
     </message>
+    <message numerus="yes">
+        <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
+        <translation>
+            <numerusform>Cloud: ここで変更した設定 %n 件を保持しました（次の同期で送信）</numerusform>
+        </translation>
+    </message>
     <message>
         <source>Cloud: the vault did not open</source>
         <translation>Cloud: 金庫が開きませんでした</translation>
@@ -10385,8 +10395,16 @@ Right click: change it</source>
         <translation>無線機がエラーを返しました (rigctld: %1)</translation>
     </message>
     <message>
-        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
-        <translation>無線機がスプリットになりませんでした。CAT は Decodium 経由です。Decodium ではスプリットオペレーションが「無線機」または「擬似スプリット」のときだけスプリットが働きます（Decodium → 設定 → 無線機）。「なし」では無視されます。</translation>
+        <source>The radio did not go split. The CAT goes through Decodium, and Decodium does not carry out split asked by other programs: it manages split itself, for FT8. For split from DecoDXLog, DecoDXLog must hold the CAT of the radio.</source>
+        <translation>無線機がスプリットになりませんでした。CAT は Decodium 経由ですが、Decodium は他のプログラムからのスプリット要求を実行しません（FT8 のために自分で管理します）。DecoDXLog からスプリットするには、無線機の CAT を DecoDXLog が持つ必要があります。</translation>
+    </message>
+    <message>
+        <source>Decodium moved the transmit frequency to %1 MHz: it manages split itself, for FT8, and overrides the one from DecoDXLog. For split from DecoDXLog, DecoDXLog must hold the CAT of the radio.</source>
+        <translation>Decodium が送信周波数を %1 MHz に移動しました。スプリットは FT8 のために Decodium が自分で管理し、DecoDXLog の設定を上書きします。DecoDXLog からスプリットするには、無線機の CAT を DecoDXLog が持つ必要があります。</translation>
+    </message>
+    <message>
+        <source>The radio is transmitting on %1 MHz, not where the split put it.</source>
+        <translation>無線機は %1 MHz で送信しています。スプリットで設定した周波数ではありません。</translation>
     </message>
     <message>
         <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>

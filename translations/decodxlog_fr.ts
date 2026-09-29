@@ -2297,6 +2297,10 @@ Clic droit : la modifier</translation>
         <source>Default macros</source>
         <translation>Macros par défaut</translation>
     </message>
+    <message>
+        <source>Sure? Click again</source>
+        <translation>Sûr ? Cliquez encore</translation>
+    </message>
 </context>
 <context>
     <name>CwPanel</name>
@@ -8261,6 +8265,13 @@ Clic droit : la modifier</translation>
         <source>Cloud: sign in first</source>
         <translation>Cloud : connectez-vous d&apos;abord</translation>
     </message>
+    <message numerus="yes">
+        <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
+        <translation>
+            <numerusform>Cloud : %n réglage modifié ici conservé (il part à la prochaine synchro)</numerusform>
+            <numerusform>Cloud : %n réglages modifiés ici conservés (ils partent à la prochaine synchro)</numerusform>
+        </translation>
+    </message>
     <message>
         <source>Cloud: the vault did not open</source>
         <translation>Cloud : le coffre ne s&apos;est pas ouvert</translation>
@@ -10445,8 +10456,16 @@ Clic droit : la modifier</translation>
         <translation>La radio a répondu par une erreur (rigctld : %1)</translation>
     </message>
     <message>
-        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
-        <translation>La radio n&apos;est pas passée en split. La CAT passe par Decodium : là, le split ne marche qu&apos;avec Opération splitée sur « Plate-forme » ou « Faire semblant » (Decodium → Paramètres → Radio). Avec « Aucun », Decodium l&apos;ignore.</translation>
+        <source>The radio did not go split. The CAT goes through Decodium, and Decodium does not carry out split asked by other programs: it manages split itself, for FT8. For split from DecoDXLog, DecoDXLog must hold the CAT of the radio.</source>
+        <translation>La radio n&apos;est pas passée en split. La CAT passe par Decodium, et Decodium n&apos;exécute pas le split demandé par d&apos;autres programmes : il gère le split lui-même, pour le FT8. Pour le split depuis DecoDXLog, c&apos;est DecoDXLog qui doit tenir la CAT de la radio.</translation>
+    </message>
+    <message>
+        <source>Decodium moved the transmit frequency to %1 MHz: it manages split itself, for FT8, and overrides the one from DecoDXLog. For split from DecoDXLog, DecoDXLog must hold the CAT of the radio.</source>
+        <translation>Decodium a déplacé la fréquence d&apos;émission à %1 MHz : il gère le split lui-même, pour le FT8, et écrase celui de DecoDXLog. Pour le split depuis DecoDXLog, c&apos;est DecoDXLog qui doit tenir la CAT de la radio.</translation>
+    </message>
+    <message>
+        <source>The radio is transmitting on %1 MHz, not where the split put it.</source>
+        <translation>La radio émet sur %1 MHz, pas là où le split l&apos;a mise.</translation>
     </message>
     <message>
         <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>

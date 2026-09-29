@@ -2306,6 +2306,10 @@ Labais klikšķis: mainīt</translation>
         <source>Default macros</source>
         <translation>Noklusētie makro</translation>
     </message>
+    <message>
+        <source>Sure? Click again</source>
+        <translation>Droši? Noklikšķini vēlreiz</translation>
+    </message>
 </context>
 <context>
     <name>CwPanel</name>
@@ -8290,6 +8294,14 @@ Labais klikšķis: mainīt</translation>
         <source>Cloud: sign in first</source>
         <translation>Cloud: vispirms pieteicies</translation>
     </message>
+    <message numerus="yes">
+        <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
+        <translation>
+            <numerusform>Cloud: saglabāts %n šeit mainīts iestatījums (aizies nākamajā sinhronizācijā)</numerusform>
+            <numerusform>Cloud: saglabāti %n šeit mainīti iestatījumi (aizies nākamajā sinhronizācijā)</numerusform>
+            <numerusform>Cloud: saglabāti %n šeit mainīti iestatījumi (aizies nākamajā sinhronizācijā)</numerusform>
+        </translation>
+    </message>
     <message>
         <source>Cloud: the vault did not open</source>
         <translation>Cloud: seifs neatvērās</translation>
@@ -10505,8 +10517,16 @@ Labais klikšķis: mainīt</translation>
         <translation>Radio atbildēja ar kļūdu (rigctld: %1)</translation>
     </message>
     <message>
-        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
-        <translation>Radio nepārgāja split režīmā. CAT iet caur Decodium: tur split darbojas tikai ar Split operation “Rig” vai “Fake It” (Decodium → Settings → Radio). Ar “None” Decodium to ignorē.</translation>
+        <source>The radio did not go split. The CAT goes through Decodium, and Decodium does not carry out split asked by other programs: it manages split itself, for FT8. For split from DecoDXLog, DecoDXLog must hold the CAT of the radio.</source>
+        <translation>Radio nepārgāja split režīmā. CAT iet caur Decodium, un Decodium neizpilda citu programmu pieprasītu split: to pārvalda pats, FT8 vajadzībām. Split no DecoDXLog prasa, lai radio CAT turētu DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>Decodium moved the transmit frequency to %1 MHz: it manages split itself, for FT8, and overrides the one from DecoDXLog. For split from DecoDXLog, DecoDXLog must hold the CAT of the radio.</source>
+        <translation>Decodium pārcēla raidīšanas frekvenci uz %1 MHz: split tas pārvalda pats, FT8 vajadzībām, un pārraksta DecoDXLog iestatīto. Split no DecoDXLog prasa, lai radio CAT turētu DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>The radio is transmitting on %1 MHz, not where the split put it.</source>
+        <translation>Radio raida uz %1 MHz, nevis tur, kur to nolika split.</translation>
     </message>
     <message>
         <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>

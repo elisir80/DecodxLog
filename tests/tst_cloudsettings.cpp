@@ -107,6 +107,48 @@ private slots:
         QCOMPARE(s->value(QStringLiteral("theme/current")).toString(), QStringLiteral("Stellar Light"));
     }
 
+    // Le macro CW cambiate qui e non ancora mandate non tornano quelle di
+    // prima quando dal Cloud arrivano le impostazioni: vince la modifica di
+    // qui. Quello che qui non e' cambiato arriva come sempre.
+    void whatChangedHereAndWasNotSentStays()
+    {
+        QTemporaryDir dir;
+        QScopedPointer<QSettings> s(fresh(dir, QStringLiteral("m.ini")));
+        s->setValue(QStringLiteral("cw/macros"), QStringLiteral("[old]"));
+        s->setValue(QStringLiteral("theme/current"), QStringLiteral("Darkcodium"));
+        s->setValue(QStringLiteral("udp/port"), 2237);
+        const QVariantMap base = cloudsettings::collect(*s);
+
+        // Qui si cambiano le macro...
+        s->setValue(QStringLiteral("cw/macros"), QStringLiteral("[mine]"));
+        // ...e dal Cloud arriva un'altra versione, con le macro vecchie e un
+        // tema nuovo scelto sull'altro computer. La porta letta dal file e'
+        // testo, quella in memoria un numero: e' la stessa, non una modifica.
+        QVariantMap remote = base;
+        remote.insert(QStringLiteral("theme/current"), QStringLiteral("Stellar Light"));
+        remote.insert(QStringLiteral("udp/port"), QStringLiteral("2237"));
+
+        QStringList kept;
+        const int written = cloudsettings::apply(*s, remote, false, {}, &base, &kept);
+        QCOMPARE(written, 1);
+        QCOMPARE(kept, QStringList{QStringLiteral("cw/macros")});
+        QCOMPARE(s->value(QStringLiteral("cw/macros")).toString(), QStringLiteral("[mine]"));
+        QCOMPARE(s->value(QStringLiteral("theme/current")).toString(), QStringLiteral("Stellar Light"));
+
+        // Senza base (come prima) arriva tutto.
+        const int all = cloudsettings::apply(*s, remote);
+        QCOMPARE(all, 1);
+        QCOMPARE(s->value(QStringLiteral("cw/macros")).toString(), QStringLiteral("[old]"));
+    }
+
+    void sameValueReadsTextAndNumbersAlike()
+    {
+        QVERIFY(cloudsettings::sameValue(2237, QStringLiteral("2237")));
+        QVERIFY(cloudsettings::sameValue(true, QStringLiteral("true")));
+        QVERIFY(cloudsettings::sameValue(QStringList{QStringLiteral("a")}, QVariantList{QStringLiteral("a")}));
+        QVERIFY(!cloudsettings::sameValue(QStringLiteral("[old]"), QStringLiteral("[mine]")));
+    }
+
     void nothingToChangeNothingWritten()
     {
         QTemporaryDir dir;

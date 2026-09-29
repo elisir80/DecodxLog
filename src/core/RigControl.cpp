@@ -3,6 +3,8 @@
 #include <QCoreApplication>
 #include <QDebug>
 
+#include <cstdlib>
+
 #include <utility>
 
 namespace decolog::core {
@@ -147,10 +149,16 @@ void RigControl::setSplit(bool on, qint64 txHz)
     }
     m_split = on;
     m_splitWanted = on;
+    m_splitTxWanted = on ? txHz : 0;
     const quint64 check = ++m_splitCheck;
     QTimer::singleShot(kSplitCheckMs, this, [this, check] {
-        if (check == m_splitCheck && connected())
-            send(QStringLiteral("splitcheck"), QStringLiteral("s"), 2);
+        if (check != m_splitCheck || !connected())
+            return;
+        send(QStringLiteral("splitcheck"), QStringLiteral("s"), 2);
+        // E dove trasmette: Decodium, se il CAT passa da li', la frequenza di
+        // trasmissione se la rifa' da se' (per l'FT8) e la nostra sparisce.
+        if (m_splitWanted && m_splitTxWanted > 0)
+            send(QStringLiteral("txcheck"), QStringLiteral("i"), 1);
     });
     emit changed();
 }
@@ -298,7 +306,8 @@ void RigControl::handleReply(const QStringList& lines)
                            "not every CAT bridge — can key CW: for the macros you need rigctld "
                            "talking to the radio itself.").arg(result));
         } else if (what.kind == QLatin1String("split") || what.kind == QLatin1String("txfreq")
-                   || what.kind == QLatin1String("setsplit") || what.kind == QLatin1String("splitcheck")) {
+                   || what.kind == QLatin1String("setsplit") || what.kind == QLatin1String("splitcheck")
+                   || what.kind == QLatin1String("txcheck")) {
             // Questa radio lo split da qui non lo fa: non si chiede piu'.
             m_features &= ~Split;
             if (what.kind == QLatin1String("setsplit"))
@@ -344,7 +353,9 @@ void RigControl::handleReply(const QStringList& lines)
 
     // Una risposta a una domanda partita prima dell'ultimo comando dice lo
     // stato di prima: si aspetta il giro dopo.
-    const QString setKind = what.kind == QLatin1String("splitcheck") ? QStringLiteral("split") : what.kind;
+    const QString setKind = what.kind == QLatin1String("splitcheck") ? QStringLiteral("split")
+                            : what.kind == QLatin1String("txcheck")  ? QStringLiteral("txfreq")
+                                                                     : what.kind;
     if (what.seq < m_lastSet.value(setKind, 0))
         return;
 
@@ -363,15 +374,32 @@ void RigControl::handleReply(const QStringList& lines)
         // la ragione piu' probabile.
         if (what.kind == QLatin1String("splitcheck") && on != m_splitWanted) {
             if (m_splitWanted && m_plainBridge)
-                emit failed(tr("The radio did not go split. The CAT goes through Decodium: there split works "
-                               "only with Split operation on \"Rig\" or \"Fake it\" (Decodium → Settings → "
-                               "Radio). With \"None\" Decodium ignores it."));
+                emit failed(tr("The radio did not go split. The CAT goes through Decodium, and Decodium does "
+                               "not carry out split asked by other programs: it manages split itself, for "
+                               "FT8. For split from DecoDXLog, DecoDXLog must hold the CAT of the radio."));
             else if (m_splitWanted)
                 emit failed(tr("The radio did not go split: rigctld took the command, but the radio says "
                                "split is off."));
             else
                 emit failed(tr("The radio is still split: switch it off on the radio, or from the program "
                                "that holds the CAT."));
+        }
+    } else if (what.kind == QLatin1String("txcheck")) {
+        const qint64 hz = first(QStringLiteral("TX Frequency")).toLongLong();
+        if (hz > 0 && hz != m_txHz) {
+            m_txHz = hz;
+            moved = true;
+        }
+        // Lo split c'e', ma la trasmissione non e' dove l'abbiamo messa: la
+        // frequenza l'ha cambiata chi tiene il CAT.
+        if (m_splitWanted && m_splitTxWanted > 0 && std::llabs(hz - m_splitTxWanted) > 100) {
+            const QString where = QString::number(hz / 1e6, 'f', 4);
+            if (m_plainBridge)
+                emit failed(tr("Decodium moved the transmit frequency to %1 MHz: it manages split itself, "
+                               "for FT8, and overrides the one from DecoDXLog. For split from DecoDXLog, "
+                               "DecoDXLog must hold the CAT of the radio.").arg(where));
+            else
+                emit failed(tr("The radio is transmitting on %1 MHz, not where the split put it.").arg(where));
         }
     } else if (what.kind == QLatin1String("txfreq")) {
         const qint64 hz = first(QStringLiteral("TX Frequency")).toLongLong();

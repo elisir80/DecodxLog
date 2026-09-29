@@ -27,6 +27,13 @@ GlassPanel {
     function showCombo() { audioBox.popup.open() }
     // Per le schermate di prova: le macro da scrivere, una (0-11) o tutte (-1).
     function showMacros(index) { if (index >= 0) macroEditor.openFor(index); else macroEditor.openAll() }
+    // Per le prove: quale macro manda ogni tasto, nell'ordine della griglia.
+    function keyTargets() {
+        const out = []
+        for (let i = 0; i < macroKeys.count; ++i)
+            out.push(macroKeys.itemAt(i).macroIndex)
+        return out
+    }
 
     function cwContext() {
         return {
@@ -124,10 +131,12 @@ GlassPanel {
             columnSpacing: 6
             rowSpacing: 6
             Repeater {
+                id: macroKeys
                 model: root.rig.macros
                 CwMacroKey {
                     required property var modelData
                     required property int index
+                    macroIndex: index
                     Layout.fillWidth: true
                     Layout.preferredWidth: 1
                     Layout.minimumWidth: 0

@@ -2288,6 +2288,10 @@ Right click: change it</source>
         <source>Default macros</source>
         <translation>預設巨集</translation>
     </message>
+    <message>
+        <source>Sure? Click again</source>
+        <translation>確定？再點一次</translation>
+    </message>
 </context>
 <context>
     <name>CwPanel</name>
@@ -8232,6 +8236,12 @@ Right click: change it</source>
         <source>Cloud: sign in first</source>
         <translation>Cloud：請先登入</translation>
     </message>
+    <message numerus="yes">
+        <source>Cloud: %n setting(s) changed here kept (they go up at the next sync)</source>
+        <translation>
+            <numerusform>Cloud：保留了 %n 項在此處變更的設定（下次同步時上傳）</numerusform>
+        </translation>
+    </message>
     <message>
         <source>Cloud: the vault did not open</source>
         <translation>Cloud：保險箱沒能打開</translation>
@@ -10385,8 +10395,16 @@ Right click: change it</source>
         <translation>電台回了一個錯誤 (rigctld：%1)</translation>
     </message>
     <message>
-        <source>The radio did not go split. The CAT goes through Decodium: there split works only with Split operation on &quot;Rig&quot; or &quot;Fake it&quot; (Decodium → Settings → Radio). With &quot;None&quot; Decodium ignores it.</source>
-        <translation>電台沒有進入異頻（split）。CAT 經由 Decodium：在那裡只有當分離操作設為「無線電設備控制」或「軟體虛擬」時才會異頻（Decodium → 設定 → 無線電）。設為「無」時 Decodium 會忽略它。</translation>
+        <source>The radio did not go split. The CAT goes through Decodium, and Decodium does not carry out split asked by other programs: it manages split itself, for FT8. For split from DecoDXLog, DecoDXLog must hold the CAT of the radio.</source>
+        <translation>電台沒有進入異頻。CAT 經由 Decodium，而 Decodium 不執行其他程式要求的異頻：它為 FT8 自行管理異頻。要從 DecoDXLog 使用異頻，電台的 CAT 必須由 DecoDXLog 控制。</translation>
+    </message>
+    <message>
+        <source>Decodium moved the transmit frequency to %1 MHz: it manages split itself, for FT8, and overrides the one from DecoDXLog. For split from DecoDXLog, DecoDXLog must hold the CAT of the radio.</source>
+        <translation>Decodium 把發射頻率移到了 %1 MHz：它為 FT8 自行管理異頻，並覆蓋 DecoDXLog 的設定。要從 DecoDXLog 使用異頻，電台的 CAT 必須由 DecoDXLog 控制。</translation>
+    </message>
+    <message>
+        <source>The radio is transmitting on %1 MHz, not where the split put it.</source>
+        <translation>電台在 %1 MHz 發射，不在異頻設定的位置。</translation>
     </message>
     <message>
         <source>The radio did not go split: rigctld took the command, but the radio says split is off.</source>

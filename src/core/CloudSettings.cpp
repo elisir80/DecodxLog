@@ -3,8 +3,10 @@
 #include <QCryptographicHash>
 #include <QDataStream>
 #include <QIODevice>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonValue>
 #include <QSettings>
 #include <QStringList>
 
@@ -30,7 +32,36 @@ const QStringList kNeverSynced{
 
 constexpr auto kPacked = "__qvariant__";
 
+// Un valore detto sempre allo stesso modo: i numeri e i si'/no come testo,
+// perche' il file INI li rende come testo e il programma a volte come numeri.
+QJsonValue canonical(const QJsonValue& value)
+{
+    if (value.isDouble())
+        return QString::number(value.toDouble(), 'g', 17);
+    if (value.isBool())
+        return value.toBool() ? QStringLiteral("true") : QStringLiteral("false");
+    if (value.isArray()) {
+        QJsonArray out;
+        for (const QJsonValue& item : value.toArray())
+            out.append(canonical(item));
+        return out;
+    }
+    if (value.isObject()) {
+        QJsonObject out;
+        const QJsonObject object = value.toObject();
+        for (auto it = object.begin(); it != object.end(); ++it)
+            out.insert(it.key(), canonical(it.value()));
+        return out;
+    }
+    return value;
+}
+
 } // namespace
+
+bool sameValue(const QVariant& a, const QVariant& b)
+{
+    return canonical(QJsonValue::fromVariant(a)) == canonical(QJsonValue::fromVariant(b));
+}
 
 bool isMachineOnly(const QString& key)
 {
@@ -95,7 +126,8 @@ QVariantMap collect(QSettings& settings, const std::function<QString(qint64)>& u
 }
 
 int apply(QSettings& settings, const QVariantMap& values, bool dryRun,
-          const std::function<qint64(const QString&)>& profileForUuid)
+          const std::function<qint64(const QString&)>& profileForUuid,
+          const QVariantMap* base, QStringList* keptLocal)
 {
     int written = 0;
     for (auto it = values.cbegin(); it != values.cend(); ++it) {
@@ -103,6 +135,17 @@ int apply(QSettings& settings, const QVariantMap& values, bool dryRun,
         // qualunque cosa arrivi dal server.
         if (isMachineOnly(it.key()))
             continue;
+        // Cambiata qui e non ancora mandata: resta com'e'. Era il guaio delle
+        // macro CW che tornavano quelle di prima dopo un giro di sync.
+        if (base && it.key() != kActiveProfileUuid && settings.contains(it.key())) {
+            const QVariant local = pack(settings.value(it.key()));
+            const bool changedHere = !base->contains(it.key()) || !sameValue(local, base->value(it.key()));
+            if (changedHere && !sameValue(local, it.value())) {
+                if (keptLocal)
+                    keptLocal->append(it.key());
+                continue;
+            }
+        }
         if (it.key() == kActiveProfileUuid) {
             if (!profileForUuid)
                 continue;

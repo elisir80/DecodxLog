@@ -176,7 +176,7 @@ CloudController::CloudController(Context context, QObject* parent)
             // Le impronte dicevano "lassu' c'e' gia' questa roba": adesso non
             // c'e' piu' niente, quindi si dimenticano e riparte tutto.
             for (const char* key : {"cloud.settingsRevision", "cloud.secretsRevision",
-                                    "cloud.secretsFingerprint"}) {
+                                    "cloud.secretsFingerprint", "cloud.settingsBase"}) {
                 m_ctx.db->setSetting(QLatin1String(key), QString());
             }
         }
@@ -691,12 +691,14 @@ QVariantList CloudController::pendingDocs()
     // quando il server conferma: un server piu' vecchio, che i documenti non li
     // conosce, non deve farcele dare per mandate.
     m_settingsSent.clear();
+    m_settingsSentValues.clear();
     const QVariantMap current = localSettings();
     const QString fingerprint = settingsFingerprint(current);
     const QString known = m_ctx.db->setting(QStringLiteral("cloud.settingsFingerprint"));
     if (fingerprint != known) {
         const int revision = qMax(1, m_ctx.db->setting(QStringLiteral("cloud.settingsRevision")).toInt() + 1);
         m_settingsSent = fingerprint;
+        m_settingsSentValues = current;
         docs << QVariantMap{{QStringLiteral("kind"), QStringLiteral("setting")},
                             {QStringLiteral("key"), QStringLiteral("station")},
                             {QStringLiteral("revision"), revision},
@@ -723,7 +725,9 @@ void CloudController::applyDocResults(const QVariantList& results)
             // resta quella vecchia, cosi' al giro dopo si riprova piu' in alto.
             if (status != QLatin1String("stale") && !m_settingsSent.isEmpty()) {
                 m_ctx.db->setSetting(QStringLiteral("cloud.settingsFingerprint"), m_settingsSent);
+                storeSettingsBase(m_settingsSentValues);
                 m_settingsSent.clear();
+                m_settingsSentValues.clear();
             }
         } else if (kind == QLatin1String("secret") && revision > 0) {
             m_ctx.db->setSetting(QStringLiteral("cloud.secretsRevision"), QString::number(revision));
@@ -772,15 +776,60 @@ bool CloudController::applyRemoteSettings(const QVariantMap& document)
         return false;   // le nostre sono uguali o piu' nuove
 
     QSettings s;
+    const QVariantMap remote = document.value(QStringLiteral("data")).toMap();
+    // La base: com'erano le impostazioni l'ultima volta che qui e sul Cloud
+    // erano uguali. Chi viene da una versione che non la teneva ancora ne fa
+    // senza: se qui c'e' qualcosa di non mandato, vince tutto quello di qui;
+    // se no arriva tutto.
+    QVariantMap base = settingsBase();
+    const bool haveBase = !base.isEmpty();
+    const bool unsentHere = settingsFingerprint(localSettings())
+                            != m_ctx.db->setting(QStringLiteral("cloud.settingsFingerprint"));
+    if (!haveBase && !unsentHere)
+        base = localSettings();
+    QStringList kept;
     // Un collegamento di passaggio (le prove da riga di comando) non deve
     // riscrivere le impostazioni della stazione vera: si conta e basta.
     const int written = cloudsettings::apply(
-        s, document.value(QStringLiteral("data")).toMap(), m_ephemeral,
-        [this](const QString& uuid) { return profileIdForUuid(uuid); });
+        s, remote, m_ephemeral, [this](const QString& uuid) { return profileIdForUuid(uuid); },
+        &base, &kept);
 
     m_ctx.db->setSetting(QStringLiteral("cloud.settingsRevision"), QString::number(revision));
-    m_ctx.db->setSetting(QStringLiteral("cloud.settingsFingerprint"), settingsFingerprint(localSettings()));
+    if (m_ephemeral)
+        return written > 0;
+    // La base nuova e' quello che e' arrivato, tranne le chiavi tenute: quelle
+    // restano "cambiate qui" finche' non partono.
+    QVariantMap next = haveBase ? settingsBase() : QVariantMap{};
+    for (auto it = remote.cbegin(); it != remote.cend(); ++it) {
+        if (!kept.contains(it.key()) || !next.contains(it.key()))
+            next.insert(it.key(), it.value());
+    }
+    storeSettingsBase(next);
+    // Con qualcosa tenuto qui l'impronta resta quella di lassu': al prossimo
+    // giro le impostazioni di qui partono. Senza, qui e lassu' sono uguali.
+    m_ctx.db->setSetting(QStringLiteral("cloud.settingsFingerprint"),
+                         settingsFingerprint(kept.isEmpty() ? localSettings() : remote));
+    if (!kept.isEmpty())
+        note(tr("Cloud: %n setting(s) changed here kept (they go up at the next sync)", nullptr,
+                int(kept.size())), QStringLiteral("info"));
     return written > 0;
+}
+
+QVariantMap CloudController::settingsBase() const
+{
+    if (!m_ctx.db)
+        return {};
+    const QString raw = m_ctx.db->setting(QStringLiteral("cloud.settingsBase"));
+    return QJsonDocument::fromJson(raw.toUtf8()).object().toVariantMap();
+}
+
+void CloudController::storeSettingsBase(const QVariantMap& values)
+{
+    if (!m_ctx.db || m_ephemeral)
+        return;
+    m_ctx.db->setSetting(QStringLiteral("cloud.settingsBase"),
+                         QString::fromUtf8(QJsonDocument(QJsonObject::fromVariantMap(values))
+                                               .toJson(QJsonDocument::Compact)));
 }
 
 // ── La cassaforte dei servizi ─────────────────────────────────────────────────

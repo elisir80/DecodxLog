@@ -168,6 +168,9 @@ private:
     bool applyRemoteSecrets(const QVariantMap& document);
     static QString settingsFingerprint(const QVariantMap& values);
     bool applyRemoteSettings(const QVariantMap& document);
+    // Le impostazioni come erano all'ultimo accordo con il Cloud (nel log).
+    QVariantMap settingsBase() const;
+    void storeSettingsBase(const QVariantMap& values);
 
     Context m_ctx;
     core::CloudSync m_sync;
@@ -184,6 +187,9 @@ private:
     QVariantMap m_lastInvite;
     // L'impronta delle impostazioni gia' mandate in questo giro.
     QString m_settingsSent;
+    // Quello che si e' mandato, per ricordarlo come "base" quando il server
+    // conferma: vedi cloudsettings::apply.
+    QVariantMap m_settingsSentValues;
     // La chiave della cassaforte: si fa dalla password quando si entra, e poi
     // vive nel portachiavi come il token. Dal server non arriva mai.
     QByteArray m_vaultKey;

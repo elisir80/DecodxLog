@@ -536,6 +536,7 @@ ApplicationWindow {
                         CwMacroKey {
                             required property var modelData
                             required property int index
+                            macroIndex: index
                             Layout.fillWidth: true
                             Layout.preferredWidth: 1
                             Layout.minimumWidth: 0
