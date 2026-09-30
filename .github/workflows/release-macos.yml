@@ -59,6 +59,13 @@ jobs:
             -libpath="$(brew --prefix webp)/lib" \
             -no-codesign \
             -verbose=1
+
+          # DecoDXLog non importa QtQuick.VirtualKeyboard. macdeployqt puo'
+          # comunque copiare il plugin di input come symlink: codesign non puo'
+          # firmare quel link e l'intero bundle Intel viene rifiutato. Non
+          # serve all'app, quindi lo escludiamo esplicitamente dal pacchetto.
+          rm -rf build/DecoDXLog.app/Contents/PlugIns/platforminputcontexts/libqtvirtualkeyboardplugin.dylib
+          rm -rf build/DecoDXLog.app/Contents/Resources/qml/QtQuick/VirtualKeyboard
           version="${{ inputs.tag }}"
           version="${version#v}"
           mkdir -p release-assets
