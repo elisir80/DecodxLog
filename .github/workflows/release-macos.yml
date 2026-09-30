@@ -92,7 +92,10 @@ jobs:
             codesign --force --sign - --timestamp=none "$item"
           done < <(find build/DecoDXLog.app/Contents -type f \( -perm -111 -o -name "*.dylib" -o -name "*.so" \) -print0)
 
-          codesign --force --deep --sign - --timestamp=none build/DecoDXLog.app
+          # I componenti annidati sono gia' firmati sopra. --deep durante la
+          # firma del padre puo' riscrivere la gerarchia dei plugin Qt; lo
+          # usiamo quindi esclusivamente in verifica.
+          codesign --force --sign - --timestamp=none build/DecoDXLog.app
           codesign --verify --deep --strict --verbose=2 build/DecoDXLog.app
 
           hdiutil create -volname "DecoDXLog $version" \
