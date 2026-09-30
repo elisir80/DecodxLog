@@ -6960,6 +6960,34 @@ Right click: change it</source>
         <translation>The control box, directly (built-in gateway)</translation>
     </message>
     <message>
+        <source>MicroHAM ARCO / Yaesu GS-232</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ARCO IP address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GS-232 TCP port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Network (TCP)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>USB / RS-232 serial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ARCO serial port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Control box port</source>
         <translation>Control box port</translation>
     </message>
@@ -6994,6 +7022,10 @@ Right click: change it</source>
     <message>
         <source>DecoDXLog itself opens the serial port of the PRO.SIS.TEL control box and does what DecoRotor did: the phone app, the web page and the station programs (rotctld: N1MM+, Log4OM, PstRotator…) connect to this computer on the same ports as before. Close DecoRotor first: the serial port and the ports can have only one owner. The stations on the app map come from Decodium and the cluster, through DecoDXLog.</source>
         <translation>DecoDXLog itself opens the serial port of the PRO.SIS.TEL control box and does what DecoRotor did: the phone app, the web page and the station programs (rotctld: N1MM+, Log4OM, PstRotator…) connect to this computer on the same ports as before. Close DecoRotor first: the serial port and the ports can have only one owner. The stations on the app map come from Decodium and the cluster, through DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>ARCO must be set to Yaesu GS-232. Its LAN page must be enabled before using TCP; the standard ARCO control port shown in its setup is 4001. USB and RS-232 use 8/N/1; USB baud rate is ignored by ARCO, while RS-232 uses the rate configured on ARCO.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -9876,6 +9908,14 @@ Right click: change it</source>
         <translation>Opening the control box on %1…</translation>
     </message>
     <message>
+        <source>Opening MicroHAM ARCO on %1…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Looking for MicroHAM ARCO on %1:%2…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>rotctld does not do locators: point in degrees</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10505,6 +10545,22 @@ Right click: change it</source>
     </message>
     <message>
         <source>Rotor: connected to rotctld on %1:%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MicroHAM ARCO (Yaesu GS-232)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rotor: connected to MicroHAM ARCO on %1:%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ARCO: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rotor: connected to MicroHAM ARCO on %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

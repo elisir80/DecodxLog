@@ -122,8 +122,24 @@ bool parsePosition(const QString& reply, double* az, double* el)
     return true;
 }
 
-static bool parseGs232Position(const QString& reply, double* az, double* el)
+bool parseGs232Position(const QString& reply, double* az, double* el, bool* hasEl)
 {
+    if (hasEl)
+        *hasEl = false;
+    // La forma A: "+0aaa" per il solo azimut, "+0aaa+0eee" con l'elevazione.
+    static const QRegularExpression formA(QStringLiteral(R"(^\s*\+(\d{4})(?:\s*\+(\d{4}))?\s*$)"));
+    const auto a = formA.match(reply);
+    if (a.hasMatch()) {
+        if (az)
+            *az = a.captured(1).toInt();
+        if (a.hasCaptured(2)) {
+            if (el)
+                *el = a.captured(2).toInt();
+            if (hasEl)
+                *hasEl = true;
+        }
+        return true;
+    }
     // GS-232A risponde di norma "AZ=123.0 EL=000.0". ARCO puo' essere
     // configurato per solo azimut: in quel caso EL non e' obbligatorio.
     static const QRegularExpression azRe(QStringLiteral(R"(AZ\s*=\s*(-?\d+(?:\.\d+)?))"),
@@ -140,10 +156,12 @@ static bool parseGs232Position(const QString& reply, double* az, double* el)
     if (az)
         *az = value;
     const auto elMatch = elRe.match(reply);
-    if (el && elMatch.hasMatch()) {
+    if (elMatch.hasMatch()) {
         const double elevation = elMatch.captured(1).toDouble(&ok);
-        if (ok)
+        if (ok && el)
             *el = elevation;
+        if (ok && hasEl)
+            *hasEl = true;
     }
     return true;
 }
@@ -562,15 +580,31 @@ void RotorLink::handleArco()
     if (m_backend == Backend::ArcoGs232Tcp && m_tcp) m_buffer += m_tcp->readAll();
     else if (m_backend == Backend::ArcoGs232Serial && m_serial) m_buffer += m_serial->readAll();
     else return;
-    const QString reply = QString::fromLatin1(m_buffer);
-    double az = m_state.az, el = m_state.el;
-    if (!rotor::parseGs232Position(reply, &az, &el)) return;
-    m_buffer.clear();
-    const bool moving = std::abs(az - m_state.az) > 0.05;
-    m_state.az = rotor::normalize(az); m_state.el = el;
-    m_state.hasEl = reply.contains(QRegularExpression(QStringLiteral("EL\\s*="), QRegularExpression::CaseInsensitiveOption));
-    m_state.moving = moving; m_state.updated = QDateTime::currentDateTimeUtc(); m_state.error.clear();
-    emit stateChanged();
+    // La risposta finisce col ritorno a capo: si legge solo quando e' arrivata
+    // intera. Sulla seriale arriva a pezzi ("AZ=1", poi "23 EL=000"): letta a
+    // meta', l'indice saltava a 1 grado e poi tornava a 123.
+    const qsizetype end = qMax(m_buffer.lastIndexOf('\r'), m_buffer.lastIndexOf('\n'));
+    if (end < 0) {
+        if (m_buffer.size() > 512)   // tanta roba senza un a capo: rumore sulla linea
+            m_buffer.clear();
+        return;
+    }
+    static const QRegularExpression breaks(QStringLiteral("[\r\n]+"));
+    const QStringList lines = QString::fromLatin1(m_buffer.left(end)).split(breaks, Qt::SkipEmptyParts);
+    m_buffer.remove(0, end + 1);
+    // Se ne sono arrivate piu' d'una, conta l'ultima.
+    for (qsizetype i = lines.size() - 1; i >= 0; --i) {
+        double az = m_state.az, el = m_state.el;
+        bool hasEl = false;
+        if (!rotor::parseGs232Position(lines.at(i), &az, &el, &hasEl))
+            continue;
+        const bool moving = std::abs(az - m_state.az) > 0.05;
+        m_state.az = rotor::normalize(az); m_state.el = el;
+        m_state.hasEl = hasEl;
+        m_state.moving = moving; m_state.updated = QDateTime::currentDateTimeUtc(); m_state.error.clear();
+        emit stateChanged();
+        return;
+    }
 }
 
 // ── Comandi ───────────────────────────────────────────────────────────────────

@@ -6940,6 +6940,34 @@ Jobb kattintás: módosítás</translation>
         <translation>A vezérlődoboz, közvetlenül (beépített átjáró)</translation>
     </message>
     <message>
+        <source>MicroHAM ARCO / Yaesu GS-232</source>
+        <translation>MicroHAM ARCO / Yaesu GS-232</translation>
+    </message>
+    <message>
+        <source>ARCO IP address</source>
+        <translation>Az ARCO IP-címe</translation>
+    </message>
+    <message>
+        <source>GS-232 TCP port</source>
+        <translation>GS-232 TCP-port</translation>
+    </message>
+    <message>
+        <source>Connection</source>
+        <translation>Kapcsolat</translation>
+    </message>
+    <message>
+        <source>Network (TCP)</source>
+        <translation>Hálózat (TCP)</translation>
+    </message>
+    <message>
+        <source>USB / RS-232 serial</source>
+        <translation>USB / RS-232 soros</translation>
+    </message>
+    <message>
+        <source>ARCO serial port</source>
+        <translation>Az ARCO soros portja</translation>
+    </message>
+    <message>
         <source>Control box port</source>
         <translation>A vezérlődoboz portja</translation>
     </message>
@@ -6974,6 +7002,10 @@ Jobb kattintás: módosítás</translation>
     <message>
         <source>DecoDXLog itself opens the serial port of the PRO.SIS.TEL control box and does what DecoRotor did: the phone app, the web page and the station programs (rotctld: N1MM+, Log4OM, PstRotator…) connect to this computer on the same ports as before. Close DecoRotor first: the serial port and the ports can have only one owner. The stations on the app map come from Decodium and the cluster, through DecoDXLog.</source>
         <translation>A DecoDXLog maga nyitja meg a PRO.SIS.TEL vezérlődoboz soros portját, és azt teszi, amit a DecoRotor tett: a telefonos app, a weboldal és az állomásprogramok (rotctld: N1MM+, Log4OM, PstRotator…) ugyanazokon a portokon csatlakoznak ehhez a géphez, mint eddig. Előbb zárd be a DecoRotort: a soros portnak és a portoknak csak egy gazdája lehet. Az app térképén az állomások a Decodiumból és a clusterből jönnek, a DecoDXLogon keresztül.</translation>
+    </message>
+    <message>
+        <source>ARCO must be set to Yaesu GS-232. Its LAN page must be enabled before using TCP; the standard ARCO control port shown in its setup is 4001. USB and RS-232 use 8/N/1; USB baud rate is ignored by ARCO, while RS-232 uses the rate configured on ARCO.</source>
+        <translation>Az ARCO-t Yaesu GS-232-re kell állítani. TCP-hez előbb engedélyezni kell a LAN-oldalát; az ARCO szabványos vezérlőportja, amelyet a beállításai mutatnak, a 4001. Az USB és az RS-232 8/N/1-et használ; USB-n az ARCO figyelmen kívül hagyja a sebességet, RS-232-n az ARCO-n beállított érvényes.</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -9817,6 +9849,14 @@ Jobb kattintás: módosítás</translation>
         <translation>A vezérlődoboz megnyitása itt: %1…</translation>
     </message>
     <message>
+        <source>Opening MicroHAM ARCO on %1…</source>
+        <translation>MicroHAM ARCO megnyitása: %1…</translation>
+    </message>
+    <message>
+        <source>Looking for MicroHAM ARCO on %1:%2…</source>
+        <translation>MicroHAM ARCO keresése itt: %1:%2…</translation>
+    </message>
+    <message>
         <source>rotctld does not do locators: point in degrees</source>
         <translation>a rotctld nem ismeri a lokátorokat: fokban adj irányt</translation>
     </message>
@@ -10447,6 +10487,22 @@ Jobb kattintás: módosítás</translation>
     <message>
         <source>Rotor: connected to rotctld on %1:%2</source>
         <translation>Forgató: csatlakozva a rotctld-hez itt: %1:%2</translation>
+    </message>
+    <message>
+        <source>MicroHAM ARCO (Yaesu GS-232)</source>
+        <translation>MicroHAM ARCO (Yaesu GS-232)</translation>
+    </message>
+    <message>
+        <source>Rotor: connected to MicroHAM ARCO on %1:%2</source>
+        <translation>Rotor: csatlakozva a MicroHAM ARCO-hoz (%1:%2)</translation>
+    </message>
+    <message>
+        <source>ARCO: %1</source>
+        <translation>ARCO: %1</translation>
+    </message>
+    <message>
+        <source>Rotor: connected to MicroHAM ARCO on %1</source>
+        <translation>Rotor: csatlakozva a MicroHAM ARCO-hoz (%1)</translation>
     </message>
 </context>
 <context>

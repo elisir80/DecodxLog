@@ -6940,6 +6940,34 @@ Right click: change it</source>
         <translation>コントロールボックスに直接（内蔵ゲートウェイ）</translation>
     </message>
     <message>
+        <source>MicroHAM ARCO / Yaesu GS-232</source>
+        <translation>MicroHAM ARCO / Yaesu GS-232</translation>
+    </message>
+    <message>
+        <source>ARCO IP address</source>
+        <translation>ARCO の IP アドレス</translation>
+    </message>
+    <message>
+        <source>GS-232 TCP port</source>
+        <translation>GS-232 TCP ポート</translation>
+    </message>
+    <message>
+        <source>Connection</source>
+        <translation>接続</translation>
+    </message>
+    <message>
+        <source>Network (TCP)</source>
+        <translation>ネットワーク（TCP）</translation>
+    </message>
+    <message>
+        <source>USB / RS-232 serial</source>
+        <translation>USB / RS-232 シリアル</translation>
+    </message>
+    <message>
+        <source>ARCO serial port</source>
+        <translation>ARCO のシリアルポート</translation>
+    </message>
+    <message>
         <source>Control box port</source>
         <translation>コントロールボックスのポート</translation>
     </message>
@@ -6974,6 +7002,10 @@ Right click: change it</source>
     <message>
         <source>DecoDXLog itself opens the serial port of the PRO.SIS.TEL control box and does what DecoRotor did: the phone app, the web page and the station programs (rotctld: N1MM+, Log4OM, PstRotator…) connect to this computer on the same ports as before. Close DecoRotor first: the serial port and the ports can have only one owner. The stations on the app map come from Decodium and the cluster, through DecoDXLog.</source>
         <translation>DecoDXLog が自分で PRO.SIS.TEL コントロールボックスのシリアルポートを開き、DecoRotor がしていたことを行います。スマートフォンのアプリ、Webページ、局のプログラム（rotctld：N1MM+、Log4OM、PstRotator…）は、これまでと同じポートでこのコンピューターに接続します。先に DecoRotor を終了してください：シリアルポートと各ポートの持ち主は一つだけです。アプリの地図の局は、DecoDXLog を通じて Decodium とクラスターから届きます。</translation>
+    </message>
+    <message>
+        <source>ARCO must be set to Yaesu GS-232. Its LAN page must be enabled before using TCP; the standard ARCO control port shown in its setup is 4001. USB and RS-232 use 8/N/1; USB baud rate is ignored by ARCO, while RS-232 uses the rate configured on ARCO.</source>
+        <translation>ARCO は Yaesu GS-232 に設定してください。TCP を使うには先に LAN ページを有効にする必要があります。ARCO の標準制御ポート（セットアップに表示）は 4001 です。USB と RS-232 は 8/N/1。USB では ARCO は通信速度を無視し、RS-232 では ARCO で設定した速度になります。</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -9817,6 +9849,14 @@ Right click: change it</source>
         <translation>%1 でコントロールボックスを開いています…</translation>
     </message>
     <message>
+        <source>Opening MicroHAM ARCO on %1…</source>
+        <translation>%1 で MicroHAM ARCO を開いています…</translation>
+    </message>
+    <message>
+        <source>Looking for MicroHAM ARCO on %1:%2…</source>
+        <translation>%1:%2 で MicroHAM ARCO を探しています…</translation>
+    </message>
+    <message>
         <source>rotctld does not do locators: point in degrees</source>
         <translation>rotctld はグリッドを知りません。度で向けてください</translation>
     </message>
@@ -10447,6 +10487,22 @@ Right click: change it</source>
     <message>
         <source>Rotor: connected to rotctld on %1:%2</source>
         <translation>ローテーター: %1:%2 の rotctld につながりました</translation>
+    </message>
+    <message>
+        <source>MicroHAM ARCO (Yaesu GS-232)</source>
+        <translation>MicroHAM ARCO（Yaesu GS-232）</translation>
+    </message>
+    <message>
+        <source>Rotor: connected to MicroHAM ARCO on %1:%2</source>
+        <translation>ローテーター: %1:%2 の MicroHAM ARCO に接続しました</translation>
+    </message>
+    <message>
+        <source>ARCO: %1</source>
+        <translation>ARCO: %1</translation>
+    </message>
+    <message>
+        <source>Rotor: connected to MicroHAM ARCO on %1</source>
+        <translation>ローテーター: %1 の MicroHAM ARCO に接続しました</translation>
     </message>
 </context>
 <context>

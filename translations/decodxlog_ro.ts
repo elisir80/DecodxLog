@@ -6984,6 +6984,34 @@ Clic dreapta: modific-o</translation>
         <translation>Cutia de comandă, direct (gateway integrat)</translation>
     </message>
     <message>
+        <source>MicroHAM ARCO / Yaesu GS-232</source>
+        <translation>MicroHAM ARCO / Yaesu GS-232</translation>
+    </message>
+    <message>
+        <source>ARCO IP address</source>
+        <translation>Adresa IP a ARCO</translation>
+    </message>
+    <message>
+        <source>GS-232 TCP port</source>
+        <translation>Port TCP GS-232</translation>
+    </message>
+    <message>
+        <source>Connection</source>
+        <translation>Conexiune</translation>
+    </message>
+    <message>
+        <source>Network (TCP)</source>
+        <translation>Rețea (TCP)</translation>
+    </message>
+    <message>
+        <source>USB / RS-232 serial</source>
+        <translation>Serial USB / RS-232</translation>
+    </message>
+    <message>
+        <source>ARCO serial port</source>
+        <translation>Portul serial al ARCO</translation>
+    </message>
+    <message>
         <source>Control box port</source>
         <translation>Portul cutiei de comandă</translation>
     </message>
@@ -7018,6 +7046,10 @@ Clic dreapta: modific-o</translation>
     <message>
         <source>DecoDXLog itself opens the serial port of the PRO.SIS.TEL control box and does what DecoRotor did: the phone app, the web page and the station programs (rotctld: N1MM+, Log4OM, PstRotator…) connect to this computer on the same ports as before. Close DecoRotor first: the serial port and the ports can have only one owner. The stations on the app map come from Decodium and the cluster, through DecoDXLog.</source>
         <translation>DecoDXLog deschide singur portul serial al cutiei de comandă PRO.SIS.TEL și face ce făcea DecoRotor: aplicația de pe telefon, pagina web și programele de stație (rotctld: N1MM+, Log4OM, PstRotator…) se conectează la acest calculator pe aceleași porturi ca înainte. Închide mai întâi DecoRotor: portul serial și porturile pot avea un singur stăpân. Stațiile de pe harta aplicației vin din Decodium și din cluster, prin DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>ARCO must be set to Yaesu GS-232. Its LAN page must be enabled before using TCP; the standard ARCO control port shown in its setup is 4001. USB and RS-232 use 8/N/1; USB baud rate is ignored by ARCO, while RS-232 uses the rate configured on ARCO.</source>
+        <translation>ARCO trebuie setat pe Yaesu GS-232. Pentru TCP trebuie activată mai întâi pagina sa LAN; portul standard de control al ARCO, afișat în setup-ul său, este 4001. USB și RS-232 folosesc 8/N/1; pe USB ARCO ignoră viteza, pe RS-232 contează cea setată pe ARCO.</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -9939,6 +9971,14 @@ Clic dreapta: modific-o</translation>
         <translation>Deschid cutia de comandă pe %1…</translation>
     </message>
     <message>
+        <source>Opening MicroHAM ARCO on %1…</source>
+        <translation>Se deschide MicroHAM ARCO pe %1…</translation>
+    </message>
+    <message>
+        <source>Looking for MicroHAM ARCO on %1:%2…</source>
+        <translation>Se caută MicroHAM ARCO pe %1:%2…</translation>
+    </message>
+    <message>
         <source>rotctld does not do locators: point in degrees</source>
         <translation>rotctld nu știe locatoare: arată în grade</translation>
     </message>
@@ -10569,6 +10609,22 @@ Clic dreapta: modific-o</translation>
     <message>
         <source>Rotor: connected to rotctld on %1:%2</source>
         <translation>Rotor: conectat la rotctld pe %1:%2</translation>
+    </message>
+    <message>
+        <source>MicroHAM ARCO (Yaesu GS-232)</source>
+        <translation>MicroHAM ARCO (Yaesu GS-232)</translation>
+    </message>
+    <message>
+        <source>Rotor: connected to MicroHAM ARCO on %1:%2</source>
+        <translation>Rotor: conectat la MicroHAM ARCO pe %1:%2</translation>
+    </message>
+    <message>
+        <source>ARCO: %1</source>
+        <translation>ARCO: %1</translation>
+    </message>
+    <message>
+        <source>Rotor: connected to MicroHAM ARCO on %1</source>
+        <translation>Rotor: conectat la MicroHAM ARCO pe %1</translation>
     </message>
 </context>
 <context>

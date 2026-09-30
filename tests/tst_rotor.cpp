@@ -3,6 +3,8 @@
 
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QTcpServer>
+#include <QTcpSocket>
 #include <QTest>
 
 using namespace decolog::core;
@@ -83,6 +85,59 @@ private slots:
         QVERIFY(rotor::parsePosition(QStringLiteral("45.00\n"), &az, &el));
         QCOMPARE(az, 45.0);
         QCOMPARE(el, 7.0);
+    }
+
+    // MicroHAM ARCO in GS-232: le due forme della risposta a "C2".
+    void gs232Position()
+    {
+        double az = -1, el = -1;
+        bool hasEl = true;
+        QVERIFY(rotor::parseGs232Position(QStringLiteral("AZ=123 EL=045"), &az, &el, &hasEl));
+        QCOMPARE(az, 123.0);
+        QCOMPARE(el, 45.0);
+        QVERIFY(hasEl);
+        QVERIFY(rotor::parseGs232Position(QStringLiteral("AZ=270"), &az, &el, &hasEl));
+        QCOMPARE(az, 270.0);
+        QVERIFY(!hasEl);
+        QVERIFY(rotor::parseGs232Position(QStringLiteral("+0310+0010"), &az, &el, &hasEl));
+        QCOMPARE(az, 310.0);
+        QCOMPARE(el, 10.0);
+        QVERIFY(hasEl);
+        QVERIFY(rotor::parseGs232Position(QStringLiteral("+0090"), &az, &el, &hasEl));
+        QCOMPARE(az, 90.0);
+        QVERIFY(!hasEl);
+        QVERIFY(!rotor::parseGs232Position(QStringLiteral("?>"), &az, &el, &hasEl));
+    }
+
+    // La risposta che arriva a pezzi si legge intera: l'indice non passa
+    // per un grado sbagliato.
+    void arcoReadsWholeLines()
+    {
+        QTcpServer server;
+        QVERIFY(server.listen(QHostAddress::LocalHost));
+        QTcpSocket* peer = nullptr;
+        QObject::connect(&server, &QTcpServer::newConnection, &server, [&] { peer = server.nextPendingConnection(); });
+
+        RotorLink link;
+        QList<double> seen;
+        QObject::connect(&link, &RotorLink::stateChanged, &link, [&] {
+            if (link.state().connected && link.state().updated.isValid())
+                seen << link.state().az;
+        });
+        link.start(RotorLink::Backend::ArcoGs232Tcp, QStringLiteral("127.0.0.1"), server.serverPort());
+        QTRY_VERIFY_WITH_TIMEOUT(peer != nullptr, 5000);
+        QTRY_VERIFY_WITH_TIMEOUT(peer->bytesAvailable() > 0, 5000);
+        QVERIFY(peer->readAll().startsWith("C2"));
+
+        peer->write("AZ=1");
+        peer->flush();
+        QTest::qWait(150);
+        QVERIFY(seen.isEmpty());
+        peer->write("23 EL=000\r");
+        peer->flush();
+        QTRY_VERIFY_WITH_TIMEOUT(!seen.isEmpty(), 5000);
+        QCOMPARE(seen, QList<double>{123.0});
+        link.stop();
     }
 
     void rotctldErrors()

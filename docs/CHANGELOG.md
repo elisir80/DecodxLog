@@ -11,6 +11,11 @@ ferma (`S`) direttamente il controller. Si puo' usare la sua LAN (indirizzo ARCO
 4001) oppure solo il suo cavo USB/RS-232: niente Hamlib e niente `rotctld` da installare.
 La porta USB/seriale e il baud rate restano salvati nelle impostazioni.
 
+- La posizione dell'ARCO si legge solo a risposta intera: sulla seriale arriva a pezzi
+  («AZ=1», poi «23 EL=000») e letta a meta' l'indice saltava a 1 grado prima di tornare a
+  123. Oltre alla forma «AZ=… EL=…» si capisce anche quella del GS-232A («+0123+0045»).
+- Le voci nuove del rotore sono tradotte in tutte le lingue.
+
 ## 1.16.42 — 30 settembre 2026
 
 **Porte seriali che sono davvero porte.** CAT, rotore, SO2R e manipolatore CW ora usano

@@ -6984,6 +6984,34 @@ Labais klikšķis: mainīt</translation>
         <translation>Vadības kārba, tieši (iebūvētā vārteja)</translation>
     </message>
     <message>
+        <source>MicroHAM ARCO / Yaesu GS-232</source>
+        <translation>MicroHAM ARCO / Yaesu GS-232</translation>
+    </message>
+    <message>
+        <source>ARCO IP address</source>
+        <translation>ARCO IP adrese</translation>
+    </message>
+    <message>
+        <source>GS-232 TCP port</source>
+        <translation>GS-232 TCP ports</translation>
+    </message>
+    <message>
+        <source>Connection</source>
+        <translation>Savienojums</translation>
+    </message>
+    <message>
+        <source>Network (TCP)</source>
+        <translation>Tīkls (TCP)</translation>
+    </message>
+    <message>
+        <source>USB / RS-232 serial</source>
+        <translation>USB / RS-232 seriālais</translation>
+    </message>
+    <message>
+        <source>ARCO serial port</source>
+        <translation>ARCO seriālais ports</translation>
+    </message>
+    <message>
         <source>Control box port</source>
         <translation>Vadības kārbas ports</translation>
     </message>
@@ -7018,6 +7046,10 @@ Labais klikšķis: mainīt</translation>
     <message>
         <source>DecoDXLog itself opens the serial port of the PRO.SIS.TEL control box and does what DecoRotor did: the phone app, the web page and the station programs (rotctld: N1MM+, Log4OM, PstRotator…) connect to this computer on the same ports as before. Close DecoRotor first: the serial port and the ports can have only one owner. The stations on the app map come from Decodium and the cluster, through DecoDXLog.</source>
         <translation>DecoDXLog pats atver PRO.SIS.TEL vadības kārbas seriālo portu un dara to, ko darīja DecoRotor: tālruņa lietotne, tīmekļa lapa un stacijas programmas (rotctld: N1MM+, Log4OM, PstRotator…) pieslēdzas šim datoram tajos pašos portos kā iepriekš. Vispirms aizver DecoRotor: seriālajam portam un portiem var būt tikai viens saimnieks. Stacijas lietotnes kartē nāk no Decodium un klastera caur DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>ARCO must be set to Yaesu GS-232. Its LAN page must be enabled before using TCP; the standard ARCO control port shown in its setup is 4001. USB and RS-232 use 8/N/1; USB baud rate is ignored by ARCO, while RS-232 uses the rate configured on ARCO.</source>
+        <translation>ARCO jāiestata uz Yaesu GS-232. TCP gadījumā vispirms jāieslēdz tā LAN lapa; ARCO standarta vadības ports, kas redzams tā iestatījumos, ir 4001. USB un RS-232 izmanto 8/N/1; pa USB ARCO ātrumu ignorē, pa RS-232 der tas, kas iestatīts ARCO.</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -9939,6 +9971,14 @@ Labais klikšķis: mainīt</translation>
         <translation>Atveru vadības kārbu uz %1…</translation>
     </message>
     <message>
+        <source>Opening MicroHAM ARCO on %1…</source>
+        <translation>Atver MicroHAM ARCO uz %1…</translation>
+    </message>
+    <message>
+        <source>Looking for MicroHAM ARCO on %1:%2…</source>
+        <translation>Meklē MicroHAM ARCO uz %1:%2…</translation>
+    </message>
+    <message>
         <source>rotctld does not do locators: point in degrees</source>
         <translation>rotctld lokatorus neprot: norādi grādos</translation>
     </message>
@@ -10569,6 +10609,22 @@ Labais klikšķis: mainīt</translation>
     <message>
         <source>Rotor: connected to rotctld on %1:%2</source>
         <translation>Rotors: pieslēgts rotctld uz %1:%2</translation>
+    </message>
+    <message>
+        <source>MicroHAM ARCO (Yaesu GS-232)</source>
+        <translation>MicroHAM ARCO (Yaesu GS-232)</translation>
+    </message>
+    <message>
+        <source>Rotor: connected to MicroHAM ARCO on %1:%2</source>
+        <translation>Rotors: savienots ar MicroHAM ARCO uz %1:%2</translation>
+    </message>
+    <message>
+        <source>ARCO: %1</source>
+        <translation>ARCO: %1</translation>
+    </message>
+    <message>
+        <source>Rotor: connected to MicroHAM ARCO on %1</source>
+        <translation>Rotors: savienots ar MicroHAM ARCO uz %1</translation>
     </message>
 </context>
 <context>

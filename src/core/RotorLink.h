@@ -74,6 +74,9 @@ RotorState parseState(const QJsonObject& object);
 bool parsePosition(const QString& reply, double* az, double* el);
 // Gradi normalizzati in 0..360.
 double normalize(double degrees);
+// Una riga di risposta di un controller Yaesu GS-232 (ARCO) a "C2": la forma
+// B ("AZ=123 EL=045") o la A ("+0123+0045"). `hasEl` dice se c'era l'elevazione.
+bool parseGs232Position(const QString& reply, double* az, double* el, bool* hasEl = nullptr);
 
 } // namespace rotor
 

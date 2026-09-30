@@ -6962,6 +6962,34 @@ Clic droit : la modifier</translation>
         <translation>Le boîtier de commande, directement (passerelle intégrée)</translation>
     </message>
     <message>
+        <source>MicroHAM ARCO / Yaesu GS-232</source>
+        <translation>MicroHAM ARCO / Yaesu GS-232</translation>
+    </message>
+    <message>
+        <source>ARCO IP address</source>
+        <translation>Adresse IP de l&apos;ARCO</translation>
+    </message>
+    <message>
+        <source>GS-232 TCP port</source>
+        <translation>Port TCP GS-232</translation>
+    </message>
+    <message>
+        <source>Connection</source>
+        <translation>Connexion</translation>
+    </message>
+    <message>
+        <source>Network (TCP)</source>
+        <translation>Réseau (TCP)</translation>
+    </message>
+    <message>
+        <source>USB / RS-232 serial</source>
+        <translation>Série USB / RS-232</translation>
+    </message>
+    <message>
+        <source>ARCO serial port</source>
+        <translation>Port série de l&apos;ARCO</translation>
+    </message>
+    <message>
         <source>Control box port</source>
         <translation>Port du boîtier</translation>
     </message>
@@ -6996,6 +7024,10 @@ Clic droit : la modifier</translation>
     <message>
         <source>DecoDXLog itself opens the serial port of the PRO.SIS.TEL control box and does what DecoRotor did: the phone app, the web page and the station programs (rotctld: N1MM+, Log4OM, PstRotator…) connect to this computer on the same ports as before. Close DecoRotor first: the serial port and the ports can have only one owner. The stations on the app map come from Decodium and the cluster, through DecoDXLog.</source>
         <translation>DecoDXLog ouvre lui-même le port série du boîtier PRO.SIS.TEL et fait ce que faisait DecoRotor : l&apos;app du téléphone, la page web et les programmes de station (rotctld : N1MM+, Log4OM, PstRotator…) se connectent à cet ordinateur sur les mêmes ports qu&apos;avant. Fermez d&apos;abord DecoRotor : le port série et les ports n&apos;ont qu&apos;un seul propriétaire. Les stations sur la carte de l&apos;app viennent de Decodium et du cluster, via DecoDXLog.</translation>
+    </message>
+    <message>
+        <source>ARCO must be set to Yaesu GS-232. Its LAN page must be enabled before using TCP; the standard ARCO control port shown in its setup is 4001. USB and RS-232 use 8/N/1; USB baud rate is ignored by ARCO, while RS-232 uses the rate configured on ARCO.</source>
+        <translation>L&apos;ARCO doit être réglé sur Yaesu GS-232. Pour le TCP, sa page LAN doit d&apos;abord être activée ; le port de contrôle standard de l&apos;ARCO, indiqué dans son setup, est 4001. L&apos;USB et le RS-232 utilisent 8/N/1 ; en USB l&apos;ARCO ignore la vitesse, en RS-232 c&apos;est celle réglée sur l&apos;ARCO.</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -9878,6 +9910,14 @@ Clic droit : la modifier</translation>
         <translation>Ouverture du boîtier sur %1…</translation>
     </message>
     <message>
+        <source>Opening MicroHAM ARCO on %1…</source>
+        <translation>Ouverture de MicroHAM ARCO sur %1…</translation>
+    </message>
+    <message>
+        <source>Looking for MicroHAM ARCO on %1:%2…</source>
+        <translation>Recherche de MicroHAM ARCO sur %1:%2…</translation>
+    </message>
+    <message>
         <source>rotctld does not do locators: point in degrees</source>
         <translation>rotctld ne gère pas les locators : pointez en degrés</translation>
     </message>
@@ -10508,6 +10548,22 @@ Clic droit : la modifier</translation>
     <message>
         <source>Rotor: connected to rotctld on %1:%2</source>
         <translation>Rotor : connecté à rotctld sur %1:%2</translation>
+    </message>
+    <message>
+        <source>MicroHAM ARCO (Yaesu GS-232)</source>
+        <translation>MicroHAM ARCO (Yaesu GS-232)</translation>
+    </message>
+    <message>
+        <source>Rotor: connected to MicroHAM ARCO on %1:%2</source>
+        <translation>Rotor : connecté à MicroHAM ARCO sur %1:%2</translation>
+    </message>
+    <message>
+        <source>ARCO: %1</source>
+        <translation>ARCO : %1</translation>
+    </message>
+    <message>
+        <source>Rotor: connected to MicroHAM ARCO on %1</source>
+        <translation>Rotor : connecté à MicroHAM ARCO sur %1</translation>
     </message>
 </context>
 <context>
