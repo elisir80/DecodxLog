@@ -24,7 +24,11 @@ int defaultPortFor(const QString& backend)
 {
     // DecoRotor: WebSocket 8765. rotctld: 4532, perche' sulla 4533 e 4534 ci
     // sono gia' il CAT share e lo spot share di Decodium.
-    return backend == QLatin1String("rotctld") ? 4532 : 8765;
+    if (backend == QLatin1String("rotctld"))
+        return 4532;
+    if (backend == QLatin1String("arco"))
+        return 4001;
+    return 8765;
 }
 
 } // namespace
@@ -39,6 +43,9 @@ RotorController::RotorController(Context context, QObject* parent)
     m_backend = s.value(QStringLiteral("rotor/backend"), QStringLiteral("builtin")).toString();
     m_host = s.value(QStringLiteral("rotor/host"), QStringLiteral("127.0.0.1")).toString();
     m_port = s.value(QStringLiteral("rotor/port"), defaultPortFor(m_backend)).toInt();
+    m_arcoTransport = s.value(QStringLiteral("rotor/arcoTransport"), QStringLiteral("tcp")).toString();
+    m_arcoSerialPort = s.value(QStringLiteral("rotor/arcoSerialPort")).toString();
+    m_arcoSerialBaud = s.value(QStringLiteral("rotor/arcoSerialBaud"), 9600).toInt();
     m_followDx = s.value(QStringLiteral("rotor/followDx"), false).toBool();
     m_beamwidth = qBound(5, s.value(QStringLiteral("rotor/beamwidth"), 45).toInt(), 180);
 
@@ -105,7 +112,8 @@ void RotorController::overrideConnection(const QString& backend, const QString& 
         emit stateChanged();
         return;
     }
-    m_backend = backend == QLatin1String("rotctld") ? QStringLiteral("rotctld") : QStringLiteral("decorotor");
+    m_backend = backend == QLatin1String("rotctld") ? QStringLiteral("rotctld")
+              : backend == QLatin1String("arco") ? QStringLiteral("arco") : QStringLiteral("decorotor");
     if (!host.trimmed().isEmpty())
         m_host = host.trimmed();
     if (port > 0)
@@ -153,9 +161,15 @@ void RotorController::apply()
         emit stateChanged();
         return;
     }
-    m_link.start(m_backend == QLatin1String("rotctld") ? RotorLink::Backend::Rotctld
-                                                       : RotorLink::Backend::DecoRotor,
-                 m_host, m_port, token);
+    if (m_backend == QLatin1String("arco")) {
+        const bool serial = m_arcoTransport == QLatin1String("serial");
+        m_link.start(serial ? RotorLink::Backend::ArcoGs232Serial : RotorLink::Backend::ArcoGs232Tcp,
+                     serial ? m_arcoSerialPort : m_host, serial ? m_arcoSerialBaud : m_port);
+    } else {
+        m_link.start(m_backend == QLatin1String("rotctld") ? RotorLink::Backend::Rotctld
+                                                           : RotorLink::Backend::DecoRotor,
+                     m_host, m_port, token);
+    }
     emit changed();
     emit stateChanged();
 }
@@ -180,6 +194,7 @@ void RotorController::setEnabled(bool enabled)
 void RotorController::setBackend(const QString& backend)
 {
     const QString value = backend == QLatin1String("rotctld") || backend == QLatin1String("builtin")
+                              || backend == QLatin1String("arco")
                               ? backend : QStringLiteral("decorotor");
     if (value == m_backend)
         return;
@@ -214,6 +229,37 @@ void RotorController::setPort(int port)
     apply();
 }
 
+void RotorController::setArcoTransport(const QString& transport)
+{
+    const QString value = transport == QLatin1String("serial") ? QStringLiteral("serial") : QStringLiteral("tcp");
+    if (value == m_arcoTransport)
+        return;
+    m_arcoTransport = value;
+    QSettings().setValue(QStringLiteral("rotor/arcoTransport"), value);
+    if (m_enabled && m_backend == QLatin1String("arco")) apply();
+    emit changed();
+}
+
+void RotorController::setArcoSerialPort(const QString& port)
+{
+    const QString value = port.trimmed();
+    if (value == m_arcoSerialPort) return;
+    m_arcoSerialPort = value;
+    QSettings().setValue(QStringLiteral("rotor/arcoSerialPort"), value);
+    if (m_enabled && m_backend == QLatin1String("arco") && m_arcoTransport == QLatin1String("serial")) apply();
+    emit changed();
+}
+
+void RotorController::setArcoSerialBaud(int baud)
+{
+    const int value = qBound(1200, baud, 115200);
+    if (value == m_arcoSerialBaud) return;
+    m_arcoSerialBaud = value;
+    QSettings().setValue(QStringLiteral("rotor/arcoSerialBaud"), value);
+    if (m_enabled && m_backend == QLatin1String("arco") && m_arcoTransport == QLatin1String("serial")) apply();
+    emit changed();
+}
+
 void RotorController::setHttpPort(int port)
 {
     const int value = qBound(1, port, 65535);
@@ -228,7 +274,7 @@ QString RotorController::tileEndpoint() const
 {
     // Con DecoRotor in piedi i riquadri arrivano da lui; con rotctld non c'e'
     // nessun gateway, e la mappa si arrangia con quella stradale.
-    if (!m_enabled || m_backend == QLatin1String("rotctld"))
+    if (!m_enabled || m_backend == QLatin1String("rotctld") || m_backend == QLatin1String("arco"))
         return {};
     if (builtin())
         return QStringLiteral("http://127.0.0.1:%1/tiles/").arg(m_httpPort);
@@ -409,7 +455,11 @@ QString RotorController::status() const
                                                                                                     : m_gw.serialPort);
     }
     if (!s.connected) {
-        return m_backend == QLatin1String("rotctld")
+        return m_backend == QLatin1String("arco")
+            ? (m_arcoTransport == QLatin1String("serial")
+                ? tr("Opening MicroHAM ARCO on %1…").arg(m_arcoSerialPort.isEmpty() ? QStringLiteral("—") : m_arcoSerialPort)
+                : tr("Looking for MicroHAM ARCO on %1:%2…").arg(m_host).arg(m_port))
+            : m_backend == QLatin1String("rotctld")
             ? tr("Looking for rotctld on %1:%2…").arg(m_host).arg(m_port)
             : tr("Looking for DecoRotor on %1:%2…").arg(m_host).arg(m_port);
     }
@@ -440,7 +490,7 @@ void RotorController::pointLocator(const QString& locator, bool longPath)
 {
     if (!m_enabled || locator.trimmed().size() < 4)
         return;
-    if (m_backend == QLatin1String("rotctld")) {
+    if (m_backend == QLatin1String("rotctld") || m_backend == QLatin1String("arco")) {
         note(tr("rotctld does not do locators: point in degrees"), QStringLiteral("warning"));
         return;
     }

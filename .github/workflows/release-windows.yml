@@ -1,118 +1,105 @@
-# ATTENZIONE — questo flusso non parte piu' da solo.
+# Windows si costruisce soltanto a richiesta e con la stessa catena MSYS2/MinGW
+# con cui viene provato il pacchetto reale. La vecchia catena MSVC produceva un
+# eseguibile che usciva subito con 0xC0000409; non va rimessa qui finche' non e'
+# stata capita e verificata su una macchina Windows vera.
 #
-# Il pacchetto che costruiva qui (MSVC + Qt ufficiale) si avvia e muore subito
-# con 0xC0000409, stack buffer overrun: provato tre volte di fila sulla 1.7.2,
-# sempre uguale. Lo stesso identico codice compilato con MSYS2/MinGW parte e
-# funziona, quindi non e' il programma: e' come viene messo insieme il pacchetto.
-#
-# E faceva danno da solo: l'aggiornamento automatico cerca un file che finisce
-# per "-setup.exe", e questo si chiamava cosi'. Chi diceva di si' si ritrovava
-# un DecoDXLog che non partiva piu'.
-#
-# Il pacchetto per Windows lo si prepara a mano, come si e' sempre fatto fino
-# alla 1.7.0, e come si e' tornati a fare dalla 1.7.2:
-#     MINGW=/c/msys64/mingw64 BUILD=.../build-rel bash scripts/installer.sh
-#     MINGW=/c/msys64/mingw64 BUILD=.../build-rel bash scripts/deploy.sh
-#
-# Resta qui perche' il lavoro e' buono e un giorno si capira' cosa lo rompe: si
-# lancia a mano, e quello che ne esce si prova prima di pubblicarlo.
-name: Release Windows
+# Prima si scarica l'artefatto, si prova DecoDXLog.exe, e solo in una seconda
+# esecuzione manuale con publish=true si allegano gli asset alla release. Il
+# setup pubblicato non finisce in "-setup.exe": l'auto-update non puo' quindi
+# proporre per errore questo pacchetto sperimentale agli utenti Windows.
+name: Release Windows (manual MinGW)
 
 on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Release tag
+        description: Tag sorgente e release destinataria
         required: true
-        default: v1.7.2
+        default: v1.16.43
+        type: string
+      publish:
+        description: Ho provato l'artefatto Windows e autorizzo la pubblicazione
+        required: true
+        default: false
+        type: boolean
 
 permissions:
   contents: write
 
 jobs:
   windows:
-    name: Windows x64
-    runs-on: windows-latest
+    name: Windows x64 (MSYS2 MinGW)
+    runs-on: windows-2022
+    defaults:
+      run:
+        shell: msys2 {0}
 
     steps:
-      - name: Checkout
+      - name: Checkout release source
         uses: actions/checkout@v4
-
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v4
         with:
-          version: "6.8.3"
-          arch: win64_msvc2022_64
-          modules: "qtmultimedia qtpositioning qtlocation qtserialport qtwebsockets"
-          cache: true
+          ref: ${{ inputs.tag }}
 
-      - name: Enable MSVC
-        uses: ilammy/msvc-dev-cmd@v1
+      - name: Install MSYS2 MinGW and Qt
+        uses: msys2/setup-msys2@v2
         with:
-          arch: x64
+          msystem: MINGW64
+          update: true
+          install: >-
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-ninja
+            mingw-w64-x86_64-qt6-base
+            mingw-w64-x86_64-qt6-declarative
+            mingw-w64-x86_64-qt6-tools
+            mingw-w64-x86_64-qt6-translations
+            mingw-w64-x86_64-qt6-multimedia
+            mingw-w64-x86_64-qt6-positioning
+            mingw-w64-x86_64-qt6-location
+            mingw-w64-x86_64-qt6-serialport
+            mingw-w64-x86_64-qt6-websockets
+            mingw-w64-x86_64-qt6-shadertools
+            mingw-w64-x86_64-qtkeychain
+            mingw-w64-x86_64-openssl
 
-      - name: Install tools
+      - name: Install Inno Setup
         shell: pwsh
-        run: choco install ninja innosetup --no-progress -y
+        run: choco install innosetup --no-progress -y
 
       - name: Configure
-        shell: pwsh
-        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$env:QT_ROOT_DIR"
+        run: cmake -S . -B build-rel -G Ninja -DCMAKE_BUILD_TYPE=Release
 
       - name: Build
-        shell: pwsh
-        run: cmake --build build --parallel 3 --target decolog
+        run: cmake --build build-rel --parallel 3 --target decolog
 
-      - name: Deploy portable folder
-        shell: pwsh
+      - name: Package with the tested MinGW procedure
+        run: MINGW=/mingw64 BUILD="$PWD/build-rel" bash scripts/installer.sh
+
+      - name: Prepare assets for review
+        id: assets
         run: |
-          $version = "${env:GITHUB_REF_NAME}".TrimStart("v")
-          New-Item -ItemType Directory -Force dist | Out-Null
-          Copy-Item build\DecoDXLog.exe dist\
-          & "$env:QT_ROOT_DIR\bin\windeployqt.exe" `
-            --qmldir qml `
-            --qmldir libs\decodium-ui\qml `
-            --release `
-            --no-translations `
-            --no-system-d3d-compiler `
-            --no-opengl-sw `
-            dist\DecoDXLog.exe
-          Copy-Item LICENSE dist\LICENSE.txt
-          Copy-Item resources\cty\COPYRIGHT.txt dist\cty.csv-COPYRIGHT.txt
-          Copy-Item libs\ggmorse\LICENSE dist\ggmorse-LICENSE.txt
-          Copy-Item resources\decodxlog.ico dist\decodxlog.ico
-          @"
-          DecoDXLog $version
+          version="${{ inputs.tag }}"
+          version="${version#v}"
+          mkdir -p release-assets
+          cp "DecoDXLog-$version-setup.exe" "release-assets/DecoDXLog-$version-windows-x64-manual.exe"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
 
-          Avvio: doppio clic su DecoDXLog.exe.
-          Il log e le impostazioni stanno in %APPDATA%\Decodium.
-          "@ | Set-Content -Encoding UTF8 dist\LEGGIMI.txt
+      - name: Upload artefacts to test before publication
+        uses: actions/upload-artifact@v4
+        with:
+          name: DecoDXLog-${{ steps.assets.outputs.version }}-windows-x64-MinGW-test
+          path: release-assets/
+          if-no-files-found: error
 
-      - name: Build installer
-        shell: pwsh
-        run: |
-          $version = "${env:GITHUB_REF_NAME}".TrimStart("v")
-          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
-          & $iscc /Qp "/DVersion=$version" "/DSource=$PWD\dist" "/DOut=$PWD" "$PWD\packaging\decodxlog.iss"
-
-      - name: Prepare release assets
-        shell: pwsh
-        run: |
-          $version = "${env:GITHUB_REF_NAME}".TrimStart("v")
-          New-Item -ItemType Directory -Force release-assets | Out-Null
-          Compress-Archive -Path dist -DestinationPath "release-assets\DecoDXLog-$version-windows-x64-portable.zip" -Force
-          Copy-Item "DecoDXLog-$version-setup.exe" "release-assets\DecoDXLog-$version-windows-x64-setup.exe"
-
-      - name: Ensure release exists
+      - name: Upload reviewed release assets
+        if: inputs.publish
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG_NAME: ${{ github.event.inputs.tag || github.ref_name }}
-        run: gh release view "$env:TAG_NAME" *> $null; if ($LASTEXITCODE -ne 0) { gh release create "$env:TAG_NAME" --title "DecoDXLog $env:TAG_NAME" --notes "DecoDXLog $env:TAG_NAME" }
-
-      - name: Upload release assets
-        shell: pwsh
-        env:
-          GH_TOKEN: ${{ github.token }}
-          TAG_NAME: ${{ github.event.inputs.tag || github.ref_name }}
-        run: gh release upload "$env:TAG_NAME" release-assets\* --clobber
+          TAG_NAME: ${{ inputs.tag }}
+        run: |
+          gh release view "$env:TAG_NAME" *> $null
+          if ($LASTEXITCODE -ne 0) {
+            gh release create "$env:TAG_NAME" --title "DecoDXLog $env:TAG_NAME" --generate-notes
+          }
+          gh release upload "$env:TAG_NAME" release-assets\* --clobber

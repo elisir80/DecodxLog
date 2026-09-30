@@ -12,28 +12,30 @@ on:
         description: Release tag
         required: true
         default: v1.7.2
+      arch:
+        description: Architettura da costruire (all, arm64, x86_64)
+        required: true
+        default: all
+        type: choice
+        options: [all, arm64, x86_64]
 
 permissions:
   contents: write
 
 jobs:
   macos:
-    name: macOS ${{ matrix.name }}
-    runs-on: ${{ matrix.runner }}
+    name: macOS ${{ matrix.arch == 'arm64' && 'apple-silicon' || 'intel' }}
+    runs-on: ${{ matrix.arch == 'arm64' && 'macos-14' || 'macos-15-intel' }}
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - name: apple-silicon
-            runner: macos-14
-            arch: arm64
-          - name: intel
-            runner: macos-15-intel
-            arch: x86_64
+        arch: ${{ fromJSON(inputs.arch == 'all' && '["arm64", "x86_64"]' || format('["{0}"]', inputs.arch)) }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
 
       - name: Install dependencies
         run: brew install cmake ninja qt qtkeychain openssl@3 brotli webp
@@ -57,17 +59,15 @@ jobs:
             -libpath="$(brew --prefix webp)/lib" \
             -no-codesign \
             -verbose=1
-          version="${GITHUB_REF_NAME#v}"
+
+          version="${{ inputs.tag }}"
+          version="${version#v}"
           mkdir -p release-assets
 
-          # Alcuni plugin Qt sono symlink interni: -L firma anche il file che
-          # essi puntano, prima della firma del bundle complessivo.
-          while IFS= read -r -d '' item; do
-            codesign --force --sign - --timestamp=none "$item"
-          done < <(find -L build/DecoDXLog.app/Contents -type f \( -perm -111 -o -name "*.dylib" -o -name "*.so" \) -print0)
-
-          codesign --force --deep --sign - --timestamp=none build/DecoDXLog.app
-          codesign --verify --deep --strict --verbose=2 build/DecoDXLog.app
+          # Il progetto non dispone di un certificato Apple per Developer ID
+          # e notarizzazione. Non applichiamo quindi una firma ad-hoc parziale:
+          # sui plugin Homebrew Intel la verifica strict la renderebbe invalida
+          # e bloccherebbe il DMG. Il bundle resta coerentemente non firmato.
 
           hdiutil create -volname "DecoDXLog $version" \
             -srcfolder build/DecoDXLog.app \

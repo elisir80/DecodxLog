@@ -3,6 +3,14 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.43 — 30 settembre 2026
+
+**MicroHAM ARCO, senza programmi in mezzo.** In Impostazioni → Rotore c'e' ora
+"MicroHAM ARCO / Yaesu GS-232": DecoDXLog legge la posizione (`C2`), punta (`W`) e
+ferma (`S`) direttamente il controller. Si puo' usare la sua LAN (indirizzo ARCO e porta
+4001) oppure solo il suo cavo USB/RS-232: niente Hamlib e niente `rotctld` da installare.
+La porta USB/seriale e il baud rate restano salvati nelle impostazioni.
+
 ## 1.16.42 — 30 settembre 2026
 
 **Porte seriali che sono davvero porte.** CAT, rotore, SO2R e manipolatore CW ora usano

@@ -24,6 +24,9 @@ class RotorController : public QObject {
     Q_PROPERTY(QString backend READ backend WRITE setBackend NOTIFY changed)
     Q_PROPERTY(QString host READ host WRITE setHost NOTIFY changed)
     Q_PROPERTY(int port READ port WRITE setPort NOTIFY changed)
+    Q_PROPERTY(QString arcoTransport READ arcoTransport WRITE setArcoTransport NOTIFY changed)
+    Q_PROPERTY(QString arcoSerialPort READ arcoSerialPort WRITE setArcoSerialPort NOTIFY changed)
+    Q_PROPERTY(int arcoSerialBaud READ arcoSerialBaud WRITE setArcoSerialBaud NOTIFY changed)
     Q_PROPERTY(bool followDx READ followDx WRITE setFollowDx NOTIFY changed)
     Q_PROPERTY(int beamwidth READ beamwidth WRITE setBeamwidth NOTIFY changed)
     Q_PROPERTY(QVariantMap state READ state NOTIFY stateChanged)
@@ -72,13 +75,19 @@ public:
 
     bool enabled() const { return m_enabled; }
     void setEnabled(bool enabled);
-    // "builtin" | "decorotor" | "rotctld"
+    // "builtin" | "decorotor" | "rotctld" | "arco"
     QString backend() const { return m_backend; }
     void setBackend(const QString& backend);
     QString host() const { return m_host; }
     void setHost(const QString& host);
     int port() const { return m_port; }
     void setPort(int port);
+    QString arcoTransport() const { return m_arcoTransport; } // "tcp" | "serial"
+    void setArcoTransport(const QString& transport);
+    QString arcoSerialPort() const { return m_arcoSerialPort; }
+    void setArcoSerialPort(const QString& port);
+    int arcoSerialBaud() const { return m_arcoSerialBaud; }
+    void setArcoSerialBaud(int baud);
     bool followDx() const { return m_followDx; }
     void setFollowDx(bool follow);
     int beamwidth() const { return m_beamwidth; }
@@ -182,6 +191,9 @@ private:
     QString m_backend{QStringLiteral("decorotor")};
     QString m_host{QStringLiteral("127.0.0.1")};
     int     m_port{8765};
+    QString m_arcoTransport{QStringLiteral("tcp")};
+    QString m_arcoSerialPort;
+    int     m_arcoSerialBaud{9600};
     bool    m_followDx{false};
     int     m_beamwidth{45};
     QString m_lastTarget;
