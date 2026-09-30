@@ -5,6 +5,13 @@ in stazione.
 
 ## 1.16.42 — 30 settembre 2026
 
+**Porte seriali che sono davvero porte.** CAT, rotore, SO2R e manipolatore CW ora usano
+l'elenco di Qt delle porte seriali reali. Su macOS non compaiono piu' i pseudo-terminali
+`/dev/ttys*`; restano le porte USB, Bluetooth e quelle create dai driver della radio.
+
+**Nomi leggibili anche nelle tendine.** I menu della porta CAT e PTT si allargano quanto
+serve per visualizzare per intero i percorsi delle porte seriali.
+
 **CRX Logbook: la chiave rifiutata si dice per quello che e'.** CRX adesso, quando non
 accetta la chiave API, risponde con un errore 500 e nel corpo `20-api-key-auth-error`.
 DecoDXLog prendeva il 500 per «il servizio non risponde» e riprovava all'infinito, senza

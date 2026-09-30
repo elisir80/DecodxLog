@@ -60,9 +60,11 @@ jobs:
           version="${GITHUB_REF_NAME#v}"
           mkdir -p release-assets
 
+          # Alcuni plugin Qt sono symlink interni: -L firma anche il file che
+          # essi puntano, prima della firma del bundle complessivo.
           while IFS= read -r -d '' item; do
             codesign --force --sign - --timestamp=none "$item"
-          done < <(find build/DecoDXLog.app/Contents -type f \( -perm -111 -o -name "*.dylib" -o -name "*.so" \) -print0)
+          done < <(find -L build/DecoDXLog.app/Contents -type f \( -perm -111 -o -name "*.dylib" -o -name "*.so" \) -print0)
 
           codesign --force --deep --sign - --timestamp=none build/DecoDXLog.app
           codesign --verify --deep --strict --verbose=2 build/DecoDXLog.app

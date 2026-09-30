@@ -1,7 +1,7 @@
 #include "app/So2rController.h"
+#include "core/SerialPorts.h"
 
 #include <QSerialPort>
-#include <QSerialPortInfo>
 #include <QSettings>
 
 namespace decolog::core::otrsp {
@@ -135,10 +135,7 @@ bool So2rController::otrspOpen() const
 
 QStringList So2rController::serialPorts() const
 {
-    QStringList out;
-    for (const QSerialPortInfo& p : QSerialPortInfo::availablePorts())
-        out << p.portName();
-    return out;
+    return core::availableSerialPorts();
 }
 
 void So2rController::openOtrsp()

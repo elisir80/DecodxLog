@@ -8,6 +8,9 @@ ComboBox {
 
     property bool mono: true
     property int fieldHeight: 30
+    // Alcuni valori (porte seriali, percorsi, URL) sono piu' larghi del campo
+    // nel layout. Chi li usa puo' allargare solo la tendina, non la schermata.
+    property int popupMinimumWidth: 160
 
     implicitHeight: fieldHeight
     // Larghezza naturale piccola: nei layout decide lo spazio disponibile, non il
@@ -115,7 +118,7 @@ ComboBox {
         // piccola e si apre sopra le altre finestre del programma, non sotto.
         popupType: Popup.Window
         y: root.height + 2
-        width: Math.max(root.width, 160)
+        width: Math.max(root.width, root.popupMinimumWidth)
         implicitHeight: Math.min(contentItem.implicitHeight + 4, 340)
         padding: 2
         contentItem: ListView {
