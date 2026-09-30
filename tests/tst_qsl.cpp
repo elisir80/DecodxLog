@@ -232,6 +232,19 @@ private slots:
         QCOMPARE(r.rejected, 1);
         QVERIFY(r.message.contains(QLatin1String("Missing logentry_his_call")));
 
+        // Com'e' oggi: la chiave rifiutata arriva con 500 e il motivo nel corpo.
+        // Non e' "il servizio non risponde": e' la chiave, e va detto.
+        r = qsl::parseCrxResponse(500, R"({"error":"Error : 20-api-key-auth-error"})");
+        QVERIFY(!r.ok);
+        QVERIFY(r.retryLater);
+        QVERIFY(r.message.contains(QStringLiteral("API key")));
+        QVERIFY(r.message.contains(QStringLiteral("20-api-key-auth-error")));
+        QVERIFY(r.message.contains(QStringLiteral("my-api")));
+        {
+            QString error;
+            QVERIFY(qsl::parseCrxLogs(R"({"error":"Error : 20-api-key-auth-error"})", &error).isEmpty());
+            QVERIFY(error.contains(QStringLiteral("API key")));
+        }
         r = qsl::parseCrxResponse(500, "<html>oops</html>");
         QVERIFY(r.retryLater);
 

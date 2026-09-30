@@ -4062,16 +4062,16 @@ Labais klikšķis: mainīt</translation>
         <translation>CRX Logbook: pakalpojums neatbild (%1)</translation>
     </message>
     <message>
-        <source>CRX Logbook: the API key was not accepted</source>
-        <translation>CRX Logbook: API atslēga netika pieņemta</translation>
-    </message>
-    <message>
         <source>CRX Logbook: already there</source>
         <translation>CRX Logbook: jau ir</translation>
     </message>
     <message>
         <source>CRX Logbook: %1</source>
         <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted%1: check it on crx.cloud (user → My account → my-api) and paste it again in Setup → QSL services</source>
+        <translation>API atslēga netika pieņemta%1: pārbaudi to crx.cloud (lietotājs → My account → my-api) un ielīmē vēlreiz sadaļā Iestatījumi → QSL pakalpojumi</translation>
     </message>
     <message>
         <source>unexpected answer</source>
@@ -4144,10 +4144,6 @@ Labais klikšķis: mainīt</translation>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: nav atbildes</translation>
-    </message>
-    <message>
-        <source>the API key was not accepted</source>
-        <translation>API atslēga netika pieņemta</translation>
     </message>
 </context>
 <context>

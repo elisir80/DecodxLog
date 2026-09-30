@@ -4036,16 +4036,16 @@ Right click: change it</source>
         <translation>CRX Logbook: サービスが応答しません (%1)</translation>
     </message>
     <message>
-        <source>CRX Logbook: the API key was not accepted</source>
-        <translation>CRX Logbook: APIキーが受け付けられませんでした</translation>
-    </message>
-    <message>
         <source>CRX Logbook: already there</source>
         <translation>CRX Logbook: 登録済み</translation>
     </message>
     <message>
         <source>CRX Logbook: %1</source>
         <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted%1: check it on crx.cloud (user → My account → my-api) and paste it again in Setup → QSL services</source>
+        <translation>API キーが受け付けられませんでした%1。crx.cloud（ユーザー → My account → my-api）で確認し、設定 → QSL のサービス にもう一度貼り付けてください</translation>
     </message>
     <message>
         <source>unexpected answer</source>
@@ -4118,10 +4118,6 @@ Right click: change it</source>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: 返事がありません</translation>
-    </message>
-    <message>
-        <source>the API key was not accepted</source>
-        <translation>APIキーが受け付けられませんでした</translation>
     </message>
 </context>
 <context>

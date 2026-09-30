@@ -4036,16 +4036,16 @@ Jobb kattintás: módosítás</translation>
         <translation>CRX Logbook: a szolgáltatás nem válaszol (%1)</translation>
     </message>
     <message>
-        <source>CRX Logbook: the API key was not accepted</source>
-        <translation>CRX Logbook: az API-kulcsot nem fogadta el</translation>
-    </message>
-    <message>
         <source>CRX Logbook: already there</source>
         <translation>CRX Logbook: már megvan</translation>
     </message>
     <message>
         <source>CRX Logbook: %1</source>
         <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted%1: check it on crx.cloud (user → My account → my-api) and paste it again in Setup → QSL services</source>
+        <translation>az API-kulcsot nem fogadta el%1: ellenőrizd a crx.cloud oldalon (felhasználó → My account → my-api), és illeszd be újra: Beállítások → QSL-szolgáltatások</translation>
     </message>
     <message>
         <source>unexpected answer</source>
@@ -4118,10 +4118,6 @@ Jobb kattintás: módosítás</translation>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: nincs válasz</translation>
-    </message>
-    <message>
-        <source>the API key was not accepted</source>
-        <translation>az API-kulcsot nem fogadta el</translation>
     </message>
 </context>
 <context>

@@ -4062,16 +4062,16 @@ Clic dreapta: modific-o</translation>
         <translation>CRX Logbook: serviciul nu răspunde (%1)</translation>
     </message>
     <message>
-        <source>CRX Logbook: the API key was not accepted</source>
-        <translation>CRX Logbook: cheia API nu a fost acceptată</translation>
-    </message>
-    <message>
         <source>CRX Logbook: already there</source>
         <translation>CRX Logbook: există deja</translation>
     </message>
     <message>
         <source>CRX Logbook: %1</source>
         <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted%1: check it on crx.cloud (user → My account → my-api) and paste it again in Setup → QSL services</source>
+        <translation>cheia API nu a fost acceptată%1: verific-o pe crx.cloud (utilizator → My account → my-api) și lipește-o din nou în Setări → Servicii QSL</translation>
     </message>
     <message>
         <source>unexpected answer</source>
@@ -4144,10 +4144,6 @@ Clic dreapta: modific-o</translation>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: niciun răspuns</translation>
-    </message>
-    <message>
-        <source>the API key was not accepted</source>
-        <translation>cheia API nu a fost acceptată</translation>
     </message>
 </context>
 <context>

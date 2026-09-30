@@ -3,6 +3,16 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.42 — 30 settembre 2026
+
+**CRX Logbook: la chiave rifiutata si dice per quello che e'.** CRX adesso, quando non
+accetta la chiave API, risponde con un errore 500 e nel corpo `20-api-key-auth-error`.
+DecoDXLog prendeva il 500 per «il servizio non risponde» e riprovava all'infinito, senza
+mai dire che il problema era la chiave. Adesso lo dice, con il messaggio di CRX e dove si
+rifa' la chiave (crx.cloud → utente → My account → my-api) e dove si incolla (Impostazioni
+→ Servizi QSL). Lo stesso vale per «Carica l'elenco» dei logbook. La chiave si manda senza
+spazi o a capo ai bordi, se ci sono finiti incollandola.
+
 ## 1.16.41 — 30 settembre 2026
 
 **Ogni tasto macro manda la sua macro.** Nel pannello CW (e nella finestra del contest) tutti

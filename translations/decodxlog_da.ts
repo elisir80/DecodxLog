@@ -4049,16 +4049,16 @@ Højreklik: ret den</translation>
         <translation>CRX Logbook: tjenesten svarer ikke (%1)</translation>
     </message>
     <message>
-        <source>CRX Logbook: the API key was not accepted</source>
-        <translation>CRX Logbook: API-nøglen blev ikke accepteret</translation>
-    </message>
-    <message>
         <source>CRX Logbook: already there</source>
         <translation>CRX Logbook: findes allerede</translation>
     </message>
     <message>
         <source>CRX Logbook: %1</source>
         <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted%1: check it on crx.cloud (user → My account → my-api) and paste it again in Setup → QSL services</source>
+        <translation>API-nøglen blev ikke accepteret%1: tjek den på crx.cloud (bruger → My account → my-api) og indsæt den igen under Opsætning → QSL-tjenester</translation>
     </message>
     <message>
         <source>unexpected answer</source>
@@ -4131,10 +4131,6 @@ Højreklik: ret den</translation>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log: intet svar</translation>
-    </message>
-    <message>
-        <source>the API key was not accepted</source>
-        <translation>API-nøglen blev ikke accepteret</translation>
     </message>
 </context>
 <context>

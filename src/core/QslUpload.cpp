@@ -289,6 +289,31 @@ QJsonObject crxQsoData(const AdifRecord& record, qint64 logId, qint64 remoteId, 
     return out;
 }
 
+namespace {
+// CRX la chiave rifiutata la dice nel corpo, e non sempre con 401: oggi (fine
+// settembre 2026) risponde 500 con {"error":"Error : 20-api-key-auth-error"}.
+// Presa per "il servizio non risponde", la chiave sbagliata restava nascosta
+// dietro un "riprovo dopo" senza fine.
+bool crxKeyRefused(int status, const QString& error)
+{
+    if (status == 401)
+        return true;
+    for (const char* sign : {"api-key", "apikey", "api key", "auth-error", "auth error", "unauthori"}) {
+        if (error.contains(QLatin1String(sign), Qt::CaseInsensitive))
+            return true;
+    }
+    return false;
+}
+} // namespace
+
+QString crxKeyRefusedMessage(const QString& error)
+{
+    const QString why = error.trimmed().isEmpty() ? QString() : QStringLiteral(" (%1)").arg(error.trimmed());
+    return QCoreApplication::translate("Qsl", "the API key was not accepted%1: check it on crx.cloud "
+                                              "(user → My account → my-api) and paste it again in Setup → QSL "
+                                              "services").arg(why);
+}
+
 QslUploadResult parseCrxResponse(int status, const QByteArray& body)
 {
     QslUploadResult r;
@@ -302,18 +327,18 @@ QslUploadResult parseCrxResponse(int status, const QByteArray& body)
         return r;
     }
     const QString error = o.value(QStringLiteral("error")).toString(o.value(QStringLiteral("message")).toString());
+    if (crxKeyRefused(status, error)) {
+        // Una chiave sbagliata vale per tutti i QSO: ci si ferma qui.
+        r.retryLater = true;
+        r.message = QCoreApplication::translate("Qsl", "CRX Logbook: %1").arg(crxKeyRefusedMessage(error));
+        return r;
+    }
     if (status == 0 || status >= 500 || (status == 200 && o.isEmpty())) {
         // Il servizio non ha risposto, o ha risposto con qualcosa che non e'
         // JSON: si riprova dopo, il QSO resta in coda.
         r.retryLater = true;
         r.message = QCoreApplication::translate("Qsl", "CRX Logbook: no answer from the service (%1)")
                         .arg(status > 0 ? QString::number(status) : QStringLiteral("—"));
-        return r;
-    }
-    if (status == 401) {
-        // Una chiave sbagliata vale per tutti i QSO: ci si ferma qui.
-        r.retryLater = true;
-        r.message = QCoreApplication::translate("Qsl", "CRX Logbook: the API key was not accepted");
         return r;
     }
     if (error.contains(QLatin1String("duplicate"), Qt::CaseInsensitive)) {
@@ -333,8 +358,9 @@ QVariantList parseCrxLogs(const QByteArray& body, QString* error)
     QVariantList out;
     const QJsonObject o = QJsonDocument::fromJson(body).object();
     if (o.contains(QStringLiteral("error"))) {
+        const QString said = o.value(QStringLiteral("error")).toString();
         if (error)
-            *error = o.value(QStringLiteral("error")).toString();
+            *error = crxKeyRefused(0, said) ? crxKeyRefusedMessage(said) : said;
         return out;
     }
     for (const QJsonValue& v : o.value(QStringLiteral("logs")).toArray()) {
@@ -826,8 +852,9 @@ QNetworkRequest crxHttpRequest(const QUrl& url)
 }
 } // namespace
 
-void WebQslUploader::uploadCrx(const QString& apiKey, const QJsonObject& qsoData)
+void WebQslUploader::uploadCrx(const QString& apiKeyAsSaved, const QJsonObject& qsoData)
 {
+    const QString apiKey = apiKeyAsSaved.trimmed();
     if (m_busy)
         return;
     m_busy = true;
@@ -836,8 +863,9 @@ void WebQslUploader::uploadCrx(const QString& apiKey, const QJsonObject& qsoData
     watch(m_net->post(crxHttpRequest(m_crxUrl), body), Service::Crx, 1);
 }
 
-void WebQslUploader::deleteCrx(const QString& apiKey, qint64 remoteQsoId)
+void WebQslUploader::deleteCrx(const QString& apiKeyAsSaved, qint64 remoteQsoId)
 {
+    const QString apiKey = apiKeyAsSaved.trimmed();
     if (m_busy)
         return;
     m_busy = true;
@@ -849,7 +877,8 @@ void WebQslUploader::deleteCrx(const QString& apiKey, qint64 remoteQsoId)
 
 void WebQslUploader::listCrxLogs(const QString& apiKey)
 {
-    QNetworkReply* reply = m_net->post(crxHttpRequest(m_crxUrl), crxRequest(QStringLiteral("get_mylogs"), apiKey, {}));
+    QNetworkReply* reply = m_net->post(crxHttpRequest(m_crxUrl),
+                                       crxRequest(QStringLiteral("get_mylogs"), apiKey.trimmed(), {}));
     connect(reply, &QNetworkReply::finished, this, [this, reply] {
         reply->deleteLater();
         const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
@@ -859,7 +888,7 @@ void WebQslUploader::listCrxLogs(const QString& apiKey)
         if (reply->error() != QNetworkReply::NoError && status == 0)
             error = network::safeErrorString(reply);
         else if (status == 401)
-            error = QCoreApplication::translate("Qsl", "the API key was not accepted");
+            error = qsl::crxKeyRefusedMessage({});
         else
             logs = qsl::parseCrxLogs(answer, &error);
         emit crxLogsListed(logs, error);

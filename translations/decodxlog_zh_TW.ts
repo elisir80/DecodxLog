@@ -4036,16 +4036,16 @@ Right click: change it</source>
         <translation>CRX Logbook：服務無回應（%1）</translation>
     </message>
     <message>
-        <source>CRX Logbook: the API key was not accepted</source>
-        <translation>CRX Logbook：API 金鑰未被接受</translation>
-    </message>
-    <message>
         <source>CRX Logbook: already there</source>
         <translation>CRX Logbook：已存在</translation>
     </message>
     <message>
         <source>CRX Logbook: %1</source>
         <translation>CRX Logbook：%1</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted%1: check it on crx.cloud (user → My account → my-api) and paste it again in Setup → QSL services</source>
+        <translation>API 金鑰未被接受%1：請在 crx.cloud（使用者 → My account → my-api）核對，然後在 設定 → QSL 服務 中重新貼上</translation>
     </message>
     <message>
         <source>unexpected answer</source>
@@ -4118,10 +4118,6 @@ Right click: change it</source>
     <message>
         <source>Club Log: no answer</source>
         <translation>Club Log：沒有回覆</translation>
-    </message>
-    <message>
-        <source>the API key was not accepted</source>
-        <translation>API 金鑰未被接受</translation>
     </message>
 </context>
 <context>

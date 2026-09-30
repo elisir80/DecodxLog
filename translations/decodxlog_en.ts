@@ -4047,16 +4047,16 @@ Right click: change it</source>
         <translation>CRX Logbook: no answer from the service (%1)</translation>
     </message>
     <message>
-        <source>CRX Logbook: the API key was not accepted</source>
-        <translation>CRX Logbook: the API key was not accepted</translation>
-    </message>
-    <message>
         <source>CRX Logbook: already there</source>
         <translation>CRX Logbook: already there</translation>
     </message>
     <message>
         <source>CRX Logbook: %1</source>
         <translation>CRX Logbook: %1</translation>
+    </message>
+    <message>
+        <source>the API key was not accepted%1: check it on crx.cloud (user → My account → my-api) and paste it again in Setup → QSL services</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>unexpected answer</source>
@@ -4129,10 +4129,6 @@ Right click: change it</source>
     <message>
         <source>Club Log: no answer</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the API key was not accepted</source>
-        <translation>the API key was not accepted</translation>
     </message>
 </context>
 <context>

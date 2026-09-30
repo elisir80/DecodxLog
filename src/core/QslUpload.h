@@ -84,6 +84,8 @@ QString crxRemoteKey(qint64 logId, const QString& qsoId);
 qint64 crxRemoteQso(const QString& remoteKey, qint64 logId);
 // La risposta a edit_myqso: {"success": true, "qso_id": ...} o {"error": ...}.
 QslUploadResult parseCrxResponse(int status, const QByteArray& body);
+// Cosa dire quando CRX rifiuta la chiave, e dove si rifa'.
+QString crxKeyRefusedMessage(const QString& error);
 // I logbook dell'account: {id, name, call, description}.
 QVariantList parseCrxLogs(const QByteArray& body, QString* error);
 
