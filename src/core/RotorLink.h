@@ -20,6 +20,7 @@
 #include <QVariantMap>
 
 class QJsonObject;
+class QSerialPort;
 class QTcpSocket;
 class QWebSocket;
 
@@ -80,12 +81,13 @@ class RotorLink : public QObject {
     Q_OBJECT
 
 public:
-    enum class Backend { DecoRotor, Rotctld };
+    enum class Backend { DecoRotor, Rotctld, ArcoGs232Tcp, ArcoGs232Serial };
 
     explicit RotorLink(QObject* parent = nullptr);
     ~RotorLink() override;
 
-    // `host` e `port` sono quelli del gateway; `token` solo per DecoRotor.
+    // Per ARCO seriale `host` e' il nome della porta e `port` il baud rate.
+    // Per ARCO TCP sono l'indirizzo e la porta GS-232 (di serie 4001).
     void start(Backend backend, const QString& host, int port, const QString& token = {});
     void stop();
     bool running() const { return m_running; }
@@ -126,11 +128,15 @@ signals:
 private:
     void openDecoRotor();
     void openRotctld();
+    void openArcoTcp();
+    void openArcoSerial();
     void retryLater();
     void sendJson(const QVariantMap& command);
     void sendRotctld(const QString& line);
+    void sendArco(const QByteArray& frame);
     void handleJson(const QString& message);
     void handleRotctld();
+    void handleArco();
 
     Backend m_backend{Backend::DecoRotor};
     QString m_host{QStringLiteral("127.0.0.1")};
@@ -145,6 +151,7 @@ private:
     QVariantList m_history;
     QWebSocket* m_ws{nullptr};
     QTcpSocket* m_tcp{nullptr};
+    QSerialPort* m_serial{nullptr};
     QByteArray  m_buffer;
     double  m_pendingAz{-1.0};  // puntamento chiesto mentre il gateway non c'era ancora
     QTimer m_retry;

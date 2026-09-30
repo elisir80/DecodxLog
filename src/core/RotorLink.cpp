@@ -3,6 +3,8 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QRegularExpression>
+#include <QSerialPort>
 #include <QTcpSocket>
 #include <QWebSocket>
 #include <cmath>
@@ -120,6 +122,32 @@ bool parsePosition(const QString& reply, double* az, double* el)
     return true;
 }
 
+static bool parseGs232Position(const QString& reply, double* az, double* el)
+{
+    // GS-232A risponde di norma "AZ=123.0 EL=000.0". ARCO puo' essere
+    // configurato per solo azimut: in quel caso EL non e' obbligatorio.
+    static const QRegularExpression azRe(QStringLiteral(R"(AZ\s*=\s*(-?\d+(?:\.\d+)?))"),
+                                         QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression elRe(QStringLiteral(R"(EL\s*=\s*(-?\d+(?:\.\d+)?))"),
+                                         QRegularExpression::CaseInsensitiveOption);
+    const auto azMatch = azRe.match(reply);
+    if (!azMatch.hasMatch())
+        return false;
+    bool ok = false;
+    const double value = azMatch.captured(1).toDouble(&ok);
+    if (!ok)
+        return false;
+    if (az)
+        *az = value;
+    const auto elMatch = elRe.match(reply);
+    if (el && elMatch.hasMatch()) {
+        const double elevation = elMatch.captured(1).toDouble(&ok);
+        if (ok)
+            *el = elevation;
+    }
+    return true;
+}
+
 } // namespace rotor
 
 // ── Collegamento ──────────────────────────────────────────────────────────────
@@ -133,14 +161,22 @@ RotorLink::RotorLink(QObject* parent)
             return;
         if (m_backend == Backend::DecoRotor)
             openDecoRotor();
-        else
+        else if (m_backend == Backend::Rotctld)
             openRotctld();
+        else if (m_backend == Backend::ArcoGs232Tcp)
+            openArcoTcp();
+        else
+            openArcoSerial();
     });
 
     m_poll.setInterval(1000);
     connect(&m_poll, &QTimer::timeout, this, [this] {
-        if (m_tcp && m_tcp->state() == QAbstractSocket::ConnectedState)
+        if (m_backend == Backend::Rotctld && m_tcp && m_tcp->state() == QAbstractSocket::ConnectedState)
             sendRotctld(QStringLiteral("p"));
+        else if (m_backend == Backend::ArcoGs232Tcp && m_tcp && m_tcp->state() == QAbstractSocket::ConnectedState)
+            sendArco("C2\r");
+        else if (m_backend == Backend::ArcoGs232Serial && m_serial && m_serial->isOpen())
+            sendArco("C2\r");
     });
 }
 
@@ -154,14 +190,20 @@ void RotorLink::start(Backend backend, const QString& host, int port, const QStr
     stop();
     m_backend = backend;
     m_host = host.trimmed().isEmpty() ? QStringLiteral("127.0.0.1") : host.trimmed();
-    m_port = port > 0 ? port : (backend == Backend::DecoRotor ? 8765 : 4532);
+    m_port = port > 0 ? port : (backend == Backend::DecoRotor ? 8765
+                                      : backend == Backend::Rotctld ? 4532
+                                      : backend == Backend::ArcoGs232Tcp ? 4001 : 9600);
     m_token = token;
     m_running = true;
     m_attempts = 0;
     if (backend == Backend::DecoRotor)
         openDecoRotor();
-    else
+    else if (backend == Backend::Rotctld)
         openRotctld();
+    else if (backend == Backend::ArcoGs232Tcp)
+        openArcoTcp();
+    else
+        openArcoSerial();
 }
 
 void RotorLink::stop()
@@ -178,6 +220,11 @@ void RotorLink::stop()
         m_tcp->abort();
         m_tcp->deleteLater();
         m_tcp = nullptr;
+    }
+    if (m_serial) {
+        m_serial->close();
+        m_serial->deleteLater();
+        m_serial = nullptr;
     }
     if (m_state.connected || !m_state.error.isEmpty()) {
         m_state = RotorState{};
@@ -285,6 +332,63 @@ void RotorLink::openRotctld()
     m_tcp->connectToHost(m_host, static_cast<quint16>(m_port));
 }
 
+void RotorLink::openArcoTcp()
+{
+    if (m_tcp) {
+        m_tcp->abort();
+        m_tcp->deleteLater();
+    }
+    m_buffer.clear();
+    m_tcp = new QTcpSocket(this);
+    connect(m_tcp, &QTcpSocket::connected, this, [this] {
+        m_attempts = 0;
+        m_state.linkUp = m_state.connected = true;
+        m_state.hasAz = true;
+        m_state.hasEl = false;
+        m_state.model = QStringLiteral("arco-gs232");
+        m_state.modelLabel = tr("MicroHAM ARCO (Yaesu GS-232)");
+        m_state.port = QStringLiteral("%1:%2").arg(m_host).arg(m_port);
+        emit note(tr("Rotor: connected to MicroHAM ARCO on %1:%2").arg(m_host).arg(m_port), QStringLiteral("success"));
+        emit stateChanged();
+        sendArco("C2\r");
+        m_poll.start();
+        if (m_pendingAz >= 0.0) { const double target = m_pendingAz; m_pendingAz = -1.0; goTo(target); }
+    });
+    connect(m_tcp, &QTcpSocket::readyRead, this, &RotorLink::handleArco);
+    connect(m_tcp, &QTcpSocket::disconnected, this, [this] { m_poll.stop(); m_state = RotorState{}; emit stateChanged(); retryLater(); });
+    connect(m_tcp, &QTcpSocket::errorOccurred, this, [this](QAbstractSocket::SocketError) {
+        if (m_attempts <= 1 && m_tcp) emit note(tr("ARCO: %1").arg(m_tcp->errorString()), QStringLiteral("warning"));
+        m_poll.stop(); retryLater();
+    });
+    m_tcp->connectToHost(m_host, static_cast<quint16>(m_port));
+}
+
+void RotorLink::openArcoSerial()
+{
+    if (m_serial) { m_serial->close(); m_serial->deleteLater(); }
+    m_buffer.clear();
+    m_serial = new QSerialPort(this);
+    m_serial->setPortName(m_host);
+    m_serial->setBaudRate(m_port);
+    m_serial->setDataBits(QSerialPort::Data8);
+    m_serial->setParity(QSerialPort::NoParity);
+    m_serial->setStopBits(QSerialPort::OneStop);
+    m_serial->setFlowControl(QSerialPort::NoFlowControl);
+    connect(m_serial, &QSerialPort::readyRead, this, &RotorLink::handleArco);
+    connect(m_serial, &QSerialPort::errorOccurred, this, [this](QSerialPort::SerialPortError error) {
+        if (error != QSerialPort::NoError && m_running) { m_state.error = m_serial->errorString(); emit stateChanged(); retryLater(); }
+    });
+    if (!m_serial->open(QIODevice::ReadWrite)) { m_state.error = m_serial->errorString(); emit stateChanged(); retryLater(); return; }
+    m_attempts = 0;
+    m_state.linkUp = m_state.connected = true;
+    m_state.hasAz = true; m_state.hasEl = false;
+    m_state.model = QStringLiteral("arco-gs232");
+    m_state.modelLabel = tr("MicroHAM ARCO (Yaesu GS-232)");
+    m_state.port = m_host;
+    emit note(tr("Rotor: connected to MicroHAM ARCO on %1").arg(m_host), QStringLiteral("success"));
+    emit stateChanged(); sendArco("C2\r"); m_poll.start();
+}
+
 void RotorLink::sendJson(const QVariantMap& command)
 {
     if (!m_ws || m_ws->state() != QAbstractSocket::ConnectedState)
@@ -298,6 +402,14 @@ void RotorLink::sendRotctld(const QString& line)
     if (!m_tcp || m_tcp->state() != QAbstractSocket::ConnectedState)
         return;
     m_tcp->write(line.toLatin1() + '\n');
+}
+
+void RotorLink::sendArco(const QByteArray& frame)
+{
+    if (m_backend == Backend::ArcoGs232Tcp && m_tcp && m_tcp->state() == QAbstractSocket::ConnectedState)
+        m_tcp->write(frame);
+    else if (m_backend == Backend::ArcoGs232Serial && m_serial && m_serial->isOpen())
+        m_serial->write(frame);
 }
 
 void RotorLink::handleJson(const QString& message)
@@ -445,6 +557,22 @@ void RotorLink::handleRotctld()
     }
 }
 
+void RotorLink::handleArco()
+{
+    if (m_backend == Backend::ArcoGs232Tcp && m_tcp) m_buffer += m_tcp->readAll();
+    else if (m_backend == Backend::ArcoGs232Serial && m_serial) m_buffer += m_serial->readAll();
+    else return;
+    const QString reply = QString::fromLatin1(m_buffer);
+    double az = m_state.az, el = m_state.el;
+    if (!rotor::parseGs232Position(reply, &az, &el)) return;
+    m_buffer.clear();
+    const bool moving = std::abs(az - m_state.az) > 0.05;
+    m_state.az = rotor::normalize(az); m_state.el = el;
+    m_state.hasEl = reply.contains(QRegularExpression(QStringLiteral("EL\\s*="), QRegularExpression::CaseInsensitiveOption));
+    m_state.moving = moving; m_state.updated = QDateTime::currentDateTimeUtc(); m_state.error.clear();
+    emit stateChanged();
+}
+
 // ── Comandi ───────────────────────────────────────────────────────────────────
 
 void RotorLink::goTo(double az, double el)
@@ -452,6 +580,8 @@ void RotorLink::goTo(double az, double el)
     const double target = rotor::normalize(az);
     const bool ready = m_backend == Backend::DecoRotor
         ? (m_ws && m_ws->state() == QAbstractSocket::ConnectedState)
+        : m_backend == Backend::ArcoGs232Serial
+        ? (m_serial && m_serial->isOpen())
         : (m_tcp && m_tcp->state() == QAbstractSocket::ConnectedState);
     if (!ready) {
         // Il gateway sta ancora arrivando: il puntamento non si perde, parte
@@ -467,8 +597,10 @@ void RotorLink::goTo(double az, double el)
         if (el >= 0.0)
             command.insert(QStringLiteral("el"), el);
         sendJson(command);
-    } else {
+    } else if (m_backend == Backend::Rotctld) {
         sendRotctld(QStringLiteral("P %1 %2").arg(target, 0, 'f', 1).arg(el >= 0.0 ? el : m_state.el, 0, 'f', 1));
+    } else {
+        sendArco(QStringLiteral("W%1 %2\r").arg(qRound(target), 3, 10, QLatin1Char('0')).arg(0, 3, 10, QLatin1Char('0')).toLatin1());
     }
     // Il bersaglio si mostra subito: la conferma arriva col giro dopo.
     m_state.azTarget = target;
@@ -558,8 +690,10 @@ void RotorLink::halt(bool fast)
         sendJson({{QStringLiteral("cmd"), QStringLiteral("stop")},
                   {QStringLiteral("axis"), QStringLiteral("all")},
                   {QStringLiteral("fast"), fast}});
-    } else {
+    } else if (m_backend == Backend::Rotctld) {
         sendRotctld(QStringLiteral("S"));
+    } else {
+        sendArco("S\r");
     }
     m_state.azTarget = -1.0;
     emit stateChanged();
@@ -569,8 +703,10 @@ void RotorLink::park()
 {
     if (m_backend == Backend::DecoRotor)
         sendJson({{QStringLiteral("cmd"), QStringLiteral("park")}});
-    else
+    else if (m_backend == Backend::Rotctld)
         sendRotctld(QStringLiteral("K"));
+    else
+        goTo(0.0);
 }
 
 } // namespace decolog::core

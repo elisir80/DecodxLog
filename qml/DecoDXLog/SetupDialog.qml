@@ -2388,16 +2388,17 @@ DialogFrame {
                             label: qsTr("Talks to")
                             StyledComboBox {
                                 Layout.preferredWidth: 380
-                                readonly property var ids: ["builtin", "decorotor", "rotctld"]
+                                readonly property var ids: ["builtin", "decorotor", "rotctld", "arco"]
                                 model: [qsTr("The control box, directly (built-in gateway)"),
                                         qsTr("DecoRotor (WebSocket)"), qsTr("rotctld (Hamlib) — any program")]
+                                       .concat([qsTr("MicroHAM ARCO / Yaesu GS-232")])
                                 currentIndex: Math.max(0, ids.indexOf(decolog.rotor.backend))
                                 onActivated: decolog.rotor.backend = ids[currentIndex]
                             }
                         }
                         LabeledField {
-                            visible: decolog.rotor.backend !== "builtin"
-                            label: qsTr("Host")
+                            visible: decolog.rotor.backend !== "builtin" && !(decolog.rotor.backend === "arco" && decolog.rotor.arcoTransport === "serial")
+                            label: decolog.rotor.backend === "arco" ? qsTr("ARCO IP address") : qsTr("Host")
                             StyledTextField {
                                 Layout.preferredWidth: 180
                                 text: decolog.rotor.host
@@ -2406,8 +2407,8 @@ DialogFrame {
                             }
                         }
                         LabeledField {
-                            visible: decolog.rotor.backend !== "builtin"
-                            label: qsTr("Port")
+                            visible: decolog.rotor.backend !== "builtin" && !(decolog.rotor.backend === "arco" && decolog.rotor.arcoTransport === "serial")
+                            label: decolog.rotor.backend === "arco" ? qsTr("GS-232 TCP port") : qsTr("Port")
                             StyledTextField {
                                 Layout.preferredWidth: 100
                                 text: decolog.rotor.port
@@ -2422,6 +2423,43 @@ DialogFrame {
                                 model: values.map(v => v + "°")
                                 currentIndex: Math.max(0, values.indexOf(decolog.rotor.beamwidth))
                                 onActivated: decolog.rotor.beamwidth = values[currentIndex]
+                            }
+                        }
+                    }
+                    RowLayout {
+                        spacing: 12
+                        visible: decolog.rotor.backend === "arco"
+                        LabeledField {
+                            label: qsTr("Connection")
+                            StyledComboBox {
+                                Layout.preferredWidth: 180
+                                readonly property var ids: ["tcp", "serial"]
+                                model: [qsTr("Network (TCP)"), qsTr("USB / RS-232 serial")]
+                                currentIndex: Math.max(0, ids.indexOf(decolog.rotor.arcoTransport))
+                                onActivated: decolog.rotor.arcoTransport = ids[currentIndex]
+                            }
+                        }
+                        LabeledField {
+                            visible: decolog.rotor.arcoTransport === "serial"
+                            label: qsTr("ARCO serial port")
+                            StyledComboBox {
+                                Layout.preferredWidth: 300
+                                editable: true
+                                model: decolog.rotor.serialPorts()
+                                Component.onCompleted: editText = decolog.rotor.arcoSerialPort
+                                onActivated: decolog.rotor.arcoSerialPort = currentText
+                                onEditTextChanged: if (activeFocus) decolog.rotor.arcoSerialPort = editText
+                            }
+                        }
+                        LabeledField {
+                            visible: decolog.rotor.arcoTransport === "serial"
+                            label: qsTr("Baud")
+                            StyledComboBox {
+                                Layout.preferredWidth: 120
+                                readonly property var values: [1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200]
+                                model: values.map(String)
+                                currentIndex: Math.max(0, values.indexOf(decolog.rotor.arcoSerialBaud))
+                                onActivated: decolog.rotor.arcoSerialBaud = values[currentIndex]
                             }
                         }
                     }
@@ -2553,7 +2591,11 @@ DialogFrame {
                     }
                     Note {
                         visible: decolog.rotor.backend !== "builtin"
-                        text: qsTr("DecoRotor is the gateway of the family: it reads the Prosistel control box on the "
+                        text: decolog.rotor.backend === "arco"
+                              ? qsTr("ARCO must be set to Yaesu GS-232. Its LAN page must be enabled before using TCP; "
+                                     + "the standard ARCO control port shown in its setup is 4001. USB and RS-232 use 8/N/1; "
+                                     + "USB baud rate is ignored by ARCO, while RS-232 uses the rate configured on ARCO.")
+                              : qsTr("DecoRotor is the gateway of the family: it reads the Prosistel control box on the "
                                    + "serial port and publishes it on the network (WebSocket 8765). With rotctld any "
                                    + "other rotor program works too — DecoRotor itself answers on 4532. DecoDXLog never "
                                    + "touches the serial port: it only says where to point, and the control box keeps "
