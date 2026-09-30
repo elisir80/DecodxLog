@@ -60,43 +60,14 @@ jobs:
             -no-codesign \
             -verbose=1
 
-          # DecoDXLog non importa QtQuick.VirtualKeyboard. macdeployqt puo'
-          # comunque copiare il plugin di input come symlink: codesign non puo'
-          # firmare quel link e l'intero bundle Intel viene rifiutato. Non
-          # serve all'app, quindi lo escludiamo esplicitamente dal pacchetto.
-          rm -rf build/DecoDXLog.app/Contents/PlugIns/platforminputcontexts/libqtvirtualkeyboardplugin.dylib
-          rm -rf build/DecoDXLog.app/Contents/Resources/qml/QtQuick/VirtualKeyboard
-
-          # Alcuni provider (ad esempio geoservices) sono directory symlink
-          # verso la cantina Homebrew. find non attraversa tali directory e
-          # quindi i loro plugin non arrivano mai a codesign. Materializziamo
-          # interamente soltanto PlugIns e i moduli QML: i symlink interni ai
-          # framework Qt restano invece intatti.
-          for tree in PlugIns Resources/qml; do
-            source="build/DecoDXLog.app/Contents/$tree"
-            [ -d "$source" ] || continue
-            materialized="$source.materialized"
-            cp -R -L "$source" "$materialized"
-            rm -rf "$source"
-            mv "$materialized" "$source"
-          done
           version="${{ inputs.tag }}"
           version="${version#v}"
           mkdir -p release-assets
 
-          # Si firmano gli oggetti reali (non i symlink). In particolare
-          # QtVirtualKeyboard puo' essere trascinato da macdeployqt sul runner
-          # Intel anche se l'app non lo importa: senza questa firma esplicita
-          # codesign --deep lascia il plugin non firmato e rifiuta l'intero app.
-          while IFS= read -r -d '' item; do
-            codesign --force --sign - --timestamp=none "$item"
-          done < <(find build/DecoDXLog.app/Contents -type f \( -perm -111 -o -name "*.dylib" -o -name "*.so" \) -print0)
-
-          # I componenti annidati sono gia' firmati sopra. --deep durante la
-          # firma del padre puo' riscrivere la gerarchia dei plugin Qt; lo
-          # usiamo quindi esclusivamente in verifica.
-          codesign --force --sign - --timestamp=none build/DecoDXLog.app
-          codesign --verify --deep --strict --verbose=2 build/DecoDXLog.app
+          # Il progetto non dispone di un certificato Apple per Developer ID
+          # e notarizzazione. Non applichiamo quindi una firma ad-hoc parziale:
+          # sui plugin Homebrew Intel la verifica strict la renderebbe invalida
+          # e bloccherebbe il DMG. Il bundle resta coerentemente non firmato.
 
           hdiutil create -volname "DecoDXLog $version" \
             -srcfolder build/DecoDXLog.app \
