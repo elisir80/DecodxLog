@@ -66,6 +66,18 @@ jobs:
           # serve all'app, quindi lo escludiamo esplicitamente dal pacchetto.
           rm -rf build/DecoDXLog.app/Contents/PlugIns/platforminputcontexts/libqtvirtualkeyboardplugin.dylib
           rm -rf build/DecoDXLog.app/Contents/Resources/qml/QtQuick/VirtualKeyboard
+
+          # Alcuni plugin vengono copiati come symlink verso la cantina
+          # Homebrew. Un link non e' un code object firmabile e --deep non lo
+          # risolve. Materializziamo soltanto le dylib di plugin/QML nel bundle
+          # (mai i symlink interni dei framework Qt), quindi le firmiamo.
+          while IFS= read -r -d '' item; do
+            materialized="$item.materialized"
+            cp -L "$item" "$materialized"
+            rm "$item"
+            mv "$materialized" "$item"
+          done < <(find build/DecoDXLog.app/Contents/PlugIns build/DecoDXLog.app/Contents/Resources/qml \
+            -type l -name "*.dylib" -print0 2>/dev/null)
           version="${{ inputs.tag }}"
           version="${version#v}"
           mkdir -p release-assets
