@@ -3,6 +3,15 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.42 — 30 settembre 2026
+
+**Porte seriali che sono davvero porte.** CAT, rotore, SO2R e manipolatore CW ora usano
+l'elenco di Qt delle porte seriali reali. Su macOS non compaiono piu' i pseudo-terminali
+`/dev/ttys*`; restano le porte USB, Bluetooth e quelle create dai driver della radio.
+
+**Nomi leggibili anche nelle tendine.** I menu della porta CAT e PTT si allargano quanto
+serve per visualizzare per intero i percorsi delle porte seriali.
+
 ## 1.16.41 — 30 settembre 2026
 
 **Ogni tasto macro manda la sua macro.** Nel pannello CW (e nella finestra del contest) tutti

@@ -1864,6 +1864,7 @@ DialogFrame {
                             StyledComboBox {
                                 id: serialPortBox
                                 Layout.preferredWidth: 140
+                                popupMinimumWidth: 380
                                 editable: true
                                 model: decolog.rig.serialPorts()
                                 // La porta scelta si scrive solo quando la
@@ -1916,6 +1917,7 @@ DialogFrame {
                             StyledComboBox {
                                 id: pttPortBox
                                 Layout.preferredWidth: 140
+                                popupMinimumWidth: 380
                                 editable: true
                                 enabled: decolog.rig.pttType === "RTS" || decolog.rig.pttType === "DTR"
                                 model: decolog.rig.serialPorts()

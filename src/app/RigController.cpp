@@ -2,18 +2,16 @@
 #include "../StartupTrace.h"
 
 #include "core/QslUpload.h"
+#include "core/SerialPorts.h"
 
 #include <QAudioDevice>
 #include <QAudioFormat>
-#include <QDir>
-#include <QFileInfo>
 #include <QJsonArray>
 #include <QMediaDevices>
 #include <QSettings>
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QTimer>
-#include <QVarLengthArray>
 
 #include <algorithm>
 #include <memory>
@@ -23,10 +21,6 @@
 #include <QLocale>
 #include <QRegularExpression>
 #include <QSettings>
-
-#ifdef Q_OS_WIN
-#include <windows.h>
-#endif
 
 namespace decolog::app {
 
@@ -719,30 +713,7 @@ QVariantList RigController::rigModels()
 
 QStringList RigController::serialPorts() const
 {
-    QStringList out;
-#ifdef Q_OS_WIN
-    // Si chiede a Windows l'elenco dei nomi di dispositivo e si tengono le COM.
-    // Dal registro non si poteva: i nomi delle voci hanno le barre rovesce
-    // (\Device\Silabser0) e QSettings non le sa leggere — infatti l'elenco
-    // usciva con le righe giuste di numero ma vuote.
-    QVarLengthArray<wchar_t, 65536> buffer(65536);
-    const DWORD length = QueryDosDeviceW(nullptr, buffer.data(), static_cast<DWORD>(buffer.size()));
-    for (DWORD i = 0; i < length;) {
-        const QString name = QString::fromWCharArray(buffer.data() + i);
-        if (name.isEmpty())
-            break;
-        if (name.startsWith(QLatin1String("COM")) && name.size() > 3 && name.at(3).isDigit())
-            out << name;
-        i += static_cast<DWORD>(name.size()) + 1;
-    }
-#else
-    const QDir dev(QStringLiteral("/dev"));
-    for (const QString& name : dev.entryList({QStringLiteral("ttyUSB*"), QStringLiteral("ttyACM*"),
-                                              QStringLiteral("ttyS*")}, QDir::System))
-        out << dev.filePath(name);
-#endif
-    out.sort();
-    return out;
+    return core::availableSerialPorts();
 }
 
 // ── Il decoder CW ────────────────────────────────────────────────────────

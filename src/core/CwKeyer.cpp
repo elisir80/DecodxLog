@@ -1,8 +1,8 @@
 #include "core/CwKeyer.h"
+#include "core/SerialPorts.h"
 
 #include <QElapsedTimer>
 #include <QSerialPort>
-#include <QSerialPortInfo>
 #include <QThread>
 #include <QMetaObject>
 #include <QMutex>
@@ -264,11 +264,7 @@ void CwKeyer::stop()
 
 QStringList CwKeyer::ports()
 {
-    QStringList out;
-    for (const QSerialPortInfo& info : QSerialPortInfo::availablePorts())
-        out << info.portName();
-    out.sort();
-    return out;
+    return availableSerialPorts();
 }
 
 int CwKeyer::millisFor(const QString& text, int wpm)

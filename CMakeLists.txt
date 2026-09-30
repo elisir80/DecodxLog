@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.16.41
+    VERSION 1.16.42
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES C CXX)
 
@@ -133,6 +133,8 @@ add_library(decolog_core STATIC
     src/core/CallHistory.h
     src/core/SharedSerials.cpp
     src/core/SharedSerials.h
+    src/core/SerialPorts.cpp
+    src/core/SerialPorts.h
     src/core/LogMigration.cpp
     src/core/LogMigration.h
     src/core/Voacap.cpp

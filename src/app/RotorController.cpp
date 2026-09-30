@@ -1,13 +1,13 @@
 #include "app/RotorController.h"
 
 #include "core/Maidenhead.h"
+#include "core/SerialPorts.h"
 
 #include <QDir>
 #include <QFile>
 #include <QHostAddress>
 #include <QJsonDocument>
 #include <QNetworkInterface>
-#include <QSerialPortInfo>
 #include <QSettings>
 #include <QStandardPaths>
 
@@ -580,13 +580,7 @@ void RotorController::setGatewayRotctldPort(int port)
 
 QStringList RotorController::serialPorts() const
 {
-    QStringList out;
-    for (const QSerialPortInfo& info : QSerialPortInfo::availablePorts())
-        out << info.portName();
-    std::sort(out.begin(), out.end(), [](const QString& a, const QString& b) {
-        return a.size() != b.size() ? a.size() < b.size() : a < b;
-    });
-    return out;
+    return availableSerialPorts();
 }
 
 QString RotorController::importDecoRotor(const QString& path)
