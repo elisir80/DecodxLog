@@ -2258,7 +2258,7 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">關閉</translation>
+        <translation>關閉</translation>
     </message>
 </context>
 <context>
@@ -2805,6 +2805,10 @@ Right click: change it</source>
         <translation>日誌裡還沒有標籤</translation>
     </message>
     <message>
+        <source>Other field</source>
+        <translation>其他欄位</translation>
+    </message>
+    <message>
         <source>This month</source>
         <translation>本月</translation>
     </message>
@@ -2849,8 +2853,86 @@ Right click: change it</source>
         <translation>整理被舊匯入弄壞的 %1 個 QSO…</translation>
     </message>
     <message>
+        <source>Search these filters in every log…</source>
+        <translation>在所有日誌中搜尋這些篩選…</translation>
+    </message>
+    <message>
+        <source>Colour the rows by QSL confirmation</source>
+        <translation>依 QSL 確認狀態為列著色</translation>
+    </message>
+    <message>
         <source>Clear all filters</source>
         <translation>清空所有篩選</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>日誌</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>國家</translation>
+    </message>
+    <message>
+        <source>The filters of the log, in every log</source>
+        <translation>日誌的篩選，用於所有日誌</translation>
+    </message>
+    <message>
+        <source>The same filters you have on the log now, applied to every log in the list (Log → logs). The station profile is left out: each log numbers its profiles its own way.</source>
+        <translation>把目前日誌上的篩選套用到清單中的每個日誌（日誌 → 日誌清單）。電台設定檔不參與：每個日誌的設定檔編號各不相同。</translation>
+    </message>
+    <message>
+        <source>%1: cannot be read</source>
+        <translation>%1：無法讀取</translation>
+    </message>
+    <message>
+        <source>%1: first %2</source>
+        <translation>%1：前 %2 筆</translation>
+    </message>
+    <message>
+        <source>%1
+Open it once in DecoDXLog to bring it up to date.</source>
+        <translation>%1
+請在 DecoDXLog 中開啟一次以更新它。</translation>
+    </message>
+    <message>
+        <source>Searching the logs…</source>
+        <translation>正在搜尋日誌…</translation>
+    </message>
+    <message>
+        <source>No QSO passes these filters in any log.</source>
+        <translation>沒有任何日誌中的 QSO 符合這些篩選。</translation>
+    </message>
+    <message>
+        <source>%1 QSO found</source>
+        <translation>找到 %1 個 QSO</translation>
+    </message>
+    <message>
+        <source>Narrow the list…</source>
+        <translation>縮小清單…</translation>
+    </message>
+    <message>
+        <source>Counting the log…</source>
+        <translation>正在統計日誌…</translation>
+    </message>
+    <message>
+        <source>No QSO in the log has this field filled in.</source>
+        <translation>日誌中沒有 QSO 填寫了此欄位。</translation>
+    </message>
+    <message>
+        <source>%1 values</source>
+        <translation>%1 個值</translation>
+    </message>
+    <message>
+        <source>Remove this filter</source>
+        <translation>移除此篩選</translation>
     </message>
     <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
@@ -2991,6 +3073,18 @@ Right click: change it</source>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>標籤：%1 ✕</translation>
+    </message>
+    <message>
+        <source>LoTW / card confirmed</source>
+        <translation>LoTW / 卡片已確認</translation>
+    </message>
+    <message>
+        <source>eQSL / QRZ only</source>
+        <translation>僅 eQSL / QRZ</translation>
+    </message>
+    <message>
+        <source>card sent, not back</source>
+        <translation>卡片已寄出，未收回</translation>
     </message>
     <message>
         <source>+ add</source>
@@ -5038,6 +5132,54 @@ Right click: change it</source>
     <message>
         <source>QRZ</source>
         <translation>QRZ</translation>
+    </message>
+    <message>
+        <source>CQ zone (WAZ)</source>
+        <translation>CQ 分區（WAZ）</translation>
+    </message>
+    <message>
+        <source>ITU zone</source>
+        <translation>ITU 分區</translation>
+    </message>
+    <message>
+        <source>Continent (WAC)</source>
+        <translation>大洲（WAC）</translation>
+    </message>
+    <message>
+        <source>WPX prefix</source>
+        <translation>WPX 字首</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation>QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>州 / 省</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Other award reference (SIG)</source>
+        <translation>其他獎狀參考（SIG）</translation>
+    </message>
+    <message>
+        <source>QSL manager</source>
+        <translation>QSL 管理員</translation>
+    </message>
+    <message>
+        <source>Card sent (month)</source>
+        <translation>卡片寄出（月）</translation>
+    </message>
+    <message>
+        <source>Card received (month)</source>
+        <translation>卡片收到（月）</translation>
+    </message>
+    <message>
+        <source>LoTW confirmation (month)</source>
+        <translation>LoTW 確認（月）</translation>
     </message>
 </context>
 <context>

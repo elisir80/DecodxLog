@@ -2258,7 +2258,7 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Bezárás</translation>
+        <translation>Bezárás</translation>
     </message>
 </context>
 <context>
@@ -2805,6 +2805,10 @@ Jobb kattintás: módosítás</translation>
         <translation>Még nincs címke a naplóban</translation>
     </message>
     <message>
+        <source>Other field</source>
+        <translation>Más mező</translation>
+    </message>
+    <message>
         <source>This month</source>
         <translation>Ez a hónap</translation>
     </message>
@@ -2849,8 +2853,86 @@ Jobb kattintás: módosítás</translation>
         <translation>%1 régi importtal elrontott QSO rendbetétele…</translation>
     </message>
     <message>
+        <source>Search these filters in every log…</source>
+        <translation>Szűrők keresése az összes naplóban…</translation>
+    </message>
+    <message>
+        <source>Colour the rows by QSL confirmation</source>
+        <translation>Sorok színezése a QSL-visszaigazolás szerint</translation>
+    </message>
+    <message>
         <source>Clear all filters</source>
         <translation>Minden szűrő törlése</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Napló</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>Ország</translation>
+    </message>
+    <message>
+        <source>The filters of the log, in every log</source>
+        <translation>A napló szűrői, az összes naplóban</translation>
+    </message>
+    <message>
+        <source>The same filters you have on the log now, applied to every log in the list (Log → logs). The station profile is left out: each log numbers its profiles its own way.</source>
+        <translation>Ugyanazok a szűrők, amelyek most a naplón vannak, a lista minden naplójára (Napló → naplók). Az állomásprofil kimarad: minden napló a maga módján számozza a profiljait.</translation>
+    </message>
+    <message>
+        <source>%1: cannot be read</source>
+        <translation>%1: nem olvasható</translation>
+    </message>
+    <message>
+        <source>%1: first %2</source>
+        <translation>%1: az első %2</translation>
+    </message>
+    <message>
+        <source>%1
+Open it once in DecoDXLog to bring it up to date.</source>
+        <translation>%1
+Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
+    </message>
+    <message>
+        <source>Searching the logs…</source>
+        <translation>Keresés a naplókban…</translation>
+    </message>
+    <message>
+        <source>No QSO passes these filters in any log.</source>
+        <translation>Egy QSO sem felel meg a szűrőknek, egyik naplóban sem.</translation>
+    </message>
+    <message>
+        <source>%1 QSO found</source>
+        <translation>%1 QSO találat</translation>
+    </message>
+    <message>
+        <source>Narrow the list…</source>
+        <translation>Lista szűkítése…</translation>
+    </message>
+    <message>
+        <source>Counting the log…</source>
+        <translation>A napló számolása…</translation>
+    </message>
+    <message>
+        <source>No QSO in the log has this field filled in.</source>
+        <translation>A naplóban egy QSO-nál sincs kitöltve ez a mező.</translation>
+    </message>
+    <message>
+        <source>%1 values</source>
+        <translation>%1 érték</translation>
+    </message>
+    <message>
+        <source>Remove this filter</source>
+        <translation>Szűrő eltávolítása</translation>
     </message>
     <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
@@ -2991,6 +3073,18 @@ Jobb kattintás: módosítás</translation>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>Címke: %1 ✕</translation>
+    </message>
+    <message>
+        <source>LoTW / card confirmed</source>
+        <translation>LoTW / kártya visszaigazolva</translation>
+    </message>
+    <message>
+        <source>eQSL / QRZ only</source>
+        <translation>csak eQSL / QRZ</translation>
+    </message>
+    <message>
+        <source>card sent, not back</source>
+        <translation>kártya elküldve, nem jött vissza</translation>
     </message>
     <message>
         <source>+ add</source>
@@ -5038,6 +5132,54 @@ Jobb kattintás: módosítás</translation>
     <message>
         <source>QRZ</source>
         <translation>QRZ</translation>
+    </message>
+    <message>
+        <source>CQ zone (WAZ)</source>
+        <translation>CQ-zóna (WAZ)</translation>
+    </message>
+    <message>
+        <source>ITU zone</source>
+        <translation>ITU-zóna</translation>
+    </message>
+    <message>
+        <source>Continent (WAC)</source>
+        <translation>Kontinens (WAC)</translation>
+    </message>
+    <message>
+        <source>WPX prefix</source>
+        <translation>WPX-prefix</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation>QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>Állam / megye</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Other award reference (SIG)</source>
+        <translation>Más díjhivatkozás (SIG)</translation>
+    </message>
+    <message>
+        <source>QSL manager</source>
+        <translation>QSL-manager</translation>
+    </message>
+    <message>
+        <source>Card sent (month)</source>
+        <translation>Kártya elküldve (hónap)</translation>
+    </message>
+    <message>
+        <source>Card received (month)</source>
+        <translation>Kártya megérkezett (hónap)</translation>
+    </message>
+    <message>
+        <source>LoTW confirmation (month)</source>
+        <translation>LoTW-visszaigazolás (hónap)</translation>
     </message>
 </context>
 <context>

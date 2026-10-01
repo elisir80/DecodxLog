@@ -2267,7 +2267,7 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Sluiten</translation>
+        <translation>Sluiten</translation>
     </message>
 </context>
 <context>
@@ -2814,6 +2814,10 @@ Rechtsklik: wijzigen</translation>
         <translation>Nog geen labels in het logboek</translation>
     </message>
     <message>
+        <source>Other field</source>
+        <translation>Ander veld</translation>
+    </message>
+    <message>
         <source>This month</source>
         <translation>Deze maand</translation>
     </message>
@@ -2858,8 +2862,86 @@ Rechtsklik: wijzigen</translation>
         <translation>%1 QSO opschonen die door een oude import beschadigd zijn…</translation>
     </message>
     <message>
+        <source>Search these filters in every log…</source>
+        <translation>Deze filters in alle logs zoeken…</translation>
+    </message>
+    <message>
+        <source>Colour the rows by QSL confirmation</source>
+        <translation>Rijen kleuren naar QSL-bevestiging</translation>
+    </message>
+    <message>
         <source>Clear all filters</source>
         <translation>Alle filters wissen</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Log</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>Land</translation>
+    </message>
+    <message>
+        <source>The filters of the log, in every log</source>
+        <translation>De filters van het log, in alle logs</translation>
+    </message>
+    <message>
+        <source>The same filters you have on the log now, applied to every log in the list (Log → logs). The station profile is left out: each log numbers its profiles its own way.</source>
+        <translation>Dezelfde filters die je nu op het log hebt, toegepast op elk log in de lijst (Log → logs). Het stationsprofiel blijft buiten: elk log nummert zijn profielen op zijn eigen manier.</translation>
+    </message>
+    <message>
+        <source>%1: cannot be read</source>
+        <translation>%1: niet leesbaar</translation>
+    </message>
+    <message>
+        <source>%1: first %2</source>
+        <translation>%1: de eerste %2</translation>
+    </message>
+    <message>
+        <source>%1
+Open it once in DecoDXLog to bring it up to date.</source>
+        <translation>%1
+Open het één keer in DecoDXLog om het bij te werken.</translation>
+    </message>
+    <message>
+        <source>Searching the logs…</source>
+        <translation>Logs doorzoeken…</translation>
+    </message>
+    <message>
+        <source>No QSO passes these filters in any log.</source>
+        <translation>Geen QSO voldoet aan deze filters, in geen enkel log.</translation>
+    </message>
+    <message>
+        <source>%1 QSO found</source>
+        <translation>%1 QSO gevonden</translation>
+    </message>
+    <message>
+        <source>Narrow the list…</source>
+        <translation>Lijst verkleinen…</translation>
+    </message>
+    <message>
+        <source>Counting the log…</source>
+        <translation>Log tellen…</translation>
+    </message>
+    <message>
+        <source>No QSO in the log has this field filled in.</source>
+        <translation>Geen QSO in het log heeft dit veld ingevuld.</translation>
+    </message>
+    <message>
+        <source>%1 values</source>
+        <translation>%1 waarden</translation>
+    </message>
+    <message>
+        <source>Remove this filter</source>
+        <translation>Dit filter weghalen</translation>
     </message>
     <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
@@ -3000,6 +3082,18 @@ Rechtsklik: wijzigen</translation>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>Label: %1 ✕</translation>
+    </message>
+    <message>
+        <source>LoTW / card confirmed</source>
+        <translation>LoTW / kaart bevestigd</translation>
+    </message>
+    <message>
+        <source>eQSL / QRZ only</source>
+        <translation>alleen eQSL / QRZ</translation>
+    </message>
+    <message>
+        <source>card sent, not back</source>
+        <translation>kaart verstuurd, niet terug</translation>
     </message>
     <message>
         <source>+ add</source>
@@ -5052,6 +5146,54 @@ Rechtsklik: wijzigen</translation>
     <message>
         <source>QRZ</source>
         <translation>QRZ</translation>
+    </message>
+    <message>
+        <source>CQ zone (WAZ)</source>
+        <translation>CQ-zone (WAZ)</translation>
+    </message>
+    <message>
+        <source>ITU zone</source>
+        <translation>ITU-zone</translation>
+    </message>
+    <message>
+        <source>Continent (WAC)</source>
+        <translation>Continent (WAC)</translation>
+    </message>
+    <message>
+        <source>WPX prefix</source>
+        <translation>WPX-prefix</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation>QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>Staat / provincie</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Other award reference (SIG)</source>
+        <translation>Andere diplomareferentie (SIG)</translation>
+    </message>
+    <message>
+        <source>QSL manager</source>
+        <translation>QSL-manager</translation>
+    </message>
+    <message>
+        <source>Card sent (month)</source>
+        <translation>Kaart verstuurd (maand)</translation>
+    </message>
+    <message>
+        <source>Card received (month)</source>
+        <translation>Kaart ontvangen (maand)</translation>
+    </message>
+    <message>
+        <source>LoTW confirmation (month)</source>
+        <translation>LoTW-bevestiging (maand)</translation>
     </message>
 </context>
 <context>

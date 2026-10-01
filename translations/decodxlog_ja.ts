@@ -2258,7 +2258,7 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">閉じる</translation>
+        <translation>閉じる</translation>
     </message>
 </context>
 <context>
@@ -2805,6 +2805,10 @@ Right click: change it</source>
         <translation>ログにはまだタグがありません</translation>
     </message>
     <message>
+        <source>Other field</source>
+        <translation>その他の項目</translation>
+    </message>
+    <message>
         <source>This month</source>
         <translation>今月</translation>
     </message>
@@ -2849,8 +2853,86 @@ Right click: change it</source>
         <translation>古い取り込みで壊れた %1 件の QSO を直す…</translation>
     </message>
     <message>
+        <source>Search these filters in every log…</source>
+        <translation>このフィルターですべてのログを検索…</translation>
+    </message>
+    <message>
+        <source>Colour the rows by QSL confirmation</source>
+        <translation>QSL の確認状態で行に色を付ける</translation>
+    </message>
+    <message>
         <source>Clear all filters</source>
         <translation>フィルターをすべて消す</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>ログ</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>国</translation>
+    </message>
+    <message>
+        <source>The filters of the log, in every log</source>
+        <translation>ログのフィルターを、すべてのログで</translation>
+    </message>
+    <message>
+        <source>The same filters you have on the log now, applied to every log in the list (Log → logs). The station profile is left out: each log numbers its profiles its own way.</source>
+        <translation>いまログにかけているフィルターを、一覧のすべてのログに適用します（ログ → ログ一覧）。局プロファイルは除外されます（ログごとに番号の付け方が違うため）。</translation>
+    </message>
+    <message>
+        <source>%1: cannot be read</source>
+        <translation>%1: 読めません</translation>
+    </message>
+    <message>
+        <source>%1: first %2</source>
+        <translation>%1: 先頭 %2 件</translation>
+    </message>
+    <message>
+        <source>%1
+Open it once in DecoDXLog to bring it up to date.</source>
+        <translation>%1
+DecoDXLog で一度開いて更新してください。</translation>
+    </message>
+    <message>
+        <source>Searching the logs…</source>
+        <translation>ログを検索中…</translation>
+    </message>
+    <message>
+        <source>No QSO passes these filters in any log.</source>
+        <translation>どのログにもこのフィルターに合う QSO はありません。</translation>
+    </message>
+    <message>
+        <source>%1 QSO found</source>
+        <translation>%1 件の QSO</translation>
+    </message>
+    <message>
+        <source>Narrow the list…</source>
+        <translation>一覧を絞り込む…</translation>
+    </message>
+    <message>
+        <source>Counting the log…</source>
+        <translation>ログを数えています…</translation>
+    </message>
+    <message>
+        <source>No QSO in the log has this field filled in.</source>
+        <translation>この項目が入力された QSO はログにありません。</translation>
+    </message>
+    <message>
+        <source>%1 values</source>
+        <translation>%1 件の値</translation>
+    </message>
+    <message>
+        <source>Remove this filter</source>
+        <translation>このフィルターを外す</translation>
     </message>
     <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
@@ -2991,6 +3073,18 @@ Right click: change it</source>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>タグ: %1 ✕</translation>
+    </message>
+    <message>
+        <source>LoTW / card confirmed</source>
+        <translation>LoTW / カードで確認済み</translation>
+    </message>
+    <message>
+        <source>eQSL / QRZ only</source>
+        <translation>eQSL / QRZ のみ</translation>
+    </message>
+    <message>
+        <source>card sent, not back</source>
+        <translation>カード送付済み・未返信</translation>
     </message>
     <message>
         <source>+ add</source>
@@ -5038,6 +5132,54 @@ Right click: change it</source>
     <message>
         <source>QRZ</source>
         <translation>QRZ</translation>
+    </message>
+    <message>
+        <source>CQ zone (WAZ)</source>
+        <translation>CQ ゾーン（WAZ）</translation>
+    </message>
+    <message>
+        <source>ITU zone</source>
+        <translation>ITU ゾーン</translation>
+    </message>
+    <message>
+        <source>Continent (WAC)</source>
+        <translation>大陸（WAC）</translation>
+    </message>
+    <message>
+        <source>WPX prefix</source>
+        <translation>WPX プリフィックス</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation>QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>州 / 県</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Other award reference (SIG)</source>
+        <translation>その他のアワード参照（SIG）</translation>
+    </message>
+    <message>
+        <source>QSL manager</source>
+        <translation>QSL マネージャー</translation>
+    </message>
+    <message>
+        <source>Card sent (month)</source>
+        <translation>カード送付（月）</translation>
+    </message>
+    <message>
+        <source>Card received (month)</source>
+        <translation>カード受領（月）</translation>
+    </message>
+    <message>
+        <source>LoTW confirmation (month)</source>
+        <translation>LoTW 確認（月）</translation>
     </message>
 </context>
 <context>

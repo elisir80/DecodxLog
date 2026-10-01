@@ -3,6 +3,29 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.44 — 1 ottobre 2026
+
+**Ricerca per campo, come nelle «Ricerche» di altri log.** Nel pannello Log, «Filtri → +
+aggiungi → Altro campo» cerca i QSO per zona CQ (WAZ), zona ITU, continente (WAC), prefisso
+WPX, QTH, stato o provincia, IOTA, POTA, SOTA, WWFF, altri riferimenti (SIG), QSL manager,
+propagazione, satellite, contest, mese della cartolina inviata o ricevuta, mese della
+conferma LoTW. Si sceglie il campo, poi il valore da un elenco con quanti QSO ha ciascuno
+(contato su un altro filo, e si restringe scrivendo); i campi si sommano agli altri filtri
+(banda, modo, entita' DXCC, QSL, date…) e si salvano con loro. Il prefisso WPX e' quello
+scritto nel QSO o, se manca, il nominativo fino all'ultima cifra, anche da portatile (/P,
+/M…).
+
+**Le righe colorate per conferma.** «Azioni → Colora le righe secondo la conferma QSL»: verde
+confermato da LoTW o dalla cartolina, giallo solo da eQSL o QRZ (che per il DXCC non
+valgono), arancio cartolina partita e non ancora tornata. La legenda sta accanto ai filtri.
+
+**Gli stessi filtri in tutti i log.** «Azioni → Cerca questi filtri in tutti i log…» passa i
+filtri di adesso su ogni log dell'elenco (quello di tutti i giorni, i contest…), in sola
+lettura e su un altro filo: una lista sola dal piu' recente, con il log di ogni QSO e quanti
+ne ha trovati ciascuno. Il profilo stazione non conta, perche' ogni log numera i suoi.
+
+- La ricerca libera guarda anche nel QTH.
+
 ## 1.16.43 — 30 settembre 2026
 
 **MicroHAM ARCO, senza programmi in mezzo.** In Impostazioni → Rotore c'e' ora

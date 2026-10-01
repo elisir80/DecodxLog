@@ -2267,7 +2267,7 @@ El indicativo que Decodium está trabajando aparece aquí solo.</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Cerrar</translation>
+        <translation>Cerrar</translation>
     </message>
 </context>
 <context>
@@ -2814,6 +2814,10 @@ Clic derecho: modificarla</translation>
         <translation>Todavía no hay etiquetas en el registro</translation>
     </message>
     <message>
+        <source>Other field</source>
+        <translation>Otro campo</translation>
+    </message>
+    <message>
         <source>This month</source>
         <translation>Este mes</translation>
     </message>
@@ -2858,8 +2862,86 @@ Clic derecho: modificarla</translation>
         <translation>Arreglar %1 QSO estropeados por una importación antigua…</translation>
     </message>
     <message>
+        <source>Search these filters in every log…</source>
+        <translation>Buscar estos filtros en todos los logs…</translation>
+    </message>
+    <message>
+        <source>Colour the rows by QSL confirmation</source>
+        <translation>Colorear las filas según la confirmación QSL</translation>
+    </message>
+    <message>
         <source>Clear all filters</source>
         <translation>Quitar todos los filtros</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Log</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>País</translation>
+    </message>
+    <message>
+        <source>The filters of the log, in every log</source>
+        <translation>Los filtros del log, en todos los logs</translation>
+    </message>
+    <message>
+        <source>The same filters you have on the log now, applied to every log in the list (Log → logs). The station profile is left out: each log numbers its profiles its own way.</source>
+        <translation>Los mismos filtros que tienes ahora en el log, aplicados a cada log de la lista (Log → logs). El perfil de estación queda fuera: cada log numera sus perfiles a su manera.</translation>
+    </message>
+    <message>
+        <source>%1: cannot be read</source>
+        <translation>%1: no se puede leer</translation>
+    </message>
+    <message>
+        <source>%1: first %2</source>
+        <translation>%1: los primeros %2</translation>
+    </message>
+    <message>
+        <source>%1
+Open it once in DecoDXLog to bring it up to date.</source>
+        <translation>%1
+Ábrelo una vez en DecoDXLog para actualizarlo.</translation>
+    </message>
+    <message>
+        <source>Searching the logs…</source>
+        <translation>Buscando en los logs…</translation>
+    </message>
+    <message>
+        <source>No QSO passes these filters in any log.</source>
+        <translation>Ningún QSO pasa estos filtros, en ningún log.</translation>
+    </message>
+    <message>
+        <source>%1 QSO found</source>
+        <translation>%1 QSO encontrados</translation>
+    </message>
+    <message>
+        <source>Narrow the list…</source>
+        <translation>Acotar la lista…</translation>
+    </message>
+    <message>
+        <source>Counting the log…</source>
+        <translation>Contando el log…</translation>
+    </message>
+    <message>
+        <source>No QSO in the log has this field filled in.</source>
+        <translation>Ningún QSO del log tiene este campo relleno.</translation>
+    </message>
+    <message>
+        <source>%1 values</source>
+        <translation>%1 valores</translation>
+    </message>
+    <message>
+        <source>Remove this filter</source>
+        <translation>Quitar este filtro</translation>
     </message>
     <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
@@ -3000,6 +3082,18 @@ Clic derecho: modificarla</translation>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>Etiqueta: %1 ✕</translation>
+    </message>
+    <message>
+        <source>LoTW / card confirmed</source>
+        <translation>confirmado LoTW / tarjeta</translation>
+    </message>
+    <message>
+        <source>eQSL / QRZ only</source>
+        <translation>solo eQSL / QRZ</translation>
+    </message>
+    <message>
+        <source>card sent, not back</source>
+        <translation>tarjeta enviada, sin volver</translation>
     </message>
     <message>
         <source>+ add</source>
@@ -5052,6 +5146,54 @@ Clic derecho: modificarla</translation>
     <message>
         <source>QRZ</source>
         <translation>QRZ</translation>
+    </message>
+    <message>
+        <source>CQ zone (WAZ)</source>
+        <translation>Zona CQ (WAZ)</translation>
+    </message>
+    <message>
+        <source>ITU zone</source>
+        <translation>Zona UIT</translation>
+    </message>
+    <message>
+        <source>Continent (WAC)</source>
+        <translation>Continente (WAC)</translation>
+    </message>
+    <message>
+        <source>WPX prefix</source>
+        <translation>Prefijo WPX</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation>QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>Estado / provincia</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Other award reference (SIG)</source>
+        <translation>Otra referencia de diploma (SIG)</translation>
+    </message>
+    <message>
+        <source>QSL manager</source>
+        <translation>QSL manager</translation>
+    </message>
+    <message>
+        <source>Card sent (month)</source>
+        <translation>Tarjeta enviada (mes)</translation>
+    </message>
+    <message>
+        <source>Card received (month)</source>
+        <translation>Tarjeta recibida (mes)</translation>
+    </message>
+    <message>
+        <source>LoTW confirmation (month)</source>
+        <translation>Confirmación LoTW (mes)</translation>
     </message>
 </context>
 <context>

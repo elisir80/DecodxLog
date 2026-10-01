@@ -2276,7 +2276,7 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Închide</translation>
+        <translation>Închide</translation>
     </message>
 </context>
 <context>
@@ -2823,6 +2823,10 @@ Clic dreapta: modific-o</translation>
         <translation>Încă nicio etichetă în jurnal</translation>
     </message>
     <message>
+        <source>Other field</source>
+        <translation>Alt câmp</translation>
+    </message>
+    <message>
         <source>This month</source>
         <translation>Luna aceasta</translation>
     </message>
@@ -2867,8 +2871,86 @@ Clic dreapta: modific-o</translation>
         <translation>Curăță %1 QSO stricate de un import vechi…</translation>
     </message>
     <message>
+        <source>Search these filters in every log…</source>
+        <translation>Caută aceste filtre în toate logurile…</translation>
+    </message>
+    <message>
+        <source>Colour the rows by QSL confirmation</source>
+        <translation>Colorează rândurile după confirmarea QSL</translation>
+    </message>
+    <message>
         <source>Clear all filters</source>
         <translation>Golește toate filtrele</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Log</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>Țară</translation>
+    </message>
+    <message>
+        <source>The filters of the log, in every log</source>
+        <translation>Filtrele logului, în toate logurile</translation>
+    </message>
+    <message>
+        <source>The same filters you have on the log now, applied to every log in the list (Log → logs). The station profile is left out: each log numbers its profiles its own way.</source>
+        <translation>Aceleași filtre pe care le ai acum pe log, aplicate fiecărui log din listă (Log → loguri). Profilul de stație rămâne deoparte: fiecare log își numerotează profilurile în felul lui.</translation>
+    </message>
+    <message>
+        <source>%1: cannot be read</source>
+        <translation>%1: nu se poate citi</translation>
+    </message>
+    <message>
+        <source>%1: first %2</source>
+        <translation>%1: primele %2</translation>
+    </message>
+    <message>
+        <source>%1
+Open it once in DecoDXLog to bring it up to date.</source>
+        <translation>%1
+Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
+    </message>
+    <message>
+        <source>Searching the logs…</source>
+        <translation>Caut în loguri…</translation>
+    </message>
+    <message>
+        <source>No QSO passes these filters in any log.</source>
+        <translation>Niciun QSO nu trece de aceste filtre, în niciun log.</translation>
+    </message>
+    <message>
+        <source>%1 QSO found</source>
+        <translation>%1 QSO găsite</translation>
+    </message>
+    <message>
+        <source>Narrow the list…</source>
+        <translation>Restrânge lista…</translation>
+    </message>
+    <message>
+        <source>Counting the log…</source>
+        <translation>Număr logul…</translation>
+    </message>
+    <message>
+        <source>No QSO in the log has this field filled in.</source>
+        <translation>Niciun QSO din log nu are acest câmp completat.</translation>
+    </message>
+    <message>
+        <source>%1 values</source>
+        <translation>%1 valori</translation>
+    </message>
+    <message>
+        <source>Remove this filter</source>
+        <translation>Scoate acest filtru</translation>
     </message>
     <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
@@ -3009,6 +3091,18 @@ Clic dreapta: modific-o</translation>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>Etichetă: %1 ✕</translation>
+    </message>
+    <message>
+        <source>LoTW / card confirmed</source>
+        <translation>confirmat LoTW / carte</translation>
+    </message>
+    <message>
+        <source>eQSL / QRZ only</source>
+        <translation>doar eQSL / QRZ</translation>
+    </message>
+    <message>
+        <source>card sent, not back</source>
+        <translation>carte trimisă, neîntoarsă</translation>
     </message>
     <message>
         <source>+ add</source>
@@ -5066,6 +5160,54 @@ Clic dreapta: modific-o</translation>
     <message>
         <source>QRZ</source>
         <translation>QRZ</translation>
+    </message>
+    <message>
+        <source>CQ zone (WAZ)</source>
+        <translation>Zona CQ (WAZ)</translation>
+    </message>
+    <message>
+        <source>ITU zone</source>
+        <translation>Zonă ITU</translation>
+    </message>
+    <message>
+        <source>Continent (WAC)</source>
+        <translation>Continent (WAC)</translation>
+    </message>
+    <message>
+        <source>WPX prefix</source>
+        <translation>Prefix WPX</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation>QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>Stat / provincie</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Other award reference (SIG)</source>
+        <translation>Altă referință de diplomă (SIG)</translation>
+    </message>
+    <message>
+        <source>QSL manager</source>
+        <translation>QSL manager</translation>
+    </message>
+    <message>
+        <source>Card sent (month)</source>
+        <translation>Carte trimisă (lună)</translation>
+    </message>
+    <message>
+        <source>Card received (month)</source>
+        <translation>Carte primită (lună)</translation>
+    </message>
+    <message>
+        <source>LoTW confirmation (month)</source>
+        <translation>Confirmare LoTW (lună)</translation>
     </message>
 </context>
 <context>

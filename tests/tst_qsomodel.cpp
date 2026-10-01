@@ -202,6 +202,145 @@ private slots:
 
     // Le colonne che riempie il callbook: citta', nazione, stato, contea,
     // zone e IOTA. Si chiedono per nome, non per numero.
+    // La ricerca per campo, come le "Ricerche" di altri log: zona, continente,
+    // prefisso WPX, QTH, mese della cartolina; i conti del menu tornano con
+    // le righe trovate, e il filtro si salva con gli altri.
+    void fieldFilters()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        auto add = [&db](std::initializer_list<std::pair<QString, QString>> fields) {
+            AdifRecord r{{"QSO_DATE", "20260901"}, {"TIME_ON", "1200"}, {"BAND", "20m"}, {"MODE", "CW"}};
+            for (const auto& [k, v] : fields)
+                r.set(k, v);
+            return db.insertQso(r, "import").id;
+        };
+        add({{"CALL", "KL7RA"}, {"CQZ", "1"}, {"CONT", "NA"}, {"QTH", "Anchorage"}, {"QSL_SENT", "Y"},
+             {"QSLSDATE", "20260905"}});
+        add({{"CALL", "KL7XX/P"}, {"CQZ", "1"}, {"CONT", "NA"}, {"QTH", "Juneau"}, {"LOTW_QSL_RCVD", "Y"}});
+        add({{"CALL", "IU8LMC"}, {"CQZ", "15"}, {"CONT", "EU"}, {"QTH", "Napoli"}, {"EQSL_QSL_RCVD", "Y"}});
+        add({{"CALL", "IU80ABC"}, {"CQZ", "15"}, {"CONT", "EU"}});
+        add({{"CALL", "EA8/IU8LMC"}, {"CQZ", "33"}, {"CONT", "AF"}});
+        add({{"CALL", "W1AW"}, {"PFX", "W1"}, {"CQZ", "5"}, {"CONT", "NA"}});
+        QsoTableModel m(&db);
+        auto sorted = [&m] { QStringList c = calls(m); c.sort(); return c; };
+        auto count = [&m](const QString& key, const QString& value) {
+            for (const QVariant& v : m.fieldValues(key)) {
+                if (v.toMap().value("value").toString() == value)
+                    return v.toMap().value("count").toInt();
+            }
+            return -1;
+        };
+
+        // Le zone in ordine di numero, coi loro QSO.
+        const QVariantList zones = m.fieldValues("cqz");
+        QCOMPARE(zones.size(), 4);
+        QCOMPARE(zones.first().toMap().value("value").toString(), QString("1"));
+        QCOMPARE(zones.first().toMap().value("count").toInt(), 2);
+        m.setFieldFilter("cqz", "1");
+        QCOMPARE(sorted(), QStringList({"KL7RA", "KL7XX/P"}));
+        // Due campi insieme valgono tutti e due.
+        m.setFieldFilter("cont", "NA");
+        QCOMPARE(sorted(), QStringList({"KL7RA", "KL7XX/P"}));
+        m.setFieldFilter("cqz", "");
+        QCOMPARE(sorted(), QStringList({"KL7RA", "KL7XX/P", "W1AW"}));
+        m.clearFilters();
+        QCOMPARE(m.count(), 6);
+
+        // Il prefisso WPX: quello scritto, o il nominativo fino all'ultima cifra
+        // (anche da portatile); IU80ABC non e' IU8.
+        QCOMPARE(count("pfx", "KL7"), 2);
+        QCOMPARE(count("pfx", "IU8"), 1);
+        QCOMPARE(count("pfx", "IU80"), 1);
+        QCOMPARE(count("pfx", "W1"), 1);
+        m.setFieldFilter("pfx", "KL7");
+        QCOMPARE(sorted(), QStringList({"KL7RA", "KL7XX/P"}));
+        m.setFieldFilter("pfx", "IU8");
+        QCOMPARE(sorted(), QStringList({"IU8LMC"}));
+        m.setFieldFilter("pfx", "W1");
+        QCOMPARE(sorted(), QStringList({"W1AW"}));
+
+        // Il mese della cartolina, letto come mese.
+        m.clearFilters();
+        const QVariantList months = m.fieldValues("card_sent");
+        QCOMPARE(months.size(), 1);
+        QCOMPARE(months.first().toMap().value("value").toString(), QString("202609"));
+        QCOMPARE(months.first().toMap().value("label").toString(), QString("09/2026"));
+        m.setFieldFilter("card_sent", "202609");
+        QCOMPARE(sorted(), QStringList({"KL7RA"}));
+
+        // Salvato come gli altri filtri, e ritrovato.
+        const QVariantMap state = m.filterState();
+        m.clearFilters();
+        QCOMPARE(m.count(), 6);
+        m.applyFilterState(state);
+        QCOMPARE(sorted(), QStringList({"KL7RA"}));
+        QCOMPARE(m.fieldFilters().value("card_sent").toString(), QString("202609"));
+
+        // La ricerca libera guarda anche nel QTH.
+        m.clearFilters();
+        m.setFilterText("juneau");
+        QCOMPARE(sorted(), QStringList({"KL7XX/P"}));
+
+        // Lo stato della conferma, per colorare la riga.
+        m.clearFilters();
+        auto qsl = [&m](const QString& call) {
+            for (int r = 0; r < m.count(); ++r) {
+                if (m.callAt(r) == call)
+                    return m.data(m.index(r, 0), QsoTableModel::QslStateRole).toInt();
+            }
+            return -1;
+        };
+        QCOMPARE(qsl("KL7RA"), int(QsoTableModel::QslCardSent));
+        QCOMPARE(qsl("KL7XX/P"), int(QsoTableModel::QslConfirmed));
+        QCOMPARE(qsl("IU8LMC"), int(QsoTableModel::QslOtherConfirmed));
+        QCOMPARE(qsl("W1AW"), int(QsoTableModel::QslNone));
+    }
+
+    // Gli stessi filtri su piu' log insieme, in sola lettura: le righe dei due
+    // log mescolate per data, e quanti per log.
+    void searchAcrossLogs()
+    {
+        QTemporaryDir dir;
+        const QString a = dir.filePath("casa.sqlite");
+        const QString b = dir.filePath("contest.sqlite");
+        {
+            LogDatabase db;
+            QVERIFY(db.open(a));
+            db.insertQso({{"CALL", "KL7RA"}, {"QSO_DATE", "20260901"}, {"TIME_ON", "1200"}, {"BAND", "20m"},
+                          {"MODE", "CW"}, {"DXCC", "6"}, {"LOTW_QSL_RCVD", "Y"}}, "import");
+            db.insertQso({{"CALL", "JA1XX"}, {"QSO_DATE", "20260902"}, {"TIME_ON", "1200"}, {"BAND", "20m"},
+                          {"MODE", "FT8"}, {"DXCC", "339"}}, "import");
+        }
+        {
+            LogDatabase db;
+            QVERIFY(db.open(b));
+            db.insertQso({{"CALL", "KL7XX"}, {"QSO_DATE", "20260905"}, {"TIME_ON", "0800"}, {"BAND", "15m"},
+                          {"MODE", "SSB"}, {"DXCC", "6"}}, "import");
+        }
+        LogDatabase db;
+        QVERIFY(db.open(a));
+        QsoTableModel m(&db);
+        m.setDxccFilter(6);
+        QCOMPARE(m.count(), 1);
+
+        QVariantList rows, perLog;
+        m.searchLogsNow({QVariantMap{{"name", "Casa"}, {"path", a}}, QVariantMap{{"name", "Contest"}, {"path", b}},
+                         QVariantMap{{"name", "Sparito"}, {"path", dir.filePath("manca.sqlite")}}},
+                        &rows, &perLog);
+        QCOMPARE(rows.size(), 2);
+        // Il piu' recente prima, da qualunque log venga.
+        QCOMPARE(rows.at(0).toMap().value("call").toString(), QString("KL7XX"));
+        QCOMPARE(rows.at(0).toMap().value("log").toString(), QString("Contest"));
+        QCOMPARE(rows.at(1).toMap().value("call").toString(), QString("KL7RA"));
+        QCOMPARE(rows.at(1).toMap().value("qsl").toInt(), int(QsoTableModel::QslConfirmed));
+        QCOMPARE(perLog.size(), 3);
+        QCOMPARE(perLog.at(0).toMap().value("count").toInt(), 1);
+        QCOMPARE(perLog.at(1).toMap().value("count").toInt(), 1);
+        // Un file che non c'e' lo dice, senza fermare gli altri.
+        QVERIFY(!perLog.at(2).toMap().value("error").toString().isEmpty());
+    }
+
     void callbookColumns()
     {
         LogDatabase db;

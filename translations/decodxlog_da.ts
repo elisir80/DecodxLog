@@ -2267,7 +2267,7 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Luk</translation>
+        <translation>Luk</translation>
     </message>
 </context>
 <context>
@@ -2814,6 +2814,10 @@ Højreklik: ret den</translation>
         <translation>Endnu ingen mærkater i loggen</translation>
     </message>
     <message>
+        <source>Other field</source>
+        <translation>Andet felt</translation>
+    </message>
+    <message>
         <source>This month</source>
         <translation>Denne måned</translation>
     </message>
@@ -2858,8 +2862,86 @@ Højreklik: ret den</translation>
         <translation>Ryd op i %1 QSO, der er ødelagt af en gammel import…</translation>
     </message>
     <message>
+        <source>Search these filters in every log…</source>
+        <translation>Søg disse filtre i alle logs…</translation>
+    </message>
+    <message>
+        <source>Colour the rows by QSL confirmation</source>
+        <translation>Farv rækkerne efter QSL-bekræftelse</translation>
+    </message>
+    <message>
         <source>Clear all filters</source>
         <translation>Ryd alle filtre</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Log</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>Land</translation>
+    </message>
+    <message>
+        <source>The filters of the log, in every log</source>
+        <translation>Loggens filtre, i alle logs</translation>
+    </message>
+    <message>
+        <source>The same filters you have on the log now, applied to every log in the list (Log → logs). The station profile is left out: each log numbers its profiles its own way.</source>
+        <translation>De samme filtre som du har på loggen nu, brugt på hver log i listen (Log → logs). Stationsprofilen er udeladt: hver log nummererer sine profiler på sin egen måde.</translation>
+    </message>
+    <message>
+        <source>%1: cannot be read</source>
+        <translation>%1: kan ikke læses</translation>
+    </message>
+    <message>
+        <source>%1: first %2</source>
+        <translation>%1: de første %2</translation>
+    </message>
+    <message>
+        <source>%1
+Open it once in DecoDXLog to bring it up to date.</source>
+        <translation>%1
+Åbn den én gang i DecoDXLog for at opdatere den.</translation>
+    </message>
+    <message>
+        <source>Searching the logs…</source>
+        <translation>Søger i loggene…</translation>
+    </message>
+    <message>
+        <source>No QSO passes these filters in any log.</source>
+        <translation>Ingen QSO opfylder disse filtre, i nogen log.</translation>
+    </message>
+    <message>
+        <source>%1 QSO found</source>
+        <translation>%1 QSO fundet</translation>
+    </message>
+    <message>
+        <source>Narrow the list…</source>
+        <translation>Indsnævr listen…</translation>
+    </message>
+    <message>
+        <source>Counting the log…</source>
+        <translation>Tæller loggen…</translation>
+    </message>
+    <message>
+        <source>No QSO in the log has this field filled in.</source>
+        <translation>Ingen QSO i loggen har dette felt udfyldt.</translation>
+    </message>
+    <message>
+        <source>%1 values</source>
+        <translation>%1 værdier</translation>
+    </message>
+    <message>
+        <source>Remove this filter</source>
+        <translation>Fjern dette filter</translation>
     </message>
     <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
@@ -3000,6 +3082,18 @@ Højreklik: ret den</translation>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>Mærkat: %1 ✕</translation>
+    </message>
+    <message>
+        <source>LoTW / card confirmed</source>
+        <translation>LoTW / kort bekræftet</translation>
+    </message>
+    <message>
+        <source>eQSL / QRZ only</source>
+        <translation>kun eQSL / QRZ</translation>
+    </message>
+    <message>
+        <source>card sent, not back</source>
+        <translation>kort sendt, ikke tilbage</translation>
     </message>
     <message>
         <source>+ add</source>
@@ -5052,6 +5146,54 @@ Højreklik: ret den</translation>
     <message>
         <source>QRZ</source>
         <translation>QRZ</translation>
+    </message>
+    <message>
+        <source>CQ zone (WAZ)</source>
+        <translation>CQ-zone (WAZ)</translation>
+    </message>
+    <message>
+        <source>ITU zone</source>
+        <translation>ITU-zone</translation>
+    </message>
+    <message>
+        <source>Continent (WAC)</source>
+        <translation>Kontinent (WAC)</translation>
+    </message>
+    <message>
+        <source>WPX prefix</source>
+        <translation>WPX-præfiks</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation>QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>Stat / provins</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Other award reference (SIG)</source>
+        <translation>Anden diplomreference (SIG)</translation>
+    </message>
+    <message>
+        <source>QSL manager</source>
+        <translation>QSL-manager</translation>
+    </message>
+    <message>
+        <source>Card sent (month)</source>
+        <translation>Kort sendt (måned)</translation>
+    </message>
+    <message>
+        <source>Card received (month)</source>
+        <translation>Kort modtaget (måned)</translation>
+    </message>
+    <message>
+        <source>LoTW confirmation (month)</source>
+        <translation>LoTW-bekræftelse (måned)</translation>
     </message>
 </context>
 <context>

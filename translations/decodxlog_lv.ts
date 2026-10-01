@@ -2276,7 +2276,7 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Aizvērt</translation>
+        <translation>Aizvērt</translation>
     </message>
 </context>
 <context>
@@ -2823,6 +2823,10 @@ Labais klikšķis: mainīt</translation>
         <translation>Žurnālā vēl nav birku</translation>
     </message>
     <message>
+        <source>Other field</source>
+        <translation>Cits lauks</translation>
+    </message>
+    <message>
         <source>This month</source>
         <translation>Šis mēnesis</translation>
     </message>
@@ -2867,8 +2871,86 @@ Labais klikšķis: mainīt</translation>
         <translation>Sakārtot %1 QSO, ko sabojājis vecs imports…</translation>
     </message>
     <message>
+        <source>Search these filters in every log…</source>
+        <translation>Meklēt šos filtrus visos žurnālos…</translation>
+    </message>
+    <message>
+        <source>Colour the rows by QSL confirmation</source>
+        <translation>Krāsot rindas pēc QSL apstiprinājuma</translation>
+    </message>
+    <message>
         <source>Clear all filters</source>
         <translation>Notīrīt visus filtrus</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Žurnāls</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>Valsts</translation>
+    </message>
+    <message>
+        <source>The filters of the log, in every log</source>
+        <translation>Žurnāla filtri, visos žurnālos</translation>
+    </message>
+    <message>
+        <source>The same filters you have on the log now, applied to every log in the list (Log → logs). The station profile is left out: each log numbers its profiles its own way.</source>
+        <translation>Tie paši filtri, kas tagad ir žurnālā, katrā saraksta žurnālā (Žurnāls → žurnāli). Stacijas profils netiek ņemts vērā: katrs žurnāls savus profilus numurē pa savam.</translation>
+    </message>
+    <message>
+        <source>%1: cannot be read</source>
+        <translation>%1: nevar nolasīt</translation>
+    </message>
+    <message>
+        <source>%1: first %2</source>
+        <translation>%1: pirmie %2</translation>
+    </message>
+    <message>
+        <source>%1
+Open it once in DecoDXLog to bring it up to date.</source>
+        <translation>%1
+Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
+    </message>
+    <message>
+        <source>Searching the logs…</source>
+        <translation>Meklē žurnālos…</translation>
+    </message>
+    <message>
+        <source>No QSO passes these filters in any log.</source>
+        <translation>Neviens QSO neatbilst šiem filtriem nevienā žurnālā.</translation>
+    </message>
+    <message>
+        <source>%1 QSO found</source>
+        <translation>Atrasti %1 QSO</translation>
+    </message>
+    <message>
+        <source>Narrow the list…</source>
+        <translation>Sašaurināt sarakstu…</translation>
+    </message>
+    <message>
+        <source>Counting the log…</source>
+        <translation>Skaita žurnālu…</translation>
+    </message>
+    <message>
+        <source>No QSO in the log has this field filled in.</source>
+        <translation>Nevienam žurnāla QSO šis lauks nav aizpildīts.</translation>
+    </message>
+    <message>
+        <source>%1 values</source>
+        <translation>%1 vērtības</translation>
+    </message>
+    <message>
+        <source>Remove this filter</source>
+        <translation>Noņemt šo filtru</translation>
     </message>
     <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
@@ -3009,6 +3091,18 @@ Labais klikšķis: mainīt</translation>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>Birka: %1 ✕</translation>
+    </message>
+    <message>
+        <source>LoTW / card confirmed</source>
+        <translation>apstiprināts LoTW / kartiņa</translation>
+    </message>
+    <message>
+        <source>eQSL / QRZ only</source>
+        <translation>tikai eQSL / QRZ</translation>
+    </message>
+    <message>
+        <source>card sent, not back</source>
+        <translation>kartiņa nosūtīta, nav atgriezusies</translation>
     </message>
     <message>
         <source>+ add</source>
@@ -5066,6 +5160,54 @@ Labais klikšķis: mainīt</translation>
     <message>
         <source>QRZ</source>
         <translation>QRZ</translation>
+    </message>
+    <message>
+        <source>CQ zone (WAZ)</source>
+        <translation>CQ zona (WAZ)</translation>
+    </message>
+    <message>
+        <source>ITU zone</source>
+        <translation>ITU zona</translation>
+    </message>
+    <message>
+        <source>Continent (WAC)</source>
+        <translation>Kontinents (WAC)</translation>
+    </message>
+    <message>
+        <source>WPX prefix</source>
+        <translation>WPX prefikss</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation>QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>Štats / province</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Other award reference (SIG)</source>
+        <translation>Cita diploma atsauce (SIG)</translation>
+    </message>
+    <message>
+        <source>QSL manager</source>
+        <translation>QSL menedžeris</translation>
+    </message>
+    <message>
+        <source>Card sent (month)</source>
+        <translation>Kartiņa nosūtīta (mēnesis)</translation>
+    </message>
+    <message>
+        <source>Card received (month)</source>
+        <translation>Kartiņa saņemta (mēnesis)</translation>
+    </message>
+    <message>
+        <source>LoTW confirmation (month)</source>
+        <translation>LoTW apstiprinājums (mēnesis)</translation>
     </message>
 </context>
 <context>

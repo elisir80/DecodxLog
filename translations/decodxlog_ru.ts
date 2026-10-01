@@ -2276,7 +2276,7 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Закрыть</translation>
+        <translation>Закрыть</translation>
     </message>
 </context>
 <context>
@@ -2823,6 +2823,10 @@ Right click: change it</source>
         <translation>В журнале ещё нет меток</translation>
     </message>
     <message>
+        <source>Other field</source>
+        <translation>Другое поле</translation>
+    </message>
+    <message>
         <source>This month</source>
         <translation>Этот месяц</translation>
     </message>
@@ -2867,8 +2871,86 @@ Right click: change it</source>
         <translation>Починить %1 QSO, испорченных старым импортом…</translation>
     </message>
     <message>
+        <source>Search these filters in every log…</source>
+        <translation>Искать эти фильтры во всех журналах…</translation>
+    </message>
+    <message>
+        <source>Colour the rows by QSL confirmation</source>
+        <translation>Окрашивать строки по подтверждению QSL</translation>
+    </message>
+    <message>
         <source>Clear all filters</source>
         <translation>Снять все фильтры</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>Журнал</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>Страна</translation>
+    </message>
+    <message>
+        <source>The filters of the log, in every log</source>
+        <translation>Фильтры журнала, во всех журналах</translation>
+    </message>
+    <message>
+        <source>The same filters you have on the log now, applied to every log in the list (Log → logs). The station profile is left out: each log numbers its profiles its own way.</source>
+        <translation>Те же фильтры, что сейчас в журнале, для каждого журнала из списка (Журнал → журналы). Профиль станции не учитывается: каждый журнал нумерует профили по-своему.</translation>
+    </message>
+    <message>
+        <source>%1: cannot be read</source>
+        <translation>%1: не читается</translation>
+    </message>
+    <message>
+        <source>%1: first %2</source>
+        <translation>%1: первые %2</translation>
+    </message>
+    <message>
+        <source>%1
+Open it once in DecoDXLog to bring it up to date.</source>
+        <translation>%1
+Откройте его один раз в DecoDXLog, чтобы обновить.</translation>
+    </message>
+    <message>
+        <source>Searching the logs…</source>
+        <translation>Ищу в журналах…</translation>
+    </message>
+    <message>
+        <source>No QSO passes these filters in any log.</source>
+        <translation>Ни один QSO не проходит эти фильтры ни в одном журнале.</translation>
+    </message>
+    <message>
+        <source>%1 QSO found</source>
+        <translation>Найдено QSO: %1</translation>
+    </message>
+    <message>
+        <source>Narrow the list…</source>
+        <translation>Сузить список…</translation>
+    </message>
+    <message>
+        <source>Counting the log…</source>
+        <translation>Считаю журнал…</translation>
+    </message>
+    <message>
+        <source>No QSO in the log has this field filled in.</source>
+        <translation>Ни у одного QSO в журнале это поле не заполнено.</translation>
+    </message>
+    <message>
+        <source>%1 values</source>
+        <translation>Значений: %1</translation>
+    </message>
+    <message>
+        <source>Remove this filter</source>
+        <translation>Убрать этот фильтр</translation>
     </message>
     <message>
         <source>Delete %1? The QSO stays in the history and can be recovered.</source>
@@ -3009,6 +3091,18 @@ Right click: change it</source>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>Метка: %1 ✕</translation>
+    </message>
+    <message>
+        <source>LoTW / card confirmed</source>
+        <translation>подтверждено LoTW / карточкой</translation>
+    </message>
+    <message>
+        <source>eQSL / QRZ only</source>
+        <translation>только eQSL / QRZ</translation>
+    </message>
+    <message>
+        <source>card sent, not back</source>
+        <translation>карточка отправлена, не вернулась</translation>
     </message>
     <message>
         <source>+ add</source>
@@ -5066,6 +5160,54 @@ Right click: change it</source>
     <message>
         <source>QRZ</source>
         <translation>QRZ</translation>
+    </message>
+    <message>
+        <source>CQ zone (WAZ)</source>
+        <translation>Зона CQ (WAZ)</translation>
+    </message>
+    <message>
+        <source>ITU zone</source>
+        <translation>Зона ITU</translation>
+    </message>
+    <message>
+        <source>Continent (WAC)</source>
+        <translation>Континент (WAC)</translation>
+    </message>
+    <message>
+        <source>WPX prefix</source>
+        <translation>Префикс WPX</translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation>QTH</translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation>Штат / область</translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation>IOTA</translation>
+    </message>
+    <message>
+        <source>Other award reference (SIG)</source>
+        <translation>Другая ссылка на диплом (SIG)</translation>
+    </message>
+    <message>
+        <source>QSL manager</source>
+        <translation>QSL-менеджер</translation>
+    </message>
+    <message>
+        <source>Card sent (month)</source>
+        <translation>Карточка отправлена (месяц)</translation>
+    </message>
+    <message>
+        <source>Card received (month)</source>
+        <translation>Карточка получена (месяц)</translation>
+    </message>
+    <message>
+        <source>LoTW confirmation (month)</source>
+        <translation>Подтверждение LoTW (месяц)</translation>
     </message>
 </context>
 <context>

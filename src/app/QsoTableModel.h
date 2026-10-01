@@ -44,6 +44,10 @@ class QsoTableModel : public QAbstractTableModel {
     // "yyyy-MM-dd", estremi compresi; vuoti = senza limite.
     Q_PROPERTY(QString dateFrom READ dateFrom WRITE setDateFrom NOTIFY filtersChanged)
     Q_PROPERTY(QString dateTo READ dateTo WRITE setDateTo NOTIFY filtersChanged)
+    // Un campo qualsiasi con il suo valore, come nelle "Ricerche" di altri log:
+    // zona CQ, zona ITU, continente, prefisso WPX, QTH, riferimenti, manager,
+    // propagazione, mese della cartolina... {chiave: valore}, tutti insieme.
+    Q_PROPERTY(QVariantMap fieldFilters READ fieldFilters NOTIFY filtersChanged)
     Q_PROPERTY(int columns READ columns NOTIFY layoutChanged)
     // Le colonne mostrate, nell'ordine in cui si vedono: chiavi del catalogo
     // (vedi availableColumns) o "x:CAMPO" per un campo ADIF qualsiasi.
@@ -62,7 +66,13 @@ public:
     // ai menu (nominativo, DXCC, etichette) anche quando la colonna e' nascosta.
     enum Column { Utc, Call, Band, Freq, Mode, RstSent, RstRcvd, Grid, Name, Comment, Qth, Country,
                   State, County, Cqz, Ituz, Iota, Dxcc, Qsl, Source, Tags, ColumnCount };
-    enum Roles { IdRole = Qt::UserRole + 1, ColumnKeyRole, IsNewRole, ModeRole, CategoryRole };
+    enum Roles { IdRole = Qt::UserRole + 1, ColumnKeyRole, IsNewRole, ModeRole, CategoryRole, QslStateRole };
+
+    // Lo stato della conferma di un QSO, per colorare la riga: niente, la
+    // cartolina partita e non tornata, confermato solo da eQSL o QRZ (che per
+    // il DXCC non valgono), confermato da LoTW o dalla cartolina.
+    enum QslState : quint8 { QslNone = 0, QslCardSent = 1, QslOtherConfirmed = 2, QslConfirmed = 3 };
+    static quint8 qslStateFrom(const QString& summary);
 
     // Che cosa ha portato un QSO quando e' stato fatto, come Decodium 4 lo
     // dice dei decode: il primo con quell'entita' (in assoluto o sulla
@@ -109,6 +119,26 @@ public:
     void setDateFrom(const QString& date);
     QString dateTo() const { return m_dateTo; }
     void setDateTo(const QString& date);
+    QVariantMap fieldFilters() const { return m_fields; }
+    // Un valore vuoto toglie il filtro su quel campo.
+    Q_INVOKABLE void setFieldFilter(const QString& key, const QString& value);
+    // I campi che si possono cercare cosi': [{key, label}].
+    Q_INVOKABLE QVariantList fieldFilterChoices() const;
+    Q_INVOKABLE QString fieldFilterLabel(const QString& key) const;
+    // Come si legge un valore di quel campo (i mesi "202609" come "09/2026").
+    Q_INVOKABLE QString fieldValueLabel(const QString& key, const QString& value) const;
+    // I valori di quel campo nel log, ciascuno coi suoi QSO: arrivano con
+    // fieldValuesReady, contati su un altro filo se il log e' in un file.
+    Q_INVOKABLE void requestFieldValues(const QString& key);
+    // La stessa conta, subito (per le prove e per chi ne ha bisogno ora).
+    QVariantList fieldValues(const QString& key) const;
+    // Gli stessi filtri su piu' log (file), in sola lettura e su un altro filo:
+    // `logs` e' [{name, path}]. Il profilo stazione non conta (i numeri dei
+    // profili cambiano da un log all'altro). Il risultato arriva con logsSearched.
+    static constexpr int kSearchLimit = 5000;
+    Q_INVOKABLE void searchLogs(const QVariantList& logs);
+    // Lo stesso, subito (per le prove).
+    void searchLogsNow(const QVariantList& logs, QVariantList* rows, QVariantList* perLog) const;
     int columns() const { return static_cast<int>(m_layout.size()); }
     QStringList columnLayout() const { return m_layout; }
     void setColumnLayout(const QStringList& keys);
@@ -161,6 +191,10 @@ signals:
     void layoutChanged();
     void sortChanged();
     void busyChanged();
+    void fieldValuesReady(const QString& key, const QVariantList& values);
+    // [{log, utc, call, band, mode, country, qsl}] dal piu' recente, e per ogni
+    // log {name, path, count, truncated, error}.
+    void logsSearched(const QVariantList& rows, const QVariantList& perLog);
 
 private:
     // La categoria di ogni QSO, come posizione in categoryKeys(): un byte, non
@@ -170,7 +204,8 @@ private:
     bool m_sortAscending{false};
     bool defaultSort() const { return m_sortKey == QLatin1String("utc") && !m_sortAscending; }
     // Filtri e ordine come SQL.
-    QString whereSql(QVariantList& binds) const;
+    QString whereSql(QVariantList& binds, bool otherLogs = false) const;
+    QString searchSql(QVariantList& binds) const;
     QString orderSql() const;
     QString m_categorySignature;   // il log com'era quando si sono contate (changeStamp)
     // Quello che si e' gia' visto, per le categorie di un QSO nuovo senza
@@ -196,6 +231,7 @@ private:
         // Le colonne mostrate che non sono fra quelle di sempre, nell'ordine
         // di m_extra.
         QStringList extra;
+        quint8 qsl{QslNone};
     };
     // La riga in quella posizione, letta con la sua pagina se non c'e' gia'.
     const Row* rowAt(int row) const;
@@ -238,6 +274,7 @@ private:
     QString m_tag;
     QString m_dateFrom;
     QString m_dateTo;
+    QVariantMap m_fields;
     int m_total{0};
 
     // Il ricarico su un altro filo: da quante righe in su, e l'ultimo chiesto

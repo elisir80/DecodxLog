@@ -14,7 +14,9 @@
 #include <algorithm>
 #include <QSet>
 #include <QSqlDatabase>
+#include <QSqlError>
 #include <QSqlQuery>
+#include <QThread>
 #include <QVariantMap>
 #include <utility>
 
@@ -182,6 +184,140 @@ QString qslCodes(const QString& summary)
     return codes;
 }
 
+// I campi che si cercano per valore, oltre a quelli che hanno un filtro loro.
+// `sql` e' l'espressione del valore (vuota per il prefisso WPX, che si conta a
+// parte); `numeric` ordina i valori come numeri, `month` dal piu' recente.
+struct FieldFilterDef {
+    const char* key;
+    const char* label;
+    const char* sql;
+    bool numeric;
+    bool month;
+};
+
+QString upperRef(const char* column)
+{
+    return QStringLiteral("NULLIF(UPPER(TRIM(IFNULL(%1, ''))), '')").arg(QLatin1String(column));
+}
+
+QString jsonRef(const char* field)
+{
+    return QStringLiteral("NULLIF(UPPER(TRIM(IFNULL(CAST(json_extract(adif_extra, '$.%1') AS TEXT), ''))), '')")
+        .arg(QLatin1String(field));
+}
+
+// Il mese di una data della QSL ("20260922" o "2026-09-22") come "202609".
+QString qslMonth(const char* date, const char* service)
+{
+    return QStringLiteral("(SELECT NULLIF(substr(REPLACE(IFNULL(s.%1, ''), '-', ''), 1, 6), '') FROM qsl_status s "
+                          "WHERE s.qso_id = qso.id AND s.service = '%2')")
+        .arg(QLatin1String(date), QLatin1String(service));
+}
+
+const QList<FieldFilterDef>& fieldFilterDefs()
+{
+    static const QList<FieldFilterDef> list{
+        {"cqz", QT_TRANSLATE_NOOP("QsoTableModel", "CQ zone (WAZ)"), "NULLIF(cqz, 0)", true, false},
+        {"ituz", QT_TRANSLATE_NOOP("QsoTableModel", "ITU zone"), "NULLIF(ituz, 0)", true, false},
+        {"cont", QT_TRANSLATE_NOOP("QsoTableModel", "Continent (WAC)"), "", false, false},
+        {"pfx", QT_TRANSLATE_NOOP("QsoTableModel", "WPX prefix"), "", false, false},
+        {"qth", QT_TRANSLATE_NOOP("QsoTableModel", "QTH"), "", false, false},
+        {"state", QT_TRANSLATE_NOOP("QsoTableModel", "State / province"), "", false, false},
+        {"iota", QT_TRANSLATE_NOOP("QsoTableModel", "IOTA"), "", false, false},
+        {"pota_ref", QT_TRANSLATE_NOOP("QsoTableModel", "POTA"), "", false, false},
+        {"sota_ref", QT_TRANSLATE_NOOP("QsoTableModel", "SOTA"), "", false, false},
+        {"wwff_ref", QT_TRANSLATE_NOOP("QsoTableModel", "WWFF"), "", false, false},
+        {"sig_info", QT_TRANSLATE_NOOP("QsoTableModel", "Other award reference (SIG)"), "", false, false},
+        {"qsl_via", QT_TRANSLATE_NOOP("QsoTableModel", "QSL manager"), "", false, false},
+        {"prop_mode", QT_TRANSLATE_NOOP("QsoTableModel", "Propagation"), "", false, false},
+        {"sat_name", QT_TRANSLATE_NOOP("QsoTableModel", "Satellite"), "", false, false},
+        {"contest_id", QT_TRANSLATE_NOOP("QsoTableModel", "Contest"), "", false, false},
+        {"card_sent", QT_TRANSLATE_NOOP("QsoTableModel", "Card sent (month)"), "", false, true},
+        {"card_rcvd", QT_TRANSLATE_NOOP("QsoTableModel", "Card received (month)"), "", false, true},
+        {"lotw_rcvd", QT_TRANSLATE_NOOP("QsoTableModel", "LoTW confirmation (month)"), "", false, true},
+    };
+    return list;
+}
+
+const FieldFilterDef* fieldFilterDef(const QString& key)
+{
+    for (const FieldFilterDef& d : fieldFilterDefs()) {
+        if (key == QLatin1String(d.key))
+            return &d;
+    }
+    return nullptr;
+}
+
+// L'espressione SQL del valore di un campo: lo stesso testo per contare i
+// valori e per filtrare, cosi' i conti tornano con le righe.
+QString fieldSql(const QString& key)
+{
+    if (key == QLatin1String("cont")) return upperRef("cont");
+    if (key == QLatin1String("qth")) return QStringLiteral("NULLIF(TRIM(IFNULL(qth, '')), '')");
+    if (key == QLatin1String("state")) return upperRef("state");
+    if (key == QLatin1String("iota")) return upperRef("iota");
+    if (key == QLatin1String("pota_ref")) return upperRef("pota_ref");
+    if (key == QLatin1String("sota_ref")) return upperRef("sota_ref");
+    if (key == QLatin1String("wwff_ref")) return upperRef("wwff_ref");
+    if (key == QLatin1String("sig_info"))
+        return QStringLiteral("NULLIF(UPPER(TRIM(IFNULL(sig, '') || ' ' || IFNULL(sig_info, ''))), '')");
+    if (key == QLatin1String("qsl_via")) return jsonRef("QSL_VIA");
+    if (key == QLatin1String("prop_mode")) return upperRef("prop_mode");
+    if (key == QLatin1String("sat_name")) return upperRef("sat_name");
+    if (key == QLatin1String("contest_id")) return jsonRef("CONTEST_ID");
+    if (key == QLatin1String("card_sent")) return qslMonth("sent_date", "card");
+    if (key == QLatin1String("card_rcvd")) return qslMonth("rcvd_date", "card");
+    if (key == QLatin1String("lotw_rcvd")) return qslMonth("rcvd_date", "lotw");
+    const FieldFilterDef* d = fieldFilterDef(key);
+    return d && d->sql && *d->sql ? QString::fromLatin1(d->sql) : QString();
+}
+
+// Il prefisso WPX come lo conta il filtro: quello scritto nel QSO (PFX) o, se
+// manca, il nominativo fino all'ultima cifra seguita solo da lettere, senza i
+// suffissi da portatile (/P, /M, /MM, /AM, /QRP). Chi ha una barra diversa
+// (EA8/IU8LMC, W1AW/4) senza PFX scritto resta fuori: lo stesso fa l'SQL qui
+// sotto, cosi' i conti del menu e le righe trovate coincidono.
+const QStringList& portableSuffixes()
+{
+    static const QStringList s{QStringLiteral("/QRP"), QStringLiteral("/MM"), QStringLiteral("/AM"),
+                               QStringLiteral("/P"), QStringLiteral("/M")};
+    return s;
+}
+
+QString filterPrefix(const QString& callsign, const QString& stored)
+{
+    const QString pfx = stored.trimmed().toUpper();
+    if (!pfx.isEmpty())
+        return pfx;
+    QString call = callsign.trimmed().toUpper();
+    for (const QString& suffix : portableSuffixes()) {
+        if (call.endsWith(suffix)) {
+            call.chop(suffix.size());
+            break;
+        }
+    }
+    if (call.contains(QLatin1Char('/')))
+        return {};
+    qsizetype last = -1;
+    for (qsizetype i = 0; i < call.size(); ++i) {
+        if (call.at(i).isDigit())
+            last = i;
+    }
+    if (last < 0 || last == call.size() - 1)
+        return {};
+    return call.left(last + 1);
+}
+
+QString baseCallSql()
+{
+    QString sql = QStringLiteral("UPPER(TRIM(call))");
+    QString cases;
+    for (const QString& suffix : portableSuffixes())
+        cases += QStringLiteral(" WHEN UPPER(TRIM(call)) LIKE '%%1' THEN substr(UPPER(TRIM(call)), 1, length(TRIM(call)) - %2)")
+                     .arg(suffix).arg(suffix.size());
+    return QStringLiteral("(CASE%1 ELSE %2 END)").arg(cases, sql);
+}
+
 // Righe per pagina, e pagine tenute: diecimila righe in memoria al massimo,
 // piu' di quante ne mostri qualunque schermo.
 constexpr int kPage = 200;
@@ -290,6 +426,10 @@ QVariant QsoTableModel::data(const QModelIndex& index, int role) const
         const Row* row = rowAt(index.row());
         return row ? row->values[Mode] : QString();
     }
+    case QslStateRole: {
+        const Row* row = rowAt(index.row());
+        return row ? int(row->qsl) : 0;
+    }
     default:
         return {};
     }
@@ -311,6 +451,7 @@ QHash<int, QByteArray> QsoTableModel::roleNames() const
         {IsNewRole, "isNew"},
         {ModeRole, "modeName"},
         {CategoryRole, "rowCategory"},
+        {QslStateRole, "qslState"},
     };
 }
 
@@ -878,6 +1019,26 @@ QString QsoTableModel::selectSql(const QString& where) const
         .arg(where, extras);
 }
 
+quint8 QsoTableModel::qslStateFrom(const QString& summary)
+{
+    // "servizio:inviata:ricevuta" per ogni servizio, separati da virgole.
+    bool confirmed = false, other = false, cardSent = false;
+    for (const QString& item : summary.split(QLatin1Char(','), Qt::SkipEmptyParts)) {
+        const QStringList parts = item.split(QLatin1Char(':'));
+        if (parts.size() != 3)
+            continue;
+        const QString& service = parts.at(0);
+        const bool rcvd = parts.at(2) == QLatin1String("Y") || parts.at(2) == QLatin1String("V");
+        if (rcvd && (service == QLatin1String("lotw") || service == QLatin1String("card")))
+            confirmed = true;
+        else if (rcvd && (service == QLatin1String("eqsl") || service == QLatin1String("qrz")))
+            other = true;
+        else if (service == QLatin1String("card") && parts.at(1) == QLatin1String("Y"))
+            cardSent = true;
+    }
+    return confirmed ? QslConfirmed : other ? QslOtherConfirmed : cardSent ? QslCardSent : QslNone;
+}
+
 QsoTableModel::Row QsoTableModel::rowFromQuery(const QSqlQuery& q) const
 {
     Row r;
@@ -908,6 +1069,7 @@ QsoTableModel::Row QsoTableModel::rowFromQuery(const QSqlQuery& q) const
         r.values[Source] = QStringLiteral("rec");
     else r.values[Source] = source.left(3);
     r.values[Qsl] = qslCodes(q.value(13).toString());
+    r.qsl = qslStateFrom(q.value(13).toString());
     r.values[Tags] = q.value(14).toString().replace(QLatin1Char(','), QStringLiteral(", "));
     r.values[Qth] = q.value(15).toString();
     r.values[Country] = q.value(16).toString();
@@ -933,7 +1095,7 @@ QsoTableModel::Row QsoTableModel::rowFromQuery(const QSqlQuery& q) const
 
 bool QsoTableModel::filtered() const
 {
-    return !m_filter.trimmed().isEmpty() || !m_bands.isEmpty() || !m_modes.isEmpty() || !m_month.isEmpty()
+    return !m_filter.trimmed().isEmpty() || !m_fields.isEmpty() || !m_bands.isEmpty() || !m_modes.isEmpty() || !m_month.isEmpty()
         || m_dxcc > 0 || !m_qsl.isEmpty() || m_profile > 0 || !m_tag.isEmpty() || !m_dateFrom.isEmpty()
         || !m_dateTo.isEmpty();
 }
@@ -943,17 +1105,17 @@ void QsoTableModel::refreshTotal()
     m_total = m_db && m_db->isOpen() ? m_db->qsoCount() : 0;
 }
 
-QString QsoTableModel::whereSql(QVariantList& binds) const
+QString QsoTableModel::whereSql(QVariantList& binds, bool otherLogs) const
 {
     QStringList where;
     {
         const QString f = m_filter.trimmed().toUpper();
         if (!f.isEmpty()) {
-            // Ricerca libera: nominativo, locatore, nome o commento.
+            // Ricerca libera: nominativo, locatore, nome, QTH o commento.
             where << QStringLiteral("(call LIKE ? OR UPPER(gridsquare) LIKE ? OR UPPER(name) LIKE ? "
-                                    "OR UPPER(IFNULL(comment, '')) LIKE ?)");
+                                    "OR UPPER(IFNULL(qth, '')) LIKE ? OR UPPER(IFNULL(comment, '')) LIKE ?)");
             const QString like = QLatin1Char('%') + f + QLatin1Char('%');
-            binds << like << like << like << like;
+            binds << like << like << like << like << like;
         }
         if (!m_bands.isEmpty()) {
             QStringList marks;
@@ -992,7 +1154,7 @@ QString QsoTableModel::whereSql(QVariantList& binds) const
                 binds << m_qsl;
             }
         }
-        if (m_profile > 0) {
+        if (m_profile > 0 && !otherLogs) {
             where << QStringLiteral("station_profile_id = ?");
             binds << m_profile;
         }
@@ -1011,6 +1173,26 @@ QString QsoTableModel::whereSql(QVariantList& binds) const
             const QDate to = QDate::fromString(m_dateTo, QStringLiteral("yyyy-MM-dd"));
             where << QStringLiteral("qso_datetime_on < ?");
             binds << (to.isValid() ? to.addDays(1).toString(QStringLiteral("yyyy-MM-dd")) : m_dateTo);
+        }
+        for (auto it = m_fields.cbegin(); it != m_fields.cend(); ++it) {
+            const QString value = it.value().toString();
+            if (it.key() == QLatin1String("pfx")) {
+                // Lo stesso conto di filterPrefix, in SQL.
+                const QString stored = QStringLiteral("UPPER(TRIM(IFNULL(CAST(json_extract(adif_extra, '$.PFX') AS TEXT), '')))");
+                const QString base = baseCallSql();
+                where << QStringLiteral("(%1 = ? OR (%1 = '' AND instr(%2, '/') = 0 AND %2 LIKE ? "
+                                        "AND length(%2) > ? AND substr(%2, ? + 1) NOT GLOB '*[0-9]*'))")
+                             .arg(stored, base);
+                QString like = value;
+                like.replace(QLatin1Char('%'), QString()).replace(QLatin1Char('_'), QString());
+                binds << value << like + QLatin1Char('%') << value.size() << value.size();
+                continue;
+            }
+            const QString sql = fieldSql(it.key());
+            if (sql.isEmpty())
+                continue;
+            where << QStringLiteral("IFNULL(CAST((%1) AS TEXT), '') = ?").arg(sql);
+            binds << value;
         }
     }
     return where.isEmpty() ? QString() : QStringLiteral("AND ") + where.join(QStringLiteral(" AND "));
@@ -1204,6 +1386,7 @@ void QsoTableModel::clearFilters()
     m_tag.clear();
     m_dateFrom.clear();
     m_dateTo.clear();
+    m_fields.clear();
     emit filtersChanged();
     reload();
 }
@@ -1221,6 +1404,7 @@ QVariantMap QsoTableModel::filterState() const
         {QStringLiteral("tag"), m_tag},
         {QStringLiteral("dateFrom"), m_dateFrom},
         {QStringLiteral("dateTo"), m_dateTo},
+        {QStringLiteral("fields"), m_fields},
     };
 }
 
@@ -1236,8 +1420,266 @@ void QsoTableModel::applyFilterState(const QVariantMap& state)
     m_tag = state.value(QStringLiteral("tag")).toString();
     m_dateFrom = state.value(QStringLiteral("dateFrom")).toString();
     m_dateTo = state.value(QStringLiteral("dateTo")).toString();
+    m_fields.clear();
+    const QVariantMap fields = state.value(QStringLiteral("fields")).toMap();
+    for (auto it = fields.cbegin(); it != fields.cend(); ++it) {
+        if (fieldFilterDef(it.key()) && !it.value().toString().isEmpty())
+            m_fields.insert(it.key(), it.value().toString());
+    }
     emit filtersChanged();
     reload();
+}
+
+void QsoTableModel::setFieldFilter(const QString& key, const QString& value)
+{
+    if (!fieldFilterDef(key))
+        return;
+    const QString clean = value.trimmed();
+    if (clean.isEmpty() ? !m_fields.contains(key) : m_fields.value(key).toString() == clean)
+        return;
+    if (clean.isEmpty())
+        m_fields.remove(key);
+    else
+        m_fields.insert(key, clean);
+    emit filtersChanged();
+    reload();
+}
+
+QVariantList QsoTableModel::fieldFilterChoices() const
+{
+    QVariantList out;
+    for (const FieldFilterDef& d : fieldFilterDefs())
+        out << QVariantMap{{QStringLiteral("key"), QLatin1String(d.key)},
+                           {QStringLiteral("label"), QCoreApplication::translate("QsoTableModel", d.label)}};
+    return out;
+}
+
+QString QsoTableModel::fieldFilterLabel(const QString& key) const
+{
+    const FieldFilterDef* d = fieldFilterDef(key);
+    return d ? QCoreApplication::translate("QsoTableModel", d->label) : key;
+}
+
+QString QsoTableModel::fieldValueLabel(const QString& key, const QString& value) const
+{
+    const FieldFilterDef* d = fieldFilterDef(key);
+    if (d && d->month && value.size() == 6)
+        return QStringLiteral("%1/%2").arg(value.mid(4, 2), value.left(4));
+    return value;
+}
+
+namespace {
+
+// I valori di un campo con i loro QSO, su una connessione qualsiasi.
+QVariantList countFieldValues(QSqlDatabase db, const QString& key)
+{
+    const FieldFilterDef* d = fieldFilterDef(key);
+    if (!d)
+        return {};
+    QList<QPair<QString, int>> counted;
+    if (key == QLatin1String("pfx")) {
+        QHash<QString, int> counts;
+        QSqlQuery q(db);
+        q.setForwardOnly(true);
+        if (q.exec(QStringLiteral("SELECT call, CAST(json_extract(adif_extra, '$.PFX') AS TEXT) "
+                                  "FROM qso NOT INDEXED WHERE deleted = 0"))) {
+            while (q.next()) {
+                const QString p = filterPrefix(q.value(0).toString(), q.value(1).toString());
+                if (!p.isEmpty())
+                    ++counts[p];
+            }
+        }
+        for (auto it = counts.cbegin(); it != counts.cend(); ++it)
+            counted << qMakePair(it.key(), it.value());
+    } else {
+        const QString sql = fieldSql(key);
+        QSqlQuery q(db);
+        q.setForwardOnly(true);
+        if (q.exec(QStringLiteral("SELECT CAST((%1) AS TEXT) AS v, COUNT(*) FROM qso NOT INDEXED "
+                                  "WHERE deleted = 0 AND (%1) IS NOT NULL GROUP BY v").arg(sql))) {
+            while (q.next()) {
+                const QString v = q.value(0).toString();
+                if (!v.isEmpty())
+                    counted << qMakePair(v, q.value(1).toInt());
+            }
+        }
+    }
+    std::sort(counted.begin(), counted.end(), [d](const auto& a, const auto& b) {
+        if (d->numeric)
+            return a.first.toInt() < b.first.toInt();
+        if (d->month)
+            return a.first > b.first;
+        return QString::localeAwareCompare(a.first, b.first) < 0;
+    });
+    QVariantList out;
+    for (const auto& [value, count] : std::as_const(counted))
+        out << QVariantMap{{QStringLiteral("value"), value}, {QStringLiteral("count"), count}};
+    return out;
+}
+
+} // namespace
+
+QVariantList QsoTableModel::fieldValues(const QString& key) const
+{
+    if (!m_db || !m_db->isOpen())
+        return {};
+    QVariantList out = countFieldValues(m_db->connection(), key);
+    for (QVariant& v : out) {
+        QVariantMap m = v.toMap();
+        m.insert(QStringLiteral("label"), fieldValueLabel(key, m.value(QStringLiteral("value")).toString()));
+        v = m;
+    }
+    return out;
+}
+
+namespace {
+
+struct LogSearch {
+    QString sql;
+    QVariantList binds;
+};
+
+// Un log alla volta, con una connessione sua in sola lettura: il file non si
+// tocca (niente aggiornamenti di schema), e un log di una versione vecchia a
+// cui manca una colonna lo dice invece di fermare gli altri.
+void searchOneLog(const LogSearch& search, const QString& name, const QString& path, QVariantList* rows,
+                  QVariantList* perLog)
+{
+    static std::atomic<int> serial{0};
+    const QString connection = QStringLiteral("decolog-search-%1").arg(++serial);
+    int found = 0;
+    QString error;
+    {
+        QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), connection);
+        db.setDatabaseName(path);
+        db.setConnectOptions(QStringLiteral("QSQLITE_OPEN_READONLY"));
+        if (!db.open()) {
+            error = db.lastError().text();
+        } else {
+            QSqlQuery q(db);
+            q.setForwardOnly(true);
+            q.prepare(search.sql);
+            for (const QVariant& b : search.binds)
+                q.addBindValue(b);
+            if (!q.exec()) {
+                error = q.lastError().text();
+            } else {
+                while (q.next()) {
+                    const QString on = q.value(0).toString();
+                    rows->append(QVariantMap{
+                        {QStringLiteral("log"), name},
+                        {QStringLiteral("on"), on},
+                        {QStringLiteral("utc"), QDateTime::fromString(on, Qt::ISODate).toUTC()
+                                                    .toString(core::dates::shortFormat() + QStringLiteral(" HH:mm"))},
+                        {QStringLiteral("call"), q.value(1).toString()},
+                        {QStringLiteral("band"), q.value(2).toString()},
+                        {QStringLiteral("mode"), q.value(3).toString()},
+                        {QStringLiteral("country"), q.value(4).toString()},
+                        {QStringLiteral("qsl"), int(QsoTableModel::qslStateFrom(q.value(5).toString()))},
+                    });
+                    ++found;
+                }
+            }
+            q.finish();
+        }
+        db.close();
+    }
+    QSqlDatabase::removeDatabase(connection);
+    perLog->append(QVariantMap{{QStringLiteral("name"), name},
+                               {QStringLiteral("path"), path},
+                               {QStringLiteral("count"), found},
+                               {QStringLiteral("truncated"), found >= QsoTableModel::kSearchLimit},
+                               {QStringLiteral("error"), error}});
+}
+
+void sortByTime(QVariantList* rows)
+{
+    std::stable_sort(rows->begin(), rows->end(), [](const QVariant& a, const QVariant& b) {
+        return a.toMap().value(QStringLiteral("on")).toString() > b.toMap().value(QStringLiteral("on")).toString();
+    });
+}
+
+} // namespace
+
+QString QsoTableModel::searchSql(QVariantList& binds) const
+{
+    return QStringLiteral(
+               "SELECT qso_datetime_on, call, band, "
+               "(CASE WHEN IFNULL(submode, '') = '' OR mode = 'SSB' THEN mode ELSE submode END), "
+               "IFNULL(country, ''), "
+               "(SELECT group_concat(service || ':' || sent || ':' || rcvd) FROM qsl_status s WHERE s.qso_id = qso.id) "
+               "FROM qso WHERE deleted = 0 %1 ORDER BY qso_datetime_on DESC LIMIT %2")
+        .arg(whereSql(binds, true))
+        .arg(kSearchLimit);
+}
+
+void QsoTableModel::searchLogsNow(const QVariantList& logs, QVariantList* rows, QVariantList* perLog) const
+{
+    LogSearch search;
+    search.sql = searchSql(search.binds);
+    for (const QVariant& v : logs) {
+        const QVariantMap log = v.toMap();
+        searchOneLog(search, log.value(QStringLiteral("name")).toString(), log.value(QStringLiteral("path")).toString(),
+                     rows, perLog);
+    }
+    sortByTime(rows);
+}
+
+void QsoTableModel::searchLogs(const QVariantList& logs)
+{
+    LogSearch search;
+    search.sql = searchSql(search.binds);
+    QPointer<QsoTableModel> self(this);
+    m_reloadPool.start([self, search, logs] {
+        QVariantList rows;
+        QVariantList perLog;
+        for (const QVariant& v : logs) {
+            const QVariantMap log = v.toMap();
+            searchOneLog(search, log.value(QStringLiteral("name")).toString(),
+                         log.value(QStringLiteral("path")).toString(), &rows, &perLog);
+        }
+        sortByTime(&rows);
+        QMetaObject::invokeMethod(
+            self.data(),
+            [self, rows = std::move(rows), perLog = std::move(perLog)] {
+                if (self)
+                    emit self->logsSearched(rows, perLog);
+            },
+            Qt::QueuedConnection);
+    });
+}
+
+void QsoTableModel::requestFieldValues(const QString& key)
+{
+    const QString path = m_db && m_db->isOpen() ? m_db->path() : QString();
+    // Un log in memoria (le prove) non si apre da un altro filo: si conta qui.
+    if (path.isEmpty() || path == QLatin1String(":memory:")) {
+        emit fieldValuesReady(key, fieldValues(key));
+        return;
+    }
+    QPointer<QsoTableModel> self(this);
+    m_reloadPool.start([self, path, key] {
+        QVariantList values;
+        {
+            core::LogDatabase db;
+            if (db.open(path))
+                values = countFieldValues(db.connection(), key);
+        }
+        QMetaObject::invokeMethod(
+            self.data(),
+            [self, key, values = std::move(values)]() mutable {
+                if (!self)
+                    return;
+                for (QVariant& v : values) {
+                    QVariantMap m = v.toMap();
+                    m.insert(QStringLiteral("label"),
+                             self->fieldValueLabel(key, m.value(QStringLiteral("value")).toString()));
+                    v = m;
+                }
+                emit self->fieldValuesReady(key, values);
+            },
+            Qt::QueuedConnection);
+    });
 }
 
 qint64 QsoTableModel::idAt(int row) const

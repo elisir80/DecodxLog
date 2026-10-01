@@ -2812,6 +2812,10 @@ Right click: change it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Other field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This month</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2856,7 +2860,84 @@ Right click: change it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Search these filters in every log…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colour the rows by QSL confirmation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Clear all filters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The filters of the log, in every log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The same filters you have on the log now, applied to every log in the list (Log → logs). The station profile is left out: each log numbers its profiles its own way.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1: cannot be read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1: first %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1
+Open it once in DecoDXLog to bring it up to date.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching the logs…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No QSO passes these filters in any log.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 QSO found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Narrow the list…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Counting the log…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No QSO in the log has this field filled in.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 values</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove this filter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2997,6 +3078,18 @@ Right click: change it</source>
     </message>
     <message>
         <source>Tag: %1 ✕</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>LoTW / card confirmed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>eQSL / QRZ only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>card sent, not back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5050,6 +5143,54 @@ Right click: change it</source>
     <message>
         <source>QRZ</source>
         <translation>QRZ</translation>
+    </message>
+    <message>
+        <source>CQ zone (WAZ)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ITU zone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Continent (WAC)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WPX prefix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QTH</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>State / province</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IOTA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other award reference (SIG)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QSL manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Card sent (month)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Card received (month)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>LoTW confirmation (month)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

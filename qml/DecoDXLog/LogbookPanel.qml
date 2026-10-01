@@ -25,6 +25,8 @@ GlassPanel {
         // Le larghezze scelte a mano, come {"call": 120, "name": 260}.
         property string columnWidths: ""
         property var savedFilters: ({})
+        // Le righe colorate secondo la conferma QSL (verde, giallo, arancio).
+        property bool qslTint: false
         // L'ordine delle righe: la colonna e il verso, come lo si e' lasciato.
         property string sortKey: "utc"
         property bool sortAscending: false
@@ -210,6 +212,20 @@ GlassPanel {
         else if (name === "dates") datePopup.open()
         else if (name === "wide") { table.setColumnWidth(1, 260); table.forceLayout(); root.storeWidths() }
         else if (name === "sub") { addFilterMenu.popup(60, Theme.panelHeight + 30); subTimer.start() }
+        else if (name === "fieldmenu") { addFilterMenu.popup(60, Theme.panelHeight + 30); fieldMenu.open() }
+        // "field-cqz": la scelta del valore; "field-cqz-14": il filtro gia' messo.
+        else if (name.startsWith("field-")) {
+            const parts = name.split("-")
+            if (parts.length > 2) root.model.setFieldFilter(parts[1], parts.slice(2).join("-"))
+            else fieldPicker.openFor(parts[1])
+        }
+        else if (name === "tint") logStore.qslTint = true
+        // "alllogs-cont-EU": prima il filtro, poi la ricerca in tutti i log.
+        else if (name.startsWith("alllogs")) {
+            const parts = name.split("-")
+            if (parts.length > 2) root.model.setFieldFilter(parts[1], parts.slice(2).join("-"))
+            logsSearch.openSearch()
+        }
     }
     // Per le prove col mouse vero: il menu aperto da showMenu.
     function menuFor(name) { return name === "band" ? bandMenu : columnsDialog }
@@ -484,6 +500,22 @@ GlassPanel {
                 text: qsTr("No tags in the log yet")
             }
         }
+        // Qualunque altro campo, per valore: zona CQ e ITU, continente,
+        // prefisso WPX, QTH, riferimenti, manager, mese della cartolina…
+        StyledMenu {
+            id: fieldMenu
+            title: qsTr("Other field")
+            Repeater {
+                model: root.model.fieldFilterChoices()
+                StyledMenuItem {
+                    required property var modelData
+                    text: modelData.label + "…"
+                    checkable: true
+                    checked: root.model.fieldFilters[modelData.key] !== undefined
+                    onTriggered: fieldPicker.openFor(modelData.key)
+                }
+            }
+        }
         StyledMenuItem {
             text: qsTr("This month")
             onTriggered: root.model.monthFilter = root.thisMonth()
@@ -548,9 +580,322 @@ GlassPanel {
         }
         MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
         StyledMenuItem {
+            text: qsTr("Search these filters in every log…")
+            enabled: root.model.filtered
+            onTriggered: logsSearch.openSearch()
+        }
+        StyledMenuItem {
+            text: qsTr("Colour the rows by QSL confirmation")
+            checkable: true
+            checked: logStore.qslTint
+            onTriggered: logStore.qslTint = checked
+        }
+        StyledMenuItem {
             text: qsTr("Clear all filters")
             enabled: root.model.filtered
             onTriggered: root.model.clearFilters()
+        }
+    }
+
+    // I colori della conferma: gli stessi nella riga e nella legenda.
+    function qslTintColor(state) {
+        return state === 3 ? Qt.rgba(0.20, 0.78, 0.25, 0.26)
+             : state === 2 ? Qt.rgba(0.95, 0.80, 0.10, 0.24)
+             : state === 1 ? Qt.rgba(1.00, 0.55, 0.00, 0.22)
+             : "transparent"
+    }
+
+    // ── Gli stessi filtri in tutti i log ────────────────────────────────────
+    // Quello che fa la finestra "Ricerche" di altri log: i QSO che passano i
+    // filtri di adesso, in ogni log dell'elenco (quello di tutti i giorni, i
+    // contest…), letti in sola lettura su un altro filo.
+    Popup {
+        id: logsSearch
+        property var rows: []
+        property var perLog: []
+        property bool searching: false
+        function openSearch() {
+            rows = []
+            perLog = []
+            searching = true
+            open()
+            const logs = []
+            for (const l of decolog.logs.logs) {
+                if (l.exists !== false)
+                    logs.push({ name: l.name, path: l.path })
+            }
+            root.model.searchLogs(logs)
+        }
+        parent: Overlay.overlay
+        anchors.centerIn: parent
+        width: Math.min(980, (parent ? parent.width : 1000) - 60)
+        height: Math.min(640, (parent ? parent.height : 700) - 60)
+        modal: true
+        focus: true
+        padding: 14
+        background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 6 }
+
+        Connections {
+            target: root.model
+            function onLogsSearched(rows, perLog) {
+                logsSearch.rows = rows
+                logsSearch.perLog = perLog
+                logsSearch.searching = false
+            }
+        }
+
+        // Le colonne della lista: titolo, chiave, larghezza.
+        readonly property var cols: [
+            { key: "log", title: qsTr("Log"), w: 170 },
+            { key: "utc", title: qsTr("UTC"), w: 130 },
+            { key: "call", title: qsTr("Call"), w: 120 },
+            { key: "band", title: qsTr("Band"), w: 60 },
+            { key: "mode", title: qsTr("Mode"), w: 70 },
+            { key: "country", title: qsTr("Country"), w: 220 }
+        ]
+
+        contentItem: ColumnLayout {
+            spacing: 8
+            Text {
+                text: qsTr("The filters of the log, in every log")
+                color: Theme.textPrimary
+                font.pixelSize: 13
+                font.bold: true
+            }
+            Text {
+                Layout.fillWidth: true
+                wrapMode: Text.Wrap
+                color: Theme.textSecondary
+                font.pixelSize: 11
+                text: qsTr("The same filters you have on the log now, applied to every log in the list (Log → logs). "
+                           + "The station profile is left out: each log numbers its profiles its own way.")
+            }
+            Flow {
+                Layout.fillWidth: true
+                spacing: 8
+                Repeater {
+                    model: logsSearch.perLog
+                    Pill {
+                        required property var modelData
+                        text: modelData.error.length > 0 ? qsTr("%1: cannot be read").arg(modelData.name)
+                              : modelData.truncated ? qsTr("%1: first %2").arg(modelData.name).arg(modelData.count)
+                              : "%1: %2".arg(modelData.name).arg(modelData.count)
+                        tone: modelData.error.length > 0 ? Theme.warningColor
+                              : modelData.count > 0 ? Theme.accentColor : Theme.textSecondary
+                        rounded: false
+                        ToolTip.visible: modelData.error.length > 0 && hoverArea.containsMouse
+                        ToolTip.text: qsTr("%1\nOpen it once in DecoDXLog to bring it up to date.").arg(modelData.error)
+                        MouseArea { id: hoverArea; anchors.fill: parent; hoverEnabled: true; acceptedButtons: Qt.NoButton }
+                    }
+                }
+            }
+            Text {
+                visible: logsSearch.searching || (logsSearch.rows.length === 0 && logsSearch.perLog.length > 0)
+                color: Theme.textSecondary
+                font.pixelSize: 12
+                text: logsSearch.searching ? qsTr("Searching the logs…") : qsTr("No QSO passes these filters in any log.")
+            }
+            // L'intestazione della lista.
+            Row {
+                visible: logsSearch.rows.length > 0
+                spacing: 0
+                Repeater {
+                    model: logsSearch.cols
+                    Text {
+                        required property var modelData
+                        width: modelData.w
+                        leftPadding: 8
+                        text: modelData.title
+                        color: Theme.secondaryColor
+                        font.family: Theme.monoFamily
+                        font.pixelSize: 11
+                        font.bold: true
+                    }
+                }
+            }
+            ListView {
+                id: logsList
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                clip: true
+                model: logsSearch.rows
+                ScrollBar.vertical: PanelScrollBar {}
+                delegate: Rectangle {
+                    id: foundRow
+                    required property var modelData
+                    width: logsList.width
+                    height: Theme.rowHeight
+                    color: root.qslTintColor(modelData.qsl)
+                    Row {
+                        anchors.verticalCenter: parent.verticalCenter
+                        Repeater {
+                            model: logsSearch.cols
+                            Text {
+                                required property var modelData
+                                width: modelData.w
+                                leftPadding: 8
+                                elide: Text.ElideRight
+                                text: foundRow.modelData[modelData.key] || ""
+                                color: Theme.textPrimary
+                                font.family: modelData.key === "log" || modelData.key === "country" ? Theme.uiFamily
+                                                                                                   : Theme.monoFamily
+                                font.pixelSize: Theme.fontSize
+                                font.bold: modelData.key === "call"
+                            }
+                        }
+                    }
+                    Rectangle {
+                        anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+                        height: 1
+                        color: Theme.borderSoft
+                    }
+                }
+            }
+            RowLayout {
+                Layout.fillWidth: true
+                Text {
+                    Layout.fillWidth: true
+                    visible: logsSearch.rows.length > 0
+                    text: qsTr("%1 QSO found").arg(logsSearch.rows.length)
+                    color: Theme.textSecondary
+                    font.pixelSize: 11
+                }
+                GlassButton { text: qsTr("Close"); onClicked: logsSearch.close() }
+            }
+        }
+    }
+
+    // ── Un campo e il suo valore ────────────────────────────────────────────
+    // I valori che il campo ha nel log, ciascuno coi suoi QSO, contati su un
+    // altro filo; si restringono scrivendo.
+    Popup {
+        id: fieldPicker
+        property string key: ""
+        property var values: []
+        property bool loading: false
+        readonly property var shown: {
+            const f = fieldSearch.text.trim().toUpperCase()
+            return f.length === 0 ? values
+                 : values.filter(v => String(v.label).toUpperCase().indexOf(f) >= 0)
+        }
+        function openFor(k) {
+            key = k
+            values = []
+            loading = true
+            open()
+            root.model.requestFieldValues(k)
+        }
+        anchors.centerIn: parent
+        width: Math.min(420, root.width - 40)
+        height: Math.min(520, root.height - 40)
+        modal: true
+        focus: true
+        padding: 14
+        background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 6 }
+        onOpened: { fieldSearch.text = ""; fieldSearch.forceActiveFocus() }
+
+        Connections {
+            target: root.model
+            function onFieldValuesReady(k, list) {
+                if (k !== fieldPicker.key)
+                    return
+                fieldPicker.values = list
+                fieldPicker.loading = false
+            }
+        }
+
+        contentItem: ColumnLayout {
+            spacing: 8
+            Text {
+                text: root.model.fieldFilterLabel(fieldPicker.key)
+                color: Theme.textPrimary
+                font.pixelSize: 13
+                font.bold: true
+            }
+            StyledTextField {
+                id: fieldSearch
+                Layout.fillWidth: true
+                mono: false
+                placeholderText: qsTr("Narrow the list…")
+                Keys.onReturnPressed: if (fieldPicker.shown.length === 1) fieldPicker.pick(fieldPicker.shown[0].value)
+                Keys.onEnterPressed: if (fieldPicker.shown.length === 1) fieldPicker.pick(fieldPicker.shown[0].value)
+            }
+            Text {
+                Layout.fillWidth: true
+                visible: fieldPicker.loading || fieldPicker.values.length === 0
+                wrapMode: Text.Wrap
+                color: Theme.textSecondary
+                font.pixelSize: 12
+                text: fieldPicker.loading ? qsTr("Counting the log…")
+                                          : qsTr("No QSO in the log has this field filled in.")
+            }
+            ListView {
+                id: fieldList
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                clip: true
+                model: fieldPicker.shown
+                ScrollBar.vertical: PanelScrollBar {}
+                delegate: Rectangle {
+                    required property var modelData
+                    width: fieldList.width
+                    height: 26
+                    radius: 3
+                    readonly property bool chosen: root.model.fieldFilters[fieldPicker.key] === modelData.value
+                    color: pickArea.containsMouse || chosen
+                           ? Qt.rgba(Theme.primaryColor.r, Theme.primaryColor.g, Theme.primaryColor.b, chosen ? 0.24 : 0.12)
+                           : "transparent"
+                    Text {
+                        anchors.left: parent.left
+                        anchors.leftMargin: 8
+                        anchors.right: countText.left
+                        anchors.rightMargin: 8
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: modelData.label
+                        elide: Text.ElideRight
+                        color: Theme.textPrimary
+                        font.family: Theme.monoFamily
+                        font.pixelSize: 12
+                    }
+                    Text {
+                        id: countText
+                        anchors.right: parent.right
+                        anchors.rightMargin: 8
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: Number(modelData.count).toLocaleString(Qt.locale(), "f", 0)
+                        color: Theme.textSecondary
+                        font.family: Theme.monoFamily
+                        font.pixelSize: 11
+                    }
+                    MouseArea {
+                        id: pickArea
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: fieldPicker.pick(modelData.value)
+                    }
+                }
+            }
+            RowLayout {
+                Layout.fillWidth: true
+                Text {
+                    Layout.fillWidth: true
+                    visible: !fieldPicker.loading && fieldPicker.values.length > 0
+                    text: qsTr("%1 values").arg(fieldPicker.shown.length)
+                    color: Theme.textSecondary
+                    font.pixelSize: 11
+                }
+                GlassButton {
+                    visible: root.model.fieldFilters[fieldPicker.key] !== undefined
+                    text: qsTr("Remove this filter")
+                    onClicked: { root.model.setFieldFilter(fieldPicker.key, ""); fieldPicker.close() }
+                }
+                GlassButton { text: qsTr("Close"); onClicked: fieldPicker.close() }
+            }
+        }
+        function pick(value) {
+            root.model.setFieldFilter(key, value)
+            close()
         }
     }
 
@@ -955,6 +1300,18 @@ GlassPanel {
                         interactive: true
                         onClicked: root.model.tagFilter = ""
                     }
+                    Repeater {
+                        model: Object.keys(root.model.fieldFilters)
+                        Pill {
+                            required property string modelData
+                            text: "%1: %2 ✕".arg(root.model.fieldFilterLabel(modelData))
+                                            .arg(root.model.fieldValueLabel(modelData, root.model.fieldFilters[modelData]))
+                            tone: Theme.secondaryColor
+                            rounded: false
+                            interactive: true
+                            onClicked: root.model.setFieldFilter(modelData, "")
+                        }
+                    }
                     Pill {
                         visible: root.model.dateFrom.length > 0 || root.model.dateTo.length > 0
                         text: "%1 → %2 ✕".arg(decolog.showDate(root.model.dateFrom) || "…").arg(decolog.showDate(root.model.dateTo) || "…")
@@ -962,6 +1319,37 @@ GlassPanel {
                         rounded: false
                         interactive: true
                         onClicked: { root.model.dateFrom = ""; root.model.dateTo = "" }
+                    }
+                    // La legenda dei colori della conferma, quando sono accesi.
+                    Row {
+                        visible: logStore.qslTint
+                        spacing: 10
+                        height: 22
+                        Repeater {
+                            model: [{ state: 3, text: qsTr("LoTW / card confirmed") },
+                                    { state: 2, text: qsTr("eQSL / QRZ only") },
+                                    { state: 1, text: qsTr("card sent, not back") }]
+                            Row {
+                                required property var modelData
+                                spacing: 4
+                                anchors.verticalCenter: parent ? parent.verticalCenter : undefined
+                                Rectangle {
+                                    width: 12
+                                    height: 12
+                                    radius: 2
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    color: root.qslTintColor(modelData.state)
+                                    border.width: 1
+                                    border.color: Theme.glassBorder
+                                }
+                                Text {
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    text: modelData.text
+                                    color: Theme.textSecondary
+                                    font.pixelSize: 11
+                                }
+                            }
+                        }
                     }
                     Rectangle {
                         implicitHeight: 22
@@ -1164,7 +1552,9 @@ GlassPanel {
                 required property int row
                 required property var qsoId
                 required property string rowCategory
+                required property int qslState
                 // I colori della categoria, come in Decodium 4: vuoti se spenti.
+                // Con le righe colorate per conferma vince la conferma.
                 readonly property var paint: decolog.logColors[rowCategory] || ({})
                 readonly property string paintFg: paint.fg || ""
                 readonly property string paintBg: paint.bg || ""
@@ -1177,6 +1567,7 @@ GlassPanel {
                 color: selected ? Qt.rgba(Theme.primaryColor.r, Theme.primaryColor.g, Theme.primaryColor.b, 0.24)
                      : current ? Qt.rgba(Theme.primaryColor.r, Theme.primaryColor.g, Theme.primaryColor.b, 0.10)
                      : isNew ? Theme.rowMatchBg
+                     : logStore.qslTint && qslState > 0 ? root.qslTintColor(qslState)
                      : paintBg.length > 0 ? paintBg
                      : "transparent"
 
