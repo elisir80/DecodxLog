@@ -371,20 +371,24 @@
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>Referencen læses fra SIG/SIG_INFO (SIG = %1) eller fra en kommentar som &quot;%1 LI-001&quot;.</translation>
     </message>
-    <message numerus="yes">
-        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC. %n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.</source>
-        <translation>
-            <numerusform>ARRL-regler: QSO&apos;er på 60 m tæller ikke, og eQSL er ikke en bekræftelse til DXCC. %n QSO med slettede entiteter eller operationer, ARRL ikke har godkendt (Club Log), holdes udenfor.</numerusform>
-            <numerusform>ARRL-regler: QSO&apos;er på 60 m tæller ikke, og eQSL er ikke en bekræftelse til DXCC. %n QSO&apos;er med slettede entiteter eller operationer, ARRL ikke har godkendt (Club Log), holdes udenfor.</numerusform>
-        </translation>
-    </message>
     <message>
-        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
-        <translation>ARRL-regler: QSO&apos;er på 60 m tæller ikke, og eQSL er ikke en bekræftelse for DXCC.</translation>
+        <source>QSOs on 60 m are counted here, but the ARRL does not accept them: for the official count switch off &quot;60 m&quot;.</source>
+        <translation>QSO&apos;er på 60 m tælles med her, men ARRL accepterer dem ikke: slå &quot;60 m&quot; fra for den officielle optælling.</translation>
     </message>
     <message>
         <source>ARRL rules: QSOs on 60 m do not count.</source>
         <translation>ARRL-regler: QSO&apos;er på 60 m tæller ikke.</translation>
+    </message>
+    <message>
+        <source>eQSL is not a confirmation for DXCC.</source>
+        <translation>eQSL er ikke en bekræftelse til DXCC.</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.</source>
+        <translation>
+            <numerusform>%n QSO med slettede entiteter eller operationer, som ARRL ikke anerkender (Club Log), udelades.</numerusform>
+            <numerusform>%n QSO&apos;er med slettede entiteter eller operationer, som ARRL ikke anerkender (Club Log), udelades.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -476,6 +480,14 @@
     <message>
         <source>Card</source>
         <translation>Kort</translation>
+    </message>
+    <message>
+        <source>60 m</source>
+        <translation>60 m</translation>
+    </message>
+    <message>
+        <source>Count QSOs on 60 m in DXCC, DXCC Challenge and WAS too. The ARRL does not accept them: switch off for the official count.</source>
+        <translation>Tæl også QSO&apos;er på 60 m med i DXCC, DXCC Challenge og WAS. ARRL accepterer dem ikke: slå fra for den officielle optælling.</translation>
     </message>
     <message>
         <source>All stations</source>

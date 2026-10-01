@@ -161,10 +161,11 @@ private slots:
         QCOMPARE(find(results, "wpx").confirmed(), 0);    // le generali: LoTW e cartolina
     }
 
-    void theArrlAwardsDoNotCountSixtyMeters()
+    void sixtyMetersCountUnlessTheOperatorWantsArrlRules()
     {
-        // Regole dell'ARRL: i QSO sui 60 metri non valgono per i suoi diplomi,
-        // DXCC compreso. Per gli altri (WAZ) valgono come sempre.
+        // Di serie i 60 metri contano anche nel DXCC e nel WAS: lo chiedono gli
+        // operatori. Con il conto ufficiale dell'ARRL (count60m spento) no; per
+        // gli altri diplomi (WAZ) valgono sempre.
         LogDatabase db;
         QVERIFY(db.open(":memory:"));
         auto qso = [&db](const char* call, const char* band, int dxcc, int cqz, const char* state) {
@@ -180,7 +181,15 @@ private slots:
         qso("K5XX", "60m", 291, 4, "TX");
 
         const AwardCalculator calc;
-        const auto results = calc.compute(db, AwardFilter{});
+        const auto counted = calc.compute(db, AwardFilter{});
+        QCOMPARE(find(counted, "dxcc").worked(), 2);  // 291 e 230, anche dai 60
+        QCOMPARE(find(counted, "dxcc").bandTotals({"60m"}).first().worked, 2);
+        QCOMPARE(find(counted, "was").worked(), 2);   // CT e TX
+        QVERIFY(find(counted, "dxcc").requirement.contains(QStringLiteral("60 m")));
+
+        AwardFilter arrl;
+        arrl.count60m = false;
+        const auto results = calc.compute(db, arrl);
         const auto dxcc = find(results, "dxcc");
         QCOMPARE(dxcc.worked(), 1);           // solo 291 dai 20 metri
         QCOMPARE(dxcc.confirmed(), 1);

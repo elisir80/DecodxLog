@@ -370,19 +370,23 @@
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>A hivatkozás a SIG/SIG_INFO mezőből (SIG = %1) vagy egy &quot;%1 LI-001&quot; formájú megjegyzésből jön.</translation>
     </message>
-    <message numerus="yes">
-        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC. %n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.</source>
-        <translation>
-            <numerusform>ARRL-szabályok: a 60 m-es QSO-k nem számítanak, és az eQSL nem visszaigazolás a DXCC-hez. %n QSO törölt entitással vagy az ARRL által el nem fogadott művelettel (Club Log) kimarad.</numerusform>
-        </translation>
-    </message>
     <message>
-        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
-        <translation>ARRL-szabályok: a 60 m-es QSO-k nem számítanak, és az eQSL nem visszaigazolás a DXCC-hez.</translation>
+        <source>QSOs on 60 m are counted here, but the ARRL does not accept them: for the official count switch off &quot;60 m&quot;.</source>
+        <translation>A 60 m-es QSO-k itt beszámítanak, de az ARRL nem fogadja el őket: a hivatalos számításhoz kapcsold ki a &quot;60 m&quot;-t.</translation>
     </message>
     <message>
         <source>ARRL rules: QSOs on 60 m do not count.</source>
         <translation>ARRL-szabályok: a 60 m-es QSO-k nem számítanak.</translation>
+    </message>
+    <message>
+        <source>eQSL is not a confirmation for DXCC.</source>
+        <translation>A DXCC-hez az eQSL nem visszaigazolás.</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.</source>
+        <translation>
+            <numerusform>%n QSO törölt entitásokkal vagy az ARRL által el nem fogadott működéssel (Club Log) kimarad.</numerusform>
+        </translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -474,6 +478,14 @@
     <message>
         <source>Card</source>
         <translation>Kártya</translation>
+    </message>
+    <message>
+        <source>60 m</source>
+        <translation>60 m</translation>
+    </message>
+    <message>
+        <source>Count QSOs on 60 m in DXCC, DXCC Challenge and WAS too. The ARRL does not accept them: switch off for the official count.</source>
+        <translation>A 60 m-es QSO-k beszámítása a DXCC-be, a DXCC Challenge-be és a WAS-ba is. Az ARRL nem fogadja el őket: a hivatalos számításhoz kapcsold ki.</translation>
     </message>
     <message>
         <source>All stations</source>

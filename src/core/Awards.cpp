@@ -620,8 +620,9 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
         const int dxcc = q.value(5).toInt();
         const QDateTime on = QDateTime::fromString(q.value(13).toString(), Qt::ISODate).toUTC();
         // Le regole dell'ARRL: i QSO sui 60 metri non valgono per nessun suo
-        // diploma, DXCC compreso (le conferme valide le dice creditsFor).
-        const bool arrlBand = band.compare(QLatin1String("60m"), Qt::CaseInsensitive) != 0;
+        // diploma, DXCC compreso (le conferme valide le dice creditsFor). Si
+        // contano lo stesso se l'operatore lo vuole (count60m, di serie si').
+        const bool arrlBand = filter.count60m || band.compare(QLatin1String("60m"), Qt::CaseInsensitive) != 0;
 
         auto addAs = [&](const char* award, const QString& key, const QString& name, bool isConfirmed) {
             if (key.isEmpty())
@@ -769,16 +770,20 @@ QList<AwardResult> AwardCalculator::compute(const LogDatabase& db, const AwardFi
             b.result.requirement = QCoreApplication::translate(
                 "Awards", "The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like \"%1 LI-001\".")
                                        .arg(b.result.title);
-        } else if (id == QLatin1String("dxcc") && dxccSkipped > 0) {
-            b.result.requirement = QCoreApplication::translate(
-                "Awards", "ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC. "
-                          "%n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.",
-                nullptr, dxccSkipped);
-        } else if (id == QLatin1String("dxcc")) {
-            b.result.requirement = QCoreApplication::translate(
-                "Awards", "ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.");
-        } else if (id == QLatin1String("was")) {
-            b.result.requirement = QCoreApplication::translate("Awards", "ARRL rules: QSOs on 60 m do not count.");
+        } else if (id == QLatin1String("dxcc") || id == QLatin1String("was")) {
+            // Che cosa si conta dei 60 metri, detto ogni volta: il numero cambia.
+            QStringList said;
+            said << (filter.count60m
+                         ? QCoreApplication::translate("Awards", "QSOs on 60 m are counted here, but the ARRL does not "
+                                                                 "accept them: for the official count switch off \"60 m\".")
+                         : QCoreApplication::translate("Awards", "ARRL rules: QSOs on 60 m do not count."));
+            if (id == QLatin1String("dxcc"))
+                said << QCoreApplication::translate("Awards", "eQSL is not a confirmation for DXCC.");
+            if (id == QLatin1String("dxcc") && dxccSkipped > 0)
+                said << QCoreApplication::translate(
+                    "Awards", "%n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.",
+                    nullptr, dxccSkipped);
+            b.result.requirement = said.join(QLatin1Char(' '));
         } else if (id == QLatin1String("waip")) {
             b.result.requirement = QCoreApplication::translate(
                 "Awards", "Diploma: 75 provinces for Italian stations, 60 for the others.");

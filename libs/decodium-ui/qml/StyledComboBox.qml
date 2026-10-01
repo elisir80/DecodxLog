@@ -25,6 +25,10 @@ ComboBox {
         text: root.editable ? root.editText : root.displayText
         readOnly: !root.editable
         enabled: root.editable
+        // Una scelta piu' lunga del campo si legge dall'inizio: il campo di
+        // testo, lasciato fare, scorreva alla fine e mostrava "e le bande"
+        // invece di "Tutte le bande".
+        autoScroll: root.editable
         font: root.font
         color: root.enabled ? Theme.textPrimary : Theme.textSecondary
         selectionColor: Theme.primaryColor

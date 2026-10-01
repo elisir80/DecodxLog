@@ -24,7 +24,17 @@ filtri di adesso su ogni log dell'elenco (quello di tutti i giorni, i contest…
 lettura e su un altro filo: una lista sola dal piu' recente, con il log di ogni QSO e quanti
 ne ha trovati ciascuno. Il profilo stazione non conta, perche' ogni log numera i suoi.
 
+**I 60 metri tornano nei conti.** Dalla 1.16.30 i QSO sui 60 metri erano fuori dal DXCC,
+dal DXCC Challenge, dal WAS e dal DXCC anno per anno delle statistiche, come vuole l'ARRL
+(«contacts on this band do not qualify for the ARRL award program»). Adesso di serie
+contano di nuovo: il Challenge torna a undici bande, 60 compresi. Chi vuole il conto
+ufficiale dell'ARRL spegne «60 m» nella finestra Diplomi, sulla riga «Valide per» del DXCC,
+del Challenge o del WAS; la scheda
+del DXCC e del WAS dice ogni volta come si sta contando.
+
 - La ricerca libera guarda anche nel QTH.
+- Le tendine troppo strette per la loro scelta la mostrano dall'inizio («Tutte le b…») e non
+  dalla fine («…e le bande»), che non si capiva.
 
 ## 1.16.43 — 30 settembre 2026
 

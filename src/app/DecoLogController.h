@@ -176,6 +176,8 @@ class DecoLogController : public QObject {
     Q_PROPERTY(bool awardConfirmLotw READ awardConfirmLotw WRITE setAwardConfirmLotw NOTIFY awardsChanged)
     Q_PROPERTY(bool awardConfirmCard READ awardConfirmCard WRITE setAwardConfirmCard NOTIFY awardsChanged)
     Q_PROPERTY(bool awardConfirmEqsl READ awardConfirmEqsl WRITE setAwardConfirmEqsl NOTIFY awardsChanged)
+    // I 60 metri nel DXCC, nel Challenge e nel WAS (l'ARRL non li accetta).
+    Q_PROPERTY(bool awardCount60m READ awardCount60m WRITE setAwardCount60m NOTIFY awardsChanged)
     Q_PROPERTY(int awardProfile READ awardProfile WRITE setAwardProfile NOTIFY awardsChanged)
     Q_PROPERTY(QString awardTag READ awardTag WRITE setAwardTag NOTIFY awardsChanged)
 
@@ -409,6 +411,8 @@ public:
     void setAwardConfirmCard(bool on);
     bool awardConfirmEqsl() const { return m_awardFilter.confirmEqsl; }
     void setAwardConfirmEqsl(bool on);
+    bool awardCount60m() const { return m_awardFilter.count60m; }
+    void setAwardCount60m(bool on);
     int awardProfile() const { return static_cast<int>(m_awardFilter.stationProfileId); }
     void setAwardProfile(int profileId);
     QString awardTag() const { return m_awardFilter.tag; }

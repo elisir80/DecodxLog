@@ -296,6 +296,7 @@ DecoLogController::DecoLogController(QObject* parent)
     m_awardFilter.confirmLotw = s.value(QStringLiteral("awards/confirmLotw"), true).toBool();
     m_awardFilter.confirmCard = s.value(QStringLiteral("awards/confirmCard"), true).toBool();
     m_awardFilter.confirmEqsl = s.value(QStringLiteral("awards/confirmEqsl"), false).toBool();
+    m_awardFilter.count60m = s.value(QStringLiteral("awards/count60m"), true).toBool();
     m_awardFilter.stationProfileId = s.value(QStringLiteral("awards/profile"), 0).toLongLong();
     m_awardFilter.tag = s.value(QStringLiteral("awards/tag")).toString();
     // Le conferme scelte per i singoli diplomi.
@@ -564,6 +565,7 @@ void DecoLogController::refreshStatsInBackground()
         all.confirmLotw = filter.confirmLotw;
         all.confirmCard = filter.confirmCard;
         all.confirmEqsl = filter.confirmEqsl;
+        all.count60m = filter.count60m;
         all.credits = filter.credits;
         // Senza banda, modo, profilo o etichetta scelti sono gli stessi: un
         // conto solo, che su un log grande sono secondi risparmiati.
@@ -587,6 +589,7 @@ void DecoLogController::refreshStatsInBackground()
                                         && now.confirmLotw == filter.confirmLotw
                                         && now.confirmCard == filter.confirmCard
                                         && now.confirmEqsl == filter.confirmEqsl
+                                        && now.count60m == filter.count60m
                                         && now.stationProfileId == filter.stationProfileId
                                         && now.tag == filter.tag;
                 if (sameFilter) {
@@ -2071,6 +2074,7 @@ const QList<AwardResult>& DecoLogController::globalAwardResults() const
         filter.confirmLotw = m_awardFilter.confirmLotw;
         filter.confirmCard = m_awardFilter.confirmCard;
         filter.confirmEqsl = m_awardFilter.confirmEqsl;
+        filter.count60m = m_awardFilter.count60m;
         filter.credits = m_awardFilter.credits;
         QHash<int, QString> names;
         for (const auto& entity : m_countries.entities())
@@ -2112,15 +2116,17 @@ QVariantList DecoLogController::awardSummary() const
         };
 
         // Il DXCC Challenge non e' un altro elenco di entita': sono gli stessi
-        // DXCC contati banda per banda, dai 160 ai 6 metri (dieci bande: i 60
-        // no, per l'ARRL non valgono). Mille slot e' il traguardo del primo
-        // riconoscimento.
+        // DXCC contati banda per banda, dai 160 ai 6 metri. Per l'ARRL sono
+        // dieci bande, senza i 60; con i 60 contati sono undici. Mille slot e'
+        // il traguardo del primo riconoscimento.
         if (r.id == QLatin1String("dxcc")) {
-            static const QStringList challengeBands{
+            QStringList challengeBands{
                 QStringLiteral("160m"), QStringLiteral("80m"),
                 QStringLiteral("40m"), QStringLiteral("30m"), QStringLiteral("20m"),
                 QStringLiteral("17m"), QStringLiteral("15m"), QStringLiteral("12m"),
                 QStringLiteral("10m"), QStringLiteral("6m")};
+            if (m_awardFilter.count60m)
+                challengeBands.insert(2, QStringLiteral("60m"));
             int worked = 0, confirmed = 0;
             for (const BandTotal& t : r.bandTotals(challengeBands)) {
                 worked += t.worked;
@@ -2277,6 +2283,7 @@ void DecoLogController::awardFilterChanged()
     s.setValue(QStringLiteral("awards/confirmLotw"), m_awardFilter.confirmLotw);
     s.setValue(QStringLiteral("awards/confirmCard"), m_awardFilter.confirmCard);
     s.setValue(QStringLiteral("awards/confirmEqsl"), m_awardFilter.confirmEqsl);
+    s.setValue(QStringLiteral("awards/count60m"), m_awardFilter.count60m);
     s.setValue(QStringLiteral("awards/profile"), m_awardFilter.stationProfileId);
     s.setValue(QStringLiteral("awards/tag"), m_awardFilter.tag);
     m_awardsDirty = m_globalAwardsDirty = true;
@@ -2365,6 +2372,13 @@ void DecoLogController::setAwardConfirmEqsl(bool on)
 {
     if (on == m_awardFilter.confirmEqsl) return;
     m_awardFilter.confirmEqsl = on;
+    awardFilterChanged();
+}
+
+void DecoLogController::setAwardCount60m(bool on)
+{
+    if (on == m_awardFilter.count60m) return;
+    m_awardFilter.count60m = on;
     awardFilterChanged();
 }
 
@@ -4941,6 +4955,9 @@ StatsFilter statsFilterFor(const QString& mode, int year)
     StatsFilter f;
     f.mode = mode;
     f.year = year;
+    // Come nei diplomi: i 60 metri nel DXCC se l'operatore li conta. Si legge
+    // dalle impostazioni perche' qui si arriva anche da un altro filo.
+    f.count60m = QSettings().value(QStringLiteral("awards/count60m"), true).toBool();
     return f;
 }
 

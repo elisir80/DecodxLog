@@ -252,6 +252,25 @@ DialogFrame {
                         onToggled: decolog.setAwardCredit(root.awardId, modelData.id, checked)
                     }
                 }
+                // I 60 metri nel DXCC, nel Challenge e nel WAS: l'ARRL non li
+                // accetta. Si vede solo su quei diplomi; vale per tutti e tre.
+                Rectangle {
+                    visible: count60.visible
+                    implicitWidth: 1
+                    implicitHeight: 20
+                    color: Theme.borderSoft
+                }
+                ToggleSwitch {
+                    id: count60
+                    visible: ["dxcc", "challenge", "was"].indexOf(root.awardId) >= 0
+                    text: qsTr("60 m")
+                    checked: decolog.awardCount60m
+                    onToggled: decolog.awardCount60m = checked
+                    HoverHandler { id: count60Hover }
+                    ToolTip.visible: count60Hover.hovered
+                    ToolTip.text: qsTr("Count QSOs on 60 m in DXCC, DXCC Challenge and WAS too. The ARRL does not "
+                                       + "accept them: switch off for the official count.")
+                }
                 Text {
                     Layout.fillWidth: true
                     elide: Text.ElideRight

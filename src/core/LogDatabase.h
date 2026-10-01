@@ -140,6 +140,8 @@ struct StatsFilter {
     QString mode;
     QString band;
     int     year{0};
+    // I 60 metri nel DXCC anno per anno: come per i diplomi (AwardFilter).
+    bool    count60m{true};
 };
 
 struct Ft2Award {

@@ -2124,8 +2124,9 @@ QList<QVariantMap> LogDatabase::awardProgress(const StatsFilter& filter) const
             year = y;
         }
         ++qsos;
-        // Il DXCC come lo conta l'ARRL: i 60 metri non valgono.
-        if (const int d = q.value(1).toInt(); d > 0 && q.value(5).toString() != QLatin1String("60m")) {
+        // Il DXCC: per l'ARRL i 60 metri non valgono, e si tolgono se
+        // l'operatore ha scelto il conto ufficiale.
+        if (const int d = q.value(1).toInt(); d > 0 && (all.count60m || q.value(5).toString() != QLatin1String("60m"))) {
             dxcc.insert(d);
             if (q.value(4).toBool())
                 confirmed.insert(d);

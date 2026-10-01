@@ -370,19 +370,23 @@
         <source>The reference is read from SIG/SIG_INFO (SIG = %1) or from a comment like &quot;%1 LI-001&quot;.</source>
         <translation>參考編號取自 SIG/SIG_INFO（SIG = %1）或類似「%1 LI-001」的備註。</translation>
     </message>
-    <message numerus="yes">
-        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC. %n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.</source>
-        <translation>
-            <numerusform>ARRL 規則：60 公尺的 QSO 不計，eQSL 不算 DXCC 確認。%n 筆涉及已刪除實體或 ARRL 未認可運作（Club Log）的 QSO 不計入。</numerusform>
-        </translation>
-    </message>
     <message>
-        <source>ARRL rules: QSOs on 60 m do not count, and eQSL is not a confirmation for DXCC.</source>
-        <translation>ARRL 規則：60 米的 QSO 不計入，且 eQSL 不算 DXCC 的確認。</translation>
+        <source>QSOs on 60 m are counted here, but the ARRL does not accept them: for the official count switch off &quot;60 m&quot;.</source>
+        <translation>這裡也計入 60 公尺的 QSO，但 ARRL 不承認：要依官方方式統計，請關閉「60 m」。</translation>
     </message>
     <message>
         <source>ARRL rules: QSOs on 60 m do not count.</source>
         <translation>ARRL 規則：60 米的 QSO 不計入。</translation>
+    </message>
+    <message>
+        <source>eQSL is not a confirmation for DXCC.</source>
+        <translation>對 DXCC 來說，eQSL 不算確認。</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n QSO(s) with deleted entities or operations not accepted by the ARRL (Club Log) are left out.</source>
+        <translation>
+            <numerusform>已排除 %n 個屬於已刪除實體或 ARRL 不承認的運作（Club Log）的 QSO。</numerusform>
+        </translation>
     </message>
     <message>
         <source>Diploma: 75 provinces for Italian stations, 60 for the others.</source>
@@ -474,6 +478,14 @@
     <message>
         <source>Card</source>
         <translation>卡片</translation>
+    </message>
+    <message>
+        <source>60 m</source>
+        <translation>60 m</translation>
+    </message>
+    <message>
+        <source>Count QSOs on 60 m in DXCC, DXCC Challenge and WAS too. The ARRL does not accept them: switch off for the official count.</source>
+        <translation>60 公尺的 QSO 也計入 DXCC、DXCC Challenge 和 WAS。ARRL 不承認它們：要官方統計請關閉。</translation>
     </message>
     <message>
         <source>All stations</source>
