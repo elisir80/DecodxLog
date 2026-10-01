@@ -829,6 +829,14 @@ int main(int argc, char* argv[])
         });
     });
     engine.rootContext()->setContextProperty(QStringLiteral("decolog"), &controller);
+    // La finestra principale puo' sparire prima che QObject inizi a distruggere
+    // i controller. Chiudiamo esplicitamente socket, timer e code mentre Qt e'
+    // ancora in grado di consegnare gli ultimi eventi di spegnimento.
+    QObject::connect(&app, &QCoreApplication::aboutToQuit, &controller, [&controller] {
+        std::fprintf(stderr, "[Shutdown] closing controllers\n");
+        controller.shutdown();
+        std::fprintf(stderr, "[Shutdown] controllers closed\n");
+    });
     // La mappa dell'orologio mondiale: disegnata in C++, nitida a ogni scala.
     qmlRegisterType<decolog::app::WorldMapItem>("DecoDXLog.Native", 1, 0, "WorldMapItem");
     engine.rootContext()->setContextProperty(QStringLiteral("mapUsesSafeRenderer"), useSafeMapRenderer);

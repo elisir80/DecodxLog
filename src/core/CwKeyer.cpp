@@ -220,9 +220,21 @@ CwKeyer::CwKeyer(QObject* parent)
 CwKeyer::~CwKeyer()
 {
     stop();
-    QMetaObject::invokeMethod(m_worker, "closePort", Qt::BlockingQueuedConnection);
+    // Non aspettare con una chiamata bloccante il worker: se l'uscita arriva
+    // mentre sta manipolando un carattere, quella attesa puo' tenere vivo il
+    // processo anche dopo la chiusura della finestra. stop() imposta il flag
+    // atomico, quindi il worker esce subito dall'attesa Morse e processa queste
+    // due richieste nell'ordine.
+    if (!m_thread->isRunning())
+        return;
+    QMetaObject::invokeMethod(m_worker, "closePort", Qt::QueuedConnection);
     m_thread->quit();
-    m_thread->wait(2000);
+    if (!m_thread->wait(1500)) {
+        // Ultima rete di sicurezza: un driver seriale difettoso non deve mai
+        // rendere impossibile terminare DecoDXLog.
+        m_thread->terminate();
+        m_thread->wait(500);
+    }
 }
 
 bool CwKeyer::open(const QString& port, const QString& line)
