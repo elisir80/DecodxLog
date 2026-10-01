@@ -16,6 +16,7 @@
 #include <QPointer>
 #include <QProcess>
 #include <QCoreApplication>
+#include <QBuffer>
 #include <QDesktopServices>
 #include <QDir>
 #include <QFile>
@@ -33,6 +34,8 @@
 #include <QSettings>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QUdpSocket>
+#include <QXmlStreamWriter>
 #include <QCryptographicHash>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
@@ -70,6 +73,36 @@ QString serviceLabel(const QString& service)
 
 const QStringList kServices{QStringLiteral("lotw"), QStringLiteral("qrz"), QStringLiteral("clublog"),
                             QStringLiteral("eqsl"), QStringLiteral("card")};
+
+QString n1mmBand(const QString& adifBand, double mhz)
+{
+    // N1MM non trasmette la frequenza del QSO nel campo band: usa il bordo
+    // basso della banda (20m = 14, 80m = 3.5). HamConnect usa proprio questo
+    // valore per riconoscere la banda dell'attivazione.
+    double lowMhz = 0.0;
+    if (bands::edges(adifBand, &lowMhz, nullptr)) {
+        QString value = QString::number(lowMhz, 'f', lowMhz < 10.0 ? 1 : 3);
+        value.remove(QRegularExpression(QStringLiteral("0+$")));
+        value.remove(QRegularExpression(QStringLiteral("\\.$")));
+        return value;
+    }
+    if (mhz > 0.0) {
+        QString value = QString::number(mhz, 'f', mhz < 10.0 ? 1 : 3);
+        value.remove(QRegularExpression(QStringLiteral("0+$")));
+        value.remove(QRegularExpression(QStringLiteral("\\.$")));
+        return value;
+    }
+    QString value = adifBand.trimmed().toLower();
+    if (value.endsWith(QLatin1Char('m')))
+        value.chop(1);
+    return value;
+}
+
+QString n1mmMode(const QString& mode)
+{
+    const QString upper = mode.trimmed().toUpper();
+    return upper == QLatin1String("SSB") ? QStringLiteral("USB") : upper;
+}
 
 // Le colonne della griglia banda x modo: quelle che un operatore si aspetta di
 // vedere sempre, anche vuote. Le altre si aggiungono solo se il log le ha.
@@ -530,7 +563,51 @@ DecoLogController::~DecoLogController()
     // caduta "in emplace<QVariant>" del registro di Windows, dalla 1.7 in poi.
     // Adesso DecoLink si ferma qui, con tutto ancora in piedi, e poi niente di
     // quello che resta puo' piu' chiamare questo oggetto.
+    shutdown();
+}
+
+void DecoLogController::shutdown()
+{
+    if (m_shuttingDown)
+        return;
+    m_shuttingDown = true;
+
+    // Fermare prima le sorgenti di eventi: durante la distruzione non devono
+    // piu' arrivare datagrammi, scadenze o callback che riempiono l'attivita'.
+    m_clientWatch.stop();
+    m_recoveryTimer.stop();
+    m_lotwTimer.stop();
+    m_statsDebounce.stop();
+    m_callbookQueueTimer.stop();
+    m_callbookDebounce.stop();
+    m_countsTimer.stop();
+    m_backupTimer.stop();
+    m_decoLinkAwardDebounce.stop();
+    m_freezeBeat.stop();
+    m_udp.stop();
+    m_n1mm.stop();
+    m_api.stop();
     m_decoLink.stop();
+
+    if (m_dvk)
+        m_dvk->stop();
+    if (m_rig)
+        m_rig->stop();
+    if (m_cluster)
+        m_cluster->stopVoice();
+    if (m_chat)
+        m_chat->disconnectChat();
+
+    // Le richieste gia' in esecuzione terminano sulle loro copie e non hanno
+    // piu' motivo di produrre un risultato; quelle in coda non devono allungare
+    // l'uscita dell'applicazione.
+    ++m_statsGeneration;
+    ++m_logVersion;
+    m_statsLatest->fetch_add(1);
+    for (QThreadPool* pool : {&m_ctyPool, &m_recoveryPool, &m_statsPool,
+                              &m_countsPool, &m_backupPool, &m_linkPool,
+                              &m_importPool, &m_statsViewPool, &m_callInfoPool})
+        pool->clear();
 }
 
 // Diplomi e statistiche di tutto il log, calcolati fuori dal thread della
@@ -2907,6 +2984,7 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
     case InsertResult::Status::Inserted: {
         decolog::StartupSpan t1("logManual: model insert");
         m_model->insertQso(res.id);
+        broadcastN1mmQso(r, res.id);
         }
         {
         decolog::StartupSpan t2("logManual: decolink+qsl+cloud+activation");
@@ -3048,6 +3126,76 @@ QString DecoLogController::saveQso(qint64 id, const QVariantMap& fields, qint64 
     m_decoLink.resendSnapshot();
     refreshCallInfo();
     return {};
+}
+
+void DecoLogController::broadcastN1mmQso(const AdifRecord& record, qint64 id)
+{
+    const auto targets = m_udp.forwardTargets();
+    if (targets.isEmpty())
+        return;
+
+    bool frequencyOk = false;
+    const double mhz = record.value(QStringLiteral("FREQ")).toDouble(&frequencyOk);
+    const QDateTime timestamp = QDateTime::fromString(
+        LogDatabase::isoFromAdif(record.value(QStringLiteral("QSO_DATE")), record.value(QStringLiteral("TIME_ON"))),
+        Qt::ISODate);
+    const QString call = record.value(QStringLiteral("CALL")).trimmed().toUpper();
+    const QString myCall = record.value(QStringLiteral("STATION_CALLSIGN")).trimmed().toUpper();
+    if (call.isEmpty() || !timestamp.isValid())
+        return;
+    if (myCall.isEmpty()) {
+        addActivity(QStringLiteral("UDP"), tr("N1MM QSO not sent: station callsign is missing"), QStringLiteral("warning"));
+        return;
+    }
+
+    QByteArray data;
+    QBuffer buffer(&data);
+    buffer.open(QIODevice::WriteOnly);
+    QXmlStreamWriter xml(&buffer);
+    xml.setAutoFormatting(false);
+    xml.writeStartDocument(QStringLiteral("1.0"), true);
+    xml.writeStartElement(QStringLiteral("contactinfo"));
+    const auto field = [&xml](const QString& name, const QString& value) { xml.writeTextElement(name, value); };
+    const QString mode = n1mmMode(record.value(QStringLiteral("SUBMODE")).isEmpty()
+                                       ? record.value(QStringLiteral("MODE"))
+                                       : record.value(QStringLiteral("SUBMODE")));
+    const QString stamp = timestamp.toUTC().toString(QStringLiteral("yyyy-MM-dd HH:mm:ss"));
+    const qint64 frequency10Hz = frequencyOk ? qRound64(mhz * 100000.0) : 0;
+    field(QStringLiteral("app"), QStringLiteral("DecoDXLog"));
+    field(QStringLiteral("contestname"), QString());
+    field(QStringLiteral("contestnr"), QStringLiteral("0"));
+    field(QStringLiteral("timestamp"), stamp);
+    field(QStringLiteral("mycall"), myCall);
+    field(QStringLiteral("band"), n1mmBand(record.value(QStringLiteral("BAND")), frequencyOk ? mhz : 0.0));
+    field(QStringLiteral("rxfreq"), QString::number(frequency10Hz));
+    field(QStringLiteral("txfreq"), QString::number(frequency10Hz));
+    field(QStringLiteral("operator"), myCall);
+    field(QStringLiteral("mode"), mode);
+    field(QStringLiteral("call"), call);
+    field(QStringLiteral("snt"), record.value(QStringLiteral("RST_SENT")));
+    field(QStringLiteral("rcv"), record.value(QStringLiteral("RST_RCVD")));
+    field(QStringLiteral("gridsquare"), record.value(QStringLiteral("GRIDSQUARE")).toUpper());
+    field(QStringLiteral("comment"), record.value(QStringLiteral("COMMENT")));
+    field(QStringLiteral("qth"), record.value(QStringLiteral("QTH")));
+    field(QStringLiteral("name"), record.value(QStringLiteral("NAME")));
+    field(QStringLiteral("radionr"), QStringLiteral("1"));
+    field(QStringLiteral("IsOriginal"), QStringLiteral("True"));
+    field(QStringLiteral("ID"), QString::number(id));
+    field(QStringLiteral("oldtimestamp"), stamp);
+    field(QStringLiteral("oldcall"), call);
+    xml.writeEndElement();
+    xml.writeEndDocument();
+
+    QUdpSocket socket;
+    int sent = 0;
+    for (const auto& target : targets) {
+        if (socket.writeDatagram(data, target.address, target.port) == data.size())
+            ++sent;
+    }
+    addActivity(QStringLiteral("UDP"),
+                sent > 0 ? tr("N1MM QSO sent to %n destination(s)", nullptr, sent)
+                         : tr("N1MM QSO was not sent"),
+                sent > 0 ? QStringLiteral("success") : QStringLiteral("warning"));
 }
 
 bool DecoLogController::deleteQso(qint64 id)

@@ -3,6 +3,19 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.45 — 1 ottobre 2026
+
+**HamAward / HamConnect via UDP.** I QSO registrati a mano in DecoDXLog possono ora essere
+inviati anche nel formato N1MM XML richiesto da HamConnect: basta indicare nella riga
+«Inoltra ad altri programmi» `127.0.0.1:12060`. Per HamAward la banda usa il bordo basso
+corretto (20 m = `14`, 80 m = `3.5`) e SSB viene trasmesso come USB. Il nominativo della
+stazione viene letto dal profilo attivo, cosi' HamAward puo' riconoscere l'attivatore.
+
+**Uscita pulita.** Alla chiusura DecoDXLog ferma prima socket UDP, timer, servizi e lavori
+in coda. Anche il keyer CW non aspetta piu' indefinitamente il suo thread quando una
+porta seriale o il suo driver non risponde: la finestra chiusa deve quindi riportare subito
+il terminale al prompt.
+
 ## 1.16.44 — 1 ottobre 2026
 
 **Ricerca per campo, come nelle «Ricerche» di altri log.** Nel pannello Log, «Filtri → +

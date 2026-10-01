@@ -249,6 +249,11 @@ public:
     explicit DecoLogController(QObject* parent = nullptr);
     ~DecoLogController() override;
 
+    // Chiusura ordinata, mentre l'event loop Qt e' ancora vivo.  Lasciare che
+    // tutto venga fatto solo dai distruttori puo' trattenere il processo dopo
+    // che l'ultima finestra e' gia' sparita.
+    void shutdown();
+
     bool openDatabase(const QString& path);
     void startListening();
     void startN1mm();
@@ -696,6 +701,9 @@ private:
     // quello che sa finisce nel QSO — solo nei campi vuoti, perche' quello che
     // ha scritto l'operatore non si tocca.
     void completeFromCallbook(qint64 id, const QString& call);
+    // Contatto N1MM XML per HamConnect/HamAward: parte soltanto quando il QSO
+    // viene registrato qui, non per i datagrammi WSJT-X gia' inoltrati.
+    void broadcastN1mmQso(const core::AdifRecord& record, qint64 id);
     // Applica al QSO quello che il callbook ha detto. Torna i campi riempiti.
     QStringList applyCallbookToQso(qint64 id, const QVariantMap& record);
     void refreshCallInfo();
@@ -976,6 +984,7 @@ private:
     QString m_cloudServer;
     QString m_autoSync;
     QString m_conflictPolicy;
+    bool m_shuttingDown{false};
 };
 
 } // namespace decolog::app
