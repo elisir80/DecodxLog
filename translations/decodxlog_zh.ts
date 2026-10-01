@@ -8834,6 +8834,20 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>已编辑 %1 · 版本 %2</translation>
     </message>
     <message>
+        <source>N1MM QSO not sent: station callsign is missing</source>
+        <translation>未发送 N1MM QSO：缺少电台呼号</translation>
+    </message>
+    <message numerus="yes">
+        <source>N1MM QSO sent to %n destination(s)</source>
+        <translation>
+            <numerusform>N1MM QSO 已发送到 %n 个目标</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>N1MM QSO was not sent</source>
+        <translation>N1MM QSO 未发送</translation>
+    </message>
+    <message>
         <source>Deleted %1 (kept in history)</source>
         <translation>已删除 %1（留在历史里）</translation>
     </message>

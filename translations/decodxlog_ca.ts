@@ -8871,6 +8871,21 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>Editat %1 · revisió %2</translation>
     </message>
     <message>
+        <source>N1MM QSO not sent: station callsign is missing</source>
+        <translation>QSO N1MM no enviat: falta l&apos;indicatiu de l&apos;estació</translation>
+    </message>
+    <message numerus="yes">
+        <source>N1MM QSO sent to %n destination(s)</source>
+        <translation>
+            <numerusform>QSO N1MM enviat a %n destinació</numerusform>
+            <numerusform>QSO N1MM enviat a %n destinacions</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>N1MM QSO was not sent</source>
+        <translation>El QSO N1MM no s&apos;ha enviat</translation>
+    </message>
+    <message>
         <source>Deleted %1 (kept in history)</source>
         <translation>Esborrat %1 (es queda a l&apos;historial)</translation>
     </message>

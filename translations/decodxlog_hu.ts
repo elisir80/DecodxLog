@@ -8834,6 +8834,20 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>Szerkesztve %1 · változat %2</translation>
     </message>
     <message>
+        <source>N1MM QSO not sent: station callsign is missing</source>
+        <translation>Az N1MM QSO nem ment el: hiányzik az állomás hívójele</translation>
+    </message>
+    <message numerus="yes">
+        <source>N1MM QSO sent to %n destination(s)</source>
+        <translation>
+            <numerusform>N1MM QSO elküldve %n célhoz</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>N1MM QSO was not sent</source>
+        <translation>Az N1MM QSO nem ment el</translation>
+    </message>
+    <message>
         <source>Deleted %1 (kept in history)</source>
         <translation>Törölve %1 (megmarad az előzményekben)</translation>
     </message>

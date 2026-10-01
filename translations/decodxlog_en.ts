@@ -8868,6 +8868,21 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>N1MM QSO not sent: station callsign is missing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>N1MM QSO sent to %n destination(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>N1MM QSO was not sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Deleted %1 (kept in history)</source>
         <translation type="unfinished"></translation>
     </message>

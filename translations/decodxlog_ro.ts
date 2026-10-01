@@ -8908,6 +8908,22 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Editat %1 · versiunea %2</translation>
     </message>
     <message>
+        <source>N1MM QSO not sent: station callsign is missing</source>
+        <translation>QSO N1MM netrimis: lipsește indicativul stației</translation>
+    </message>
+    <message numerus="yes">
+        <source>N1MM QSO sent to %n destination(s)</source>
+        <translation>
+            <numerusform>QSO N1MM trimis la %n destinație</numerusform>
+            <numerusform>QSO N1MM trimis la %n destinații</numerusform>
+            <numerusform>QSO N1MM trimis la %n de destinații</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>N1MM QSO was not sent</source>
+        <translation>QSO-ul N1MM nu a fost trimis</translation>
+    </message>
+    <message>
         <source>Deleted %1 (kept in history)</source>
         <translation>Șters %1 (păstrat în istoric)</translation>
     </message>

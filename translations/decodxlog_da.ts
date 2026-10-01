@@ -8871,6 +8871,21 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Redigeret %1 · revision %2</translation>
     </message>
     <message>
+        <source>N1MM QSO not sent: station callsign is missing</source>
+        <translation>N1MM-QSO ikke sendt: stationens kaldesignal mangler</translation>
+    </message>
+    <message numerus="yes">
+        <source>N1MM QSO sent to %n destination(s)</source>
+        <translation>
+            <numerusform>N1MM-QSO sendt til %n modtager</numerusform>
+            <numerusform>N1MM-QSO sendt til %n modtagere</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>N1MM QSO was not sent</source>
+        <translation>N1MM-QSO blev ikke sendt</translation>
+    </message>
+    <message>
         <source>Deleted %1 (kept in history)</source>
         <translation>Slettet %1 (bevaret i historikken)</translation>
     </message>

@@ -8834,6 +8834,20 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>%1 を直しました · 版 %2</translation>
     </message>
     <message>
+        <source>N1MM QSO not sent: station callsign is missing</source>
+        <translation>N1MM の QSO を送信しませんでした: 局のコールサインがありません</translation>
+    </message>
+    <message numerus="yes">
+        <source>N1MM QSO sent to %n destination(s)</source>
+        <translation>
+            <numerusform>N1MM の QSO を %n 件の送信先に送信しました</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>N1MM QSO was not sent</source>
+        <translation>N1MM の QSO は送信されませんでした</translation>
+    </message>
+    <message>
         <source>Deleted %1 (kept in history)</source>
         <translation>%1 を削除しました (履歴に残ります)</translation>
     </message>

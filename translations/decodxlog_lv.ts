@@ -8908,6 +8908,22 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>Rediģēts %1 · redakcija %2</translation>
     </message>
     <message>
+        <source>N1MM QSO not sent: station callsign is missing</source>
+        <translation>N1MM QSO nav nosūtīts: trūkst stacijas izsaukuma signāla</translation>
+    </message>
+    <message numerus="yes">
+        <source>N1MM QSO sent to %n destination(s)</source>
+        <translation>
+            <numerusform>N1MM QSO nosūtīts uz %n adresātu</numerusform>
+            <numerusform>N1MM QSO nosūtīts uz %n adresātiem</numerusform>
+            <numerusform>N1MM QSO nosūtīts uz %n adresātiem</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>N1MM QSO was not sent</source>
+        <translation>N1MM QSO netika nosūtīts</translation>
+    </message>
+    <message>
         <source>Deleted %1 (kept in history)</source>
         <translation>Izdzēsts %1 (paliek vēsturē)</translation>
     </message>

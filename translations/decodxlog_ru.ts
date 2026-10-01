@@ -8908,6 +8908,22 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Изменён %1 · версия %2</translation>
     </message>
     <message>
+        <source>N1MM QSO not sent: station callsign is missing</source>
+        <translation>QSO N1MM не отправлен: не указан позывной станции</translation>
+    </message>
+    <message numerus="yes">
+        <source>N1MM QSO sent to %n destination(s)</source>
+        <translation>
+            <numerusform>QSO N1MM отправлен %n получателю</numerusform>
+            <numerusform>QSO N1MM отправлен %n получателям</numerusform>
+            <numerusform>QSO N1MM отправлен %n получателям</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>N1MM QSO was not sent</source>
+        <translation>QSO N1MM не отправлен</translation>
+    </message>
+    <message>
         <source>Deleted %1 (kept in history)</source>
         <translation>Удалён %1 (остаётся в истории)</translation>
     </message>
