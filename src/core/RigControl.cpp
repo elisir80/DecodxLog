@@ -216,22 +216,44 @@ void RigControl::setSpeedWpm(int wpm)
     emit changed();
 }
 
+QString RigControl::morseText(const QString& text)
+{
+    // Il manipolatore della radio vuole le maiuscole e i segni del CW: le
+    // Yaesu (comando KM di Hamlib) rifiutano tutto il messaggio per una
+    // minuscola o un segno che non conoscono, e le altre lo saltano. Il resto
+    // si toglie qui, e il messaggio parte.
+    static const QString allowed = QStringLiteral("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 /?.,=+-");
+    QString out;
+    for (const QChar c : text.toUpper()) {
+        if (allowed.contains(c))
+            out += c;
+    }
+    return out.simplified();
+}
+
 void RigControl::sendMorse(const QString& text)
 {
-    const QString clean = text.trimmed();
+    const QString clean = morseText(text);
     if (clean.isEmpty())
         return;
     if (!connected()) {
         emit failed(tr("The radio is not connected: nothing sent in CW"));
         return;
     }
+    // Il manipolatore della radio manda solo in CW: in USB o in DATA il testo
+    // lo prende e non va in aria. DecoDXLog il modo non lo cambia da solo.
+    const QString mode = m_mode.toUpper();
+    if (!mode.isEmpty() && !mode.startsWith(QLatin1String("CW")))
+        emit failed(tr("The radio is in %1: its keyer sends only in CW. Switch it to CW.").arg(m_mode));
     send(QStringLiteral("morse"), QStringLiteral("b %1").arg(clean), 0, clean);
 }
 
 void RigControl::stopMorse()
 {
+    if (m_noStopMorse)
+        return;
     // Il nome lungo dei comandi di rigctld vuole la barra rovescia davanti.
-    send(QStringLiteral("set"), QStringLiteral("\\stop_morse"), 0);
+    send(QStringLiteral("stopmorse"), QStringLiteral("\\stop_morse"), 0);
 }
 
 void RigControl::readFromRig()
@@ -298,13 +320,25 @@ void RigControl::handleReply(const QStringList& lines)
     if (result != 0) {
         // -1 e' "questa radio non lo sa fare": per il CW vuol dire che il
         // manipolatore della radio non si comanda da qui.
-        if (what.kind == QLatin1String("morse")) {
-            // -11 e' "non lo so fare": il ponte CAT o la radio non manipolano.
+        if (what.kind == QLatin1String("morse") && (result == -11 || result == -4)) {
+            // -11 e -4 sono "non lo so fare": il ponte CAT o la radio non
+            // manipolano, e i tasti si spengono.
             setStatus(tr("This CAT link does not key CW (rigctld: %1)").arg(result));
             emit morseUnsupported();
             emit failed(tr("The radio did not take the CW text (rigctld: %1). Not every radio — and "
                            "not every CAT bridge — can key CW: for the macros you need rigctld "
                            "talking to the radio itself.").arg(result));
+        } else if (what.kind == QLatin1String("morse")) {
+            // Un rifiuto di questo messaggio, non della radio: i tasti restano
+            // accesi. Prima uno solo bastava a spegnerli fino al riavvio.
+            emit failed(tr("The radio refused the CW text (rigctld: %1). Check that it is in CW (now %2), "
+                           "that break-in (BK-IN) is on, and that the CAT port is the radio's own.")
+                            .arg(result)
+                            .arg(m_mode.isEmpty() ? QStringLiteral("?") : m_mode));
+        } else if (what.kind == QLatin1String("stopmorse")) {
+            m_noStopMorse = true;
+            emit failed(tr("This radio cannot stop the CW from CAT: the message ends by itself. "
+                           "To cut it short use the radio, or a serial keyer."));
         } else if (what.kind == QLatin1String("split") || what.kind == QLatin1String("txfreq")
                    || what.kind == QLatin1String("setsplit") || what.kind == QLatin1String("splitcheck")
                    || what.kind == QLatin1String("txcheck")) {

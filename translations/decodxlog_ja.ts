@@ -9934,6 +9934,10 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>CW のデコーダーが %1 を聞いています</translation>
     </message>
     <message>
+        <source>Yaesu radios key at most 50 characters at a time from CAT: &quot;%1&quot; will be cut after &quot;%2&quot;. Shorten the macro.</source>
+        <translation>Yaesu 機は CAT で一度に最大 50 文字までしか送信できません。「%1」は「%2」の後で切れます。マクロを短くしてください。</translation>
+    </message>
+    <message>
         <source>WinKeyer on %1</source>
         <translation>WinKeyer (%1)</translation>
     </message>
@@ -10583,12 +10587,24 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>無線機がつながっていません。CW では何も出ませんでした</translation>
     </message>
     <message>
+        <source>The radio is in %1: its keyer sends only in CW. Switch it to CW.</source>
+        <translation>無線機は %1 です。キーヤーは CW でしか送信しません。CW に切り替えてください。</translation>
+    </message>
+    <message>
         <source>This CAT link does not key CW (rigctld: %1)</source>
         <translation>この CAT では CW を打てません (rigctld: %1)</translation>
     </message>
     <message>
         <source>The radio did not take the CW text (rigctld: %1). Not every radio — and not every CAT bridge — can key CW: for the macros you need rigctld talking to the radio itself.</source>
         <translation>無線機が CW の文を受け取りませんでした (rigctld: %1)。どの無線機でも — どの CAT の橋渡しでも — CW を打てるわけではありません。マクロには、無線機そのものと話す rigctld が要ります。</translation>
+    </message>
+    <message>
+        <source>The radio refused the CW text (rigctld: %1). Check that it is in CW (now %2), that break-in (BK-IN) is on, and that the CAT port is the radio&apos;s own.</source>
+        <translation>無線機が CW テキストを受け付けませんでした（rigctld: %1）。CW になっているか（現在 %2）、ブレークイン（BK-IN）がオンか、CAT ポートが無線機のものかを確認してください。</translation>
+    </message>
+    <message>
+        <source>This radio cannot stop the CW from CAT: the message ends by itself. To cut it short use the radio, or a serial keyer.</source>
+        <translation>この無線機は CAT で CW を止められません。メッセージは最後まで送信されます。途中で止めるには無線機かシリアルキーヤーを使ってください。</translation>
     </message>
     <message>
         <source>The radio does not take split from here (rigctld: %1)</source>

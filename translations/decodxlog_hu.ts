@@ -9934,6 +9934,10 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>A CW-dekóder ezt hallgatja: %1</translation>
     </message>
     <message>
+        <source>Yaesu radios key at most 50 characters at a time from CAT: &quot;%1&quot; will be cut after &quot;%2&quot;. Shorten the macro.</source>
+        <translation>A Yaesu rádiók CAT-on egyszerre legfeljebb 50 karaktert adnak le: a(z) &quot;%1&quot; a(z) &quot;%2&quot; után levágódik. Rövidítsd a makrót.</translation>
+    </message>
+    <message>
         <source>WinKeyer on %1</source>
         <translation>WinKeyer: %1</translation>
     </message>
@@ -10583,12 +10587,24 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>A rádió nincs csatlakoztatva: semmi sem ment ki CW-ben</translation>
     </message>
     <message>
+        <source>The radio is in %1: its keyer sends only in CW. Switch it to CW.</source>
+        <translation>A rádió %1 módban van: a billentyűzője csak CW-ben ad. Állítsd CW-re.</translation>
+    </message>
+    <message>
         <source>This CAT link does not key CW (rigctld: %1)</source>
         <translation>Ez a CAT-kapcsolat nem ad CW-t (rigctld: %1)</translation>
     </message>
     <message>
         <source>The radio did not take the CW text (rigctld: %1). Not every radio — and not every CAT bridge — can key CW: for the macros you need rigctld talking to the radio itself.</source>
         <translation>A rádió nem vette át a CW-szöveget (rigctld: %1). Nem minden rádió — és nem minden CAT-híd — tud CW-t adni: a makrókhoz olyan rigctld kell, amelyik magával a rádióval beszél.</translation>
+    </message>
+    <message>
+        <source>The radio refused the CW text (rigctld: %1). Check that it is in CW (now %2), that break-in (BK-IN) is on, and that the CAT port is the radio&apos;s own.</source>
+        <translation>A rádió elutasította a CW szöveget (rigctld: %1). Ellenőrizd, hogy CW-ben van-e (most %2), be van-e kapcsolva a break-in (BK-IN), és hogy a CAT-port a rádióé-e.</translation>
+    </message>
+    <message>
+        <source>This radio cannot stop the CW from CAT: the message ends by itself. To cut it short use the radio, or a serial keyer.</source>
+        <translation>Ez a rádió CAT-on nem tudja leállítani a CW-t: az üzenet magától ér véget. A megszakításhoz használd a rádiót vagy egy soros billentyűzőt.</translation>
     </message>
     <message>
         <source>The radio does not take split from here (rigctld: %1)</source>

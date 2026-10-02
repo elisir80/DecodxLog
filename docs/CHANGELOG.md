@@ -18,6 +18,20 @@ Ci sono due colori nuovi per le conferme, con la precedenza a LoTW:
 Lo stesso nelle righe colorate di «Azioni → Colora le righe secondo la conferma QSL»: verde
 LoTW, azzurro solo cartolina, giallo solo eQSL/QRZ, arancio cartolina partita e non tornata.
 
+**CW via CAT con le Yaesu (FTDX10, FTDX101, FT-991, FT-891…).** La frequenza si leggeva, il CW
+non partiva. Hamlib, per le Yaesu, scrive il testo nella memoria del manipolatore della radio
+(comando KM) e lo fa suonare (KY): la radio rifiuta il messaggio intero per una sola lettera
+minuscola, e trasmette solo in CW. E DecoDXLog, al primo rifiuto, spegneva i tasti delle macro
+fino al riavvio. Adesso:
+- il testo parte sempre in maiuscolo e con i soli segni del CW (lettere, cifre, / ? . , = + -),
+  con qualunque manipolatore;
+- un messaggio rifiutato dice perche' (la radio in CW? il break-in acceso? la porta giusta?) e i
+  tasti restano accesi; si spengono solo se la radio dice proprio che non manipola;
+- se la radio non e' in CW lo si dice prima di mandare («la radio e' in USB…»);
+- le Yaesu tengono al massimo 50 caratteri per messaggio: una macro piu' lunga lo dice;
+- «Ferma», con una radio che non sa fermare il CW da CAT, lo dice una volta sola invece di dare
+  un errore a ogni pressione.
+
 ## 1.16.45 — 1 ottobre 2026
 
 **HamAward / HamConnect via UDP.** I QSO registrati a mano in DecoDXLog possono ora essere

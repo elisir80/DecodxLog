@@ -9934,6 +9934,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>CW 解碼器正在聽 %1</translation>
     </message>
     <message>
+        <source>Yaesu radios key at most 50 characters at a time from CAT: &quot;%1&quot; will be cut after &quot;%2&quot;. Shorten the macro.</source>
+        <translation>Yaesu 電台透過 CAT 一次最多送出 50 個字元：「%1」將在「%2」之後被截斷。請縮短巨集。</translation>
+    </message>
+    <message>
         <source>WinKeyer on %1</source>
         <translation>WinKeyer 位於 %1</translation>
     </message>
@@ -10583,12 +10587,24 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>電台沒有連接：CW 什麼都沒發出去</translation>
     </message>
     <message>
+        <source>The radio is in %1: its keyer sends only in CW. Switch it to CW.</source>
+        <translation>電台處於 %1：它的電鍵只在 CW 下發射。請切換到 CW。</translation>
+    </message>
+    <message>
         <source>This CAT link does not key CW (rigctld: %1)</source>
         <translation>這條 CAT 連線不能發 CW (rigctld：%1)</translation>
     </message>
     <message>
         <source>The radio did not take the CW text (rigctld: %1). Not every radio — and not every CAT bridge — can key CW: for the macros you need rigctld talking to the radio itself.</source>
         <translation>電台沒有接下這段 CW 文字 (rigctld：%1)。不是每台電台 — 也不是每個 CAT 橋接 — 都能發 CW：要用巨集，就得讓 rigctld 直接和電台說話。</translation>
+    </message>
+    <message>
+        <source>The radio refused the CW text (rigctld: %1). Check that it is in CW (now %2), that break-in (BK-IN) is on, and that the CAT port is the radio&apos;s own.</source>
+        <translation>電台拒絕了 CW 文字（rigctld：%1）。請檢查是否處於 CW（目前 %2）、是否開啟插入（BK-IN），以及 CAT 連接埠是否為電台本身的連接埠。</translation>
+    </message>
+    <message>
+        <source>This radio cannot stop the CW from CAT: the message ends by itself. To cut it short use the radio, or a serial keyer.</source>
+        <translation>此電台無法透過 CAT 停止 CW：訊息會自行送完。要中斷請使用電台或序列電鍵。</translation>
     </message>
     <message>
         <source>The radio does not take split from here (rigctld: %1)</source>

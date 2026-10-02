@@ -9996,6 +9996,10 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>El descodificador de CW escolta %1</translation>
     </message>
     <message>
+        <source>Yaesu radios key at most 50 characters at a time from CAT: &quot;%1&quot; will be cut after &quot;%2&quot;. Shorten the macro.</source>
+        <translation>Les Yaesu manipulen per CAT com a màxim 50 caràcters cada vegada: «%1» es tallarà després de «%2». Escurça la macro.</translation>
+    </message>
+    <message>
         <source>WinKeyer on %1</source>
         <translation>WinKeyer a %1</translation>
     </message>
@@ -10645,12 +10649,24 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>La ràdio no està connectada: no s&apos;ha enviat res en CW</translation>
     </message>
     <message>
+        <source>The radio is in %1: its keyer sends only in CW. Switch it to CW.</source>
+        <translation>La ràdio és en %1: el seu manipulador només transmet en CW. Posa-la en CW.</translation>
+    </message>
+    <message>
         <source>This CAT link does not key CW (rigctld: %1)</source>
         <translation>Aquest enllaç CAT no manipula CW (rigctld: %1)</translation>
     </message>
     <message>
         <source>The radio did not take the CW text (rigctld: %1). Not every radio — and not every CAT bridge — can key CW: for the macros you need rigctld talking to the radio itself.</source>
         <translation>La ràdio no ha acceptat el text en CW (rigctld: %1). No totes les ràdios — ni tots els ponts CAT — poden manipular CW: per a les macros cal el rigctld parlant amb la ràdio mateixa.</translation>
+    </message>
+    <message>
+        <source>The radio refused the CW text (rigctld: %1). Check that it is in CW (now %2), that break-in (BK-IN) is on, and that the CAT port is the radio&apos;s own.</source>
+        <translation>La ràdio ha rebutjat el text CW (rigctld: %1). Comprova que sigui en CW (ara %2), que el break-in (BK-IN) estigui activat i que el port CAT sigui el de la ràdio.</translation>
+    </message>
+    <message>
+        <source>This radio cannot stop the CW from CAT: the message ends by itself. To cut it short use the radio, or a serial keyer.</source>
+        <translation>Aquesta ràdio no sap aturar el CW per CAT: el missatge acaba sol. Per interrompre&apos;l fes servir la ràdio o un manipulador sèrie.</translation>
     </message>
     <message>
         <source>The radio does not take split from here (rigctld: %1)</source>

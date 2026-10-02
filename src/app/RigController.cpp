@@ -934,7 +934,9 @@ QString RigController::expand(const QString& text, const QVariantMap& context) c
     // parentesi graffa.
     static const QRegularExpression leftovers(QStringLiteral("\\{[A-Za-z#]+\\}"));
     out.remove(leftovers);
-    return out.simplified();
+    // In CW le minuscole non esistono, e alcuni manipolatori (le Yaesu via
+    // CAT) rifiutano il messaggio intero per una sola.
+    return out.toUpper().simplified();
 }
 
 void RigController::sendMacro(int index, const QVariantMap& context)
@@ -949,6 +951,15 @@ void RigController::sendText(const QString& text, const QVariantMap& context)
     const QString ready = expand(text, context);
     if (ready.isEmpty())
         return;
+    // Le Yaesu via Hamlib caricano il testo nella memoria del manipolatore
+    // (KM), che ne tiene 50: il resto Hamlib lo taglia. Lo si dice.
+    if (m_link == QLatin1String("serial") && m_rigModel >= 1000 && m_rigModel < 1100 && ready.size() > 50
+        && m_ctx.activity) {
+        m_ctx.activity(QStringLiteral("CW"),
+                       tr("Yaesu radios key at most 50 characters at a time from CAT: \"%1\" will be cut "
+                          "after \"%2\". Shorten the macro.").arg(ready, ready.left(50)),
+                       QStringLiteral("warning"));
+    }
     // Il manipolatore sulla seriale ha la precedenza: se c'e', e' quello che
     // l'operatore ha attaccato alla radio apposta.
     if (m_winKeyer.isOpen()) {

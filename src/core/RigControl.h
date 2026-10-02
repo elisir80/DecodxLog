@@ -47,6 +47,9 @@ public:
     void setSpeedWpm(int wpm) override;
     // Manda il testo in CW con il manipolatore della radio, e lo ferma.
     void sendMorse(const QString& text) override;
+    // Il testo come lo vuole il manipolatore della radio: maiuscole, lettere,
+    // cifre e i segni del CW.
+    static QString morseText(const QString& text);
     void stopMorse() override;
 
     int features() const override { return m_features; }
@@ -107,6 +110,9 @@ private:
     // Dopo un comando di split si richiede alla radio se l'ha preso: se no,
     // lo si dice, invece di lasciare la pillola che torna indietro da sola.
     bool m_splitWanted{false};
+    // La radio non sa fermare il CW da CAT (le Yaesu con Hamlib): lo si dice
+    // una volta e non lo si chiede piu'.
+    bool m_noStopMorse{false};
     qint64 m_splitTxWanted{0};
     quint64 m_splitCheck{0};
 };

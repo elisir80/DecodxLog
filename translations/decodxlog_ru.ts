@@ -10058,6 +10058,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Декодер CW слушает %1</translation>
     </message>
     <message>
+        <source>Yaesu radios key at most 50 characters at a time from CAT: &quot;%1&quot; will be cut after &quot;%2&quot;. Shorten the macro.</source>
+        <translation>Yaesu по CAT передают не больше 50 символов за раз: «%1» будет обрезано после «%2». Сократите макрос.</translation>
+    </message>
+    <message>
         <source>WinKeyer on %1</source>
         <translation>WinKeyer на %1</translation>
     </message>
@@ -10707,12 +10711,24 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Трансивер не подключён: в CW ничего не ушло</translation>
     </message>
     <message>
+        <source>The radio is in %1: its keyer sends only in CW. Switch it to CW.</source>
+        <translation>Трансивер в режиме %1: его ключ передаёт только в CW. Переключите его в CW.</translation>
+    </message>
+    <message>
         <source>This CAT link does not key CW (rigctld: %1)</source>
         <translation>Эта связь по CAT не манипулирует CW (rigctld: %1)</translation>
     </message>
     <message>
         <source>The radio did not take the CW text (rigctld: %1). Not every radio — and not every CAT bridge — can key CW: for the macros you need rigctld talking to the radio itself.</source>
         <translation>Трансивер не принял текст CW (rigctld: %1). Не всякий трансивер — и не всякий мост CAT — умеет манипулировать: для макросов нужен rigctld, говорящий с самим трансивером.</translation>
+    </message>
+    <message>
+        <source>The radio refused the CW text (rigctld: %1). Check that it is in CW (now %2), that break-in (BK-IN) is on, and that the CAT port is the radio&apos;s own.</source>
+        <translation>Трансивер отказался от CW-текста (rigctld: %1). Проверьте, что он в CW (сейчас %2), что включён break-in (BK-IN) и что CAT-порт — порт самого трансивера.</translation>
+    </message>
+    <message>
+        <source>This radio cannot stop the CW from CAT: the message ends by itself. To cut it short use the radio, or a serial keyer.</source>
+        <translation>Этот трансивер не умеет останавливать CW по CAT: сообщение закончится само. Чтобы прервать, используйте трансивер или последовательный ключ.</translation>
     </message>
     <message>
         <source>The radio does not take split from here (rigctld: %1)</source>

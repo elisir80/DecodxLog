@@ -19,6 +19,10 @@ public:
     QString mode{"CW"};
     int keyspd{22};
     bool morseWorks{true};
+    // Il codice d'errore di un CW rifiutato: -1 (EINVAL, rifiutato quel
+    // testo) o -11 (ENAVAIL, la radio non manipola).
+    int morseError{-1};
+    bool stopWorks{true};
     // Il ponte CAT di Decodium risponde col valore e basta: niente eco del
     // comando, niente RPRT. DecoDXLog deve capire anche quello.
     bool plainAnswers{false};
@@ -128,9 +132,9 @@ public:
             return QStringLiteral("set_xit:\nRPRT 0\n");
         }
         if (cmd.startsWith(QLatin1String("b ")))
-            return QStringLiteral("send_morse: %1\nRPRT %2\n").arg(cmd.mid(2)).arg(morseWorks ? 0 : -1);
+            return QStringLiteral("send_morse: %1\nRPRT %2\n").arg(cmd.mid(2)).arg(morseWorks ? 0 : morseError);
         if (cmd.contains(QLatin1String("stop_morse")))
-            return QStringLiteral("stop_morse:\nRPRT 0\n");
+            return QStringLiteral("stop_morse:\nRPRT %1\n").arg(stopWorks ? 0 : -11);
         return QStringLiteral("%1:\nRPRT 0\n").arg(cmd);
     }
 };
@@ -336,6 +340,52 @@ private slots:
         control.sendMorse(QStringLiteral("TEST"));
         QVERIFY(failed.wait(5000));
         QVERIFY(failed.first().at(0).toString().contains(QStringLiteral("CW")));
+    }
+
+    // La FTDX10 (e le altre Yaesu con Hamlib): leggeva la frequenza ma il CW
+    // non partiva. Il testo arriva in maiuscolo e senza segni strani; un
+    // messaggio rifiutato non spegne i tasti per sempre; in USB lo si dice;
+    // lo STOP che la radio non sa fare si dice una volta sola.
+    void yaesuStyleCw()
+    {
+        QCOMPARE(RigControl::morseText(QStringLiteral("cq cq de iu8lmc k")), QStringLiteral("CQ CQ DE IU8LMC K"));
+        QCOMPARE(RigControl::morseText(QStringLiteral("tu 5nn {nr} ! ok?")), QStringLiteral("TU 5NN NR OK?"));
+
+        FakeRigctld rig;
+        rig.mode = QStringLiteral("USB");
+        RigControl control;
+        QSignalSpy failed(&control, &RigControl::failed);
+        QSignalSpy unsupported(&control, &RigControl::morseUnsupported);
+        control.connectTo(QStringLiteral("127.0.0.1"), rig.serverPort());
+        QTRY_VERIFY_WITH_TIMEOUT(control.connected(), 5000);
+        QTRY_COMPARE_WITH_TIMEOUT(control.mode(), QString("USB"), 5000);
+
+        control.sendMorse(QStringLiteral("cq test iu8lmc"));
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+b CQ TEST IU8LMC")), 5000);
+        QVERIFY(failed.size() >= 1);
+        QVERIFY(failed.first().first().toString().contains(QStringLiteral("USB")));
+
+        // Rifiutato quel messaggio (-1): si dice perche', i tasti restano.
+        rig.morseWorks = false;
+        failed.clear();
+        control.sendMorse(QStringLiteral("TEST"));
+        QTRY_VERIFY_WITH_TIMEOUT(!failed.isEmpty() && failed.last().first().toString().contains(QStringLiteral("BK-IN")), 5000);
+        QCOMPARE(unsupported.size(), 0);
+
+        // Lo STOP: la radio non lo sa fare, lo si dice una volta.
+        rig.stopWorks = false;
+        failed.clear();
+        control.stopMorse();
+        QTRY_COMPARE_WITH_TIMEOUT(failed.size(), 1, 5000);
+        control.stopMorse();
+        QTest::qWait(300);
+        QCOMPARE(failed.size(), 1);
+        QCOMPARE(rig.received.count(QStringLiteral("+\\stop_morse")), 1);
+
+        // -11: questa radio non manipola, i tasti si spengono.
+        rig.morseError = -11;
+        control.sendMorse(QStringLiteral("TEST"));
+        QTRY_COMPARE_WITH_TIMEOUT(unsupported.size(), 1, 5000);
     }
 
     void withoutTheRadioNothingGoesOnAir()

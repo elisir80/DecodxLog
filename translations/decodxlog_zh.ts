@@ -9934,6 +9934,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>CW 解码器正在听 %1</translation>
     </message>
     <message>
+        <source>Yaesu radios key at most 50 characters at a time from CAT: &quot;%1&quot; will be cut after &quot;%2&quot;. Shorten the macro.</source>
+        <translation>Yaesu 电台通过 CAT 一次最多发送 50 个字符：“%1”将在“%2”之后被截断。请缩短宏。</translation>
+    </message>
+    <message>
         <source>WinKeyer on %1</source>
         <translation>WinKeyer 位于 %1</translation>
     </message>
@@ -10583,12 +10587,24 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>电台没有连接：CW 什么都没发出去</translation>
     </message>
     <message>
+        <source>The radio is in %1: its keyer sends only in CW. Switch it to CW.</source>
+        <translation>电台处于 %1：它的电键只在 CW 下发射。请切换到 CW。</translation>
+    </message>
+    <message>
         <source>This CAT link does not key CW (rigctld: %1)</source>
         <translation>这条 CAT 连接不能发 CW (rigctld：%1)</translation>
     </message>
     <message>
         <source>The radio did not take the CW text (rigctld: %1). Not every radio — and not every CAT bridge — can key CW: for the macros you need rigctld talking to the radio itself.</source>
         <translation>电台没有接下这段 CW 文字 (rigctld：%1)。不是每台电台 — 也不是每个 CAT 桥接 — 都能发 CW：要用宏，就得让 rigctld 直接和电台说话。</translation>
+    </message>
+    <message>
+        <source>The radio refused the CW text (rigctld: %1). Check that it is in CW (now %2), that break-in (BK-IN) is on, and that the CAT port is the radio&apos;s own.</source>
+        <translation>电台拒绝了 CW 文本（rigctld：%1）。请检查是否处于 CW（当前 %2）、是否开启插入（BK-IN），以及 CAT 端口是否为电台本身的端口。</translation>
+    </message>
+    <message>
+        <source>This radio cannot stop the CW from CAT: the message ends by itself. To cut it short use the radio, or a serial keyer.</source>
+        <translation>此电台无法通过 CAT 停止 CW：消息会自行发完。要中断请使用电台或串口电键。</translation>
     </message>
     <message>
         <source>The radio does not take split from here (rigctld: %1)</source>

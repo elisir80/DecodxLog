@@ -9996,6 +9996,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>CW-dekoderen lytter til %1</translation>
     </message>
     <message>
+        <source>Yaesu radios key at most 50 characters at a time from CAT: &quot;%1&quot; will be cut after &quot;%2&quot;. Shorten the macro.</source>
+        <translation>Yaesu-radioer kan via CAT højst sende 50 tegn ad gangen: &quot;%1&quot; bliver skåret af efter &quot;%2&quot;. Gør makroen kortere.</translation>
+    </message>
+    <message>
         <source>WinKeyer on %1</source>
         <translation>WinKeyer på %1</translation>
     </message>
@@ -10645,12 +10649,24 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Radioen er ikke forbundet: der blev ikke sendt noget i CW</translation>
     </message>
     <message>
+        <source>The radio is in %1: its keyer sends only in CW. Switch it to CW.</source>
+        <translation>Radioen er i %1: dens keyer sender kun i CW. Sæt den i CW.</translation>
+    </message>
+    <message>
         <source>This CAT link does not key CW (rigctld: %1)</source>
         <translation>Denne CAT-forbindelse kan ikke nøgle CW (rigctld: %1)</translation>
     </message>
     <message>
         <source>The radio did not take the CW text (rigctld: %1). Not every radio — and not every CAT bridge — can key CW: for the macros you need rigctld talking to the radio itself.</source>
         <translation>Radioen tog ikke imod CW-teksten (rigctld: %1). Ikke enhver radio — og ikke enhver CAT-bro — kan nøgle CW: til makroerne skal rigctld tale med selve radioen.</translation>
+    </message>
+    <message>
+        <source>The radio refused the CW text (rigctld: %1). Check that it is in CW (now %2), that break-in (BK-IN) is on, and that the CAT port is the radio&apos;s own.</source>
+        <translation>Radioen afviste CW-teksten (rigctld: %1). Kontrollér at den er i CW (nu %2), at break-in (BK-IN) er slået til, og at CAT-porten er radioens egen.</translation>
+    </message>
+    <message>
+        <source>This radio cannot stop the CW from CAT: the message ends by itself. To cut it short use the radio, or a serial keyer.</source>
+        <translation>Denne radio kan ikke stoppe CW via CAT: beskeden slutter af sig selv. Brug radioen eller en seriel keyer for at afbryde den.</translation>
     </message>
     <message>
         <source>The radio does not take split from here (rigctld: %1)</source>

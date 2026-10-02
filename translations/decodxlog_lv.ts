@@ -10058,6 +10058,10 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>CW dekoders klausās %1</translation>
     </message>
     <message>
+        <source>Yaesu radios key at most 50 characters at a time from CAT: &quot;%1&quot; will be cut after &quot;%2&quot;. Shorten the macro.</source>
+        <translation>Yaesu radio pa CAT vienā reizē raida ne vairāk kā 50 rakstzīmes: &quot;%1&quot; tiks nogriezts pēc &quot;%2&quot;. Saīsini makro.</translation>
+    </message>
+    <message>
         <source>WinKeyer on %1</source>
         <translation>WinKeyer %1</translation>
     </message>
@@ -10707,12 +10711,24 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>Radio nav pieslēgta: CW nekas netika nosūtīts</translation>
     </message>
     <message>
+        <source>The radio is in %1: its keyer sends only in CW. Switch it to CW.</source>
+        <translation>Radio ir %1 režīmā: tā manipulators raida tikai CW. Pārslēdz to uz CW.</translation>
+    </message>
+    <message>
         <source>This CAT link does not key CW (rigctld: %1)</source>
         <translation>Šis CAT savienojums CW nemanipulē (rigctld: %1)</translation>
     </message>
     <message>
         <source>The radio did not take the CW text (rigctld: %1). Not every radio — and not every CAT bridge — can key CW: for the macros you need rigctld talking to the radio itself.</source>
         <translation>Radio CW tekstu nepieņēma (rigctld: %1). Ne katra radio — un ne katrs CAT tilts — spēj manipulēt CW: makro vajag rigctld, kas runā ar pašu radio.</translation>
+    </message>
+    <message>
+        <source>The radio refused the CW text (rigctld: %1). Check that it is in CW (now %2), that break-in (BK-IN) is on, and that the CAT port is the radio&apos;s own.</source>
+        <translation>Radio atteica CW tekstu (rigctld: %1). Pārbaudi, vai tas ir CW režīmā (tagad %2), vai ir ieslēgts break-in (BK-IN) un vai CAT ports ir paša radio.</translation>
+    </message>
+    <message>
+        <source>This radio cannot stop the CW from CAT: the message ends by itself. To cut it short use the radio, or a serial keyer.</source>
+        <translation>Šis radio nevar apturēt CW pa CAT: ziņojums beidzas pats. Lai to pārtrauktu, izmanto radio vai seriālo manipulatoru.</translation>
     </message>
     <message>
         <source>The radio does not take split from here (rigctld: %1)</source>
