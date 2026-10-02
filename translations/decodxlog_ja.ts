@@ -6962,6 +6962,46 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Advanced serial parameters</source>
+        <translation>シリアルの詳細設定</translation>
+    </message>
+    <message>
+        <source>Leave a value at Default to let the radio driver choose it. DTR/RTS here are fixed line states, not the separate PTT selection above.</source>
+        <translation>Default のままにすると無線機のドライバーが選びます。ここでの DTR/RTS は信号線の固定状態で、上の PTT 選択とは別です。</translation>
+    </message>
+    <message>
+        <source>Data bits</source>
+        <translation>データビット</translation>
+    </message>
+    <message>
+        <source>Stop bits</source>
+        <translation>ストップビット</translation>
+    </message>
+    <message>
+        <source>Parity</source>
+        <translation>パリティ</translation>
+    </message>
+    <message>
+        <source>Handshake</source>
+        <translation>ハンドシェイク</translation>
+    </message>
+    <message>
+        <source>CI-V address</source>
+        <translation>CI-V アドレス</translation>
+    </message>
+    <message>
+        <source>e.g. 0x94</source>
+        <translation>例: 0x94</translation>
+    </message>
+    <message>
+        <source>DTR state</source>
+        <translation>DTR の状態</translation>
+    </message>
+    <message>
+        <source>RTS state</source>
+        <translation>RTS の状態</translation>
+    </message>
+    <message>
         <source>flrig server</source>
         <translation>flrig サーバー</translation>
     </message>

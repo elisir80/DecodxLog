@@ -6962,6 +6962,46 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Advanced serial parameters</source>
+        <translation>Speciális soros paraméterek</translation>
+    </message>
+    <message>
+        <source>Leave a value at Default to let the radio driver choose it. DTR/RTS here are fixed line states, not the separate PTT selection above.</source>
+        <translation>Hagyd Default értéken, hogy a rádió illesztőprogramja válassza. A DTR/RTS itt rögzített vonalállapot, nem a fenti PTT-választás.</translation>
+    </message>
+    <message>
+        <source>Data bits</source>
+        <translation>Adatbitek</translation>
+    </message>
+    <message>
+        <source>Stop bits</source>
+        <translation>Stopbitek</translation>
+    </message>
+    <message>
+        <source>Parity</source>
+        <translation>Paritás</translation>
+    </message>
+    <message>
+        <source>Handshake</source>
+        <translation>Handshake</translation>
+    </message>
+    <message>
+        <source>CI-V address</source>
+        <translation>CI-V cím</translation>
+    </message>
+    <message>
+        <source>e.g. 0x94</source>
+        <translation>pl. 0x94</translation>
+    </message>
+    <message>
+        <source>DTR state</source>
+        <translation>DTR állapot</translation>
+    </message>
+    <message>
+        <source>RTS state</source>
+        <translation>RTS állapot</translation>
+    </message>
+    <message>
         <source>flrig server</source>
         <translation>flrig szerver</translation>
     </message>

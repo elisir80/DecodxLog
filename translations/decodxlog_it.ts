@@ -6984,6 +6984,46 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Advanced serial parameters</source>
+        <translation>Parametri seriali avanzati</translation>
+    </message>
+    <message>
+        <source>Leave a value at Default to let the radio driver choose it. DTR/RTS here are fixed line states, not the separate PTT selection above.</source>
+        <translation>Lascia un valore su Default perché lo scelga il driver della radio. DTR/RTS qui sono stati fissi delle linee, non la scelta del PTT qui sopra.</translation>
+    </message>
+    <message>
+        <source>Data bits</source>
+        <translation>Bit di dati</translation>
+    </message>
+    <message>
+        <source>Stop bits</source>
+        <translation>Bit di stop</translation>
+    </message>
+    <message>
+        <source>Parity</source>
+        <translation>Parità</translation>
+    </message>
+    <message>
+        <source>Handshake</source>
+        <translation>Handshake</translation>
+    </message>
+    <message>
+        <source>CI-V address</source>
+        <translation>Indirizzo CI-V</translation>
+    </message>
+    <message>
+        <source>e.g. 0x94</source>
+        <translation>es. 0x94</translation>
+    </message>
+    <message>
+        <source>DTR state</source>
+        <translation>Stato DTR</translation>
+    </message>
+    <message>
+        <source>RTS state</source>
+        <translation>Stato RTS</translation>
+    </message>
+    <message>
         <source>flrig server</source>
         <translation>Server flrig</translation>
     </message>

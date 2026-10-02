@@ -6962,6 +6962,46 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Advanced serial parameters</source>
+        <translation>進階序列參數</translation>
+    </message>
+    <message>
+        <source>Leave a value at Default to let the radio driver choose it. DTR/RTS here are fixed line states, not the separate PTT selection above.</source>
+        <translation>保持 Default 由電台驅動程式選擇。這裡的 DTR/RTS 是固定的線路狀態，不是上面的 PTT 選擇。</translation>
+    </message>
+    <message>
+        <source>Data bits</source>
+        <translation>資料位元</translation>
+    </message>
+    <message>
+        <source>Stop bits</source>
+        <translation>停止位元</translation>
+    </message>
+    <message>
+        <source>Parity</source>
+        <translation>同位檢查</translation>
+    </message>
+    <message>
+        <source>Handshake</source>
+        <translation>交握</translation>
+    </message>
+    <message>
+        <source>CI-V address</source>
+        <translation>CI-V 位址</translation>
+    </message>
+    <message>
+        <source>e.g. 0x94</source>
+        <translation>例如 0x94</translation>
+    </message>
+    <message>
+        <source>DTR state</source>
+        <translation>DTR 狀態</translation>
+    </message>
+    <message>
+        <source>RTS state</source>
+        <translation>RTS 狀態</translation>
+    </message>
+    <message>
         <source>flrig server</source>
         <translation>flrig 伺服器</translation>
     </message>

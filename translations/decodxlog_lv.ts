@@ -7006,6 +7006,46 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Advanced serial parameters</source>
+        <translation>Papildu seriālie parametri</translation>
+    </message>
+    <message>
+        <source>Leave a value at Default to let the radio driver choose it. DTR/RTS here are fixed line states, not the separate PTT selection above.</source>
+        <translation>Atstāj vērtību Default, lai to izvēlas radio draiveris. DTR/RTS šeit ir fiksēti līniju stāvokļi, nevis PTT izvēle augstāk.</translation>
+    </message>
+    <message>
+        <source>Data bits</source>
+        <translation>Datu biti</translation>
+    </message>
+    <message>
+        <source>Stop bits</source>
+        <translation>Stopbiti</translation>
+    </message>
+    <message>
+        <source>Parity</source>
+        <translation>Paritāte</translation>
+    </message>
+    <message>
+        <source>Handshake</source>
+        <translation>Handshake</translation>
+    </message>
+    <message>
+        <source>CI-V address</source>
+        <translation>CI-V adrese</translation>
+    </message>
+    <message>
+        <source>e.g. 0x94</source>
+        <translation>piem. 0x94</translation>
+    </message>
+    <message>
+        <source>DTR state</source>
+        <translation>DTR stāvoklis</translation>
+    </message>
+    <message>
+        <source>RTS state</source>
+        <translation>RTS stāvoklis</translation>
+    </message>
+    <message>
         <source>flrig server</source>
         <translation>flrig serveris</translation>
     </message>

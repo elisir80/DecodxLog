@@ -3,6 +3,21 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.48 — 3 ottobre 2026
+
+**Allineata alla 1.16.48 di elisir80.**
+- **CAT avanzato**: per i modelli Hamlib che li dichiarano, Impostazioni → Radio offre bit di
+  dati, bit di stop, parita', handshake, stato fisso delle linee DTR/RTS e indirizzo CI-V; i
+  valori si conservano e passano a `rigctld`, e quello che la radio non supporta non si vede.
+- **Aggiornamenti per piattaforma**: ogni pacchetto (setup Windows, DMG macOS, AppImage Linux)
+  ha il suo elenco firmato; le release vecchie con l'elenco unico si leggono ancora.
+- **La chiave del fork**: le release di elisir80/DecodxLog firmate con la chiave dedicata del
+  fork si installano da sole. Ogni chiave vale solo per il suo repository.
+- **Le due sorgenti restano alla pari**: vince la versione piu' nuova che risulta firmata, a
+  pari versione il fork. La 1.16.48 di elisir80 metteva il fork sempre per primo e iu8lmc come
+  riserva; qui no, per scelta di IU8LMC.
+- Tradotte le voci nuove dei parametri seriali.
+
 ## 1.16.47 — 2 ottobre 2026
 
 **Rotore: un'antenna per banda, con il suo scostamento.** Sullo stesso palo non tutte le

@@ -6981,6 +6981,46 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Advanced serial parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave a value at Default to let the radio driver choose it. DTR/RTS here are fixed line states, not the separate PTT selection above.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Data bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Handshake</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CI-V address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>e.g. 0x94</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DTR state</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RTS state</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>flrig server</source>
         <translation type="unfinished"></translation>
     </message>
