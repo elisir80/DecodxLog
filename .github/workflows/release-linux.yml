@@ -171,7 +171,7 @@ jobs:
           version="${{ inputs.tag }}"
           version="${version#v}"
           cmake --build build --target decodxlog_sign
-          build/decodxlog_sign sign --key-file "$key_file" \
+          build/bin/decodxlog_sign sign --key-file "$key_file" \
             --repository elisir80/DecodxLog --version "$version" --out release-assets \
             "release-assets/DecoDXLog-$version-linux-${{ matrix.arch }}.AppImage"
           mv release-assets/decodxlog-release.json "release-assets/decodxlog-release-linux-${{ matrix.arch }}.json"
