@@ -35,6 +35,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
 
       - name: Install Qt x86_64
         if: matrix.arch == 'x86_64'
@@ -144,7 +146,7 @@ jobs:
         env:
           APPIMAGE_EXTRACT_AND_RUN: "1"
           QML_SOURCES_PATHS: qml:libs/decodium-ui/qml
-          VERSION: ${{ github.ref_name }}
+          VERSION: ${{ inputs.tag }}
         run: |
           ./linuxdeploy \
             --appdir AppDir \
@@ -153,9 +155,27 @@ jobs:
             --icon-file AppDir/usr/share/icons/hicolor/256x256/apps/decodxlog.png \
             --plugin qt \
             --output appimage
-          version="${GITHUB_REF_NAME#v}"
+          version="${{ inputs.tag }}"
+          version="${version#v}"
           mkdir -p release-assets
           mv DecoDXLog-*.AppImage "release-assets/DecoDXLog-$version-linux-${{ matrix.arch }}.AppImage"
+
+      - name: Sign Linux package for automatic updates
+        env:
+          DECODXLOG_ELISIR80_RELEASE_SIGNING_KEY: ${{ secrets.DECODXLOG_ELISIR80_RELEASE_SIGNING_KEY }}
+        run: |
+          test -n "$DECODXLOG_ELISIR80_RELEASE_SIGNING_KEY"
+          key_file="$(mktemp)"
+          trap 'rm -f "$key_file"' EXIT
+          printf '%s\n' "$DECODXLOG_ELISIR80_RELEASE_SIGNING_KEY" > "$key_file"
+          version="${{ inputs.tag }}"
+          version="${version#v}"
+          cmake --build build --target decodxlog_sign
+          build/decodxlog_sign sign --key-file "$key_file" \
+            --repository elisir80/DecodxLog --version "$version" --out release-assets \
+            "release-assets/DecoDXLog-$version-linux-${{ matrix.arch }}.AppImage"
+          mv release-assets/decodxlog-release.json "release-assets/decodxlog-release-linux-${{ matrix.arch }}.json"
+          mv release-assets/decodxlog-release.json.sig "release-assets/decodxlog-release-linux-${{ matrix.arch }}.json.sig"
 
       - name: Ensure release exists
         env:

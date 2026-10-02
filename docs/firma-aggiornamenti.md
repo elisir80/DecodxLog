@@ -6,12 +6,17 @@ Una release senza firma si vede lo stesso nella finestra dell'aggiornamento, ma
 
 ## Come funziona
 
-Accanto ai pacchetti, ogni release ha due file:
+Accanto a ciascun pacchetto, ogni release ha due file specifici per piattaforma e
+architettura, per esempio per Windows x64:
 
-- `decodxlog-release.json` — repository, versione, e per ogni file nome, dimensione e
+- `decodxlog-release-windows-x86_64.json` — repository, versione, e per ogni file nome, dimensione e
   SHA-256;
-- `decodxlog-release.json.sig` — la firma Ed25519 (RFC 8032) di quel file, con l'id
+- `decodxlog-release-windows-x86_64.json.sig` — la firma Ed25519 (RFC 8032) di quel file, con l'id
   della chiave.
+
+Gli altri nomi sono `...-macos-arm64`, `...-macos-x86_64`,
+`...-linux-x86_64` e `...-linux-aarch64`. Il vecchio nome generico resta
+letto per compatibilita' con le release precedenti.
 
 Il programma conosce le chiavi pubbliche di chi pubblica, una lista per repository
 (`src/core/ReleaseSignature.cpp`, `trustedKeys()`). Prima di proporre «Aggiorna ora»
@@ -20,9 +25,11 @@ repository e versione siano proprio quelli della release, e prende SHA-256 e dim
 del pacchetto. Poi scarica il pacchetto e lo tiene solo se lo SHA-256 torna: su Linux
 l'AppImage che gira non viene toccata prima del controllo.
 
-Fra le due sorgenti (elisir80/DecodxLog e iu8lmc/DecoDXLog) vince la versione piu'
-nuova che risulta firmata; se nessuna lo e', si propone la piu' nuova, da scaricare a
-mano.
+Prima si prova `elisir80/DecodxLog`: deve offrire un pacchetto del tipo e
+dell'architettura del computer (setup `.exe` Windows, `.dmg` macOS,
+`.AppImage` Linux) e la relativa firma valida. Solo se manca una release cosi'
+utilizzabile si passa a `iu8lmc/DecoDXLog`. Se nessuna firma e' valida, il
+programma puo' solo proporre il download manuale.
 
 ## Le chiavi di iu8lmc/DecoDXLog
 
@@ -61,6 +68,15 @@ La firma di un repository non vale per le release di un altro. Chi pubblica da u
 3. firma le sue release con `decodxlog_sign sign --repository owner/progetto ...`.
 
 Senza questi passi le release del fork si vedono, ma si installano a mano.
+
+## Il fork elisir80/DecodxLog
+
+Il fork usa la chiave pubblica `9194bfce15e1a728`, gia' inserita nel
+programma. La chiave privata e' nel Secret GitHub
+`DECODXLOG_ELISIR80_RELEASE_SIGNING_KEY`, non nel repository. I workflow di
+macOS e Linux firmano il rispettivo asset; quello Windows costruisce con MinGW
+e pubblica `DecoDXLog-<version>-windows-x64-setup.exe` soltanto con
+`publish=true`, dopo la prova reale dell'artefatto scaricato.
 
 ## Controllare a mano
 

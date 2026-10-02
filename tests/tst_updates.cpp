@@ -165,6 +165,22 @@ private slots:
                  QStringLiteral("DecoDXLog-1.3.0-linux-x86_64.AppImage"));
     }
 
+    void aTargetSpecificManifestBeatsTheLegacyOne()
+    {
+        const QByteArray release = json(
+            "{'tag_name': 'v2.0.0', 'assets': ["
+            "{'name': 'DecoDXLog-2.0.0-windows-x64-setup.exe', 'size': 1, 'browser_download_url': 'https://example.invalid/setup'},"
+            "{'name': 'decodxlog-release.json', 'browser_download_url': 'https://example.invalid/legacy-manifest'},"
+            "{'name': 'decodxlog-release.json.sig', 'browser_download_url': 'https://example.invalid/legacy-signature'},"
+            "{'name': 'decodxlog-release-windows-x86_64.json', 'browser_download_url': 'https://example.invalid/windows-manifest'},"
+            "{'name': 'decodxlog-release-windows-x86_64.json.sig', 'browser_download_url': 'https://example.invalid/windows-signature'}]}");
+        const ReleaseInfo info = updates::parseRelease(
+            release, {QStringLiteral("windows"), QStringLiteral("x86_64")});
+        QVERIFY(info.valid);
+        QCOMPARE(info.manifest.toString(), QStringLiteral("https://example.invalid/windows-manifest"));
+        QCOMPARE(info.signature.toString(), QStringLiteral("https://example.invalid/windows-signature"));
+    }
+
     void releaseListSkipsNewerOtherPlatformReleases()
     {
         const QByteArray releases = json(
@@ -213,14 +229,19 @@ private slots:
 
     void theProgramKnowsTheKeysOfItsPublisher()
     {
-        // Senza una chiave per iu8lmc/DecoDXLog nessun aggiornamento si
-        // installerebbe da solo.
+        // I due repository legittimi hanno chiavi distinte: la firma del fork
+        // non deve poter autorizzare una release dell'upstream e viceversa.
         const QList<releasesig::TrustedKey> keys = releasesig::trustedKeys();
         QVERIFY(!keys.isEmpty());
+        bool upstream = false;
+        bool fork = false;
         for (const releasesig::TrustedKey& k : keys) {
             QCOMPARE(k.publicKey.size(), 32);
-            QCOMPARE(k.repository, QStringLiteral("iu8lmc/DecoDXLog"));
+            upstream = upstream || k.repository == QStringLiteral("iu8lmc/DecoDXLog");
+            fork = fork || k.repository == QStringLiteral("elisir80/DecodxLog");
         }
+        QVERIFY(upstream);
+        QVERIFY(fork);
     }
 
     void onlyASignedListIsTrusted()
