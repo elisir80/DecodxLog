@@ -74,6 +74,28 @@ jobs:
             -ov -format UDZO \
             "release-assets/DecoDXLog-$version-macos-${{ matrix.arch }}.dmg"
 
+      - name: Sign macOS package for automatic updates
+        env:
+          DECODXLOG_ELISIR80_RELEASE_SIGNING_KEY: ${{ secrets.DECODXLOG_ELISIR80_RELEASE_SIGNING_KEY }}
+        run: |
+          test -n "$DECODXLOG_ELISIR80_RELEASE_SIGNING_KEY"
+          key_file="$(mktemp)"
+          trap 'rm -f "$key_file"' EXIT
+          printf '%s\n' "$DECODXLOG_ELISIR80_RELEASE_SIGNING_KEY" > "$key_file"
+          version="${{ inputs.tag }}"
+          version="${version#v}"
+          # QSysInfo chiama Apple Silicon "arm64", ma l'auto-update lo
+          # normalizza in "aarch64". Il nome del manifest deve usare la forma
+          # normalizzata, altrimenti il DMG viene trovato ma non la sua firma.
+          manifest_arch="${{ matrix.arch }}"
+          [ "$manifest_arch" = "arm64" ] && manifest_arch="aarch64"
+          cmake --build build --target decodxlog_sign
+          build/decodxlog_sign sign --key-file "$key_file" \
+            --repository elisir80/DecodxLog --version "$version" --out release-assets \
+            "release-assets/DecoDXLog-$version-macos-${{ matrix.arch }}.dmg"
+          mv release-assets/decodxlog-release.json "release-assets/decodxlog-release-macos-$manifest_arch.json"
+          mv release-assets/decodxlog-release.json.sig "release-assets/decodxlog-release-macos-$manifest_arch.json.sig"
+
       - name: Ensure release exists
         env:
           GH_TOKEN: ${{ github.token }}

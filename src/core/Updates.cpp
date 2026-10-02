@@ -56,6 +56,15 @@ bool hasArm64Architecture(const QString& name)
            || name.contains(QLatin1String("arm64"));
 }
 
+QString targetManifestName(const UpdateTarget& target)
+{
+    const QString platform = target.platform.trimmed().toLower();
+    // Il chiamante ha gia' normalizzato l'architettura; qui non richiamiamo
+    // normalizedArchitecture per mantenere questo helper privato e leggero.
+    const QString architecture = target.architecture.trimmed().toLower();
+    return QStringLiteral("decodxlog-release-%1-%2.json").arg(platform, architecture);
+}
+
 int architectureScore(const QString& name, const QString& architecture)
 {
     const bool x86 = hasX86Architecture(name);
@@ -88,6 +97,12 @@ ReleaseInfo parseReleaseObject(const QJsonObject& root, const UpdateTarget& targ
 
     const QString platform = target.platform.trimmed().toLower();
     const QString architecture = normalizedArchitecture(target.architecture);
+    QUrl fixedManifest;
+    QUrl fixedSignature;
+    QUrl platformManifest;
+    QUrl platformSignature;
+    const QString manifestName = targetManifestName({platform, architecture});
+    const QString signatureName = manifestName + QStringLiteral(".sig");
     int bestScore = 0;
     for (const QJsonValue& v : root.value(QStringLiteral("assets")).toArray()) {
         const QJsonObject asset = v.toObject();
@@ -98,11 +113,19 @@ ReleaseInfo parseReleaseObject(const QJsonObject& root, const UpdateTarget& targ
 
         // L'elenco firmato e la sua firma non sono pacchetti: si tengono a parte.
         if (name == QLatin1String(releasesig::kManifestName)) {
-            info.manifest = url;
+            fixedManifest = url;
             continue;
         }
         if (name == QLatin1String(releasesig::kSignatureName)) {
-            info.signature = url;
+            fixedSignature = url;
+            continue;
+        }
+        if (name == manifestName) {
+            platformManifest = url;
+            continue;
+        }
+        if (name == signatureName) {
+            platformSignature = url;
             continue;
         }
         const int score = assetMatchScore(name, {platform, architecture});
@@ -119,6 +142,12 @@ ReleaseInfo parseReleaseObject(const QJsonObject& root, const UpdateTarget& targ
     // impostazioni, ma non interrompe chi usa un altro sistema operativo.
     if (info.package.isEmpty())
         return {};
+
+    // Ogni workflow puo' firmare il proprio pacchetto senza correre con gli
+    // altri (DMG/AppImage/EXE). Le vecchie release con un unico manifest
+    // restano compatibili.
+    info.manifest = !platformManifest.isEmpty() ? platformManifest : fixedManifest;
+    info.signature = !platformSignature.isEmpty() ? platformSignature : fixedSignature;
 
     info.valid = true;
     info.version = tag;
@@ -290,9 +319,9 @@ void UpdateFetcher::fetch(const QString& currentVersion)
     m_lastError.clear();
     m_answered = 0;
 
-    // Si chiede a tutte e due le sorgenti: il fork di elisir80, che pubblica
-    // anche i pacchetti macOS e Linux, e il repository di iu8lmc. A pari
-    // versione vince il fork, ma una versione firmata vince su una che non lo e'.
+    // Si guarda prima il fork di elisir80. iu8lmc e' un fallback: entra in
+    // gioco solo quando il fork non ha un pacchetto nuovo, compatibile e
+    // firmato per questo computer.
     if (!m_overrideUrl.isEmpty()) {
         m_sources = {{QStringLiteral("test endpoint"), m_overrideUrl, {}}};
     } else {
@@ -352,6 +381,11 @@ void UpdateFetcher::sourcesDone()
         return;
     }
     m_candidates = updates::newerReleases(m_found, m_currentVersion);
+    std::stable_sort(m_candidates.begin(), m_candidates.end(), [](const ReleaseInfo& a, const ReleaseInfo& b) {
+        const bool aPrimary = a.repository == QLatin1String("elisir80/DecodxLog");
+        const bool bPrimary = b.repository == QLatin1String("elisir80/DecodxLog");
+        return aPrimary != bPrimary ? aPrimary : updates::compareVersions(a.version, b.version) > 0;
+    });
     if (m_candidates.isEmpty()) {
         finishWithoutUpdate();
         return;

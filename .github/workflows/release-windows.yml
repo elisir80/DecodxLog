@@ -5,8 +5,9 @@
 #
 # Prima si scarica l'artefatto, si prova DecoDXLog.exe, e solo in una seconda
 # esecuzione manuale con publish=true si allegano gli asset alla release. Il
-# setup pubblicato non finisce in "-setup.exe": l'auto-update non puo' quindi
-# proporre per errore questo pacchetto sperimentale agli utenti Windows.
+# Il setup viene pubblicato con il nome standard solo con publish=true, dopo
+# prova reale. Viene firmato insieme al manifest del fork, cosi' l'auto-update
+# puo' installare solo l'artefatto esplicitamente approvato.
 name: Release Windows (manual MinGW)
 
 on:
@@ -81,8 +82,27 @@ jobs:
           version="${{ inputs.tag }}"
           version="${version#v}"
           mkdir -p release-assets
-          cp "DecoDXLog-$version-setup.exe" "release-assets/DecoDXLog-$version-windows-x64-manual.exe"
+          cp "DecoDXLog-$version-setup.exe" "release-assets/DecoDXLog-$version-windows-x64-setup.exe"
           echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Sign the approved Windows installer
+        if: inputs.publish
+        env:
+          DECODXLOG_ELISIR80_RELEASE_SIGNING_KEY: ${{ secrets.DECODXLOG_ELISIR80_RELEASE_SIGNING_KEY }}
+        run: |
+          test -n "$DECODXLOG_ELISIR80_RELEASE_SIGNING_KEY"
+          key_file="$(mktemp)"
+          trap 'rm -f "$key_file"' EXIT
+          printf '%s\n' "$DECODXLOG_ELISIR80_RELEASE_SIGNING_KEY" > "$key_file"
+          version="${{ steps.assets.outputs.version }}"
+          cmake --build build-rel --target decodxlog_sign
+          sign_tool=build-rel/decodxlog_sign
+          [ -x "$sign_tool.exe" ] && sign_tool="$sign_tool.exe"
+          "$sign_tool" sign --key-file "$key_file" \
+            --repository elisir80/DecodxLog --version "$version" --out release-assets \
+            "release-assets/DecoDXLog-$version-windows-x64-setup.exe"
+          mv release-assets/decodxlog-release.json release-assets/decodxlog-release-windows-x86_64.json
+          mv release-assets/decodxlog-release.json.sig release-assets/decodxlog-release-windows-x86_64.json.sig
 
       - name: Upload artefacts to test before publication
         uses: actions/upload-artifact@v4

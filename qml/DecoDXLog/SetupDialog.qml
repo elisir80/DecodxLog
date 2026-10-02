@@ -1857,6 +1857,8 @@ DialogFrame {
                                         if (models[i].id === decolog.rig.rigModel)
                                             currentIndex = i
                                     }
+                                    // Hamlib descrive le opzioni disponibili modello per modello.
+                                    Qt.callLater(decolog.rig.refreshSerialCapabilities)
                                 }
                             }
                         }
@@ -1949,6 +1951,103 @@ DialogFrame {
                                    + "PTT raises RTS or DTR on the other — so the radio transmits while "
                                    + "DecoDXLog keeps reading. With a single cable leave \"the CAT itself\": "
                                    + "the radio goes into transmit on the CAT command, if it can.")
+                    }
+
+                    // Stessi parametri CAT di Decodium4.  I campi compaiono
+                    // soltanto quando `rigctld -L` li dichiara per la radio
+                    // selezionata: nessuna configurazione inventata.
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        spacing: 8
+                        visible: decolog.rig.link === "serial" && decolog.rig.serialCapabilities.length > 0
+                        SectionTitle { text: qsTr("Advanced serial parameters") }
+                        Note {
+                            text: qsTr("Leave a value at Default to let the radio driver choose it. DTR/RTS here are fixed line states, not the separate PTT selection above.")
+                        }
+                        RowLayout {
+                            spacing: 12
+                            visible: decolog.rig.serialCapabilities.indexOf("data_bits") >= 0
+                            LabeledField {
+                                label: qsTr("Data bits")
+                                StyledComboBox {
+                                    Layout.preferredWidth: 110
+                                    readonly property var values: ["Default", "8", "7"]
+                                    model: values
+                                    currentIndex: Math.max(0, values.indexOf(decolog.rig.dataBits))
+                                    onActivated: decolog.rig.dataBits = values[currentIndex]
+                                }
+                            }
+                            LabeledField {
+                                visible: decolog.rig.serialCapabilities.indexOf("stop_bits") >= 0
+                                label: qsTr("Stop bits")
+                                StyledComboBox {
+                                    Layout.preferredWidth: 110
+                                    readonly property var values: ["Default", "1", "2"]
+                                    model: values
+                                    currentIndex: Math.max(0, values.indexOf(decolog.rig.stopBits))
+                                    onActivated: decolog.rig.stopBits = values[currentIndex]
+                                }
+                            }
+                            LabeledField {
+                                visible: decolog.rig.serialCapabilities.indexOf("serial_parity") >= 0
+                                label: qsTr("Parity")
+                                StyledComboBox {
+                                    Layout.preferredWidth: 130
+                                    readonly property var values: ["Default", "None", "Even", "Odd", "Mark", "Space"]
+                                    model: values
+                                    currentIndex: Math.max(0, values.indexOf(decolog.rig.parity))
+                                    onActivated: decolog.rig.parity = values[currentIndex]
+                                }
+                            }
+                            LabeledField {
+                                visible: decolog.rig.serialCapabilities.indexOf("serial_handshake") >= 0
+                                label: qsTr("Handshake")
+                                StyledComboBox {
+                                    Layout.preferredWidth: 145
+                                    readonly property var values: ["Default", "None", "XONXOFF", "Hardware"]
+                                    model: values
+                                    currentIndex: Math.max(0, values.indexOf(decolog.rig.handshake))
+                                    onActivated: decolog.rig.handshake = values[currentIndex]
+                                }
+                            }
+                            LabeledField {
+                                visible: decolog.rig.serialCapabilities.indexOf("civaddr") >= 0
+                                label: qsTr("CI-V address")
+                                StyledTextField {
+                                    Layout.preferredWidth: 120
+                                    placeholderText: qsTr("e.g. 0x94")
+                                    text: decolog.rig.civAddress
+                                    onEditingFinished: decolog.rig.civAddress = text
+                                }
+                            }
+                        }
+                        RowLayout {
+                            spacing: 12
+                            visible: decolog.rig.serialCapabilities.indexOf("dtr_state") >= 0
+                                     || decolog.rig.serialCapabilities.indexOf("rts_state") >= 0
+                            LabeledField {
+                                visible: decolog.rig.serialCapabilities.indexOf("dtr_state") >= 0
+                                label: qsTr("DTR state")
+                                StyledComboBox {
+                                    Layout.preferredWidth: 120
+                                    readonly property var values: ["Unset", "ON", "OFF"]
+                                    model: values
+                                    currentIndex: Math.max(0, values.indexOf(decolog.rig.dtrState))
+                                    onActivated: decolog.rig.dtrState = values[currentIndex]
+                                }
+                            }
+                            LabeledField {
+                                visible: decolog.rig.serialCapabilities.indexOf("rts_state") >= 0
+                                label: qsTr("RTS state")
+                                StyledComboBox {
+                                    Layout.preferredWidth: 120
+                                    readonly property var values: ["Unset", "ON", "OFF"]
+                                    model: values
+                                    currentIndex: Math.max(0, values.indexOf(decolog.rig.rtsState))
+                                    onActivated: decolog.rig.rtsState = values[currentIndex]
+                                }
+                            }
+                        }
                     }
 
                     RowLayout {

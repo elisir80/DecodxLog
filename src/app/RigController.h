@@ -97,6 +97,17 @@ class RigController : public QObject {
     Q_PROPERTY(QString serialPort READ serialPort WRITE setSerialPort NOTIFY changed)
     Q_PROPERTY(int rigModel READ rigModel WRITE setRigModel NOTIFY changed)
     Q_PROPERTY(int baud READ baud WRITE setBaud NOTIFY changed)
+    // I parametri della seriale non sono universali: serialCapabilities viene
+    // letto da `rigctld -L` per il modello Hamlib scelto e la UI mostra solo
+    // quelli che quel backend dichiara di saper configurare.
+    Q_PROPERTY(QStringList serialCapabilities READ serialCapabilities NOTIFY serialCapabilitiesChanged)
+    Q_PROPERTY(QString dataBits READ dataBits WRITE setDataBits NOTIFY changed)
+    Q_PROPERTY(QString stopBits READ stopBits WRITE setStopBits NOTIFY changed)
+    Q_PROPERTY(QString parity READ parity WRITE setParity NOTIFY changed)
+    Q_PROPERTY(QString handshake READ handshake WRITE setHandshake NOTIFY changed)
+    Q_PROPERTY(QString dtrState READ dtrState WRITE setDtrState NOTIFY changed)
+    Q_PROPERTY(QString rtsState READ rtsState WRITE setRtsState NOTIFY changed)
+    Q_PROPERTY(QString civAddress READ civAddress WRITE setCivAddress NOTIFY changed)
     // Il PTT: tante stazioni hanno due porte, una per il CAT e una per il PTT.
     // "RIG" = lo fa il CAT stesso, "RTS"/"DTR" = il piedino della seconda porta.
     Q_PROPERTY(QString pttType READ pttType WRITE setPttType NOTIFY changed)
@@ -238,6 +249,22 @@ public:
     void setRigModel(int model);
     int baud() const { return m_baud; }
     void setBaud(int baud);
+    QStringList serialCapabilities() const { return m_serialCapabilities; }
+    Q_INVOKABLE void refreshSerialCapabilities();
+    QString dataBits() const { return m_dataBits; }
+    void setDataBits(const QString& value);
+    QString stopBits() const { return m_stopBits; }
+    void setStopBits(const QString& value);
+    QString parity() const { return m_parity; }
+    void setParity(const QString& value);
+    QString handshake() const { return m_handshake; }
+    void setHandshake(const QString& value);
+    QString dtrState() const { return m_dtrState; }
+    void setDtrState(const QString& value);
+    QString rtsState() const { return m_rtsState; }
+    void setRtsState(const QString& value);
+    QString civAddress() const { return m_civAddress; }
+    void setCivAddress(const QString& value);
     QString pttType() const { return m_pttType; }
     void setPttType(const QString& type);
     QString pttPort() const { return m_pttPort; }
@@ -252,6 +279,7 @@ public:
 
 signals:
     void changed();
+    void serialCapabilitiesChanged();
     void stateChanged();
     void shareChanged();
     void macrosChanged();
@@ -268,6 +296,8 @@ private:
     void consumeAudio(const QByteArray& chunk);
     void publishScope(bool force = false);
     void startLocalRigctld();
+    QStringList localRigctldArguments(const QString& port, int baud, quint16 tcpPort) const;
+    bool supportsSerialParameter(const QString& name) const;
 
     Context m_ctx;
     // Le due strade per la radio; m_rig e' quella in uso.
@@ -297,6 +327,15 @@ private:
     QString m_serialPort;
     int m_rigModel{0};
     int m_baud{38400};
+    QStringList m_serialCapabilities;
+    int m_capabilitiesForModel{0};
+    QString m_dataBits{QStringLiteral("Default")};
+    QString m_stopBits{QStringLiteral("Default")};
+    QString m_parity{QStringLiteral("Default")};
+    QString m_handshake{QStringLiteral("Default")};
+    QString m_dtrState{QStringLiteral("Unset")};
+    QString m_rtsState{QStringLiteral("Unset")};
+    QString m_civAddress;
     QString m_pttType{QStringLiteral("RIG")};
     QString m_pttPort;
     QVariantList m_models;

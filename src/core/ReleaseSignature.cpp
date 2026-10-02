@@ -43,6 +43,8 @@ QList<TrustedKey> trustedKeys()
         const char* key;
     };
     static const Entry entries[] = {
+        // 9194bfce15e1a728, chiave dedicata alle release del fork elisir80.
+        {"elisir80/DecodxLog", "NKqwHmHypOygT4oWhhj/+J8U2rExbrR2Kdf8Pg9OTqk="},
         // ad518c5309aee583, quella di tutti i giorni (portachiavi di IU8LMC)
         {"iu8lmc/DecoDXLog", "E5xzin16Px/dO4DFHhaoVO1HfR/6R00YX3vGSzjIKgQ="},
         // 411be55f604c83ef, quella di scorta (fuori dal computer)
