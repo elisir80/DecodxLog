@@ -3,6 +3,22 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.47 — 2 ottobre 2026
+
+**Rotore: un'antenna per banda, con il suo scostamento.** Sullo stesso palo non tutte le
+antenne guardano dove guarda il rotore: un dipolo rotativo dei 40 montato a croce sulla
+direttiva dei 20, una direttiva dei 2 metri girata. In Impostazioni → Rotore → «Antenne per
+banda» si dice, banda per banda, quale antenna si usa e di quanti gradi guarda di lato (da
+-180 a +180). Quando la radio e' su quella banda:
+- il quadrante, i gradi e la mappa mostrano dove guarda quell'antenna, e sotto i gradi si
+  legge l'antenna in uso e dove sta davvero il rotore («40m · Dipolo rotativo (+90°) · rotore
+  10°»);
+- puntare a una rotta (a mano, il DX dello spot, il locatore) gira il rotore in modo che sia
+  quell'antenna a guardare li';
+- al cambio di banda il registro attivita' dice quale antenna e' in uso.
+Le bande non elencate restano come prima: l'antenna guarda col rotore. Le memorie, il parcheggio
+e i finecorsa restano posizioni del rotore.
+
 ## 1.16.46 — 2 ottobre 2026
 
 **I colori delle conferme si vedono.** In Impostazioni → «Colori delle righe del log»,

@@ -5488,6 +5488,10 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>開く ▾</translation>
     </message>
     <message>
+        <source>%1 · %2 (%3°) · rotor %4°</source>
+        <translation>%1 · %2（%3°）· ローテーター %4°</translation>
+    </message>
+    <message>
         <source>Point to the DX · %1 %2°</source>
         <translation>DX へ向ける · %1 %2°</translation>
     </message>
@@ -7172,6 +7176,34 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>ARCO must be set to Yaesu GS-232. Its LAN page must be enabled before using TCP; the standard ARCO control port shown in its setup is 4001. USB and RS-232 use 8/N/1; USB baud rate is ignored by ARCO, while RS-232 uses the rate configured on ARCO.</source>
         <translation>ARCO は Yaesu GS-232 に設定してください。TCP を使うには先に LAN ページを有効にする必要があります。ARCO の標準制御ポート（セットアップに表示）は 4001 です。USB と RS-232 は 8/N/1。USB では ARCO は通信速度を無視し、RS-232 では ARCO で設定した速度になります。</translation>
+    </message>
+    <message>
+        <source>Antennas per band</source>
+        <translation>バンドごとのアンテナ</translation>
+    </message>
+    <message>
+        <source>For each band, the antenna you use and how many degrees it looks away from the rotor (for example +90 for a 40 m dipole mounted across the 20 m beam). On that band the compass shows where that antenna looks, and pointing at a bearing turns the rotor so that it is that antenna looking there. Bands not listed: the antenna looks where the rotor looks.</source>
+        <translation>バンドごとに、使うアンテナと、それがローテーターに対して何度ずれているか（例: 20 m ビームと直角に付けた 40 m ダイポールなら +90）を設定します。そのバンドではコンパスにそのアンテナの向きが表示され、方位を指定するとそのアンテナがその方向を向くようにローテーターが回ります。一覧にないバンドでは、アンテナはローテーターと同じ向きです。</translation>
+    </message>
+    <message>
+        <source>— band —</source>
+        <translation>— バンド —</translation>
+    </message>
+    <message>
+        <source>Antenna (e.g. 40 m rotary dipole)</source>
+        <translation>アンテナ（例: 40 m 回転ダイポール）</translation>
+    </message>
+    <message>
+        <source>degrees</source>
+        <translation>度</translation>
+    </message>
+    <message>
+        <source>+ Add a band</source>
+        <translation>+ バンドを追加</translation>
+    </message>
+    <message>
+        <source>Now: %1 · %2 (%3°)</source>
+        <translation>現在: %1 · %2（%3°）</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -10067,6 +10099,14 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>Detect by itself</source>
         <translation>自動検出</translation>
+    </message>
+    <message>
+        <source>Rotor: %1, the antenna looks where the rotor looks</source>
+        <translation>ローテーター: %1、アンテナはローテーターと同じ向き</translation>
+    </message>
+    <message>
+        <source>Rotor: %1, antenna &quot;%2&quot; (%3°)</source>
+        <translation>ローテーター: %1、アンテナ「%2」（%3°）</translation>
     </message>
 </context>
 <context>

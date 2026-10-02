@@ -48,6 +48,7 @@ RotorController::RotorController(Context context, QObject* parent)
     m_arcoSerialBaud = s.value(QStringLiteral("rotor/arcoSerialBaud"), 9600).toInt();
     m_followDx = s.value(QStringLiteral("rotor/followDx"), false).toBool();
     m_beamwidth = qBound(5, s.value(QStringLiteral("rotor/beamwidth"), 45).toInt(), 180);
+    m_antennas = core::rotoroffsets::fromJson(s.value(QStringLiteral("rotor/bandAntennas")).toString());
 
     m_httpPort = qBound(1, s.value(QStringLiteral("rotor/httpPort"), 8080).toInt(), 65535);
 
@@ -433,6 +434,16 @@ QVariantMap RotorController::state() const
 {
     QVariantMap map = m_link.state().toMap();
     map.insert(QStringLiteral("enabled"), m_enabled);
+    // Con un'antenna girata sul palo, tutto quello che si vede (quadrante,
+    // gradi, mappa) dice dove guarda lei; il rotore resta in rotorAz.
+    const int off = offset();
+    map.insert(QStringLiteral("rotorAz"), m_link.state().az);
+    map.insert(QStringLiteral("offset"), off);
+    if (off != 0) {
+        map.insert(QStringLiteral("az"), core::rotoroffsets::antennaAz(m_link.state().az, off));
+        if (m_link.state().azTarget >= 0.0)
+            map.insert(QStringLiteral("azTarget"), core::rotoroffsets::antennaAz(m_link.state().azTarget, off));
+    }
     // Il lobo lo dice il gateway; quello delle impostazioni di DecoDXLog serve
     // solo quando dall'altra parte c'e' un rotctld, che non lo sa.
     if (!m_link.state().beamwidthKnown)
@@ -479,7 +490,8 @@ void RotorController::pointTo(double azimuth, const QString& what)
         return;
     }
     const double target = rotor::normalize(azimuth);
-    m_link.goTo(target);
+    // L'antenna deve guardare li': il rotore va dove serve perche' lo faccia.
+    m_link.goTo(core::rotoroffsets::rotorAz(target, offset()));
     m_lastTarget = what.trimmed().isEmpty() ? tr("%1°").arg(qRound(target))
                                             : tr("%1 · %2°").arg(what.trimmed()).arg(qRound(target));
     note(tr("Rotor to %1").arg(m_lastTarget), QStringLiteral("info"));
@@ -490,6 +502,15 @@ void RotorController::pointLocator(const QString& locator, bool longPath)
 {
     if (!m_enabled || locator.trimmed().size() < 4)
         return;
+    // Con un'antenna girata la rotta la conta DecoDXLog, e la gira lui: il
+    // gateway il locatore lo manderebbe dritto col rotore.
+    if (offset() != 0) {
+        const auto there = maidenhead::toLatLon(locator.trimmed());
+        const double az = there ? bearingTo(there->lat, there->lon) : -1.0;
+        if (az >= 0.0)
+            pointTo(longPath ? az + 180.0 : az, locator.trimmed().toUpper());
+        return;
+    }
     if (m_backend == QLatin1String("rotctld") || m_backend == QLatin1String("arco")) {
         note(tr("rotctld does not do locators: point in degrees"), QStringLiteral("warning"));
         return;
@@ -718,6 +739,83 @@ void RotorController::stationChanged()
 {
     if (m_gateway && m_gateway->running() && m_ctx.stationGrid)
         m_gateway->setStation(m_ctx.stationGrid(), m_ctx.stationCall ? m_ctx.stationCall() : QString());
+}
+
+// ── Le antenne per banda ─────────────────────────────────────────────────────
+
+int RotorController::offset() const
+{
+    const core::rotoroffsets::Entry* e = core::rotoroffsets::forBand(m_antennas, m_band);
+    return e ? e->offset : 0;
+}
+
+QVariantMap RotorController::activeAntenna() const
+{
+    const core::rotoroffsets::Entry* e = core::rotoroffsets::forBand(m_antennas, m_band);
+    if (!e)
+        return {};
+    return {{QStringLiteral("band"), e->band}, {QStringLiteral("antenna"), e->antenna},
+            {QStringLiteral("offset"), e->offset}};
+}
+
+void RotorController::setBand(const QString& band)
+{
+    const QString b = band.trimmed().toLower();
+    if (b == m_band)
+        return;
+    const int before = offset();
+    m_band = b;
+    if (offset() != before && m_enabled) {
+        const QVariantMap a = activeAntenna();
+        note(a.isEmpty() ? tr("Rotor: %1, the antenna looks where the rotor looks").arg(b)
+                         : tr("Rotor: %1, antenna \"%2\" (%3°)")
+                               .arg(b, a.value(QStringLiteral("antenna")).toString())
+                               .arg(a.value(QStringLiteral("offset")).toInt() > 0
+                                        ? QStringLiteral("+%1").arg(a.value(QStringLiteral("offset")).toInt())
+                                        : QString::number(a.value(QStringLiteral("offset")).toInt())),
+             QStringLiteral("info"));
+    }
+    emit stateChanged();
+}
+
+void RotorController::saveAntennas()
+{
+    QSettings().setValue(QStringLiteral("rotor/bandAntennas"), core::rotoroffsets::toJson(m_antennas));
+    emit changed();
+    emit stateChanged();
+}
+
+void RotorController::addBandAntenna()
+{
+    // Di partenza la banda di adesso, se non c'e' gia'.
+    core::rotoroffsets::Entry e;
+    e.band = core::rotoroffsets::forBand(m_antennas, m_band) ? QString() : m_band;
+    m_antennas << e;
+    saveAntennas();
+}
+
+void RotorController::setBandAntenna(int index, const QString& band, const QString& antenna, int offset)
+{
+    if (index < 0 || index >= m_antennas.size())
+        return;
+    core::rotoroffsets::Entry& e = m_antennas[index];
+    e.band = band.trimmed().toLower();
+    e.antenna = antenna.trimmed();
+    e.offset = offset;
+    // Una banda sola per riga: un'altra riga con la stessa banda perde la banda.
+    for (int i = 0; i < m_antennas.size(); ++i) {
+        if (i != index && !e.band.isEmpty() && m_antennas[i].band == e.band)
+            m_antennas[i].band.clear();
+    }
+    saveAntennas();
+}
+
+void RotorController::removeBandAntenna(int index)
+{
+    if (index < 0 || index >= m_antennas.size())
+        return;
+    m_antennas.removeAt(index);
+    saveAntennas();
 }
 
 } // namespace decolog::app

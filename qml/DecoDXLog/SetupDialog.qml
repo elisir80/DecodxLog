@@ -2607,6 +2607,92 @@ DialogFrame {
                                    + "grid — the rotor menu points there. The panel is in the right column, with the "
                                    + "compass and the STOP.")
                     }
+
+                    // Le antenne per banda: sullo stesso palo un'antenna puo'
+                    // guardare di lato rispetto al rotore (il dipolo dei 40 a
+                    // croce sulla direttiva dei 20). Sulla banda della radio il
+                    // quadrante mostra dove guarda lei, e i puntamenti la seguono.
+                    SectionTitle { text: qsTr("Antennas per band") }
+                    Note {
+                        text: qsTr("For each band, the antenna you use and how many degrees it looks away from the "
+                                   + "rotor (for example +90 for a 40 m dipole mounted across the 20 m beam). On that "
+                                   + "band the compass shows where that antenna looks, and pointing at a bearing turns "
+                                   + "the rotor so that it is that antenna looking there. Bands not listed: the antenna "
+                                   + "looks where the rotor looks.")
+                    }
+                    Repeater {
+                        model: decolog.rotor.bandAntennas
+                        RowLayout {
+                            id: antennaRow
+                            required property var modelData
+                            required property int index
+                            spacing: 8
+                            function save(band, name, off) {
+                                decolog.rotor.setBandAntenna(index, band, name, off)
+                            }
+                            StyledComboBox {
+                                id: antennaBand
+                                Layout.preferredWidth: 100
+                                readonly property var bands: ["160m", "80m", "60m", "40m", "30m", "20m", "17m", "15m",
+                                                              "12m", "10m", "6m", "4m", "2m", "70cm", "23cm"]
+                                model: [qsTr("— band —")].concat(bands)
+                                currentIndex: Math.max(0, bands.indexOf(antennaRow.modelData.band) + 1)
+                                onActivated: antennaRow.save(currentIndex > 0 ? bands[currentIndex - 1] : "",
+                                                             antennaName.text, antennaOffset.value)
+                            }
+                            StyledTextField {
+                                id: antennaName
+                                Layout.preferredWidth: 220
+                                mono: false
+                                placeholderText: qsTr("Antenna (e.g. 40 m rotary dipole)")
+                                text: antennaRow.modelData.antenna
+                                onEditingFinished: if (text !== antennaRow.modelData.antenna)
+                                    antennaRow.save(antennaRow.modelData.band, text, antennaOffset.value)
+                            }
+                            StyledTextField {
+                                id: antennaOffset
+                                readonly property int value: parseInt(text) || 0
+                                Layout.preferredWidth: 70
+                                horizontalAlignment: TextInput.AlignRight
+                                validator: IntValidator { bottom: -180; top: 180 }
+                                text: String(antennaRow.modelData.offset)
+                                onEditingFinished: if (value !== antennaRow.modelData.offset)
+                                    antennaRow.save(antennaRow.modelData.band, antennaName.text, value)
+                            }
+                            Text {
+                                text: qsTr("degrees")
+                                color: Theme.textSecondary
+                                font.pixelSize: 11
+                            }
+                            GlassButton {
+                                text: "−"
+                                tone: Theme.errorColor
+                                minimumWidth: 30
+                                implicitWidth: 30
+                                fontPixelSize: 14
+                                onClicked: decolog.rotor.removeBandAntenna(antennaRow.index)
+                            }
+                        }
+                    }
+                    RowLayout {
+                        spacing: 10
+                        GlassButton {
+                            text: qsTr("+ Add a band")
+                            tone: Theme.accentColor
+                            onClicked: decolog.rotor.addBandAntenna()
+                        }
+                        Text {
+                            visible: decolog.rotor.activeAntenna.antenna !== undefined
+                            text: qsTr("Now: %1 · %2 (%3°)").arg(decolog.rotor.activeAntenna.band || "")
+                                                           .arg(decolog.rotor.activeAntenna.antenna || "—")
+                                                           .arg(decolog.rotor.activeAntenna.offset > 0
+                                                                ? "+" + decolog.rotor.activeAntenna.offset
+                                                                : decolog.rotor.activeAntenna.offset)
+                            color: Theme.accentColor
+                            font.family: Theme.monoFamily
+                            font.pixelSize: 12
+                        }
+                    }
                     Item { Layout.fillHeight: true }
                 }
 

@@ -9,6 +9,7 @@
 
 #include "core/RotorGateway.h"
 #include "core/RotorLink.h"
+#include "core/RotorOffsets.h"
 
 #include <QObject>
 #include <QString>
@@ -55,6 +56,12 @@ class RotorController : public QObject {
     Q_PROPERTY(int gatewayWsPort READ gatewayWsPort WRITE setGatewayWsPort NOTIFY changed)
     Q_PROPERTY(int gatewayRotctldPort READ gatewayRotctldPort WRITE setGatewayRotctldPort NOTIFY changed)
     Q_PROPERTY(QStringList gatewayProblems READ gatewayProblems NOTIFY stateChanged)
+    // Le antenne per banda: [{band, antenna, offset}]. Sulla banda della radio
+    // il quadrante mostra dove guarda quell'antenna, e i puntamenti la tengono
+    // in conto. Senza una riga per la banda, l'antenna guarda col rotore.
+    Q_PROPERTY(QVariantList bandAntennas READ bandAntennas NOTIFY changed)
+    // Quella in uso adesso: {band, antenna, offset}; vuota se nessuna.
+    Q_PROPERTY(QVariantMap activeAntenna READ activeAntenna NOTIFY stateChanged)
 
 public:
     struct Context {
@@ -167,6 +174,14 @@ public:
     Q_INVOKABLE QString importDecoRotor(const QString& path = QString());
     // Il profilo della stazione e' cambiato: QTH e nominativo nuovi al gateway.
     void stationChanged();
+
+    QVariantList bandAntennas() const { return core::rotoroffsets::toVariant(m_antennas); }
+    Q_INVOKABLE void addBandAntenna();
+    Q_INVOKABLE void setBandAntenna(int index, const QString& band, const QString& antenna, int offset);
+    Q_INVOKABLE void removeBandAntenna(int index);
+    QVariantMap activeAntenna() const;
+    // La banda della radio adesso ("40m"): la dice chi sa la frequenza.
+    void setBand(const QString& band);
     // Quello che Decodium e il cluster sentono, per la mappa dell'app.
     core::RotorGateway* gateway() const { return m_gateway; }
 
@@ -206,6 +221,12 @@ private:
     // Il gateway integrato, acceso solo con il backend "builtin".
     core::RotorGateway* m_gateway{nullptr};
     core::GatewaySettings m_gw;
+
+    QList<core::rotoroffsets::Entry> m_antennas;
+    QString m_band;
+    // Di quanto guarda di lato l'antenna della banda di adesso (0 = col rotore).
+    int offset() const;
+    void saveAntennas();
 };
 
 } // namespace decolog::app

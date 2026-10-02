@@ -5488,6 +5488,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>打开 ▾</translation>
     </message>
     <message>
+        <source>%1 · %2 (%3°) · rotor %4°</source>
+        <translation>%1 · %2（%3°）· 旋转器 %4°</translation>
+    </message>
+    <message>
         <source>Point to the DX · %1 %2°</source>
         <translation>指向 DX · %1 %2°</translation>
     </message>
@@ -7172,6 +7176,34 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>ARCO must be set to Yaesu GS-232. Its LAN page must be enabled before using TCP; the standard ARCO control port shown in its setup is 4001. USB and RS-232 use 8/N/1; USB baud rate is ignored by ARCO, while RS-232 uses the rate configured on ARCO.</source>
         <translation>ARCO 必须设为 Yaesu GS-232。使用 TCP 前需先启用其 LAN 页面；ARCO 设置中显示的标准控制端口是 4001。USB 和 RS-232 使用 8/N/1；USB 下 ARCO 忽略波特率，RS-232 下使用 ARCO 上设置的波特率。</translation>
+    </message>
+    <message>
+        <source>Antennas per band</source>
+        <translation>按波段的天线</translation>
+    </message>
+    <message>
+        <source>For each band, the antenna you use and how many degrees it looks away from the rotor (for example +90 for a 40 m dipole mounted across the 20 m beam). On that band the compass shows where that antenna looks, and pointing at a bearing turns the rotor so that it is that antenna looking there. Bands not listed: the antenna looks where the rotor looks.</source>
+        <translation>为每个波段设置所用的天线，以及它相对旋转器偏转多少度（例如 40 米偶极子与 20 米八木交叉安装则为 +90）。在该波段，罗盘显示这副天线的指向，指向某方位时旋转器会转到让这副天线对准那里。未列出的波段：天线与旋转器同向。</translation>
+    </message>
+    <message>
+        <source>— band —</source>
+        <translation>— 波段 —</translation>
+    </message>
+    <message>
+        <source>Antenna (e.g. 40 m rotary dipole)</source>
+        <translation>天线（例如 40 米旋转偶极子）</translation>
+    </message>
+    <message>
+        <source>degrees</source>
+        <translation>度</translation>
+    </message>
+    <message>
+        <source>+ Add a band</source>
+        <translation>+ 添加波段</translation>
+    </message>
+    <message>
+        <source>Now: %1 · %2 (%3°)</source>
+        <translation>当前：%1 · %2（%3°）</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -10067,6 +10099,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Detect by itself</source>
         <translation>自动识别</translation>
+    </message>
+    <message>
+        <source>Rotor: %1, the antenna looks where the rotor looks</source>
+        <translation>旋转器：%1，天线与旋转器同向</translation>
+    </message>
+    <message>
+        <source>Rotor: %1, antenna &quot;%2&quot; (%3°)</source>
+        <translation>旋转器：%1，天线“%2”（%3°）</translation>
     </message>
 </context>
 <context>

@@ -86,6 +86,19 @@ GlassPanel {
                 font.pixelSize: 15
             }
         }
+        // L'antenna della banda, se guarda di lato: i gradi sopra sono i suoi.
+        Text {
+            Layout.alignment: Qt.AlignHCenter
+            visible: (root.state.offset || 0) !== 0
+            text: qsTr("%1 · %2 (%3°) · rotor %4°")
+                      .arg(root.rotor.activeAntenna.band || "")
+                      .arg(root.rotor.activeAntenna.antenna || "—")
+                      .arg(root.state.offset > 0 ? "+" + root.state.offset : root.state.offset)
+                      .arg(Math.round(root.state.rotorAz || 0))
+            color: Theme.secondaryColor
+            font.family: Theme.monoFamily
+            font.pixelSize: 11
+        }
 
         GlassButton {
             Layout.fillWidth: true

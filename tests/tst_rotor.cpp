@@ -1,5 +1,6 @@
 // DecoDXLog — il rotore: lo stato di DecoRotor e le risposte di rotctld.
 #include "core/RotorLink.h"
+#include "core/RotorOffsets.h"
 
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -138,6 +139,27 @@ private slots:
         QTRY_VERIFY_WITH_TIMEOUT(!seen.isEmpty(), 5000);
         QCOMPARE(seen, QList<double>{123.0});
         link.stop();
+    }
+
+    // Un dipolo dei 40 a croce sulla direttiva dei 20: sui 40 il quadrante
+    // mostra dove guarda il dipolo, e "punta a 45°" gira il rotore a 315°.
+    void antennasPerBand()
+    {
+        using namespace decolog::core::rotoroffsets;
+        const QList<Entry> table = fromJson(QStringLiteral(
+            R"([{"band":"40M","antenna":"Dipolo rotativo","offset":90},{"band":"2m","antenna":"Yagi","offset":540}])"));
+        QCOMPARE(table.size(), 2);
+        QCOMPARE(table.at(0).band, QString("40m"));
+        QCOMPARE(table.at(1).offset, 180);   // 540 e' 180
+        QVERIFY(forBand(table, QStringLiteral("20m")) == nullptr);
+        QCOMPARE(forBand(table, QStringLiteral("40m"))->offset, 90);
+
+        QCOMPARE(antennaAz(10.0, 90), 100.0);
+        QCOMPARE(antennaAz(300.0, 90), 30.0);
+        QCOMPARE(rotorAz(45.0, 90), 315.0);
+        QCOMPARE(rotorAz(antennaAz(123.0, -45), -45), 123.0);
+        // Andata e ritorno dalle impostazioni.
+        QCOMPARE(fromJson(toJson(table)).at(0).antenna, QString("Dipolo rotativo"));
     }
 
     void rotctldErrors()

@@ -890,6 +890,14 @@ bool DecoLogController::openDatabase(const QString& path)
     };
     m_rotor = new RotorController(std::move(rotorCtx), this);
     connect(this, &DecoLogController::stationChanged, m_rotor, &RotorController::stationChanged);
+    // La banda della radio: col cambio di banda cambia l'antenna, e con lei
+    // dove guarda (le antenne per banda del rotore).
+    connect(this, &DecoLogController::tuningChanged, m_rotor, [this] {
+        bool ok = false;
+        const double mhz = shownFrequency().toDouble(&ok);
+        if (ok && mhz > 0.0)
+            m_rotor->setBand(bands::fromMhz(mhz));
+    });
     // Uno spot scelto nel cluster: il rotore ne sa subito la rotta, anche se il
     // QTH della stazione non c'e' (allora conta dal QTH del gateway).
     connect(m_cluster, &ClusterController::spotAimed, this,

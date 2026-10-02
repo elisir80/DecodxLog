@@ -5508,6 +5508,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Abrir ▾</translation>
     </message>
     <message>
+        <source>%1 · %2 (%3°) · rotor %4°</source>
+        <translation>%1 · %2 (%3°) · rotor %4°</translation>
+    </message>
+    <message>
         <source>Point to the DX · %1 %2°</source>
         <translation>Apuntar al DX · %1 %2°</translation>
     </message>
@@ -7194,6 +7198,34 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>ARCO must be set to Yaesu GS-232. Its LAN page must be enabled before using TCP; the standard ARCO control port shown in its setup is 4001. USB and RS-232 use 8/N/1; USB baud rate is ignored by ARCO, while RS-232 uses the rate configured on ARCO.</source>
         <translation>El ARCO debe estar configurado como Yaesu GS-232. Para TCP hay que activar antes su página LAN; el puerto de control estándar del ARCO, indicado en su setup, es el 4001. USB y RS-232 usan 8/N/1; por USB el ARCO ignora la velocidad, por RS-232 vale la configurada en el ARCO.</translation>
+    </message>
+    <message>
+        <source>Antennas per band</source>
+        <translation>Antenas por banda</translation>
+    </message>
+    <message>
+        <source>For each band, the antenna you use and how many degrees it looks away from the rotor (for example +90 for a 40 m dipole mounted across the 20 m beam). On that band the compass shows where that antenna looks, and pointing at a bearing turns the rotor so that it is that antenna looking there. Bands not listed: the antenna looks where the rotor looks.</source>
+        <translation>Para cada banda, la antena que usas y cuántos grados mira de lado respecto al rotor (por ejemplo +90 para un dipolo de 40 m montado en cruz sobre la directiva de 20). En esa banda el dial muestra hacia dónde mira esa antena, y apuntar a un rumbo gira el rotor para que sea ella la que mire allí. Bandas no listadas: la antena mira como el rotor.</translation>
+    </message>
+    <message>
+        <source>— band —</source>
+        <translation>— banda —</translation>
+    </message>
+    <message>
+        <source>Antenna (e.g. 40 m rotary dipole)</source>
+        <translation>Antena (p. ej. dipolo rotativo 40 m)</translation>
+    </message>
+    <message>
+        <source>degrees</source>
+        <translation>grados</translation>
+    </message>
+    <message>
+        <source>+ Add a band</source>
+        <translation>+ Añadir una banda</translation>
+    </message>
+    <message>
+        <source>Now: %1 · %2 (%3°)</source>
+        <translation>Ahora: %1 · %2 (%3°)</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -10129,6 +10161,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Detect by itself</source>
         <translation>Detectar solo</translation>
+    </message>
+    <message>
+        <source>Rotor: %1, the antenna looks where the rotor looks</source>
+        <translation>Rotor: %1, la antena mira como el rotor</translation>
+    </message>
+    <message>
+        <source>Rotor: %1, antenna &quot;%2&quot; (%3°)</source>
+        <translation>Rotor: %1, antena «%2» (%3°)</translation>
     </message>
 </context>
 <context>

@@ -5528,6 +5528,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Deschide ▾</translation>
     </message>
     <message>
+        <source>%1 · %2 (%3°) · rotor %4°</source>
+        <translation>%1 · %2 (%3°) · rotor %4°</translation>
+    </message>
+    <message>
         <source>Point to the DX · %1 %2°</source>
         <translation>Spre DX · %1 %2°</translation>
     </message>
@@ -7216,6 +7220,34 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>ARCO must be set to Yaesu GS-232. Its LAN page must be enabled before using TCP; the standard ARCO control port shown in its setup is 4001. USB and RS-232 use 8/N/1; USB baud rate is ignored by ARCO, while RS-232 uses the rate configured on ARCO.</source>
         <translation>ARCO trebuie setat pe Yaesu GS-232. Pentru TCP trebuie activată mai întâi pagina sa LAN; portul standard de control al ARCO, afișat în setup-ul său, este 4001. USB și RS-232 folosesc 8/N/1; pe USB ARCO ignoră viteza, pe RS-232 contează cea setată pe ARCO.</translation>
+    </message>
+    <message>
+        <source>Antennas per band</source>
+        <translation>Antene pe bandă</translation>
+    </message>
+    <message>
+        <source>For each band, the antenna you use and how many degrees it looks away from the rotor (for example +90 for a 40 m dipole mounted across the 20 m beam). On that band the compass shows where that antenna looks, and pointing at a bearing turns the rotor so that it is that antenna looking there. Bands not listed: the antenna looks where the rotor looks.</source>
+        <translation>Pentru fiecare bandă, antena pe care o folosești și cu câte grade privește în lateral față de rotor (de exemplu +90 pentru un dipol de 40 m montat în cruce pe directiva de 20). Pe banda aceea cadranul arată încotro privește antena aceea, iar ținta unui azimut rotește rotorul astfel încât ea să privească acolo. Benzile nelistate: antena privește ca rotorul.</translation>
+    </message>
+    <message>
+        <source>— band —</source>
+        <translation>— bandă —</translation>
+    </message>
+    <message>
+        <source>Antenna (e.g. 40 m rotary dipole)</source>
+        <translation>Antenă (ex. dipol rotativ 40 m)</translation>
+    </message>
+    <message>
+        <source>degrees</source>
+        <translation>grade</translation>
+    </message>
+    <message>
+        <source>+ Add a band</source>
+        <translation>+ Adaugă o bandă</translation>
+    </message>
+    <message>
+        <source>Now: %1 · %2 (%3°)</source>
+        <translation>Acum: %1 · %2 (%3°)</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -10191,6 +10223,14 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>Detect by itself</source>
         <translation>Detectează singur</translation>
+    </message>
+    <message>
+        <source>Rotor: %1, the antenna looks where the rotor looks</source>
+        <translation>Rotor: %1, antena privește ca rotorul</translation>
+    </message>
+    <message>
+        <source>Rotor: %1, antenna &quot;%2&quot; (%3°)</source>
+        <translation>Rotor: %1, antena „%2” (%3°)</translation>
     </message>
 </context>
 <context>

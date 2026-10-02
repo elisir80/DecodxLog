@@ -5488,6 +5488,10 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>Megnyitás ▾</translation>
     </message>
     <message>
+        <source>%1 · %2 (%3°) · rotor %4°</source>
+        <translation>%1 · %2 (%3°) · rotor %4°</translation>
+    </message>
+    <message>
         <source>Point to the DX · %1 %2°</source>
         <translation>Irány a DX · %1 %2°</translation>
     </message>
@@ -7172,6 +7176,34 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>ARCO must be set to Yaesu GS-232. Its LAN page must be enabled before using TCP; the standard ARCO control port shown in its setup is 4001. USB and RS-232 use 8/N/1; USB baud rate is ignored by ARCO, while RS-232 uses the rate configured on ARCO.</source>
         <translation>Az ARCO-t Yaesu GS-232-re kell állítani. TCP-hez előbb engedélyezni kell a LAN-oldalát; az ARCO szabványos vezérlőportja, amelyet a beállításai mutatnak, a 4001. Az USB és az RS-232 8/N/1-et használ; USB-n az ARCO figyelmen kívül hagyja a sebességet, RS-232-n az ARCO-n beállított érvényes.</translation>
+    </message>
+    <message>
+        <source>Antennas per band</source>
+        <translation>Antennák sávonként</translation>
+    </message>
+    <message>
+        <source>For each band, the antenna you use and how many degrees it looks away from the rotor (for example +90 for a 40 m dipole mounted across the 20 m beam). On that band the compass shows where that antenna looks, and pointing at a bearing turns the rotor so that it is that antenna looking there. Bands not listed: the antenna looks where the rotor looks.</source>
+        <translation>Minden sávhoz az antenna, amelyet használsz, és hány fokkal néz el a rotortól (például +90 egy 40 m-es dipólnál, amely keresztben van a 20 m-es beam-en). Azon a sávon az iránytű azt mutatja, merre néz az az antenna, és egy irányra mutatva a rotor úgy fordul, hogy az az antenna nézzen oda. A nem felsorolt sávokon az antenna a rotorral néz.</translation>
+    </message>
+    <message>
+        <source>— band —</source>
+        <translation>— sáv —</translation>
+    </message>
+    <message>
+        <source>Antenna (e.g. 40 m rotary dipole)</source>
+        <translation>Antenna (pl. 40 m-es forgatható dipól)</translation>
+    </message>
+    <message>
+        <source>degrees</source>
+        <translation>fok</translation>
+    </message>
+    <message>
+        <source>+ Add a band</source>
+        <translation>+ Sáv hozzáadása</translation>
+    </message>
+    <message>
+        <source>Now: %1 · %2 (%3°)</source>
+        <translation>Most: %1 · %2 (%3°)</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -10067,6 +10099,14 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>Detect by itself</source>
         <translation>Felismerés magától</translation>
+    </message>
+    <message>
+        <source>Rotor: %1, the antenna looks where the rotor looks</source>
+        <translation>Rotor: %1, az antenna a rotorral néz</translation>
+    </message>
+    <message>
+        <source>Rotor: %1, antenna &quot;%2&quot; (%3°)</source>
+        <translation>Rotor: %1, antenna: &quot;%2&quot; (%3°)</translation>
     </message>
 </context>
 <context>

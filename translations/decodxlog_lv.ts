@@ -5528,6 +5528,10 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>Atvērt ▾</translation>
     </message>
     <message>
+        <source>%1 · %2 (%3°) · rotor %4°</source>
+        <translation>%1 · %2 (%3°) · rotors %4°</translation>
+    </message>
+    <message>
         <source>Point to the DX · %1 %2°</source>
         <translation>Pagriezt uz DX · %1 %2°</translation>
     </message>
@@ -7216,6 +7220,34 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>ARCO must be set to Yaesu GS-232. Its LAN page must be enabled before using TCP; the standard ARCO control port shown in its setup is 4001. USB and RS-232 use 8/N/1; USB baud rate is ignored by ARCO, while RS-232 uses the rate configured on ARCO.</source>
         <translation>ARCO jāiestata uz Yaesu GS-232. TCP gadījumā vispirms jāieslēdz tā LAN lapa; ARCO standarta vadības ports, kas redzams tā iestatījumos, ir 4001. USB un RS-232 izmanto 8/N/1; pa USB ARCO ātrumu ignorē, pa RS-232 der tas, kas iestatīts ARCO.</translation>
+    </message>
+    <message>
+        <source>Antennas per band</source>
+        <translation>Antenas pa joslām</translation>
+    </message>
+    <message>
+        <source>For each band, the antenna you use and how many degrees it looks away from the rotor (for example +90 for a 40 m dipole mounted across the 20 m beam). On that band the compass shows where that antenna looks, and pointing at a bearing turns the rotor so that it is that antenna looking there. Bands not listed: the antenna looks where the rotor looks.</source>
+        <translation>Katrai joslai antena, ko lieto, un par cik grādiem tā skatās sāņus no rotora (piemēram, +90 40 m dipolam, kas uzstādīts šķērsām 20 m antenai). Šajā joslā kompass rāda, kur skatās šī antena, un pagriešana uz virzienu griež rotoru tā, lai uz turieni skatītos tieši tā. Nenorādītās joslas: antena skatās kā rotors.</translation>
+    </message>
+    <message>
+        <source>— band —</source>
+        <translation>— josla —</translation>
+    </message>
+    <message>
+        <source>Antenna (e.g. 40 m rotary dipole)</source>
+        <translation>Antena (piem. 40 m rotējošs dipols)</translation>
+    </message>
+    <message>
+        <source>degrees</source>
+        <translation>grādi</translation>
+    </message>
+    <message>
+        <source>+ Add a band</source>
+        <translation>+ Pievienot joslu</translation>
+    </message>
+    <message>
+        <source>Now: %1 · %2 (%3°)</source>
+        <translation>Tagad: %1 · %2 (%3°)</translation>
     </message>
     <message>
         <source>Time (local)</source>
@@ -10191,6 +10223,14 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>Detect by itself</source>
         <translation>Noteikt pašam</translation>
+    </message>
+    <message>
+        <source>Rotor: %1, the antenna looks where the rotor looks</source>
+        <translation>Rotors: %1, antena skatās kā rotors</translation>
+    </message>
+    <message>
+        <source>Rotor: %1, antenna &quot;%2&quot; (%3°)</source>
+        <translation>Rotors: %1, antena &quot;%2&quot; (%3°)</translation>
     </message>
 </context>
 <context>

@@ -140,6 +140,8 @@ add_library(decolog_core STATIC
     src/core/Voacap.cpp
     src/core/Voacap.h
     src/core/RotorLink.cpp
+    src/core/RotorOffsets.cpp
+    src/core/RotorOffsets.h
     src/core/RotorLink.h
     src/core/SecretVault.cpp
     src/core/SecretVault.h
