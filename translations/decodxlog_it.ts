@@ -2731,6 +2731,14 @@ Tasto destro: modificala</translation>
         <translation>Confermato su LoTW</translation>
     </message>
     <message>
+        <source>Confirmed by card (no LoTW)</source>
+        <translation>Confermato da cartolina (senza LoTW)</translation>
+    </message>
+    <message>
+        <source>Confirmed only on eQSL / QRZ</source>
+        <translation>Confermato solo su eQSL / QRZ</translation>
+    </message>
+    <message>
         <source>B4 (Worked)</source>
         <translation>B4 (Lavorato)</translation>
     </message>
@@ -2992,6 +3000,14 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>Esporta i QSO mostrati</translation>
     </message>
     <message>
+        <source>LoTW</source>
+        <translation>LoTW</translation>
+    </message>
+    <message>
+        <source>card only</source>
+        <translation>solo cartolina</translation>
+    </message>
+    <message>
         <source>ADIF files (*.adi)</source>
         <translation>File ADIF (*.adi)</translation>
     </message>
@@ -3094,10 +3110,6 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>Etichetta: %1 ✕</translation>
-    </message>
-    <message>
-        <source>LoTW / card confirmed</source>
-        <translation>confermato LoTW / cartolina</translation>
     </message>
     <message>
         <source>eQSL / QRZ only</source>
@@ -6045,10 +6057,6 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>Colori di Decodium</translation>
     </message>
     <message>
-        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
-        <translation>Ogni QSO prende la prima categoria che ha portato, in quest&apos;ordine: una nuova entità DXCC vince su una nuova zona, una nuova zona su un nuovo locatore. Il primo interruttore colora il testo, il secondo il fondo della riga.</translation>
-    </message>
-    <message>
         <source>%1 · connected</source>
         <translation>%1 · collegato</translation>
     </message>
@@ -6762,6 +6770,10 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
     <message>
         <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
         <translation>Ogni settimana da Club Log. I QSO nuovi prendono l&apos;entità della loro data; il controllo confronta il log con le date e corregge solo il DXCC vuoto o messo dal cty.csv di oggi — quello scritto da LoTW o da te resta.</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first switched-on category that applies, in this order: a new DXCC wins over a new zone, a new zone over a new grid; then the confirmation (LoTW before the card, the card before eQSL); then B4. The first check colors the text, the second the background of the row.</source>
+        <translation>Ogni QSO prende la prima categoria accesa che gli spetta, in quest&apos;ordine: una nuova entità DXCC vince su una nuova zona, una nuova zona su un nuovo locatore; poi la conferma (LoTW prima della cartolina, la cartolina prima di eQSL); poi B4. Il primo interruttore colora il testo, il secondo il fondo della riga.</translation>
     </message>
     <message>
         <source>Forward to other programs</source>

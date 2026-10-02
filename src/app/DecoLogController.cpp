@@ -736,6 +736,11 @@ bool DecoLogController::openDatabase(const QString& path)
     }
 
     timed(tr("loading the log table"), [this] { m_model = new QsoTableModel(&m_db, this); });
+    // Le righe prendono la prima categoria che ha un colore acceso: il modello
+    // deve sapere quali sono, adesso e ogni volta che cambiano.
+    m_model->setActiveCategories(logColors().keys());
+    connect(this, &DecoLogController::logColorsChanged, m_model,
+            [this] { m_model->setActiveCategories(logColors().keys()); });
     m_profiles = new StationProfileModel(&m_db, this);
     connect(m_profiles, &StationProfileModel::activeChanged, this, [this] {
         emit stationChanged();
@@ -4070,6 +4075,8 @@ const LogColorDefault kLogColors[] = {
     {"colorNewCall", QT_TRANSLATE_NOOP("LogColors", "New Callsign"), "#00E0E0", false, "#4000E0E0"},
     {"colorNewCallBand", QT_TRANSLATE_NOOP("LogColors", "New Callsign on Band"), "#B5E8E8", false, "#40B5E8E8"},
     {"colorLotwConfirmed", QT_TRANSLATE_NOOP("LogColors", "Confirmed on LoTW"), "#33FF33", false, "#4033FF33"},
+    {"colorCardConfirmed", QT_TRANSLATE_NOOP("LogColors", "Confirmed by card (no LoTW)"), "#4FC3F7", false, "#404FC3F7"},
+    {"colorEqslConfirmed", QT_TRANSLATE_NOOP("LogColors", "Confirmed only on eQSL / QRZ"), "#FFD54F", false, "#40FFD54F"},
     {"colorB4", QT_TRANSLATE_NOOP("LogColors", "B4 (Worked)"), "#888888", false, "#40888888"},
 };
 

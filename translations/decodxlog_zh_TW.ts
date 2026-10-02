@@ -2722,6 +2722,14 @@ Right click: change it</source>
         <translation>已在 LoTW 確認</translation>
     </message>
     <message>
+        <source>Confirmed by card (no LoTW)</source>
+        <translation>卡片已確認（無 LoTW）</translation>
+    </message>
+    <message>
+        <source>Confirmed only on eQSL / QRZ</source>
+        <translation>僅 eQSL / QRZ 確認</translation>
+    </message>
+    <message>
         <source>B4 (Worked)</source>
         <translation>B4（已通聯）</translation>
     </message>
@@ -2983,6 +2991,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>匯出顯示的 QSO</translation>
     </message>
     <message>
+        <source>LoTW</source>
+        <translation>LoTW</translation>
+    </message>
+    <message>
+        <source>card only</source>
+        <translation>僅卡片</translation>
+    </message>
+    <message>
         <source>ADIF files (*.adi)</source>
         <translation>ADIF 檔案 (*.adi)</translation>
     </message>
@@ -3085,10 +3101,6 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>標籤：%1 ✕</translation>
-    </message>
-    <message>
-        <source>LoTW / card confirmed</source>
-        <translation>LoTW / 卡片已確認</translation>
     </message>
     <message>
         <source>eQSL / QRZ only</source>
@@ -6024,10 +6036,6 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Decodium 顏色</translation>
     </message>
     <message>
-        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
-        <translation>每個 QSO 取其帶來的第一個類別，依此順序：新 DXCC 優先於新分區，新分區優先於新網格。第一個開關為文字上色，第二個為列背景上色。</translation>
-    </message>
-    <message>
         <source>%1 · connected</source>
         <translation>%1 · 已連接</translation>
     </message>
@@ -6740,6 +6748,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
         <translation>每週從 Club Log 取得。新 QSO 使用其日期對應的實體；檢查會把日誌與日期比對，只修正空白或由今天的 cty.csv 填入的 DXCC——LoTW 或你寫入的維持不變。</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first switched-on category that applies, in this order: a new DXCC wins over a new zone, a new zone over a new grid; then the confirmation (LoTW before the card, the card before eQSL); then B4. The first check colors the text, the second the background of the row.</source>
+        <translation>每個 QSO 取第一個已開啟且適用的類別，順序為：新 DXCC 實體優先於新分區，新分區優先於新網格；接著是確認（LoTW 優先於卡片，卡片優先於 eQSL）；最後是 B4。第一個開關為文字著色，第二個為列背景著色。</translation>
     </message>
     <message>
         <source>Forward to other programs</source>

@@ -2729,6 +2729,14 @@ Right click: change it</source>
         <translation>Confirmed on LoTW</translation>
     </message>
     <message>
+        <source>Confirmed by card (no LoTW)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirmed only on eQSL / QRZ</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>B4 (Worked)</source>
         <translation>B4 (Worked)</translation>
     </message>
@@ -2989,6 +2997,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>LoTW</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>card only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>ADIF files (*.adi)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3090,10 +3106,6 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
     <message>
         <source>Tag: %1 ✕</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>LoTW / card confirmed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6042,10 +6054,6 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Decodium colors</translation>
     </message>
     <message>
-        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
-        <translation>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</translation>
-    </message>
-    <message>
         <source>%1 · connected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6758,6 +6766,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
     <message>
         <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first switched-on category that applies, in this order: a new DXCC wins over a new zone, a new zone over a new grid; then the confirmation (LoTW before the card, the card before eQSL); then B4. The first check colors the text, the second the background of the row.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -94,6 +94,49 @@ private slots:
     // Su un log in un file le categorie si contano su un altro filo: la
     // tabella c'e' subito, i colori arrivano poco dopo, anche per un QSO
     // arrivato mentre si contava.
+    // Il caso segnalato: "Confermato su LoTW" acceso non colorava niente,
+    // perche' quasi ogni QSO e' anche un nominativo nuovo sulla banda, e quella
+    // categoria (col colore spento) vinceva. Adesso le spente si saltano; la
+    // cartolina e l'eQSL hanno un colore loro, LoTW ha la precedenza.
+    void confirmationColoursAreNotHiddenBySwitchedOffOnes()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        auto add = [&db](const char* call, std::initializer_list<std::pair<QString, QString>> qsl) {
+            AdifRecord r{{"CALL", call}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1200"}, {"BAND", "20m"},
+                         {"MODE", "FT8"}, {"DXCC", "291"}};
+            for (const auto& [k, v] : qsl)
+                r.set(k, v);
+            return db.insertQso(r, "import").id;
+        };
+        add("K1AAA", {});   // il primo DXCC 291
+        const qint64 lotw = add("K1LOT", {{"LOTW_QSL_RCVD", "Y"}});
+        const qint64 both = add("K1BTH", {{"LOTW_QSL_RCVD", "Y"}, {"QSL_RCVD", "Y"}});
+        const qint64 card = add("K1CRD", {{"QSL_RCVD", "Y"}});
+        const qint64 eqsl = add("K1EQS", {{"EQSL_QSL_RCVD", "Y"}});
+        const qint64 none = add("K1NON", {});
+        QsoTableModel m(&db);
+        // Accesi solo i colori delle conferme e il nuovo DXCC, come di serie.
+        m.setActiveCategories({"colorNewDxcc", "colorLotwConfirmed", "colorCardConfirmed", "colorEqslConfirmed"});
+        auto category = [&m](qint64 id) {
+            for (int r = 0; r < m.count(); ++r) {
+                const QModelIndex i = m.index(r, 0);
+                if (m.data(i, QsoTableModel::IdRole).toLongLong() == id)
+                    return m.data(i, QsoTableModel::CategoryRole).toString();
+            }
+            return QString("?");
+        };
+        QCOMPARE(category(lotw), QString("colorLotwConfirmed"));
+        QCOMPARE(category(both), QString("colorLotwConfirmed"));
+        QCOMPARE(category(card), QString("colorCardConfirmed"));
+        QCOMPARE(category(eqsl), QString("colorEqslConfirmed"));
+        QCOMPARE(category(none), QString());
+        // Spento il colore della cartolina, la riga della cartolina resta senza.
+        m.setActiveCategories({"colorLotwConfirmed"});
+        QCOMPARE(category(card), QString());
+        QCOMPARE(category(both), QString("colorLotwConfirmed"));
+    }
+
     void categoriesOfAFileLogArriveLater()
     {
         QTemporaryDir dir;
@@ -292,7 +335,7 @@ private slots:
             return -1;
         };
         QCOMPARE(qsl("KL7RA"), int(QsoTableModel::QslCardSent));
-        QCOMPARE(qsl("KL7XX/P"), int(QsoTableModel::QslConfirmed));
+        QCOMPARE(qsl("KL7XX/P"), int(QsoTableModel::QslLotwConfirmed));
         QCOMPARE(qsl("IU8LMC"), int(QsoTableModel::QslOtherConfirmed));
         QCOMPARE(qsl("W1AW"), int(QsoTableModel::QslNone));
     }
@@ -333,7 +376,7 @@ private slots:
         QCOMPARE(rows.at(0).toMap().value("call").toString(), QString("KL7XX"));
         QCOMPARE(rows.at(0).toMap().value("log").toString(), QString("Contest"));
         QCOMPARE(rows.at(1).toMap().value("call").toString(), QString("KL7RA"));
-        QCOMPARE(rows.at(1).toMap().value("qsl").toInt(), int(QsoTableModel::QslConfirmed));
+        QCOMPARE(rows.at(1).toMap().value("qsl").toInt(), int(QsoTableModel::QslLotwConfirmed));
         QCOMPARE(perLog.size(), 3);
         QCOMPARE(perLog.at(0).toMap().value("count").toInt(), 1);
         QCOMPARE(perLog.at(1).toMap().value("count").toInt(), 1);

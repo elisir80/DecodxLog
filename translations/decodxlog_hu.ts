@@ -2722,6 +2722,14 @@ Jobb kattintás: módosítás</translation>
         <translation>LoTW-n visszaigazolva</translation>
     </message>
     <message>
+        <source>Confirmed by card (no LoTW)</source>
+        <translation>Kártyával visszaigazolva (LoTW nélkül)</translation>
+    </message>
+    <message>
+        <source>Confirmed only on eQSL / QRZ</source>
+        <translation>Csak eQSL-en / QRZ-n visszaigazolva</translation>
+    </message>
+    <message>
         <source>B4 (Worked)</source>
         <translation>B4 (Dolgozva)</translation>
     </message>
@@ -2983,6 +2991,14 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>A látható QSO-k exportálása</translation>
     </message>
     <message>
+        <source>LoTW</source>
+        <translation>LoTW</translation>
+    </message>
+    <message>
+        <source>card only</source>
+        <translation>csak kártya</translation>
+    </message>
+    <message>
         <source>ADIF files (*.adi)</source>
         <translation>ADIF-fájlok (*.adi)</translation>
     </message>
@@ -3085,10 +3101,6 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>Címke: %1 ✕</translation>
-    </message>
-    <message>
-        <source>LoTW / card confirmed</source>
-        <translation>LoTW / kártya visszaigazolva</translation>
     </message>
     <message>
         <source>eQSL / QRZ only</source>
@@ -6024,10 +6036,6 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>Decodium színek</translation>
     </message>
     <message>
-        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
-        <translation>Minden QSO az első kategóriát kapja, amit hozott, ebben a sorrendben: az új DXCC megelőzi az új zónát, az új zóna az új lokátort. Az első kapcsoló a szöveget színezi, a második a sor hátterét.</translation>
-    </message>
-    <message>
         <source>%1 · connected</source>
         <translation>%1 · csatlakozva</translation>
     </message>
@@ -6740,6 +6748,10 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
         <translation>Hetente a Club Logból. Az új QSO-k a dátumuk entitását kapják; az ellenőrzés összeveti a naplót a dátumokkal, és csak az üres vagy a mai cty.csv által beírt DXCC-t javítja — amit a LoTW vagy te írtál, az marad.</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first switched-on category that applies, in this order: a new DXCC wins over a new zone, a new zone over a new grid; then the confirmation (LoTW before the card, the card before eQSL); then B4. The first check colors the text, the second the background of the row.</source>
+        <translation>Minden QSO az első bekapcsolt, rá érvényes kategóriát kapja, ebben a sorrendben: új DXCC-entitás előbb, mint új zóna, új zóna előbb, mint új lokátor; aztán a visszaigazolás (LoTW a kártya előtt, a kártya az eQSL előtt); aztán B4. Az első kapcsoló a szöveget színezi, a második a sor hátterét.</translation>
     </message>
     <message>
         <source>Forward to other programs</source>

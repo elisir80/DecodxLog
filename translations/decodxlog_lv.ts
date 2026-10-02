@@ -2740,6 +2740,14 @@ Labais klikšķis: mainīt</translation>
         <translation>Apstiprināts LoTW</translation>
     </message>
     <message>
+        <source>Confirmed by card (no LoTW)</source>
+        <translation>Apstiprināts ar kartiņu (bez LoTW)</translation>
+    </message>
+    <message>
+        <source>Confirmed only on eQSL / QRZ</source>
+        <translation>Apstiprināts tikai eQSL / QRZ</translation>
+    </message>
+    <message>
         <source>B4 (Worked)</source>
         <translation>B4 (Strādāts)</translation>
     </message>
@@ -3001,6 +3009,14 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>Eksportēt rādītos QSO</translation>
     </message>
     <message>
+        <source>LoTW</source>
+        <translation>LoTW</translation>
+    </message>
+    <message>
+        <source>card only</source>
+        <translation>tikai kartiņa</translation>
+    </message>
+    <message>
         <source>ADIF files (*.adi)</source>
         <translation>ADIF faili (*.adi)</translation>
     </message>
@@ -3103,10 +3119,6 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>Birka: %1 ✕</translation>
-    </message>
-    <message>
-        <source>LoTW / card confirmed</source>
-        <translation>apstiprināts LoTW / kartiņa</translation>
     </message>
     <message>
         <source>eQSL / QRZ only</source>
@@ -6066,10 +6078,6 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>Decodium krāsas</translation>
     </message>
     <message>
-        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
-        <translation>Katrs QSO saņem pirmo kategoriju, ko tas atnesa, šādā secībā: jauns DXCC ir svarīgāks par jaunu zonu, jauna zona par jaunu lokatoru. Pirmais slēdzis iekrāso tekstu, otrais rindas fonu.</translation>
-    </message>
-    <message>
         <source>%1 · connected</source>
         <translation>%1 · pieslēgts</translation>
     </message>
@@ -6784,6 +6792,10 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
         <translation>Katru nedēļu no Club Log. Jaunie QSO saņem sava datuma teritoriju; pārbaude salīdzina žurnālu ar datumiem un labo tikai DXCC, kas bija tukšs vai ielikts ar šodienas cty.csv — LoTW vai tevis ierakstītais paliek.</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first switched-on category that applies, in this order: a new DXCC wins over a new zone, a new zone over a new grid; then the confirmation (LoTW before the card, the card before eQSL); then B4. The first check colors the text, the second the background of the row.</source>
+        <translation>Katrs QSO saņem pirmo ieslēgto kategoriju, kas tam atbilst, šādā secībā: jauna DXCC teritorija pirms jaunas zonas, jauna zona pirms jauna lokatora; tad apstiprinājums (LoTW pirms kartiņas, kartiņa pirms eQSL); tad B4. Pirmais slēdzis krāso tekstu, otrais rindas fonu.</translation>
     </message>
     <message>
         <source>Forward to other programs</source>

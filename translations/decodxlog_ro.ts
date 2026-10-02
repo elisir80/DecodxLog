@@ -2740,6 +2740,14 @@ Clic dreapta: modific-o</translation>
         <translation>Confirmat pe LoTW</translation>
     </message>
     <message>
+        <source>Confirmed by card (no LoTW)</source>
+        <translation>Confirmat prin carte (fără LoTW)</translation>
+    </message>
+    <message>
+        <source>Confirmed only on eQSL / QRZ</source>
+        <translation>Confirmat doar pe eQSL / QRZ</translation>
+    </message>
+    <message>
         <source>B4 (Worked)</source>
         <translation>B4 (lucrat)</translation>
     </message>
@@ -3001,6 +3009,14 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Exportă QSO-urile afișate</translation>
     </message>
     <message>
+        <source>LoTW</source>
+        <translation>LoTW</translation>
+    </message>
+    <message>
+        <source>card only</source>
+        <translation>doar carte</translation>
+    </message>
+    <message>
         <source>ADIF files (*.adi)</source>
         <translation>Fișiere ADIF (*.adi)</translation>
     </message>
@@ -3103,10 +3119,6 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>Etichetă: %1 ✕</translation>
-    </message>
-    <message>
-        <source>LoTW / card confirmed</source>
-        <translation>confirmat LoTW / carte</translation>
     </message>
     <message>
         <source>eQSL / QRZ only</source>
@@ -6066,10 +6078,6 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Culorile Decodium</translation>
     </message>
     <message>
-        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
-        <translation>Fiecare QSO primește prima categorie pe care a adus-o, în această ordine: un DXCC nou câștigă în fața unei zone noi, o zonă nouă în fața unui locator nou. Primul comutator colorează textul, al doilea fundalul rândului.</translation>
-    </message>
-    <message>
         <source>%1 · connected</source>
         <translation>%1 · conectat</translation>
     </message>
@@ -6784,6 +6792,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
         <translation>Săptămânal de la Club Log. QSO-urile noi primesc entitatea datei lor; verificarea compară logul cu datele și corectează doar DXCC-ul gol sau pus de cty.csv de azi — cel scris de LoTW sau de tine rămâne.</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first switched-on category that applies, in this order: a new DXCC wins over a new zone, a new zone over a new grid; then the confirmation (LoTW before the card, the card before eQSL); then B4. The first check colors the text, the second the background of the row.</source>
+        <translation>Fiecare QSO primește prima categorie pornită care i se potrivește, în această ordine: o entitate DXCC nouă înaintea unei zone noi, o zonă nouă înaintea unui locator nou; apoi confirmarea (LoTW înaintea cărții, cartea înaintea eQSL); apoi B4. Primul comutator colorează textul, al doilea fundalul rândului.</translation>
     </message>
     <message>
         <source>Forward to other programs</source>

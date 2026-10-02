@@ -2731,6 +2731,14 @@ Clic dret: modificar-la</translation>
         <translation>Confirmat a LoTW</translation>
     </message>
     <message>
+        <source>Confirmed by card (no LoTW)</source>
+        <translation>Confirmat per targeta (sense LoTW)</translation>
+    </message>
+    <message>
+        <source>Confirmed only on eQSL / QRZ</source>
+        <translation>Confirmat només a eQSL / QRZ</translation>
+    </message>
+    <message>
         <source>B4 (Worked)</source>
         <translation>B4 (Treballat)</translation>
     </message>
@@ -2992,6 +3000,14 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>Exporta els QSO mostrats</translation>
     </message>
     <message>
+        <source>LoTW</source>
+        <translation>LoTW</translation>
+    </message>
+    <message>
+        <source>card only</source>
+        <translation>només targeta</translation>
+    </message>
+    <message>
         <source>ADIF files (*.adi)</source>
         <translation>Fitxers ADIF (*.adi)</translation>
     </message>
@@ -3094,10 +3110,6 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>Etiqueta: %1 ✕</translation>
-    </message>
-    <message>
-        <source>LoTW / card confirmed</source>
-        <translation>confirmat LoTW / targeta</translation>
     </message>
     <message>
         <source>eQSL / QRZ only</source>
@@ -6045,10 +6057,6 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>Colors de Decodium</translation>
     </message>
     <message>
-        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
-        <translation>Cada QSO pren la primera categoria que va aportar, en aquest ordre: un DXCC nou guanya una zona nova, una zona nova un locator nou. El primer interruptor acoloreix el text, el segon el fons de la fila.</translation>
-    </message>
-    <message>
         <source>%1 · connected</source>
         <translation>%1 · connectat</translation>
     </message>
@@ -6762,6 +6770,10 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
     <message>
         <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
         <translation>Cada setmana des de Club Log. Els QSO nous prenen l&apos;entitat de la seva data; la comprovació compara el log amb les dates i corregeix només el DXCC buit o posat pel cty.csv d&apos;avui — el que va escriure LoTW o tu es queda.</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first switched-on category that applies, in this order: a new DXCC wins over a new zone, a new zone over a new grid; then the confirmation (LoTW before the card, the card before eQSL); then B4. The first check colors the text, the second the background of the row.</source>
+        <translation>Cada QSO pren la primera categoria activada que li correspon, en aquest ordre: una nova entitat DXCC guanya a una nova zona, una nova zona a un nou locator; després la confirmació (LoTW abans que la targeta, la targeta abans que eQSL); després B4. El primer interruptor acoloreix el text, el segon el fons de la fila.</translation>
     </message>
     <message>
         <source>Forward to other programs</source>

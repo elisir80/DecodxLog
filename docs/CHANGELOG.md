@@ -3,6 +3,21 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.46 — 2 ottobre 2026
+
+**I colori delle conferme si vedono.** In Impostazioni → «Colori delle righe del log»,
+«Confermato su LoTW» acceso non colorava quasi niente: ogni riga prendeva la prima categoria
+che le spettava anche se il suo colore era spento, e quasi ogni QSO e' un «nuovo nominativo
+sulla banda». Adesso le categorie spente si saltano e la riga prende la prima accesa.
+
+Ci sono due colori nuovi per le conferme, con la precedenza a LoTW:
+- **Confermato su LoTW** — con o senza cartolina;
+- **Confermato da cartolina (senza LoTW)**;
+- **Confermato solo su eQSL / QRZ** — che per il DXCC non valgono.
+
+Lo stesso nelle righe colorate di «Azioni → Colora le righe secondo la conferma QSL»: verde
+LoTW, azzurro solo cartolina, giallo solo eQSL/QRZ, arancio cartolina partita e non tornata.
+
 ## 1.16.45 — 1 ottobre 2026
 
 **HamAward / HamConnect via UDP.** I QSO registrati a mano in DecoDXLog possono ora essere

@@ -494,7 +494,7 @@ DialogFrame {
                     SectionTitle { text: qsTr("Log row colors") }
                     RowLayout {
                         spacing: 12
-                        Text { Layout.preferredWidth: 190; text: qsTr("What the QSO brought"); color: Theme.textSecondary; font.pixelSize: 11 }
+                        Text { Layout.preferredWidth: 270; text: qsTr("What the QSO brought"); color: Theme.textSecondary; font.pixelSize: 11 }
                         Text { Layout.preferredWidth: 88; text: qsTr("Text"); color: Theme.textSecondary; font.pixelSize: 11 }
                         Text { text: qsTr("Background"); color: Theme.textSecondary; font.pixelSize: 11 }
                     }
@@ -504,7 +504,7 @@ DialogFrame {
                             required property var modelData
                             spacing: 12
                             Text {
-                                Layout.preferredWidth: 190
+                                Layout.preferredWidth: 270
                                 text: modelData.label
                                 color: modelData.fgOn ? modelData.fg : Theme.textPrimary
                                 font.family: Theme.monoFamily
@@ -546,9 +546,10 @@ DialogFrame {
                         }
                         Note {
                             Layout.fillWidth: true
-                            text: qsTr("Each QSO takes the first category it brought, in this order: a new DXCC wins "
-                                       + "over a new zone, a new zone over a new grid. The first check colors the "
-                                       + "text, the second the background of the row.")
+                            text: qsTr("Each QSO takes the first switched-on category that applies, in this order: a "
+                                       + "new DXCC wins over a new zone, a new zone over a new grid; then the "
+                                       + "confirmation (LoTW before the card, the card before eQSL); then B4. The first "
+                                       + "check colors the text, the second the background of the row.")
                         }
                     }
                     Item { Layout.fillHeight: true }

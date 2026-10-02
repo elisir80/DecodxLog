@@ -68,21 +68,31 @@ public:
                   State, County, Cqz, Ituz, Iota, Dxcc, Qsl, Source, Tags, ColumnCount };
     enum Roles { IdRole = Qt::UserRole + 1, ColumnKeyRole, IsNewRole, ModeRole, CategoryRole, QslStateRole };
 
-    // Lo stato della conferma di un QSO, per colorare la riga: niente, la
-    // cartolina partita e non tornata, confermato solo da eQSL o QRZ (che per
-    // il DXCC non valgono), confermato da LoTW o dalla cartolina.
-    enum QslState : quint8 { QslNone = 0, QslCardSent = 1, QslOtherConfirmed = 2, QslConfirmed = 3 };
+    // Lo stato della conferma di un QSO, per colorare la riga, dal meno al
+    // piu' importante: niente, la cartolina partita e non tornata, confermato
+    // solo da eQSL o QRZ (che per il DXCC non valgono), dalla cartolina, da
+    // LoTW (con o senza cartolina: LoTW ha la precedenza).
+    enum QslState : quint8 { QslNone = 0, QslCardSent = 1, QslOtherConfirmed = 2, QslCardConfirmed = 3,
+                             QslLotwConfirmed = 4 };
     static quint8 qslStateFrom(const QString& summary);
 
     // Che cosa ha portato un QSO quando e' stato fatto, come Decodium 4 lo
     // dice dei decode: il primo con quell'entita' (in assoluto o sulla
     // banda), con quel continente, zona CQ, zona ITU, locatore, nominativo;
-    // oppure un gia' lavorato. Il nome e' la chiave del colore (colorNewDxcc…).
+    // oppure confermato (LoTW, cartolina, eQSL), oppure un gia' lavorato. Il
+    // nome e' la chiave del colore (colorNewDxcc…).
     static QStringList categoryKeys();
+    // Le categorie che hanno un colore acceso: la riga prende la prima di
+    // queste che le spetta. Senza questa scelta valgono tutte (le prove).
+    void setActiveCategories(const QStringList& keys);
+    // Quella che spetta a una riga: `firsts` sono le cose nuove che il QSO ha
+    // portato (un bit per ciascuna delle prime dodici categorie), `qsl` la
+    // conferma.
+    QString categoryFor(quint16 firsts, quint8 qsl) const;
 
     // Il risultato della conta delle categorie di tutto il log.
     struct CategoryPass {
-        QHash<qint64, quint8> category;
+        QHash<qint64, quint16> category;
         QSet<quint64> seen[12];
         QString lastOn;
         qint64 lastId{0};
@@ -197,9 +207,12 @@ signals:
     void logsSearched(const QVariantList& rows, const QVariantList& perLog);
 
 private:
-    // La categoria di ogni QSO, come posizione in categoryKeys(): un byte, non
-    // una stringa, per un milione di righe.
-    QHash<qint64, quint8> m_category;
+    // Le cose nuove di ogni QSO, un bit per categoria: due byte, non una
+    // stringa, per un milione di righe. Si tengono tutte e non solo la prima,
+    // cosi' una categoria col colore spento non copre quelle dopo.
+    QHash<qint64, quint16> m_category;
+    QSet<QString> m_activeCategories;
+    bool m_activeChosen{false};
     QString m_sortKey{QStringLiteral("utc")};
     bool m_sortAscending{false};
     bool defaultSort() const { return m_sortKey == QLatin1String("utc") && !m_sortAscending; }
@@ -240,7 +253,7 @@ private:
     QString selectSql(const QString& where) const;
     // Le categorie di tutto il log in una volta (reload), o di un QSO solo.
     void computeCategories();
-    QString categoryOf(qint64 id) const;
+    quint16 categoryOf(qint64 id) const;
     Row rowFromQuery(const QSqlQuery& q) const;
     void refreshTotal();
 

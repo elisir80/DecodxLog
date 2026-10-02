@@ -2722,6 +2722,14 @@ Right click: change it</source>
         <translation>LoTW でコンファーム済み</translation>
     </message>
     <message>
+        <source>Confirmed by card (no LoTW)</source>
+        <translation>カードで確認済み（LoTW なし）</translation>
+    </message>
+    <message>
+        <source>Confirmed only on eQSL / QRZ</source>
+        <translation>eQSL / QRZ のみで確認済み</translation>
+    </message>
+    <message>
         <source>B4 (Worked)</source>
         <translation>B4 (交信済み)</translation>
     </message>
@@ -2983,6 +2991,14 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>表示中の QSO を書き出す</translation>
     </message>
     <message>
+        <source>LoTW</source>
+        <translation>LoTW</translation>
+    </message>
+    <message>
+        <source>card only</source>
+        <translation>カードのみ</translation>
+    </message>
+    <message>
         <source>ADIF files (*.adi)</source>
         <translation>ADIF ファイル (*.adi)</translation>
     </message>
@@ -3085,10 +3101,6 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>タグ: %1 ✕</translation>
-    </message>
-    <message>
-        <source>LoTW / card confirmed</source>
-        <translation>LoTW / カードで確認済み</translation>
     </message>
     <message>
         <source>eQSL / QRZ only</source>
@@ -6024,10 +6036,6 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>Decodium の色</translation>
     </message>
     <message>
-        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
-        <translation>各 QSO は、もたらした最初のカテゴリーをこの順で受け取ります：新 DXCC は新ゾーンより、新ゾーンは新グリッドより優先されます。1 つ目のスイッチで文字、2 つ目で行の背景に色を付けます。</translation>
-    </message>
-    <message>
         <source>%1 · connected</source>
         <translation>%1 · つながっています</translation>
     </message>
@@ -6740,6 +6748,10 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
         <translation>毎週 Club Log から。新しい QSO はその日付のエンティティになります。確認ではログと日付を比べ、空だったか今日の cty.csv が入れた DXCC だけを修正します。LoTW やあなたが書いたものはそのままです。</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first switched-on category that applies, in this order: a new DXCC wins over a new zone, a new zone over a new grid; then the confirmation (LoTW before the card, the card before eQSL); then B4. The first check colors the text, the second the background of the row.</source>
+        <translation>各 QSO には、当てはまるオンのカテゴリーのうち最初のものが付きます。順序は、新しい DXCC エンティティ → 新しいゾーン → 新しいロケーター、その次に確認（LoTW がカードより、カードが eQSL より優先）、最後に B4 です。1 つ目のスイッチは文字、2 つ目は行の背景に色を付けます。</translation>
     </message>
     <message>
         <source>Forward to other programs</source>

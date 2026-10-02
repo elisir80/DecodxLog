@@ -2740,6 +2740,14 @@ Right click: change it</source>
         <translation>Подтверждено в LoTW</translation>
     </message>
     <message>
+        <source>Confirmed by card (no LoTW)</source>
+        <translation>Подтверждено карточкой (без LoTW)</translation>
+    </message>
+    <message>
+        <source>Confirmed only on eQSL / QRZ</source>
+        <translation>Подтверждено только в eQSL / QRZ</translation>
+    </message>
+    <message>
         <source>B4 (Worked)</source>
         <translation>B4 (Проведено)</translation>
     </message>
@@ -3001,6 +3009,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Экспортировать показанные QSO</translation>
     </message>
     <message>
+        <source>LoTW</source>
+        <translation>LoTW</translation>
+    </message>
+    <message>
+        <source>card only</source>
+        <translation>только карточка</translation>
+    </message>
+    <message>
         <source>ADIF files (*.adi)</source>
         <translation>Файлы ADIF (*.adi)</translation>
     </message>
@@ -3103,10 +3119,6 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>Метка: %1 ✕</translation>
-    </message>
-    <message>
-        <source>LoTW / card confirmed</source>
-        <translation>подтверждено LoTW / карточкой</translation>
     </message>
     <message>
         <source>eQSL / QRZ only</source>
@@ -6066,10 +6078,6 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Цвета Decodium</translation>
     </message>
     <message>
-        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
-        <translation>Каждая связь получает первую категорию, которую принесла, в таком порядке: новая страна DXCC важнее новой зоны, новая зона важнее нового локатора. Первый переключатель окрашивает текст, второй — фон строки.</translation>
-    </message>
-    <message>
         <source>%1 · connected</source>
         <translation>%1 · подключён</translation>
     </message>
@@ -6784,6 +6792,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
         <translation>Каждую неделю от Club Log. Новые QSO получают территорию своей даты; проверка сравнивает журнал с датами и исправляет только DXCC, который был пуст или поставлен сегодняшним cty.csv — записанный LoTW или вами остаётся.</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first switched-on category that applies, in this order: a new DXCC wins over a new zone, a new zone over a new grid; then the confirmation (LoTW before the card, the card before eQSL); then B4. The first check colors the text, the second the background of the row.</source>
+        <translation>Каждый QSO получает первую включённую подходящую категорию в таком порядке: новая территория DXCC важнее новой зоны, новая зона важнее нового локатора; затем подтверждение (LoTW раньше карточки, карточка раньше eQSL); затем B4. Первый переключатель окрашивает текст, второй — фон строки.</translation>
     </message>
     <message>
         <source>Forward to other programs</source>

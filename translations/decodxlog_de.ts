@@ -2731,6 +2731,14 @@ Rechtsklick: ändern</translation>
         <translation>Auf LoTW bestätigt</translation>
     </message>
     <message>
+        <source>Confirmed by card (no LoTW)</source>
+        <translation>Per Karte bestätigt (ohne LoTW)</translation>
+    </message>
+    <message>
+        <source>Confirmed only on eQSL / QRZ</source>
+        <translation>Nur auf eQSL / QRZ bestätigt</translation>
+    </message>
+    <message>
         <source>B4 (Worked)</source>
         <translation>B4 (gearbeitet)</translation>
     </message>
@@ -2992,6 +3000,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Die gezeigten QSO exportieren</translation>
     </message>
     <message>
+        <source>LoTW</source>
+        <translation>LoTW</translation>
+    </message>
+    <message>
+        <source>card only</source>
+        <translation>nur Karte</translation>
+    </message>
+    <message>
         <source>ADIF files (*.adi)</source>
         <translation>ADIF-Dateien (*.adi)</translation>
     </message>
@@ -3094,10 +3110,6 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Tag: %1 ✕</source>
         <translation>Etikett: %1 ✕</translation>
-    </message>
-    <message>
-        <source>LoTW / card confirmed</source>
-        <translation>LoTW / Karte bestätigt</translation>
     </message>
     <message>
         <source>eQSL / QRZ only</source>
@@ -6045,10 +6057,6 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Decodium-Farben</translation>
     </message>
     <message>
-        <source>Each QSO takes the first category it brought, in this order: a new DXCC wins over a new zone, a new zone over a new grid. The first check colors the text, the second the background of the row.</source>
-        <translation>Jedes QSO bekommt die erste Kategorie, die es gebracht hat, in dieser Reihenfolge: ein neues DXCC schlägt eine neue Zone, eine neue Zone ein neues Locatorfeld. Der erste Schalter färbt den Text, der zweite den Hintergrund der Zeile.</translation>
-    </message>
-    <message>
         <source>%1 · connected</source>
         <translation>%1 · verbunden</translation>
     </message>
@@ -6762,6 +6770,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Every week from Club Log. New QSOs get the entity of their date; the check compares the log with the dates and corrects only the DXCC that was empty or set by today&apos;s cty.csv — the one written by LoTW or by you stays.</source>
         <translation>Jede Woche von Club Log. Neue QSOs bekommen das Gebiet ihres Datums; die Prüfung vergleicht das Log mit den Daten und korrigiert nur das DXCC, das leer war oder von der heutigen cty.csv gesetzt wurde — das von LoTW oder von dir geschriebene bleibt.</translation>
+    </message>
+    <message>
+        <source>Each QSO takes the first switched-on category that applies, in this order: a new DXCC wins over a new zone, a new zone over a new grid; then the confirmation (LoTW before the card, the card before eQSL); then B4. The first check colors the text, the second the background of the row.</source>
+        <translation>Jedes QSO erhält die erste eingeschaltete Kategorie, die zutrifft, in dieser Reihenfolge: ein neues DXCC-Gebiet vor einer neuen Zone, eine neue Zone vor einem neuen Locator; dann die Bestätigung (LoTW vor der Karte, die Karte vor eQSL); dann B4. Der erste Schalter färbt den Text, der zweite den Zeilenhintergrund.</translation>
     </message>
     <message>
         <source>Forward to other programs</source>

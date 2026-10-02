@@ -598,8 +598,11 @@ GlassPanel {
     }
 
     // I colori della conferma: gli stessi nella riga e nella legenda.
+    // 4 LoTW (con o senza cartolina), 3 solo cartolina, 2 solo eQSL/QRZ,
+    // 1 cartolina partita e non tornata.
     function qslTintColor(state) {
-        return state === 3 ? Qt.rgba(0.20, 0.78, 0.25, 0.26)
+        return state === 4 ? Qt.rgba(0.20, 0.78, 0.25, 0.26)
+             : state === 3 ? Qt.rgba(0.31, 0.62, 0.97, 0.26)
              : state === 2 ? Qt.rgba(0.95, 0.80, 0.10, 0.24)
              : state === 1 ? Qt.rgba(1.00, 0.55, 0.00, 0.22)
              : "transparent"
@@ -1326,7 +1329,8 @@ GlassPanel {
                         spacing: 10
                         height: 22
                         Repeater {
-                            model: [{ state: 3, text: qsTr("LoTW / card confirmed") },
+                            model: [{ state: 4, text: qsTr("LoTW") },
+                                    { state: 3, text: qsTr("card only") },
                                     { state: 2, text: qsTr("eQSL / QRZ only") },
                                     { state: 1, text: qsTr("card sent, not back") }]
                             Row {

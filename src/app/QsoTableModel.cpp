@@ -322,7 +322,8 @@ QString baseCallSql()
 // piu' di quante ne mostri qualunque schermo.
 constexpr int kPage = 200;
 constexpr int kPagesKept = 50;
-constexpr quint8 kNoCategory = 255;
+// Non ancora contato (la conta gira su un altro filo).
+constexpr quint16 kNoCategory = 0xFFFF;
 
 } // namespace
 
@@ -410,8 +411,11 @@ QVariant QsoTableModel::data(const QModelIndex& index, int role) const
     case IsNewRole:
         return id == m_freshId;
     case CategoryRole: {
-        const quint8 c = m_category.value(id, kNoCategory);
-        return c < categoryKeys().size() ? categoryKeys().at(c) : QString();
+        const quint16 firsts = m_category.value(id, kNoCategory);
+        if (firsts == kNoCategory)
+            return QString();
+        const Row* row = rowAt(index.row());
+        return categoryFor(firsts, row ? row->qsl : quint8(QslNone));
     }
     case Qt::DisplayRole: {
         const Row* row = rowAt(index.row());
@@ -737,27 +741,61 @@ QStringList QsoTableModel::categoryKeys()
         QStringLiteral("colorNewItuZone"), QStringLiteral("colorNewItuZoneBand"),
         QStringLiteral("colorNewGrid"), QStringLiteral("colorNewGridBand"),
         QStringLiteral("colorNewCall"), QStringLiteral("colorNewCallBand"),
-        QStringLiteral("colorLotwConfirmed"), QStringLiteral("colorB4")};
+        QStringLiteral("colorLotwConfirmed"), QStringLiteral("colorCardConfirmed"),
+        QStringLiteral("colorEqslConfirmed"), QStringLiteral("colorB4")};
     return keys;
+}
+
+void QsoTableModel::setActiveCategories(const QStringList& keys)
+{
+    const QSet<QString> next(keys.cbegin(), keys.cend());
+    if (m_activeChosen && next == m_activeCategories)
+        return;
+    m_activeCategories = next;
+    m_activeChosen = true;
+    if (rowCount() > 0)
+        emit dataChanged(index(0, 0), index(rowCount() - 1, columns() - 1), {CategoryRole});
+}
+
+QString QsoTableModel::categoryFor(quint16 firsts, quint8 qsl) const
+{
+    const QStringList& keys = categoryKeys();
+    auto active = [this](const QString& key) { return !m_activeChosen || m_activeCategories.contains(key); };
+    // Prima le cose nuove, nell'ordine di importanza; poi la conferma, LoTW
+    // prima della cartolina e la cartolina prima di eQSL; poi il gia' lavorato.
+    // Una categoria col colore spento si salta: prima la riga restava della
+    // prima che le spettava anche spenta, e "Confermato su LoTW" non si vedeva
+    // quasi mai (quasi ogni QSO e' un nominativo nuovo sulla banda).
+    for (int i = 0; i < 12; ++i) {
+        if ((firsts & (1u << i)) && active(keys.at(i)))
+            return keys.at(i);
+    }
+    const QString confirmed = qsl == QslLotwConfirmed ? keys.at(12)
+                            : qsl == QslCardConfirmed ? keys.at(13)
+                            : qsl == QslOtherConfirmed ? keys.at(14)
+                                                       : QString();
+    if (!confirmed.isEmpty() && active(confirmed))
+        return confirmed;
+    if (firsts == 0 && active(keys.at(15)))
+        return keys.at(15);
+    return {};
 }
 
 namespace {
 
-// Una categoria per QSO, in un giro solo del log in ordine di tempo: il primo
-// che porta una cosa mai vista (entita', entita' sulla banda, continente…) la
-// prende. Le chiavi "gia' viste" si tengono come impronte a 64 bit, non come
-// testo: su un milione di QSO sono trenta megabyte invece di centocinquanta.
-QString categoryFrom(const QSqlQuery& q)
+// Le cose nuove di ogni QSO, in un giro solo del log in ordine di tempo: una
+// cosa mai vista (entita', entita' sulla banda, continente…) e' un bit. Le
+// chiavi "gia' viste" si tengono come impronte a 64 bit, non come testo: su
+// un milione di QSO sono trenta megabyte invece di centocinquanta.
+quint16 categoryFrom(const QSqlQuery& q)
 {
-    const QStringList keys = QsoTableModel::categoryKeys();
-    // Le colonne 1..12 sono i "primi"; 13 la conferma LoTW; niente = gia' lavorato.
+    // Le colonne 1..12 sono i "primi"; nessuno = gia' lavorato.
+    quint16 firsts = 0;
     for (int i = 0; i < 12; ++i) {
         if (!q.value(1 + i).isNull() && q.value(1 + i).toLongLong() == 1)
-            return keys.at(i);
+            firsts |= quint16(1u << i);
     }
-    if (q.value(13).toBool())
-        return keys.at(12);
-    return keys.at(13);
+    return firsts;
 }
 
 // Le dodici chiavi di un QSO: entita', continente, zone, locatore e
@@ -798,13 +836,6 @@ std::array<quint64, 12> categoryParts(int dxcc, const QString& band, const QStri
 QsoTableModel::CategoryPass countCategories(const QSqlDatabase& db)
 {
     QsoTableModel::CategoryPass pass;
-    QSet<qint64> lotw;
-    QSqlQuery l(db);
-    l.setForwardOnly(true);
-    if (l.exec(QStringLiteral("SELECT qso_id FROM qsl_status WHERE service = 'lotw' AND rcvd = 'Y'"))) {
-        while (l.next())
-            lotw.insert(l.value(0).toLongLong());
-    }
 
     // Il log si legge in ordine di tabella, che e' la lettura veloce, e si
     // mette in ordine di tempo qui: leggerlo gia' in ordine di tempo vuol dire
@@ -834,17 +865,14 @@ QsoTableModel::CategoryPass countCategories(const QSqlDatabase& db)
     });
     pass.category.reserve(items.size());
     for (const Item& it : std::as_const(items)) {
-        quint8 category = 255;
+        quint16 firsts = 0;
         for (int i = 0; i < 12; ++i) {
             if (!it.parts[i] || pass.seen[i].contains(it.parts[i]))
                 continue;
             pass.seen[i].insert(it.parts[i]);
-            if (category == 255)
-                category = static_cast<quint8>(i);
+            firsts |= quint16(1u << i);
         }
-        if (category == 255)
-            category = lotw.contains(it.id) ? 12 : 13;
-        pass.category.insert(it.id, category);
+        pass.category.insert(it.id, firsts);
         pass.lastOn = it.on;
         pass.lastId = it.id;
     }
@@ -909,10 +937,8 @@ void QsoTableModel::computeCategories()
                 self->adoptCategories(std::move(pass));
                 // I QSO arrivati mentre si contava: adesso si sa cosa hanno portato.
                 const QList<qint64> later = std::exchange(self->m_categoryLater, {});
-                for (qint64 id : later) {
-                    const qsizetype c = categoryKeys().indexOf(self->categoryOf(id));
-                    self->m_category.insert(id, c >= 0 ? static_cast<quint8>(c) : kNoCategory);
-                }
+                for (qint64 id : later)
+                    self->m_category.insert(id, self->categoryOf(id));
                 if (self->rowCount() > 0)
                     emit self->dataChanged(self->index(0, 0), self->index(self->rowCount() - 1, self->columns() - 1),
                                            {CategoryRole});
@@ -921,14 +947,14 @@ void QsoTableModel::computeCategories()
     });
 }
 
-QString QsoTableModel::categoryOf(qint64 id) const
+quint16 QsoTableModel::categoryOf(qint64 id) const
 {
     if (!m_db || !m_db->isOpen())
-        return {};
+        return kNoCategory;
     // La conta di tutto il log sta ancora girando: il QSO si guarda quando finisce.
     if (m_categoryRunning) {
         m_categoryLater << id;
-        return {};
+        return kNoCategory;
     }
     // Il QSO appena fatto e' quasi sempre il piu' recente: allora basta
     // guardare cosa si e' gia' visto, senza contare di nuovo il log (le zone e
@@ -937,31 +963,26 @@ QString QsoTableModel::categoryOf(qint64 id) const
     if (m_seenValid) {
         QSqlQuery one(m_db->connection());
         one.prepare(QStringLiteral("SELECT IFNULL(dxcc, 0), band, IFNULL(cont, ''), IFNULL(cqz, 0), IFNULL(ituz, 0), "
-                                   "UPPER(SUBSTR(IFNULL(gridsquare, ''), 1, 4)), call, qso_datetime_on, "
-                                   "EXISTS (SELECT 1 FROM qsl_status s WHERE s.qso_id = qso.id AND s.service = 'lotw' "
-                                   "AND s.rcvd = 'Y') FROM qso WHERE id = ?"));
+                                   "UPPER(SUBSTR(IFNULL(gridsquare, ''), 1, 4)), call, qso_datetime_on "
+                                   "FROM qso WHERE id = ?"));
         one.addBindValue(id);
         if (one.exec() && one.next()) {
             const QString on = one.value(7).toString();
             if (on > m_seenLastOn || (on == m_seenLastOn && id > m_seenLastId)) {
-                const QStringList keys = categoryKeys();
                 const std::array<quint64, 12> parts =
                     categoryParts(one.value(0).toInt(), one.value(1).toString(), one.value(2).toString(),
                                   one.value(3).toInt(), one.value(4).toInt(), one.value(5).toString(),
                                   one.value(6).toString());
-                QString category;
+                quint16 firsts = 0;
                 for (int i = 0; i < 12; ++i) {
                     if (!parts[i] || m_seen[i].contains(parts[i]))
                         continue;
                     m_seen[i].insert(parts[i]);
-                    if (category.isEmpty())
-                        category = keys.at(i);
+                    firsts |= quint16(1u << i);
                 }
                 m_seenLastOn = on;
                 m_seenLastId = id;
-                if (category.isEmpty())
-                    category = one.value(8).toBool() ? keys.at(12) : keys.at(13);
-                return category;
+                return firsts;
             }
         }
     }
@@ -994,12 +1015,10 @@ QString QsoTableModel::categoryOf(qint64 id) const
         before("1|o.call = t.call"),
         before("1|o.call = t.call AND o.band = t.band"),
     };
-    q.prepare(QStringLiteral("SELECT t.id, %1, EXISTS (SELECT 1 FROM qsl_status s WHERE s.qso_id = t.id "
-                             "AND s.service = 'lotw' AND s.rcvd = 'Y') FROM qso t WHERE t.id = ?")
-                  .arg(parts.join(QStringLiteral(", "))));
+    q.prepare(QStringLiteral("SELECT t.id, %1 FROM qso t WHERE t.id = ?").arg(parts.join(QStringLiteral(", "))));
     q.addBindValue(id);
     if (!q.exec() || !q.next())
-        return {};
+        return kNoCategory;
     return categoryFrom(q);
 }
 
@@ -1022,21 +1041,24 @@ QString QsoTableModel::selectSql(const QString& where) const
 quint8 QsoTableModel::qslStateFrom(const QString& summary)
 {
     // "servizio:inviata:ricevuta" per ogni servizio, separati da virgole.
-    bool confirmed = false, other = false, cardSent = false;
+    bool lotw = false, card = false, other = false, cardSent = false;
     for (const QString& item : summary.split(QLatin1Char(','), Qt::SkipEmptyParts)) {
         const QStringList parts = item.split(QLatin1Char(':'));
         if (parts.size() != 3)
             continue;
         const QString& service = parts.at(0);
         const bool rcvd = parts.at(2) == QLatin1String("Y") || parts.at(2) == QLatin1String("V");
-        if (rcvd && (service == QLatin1String("lotw") || service == QLatin1String("card")))
-            confirmed = true;
+        if (rcvd && service == QLatin1String("lotw"))
+            lotw = true;
+        else if (rcvd && service == QLatin1String("card"))
+            card = true;
         else if (rcvd && (service == QLatin1String("eqsl") || service == QLatin1String("qrz")))
             other = true;
         else if (service == QLatin1String("card") && parts.at(1) == QLatin1String("Y"))
             cardSent = true;
     }
-    return confirmed ? QslConfirmed : other ? QslOtherConfirmed : cardSent ? QslCardSent : QslNone;
+    return lotw ? QslLotwConfirmed : card ? QslCardConfirmed : other ? QslOtherConfirmed
+         : cardSent ? QslCardSent : QslNone;
 }
 
 QsoTableModel::Row QsoTableModel::rowFromQuery(const QSqlQuery& q) const
@@ -1309,8 +1331,7 @@ void QsoTableModel::refreshQso(qint64 id)
     // Si rilegge la sua pagina quando serve; la categoria subito.
     m_pages.remove(row / kPage);
     m_pageUse.removeOne(row / kPage);
-    const qsizetype category = categoryKeys().indexOf(categoryOf(id));
-    m_category.insert(id, category >= 0 ? static_cast<quint8>(category) : kNoCategory);
+    m_category.insert(id, categoryOf(id));
     emit dataChanged(index(row, 0), index(row, columns() - 1));
 }
 
@@ -1354,8 +1375,7 @@ void QsoTableModel::insertQso(qint64 id)
             hi = mid;
     }
     const int pos = lo;
-    const qsizetype category = categoryKeys().indexOf(categoryOf(id));
-    m_category.insert(id, category >= 0 ? static_cast<quint8>(category) : kNoCategory);
+    m_category.insert(id, categoryOf(id));
 
     // Evidenziata solo l'ultima arrivata: la riga di prima torna normale.
     const int oldFresh = m_freshId > 0 ? rowForId(m_freshId) : -1;
