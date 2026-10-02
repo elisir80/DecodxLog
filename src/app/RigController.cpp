@@ -64,6 +64,13 @@ RigController::RigController(Context context, QObject* parent)
     m_serialPort = s.value(QStringLiteral("rig/serialPort")).toString();
     m_rigModel = s.value(QStringLiteral("rig/model"), 0).toInt();
     m_baud = s.value(QStringLiteral("rig/baud"), 38400).toInt();
+    m_dataBits = s.value(QStringLiteral("rig/dataBits"), m_dataBits).toString();
+    m_stopBits = s.value(QStringLiteral("rig/stopBits"), m_stopBits).toString();
+    m_parity = s.value(QStringLiteral("rig/parity"), m_parity).toString();
+    m_handshake = s.value(QStringLiteral("rig/handshake"), m_handshake).toString();
+    m_dtrState = s.value(QStringLiteral("rig/dtrState"), m_dtrState).toString();
+    m_rtsState = s.value(QStringLiteral("rig/rtsState"), m_rtsState).toString();
+    m_civAddress = s.value(QStringLiteral("rig/civAddress")).toString().trimmed();
     m_pttType = s.value(QStringLiteral("rig/pttType"), QStringLiteral("RIG")).toString();
     m_keyerPort = s.value(QStringLiteral("rig/keyerPort")).toString();
     m_keyerLine = s.value(QStringLiteral("rig/keyerLine"), QStringLiteral("DTR")).toString();
@@ -495,18 +502,11 @@ void RigController::startLocalRigctld()
     m_host = QStringLiteral("127.0.0.1");
     m_port = chosen;
     m_rigctld = std::make_unique<QProcess>();
-    QStringList arguments{QStringLiteral("-m"), QString::number(m_rigModel),
-                          QStringLiteral("-r"), m_serialPort,
-                          QStringLiteral("-s"), QString::number(m_baud),
-                          QStringLiteral("-T"), QStringLiteral("127.0.0.1"),
-                          QStringLiteral("-t"), QString::number(chosen)};
-    // Il PTT su un'altra porta: e' il caso di tante stazioni, dove il CAT sta
-    // su una COM e il PTT alza RTS o DTR sull'altra.
-    if (m_pttType != QLatin1String("RIG") && !m_pttType.isEmpty()) {
-        arguments << QStringLiteral("-P") << m_pttType;
-        if (!m_pttPort.isEmpty())
-            arguments << QStringLiteral("-p") << m_pttPort;
-    }
+    // L'app puo' avviare la radio prima che la pagina Impostazioni sia stata
+    // aperta: in quel caso scopriamo qui le capacita', prima di costruire la
+    // riga di comando, non solo quando la UI le deve visualizzare.
+    refreshSerialCapabilities();
+    const QStringList arguments = localRigctldArguments(m_serialPort, m_baud, chosen);
     m_rigctld->setProcessChannelMode(QProcess::MergedChannels);
     connect(m_rigctld.get(), &QProcess::readyReadStandardOutput, this, [this] {
         const QString text = QString::fromUtf8(m_rigctld->readAll());
@@ -670,7 +670,9 @@ void RigController::setRigModel(int model)
     if (model == m_rigModel)
         return;
     m_rigModel = model;
+    m_capabilitiesForModel = 0;
     QSettings().setValue(QStringLiteral("rig/model"), model);
+    refreshSerialCapabilities();
     emit changed();
 }
 
@@ -681,6 +683,125 @@ void RigController::setBaud(int baud)
     m_baud = baud;
     QSettings().setValue(QStringLiteral("rig/baud"), baud);
     emit changed();
+}
+
+bool RigController::supportsSerialParameter(const QString& name) const
+{
+    return m_serialCapabilities.contains(name);
+}
+
+void RigController::refreshSerialCapabilities()
+{
+    if (m_rigModel <= 0) {
+        if (!m_serialCapabilities.isEmpty()) {
+            m_serialCapabilities.clear();
+            m_capabilitiesForModel = 0;
+            emit serialCapabilitiesChanged();
+        }
+        return;
+    }
+    if (m_capabilitiesForModel == m_rigModel)
+        return;
+
+    QStringList capabilities;
+    const QString exe = core::qsl::findRigctld();
+    if (!exe.isEmpty()) {
+        QProcess list;
+        list.start(exe, {QStringLiteral("-m"), QString::number(m_rigModel), QStringLiteral("-L")});
+        if (list.waitForFinished(4000)) {
+            for (const QString& line : QString::fromUtf8(list.readAllStandardOutput()).split(QLatin1Char('\n'))) {
+                const int colon = line.indexOf(QLatin1Char(':'));
+                const QString name = line.left(colon).trimmed();
+                if (colon > 0 && name.contains(QRegularExpression(QStringLiteral("^[a-z_]+$"))))
+                    capabilities << name;
+            }
+        }
+    }
+    capabilities.removeDuplicates();
+    m_capabilitiesForModel = m_rigModel;
+    if (m_serialCapabilities == capabilities)
+        return;
+    m_serialCapabilities = capabilities;
+    emit serialCapabilitiesChanged();
+}
+
+QStringList RigController::localRigctldArguments(const QString& port, int baud, quint16 tcpPort) const
+{
+    QStringList arguments{QStringLiteral("-m"), QString::number(m_rigModel),
+                          QStringLiteral("-r"), port,
+                          QStringLiteral("-s"), QString::number(baud),
+                          QStringLiteral("-T"), QStringLiteral("127.0.0.1"),
+                          QStringLiteral("-t"), QString::number(tcpPort)};
+    auto addConfiguration = [&arguments, this](const QString& name, const QString& value,
+                                                const QString& defaultValue = QString()) {
+        if (supportsSerialParameter(name) && !value.isEmpty() && value != defaultValue)
+            arguments << QStringLiteral("-C") << (name + QLatin1Char('=') + value);
+    };
+    addConfiguration(QStringLiteral("data_bits"), m_dataBits, QStringLiteral("Default"));
+    addConfiguration(QStringLiteral("stop_bits"), m_stopBits, QStringLiteral("Default"));
+    addConfiguration(QStringLiteral("serial_parity"), m_parity, QStringLiteral("Default"));
+    addConfiguration(QStringLiteral("serial_handshake"), m_handshake, QStringLiteral("Default"));
+    addConfiguration(QStringLiteral("dtr_state"), m_dtrState, QStringLiteral("Unset"));
+    addConfiguration(QStringLiteral("rts_state"), m_rtsState, QStringLiteral("Unset"));
+    if (supportsSerialParameter(QStringLiteral("civaddr")) && !m_civAddress.isEmpty())
+        arguments << QStringLiteral("-c") << m_civAddress;
+    // Il PTT su un'altra porta: e' il caso di tante stazioni, dove il CAT sta
+    // su una COM e il PTT alza RTS o DTR sull'altra.
+    if (m_pttType != QLatin1String("RIG") && !m_pttType.isEmpty()) {
+        arguments << QStringLiteral("-P") << m_pttType;
+        if (!m_pttPort.isEmpty())
+            arguments << QStringLiteral("-p") << m_pttPort;
+    }
+    return arguments;
+}
+
+void RigController::setDataBits(const QString& value)
+{
+    const QString clean = value == QLatin1String("7") || value == QLatin1String("8") ? value : QStringLiteral("Default");
+    if (clean == m_dataBits) return;
+    m_dataBits = clean; QSettings().setValue(QStringLiteral("rig/dataBits"), clean); emit changed();
+}
+
+void RigController::setStopBits(const QString& value)
+{
+    const QString clean = value == QLatin1String("1") || value == QLatin1String("2") ? value : QStringLiteral("Default");
+    if (clean == m_stopBits) return;
+    m_stopBits = clean; QSettings().setValue(QStringLiteral("rig/stopBits"), clean); emit changed();
+}
+
+void RigController::setParity(const QString& value)
+{
+    const QString clean = QStringList{QStringLiteral("None"), QStringLiteral("Odd"), QStringLiteral("Even"), QStringLiteral("Mark"), QStringLiteral("Space")}.contains(value) ? value : QStringLiteral("Default");
+    if (clean == m_parity) return;
+    m_parity = clean; QSettings().setValue(QStringLiteral("rig/parity"), clean); emit changed();
+}
+
+void RigController::setHandshake(const QString& value)
+{
+    const QString clean = QStringList{QStringLiteral("None"), QStringLiteral("XONXOFF"), QStringLiteral("Hardware")}.contains(value) ? value : QStringLiteral("Default");
+    if (clean == m_handshake) return;
+    m_handshake = clean; QSettings().setValue(QStringLiteral("rig/handshake"), clean); emit changed();
+}
+
+void RigController::setDtrState(const QString& value)
+{
+    const QString clean = QStringList{QStringLiteral("ON"), QStringLiteral("OFF")}.contains(value) ? value : QStringLiteral("Unset");
+    if (clean == m_dtrState) return;
+    m_dtrState = clean; QSettings().setValue(QStringLiteral("rig/dtrState"), clean); emit changed();
+}
+
+void RigController::setRtsState(const QString& value)
+{
+    const QString clean = QStringList{QStringLiteral("ON"), QStringLiteral("OFF")}.contains(value) ? value : QStringLiteral("Unset");
+    if (clean == m_rtsState) return;
+    m_rtsState = clean; QSettings().setValue(QStringLiteral("rig/rtsState"), clean); emit changed();
+}
+
+void RigController::setCivAddress(const QString& value)
+{
+    const QString clean = value.trimmed();
+    if (clean == m_civAddress) return;
+    m_civAddress = clean; QSettings().setValue(QStringLiteral("rig/civAddress"), clean); emit changed();
 }
 
 QVariantList RigController::rigModels()
