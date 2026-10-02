@@ -519,6 +519,10 @@ DecoLogController::DecoLogController(QObject* parent)
     connect(&m_recoveryTimer, &QTimer::timeout, this, &DecoLogController::checkDecodiumRecovery);
     connect(&m_lotw, &LotwClient::finished, this, &DecoLogController::onLotwReport);
     connect(&m_confirmDownloader, &ConfirmationDownloader::finished, this, &DecoLogController::onConfirmationReport);
+    connect(&m_eqslCards, &EqslCardFetcher::ready, this,
+            [this](const QString& key, const QString& file, const QString& error) {
+                emit eqslCardReady(key, file.isEmpty() ? QString() : QUrl::fromLocalFile(file).toString(), error);
+            });
     connect(&m_lotw, &LotwClient::progress, this, [this](qint64 bytes) {
         m_lotwStatus = tr("LoTW: downloading… %1 kB").arg(bytes / 1024);
         emit lotwChanged();
@@ -724,6 +728,11 @@ bool DecoLogController::openDatabase(const QString& path)
     }
     if (m_backupDir.isEmpty())
         m_backupDir = QDir(QFileInfo(path).absolutePath()).filePath(QStringLiteral("backup"));
+    if (ok) {
+        // L'ultimo riepilogo delle conferme scaricate: si riapre anche domani.
+        m_qslImport = QJsonDocument::fromJson(m_db.setting(QStringLiteral("qsl.import_summary")).toUtf8())
+                          .object().toVariantMap();
+    }
 
     // Giapponese e cinese senza i caratteri giusti: la finestra si riempie di
     // quadratini e sembra rotto il programma. Non lo e': mancano i caratteri.
@@ -4243,7 +4252,9 @@ void DecoLogController::onLotwReport(const lotw::Report& report)
     const QSet<QString> dxccBefore = confirmedAwardKeys(QStringLiteral("dxcc"));
     const QSet<QString> ft2Before = confirmedAwardKeys(QStringLiteral("ft2"));
 
-    const ConfirmTally tally = applyConfirmations(QStringLiteral("lotw"), report.confirmations);
+    const ConfirmTally tally = applyConfirmations(QStringLiteral("lotw"), report.confirmations, {}, {},
+                                                  QStringLiteral("LoTW"));
+    recordQslImport(QStringLiteral("LoTW"), QStringLiteral("lotw"), tally, !automatic);
     const int confirmed = tally.confirmed;
     const int already = tally.already;
     const int notFound = tally.notFound;
@@ -4274,30 +4285,191 @@ void DecoLogController::onLotwReport(const lotw::Report& report)
 DecoLogController::ConfirmTally DecoLogController::applyConfirmations(const QString& service,
                                                                       const QList<AdifRecord>& list,
                                                                       const QList<qint64>& onlyProfiles,
-                                                                      const QList<qint64>& exceptProfiles)
+                                                                      const QList<qint64>& exceptProfiles,
+                                                                      const QString& label, const QString& account)
 {
     ConfirmTally t;
     QSqlDatabase db = m_db.connection();
+    // Le entita' gia' confermate (LoTW o cartolina) prima di questo scarico:
+    // una conferma nuova di un'entita' fuori da qui e' un DXCC nuovo.
+    const bool countsForDxcc = service == QLatin1String("lotw") || service == QLatin1String("card");
+    QSet<int> dxccBefore;
+    if (countsForDxcc) {
+        QSqlQuery q(db);
+        if (q.exec(QStringLiteral("SELECT DISTINCT qso.dxcc FROM qso JOIN qsl_status s ON s.qso_id = qso.id "
+                                  "WHERE qso.deleted = 0 AND qso.dxcc > 0 AND s.rcvd = 'Y' "
+                                  "AND s.service IN ('lotw', 'card')"))) {
+            while (q.next())
+                dxccBefore.insert(q.value(0).toInt());
+        }
+    }
+    QSet<int> dxccNow = dxccBefore;
+    QSqlQuery one(db);
+    one.prepare(QStringLiteral("SELECT IFNULL(dxcc, 0), IFNULL(country, '') FROM qso WHERE id = ?"));
+    QSqlQuery known(db);
+    known.prepare(QStringLiteral("SELECT COUNT(*) FROM qso WHERE deleted = 0 AND call = ?"));
+    // Le righe del riepilogo: tante, ma non infinite (il primo scarico di
+    // tutto LoTW sono decine di migliaia di conferme).
+    constexpr int kRows = 20000;
+    auto row = [&](const AdifRecord& c, const QString& kind, const QString& reason, qint64 id) {
+        if (t.rows.size() >= kRows)
+            return QVariantMap{};
+        const QString iso = LogDatabase::isoFromAdif(c.value(QStringLiteral("QSO_DATE")), c.value(QStringLiteral("TIME_ON")));
+        const QDateTime on = QDateTime::fromString(iso, Qt::ISODate);
+        QString station = c.value(QStringLiteral("STATION_CALLSIGN")).trimmed().toUpper();
+        if (station.isEmpty())
+            station = c.value(QStringLiteral("OWNCALL")).trimmed().toUpper();
+        QString mode = c.value(QStringLiteral("SUBMODE")).trimmed().toUpper();
+        if (mode.isEmpty())
+            mode = c.value(QStringLiteral("MODE")).trimmed().toUpper();
+        return QVariantMap{
+            {QStringLiteral("label"), label.isEmpty() ? service : label},
+            {QStringLiteral("service"), service},
+            {QStringLiteral("account"), account},
+            {QStringLiteral("kind"), kind},
+            {QStringLiteral("on"), iso},
+            {QStringLiteral("utc"), on.isValid() ? on.toUTC().toString(dates::shortFormat() + QStringLiteral(" HH:mm"))
+                                                 : QString()},
+            {QStringLiteral("call"), c.value(QStringLiteral("CALL")).trimmed().toUpper()},
+            {QStringLiteral("band"), c.value(QStringLiteral("BAND")).trimmed().toLower()},
+            {QStringLiteral("mode"), mode},
+            // Il modo come lo scrive il servizio: eQSL lo vuole identico per la cartolina.
+            {QStringLiteral("rawMode"), c.value(QStringLiteral("MODE")).trimmed().toUpper()},
+            {QStringLiteral("station"), station},
+            {QStringLiteral("reason"), reason},
+            {QStringLiteral("qsoId"), id},
+        };
+    };
     const bool transaction = db.transaction();
     for (const AdifRecord& c : list) {
         const ConfirmationResult r = m_db.applyConfirmation(service, c, 1800, onlyProfiles, exceptProfiles);
         switch (r.status) {
-        case ConfirmationResult::Status::Confirmed:        ++t.confirmed; break;
+        case ConfirmationResult::Status::Confirmed: {
+            ++t.confirmed;
+            QVariantMap m = row(c, QStringLiteral("new"), QString(), r.id);
+            if (m.isEmpty())
+                break;
+            one.bindValue(0, r.id);
+            if (one.exec() && one.next()) {
+                const int dxcc = one.value(0).toInt();
+                m.insert(QStringLiteral("dxcc"), dxcc);
+                const QString name = dxcc > 0 ? m_countries.nameFor(dxcc) : QString();
+                m.insert(QStringLiteral("country"), name.isEmpty() ? one.value(1).toString() : name);
+                if (countsForDxcc && dxcc > 0 && !dxccNow.contains(dxcc)) {
+                    m.insert(QStringLiteral("newDxcc"), true);
+                    dxccNow.insert(dxcc);
+                }
+            }
+            t.rows << m;
+            break;
+        }
         case ConfirmationResult::Status::AlreadyConfirmed: ++t.already; break;
-        case ConfirmationResult::Status::NotFound:
+        case ConfirmationResult::Status::NotFound: {
             ++t.notFound;
             if (t.missing.size() < 10)
                 t.missing << r.message;
+            // Perche' non si trova: il nominativo non c'e' proprio, o c'e' ma
+            // non a quell'ora su quella banda e con quel modo.
+            known.bindValue(0, c.value(QStringLiteral("CALL")).trimmed().toUpper());
+            const bool callKnown = known.exec() && known.next() && known.value(0).toInt() > 0;
+            const QVariantMap m = row(c, QStringLiteral("notfound"),
+                                      callKnown ? tr("no QSO with this call within 30 minutes on this band and mode")
+                                                : tr("this call is not in the log"),
+                                      0);
+            if (!m.isEmpty())
+                t.rows << m;
             break;
+        }
         case ConfirmationResult::Status::Invalid:
-        case ConfirmationResult::Status::Error:
+        case ConfirmationResult::Status::Error: {
             ++t.invalid;
+            const QVariantMap m = row(c, QStringLiteral("invalid"),
+                                      r.message.isEmpty() ? tr("call, band or date missing") : r.message, 0);
+            if (!m.isEmpty())
+                t.rows << m;
             break;
+        }
         }
     }
     if (transaction)
         db.commit();
     return t;
+}
+
+void DecoLogController::recordQslImport(const QString& label, const QString& service, const ConfirmTally& t,
+                                        bool manual)
+{
+    QVariantList runs;
+    for (const QVariant& v : m_qslImport.value(QStringLiteral("runs")).toList()) {
+        if (v.toMap().value(QStringLiteral("label")).toString() != label)
+            runs << v;
+    }
+    runs << QVariantMap{{QStringLiteral("label"), label},
+                        {QStringLiteral("service"), service},
+                        {QStringLiteral("when"), QDateTime::currentDateTimeUtc().toString(Qt::ISODate)},
+                        {QStringLiteral("whenText"), QDateTime::currentDateTime().toString(dates::shortFormat() + QStringLiteral(" HH:mm"))},
+                        {QStringLiteral("confirmed"), t.confirmed},
+                        {QStringLiteral("already"), t.already},
+                        {QStringLiteral("notFound"), t.notFound},
+                        {QStringLiteral("invalid"), t.invalid}};
+    QVariantList rows;
+    for (const QVariant& v : m_qslImport.value(QStringLiteral("rows")).toList()) {
+        if (v.toMap().value(QStringLiteral("label")).toString() != label)
+            rows << v;
+    }
+    rows << t.rows;
+    m_qslImport = {{QStringLiteral("runs"), runs}, {QStringLiteral("rows"), rows}};
+    m_db.setSetting(QStringLiteral("qsl.import_summary"),
+                    QString::fromUtf8(QJsonDocument(QJsonObject::fromVariantMap(m_qslImport)).toJson(QJsonDocument::Compact)));
+    emit qslImportChanged();
+    if (manual && !t.rows.isEmpty())
+        emit qslImportReady();
+}
+
+void DecoLogController::clearQslImport()
+{
+    m_qslImport.clear();
+    m_db.setSetting(QStringLiteral("qsl.import_summary"), QString());
+    emit qslImportChanged();
+}
+
+QString DecoLogController::requestEqslCard(const QVariantMap& row)
+{
+    QString credential = row.value(QStringLiteral("account")).toString();
+    if (credential.isEmpty())
+        credential = QStringLiteral("eqsl");
+    EqslCardFetcher::Request r;
+    r.user = m_credentials->account(credential);
+    r.call = row.value(QStringLiteral("call")).toString();
+    r.on = QDateTime::fromString(row.value(QStringLiteral("on")).toString(), Qt::ISODate).toUTC();
+    r.band = row.value(QStringLiteral("band")).toString();
+    r.mode = row.value(QStringLiteral("rawMode")).toString();
+    if (r.mode.isEmpty())
+        r.mode = row.value(QStringLiteral("mode")).toString();
+    const QString key = EqslCardFetcher::keyOf(r);
+    if (r.user.isEmpty() || !m_credentials->hasSecret(credential)) {
+        QMetaObject::invokeMethod(this, [this, key] {
+            emit eqslCardReady(key, QString(), tr("eQSL: no account in Setup → QSL services"));
+        }, Qt::QueuedConnection);
+        return key;
+    }
+    m_eqslCards.setCacheDir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation)
+                            + QStringLiteral("/cache/eqsl"));
+    // Gia' scaricata: niente password, niente eQSL.
+    if (!m_eqslCards.cachedFile(key).isEmpty()) {
+        m_eqslCards.fetch(r);
+        return key;
+    }
+    m_credentials->readSecret(credential, [this, r](const QString& secret, const QString& error) {
+        if (secret.isEmpty()) {
+            emit eqslCardReady(EqslCardFetcher::keyOf(r), QString(), tr("eQSL: password not available (%1)").arg(error));
+            return;
+        }
+        EqslCardFetcher::Request with = r;
+        with.password = secret;
+        m_eqslCards.fetch(with);
+    });
+    return key;
 }
 
 void DecoLogController::confirmationsApplied(const QString& category, const QSet<QString>& dxccBefore,
@@ -4944,7 +5116,9 @@ void DecoLogController::onConfirmationReport(const confirmations::Report& report
     }
     const QSet<QString> dxccBefore = confirmedAwardKeys(QStringLiteral("dxcc"));
     const QSet<QString> ft2Before = confirmedAwardKeys(QStringLiteral("ft2"));
-    const ConfirmTally t = applyConfirmations(report.service, report.confirmations, a.only, a.except);
+    const ConfirmTally t = applyConfirmations(report.service, report.confirmations, a.only, a.except, a.label,
+                                              a.credential);
+    recordQslImport(a.label, report.service, t, !m_confirmAuto);
     m_db.setSetting(a.key + QStringLiteral(".last_sync_at"), QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
     m_confirmStatus = tr("%1: %2 new confirmations, %3 already marked, %4 not in the log")
                           .arg(a.label)

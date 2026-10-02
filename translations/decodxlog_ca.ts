@@ -709,6 +709,14 @@
         <translation>Confirmacions de %1</translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation>Resum d&apos;importació (%1 noves)</translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation>Resum d&apos;importació</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>QSL de paper (%1)</translation>
     </message>
@@ -4676,6 +4684,149 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
     <message>
         <source>QRZ: download stopped</source>
         <translation>QRZ: baixada aturada</translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation>nova</translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation>sense coincidència</translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation>error</translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation>%1 (%2): %3 noves, %4 ja marcades, %5 sense coincidència, %6 errors</translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation>nou DXCC</translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation>Resum d&apos;importació QSL</translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation>%1 files mostrades</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Banda</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Mode</translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation>El meu indicatiu</translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation>Servei</translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation>Resultat</translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation>DXCC / motiu</translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation>noves</translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation>ja marcades</translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation>errors</translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation>Encara no s&apos;ha baixat cap confirmació: fes servir LoTW, eQSL o QRZ a la pestanya QSL.</translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation>Tots els serveis</translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation>Noves confirmacions</translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation>Sense coincidència</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>Errors</translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation>Tot</translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation>només nous DXCC</translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation>Indicatiu o país…</translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation>Tria una fila</translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation>Aquí apareix la targeta eQSL d&apos;una fila.</translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation>Les confirmacions de %1 no tenen imatge de targeta. Doble clic obre el QSO.</translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation>Demanant la targeta a eQSL… (eQSL en vol com a màxim sis per minut: pot trigar uns segons)</translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation>Obre el QSO</translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation>Copia com a text</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>copiat</translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation>Buida el resum</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Tancar</translation>
     </message>
 </context>
 <context>
@@ -9303,6 +9454,26 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
     <message>
         <source>  %1 records without call, band or date</source>
         <translation>  %1 registres sense indicatiu, banda o data</translation>
+    </message>
+    <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation>cap QSO amb aquest indicatiu en 30 minuts en aquesta banda i mode</translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation>aquest indicatiu no és al log</translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation>falta indicatiu, banda o data</translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation>eQSL: cap compte a Configuració → Serveis QSL</translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
+        <translation>eQSL: contrasenya no disponible (%1)</translation>
     </message>
     <message>
         <source>New DXCC confirmed: %1</source>

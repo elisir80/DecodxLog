@@ -349,6 +349,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/CwMacroEditor.qml
     qml/DecoDXLog/CwMacroList.qml
     qml/DecoDXLog/StartupBadge.qml
+    qml/DecoDXLog/QslImportDialog.qml
     qml/DecoDXLog/DuplicatesDialog.qml
     qml/DecoDXLog/ColorSwatch.qml
     qml/DecoDXLog/ContestSubmitDialog.qml

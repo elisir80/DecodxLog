@@ -709,6 +709,14 @@
         <translation>%1-bevestigingen</translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation>Importoverzicht (%1 nieuw)</translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation>Importoverzicht</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Papieren QSL (%1)</translation>
     </message>
@@ -4676,6 +4684,149 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
     <message>
         <source>QRZ: download stopped</source>
         <translation>QRZ: ophalen gestopt</translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation>nieuw</translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation>geen match</translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation>fout</translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation>%1 (%2): %3 nieuw, %4 al gemarkeerd, %5 geen match, %6 fouten</translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation>nieuw DXCC</translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation>Overzicht QSL-import</translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation>%1 rijen getoond</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Band</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Modus</translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation>Mijn roepnaam</translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation>Dienst</translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation>Resultaat</translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation>DXCC / reden</translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation>nieuw</translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation>al gemarkeerd</translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation>fouten</translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation>Nog geen bevestigingen gedownload: gebruik LoTW, eQSL of QRZ op het tabblad QSL.</translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation>Alle diensten</translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation>Nieuwe bevestigingen</translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation>Geen match</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>Fouten</translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation>Alles</translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation>alleen nieuwe DXCC</translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation>Roepnaam of land…</translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation>Kies een rij</translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation>Hier verschijnt de eQSL-kaart van een rij.</translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation>%1-bevestigingen hebben geen kaartafbeelding. Dubbelklik opent de QSO.</translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation>Kaart opvragen bij eQSL… (eQSL wil er hoogstens zes per minuut: het kan een paar seconden duren)</translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation>QSO openen</translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation>Kopiëren als tekst</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>gekopieerd</translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation>Overzicht leegmaken</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Sluiten</translation>
     </message>
 </context>
 <context>
@@ -9303,6 +9454,26 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
     <message>
         <source>  %1 records without call, band or date</source>
         <translation>  %1 records zonder roepletters, band of datum</translation>
+    </message>
+    <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation>geen QSO met deze roepnaam binnen 30 minuten op deze band en mode</translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation>deze roepnaam staat niet in het log</translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation>roepnaam, band of datum ontbreekt</translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation>eQSL: geen account onder Instellingen → QSL-diensten</translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
+        <translation>eQSL: wachtwoord niet beschikbaar (%1)</translation>
     </message>
     <message>
         <source>New DXCC confirmed: %1</source>

@@ -713,6 +713,14 @@
         <translation>Подтверждения %1</translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation>Сводка импорта (%1 новых)</translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation>Сводка импорта</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Бумажные QSL (%1)</translation>
     </message>
@@ -4690,6 +4698,149 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>QRZ: download stopped</source>
         <translation>QRZ: загрузка остановлена</translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation>новое</translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation>без совпадения</translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation>ошибка</translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation>%1 (%2): %3 новых, %4 уже отмечено, %5 без совпадения, %6 ошибок</translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation>новый DXCC</translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation>Сводка импорта QSL</translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation>Показано строк: %1</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Диапазон</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Режим</translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation>Мой позывной</translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation>Служба</translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation>Результат</translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation>DXCC / причина</translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation>новых</translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation>уже отмечено</translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation>ошибок</translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation>Подтверждения ещё не загружались: используйте LoTW, eQSL или QRZ на вкладке QSL.</translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation>Все службы</translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation>Новые подтверждения</translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation>Без совпадения</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>Ошибки</translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation>Всё</translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation>только новые DXCC</translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation>Позывной или страна…</translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation>Выберите строку</translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation>Здесь появится карточка eQSL выбранной строки.</translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation>У подтверждений %1 нет изображения карточки. Двойной щелчок открывает QSO.</translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation>Запрашиваю карточку у eQSL… (eQSL разрешает не больше шести в минуту: может занять несколько секунд)</translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation>Открыть QSO</translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation>Копировать как текст</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>скопировано</translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation>Очистить сводку</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Закрыть</translation>
     </message>
 </context>
 <context>
@@ -9342,6 +9493,26 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>  %1 records without call, band or date</source>
         <translation>  записей без позывного, диапазона или даты: %1</translation>
+    </message>
+    <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation>нет QSO с этим позывным в пределах 30 минут на этом диапазоне и виде</translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation>этого позывного нет в журнале</translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation>нет позывного, диапазона или даты</translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation>eQSL: нет учётной записи в Настройки → Службы QSL</translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
+        <translation>eQSL: пароль недоступен (%1)</translation>
     </message>
     <message>
         <source>New DXCC confirmed: %1</source>

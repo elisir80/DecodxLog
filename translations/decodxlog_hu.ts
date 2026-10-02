@@ -705,6 +705,14 @@
         <translation>%1-igazolások</translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation>Importösszesítő (%1 új)</translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation>Importösszesítő</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Papír QSL (%1)</translation>
     </message>
@@ -4662,6 +4670,149 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>QRZ: download stopped</source>
         <translation>QRZ: a letöltés leállítva</translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation>új</translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation>nincs egyezés</translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation>hiba</translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation>%1 (%2): %3 új, %4 már jelölt, %5 nincs egyezés, %6 hiba</translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation>új DXCC</translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation>QSL-import összesítő</translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation>%1 sor látszik</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Sáv</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Üzemmód</translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation>Saját hívójel</translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation>Szolgáltatás</translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation>Eredmény</translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation>DXCC / ok</translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation>új</translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation>már jelölt</translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation>hiba</translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation>Még nincs letöltött visszaigazolás: használd a LoTW-t, az eQSL-t vagy a QRZ-t a QSL fülön.</translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation>Minden szolgáltatás</translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation>Új visszaigazolások</translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation>Nincs egyezés</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>Hibák</translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation>Minden</translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation>csak új DXCC</translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation>Hívójel vagy ország…</translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation>Válassz egy sort</translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation>Itt jelenik meg egy sor eQSL-kártyája.</translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation>A(z) %1 visszaigazolásoknak nincs kártyaképe. Dupla kattintás megnyitja a QSO-t.</translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation>Kártya kérése az eQSL-től… (az eQSL percenként legfeljebb hatot enged: néhány másodperc is lehet)</translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation>QSO megnyitása</translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation>Másolás szövegként</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>másolva</translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation>Összesítő ürítése</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Bezárás</translation>
     </message>
 </context>
 <context>
@@ -9264,6 +9415,26 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>  %1 records without call, band or date</source>
         <translation>  %1 rekord hívójel, sáv vagy dátum nélkül</translation>
+    </message>
+    <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation>nincs QSO ezzel a hívójellel 30 percen belül ezen a sávon és módban</translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation>ez a hívójel nincs a naplóban</translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation>hiányzik a hívójel, a sáv vagy a dátum</translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation>eQSL: nincs fiók a Beállítások → QSL-szolgáltatások alatt</translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
+        <translation>eQSL: a jelszó nem érhető el (%1)</translation>
     </message>
     <message>
         <source>New DXCC confirmed: %1</source>

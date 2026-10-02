@@ -713,6 +713,14 @@
         <translation>Confirmări %1</translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation>Rezumat import (%1 noi)</translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation>Rezumat import</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>QSL pe hârtie (%1)</translation>
     </message>
@@ -4690,6 +4698,149 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>QRZ: download stopped</source>
         <translation>QRZ: descărcare oprită</translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation>nouă</translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation>fără potrivire</translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation>eroare</translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation>%1 (%2): %3 noi, %4 deja marcate, %5 fără potrivire, %6 erori</translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation>DXCC nou</translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation>Rezumat import QSL</translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation>%1 rânduri afișate</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Bandă</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Mod</translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation>Indicativul meu</translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation>Serviciu</translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation>Rezultat</translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation>DXCC / motiv</translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation>noi</translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation>deja marcate</translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation>erori</translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation>Încă nicio confirmare descărcată: folosește LoTW, eQSL sau QRZ în fila QSL.</translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation>Toate serviciile</translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation>Confirmări noi</translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation>Fără potrivire</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>Erori</translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation>Tot</translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation>doar DXCC noi</translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation>Indicativ sau țară…</translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation>Alege un rând</translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation>Aici apare cartea eQSL a unui rând.</translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation>Confirmările %1 nu au imaginea cărții. Dublu clic deschide QSO-ul.</translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation>Cer cartea de la eQSL… (eQSL vrea cel mult șase pe minut: poate dura câteva secunde)</translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation>Deschide QSO-ul</translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation>Copiază ca text</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>copiat</translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation>Golește rezumatul</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Închide</translation>
     </message>
 </context>
 <context>
@@ -9342,6 +9493,26 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>  %1 records without call, band or date</source>
         <translation>  %1 înregistrări fără indicativ, bandă sau dată</translation>
+    </message>
+    <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation>niciun QSO cu acest indicativ în 30 de minute pe această bandă și mod</translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation>acest indicativ nu e în log</translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation>lipsește indicativul, banda sau data</translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation>eQSL: niciun cont în Setări → Servicii QSL</translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
+        <translation>eQSL: parola nu e disponibilă (%1)</translation>
     </message>
     <message>
         <source>New DXCC confirmed: %1</source>

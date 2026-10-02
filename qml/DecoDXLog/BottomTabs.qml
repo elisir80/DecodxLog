@@ -358,6 +358,20 @@ GlassPanel {
                         }
                     }
                 }
+                // Il riepilogo dell'ultimo scarico di ogni servizio.
+                GlassButton {
+                    readonly property int fresh: {
+                        let n = 0
+                        for (const r of (decolog.qslImport.runs || []))
+                            n += r.confirmed
+                        return n
+                    }
+                    text: fresh > 0 ? qsTr("Import summary (%1 new)").arg(fresh) : qsTr("Import summary")
+                    buttonHeight: 24
+                    fontPixelSize: 11
+                    enabled: (decolog.qslImport.runs || []).length > 0
+                    onClicked: window.openQslImport()
+                }
                 GlassButton {
                     text: qsTr("Paper QSL (%1)").arg(decolog.cards.counts.queue || 0)
                     buttonHeight: 24

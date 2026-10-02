@@ -3,6 +3,11 @@
 #include "core/NetworkError.h"
 
 #include <QCoreApplication>
+#include <QCryptographicHash>
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QTimer>
 #include <QHash>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
@@ -49,6 +54,22 @@ QUrl eqslFileLink(const QByteArray& html, const QUrl& page, QString* error)
         static const QRegularExpression said(QStringLiteral("(Error[^.]*\\.?)"), QRegularExpression::CaseInsensitiveOption);
         const QRegularExpressionMatch e = said.match(text);
         *error = e.hasMatch() ? e.captured(1).left(200) : text.left(200);
+    }
+    return {};
+}
+
+QUrl eqslCardImage(const QByteArray& html, const QUrl& page, QString* error)
+{
+    static const QRegularExpression img(QStringLiteral("<img\\s+src\\s*=\\s*[\"']?([^\"'\\s>]+)"),
+                                        QRegularExpression::CaseInsensitiveOption);
+    const QRegularExpressionMatch m = img.match(QString::fromUtf8(html));
+    if (m.hasMatch())
+        return page.resolved(QUrl(m.captured(1)));
+    if (error) {
+        const QString text = pageText(html);
+        static const QRegularExpression said(QStringLiteral("(Error:[^.<]*\\.?)"), QRegularExpression::CaseInsensitiveOption);
+        const QRegularExpressionMatch e = said.match(text);
+        *error = e.hasMatch() ? e.captured(1).trimmed().left(200) : text.left(200);
     }
     return {};
 }
@@ -326,6 +347,137 @@ void ConfirmationDownloader::fetchQrzPage()
         report.ok = true;
         finish(report);
     });
+}
+
+// ── La cartolina eQSL ────────────────────────────────────────────────────────
+
+EqslCardFetcher::EqslCardFetcher(QObject* parent)
+    : QObject(parent)
+    , m_net(new QNetworkAccessManager(this))
+{
+}
+
+QString EqslCardFetcher::keyOf(const Request& r)
+{
+    const QString text = QStringLiteral("%1|%2|%3|%4|%5")
+                             .arg(r.user.trimmed().toUpper(), r.call.trimmed().toUpper(),
+                                  r.on.toUTC().toString(QStringLiteral("yyyyMMddHHmm")), r.band.trimmed().toLower(),
+                                  r.mode.trimmed().toUpper());
+    return QString::fromLatin1(QCryptographicHash::hash(text.toUtf8(), QCryptographicHash::Sha1).toHex().left(24));
+}
+
+QString EqslCardFetcher::cachedFile(const QString& key) const
+{
+    if (m_dir.isEmpty())
+        return {};
+    for (const char* ext : {".jpg", ".png", ".gif"}) {
+        const QString file = QDir(m_dir).filePath(key + QLatin1String(ext));
+        if (QFileInfo::exists(file))
+            return file;
+    }
+    return {};
+}
+
+void EqslCardFetcher::fetch(const Request& r)
+{
+    const QString key = keyOf(r);
+    const QString cached = cachedFile(key);
+    if (!cached.isEmpty()) {
+        QMetaObject::invokeMethod(this, [this, key, cached] { emit ready(key, cached, QString()); },
+                                  Qt::QueuedConnection);
+        return;
+    }
+    m_pending = r;
+    m_hasPending = true;
+    if (!m_busy)
+        startNext();
+}
+
+void EqslCardFetcher::startNext()
+{
+    if (!m_hasPending || m_busy)
+        return;
+    // Una ogni dieci secondi: eQSL ne vuole meno di sei al minuto.
+    const qint64 now = QDateTime::currentMSecsSinceEpoch();
+    const qint64 wait = m_lastAsk + m_gapMs - now;
+    if (m_lastAsk > 0 && wait > 0) {
+        m_busy = true;
+        QTimer::singleShot(int(wait), this, [this] {
+            m_busy = false;
+            startNext();
+        });
+        return;
+    }
+    const Request r = m_pending;
+    m_hasPending = false;
+    m_busy = true;
+    m_lastAsk = now;
+    const QString key = keyOf(r);
+    const QDateTime on = r.on.toUTC();
+    QUrl url = m_url;
+    QUrlQuery q;
+    q.addQueryItem(QStringLiteral("Username"), r.user);
+    q.addQueryItem(QStringLiteral("Password"), r.password);
+    q.addQueryItem(QStringLiteral("CallsignFrom"), r.call.trimmed().toUpper());
+    q.addQueryItem(QStringLiteral("QSOYear"), on.toString(QStringLiteral("yyyy")));
+    q.addQueryItem(QStringLiteral("QSOMonth"), on.toString(QStringLiteral("MM")));
+    q.addQueryItem(QStringLiteral("QSODay"), on.toString(QStringLiteral("dd")));
+    q.addQueryItem(QStringLiteral("QSOHour"), on.toString(QStringLiteral("HH")));
+    q.addQueryItem(QStringLiteral("QSOMinute"), on.toString(QStringLiteral("mm")));
+    q.addQueryItem(QStringLiteral("QSOBand"), r.band.trimmed());
+    q.addQueryItem(QStringLiteral("QSOMode"), r.mode.trimmed().toUpper());
+    url.setQuery(q);
+    QNetworkRequest request(url);
+    network::useHttp11(request);
+    request.setRawHeader("User-Agent", "DecoDXLog");
+    request.setTransferTimeout(60000);
+    QNetworkReply* page = m_net->get(request);
+    const QString password = r.password;
+    connect(page, &QNetworkReply::finished, this, [this, page, url, key, password] {
+        page->deleteLater();
+        if (page->error() != QNetworkReply::NoError) {
+            done(key, {}, confirmations::withoutSecret(network::safeErrorString(page), password));
+            return;
+        }
+        QString error;
+        const QUrl image = confirmations::eqslCardImage(page->readAll(), url, &error);
+        if (image.isEmpty()) {
+            done(key, {}, confirmations::withoutSecret(error, password));
+            return;
+        }
+        QNetworkRequest get(image);
+        network::useHttp11(get);
+        get.setRawHeader("User-Agent", "DecoDXLog");
+        get.setTransferTimeout(60000);
+        QNetworkReply* file = m_net->get(get);
+        connect(file, &QNetworkReply::finished, this, [this, file, key, image] {
+            file->deleteLater();
+            const QByteArray bytes = file->readAll();
+            if (file->error() != QNetworkReply::NoError || bytes.isEmpty()) {
+                done(key, {}, network::safeErrorString(file));
+                return;
+            }
+            QString ext = QFileInfo(image.path()).suffix().toLower();
+            if (ext != QLatin1String("png") && ext != QLatin1String("gif"))
+                ext = QStringLiteral("jpg");
+            QDir().mkpath(m_dir);
+            const QString path = QDir(m_dir).filePath(key + QLatin1Char('.') + ext);
+            QFile out(path);
+            if (!out.open(QIODevice::WriteOnly) || out.write(bytes) != bytes.size()) {
+                done(key, {}, out.errorString());
+                return;
+            }
+            out.close();
+            done(key, path, {});
+        });
+    });
+}
+
+void EqslCardFetcher::done(const QString& key, const QString& file, const QString& error)
+{
+    m_busy = false;
+    emit ready(key, file, error);
+    startNext();
 }
 
 } // namespace decolog::core

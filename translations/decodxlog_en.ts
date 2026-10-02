@@ -709,6 +709,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4673,6 +4681,149 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>QRZ: download stopped</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Close</translation>
     </message>
 </context>
 <context>
@@ -9299,6 +9450,26 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
     <message>
         <source>  %1 records without call, band or date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -709,6 +709,14 @@
         <translation>%1-Bestätigungen</translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation>Import-Übersicht (%1 neu)</translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation>Import-Übersicht</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Papier-QSL (%1)</translation>
     </message>
@@ -4676,6 +4684,149 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>QRZ: download stopped</source>
         <translation>QRZ: Download abgebrochen</translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation>neu</translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation>ohne Treffer</translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation>Fehler</translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation>%1 (%2): %3 neu, %4 schon markiert, %5 ohne Treffer, %6 Fehler</translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation>neues DXCC</translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation>Übersicht QSL-Import</translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation>%1 Zeilen angezeigt</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Band</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Modus</translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation>Mein Rufzeichen</translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation>Dienst</translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation>Ergebnis</translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation>DXCC / Grund</translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation>neu</translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation>schon markiert</translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation>Fehler</translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation>Noch keine Bestätigungen geladen: nutze LoTW, eQSL oder QRZ im QSL-Reiter.</translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation>Alle Dienste</translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation>Neue Bestätigungen</translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation>Ohne Treffer</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>Fehler</translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation>Alles</translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation>nur neue DXCC</translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation>Rufzeichen oder Land…</translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation>Zeile wählen</translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation>Hier erscheint die eQSL-Karte einer Zeile.</translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation>%1-Bestätigungen haben kein Kartenbild. Doppelklick öffnet das QSO.</translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation>Frage eQSL nach der Karte… (eQSL erlaubt höchstens sechs pro Minute: es kann ein paar Sekunden dauern)</translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation>QSO öffnen</translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation>Als Text kopieren</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>kopiert</translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation>Übersicht leeren</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Schliessen</translation>
     </message>
 </context>
 <context>
@@ -9303,6 +9454,26 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>  %1 records without call, band or date</source>
         <translation>  %1 Einträge ohne Rufzeichen, Band oder Datum</translation>
+    </message>
+    <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation>kein QSO mit diesem Rufzeichen innerhalb von 30 Minuten auf diesem Band und in dieser Betriebsart</translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation>dieses Rufzeichen ist nicht im Log</translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation>Rufzeichen, Band oder Datum fehlt</translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation>eQSL: kein Konto unter Einstellungen → QSL-Dienste</translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
+        <translation>eQSL: Passwort nicht verfügbar (%1)</translation>
     </message>
     <message>
         <source>New DXCC confirmed: %1</source>

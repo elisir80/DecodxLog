@@ -705,6 +705,14 @@
         <translation>%1 確認</translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation>匯入摘要（%1 筆新）</translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation>匯入摘要</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>紙本 QSL (%1)</translation>
     </message>
@@ -4662,6 +4670,149 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>QRZ: download stopped</source>
         <translation>QRZ：下載已停止</translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation>新</translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation>無相符</translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation>錯誤</translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation>%1（%2）：新 %3，已標記 %4，無相符 %5，錯誤 %6</translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation>新 DXCC</translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation>QSL 匯入摘要</translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation>顯示 %1 列</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>波段</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>模式</translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation>我的呼號</translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation>服務</translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation>結果</translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation>DXCC / 原因</translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation>新</translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation>已標記</translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation>錯誤</translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation>尚未下載確認：請在 QSL 分頁中使用 LoTW、eQSL 或 QRZ。</translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation>所有服務</translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation>新確認</translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation>無相符</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>錯誤</translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation>全部</translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation>僅新 DXCC</translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation>呼號或國家…</translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation>選擇一列</translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation>所選列的 eQSL 卡片顯示在這裡。</translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation>%1 確認沒有卡片影像。雙擊開啟 QSO。</translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation>正在向 eQSL 要求卡片…（eQSL 每分鐘最多六次：可能需要幾秒鐘）</translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation>開啟 QSO</translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation>複製為文字</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>已複製</translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation>清空摘要</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>關閉</translation>
     </message>
 </context>
 <context>
@@ -9264,6 +9415,26 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>  %1 records without call, band or date</source>
         <translation>  有 %1 筆沒有呼號、波段或日期</translation>
+    </message>
+    <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation>在此波段和模式下 30 分鐘內沒有該呼號的 QSO</translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation>該呼號不在日誌中</translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation>缺少呼號、波段或日期</translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation>eQSL：設定 → QSL 服務 中沒有帳號</translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
+        <translation>eQSL：密碼無法取得（%1）</translation>
     </message>
     <message>
         <source>New DXCC confirmed: %1</source>

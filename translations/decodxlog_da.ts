@@ -709,6 +709,14 @@
         <translation>%1-bekræftelser</translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation>Importoversigt (%1 nye)</translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation>Importoversigt</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Papir-QSL (%1)</translation>
     </message>
@@ -4676,6 +4684,149 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>QRZ: download stopped</source>
         <translation>QRZ: hentning stoppet</translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation>ny</translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation>uden match</translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation>fejl</translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation>%1 (%2): %3 nye, %4 allerede markeret, %5 uden match, %6 fejl</translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation>ny DXCC</translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation>Oversigt over QSL-import</translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation>%1 rækker vist</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Bånd</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Tilstand</translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation>Mit kaldesignal</translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation>Tjeneste</translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation>Resultat</translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation>DXCC / årsag</translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation>nye</translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation>allerede markeret</translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation>fejl</translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation>Ingen bekræftelser hentet endnu: brug LoTW, eQSL eller QRZ under fanen QSL.</translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation>Alle tjenester</translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation>Nye bekræftelser</translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation>Uden match</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>Fejl</translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation>Alt</translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation>kun nye DXCC</translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation>Kaldesignal eller land…</translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation>Vælg en række</translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation>Her vises eQSL-kortet for en række.</translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation>%1-bekræftelser har intet kortbillede. Dobbeltklik åbner QSO&apos;en.</translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation>Beder eQSL om kortet… (eQSL vil højst have seks i minuttet: det kan tage et par sekunder)</translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation>Åbn QSO&apos;en</translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation>Kopiér som tekst</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>kopieret</translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation>Ryd oversigten</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Luk</translation>
     </message>
 </context>
 <context>
@@ -9303,6 +9454,26 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>  %1 records without call, band or date</source>
         <translation>  %1 poster uden kaldesignal, bånd eller dato</translation>
+    </message>
+    <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation>ingen QSO med dette kaldesignal inden for 30 minutter på dette bånd og mode</translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation>dette kaldesignal er ikke i loggen</translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation>kaldesignal, bånd eller dato mangler</translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation>eQSL: ingen konto under Opsætning → QSL-tjenester</translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
+        <translation>eQSL: adgangskode ikke tilgængelig (%1)</translation>
     </message>
     <message>
         <source>New DXCC confirmed: %1</source>

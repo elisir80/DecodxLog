@@ -705,6 +705,14 @@
         <translation>%1 の確認</translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation>取り込みの概要（新規 %1）</translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation>取り込みの概要</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>紙の QSL (%1)</translation>
     </message>
@@ -4662,6 +4670,149 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>QRZ: download stopped</source>
         <translation>QRZ: 取り込みを止めました</translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation>新規</translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation>一致なし</translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation>エラー</translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation>%1（%2）: 新規 %3、確認済み %4、一致なし %5、エラー %6</translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation>新しい DXCC</translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation>QSL 取り込みの概要</translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation>%1 行を表示</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>バンド</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>モード</translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation>自局コール</translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation>サービス</translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation>結果</translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation>DXCC / 理由</translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation>新規</translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation>確認済み</translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation>エラー</translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation>まだ確認をダウンロードしていません。QSL タブで LoTW、eQSL、QRZ を使ってください。</translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation>すべてのサービス</translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation>新しい確認</translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation>一致なし</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>エラー</translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation>すべて</translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation>新しい DXCC のみ</translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation>コールまたは国…</translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation>行を選んでください</translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation>選んだ行の eQSL カードがここに表示されます。</translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation>%1 の確認にはカード画像がありません。ダブルクリックで QSO を開きます。</translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation>eQSL にカードを要求中…（eQSL は 1 分に最大 6 件まで: 数秒かかることがあります）</translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation>QSO を開く</translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation>テキストとしてコピー</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>コピーしました</translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation>概要をクリア</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>閉じる</translation>
     </message>
 </context>
 <context>
@@ -9264,6 +9415,26 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>  %1 records without call, band or date</source>
         <translation>  コールサイン・バンド・日付のないもの %1 件</translation>
+    </message>
+    <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation>このバンドとモードで 30 分以内にこのコールの QSO がありません</translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation>このコールはログにありません</translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation>コール、バンドまたは日付がありません</translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation>eQSL: 設定 → QSL のサービス にアカウントがありません</translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
+        <translation>eQSL: パスワードを取得できません（%1）</translation>
     </message>
     <message>
         <source>New DXCC confirmed: %1</source>

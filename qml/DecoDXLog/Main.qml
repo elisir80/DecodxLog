@@ -997,6 +997,7 @@ ApplicationWindow {
         }
         else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))
         else if (what[0] === "logs") logsDialog.openDialog()
+        else if (what[0] === "qslimport") qslImportDialog.open()
         // La ricerca in alto (Ctrl+F): con poco posto si apre sotto la lente.
         else if (what[0] === "search") {
             if (what[1]) decolog.qsoModel.filterText = what[1]
@@ -1210,6 +1211,17 @@ ApplicationWindow {
     QsoDetailDialog { id: qsoDialog }
     StationProfilesDialog { id: profilesDialog }
     AboutDialog { id: aboutDialog }
+    // Il riepilogo delle conferme scaricate: si apre da solo dopo uno scarico
+    // chiesto a mano che ha portato qualcosa, e dalla scheda QSL.
+    QslImportDialog {
+        id: qslImportDialog
+        onOpenQsoRequested: (id) => window.openQso(id)
+    }
+    Connections {
+        target: decolog
+        function onQslImportReady() { qslImportDialog.open() }
+    }
+    function openQslImport() { qslImportDialog.open() }
     UpdateDialog { id: updateDialog }
 
     // Quando il controllo trova una versione nuova la finestra si apre da se':

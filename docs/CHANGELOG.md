@@ -5,6 +5,21 @@ in stazione.
 
 ## 1.16.48 — 3 ottobre 2026
 
+**Il riepilogo delle conferme scaricate.** Dopo uno scarico da LoTW, eQSL o QRZ chiesto a mano
+si apre «Riepilogo importazione QSL» (e dalla scheda QSL, «Riepilogo importazione»):
+- per ogni servizio (e per ogni account di profilo) l'ultimo scarico: nuove, gia' segnate,
+  senza corrispondenza, errori; un clic sul riquadro filtra quel servizio;
+- l'elenco con data, nominativo, banda, modo, il proprio nominativo, il servizio, l'esito e, per
+  le nuove, il paese con «★ nuovo DXCC» quando e' la prima conferma di quell'entita' (LoTW o
+  cartolina); per quelle senza corrispondenza il motivo («il nominativo non e' nel log», o
+  «nessun QSO entro 30 minuti su questa banda e modo»);
+- i filtri per servizio, per esito (nuove, senza corrispondenza, errori, tutto), «solo nuovi
+  DXCC» e nominativo o paese; doppio clic apre il QSO; «Copia come testo» per incollarlo;
+- **la cartolina eQSL** della riga scelta: chiesta a eQSL (GeteQSL.cfm) solo quando la si
+  guarda, una ogni dieci secondi come chiede eQSL, e tenuta nella cartella dei dati, cosi' la
+  seconda volta arriva subito. LoTW e QRZ non hanno l'immagine della cartolina.
+Il riepilogo resta nel log e si riapre anche dopo il riavvio.
+
 **Allineata alla 1.16.48 di elisir80.**
 - **CAT avanzato**: per i modelli Hamlib che li dichiarano, Impostazioni → Radio offre bit di
   dati, bit di stop, parita', handshake, stato fisso delle linee DTR/RTS e indirizzo CI-V; i

@@ -42,6 +42,10 @@ struct Report {
 // l'errore scritto dalla pagina, se il file non c'e'.
 QUrl eqslFileLink(const QByteArray& html, const QUrl& page, QString* error);
 
+// GeteQSL.cfm: la pagina con l'indirizzo dell'immagine della cartolina
+// ("<IMG SRC=..."). Vuoto, con l'errore scritto dalla pagina, se non c'e'.
+QUrl eqslCardImage(const QByteArray& html, const QUrl& page, QString* error);
+
 // Le eQSL ricevute del file .adi, come conferme (QSLRDATE = EQSL_QSLRDATE).
 // Le segnalazioni SWL non sono QSO e restano fuori.
 QList<AdifRecord> eqslConfirmations(const QByteArray& adif);
@@ -112,6 +116,54 @@ private:
     qint64 m_qrzAfter{0};
     int m_qrzPages{0};
     QList<AdifRecord> m_qrzConfirmations;
+};
+
+// La cartolina di una eQSL ricevuta, come immagine: GeteQSL.cfm dice dove sta,
+// poi la si scarica e la si tiene in una cartella. eQSL chiede di non
+// chiederne piu' di sei al minuto, una alla volta, e di non scaricare tutta la
+// casella: qui si chiede solo quella che l'operatore guarda, una ogni dieci
+// secondi, e quella gia' scaricata si riprende dalla cartella.
+class EqslCardFetcher : public QObject {
+    Q_OBJECT
+
+public:
+    struct Request {
+        QString user;
+        QString password;
+        QString call;          // chi ha mandato l'eQSL
+        QDateTime on;          // UTC
+        QString band;          // "20m"
+        QString mode;          // il modo come lo scrive eQSL
+    };
+
+    explicit EqslCardFetcher(QObject* parent = nullptr);
+    void setEndpoint(const QUrl& url) { m_url = url; }
+    void setCacheDir(const QString& dir) { m_dir = dir; }
+    void setMinimumGapMs(int ms) { m_gapMs = ms; }
+
+    // La chiave della cartolina (non dipende dalla password).
+    static QString keyOf(const Request& r);
+    // Il file gia' scaricato, o vuoto.
+    QString cachedFile(const QString& key) const;
+    // Chiede la cartolina: subito se c'e' gia', altrimenti al suo turno. Se
+    // ne arriva un'altra prima, quella in attesa si lascia stare.
+    void fetch(const Request& r);
+
+signals:
+    void ready(const QString& key, const QString& file, const QString& error);
+
+private:
+    void startNext();
+    void done(const QString& key, const QString& file, const QString& error);
+
+    QNetworkAccessManager* m_net;
+    QUrl m_url{QStringLiteral("https://www.eqsl.cc/qslcard/GeteQSL.cfm")};
+    QString m_dir;
+    int m_gapMs{10000};
+    bool m_busy{false};
+    bool m_hasPending{false};
+    Request m_pending;
+    qint64 m_lastAsk{0};
 };
 
 } // namespace decolog::core

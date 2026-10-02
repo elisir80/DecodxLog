@@ -713,6 +713,14 @@
         <translation>%1 apstiprinājumi</translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation>Importa kopsavilkums (%1 jauni)</translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation>Importa kopsavilkums</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Papīra QSL (%1)</translation>
     </message>
@@ -4690,6 +4698,149 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>QRZ: download stopped</source>
         <translation>QRZ: lejupielāde apturēta</translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation>jauns</translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation>nav atbilstības</translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation>kļūda</translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation>%1 (%2): %3 jauni, %4 jau atzīmēti, %5 bez atbilstības, %6 kļūdas</translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation>jauns DXCC</translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation>QSL importa kopsavilkums</translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation>Rādītas %1 rindas</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Band</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Mode</translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation>Mans izsaukums</translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation>Pakalpojums</translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation>Rezultāts</translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation>DXCC / iemesls</translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation>jauni</translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation>jau atzīmēti</translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation>kļūdas</translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation>Vēl nav lejupielādētu apstiprinājumu: izmanto LoTW, eQSL vai QRZ cilnē QSL.</translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation>Visi pakalpojumi</translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation>Jauni apstiprinājumi</translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation>Nav atbilstības</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>Kļūdas</translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation>Viss</translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation>tikai jauni DXCC</translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation>Izsaukums vai valsts…</translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation>Izvēlies rindu</translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation>Šeit parādās rindas eQSL kartiņa.</translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation>%1 apstiprinājumiem nav kartiņas attēla. Dubultklikšķis atver QSO.</translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation>Prasu kartiņu no eQSL… (eQSL atļauj ne vairāk kā sešas minūtē: var aizņemt dažas sekundes)</translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation>Atvērt QSO</translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation>Kopēt kā tekstu</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>nokopēts</translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation>Iztīrīt kopsavilkumu</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Aizvērt</translation>
     </message>
 </context>
 <context>
@@ -9342,6 +9493,26 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>  %1 records without call, band or date</source>
         <translation>  %1 ieraksti bez izsaukuma signāla, joslas vai datuma</translation>
+    </message>
+    <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation>nav QSO ar šo izsaukumu 30 minūšu laikā šajā joslā un režīmā</translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation>šī izsaukuma nav žurnālā</translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation>trūkst izsaukuma, joslas vai datuma</translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation>eQSL: nav konta sadaļā Iestatījumi → QSL pakalpojumi</translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
+        <translation>eQSL: parole nav pieejama (%1)</translation>
     </message>
     <message>
         <source>New DXCC confirmed: %1</source>
