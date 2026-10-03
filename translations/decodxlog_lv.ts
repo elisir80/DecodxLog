@@ -2378,6 +2378,14 @@ Labais klikšķis: mainīt</translation>
         <translation>Dekoders</translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation>Sistēmas noklusējums</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Nav pieejams: %1</translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation>%1 vārdi/min · %2 Hz</translation>
     </message>
@@ -2685,6 +2693,10 @@ Decodium: Settings → Reporting → UDP Server 127.0.0.1, ports %1, un &quot;Ac
     <message>
         <source>System default</source>
         <translation>Sistēmas noklusējums</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Nav pieejams: %1</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -10727,6 +10739,14 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>Ports %1 ir paša DecoDXLog koplietotā CAT: izvēlies programmas portu, kas tur radio</translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation>Audio ieeja &quot;%1&quot; nav pieejama: izvēlieties citu CW panelī (dekodētājs nepāriet uz citu karti).</translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation>Divas audio ieejas sauc &quot;%1&quot;: tiek izmantota pirmā. Izvēlieties vēlreiz CW panelī, lai norādītu, kuru.</translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation>Nav skaņas ieejas, ko klausīties</translation>
     </message>
@@ -11162,6 +11182,22 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>F%1 has no recorded message</source>
         <translation>F%1 nav ierakstītas ziņas</translation>
+    </message>
+    <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation>Audio izeja &quot;%1&quot; nav pieejama: izvēlieties citu DVK panelī. Nekas netika nosūtīts.</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Sistēmas noklusējums</translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation>Divas audio izejas sauc &quot;%1&quot;: tiek izmantota pirmā. Izvēlieties vēlreiz DVK panelī, lai norādītu, kuru.</translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
+        <translation>Mikrofons &quot;%1&quot; nav pieejams: izvēlieties citu DVK panelī.</translation>
     </message>
     <message>
         <source>The microphone does not record 16 kHz mono</source>

@@ -1052,6 +1052,12 @@ ApplicationWindow {
         }
         else if (what[0] === "activation") { activationDialog.openDialog(what[1] || ""); if (what[2] === "choose") Qt.callLater(activationDialog.chooseContest) }
         else if (what[0] === "modes") window.panelItem("newqso").showModes()
+        // Per le prove: le schede audio come le vede la scelta del decoder e del DVK.
+        else if (what[0] === "audioprobe")
+            console.warn("PROBE audio in=" + JSON.stringify(decolog.rig.audioInputDevices.map(d => d.label))
+                         + " index=" + decolog.rig.audioInputIndex + " saved=" + decolog.rig.audioInput
+                         + " | dvk out=" + JSON.stringify(decolog.dvk.outputDevices.map(d => d.label))
+                         + " index=" + decolog.dvk.outputIndex)
         else if (what[0] === "rstprobe")
             console.warn("PROBE rst " + window.panelItem("newqso").probeReports(["SSB", "CW", "FT8", "RTTY", "FT4", "SSB"]))
         // Per le prove: apre tutte le finestre due volte di fila. Due volte

@@ -2360,6 +2360,14 @@ Right click: change it</source>
         <translation>解码器</translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation>系统默认</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>不可用: %1</translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation>%1 词/分 · %2 Hz</translation>
     </message>
@@ -2667,6 +2675,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>System default</source>
         <translation>系统默认</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>不可用: %1</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -10603,6 +10615,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>端口 %1 是 DecoDXLog 自己的共享 CAT：请选择占用电台的程序的端口</translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation>音频输入 &quot;%1&quot; 不可用: 请在 CW 面板中另选一个 (解码器不会改用其他声卡)。</translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation>有两个音频输入都叫 &quot;%1&quot;: 使用第一个。请在 CW 面板中重新选择以指明是哪一个。</translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation>没有可以听的音频输入</translation>
     </message>
@@ -11038,6 +11058,22 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>F%1 has no recorded message</source>
         <translation>F%1 没有录制的消息</translation>
+    </message>
+    <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation>音频输出 &quot;%1&quot; 不可用: 请在 DVK 面板中另选一个。没有发送任何内容。</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>系统默认</translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation>有两个音频输出都叫 &quot;%1&quot;: 使用第一个。请在 DVK 面板中重新选择以指明是哪一个。</translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
+        <translation>麦克风 &quot;%1&quot; 不可用: 请在 DVK 面板中另选一个。</translation>
     </message>
     <message>
         <source>The microphone does not record 16 kHz mono</source>

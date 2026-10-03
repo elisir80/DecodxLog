@@ -5,6 +5,24 @@ in stazione.
 
 ## 1.16.53 — 3 ottobre 2026
 
+**La scheda audio si sceglie, e vale quella.** Il decoder CW (ingresso) e il DVK (uscita verso la
+radio e microfono) potevano ascoltare o parlare su una scheda diversa da quella che l'elenco
+mostrava. Le cause: se il nome salvato non si ritrovava — Windows numera le schede uguali, «2- USB
+Audio CODEC», e il numero cambia con le porte USB — si usava in silenzio il **predefinito di
+sistema**, mentre la tendina continuava a mostrare la prima riga; e l'elenco del decoder si
+rileggeva, e la tendina si rifaceva, a ogni pezzetto di audio. Ora:
+- la scelta si salva con l'**identificativo** della scheda (quello stabile di Windows) e il suo nome;
+  si ritrova per identificativo, poi per nome se e' uno solo (le impostazioni vecchie, col solo
+  nome, si aggiornano da sole la prima volta);
+- «Predefinito di sistema» e' una voce scritta, e solo quella usa il predefinito;
+- se la scheda scelta **non c'e'**, la tendina dice «Non disponibile: <nome>», il decoder non parte
+  e il DVK non manda niente (e non alza il PTT): niente ripiego su un'altra scheda, che per un
+  messaggio vocale vuol dire gli altoparlanti con la radio in trasmissione;
+- due schede con lo stesso nome si distinguono nell'elenco («nome», «nome (2)») e, scelte, per
+  identificativo; nel Registro attivita' si legge su quale sta ascoltando il decoder;
+- l'elenco si aggiorna solo quando cambiano le schede (collegando o togliendo una USB), non a ogni
+  audio.
+
 **Le finestre vere di Decodium dentro il log.** Due pannelli nuovi della lavagna, «Full Spectrum»
 e «Signal RX» (da Pannelli, in alto), che mostrano le finestre di Decodium come le disegna lui,
 con i suoi colori, le sue colonne e le sue righe — non una lista ricostruita:

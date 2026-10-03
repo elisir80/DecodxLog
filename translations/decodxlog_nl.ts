@@ -2369,6 +2369,14 @@ Rechtsklik: wijzigen</translation>
         <translation>Decoder</translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation>Systeemstandaard</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Niet beschikbaar: %1</translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation>%1 wpm · %2 Hz</translation>
     </message>
@@ -2676,6 +2684,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, poort %1, en &quot
     <message>
         <source>System default</source>
         <translation>Systeemstandaard</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Niet beschikbaar: %1</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -10665,6 +10677,14 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
         <translation>Poort %1 is de eigen gedeelde CAT van DecoDXLog: kies de poort van het programma dat de radio heeft</translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation>De audio-ingang &quot;%1&quot; is niet beschikbaar: kies een andere in het CW-paneel (de decoder valt niet terug op een andere kaart).</translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation>Twee audio-ingangen heten &quot;%1&quot;: de eerste wordt gebruikt. Kies opnieuw in het CW-paneel om aan te geven welke.</translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation>Geen audio-ingang om naar te luisteren</translation>
     </message>
@@ -11100,6 +11120,22 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
     <message>
         <source>F%1 has no recorded message</source>
         <translation>F%1 heeft geen opgenomen bericht</translation>
+    </message>
+    <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation>De audio-uitgang &quot;%1&quot; is niet beschikbaar: kies een andere in het DVK-paneel. Er is niets verzonden.</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Systeemstandaard</translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation>Twee audio-uitgangen heten &quot;%1&quot;: de eerste wordt gebruikt. Kies opnieuw in het DVK-paneel om aan te geven welke.</translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
+        <translation>De microfoon &quot;%1&quot; is niet beschikbaar: kies een andere in het DVK-paneel.</translation>
     </message>
     <message>
         <source>The microphone does not record 16 kHz mono</source>

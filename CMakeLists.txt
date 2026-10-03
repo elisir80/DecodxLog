@@ -292,6 +292,8 @@ qt_add_executable(decolog
     src/app/WorldMapItem.h
     src/app/WindowMirror.cpp
     src/app/WindowMirror.h
+    src/app/AudioDevices.cpp
+    src/app/AudioDevices.h
     src/app/RotorController.cpp
     src/app/RotorController.h
     src/app/SolarController.cpp
@@ -571,6 +573,12 @@ if(DECODXLOG_BUILD_TESTS)
     target_link_libraries(tst_decodefeed PRIVATE decolog_core Qt6::Test)
     set_target_properties(tst_decodefeed PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME decodefeed COMMAND tst_decodefeed)
+    qt_add_executable(tst_audiodevices tests/tst_audiodevices.cpp src/app/AudioDevices.cpp src/app/AudioDevices.h)
+    target_include_directories(tst_audiodevices PRIVATE src)
+    target_link_libraries(tst_audiodevices PRIVATE decolog_core Qt6::Multimedia Qt6::Test)
+    set_target_properties(tst_audiodevices PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME audiodevices COMMAND tst_audiodevices)
+    set_tests_properties(audiodevices PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
     qt_add_executable(tst_windowmirror tests/tst_windowmirror.cpp src/app/WindowMirror.cpp src/app/WindowMirror.h)
     target_include_directories(tst_windowmirror PRIVATE src)
     target_link_libraries(tst_windowmirror PRIVATE decolog_core Qt6::Quick Qt6::Test)

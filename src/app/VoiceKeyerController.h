@@ -14,6 +14,7 @@
 #include <functional>
 
 class QAudioOutput;
+class QMediaDevices;
 class QAudioSource;
 class QMediaPlayer;
 
@@ -27,10 +28,17 @@ QByteArray header(int sampleRate, int channels, int bitsPerSample, quint32 dataB
 class VoiceKeyerController : public QObject {
     Q_OBJECT
     Q_PROPERTY(QVariantList messages READ messages NOTIFY messagesChanged)
-    Q_PROPERTY(QStringList outputs READ outputs CONSTANT)
-    Q_PROPERTY(QStringList inputs READ inputs CONSTANT)
+    Q_PROPERTY(QStringList outputs READ outputs NOTIFY devicesChanged)
+    Q_PROPERTY(QStringList inputs READ inputs NOTIFY devicesChanged)
     Q_PROPERTY(QString output READ output WRITE setOutput NOTIFY settingsChanged)
     Q_PROPERTY(QString input READ input WRITE setInput NOTIFY settingsChanged)
+    // L'uscita verso la radio e il microfono, scelti in modo preciso: gli
+    // elenchi con gli identificativi, e la riga scelta (0 predefinito, -1 la
+    // scelta non si trova).
+    Q_PROPERTY(QVariantList outputDevices READ outputDevices NOTIFY devicesChanged)
+    Q_PROPERTY(QVariantList inputDevices READ inputDevices NOTIFY devicesChanged)
+    Q_PROPERTY(int outputIndex READ outputIndex NOTIFY settingsChanged)
+    Q_PROPERTY(int inputIndex READ inputIndex NOTIFY settingsChanged)
     Q_PROPERTY(bool usePtt READ usePtt WRITE setUsePtt NOTIFY settingsChanged)
     Q_PROPERTY(int playing READ playing NOTIFY stateChanged)       // -1 = niente
     Q_PROPERTY(int recording READ recording NOTIFY stateChanged)   // -1 = niente
@@ -53,6 +61,14 @@ public:
     void setOutput(const QString& name);
     QString input() const { return m_input; }
     void setInput(const QString& name);
+    QVariantList outputDevices() const;
+    QVariantList inputDevices() const;
+    int outputIndex() const;
+    int inputIndex() const;
+    // Dalla riga del menu a tendina (0 = predefinito del sistema): si salva
+    // con l'identificativo della scheda.
+    Q_INVOKABLE void chooseOutput(int row);
+    Q_INVOKABLE void chooseInput(int row);
     bool usePtt() const { return m_usePtt; }
     void setUsePtt(bool on);
     int playing() const { return m_playing; }
@@ -77,14 +93,20 @@ signals:
     void messagesChanged();
     void settingsChanged();
     void stateChanged();
+    void devicesChanged();
 
 private:
     void finishPlayback();
     void loadLabels();
 
     Context m_ctx;
+    void watchDevices() const;
+
     QString m_output;
+    QString m_outputId;
     QString m_input;
+    QString m_inputId;
+    mutable QMediaDevices* m_mediaDevices{nullptr};
     bool m_usePtt{true};
     int m_repeat{0};
     int m_playing{-1};

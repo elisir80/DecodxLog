@@ -1,4 +1,5 @@
 #include "app/RigController.h"
+#include "app/AudioDevices.h"
 #include "../StartupTrace.h"
 
 #include "core/QslUpload.h"
@@ -93,6 +94,7 @@ RigController::RigController(Context context, QObject* parent)
         QTimer::singleShot(0, this, [this] { openKeyer(); });
     m_pttPort = s.value(QStringLiteral("rig/pttPort")).toString();
     m_audioInput = s.value(QStringLiteral("cw/audioInput")).toString();
+    m_audioInputId = s.value(QStringLiteral("cw/audioInputId")).toString();
     loadMacros();
 
     for (core::RigLink* link : {static_cast<core::RigLink*>(&m_hamlib), static_cast<core::RigLink*>(&m_tci),
@@ -848,16 +850,62 @@ QStringList RigController::audioInputs() const
     return out;
 }
 
+QVariantList RigController::audioInputDevices() const
+{
+    // L'elenco cambia solo quando cambiano le schede: si ascolta il sistema
+    // invece di rileggerlo a ogni pezzetto di audio che arriva.
+    if (!m_mediaDevices) {
+        auto* self = const_cast<RigController*>(this);
+        m_mediaDevices = new QMediaDevices(self);
+        connect(m_mediaDevices, &QMediaDevices::audioInputsChanged, self, [self] {
+            emit self->audioDevicesChanged();
+            emit self->audioSelectionChanged();
+        });
+    }
+    return app::audiodev::deviceList(app::audiodev::inputDevices());
+}
+
+int RigController::audioInputIndex() const
+{
+    const auto entries = app::audiodev::entriesOf(app::audiodev::inputDevices());
+    return app::audiodev::comboIndex(app::audiodev::resolve(entries, {m_audioInputId, m_audioInput}));
+}
+
+void RigController::chooseAudioInput(int row)
+{
+    const auto devices = app::audiodev::inputDevices();
+    const app::audiodev::Saved saved = app::audiodev::savedFor(devices, row);
+    if (saved.id == m_audioInputId && saved.name == m_audioInput)
+        return;
+    m_audioInputId = saved.id;
+    m_audioInput = saved.name;
+    QSettings s;
+    s.setValue(QStringLiteral("cw/audioInputId"), m_audioInputId);
+    s.setValue(QStringLiteral("cw/audioInput"), m_audioInput);
+    if (m_decoderOn) {
+        stopAudio();
+        startAudio();
+        if (!m_decoderOn)
+            emit decoderChanged();
+    }
+    emit audioSelectionChanged();
+}
+
 void RigController::setAudioInput(const QString& name)
 {
-    if (name == m_audioInput)
+    // Per nome soltanto (impostazioni vecchie, prove): niente identificativo.
+    if (name == m_audioInput && m_audioInputId.isEmpty())
         return;
     m_audioInput = name;
-    QSettings().setValue(QStringLiteral("cw/audioInput"), name);
+    m_audioInputId.clear();
+    QSettings s;
+    s.setValue(QStringLiteral("cw/audioInput"), name);
+    s.setValue(QStringLiteral("cw/audioInputId"), QString());
     if (m_decoderOn) {
         stopAudio();
         startAudio();
     }
+    emit audioSelectionChanged();
     emit decoderChanged();
 }
 
@@ -883,10 +931,48 @@ void RigController::clearDecoder()
 
 void RigController::startAudio()
 {
-    QAudioDevice chosen = QMediaDevices::defaultAudioInput();
-    for (const QAudioDevice& device : QMediaDevices::audioInputs()) {
-        if (device.description() == m_audioInput)
-            chosen = device;
+    // La scheda scelta, e solo quella: se non si trova non si ripiega su
+    // un'altra (il predefinito di sistema e' una scelta, non un ripiego), si
+    // dice quale manca e il decoder non parte.
+    const QList<QAudioDevice> devices = app::audiodev::inputDevices();
+    const auto resolution = app::audiodev::resolve(app::audiodev::entriesOf(devices), {m_audioInputId, m_audioInput});
+    QAudioDevice chosen;
+    switch (resolution.kind) {
+    case app::audiodev::Resolution::SystemDefault:
+        chosen = QMediaDevices::defaultAudioInput();
+        break;
+    case app::audiodev::Resolution::Found:
+    case app::audiodev::Resolution::Ambiguous:
+        chosen = devices.at(resolution.index);
+        break;
+    case app::audiodev::Resolution::Missing:
+        if (m_ctx.activity)
+            m_ctx.activity(QStringLiteral("CW"),
+                           tr("The audio input \"%1\" is not available: choose another one in the CW panel "
+                              "(the decoder does not fall back to a different card).")
+                               .arg(m_audioInput),
+                           QStringLiteral("warning"));
+        m_decoderOn = false;
+        m_audioInUse.clear();
+        emit audioSelectionChanged();
+        return;
+    }
+    if (resolution.kind == app::audiodev::Resolution::Ambiguous && m_ctx.activity) {
+        m_ctx.activity(QStringLiteral("CW"),
+                       tr("Two audio inputs are called \"%1\": using the first one. Choose it again in the CW panel "
+                          "to say which.")
+                           .arg(m_audioInput),
+                       QStringLiteral("warning"));
+    }
+    // Ritrovata per nome, o rinominata da Windows: si salva com'e' adesso.
+    if (!chosen.isNull() && resolution.kind != app::audiodev::Resolution::SystemDefault
+        && (QString::fromUtf8(chosen.id()) != m_audioInputId || chosen.description() != m_audioInput)
+        && resolution.kind == app::audiodev::Resolution::Found) {
+        m_audioInputId = QString::fromUtf8(chosen.id());
+        m_audioInput = chosen.description();
+        QSettings s;
+        s.setValue(QStringLiteral("cw/audioInputId"), m_audioInputId);
+        s.setValue(QStringLiteral("cw/audioInput"), m_audioInput);
     }
     if (chosen.isNull()) {
         if (m_ctx.activity)
@@ -916,6 +1002,8 @@ void RigController::startAudio()
     connect(m_audioDevice, &QIODevice::readyRead, this, [this] {
         consumeAudio(m_audioDevice->readAll());
     });
+    m_audioInUse = chosen.description();
+    emit audioSelectionChanged();
     if (m_ctx.activity)
         m_ctx.activity(QStringLiteral("CW"), tr("CW decoder listening to %1").arg(chosen.description()),
                        QStringLiteral("info"));
@@ -1020,6 +1108,10 @@ void RigController::stopAudio()
     m_audioDevice = nullptr;
     m_audioBuffer.clear();
     m_scope.clear();
+    if (!m_audioInUse.isEmpty()) {
+        m_audioInUse.clear();
+        emit audioSelectionChanged();
+    }
     emit decoderScopeChanged();
 }
 

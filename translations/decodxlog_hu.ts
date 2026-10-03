@@ -2360,6 +2360,14 @@ Jobb kattintás: módosítás</translation>
         <translation>Dekóder</translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation>Rendszer alapértelmezett</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Nem érhető el: %1</translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation>%1 szó/perc · %2 Hz</translation>
     </message>
@@ -2667,6 +2675,10 @@ A Decodiumban: Settings → Reporting → UDP Server 127.0.0.1, port: %1, és &q
     <message>
         <source>System default</source>
         <translation>Rendszer alapértelmezett</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Nem érhető el: %1</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -10603,6 +10615,14 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>A(z) %1 port a DecoDXLog saját megosztott CAT-ja: a rádiót tartó program portját válaszd</translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation>A(z) &quot;%1&quot; hangbemenet nem érhető el: válasszon másikat a CW panelen (a dekódoló nem esik vissza másik kártyára).</translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation>Két hangbemenet neve &quot;%1&quot;: az elsőt használja. Válassza ki újra a CW panelen, hogy melyiket.</translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation>Nincs hangbemenet, amit hallgatni lehetne</translation>
     </message>
@@ -11038,6 +11058,22 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>F%1 has no recorded message</source>
         <translation>F%1-hez nincs felvett üzenet</translation>
+    </message>
+    <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation>A(z) &quot;%1&quot; hangkimenet nem érhető el: válasszon másikat a DVK panelen. Nem ment el semmi.</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Rendszer alapértelmezett</translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation>Két hangkimenet neve &quot;%1&quot;: az elsőt használja. Válassza ki újra a DVK panelen, hogy melyiket.</translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
+        <translation>A(z) &quot;%1&quot; mikrofon nem érhető el: válasszon másikat a DVK panelen.</translation>
     </message>
     <message>
         <source>The microphone does not record 16 kHz mono</source>

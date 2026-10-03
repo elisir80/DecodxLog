@@ -2369,6 +2369,14 @@ Clic dret: modificar-la</translation>
         <translation>Descodificador</translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation>Predeterminat del sistema</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>No disponible: %1</translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation>%1 ppm · %2 Hz</translation>
     </message>
@@ -2676,6 +2684,10 @@ A Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, i &quot;Ac
     <message>
         <source>System default</source>
         <translation>Predeterminat del sistema</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>No disponible: %1</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -10665,6 +10677,14 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>El port %1 és la CAT compartida del mateix DecoDXLog: tria el port del programa que té la ràdio</translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation>L&apos;entrada d&apos;àudio &quot;%1&quot; no està disponible: tria&apos;n una altra al quadre CW (el descodificador no recorre a una altra targeta).</translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation>Dues entrades d&apos;àudio es diuen &quot;%1&quot;: s&apos;usa la primera. Torna-la a triar al quadre CW per dir quina.</translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation>Cap entrada d&apos;àudio per escoltar</translation>
     </message>
@@ -11100,6 +11120,22 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
     <message>
         <source>F%1 has no recorded message</source>
         <translation>F%1 no té cap missatge enregistrat</translation>
+    </message>
+    <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation>La sortida d&apos;àudio &quot;%1&quot; no està disponible: tria&apos;n una altra al quadre DVK. No s&apos;ha enviat res.</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Predeterminat del sistema</translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation>Dues sortides d&apos;àudio es diuen &quot;%1&quot;: s&apos;usa la primera. Torna-la a triar al quadre DVK per dir quina.</translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
+        <translation>El micròfon &quot;%1&quot; no està disponible: tria&apos;n un altre al quadre DVK.</translation>
     </message>
     <message>
         <source>The microphone does not record 16 kHz mono</source>

@@ -2360,6 +2360,14 @@ Right click: change it</source>
         <translation>デコーダー</translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation>システムの既定</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>利用できません: %1</translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation>%1 wpm · %2 Hz</translation>
     </message>
@@ -2667,6 +2675,10 @@ Decodium で: Settings → Reporting → UDP Server 127.0.0.1、ポート %1、�
     <message>
         <source>System default</source>
         <translation>システムの既定</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>利用できません: %1</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -10603,6 +10615,14 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>ポート %1 は DecoDXLog 自身の共有 CAT です: 無線機を持っているプログラムのポートを選んでください</translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation>オーディオ入力 &quot;%1&quot; は利用できません: CW パネルで別のものを選んでください (デコーダーは別のカードに切り替えません)。</translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation>&quot;%1&quot; という名前のオーディオ入力が 2 つあります: 最初のものを使います。CW パネルで選び直して、どちらかを指定してください。</translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation>聞くための音の入り口がありません</translation>
     </message>
@@ -11038,6 +11058,22 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>F%1 has no recorded message</source>
         <translation>F%1 に録音メッセージがありません</translation>
+    </message>
+    <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation>オーディオ出力 &quot;%1&quot; は利用できません: DVK パネルで別のものを選んでください。何も送信されませんでした。</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>システムの既定</translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation>&quot;%1&quot; という名前のオーディオ出力が 2 つあります: 最初のものを使います。DVK パネルで選び直して、どちらかを指定してください。</translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
+        <translation>マイク &quot;%1&quot; は利用できません: DVK パネルで別のものを選んでください。</translation>
     </message>
     <message>
         <source>The microphone does not record 16 kHz mono</source>

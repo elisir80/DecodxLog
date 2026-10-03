@@ -2367,6 +2367,14 @@ Right click: change it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2672,6 +2680,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     </message>
     <message>
         <source>System default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10661,6 +10673,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11095,6 +11115,22 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <name>decolog::app::VoiceKeyerController</name>
     <message>
         <source>F%1 has no recorded message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -2378,6 +2378,14 @@ Right click: change it</source>
         <translation>Декодер</translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation>Системный по умолчанию</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Недоступно: %1</translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation>%1 сл/мин · %2 Гц</translation>
     </message>
@@ -2685,6 +2693,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>System default</source>
         <translation>По умолчанию</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Недоступно: %1</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -10727,6 +10739,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Порт %1 — это общий CAT самого DecoDXLog: выберите порт программы, которая держит радио</translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation>Аудиовход &quot;%1&quot; недоступен: выберите другой на панели CW (декодер не переключается на другую карту).</translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation>Два аудиовхода называются &quot;%1&quot;: используется первый. Выберите вход заново на панели CW, чтобы указать, какой.</translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation>Нет звукового входа, который слушать</translation>
     </message>
@@ -11162,6 +11182,22 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>F%1 has no recorded message</source>
         <translation>На F%1 нет записанного сообщения</translation>
+    </message>
+    <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation>Аудиовыход &quot;%1&quot; недоступен: выберите другой на панели DVK. Ничего не было отправлено.</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Системный по умолчанию</translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation>Два аудиовыхода называются &quot;%1&quot;: используется первый. Выберите выход заново на панели DVK, чтобы указать, какой.</translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
+        <translation>Микрофон &quot;%1&quot; недоступен: выберите другой на панели DVK.</translation>
     </message>
     <message>
         <source>The microphone does not record 16 kHz mono</source>

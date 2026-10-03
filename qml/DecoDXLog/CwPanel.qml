@@ -219,9 +219,14 @@ GlassPanel {
                 Layout.fillWidth: true
                 mono: false
                 fieldHeight: 26
-                model: root.rig.audioInputs
-                currentIndex: Math.max(0, root.rig.audioInputs.indexOf(root.rig.audioInput))
-                onActivated: root.rig.audioInput = currentText
+                // Quello che si vede e' quello che ascolta: «Predefinito» e' una
+                // scelta scritta, e se la scheda scelta non c'e' lo dice invece di
+                // mostrare un'altra riga e usarne una a caso.
+                model: [qsTr("System default")].concat(root.rig.audioInputDevices.map(d => d.label))
+                currentIndex: root.rig.audioInputIndex
+                displayText: root.rig.audioInputIndex < 0 ? qsTr("Not available: %1").arg(root.rig.audioInput)
+                                                          : currentText
+                onActivated: (row) => root.rig.chooseAudioInput(row)
             }
             Text {
                 visible: root.rig.decoderOn

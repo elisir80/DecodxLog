@@ -2369,6 +2369,14 @@ Rechtsklick: ändern</translation>
         <translation>Decoder</translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation>Systemstandard</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Nicht verfügbar: %1</translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation>%1 WpM · %2 Hz</translation>
     </message>
@@ -2676,6 +2684,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, Port %1, und &quot
     <message>
         <source>System default</source>
         <translation>Systemstandard</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Nicht verfügbar: %1</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -10665,6 +10677,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Port %1 ist die eigene geteilte CAT von DecoDXLog: den Port des Programms wählen, das das Funkgerät hält</translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation>Der Audioeingang &quot;%1&quot; ist nicht verfügbar: im CW-Feld einen anderen wählen (der Decoder weicht nicht auf eine andere Karte aus).</translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation>Zwei Audioeingänge heißen &quot;%1&quot;: der erste wird benutzt. Im CW-Feld erneut wählen, um zu sagen, welcher.</translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation>Kein Audioeingang zum Mithören</translation>
     </message>
@@ -11100,6 +11120,22 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>F%1 has no recorded message</source>
         <translation>F%1 hat keine aufgenommene Nachricht</translation>
+    </message>
+    <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation>Der Audioausgang &quot;%1&quot; ist nicht verfügbar: im DVK-Feld einen anderen wählen. Es wurde nichts gesendet.</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Systemstandard</translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation>Zwei Audioausgänge heißen &quot;%1&quot;: der erste wird benutzt. Im DVK-Feld erneut wählen, um zu sagen, welcher.</translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
+        <translation>Das Mikrofon &quot;%1&quot; ist nicht verfügbar: im DVK-Feld ein anderes wählen.</translation>
     </message>
     <message>
         <source>The microphone does not record 16 kHz mono</source>

@@ -2378,6 +2378,14 @@ Clic dreapta: modific-o</translation>
         <translation>Decodor</translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation>Implicit din sistem</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Indisponibil: %1</translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation>%1 cuv/min · %2 Hz</translation>
     </message>
@@ -2685,6 +2693,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>System default</source>
         <translation>Implicit de sistem</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Indisponibil: %1</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -10727,6 +10739,14 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Portul %1 este CAT-ul partajat al lui DecoDXLog însuși: alege portul programului care ține stația</translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation>Intrarea audio &quot;%1&quot; nu este disponibilă: alege alta în panoul CW (decodorul nu revine la altă placă).</translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation>Două intrări audio se numesc &quot;%1&quot;: se folosește prima. Alege din nou în panoul CW ca să spui care.</translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation>Nicio intrare audio de ascultat</translation>
     </message>
@@ -11162,6 +11182,22 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>F%1 has no recorded message</source>
         <translation>F%1 nu are mesaj înregistrat</translation>
+    </message>
+    <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation>Ieșirea audio &quot;%1&quot; nu este disponibilă: alege alta în panoul DVK. Nu s-a trimis nimic.</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Implicit din sistem</translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation>Două ieșiri audio se numesc &quot;%1&quot;: se folosește prima. Alege din nou în panoul DVK ca să spui care.</translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
+        <translation>Microfonul &quot;%1&quot; nu este disponibil: alege altul în panoul DVK.</translation>
     </message>
     <message>
         <source>The microphone does not record 16 kHz mono</source>

@@ -2369,6 +2369,14 @@ Højreklik: ret den</translation>
         <translation>Dekoder</translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation>Systemstandard</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Ikke tilgængelig: %1</translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation>%1 wpm · %2 Hz</translation>
     </message>
@@ -2676,6 +2684,10 @@ I Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, og &quot;A
     <message>
         <source>System default</source>
         <translation>Systemstandard</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Ikke tilgængelig: %1</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -10665,6 +10677,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Port %1 er DecoDXLogs egen delte CAT: vælg porten for det program, der har radioen</translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation>Lydindgangen &quot;%1&quot; er ikke tilgængelig: vælg en anden i CW-panelet (dekoderen falder ikke tilbage på et andet kort).</translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation>To lydindgange hedder &quot;%1&quot;: den første bruges. Vælg igen i CW-panelet for at sige hvilken.</translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation>Ingen lydindgang at lytte til</translation>
     </message>
@@ -11100,6 +11120,22 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>F%1 has no recorded message</source>
         <translation>F%1 har ingen optaget besked</translation>
+    </message>
+    <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation>Lydudgangen &quot;%1&quot; er ikke tilgængelig: vælg en anden i DVK-panelet. Der blev ikke sendt noget.</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Systemstandard</translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation>To lydudgange hedder &quot;%1&quot;: den første bruges. Vælg igen i DVK-panelet for at sige hvilken.</translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
+        <translation>Mikrofonen &quot;%1&quot; er ikke tilgængelig: vælg en anden i DVK-panelet.</translation>
     </message>
     <message>
         <source>The microphone does not record 16 kHz mono</source>

@@ -17,6 +17,7 @@
 #include "core/CatShare.h"
 
 #include <QAudioSource>
+#include <QMediaDevices>
 #include <QElapsedTimer>
 #include <QTimer>
 #include <QProcess>
@@ -71,8 +72,14 @@ class RigController : public QObject {
     // level, pitch, wpm, cost, reading}. Si aggiorna una quindicina di volte
     // al secondo, non a ogni pezzetto di audio.
     Q_PROPERTY(QVariantMap decoderScope READ decoderScope NOTIFY decoderScopeChanged)
-    Q_PROPERTY(QStringList audioInputs READ audioInputs NOTIFY decoderChanged)
-    Q_PROPERTY(QString audioInput READ audioInput WRITE setAudioInput NOTIFY decoderChanged)
+    Q_PROPERTY(QStringList audioInputs READ audioInputs NOTIFY audioDevicesChanged)
+    Q_PROPERTY(QString audioInput READ audioInput WRITE setAudioInput NOTIFY audioSelectionChanged)
+    // L'ingresso del decoder, scelto in modo preciso: l'elenco con gli
+    // identificativi, la riga scelta (0 predefinito, -1 la scelta non si
+    // trova), e quale scheda sta ascoltando adesso.
+    Q_PROPERTY(QVariantList audioInputDevices READ audioInputDevices NOTIFY audioDevicesChanged)
+    Q_PROPERTY(int audioInputIndex READ audioInputIndex NOTIFY audioSelectionChanged)
+    Q_PROPERTY(QString audioInputInUse READ audioInputInUse NOTIFY audioSelectionChanged)
     // Come si arriva alla radio: "network" (un rigctld gia' acceso),
     // "serial" (la porta della radio, e rigctld lo avvia DecoDXLog) oppure
     // "tci" (il WebSocket TCI delle SDR, come in Decodium).
@@ -217,6 +224,13 @@ public:
     QStringList audioInputs() const;
     QString audioInput() const { return m_audioInput; }
     void setAudioInput(const QString& name);
+    QVariantList audioInputDevices() const;
+    int audioInputIndex() const;
+    QString audioInputInUse() const { return m_audioInUse; }
+    // Dalla riga del menu a tendina (0 = predefinito del sistema): la scelta si
+    // salva con l'identificativo della scheda e vale finche' non se ne sceglie
+    // un'altra.
+    Q_INVOKABLE void chooseAudioInput(int row);
     Q_INVOKABLE void clearDecoder();
 
     QString link() const { return m_link; }
@@ -284,6 +298,8 @@ signals:
     void shareChanged();
     void macrosChanged();
     void decoderChanged();
+    void audioDevicesChanged();
+    void audioSelectionChanged();
     void decoderScopeChanged();
 
 private:
@@ -320,6 +336,9 @@ private:
     QElapsedTimer m_scopeClock;
     std::unique_ptr<QTimer> m_testAudio;
     QString m_audioInput;
+    QString m_audioInputId;
+    QString m_audioInUse;
+    mutable QMediaDevices* m_mediaDevices{nullptr};
     bool m_decoderOn{false};
     // rigctld avviato da noi quando la radio sta su una seriale.
     std::unique_ptr<QProcess> m_rigctld;
