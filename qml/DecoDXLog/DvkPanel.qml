@@ -115,9 +115,10 @@ GlassPanel {
                 label: qsTr("Audio to the radio")
                 StyledComboBox {
                     Layout.fillWidth: true
-                    model: [qsTr("System default")].concat(root.dvk.outputs)
-                    currentIndex: Math.max(0, root.dvk.outputs.indexOf(root.dvk.output) + 1)
-                    onActivated: root.dvk.output = currentIndex === 0 ? "" : currentText
+                    model: [qsTr("System default")].concat(root.dvk.outputDevices.map(d => d.label))
+                    currentIndex: root.dvk.outputIndex
+                    displayText: root.dvk.outputIndex < 0 ? qsTr("Not available: %1").arg(root.dvk.output) : currentText
+                    onActivated: (row) => root.dvk.chooseOutput(row)
                 }
             }
             LabeledField {
@@ -125,9 +126,10 @@ GlassPanel {
                 label: qsTr("Microphone")
                 StyledComboBox {
                     Layout.fillWidth: true
-                    model: [qsTr("System default")].concat(root.dvk.inputs)
-                    currentIndex: Math.max(0, root.dvk.inputs.indexOf(root.dvk.input) + 1)
-                    onActivated: root.dvk.input = currentIndex === 0 ? "" : currentText
+                    model: [qsTr("System default")].concat(root.dvk.inputDevices.map(d => d.label))
+                    currentIndex: root.dvk.inputIndex
+                    displayText: root.dvk.inputIndex < 0 ? qsTr("Not available: %1").arg(root.dvk.input) : currentText
+                    onActivated: (row) => root.dvk.chooseInput(row)
                 }
             }
         }

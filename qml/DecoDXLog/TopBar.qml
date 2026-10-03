@@ -15,6 +15,7 @@ Rectangle {
     signal awardsRequested()
     signal clusterRequested()
     signal chatRequested()
+    signal trafficRequested()
     signal activationRequested()
     signal profilesRequested()
     signal panelsRequested()
@@ -132,6 +133,7 @@ Rectangle {
                     text: decolog.chat.unread > 0 ? qsTr("ON4KST chat (%1)…").arg(decolog.chat.unread) : qsTr("ON4KST chat…")
                     onTriggered: root.chatRequested()
                 }
+                StyledMenuItem { text: qsTr("Decodium traffic monitor…"); onTriggered: root.trafficRequested() }
                 MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
                 StyledMenuItem { text: qsTr("Import a log (ADIF, CSV, N1MM)…"); onTriggered: root.importRequested() }
                 StyledMenuItem { text: qsTr("Export ADIF…"); onTriggered: root.exportRequested() }

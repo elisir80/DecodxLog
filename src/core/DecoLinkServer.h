@@ -89,6 +89,8 @@ signals:
     void listeningChanged();
     // Ce l'ha fatta dopo che la porta si e' liberata.
     void listeningRecovered();
+    // Ogni riga che entra ("in") o esce ("out"), per il monitor del traffico.
+    void traffic(const QString& direction, const QString& peer, const QByteArray& line);
 
 private:
     void onNewConnection();
@@ -97,6 +99,7 @@ private:
     void send(QTcpSocket* socket, const QJsonObject& message);
     void sendSnapshot(QTcpSocket* socket);
     void finishSnapshot(QTcpSocket* socket, const QList<QByteArray>& lines);
+    void write(QTcpSocket* socket, const QByteArray& line);
 
     QTcpServer* m_server{nullptr};
     QHash<QTcpSocket*, ClientInfo> m_clients;

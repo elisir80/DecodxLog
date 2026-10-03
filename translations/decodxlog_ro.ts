@@ -713,6 +713,14 @@
         <translation>Confirmări %1</translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation>Rezumat import (%1 noi)</translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation>Rezumat import</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>QSL pe hârtie (%1)</translation>
     </message>
@@ -2370,6 +2378,14 @@ Clic dreapta: modific-o</translation>
         <translation>Decodor</translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation>Implicit din sistem</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Indisponibil: %1</translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation>%1 cuv/min · %2 Hz</translation>
     </message>
@@ -2396,6 +2412,177 @@ Clic dreapta: modific-o</translation>
     <message>
         <source>noise</source>
         <translation>zgomot</translation>
+    </message>
+</context>
+<context>
+    <name>DecodeList</name>
+    <message>
+        <source>%1 rows</source>
+        <translation>%1 rânduri</translation>
+    </message>
+    <message>
+        <source>Empty this list</source>
+        <translation>Golește lista</translation>
+    </message>
+    <message>
+        <source>Low confidence decode</source>
+        <translation>Decodare cu încredere scăzută</translation>
+    </message>
+    <message>
+        <source>Answer in Decodium</source>
+        <translation>Răspunde în Decodium</translation>
+    </message>
+    <message>
+        <source>Show in Call info and prepare the QSO</source>
+        <translation>Arată în fișa indicativului și pregătește QSO-ul</translation>
+    </message>
+    <message>
+        <source>Copy the line</source>
+        <translation>Copiază linia</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumPanel</name>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Newest on top: click for newest at the bottom, like Decodium</source>
+        <translation>Cele mai noi sus: clic pentru cele mai noi jos, ca în Decodium</translation>
+    </message>
+    <message>
+        <source>Newest at the bottom, like Decodium: click for newest on top</source>
+        <translation>Cele mai noi jos, ca în Decodium: clic pentru cele mai noi sus</translation>
+    </message>
+    <message>
+        <source>Reload the recent decodes from Decodium&apos;s own records, and ask it to send again what it has on screen</source>
+        <translation>Reîncarcă decodările recente din înregistrările Decodium și îi cere să retrimită ce are pe ecran</translation>
+    </message>
+    <message>
+        <source>TX</source>
+        <translation>TX</translation>
+    </message>
+    <message>
+        <source>RX · decoding</source>
+        <translation>RX · decodează</translation>
+    </message>
+    <message>
+        <source>RX</source>
+        <translation>RX</translation>
+    </message>
+    <message>
+        <source>Rx %1 Hz · Tx %2 Hz</source>
+        <translation>Rx %1 Hz · Tx %2 Hz</translation>
+    </message>
+    <message>
+        <source>DX %1</source>
+        <translation>DX %1</translation>
+    </message>
+    <message>
+        <source>Waiting for Decodium on UDP port %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot;Accept UDP requests&quot;.</source>
+        <translation>Se așteaptă Decodium pe portul UDP %1.
+În Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, și &quot;Accept UDP requests&quot;.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog is not listening on a UDP port: set it in Settings → Decodium link.</source>
+        <translation>DecoDXLog nu ascultă pe niciun port UDP: se setează la Setări → Legătura cu Decodium.</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Spectru complet</translation>
+    </message>
+    <message>
+        <source>Every decode Decodium hears on the band shows up here.</source>
+        <translation>Aici apare fiecare decodare pe care Decodium o aude în bandă.</translation>
+    </message>
+    <message>
+        <source>Signal RX</source>
+        <translation>Semnal RX</translation>
+    </message>
+    <message>
+        <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
+        <translation>Aici apar transmisiile tale, cine te cheamă și corespondentul tău.</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumWindowPanel</name>
+    <message>
+        <source>Signal RX</source>
+        <translation>Semnal RX</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Spectru complet</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show</source>
+        <translation>Alege fereastra Decodium de afișat</translation>
+    </message>
+    <message>
+        <source>Pick the area of the window to show</source>
+        <translation>Alege zona ferestrei de afișat</translation>
+    </message>
+    <message>
+        <source>Clicks go to Decodium: click to stop</source>
+        <translation>Clicurile merg la Decodium: clic pentru a opri</translation>
+    </message>
+    <message>
+        <source>Send your clicks to Decodium (a double click on a line answers it): off</source>
+        <translation>Trimite clicurile tale la Decodium (un dublu clic pe o linie îi răspunde): oprit</translation>
+    </message>
+    <message>
+        <source>Resize the Decodium window to fit this panel, so the text stays sharp</source>
+        <translation>Potrivește fereastra Decodium la acest panou, ca textul să rămână clar</translation>
+    </message>
+    <message>
+        <source>Drag over the part of the Decodium window you want to see · Esc cancels</source>
+        <translation>Trage peste partea ferestrei Decodium pe care vrei s-o vezi · Esc anulează</translation>
+    </message>
+    <message>
+        <source>This panel works only on Windows.</source>
+        <translation>Acest panou funcționează doar pe Windows.</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show with ▾ in the header.</source>
+        <translation>Alege fereastra Decodium de afișat cu ▾ din antet.</translation>
+    </message>
+    <message>
+        <source>The Decodium window is minimized, and a minimized window cannot be copied. It can stay covered by other windows or on another screen.</source>
+        <translation>Fereastra Decodium este minimizată, iar o fereastră minimizată nu poate fi copiată. Poate rămâne acoperită de alte ferestre sau pe alt ecran.</translation>
+    </message>
+    <message>
+        <source>Decodium is not open. Start it: its window shows up here.</source>
+        <translation>Decodium nu este deschis. Pornește-l: fereastra lui apare aici.</translation>
+    </message>
+    <message>
+        <source>The window &quot;%1&quot; is not open. In Decodium press Pop on the list to detach it, or pick another window with ▾.</source>
+        <translation>Fereastra &quot;%1&quot; nu este deschisă. În Decodium apasă Pop pe listă ca s-o detașezi, sau alege altă fereastră cu ▾.</translation>
+    </message>
+    <message>
+        <source>Bring Decodium back, behind the other windows</source>
+        <translation>Readu Decodium la dimensiunea normală, în spatele celorlalte ferestre</translation>
+    </message>
+    <message>
+        <source>No Decodium window is open</source>
+        <translation>Nicio fereastră Decodium nu este deschisă</translation>
+    </message>
+    <message>
+        <source>Area of Full Spectrum in the main window</source>
+        <translation>Zona Full Spectrum din fereastra principală</translation>
+    </message>
+    <message>
+        <source>Area of Signal RX in the main window</source>
+        <translation>Zona Signal RX din fereastra principală</translation>
+    </message>
+    <message>
+        <source>The whole main window</source>
+        <translation>Toată fereastra principală</translation>
+    </message>
+    <message>
+        <source>Pick the area…</source>
+        <translation>Alege zona…</translation>
     </message>
 </context>
 <context>
@@ -2506,6 +2693,10 @@ Clic dreapta: modific-o</translation>
     <message>
         <source>System default</source>
         <translation>Implicit de sistem</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Indisponibil: %1</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -3394,6 +3585,18 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>Band map</source>
         <translation>Harta benzii</translation>
+    </message>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Full Spectrum (Decodium window)</source>
+        <translation>Spectru complet (fereastra Decodium)</translation>
+    </message>
+    <message>
+        <source>Signal RX (Decodium window)</source>
+        <translation>Semnal RX (fereastra Decodium)</translation>
     </message>
     <message>
         <source>Station network</source>
@@ -4690,6 +4893,149 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>QRZ: download stopped</source>
         <translation>QRZ: descărcare oprită</translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation>nouă</translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation>fără potrivire</translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation>eroare</translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation>%1 (%2): %3 noi, %4 deja marcate, %5 fără potrivire, %6 erori</translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation>DXCC nou</translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation>Rezumat import QSL</translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation>%1 rânduri afișate</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Bandă</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Mod</translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation>Indicativul meu</translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation>Serviciu</translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation>Rezultat</translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation>DXCC / motiv</translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation>noi</translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation>deja marcate</translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation>erori</translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation>Încă nicio confirmare descărcată: folosește LoTW, eQSL sau QRZ în fila QSL.</translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation>Toate serviciile</translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation>Confirmări noi</translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation>Fără potrivire</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>Erori</translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation>Tot</translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation>doar DXCC noi</translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation>Indicativ sau țară…</translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation>Alege un rând</translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation>Aici apare cartea eQSL a unui rând.</translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation>Confirmările %1 nu au imaginea cărții. Dublu clic deschide QSO-ul.</translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation>Cer cartea de la eQSL… (eQSL vrea cel mult șase pe minut: poate dura câteva secunde)</translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation>Deschide QSO-ul</translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation>Copiază ca text</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>copiat</translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation>Golește rezumatul</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Închide</translation>
     </message>
 </context>
 <context>
@@ -7006,6 +7352,46 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Advanced serial parameters</source>
+        <translation>Parametri seriali avansați</translation>
+    </message>
+    <message>
+        <source>Leave a value at Default to let the radio driver choose it. DTR/RTS here are fixed line states, not the separate PTT selection above.</source>
+        <translation>Lasă o valoare pe Default ca s-o aleagă driverul aparatului. DTR/RTS aici sunt stări fixe ale liniilor, nu alegerea PTT de mai sus.</translation>
+    </message>
+    <message>
+        <source>Data bits</source>
+        <translation>Biți de date</translation>
+    </message>
+    <message>
+        <source>Stop bits</source>
+        <translation>Biți de stop</translation>
+    </message>
+    <message>
+        <source>Parity</source>
+        <translation>Paritate</translation>
+    </message>
+    <message>
+        <source>Handshake</source>
+        <translation>Handshake</translation>
+    </message>
+    <message>
+        <source>CI-V address</source>
+        <translation>Adresă CI-V</translation>
+    </message>
+    <message>
+        <source>e.g. 0x94</source>
+        <translation>ex. 0x94</translation>
+    </message>
+    <message>
+        <source>DTR state</source>
+        <translation>Stare DTR</translation>
+    </message>
+    <message>
+        <source>RTS state</source>
+        <translation>Stare RTS</translation>
+    </message>
+    <message>
         <source>flrig server</source>
         <translation>Server flrig</translation>
     </message>
@@ -7192,6 +7578,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>Simulated</source>
         <translation>Simulat</translation>
+    </message>
+    <message>
+        <source>Yaesu G-450 (GS-232 protocol): azimuth only, 9600 baud. It is not detected by itself, so it is chosen here. It turns up to 450°: set the azimuth maximum to 450 in the rotator window settings to use the whole overlap.</source>
+        <translation>Yaesu G-450 (protocol GS-232): doar azimut, 9600 baud. Nu este detectat singur, deci se alege aici. Se rotește până la 450°: setează maximul azimutului la 450 în setările ferestrei rotorului ca să folosești tot overlap-ul.</translation>
     </message>
     <message>
         <source>App port (WebSocket)</source>
@@ -7751,6 +8141,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Chat ON4KST…</translation>
     </message>
     <message>
+        <source>Decodium traffic monitor…</source>
+        <translation>Monitor de trafic Decodium…</translation>
+    </message>
+    <message>
         <source>Import a log (ADIF, CSV, N1MM)…</source>
         <translation>Importă un log (ADIF, CSV, N1MM)…</translation>
     </message>
@@ -7937,6 +8331,257 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>Search…</source>
         <translation>Caută…</translation>
+    </message>
+</context>
+<context>
+    <name>TrafficMonitorWindow</name>
+    <message>
+        <source>Decodium traffic monitor</source>
+        <translation>Monitor de trafic Decodium</translation>
+    </message>
+    <message>
+        <source>paused · %1 of %2 rows</source>
+        <translation>în pauză · %1 din %2 rânduri</translation>
+    </message>
+    <message>
+        <source>%1 of %2 rows</source>
+        <translation>%1 din %2 rânduri</translation>
+    </message>
+    <message>
+        <source>← received</source>
+        <translation>← primit</translation>
+    </message>
+    <message>
+        <source>→ sent</source>
+        <translation>→ trimis</translation>
+    </message>
+    <message>
+        <source>→ forwarded</source>
+        <translation>→ redirecționat</translation>
+    </message>
+    <message>
+        <source>← from forward</source>
+        <translation>← din redirecționare</translation>
+    </message>
+    <message>
+        <source>→ relayed back</source>
+        <translation>→ trimis înapoi</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>Canal</translation>
+    </message>
+    <message>
+        <source>Direction</source>
+        <translation>Sens</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Tip</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>Program</translation>
+    </message>
+    <message>
+        <source>Content</source>
+        <translation>Conținut</translation>
+    </message>
+    <message>
+        <source>UDP %1 · %2</source>
+        <translation>UDP %1 · %2</translation>
+    </message>
+    <message>
+        <source>nobody has written yet</source>
+        <translation>nu a scris nimeni încă</translation>
+    </message>
+    <message>
+        <source>UDP %1 not listening</source>
+        <translation>UDP %1 nu ascultă</translation>
+    </message>
+    <message>
+        <source>forwarded to %1</source>
+        <translation>redirecționat către %1</translation>
+    </message>
+    <message>
+        <source>DecoLink off</source>
+        <translation>DecoLink oprit</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 · %2 connected</source>
+        <translation>DecoLink %1 · %2 conectați</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 not listening</source>
+        <translation>DecoLink %1 nu ascultă</translation>
+    </message>
+    <message>
+        <source>DecoPort: listening to announcements on 5560</source>
+        <translation>DecoPort: ascultă anunțurile pe 5560</translation>
+    </message>
+    <message>
+        <source>DecoPort: %1</source>
+        <translation>DecoPort: %1</translation>
+    </message>
+    <message>
+        <source>not listening</source>
+        <translation>nu ascultă</translation>
+    </message>
+    <message>
+        <source>hide heartbeats</source>
+        <translation>ascunde heartbeat-urile</translation>
+    </message>
+    <message>
+        <source>Filter: type, call, text…</source>
+        <translation>Filtru: tip, indicativ, text…</translation>
+    </message>
+    <message>
+        <source>Resume</source>
+        <translation>Reia</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation>Pauză</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Copiază</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Golește</translation>
+    </message>
+    <message>
+        <source>Nothing matches the filters.</source>
+        <translation>Niciun rând nu corespunde filtrelor.</translation>
+    </message>
+    <message>
+        <source>Waiting for traffic. Start Decodium: its UDP messages, the DecoLink connection and the DecoPort announcements show up here as they pass.</source>
+        <translation>Se așteaptă trafic. Porniți Decodium: mesajele sale UDP, conexiunea DecoLink și anunțurile DecoPort apar aici pe măsură ce trec.</translation>
+    </message>
+    <message>
+        <source>Click a row to see it whole: the bytes, or the JSON line.</source>
+        <translation>Faceți clic pe un rând pentru a-l vedea întreg: octeții sau linia JSON.</translation>
+    </message>
+    <message>
+        <source>To Decodium (UDP)</source>
+        <translation>Către Decodium (UDP)</translation>
+    </message>
+    <message>
+        <source>no program yet</source>
+        <translation>încă niciun program</translation>
+    </message>
+    <message>
+        <source>Reply to the line</source>
+        <translation>Răspunde la linie</translation>
+    </message>
+    <message>
+        <source>Like the double click in Decodium: it answers a CQ, and it may start transmitting.</source>
+        <translation>Ca dublul clic în Decodium: răspunde la un CQ și poate porni emisia.</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>Oprește TX</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Auto TX oprit</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Repetă decodările</translation>
+    </message>
+    <message>
+        <source>Decodium sends again all the decodes it has on screen.</source>
+        <translation>Decodium retrimite toate decodările pe care le are pe ecran.</translation>
+    </message>
+    <message>
+        <source>Band activity</source>
+        <translation>Activitate în bandă</translation>
+    </message>
+    <message>
+        <source>Rx frequency</source>
+        <translation>Frecvență Rx</translation>
+    </message>
+    <message>
+        <source>Both windows</source>
+        <translation>Ambele ferestre</translation>
+    </message>
+    <message>
+        <source>Free text (13 characters)</source>
+        <translation>Text liber (13 caractere)</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation>Setează</translation>
+    </message>
+    <message>
+        <source>Set and transmit</source>
+        <translation>Setează și emite</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>Send locator</source>
+        <translation>Trimite locatorul</translation>
+    </message>
+    <message>
+        <source>Decodium uses it only with the automatic locator turned on.</source>
+        <translation>Decodium îl folosește doar cu locatorul automat activat.</translation>
+    </message>
+    <message>
+        <source>Callsign to highlight</source>
+        <translation>Indicativ de evidențiat</translation>
+    </message>
+    <message>
+        <source>background</source>
+        <translation>fundal</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>text</translation>
+    </message>
+    <message>
+        <source>Highlight</source>
+        <translation>Evidențiază</translation>
+    </message>
+    <message>
+        <source>Remove the highlight</source>
+        <translation>Elimină evidențierea</translation>
+    </message>
+    <message>
+        <source>They leave from the same UDP port Decodium writes to, with its program name. Decodium carries them out only for its main UDP destination (Settings → Reporting → UDP Server) and with &quot;Accept UDP requests&quot; on: if DecoDXLog is its second or third destination it ignores them.</source>
+        <translation>Pleacă de pe același port UDP pe care scrie Decodium, cu numele programului său. Decodium le execută doar pentru destinația sa UDP principală (Settings → Reporting → UDP Server) și cu &quot;Accept UDP requests&quot; activ: dacă DecoDXLog este a doua sau a treia destinație, le ignoră.</translation>
+    </message>
+    <message>
+        <source>To Decodium (DecoLink)</source>
+        <translation>Către Decodium (DecoLink)</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Trimite</translation>
+    </message>
+    <message>
+        <source>Send the log list again</source>
+        <translation>Retrimite lista logului</translation>
+    </message>
+    <message>
+        <source>Send the award state</source>
+        <translation>Trimite starea diplomelor</translation>
+    </message>
+    <message>
+        <source>Listen only: the DecoPort session is signed with Decodium&apos;s key, and one of its commands keys the transmitter. Here you see which radio is on the network, on what frequency and in which state.</source>
+        <translation>Doar ascultare: sesiunea DecoPort este semnată cu cheia Decodium, iar una dintre comenzile sale pune stația în emisie. Aici se vede ce stație este în rețea, pe ce frecvență și în ce stare.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Închide</translation>
     </message>
 </context>
 <context>
@@ -9304,6 +9949,26 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>  %1 înregistrări fără indicativ, bandă sau dată</translation>
     </message>
     <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation>niciun QSO cu acest indicativ în 30 de minute pe această bandă și mod</translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation>acest indicativ nu e în log</translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation>lipsește indicativul, banda sau data</translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation>eQSL: niciun cont în Setări → Servicii QSL</translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
+        <translation>eQSL: parola nu e disponibilă (%1)</translation>
+    </message>
+    <message>
         <source>New DXCC confirmed: %1</source>
         <translation>DXCC nou confirmat: %1</translation>
     </message>
@@ -10078,6 +10743,14 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Portul %1 este CAT-ul partajat al lui DecoDXLog însuși: alege portul programului care ține stația</translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation>Intrarea audio &quot;%1&quot; nu este disponibilă: alege alta în panoul CW (decodorul nu revine la altă placă).</translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation>Două intrări audio se numesc &quot;%1&quot;: se folosește prima. Alege din nou în panoul CW ca să spui care.</translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation>Nicio intrare audio de ascultat</translation>
     </message>
@@ -10299,6 +10972,97 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::TrafficMonitor</name>
+    <message>
+        <source>%1 not sent: no program has written to the UDP port yet.</source>
+        <translation>%1: netrimis, niciun program nu a scris încă pe portul UDP.</translation>
+    </message>
+    <message>
+        <source>%1 sent to %2.</source>
+        <translation>%1: trimis către %2.</translation>
+    </message>
+    <message>
+        <source>Pick a decoded line (Decode) to answer.</source>
+        <translation>Alegeți o linie decodată (Decode) la care să răspundeți.</translation>
+    </message>
+    <message>
+        <source>This line cannot be read back as a decode.</source>
+        <translation>Această linie nu poate fi recitită ca decodare.</translation>
+    </message>
+    <message>
+        <source>Reply to &quot;%1&quot;</source>
+        <translation>Răspuns la &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Auto TX oprit</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>Oprește TX</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot; (transmit)</source>
+        <translation>Text liber &quot;%1&quot; (emisie)</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot;</source>
+        <translation>Text liber &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Repetă decodările</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Golește</translation>
+    </message>
+    <message>
+        <source>A locator has at least four characters.</source>
+        <translation>Un locator are cel puțin patru caractere.</translation>
+    </message>
+    <message>
+        <source>Locator %1</source>
+        <translation>Locator %1</translation>
+    </message>
+    <message>
+        <source>Which callsign?</source>
+        <translation>Ce indicativ?</translation>
+    </message>
+    <message>
+        <source>Highlight of %1 removed</source>
+        <translation>Evidențierea lui %1 eliminată</translation>
+    </message>
+    <message>
+        <source>Highlight of %1</source>
+        <translation>Evidențierea lui %1</translation>
+    </message>
+    <message>
+        <source>Not JSON: %1</source>
+        <translation>Nu este JSON: %1</translation>
+    </message>
+    <message>
+        <source>DecoLink wants a JSON object with a &quot;type&quot;.</source>
+        <translation>DecoLink vrea un obiect JSON cu un &quot;type&quot;.</translation>
+    </message>
+    <message>
+        <source>Decodium is not connected to DecoLink.</source>
+        <translation>Decodium nu este conectat la DecoLink.</translation>
+    </message>
+    <message>
+        <source>Sent on DecoLink: %1</source>
+        <translation>Trimis pe DecoLink: %1</translation>
+    </message>
+    <message>
+        <source>The log list is on its way to Decodium.</source>
+        <translation>Lista logului este pe drum spre Decodium.</translation>
+    </message>
+    <message>
+        <source>Award state sent to Decodium.</source>
+        <translation>Starea diplomelor trimisă la Decodium.</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::UpdateController</name>
     <message>
         <source>DecoDXLog %1 is out</source>
@@ -10424,6 +11188,22 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>F%1 nu are mesaj înregistrat</translation>
     </message>
     <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation>Ieșirea audio &quot;%1&quot; nu este disponibilă: alege alta în panoul DVK. Nu s-a trimis nimic.</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Implicit din sistem</translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation>Două ieșiri audio se numesc &quot;%1&quot;: se folosește prima. Alege din nou în panoul DVK ca să spui care.</translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
+        <translation>Microfonul &quot;%1&quot; nu este disponibil: alege altul în panoul DVK.</translation>
+    </message>
+    <message>
         <source>The microphone does not record 16 kHz mono</source>
         <translation>Microfonul nu înregistrează la 16 kHz mono</translation>
     </message>
@@ -10446,6 +11226,13 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>Cannot copy the file</source>
         <translation>Nu pot copia fișierul</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::WindowMirror</name>
+    <message>
+        <source>Decodium main window</source>
+        <translation>Fereastra principală Decodium</translation>
     </message>
 </context>
 <context>

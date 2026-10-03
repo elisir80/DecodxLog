@@ -2,6 +2,7 @@
 // gateway intero con il control box finto, parlato come l'app (WebSocket),
 // come N1MM+ (rotctld) e come un browser (HTTP). Sono le stesse prove di
 // DecoRotor (tests/test_decorotor.py), piu' quelle della rete.
+#include "core/Gs232.h"
 #include "core/Prosistel.h"
 #include "core/RotorGateway.h"
 
@@ -97,6 +98,71 @@ private slots:
         QVERIFY(prosistel::modelFor("combi")->hasEl());
         QVERIFY(!prosistel::modelFor("d_az")->hasEl());
         QVERIFY(!prosistel::modelFor("auto"));
+    }
+
+    // ── il dialetto Yaesu GS-232 (G-450), arrivato da DecoRotor ───────────────
+    void gs232Frames()
+    {
+        QCOMPARE(gs232::queryPosition(), QByteArray("C\r"));
+        QCOMPARE(gs232::gotoAngle(290), QByteArray("M290\r"));
+        QCOMPARE(gs232::gotoAngle(5.4), QByteArray("M005\r"));
+        QCOMPARE(gs232::stop(), QByteArray("S\r"));
+        // Fuori campo si resta al limite: il G-450 arriva a 450.
+        QCOMPARE(gs232::gotoAngle(451), QByteArray("M450\r"));
+        QCOMPARE(gs232::gotoAngle(-3), QByteArray("M000\r"));
+
+        QCOMPARE(gs232::decode("+0290\r")->value, 290.0);
+        QCOMPARE(gs232::decode("+0290+0045\r")->value, 290.0);      // C2: azimut ed elevazione
+        QCOMPARE(gs232::decode("AZ=123\r")->value, 123.0);
+        QCOMPARE(gs232::decode("\nAZ=123 EL=045\r\n")->value, 123.0);
+        QCOMPARE(gs232::decode("az = 45.0\r")->value, 45.0);
+        QVERIFY(!gs232::decode("?>\r"));
+        QVERIFY(!gs232::decode("A,?,290,R\r"));
+        QVERIFY(!gs232::decode(""));
+        QVERIFY(!gs232::decode("+0290\r")->moving());               // il GS-232 non dice se gira
+
+        const prosistel::Model* yaesu = prosistel::modelFor("yaesu_gs232");
+        QVERIFY(yaesu);
+        QVERIFY(yaesu->gs232);
+        QVERIFY(yaesu->hasAz());
+        QVERIFY(!yaesu->hasEl());
+        QVERIFY(!prosistel::modelFor("combi")->gs232);
+    }
+
+    void gs232ControllerInTheSimulator()
+    {
+        RotorGateway gw;
+        GatewaySettings s = simulated(QStringLiteral("yaesu_gs232"));
+        GatewayLive live;
+        live.azMax = 450.0;
+        gw.start(s, live);
+        QVERIFY(waitFor([&] { return gw.snapshot().value("connected").toBool(); }));
+        QCOMPARE(gw.snapshot().value("model").toString(), QString("yaesu_gs232"));
+        QVERIFY(gw.snapshot().value("has_az").toBool());
+        QVERIFY(!gw.snapshot().value("has_el").toBool());
+        QVERIFY(waitFor([&] { return !gw.snapshot().value("az").isNull(); }));
+
+        QString error;
+        QCOMPARE(gw.gotoPosition(120.0, std::nullopt, &error).value("az").toDouble(), 120.0);
+        QVERIFY(waitFor([&] { return std::abs(gw.snapshot().value("az").toDouble() - 120.0) <= 1.0
+                                   && gw.snapshot().value("az_target").isNull(); }));
+        // Un Yaesu non ha elevazione.
+        gw.gotoPosition(std::nullopt, 30.0, &error);
+        QCOMPARE(error, QString("il control box configurato non ha elevazione"));
+        // Lo stop ferma dove si e'.
+        error.clear();
+        gw.gotoPosition(300.0, std::nullopt, &error);
+        QTest::qWait(150);
+        gw.halt();
+        QVERIFY(gw.snapshot().value("az_target").isNull());
+        QTest::qWait(300);
+        const double first = gw.snapshot().value("az").toDouble();
+        QTest::qWait(300);
+        const double second = gw.snapshot().value("az").toDouble();
+        QVERIFY2(std::abs(second - first) <= 1.0, "il rotore deve restare fermo dopo lo stop");
+        QVERIFY2(second < 290.0, "lo stop deve fermarlo prima del bersaglio");
+        QVERIFY(gw.snapshot().value("rx_frames").toInt() > 0);
+        gw.stop();
     }
 
     void stationsFromDecodes()

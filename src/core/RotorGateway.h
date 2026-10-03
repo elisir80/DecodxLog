@@ -19,6 +19,7 @@
 // cluster li ha gia'.
 #pragma once
 
+#include "core/Gs232.h"
 #include "core/Prosistel.h"
 
 #include <QDateTime>
@@ -172,6 +173,15 @@ private:
     int multiplier() const;
     void simulateWrite(const QByteArray& frame);
     void simulateAdvance();
+    // Il dialetto del control box in uso: i frame, e come si leggono le
+    // risposte, cambiano fra PRO.SIS.TEL e Yaesu GS-232; il resto del gateway no.
+    bool lineProtocol() const { return m_model && m_model->gs232; }
+    QByteArray queryFrame(QChar axis) const;
+    QByteArray gotoFrame(QChar axis, double degrees) const;
+    QByteArray stopFrame(QChar axis, bool fast) const;
+    // Quello da mandare appena aperta la porta (vuoto: niente).
+    QByteArray openFrame(QChar axis) const;
+    std::optional<prosistel::Reply> decodeFrame(const QByteArray& frame, int multiplier) const;
     void clientAttached();
     void clientDetached();
 

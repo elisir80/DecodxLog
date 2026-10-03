@@ -17,6 +17,8 @@
 #include "app/UpdateController.h"
 #include "app/WorldClockController.h"
 #include "app/ActivityModel.h"
+#include "app/DecodeFeed.h"
+#include "app/TrafficMonitor.h"
 #include "app/ChatController.h"
 #include "app/SuperCheckController.h"
 #include "app/NetController.h"
@@ -142,6 +144,11 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QVariantList incoming READ incoming NOTIFY incomingChanged)
     // Il registro attivita': un modello a righe, cosi' una riga nuova non rifa' la vista.
     Q_PROPERTY(QObject* activity READ activity CONSTANT)
+    // Il monitor del traffico con Decodium (UDP, DecoLink, DecoPort), a due vie.
+    Q_PROPERTY(QObject* traffic READ traffic CONSTANT)
+    // Le due liste di decodifica di Decodium (Full Spectrum e Signal RX) e lo
+    // stato di chi le manda, per il pannello Decodium.
+    Q_PROPERTY(QObject* decodium READ decodium CONSTANT)
 
     Q_PROPERTY(QString lookupCall READ lookupCall WRITE setLookupCall NOTIFY lookupChanged)
     Q_PROPERTY(QVariantMap callInfo READ callInfo NOTIFY lookupChanged)
@@ -196,6 +203,12 @@ class DecoLogController : public QObject {
     // ── LoTW (conferme) ────────────────────────────────────────────────────
     Q_PROPERTY(bool lotwBusy READ lotwBusy NOTIFY lotwChanged)
     Q_PROPERTY(QString lotwStatus READ lotwStatus NOTIFY lotwChanged)
+    // Il riepilogo dell'ultimo scarico di ogni servizio (LoTW, eQSL, QRZ, e gli
+    // account dei profili): {runs: [{label, service, when, confirmed, already,
+    // notFound, invalid}], rows: [{label, service, kind, on, utc, call, band,
+    // mode, station, reason, qsoId, dxcc, country, newDxcc, account}]}.
+    // kind: "new" (confermato adesso), "notfound", "invalid". Resta nel log.
+    Q_PROPERTY(QVariantMap qslImport READ qslImport NOTIFY qslImportChanged)
     Q_PROPERTY(QString lotwLastSync READ lotwLastSync NOTIFY lotwChanged)
     Q_PROPERTY(QString lotwCursor READ lotwCursor NOTIFY lotwChanged)
     Q_PROPERTY(int lotwAutoHours READ lotwAutoHours WRITE setLotwAutoHours NOTIFY lotwChanged)
@@ -362,6 +375,8 @@ public:
     QVariantList gridPoints() const;
     QVariantList incoming() const { return m_incoming; }
     QObject* activity() const { return m_activityModel; }
+    QObject* traffic() const { return m_traffic; }
+    QObject* decodium() const { return m_decodeFeed; }
 
     QString lookupCall() const { return m_lookupCall; }
     void setLookupCall(const QString& call);
@@ -520,6 +535,12 @@ public:
         m_confirmQueue.clear();
         m_confirmDownloader.cancel();
     }
+    QVariantMap qslImport() const { return m_qslImport; }
+    Q_INVOKABLE void clearQslImport();
+    // Chiede la cartolina eQSL di una riga del riepilogo (una alla volta, e
+    // non piu' di sei al minuto, come vuole eQSL). Torna la chiave con cui
+    // arrivera' eqslCardReady.
+    Q_INVOKABLE QString requestEqslCard(const QVariantMap& row);
     QString lotwStatus() const { return m_lotwStatus; }
     QString lotwLastSync() const;
     QString lotwCursor() const { return m_db.setting(QStringLiteral("lotw.last_qsl")); }
@@ -684,6 +705,11 @@ signals:
     void uiLanguageChanged();
     void logColorsChanged();
     void lotwChanged();
+    void qslImportChanged();
+    // Uno scarico chiesto a mano ha portato qualcosa: la finestra si apre.
+    void qslImportReady();
+    // La cartolina eQSL di una riga: il file, o l'errore.
+    void eqslCardReady(const QString& key, const QString& fileUrl, const QString& error);
     void confirmChanged();
     void ctyChanged();
     void recoveryChanged();
@@ -724,9 +750,17 @@ private:
         int notFound{0};
         int invalid{0};
         QStringList missing;
+        QVariantList rows;     // per il riepilogo: le nuove, le non trovate, le sbagliate
     };
     ConfirmTally applyConfirmations(const QString& service, const QList<core::AdifRecord>& list,
-                                    const QList<qint64>& onlyProfiles = {}, const QList<qint64>& exceptProfiles = {});
+                                    const QList<qint64>& onlyProfiles = {}, const QList<qint64>& exceptProfiles = {},
+                                    const QString& label = {}, const QString& account = {});
+    // Mette uno scarico nel riepilogo (al posto del precedente dello stesso
+    // servizio/account) e lo salva nel log.
+    void recordQslImport(const QString& label, const QString& service, const ConfirmTally& t, bool manual,
+                         const QString& error = {});
+    QVariantMap m_qslImport;
+    core::EqslCardFetcher m_eqslCards;
     // Un account da cui scaricare le conferme: quello generale (per i QSO dei
     // profili senza un account loro) o quello di un profilo (solo i suoi QSO).
     struct ConfirmAccount {
@@ -921,6 +955,8 @@ private:
 
     QVariantList m_incoming;
     ActivityModel* m_activityModel{nullptr};
+    TrafficMonitor* m_traffic{nullptr};
+    DecodeFeed* m_decodeFeed{nullptr};
     // I conteggi del log, rifatti una volta dopo ogni cambiamento.
     struct Counts {
         bool valid{false};

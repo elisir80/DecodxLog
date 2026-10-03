@@ -175,6 +175,7 @@ void ClusterController::rebuildIndexInBackground()
                 self->m_model.restatus([s = self.data()](const EnrichedSpot& e) { return s->statusOf(e); });
                 ++self->m_spotRevision;
                 emit self->spotsUpdated();
+                emit self->indexRebuilt();
             },
             Qt::QueuedConnection);
     });
@@ -400,6 +401,7 @@ void ClusterController::rebuildIndex()
     QElapsedTimer clock;
     clock.start();
     m_index.rebuild(*m_ctx.db, lotw, card, eqsl);
+    emit indexRebuilt();
     if (clock.elapsed() >= 400 && m_ctx.activity) {
         m_ctx.activity(QStringLiteral("APP"),
                        tr("rebuilding the worked list: %1 s")
@@ -436,6 +438,29 @@ int ClusterController::statusOf(const EnrichedSpot& e) const
     if (m_lotwUsers.isActive(e.spot.dxCall))
         st |= StatusLotwUser;
     return st;
+}
+
+ClusterController::CallClass ClusterController::classifyCall(const QString& call, const QString& band,
+                                                              const QString& mode) const
+{
+    Spot spot;
+    spot.dxCall = call.trimmed().toUpper();
+    spot.band = band;
+    spot.mode = mode;
+    const EnrichedSpot e = enrich(spot);
+    CallClass out;
+    out.status = e.status;
+    out.entity = e.entity;
+    out.dxcc = e.dxcc;
+    out.continent = e.continent;
+    out.azimuth = e.azimuth;
+    out.distanceKm = e.distanceKm;
+    return out;
+}
+
+QString ClusterController::statusText(int status)
+{
+    return SpotModel::statusLabel(status);
 }
 
 EnrichedSpot ClusterController::enrich(const Spot& spot) const

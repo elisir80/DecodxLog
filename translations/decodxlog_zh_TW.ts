@@ -705,6 +705,14 @@
         <translation>%1 確認</translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation>匯入摘要（%1 筆新）</translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation>匯入摘要</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>紙本 QSL (%1)</translation>
     </message>
@@ -2352,6 +2360,14 @@ Right click: change it</source>
         <translation>解碼器</translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation>系統預設</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>無法使用: %1</translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation>%1 字/分 · %2 Hz</translation>
     </message>
@@ -2378,6 +2394,177 @@ Right click: change it</source>
     <message>
         <source>noise</source>
         <translation>雜訊</translation>
+    </message>
+</context>
+<context>
+    <name>DecodeList</name>
+    <message>
+        <source>%1 rows</source>
+        <translation>%1 行</translation>
+    </message>
+    <message>
+        <source>Empty this list</source>
+        <translation>清空此清單</translation>
+    </message>
+    <message>
+        <source>Low confidence decode</source>
+        <translation>低可信度解碼</translation>
+    </message>
+    <message>
+        <source>Answer in Decodium</source>
+        <translation>在 Decodium 中回覆</translation>
+    </message>
+    <message>
+        <source>Show in Call info and prepare the QSO</source>
+        <translation>在呼號卡片中顯示並準備 QSO</translation>
+    </message>
+    <message>
+        <source>Copy the line</source>
+        <translation>複製此行</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumPanel</name>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Newest on top: click for newest at the bottom, like Decodium</source>
+        <translation>最新在上: 點擊改為最新在下, 與 Decodium 相同</translation>
+    </message>
+    <message>
+        <source>Newest at the bottom, like Decodium: click for newest on top</source>
+        <translation>最新在下, 與 Decodium 相同: 點擊改為最新在上</translation>
+    </message>
+    <message>
+        <source>Reload the recent decodes from Decodium&apos;s own records, and ask it to send again what it has on screen</source>
+        <translation>從 Decodium 自己的記錄重新載入最近的解碼, 並請它重新傳送螢幕上的內容</translation>
+    </message>
+    <message>
+        <source>TX</source>
+        <translation>TX</translation>
+    </message>
+    <message>
+        <source>RX · decoding</source>
+        <translation>RX · 解碼中</translation>
+    </message>
+    <message>
+        <source>RX</source>
+        <translation>RX</translation>
+    </message>
+    <message>
+        <source>Rx %1 Hz · Tx %2 Hz</source>
+        <translation>Rx %1 Hz · Tx %2 Hz</translation>
+    </message>
+    <message>
+        <source>DX %1</source>
+        <translation>DX %1</translation>
+    </message>
+    <message>
+        <source>Waiting for Decodium on UDP port %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot;Accept UDP requests&quot;.</source>
+        <translation>正在 UDP 連接埠 %1 上等待 Decodium。
+在 Decodium 中: Settings → Reporting → UDP Server 127.0.0.1, 連接埠 %1, 並勾選 &quot;Accept UDP requests&quot;。</translation>
+    </message>
+    <message>
+        <source>DecoDXLog is not listening on a UDP port: set it in Settings → Decodium link.</source>
+        <translation>DecoDXLog 沒有監聽任何 UDP 連接埠: 請在 設定 → 與 Decodium 的連線 中設定。</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>全頻譜</translation>
+    </message>
+    <message>
+        <source>Every decode Decodium hears on the band shows up here.</source>
+        <translation>Decodium 在波段上聽到的每個解碼都顯示在這裡。</translation>
+    </message>
+    <message>
+        <source>Signal RX</source>
+        <translation>接收訊號</translation>
+    </message>
+    <message>
+        <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
+        <translation>這裡顯示您的發射、呼叫您的電台和您的 QSO 對象。</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumWindowPanel</name>
+    <message>
+        <source>Signal RX</source>
+        <translation>接收訊號</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>全頻譜</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show</source>
+        <translation>選擇要顯示的 Decodium 視窗</translation>
+    </message>
+    <message>
+        <source>Pick the area of the window to show</source>
+        <translation>選擇要顯示的視窗區域</translation>
+    </message>
+    <message>
+        <source>Clicks go to Decodium: click to stop</source>
+        <translation>點擊會傳給 Decodium: 點擊以停止</translation>
+    </message>
+    <message>
+        <source>Send your clicks to Decodium (a double click on a line answers it): off</source>
+        <translation>把您的點擊傳給 Decodium (按兩下某一行即回覆): 關</translation>
+    </message>
+    <message>
+        <source>Resize the Decodium window to fit this panel, so the text stays sharp</source>
+        <translation>把 Decodium 視窗調整到適合此面板, 使文字保持清晰</translation>
+    </message>
+    <message>
+        <source>Drag over the part of the Decodium window you want to see · Esc cancels</source>
+        <translation>在想看的 Decodium 視窗部分上拖曳 · Esc 取消</translation>
+    </message>
+    <message>
+        <source>This panel works only on Windows.</source>
+        <translation>此面板只能在 Windows 上使用。</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show with ▾ in the header.</source>
+        <translation>用標題列中的 ▾ 選擇要顯示的 Decodium 視窗。</translation>
+    </message>
+    <message>
+        <source>The Decodium window is minimized, and a minimized window cannot be copied. It can stay covered by other windows or on another screen.</source>
+        <translation>Decodium 視窗已最小化, 而最小化的視窗無法複製。它可以被其他視窗遮住或放在另一個螢幕上。</translation>
+    </message>
+    <message>
+        <source>Decodium is not open. Start it: its window shows up here.</source>
+        <translation>Decodium 未開啟。啟動它: 它的視窗會顯示在這裡。</translation>
+    </message>
+    <message>
+        <source>The window &quot;%1&quot; is not open. In Decodium press Pop on the list to detach it, or pick another window with ▾.</source>
+        <translation>視窗 &quot;%1&quot; 未開啟。在 Decodium 中按清單上的 Pop 將其分離, 或用 ▾ 選擇其他視窗。</translation>
+    </message>
+    <message>
+        <source>Bring Decodium back, behind the other windows</source>
+        <translation>讓 Decodium 恢復正常大小, 放在其他視窗後面</translation>
+    </message>
+    <message>
+        <source>No Decodium window is open</source>
+        <translation>沒有開啟的 Decodium 視窗</translation>
+    </message>
+    <message>
+        <source>Area of Full Spectrum in the main window</source>
+        <translation>主視窗中 Full Spectrum 的區域</translation>
+    </message>
+    <message>
+        <source>Area of Signal RX in the main window</source>
+        <translation>主視窗中 Signal RX 的區域</translation>
+    </message>
+    <message>
+        <source>The whole main window</source>
+        <translation>整個主視窗</translation>
+    </message>
+    <message>
+        <source>Pick the area…</source>
+        <translation>選擇區域…</translation>
     </message>
 </context>
 <context>
@@ -2488,6 +2675,10 @@ Right click: change it</source>
     <message>
         <source>System default</source>
         <translation>系統預設</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>無法使用: %1</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -3372,6 +3563,18 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Band map</source>
         <translation>波段圖</translation>
+    </message>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Full Spectrum (Decodium window)</source>
+        <translation>全頻譜 (Decodium 視窗)</translation>
+    </message>
+    <message>
+        <source>Signal RX (Decodium window)</source>
+        <translation>接收訊號 (Decodium 視窗)</translation>
     </message>
     <message>
         <source>Station network</source>
@@ -4662,6 +4865,149 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>QRZ: download stopped</source>
         <translation>QRZ：下載已停止</translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation>新</translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation>無相符</translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation>錯誤</translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation>%1（%2）：新 %3，已標記 %4，無相符 %5，錯誤 %6</translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation>新 DXCC</translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation>QSL 匯入摘要</translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation>顯示 %1 列</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>波段</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>模式</translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation>我的呼號</translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation>服務</translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation>結果</translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation>DXCC / 原因</translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation>新</translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation>已標記</translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation>錯誤</translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation>尚未下載確認：請在 QSL 分頁中使用 LoTW、eQSL 或 QRZ。</translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation>所有服務</translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation>新確認</translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation>無相符</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>錯誤</translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation>全部</translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation>僅新 DXCC</translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation>呼號或國家…</translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation>選擇一列</translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation>所選列的 eQSL 卡片顯示在這裡。</translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation>%1 確認沒有卡片影像。雙擊開啟 QSO。</translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation>正在向 eQSL 要求卡片…（eQSL 每分鐘最多六次：可能需要幾秒鐘）</translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation>開啟 QSO</translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation>複製為文字</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>已複製</translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation>清空摘要</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>關閉</translation>
     </message>
 </context>
 <context>
@@ -6962,6 +7308,46 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Advanced serial parameters</source>
+        <translation>進階序列參數</translation>
+    </message>
+    <message>
+        <source>Leave a value at Default to let the radio driver choose it. DTR/RTS here are fixed line states, not the separate PTT selection above.</source>
+        <translation>保持 Default 由電台驅動程式選擇。這裡的 DTR/RTS 是固定的線路狀態，不是上面的 PTT 選擇。</translation>
+    </message>
+    <message>
+        <source>Data bits</source>
+        <translation>資料位元</translation>
+    </message>
+    <message>
+        <source>Stop bits</source>
+        <translation>停止位元</translation>
+    </message>
+    <message>
+        <source>Parity</source>
+        <translation>同位檢查</translation>
+    </message>
+    <message>
+        <source>Handshake</source>
+        <translation>交握</translation>
+    </message>
+    <message>
+        <source>CI-V address</source>
+        <translation>CI-V 位址</translation>
+    </message>
+    <message>
+        <source>e.g. 0x94</source>
+        <translation>例如 0x94</translation>
+    </message>
+    <message>
+        <source>DTR state</source>
+        <translation>DTR 狀態</translation>
+    </message>
+    <message>
+        <source>RTS state</source>
+        <translation>RTS 狀態</translation>
+    </message>
+    <message>
         <source>flrig server</source>
         <translation>flrig 伺服器</translation>
     </message>
@@ -7148,6 +7534,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Simulated</source>
         <translation>模擬</translation>
+    </message>
+    <message>
+        <source>Yaesu G-450 (GS-232 protocol): azimuth only, 9600 baud. It is not detected by itself, so it is chosen here. It turns up to 450°: set the azimuth maximum to 450 in the rotator window settings to use the whole overlap.</source>
+        <translation>Yaesu G-450 (GS-232 協定): 僅方位, 9600 鮑率。不會自動偵測, 所以在此選擇。它最多轉到 450°: 要用滿重疊範圍, 請在旋轉器視窗設定中把方位最大值設為 450。</translation>
     </message>
     <message>
         <source>App port (WebSocket)</source>
@@ -7707,6 +8097,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>ON4KST 聊天…</translation>
     </message>
     <message>
+        <source>Decodium traffic monitor…</source>
+        <translation>Decodium 流量監視器…</translation>
+    </message>
+    <message>
         <source>Import a log (ADIF, CSV, N1MM)…</source>
         <translation>匯入日誌（ADIF、CSV、N1MM）…</translation>
     </message>
@@ -7893,6 +8287,257 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Search…</source>
         <translation>搜尋…</translation>
+    </message>
+</context>
+<context>
+    <name>TrafficMonitorWindow</name>
+    <message>
+        <source>Decodium traffic monitor</source>
+        <translation>Decodium 流量監視器</translation>
+    </message>
+    <message>
+        <source>paused · %1 of %2 rows</source>
+        <translation>已暫停 · %2 行中的 %1 行</translation>
+    </message>
+    <message>
+        <source>%1 of %2 rows</source>
+        <translation>%2 行中的 %1 行</translation>
+    </message>
+    <message>
+        <source>← received</source>
+        <translation>← 收到</translation>
+    </message>
+    <message>
+        <source>→ sent</source>
+        <translation>→ 發出</translation>
+    </message>
+    <message>
+        <source>→ forwarded</source>
+        <translation>→ 已轉發</translation>
+    </message>
+    <message>
+        <source>← from forward</source>
+        <translation>← 來自轉發</translation>
+    </message>
+    <message>
+        <source>→ relayed back</source>
+        <translation>→ 回傳</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>通道</translation>
+    </message>
+    <message>
+        <source>Direction</source>
+        <translation>方向</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>類型</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>程式</translation>
+    </message>
+    <message>
+        <source>Content</source>
+        <translation>內容</translation>
+    </message>
+    <message>
+        <source>UDP %1 · %2</source>
+        <translation>UDP %1 · %2</translation>
+    </message>
+    <message>
+        <source>nobody has written yet</source>
+        <translation>還沒有程式寫入</translation>
+    </message>
+    <message>
+        <source>UDP %1 not listening</source>
+        <translation>UDP %1 未監聽</translation>
+    </message>
+    <message>
+        <source>forwarded to %1</source>
+        <translation>轉發到 %1</translation>
+    </message>
+    <message>
+        <source>DecoLink off</source>
+        <translation>DecoLink 已關閉</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 · %2 connected</source>
+        <translation>DecoLink %1 · 已連線 %2</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 not listening</source>
+        <translation>DecoLink %1 未監聽</translation>
+    </message>
+    <message>
+        <source>DecoPort: listening to announcements on 5560</source>
+        <translation>DecoPort: 正在 5560 上監聽廣播</translation>
+    </message>
+    <message>
+        <source>DecoPort: %1</source>
+        <translation>DecoPort: %1</translation>
+    </message>
+    <message>
+        <source>not listening</source>
+        <translation>未監聽</translation>
+    </message>
+    <message>
+        <source>hide heartbeats</source>
+        <translation>隱藏心跳</translation>
+    </message>
+    <message>
+        <source>Filter: type, call, text…</source>
+        <translation>篩選: 類型、呼號、文字…</translation>
+    </message>
+    <message>
+        <source>Resume</source>
+        <translation>繼續</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation>暫停</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>複製</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>清除</translation>
+    </message>
+    <message>
+        <source>Nothing matches the filters.</source>
+        <translation>沒有符合篩選條件的行。</translation>
+    </message>
+    <message>
+        <source>Waiting for traffic. Start Decodium: its UDP messages, the DecoLink connection and the DecoPort announcements show up here as they pass.</source>
+        <translation>等待流量。啟動 Decodium: 它的 UDP 訊息、DecoLink 連線和 DecoPort 廣播經過時會顯示在這裡。</translation>
+    </message>
+    <message>
+        <source>Click a row to see it whole: the bytes, or the JSON line.</source>
+        <translation>點擊一行查看完整內容: 位元組或 JSON 行。</translation>
+    </message>
+    <message>
+        <source>To Decodium (UDP)</source>
+        <translation>傳給 Decodium (UDP)</translation>
+    </message>
+    <message>
+        <source>no program yet</source>
+        <translation>尚無程式</translation>
+    </message>
+    <message>
+        <source>Reply to the line</source>
+        <translation>回覆此行</translation>
+    </message>
+    <message>
+        <source>Like the double click in Decodium: it answers a CQ, and it may start transmitting.</source>
+        <translation>與在 Decodium 中按兩下相同: 回覆 CQ, 並可能開始發射。</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>停止 TX</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>關閉自動 TX</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>重送解碼</translation>
+    </message>
+    <message>
+        <source>Decodium sends again all the decodes it has on screen.</source>
+        <translation>Decodium 重新傳送螢幕上的所有解碼。</translation>
+    </message>
+    <message>
+        <source>Band activity</source>
+        <translation>波段活動</translation>
+    </message>
+    <message>
+        <source>Rx frequency</source>
+        <translation>Rx 頻率</translation>
+    </message>
+    <message>
+        <source>Both windows</source>
+        <translation>兩個視窗</translation>
+    </message>
+    <message>
+        <source>Free text (13 characters)</source>
+        <translation>自由文字 (13 個字元)</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation>設定</translation>
+    </message>
+    <message>
+        <source>Set and transmit</source>
+        <translation>設定並發射</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>網格</translation>
+    </message>
+    <message>
+        <source>Send locator</source>
+        <translation>傳送網格</translation>
+    </message>
+    <message>
+        <source>Decodium uses it only with the automatic locator turned on.</source>
+        <translation>只有開啟自動網格時 Decodium 才會使用它。</translation>
+    </message>
+    <message>
+        <source>Callsign to highlight</source>
+        <translation>要醒目標示的呼號</translation>
+    </message>
+    <message>
+        <source>background</source>
+        <translation>背景</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>文字</translation>
+    </message>
+    <message>
+        <source>Highlight</source>
+        <translation>醒目標示</translation>
+    </message>
+    <message>
+        <source>Remove the highlight</source>
+        <translation>取消醒目標示</translation>
+    </message>
+    <message>
+        <source>They leave from the same UDP port Decodium writes to, with its program name. Decodium carries them out only for its main UDP destination (Settings → Reporting → UDP Server) and with &quot;Accept UDP requests&quot; on: if DecoDXLog is its second or third destination it ignores them.</source>
+        <translation>它們從 Decodium 寫入的同一個 UDP 連接埠送出, 帶有其程式名稱。Decodium 只對其主要 UDP 目的地 (Settings → Reporting → UDP Server) 執行, 並需開啟 &quot;Accept UDP requests&quot;: 如果 DecoDXLog 是它的第二或第三個目的地, 它會忽略這些指令。</translation>
+    </message>
+    <message>
+        <source>To Decodium (DecoLink)</source>
+        <translation>傳給 Decodium (DecoLink)</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>傳送</translation>
+    </message>
+    <message>
+        <source>Send the log list again</source>
+        <translation>重新傳送日誌清單</translation>
+    </message>
+    <message>
+        <source>Send the award state</source>
+        <translation>傳送獎狀狀態</translation>
+    </message>
+    <message>
+        <source>Listen only: the DecoPort session is signed with Decodium&apos;s key, and one of its commands keys the transmitter. Here you see which radio is on the network, on what frequency and in which state.</source>
+        <translation>僅監聽: DecoPort 工作階段以 Decodium 的金鑰簽署, 其中一個指令會讓電台發射。這裡可以看到網路上是哪台電台、在什麼頻率、處於什麼狀態。</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>關閉</translation>
     </message>
 </context>
 <context>
@@ -9226,6 +9871,26 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>  有 %1 筆沒有呼號、波段或日期</translation>
     </message>
     <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation>在此波段和模式下 30 分鐘內沒有該呼號的 QSO</translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation>該呼號不在日誌中</translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation>缺少呼號、波段或日期</translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation>eQSL：設定 → QSL 服務 中沒有帳號</translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
+        <translation>eQSL：密碼無法取得（%1）</translation>
+    </message>
+    <message>
         <source>New DXCC confirmed: %1</source>
         <translation>確認了一個新的 DXCC：%1</translation>
     </message>
@@ -9954,6 +10619,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>連接埠 %1 是 DecoDXLog 自己的共享 CAT：請選擇占用電台的程式的連接埠</translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation>音訊輸入 &quot;%1&quot; 無法使用: 請在 CW 面板中另選一個 (解碼器不會改用其他音效卡)。</translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation>有兩個音訊輸入都叫 &quot;%1&quot;: 使用第一個。請在 CW 面板中重新選擇以指明是哪一個。</translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation>沒有可以聽的音訊輸入</translation>
     </message>
@@ -10175,6 +10848,97 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
 </context>
 <context>
+    <name>decolog::app::TrafficMonitor</name>
+    <message>
+        <source>%1 not sent: no program has written to the UDP port yet.</source>
+        <translation>%1: 未傳送, 還沒有程式寫入 UDP 連接埠。</translation>
+    </message>
+    <message>
+        <source>%1 sent to %2.</source>
+        <translation>%1: 已傳送到 %2。</translation>
+    </message>
+    <message>
+        <source>Pick a decoded line (Decode) to answer.</source>
+        <translation>請選擇要回覆的解碼行 (Decode)。</translation>
+    </message>
+    <message>
+        <source>This line cannot be read back as a decode.</source>
+        <translation>此行無法作為解碼讀回。</translation>
+    </message>
+    <message>
+        <source>Reply to &quot;%1&quot;</source>
+        <translation>回覆 &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>關閉自動 TX</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>停止 TX</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot; (transmit)</source>
+        <translation>自由文字 &quot;%1&quot; (發射)</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot;</source>
+        <translation>自由文字 &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>重送解碼</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>清除</translation>
+    </message>
+    <message>
+        <source>A locator has at least four characters.</source>
+        <translation>網格至少有四個字元。</translation>
+    </message>
+    <message>
+        <source>Locator %1</source>
+        <translation>網格 %1</translation>
+    </message>
+    <message>
+        <source>Which callsign?</source>
+        <translation>哪個呼號?</translation>
+    </message>
+    <message>
+        <source>Highlight of %1 removed</source>
+        <translation>已取消 %1 的醒目標示</translation>
+    </message>
+    <message>
+        <source>Highlight of %1</source>
+        <translation>醒目標示 %1</translation>
+    </message>
+    <message>
+        <source>Not JSON: %1</source>
+        <translation>不是 JSON: %1</translation>
+    </message>
+    <message>
+        <source>DecoLink wants a JSON object with a &quot;type&quot;.</source>
+        <translation>DecoLink 需要帶有 &quot;type&quot; 的 JSON 物件。</translation>
+    </message>
+    <message>
+        <source>Decodium is not connected to DecoLink.</source>
+        <translation>Decodium 未連線到 DecoLink。</translation>
+    </message>
+    <message>
+        <source>Sent on DecoLink: %1</source>
+        <translation>已透過 DecoLink 傳送: %1</translation>
+    </message>
+    <message>
+        <source>The log list is on its way to Decodium.</source>
+        <translation>日誌清單正在傳往 Decodium。</translation>
+    </message>
+    <message>
+        <source>Award state sent to Decodium.</source>
+        <translation>獎狀狀態已傳送到 Decodium。</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::UpdateController</name>
     <message>
         <source>DecoDXLog %1 is out</source>
@@ -10300,6 +11064,22 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>F%1 沒有錄製的訊息</translation>
     </message>
     <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation>音訊輸出 &quot;%1&quot; 無法使用: 請在 DVK 面板中另選一個。沒有傳送任何內容。</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>系統預設</translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation>有兩個音訊輸出都叫 &quot;%1&quot;: 使用第一個。請在 DVK 面板中重新選擇以指明是哪一個。</translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
+        <translation>麥克風 &quot;%1&quot; 無法使用: 請在 DVK 面板中另選一個。</translation>
+    </message>
+    <message>
         <source>The microphone does not record 16 kHz mono</source>
         <translation>麥克風無法以 16 kHz 單聲道錄音</translation>
     </message>
@@ -10322,6 +11102,13 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Cannot copy the file</source>
         <translation>無法複製檔案</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::WindowMirror</name>
+    <message>
+        <source>Decodium main window</source>
+        <translation>Decodium 主視窗</translation>
     </message>
 </context>
 <context>

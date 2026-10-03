@@ -709,6 +709,14 @@
         <translation>%1-bekræftelser</translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation>Importoversigt (%1 nye)</translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation>Importoversigt</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Papir-QSL (%1)</translation>
     </message>
@@ -2361,6 +2369,14 @@ Højreklik: ret den</translation>
         <translation>Dekoder</translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation>Systemstandard</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Ikke tilgængelig: %1</translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation>%1 wpm · %2 Hz</translation>
     </message>
@@ -2387,6 +2403,177 @@ Højreklik: ret den</translation>
     <message>
         <source>noise</source>
         <translation>støj</translation>
+    </message>
+</context>
+<context>
+    <name>DecodeList</name>
+    <message>
+        <source>%1 rows</source>
+        <translation>%1 rækker</translation>
+    </message>
+    <message>
+        <source>Empty this list</source>
+        <translation>Ryd denne liste</translation>
+    </message>
+    <message>
+        <source>Low confidence decode</source>
+        <translation>Usikker dekodning</translation>
+    </message>
+    <message>
+        <source>Answer in Decodium</source>
+        <translation>Svar i Decodium</translation>
+    </message>
+    <message>
+        <source>Show in Call info and prepare the QSO</source>
+        <translation>Vis i kaldesignalkortet og forbered QSO</translation>
+    </message>
+    <message>
+        <source>Copy the line</source>
+        <translation>Kopiér linjen</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumPanel</name>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Newest on top: click for newest at the bottom, like Decodium</source>
+        <translation>Nyeste øverst: klik for nyeste nederst, som i Decodium</translation>
+    </message>
+    <message>
+        <source>Newest at the bottom, like Decodium: click for newest on top</source>
+        <translation>Nyeste nederst, som i Decodium: klik for nyeste øverst</translation>
+    </message>
+    <message>
+        <source>Reload the recent decodes from Decodium&apos;s own records, and ask it to send again what it has on screen</source>
+        <translation>Genindlæs de seneste dekodninger fra Decodiums egne optegnelser, og bed det sende igen, hvad det har på skærmen</translation>
+    </message>
+    <message>
+        <source>TX</source>
+        <translation>TX</translation>
+    </message>
+    <message>
+        <source>RX · decoding</source>
+        <translation>RX · dekoder</translation>
+    </message>
+    <message>
+        <source>RX</source>
+        <translation>RX</translation>
+    </message>
+    <message>
+        <source>Rx %1 Hz · Tx %2 Hz</source>
+        <translation>Rx %1 Hz · Tx %2 Hz</translation>
+    </message>
+    <message>
+        <source>DX %1</source>
+        <translation>DX %1</translation>
+    </message>
+    <message>
+        <source>Waiting for Decodium on UDP port %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot;Accept UDP requests&quot;.</source>
+        <translation>Venter på Decodium på UDP-port %1.
+I Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, og &quot;Accept UDP requests&quot;.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog is not listening on a UDP port: set it in Settings → Decodium link.</source>
+        <translation>DecoDXLog lytter ikke på nogen UDP-port: indstil den under Indstillinger → Forbindelse til Decodium.</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Fuldt spektrum</translation>
+    </message>
+    <message>
+        <source>Every decode Decodium hears on the band shows up here.</source>
+        <translation>Her vises hver dekodning, som Decodium hører på båndet.</translation>
+    </message>
+    <message>
+        <source>Signal RX</source>
+        <translation>RX-signal</translation>
+    </message>
+    <message>
+        <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
+        <translation>Her vises dine udsendelser, hvem der kalder dig, og din QSO-partner.</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumWindowPanel</name>
+    <message>
+        <source>Signal RX</source>
+        <translation>RX-signal</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Fuldt spektrum</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show</source>
+        <translation>Vælg det Decodium-vindue, der skal vises</translation>
+    </message>
+    <message>
+        <source>Pick the area of the window to show</source>
+        <translation>Vælg det område af vinduet, der skal vises</translation>
+    </message>
+    <message>
+        <source>Clicks go to Decodium: click to stop</source>
+        <translation>Klik går til Decodium: klik for at stoppe</translation>
+    </message>
+    <message>
+        <source>Send your clicks to Decodium (a double click on a line answers it): off</source>
+        <translation>Send dine klik til Decodium (et dobbeltklik på en linje besvarer den): fra</translation>
+    </message>
+    <message>
+        <source>Resize the Decodium window to fit this panel, so the text stays sharp</source>
+        <translation>Tilpas Decodium-vinduet til dette panel, så teksten forbliver skarp</translation>
+    </message>
+    <message>
+        <source>Drag over the part of the Decodium window you want to see · Esc cancels</source>
+        <translation>Træk over den del af Decodium-vinduet, du vil se · Esc annullerer</translation>
+    </message>
+    <message>
+        <source>This panel works only on Windows.</source>
+        <translation>Dette panel virker kun på Windows.</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show with ▾ in the header.</source>
+        <translation>Vælg det Decodium-vindue, der skal vises, med ▾ i overskriften.</translation>
+    </message>
+    <message>
+        <source>The Decodium window is minimized, and a minimized window cannot be copied. It can stay covered by other windows or on another screen.</source>
+        <translation>Decodium-vinduet er minimeret, og et minimeret vindue kan ikke kopieres. Det kan være dækket af andre vinduer eller på en anden skærm.</translation>
+    </message>
+    <message>
+        <source>Decodium is not open. Start it: its window shows up here.</source>
+        <translation>Decodium er ikke åbent. Start det: dets vindue vises her.</translation>
+    </message>
+    <message>
+        <source>The window &quot;%1&quot; is not open. In Decodium press Pop on the list to detach it, or pick another window with ▾.</source>
+        <translation>Vinduet &quot;%1&quot; er ikke åbent. Tryk på Pop på listen i Decodium for at løsne det, eller vælg et andet vindue med ▾.</translation>
+    </message>
+    <message>
+        <source>Bring Decodium back, behind the other windows</source>
+        <translation>Gendan Decodium til normal størrelse, bag de andre vinduer</translation>
+    </message>
+    <message>
+        <source>No Decodium window is open</source>
+        <translation>Intet Decodium-vindue er åbent</translation>
+    </message>
+    <message>
+        <source>Area of Full Spectrum in the main window</source>
+        <translation>Området for Full Spectrum i hovedvinduet</translation>
+    </message>
+    <message>
+        <source>Area of Signal RX in the main window</source>
+        <translation>Området for Signal RX i hovedvinduet</translation>
+    </message>
+    <message>
+        <source>The whole main window</source>
+        <translation>Hele hovedvinduet</translation>
+    </message>
+    <message>
+        <source>Pick the area…</source>
+        <translation>Vælg området…</translation>
     </message>
 </context>
 <context>
@@ -2497,6 +2684,10 @@ Højreklik: ret den</translation>
     <message>
         <source>System default</source>
         <translation>Systemstandard</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Ikke tilgængelig: %1</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -3383,6 +3574,18 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Band map</source>
         <translation>Båndkort</translation>
+    </message>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Full Spectrum (Decodium window)</source>
+        <translation>Fuldt spektrum (Decodium-vindue)</translation>
+    </message>
+    <message>
+        <source>Signal RX (Decodium window)</source>
+        <translation>RX-signal (Decodium-vindue)</translation>
     </message>
     <message>
         <source>Station network</source>
@@ -4676,6 +4879,149 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>QRZ: download stopped</source>
         <translation>QRZ: hentning stoppet</translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation>ny</translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation>uden match</translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation>fejl</translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation>%1 (%2): %3 nye, %4 allerede markeret, %5 uden match, %6 fejl</translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation>ny DXCC</translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation>Oversigt over QSL-import</translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation>%1 rækker vist</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Bånd</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Tilstand</translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation>Mit kaldesignal</translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation>Tjeneste</translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation>Resultat</translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation>DXCC / årsag</translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation>nye</translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation>allerede markeret</translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation>fejl</translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation>Ingen bekræftelser hentet endnu: brug LoTW, eQSL eller QRZ under fanen QSL.</translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation>Alle tjenester</translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation>Nye bekræftelser</translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation>Uden match</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>Fejl</translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation>Alt</translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation>kun nye DXCC</translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation>Kaldesignal eller land…</translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation>Vælg en række</translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation>Her vises eQSL-kortet for en række.</translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation>%1-bekræftelser har intet kortbillede. Dobbeltklik åbner QSO&apos;en.</translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation>Beder eQSL om kortet… (eQSL vil højst have seks i minuttet: det kan tage et par sekunder)</translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation>Åbn QSO&apos;en</translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation>Kopiér som tekst</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>kopieret</translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation>Ryd oversigten</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Luk</translation>
     </message>
 </context>
 <context>
@@ -6984,6 +7330,46 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Advanced serial parameters</source>
+        <translation>Avancerede serielle parametre</translation>
+    </message>
+    <message>
+        <source>Leave a value at Default to let the radio driver choose it. DTR/RTS here are fixed line states, not the separate PTT selection above.</source>
+        <translation>Lad en værdi stå på Default, så radioens driver vælger den. DTR/RTS er her faste linjetilstande, ikke PTT-valget ovenfor.</translation>
+    </message>
+    <message>
+        <source>Data bits</source>
+        <translation>Databit</translation>
+    </message>
+    <message>
+        <source>Stop bits</source>
+        <translation>Stopbit</translation>
+    </message>
+    <message>
+        <source>Parity</source>
+        <translation>Paritet</translation>
+    </message>
+    <message>
+        <source>Handshake</source>
+        <translation>Handshake</translation>
+    </message>
+    <message>
+        <source>CI-V address</source>
+        <translation>CI-V-adresse</translation>
+    </message>
+    <message>
+        <source>e.g. 0x94</source>
+        <translation>f.eks. 0x94</translation>
+    </message>
+    <message>
+        <source>DTR state</source>
+        <translation>DTR-tilstand</translation>
+    </message>
+    <message>
+        <source>RTS state</source>
+        <translation>RTS-tilstand</translation>
+    </message>
+    <message>
         <source>flrig server</source>
         <translation>flrig-server</translation>
     </message>
@@ -7170,6 +7556,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Simulated</source>
         <translation>Simuleret</translation>
+    </message>
+    <message>
+        <source>Yaesu G-450 (GS-232 protocol): azimuth only, 9600 baud. It is not detected by itself, so it is chosen here. It turns up to 450°: set the azimuth maximum to 450 in the rotator window settings to use the whole overlap.</source>
+        <translation>Yaesu G-450 (GS-232-protokol): kun azimut, 9600 baud. Registreres ikke af sig selv og vælges derfor her. Drejer op til 450°: sæt azimutmaksimum til 450 i rotorvinduets indstillinger for at bruge hele overlappet.</translation>
     </message>
     <message>
         <source>App port (WebSocket)</source>
@@ -7729,6 +8119,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>ON4KST-chat…</translation>
     </message>
     <message>
+        <source>Decodium traffic monitor…</source>
+        <translation>Decodium-trafikmonitor…</translation>
+    </message>
+    <message>
         <source>Import a log (ADIF, CSV, N1MM)…</source>
         <translation>Importér en log (ADIF, CSV, N1MM)…</translation>
     </message>
@@ -7915,6 +8309,257 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Search…</source>
         <translation>Søg…</translation>
+    </message>
+</context>
+<context>
+    <name>TrafficMonitorWindow</name>
+    <message>
+        <source>Decodium traffic monitor</source>
+        <translation>Decodium-trafikmonitor</translation>
+    </message>
+    <message>
+        <source>paused · %1 of %2 rows</source>
+        <translation>på pause · %1 af %2 rækker</translation>
+    </message>
+    <message>
+        <source>%1 of %2 rows</source>
+        <translation>%1 af %2 rækker</translation>
+    </message>
+    <message>
+        <source>← received</source>
+        <translation>← modtaget</translation>
+    </message>
+    <message>
+        <source>→ sent</source>
+        <translation>→ sendt</translation>
+    </message>
+    <message>
+        <source>→ forwarded</source>
+        <translation>→ videresendt</translation>
+    </message>
+    <message>
+        <source>← from forward</source>
+        <translation>← fra videresendelse</translation>
+    </message>
+    <message>
+        <source>→ relayed back</source>
+        <translation>→ sendt tilbage</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>Kanal</translation>
+    </message>
+    <message>
+        <source>Direction</source>
+        <translation>Retning</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Type</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>Program</translation>
+    </message>
+    <message>
+        <source>Content</source>
+        <translation>Indhold</translation>
+    </message>
+    <message>
+        <source>UDP %1 · %2</source>
+        <translation>UDP %1 · %2</translation>
+    </message>
+    <message>
+        <source>nobody has written yet</source>
+        <translation>ingen har skrevet endnu</translation>
+    </message>
+    <message>
+        <source>UDP %1 not listening</source>
+        <translation>UDP %1 lytter ikke</translation>
+    </message>
+    <message>
+        <source>forwarded to %1</source>
+        <translation>videresendt til %1</translation>
+    </message>
+    <message>
+        <source>DecoLink off</source>
+        <translation>DecoLink slået fra</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 · %2 connected</source>
+        <translation>DecoLink %1 · %2 forbundet</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 not listening</source>
+        <translation>DecoLink %1 lytter ikke</translation>
+    </message>
+    <message>
+        <source>DecoPort: listening to announcements on 5560</source>
+        <translation>DecoPort: lytter efter annonceringer på 5560</translation>
+    </message>
+    <message>
+        <source>DecoPort: %1</source>
+        <translation>DecoPort: %1</translation>
+    </message>
+    <message>
+        <source>not listening</source>
+        <translation>lytter ikke</translation>
+    </message>
+    <message>
+        <source>hide heartbeats</source>
+        <translation>skjul heartbeats</translation>
+    </message>
+    <message>
+        <source>Filter: type, call, text…</source>
+        <translation>Filter: type, kaldesignal, tekst…</translation>
+    </message>
+    <message>
+        <source>Resume</source>
+        <translation>Fortsæt</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation>Pause</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Kopiér</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Ryd</translation>
+    </message>
+    <message>
+        <source>Nothing matches the filters.</source>
+        <translation>Ingen rækker passer til filtrene.</translation>
+    </message>
+    <message>
+        <source>Waiting for traffic. Start Decodium: its UDP messages, the DecoLink connection and the DecoPort announcements show up here as they pass.</source>
+        <translation>Venter på trafik. Start Decodium: dets UDP-beskeder, DecoLink-forbindelsen og DecoPort-annonceringerne vises her, efterhånden som de passerer.</translation>
+    </message>
+    <message>
+        <source>Click a row to see it whole: the bytes, or the JSON line.</source>
+        <translation>Klik på en række for at se den helt: bytes eller JSON-linjen.</translation>
+    </message>
+    <message>
+        <source>To Decodium (UDP)</source>
+        <translation>Til Decodium (UDP)</translation>
+    </message>
+    <message>
+        <source>no program yet</source>
+        <translation>intet program endnu</translation>
+    </message>
+    <message>
+        <source>Reply to the line</source>
+        <translation>Svar på linjen</translation>
+    </message>
+    <message>
+        <source>Like the double click in Decodium: it answers a CQ, and it may start transmitting.</source>
+        <translation>Som dobbeltklik i Decodium: svarer på et CQ og kan starte udsendelsen.</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>Stop TX</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Auto TX fra</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Gentag dekodninger</translation>
+    </message>
+    <message>
+        <source>Decodium sends again all the decodes it has on screen.</source>
+        <translation>Decodium sender alle dekodninger på skærmen igen.</translation>
+    </message>
+    <message>
+        <source>Band activity</source>
+        <translation>Båndaktivitet</translation>
+    </message>
+    <message>
+        <source>Rx frequency</source>
+        <translation>Rx-frekvens</translation>
+    </message>
+    <message>
+        <source>Both windows</source>
+        <translation>Begge vinduer</translation>
+    </message>
+    <message>
+        <source>Free text (13 characters)</source>
+        <translation>Fritekst (13 tegn)</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation>Sæt</translation>
+    </message>
+    <message>
+        <source>Set and transmit</source>
+        <translation>Sæt og send</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>Send locator</source>
+        <translation>Send locator</translation>
+    </message>
+    <message>
+        <source>Decodium uses it only with the automatic locator turned on.</source>
+        <translation>Decodium bruger den kun med automatisk locator slået til.</translation>
+    </message>
+    <message>
+        <source>Callsign to highlight</source>
+        <translation>Kaldesignal der skal fremhæves</translation>
+    </message>
+    <message>
+        <source>background</source>
+        <translation>baggrund</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>tekst</translation>
+    </message>
+    <message>
+        <source>Highlight</source>
+        <translation>Fremhæv</translation>
+    </message>
+    <message>
+        <source>Remove the highlight</source>
+        <translation>Fjern fremhævningen</translation>
+    </message>
+    <message>
+        <source>They leave from the same UDP port Decodium writes to, with its program name. Decodium carries them out only for its main UDP destination (Settings → Reporting → UDP Server) and with &quot;Accept UDP requests&quot; on: if DecoDXLog is its second or third destination it ignores them.</source>
+        <translation>De sendes fra den samme UDP-port, som Decodium skriver til, med dets programnavn. Decodium udfører dem kun for sin primære UDP-destination (Settings → Reporting → UDP Server) og med &quot;Accept UDP requests&quot; slået til: er DecoDXLog dets anden eller tredje destination, ignorerer det dem.</translation>
+    </message>
+    <message>
+        <source>To Decodium (DecoLink)</source>
+        <translation>Til Decodium (DecoLink)</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Send</translation>
+    </message>
+    <message>
+        <source>Send the log list again</source>
+        <translation>Send loglisten igen</translation>
+    </message>
+    <message>
+        <source>Send the award state</source>
+        <translation>Send diplomstatus</translation>
+    </message>
+    <message>
+        <source>Listen only: the DecoPort session is signed with Decodium&apos;s key, and one of its commands keys the transmitter. Here you see which radio is on the network, on what frequency and in which state.</source>
+        <translation>Kun lytning: DecoPort-sessionen er signeret med Decodiums nøgle, og en af dens kommandoer nøgler senderen. Her ser du, hvilken radio der er på netværket, på hvilken frekvens og i hvilken tilstand.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Luk</translation>
     </message>
 </context>
 <context>
@@ -9265,6 +9910,26 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>  %1 poster uden kaldesignal, bånd eller dato</translation>
     </message>
     <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation>ingen QSO med dette kaldesignal inden for 30 minutter på dette bånd og mode</translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation>dette kaldesignal er ikke i loggen</translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation>kaldesignal, bånd eller dato mangler</translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation>eQSL: ingen konto under Opsætning → QSL-tjenester</translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
+        <translation>eQSL: adgangskode ikke tilgængelig (%1)</translation>
+    </message>
+    <message>
         <source>New DXCC confirmed: %1</source>
         <translation>Nyt DXCC bekræftet: %1</translation>
     </message>
@@ -10016,6 +10681,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Port %1 er DecoDXLogs egen delte CAT: vælg porten for det program, der har radioen</translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation>Lydindgangen &quot;%1&quot; er ikke tilgængelig: vælg en anden i CW-panelet (dekoderen falder ikke tilbage på et andet kort).</translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation>To lydindgange hedder &quot;%1&quot;: den første bruges. Vælg igen i CW-panelet for at sige hvilken.</translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation>Ingen lydindgang at lytte til</translation>
     </message>
@@ -10237,6 +10910,97 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
 </context>
 <context>
+    <name>decolog::app::TrafficMonitor</name>
+    <message>
+        <source>%1 not sent: no program has written to the UDP port yet.</source>
+        <translation>%1: ikke sendt, intet program har skrevet til UDP-porten endnu.</translation>
+    </message>
+    <message>
+        <source>%1 sent to %2.</source>
+        <translation>%1: sendt til %2.</translation>
+    </message>
+    <message>
+        <source>Pick a decoded line (Decode) to answer.</source>
+        <translation>Vælg en dekodet linje (Decode) at svare på.</translation>
+    </message>
+    <message>
+        <source>This line cannot be read back as a decode.</source>
+        <translation>Denne linje kan ikke læses som en dekodning.</translation>
+    </message>
+    <message>
+        <source>Reply to &quot;%1&quot;</source>
+        <translation>Svar til &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Auto TX fra</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>Stop TX</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot; (transmit)</source>
+        <translation>Fritekst &quot;%1&quot; (send)</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot;</source>
+        <translation>Fritekst &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Gentag dekodninger</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Ryd</translation>
+    </message>
+    <message>
+        <source>A locator has at least four characters.</source>
+        <translation>En locator har mindst fire tegn.</translation>
+    </message>
+    <message>
+        <source>Locator %1</source>
+        <translation>Locator %1</translation>
+    </message>
+    <message>
+        <source>Which callsign?</source>
+        <translation>Hvilket kaldesignal?</translation>
+    </message>
+    <message>
+        <source>Highlight of %1 removed</source>
+        <translation>Fremhævning af %1 fjernet</translation>
+    </message>
+    <message>
+        <source>Highlight of %1</source>
+        <translation>Fremhævning af %1</translation>
+    </message>
+    <message>
+        <source>Not JSON: %1</source>
+        <translation>Ikke JSON: %1</translation>
+    </message>
+    <message>
+        <source>DecoLink wants a JSON object with a &quot;type&quot;.</source>
+        <translation>DecoLink vil have et JSON-objekt med &quot;type&quot;.</translation>
+    </message>
+    <message>
+        <source>Decodium is not connected to DecoLink.</source>
+        <translation>Decodium er ikke forbundet til DecoLink.</translation>
+    </message>
+    <message>
+        <source>Sent on DecoLink: %1</source>
+        <translation>Sendt via DecoLink: %1</translation>
+    </message>
+    <message>
+        <source>The log list is on its way to Decodium.</source>
+        <translation>Loglisten er på vej til Decodium.</translation>
+    </message>
+    <message>
+        <source>Award state sent to Decodium.</source>
+        <translation>Diplomstatus sendt til Decodium.</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::UpdateController</name>
     <message>
         <source>DecoDXLog %1 is out</source>
@@ -10362,6 +11126,22 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>F%1 har ingen optaget besked</translation>
     </message>
     <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation>Lydudgangen &quot;%1&quot; er ikke tilgængelig: vælg en anden i DVK-panelet. Der blev ikke sendt noget.</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Systemstandard</translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation>To lydudgange hedder &quot;%1&quot;: den første bruges. Vælg igen i DVK-panelet for at sige hvilken.</translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
+        <translation>Mikrofonen &quot;%1&quot; er ikke tilgængelig: vælg en anden i DVK-panelet.</translation>
+    </message>
+    <message>
         <source>The microphone does not record 16 kHz mono</source>
         <translation>Mikrofonen optager ikke 16 kHz mono</translation>
     </message>
@@ -10384,6 +11164,13 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Cannot copy the file</source>
         <translation>Kan ikke kopiere filen</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::WindowMirror</name>
+    <message>
+        <source>Decodium main window</source>
+        <translation>Decodiums hovedvindue</translation>
     </message>
 </context>
 <context>

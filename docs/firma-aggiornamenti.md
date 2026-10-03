@@ -25,11 +25,11 @@ repository e versione siano proprio quelli della release, e prende SHA-256 e dim
 del pacchetto. Poi scarica il pacchetto e lo tiene solo se lo SHA-256 torna: su Linux
 l'AppImage che gira non viene toccata prima del controllo.
 
-Prima si prova `elisir80/DecodxLog`: deve offrire un pacchetto del tipo e
-dell'architettura del computer (setup `.exe` Windows, `.dmg` macOS,
-`.AppImage` Linux) e la relativa firma valida. Solo se manca una release cosi'
-utilizzabile si passa a `iu8lmc/DecoDXLog`. Se nessuna firma e' valida, il
-programma puo' solo proporre il download manuale.
+Le due sorgenti (`elisir80/DecodxLog` e `iu8lmc/DecoDXLog`) sono alla pari: ciascuna
+deve offrire un pacchetto del tipo e dell'architettura del computer (setup `.exe`
+Windows, `.dmg` macOS, `.AppImage` Linux) firmato con la chiave del suo repository, e
+vince la versione piu' nuova che risulta firmata; a pari versione il fork. Se nessuna
+firma e' valida, il programma puo' solo proporre il download manuale.
 
 ## Le chiavi di iu8lmc/DecoDXLog
 

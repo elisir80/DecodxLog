@@ -5,6 +5,7 @@
 #include "core/QslDownload.h"
 
 #include <QSignalSpy>
+#include <QTemporaryDir>
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QTest>
@@ -236,6 +237,65 @@ private slots:
         // L'account generale, esclusi i profili con un account loro: si'.
         QCOMPARE(db.applyConfirmation("eqsl", eqsl.at(0), 1800, {}, {p2}).status, ConfirmationResult::Status::Confirmed);
         QCOMPARE(db.record(fromHome)->value("EQSL_QSL_RCVD"), QString("Y"));
+    }
+
+    // La cartolina di una eQSL: GeteQSL.cfm dice dove sta l'immagine, la si
+    // scarica e la si tiene; chiesta di nuovo, si riprende dalla cartella
+    // senza disturbare eQSL. Un errore della pagina si dice, senza password.
+    void eqslCardImage()
+    {
+        QString error;
+        QCOMPARE(confirmations::eqslCardImage(
+                     "<HTML><BODY><IMG SRC=\"/CFFileServlet/_cf_image/_cfimg123.JPG\" ALT=\"eQSL\"></BODY></HTML>",
+                     QUrl("https://www.eqsl.cc/qslcard/GeteQSL.cfm"), &error),
+                 QUrl("https://www.eqsl.cc/CFFileServlet/_cf_image/_cfimg123.JPG"));
+        QVERIFY(confirmations::eqslCardImage("<HTML><BODY>Error: I cannot find that log entry</BODY></HTML>",
+                                             QUrl("https://www.eqsl.cc/"), &error).isEmpty());
+        QCOMPARE(error, QString("Error: I cannot find that log entry"));
+
+        FakeServer server;
+        server.answer = [](const FakeServer::Request& r) -> QByteArray {
+            if (r.path.endsWith(".JPG"))
+                return QByteArray("\xFF\xD8\xFF\xE0 fake jpeg", 14);
+            if (r.query.queryItemValue("CallsignFrom") == QLatin1String("JA1XX"))
+                return "<HTML>Error: No match on Username/Password for that QSO Date/Time</HTML>";
+            return "<HTML><IMG SRC=\"/CFFileServlet/_cf_image/k1abc.JPG\"></HTML>";
+        };
+        QTemporaryDir dir;
+        EqslCardFetcher f;
+        f.setEndpoint(server.url("/qslcard/GeteQSL.cfm"));
+        f.setCacheDir(dir.path());
+        f.setMinimumGapMs(0);
+        QSignalSpy ready(&f, &EqslCardFetcher::ready);
+        EqslCardFetcher::Request r{"IU8LMC", "segreta", "K1ABC",
+                                   QDateTime(QDate(2026, 9, 10), QTime(12, 5), QTimeZone::UTC), "20m", "FT8"};
+        f.fetch(r);
+        QVERIFY(ready.wait(5000));
+        QCOMPARE(ready.at(0).at(0).toString(), EqslCardFetcher::keyOf(r));
+        const QString file = ready.at(0).at(1).toString();
+        QVERIFY2(QFileInfo::exists(file), qPrintable(ready.at(0).at(2).toString()));
+        const QUrlQuery q = server.requests.at(0).query;
+        QCOMPARE(q.queryItemValue("Username"), QString("IU8LMC"));
+        QCOMPARE(q.queryItemValue("QSOYear"), QString("2026"));
+        QCOMPARE(q.queryItemValue("QSOHour"), QString("12"));
+        QCOMPARE(q.queryItemValue("QSOMinute"), QString("05"));
+        QCOMPARE(q.queryItemValue("QSOBand"), QString("20m"));
+        QCOMPARE(q.queryItemValue("QSOMode"), QString("FT8"));
+
+        // Di nuovo: dalla cartella, nessuna richiesta in piu'.
+        const int asked = server.requests.size();
+        f.fetch(r);
+        QVERIFY(ready.wait(5000));
+        QCOMPARE(ready.at(1).at(1).toString(), file);
+        QCOMPARE(server.requests.size(), asked);
+
+        // Un errore di eQSL si dice, e la password non c'e'.
+        r.call = "JA1XX";
+        f.fetch(r);
+        QVERIFY(ready.wait(5000));
+        QVERIFY(ready.at(2).at(1).toString().isEmpty());
+        QVERIFY(ready.at(2).at(2).toString().contains(QStringLiteral("No match")));
+        QVERIFY(!ready.at(2).at(2).toString().contains(QStringLiteral("segreta")));
     }
 
     void downloadEqsl()

@@ -120,8 +120,22 @@ void UdpReceiver::relayBack(const QByteArray& data)
 {
     const auto msg = wsjtx::parse(data);
     const Target to = msg && m_endpoints.contains(msg->clientId) ? m_endpoints.value(msg->clientId) : m_lastEndpoint;
-    if (m_socket && to.port != 0)
+    if (m_socket && to.port != 0) {
         m_socket->writeDatagram(data, to.address, to.port);
+        emit traffic(QStringLiteral("back"), QStringLiteral("%1:%2").arg(to.address.toString()).arg(to.port), data);
+    }
+}
+
+bool UdpReceiver::sendToClient(const QString& clientId, const QByteArray& data)
+{
+    const Target to = !clientId.isEmpty() && m_endpoints.contains(clientId) ? m_endpoints.value(clientId)
+                                                                             : m_lastEndpoint;
+    if (!m_socket || to.port == 0)
+        return false;
+    if (m_socket->writeDatagram(data, to.address, to.port) != data.size())
+        return false;
+    emit traffic(QStringLiteral("out"), QStringLiteral("%1:%2").arg(to.address.toString()).arg(to.port), data);
+    return true;
 }
 
 void UdpReceiver::readPending()
@@ -131,23 +145,29 @@ void UdpReceiver::readPending()
         const QByteArray data = datagram.data();
         const QHostAddress from = datagram.senderAddress();
         const quint16 fromPort = static_cast<quint16>(datagram.senderPort());
-        if (!m_forward.isEmpty()) {
-            // Da uno dei programmi a cui si inoltra: e' una risposta per il
-            // client (Reply, Halt TX...), non un QSO per il log.
-            if (isForwardTarget(from, fromPort)) {
-                relayBack(data);
+        const QString peer = QStringLiteral("%1:%2").arg(plain(from).toString()).arg(fromPort);
+        // Da uno dei programmi a cui si inoltra: e' una risposta per il
+        // client (Reply, Halt TX...), non un QSO per il log.
+        if (!m_forward.isEmpty() && isForwardTarget(from, fromPort)) {
+            emit traffic(QStringLiteral("fwd-in"), peer, data);
+            relayBack(data);
+            continue;
+        }
+        // Da dove scrive ogni client: le risposte (dei programmi inoltrati, o
+        // di DecoDXLog stesso dal monitor) vanno li'. Prima di dirlo al
+        // monitor, che cosi' lo trova gia' fra i client.
+        if (const auto msg = wsjtx::parse(data)) {
+            m_lastEndpoint = Target{plain(from), fromPort};
+            m_endpoints.insert(msg->clientId, m_lastEndpoint);
+            m_lastClientId = msg->clientId;
+        }
+        emit traffic(QStringLiteral("in"), peer, data);
+        for (const Target& t : std::as_const(m_forward)) {
+            // Mai a se stessi: sarebbe un giro senza fine.
+            if (t.port == m_port && (plain(t.address).isLoopback() || t.address.isNull()))
                 continue;
-            }
-            if (const auto msg = wsjtx::parse(data)) {
-                m_lastEndpoint = Target{plain(from), fromPort};
-                m_endpoints.insert(msg->clientId, m_lastEndpoint);
-            }
-            for (const Target& t : std::as_const(m_forward)) {
-                // Mai a se stessi: sarebbe un giro senza fine.
-                if (t.port == m_port && (plain(t.address).isLoopback() || t.address.isNull()))
-                    continue;
-                m_socket->writeDatagram(data, t.address, t.port);
-            }
+            m_socket->writeDatagram(data, t.address, t.port);
+            emit traffic(QStringLiteral("fwd"), QStringLiteral("%1:%2").arg(plain(t.address).toString()).arg(t.port), data);
         }
         handleDatagram(data, from);
     }

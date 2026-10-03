@@ -713,6 +713,14 @@
         <translation>%1 apstiprinājumi</translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation>Importa kopsavilkums (%1 jauni)</translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation>Importa kopsavilkums</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>Papīra QSL (%1)</translation>
     </message>
@@ -2370,6 +2378,14 @@ Labais klikšķis: mainīt</translation>
         <translation>Dekoders</translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation>Sistēmas noklusējums</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Nav pieejams: %1</translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation>%1 vārdi/min · %2 Hz</translation>
     </message>
@@ -2396,6 +2412,177 @@ Labais klikšķis: mainīt</translation>
     <message>
         <source>noise</source>
         <translation>troksnis</translation>
+    </message>
+</context>
+<context>
+    <name>DecodeList</name>
+    <message>
+        <source>%1 rows</source>
+        <translation>%1 rindas</translation>
+    </message>
+    <message>
+        <source>Empty this list</source>
+        <translation>Iztukšot šo sarakstu</translation>
+    </message>
+    <message>
+        <source>Low confidence decode</source>
+        <translation>Neuzticama dekodēšana</translation>
+    </message>
+    <message>
+        <source>Answer in Decodium</source>
+        <translation>Atbildēt programmā Decodium</translation>
+    </message>
+    <message>
+        <source>Show in Call info and prepare the QSO</source>
+        <translation>Parādīt izsaukuma kartē un sagatavot QSO</translation>
+    </message>
+    <message>
+        <source>Copy the line</source>
+        <translation>Kopēt rindu</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumPanel</name>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Newest on top: click for newest at the bottom, like Decodium</source>
+        <translation>Jaunākie augšā: klikšķis, lai jaunākie būtu apakšā, kā Decodium</translation>
+    </message>
+    <message>
+        <source>Newest at the bottom, like Decodium: click for newest on top</source>
+        <translation>Jaunākie apakšā, kā Decodium: klikšķis, lai jaunākie būtu augšā</translation>
+    </message>
+    <message>
+        <source>Reload the recent decodes from Decodium&apos;s own records, and ask it to send again what it has on screen</source>
+        <translation>Pārlādēt nesenos dekodējumus no Decodium pašu ierakstiem un lūgt to vēlreiz nosūtīt to, kas ir ekrānā</translation>
+    </message>
+    <message>
+        <source>TX</source>
+        <translation>TX</translation>
+    </message>
+    <message>
+        <source>RX · decoding</source>
+        <translation>RX · dekodē</translation>
+    </message>
+    <message>
+        <source>RX</source>
+        <translation>RX</translation>
+    </message>
+    <message>
+        <source>Rx %1 Hz · Tx %2 Hz</source>
+        <translation>Rx %1 Hz · Tx %2 Hz</translation>
+    </message>
+    <message>
+        <source>DX %1</source>
+        <translation>DX %1</translation>
+    </message>
+    <message>
+        <source>Waiting for Decodium on UDP port %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot;Accept UDP requests&quot;.</source>
+        <translation>Gaida Decodium UDP portā %1.
+Decodium: Settings → Reporting → UDP Server 127.0.0.1, ports %1, un &quot;Accept UDP requests&quot;.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog is not listening on a UDP port: set it in Settings → Decodium link.</source>
+        <translation>DecoDXLog neklausās nevienā UDP portā: iestatiet sadaļā Iestatījumi → Savienojums ar Decodium.</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Pilns spektrs</translation>
+    </message>
+    <message>
+        <source>Every decode Decodium hears on the band shows up here.</source>
+        <translation>Šeit parādās katrs dekodējums, ko Decodium dzird joslā.</translation>
+    </message>
+    <message>
+        <source>Signal RX</source>
+        <translation>RX signāls</translation>
+    </message>
+    <message>
+        <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
+        <translation>Šeit parādās tavi raidījumi, kas tevi izsauc, un tavs QSO partneris.</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumWindowPanel</name>
+    <message>
+        <source>Signal RX</source>
+        <translation>RX signāls</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Pilns spektrs</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show</source>
+        <translation>Izvēlēties rādāmo Decodium logu</translation>
+    </message>
+    <message>
+        <source>Pick the area of the window to show</source>
+        <translation>Izvēlēties rādāmo loga apgabalu</translation>
+    </message>
+    <message>
+        <source>Clicks go to Decodium: click to stop</source>
+        <translation>Klikšķi iet uz Decodium: klikšķiniet, lai apturētu</translation>
+    </message>
+    <message>
+        <source>Send your clicks to Decodium (a double click on a line answers it): off</source>
+        <translation>Sūtīt savus klikšķus uz Decodium (dubultklikšķis uz rindas uz to atbild): izslēgts</translation>
+    </message>
+    <message>
+        <source>Resize the Decodium window to fit this panel, so the text stays sharp</source>
+        <translation>Pielāgot Decodium logu šim panelim, lai teksts paliek skaidrs</translation>
+    </message>
+    <message>
+        <source>Drag over the part of the Decodium window you want to see · Esc cancels</source>
+        <translation>Velciet pāri tai Decodium loga daļai, ko vēlaties redzēt · Esc atceļ</translation>
+    </message>
+    <message>
+        <source>This panel works only on Windows.</source>
+        <translation>Šis panelis darbojas tikai sistēmā Windows.</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show with ▾ in the header.</source>
+        <translation>Izvēlieties rādāmo Decodium logu ar ▾ galvenē.</translation>
+    </message>
+    <message>
+        <source>The Decodium window is minimized, and a minimized window cannot be copied. It can stay covered by other windows or on another screen.</source>
+        <translation>Decodium logs ir samazināts, un samazinātu logu nevar kopēt. Tas var būt pārklāts ar citiem logiem vai citā ekrānā.</translation>
+    </message>
+    <message>
+        <source>Decodium is not open. Start it: its window shows up here.</source>
+        <translation>Decodium nav atvērts. Palaidiet to: tā logs parādās šeit.</translation>
+    </message>
+    <message>
+        <source>The window &quot;%1&quot; is not open. In Decodium press Pop on the list to detach it, or pick another window with ▾.</source>
+        <translation>Logs &quot;%1&quot; nav atvērts. Decodium nospiediet Pop uz saraksta, lai to atdalītu, vai izvēlieties citu logu ar ▾.</translation>
+    </message>
+    <message>
+        <source>Bring Decodium back, behind the other windows</source>
+        <translation>Atjaunot Decodium normālā izmērā, aiz pārējiem logiem</translation>
+    </message>
+    <message>
+        <source>No Decodium window is open</source>
+        <translation>Neviens Decodium logs nav atvērts</translation>
+    </message>
+    <message>
+        <source>Area of Full Spectrum in the main window</source>
+        <translation>Full Spectrum apgabals galvenajā logā</translation>
+    </message>
+    <message>
+        <source>Area of Signal RX in the main window</source>
+        <translation>Signal RX apgabals galvenajā logā</translation>
+    </message>
+    <message>
+        <source>The whole main window</source>
+        <translation>Viss galvenais logs</translation>
+    </message>
+    <message>
+        <source>Pick the area…</source>
+        <translation>Izvēlēties apgabalu…</translation>
     </message>
 </context>
 <context>
@@ -2506,6 +2693,10 @@ Labais klikšķis: mainīt</translation>
     <message>
         <source>System default</source>
         <translation>Sistēmas noklusējums</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Nav pieejams: %1</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -3394,6 +3585,18 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>Band map</source>
         <translation>Joslas karte</translation>
+    </message>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Full Spectrum (Decodium window)</source>
+        <translation>Pilns spektrs (Decodium logs)</translation>
+    </message>
+    <message>
+        <source>Signal RX (Decodium window)</source>
+        <translation>RX signāls (Decodium logs)</translation>
     </message>
     <message>
         <source>Station network</source>
@@ -4690,6 +4893,149 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>QRZ: download stopped</source>
         <translation>QRZ: lejupielāde apturēta</translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation>jauns</translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation>nav atbilstības</translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation>kļūda</translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation>%1 (%2): %3 jauni, %4 jau atzīmēti, %5 bez atbilstības, %6 kļūdas</translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation>jauns DXCC</translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation>QSL importa kopsavilkums</translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation>Rādītas %1 rindas</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Band</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Mode</translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation>Mans izsaukums</translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation>Pakalpojums</translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation>Rezultāts</translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation>DXCC / iemesls</translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation>jauni</translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation>jau atzīmēti</translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation>kļūdas</translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation>Vēl nav lejupielādētu apstiprinājumu: izmanto LoTW, eQSL vai QRZ cilnē QSL.</translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation>Visi pakalpojumi</translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation>Jauni apstiprinājumi</translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation>Nav atbilstības</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>Kļūdas</translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation>Viss</translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation>tikai jauni DXCC</translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation>Izsaukums vai valsts…</translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation>Izvēlies rindu</translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation>Šeit parādās rindas eQSL kartiņa.</translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation>%1 apstiprinājumiem nav kartiņas attēla. Dubultklikšķis atver QSO.</translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation>Prasu kartiņu no eQSL… (eQSL atļauj ne vairāk kā sešas minūtē: var aizņemt dažas sekundes)</translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation>Atvērt QSO</translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation>Kopēt kā tekstu</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>nokopēts</translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation>Iztīrīt kopsavilkumu</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Aizvērt</translation>
     </message>
 </context>
 <context>
@@ -7006,6 +7352,46 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Advanced serial parameters</source>
+        <translation>Papildu seriālie parametri</translation>
+    </message>
+    <message>
+        <source>Leave a value at Default to let the radio driver choose it. DTR/RTS here are fixed line states, not the separate PTT selection above.</source>
+        <translation>Atstāj vērtību Default, lai to izvēlas radio draiveris. DTR/RTS šeit ir fiksēti līniju stāvokļi, nevis PTT izvēle augstāk.</translation>
+    </message>
+    <message>
+        <source>Data bits</source>
+        <translation>Datu biti</translation>
+    </message>
+    <message>
+        <source>Stop bits</source>
+        <translation>Stopbiti</translation>
+    </message>
+    <message>
+        <source>Parity</source>
+        <translation>Paritāte</translation>
+    </message>
+    <message>
+        <source>Handshake</source>
+        <translation>Handshake</translation>
+    </message>
+    <message>
+        <source>CI-V address</source>
+        <translation>CI-V adrese</translation>
+    </message>
+    <message>
+        <source>e.g. 0x94</source>
+        <translation>piem. 0x94</translation>
+    </message>
+    <message>
+        <source>DTR state</source>
+        <translation>DTR stāvoklis</translation>
+    </message>
+    <message>
+        <source>RTS state</source>
+        <translation>RTS stāvoklis</translation>
+    </message>
+    <message>
         <source>flrig server</source>
         <translation>flrig serveris</translation>
     </message>
@@ -7192,6 +7578,10 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>Simulated</source>
         <translation>Simulēts</translation>
+    </message>
+    <message>
+        <source>Yaesu G-450 (GS-232 protocol): azimuth only, 9600 baud. It is not detected by itself, so it is chosen here. It turns up to 450°: set the azimuth maximum to 450 in the rotator window settings to use the whole overlap.</source>
+        <translation>Yaesu G-450 (GS-232 protokols): tikai azimuts, 9600 baudi. Tas netiek atpazīts pats, tāpēc to izvēlas šeit. Tas griežas līdz 450°: iestatiet azimuta maksimumu uz 450 rotora loga iestatījumos, lai izmantotu visu pārklāšanos.</translation>
     </message>
     <message>
         <source>App port (WebSocket)</source>
@@ -7751,6 +8141,10 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>ON4KST tērzētava…</translation>
     </message>
     <message>
+        <source>Decodium traffic monitor…</source>
+        <translation>Decodium trafika monitors…</translation>
+    </message>
+    <message>
         <source>Import a log (ADIF, CSV, N1MM)…</source>
         <translation>Importēt žurnālu (ADIF, CSV, N1MM)…</translation>
     </message>
@@ -7937,6 +8331,257 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>Search…</source>
         <translation>Meklēt…</translation>
+    </message>
+</context>
+<context>
+    <name>TrafficMonitorWindow</name>
+    <message>
+        <source>Decodium traffic monitor</source>
+        <translation>Decodium trafika monitors</translation>
+    </message>
+    <message>
+        <source>paused · %1 of %2 rows</source>
+        <translation>pauzēts · %1 no %2 rindām</translation>
+    </message>
+    <message>
+        <source>%1 of %2 rows</source>
+        <translation>%1 no %2 rindām</translation>
+    </message>
+    <message>
+        <source>← received</source>
+        <translation>← saņemts</translation>
+    </message>
+    <message>
+        <source>→ sent</source>
+        <translation>→ nosūtīts</translation>
+    </message>
+    <message>
+        <source>→ forwarded</source>
+        <translation>→ pārsūtīts</translation>
+    </message>
+    <message>
+        <source>← from forward</source>
+        <translation>← no pārsūtīšanas</translation>
+    </message>
+    <message>
+        <source>→ relayed back</source>
+        <translation>→ atgriezts</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>Kanāls</translation>
+    </message>
+    <message>
+        <source>Direction</source>
+        <translation>Virziens</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Tips</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>Programma</translation>
+    </message>
+    <message>
+        <source>Content</source>
+        <translation>Saturs</translation>
+    </message>
+    <message>
+        <source>UDP %1 · %2</source>
+        <translation>UDP %1 · %2</translation>
+    </message>
+    <message>
+        <source>nobody has written yet</source>
+        <translation>neviens vēl nav rakstījis</translation>
+    </message>
+    <message>
+        <source>UDP %1 not listening</source>
+        <translation>UDP %1 neklausās</translation>
+    </message>
+    <message>
+        <source>forwarded to %1</source>
+        <translation>pārsūtīts uz %1</translation>
+    </message>
+    <message>
+        <source>DecoLink off</source>
+        <translation>DecoLink izslēgts</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 · %2 connected</source>
+        <translation>DecoLink %1 · %2 savienoti</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 not listening</source>
+        <translation>DecoLink %1 neklausās</translation>
+    </message>
+    <message>
+        <source>DecoPort: listening to announcements on 5560</source>
+        <translation>DecoPort: klausās paziņojumus portā 5560</translation>
+    </message>
+    <message>
+        <source>DecoPort: %1</source>
+        <translation>DecoPort: %1</translation>
+    </message>
+    <message>
+        <source>not listening</source>
+        <translation>neklausās</translation>
+    </message>
+    <message>
+        <source>hide heartbeats</source>
+        <translation>slēpt heartbeat</translation>
+    </message>
+    <message>
+        <source>Filter: type, call, text…</source>
+        <translation>Filtrs: tips, izsaukums, teksts…</translation>
+    </message>
+    <message>
+        <source>Resume</source>
+        <translation>Turpināt</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation>Pauze</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Kopēt</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Notīrīt</translation>
+    </message>
+    <message>
+        <source>Nothing matches the filters.</source>
+        <translation>Neviena rinda neatbilst filtriem.</translation>
+    </message>
+    <message>
+        <source>Waiting for traffic. Start Decodium: its UDP messages, the DecoLink connection and the DecoPort announcements show up here as they pass.</source>
+        <translation>Gaida trafiku. Palaidiet Decodium: tā UDP ziņojumi, DecoLink savienojums un DecoPort paziņojumi parādās šeit, tiklīdz tie iet cauri.</translation>
+    </message>
+    <message>
+        <source>Click a row to see it whole: the bytes, or the JSON line.</source>
+        <translation>Noklikšķiniet uz rindas, lai to redzētu pilnībā: baitus vai JSON rindu.</translation>
+    </message>
+    <message>
+        <source>To Decodium (UDP)</source>
+        <translation>Uz Decodium (UDP)</translation>
+    </message>
+    <message>
+        <source>no program yet</source>
+        <translation>vēl nav programmas</translation>
+    </message>
+    <message>
+        <source>Reply to the line</source>
+        <translation>Atbildēt uz rindu</translation>
+    </message>
+    <message>
+        <source>Like the double click in Decodium: it answers a CQ, and it may start transmitting.</source>
+        <translation>Kā dubultklikšķis Decodium: atbild uz CQ un var sākt raidīšanu.</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>Apturēt TX</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Auto TX izslēgts</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Atkārtot dekodējumus</translation>
+    </message>
+    <message>
+        <source>Decodium sends again all the decodes it has on screen.</source>
+        <translation>Decodium vēlreiz nosūta visus ekrānā esošos dekodējumus.</translation>
+    </message>
+    <message>
+        <source>Band activity</source>
+        <translation>Joslas aktivitāte</translation>
+    </message>
+    <message>
+        <source>Rx frequency</source>
+        <translation>Rx frekvence</translation>
+    </message>
+    <message>
+        <source>Both windows</source>
+        <translation>Abi logi</translation>
+    </message>
+    <message>
+        <source>Free text (13 characters)</source>
+        <translation>Brīvs teksts (13 rakstzīmes)</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation>Iestatīt</translation>
+    </message>
+    <message>
+        <source>Set and transmit</source>
+        <translation>Iestatīt un raidīt</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>Lokators</translation>
+    </message>
+    <message>
+        <source>Send locator</source>
+        <translation>Sūtīt lokatoru</translation>
+    </message>
+    <message>
+        <source>Decodium uses it only with the automatic locator turned on.</source>
+        <translation>Decodium to izmanto tikai ar ieslēgtu automātisko lokatoru.</translation>
+    </message>
+    <message>
+        <source>Callsign to highlight</source>
+        <translation>Izceļamais izsaukums</translation>
+    </message>
+    <message>
+        <source>background</source>
+        <translation>fons</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>teksts</translation>
+    </message>
+    <message>
+        <source>Highlight</source>
+        <translation>Izcelt</translation>
+    </message>
+    <message>
+        <source>Remove the highlight</source>
+        <translation>Noņemt izcēlumu</translation>
+    </message>
+    <message>
+        <source>They leave from the same UDP port Decodium writes to, with its program name. Decodium carries them out only for its main UDP destination (Settings → Reporting → UDP Server) and with &quot;Accept UDP requests&quot; on: if DecoDXLog is its second or third destination it ignores them.</source>
+        <translation>Tie tiek sūtīti no tā paša UDP porta, uz kuru raksta Decodium, ar tā programmas nosaukumu. Decodium tos izpilda tikai savam galvenajam UDP galamērķim (Settings → Reporting → UDP Server) un ar ieslēgtu &quot;Accept UDP requests&quot;: ja DecoDXLog ir tā otrais vai trešais galamērķis, tas tos ignorē.</translation>
+    </message>
+    <message>
+        <source>To Decodium (DecoLink)</source>
+        <translation>Uz Decodium (DecoLink)</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Sūtīt</translation>
+    </message>
+    <message>
+        <source>Send the log list again</source>
+        <translation>Vēlreiz sūtīt žurnāla sarakstu</translation>
+    </message>
+    <message>
+        <source>Send the award state</source>
+        <translation>Sūtīt diplomu stāvokli</translation>
+    </message>
+    <message>
+        <source>Listen only: the DecoPort session is signed with Decodium&apos;s key, and one of its commands keys the transmitter. Here you see which radio is on the network, on what frequency and in which state.</source>
+        <translation>Tikai klausīšanās: DecoPort sesija ir parakstīta ar Decodium atslēgu, un viena no tās komandām ieslēdz raidītāju. Šeit redzams, kura radiostacija ir tīklā, kādā frekvencē un kādā stāvoklī.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Aizvērt</translation>
     </message>
 </context>
 <context>
@@ -9304,6 +9949,26 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>  %1 ieraksti bez izsaukuma signāla, joslas vai datuma</translation>
     </message>
     <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation>nav QSO ar šo izsaukumu 30 minūšu laikā šajā joslā un režīmā</translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation>šī izsaukuma nav žurnālā</translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation>trūkst izsaukuma, joslas vai datuma</translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation>eQSL: nav konta sadaļā Iestatījumi → QSL pakalpojumi</translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
+        <translation>eQSL: parole nav pieejama (%1)</translation>
+    </message>
+    <message>
         <source>New DXCC confirmed: %1</source>
         <translation>Apstiprināts jauns DXCC: %1</translation>
     </message>
@@ -10078,6 +10743,14 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>Ports %1 ir paša DecoDXLog koplietotā CAT: izvēlies programmas portu, kas tur radio</translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation>Audio ieeja &quot;%1&quot; nav pieejama: izvēlieties citu CW panelī (dekodētājs nepāriet uz citu karti).</translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation>Divas audio ieejas sauc &quot;%1&quot;: tiek izmantota pirmā. Izvēlieties vēlreiz CW panelī, lai norādītu, kuru.</translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation>Nav skaņas ieejas, ko klausīties</translation>
     </message>
@@ -10299,6 +10972,97 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::TrafficMonitor</name>
+    <message>
+        <source>%1 not sent: no program has written to the UDP port yet.</source>
+        <translation>%1: nav nosūtīts, neviena programma vēl nav rakstījusi UDP portā.</translation>
+    </message>
+    <message>
+        <source>%1 sent to %2.</source>
+        <translation>%1: nosūtīts uz %2.</translation>
+    </message>
+    <message>
+        <source>Pick a decoded line (Decode) to answer.</source>
+        <translation>Izvēlieties dekodētu rindu (Decode), uz kuru atbildēt.</translation>
+    </message>
+    <message>
+        <source>This line cannot be read back as a decode.</source>
+        <translation>Šo rindu nevar nolasīt kā dekodējumu.</translation>
+    </message>
+    <message>
+        <source>Reply to &quot;%1&quot;</source>
+        <translation>Atbilde uz &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Auto TX izslēgts</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>Apturēt TX</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot; (transmit)</source>
+        <translation>Brīvs teksts &quot;%1&quot; (raidīt)</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot;</source>
+        <translation>Brīvs teksts &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Atkārtot dekodējumus</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Notīrīt</translation>
+    </message>
+    <message>
+        <source>A locator has at least four characters.</source>
+        <translation>Lokatoram ir vismaz četras rakstzīmes.</translation>
+    </message>
+    <message>
+        <source>Locator %1</source>
+        <translation>Lokators %1</translation>
+    </message>
+    <message>
+        <source>Which callsign?</source>
+        <translation>Kurš izsaukums?</translation>
+    </message>
+    <message>
+        <source>Highlight of %1 removed</source>
+        <translation>%1 izcēlums noņemts</translation>
+    </message>
+    <message>
+        <source>Highlight of %1</source>
+        <translation>%1 izcēlums</translation>
+    </message>
+    <message>
+        <source>Not JSON: %1</source>
+        <translation>Nav JSON: %1</translation>
+    </message>
+    <message>
+        <source>DecoLink wants a JSON object with a &quot;type&quot;.</source>
+        <translation>DecoLink vēlas JSON objektu ar &quot;type&quot;.</translation>
+    </message>
+    <message>
+        <source>Decodium is not connected to DecoLink.</source>
+        <translation>Decodium nav savienots ar DecoLink.</translation>
+    </message>
+    <message>
+        <source>Sent on DecoLink: %1</source>
+        <translation>Nosūtīts caur DecoLink: %1</translation>
+    </message>
+    <message>
+        <source>The log list is on its way to Decodium.</source>
+        <translation>Žurnāla saraksts ir ceļā uz Decodium.</translation>
+    </message>
+    <message>
+        <source>Award state sent to Decodium.</source>
+        <translation>Diplomu stāvoklis nosūtīts uz Decodium.</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::UpdateController</name>
     <message>
         <source>DecoDXLog %1 is out</source>
@@ -10424,6 +11188,22 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>F%1 nav ierakstītas ziņas</translation>
     </message>
     <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation>Audio izeja &quot;%1&quot; nav pieejama: izvēlieties citu DVK panelī. Nekas netika nosūtīts.</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Sistēmas noklusējums</translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation>Divas audio izejas sauc &quot;%1&quot;: tiek izmantota pirmā. Izvēlieties vēlreiz DVK panelī, lai norādītu, kuru.</translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
+        <translation>Mikrofons &quot;%1&quot; nav pieejams: izvēlieties citu DVK panelī.</translation>
+    </message>
+    <message>
         <source>The microphone does not record 16 kHz mono</source>
         <translation>Mikrofons neieraksta 16 kHz mono</translation>
     </message>
@@ -10446,6 +11226,13 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>Cannot copy the file</source>
         <translation>Nevar nokopēt failu</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::WindowMirror</name>
+    <message>
+        <source>Decodium main window</source>
+        <translation>Decodium galvenais logs</translation>
     </message>
 </context>
 <context>

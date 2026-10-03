@@ -1,4 +1,5 @@
 #include "app/VoiceKeyerController.h"
+#include "app/AudioDevices.h"
 
 #include <QAudioDevice>
 #include <QAudioOutput>
@@ -41,12 +42,28 @@ QByteArray header(int sampleRate, int channels, int bitsPerSample, quint32 dataB
 
 namespace {
 
-QAudioDevice findDevice(const QList<QAudioDevice>& list, const QString& name, const QAudioDevice& fallback)
+// La scheda scelta, e solo quella. Se non si trova NON si ripiega su un'altra:
+// un messaggio vocale sulla scheda sbagliata finisce negli altoparlanti mentre
+// la radio e' in trasmissione. `ok` dice se si puo' andare avanti; il
+// predefinito di sistema e' una scelta scritta, non un ripiego.
+QAudioDevice pickDevice(const QList<QAudioDevice>& list, const QString& id, const QString& name,
+                        const QAudioDevice& systemDefault, bool* ok, bool* ambiguous)
 {
-    for (const QAudioDevice& d : list)
-        if (d.description() == name)
-            return d;
-    return fallback;
+    const auto r = audiodev::resolve(audiodev::entriesOf(list), {id, name});
+    *ambiguous = r.kind == audiodev::Resolution::Ambiguous;
+    switch (r.kind) {
+    case audiodev::Resolution::SystemDefault:
+        *ok = !systemDefault.isNull();
+        return systemDefault;
+    case audiodev::Resolution::Found:
+    case audiodev::Resolution::Ambiguous:
+        *ok = true;
+        return list.at(r.index);
+    case audiodev::Resolution::Missing:
+        break;
+    }
+    *ok = false;
+    return {};
 }
 
 QStringList defaultLabels()
@@ -63,7 +80,9 @@ VoiceKeyerController::VoiceKeyerController(Context context, QObject* parent)
 {
     QSettings s;
     m_output = s.value(QStringLiteral("dvk/output")).toString();
+    m_outputId = s.value(QStringLiteral("dvk/outputId")).toString();
     m_input = s.value(QStringLiteral("dvk/input")).toString();
+    m_inputId = s.value(QStringLiteral("dvk/inputId")).toString();
     m_usePtt = s.value(QStringLiteral("dvk/ptt"), true).toBool();
     m_repeat = s.value(QStringLiteral("dvk/repeat"), 0).toInt();
     loadLabels();
@@ -132,21 +151,92 @@ QStringList VoiceKeyerController::inputs() const
     return out;
 }
 
+void VoiceKeyerController::watchDevices() const
+{
+    // L'elenco cambia quando cambiano le schede: si ascolta il sistema.
+    if (m_mediaDevices)
+        return;
+    auto* self = const_cast<VoiceKeyerController*>(this);
+    m_mediaDevices = new QMediaDevices(self);
+    auto changed = [self] {
+        emit self->devicesChanged();
+        emit self->settingsChanged();
+    };
+    connect(m_mediaDevices, &QMediaDevices::audioOutputsChanged, self, changed);
+    connect(m_mediaDevices, &QMediaDevices::audioInputsChanged, self, changed);
+}
+
+QVariantList VoiceKeyerController::outputDevices() const
+{
+    watchDevices();
+    return audiodev::deviceList(audiodev::outputDevices());
+}
+
+QVariantList VoiceKeyerController::inputDevices() const
+{
+    watchDevices();
+    return audiodev::deviceList(audiodev::inputDevices());
+}
+
+int VoiceKeyerController::outputIndex() const
+{
+    return audiodev::comboIndex(
+        audiodev::resolve(audiodev::entriesOf(audiodev::outputDevices()), {m_outputId, m_output}));
+}
+
+int VoiceKeyerController::inputIndex() const
+{
+    return audiodev::comboIndex(
+        audiodev::resolve(audiodev::entriesOf(audiodev::inputDevices()), {m_inputId, m_input}));
+}
+
+void VoiceKeyerController::chooseOutput(int row)
+{
+    const audiodev::Saved saved = audiodev::savedFor(audiodev::outputDevices(), row);
+    if (saved.id == m_outputId && saved.name == m_output)
+        return;
+    m_outputId = saved.id;
+    m_output = saved.name;
+    QSettings s;
+    s.setValue(QStringLiteral("dvk/outputId"), m_outputId);
+    s.setValue(QStringLiteral("dvk/output"), m_output);
+    emit settingsChanged();
+}
+
+void VoiceKeyerController::chooseInput(int row)
+{
+    const audiodev::Saved saved = audiodev::savedFor(audiodev::inputDevices(), row);
+    if (saved.id == m_inputId && saved.name == m_input)
+        return;
+    m_inputId = saved.id;
+    m_input = saved.name;
+    QSettings s;
+    s.setValue(QStringLiteral("dvk/inputId"), m_inputId);
+    s.setValue(QStringLiteral("dvk/input"), m_input);
+    emit settingsChanged();
+}
+
 void VoiceKeyerController::setOutput(const QString& name)
 {
-    if (name == m_output)
+    if (name == m_output && m_outputId.isEmpty())
         return;
     m_output = name;
-    QSettings().setValue(QStringLiteral("dvk/output"), name);
+    m_outputId.clear();
+    QSettings s;
+    s.setValue(QStringLiteral("dvk/output"), name);
+    s.setValue(QStringLiteral("dvk/outputId"), QString());
     emit settingsChanged();
 }
 
 void VoiceKeyerController::setInput(const QString& name)
 {
-    if (name == m_input)
+    if (name == m_input && m_inputId.isEmpty())
         return;
     m_input = name;
-    QSettings().setValue(QStringLiteral("dvk/input"), name);
+    m_inputId.clear();
+    QSettings s;
+    s.setValue(QStringLiteral("dvk/input"), name);
+    s.setValue(QStringLiteral("dvk/inputId"), QString());
     emit settingsChanged();
 }
 
@@ -193,7 +283,31 @@ void VoiceKeyerController::play(int slot)
                 finishPlayback();
         });
     }
-    m_audioOut->setDevice(findDevice(QMediaDevices::audioOutputs(), m_output, QMediaDevices::defaultAudioOutput()));
+    bool found = false;
+    bool ambiguous = false;
+    const QAudioDevice out = pickDevice(QMediaDevices::audioOutputs(), m_outputId, m_output,
+                                        QMediaDevices::defaultAudioOutput(), &found, &ambiguous);
+    if (!found) {
+        // Niente PTT e niente audio: meglio un messaggio che non parte di uno
+        // che esce dalla scheda sbagliata.
+        m_playing = -1;
+        if (m_ctx.activity)
+            m_ctx.activity(QStringLiteral("DVK"),
+                           tr("The audio output \"%1\" is not available: choose another one in the DVK panel. "
+                              "Nothing was sent.")
+                               .arg(m_output.isEmpty() ? tr("System default") : m_output),
+                           QStringLiteral("warning"));
+        emit stateChanged();
+        return;
+    }
+    if (ambiguous && m_ctx.activity) {
+        m_ctx.activity(QStringLiteral("DVK"),
+                       tr("Two audio outputs are called \"%1\": using the first one. Choose it again in the DVK panel "
+                          "to say which.")
+                           .arg(m_output),
+                       QStringLiteral("warning"));
+    }
+    m_audioOut->setDevice(out);
     m_player->setSource(QUrl::fromLocalFile(filePath(slot)));
     m_playing = slot;
     emit stateChanged();
@@ -244,7 +358,18 @@ void VoiceKeyerController::startRecording(int slot)
         return;
     stop();
     stopRecording();
-    const QAudioDevice device = findDevice(QMediaDevices::audioInputs(), m_input, QMediaDevices::defaultAudioInput());
+    bool inputFound = false;
+    bool inputAmbiguous = false;
+    const QAudioDevice device = pickDevice(QMediaDevices::audioInputs(), m_inputId, m_input,
+                                           QMediaDevices::defaultAudioInput(), &inputFound, &inputAmbiguous);
+    if (!inputFound) {
+        if (m_ctx.activity)
+            m_ctx.activity(QStringLiteral("DVK"),
+                           tr("The microphone \"%1\" is not available: choose another one in the DVK panel.")
+                               .arg(m_input.isEmpty() ? tr("System default") : m_input),
+                           QStringLiteral("warning"));
+        return;
+    }
     QAudioFormat f;
     f.setSampleRate(16000);
     f.setChannelCount(1);

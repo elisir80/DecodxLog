@@ -534,6 +534,22 @@ Quello che manca è in fondo.
   asked by DecoDXLog; it never transmits.
 - **Solo 127.0.0.1**, JSON su TCP, protocollo in `docs/DECOLINK.md`. / **Localhost only**,
   JSON over TCP, protocol in `docs/DECOLINK.md`.
+- **Monitor del traffico**: UDP, DecoLink e annunci DecoPort nei due versi, con filtri,
+  pausa e dettaglio; da li' si risponde a una decodifica, si ferma il TX, si manda testo
+  libero, locatore, evidenziazioni e righe DecoLink. DecoPort solo in ascolto. / **Traffic
+  monitor**: UDP, DecoLink and DecoPort announcements both ways, with filters, pause and
+  detail; from there you reply to a decode, halt TX, send free text, locator, highlights and
+  DecoLink lines. DecoPort is listen-only.
+- **Pannello Decodium**: Full Spectrum e Signal RX di Decodium in un pannello compatto della
+  lavagna (si sposta, si ridimensiona, si attacca ai bordi, si stacca), con le righe colorate
+  secondo il log: nuovo DXCC, banda, nominativo. / **Decodium panel**: Decodium's Full Spectrum
+  and Signal RX in a compact board panel (move, resize, magnetic edges, detach), rows colored
+  by what they are worth to the log: new DXCC, band, call.
+- **Finestre vere di Decodium**: Full Spectrum e Signal RX (o qualunque finestra di
+  Decodium) mostrate vive, ritagliate, in pannelli della lavagna; i clic arrivano a Decodium se
+  si vuole. Solo Windows, la finestra non deve essere ridotta a icona. / **Real Decodium
+  windows**: Full Spectrum and Signal RX (or any Decodium window) shown live, cropped, in board
+  panels; clicks reach Decodium if you want. Windows only, the window must not be minimized.
 
 ## 14. Copie di sicurezza / Backup
 

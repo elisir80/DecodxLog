@@ -68,6 +68,17 @@ public:
     void setForwardTargets(const QList<Target>& targets) { m_forward = targets; }
     QList<Target> forwardTargets() const { return m_forward; }
 
+    // Manda un datagramma al client (Decodium, WSJT-X…) da cui arrivano i
+    // messaggi con quell'id: risponde dallo stesso socket, e il client lo
+    // aspetta proprio li'. Vuoto: l'ultimo che ha scritto. false se non se ne
+    // conosce ancora nessuno.
+    bool sendToClient(const QString& clientId, const QByteArray& data);
+    // Gli id dei client che hanno scritto, con il loro indirizzo.
+    QStringList clientIds() const { return m_endpoints.keys(); }
+    // L'id dell'ultimo che ha scritto: i client rispondono solo ai messaggi
+    // col loro id.
+    QString lastClientId() const { return m_lastClientId; }
+
     // Per i test: tratta un datagramma come se fosse arrivato dalla rete.
     void handleDatagram(const QByteArray& data, const QHostAddress& from = QHostAddress::LocalHost);
 
@@ -85,6 +96,11 @@ signals:
     void clientSeen(const decolog::core::UdpClientInfo& client);
     void clientClosed(const QString& clientId);
     void listeningChanged();
+    // Ogni datagramma che passa di qui, per il monitor del traffico.
+    // direction: "in" (dal client), "out" (verso il client, da DecoDXLog),
+    // "fwd" (inoltrato ai programmi accanto), "back" (la loro risposta,
+    // rimandata al client).
+    void traffic(const QString& direction, const QString& peer, const QByteArray& data);
 
 private:
     struct Pending {
@@ -112,6 +128,7 @@ private:
     // Da dove scrive ogni client: le risposte dei programmi inoltrati vanno li'.
     QHash<QString, Target> m_endpoints;
     Target m_lastEndpoint;
+    QString m_lastClientId;
 };
 
 } // namespace decolog::core

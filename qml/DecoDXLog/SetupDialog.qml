@@ -2605,6 +2605,11 @@ DialogFrame {
                             onToggled: decolog.rotor.gatewaySimulate = checked
                         }
                     }
+                    Note {
+                        visible: decolog.rotor.backend === "builtin" && decolog.rotor.gatewayModel === "yaesu_gs232"
+                        text: qsTr("Yaesu G-450 (GS-232 protocol): azimuth only, 9600 baud. It is not detected by itself, so it is chosen here. "
+                                   + "It turns up to 450°: set the azimuth maximum to 450 in the rotator window settings to use the whole overlap.")
+                    }
                     RowLayout {
                         spacing: 12
                         visible: decolog.rotor.backend === "builtin"

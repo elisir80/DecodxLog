@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.16.48
+    VERSION 1.16.53
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES C CXX)
 
@@ -77,6 +77,10 @@ add_library(decolog_core STATIC
     src/core/Countries.h
     src/core/DecoLinkServer.cpp
     src/core/DecoLinkServer.h
+    src/core/DecodeText.cpp
+    src/core/DecodeText.h
+    src/core/DecoPortMonitor.cpp
+    src/core/DecoPortMonitor.h
     src/core/ClusterConnection.cpp
     src/core/ClusterConnection.h
     src/core/CredentialStore.cpp
@@ -89,6 +93,8 @@ add_library(decolog_core STATIC
     src/core/CwDecoder.cpp
     src/core/CwKeyer.cpp
     src/core/CwKeyer.h
+    src/core/Gs232.cpp
+    src/core/Gs232.h
     src/core/Prosistel.cpp
     src/core/Prosistel.h
     src/core/RigControl.cpp
@@ -274,6 +280,10 @@ qt_add_executable(decolog
     src/app/NetController.h
     src/app/ActivityModel.cpp
     src/app/ActivityModel.h
+    src/app/TrafficMonitor.cpp
+    src/app/TrafficMonitor.h
+    src/app/DecodeFeed.cpp
+    src/app/DecodeFeed.h
     src/app/SuperCheckController.cpp
     src/app/SuperCheckController.h
     src/app/ChatController.cpp
@@ -282,6 +292,10 @@ qt_add_executable(decolog
     src/app/WorldClockController.h
     src/app/WorldMapItem.cpp
     src/app/WorldMapItem.h
+    src/app/WindowMirror.cpp
+    src/app/WindowMirror.h
+    src/app/AudioDevices.cpp
+    src/app/AudioDevices.h
     src/app/RotorController.cpp
     src/app/RotorController.h
     src/app/SolarController.cpp
@@ -349,6 +363,11 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/CwMacroEditor.qml
     qml/DecoDXLog/CwMacroList.qml
     qml/DecoDXLog/StartupBadge.qml
+    qml/DecoDXLog/QslImportDialog.qml
+    qml/DecoDXLog/TrafficMonitorWindow.qml
+    qml/DecoDXLog/DecodeList.qml
+    qml/DecoDXLog/DecodiumPanel.qml
+    qml/DecoDXLog/DecodiumWindowPanel.qml
     qml/DecoDXLog/DuplicatesDialog.qml
     qml/DecoDXLog/ColorSwatch.qml
     qml/DecoDXLog/ContestSubmitDialog.qml
@@ -546,6 +565,28 @@ if(DECODXLOG_BUILD_TESTS)
     target_link_libraries(tst_clustercontroller PRIVATE decolog_core Qt6::Multimedia Qt6::Test)
     set_target_properties(tst_clustercontroller PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME clustercontroller COMMAND tst_clustercontroller)
+    qt_add_executable(tst_traffic tests/tst_traffic.cpp src/app/TrafficMonitor.cpp src/app/TrafficMonitor.h)
+    target_include_directories(tst_traffic PRIVATE src)
+    target_link_libraries(tst_traffic PRIVATE decolog_core Qt6::Test)
+    set_target_properties(tst_traffic PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME traffic COMMAND tst_traffic)
+    qt_add_executable(tst_decodefeed tests/tst_decodefeed.cpp src/app/DecodeFeed.cpp src/app/DecodeFeed.h)
+    target_include_directories(tst_decodefeed PRIVATE src)
+    target_link_libraries(tst_decodefeed PRIVATE decolog_core Qt6::Test)
+    set_target_properties(tst_decodefeed PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME decodefeed COMMAND tst_decodefeed)
+    qt_add_executable(tst_audiodevices tests/tst_audiodevices.cpp src/app/AudioDevices.cpp src/app/AudioDevices.h)
+    target_include_directories(tst_audiodevices PRIVATE src)
+    target_link_libraries(tst_audiodevices PRIVATE decolog_core Qt6::Multimedia Qt6::Test)
+    set_target_properties(tst_audiodevices PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME audiodevices COMMAND tst_audiodevices)
+    set_tests_properties(audiodevices PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+    qt_add_executable(tst_windowmirror tests/tst_windowmirror.cpp src/app/WindowMirror.cpp src/app/WindowMirror.h)
+    target_include_directories(tst_windowmirror PRIVATE src)
+    target_link_libraries(tst_windowmirror PRIVATE decolog_core Qt6::Quick Qt6::Test)
+    set_target_properties(tst_windowmirror PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME windowmirror COMMAND tst_windowmirror)
+    set_tests_properties(windowmirror PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
     qt_add_executable(tst_so2r tests/tst_so2r.cpp src/app/So2rController.cpp src/app/So2rController.h)
     target_include_directories(tst_so2r PRIVATE src)
     target_link_libraries(tst_so2r PRIVATE decolog_core Qt6::Test)

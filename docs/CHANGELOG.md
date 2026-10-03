@@ -3,6 +3,170 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.53 — 3 ottobre 2026
+
+**Il rotore Yaesu G-450 (e i GS-232) dentro il gateway.** Arriva da DecoRotor, che ha imparato il
+dialetto seriale Yaesu GS-232 accanto al PRO.SIS.TEL: nuovo modello «Yaesu G-450 / GS-232 - solo
+azimut» fra i control box (Impostazioni → Rotore, o `yaesu_gs232` nel config.json di DecoRotor,
+che «Prendile da DecoRotor» legge). Comandi `C` (dov'e'), `M290` (vai a 290°), `S` (stop), risposte
+`+0290`, `+0290+0045` o `AZ=290` chiuse da CR, a 9600 baud. Non si rileva da solo (il PRO.SIS.TEL
+resta l'unico che il rilevamento automatico prova): si sceglie a mano, e la nota sotto la scelta
+lo ricorda. Il G-450 gira fino a 450°: per usare tutto l'overlap si mette il massimo dell'azimut a 450
+nelle impostazioni della finestra del rotore. Tutto il resto del gateway — l'app, rotctld, la pagina
+web, i finecorsa, lo stop di sicurezza, il rotore simulato — funziona uguale. Un goto oltre 450 si
+ferma a 450 (DecoRotor lo rifiutava).
+
+**La scheda audio si sceglie, e vale quella.** Il decoder CW (ingresso) e il DVK (uscita verso la
+radio e microfono) potevano ascoltare o parlare su una scheda diversa da quella che l'elenco
+mostrava. Le cause: se il nome salvato non si ritrovava — Windows numera le schede uguali, «2- USB
+Audio CODEC», e il numero cambia con le porte USB — si usava in silenzio il **predefinito di
+sistema**, mentre la tendina continuava a mostrare la prima riga; e l'elenco del decoder si
+rileggeva, e la tendina si rifaceva, a ogni pezzetto di audio. Ora:
+- la scelta si salva con l'**identificativo** della scheda (quello stabile di Windows) e il suo nome;
+  si ritrova per identificativo, poi per nome se e' uno solo (le impostazioni vecchie, col solo
+  nome, si aggiornano da sole la prima volta);
+- «Predefinito di sistema» e' una voce scritta, e solo quella usa il predefinito;
+- se la scheda scelta **non c'e'**, la tendina dice «Non disponibile: <nome>», il decoder non parte
+  e il DVK non manda niente (e non alza il PTT): niente ripiego su un'altra scheda, che per un
+  messaggio vocale vuol dire gli altoparlanti con la radio in trasmissione;
+- due schede con lo stesso nome si distinguono nell'elenco («nome», «nome (2)») e, scelte, per
+  identificativo; nel Registro attivita' si legge su quale sta ascoltando il decoder;
+- l'elenco si aggiorna solo quando cambiano le schede (collegando o togliendo una USB), non a ogni
+  audio.
+
+**Le finestre vere di Decodium dentro il log.** Due pannelli nuovi della lavagna, «Full Spectrum»
+e «Signal RX» (da Pannelli, in alto), che mostrano le finestre di Decodium come le disegna lui,
+con i suoi colori, le sue colonne e le sue righe — non una lista ricostruita:
+- di partenza ritagliano la zona di Full Spectrum e di Signal RX della finestra principale di
+  Decodium; con ▾ si sceglie un'altra finestra (anche una staccata col tasto «Pop», con la sua
+  misura giusta) o, con ▭, si traccia col mouse la zona da vedere;
+- come gli altri pannelli: si spostano, si ridimensionano, si attaccano ai bordi, si staccano,
+  anche in Contest Mode;
+- «⇄» manda i tuoi clic a Decodium (un doppio clic su una riga le risponde): spento di serie;
+- «⤡» (per le finestre staccate) porta la finestra di Decodium alla misura del pannello, cosi'
+  il testo resta nitido.
+Come funziona: Windows tiene una copia di ogni finestra (quella delle anteprime della barra) e
+ogni mezzo secondo se ne prende l'immagine, una sola per finestra anche se la guardano due
+pannelli, su un altro filo. La finestra di Decodium non si tocca: non si incorpora, non si
+cambia, e se DecoDXLog si blocca Decodium non se ne accorge. La finestra deve esserci e **non
+ridotta a icona** (coperta da altre finestre o su un altro schermo va bene; fuori da tutti gli
+schermi no: Windows non la disegna). Se e' ridotta a icona, il pannello lo dice e offre
+«Riporta Decodium alla misura normale, dietro le altre finestre».
+
+**Il pannello Decodium riparte dalla storia.** Prima si riempiva solo con le decodifiche arrivate
+dopo l'apertura di DecoDXLog: a banda calma restava vuoto, mentre il Full Spectrum di Decodium
+aveva gia' le sue righe. Ora, al primo stato ricevuto, si rileggono dal registro di Decodium
+(`db.sqlite`, aperto in sola lettura) le decodifiche dell'ultima ora sulla stessa banda e
+modo, senza doppioni; «⟲» le rilegge quando vuoi.
+
+**Una cosa da sapere sui comandi a Decodium.** Rispondere a una riga, Ferma TX, Auto TX spento,
+Ripeti, testo libero, locatore ed evidenziazioni (monitor e pannello) li esegue Decodium solo se
+vengono dalla sua destinazione UDP **principale** (Settings → Reporting → UDP Server) e con
+«Accept UDP requests» acceso: alla seconda e alla terza destinazione le richieste le ignora, e
+se DecoDXLog e' la seconda o la terza non succede niente. Con DecoDXLog come destinazione
+principale basta, che gia' inoltra a JTAlert, GridTracker e simili («Inoltra a…»). Il monitor
+lo dice, e il «⟲» ricarica la storia anche quando Decodium non risponde.
+
+## 1.16.52 — 3 ottobre 2026
+
+**Il pannello Decodium: Full Spectrum e Signal RX nel log.** Un pannello compatto sulla lavagna,
+con le due liste di decodifica di Decodium 4, ricostruite dal protocollo UDP (ogni decodifica e
+lo stato: corrispondente, frequenze di ascolto e trasmissione, trasmissione in corso):
+- **Full Spectrum**: tutto quello che Decodium sente in banda, con ora, dB, DT, frequenza e
+  messaggio;
+- **Signal RX**: il QSO in corso, con la stessa regola di Decodium — le trasmissioni proprie, i
+  messaggi che nominano il tuo nominativo e quelli del corrispondente; se il corrispondente
+  cambia (doppio clic su un CQ vecchio in Decodium), entrano anche le sue righe di prima.
+- **I colori sono quelli del log**: una barretta e il colore del testo dicono se la stazione
+  e' un nuovo DXCC, una banda nuova, un nuovo nominativo, gia' lavorata… con gli stessi colori
+  e la stessa regola degli spot del cluster; larghi, si leggono anche l'etichetta e il paese.
+  Chi ti chiama ha il fondo rosso, il corrispondente il fondo dorato, le tue trasmissioni ambra.
+- **Nella lavagna come gli altri pannelli**: si sposta per la testata, si ridimensiona dai bordi
+  e dagli angoli, si attacca ai bordi vicini (calamita), si stacca in una finestra e si chiude;
+  anche in Contest Mode. Largo, i due elenchi stanno uno accanto all'altro, stretto uno sopra
+  l'altro; la maniglia in mezzo si tira e la proporzione segue il pannello. Le colonne che non
+  ci stanno spariscono. In testata: le piu' recenti in alto o in basso come in Decodium, e «⟲»
+  per chiedere a Decodium di rimandare le decodifiche che ha a schermo (utile se il pannello
+  si apre dopo).
+- **Clic**: un clic sceglie la riga; il doppio clic porta il nominativo nella scheda e nel
+  riquadro del QSO (non fa partire niente in Decodium); col tasto destro «Rispondi in
+  Decodium» (come il doppio clic in Decodium: puo' far partire la chiamata), «Mostra nella
+  scheda e prepara il QSO» e «Copia la riga».
+- Di serie e' chiuso: si apre da Pannelli, in alto.
+
+Sotto il cofano: lo stato UDP porta ora anche Rx DF, Tx DF, periodo T/R e l'ultimo messaggio
+trasmesso, e le decodifiche il flag «poco affidabile» (i client piu' vecchi, che si fermano
+prima, si leggono lo stesso).
+
+## 1.16.51 — 3 ottobre 2026
+
+**Il monitor del traffico con Decodium.** Dal menu del marchio, «Monitor del traffico
+Decodium…»: una finestra con tutto quello che passa fra DecoDXLog e Decodium 4, nei due versi,
+riga per riga con ora (al millesimo), canale, verso, tipo, programma e contenuto.
+- **UDP** (il protocollo di WSJT-X): battiti, stato, decodifiche, QSO, ADIF, e anche quello che
+  DecoDXLog inoltra ai programmi accanto (GridTracker, JTAlert…) con le loro risposte rimandate
+  a Decodium. Si leggono anche i tipi che Decodium ha in piu' (AnnotationInfo, SetupTx,
+  EnqueueDecode).
+- **DecoLink**: ogni riga JSON che entra ed esce (saluto, elenco del log a blocchi, domande e
+  risposte sui nominativi, award, ping).
+- **DecoPort**: gli annunci della radio in rete (frequenza, modo, PTT, nome della radio, stato,
+  strumenti: tensione, corrente, potenza…), ascoltati sulla 5560 solo mentre la finestra e'
+  aperta, insieme agli altri programmi che li ascoltano.
+- Filtri per canale e per testo, «nascondi i battiti», pausa (la vista si ferma, le righe si
+  raccolgono lo stesso), copia come testo; clic su una riga per vederla intera (i byte, o il
+  JSON in chiaro). Tiene le ultime 5000 righe.
+
+**E si parla a Decodium da li'.** Dallo stesso socket UDP su cui Decodium scrive, col suo nome di
+programma (e' quello di cui Decodium si fida): rispondere a una riga decodificata (come il
+doppio clic in Decodium, anche col doppio clic nel monitor), Ferma TX, Auto TX spento, ripeti
+le decodifiche, pulisci le finestre, testo libero (impostato o anche trasmesso), locatore,
+evidenziare o togliere l'evidenziazione a un nominativo coi suoi colori. Su DecoLink: una riga
+JSON a mano, rimandare l'elenco del log o lo stato degli award. DecoPort resta in solo ascolto:
+la sessione e' firmata con la chiave di Decodium e un suo comando mette la radio in trasmissione.
+
+## 1.16.50 — 3 ottobre 2026
+
+**Il rapporto giusto per il modo.** Nel Nuovo QSO (il pannello e la finestra) i rapporti
+partivano sempre da 59, anche in CW e in FT8. Adesso seguono il modo: 59 in fonia, 599 in CW,
+RTTY e PSK, -10 (dB) nei modi di WSJT (FT8, FT4, FT2, JT65, Q65…). Cambiando modo cambiano
+da soli, ma solo finche' nel campo c'e' ancora il valore di partenza: un rapporto scritto a
+mano non si tocca.
+
+**Il riepilogo dell'importazione QSL si apre sempre.** Il pulsante della scheda QSL restava
+spento finche' non c'era uno scarico riuscito, e cliccandolo non succedeva niente. Adesso si
+apre sempre, e anche uno scarico non riuscito (password sbagliata, servizio che non risponde)
+ci finisce in rosso con il motivo; se lo si era chiesto a mano, la finestra si apre da sola.
+
+## 1.16.48 — 3 ottobre 2026
+
+**Il riepilogo delle conferme scaricate.** Dopo uno scarico da LoTW, eQSL o QRZ chiesto a mano
+si apre «Riepilogo importazione QSL» (e dalla scheda QSL, «Riepilogo importazione»):
+- per ogni servizio (e per ogni account di profilo) l'ultimo scarico: nuove, gia' segnate,
+  senza corrispondenza, errori; un clic sul riquadro filtra quel servizio;
+- l'elenco con data, nominativo, banda, modo, il proprio nominativo, il servizio, l'esito e, per
+  le nuove, il paese con «★ nuovo DXCC» quando e' la prima conferma di quell'entita' (LoTW o
+  cartolina); per quelle senza corrispondenza il motivo («il nominativo non e' nel log», o
+  «nessun QSO entro 30 minuti su questa banda e modo»);
+- i filtri per servizio, per esito (nuove, senza corrispondenza, errori, tutto), «solo nuovi
+  DXCC» e nominativo o paese; doppio clic apre il QSO; «Copia come testo» per incollarlo;
+- **la cartolina eQSL** della riga scelta: chiesta a eQSL (GeteQSL.cfm) solo quando la si
+  guarda, una ogni dieci secondi come chiede eQSL, e tenuta nella cartella dei dati, cosi' la
+  seconda volta arriva subito. LoTW e QRZ non hanno l'immagine della cartolina.
+Il riepilogo resta nel log e si riapre anche dopo il riavvio.
+
+**Allineata alla 1.16.48 di elisir80.**
+- **CAT avanzato**: per i modelli Hamlib che li dichiarano, Impostazioni → Radio offre bit di
+  dati, bit di stop, parita', handshake, stato fisso delle linee DTR/RTS e indirizzo CI-V; i
+  valori si conservano e passano a `rigctld`, e quello che la radio non supporta non si vede.
+- **Aggiornamenti per piattaforma**: ogni pacchetto (setup Windows, DMG macOS, AppImage Linux)
+  ha il suo elenco firmato; le release vecchie con l'elenco unico si leggono ancora.
+- **La chiave del fork**: le release di elisir80/DecodxLog firmate con la chiave dedicata del
+  fork si installano da sole. Ogni chiave vale solo per il suo repository.
+- **Le due sorgenti restano alla pari**: vince la versione piu' nuova che risulta firmata, a
+  pari versione il fork. La 1.16.48 di elisir80 metteva il fork sempre per primo e iu8lmc come
+  riserva; qui no, per scelta di IU8LMC.
+- Tradotte le voci nuove dei parametri seriali.
+
 ## 1.16.47 — 2 ottobre 2026
 
 **Rotore: un'antenna per banda, con il suo scostamento.** Sullo stesso palo non tutte le

@@ -709,6 +709,14 @@
         <translation>Conferme %1</translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation>Riepilogo importazione (%1 nuove)</translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation>Riepilogo importazione</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>QSL cartacee (%1)</translation>
     </message>
@@ -2361,6 +2369,14 @@ Tasto destro: modificala</translation>
         <translation>Decoder</translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation>Predefinito di sistema</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Non disponibile: %1</translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation>%1 wpm · %2 Hz</translation>
     </message>
@@ -2387,6 +2403,177 @@ Tasto destro: modificala</translation>
     <message>
         <source>noise</source>
         <translation>rumore</translation>
+    </message>
+</context>
+<context>
+    <name>DecodeList</name>
+    <message>
+        <source>%1 rows</source>
+        <translation>%1 righe</translation>
+    </message>
+    <message>
+        <source>Empty this list</source>
+        <translation>Svuota questa lista</translation>
+    </message>
+    <message>
+        <source>Low confidence decode</source>
+        <translation>Decodifica poco affidabile</translation>
+    </message>
+    <message>
+        <source>Answer in Decodium</source>
+        <translation>Rispondi in Decodium</translation>
+    </message>
+    <message>
+        <source>Show in Call info and prepare the QSO</source>
+        <translation>Mostra nella scheda e prepara il QSO</translation>
+    </message>
+    <message>
+        <source>Copy the line</source>
+        <translation>Copia la riga</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumPanel</name>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Newest on top: click for newest at the bottom, like Decodium</source>
+        <translation>Le più recenti in alto: clic per averle in basso, come in Decodium</translation>
+    </message>
+    <message>
+        <source>Newest at the bottom, like Decodium: click for newest on top</source>
+        <translation>Le più recenti in basso, come in Decodium: clic per averle in alto</translation>
+    </message>
+    <message>
+        <source>Reload the recent decodes from Decodium&apos;s own records, and ask it to send again what it has on screen</source>
+        <translation>Rilegge le decodifiche recenti dai registri di Decodium, e gli chiede di rimandare quello che ha a schermo</translation>
+    </message>
+    <message>
+        <source>TX</source>
+        <translation>TX</translation>
+    </message>
+    <message>
+        <source>RX · decoding</source>
+        <translation>RX · decodifica</translation>
+    </message>
+    <message>
+        <source>RX</source>
+        <translation>RX</translation>
+    </message>
+    <message>
+        <source>Rx %1 Hz · Tx %2 Hz</source>
+        <translation>Rx %1 Hz · Tx %2 Hz</translation>
+    </message>
+    <message>
+        <source>DX %1</source>
+        <translation>DX %1</translation>
+    </message>
+    <message>
+        <source>Waiting for Decodium on UDP port %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot;Accept UDP requests&quot;.</source>
+        <translation>In attesa di Decodium sulla porta UDP %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, porta %1, e &quot;Accept UDP requests&quot;.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog is not listening on a UDP port: set it in Settings → Decodium link.</source>
+        <translation>DecoDXLog non ascolta su nessuna porta UDP: impostala in Impostazioni → Collegamento a Decodium.</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Spettro completo</translation>
+    </message>
+    <message>
+        <source>Every decode Decodium hears on the band shows up here.</source>
+        <translation>Qui compare ogni decodifica che Decodium sente in banda.</translation>
+    </message>
+    <message>
+        <source>Signal RX</source>
+        <translation>Segnale RX</translation>
+    </message>
+    <message>
+        <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
+        <translation>Qui compaiono le tue trasmissioni, chi ti chiama e il corrispondente.</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumWindowPanel</name>
+    <message>
+        <source>Signal RX</source>
+        <translation>Segnale RX</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Spettro completo</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show</source>
+        <translation>Scegli la finestra di Decodium da mostrare</translation>
+    </message>
+    <message>
+        <source>Pick the area of the window to show</source>
+        <translation>Scegli la zona della finestra da mostrare</translation>
+    </message>
+    <message>
+        <source>Clicks go to Decodium: click to stop</source>
+        <translation>I clic vanno a Decodium: clic per fermarli</translation>
+    </message>
+    <message>
+        <source>Send your clicks to Decodium (a double click on a line answers it): off</source>
+        <translation>Manda i tuoi clic a Decodium (un doppio clic su una riga le risponde): spento</translation>
+    </message>
+    <message>
+        <source>Resize the Decodium window to fit this panel, so the text stays sharp</source>
+        <translation>Porta la finestra di Decodium alla misura di questo pannello, così il testo resta nitido</translation>
+    </message>
+    <message>
+        <source>Drag over the part of the Decodium window you want to see · Esc cancels</source>
+        <translation>Trascina sulla parte della finestra di Decodium che vuoi vedere · Esc annulla</translation>
+    </message>
+    <message>
+        <source>This panel works only on Windows.</source>
+        <translation>Questo pannello funziona solo su Windows.</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show with ▾ in the header.</source>
+        <translation>Scegli la finestra di Decodium da mostrare con ▾ in testata.</translation>
+    </message>
+    <message>
+        <source>The Decodium window is minimized, and a minimized window cannot be copied. It can stay covered by other windows or on another screen.</source>
+        <translation>La finestra di Decodium è ridotta a icona, e una finestra ridotta a icona non si può copiare. Può stare coperta da altre finestre o su un altro schermo.</translation>
+    </message>
+    <message>
+        <source>Decodium is not open. Start it: its window shows up here.</source>
+        <translation>Decodium non è aperto. Avvialo: la sua finestra compare qui.</translation>
+    </message>
+    <message>
+        <source>The window &quot;%1&quot; is not open. In Decodium press Pop on the list to detach it, or pick another window with ▾.</source>
+        <translation>La finestra &quot;%1&quot; non è aperta. In Decodium premi Pop sulla lista per staccarla, o scegli un&apos;altra finestra con ▾.</translation>
+    </message>
+    <message>
+        <source>Bring Decodium back, behind the other windows</source>
+        <translation>Riporta Decodium alla misura normale, dietro le altre finestre</translation>
+    </message>
+    <message>
+        <source>No Decodium window is open</source>
+        <translation>Nessuna finestra di Decodium è aperta</translation>
+    </message>
+    <message>
+        <source>Area of Full Spectrum in the main window</source>
+        <translation>Zona di Full Spectrum nella finestra principale</translation>
+    </message>
+    <message>
+        <source>Area of Signal RX in the main window</source>
+        <translation>Zona di Signal RX nella finestra principale</translation>
+    </message>
+    <message>
+        <source>The whole main window</source>
+        <translation>Tutta la finestra principale</translation>
+    </message>
+    <message>
+        <source>Pick the area…</source>
+        <translation>Scegli la zona…</translation>
     </message>
 </context>
 <context>
@@ -2497,6 +2684,10 @@ Tasto destro: modificala</translation>
     <message>
         <source>System default</source>
         <translation>Predefinito di sistema</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>Non disponibile: %1</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -3383,6 +3574,18 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
     <message>
         <source>Band map</source>
         <translation>Band map</translation>
+    </message>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Full Spectrum (Decodium window)</source>
+        <translation>Spettro completo (finestra di Decodium)</translation>
+    </message>
+    <message>
+        <source>Signal RX (Decodium window)</source>
+        <translation>Segnale RX (finestra di Decodium)</translation>
     </message>
     <message>
         <source>Station network</source>
@@ -4676,6 +4879,149 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
     <message>
         <source>QRZ: download stopped</source>
         <translation>QRZ: scarico interrotto</translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation>nuova</translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation>senza corrispondenza</translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation>errore</translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation>%1 (%2): %3 nuove, %4 già segnate, %5 senza corrispondenza, %6 errori</translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation>nuovo DXCC</translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation>Riepilogo importazione QSL</translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation>%1 righe mostrate</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Nominativo</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>Banda</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Modo</translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation>Mio nominativo</translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation>Servizio</translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation>Esito</translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation>DXCC / motivo</translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation>nuove</translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation>già segnate</translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation>errori</translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation>Ancora nessuna conferma scaricata: usa LoTW, eQSL o QRZ nella scheda QSL.</translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation>Tutti i servizi</translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation>Nuove conferme</translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation>Senza corrispondenza</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>Errori</translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation>Tutto</translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation>solo nuovi DXCC</translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation>Nominativo o paese…</translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation>Scegli una riga</translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation>Qui compare la cartolina eQSL di una riga.</translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation>Le conferme %1 non hanno l&apos;immagine della cartolina. Doppio clic apre il QSO.</translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation>Chiedo la cartolina a eQSL… (eQSL ne vuole al massimo sei al minuto: può volerci qualche secondo)</translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation>Apri il QSO</translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation>Copia come testo</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>copiato</translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation>Svuota il riepilogo</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Chiudi</translation>
     </message>
 </context>
 <context>
@@ -6984,6 +7330,46 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Advanced serial parameters</source>
+        <translation>Parametri seriali avanzati</translation>
+    </message>
+    <message>
+        <source>Leave a value at Default to let the radio driver choose it. DTR/RTS here are fixed line states, not the separate PTT selection above.</source>
+        <translation>Lascia un valore su Default perché lo scelga il driver della radio. DTR/RTS qui sono stati fissi delle linee, non la scelta del PTT qui sopra.</translation>
+    </message>
+    <message>
+        <source>Data bits</source>
+        <translation>Bit di dati</translation>
+    </message>
+    <message>
+        <source>Stop bits</source>
+        <translation>Bit di stop</translation>
+    </message>
+    <message>
+        <source>Parity</source>
+        <translation>Parità</translation>
+    </message>
+    <message>
+        <source>Handshake</source>
+        <translation>Handshake</translation>
+    </message>
+    <message>
+        <source>CI-V address</source>
+        <translation>Indirizzo CI-V</translation>
+    </message>
+    <message>
+        <source>e.g. 0x94</source>
+        <translation>es. 0x94</translation>
+    </message>
+    <message>
+        <source>DTR state</source>
+        <translation>Stato DTR</translation>
+    </message>
+    <message>
+        <source>RTS state</source>
+        <translation>Stato RTS</translation>
+    </message>
+    <message>
         <source>flrig server</source>
         <translation>Server flrig</translation>
     </message>
@@ -7170,6 +7556,10 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
     <message>
         <source>Simulated</source>
         <translation>Simulato</translation>
+    </message>
+    <message>
+        <source>Yaesu G-450 (GS-232 protocol): azimuth only, 9600 baud. It is not detected by itself, so it is chosen here. It turns up to 450°: set the azimuth maximum to 450 in the rotator window settings to use the whole overlap.</source>
+        <translation>Yaesu G-450 (protocollo GS-232): solo azimut, 9600 baud. Non si rileva da solo, quindi si sceglie qui. Gira fino a 450°: metti il massimo dell&apos;azimut a 450 nelle impostazioni della finestra del rotore per usare tutto l&apos;overlap.</translation>
     </message>
     <message>
         <source>App port (WebSocket)</source>
@@ -7729,6 +8119,10 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>Chat ON4KST…</translation>
     </message>
     <message>
+        <source>Decodium traffic monitor…</source>
+        <translation>Monitor del traffico Decodium…</translation>
+    </message>
+    <message>
         <source>Import a log (ADIF, CSV, N1MM)…</source>
         <translation>Importa un log (ADIF, CSV, N1MM)…</translation>
     </message>
@@ -7915,6 +8309,257 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
     <message>
         <source>Search…</source>
         <translation>Cerca…</translation>
+    </message>
+</context>
+<context>
+    <name>TrafficMonitorWindow</name>
+    <message>
+        <source>Decodium traffic monitor</source>
+        <translation>Monitor del traffico Decodium</translation>
+    </message>
+    <message>
+        <source>paused · %1 of %2 rows</source>
+        <translation>in pausa · %1 di %2 righe</translation>
+    </message>
+    <message>
+        <source>%1 of %2 rows</source>
+        <translation>%1 di %2 righe</translation>
+    </message>
+    <message>
+        <source>← received</source>
+        <translation>← ricevuto</translation>
+    </message>
+    <message>
+        <source>→ sent</source>
+        <translation>→ inviato</translation>
+    </message>
+    <message>
+        <source>→ forwarded</source>
+        <translation>→ inoltrato</translation>
+    </message>
+    <message>
+        <source>← from forward</source>
+        <translation>← dall&apos;inoltro</translation>
+    </message>
+    <message>
+        <source>→ relayed back</source>
+        <translation>→ risposta inoltrata</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>Canale</translation>
+    </message>
+    <message>
+        <source>Direction</source>
+        <translation>Verso</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Tipo</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>Programma</translation>
+    </message>
+    <message>
+        <source>Content</source>
+        <translation>Contenuto</translation>
+    </message>
+    <message>
+        <source>UDP %1 · %2</source>
+        <translation>UDP %1 · %2</translation>
+    </message>
+    <message>
+        <source>nobody has written yet</source>
+        <translation>nessuno ha ancora scritto</translation>
+    </message>
+    <message>
+        <source>UDP %1 not listening</source>
+        <translation>UDP %1 non in ascolto</translation>
+    </message>
+    <message>
+        <source>forwarded to %1</source>
+        <translation>inoltrato a %1</translation>
+    </message>
+    <message>
+        <source>DecoLink off</source>
+        <translation>DecoLink spento</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 · %2 connected</source>
+        <translation>DecoLink %1 · %2 collegati</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 not listening</source>
+        <translation>DecoLink %1 non in ascolto</translation>
+    </message>
+    <message>
+        <source>DecoPort: listening to announcements on 5560</source>
+        <translation>DecoPort: in ascolto degli annunci sulla 5560</translation>
+    </message>
+    <message>
+        <source>DecoPort: %1</source>
+        <translation>DecoPort: %1</translation>
+    </message>
+    <message>
+        <source>not listening</source>
+        <translation>non in ascolto</translation>
+    </message>
+    <message>
+        <source>hide heartbeats</source>
+        <translation>nascondi i battiti</translation>
+    </message>
+    <message>
+        <source>Filter: type, call, text…</source>
+        <translation>Filtro: tipo, nominativo, testo…</translation>
+    </message>
+    <message>
+        <source>Resume</source>
+        <translation>Riprendi</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation>Pausa</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Copia</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Pulisci</translation>
+    </message>
+    <message>
+        <source>Nothing matches the filters.</source>
+        <translation>Nessuna riga corrisponde ai filtri.</translation>
+    </message>
+    <message>
+        <source>Waiting for traffic. Start Decodium: its UDP messages, the DecoLink connection and the DecoPort announcements show up here as they pass.</source>
+        <translation>In attesa di traffico. Avvia Decodium: i messaggi UDP, la connessione DecoLink e gli annunci DecoPort compaiono qui man mano che passano.</translation>
+    </message>
+    <message>
+        <source>Click a row to see it whole: the bytes, or the JSON line.</source>
+        <translation>Clicca una riga per vederla intera: i byte, o la riga JSON.</translation>
+    </message>
+    <message>
+        <source>To Decodium (UDP)</source>
+        <translation>A Decodium (UDP)</translation>
+    </message>
+    <message>
+        <source>no program yet</source>
+        <translation>ancora nessun programma</translation>
+    </message>
+    <message>
+        <source>Reply to the line</source>
+        <translation>Rispondi alla riga</translation>
+    </message>
+    <message>
+        <source>Like the double click in Decodium: it answers a CQ, and it may start transmitting.</source>
+        <translation>Come il doppio clic in Decodium: risponde a un CQ, e può mettere in trasmissione.</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>Ferma TX</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Auto TX spento</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Ripeti decodifiche</translation>
+    </message>
+    <message>
+        <source>Decodium sends again all the decodes it has on screen.</source>
+        <translation>Decodium rimanda tutte le decodifiche che ha sullo schermo.</translation>
+    </message>
+    <message>
+        <source>Band activity</source>
+        <translation>Attività di banda</translation>
+    </message>
+    <message>
+        <source>Rx frequency</source>
+        <translation>Frequenza Rx</translation>
+    </message>
+    <message>
+        <source>Both windows</source>
+        <translation>Entrambe le finestre</translation>
+    </message>
+    <message>
+        <source>Free text (13 characters)</source>
+        <translation>Testo libero (13 caratteri)</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation>Imposta</translation>
+    </message>
+    <message>
+        <source>Set and transmit</source>
+        <translation>Imposta e trasmetti</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>Locatore</translation>
+    </message>
+    <message>
+        <source>Send locator</source>
+        <translation>Manda il locatore</translation>
+    </message>
+    <message>
+        <source>Decodium uses it only with the automatic locator turned on.</source>
+        <translation>Decodium lo usa solo con il locatore automatico acceso.</translation>
+    </message>
+    <message>
+        <source>Callsign to highlight</source>
+        <translation>Nominativo da evidenziare</translation>
+    </message>
+    <message>
+        <source>background</source>
+        <translation>sfondo</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>testo</translation>
+    </message>
+    <message>
+        <source>Highlight</source>
+        <translation>Evidenzia</translation>
+    </message>
+    <message>
+        <source>Remove the highlight</source>
+        <translation>Togli l&apos;evidenziazione</translation>
+    </message>
+    <message>
+        <source>They leave from the same UDP port Decodium writes to, with its program name. Decodium carries them out only for its main UDP destination (Settings → Reporting → UDP Server) and with &quot;Accept UDP requests&quot; on: if DecoDXLog is its second or third destination it ignores them.</source>
+        <translation>Partono dalla stessa porta UDP su cui scrive Decodium, con il nome del suo programma. Decodium li esegue solo per la sua destinazione UDP principale (Settings → Reporting → UDP Server) e con &quot;Accept UDP requests&quot; attivo: se DecoDXLog è la sua seconda o terza destinazione li ignora.</translation>
+    </message>
+    <message>
+        <source>To Decodium (DecoLink)</source>
+        <translation>A Decodium (DecoLink)</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Manda</translation>
+    </message>
+    <message>
+        <source>Send the log list again</source>
+        <translation>Rimanda l&apos;elenco del log</translation>
+    </message>
+    <message>
+        <source>Send the award state</source>
+        <translation>Manda lo stato degli award</translation>
+    </message>
+    <message>
+        <source>Listen only: the DecoPort session is signed with Decodium&apos;s key, and one of its commands keys the transmitter. Here you see which radio is on the network, on what frequency and in which state.</source>
+        <translation>Solo ascolto: la sessione DecoPort è firmata con la chiave di Decodium, e uno dei suoi comandi mette in trasmissione la radio. Qui si vede quale radio c&apos;è in rete, su che frequenza e in che stato.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Chiudi</translation>
     </message>
 </context>
 <context>
@@ -9265,6 +9910,26 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>  %1 record senza nominativo, banda o data</translation>
     </message>
     <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation>nessun QSO con questo nominativo entro 30 minuti su questa banda e modo</translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation>questo nominativo non è nel log</translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation>manca nominativo, banda o data</translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation>eQSL: nessun account in Impostazioni → Servizi QSL</translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
+        <translation>eQSL: password non disponibile (%1)</translation>
+    </message>
+    <message>
         <source>New DXCC confirmed: %1</source>
         <translation>Nuovo DXCC confermato: %1</translation>
     </message>
@@ -10016,6 +10681,14 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>La porta %1 è la CAT condivisa di DecoDXLog stesso: scegli la porta del programma che tiene la radio</translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation>L&apos;ingresso audio &quot;%1&quot; non è disponibile: sceglierne un altro nel pannello CW (il decoder non ripiega su un&apos;altra scheda).</translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation>Due ingressi audio si chiamano &quot;%1&quot;: uso il primo. Scegli di nuovo l&apos;ingresso nel pannello CW per dire quale.</translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation>Non c&apos;è nessun ingresso audio da ascoltare</translation>
     </message>
@@ -10237,6 +10910,97 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::TrafficMonitor</name>
+    <message>
+        <source>%1 not sent: no program has written to the UDP port yet.</source>
+        <translation>%1: non mandato, nessun programma ha ancora scritto sulla porta UDP.</translation>
+    </message>
+    <message>
+        <source>%1 sent to %2.</source>
+        <translation>%1: mandato a %2.</translation>
+    </message>
+    <message>
+        <source>Pick a decoded line (Decode) to answer.</source>
+        <translation>Scegli una riga decodificata (Decode) a cui rispondere.</translation>
+    </message>
+    <message>
+        <source>This line cannot be read back as a decode.</source>
+        <translation>Questa riga non si rilegge come decodifica.</translation>
+    </message>
+    <message>
+        <source>Reply to &quot;%1&quot;</source>
+        <translation>Risposta a &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Auto TX spento</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>Ferma TX</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot; (transmit)</source>
+        <translation>Testo libero &quot;%1&quot; (in trasmissione)</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot;</source>
+        <translation>Testo libero &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Ripeti decodifiche</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Pulisci</translation>
+    </message>
+    <message>
+        <source>A locator has at least four characters.</source>
+        <translation>Un locatore ha almeno quattro caratteri.</translation>
+    </message>
+    <message>
+        <source>Locator %1</source>
+        <translation>Locatore %1</translation>
+    </message>
+    <message>
+        <source>Which callsign?</source>
+        <translation>Quale nominativo?</translation>
+    </message>
+    <message>
+        <source>Highlight of %1 removed</source>
+        <translation>Evidenziazione di %1 tolta</translation>
+    </message>
+    <message>
+        <source>Highlight of %1</source>
+        <translation>Evidenziazione di %1</translation>
+    </message>
+    <message>
+        <source>Not JSON: %1</source>
+        <translation>Non è JSON: %1</translation>
+    </message>
+    <message>
+        <source>DecoLink wants a JSON object with a &quot;type&quot;.</source>
+        <translation>DecoLink vuole un oggetto JSON con un &quot;type&quot;.</translation>
+    </message>
+    <message>
+        <source>Decodium is not connected to DecoLink.</source>
+        <translation>Decodium non è collegato a DecoLink.</translation>
+    </message>
+    <message>
+        <source>Sent on DecoLink: %1</source>
+        <translation>Mandato su DecoLink: %1</translation>
+    </message>
+    <message>
+        <source>The log list is on its way to Decodium.</source>
+        <translation>L&apos;elenco del log sta andando a Decodium.</translation>
+    </message>
+    <message>
+        <source>Award state sent to Decodium.</source>
+        <translation>Stato degli award mandato a Decodium.</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::UpdateController</name>
     <message>
         <source>DecoDXLog %1 is out</source>
@@ -10362,6 +11126,22 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>F%1 non ha un messaggio registrato</translation>
     </message>
     <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation>L&apos;uscita audio &quot;%1&quot; non è disponibile: scegline un&apos;altra nel pannello DVK. Non è stato mandato niente.</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Predefinito di sistema</translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation>Due uscite audio si chiamano &quot;%1&quot;: uso la prima. Scegli di nuovo l&apos;uscita nel pannello DVK per dire quale.</translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
+        <translation>Il microfono &quot;%1&quot; non è disponibile: scegline un altro nel pannello DVK.</translation>
+    </message>
+    <message>
         <source>The microphone does not record 16 kHz mono</source>
         <translation>Il microfono non registra a 16 kHz mono</translation>
     </message>
@@ -10384,6 +11164,13 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
     <message>
         <source>Cannot copy the file</source>
         <translation>Non riesco a copiare il file</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::WindowMirror</name>
+    <message>
+        <source>Decodium main window</source>
+        <translation>Finestra principale di Decodium</translation>
     </message>
 </context>
 <context>

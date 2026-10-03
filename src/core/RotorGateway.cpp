@@ -178,7 +178,7 @@ void RotorGateway::stop()
         for (const QString& name : {QStringLiteral("az"), QStringLiteral("el")}) {
             const QChar id = axisId(name);
             if (!id.isNull())
-                writeFrame(prosistel::stop(id, false, multiplier()));
+                writeFrame(stopFrame(id, false));
         }
         if (m_serial)
             m_serial->waitForBytesWritten(200);
@@ -284,8 +284,11 @@ void RotorGateway::openPort()
 void RotorGateway::afterOpen()
 {
     for (const QChar id : {m_model->azId, m_model->elId}) {
-        if (!id.isNull())
-            enqueue({prosistel::disableCpm(id), false, 1, 1, {}});
+        if (id.isNull())
+            continue;
+        const QByteArray open = openFrame(id);
+        if (!open.isEmpty())
+            enqueue({open, false, 1, 1, {}});
     }
     m_connected = true;
     m_error.clear();
@@ -394,22 +397,34 @@ void RotorGateway::onBytes(const QByteArray& bytes)
     }
     m_rx += bytes;
     for (;;) {
-        const int stx = m_rx.indexOf(prosistel::kStx);
-        if (stx < 0) {
-            m_rx.clear();   // rumore, o la coda di un frame vecchio
-            return;
+        QByteArray frame;
+        if (lineProtocol()) {
+            // GS-232: una riga chiusa da CR, senza STX davanti.
+            const int cr = m_rx.indexOf(prosistel::kCr);
+            if (cr < 0)
+                return;         // il resto arriva dopo
+            frame = m_rx.left(cr + 1);
+            m_rx.remove(0, cr + 1);
+            while (frame.startsWith('\n'))   // alcune interfacce chiudono con CR LF
+                frame.remove(0, 1);
+        } else {
+            const int stx = m_rx.indexOf(prosistel::kStx);
+            if (stx < 0) {
+                m_rx.clear();   // rumore, o la coda di un frame vecchio
+                return;
+            }
+            if (stx > 0)
+                m_rx.remove(0, stx);
+            const int cr = m_rx.indexOf(prosistel::kCr);
+            if (cr < 0)
+                return;         // il resto arriva dopo
+            frame = m_rx.left(cr + 1);
+            m_rx.remove(0, cr + 1);
         }
-        if (stx > 0)
-            m_rx.remove(0, stx);
-        const int cr = m_rx.indexOf(prosistel::kCr);
-        if (cr < 0)
-            return;         // il resto arriva dopo
-        const QByteArray frame = m_rx.left(cr + 1);
-        m_rx.remove(0, cr + 1);
         recordFrame(QStringLiteral("rx"), frame);
         if (!m_current)
             return;
-        const auto reply = prosistel::decode(frame, m_current->multiplier);
+        const auto reply = decodeFrame(frame, m_current->multiplier);
         if (reply) {
             finishTransaction(reply);
             return;
@@ -451,6 +466,32 @@ int RotorGateway::multiplier() const
     return m_model ? m_model->multiplier : 1;
 }
 
+QByteArray RotorGateway::queryFrame(QChar axis) const
+{
+    return lineProtocol() ? gs232::queryPosition() : prosistel::queryPosition(axis);
+}
+
+QByteArray RotorGateway::gotoFrame(QChar axis, double degrees) const
+{
+    return lineProtocol() ? gs232::gotoAngle(degrees) : prosistel::gotoAngle(axis, degrees, multiplier());
+}
+
+QByteArray RotorGateway::stopFrame(QChar axis, bool fast) const
+{
+    return lineProtocol() ? gs232::stop() : prosistel::stop(axis, fast, multiplier());
+}
+
+QByteArray RotorGateway::openFrame(QChar axis) const
+{
+    // Il GS-232 non ha niente da preparare quando si apre la porta.
+    return lineProtocol() ? QByteArray() : prosistel::disableCpm(axis);
+}
+
+std::optional<prosistel::Reply> RotorGateway::decodeFrame(const QByteArray& frame, int multiplier) const
+{
+    return lineProtocol() ? gs232::decode(frame) : prosistel::decode(frame, multiplier);
+}
+
 void RotorGateway::poll()
 {
     // Una domanda per volta: se la precedente non ha finito, si aspetta.
@@ -473,7 +514,7 @@ void RotorGateway::pollAxis(const QString& name)
 {
     const QChar id = axisId(name);
     const bool lastAxis = name == QLatin1String("el") || axisId(QStringLiteral("el")).isNull();
-    enqueue({prosistel::queryPosition(id), true, qMax(1, m_settings.retries), multiplier(),
+    enqueue({queryFrame(id), true, qMax(1, m_settings.retries), multiplier(),
              [this, name, id, lastAxis](std::optional<prosistel::Reply> reply) {
                  Axis& state = name == QLatin1String("az") ? m_az : m_el;
                  if (!reply) {
@@ -498,7 +539,7 @@ void RotorGateway::pollAxis(const QString& name)
                              m_error = QStringLiteral("%1: nessun movimento entro %2s, stop di sicurezza")
                                            .arg(name).arg(m_live.stallTimeoutS, 0, 'f', 0);
                              emit note(m_error, QStringLiteral("error"));
-                             enqueue({prosistel::stop(id, true, multiplier()), false, 1, 1, {}}, true);
+                             enqueue({stopFrame(id, true), false, 1, 1, {}}, true);
                          } else {
                              state.moving = true;
                          }
@@ -563,6 +604,26 @@ void RotorGateway::simulateWrite(const QByteArray& frame)
     body.replace(prosistel::kStx, QByteArray());
     body.replace(prosistel::kCr, QByteArray());
     const QString text = QString::fromLatin1(body);
+    if (lineProtocol()) {
+        // Un GS-232 finto: C (dove sei), S (fermati), M### (vai a).
+        const QChar axis = m_model->azId;
+        if (!m_simPos.contains(axis))
+            return;
+        if (text == QLatin1String("C")) {
+            QByteArray reply = QStringLiteral("+0%1").arg(std::lround(m_simPos.value(axis)), 3, 10, QLatin1Char('0'))
+                                   .toLatin1();
+            reply += prosistel::kCr;
+            QTimer::singleShot(15, this, [this, reply] { onBytes(reply); });
+        } else if (text == QLatin1String("S")) {
+            m_simTarget[axis] = m_simPos.value(axis);
+        } else if (text.startsWith(QLatin1Char('M'))) {
+            bool ok = false;
+            const int raw = text.mid(1).toInt(&ok);
+            if (ok)
+                m_simTarget[axis] = std::min(raw, gs232::kMaxAzimuth);
+        }
+        return;
+    }
     if (text.size() < 2)
         return;
     const QChar axis = text.at(0);
@@ -657,7 +718,7 @@ QJsonObject RotorGateway::gotoPosition(std::optional<double> az, std::optional<d
         state.target = degrees;
         state.lastChangeMs = m_clock.elapsed();
         m_error.clear();
-        enqueue({prosistel::gotoAngle(id, degrees, multiplier()), false, 1, 1, {}}, true);
+        enqueue({gotoFrame(id, degrees), false, 1, 1, {}}, true);
     }
     publishState();
     return applied;
@@ -672,7 +733,7 @@ void RotorGateway::halt(const QString& axis, bool fast)
         if (id.isNull())
             continue;
         (name == QLatin1String("az") ? m_az : m_el).target.reset();
-        enqueue({prosistel::stop(id, fast, multiplier()), false, 1, 1, {}}, true);
+        enqueue({stopFrame(id, fast), false, 1, 1, {}}, true);
     }
     publishState();
 }

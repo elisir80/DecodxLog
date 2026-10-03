@@ -155,7 +155,7 @@ public:
 
     QString gatewaySerialPort() const { return m_gw.serialPort; }
     void setGatewaySerialPort(const QString& port);
-    // "auto", "d_az", "d_el", "d_azel", "combi"
+    // "auto", "d_az", "d_el", "d_azel", "combi", "yaesu_gs232"
     QString gatewayModel() const { return m_gw.model; }
     void setGatewayModel(const QString& model);
     bool gatewaySimulate() const { return m_gw.simulate; }

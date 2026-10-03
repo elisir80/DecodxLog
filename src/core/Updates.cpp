@@ -319,9 +319,10 @@ void UpdateFetcher::fetch(const QString& currentVersion)
     m_lastError.clear();
     m_answered = 0;
 
-    // Si guarda prima il fork di elisir80. iu8lmc e' un fallback: entra in
-    // gioco solo quando il fork non ha un pacchetto nuovo, compatibile e
-    // firmato per questo computer.
+    // Si chiede a tutte e due le sorgenti: il fork di elisir80, che pubblica
+    // anche i pacchetti macOS e Linux, e il repository di iu8lmc. Vince la
+    // versione piu' nuova che risulta firmata (ciascuna con la chiave del suo
+    // repository); a pari versione il fork, che e' chiesto per primo.
     if (!m_overrideUrl.isEmpty()) {
         m_sources = {{QStringLiteral("test endpoint"), m_overrideUrl, {}}};
     } else {
@@ -380,12 +381,9 @@ void UpdateFetcher::sourcesDone()
         emit failed(m_lastError.isEmpty() ? tr("the answer from GitHub was not understood") : m_lastError);
         return;
     }
+    // Le due sorgenti sono alla pari: conta la versione (decisione di IU8LMC,
+    // 03/10/2026). newerReleases le mette gia' dalla piu' nuova.
     m_candidates = updates::newerReleases(m_found, m_currentVersion);
-    std::stable_sort(m_candidates.begin(), m_candidates.end(), [](const ReleaseInfo& a, const ReleaseInfo& b) {
-        const bool aPrimary = a.repository == QLatin1String("elisir80/DecodxLog");
-        const bool bPrimary = b.repository == QLatin1String("elisir80/DecodxLog");
-        return aPrimary != bPrimary ? aPrimary : updates::compareVersions(a.version, b.version) > 0;
-    });
     if (m_candidates.isEmpty()) {
         finishWithoutUpdate();
         return;

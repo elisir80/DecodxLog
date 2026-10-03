@@ -705,6 +705,14 @@
         <translation>%1 の確認</translation>
     </message>
     <message>
+        <source>Import summary (%1 new)</source>
+        <translation>取り込みの概要（新規 %1）</translation>
+    </message>
+    <message>
+        <source>Import summary</source>
+        <translation>取り込みの概要</translation>
+    </message>
+    <message>
         <source>Paper QSL (%1)</source>
         <translation>紙の QSL (%1)</translation>
     </message>
@@ -2352,6 +2360,14 @@ Right click: change it</source>
         <translation>デコーダー</translation>
     </message>
     <message>
+        <source>System default</source>
+        <translation>システムの既定</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>利用できません: %1</translation>
+    </message>
+    <message>
         <source>%1 wpm · %2 Hz</source>
         <translation>%1 wpm · %2 Hz</translation>
     </message>
@@ -2378,6 +2394,177 @@ Right click: change it</source>
     <message>
         <source>noise</source>
         <translation>ノイズ</translation>
+    </message>
+</context>
+<context>
+    <name>DecodeList</name>
+    <message>
+        <source>%1 rows</source>
+        <translation>%1 行</translation>
+    </message>
+    <message>
+        <source>Empty this list</source>
+        <translation>このリストを空にする</translation>
+    </message>
+    <message>
+        <source>Low confidence decode</source>
+        <translation>信頼度の低いデコード</translation>
+    </message>
+    <message>
+        <source>Answer in Decodium</source>
+        <translation>Decodium で応答</translation>
+    </message>
+    <message>
+        <source>Show in Call info and prepare the QSO</source>
+        <translation>コールサイン カードに表示して QSO を準備</translation>
+    </message>
+    <message>
+        <source>Copy the line</source>
+        <translation>行をコピー</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumPanel</name>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Newest on top: click for newest at the bottom, like Decodium</source>
+        <translation>新しいものを上に: クリックで Decodium のように下に表示</translation>
+    </message>
+    <message>
+        <source>Newest at the bottom, like Decodium: click for newest on top</source>
+        <translation>新しいものを下に (Decodium と同じ): クリックで上に表示</translation>
+    </message>
+    <message>
+        <source>Reload the recent decodes from Decodium&apos;s own records, and ask it to send again what it has on screen</source>
+        <translation>Decodium 自身の記録から最近のデコードを再読み込みし、画面にあるものを再送するよう依頼</translation>
+    </message>
+    <message>
+        <source>TX</source>
+        <translation>TX</translation>
+    </message>
+    <message>
+        <source>RX · decoding</source>
+        <translation>RX · デコード中</translation>
+    </message>
+    <message>
+        <source>RX</source>
+        <translation>RX</translation>
+    </message>
+    <message>
+        <source>Rx %1 Hz · Tx %2 Hz</source>
+        <translation>Rx %1 Hz · Tx %2 Hz</translation>
+    </message>
+    <message>
+        <source>DX %1</source>
+        <translation>DX %1</translation>
+    </message>
+    <message>
+        <source>Waiting for Decodium on UDP port %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot;Accept UDP requests&quot;.</source>
+        <translation>UDP ポート %1 で Decodium を待っています。
+Decodium で: Settings → Reporting → UDP Server 127.0.0.1、ポート %1、および &quot;Accept UDP requests&quot;。</translation>
+    </message>
+    <message>
+        <source>DecoDXLog is not listening on a UDP port: set it in Settings → Decodium link.</source>
+        <translation>DecoDXLog はどの UDP ポートも待ち受けていません。設定 → Decodium とのつながり で設定してください。</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>フルスペクトラム</translation>
+    </message>
+    <message>
+        <source>Every decode Decodium hears on the band shows up here.</source>
+        <translation>Decodium がバンドで受信したすべてのデコードがここに表示されます。</translation>
+    </message>
+    <message>
+        <source>Signal RX</source>
+        <translation>受信信号</translation>
+    </message>
+    <message>
+        <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
+        <translation>自局の送信、呼んでくる局、QSO 相手がここに表示されます。</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumWindowPanel</name>
+    <message>
+        <source>Signal RX</source>
+        <translation>受信信号</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>フルスペクトラム</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show</source>
+        <translation>表示する Decodium のウィンドウを選択</translation>
+    </message>
+    <message>
+        <source>Pick the area of the window to show</source>
+        <translation>表示するウィンドウの領域を選択</translation>
+    </message>
+    <message>
+        <source>Clicks go to Decodium: click to stop</source>
+        <translation>クリックは Decodium に送られます: クリックで停止</translation>
+    </message>
+    <message>
+        <source>Send your clicks to Decodium (a double click on a line answers it): off</source>
+        <translation>クリックを Decodium に送る (行をダブルクリックするとそれに応答): オフ</translation>
+    </message>
+    <message>
+        <source>Resize the Decodium window to fit this panel, so the text stays sharp</source>
+        <translation>Decodium のウィンドウをこのパネルに合わせ、文字を鮮明に保つ</translation>
+    </message>
+    <message>
+        <source>Drag over the part of the Decodium window you want to see · Esc cancels</source>
+        <translation>見たい Decodium ウィンドウの部分をドラッグ · Esc で取消</translation>
+    </message>
+    <message>
+        <source>This panel works only on Windows.</source>
+        <translation>このパネルは Windows でのみ動作します。</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show with ▾ in the header.</source>
+        <translation>表示する Decodium のウィンドウをヘッダーの ▾ で選んでください。</translation>
+    </message>
+    <message>
+        <source>The Decodium window is minimized, and a minimized window cannot be copied. It can stay covered by other windows or on another screen.</source>
+        <translation>Decodium のウィンドウは最小化されており、最小化されたウィンドウはコピーできません。他のウィンドウに隠れていたり、別の画面にあっても構いません。</translation>
+    </message>
+    <message>
+        <source>Decodium is not open. Start it: its window shows up here.</source>
+        <translation>Decodium が開いていません。起動すると、そのウィンドウがここに表示されます。</translation>
+    </message>
+    <message>
+        <source>The window &quot;%1&quot; is not open. In Decodium press Pop on the list to detach it, or pick another window with ▾.</source>
+        <translation>ウィンドウ &quot;%1&quot; は開いていません。Decodium でリストの Pop を押して切り離すか、▾ で別のウィンドウを選んでください。</translation>
+    </message>
+    <message>
+        <source>Bring Decodium back, behind the other windows</source>
+        <translation>Decodium を通常の大きさに戻す (他のウィンドウの後ろ)</translation>
+    </message>
+    <message>
+        <source>No Decodium window is open</source>
+        <translation>開いている Decodium のウィンドウがありません</translation>
+    </message>
+    <message>
+        <source>Area of Full Spectrum in the main window</source>
+        <translation>メインウィンドウの Full Spectrum の領域</translation>
+    </message>
+    <message>
+        <source>Area of Signal RX in the main window</source>
+        <translation>メインウィンドウの Signal RX の領域</translation>
+    </message>
+    <message>
+        <source>The whole main window</source>
+        <translation>メインウィンドウ全体</translation>
+    </message>
+    <message>
+        <source>Pick the area…</source>
+        <translation>領域を選択…</translation>
     </message>
 </context>
 <context>
@@ -2488,6 +2675,10 @@ Right click: change it</source>
     <message>
         <source>System default</source>
         <translation>システムの既定</translation>
+    </message>
+    <message>
+        <source>Not available: %1</source>
+        <translation>利用できません: %1</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -3372,6 +3563,18 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>Band map</source>
         <translation>バンドマップ</translation>
+    </message>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Full Spectrum (Decodium window)</source>
+        <translation>フルスペクトラム (Decodium ウィンドウ)</translation>
+    </message>
+    <message>
+        <source>Signal RX (Decodium window)</source>
+        <translation>受信信号 (Decodium ウィンドウ)</translation>
     </message>
     <message>
         <source>Station network</source>
@@ -4662,6 +4865,149 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>QRZ: download stopped</source>
         <translation>QRZ: 取り込みを止めました</translation>
+    </message>
+</context>
+<context>
+    <name>QslImportDialog</name>
+    <message>
+        <source>new</source>
+        <translation>新規</translation>
+    </message>
+    <message>
+        <source>not matched</source>
+        <translation>一致なし</translation>
+    </message>
+    <message>
+        <source>error</source>
+        <translation>エラー</translation>
+    </message>
+    <message>
+        <source>%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors</source>
+        <translation>%1（%2）: 新規 %3、確認済み %4、一致なし %5、エラー %6</translation>
+    </message>
+    <message>
+        <source>new DXCC</source>
+        <translation>新しい DXCC</translation>
+    </message>
+    <message>
+        <source>QSL import summary</source>
+        <translation>QSL 取り込みの概要</translation>
+    </message>
+    <message>
+        <source>%1 rows shown</source>
+        <translation>%1 行を表示</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Band</source>
+        <translation>バンド</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>モード</translation>
+    </message>
+    <message>
+        <source>My call</source>
+        <translation>自局コール</translation>
+    </message>
+    <message>
+        <source>Service</source>
+        <translation>サービス</translation>
+    </message>
+    <message>
+        <source>Result</source>
+        <translation>結果</translation>
+    </message>
+    <message>
+        <source>DXCC / reason</source>
+        <translation>DXCC / 理由</translation>
+    </message>
+    <message>
+        <source>new ones</source>
+        <translation>新規</translation>
+    </message>
+    <message>
+        <source>already marked</source>
+        <translation>確認済み</translation>
+    </message>
+    <message>
+        <source>errors</source>
+        <translation>エラー</translation>
+    </message>
+    <message>
+        <source>No confirmations downloaded yet: use LoTW, eQSL or QRZ in the QSL tab.</source>
+        <translation>まだ確認をダウンロードしていません。QSL タブで LoTW、eQSL、QRZ を使ってください。</translation>
+    </message>
+    <message>
+        <source>All services</source>
+        <translation>すべてのサービス</translation>
+    </message>
+    <message>
+        <source>New confirmations</source>
+        <translation>新しい確認</translation>
+    </message>
+    <message>
+        <source>Not matched</source>
+        <translation>一致なし</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>エラー</translation>
+    </message>
+    <message>
+        <source>Everything</source>
+        <translation>すべて</translation>
+    </message>
+    <message>
+        <source>only new DXCC</source>
+        <translation>新しい DXCC のみ</translation>
+    </message>
+    <message>
+        <source>Call or country…</source>
+        <translation>コールまたは国…</translation>
+    </message>
+    <message>
+        <source>Pick a row</source>
+        <translation>行を選んでください</translation>
+    </message>
+    <message>
+        <source>The eQSL card of a row shows up here.</source>
+        <translation>選んだ行の eQSL カードがここに表示されます。</translation>
+    </message>
+    <message>
+        <source>%1 confirmations have no card picture. Double click opens the QSO.</source>
+        <translation>%1 の確認にはカード画像がありません。ダブルクリックで QSO を開きます。</translation>
+    </message>
+    <message>
+        <source>Asking eQSL for the card… (eQSL wants at most six a minute: it may take a few seconds)</source>
+        <translation>eQSL にカードを要求中…（eQSL は 1 分に最大 6 件まで: 数秒かかることがあります）</translation>
+    </message>
+    <message>
+        <source>Open the QSO</source>
+        <translation>QSO を開く</translation>
+    </message>
+    <message>
+        <source>Copy as text</source>
+        <translation>テキストとしてコピー</translation>
+    </message>
+    <message>
+        <source>copied</source>
+        <translation>コピーしました</translation>
+    </message>
+    <message>
+        <source>Clear the summary</source>
+        <translation>概要をクリア</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>閉じる</translation>
     </message>
 </context>
 <context>
@@ -6962,6 +7308,46 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>OmniRig</translation>
     </message>
     <message>
+        <source>Advanced serial parameters</source>
+        <translation>シリアルの詳細設定</translation>
+    </message>
+    <message>
+        <source>Leave a value at Default to let the radio driver choose it. DTR/RTS here are fixed line states, not the separate PTT selection above.</source>
+        <translation>Default のままにすると無線機のドライバーが選びます。ここでの DTR/RTS は信号線の固定状態で、上の PTT 選択とは別です。</translation>
+    </message>
+    <message>
+        <source>Data bits</source>
+        <translation>データビット</translation>
+    </message>
+    <message>
+        <source>Stop bits</source>
+        <translation>ストップビット</translation>
+    </message>
+    <message>
+        <source>Parity</source>
+        <translation>パリティ</translation>
+    </message>
+    <message>
+        <source>Handshake</source>
+        <translation>ハンドシェイク</translation>
+    </message>
+    <message>
+        <source>CI-V address</source>
+        <translation>CI-V アドレス</translation>
+    </message>
+    <message>
+        <source>e.g. 0x94</source>
+        <translation>例: 0x94</translation>
+    </message>
+    <message>
+        <source>DTR state</source>
+        <translation>DTR の状態</translation>
+    </message>
+    <message>
+        <source>RTS state</source>
+        <translation>RTS の状態</translation>
+    </message>
+    <message>
         <source>flrig server</source>
         <translation>flrig サーバー</translation>
     </message>
@@ -7148,6 +7534,10 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>Simulated</source>
         <translation>シミュレーション</translation>
+    </message>
+    <message>
+        <source>Yaesu G-450 (GS-232 protocol): azimuth only, 9600 baud. It is not detected by itself, so it is chosen here. It turns up to 450°: set the azimuth maximum to 450 in the rotator window settings to use the whole overlap.</source>
+        <translation>Yaesu G-450 (GS-232 プロトコル): 方位のみ、9600 ボー。自動検出されないため、ここで選びます。450° まで回転します: 重なり全体を使うには、ローテーターウィンドウの設定で方位の最大値を 450 にしてください。</translation>
     </message>
     <message>
         <source>App port (WebSocket)</source>
@@ -7707,6 +8097,10 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>ON4KST チャット…</translation>
     </message>
     <message>
+        <source>Decodium traffic monitor…</source>
+        <translation>Decodium トラフィックモニター…</translation>
+    </message>
+    <message>
         <source>Import a log (ADIF, CSV, N1MM)…</source>
         <translation>ログをインポート（ADIF、CSV、N1MM）…</translation>
     </message>
@@ -7893,6 +8287,257 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>Search…</source>
         <translation>検索…</translation>
+    </message>
+</context>
+<context>
+    <name>TrafficMonitorWindow</name>
+    <message>
+        <source>Decodium traffic monitor</source>
+        <translation>Decodium トラフィックモニター</translation>
+    </message>
+    <message>
+        <source>paused · %1 of %2 rows</source>
+        <translation>一時停止 · %2 行中 %1 行</translation>
+    </message>
+    <message>
+        <source>%1 of %2 rows</source>
+        <translation>%2 行中 %1 行</translation>
+    </message>
+    <message>
+        <source>← received</source>
+        <translation>← 受信</translation>
+    </message>
+    <message>
+        <source>→ sent</source>
+        <translation>→ 送信</translation>
+    </message>
+    <message>
+        <source>→ forwarded</source>
+        <translation>→ 転送</translation>
+    </message>
+    <message>
+        <source>← from forward</source>
+        <translation>← 転送先から</translation>
+    </message>
+    <message>
+        <source>→ relayed back</source>
+        <translation>→ 返送</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>チャンネル</translation>
+    </message>
+    <message>
+        <source>Direction</source>
+        <translation>方向</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>種類</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>プログラム</translation>
+    </message>
+    <message>
+        <source>Content</source>
+        <translation>内容</translation>
+    </message>
+    <message>
+        <source>UDP %1 · %2</source>
+        <translation>UDP %1 · %2</translation>
+    </message>
+    <message>
+        <source>nobody has written yet</source>
+        <translation>まだ誰も書き込んでいません</translation>
+    </message>
+    <message>
+        <source>UDP %1 not listening</source>
+        <translation>UDP %1 は待ち受けていません</translation>
+    </message>
+    <message>
+        <source>forwarded to %1</source>
+        <translation>%1 へ転送</translation>
+    </message>
+    <message>
+        <source>DecoLink off</source>
+        <translation>DecoLink オフ</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 · %2 connected</source>
+        <translation>DecoLink %1 · %2 接続</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 not listening</source>
+        <translation>DecoLink %1 は待ち受けていません</translation>
+    </message>
+    <message>
+        <source>DecoPort: listening to announcements on 5560</source>
+        <translation>DecoPort: 5560 でアナウンスを受信中</translation>
+    </message>
+    <message>
+        <source>DecoPort: %1</source>
+        <translation>DecoPort: %1</translation>
+    </message>
+    <message>
+        <source>not listening</source>
+        <translation>待ち受けていません</translation>
+    </message>
+    <message>
+        <source>hide heartbeats</source>
+        <translation>ハートビートを隠す</translation>
+    </message>
+    <message>
+        <source>Filter: type, call, text…</source>
+        <translation>フィルター: 種類、コールサイン、テキスト…</translation>
+    </message>
+    <message>
+        <source>Resume</source>
+        <translation>再開</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation>一時停止</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>コピー</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>クリア</translation>
+    </message>
+    <message>
+        <source>Nothing matches the filters.</source>
+        <translation>フィルターに一致する行はありません。</translation>
+    </message>
+    <message>
+        <source>Waiting for traffic. Start Decodium: its UDP messages, the DecoLink connection and the DecoPort announcements show up here as they pass.</source>
+        <translation>トラフィックを待っています。Decodium を起動してください。UDP メッセージ、DecoLink 接続、DecoPort のアナウンスが通過するたびにここに表示されます。</translation>
+    </message>
+    <message>
+        <source>Click a row to see it whole: the bytes, or the JSON line.</source>
+        <translation>行をクリックすると全体が表示されます: バイト列または JSON 行。</translation>
+    </message>
+    <message>
+        <source>To Decodium (UDP)</source>
+        <translation>Decodium へ (UDP)</translation>
+    </message>
+    <message>
+        <source>no program yet</source>
+        <translation>まだプログラムがありません</translation>
+    </message>
+    <message>
+        <source>Reply to the line</source>
+        <translation>この行に応答</translation>
+    </message>
+    <message>
+        <source>Like the double click in Decodium: it answers a CQ, and it may start transmitting.</source>
+        <translation>Decodium でのダブルクリックと同じ: CQ に応答し、送信を始めることがあります。</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>TX 停止</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>自動 TX オフ</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>デコードを再送</translation>
+    </message>
+    <message>
+        <source>Decodium sends again all the decodes it has on screen.</source>
+        <translation>Decodium が画面上のすべてのデコードを再送します。</translation>
+    </message>
+    <message>
+        <source>Band activity</source>
+        <translation>バンドアクティビティ</translation>
+    </message>
+    <message>
+        <source>Rx frequency</source>
+        <translation>Rx 周波数</translation>
+    </message>
+    <message>
+        <source>Both windows</source>
+        <translation>両方のウィンドウ</translation>
+    </message>
+    <message>
+        <source>Free text (13 characters)</source>
+        <translation>フリーテキスト (13 文字)</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation>設定</translation>
+    </message>
+    <message>
+        <source>Set and transmit</source>
+        <translation>設定して送信</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>ロケーター</translation>
+    </message>
+    <message>
+        <source>Send locator</source>
+        <translation>ロケーターを送信</translation>
+    </message>
+    <message>
+        <source>Decodium uses it only with the automatic locator turned on.</source>
+        <translation>Decodium は自動ロケーターがオンのときだけ使用します。</translation>
+    </message>
+    <message>
+        <source>Callsign to highlight</source>
+        <translation>強調するコールサイン</translation>
+    </message>
+    <message>
+        <source>background</source>
+        <translation>背景</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>文字</translation>
+    </message>
+    <message>
+        <source>Highlight</source>
+        <translation>強調</translation>
+    </message>
+    <message>
+        <source>Remove the highlight</source>
+        <translation>強調を解除</translation>
+    </message>
+    <message>
+        <source>They leave from the same UDP port Decodium writes to, with its program name. Decodium carries them out only for its main UDP destination (Settings → Reporting → UDP Server) and with &quot;Accept UDP requests&quot; on: if DecoDXLog is its second or third destination it ignores them.</source>
+        <translation>Decodium が書き込むのと同じ UDP ポートから、そのプログラム名で送られます。Decodium は主 UDP 送信先 (Settings → Reporting → UDP Server) に対してのみ、&quot;Accept UDP requests&quot; がオンのときに実行します。DecoDXLog が 2 番目や 3 番目の送信先の場合は無視されます。</translation>
+    </message>
+    <message>
+        <source>To Decodium (DecoLink)</source>
+        <translation>Decodium へ (DecoLink)</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>送信</translation>
+    </message>
+    <message>
+        <source>Send the log list again</source>
+        <translation>ログ一覧を再送</translation>
+    </message>
+    <message>
+        <source>Send the award state</source>
+        <translation>アワードの状態を送信</translation>
+    </message>
+    <message>
+        <source>Listen only: the DecoPort session is signed with Decodium&apos;s key, and one of its commands keys the transmitter. Here you see which radio is on the network, on what frequency and in which state.</source>
+        <translation>受信のみ: DecoPort のセッションは Decodium の鍵で署名されており、そのコマンドの一つは送信機をキーイングします。ここでは、ネットワーク上のどの無線機が、どの周波数で、どの状態にあるかが分かります。</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>閉じる</translation>
     </message>
 </context>
 <context>
@@ -9226,6 +9871,26 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>  コールサイン・バンド・日付のないもの %1 件</translation>
     </message>
     <message>
+        <source>no QSO with this call within 30 minutes on this band and mode</source>
+        <translation>このバンドとモードで 30 分以内にこのコールの QSO がありません</translation>
+    </message>
+    <message>
+        <source>this call is not in the log</source>
+        <translation>このコールはログにありません</translation>
+    </message>
+    <message>
+        <source>call, band or date missing</source>
+        <translation>コール、バンドまたは日付がありません</translation>
+    </message>
+    <message>
+        <source>eQSL: no account in Setup → QSL services</source>
+        <translation>eQSL: 設定 → QSL のサービス にアカウントがありません</translation>
+    </message>
+    <message>
+        <source>eQSL: password not available (%1)</source>
+        <translation>eQSL: パスワードを取得できません（%1）</translation>
+    </message>
+    <message>
         <source>New DXCC confirmed: %1</source>
         <translation>新しい DXCC が確認されました: %1</translation>
     </message>
@@ -9954,6 +10619,14 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>ポート %1 は DecoDXLog 自身の共有 CAT です: 無線機を持っているプログラムのポートを選んでください</translation>
     </message>
     <message>
+        <source>The audio input &quot;%1&quot; is not available: choose another one in the CW panel (the decoder does not fall back to a different card).</source>
+        <translation>オーディオ入力 &quot;%1&quot; は利用できません: CW パネルで別のものを選んでください (デコーダーは別のカードに切り替えません)。</translation>
+    </message>
+    <message>
+        <source>Two audio inputs are called &quot;%1&quot;: using the first one. Choose it again in the CW panel to say which.</source>
+        <translation>&quot;%1&quot; という名前のオーディオ入力が 2 つあります: 最初のものを使います。CW パネルで選び直して、どちらかを指定してください。</translation>
+    </message>
+    <message>
         <source>No audio input to listen to</source>
         <translation>聞くための音の入り口がありません</translation>
     </message>
@@ -10175,6 +10848,97 @@ DecoDXLog で一度開いて更新してください。</translation>
     </message>
 </context>
 <context>
+    <name>decolog::app::TrafficMonitor</name>
+    <message>
+        <source>%1 not sent: no program has written to the UDP port yet.</source>
+        <translation>%1: 未送信。まだどのプログラムも UDP ポートに書き込んでいません。</translation>
+    </message>
+    <message>
+        <source>%1 sent to %2.</source>
+        <translation>%1: %2 へ送信しました。</translation>
+    </message>
+    <message>
+        <source>Pick a decoded line (Decode) to answer.</source>
+        <translation>応答するデコード行 (Decode) を選んでください。</translation>
+    </message>
+    <message>
+        <source>This line cannot be read back as a decode.</source>
+        <translation>この行はデコードとして読み戻せません。</translation>
+    </message>
+    <message>
+        <source>Reply to &quot;%1&quot;</source>
+        <translation>&quot;%1&quot; への応答</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>自動 TX オフ</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>TX 停止</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot; (transmit)</source>
+        <translation>フリーテキスト &quot;%1&quot; (送信)</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot;</source>
+        <translation>フリーテキスト &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>デコードを再送</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>クリア</translation>
+    </message>
+    <message>
+        <source>A locator has at least four characters.</source>
+        <translation>ロケーターは 4 文字以上です。</translation>
+    </message>
+    <message>
+        <source>Locator %1</source>
+        <translation>ロケーター %1</translation>
+    </message>
+    <message>
+        <source>Which callsign?</source>
+        <translation>どのコールサインですか?</translation>
+    </message>
+    <message>
+        <source>Highlight of %1 removed</source>
+        <translation>%1 の強調を解除しました</translation>
+    </message>
+    <message>
+        <source>Highlight of %1</source>
+        <translation>%1 を強調</translation>
+    </message>
+    <message>
+        <source>Not JSON: %1</source>
+        <translation>JSON ではありません: %1</translation>
+    </message>
+    <message>
+        <source>DecoLink wants a JSON object with a &quot;type&quot;.</source>
+        <translation>DecoLink には &quot;type&quot; を持つ JSON オブジェクトが必要です。</translation>
+    </message>
+    <message>
+        <source>Decodium is not connected to DecoLink.</source>
+        <translation>Decodium は DecoLink に接続していません。</translation>
+    </message>
+    <message>
+        <source>Sent on DecoLink: %1</source>
+        <translation>DecoLink で送信: %1</translation>
+    </message>
+    <message>
+        <source>The log list is on its way to Decodium.</source>
+        <translation>ログ一覧を Decodium へ送信中です。</translation>
+    </message>
+    <message>
+        <source>Award state sent to Decodium.</source>
+        <translation>アワードの状態を Decodium へ送信しました。</translation>
+    </message>
+</context>
+<context>
     <name>decolog::app::UpdateController</name>
     <message>
         <source>DecoDXLog %1 is out</source>
@@ -10300,6 +11064,22 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>F%1 に録音メッセージがありません</translation>
     </message>
     <message>
+        <source>The audio output &quot;%1&quot; is not available: choose another one in the DVK panel. Nothing was sent.</source>
+        <translation>オーディオ出力 &quot;%1&quot; は利用できません: DVK パネルで別のものを選んでください。何も送信されませんでした。</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>システムの既定</translation>
+    </message>
+    <message>
+        <source>Two audio outputs are called &quot;%1&quot;: using the first one. Choose it again in the DVK panel to say which.</source>
+        <translation>&quot;%1&quot; という名前のオーディオ出力が 2 つあります: 最初のものを使います。DVK パネルで選び直して、どちらかを指定してください。</translation>
+    </message>
+    <message>
+        <source>The microphone &quot;%1&quot; is not available: choose another one in the DVK panel.</source>
+        <translation>マイク &quot;%1&quot; は利用できません: DVK パネルで別のものを選んでください。</translation>
+    </message>
+    <message>
         <source>The microphone does not record 16 kHz mono</source>
         <translation>マイクが 16 kHz モノラルで録音できません</translation>
     </message>
@@ -10322,6 +11102,13 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>Cannot copy the file</source>
         <translation>ファイルをコピーできません</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::WindowMirror</name>
+    <message>
+        <source>Decodium main window</source>
+        <translation>Decodium のメインウィンドウ</translation>
     </message>
 </context>
 <context>

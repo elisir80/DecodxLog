@@ -43,6 +43,20 @@ GlassPanel {
 
     // Per le schermate di prova: apre la tendina dei modi.
     function showModes() { modeBox.popup.open() }
+    // Per le prove: i rapporti che il modulo mette passando da un modo all'altro.
+    function probeReports(modes) {
+        const out = []
+        for (const m of modes) {
+            const i = modeBox.find(m)
+            if (i >= 0) modeBox.currentIndex = i
+            out.push(m + "=" + sentField.text + "/" + rcvdField.text)
+        }
+        // Scritto a mano: non si tocca piu'.
+        sentField.text = "57"
+        modeBox.currentIndex = modeBox.find("CW")
+        out.push("manual CW=" + sentField.text + "/" + rcvdField.text)
+        return out.join(" ")
+    }
 
     // La radio va dove si sceglie, come nell'inserimento della gara: una
     // banda nuova porta la radio li' (dove la si era lasciata in quel modo, o
@@ -97,6 +111,27 @@ GlassPanel {
         }
     }
 
+    // Il rapporto di partenza secondo il modo: 59 in fonia, 599 in CW, RTTY e
+    // PSK, i dB nei modi di WSJT (FT8, FT4, FT2…), dove 59 non vuol dire niente.
+    // Si cambia da solo solo se nel campo c'e' ancora un valore di partenza:
+    // quello scritto dall'operatore non si tocca.
+    readonly property var defaultReports: ["", "59", "599", "-10"]
+    function defaultReport(mode) {
+        const m = String(mode || "").toUpperCase()
+        if (["FT8", "FT4", "FT2", "JT65", "JT9", "JT4", "Q65", "MSK144", "FST4", "FST4W", "JS8", "WSPR"].indexOf(m) >= 0)
+            return "-10"
+        if (["SSB", "USB", "LSB", "AM", "FM", "DIGITALVOICE", "C4FM", "DSTAR", "DMR"].indexOf(m) >= 0)
+            return "59"
+        return "599"
+    }
+    function applyDefaultReports() {
+        const want = root.defaultReport(modeBox.editText || modeBox.currentText)
+        if (root.defaultReports.indexOf(sentField.text.trim()) >= 0)
+            sentField.text = want
+        if (root.defaultReports.indexOf(rcvdField.text.trim()) >= 0)
+            rcvdField.text = want
+    }
+
     function resetTime() {
         const now = decolog.utcNow()
         dateField.text = decolog.showDate(now.date)
@@ -113,7 +148,7 @@ GlassPanel {
         satNameField.text = ""
         satModeField.text = ""
         srxField.text = ""
-        rcvdField.text = "59"
+        rcvdField.text = root.defaultReport(modeBox.editText || modeBox.currentText)
         formError.text = ""
         resetTime()
         callField.forceActiveFocus()
@@ -346,6 +381,7 @@ GlassPanel {
                         label: qsTr("Mode")
                         StyledComboBox {
                             id: modeBox
+                            onEditTextChanged: root.applyDefaultReports()
                             Layout.fillWidth: true
                             editable: true
                             model: ["SSB", "CW", "FM", "AM", "RTTY", "JTTY", "FT8", "FT4", "FT2", "PSK31"]
@@ -376,14 +412,14 @@ GlassPanel {
                         Layout.horizontalStretchFactor: 2
                         Layout.fillWidth: true
                         label: qsTr("RST S")
-                        StyledTextField { id: sentField; Layout.fillWidth: true; text: "59" }
+                        StyledTextField { id: sentField; Layout.fillWidth: true; text: root.defaultReport(modeBox.currentText) }
                     }
                     LabeledField {
                         Layout.preferredWidth: 1
                         Layout.horizontalStretchFactor: 2
                         Layout.fillWidth: true
                         label: qsTr("RST R")
-                        StyledTextField { id: rcvdField; Layout.fillWidth: true; text: "59" }
+                        StyledTextField { id: rcvdField; Layout.fillWidth: true; text: root.defaultReport(modeBox.currentText) }
                     }
                     LabeledField {
                         Layout.preferredWidth: 1
