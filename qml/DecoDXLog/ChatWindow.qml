@@ -7,7 +7,7 @@ import QtQuick.Layouts
 import QtCore
 import Decodium.UI
 
-ApplicationWindow {
+RoundedWindow {
     id: root
 
     readonly property var chat: decolog.chat
@@ -20,16 +20,17 @@ ApplicationWindow {
     minimumHeight: 400
     visible: true
     title: qsTr("DecoDXLog — ON4KST chat")
-    color: Theme.bgDeep
+    surfaceColor: Theme.bgDeep
 
     OnScreen { target: root }
 
     flags: Qt.Window | Qt.FramelessWindowHint | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint
-    header: WindowTitleBar { window: root }
+    header: WindowTitleBar { window: root; cornerRadius: root.frameRadius }
     WindowChrome {
         window: root
         parent: root.contentItem.parent
         dragHeight: Theme.panelHeight
+        cornerRadius: root.frameRadius
     }
 
     Settings {

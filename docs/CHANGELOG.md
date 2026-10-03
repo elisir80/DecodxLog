@@ -3,6 +3,28 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.00 — 4 ottobre 2026
+
+**Finestre e pannelli piu' affidabili.** Le finestre staccate e le finestre
+interne condividono ora una cornice arrotondata, con ombra e contenuto ritagliato
+quando il sistema lo supporta; su Linux il bordo resta volutamente opaco e non
+dipende dal compositor. Su macOS i comandi delle finestre usano i controlli a
+semaforo. Il menu **Pannelli** si apre accanto al pulsante che lo ha chiamato,
+restando nello schermo anche su finestre strette.
+
+**CW e Voice keyer.** Il Voice keyer e' disponibile dalla lista Pannelli anche
+fuori dal Contest Mode. Il pulsante **Ferma** del CW interrompe la radio esatta
+a cui e' stata inviata la macro, anche quando in SO2R era selezionata la radio 2.
+
+**Mappe e QSL.** La Band map non puo' piu' generare un modello Qt negativo
+durante un aggiornamento momentaneo dell'intervallo di frequenze. Arrivano inoltre
+gli scarichi QSL per intervallo di date per LoTW, eQSL e QRZ, senza alterare la
+posizione dello scarico incrementale normale.
+
+**Distribuzione.** I workflow manuali predefiniscono ora v1.17.00 e producono
+pacchetti firmati selezionabili dall'autoaggiornamento per Windows x64, macOS
+Apple Silicon/Intel e Linux x86_64/aarch64.
+
 ## 1.16.55 — 4 ottobre 2026
 
 **Allineata alla 1.16.54 di elisir80.**

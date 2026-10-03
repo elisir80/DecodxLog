@@ -10,7 +10,7 @@ import QtQuick.Layouts
 import QtCore
 import Decodium.UI as DUI
 
-ApplicationWindow {
+DUI.RoundedWindow {
     id: root
 
     property bool nightMode: true
@@ -25,7 +25,7 @@ ApplicationWindow {
     minimumHeight: 600
     visible: true
     title: qsTr("DecoRotor — PRO.SIS.TEL rotor control")
-    color: rt.bgDeep
+    surfaceColor: rt.bgDeep
 
     OnScreen { target: root }
 
@@ -46,7 +46,7 @@ ApplicationWindow {
     // piu' bassa. Si sposta dalla testata e si ridimensiona dai bordi.
     flags: Qt.Window | Qt.FramelessWindowHint | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint
     header: Column {
-        DUI.WindowTitleBar { window: root; width: parent.width }
+        DUI.WindowTitleBar { window: root; width: parent.width; cornerRadius: root.frameRadius }
         RotorTopBar {
             width: parent.width
             nightMode: root.nightMode
@@ -57,10 +57,12 @@ ApplicationWindow {
         window: root
         parent: root.contentItem.parent
         dragHeight: DUI.Theme.panelHeight
+        cornerRadius: root.frameRadius
     }
 
     footer: RotorStatus {
         nightMode: root.nightMode
+        cornerRadius: root.frameRadius
     }
 
     ColumnLayout {

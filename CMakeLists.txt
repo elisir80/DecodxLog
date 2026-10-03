@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(DecoDXLog
-    VERSION 1.16.55
+    VERSION 1.17.00
     DESCRIPTION "Station logbook for the Decodium family"
     LANGUAGES C CXX)
 
@@ -581,6 +581,16 @@ if(DECODXLOG_BUILD_TESTS)
     set_target_properties(tst_audiodevices PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME audiodevices COMMAND tst_audiodevices)
     set_tests_properties(audiodevices PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+    # Il pulsante CW Stop deve raggiungere la stessa radio a cui e' stata
+    # inviata la macro: in SO2R puo' essere la radio 2.
+    qt_add_executable(tst_rigcontroller tests/tst_rigcontroller.cpp
+        src/app/RigController.cpp src/app/RigController.h
+        src/app/AudioDevices.cpp src/app/AudioDevices.h)
+    target_include_directories(tst_rigcontroller PRIVATE src)
+    target_link_libraries(tst_rigcontroller PRIVATE decolog_core Qt6::Multimedia Qt6::Test)
+    set_target_properties(tst_rigcontroller PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME rigcontroller COMMAND tst_rigcontroller)
+    set_tests_properties(rigcontroller PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
     qt_add_executable(tst_windowmirror tests/tst_windowmirror.cpp src/app/WindowMirror.cpp src/app/WindowMirror.h)
     target_include_directories(tst_windowmirror PRIVATE src)
     target_link_libraries(tst_windowmirror PRIVATE decolog_core Qt6::Quick Qt6::Test)

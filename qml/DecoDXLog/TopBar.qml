@@ -18,7 +18,10 @@ Rectangle {
     signal trafficRequested()
     signal activationRequested()
     signal profilesRequested()
-    signal panelsRequested()
+    // Il menu Pannelli e' un Popup nell'overlay della finestra principale:
+    // passiamo chi l'ha aperto per posizionarlo accanto al comando, non sul
+    // bordo destro della finestra.
+    signal panelsRequested(var opener)
     signal aboutRequested()
     // Per le prove: apre il menu del marchio senza mouse.
     function openMainMenu() { mainMenu.popup(brandBlock, 0, brandBlock.height + 4) }
@@ -127,7 +130,7 @@ Rectangle {
                 MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
                 StyledMenuItem { text: qsTr("Settings…"); onTriggered: root.setupRequested() }
                 StyledMenuItem { text: qsTr("Station profiles…"); onTriggered: root.profilesRequested() }
-                StyledMenuItem { text: qsTr("Panels…"); onTriggered: root.panelsRequested() }
+                StyledMenuItem { text: qsTr("Panels…"); onTriggered: root.panelsRequested(brandBlock) }
                 StyledMenuItem { text: qsTr("DX Cluster…"); onTriggered: root.clusterRequested() }
                 StyledMenuItem {
                     text: decolog.chat.unread > 0 ? qsTr("ON4KST chat (%1)…").arg(decolog.chat.unread) : qsTr("ON4KST chat…")
@@ -474,9 +477,10 @@ Rectangle {
                 }
             }
             GlassButton {
+                id: panelsButton
                 text: root.closedPanels > 0 ? qsTr("Panels (%1 closed)").arg(root.closedPanels) : qsTr("Panels")
                 tone: root.closedPanels > 0 ? Theme.warningColor : "transparent"
-                onClicked: root.panelsRequested()
+                onClicked: root.panelsRequested(panelsButton)
             }
             }
         }

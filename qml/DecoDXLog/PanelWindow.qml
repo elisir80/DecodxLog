@@ -6,7 +6,7 @@ import QtQuick.Controls
 import QtCore
 import Decodium.UI
 
-ApplicationWindow {
+RoundedWindow {
     id: root
 
     property string panelKey: ""
@@ -35,7 +35,7 @@ ApplicationWindow {
     minimumWidth: 320
     minimumHeight: 200
     visible: true
-    color: Theme.bgDeep
+    surfaceColor: Theme.bgDeep
     title: qsTr("DecoDXLog — %1").arg(root.panelTitle)
 
     // Davanti a tutte le altre. Il CW nasce cosi': mentre si manipola si guarda
@@ -63,6 +63,7 @@ ApplicationWindow {
         window: root
         parent: root.contentItem.parent
         dragHeight: Theme.panelHeight + holder.anchors.margins + 2
+        cornerRadius: root.frameRadius
     }
 
     Settings {

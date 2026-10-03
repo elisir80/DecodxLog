@@ -26,8 +26,17 @@ GlassPanel {
     property int zoom: store.zoom
     readonly property real kpp: zooms[Math.max(0, Math.min(zooms.length - 1, zoom))]   // kHz per pixel
     property var map: ({})
-    readonly property real lowKhz: map.lowKhz || 14000
-    readonly property real highKhz: map.highKhz || 14350
+    // `bandMap()` puo' essere momentaneamente vuota mentre cambia la banda o
+    // il controller aggiorna gli spot. Non passiamo mai un intervallo
+    // incompleto/invertito ai Repeater: Qt lo interpreta come un modello
+    // numerico negativo e stampa "Model size ... is less than 0".
+    readonly property real rawLowKhz: Number(map.lowKhz)
+    readonly property real rawHighKhz: Number(map.highKhz)
+    readonly property bool hasValidRange: isFinite(rawLowKhz) && isFinite(rawHighKhz)
+                                          && rawHighKhz > rawLowKhz
+    readonly property real lowKhz: hasValidRange ? rawLowKhz : 14000
+    readonly property real highKhz: hasValidRange ? rawHighKhz : 14350
+    readonly property real spanKhz: Math.max(0, highKhz - lowKhz)
     readonly property var bandList: ["160m", "80m", "60m", "40m", "30m", "20m", "17m", "15m", "12m", "10m", "6m", "4m", "2m"]
 
     function yOf(khz) { return (khz - lowKhz) / kpp }
@@ -200,7 +209,7 @@ GlassPanel {
         anchors.fill: parent
         clip: true
         contentWidth: width
-        contentHeight: Math.max(height, (root.highKhz - root.lowKhz) / root.kpp + 20)
+        contentHeight: Math.max(height, root.spanKhz / root.kpp + 20)
         boundsBehavior: Flickable.StopAtBounds
         ScrollBar.vertical: PanelScrollBar {}
 
@@ -252,7 +261,7 @@ GlassPanel {
                     }
                 }
                 Repeater {
-                    model: Math.floor((root.highKhz - root.lowKhz) / canvas.minor) + 1
+                    model: Math.max(0, Math.floor(root.spanKhz / canvas.minor) + 1)
                     Item {
                         required property int index
                         readonly property real khz: Math.ceil(root.lowKhz / canvas.minor) * canvas.minor + index * canvas.minor

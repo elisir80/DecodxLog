@@ -6,7 +6,7 @@ import QtQuick.Layouts
 import QtCore
 import Decodium.UI
 
-ApplicationWindow {
+RoundedWindow {
     id: root
 
     property int tab: 0
@@ -22,18 +22,19 @@ ApplicationWindow {
     minimumHeight: 480
     visible: true
     title: qsTr("DecoDXLog — DX Cluster")
-    color: Theme.bgDeep
+    surfaceColor: Theme.bgDeep
 
     OnScreen { target: root }
 
     // Niente barra di Windows: la testata e' la nostra, piu' bassa, con gli
     // stessi comandi. Si sposta dalla testata e si ridimensiona dai bordi.
     flags: Qt.Window | Qt.FramelessWindowHint | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint
-    header: WindowTitleBar { window: root }
+    header: WindowTitleBar { window: root; cornerRadius: root.frameRadius }
     WindowChrome {
         window: root
         parent: root.contentItem.parent
         dragHeight: Theme.panelHeight
+        cornerRadius: root.frameRadius
     }
 
     Settings {
