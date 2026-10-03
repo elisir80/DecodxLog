@@ -27,6 +27,31 @@ namespace decolog::app {
 
 using core::RigControl;
 
+namespace {
+
+// rigctld e' un processo figlio nostro solo quando il CAT e' collegato a una
+// seriale. QProcess non lo termina automaticamente alla chiusura della
+// finestra: su macOS questo poteva lasciare DecoDXLog senza finestre ma ancora
+// vivo nel Terminale. Un arresto con un limite preciso evita inoltre che un
+// driver seriale bloccato renda impossibile uscire dall'applicazione.
+void stopChildProcess(std::unique_ptr<QProcess>& process)
+{
+    if (!process)
+        return;
+
+    process->disconnect();
+    if (process->state() != QProcess::NotRunning) {
+        process->terminate();
+        if (!process->waitForFinished(700)) {
+            process->kill();
+            process->waitForFinished(500);
+        }
+    }
+    process.reset();
+}
+
+} // namespace
+
 RigController::RigController(Context context, QObject* parent)
     : QObject(parent)
     , m_ctx(std::move(context))
@@ -1198,6 +1223,35 @@ void RigController::stop()
     m_keyer.stop();
     m_winKeyer.stop();
     m_rig->stopMorse();
+}
+
+void RigController::shutdown()
+{
+    stop();
+    stopAudio();
+
+    // Prima si fermano i client e i server TCP, cosi' non possono riattivare
+    // timer o accodare comandi mentre rigctld sta terminando.
+    m_share.configure(false, m_share.port(), false, false);
+    for (core::RigLink* link : {static_cast<core::RigLink*>(&m_hamlib),
+                                static_cast<core::RigLink*>(&m_tci),
+                                static_cast<core::RigLink*>(&m_flrig),
+                                static_cast<core::RigLink*>(&m_omniRig)}) {
+        link->disconnectFromRig();
+    }
+
+    if (m_probeSocket)
+        m_probeSocket->abort();
+    m_probeSocket.reset();
+    m_probe.clear();
+    m_probeIndex = -1;
+    stopChildProcess(m_probeProcess);
+    stopChildProcess(m_rigctld);
+
+    // WinKeyer vive nel thread della UI e la sua close ha gia' un timeout
+    // breve. CwKeyer invece ha un worker dedicato: il suo distruttore effettua
+    // la chiusura non bloccante e poi aspetta al massimo due secondi.
+    m_winKeyer.close();
 }
 
 // ── Il manipolatore sulla seriale ───────────────────────────────────────────
