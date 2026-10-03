@@ -7898,6 +7898,10 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>ON4KST chat…</translation>
     </message>
     <message>
+        <source>Decodium traffic monitor…</source>
+        <translation>Decodium forgalomfigyelő…</translation>
+    </message>
+    <message>
         <source>Import a log (ADIF, CSV, N1MM)…</source>
         <translation>Napló importálása (ADIF, CSV, N1MM)…</translation>
     </message>
@@ -8084,6 +8088,257 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>Search…</source>
         <translation>Keresés…</translation>
+    </message>
+</context>
+<context>
+    <name>TrafficMonitorWindow</name>
+    <message>
+        <source>Decodium traffic monitor</source>
+        <translation>Decodium forgalomfigyelő</translation>
+    </message>
+    <message>
+        <source>paused · %1 of %2 rows</source>
+        <translation>szünetel · %1 / %2 sor</translation>
+    </message>
+    <message>
+        <source>%1 of %2 rows</source>
+        <translation>%1 / %2 sor</translation>
+    </message>
+    <message>
+        <source>← received</source>
+        <translation>← fogadva</translation>
+    </message>
+    <message>
+        <source>→ sent</source>
+        <translation>→ elküldve</translation>
+    </message>
+    <message>
+        <source>→ forwarded</source>
+        <translation>→ továbbítva</translation>
+    </message>
+    <message>
+        <source>← from forward</source>
+        <translation>← továbbításból</translation>
+    </message>
+    <message>
+        <source>→ relayed back</source>
+        <translation>→ visszaküldve</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>Csatorna</translation>
+    </message>
+    <message>
+        <source>Direction</source>
+        <translation>Irány</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Típus</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>Program</translation>
+    </message>
+    <message>
+        <source>Content</source>
+        <translation>Tartalom</translation>
+    </message>
+    <message>
+        <source>UDP %1 · %2</source>
+        <translation>UDP %1 · %2</translation>
+    </message>
+    <message>
+        <source>nobody has written yet</source>
+        <translation>még senki nem írt</translation>
+    </message>
+    <message>
+        <source>UDP %1 not listening</source>
+        <translation>UDP %1 nem figyel</translation>
+    </message>
+    <message>
+        <source>forwarded to %1</source>
+        <translation>továbbítva ide: %1</translation>
+    </message>
+    <message>
+        <source>DecoLink off</source>
+        <translation>DecoLink kikapcsolva</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 · %2 connected</source>
+        <translation>DecoLink %1 · %2 kapcsolódva</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 not listening</source>
+        <translation>DecoLink %1 nem figyel</translation>
+    </message>
+    <message>
+        <source>DecoPort: listening to announcements on 5560</source>
+        <translation>DecoPort: hirdetések figyelése az 5560-on</translation>
+    </message>
+    <message>
+        <source>DecoPort: %1</source>
+        <translation>DecoPort: %1</translation>
+    </message>
+    <message>
+        <source>not listening</source>
+        <translation>nem figyel</translation>
+    </message>
+    <message>
+        <source>hide heartbeats</source>
+        <translation>heartbeatek elrejtése</translation>
+    </message>
+    <message>
+        <source>Filter: type, call, text…</source>
+        <translation>Szűrő: típus, hívójel, szöveg…</translation>
+    </message>
+    <message>
+        <source>Resume</source>
+        <translation>Folytatás</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation>Szünet</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Másolás</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Törlés</translation>
+    </message>
+    <message>
+        <source>Nothing matches the filters.</source>
+        <translation>Egy sor sem felel meg a szűrőknek.</translation>
+    </message>
+    <message>
+        <source>Waiting for traffic. Start Decodium: its UDP messages, the DecoLink connection and the DecoPort announcements show up here as they pass.</source>
+        <translation>Forgalomra vár. Indítsa el a Decodiumot: UDP üzenetei, a DecoLink kapcsolat és a DecoPort hirdetések itt jelennek meg, ahogy áthaladnak.</translation>
+    </message>
+    <message>
+        <source>Click a row to see it whole: the bytes, or the JSON line.</source>
+        <translation>Kattintson egy sorra, hogy egészben lássa: a bájtok vagy a JSON sor.</translation>
+    </message>
+    <message>
+        <source>To Decodium (UDP)</source>
+        <translation>A Decodiumnak (UDP)</translation>
+    </message>
+    <message>
+        <source>no program yet</source>
+        <translation>még nincs program</translation>
+    </message>
+    <message>
+        <source>Reply to the line</source>
+        <translation>Válasz a sorra</translation>
+    </message>
+    <message>
+        <source>Like the double click in Decodium: it answers a CQ, and it may start transmitting.</source>
+        <translation>Mint a dupla kattintás a Decodiumban: válaszol egy CQ-ra, és adásba kapcsolhat.</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>TX leállítása</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Auto TX ki</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Dekódolások ismétlése</translation>
+    </message>
+    <message>
+        <source>Decodium sends again all the decodes it has on screen.</source>
+        <translation>A Decodium újra elküldi a képernyőn lévő összes dekódolást.</translation>
+    </message>
+    <message>
+        <source>Band activity</source>
+        <translation>Sávaktivitás</translation>
+    </message>
+    <message>
+        <source>Rx frequency</source>
+        <translation>Rx frekvencia</translation>
+    </message>
+    <message>
+        <source>Both windows</source>
+        <translation>Mindkét ablak</translation>
+    </message>
+    <message>
+        <source>Free text (13 characters)</source>
+        <translation>Szabad szöveg (13 karakter)</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation>Beállítás</translation>
+    </message>
+    <message>
+        <source>Set and transmit</source>
+        <translation>Beállítás és adás</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>Lokátor</translation>
+    </message>
+    <message>
+        <source>Send locator</source>
+        <translation>Lokátor küldése</translation>
+    </message>
+    <message>
+        <source>Decodium uses it only with the automatic locator turned on.</source>
+        <translation>A Decodium csak bekapcsolt automatikus lokátorral használja.</translation>
+    </message>
+    <message>
+        <source>Callsign to highlight</source>
+        <translation>Kiemelendő hívójel</translation>
+    </message>
+    <message>
+        <source>background</source>
+        <translation>háttér</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>szöveg</translation>
+    </message>
+    <message>
+        <source>Highlight</source>
+        <translation>Kiemelés</translation>
+    </message>
+    <message>
+        <source>Remove the highlight</source>
+        <translation>Kiemelés eltávolítása</translation>
+    </message>
+    <message>
+        <source>They leave from the same UDP port Decodium writes to, with its program name: Decodium carries them out when &quot;Accept UDP requests&quot; is on in its settings (it is by default).</source>
+        <translation>Ugyanarról az UDP portról indulnak, amelyre a Decodium ír, a programja nevével: a Decodium akkor hajtja végre őket, ha a beállításaiban be van kapcsolva az &quot;Accept UDP requests&quot; (alapból be van).</translation>
+    </message>
+    <message>
+        <source>To Decodium (DecoLink)</source>
+        <translation>A Decodiumnak (DecoLink)</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Küldés</translation>
+    </message>
+    <message>
+        <source>Send the log list again</source>
+        <translation>Naplólista újraküldése</translation>
+    </message>
+    <message>
+        <source>Send the award state</source>
+        <translation>Diplomaállapot küldése</translation>
+    </message>
+    <message>
+        <source>Listen only: the DecoPort session is signed with Decodium&apos;s key, and one of its commands keys the transmitter. Here you see which radio is on the network, on what frequency and in which state.</source>
+        <translation>Csak figyelés: a DecoPort munkamenet a Decodium kulcsával van aláírva, és egyik parancsa adásba kapcsolja a rádiót. Itt látható, melyik rádió van a hálózaton, milyen frekvencián és milyen állapotban.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Bezárás</translation>
     </message>
 </context>
 <context>
@@ -10383,6 +10638,97 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>MASTER.SCP: %1 calls</source>
         <translation>MASTER.SCP: %1 hívójel</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::TrafficMonitor</name>
+    <message>
+        <source>%1 not sent: no program has written to the UDP port yet.</source>
+        <translation>%1: nincs elküldve, még egy program sem írt az UDP portra.</translation>
+    </message>
+    <message>
+        <source>%1 sent to %2.</source>
+        <translation>%1: elküldve ide: %2.</translation>
+    </message>
+    <message>
+        <source>Pick a decoded line (Decode) to answer.</source>
+        <translation>Válasszon egy dekódolt sort (Decode) a válaszhoz.</translation>
+    </message>
+    <message>
+        <source>This line cannot be read back as a decode.</source>
+        <translation>Ez a sor nem olvasható vissza dekódolásként.</translation>
+    </message>
+    <message>
+        <source>Reply to &quot;%1&quot;</source>
+        <translation>Válasz erre: &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Auto TX ki</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>TX leállítása</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot; (transmit)</source>
+        <translation>Szabad szöveg &quot;%1&quot; (adás)</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot;</source>
+        <translation>Szabad szöveg &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Dekódolások ismétlése</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Törlés</translation>
+    </message>
+    <message>
+        <source>A locator has at least four characters.</source>
+        <translation>Egy lokátor legalább négy karakter.</translation>
+    </message>
+    <message>
+        <source>Locator %1</source>
+        <translation>Lokátor %1</translation>
+    </message>
+    <message>
+        <source>Which callsign?</source>
+        <translation>Melyik hívójel?</translation>
+    </message>
+    <message>
+        <source>Highlight of %1 removed</source>
+        <translation>%1 kiemelése eltávolítva</translation>
+    </message>
+    <message>
+        <source>Highlight of %1</source>
+        <translation>%1 kiemelése</translation>
+    </message>
+    <message>
+        <source>Not JSON: %1</source>
+        <translation>Nem JSON: %1</translation>
+    </message>
+    <message>
+        <source>DecoLink wants a JSON object with a &quot;type&quot;.</source>
+        <translation>A DecoLink &quot;type&quot; mezős JSON objektumot vár.</translation>
+    </message>
+    <message>
+        <source>Decodium is not connected to DecoLink.</source>
+        <translation>A Decodium nem kapcsolódik a DecoLinkhez.</translation>
+    </message>
+    <message>
+        <source>Sent on DecoLink: %1</source>
+        <translation>Elküldve DecoLinken: %1</translation>
+    </message>
+    <message>
+        <source>The log list is on its way to Decodium.</source>
+        <translation>A naplólista úton van a Decodium felé.</translation>
+    </message>
+    <message>
+        <source>Award state sent to Decodium.</source>
+        <translation>Diplomaállapot elküldve a Decodiumnak.</translation>
     </message>
 </context>
 <context>

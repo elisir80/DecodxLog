@@ -199,6 +199,7 @@ DecoLogController::DecoLogController(QObject* parent)
     : QObject(parent)
 {
     m_activityModel = new ActivityModel(kMaxActivity, this);
+    m_traffic = new TrafficMonitor(&m_udp, &m_decoLink, this);
     // I conteggi si rifanno un attimo dopo che il log e' cambiato, non mentre
     // si registra: una raffica di QSO costa un conteggio solo.
     m_countsTimer.setSingleShot(true);

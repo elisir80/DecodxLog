@@ -7920,6 +7920,10 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>Xat ON4KST…</translation>
     </message>
     <message>
+        <source>Decodium traffic monitor…</source>
+        <translation>Monitor de trànsit de Decodium…</translation>
+    </message>
+    <message>
         <source>Import a log (ADIF, CSV, N1MM)…</source>
         <translation>Importa un log (ADIF, CSV, N1MM)…</translation>
     </message>
@@ -8106,6 +8110,257 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
     <message>
         <source>Search…</source>
         <translation>Cerca…</translation>
+    </message>
+</context>
+<context>
+    <name>TrafficMonitorWindow</name>
+    <message>
+        <source>Decodium traffic monitor</source>
+        <translation>Monitor de trànsit de Decodium</translation>
+    </message>
+    <message>
+        <source>paused · %1 of %2 rows</source>
+        <translation>en pausa · %1 de %2 files</translation>
+    </message>
+    <message>
+        <source>%1 of %2 rows</source>
+        <translation>%1 de %2 files</translation>
+    </message>
+    <message>
+        <source>← received</source>
+        <translation>← rebut</translation>
+    </message>
+    <message>
+        <source>→ sent</source>
+        <translation>→ enviat</translation>
+    </message>
+    <message>
+        <source>→ forwarded</source>
+        <translation>→ reenviat</translation>
+    </message>
+    <message>
+        <source>← from forward</source>
+        <translation>← del reenviament</translation>
+    </message>
+    <message>
+        <source>→ relayed back</source>
+        <translation>→ retornat</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>Canal</translation>
+    </message>
+    <message>
+        <source>Direction</source>
+        <translation>Sentit</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Tipus</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>Programa</translation>
+    </message>
+    <message>
+        <source>Content</source>
+        <translation>Contingut</translation>
+    </message>
+    <message>
+        <source>UDP %1 · %2</source>
+        <translation>UDP %1 · %2</translation>
+    </message>
+    <message>
+        <source>nobody has written yet</source>
+        <translation>encara no ha escrit ningú</translation>
+    </message>
+    <message>
+        <source>UDP %1 not listening</source>
+        <translation>UDP %1 sense escoltar</translation>
+    </message>
+    <message>
+        <source>forwarded to %1</source>
+        <translation>reenviat a %1</translation>
+    </message>
+    <message>
+        <source>DecoLink off</source>
+        <translation>DecoLink apagat</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 · %2 connected</source>
+        <translation>DecoLink %1 · %2 connectats</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 not listening</source>
+        <translation>DecoLink %1 sense escoltar</translation>
+    </message>
+    <message>
+        <source>DecoPort: listening to announcements on 5560</source>
+        <translation>DecoPort: escoltant anuncis al 5560</translation>
+    </message>
+    <message>
+        <source>DecoPort: %1</source>
+        <translation>DecoPort: %1</translation>
+    </message>
+    <message>
+        <source>not listening</source>
+        <translation>sense escoltar</translation>
+    </message>
+    <message>
+        <source>hide heartbeats</source>
+        <translation>amaga els heartbeats</translation>
+    </message>
+    <message>
+        <source>Filter: type, call, text…</source>
+        <translation>Filtre: tipus, indicatiu, text…</translation>
+    </message>
+    <message>
+        <source>Resume</source>
+        <translation>Reprèn</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation>Pausa</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Copia</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Esborra</translation>
+    </message>
+    <message>
+        <source>Nothing matches the filters.</source>
+        <translation>Cap fila no coincideix amb els filtres.</translation>
+    </message>
+    <message>
+        <source>Waiting for traffic. Start Decodium: its UDP messages, the DecoLink connection and the DecoPort announcements show up here as they pass.</source>
+        <translation>Esperant trànsit. Inicieu Decodium: els seus missatges UDP, la connexió DecoLink i els anuncis DecoPort apareixen aquí a mesura que passen.</translation>
+    </message>
+    <message>
+        <source>Click a row to see it whole: the bytes, or the JSON line.</source>
+        <translation>Feu clic en una fila per veure-la sencera: els bytes o la línia JSON.</translation>
+    </message>
+    <message>
+        <source>To Decodium (UDP)</source>
+        <translation>A Decodium (UDP)</translation>
+    </message>
+    <message>
+        <source>no program yet</source>
+        <translation>encara cap programa</translation>
+    </message>
+    <message>
+        <source>Reply to the line</source>
+        <translation>Respon a la línia</translation>
+    </message>
+    <message>
+        <source>Like the double click in Decodium: it answers a CQ, and it may start transmitting.</source>
+        <translation>Com el doble clic a Decodium: respon a un CQ i pot començar a transmetre.</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>Atura TX</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Auto TX apagat</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Repeteix les descodificacions</translation>
+    </message>
+    <message>
+        <source>Decodium sends again all the decodes it has on screen.</source>
+        <translation>Decodium torna a enviar totes les descodificacions que té a la pantalla.</translation>
+    </message>
+    <message>
+        <source>Band activity</source>
+        <translation>Activitat de banda</translation>
+    </message>
+    <message>
+        <source>Rx frequency</source>
+        <translation>Freqüència Rx</translation>
+    </message>
+    <message>
+        <source>Both windows</source>
+        <translation>Totes dues finestres</translation>
+    </message>
+    <message>
+        <source>Free text (13 characters)</source>
+        <translation>Text lliure (13 caràcters)</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation>Fixa</translation>
+    </message>
+    <message>
+        <source>Set and transmit</source>
+        <translation>Fixa i transmet</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>Send locator</source>
+        <translation>Envia el locator</translation>
+    </message>
+    <message>
+        <source>Decodium uses it only with the automatic locator turned on.</source>
+        <translation>Decodium només l&apos;utilitza amb el locator automàtic activat.</translation>
+    </message>
+    <message>
+        <source>Callsign to highlight</source>
+        <translation>Indicatiu a ressaltar</translation>
+    </message>
+    <message>
+        <source>background</source>
+        <translation>fons</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>text</translation>
+    </message>
+    <message>
+        <source>Highlight</source>
+        <translation>Ressalta</translation>
+    </message>
+    <message>
+        <source>Remove the highlight</source>
+        <translation>Treu el ressaltat</translation>
+    </message>
+    <message>
+        <source>They leave from the same UDP port Decodium writes to, with its program name: Decodium carries them out when &quot;Accept UDP requests&quot; is on in its settings (it is by default).</source>
+        <translation>Surten del mateix port UDP on escriu Decodium, amb el seu nom de programa: Decodium els executa si &quot;Accept UDP requests&quot; està activat a la seva configuració (ho està per defecte).</translation>
+    </message>
+    <message>
+        <source>To Decodium (DecoLink)</source>
+        <translation>A Decodium (DecoLink)</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Envia</translation>
+    </message>
+    <message>
+        <source>Send the log list again</source>
+        <translation>Torna a enviar la llista del log</translation>
+    </message>
+    <message>
+        <source>Send the award state</source>
+        <translation>Envia l&apos;estat dels diplomes</translation>
+    </message>
+    <message>
+        <source>Listen only: the DecoPort session is signed with Decodium&apos;s key, and one of its commands keys the transmitter. Here you see which radio is on the network, on what frequency and in which state.</source>
+        <translation>Només escolta: la sessió DecoPort està signada amb la clau de Decodium, i una de les seves ordres posa la ràdio en transmissió. Aquí es veu quina ràdio hi ha a la xarxa, en quina freqüència i en quin estat.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Tanca</translation>
     </message>
 </context>
 <context>
@@ -10445,6 +10700,97 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
     <message>
         <source>MASTER.SCP: %1 calls</source>
         <translation>MASTER.SCP: %1 indicatius</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::TrafficMonitor</name>
+    <message>
+        <source>%1 not sent: no program has written to the UDP port yet.</source>
+        <translation>%1: no enviat, cap programa no ha escrit encara al port UDP.</translation>
+    </message>
+    <message>
+        <source>%1 sent to %2.</source>
+        <translation>%1: enviat a %2.</translation>
+    </message>
+    <message>
+        <source>Pick a decoded line (Decode) to answer.</source>
+        <translation>Trieu una línia descodificada (Decode) a la qual respondre.</translation>
+    </message>
+    <message>
+        <source>This line cannot be read back as a decode.</source>
+        <translation>Aquesta línia no es pot rellegir com a descodificació.</translation>
+    </message>
+    <message>
+        <source>Reply to &quot;%1&quot;</source>
+        <translation>Resposta a &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Auto TX apagat</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>Atura TX</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot; (transmit)</source>
+        <translation>Text lliure &quot;%1&quot; (transmissió)</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot;</source>
+        <translation>Text lliure &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Repeteix les descodificacions</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Esborra</translation>
+    </message>
+    <message>
+        <source>A locator has at least four characters.</source>
+        <translation>Un locator té almenys quatre caràcters.</translation>
+    </message>
+    <message>
+        <source>Locator %1</source>
+        <translation>Locator %1</translation>
+    </message>
+    <message>
+        <source>Which callsign?</source>
+        <translation>Quin indicatiu?</translation>
+    </message>
+    <message>
+        <source>Highlight of %1 removed</source>
+        <translation>Ressaltat de %1 tret</translation>
+    </message>
+    <message>
+        <source>Highlight of %1</source>
+        <translation>Ressaltat de %1</translation>
+    </message>
+    <message>
+        <source>Not JSON: %1</source>
+        <translation>No és JSON: %1</translation>
+    </message>
+    <message>
+        <source>DecoLink wants a JSON object with a &quot;type&quot;.</source>
+        <translation>DecoLink vol un objecte JSON amb un &quot;type&quot;.</translation>
+    </message>
+    <message>
+        <source>Decodium is not connected to DecoLink.</source>
+        <translation>Decodium no està connectat a DecoLink.</translation>
+    </message>
+    <message>
+        <source>Sent on DecoLink: %1</source>
+        <translation>Enviat per DecoLink: %1</translation>
+    </message>
+    <message>
+        <source>The log list is on its way to Decodium.</source>
+        <translation>La llista del log va cap a Decodium.</translation>
+    </message>
+    <message>
+        <source>Award state sent to Decodium.</source>
+        <translation>Estat dels diplomes enviat a Decodium.</translation>
     </message>
 </context>
 <context>

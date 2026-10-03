@@ -534,6 +534,12 @@ Quello che manca è in fondo.
   asked by DecoDXLog; it never transmits.
 - **Solo 127.0.0.1**, JSON su TCP, protocollo in `docs/DECOLINK.md`. / **Localhost only**,
   JSON over TCP, protocol in `docs/DECOLINK.md`.
+- **Monitor del traffico**: UDP, DecoLink e annunci DecoPort nei due versi, con filtri,
+  pausa e dettaglio; da li' si risponde a una decodifica, si ferma il TX, si manda testo
+  libero, locatore, evidenziazioni e righe DecoLink. DecoPort solo in ascolto. / **Traffic
+  monitor**: UDP, DecoLink and DecoPort announcements both ways, with filters, pause and
+  detail; from there you reply to a decode, halt TX, send free text, locator, highlights and
+  DecoLink lines. DecoPort is listen-only.
 
 ## 14. Copie di sicurezza / Backup
 

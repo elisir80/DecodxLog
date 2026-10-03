@@ -77,6 +77,8 @@ add_library(decolog_core STATIC
     src/core/Countries.h
     src/core/DecoLinkServer.cpp
     src/core/DecoLinkServer.h
+    src/core/DecoPortMonitor.cpp
+    src/core/DecoPortMonitor.h
     src/core/ClusterConnection.cpp
     src/core/ClusterConnection.h
     src/core/CredentialStore.cpp
@@ -274,6 +276,8 @@ qt_add_executable(decolog
     src/app/NetController.h
     src/app/ActivityModel.cpp
     src/app/ActivityModel.h
+    src/app/TrafficMonitor.cpp
+    src/app/TrafficMonitor.h
     src/app/SuperCheckController.cpp
     src/app/SuperCheckController.h
     src/app/ChatController.cpp
@@ -350,6 +354,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/CwMacroList.qml
     qml/DecoDXLog/StartupBadge.qml
     qml/DecoDXLog/QslImportDialog.qml
+    qml/DecoDXLog/TrafficMonitorWindow.qml
     qml/DecoDXLog/DuplicatesDialog.qml
     qml/DecoDXLog/ColorSwatch.qml
     qml/DecoDXLog/ContestSubmitDialog.qml
@@ -547,6 +552,11 @@ if(DECODXLOG_BUILD_TESTS)
     target_link_libraries(tst_clustercontroller PRIVATE decolog_core Qt6::Multimedia Qt6::Test)
     set_target_properties(tst_clustercontroller PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME clustercontroller COMMAND tst_clustercontroller)
+    qt_add_executable(tst_traffic tests/tst_traffic.cpp src/app/TrafficMonitor.cpp src/app/TrafficMonitor.h)
+    target_include_directories(tst_traffic PRIVATE src)
+    target_link_libraries(tst_traffic PRIVATE decolog_core Qt6::Test)
+    set_target_properties(tst_traffic PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME traffic COMMAND tst_traffic)
     qt_add_executable(tst_so2r tests/tst_so2r.cpp src/app/So2rController.cpp src/app/So2rController.h)
     target_include_directories(tst_so2r PRIVATE src)
     target_link_libraries(tst_so2r PRIVATE decolog_core Qt6::Test)

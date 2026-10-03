@@ -998,6 +998,11 @@ ApplicationWindow {
         else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))
         else if (what[0] === "logs") logsDialog.openDialog()
         else if (what[0] === "qslimport") qslImportDialog.open()
+        // Il monitor del traffico; "traffic demo" ci fa passare qualche riga finta.
+        else if (what[0] === "traffic") {
+            trafficWindow.open()
+            if (what[1] === "demo") decolog.traffic.demo()
+        }
         // La ricerca in alto (Ctrl+F): con poco posto si apre sotto la lente.
         else if (what[0] === "search") {
             if (what[1]) decolog.qsoModel.filterText = what[1]
@@ -1224,6 +1229,8 @@ ApplicationWindow {
         function onQslImportReady() { qslImportDialog.open() }
     }
     function openQslImport() { qslImportDialog.open() }
+    // Il monitor del traffico con Decodium: UDP, DecoLink, DecoPort, a due vie.
+    TrafficMonitorWindow { id: trafficWindow }
     UpdateDialog { id: updateDialog }
 
     // Quando il controllo trova una versione nuova la finestra si apre da se':
@@ -1829,6 +1836,7 @@ ApplicationWindow {
             onPanelsRequested: panelsPopup.opened ? panelsPopup.close() : panelsPopup.open()
             onAboutRequested: aboutDialog.open()
             onChatRequested: window.openChat()
+            onTrafficRequested: trafficWindow.open()
             onLogFolderRequested: decolog.openDatabaseFolder()
             onQuitRequested: { window.quitting = true; Qt.quit() }
         }

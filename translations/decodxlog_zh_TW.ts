@@ -7898,6 +7898,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>ON4KST 聊天…</translation>
     </message>
     <message>
+        <source>Decodium traffic monitor…</source>
+        <translation>Decodium 流量監視器…</translation>
+    </message>
+    <message>
         <source>Import a log (ADIF, CSV, N1MM)…</source>
         <translation>匯入日誌（ADIF、CSV、N1MM）…</translation>
     </message>
@@ -8084,6 +8088,257 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Search…</source>
         <translation>搜尋…</translation>
+    </message>
+</context>
+<context>
+    <name>TrafficMonitorWindow</name>
+    <message>
+        <source>Decodium traffic monitor</source>
+        <translation>Decodium 流量監視器</translation>
+    </message>
+    <message>
+        <source>paused · %1 of %2 rows</source>
+        <translation>已暫停 · %2 行中的 %1 行</translation>
+    </message>
+    <message>
+        <source>%1 of %2 rows</source>
+        <translation>%2 行中的 %1 行</translation>
+    </message>
+    <message>
+        <source>← received</source>
+        <translation>← 收到</translation>
+    </message>
+    <message>
+        <source>→ sent</source>
+        <translation>→ 發出</translation>
+    </message>
+    <message>
+        <source>→ forwarded</source>
+        <translation>→ 已轉發</translation>
+    </message>
+    <message>
+        <source>← from forward</source>
+        <translation>← 來自轉發</translation>
+    </message>
+    <message>
+        <source>→ relayed back</source>
+        <translation>→ 回傳</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>通道</translation>
+    </message>
+    <message>
+        <source>Direction</source>
+        <translation>方向</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>類型</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>程式</translation>
+    </message>
+    <message>
+        <source>Content</source>
+        <translation>內容</translation>
+    </message>
+    <message>
+        <source>UDP %1 · %2</source>
+        <translation>UDP %1 · %2</translation>
+    </message>
+    <message>
+        <source>nobody has written yet</source>
+        <translation>還沒有程式寫入</translation>
+    </message>
+    <message>
+        <source>UDP %1 not listening</source>
+        <translation>UDP %1 未監聽</translation>
+    </message>
+    <message>
+        <source>forwarded to %1</source>
+        <translation>轉發到 %1</translation>
+    </message>
+    <message>
+        <source>DecoLink off</source>
+        <translation>DecoLink 已關閉</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 · %2 connected</source>
+        <translation>DecoLink %1 · 已連線 %2</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 not listening</source>
+        <translation>DecoLink %1 未監聽</translation>
+    </message>
+    <message>
+        <source>DecoPort: listening to announcements on 5560</source>
+        <translation>DecoPort: 正在 5560 上監聽廣播</translation>
+    </message>
+    <message>
+        <source>DecoPort: %1</source>
+        <translation>DecoPort: %1</translation>
+    </message>
+    <message>
+        <source>not listening</source>
+        <translation>未監聽</translation>
+    </message>
+    <message>
+        <source>hide heartbeats</source>
+        <translation>隱藏心跳</translation>
+    </message>
+    <message>
+        <source>Filter: type, call, text…</source>
+        <translation>篩選: 類型、呼號、文字…</translation>
+    </message>
+    <message>
+        <source>Resume</source>
+        <translation>繼續</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation>暫停</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>複製</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>清除</translation>
+    </message>
+    <message>
+        <source>Nothing matches the filters.</source>
+        <translation>沒有符合篩選條件的行。</translation>
+    </message>
+    <message>
+        <source>Waiting for traffic. Start Decodium: its UDP messages, the DecoLink connection and the DecoPort announcements show up here as they pass.</source>
+        <translation>等待流量。啟動 Decodium: 它的 UDP 訊息、DecoLink 連線和 DecoPort 廣播經過時會顯示在這裡。</translation>
+    </message>
+    <message>
+        <source>Click a row to see it whole: the bytes, or the JSON line.</source>
+        <translation>點擊一行查看完整內容: 位元組或 JSON 行。</translation>
+    </message>
+    <message>
+        <source>To Decodium (UDP)</source>
+        <translation>傳給 Decodium (UDP)</translation>
+    </message>
+    <message>
+        <source>no program yet</source>
+        <translation>尚無程式</translation>
+    </message>
+    <message>
+        <source>Reply to the line</source>
+        <translation>回覆此行</translation>
+    </message>
+    <message>
+        <source>Like the double click in Decodium: it answers a CQ, and it may start transmitting.</source>
+        <translation>與在 Decodium 中按兩下相同: 回覆 CQ, 並可能開始發射。</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>停止 TX</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>關閉自動 TX</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>重送解碼</translation>
+    </message>
+    <message>
+        <source>Decodium sends again all the decodes it has on screen.</source>
+        <translation>Decodium 重新傳送螢幕上的所有解碼。</translation>
+    </message>
+    <message>
+        <source>Band activity</source>
+        <translation>波段活動</translation>
+    </message>
+    <message>
+        <source>Rx frequency</source>
+        <translation>Rx 頻率</translation>
+    </message>
+    <message>
+        <source>Both windows</source>
+        <translation>兩個視窗</translation>
+    </message>
+    <message>
+        <source>Free text (13 characters)</source>
+        <translation>自由文字 (13 個字元)</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation>設定</translation>
+    </message>
+    <message>
+        <source>Set and transmit</source>
+        <translation>設定並發射</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>網格</translation>
+    </message>
+    <message>
+        <source>Send locator</source>
+        <translation>傳送網格</translation>
+    </message>
+    <message>
+        <source>Decodium uses it only with the automatic locator turned on.</source>
+        <translation>只有開啟自動網格時 Decodium 才會使用它。</translation>
+    </message>
+    <message>
+        <source>Callsign to highlight</source>
+        <translation>要醒目標示的呼號</translation>
+    </message>
+    <message>
+        <source>background</source>
+        <translation>背景</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>文字</translation>
+    </message>
+    <message>
+        <source>Highlight</source>
+        <translation>醒目標示</translation>
+    </message>
+    <message>
+        <source>Remove the highlight</source>
+        <translation>取消醒目標示</translation>
+    </message>
+    <message>
+        <source>They leave from the same UDP port Decodium writes to, with its program name: Decodium carries them out when &quot;Accept UDP requests&quot; is on in its settings (it is by default).</source>
+        <translation>它們從 Decodium 寫入的同一個 UDP 連接埠送出, 帶有其程式名稱: 當 Decodium 設定中開啟 &quot;Accept UDP requests&quot; 時會執行 (預設開啟)。</translation>
+    </message>
+    <message>
+        <source>To Decodium (DecoLink)</source>
+        <translation>傳給 Decodium (DecoLink)</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>傳送</translation>
+    </message>
+    <message>
+        <source>Send the log list again</source>
+        <translation>重新傳送日誌清單</translation>
+    </message>
+    <message>
+        <source>Send the award state</source>
+        <translation>傳送獎狀狀態</translation>
+    </message>
+    <message>
+        <source>Listen only: the DecoPort session is signed with Decodium&apos;s key, and one of its commands keys the transmitter. Here you see which radio is on the network, on what frequency and in which state.</source>
+        <translation>僅監聽: DecoPort 工作階段以 Decodium 的金鑰簽署, 其中一個指令會讓電台發射。這裡可以看到網路上是哪台電台、在什麼頻率、處於什麼狀態。</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>關閉</translation>
     </message>
 </context>
 <context>
@@ -10383,6 +10638,97 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>MASTER.SCP: %1 calls</source>
         <translation>MASTER.SCP：%1 個呼號</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::TrafficMonitor</name>
+    <message>
+        <source>%1 not sent: no program has written to the UDP port yet.</source>
+        <translation>%1: 未傳送, 還沒有程式寫入 UDP 連接埠。</translation>
+    </message>
+    <message>
+        <source>%1 sent to %2.</source>
+        <translation>%1: 已傳送到 %2。</translation>
+    </message>
+    <message>
+        <source>Pick a decoded line (Decode) to answer.</source>
+        <translation>請選擇要回覆的解碼行 (Decode)。</translation>
+    </message>
+    <message>
+        <source>This line cannot be read back as a decode.</source>
+        <translation>此行無法作為解碼讀回。</translation>
+    </message>
+    <message>
+        <source>Reply to &quot;%1&quot;</source>
+        <translation>回覆 &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>關閉自動 TX</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>停止 TX</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot; (transmit)</source>
+        <translation>自由文字 &quot;%1&quot; (發射)</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot;</source>
+        <translation>自由文字 &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>重送解碼</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>清除</translation>
+    </message>
+    <message>
+        <source>A locator has at least four characters.</source>
+        <translation>網格至少有四個字元。</translation>
+    </message>
+    <message>
+        <source>Locator %1</source>
+        <translation>網格 %1</translation>
+    </message>
+    <message>
+        <source>Which callsign?</source>
+        <translation>哪個呼號?</translation>
+    </message>
+    <message>
+        <source>Highlight of %1 removed</source>
+        <translation>已取消 %1 的醒目標示</translation>
+    </message>
+    <message>
+        <source>Highlight of %1</source>
+        <translation>醒目標示 %1</translation>
+    </message>
+    <message>
+        <source>Not JSON: %1</source>
+        <translation>不是 JSON: %1</translation>
+    </message>
+    <message>
+        <source>DecoLink wants a JSON object with a &quot;type&quot;.</source>
+        <translation>DecoLink 需要帶有 &quot;type&quot; 的 JSON 物件。</translation>
+    </message>
+    <message>
+        <source>Decodium is not connected to DecoLink.</source>
+        <translation>Decodium 未連線到 DecoLink。</translation>
+    </message>
+    <message>
+        <source>Sent on DecoLink: %1</source>
+        <translation>已透過 DecoLink 傳送: %1</translation>
+    </message>
+    <message>
+        <source>The log list is on its way to Decodium.</source>
+        <translation>日誌清單正在傳往 Decodium。</translation>
+    </message>
+    <message>
+        <source>Award state sent to Decodium.</source>
+        <translation>獎狀狀態已傳送到 Decodium。</translation>
     </message>
 </context>
 <context>

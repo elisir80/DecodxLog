@@ -17,6 +17,7 @@
 #include "app/UpdateController.h"
 #include "app/WorldClockController.h"
 #include "app/ActivityModel.h"
+#include "app/TrafficMonitor.h"
 #include "app/ChatController.h"
 #include "app/SuperCheckController.h"
 #include "app/NetController.h"
@@ -142,6 +143,8 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QVariantList incoming READ incoming NOTIFY incomingChanged)
     // Il registro attivita': un modello a righe, cosi' una riga nuova non rifa' la vista.
     Q_PROPERTY(QObject* activity READ activity CONSTANT)
+    // Il monitor del traffico con Decodium (UDP, DecoLink, DecoPort), a due vie.
+    Q_PROPERTY(QObject* traffic READ traffic CONSTANT)
 
     Q_PROPERTY(QString lookupCall READ lookupCall WRITE setLookupCall NOTIFY lookupChanged)
     Q_PROPERTY(QVariantMap callInfo READ callInfo NOTIFY lookupChanged)
@@ -368,6 +371,7 @@ public:
     QVariantList gridPoints() const;
     QVariantList incoming() const { return m_incoming; }
     QObject* activity() const { return m_activityModel; }
+    QObject* traffic() const { return m_traffic; }
 
     QString lookupCall() const { return m_lookupCall; }
     void setLookupCall(const QString& call);
@@ -946,6 +950,7 @@ private:
 
     QVariantList m_incoming;
     ActivityModel* m_activityModel{nullptr};
+    TrafficMonitor* m_traffic{nullptr};
     // I conteggi del log, rifatti una volta dopo ogni cambiamento.
     struct Counts {
         bool valid{false};

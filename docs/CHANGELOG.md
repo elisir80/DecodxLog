@@ -3,6 +3,32 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.51 — 3 ottobre 2026
+
+**Il monitor del traffico con Decodium.** Dal menu del marchio, «Monitor del traffico
+Decodium…»: una finestra con tutto quello che passa fra DecoDXLog e Decodium 4, nei due versi,
+riga per riga con ora (al millesimo), canale, verso, tipo, programma e contenuto.
+- **UDP** (il protocollo di WSJT-X): battiti, stato, decodifiche, QSO, ADIF, e anche quello che
+  DecoDXLog inoltra ai programmi accanto (GridTracker, JTAlert…) con le loro risposte rimandate
+  a Decodium. Si leggono anche i tipi che Decodium ha in piu' (AnnotationInfo, SetupTx,
+  EnqueueDecode).
+- **DecoLink**: ogni riga JSON che entra ed esce (saluto, elenco del log a blocchi, domande e
+  risposte sui nominativi, award, ping).
+- **DecoPort**: gli annunci della radio in rete (frequenza, modo, PTT, nome della radio, stato,
+  strumenti: tensione, corrente, potenza…), ascoltati sulla 5560 solo mentre la finestra e'
+  aperta, insieme agli altri programmi che li ascoltano.
+- Filtri per canale e per testo, «nascondi i battiti», pausa (la vista si ferma, le righe si
+  raccolgono lo stesso), copia come testo; clic su una riga per vederla intera (i byte, o il
+  JSON in chiaro). Tiene le ultime 5000 righe.
+
+**E si parla a Decodium da li'.** Dallo stesso socket UDP su cui Decodium scrive, col suo nome di
+programma (e' quello di cui Decodium si fida): rispondere a una riga decodificata (come il
+doppio clic in Decodium, anche col doppio clic nel monitor), Ferma TX, Auto TX spento, ripeti
+le decodifiche, pulisci le finestre, testo libero (impostato o anche trasmesso), locatore,
+evidenziare o togliere l'evidenziazione a un nominativo coi suoi colori. Su DecoLink: una riga
+JSON a mano, rimandare l'elenco del log o lo stato degli award. DecoPort resta in solo ascolto:
+la sessione e' firmata con la chiave di Decodium e un suo comando mette la radio in trasmissione.
+
 ## 1.16.50 — 3 ottobre 2026
 
 **Il rapporto giusto per il modo.** Nel Nuovo QSO (il pannello e la finestra) i rapporti

@@ -1,7 +1,11 @@
 #include "core/WsjtxProtocol.h"
 
+#include <QColor>
 #include <QDataStream>
 #include <QIODevice>
+#include <QStringList>
+
+#include <limits>
 
 namespace decolog::core::wsjtx {
 
@@ -232,6 +236,313 @@ QByteArray buildLoggedAdif(const QString& clientId, const QByteArray& adif, quin
     QDataStream s(&buffer, QIODevice::WriteOnly);
     begin(s, Type::LoggedAdif, clientId, schema);
     s << adif;
+    return buffer;
+}
+
+// ── Il monitor del traffico ─────────────────────────────────────────────────
+
+QString typeName(quint32 type)
+{
+    switch (static_cast<Type>(type)) {
+    case Type::Heartbeat: return QStringLiteral("Heartbeat");
+    case Type::Status: return QStringLiteral("Status");
+    case Type::Decode: return QStringLiteral("Decode");
+    case Type::Clear: return QStringLiteral("Clear");
+    case Type::Reply: return QStringLiteral("Reply");
+    case Type::QsoLogged: return QStringLiteral("QSOLogged");
+    case Type::Close: return QStringLiteral("Close");
+    case Type::Replay: return QStringLiteral("Replay");
+    case Type::HaltTx: return QStringLiteral("HaltTx");
+    case Type::FreeText: return QStringLiteral("FreeText");
+    case Type::WsprDecode: return QStringLiteral("WSPRDecode");
+    case Type::Location: return QStringLiteral("Location");
+    case Type::LoggedAdif: return QStringLiteral("LoggedADIF");
+    case Type::HighlightCallsign: return QStringLiteral("HighlightCallsign");
+    case Type::SwitchConfiguration: return QStringLiteral("SwitchConfiguration");
+    case Type::Configure: return QStringLiteral("Configure");
+    case Type::AnnotationInfo: return QStringLiteral("AnnotationInfo");
+    case Type::SetupTx: return QStringLiteral("SetupTx");
+    case Type::EnqueueDecode: return QStringLiteral("EnqueueDecode");
+    }
+    return QStringLiteral("Type %1").arg(type);
+}
+
+namespace {
+
+QString mhz(quint64 hz)
+{
+    return hz > 0 ? QString::number(static_cast<double>(hz) / 1e6, 'f', 6) : QStringLiteral("—");
+}
+
+QString decodeLine(const QTime& time, qint32 snr, double dt, quint32 df, const QString& mode, const QString& message)
+{
+    return QStringLiteral("%1 %2 %3 %4 %5 %6")
+        .arg(time.isValid() ? time.toString(QStringLiteral("HHmmss")) : QStringLiteral("------"))
+        .arg(snr, 3)
+        .arg(dt, 4, 'f', 1)
+        .arg(df, 4)
+        .arg(mode, message);
+}
+
+} // namespace
+
+Description describe(const QByteArray& datagram)
+{
+    Description d;
+    QDataStream in(datagram);
+    in.setByteOrder(QDataStream::BigEndian);
+    quint32 magic = 0;
+    in >> magic >> d.schema;
+    if (!ok(in) || magic != kMagic || d.schema == 0) {
+        d.typeName = QStringLiteral("?");
+        d.summary = QStringLiteral("%1 bytes, not WSJT-X").arg(datagram.size());
+        return d;
+    }
+    applySchema(in, d.schema);
+    in >> d.type;
+    d.clientId = readUtf8(in);
+    if (!ok(in))
+        return d;
+    d.valid = true;
+    d.typeName = typeName(d.type);
+
+    // Quello che parse() sa gia' leggere si prende da li'.
+    if (const auto msg = parse(datagram)) {
+        if (const auto* hb = std::get_if<Heartbeat>(&msg->payload)) {
+            d.summary = QStringLiteral("schema %1 · %2 %3").arg(hb->maxSchema).arg(hb->version, hb->revision).trimmed();
+            return d;
+        }
+        if (const auto* st = std::get_if<Status>(&msg->payload)) {
+            QStringList parts{mhz(st->dialFrequencyHz) + QStringLiteral(" MHz"), st->mode};
+            if (!st->submode.isEmpty())
+                parts << st->submode;
+            if (!st->dxCall.isEmpty())
+                parts << QStringLiteral("DX %1").arg(st->dxCall) + (st->report.isEmpty() ? QString() : QLatin1Char(' ') + st->report);
+            parts << (st->transmitting ? QStringLiteral("TX ON AIR") : st->txEnabled ? QStringLiteral("TX enabled")
+                                                                                      : QStringLiteral("RX"));
+            if (st->decoding)
+                parts << QStringLiteral("decoding");
+            if (!st->deCall.isEmpty())
+                parts << QStringLiteral("de %1 %2").arg(st->deCall, st->deGrid).trimmed();
+            d.summary = parts.join(QStringLiteral(" · "));
+            return d;
+        }
+        if (const auto* dec = std::get_if<Decode>(&msg->payload)) {
+            d.summary = decodeLine(dec->time, dec->snr, dec->deltaTime, dec->deltaFrequency, dec->mode, dec->message)
+                        + (dec->isNew ? QString() : QStringLiteral(" (replay)"));
+            return d;
+        }
+        if (const auto* q = std::get_if<QsoLogged>(&msg->payload)) {
+            d.summary = QStringLiteral("%1 %2 · %3 MHz %4 · %5/%6 · %7")
+                            .arg(q->dxCall, q->dxGrid, mhz(q->txFrequencyHz), q->mode, q->reportSent,
+                                 q->reportReceived, q->timeOn.toUTC().toString(QStringLiteral("yyyy-MM-dd HH:mm")));
+            return d;
+        }
+        if (const auto* la = std::get_if<LoggedAdif>(&msg->payload)) {
+            const qsizetype at = la->adif.toUpper().indexOf("<CALL:");
+            QString call;
+            if (at >= 0) {
+                const qsizetype gt = la->adif.indexOf('>', at);
+                const int len = la->adif.mid(at + 6, gt - at - 6).toInt();
+                call = QString::fromUtf8(la->adif.mid(gt + 1, len));
+            }
+            d.summary = QStringLiteral("%1 bytes of ADIF%2").arg(la->adif.size())
+                            .arg(call.isEmpty() ? QString() : QStringLiteral(" · CALL ") + call);
+            return d;
+        }
+        if (std::holds_alternative<Close>(msg->payload)) {
+            d.summary = QStringLiteral("the program is closing");
+            return d;
+        }
+    }
+
+    // I messaggi verso il programma.
+    switch (static_cast<Type>(d.type)) {
+    case Type::Reply: {
+        QTime time;
+        qint32 snr = 0;
+        double dt = 0;
+        quint32 df = 0;
+        in >> time >> snr >> dt >> df;
+        const QString mode = readUtf8(in);
+        const QString message = readUtf8(in);
+        bool lowConfidence = false;
+        quint8 modifiers = 0;
+        in >> lowConfidence >> modifiers;
+        d.summary = decodeLine(time, snr, dt, df, mode, message)
+                    + (modifiers ? QStringLiteral(" · modifiers %1").arg(modifiers) : QString());
+        break;
+    }
+    case Type::HaltTx: {
+        bool autoOnly = false;
+        in >> autoOnly;
+        d.summary = autoOnly ? QStringLiteral("auto TX off") : QStringLiteral("halt TX now");
+        break;
+    }
+    case Type::FreeText: {
+        const QString text = readUtf8(in);
+        bool send = false;
+        in >> send;
+        d.summary = QStringLiteral("\"%1\"%2").arg(text, send ? QStringLiteral(" · send") : QString());
+        break;
+    }
+    case Type::Clear: {
+        quint8 window = 0;
+        in >> window;
+        d.summary = !ok(in) ? QStringLiteral("all") : window == 0 ? QStringLiteral("band activity")
+                  : window == 1 ? QStringLiteral("RX frequency") : QStringLiteral("both windows");
+        break;
+    }
+    case Type::Replay:
+        d.summary = QStringLiteral("send the decodes again");
+        break;
+    case Type::Location:
+        d.summary = readUtf8(in);
+        break;
+    case Type::HighlightCallsign: {
+        const QString call = readUtf8(in);
+        QColor bg, fg;
+        bool last = false;
+        in >> bg >> fg >> last;
+        d.summary = call + (bg.isValid() ? QStringLiteral(" · ") + bg.name() : QStringLiteral(" · off"));
+        break;
+    }
+    case Type::SwitchConfiguration:
+        d.summary = readUtf8(in);
+        break;
+    case Type::Configure: {
+        const QString mode = readUtf8(in);
+        quint32 tolerance = 0;
+        in >> tolerance;
+        const QString submode = readUtf8(in);
+        bool fast = false;
+        quint32 period = 0, rxDf = 0;
+        in >> fast >> period >> rxDf;
+        const QString dxCall = readUtf8(in);
+        const QString dxGrid = readUtf8(in);
+        QStringList parts;
+        if (!mode.isEmpty())
+            parts << mode + (submode.isEmpty() ? QString() : QLatin1Char(' ') + submode);
+        if (rxDf != std::numeric_limits<quint32>::max())
+            parts << QStringLiteral("RX %1 Hz").arg(rxDf);
+        if (!dxCall.isEmpty())
+            parts << QStringLiteral("DX %1 %2").arg(dxCall, dxGrid).trimmed();
+        d.summary = parts.isEmpty() ? QStringLiteral("no change") : parts.join(QStringLiteral(" · "));
+        break;
+    }
+    case Type::AnnotationInfo: {
+        const QString call = readUtf8(in);
+        bool provided = false;
+        quint32 order = 0;
+        in >> provided >> order;
+        d.summary = provided ? QStringLiteral("%1 · order %2").arg(call).arg(order) : call;
+        break;
+    }
+    case Type::SetupTx: {
+        qint32 index = 0;
+        in >> index;
+        const QString message = readUtf8(in);
+        d.summary = QStringLiteral("TX%1 \"%2\"").arg(index).arg(message);
+        break;
+    }
+    case Type::EnqueueDecode: {
+        bool isNew = false;
+        QTime time;
+        qint32 snr = 0;
+        double dt = 0;
+        quint32 df = 0;
+        in >> isNew >> time >> snr >> dt >> df;
+        const QString mode = readUtf8(in);
+        const QString message = readUtf8(in);
+        d.summary = decodeLine(time, snr, dt, df, mode, message);
+        break;
+    }
+    case Type::WsprDecode: {
+        bool isNew = false;
+        QTime time;
+        qint32 snr = 0;
+        double dt = 0;
+        quint64 freq = 0;
+        qint32 drift = 0;
+        in >> isNew >> time >> snr >> dt >> freq >> drift;
+        const QString call = readUtf8(in);
+        const QString grid = readUtf8(in);
+        d.summary = QStringLiteral("%1 %2 dB %3 MHz %4 %5")
+                        .arg(time.toString(QStringLiteral("HHmm"))).arg(snr).arg(mhz(freq), call, grid);
+        break;
+    }
+    default:
+        d.summary = QStringLiteral("%1 bytes").arg(datagram.size());
+        break;
+    }
+    return d;
+}
+
+QByteArray buildReply(const QString& clientId, const Decode& dec, quint8 modifiers, quint32 schema)
+{
+    QByteArray buffer;
+    QDataStream s(&buffer, QIODevice::WriteOnly);
+    begin(s, Type::Reply, clientId, schema);
+    s << dec.time << dec.snr << dec.deltaTime << dec.deltaFrequency;
+    writeUtf8(s, dec.mode);
+    writeUtf8(s, dec.message);
+    s << false << modifiers;
+    return buffer;
+}
+
+QByteArray buildHaltTx(const QString& clientId, bool autoTxOnly, quint32 schema)
+{
+    QByteArray buffer;
+    QDataStream s(&buffer, QIODevice::WriteOnly);
+    begin(s, Type::HaltTx, clientId, schema);
+    s << autoTxOnly;
+    return buffer;
+}
+
+QByteArray buildFreeText(const QString& clientId, const QString& text, bool send, quint32 schema)
+{
+    QByteArray buffer;
+    QDataStream s(&buffer, QIODevice::WriteOnly);
+    begin(s, Type::FreeText, clientId, schema);
+    writeUtf8(s, text);
+    s << send;
+    return buffer;
+}
+
+QByteArray buildReplay(const QString& clientId, quint32 schema)
+{
+    QByteArray buffer;
+    QDataStream s(&buffer, QIODevice::WriteOnly);
+    begin(s, Type::Replay, clientId, schema);
+    return buffer;
+}
+
+QByteArray buildClear(const QString& clientId, quint8 window, quint32 schema)
+{
+    QByteArray buffer;
+    QDataStream s(&buffer, QIODevice::WriteOnly);
+    begin(s, Type::Clear, clientId, schema);
+    s << window;
+    return buffer;
+}
+
+QByteArray buildLocation(const QString& clientId, const QString& grid, quint32 schema)
+{
+    QByteArray buffer;
+    QDataStream s(&buffer, QIODevice::WriteOnly);
+    begin(s, Type::Location, clientId, schema);
+    writeUtf8(s, grid);
+    return buffer;
+}
+
+QByteArray buildHighlightCallsign(const QString& clientId, const QString& call, const QString& background,
+                                  const QString& foreground, bool highlightLast, quint32 schema)
+{
+    QByteArray buffer;
+    QDataStream s(&buffer, QIODevice::WriteOnly);
+    begin(s, Type::HighlightCallsign, clientId, schema);
+    writeUtf8(s, call);
+    s << QColor(background) << QColor(foreground) << highlightLast;
     return buffer;
 }
 

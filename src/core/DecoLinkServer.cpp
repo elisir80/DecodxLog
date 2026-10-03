@@ -146,6 +146,8 @@ void DecoLinkServer::onReadyRead(QTcpSocket* socket)
         buffer.remove(0, newline + 1);
         if (line.isEmpty())
             continue;
+        emit traffic(QStringLiteral("in"),
+                     QStringLiteral("%1:%2").arg(socket->peerAddress().toString()).arg(socket->peerPort()), line);
         QJsonParseError error;
         const QJsonDocument doc = QJsonDocument::fromJson(line, &error);
         if (error.error == QJsonParseError::NoError && doc.isObject())
@@ -232,7 +234,7 @@ void DecoLinkServer::sendSnapshot(QTcpSocket* socket)
 void DecoLinkServer::finishSnapshot(QTcpSocket* socket, const QList<QByteArray>& lines)
 {
     for (const QByteArray& line : lines)
-        socket->write(line);
+        write(socket, line);
     if (awardState) {
         QJsonObject award = awardState();
         award.insert(QStringLiteral("type"), QStringLiteral("award"));
@@ -242,14 +244,22 @@ void DecoLinkServer::finishSnapshot(QTcpSocket* socket, const QList<QByteArray>&
     ClientInfo& info = m_clients[socket];
     if (info.snapshotsPending > 0 && --info.snapshotsPending == 0) {
         for (const QByteArray& line : std::as_const(info.held))
-            socket->write(line);
+            write(socket, line);
         info.held.clear();
     }
 }
 
 void DecoLinkServer::send(QTcpSocket* socket, const QJsonObject& message)
 {
-    socket->write(QJsonDocument(message).toJson(QJsonDocument::Compact) + '\n');
+    write(socket, QJsonDocument(message).toJson(QJsonDocument::Compact) + '\n');
+}
+
+void DecoLinkServer::write(QTcpSocket* socket, const QByteArray& line)
+{
+    socket->write(line);
+    emit traffic(QStringLiteral("out"),
+                 QStringLiteral("%1:%2").arg(socket->peerAddress().toString()).arg(socket->peerPort()),
+                 line.trimmed());
 }
 
 void DecoLinkServer::broadcast(const QJsonObject& message)
@@ -261,7 +271,7 @@ void DecoLinkServer::broadcast(const QJsonObject& message)
         if (it.value().snapshotsPending > 0)
             it.value().held << line;
         else
-            it.key()->write(line);
+            write(it.key(), line);
     }
 }
 

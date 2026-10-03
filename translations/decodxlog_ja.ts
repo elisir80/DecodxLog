@@ -7898,6 +7898,10 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>ON4KST チャット…</translation>
     </message>
     <message>
+        <source>Decodium traffic monitor…</source>
+        <translation>Decodium トラフィックモニター…</translation>
+    </message>
+    <message>
         <source>Import a log (ADIF, CSV, N1MM)…</source>
         <translation>ログをインポート（ADIF、CSV、N1MM）…</translation>
     </message>
@@ -8084,6 +8088,257 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>Search…</source>
         <translation>検索…</translation>
+    </message>
+</context>
+<context>
+    <name>TrafficMonitorWindow</name>
+    <message>
+        <source>Decodium traffic monitor</source>
+        <translation>Decodium トラフィックモニター</translation>
+    </message>
+    <message>
+        <source>paused · %1 of %2 rows</source>
+        <translation>一時停止 · %2 行中 %1 行</translation>
+    </message>
+    <message>
+        <source>%1 of %2 rows</source>
+        <translation>%2 行中 %1 行</translation>
+    </message>
+    <message>
+        <source>← received</source>
+        <translation>← 受信</translation>
+    </message>
+    <message>
+        <source>→ sent</source>
+        <translation>→ 送信</translation>
+    </message>
+    <message>
+        <source>→ forwarded</source>
+        <translation>→ 転送</translation>
+    </message>
+    <message>
+        <source>← from forward</source>
+        <translation>← 転送先から</translation>
+    </message>
+    <message>
+        <source>→ relayed back</source>
+        <translation>→ 返送</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>チャンネル</translation>
+    </message>
+    <message>
+        <source>Direction</source>
+        <translation>方向</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>種類</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>プログラム</translation>
+    </message>
+    <message>
+        <source>Content</source>
+        <translation>内容</translation>
+    </message>
+    <message>
+        <source>UDP %1 · %2</source>
+        <translation>UDP %1 · %2</translation>
+    </message>
+    <message>
+        <source>nobody has written yet</source>
+        <translation>まだ誰も書き込んでいません</translation>
+    </message>
+    <message>
+        <source>UDP %1 not listening</source>
+        <translation>UDP %1 は待ち受けていません</translation>
+    </message>
+    <message>
+        <source>forwarded to %1</source>
+        <translation>%1 へ転送</translation>
+    </message>
+    <message>
+        <source>DecoLink off</source>
+        <translation>DecoLink オフ</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 · %2 connected</source>
+        <translation>DecoLink %1 · %2 接続</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 not listening</source>
+        <translation>DecoLink %1 は待ち受けていません</translation>
+    </message>
+    <message>
+        <source>DecoPort: listening to announcements on 5560</source>
+        <translation>DecoPort: 5560 でアナウンスを受信中</translation>
+    </message>
+    <message>
+        <source>DecoPort: %1</source>
+        <translation>DecoPort: %1</translation>
+    </message>
+    <message>
+        <source>not listening</source>
+        <translation>待ち受けていません</translation>
+    </message>
+    <message>
+        <source>hide heartbeats</source>
+        <translation>ハートビートを隠す</translation>
+    </message>
+    <message>
+        <source>Filter: type, call, text…</source>
+        <translation>フィルター: 種類、コールサイン、テキスト…</translation>
+    </message>
+    <message>
+        <source>Resume</source>
+        <translation>再開</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation>一時停止</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>コピー</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>クリア</translation>
+    </message>
+    <message>
+        <source>Nothing matches the filters.</source>
+        <translation>フィルターに一致する行はありません。</translation>
+    </message>
+    <message>
+        <source>Waiting for traffic. Start Decodium: its UDP messages, the DecoLink connection and the DecoPort announcements show up here as they pass.</source>
+        <translation>トラフィックを待っています。Decodium を起動してください。UDP メッセージ、DecoLink 接続、DecoPort のアナウンスが通過するたびにここに表示されます。</translation>
+    </message>
+    <message>
+        <source>Click a row to see it whole: the bytes, or the JSON line.</source>
+        <translation>行をクリックすると全体が表示されます: バイト列または JSON 行。</translation>
+    </message>
+    <message>
+        <source>To Decodium (UDP)</source>
+        <translation>Decodium へ (UDP)</translation>
+    </message>
+    <message>
+        <source>no program yet</source>
+        <translation>まだプログラムがありません</translation>
+    </message>
+    <message>
+        <source>Reply to the line</source>
+        <translation>この行に応答</translation>
+    </message>
+    <message>
+        <source>Like the double click in Decodium: it answers a CQ, and it may start transmitting.</source>
+        <translation>Decodium でのダブルクリックと同じ: CQ に応答し、送信を始めることがあります。</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>TX 停止</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>自動 TX オフ</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>デコードを再送</translation>
+    </message>
+    <message>
+        <source>Decodium sends again all the decodes it has on screen.</source>
+        <translation>Decodium が画面上のすべてのデコードを再送します。</translation>
+    </message>
+    <message>
+        <source>Band activity</source>
+        <translation>バンドアクティビティ</translation>
+    </message>
+    <message>
+        <source>Rx frequency</source>
+        <translation>Rx 周波数</translation>
+    </message>
+    <message>
+        <source>Both windows</source>
+        <translation>両方のウィンドウ</translation>
+    </message>
+    <message>
+        <source>Free text (13 characters)</source>
+        <translation>フリーテキスト (13 文字)</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation>設定</translation>
+    </message>
+    <message>
+        <source>Set and transmit</source>
+        <translation>設定して送信</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>ロケーター</translation>
+    </message>
+    <message>
+        <source>Send locator</source>
+        <translation>ロケーターを送信</translation>
+    </message>
+    <message>
+        <source>Decodium uses it only with the automatic locator turned on.</source>
+        <translation>Decodium は自動ロケーターがオンのときだけ使用します。</translation>
+    </message>
+    <message>
+        <source>Callsign to highlight</source>
+        <translation>強調するコールサイン</translation>
+    </message>
+    <message>
+        <source>background</source>
+        <translation>背景</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>文字</translation>
+    </message>
+    <message>
+        <source>Highlight</source>
+        <translation>強調</translation>
+    </message>
+    <message>
+        <source>Remove the highlight</source>
+        <translation>強調を解除</translation>
+    </message>
+    <message>
+        <source>They leave from the same UDP port Decodium writes to, with its program name: Decodium carries them out when &quot;Accept UDP requests&quot; is on in its settings (it is by default).</source>
+        <translation>Decodium が書き込むのと同じ UDP ポートから、そのプログラム名で送られます。Decodium は設定で &quot;Accept UDP requests&quot; がオンのとき実行します (既定でオン)。</translation>
+    </message>
+    <message>
+        <source>To Decodium (DecoLink)</source>
+        <translation>Decodium へ (DecoLink)</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>送信</translation>
+    </message>
+    <message>
+        <source>Send the log list again</source>
+        <translation>ログ一覧を再送</translation>
+    </message>
+    <message>
+        <source>Send the award state</source>
+        <translation>アワードの状態を送信</translation>
+    </message>
+    <message>
+        <source>Listen only: the DecoPort session is signed with Decodium&apos;s key, and one of its commands keys the transmitter. Here you see which radio is on the network, on what frequency and in which state.</source>
+        <translation>受信のみ: DecoPort のセッションは Decodium の鍵で署名されており、そのコマンドの一つは送信機をキーイングします。ここでは、ネットワーク上のどの無線機が、どの周波数で、どの状態にあるかが分かります。</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>閉じる</translation>
     </message>
 </context>
 <context>
@@ -10383,6 +10638,97 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>MASTER.SCP: %1 calls</source>
         <translation>MASTER.SCP: %1 コール</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::TrafficMonitor</name>
+    <message>
+        <source>%1 not sent: no program has written to the UDP port yet.</source>
+        <translation>%1: 未送信。まだどのプログラムも UDP ポートに書き込んでいません。</translation>
+    </message>
+    <message>
+        <source>%1 sent to %2.</source>
+        <translation>%1: %2 へ送信しました。</translation>
+    </message>
+    <message>
+        <source>Pick a decoded line (Decode) to answer.</source>
+        <translation>応答するデコード行 (Decode) を選んでください。</translation>
+    </message>
+    <message>
+        <source>This line cannot be read back as a decode.</source>
+        <translation>この行はデコードとして読み戻せません。</translation>
+    </message>
+    <message>
+        <source>Reply to &quot;%1&quot;</source>
+        <translation>&quot;%1&quot; への応答</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>自動 TX オフ</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>TX 停止</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot; (transmit)</source>
+        <translation>フリーテキスト &quot;%1&quot; (送信)</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot;</source>
+        <translation>フリーテキスト &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>デコードを再送</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>クリア</translation>
+    </message>
+    <message>
+        <source>A locator has at least four characters.</source>
+        <translation>ロケーターは 4 文字以上です。</translation>
+    </message>
+    <message>
+        <source>Locator %1</source>
+        <translation>ロケーター %1</translation>
+    </message>
+    <message>
+        <source>Which callsign?</source>
+        <translation>どのコールサインですか?</translation>
+    </message>
+    <message>
+        <source>Highlight of %1 removed</source>
+        <translation>%1 の強調を解除しました</translation>
+    </message>
+    <message>
+        <source>Highlight of %1</source>
+        <translation>%1 を強調</translation>
+    </message>
+    <message>
+        <source>Not JSON: %1</source>
+        <translation>JSON ではありません: %1</translation>
+    </message>
+    <message>
+        <source>DecoLink wants a JSON object with a &quot;type&quot;.</source>
+        <translation>DecoLink には &quot;type&quot; を持つ JSON オブジェクトが必要です。</translation>
+    </message>
+    <message>
+        <source>Decodium is not connected to DecoLink.</source>
+        <translation>Decodium は DecoLink に接続していません。</translation>
+    </message>
+    <message>
+        <source>Sent on DecoLink: %1</source>
+        <translation>DecoLink で送信: %1</translation>
+    </message>
+    <message>
+        <source>The log list is on its way to Decodium.</source>
+        <translation>ログ一覧を Decodium へ送信中です。</translation>
+    </message>
+    <message>
+        <source>Award state sent to Decodium.</source>
+        <translation>アワードの状態を Decodium へ送信しました。</translation>
     </message>
 </context>
 <context>

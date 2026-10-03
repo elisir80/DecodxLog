@@ -35,6 +35,14 @@ enum class Type : quint32 {
     WsprDecode = 10,
     Location = 11,
     LoggedAdif = 12,
+    HighlightCallsign = 13,
+    SwitchConfiguration = 14,
+    Configure = 15,
+    // Le aggiunte di JTDX/Decodium (avt): l'ordine degli Hound, la
+    // preparazione del TX, una decodifica messa in coda.
+    AnnotationInfo = 16,
+    SetupTx = 17,
+    EnqueueDecode = 18,
 };
 
 struct Heartbeat {
@@ -121,5 +129,36 @@ QByteArray buildQsoLogged(const QString& clientId, const QsoLogged& qso, quint32
 QByteArray buildLoggedAdif(const QString& clientId, const QByteArray& adif, quint32 schema = kMaxSchema);
 QByteArray buildStatus(const QString& clientId, const Status& status, quint32 schema = kMaxSchema);
 QByteArray buildDecode(const QString& clientId, const Decode& decode, quint32 schema = kMaxSchema);
+
+// ── Per il monitor del traffico ──────────────────────────────────────────────
+// Qualunque datagramma del protocollo, in due righe: il nome del tipo e cosa
+// dice. Legge anche i messaggi che vanno verso il programma (Reply, Halt TX,
+// testo libero…), che parse() riconosce e scarta.
+struct Description {
+    bool valid{false};
+    quint32 type{0};
+    quint32 schema{0};
+    QString typeName;
+    QString clientId;
+    QString summary;
+};
+Description describe(const QByteArray& datagram);
+QString typeName(quint32 type);
+
+// I messaggi che un programma come DecoDXLog manda a Decodium (lo stesso
+// socket da cui Decodium scrive li riceve): rispondere a una riga decodificata
+// come col doppio clic, fermare la trasmissione, il testo libero, ripetere le
+// decodifiche, pulire le finestre, il locatore, evidenziare un nominativo.
+QByteArray buildReply(const QString& clientId, const Decode& decode, quint8 modifiers = 0,
+                      quint32 schema = kMaxSchema);
+QByteArray buildHaltTx(const QString& clientId, bool autoTxOnly, quint32 schema = kMaxSchema);
+QByteArray buildFreeText(const QString& clientId, const QString& text, bool send, quint32 schema = kMaxSchema);
+QByteArray buildReplay(const QString& clientId, quint32 schema = kMaxSchema);
+// window: 0 attivita' di banda, 1 frequenza di ricezione, 2 tutte e due.
+QByteArray buildClear(const QString& clientId, quint8 window, quint32 schema = kMaxSchema);
+QByteArray buildLocation(const QString& clientId, const QString& grid, quint32 schema = kMaxSchema);
+// Colori vuoti (non validi) tolgono l'evidenziazione.
+QByteArray buildHighlightCallsign(const QString& clientId, const QString& call, const QString& background,
+                                  const QString& foreground, bool highlightLast, quint32 schema = kMaxSchema);
 
 } // namespace decolog::core::wsjtx

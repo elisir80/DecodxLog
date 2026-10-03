@@ -7942,6 +7942,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Chat ON4KST…</translation>
     </message>
     <message>
+        <source>Decodium traffic monitor…</source>
+        <translation>Monitor de trafic Decodium…</translation>
+    </message>
+    <message>
         <source>Import a log (ADIF, CSV, N1MM)…</source>
         <translation>Importă un log (ADIF, CSV, N1MM)…</translation>
     </message>
@@ -8128,6 +8132,257 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>Search…</source>
         <translation>Caută…</translation>
+    </message>
+</context>
+<context>
+    <name>TrafficMonitorWindow</name>
+    <message>
+        <source>Decodium traffic monitor</source>
+        <translation>Monitor de trafic Decodium</translation>
+    </message>
+    <message>
+        <source>paused · %1 of %2 rows</source>
+        <translation>în pauză · %1 din %2 rânduri</translation>
+    </message>
+    <message>
+        <source>%1 of %2 rows</source>
+        <translation>%1 din %2 rânduri</translation>
+    </message>
+    <message>
+        <source>← received</source>
+        <translation>← primit</translation>
+    </message>
+    <message>
+        <source>→ sent</source>
+        <translation>→ trimis</translation>
+    </message>
+    <message>
+        <source>→ forwarded</source>
+        <translation>→ redirecționat</translation>
+    </message>
+    <message>
+        <source>← from forward</source>
+        <translation>← din redirecționare</translation>
+    </message>
+    <message>
+        <source>→ relayed back</source>
+        <translation>→ trimis înapoi</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>Canal</translation>
+    </message>
+    <message>
+        <source>Direction</source>
+        <translation>Sens</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Tip</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>Program</translation>
+    </message>
+    <message>
+        <source>Content</source>
+        <translation>Conținut</translation>
+    </message>
+    <message>
+        <source>UDP %1 · %2</source>
+        <translation>UDP %1 · %2</translation>
+    </message>
+    <message>
+        <source>nobody has written yet</source>
+        <translation>nu a scris nimeni încă</translation>
+    </message>
+    <message>
+        <source>UDP %1 not listening</source>
+        <translation>UDP %1 nu ascultă</translation>
+    </message>
+    <message>
+        <source>forwarded to %1</source>
+        <translation>redirecționat către %1</translation>
+    </message>
+    <message>
+        <source>DecoLink off</source>
+        <translation>DecoLink oprit</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 · %2 connected</source>
+        <translation>DecoLink %1 · %2 conectați</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 not listening</source>
+        <translation>DecoLink %1 nu ascultă</translation>
+    </message>
+    <message>
+        <source>DecoPort: listening to announcements on 5560</source>
+        <translation>DecoPort: ascultă anunțurile pe 5560</translation>
+    </message>
+    <message>
+        <source>DecoPort: %1</source>
+        <translation>DecoPort: %1</translation>
+    </message>
+    <message>
+        <source>not listening</source>
+        <translation>nu ascultă</translation>
+    </message>
+    <message>
+        <source>hide heartbeats</source>
+        <translation>ascunde heartbeat-urile</translation>
+    </message>
+    <message>
+        <source>Filter: type, call, text…</source>
+        <translation>Filtru: tip, indicativ, text…</translation>
+    </message>
+    <message>
+        <source>Resume</source>
+        <translation>Reia</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation>Pauză</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Copiază</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Golește</translation>
+    </message>
+    <message>
+        <source>Nothing matches the filters.</source>
+        <translation>Niciun rând nu corespunde filtrelor.</translation>
+    </message>
+    <message>
+        <source>Waiting for traffic. Start Decodium: its UDP messages, the DecoLink connection and the DecoPort announcements show up here as they pass.</source>
+        <translation>Se așteaptă trafic. Porniți Decodium: mesajele sale UDP, conexiunea DecoLink și anunțurile DecoPort apar aici pe măsură ce trec.</translation>
+    </message>
+    <message>
+        <source>Click a row to see it whole: the bytes, or the JSON line.</source>
+        <translation>Faceți clic pe un rând pentru a-l vedea întreg: octeții sau linia JSON.</translation>
+    </message>
+    <message>
+        <source>To Decodium (UDP)</source>
+        <translation>Către Decodium (UDP)</translation>
+    </message>
+    <message>
+        <source>no program yet</source>
+        <translation>încă niciun program</translation>
+    </message>
+    <message>
+        <source>Reply to the line</source>
+        <translation>Răspunde la linie</translation>
+    </message>
+    <message>
+        <source>Like the double click in Decodium: it answers a CQ, and it may start transmitting.</source>
+        <translation>Ca dublul clic în Decodium: răspunde la un CQ și poate porni emisia.</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>Oprește TX</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Auto TX oprit</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Repetă decodările</translation>
+    </message>
+    <message>
+        <source>Decodium sends again all the decodes it has on screen.</source>
+        <translation>Decodium retrimite toate decodările pe care le are pe ecran.</translation>
+    </message>
+    <message>
+        <source>Band activity</source>
+        <translation>Activitate în bandă</translation>
+    </message>
+    <message>
+        <source>Rx frequency</source>
+        <translation>Frecvență Rx</translation>
+    </message>
+    <message>
+        <source>Both windows</source>
+        <translation>Ambele ferestre</translation>
+    </message>
+    <message>
+        <source>Free text (13 characters)</source>
+        <translation>Text liber (13 caractere)</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation>Setează</translation>
+    </message>
+    <message>
+        <source>Set and transmit</source>
+        <translation>Setează și emite</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>Send locator</source>
+        <translation>Trimite locatorul</translation>
+    </message>
+    <message>
+        <source>Decodium uses it only with the automatic locator turned on.</source>
+        <translation>Decodium îl folosește doar cu locatorul automat activat.</translation>
+    </message>
+    <message>
+        <source>Callsign to highlight</source>
+        <translation>Indicativ de evidențiat</translation>
+    </message>
+    <message>
+        <source>background</source>
+        <translation>fundal</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>text</translation>
+    </message>
+    <message>
+        <source>Highlight</source>
+        <translation>Evidențiază</translation>
+    </message>
+    <message>
+        <source>Remove the highlight</source>
+        <translation>Elimină evidențierea</translation>
+    </message>
+    <message>
+        <source>They leave from the same UDP port Decodium writes to, with its program name: Decodium carries them out when &quot;Accept UDP requests&quot; is on in its settings (it is by default).</source>
+        <translation>Pleacă de pe același port UDP pe care scrie Decodium, cu numele programului său: Decodium le execută dacă în setările sale este activ &quot;Accept UDP requests&quot; (este implicit).</translation>
+    </message>
+    <message>
+        <source>To Decodium (DecoLink)</source>
+        <translation>Către Decodium (DecoLink)</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Trimite</translation>
+    </message>
+    <message>
+        <source>Send the log list again</source>
+        <translation>Retrimite lista logului</translation>
+    </message>
+    <message>
+        <source>Send the award state</source>
+        <translation>Trimite starea diplomelor</translation>
+    </message>
+    <message>
+        <source>Listen only: the DecoPort session is signed with Decodium&apos;s key, and one of its commands keys the transmitter. Here you see which radio is on the network, on what frequency and in which state.</source>
+        <translation>Doar ascultare: sesiunea DecoPort este semnată cu cheia Decodium, iar una dintre comenzile sale pune stația în emisie. Aici se vede ce stație este în rețea, pe ce frecvență și în ce stare.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Închide</translation>
     </message>
 </context>
 <context>
@@ -10507,6 +10762,97 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>MASTER.SCP: %1 calls</source>
         <translation>MASTER.SCP: %1 indicative</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::TrafficMonitor</name>
+    <message>
+        <source>%1 not sent: no program has written to the UDP port yet.</source>
+        <translation>%1: netrimis, niciun program nu a scris încă pe portul UDP.</translation>
+    </message>
+    <message>
+        <source>%1 sent to %2.</source>
+        <translation>%1: trimis către %2.</translation>
+    </message>
+    <message>
+        <source>Pick a decoded line (Decode) to answer.</source>
+        <translation>Alegeți o linie decodată (Decode) la care să răspundeți.</translation>
+    </message>
+    <message>
+        <source>This line cannot be read back as a decode.</source>
+        <translation>Această linie nu poate fi recitită ca decodare.</translation>
+    </message>
+    <message>
+        <source>Reply to &quot;%1&quot;</source>
+        <translation>Răspuns la &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Auto TX oprit</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>Oprește TX</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot; (transmit)</source>
+        <translation>Text liber &quot;%1&quot; (emisie)</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot;</source>
+        <translation>Text liber &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Repetă decodările</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Golește</translation>
+    </message>
+    <message>
+        <source>A locator has at least four characters.</source>
+        <translation>Un locator are cel puțin patru caractere.</translation>
+    </message>
+    <message>
+        <source>Locator %1</source>
+        <translation>Locator %1</translation>
+    </message>
+    <message>
+        <source>Which callsign?</source>
+        <translation>Ce indicativ?</translation>
+    </message>
+    <message>
+        <source>Highlight of %1 removed</source>
+        <translation>Evidențierea lui %1 eliminată</translation>
+    </message>
+    <message>
+        <source>Highlight of %1</source>
+        <translation>Evidențierea lui %1</translation>
+    </message>
+    <message>
+        <source>Not JSON: %1</source>
+        <translation>Nu este JSON: %1</translation>
+    </message>
+    <message>
+        <source>DecoLink wants a JSON object with a &quot;type&quot;.</source>
+        <translation>DecoLink vrea un obiect JSON cu un &quot;type&quot;.</translation>
+    </message>
+    <message>
+        <source>Decodium is not connected to DecoLink.</source>
+        <translation>Decodium nu este conectat la DecoLink.</translation>
+    </message>
+    <message>
+        <source>Sent on DecoLink: %1</source>
+        <translation>Trimis pe DecoLink: %1</translation>
+    </message>
+    <message>
+        <source>The log list is on its way to Decodium.</source>
+        <translation>Lista logului este pe drum spre Decodium.</translation>
+    </message>
+    <message>
+        <source>Award state sent to Decodium.</source>
+        <translation>Starea diplomelor trimisă la Decodium.</translation>
     </message>
 </context>
 <context>

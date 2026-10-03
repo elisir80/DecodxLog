@@ -7942,6 +7942,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Чат ON4KST…</translation>
     </message>
     <message>
+        <source>Decodium traffic monitor…</source>
+        <translation>Монитор трафика Decodium…</translation>
+    </message>
+    <message>
         <source>Import a log (ADIF, CSV, N1MM)…</source>
         <translation>Импортировать журнал (ADIF, CSV, N1MM)…</translation>
     </message>
@@ -8128,6 +8132,257 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Search…</source>
         <translation>Поиск…</translation>
+    </message>
+</context>
+<context>
+    <name>TrafficMonitorWindow</name>
+    <message>
+        <source>Decodium traffic monitor</source>
+        <translation>Монитор трафика Decodium</translation>
+    </message>
+    <message>
+        <source>paused · %1 of %2 rows</source>
+        <translation>пауза · %1 из %2 строк</translation>
+    </message>
+    <message>
+        <source>%1 of %2 rows</source>
+        <translation>%1 из %2 строк</translation>
+    </message>
+    <message>
+        <source>← received</source>
+        <translation>← получено</translation>
+    </message>
+    <message>
+        <source>→ sent</source>
+        <translation>→ отправлено</translation>
+    </message>
+    <message>
+        <source>→ forwarded</source>
+        <translation>→ переслано</translation>
+    </message>
+    <message>
+        <source>← from forward</source>
+        <translation>← от пересылки</translation>
+    </message>
+    <message>
+        <source>→ relayed back</source>
+        <translation>→ возвращено</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>Канал</translation>
+    </message>
+    <message>
+        <source>Direction</source>
+        <translation>Направление</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Тип</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>Программа</translation>
+    </message>
+    <message>
+        <source>Content</source>
+        <translation>Содержимое</translation>
+    </message>
+    <message>
+        <source>UDP %1 · %2</source>
+        <translation>UDP %1 · %2</translation>
+    </message>
+    <message>
+        <source>nobody has written yet</source>
+        <translation>ещё никто не писал</translation>
+    </message>
+    <message>
+        <source>UDP %1 not listening</source>
+        <translation>UDP %1 не слушает</translation>
+    </message>
+    <message>
+        <source>forwarded to %1</source>
+        <translation>пересылается на %1</translation>
+    </message>
+    <message>
+        <source>DecoLink off</source>
+        <translation>DecoLink выключен</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 · %2 connected</source>
+        <translation>DecoLink %1 · подключено: %2</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 not listening</source>
+        <translation>DecoLink %1 не слушает</translation>
+    </message>
+    <message>
+        <source>DecoPort: listening to announcements on 5560</source>
+        <translation>DecoPort: слушает объявления на 5560</translation>
+    </message>
+    <message>
+        <source>DecoPort: %1</source>
+        <translation>DecoPort: %1</translation>
+    </message>
+    <message>
+        <source>not listening</source>
+        <translation>не слушает</translation>
+    </message>
+    <message>
+        <source>hide heartbeats</source>
+        <translation>скрыть heartbeat</translation>
+    </message>
+    <message>
+        <source>Filter: type, call, text…</source>
+        <translation>Фильтр: тип, позывной, текст…</translation>
+    </message>
+    <message>
+        <source>Resume</source>
+        <translation>Продолжить</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation>Пауза</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Копировать</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Очистить</translation>
+    </message>
+    <message>
+        <source>Nothing matches the filters.</source>
+        <translation>Ни одна строка не подходит под фильтры.</translation>
+    </message>
+    <message>
+        <source>Waiting for traffic. Start Decodium: its UDP messages, the DecoLink connection and the DecoPort announcements show up here as they pass.</source>
+        <translation>Ожидание трафика. Запустите Decodium: его UDP-сообщения, соединение DecoLink и объявления DecoPort появляются здесь по мере прохождения.</translation>
+    </message>
+    <message>
+        <source>Click a row to see it whole: the bytes, or the JSON line.</source>
+        <translation>Щёлкните строку, чтобы увидеть её целиком: байты или строку JSON.</translation>
+    </message>
+    <message>
+        <source>To Decodium (UDP)</source>
+        <translation>В Decodium (UDP)</translation>
+    </message>
+    <message>
+        <source>no program yet</source>
+        <translation>программ пока нет</translation>
+    </message>
+    <message>
+        <source>Reply to the line</source>
+        <translation>Ответить на строку</translation>
+    </message>
+    <message>
+        <source>Like the double click in Decodium: it answers a CQ, and it may start transmitting.</source>
+        <translation>Как двойной щелчок в Decodium: отвечает на CQ и может начать передачу.</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>Остановить TX</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Авто TX выкл.</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Повторить декоды</translation>
+    </message>
+    <message>
+        <source>Decodium sends again all the decodes it has on screen.</source>
+        <translation>Decodium повторно отправляет все декоды на экране.</translation>
+    </message>
+    <message>
+        <source>Band activity</source>
+        <translation>Активность диапазона</translation>
+    </message>
+    <message>
+        <source>Rx frequency</source>
+        <translation>Частота Rx</translation>
+    </message>
+    <message>
+        <source>Both windows</source>
+        <translation>Оба окна</translation>
+    </message>
+    <message>
+        <source>Free text (13 characters)</source>
+        <translation>Свободный текст (13 символов)</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation>Задать</translation>
+    </message>
+    <message>
+        <source>Set and transmit</source>
+        <translation>Задать и передать</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>Локатор</translation>
+    </message>
+    <message>
+        <source>Send locator</source>
+        <translation>Отправить локатор</translation>
+    </message>
+    <message>
+        <source>Decodium uses it only with the automatic locator turned on.</source>
+        <translation>Decodium использует его только при включённом автоматическом локаторе.</translation>
+    </message>
+    <message>
+        <source>Callsign to highlight</source>
+        <translation>Позывной для выделения</translation>
+    </message>
+    <message>
+        <source>background</source>
+        <translation>фон</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>текст</translation>
+    </message>
+    <message>
+        <source>Highlight</source>
+        <translation>Выделить</translation>
+    </message>
+    <message>
+        <source>Remove the highlight</source>
+        <translation>Снять выделение</translation>
+    </message>
+    <message>
+        <source>They leave from the same UDP port Decodium writes to, with its program name: Decodium carries them out when &quot;Accept UDP requests&quot; is on in its settings (it is by default).</source>
+        <translation>Они уходят с того же UDP-порта, на который пишет Decodium, с именем его программы: Decodium выполняет их, если в его настройках включено &quot;Accept UDP requests&quot; (по умолчанию включено).</translation>
+    </message>
+    <message>
+        <source>To Decodium (DecoLink)</source>
+        <translation>В Decodium (DecoLink)</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Отправить</translation>
+    </message>
+    <message>
+        <source>Send the log list again</source>
+        <translation>Отправить список журнала заново</translation>
+    </message>
+    <message>
+        <source>Send the award state</source>
+        <translation>Отправить состояние дипломов</translation>
+    </message>
+    <message>
+        <source>Listen only: the DecoPort session is signed with Decodium&apos;s key, and one of its commands keys the transmitter. Here you see which radio is on the network, on what frequency and in which state.</source>
+        <translation>Только прослушивание: сессия DecoPort подписана ключом Decodium, и одна из её команд включает передатчик. Здесь видно, какая радиостанция в сети, на какой частоте и в каком состоянии.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Закрыть</translation>
     </message>
 </context>
 <context>
@@ -10507,6 +10762,97 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>MASTER.SCP: %1 calls</source>
         <translation>MASTER.SCP: %1 позывных</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::TrafficMonitor</name>
+    <message>
+        <source>%1 not sent: no program has written to the UDP port yet.</source>
+        <translation>%1: не отправлено, ни одна программа ещё не писала в UDP-порт.</translation>
+    </message>
+    <message>
+        <source>%1 sent to %2.</source>
+        <translation>%1: отправлено в %2.</translation>
+    </message>
+    <message>
+        <source>Pick a decoded line (Decode) to answer.</source>
+        <translation>Выберите декодированную строку (Decode), на которую ответить.</translation>
+    </message>
+    <message>
+        <source>This line cannot be read back as a decode.</source>
+        <translation>Эту строку нельзя прочитать как декод.</translation>
+    </message>
+    <message>
+        <source>Reply to &quot;%1&quot;</source>
+        <translation>Ответ на &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Авто TX выкл.</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>Остановить TX</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot; (transmit)</source>
+        <translation>Свободный текст &quot;%1&quot; (передача)</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot;</source>
+        <translation>Свободный текст &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Повторить декоды</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Очистить</translation>
+    </message>
+    <message>
+        <source>A locator has at least four characters.</source>
+        <translation>В локаторе не меньше четырёх символов.</translation>
+    </message>
+    <message>
+        <source>Locator %1</source>
+        <translation>Локатор %1</translation>
+    </message>
+    <message>
+        <source>Which callsign?</source>
+        <translation>Какой позывной?</translation>
+    </message>
+    <message>
+        <source>Highlight of %1 removed</source>
+        <translation>Выделение %1 снято</translation>
+    </message>
+    <message>
+        <source>Highlight of %1</source>
+        <translation>Выделение %1</translation>
+    </message>
+    <message>
+        <source>Not JSON: %1</source>
+        <translation>Не JSON: %1</translation>
+    </message>
+    <message>
+        <source>DecoLink wants a JSON object with a &quot;type&quot;.</source>
+        <translation>DecoLink ждёт JSON-объект с &quot;type&quot;.</translation>
+    </message>
+    <message>
+        <source>Decodium is not connected to DecoLink.</source>
+        <translation>Decodium не подключён к DecoLink.</translation>
+    </message>
+    <message>
+        <source>Sent on DecoLink: %1</source>
+        <translation>Отправлено по DecoLink: %1</translation>
+    </message>
+    <message>
+        <source>The log list is on its way to Decodium.</source>
+        <translation>Список журнала отправляется в Decodium.</translation>
+    </message>
+    <message>
+        <source>Award state sent to Decodium.</source>
+        <translation>Состояние дипломов отправлено в Decodium.</translation>
     </message>
 </context>
 <context>

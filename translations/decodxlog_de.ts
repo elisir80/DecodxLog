@@ -7920,6 +7920,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>ON4KST-Chat…</translation>
     </message>
     <message>
+        <source>Decodium traffic monitor…</source>
+        <translation>Decodium-Verkehrsmonitor…</translation>
+    </message>
+    <message>
         <source>Import a log (ADIF, CSV, N1MM)…</source>
         <translation>Ein Log importieren (ADIF, CSV, N1MM)…</translation>
     </message>
@@ -8106,6 +8110,257 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Search…</source>
         <translation>Suchen…</translation>
+    </message>
+</context>
+<context>
+    <name>TrafficMonitorWindow</name>
+    <message>
+        <source>Decodium traffic monitor</source>
+        <translation>Decodium-Verkehrsmonitor</translation>
+    </message>
+    <message>
+        <source>paused · %1 of %2 rows</source>
+        <translation>pausiert · %1 von %2 Zeilen</translation>
+    </message>
+    <message>
+        <source>%1 of %2 rows</source>
+        <translation>%1 von %2 Zeilen</translation>
+    </message>
+    <message>
+        <source>← received</source>
+        <translation>← empfangen</translation>
+    </message>
+    <message>
+        <source>→ sent</source>
+        <translation>→ gesendet</translation>
+    </message>
+    <message>
+        <source>→ forwarded</source>
+        <translation>→ weitergeleitet</translation>
+    </message>
+    <message>
+        <source>← from forward</source>
+        <translation>← von Weiterleitung</translation>
+    </message>
+    <message>
+        <source>→ relayed back</source>
+        <translation>→ zurückgeleitet</translation>
+    </message>
+    <message>
+        <source>UTC</source>
+        <translation>UTC</translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation>Kanal</translation>
+    </message>
+    <message>
+        <source>Direction</source>
+        <translation>Richtung</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Typ</translation>
+    </message>
+    <message>
+        <source>Program</source>
+        <translation>Programm</translation>
+    </message>
+    <message>
+        <source>Content</source>
+        <translation>Inhalt</translation>
+    </message>
+    <message>
+        <source>UDP %1 · %2</source>
+        <translation>UDP %1 · %2</translation>
+    </message>
+    <message>
+        <source>nobody has written yet</source>
+        <translation>noch hat niemand geschrieben</translation>
+    </message>
+    <message>
+        <source>UDP %1 not listening</source>
+        <translation>UDP %1 hört nicht</translation>
+    </message>
+    <message>
+        <source>forwarded to %1</source>
+        <translation>weitergeleitet an %1</translation>
+    </message>
+    <message>
+        <source>DecoLink off</source>
+        <translation>DecoLink aus</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 · %2 connected</source>
+        <translation>DecoLink %1 · %2 verbunden</translation>
+    </message>
+    <message>
+        <source>DecoLink %1 not listening</source>
+        <translation>DecoLink %1 hört nicht</translation>
+    </message>
+    <message>
+        <source>DecoPort: listening to announcements on 5560</source>
+        <translation>DecoPort: hört Ankündigungen auf 5560</translation>
+    </message>
+    <message>
+        <source>DecoPort: %1</source>
+        <translation>DecoPort: %1</translation>
+    </message>
+    <message>
+        <source>not listening</source>
+        <translation>hört nicht</translation>
+    </message>
+    <message>
+        <source>hide heartbeats</source>
+        <translation>Heartbeats ausblenden</translation>
+    </message>
+    <message>
+        <source>Filter: type, call, text…</source>
+        <translation>Filter: Typ, Rufzeichen, Text…</translation>
+    </message>
+    <message>
+        <source>Resume</source>
+        <translation>Fortsetzen</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation>Pause</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Kopieren</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Leeren</translation>
+    </message>
+    <message>
+        <source>Nothing matches the filters.</source>
+        <translation>Keine Zeile passt zu den Filtern.</translation>
+    </message>
+    <message>
+        <source>Waiting for traffic. Start Decodium: its UDP messages, the DecoLink connection and the DecoPort announcements show up here as they pass.</source>
+        <translation>Warte auf Verkehr. Starte Decodium: seine UDP-Meldungen, die DecoLink-Verbindung und die DecoPort-Ankündigungen erscheinen hier, sobald sie durchkommen.</translation>
+    </message>
+    <message>
+        <source>Click a row to see it whole: the bytes, or the JSON line.</source>
+        <translation>Eine Zeile anklicken, um sie ganz zu sehen: die Bytes oder die JSON-Zeile.</translation>
+    </message>
+    <message>
+        <source>To Decodium (UDP)</source>
+        <translation>An Decodium (UDP)</translation>
+    </message>
+    <message>
+        <source>no program yet</source>
+        <translation>noch kein Programm</translation>
+    </message>
+    <message>
+        <source>Reply to the line</source>
+        <translation>Auf die Zeile antworten</translation>
+    </message>
+    <message>
+        <source>Like the double click in Decodium: it answers a CQ, and it may start transmitting.</source>
+        <translation>Wie der Doppelklick in Decodium: beantwortet einen CQ und kann das Senden starten.</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>TX stoppen</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Auto-TX aus</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Dekodierungen wiederholen</translation>
+    </message>
+    <message>
+        <source>Decodium sends again all the decodes it has on screen.</source>
+        <translation>Decodium sendet alle Dekodierungen auf dem Bildschirm erneut.</translation>
+    </message>
+    <message>
+        <source>Band activity</source>
+        <translation>Bandaktivität</translation>
+    </message>
+    <message>
+        <source>Rx frequency</source>
+        <translation>Rx-Frequenz</translation>
+    </message>
+    <message>
+        <source>Both windows</source>
+        <translation>Beide Fenster</translation>
+    </message>
+    <message>
+        <source>Free text (13 characters)</source>
+        <translation>Freitext (13 Zeichen)</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation>Setzen</translation>
+    </message>
+    <message>
+        <source>Set and transmit</source>
+        <translation>Setzen und senden</translation>
+    </message>
+    <message>
+        <source>Locator</source>
+        <translation>Locator</translation>
+    </message>
+    <message>
+        <source>Send locator</source>
+        <translation>Locator senden</translation>
+    </message>
+    <message>
+        <source>Decodium uses it only with the automatic locator turned on.</source>
+        <translation>Decodium verwendet ihn nur mit eingeschaltetem automatischem Locator.</translation>
+    </message>
+    <message>
+        <source>Callsign to highlight</source>
+        <translation>Hervorzuhebendes Rufzeichen</translation>
+    </message>
+    <message>
+        <source>background</source>
+        <translation>Hintergrund</translation>
+    </message>
+    <message>
+        <source>text</source>
+        <translation>Text</translation>
+    </message>
+    <message>
+        <source>Highlight</source>
+        <translation>Hervorheben</translation>
+    </message>
+    <message>
+        <source>Remove the highlight</source>
+        <translation>Hervorhebung entfernen</translation>
+    </message>
+    <message>
+        <source>They leave from the same UDP port Decodium writes to, with its program name: Decodium carries them out when &quot;Accept UDP requests&quot; is on in its settings (it is by default).</source>
+        <translation>Sie gehen vom selben UDP-Port ab, auf den Decodium schreibt, mit seinem Programmnamen: Decodium führt sie aus, wenn in seinen Einstellungen &quot;Accept UDP requests&quot; aktiv ist (Standard).</translation>
+    </message>
+    <message>
+        <source>To Decodium (DecoLink)</source>
+        <translation>An Decodium (DecoLink)</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Senden</translation>
+    </message>
+    <message>
+        <source>Send the log list again</source>
+        <translation>Log-Liste erneut senden</translation>
+    </message>
+    <message>
+        <source>Send the award state</source>
+        <translation>Award-Stand senden</translation>
+    </message>
+    <message>
+        <source>Listen only: the DecoPort session is signed with Decodium&apos;s key, and one of its commands keys the transmitter. Here you see which radio is on the network, on what frequency and in which state.</source>
+        <translation>Nur Zuhören: Die DecoPort-Sitzung ist mit dem Schlüssel von Decodium signiert, und einer ihrer Befehle tastet den Sender. Hier sieht man, welches Funkgerät im Netz ist, auf welcher Frequenz und in welchem Zustand.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>
@@ -10445,6 +10700,97 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>MASTER.SCP: %1 calls</source>
         <translation>MASTER.SCP: %1 Rufzeichen</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::TrafficMonitor</name>
+    <message>
+        <source>%1 not sent: no program has written to the UDP port yet.</source>
+        <translation>%1: nicht gesendet, noch hat kein Programm auf den UDP-Port geschrieben.</translation>
+    </message>
+    <message>
+        <source>%1 sent to %2.</source>
+        <translation>%1: an %2 gesendet.</translation>
+    </message>
+    <message>
+        <source>Pick a decoded line (Decode) to answer.</source>
+        <translation>Eine dekodierte Zeile (Decode) zum Antworten wählen.</translation>
+    </message>
+    <message>
+        <source>This line cannot be read back as a decode.</source>
+        <translation>Diese Zeile lässt sich nicht als Dekodierung lesen.</translation>
+    </message>
+    <message>
+        <source>Reply to &quot;%1&quot;</source>
+        <translation>Antwort auf &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Auto TX off</source>
+        <translation>Auto-TX aus</translation>
+    </message>
+    <message>
+        <source>Halt TX</source>
+        <translation>TX stoppen</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot; (transmit)</source>
+        <translation>Freitext &quot;%1&quot; (Senden)</translation>
+    </message>
+    <message>
+        <source>Free text &quot;%1&quot;</source>
+        <translation>Freitext &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Replay</source>
+        <translation>Dekodierungen wiederholen</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Leeren</translation>
+    </message>
+    <message>
+        <source>A locator has at least four characters.</source>
+        <translation>Ein Locator hat mindestens vier Zeichen.</translation>
+    </message>
+    <message>
+        <source>Locator %1</source>
+        <translation>Locator %1</translation>
+    </message>
+    <message>
+        <source>Which callsign?</source>
+        <translation>Welches Rufzeichen?</translation>
+    </message>
+    <message>
+        <source>Highlight of %1 removed</source>
+        <translation>Hervorhebung von %1 entfernt</translation>
+    </message>
+    <message>
+        <source>Highlight of %1</source>
+        <translation>Hervorhebung von %1</translation>
+    </message>
+    <message>
+        <source>Not JSON: %1</source>
+        <translation>Kein JSON: %1</translation>
+    </message>
+    <message>
+        <source>DecoLink wants a JSON object with a &quot;type&quot;.</source>
+        <translation>DecoLink will ein JSON-Objekt mit &quot;type&quot;.</translation>
+    </message>
+    <message>
+        <source>Decodium is not connected to DecoLink.</source>
+        <translation>Decodium ist nicht mit DecoLink verbunden.</translation>
+    </message>
+    <message>
+        <source>Sent on DecoLink: %1</source>
+        <translation>Über DecoLink gesendet: %1</translation>
+    </message>
+    <message>
+        <source>The log list is on its way to Decodium.</source>
+        <translation>Die Log-Liste ist auf dem Weg zu Decodium.</translation>
+    </message>
+    <message>
+        <source>Award state sent to Decodium.</source>
+        <translation>Award-Stand an Decodium gesendet.</translation>
     </message>
 </context>
 <context>
