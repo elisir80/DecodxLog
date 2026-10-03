@@ -3,7 +3,15 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
-## 1.16.54 — 3 ottobre 2026
+## 1.16.55 — 4 ottobre 2026
+
+**Allineata alla 1.16.54 di elisir80.**
+- **Chiusura affidabile**: chiudendo la finestra principale DecoDXLog ferma in modo esplicito audio,
+  CAT, CAT condivisa, scansioni radio e i `rigctld` che ha avviato lui, con un limite preciso: un
+  driver seriale bloccato non lascia piu' il programma vivo senza finestre (visto su macOS).
+- Il resto di quella 1.16.54 (note di rilascio, firma ad-hoc dei pacchetti macOS) e' quello che
+  gia' c'era nelle nostre 1.16.51–1.16.53. Il numero 1.16.54 e' della loro release: la nostra
+  prossima e' la 1.16.55, cosi' le due non si confondono nell'aggiornamento.
 
 **Le conferme di un periodo, per LoTW, eQSL e QRZ.** Nella scheda QSL il pulsante «LoTW dal… al…»
 diventa «Periodo dal… al…», con la scelta del servizio (LoTW, eQSL, QRZ) e le stesse due date di
