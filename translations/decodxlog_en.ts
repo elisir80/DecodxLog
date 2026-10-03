@@ -2396,6 +2396,97 @@ Right click: change it</source>
     </message>
 </context>
 <context>
+    <name>DecodeList</name>
+    <message>
+        <source>%1 rows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Empty this list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Low confidence decode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Answer in Decodium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show in Call info and prepare the QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy the line</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumPanel</name>
+    <message>
+        <source>Decodium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Newest on top: click for newest at the bottom, like Decodium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Newest at the bottom, like Decodium: click for newest on top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ask Decodium to send again the decodes it has on screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RX · decoding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rx %1 Hz · Tx %2 Hz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DX %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for Decodium on UDP port %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot;Accept UDP requests&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DecoDXLog is not listening on a UDP port: set it in Settings → Decodium link.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Every decode Decodium hears on the band shows up here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Signal RX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DuplicatesDialog</name>
     <message>
         <source>DUPLICATE QSO</source>
@@ -3387,6 +3478,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
     <message>
         <source>Band map</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Decodium</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

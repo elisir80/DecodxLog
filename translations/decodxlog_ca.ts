@@ -2398,6 +2398,98 @@ Clic dret: modificar-la</translation>
     </message>
 </context>
 <context>
+    <name>DecodeList</name>
+    <message>
+        <source>%1 rows</source>
+        <translation>%1 files</translation>
+    </message>
+    <message>
+        <source>Empty this list</source>
+        <translation>Buida aquesta llista</translation>
+    </message>
+    <message>
+        <source>Low confidence decode</source>
+        <translation>Descodificació poc fiable</translation>
+    </message>
+    <message>
+        <source>Answer in Decodium</source>
+        <translation>Respon a Decodium</translation>
+    </message>
+    <message>
+        <source>Show in Call info and prepare the QSO</source>
+        <translation>Mostra a la fitxa i prepara el QSO</translation>
+    </message>
+    <message>
+        <source>Copy the line</source>
+        <translation>Copia la línia</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumPanel</name>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Newest on top: click for newest at the bottom, like Decodium</source>
+        <translation>Més recents a dalt: clic per tenir-les a baix, com a Decodium</translation>
+    </message>
+    <message>
+        <source>Newest at the bottom, like Decodium: click for newest on top</source>
+        <translation>Més recents a baix, com a Decodium: clic per tenir-les a dalt</translation>
+    </message>
+    <message>
+        <source>Ask Decodium to send again the decodes it has on screen</source>
+        <translation>Demana a Decodium que torni a enviar les descodificacions que té a la pantalla</translation>
+    </message>
+    <message>
+        <source>TX</source>
+        <translation>TX</translation>
+    </message>
+    <message>
+        <source>RX · decoding</source>
+        <translation>RX · descodificant</translation>
+    </message>
+    <message>
+        <source>RX</source>
+        <translation>RX</translation>
+    </message>
+    <message>
+        <source>Rx %1 Hz · Tx %2 Hz</source>
+        <translation>Rx %1 Hz · Tx %2 Hz</translation>
+    </message>
+    <message>
+        <source>DX %1</source>
+        <translation>DX %1</translation>
+    </message>
+    <message>
+        <source>Waiting for Decodium on UDP port %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot;Accept UDP requests&quot;.</source>
+        <translation>Esperant Decodium al port UDP %1.
+A Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, i &quot;Accept UDP requests&quot;.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog is not listening on a UDP port: set it in Settings → Decodium link.</source>
+        <translation>DecoDXLog no escolta en cap port UDP: es configura a Configuració → Enllaç amb Decodium.</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Espectre complet</translation>
+    </message>
+    <message>
+        <source>Every decode Decodium hears on the band shows up here.</source>
+        <translation>Aquí apareix cada descodificació que Decodium sent a la banda.</translation>
+    </message>
+    <message>
+        <source>Signal RX</source>
+        <translation>Senyal RX</translation>
+    </message>
+    <message>
+        <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
+        <translation>Aquí apareixen les teves transmissions, qui et crida i el corresponsal.</translation>
+    </message>
+</context>
+<context>
     <name>DuplicatesDialog</name>
     <message>
         <source>DUPLICATE QSO</source>
@@ -3391,6 +3483,10 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
     <message>
         <source>Band map</source>
         <translation>Mapa de banda</translation>
+    </message>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
     </message>
     <message>
         <source>Station network</source>

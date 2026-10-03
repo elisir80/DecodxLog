@@ -2389,6 +2389,98 @@ Right click: change it</source>
     </message>
 </context>
 <context>
+    <name>DecodeList</name>
+    <message>
+        <source>%1 rows</source>
+        <translation>%1 行</translation>
+    </message>
+    <message>
+        <source>Empty this list</source>
+        <translation>清空此清單</translation>
+    </message>
+    <message>
+        <source>Low confidence decode</source>
+        <translation>低可信度解碼</translation>
+    </message>
+    <message>
+        <source>Answer in Decodium</source>
+        <translation>在 Decodium 中回覆</translation>
+    </message>
+    <message>
+        <source>Show in Call info and prepare the QSO</source>
+        <translation>在呼號卡片中顯示並準備 QSO</translation>
+    </message>
+    <message>
+        <source>Copy the line</source>
+        <translation>複製此行</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumPanel</name>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Newest on top: click for newest at the bottom, like Decodium</source>
+        <translation>最新在上: 點擊改為最新在下, 與 Decodium 相同</translation>
+    </message>
+    <message>
+        <source>Newest at the bottom, like Decodium: click for newest on top</source>
+        <translation>最新在下, 與 Decodium 相同: 點擊改為最新在上</translation>
+    </message>
+    <message>
+        <source>Ask Decodium to send again the decodes it has on screen</source>
+        <translation>請 Decodium 重新傳送螢幕上的解碼</translation>
+    </message>
+    <message>
+        <source>TX</source>
+        <translation>TX</translation>
+    </message>
+    <message>
+        <source>RX · decoding</source>
+        <translation>RX · 解碼中</translation>
+    </message>
+    <message>
+        <source>RX</source>
+        <translation>RX</translation>
+    </message>
+    <message>
+        <source>Rx %1 Hz · Tx %2 Hz</source>
+        <translation>Rx %1 Hz · Tx %2 Hz</translation>
+    </message>
+    <message>
+        <source>DX %1</source>
+        <translation>DX %1</translation>
+    </message>
+    <message>
+        <source>Waiting for Decodium on UDP port %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot;Accept UDP requests&quot;.</source>
+        <translation>正在 UDP 連接埠 %1 上等待 Decodium。
+在 Decodium 中: Settings → Reporting → UDP Server 127.0.0.1, 連接埠 %1, 並勾選 &quot;Accept UDP requests&quot;。</translation>
+    </message>
+    <message>
+        <source>DecoDXLog is not listening on a UDP port: set it in Settings → Decodium link.</source>
+        <translation>DecoDXLog 沒有監聽任何 UDP 連接埠: 請在 設定 → 與 Decodium 的連線 中設定。</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>全頻譜</translation>
+    </message>
+    <message>
+        <source>Every decode Decodium hears on the band shows up here.</source>
+        <translation>Decodium 在波段上聽到的每個解碼都顯示在這裡。</translation>
+    </message>
+    <message>
+        <source>Signal RX</source>
+        <translation>接收訊號</translation>
+    </message>
+    <message>
+        <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
+        <translation>這裡顯示您的發射、呼叫您的電台和您的 QSO 對象。</translation>
+    </message>
+</context>
+<context>
     <name>DuplicatesDialog</name>
     <message>
         <source>DUPLICATE QSO</source>
@@ -3380,6 +3472,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Band map</source>
         <translation>波段圖</translation>
+    </message>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
     </message>
     <message>
         <source>Station network</source>

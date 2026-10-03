@@ -540,6 +540,11 @@ Quello che manca è in fondo.
   monitor**: UDP, DecoLink and DecoPort announcements both ways, with filters, pause and
   detail; from there you reply to a decode, halt TX, send free text, locator, highlights and
   DecoLink lines. DecoPort is listen-only.
+- **Pannello Decodium**: Full Spectrum e Signal RX di Decodium in un pannello compatto della
+  lavagna (si sposta, si ridimensiona, si attacca ai bordi, si stacca), con le righe colorate
+  secondo il log: nuovo DXCC, banda, nominativo. / **Decodium panel**: Decodium's Full Spectrum
+  and Signal RX in a compact board panel (move, resize, magnetic edges, detach), rows colored
+  by what they are worth to the log: new DXCC, band, call.
 
 ## 14. Copie di sicurezza / Backup
 

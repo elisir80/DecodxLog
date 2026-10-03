@@ -798,6 +798,36 @@ bool DecoLogController::openDatabase(const QString& path)
     };
     m_cluster = new ClusterController(std::move(ctx), this);
 
+    // Full Spectrum e Signal RX di Decodium, ricostruiti dal protocollo UDP e
+    // colorati con quello che solo il log sa.
+    {
+        DecodeFeed::Context feed;
+        feed.myCalls = [this] {
+            QStringList calls;
+            if (m_profiles) {
+                const QString profile = m_profiles->activeProfile().value(QStringLiteral("stationCallsign")).toString();
+                if (!profile.isEmpty())
+                    calls << profile;
+            }
+            if (!m_status.deCall.isEmpty() && !calls.contains(m_status.deCall))
+                calls << m_status.deCall;
+            return calls;
+        };
+        feed.classify = [this](const QString& call, const QString& band, const QString& mode) {
+            const auto c = m_cluster->classifyCall(call, band, mode);
+            return DecodeFeed::Classification{c.status, c.entity, c.azimuth, c.distanceKm};
+        };
+        feed.bandOf = [](const wsjtx::Status& st) {
+            return st.dialFrequencyHz > 0 ? bands::fromMhz(static_cast<double>(st.dialFrequencyHz) / 1e6) : QString();
+        };
+        feed.statusLabel = [](int status) { return ClusterController::statusText(status); };
+        feed.lookup = [this](const QString& call) { setLookupCall(call); };
+        feed.prepareQso = [this](const QVariantMap& fields) { emit qsoPrepared(fields); };
+        m_decodeFeed = new DecodeFeed(&m_udp, std::move(feed), this);
+        // L'elenco di chi e' stato lavorato e' stato rifatto: gli stati vanno ricalcolati.
+        connect(m_cluster, &ClusterController::indexRebuilt, m_decodeFeed, &DecodeFeed::restatus);
+    }
+
     QslController::Context qslCtx;
     qslCtx.db = &m_db;
     qslCtx.credentials = m_credentials;

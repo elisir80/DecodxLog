@@ -198,6 +198,55 @@ private slots:
         QVERIFY(!gridTracker.hasPendingDatagrams());
     }
 
+    // Lo stato porta le frequenze di ascolto e di trasmissione e l'ultimo
+    // messaggio trasmesso; un client piu' vecchio, che si ferma prima, si legge
+    // lo stesso.
+    void statusCarriesDfAndTxMessage()
+    {
+        wsjtx::Status st;
+        st.dialFrequencyHz = 14074000;
+        st.mode = "FT8";
+        st.dxCall = "K1ABC";
+        st.deCall = "IU8LMC";
+        st.rxDf = 1500;
+        st.txDf = 1720;
+        st.trPeriod = 15;
+        st.transmitting = true;
+        st.txMessage = "K1ABC IU8LMC -12";
+        const QByteArray bytes = wsjtx::buildStatus("Decodium", st);
+        auto back = wsjtx::parse(bytes);
+        QVERIFY(back.has_value());
+        const auto& got = std::get<wsjtx::Status>(back->payload);
+        QCOMPARE(got.rxDf, 1500u);
+        QCOMPARE(got.txDf, 1720u);
+        QCOMPARE(got.trPeriod, 15u);
+        QCOMPARE(got.txMessage, QString("K1ABC IU8LMC -12"));
+        QVERIFY(got.transmitting);
+
+        // Senza l'ultimo campo (4 byte di lunghezza + il testo).
+        const QByteArray older = bytes.left(bytes.size() - 4 - QByteArray("K1ABC IU8LMC -12").size());
+        back = wsjtx::parse(older);
+        QVERIFY(back.has_value());
+        const auto& old = std::get<wsjtx::Status>(back->payload);
+        QCOMPARE(old.txDf, 1720u);
+        QVERIFY(old.txMessage.isEmpty());
+        QCOMPARE(old.deCall, QString("IU8LMC"));
+    }
+
+    void decodeCarriesLowConfidence()
+    {
+        wsjtx::Decode d;
+        d.time = QTime(14, 10, 0);
+        d.message = "CQ K1ABC FN42";
+        d.lowConfidence = true;
+        auto back = wsjtx::parse(wsjtx::buildDecode("Decodium", d));
+        QVERIFY(back.has_value());
+        QVERIFY(std::get<wsjtx::Decode>(back->payload).lowConfidence);
+        d.lowConfidence = false;
+        back = wsjtx::parse(wsjtx::buildDecode("Decodium", d));
+        QVERIFY(!std::get<wsjtx::Decode>(back->payload).lowConfidence);
+    }
+
     // Il monitor del traffico: ogni messaggio si legge in due parole, anche
     // quelli che vanno verso Decodium.
     void messagesAreDescribed()

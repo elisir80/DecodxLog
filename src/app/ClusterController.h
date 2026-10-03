@@ -100,6 +100,20 @@ public:
     // Silenzio per questa sessione, senza cambiare l'impostazione (schermate di prova).
     void setMuted(bool muted) { m_muted = muted; }
 
+    // Lo stato di un nominativo sentito in aria (Decodium, WSJT-X) rispetto al
+    // log, con la stessa regola degli spot: entita' nuova, banda nuova,
+    // nominativo nuovo, gia' lavorato… Serve al pannello delle decodifiche.
+    struct CallClass {
+        int status{0};
+        QString entity;
+        int dxcc{0};
+        QString continent;
+        int azimuth{-1};
+        double distanceKm{-1.0};
+    };
+    CallClass classifyCall(const QString& call, const QString& band, const QString& mode) const;
+    static QString statusText(int status);
+
     QObject* spots() { return &m_model; }
     QVariantList sources() const;
     QVariantList presets() const;
@@ -185,6 +199,9 @@ signals:
     void settingsChanged();
     void lotwUsersChanged();
     void spotsUpdated();
+    // L'elenco di chi e' gia' stato lavorato e' stato rifatto: gli stati
+    // calcolati prima non valgono piu'.
+    void indexRebuilt();
     // Uno spot ha fatto scattare una regola: per il QML (lampeggio, notifica).
     void alertRaised(const QString& title, const QString& text);
     // Lo stesso, quando la regola chiede il riquadro o il suono.

@@ -2407,6 +2407,98 @@ Labais klikšķis: mainīt</translation>
     </message>
 </context>
 <context>
+    <name>DecodeList</name>
+    <message>
+        <source>%1 rows</source>
+        <translation>%1 rindas</translation>
+    </message>
+    <message>
+        <source>Empty this list</source>
+        <translation>Iztukšot šo sarakstu</translation>
+    </message>
+    <message>
+        <source>Low confidence decode</source>
+        <translation>Neuzticama dekodēšana</translation>
+    </message>
+    <message>
+        <source>Answer in Decodium</source>
+        <translation>Atbildēt programmā Decodium</translation>
+    </message>
+    <message>
+        <source>Show in Call info and prepare the QSO</source>
+        <translation>Parādīt izsaukuma kartē un sagatavot QSO</translation>
+    </message>
+    <message>
+        <source>Copy the line</source>
+        <translation>Kopēt rindu</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumPanel</name>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Newest on top: click for newest at the bottom, like Decodium</source>
+        <translation>Jaunākie augšā: klikšķis, lai jaunākie būtu apakšā, kā Decodium</translation>
+    </message>
+    <message>
+        <source>Newest at the bottom, like Decodium: click for newest on top</source>
+        <translation>Jaunākie apakšā, kā Decodium: klikšķis, lai jaunākie būtu augšā</translation>
+    </message>
+    <message>
+        <source>Ask Decodium to send again the decodes it has on screen</source>
+        <translation>Lūgt Decodium vēlreiz nosūtīt ekrānā esošos dekodējumus</translation>
+    </message>
+    <message>
+        <source>TX</source>
+        <translation>TX</translation>
+    </message>
+    <message>
+        <source>RX · decoding</source>
+        <translation>RX · dekodē</translation>
+    </message>
+    <message>
+        <source>RX</source>
+        <translation>RX</translation>
+    </message>
+    <message>
+        <source>Rx %1 Hz · Tx %2 Hz</source>
+        <translation>Rx %1 Hz · Tx %2 Hz</translation>
+    </message>
+    <message>
+        <source>DX %1</source>
+        <translation>DX %1</translation>
+    </message>
+    <message>
+        <source>Waiting for Decodium on UDP port %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot;Accept UDP requests&quot;.</source>
+        <translation>Gaida Decodium UDP portā %1.
+Decodium: Settings → Reporting → UDP Server 127.0.0.1, ports %1, un &quot;Accept UDP requests&quot;.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog is not listening on a UDP port: set it in Settings → Decodium link.</source>
+        <translation>DecoDXLog neklausās nevienā UDP portā: iestatiet sadaļā Iestatījumi → Savienojums ar Decodium.</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Pilns spektrs</translation>
+    </message>
+    <message>
+        <source>Every decode Decodium hears on the band shows up here.</source>
+        <translation>Šeit parādās katrs dekodējums, ko Decodium dzird joslā.</translation>
+    </message>
+    <message>
+        <source>Signal RX</source>
+        <translation>RX signāls</translation>
+    </message>
+    <message>
+        <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
+        <translation>Šeit parādās tavi raidījumi, kas tevi izsauc, un tavs QSO partneris.</translation>
+    </message>
+</context>
+<context>
     <name>DuplicatesDialog</name>
     <message>
         <source>DUPLICATE QSO</source>
@@ -3402,6 +3494,10 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>Band map</source>
         <translation>Joslas karte</translation>
+    </message>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
     </message>
     <message>
         <source>Station network</source>

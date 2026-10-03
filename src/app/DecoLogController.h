@@ -17,6 +17,7 @@
 #include "app/UpdateController.h"
 #include "app/WorldClockController.h"
 #include "app/ActivityModel.h"
+#include "app/DecodeFeed.h"
 #include "app/TrafficMonitor.h"
 #include "app/ChatController.h"
 #include "app/SuperCheckController.h"
@@ -145,6 +146,9 @@ class DecoLogController : public QObject {
     Q_PROPERTY(QObject* activity READ activity CONSTANT)
     // Il monitor del traffico con Decodium (UDP, DecoLink, DecoPort), a due vie.
     Q_PROPERTY(QObject* traffic READ traffic CONSTANT)
+    // Le due liste di decodifica di Decodium (Full Spectrum e Signal RX) e lo
+    // stato di chi le manda, per il pannello Decodium.
+    Q_PROPERTY(QObject* decodium READ decodium CONSTANT)
 
     Q_PROPERTY(QString lookupCall READ lookupCall WRITE setLookupCall NOTIFY lookupChanged)
     Q_PROPERTY(QVariantMap callInfo READ callInfo NOTIFY lookupChanged)
@@ -372,6 +376,7 @@ public:
     QVariantList incoming() const { return m_incoming; }
     QObject* activity() const { return m_activityModel; }
     QObject* traffic() const { return m_traffic; }
+    QObject* decodium() const { return m_decodeFeed; }
 
     QString lookupCall() const { return m_lookupCall; }
     void setLookupCall(const QString& call);
@@ -951,6 +956,7 @@ private:
     QVariantList m_incoming;
     ActivityModel* m_activityModel{nullptr};
     TrafficMonitor* m_traffic{nullptr};
+    DecodeFeed* m_decodeFeed{nullptr};
     // I conteggi del log, rifatti una volta dopo ogni cambiamento.
     struct Counts {
         bool valid{false};

@@ -2389,6 +2389,98 @@ Jobb kattintás: módosítás</translation>
     </message>
 </context>
 <context>
+    <name>DecodeList</name>
+    <message>
+        <source>%1 rows</source>
+        <translation>%1 sor</translation>
+    </message>
+    <message>
+        <source>Empty this list</source>
+        <translation>Lista kiürítése</translation>
+    </message>
+    <message>
+        <source>Low confidence decode</source>
+        <translation>Alacsony megbízhatóságú dekódolás</translation>
+    </message>
+    <message>
+        <source>Answer in Decodium</source>
+        <translation>Válasz a Decodiumban</translation>
+    </message>
+    <message>
+        <source>Show in Call info and prepare the QSO</source>
+        <translation>Megjelenítés a hívójel-kartonon és a QSO előkészítése</translation>
+    </message>
+    <message>
+        <source>Copy the line</source>
+        <translation>Sor másolása</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumPanel</name>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Newest on top: click for newest at the bottom, like Decodium</source>
+        <translation>Legújabb felül: kattintson, hogy alul legyen, mint a Decodiumban</translation>
+    </message>
+    <message>
+        <source>Newest at the bottom, like Decodium: click for newest on top</source>
+        <translation>Legújabb alul, mint a Decodiumban: kattintson, hogy felül legyen</translation>
+    </message>
+    <message>
+        <source>Ask Decodium to send again the decodes it has on screen</source>
+        <translation>Kérje meg a Decodiumot, hogy küldje újra a képernyőn lévő dekódolásokat</translation>
+    </message>
+    <message>
+        <source>TX</source>
+        <translation>TX</translation>
+    </message>
+    <message>
+        <source>RX · decoding</source>
+        <translation>RX · dekódol</translation>
+    </message>
+    <message>
+        <source>RX</source>
+        <translation>RX</translation>
+    </message>
+    <message>
+        <source>Rx %1 Hz · Tx %2 Hz</source>
+        <translation>Rx %1 Hz · Tx %2 Hz</translation>
+    </message>
+    <message>
+        <source>DX %1</source>
+        <translation>DX %1</translation>
+    </message>
+    <message>
+        <source>Waiting for Decodium on UDP port %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot;Accept UDP requests&quot;.</source>
+        <translation>Várakozás a Decodiumra a(z) %1 UDP porton.
+A Decodiumban: Settings → Reporting → UDP Server 127.0.0.1, port: %1, és &quot;Accept UDP requests&quot;.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog is not listening on a UDP port: set it in Settings → Decodium link.</source>
+        <translation>A DecoDXLog nem figyel egy UDP porton sem: itt állítható be: Beállítások → Kapcsolat a Decodiummal.</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Teljes spektrum</translation>
+    </message>
+    <message>
+        <source>Every decode Decodium hears on the band shows up here.</source>
+        <translation>Itt jelenik meg minden dekódolás, amelyet a Decodium a sávon hall.</translation>
+    </message>
+    <message>
+        <source>Signal RX</source>
+        <translation>RX jel</translation>
+    </message>
+    <message>
+        <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
+        <translation>Itt jelennek meg az adásaid, aki hív téged, és a QSO-partnered.</translation>
+    </message>
+</context>
+<context>
     <name>DuplicatesDialog</name>
     <message>
         <source>DUPLICATE QSO</source>
@@ -3380,6 +3472,10 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>Band map</source>
         <translation>Sávtérkép</translation>
+    </message>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
     </message>
     <message>
         <source>Station network</source>

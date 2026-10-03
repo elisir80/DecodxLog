@@ -3,6 +3,37 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.52 — 3 ottobre 2026
+
+**Il pannello Decodium: Full Spectrum e Signal RX nel log.** Un pannello compatto sulla lavagna,
+con le due liste di decodifica di Decodium 4, ricostruite dal protocollo UDP (ogni decodifica e
+lo stato: corrispondente, frequenze di ascolto e trasmissione, trasmissione in corso):
+- **Full Spectrum**: tutto quello che Decodium sente in banda, con ora, dB, DT, frequenza e
+  messaggio;
+- **Signal RX**: il QSO in corso, con la stessa regola di Decodium — le trasmissioni proprie, i
+  messaggi che nominano il tuo nominativo e quelli del corrispondente; se il corrispondente
+  cambia (doppio clic su un CQ vecchio in Decodium), entrano anche le sue righe di prima.
+- **I colori sono quelli del log**: una barretta e il colore del testo dicono se la stazione
+  e' un nuovo DXCC, una banda nuova, un nuovo nominativo, gia' lavorata… con gli stessi colori
+  e la stessa regola degli spot del cluster; larghi, si leggono anche l'etichetta e il paese.
+  Chi ti chiama ha il fondo rosso, il corrispondente il fondo dorato, le tue trasmissioni ambra.
+- **Nella lavagna come gli altri pannelli**: si sposta per la testata, si ridimensiona dai bordi
+  e dagli angoli, si attacca ai bordi vicini (calamita), si stacca in una finestra e si chiude;
+  anche in Contest Mode. Largo, i due elenchi stanno uno accanto all'altro, stretto uno sopra
+  l'altro; la maniglia in mezzo si tira e la proporzione segue il pannello. Le colonne che non
+  ci stanno spariscono. In testata: le piu' recenti in alto o in basso come in Decodium, e «⟲»
+  per chiedere a Decodium di rimandare le decodifiche che ha a schermo (utile se il pannello
+  si apre dopo).
+- **Clic**: un clic sceglie la riga; il doppio clic porta il nominativo nella scheda e nel
+  riquadro del QSO (non fa partire niente in Decodium); col tasto destro «Rispondi in
+  Decodium» (come il doppio clic in Decodium: puo' far partire la chiamata), «Mostra nella
+  scheda e prepara il QSO» e «Copia la riga».
+- Di serie e' chiuso: si apre da Pannelli, in alto.
+
+Sotto il cofano: lo stato UDP porta ora anche Rx DF, Tx DF, periodo T/R e l'ultimo messaggio
+trasmesso, e le decodifiche il flag «poco affidabile» (i client piu' vecchi, che si fermano
+prima, si leggono lo stesso).
+
 ## 1.16.51 — 3 ottobre 2026
 
 **Il monitor del traffico con Decodium.** Dal menu del marchio, «Monitor del traffico

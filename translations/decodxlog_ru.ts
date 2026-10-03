@@ -2407,6 +2407,98 @@ Right click: change it</source>
     </message>
 </context>
 <context>
+    <name>DecodeList</name>
+    <message>
+        <source>%1 rows</source>
+        <translation>%1 строк</translation>
+    </message>
+    <message>
+        <source>Empty this list</source>
+        <translation>Очистить этот список</translation>
+    </message>
+    <message>
+        <source>Low confidence decode</source>
+        <translation>Ненадёжное декодирование</translation>
+    </message>
+    <message>
+        <source>Answer in Decodium</source>
+        <translation>Ответить в Decodium</translation>
+    </message>
+    <message>
+        <source>Show in Call info and prepare the QSO</source>
+        <translation>Показать в карточке и подготовить QSO</translation>
+    </message>
+    <message>
+        <source>Copy the line</source>
+        <translation>Копировать строку</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumPanel</name>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Newest on top: click for newest at the bottom, like Decodium</source>
+        <translation>Новые сверху: щёлкните, чтобы новые были снизу, как в Decodium</translation>
+    </message>
+    <message>
+        <source>Newest at the bottom, like Decodium: click for newest on top</source>
+        <translation>Новые снизу, как в Decodium: щёлкните, чтобы новые были сверху</translation>
+    </message>
+    <message>
+        <source>Ask Decodium to send again the decodes it has on screen</source>
+        <translation>Попросить Decodium повторно отправить декоды с экрана</translation>
+    </message>
+    <message>
+        <source>TX</source>
+        <translation>TX</translation>
+    </message>
+    <message>
+        <source>RX · decoding</source>
+        <translation>RX · декодирование</translation>
+    </message>
+    <message>
+        <source>RX</source>
+        <translation>RX</translation>
+    </message>
+    <message>
+        <source>Rx %1 Hz · Tx %2 Hz</source>
+        <translation>Rx %1 Hz · Tx %2 Hz</translation>
+    </message>
+    <message>
+        <source>DX %1</source>
+        <translation>DX %1</translation>
+    </message>
+    <message>
+        <source>Waiting for Decodium on UDP port %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot;Accept UDP requests&quot;.</source>
+        <translation>Ожидание Decodium на UDP-порту %1.
+В Decodium: Settings → Reporting → UDP Server 127.0.0.1, порт %1, и &quot;Accept UDP requests&quot;.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog is not listening on a UDP port: set it in Settings → Decodium link.</source>
+        <translation>DecoDXLog не слушает ни один UDP-порт: задайте его в разделе Настройки → Связь с Decodium.</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Полный спектр</translation>
+    </message>
+    <message>
+        <source>Every decode Decodium hears on the band shows up here.</source>
+        <translation>Здесь появляется каждый декод, который Decodium слышит в диапазоне.</translation>
+    </message>
+    <message>
+        <source>Signal RX</source>
+        <translation>Сигнал RX</translation>
+    </message>
+    <message>
+        <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
+        <translation>Здесь появляются ваши передачи, кто вас вызывает и ваш корреспондент.</translation>
+    </message>
+</context>
+<context>
     <name>DuplicatesDialog</name>
     <message>
         <source>DUPLICATE QSO</source>
@@ -3402,6 +3494,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Band map</source>
         <translation>Карта диапазона</translation>
+    </message>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
     </message>
     <message>
         <source>Station network</source>

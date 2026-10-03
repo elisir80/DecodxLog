@@ -67,6 +67,15 @@ struct Status {
     QString dxGrid;
     QString submode;
     QString configurationName;
+    // Dove sta l'ascolto e dove la trasmissione, in Hz nell'audio, e il periodo
+    // T/R in secondi: il pannello Decodium li mostra.
+    quint32 rxDf{0};
+    quint32 txDf{0};
+    quint32 trPeriod{0};
+    bool    watchdogExpired{false};
+    // L'ultimo messaggio trasmesso (in Decodium e WSJT-X recenti: dopo il nome
+    // della configurazione).
+    QString txMessage;
 };
 
 struct QsoLogged {
@@ -98,6 +107,8 @@ struct Decode {
     quint32 deltaFrequency{0};
     QString mode;
     QString message;
+    bool    lowConfidence{false};
+    bool    offAir{false};
 };
 
 struct LoggedAdif {

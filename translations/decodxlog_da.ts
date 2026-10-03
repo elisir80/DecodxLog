@@ -2398,6 +2398,98 @@ Højreklik: ret den</translation>
     </message>
 </context>
 <context>
+    <name>DecodeList</name>
+    <message>
+        <source>%1 rows</source>
+        <translation>%1 rækker</translation>
+    </message>
+    <message>
+        <source>Empty this list</source>
+        <translation>Ryd denne liste</translation>
+    </message>
+    <message>
+        <source>Low confidence decode</source>
+        <translation>Usikker dekodning</translation>
+    </message>
+    <message>
+        <source>Answer in Decodium</source>
+        <translation>Svar i Decodium</translation>
+    </message>
+    <message>
+        <source>Show in Call info and prepare the QSO</source>
+        <translation>Vis i kaldesignalkortet og forbered QSO</translation>
+    </message>
+    <message>
+        <source>Copy the line</source>
+        <translation>Kopiér linjen</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumPanel</name>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Newest on top: click for newest at the bottom, like Decodium</source>
+        <translation>Nyeste øverst: klik for nyeste nederst, som i Decodium</translation>
+    </message>
+    <message>
+        <source>Newest at the bottom, like Decodium: click for newest on top</source>
+        <translation>Nyeste nederst, som i Decodium: klik for nyeste øverst</translation>
+    </message>
+    <message>
+        <source>Ask Decodium to send again the decodes it has on screen</source>
+        <translation>Bed Decodium sende dekodningerne på skærmen igen</translation>
+    </message>
+    <message>
+        <source>TX</source>
+        <translation>TX</translation>
+    </message>
+    <message>
+        <source>RX · decoding</source>
+        <translation>RX · dekoder</translation>
+    </message>
+    <message>
+        <source>RX</source>
+        <translation>RX</translation>
+    </message>
+    <message>
+        <source>Rx %1 Hz · Tx %2 Hz</source>
+        <translation>Rx %1 Hz · Tx %2 Hz</translation>
+    </message>
+    <message>
+        <source>DX %1</source>
+        <translation>DX %1</translation>
+    </message>
+    <message>
+        <source>Waiting for Decodium on UDP port %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot;Accept UDP requests&quot;.</source>
+        <translation>Venter på Decodium på UDP-port %1.
+I Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, og &quot;Accept UDP requests&quot;.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog is not listening on a UDP port: set it in Settings → Decodium link.</source>
+        <translation>DecoDXLog lytter ikke på nogen UDP-port: indstil den under Indstillinger → Forbindelse til Decodium.</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Fuldt spektrum</translation>
+    </message>
+    <message>
+        <source>Every decode Decodium hears on the band shows up here.</source>
+        <translation>Her vises hver dekodning, som Decodium hører på båndet.</translation>
+    </message>
+    <message>
+        <source>Signal RX</source>
+        <translation>RX-signal</translation>
+    </message>
+    <message>
+        <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
+        <translation>Her vises dine udsendelser, hvem der kalder dig, og din QSO-partner.</translation>
+    </message>
+</context>
+<context>
     <name>DuplicatesDialog</name>
     <message>
         <source>DUPLICATE QSO</source>
@@ -3391,6 +3483,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Band map</source>
         <translation>Båndkort</translation>
+    </message>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
     </message>
     <message>
         <source>Station network</source>

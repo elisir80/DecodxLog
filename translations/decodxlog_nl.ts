@@ -2398,6 +2398,98 @@ Rechtsklik: wijzigen</translation>
     </message>
 </context>
 <context>
+    <name>DecodeList</name>
+    <message>
+        <source>%1 rows</source>
+        <translation>%1 regels</translation>
+    </message>
+    <message>
+        <source>Empty this list</source>
+        <translation>Deze lijst legen</translation>
+    </message>
+    <message>
+        <source>Low confidence decode</source>
+        <translation>Onbetrouwbare decodering</translation>
+    </message>
+    <message>
+        <source>Answer in Decodium</source>
+        <translation>Antwoorden in Decodium</translation>
+    </message>
+    <message>
+        <source>Show in Call info and prepare the QSO</source>
+        <translation>Tonen in de roepnaamkaart en QSO voorbereiden</translation>
+    </message>
+    <message>
+        <source>Copy the line</source>
+        <translation>Regel kopiëren</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumPanel</name>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Newest on top: click for newest at the bottom, like Decodium</source>
+        <translation>Nieuwste bovenaan: klik voor nieuwste onderaan, zoals in Decodium</translation>
+    </message>
+    <message>
+        <source>Newest at the bottom, like Decodium: click for newest on top</source>
+        <translation>Nieuwste onderaan, zoals in Decodium: klik voor nieuwste bovenaan</translation>
+    </message>
+    <message>
+        <source>Ask Decodium to send again the decodes it has on screen</source>
+        <translation>Decodium vragen de decodes op het scherm opnieuw te sturen</translation>
+    </message>
+    <message>
+        <source>TX</source>
+        <translation>TX</translation>
+    </message>
+    <message>
+        <source>RX · decoding</source>
+        <translation>RX · decoderen</translation>
+    </message>
+    <message>
+        <source>RX</source>
+        <translation>RX</translation>
+    </message>
+    <message>
+        <source>Rx %1 Hz · Tx %2 Hz</source>
+        <translation>Rx %1 Hz · Tx %2 Hz</translation>
+    </message>
+    <message>
+        <source>DX %1</source>
+        <translation>DX %1</translation>
+    </message>
+    <message>
+        <source>Waiting for Decodium on UDP port %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot;Accept UDP requests&quot;.</source>
+        <translation>Wachten op Decodium op UDP-poort %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, poort %1, en &quot;Accept UDP requests&quot;.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog is not listening on a UDP port: set it in Settings → Decodium link.</source>
+        <translation>DecoDXLog luistert op geen enkele UDP-poort: stel dit in bij Instellingen → Koppeling met Decodium.</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Volledig spectrum</translation>
+    </message>
+    <message>
+        <source>Every decode Decodium hears on the band shows up here.</source>
+        <translation>Hier verschijnt elke decode die Decodium op de band hoort.</translation>
+    </message>
+    <message>
+        <source>Signal RX</source>
+        <translation>RX-signaal</translation>
+    </message>
+    <message>
+        <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
+        <translation>Hier verschijnen je zendingen, wie je roept en je QSO-partner.</translation>
+    </message>
+</context>
+<context>
     <name>DuplicatesDialog</name>
     <message>
         <source>DUPLICATE QSO</source>
@@ -3391,6 +3483,10 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
     <message>
         <source>Band map</source>
         <translation>Bandkaart</translation>
+    </message>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
     </message>
     <message>
         <source>Station network</source>

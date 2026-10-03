@@ -92,20 +92,20 @@ std::optional<Message> parse(const QByteArray& datagram)
         in >> st.txEnabled >> st.transmitting >> st.decoding;
         if (!ok(in))
             return std::nullopt;
-        quint32 rxDf = 0, txDf = 0;
-        in >> rxDf >> txDf;
+        in >> st.rxDf >> st.txDf;
         st.deCall = readUtf8(in);
         st.deGrid = readUtf8(in);
         st.dxGrid = readUtf8(in);
-        bool watchdog = false;
-        in >> watchdog;
+        in >> st.watchdogExpired;
         st.submode = readUtf8(in);
         bool fast = false;
         quint8 special = 0;
-        quint32 tolerance = 0, period = 0;
-        in >> fast >> special >> tolerance >> period;
+        quint32 tolerance = 0;
+        in >> fast >> special >> tolerance >> st.trPeriod;
         st.configurationName = readUtf8(in);
-        // I campi finali sono opzionali: quel che si e' letto resta buono.
+        st.txMessage = readUtf8(in);
+        // I campi finali sono opzionali (un WSJT-X vecchio non li manda):
+        // quel che si e' letto resta buono, il resto resta vuoto.
         msg.payload = st;
         return msg;
     }
@@ -151,6 +151,11 @@ std::optional<Message> parse(const QByteArray& datagram)
         d.message = readUtf8(in);
         if (!ok(in))
             return std::nullopt;
+        // Gli ultimi due campi (confidenza bassa, fuori onda) mancano nei
+        // client vecchi: restano falsi.
+        in >> d.lowConfidence >> d.offAir;
+        if (!ok(in))
+            d.lowConfidence = d.offAir = false;
         msg.payload = d;
         return msg;
     }
@@ -181,15 +186,15 @@ QByteArray buildStatus(const QString& clientId, const Status& st, quint32 schema
     writeUtf8(s, st.dxCall);
     writeUtf8(s, st.report);
     writeUtf8(s, st.txMode);
-    s << st.txEnabled << st.transmitting << st.decoding << quint32{0} << quint32{0};
+    s << st.txEnabled << st.transmitting << st.decoding << st.rxDf << st.txDf;
     writeUtf8(s, st.deCall);
     writeUtf8(s, st.deGrid);
     writeUtf8(s, st.dxGrid);
-    s << false;
+    s << st.watchdogExpired;
     writeUtf8(s, st.submode);
-    s << false << quint8{0} << quint32{0} << quint32{0};
+    s << false << quint8{0} << quint32{0} << st.trPeriod;
     writeUtf8(s, st.configurationName);
-    writeUtf8(s, QString());
+    writeUtf8(s, st.txMessage);
     return buffer;
 }
 
@@ -201,7 +206,7 @@ QByteArray buildDecode(const QString& clientId, const Decode& d, quint32 schema)
     s << d.isNew << d.time << d.snr << d.deltaTime << d.deltaFrequency;
     writeUtf8(s, d.mode);
     writeUtf8(s, d.message);
-    s << false << false;   // low confidence, off air
+    s << d.lowConfidence << d.offAir;
     return buffer;
 }
 

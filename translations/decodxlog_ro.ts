@@ -2407,6 +2407,98 @@ Clic dreapta: modific-o</translation>
     </message>
 </context>
 <context>
+    <name>DecodeList</name>
+    <message>
+        <source>%1 rows</source>
+        <translation>%1 rânduri</translation>
+    </message>
+    <message>
+        <source>Empty this list</source>
+        <translation>Golește lista</translation>
+    </message>
+    <message>
+        <source>Low confidence decode</source>
+        <translation>Decodare cu încredere scăzută</translation>
+    </message>
+    <message>
+        <source>Answer in Decodium</source>
+        <translation>Răspunde în Decodium</translation>
+    </message>
+    <message>
+        <source>Show in Call info and prepare the QSO</source>
+        <translation>Arată în fișa indicativului și pregătește QSO-ul</translation>
+    </message>
+    <message>
+        <source>Copy the line</source>
+        <translation>Copiază linia</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumPanel</name>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Newest on top: click for newest at the bottom, like Decodium</source>
+        <translation>Cele mai noi sus: clic pentru cele mai noi jos, ca în Decodium</translation>
+    </message>
+    <message>
+        <source>Newest at the bottom, like Decodium: click for newest on top</source>
+        <translation>Cele mai noi jos, ca în Decodium: clic pentru cele mai noi sus</translation>
+    </message>
+    <message>
+        <source>Ask Decodium to send again the decodes it has on screen</source>
+        <translation>Cere ca Decodium să retrimită decodările de pe ecran</translation>
+    </message>
+    <message>
+        <source>TX</source>
+        <translation>TX</translation>
+    </message>
+    <message>
+        <source>RX · decoding</source>
+        <translation>RX · decodează</translation>
+    </message>
+    <message>
+        <source>RX</source>
+        <translation>RX</translation>
+    </message>
+    <message>
+        <source>Rx %1 Hz · Tx %2 Hz</source>
+        <translation>Rx %1 Hz · Tx %2 Hz</translation>
+    </message>
+    <message>
+        <source>DX %1</source>
+        <translation>DX %1</translation>
+    </message>
+    <message>
+        <source>Waiting for Decodium on UDP port %1.
+In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot;Accept UDP requests&quot;.</source>
+        <translation>Se așteaptă Decodium pe portul UDP %1.
+În Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, și &quot;Accept UDP requests&quot;.</translation>
+    </message>
+    <message>
+        <source>DecoDXLog is not listening on a UDP port: set it in Settings → Decodium link.</source>
+        <translation>DecoDXLog nu ascultă pe niciun port UDP: se setează la Setări → Legătura cu Decodium.</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Spectru complet</translation>
+    </message>
+    <message>
+        <source>Every decode Decodium hears on the band shows up here.</source>
+        <translation>Aici apare fiecare decodare pe care Decodium o aude în bandă.</translation>
+    </message>
+    <message>
+        <source>Signal RX</source>
+        <translation>Semnal RX</translation>
+    </message>
+    <message>
+        <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
+        <translation>Aici apar transmisiile tale, cine te cheamă și corespondentul tău.</translation>
+    </message>
+</context>
+<context>
     <name>DuplicatesDialog</name>
     <message>
         <source>DUPLICATE QSO</source>
@@ -3402,6 +3494,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>Band map</source>
         <translation>Harta benzii</translation>
+    </message>
+    <message>
+        <source>Decodium</source>
+        <translation>Decodium</translation>
     </message>
     <message>
         <source>Station network</source>

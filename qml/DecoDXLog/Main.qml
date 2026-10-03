@@ -65,11 +65,13 @@ ApplicationWindow {
         property real mapWidth: 308
         // I pannelli chiusi e quelli in finestra propria, come liste di chiavi
         // separate da virgola. Restano da una sessione all'altra.
-        property string hiddenPanels: "cw,bandmap"
+        property string hiddenPanels: "cw,bandmap,decodium"
         property string detachedPanels: ""
         // La band map e' arrivata dopo: a chi aveva gia' la sua lavagna si
         // presenta chiusa, la apre da Pannelli quando vuole.
         property bool bandMapIntroduced: false
+        // Lo stesso per il pannello Decodium (Full Spectrum e Signal RX).
+        property bool decodiumIntroduced: false
         // La modalita' contest, e com'era la finestra principale prima di
         // entrarci: all'uscita si rimette tutto uguale.
         property bool contestModeOn: false
@@ -96,7 +98,7 @@ ApplicationWindow {
     // Ogni pannello ha una chiave. Con quella si sa come si chiama, da quale
     // file nasce quando lo si stacca, e se adesso e' agganciato, in finestra o
     // chiuso. Chiuso vuol dire chiuso davvero: lo spazio non resta vuoto.
-    readonly property var panelKeys: ["newqso", "logbook", "callinfo", "cw", "rotor", "ft2", "tabs", "map", "bandmap",
+    readonly property var panelKeys: ["newqso", "logbook", "callinfo", "cw", "rotor", "ft2", "tabs", "map", "bandmap", "decodium",
                                       "contest", "score", "rate", "cluster", "net", "dvk", "mults"]
     // Gli ultimi quattro vivono solo in finestra: nel contest ognuno se li
     // mette dove vuole, e nella disposizione agganciata non hanno un posto.
@@ -114,6 +116,7 @@ ApplicationWindow {
         case "tabs":     return qsTr("Awards, statistics, QSL, activity")
         case "map":      return qsTr("Map")
         case "bandmap":  return qsTr("Band map")
+        case "decodium": return qsTr("Decodium")
         case "net":      return qsTr("Station network")
         case "dvk":      return qsTr("Voice keyer")
         case "mults":    return qsTr("Multipliers")
@@ -135,6 +138,7 @@ ApplicationWindow {
         case "tabs":     return "BottomTabs.qml"
         case "map":      return "MapPanel.qml"
         case "bandmap":  return "BandMapPanel.qml"
+        case "decodium": return "DecodiumPanel.qml"
         case "net":      return "ContestNetPanel.qml"
         case "dvk":      return "DvkPanel.qml"
         case "mults":    return "ContestMultipliersPanel.qml"
@@ -153,7 +157,7 @@ ApplicationWindow {
     // ridimensiona dai bordi, si attacca ai bordi vicini, si stacca e si
     // chiude. Chi e' chiuso o staccato lo tengono hiddenPanels e
     // detachedPanels, come prima; posizioni e misure la lavagna.
-    readonly property var boardKeys: ["newqso", "logbook", "callinfo", "cw", "rotor", "ft2", "tabs", "map", "bandmap"]
+    readonly property var boardKeys: ["newqso", "logbook", "callinfo", "cw", "rotor", "ft2", "tabs", "map", "bandmap", "decodium"]
 
     // Il pannello sulla lavagna, con la stessa faccia delle caselle di prima
     // (item, currentTab, setTab, showMenu…).
@@ -851,6 +855,14 @@ ApplicationWindow {
                 layout.hiddenPanels = hidden.concat(["bandmap"]).join(",")
             layout.bandMapIntroduced = true
         }
+        // Il pannello Decodium e' arrivato dopo: a chi aveva gia' la sua
+        // lavagna si presenta chiuso, lo apre da Pannelli quando vuole.
+        if (!layout.decodiumIntroduced) {
+            const hidden = window.panelListOf(layout.hiddenPanels)
+            if (hidden.indexOf("decodium") < 0)
+                layout.hiddenPanels = hidden.concat(["decodium"]).join(",")
+            layout.decodiumIntroduced = true
+        }
         const what = startupShow.split(":")
         if (what[0] === "contestdesk") window.openContestDesk()
         // Il banco della gara con la finestra dei moltiplicatori.
@@ -998,6 +1010,17 @@ ApplicationWindow {
         else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))
         else if (what[0] === "logs") logsDialog.openDialog()
         else if (what[0] === "qslimport") qslImportDialog.open()
+        // Il pannello Decodium; "decodium demo" ci mette qualche decodifica finta.
+        else if (what[0] === "decodium") {
+            window.showPanel("decodium")
+            if (what[1] === "demo") decolog.decodium.demo()
+            if (what[1] === "menu") { decolog.decodium.demo(); Qt.callLater(() => window.panelItem("decodium").showMenu("row")) }
+            // Largo: i due elenchi uno accanto all'altro.
+            if (what[1] === "wide") {
+                decolog.decodium.demo()
+                mainBoard.saveGeometry("decodium", { x: mainBoard.width * 0.21, y: 0, w: mainBoard.width * 0.57, h: mainBoard.height * 0.45 })
+            }
+        }
         // Il monitor del traffico; "traffic demo" ci fa passare qualche riga finta.
         else if (what[0] === "traffic") {
             trafficWindow.open()
@@ -1876,7 +1899,7 @@ ApplicationWindow {
         external: true
         settingsCategory: "layout/mainboard"
         allKeys: window.boardKeys
-        defaultKeys: window.boardKeys.filter(k => k !== "cw" && k !== "bandmap")
+        defaultKeys: window.boardKeys.filter(k => k !== "cw" && k !== "bandmap" && k !== "decodium")
         // Come la disposizione di prima: l'inserimento a sinistra, il log al
         // centro, la colonna di destra, la fascia delle schede in basso.
         defaultGeometry: ({
@@ -1888,7 +1911,8 @@ ApplicationWindow {
             cw:       { x: 0.50, y: 0.30, w: 0.28, h: 0.38 },
             tabs:     { x: 0.00, y: 0.68, w: 0.60, h: 0.32 },
             ft2:      { x: 0.60, y: 0.68, w: 0.18, h: 0.32 },
-            bandmap:  { x: 0.60, y: 0.00, w: 0.18, h: 0.68 }
+            bandmap:  { x: 0.60, y: 0.00, w: 0.18, h: 0.68 },
+            decodium: { x: 0.50, y: 0.30, w: 0.28, h: 0.38 }
         })
         externalShown: window.boardKeys.filter(k => !window.isPanelHidden(k))
         externalFloating: window.detachedPanels
