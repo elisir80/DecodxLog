@@ -697,10 +697,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>LoTW from… to…</source>
-        <translation>LoTW from… to…</translation>
-    </message>
-    <message>
         <source>Confirmations of the QSOs made in this period</source>
         <translation>Confirmations of the QSOs made in this period</translation>
     </message>
@@ -762,6 +758,10 @@
     </message>
     <message>
         <source>LoTW…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Period from… to…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3520,6 +3520,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
 </context>
 <context>
     <name>LotwRangeRow</name>
+    <message>
+        <source>Service</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <source>QSOs from</source>
         <translation>QSOs from</translation>
@@ -9934,11 +9938,19 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>%1: the period starts after it ends</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>QRZ: add the logbook API key in Setup → QSL services</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>eQSL: add username and password in Setup → QSL services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations of the QSOs from %2 to %3…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10011,6 +10023,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
     <message>
         <source>Recovered from %1 → %2 %3 %4 %5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations in the period, %3 already marked, %4 not in the log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

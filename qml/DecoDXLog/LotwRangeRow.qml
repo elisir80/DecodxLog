@@ -10,6 +10,10 @@ RowLayout {
     spacing: 8
     // Scaricato: chi lo ospita (un menu, una finestra) si puo' chiudere.
     signal started()
+    // Quale servizio: "lotw", "eqsl" o "qrz". Con pickService si sceglie qui.
+    property string service: "lotw"
+    property bool pickService: false
+    readonly property bool busy: service === "lotw" ? decolog.lotwBusy : decolog.confirmBusy
 
     function fromIso() { return decolog.readDate(fromField.text) }
     function toIso() { return decolog.readDate(toField.text) }
@@ -17,6 +21,18 @@ RowLayout {
                                   && (toField.text.trim().length === 0 || toIso().length > 0)
                                   && (fromField.text.trim().length > 0 || toField.text.trim().length > 0)
 
+    LabeledField {
+        visible: root.pickService
+        Layout.fillWidth: false
+        label: qsTr("Service")
+        StyledComboBox {
+            Layout.preferredWidth: 110
+            readonly property var ids: ["lotw", "eqsl", "qrz"]
+            model: ["LoTW", "eQSL", "QRZ"]
+            currentIndex: Math.max(0, ids.indexOf(root.service))
+            onActivated: root.service = ids[currentIndex]
+        }
+    }
     LabeledField {
         Layout.fillWidth: false
         label: qsTr("QSOs from")
@@ -44,9 +60,12 @@ RowLayout {
         Layout.bottomMargin: 2
         text: qsTr("Download this period")
         tone: Theme.primaryColor
-        enabled: root.valid && !decolog.lotwBusy
+        enabled: root.valid && !root.busy
         onClicked: {
-            decolog.syncLotwRange(root.fromIso(), root.toIso())
+            if (root.service === "lotw")
+                decolog.syncLotwRange(root.fromIso(), root.toIso())
+            else
+                decolog.syncConfirmationsRange(root.service, root.fromIso(), root.toIso())
             root.started()
         }
     }

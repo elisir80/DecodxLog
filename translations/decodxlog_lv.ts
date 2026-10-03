@@ -701,10 +701,6 @@
         <translation>Lejupielādēt LoTW apstiprinājumus</translation>
     </message>
     <message>
-        <source>LoTW from… to…</source>
-        <translation>LoTW no… līdz…</translation>
-    </message>
-    <message>
         <source>Confirmations of the QSOs made in this period</source>
         <translation>Šajā periodā veikto QSO apstiprinājumi</translation>
     </message>
@@ -767,6 +763,10 @@
     <message>
         <source>LoTW…</source>
         <translation>LoTW…</translation>
+    </message>
+    <message>
+        <source>Period from… to…</source>
+        <translation>Periods no… līdz…</translation>
     </message>
     <message>
         <source>LoTW last sync %1</source>
@@ -3535,6 +3535,10 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
 </context>
 <context>
     <name>LotwRangeRow</name>
+    <message>
+        <source>Service</source>
+        <translation type="unfinished">Pakalpojums</translation>
+    </message>
     <message>
         <source>QSOs from</source>
         <translation>QSO no</translation>
@@ -9977,12 +9981,20 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>Apstiprināta jauna FT2 Award vienība: %1</translation>
     </message>
     <message>
+        <source>%1: the period starts after it ends</source>
+        <translation>%1: periods sākas pēc beigām</translation>
+    </message>
+    <message>
         <source>QRZ: add the logbook API key in Setup → QSL services</source>
         <translation>QRZ: ieraksti žurnāla API atslēgu sadaļā Iestatījumi → QSL pakalpojumi</translation>
     </message>
     <message>
         <source>eQSL: add username and password in Setup → QSL services</source>
         <translation>eQSL: ieraksti lietotājvārdu un paroli sadaļā Iestatījumi → QSL pakalpojumi</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations of the QSOs from %2 to %3…</source>
+        <translation>%1: lejupielādē QSO apstiprinājumus no %2 līdz %3…</translation>
     </message>
     <message>
         <source>%1: downloading the confirmations since %2…</source>
@@ -10059,6 +10071,10 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>Recovered from %1 → %2 %3 %4 %5</source>
         <translation>Atgūts no %1 → %2 %3 %4 %5</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations in the period, %3 already marked, %4 not in the log</source>
+        <translation>%1: %2 jauni apstiprinājumi periodā, %3 jau atzīmēti, %4 nav žurnālā</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>

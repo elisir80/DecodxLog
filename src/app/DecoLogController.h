@@ -530,6 +530,9 @@ public:
     // Scarica le conferme di "eqsl" o "qrz": solo le nuove dall'ultimo scarico,
     // o tutte con `full`.
     Q_INVOKABLE void syncConfirmations(const QString& service, bool full = false);
+    // Le conferme (eQSL o QRZ) dei QSO fatti dal … al …, come per LoTW; una
+    // delle due date si puo' lasciare vuota. Date ISO.
+    Q_INVOKABLE void syncConfirmationsRange(const QString& service, const QString& fromIso, const QString& toIso);
     Q_INVOKABLE void cancelConfirmations()
     {
         m_confirmQueue.clear();
@@ -835,6 +838,10 @@ private:
     QList<ConfirmAccount> m_confirmQueue;   // gli account che aspettano il loro turno
     ConfirmAccount m_confirmAccount;        // quello che sta scaricando
     bool m_confirmFull{false};
+    // Il periodo dello scarico in corso (vuoti: lo scarico di sempre).
+    QDate m_confirmFrom;
+    QDate m_confirmTo;
+    void startConfirmations(const QString& service, bool full, const QDate& from, const QDate& to);
     bool m_confirmFailed{false};   // l'ultimo stato e' un errore
     bool m_recoveryEnabled{true};
     QString m_decodiumLogPath;     // scelto a mano; vuoto = quello di Decodium

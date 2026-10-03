@@ -693,10 +693,6 @@
         <translation>LoTW の確認を取り込む</translation>
     </message>
     <message>
-        <source>LoTW from… to…</source>
-        <translation>LoTW 期間指定…</translation>
-    </message>
-    <message>
         <source>Confirmations of the QSOs made in this period</source>
         <translation>この期間に行った QSO のコンファメーション</translation>
     </message>
@@ -759,6 +755,10 @@
     <message>
         <source>LoTW…</source>
         <translation>LoTW…</translation>
+    </message>
+    <message>
+        <source>Period from… to…</source>
+        <translation>期間 から… まで…</translation>
     </message>
     <message>
         <source>LoTW last sync %1</source>
@@ -3513,6 +3513,10 @@ DecoDXLog で一度開いて更新してください。</translation>
 </context>
 <context>
     <name>LotwRangeRow</name>
+    <message>
+        <source>Service</source>
+        <translation type="unfinished">サービス</translation>
+    </message>
     <message>
         <source>QSOs from</source>
         <translation>QSO 開始日</translation>
@@ -9899,12 +9903,20 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>FT2 Award の新しいエンティティが確認されました: %1</translation>
     </message>
     <message>
+        <source>%1: the period starts after it ends</source>
+        <translation>%1：期間の開始が終了より後です</translation>
+    </message>
+    <message>
         <source>QRZ: add the logbook API key in Setup → QSL services</source>
         <translation>QRZ: 設定 → QSL のサービス に、ログブックの API キーを入れてください</translation>
     </message>
     <message>
         <source>eQSL: add username and password in Setup → QSL services</source>
         <translation>eQSL: 設定 → QSL のサービス に、ユーザー名とパスワードを入れてください</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations of the QSOs from %2 to %3…</source>
+        <translation>%1：%2 から %3 までの QSO のコンファメーションをダウンロード中…</translation>
     </message>
     <message>
         <source>%1: downloading the confirmations since %2…</source>
@@ -9973,6 +9985,10 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>Recovered from %1 → %2 %3 %4 %5</source>
         <translation>%1 から取り戻しました → %2 %3 %4 %5</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations in the period, %3 already marked, %4 not in the log</source>
+        <translation>%1: 期間内の新しい確認 %2 件、すでに印の付いていたもの %3 件、ログにないもの %4 件</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>

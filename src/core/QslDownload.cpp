@@ -209,7 +209,24 @@ void ConfirmationDownloader::cancel()
         m_reply->abort();
 }
 
-void ConfirmationDownloader::downloadEqsl(const QString& user, const QString& password, const QDateTime& since)
+QList<AdifRecord> confirmations::inPeriod(const QList<AdifRecord>& records, const QDate& from, const QDate& to)
+{
+    if (!from.isValid() && !to.isValid())
+        return records;
+    QList<AdifRecord> out;
+    for (const AdifRecord& r : records) {
+        const QDate day = QDate::fromString(r.value(QStringLiteral("QSO_DATE")).trimmed(), QStringLiteral("yyyyMMdd"));
+        if (!day.isValid())
+            continue;
+        if ((from.isValid() && day < from) || (to.isValid() && day > to))
+            continue;
+        out.append(r);
+    }
+    return out;
+}
+
+void ConfirmationDownloader::downloadEqsl(const QString& user, const QString& password, const QDateTime& since,
+                                          const QDate& from, const QDate& to)
 {
     if (m_reply)
         return;
@@ -221,6 +238,11 @@ void ConfirmationDownloader::downloadEqsl(const QString& user, const QString& pa
     q.addQueryItem(QStringLiteral("HamOnly"), QStringLiteral("1"));
     if (since.isValid())
         q.addQueryItem(QStringLiteral("RcvdSince"), since.toUTC().toString(QStringLiteral("yyyyMMddHHmm")));
+    // Il periodo dei QSO, come lo chiede eQSL: MM/GG/AAAA.
+    if (from.isValid())
+        q.addQueryItem(QStringLiteral("LimitDateLo"), from.toString(QStringLiteral("MM/dd/yyyy")));
+    if (to.isValid())
+        q.addQueryItem(QStringLiteral("LimitDateHi"), to.toString(QStringLiteral("MM/dd/yyyy")));
     url.setQuery(q);
     QNetworkRequest request(url);
     network::useHttp11(request);
@@ -228,7 +250,7 @@ void ConfirmationDownloader::downloadEqsl(const QString& user, const QString& pa
     request.setTransferTimeout(120000);
     m_reply = m_net->get(request);
     QNetworkReply* page = m_reply;
-    connect(page, &QNetworkReply::finished, this, [this, page, url, password] {
+    connect(page, &QNetworkReply::finished, this, [this, page, url, password, from, to] {
         page->deleteLater();
         confirmations::Report report;
         report.service = QStringLiteral("eqsl");
@@ -268,7 +290,7 @@ void ConfirmationDownloader::downloadEqsl(const QString& user, const QString& pa
         request.setTransferTimeout(120000);
         m_reply = m_net->get(request);
         QNetworkReply* adi = m_reply;
-        connect(adi, &QNetworkReply::finished, this, [this, adi] {
+        connect(adi, &QNetworkReply::finished, this, [this, adi, from, to] {
             adi->deleteLater();
             confirmations::Report report;
             report.service = QStringLiteral("eqsl");
@@ -277,19 +299,22 @@ void ConfirmationDownloader::downloadEqsl(const QString& user, const QString& pa
                 finish(report);
                 return;
             }
-            report.confirmations = confirmations::eqslConfirmations(adi->readAll());
+            report.confirmations = confirmations::inPeriod(confirmations::eqslConfirmations(adi->readAll()), from, to);
             report.ok = true;
             finish(report);
         });
     });
 }
 
-void ConfirmationDownloader::downloadQrz(const QString& apiKey, const QDate& since)
+void ConfirmationDownloader::downloadQrz(const QString& apiKey, const QDate& since, const QDate& from,
+                                         const QDate& to)
 {
     if (m_reply)
         return;
     m_qrzKey = apiKey;
     m_qrzSince = since;
+    m_qrzFrom = from;
+    m_qrzTo = to;
     m_qrzAfter = 0;
     m_qrzPages = 0;
     m_qrzConfirmations.clear();
@@ -342,7 +367,7 @@ void ConfirmationDownloader::fetchQrzPage()
             fetchQrzPage();
             return;
         }
-        report.confirmations = m_qrzConfirmations;
+        report.confirmations = confirmations::inPeriod(m_qrzConfirmations, m_qrzFrom, m_qrzTo);
         m_qrzConfirmations.clear();
         report.ok = true;
         finish(report);

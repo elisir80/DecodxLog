@@ -697,10 +697,6 @@
         <translation>LoTW-bevestigingen ophalen</translation>
     </message>
     <message>
-        <source>LoTW from… to…</source>
-        <translation>LoTW van… tot…</translation>
-    </message>
-    <message>
         <source>Confirmations of the QSOs made in this period</source>
         <translation>Bevestigingen van de QSO&apos;s uit deze periode</translation>
     </message>
@@ -763,6 +759,10 @@
     <message>
         <source>LoTW…</source>
         <translation>LoTW…</translation>
+    </message>
+    <message>
+        <source>Period from… to…</source>
+        <translation>Periode van… tot…</translation>
     </message>
     <message>
         <source>LoTW last sync %1</source>
@@ -3524,6 +3524,10 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
 </context>
 <context>
     <name>LotwRangeRow</name>
+    <message>
+        <source>Service</source>
+        <translation type="unfinished">Dienst</translation>
+    </message>
     <message>
         <source>QSOs from</source>
         <translation>QSO&apos;s van</translation>
@@ -9938,12 +9942,20 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
         <translation>Nieuwe FT2 Award-entiteit bevestigd: %1</translation>
     </message>
     <message>
+        <source>%1: the period starts after it ends</source>
+        <translation>%1: de periode begint na het einde</translation>
+    </message>
+    <message>
         <source>QRZ: add the logbook API key in Setup → QSL services</source>
         <translation>QRZ: vul de API-sleutel van het logboek in bij Instellingen → QSL-diensten</translation>
     </message>
     <message>
         <source>eQSL: add username and password in Setup → QSL services</source>
         <translation>eQSL: vul gebruikersnaam en wachtwoord in bij Instellingen → QSL-diensten</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations of the QSOs from %2 to %3…</source>
+        <translation>%1: bevestigingen van de QSO&apos;s van %2 tot %3 downloaden…</translation>
     </message>
     <message>
         <source>%1: downloading the confirmations since %2…</source>
@@ -10016,6 +10028,10 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
     <message>
         <source>Recovered from %1 → %2 %3 %4 %5</source>
         <translation>Teruggehaald uit %1 → %2 %3 %4 %5</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations in the period, %3 already marked, %4 not in the log</source>
+        <translation>%1: %2 nieuwe bevestigingen in de periode, %3 al gemarkeerd, %4 niet in het logboek</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>

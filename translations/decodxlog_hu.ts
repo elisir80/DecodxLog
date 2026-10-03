@@ -693,10 +693,6 @@
         <translation>LoTW-igazolások letöltése</translation>
     </message>
     <message>
-        <source>LoTW from… to…</source>
-        <translation>LoTW ettől… eddig…</translation>
-    </message>
-    <message>
         <source>Confirmations of the QSOs made in this period</source>
         <translation>Az ebben az időszakban készült QSO-k visszaigazolásai</translation>
     </message>
@@ -759,6 +755,10 @@
     <message>
         <source>LoTW…</source>
         <translation>LoTW…</translation>
+    </message>
+    <message>
+        <source>Period from… to…</source>
+        <translation>Időszak ettől… eddig…</translation>
     </message>
     <message>
         <source>LoTW last sync %1</source>
@@ -3513,6 +3513,10 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
 </context>
 <context>
     <name>LotwRangeRow</name>
+    <message>
+        <source>Service</source>
+        <translation type="unfinished">Szolgáltatás</translation>
+    </message>
     <message>
         <source>QSOs from</source>
         <translation>QSO-k ettől</translation>
@@ -9899,12 +9903,20 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>Új FT2 Award-entitás igazolva: %1</translation>
     </message>
     <message>
+        <source>%1: the period starts after it ends</source>
+        <translation>%1: az időszak a vége után kezdődik</translation>
+    </message>
+    <message>
         <source>QRZ: add the logbook API key in Setup → QSL services</source>
         <translation>QRZ: add meg a napló API-kulcsát a Beállítások → QSL-szolgáltatások alatt</translation>
     </message>
     <message>
         <source>eQSL: add username and password in Setup → QSL services</source>
         <translation>eQSL: add meg a felhasználónevet és a jelszót a Beállítások → QSL-szolgáltatások alatt</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations of the QSOs from %2 to %3…</source>
+        <translation>%1: a QSO-k visszaigazolásainak letöltése %2 és %3 között…</translation>
     </message>
     <message>
         <source>%1: downloading the confirmations since %2…</source>
@@ -9973,6 +9985,10 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>Recovered from %1 → %2 %3 %4 %5</source>
         <translation>Visszahozva innen: %1 → %2 %3 %4 %5</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations in the period, %3 already marked, %4 not in the log</source>
+        <translation>%1: %2 új igazolás az időszakban, %3 már meg volt jelölve, %4 nincs a naplóban</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>

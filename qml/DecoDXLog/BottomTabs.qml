@@ -315,13 +315,13 @@ GlassPanel {
                     enabled: !decolog.lotwBusy
                     onClicked: decolog.syncLotw(false)
                 }
-                // Lo scarico per un periodo: dal … al …
+                // Lo scarico per un periodo: dal … al …, per LoTW, eQSL o QRZ.
                 GlassButton {
                     id: lotwPeriodButton
-                    text: qsTr("LoTW from… to…")
+                    text: qsTr("Period from… to…")
                     buttonHeight: 24
                     fontPixelSize: 11
-                    enabled: !decolog.lotwBusy
+                    enabled: !decolog.lotwBusy || !decolog.confirmBusy
                     onClicked: lotwPeriod.open()
                     Popup {
                         id: lotwPeriod
@@ -337,7 +337,7 @@ GlassPanel {
                                 color: Theme.textSecondary
                                 font.pixelSize: 12
                             }
-                            LotwRangeRow { onStarted: lotwPeriod.close() }
+                            LotwRangeRow { pickService: true; onStarted: lotwPeriod.close() }
                         }
                     }
                 }

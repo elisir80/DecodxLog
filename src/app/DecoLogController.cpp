@@ -4575,6 +4575,31 @@ QList<DecoLogController::ConfirmAccount> DecoLogController::confirmAccounts(cons
 
 void DecoLogController::syncConfirmations(const QString& service, bool full)
 {
+    startConfirmations(service, full, QDate(), QDate());
+}
+
+void DecoLogController::syncConfirmationsRange(const QString& service, const QString& fromIso, const QString& toIso)
+{
+    const QDate from = QDate::fromString(fromIso.trimmed(), Qt::ISODate);
+    const QDate to = QDate::fromString(toIso.trimmed(), Qt::ISODate);
+    if (!from.isValid() && !to.isValid()) {
+        startConfirmations(service, true, QDate(), QDate());
+        return;
+    }
+    if (from.isValid() && to.isValid() && from > to) {
+        if (confirmBusy())
+            return;
+        m_confirmFailed = true;
+        m_confirmStatus = tr("%1: the period starts after it ends").arg(confirmLabel(service));
+        addActivity(confirmLabel(service).toUpper(), m_confirmStatus, QStringLiteral("warning"));
+        emit confirmChanged();
+        return;
+    }
+    startConfirmations(service, true, from, to);
+}
+
+void DecoLogController::startConfirmations(const QString& service, bool full, const QDate& from, const QDate& to)
+{
     if (confirmBusy() || !m_db.isOpen())
         return;
     if (service != QLatin1String("eqsl") && service != QLatin1String("qrz"))
@@ -4595,6 +4620,8 @@ void DecoLogController::syncConfirmations(const QString& service, bool full)
                     QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
     m_confirmQueue = accounts;
     m_confirmFull = full;
+    m_confirmFrom = from;
+    m_confirmTo = to;
     m_confirmFailed = false;
     startNextConfirmAccount();
 }
@@ -4603,6 +4630,9 @@ void DecoLogController::startNextConfirmAccount()
 {
     if (m_confirmQueue.isEmpty()) {
         m_confirmService.clear();
+        // Un periodo vale per questo scarico soltanto.
+        m_confirmFrom = QDate();
+        m_confirmTo = QDate();
         // Finito uno scarico automatico, tocca all'altro servizio se e' ora.
         if (std::exchange(m_confirmAuto, false))
             QTimer::singleShot(10'000, this, &DecoLogController::checkConfirmSchedule);
@@ -4613,17 +4643,26 @@ void DecoLogController::startNextConfirmAccount()
     const ConfirmAccount a = m_confirmAccount;
     // Solo quello arrivato dopo l'ultimo scarico riuscito, con un giorno di margine.
     const QDateTime last = QDateTime::fromString(m_db.setting(a.key + QStringLiteral(".last_sync_at")), Qt::ISODate);
-    const QDateTime since = confirmations::downloadSince(last, m_confirmFull);
+    const bool ranged = m_confirmFrom.isValid() || m_confirmTo.isValid();
+    // Un periodo si chiede per intero, non dall'ultimo scarico.
+    const QDateTime since = ranged ? QDateTime() : confirmations::downloadSince(last, m_confirmFull);
+    const QDate from = m_confirmFrom;
+    const QDate to = m_confirmTo;
     m_confirmStarting = a.service;
     m_confirmService = a.service;
-    m_confirmStatus = since.isValid()
-                          ? tr("%1: downloading the confirmations since %2…")
-                                .arg(a.label, dates::show(since.date().toString(Qt::ISODate)))
-                          : tr("%1: downloading all the confirmations…").arg(a.label);
+    m_confirmStatus = ranged
+        ? tr("%1: downloading the confirmations of the QSOs from %2 to %3…")
+              .arg(a.label,
+                   from.isValid() ? dates::show(from.toString(Qt::ISODate)) : QStringLiteral("…"),
+                   to.isValid() ? dates::show(to.toString(Qt::ISODate)) : QStringLiteral("…"))
+        : since.isValid()
+              ? tr("%1: downloading the confirmations since %2…")
+                    .arg(a.label, dates::show(since.date().toString(Qt::ISODate)))
+              : tr("%1: downloading all the confirmations…").arg(a.label);
     addActivity(confirmLabel(a.service).toUpper(), m_confirmStatus);
     emit confirmChanged();
     const QString account = m_credentials->account(a.credential);
-    m_credentials->readSecret(a.credential, [this, a, account, since](const QString& secret, const QString& error) {
+    m_credentials->readSecret(a.credential, [this, a, account, since, from, to](const QString& secret, const QString& error) {
         m_confirmStarting.clear();
         if (!error.isEmpty() || secret.isEmpty()) {
             confirmations::Report failed;
@@ -4633,9 +4672,9 @@ void DecoLogController::startNextConfirmAccount()
             return;
         }
         if (a.service == QLatin1String("qrz"))
-            m_confirmDownloader.downloadQrz(secret, since.isValid() ? since.date() : QDate());
+            m_confirmDownloader.downloadQrz(secret, since.isValid() ? since.date() : QDate(), from, to);
         else
-            m_confirmDownloader.downloadEqsl(account, secret, since);
+            m_confirmDownloader.downloadEqsl(account, secret, since, from, to);
         emit confirmChanged();
     });
 }
@@ -5160,12 +5199,22 @@ void DecoLogController::onConfirmationReport(const confirmations::Report& report
     const ConfirmTally t = applyConfirmations(report.service, report.confirmations, a.only, a.except, a.label,
                                               a.credential);
     recordQslImport(a.label, report.service, t, !m_confirmAuto);
-    m_db.setSetting(a.key + QStringLiteral(".last_sync_at"), QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
-    m_confirmStatus = tr("%1: %2 new confirmations, %3 already marked, %4 not in the log")
-                          .arg(a.label)
-                          .arg(t.confirmed)
-                          .arg(t.already)
-                          .arg(t.notFound);
+    // Uno scarico per un periodo non e' un «siamo allineati»: lo scarico di
+    // sempre riparte da dove era.
+    const bool ranged = m_confirmFrom.isValid() || m_confirmTo.isValid();
+    if (!ranged)
+        m_db.setSetting(a.key + QStringLiteral(".last_sync_at"), QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
+    m_confirmStatus = ranged
+        ? tr("%1: %2 new confirmations in the period, %3 already marked, %4 not in the log")
+              .arg(a.label)
+              .arg(t.confirmed)
+              .arg(t.already)
+              .arg(t.notFound)
+        : tr("%1: %2 new confirmations, %3 already marked, %4 not in the log")
+              .arg(a.label)
+              .arg(t.confirmed)
+              .arg(t.already)
+              .arg(t.notFound);
     m_db.setSetting(a.key + QStringLiteral(".last_result"), m_confirmStatus);
     addActivity(category, m_confirmStatus, t.confirmed > 0 ? QStringLiteral("success") : QStringLiteral("info"));
     for (const QString& m : t.missing)

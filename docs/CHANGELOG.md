@@ -3,6 +3,19 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.54 — 3 ottobre 2026
+
+**Le conferme di un periodo, per LoTW, eQSL e QRZ.** Nella scheda QSL il pulsante «LoTW dal… al…»
+diventa «Periodo dal… al…», con la scelta del servizio (LoTW, eQSL, QRZ) e le stesse due date di
+LoTW — i QSO fatti dal … al …, estremi compresi, una delle due si puo' lasciare vuota. Prima eQSL e
+QRZ sapevano solo scaricare «le nuove dall'ultima volta» o tutto.
+- **eQSL** filtra per data del QSO (`LimitDateLo`/`LimitDateHi`), QRZ si chiede per intero e il
+  periodo si tiene qui; per tutti e due il filtro si rifa' anche in locale, senza fidarsi.
+- Uno scarico per un periodo **non sposta** «da quando» dello scarico di sempre: scaricare settembre
+  2024 non vuol dire essere allineati a oggi. Il periodo vale per quello scarico soltanto, anche se
+  l'account e' piu' d'uno (i profili della stazione), e il riepilogo dell'importazione lo mostra come gli altri.
+- Un periodo che comincia dopo la fine non parte: lo dice.
+
 ## 1.16.53 — 3 ottobre 2026
 
 **Il rotore Yaesu G-450 (e i GS-232) dentro il gateway.** Arriva da DecoRotor, che ha imparato il

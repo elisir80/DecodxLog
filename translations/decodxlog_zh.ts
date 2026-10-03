@@ -693,10 +693,6 @@
         <translation>下载 LoTW 确认</translation>
     </message>
     <message>
-        <source>LoTW from… to…</source>
-        <translation>LoTW 从…到…</translation>
-    </message>
-    <message>
         <source>Confirmations of the QSOs made in this period</source>
         <translation>此期间所做 QSO 的确认</translation>
     </message>
@@ -759,6 +755,10 @@
     <message>
         <source>LoTW…</source>
         <translation>LoTW…</translation>
+    </message>
+    <message>
+        <source>Period from… to…</source>
+        <translation>期间 从… 到…</translation>
     </message>
     <message>
         <source>LoTW last sync %1</source>
@@ -3513,6 +3513,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
 </context>
 <context>
     <name>LotwRangeRow</name>
+    <message>
+        <source>Service</source>
+        <translation type="unfinished">服务</translation>
+    </message>
     <message>
         <source>QSOs from</source>
         <translation>QSO 从</translation>
@@ -9899,12 +9903,20 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>确认了 FT2 Award 的一个新实体：%1</translation>
     </message>
     <message>
+        <source>%1: the period starts after it ends</source>
+        <translation>%1：期间的开始晚于结束</translation>
+    </message>
+    <message>
         <source>QRZ: add the logbook API key in Setup → QSL services</source>
         <translation>QRZ：请在 设置 → QSL 服务 里填上日志本的 API 密钥</translation>
     </message>
     <message>
         <source>eQSL: add username and password in Setup → QSL services</source>
         <translation>eQSL：请在 设置 → QSL 服务 里填上用户名和密码</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations of the QSOs from %2 to %3…</source>
+        <translation>%1：正在下载 %2 到 %3 的 QSO 确认…</translation>
     </message>
     <message>
         <source>%1: downloading the confirmations since %2…</source>
@@ -9973,6 +9985,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Recovered from %1 → %2 %3 %4 %5</source>
         <translation>从 %1 找回 → %2 %3 %4 %5</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations in the period, %3 already marked, %4 not in the log</source>
+        <translation>%1：期间内新确认 %2 条，本来就标好的 %3 条，日志里没有的 %4 条</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>

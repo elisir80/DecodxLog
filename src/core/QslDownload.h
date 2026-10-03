@@ -69,6 +69,11 @@ QString withoutSecret(QString text, const QString& secret);
 // (QSLRDATE = APP_QRZLOG_QSLDATE).
 QList<AdifRecord> qrzConfirmations(const QList<AdifRecord>& records);
 
+// Le conferme dei soli QSO fatti dal `from` al `to`, estremi compresi (una
+// delle due date puo' mancare: dal primo QSO, o fino a oggi). Un QSO senza
+// data valida non puo' stare in un periodo e resta fuori.
+QList<AdifRecord> inPeriod(const QList<AdifRecord>& records, const QDate& from, const QDate& to);
+
 // Da quando chiedere le conferme: dall'ultimo scarico riuscito meno un giorno
 // (quello che arrivava mentre si scaricava), tutto se non ce n'e' uno o se si
 // chiede tutto.
@@ -91,10 +96,15 @@ public:
     void setEndpoints(const QUrl& eqslInbox, const QUrl& qrzApi);
     bool busy() const { return m_reply != nullptr; }
 
-    // Le eQSL ricevute da `since` (vuoto = tutte).
-    void downloadEqsl(const QString& user, const QString& password, const QDateTime& since = {});
+    // Le eQSL ricevute da `since` (vuoto = tutte). Con `from`/`to` solo quelle
+    // dei QSO fatti in quel periodo (come LoTW): eQSL filtra per data del QSO,
+    // e il filtro si rifa' qui, per non fidarsi.
+    void downloadEqsl(const QString& user, const QString& password, const QDateTime& since = {},
+                      const QDate& from = {}, const QDate& to = {});
     // Le conferme di QRZ dei QSO modificati da `since` (non valida = tutte).
-    void downloadQrz(const QString& apiKey, const QDate& since = {});
+    // Con `from`/`to` solo quelle dei QSO fatti in quel periodo: si scarica
+    // tutto quello che QRZ ha confermato e si tiene il periodo.
+    void downloadQrz(const QString& apiKey, const QDate& since = {}, const QDate& from = {}, const QDate& to = {});
     void cancel();
 
     static constexpr int kQrzPage = 250;
@@ -113,6 +123,8 @@ private:
     // Lo scarico di QRZ in corso, pagina dopo pagina.
     QString m_qrzKey;
     QDate m_qrzSince;
+    QDate m_qrzFrom;
+    QDate m_qrzTo;
     qint64 m_qrzAfter{0};
     int m_qrzPages{0};
     QList<AdifRecord> m_qrzConfirmations;

@@ -701,10 +701,6 @@
         <translation>Descarcă confirmările LoTW</translation>
     </message>
     <message>
-        <source>LoTW from… to…</source>
-        <translation>LoTW de la… la…</translation>
-    </message>
-    <message>
         <source>Confirmations of the QSOs made in this period</source>
         <translation>Confirmările QSO-urilor făcute în această perioadă</translation>
     </message>
@@ -767,6 +763,10 @@
     <message>
         <source>LoTW…</source>
         <translation>LoTW…</translation>
+    </message>
+    <message>
+        <source>Period from… to…</source>
+        <translation>Perioada de la… până la…</translation>
     </message>
     <message>
         <source>LoTW last sync %1</source>
@@ -3535,6 +3535,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
 </context>
 <context>
     <name>LotwRangeRow</name>
+    <message>
+        <source>Service</source>
+        <translation type="unfinished">Serviciu</translation>
+    </message>
     <message>
         <source>QSOs from</source>
         <translation>QSO de la</translation>
@@ -9977,12 +9981,20 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Entitate nouă FT2 Award confirmată: %1</translation>
     </message>
     <message>
+        <source>%1: the period starts after it ends</source>
+        <translation>%1: perioada începe după ce se termină</translation>
+    </message>
+    <message>
         <source>QRZ: add the logbook API key in Setup → QSL services</source>
         <translation>QRZ: pune cheia API a jurnalului la Setări → Servicii QSL</translation>
     </message>
     <message>
         <source>eQSL: add username and password in Setup → QSL services</source>
         <translation>eQSL: pune numele de utilizator și parola la Setări → Servicii QSL</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations of the QSOs from %2 to %3…</source>
+        <translation>%1: descarc confirmările QSO-urilor de la %2 la %3…</translation>
     </message>
     <message>
         <source>%1: downloading the confirmations since %2…</source>
@@ -10059,6 +10071,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>Recovered from %1 → %2 %3 %4 %5</source>
         <translation>Recuperat din %1 → %2 %3 %4 %5</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations in the period, %3 already marked, %4 not in the log</source>
+        <translation>%1: %2 confirmări noi în perioadă, %3 deja marcate, %4 care nu sunt în jurnal</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>

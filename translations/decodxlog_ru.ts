@@ -701,10 +701,6 @@
         <translation>Скачать подтверждения LoTW</translation>
     </message>
     <message>
-        <source>LoTW from… to…</source>
-        <translation>LoTW с… по…</translation>
-    </message>
-    <message>
         <source>Confirmations of the QSOs made in this period</source>
         <translation>Подтверждения QSO за этот период</translation>
     </message>
@@ -767,6 +763,10 @@
     <message>
         <source>LoTW…</source>
         <translation>LoTW…</translation>
+    </message>
+    <message>
+        <source>Period from… to…</source>
+        <translation>Период с… по…</translation>
     </message>
     <message>
         <source>LoTW last sync %1</source>
@@ -3535,6 +3535,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
 </context>
 <context>
     <name>LotwRangeRow</name>
+    <message>
+        <source>Service</source>
+        <translation type="unfinished">Служба</translation>
+    </message>
     <message>
         <source>QSOs from</source>
         <translation>QSO с</translation>
@@ -9977,12 +9981,20 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Подтверждена новая территория FT2 Award: %1</translation>
     </message>
     <message>
+        <source>%1: the period starts after it ends</source>
+        <translation>%1: период начинается после окончания</translation>
+    </message>
+    <message>
         <source>QRZ: add the logbook API key in Setup → QSL services</source>
         <translation>QRZ: укажите ключ API журнала в «Настройки → Службы QSL»</translation>
     </message>
     <message>
         <source>eQSL: add username and password in Setup → QSL services</source>
         <translation>eQSL: укажите имя пользователя и пароль в «Настройки → Службы QSL»</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations of the QSOs from %2 to %3…</source>
+        <translation>%1: загрузка подтверждений QSO с %2 по %3…</translation>
     </message>
     <message>
         <source>%1: downloading the confirmations since %2…</source>
@@ -10059,6 +10071,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Recovered from %1 → %2 %3 %4 %5</source>
         <translation>Восстановлено из %1 → %2 %3 %4 %5</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations in the period, %3 already marked, %4 not in the log</source>
+        <translation>%1: новых подтверждений за период %2, уже отмечено %3, нет в журнале %4</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>

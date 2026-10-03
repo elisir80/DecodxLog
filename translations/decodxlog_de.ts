@@ -697,10 +697,6 @@
         <translation>LoTW-Bestätigungen holen</translation>
     </message>
     <message>
-        <source>LoTW from… to…</source>
-        <translation>LoTW von… bis…</translation>
-    </message>
-    <message>
         <source>Confirmations of the QSOs made in this period</source>
         <translation>Bestätigungen der QSOs aus diesem Zeitraum</translation>
     </message>
@@ -763,6 +759,10 @@
     <message>
         <source>LoTW…</source>
         <translation>LoTW…</translation>
+    </message>
+    <message>
+        <source>Period from… to…</source>
+        <translation>Zeitraum von… bis…</translation>
     </message>
     <message>
         <source>LoTW last sync %1</source>
@@ -3524,6 +3524,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
 </context>
 <context>
     <name>LotwRangeRow</name>
+    <message>
+        <source>Service</source>
+        <translation type="unfinished">Dienst</translation>
+    </message>
     <message>
         <source>QSOs from</source>
         <translation>QSOs vom</translation>
@@ -9938,12 +9942,20 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Neues Gebiet fürs FT2-Diplom bestätigt: %1</translation>
     </message>
     <message>
+        <source>%1: the period starts after it ends</source>
+        <translation>%1: der Zeitraum beginnt nach seinem Ende</translation>
+    </message>
+    <message>
         <source>QRZ: add the logbook API key in Setup → QSL services</source>
         <translation>QRZ: den Logbuch-API-Schlüssel in Einrichtung → QSL-Dienste eintragen</translation>
     </message>
     <message>
         <source>eQSL: add username and password in Setup → QSL services</source>
         <translation>eQSL: Benutzername und Passwort in Einrichtung → QSL-Dienste eintragen</translation>
+    </message>
+    <message>
+        <source>%1: downloading the confirmations of the QSOs from %2 to %3…</source>
+        <translation>%1: lade die Bestätigungen der QSOs vom %2 bis %3…</translation>
     </message>
     <message>
         <source>%1: downloading the confirmations since %2…</source>
@@ -10016,6 +10028,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Recovered from %1 → %2 %3 %4 %5</source>
         <translation>Zurückgeholt aus %1 → %2 %3 %4 %5</translation>
+    </message>
+    <message>
+        <source>%1: %2 new confirmations in the period, %3 already marked, %4 not in the log</source>
+        <translation>%1: %2 neue Bestätigungen im Zeitraum, %3 schon markiert, %4 nicht im Logbuch</translation>
     </message>
     <message>
         <source>%1: %2 new confirmations, %3 already marked, %4 not in the log</source>

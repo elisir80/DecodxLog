@@ -323,6 +323,71 @@ private slots:
         QCOMPARE(server.requests.at(1).path, QByteArray("/downloadedfiles/iu8lmc7f3a.adi"));
     }
 
+    // Un periodo di QSO, come per LoTW: gli estremi compresi, una data si puo' lasciare vuota.
+    void periodFiltersTheQsoDate()
+    {
+        const QList<AdifRecord> all{qso("A1AA", "20m", "FT8", "", "20260831", "2359"),
+                                    qso("B1BB", "20m", "FT8", "", "20260901", "0000"),
+                                    qso("C1CC", "20m", "FT8", "", "20260915", "1200"),
+                                    qso("D1DD", "20m", "FT8", "", "20260930", "2359"),
+                                    qso("E1EE", "20m", "FT8", "", "20261001", "0001"),
+                                    qso("F1FF", "20m", "FT8", "", "", "1200")};
+        auto calls = [](const QList<AdifRecord>& list) {
+            QStringList out;
+            for (const AdifRecord& r : list)
+                out << r.value("CALL");
+            return out;
+        };
+        const QDate sep1(2026, 9, 1), sep30(2026, 9, 30);
+        QCOMPARE(calls(confirmations::inPeriod(all, sep1, sep30)), QStringList({"B1BB", "C1CC", "D1DD"}));
+        QCOMPARE(calls(confirmations::inPeriod(all, sep30, QDate())), QStringList({"D1DD", "E1EE"}));
+        QCOMPARE(calls(confirmations::inPeriod(all, QDate(), sep1)), QStringList({"A1AA", "B1BB"}));
+        // Nessun periodo: tutto, anche la riga senza data.
+        QCOMPARE(confirmations::inPeriod(all, QDate(), QDate()).size(), all.size());
+    }
+
+    void downloadEqslForAPeriod()
+    {
+        FakeServer server;
+        server.answer = [](const FakeServer::Request& r) {
+            return r.path.endsWith(".adi") ? kEqslAdif : kEqslPage;
+        };
+        ConfirmationDownloader d;
+        d.setEndpoints(server.url("/qslcard/DownloadInBox.cfm"), server.url("/api"));
+        QSignalSpy done(&d, &ConfirmationDownloader::finished);
+        d.downloadEqsl("IU8LMC", "pw", QDateTime(), QDate(2026, 9, 1), QDate(2026, 9, 30));
+        QVERIFY(done.wait(5000));
+        const auto report = done.at(0).at(0).value<confirmations::Report>();
+        QVERIFY2(report.ok, qPrintable(report.error));
+        // eQSL filtra per data del QSO (MM/GG/AAAA), non per data di ricezione.
+        const QUrlQuery q = server.requests.at(0).query;
+        QCOMPARE(q.queryItemValue("LimitDateLo", QUrl::FullyDecoded), QString("09/01/2026"));
+        QCOMPARE(q.queryItemValue("LimitDateHi", QUrl::FullyDecoded), QString("09/30/2026"));
+        QVERIFY(!q.hasQueryItem("RcvdSince"));
+    }
+
+    void downloadQrzForAPeriod()
+    {
+        // QRZ risponde con tutto; il periodo si tiene qui (le righe di prova sono del 10/09).
+        FakeServer server;
+        server.answer = [](const FakeServer::Request&) {
+            return "RESULT=OK&COUNT=2&ADIF=" + qrzRecord(1001, "K1AAA", "C") + qrzRecord(1002, "K2BBB", "C");
+        };
+        ConfirmationDownloader d;
+        d.setEndpoints(server.url("/qslcard/DownloadInBox.cfm"), server.url("/api"));
+        QSignalSpy done(&d, &ConfirmationDownloader::finished);
+        d.downloadQrz("ABCD-1234", QDate(), QDate(2026, 9, 1), QDate(2026, 9, 30));
+        QVERIFY(done.wait(5000));
+        QCOMPARE(done.at(0).at(0).value<confirmations::Report>().confirmations.size(), 2);
+
+        QSignalSpy other(&d, &ConfirmationDownloader::finished);
+        d.downloadQrz("ABCD-1234", QDate(), QDate(2026, 10, 1), QDate());
+        QVERIFY(other.wait(5000));
+        QVERIFY(other.at(0).at(0).value<confirmations::Report>().confirmations.isEmpty());
+        // Il periodo non mette MODSINCE: si chiede per intero.
+        QVERIFY(!server.requests.at(0).form.queryItemValue("OPTION", QUrl::FullyDecoded).contains("MODSINCE"));
+    }
+
     void eqslNothingNewAndWrongPassword()
     {
         FakeServer server;
