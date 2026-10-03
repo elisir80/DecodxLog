@@ -51,7 +51,7 @@ jobs:
           export PATH="$(brew --prefix qt)/bin:$PATH"
           # Le formule Homebrew tengono WebP, Sharpyuv e Brotli fuori dal
           # prefisso Qt: dichiararle esplicitamente evita rpath irrisolti sul
-          # runner Intel. La firma la facciamo dopo il deploy, su ogni binario.
+          # runner Intel. La firma la facciamo dopo il deploy.
           macdeployqt build/DecoDXLog.app \
             -qmldir=qml \
             -qmldir=libs/decodium-ui/qml \
@@ -64,10 +64,12 @@ jobs:
           version="${version#v}"
           mkdir -p release-assets
 
-          # Il progetto non dispone di un certificato Apple per Developer ID
-          # e notarizzazione. Non applichiamo quindi una firma ad-hoc parziale:
-          # sui plugin Homebrew Intel la verifica strict la renderebbe invalida
-          # e bloccherebbe il DMG. Il bundle resta coerentemente non firmato.
+          # Non abbiamo un certificato Developer ID, quindi questa non rende
+          # l'app notarizzata. Pero' macOS 26 rifiuta il binario linker-signed
+          # lasciato da clang quando il bundle non ha il suo CodeResources:
+          # una firma ad-hoc dell'intero bundle sigilla risorse e dipendenze.
+          codesign --force --deep --sign - --timestamp=none build/DecoDXLog.app
+          codesign --verify --deep --strict --verbose=2 build/DecoDXLog.app
 
           hdiutil create -volname "DecoDXLog $version" \
             -srcfolder build/DecoDXLog.app \

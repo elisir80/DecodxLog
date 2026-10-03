@@ -597,7 +597,7 @@ void DecoLogController::shutdown()
     if (m_dvk)
         m_dvk->stop();
     if (m_rig)
-        m_rig->stop();
+        m_rig->shutdown();
     if (m_cluster)
         m_cluster->stopVoice();
     if (m_chat)

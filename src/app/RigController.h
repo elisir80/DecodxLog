@@ -189,6 +189,10 @@ public:
     Q_INVOKABLE void sendMacro(int index, const QVariantMap& context);
     Q_INVOKABLE void sendText(const QString& text, const QVariantMap& context);
     Q_INVOKABLE void stop();
+    // Arresto definitivo dell'applicazione: oltre al CW chiude tutte le
+    // connessioni CAT e i processi rigctld che abbiamo avviato noi.  Non e'
+    // invocabile dalla UI: il tasto Stop deve interrompere solo la macro CW.
+    void shutdown();
     Q_INVOKABLE void setMacro(int index, const QString& label, const QString& text);
     Q_INVOKABLE void resetMacros();
     // Le macro non sono piu' dodici fisse: se ne aggiunge una in fondo o se ne
