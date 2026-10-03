@@ -7536,6 +7536,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>模拟</translation>
     </message>
     <message>
+        <source>Yaesu G-450 (GS-232 protocol): azimuth only, 9600 baud. It is not detected by itself, so it is chosen here. It turns up to 450°: set the azimuth maximum to 450 in the rotator window settings to use the whole overlap.</source>
+        <translation>Yaesu G-450 (GS-232 协议): 仅方位, 9600 波特。不会自动检测, 所以在此选择。它最多转到 450°: 要用满重叠范围, 请在旋转器窗口设置中把方位最大值设为 450。</translation>
+    </message>
+    <message>
         <source>App port (WebSocket)</source>
         <translation>应用端口（WebSocket）</translation>
     </message>

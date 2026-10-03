@@ -5,6 +5,17 @@ in stazione.
 
 ## 1.16.53 — 3 ottobre 2026
 
+**Il rotore Yaesu G-450 (e i GS-232) dentro il gateway.** Arriva da DecoRotor, che ha imparato il
+dialetto seriale Yaesu GS-232 accanto al PRO.SIS.TEL: nuovo modello «Yaesu G-450 / GS-232 - solo
+azimut» fra i control box (Impostazioni → Rotore, o `yaesu_gs232` nel config.json di DecoRotor,
+che «Prendile da DecoRotor» legge). Comandi `C` (dov'e'), `M290` (vai a 290°), `S` (stop), risposte
+`+0290`, `+0290+0045` o `AZ=290` chiuse da CR, a 9600 baud. Non si rileva da solo (il PRO.SIS.TEL
+resta l'unico che il rilevamento automatico prova): si sceglie a mano, e la nota sotto la scelta
+lo ricorda. Il G-450 gira fino a 450°: per usare tutto l'overlap si mette il massimo dell'azimut a 450
+nelle impostazioni della finestra del rotore. Tutto il resto del gateway — l'app, rotctld, la pagina
+web, i finecorsa, lo stop di sicurezza, il rotore simulato — funziona uguale. Un goto oltre 450 si
+ferma a 450 (DecoRotor lo rifiutava).
+
 **La scheda audio si sceglie, e vale quella.** Il decoder CW (ingresso) e il DVK (uscita verso la
 radio e microfono) potevano ascoltare o parlare su una scheda diversa da quella che l'elenco
 mostrava. Le cause: se il nome salvato non si ritrovava — Windows numera le schede uguali, «2- USB

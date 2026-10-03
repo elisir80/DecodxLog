@@ -7580,6 +7580,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Simulat</translation>
     </message>
     <message>
+        <source>Yaesu G-450 (GS-232 protocol): azimuth only, 9600 baud. It is not detected by itself, so it is chosen here. It turns up to 450°: set the azimuth maximum to 450 in the rotator window settings to use the whole overlap.</source>
+        <translation>Yaesu G-450 (protocol GS-232): doar azimut, 9600 baud. Nu este detectat singur, deci se alege aici. Se rotește până la 450°: setează maximul azimutului la 450 în setările ferestrei rotorului ca să folosești tot overlap-ul.</translation>
+    </message>
+    <message>
         <source>App port (WebSocket)</source>
         <translation>Portul aplicației (WebSocket)</translation>
     </message>

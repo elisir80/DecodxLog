@@ -42,11 +42,14 @@ struct Model {
     QChar azId;        // nullo: l'asse non c'e'
     QChar elId;
     int multiplier{1};
+    // Il dialetto: false PRO.SIS.TEL (STX..CR), true Yaesu GS-232 (righe chiuse
+    // da CR, vedi gs232.h). Quello Yaesu non si rileva: si sceglie a mano.
+    bool gs232{false};
     bool hasAz() const { return !azId.isNull(); }
     bool hasEl() const { return !elId.isNull(); }
 };
 
-// d_az, d_el, d_azel, combi — come in Hamlib.
+// d_az, d_el, d_azel, combi — come in Hamlib — e yaesu_gs232.
 const QList<Model>& models();
 // nullptr per "auto" o per una chiave che non c'e'.
 const Model* modelFor(const QString& key);

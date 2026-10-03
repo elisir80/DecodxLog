@@ -13,6 +13,9 @@ const QList<Model>& models()
         {QStringLiteral("d_el"), QStringLiteral("Control box D - solo elevazione"), QChar(), kElevation, 1},
         {QStringLiteral("d_azel"), QStringLiteral("Control box D - azimut + elevazione"), kAzimuth, kElevation, 1},
         {QStringLiteral("combi"), QStringLiteral("Combi-Track / Big-RAS (angoli x10)"), kAzimuth, kSecondUnit, 10},
+        // Il Yaesu G-450 e i suoi fratelli: solo azimut, protocollo GS-232.
+        {QStringLiteral("yaesu_gs232"), QStringLiteral("Yaesu G-450 / GS-232 - solo azimut"), kAzimuth, QChar(), 1,
+         true},
     };
     return list;
 }

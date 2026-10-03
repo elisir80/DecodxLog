@@ -93,6 +93,8 @@ add_library(decolog_core STATIC
     src/core/CwDecoder.cpp
     src/core/CwKeyer.cpp
     src/core/CwKeyer.h
+    src/core/Gs232.cpp
+    src/core/Gs232.h
     src/core/Prosistel.cpp
     src/core/Prosistel.h
     src/core/RigControl.cpp
