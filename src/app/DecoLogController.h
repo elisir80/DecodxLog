@@ -748,7 +748,8 @@ private:
                                     const QString& label = {}, const QString& account = {});
     // Mette uno scarico nel riepilogo (al posto del precedente dello stesso
     // servizio/account) e lo salva nel log.
-    void recordQslImport(const QString& label, const QString& service, const ConfirmTally& t, bool manual);
+    void recordQslImport(const QString& label, const QString& service, const ConfirmTally& t, bool manual,
+                         const QString& error = {});
     QVariantMap m_qslImport;
     core::EqslCardFetcher m_eqslCards;
     // Un account da cui scaricare le conferme: quello generale (per i QSO dei

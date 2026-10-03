@@ -69,9 +69,11 @@ DialogFrame {
     function asText() {
         let out = []
         for (const run of root.runs)
-            out.push(qsTr("%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors")
-                     .arg(run.label).arg(run.whenText || run.when).arg(run.confirmed).arg(run.already)
-                     .arg(run.notFound).arg(run.invalid))
+            out.push((run.error || "").length > 0
+                     ? "%1 (%2): %3".arg(run.label).arg(run.whenText || run.when).arg(run.error)
+                     : qsTr("%1 (%2): %3 new, %4 already marked, %5 not matched, %6 errors")
+                       .arg(run.label).arg(run.whenText || run.when).arg(run.confirmed).arg(run.already)
+                       .arg(run.notFound).arg(run.invalid))
         out.push("")
         for (const r of root.shown)
             out.push("%1; %2; %3; %4; %5; %6%7".arg(r.utc).arg(r.call).arg(r.band).arg(r.mode).arg(r.label)
@@ -117,13 +119,17 @@ DialogFrame {
                     height: runText.implicitHeight + 14
                     radius: 6
                     color: root.labelFilter === modelData.label ? Theme.panelHeader : Theme.bgMedium
-                    border.color: root.labelFilter === modelData.label ? Theme.primaryColor : Theme.glassBorder
+                    border.color: root.labelFilter === modelData.label ? Theme.primaryColor
+                                : (modelData.error || "").length > 0 ? Theme.errorColor : Theme.glassBorder
                     border.width: 1
                     Text {
                         id: runText
                         anchors.centerIn: parent
                         textFormat: Text.StyledText
-                        text: "<b>%1</b> · %2<br>%3 <font color=\"%4\">%5</font> · %6 %7 · %8 <font color=\"%9\">%10</font> · %11 %12"
+                        text: (modelData.error || "").length > 0
+                              ? "<b>%1</b> · %2<br><font color=\"%3\">%4</font>".arg(modelData.label)
+                                    .arg(modelData.whenText || "").arg(Theme.errorColor).arg(modelData.error)
+                              : "<b>%1</b> · %2<br>%3 <font color=\"%4\">%5</font> · %6 %7 · %8 <font color=\"%9\">%10</font> · %11 %12"
                               .arg(modelData.label).arg(modelData.whenText || "")
                               .arg(qsTr("new ones")).arg(Theme.accentColor).arg(modelData.confirmed)
                               .arg(qsTr("already marked")).arg(modelData.already)

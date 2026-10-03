@@ -4244,6 +4244,7 @@ void DecoLogController::onLotwReport(const lotw::Report& report)
         if (automatic)
             m_db.setSetting(QStringLiteral("lotw.last_sync_at"), QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
         addActivity(QStringLiteral("LOTW"), report.error, QStringLiteral("error"));
+        recordQslImport(QStringLiteral("LoTW"), QStringLiteral("lotw"), {}, !automatic, report.error);
         emit lotwChanged();
         return;
     }
@@ -4397,7 +4398,7 @@ DecoLogController::ConfirmTally DecoLogController::applyConfirmations(const QStr
 }
 
 void DecoLogController::recordQslImport(const QString& label, const QString& service, const ConfirmTally& t,
-                                        bool manual)
+                                        bool manual, const QString& error)
 {
     QVariantList runs;
     for (const QVariant& v : m_qslImport.value(QStringLiteral("runs")).toList()) {
@@ -4411,7 +4412,10 @@ void DecoLogController::recordQslImport(const QString& label, const QString& ser
                         {QStringLiteral("confirmed"), t.confirmed},
                         {QStringLiteral("already"), t.already},
                         {QStringLiteral("notFound"), t.notFound},
-                        {QStringLiteral("invalid"), t.invalid}};
+                        {QStringLiteral("invalid"), t.invalid},
+                        // Uno scarico non riuscito resta nel riepilogo, col motivo:
+                        // prima la finestra restava vuota e non si capiva perche'.
+                        {QStringLiteral("error"), error}};
     QVariantList rows;
     for (const QVariant& v : m_qslImport.value(QStringLiteral("rows")).toList()) {
         if (v.toMap().value(QStringLiteral("label")).toString() != label)
@@ -4422,7 +4426,7 @@ void DecoLogController::recordQslImport(const QString& label, const QString& ser
     m_db.setSetting(QStringLiteral("qsl.import_summary"),
                     QString::fromUtf8(QJsonDocument(QJsonObject::fromVariantMap(m_qslImport)).toJson(QJsonDocument::Compact)));
     emit qslImportChanged();
-    if (manual && !t.rows.isEmpty())
+    if (manual && (!t.rows.isEmpty() || !error.isEmpty()))
         emit qslImportReady();
 }
 
@@ -5111,6 +5115,7 @@ void DecoLogController::onConfirmationReport(const confirmations::Report& report
         m_confirmStatus = a.only.isEmpty() ? report.error : a.label + QStringLiteral(" · ") + report.error;
         m_db.setSetting(a.key + QStringLiteral(".last_result"), m_confirmStatus);
         addActivity(category, m_confirmStatus, QStringLiteral("error"));
+        recordQslImport(a.label, report.service, {}, !m_confirmAuto, report.error);
         startNextConfirmAccount();
         return;
     }

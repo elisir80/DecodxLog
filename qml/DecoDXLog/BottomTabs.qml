@@ -369,7 +369,6 @@ GlassPanel {
                     text: fresh > 0 ? qsTr("Import summary (%1 new)").arg(fresh) : qsTr("Import summary")
                     buttonHeight: 24
                     fontPixelSize: 11
-                    enabled: (decolog.qslImport.runs || []).length > 0
                     onClicked: window.openQslImport()
                 }
                 GlassButton {

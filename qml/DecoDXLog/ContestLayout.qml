@@ -379,6 +379,7 @@ Item {
         function showMenu(name) { if (item && item.showMenu !== undefined) item.showMenu(name) }
         function showSelection(rows, what) { if (item && item.showSelection !== undefined) item.showSelection(rows, what) }
         function showModes() { if (item && item.showModes !== undefined) item.showModes() }
+        function probeReports(m) { return item && item.probeReports !== undefined ? item.probeReports(m) : "" }
         function showCombo() { if (item && item.showCombo !== undefined) item.showCombo() }
         function showMacros(i) { if (item && item.showMacros !== undefined) item.showMacros(i) }
         function keyTargets() { return item && item.keyTargets !== undefined ? item.keyTargets() : [] }

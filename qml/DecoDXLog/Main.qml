@@ -1005,6 +1005,8 @@ ApplicationWindow {
         }
         else if (what[0] === "activation") { activationDialog.openDialog(what[1] || ""); if (what[2] === "choose") Qt.callLater(activationDialog.chooseContest) }
         else if (what[0] === "modes") window.panelItem("newqso").showModes()
+        else if (what[0] === "rstprobe")
+            console.warn("PROBE rst " + window.panelItem("newqso").probeReports(["SSB", "CW", "FT8", "RTTY", "FT4", "SSB"]))
         // Per le prove: apre tutte le finestre due volte di fila. Due volte
         // perche' il guaio da cercare e' proprio quello — la finestra che si
         // sdoppia invece di venire in primo piano.

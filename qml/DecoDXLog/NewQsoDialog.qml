@@ -70,6 +70,27 @@ DialogFrame {
         return sub.length > 0 && modeBox.editText.toUpperCase() !== "SSB" ? sub : modeBox.editText
     }
 
+    // Il rapporto di partenza secondo il modo: 59 in fonia, 599 in CW, RTTY e
+    // PSK, i dB nei modi di WSJT (FT8, FT4, FT2…), dove 59 non vuol dire niente.
+    // Si cambia da solo solo se nel campo c'e' ancora un valore di partenza:
+    // quello scritto dall'operatore non si tocca.
+    readonly property var defaultReports: ["", "59", "599", "-10"]
+    function defaultReport(mode) {
+        const m = String(mode || "").toUpperCase()
+        if (["FT8", "FT4", "FT2", "JT65", "JT9", "JT4", "Q65", "MSK144", "FST4", "FST4W", "JS8", "WSPR"].indexOf(m) >= 0)
+            return "-10"
+        if (["SSB", "USB", "LSB", "AM", "FM", "DIGITALVOICE", "C4FM", "DSTAR", "DMR"].indexOf(m) >= 0)
+            return "59"
+        return "599"
+    }
+    function applyDefaultReports() {
+        const want = root.defaultReport(root.tuneMode())
+        if (root.defaultReports.indexOf(sentField.text.trim()) >= 0)
+            sentField.text = want
+        if (root.defaultReports.indexOf(rcvdField.text.trim()) >= 0)
+            rcvdField.text = want
+    }
+
     function resetTime() {
         const now = decolog.utcNow()
         dateField.text = decolog.showDate(now.date)
@@ -83,8 +104,8 @@ DialogFrame {
                          satNameField, satModeField])
             f.text = ""
         propModeBox.currentIndex = 0
-        sentField.text = "59"
-        rcvdField.text = "59"
+        sentField.text = root.defaultReport(root.tuneMode())
+        rcvdField.text = root.defaultReport(root.tuneMode())
         errorText.text = ""
         resetTime()
         callField.forceActiveFocus()
@@ -334,6 +355,7 @@ DialogFrame {
                     label: qsTr("Mode")
                     StyledComboBox {
                         id: modeBox
+                        onEditTextChanged: root.applyDefaultReports()
                         Layout.fillWidth: true
                         editable: true
                         model: ["SSB", "CW", "FM", "AM", "RTTY", "MFSK", "FT8", "PSK"]
@@ -346,6 +368,7 @@ DialogFrame {
                     label: qsTr("Submode")
                     StyledComboBox {
                         id: submodeBox
+                        onEditTextChanged: root.applyDefaultReports()
                         Layout.fillWidth: true
                         editable: true
                         model: root.submodesFor(modeBox.editText.toUpperCase())
@@ -356,13 +379,13 @@ DialogFrame {
                     Layout.preferredWidth: 1
                     Layout.horizontalStretchFactor: 2; Layout.fillWidth: true
                     label: qsTr("RST sent")
-                    StyledTextField { id: sentField; Layout.fillWidth: true; text: "59" }
+                    StyledTextField { id: sentField; Layout.fillWidth: true; text: root.defaultReport(modeBox.currentText) }
                 }
                 LabeledField {
                     Layout.preferredWidth: 1
                     Layout.horizontalStretchFactor: 2; Layout.fillWidth: true
                     label: qsTr("RST rcvd")
-                    StyledTextField { id: rcvdField; Layout.fillWidth: true; text: "59" }
+                    StyledTextField { id: rcvdField; Layout.fillWidth: true; text: root.defaultReport(modeBox.currentText) }
                 }
             }
             RowLayout {

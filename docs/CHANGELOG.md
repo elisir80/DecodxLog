@@ -3,6 +3,19 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.50 — 3 ottobre 2026
+
+**Il rapporto giusto per il modo.** Nel Nuovo QSO (il pannello e la finestra) i rapporti
+partivano sempre da 59, anche in CW e in FT8. Adesso seguono il modo: 59 in fonia, 599 in CW,
+RTTY e PSK, -10 (dB) nei modi di WSJT (FT8, FT4, FT2, JT65, Q65…). Cambiando modo cambiano
+da soli, ma solo finche' nel campo c'e' ancora il valore di partenza: un rapporto scritto a
+mano non si tocca.
+
+**Il riepilogo dell'importazione QSL si apre sempre.** Il pulsante della scheda QSL restava
+spento finche' non c'era uno scarico riuscito, e cliccandolo non succedeva niente. Adesso si
+apre sempre, e anche uno scarico non riuscito (password sbagliata, servizio che non risponde)
+ci finisce in rosso con il motivo; se lo si era chiesto a mano, la finestra si apre da sola.
+
 ## 1.16.48 — 3 ottobre 2026
 
 **Il riepilogo delle conferme scaricate.** Dopo uno scarico da LoTW, eQSL o QRZ chiesto a mano
