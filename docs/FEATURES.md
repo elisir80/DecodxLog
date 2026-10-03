@@ -545,6 +545,11 @@ Quello che manca è in fondo.
   secondo il log: nuovo DXCC, banda, nominativo. / **Decodium panel**: Decodium's Full Spectrum
   and Signal RX in a compact board panel (move, resize, magnetic edges, detach), rows colored
   by what they are worth to the log: new DXCC, band, call.
+- **Finestre vere di Decodium**: Full Spectrum e Signal RX (o qualunque finestra di
+  Decodium) mostrate vive, ritagliate, in pannelli della lavagna; i clic arrivano a Decodium se
+  si vuole. Solo Windows, la finestra non deve essere ridotta a icona. / **Real Decodium
+  windows**: Full Spectrum and Signal RX (or any Decodium window) shown live, cropped, in board
+  panels; clicks reach Decodium if you want. Windows only, the window must not be minimized.
 
 ## 14. Copie di sicurezza / Backup
 

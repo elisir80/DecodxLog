@@ -2430,8 +2430,8 @@ Right click: change it</source>
         <translation>最新在下, 與 Decodium 相同: 點擊改為最新在上</translation>
     </message>
     <message>
-        <source>Ask Decodium to send again the decodes it has on screen</source>
-        <translation>請 Decodium 重新傳送螢幕上的解碼</translation>
+        <source>Reload the recent decodes from Decodium&apos;s own records, and ask it to send again what it has on screen</source>
+        <translation>從 Decodium 自己的記錄重新載入最近的解碼, 並請它重新傳送螢幕上的內容</translation>
     </message>
     <message>
         <source>TX</source>
@@ -2478,6 +2478,85 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
         <translation>這裡顯示您的發射、呼叫您的電台和您的 QSO 對象。</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumWindowPanel</name>
+    <message>
+        <source>Signal RX</source>
+        <translation>接收訊號</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>全頻譜</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show</source>
+        <translation>選擇要顯示的 Decodium 視窗</translation>
+    </message>
+    <message>
+        <source>Pick the area of the window to show</source>
+        <translation>選擇要顯示的視窗區域</translation>
+    </message>
+    <message>
+        <source>Clicks go to Decodium: click to stop</source>
+        <translation>點擊會傳給 Decodium: 點擊以停止</translation>
+    </message>
+    <message>
+        <source>Send your clicks to Decodium (a double click on a line answers it): off</source>
+        <translation>把您的點擊傳給 Decodium (按兩下某一行即回覆): 關</translation>
+    </message>
+    <message>
+        <source>Resize the Decodium window to fit this panel, so the text stays sharp</source>
+        <translation>把 Decodium 視窗調整到適合此面板, 使文字保持清晰</translation>
+    </message>
+    <message>
+        <source>Drag over the part of the Decodium window you want to see · Esc cancels</source>
+        <translation>在想看的 Decodium 視窗部分上拖曳 · Esc 取消</translation>
+    </message>
+    <message>
+        <source>This panel works only on Windows.</source>
+        <translation>此面板只能在 Windows 上使用。</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show with ▾ in the header.</source>
+        <translation>用標題列中的 ▾ 選擇要顯示的 Decodium 視窗。</translation>
+    </message>
+    <message>
+        <source>The Decodium window is minimized, and a minimized window cannot be copied. It can stay covered by other windows or on another screen.</source>
+        <translation>Decodium 視窗已最小化, 而最小化的視窗無法複製。它可以被其他視窗遮住或放在另一個螢幕上。</translation>
+    </message>
+    <message>
+        <source>Decodium is not open. Start it: its window shows up here.</source>
+        <translation>Decodium 未開啟。啟動它: 它的視窗會顯示在這裡。</translation>
+    </message>
+    <message>
+        <source>The window &quot;%1&quot; is not open. In Decodium press Pop on the list to detach it, or pick another window with ▾.</source>
+        <translation>視窗 &quot;%1&quot; 未開啟。在 Decodium 中按清單上的 Pop 將其分離, 或用 ▾ 選擇其他視窗。</translation>
+    </message>
+    <message>
+        <source>Bring Decodium back, behind the other windows</source>
+        <translation>讓 Decodium 恢復正常大小, 放在其他視窗後面</translation>
+    </message>
+    <message>
+        <source>No Decodium window is open</source>
+        <translation>沒有開啟的 Decodium 視窗</translation>
+    </message>
+    <message>
+        <source>Area of Full Spectrum in the main window</source>
+        <translation>主視窗中 Full Spectrum 的區域</translation>
+    </message>
+    <message>
+        <source>Area of Signal RX in the main window</source>
+        <translation>主視窗中 Signal RX 的區域</translation>
+    </message>
+    <message>
+        <source>The whole main window</source>
+        <translation>整個主視窗</translation>
+    </message>
+    <message>
+        <source>Pick the area…</source>
+        <translation>選擇區域…</translation>
     </message>
 </context>
 <context>
@@ -3476,6 +3555,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Decodium</source>
         <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Full Spectrum (Decodium window)</source>
+        <translation>全頻譜 (Decodium 視窗)</translation>
+    </message>
+    <message>
+        <source>Signal RX (Decodium window)</source>
+        <translation>接收訊號 (Decodium 視窗)</translation>
     </message>
     <message>
         <source>Station network</source>
@@ -8409,8 +8496,8 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>取消醒目標示</translation>
     </message>
     <message>
-        <source>They leave from the same UDP port Decodium writes to, with its program name: Decodium carries them out when &quot;Accept UDP requests&quot; is on in its settings (it is by default).</source>
-        <translation>它們從 Decodium 寫入的同一個 UDP 連接埠送出, 帶有其程式名稱: 當 Decodium 設定中開啟 &quot;Accept UDP requests&quot; 時會執行 (預設開啟)。</translation>
+        <source>They leave from the same UDP port Decodium writes to, with its program name. Decodium carries them out only for its main UDP destination (Settings → Reporting → UDP Server) and with &quot;Accept UDP requests&quot; on: if DecoDXLog is its second or third destination it ignores them.</source>
+        <translation>它們從 Decodium 寫入的同一個 UDP 連接埠送出, 帶有其程式名稱。Decodium 只對其主要 UDP 目的地 (Settings → Reporting → UDP Server) 執行, 並需開啟 &quot;Accept UDP requests&quot;: 如果 DecoDXLog 是它的第二或第三個目的地, 它會忽略這些指令。</translation>
     </message>
     <message>
         <source>To Decodium (DecoLink)</source>
@@ -10975,6 +11062,13 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Cannot copy the file</source>
         <translation>無法複製檔案</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::WindowMirror</name>
+    <message>
+        <source>Decodium main window</source>
+        <translation>Decodium 主視窗</translation>
     </message>
 </context>
 <context>

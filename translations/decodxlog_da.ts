@@ -2439,8 +2439,8 @@ Højreklik: ret den</translation>
         <translation>Nyeste nederst, som i Decodium: klik for nyeste øverst</translation>
     </message>
     <message>
-        <source>Ask Decodium to send again the decodes it has on screen</source>
-        <translation>Bed Decodium sende dekodningerne på skærmen igen</translation>
+        <source>Reload the recent decodes from Decodium&apos;s own records, and ask it to send again what it has on screen</source>
+        <translation>Genindlæs de seneste dekodninger fra Decodiums egne optegnelser, og bed det sende igen, hvad det har på skærmen</translation>
     </message>
     <message>
         <source>TX</source>
@@ -2487,6 +2487,85 @@ I Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, og &quot;A
     <message>
         <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
         <translation>Her vises dine udsendelser, hvem der kalder dig, og din QSO-partner.</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumWindowPanel</name>
+    <message>
+        <source>Signal RX</source>
+        <translation>RX-signal</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Fuldt spektrum</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show</source>
+        <translation>Vælg det Decodium-vindue, der skal vises</translation>
+    </message>
+    <message>
+        <source>Pick the area of the window to show</source>
+        <translation>Vælg det område af vinduet, der skal vises</translation>
+    </message>
+    <message>
+        <source>Clicks go to Decodium: click to stop</source>
+        <translation>Klik går til Decodium: klik for at stoppe</translation>
+    </message>
+    <message>
+        <source>Send your clicks to Decodium (a double click on a line answers it): off</source>
+        <translation>Send dine klik til Decodium (et dobbeltklik på en linje besvarer den): fra</translation>
+    </message>
+    <message>
+        <source>Resize the Decodium window to fit this panel, so the text stays sharp</source>
+        <translation>Tilpas Decodium-vinduet til dette panel, så teksten forbliver skarp</translation>
+    </message>
+    <message>
+        <source>Drag over the part of the Decodium window you want to see · Esc cancels</source>
+        <translation>Træk over den del af Decodium-vinduet, du vil se · Esc annullerer</translation>
+    </message>
+    <message>
+        <source>This panel works only on Windows.</source>
+        <translation>Dette panel virker kun på Windows.</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show with ▾ in the header.</source>
+        <translation>Vælg det Decodium-vindue, der skal vises, med ▾ i overskriften.</translation>
+    </message>
+    <message>
+        <source>The Decodium window is minimized, and a minimized window cannot be copied. It can stay covered by other windows or on another screen.</source>
+        <translation>Decodium-vinduet er minimeret, og et minimeret vindue kan ikke kopieres. Det kan være dækket af andre vinduer eller på en anden skærm.</translation>
+    </message>
+    <message>
+        <source>Decodium is not open. Start it: its window shows up here.</source>
+        <translation>Decodium er ikke åbent. Start det: dets vindue vises her.</translation>
+    </message>
+    <message>
+        <source>The window &quot;%1&quot; is not open. In Decodium press Pop on the list to detach it, or pick another window with ▾.</source>
+        <translation>Vinduet &quot;%1&quot; er ikke åbent. Tryk på Pop på listen i Decodium for at løsne det, eller vælg et andet vindue med ▾.</translation>
+    </message>
+    <message>
+        <source>Bring Decodium back, behind the other windows</source>
+        <translation>Gendan Decodium til normal størrelse, bag de andre vinduer</translation>
+    </message>
+    <message>
+        <source>No Decodium window is open</source>
+        <translation>Intet Decodium-vindue er åbent</translation>
+    </message>
+    <message>
+        <source>Area of Full Spectrum in the main window</source>
+        <translation>Området for Full Spectrum i hovedvinduet</translation>
+    </message>
+    <message>
+        <source>Area of Signal RX in the main window</source>
+        <translation>Området for Signal RX i hovedvinduet</translation>
+    </message>
+    <message>
+        <source>The whole main window</source>
+        <translation>Hele hovedvinduet</translation>
+    </message>
+    <message>
+        <source>Pick the area…</source>
+        <translation>Vælg området…</translation>
     </message>
 </context>
 <context>
@@ -3487,6 +3566,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Decodium</source>
         <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Full Spectrum (Decodium window)</source>
+        <translation>Fuldt spektrum (Decodium-vindue)</translation>
+    </message>
+    <message>
+        <source>Signal RX (Decodium window)</source>
+        <translation>RX-signal (Decodium-vindue)</translation>
     </message>
     <message>
         <source>Station network</source>
@@ -8431,8 +8518,8 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Fjern fremhævningen</translation>
     </message>
     <message>
-        <source>They leave from the same UDP port Decodium writes to, with its program name: Decodium carries them out when &quot;Accept UDP requests&quot; is on in its settings (it is by default).</source>
-        <translation>De sendes fra den samme UDP-port, som Decodium skriver til, med dets programnavn: Decodium udfører dem, når &quot;Accept UDP requests&quot; er slået til i dets indstillinger (det er standard).</translation>
+        <source>They leave from the same UDP port Decodium writes to, with its program name. Decodium carries them out only for its main UDP destination (Settings → Reporting → UDP Server) and with &quot;Accept UDP requests&quot; on: if DecoDXLog is its second or third destination it ignores them.</source>
+        <translation>De sendes fra den samme UDP-port, som Decodium skriver til, med dets programnavn. Decodium udfører dem kun for sin primære UDP-destination (Settings → Reporting → UDP Server) og med &quot;Accept UDP requests&quot; slået til: er DecoDXLog dets anden eller tredje destination, ignorerer det dem.</translation>
     </message>
     <message>
         <source>To Decodium (DecoLink)</source>
@@ -11037,6 +11124,13 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Cannot copy the file</source>
         <translation>Kan ikke kopiere filen</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::WindowMirror</name>
+    <message>
+        <source>Decodium main window</source>
+        <translation>Decodiums hovedvindue</translation>
     </message>
 </context>
 <context>

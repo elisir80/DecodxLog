@@ -2430,8 +2430,8 @@ Right click: change it</source>
         <translation>新しいものを下に (Decodium と同じ): クリックで上に表示</translation>
     </message>
     <message>
-        <source>Ask Decodium to send again the decodes it has on screen</source>
-        <translation>Decodium に画面上のデコードの再送を依頼</translation>
+        <source>Reload the recent decodes from Decodium&apos;s own records, and ask it to send again what it has on screen</source>
+        <translation>Decodium 自身の記録から最近のデコードを再読み込みし、画面にあるものを再送するよう依頼</translation>
     </message>
     <message>
         <source>TX</source>
@@ -2478,6 +2478,85 @@ Decodium で: Settings → Reporting → UDP Server 127.0.0.1、ポート %1、�
     <message>
         <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
         <translation>自局の送信、呼んでくる局、QSO 相手がここに表示されます。</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumWindowPanel</name>
+    <message>
+        <source>Signal RX</source>
+        <translation>受信信号</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>フルスペクトラム</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show</source>
+        <translation>表示する Decodium のウィンドウを選択</translation>
+    </message>
+    <message>
+        <source>Pick the area of the window to show</source>
+        <translation>表示するウィンドウの領域を選択</translation>
+    </message>
+    <message>
+        <source>Clicks go to Decodium: click to stop</source>
+        <translation>クリックは Decodium に送られます: クリックで停止</translation>
+    </message>
+    <message>
+        <source>Send your clicks to Decodium (a double click on a line answers it): off</source>
+        <translation>クリックを Decodium に送る (行をダブルクリックするとそれに応答): オフ</translation>
+    </message>
+    <message>
+        <source>Resize the Decodium window to fit this panel, so the text stays sharp</source>
+        <translation>Decodium のウィンドウをこのパネルに合わせ、文字を鮮明に保つ</translation>
+    </message>
+    <message>
+        <source>Drag over the part of the Decodium window you want to see · Esc cancels</source>
+        <translation>見たい Decodium ウィンドウの部分をドラッグ · Esc で取消</translation>
+    </message>
+    <message>
+        <source>This panel works only on Windows.</source>
+        <translation>このパネルは Windows でのみ動作します。</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show with ▾ in the header.</source>
+        <translation>表示する Decodium のウィンドウをヘッダーの ▾ で選んでください。</translation>
+    </message>
+    <message>
+        <source>The Decodium window is minimized, and a minimized window cannot be copied. It can stay covered by other windows or on another screen.</source>
+        <translation>Decodium のウィンドウは最小化されており、最小化されたウィンドウはコピーできません。他のウィンドウに隠れていたり、別の画面にあっても構いません。</translation>
+    </message>
+    <message>
+        <source>Decodium is not open. Start it: its window shows up here.</source>
+        <translation>Decodium が開いていません。起動すると、そのウィンドウがここに表示されます。</translation>
+    </message>
+    <message>
+        <source>The window &quot;%1&quot; is not open. In Decodium press Pop on the list to detach it, or pick another window with ▾.</source>
+        <translation>ウィンドウ &quot;%1&quot; は開いていません。Decodium でリストの Pop を押して切り離すか、▾ で別のウィンドウを選んでください。</translation>
+    </message>
+    <message>
+        <source>Bring Decodium back, behind the other windows</source>
+        <translation>Decodium を通常の大きさに戻す (他のウィンドウの後ろ)</translation>
+    </message>
+    <message>
+        <source>No Decodium window is open</source>
+        <translation>開いている Decodium のウィンドウがありません</translation>
+    </message>
+    <message>
+        <source>Area of Full Spectrum in the main window</source>
+        <translation>メインウィンドウの Full Spectrum の領域</translation>
+    </message>
+    <message>
+        <source>Area of Signal RX in the main window</source>
+        <translation>メインウィンドウの Signal RX の領域</translation>
+    </message>
+    <message>
+        <source>The whole main window</source>
+        <translation>メインウィンドウ全体</translation>
+    </message>
+    <message>
+        <source>Pick the area…</source>
+        <translation>領域を選択…</translation>
     </message>
 </context>
 <context>
@@ -3476,6 +3555,14 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>Decodium</source>
         <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Full Spectrum (Decodium window)</source>
+        <translation>フルスペクトラム (Decodium ウィンドウ)</translation>
+    </message>
+    <message>
+        <source>Signal RX (Decodium window)</source>
+        <translation>受信信号 (Decodium ウィンドウ)</translation>
     </message>
     <message>
         <source>Station network</source>
@@ -8409,8 +8496,8 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>強調を解除</translation>
     </message>
     <message>
-        <source>They leave from the same UDP port Decodium writes to, with its program name: Decodium carries them out when &quot;Accept UDP requests&quot; is on in its settings (it is by default).</source>
-        <translation>Decodium が書き込むのと同じ UDP ポートから、そのプログラム名で送られます。Decodium は設定で &quot;Accept UDP requests&quot; がオンのとき実行します (既定でオン)。</translation>
+        <source>They leave from the same UDP port Decodium writes to, with its program name. Decodium carries them out only for its main UDP destination (Settings → Reporting → UDP Server) and with &quot;Accept UDP requests&quot; on: if DecoDXLog is its second or third destination it ignores them.</source>
+        <translation>Decodium が書き込むのと同じ UDP ポートから、そのプログラム名で送られます。Decodium は主 UDP 送信先 (Settings → Reporting → UDP Server) に対してのみ、&quot;Accept UDP requests&quot; がオンのときに実行します。DecoDXLog が 2 番目や 3 番目の送信先の場合は無視されます。</translation>
     </message>
     <message>
         <source>To Decodium (DecoLink)</source>
@@ -10975,6 +11062,13 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>Cannot copy the file</source>
         <translation>ファイルをコピーできません</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::WindowMirror</name>
+    <message>
+        <source>Decodium main window</source>
+        <translation>Decodium のメインウィンドウ</translation>
     </message>
 </context>
 <context>

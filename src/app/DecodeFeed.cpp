@@ -3,6 +3,12 @@
 #include "core/DecodeText.h"
 #include "core/UdpReceiver.h"
 
+#include <QDateTime>
+#include <QFile>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QUuid>
 #include <QVariantMap>
 
 #include <algorithm>
@@ -289,6 +295,13 @@ void DecodeFeed::handleStatus(const QString& clientId, const wsjtx::Status& st)
         m_signal.prepend(row);
     }
 
+    // La prima volta che si sa dov'e' la radio: le decodifiche che Decodium ha
+    // gia' fatto entrano nel pannello, invece di aspettare il periodo dopo.
+    if (!m_historyTried && st.dialFrequencyHz > 0) {
+        m_historyTried = true;
+        loadHistory();
+    }
+
     // Un corrispondente nuovo: le sue righe di prima entrano in Signal RX, come
     // quando in Decodium si fa doppio clic su un CQ vecchio.
     if (before.dxCall != st.dxCall) {
@@ -414,6 +427,79 @@ QString DecodeFeed::lineText(int which, qint64 serial) const
         .arg(r->dt, 4, 'f', 1)
         .arg(r->df, 4)
         .arg(r->mode, r->message);
+}
+
+int DecodeFeed::loadHistory()
+{
+    const QString path = m_ctx.historyPath ? m_ctx.historyPath() : QString();
+    if (path.isEmpty() || !QFile::exists(path) || m_status.dialFrequencyHz == 0)
+        return 0;
+
+    struct Stored {
+        qint64 when;
+        int snr;
+        double dt;
+        int df;
+        QString message;
+    };
+    QList<Stored> stored;
+    const QString connection = QStringLiteral("decodium-history-") + QUuid::createUuid().toString(QUuid::Id128);
+    {
+        QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), connection);
+        db.setDatabaseName(path);
+        // Il file e' di Decodium, aperto e in scrittura: si legge soltanto, e
+        // se in quel momento e' occupato si rinuncia in fretta.
+        db.setConnectOptions(QStringLiteral("QSQLITE_OPEN_READONLY;QSQLITE_BUSY_TIMEOUT=250"));
+        if (db.open()) {
+            QSqlQuery q(db);
+            // La stessa banda e lo stesso modo di adesso: Decodium salva la
+            // frequenza assoluta, la distanza dall'ascolto si ricava dal quadrante.
+            q.prepare(QStringLiteral(
+                "SELECT ts_utc, snr_db, dt_s, freq_hz, message FROM decodes "
+                "WHERE ts_utc >= ? AND mode = ? COLLATE NOCASE AND freq_hz BETWEEN ? AND ? "
+                "ORDER BY id DESC LIMIT ?"));
+            const qint64 dial = static_cast<qint64>(m_status.dialFrequencyHz);
+            q.addBindValue(QDateTime::currentMSecsSinceEpoch() - qint64(kHistoryMinutes) * 60 * 1000);
+            q.addBindValue(m_status.mode);
+            q.addBindValue(dial);
+            q.addBindValue(dial + 4000);
+            q.addBindValue(kFullLimit);
+            if (q.exec()) {
+                while (q.next()) {
+                    stored.append(Stored{q.value(0).toLongLong(), q.value(1).toInt(), q.value(2).toDouble(),
+                                         static_cast<int>(q.value(3).toLongLong() - dial), q.value(4).toString()});
+                }
+            }
+            db.close();
+        }
+    }
+    QSqlDatabase::removeDatabase(connection);
+
+    // Dalla piu' vecchia: ogni riga si mette in testa, e la piu' recente resta sopra.
+    int added = 0;
+    for (auto it = stored.crbegin(); it != stored.crend(); ++it) {
+        QString message = it->message.trimmed();
+        // Decodium marca con «?» le decodifiche poco sicure: il segno non fa parte del messaggio.
+        const bool low = message.endsWith(QLatin1Char('?'));
+        if (low)
+            message = message.chopped(1).trimmed();
+        if (message.isEmpty())
+            continue;
+        wsjtx::Decode d;
+        d.isNew = false;      // e' storia: niente doppioni con quello che arriva in diretta
+        d.time = QDateTime::fromMSecsSinceEpoch(it->when, Qt::UTC).time();
+        d.snr = it->snr;
+        d.deltaTime = it->dt;
+        d.deltaFrequency = static_cast<quint32>(std::max(0, it->df));
+        d.mode = QStringLiteral("~");
+        d.message = message;
+        d.lowConfidence = low;
+        const int before = m_full.count();
+        handleDecode(m_lastClient.isEmpty() ? QStringLiteral("Decodium") : m_lastClient, d);
+        if (m_full.count() > before || m_full.count() == kFullLimit)
+            ++added;
+    }
+    return added;
 }
 
 bool DecodeFeed::replay()

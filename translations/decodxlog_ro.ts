@@ -2448,8 +2448,8 @@ Clic dreapta: modific-o</translation>
         <translation>Cele mai noi jos, ca în Decodium: clic pentru cele mai noi sus</translation>
     </message>
     <message>
-        <source>Ask Decodium to send again the decodes it has on screen</source>
-        <translation>Cere ca Decodium să retrimită decodările de pe ecran</translation>
+        <source>Reload the recent decodes from Decodium&apos;s own records, and ask it to send again what it has on screen</source>
+        <translation>Reîncarcă decodările recente din înregistrările Decodium și îi cere să retrimită ce are pe ecran</translation>
     </message>
     <message>
         <source>TX</source>
@@ -2496,6 +2496,85 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
         <translation>Aici apar transmisiile tale, cine te cheamă și corespondentul tău.</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumWindowPanel</name>
+    <message>
+        <source>Signal RX</source>
+        <translation>Semnal RX</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Spectru complet</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show</source>
+        <translation>Alege fereastra Decodium de afișat</translation>
+    </message>
+    <message>
+        <source>Pick the area of the window to show</source>
+        <translation>Alege zona ferestrei de afișat</translation>
+    </message>
+    <message>
+        <source>Clicks go to Decodium: click to stop</source>
+        <translation>Clicurile merg la Decodium: clic pentru a opri</translation>
+    </message>
+    <message>
+        <source>Send your clicks to Decodium (a double click on a line answers it): off</source>
+        <translation>Trimite clicurile tale la Decodium (un dublu clic pe o linie îi răspunde): oprit</translation>
+    </message>
+    <message>
+        <source>Resize the Decodium window to fit this panel, so the text stays sharp</source>
+        <translation>Potrivește fereastra Decodium la acest panou, ca textul să rămână clar</translation>
+    </message>
+    <message>
+        <source>Drag over the part of the Decodium window you want to see · Esc cancels</source>
+        <translation>Trage peste partea ferestrei Decodium pe care vrei s-o vezi · Esc anulează</translation>
+    </message>
+    <message>
+        <source>This panel works only on Windows.</source>
+        <translation>Acest panou funcționează doar pe Windows.</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show with ▾ in the header.</source>
+        <translation>Alege fereastra Decodium de afișat cu ▾ din antet.</translation>
+    </message>
+    <message>
+        <source>The Decodium window is minimized, and a minimized window cannot be copied. It can stay covered by other windows or on another screen.</source>
+        <translation>Fereastra Decodium este minimizată, iar o fereastră minimizată nu poate fi copiată. Poate rămâne acoperită de alte ferestre sau pe alt ecran.</translation>
+    </message>
+    <message>
+        <source>Decodium is not open. Start it: its window shows up here.</source>
+        <translation>Decodium nu este deschis. Pornește-l: fereastra lui apare aici.</translation>
+    </message>
+    <message>
+        <source>The window &quot;%1&quot; is not open. In Decodium press Pop on the list to detach it, or pick another window with ▾.</source>
+        <translation>Fereastra &quot;%1&quot; nu este deschisă. În Decodium apasă Pop pe listă ca s-o detașezi, sau alege altă fereastră cu ▾.</translation>
+    </message>
+    <message>
+        <source>Bring Decodium back, behind the other windows</source>
+        <translation>Readu Decodium la dimensiunea normală, în spatele celorlalte ferestre</translation>
+    </message>
+    <message>
+        <source>No Decodium window is open</source>
+        <translation>Nicio fereastră Decodium nu este deschisă</translation>
+    </message>
+    <message>
+        <source>Area of Full Spectrum in the main window</source>
+        <translation>Zona Full Spectrum din fereastra principală</translation>
+    </message>
+    <message>
+        <source>Area of Signal RX in the main window</source>
+        <translation>Zona Signal RX din fereastra principală</translation>
+    </message>
+    <message>
+        <source>The whole main window</source>
+        <translation>Toată fereastra principală</translation>
+    </message>
+    <message>
+        <source>Pick the area…</source>
+        <translation>Alege zona…</translation>
     </message>
 </context>
 <context>
@@ -3498,6 +3577,14 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>Decodium</source>
         <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Full Spectrum (Decodium window)</source>
+        <translation>Spectru complet (fereastra Decodium)</translation>
+    </message>
+    <message>
+        <source>Signal RX (Decodium window)</source>
+        <translation>Semnal RX (fereastra Decodium)</translation>
     </message>
     <message>
         <source>Station network</source>
@@ -8453,8 +8540,8 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Elimină evidențierea</translation>
     </message>
     <message>
-        <source>They leave from the same UDP port Decodium writes to, with its program name: Decodium carries them out when &quot;Accept UDP requests&quot; is on in its settings (it is by default).</source>
-        <translation>Pleacă de pe același port UDP pe care scrie Decodium, cu numele programului său: Decodium le execută dacă în setările sale este activ &quot;Accept UDP requests&quot; (este implicit).</translation>
+        <source>They leave from the same UDP port Decodium writes to, with its program name. Decodium carries them out only for its main UDP destination (Settings → Reporting → UDP Server) and with &quot;Accept UDP requests&quot; on: if DecoDXLog is its second or third destination it ignores them.</source>
+        <translation>Pleacă de pe același port UDP pe care scrie Decodium, cu numele programului său. Decodium le execută doar pentru destinația sa UDP principală (Settings → Reporting → UDP Server) și cu &quot;Accept UDP requests&quot; activ: dacă DecoDXLog este a doua sau a treia destinație, le ignoră.</translation>
     </message>
     <message>
         <source>To Decodium (DecoLink)</source>
@@ -11099,6 +11186,13 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>Cannot copy the file</source>
         <translation>Nu pot copia fișierul</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::WindowMirror</name>
+    <message>
+        <source>Decodium main window</source>
+        <translation>Fereastra principală Decodium</translation>
     </message>
 </context>
 <context>

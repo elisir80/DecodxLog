@@ -2439,8 +2439,8 @@ Tasto destro: modificala</translation>
         <translation>Le più recenti in basso, come in Decodium: clic per averle in alto</translation>
     </message>
     <message>
-        <source>Ask Decodium to send again the decodes it has on screen</source>
-        <translation>Chiede a Decodium di rimandare le decodifiche che ha a schermo</translation>
+        <source>Reload the recent decodes from Decodium&apos;s own records, and ask it to send again what it has on screen</source>
+        <translation>Rilegge le decodifiche recenti dai registri di Decodium, e gli chiede di rimandare quello che ha a schermo</translation>
     </message>
     <message>
         <source>TX</source>
@@ -2487,6 +2487,85 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, porta %1, e &quot;
     <message>
         <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
         <translation>Qui compaiono le tue trasmissioni, chi ti chiama e il corrispondente.</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumWindowPanel</name>
+    <message>
+        <source>Signal RX</source>
+        <translation>Segnale RX</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Spettro completo</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show</source>
+        <translation>Scegli la finestra di Decodium da mostrare</translation>
+    </message>
+    <message>
+        <source>Pick the area of the window to show</source>
+        <translation>Scegli la zona della finestra da mostrare</translation>
+    </message>
+    <message>
+        <source>Clicks go to Decodium: click to stop</source>
+        <translation>I clic vanno a Decodium: clic per fermarli</translation>
+    </message>
+    <message>
+        <source>Send your clicks to Decodium (a double click on a line answers it): off</source>
+        <translation>Manda i tuoi clic a Decodium (un doppio clic su una riga le risponde): spento</translation>
+    </message>
+    <message>
+        <source>Resize the Decodium window to fit this panel, so the text stays sharp</source>
+        <translation>Porta la finestra di Decodium alla misura di questo pannello, così il testo resta nitido</translation>
+    </message>
+    <message>
+        <source>Drag over the part of the Decodium window you want to see · Esc cancels</source>
+        <translation>Trascina sulla parte della finestra di Decodium che vuoi vedere · Esc annulla</translation>
+    </message>
+    <message>
+        <source>This panel works only on Windows.</source>
+        <translation>Questo pannello funziona solo su Windows.</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show with ▾ in the header.</source>
+        <translation>Scegli la finestra di Decodium da mostrare con ▾ in testata.</translation>
+    </message>
+    <message>
+        <source>The Decodium window is minimized, and a minimized window cannot be copied. It can stay covered by other windows or on another screen.</source>
+        <translation>La finestra di Decodium è ridotta a icona, e una finestra ridotta a icona non si può copiare. Può stare coperta da altre finestre o su un altro schermo.</translation>
+    </message>
+    <message>
+        <source>Decodium is not open. Start it: its window shows up here.</source>
+        <translation>Decodium non è aperto. Avvialo: la sua finestra compare qui.</translation>
+    </message>
+    <message>
+        <source>The window &quot;%1&quot; is not open. In Decodium press Pop on the list to detach it, or pick another window with ▾.</source>
+        <translation>La finestra &quot;%1&quot; non è aperta. In Decodium premi Pop sulla lista per staccarla, o scegli un&apos;altra finestra con ▾.</translation>
+    </message>
+    <message>
+        <source>Bring Decodium back, behind the other windows</source>
+        <translation>Riporta Decodium alla misura normale, dietro le altre finestre</translation>
+    </message>
+    <message>
+        <source>No Decodium window is open</source>
+        <translation>Nessuna finestra di Decodium è aperta</translation>
+    </message>
+    <message>
+        <source>Area of Full Spectrum in the main window</source>
+        <translation>Zona di Full Spectrum nella finestra principale</translation>
+    </message>
+    <message>
+        <source>Area of Signal RX in the main window</source>
+        <translation>Zona di Signal RX nella finestra principale</translation>
+    </message>
+    <message>
+        <source>The whole main window</source>
+        <translation>Tutta la finestra principale</translation>
+    </message>
+    <message>
+        <source>Pick the area…</source>
+        <translation>Scegli la zona…</translation>
     </message>
 </context>
 <context>
@@ -3487,6 +3566,14 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
     <message>
         <source>Decodium</source>
         <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Full Spectrum (Decodium window)</source>
+        <translation>Spettro completo (finestra di Decodium)</translation>
+    </message>
+    <message>
+        <source>Signal RX (Decodium window)</source>
+        <translation>Segnale RX (finestra di Decodium)</translation>
     </message>
     <message>
         <source>Station network</source>
@@ -8431,8 +8518,8 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>Togli l&apos;evidenziazione</translation>
     </message>
     <message>
-        <source>They leave from the same UDP port Decodium writes to, with its program name: Decodium carries them out when &quot;Accept UDP requests&quot; is on in its settings (it is by default).</source>
-        <translation>Partono dalla stessa porta UDP su cui scrive Decodium, con il nome del suo programma: Decodium li esegue se nelle sue impostazioni è attivo &quot;Accept UDP requests&quot; (lo è di serie).</translation>
+        <source>They leave from the same UDP port Decodium writes to, with its program name. Decodium carries them out only for its main UDP destination (Settings → Reporting → UDP Server) and with &quot;Accept UDP requests&quot; on: if DecoDXLog is its second or third destination it ignores them.</source>
+        <translation>Partono dalla stessa porta UDP su cui scrive Decodium, con il nome del suo programma. Decodium li esegue solo per la sua destinazione UDP principale (Settings → Reporting → UDP Server) e con &quot;Accept UDP requests&quot; attivo: se DecoDXLog è la sua seconda o terza destinazione li ignora.</translation>
     </message>
     <message>
         <source>To Decodium (DecoLink)</source>
@@ -11037,6 +11124,13 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
     <message>
         <source>Cannot copy the file</source>
         <translation>Non riesco a copiare il file</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::WindowMirror</name>
+    <message>
+        <source>Decodium main window</source>
+        <translation>Finestra principale di Decodium</translation>
     </message>
 </context>
 <context>

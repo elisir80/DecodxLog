@@ -2448,8 +2448,8 @@ Labais klikšķis: mainīt</translation>
         <translation>Jaunākie apakšā, kā Decodium: klikšķis, lai jaunākie būtu augšā</translation>
     </message>
     <message>
-        <source>Ask Decodium to send again the decodes it has on screen</source>
-        <translation>Lūgt Decodium vēlreiz nosūtīt ekrānā esošos dekodējumus</translation>
+        <source>Reload the recent decodes from Decodium&apos;s own records, and ask it to send again what it has on screen</source>
+        <translation>Pārlādēt nesenos dekodējumus no Decodium pašu ierakstiem un lūgt to vēlreiz nosūtīt to, kas ir ekrānā</translation>
     </message>
     <message>
         <source>TX</source>
@@ -2496,6 +2496,85 @@ Decodium: Settings → Reporting → UDP Server 127.0.0.1, ports %1, un &quot;Ac
     <message>
         <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
         <translation>Šeit parādās tavi raidījumi, kas tevi izsauc, un tavs QSO partneris.</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumWindowPanel</name>
+    <message>
+        <source>Signal RX</source>
+        <translation>RX signāls</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Pilns spektrs</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show</source>
+        <translation>Izvēlēties rādāmo Decodium logu</translation>
+    </message>
+    <message>
+        <source>Pick the area of the window to show</source>
+        <translation>Izvēlēties rādāmo loga apgabalu</translation>
+    </message>
+    <message>
+        <source>Clicks go to Decodium: click to stop</source>
+        <translation>Klikšķi iet uz Decodium: klikšķiniet, lai apturētu</translation>
+    </message>
+    <message>
+        <source>Send your clicks to Decodium (a double click on a line answers it): off</source>
+        <translation>Sūtīt savus klikšķus uz Decodium (dubultklikšķis uz rindas uz to atbild): izslēgts</translation>
+    </message>
+    <message>
+        <source>Resize the Decodium window to fit this panel, so the text stays sharp</source>
+        <translation>Pielāgot Decodium logu šim panelim, lai teksts paliek skaidrs</translation>
+    </message>
+    <message>
+        <source>Drag over the part of the Decodium window you want to see · Esc cancels</source>
+        <translation>Velciet pāri tai Decodium loga daļai, ko vēlaties redzēt · Esc atceļ</translation>
+    </message>
+    <message>
+        <source>This panel works only on Windows.</source>
+        <translation>Šis panelis darbojas tikai sistēmā Windows.</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show with ▾ in the header.</source>
+        <translation>Izvēlieties rādāmo Decodium logu ar ▾ galvenē.</translation>
+    </message>
+    <message>
+        <source>The Decodium window is minimized, and a minimized window cannot be copied. It can stay covered by other windows or on another screen.</source>
+        <translation>Decodium logs ir samazināts, un samazinātu logu nevar kopēt. Tas var būt pārklāts ar citiem logiem vai citā ekrānā.</translation>
+    </message>
+    <message>
+        <source>Decodium is not open. Start it: its window shows up here.</source>
+        <translation>Decodium nav atvērts. Palaidiet to: tā logs parādās šeit.</translation>
+    </message>
+    <message>
+        <source>The window &quot;%1&quot; is not open. In Decodium press Pop on the list to detach it, or pick another window with ▾.</source>
+        <translation>Logs &quot;%1&quot; nav atvērts. Decodium nospiediet Pop uz saraksta, lai to atdalītu, vai izvēlieties citu logu ar ▾.</translation>
+    </message>
+    <message>
+        <source>Bring Decodium back, behind the other windows</source>
+        <translation>Atjaunot Decodium normālā izmērā, aiz pārējiem logiem</translation>
+    </message>
+    <message>
+        <source>No Decodium window is open</source>
+        <translation>Neviens Decodium logs nav atvērts</translation>
+    </message>
+    <message>
+        <source>Area of Full Spectrum in the main window</source>
+        <translation>Full Spectrum apgabals galvenajā logā</translation>
+    </message>
+    <message>
+        <source>Area of Signal RX in the main window</source>
+        <translation>Signal RX apgabals galvenajā logā</translation>
+    </message>
+    <message>
+        <source>The whole main window</source>
+        <translation>Viss galvenais logs</translation>
+    </message>
+    <message>
+        <source>Pick the area…</source>
+        <translation>Izvēlēties apgabalu…</translation>
     </message>
 </context>
 <context>
@@ -3498,6 +3577,14 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>Decodium</source>
         <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Full Spectrum (Decodium window)</source>
+        <translation>Pilns spektrs (Decodium logs)</translation>
+    </message>
+    <message>
+        <source>Signal RX (Decodium window)</source>
+        <translation>RX signāls (Decodium logs)</translation>
     </message>
     <message>
         <source>Station network</source>
@@ -8453,8 +8540,8 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>Noņemt izcēlumu</translation>
     </message>
     <message>
-        <source>They leave from the same UDP port Decodium writes to, with its program name: Decodium carries them out when &quot;Accept UDP requests&quot; is on in its settings (it is by default).</source>
-        <translation>Tie tiek sūtīti no tā paša UDP porta, uz kuru raksta Decodium, ar tā programmas nosaukumu: Decodium tos izpilda, ja tā iestatījumos ir ieslēgts &quot;Accept UDP requests&quot; (pēc noklusējuma ir).</translation>
+        <source>They leave from the same UDP port Decodium writes to, with its program name. Decodium carries them out only for its main UDP destination (Settings → Reporting → UDP Server) and with &quot;Accept UDP requests&quot; on: if DecoDXLog is its second or third destination it ignores them.</source>
+        <translation>Tie tiek sūtīti no tā paša UDP porta, uz kuru raksta Decodium, ar tā programmas nosaukumu. Decodium tos izpilda tikai savam galvenajam UDP galamērķim (Settings → Reporting → UDP Server) un ar ieslēgtu &quot;Accept UDP requests&quot;: ja DecoDXLog ir tā otrais vai trešais galamērķis, tas tos ignorē.</translation>
     </message>
     <message>
         <source>To Decodium (DecoLink)</source>
@@ -11099,6 +11186,13 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>Cannot copy the file</source>
         <translation>Nevar nokopēt failu</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::WindowMirror</name>
+    <message>
+        <source>Decodium main window</source>
+        <translation>Decodium galvenais logs</translation>
     </message>
 </context>
 <context>

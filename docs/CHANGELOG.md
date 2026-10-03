@@ -3,6 +3,41 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.53 — 3 ottobre 2026
+
+**Le finestre vere di Decodium dentro il log.** Due pannelli nuovi della lavagna, «Full Spectrum»
+e «Signal RX» (da Pannelli, in alto), che mostrano le finestre di Decodium come le disegna lui,
+con i suoi colori, le sue colonne e le sue righe — non una lista ricostruita:
+- di partenza ritagliano la zona di Full Spectrum e di Signal RX della finestra principale di
+  Decodium; con ▾ si sceglie un'altra finestra (anche una staccata col tasto «Pop», con la sua
+  misura giusta) o, con ▭, si traccia col mouse la zona da vedere;
+- come gli altri pannelli: si spostano, si ridimensionano, si attaccano ai bordi, si staccano,
+  anche in Contest Mode;
+- «⇄» manda i tuoi clic a Decodium (un doppio clic su una riga le risponde): spento di serie;
+- «⤡» (per le finestre staccate) porta la finestra di Decodium alla misura del pannello, cosi'
+  il testo resta nitido.
+Come funziona: Windows tiene una copia di ogni finestra (quella delle anteprime della barra) e
+ogni mezzo secondo se ne prende l'immagine, una sola per finestra anche se la guardano due
+pannelli, su un altro filo. La finestra di Decodium non si tocca: non si incorpora, non si
+cambia, e se DecoDXLog si blocca Decodium non se ne accorge. La finestra deve esserci e **non
+ridotta a icona** (coperta da altre finestre o su un altro schermo va bene; fuori da tutti gli
+schermi no: Windows non la disegna). Se e' ridotta a icona, il pannello lo dice e offre
+«Riporta Decodium alla misura normale, dietro le altre finestre».
+
+**Il pannello Decodium riparte dalla storia.** Prima si riempiva solo con le decodifiche arrivate
+dopo l'apertura di DecoDXLog: a banda calma restava vuoto, mentre il Full Spectrum di Decodium
+aveva gia' le sue righe. Ora, al primo stato ricevuto, si rileggono dal registro di Decodium
+(`db.sqlite`, aperto in sola lettura) le decodifiche dell'ultima ora sulla stessa banda e
+modo, senza doppioni; «⟲» le rilegge quando vuoi.
+
+**Una cosa da sapere sui comandi a Decodium.** Rispondere a una riga, Ferma TX, Auto TX spento,
+Ripeti, testo libero, locatore ed evidenziazioni (monitor e pannello) li esegue Decodium solo se
+vengono dalla sua destinazione UDP **principale** (Settings → Reporting → UDP Server) e con
+«Accept UDP requests» acceso: alla seconda e alla terza destinazione le richieste le ignora, e
+se DecoDXLog e' la seconda o la terza non succede niente. Con DecoDXLog come destinazione
+principale basta, che gia' inoltra a JTAlert, GridTracker e simili («Inoltra a…»). Il monitor
+lo dice, e il «⟲» ricarica la storia anche quando Decodium non risponde.
+
 ## 1.16.52 — 3 ottobre 2026
 
 **Il pannello Decodium: Full Spectrum e Signal RX nel log.** Un pannello compatto sulla lavagna,

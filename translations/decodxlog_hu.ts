@@ -2430,8 +2430,8 @@ Jobb kattintás: módosítás</translation>
         <translation>Legújabb alul, mint a Decodiumban: kattintson, hogy felül legyen</translation>
     </message>
     <message>
-        <source>Ask Decodium to send again the decodes it has on screen</source>
-        <translation>Kérje meg a Decodiumot, hogy küldje újra a képernyőn lévő dekódolásokat</translation>
+        <source>Reload the recent decodes from Decodium&apos;s own records, and ask it to send again what it has on screen</source>
+        <translation>A friss dekódolások újratöltése a Decodium saját feljegyzéseiből, és kérés, hogy küldje újra, ami a képernyőjén van</translation>
     </message>
     <message>
         <source>TX</source>
@@ -2478,6 +2478,85 @@ A Decodiumban: Settings → Reporting → UDP Server 127.0.0.1, port: %1, és &q
     <message>
         <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
         <translation>Itt jelennek meg az adásaid, aki hív téged, és a QSO-partnered.</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumWindowPanel</name>
+    <message>
+        <source>Signal RX</source>
+        <translation>RX jel</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>Teljes spektrum</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show</source>
+        <translation>A megjelenítendő Decodium-ablak kiválasztása</translation>
+    </message>
+    <message>
+        <source>Pick the area of the window to show</source>
+        <translation>Az ablak megjelenítendő részének kiválasztása</translation>
+    </message>
+    <message>
+        <source>Clicks go to Decodium: click to stop</source>
+        <translation>A kattintások a Decodiumhoz mennek: kattintson a leállításhoz</translation>
+    </message>
+    <message>
+        <source>Send your clicks to Decodium (a double click on a line answers it): off</source>
+        <translation>Kattintásainak küldése a Decodiumnak (egy sorra duplán kattintva válaszol rá): ki</translation>
+    </message>
+    <message>
+        <source>Resize the Decodium window to fit this panel, so the text stays sharp</source>
+        <translation>A Decodium-ablak igazítása ehhez a panelhez, hogy a szöveg éles maradjon</translation>
+    </message>
+    <message>
+        <source>Drag over the part of the Decodium window you want to see · Esc cancels</source>
+        <translation>Húzzon a Decodium-ablak kívánt része fölé · Esc megszakítja</translation>
+    </message>
+    <message>
+        <source>This panel works only on Windows.</source>
+        <translation>Ez a panel csak Windowson működik.</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show with ▾ in the header.</source>
+        <translation>Válassza ki a megjelenítendő Decodium-ablakot a fejlécben lévő ▾ gombbal.</translation>
+    </message>
+    <message>
+        <source>The Decodium window is minimized, and a minimized window cannot be copied. It can stay covered by other windows or on another screen.</source>
+        <translation>A Decodium-ablak le van kicsinyítve, a lekicsinyített ablak pedig nem másolható. Lehet más ablakok mögött vagy másik képernyőn.</translation>
+    </message>
+    <message>
+        <source>Decodium is not open. Start it: its window shows up here.</source>
+        <translation>A Decodium nincs megnyitva. Indítsa el: az ablaka itt jelenik meg.</translation>
+    </message>
+    <message>
+        <source>The window &quot;%1&quot; is not open. In Decodium press Pop on the list to detach it, or pick another window with ▾.</source>
+        <translation>A(z) &quot;%1&quot; ablak nincs megnyitva. A Decodiumban nyomja meg a Pop gombot a listán a leválasztáshoz, vagy válasszon másik ablakot a ▾ gombbal.</translation>
+    </message>
+    <message>
+        <source>Bring Decodium back, behind the other windows</source>
+        <translation>A Decodium visszaállítása normál méretre, a többi ablak mögé</translation>
+    </message>
+    <message>
+        <source>No Decodium window is open</source>
+        <translation>Nincs megnyitott Decodium-ablak</translation>
+    </message>
+    <message>
+        <source>Area of Full Spectrum in the main window</source>
+        <translation>A Full Spectrum területe a főablakban</translation>
+    </message>
+    <message>
+        <source>Area of Signal RX in the main window</source>
+        <translation>A Signal RX területe a főablakban</translation>
+    </message>
+    <message>
+        <source>The whole main window</source>
+        <translation>A teljes főablak</translation>
+    </message>
+    <message>
+        <source>Pick the area…</source>
+        <translation>Terület kiválasztása…</translation>
     </message>
 </context>
 <context>
@@ -3476,6 +3555,14 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>Decodium</source>
         <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Full Spectrum (Decodium window)</source>
+        <translation>Teljes spektrum (Decodium-ablak)</translation>
+    </message>
+    <message>
+        <source>Signal RX (Decodium window)</source>
+        <translation>RX jel (Decodium-ablak)</translation>
     </message>
     <message>
         <source>Station network</source>
@@ -8409,8 +8496,8 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>Kiemelés eltávolítása</translation>
     </message>
     <message>
-        <source>They leave from the same UDP port Decodium writes to, with its program name: Decodium carries them out when &quot;Accept UDP requests&quot; is on in its settings (it is by default).</source>
-        <translation>Ugyanarról az UDP portról indulnak, amelyre a Decodium ír, a programja nevével: a Decodium akkor hajtja végre őket, ha a beállításaiban be van kapcsolva az &quot;Accept UDP requests&quot; (alapból be van).</translation>
+        <source>They leave from the same UDP port Decodium writes to, with its program name. Decodium carries them out only for its main UDP destination (Settings → Reporting → UDP Server) and with &quot;Accept UDP requests&quot; on: if DecoDXLog is its second or third destination it ignores them.</source>
+        <translation>Ugyanarról az UDP portról indulnak, amelyre a Decodium ír, a programja nevével. A Decodium csak a fő UDP-célhelyéhez (Settings → Reporting → UDP Server) hajtja végre őket, bekapcsolt &quot;Accept UDP requests&quot; mellett: ha a DecoDXLog a második vagy harmadik célhelye, figyelmen kívül hagyja őket.</translation>
     </message>
     <message>
         <source>To Decodium (DecoLink)</source>
@@ -10975,6 +11062,13 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>Cannot copy the file</source>
         <translation>A fájl nem másolható</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::WindowMirror</name>
+    <message>
+        <source>Decodium main window</source>
+        <translation>A Decodium főablaka</translation>
     </message>
 </context>
 <context>

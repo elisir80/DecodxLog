@@ -57,8 +57,8 @@ GlassPanel {
         PanelControl {
             anchors.verticalCenter: parent.verticalCenter
             glyph: "⟲"
-            hint: qsTr("Ask Decodium to send again the decodes it has on screen")
-            onClicked: root.feed.replay()
+            hint: qsTr("Reload the recent decodes from Decodium's own records, and ask it to send again what it has on screen")
+            onClicked: { root.feed.loadHistory(); root.feed.replay() }
         }
     ]
 

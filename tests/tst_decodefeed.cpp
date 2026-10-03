@@ -5,8 +5,12 @@
 #include "core/UdpReceiver.h"
 #include "core/WsjtxProtocol.h"
 
+#include <QDateTime>
 #include <QNetworkDatagram>
 #include <QSignalSpy>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QTemporaryDir>
 #include <QTest>
 #include <QUdpSocket>
 
@@ -230,6 +234,75 @@ private slots:
 
         feed.clearFullSpectrum();
         QCOMPARE(full->count(), 0);
+    }
+
+    // All'apertura il pannello riparte dalle decodifiche che Decodium ha gia' sul
+    // disco, invece di aspettare il prossimo periodo.
+    void startsFromDecodiumRecords()
+    {
+        QTemporaryDir dir;
+        QVERIFY(dir.isValid());
+        const QString path = dir.filePath("db.sqlite");
+        const qint64 now = QDateTime::currentMSecsSinceEpoch();
+        {
+            QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "tst-decodium-history");
+            db.setDatabaseName(path);
+            QVERIFY(db.open());
+            QSqlQuery q(db);
+            QVERIFY(q.exec("CREATE TABLE decodes (id INTEGER PRIMARY KEY AUTOINCREMENT, ts_utc INTEGER NOT NULL, "
+                           "band TEXT NOT NULL, freq_hz INTEGER NOT NULL, mode TEXT NOT NULL, submode TEXT, "
+                           "callsign_dx TEXT, callsign_de TEXT, grid TEXT, snr_db INTEGER, dt_s REAL, df_hz INTEGER, "
+                           "message TEXT NOT NULL, confidence INTEGER, session_id INTEGER NOT NULL DEFAULT 1)"));
+            auto add = [&](qint64 age, const char* band, qint64 freq, const char* mode, int snr, double dt, const char* msg) {
+                q.prepare("INSERT INTO decodes (ts_utc, band, freq_hz, mode, snr_db, dt_s, message) VALUES (?,?,?,?,?,?,?)");
+                q.addBindValue(now - age);
+                q.addBindValue(band);
+                q.addBindValue(freq);
+                q.addBindValue(mode);
+                q.addBindValue(snr);
+                q.addBindValue(dt);
+                q.addBindValue(msg);
+                QVERIFY(q.exec());
+            };
+            add(300000, "20M", 14084735, "FT2", -7, 0.7, "R8OAE PD4AVT JO21");
+            add(240000, "20M", 14085495, "FT2", -26, 0.5, "CQ PD2WL JO22                       ?");
+            add(3 * 3600 * 1000, "20M", 14084900, "FT2", -10, 0.1, "CQ OLD1AA JN70");     // troppo vecchia
+            add(200000, "20M", 14074500, "FT8", -10, 0.1, "CQ K1ABC FN42");               // un altro modo
+            add(200000, "40M", 7074500, "FT2", -10, 0.1, "CQ EA1ABC IN52");               // un'altra banda
+            add(100000, "20M", 14084300, "FT2", -3, 0.2, "IU8LMC 9A3XY JN75");           // per noi
+            db.close();
+        }
+        QSqlDatabase::removeDatabase("tst-decodium-history");
+
+        auto ctx = context();
+        ctx.historyPath = [path] { return path; };
+        DecodeFeed feed(nullptr, ctx);
+        wsjtx::Status st = status();
+        st.dialFrequencyHz = 14084000;
+        st.mode = "FT2";
+        feed.handleStatus("Decodium", st);   // il primo stato porta dentro la storia
+
+        auto* full = qobject_cast<DecodeListModel*>(feed.fullSpectrum());
+        QCOMPARE(full->count(), 3);
+        // Dalla piu' recente.
+        QCOMPARE(role(*full, 0, DecodeListModel::MessageRole), QString("IU8LMC 9A3XY JN75"));
+        QCOMPARE(role(*full, 1, DecodeListModel::MessageRole), QString("CQ PD2WL JO22"));
+        QVERIFY(full->data(full->index(1), DecodeListModel::LowConfidenceRole).toBool());
+        QCOMPARE(role(*full, 1, DecodeListModel::DfRole), QString("1495"));
+        QCOMPARE(role(*full, 2, DecodeListModel::DfRole), QString("735"));
+        QCOMPARE(role(*full, 2, DecodeListModel::SnrRole), QString("-7"));
+        // La riga per noi entra anche in Signal RX.
+        auto* sig = qobject_cast<DecodeListModel*>(feed.signalRx());
+        QCOMPARE(sig->count(), 1);
+        QVERIFY(sig->data(sig->index(0), DecodeListModel::ForMeRole).toBool());
+        // Rileggerla non raddoppia niente.
+        feed.loadHistory();
+        QCOMPARE(full->count(), 3);
+        // Un file che non c'e': niente, e niente guai.
+        ctx.historyPath = [] { return QString("C:/does/not/exist.sqlite"); };
+        DecodeFeed other(nullptr, ctx);
+        other.handleStatus("Decodium", st);
+        QCOMPARE(qobject_cast<DecodeListModel*>(other.fullSpectrum())->count(), 0);
     }
 
     // Dal protocollo vero: lo stesso percorso dei datagrammi di Decodium.

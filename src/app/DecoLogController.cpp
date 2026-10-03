@@ -823,6 +823,11 @@ bool DecoLogController::openDatabase(const QString& path)
         feed.statusLabel = [](int status) { return ClusterController::statusText(status); };
         feed.lookup = [this](const QString& call) { setLookupCall(call); };
         feed.prepareQso = [this](const QVariantMap& fields) { emit qsoPrepared(fields); };
+        feed.historyPath = [] {
+            // %LOCALAPPDATA%\Decodium\Decodium\db.sqlite: le decodifiche di Decodium 4.
+            return QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)
+                   + QStringLiteral("/Decodium/Decodium/db.sqlite");
+        };
         m_decodeFeed = new DecodeFeed(&m_udp, std::move(feed), this);
         // L'elenco di chi e' stato lavorato e' stato rifatto: gli stati vanno ricalcolati.
         connect(m_cluster, &ClusterController::indexRebuilt, m_decodeFeed, &DecodeFeed::restatus);

@@ -126,6 +126,10 @@ public:
         // Un nominativo scelto: la scheda e il riquadro del QSO.
         std::function<void(const QString& call)> lookup;
         std::function<void(const QVariantMap& fields)> prepareQso;
+        // Il file in cui Decodium tiene le decodifiche gia' fatte (db.sqlite):
+        // all'apertura il pannello riparte da li', senza aspettare il prossimo
+        // periodo. Vuoto: non c'e'.
+        std::function<QString()> historyPath;
     };
 
     static constexpr int kFullLimit = 300;
@@ -154,9 +158,15 @@ public:
 
     Q_INVOKABLE void clearFullSpectrum() { m_full.clear(); }
     Q_INVOKABLE void clearSignalRx() { m_signal.clear(); }
-    // Chiede a Decodium di mandare di nuovo le decodifiche che ha a schermo:
-    // utile se il pannello si e' aperto dopo.
+    // Chiede a Decodium di mandare di nuovo le decodifiche che ha a schermo
+    // (lo fa solo per la destinazione principale dei suoi rapporti UDP).
     Q_INVOKABLE bool replay();
+    // Rilegge dal disco le decodifiche recenti di Decodium e le mette in
+    // Full Spectrum e Signal RX, senza doppioni. Torna quante ne ha aggiunte.
+    // Serve all'apertura del pannello, e dopo, se il pannello e' rimasto vuoto
+    // perche' DecoDXLog era chiuso mentre Decodium decodificava.
+    Q_INVOKABLE int loadHistory();
+    static constexpr int kHistoryMinutes = 60;
     // Risponde a una riga come col doppio clic in Decodium: puo' far partire
     // la chiamata. `which`: 0 Full Spectrum, 1 Signal RX.
     Q_INVOKABLE bool reply(int which, qint64 serial);
@@ -186,6 +196,7 @@ private:
 
     core::UdpReceiver* m_udp;
     Context m_ctx;
+    bool m_historyTried{false};
     DecodeListModel m_full;
     DecodeListModel m_signal;
     core::wsjtx::Status m_status;

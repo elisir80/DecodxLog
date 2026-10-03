@@ -2430,8 +2430,8 @@ Right click: change it</source>
         <translation>最新在下, 与 Decodium 相同: 点击改为最新在上</translation>
     </message>
     <message>
-        <source>Ask Decodium to send again the decodes it has on screen</source>
-        <translation>请 Decodium 重新发送屏幕上的解码</translation>
+        <source>Reload the recent decodes from Decodium&apos;s own records, and ask it to send again what it has on screen</source>
+        <translation>从 Decodium 自己的记录重新载入最近的解码, 并请它重新发送屏幕上的内容</translation>
     </message>
     <message>
         <source>TX</source>
@@ -2478,6 +2478,85 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>Your transmissions, whoever calls you and your QSO partner show up here.</source>
         <translation>这里显示您的发射、呼叫您的电台和您的 QSO 对象。</translation>
+    </message>
+</context>
+<context>
+    <name>DecodiumWindowPanel</name>
+    <message>
+        <source>Signal RX</source>
+        <translation>接收信号</translation>
+    </message>
+    <message>
+        <source>Full Spectrum</source>
+        <translation>全频谱</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show</source>
+        <translation>选择要显示的 Decodium 窗口</translation>
+    </message>
+    <message>
+        <source>Pick the area of the window to show</source>
+        <translation>选择要显示的窗口区域</translation>
+    </message>
+    <message>
+        <source>Clicks go to Decodium: click to stop</source>
+        <translation>点击会发给 Decodium: 点击以停止</translation>
+    </message>
+    <message>
+        <source>Send your clicks to Decodium (a double click on a line answers it): off</source>
+        <translation>把您的点击发给 Decodium (双击某一行即回复): 关</translation>
+    </message>
+    <message>
+        <source>Resize the Decodium window to fit this panel, so the text stays sharp</source>
+        <translation>把 Decodium 窗口调整到适合此面板, 使文字保持清晰</translation>
+    </message>
+    <message>
+        <source>Drag over the part of the Decodium window you want to see · Esc cancels</source>
+        <translation>在想看的 Decodium 窗口部分上拖动 · Esc 取消</translation>
+    </message>
+    <message>
+        <source>This panel works only on Windows.</source>
+        <translation>此面板只能在 Windows 上使用。</translation>
+    </message>
+    <message>
+        <source>Choose the Decodium window to show with ▾ in the header.</source>
+        <translation>用标题栏中的 ▾ 选择要显示的 Decodium 窗口。</translation>
+    </message>
+    <message>
+        <source>The Decodium window is minimized, and a minimized window cannot be copied. It can stay covered by other windows or on another screen.</source>
+        <translation>Decodium 窗口已最小化, 而最小化的窗口无法复制。它可以被其他窗口遮住或放在另一个屏幕上。</translation>
+    </message>
+    <message>
+        <source>Decodium is not open. Start it: its window shows up here.</source>
+        <translation>Decodium 未打开。启动它: 它的窗口会显示在这里。</translation>
+    </message>
+    <message>
+        <source>The window &quot;%1&quot; is not open. In Decodium press Pop on the list to detach it, or pick another window with ▾.</source>
+        <translation>窗口 &quot;%1&quot; 未打开。在 Decodium 中按列表上的 Pop 将其分离, 或用 ▾ 选择其他窗口。</translation>
+    </message>
+    <message>
+        <source>Bring Decodium back, behind the other windows</source>
+        <translation>让 Decodium 恢复正常大小, 放在其他窗口后面</translation>
+    </message>
+    <message>
+        <source>No Decodium window is open</source>
+        <translation>没有打开的 Decodium 窗口</translation>
+    </message>
+    <message>
+        <source>Area of Full Spectrum in the main window</source>
+        <translation>主窗口中 Full Spectrum 的区域</translation>
+    </message>
+    <message>
+        <source>Area of Signal RX in the main window</source>
+        <translation>主窗口中 Signal RX 的区域</translation>
+    </message>
+    <message>
+        <source>The whole main window</source>
+        <translation>整个主窗口</translation>
+    </message>
+    <message>
+        <source>Pick the area…</source>
+        <translation>选择区域…</translation>
     </message>
 </context>
 <context>
@@ -3476,6 +3555,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Decodium</source>
         <translation>Decodium</translation>
+    </message>
+    <message>
+        <source>Full Spectrum (Decodium window)</source>
+        <translation>全频谱 (Decodium 窗口)</translation>
+    </message>
+    <message>
+        <source>Signal RX (Decodium window)</source>
+        <translation>接收信号 (Decodium 窗口)</translation>
     </message>
     <message>
         <source>Station network</source>
@@ -8409,8 +8496,8 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>取消高亮</translation>
     </message>
     <message>
-        <source>They leave from the same UDP port Decodium writes to, with its program name: Decodium carries them out when &quot;Accept UDP requests&quot; is on in its settings (it is by default).</source>
-        <translation>它们从 Decodium 写入的同一个 UDP 端口发出, 带有其程序名: 当 Decodium 设置中开启 &quot;Accept UDP requests&quot; 时会执行 (默认开启)。</translation>
+        <source>They leave from the same UDP port Decodium writes to, with its program name. Decodium carries them out only for its main UDP destination (Settings → Reporting → UDP Server) and with &quot;Accept UDP requests&quot; on: if DecoDXLog is its second or third destination it ignores them.</source>
+        <translation>它们从 Decodium 写入的同一个 UDP 端口发出, 带有其程序名。Decodium 只对其主 UDP 目的地 (Settings → Reporting → UDP Server) 执行, 并需开启 &quot;Accept UDP requests&quot;: 如果 DecoDXLog 是它的第二或第三个目的地, 它会忽略这些命令。</translation>
     </message>
     <message>
         <source>To Decodium (DecoLink)</source>
@@ -10975,6 +11062,13 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Cannot copy the file</source>
         <translation>无法复制文件</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::app::WindowMirror</name>
+    <message>
+        <source>Decodium main window</source>
+        <translation>Decodium 主窗口</translation>
     </message>
 </context>
 <context>

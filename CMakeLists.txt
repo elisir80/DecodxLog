@@ -290,6 +290,8 @@ qt_add_executable(decolog
     src/app/WorldClockController.h
     src/app/WorldMapItem.cpp
     src/app/WorldMapItem.h
+    src/app/WindowMirror.cpp
+    src/app/WindowMirror.h
     src/app/RotorController.cpp
     src/app/RotorController.h
     src/app/SolarController.cpp
@@ -361,6 +363,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/TrafficMonitorWindow.qml
     qml/DecoDXLog/DecodeList.qml
     qml/DecoDXLog/DecodiumPanel.qml
+    qml/DecoDXLog/DecodiumWindowPanel.qml
     qml/DecoDXLog/DuplicatesDialog.qml
     qml/DecoDXLog/ColorSwatch.qml
     qml/DecoDXLog/ContestSubmitDialog.qml
@@ -568,6 +571,12 @@ if(DECODXLOG_BUILD_TESTS)
     target_link_libraries(tst_decodefeed PRIVATE decolog_core Qt6::Test)
     set_target_properties(tst_decodefeed PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME decodefeed COMMAND tst_decodefeed)
+    qt_add_executable(tst_windowmirror tests/tst_windowmirror.cpp src/app/WindowMirror.cpp src/app/WindowMirror.h)
+    target_include_directories(tst_windowmirror PRIVATE src)
+    target_link_libraries(tst_windowmirror PRIVATE decolog_core Qt6::Quick Qt6::Test)
+    set_target_properties(tst_windowmirror PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME windowmirror COMMAND tst_windowmirror)
+    set_tests_properties(windowmirror PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
     qt_add_executable(tst_so2r tests/tst_so2r.cpp src/app/So2rController.cpp src/app/So2rController.h)
     target_include_directories(tst_so2r PRIVATE src)
     target_link_libraries(tst_so2r PRIVATE decolog_core Qt6::Test)

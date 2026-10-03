@@ -448,7 +448,7 @@ DialogFrame {
                     wrapMode: Text.Wrap
                     color: Theme.textSecondary
                     font.pixelSize: 11
-                    text: qsTr("They leave from the same UDP port Decodium writes to, with its program name: Decodium carries them out when \"Accept UDP requests\" is on in its settings (it is by default).")
+                    text: qsTr("They leave from the same UDP port Decodium writes to, with its program name. Decodium carries them out only for its main UDP destination (Settings → Reporting → UDP Server) and with \"Accept UDP requests\" on: if DecoDXLog is its second or third destination it ignores them.")
                 }
 
                 Text {
