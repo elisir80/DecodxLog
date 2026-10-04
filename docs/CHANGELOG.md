@@ -3,7 +3,7 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
-## 1.17.05 — 4 ottobre 2026
+## 1.17.05 — 5 ottobre 2026
 
 **Allineata alla 1.17.04 di elisir80.** «Ferma» del CW che annulla anche il CW in coda, rilascia il
 keyer locale e manda il PTT a zero alla radio che ha ricevuto la macro, con rigctld, TCI e flrig che
