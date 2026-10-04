@@ -165,6 +165,36 @@ private slots:
         gw.stop();
     }
 
+    // I comandi passano davanti alle domande di posizione, ma fra loro restano
+    // nell'ordine in cui arrivano: con la linea occupata, «vai a 60, fermati, vai
+    // a 120» finiva in «vai a 120, fermati, vai a 60», e il rotore andava dove
+    // non gli si era detto (visto nella CI di Windows, sotto carico).
+    void commandsKeepTheirOrderWhileTheLinkIsBusy()
+    {
+        RotorGateway gw;
+        GatewaySettings s = simulated();
+        s.simulateSpeed = 720.0;
+        gw.start(s, GatewayLive());
+        QVERIFY(waitFor([&] { return gw.snapshot().value("connected").toBool(); }));
+        QVERIFY(waitFor([&] { return !gw.snapshot().value("az").isNull(); }));
+        QString error;
+        for (int round = 0; round < 6; ++round) {
+            // Appena parte una domanda di posizione la linea e' occupata.
+            const int frames = gw.snapshot().value("tx_frames").toInt();
+            QVERIFY(waitFor([&] { return gw.snapshot().value("tx_frames").toInt() > frames; }));
+            gw.gotoPosition(60.0, std::nullopt, &error);
+            gw.halt();
+            gw.gotoPosition(120.0, std::nullopt, &error);
+            const bool arrived = waitFor([&] { return std::abs(gw.snapshot().value("az").toDouble() - 120.0) <= 1.0; }, 4000);
+            QVERIFY2(arrived, qPrintable(QStringLiteral("giro %1: %2").arg(round).arg(
+                                  QString::fromUtf8(QJsonDocument(gw.snapshot()).toJson(QJsonDocument::Compact)))));
+            // E si torna a zero per il giro dopo.
+            gw.gotoPosition(0.0, std::nullopt, &error);
+            QVERIFY(waitFor([&] { return gw.snapshot().value("az").toDouble() <= 1.0; }, 4000));
+        }
+        gw.stop();
+    }
+
     void stationsFromDecodes()
     {
         QCOMPARE(RotorGateway::stationFromMessage("CQ DX EA8ABC IL18"), qMakePair(QString("EA8ABC"), QString("IL18")));
@@ -241,7 +271,9 @@ private slots:
         client.write("P 120 0\n");
         QVERIFY(waitFor([&] { return client.bytesAvailable() > 0; }));
         QCOMPARE(client.readAll(), QByteArray("RPRT 0\n"));
-        QVERIFY(waitFor([&] { return std::abs(gw.snapshot().value("az").toDouble() - 120.0) <= 1.0; }));
+        const bool arrived = waitFor([&] { return std::abs(gw.snapshot().value("az").toDouble() - 120.0) <= 1.0; });
+        // Se non arriva, lo stato dice perche' (serve alla CI, dove non si puo' guardare).
+        QVERIFY2(arrived, qPrintable(QString::fromUtf8(QJsonDocument(gw.snapshot()).toJson(QJsonDocument::Compact))));
     }
 
     void speaksLikeDecoRotorToTheApp()

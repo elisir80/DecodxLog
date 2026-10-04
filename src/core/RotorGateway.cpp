@@ -189,6 +189,7 @@ void RotorGateway::stop()
     m_reopenTimer.stop();
     m_txTimer.stop();
     m_queue.clear();
+    m_priority = 0;
     m_current.reset();
     if (m_serial) {
         m_serial->close();
@@ -330,6 +331,7 @@ void RotorGateway::closePort(const QString& why)
     m_pollTimer.stop();
     m_txTimer.stop();
     m_queue.clear();
+    m_priority = 0;
     m_current.reset();
     m_polling = false;
     if (m_serial)
@@ -356,10 +358,15 @@ void RotorGateway::scheduleReopen()
 
 void RotorGateway::enqueue(Transaction t, bool front)
 {
-    if (front)
-        m_queue.prepend(std::move(t));
-    else
+    if (front) {
+        // Davanti alle domande, ma dietro ai comandi arrivati prima: con la
+        // linea occupata, "stop" e poi "vai a 120" non devono diventare "vai a
+        // 120" e poi "stop" (il rotore restava fermo dove non doveva).
+        m_queue.insert(m_priority, std::move(t));
+        ++m_priority;
+    } else {
         m_queue.enqueue(std::move(t));
+    }
     pump();
 }
 
@@ -367,6 +374,8 @@ void RotorGateway::pump()
 {
     while (!m_current && !m_queue.isEmpty() && m_portOpen) {
         Transaction t = m_queue.dequeue();
+        if (m_priority > 0)
+            --m_priority;
         if (!t.wantReply) {
             writeFrame(t.frame);
             if (t.done)

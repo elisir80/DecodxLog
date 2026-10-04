@@ -3,6 +3,16 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.16.56 — 4 ottobre 2026
+
+**Rotore: i comandi restano nell'ordine in cui arrivano.** Il gateway del rotore mette goto e stop
+davanti alle domande di posizione, ma con la linea occupata (una domanda in corso, un PC sotto
+carico) li metteva anche davanti ai comandi arrivati prima: «vai a 60, fermati, vai a 120» diventava
+«vai a 120, fermati, vai a 60» e il rotore si fermava dove non gli si era detto, finendo poi in un
+«nessun movimento» di sicurezza. Lo ha scovato la prova del rotctld nella CI di Windows, che ogni
+tanto falliva. Ora fra loro i comandi sono in fila come in DecoRotor, e ce n'e' una prova che con
+l'ordine vecchio falliva ogni volta.
+
 ## 1.16.55 — 4 ottobre 2026
 
 **Allineata alla 1.16.54 di elisir80.**

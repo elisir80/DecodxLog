@@ -239,6 +239,10 @@ private:
     bool m_portOpen{false};
     QByteArray m_rx;
     QQueue<Transaction> m_queue;
+    // Quanti dei primi posti della coda sono comandi (goto, stop) che passano
+    // davanti alle domande di posizione: fra loro restano nell'ordine in cui
+    // sono arrivati.
+    int m_priority{0};
     std::optional<Transaction> m_current;
     QTimer m_txTimer;
     QTimer m_pollTimer;
