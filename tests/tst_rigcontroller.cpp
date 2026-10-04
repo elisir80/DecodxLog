@@ -19,7 +19,7 @@ public:
     void refresh() override {}
     void setFrequency(qint64) override {}
     void setMode(const QString&) override {}
-    void setPtt(bool) override {}
+    void setPtt(bool on) override { pttStates << on; }
     void setSpeedWpm(int value) override { speed = value; }
     void sendMorse(const QString& value) override { sent << value; }
     void stopMorse() override { ++stops; }
@@ -27,6 +27,7 @@ public:
     int speed{0};
     int stops{0};
     QStringList sent;
+    QList<bool> pttStates;
 };
 
 } // namespace
@@ -54,6 +55,26 @@ private slots:
 
         controller.stop();
         QCOMPARE(radio2.stops, 1);
+        QCOMPARE(radio2.pttStates, QList<bool>({false}));
+    }
+
+    void everyMacroKeepsItsOwnIndexAndStopClearsIt()
+    {
+        FakeRig radio2;
+        app::RigController::Context context;
+        context.alternateRig = [&radio2]() { return &radio2; };
+        app::RigController controller(context);
+        controller.setMacro(0, QStringLiteral("F1 CQ"), QStringLiteral("CQ"));
+        controller.setMacro(1, QStringLiteral("F2 Call"), QStringLiteral("{CALL}"));
+
+        controller.sendMacro(1, {{QStringLiteral("call"), QStringLiteral("IU8LMC")}});
+        QCOMPARE(radio2.sent, QStringList({QStringLiteral("IU8LMC")}));
+        QCOMPARE(controller.activeMacroIndex(), 1);
+
+        controller.stop();
+        QCOMPARE(controller.activeMacroIndex(), -1);
+        QCOMPARE(radio2.stops, 1);
+        QCOMPARE(radio2.pttStates, QList<bool>({false}));
     }
 };
 

@@ -66,7 +66,7 @@ GlassPanel {
             // Se il CAT cade durante una macro affidata al manipolatore
             // seriale/WinKeyer, Ferma deve restare disponibile: il keyer puo'
             // ancora avere il buffer e la linea di manipolazione attivi.
-            enabled: root.rig.connected || root.rig.keyerOn
+            enabled: root.rig.connected || root.rig.keyerOn || root.rig.activeMacroIndex >= 0
             onClicked: root.rig.stop()
         },
         // Le macro si scrivono anche da qui, non solo dal contest.
@@ -146,8 +146,8 @@ GlassPanel {
                     macro: modelData
                     keyHeight: 28
                     fontPixelSize: 12
-                    sendEnabled: root.rig.connected && root.rig.canKeyCw
-                    tone: index === 0 ? Theme.accentColor : "transparent"
+                    sendEnabled: (root.rig.connected || root.rig.keyerOn) && root.rig.canKeyCw
+                    tone: root.rig.activeMacroIndex === index ? Theme.accentColor : "transparent"
                     onSendRequested: (i) => root.rig.sendMacro(i, root.cwContext())
                     onEditRequested: (i) => macroEditor.openFor(i)
                 }

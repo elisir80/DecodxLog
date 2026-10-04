@@ -91,33 +91,20 @@ Rectangle {
 
         controls: [
             PanelTrafficLight {
-                visible: Qt.platform.os === "osx" && root.panelKey.length > 0 && root.closable
+                visible: root.panelKey.length > 0 && root.closable
                 lightColor: "#ff5f57"
                 glyph: "×"
                 hint: qsTr("Close this panel — it comes back from Panels in the top bar")
                 onClicked: root.closeRequested()
             },
             PanelTrafficLight {
-                visible: Qt.platform.os === "osx" && root.panelKey.length > 0 && root.detachable
+                visible: root.panelKey.length > 0 && root.detachable
                 lightColor: root.detached ? "#ffbd2e" : "#28c840"
                 glyph: root.detached ? "↩" : "⤢"
                 hint: root.detached ? qsTr("Put it back in the main window")
                                     : qsTr("Detach it into its own window")
                 onClicked: root.detached ? root.attachRequested() : root.detachRequested()
             },
-            PanelControl {
-                visible: Qt.platform.os !== "osx" && root.panelKey.length > 0 && root.detachable
-                glyph: root.detached ? "↩" : "⤢"
-                hint: root.detached ? qsTr("Put it back in the main window")
-                                    : qsTr("Detach it into its own window")
-                onClicked: root.detached ? root.attachRequested() : root.detachRequested()
-            },
-            PanelControl {
-                visible: Qt.platform.os !== "osx" && root.panelKey.length > 0 && root.closable
-                glyph: "✕"
-                hint: qsTr("Close this panel — it comes back from Panels in the top bar")
-                onClicked: root.closeRequested()
-            }
         ]
     }
 

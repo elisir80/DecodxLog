@@ -3,6 +3,24 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.02 — 4 ottobre 2026
+
+**CW: ogni memoria e il suo tasto.** I tasti F1–F12 ora mostrano la macro
+selezionata davvero, invece di tenere F1 evidenziato per impostazione grafica.
+Il percorso conserva l'indice della macro: F2 manda F2, F3 manda F3, e il
+pulsante **Ferma** azzera la selezione. Con WinKeyer lo svuotamento del buffer
+viene scritto subito sulla seriale; con CAT/Hamlib, dopo `stop_morse`, viene
+anche tolto il PTT come arresto di sicurezza per i backend che non svuotano il
+buffer del manipolatore della radio.
+
+**Controlli finestra uguali dappertutto.** Le finestre staccate su Windows e
+Linux usano ora, come macOS, i tre controlli circolari a sinistra (chiudi,
+riduci, ingrandisci/ripristina). Anche nei pannelli il controllo rosso chiude e
+quello verde o giallo stacca o riaggancia. I vecchi comandi testuali a destra
+non restano duplicati.
+
+## 1.17.01 — 4 ottobre 2026
+
 ## 1.17.01 — 4 ottobre 2026
 
 **Allineata alla 1.17.00 di elisir80.** Cornice delle finestre arrotondata e condivisa, menu Pannelli

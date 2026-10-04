@@ -60,6 +60,9 @@ class RigController : public QObject {
     Q_PROPERTY(QString keyerPort READ keyerPort WRITE setKeyerPort NOTIFY changed)
     Q_PROPERTY(QString keyerLine READ keyerLine WRITE setKeyerLine NOTIFY changed)
     Q_PROPERTY(bool keyerOn READ keyerOn NOTIFY stateChanged)
+    // L'ultima macro mandata: serve alla UI per illuminare il tasto giusto,
+    // non sempre F1. -1 significa che non c'e' una macro in corso.
+    Q_PROPERTY(int activeMacroIndex READ activeMacroIndex NOTIFY stateChanged)
     // Le otto macro, come {label, text}.
     Q_PROPERTY(QVariantList macros READ macros NOTIFY macrosChanged)
     // Il decoder CW: ascolta l'audio che esce dalla radio e scrive quello che
@@ -173,6 +176,7 @@ public:
     QString keyerLine() const { return m_keyerLine; }
     void setKeyerLine(const QString& line);
     bool keyerOn() const { return m_keyer.isOpen() || m_winKeyer.isOpen(); }
+    int activeMacroIndex() const { return m_activeMacroIndex; }
     // Il WinKeyer, se e' quello scelto: la versione del firmware (0 = non risponde).
     Q_PROPERTY(int winKeyerVersion READ winKeyerVersion NOTIFY stateChanged)
     int winKeyerVersion() const { return m_winKeyer.version(); }
@@ -308,6 +312,8 @@ signals:
 
 private:
     void loadMacros();
+    void setActiveMacroIndex(int index);
+    void sendExpandedText(const QString& ready);
     void saveMacros();
     static QVariantList defaultMacros();
 
@@ -380,6 +386,7 @@ private:
     // essere radio 2, non necessariamente m_rig: Stop deve tornare allo
     // stesso destinatario anche se nel frattempo cambia il fuoco.
     core::RigLink* m_cwRigInUse{nullptr};
+    int m_activeMacroIndex{-1};
     QString m_keyerPort;
     QString m_keyerLine{QStringLiteral("DTR")};
     void openKeyer();
