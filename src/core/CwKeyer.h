@@ -70,6 +70,9 @@ private:
     QString m_port;
     bool m_open{false};
     bool m_sending{false};
+    // Ogni invio ha un numero nuovo. Ferma invalida tutti quelli precedenti,
+    // senza che un invio appena arrivato possa riattivarli per errore.
+    std::atomic<quint64> m_generation{0};
 };
 
 } // namespace decolog::core

@@ -51,6 +51,7 @@ public:
     // cifre e i segni del CW.
     static QString morseText(const QString& text);
     void stopMorse() override;
+    void emergencyStop() override;
 
     int features() const override { return m_features; }
     bool split() const override { return m_split; }
@@ -69,9 +70,23 @@ private:
         QString text;    // per il CW: quello che si e' mandato
         int values{0};   // quante righe di valore ci si aspetta, se non arriva RPRT
         quint64 seq{0};  // l'ordine in cui e' partita
+        // Le risposte del CW arrivano anche dopo Ferma: questo numero evita
+        // che una risposta vecchia riapra la coda nuova.
+        quint64 cwToken{0};
     };
 
-    void send(const QString& kind, const QString& command, int values, const QString& text = {});
+    void send(const QString& kind, const QString& command, int values, const QString& text = {},
+              quint64 cwToken = 0);
+    // Il keyer interno di molte radio ha una sola memoria di trasmissione.
+    // Le macro CW devono quindi arrivargli una alla volta: altrimenti una
+    // breve (per esempio "?") puo' essere mangiata dalla precedente.
+    void startNextMorse();
+    void cancelMorseQueue();
+    void finishMorse(const Pending& what, bool accepted);
+    // Connessione breve separata: il PTT di emergenza non deve aspettare le
+    // richieste di polling o una risposta lenta del keyer sulla connessione
+    // normale di rigctld.
+    void sendEmergencyStop();
     void readFromRig();
     void handleReply(const QStringList& lines);
     void setStatus(const QString& text);
@@ -79,7 +94,9 @@ private:
     QTcpSocket* m_socket;
     QTimer m_poll;
     QTimer m_retry;
+    QTimer m_morseTimer;
     QQueue<Pending> m_pending;
+    QQueue<QString> m_morseQueue;
     QStringList m_lines;             // righe della risposta in arrivo, fino a RPRT
     QByteArray m_buffer;
 
@@ -113,6 +130,10 @@ private:
     // La radio non sa fermare il CW da CAT (le Yaesu con Hamlib): lo si dice
     // una volta e non lo si chiede piu'.
     bool m_noStopMorse{false};
+    bool m_morseInFlight{false};
+    QString m_activeMorse;
+    quint64 m_activeMorseToken{0};
+    quint64 m_morseToken{0};
     qint64 m_splitTxWanted{0};
     quint64 m_splitCheck{0};
 };

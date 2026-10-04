@@ -3777,9 +3777,18 @@ void DecoLogController::exportInBackground(const QList<qint64>& ids, bool all, c
     // Un log di prova in memoria non si apre da un altro filo: li' si scrive qui.
     if (dbPath.isEmpty() || dbPath == QLatin1String(":memory:")) {
         QFile file(path);
-        file.open(QIODevice::WriteOnly | QIODevice::Truncate);
         const QList<qint64> chosen = period ? m_db.qsoIdsBetween(period->first, period->second) : ids;
-        file.write(all ? m_db.exportAdif(programVersion) : m_db.exportAdif(chosen, programVersion));
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+            addActivity(QStringLiteral("EXPORT"), tr("Cannot write %1: %2").arg(path, file.errorString()),
+                        QStringLiteral("error"));
+            return;
+        }
+        const QByteArray data = all ? m_db.exportAdif(programVersion) : m_db.exportAdif(chosen, programVersion);
+        if (file.write(data) != data.size()) {
+            addActivity(QStringLiteral("EXPORT"), tr("Cannot write %1: %2").arg(path, file.errorString()),
+                        QStringLiteral("error"));
+            return;
+        }
         addActivity(QStringLiteral("EXPORT"),
                     tr("%n QSO → %1", nullptr, all ? m_db.qsoCount() : static_cast<int>(chosen.size())).arg(path),
                     QStringLiteral("success"));

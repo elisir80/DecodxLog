@@ -89,8 +89,10 @@ private slots:
         QVERIFY2(clock.elapsed() < 3000, "ha aspettato piu' del tempo del nodo");
     }
 
-    // Una porta che nessuno ascolta.
-    void aClosedPortIsRefused()
+    // La porta appena liberata di solito rifiuta; su macOS il sistema puo'
+    // pero' riassegnarla immediatamente a un servizio effimero. In entrambi i
+    // casi il controllo deve spiegare il risultato, senza diventare instabile.
+    void anUnusedOrImmediatelyClosedPortIsExplained()
     {
         quint16 port = 0;
         {
@@ -99,7 +101,9 @@ private slots:
             port = s.serverPort();
         }
         const auto r = probe(QStringLiteral("127.0.0.1"), port);
-        QVERIFY2(r.verdict == ConnectionProbe::Verdict::Refused || r.verdict == ConnectionProbe::Verdict::TimedOut,
+        QVERIFY2(r.verdict == ConnectionProbe::Verdict::Refused
+                     || r.verdict == ConnectionProbe::Verdict::TimedOut
+                     || r.verdict == ConnectionProbe::Verdict::ClosedAtOnce,
                  qPrintable(r.text()));
         QVERIFY(!r.hint.isEmpty());
     }

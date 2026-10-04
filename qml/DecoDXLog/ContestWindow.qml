@@ -588,7 +588,7 @@ RoundedWindow {
                 required property int index
                 Shortcut {
                     sequence: "F" + (index + 1)
-                    enabled: decolog.rig.enabled && decolog.rig.connected
+                    enabled: decolog.rig.enabled && decolog.rig.connected && decolog.rig.canKeyCw
                     onActivated: decolog.functionKey(index, cwPanel.cwContext())
                 }
             }

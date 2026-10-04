@@ -1,4 +1,5 @@
 #include "core/RigControl.h"
+#include "core/CwKeyer.h"
 
 #include <QCoreApplication>
 #include <QDebug>
@@ -37,6 +38,7 @@ RigControl::RigControl(QObject* parent)
     connect(m_socket, &QTcpSocket::errorOccurred, this, [this](QAbstractSocket::SocketError) {
         if (!m_wanted)
             return;
+        cancelMorseQueue();
         setStatus(tr("Radio not reachable: %1").arg(m_socket->errorString()));
         emit failed(m_status);
         m_poll.stop();
@@ -44,6 +46,7 @@ RigControl::RigControl(QObject* parent)
         emit changed();
     });
     connect(m_socket, &QTcpSocket::disconnected, this, [this] {
+        cancelMorseQueue();
         m_poll.stop();
         if (m_wanted)
             m_retry.start();
@@ -59,6 +62,16 @@ RigControl::RigControl(QObject* parent)
         if (m_wanted && m_socket->state() == QAbstractSocket::UnconnectedState)
             m_socket->connectToHost(m_host, m_port);
     });
+
+    m_morseTimer.setSingleShot(true);
+    connect(&m_morseTimer, &QTimer::timeout, this, [this] {
+        if (!m_morseInFlight)
+            return;
+        m_morseInFlight = false;
+        m_activeMorse.clear();
+        m_activeMorseToken = 0;
+        startNextMorse();
+    });
 }
 
 bool RigControl::connected() const
@@ -68,6 +81,7 @@ bool RigControl::connected() const
 
 void RigControl::connectTo(const QString& host, quint16 port)
 {
+    cancelMorseQueue();
     m_host = host.trimmed().isEmpty() ? QStringLiteral("127.0.0.1") : host.trimmed();
     m_port = port > 0 ? port : 4532;
     m_wanted = true;
@@ -81,6 +95,7 @@ void RigControl::connectTo(const QString& host, quint16 port)
 
 void RigControl::disconnectFromRig()
 {
+    cancelMorseQueue();
     m_wanted = false;
     m_poll.stop();
     m_retry.stop();
@@ -96,11 +111,12 @@ void RigControl::setStatus(const QString& text)
     m_status = text;
 }
 
-void RigControl::send(const QString& kind, const QString& command, int values, const QString& text)
+void RigControl::send(const QString& kind, const QString& command, int values, const QString& text,
+                      quint64 cwToken)
 {
     if (!connected())
         return;
-    m_pending.enqueue({kind, text, values, ++m_seq});
+    m_pending.enqueue({kind, text, values, ++m_seq, cwToken});
     m_socket->write(QStringLiteral("+%1\n").arg(command).toUtf8());
 }
 
@@ -245,15 +261,108 @@ void RigControl::sendMorse(const QString& text)
     const QString mode = m_mode.toUpper();
     if (!mode.isEmpty() && !mode.startsWith(QLatin1String("CW")))
         emit failed(tr("The radio is in %1: its keyer sends only in CW. Switch it to CW.").arg(m_mode));
-    send(QStringLiteral("morse"), QStringLiteral("b %1").arg(clean), 0, clean);
+    m_morseQueue.enqueue(clean);
+    startNextMorse();
 }
 
 void RigControl::stopMorse()
 {
+    cancelMorseQueue();
     if (m_noStopMorse)
         return;
     // Il nome lungo dei comandi di rigctld vuole la barra rovescia davanti.
     send(QStringLiteral("stopmorse"), QStringLiteral("\\stop_morse"), 0);
+}
+
+void RigControl::startNextMorse()
+{
+    if (m_morseInFlight || m_morseQueue.isEmpty() || !connected())
+        return;
+
+    m_morseInFlight = true;
+    m_activeMorse = m_morseQueue.dequeue();
+    m_activeMorseToken = ++m_morseToken;
+    send(QStringLiteral("morse"), QStringLiteral("b %1").arg(m_activeMorse), 0, m_activeMorse,
+         m_activeMorseToken);
+}
+
+void RigControl::cancelMorseQueue()
+{
+    // Invalidare il token e' essenziale: una risposta RPRT della macro
+    // annullata puo' arrivare dopo Ferma o dopo una riconnessione.
+    ++m_morseToken;
+    m_morseQueue.clear();
+    m_morseTimer.stop();
+    m_morseInFlight = false;
+    m_activeMorse.clear();
+    m_activeMorseToken = 0;
+}
+
+void RigControl::finishMorse(const Pending& what, bool accepted)
+{
+    if (!m_morseInFlight || what.cwToken == 0 || what.cwToken != m_activeMorseToken)
+        return;
+
+    if (!accepted) {
+        m_morseInFlight = false;
+        m_activeMorse.clear();
+        m_activeMorseToken = 0;
+        // Un messaggio rifiutato non deve ingoiare quelli dopo: il prossimo
+        // parte nel giro successivo, dopo aver mostrato l'errore di questo.
+        QTimer::singleShot(0, this, &RigControl::startNextMorse);
+        return;
+    }
+
+    emit morseSent(what.text);
+    // rigctld conferma quando ha passato il testo alla radio, non quando la
+    // radio ha finito di batterlo. Aspettare il tempo Morse stimato evita che
+    // la macro seguente rimpiazzi il buffer interno prima della fine della
+    // precedente. La protezione della memoria 1 Yaesu e' responsabilita' del
+    // chiamante, che non deve usare questo percorso CAT diretto.
+    const int wpm = m_wpm > 0 ? qBound(5, m_wpm, 60) : 20;
+    const int estimated = CwKeyer::millisFor(what.text, wpm);
+    m_morseTimer.start(qBound(150, estimated + 180, 120000));
+}
+
+void RigControl::emergencyStop()
+{
+    if (!connected())
+        return;
+
+    // Il PTT va giu' prima di tutto. Non metterlo dopo stop_morse: su alcune
+    // radio il comando CW resta occupato finche' non finisce la memoria
+    // interna, e in quel caso il vecchio ordine lasciava la radio in TX.
+    setPtt(false);
+    stopMorse();
+    sendEmergencyStop();
+}
+
+void RigControl::sendEmergencyStop()
+{
+    if (m_host.isEmpty() || m_port == 0)
+        return;
+
+    // La socket normale puo' avere davanti interrogazioni CAT o una risposta
+    // lenta. Una seconda connessione a rigctld non partecipa alla sua coda
+    // locale; manda solo due operazioni idempotenti e si autodistrugge.
+    auto* emergency = new QTcpSocket(this);
+    connect(emergency, &QTcpSocket::connected, emergency, [emergency] {
+        emergency->write(QByteArrayLiteral("+T 0\n+\\stop_morse\n"));
+        emergency->flush();
+    });
+    connect(emergency, &QTcpSocket::bytesWritten, emergency, [emergency](qint64) {
+        if (emergency->bytesToWrite() == 0)
+            emergency->disconnectFromHost();
+    });
+    connect(emergency, &QTcpSocket::disconnected, emergency, &QObject::deleteLater);
+    connect(emergency, &QTcpSocket::errorOccurred, emergency,
+            [emergency](QAbstractSocket::SocketError) { emergency->deleteLater(); });
+    // Anche un rigctld irraggiungibile non deve lasciare una socket appesa.
+    QTimer::singleShot(1000, emergency, [emergency] {
+        emergency->abort();
+        emergency->deleteLater();
+    });
+    emergency->connectToHost(m_host, m_port);
 }
 
 void RigControl::readFromRig()
@@ -321,6 +430,7 @@ void RigControl::handleReply(const QStringList& lines)
         // -1 e' "questa radio non lo sa fare": per il CW vuol dire che il
         // manipolatore della radio non si comanda da qui.
         if (what.kind == QLatin1String("morse") && (result == -11 || result == -4)) {
+            finishMorse(what, false);
             // -11 e -4 sono "non lo so fare": il ponte CAT o la radio non
             // manipolano, e i tasti si spengono.
             setStatus(tr("This CAT link does not key CW (rigctld: %1)").arg(result));
@@ -329,6 +439,7 @@ void RigControl::handleReply(const QStringList& lines)
                            "not every CAT bridge — can key CW: for the macros you need rigctld "
                            "talking to the radio itself.").arg(result));
         } else if (what.kind == QLatin1String("morse")) {
+            finishMorse(what, false);
             // Un rifiuto di questo messaggio, non della radio: i tasti restano
             // accesi. Prima uno solo bastava a spegnerli fino al riavvio.
             emit failed(tr("The radio refused the CW text (rigctld: %1). Check that it is in CW (now %2), "
@@ -480,7 +591,7 @@ void RigControl::handleReply(const QStringList& lines)
             }
         }
     } else if (what.kind == QLatin1String("morse")) {
-        emit morseSent(what.text);
+        finishMorse(what, true);
     }
 
     if (moved)

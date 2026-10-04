@@ -104,7 +104,18 @@ GlassPanel {
         // lasciare i tasti che non fanno niente.
         Text {
             Layout.fillWidth: true
-            visible: root.rig.connected && !root.rig.canKeyCw
+            visible: root.rig.connected && root.rig.cwMemoryProtected
+            wrapMode: Text.Wrap
+            color: Theme.errorColor
+            font.pixelSize: 12
+            text: qsTr("CW via this Yaesu CAT link is disabled to protect keyer memory 1: Hamlib would overwrite "
+                       + "it with every message sent from DecoDXLog. The CAT remains available for frequency and mode. "
+                       + "For CW, configure a separate serial keyer or WinKeyer in Setup → Radio (CAT) → Keying on a serial port.")
+        }
+
+        Text {
+            Layout.fillWidth: true
+            visible: root.rig.connected && !root.rig.canKeyCw && !root.rig.cwMemoryProtected
             wrapMode: Text.Wrap
             color: Theme.errorColor
             font.pixelSize: 12
@@ -189,7 +200,7 @@ GlassPanel {
                 Layout.fillWidth: true
                 uppercase: true
                 placeholderText: qsTr("write here and press Enter: it goes out in CW")
-                enabled: root.rig.connected
+                enabled: (root.rig.connected || root.rig.keyerOn) && root.rig.canKeyCw
                 onAccepted: {
                     root.rig.sendText(text, root.cwContext())
                     text = ""
@@ -200,7 +211,8 @@ GlassPanel {
                 tone: Theme.accentColor
                 buttonHeight: 28
                 fontPixelSize: 11
-                enabled: root.rig.connected && freeText.text.trim().length > 0
+                enabled: (root.rig.connected || root.rig.keyerOn) && root.rig.canKeyCw
+                         && freeText.text.trim().length > 0
                 onClicked: {
                     root.rig.sendText(freeText.text, root.cwContext())
                     freeText.text = ""
@@ -407,7 +419,8 @@ GlassPanel {
             Shortcut {
                 sequence: "F" + (index + 1)
                 // In gara i tasti funzione li tiene l'inserimento del contest (ESM).
-                enabled: root.visible && root.rig.connected && !decolog.activation.active
+                enabled: root.visible && (root.rig.connected || root.rig.keyerOn)
+                         && root.rig.canKeyCw && !decolog.activation.active
                 onActivated: decolog.functionKey(index, root.cwContext())
             }
         }

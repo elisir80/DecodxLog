@@ -54,6 +54,10 @@ class RigController : public QObject {
     // Questo collegamento il CW non lo sa mandare (per esempio il ponte CAT
     // di Decodium): le macro restano spente e si dice perche'.
     Q_PROPERTY(bool canKeyCw READ canKeyCw NOTIFY stateChanged)
+    // Alcune Yaesu, quando Hamlib le pilota direttamente sulla seriale,
+    // usano la memoria 1 del keyer come buffer del testo CW. In quel caso
+    // DecoDXLog non deve toccare le memorie personali dell'operatore.
+    Q_PROPERTY(bool cwMemoryProtected READ cwMemoryProtected NOTIFY stateChanged)
     // Il manipolatore su porta seriale: alza e abbassa DTR o RTS di una porta
     // tutta sua, e non gli importa di chi tiene il CAT. E' la via per chi opera
     // con Decodium aperto: il CAT resta li' dov'e', il CW passa di qua.
@@ -170,7 +174,8 @@ public:
     int wpm() const { return m_rig->speedWpm() > 0 ? m_rig->speedWpm() : m_wpm; }
     // Il CW parte se sa manipolarlo il CAT oppure se c'e' il manipolatore
     // sulla seriale: basta uno dei due.
-    bool canKeyCw() const { return m_canKeyCw || keyerOn(); }
+    bool canKeyCw() const { return (m_canKeyCw && !cwMemoryProtected()) || keyerOn(); }
+    bool cwMemoryProtected() const;
     QString keyerPort() const { return m_keyerPort; }
     void setKeyerPort(const QString& port);
     QString keyerLine() const { return m_keyerLine; }
@@ -314,6 +319,7 @@ private:
     void loadMacros();
     void setActiveMacroIndex(int index);
     void sendExpandedText(const QString& ready);
+    bool directYaesuCwUsesKeyerMemory() const;
     void saveMacros();
     static QVariantList defaultMacros();
 

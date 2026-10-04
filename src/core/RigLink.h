@@ -36,6 +36,15 @@ public:
     virtual void setSpeedWpm(int wpm) = 0;
     virtual void sendMorse(const QString& text) = 0;
     virtual void stopMorse() = 0;
+    // Arresto di sicurezza: prima si rilascia il PTT, poi si ferma il keyer.
+    // L'ordine e' importante: un backend puo' avere il CW in una coda o in una
+    // memoria della radio, mentre togliere il PTT deve essere il primo comando
+    // che vede. I backend che hanno una via urgente la sovrascrivono.
+    virtual void emergencyStop()
+    {
+        setPtt(false);
+        stopMorse();
+    }
 
     // Split, i due VFO, RIT e XIT. Non tutte le radio (e non tutti i
     // collegamenti) li sanno fare: features() dice cosa, e il resto risponde

@@ -312,11 +312,16 @@ void FlrigControl::setSpeedWpm(int wpm)
 void FlrigControl::sendMorse(const QString& text)
 {
     // flrig manda il CW con il suo keyer (cwio): testo, poi via.
-    call(QStringLiteral("rig.cwio_text"), {text}, [this, text](const QVariant&, const QString& fault) {
+    const quint64 generation = m_cwGeneration;
+    call(QStringLiteral("rig.cwio_text"), {text}, [this, text, generation](const QVariant&, const QString& fault) {
         if (!fault.isEmpty()) {
             emit morseUnsupported();
             return;
         }
+        // Se nel frattempo e' arrivato Ferma, la risposta tardiva al testo non
+        // deve mai riaccendere il keyer.
+        if (generation != m_cwGeneration)
+            return;
         call(QStringLiteral("rig.cwio_send"), {1});
         emit morseSent(text);
     });
@@ -324,16 +329,59 @@ void FlrigControl::sendMorse(const QString& text)
 
 void FlrigControl::stopMorse()
 {
-    call(QStringLiteral("rig.cwio_send"), {0});
+    cancelQueuedCw();
+    call(QStringLiteral("rig.cwio_send"), {0}, {}, true);
+}
+
+void FlrigControl::emergencyStop()
+{
+    cancelQueuedCw();
+    // Nella coda ordinaria PTT deve precedere il comando di stop. prepend
+    // rende l'ultimo inserito il primo: quindi stop prima, PTT dopo qui.
+    call(QStringLiteral("rig.cwio_send"), {0}, {}, true);
+    call(QStringLiteral("rig.set_ptt"), {0}, {}, true);
+    // E una seconda coppia HTTP indipendente dal lavoro XML-RPC gia' in corso.
+    // Se flrig sta ancora rispondendo a cwio_text, il dekey non la aspetta.
+    callEmergency(QStringLiteral("rig.set_ptt"), {0});
+    callEmergency(QStringLiteral("rig.cwio_send"), {0});
+}
+
+void FlrigControl::cancelQueuedCw()
+{
+    ++m_cwGeneration;
+    for (auto it = m_queue.begin(); it != m_queue.end();) {
+        const bool cw = it->method == QLatin1String("rig.cwio_text")
+                        || it->method == QLatin1String("rig.cwio_send");
+        const bool pttOn = it->method == QLatin1String("rig.set_ptt")
+                           && !it->params.isEmpty() && it->params.constFirst().toInt() != 0;
+        if (cw || pttOn)
+            it = m_queue.erase(it);
+        else
+            ++it;
+    }
 }
 
 void FlrigControl::call(const QString& method, const QVariantList& params,
-                        std::function<void(const QVariant&, const QString&)> done)
+                        std::function<void(const QVariant&, const QString&)> done, bool urgent)
 {
     if (!m_active)
         return;
-    m_queue << Call{method, params, std::move(done)};
+    if (urgent)
+        m_queue.prepend(Call{method, params, std::move(done)});
+    else
+        m_queue.append(Call{method, params, std::move(done)});
     pump();
+}
+
+void FlrigControl::callEmergency(const QString& method, const QVariantList& params)
+{
+    if (!m_active)
+        return;
+    QNetworkRequest request(m_url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("text/xml"));
+    request.setTransferTimeout(1000);
+    QNetworkReply* reply = m_net->post(request, flrig::request(method, params));
+    connect(reply, &QNetworkReply::finished, reply, &QObject::deleteLater);
 }
 
 void FlrigControl::pump()

@@ -160,6 +160,26 @@ private slots:
         QTRY_VERIFY_WITH_TIMEOUT(tci.received.contains("vfo:0,0,3575000;"), 5000);
     }
 
+    void emergencyStopCancelsCwQueuedBeforeReady()
+    {
+        FakeTci tci;
+        // Connesso, ma non ancora pronto: qui prima una macro poteva restare
+        // nella coda e partire dopo Ferma.
+        tci.greeting = QStringLiteral("vfo:0,0,3573000;modulation:0,cw;");
+        TciControl rig;
+        rig.connectTo(tci.address(), 0);
+        QTRY_VERIFY_WITH_TIMEOUT(rig.connected(), 5000);
+
+        rig.sendMorse(QStringLiteral("CQ TEST"));
+        rig.emergencyStop();
+        QVERIFY(waitFor([&] { return tci.received.contains(QStringLiteral("trx:0,false;")); }));
+        QVERIFY(tci.received.contains(QStringLiteral("cw_macros_stop;")));
+
+        tci.say(QStringLiteral("ready;"));
+        QTest::qWait(200);
+        QVERIFY(!tci.received.contains(QStringLiteral("cw_macros:0,CQ TEST;")));
+    }
+
     void noRadioNoCw()
     {
         TciControl rig;

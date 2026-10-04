@@ -5,6 +5,7 @@
 
 #include <QDateTime>
 #include <QFile>
+#include <QTimeZone>
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
@@ -379,7 +380,7 @@ void DecodeFeed::demo()
     const qint64 grid = (now.toSecsSinceEpoch() / 15) * 15;
     for (const Line& l : lines) {
         wsjtx::Decode d;
-        d.time = QDateTime::fromSecsSinceEpoch(grid - 15 * l.slot, Qt::UTC).time();
+        d.time = QDateTime::fromSecsSinceEpoch(grid - 15 * l.slot, QTimeZone::UTC).time();
         d.snr = l.snr;
         d.deltaTime = l.dt;
         d.deltaFrequency = static_cast<quint32>(l.df);
@@ -487,7 +488,7 @@ int DecodeFeed::loadHistory()
             continue;
         wsjtx::Decode d;
         d.isNew = false;      // e' storia: niente doppioni con quello che arriva in diretta
-        d.time = QDateTime::fromMSecsSinceEpoch(it->when, Qt::UTC).time();
+        d.time = QDateTime::fromMSecsSinceEpoch(it->when, QTimeZone::UTC).time();
         d.snr = it->snr;
         d.deltaTime = it->dt;
         d.deltaFrequency = static_cast<quint32>(std::max(0, it->df));

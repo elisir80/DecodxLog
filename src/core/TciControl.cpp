@@ -178,6 +178,15 @@ void TciControl::send(const QString& command)
     m_socket.sendTextMessage(command);
 }
 
+void TciControl::sendImmediately(const QString& command)
+{
+    if (!connected())
+        return;
+    if (qEnvironmentVariableIsSet("DECODXLOG_RIG_DEBUG"))
+        qDebug() << "tci !>" << command;
+    m_socket.sendTextMessage(command);
+}
+
 void TciControl::flushQueue()
 {
     const QStringList pending = m_queue;
@@ -274,6 +283,16 @@ void TciControl::sendMorse(const QString& text)
 void TciControl::stopMorse()
 {
     send(QStringLiteral("cw_macros_stop;"));
+}
+
+void TciControl::emergencyStop()
+{
+    // Se la radio e' collegata ma non ha ancora mandato ready, una vecchia
+    // macro era nella coda e poteva partire dopo che l'operatore aveva premuto
+    // Ferma. La si elimina e si bypassa ready con il dekey urgente.
+    m_queue.clear();
+    sendImmediately(QStringLiteral("trx:%1,false;").arg(m_trx));
+    sendImmediately(QStringLiteral("cw_macros_stop;"));
 }
 
 void TciControl::handleText(const QString& text)

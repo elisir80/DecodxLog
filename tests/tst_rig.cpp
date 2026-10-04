@@ -300,6 +300,66 @@ private slots:
         QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+\\stop_morse")), 5000);
     }
 
+    void queuesShortCwMessagesInsteadOfOverwritingTheRadioKeyer()
+    {
+        FakeRigctld rig;
+        RigControl control;
+        control.connectTo(QStringLiteral("127.0.0.1"), rig.serverPort());
+        QTRY_VERIFY_WITH_TIMEOUT(control.connected(), 5000);
+        control.setSpeedWpm(60);
+
+        QSignalSpy sent(&control, &RigControl::morseSent);
+        control.sendMorse(QStringLiteral("?"));
+        control.sendMorse(QStringLiteral("K"));
+
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+b ?")), 5000);
+        // Il secondo testo e' in coda finche' la radio non ha finito di
+        // battere il primo. Senza questa attesa alcuni keyer CAT sovrascrivono
+        // la memoria e un singolo '?' sembra semplicemente sparire.
+        QTest::qWait(100);
+        QVERIFY(!rig.received.contains(QStringLiteral("+b K")));
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+b K")), 3000);
+        QTRY_COMPARE_WITH_TIMEOUT(sent.count(), 2, 3000);
+        QCOMPARE(sent.at(0).at(0).toString(), QStringLiteral("?"));
+        QCOMPARE(sent.at(1).at(0).toString(), QStringLiteral("K"));
+    }
+
+    void stopDropsCwMessagesStillQueuedForTheRadio()
+    {
+        FakeRigctld rig;
+        RigControl control;
+        control.connectTo(QStringLiteral("127.0.0.1"), rig.serverPort());
+        QTRY_VERIFY_WITH_TIMEOUT(control.connected(), 5000);
+        control.setSpeedWpm(20);
+
+        control.sendMorse(QStringLiteral("CQ"));
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+b CQ")), 5000);
+        control.sendMorse(QStringLiteral("?"));
+        control.stopMorse();
+
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+\\stop_morse")), 5000);
+        QTest::qWait(1200);
+        QVERIFY(!rig.received.contains(QStringLiteral("+b ?")));
+    }
+
+    // Il dekey e' il primo comando di Ferma. Il secondo collegamento urgente
+    // puo' duplicare i due comandi, ma non puo' invertire quell'ordine.
+    void emergencyStopReleasesPttBeforeStoppingMorse()
+    {
+        FakeRigctld rig;
+        RigControl control;
+        control.connectTo(QStringLiteral("127.0.0.1"), rig.serverPort());
+        QTRY_VERIFY_WITH_TIMEOUT(control.connected(), 5000);
+        QTRY_COMPARE_WITH_TIMEOUT(control.speedWpm(), 22, 5000);
+        rig.received.clear();
+
+        control.emergencyStop();
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+T 0")), 5000);
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+\\stop_morse")), 5000);
+        QVERIFY(rig.received.indexOf(QStringLiteral("+T 0"))
+                < rig.received.indexOf(QStringLiteral("+\\stop_morse")));
+    }
+
     // rigctld risponde a "get_level" col valore nudo e *poi* con RPRT. Il
     // valore nudo bastava a chiudere la risposta, e il RPRT che arrivava dopo
     // si prendeva la domanda seguente: da li' in poi ogni risposta finiva sulla
@@ -350,6 +410,7 @@ private slots:
     {
         QCOMPARE(RigControl::morseText(QStringLiteral("cq cq de iu8lmc k")), QStringLiteral("CQ CQ DE IU8LMC K"));
         QCOMPARE(RigControl::morseText(QStringLiteral("tu 5nn {nr} ! ok?")), QStringLiteral("TU 5NN NR OK?"));
+        QCOMPARE(RigControl::morseText(QStringLiteral("?")), QStringLiteral("?"));
 
         FakeRigctld rig;
         rig.mode = QStringLiteral("USB");
@@ -365,6 +426,12 @@ private slots:
         QVERIFY(failed.size() >= 1);
         QVERIFY(failed.first().first().toString().contains(QStringLiteral("USB")));
 
+        // La macro successiva ora aspetta che il keyer interno sia libero.
+        // Qui non stiamo provando la coda (c'e' un test dedicato sopra), ma
+        // l'errore del testo rifiutato: interrompiamo quindi quella iniziale.
+        control.stopMorse();
+        QTRY_VERIFY_WITH_TIMEOUT(rig.received.contains(QStringLiteral("+\\stop_morse")), 5000);
+
         // Rifiutato quel messaggio (-1): si dice perche', i tasti restano.
         rig.morseWorks = false;
         failed.clear();
@@ -375,12 +442,13 @@ private slots:
         // Lo STOP: la radio non lo sa fare, lo si dice una volta.
         rig.stopWorks = false;
         failed.clear();
+        const qsizetype stopsBeforeUnsupportedStop = rig.received.count(QStringLiteral("+\\stop_morse"));
         control.stopMorse();
         QTRY_COMPARE_WITH_TIMEOUT(failed.size(), 1, 5000);
         control.stopMorse();
         QTest::qWait(300);
         QCOMPARE(failed.size(), 1);
-        QCOMPARE(rig.received.count(QStringLiteral("+\\stop_morse")), 1);
+        QCOMPARE(rig.received.count(QStringLiteral("+\\stop_morse")), stopsBeforeUnsupportedStop + 1);
 
         // -11: questa radio non manipola, i tasti si spengono.
         rig.morseError = -11;

@@ -64,6 +64,7 @@ public:
     void setSpeedWpm(int wpm) override;
     void sendMorse(const QString& text) override;
     void stopMorse() override;
+    void emergencyStop() override;
 
 private:
     struct Call {
@@ -72,7 +73,9 @@ private:
         std::function<void(const QVariant& value, const QString& fault)> done;
     };
     void call(const QString& method, const QVariantList& params,
-              std::function<void(const QVariant&, const QString&)> done = {});
+              std::function<void(const QVariant&, const QString&)> done = {}, bool urgent = false);
+    void callEmergency(const QString& method, const QVariantList& params);
+    void cancelQueuedCw();
     void pump();
 
     QNetworkAccessManager* m_net;
@@ -92,6 +95,9 @@ private:
     QStringList m_modes;
     QTimer m_poll;
     int m_failures{0};
+    // Ogni Ferma invalida il completamento asincrono che avrebbe potuto
+    // riaccendere cwio_send dopo il dekey.
+    quint64 m_cwGeneration{0};
 };
 
 } // namespace decolog::core

@@ -583,6 +583,7 @@ void RigController::setLink(const QString& link)
     if (m_enabled)
         connectNow();
     emit changed();
+    emit stateChanged();
 }
 
 void RigController::setTciAddress(const QString& address)
@@ -709,6 +710,7 @@ void RigController::setRigModel(int model)
     QSettings().setValue(QStringLiteral("rig/model"), model);
     refreshSerialCapabilities();
     emit changed();
+    emit stateChanged();
 }
 
 void RigController::setBaud(int baud)
@@ -1213,28 +1215,42 @@ void RigController::setActiveMacroIndex(int index)
     emit stateChanged();
 }
 
+bool RigController::directYaesuCwUsesKeyerMemory() const
+{
+    // Hamlib assegna i backend Yaesu all'intervallo 1000--1099. Per questi
+    // modelli il comando send_morse carica il testo nella memoria 1 della
+    // radio; non e' un buffer temporaneo che si possa ripristinare con
+    // sicurezza dopo la trasmissione.
+    return m_link == QLatin1String("serial") && m_rigModel >= 1000 && m_rigModel < 1100;
+}
+
+bool RigController::cwMemoryProtected() const
+{
+    if (!directYaesuCwUsesKeyerMemory() || keyerOn())
+        return false;
+
+    // In SO2R, quando radio 2 ha il fuoco, il CW non viene mandato alla
+    // Yaesu configurata qui ma al suo collegamento separato.
+    return !(m_ctx.alternateRig && m_ctx.alternateRig());
+}
+
 void RigController::sendExpandedText(const QString& ready)
 {
-    // Le Yaesu via Hamlib caricano il testo nella memoria del manipolatore
-    // (KM), che ne tiene 50: il resto Hamlib lo taglia. Lo si dice.
-    if (m_link == QLatin1String("serial") && m_rigModel >= 1000 && m_rigModel < 1100 && ready.size() > 50
-        && m_ctx.activity) {
-        m_ctx.activity(QStringLiteral("CW"),
-                       tr("Yaesu radios key at most 50 characters at a time from CAT: \"%1\" will be cut "
-                          "after \"%2\". Shorten the macro.").arg(ready, ready.left(50)),
-                       QStringLiteral("warning"));
-    }
     // Il manipolatore sulla seriale ha la precedenza: se c'e', e' quello che
     // l'operatore ha attaccato alla radio apposta.
     if (m_winKeyer.isOpen()) {
-        m_cwRigInUse = nullptr;
+        m_cwRigInUse = m_ctx.alternateRig ? m_ctx.alternateRig() : nullptr;
+        if (!m_cwRigInUse)
+            m_cwRigInUse = m_rig;
         m_winKeyer.send(ready, wpm());
         if (m_ctx.activity)
             m_ctx.activity(QStringLiteral("CW"), tr("Sent: %1").arg(ready), QStringLiteral("info"));
         return;
     }
     if (m_keyer.isOpen()) {
-        m_cwRigInUse = nullptr;
+        m_cwRigInUse = m_ctx.alternateRig ? m_ctx.alternateRig() : nullptr;
+        if (!m_cwRigInUse)
+            m_cwRigInUse = m_rig;
         m_keyer.send(ready, wpm());
         return;
     }
@@ -1244,39 +1260,45 @@ void RigController::sendExpandedText(const QString& ready)
         alt->sendMorse(ready);
         return;
     }
+
+    // Su queste Yaesu, send_morse non invia il testo direttamente: Hamlib lo
+    // scrive nella memoria 1 del keyer. Non proviamo a salvarla e riscriverla
+    // dopo, perche' non tutti i modelli consentono di leggerla e potremmo
+    // perdere comunque una memoria personale dell'operatore.
+    if (directYaesuCwUsesKeyerMemory()) {
+        setActiveMacroIndex(-1);
+        if (m_ctx.activity) {
+            m_ctx.activity(QStringLiteral("CW"),
+                           tr("CW via CAT was not sent: this Yaesu/Hamlib link would overwrite keyer memory 1. "
+                              "Your radio memories were left unchanged. Configure a separate serial keyer or "
+                              "WinKeyer in Setup → Radio (CAT) → Keying on a serial port."),
+                           QStringLiteral("warning"));
+        }
+        return;
+    }
     m_cwRigInUse = m_rig;
     m_rig->sendMorse(ready);
 }
 
 void RigController::stop()
 {
-    const bool localKeyer = m_keyer.isOpen() || m_winKeyer.isOpen();
     m_keyer.stop();
     m_winKeyer.stop();
     setActiveMacroIndex(-1);
-    // Con un manipolatore locale questi due stop svuotano il buffer e
-    // rilasciano subito la linea. Non chiedere anche alla radio di fermare un
-    // CW che non le e' mai stato dato: alcuni rigctld lo segnalano come errore.
-    if (localKeyer) {
-        m_cwRigInUse = nullptr;
-        return;
-    }
-
-    // SO2R puo' aver inviato la macro alla radio 2. Usare la radio registrata
-    // al momento dell'invio, non il fuoco attuale e non sempre radio 1.
+    // SO2R puo' aver inviato la macro alla radio 2. Il destinatario si salva
+    // anche con un keyer locale: oltre a svuotare il suo buffer, Ferma deve
+    // forzare il PTT della stessa radio verso RX.
     core::RigLink* target = m_cwRigInUse;
     m_cwRigInUse = nullptr;
+    if (!target && m_ctx.alternateRig)
+        target = m_ctx.alternateRig();
     if (!target)
-        target = m_ctx.alternateRig ? m_ctx.alternateRig() : m_rig;
-    if (target) {
-        target->stopMorse();
-        // Non tutti i backend Hamlib implementano stop_morse (in particolare
-        // alcuni CAT Yaesu lo accettano ma non svuotano il loro buffer KM).
-        // Togliere il PTT subito dopo e' il freno d'emergenza: il comando e'
-        // accodato dopo stop_morse sullo stesso collegamento e non influenza
-        // manipolatori seriali/WinKeyer, che sono gia' usciti sopra.
-        target->setPtt(false);
-    }
+        target = m_rig;
+    if (target)
+        target->emergencyStop();
+    if (m_ctx.activity)
+        m_ctx.activity(QStringLiteral("CW"), tr("Stop requested: keyer cleared and PTT release sent"),
+                       QStringLiteral("info"));
 }
 
 void RigController::shutdown()

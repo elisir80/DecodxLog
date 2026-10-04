@@ -36,11 +36,11 @@ constexpr Letter kTable[] = {
 // Aspetta il tempo giusto: si dorme a colpi corti — l'attesa lunga su Windows
 // sbaglia di dieci millisecondi e piu' — e gli ultimi due si contano fermi qui,
 // che e' l'unico modo di avere una spaziatura che non traballa.
-void waitFor(qint64 microseconds, const std::atomic_bool& stopped)
+void waitFor(qint64 microseconds, const std::atomic<quint64>& cancelledThrough, quint64 generation)
 {
     QElapsedTimer clock;
     clock.start();
-    while (!stopped) {
+    while (cancelledThrough.load() < generation) {
         const qint64 left = microseconds - clock.nsecsElapsed() / 1000;
         if (left <= 0)
             return;
@@ -60,8 +60,6 @@ class CwKeyerWorker : public QObject {
 
 public:
     ~CwKeyerWorker() override { closePort(); }
-
-    std::atomic_bool stopped{false};
 
 public slots:
     void openPort(const QString& name, const QString& line)
@@ -95,19 +93,36 @@ public slots:
         m_port = nullptr;
     }
 
-    void enqueue(const QString& text, int wpm)
+    void enqueue(const QString& text, int wpm, quint64 generation)
     {
         {
             QMutexLocker lock(&m_mutex);
-            m_queue.enqueue(qMakePair(text, qBound(5, wpm, 60)));
+            m_queue.enqueue({text, qBound(5, wpm, 60), generation});
         }
         QMetaObject::invokeMethod(this, "drain", Qt::QueuedConnection);
     }
 
-    void clearQueue()
+    void cancelThrough(quint64 generation)
     {
-        QMutexLocker lock(&m_mutex);
-        m_queue.clear();
+        quint64 current = m_cancelledThrough.load();
+        while (current < generation
+               && !m_cancelledThrough.compare_exchange_weak(current, generation)) {
+        }
+        {
+            QMutexLocker lock(&m_mutex);
+            m_queue.clear();
+        }
+        // Se non sta battendo nulla il worker deve comunque togliere il
+        // piedino. Il numero evita che questo evento vecchio abbassi la linea
+        // nel mezzo di una macro nuova arrivata subito dopo Ferma.
+        QMetaObject::invokeMethod(this, "releaseKey", Qt::QueuedConnection,
+                                  Q_ARG(quint64, generation));
+    }
+
+    void releaseKey(quint64 generation)
+    {
+        if (m_activeGeneration.load() <= generation)
+            key(false);
     }
 
     Q_INVOKABLE void drain()
@@ -116,18 +131,17 @@ public slots:
             return;
         m_busy = true;
         forever {
-            QString text;
-            int wpm = 24;
+            Job next;
             {
                 QMutexLocker lock(&m_mutex);
                 if (m_queue.isEmpty())
                     break;
-                const auto next = m_queue.dequeue();
-                text = next.first;
-                wpm = next.second;
+                next = m_queue.dequeue();
             }
-            sendNow(text, wpm);
-            emit textSent(text);
+            if (cancelled(next.generation))
+                continue;
+            if (sendNow(next.text, next.wpm, next.generation))
+                emit textSent(next.text);
         }
         m_busy = false;
         emit finished();
@@ -143,6 +157,17 @@ signals:
 private:
     enum class Line { Dtr, Rts };
 
+    struct Job {
+        QString text;
+        int wpm{24};
+        quint64 generation{0};
+    };
+
+    bool cancelled(quint64 generation) const
+    {
+        return m_cancelledThrough.load() >= generation;
+    }
+
     void key(bool down)
     {
         if (!m_port)
@@ -153,19 +178,27 @@ private:
             m_port->setDataTerminalReady(down);
     }
 
-    void sendNow(const QString& text, int wpm)
+    bool sendNow(const QString& text, int wpm, quint64 generation)
     {
-        if (!m_port)
-            return;
+        if (!m_port || cancelled(generation))
+            return false;
+        m_activeGeneration.store(generation);
+        bool complete = true;
         // Il punto: 1200 diviso le parole al minuto, come dice PARIS.
         const qint64 dot = 1200'000 / wpm;     // microsecondi
         for (const QChar raw : text.toUpper()) {
-            if (stopped)
+            if (cancelled(generation)) {
+                complete = false;
                 break;
+            }
             if (raw == QLatin1Char(' ')) {
                 // Fra due parole sette punti; tre sono gia' passati con
                 // l'ultima lettera.
-                waitFor(dot * 4, stopped);
+                waitFor(dot * 4, m_cancelledThrough, generation);
+                if (cancelled(generation)) {
+                    complete = false;
+                    break;
+                }
                 emit charSent(QStringLiteral(" "));
                 continue;
             }
@@ -173,26 +206,43 @@ private:
             if (code.isEmpty())
                 continue;
             for (qsizetype i = 0; i < code.size(); ++i) {
-                if (stopped)
+                if (cancelled(generation)) {
+                    complete = false;
                     break;
+                }
                 key(true);
-                waitFor(code.at(i) == QLatin1Char('-') ? dot * 3 : dot, stopped);
+                waitFor(code.at(i) == QLatin1Char('-') ? dot * 3 : dot, m_cancelledThrough, generation);
                 key(false);
+                if (cancelled(generation)) {
+                    complete = false;
+                    break;
+                }
                 // Fra un elemento e l'altro un punto di silenzio.
                 if (i + 1 < code.size())
-                    waitFor(dot, stopped);
+                    waitFor(dot, m_cancelledThrough, generation);
             }
+            if (!complete)
+                break;
             emit charSent(QString(raw));
             // Fra due lettere tre punti: uno l'ha gia' fatto l'elemento.
-            waitFor(dot * 2, stopped);
+            waitFor(dot * 2, m_cancelledThrough, generation);
+            if (cancelled(generation)) {
+                complete = false;
+                break;
+            }
         }
         key(false);
+        if (m_activeGeneration.load() == generation)
+            m_activeGeneration.store(0);
+        return complete && !cancelled(generation);
     }
 
     QSerialPort* m_port{nullptr};
     Line m_line{Line::Dtr};
-    QQueue<QPair<QString, int>> m_queue;
+    QQueue<Job> m_queue;
     QMutex m_mutex;
+    std::atomic<quint64> m_cancelledThrough{0};
+    std::atomic<quint64> m_activeGeneration{0};
     bool m_busy{false};
 };
 
@@ -222,9 +272,9 @@ CwKeyer::~CwKeyer()
     stop();
     // Non aspettare con una chiamata bloccante il worker: se l'uscita arriva
     // mentre sta manipolando un carattere, quella attesa puo' tenere vivo il
-    // processo anche dopo la chiusura della finestra. stop() imposta il flag
-    // atomico, quindi il worker esce subito dall'attesa Morse e processa queste
-    // due richieste nell'ordine.
+    // processo anche dopo la chiusura della finestra. stop() invalida in modo
+    // atomico il messaggio in corso, quindi il worker esce subito dall'attesa
+    // Morse e processa queste due richieste nell'ordine.
     if (!m_thread->isRunning())
         return;
     QMetaObject::invokeMethod(m_worker, "closePort", Qt::QueuedConnection);
@@ -262,15 +312,15 @@ void CwKeyer::send(const QString& text, int wpm)
 {
     if (!m_open || text.trimmed().isEmpty())
         return;
-    m_worker->stopped = false;
     m_sending = true;
-    m_worker->enqueue(text, wpm);
+    const quint64 generation = m_generation.fetch_add(1) + 1;
+    m_worker->enqueue(text, wpm, generation);
 }
 
 void CwKeyer::stop()
 {
-    m_worker->stopped = true;
-    m_worker->clearQueue();
+    const quint64 generation = m_generation.fetch_add(1) + 1;
+    m_worker->cancelThrough(generation);
     m_sending = false;
 }
 

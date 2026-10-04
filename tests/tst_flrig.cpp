@@ -3,6 +3,7 @@
 #include "core/OmniRigControl.h"
 
 #include <QSignalSpy>
+#include <QPointer>
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QTest>
@@ -116,6 +117,66 @@ private slots:
         QTRY_VERIFY(methods.contains("rig.set_AB"));
         rig.disconnectFromRig();
         QVERIFY(!rig.connected());
+    }
+
+    // cwio_text e' asincrono: se Ferma arriva mentre flrig sta ancora
+    // rispondendo, il completamento vecchio non deve poter mandare cwio_send 1.
+    void emergencyStopCancelsDeferredCwStart()
+    {
+        QTcpServer server;
+        QVERIFY(server.listen(QHostAddress::LocalHost));
+        QStringList calls;
+        QPointer<QTcpSocket> heldText;
+        const auto reply = [](QTcpSocket* socket) {
+            const QByteArray xml = "<?xml version=\"1.0\"?><methodResponse><params><param>"
+                                   "<value><i4>1</i4></value></param></params></methodResponse>";
+            socket->write("HTTP/1.1 200 OK\r\nContent-Type: text/xml\r\nContent-Length: "
+                          + QByteArray::number(xml.size()) + "\r\nConnection: close\r\n\r\n" + xml);
+            socket->disconnectFromHost();
+        };
+        connect(&server, &QTcpServer::newConnection, &server, [&] {
+            while (QTcpSocket* socket = server.nextPendingConnection()) {
+                connect(socket, &QTcpSocket::readyRead, socket, [&, socket] {
+                    const QByteArray all = socket->property("buf").toByteArray() + socket->readAll();
+                    socket->setProperty("buf", all);
+                    const int body = all.indexOf("\r\n\r\n");
+                    if (body < 0 || !all.contains("</methodCall>"))
+                        return;
+                    const int first = all.indexOf("<methodName>") + 12;
+                    const QString method = QString::fromUtf8(all.mid(first, all.indexOf("</methodName>") - first));
+                    calls << method + QLatin1Char('|') + QString::fromUtf8(all.mid(body + 4));
+                    if (method == QLatin1String("rig.cwio_text")) {
+                        heldText = socket;
+                        return;
+                    }
+                    reply(socket);
+                });
+            }
+        });
+
+        FlrigControl rig;
+        rig.connectTo(QStringLiteral("127.0.0.1:%1").arg(server.serverPort()));
+        QTRY_VERIFY_WITH_TIMEOUT(rig.connected(), 5000);
+        calls.clear();
+
+        rig.sendMorse(QStringLiteral("CQ"));
+        QTRY_VERIFY_WITH_TIMEOUT(!heldText.isNull(), 5000);
+        rig.emergencyStop();
+
+        auto saw = [&calls](const QString& method, const QString& value) {
+            for (const QString& call : calls)
+                if (call.startsWith(method + QLatin1Char('|')) && call.contains(value))
+                    return true;
+            return false;
+        };
+        QTRY_VERIFY_WITH_TIMEOUT(saw(QStringLiteral("rig.set_ptt"), QStringLiteral("<i4>0</i4>")), 5000);
+        QTRY_VERIFY_WITH_TIMEOUT(saw(QStringLiteral("rig.cwio_send"), QStringLiteral("<i4>0</i4>")), 5000);
+
+        // La risposta di cwio_text arriva solo adesso. Prima della correzione
+        // la sua callback aggiungeva cwio_send 1 e riaccendeva il TX.
+        reply(heldText);
+        QTest::qWait(250);
+        QVERIFY(!saw(QStringLiteral("rig.cwio_send"), QStringLiteral("<i4>1</i4>")));
     }
 };
 

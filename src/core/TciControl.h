@@ -60,6 +60,7 @@ public:
     void setSpeedWpm(int wpm) override;
     void sendMorse(const QString& text) override;
     void stopMorse() override;
+    void emergencyStop() override;
 
     // L'indirizzo WebSocket di un indirizzo scritto a mano.
     static QUrl urlFor(const QString& address);
@@ -69,6 +70,7 @@ public:
 
 private:
     void send(const QString& command);
+    void sendImmediately(const QString& command);
     void flushQueue();
     void handleText(const QString& text);
     void handleCommand(const QString& name, const QStringList& args);

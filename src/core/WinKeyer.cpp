@@ -109,6 +109,9 @@ void WinKeyer::send(const QString& text, int wpm)
 void WinKeyer::stop()
 {
     if (isOpen()) {
+        // Elimina prima i caratteri che Qt non ha ancora passato al dispositivo;
+        // poi 0x0A arriva subito al WinKeyer e svuota anche il suo buffer.
+        m_port->clear(QSerialPort::Output);
         m_port->write(winkeyer::clearBuffer());
         // 0x0A deve precedere subito i caratteri gia' accodati: flush evita
         // che il pulsante Ferma aspetti il prossimo giro dell'event loop.
