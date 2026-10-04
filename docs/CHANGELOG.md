@@ -5,21 +5,11 @@ in stazione.
 
 ## 1.17.03 — 4 ottobre 2026
 
-**Base sincronizzata con la 1.17.03 di iu8lmc.** Restano incluse le correzioni locali gia'
-arrivate nella 1.17.02: macro CW con il tasto giusto e controlli delle finestre uguali su tutte
-le piattaforme. Le modifiche locali sotto sono state riapplicate sopra la base nuova, senza
-sostituire le nuove funzioni Cluster, QSL ed export ADIF.
-
-**CW: stop piu' deciso e memoria del keyer Yaesu protetta.** Il tasto **Ferma** invalida anche
-una macro gia' in attesa nel manipolatore seriale e manda un arresto d'emergenza alla stessa radio
-che ha ricevuto il CW, compreso il PTT OFF. I percorsi rigctld, TCI, flrig e WinKeyer non possono
-riavviare una trasmissione da una risposta arrivata tardi. Con una Yaesu collegata direttamente via
-CAT/Hamlib, DecoDXLog non usa piu' `send_morse`: Hamlib scriveva ogni testo nella memoria 1 del
-keyer della radio. Frequenza e modo restano disponibili; per il CW si configura un keyer seriale
-separato o un WinKeyer. Le prove coprono l'annullamento e il PTT nei backend interessati.
-
-**Build ed export piu' robusti.** Il codice e' compatibile con le API data/ora di Qt 6.9+ e
-l'export ADIF segnala apertura o scrittura non riuscita invece di dichiarare il file esportato.
+**Allineata alla 1.17.02 di elisir80.** I tasti F1–F12 del CW che mostrano e mandano la macro
+giusta (e «Ferma» che svuota anche la seriale del WinKeyer e toglie il PTT con CAT/Hamlib), e i
+controlli delle finestre uguali dappertutto — i tre cerchi a sinistra anche su Windows e Linux —:
+tutto nella sezione 1.17.02 qui sotto. Il numero 1.17.02 e' della loro release, e la nostra e'
+la 1.17.03, piu' alta, cosi' l'aggiornamento non le confonde.
 
 **Cluster: «Check» su ogni fonte, e messaggi che dicono dove cercare.** A qualcuno il cluster non si
 collega, e la pagina del nodo (iq8do.aricaserta.it) nel browser dice ERR_CONNECTION_CLOSED: il nodo
