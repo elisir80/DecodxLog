@@ -104,7 +104,7 @@ Rectangle {
                 hint: root.detached ? qsTr("Put it back in the main window")
                                     : qsTr("Detach it into its own window")
                 onClicked: root.detached ? root.attachRequested() : root.detachRequested()
-            },
+            }
         ]
     }
 
