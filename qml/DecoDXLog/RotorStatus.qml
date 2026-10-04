@@ -8,6 +8,7 @@ Rectangle {
     id: strip
 
     property bool nightMode: true
+    property real cornerRadius: 0
 
     RotorPalette { id: rt; dark: strip.nightMode }
 
@@ -15,7 +16,19 @@ Rectangle {
     readonly property var st: rotor.state
 
     implicitHeight: 30
-    color: rt.bgHeader
+    color: "transparent"
+
+    Rectangle {
+        anchors.fill: parent
+        radius: strip.cornerRadius
+        color: rt.bgHeader
+        antialiasing: strip.cornerRadius > 0
+    }
+    Rectangle {
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        height: strip.cornerRadius
+        color: rt.bgHeader
+    }
 
     Rectangle {
         anchors.top: parent.top

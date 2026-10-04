@@ -10,7 +10,7 @@ import QtQuick.Dialogs
 import QtCore
 import Decodium.UI
 
-ApplicationWindow {
+RoundedWindow {
     id: window
 
     width: 1440
@@ -23,7 +23,11 @@ ApplicationWindow {
     title: "DecoDXLog " + decolog.version
            + (decolog.stationProfiles.activeProfile.stationCallsign
               ? " — " + decolog.stationProfiles.activeProfile.stationCallsign : "")
-    color: Theme.bgDeep
+    // La cornice principale resta nelle mani del sistema operativo: su macOS
+    // questo significa angoli e ombra nativi, senza alterare fullscreen,
+    // spostamento o snapping su Windows e Linux.
+    transparentFrame: false
+    surfaceColor: Theme.bgDeep
     font.pixelSize: Theme.fontSize
 
     // La X della finestra principale chiude DecoDXLog per davvero. Senza questo,
@@ -195,6 +199,11 @@ ApplicationWindow {
     function panelState(key) {
         if (key === "cluster")
             return clusterWindow.active ? qsTr("window") : qsTr("closed")
+        // I pannelli senza una casella sulla lavagna normale (per ora il
+        // Voice keyer) esistono soltanto nella loro finestra. Non devono
+        // apparire come "docked" quando in realta' non sono aperti.
+        if (!window.contestModeOn && window.isWindowOnly(key))
+            return window.isPanelDetached(key) ? qsTr("window") : qsTr("closed")
         return window.isPanelHidden(key) ? qsTr("closed")
              : window.isPanelDetached(key) ? qsTr("window") : qsTr("docked")
     }
@@ -208,6 +217,19 @@ ApplicationWindow {
     function showPanel(key) {
         if (key === "cluster") {
             window.openCluster(0)
+            return
+        }
+        // Il Voice keyer non ha una casella nella lavagna dell'uso normale:
+        // aprirlo da Pannelli crea quindi direttamente la sua finestra. In
+        // Contest Mode resta invece parte della lavagna del contest.
+        if (!window.contestModeOn && window.isWindowOnly(key)) {
+            const detached = window.panelListOf(layout.detachedPanels)
+            layout.hiddenPanels = window.panelListOf(layout.hiddenPanels)
+                                        .filter(function (k) { return k !== key }).join(",")
+            if (detached.indexOf(key) < 0)
+                layout.detachedPanels = detached.concat([key]).join(",")
+            else
+                Qt.callLater(function () { window.raisePanel(key) })
             return
         }
         // Riaperto, sta davanti agli altri.
@@ -233,6 +255,10 @@ ApplicationWindow {
         window.finishPanelStateTransition()
     }
     function detachPanel(key) {
+        if (!window.contestModeOn && window.isWindowOnly(key)) {
+            window.showPanel(key)
+            return
+        }
         if (window.panelStateTransition)
             return
         window.panelStateTransition = true
@@ -245,6 +271,10 @@ ApplicationWindow {
         window.finishPanelStateTransition()
     }
     function attachPanel(key) {
+        if (!window.contestModeOn && window.isWindowOnly(key)) {
+            window.closePanel(key)
+            return
+        }
         if (window.panelStateTransition)
             return
         window.panelStateTransition = true
@@ -258,6 +288,11 @@ ApplicationWindow {
     function togglePanel(key) {
         if (key === "cluster") {
             if (clusterWindow.active) window.closePanel(key)
+            else window.showPanel(key)
+            return
+        }
+        if (!window.contestModeOn && window.isWindowOnly(key)) {
+            if (window.isPanelDetached(key)) window.closePanel(key)
             else window.showPanel(key)
             return
         }
@@ -989,7 +1024,7 @@ ApplicationWindow {
         else if (what[0] === "toast") { dxToast.show("NEW DXCC", "3Y0J 14025.0 CW Bouvet · New DXCC", "3Y0J|20m|CW"); dxToast.show("NEW IOTA", "IH9R 7012.0 CW Italy · IOTA AF-018", "IH9R|40m|CW") }
         // L'orologio mondiale aperto, con la citta' scelta se c'e'.
         else if (what[0] === "worldclock") { if (what[1]) decolog.worldClock.selected = what[1]; worldClockWindow.open() }
-        else if (what[0] === "panels") { if (what[1]) { const how = what.slice(2); for (let i = 0; i < how.length; ++i) { if (what[1] === "close") window.closePanel(how[i]); else if (what[1] === "detach") window.detachPanel(how[i]); else if (what[1] === "show") window.showPanel(how[i]); else if (what[1] === "attach") window.attachPanel(how[i]) } } else panelsPopup.open() }
+        else if (what[0] === "panels") { if (what[1]) { const how = what.slice(2); for (let i = 0; i < how.length; ++i) { if (what[1] === "close") window.closePanel(how[i]); else if (what[1] === "detach") window.detachPanel(how[i]); else if (what[1] === "show") window.showPanel(how[i]); else if (what[1] === "attach") window.attachPanel(how[i]) } } else panelsPopup.openFrom(null) }
         // "cluster:spot:14025.1:3Y0J:CW" mette una riga come se venisse da un
         // nodo e ci fa sopra il doppio clic: serve a guardare se la radio ci va.
         // La previsione verso un locatore, nella scheda Propagazione.
@@ -1110,7 +1145,7 @@ ApplicationWindow {
         // Per le prove, col mouse vero: in gara, un clic su una riga di Pannelli.
         else if (what[0] === "panelsclick") {
             window.openContestDesk()
-            panelsPopup.open()
+            panelsPopup.openFrom(null)
             pointerProbe.args = what
             pointerProbe.step = 0
             pointerProbe.start()
@@ -1674,8 +1709,42 @@ ApplicationWindow {
         // nello stesso scene graph dei pannelli.
         popupType: Popup.Item
         parent: Overlay.overlay
-        x: window.width - width - 16
-        y: 72
+        // Per il normale pulsante della barra in alto il menu deve comparire
+        // subito sotto al pulsante. Il fallback resta utile ai comandi da menu,
+        // alle scorciatoie e alle prove senza mouse.
+        property Item opener: null
+        function placeNearOpener() {
+            const margin = 8
+            const menuHeight = height > 0 ? height : implicitHeight
+            let targetX = window.width - width - 16
+            let targetY = 72
+
+            if (opener) {
+                const below = opener.mapToItem(Overlay.overlay, 0, opener.height + 6)
+                targetX = below.x
+                targetY = below.y
+                // Se non entra sotto, lo mettiamo sopra al comando. Su uno
+                // schermo molto basso il margine superiore e' piu' utile che
+                // lasciarne una parte fuori dalla finestra.
+                if (targetY + menuHeight > window.height - margin)
+                    targetY = opener.mapToItem(Overlay.overlay, 0, -menuHeight - 6).y
+            }
+
+            const maxX = Math.max(margin, window.width - width - margin)
+            const maxY = Math.max(margin, window.height - menuHeight - margin)
+            x = Math.round(Math.max(margin, Math.min(targetX, maxX)))
+            y = Math.round(Math.max(margin, Math.min(targetY, maxY)))
+        }
+        function openFrom(openerItem) {
+            opener = openerItem || null
+            placeNearOpener()
+            open()
+            // Il contenuto puo' calcolare l'altezza definitiva soltanto al
+            // primo frame: rifacciamo il clamp senza far dipendere il risultato
+            // dal compositor o dal sistema operativo.
+            Qt.callLater(placeNearOpener)
+        }
+        onOpened: placeNearOpener()
         width: 320
         padding: 12
         modal: false
@@ -1712,14 +1781,18 @@ ApplicationWindow {
                 // una finestra propria, ma resta qui con lo stesso stato del
                 // comando Cluster in alto, cosi' si puo' riaprire dopo una X.
                 model: window.contestModeOn ? contestLayout.allKeys
-                                             : window.boardKeys.concat(["cluster"])
+                                             : window.boardKeys.concat(["cluster", "dvk"])
                 delegate: Rectangle {
                     id: panelRow
                     required property string modelData
+                    readonly property bool normalWindowOnly: !window.contestModeOn
+                                                              && window.isWindowOnly(panelRow.modelData)
                     readonly property bool closed: window.contestModeOn
                                                    ? !contestLayout.isShown(panelRow.modelData)
                                                    : panelRow.modelData === "cluster"
                                                      ? !clusterWindow.active
+                                                     : panelRow.normalWindowOnly
+                                                       ? !window.isPanelDetached(panelRow.modelData)
                                                      : window.isPanelHidden(panelRow.modelData)
                     readonly property bool floating: window.contestModeOn
                                                      ? contestLayout.isFloating(panelRow.modelData)
@@ -1758,6 +1831,7 @@ ApplicationWindow {
                             font.pixelSize: 10
                         }
                         PanelControl {
+                            visible: !panelRow.normalWindowOnly
                             glyph: panelRow.floating ? "↩" : "⤢"
                             hint: panelRow.floating
                                   ? qsTr("Put it back in the main window")
@@ -1782,7 +1856,7 @@ ApplicationWindow {
                     MouseArea {
                         id: rowArea
                         anchors.fill: parent
-                        anchors.rightMargin: 24
+                        anchors.rightMargin: panelRow.normalWindowOnly ? 0 : 24
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
@@ -1842,7 +1916,7 @@ ApplicationWindow {
         MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
         StyledMenuItem {
             text: qsTr("Panels…")
-            onTriggered: panelsPopup.open()
+            onTriggered: panelsPopup.openFrom(null)
         }
         StyledMenuItem {
             text: qsTr("Restore the default layout")
@@ -1881,7 +1955,12 @@ ApplicationWindow {
             closedPanels: window.contestModeOn
                           ? contestLayout.allKeys.filter(k => !contestLayout.isShown(k)).length
                           : window.hiddenPanels.length
-            onPanelsRequested: panelsPopup.opened ? panelsPopup.close() : panelsPopup.open()
+            onPanelsRequested: function(opener) {
+                if (panelsPopup.opened)
+                    panelsPopup.close()
+                else
+                    panelsPopup.openFrom(opener)
+            }
             onAboutRequested: aboutDialog.open()
             onChatRequested: window.openChat()
             onTrafficRequested: trafficWindow.open()

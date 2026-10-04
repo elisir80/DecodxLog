@@ -14,9 +14,39 @@ Rectangle {
     property string text: root.window ? String(root.window.title).replace(/^DecoDXLog\s*[—-]\s*/, "") : ""
     property color dotColor: Theme.primaryColor
     property bool minimizable: true
+    property bool maximizable: true
+    property real cornerRadius: 0
+    property string info: ""
+    property var closeAction: null
+    // Le finestre staccate hanno una testata disegnata da noi. Su macOS i
+    // comandi devono quindi riprendere la posizione e il gesto dei tre
+    // controlli di sistema; sulle altre piattaforme restano quelli compatti
+    // gia' usati da DecoDXLog.
+    readonly property bool macosControls: Qt.platform.os === "osx"
+
+    function closeWindow() {
+        if (root.closeAction)
+            root.closeAction()
+        else if (root.window)
+            root.window.close()
+    }
 
     implicitHeight: Theme.panelHeight
-    color: Theme.panelHeader
+    color: "transparent"
+
+    // Il primo rettangolo arrotonda solo gli angoli superiori. Quello sotto
+    // riempie la fascia bassa, che deve restare piatta contro il contenuto.
+    Rectangle {
+        anchors.fill: parent
+        radius: root.cornerRadius
+        color: Theme.panelHeader
+        antialiasing: root.cornerRadius > 0
+    }
+    Rectangle {
+        anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+        height: root.cornerRadius
+        color: Theme.panelHeader
+    }
 
     Rectangle {
         anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
@@ -24,13 +54,81 @@ Rectangle {
         color: Theme.borderSoft
     }
 
+    component TrafficLight: Rectangle {
+        id: trafficLight
+
+        required property color lightColor
+        required property string glyph
+        required property string accessibleName
+        signal clicked()
+
+        implicitWidth: 14
+        implicitHeight: 14
+        radius: width / 2
+        color: pointer.containsMouse ? Qt.lighter(lightColor, 1.08) : lightColor
+        border.width: 1
+        border.color: Qt.darker(lightColor, 1.25)
+        antialiasing: true
+
+        Text {
+            anchors.centerIn: parent
+            text: trafficLight.glyph
+            color: "#4a2922"
+            opacity: pointer.containsMouse ? 0.9 : 0.0
+            font.pixelSize: 11
+            font.bold: true
+            verticalAlignment: Text.AlignVCenter
+        }
+        MouseArea {
+            id: pointer
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            Accessible.name: trafficLight.accessibleName
+            onClicked: trafficLight.clicked()
+        }
+    }
+
     RowLayout {
         anchors.fill: parent
-        anchors.leftMargin: 10
+        anchors.leftMargin: root.macosControls ? 12 : 10
         anchors.rightMargin: 8
         spacing: 8
 
+        Row {
+            visible: root.macosControls
+            spacing: 7
+
+            TrafficLight {
+                lightColor: "#ff5f57"
+                glyph: "×"
+                accessibleName: qsTr("Close")
+                onClicked: root.closeWindow()
+            }
+            TrafficLight {
+                visible: root.minimizable
+                lightColor: "#ffbd2e"
+                glyph: "−"
+                accessibleName: qsTr("Minimise")
+                onClicked: if (root.window) root.window.showMinimized()
+            }
+            TrafficLight {
+                visible: root.maximizable
+                lightColor: "#28c840"
+                glyph: "+"
+                accessibleName: qsTr("Maximise or restore")
+                onClicked: {
+                    if (!root.window)
+                        return
+                    if (root.window.visibility === Window.Maximized)
+                        root.window.showNormal()
+                    else
+                        root.window.showMaximized()
+                }
+            }
+        }
         Rectangle {
+            visible: !root.macosControls
             implicitWidth: 8
             implicitHeight: 8
             radius: 4
@@ -46,13 +144,23 @@ Rectangle {
             font.pixelSize: Theme.fontSize
             font.bold: true
         }
+        Text {
+            visible: root.info.length > 0
+            text: root.info
+            elide: Text.ElideRight
+            Layout.maximumWidth: 260
+            color: Theme.textSecondary
+            font.family: Theme.monoFamily
+            font.pixelSize: 11
+        }
         PanelControl {
-            visible: root.minimizable
+            visible: !root.macosControls && root.minimizable
             glyph: "–"
             hint: qsTr("Minimise")
             onClicked: if (root.window) root.window.showMinimized()
         }
         PanelControl {
+            visible: !root.macosControls && root.maximizable
             glyph: root.window && root.window.visibility === Window.Maximized ? "❐" : "▢"
             hint: qsTr("Maximise or restore")
             onClicked: {
@@ -65,9 +173,10 @@ Rectangle {
             }
         }
         PanelControl {
+            visible: !root.macosControls
             glyph: "✕"
             hint: qsTr("Close")
-            onClicked: if (root.window) root.window.close()
+            onClicked: root.closeWindow()
         }
     }
 }

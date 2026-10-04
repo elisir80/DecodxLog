@@ -3,7 +3,13 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
-## 1.16.56 — 4 ottobre 2026
+## 1.17.01 — 4 ottobre 2026
+
+**Allineata alla 1.17.00 di elisir80.** Cornice delle finestre arrotondata e condivisa, menu Pannelli
+accanto al pulsante, Voice keyer dalla lista Pannelli anche fuori dal Contest Mode, «Ferma» del CW che
+interrompe la radio giusta in SO2R, Band map senza il modello Qt negativo, pacchetti firmati per
+piattaforma: tutto nella sezione 1.17.00 qui sotto. Il numero 1.17.00 e' della loro release, e la
+nostra e' la 1.17.01, piu' alta, cosi' l'aggiornamento non le confonde.
 
 **Rotore: i comandi restano nell'ordine in cui arrivano.** Il gateway del rotore mette goto e stop
 davanti alle domande di posizione, ma con la linea occupata (una domanda in corso, un PC sotto
@@ -12,6 +18,28 @@ carico) li metteva anche davanti ai comandi arrivati prima: «vai a 60, fermati,
 «nessun movimento» di sicurezza. Lo ha scovato la prova del rotctld nella CI di Windows, che ogni
 tanto falliva. Ora fra loro i comandi sono in fila come in DecoRotor, e ce n'e' una prova che con
 l'ordine vecchio falliva ogni volta.
+
+## 1.17.00 — 4 ottobre 2026
+
+**Finestre e pannelli piu' affidabili.** Le finestre staccate e le finestre
+interne condividono ora una cornice arrotondata, con ombra e contenuto ritagliato
+quando il sistema lo supporta; su Linux il bordo resta volutamente opaco e non
+dipende dal compositor. Su macOS i comandi delle finestre usano i controlli a
+semaforo. Il menu **Pannelli** si apre accanto al pulsante che lo ha chiamato,
+restando nello schermo anche su finestre strette.
+
+**CW e Voice keyer.** Il Voice keyer e' disponibile dalla lista Pannelli anche
+fuori dal Contest Mode. Il pulsante **Ferma** del CW interrompe la radio esatta
+a cui e' stata inviata la macro, anche quando in SO2R era selezionata la radio 2.
+
+**Mappe e QSL.** La Band map non puo' piu' generare un modello Qt negativo
+durante un aggiornamento momentaneo dell'intervallo di frequenze. Arrivano inoltre
+gli scarichi QSL per intervallo di date per LoTW, eQSL e QRZ, senza alterare la
+posizione dello scarico incrementale normale.
+
+**Distribuzione.** I workflow manuali predefiniscono ora v1.17.00 e producono
+pacchetti firmati selezionabili dall'autoaggiornamento per Windows x64, macOS
+Apple Silicon/Intel e Linux x86_64/aarch64.
 
 ## 1.16.55 — 4 ottobre 2026
 

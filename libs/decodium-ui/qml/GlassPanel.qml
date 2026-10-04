@@ -1,5 +1,6 @@
 // decodium-ui — la superficie su cui poggia ogni pannello, con la sua testata.
 import QtQuick
+import QtQuick.Controls
 import Decodium.UI
 
 Rectangle {
@@ -38,6 +39,44 @@ Rectangle {
     radius: 6
     clip: true
 
+    component PanelTrafficLight: Rectangle {
+        id: trafficLight
+
+        required property color lightColor
+        required property string glyph
+        required property string hint
+        signal clicked()
+
+        implicitWidth: 14
+        implicitHeight: 14
+        radius: width / 2
+        color: pointer.containsMouse ? Qt.lighter(lightColor, 1.08) : lightColor
+        border.width: 1
+        border.color: Qt.darker(lightColor, 1.25)
+        antialiasing: true
+
+        Text {
+            anchors.centerIn: parent
+            text: trafficLight.glyph
+            color: "#4a2922"
+            opacity: pointer.containsMouse ? 0.9 : 0.0
+            font.pixelSize: 11
+            font.bold: true
+            verticalAlignment: Text.AlignVCenter
+        }
+        MouseArea {
+            id: pointer
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            Accessible.name: trafficLight.hint
+            onClicked: trafficLight.clicked()
+        }
+        ToolTip.visible: pointer.containsMouse
+        ToolTip.delay: 500
+        ToolTip.text: trafficLight.hint
+    }
+
     PanelHeader {
         id: header
         visible: root.title.length > 0 || root.headerLeading.length > 0
@@ -51,15 +90,30 @@ Rectangle {
         onDragEnded: (x, y) => root.moveEnded(x, y)
 
         controls: [
-            PanelControl {
-                visible: root.panelKey.length > 0 && root.detachable
+            PanelTrafficLight {
+                visible: Qt.platform.os === "osx" && root.panelKey.length > 0 && root.closable
+                lightColor: "#ff5f57"
+                glyph: "×"
+                hint: qsTr("Close this panel — it comes back from Panels in the top bar")
+                onClicked: root.closeRequested()
+            },
+            PanelTrafficLight {
+                visible: Qt.platform.os === "osx" && root.panelKey.length > 0 && root.detachable
+                lightColor: root.detached ? "#ffbd2e" : "#28c840"
                 glyph: root.detached ? "↩" : "⤢"
                 hint: root.detached ? qsTr("Put it back in the main window")
                                     : qsTr("Detach it into its own window")
                 onClicked: root.detached ? root.attachRequested() : root.detachRequested()
             },
             PanelControl {
-                visible: root.panelKey.length > 0 && root.closable
+                visible: Qt.platform.os !== "osx" && root.panelKey.length > 0 && root.detachable
+                glyph: root.detached ? "↩" : "⤢"
+                hint: root.detached ? qsTr("Put it back in the main window")
+                                    : qsTr("Detach it into its own window")
+                onClicked: root.detached ? root.attachRequested() : root.detachRequested()
+            },
+            PanelControl {
+                visible: Qt.platform.os !== "osx" && root.panelKey.length > 0 && root.closable
                 glyph: "✕"
                 hint: qsTr("Close this panel — it comes back from Panels in the top bar")
                 onClicked: root.closeRequested()

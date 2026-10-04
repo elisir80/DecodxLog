@@ -30,6 +30,7 @@ set(DECODIUM_UI_QML_FILES
     qml/StyledMenuItem.qml
     qml/WindowChrome.qml
     qml/WindowTitleBar.qml
+    qml/RoundedWindow.qml
 )
 
 qt_add_qml_module(decodium_ui

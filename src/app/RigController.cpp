@@ -1201,28 +1201,48 @@ void RigController::sendText(const QString& text, const QVariantMap& context)
     // Il manipolatore sulla seriale ha la precedenza: se c'e', e' quello che
     // l'operatore ha attaccato alla radio apposta.
     if (m_winKeyer.isOpen()) {
+        m_cwRigInUse = nullptr;
         m_winKeyer.send(ready, wpm());
         if (m_ctx.activity)
             m_ctx.activity(QStringLiteral("CW"), tr("Sent: %1").arg(ready), QStringLiteral("info"));
         return;
     }
     if (m_keyer.isOpen()) {
+        m_cwRigInUse = nullptr;
         m_keyer.send(ready, wpm());
         return;
     }
     if (core::RigLink* alt = m_ctx.alternateRig ? m_ctx.alternateRig() : nullptr) {
+        m_cwRigInUse = alt;
         alt->setSpeedWpm(wpm());
         alt->sendMorse(ready);
         return;
     }
+    m_cwRigInUse = m_rig;
     m_rig->sendMorse(ready);
 }
 
 void RigController::stop()
 {
+    const bool localKeyer = m_keyer.isOpen() || m_winKeyer.isOpen();
     m_keyer.stop();
     m_winKeyer.stop();
-    m_rig->stopMorse();
+    // Con un manipolatore locale questi due stop svuotano il buffer e
+    // rilasciano subito la linea. Non chiedere anche alla radio di fermare un
+    // CW che non le e' mai stato dato: alcuni rigctld lo segnalano come errore.
+    if (localKeyer) {
+        m_cwRigInUse = nullptr;
+        return;
+    }
+
+    // SO2R puo' aver inviato la macro alla radio 2. Usare la radio registrata
+    // al momento dell'invio, non il fuoco attuale e non sempre radio 1.
+    core::RigLink* target = m_cwRigInUse;
+    m_cwRigInUse = nullptr;
+    if (!target)
+        target = m_ctx.alternateRig ? m_ctx.alternateRig() : m_rig;
+    if (target)
+        target->stopMorse();
 }
 
 void RigController::shutdown()

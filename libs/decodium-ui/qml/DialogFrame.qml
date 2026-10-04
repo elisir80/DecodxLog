@@ -9,7 +9,7 @@ import QtQuick.Controls
 import QtCore
 import Decodium.UI
 
-ApplicationWindow {
+RoundedWindow {
     id: root
 
     property color dotColor: Theme.primaryColor
@@ -58,7 +58,7 @@ ApplicationWindow {
     minimumWidth: 380
     minimumHeight: 260
     visible: false
-    color: Theme.bgDeep
+    surfaceColor: Theme.bgDeep
     // Una finestra di dialogo: sta sopra a quella che l'ha aperta, ma si sposta
     // dove si vuole — anche su un altro schermo — si ingrandisce, si riduce a
     // icona e si chiude come tutte le altre.
@@ -70,6 +70,7 @@ ApplicationWindow {
         window: root
         parent: root.contentItem.parent
         dragHeight: Theme.panelHeight
+        cornerRadius: root.frameRadius
     }
 
     onVisibleChanged: if (!visible) root.closed()
@@ -82,35 +83,14 @@ ApplicationWindow {
         property alias dialogY: root.y
     }
 
-    header: PanelHeader {
-        text: root.title
+    header: WindowTitleBar {
+        window: root
         dotColor: root.dotColor
-        showHandle: false
-        tools: [
-            Text {
-                anchors.verticalCenter: parent.verticalCenter
-                visible: root.info.length > 0
-                text: root.info
-                color: Theme.textSecondary
-                font.family: Theme.monoFamily
-                font.pixelSize: 11
-            },
-            Text {
-                anchors.verticalCenter: parent.verticalCenter
-                text: "✕"
-                color: closeArea.containsMouse ? Theme.textPrimary : Theme.textSecondary
-                font.pixelSize: Theme.fontSize + 1
-                leftPadding: 8
-                MouseArea {
-                    id: closeArea
-                    anchors.fill: parent
-                    anchors.margins: -6
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: root.reject()
-                }
-            }
-        ]
+        info: root.info
+        minimizable: false
+        maximizable: false
+        cornerRadius: root.frameRadius
+        closeAction: function() { root.reject() }
     }
 
     // Esc chiude, come faceva quando era un riquadro.

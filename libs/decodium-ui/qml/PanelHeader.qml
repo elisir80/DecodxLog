@@ -18,6 +18,10 @@ Rectangle {
     // I comandi del pannello (stacca, chiudi): stanno in fondo, dopo tutto il
     // resto, sempre nello stesso posto in ogni pannello.
     property alias controls: controlsRow.data
+    // Nei pannelli DecoDXLog su macOS i comandi sono a sinistra, accanto alla
+    // testata, come le finestre del sistema. Le altre piattaforme conservano
+    // il posizionamento a destra.
+    readonly property bool macosControls: Qt.platform.os === "osx"
 
     // Il tasto destro sulla testata apre il menu della disposizione; la
     // maniglia a sinistra si prende e si trascina per spostare il pannello.
@@ -56,8 +60,8 @@ Rectangle {
 
     RowLayout {
         anchors.fill: parent
-        anchors.leftMargin: 10
-        anchors.rightMargin: 14 + controlsRow.width
+        anchors.leftMargin: root.macosControls ? 18 + controlsRow.width : 10
+        anchors.rightMargin: root.macosControls ? 10 : 14 + controlsRow.width
         // Se la testata e' piu' stretta di quello che ci sta dentro, quello che
         // avanza si taglia: meglio un pulsante mozzato che due cose sovrapposte.
         clip: true
@@ -131,9 +135,11 @@ Rectangle {
     // sono. Un comando che scappa fuori dal bordo e' un comando che non c'e'.
     Row {
         id: controlsRow
-        spacing: 2
-        anchors.right: parent.right
-        anchors.rightMargin: 8
+        spacing: root.macosControls ? 7 : 2
+        anchors.left: root.macosControls ? parent.left : undefined
+        anchors.leftMargin: root.macosControls ? 10 : 0
+        anchors.right: root.macosControls ? undefined : parent.right
+        anchors.rightMargin: root.macosControls ? 0 : 8
         anchors.verticalCenter: parent.verticalCenter
     }
 

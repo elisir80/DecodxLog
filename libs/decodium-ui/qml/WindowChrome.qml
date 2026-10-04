@@ -18,6 +18,10 @@ Item {
     property real dragHeight: Theme.panelHeight + 4
     property int grip: 5
     property bool resizable: true
+    // Il bordo segue la forma della finestra staccata. Il valore arriva dalla
+    // finestra solo dove serve: le altre applicazioni che usano questo
+    // componente restano esattamente come prima.
+    property real cornerRadius: 0
 
     anchors.fill: parent
     z: 10000
@@ -37,6 +41,8 @@ Item {
         color: "transparent"
         border.width: 1
         border.color: root.window && root.window.active ? Theme.primaryColor : Theme.glassBorder
+        radius: root.cornerRadius
+        antialiasing: root.cornerRadius > 0
     }
 
     // La testata: sta *sotto* il contenuto della finestra, cosi' il clic su un

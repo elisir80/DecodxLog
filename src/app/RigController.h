@@ -376,6 +376,10 @@ private:
     bool m_canKeyCw{true};
     core::CwKeyer m_keyer;
     core::WinKeyer m_winKeyer;
+    // La radio che ha ricevuto l'ultima macro CW via CAT. Con SO2R puo'
+    // essere radio 2, non necessariamente m_rig: Stop deve tornare allo
+    // stesso destinatario anche se nel frattempo cambia il fuoco.
+    core::RigLink* m_cwRigInUse{nullptr};
     QString m_keyerPort;
     QString m_keyerLine{QStringLiteral("DTR")};
     void openKeyer();
