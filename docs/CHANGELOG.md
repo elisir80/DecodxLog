@@ -3,6 +3,18 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.05 — 4 ottobre 2026
+
+**Allineata alla 1.17.04 di elisir80.** «Ferma» del CW che annulla anche il CW in coda, rilascia il
+keyer locale e manda il PTT a zero alla radio che ha ricevuto la macro, con rigctld, TCI e flrig che
+non possono piu' riavviare una trasmissione con una risposta in ritardo; e, con Hamlib diretto sulla
+seriale, il CW spento sulle Yaesu per cui Hamlib sovrascriverebbe la memoria 1 del keyer (frequenza e
+modo restano; per il CW serve un keyer seriale a parte o un WinKeyer): tutto nella sezione 1.17.04 qui
+sotto. Hanno anche sistemato due cose nostre: gli avvisi di Qt 6.9 sulle conversioni UTC nell'elenco
+delle decodifiche di Decodium, e l'export che ora dice se il file non si apre o non si scrive tutto.
+Il numero 1.17.04 e' della loro release, e la nostra e' la 1.17.05, piu' alta. Le tre stringhe nuove
+sono tradotte nelle 14 lingue.
+
 ## 1.17.04 — 4 ottobre 2026
 
 **Rilascio integrato dalla 1.17.02.** Questa versione unisce la base 1.17.03 con tutte le

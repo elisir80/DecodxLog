@@ -2336,6 +2336,10 @@ Right click: change it</source>
         <translation>置顶</translation>
     </message>
     <message>
+        <source>CW via this Yaesu CAT link is disabled to protect keyer memory 1: Hamlib would overwrite it with every message sent from DecoDXLog. The CAT remains available for frequency and mode. For CW, configure a separate serial keyer or WinKeyer in Setup → Radio (CAT) → Keying on a serial port.</source>
+        <translation>为保护电键内存 1，已禁用经此 Yaesu CAT 连接发送 CW：Hamlib 会在 DecoDXLog 每发一条消息时覆盖它。CAT 仍可用于频率和模式。发送 CW 请在 设置 → 电台 (CAT) → 串口电键 中另行配置串口电键或 WinKeyer。</translation>
+    </message>
+    <message>
         <source>This CAT link does not key CW: it reads the radio but it cannot send. Either connect rigctld to the radio itself, or — with Decodium holding the CAT — set up the keyer on a serial port of its own: Setup → Radio (CAT) → Keying on a serial port.</source>
         <translation>这条 CAT 连接不能发 CW：它能读电台，但不能发射。要么把 rigctld 直接接到电台上，要么 — 在 Decodium 占着 CAT 的时候 — 把电键放到它自己的串口上：设置 → 电台 (CAT) → 串口电键。</translation>
     </message>
@@ -10733,8 +10737,12 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>CW 解码器正在听 %1</translation>
     </message>
     <message>
-        <source>Yaesu radios key at most 50 characters at a time from CAT: &quot;%1&quot; will be cut after &quot;%2&quot;. Shorten the macro.</source>
-        <translation>Yaesu 电台通过 CAT 一次最多发送 50 个字符：“%1”将在“%2”之后被截断。请缩短宏。</translation>
+        <source>CW via CAT was not sent: this Yaesu/Hamlib link would overwrite keyer memory 1. Your radio memories were left unchanged. Configure a separate serial keyer or WinKeyer in Setup → Radio (CAT) → Keying on a serial port.</source>
+        <translation>未通过 CAT 发送 CW：此 Yaesu/Hamlib 连接会覆盖电键内存 1。电台的内存保持不变。请在 设置 → 电台 (CAT) → 串口电键 中另行配置串口电键或 WinKeyer。</translation>
+    </message>
+    <message>
+        <source>Stop requested: keyer cleared and PTT release sent</source>
+        <translation>已请求停止：电键已清空，PTT 已释放</translation>
     </message>
     <message>
         <source>WinKeyer on %1</source>

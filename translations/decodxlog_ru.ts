@@ -2354,6 +2354,10 @@ Right click: change it</source>
         <translation>Поверх окон</translation>
     </message>
     <message>
+        <source>CW via this Yaesu CAT link is disabled to protect keyer memory 1: Hamlib would overwrite it with every message sent from DecoDXLog. The CAT remains available for frequency and mode. For CW, configure a separate serial keyer or WinKeyer in Setup → Radio (CAT) → Keying on a serial port.</source>
+        <translation>CW через это CAT-соединение Yaesu отключён, чтобы защитить память 1 манипулятора: Hamlib перезаписывал бы её при каждом сообщении, отправленном из DecoDXLog. CAT остаётся доступным для частоты и режима. Для CW настройте отдельный последовательный манипулятор или WinKeyer в разделе Настройки → Трансивер (CAT) → Манипуляция на последовательном порту.</translation>
+    </message>
+    <message>
         <source>This CAT link does not key CW: it reads the radio but it cannot send. Either connect rigctld to the radio itself, or — with Decodium holding the CAT — set up the keyer on a serial port of its own: Setup → Radio (CAT) → Keying on a serial port.</source>
         <translation>Эта связь по CAT не манипулирует CW: она читает трансивер, но передавать не может. Либо подключите rigctld прямо к трансиверу, либо — если CAT занят Decodium — заведите ключ на отдельном последовательном порту: Настройки → Трансивер (CAT) → Манипуляция на последовательном порту.</translation>
     </message>
@@ -10857,8 +10861,12 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Декодер CW слушает %1</translation>
     </message>
     <message>
-        <source>Yaesu radios key at most 50 characters at a time from CAT: &quot;%1&quot; will be cut after &quot;%2&quot;. Shorten the macro.</source>
-        <translation>Yaesu по CAT передают не больше 50 символов за раз: «%1» будет обрезано после «%2». Сократите макрос.</translation>
+        <source>CW via CAT was not sent: this Yaesu/Hamlib link would overwrite keyer memory 1. Your radio memories were left unchanged. Configure a separate serial keyer or WinKeyer in Setup → Radio (CAT) → Keying on a serial port.</source>
+        <translation>CW через CAT не отправлен: это соединение Yaesu/Hamlib перезаписало бы память 1 манипулятора. Память вашего трансивера осталась без изменений. Настройте отдельный последовательный манипулятор или WinKeyer в разделе Настройки → Трансивер (CAT) → Манипуляция на последовательном порту.</translation>
+    </message>
+    <message>
+        <source>Stop requested: keyer cleared and PTT release sent</source>
+        <translation>Остановка запрошена: манипулятор очищен, PTT отпущен</translation>
     </message>
     <message>
         <source>WinKeyer on %1</source>

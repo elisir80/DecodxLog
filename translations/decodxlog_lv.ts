@@ -2354,6 +2354,10 @@ Labais klikšķis: mainīt</translation>
         <translation>Priekšplānā</translation>
     </message>
     <message>
+        <source>CW via this Yaesu CAT link is disabled to protect keyer memory 1: Hamlib would overwrite it with every message sent from DecoDXLog. The CAT remains available for frequency and mode. For CW, configure a separate serial keyer or WinKeyer in Setup → Radio (CAT) → Keying on a serial port.</source>
+        <translation>CW caur šo Yaesu CAT savienojumu ir izslēgts, lai aizsargātu atslēgas atmiņu 1: Hamlib to pārrakstītu ar katru no DecoDXLog nosūtīto ziņojumu. CAT paliek pieejams frekvencei un režīmam. CW gadījumā iestatiet atsevišķu seriālo atslēgu vai WinKeyer sadaļā Iestatījumi → Radio (CAT) → Manipulēšana seriālajā portā.</translation>
+    </message>
+    <message>
         <source>This CAT link does not key CW: it reads the radio but it cannot send. Either connect rigctld to the radio itself, or — with Decodium holding the CAT — set up the keyer on a serial port of its own: Setup → Radio (CAT) → Keying on a serial port.</source>
         <translation>Šis CAT savienojums CW nemanipulē: tas radio nolasa, bet raidīt nevar. Vai nu pieslēdz rigctld pašai radio, vai — ja CAT tur Decodium — iestati taustiņu atsevišķā seriālajā portā: Iestatījumi → Radio (CAT) → Manipulēšana seriālajā portā.</translation>
     </message>
@@ -10857,8 +10861,12 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>CW dekoders klausās %1</translation>
     </message>
     <message>
-        <source>Yaesu radios key at most 50 characters at a time from CAT: &quot;%1&quot; will be cut after &quot;%2&quot;. Shorten the macro.</source>
-        <translation>Yaesu radio pa CAT vienā reizē raida ne vairāk kā 50 rakstzīmes: &quot;%1&quot; tiks nogriezts pēc &quot;%2&quot;. Saīsini makro.</translation>
+        <source>CW via CAT was not sent: this Yaesu/Hamlib link would overwrite keyer memory 1. Your radio memories were left unchanged. Configure a separate serial keyer or WinKeyer in Setup → Radio (CAT) → Keying on a serial port.</source>
+        <translation>CW caur CAT netika nosūtīts: šis Yaesu/Hamlib savienojums pārrakstītu atslēgas atmiņu 1. Jūsu radio atmiņas palika nemainītas. Iestatiet atsevišķu seriālo atslēgu vai WinKeyer sadaļā Iestatījumi → Radio (CAT) → Manipulēšana seriālajā portā.</translation>
+    </message>
+    <message>
+        <source>Stop requested: keyer cleared and PTT release sent</source>
+        <translation>Pieprasīta apturēšana: atslēga iztukšota un PTT atlaists</translation>
     </message>
     <message>
         <source>WinKeyer on %1</source>

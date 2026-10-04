@@ -2345,6 +2345,10 @@ Højreklik: ret den</translation>
         <translation>Forrest</translation>
     </message>
     <message>
+        <source>CW via this Yaesu CAT link is disabled to protect keyer memory 1: Hamlib would overwrite it with every message sent from DecoDXLog. The CAT remains available for frequency and mode. For CW, configure a separate serial keyer or WinKeyer in Setup → Radio (CAT) → Keying on a serial port.</source>
+        <translation>CW via denne Yaesu-CAT-forbindelse er slået fra for at beskytte nøglerens hukommelse 1: Hamlib ville overskrive den ved hver besked, der sendes fra DecoDXLog. CAT forbliver tilgængelig til frekvens og mode. Til CW skal du indstille en separat seriel nøgle eller WinKeyer under Indstillinger → Radio (CAT) → Nøgling på en serieport.</translation>
+    </message>
+    <message>
         <source>This CAT link does not key CW: it reads the radio but it cannot send. Either connect rigctld to the radio itself, or — with Decodium holding the CAT — set up the keyer on a serial port of its own: Setup → Radio (CAT) → Keying on a serial port.</source>
         <translation>Denne CAT-forbindelse kan ikke nøgle CW: den læser radioen, men kan ikke sende. Slut enten rigctld til selve radioen, eller — når Decodium holder CAT&apos;en — sæt nøglen op på en serieport for sig: Indstillinger → Radio (CAT) → Nøgling på en serieport.</translation>
     </message>
@@ -10795,8 +10799,12 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>CW-dekoderen lytter til %1</translation>
     </message>
     <message>
-        <source>Yaesu radios key at most 50 characters at a time from CAT: &quot;%1&quot; will be cut after &quot;%2&quot;. Shorten the macro.</source>
-        <translation>Yaesu-radioer kan via CAT højst sende 50 tegn ad gangen: &quot;%1&quot; bliver skåret af efter &quot;%2&quot;. Gør makroen kortere.</translation>
+        <source>CW via CAT was not sent: this Yaesu/Hamlib link would overwrite keyer memory 1. Your radio memories were left unchanged. Configure a separate serial keyer or WinKeyer in Setup → Radio (CAT) → Keying on a serial port.</source>
+        <translation>CW via CAT blev ikke sendt: denne Yaesu/Hamlib-forbindelse ville overskrive nøglerens hukommelse 1. Radioens hukommelser blev ikke ændret. Indstil en separat seriel nøgle eller WinKeyer under Indstillinger → Radio (CAT) → Nøgling på en serieport.</translation>
+    </message>
+    <message>
+        <source>Stop requested: keyer cleared and PTT release sent</source>
+        <translation>Stop anmodet: nøgler tømt og PTT sluppet</translation>
     </message>
     <message>
         <source>WinKeyer on %1</source>
