@@ -329,6 +329,12 @@ GlassPanel {
                         padding: 12
                         modal: true
                         popupType: Popup.Window
+                        // In una finestra sua il popup riceve i tasti solo se ha il fuoco:
+                        // senza "focus: true" il campo prende il cursore ma la data che si
+                        // scrive si perde.
+                        focus: true
+                        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+                        onOpened: periodRow.focusFirst()
                         background: Rectangle { color: Theme.panelColor; border.color: Theme.glassBorder; radius: 6 }
                         contentItem: ColumnLayout {
                             spacing: 8
@@ -337,7 +343,7 @@ GlassPanel {
                                 color: Theme.textSecondary
                                 font.pixelSize: 12
                             }
-                            LotwRangeRow { pickService: true; onStarted: lotwPeriod.close() }
+                            LotwRangeRow { id: periodRow; pickService: true; onStarted: lotwPeriod.close() }
                         }
                     }
                 }

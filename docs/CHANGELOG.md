@@ -3,6 +3,36 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.02 — 4 ottobre 2026
+
+**Cluster: «Check» su ogni fonte, e messaggi che dicono dove cercare.** A qualcuno il cluster non si
+collega, e la pagina del nodo (iq8do.aricaserta.it) nel browser dice ERR_CONNECTION_CLOSED: il nodo
+dal PC di chi lo ha scritto risponde con il suo «login:», e il collegamento viene tenuto o chiuso sul
+PC di chi non lo vede — l'antivirus (AVG, Avast…) con lo scudo web o la scansione HTTPS, un firewall.
+Da fuori non si distingue, e finora il programma diceva solo «connection closed». Ora nella scheda
+Fonti ogni nodo ha un pulsante **Check** che prova un passo alla volta — il nome diventa un indirizzo?
+la porta risponde? il nodo dice qualcosa? — e scrive dove si ferma, con il consiglio per quel caso
+(consenti DecoDXLog nell'antivirus e nel firewall, spegni la scansione di quel collegamento, prova un
+altro nodo, controlla il DNS). Anche i messaggi di stato dicono di piu': «collegato ma muto» e
+«chiuso prima che il nodo dicesse qualcosa» parlano di antivirus e di firewall e rimandano a Check.
+Prove: un nodo che saluta (con la negoziazione telnet davanti), uno che accetta e chiude, uno muto,
+una porta chiusa, un nome che non esiste, e il controllo da una fonte con la fonte tolta a meta'.
+Traduzioni nelle 14 lingue.
+
+**La data dello scarico per periodo non si poteva scrivere.** In «Invia QSL» il pulsante «Periodo
+dal… al…» apre un riquadro in una finestra sua, e li' il campo prendeva il cursore ma i tasti non
+arrivavano: il popup non dichiarava il fuoco. Ora lo dichiara e il cursore parte gia' nella prima
+data. Per non ricascarci c'e' una prova che legge i QML e pretende il fuoco in ogni popup di
+questo tipo che contiene un campo di testo (tolto il fuoco al riquadro di LoTW, fallisce).
+
+**Esportare i QSO di un periodo.** Nel log, dalle azioni (e dal menu File), «Esporta un periodo
+(dal… al…)»: lo stesso riquadro con le due date dello scarico da LoTW — in comune ora c'e' un
+solo pezzo, `DatePeriodFields` —, estremi compresi (il giorno di «al» intero, anche le 23:59),
+un estremo si puo' lasciare vuoto, e il riquadro dice quanti QSO sono prima di chiedere dove
+salvare. L'ADIF e' lo stesso di sempre, scritto da un filo a parte come gli altri export, e i
+QSO cancellati restano fuori. Prova sul database con QSO a cavallo dei confini, fuori ordine e
+uno cancellato.
+
 ## 1.17.01 — 4 ottobre 2026
 
 **Allineata alla 1.17.00 di elisir80.** Cornice delle finestre arrotondata e condivisa, menu Pannelli

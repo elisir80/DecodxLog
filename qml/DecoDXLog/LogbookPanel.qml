@@ -383,6 +383,7 @@ GlassPanel {
         all: { root.model.columnLayout; return root.model.availableColumns() }
     }
     BulkEditDialog { id: bulkDialog }
+    ExportPeriodDialog { id: exportPeriodDialog }
     DuplicatesDialog {
         id: duplicatesDialog
         onOpenQso: (id) => root.openQso(id)
@@ -543,6 +544,10 @@ GlassPanel {
             text: qsTr("Export the %1 QSO shown to ADIF…").arg(root.model.count)
             enabled: root.model.count > 0
             onTriggered: exportShown.open()
+        }
+        StyledMenuItem {
+            text: qsTr("Export a period (from… to…) to ADIF…")
+            onTriggered: exportPeriodDialog.openDialog()
         }
         StyledMenuItem {
             text: qsTr("Change a field on the %1 QSO shown…").arg(root.model.count)

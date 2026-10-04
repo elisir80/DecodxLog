@@ -1232,6 +1232,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Auf</translation>
     </message>
     <message>
+        <source>Check</source>
+        <translation>Prüfen</translation>
+    </message>
+    <message>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
@@ -2406,6 +2410,17 @@ Rechtsklick: ändern</translation>
     </message>
 </context>
 <context>
+    <name>DatePeriodFields</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSOs vom</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>bis</translation>
+    </message>
+</context>
+<context>
     <name>DecodeList</name>
     <message>
         <source>%1 rows</source>
@@ -2719,6 +2734,53 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, Port %1, und &quot
     <message>
         <source>Click to tune the radio</source>
         <translation>Klicken, um das Funkgerät abzustimmen</translation>
+    </message>
+</context>
+<context>
+    <name>ExportPeriodDialog</name>
+    <message>
+        <source>EXPORT A PERIOD</source>
+        <translation>ZEITRAUM EXPORTIEREN</translation>
+    </message>
+    <message>
+        <source>The QSOs made from the first to the last day, both included (UTC). Leave one of the two empty to start from the first QSO or to go on to the last.</source>
+        <translation>Die QSOs vom ersten bis zum letzten Tag, beide eingeschlossen (UTC). Eines der beiden leer lassen, um beim ersten QSO anzufangen oder bis zum letzten zu gehen.</translation>
+    </message>
+    <message>
+        <source>From (UTC)</source>
+        <translation>Von (UTC)</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>Der Zeitraum endet, bevor er beginnt</translation>
+    </message>
+    <message>
+        <source>No QSO in this period</source>
+        <translation>Keine QSOs in diesem Zeitraum</translation>
+    </message>
+    <message>
+        <source>%1 QSO in this period</source>
+        <translation>%1 QSOs in diesem Zeitraum</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Export %1 QSO…</source>
+        <translation>%1 QSOs exportieren…</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Exportieren…</translation>
+    </message>
+    <message>
+        <source>Save the QSO of the period</source>
+        <translation>Die QSOs des Zeitraums speichern</translation>
+    </message>
+    <message>
+        <source>ADIF files (*.adi)</source>
+        <translation>ADIF-Dateien (*.adi)</translation>
     </message>
 </context>
 <context>
@@ -3047,6 +3109,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, Port %1, und &quot
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>Die %1 gezeigten QSO als ADIF exportieren…</translation>
+    </message>
+    <message>
+        <source>Export a period (from… to…) to ADIF…</source>
+        <translation>Einen Zeitraum (von… bis…) als ADIF exportieren…</translation>
     </message>
     <message>
         <source>Change a field on the %1 QSO shown…</source>
@@ -3526,15 +3592,7 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <name>LotwRangeRow</name>
     <message>
         <source>Service</source>
-        <translation type="unfinished">Dienst</translation>
-    </message>
-    <message>
-        <source>QSOs from</source>
-        <translation>QSOs vom</translation>
-    </message>
-    <message>
-        <source>to</source>
-        <translation>bis</translation>
+        <translation>Dienst</translation>
     </message>
     <message>
         <source>Download this period</source>
@@ -8131,6 +8189,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Ein Log importieren (ADIF, CSV, N1MM)…</translation>
     </message>
     <message>
+        <source>Export a period (from… to…)…</source>
+        <translation>Einen Zeitraum (von… bis…) exportieren…</translation>
+    </message>
+    <message>
         <source>Split off</source>
         <translation>Split aus</translation>
     </message>
@@ -9208,6 +9270,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>kein Schlüsselspeicher</translation>
     </message>
     <message>
+        <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
+        <translation>Hier gibt es nichts zu prüfen: Diese Quelle wird über das Web gelesen, nicht über eine Knotenverbindung.</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>Prüfung läuft…</translation>
+    </message>
+    <message>
         <source>No cluster node connected</source>
         <translation>Kein Cluster-Knoten verbunden</translation>
     </message>
@@ -9836,6 +9906,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Exporting to %1…</source>
         <translation>Exportiere nach %1…</translation>
+    </message>
+    <message>
+        <source>Choose the first or the last day of the period</source>
+        <translation>Den ersten oder den letzten Tag des Zeitraums wählen</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>Der Zeitraum endet, bevor er beginnt</translation>
     </message>
     <message>
         <source>%1 · %2 MB</source>
@@ -11226,8 +11304,8 @@ Open it once in DecoDXLog to bring it up to date.</source>
 <context>
     <name>decolog::core::ClusterConnection</name>
     <message>
-        <source>the node answers but says nothing: it may be down — try another source</source>
-        <translation>der Knoten antwortet, sagt aber nichts: vielleicht ist er aus — eine andere Quelle versuchen</translation>
+        <source>the node answers but says nothing: it may be down, or an antivirus or firewall (AVG, Avast…) is holding the connection — press Check, or try another source</source>
+        <translation>der Knoten antwortet, sagt aber nichts: Er kann ausgefallen sein, oder ein Virenschutz bzw. eine Firewall (AVG, Avast…) hält die Verbindung fest — „Prüfen“ drücken oder eine andere Quelle versuchen</translation>
     </message>
     <message>
         <source>off</source>
@@ -11262,12 +11340,83 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Verbindung geschlossen</translation>
     </message>
     <message>
+        <source>connection closed before the node said anything: an antivirus or firewall (AVG, Avast…) may be holding it — press Check</source>
+        <translation>Verbindung geschlossen, bevor der Knoten etwas gesagt hat: Ein Virenschutz oder eine Firewall (AVG, Avast…) könnte sie festhalten — „Prüfen“ drücken</translation>
+    </message>
+    <message>
         <source>password needed</source>
         <translation>Passwort nötig</translation>
     </message>
     <message>
         <source>no password stored</source>
         <translation>kein Passwort gespeichert</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::ConnectionProbe</name>
+    <message>
+        <source>1. Name: %1 is already an address</source>
+        <translation>1. Name: %1 ist bereits eine Adresse</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 does not become an address (%2)</source>
+        <translation>1. Name: %1 wird keine Adresse (%2)</translation>
+    </message>
+    <message>
+        <source>no answer</source>
+        <translation>keine Antwort</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 is %2</source>
+        <translation>1. Name: %1 ist %2</translation>
+    </message>
+    <message>
+        <source>2. Port %1: connected</source>
+        <translation>2. Port %1: verbunden</translation>
+    </message>
+    <message>
+        <source>3. The node answered</source>
+        <translation>3. Der Knoten hat geantwortet</translation>
+    </message>
+    <message>
+        <source>3. The node answered: &quot;%1&quot;</source>
+        <translation>3. Der Knoten hat geantwortet: &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>3. The connection was closed before the node said anything</source>
+        <translation>3. Die Verbindung wurde geschlossen, bevor der Knoten etwas gesagt hat</translation>
+    </message>
+    <message>
+        <source>2. Port %1: refused</source>
+        <translation>2. Port %1: abgewiesen</translation>
+    </message>
+    <message>
+        <source>2. Port %1: no answer from the network</source>
+        <translation>2. Port %1: keine Antwort aus dem Netz</translation>
+    </message>
+    <message>
+        <source>2. Port %1: %2</source>
+        <translation>2. Port %1: %2</translation>
+    </message>
+    <message>
+        <source>3. Connected, but the node says nothing</source>
+        <translation>3. Verbunden, aber der Knoten sagt nichts</translation>
+    </message>
+    <message>
+        <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>
+        <translation>Der Name lässt sich nicht auflösen: Netzwerk und DNS prüfen. Auch ein Virenschutz oder ein filternder DNS (AVG, Avast…) kann einen Namen sperren, dem er nicht traut: die Adresse in Zahlen versuchen.</translation>
+    </message>
+    <message>
+        <source>The port does not answer. If other programs reach the network but not this node, a firewall or an antivirus (AVG, Avast…) is probably blocking it: allow DecoDXLog in its firewall and network shield, or try another node.</source>
+        <translation>Der Port antwortet nicht. Erreichen andere Programme das Netz, aber nicht diesen Knoten, sperrt ihn wahrscheinlich eine Firewall oder ein Virenschutz (AVG, Avast…): DecoDXLog in dessen Firewall und Netzwerkschutz erlauben oder einen anderen Knoten versuchen.</translation>
+    </message>
+    <message>
+        <source>The connection opens but nothing comes back. For a node that answers other people this usually means an antivirus or a firewall (AVG, Avast…) is holding it: add DecoDXLog to its exceptions and switch off the scan of this connection, or try another node.</source>
+        <translation>Die Verbindung wird geöffnet, aber es kommt nichts zurück. Bei einem Knoten, der anderen antwortet, heißt das meist, dass ein Virenschutz oder eine Firewall (AVG, Avast…) sie festhält: DecoDXLog zu den Ausnahmen hinzufügen und die Prüfung dieser Verbindung abschalten oder einen anderen Knoten versuchen.</translation>
+    </message>
+    <message>
+        <source>The network refused the connection: check the connection, the proxy and the firewall.</source>
+        <translation>Das Netz hat die Verbindung abgewiesen: Verbindung, Proxy und Firewall prüfen.</translation>
     </message>
 </context>
 <context>

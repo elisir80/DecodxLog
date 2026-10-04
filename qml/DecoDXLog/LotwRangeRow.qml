@@ -15,11 +15,11 @@ RowLayout {
     property bool pickService: false
     readonly property bool busy: service === "lotw" ? decolog.lotwBusy : decolog.confirmBusy
 
-    function fromIso() { return decolog.readDate(fromField.text) }
-    function toIso() { return decolog.readDate(toField.text) }
-    readonly property bool valid: (fromField.text.trim().length === 0 || fromIso().length > 0)
-                                  && (toField.text.trim().length === 0 || toIso().length > 0)
-                                  && (fromField.text.trim().length > 0 || toField.text.trim().length > 0)
+    function fromIso() { return period.fromIso }
+    function toIso() { return period.toIso }
+    readonly property bool valid: period.valid
+    // Il fuoco alla prima data: un popup in una finestra sua non lo da' da solo.
+    function focusFirst() { period.focusFirst() }
 
     LabeledField {
         visible: root.pickService
@@ -33,26 +33,9 @@ RowLayout {
             onActivated: root.service = ids[currentIndex]
         }
     }
-    LabeledField {
-        Layout.fillWidth: false
-        label: qsTr("QSOs from")
-        StyledTextField {
-            id: fromField
-            Layout.preferredWidth: 130
-            placeholderText: decolog.dateHint
-            color: text.length > 0 && root.fromIso().length === 0 ? Theme.errorColor : Theme.textPrimary
-        }
-    }
-    LabeledField {
-        Layout.fillWidth: false
-        label: qsTr("to")
-        StyledTextField {
-            id: toField
-            Layout.preferredWidth: 130
-            placeholderText: decolog.showDate(decolog.utcNow().date)
-            color: text.length > 0 && root.toIso().length === 0 ? Theme.errorColor : Theme.textPrimary
-            Keys.onReturnPressed: if (root.valid) go.clicked()
-        }
+    DatePeriodFields {
+        id: period
+        onAccepted: if (go.enabled) go.clicked()
     }
     GlassButton {
         id: go

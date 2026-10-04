@@ -1236,6 +1236,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Pornit</translation>
     </message>
     <message>
+        <source>Check</source>
+        <translation>Verifică</translation>
+    </message>
+    <message>
         <source>Edit</source>
         <translation>Editează</translation>
     </message>
@@ -2415,6 +2419,17 @@ Clic dreapta: modific-o</translation>
     </message>
 </context>
 <context>
+    <name>DatePeriodFields</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSO de la</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>la</translation>
+    </message>
+</context>
+<context>
     <name>DecodeList</name>
     <message>
         <source>%1 rows</source>
@@ -2728,6 +2743,53 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>Click to tune the radio</source>
         <translation>Clic pentru a acorda stația</translation>
+    </message>
+</context>
+<context>
+    <name>ExportPeriodDialog</name>
+    <message>
+        <source>EXPORT A PERIOD</source>
+        <translation>EXPORTĂ O PERIOADĂ</translation>
+    </message>
+    <message>
+        <source>The QSOs made from the first to the last day, both included (UTC). Leave one of the two empty to start from the first QSO or to go on to the last.</source>
+        <translation>QSO-urile făcute de la prima până la ultima zi, ambele incluse (UTC). Lasă una dintre ele goală ca să pornești de la primul QSO sau să ajungi la ultimul.</translation>
+    </message>
+    <message>
+        <source>From (UTC)</source>
+        <translation>De la (UTC)</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>Perioada se termină înainte să înceapă</translation>
+    </message>
+    <message>
+        <source>No QSO in this period</source>
+        <translation>Niciun QSO în această perioadă</translation>
+    </message>
+    <message>
+        <source>%1 QSO in this period</source>
+        <translation>%1 QSO-uri în această perioadă</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anulează</translation>
+    </message>
+    <message>
+        <source>Export %1 QSO…</source>
+        <translation>Exportă %1 QSO-uri…</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Exportă…</translation>
+    </message>
+    <message>
+        <source>Save the QSO of the period</source>
+        <translation>Salvează QSO-urile perioadei</translation>
+    </message>
+    <message>
+        <source>ADIF files (*.adi)</source>
+        <translation>Fișiere ADIF (*.adi)</translation>
     </message>
 </context>
 <context>
@@ -3056,6 +3118,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>Exportă cele %1 QSO afișate în ADIF…</translation>
+    </message>
+    <message>
+        <source>Export a period (from… to…) to ADIF…</source>
+        <translation>Exportă o perioadă (de la… până la…) în ADIF…</translation>
     </message>
     <message>
         <source>Change a field on the %1 QSO shown…</source>
@@ -3537,15 +3603,7 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <name>LotwRangeRow</name>
     <message>
         <source>Service</source>
-        <translation type="unfinished">Serviciu</translation>
-    </message>
-    <message>
-        <source>QSOs from</source>
-        <translation>QSO de la</translation>
-    </message>
-    <message>
-        <source>to</source>
-        <translation>la</translation>
+        <translation>Serviciu</translation>
     </message>
     <message>
         <source>Download this period</source>
@@ -8153,6 +8211,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Importă un log (ADIF, CSV, N1MM)…</translation>
     </message>
     <message>
+        <source>Export a period (from… to…)…</source>
+        <translation>Exportă o perioadă (de la… până la…)…</translation>
+    </message>
+    <message>
         <source>Split off</source>
         <translation>Split oprit</translation>
     </message>
@@ -9241,6 +9303,14 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>niciun seif de chei</translation>
     </message>
     <message>
+        <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
+        <translation>Nimic de verificat aici: această sursă se citește pe web, nu printr-o conexiune la un nod.</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>Se verifică…</translation>
+    </message>
+    <message>
         <source>No cluster node connected</source>
         <translation>Niciun nod de cluster conectat</translation>
     </message>
@@ -9875,6 +9945,14 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>Exporting to %1…</source>
         <translation>Export în %1…</translation>
+    </message>
+    <message>
+        <source>Choose the first or the last day of the period</source>
+        <translation>Alege prima sau ultima zi a perioadei</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>Perioada se termină înainte să înceapă</translation>
     </message>
     <message>
         <source>%1 · %2 MB</source>
@@ -11288,8 +11366,8 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
 <context>
     <name>decolog::core::ClusterConnection</name>
     <message>
-        <source>the node answers but says nothing: it may be down — try another source</source>
-        <translation>nodul răspunde, dar nu spune nimic: poate este căzut — încearcă altă sursă</translation>
+        <source>the node answers but says nothing: it may be down, or an antivirus or firewall (AVG, Avast…) is holding the connection — press Check, or try another source</source>
+        <translation>nodul răspunde, dar nu spune nimic: poate fi oprit, sau un antivirus ori un firewall (AVG, Avast…) ține conexiunea — apasă Verifică sau încearcă altă sursă</translation>
     </message>
     <message>
         <source>off</source>
@@ -11324,12 +11402,83 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>conexiune închisă</translation>
     </message>
     <message>
+        <source>connection closed before the node said anything: an antivirus or firewall (AVG, Avast…) may be holding it — press Check</source>
+        <translation>conexiune închisă înainte ca nodul să spună ceva: un antivirus sau un firewall (AVG, Avast…) ar putea să o țină — apasă Verifică</translation>
+    </message>
+    <message>
         <source>password needed</source>
         <translation>este nevoie de parolă</translation>
     </message>
     <message>
         <source>no password stored</source>
         <translation>nicio parolă păstrată</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::ConnectionProbe</name>
+    <message>
+        <source>1. Name: %1 is already an address</source>
+        <translation>1. Nume: %1 este deja o adresă</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 does not become an address (%2)</source>
+        <translation>1. Nume: %1 nu devine o adresă (%2)</translation>
+    </message>
+    <message>
+        <source>no answer</source>
+        <translation>niciun răspuns</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 is %2</source>
+        <translation>1. Nume: %1 este %2</translation>
+    </message>
+    <message>
+        <source>2. Port %1: connected</source>
+        <translation>2. Port %1: conectat</translation>
+    </message>
+    <message>
+        <source>3. The node answered</source>
+        <translation>3. Nodul a răspuns</translation>
+    </message>
+    <message>
+        <source>3. The node answered: &quot;%1&quot;</source>
+        <translation>3. Nodul a răspuns: &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>3. The connection was closed before the node said anything</source>
+        <translation>3. Conexiunea a fost închisă înainte ca nodul să spună ceva</translation>
+    </message>
+    <message>
+        <source>2. Port %1: refused</source>
+        <translation>2. Port %1: refuzat</translation>
+    </message>
+    <message>
+        <source>2. Port %1: no answer from the network</source>
+        <translation>2. Port %1: niciun răspuns din rețea</translation>
+    </message>
+    <message>
+        <source>2. Port %1: %2</source>
+        <translation>2. Port %1: %2</translation>
+    </message>
+    <message>
+        <source>3. Connected, but the node says nothing</source>
+        <translation>3. Conectat, dar nodul nu spune nimic</translation>
+    </message>
+    <message>
+        <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>
+        <translation>Numele nu se rezolvă: verifică rețeaua și DNS-ul. Și un antivirus sau un DNS cu filtre (AVG, Avast…) poate bloca un nume în care nu are încredere: încearcă adresa în cifre.</translation>
+    </message>
+    <message>
+        <source>The port does not answer. If other programs reach the network but not this node, a firewall or an antivirus (AVG, Avast…) is probably blocking it: allow DecoDXLog in its firewall and network shield, or try another node.</source>
+        <translation>Portul nu răspunde. Dacă alte programe ajung în rețea, dar nu la acest nod, probabil îl blochează un firewall sau un antivirus (AVG, Avast…): permite DecoDXLog în firewall-ul și în scutul de rețea al acestuia sau încearcă alt nod.</translation>
+    </message>
+    <message>
+        <source>The connection opens but nothing comes back. For a node that answers other people this usually means an antivirus or a firewall (AVG, Avast…) is holding it: add DecoDXLog to its exceptions and switch off the scan of this connection, or try another node.</source>
+        <translation>Conexiunea se deschide, dar nu revine nimic. Pentru un nod care răspunde altora, de obicei înseamnă că un antivirus sau un firewall (AVG, Avast…) o ține: adaugă DecoDXLog la excepții și oprește scanarea acestei conexiuni sau încearcă alt nod.</translation>
+    </message>
+    <message>
+        <source>The network refused the connection: check the connection, the proxy and the firewall.</source>
+        <translation>Rețeaua a refuzat conexiunea: verifică conexiunea, proxy-ul și firewall-ul.</translation>
     </message>
 </context>
 <context>

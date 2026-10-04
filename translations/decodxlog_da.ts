@@ -1232,6 +1232,10 @@ Det kaldesignal, Decodium kører, dukker op her af sig selv.</translation>
         <translation>På</translation>
     </message>
     <message>
+        <source>Check</source>
+        <translation>Tjek</translation>
+    </message>
+    <message>
         <source>Edit</source>
         <translation>Redigér</translation>
     </message>
@@ -2406,6 +2410,17 @@ Højreklik: ret den</translation>
     </message>
 </context>
 <context>
+    <name>DatePeriodFields</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSO&apos;er fra</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>til</translation>
+    </message>
+</context>
+<context>
     <name>DecodeList</name>
     <message>
         <source>%1 rows</source>
@@ -2719,6 +2734,53 @@ I Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, og &quot;A
     <message>
         <source>Click to tune the radio</source>
         <translation>Klik for at indstille radioen</translation>
+    </message>
+</context>
+<context>
+    <name>ExportPeriodDialog</name>
+    <message>
+        <source>EXPORT A PERIOD</source>
+        <translation>EKSPORTÉR EN PERIODE</translation>
+    </message>
+    <message>
+        <source>The QSOs made from the first to the last day, both included (UTC). Leave one of the two empty to start from the first QSO or to go on to the last.</source>
+        <translation>QSO&apos;erne fra den første til den sidste dag, begge medregnet (UTC). Lad den ene stå tom for at starte ved den første QSO eller gå frem til den sidste.</translation>
+    </message>
+    <message>
+        <source>From (UTC)</source>
+        <translation>Fra (UTC)</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>Perioden slutter, før den begynder</translation>
+    </message>
+    <message>
+        <source>No QSO in this period</source>
+        <translation>Ingen QSO&apos;er i denne periode</translation>
+    </message>
+    <message>
+        <source>%1 QSO in this period</source>
+        <translation>%1 QSO&apos;er i denne periode</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annullér</translation>
+    </message>
+    <message>
+        <source>Export %1 QSO…</source>
+        <translation>Eksportér %1 QSO&apos;er…</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Eksportér…</translation>
+    </message>
+    <message>
+        <source>Save the QSO of the period</source>
+        <translation>Gem periodens QSO&apos;er</translation>
+    </message>
+    <message>
+        <source>ADIF files (*.adi)</source>
+        <translation>ADIF-filer (*.adi)</translation>
     </message>
 </context>
 <context>
@@ -3047,6 +3109,10 @@ I Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, og &quot;A
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>Eksportér de %1 viste QSO til ADIF…</translation>
+    </message>
+    <message>
+        <source>Export a period (from… to…) to ADIF…</source>
+        <translation>Eksportér en periode (fra… til…) til ADIF…</translation>
     </message>
     <message>
         <source>Change a field on the %1 QSO shown…</source>
@@ -3526,15 +3592,7 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <name>LotwRangeRow</name>
     <message>
         <source>Service</source>
-        <translation type="unfinished">Tjeneste</translation>
-    </message>
-    <message>
-        <source>QSOs from</source>
-        <translation>QSO&apos;er fra</translation>
-    </message>
-    <message>
-        <source>to</source>
-        <translation>til</translation>
+        <translation>Tjeneste</translation>
     </message>
     <message>
         <source>Download this period</source>
@@ -8131,6 +8189,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Importér en log (ADIF, CSV, N1MM)…</translation>
     </message>
     <message>
+        <source>Export a period (from… to…)…</source>
+        <translation>Eksportér en periode (fra… til…)…</translation>
+    </message>
+    <message>
         <source>Split off</source>
         <translation>Split slået fra</translation>
     </message>
@@ -9208,6 +9270,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>ingen nøglering</translation>
     </message>
     <message>
+        <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
+        <translation>Intet at kontrollere her: denne kilde læses via nettet, ikke gennem en forbindelse til en node.</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>Kontrollerer…</translation>
+    </message>
+    <message>
         <source>No cluster node connected</source>
         <translation>Ingen cluster-node forbundet</translation>
     </message>
@@ -9836,6 +9906,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Exporting to %1…</source>
         <translation>Eksporterer til %1…</translation>
+    </message>
+    <message>
+        <source>Choose the first or the last day of the period</source>
+        <translation>Vælg periodens første eller sidste dag</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>Perioden slutter, før den begynder</translation>
     </message>
     <message>
         <source>%1 · %2 MB</source>
@@ -11226,8 +11304,8 @@ Open it once in DecoDXLog to bring it up to date.</source>
 <context>
     <name>decolog::core::ClusterConnection</name>
     <message>
-        <source>the node answers but says nothing: it may be down — try another source</source>
-        <translation>noden svarer, men siger ingenting: den er måske nede — prøv en anden kilde</translation>
+        <source>the node answers but says nothing: it may be down, or an antivirus or firewall (AVG, Avast…) is holding the connection — press Check, or try another source</source>
+        <translation>noden svarer, men siger ikke noget: den kan være nede, eller et antivirusprogram eller en firewall (AVG, Avast…) holder forbindelsen fast — tryk på Tjek, eller prøv en anden kilde</translation>
     </message>
     <message>
         <source>off</source>
@@ -11262,12 +11340,83 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>forbindelse lukket</translation>
     </message>
     <message>
+        <source>connection closed before the node said anything: an antivirus or firewall (AVG, Avast…) may be holding it — press Check</source>
+        <translation>forbindelsen blev lukket, før noden sagde noget: et antivirusprogram eller en firewall (AVG, Avast…) kan holde den fast — tryk på Tjek</translation>
+    </message>
+    <message>
         <source>password needed</source>
         <translation>der skal bruges en adgangskode</translation>
     </message>
     <message>
         <source>no password stored</source>
         <translation>ingen adgangskode gemt</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::ConnectionProbe</name>
+    <message>
+        <source>1. Name: %1 is already an address</source>
+        <translation>1. Navn: %1 er allerede en adresse</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 does not become an address (%2)</source>
+        <translation>1. Navn: %1 bliver ikke til en adresse (%2)</translation>
+    </message>
+    <message>
+        <source>no answer</source>
+        <translation>intet svar</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 is %2</source>
+        <translation>1. Navn: %1 er %2</translation>
+    </message>
+    <message>
+        <source>2. Port %1: connected</source>
+        <translation>2. Port %1: forbundet</translation>
+    </message>
+    <message>
+        <source>3. The node answered</source>
+        <translation>3. Noden svarede</translation>
+    </message>
+    <message>
+        <source>3. The node answered: &quot;%1&quot;</source>
+        <translation>3. Noden svarede: &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>3. The connection was closed before the node said anything</source>
+        <translation>3. Forbindelsen blev lukket, før noden sagde noget</translation>
+    </message>
+    <message>
+        <source>2. Port %1: refused</source>
+        <translation>2. Port %1: afvist</translation>
+    </message>
+    <message>
+        <source>2. Port %1: no answer from the network</source>
+        <translation>2. Port %1: intet svar fra netværket</translation>
+    </message>
+    <message>
+        <source>2. Port %1: %2</source>
+        <translation>2. Port %1: %2</translation>
+    </message>
+    <message>
+        <source>3. Connected, but the node says nothing</source>
+        <translation>3. Forbundet, men noden siger ikke noget</translation>
+    </message>
+    <message>
+        <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>
+        <translation>Navnet kan ikke slås op: kontrollér netværket og DNS. Også et antivirusprogram eller en filtrerende DNS (AVG, Avast…) kan blokere et navn, det ikke stoler på: prøv adressen i tal.</translation>
+    </message>
+    <message>
+        <source>The port does not answer. If other programs reach the network but not this node, a firewall or an antivirus (AVG, Avast…) is probably blocking it: allow DecoDXLog in its firewall and network shield, or try another node.</source>
+        <translation>Porten svarer ikke. Når andre programmer når netværket, men ikke denne node, blokerer en firewall eller et antivirusprogram (AVG, Avast…) den sandsynligvis: tillad DecoDXLog i dens firewall og netværksskjold, eller prøv en anden node.</translation>
+    </message>
+    <message>
+        <source>The connection opens but nothing comes back. For a node that answers other people this usually means an antivirus or a firewall (AVG, Avast…) is holding it: add DecoDXLog to its exceptions and switch off the scan of this connection, or try another node.</source>
+        <translation>Forbindelsen åbnes, men der kommer intet tilbage. For en node, der svarer andre, betyder det som regel, at et antivirusprogram eller en firewall (AVG, Avast…) holder den fast: føj DecoDXLog til undtagelserne og slå scanningen af denne forbindelse fra, eller prøv en anden node.</translation>
+    </message>
+    <message>
+        <source>The network refused the connection: check the connection, the proxy and the firewall.</source>
+        <translation>Netværket afviste forbindelsen: kontrollér forbindelsen, proxyen og firewallen.</translation>
     </message>
 </context>
 <context>

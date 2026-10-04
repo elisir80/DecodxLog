@@ -1228,6 +1228,10 @@ Decodium 正在通聯的呼號會自己出現在這裡。</translation>
         <translation>開</translation>
     </message>
     <message>
+        <source>Check</source>
+        <translation>檢查</translation>
+    </message>
+    <message>
         <source>Edit</source>
         <translation>編輯</translation>
     </message>
@@ -2397,6 +2401,17 @@ Right click: change it</source>
     </message>
 </context>
 <context>
+    <name>DatePeriodFields</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSO 從</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>到</translation>
+    </message>
+</context>
+<context>
     <name>DecodeList</name>
     <message>
         <source>%1 rows</source>
@@ -2710,6 +2725,53 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>Click to tune the radio</source>
         <translation>點擊調諧電台</translation>
+    </message>
+</context>
+<context>
+    <name>ExportPeriodDialog</name>
+    <message>
+        <source>EXPORT A PERIOD</source>
+        <translation>匯出時間段</translation>
+    </message>
+    <message>
+        <source>The QSOs made from the first to the last day, both included (UTC). Leave one of the two empty to start from the first QSO or to go on to the last.</source>
+        <translation>從第一天到最後一天(含兩端，UTC)的 QSO。留空其中一個，則從第一個 QSO 開始或一直到最後一個。</translation>
+    </message>
+    <message>
+        <source>From (UTC)</source>
+        <translation>從 (UTC)</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>時間段在開始前就結束了</translation>
+    </message>
+    <message>
+        <source>No QSO in this period</source>
+        <translation>此時間段內沒有 QSO</translation>
+    </message>
+    <message>
+        <source>%1 QSO in this period</source>
+        <translation>此時間段內有 %1 個 QSO</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <source>Export %1 QSO…</source>
+        <translation>匯出 %1 個 QSO…</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>匯出…</translation>
+    </message>
+    <message>
+        <source>Save the QSO of the period</source>
+        <translation>儲存該時間段的 QSO</translation>
+    </message>
+    <message>
+        <source>ADIF files (*.adi)</source>
+        <translation>ADIF 檔案 (*.adi)</translation>
     </message>
 </context>
 <context>
@@ -3038,6 +3100,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>把顯示的 %1 個 QSO 匯出為 ADIF…</translation>
+    </message>
+    <message>
+        <source>Export a period (from… to…) to ADIF…</source>
+        <translation>將時間段 (從… 到…) 匯出為 ADIF…</translation>
     </message>
     <message>
         <source>Change a field on the %1 QSO shown…</source>
@@ -3515,15 +3581,7 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <name>LotwRangeRow</name>
     <message>
         <source>Service</source>
-        <translation type="unfinished">服務</translation>
-    </message>
-    <message>
-        <source>QSOs from</source>
-        <translation>QSO 從</translation>
-    </message>
-    <message>
-        <source>to</source>
-        <translation>到</translation>
+        <translation>服務</translation>
     </message>
     <message>
         <source>Download this period</source>
@@ -8109,6 +8167,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>匯入日誌（ADIF、CSV、N1MM）…</translation>
     </message>
     <message>
+        <source>Export a period (from… to…)…</source>
+        <translation>匯出時間段 (從… 到…)…</translation>
+    </message>
+    <message>
         <source>Split off</source>
         <translation>異頻關閉</translation>
     </message>
@@ -9175,6 +9237,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>沒有金鑰庫</translation>
     </message>
     <message>
+        <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
+        <translation>這裡沒有可檢查的內容: 此來源透過網頁讀取，而不是透過節點連線。</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>正在檢查…</translation>
+    </message>
+    <message>
         <source>No cluster node connected</source>
         <translation>沒有連接任何叢集節點</translation>
     </message>
@@ -9797,6 +9867,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Exporting to %1…</source>
         <translation>正在匯出到 %1…</translation>
+    </message>
+    <message>
+        <source>Choose the first or the last day of the period</source>
+        <translation>請選擇時間段的第一天或最後一天</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>時間段在開始前就結束了</translation>
     </message>
     <message>
         <source>%1 · %2 MB</source>
@@ -11164,8 +11242,8 @@ Open it once in DecoDXLog to bring it up to date.</source>
 <context>
     <name>decolog::core::ClusterConnection</name>
     <message>
-        <source>the node answers but says nothing: it may be down — try another source</source>
-        <translation>節點有回應但什麼都不說：多半是掛了 — 換個來源試試</translation>
+        <source>the node answers but says nothing: it may be down, or an antivirus or firewall (AVG, Avast…) is holding the connection — press Check, or try another source</source>
+        <translation>節點有回應但什麼也沒說: 它可能已停機，或者防毒軟體或防火牆 (AVG、Avast…) 扣住了連線 — 請按「檢查」，或試試其他來源</translation>
     </message>
     <message>
         <source>off</source>
@@ -11200,12 +11278,83 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>連線已關閉</translation>
     </message>
     <message>
+        <source>connection closed before the node said anything: an antivirus or firewall (AVG, Avast…) may be holding it — press Check</source>
+        <translation>節點還沒說話連線就被關閉了: 可能是防毒軟體或防火牆 (AVG、Avast…) 扣住了它 — 請按「檢查」</translation>
+    </message>
+    <message>
         <source>password needed</source>
         <translation>需要密碼</translation>
     </message>
     <message>
         <source>no password stored</source>
         <translation>沒有儲存密碼</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::ConnectionProbe</name>
+    <message>
+        <source>1. Name: %1 is already an address</source>
+        <translation>1. 名稱: %1 已經是一個位址</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 does not become an address (%2)</source>
+        <translation>1. 名稱: %1 無法解析為位址 (%2)</translation>
+    </message>
+    <message>
+        <source>no answer</source>
+        <translation>無回應</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 is %2</source>
+        <translation>1. 名稱: %1 是 %2</translation>
+    </message>
+    <message>
+        <source>2. Port %1: connected</source>
+        <translation>2. 連接埠 %1: 已連線</translation>
+    </message>
+    <message>
+        <source>3. The node answered</source>
+        <translation>3. 節點已回應</translation>
+    </message>
+    <message>
+        <source>3. The node answered: &quot;%1&quot;</source>
+        <translation>3. 節點已回應: &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>3. The connection was closed before the node said anything</source>
+        <translation>3. 節點還沒說話連線就被關閉了</translation>
+    </message>
+    <message>
+        <source>2. Port %1: refused</source>
+        <translation>2. 連接埠 %1: 被拒絕</translation>
+    </message>
+    <message>
+        <source>2. Port %1: no answer from the network</source>
+        <translation>2. 連接埠 %1: 網路無回應</translation>
+    </message>
+    <message>
+        <source>2. Port %1: %2</source>
+        <translation>2. 連接埠 %1: %2</translation>
+    </message>
+    <message>
+        <source>3. Connected, but the node says nothing</source>
+        <translation>3. 已連線，但節點什麼也沒說</translation>
+    </message>
+    <message>
+        <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>
+        <translation>名稱無法解析: 請檢查網路和 DNS。防毒軟體或過濾型 DNS (AVG、Avast…) 也可能攔截它不信任的名稱: 請試試數字位址。</translation>
+    </message>
+    <message>
+        <source>The port does not answer. If other programs reach the network but not this node, a firewall or an antivirus (AVG, Avast…) is probably blocking it: allow DecoDXLog in its firewall and network shield, or try another node.</source>
+        <translation>連接埠沒有回應。如果其他程式能上網而唯獨連不上這個節點，多半是防火牆或防毒軟體 (AVG、Avast…) 攔截了它: 請在其防火牆和網路防護中允許 DecoDXLog，或試試其他節點。</translation>
+    </message>
+    <message>
+        <source>The connection opens but nothing comes back. For a node that answers other people this usually means an antivirus or a firewall (AVG, Avast…) is holding it: add DecoDXLog to its exceptions and switch off the scan of this connection, or try another node.</source>
+        <translation>連線已開啟但沒有任何回傳。對於能回應其他人的節點，這通常表示防毒軟體或防火牆 (AVG、Avast…) 扣住了連線: 請把 DecoDXLog 加入其例外並關閉對此連線的掃描，或試試其他節點。</translation>
+    </message>
+    <message>
+        <source>The network refused the connection: check the connection, the proxy and the firewall.</source>
+        <translation>網路拒絕了連線: 請檢查連線、代理伺服器和防火牆。</translation>
     </message>
 </context>
 <context>

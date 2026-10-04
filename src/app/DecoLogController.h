@@ -52,6 +52,8 @@
 
 #include <atomic>
 #include <memory>
+#include <optional>
+#include <utility>
 
 namespace decolog::app {
 
@@ -647,6 +649,10 @@ public:
     Q_INVOKABLE void importAdif(const QUrl& file);
     Q_INVOKABLE void exportAdif(const QUrl& file);
     Q_INVOKABLE void exportQsos(const QVariantList& ids, const QUrl& file);
+    // I QSO fatti dal … al … (ISO, UTC, estremi compresi; uno dei due puo' mancare):
+    // quanti sono, e l'ADIF di quelli. Cosi' si scelgono come nello scarico da LoTW.
+    Q_INVOKABLE int countQsoBetween(const QString& fromIso, const QString& toIso) const;
+    Q_INVOKABLE void exportPeriod(const QString& fromIso, const QString& toIso, const QUrl& file);
     Q_INVOKABLE QString bandForFrequency(const QString& mhz) const;
     // Dove portare la radio quando si sceglie banda e modo (MHz), 0 se non si sa.
     Q_INVOKABLE double bandFrequency(const QString& band, const QString& mode) const;
@@ -1005,7 +1011,9 @@ private:
     QThreadPool m_callInfoPool;
     std::optional<EntitySummary> entitySummary(int dxcc);
     // Esportare su un altro filo: su un log da un milione sono decine di secondi.
-    void exportInBackground(const QList<qint64>& ids, bool all, const QString& path);
+    // `period`: dal … al … al posto degli id, scelti dal filo che scrive.
+    void exportInBackground(const QList<qint64>& ids, bool all, const QString& path,
+                            const std::optional<std::pair<QString, QString>>& period = std::nullopt);
     bool m_backupRunning{false};
     void finishBackup(const QString& path, const QString& error);
     void ensureCounts() const;

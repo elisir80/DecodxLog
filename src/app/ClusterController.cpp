@@ -6,6 +6,7 @@
 #include <QElapsedTimer>
 #include <QPointer>
 
+#include "core/ConnectionProbe.h"
 #include "core/CredentialStore.h"
 #include "core/Dates.h"
 #include "core/DecoLinkServer.h"
@@ -270,6 +271,8 @@ QVariantList ClusterController::sources() const
         m.insert(QStringLiteral("stateText"), c->stateText());
         m.insert(QStringLiteral("spotCount"), c->spotCount());
         m.insert(QStringLiteral("lastSpot"), c->lastSpotAt().isValid() ? c->lastSpotAt().toString(QStringLiteral("HH:mm")) : QString());
+        m.insert(QStringLiteral("checking"), m_checking.contains(c->source().id));
+        m.insert(QStringLiteral("checkText"), m_checkText.value(c->source().id));
         out << m;
     }
     return out;
@@ -334,9 +337,37 @@ void ClusterController::removeSource(const QString& id)
         return;
     c->stop();
     m_connections.removeOne(c);
+    m_checkText.remove(id);
+    m_checking.remove(id);
     c->deleteLater();
     saveSources();
     emit sourcesChanged();
+}
+
+void ClusterController::checkSource(const QString& id)
+{
+    const ClusterConnection* c = connectionFor(id);
+    if (!c || m_checking.contains(id))
+        return;
+    const ClusterSource s = c->source();
+    if (s.type == QLatin1String("pota") || s.host.isEmpty()) {
+        m_checkText.insert(id, tr("Nothing to check here: this source is read over the web, not through a node connection."));
+        emit sourcesChanged();
+        return;
+    }
+    m_checking.insert(id);
+    m_checkText.insert(id, tr("Checking…"));
+    emit sourcesChanged();
+    auto* probe = new ConnectionProbe(this);
+    connect(probe, &ConnectionProbe::finished, this, [this, id, probe](const ConnectionProbe::Result& result) {
+        m_checking.remove(id);
+        probe->deleteLater();
+        if (!connectionFor(id))
+            return;   // tolta mentre si controllava
+        m_checkText.insert(id, result.text());
+        emit sourcesChanged();
+    });
+    probe->start(s.host, static_cast<quint16>(s.port));
 }
 
 void ClusterController::setSourceEnabled(const QString& id, bool enabled)

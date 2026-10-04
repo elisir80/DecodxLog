@@ -12,6 +12,7 @@ Rectangle {
     signal logsRequested()
     signal importRequested()
     signal exportRequested()
+    signal exportPeriodRequested()
     signal awardsRequested()
     signal clusterRequested()
     signal chatRequested()
@@ -140,6 +141,7 @@ Rectangle {
                 MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
                 StyledMenuItem { text: qsTr("Import a log (ADIF, CSV, N1MM)…"); onTriggered: root.importRequested() }
                 StyledMenuItem { text: qsTr("Export ADIF…"); onTriggered: root.exportRequested() }
+                StyledMenuItem { text: qsTr("Export a period (from… to…)…"); onTriggered: root.exportPeriodRequested() }
                 StyledMenuItem { text: qsTr("Open the log folder"); onTriggered: root.logFolderRequested() }
                 MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
                 StyledMenuItem { text: qsTr("Quit"); onTriggered: root.quitRequested() }

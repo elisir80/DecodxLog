@@ -1600,6 +1600,58 @@ int LogDatabase::qsoCount() const
     return 0;
 }
 
+namespace {
+
+// «dal … al …» come condizione SQL. Le date nel database sono ISO-8601 a
+// lunghezza fissa: il confronto fra stringhe basta, e il giorno di «al» si
+// prende intero scegliendo come limite l'inizio del giorno dopo.
+QString periodClause(const QString& fromIso, const QString& toIso, QVariantList* binds)
+{
+    QString sql;
+    if (!fromIso.isEmpty()) {
+        sql += QStringLiteral(" AND qso_datetime_on >= ?");
+        *binds << fromIso;
+    }
+    if (!toIso.isEmpty()) {
+        const QDate to = QDate::fromString(toIso, Qt::ISODate);
+        sql += QStringLiteral(" AND qso_datetime_on < ?");
+        *binds << (to.isValid() ? to.addDays(1).toString(Qt::ISODate) : toIso);
+    }
+    return sql;
+}
+
+} // namespace
+
+QList<qint64> LogDatabase::qsoIdsBetween(const QString& fromIso, const QString& toIso) const
+{
+    QVariantList binds;
+    const QString where = periodClause(fromIso, toIso, &binds);
+    QSqlQuery q(connection());
+    q.setForwardOnly(true);
+    q.prepare(QStringLiteral("SELECT id FROM qso WHERE deleted = 0%1 ORDER BY qso_datetime_on, id").arg(where));
+    for (const QVariant& b : binds)
+        q.addBindValue(b);
+    QList<qint64> ids;
+    if (q.exec()) {
+        while (q.next())
+            ids << q.value(0).toLongLong();
+    }
+    return ids;
+}
+
+int LogDatabase::qsoCountBetween(const QString& fromIso, const QString& toIso) const
+{
+    QVariantList binds;
+    const QString where = periodClause(fromIso, toIso, &binds);
+    QSqlQuery q(connection());
+    q.prepare(QStringLiteral("SELECT COUNT(*) FROM qso WHERE deleted = 0%1").arg(where));
+    for (const QVariant& b : binds)
+        q.addBindValue(b);
+    if (q.exec() && q.next())
+        return q.value(0).toInt();
+    return 0;
+}
+
 int LogDatabase::dirtyCount() const
 {
     decolog::StartupSpan trace("LogDatabase::dirtyCount");

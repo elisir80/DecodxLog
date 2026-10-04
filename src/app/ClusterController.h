@@ -15,6 +15,7 @@
 
 #include <QHash>
 #include <QObject>
+#include <QSet>
 #include <QSoundEffect>
 #include <QStringList>
 #include <QThreadPool>
@@ -157,6 +158,9 @@ public:
     Q_INVOKABLE void updateSource(const QString& id, const QVariantMap& source);
     Q_INVOKABLE void removeSource(const QString& id);
     Q_INVOKABLE void setSourceEnabled(const QString& id, bool enabled);
+    // «Perche' non si collega?»: il nome, la porta, la prima parola del nodo. Il
+    // risultato torna nella fonte (checkText, checking) e dice dove si ferma.
+    Q_INVOKABLE void checkSource(const QString& id);
     Q_INVOKABLE QString addPreset(int index);
     // Un comando a una fonte (id vuoto = la prima fonte telnet collegata).
     Q_INVOKABLE QString sendCommand(const QString& sourceId, const QString& command);
@@ -253,6 +257,8 @@ private:
     QSoundEffect m_alertSound;
     int m_spotRevision{0};
     QList<core::ClusterConnection*> m_connections;
+    QHash<QString, QString> m_checkText;   // l'ultimo controllo di ogni fonte
+    QSet<QString> m_checking;
     core::SpotFilter m_filter;
     bool m_followBand{false};
     QVariantMap m_savedFilters;

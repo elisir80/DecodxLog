@@ -1232,6 +1232,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Aan</translation>
     </message>
     <message>
+        <source>Check</source>
+        <translation>Controleren</translation>
+    </message>
+    <message>
         <source>Edit</source>
         <translation>Bewerken</translation>
     </message>
@@ -2406,6 +2410,17 @@ Rechtsklik: wijzigen</translation>
     </message>
 </context>
 <context>
+    <name>DatePeriodFields</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSO&apos;s van</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>tot</translation>
+    </message>
+</context>
+<context>
     <name>DecodeList</name>
     <message>
         <source>%1 rows</source>
@@ -2719,6 +2734,53 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, poort %1, en &quot
     <message>
         <source>Click to tune the radio</source>
         <translation>Klik om de radio af te stemmen</translation>
+    </message>
+</context>
+<context>
+    <name>ExportPeriodDialog</name>
+    <message>
+        <source>EXPORT A PERIOD</source>
+        <translation>EEN PERIODE EXPORTEREN</translation>
+    </message>
+    <message>
+        <source>The QSOs made from the first to the last day, both included (UTC). Leave one of the two empty to start from the first QSO or to go on to the last.</source>
+        <translation>De QSO&apos;s van de eerste tot de laatste dag, beide inbegrepen (UTC). Laat een van de twee leeg om bij de eerste QSO te beginnen of tot de laatste door te gaan.</translation>
+    </message>
+    <message>
+        <source>From (UTC)</source>
+        <translation>Van (UTC)</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>De periode eindigt voordat hij begint</translation>
+    </message>
+    <message>
+        <source>No QSO in this period</source>
+        <translation>Geen QSO&apos;s in deze periode</translation>
+    </message>
+    <message>
+        <source>%1 QSO in this period</source>
+        <translation>%1 QSO&apos;s in deze periode</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>Export %1 QSO…</source>
+        <translation>%1 QSO&apos;s exporteren…</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Exporteren…</translation>
+    </message>
+    <message>
+        <source>Save the QSO of the period</source>
+        <translation>De QSO&apos;s van de periode opslaan</translation>
+    </message>
+    <message>
+        <source>ADIF files (*.adi)</source>
+        <translation>ADIF-bestanden (*.adi)</translation>
     </message>
 </context>
 <context>
@@ -3047,6 +3109,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, poort %1, en &quot
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>De %1 getoonde QSO naar ADIF exporteren…</translation>
+    </message>
+    <message>
+        <source>Export a period (from… to…) to ADIF…</source>
+        <translation>Een periode (van… tot…) naar ADIF exporteren…</translation>
     </message>
     <message>
         <source>Change a field on the %1 QSO shown…</source>
@@ -3526,15 +3592,7 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
     <name>LotwRangeRow</name>
     <message>
         <source>Service</source>
-        <translation type="unfinished">Dienst</translation>
-    </message>
-    <message>
-        <source>QSOs from</source>
-        <translation>QSO&apos;s van</translation>
-    </message>
-    <message>
-        <source>to</source>
-        <translation>tot</translation>
+        <translation>Dienst</translation>
     </message>
     <message>
         <source>Download this period</source>
@@ -8131,6 +8189,10 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
         <translation>Een log importeren (ADIF, CSV, N1MM)…</translation>
     </message>
     <message>
+        <source>Export a period (from… to…)…</source>
+        <translation>Een periode (van… tot…) exporteren…</translation>
+    </message>
+    <message>
         <source>Split off</source>
         <translation>Split uit</translation>
     </message>
@@ -9208,6 +9270,14 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
         <translation>geen sleutelopslag</translation>
     </message>
     <message>
+        <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
+        <translation>Hier valt niets te controleren: deze bron wordt via het web gelezen, niet via een verbinding met een knooppunt.</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>Controleren…</translation>
+    </message>
+    <message>
         <source>No cluster node connected</source>
         <translation>Geen clusternode verbonden</translation>
     </message>
@@ -9836,6 +9906,14 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
     <message>
         <source>Exporting to %1…</source>
         <translation>Exporteren naar %1…</translation>
+    </message>
+    <message>
+        <source>Choose the first or the last day of the period</source>
+        <translation>Kies de eerste of de laatste dag van de periode</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>De periode eindigt voordat hij begint</translation>
     </message>
     <message>
         <source>%1 · %2 MB</source>
@@ -11226,8 +11304,8 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
 <context>
     <name>decolog::core::ClusterConnection</name>
     <message>
-        <source>the node answers but says nothing: it may be down — try another source</source>
-        <translation>de node antwoordt maar zegt niets: misschien ligt hij plat — probeer een andere bron</translation>
+        <source>the node answers but says nothing: it may be down, or an antivirus or firewall (AVG, Avast…) is holding the connection — press Check, or try another source</source>
+        <translation>het knooppunt antwoordt maar zegt niets: het kan uit de lucht zijn, of een antivirusprogramma of firewall (AVG, Avast…) houdt de verbinding vast — druk op Controleren, of probeer een andere bron</translation>
     </message>
     <message>
         <source>off</source>
@@ -11262,12 +11340,83 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
         <translation>verbinding gesloten</translation>
     </message>
     <message>
+        <source>connection closed before the node said anything: an antivirus or firewall (AVG, Avast…) may be holding it — press Check</source>
+        <translation>verbinding gesloten voordat het knooppunt iets zei: een antivirusprogramma of firewall (AVG, Avast…) kan haar vasthouden — druk op Controleren</translation>
+    </message>
+    <message>
         <source>password needed</source>
         <translation>wachtwoord nodig</translation>
     </message>
     <message>
         <source>no password stored</source>
         <translation>geen wachtwoord opgeslagen</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::ConnectionProbe</name>
+    <message>
+        <source>1. Name: %1 is already an address</source>
+        <translation>1. Naam: %1 is al een adres</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 does not become an address (%2)</source>
+        <translation>1. Naam: %1 wordt geen adres (%2)</translation>
+    </message>
+    <message>
+        <source>no answer</source>
+        <translation>geen antwoord</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 is %2</source>
+        <translation>1. Naam: %1 is %2</translation>
+    </message>
+    <message>
+        <source>2. Port %1: connected</source>
+        <translation>2. Poort %1: verbonden</translation>
+    </message>
+    <message>
+        <source>3. The node answered</source>
+        <translation>3. Het knooppunt heeft geantwoord</translation>
+    </message>
+    <message>
+        <source>3. The node answered: &quot;%1&quot;</source>
+        <translation>3. Het knooppunt heeft geantwoord: &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>3. The connection was closed before the node said anything</source>
+        <translation>3. De verbinding werd gesloten voordat het knooppunt iets zei</translation>
+    </message>
+    <message>
+        <source>2. Port %1: refused</source>
+        <translation>2. Poort %1: geweigerd</translation>
+    </message>
+    <message>
+        <source>2. Port %1: no answer from the network</source>
+        <translation>2. Poort %1: geen antwoord van het netwerk</translation>
+    </message>
+    <message>
+        <source>2. Port %1: %2</source>
+        <translation>2. Poort %1: %2</translation>
+    </message>
+    <message>
+        <source>3. Connected, but the node says nothing</source>
+        <translation>3. Verbonden, maar het knooppunt zegt niets</translation>
+    </message>
+    <message>
+        <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>
+        <translation>De naam wordt niet omgezet: controleer het netwerk en de DNS. Ook een antivirusprogramma of een filterende DNS (AVG, Avast…) kan een naam blokkeren die het niet vertrouwt: probeer het adres in cijfers.</translation>
+    </message>
+    <message>
+        <source>The port does not answer. If other programs reach the network but not this node, a firewall or an antivirus (AVG, Avast…) is probably blocking it: allow DecoDXLog in its firewall and network shield, or try another node.</source>
+        <translation>De poort antwoordt niet. Bereiken andere programma&apos;s het netwerk wel maar dit knooppunt niet, dan blokkeert waarschijnlijk een firewall of antivirusprogramma (AVG, Avast…) het: sta DecoDXLog toe in de firewall en netwerkbescherming, of probeer een ander knooppunt.</translation>
+    </message>
+    <message>
+        <source>The connection opens but nothing comes back. For a node that answers other people this usually means an antivirus or a firewall (AVG, Avast…) is holding it: add DecoDXLog to its exceptions and switch off the scan of this connection, or try another node.</source>
+        <translation>De verbinding gaat open maar er komt niets terug. Bij een knooppunt dat anderen wel antwoordt betekent dat meestal dat een antivirusprogramma of firewall (AVG, Avast…) haar vasthoudt: voeg DecoDXLog toe aan de uitzonderingen en schakel de scan van deze verbinding uit, of probeer een ander knooppunt.</translation>
+    </message>
+    <message>
+        <source>The network refused the connection: check the connection, the proxy and the firewall.</source>
+        <translation>Het netwerk weigerde de verbinding: controleer de verbinding, de proxy en de firewall.</translation>
     </message>
 </context>
 <context>

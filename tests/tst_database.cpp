@@ -263,6 +263,52 @@ private slots:
         QCOMPARE(fieldMap(*db.record(ids.last())), fieldMap(all.records.first()));
     }
 
+    // «Dal … al …» per esportare: estremi compresi, il giorno di «al» intero (anche
+    // le 23:59), un estremo vuoto aperto, i cancellati fuori, e nell'ordine di tempo.
+    void aPeriodTakesWholeDaysAndSkipsTheDeleted()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        const auto qso = [](const char* call, const char* date, const char* time) {
+            return QByteArray("<CALL:") + QByteArray::number(int(qstrlen(call))) + ">" + call + "<QSO_DATE:8>" + date
+                   + "<TIME_ON:4>" + time + "<BAND:3>20m<MODE:3>FT8<EOR>";
+        };
+        // Fuori ordine di proposito: l'ordine dell'export e' quello del tempo.
+        QByteArray adif = qso("K4DD", "20260430", "2359") + qso("K1AA", "20260331", "2359")
+                          + qso("K3CC", "20260415", "1200") + qso("K5EE", "20260501", "0000")
+                          + qso("K2BB", "20260401", "0000") + qso("K6FF", "20260410", "0900");
+        QCOMPARE(db.importAdif(adif).inserted, 6);
+        QList<qint64> all = db.qsoIdsBetween({}, {});
+        QCOMPARE(all.size(), 6);
+        // Il QSO delle 09:00 del 10 aprile viene cancellato: non conta in nessun periodo.
+        for (qint64 id : all) {
+            if (db.record(id)->value("CALL") == QLatin1String("K6FF"))
+                QVERIFY(db.softDeleteQso(id));
+        }
+        const auto calls = [&](const QString& from, const QString& to) {
+            QStringList out;
+            const AdifDocument doc = adif::parse(db.exportAdif(db.qsoIdsBetween(from, to)));
+            for (const AdifRecord& r : doc.records)
+                out << r.value("CALL");
+            return out;
+        };
+
+        QCOMPARE(db.qsoCountBetween({}, {}), 5);
+        // Aprile intero: dal primo (00:00) all'ultimo giorno (23:59), non un minuto fuori.
+        QCOMPARE(calls("2026-04-01", "2026-04-30"), (QStringList{"K2BB", "K3CC", "K4DD"}));
+        QCOMPARE(db.qsoCountBetween("2026-04-01", "2026-04-30"), 3);
+        // Un giorno solo: dal 30 al 30.
+        QCOMPARE(calls("2026-04-30", "2026-04-30"), (QStringList{"K4DD"}));
+        // Estremi aperti.
+        QCOMPARE(calls("2026-04-15", {}), (QStringList{"K3CC", "K4DD", "K5EE"}));
+        QCOMPARE(calls({}, "2026-04-01"), (QStringList{"K1AA", "K2BB"}));
+        // Un periodo senza QSO non esporta niente (e non tutto il log).
+        QCOMPARE(db.qsoCountBetween("2027-01-01", "2027-12-31"), 0);
+        QVERIFY(db.qsoIdsBetween("2027-01-01", "2027-12-31").isEmpty());
+        // Al contrario non c'e' niente: lo dice chi chiede, qui il risultato e' vuoto.
+        QVERIFY(db.qsoIdsBetween("2026-04-30", "2026-04-01").isEmpty());
+    }
+
     void crxFollowsEditsAndDeletions()
     {
         // CRX corregge e cancella: un QSO gia' li' e poi corretto torna in

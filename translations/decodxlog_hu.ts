@@ -1228,6 +1228,10 @@ Az a hívójel, amivel a Decodium dolgozik, magától megjelenik itt.</translati
         <translation>Be</translation>
     </message>
     <message>
+        <source>Check</source>
+        <translation>Ellenőrzés</translation>
+    </message>
+    <message>
         <source>Edit</source>
         <translation>Szerkesztés</translation>
     </message>
@@ -2397,6 +2401,17 @@ Jobb kattintás: módosítás</translation>
     </message>
 </context>
 <context>
+    <name>DatePeriodFields</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSO-k ettől</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>eddig</translation>
+    </message>
+</context>
+<context>
     <name>DecodeList</name>
     <message>
         <source>%1 rows</source>
@@ -2710,6 +2725,53 @@ A Decodiumban: Settings → Reporting → UDP Server 127.0.0.1, port: %1, és &q
     <message>
         <source>Click to tune the radio</source>
         <translation>Kattints a rádió hangolásához</translation>
+    </message>
+</context>
+<context>
+    <name>ExportPeriodDialog</name>
+    <message>
+        <source>EXPORT A PERIOD</source>
+        <translation>IDŐSZAK EXPORTÁLÁSA</translation>
+    </message>
+    <message>
+        <source>The QSOs made from the first to the last day, both included (UTC). Leave one of the two empty to start from the first QSO or to go on to the last.</source>
+        <translation>Az első naptól az utolsó napig készült QSO-k, mindkét nappal együtt (UTC). Hagyd üresen az egyiket, hogy az első QSO-tól kezdődjön vagy az utolsóig tartson.</translation>
+    </message>
+    <message>
+        <source>From (UTC)</source>
+        <translation>Ettől (UTC)</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>Az időszak véget ér, mielőtt elkezdődne</translation>
+    </message>
+    <message>
+        <source>No QSO in this period</source>
+        <translation>Nincs QSO ebben az időszakban</translation>
+    </message>
+    <message>
+        <source>%1 QSO in this period</source>
+        <translation>%1 QSO ebben az időszakban</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Mégse</translation>
+    </message>
+    <message>
+        <source>Export %1 QSO…</source>
+        <translation>%1 QSO exportálása…</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Export…</translation>
+    </message>
+    <message>
+        <source>Save the QSO of the period</source>
+        <translation>Az időszak QSO-inak mentése</translation>
+    </message>
+    <message>
+        <source>ADIF files (*.adi)</source>
+        <translation>ADIF-fájlok (*.adi)</translation>
     </message>
 </context>
 <context>
@@ -3038,6 +3100,10 @@ A Decodiumban: Settings → Reporting → UDP Server 127.0.0.1, port: %1, és &q
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>A %1 látható QSO exportálása ADIF-be…</translation>
+    </message>
+    <message>
+        <source>Export a period (from… to…) to ADIF…</source>
+        <translation>Időszak (-tól… -ig…) exportálása ADIF-be…</translation>
     </message>
     <message>
         <source>Change a field on the %1 QSO shown…</source>
@@ -3515,15 +3581,7 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <name>LotwRangeRow</name>
     <message>
         <source>Service</source>
-        <translation type="unfinished">Szolgáltatás</translation>
-    </message>
-    <message>
-        <source>QSOs from</source>
-        <translation>QSO-k ettől</translation>
-    </message>
-    <message>
-        <source>to</source>
-        <translation>eddig</translation>
+        <translation>Szolgáltatás</translation>
     </message>
     <message>
         <source>Download this period</source>
@@ -8109,6 +8167,10 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>Napló importálása (ADIF, CSV, N1MM)…</translation>
     </message>
     <message>
+        <source>Export a period (from… to…)…</source>
+        <translation>Időszak (-tól… -ig…) exportálása…</translation>
+    </message>
+    <message>
         <source>Split off</source>
         <translation>Split ki</translation>
     </message>
@@ -9175,6 +9237,14 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>nincs kulcstartó</translation>
     </message>
     <message>
+        <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
+        <translation>Itt nincs mit ellenőrizni: ez a forrás a weben át olvasható, nem csomóponti kapcsolaton.</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>Ellenőrzés…</translation>
+    </message>
+    <message>
         <source>No cluster node connected</source>
         <translation>Nincs csatlakoztatott cluster-node</translation>
     </message>
@@ -9797,6 +9867,14 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>Exporting to %1…</source>
         <translation>Exportálás ide: %1…</translation>
+    </message>
+    <message>
+        <source>Choose the first or the last day of the period</source>
+        <translation>Válaszd ki az időszak első vagy utolsó napját</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>Az időszak véget ér, mielőtt elkezdődne</translation>
     </message>
     <message>
         <source>%1 · %2 MB</source>
@@ -11164,8 +11242,8 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
 <context>
     <name>decolog::core::ClusterConnection</name>
     <message>
-        <source>the node answers but says nothing: it may be down — try another source</source>
-        <translation>a node válaszol, de nem mond semmit: lehet, hogy áll — próbálj másik forrást</translation>
+        <source>the node answers but says nothing: it may be down, or an antivirus or firewall (AVG, Avast…) is holding the connection — press Check, or try another source</source>
+        <translation>a csomópont válaszol, de nem mond semmit: lehet, hogy leállt, vagy egy vírusirtó vagy tűzfal (AVG, Avast…) fogja a kapcsolatot — nyomd meg az Ellenőrzés gombot, vagy próbálj másik forrást</translation>
     </message>
     <message>
         <source>off</source>
@@ -11200,12 +11278,83 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>a kapcsolat lezárva</translation>
     </message>
     <message>
+        <source>connection closed before the node said anything: an antivirus or firewall (AVG, Avast…) may be holding it — press Check</source>
+        <translation>a kapcsolat lezárult, mielőtt a csomópont bármit mondott volna: egy vírusirtó vagy tűzfal (AVG, Avast…) tarthatja vissza — nyomd meg az Ellenőrzés gombot</translation>
+    </message>
+    <message>
         <source>password needed</source>
         <translation>jelszó kell</translation>
     </message>
     <message>
         <source>no password stored</source>
         <translation>nincs eltárolt jelszó</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::ConnectionProbe</name>
+    <message>
+        <source>1. Name: %1 is already an address</source>
+        <translation>1. Név: %1 már egy cím</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 does not become an address (%2)</source>
+        <translation>1. Név: %1 nem oldódik fel címmé (%2)</translation>
+    </message>
+    <message>
+        <source>no answer</source>
+        <translation>nincs válasz</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 is %2</source>
+        <translation>1. Név: %1 = %2</translation>
+    </message>
+    <message>
+        <source>2. Port %1: connected</source>
+        <translation>2. Port %1: kapcsolódva</translation>
+    </message>
+    <message>
+        <source>3. The node answered</source>
+        <translation>3. A csomópont válaszolt</translation>
+    </message>
+    <message>
+        <source>3. The node answered: &quot;%1&quot;</source>
+        <translation>3. A csomópont válaszolt: &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>3. The connection was closed before the node said anything</source>
+        <translation>3. A kapcsolat lezárult, mielőtt a csomópont bármit mondott volna</translation>
+    </message>
+    <message>
+        <source>2. Port %1: refused</source>
+        <translation>2. Port %1: elutasítva</translation>
+    </message>
+    <message>
+        <source>2. Port %1: no answer from the network</source>
+        <translation>2. Port %1: nincs válasz a hálózatról</translation>
+    </message>
+    <message>
+        <source>2. Port %1: %2</source>
+        <translation>2. Port %1: %2</translation>
+    </message>
+    <message>
+        <source>3. Connected, but the node says nothing</source>
+        <translation>3. Kapcsolódva, de a csomópont nem mond semmit</translation>
+    </message>
+    <message>
+        <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>
+        <translation>A név nem oldódik fel: ellenőrizd a hálózatot és a DNS-t. Egy vírusirtó vagy szűrő DNS (AVG, Avast…) is blokkolhat olyan nevet, amiben nem bízik: próbáld a címet számokkal.</translation>
+    </message>
+    <message>
+        <source>The port does not answer. If other programs reach the network but not this node, a firewall or an antivirus (AVG, Avast…) is probably blocking it: allow DecoDXLog in its firewall and network shield, or try another node.</source>
+        <translation>A port nem válaszol. Ha más programok elérik a hálózatot, de ezt a csomópontot nem, valószínűleg egy tűzfal vagy vírusirtó (AVG, Avast…) blokkolja: engedélyezd a DecoDXLogot a tűzfalában és a hálózatvédelmében, vagy próbálj másik csomópontot.</translation>
+    </message>
+    <message>
+        <source>The connection opens but nothing comes back. For a node that answers other people this usually means an antivirus or a firewall (AVG, Avast…) is holding it: add DecoDXLog to its exceptions and switch off the scan of this connection, or try another node.</source>
+        <translation>A kapcsolat megnyílik, de semmi sem jön vissza. Egy másoknak válaszoló csomópontnál ez általában azt jelenti, hogy egy vírusirtó vagy tűzfal (AVG, Avast…) visszatartja: add hozzá a DecoDXLogot a kivételekhez, és kapcsold ki ennek a kapcsolatnak a vizsgálatát, vagy próbálj másik csomópontot.</translation>
+    </message>
+    <message>
+        <source>The network refused the connection: check the connection, the proxy and the firewall.</source>
+        <translation>A hálózat elutasította a kapcsolatot: ellenőrizd a kapcsolatot, a proxyt és a tűzfalat.</translation>
     </message>
 </context>
 <context>

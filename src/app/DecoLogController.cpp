@@ -3761,7 +3761,8 @@ void DecoLogController::exportAdif(const QUrl& url)
     exportInBackground({}, true, url.isLocalFile() ? url.toLocalFile() : url.toString());
 }
 
-void DecoLogController::exportInBackground(const QList<qint64>& ids, bool all, const QString& path)
+void DecoLogController::exportInBackground(const QList<qint64>& ids, bool all, const QString& path,
+                                           const std::optional<std::pair<QString, QString>>& period)
 {
     {
         QFile probe(path);
@@ -3777,15 +3778,16 @@ void DecoLogController::exportInBackground(const QList<qint64>& ids, bool all, c
     if (dbPath.isEmpty() || dbPath == QLatin1String(":memory:")) {
         QFile file(path);
         file.open(QIODevice::WriteOnly | QIODevice::Truncate);
-        file.write(all ? m_db.exportAdif(programVersion) : m_db.exportAdif(ids, programVersion));
+        const QList<qint64> chosen = period ? m_db.qsoIdsBetween(period->first, period->second) : ids;
+        file.write(all ? m_db.exportAdif(programVersion) : m_db.exportAdif(chosen, programVersion));
         addActivity(QStringLiteral("EXPORT"),
-                    tr("%n QSO → %1", nullptr, all ? m_db.qsoCount() : static_cast<int>(ids.size())).arg(path),
+                    tr("%n QSO → %1", nullptr, all ? m_db.qsoCount() : static_cast<int>(chosen.size())).arg(path),
                     QStringLiteral("success"));
         return;
     }
     addActivity(QStringLiteral("EXPORT"), tr("Exporting to %1…").arg(QFileInfo(path).fileName()));
     QPointer<DecoLogController> self(this);
-    m_importPool.start([self, dbPath, programVersion, ids, all, path] {
+    m_importPool.start([self, dbPath, programVersion, ids, all, path, period] {
         QString error;
         int count = 0;
         {
@@ -3796,8 +3798,9 @@ void DecoLogController::exportInBackground(const QList<qint64>& ids, bool all, c
             } else if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
                 error = file.errorString();
             } else {
-                count = all ? db.qsoCount() : static_cast<int>(ids.size());
-                const QByteArray data = all ? db.exportAdif(programVersion) : db.exportAdif(ids, programVersion);
+                const QList<qint64> chosen = period ? db.qsoIdsBetween(period->first, period->second) : ids;
+                count = all ? db.qsoCount() : static_cast<int>(chosen.size());
+                const QByteArray data = all ? db.exportAdif(programVersion) : db.exportAdif(chosen, programVersion);
                 if (file.write(data) != data.size())
                     error = file.errorString();
             }
@@ -3823,6 +3826,30 @@ void DecoLogController::exportQsos(const QVariantList& ids, const QUrl& url)
     for (const auto& v : ids)
         list << v.toLongLong();
     exportInBackground(list, false, url.isLocalFile() ? url.toLocalFile() : url.toString());
+}
+
+int DecoLogController::countQsoBetween(const QString& fromIso, const QString& toIso) const
+{
+    return m_db.isOpen() ? m_db.qsoCountBetween(fromIso.trimmed(), toIso.trimmed()) : 0;
+}
+
+void DecoLogController::exportPeriod(const QString& fromIso, const QString& toIso, const QUrl& url)
+{
+    const QDate from = QDate::fromString(fromIso.trimmed(), Qt::ISODate);
+    const QDate to = QDate::fromString(toIso.trimmed(), Qt::ISODate);
+    if (!from.isValid() && !to.isValid()) {
+        addActivity(QStringLiteral("EXPORT"), tr("Choose the first or the last day of the period"),
+                    QStringLiteral("warning"));
+        return;
+    }
+    if (from.isValid() && to.isValid() && from > to) {
+        addActivity(QStringLiteral("EXPORT"), tr("The period starts after it ends"), QStringLiteral("warning"));
+        return;
+    }
+    // Solo date vere: quello che non lo e' resta aperto, non un confronto fra stringhe.
+    exportInBackground({}, false, url.isLocalFile() ? url.toLocalFile() : url.toString(),
+                       std::make_pair(from.isValid() ? from.toString(Qt::ISODate) : QString(),
+                                      to.isValid() ? to.toString(Qt::ISODate) : QString()));
 }
 
 void DecoLogController::setBackupEnabled(bool enabled)

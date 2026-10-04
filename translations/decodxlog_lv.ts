@@ -1236,6 +1236,10 @@ Tas izsaukuma signāls, ar ko strādā Decodium, šeit parādās pats.</translat
         <translation>On</translation>
     </message>
     <message>
+        <source>Check</source>
+        <translation>Pārbaudīt</translation>
+    </message>
+    <message>
         <source>Edit</source>
         <translation>Rediģēt</translation>
     </message>
@@ -2415,6 +2419,17 @@ Labais klikšķis: mainīt</translation>
     </message>
 </context>
 <context>
+    <name>DatePeriodFields</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSO no</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>līdz</translation>
+    </message>
+</context>
+<context>
     <name>DecodeList</name>
     <message>
         <source>%1 rows</source>
@@ -2728,6 +2743,53 @@ Decodium: Settings → Reporting → UDP Server 127.0.0.1, ports %1, un &quot;Ac
     <message>
         <source>Click to tune the radio</source>
         <translation>Klikšķini, lai noskaņotu radio</translation>
+    </message>
+</context>
+<context>
+    <name>ExportPeriodDialog</name>
+    <message>
+        <source>EXPORT A PERIOD</source>
+        <translation>EKSPORTĒT PERIODU</translation>
+    </message>
+    <message>
+        <source>The QSOs made from the first to the last day, both included (UTC). Leave one of the two empty to start from the first QSO or to go on to the last.</source>
+        <translation>QSO, kas veikti no pirmās līdz pēdējai dienai, abas ieskaitot (UTC). Atstājiet vienu no tām tukšu, lai sāktu no pirmā QSO vai turpinātu līdz pēdējam.</translation>
+    </message>
+    <message>
+        <source>From (UTC)</source>
+        <translation>No (UTC)</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>Periods beidzas, pirms sācies</translation>
+    </message>
+    <message>
+        <source>No QSO in this period</source>
+        <translation>Šajā periodā nav neviena QSO</translation>
+    </message>
+    <message>
+        <source>%1 QSO in this period</source>
+        <translation>%1 QSO šajā periodā</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Atcelt</translation>
+    </message>
+    <message>
+        <source>Export %1 QSO…</source>
+        <translation>Eksportēt %1 QSO…</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Eksportēt…</translation>
+    </message>
+    <message>
+        <source>Save the QSO of the period</source>
+        <translation>Saglabāt perioda QSO</translation>
+    </message>
+    <message>
+        <source>ADIF files (*.adi)</source>
+        <translation>ADIF faili (*.adi)</translation>
     </message>
 </context>
 <context>
@@ -3056,6 +3118,10 @@ Decodium: Settings → Reporting → UDP Server 127.0.0.1, ports %1, un &quot;Ac
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>Eksportēt %1 rādītos QSO uz ADIF…</translation>
+    </message>
+    <message>
+        <source>Export a period (from… to…) to ADIF…</source>
+        <translation>Eksportēt periodu (no… līdz…) uz ADIF…</translation>
     </message>
     <message>
         <source>Change a field on the %1 QSO shown…</source>
@@ -3537,15 +3603,7 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <name>LotwRangeRow</name>
     <message>
         <source>Service</source>
-        <translation type="unfinished">Pakalpojums</translation>
-    </message>
-    <message>
-        <source>QSOs from</source>
-        <translation>QSO no</translation>
-    </message>
-    <message>
-        <source>to</source>
-        <translation>līdz</translation>
+        <translation>Pakalpojums</translation>
     </message>
     <message>
         <source>Download this period</source>
@@ -8153,6 +8211,10 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>Importēt žurnālu (ADIF, CSV, N1MM)…</translation>
     </message>
     <message>
+        <source>Export a period (from… to…)…</source>
+        <translation>Eksportēt periodu (no… līdz…)…</translation>
+    </message>
+    <message>
         <source>Split off</source>
         <translation>Split izslēgts</translation>
     </message>
@@ -9241,6 +9303,14 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>nav atslēgu glabātuves</translation>
     </message>
     <message>
+        <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
+        <translation>Šeit nav ko pārbaudīt: šo avotu lasa tīmeklī, nevis ar savienojumu ar mezglu.</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>Pārbauda…</translation>
+    </message>
+    <message>
         <source>No cluster node connected</source>
         <translation>Nav pieslēgts neviens klastera mezgls</translation>
     </message>
@@ -9875,6 +9945,14 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>Exporting to %1…</source>
         <translation>Eksportē uz %1…</translation>
+    </message>
+    <message>
+        <source>Choose the first or the last day of the period</source>
+        <translation>Izvēlieties perioda pirmo vai pēdējo dienu</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>Periods beidzas, pirms sācies</translation>
     </message>
     <message>
         <source>%1 · %2 MB</source>
@@ -11288,8 +11366,8 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
 <context>
     <name>decolog::core::ClusterConnection</name>
     <message>
-        <source>the node answers but says nothing: it may be down — try another source</source>
-        <translation>mezgls atbild, bet neko nesaka: iespējams, tas ir nost — pamēģini citu avotu</translation>
+        <source>the node answers but says nothing: it may be down, or an antivirus or firewall (AVG, Avast…) is holding the connection — press Check, or try another source</source>
+        <translation>mezgls atbild, bet neko nesaka: tas var būt izslēgts, vai arī pretvīrusu vai ugunsmūris (AVG, Avast…) notur savienojumu — nospiediet Pārbaudīt vai mēģiniet citu avotu</translation>
     </message>
     <message>
         <source>off</source>
@@ -11324,12 +11402,83 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>savienojums slēgts</translation>
     </message>
     <message>
+        <source>connection closed before the node said anything: an antivirus or firewall (AVG, Avast…) may be holding it — press Check</source>
+        <translation>savienojums aizvērts, pirms mezgls kaut ko pateica: pretvīrusu vai ugunsmūris (AVG, Avast…) to var aizturēt — nospiediet Pārbaudīt</translation>
+    </message>
+    <message>
         <source>password needed</source>
         <translation>vajadzīga parole</translation>
     </message>
     <message>
         <source>no password stored</source>
         <translation>nav saglabātas paroles</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::ConnectionProbe</name>
+    <message>
+        <source>1. Name: %1 is already an address</source>
+        <translation>1. Nosaukums: %1 jau ir adrese</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 does not become an address (%2)</source>
+        <translation>1. Nosaukums: %1 neizvēršas par adresi (%2)</translation>
+    </message>
+    <message>
+        <source>no answer</source>
+        <translation>nav atbildes</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 is %2</source>
+        <translation>1. Nosaukums: %1 ir %2</translation>
+    </message>
+    <message>
+        <source>2. Port %1: connected</source>
+        <translation>2. Ports %1: savienots</translation>
+    </message>
+    <message>
+        <source>3. The node answered</source>
+        <translation>3. Mezgls atbildēja</translation>
+    </message>
+    <message>
+        <source>3. The node answered: &quot;%1&quot;</source>
+        <translation>3. Mezgls atbildēja: &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>3. The connection was closed before the node said anything</source>
+        <translation>3. Savienojums tika aizvērts, pirms mezgls kaut ko pateica</translation>
+    </message>
+    <message>
+        <source>2. Port %1: refused</source>
+        <translation>2. Ports %1: noraidīts</translation>
+    </message>
+    <message>
+        <source>2. Port %1: no answer from the network</source>
+        <translation>2. Ports %1: tīkls neatbild</translation>
+    </message>
+    <message>
+        <source>2. Port %1: %2</source>
+        <translation>2. Ports %1: %2</translation>
+    </message>
+    <message>
+        <source>3. Connected, but the node says nothing</source>
+        <translation>3. Savienots, bet mezgls neko nesaka</translation>
+    </message>
+    <message>
+        <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>
+        <translation>Nosaukums netiek atrisināts: pārbaudiet tīklu un DNS. Arī pretvīrusu vai filtrējošs DNS (AVG, Avast…) var bloķēt nosaukumu, kuram neuzticas: izmēģiniet adresi ciparos.</translation>
+    </message>
+    <message>
+        <source>The port does not answer. If other programs reach the network but not this node, a firewall or an antivirus (AVG, Avast…) is probably blocking it: allow DecoDXLog in its firewall and network shield, or try another node.</source>
+        <translation>Ports neatbild. Ja citas programmas sasniedz tīklu, bet ne šo mezglu, to droši vien bloķē ugunsmūris vai pretvīrusu (AVG, Avast…): atļaujiet DecoDXLog tā ugunsmūrī un tīkla aizsardzībā vai mēģiniet citu mezglu.</translation>
+    </message>
+    <message>
+        <source>The connection opens but nothing comes back. For a node that answers other people this usually means an antivirus or a firewall (AVG, Avast…) is holding it: add DecoDXLog to its exceptions and switch off the scan of this connection, or try another node.</source>
+        <translation>Savienojums atveras, bet nekas neatgriežas. Mezglam, kas atbild citiem, tas parasti nozīmē, ka pretvīrusu vai ugunsmūris (AVG, Avast…) to notur: pievienojiet DecoDXLog izņēmumiem un izslēdziet šī savienojuma skenēšanu vai mēģiniet citu mezglu.</translation>
+    </message>
+    <message>
+        <source>The network refused the connection: check the connection, the proxy and the firewall.</source>
+        <translation>Tīkls noraidīja savienojumu: pārbaudiet savienojumu, starpniekserveri un ugunsmūri.</translation>
     </message>
 </context>
 <context>

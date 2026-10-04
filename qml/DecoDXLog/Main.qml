@@ -1013,6 +1013,9 @@ RoundedWindow {
         else if (what[0] === "fillall") decolog.completeMissingFromCallbook()
         else if (what[0] === "maintenance") { decolog.repairImportedFields(); decolog.completeMissingFromCallbook() }
         else if (what[0] === "tab") window.panelItem("tabs").setTab(parseInt(what[1]))
+        // «exportperiod[:dal:al]»: il riquadro per esportare un periodo, con date ISO se date.
+        else if (what[0] === "exportperiod")
+            exportPeriodDialog.openDialog(what[1] ? decolog.showDate(what[1]) : "", what[2] ? decolog.showDate(what[2]) : "")
         // La scelta del periodo per lo scarico LoTW, aperta per guardarla.
         else if (what[0] === "lotwperiod") { window.panelItem("tabs").setTab(2); lotwPeriodTimer.start() }
         // La previsione verso un locatore, con VOACAP se c'e'.
@@ -1055,6 +1058,16 @@ RoundedWindow {
             decolog.cluster.injectLine("DX de IK0TEST:  " + what[2] + "  " + what[3]
                                        + "  " + (what[4] || "CW") + " 18 dB  " + hhmm + "Z")
             clusterTuneTimer.start()
+        }
+        // «cluster check»: la scheda Fonti con tre fonti spente — un nodo vero, una
+        // porta chiusa, un nome che non esiste — e il controllo lanciato su ognuna.
+        else if (what[0] === "cluster" && what[1] === "check") {
+            const c = decolog.cluster
+            c.addSource({ name: "IQ8DO Caserta", type: "cluster", host: "iq8do.aricaserta.it", port: 7300, enabled: false })
+            c.addSource({ name: "Nodo spento", type: "cluster", host: "127.0.0.1", port: 9, enabled: false })
+            c.addSource({ name: "Nome sbagliato", type: "cluster", host: "nonexistent.invalid", port: 7300, enabled: false })
+            openCluster(1)
+            c.sources.forEach(s => c.checkSource(s.id))
         }
         else if (what[0] === "cluster") openCluster(parseInt(what[1] || "0"))
         else if (what[0] === "logs") logsDialog.openDialog()
@@ -1498,6 +1511,7 @@ RoundedWindow {
         nameFilters: [qsTr("ADIF files (*.adi)")]
         onAccepted: decolog.exportAdif(selectedFile)
     }
+    ExportPeriodDialog { id: exportPeriodDialog }
 
     // Queste finestre nascono quando servono e muoiono quando si chiudono. Il
     // Loader si spegne con Qt.callLater e non dentro l'onClosing: spegnerlo li'
@@ -1945,6 +1959,7 @@ RoundedWindow {
             onLogsRequested: logsDialog.openDialog()
             onImportRequested: importDialog.open()
             onExportRequested: exportDialog.open()
+            onExportPeriodRequested: exportPeriodDialog.openDialog()
             onAwardsRequested: awardsDialog.openAt("")
             onClusterRequested: window.openCluster(0)
             onActivationRequested: activationDialog.openDialog()

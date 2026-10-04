@@ -17,11 +17,16 @@ public:
     QByteArray greeting{"Welcome to FAKE-1\r\nlogin: "};
     QByteArray received;
     QTcpSocket* client{nullptr};
+    bool closeAtOnce{false};            // accetta e chiude: come un antivirus che non si fida
 
     FakeNode()
     {
         connect(this, &QTcpServer::newConnection, this, [this] {
             client = nextPendingConnection();
+            if (closeAtOnce) {
+                client->disconnectFromHost();
+                return;
+            }
             connect(client, &QTcpSocket::readyRead, client, [this] { received += client->readAll(); });
             client->write(greeting);
         });
@@ -147,6 +152,23 @@ private slots:
         QTRY_COMPARE_WITH_TIMEOUT(c.state(), ClusterConnection::State::Waiting, 10000);
         QVERIFY(c.stateText().contains(QStringLiteral("says nothing")));
         QVERIFY(node.received.isEmpty());      // non si e' mandato il nominativo al buio
+    }
+
+    // Chiuso prima che il nodo dica una parola: l'operatore deve leggere che puo'
+    // essere un antivirus o un firewall (AVG, Avast…) e che c'e' «Check», non un
+    // «connection closed» che non dice niente.
+    void closedBeforeTheNodeSpeaksPointsAtTheAntivirus()
+    {
+        FakeNode node;
+        node.closeAtOnce = true;
+        ClusterConnection c(sourceFor(node, "cluster", "IU8LMC", ""));
+        c.start();
+
+        QTRY_COMPARE_WITH_TIMEOUT(c.state(), ClusterConnection::State::Waiting, 5000);
+        QVERIFY2(c.stateText().contains(QStringLiteral("before the node said anything")), qPrintable(c.stateText()));
+        QVERIFY(c.stateText().contains(QStringLiteral("Avast")));
+        QVERIFY(c.stateText().contains(QStringLiteral("Check")));
+        c.stop();
     }
 
     // DX Spider attacca uno o due BEL in coda agli spot, per far suonare il

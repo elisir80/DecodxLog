@@ -77,6 +77,10 @@ Quello che manca è in fondo.
   again.
 - **Azioni sulle righe mostrate**: etichetta di gruppo, togli etichetta, export ADIF. /
   **Actions on the rows shown**: tag them all, remove a tag, export to ADIF.
+- **Export di un periodo** (dal… al…): lo stesso riquadro dello scarico da LoTW, con il
+  conto dei QSO prima di salvare; si apre dal menu File e dalle azioni del log. / **Export
+  of a period** (from… to…): the same box as the LoTW download, with the QSO count before
+  saving; opens from the File menu and from the log actions.
 - **Menu della riga**: apri, cancella, completa dal callbook, filtra per nominativo,
   filtra per entità, etichetta. / **Row menu**: open, delete, complete from the callbook,
   filter by call, filter by entity, tag.
@@ -478,6 +482,11 @@ Quello che manca è in fondo.
 - **Login automatico** col nominativo del profilo (come `CALL-2`, per non chiudere la
   sessione di Decodium), riconnessione da sola. / **Automatic login** with the profile
   callsign (as `CALL-2`, so Decodium keeps its own session), self reconnection.
+- **«Check» su ogni fonte**: il nome, la porta, la prima parola del nodo, e dove si ferma —
+  con il suggerimento giusto quando a tenere la connessione è un antivirus o un firewall
+  (AVG, Avast…). / **"Check" on every source**: the name, the port, the node's first word,
+  and where it stops — with the right hint when an antivirus or a firewall (AVG, Avast…)
+  is holding the connection.
 - **Ogni spot confrontato col log**: NUOVO DXCC, nuova banda, nuovo modo, nuovo slot, già
   lavorato, entità non confermata, utente LoTW. / **Every spot compared with the log**: NEW
   DXCC, new band, new mode, new slot, worked, unconfirmed entity, LoTW user.

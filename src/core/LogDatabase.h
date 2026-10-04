@@ -258,6 +258,11 @@ public:
     QByteArray   exportAdif(const QList<qint64>& ids, const QString& programVersion = {}) const;
 
     int qsoCount() const;
+    // I QSO fatti dal … al … (yyyy-MM-dd, in UTC, estremi compresi: «fino al»
+    // comprende tutto quel giorno). Un estremo vuoto e' aperto: dal primo QSO,
+    // o fino all'ultimo. In ordine di tempo, come li scrive l'export.
+    QList<qint64> qsoIdsBetween(const QString& fromIso, const QString& toIso) const;
+    int qsoCountBetween(const QString& fromIso, const QString& toIso) const;
     // Cambia ogni volta che il log cambia, da questa connessione o da un'altra
     // (un import o una modifica in blocco su un altro filo), e costa niente:
     // per sapere se vale la pena ricontare qualcosa.

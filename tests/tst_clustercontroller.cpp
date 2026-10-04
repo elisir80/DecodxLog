@@ -10,6 +10,7 @@
 #include <QSettings>
 #include <QSignalSpy>
 #include <QStandardPaths>
+#include <QTcpServer>
 #include <QTcpSocket>
 #include <QTest>
 
@@ -228,6 +229,66 @@ private slots:
                       {"BAND", "20m"}, {"MODE", "CW"}, {"DXCC", dxcc}}, "manual");
         cluster.logChanged();
         QTRY_COMPARE_WITH_TIMEOUT(model->get(model->count() - 1).value("statusLabel").toString(), QString("WORKED"), 4000);
+    }
+
+    // «Check» su una fonte: dove si ferma il collegamento, scritto nella fonte
+    // stessa. Un nodo che parla, uno che accetta e chiude (il segno di un
+    // antivirus in mezzo), e una fonte web che non ha niente da controllare.
+    void checkSourceSaysWhereTheLinkStops()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        ClusterController::Context ctx;
+        ctx.db = &db;
+        ctx.stationCall = [] { return QStringLiteral("IU8LMC"); };
+        ClusterController cluster(std::move(ctx));
+        cluster.setMuted(true);
+
+        bool closeAtOnce = false;
+        QTcpServer node;
+        QObject::connect(&node, &QTcpServer::newConnection, &node, [&] {
+            QTcpSocket* c = node.nextPendingConnection();
+            if (closeAtOnce)
+                c->disconnectFromHost();
+            else
+                c->write("Welcome to FAKE-1\r\nlogin: ");
+        });
+        QVERIFY(node.listen(QHostAddress::LocalHost));
+
+        const auto sourceOf = [&](const QString& id) {
+            for (const QVariant& v : cluster.sources()) {
+                if (v.toMap().value("id").toString() == id)
+                    return v.toMap();
+            }
+            return QVariantMap{};
+        };
+        const auto added = [&](const char* type, const QString& host, int port) {
+            return cluster.addSource({{"name", "Prova"}, {"type", type}, {"host", host}, {"port", port}, {"enabled", false}});
+        };
+
+        const QString talking = added("cluster", "127.0.0.1", node.serverPort());
+        cluster.checkSource(talking);
+        QVERIFY(sourceOf(talking).value("checking").toBool());
+        QTRY_VERIFY2(!sourceOf(talking).value("checking").toBool(), "il controllo non finisce");
+        QVERIFY2(sourceOf(talking).value("checkText").toString().contains(QStringLiteral("Welcome to FAKE-1")),
+                 qPrintable(sourceOf(talking).value("checkText").toString()));
+
+        closeAtOnce = true;
+        cluster.checkSource(talking);
+        QTRY_VERIFY(!sourceOf(talking).value("checking").toBool());
+        QVERIFY2(sourceOf(talking).value("checkText").toString().contains(QStringLiteral("Avast")),
+                 qPrintable(sourceOf(talking).value("checkText").toString()));
+
+        const QString pota = added("pota", "api.pota.app", 443);
+        cluster.checkSource(pota);
+        QVERIFY(!sourceOf(pota).value("checking").toBool());
+        QVERIFY(!sourceOf(pota).value("checkText").toString().isEmpty());
+
+        // Tolta la fonte, un controllo in corso non la rimette in lista.
+        cluster.checkSource(talking);
+        cluster.removeSource(talking);
+        QTest::qWait(300);
+        QVERIFY(sourceOf(talking).isEmpty());
     }
 };
 

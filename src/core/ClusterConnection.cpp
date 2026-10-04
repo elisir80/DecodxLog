@@ -115,8 +115,9 @@ ClusterConnection::ClusterConnection(const ClusterSource& source, QObject* paren
         // porta aperta su un servizio spento. Dirsi "online" li' davanti vuol
         // dire mostrare una fonte verde che non portera' mai uno spot.
         if (!m_heardFromNode) {
-            setState(State::Waiting, tr("the node answers but says nothing: it may be down — "
-                                        "try another source"));
+            setState(State::Waiting, tr("the node answers but says nothing: it may be down, or an antivirus or "
+                                        "firewall (AVG, Avast…) is holding the connection — press Check, "
+                                        "or try another source"));
             scheduleRetry();
             return;
         }
@@ -244,6 +245,7 @@ void ClusterConnection::connectNow()
     }
     m_socket = new QTcpSocket(this);
     m_buffer.clear();
+    m_lastError.clear();
     m_loginSent = m_passwordSent = m_commandsSent = m_heardFromNode = false;
     connect(m_socket, &QTcpSocket::connected, this, [this] {
         setState(State::LoggingIn);
@@ -267,7 +269,15 @@ void ClusterConnection::onDisconnected()
     m_keepAlive.stop();
     if (!m_wanted)
         return;
-    const QString error = m_lastError.isEmpty() ? tr("connection closed") : m_lastError;
+    // Chiuso prima che il nodo dicesse una parola: per un nodo che per altri
+    // risponde e' il segno di un antivirus o di un firewall in mezzo (AVG, Avast
+    // tengono le connessioni che non conoscono), e va detto, non "chiusa" e basta.
+    QString error = m_lastError;
+    if (error.isEmpty()) {
+        error = m_heardFromNode ? tr("connection closed")
+                                : tr("connection closed before the node said anything: an antivirus or "
+                                     "firewall (AVG, Avast…) may be holding it — press Check");
+    }
     setState(State::Waiting, error);
     scheduleRetry();
 }

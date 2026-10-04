@@ -1228,6 +1228,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>オン</translation>
     </message>
     <message>
+        <source>Check</source>
+        <translation>確かめる</translation>
+    </message>
+    <message>
         <source>Edit</source>
         <translation>編集</translation>
     </message>
@@ -2397,6 +2401,17 @@ Right click: change it</source>
     </message>
 </context>
 <context>
+    <name>DatePeriodFields</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSO 開始日</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>終了日</translation>
+    </message>
+</context>
+<context>
     <name>DecodeList</name>
     <message>
         <source>%1 rows</source>
@@ -2710,6 +2725,53 @@ Decodium で: Settings → Reporting → UDP Server 127.0.0.1、ポート %1、�
     <message>
         <source>Click to tune the radio</source>
         <translation>クリックで無線機を同調</translation>
+    </message>
+</context>
+<context>
+    <name>ExportPeriodDialog</name>
+    <message>
+        <source>EXPORT A PERIOD</source>
+        <translation>期間をエクスポート</translation>
+    </message>
+    <message>
+        <source>The QSOs made from the first to the last day, both included (UTC). Leave one of the two empty to start from the first QSO or to go on to the last.</source>
+        <translation>最初の日から最後の日まで (両日を含む、UTC) に行った QSO。どちらか一方を空にすると、最初の QSO から、または最後の QSO までになります。</translation>
+    </message>
+    <message>
+        <source>From (UTC)</source>
+        <translation>開始 (UTC)</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>期間が始まる前に終わっています</translation>
+    </message>
+    <message>
+        <source>No QSO in this period</source>
+        <translation>この期間に QSO はありません</translation>
+    </message>
+    <message>
+        <source>%1 QSO in this period</source>
+        <translation>この期間の QSO: %1 件</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>キャンセル</translation>
+    </message>
+    <message>
+        <source>Export %1 QSO…</source>
+        <translation>%1 件の QSO をエクスポート…</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>書き出し…</translation>
+    </message>
+    <message>
+        <source>Save the QSO of the period</source>
+        <translation>期間の QSO を保存</translation>
+    </message>
+    <message>
+        <source>ADIF files (*.adi)</source>
+        <translation>ADIF ファイル (*.adi)</translation>
     </message>
 </context>
 <context>
@@ -3038,6 +3100,10 @@ Decodium で: Settings → Reporting → UDP Server 127.0.0.1、ポート %1、�
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>表示中の %1 件の QSO を ADIF に書き出す…</translation>
+    </message>
+    <message>
+        <source>Export a period (from… to…) to ADIF…</source>
+        <translation>期間 (から… まで…) を ADIF にエクスポート…</translation>
     </message>
     <message>
         <source>Change a field on the %1 QSO shown…</source>
@@ -3515,15 +3581,7 @@ DecoDXLog で一度開いて更新してください。</translation>
     <name>LotwRangeRow</name>
     <message>
         <source>Service</source>
-        <translation type="unfinished">サービス</translation>
-    </message>
-    <message>
-        <source>QSOs from</source>
-        <translation>QSO 開始日</translation>
-    </message>
-    <message>
-        <source>to</source>
-        <translation>終了日</translation>
+        <translation>サービス</translation>
     </message>
     <message>
         <source>Download this period</source>
@@ -8109,6 +8167,10 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>ログをインポート（ADIF、CSV、N1MM）…</translation>
     </message>
     <message>
+        <source>Export a period (from… to…)…</source>
+        <translation>期間 (から… まで…) をエクスポート…</translation>
+    </message>
+    <message>
         <source>Split off</source>
         <translation>スプリット オフ</translation>
     </message>
@@ -9175,6 +9237,14 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>鍵束がありません</translation>
     </message>
     <message>
+        <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
+        <translation>ここで確認するものはありません: このソースはノードへの接続ではなく Web 経由で読み込まれます。</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>確認中…</translation>
+    </message>
+    <message>
         <source>No cluster node connected</source>
         <translation>クラスターのノードにつながっていません</translation>
     </message>
@@ -9797,6 +9867,14 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>Exporting to %1…</source>
         <translation>%1 へエクスポート中…</translation>
+    </message>
+    <message>
+        <source>Choose the first or the last day of the period</source>
+        <translation>期間の最初の日か最後の日を選んでください</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>期間が始まる前に終わっています</translation>
     </message>
     <message>
         <source>%1 · %2 MB</source>
@@ -11164,8 +11242,8 @@ DecoDXLog で一度開いて更新してください。</translation>
 <context>
     <name>decolog::core::ClusterConnection</name>
     <message>
-        <source>the node answers but says nothing: it may be down — try another source</source>
-        <translation>ノードは返事をしますが、何も言いません。落ちているのかもしれません — ほかのソースを試してください</translation>
+        <source>the node answers but says nothing: it may be down, or an antivirus or firewall (AVG, Avast…) is holding the connection — press Check, or try another source</source>
+        <translation>ノードは応答しますが何も言いません: 停止している可能性があります。または、ウイルス対策ソフトやファイアウォール (AVG、Avast…) が接続を保持しています — 「確かめる」を押すか、別のソースを試してください</translation>
     </message>
     <message>
         <source>off</source>
@@ -11200,12 +11278,83 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>接続が閉じられました</translation>
     </message>
     <message>
+        <source>connection closed before the node said anything: an antivirus or firewall (AVG, Avast…) may be holding it — press Check</source>
+        <translation>ノードが何も言わないうちに接続が閉じられました: ウイルス対策ソフトやファイアウォール (AVG、Avast…) が保持している可能性があります — 「確かめる」を押してください</translation>
+    </message>
+    <message>
         <source>password needed</source>
         <translation>パスワードが要ります</translation>
     </message>
     <message>
         <source>no password stored</source>
         <translation>パスワードを保存していません</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::ConnectionProbe</name>
+    <message>
+        <source>1. Name: %1 is already an address</source>
+        <translation>1. 名前: %1 はすでにアドレスです</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 does not become an address (%2)</source>
+        <translation>1. 名前: %1 はアドレスに解決されません (%2)</translation>
+    </message>
+    <message>
+        <source>no answer</source>
+        <translation>応答なし</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 is %2</source>
+        <translation>1. 名前: %1 は %2 です</translation>
+    </message>
+    <message>
+        <source>2. Port %1: connected</source>
+        <translation>2. ポート %1: 接続しました</translation>
+    </message>
+    <message>
+        <source>3. The node answered</source>
+        <translation>3. ノードが応答しました</translation>
+    </message>
+    <message>
+        <source>3. The node answered: &quot;%1&quot;</source>
+        <translation>3. ノードが応答しました: &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>3. The connection was closed before the node said anything</source>
+        <translation>3. ノードが何も言わないうちに接続が閉じられました</translation>
+    </message>
+    <message>
+        <source>2. Port %1: refused</source>
+        <translation>2. ポート %1: 拒否されました</translation>
+    </message>
+    <message>
+        <source>2. Port %1: no answer from the network</source>
+        <translation>2. ポート %1: ネットワークから応答がありません</translation>
+    </message>
+    <message>
+        <source>2. Port %1: %2</source>
+        <translation>2. ポート %1: %2</translation>
+    </message>
+    <message>
+        <source>3. Connected, but the node says nothing</source>
+        <translation>3. 接続しましたが、ノードは何も言いません</translation>
+    </message>
+    <message>
+        <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>
+        <translation>名前を解決できません: ネットワークと DNS を確認してください。ウイルス対策ソフトやフィルタリング DNS (AVG、Avast…) が信頼しない名前をブロックすることもあります: 数字のアドレスを試してください。</translation>
+    </message>
+    <message>
+        <source>The port does not answer. If other programs reach the network but not this node, a firewall or an antivirus (AVG, Avast…) is probably blocking it: allow DecoDXLog in its firewall and network shield, or try another node.</source>
+        <translation>ポートが応答しません。他のプログラムはネットワークに届くのにこのノードだけ届かない場合は、ファイアウォールかウイルス対策ソフト (AVG、Avast…) がブロックしている可能性が高いです: そのファイアウォールとネットワーク保護で DecoDXLog を許可するか、別のノードを試してください。</translation>
+    </message>
+    <message>
+        <source>The connection opens but nothing comes back. For a node that answers other people this usually means an antivirus or a firewall (AVG, Avast…) is holding it: add DecoDXLog to its exceptions and switch off the scan of this connection, or try another node.</source>
+        <translation>接続は開きますが何も返ってきません。他の人には応答するノードなら、通常はウイルス対策ソフトやファイアウォール (AVG、Avast…) が接続を保持しています: DecoDXLog を例外に追加し、この接続のスキャンを無効にするか、別のノードを試してください。</translation>
+    </message>
+    <message>
+        <source>The network refused the connection: check the connection, the proxy and the firewall.</source>
+        <translation>ネットワークが接続を拒否しました: 接続、プロキシ、ファイアウォールを確認してください。</translation>
     </message>
 </context>
 <context>

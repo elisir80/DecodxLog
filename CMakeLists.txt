@@ -83,6 +83,8 @@ add_library(decolog_core STATIC
     src/core/DecoPortMonitor.h
     src/core/ClusterConnection.cpp
     src/core/ClusterConnection.h
+    src/core/ConnectionProbe.cpp
+    src/core/ConnectionProbe.h
     src/core/CredentialStore.cpp
     src/core/CredentialStore.h
     src/core/MailSender.cpp
@@ -346,6 +348,8 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/SetupDialog.qml
     qml/DecoDXLog/LogbookWindow.qml
     qml/DecoDXLog/LotwRangeRow.qml
+    qml/DecoDXLog/DatePeriodFields.qml
+    qml/DecoDXLog/ExportPeriodDialog.qml
     qml/DecoDXLog/CwPanel.qml
     qml/DecoDXLog/OnScreen.qml
     qml/DecoDXLog/PanelWindow.qml
@@ -520,7 +524,7 @@ endif()
 if(DECODXLOG_BUILD_TESTS)
     enable_testing()
     find_package(Qt6 REQUIRED COMPONENTS Test)
-    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet winkeyer catshare logbackup qsldownload decodiumlog n1mm localapi clublogcty migration voacap)
+    foreach(name adif protocol database countries credentials callbook awards decolink lotw spots cluster qsl cabrillo solar rotor rig modes updates cw cwkeyer cloud cloudsettings vault mailsender dates tci rotorgateway worldclock propagation kstchat flrig supercheck contestnet winkeyer catshare logbackup qsldownload decodiumlog n1mm localapi clublogcty migration voacap connectionprobe)
         qt_add_executable(tst_${name} tests/tst_${name}.cpp)
         target_link_libraries(tst_${name} PRIVATE decolog_core Qt6::Test)
         set_target_properties(tst_${name} PROPERTIES WIN32_EXECUTABLE OFF)
@@ -559,6 +563,13 @@ if(DECODXLOG_BUILD_TESTS)
     target_link_libraries(tst_qsomodel PRIVATE decolog_core Qt6::Test)
     set_target_properties(tst_qsomodel PROPERTIES WIN32_EXECUTABLE OFF)
     add_test(NAME qsomodel COMMAND tst_qsomodel)
+    # I popup in una finestra sua col campo di testo senza il fuoco non ricevono i tasti:
+    # la prova legge i QML, non c'e' niente da avviare.
+    qt_add_executable(tst_qmlpopups tests/tst_qmlpopups.cpp)
+    target_compile_definitions(tst_qmlpopups PRIVATE QML_DIR="${CMAKE_SOURCE_DIR}/qml/DecoDXLog")
+    target_link_libraries(tst_qmlpopups PRIVATE Qt6::Test)
+    set_target_properties(tst_qmlpopups PROPERTIES WIN32_EXECUTABLE OFF)
+    add_test(NAME qmlpopups COMMAND tst_qmlpopups)
     qt_add_executable(tst_clustercontroller tests/tst_clustercontroller.cpp
         src/app/ClusterController.cpp src/app/ClusterController.h src/app/SpotModel.cpp src/app/SpotModel.h)
     target_include_directories(tst_clustercontroller PRIVATE src)

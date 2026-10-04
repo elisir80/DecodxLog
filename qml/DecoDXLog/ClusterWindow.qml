@@ -195,8 +195,23 @@ RoundedWindow {
                                     checked: sourceCard.modelData.enabled
                                     onToggled: root.cluster.setSourceEnabled(sourceCard.modelData.id, checked)
                                 }
+                                GlassButton {
+                                    visible: sourceCard.modelData.type !== "pota"
+                                    enabled: !sourceCard.modelData.checking
+                                    text: qsTr("Check")
+                                    onClicked: root.cluster.checkSource(sourceCard.modelData.id)
+                                }
                                 GlassButton { text: qsTr("Edit"); onClicked: sourceEditor.openFor(sourceCard.modelData) }
                                 GlassButton { text: qsTr("Remove"); tone: Theme.errorColor; onClicked: root.cluster.removeSource(sourceCard.modelData.id) }
+                            }
+                            // Il risultato di «Check»: dove si ferma il collegamento e cosa fare.
+                            Text {
+                                Layout.fillWidth: true
+                                visible: text.length > 0
+                                text: sourceCard.modelData.checkText
+                                wrapMode: Text.Wrap
+                                color: Theme.textSecondary
+                                font.pixelSize: 11
                             }
                         }
                     }

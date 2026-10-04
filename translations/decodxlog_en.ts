@@ -1231,6 +1231,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2404,6 +2408,17 @@ Right click: change it</source>
     </message>
 </context>
 <context>
+    <name>DatePeriodFields</name>
+    <message>
+        <source>QSOs from</source>
+        <translation type="unfinished">QSOs from</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation type="unfinished">to</translation>
+    </message>
+</context>
+<context>
     <name>DecodeList</name>
     <message>
         <source>%1 rows</source>
@@ -2715,6 +2730,53 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <name>DxAlertToast</name>
     <message>
         <source>Click to tune the radio</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ExportPeriodDialog</name>
+    <message>
+        <source>EXPORT A PERIOD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The QSOs made from the first to the last day, both included (UTC). Leave one of the two empty to start from the first QSO or to go on to the last.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From (UTC)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No QSO in this period</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 QSO in this period</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export %1 QSO…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation type="unfinished">Export…</translation>
+    </message>
+    <message>
+        <source>Save the QSO of the period</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ADIF files (*.adi)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3043,6 +3105,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     </message>
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export a period (from… to…) to ADIF…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3523,14 +3589,6 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Service</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>QSOs from</source>
-        <translation>QSOs from</translation>
-    </message>
-    <message>
-        <source>to</source>
-        <translation>to</translation>
     </message>
     <message>
         <source>Download this period</source>
@@ -8127,6 +8185,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Export a period (from… to…)…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Split off</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9204,6 +9266,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>No cluster node connected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9831,6 +9901,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
     <message>
         <source>Exporting to %1…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the first or the last day of the period</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11222,7 +11300,7 @@ Open it once in DecoDXLog to bring it up to date.</source>
 <context>
     <name>decolog::core::ClusterConnection</name>
     <message>
-        <source>the node answers but says nothing: it may be down — try another source</source>
+        <source>the node answers but says nothing: it may be down, or an antivirus or firewall (AVG, Avast…) is holding the connection — press Check, or try another source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11258,11 +11336,82 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>connection closed before the node said anything: an antivirus or firewall (AVG, Avast…) may be holding it — press Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>password needed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>no password stored</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::ConnectionProbe</name>
+    <message>
+        <source>1. Name: %1 is already an address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1. Name: %1 does not become an address (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>no answer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1. Name: %1 is %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2. Port %1: connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3. The node answered</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3. The node answered: &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3. The connection was closed before the node said anything</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2. Port %1: refused</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2. Port %1: no answer from the network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2. Port %1: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3. Connected, but the node says nothing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The port does not answer. If other programs reach the network but not this node, a firewall or an antivirus (AVG, Avast…) is probably blocking it: allow DecoDXLog in its firewall and network shield, or try another node.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The connection opens but nothing comes back. For a node that answers other people this usually means an antivirus or a firewall (AVG, Avast…) is holding it: add DecoDXLog to its exceptions and switch off the scan of this connection, or try another node.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The network refused the connection: check the connection, the proxy and the firewall.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

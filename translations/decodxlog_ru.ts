@@ -1236,6 +1236,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Вкл.</translation>
     </message>
     <message>
+        <source>Check</source>
+        <translation>Проверить</translation>
+    </message>
+    <message>
         <source>Edit</source>
         <translation>Изменить</translation>
     </message>
@@ -2415,6 +2419,17 @@ Right click: change it</source>
     </message>
 </context>
 <context>
+    <name>DatePeriodFields</name>
+    <message>
+        <source>QSOs from</source>
+        <translation>QSO с</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>по</translation>
+    </message>
+</context>
+<context>
     <name>DecodeList</name>
     <message>
         <source>%1 rows</source>
@@ -2728,6 +2743,53 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>Click to tune the radio</source>
         <translation>Щёлкните, чтобы настроить радио</translation>
+    </message>
+</context>
+<context>
+    <name>ExportPeriodDialog</name>
+    <message>
+        <source>EXPORT A PERIOD</source>
+        <translation>ЭКСПОРТ ЗА ПЕРИОД</translation>
+    </message>
+    <message>
+        <source>The QSOs made from the first to the last day, both included (UTC). Leave one of the two empty to start from the first QSO or to go on to the last.</source>
+        <translation>QSO с первого по последний день, оба включительно (UTC). Оставьте одну из дат пустой, чтобы начать с первого QSO или дойти до последнего.</translation>
+    </message>
+    <message>
+        <source>From (UTC)</source>
+        <translation>С (UTC)</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>Период заканчивается раньше, чем начинается</translation>
+    </message>
+    <message>
+        <source>No QSO in this period</source>
+        <translation>В этом периоде нет QSO</translation>
+    </message>
+    <message>
+        <source>%1 QSO in this period</source>
+        <translation>QSO в этом периоде: %1</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <source>Export %1 QSO…</source>
+        <translation>Экспортировать QSO: %1…</translation>
+    </message>
+    <message>
+        <source>Export…</source>
+        <translation>Экспорт…</translation>
+    </message>
+    <message>
+        <source>Save the QSO of the period</source>
+        <translation>Сохранить QSO периода</translation>
+    </message>
+    <message>
+        <source>ADIF files (*.adi)</source>
+        <translation>Файлы ADIF (*.adi)</translation>
     </message>
 </context>
 <context>
@@ -3056,6 +3118,10 @@ In Decodium: Settings → Reporting → UDP Server 127.0.0.1, port %1, and &quot
     <message>
         <source>Export the %1 QSO shown to ADIF…</source>
         <translation>Экспортировать показанные %1 QSO в ADIF…</translation>
+    </message>
+    <message>
+        <source>Export a period (from… to…) to ADIF…</source>
+        <translation>Экспортировать период (с… по…) в ADIF…</translation>
     </message>
     <message>
         <source>Change a field on the %1 QSO shown…</source>
@@ -3537,15 +3603,7 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <name>LotwRangeRow</name>
     <message>
         <source>Service</source>
-        <translation type="unfinished">Служба</translation>
-    </message>
-    <message>
-        <source>QSOs from</source>
-        <translation>QSO с</translation>
-    </message>
-    <message>
-        <source>to</source>
-        <translation>по</translation>
+        <translation>Служба</translation>
     </message>
     <message>
         <source>Download this period</source>
@@ -8153,6 +8211,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Импортировать журнал (ADIF, CSV, N1MM)…</translation>
     </message>
     <message>
+        <source>Export a period (from… to…)…</source>
+        <translation>Экспортировать период (с… по…)…</translation>
+    </message>
+    <message>
         <source>Split off</source>
         <translation>Сплит выключен</translation>
     </message>
@@ -9241,6 +9303,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>хранилища ключей нет</translation>
     </message>
     <message>
+        <source>Nothing to check here: this source is read over the web, not through a node connection.</source>
+        <translation>Здесь нечего проверять: этот источник читается через веб, а не через соединение с узлом.</translation>
+    </message>
+    <message>
+        <source>Checking…</source>
+        <translation>Проверка…</translation>
+    </message>
+    <message>
         <source>No cluster node connected</source>
         <translation>Ни один узел кластера не подключён</translation>
     </message>
@@ -9875,6 +9945,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Exporting to %1…</source>
         <translation>Экспорт в %1…</translation>
+    </message>
+    <message>
+        <source>Choose the first or the last day of the period</source>
+        <translation>Выберите первый или последний день периода</translation>
+    </message>
+    <message>
+        <source>The period starts after it ends</source>
+        <translation>Период заканчивается раньше, чем начинается</translation>
     </message>
     <message>
         <source>%1 · %2 MB</source>
@@ -11288,8 +11366,8 @@ Open it once in DecoDXLog to bring it up to date.</source>
 <context>
     <name>decolog::core::ClusterConnection</name>
     <message>
-        <source>the node answers but says nothing: it may be down — try another source</source>
-        <translation>узел отвечает, но молчит: может, он лежит — попробуйте другой источник</translation>
+        <source>the node answers but says nothing: it may be down, or an antivirus or firewall (AVG, Avast…) is holding the connection — press Check, or try another source</source>
+        <translation>узел отвечает, но ничего не говорит: он может быть выключен, либо антивирус или брандмауэр (AVG, Avast…) удерживает соединение — нажмите «Проверить» или попробуйте другой источник</translation>
     </message>
     <message>
         <source>off</source>
@@ -11324,12 +11402,83 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>соединение закрыто</translation>
     </message>
     <message>
+        <source>connection closed before the node said anything: an antivirus or firewall (AVG, Avast…) may be holding it — press Check</source>
+        <translation>соединение закрыто, прежде чем узел что-либо сказал: его может удерживать антивирус или брандмауэр (AVG, Avast…) — нажмите «Проверить»</translation>
+    </message>
+    <message>
         <source>password needed</source>
         <translation>нужен пароль</translation>
     </message>
     <message>
         <source>no password stored</source>
         <translation>пароль не сохранён</translation>
+    </message>
+</context>
+<context>
+    <name>decolog::core::ConnectionProbe</name>
+    <message>
+        <source>1. Name: %1 is already an address</source>
+        <translation>1. Имя: %1 уже является адресом</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 does not become an address (%2)</source>
+        <translation>1. Имя: %1 не превращается в адрес (%2)</translation>
+    </message>
+    <message>
+        <source>no answer</source>
+        <translation>нет ответа</translation>
+    </message>
+    <message>
+        <source>1. Name: %1 is %2</source>
+        <translation>1. Имя: %1 — это %2</translation>
+    </message>
+    <message>
+        <source>2. Port %1: connected</source>
+        <translation>2. Порт %1: соединение установлено</translation>
+    </message>
+    <message>
+        <source>3. The node answered</source>
+        <translation>3. Узел ответил</translation>
+    </message>
+    <message>
+        <source>3. The node answered: &quot;%1&quot;</source>
+        <translation>3. Узел ответил: &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>3. The connection was closed before the node said anything</source>
+        <translation>3. Соединение закрыто, прежде чем узел что-либо сказал</translation>
+    </message>
+    <message>
+        <source>2. Port %1: refused</source>
+        <translation>2. Порт %1: отказано</translation>
+    </message>
+    <message>
+        <source>2. Port %1: no answer from the network</source>
+        <translation>2. Порт %1: сеть не отвечает</translation>
+    </message>
+    <message>
+        <source>2. Port %1: %2</source>
+        <translation>2. Порт %1: %2</translation>
+    </message>
+    <message>
+        <source>3. Connected, but the node says nothing</source>
+        <translation>3. Соединено, но узел ничего не говорит</translation>
+    </message>
+    <message>
+        <source>The name does not resolve: check the network and the DNS. An antivirus or a filtering DNS (AVG, Avast…) can also block a name it does not trust: try the address in numbers.</source>
+        <translation>Имя не разрешается: проверьте сеть и DNS. Антивирус или фильтрующий DNS (AVG, Avast…) тоже может блокировать имя, которому не доверяет: попробуйте адрес цифрами.</translation>
+    </message>
+    <message>
+        <source>The port does not answer. If other programs reach the network but not this node, a firewall or an antivirus (AVG, Avast…) is probably blocking it: allow DecoDXLog in its firewall and network shield, or try another node.</source>
+        <translation>Порт не отвечает. Если другие программы выходят в сеть, а этот узел недоступен, его, скорее всего, блокирует брандмауэр или антивирус (AVG, Avast…): разрешите DecoDXLog в его брандмауэре и сетевом экране или попробуйте другой узел.</translation>
+    </message>
+    <message>
+        <source>The connection opens but nothing comes back. For a node that answers other people this usually means an antivirus or a firewall (AVG, Avast…) is holding it: add DecoDXLog to its exceptions and switch off the scan of this connection, or try another node.</source>
+        <translation>Соединение открывается, но ничего не приходит. Для узла, который отвечает другим, это обычно значит, что антивирус или брандмауэр (AVG, Avast…) удерживает его: добавьте DecoDXLog в исключения и отключите проверку этого соединения либо попробуйте другой узел.</translation>
+    </message>
+    <message>
+        <source>The network refused the connection: check the connection, the proxy and the firewall.</source>
+        <translation>Сеть отклонила соединение: проверьте подключение, прокси и брандмауэр.</translation>
     </message>
 </context>
 <context>
