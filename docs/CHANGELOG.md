@@ -3,6 +3,15 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.04 — 4 ottobre 2026
+
+**Rilascio integrato dalla 1.17.02.** Questa versione unisce la base 1.17.03 con tutte le
+correzioni locali CW/CAT. Il pulsante **Ferma** annulla anche il CW gia' in coda, rilascia il
+keyer locale e forza il PTT OFF sulla radio che ha ricevuto la macro; risposte tardive di rigctld,
+TCI e flrig non possono riavviare una trasmissione. Per proteggere le memorie personali, il CW
+diretto e' disabilitato sulle Yaesu per cui Hamlib sovrascrive la memoria 1 del keyer: CAT per
+frequenza e modo rimane disponibile, mentre per il CW si usa un keyer seriale separato o WinKeyer.
+
 ## 1.17.03 — 4 ottobre 2026
 
 **Allineata alla 1.17.02 di elisir80.** I tasti F1–F12 del CW che mostrano e mandano la macro
