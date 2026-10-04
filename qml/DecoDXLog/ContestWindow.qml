@@ -544,8 +544,8 @@ RoundedWindow {
                             macro: modelData
                             keyHeight: 30
                             fontPixelSize: 12
-                            sendEnabled: decolog.rig.connected
-                            tone: index === 0 ? Theme.accentColor : "transparent"
+                            sendEnabled: (decolog.rig.connected || decolog.rig.keyerOn) && decolog.rig.canKeyCw
+                            tone: decolog.rig.activeMacroIndex === index ? Theme.accentColor : "transparent"
                             onSendRequested: (i) => decolog.rig.sendMacro(i, cwPanel.cwContext())
                             onEditRequested: (i) => oneMacroEditor.openFor(i)
                         }

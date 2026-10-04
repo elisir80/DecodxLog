@@ -108,8 +108,13 @@ void WinKeyer::send(const QString& text, int wpm)
 
 void WinKeyer::stop()
 {
-    if (isOpen())
+    if (isOpen()) {
         m_port->write(winkeyer::clearBuffer());
+        // 0x0A deve precedere subito i caratteri gia' accodati: flush evita
+        // che il pulsante Ferma aspetti il prossimo giro dell'event loop.
+        m_port->flush();
+        m_port->waitForBytesWritten(100);
+    }
 }
 
 void WinKeyer::onReadyRead()

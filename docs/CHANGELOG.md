@@ -3,7 +3,13 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
-## 1.17.02 — 4 ottobre 2026
+## 1.17.03 — 4 ottobre 2026
+
+**Allineata alla 1.17.02 di elisir80.** I tasti F1–F12 del CW che mostrano e mandano la macro
+giusta (e «Ferma» che svuota anche la seriale del WinKeyer e toglie il PTT con CAT/Hamlib), e i
+controlli delle finestre uguali dappertutto — i tre cerchi a sinistra anche su Windows e Linux —:
+tutto nella sezione 1.17.02 qui sotto. Il numero 1.17.02 e' della loro release, e la nostra e'
+la 1.17.03, piu' alta, cosi' l'aggiornamento non le confonde.
 
 **Cluster: «Check» su ogni fonte, e messaggi che dicono dove cercare.** A qualcuno il cluster non si
 collega, e la pagina del nodo (iq8do.aricaserta.it) nel browser dice ERR_CONNECTION_CLOSED: il nodo
@@ -32,6 +38,22 @@ un estremo si puo' lasciare vuoto, e il riquadro dice quanti QSO sono prima di c
 salvare. L'ADIF e' lo stesso di sempre, scritto da un filo a parte come gli altri export, e i
 QSO cancellati restano fuori. Prova sul database con QSO a cavallo dei confini, fuori ordine e
 uno cancellato.
+
+## 1.17.02 — 4 ottobre 2026
+
+**CW: ogni memoria e il suo tasto.** I tasti F1–F12 ora mostrano la macro
+selezionata davvero, invece di tenere F1 evidenziato per impostazione grafica.
+Il percorso conserva l'indice della macro: F2 manda F2, F3 manda F3, e il
+pulsante **Ferma** azzera la selezione. Con WinKeyer lo svuotamento del buffer
+viene scritto subito sulla seriale; con CAT/Hamlib, dopo `stop_morse`, viene
+anche tolto il PTT come arresto di sicurezza per i backend che non svuotano il
+buffer del manipolatore della radio.
+
+**Controlli finestra uguali dappertutto.** Le finestre staccate su Windows e
+Linux usano ora, come macOS, i tre controlli circolari a sinistra (chiudi,
+riduci, ingrandisci/ripristina). Anche nei pannelli il controllo rosso chiude e
+quello verde o giallo stacca o riaggancia. I vecchi comandi testuali a destra
+non restano duplicati.
 
 ## 1.17.01 — 4 ottobre 2026
 

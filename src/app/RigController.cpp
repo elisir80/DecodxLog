@@ -110,10 +110,17 @@ RigController::RigController(Context context, QObject* parent)
             m_ctx.activity(QStringLiteral("CW"), tr("WinKeyer answers: firmware %1").arg(v), QStringLiteral("info"));
         emit stateChanged();
     });
+    connect(&m_winKeyer, &core::WinKeyer::busyChanged, this, [this](bool busy) {
+        if (!busy)
+            setActiveMacroIndex(-1);
+    });
     connect(&m_keyer, &core::CwKeyer::failed, this, [this](const QString& why) {
         if (m_ctx.activity)
             m_ctx.activity(QStringLiteral("CW"), why, QStringLiteral("warning"));
         emit stateChanged();
+    });
+    connect(&m_keyer, &core::CwKeyer::finished, this, [this] {
+        setActiveMacroIndex(-1);
     });
     if (!m_keyerPort.isEmpty())
         QTimer::singleShot(0, this, [this] { openKeyer(); });
@@ -132,6 +139,7 @@ RigController::RigController(Context context, QObject* parent)
         });
         connect(link, &core::RigLink::morseUnsupported, this, [this] {
             m_canKeyCw = false;
+            setActiveMacroIndex(-1);
             emit stateChanged();
         });
         connect(link, &core::RigLink::morseSent, this, [this](const QString& text) {
@@ -1181,7 +1189,11 @@ void RigController::sendMacro(int index, const QVariantMap& context)
 {
     if (index < 0 || index >= m_macros.size())
         return;
-    sendText(m_macros.at(index).toMap().value(QStringLiteral("text")).toString(), context);
+    const QString ready = expand(m_macros.at(index).toMap().value(QStringLiteral("text")).toString(), context);
+    if (ready.isEmpty())
+        return;
+    setActiveMacroIndex(index);
+    sendExpandedText(ready);
 }
 
 void RigController::sendText(const QString& text, const QVariantMap& context)
@@ -1189,6 +1201,20 @@ void RigController::sendText(const QString& text, const QVariantMap& context)
     const QString ready = expand(text, context);
     if (ready.isEmpty())
         return;
+    setActiveMacroIndex(-1);
+    sendExpandedText(ready);
+}
+
+void RigController::setActiveMacroIndex(int index)
+{
+    if (m_activeMacroIndex == index)
+        return;
+    m_activeMacroIndex = index;
+    emit stateChanged();
+}
+
+void RigController::sendExpandedText(const QString& ready)
+{
     // Le Yaesu via Hamlib caricano il testo nella memoria del manipolatore
     // (KM), che ne tiene 50: il resto Hamlib lo taglia. Lo si dice.
     if (m_link == QLatin1String("serial") && m_rigModel >= 1000 && m_rigModel < 1100 && ready.size() > 50
@@ -1227,6 +1253,7 @@ void RigController::stop()
     const bool localKeyer = m_keyer.isOpen() || m_winKeyer.isOpen();
     m_keyer.stop();
     m_winKeyer.stop();
+    setActiveMacroIndex(-1);
     // Con un manipolatore locale questi due stop svuotano il buffer e
     // rilasciano subito la linea. Non chiedere anche alla radio di fermare un
     // CW che non le e' mai stato dato: alcuni rigctld lo segnalano come errore.
@@ -1241,8 +1268,15 @@ void RigController::stop()
     m_cwRigInUse = nullptr;
     if (!target)
         target = m_ctx.alternateRig ? m_ctx.alternateRig() : m_rig;
-    if (target)
+    if (target) {
         target->stopMorse();
+        // Non tutti i backend Hamlib implementano stop_morse (in particolare
+        // alcuni CAT Yaesu lo accettano ma non svuotano il loro buffer KM).
+        // Togliere il PTT subito dopo e' il freno d'emergenza: il comando e'
+        // accodato dopo stop_morse sullo stesso collegamento e non influenza
+        // manipolatori seriali/WinKeyer, che sono gia' usciti sopra.
+        target->setPtt(false);
+    }
 }
 
 void RigController::shutdown()

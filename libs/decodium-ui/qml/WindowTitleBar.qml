@@ -18,11 +18,10 @@ Rectangle {
     property real cornerRadius: 0
     property string info: ""
     property var closeAction: null
-    // Le finestre staccate hanno una testata disegnata da noi. Su macOS i
-    // comandi devono quindi riprendere la posizione e il gesto dei tre
-    // controlli di sistema; sulle altre piattaforme restano quelli compatti
-    // gia' usati da DecoDXLog.
-    readonly property bool macosControls: Qt.platform.os === "osx"
+    // Le finestre staccate hanno una testata disegnata da noi. I tre controlli
+    // restano identici su tutte le piattaforme: cosi' una finestra che passa
+    // da macOS a Windows o Linux non cambia lato ne' simboli.
+    readonly property bool trafficLightControls: true
 
     function closeWindow() {
         if (root.closeAction)
@@ -91,12 +90,12 @@ Rectangle {
 
     RowLayout {
         anchors.fill: parent
-        anchors.leftMargin: root.macosControls ? 12 : 10
+        anchors.leftMargin: root.trafficLightControls ? 12 : 10
         anchors.rightMargin: 8
         spacing: 8
 
         Row {
-            visible: root.macosControls
+            visible: root.trafficLightControls
             spacing: 7
 
             TrafficLight {
@@ -128,7 +127,7 @@ Rectangle {
             }
         }
         Rectangle {
-            visible: !root.macosControls
+            visible: !root.trafficLightControls
             implicitWidth: 8
             implicitHeight: 8
             radius: 4
@@ -154,13 +153,13 @@ Rectangle {
             font.pixelSize: 11
         }
         PanelControl {
-            visible: !root.macosControls && root.minimizable
+            visible: !root.trafficLightControls && root.minimizable
             glyph: "–"
             hint: qsTr("Minimise")
             onClicked: if (root.window) root.window.showMinimized()
         }
         PanelControl {
-            visible: !root.macosControls && root.maximizable
+            visible: !root.trafficLightControls && root.maximizable
             glyph: root.window && root.window.visibility === Window.Maximized ? "❐" : "▢"
             hint: qsTr("Maximise or restore")
             onClicked: {
@@ -173,7 +172,7 @@ Rectangle {
             }
         }
         PanelControl {
-            visible: !root.macosControls
+            visible: !root.trafficLightControls
             glyph: "✕"
             hint: qsTr("Close")
             onClicked: root.closeWindow()
