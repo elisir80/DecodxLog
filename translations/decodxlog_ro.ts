@@ -3414,6 +3414,14 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Deschide / modifică…</translation>
     </message>
     <message>
+        <source>Edit the call here (F2)</source>
+        <translation>Corectează indicativul aici (F2)</translation>
+    </message>
+    <message>
+        <source>Edit this cell here</source>
+        <translation>Corectează această celulă aici</translation>
+    </message>
+    <message>
         <source>Delete QSO…</source>
         <translation>Șterge QSO-ul…</translation>
     </message>
@@ -5151,6 +5159,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Istoric</translation>
     </message>
     <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
         <source>Date on UTC</source>
         <translation>Data de început UTC</translation>
     </message>
@@ -5161,6 +5173,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>Time off</source>
         <translation>Ora de sfârșit</translation>
+    </message>
+    <message>
+        <source>The call changes: country, DXCC and zones are worked out again from the new call, and the services that already have this QSO unconfirmed will get it again.</source>
+        <translation>Indicativul se schimbă: țara, DXCC și zonele se refac din noul indicativ, iar serviciile care au deja acest QSO neconfirmat îl vor primi din nou.</translation>
     </message>
     <message>
         <source>Band</source>
@@ -9746,12 +9762,36 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         </translation>
     </message>
     <message>
+        <source>This column cannot be edited here: open the QSO card</source>
+        <translation>Această coloană nu se corectează aici: deschide fișa QSO-ului</translation>
+    </message>
+    <message>
+        <source>QSO %1 not found</source>
+        <translation>QSO-ul %1 nu a fost găsit</translation>
+    </message>
+    <message>
+        <source>The callsign cannot be empty</source>
+        <translation>Indicativul nu poate fi gol</translation>
+    </message>
+    <message>
+        <source>A callsign has no spaces</source>
+        <translation>Un indicativ nu are spații</translation>
+    </message>
+    <message>
         <source>Cannot save the QSO</source>
         <translation>QSO-ul nu poate fi salvat</translation>
     </message>
     <message>
+        <source>Call corrected: %1 → %2 · revision %3</source>
+        <translation>Indicativ corectat: %1 → %2 · revizia %3</translation>
+    </message>
+    <message>
         <source>Edited %1 · revision %2</source>
         <translation>Editat %1 · versiunea %2</translation>
+    </message>
+    <message>
+        <source>%1 had already gone to %2 with the wrong call: it will be sent again</source>
+        <translation>%1 plecase deja la %2 cu indicativul greșit: va fi trimis din nou</translation>
     </message>
     <message>
         <source>N1MM QSO not sent: station callsign is missing</source>

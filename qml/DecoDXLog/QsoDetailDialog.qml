@@ -16,6 +16,8 @@ DialogFrame {
     property var fields: ({})
     property int formRev: 0
     property bool edited: false
+    // Cresce a ogni tasto scritto in un campo: chi guarda cosa e' cambiato lo rilegge.
+    property int editRev: 0
     property int currentTab: 0
     property var profileId: 0
 
@@ -61,6 +63,13 @@ DialogFrame {
         else
             fields[key] = value
         edited = true
+        editRev++
+    }
+    // Il nominativo e' stato corretto, non ancora salvato.
+    readonly property bool callChanged: {
+        root.editRev; root.formRev
+        return !!detail.fields && String(fields.CALL || "").trim().toUpperCase()
+                                  !== String(detail.fields.CALL || "").trim().toUpperCase()
     }
 
     // Le date si leggono e si scrivono nella forma della lingua (in italiano
@@ -251,12 +260,24 @@ DialogFrame {
                     RowLayout {
                         Layout.fillWidth: true
                         spacing: 10
+                        // Il nominativo sbagliato si corregge qui: nazione, DXCC e zone si rifanno.
+                        AdifInput {
+                            Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 5; key: "CALL"; label: qsTr("Call"); upper: true; highlight: true }
                         AdifInput {
                             Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 4; key: "QSO_DATE"; label: qsTr("Date on UTC"); display: root.adifDate; store: root.toAdifDate }
                         AdifInput {
                             Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 4; key: "TIME_ON"; label: qsTr("Time on"); display: root.adifTime; store: root.toAdifTime }
                         AdifInput {
                             Layout.preferredWidth: 1; Layout.horizontalStretchFactor: 4; key: "TIME_OFF"; label: qsTr("Time off"); display: root.adifTime; store: root.toAdifTime }
+                    }
+                    Text {
+                        Layout.fillWidth: true
+                        visible: root.callChanged
+                        wrapMode: Text.Wrap
+                        color: Theme.warningColor
+                        font.pixelSize: 11
+                        text: qsTr("The call changes: country, DXCC and zones are worked out again from the new call, and "
+                                   + "the services that already have this QSO unconfirmed will get it again.")
                     }
                     RowLayout {
                         Layout.fillWidth: true

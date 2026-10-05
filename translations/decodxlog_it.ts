@@ -3405,6 +3405,14 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>Apri / modifica…</translation>
     </message>
     <message>
+        <source>Edit the call here (F2)</source>
+        <translation>Correggi il nominativo qui (F2)</translation>
+    </message>
+    <message>
+        <source>Edit this cell here</source>
+        <translation>Correggi questa cella qui</translation>
+    </message>
+    <message>
         <source>Delete QSO…</source>
         <translation>Elimina QSO…</translation>
     </message>
@@ -5137,6 +5145,10 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         <translation>Storico</translation>
     </message>
     <message>
+        <source>Call</source>
+        <translation>Nominativo</translation>
+    </message>
+    <message>
         <source>Date on UTC</source>
         <translation>Data UTC</translation>
     </message>
@@ -5147,6 +5159,10 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
     <message>
         <source>Time off</source>
         <translation>Ora fine</translation>
+    </message>
+    <message>
+        <source>The call changes: country, DXCC and zones are worked out again from the new call, and the services that already have this QSO unconfirmed will get it again.</source>
+        <translation>Il nominativo cambia: nazione, DXCC e zone si rifanno dal nuovo nominativo, e i servizi che hanno già questo QSO senza conferma lo riceveranno di nuovo.</translation>
     </message>
     <message>
         <source>Band</source>
@@ -9709,12 +9725,36 @@ Aprilo una volta in DecoDXLog per aggiornarlo.</translation>
         </translation>
     </message>
     <message>
+        <source>This column cannot be edited here: open the QSO card</source>
+        <translation>Questa colonna qui non si corregge: apri la scheda del QSO</translation>
+    </message>
+    <message>
+        <source>QSO %1 not found</source>
+        <translation>QSO %1 non trovato</translation>
+    </message>
+    <message>
+        <source>The callsign cannot be empty</source>
+        <translation>Il nominativo non può essere vuoto</translation>
+    </message>
+    <message>
+        <source>A callsign has no spaces</source>
+        <translation>Un nominativo non ha spazi</translation>
+    </message>
+    <message>
         <source>Cannot save the QSO</source>
         <translation>Non riesco a salvare il QSO</translation>
     </message>
     <message>
+        <source>Call corrected: %1 → %2 · revision %3</source>
+        <translation>Nominativo corretto: %1 → %2 · revisione %3</translation>
+    </message>
+    <message>
         <source>Edited %1 · revision %2</source>
         <translation>Modificato %1 · revisione %2</translation>
+    </message>
+    <message>
+        <source>%1 had already gone to %2 with the wrong call: it will be sent again</source>
+        <translation>%1 era già andato a %2 con il nominativo sbagliato: verrà mandato di nuovo</translation>
     </message>
     <message>
         <source>N1MM QSO not sent: station callsign is missing</source>

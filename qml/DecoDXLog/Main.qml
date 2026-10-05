@@ -991,6 +991,11 @@ RoundedWindow {
         else if (what[0] === "profiles") profilesDialog.open()
         else if (what[0] === "setup") { setupDialog.page = parseInt(what[1] || "3"); setupDialog.open(); if (what[2] === "end") Qt.callLater(setupDialog.scrollToBottom); else if (what[2]) { const y = parseInt(what[2]); Qt.callLater(() => setupDialog.scrollTo(y)) } }
         else if (what[0] === "menu") window.panelItem("logbook").showMenu(what[1])
+        // «editcall»: il log in primo piano e il nominativo della prima riga aperto alla correzione.
+        else if (what[0] === "editcall") {
+            mainBoard.raiseKey("logbook")
+            Qt.callLater(() => window.panelItem("logbook").showMenu("editcall"))
+        }
         else if (what[0] === "select") window.panelItem("logbook").showSelection(what[1], what[2])
         // Lavori di manutenzione, utili anche da riga di comando.
         else if (what[0] === "combo") { window.showPanel("cw"); comboTimer.start() }
@@ -1013,6 +1018,9 @@ RoundedWindow {
         else if (what[0] === "fillall") decolog.completeMissingFromCallbook()
         else if (what[0] === "maintenance") { decolog.repairImportedFields(); decolog.completeMissingFromCallbook() }
         else if (what[0] === "tab") window.panelItem("tabs").setTab(parseInt(what[1]))
+        // «editfield:id:colonna:valore»: corregge una cella del log come farebbe F2, e lo scrive nei registri.
+        else if (what[0] === "editfield")
+            console.log("editfield ->", JSON.stringify(decolog.editQsoField(parseInt(what[1]), what[2], what.slice(3).join(":"))))
         // «spotdialog[:nominativo:kHz:commento]»: il riquadro per segnalare una stazione al cluster.
         else if (what[0] === "spotdialog") spotDialog.openFor(what[1] || "", what[2] || "", what[3] || "")
         // «exportperiod[:dal:al]»: il riquadro per esportare un periodo, con date ISO se date.

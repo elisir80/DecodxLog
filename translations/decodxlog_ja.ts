@@ -3396,6 +3396,14 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>開く / 編集…</translation>
     </message>
     <message>
+        <source>Edit the call here (F2)</source>
+        <translation>ここでコールサインを修正 (F2)</translation>
+    </message>
+    <message>
+        <source>Edit this cell here</source>
+        <translation>このセルをここで修正</translation>
+    </message>
+    <message>
         <source>Delete QSO…</source>
         <translation>QSO を削除…</translation>
     </message>
@@ -5123,6 +5131,10 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>履歴</translation>
     </message>
     <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
         <source>Date on UTC</source>
         <translation>始めの日付 UTC</translation>
     </message>
@@ -5133,6 +5145,10 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>Time off</source>
         <translation>終わりの時刻</translation>
+    </message>
+    <message>
+        <source>The call changes: country, DXCC and zones are worked out again from the new call, and the services that already have this QSO unconfirmed will get it again.</source>
+        <translation>コールサインが変わります: 国、DXCC、ゾーンは新しいコールサインから計算し直され、このQSOを未確認のまま受け取っているサービスにはもう一度送られます。</translation>
     </message>
     <message>
         <source>Band</source>
@@ -9672,12 +9688,36 @@ DecoDXLog で一度開いて更新してください。</translation>
         </translation>
     </message>
     <message>
+        <source>This column cannot be edited here: open the QSO card</source>
+        <translation>この列はここでは修正できません: QSOカードを開いてください</translation>
+    </message>
+    <message>
+        <source>QSO %1 not found</source>
+        <translation>QSO %1 が見つかりません</translation>
+    </message>
+    <message>
+        <source>The callsign cannot be empty</source>
+        <translation>コールサインを空にはできません</translation>
+    </message>
+    <message>
+        <source>A callsign has no spaces</source>
+        <translation>コールサインに空白は入りません</translation>
+    </message>
+    <message>
         <source>Cannot save the QSO</source>
         <translation>QSO を保存できません</translation>
     </message>
     <message>
+        <source>Call corrected: %1 → %2 · revision %3</source>
+        <translation>コールサインを修正しました: %1 → %2 · リビジョン %3</translation>
+    </message>
+    <message>
         <source>Edited %1 · revision %2</source>
         <translation>%1 を直しました · 版 %2</translation>
+    </message>
+    <message>
+        <source>%1 had already gone to %2 with the wrong call: it will be sent again</source>
+        <translation>%1 はすでに誤ったコールサインで %2 に送られていました: もう一度送られます</translation>
     </message>
     <message>
         <source>N1MM QSO not sent: station callsign is missing</source>

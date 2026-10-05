@@ -3,6 +3,28 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.07 — 5 ottobre 2026
+
+**Il nominativo sbagliato si corregge.** Nella scheda del QSO il nominativo era solo letto, in
+grande, e non c'era modo di cambiarlo: un errore di battitura restava nel log. Ora il campo
+**Call** e' il primo della scheda (Generale), e lo stesso si fa sulla riga del log senza aprire
+niente: **F2** (o «Correggi il nominativo qui» nel menu della riga) trasforma la cella in un campo;
+Invio salva, Esc lascia com'era, un clic altrove non salva niente per sbaglio. Dal menu della riga si
+puo' correggere sul posto anche un'altra cella che si scrive a mano — rapporti, locatore, nome, QTH,
+commento —; data, banda, modo e frequenza restano alla scheda.
+
+Cambiare il nominativo non e' come cambiare un commento, e il programma lo sa: nazione, DXCC, zone
+CQ e ITU e continente venivano dal vecchio nominativo e si rifanno dal nuovo (a meno che li si tocchi
+nello stesso salvataggio); i servizi — LoTW, QRZ, Club Log, HRDLog, eQSL — che avevano gia' ricevuto il
+QSO senza conferma hanno in mano quello sbagliato, e il giusto non e' mai partito: tornano «da
+mandare», e il registro lo scrive («… era gia' andato a LoTW, QRZ con il nominativo sbagliato: verra'
+mandato di nuovo»). I confermati restano com'erano, perche' una conferma dice che dall'altra parte il
+nominativo era giusto. Il QSO vecchio resta su quei servizi — LoTW e QRZ non cancellano da qui —:
+se serve, va tolto li'. Ogni correzione e' una revisione nuova con la vecchia nello storico. Prova
+sul database dei servizi da rimandare (anche dietro la data limite, e con le cartoline e i
+confermati fuori); il resto provato a mano su una copia del log di prova (nominativo che cambia
+nazione, vuoto, con spazi, uguale, colonna non ammessa, QSO che non c'e'). Traduzioni nelle 14 lingue.
+
 ## 1.17.06 — 5 ottobre 2026
 
 **Mandare gli spot, non solo riceverli.** Segnalare al cluster una stazione c'era gia', ma in fondo

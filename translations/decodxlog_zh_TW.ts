@@ -3396,6 +3396,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>開啟 / 編輯…</translation>
     </message>
     <message>
+        <source>Edit the call here (F2)</source>
+        <translation>在此修改呼號 (F2)</translation>
+    </message>
+    <message>
+        <source>Edit this cell here</source>
+        <translation>在此修改這個儲存格</translation>
+    </message>
+    <message>
         <source>Delete QSO…</source>
         <translation>刪除 QSO…</translation>
     </message>
@@ -5123,6 +5131,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>歷史</translation>
     </message>
     <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
         <source>Date on UTC</source>
         <translation>開始日期 UTC</translation>
     </message>
@@ -5133,6 +5145,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Time off</source>
         <translation>結束時間</translation>
+    </message>
+    <message>
+        <source>The call changes: country, DXCC and zones are worked out again from the new call, and the services that already have this QSO unconfirmed will get it again.</source>
+        <translation>呼號將改變：國家、DXCC 和分區會根據新呼號重新計算，已收到此 QSO 但未確認的服務會再次收到它。</translation>
     </message>
     <message>
         <source>Band</source>
@@ -9672,12 +9688,36 @@ Open it once in DecoDXLog to bring it up to date.</source>
         </translation>
     </message>
     <message>
+        <source>This column cannot be edited here: open the QSO card</source>
+        <translation>此欄無法在這裡修改：請開啟 QSO 卡片</translation>
+    </message>
+    <message>
+        <source>QSO %1 not found</source>
+        <translation>找不到 QSO %1</translation>
+    </message>
+    <message>
+        <source>The callsign cannot be empty</source>
+        <translation>呼號不能為空</translation>
+    </message>
+    <message>
+        <source>A callsign has no spaces</source>
+        <translation>呼號中不能有空格</translation>
+    </message>
+    <message>
         <source>Cannot save the QSO</source>
         <translation>儲存不了這個 QSO</translation>
     </message>
     <message>
+        <source>Call corrected: %1 → %2 · revision %3</source>
+        <translation>呼號已更正：%1 → %2 · 修訂 %3</translation>
+    </message>
+    <message>
         <source>Edited %1 · revision %2</source>
         <translation>已編輯 %1 · 版本 %2</translation>
+    </message>
+    <message>
+        <source>%1 had already gone to %2 with the wrong call: it will be sent again</source>
+        <translation>%1 已帶著錯誤的呼號傳送到 %2：將重新傳送</translation>
     </message>
     <message>
         <source>N1MM QSO not sent: station callsign is missing</source>

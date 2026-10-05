@@ -3405,6 +3405,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Åbn / redigér…</translation>
     </message>
     <message>
+        <source>Edit the call here (F2)</source>
+        <translation>Ret kaldesignalet her (F2)</translation>
+    </message>
+    <message>
+        <source>Edit this cell here</source>
+        <translation>Ret denne celle her</translation>
+    </message>
+    <message>
         <source>Delete QSO…</source>
         <translation>Slet QSO…</translation>
     </message>
@@ -5137,6 +5145,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Historik</translation>
     </message>
     <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
         <source>Date on UTC</source>
         <translation>Startdato UTC</translation>
     </message>
@@ -5147,6 +5159,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Time off</source>
         <translation>Sluttid</translation>
+    </message>
+    <message>
+        <source>The call changes: country, DXCC and zones are worked out again from the new call, and the services that already have this QSO unconfirmed will get it again.</source>
+        <translation>Kaldesignalet ændres: land, DXCC og zoner findes igen ud fra det nye kaldesignal, og de tjenester, der allerede har dette QSO ubekræftet, får det igen.</translation>
     </message>
     <message>
         <source>Band</source>
@@ -9709,12 +9725,36 @@ Open it once in DecoDXLog to bring it up to date.</source>
         </translation>
     </message>
     <message>
+        <source>This column cannot be edited here: open the QSO card</source>
+        <translation>Denne kolonne kan ikke rettes her: åbn QSO-kortet</translation>
+    </message>
+    <message>
+        <source>QSO %1 not found</source>
+        <translation>QSO %1 ikke fundet</translation>
+    </message>
+    <message>
+        <source>The callsign cannot be empty</source>
+        <translation>Kaldesignalet må ikke være tomt</translation>
+    </message>
+    <message>
+        <source>A callsign has no spaces</source>
+        <translation>Et kaldesignal har ingen mellemrum</translation>
+    </message>
+    <message>
         <source>Cannot save the QSO</source>
         <translation>Kan ikke gemme QSO&apos;et</translation>
     </message>
     <message>
+        <source>Call corrected: %1 → %2 · revision %3</source>
+        <translation>Kaldesignal rettet: %1 → %2 · revision %3</translation>
+    </message>
+    <message>
         <source>Edited %1 · revision %2</source>
         <translation>Redigeret %1 · revision %2</translation>
+    </message>
+    <message>
+        <source>%1 had already gone to %2 with the wrong call: it will be sent again</source>
+        <translation>%1 var allerede gået til %2 med det forkerte kaldesignal: det sendes igen</translation>
     </message>
     <message>
         <source>N1MM QSO not sent: station callsign is missing</source>

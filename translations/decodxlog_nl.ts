@@ -3405,6 +3405,14 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
         <translation>Openen / bewerken…</translation>
     </message>
     <message>
+        <source>Edit the call here (F2)</source>
+        <translation>Roepletters hier corrigeren (F2)</translation>
+    </message>
+    <message>
+        <source>Edit this cell here</source>
+        <translation>Deze cel hier corrigeren</translation>
+    </message>
+    <message>
         <source>Delete QSO…</source>
         <translation>QSO wissen…</translation>
     </message>
@@ -5137,6 +5145,10 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
         <translation>Geschiedenis</translation>
     </message>
     <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
         <source>Date on UTC</source>
         <translation>Begindatum UTC</translation>
     </message>
@@ -5147,6 +5159,10 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
     <message>
         <source>Time off</source>
         <translation>Eindtijd</translation>
+    </message>
+    <message>
+        <source>The call changes: country, DXCC and zones are worked out again from the new call, and the services that already have this QSO unconfirmed will get it again.</source>
+        <translation>De roepletters veranderen: land, DXCC en zones worden opnieuw bepaald uit de nieuwe roepletters, en de diensten die dit QSO al onbevestigd hebben, krijgen het opnieuw.</translation>
     </message>
     <message>
         <source>Band</source>
@@ -9709,12 +9725,36 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
         </translation>
     </message>
     <message>
+        <source>This column cannot be edited here: open the QSO card</source>
+        <translation>Deze kolom is hier niet te corrigeren: open de QSO-kaart</translation>
+    </message>
+    <message>
+        <source>QSO %1 not found</source>
+        <translation>QSO %1 niet gevonden</translation>
+    </message>
+    <message>
+        <source>The callsign cannot be empty</source>
+        <translation>De roepletters mogen niet leeg zijn</translation>
+    </message>
+    <message>
+        <source>A callsign has no spaces</source>
+        <translation>Roepletters bevatten geen spaties</translation>
+    </message>
+    <message>
         <source>Cannot save the QSO</source>
         <translation>Kan het QSO niet opslaan</translation>
     </message>
     <message>
+        <source>Call corrected: %1 → %2 · revision %3</source>
+        <translation>Roepletters gecorrigeerd: %1 → %2 · revisie %3</translation>
+    </message>
+    <message>
         <source>Edited %1 · revision %2</source>
         <translation>Bewerkt %1 · versie %2</translation>
+    </message>
+    <message>
+        <source>%1 had already gone to %2 with the wrong call: it will be sent again</source>
+        <translation>%1 was al naar %2 gegaan met de verkeerde roepletters: het wordt opnieuw verzonden</translation>
     </message>
     <message>
         <source>N1MM QSO not sent: station callsign is missing</source>

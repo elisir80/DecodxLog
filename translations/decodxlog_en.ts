@@ -3401,6 +3401,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Edit the call here (F2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit this cell here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Delete QSO…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5133,6 +5141,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Date on UTC</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5142,6 +5154,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
     <message>
         <source>Time off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The call changes: country, DXCC and zones are worked out again from the new call, and the services that already have this QSO unconfirmed will get it again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9705,11 +9721,35 @@ Open it once in DecoDXLog to bring it up to date.</source>
         </translation>
     </message>
     <message>
+        <source>This column cannot be edited here: open the QSO card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QSO %1 not found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The callsign cannot be empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A callsign has no spaces</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Cannot save the QSO</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Call corrected: %1 → %2 · revision %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Edited %1 · revision %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 had already gone to %2 with the wrong call: it will be sent again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

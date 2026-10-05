@@ -3405,6 +3405,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Abrir / editar…</translation>
     </message>
     <message>
+        <source>Edit the call here (F2)</source>
+        <translation>Corregir el indicativo aquí (F2)</translation>
+    </message>
+    <message>
+        <source>Edit this cell here</source>
+        <translation>Corregir esta celda aquí</translation>
+    </message>
+    <message>
         <source>Delete QSO…</source>
         <translation>Borrar el QSO…</translation>
     </message>
@@ -5137,6 +5145,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Historial</translation>
     </message>
     <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
         <source>Date on UTC</source>
         <translation>Fecha de inicio UTC</translation>
     </message>
@@ -5147,6 +5159,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Time off</source>
         <translation>Hora de fin</translation>
+    </message>
+    <message>
+        <source>The call changes: country, DXCC and zones are worked out again from the new call, and the services that already have this QSO unconfirmed will get it again.</source>
+        <translation>El indicativo cambia: país, DXCC y zonas se recalculan a partir del nuevo indicativo, y los servicios que ya tienen este QSO sin confirmar lo recibirán de nuevo.</translation>
     </message>
     <message>
         <source>Band</source>
@@ -9709,12 +9725,36 @@ Open it once in DecoDXLog to bring it up to date.</source>
         </translation>
     </message>
     <message>
+        <source>This column cannot be edited here: open the QSO card</source>
+        <translation>Esta columna no se corrige aquí: abre la ficha del QSO</translation>
+    </message>
+    <message>
+        <source>QSO %1 not found</source>
+        <translation>QSO %1 no encontrado</translation>
+    </message>
+    <message>
+        <source>The callsign cannot be empty</source>
+        <translation>El indicativo no puede estar vacío</translation>
+    </message>
+    <message>
+        <source>A callsign has no spaces</source>
+        <translation>Un indicativo no lleva espacios</translation>
+    </message>
+    <message>
         <source>Cannot save the QSO</source>
         <translation>No se puede guardar el QSO</translation>
     </message>
     <message>
+        <source>Call corrected: %1 → %2 · revision %3</source>
+        <translation>Indicativo corregido: %1 → %2 · revisión %3</translation>
+    </message>
+    <message>
         <source>Edited %1 · revision %2</source>
         <translation>%1 editado · versión %2</translation>
+    </message>
+    <message>
+        <source>%1 had already gone to %2 with the wrong call: it will be sent again</source>
+        <translation>%1 ya había ido a %2 con el indicativo equivocado: se enviará de nuevo</translation>
     </message>
     <message>
         <source>N1MM QSO not sent: station callsign is missing</source>

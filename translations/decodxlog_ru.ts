@@ -3414,6 +3414,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Открыть / изменить…</translation>
     </message>
     <message>
+        <source>Edit the call here (F2)</source>
+        <translation>Исправить позывной здесь (F2)</translation>
+    </message>
+    <message>
+        <source>Edit this cell here</source>
+        <translation>Исправить эту ячейку здесь</translation>
+    </message>
+    <message>
         <source>Delete QSO…</source>
         <translation>Удалить QSO…</translation>
     </message>
@@ -5151,6 +5159,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>История</translation>
     </message>
     <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
         <source>Date on UTC</source>
         <translation>Дата начала UTC</translation>
     </message>
@@ -5161,6 +5173,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Time off</source>
         <translation>Конец</translation>
+    </message>
+    <message>
+        <source>The call changes: country, DXCC and zones are worked out again from the new call, and the services that already have this QSO unconfirmed will get it again.</source>
+        <translation>Позывной меняется: страна, DXCC и зоны определяются заново по новому позывному, а сервисы, у которых этот QSO уже есть без подтверждения, получат его снова.</translation>
     </message>
     <message>
         <source>Band</source>
@@ -9746,12 +9762,36 @@ Open it once in DecoDXLog to bring it up to date.</source>
         </translation>
     </message>
     <message>
+        <source>This column cannot be edited here: open the QSO card</source>
+        <translation>Эту колонку здесь исправить нельзя: откройте карточку QSO</translation>
+    </message>
+    <message>
+        <source>QSO %1 not found</source>
+        <translation>QSO %1 не найден</translation>
+    </message>
+    <message>
+        <source>The callsign cannot be empty</source>
+        <translation>Позывной не может быть пустым</translation>
+    </message>
+    <message>
+        <source>A callsign has no spaces</source>
+        <translation>В позывном нет пробелов</translation>
+    </message>
+    <message>
         <source>Cannot save the QSO</source>
         <translation>QSO не сохранить</translation>
     </message>
     <message>
+        <source>Call corrected: %1 → %2 · revision %3</source>
+        <translation>Позывной исправлен: %1 → %2 · ревизия %3</translation>
+    </message>
+    <message>
         <source>Edited %1 · revision %2</source>
         <translation>Изменён %1 · версия %2</translation>
+    </message>
+    <message>
+        <source>%1 had already gone to %2 with the wrong call: it will be sent again</source>
+        <translation>%1 уже ушёл в %2 с неверным позывным: он будет отправлен снова</translation>
     </message>
     <message>
         <source>N1MM QSO not sent: station callsign is missing</source>

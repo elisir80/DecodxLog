@@ -101,6 +101,23 @@ GlassPanel {
         root.setLayout(list)
     }
 
+    // La cella che si sta correggendo sul posto: riga e colonna. F2 sul nominativo della riga
+    // corrente, o il menu della riga; Invio salva, Esc lascia com'era.
+    property int editRow: -1
+    property string editKey: ""
+    // L'ultima colonna cliccata: F2 corregge quella, se si puo', altrimenti il nominativo.
+    property string cellKey: "call"
+    function startInlineEdit(row, key) {
+        if (row < 0 || row >= root.model.count || !decolog.canEditInline(key))
+            return
+        root.editRow = row
+        root.editKey = key
+    }
+    function stopInlineEdit() {
+        root.editRow = -1
+        root.editKey = ""
+    }
+
     function isSelected(id) { return root.selectedIds.indexOf(id) >= 0 }
     function clearSelection() { root.selectedIds = [] }
     function selectOnly(row) {
@@ -205,6 +222,8 @@ GlassPanel {
         else if (name === "filters") { addFilterMenu.popup(60, Theme.panelHeight + 30); bandMenu.open() }
         else if (name === "saved") savedMenu.popup(root.width - 200, Theme.panelHeight + 30)
         else if (name === "row") rowMenu.popupFor(root.model.idAt(0))
+        // La correzione sul posto, aperta per guardarla: il nominativo della prima riga.
+        else if (name === "editcall") { root.selectedRow = 0; root.startInlineEdit(0, "call") }
         else if (name === "actions") actionsMenu.popup(root.width - 320, Theme.panelHeight)
         else if (name === "tag") tagPopup.openFor(root.model.shownIds(), true)
         else if (name === "bulk") bulkDialog.openFor(root.model.shownIds())
@@ -1570,6 +1589,7 @@ GlassPanel {
 
                 readonly property bool selected: root.isSelected(qsoId)
                 readonly property bool current: row === root.selectedRow
+                readonly property bool editing: root.editRow === row && root.editKey === columnKey
 
                 implicitHeight: Theme.rowHeight
                 clip: true
@@ -1646,11 +1666,51 @@ GlassPanel {
                             root.toggleRow(cell.row)
                         }
                         root.selectedRow = cell.row
+                        root.cellKey = cell.columnKey
                         decolog.lookupCall = root.model.callAt(cell.row)
                         if (mouse.button === Qt.RightButton)
-                            rowMenu.popupFor(cell.qsoId)
+                            rowMenu.popupFor(cell.qsoId, cell.row, cell.columnKey)
                     }
                     onDoubleClicked: root.openQso(cell.qsoId)
+                }
+
+                // La correzione sul posto: il testo della cella diventa un campo.
+                StyledTextField {
+                    id: editor
+                    visible: cell.editing
+                    anchors.fill: parent
+                    anchors.margins: 2
+                    uppercase: cell.columnKey === "call" || cell.columnKey === "grid"
+                    mono: cell.columnKey !== "name" && cell.columnKey !== "qth" && cell.columnKey !== "comment"
+                    property string problem: ""
+                    // Parte col testo della cella, tutto scelto: scrivere sostituisce.
+                    function begin() {
+                        problem = ""
+                        text = String(cell.display)
+                        selectAll()
+                        forceActiveFocus()
+                    }
+                    onVisibleChanged: if (visible) begin()
+                    // Una cella nata gia' in modifica (la riga e' stata ricreata) non vede il cambio.
+                    Component.onCompleted: if (visible) begin()
+                    function commit() {
+                        const error = decolog.editQsoField(cell.qsoId, cell.columnKey, text)
+                        if (error.length > 0)
+                            problem = error
+                        else
+                            root.stopInlineEdit()
+                    }
+                    onTextEdited: problem = ""
+                    Keys.onReturnPressed: commit()
+                    Keys.onEnterPressed: commit()
+                    Keys.onEscapePressed: root.stopInlineEdit()
+                    // Le frecce restano al campo: non spostano la riga mentre si scrive.
+                    Keys.onUpPressed: {}
+                    Keys.onDownPressed: {}
+                    // Chi clicca altrove lascia com'era: niente salvataggi per sbaglio.
+                    onActiveFocusChanged: if (!activeFocus && cell.editing) root.stopInlineEdit()
+                    ToolTip.visible: problem.length > 0
+                    ToolTip.text: problem
                 }
             }
 
@@ -1677,8 +1737,26 @@ GlassPanel {
     StyledMenu {
         id: rowMenu
         property var qsoId: 0
-        function popupFor(id) { qsoId = id; popup() }
+        property int row: -1
+        property string columnKey: "call"
+        function popupFor(id, rowIndex, key) {
+            qsoId = id
+            row = rowIndex === undefined ? root.model.rowForId(id) : rowIndex
+            columnKey = key || "call"
+            popup()
+        }
         StyledMenuItem { text: qsTr("Open / edit…"); onTriggered: root.openQso(rowMenu.qsoId) }
+        // Un nominativo sbagliato si corregge sulla riga, senza aprire la scheda.
+        StyledMenuItem {
+            text: qsTr("Edit the call here (F2)")
+            onTriggered: root.startInlineEdit(rowMenu.row, "call")
+        }
+        StyledMenuItem {
+            visible: rowMenu.columnKey !== "call" && decolog.canEditInline(rowMenu.columnKey)
+            height: visible ? implicitHeight : 0
+            text: qsTr("Edit this cell here")
+            onTriggered: root.startInlineEdit(rowMenu.row, rowMenu.columnKey)
+        }
         // Cancellare un QSO si fa da dove lo si guarda, non solo dalla scheda:
         // e' morbida, la riga resta nello storico e si recupera.
         StyledMenuItem {
@@ -1791,6 +1869,10 @@ GlassPanel {
             event.accepted = true
         } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
             root.openQso(root.model.idAt(root.selectedRow))
+            event.accepted = true
+        } else if (event.key === Qt.Key_F2) {
+            // Corregge la cella cliccata per ultima, se si scrive a mano; altrimenti il nominativo.
+            root.startInlineEdit(root.selectedRow, decolog.canEditInline(root.cellKey) ? root.cellKey : "call")
             event.accepted = true
         }
     }

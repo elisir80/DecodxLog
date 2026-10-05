@@ -371,6 +371,11 @@ public:
     // Un QSO gia' su quei servizi e poi corretto qui torna in coda ("R"), e
     // partira' come modifica del QSO che hanno gia'.
     void queueRemoteEdit(qint64 id);
+    // Il nominativo di un QSO e' stato corretto: quello che LoTW, QRZ, Club Log, HRDLog ed eQSL
+    // hanno ricevuto, senza che nessuno lo confermasse, e' il QSO sbagliato, e il giusto non e'
+    // mai partito. Quei servizi tornano «da mandare» (R); i confermati restano come sono — una
+    // conferma vuol dire che dall'altra parte il nominativo era giusto. Torna i servizi toccati.
+    QStringList markSentForResend(qint64 id);
     // I QSO cancellati qui che il servizio ha ancora ("D"): {id, remote_id}.
     QList<QPair<qint64, QString>> remoteDeletions(const QString& service) const;
     // Il servizio non ha piu' il QSO: si dimentica il suo numero.

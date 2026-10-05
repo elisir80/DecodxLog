@@ -3396,6 +3396,14 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>Megnyitás / szerkesztés…</translation>
     </message>
     <message>
+        <source>Edit the call here (F2)</source>
+        <translation>Hívójel javítása itt (F2)</translation>
+    </message>
+    <message>
+        <source>Edit this cell here</source>
+        <translation>Ennek a cellának a javítása itt</translation>
+    </message>
+    <message>
         <source>Delete QSO…</source>
         <translation>QSO törlése…</translation>
     </message>
@@ -5123,6 +5131,10 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>Előzmények</translation>
     </message>
     <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
         <source>Date on UTC</source>
         <translation>Kezdő dátum UTC</translation>
     </message>
@@ -5133,6 +5145,10 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>Time off</source>
         <translation>Vége</translation>
+    </message>
+    <message>
+        <source>The call changes: country, DXCC and zones are worked out again from the new call, and the services that already have this QSO unconfirmed will get it again.</source>
+        <translation>A hívójel változik: az ország, a DXCC és a zónák az új hívójelből újra kiszámolódnak, és azok a szolgáltatások, amelyeknél ez a QSO megerősítetlenül már megvan, újra megkapják.</translation>
     </message>
     <message>
         <source>Band</source>
@@ -9672,12 +9688,36 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         </translation>
     </message>
     <message>
+        <source>This column cannot be edited here: open the QSO card</source>
+        <translation>Ez az oszlop itt nem javítható: nyisd meg a QSO-kártyát</translation>
+    </message>
+    <message>
+        <source>QSO %1 not found</source>
+        <translation>A(z) %1 QSO nem található</translation>
+    </message>
+    <message>
+        <source>The callsign cannot be empty</source>
+        <translation>A hívójel nem lehet üres</translation>
+    </message>
+    <message>
+        <source>A callsign has no spaces</source>
+        <translation>A hívójelben nincs szóköz</translation>
+    </message>
+    <message>
         <source>Cannot save the QSO</source>
         <translation>A QSO-t nem lehet elmenteni</translation>
     </message>
     <message>
+        <source>Call corrected: %1 → %2 · revision %3</source>
+        <translation>Hívójel javítva: %1 → %2 · revízió %3</translation>
+    </message>
+    <message>
         <source>Edited %1 · revision %2</source>
         <translation>Szerkesztve %1 · változat %2</translation>
+    </message>
+    <message>
+        <source>%1 had already gone to %2 with the wrong call: it will be sent again</source>
+        <translation>%1 már elment ide: %2, a rossz hívójellel: újra el lesz küldve</translation>
     </message>
     <message>
         <source>N1MM QSO not sent: station callsign is missing</source>

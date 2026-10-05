@@ -3405,6 +3405,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Öffnen / bearbeiten…</translation>
     </message>
     <message>
+        <source>Edit the call here (F2)</source>
+        <translation>Rufzeichen hier korrigieren (F2)</translation>
+    </message>
+    <message>
+        <source>Edit this cell here</source>
+        <translation>Diese Zelle hier korrigieren</translation>
+    </message>
+    <message>
         <source>Delete QSO…</source>
         <translation>QSO löschen…</translation>
     </message>
@@ -5137,6 +5145,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Verlauf</translation>
     </message>
     <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
         <source>Date on UTC</source>
         <translation>Datum Beginn UTC</translation>
     </message>
@@ -5147,6 +5159,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Time off</source>
         <translation>Ende</translation>
+    </message>
+    <message>
+        <source>The call changes: country, DXCC and zones are worked out again from the new call, and the services that already have this QSO unconfirmed will get it again.</source>
+        <translation>Das Rufzeichen ändert sich: Land, DXCC und Zonen werden aus dem neuen Rufzeichen neu bestimmt, und Dienste, die dieses QSO unbestätigt haben, bekommen es erneut.</translation>
     </message>
     <message>
         <source>Band</source>
@@ -9709,12 +9725,36 @@ Open it once in DecoDXLog to bring it up to date.</source>
         </translation>
     </message>
     <message>
+        <source>This column cannot be edited here: open the QSO card</source>
+        <translation>Diese Spalte lässt sich hier nicht ändern: die QSO-Karte öffnen</translation>
+    </message>
+    <message>
+        <source>QSO %1 not found</source>
+        <translation>QSO %1 nicht gefunden</translation>
+    </message>
+    <message>
+        <source>The callsign cannot be empty</source>
+        <translation>Das Rufzeichen darf nicht leer sein</translation>
+    </message>
+    <message>
+        <source>A callsign has no spaces</source>
+        <translation>Ein Rufzeichen enthält keine Leerzeichen</translation>
+    </message>
+    <message>
         <source>Cannot save the QSO</source>
         <translation>Das QSO lässt sich nicht speichern</translation>
     </message>
     <message>
+        <source>Call corrected: %1 → %2 · revision %3</source>
+        <translation>Rufzeichen korrigiert: %1 → %2 · Revision %3</translation>
+    </message>
+    <message>
         <source>Edited %1 · revision %2</source>
         <translation>%1 bearbeitet · Fassung %2</translation>
+    </message>
+    <message>
+        <source>%1 had already gone to %2 with the wrong call: it will be sent again</source>
+        <translation>%1 war bereits mit dem falschen Rufzeichen an %2 gegangen: es wird erneut gesendet</translation>
     </message>
     <message>
         <source>N1MM QSO not sent: station callsign is missing</source>

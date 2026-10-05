@@ -3165,20 +3165,102 @@ QVariantMap DecoLogController::qsoDetail(qint64 id) const
     return detail;
 }
 
+namespace {
+
+// Le colonne del log che si correggono sul posto, e il campo ADIF di ognuna.
+QString inlineField(const QString& columnKey)
+{
+    static const QHash<QString, QString> fields{
+        {QStringLiteral("call"), QStringLiteral("CALL")},
+        {QStringLiteral("rst_sent"), QStringLiteral("RST_SENT")},
+        {QStringLiteral("rst_rcvd"), QStringLiteral("RST_RCVD")},
+        {QStringLiteral("grid"), QStringLiteral("GRIDSQUARE")},
+        {QStringLiteral("name"), QStringLiteral("NAME")},
+        {QStringLiteral("qth"), QStringLiteral("QTH")},
+        {QStringLiteral("comment"), QStringLiteral("COMMENT")},
+    };
+    return fields.value(columnKey);
+}
+
+} // namespace
+
+bool DecoLogController::canEditInline(const QString& columnKey) const
+{
+    return !inlineField(columnKey).isEmpty();
+}
+
+QString DecoLogController::editQsoField(qint64 id, const QString& columnKey, const QString& value)
+{
+    const QString field = inlineField(columnKey);
+    if (field.isEmpty())
+        return tr("This column cannot be edited here: open the QSO card");
+    auto record = m_db.record(id);
+    if (!record)
+        return tr("QSO %1 not found").arg(id);
+    QString text = value.simplified();
+    if (field == QLatin1String("CALL") || field == QLatin1String("GRIDSQUARE"))
+        text = text.toUpper();
+    if (field == QLatin1String("CALL")) {
+        if (text.isEmpty())
+            return tr("The callsign cannot be empty");
+        if (text.contains(QLatin1Char(' ')))
+            return tr("A callsign has no spaces");
+    }
+    // Niente da correggere: non si scrive una revisione per niente.
+    if (record->value(field) == text)
+        return {};
+    record->set(field, text);   // vuoto toglie il campo
+    return saveRecord(id, *record, -1);
+}
+
 QString DecoLogController::saveQso(qint64 id, const QVariantMap& fields, qint64 stationProfileId)
 {
     AdifRecord r;
     for (auto it = fields.cbegin(); it != fields.cend(); ++it)
         r.set(it.key(), it.value().toString().trimmed());
+    return saveRecord(id, r, stationProfileId);
+}
+
+QString DecoLogController::saveRecord(qint64 id, AdifRecord r, qint64 stationProfileId)
+{
+    // Un nominativo sbagliato e corretto: quello che veniva dal vecchio (nazione, DXCC, zone,
+    // continente) si rifa' dal nuovo — a meno che l'operatore l'abbia toccato nello stesso
+    // salvataggio — e i servizi che hanno ricevuto il QSO sbagliato lo rimandano.
+    const auto before = m_db.record(id);
+    const QString oldCall = before ? before->value(QStringLiteral("CALL")).trimmed().toUpper() : QString();
+    const QString newCall = r.value(QStringLiteral("CALL")).trimmed().toUpper();
+    const bool callChanged = !oldCall.isEmpty() && !newCall.isEmpty() && oldCall != newCall;
+    if (callChanged) {
+        r.set(QStringLiteral("CALL"), newCall);
+        for (const char* name : {"COUNTRY", "DXCC", "CQZ", "ITUZ", "CONT"}) {
+            const QString key = QLatin1String(name);
+            if (r.value(key) == before->value(key))
+                r.remove(key);
+        }
+        applyEntity(r);
+    }
     const InsertResult res = m_db.updateQso(id, r, stationProfileId);
     if (res.status != InsertResult::Status::Inserted)
         return res.message.isEmpty() ? tr("Cannot save the QSO") : res.message;
+    QStringList resent;
+    if (callChanged) {
+        for (const QString& service : m_db.markSentForResend(id))
+            resent << serviceLabel(service);
+    }
     // Dove il QSO si puo' correggere (CRX), la correzione va anche li'.
     m_db.queueRemoteEdit(id);
     m_qsl->qsoLogged(id);
     const auto meta = m_db.meta(id);
-    addActivity(QStringLiteral("LOG"), tr("Edited %1 · revision %2").arg(r.value(QStringLiteral("CALL"))).arg(meta ? meta->revision : 0),
+    const int revision = meta ? meta->revision : 0;
+    addActivity(QStringLiteral("LOG"),
+                callChanged ? tr("Call corrected: %1 → %2 · revision %3").arg(oldCall, newCall).arg(revision)
+                            : tr("Edited %1 · revision %2").arg(r.value(QStringLiteral("CALL"))).arg(revision),
                 QStringLiteral("success"));
+    if (!resent.isEmpty()) {
+        addActivity(QStringLiteral("QSL"),
+                    tr("%1 had already gone to %2 with the wrong call: it will be sent again").arg(newCall, resent.join(QStringLiteral(", "))),
+                    QStringLiteral("warning"));
+    }
     timed(tr("reloading the log table"), [this] { m_model->reload(); });
     emit logChanged();
     m_decoLink.resendSnapshot();

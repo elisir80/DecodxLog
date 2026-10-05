@@ -2460,6 +2460,30 @@ void LogDatabase::queueRemoteEdit(qint64 id)
     q.exec();
 }
 
+QStringList LogDatabase::markSentForResend(qint64 id)
+{
+    // Gli stessi servizi della colonna QSL del log; la cartolina e CRX hanno altre vie.
+    const QString where = QStringLiteral("qso_id = ? AND sent = 'Y' AND IFNULL(rcvd, '') <> 'Y' "
+                                         "AND service IN ('lotw', 'qrz', 'clublog', 'hrdlog', 'eqsl')");
+    QStringList touched;
+    QSqlQuery s(connection());
+    s.prepare(QStringLiteral("SELECT service FROM qsl_status WHERE %1 ORDER BY service").arg(where));
+    s.addBindValue(id);
+    if (s.exec()) {
+        while (s.next())
+            touched << s.value(0).toString();
+    }
+    if (touched.isEmpty())
+        return {};
+    // Il remote_id resta: se il servizio ne ha uno, tiene il QSO fra i da-mandare anche
+    // quando e' piu' vecchio del «da quel giorno».
+    QSqlQuery u(connection());
+    u.prepare(QStringLiteral("UPDATE qsl_status SET sent = 'R', sent_date = NULL, last_error = NULL WHERE %1").arg(where));
+    u.addBindValue(id);
+    u.exec();
+    return touched;
+}
+
 QList<QPair<qint64, QString>> LogDatabase::remoteDeletions(const QString& service) const
 {
     QList<QPair<qint64, QString>> out;

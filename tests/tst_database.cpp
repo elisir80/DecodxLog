@@ -309,6 +309,56 @@ private slots:
         QVERIFY(db.qsoIdsBetween("2026-04-30", "2026-04-01").isEmpty());
     }
 
+    // Il nominativo di un QSO e' stato corretto: i servizi che avevano il QSO sbagliato, senza
+    // conferma, tornano «da mandare»; i confermati e le cartoline restano come sono.
+    void correctingTheCallSendsTheQsoAgain()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        QCOMPARE(db.importAdif("<CALL:5>K1ABD<QSO_DATE:8>20260101<TIME_ON:4>1000<BAND:3>20m<MODE:3>FT8<EOR>").inserted, 1);
+        const qint64 id = db.qsosToUpload("lotw").first();
+        const auto state = [&](const char* service, const char* sent, const char* rcvd = "N", const char* remote = "") {
+            QslState st;
+            st.service = service;
+            st.sent = sent;
+            st.rcvd = rcvd;
+            st.remoteId = remote;
+            QVERIFY(db.setQslState(id, st));
+        };
+        state("lotw", "Y");                       // mandato, senza conferma
+        state("qrz", "Y", "N", "4711");           // mandato, con il suo id
+        state("clublog", "Y");
+        state("eqsl", "Y", "Y");                  // confermato: il nominativo era giusto
+        state("hrdlog", "N");                     // non ancora mandato: non c'e' niente da rimandare
+        QslState card;
+        card.service = "card";
+        card.sent = "Y";
+        card.via = "B";
+        QVERIFY(db.setQslState(id, card));
+        // La conferma di LoTW non c'e': la correzione la rimanda.
+        QCOMPARE(db.markSentForResend(id), (QStringList{"clublog", "lotw", "qrz"}));
+        const auto sentOf = [&](const QString& service) {
+            for (const QslState& s : db.qslStatus(id)) {
+                if (s.service == service)
+                    return s.sent;
+            }
+            return QString();
+        };
+        QCOMPARE(sentOf("lotw"), QString("R"));
+        QCOMPARE(sentOf("qrz"), QString("R"));
+        QCOMPARE(sentOf("clublog"), QString("R"));
+        QCOMPARE(sentOf("eqsl"), QString("Y"));
+        QCOMPARE(sentOf("hrdlog"), QString("N"));
+        QCOMPARE(sentOf("card"), QString("Y"));
+        // Tornano fra i da-mandare, anche da dietro la data limite: QRZ ha gia' un suo id.
+        QCOMPARE(db.qsosToUpload("lotw"), QList<qint64>{id});
+        QCOMPARE(db.qsosToUpload("qrz", 0, QDate(2026, 6, 1)), QList<qint64>{id});
+        // Una seconda correzione non trova piu' niente da rimandare.
+        QVERIFY(db.markSentForResend(id).isEmpty());
+        // E un QSO senza stati non da' errori.
+        QVERIFY(db.markSentForResend(id + 99).isEmpty());
+    }
+
     void crxFollowsEditsAndDeletions()
     {
         // CRX corregge e cancella: un QSO gia' li' e poi corretto torna in

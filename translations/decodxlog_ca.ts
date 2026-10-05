@@ -3405,6 +3405,14 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>Obre / edita…</translation>
     </message>
     <message>
+        <source>Edit the call here (F2)</source>
+        <translation>Corregeix l&apos;indicatiu aquí (F2)</translation>
+    </message>
+    <message>
+        <source>Edit this cell here</source>
+        <translation>Corregeix aquesta cel·la aquí</translation>
+    </message>
+    <message>
         <source>Delete QSO…</source>
         <translation>Esborra el QSO…</translation>
     </message>
@@ -5137,6 +5145,10 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>Historial</translation>
     </message>
     <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
         <source>Date on UTC</source>
         <translation>Data d&apos;inici UTC</translation>
     </message>
@@ -5147,6 +5159,10 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
     <message>
         <source>Time off</source>
         <translation>Hora de fi</translation>
+    </message>
+    <message>
+        <source>The call changes: country, DXCC and zones are worked out again from the new call, and the services that already have this QSO unconfirmed will get it again.</source>
+        <translation>L&apos;indicatiu canvia: país, DXCC i zones es refan a partir del nou indicatiu, i els serveis que ja tenen aquest QSO sense confirmar el rebran de nou.</translation>
     </message>
     <message>
         <source>Band</source>
@@ -9709,12 +9725,36 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         </translation>
     </message>
     <message>
+        <source>This column cannot be edited here: open the QSO card</source>
+        <translation>Aquesta columna no es corregeix aquí: obre la fitxa del QSO</translation>
+    </message>
+    <message>
+        <source>QSO %1 not found</source>
+        <translation>QSO %1 no trobat</translation>
+    </message>
+    <message>
+        <source>The callsign cannot be empty</source>
+        <translation>L&apos;indicatiu no pot estar buit</translation>
+    </message>
+    <message>
+        <source>A callsign has no spaces</source>
+        <translation>Un indicatiu no porta espais</translation>
+    </message>
+    <message>
         <source>Cannot save the QSO</source>
         <translation>No es pot desar el QSO</translation>
     </message>
     <message>
+        <source>Call corrected: %1 → %2 · revision %3</source>
+        <translation>Indicatiu corregit: %1 → %2 · revisió %3</translation>
+    </message>
+    <message>
         <source>Edited %1 · revision %2</source>
         <translation>Editat %1 · revisió %2</translation>
+    </message>
+    <message>
+        <source>%1 had already gone to %2 with the wrong call: it will be sent again</source>
+        <translation>%1 ja havia anat a %2 amb l&apos;indicatiu equivocat: s&apos;enviarà de nou</translation>
     </message>
     <message>
         <source>N1MM QSO not sent: station callsign is missing</source>

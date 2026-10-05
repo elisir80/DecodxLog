@@ -75,6 +75,13 @@ Quello che manca è in fondo.
   state, station profile, tag.
 - **Filtri salvati** con un nome, da riapplicare. / **Saved filters** you can name and apply
   again.
+- **Correzione sul posto**: F2 sulla riga corregge il nominativo (o la cella cliccata, se si
+  scrive a mano) senza aprire la scheda; il nominativo si corregge anche nella scheda del QSO. Se
+  cambia, nazione e zone si rifanno e i servizi che avevano il QSO sbagliato, senza conferma, lo
+  rimandano. / **Edit in place**: F2 on a row corrects the call (or the clicked cell, if typed by
+  hand) without opening the card; the call can also be corrected in the QSO card. When it changes,
+  country and zones are worked out again and services that had the wrong QSO, unconfirmed, get it
+  again.
 - **Azioni sulle righe mostrate**: etichetta di gruppo, togli etichetta, export ADIF. /
   **Actions on the rows shown**: tag them all, remove a tag, export to ADIF.
 - **Export di un periodo** (dal… al…): lo stesso riquadro dello scarico da LoTW, con il

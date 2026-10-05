@@ -3405,6 +3405,14 @@ Ouvrez-le une fois dans DecoDXLog pour le mettre à jour.</translation>
         <translation>Ouvrir / modifier…</translation>
     </message>
     <message>
+        <source>Edit the call here (F2)</source>
+        <translation>Corriger l&apos;indicatif ici (F2)</translation>
+    </message>
+    <message>
+        <source>Edit this cell here</source>
+        <translation>Corriger cette cellule ici</translation>
+    </message>
+    <message>
         <source>Delete QSO…</source>
         <translation>Supprimer le QSO…</translation>
     </message>
@@ -5137,6 +5145,10 @@ Ouvrez-le une fois dans DecoDXLog pour le mettre à jour.</translation>
         <translation>Historique</translation>
     </message>
     <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
         <source>Date on UTC</source>
         <translation>Date de début UTC</translation>
     </message>
@@ -5147,6 +5159,10 @@ Ouvrez-le une fois dans DecoDXLog pour le mettre à jour.</translation>
     <message>
         <source>Time off</source>
         <translation>Heure de fin</translation>
+    </message>
+    <message>
+        <source>The call changes: country, DXCC and zones are worked out again from the new call, and the services that already have this QSO unconfirmed will get it again.</source>
+        <translation>L&apos;indicatif change : pays, DXCC et zones sont recalculés à partir du nouvel indicatif, et les services qui ont déjà ce QSO sans confirmation le recevront de nouveau.</translation>
     </message>
     <message>
         <source>Band</source>
@@ -9709,12 +9725,36 @@ Ouvrez-le une fois dans DecoDXLog pour le mettre à jour.</translation>
         </translation>
     </message>
     <message>
+        <source>This column cannot be edited here: open the QSO card</source>
+        <translation>Cette colonne ne se corrige pas ici : ouvrez la fiche du QSO</translation>
+    </message>
+    <message>
+        <source>QSO %1 not found</source>
+        <translation>QSO %1 introuvable</translation>
+    </message>
+    <message>
+        <source>The callsign cannot be empty</source>
+        <translation>L&apos;indicatif ne peut pas être vide</translation>
+    </message>
+    <message>
+        <source>A callsign has no spaces</source>
+        <translation>Un indicatif ne contient pas d&apos;espaces</translation>
+    </message>
+    <message>
         <source>Cannot save the QSO</source>
         <translation>Impossible d&apos;enregistrer le QSO</translation>
     </message>
     <message>
+        <source>Call corrected: %1 → %2 · revision %3</source>
+        <translation>Indicatif corrigé : %1 → %2 · révision %3</translation>
+    </message>
+    <message>
         <source>Edited %1 · revision %2</source>
         <translation>%1 modifié · version %2</translation>
+    </message>
+    <message>
+        <source>%1 had already gone to %2 with the wrong call: it will be sent again</source>
+        <translation>%1 était déjà parti vers %2 avec le mauvais indicatif : il sera renvoyé</translation>
     </message>
     <message>
         <source>N1MM QSO not sent: station callsign is missing</source>

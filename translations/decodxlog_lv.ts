@@ -3414,6 +3414,14 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>Atvērt / labot…</translation>
     </message>
     <message>
+        <source>Edit the call here (F2)</source>
+        <translation>Labot izsaukuma zīmi šeit (F2)</translation>
+    </message>
+    <message>
+        <source>Edit this cell here</source>
+        <translation>Labot šo šūnu šeit</translation>
+    </message>
+    <message>
         <source>Delete QSO…</source>
         <translation>Dzēst QSO…</translation>
     </message>
@@ -5151,6 +5159,10 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>Vēsture</translation>
     </message>
     <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
         <source>Date on UTC</source>
         <translation>Sākuma datums UTC</translation>
     </message>
@@ -5161,6 +5173,10 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>Time off</source>
         <translation>Beigu laiks</translation>
+    </message>
+    <message>
+        <source>The call changes: country, DXCC and zones are worked out again from the new call, and the services that already have this QSO unconfirmed will get it again.</source>
+        <translation>Izsaukuma zīme mainās: valsts, DXCC un zonas tiek no jauna aprēķinātas pēc jaunās zīmes, un pakalpojumi, kuriem šis QSO jau ir neapstiprināts, to saņems vēlreiz.</translation>
     </message>
     <message>
         <source>Band</source>
@@ -9746,12 +9762,36 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         </translation>
     </message>
     <message>
+        <source>This column cannot be edited here: open the QSO card</source>
+        <translation>Šo kolonnu šeit nevar labot: atveriet QSO karti</translation>
+    </message>
+    <message>
+        <source>QSO %1 not found</source>
+        <translation>QSO %1 nav atrasts</translation>
+    </message>
+    <message>
+        <source>The callsign cannot be empty</source>
+        <translation>Izsaukuma zīme nedrīkst būt tukša</translation>
+    </message>
+    <message>
+        <source>A callsign has no spaces</source>
+        <translation>Izsaukuma zīmē nav atstarpju</translation>
+    </message>
+    <message>
         <source>Cannot save the QSO</source>
         <translation>QSO nevar saglabāt</translation>
     </message>
     <message>
+        <source>Call corrected: %1 → %2 · revision %3</source>
+        <translation>Izsaukuma zīme izlabota: %1 → %2 · revīzija %3</translation>
+    </message>
+    <message>
         <source>Edited %1 · revision %2</source>
         <translation>Rediģēts %1 · redakcija %2</translation>
+    </message>
+    <message>
+        <source>%1 had already gone to %2 with the wrong call: it will be sent again</source>
+        <translation>%1 jau bija aizgājis uz %2 ar nepareizo izsaukuma zīmi: tas tiks nosūtīts vēlreiz</translation>
     </message>
     <message>
         <source>N1MM QSO not sent: station callsign is missing</source>

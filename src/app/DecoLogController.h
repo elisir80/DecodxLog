@@ -649,6 +649,11 @@ public:
     Q_INVOKABLE void importAdif(const QUrl& file);
     Q_INVOKABLE void exportAdif(const QUrl& file);
     Q_INVOKABLE void exportQsos(const QVariantList& ids, const QUrl& file);
+    // Correggere una cella della tabella del log sul posto (F2, menu della riga): le colonne che
+    // si scrivono a mano — nominativo, rapporti, locatore, nome, QTH, commento. Per il resto
+    // (data, banda, modo, frequenza) c'e' la scheda del QSO. Torna il motivo se non salva.
+    Q_INVOKABLE bool canEditInline(const QString& columnKey) const;
+    Q_INVOKABLE QString editQsoField(qint64 id, const QString& columnKey, const QString& value);
     // I QSO fatti dal … al … (ISO, UTC, estremi compresi; uno dei due puo' mancare):
     // quanti sono, e l'ADIF di quelli. Cosi' si scelgono come nello scarico da LoTW.
     Q_INVOKABLE int countQsoBetween(const QString& fromIso, const QString& toIso) const;
@@ -1012,6 +1017,9 @@ private:
     std::optional<EntitySummary> entitySummary(int dxcc);
     // Esportare su un altro filo: su un log da un milione sono decine di secondi.
     // `period`: dal … al … al posto degli id, scelti dal filo che scrive.
+    // Salva un QSO corretto: la scheda e la tabella passano da qui. Se il nominativo cambia,
+    // nazione e zone si rifanno dal nuovo, e i servizi che avevano il vecchio lo rimandano.
+    QString saveRecord(qint64 id, core::AdifRecord record, qint64 stationProfileId);
     void exportInBackground(const QList<qint64>& ids, bool all, const QString& path,
                             const std::optional<std::pair<QString, QString>>& period = std::nullopt);
     bool m_backupRunning{false};
