@@ -482,6 +482,14 @@ Quello che manca è in fondo.
 - **Login automatico** col nominativo del profilo (come `CALL-2`, per non chiudere la
   sessione di Decodium), riconnessione da sola. / **Automatic login** with the profile
   callsign (as `CALL-2`, so Decodium keeps its own session), self reconnection.
+- **Spot verso il cluster**: riquadro «Segnala una stazione» dal QSO nuovo (SPOT), dall'elenco
+  di Decodium (frequenza in aria + scarto audio), dalla finestra del cluster e dal menu;
+  controlla nominativo, bande e commento (30 caratteri), avvisa se è già stata segnalata da
+  poco, e manda `DX <kHz> <call> <commento>` al nodo scelto. / **Spots to the cluster**:
+  a "Spot a station" box from New QSO (SPOT), from the Decodium list (on-air frequency = dial
+  + audio offset), from the cluster window and from the menu; it checks call, bands and
+  comment (30 characters), warns when it was already spotted recently, and sends
+  `DX <kHz> <call> <comment>` to the chosen node.
 - **«Check» su ogni fonte**: il nome, la porta, la prima parola del nodo, e dove si ferma —
   con il suggerimento giusto quando a tenere la connessione è un antivirus o un firewall
   (AVG, Avast…). / **"Check" on every source**: the name, the port, the node's first word,

@@ -159,6 +159,31 @@ private slots:
         QVERIFY(!full->data(full->index(0), DecodeListModel::ForMeRole).toBool());
     }
 
+    // Segnalare al cluster una stazione dell'elenco: chi e', e la frequenza in aria — la dial
+    // di Decodium piu' lo scarto audio —, con un commento che dice modo, segnale e locatore.
+    void spotDraftOfARow()
+    {
+        DecodeFeed feed(nullptr, context());
+        // Fuori da Decodium, o senza la dial, non c'e' niente da segnalare.
+        QVERIFY(feed.spotDraft(0, 1).isEmpty());
+        feed.handleStatus("Decodium", status());
+        feed.handleDecode("Decodium", decode("CQ 9A3XY JN75", -5, 1600));
+        feed.handleDecode("Decodium", decode("IU8LMC DL1AB -07", -7, 900));
+        auto* full = qobject_cast<DecodeListModel*>(feed.fullSpectrum());
+        const qint64 cq = full->data(full->index(1), DecodeListModel::SerialRole).toLongLong();
+        const qint64 directed = full->data(full->index(0), DecodeListModel::SerialRole).toLongLong();
+
+        const QVariantMap cqDraft = feed.spotDraft(0, cq);
+        QCOMPARE(cqDraft.value("call").toString(), QString("9A3XY"));
+        QCOMPARE(cqDraft.value("freqKhz").toString(), QString("14075.6"));     // 14074.000 + 1.600
+        QCOMPARE(cqDraft.value("comment").toString(), QString("FT8 -5 dB JN75"));
+        // Una risposta a noi: si segnala chi trasmette (DL1AB), non chi e' chiamato (noi).
+        const QVariantMap other = feed.spotDraft(0, directed);
+        QCOMPARE(other.value("call").toString(), QString("DL1AB"));
+        QCOMPARE(other.value("freqKhz").toString(), QString("14074.9"));
+        QVERIFY(feed.spotDraft(0, 99999).isEmpty());
+    }
+
     void ownTransmissionsAndNewPartner()
     {
         DecodeFeed feed(nullptr, context());

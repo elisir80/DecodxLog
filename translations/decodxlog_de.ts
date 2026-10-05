@@ -1196,6 +1196,10 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
         <translation>Konsole</translation>
     </message>
     <message>
+        <source>Send a spot…</source>
+        <translation>Spot senden…</translation>
+    </message>
+    <message>
         <source>Decodium on %1 · %2</source>
         <translation>Decodium auf %1 · %2</translation>
     </message>
@@ -1386,22 +1390,6 @@ Das Rufzeichen, an dem Decodium arbeitet, erscheint hier von selbst.</translatio
     <message>
         <source>Send</source>
         <translation>Senden</translation>
-    </message>
-    <message>
-        <source>Spot a DX</source>
-        <translation>Einen DX spotten</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation>Call</translation>
-    </message>
-    <message>
-        <source>Comment (FT2 -10 dB, JN71…)</source>
-        <translation>Kommentar (FT2 -10 dB, JN71…)</translation>
-    </message>
-    <message>
-        <source>Post spot</source>
-        <translation>Spot absetzen</translation>
     </message>
     <message>
         <source>Edit source</source>
@@ -2445,6 +2433,10 @@ Rechtsklick: ändern</translation>
     <message>
         <source>Show in Call info and prepare the QSO</source>
         <translation>In der Rufzeichenkarte zeigen und QSO vorbereiten</translation>
+    </message>
+    <message>
+        <source>Spot this station to the cluster…</source>
+        <translation>Diese Station im Cluster melden…</translation>
     </message>
     <message>
         <source>Copy the line</source>
@@ -4101,6 +4093,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>LOG QSO</source>
         <translation>QSO EINTRAGEN</translation>
+    </message>
+    <message>
+        <source>SPOT</source>
+        <translation>SPOT</translation>
     </message>
     <message>
         <source>CLEAR</source>
@@ -7725,6 +7721,61 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
 </context>
 <context>
+    <name>SpotDialog</name>
+    <message>
+        <source>SPOT A STATION</source>
+        <translation>STATION MELDEN</translation>
+    </message>
+    <message>
+        <source>Sends the spot to a cluster node as DX &lt;kHz&gt; &lt;call&gt; &lt;comment&gt;, the same line you would type in the console. Spot what you have really heard or worked; the comment is cut at 30 characters.</source>
+        <translation>Sendet den Spot an einen Cluster-Knoten als DX &lt;kHz&gt; &lt;call&gt; &lt;comment&gt;, dieselbe Zeile, die man in der Konsole tippen würde. Nur melden, was man wirklich gehört oder gearbeitet hat; der Kommentar wird bei 30 Zeichen abgeschnitten.</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Frequency (kHz)</source>
+        <translation>Frequenz (kHz)</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Kommentar</translation>
+    </message>
+    <message>
+        <source>FT8 -10 dB JN71</source>
+        <translation>FT8 -10 dB JN71</translation>
+    </message>
+    <message>
+        <source>Send to</source>
+        <translation>Senden an</translation>
+    </message>
+    <message>
+        <source>First node online</source>
+        <translation>Erster verbundener Knoten</translation>
+    </message>
+    <message>
+        <source>No cluster node connected</source>
+        <translation>Kein Cluster-Knoten verbunden</translation>
+    </message>
+    <message>
+        <source>%1 · %2 kHz</source>
+        <translation>%1 · %2 kHz</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Spot anyway</source>
+        <translation>Trotzdem melden</translation>
+    </message>
+    <message>
+        <source>Send spot</source>
+        <translation>Spot senden</translation>
+    </message>
+</context>
+<context>
     <name>SpotFilterEditor</name>
     <message>
         <source>Cluster</source>
@@ -8175,6 +8226,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>DX Cluster…</source>
         <translation>DX-Cluster…</translation>
+    </message>
+    <message>
+        <source>Spot a station to the cluster…</source>
+        <translation>Eine Station im Cluster melden…</translation>
     </message>
     <message>
         <source>ON4KST chat (%1)…</source>
@@ -9286,8 +9341,32 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Kein Cluster-Knoten verbunden</translation>
     </message>
     <message>
-        <source>Call and frequency in kHz are needed</source>
-        <translation>Rufzeichen und Frequenz in kHz werden gebraucht</translation>
+        <source>Write the callsign to spot</source>
+        <translation>Das zu meldende Rufzeichen eintragen</translation>
+    </message>
+    <message>
+        <source>This does not look like a callsign</source>
+        <translation>Das sieht nicht nach einem Rufzeichen aus</translation>
+    </message>
+    <message>
+        <source>The frequency in kHz is needed (14074.0)</source>
+        <translation>Die Frequenz in kHz wird gebraucht (14074.0)</translation>
+    </message>
+    <message>
+        <source>%1 kHz is outside the amateur bands</source>
+        <translation>%1 kHz liegt außerhalb der Amateurfunkbänder</translation>
+    </message>
+    <message>
+        <source>someone</source>
+        <translation>jemand</translation>
+    </message>
+    <message>
+        <source>%1 was already spotted %2 min ago on %3 kHz by %4</source>
+        <translation>%1 wurde vor %2 Min. bereits auf %3 kHz von %4 gemeldet</translation>
+    </message>
+    <message>
+        <source>Spot sent: %1 on %2 kHz</source>
+        <translation>Spot gesendet: %1 auf %2 kHz</translation>
     </message>
     <message>
         <source>rebuilding the worked list: %1 s</source>

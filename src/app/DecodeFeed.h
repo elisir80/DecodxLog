@@ -173,6 +173,10 @@ public:
     // Mette il nominativo della riga nella scheda e nel riquadro del QSO.
     Q_INVOKABLE void pick(int which, qint64 serial);
     Q_INVOKABLE QString lineText(int which, qint64 serial) const;
+    // Cosa serve per segnalare la stazione di una riga al cluster: {call, freqKhz,
+    // comment}. La frequenza e' quella in aria — la dial di Decodium piu' lo scarto
+    // audio della riga — e il commento dice modo, segnale e locatore.
+    Q_INVOKABLE QVariantMap spotDraft(int which, qint64 serial) const;
 
     // I nuovi stati dopo che il log e' cambiato.
     void restatus();

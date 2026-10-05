@@ -154,6 +154,17 @@ GlassPanel {
         callField.forceActiveFocus()
     }
 
+    // Segnala al cluster la stazione del modulo: nominativo, frequenza in kHz, modo e rapporto.
+    function spotCurrent() {
+        const mhz = Number(freqField.text.replace(",", "."))
+        const rcvd = rcvdField.text.trim()
+        // Un rapporto con il segno (-10) e' in dB; 599 e' un RST.
+        const report = /^[-+]\d+$/.test(rcvd) ? rcvd + " dB" : rcvd
+        spotDialog.openFor(callField.text.trim(), mhz > 0 ? (mhz * 1000).toFixed(1) : "",
+                           (modeBox.editText || modeBox.currentText) + (report ? " " + report : ""))
+    }
+    SpotDialog { id: spotDialog }
+
     function submit() {
         const error = decolog.logManualQso({
             call: callField.text, date: dateField.text, time: timeField.text,
@@ -548,6 +559,13 @@ GlassPanel {
                             fontPixelSize: 13
                             enabled: callField.text.length > 2
                             onClicked: root.submit()
+                        }
+                        GlassButton {
+                            text: qsTr("SPOT")
+                            tone: Theme.primaryColor
+                            buttonHeight: 34
+                            enabled: callField.text.length > 2
+                            onClicked: root.spotCurrent()
                         }
                         GlassButton {
                             text: qsTr("CLEAR")

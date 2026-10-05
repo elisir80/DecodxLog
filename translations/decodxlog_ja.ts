@@ -1192,6 +1192,10 @@ Decodium が交信しているコールサインは、ここにひとりでに�
         <translation>コンソール</translation>
     </message>
     <message>
+        <source>Send a spot…</source>
+        <translation>スポットを送る…</translation>
+    </message>
+    <message>
         <source>Decodium on %1 · %2</source>
         <translation>Decodium は %1 · %2</translation>
     </message>
@@ -1382,22 +1386,6 @@ Decodium が交信しているコールサインは、ここにひとりでに�
     <message>
         <source>Send</source>
         <translation>送る</translation>
-    </message>
-    <message>
-        <source>Spot a DX</source>
-        <translation>DX をスポットする</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation>Call</translation>
-    </message>
-    <message>
-        <source>Comment (FT2 -10 dB, JN71…)</source>
-        <translation>コメント (FT2 -10 dB, JN71…)</translation>
-    </message>
-    <message>
-        <source>Post spot</source>
-        <translation>スポットを出す</translation>
     </message>
     <message>
         <source>Edit source</source>
@@ -2436,6 +2424,10 @@ Right click: change it</source>
     <message>
         <source>Show in Call info and prepare the QSO</source>
         <translation>コールサイン カードに表示して QSO を準備</translation>
+    </message>
+    <message>
+        <source>Spot this station to the cluster…</source>
+        <translation>この局をクラスターに報告…</translation>
     </message>
     <message>
         <source>Copy the line</source>
@@ -4090,6 +4082,10 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>LOG QSO</source>
         <translation>QSO を記録</translation>
+    </message>
+    <message>
+        <source>SPOT</source>
+        <translation>スポット</translation>
     </message>
     <message>
         <source>CLEAR</source>
@@ -7703,6 +7699,61 @@ DecoDXLog で一度開いて更新してください。</translation>
     </message>
 </context>
 <context>
+    <name>SpotDialog</name>
+    <message>
+        <source>SPOT A STATION</source>
+        <translation>局を報告</translation>
+    </message>
+    <message>
+        <source>Sends the spot to a cluster node as DX &lt;kHz&gt; &lt;call&gt; &lt;comment&gt;, the same line you would type in the console. Spot what you have really heard or worked; the comment is cut at 30 characters.</source>
+        <translation>スポットを DX &lt;kHz&gt; &lt;call&gt; &lt;comment&gt; の形でクラスターのノードに送ります。コンソールで入力するのと同じ行です。実際に聞いた局・交信した局だけを報告してください。コメントは 30 文字で切られます。</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Frequency (kHz)</source>
+        <translation>周波数 (kHz)</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>コメント</translation>
+    </message>
+    <message>
+        <source>FT8 -10 dB JN71</source>
+        <translation>FT8 -10 dB JN71</translation>
+    </message>
+    <message>
+        <source>Send to</source>
+        <translation>送信先</translation>
+    </message>
+    <message>
+        <source>First node online</source>
+        <translation>最初のノードがつながりました</translation>
+    </message>
+    <message>
+        <source>No cluster node connected</source>
+        <translation>クラスターのノードにつながっていません</translation>
+    </message>
+    <message>
+        <source>%1 · %2 kHz</source>
+        <translation>%1 · %2 kHz</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>キャンセル</translation>
+    </message>
+    <message>
+        <source>Spot anyway</source>
+        <translation>それでも報告</translation>
+    </message>
+    <message>
+        <source>Send spot</source>
+        <translation>スポットを送る</translation>
+    </message>
+</context>
+<context>
     <name>SpotFilterEditor</name>
     <message>
         <source>Cluster</source>
@@ -8153,6 +8204,10 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>DX Cluster…</source>
         <translation>DXクラスター…</translation>
+    </message>
+    <message>
+        <source>Spot a station to the cluster…</source>
+        <translation>局をクラスターに報告…</translation>
     </message>
     <message>
         <source>ON4KST chat (%1)…</source>
@@ -9253,8 +9308,32 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>クラスターのノードにつながっていません</translation>
     </message>
     <message>
-        <source>Call and frequency in kHz are needed</source>
-        <translation>コールサインと kHz の周波数が要ります</translation>
+        <source>Write the callsign to spot</source>
+        <translation>報告するコールサインを入力してください</translation>
+    </message>
+    <message>
+        <source>This does not look like a callsign</source>
+        <translation>コールサインに見えません</translation>
+    </message>
+    <message>
+        <source>The frequency in kHz is needed (14074.0)</source>
+        <translation>周波数 (kHz) が必要です (14074.0)</translation>
+    </message>
+    <message>
+        <source>%1 kHz is outside the amateur bands</source>
+        <translation>%1 kHz はアマチュアバンドの外です</translation>
+    </message>
+    <message>
+        <source>someone</source>
+        <translation>誰か</translation>
+    </message>
+    <message>
+        <source>%1 was already spotted %2 min ago on %3 kHz by %4</source>
+        <translation>%1 は %2 分前に %3 kHz で %4 がすでに報告しています</translation>
+    </message>
+    <message>
+        <source>Spot sent: %1 on %2 kHz</source>
+        <translation>スポットを送信しました: %1 (%2 kHz)</translation>
     </message>
     <message>
         <source>rebuilding the worked list: %1 s</source>

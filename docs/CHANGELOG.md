@@ -3,6 +3,25 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.06 — 5 ottobre 2026
+
+**Mandare gli spot, non solo riceverli.** Segnalare al cluster una stazione c'era gia', ma in fondo
+alla console, tre campi e un pulsante. Ora c'e' un riquadro **Segnala una stazione**, e si apre da
+dove serve: il pulsante **SPOT** del QSO nuovo (con nominativo, frequenza in kHz, modo e rapporto del
+modulo), il menu della riga dell'elenco di Decodium («Segnala questa stazione al cluster…», con la
+frequenza in aria — la dial piu' lo scarto audio — e un commento «FT8 -5 dB JN75»), il pulsante
+«Invia uno spot…» della finestra del cluster e il menu in alto, che parte dalla stazione di adesso.
+Prima di mandare si controlla: il nominativo deve somigliare a un nominativo, la frequenza (in MHz
+se scritta come 14.074) deve stare dentro le bande amatoriali, il commento e' al massimo di 30
+caratteri come vogliono i nodi; se qualcuno ha gia' segnalato la stessa stazione negli ultimi
+quindici minuti, sulla stessa frequenza, il riquadro lo dice (chi, quanto fa, dove) e il pulsante
+diventa «Segnala lo stesso». Si sceglie a quale nodo mandare, e uno scelto per nome che non c'e' piu'
+non fa finire lo spot su un altro nodo per caso. Resta scritto nel registro attivita' cosa e'
+partito. Prove: i controlli, il comando che arriva al nodo (`DX 14074.0 K1ABC FT8 -10 dB`), il
+nodo che non c'e', l'avviso di doppione, e la riga dell'elenco con la frequenza in aria; piu' la
+prova che legge i QML e pretende il fuoco in ogni popup con un campo di testo, che copre anche questo.
+Traduzioni nelle 14 lingue.
+
 ## 1.17.05 — 5 ottobre 2026
 
 **Allineata alla 1.17.04 di elisir80.** «Ferma» del CW che annulla anche il CW in coda, rilascia il

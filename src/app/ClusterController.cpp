@@ -9,6 +9,7 @@
 #include "core/ConnectionProbe.h"
 #include "core/CredentialStore.h"
 #include "core/Dates.h"
+#include "core/DecodeText.h"
 #include "core/DecoLinkServer.h"
 #include "core/LogDatabase.h"
 #include "core/Maidenhead.h"
@@ -391,7 +392,10 @@ QString ClusterController::sendCommand(const QString& sourceId, const QString& c
     const QString cmd = command.trimmed();
     if (cmd.isEmpty())
         return {};
+    // Un nodo scelto per nome che non c'e' piu' non e' un motivo per finire su un altro.
     ClusterConnection* target = sourceId.isEmpty() ? nullptr : connectionFor(sourceId);
+    if (!sourceId.isEmpty() && !target)
+        return tr("No cluster node connected");
     if (!target) {
         for (ClusterConnection* c : m_connections) {
             if (c->state() == ClusterConnection::State::Online && c->source().type == QLatin1String("cluster")) {
@@ -406,14 +410,77 @@ QString ClusterController::sendCommand(const QString& sourceId, const QString& c
     return {};
 }
 
-QString ClusterController::postSpot(const QString& call, const QString& freqKhz, const QString& comment)
+QVariantMap ClusterController::checkSpot(const QString& call, const QString& freqKhz, const QString& comment) const
 {
+    constexpr int kMaxComment = 30;   // oltre, il nodo taglia
+    QVariantMap out{{QStringLiteral("ok"), false}};
     const QString c = call.trimmed().toUpper();
-    bool ok = false;
-    const double f = QString(freqKhz).replace(QLatin1Char(','), QLatin1Char('.')).toDouble(&ok);
-    if (c.size() < 3 || !ok || f <= 0)
-        return tr("Call and frequency in kHz are needed");
-    return sendCommand({}, QStringLiteral("DX %1 %2 %3").arg(QString::number(f, 'f', 1), c, comment.simplified()));
+    out.insert(QStringLiteral("call"), c);
+    out.insert(QStringLiteral("comment"), comment.simplified().left(kMaxComment));
+
+    bool numeric = false;
+    double f = QString(freqKhz).trimmed().replace(QLatin1Char(','), QLatin1Char('.')).toDouble(&numeric);
+    // 14.074 e' in MHz: in kHz una frequenza cosi' bassa non c'e' nelle bande da spottare.
+    if (numeric && f > 0 && f < 100)
+        f *= 1000.0;
+
+    if (!decodetext::looksLikeCall(c)) {
+        out.insert(QStringLiteral("error"), c.isEmpty() ? tr("Write the callsign to spot")
+                                                       : tr("This does not look like a callsign"));
+        return out;
+    }
+    if (!numeric || f <= 0) {
+        out.insert(QStringLiteral("error"), tr("The frequency in kHz is needed (14074.0)"));
+        return out;
+    }
+    const QString freq = QString::number(f, 'f', 1);
+    out.insert(QStringLiteral("freqKhz"), freq);
+    const QString band = bandOf(f);
+    out.insert(QStringLiteral("band"), band);
+    if (band.isEmpty()) {
+        out.insert(QStringLiteral("error"), tr("%1 kHz is outside the amateur bands").arg(freq));
+        return out;
+    }
+
+    // Gia' segnalata da poco, sulla stessa frequenza: mandarla di nuovo e' rumore per tutti.
+    const QDateTime now = QDateTime::currentDateTimeUtc();
+    const EnrichedSpot* latest = nullptr;
+    const QList<EnrichedSpot> all = m_model.all();
+    for (const EnrichedSpot& e : all) {
+        if (e.spot.dxCall.compare(c, Qt::CaseInsensitive) != 0 || qAbs(e.spot.freqKhz - f) > 1.0 || !e.spot.time.isValid()
+            || e.spot.time.secsTo(now) > 15 * 60)
+            continue;
+        if (!latest || e.spot.time > latest->spot.time)
+            latest = &e;
+    }
+    if (latest) {
+        const QString who = latest->spot.spotter.isEmpty() ? tr("someone") : latest->spot.spotter;
+        out.insert(QStringLiteral("duplicate"),
+                   tr("%1 was already spotted %2 min ago on %3 kHz by %4")
+                       .arg(c).arg(qMax<qint64>(0, latest->spot.time.secsTo(now) / 60))
+                       .arg(QString::number(latest->spot.freqKhz, 'f', 1), who));
+    }
+    out.insert(QStringLiteral("ok"), true);
+    return out;
+}
+
+QString ClusterController::postSpot(const QString& call, const QString& freqKhz, const QString& comment,
+                                    const QString& sourceId)
+{
+    const QVariantMap draft = checkSpot(call, freqKhz, comment);
+    if (!draft.value(QStringLiteral("ok")).toBool())
+        return draft.value(QStringLiteral("error")).toString();
+    const QString c = draft.value(QStringLiteral("call")).toString();
+    const QString f = draft.value(QStringLiteral("freqKhz")).toString();
+    const QString error = sendCommand(sourceId, QStringLiteral("DX %1 %2 %3")
+                                                    .arg(f, c, draft.value(QStringLiteral("comment")).toString())
+                                                    .trimmed());
+    if (!error.isEmpty())
+        return error;
+    // Il nodo rimanda lo spot: lo si vede in lista. Qui resta scritto cosa e' partito.
+    if (m_ctx.activity)
+        m_ctx.activity(QStringLiteral("CLUSTER"), tr("Spot sent: %1 on %2 kHz").arg(c, f), QStringLiteral("success"));
+    return {};
 }
 
 // ── Spot ──────────────────────────────────────────────────────────────────────

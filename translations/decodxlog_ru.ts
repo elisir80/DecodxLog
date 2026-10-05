@@ -1200,6 +1200,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation>Консоль</translation>
     </message>
     <message>
+        <source>Send a spot…</source>
+        <translation>Отправить спот…</translation>
+    </message>
+    <message>
         <source>Decodium on %1 · %2</source>
         <translation>Decodium на %1 · %2</translation>
     </message>
@@ -1390,22 +1394,6 @@ The call Decodium is working shows up here by itself.</source>
     <message>
         <source>Send</source>
         <translation>Отправить</translation>
-    </message>
-    <message>
-        <source>Spot a DX</source>
-        <translation>Дать спот</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation>Call</translation>
-    </message>
-    <message>
-        <source>Comment (FT2 -10 dB, JN71…)</source>
-        <translation>Комментарий (FT2 -10 dB, JN71…)</translation>
-    </message>
-    <message>
-        <source>Post spot</source>
-        <translation>Отправить спот</translation>
     </message>
     <message>
         <source>Edit source</source>
@@ -2454,6 +2442,10 @@ Right click: change it</source>
     <message>
         <source>Show in Call info and prepare the QSO</source>
         <translation>Показать в карточке и подготовить QSO</translation>
+    </message>
+    <message>
+        <source>Spot this station to the cluster…</source>
+        <translation>Сообщить об этой станции в кластер…</translation>
     </message>
     <message>
         <source>Copy the line</source>
@@ -4112,6 +4104,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>LOG QSO</source>
         <translation>ЗАПИСАТЬ QSO</translation>
+    </message>
+    <message>
+        <source>SPOT</source>
+        <translation>СПОТ</translation>
     </message>
     <message>
         <source>CLEAR</source>
@@ -7747,6 +7743,61 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
 </context>
 <context>
+    <name>SpotDialog</name>
+    <message>
+        <source>SPOT A STATION</source>
+        <translation>СПОТ СТАНЦИИ</translation>
+    </message>
+    <message>
+        <source>Sends the spot to a cluster node as DX &lt;kHz&gt; &lt;call&gt; &lt;comment&gt;, the same line you would type in the console. Spot what you have really heard or worked; the comment is cut at 30 characters.</source>
+        <translation>Отправляет спот на узел кластера в виде DX &lt;kHz&gt; &lt;call&gt; &lt;comment&gt; — той же строкой, что вы набрали бы в консоли. Сообщайте только то, что вы действительно слышали или с кем работали; комментарий обрезается до 30 символов.</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Frequency (kHz)</source>
+        <translation>Частота (кГц)</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Комментарий</translation>
+    </message>
+    <message>
+        <source>FT8 -10 dB JN71</source>
+        <translation>FT8 -10 dB JN71</translation>
+    </message>
+    <message>
+        <source>Send to</source>
+        <translation>Отправить на</translation>
+    </message>
+    <message>
+        <source>First node online</source>
+        <translation>Первый узел на связи</translation>
+    </message>
+    <message>
+        <source>No cluster node connected</source>
+        <translation>Ни один узел кластера не подключён</translation>
+    </message>
+    <message>
+        <source>%1 · %2 kHz</source>
+        <translation>%1 · %2 кГц</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <source>Spot anyway</source>
+        <translation>Всё равно отправить</translation>
+    </message>
+    <message>
+        <source>Send spot</source>
+        <translation>Отправить спот</translation>
+    </message>
+</context>
+<context>
     <name>SpotFilterEditor</name>
     <message>
         <source>Cluster</source>
@@ -8197,6 +8248,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>DX Cluster…</source>
         <translation>DX-кластер…</translation>
+    </message>
+    <message>
+        <source>Spot a station to the cluster…</source>
+        <translation>Сообщить о станции в кластер…</translation>
     </message>
     <message>
         <source>ON4KST chat (%1)…</source>
@@ -9319,8 +9374,32 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Ни один узел кластера не подключён</translation>
     </message>
     <message>
-        <source>Call and frequency in kHz are needed</source>
-        <translation>Нужны позывной и частота в кГц</translation>
+        <source>Write the callsign to spot</source>
+        <translation>Введите позывной для спота</translation>
+    </message>
+    <message>
+        <source>This does not look like a callsign</source>
+        <translation>Это не похоже на позывной</translation>
+    </message>
+    <message>
+        <source>The frequency in kHz is needed (14074.0)</source>
+        <translation>Нужна частота в кГц (14074.0)</translation>
+    </message>
+    <message>
+        <source>%1 kHz is outside the amateur bands</source>
+        <translation>%1 кГц вне любительских диапазонов</translation>
+    </message>
+    <message>
+        <source>someone</source>
+        <translation>кто-то</translation>
+    </message>
+    <message>
+        <source>%1 was already spotted %2 min ago on %3 kHz by %4</source>
+        <translation>%1 уже был отмечен %2 мин назад на %3 кГц (%4)</translation>
+    </message>
+    <message>
+        <source>Spot sent: %1 on %2 kHz</source>
+        <translation>Спот отправлен: %1 на %2 кГц</translation>
     </message>
     <message>
         <source>rebuilding the worked list: %1 s</source>

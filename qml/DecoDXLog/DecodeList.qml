@@ -255,6 +255,13 @@ Item {
             onTriggered: root.feed.reply(root.which, menu.serial)
         }
         StyledMenuItem { text: qsTr("Show in Call info and prepare the QSO"); onTriggered: root.feed.pick(root.which, menu.serial) }
+        StyledMenuItem {
+            text: qsTr("Spot this station to the cluster…")
+            onTriggered: {
+                const d = root.feed.spotDraft(root.which, menu.serial)
+                spotDialog.openFor(d.call || "", d.freqKhz || "", d.comment || "")
+            }
+        }
         MenuSeparator { contentItem: Rectangle { implicitHeight: 1; color: Theme.borderSoft } }
         StyledMenuItem {
             text: qsTr("Copy the line")
@@ -265,6 +272,8 @@ Item {
             }
         }
     }
+
+    SpotDialog { id: spotDialog }
 
     TextEdit { id: copyBuffer; visible: false }
 }

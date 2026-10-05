@@ -13,6 +13,7 @@ Rectangle {
     signal importRequested()
     signal exportRequested()
     signal exportPeriodRequested()
+    signal spotRequested()
     signal awardsRequested()
     signal clusterRequested()
     signal chatRequested()
@@ -133,6 +134,7 @@ Rectangle {
                 StyledMenuItem { text: qsTr("Station profiles…"); onTriggered: root.profilesRequested() }
                 StyledMenuItem { text: qsTr("Panels…"); onTriggered: root.panelsRequested(brandBlock) }
                 StyledMenuItem { text: qsTr("DX Cluster…"); onTriggered: root.clusterRequested() }
+                StyledMenuItem { text: qsTr("Spot a station to the cluster…"); onTriggered: root.spotRequested() }
                 StyledMenuItem {
                     text: decolog.chat.unread > 0 ? qsTr("ON4KST chat (%1)…").arg(decolog.chat.unread) : qsTr("ON4KST chat…")
                     onTriggered: root.chatRequested()

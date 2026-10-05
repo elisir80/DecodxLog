@@ -350,6 +350,7 @@ set(DECODXLOG_QML_FILES
     qml/DecoDXLog/LotwRangeRow.qml
     qml/DecoDXLog/DatePeriodFields.qml
     qml/DecoDXLog/ExportPeriodDialog.qml
+    qml/DecoDXLog/SpotDialog.qml
     qml/DecoDXLog/CwPanel.qml
     qml/DecoDXLog/OnScreen.qml
     qml/DecoDXLog/PanelWindow.qml

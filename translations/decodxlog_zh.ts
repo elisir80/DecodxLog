@@ -1192,6 +1192,10 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
         <translation>控制台</translation>
     </message>
     <message>
+        <source>Send a spot…</source>
+        <translation>发送 spot…</translation>
+    </message>
+    <message>
         <source>Decodium on %1 · %2</source>
         <translation>Decodium 在 %1 · %2</translation>
     </message>
@@ -1382,22 +1386,6 @@ Decodium 正在通联的呼号会自己出现在这里。</translation>
     <message>
         <source>Send</source>
         <translation>发送</translation>
-    </message>
-    <message>
-        <source>Spot a DX</source>
-        <translation>发一条点报</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation>Call</translation>
-    </message>
-    <message>
-        <source>Comment (FT2 -10 dB, JN71…)</source>
-        <translation>备注 (FT2 -10 dB, JN71…)</translation>
-    </message>
-    <message>
-        <source>Post spot</source>
-        <translation>发出点报</translation>
     </message>
     <message>
         <source>Edit source</source>
@@ -2436,6 +2424,10 @@ Right click: change it</source>
     <message>
         <source>Show in Call info and prepare the QSO</source>
         <translation>在呼号卡片中显示并准备 QSO</translation>
+    </message>
+    <message>
+        <source>Spot this station to the cluster…</source>
+        <translation>向集群报告这个电台…</translation>
     </message>
     <message>
         <source>Copy the line</source>
@@ -4090,6 +4082,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>LOG QSO</source>
         <translation>记录 QSO</translation>
+    </message>
+    <message>
+        <source>SPOT</source>
+        <translation>SPOT</translation>
     </message>
     <message>
         <source>CLEAR</source>
@@ -7703,6 +7699,61 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
 </context>
 <context>
+    <name>SpotDialog</name>
+    <message>
+        <source>SPOT A STATION</source>
+        <translation>报告一个电台</translation>
+    </message>
+    <message>
+        <source>Sends the spot to a cluster node as DX &lt;kHz&gt; &lt;call&gt; &lt;comment&gt;, the same line you would type in the console. Spot what you have really heard or worked; the comment is cut at 30 characters.</source>
+        <translation>以 DX &lt;kHz&gt; &lt;call&gt; &lt;comment&gt; 的形式把 spot 发给集群节点，与在控制台输入的那一行相同。只报告你确实听到或联络过的电台；备注会在 30 个字符处截断。</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Frequency (kHz)</source>
+        <translation>频率 (kHz)</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>备注</translation>
+    </message>
+    <message>
+        <source>FT8 -10 dB JN71</source>
+        <translation>FT8 -10 dB JN71</translation>
+    </message>
+    <message>
+        <source>Send to</source>
+        <translation>发送到</translation>
+    </message>
+    <message>
+        <source>First node online</source>
+        <translation>第一个节点在线</translation>
+    </message>
+    <message>
+        <source>No cluster node connected</source>
+        <translation>没有连接任何集群节点</translation>
+    </message>
+    <message>
+        <source>%1 · %2 kHz</source>
+        <translation>%1 · %2 kHz</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <source>Spot anyway</source>
+        <translation>仍然发送</translation>
+    </message>
+    <message>
+        <source>Send spot</source>
+        <translation>发送 spot</translation>
+    </message>
+</context>
+<context>
     <name>SpotFilterEditor</name>
     <message>
         <source>Cluster</source>
@@ -8153,6 +8204,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>DX Cluster…</source>
         <translation>DX 集群…</translation>
+    </message>
+    <message>
+        <source>Spot a station to the cluster…</source>
+        <translation>向集群报告一个电台…</translation>
     </message>
     <message>
         <source>ON4KST chat (%1)…</source>
@@ -9253,8 +9308,32 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>没有连接任何集群节点</translation>
     </message>
     <message>
-        <source>Call and frequency in kHz are needed</source>
-        <translation>需要呼号和以 kHz 表示的频率</translation>
+        <source>Write the callsign to spot</source>
+        <translation>请输入要报告的呼号</translation>
+    </message>
+    <message>
+        <source>This does not look like a callsign</source>
+        <translation>这不像是呼号</translation>
+    </message>
+    <message>
+        <source>The frequency in kHz is needed (14074.0)</source>
+        <translation>需要以 kHz 为单位的频率 (14074.0)</translation>
+    </message>
+    <message>
+        <source>%1 kHz is outside the amateur bands</source>
+        <translation>%1 kHz 在业余波段之外</translation>
+    </message>
+    <message>
+        <source>someone</source>
+        <translation>有人</translation>
+    </message>
+    <message>
+        <source>%1 was already spotted %2 min ago on %3 kHz by %4</source>
+        <translation>%1 已在 %2 分钟前由 %4 在 %3 kHz 上报告过</translation>
+    </message>
+    <message>
+        <source>Spot sent: %1 on %2 kHz</source>
+        <translation>已发送 spot：%1，%2 kHz</translation>
     </message>
     <message>
         <source>rebuilding the worked list: %1 s</source>

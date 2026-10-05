@@ -1013,6 +1013,8 @@ RoundedWindow {
         else if (what[0] === "fillall") decolog.completeMissingFromCallbook()
         else if (what[0] === "maintenance") { decolog.repairImportedFields(); decolog.completeMissingFromCallbook() }
         else if (what[0] === "tab") window.panelItem("tabs").setTab(parseInt(what[1]))
+        // «spotdialog[:nominativo:kHz:commento]»: il riquadro per segnalare una stazione al cluster.
+        else if (what[0] === "spotdialog") spotDialog.openFor(what[1] || "", what[2] || "", what[3] || "")
         // «exportperiod[:dal:al]»: il riquadro per esportare un periodo, con date ISO se date.
         else if (what[0] === "exportperiod")
             exportPeriodDialog.openDialog(what[1] ? decolog.showDate(what[1]) : "", what[2] ? decolog.showDate(what[2]) : "")
@@ -1512,6 +1514,7 @@ RoundedWindow {
         onAccepted: decolog.exportAdif(selectedFile)
     }
     ExportPeriodDialog { id: exportPeriodDialog }
+    SpotDialog { id: spotDialog }
 
     // Queste finestre nascono quando servono e muoiono quando si chiudono. Il
     // Loader si spegne con Qt.callLater e non dentro l'onClosing: spegnerlo li'
@@ -1960,6 +1963,7 @@ RoundedWindow {
             onImportRequested: importDialog.open()
             onExportRequested: exportDialog.open()
             onExportPeriodRequested: exportPeriodDialog.openDialog()
+            onSpotRequested: spotDialog.openCurrent()
             onAwardsRequested: awardsDialog.openAt("")
             onClusterRequested: window.openCluster(0)
             onActivationRequested: activationDialog.openDialog()

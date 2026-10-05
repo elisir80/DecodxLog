@@ -1196,6 +1196,10 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
         <translation>Console</translation>
     </message>
     <message>
+        <source>Send a spot…</source>
+        <translation>Een spot sturen…</translation>
+    </message>
+    <message>
         <source>Decodium on %1 · %2</source>
         <translation>Decodium op %1 · %2</translation>
     </message>
@@ -1386,22 +1390,6 @@ De roepletters waar Decodium mee bezig is, verschijnen hier vanzelf.</translatio
     <message>
         <source>Send</source>
         <translation>Versturen</translation>
-    </message>
-    <message>
-        <source>Spot a DX</source>
-        <translation>Een DX spotten</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation>Call</translation>
-    </message>
-    <message>
-        <source>Comment (FT2 -10 dB, JN71…)</source>
-        <translation>Opmerking (FT2 -10 dB, JN71…)</translation>
-    </message>
-    <message>
-        <source>Post spot</source>
-        <translation>Spot plaatsen</translation>
     </message>
     <message>
         <source>Edit source</source>
@@ -2445,6 +2433,10 @@ Rechtsklik: wijzigen</translation>
     <message>
         <source>Show in Call info and prepare the QSO</source>
         <translation>Tonen in de roepnaamkaart en QSO voorbereiden</translation>
+    </message>
+    <message>
+        <source>Spot this station to the cluster…</source>
+        <translation>Dit station aan de cluster melden…</translation>
     </message>
     <message>
         <source>Copy the line</source>
@@ -4101,6 +4093,10 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
     <message>
         <source>LOG QSO</source>
         <translation>QSO LOGGEN</translation>
+    </message>
+    <message>
+        <source>SPOT</source>
+        <translation>SPOT</translation>
     </message>
     <message>
         <source>CLEAR</source>
@@ -7725,6 +7721,61 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
     </message>
 </context>
 <context>
+    <name>SpotDialog</name>
+    <message>
+        <source>SPOT A STATION</source>
+        <translation>EEN STATION MELDEN</translation>
+    </message>
+    <message>
+        <source>Sends the spot to a cluster node as DX &lt;kHz&gt; &lt;call&gt; &lt;comment&gt;, the same line you would type in the console. Spot what you have really heard or worked; the comment is cut at 30 characters.</source>
+        <translation>Stuurt de spot naar een clusterknooppunt als DX &lt;kHz&gt; &lt;call&gt; &lt;comment&gt;, dezelfde regel die je in de console zou typen. Meld alleen wat je echt hebt gehoord of gewerkt; het commentaar wordt na 30 tekens afgekapt.</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Frequency (kHz)</source>
+        <translation>Frequentie (kHz)</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Opmerking</translation>
+    </message>
+    <message>
+        <source>FT8 -10 dB JN71</source>
+        <translation>FT8 -10 dB JN71</translation>
+    </message>
+    <message>
+        <source>Send to</source>
+        <translation>Sturen naar</translation>
+    </message>
+    <message>
+        <source>First node online</source>
+        <translation>Eerste node online</translation>
+    </message>
+    <message>
+        <source>No cluster node connected</source>
+        <translation>Geen clusternode verbonden</translation>
+    </message>
+    <message>
+        <source>%1 · %2 kHz</source>
+        <translation>%1 · %2 kHz</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>Spot anyway</source>
+        <translation>Toch melden</translation>
+    </message>
+    <message>
+        <source>Send spot</source>
+        <translation>Spot sturen</translation>
+    </message>
+</context>
+<context>
     <name>SpotFilterEditor</name>
     <message>
         <source>Cluster</source>
@@ -8175,6 +8226,10 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
     <message>
         <source>DX Cluster…</source>
         <translation>DX-cluster…</translation>
+    </message>
+    <message>
+        <source>Spot a station to the cluster…</source>
+        <translation>Een station aan de cluster melden…</translation>
     </message>
     <message>
         <source>ON4KST chat (%1)…</source>
@@ -9286,8 +9341,32 @@ Open het één keer in DecoDXLog om het bij te werken.</translation>
         <translation>Geen clusternode verbonden</translation>
     </message>
     <message>
-        <source>Call and frequency in kHz are needed</source>
-        <translation>Roepletters en frequentie in kHz zijn nodig</translation>
+        <source>Write the callsign to spot</source>
+        <translation>Schrijf de roepletters die je wilt melden</translation>
+    </message>
+    <message>
+        <source>This does not look like a callsign</source>
+        <translation>Dit lijkt niet op roepletters</translation>
+    </message>
+    <message>
+        <source>The frequency in kHz is needed (14074.0)</source>
+        <translation>De frequentie in kHz is nodig (14074.0)</translation>
+    </message>
+    <message>
+        <source>%1 kHz is outside the amateur bands</source>
+        <translation>%1 kHz ligt buiten de amateurbanden</translation>
+    </message>
+    <message>
+        <source>someone</source>
+        <translation>iemand</translation>
+    </message>
+    <message>
+        <source>%1 was already spotted %2 min ago on %3 kHz by %4</source>
+        <translation>%1 is al %2 min geleden gemeld op %3 kHz door %4</translation>
+    </message>
+    <message>
+        <source>Spot sent: %1 on %2 kHz</source>
+        <translation>Spot verzonden: %1 op %2 kHz</translation>
     </message>
     <message>
         <source>rebuilding the worked list: %1 s</source>

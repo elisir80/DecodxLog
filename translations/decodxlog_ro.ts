@@ -1200,6 +1200,10 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
         <translation>Consolă</translation>
     </message>
     <message>
+        <source>Send a spot…</source>
+        <translation>Trimite un spot…</translation>
+    </message>
+    <message>
         <source>Decodium on %1 · %2</source>
         <translation>Decodium pe %1 · %2</translation>
     </message>
@@ -1390,22 +1394,6 @@ Indicativul pe care îl lucrează Decodium apare aici singur.</translation>
     <message>
         <source>Send</source>
         <translation>Trimite</translation>
-    </message>
-    <message>
-        <source>Spot a DX</source>
-        <translation>Spotează un DX</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation>Call</translation>
-    </message>
-    <message>
-        <source>Comment (FT2 -10 dB, JN71…)</source>
-        <translation>Comentariu (FT2 -10 dB, JN71…)</translation>
-    </message>
-    <message>
-        <source>Post spot</source>
-        <translation>Trimite spotul</translation>
     </message>
     <message>
         <source>Edit source</source>
@@ -2454,6 +2442,10 @@ Clic dreapta: modific-o</translation>
     <message>
         <source>Show in Call info and prepare the QSO</source>
         <translation>Arată în fișa indicativului și pregătește QSO-ul</translation>
+    </message>
+    <message>
+        <source>Spot this station to the cluster…</source>
+        <translation>Semnalează această stație în cluster…</translation>
     </message>
     <message>
         <source>Copy the line</source>
@@ -4112,6 +4104,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>LOG QSO</source>
         <translation>ÎNREGISTREAZĂ QSO</translation>
+    </message>
+    <message>
+        <source>SPOT</source>
+        <translation>SPOT</translation>
     </message>
     <message>
         <source>CLEAR</source>
@@ -7747,6 +7743,61 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     </message>
 </context>
 <context>
+    <name>SpotDialog</name>
+    <message>
+        <source>SPOT A STATION</source>
+        <translation>SEMNALEAZĂ O STAȚIE</translation>
+    </message>
+    <message>
+        <source>Sends the spot to a cluster node as DX &lt;kHz&gt; &lt;call&gt; &lt;comment&gt;, the same line you would type in the console. Spot what you have really heard or worked; the comment is cut at 30 characters.</source>
+        <translation>Trimite spotul unui nod de cluster ca DX &lt;kHz&gt; &lt;call&gt; &lt;comment&gt;, aceeași linie pe care ai scrie-o în consolă. Semnalează doar ce ai auzit sau lucrat cu adevărat; comentariul se taie la 30 de caractere.</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Frequency (kHz)</source>
+        <translation>Frecvență (kHz)</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Comentariu</translation>
+    </message>
+    <message>
+        <source>FT8 -10 dB JN71</source>
+        <translation>FT8 -10 dB JN71</translation>
+    </message>
+    <message>
+        <source>Send to</source>
+        <translation>Trimite la</translation>
+    </message>
+    <message>
+        <source>First node online</source>
+        <translation>Primul nod online</translation>
+    </message>
+    <message>
+        <source>No cluster node connected</source>
+        <translation>Niciun nod de cluster conectat</translation>
+    </message>
+    <message>
+        <source>%1 · %2 kHz</source>
+        <translation>%1 · %2 kHz</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anulează</translation>
+    </message>
+    <message>
+        <source>Spot anyway</source>
+        <translation>Semnalează oricum</translation>
+    </message>
+    <message>
+        <source>Send spot</source>
+        <translation>Trimite spotul</translation>
+    </message>
+</context>
+<context>
     <name>SpotFilterEditor</name>
     <message>
         <source>Cluster</source>
@@ -8197,6 +8248,10 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>DX Cluster…</source>
         <translation>DX Cluster…</translation>
+    </message>
+    <message>
+        <source>Spot a station to the cluster…</source>
+        <translation>Semnalează o stație în cluster…</translation>
     </message>
     <message>
         <source>ON4KST chat (%1)…</source>
@@ -9319,8 +9374,32 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Niciun nod de cluster conectat</translation>
     </message>
     <message>
-        <source>Call and frequency in kHz are needed</source>
-        <translation>Sunt necesare indicativul și frecvența în kHz</translation>
+        <source>Write the callsign to spot</source>
+        <translation>Scrie indicativul de semnalat</translation>
+    </message>
+    <message>
+        <source>This does not look like a callsign</source>
+        <translation>Nu seamănă cu un indicativ</translation>
+    </message>
+    <message>
+        <source>The frequency in kHz is needed (14074.0)</source>
+        <translation>Este nevoie de frecvența în kHz (14074.0)</translation>
+    </message>
+    <message>
+        <source>%1 kHz is outside the amateur bands</source>
+        <translation>%1 kHz este în afara benzilor de radioamatori</translation>
+    </message>
+    <message>
+        <source>someone</source>
+        <translation>cineva</translation>
+    </message>
+    <message>
+        <source>%1 was already spotted %2 min ago on %3 kHz by %4</source>
+        <translation>%1 a fost deja semnalat acum %2 min pe %3 kHz de %4</translation>
+    </message>
+    <message>
+        <source>Spot sent: %1 on %2 kHz</source>
+        <translation>Spot trimis: %1 pe %2 kHz</translation>
     </message>
     <message>
         <source>rebuilding the worked list: %1 s</source>

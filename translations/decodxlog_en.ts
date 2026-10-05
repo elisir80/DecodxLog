@@ -1195,6 +1195,10 @@ The call Decodium is working shows up here by itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Send a spot…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Decodium on %1 · %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1384,22 +1388,6 @@ The call Decodium is working shows up here by itself.</source>
     </message>
     <message>
         <source>Send</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Spot a DX</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Comment (FT2 -10 dB, JN71…)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Post spot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2442,6 +2430,10 @@ Right click: change it</source>
     </message>
     <message>
         <source>Show in Call info and prepare the QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spot this station to the cluster…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4096,6 +4088,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
     <message>
         <source>LOG QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SPOT</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7721,6 +7717,61 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
 </context>
 <context>
+    <name>SpotDialog</name>
+    <message>
+        <source>SPOT A STATION</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sends the spot to a cluster node as DX &lt;kHz&gt; &lt;call&gt; &lt;comment&gt;, the same line you would type in the console. Spot what you have really heard or worked; the comment is cut at 30 characters.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Frequency (kHz)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FT8 -10 dB JN71</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First node online</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No cluster node connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 · %2 kHz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spot anyway</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send spot</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SpotFilterEditor</name>
     <message>
         <source>Cluster</source>
@@ -8171,6 +8222,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>DX Cluster…</source>
         <translation>DX Cluster…</translation>
+    </message>
+    <message>
+        <source>Spot a station to the cluster…</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>ON4KST chat (%1)…</source>
@@ -9282,7 +9337,31 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Call and frequency in kHz are needed</source>
+        <source>Write the callsign to spot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This does not look like a callsign</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The frequency in kHz is needed (14074.0)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 kHz is outside the amateur bands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>someone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 was already spotted %2 min ago on %3 kHz by %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spot sent: %1 on %2 kHz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

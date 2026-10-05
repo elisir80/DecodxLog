@@ -1196,6 +1196,10 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
         <translation>Console</translation>
     </message>
     <message>
+        <source>Send a spot…</source>
+        <translation>Envoyer un spot…</translation>
+    </message>
+    <message>
         <source>Decodium on %1 · %2</source>
         <translation>Decodium sur %1 · %2</translation>
     </message>
@@ -1386,22 +1390,6 @@ L&apos;indicatif que Decodium travaille apparaît ici tout seul.</translation>
     <message>
         <source>Send</source>
         <translation>Envoyer</translation>
-    </message>
-    <message>
-        <source>Spot a DX</source>
-        <translation>Spotter un DX</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation>Call</translation>
-    </message>
-    <message>
-        <source>Comment (FT2 -10 dB, JN71…)</source>
-        <translation>Commentaire (FT2 -10 dB, JN71…)</translation>
-    </message>
-    <message>
-        <source>Post spot</source>
-        <translation>Publier le spot</translation>
     </message>
     <message>
         <source>Edit source</source>
@@ -2445,6 +2433,10 @@ Clic droit : la modifier</translation>
     <message>
         <source>Show in Call info and prepare the QSO</source>
         <translation>Afficher dans la fiche et préparer le QSO</translation>
+    </message>
+    <message>
+        <source>Spot this station to the cluster…</source>
+        <translation>Signaler cette station au cluster…</translation>
     </message>
     <message>
         <source>Copy the line</source>
@@ -4101,6 +4093,10 @@ Ouvrez-le une fois dans DecoDXLog pour le mettre à jour.</translation>
     <message>
         <source>LOG QSO</source>
         <translation>ENREGISTRER</translation>
+    </message>
+    <message>
+        <source>SPOT</source>
+        <translation>SPOT</translation>
     </message>
     <message>
         <source>CLEAR</source>
@@ -7725,6 +7721,61 @@ Ouvrez-le une fois dans DecoDXLog pour le mettre à jour.</translation>
     </message>
 </context>
 <context>
+    <name>SpotDialog</name>
+    <message>
+        <source>SPOT A STATION</source>
+        <translation>SIGNALER UNE STATION</translation>
+    </message>
+    <message>
+        <source>Sends the spot to a cluster node as DX &lt;kHz&gt; &lt;call&gt; &lt;comment&gt;, the same line you would type in the console. Spot what you have really heard or worked; the comment is cut at 30 characters.</source>
+        <translation>Envoie le spot à un nœud du cluster sous la forme DX &lt;kHz&gt; &lt;call&gt; &lt;comment&gt;, la même ligne que dans la console. Ne signalez que ce que vous avez vraiment entendu ou contacté ; le commentaire est coupé à 30 caractères.</translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation>Call</translation>
+    </message>
+    <message>
+        <source>Frequency (kHz)</source>
+        <translation>Fréquence (kHz)</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Commentaire</translation>
+    </message>
+    <message>
+        <source>FT8 -10 dB JN71</source>
+        <translation>FT8 -10 dB JN71</translation>
+    </message>
+    <message>
+        <source>Send to</source>
+        <translation>Envoyer à</translation>
+    </message>
+    <message>
+        <source>First node online</source>
+        <translation>Premier nœud en ligne</translation>
+    </message>
+    <message>
+        <source>No cluster node connected</source>
+        <translation>Aucun nœud de cluster connecté</translation>
+    </message>
+    <message>
+        <source>%1 · %2 kHz</source>
+        <translation>%1 · %2 kHz</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annuler</translation>
+    </message>
+    <message>
+        <source>Spot anyway</source>
+        <translation>Signaler quand même</translation>
+    </message>
+    <message>
+        <source>Send spot</source>
+        <translation>Envoyer le spot</translation>
+    </message>
+</context>
+<context>
     <name>SpotFilterEditor</name>
     <message>
         <source>Cluster</source>
@@ -8175,6 +8226,10 @@ Ouvrez-le une fois dans DecoDXLog pour le mettre à jour.</translation>
     <message>
         <source>DX Cluster…</source>
         <translation>DX Cluster…</translation>
+    </message>
+    <message>
+        <source>Spot a station to the cluster…</source>
+        <translation>Signaler une station au cluster…</translation>
     </message>
     <message>
         <source>ON4KST chat (%1)…</source>
@@ -9286,8 +9341,32 @@ Ouvrez-le une fois dans DecoDXLog pour le mettre à jour.</translation>
         <translation>Aucun nœud de cluster connecté</translation>
     </message>
     <message>
-        <source>Call and frequency in kHz are needed</source>
-        <translation>Il faut l&apos;indicatif et la fréquence en kHz</translation>
+        <source>Write the callsign to spot</source>
+        <translation>Écrivez l&apos;indicatif à signaler</translation>
+    </message>
+    <message>
+        <source>This does not look like a callsign</source>
+        <translation>Cela ne ressemble pas à un indicatif</translation>
+    </message>
+    <message>
+        <source>The frequency in kHz is needed (14074.0)</source>
+        <translation>La fréquence en kHz est nécessaire (14074.0)</translation>
+    </message>
+    <message>
+        <source>%1 kHz is outside the amateur bands</source>
+        <translation>%1 kHz est en dehors des bandes amateur</translation>
+    </message>
+    <message>
+        <source>someone</source>
+        <translation>quelqu&apos;un</translation>
+    </message>
+    <message>
+        <source>%1 was already spotted %2 min ago on %3 kHz by %4</source>
+        <translation>%1 a déjà été signalé il y a %2 min sur %3 kHz par %4</translation>
+    </message>
+    <message>
+        <source>Spot sent: %1 on %2 kHz</source>
+        <translation>Spot envoyé : %1 sur %2 kHz</translation>
     </message>
     <message>
         <source>rebuilding the worked list: %1 s</source>

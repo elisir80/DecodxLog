@@ -231,6 +231,80 @@ private slots:
         QTRY_COMPARE_WITH_TIMEOUT(model->get(model->count() - 1).value("statusLabel").toString(), QString("WORKED"), 4000);
     }
 
+    // Mandare uno spot: si controlla prima (nominativo, frequenza dentro le bande, commento
+    // corto, gia' segnalata da poco), e parte al nodo che si e' scelto con il comando di
+    // DX Spider, "DX <kHz> <nominativo> <commento>".
+    void postingASpotChecksFirstAndSendsTheCommand()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        ClusterController::Context ctx;
+        ctx.db = &db;
+        ctx.stationCall = [] { return QStringLiteral("IU8LMC"); };
+        QStringList activity;
+        ctx.activity = [&activity](const QString& cat, const QString& text, const QString&) { activity << cat + ": " + text; };
+        ClusterController cluster(std::move(ctx));
+        cluster.setMuted(true);
+
+        // I controlli, senza nodo.
+        QVERIFY(!cluster.checkSpot("", "14074", "").value("ok").toBool());
+        QVERIFY(!cluster.checkSpot("14074", "14074", "").value("ok").toBool());          // non e' un nominativo
+        QVERIFY(!cluster.checkSpot("K1ABC", "", "").value("ok").toBool());               // niente frequenza
+        QVERIFY(!cluster.checkSpot("K1ABC", "abc", "").value("ok").toBool());
+        const QVariantMap outside = cluster.checkSpot("K1ABC", "15000", "");             // fra le bande
+        QVERIFY(!outside.value("ok").toBool());
+        QVERIFY(outside.value("error").toString().contains("outside"));
+        const QVariantMap good = cluster.checkSpot(" k1abc ", "14074,06", "FT8   -10 dB   FN42");
+        QVERIFY2(good.value("ok").toBool(), qPrintable(good.value("error").toString()));
+        QCOMPARE(good.value("call").toString(), QString("K1ABC"));
+        QCOMPARE(good.value("freqKhz").toString(), QString("14074.1"));                   // un decimale
+        QCOMPARE(good.value("band").toString(), QString("20m"));
+        QCOMPARE(good.value("comment").toString(), QString("FT8 -10 dB FN42"));           // spazi in meno
+        QVERIFY(good.value("duplicate").toString().isEmpty());
+        // In MHz, come si scrive spesso: 14.074 sono 14074 kHz.
+        QCOMPARE(cluster.checkSpot("K1ABC", "14.074", "").value("freqKhz").toString(), QString("14074.0"));
+        // Il commento dei nodi finisce a 30 caratteri.
+        QCOMPARE(cluster.checkSpot("K1ABC", "14074", QString(50, 'x')).value("comment").toString().size(), 30);
+
+        // Senza nodo collegato non parte, e lo dice.
+        QVERIFY(cluster.postSpot("K1ABC", "14074.0", "FT8").contains("No cluster node"));
+
+        // Un nodo che saluta, e il login fino a «online».
+        QTcpServer node;
+        QTcpSocket* client = nullptr;
+        QByteArray received;
+        QObject::connect(&node, &QTcpServer::newConnection, &node, [&] {
+            client = node.nextPendingConnection();
+            QObject::connect(client, &QTcpSocket::readyRead, client, [&] { received += client->readAll(); });
+            client->write("Welcome to FAKE-1\r\nlogin: ");
+        });
+        QVERIFY(node.listen(QHostAddress::LocalHost));
+        const QString id = cluster.addSource({{"name", "Fake"}, {"type", "cluster"}, {"host", "127.0.0.1"},
+                                              {"port", node.serverPort()}, {"enabled", true}});
+        QTRY_VERIFY_WITH_TIMEOUT(received.contains("IU8LMC"), 5000);
+        client->write("IU8LMC-2 de FAKE-1 >\r\n");
+        QTRY_VERIFY_WITH_TIMEOUT(cluster.onlineCount() == 1, 5000);
+
+        QCOMPARE(cluster.postSpot("k1abc", "14074.0", "FT8 -10 dB", id), QString());
+        QTRY_VERIFY_WITH_TIMEOUT(received.contains("DX 14074.0 K1ABC FT8 -10 dB\r\n"), 3000);
+        QVERIFY2(activity.last().contains("Spot sent"), qPrintable(activity.last()));
+        // Un nodo che non c'e' non riceve niente, e non si finisce su un altro per caso.
+        const qsizetype before = received.size();
+        QVERIFY(!cluster.postSpot("K1ABC", "14074.0", "", "no-such-node").isEmpty());
+        QTest::qWait(150);
+        QCOMPARE(received.size(), before);
+
+        // Gia' segnalata da poco sulla stessa frequenza: lo dice, ma non lo vieta.
+        const QString hhmm = QDateTime::currentDateTimeUtc().toString("HHmm");
+        cluster.injectLine(QString("DX de DL1XYZ:  14074.2  K1ABC  FT8 -12 dB  %1Z").arg(hhmm));
+        const QVariantMap dup = cluster.checkSpot("K1ABC", "14074.0", "");
+        QVERIFY(dup.value("ok").toBool());
+        QVERIFY2(dup.value("duplicate").toString().contains("DL1XYZ"), qPrintable(dup.value("duplicate").toString()));
+        // Altra frequenza o altra stazione: nessun avviso.
+        QVERIFY(cluster.checkSpot("K1ABC", "14080.0", "").value("duplicate").toString().isEmpty());
+        QVERIFY(cluster.checkSpot("K2XYZ", "14074.0", "").value("duplicate").toString().isEmpty());
+    }
+
     // «Check» su una fonte: dove si ferma il collegamento, scritto nella fonte
     // stessa. Un nodo che parla, uno che accetta e chiude (il segno di un
     // antivirus in mezzo), e una fonte web che non ha niente da controllare.

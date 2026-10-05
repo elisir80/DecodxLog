@@ -430,6 +430,23 @@ QString DecodeFeed::lineText(int which, qint64 serial) const
         .arg(r->mode, r->message);
 }
 
+QVariantMap DecodeFeed::spotDraft(int which, qint64 serial) const
+{
+    const DecodeRow* r = rowOf(which, serial);
+    if (!r || m_status.dialFrequencyHz == 0)
+        return {};
+    // Chi trasmette (non chi e' chiamato), se e' un nominativo vero.
+    const QString call = decodetext::looksLikeCall(r->from) ? r->from : QString();
+    const double khz = static_cast<double>(m_status.dialFrequencyHz) / 1000.0 + r->df / 1000.0;
+    const QString mode = m_status.submode.isEmpty() ? m_status.mode : m_status.submode;
+    QString comment = QStringLiteral("%1 %2 dB").arg(mode).arg(r->snr);
+    if (!r->grid.isEmpty())
+        comment += QLatin1Char(' ') + r->grid;
+    return {{QStringLiteral("call"), call},
+            {QStringLiteral("freqKhz"), QString::number(khz, 'f', 1)},
+            {QStringLiteral("comment"), comment.simplified()}};
+}
+
 int DecodeFeed::loadHistory()
 {
     const QString path = m_ctx.historyPath ? m_ctx.historyPath() : QString();

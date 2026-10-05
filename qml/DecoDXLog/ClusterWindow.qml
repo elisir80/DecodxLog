@@ -93,6 +93,14 @@ RoundedWindow {
                 }
             }
             Item { Layout.fillWidth: true }
+            // Segnalare una stazione al cluster: dalla scheda di adesso, o scrivendola.
+            GlassButton {
+                visible: !root.contestMode
+                text: qsTr("Send a spot…")
+                tone: Theme.accentColor
+                buttonHeight: 28
+                onClicked: spotDialog.openCurrent()
+            }
             Text {
                 text: decolog.clientConnected ? qsTr("Decodium on %1 · %2").arg(decolog.dialBand || "—").arg(decolog.currentMode || "—")
                                               : qsTr("Decodium not connected")
@@ -446,27 +454,13 @@ RoundedWindow {
                             }
                         }
                     }
-                    RowLayout {
-                        Layout.fillWidth: true
-                        spacing: 8
-                        Text { text: qsTr("Spot a DX"); color: Theme.textSecondary; font.pixelSize: 12 }
-                        StyledTextField { id: spotCall; Layout.preferredWidth: 120; uppercase: true; placeholderText: qsTr("Call") }
-                        StyledTextField { id: spotFreq; Layout.preferredWidth: 100; placeholderText: "14074.0" }
-                        StyledTextField { id: spotComment; Layout.fillWidth: true; mono: false; placeholderText: qsTr("Comment (FT2 -10 dB, JN71…)") }
-                        GlassButton {
-                            text: qsTr("Post spot")
-                            tone: Theme.accentColor
-                            onClicked: {
-                                consoleError.text = root.cluster.postSpot(spotCall.text, spotFreq.text, spotComment.text)
-                                if (!consoleError.text.length) { spotCall.text = ""; spotComment.text = "" }
-                            }
-                        }
-                    }
                     Text { id: consoleError; visible: text.length > 0; color: Theme.errorColor; font.pixelSize: 12 }
                 }
             }
         }
     }
+
+    SpotDialog { id: spotDialog }
 
     // ── Modifica di una fonte ───────────────────────────────────────────────
     Popup {

@@ -164,8 +164,15 @@ public:
     Q_INVOKABLE QString addPreset(int index);
     // Un comando a una fonte (id vuoto = la prima fonte telnet collegata).
     Q_INVOKABLE QString sendCommand(const QString& sourceId, const QString& command);
-    // Manda uno spot al cluster: "DX <freq> <call> <commento>".
-    Q_INVOKABLE QString postSpot(const QString& call, const QString& freqKhz, const QString& comment);
+    // Manda uno spot al cluster: "DX <freq> <call> <commento>", al nodo scelto (id vuoto =
+    // il primo collegato). Torna il motivo se non parte, vuoto se e' partito.
+    Q_INVOKABLE QString postSpot(const QString& call, const QString& freqKhz, const QString& comment,
+                                 const QString& sourceId = {});
+    // Prima di mandare: nominativo che somiglia a un nominativo, frequenza in kHz (sotto 100 si
+    // legge come MHz) dentro le bande amatoriali, commento al massimo di 30 caratteri — il
+    // limite dei nodi —, e se qualcuno ha gia' segnalato la stessa stazione da poco. Torna
+    // {ok, error, call, freqKhz, comment, band, duplicate}.
+    Q_INVOKABLE QVariantMap checkSpot(const QString& call, const QString& freqKhz, const QString& comment) const;
 
     // Spot.
     Q_INVOKABLE void tune(const QString& spotKey);
