@@ -1779,6 +1779,17 @@ GlassPanel {
             enabled: decolog.callbookProvider !== "off"
             onTriggered: decolog.completeQsoFromCallbook(rowMenu.qsoId)
         }
+        // Un QSO gia' registrato puo' servire a una prova di HamAward o a
+        // riallineare un altro programma. Si manda esattamente il formato
+        // N1MM che usiamo quando il QSO nasce, senza salvare o modificare il
+        // log; con una selezione multipla valgono tutte le righe selezionate.
+        StyledMenuItem {
+            readonly property var ids: root.selectedIds.length > 1 ? root.selectedIds : [rowMenu.qsoId]
+            text: ids.length > 1 ? qsTr("Resend the %1 selected QSO via UDP").arg(ids.length)
+                                 : qsTr("Resend this QSO via UDP")
+            enabled: decolog.udpForward.length > 0 && decolog.udpForwardError.length === 0
+            onTriggered: decolog.resendQsosViaUdp(ids)
+        }
         StyledMenuItem { text: qsTr("Filter by this call"); onTriggered: root.model.filterText = decolog.lookupCall }
         StyledMenuItem {
             readonly property int dxcc: parseInt(root.model.valueFor(root.model.rowForId(rowMenu.qsoId), "dxcc")) || 0

@@ -625,6 +625,9 @@ public:
     Q_INVOKABLE QString saveQso(qint64 id, const QVariantMap& fields, qint64 stationProfileId);
     Q_INVOKABLE bool deleteQso(qint64 id);
     Q_INVOKABLE int deleteQsos(const QVariantList& ids);
+    // Rimanda QSO gia' nel log ai destinatari UDP configurati nel formato
+    // N1MM/HamAward. Non riscrive il log e non innesca upload QSL.
+    Q_INVOKABLE int resendQsosViaUdp(const QVariantList& ids);
     Q_INVOKABLE QString restoreRevision(qint64 id, qint64 historyId);
 
     // Etichette: aggiunge o toglie `tag` ai QSO indicati. Restituisce quanti sono cambiati.
@@ -743,7 +746,7 @@ private:
     void completeFromCallbook(qint64 id, const QString& call);
     // Contatto N1MM XML per HamConnect/HamAward: parte soltanto quando il QSO
     // viene registrato qui, non per i datagrammi WSJT-X gia' inoltrati.
-    void broadcastN1mmQso(const core::AdifRecord& record, qint64 id);
+    int broadcastN1mmQso(const core::AdifRecord& record, qint64 id, bool report = true);
     // Applica al QSO quello che il callbook ha detto. Torna i campi riempiti.
     QStringList applyCallbookToQso(qint64 id, const QVariantMap& record);
     void refreshCallInfo();

@@ -3268,11 +3268,11 @@ QString DecoLogController::saveRecord(qint64 id, AdifRecord r, qint64 stationPro
     return {};
 }
 
-void DecoLogController::broadcastN1mmQso(const AdifRecord& record, qint64 id)
+int DecoLogController::broadcastN1mmQso(const AdifRecord& record, qint64 id, bool report)
 {
     const auto targets = m_udp.forwardTargets();
     if (targets.isEmpty())
-        return;
+        return 0;
 
     bool frequencyOk = false;
     const double mhz = record.value(QStringLiteral("FREQ")).toDouble(&frequencyOk);
@@ -3282,10 +3282,11 @@ void DecoLogController::broadcastN1mmQso(const AdifRecord& record, qint64 id)
     const QString call = record.value(QStringLiteral("CALL")).trimmed().toUpper();
     const QString myCall = record.value(QStringLiteral("STATION_CALLSIGN")).trimmed().toUpper();
     if (call.isEmpty() || !timestamp.isValid())
-        return;
+        return 0;
     if (myCall.isEmpty()) {
-        addActivity(QStringLiteral("UDP"), tr("N1MM QSO not sent: station callsign is missing"), QStringLiteral("warning"));
-        return;
+        if (report)
+            addActivity(QStringLiteral("UDP"), tr("N1MM QSO not sent: station callsign is missing"), QStringLiteral("warning"));
+        return 0;
     }
 
     QByteArray data;
@@ -3332,10 +3333,48 @@ void DecoLogController::broadcastN1mmQso(const AdifRecord& record, qint64 id)
         if (socket.writeDatagram(data, target.address, target.port) == data.size())
             ++sent;
     }
+    if (report) {
+        addActivity(QStringLiteral("UDP"),
+                    sent > 0 ? tr("N1MM QSO sent to %n destination(s)", nullptr, sent)
+                             : tr("N1MM QSO was not sent"),
+                    sent > 0 ? QStringLiteral("success") : QStringLiteral("warning"));
+    }
+    return sent;
+}
+
+int DecoLogController::resendQsosViaUdp(const QVariantList& ids)
+{
+    if (m_udp.forwardTargets().isEmpty()) {
+        addActivity(QStringLiteral("UDP"), tr("QSO not sent: configure a UDP forwarding destination first"),
+                    QStringLiteral("warning"));
+        return 0;
+    }
+
+    QList<qint64> uniqueIds;
+    for (const QVariant& value : ids) {
+        const qint64 id = value.toLongLong();
+        if (id > 0 && !uniqueIds.contains(id))
+            uniqueIds.append(id);
+    }
+
+    int resent = 0;
+    int datagrams = 0;
+    for (const qint64 id : uniqueIds) {
+        const auto record = m_db.record(id);
+        if (!record)
+            continue;
+        const int sent = broadcastN1mmQso(*record, id, false);
+        if (sent > 0) {
+            ++resent;
+            datagrams += sent;
+        }
+    }
+
     addActivity(QStringLiteral("UDP"),
-                sent > 0 ? tr("N1MM QSO sent to %n destination(s)", nullptr, sent)
-                         : tr("N1MM QSO was not sent"),
-                sent > 0 ? QStringLiteral("success") : QStringLiteral("warning"));
+                resent > 0 ? tr("Resent %n QSO via UDP (%1 datagram(s))", nullptr, resent).arg(datagrams)
+                           : tr("No selected QSO was sent via UDP"),
+                resent > 0 ? QStringLiteral("success") : QStringLiteral("warning"));
+    return resent;
 }
 
 bool DecoLogController::deleteQso(qint64 id)

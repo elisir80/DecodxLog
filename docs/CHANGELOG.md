@@ -3,6 +3,15 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.10 — 11 ottobre 2026
+
+**Rimanda i QSO scelti via UDP.** Un contatto gia' nel log si puo' ora mandare di nuovo a HamAward,
+HamConnect o a un altro programma configurato: si selezionano una o piu' righe, clic destro su una
+di esse e «Rimanda via UDP». Parte lo stesso contatto XML N1MM dei QSO nuovi, senza scrivere una
+seconda volta nel log, modificare il QSO o mettere in coda una QSL. La voce e' disponibile soltanto
+quando l'inoltro UDP ha una destinazione valida; il registro attivita' dice quanti QSO e datagrammi
+sono partiti. Traduzioni italiane comprese.
+
 ## 1.17.09 — 6 ottobre 2026
 
 **Allineata alla 1.17.08 di elisir80.** Il CW in ricezione che ascolta il formato vero della scheda
