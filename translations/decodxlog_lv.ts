@@ -32,6 +32,10 @@
         <translation>Atbalsts · sociālie tīkli</translation>
     </message>
     <message>
+        <source>Technical support and features</source>
+        <translation>Tehniskais atbalsts un funkcijas</translation>
+    </message>
+    <message>
         <source>Email</source>
         <translation>E-pasts</translation>
     </message>
@@ -8840,6 +8844,10 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>Web cluster — decowebcluster.ft2.it</source>
         <translation>Tīmekļa klasteris — decowebcluster.ft2.it</translation>
+    </message>
+    <message>
+        <source>WEB CLUSTER</source>
+        <translation>TĪMEKĻA KLASTERIS</translation>
     </message>
 </context>
 <context>

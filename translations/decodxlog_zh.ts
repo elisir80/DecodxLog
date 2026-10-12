@@ -32,6 +32,10 @@
         <translation>支持 · 社交媒体</translation>
     </message>
     <message>
+        <source>Technical support and features</source>
+        <translation>技术支持与功能</translation>
+    </message>
+    <message>
         <source>Email</source>
         <translation>电子邮件</translation>
     </message>
@@ -8796,6 +8800,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>Web cluster — decowebcluster.ft2.it</source>
         <translation>网页集群 — decowebcluster.ft2.it</translation>
+    </message>
+    <message>
+        <source>WEB CLUSTER</source>
+        <translation>网页集群</translation>
     </message>
 </context>
 <context>

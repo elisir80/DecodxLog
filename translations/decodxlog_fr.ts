@@ -32,6 +32,10 @@
         <translation>Support · réseaux sociaux</translation>
     </message>
     <message>
+        <source>Technical support and features</source>
+        <translation>Support technique et fonctions</translation>
+    </message>
+    <message>
         <source>Email</source>
         <translation>E-mail</translation>
     </message>
@@ -8818,6 +8822,10 @@ Ouvrez-le une fois dans DecoDXLog pour le mettre à jour.</translation>
     <message>
         <source>Web cluster — decowebcluster.ft2.it</source>
         <translation>Cluster web — decowebcluster.ft2.it</translation>
+    </message>
+    <message>
+        <source>WEB CLUSTER</source>
+        <translation>CLUSTER WEB</translation>
     </message>
 </context>
 <context>

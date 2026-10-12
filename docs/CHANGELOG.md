@@ -10,6 +10,10 @@ dal menu della riga, senza toccare il log e senza mettere niente in coda per le 
 1.17.10 qui sotto. Il numero 1.17.10 e' della loro release, e la nostra e' la 1.17.11, piu' alta.
 Le stringhe nuove sono tradotte nelle 14 lingue.
 
+**Il web cluster si capisce a colpo d'occhio, e il supporto ha un nome.** Sotto il globo della barra in
+basso c'e' ora la scritta «WEB CLUSTER». Nella scheda «Chi l'ha fatto» (Info) c'e' la riga «Supporto
+tecnico e funzioni»: Massimo, IW8XOU. Traduzioni nelle 14 lingue.
+
 ## 1.17.10 — 11 ottobre 2026
 
 **Rimanda i QSO scelti via UDP.** Un contatto gia' nel log si puo' ora mandare di nuovo a HamAward,

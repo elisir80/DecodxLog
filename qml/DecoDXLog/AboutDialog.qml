@@ -100,6 +100,7 @@ DialogFrame {
         Row_ { label: qsTr("Author and developer"); value: root.info.author }
         Row_ { label: qsTr("Developer"); value: "Salvatore Raccampo — 9H1SR" }
         Row_ { label: qsTr("Support · social media"); value: "Filippo Ricci — G0YCE" }
+        Row_ { label: qsTr("Technical support and features"); value: "Massimo — IW8XOU" }
         Row_ { label: qsTr("Email"); value: root.info.email; copiable: true }
         Row_ { label: qsTr("Home"); value: root.info.home; copiable: true }
 

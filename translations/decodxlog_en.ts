@@ -32,6 +32,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Technical support and features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Email</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8813,6 +8817,10 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
     <message>
         <source>Web cluster — decowebcluster.ft2.it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WEB CLUSTER</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

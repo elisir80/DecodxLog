@@ -32,6 +32,10 @@
         <translation>Támogatás · közösségi média</translation>
     </message>
     <message>
+        <source>Technical support and features</source>
+        <translation>Műszaki támogatás és funkciók</translation>
+    </message>
+    <message>
         <source>Email</source>
         <translation>E-mail</translation>
     </message>
@@ -8796,6 +8800,10 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>Web cluster — decowebcluster.ft2.it</source>
         <translation>Webes cluster — decowebcluster.ft2.it</translation>
+    </message>
+    <message>
+        <source>WEB CLUSTER</source>
+        <translation>WEBES CLUSTER</translation>
     </message>
 </context>
 <context>

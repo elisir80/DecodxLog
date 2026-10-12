@@ -32,6 +32,10 @@
         <translation>サポート・SNS</translation>
     </message>
     <message>
+        <source>Technical support and features</source>
+        <translation>技術サポートと機能</translation>
+    </message>
+    <message>
         <source>Email</source>
         <translation>メール</translation>
     </message>
@@ -8796,6 +8800,10 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>Web cluster — decowebcluster.ft2.it</source>
         <translation>Webクラスター — decowebcluster.ft2.it</translation>
+    </message>
+    <message>
+        <source>WEB CLUSTER</source>
+        <translation>WEB クラスター</translation>
     </message>
 </context>
 <context>

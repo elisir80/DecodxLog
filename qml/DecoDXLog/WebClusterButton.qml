@@ -3,6 +3,7 @@
 // dappertutto, come le altre icone del programma.
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
 import QtQuick.Shapes
 import Decodium.UI
 
@@ -15,7 +16,8 @@ AbstractButton {
     focusPolicy: Qt.StrongFocus
     Accessible.role: Accessible.Button
     Accessible.name: qsTr("Open the web cluster")
-    implicitWidth: 42
+    padding: 3
+    implicitWidth: 66
     implicitHeight: 42
     onClicked: Qt.openUrlExternally(root.address)
 
@@ -30,10 +32,13 @@ AbstractButton {
         border.width: root.visualFocus ? 2 : 1
     }
 
-    // Il globo: il cerchio, un meridiano, l'equatore e due paralleli.
-    contentItem: Shape {
+    // Il globo sopra, e sotto la scritta che dice cos'e': senza, il simbolo da solo non si capisce.
+    contentItem: ColumnLayout {
+        spacing: 0
+    Shape {
         id: globe
-        readonly property real s: 24
+        Layout.alignment: Qt.AlignHCenter
+        readonly property real s: 20
         readonly property real c: s / 2
         readonly property real r: s * 0.44
         implicitWidth: s
@@ -68,5 +73,15 @@ AbstractButton {
             PathMove { x: globe.c - globe.r * 0.86; y: globe.c + globe.r * 0.5 }
             PathLine { x: globe.c + globe.r * 0.86; y: globe.c + globe.r * 0.5 }
         }
+    }
+    // La scritta sotto il globo: dice cosa si apre.
+    Text {
+        Layout.alignment: Qt.AlignHCenter
+        text: qsTr("WEB CLUSTER")
+        color: root.tint
+        font.family: Theme.monoFamily
+        font.pixelSize: 9
+        font.bold: true
+    }
     }
 }
