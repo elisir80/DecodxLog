@@ -3468,6 +3468,14 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
         <translation>Kiegészítés a callbookból</translation>
     </message>
     <message>
+        <source>Resend the %1 selected QSO via UDP</source>
+        <translation>A kijelölt %1 QSO újraküldése UDP-n</translation>
+    </message>
+    <message>
+        <source>Resend this QSO via UDP</source>
+        <translation>Ez a QSO újraküldése UDP-n</translation>
+    </message>
+    <message>
         <source>Filter by this call</source>
         <translation>Szűrés erre a hívójelre</translation>
     </message>
@@ -9787,6 +9795,20 @@ Nyisd meg egyszer a DecoDXLog-ban a frissítéshez.</translation>
     <message>
         <source>N1MM QSO was not sent</source>
         <translation>Az N1MM QSO nem ment el</translation>
+    </message>
+    <message>
+        <source>QSO not sent: configure a UDP forwarding destination first</source>
+        <translation>A QSO nem lett elküldve: előbb adj meg egy UDP-továbbítási célt</translation>
+    </message>
+    <message numerus="yes">
+        <source>Resent %n QSO via UDP (%1 datagram(s))</source>
+        <translation>
+            <numerusform>%n QSO újraküldve UDP-n (%1 datagram)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No selected QSO was sent via UDP</source>
+        <translation>A kijelölt QSO-k közül egyet sem küldtünk el UDP-n</translation>
     </message>
     <message>
         <source>Deleted %1 (kept in history)</source>

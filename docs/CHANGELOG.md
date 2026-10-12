@@ -3,6 +3,13 @@
 Le date sono quelle del lavoro, non di una pubblicazione: DecoDXLog cresce mentre lo si usa
 in stazione.
 
+## 1.17.11 — 12 ottobre 2026
+
+**Allineata alla 1.17.10 di elisir80.** Il reinvio di un QSO gia' nel log via UDP (HamAward, HamConnect),
+dal menu della riga, senza toccare il log e senza mettere niente in coda per le QSL: tutto nella sezione
+1.17.10 qui sotto. Il numero 1.17.10 e' della loro release, e la nostra e' la 1.17.11, piu' alta.
+Le stringhe nuove sono tradotte nelle 14 lingue.
+
 ## 1.17.10 — 11 ottobre 2026
 
 **Rimanda i QSO scelti via UDP.** Un contatto gia' nel log si puo' ora mandare di nuovo a HamAward,

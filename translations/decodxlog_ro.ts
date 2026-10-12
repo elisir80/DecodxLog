@@ -3486,6 +3486,14 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
         <translation>Completează din callbook</translation>
     </message>
     <message>
+        <source>Resend the %1 selected QSO via UDP</source>
+        <translation>Retrimite cele %1 QSO-uri selectate prin UDP</translation>
+    </message>
+    <message>
+        <source>Resend this QSO via UDP</source>
+        <translation>Retrimite acest QSO prin UDP</translation>
+    </message>
+    <message>
         <source>Filter by this call</source>
         <translation>Filtrează după acest indicativ</translation>
     </message>
@@ -9863,6 +9871,22 @@ Deschide-l o dată în DecoDXLog ca să-l actualizezi.</translation>
     <message>
         <source>N1MM QSO was not sent</source>
         <translation>QSO-ul N1MM nu a fost trimis</translation>
+    </message>
+    <message>
+        <source>QSO not sent: configure a UDP forwarding destination first</source>
+        <translation>QSO netrimis: configurează mai întâi o destinație de redirecționare UDP</translation>
+    </message>
+    <message numerus="yes">
+        <source>Resent %n QSO via UDP (%1 datagram(s))</source>
+        <translation>
+            <numerusform>%n QSO retrimis prin UDP (%1 datagramă)</numerusform>
+            <numerusform>%n QSO-uri retrimise prin UDP (%1 datagrame)</numerusform>
+            <numerusform>%n QSO-uri retrimise prin UDP (%1 de datagrame)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No selected QSO was sent via UDP</source>
+        <translation>Niciun QSO selectat nu a fost trimis prin UDP</translation>
     </message>
     <message>
         <source>Deleted %1 (kept in history)</source>

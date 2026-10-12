@@ -3468,6 +3468,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>用呼号簿补全</translation>
     </message>
     <message>
+        <source>Resend the %1 selected QSO via UDP</source>
+        <translation>通过 UDP 重新发送所选的 %1 个 QSO</translation>
+    </message>
+    <message>
+        <source>Resend this QSO via UDP</source>
+        <translation>通过 UDP 重新发送此 QSO</translation>
+    </message>
+    <message>
         <source>Filter by this call</source>
         <translation>按这个呼号筛选</translation>
     </message>
@@ -9787,6 +9795,20 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>N1MM QSO was not sent</source>
         <translation>N1MM QSO 未发送</translation>
+    </message>
+    <message>
+        <source>QSO not sent: configure a UDP forwarding destination first</source>
+        <translation>QSO 未发送：请先配置 UDP 转发目标</translation>
+    </message>
+    <message numerus="yes">
+        <source>Resent %n QSO via UDP (%1 datagram(s))</source>
+        <translation>
+            <numerusform>已通过 UDP 重新发送 %n 个 QSO（%1 个数据报）</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No selected QSO was sent via UDP</source>
+        <translation>所选的 QSO 均未通过 UDP 发送</translation>
     </message>
     <message>
         <source>Deleted %1 (kept in history)</source>

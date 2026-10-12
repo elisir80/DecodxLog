@@ -3477,6 +3477,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Aus dem Callbook ergänzen</translation>
     </message>
     <message>
+        <source>Resend the %1 selected QSO via UDP</source>
+        <translation>%1 gewählte QSOs per UDP erneut senden</translation>
+    </message>
+    <message>
+        <source>Resend this QSO via UDP</source>
+        <translation>Dieses QSO per UDP erneut senden</translation>
+    </message>
+    <message>
         <source>Filter by this call</source>
         <translation>Nach diesem Rufzeichen filtern</translation>
     </message>
@@ -9825,6 +9833,21 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>N1MM QSO was not sent</source>
         <translation>N1MM-QSO wurde nicht gesendet</translation>
+    </message>
+    <message>
+        <source>QSO not sent: configure a UDP forwarding destination first</source>
+        <translation>QSO nicht gesendet: zuerst ein UDP-Weiterleitungsziel einrichten</translation>
+    </message>
+    <message numerus="yes">
+        <source>Resent %n QSO via UDP (%1 datagram(s))</source>
+        <translation>
+            <numerusform>%n QSO per UDP erneut gesendet (%1 Datagramm)</numerusform>
+            <numerusform>%n QSOs per UDP erneut gesendet (%1 Datagramme)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No selected QSO was sent via UDP</source>
+        <translation>Kein gewähltes QSO wurde per UDP gesendet</translation>
     </message>
     <message>
         <source>Deleted %1 (kept in history)</source>

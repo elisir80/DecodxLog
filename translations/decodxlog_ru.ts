@@ -3486,6 +3486,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Дополнить из callbook</translation>
     </message>
     <message>
+        <source>Resend the %1 selected QSO via UDP</source>
+        <translation>Переслать выбранные QSO (%1) по UDP</translation>
+    </message>
+    <message>
+        <source>Resend this QSO via UDP</source>
+        <translation>Переслать этот QSO по UDP</translation>
+    </message>
+    <message>
         <source>Filter by this call</source>
         <translation>Отфильтровать по этому позывному</translation>
     </message>
@@ -9863,6 +9871,22 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>N1MM QSO was not sent</source>
         <translation>QSO N1MM не отправлен</translation>
+    </message>
+    <message>
+        <source>QSO not sent: configure a UDP forwarding destination first</source>
+        <translation>QSO не отправлен: сначала настройте назначение для пересылки UDP</translation>
+    </message>
+    <message numerus="yes">
+        <source>Resent %n QSO via UDP (%1 datagram(s))</source>
+        <translation>
+            <numerusform>Переслан по UDP %n QSO (датаграмм: %1)</numerusform>
+            <numerusform>Переслано по UDP %n QSO (датаграмм: %1)</numerusform>
+            <numerusform>Переслано по UDP %n QSO (датаграмм: %1)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No selected QSO was sent via UDP</source>
+        <translation>Ни один из выбранных QSO не был отправлен по UDP</translation>
     </message>
     <message>
         <source>Deleted %1 (kept in history)</source>

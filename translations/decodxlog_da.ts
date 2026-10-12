@@ -3477,6 +3477,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation>Udfyld fra callbooken</translation>
     </message>
     <message>
+        <source>Resend the %1 selected QSO via UDP</source>
+        <translation>Send de %1 valgte QSO&apos;er igen via UDP</translation>
+    </message>
+    <message>
+        <source>Resend this QSO via UDP</source>
+        <translation>Send denne QSO igen via UDP</translation>
+    </message>
+    <message>
         <source>Filter by this call</source>
         <translation>Filtrér på dette kaldesignal</translation>
     </message>
@@ -9825,6 +9833,21 @@ Open it once in DecoDXLog to bring it up to date.</source>
     <message>
         <source>N1MM QSO was not sent</source>
         <translation>N1MM-QSO blev ikke sendt</translation>
+    </message>
+    <message>
+        <source>QSO not sent: configure a UDP forwarding destination first</source>
+        <translation>QSO ikke sendt: indstil først en UDP-videresendelsesdestination</translation>
+    </message>
+    <message numerus="yes">
+        <source>Resent %n QSO via UDP (%1 datagram(s))</source>
+        <translation>
+            <numerusform>%n QSO sendt igen via UDP (%1 datagram)</numerusform>
+            <numerusform>%n QSO&apos;er sendt igen via UDP (%1 datagrammer)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No selected QSO was sent via UDP</source>
+        <translation>Ingen af de valgte QSO&apos;er blev sendt via UDP</translation>
     </message>
     <message>
         <source>Deleted %1 (kept in history)</source>

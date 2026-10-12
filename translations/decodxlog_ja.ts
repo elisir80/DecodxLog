@@ -3468,6 +3468,14 @@ DecoDXLog で一度開いて更新してください。</translation>
         <translation>コールブックで補う</translation>
     </message>
     <message>
+        <source>Resend the %1 selected QSO via UDP</source>
+        <translation>選択した %1 件の QSO を UDP で再送</translation>
+    </message>
+    <message>
+        <source>Resend this QSO via UDP</source>
+        <translation>この QSO を UDP で再送</translation>
+    </message>
+    <message>
         <source>Filter by this call</source>
         <translation>このコールサインで絞る</translation>
     </message>
@@ -9787,6 +9795,20 @@ DecoDXLog で一度開いて更新してください。</translation>
     <message>
         <source>N1MM QSO was not sent</source>
         <translation>N1MM の QSO は送信されませんでした</translation>
+    </message>
+    <message>
+        <source>QSO not sent: configure a UDP forwarding destination first</source>
+        <translation>QSO は送信されていません: 先に UDP 転送先を設定してください</translation>
+    </message>
+    <message numerus="yes">
+        <source>Resent %n QSO via UDP (%1 datagram(s))</source>
+        <translation>
+            <numerusform>%n 件の QSO を UDP で再送しました (%1 データグラム)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No selected QSO was sent via UDP</source>
+        <translation>選択した QSO は UDP で送信されませんでした</translation>
     </message>
     <message>
         <source>Deleted %1 (kept in history)</source>

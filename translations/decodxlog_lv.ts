@@ -3486,6 +3486,14 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
         <translation>Papildināt no callbook</translation>
     </message>
     <message>
+        <source>Resend the %1 selected QSO via UDP</source>
+        <translation>Atkārtoti nosūtīt %1 atlasītos QSO caur UDP</translation>
+    </message>
+    <message>
+        <source>Resend this QSO via UDP</source>
+        <translation>Atkārtoti nosūtīt šo QSO caur UDP</translation>
+    </message>
+    <message>
         <source>Filter by this call</source>
         <translation>Filtrēt pēc šī izsaukuma signāla</translation>
     </message>
@@ -9863,6 +9871,22 @@ Atver to vienreiz DecoDXLog, lai atjauninātu.</translation>
     <message>
         <source>N1MM QSO was not sent</source>
         <translation>N1MM QSO netika nosūtīts</translation>
+    </message>
+    <message>
+        <source>QSO not sent: configure a UDP forwarding destination first</source>
+        <translation>QSO nav nosūtīts: vispirms iestatiet UDP pārsūtīšanas galamērķi</translation>
+    </message>
+    <message numerus="yes">
+        <source>Resent %n QSO via UDP (%1 datagram(s))</source>
+        <translation>
+            <numerusform>%n QSO atkārtoti nosūtīts caur UDP (%1 datagramma)</numerusform>
+            <numerusform>%n QSO atkārtoti nosūtīti caur UDP (%1 datagrammas)</numerusform>
+            <numerusform>%n QSO atkārtoti nosūtīti caur UDP (%1 datagrammas)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No selected QSO was sent via UDP</source>
+        <translation>Neviens atlasītais QSO netika nosūtīts caur UDP</translation>
     </message>
     <message>
         <source>Deleted %1 (kept in history)</source>

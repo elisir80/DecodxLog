@@ -3477,6 +3477,14 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
         <translation>Completa des del callbook</translation>
     </message>
     <message>
+        <source>Resend the %1 selected QSO via UDP</source>
+        <translation>Reenvia els %1 QSO seleccionats per UDP</translation>
+    </message>
+    <message>
+        <source>Resend this QSO via UDP</source>
+        <translation>Reenvia aquest QSO per UDP</translation>
+    </message>
+    <message>
         <source>Filter by this call</source>
         <translation>Filtra per aquest indicatiu</translation>
     </message>
@@ -9825,6 +9833,21 @@ Obre&apos;l una vegada a DecoDXLog per actualitzar-lo.</translation>
     <message>
         <source>N1MM QSO was not sent</source>
         <translation>El QSO N1MM no s&apos;ha enviat</translation>
+    </message>
+    <message>
+        <source>QSO not sent: configure a UDP forwarding destination first</source>
+        <translation>QSO no enviat: configura primer un destí de reenviament UDP</translation>
+    </message>
+    <message numerus="yes">
+        <source>Resent %n QSO via UDP (%1 datagram(s))</source>
+        <translation>
+            <numerusform>%n QSO reenviat per UDP (%1 datagrama)</numerusform>
+            <numerusform>%n QSO reenviats per UDP (%1 datagrames)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No selected QSO was sent via UDP</source>
+        <translation>Cap QSO seleccionat no s&apos;ha enviat per UDP</translation>
     </message>
     <message>
         <source>Deleted %1 (kept in history)</source>

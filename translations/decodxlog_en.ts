@@ -3473,6 +3473,14 @@ Open it once in DecoDXLog to bring it up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Resend the %1 selected QSO via UDP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resend this QSO via UDP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Filter by this call</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9820,6 +9828,21 @@ Open it once in DecoDXLog to bring it up to date.</source>
     </message>
     <message>
         <source>N1MM QSO was not sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QSO not sent: configure a UDP forwarding destination first</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Resent %n QSO via UDP (%1 datagram(s))</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>No selected QSO was sent via UDP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
