@@ -359,8 +359,8 @@ private slots:
         QVERIFY(db.markSentForResend(id + 99).isEmpty());
     }
 
-    // Dentro un'attivazione lo stesso QSO a mano si puo' riscrivere: con il controllo spento
-    // entra, con il controllo acceso e' un doppione come sempre.
+    // Lo stesso QSO a mano si puo' riscrivere: con il controllo spento entra, con il controllo
+    // acceso (Decodium, UDP) e' un doppione come sempre.
     void activationCanLogTheSameContactAgain()
     {
         LogDatabase db;

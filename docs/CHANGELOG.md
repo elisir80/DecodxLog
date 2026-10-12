@@ -5,10 +5,10 @@ in stazione.
 
 ## 1.17.12 — 12 ottobre 2026
 
-**Nell'attivazione il QSO a mano non si blocca per doppione.** Con un'attivazione attiva, il QSO inserito a
-mano non viene piu' rifiutato come «gia' nel log» (la finestra dei dieci minuti) ne' come «gia' lavorato
-in questa attivazione»: si ripassa la stessa stazione quanto serve, e il log lo registra. Da Decodium e
-dai QSO che arrivano via UDP il controllo dei doppioni resta come prima. Prova sul database.
+**Il QSO scritto a mano non si rifiuta piu' per doppione.** Ne' dentro un'attivazione ne' fuori: il
+QSO inserito a mano entra sempre, anche se la stessa stazione e' gia' nel log (con la stessa banda e
+modo, entro la finestra di Impostazioni → Log → «Manuale (min)», o gia' lavorata in un'attivazione). Il
+controllo dei doppioni resta per Decodium e per i QSO che arrivano via UDP. Prova sul database.
 
 ## 1.17.11 — 12 ottobre 2026
 

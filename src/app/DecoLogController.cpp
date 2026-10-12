@@ -3026,11 +3026,11 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
     applyProfile(r, profileId);
     applyEntity(r);
     m_activation->applyTo(r);
-    // Dentro un'attivazione a mano non si blocca nessun QSO per doppione: si ripassa la stessa
-    // stazione quanto serve, e il log dice quello che e' stato fatto.
-    const bool inActivation = m_activation->active();
+    // A mano non si rifiuta nessun QSO per doppione: chi scrive sa cosa ha gia' nel log, e
+    // ripassare la stessa stazione (in un'attivazione, o un'altra volta) e' normale.
+    // Il controllo dei doppioni resta per Decodium e per i QSO che arrivano via UDP.
     const InsertResult res = m_db.insertQso(r, QStringLiteral("manual"), QStringLiteral("DecoDXLog ") + version(),
-                                            true, profileId, !inActivation);
+                                            true, profileId, false);
     switch (res.status) {
     case InsertResult::Status::Inserted: {
         decolog::StartupSpan t1("logManual: model insert");
