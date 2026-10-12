@@ -3026,18 +3026,11 @@ QString DecoLogController::logManualQso(const QVariantMap& fields)
     applyProfile(r, profileId);
     applyEntity(r);
     m_activation->applyTo(r);
-    {
-        AdifRecord normalized = r;
-        adif::normalizeMode(normalized);
-        const QString mode = normalized.value(QStringLiteral("SUBMODE")).isEmpty()
-                                 ? normalized.value(QStringLiteral("MODE"))
-                                 : normalized.value(QStringLiteral("SUBMODE"));
-        if (m_activation->isDuplicate(r.value(QStringLiteral("CALL")), r.value(QStringLiteral("BAND")), mode))
-            return tr("Already worked in this activation");
-    }
-
+    // Dentro un'attivazione a mano non si blocca nessun QSO per doppione: si ripassa la stessa
+    // stazione quanto serve, e il log dice quello che e' stato fatto.
+    const bool inActivation = m_activation->active();
     const InsertResult res = m_db.insertQso(r, QStringLiteral("manual"), QStringLiteral("DecoDXLog ") + version(),
-                                            true, profileId);
+                                            true, profileId, !inActivation);
     switch (res.status) {
     case InsertResult::Status::Inserted: {
         decolog::StartupSpan t1("logManual: model insert");

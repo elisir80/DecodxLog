@@ -179,7 +179,8 @@ public:
                            const QString& source,
                            const QString& sourceApp = {},
                            bool manual = false,
-                           qint64 stationProfileId = 0);
+                           qint64 stationProfileId = 0,
+                           bool checkDuplicate = true);
 
     // Riscrive un QSO: la versione precedente va in qso_history, revision sale di
     // uno, dirty torna a 1. `stationProfileId` < 0 lascia il profilo com'e'.

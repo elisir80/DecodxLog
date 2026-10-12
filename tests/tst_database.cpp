@@ -359,6 +359,19 @@ private slots:
         QVERIFY(db.markSentForResend(id + 99).isEmpty());
     }
 
+    // Dentro un'attivazione lo stesso QSO a mano si puo' riscrivere: con il controllo spento
+    // entra, con il controllo acceso e' un doppione come sempre.
+    void activationCanLogTheSameContactAgain()
+    {
+        LogDatabase db;
+        QVERIFY(db.open(":memory:"));
+        AdifRecord r{{"CALL", "IK0XYZ"}, {"QSO_DATE", "20260101"}, {"TIME_ON", "1000"}, {"BAND", "20m"}, {"MODE", "SSB"}};
+        QCOMPARE(db.insertQso(r, "manual", "test", true).status, InsertResult::Status::Inserted);
+        QCOMPARE(db.insertQso(r, "manual", "test", true).status, InsertResult::Status::Duplicate);
+        QCOMPARE(db.insertQso(r, "manual", "test", true, 0, false).status, InsertResult::Status::Inserted);
+        QCOMPARE(db.qsoCount(), 2);
+    }
+
     void crxFollowsEditsAndDeletions()
     {
         // CRX corregge e cancella: un QSO gia' li' e poi corretto torna in

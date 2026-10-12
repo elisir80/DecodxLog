@@ -703,7 +703,8 @@ bool LogDatabase::writeQsl(qint64 qsoId, const QList<QslState>& states, bool kee
 }
 
 InsertResult LogDatabase::insertQso(const AdifRecord& input, const QString& source,
-                                    const QString& sourceApp, bool manual, qint64 stationProfileId)
+                                    const QString& sourceApp, bool manual, qint64 stationProfileId,
+                                    bool checkDuplicate)
 {
     InsertResult result;
     if (!isOpen()) {
@@ -715,8 +716,10 @@ InsertResult LogDatabase::insertQso(const AdifRecord& input, const QString& sour
     if (!p)
         return result;
 
-    if (const auto dup = findDuplicate(p->call, p->band, p->mode, p->submode, parseIso(p->on),
-                                       dedupWindowSeconds(manual))) {
+    // Un'attivazione puo' ripassare la stessa stazione: il chiamante decide se il doppione conta.
+    if (const auto dup = checkDuplicate ? findDuplicate(p->call, p->band, p->mode, p->submode, parseIso(p->on),
+                                                        dedupWindowSeconds(manual))
+                                        : std::nullopt) {
         result.status = InsertResult::Status::Duplicate;
         result.id = *dup;
         result.message = QStringLiteral("%1 %2 %3: already in log")
