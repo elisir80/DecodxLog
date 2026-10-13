@@ -32,6 +32,20 @@ clic li porta nel QSO. Bande («40M»), rapporti («5NN») e parole non vengono 
 **A capo quando la stazione cambia.** Dopo quattro secondi senza una lettera, il testo che arriva
 comincia una riga nuova: i passaggi e le stazioni diverse non si attaccano piu' in un muro.
 
+**Invia mentre scrivi.** Accanto al campo del testo libero c'e' un flag, spento di serie: acceso, ogni
+lettera battuta esce subito in CW, come su una tastiera da CW; Invio chiude la riga e ricomincia.
+Escono solo i caratteri che il Morse conosce (lettere, cifre, spazio, ),
+senza espandere le  e senza lo stacco di parola fra una lettera e l'altra (col WinKeyer
+nemmeno). Cancellare nel campo non richiama quello che e' gia' uscito: Ferma svuota la coda. Con il
+flag spento il comportamento e' quello di prima: il testo parte intero con Invio o con «Invia».
+
+**Invia mentre scrivi.** Accanto al campo del testo libero c'e' un flag, spento di serie: acceso, ogni
+lettera battuta esce subito in CW, come su una tastiera da CW; Invio chiude la riga e ricomincia.
+Escono solo i caratteri che il Morse conosce (lettere, cifre, spazio, `/ ? . , = + - : ' @ ( )`),
+senza espandere le `{macro}` e senza lo stacco di parola fra una lettera e l'altra (col WinKeyer
+nemmeno). Cancellare nel campo non richiama quello che e' gia' uscito: «Ferma» svuota la coda. Con
+il flag spento il comportamento e' quello di prima: il testo parte intero con Invio o con «Invia».
+
 **«= RX».** Vicino al cursore della velocita': porta il keyer ai WPM con cui stai ricevendo, per
 rispondere al ritmo dell'altro.
 

@@ -2360,6 +2360,14 @@ Right click: change it</source>
         <translation>キーヤーを受信中の速度に合わせます</translation>
     </message>
     <message>
+        <source>Send as you type</source>
+        <translation>入力しながら送信</translation>
+    </message>
+    <message>
+        <source>every letter you type goes out in CW</source>
+        <translation>入力した文字はすぐに CW で送信されます</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>ここに書いて Enter: CW で出ます</translation>
     </message>

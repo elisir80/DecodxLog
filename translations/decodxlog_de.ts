@@ -2369,6 +2369,14 @@ Rechtsklick: ändern</translation>
         <translation>Setzt den Keyer auf das empfangene Tempo</translation>
     </message>
     <message>
+        <source>Send as you type</source>
+        <translation>Beim Tippen senden</translation>
+    </message>
+    <message>
+        <source>every letter you type goes out in CW</source>
+        <translation>jeder getippte Buchstabe geht sofort in CW raus</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>hier schreiben und Enter drücken: es geht in CW hinaus</translation>
     </message>

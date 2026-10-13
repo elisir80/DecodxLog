@@ -2378,6 +2378,14 @@ Right click: change it</source>
         <translation>Установить ключ на скорость приёма</translation>
     </message>
     <message>
+        <source>Send as you type</source>
+        <translation>Отправлять при вводе</translation>
+    </message>
+    <message>
+        <source>every letter you type goes out in CW</source>
+        <translation>каждая набранная буква сразу уходит в эфир телеграфом</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>пишите здесь и жмите Enter: уйдёт в CW</translation>
     </message>

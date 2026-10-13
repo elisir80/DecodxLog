@@ -2369,6 +2369,14 @@ Tasto destro: modificala</translation>
         <translation>Porta il keyer alla velocità con cui stai ricevendo</translation>
     </message>
     <message>
+        <source>Send as you type</source>
+        <translation>Invia mentre scrivi</translation>
+    </message>
+    <message>
+        <source>every letter you type goes out in CW</source>
+        <translation>ogni lettera che batti esce subito in CW</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>scrivi qui e premi Invio: va in aria in CW</translation>
     </message>

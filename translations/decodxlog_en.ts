@@ -2367,6 +2367,14 @@ Right click: change it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Send as you type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>every letter you type goes out in CW</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation type="unfinished"></translation>
     </message>

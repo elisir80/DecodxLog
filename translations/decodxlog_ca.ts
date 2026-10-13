@@ -2369,6 +2369,14 @@ Clic dret: modificar-la</translation>
         <translation>Posa el manipulador a la velocitat que estàs rebent</translation>
     </message>
     <message>
+        <source>Send as you type</source>
+        <translation>Envia mentre escrius</translation>
+    </message>
+    <message>
+        <source>every letter you type goes out in CW</source>
+        <translation>cada lletra que escrius surt a l&apos;instant en CW</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>escriu aquí i prem Enter: surt en CW</translation>
     </message>

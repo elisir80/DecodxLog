@@ -2378,6 +2378,14 @@ Labais klikšķis: mainīt</translation>
         <translation>Iestata atslēgu uz ātrumu, ar kādu uztver</translation>
     </message>
     <message>
+        <source>Send as you type</source>
+        <translation>Sūtīt rakstot</translation>
+    </message>
+    <message>
+        <source>every letter you type goes out in CW</source>
+        <translation>katrs ierakstītais burts uzreiz tiek izsūtīts CW</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>raksti šeit un spied Enter: aiziet CW</translation>
     </message>

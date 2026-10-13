@@ -2360,6 +2360,14 @@ Jobb kattintás: módosítás</translation>
         <translation>A kulcsot a vett sebességre állítja</translation>
     </message>
     <message>
+        <source>Send as you type</source>
+        <translation>Küldés gépelés közben</translation>
+    </message>
+    <message>
+        <source>every letter you type goes out in CW</source>
+        <translation>minden beírt betű azonnal kimegy CW-ben</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>ide írj, és nyomj Entert: CW-ben megy ki</translation>
     </message>

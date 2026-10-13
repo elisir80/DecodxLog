@@ -91,7 +91,7 @@ void WinKeyer::setSpeed(int wpm)
         m_port->write(winkeyer::speed(wpm));
 }
 
-void WinKeyer::send(const QString& text, int wpm)
+void WinKeyer::send(const QString& text, int wpm, bool closeWord)
 {
     if (!isOpen())
         return;
@@ -101,7 +101,7 @@ void WinKeyer::send(const QString& text, int wpm)
     if (bytes.isEmpty())
         return;
     // Uno spazio in fondo separa dal messaggio che viene dopo.
-    if (!bytes.endsWith(' '))
+    if (closeWord && !bytes.endsWith(' '))
         bytes += ' ';
     m_port->write(bytes);
 }

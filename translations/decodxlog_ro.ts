@@ -2378,6 +2378,14 @@ Clic dreapta: modific-o</translation>
         <translation>Setează manipulatorul la viteza cu care recepționezi</translation>
     </message>
     <message>
+        <source>Send as you type</source>
+        <translation>Trimite pe măsură ce scrii</translation>
+    </message>
+    <message>
+        <source>every letter you type goes out in CW</source>
+        <translation>fiecare literă tastată pleacă imediat în CW</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>scrie aici și apasă Enter: pleacă în CW</translation>
     </message>

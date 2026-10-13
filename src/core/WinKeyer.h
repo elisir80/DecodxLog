@@ -38,7 +38,9 @@ public:
     int version() const { return m_version; }
     bool busy() const { return m_busy; }
 
-    void send(const QString& text, int wpm);
+    // closeWord: aggiunge lo spazio che separa dal messaggio che viene dopo. Chi manda lettera per
+    // lettera mentre si scrive lo toglie, o fra una lettera e l'altra ci sarebbe uno stacco di parola.
+    void send(const QString& text, int wpm, bool closeWord = true);
     void setSpeed(int wpm);
     void stop();
 

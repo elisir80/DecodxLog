@@ -226,6 +226,13 @@ public:
     Q_INVOKABLE QString expand(const QString& text, const QVariantMap& context) const;
     Q_INVOKABLE void sendMacro(int index, const QVariantMap& context);
     Q_INVOKABLE void sendText(const QString& text, const QVariantMap& context);
+    // «Invia mentre scrivi»: con il flag acceso ogni lettera battuta nel campo libero esce subito in
+    // CW. Qui arrivano i caratteri appena scritti, senza espandere le {macro} e senza chiudere la
+    // parola: le lettere si accodano al manipolatore una dopo l'altra.
+    Q_PROPERTY(bool typeToSend READ typeToSend WRITE setTypeToSend NOTIFY typeToSendChanged)
+    bool typeToSend() const { return m_typeToSend; }
+    void setTypeToSend(bool on);
+    Q_INVOKABLE void sendTyped(const QString& chars);
     Q_INVOKABLE void stop();
     // Arresto definitivo dell'applicazione: oltre al CW chiude tutte le
     // connessioni CAT e i processi rigctld che abbiamo avviato noi.  Non e'
@@ -371,12 +378,13 @@ signals:
     void audioSelectionChanged();
     void decoderScopeChanged();
     void skimmerChanged();
+    void typeToSendChanged();
 
 private:
     void loadMacros();
     void publishSkimmer(bool force = false);
     void setActiveMacroIndex(int index);
-    void sendExpandedText(const QString& ready);
+    void sendExpandedText(const QString& ready, bool typed = false);
     bool directYaesuCwUsesKeyerMemory() const;
     void saveMacros();
     static QVariantList defaultMacros();
@@ -413,6 +421,7 @@ private:
     QVariantMap m_scope;
     QElapsedTimer m_scopeClock;
     core::CwSkimmer m_skimmer{8000};
+    bool m_typeToSend{false};
     bool m_skimmerOn{true};
     QVariantList m_stations;
     QVariantList m_spectrum;

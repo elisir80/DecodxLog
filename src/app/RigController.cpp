@@ -143,6 +143,7 @@ RigController::RigController(Context context, QObject* parent)
     m_decoder.setNarrowFilter(true);
     m_decoder.setSpeed(m_decoderSpeedLock);
     m_skimmerOn = s.value(QStringLiteral("cw/skimmer"), true).toBool();
+    m_typeToSend = s.value(QStringLiteral("cw/typeToSend"), false).toBool();
     m_skimmer.setLexicon(s.value(QStringLiteral("cw/lexicon"), true).toBool());
     m_decoder.setLexicon(s.value(QStringLiteral("cw/lexicon"), true).toBool());
     m_decoderModel = s.value(QStringLiteral("cw/neuralModel")).toString();
@@ -1483,6 +1484,31 @@ void RigController::sendText(const QString& text, const QVariantMap& context)
     sendExpandedText(ready);
 }
 
+void RigController::setTypeToSend(bool on)
+{
+    if (on == m_typeToSend)
+        return;
+    m_typeToSend = on;
+    QSettings().setValue(QStringLiteral("cw/typeToSend"), on);
+    emit typeToSendChanged();
+}
+
+void RigController::sendTyped(const QString& chars)
+{
+    // Solo quello che il Morse sa dire: il resto si lascia nel campo e non esce. Le minuscole
+    // non esistono in CW.
+    static const QString allowed = QStringLiteral("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 /?.,=+-:'@()");
+    QString ready;
+    for (const QChar c : chars.toUpper()) {
+        if (allowed.contains(c))
+            ready += c;
+    }
+    if (ready.isEmpty())
+        return;
+    setActiveMacroIndex(-1);
+    sendExpandedText(ready, true);
+}
+
 void RigController::setActiveMacroIndex(int index)
 {
     if (m_activeMacroIndex == index)
@@ -1510,7 +1536,7 @@ bool RigController::cwMemoryProtected() const
     return !(m_ctx.alternateRig && m_ctx.alternateRig());
 }
 
-void RigController::sendExpandedText(const QString& ready)
+void RigController::sendExpandedText(const QString& ready, bool typed)
 {
     // Il manipolatore sulla seriale ha la precedenza: se c'e', e' quello che
     // l'operatore ha attaccato alla radio apposta.
@@ -1518,8 +1544,8 @@ void RigController::sendExpandedText(const QString& ready)
         m_cwRigInUse = m_ctx.alternateRig ? m_ctx.alternateRig() : nullptr;
         if (!m_cwRigInUse)
             m_cwRigInUse = m_rig;
-        m_winKeyer.send(ready, wpm());
-        if (m_ctx.activity)
+        m_winKeyer.send(ready, wpm(), !typed);
+        if (m_ctx.activity && !typed)
             m_ctx.activity(QStringLiteral("CW"), tr("Sent: %1").arg(ready), QStringLiteral("info"));
         return;
     }

@@ -219,21 +219,60 @@ GlassPanel {
         }
 
         // ── Scrivere a mano quello che non sta in una macro ─────────────────
+        // Con «Invia mentre scrivi» ogni lettera battuta esce subito in CW, come su una tastiera
+        // da CW; senza, il testo parte intero con Invio.
         RowLayout {
             Layout.fillWidth: true
             spacing: 6
+            ToggleSwitch {
+                id: typeSwitch
+                text: qsTr("Send as you type")
+                checked: root.rig.typeToSend
+                onToggled: {
+                    root.rig.typeToSend = checked
+                    // Quello che c'e' gia' nel campo non parte: conta solo cio' che si scrive dopo.
+                    freeText.sentText = freeText.text
+                }
+            }
             StyledTextField {
                 id: freeText
                 Layout.fillWidth: true
                 uppercase: true
-                placeholderText: qsTr("write here and press Enter: it goes out in CW")
+                // Il testo com'era all'ultimo carattere visto: la differenza e' quello che e' stato
+                // battuto. Cancellare non richiama quello che e' gia' uscito.
+                property string sentText: ""
+                placeholderText: root.rig.typeToSend ? qsTr("every letter you type goes out in CW")
+                                                     : qsTr("write here and press Enter: it goes out in CW")
                 enabled: (root.rig.connected || root.rig.keyerOn) && root.rig.canKeyCw
+                onTextEdited: {
+                    if (!root.rig.typeToSend) {
+                        sentText = text
+                        return
+                    }
+                    const grown = text.length - sentText.length
+                    if (grown > 0) {
+                        // Dove il testo nuovo comincia a differire da quello vecchio: li' sono
+                        // finite le lettere appena battute (in coda, o in mezzo se si e' incollato).
+                        let at = 0
+                        while (at < sentText.length && sentText.charAt(at) === text.charAt(at))
+                            ++at
+                        root.rig.sendTyped(text.substring(at, at + grown))
+                    }
+                    sentText = text
+                }
                 onAccepted: {
+                    if (root.rig.typeToSend) {
+                        // Tutto e' gia' uscito: Invio chiude la riga e ricomincia.
+                        text = ""
+                        sentText = ""
+                        return
+                    }
                     root.rig.sendText(text, root.cwContext())
                     text = ""
                 }
             }
             GlassButton {
+                visible: !root.rig.typeToSend
                 text: qsTr("Send")
                 tone: Theme.accentColor
                 buttonHeight: 28

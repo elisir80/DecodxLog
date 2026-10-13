@@ -2369,6 +2369,14 @@ Rechtsklik: wijzigen</translation>
         <translation>Zet de keyer op de snelheid die je ontvangt</translation>
     </message>
     <message>
+        <source>Send as you type</source>
+        <translation>Verzenden tijdens typen</translation>
+    </message>
+    <message>
+        <source>every letter you type goes out in CW</source>
+        <translation>elke letter die je typt gaat direct uit in CW</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>schrijf hier en druk op Enter: het gaat eruit in CW</translation>
     </message>

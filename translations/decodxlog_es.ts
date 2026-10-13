@@ -2369,6 +2369,14 @@ Clic derecho: modificarla</translation>
         <translation>Pone el manipulador a la velocidad que estás recibiendo</translation>
     </message>
     <message>
+        <source>Send as you type</source>
+        <translation>Enviar al escribir</translation>
+    </message>
+    <message>
+        <source>every letter you type goes out in CW</source>
+        <translation>cada letra que escribes sale enseguida en CW</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>escribe aquí y pulsa Intro: sale en CW</translation>
     </message>

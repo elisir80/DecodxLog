@@ -2360,6 +2360,14 @@ Right click: change it</source>
         <translation>将电键速度设为当前接收速度</translation>
     </message>
     <message>
+        <source>Send as you type</source>
+        <translation>边输入边发送</translation>
+    </message>
+    <message>
+        <source>every letter you type goes out in CW</source>
+        <translation>输入的每个字母都会立即以 CW 发出</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>在这里写，按 Enter：以 CW 发出</translation>
     </message>

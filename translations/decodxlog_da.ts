@@ -2369,6 +2369,14 @@ Højreklik: ret den</translation>
         <translation>Sætter nøglen til den hastighed, du modtager</translation>
     </message>
     <message>
+        <source>Send as you type</source>
+        <translation>Send mens du skriver</translation>
+    </message>
+    <message>
+        <source>every letter you type goes out in CW</source>
+        <translation>hvert bogstav du skriver sendes straks i CW</translation>
+    </message>
+    <message>
         <source>write here and press Enter: it goes out in CW</source>
         <translation>skriv her og tryk Enter: det går ud i CW</translation>
     </message>
